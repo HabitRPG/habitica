@@ -79,6 +79,7 @@ class HabitsController < ApplicationController
   def vote
     @habit = current_user.habits.find(params[:id])
     @habit.score += params[:vote].to_i
+    @habit.votedate = Time.now
     
     respond_to do |format|
       if @habit.save
