@@ -16,8 +16,8 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :type %><br />
-    <%= f.select :habit_type, options_for_select([['Always',1], ['Daily',2], ['One-time',3]]) %>
+    <%= f.label :habit_type %><br />
+    <%= f.select :habit_type, options_for_select([['Always',1], ['Daily',2], ['One-time',3]], @habit.habit_type) %>
   </div>
   <div class="field">
     <%= f.label :notes %><br />
