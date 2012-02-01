@@ -6,7 +6,8 @@ class HabitsController < ApplicationController
   # GET /habits.json
   def index
     @habits = current_user.habits.where(:habit_type => Habit::ALWAYS)
-    @todos = current_user.habits.where(:habit_type => Habit::DAILY)
+    @daily = current_user.habits.where(:habit_type => Habit::DAILY)
+    @score = current_user.habits.sum('score')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -80,6 +81,7 @@ class HabitsController < ApplicationController
   def vote
     @habit = current_user.habits.find(params[:id])
     @habit.vote(params[:vote])
+    @score = current_user.habits.sum('score')
         
     respond_to do |format|
       if @habit.save

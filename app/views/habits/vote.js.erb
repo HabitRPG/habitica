@@ -1,1 +1,2 @@
-$('#<%= @habit.id %>').html("<%= escape_javascript(render :partial => "habit", :locals => { :habit => @habit }) %>")
+$('#<%= @habit.id %>').html("<%= escape_javascript(render :partial => "habit", :locals => { :habit => @habit }) %>");
+$('#score').html("<%= @score %>");
