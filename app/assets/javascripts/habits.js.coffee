@@ -19,6 +19,24 @@ $(document).ready ->
           $("#habits").effect "highlight"
 
         url: "/habits/sort"
+        
+$(document).ready ->
+  $("#daily").sortable
+    axis: "y"
+    dropOnEmpty: false
+    cursor: "move"
+    items: "li"
+    opacity: 0.4
+    scroll: true
+    update: ->
+      $.ajax
+        type: "post"
+        data: $("#daily").sortable("serialize")
+        dataType: "script"
+        complete: (request) ->
+          $("#daily").effect "highlight"
+
+        url: "/habits/sort"
 
 (($) ->
   $.fn.highlight = ->
