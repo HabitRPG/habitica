@@ -18,7 +18,8 @@ class HabitsController < ApplicationController
   # GET /habits/new
   # GET /habits/new.json
   def new
-    @habit = Habit.new(:user_id => current_user.id)
+    @habit = Habit.new
+    @habit.weight = Habit.maximum('weight') + 1
 
     respond_to do |format|
       format.html # new.html.erb
