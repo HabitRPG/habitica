@@ -1,24 +1,27 @@
-<!-- <%= javascript_tag do %>
-  $("#habits").bind("ajax:complete", function(et, e){
-    $("#products-list").html(e.responseText); // insert content
-  });
-<% end %> -->
-
-<h2>Habits</h2>
-
-<ul id="habits">
-<% @habits.each do |habit| %>
-  <li><%= render :partial => "habit", :locals => { :habit => habit } %></li>
-<% end %>
-</ul>
-
-<h2>ToDos</h2>
-<ul id="todos">
-<% @todos.each do |habit| %>
-  <li><%= render :partial => "habit", :locals => { :habit => habit } %></li>
-<% end %>
-</ul>
-
-<br />
 
 <%= link_to 'New Habit', new_habit_path %>
+
+<table>
+  <tr><td>
+  <div id="habits">
+    <h2>Habits</h2>
+    <ul>
+    <% @habits.each do |habit| %>
+      <li><%= render :partial => "habit", :locals => { :habit => habit } %></li>
+    <% end %>
+    </ul>
+  </div>
+  </td>
+  
+  <td>
+  <div id="daily">
+    <h2>Daily</h2>
+    <ul>
+    <% @todos.each do |habit| %>
+      <li><%= render :partial => "habit", :locals => { :habit => habit } %></li>
+    <% end %>
+    </ul>
+  </div>
+  </td></tr>
+  
+</table>
