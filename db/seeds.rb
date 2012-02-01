@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-lefnire = User.create!(email: "tylerrenelle@gmail.com", password: "root", password_confirmation: "root")
+lefnire = User.create!(email: "tylerrenelle@gmail.com", password: "riastlin", password_confirmation: "riastlin")
 Habit.create!([
   { name: "Focus", score: 8, position: 0, user_id: lefnire.id, notes: "(-1) 15m procrastination
 (+1) Pomorodo" },
