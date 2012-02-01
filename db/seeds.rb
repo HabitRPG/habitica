@@ -15,18 +15,18 @@ Habit.create!([
 --------------
 (-1) Bad food
 (-2) Bad meal" },
-  { name: "Gawk",             score: 2, position: 2, user_id: lefnire.id },
-  { name: "Insult Self",      score: 0, position: 3, user_id: lefnire.id },
-  { name: "Negative Talk",    score: 0, position: 4, user_id: lefnire.id },
-  { name: "Exaggeration",     score: -1, position: 5, user_id: lefnire.id },
-  { name: "Nail-biting",      score: 0, position: 6, user_id: lefnire.id },
-  { name: "Temptation Control", score: 0, position: 7, down: false, user_id: lefnire.id, notes: "* meditate for 1 minute, visualize
+  { name: "Coffee", score: -3, position: 2, user_id: lefnire.id, notes: "(1x Coffee, 2x Tea)"},
+  { name: "Gawk",             score: 2, position: 3, user_id: lefnire.id },
+  { name: "Insult Self",      score: 0, position: 4, user_id: lefnire.id },
+  { name: "Negative Talk",    score: 0, position: 5, user_id: lefnire.id },
+  { name: "Exaggeration",     score: -1, position: 6, user_id: lefnire.id },
+  { name: "Nail-biting",      score: 0, position: 7, user_id: lefnire.id },
+  { name: "Temptation Control", score: 0, position: 8, down: false, user_id: lefnire.id, notes: "* meditate for 1 minute, visualize
 * positive, specific, present self-talk
 * do first task" },
-  { name: "Posture",          score: 0, position: 8, down: false, user_id: lefnire.id },
-  { name: "Smile/eye-gaze",   score: 0, position: 9, down: false, user_id: lefnire.id },
-  { name: "Propose, not ask", score: 0, position: 10, down: false, user_id: lefnire.id },
-  { name: "Coffee", score: -3, position: 11, down: false, user_id: lefnire.id, notes: "(1x Coffee, 2x Tea)"},
+  { name: "Posture",          score: 0, position: 9, down: false, user_id: lefnire.id },
+  { name: "Smile/eye-gaze",   score: 0, position: 10, down: false, user_id: lefnire.id },
+  { name: "Propose, not ask", score: 0, position: 11, down: false, user_id: lefnire.id },
   
   # Morning
   { name: "TMJ Exercise", score: 2, position: 12, habit_type: 2, user_id: lefnire.id },

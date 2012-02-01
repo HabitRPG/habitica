@@ -7,3 +7,7 @@
 .ok { background-color:rgb(255, 217, 102); }
 .good { background-color:rgb(147, 196, 125); }
 .done { background-color:rgb(201, 218, 248); }
+
+#habits ul, #daily ul{
+  list-style:none;
+}
