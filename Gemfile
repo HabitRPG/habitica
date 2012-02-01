@@ -41,3 +41,4 @@ gem 'devise', '>= 2.0'
 gem 'whenever'
 gem 'mysql2'
 gem 'therubyracer'
+gem "acts_as_list"

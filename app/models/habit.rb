@@ -4,8 +4,8 @@ class Habit < ActiveRecord::Base
   ONE_TIME = 3
   
   belongs_to :user
-  
   default_scope :order => 'position ASC'
+  acts_as_list
   
   # TODO set cron for this
   def self.clear_done
