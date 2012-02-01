@@ -5,12 +5,11 @@ class CreateHabits < ActiveRecord::Migration
       t.string  :name
       t.integer :habit_type, :default => 1
       t.integer :score, :default => 0
+      t.text    :notes
       t.boolean :up, :default => true
       t.boolean :down, :default => true
       t.boolean :done, :default => false
-      t.text    :notes
-      t.integer :weight, :default => 1
-      t.string  :tag
+      t.integer :position, :default => 0
 
       t.timestamps
     end

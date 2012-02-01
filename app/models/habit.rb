@@ -5,6 +5,8 @@ class Habit < ActiveRecord::Base
   
   belongs_to :user
   
+  default_scope :order => 'position ASC'
+  
   # TODO set cron for this
   def self.clear_done
     Habit.where(:habit_type => Habit::DAILY).collect do |h|
