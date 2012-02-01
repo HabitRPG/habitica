@@ -1,12 +1,13 @@
 <div id="<%= habit.id %>">
   
   <% 
-    case habit.score
-      when -100..-5 then score = 'bad'
-      when -5..0 then score = 'iffy' 
-      when 0..5 then score = 'ok' 
-      when 5..15 then score = 'good' 
-      when 15..100 then score = 'done' 
+    s = habit.score
+    case
+      when s<-5 then score = 'bad'
+      when s>=-5 && s<0 then score = 'iffy' 
+      when s>=0 && s<5 then score = 'ok' 
+      when s>=5 && s<15 then score = 'good' 
+      when s>=15 then score = 'done' 
      end
      name = "<span class='#{score}'>#{habit.name}</span>"
   %>
