@@ -1,5 +1,7 @@
 HabitTracker::Application.routes.draw do
-  resources :habits
+  resources :habits do
+    post :sort, on: :collection
+  end
   match 'habits/:id/vote' => 'habits#vote'
 
   devise_for :users

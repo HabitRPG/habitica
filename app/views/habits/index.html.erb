@@ -3,25 +3,21 @@
 
 <table>
   <tr><td>
-  <div id="habits">
     <h2>Habits</h2>
-    <ul>
+    <ul id="habits">
     <% @habits.each do |habit| %>
-      <li><%= render :partial => "habit", :locals => { :habit => habit } %></li>
+      <%= render :partial => "habit", :locals => { :habit => habit } %>
     <% end %>
     </ul>
-  </div>
   </td>
   
   <td>
-  <div id="daily">
     <h2>Daily</h2>
-    <ul>
+    <ul id="daily">
     <% @daily.each do |habit| %>
-      <li><%= render :partial => "habit", :locals => { :habit => habit } %></li>
+      <%= render :partial => "habit", :locals => { :habit => habit } %>
     <% end %>
     </ul>
   </div>
-  </td></tr>
   
 </table>

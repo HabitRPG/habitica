@@ -95,4 +95,13 @@ class HabitsController < ApplicationController
       end
     end
   end
+  
+  def sort
+    current_user.habits.each do |habit|
+      logger.fatal params['habit'].index(habit.id.to_s)
+      habit.position = params['habit'].index(habit.id.to_s)
+      habit.save
+    end
+    render :nothing => true
+  end
 end

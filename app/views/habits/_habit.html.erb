@@ -1,4 +1,5 @@
-<div id="<%= habit.id %>">
+<li id="habit_<%= habit.id %>" class="ui-state-default">
+  <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
   
   <% 
     s = habit.score
@@ -28,4 +29,4 @@
     <% end %>
   <% end %>
   <%= link_to 'Edit', edit_habit_path(habit) %>
-</div>
+</li>
