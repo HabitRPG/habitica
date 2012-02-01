@@ -38,3 +38,5 @@ gem 'jquery-rails'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem 'devise', '>= 2.0'
+gem 'whenever'
+gem 'mysql2'
