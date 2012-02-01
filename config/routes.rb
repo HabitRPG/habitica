@@ -1,5 +1,6 @@
 HabitTracker::Application.routes.draw do
   resources :habits
+  match 'habits/:id/vote' => 'habits#vote'
 
   devise_for :users
 

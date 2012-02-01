@@ -5,7 +5,8 @@ class HabitsController < ApplicationController
   # GET /habits
   # GET /habits.json
   def index
-    @habits = Habit.all
+    @habits = Habit.where(:daily=>false)
+    @todos = Habit.where(:daily=>true)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -81,6 +82,23 @@ class HabitsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to habits_url }
       format.json { head :no_content }
+    end
+  end
+  
+  def vote
+    @habit = Habit.find(params[:id])
+    @habit.score += params[:vote].to_i
+    
+    respond_to do |format|
+      if @habit.save
+        # format.html { redirect_to @habit, notice: 'Habit was successfully updated.' }
+        # format.json { head :no_content }
+        format.js
+      else
+        # format.html { render action: "edit" }
+        # format.json { render json: @habit.errors, status: :unprocessable_entity }
+        format.js
+      end
     end
   end
 end
