@@ -4,7 +4,7 @@ HabitTracker::Application.configure do
 
   # TODO disable assets config.assets.initialize_on_precompile or run rake assets:precompile on prod   
   # Needed for devise
-  config.action_mailer.default_url_options = { :host => 'habits.local' }
+  config.action_mailer.default_url_options = { :host => 'habits.ocdevel.com' }
 
   # Code is not reloaded between requests
   config.cache_classes = true
