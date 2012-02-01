@@ -1,0 +1,29 @@
+<h1>Listing habits</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Notes</th>
+    <th>Daily</th>
+    <th>Value</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @habits.each do |habit| %>
+  <tr>
+    <td><%= habit.name %></td>
+    <td><%= habit.notes %></td>
+    <td><%= habit.daily %></td>
+    <td><%= habit.value %></td>
+    <td><%= link_to 'Show', habit %></td>
+    <td><%= link_to 'Edit', edit_habit_path(habit) %></td>
+    <td><%= link_to 'Destroy', habit, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Habit', new_habit_path %>

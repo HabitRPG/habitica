@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  notes: MyText
+  daily: false
+  value: 1
+
+two:
+  name: MyString
+  notes: MyText
+  daily: false
+  value: 1

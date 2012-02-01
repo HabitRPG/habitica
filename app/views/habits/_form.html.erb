@@ -1,0 +1,33 @@
+<%= form_for(@habit) do |f| %>
+  <% if @habit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@habit.errors.count, "error") %> prohibited this habit from being saved:</h2>
+
+      <ul>
+      <% @habit.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br />
+    <%= f.text_area :notes %>
+  </div>
+  <div class="field">
+    <%= f.label :daily %><br />
+    <%= f.check_box :daily %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.number_field :value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
