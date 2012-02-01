@@ -1,15 +1,29 @@
 <div id="<%= habit.id %>">
+  
+  <% 
+    case habit.score
+      when -100..-5 then score = 'bad'
+      when -5..0 then score = 'iffy' 
+      when 0..5 then score = 'ok' 
+      when 5..15 then score = 'good' 
+      when 15..100 then score = 'done' 
+     end
+     name = "<span class='#{score}'>#{habit.name}</span>"
+  %>
+  
+  
+  
   <% if habit.habit_type==Habit::ALWAYS %>
     <%= link_to "√", { :action => "vote", :id => habit.id, :vote => 'up' }, :remote=>true %>
     <%= link_to "X", { :action => "vote", :id => habit.id, :vote => 'down' }, :remote=>true %>
-    <%= habit.name %> (<%= habit.score %>)
+    <%= raw name %> (<%= habit.score %>)
   <% elsif habit.habit_type==Habit::DAILY %>
     <% if habit.done %>
       <%= link_to("[X]", { :action => "vote", :id => habit.id, :vote => 'down' }, :remote=>true) %>
-      <strike><%= habit.name %></strike> (<%= habit.score %>)
+      <strike><%= raw name %></strike> (<%= habit.score %>)
     <% else %>
       <%= link_to("[ ]", { :action => "vote", :id => habit.id, :vote => 'up' }, :remote=>true) %>
-      <%= habit.name %> (<%= habit.score %>)
+      <%= raw name %> (<%= habit.score %>)
     <% end %>
   <% end %>
   <%= link_to 'Edit', edit_habit_path(habit) %>

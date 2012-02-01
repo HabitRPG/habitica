@@ -1,3 +1,9 @@
 // Place all the styles related to the Habits controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.bad { background-color:rgb(224, 102, 102); }
+.iffy { background-color:rgb(246, 178, 107); }
+.ok { background-color:rgb(255, 217, 102); }
+.good { background-color:rgb(147, 196, 125); }
+.done { background-color:rgb(201, 218, 248); }
