@@ -16,16 +16,12 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :type %><br />
+    <%= f.select :habit_type, options_for_select([['Always',1], ['Daily',2], ['One-time',3]]) %>
+  </div>
+  <div class="field">
     <%= f.label :notes %><br />
     <%= f.text_area :notes %>
-  </div>
-  <div class="field">
-    <%= f.label :daily %><br />
-    <%= f.check_box :daily %>
-  </div>
-  <div class="field">
-    <%= f.label :value %><br />
-    <%= f.number_field :value %>
   </div>
   <div class="actions">
     <%= f.submit %>

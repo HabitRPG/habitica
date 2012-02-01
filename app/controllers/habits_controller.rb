@@ -5,8 +5,8 @@ class HabitsController < ApplicationController
   # GET /habits
   # GET /habits.json
   def index
-    @habits = Habit.where(:daily=>false)
-    @todos = Habit.where(:daily=>true)
+    @habits = current_user.habits.where(:habit_type => Habit::ALWAYS)
+    @todos = current_user.habits.where(:habit_type => Habit::DAILY)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,21 +14,11 @@ class HabitsController < ApplicationController
     end
   end
 
-  # GET /habits/1
-  # GET /habits/1.json
-  def show
-    @habit = Habit.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @habit }
-    end
-  end
 
   # GET /habits/new
   # GET /habits/new.json
   def new
-    @habit = Habit.new
+    @habit = Habit.new(:user_id => current_user.id)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,17 +28,18 @@ class HabitsController < ApplicationController
 
   # GET /habits/1/edit
   def edit
-    @habit = Habit.find(params[:id])
+    @habit = current_user.habits.find(params[:id])
   end
 
   # POST /habits
   # POST /habits.json
   def create
     @habit = Habit.new(params[:habit])
+    @habit.user_id = current_user.id
 
     respond_to do |format|
       if @habit.save
-        format.html { redirect_to @habit, notice: 'Habit was successfully created.' }
+        format.html { redirect_to habits_url, notice: 'Habit was successfully created.' }
         format.json { render json: @habit, status: :created, location: @habit }
       else
         format.html { render action: "new" }
@@ -60,7 +51,7 @@ class HabitsController < ApplicationController
   # PUT /habits/1
   # PUT /habits/1.json
   def update
-    @habit = Habit.find(params[:id])
+    @habit = current_user.habits.find(params[:id])
 
     respond_to do |format|
       if @habit.update_attributes(params[:habit])
@@ -76,7 +67,7 @@ class HabitsController < ApplicationController
   # DELETE /habits/1
   # DELETE /habits/1.json
   def destroy
-    @habit = Habit.find(params[:id])
+    @habit = current_user.habits.find(params[:id])
     @habit.destroy
 
     respond_to do |format|
@@ -86,7 +77,7 @@ class HabitsController < ApplicationController
   end
   
   def vote
-    @habit = Habit.find(params[:id])
+    @habit = current_user.habits.find(params[:id])
     @habit.score += params[:vote].to_i
     
     respond_to do |format|

@@ -1,8 +1,8 @@
 <div id="<%= habit.id %>">
   <%= habit.name %>
   (<%= habit.score %>)
-  <%= link_to "√", { :action => "vote", :id => habit.id, :vote => habit.value }, :remote=>true %>
-  <%= link_to "X", { :action => "vote", :id => habit.id, :vote => -habit.value }, :remote=>true %>
-  <!--<span class="popup"><%= habit.notes %><%= habit.value %></span>-->
+  <%= link_to "√", { :action => "vote", :id => habit.id, :vote => habit.next_vote }, :remote=>true %>
+  <%= link_to "X", { :action => "vote", :id => habit.id, :vote => -(habit.next_vote) }, :remote=>true %>
+  <!--<span class="popup"><%= habit.notes %></span>-->
   <%= link_to 'Edit', edit_habit_path(habit) %>
 </div>
