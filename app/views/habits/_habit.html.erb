@@ -1,8 +1,16 @@
 <div id="<%= habit.id %>">
-  <%= habit.name %>
-  (<%= habit.score %>)
-  <%= link_to "√", { :action => "vote", :id => habit.id, :vote => 'up' }, :remote=>true %>
-  <%= link_to "X", { :action => "vote", :id => habit.id, :vote => 'down' }, :remote=>true %>
-  <!--<span class="popup"><%= habit.notes %></span>-->
+  <% if habit.habit_type==Habit::ALWAYS %>
+    <%= link_to "√", { :action => "vote", :id => habit.id, :vote => 'up' }, :remote=>true %>
+    <%= link_to "X", { :action => "vote", :id => habit.id, :vote => 'down' }, :remote=>true %>
+    <%= habit.name %> (<%= habit.score %>)
+  <% elsif habit.habit_type==Habit::DAILY %>
+    <% if habit.done %>
+      <%= link_to("[X]", { :action => "vote", :id => habit.id, :vote => 'down' }, :remote=>true) %>
+      <strike><%= habit.name %></strike> (<%= habit.score %>)
+    <% else %>
+      <%= link_to("[ ]", { :action => "vote", :id => habit.id, :vote => 'up' }, :remote=>true) %>
+      <%= habit.name %> (<%= habit.score %>)
+    <% end %>
+  <% end %>
   <%= link_to 'Edit', edit_habit_path(habit) %>
 </div>

@@ -7,6 +7,7 @@ class CreateHabits < ActiveRecord::Migration
       t.integer :score, :default => 0
       t.boolean :up, :default => true
       t.boolean :down, :default => true
+      t.boolean :done, :default => false
       t.text    :notes
       t.datetime :votedate
 
