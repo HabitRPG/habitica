@@ -56,7 +56,7 @@ class HabitsController < ApplicationController
 
     respond_to do |format|
       if @habit.update_attributes(params[:habit])
-        format.html { redirect_to @habit, notice: 'Habit was successfully updated.' }
+        format.html { redirect_to habits_url, notice: 'Habit was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -9,7 +9,7 @@
       when s>=5 && s<15 then score = 'good' 
       when s>=15 then score = 'done' 
      end
-     name = "<span class='#{score}'>#{habit.name}</span>"
+     name = "<span class='#{score}'>#{h(habit.name)}</span>"
   %>
   
   
