@@ -9,7 +9,6 @@ class CreateHabits < ActiveRecord::Migration
       t.boolean :down, :default => true
       t.boolean :done, :default => false
       t.text    :notes
-      t.datetime :votedate
 
       t.timestamps
     end

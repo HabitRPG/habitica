@@ -18,7 +18,6 @@ class Habit < ActiveRecord::Base
     next_vote = 1 #TODO return log or linear based on current score
     next_vote *= -1 if(direction=='down')
     self.score += next_vote
-    self.votedate = Time.now
     if(self.habit_type==Habit::DAILY)
       self.done = true if direction=='up'
       self.done = false if direction=='down'
