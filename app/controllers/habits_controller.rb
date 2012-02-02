@@ -7,7 +7,7 @@ class HabitsController < ApplicationController
   def index
     @habits = current_user.habits.where(:habit_type => Habit::ALWAYS)
     @daily = current_user.habits.where(:habit_type => Habit::DAILY)
-    @score = current_user.habits.sum('score')
+    @score = current_user.habits.sum('score').to_i
 
     respond_to do |format|
       format.html # index.html.erb
@@ -81,18 +81,12 @@ class HabitsController < ApplicationController
   def vote
     @habit = current_user.habits.find(params[:id])
     @habit.vote(params[:vote])
-    @score = current_user.habits.sum('score')
+    @score = current_user.habits.sum('score').to_i
         
     respond_to do |format|
-      if @habit.save
-        # format.html { redirect_to @habit, notice: 'Habit was successfully updated.' }
-        # format.json { head :no_content }
-        format.js
-      else
-        # format.html { render action: "edit" }
-        # format.json { render json: @habit.errors, status: :unprocessable_entity }
-        format.js
-      end
+      # format.html { render action: "edit" }
+      # format.json { render json: @habit.errors, status: :unprocessable_entity }
+      format.js
     end
   end
   

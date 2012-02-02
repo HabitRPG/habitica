@@ -17,12 +17,19 @@ class Habit < ActiveRecord::Base
   end
   
   def vote(direction)
-    next_vote = 1 #TODO return log or linear based on current score
-    next_vote *= -1 if(direction=='down')
-    self.score += next_vote
+    # For negative values, use a line: something like y=-.1x+1
+    # For positibe values, taper off with inverse log: y=.9^x
+    # Would love to use inverse log for the whole thing, but after 13 fails it hits infinity
+    sign = ( direction=='up' ? 1 : -1 )
+    if self.score < 0
+      self.score += ( ( -0.1 * self.score + 1 ) * sign )
+    else
+      self.score += ( ( 0.9 ** self.score ) * sign )
+    end
     if(self.habit_type==Habit::DAILY)
       self.done = true if direction=='up'
       self.done = false if direction=='down'
     end
+    save
   end
 end
