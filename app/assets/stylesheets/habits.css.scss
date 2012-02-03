@@ -8,11 +8,14 @@
 .good { background-color:rgb(147, 196, 125); }
 .done { background-color:rgb(201, 218, 248); }
 
-#habits, #daily {
+.habit {
   list-style:none;
+  border: 1px solid black;
+  margin: 2px;
+  padding: 1px;
 }
 
-#habits li:hover, #daily li:hover {
+.habit:hover {
   cursor: move;
 }
 

@@ -1,28 +1,15 @@
-<li id="habit_<%= habit.id %>" class="ui-state-default">
-  
-  <% 
-    s = habit.score
-    case
-      when s<-5 then score = 'bad'
-      when s>=-5 && s<0 then score = 'iffy' 
-      when s>=0 && s<5 then score = 'ok' 
-      when s>=5 && s<15 then score = 'good' 
-      when s>=15 then score = 'done' 
-     end
-     name = "<span class='#{score}'>#{h(habit.name)}</span>"
-  %>
-  
+<li id="habit_<%= habit.id %>" class="habit <%= score_color(habit) %>">
   <% if habit.habit_type==Habit::ALWAYS %>
-    <%= link_to("△", { :action => "vote", :id => habit.id, :vote => 'up' }, :class=>'up', :remote=>true) if habit.up %>
-    <%= link_to("▽", { :action => "vote", :id => habit.id, :vote => 'down' }, :class=>'down', :remote=>true) if habit.down %>
-    <%= raw name %> (<%= habit.score.to_i %>)
+    <%= vote_link(habit, 'up') %>
+    <%= vote_link(habit, 'down') %>
+    <%= habit.name %>
   <% elsif habit.habit_type==Habit::DAILY %>
     <% if habit.done %>
-      <%= link_to("[X]", { :action => "vote", :id => habit.id, :vote => 'down' }, :class=>'check', :remote=>true) %>
-      <strike><%= raw name %></strike> (<%= habit.score.to_i %>)
+      <%= vote_link(habit, 'checked') %>
+      <strike><%= habit.name %></strike>
     <% else %>
-      <%= link_to("[ ]", { :action => "vote", :id => habit.id, :vote => 'up' }, :class=>'check', :remote=>true) %>
-      <%= raw name %> (<%= habit.score.to_i %>)
+      <%= vote_link(habit, 'unchecked') %>
+      <%= habit.name %>
     <% end %>
   <% end %>
   <%= link_to 'Edit', edit_habit_path(habit) %>
