@@ -1,23 +1,24 @@
 <h1>Score: <span id="score"><%= @score %></span></h1>
 <%= link_to 'New Habit', new_habit_path %>
 
-<table>
-  <tr><td>
-    <h2>Habits</h2>
-    <ul id="habits">
-    <% @habits.each do |habit| %>
-      <%= render :partial => "habit", :locals => { :habit => habit } %>
-    <% end %>
-    </ul>
-  </td>
-  
-  <td>
-    <h2>Daily</h2>
-    <ul id="daily">
-    <% @daily.each do |habit| %>
-      <%= render :partial => "habit", :locals => { :habit => habit } %>
-    <% end %>
-    </ul>
-  </div>
-  
+<table id="layout">
+  <tr>
+    <td class="panel">
+      <h2>Habits</h2>
+      <ul id="habits">
+      <% @habits.each do |habit| %>
+        <%= render :partial => "habit", :locals => { :habit => habit } %>
+      <% end %>
+      </ul>
+    </td>
+    
+    <td class="panel">
+      <h2>Daily</h2>
+      <ul id="daily">
+      <% @daily.each do |habit| %>
+        <%= render :partial => "habit", :locals => { :habit => habit } %>
+      <% end %>
+      </ul>
+    </td>
+  </tr>
 </table>

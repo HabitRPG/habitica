@@ -8,6 +8,11 @@
 .good { background-color:rgb(147, 196, 125); }
 .done { background-color:rgb(201, 218, 248); }
 
+.panel {
+  vertical-align:top;
+  min-width: 240px;
+}
+
 .habit {
   list-style:none;
   border: 1px solid black;
