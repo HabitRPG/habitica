@@ -1,8 +1,9 @@
 HabitTracker::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
   
+  # disable assets config.assets.initialize_on_precompile or run rake assets:precompile on prod   
+  # config.assets.enabled = false
 
-  # TODO disable assets config.assets.initialize_on_precompile or run rake assets:precompile on prod   
   # Needed for devise
   config.action_mailer.default_url_options = { :host => 'habits.ocdevel.com' }
 

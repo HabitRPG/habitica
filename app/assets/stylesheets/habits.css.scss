@@ -15,3 +15,9 @@
 #habits li:hover, #daily li:hover {
   cursor: move;
 }
+
+.up, .down, .check {
+  text-decoration:none;
+}
+
+.up, .down { font-weight: bold; }

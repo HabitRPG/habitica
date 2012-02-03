@@ -13,15 +13,15 @@
   %>
   
   <% if habit.habit_type==Habit::ALWAYS %>
-    <%= link_to("△", { :action => "vote", :id => habit.id, :vote => 'up' }, :remote=>true) if habit.up %>
-    <%= link_to("▽", { :action => "vote", :id => habit.id, :vote => 'down' }, :remote=>true) if habit.down %>
+    <%= link_to("△", { :action => "vote", :id => habit.id, :vote => 'up' }, :class=>'up', :remote=>true) if habit.up %>
+    <%= link_to("▽", { :action => "vote", :id => habit.id, :vote => 'down' }, :class=>'down', :remote=>true) if habit.down %>
     <%= raw name %> (<%= habit.score.to_i %>)
   <% elsif habit.habit_type==Habit::DAILY %>
     <% if habit.done %>
-      <%= link_to("[X]", { :action => "vote", :id => habit.id, :vote => 'down' }, :remote=>true) %>
+      <%= link_to("[X]", { :action => "vote", :id => habit.id, :vote => 'down' }, :class=>'check', :remote=>true) %>
       <strike><%= raw name %></strike> (<%= habit.score.to_i %>)
     <% else %>
-      <%= link_to("[ ]", { :action => "vote", :id => habit.id, :vote => 'up' }, :remote=>true) %>
+      <%= link_to("[ ]", { :action => "vote", :id => habit.id, :vote => 'up' }, :class=>'check', :remote=>true) %>
       <%= raw name %> (<%= habit.score.to_i %>)
     <% end %>
   <% end %>
