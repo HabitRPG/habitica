@@ -8,4 +8,5 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
   has_many :habits, :dependent => :destroy
+  has_many :rewards, :dependent => :destroy
 end
