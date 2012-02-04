@@ -1,26 +1,40 @@
-<h1>Score: <span id="score"><%= @score %></span></h1>
+<% content_for :score do %>
+  Score: <span id="score"><%= @score %></span>
+<% end %>
+
+
 <%= link_to 'New Habit', new_habit_path %>
 
 <table id="layout">
   <tr>
-    <th>Habits</th>
-    <th>Daily</th>
-  </tr>
-  <tr>
     <td class="panel">
-      <ul id="habits">
-      <% @habits.each do |habit| %>
-        <%= render :partial => "habit", :locals => { :habit => habit } %>
-      <% end %>
-      </ul>
+      <div class="block">
+        <div class='content'>
+          <h2 class='title'>Habits</h2>
+          <div class='inner'>
+            <ul id="habits">
+            <% @habits.each do |habit| %>
+              <%= render :partial => "habit", :locals => { :habit => habit } %>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
     </td>
     
     <td class="panel">
-      <ul id="daily">
-      <% @daily.each do |habit| %>
-        <%= render :partial => "habit", :locals => { :habit => habit } %>
-      <% end %>
-      </ul>
+      <div class="block">
+        <div class='content'>
+          <h2 class='title'>Daily</h2>
+          <div class='inner'>
+            <ul id="daily">
+            <% @daily.each do |habit| %>
+              <%= render :partial => "habit", :locals => { :habit => habit } %>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
     </td>
   </tr>
 </table>
