@@ -14,7 +14,7 @@ class RewardsController < ApplicationController
 
   # GET /rewards/1/edit
   def edit
-    @reward.user_id = current_user.id
+    @reward = current_user.rewards.find(params[:id])
   end
 
   # POST /rewards
@@ -37,7 +37,7 @@ class RewardsController < ApplicationController
   # PUT /rewards/1
   # PUT /rewards/1.json
   def update
-    @reward = curren_user.rewards.find(params[:id])
+    @reward = current_user.rewards.find(params[:id])
 
     respond_to do |format|
       if @reward.update_attributes(params[:reward])
