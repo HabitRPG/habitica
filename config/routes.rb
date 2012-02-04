@@ -1,11 +1,18 @@
 HabitTracker::Application.routes.draw do
-  resources :rewards
 
   resources :habits do
     post :sort, on: :collection
     get :completed, on: :collection
+    member do
+      get 'vote'
+    end
   end
-  match 'habits/:id/vote' => 'habits#vote'
+
+  resources :rewards do
+    member do
+      get 'buy'
+    end
+  end
 
   devise_for :users
 
