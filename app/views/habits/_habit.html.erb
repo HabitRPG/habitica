@@ -12,5 +12,10 @@
       <%= habit.name %>
     <% end %>
   <% end %>
-  <%= link_to 'Edit', edit_habit_path(habit), :class=>'edit' %>
+  <div class='edit'>
+    <% if habit.notes.present? %>
+      <%= image_tag('comment.png', :class=>'comment') %><div class='qtip'><%= habit.notes %></div>
+    <% end %>
+    <%= link_to 'Edit', edit_habit_path(habit) %>
+  </div>
 </li>

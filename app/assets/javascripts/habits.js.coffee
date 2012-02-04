@@ -3,6 +3,11 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $(document).ready ->
+  
+  $(".comment").qtip content:
+    text: (api) ->
+      $(this).next().html()
+  
   $.each ['#habits', '#daily'], (index, list_id) -> 
     $(list_id).sortable
       axis: "y"
