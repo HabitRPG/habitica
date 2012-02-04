@@ -3,8 +3,11 @@
 
 <table id="layout">
   <tr>
+    <th>Habits</th>
+    <th>Daily</th>
+  </tr>
+  <tr>
     <td class="panel">
-      <h2>Habits</h2>
       <ul id="habits">
       <% @habits.each do |habit| %>
         <%= render :partial => "habit", :locals => { :habit => habit } %>
@@ -13,7 +16,6 @@
     </td>
     
     <td class="panel">
-      <h2>Daily</h2>
       <ul id="daily">
       <% @daily.each do |habit| %>
         <%= render :partial => "habit", :locals => { :habit => habit } %>

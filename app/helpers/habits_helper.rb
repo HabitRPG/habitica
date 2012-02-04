@@ -11,18 +11,19 @@ module HabitsHelper
      end
   end
   
-  def vote_link(habit, state)
-    case state
-      when 'up' 
-        return unless habit.up
-        text,dir,style = "+","up","up"
-      when 'down'
-        return unless habit.down
-        text,dir,style = "-","down","down"
-      when 'checked'  then text,dir,style = "[ ]","up","check"
-      when 'unchecked' then text,dir,style = "[X]","down","check"
+  def vote_link(habit, direction=nil)
+    if direction=='up'
+      return unless habit.up
+      text,dir,style = "+","up","up"
+    elsif direction=='down'
+      return unless habit.down
+      text,dir,style = "-","down","down"
+    elsif habit.done
+      text,dir,style = "[X]","down","check"
+    else
+      text,dir,style = "[ ]","up","check" 
     end
-    return link_to(text, { :action => "vote", :id => habit.id, :vote => 'dir' }, :class=>style, :remote=>true)
+    return link_to(text, { :action => "vote", :id => habit.id, :vote => dir }, :class=>style, :remote=>true)
   end
   
 end
