@@ -61,4 +61,19 @@ class RewardsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  
+  def buy
+    @reward = current_user.rewards.find(params[:id])
+    current_user.money -= @reward.value
+    current_user.save
+        
+    respond_to do |format|
+      # format.html { render action: "edit" }
+      # format.json { render json: @habit.errors, status: :unprocessable_entity }
+      format.js
+    end
+  end
+  
+  
 end
