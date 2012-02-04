@@ -8,6 +8,7 @@ class HabitsController < ApplicationController
     @habits = current_user.habits.where(:habit_type => Habit::ALWAYS)
     @daily = current_user.habits.where(:habit_type => Habit::DAILY)
     @one_time = current_user.habits.where(:habit_type => Habit::ONE_TIME).where(:done=>false)
+    @rewards = current_user.rewards
 
     respond_to do |format|
       format.html # index.html.erb
