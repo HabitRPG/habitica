@@ -1,12 +1,5 @@
 <% content_for :score do %>
-  <div id="progressbar" style="width:30%;"><span id="tnl"><%= @score %>/100</span></div>
-  <script>
-  $(function() {
-    $( "#progressbar" ).progressbar({
-      value: <%= @score %>
-    });
-  });
-  </script>
+  <%= render :partial => "progressbar", :locals => { :score => @score } %>
 <% end %>
 
 
