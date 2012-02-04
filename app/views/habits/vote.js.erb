@@ -1,2 +1,3 @@
 $('#habit_<%= @habit.id %>').replaceWith("<%= escape_javascript(render :partial => "habit", :locals => { :habit => @habit }) %>");
 $('#progressbar').replaceWith("<%= escape_javascript(render :partial => "progressbar", :locals => { :score => @score }) %>");
+$('#money').replaceWith("<%= escape_javascript(render 'money') %>");

@@ -21,15 +21,27 @@ class Habit < ActiveRecord::Base
     # For positibe values, taper off with inverse log: y=.9^x
     # Would love to use inverse log for the whole thing, but after 13 fails it hits infinity
     sign = ( direction=='up' ? 1 : -1 )
+    value = 0
     if self.score < 0
-      self.score += ( ( -0.1 * self.score + 1 ) * sign )
+      value = ( ( -0.1 * self.score + 1 ) * sign )
     else
-      self.score += ( ( 0.9 ** self.score ) * sign )
+      value = ( ( 0.9 ** self.score ) * sign )
     end
+
+    self.score += value
+    
+    # also add money (we never take away money)
+    if direction=='up'
+      self.user.money += value
+      self.user.save
+    end
+    
+    # up/down -voting as checkbox & assigning as done, 2 birds one stone
     if(self.habit_type==Habit::DAILY)
       self.done = true if direction=='up'
       self.done = false if direction=='down'
     end
+    
     save
   end
 end

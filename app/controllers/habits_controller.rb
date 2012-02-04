@@ -80,6 +80,11 @@ class HabitsController < ApplicationController
   
   def vote
     @habit = current_user.habits.find(params[:id])
+    
+    # habit.vote() saves money to the user, this hack prevents having to
+    # reload current_user to catch that change
+    @habit.user=current_user
+    
     @habit.vote(params[:vote])
     @score = current_user.habits.sum('score').to_i
         

@@ -26,4 +26,12 @@ module HabitsHelper
     return link_to(text, { :action => "vote", :id => habit.id, :vote => dir }, :class=>style, :remote=>true)
   end
   
+  def user_gold
+    current_user.money.to_i
+  end
+  
+  def user_silver
+    number_with_precision(current_user.money, :precision=>1).split('.')[1]
+  end
+  
 end
