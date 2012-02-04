@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.bad { background-color:rgb(224, 102, 102); }
+.bad { background-color:rgb(224, 102, 102); color:white; }
 .iffy { background-color:rgb(246, 178, 107); }
 .ok { background-color:rgb(255, 217, 102); }
 .good { background-color:rgb(147, 196, 125); }
@@ -10,14 +10,22 @@
 
 .panel {
   vertical-align:top;
-  min-width: 240px;
+  min-width: 300px;
+}
+
+.panel ul {
+  padding:0px;
+  margin-left:10px;
 }
 
 .habit {
   list-style:none;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
   border: 1px solid black;
-  margin: 2px;
-  padding: 1px;
+  margin-bottom: 5px;
+  padding:5px;
 }
 
 .habit:hover {
