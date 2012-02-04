@@ -1,8 +1,3 @@
-<% content_for :score do %>
-  <%= render :partial => "progressbar", :locals => { :score => @score } %>
-<% end %>
-
-
 <%= link_to 'New Habit', new_habit_path %>
 
 <table id="layout">
@@ -50,6 +45,7 @@
           </div>
         </div>
       </div>
+      <%= link_to 'View Completed', :action=>'completed' %>
     </td>
     
     <td class="panel">

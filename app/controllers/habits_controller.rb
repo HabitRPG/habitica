@@ -8,7 +8,6 @@ class HabitsController < ApplicationController
     @habits = current_user.habits.where(:habit_type => Habit::ALWAYS)
     @daily = current_user.habits.where(:habit_type => Habit::DAILY)
     @one_time = current_user.habits.where(:habit_type => Habit::ONE_TIME).where(:done=>false)
-    @score = current_user.habits.sum('score').to_i
 
     respond_to do |format|
       format.html # index.html.erb
@@ -98,7 +97,6 @@ class HabitsController < ApplicationController
     @habit.user=current_user
     
     @habit.vote(params[:vote])
-    @score = current_user.habits.sum('score').to_i
         
     respond_to do |format|
       # format.html { render action: "edit" }
