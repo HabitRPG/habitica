@@ -1,0 +1,27 @@
+<% content_for :score do %>
+  <%= render :partial => "progressbar", :locals => { :score => @score } %>
+<% end %>
+
+
+<%= link_to 'New Habit', new_habit_path %>
+
+<table id="layout">
+  <tr>
+
+    <td class="panel">
+      <div class="block">
+        <div class='content'>
+          <h2 class='title'>Completed</h2>
+          <div class='inner'>
+            <ul id="daily">
+            <% @one_time.each do |habit| %>
+              <%= render :partial => "habit", :locals => { :habit => habit } %>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </td>
+    
+  </tr>
+</table>

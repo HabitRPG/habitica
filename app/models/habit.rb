@@ -37,7 +37,7 @@ class Habit < ActiveRecord::Base
     end
     
     # up/down -voting as checkbox & assigning as done, 2 birds one stone
-    if(self.habit_type==Habit::DAILY)
+    if(self.habit_type==Habit::DAILY || self.habit_type==Habit::ONE_TIME)
       self.done = true if direction=='up'
       self.done = false if direction=='down'
     end

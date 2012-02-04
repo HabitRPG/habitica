@@ -1,9 +1,9 @@
-<li id="habit_<%= habit.id %>" class="habit <%= score_color(habit) %>">
+<li id="habit_<%= habit.id %>" class="habit <%= habit_type(habit) %> <%= score_color(habit) %>">
   <% if habit.habit_type==Habit::ALWAYS %>
     <%= vote_link(habit, 'up') %>
     <%= vote_link(habit, 'down') %>
     <%= habit.name %>
-  <% elsif habit.habit_type==Habit::DAILY %>
+  <% else %>
     <% if habit.done %>
       <%= vote_link(habit, 'checked') %>
       <strike><%= habit.name %></strike>

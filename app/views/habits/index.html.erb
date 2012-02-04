@@ -36,11 +36,26 @@
         </div>
       </div>
     </td>
+
+    <td class="panel">
+      <div class="block">
+        <div class='content'>
+          <h2 class='title'>One-offs</h2>
+          <div class='inner'>
+            <ul id="daily">
+            <% @one_time.each do |habit| %>
+              <%= render :partial => "habit", :locals => { :habit => habit } %>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </td>
     
     <td class="panel">
       <div class="block">
         <div class='content'>
-          <h2 class='title'>Store
+          <h2 class='title'>Rewards
             <%= render 'money'%>
           </h2>
           <div class='inner'>

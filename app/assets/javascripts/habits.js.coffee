@@ -4,6 +4,9 @@
 
 $(document).ready ->
   
+  $(".one-time a.vote-link").click ->
+    $(this).parent().fadeOut()
+  
   $(".comment").qtip content:
     text: (api) ->
       $(this).next().html()

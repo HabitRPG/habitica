@@ -1,5 +1,13 @@
 module HabitsHelper
   
+  def habit_type(habit)
+    case habit.habit_type
+      when 1 then return "habit"
+      when 2 then return "daily"
+      when 3 then return "one-time"
+    end
+  end
+    
   def score_color(habit)
     s = habit.score
     case
@@ -23,7 +31,7 @@ module HabitsHelper
     else
       text,dir,style = "[ ]","up","check" 
     end
-    return link_to(text, { :action => "vote", :id => habit.id, :vote => dir }, :class=>style, :remote=>true)
+    return link_to(text, { :action => "vote", :id => habit.id, :vote => dir }, :class=>style+" vote-link", :remote=>true)
   end
   
   def user_gold

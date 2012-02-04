@@ -7,11 +7,23 @@ class HabitsController < ApplicationController
   def index
     @habits = current_user.habits.where(:habit_type => Habit::ALWAYS)
     @daily = current_user.habits.where(:habit_type => Habit::DAILY)
+    @one_time = current_user.habits.where(:habit_type => Habit::ONE_TIME).where(:done=>false)
     @score = current_user.habits.sum('score').to_i
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @habits }
+    end
+  end
+  
+  # GET /habits/completed
+  # GET /habits/completed.json
+  def completed
+    @one_time = current_user.habits.where(:habit_type => Habit::ONE_TIME).where(:done=>true)
+
+    respond_to do |format|
+      format.html # completed.html.erb
+      format.json { render json: @one_time }
     end
   end
 
