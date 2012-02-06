@@ -2,14 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.bad, .bad a{ 
-  background-color:rgb(224, 102, 102); 
-  color:white !important;
-  }
-.iffy { background-color:rgb(246, 178, 107); }
-.ok { background-color:rgb(255, 217, 102); }
-.good { background-color:rgb(147, 196, 125); }
-.done { background-color:rgb(201, 218, 248); }
+.color-red { background-color: rgb(230, 184, 175);  }
+.color-pink { background-color: rgb(244, 204, 204);  }
+.color-orange { background-color: rgb(252, 229, 205);   }
+.color-yellow { background-color: rgb(255, 242, 204); }
+.color-green { background-color: rgb(217, 234, 211); }
+.color-light-blue { background-color: rgb(208, 224, 227); }
+.color-blue { background-color: rgb(201, 218, 248); }
 
 .panel {
   vertical-align:top;

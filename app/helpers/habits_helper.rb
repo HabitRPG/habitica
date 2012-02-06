@@ -11,11 +11,13 @@ module HabitsHelper
   def score_color(habit)
     s = habit.score
     case
-      when s<-5 then return 'bad'
-      when s>=-5 && s<0 then return 'iffy' 
-      when s>=0 && s<5 then return 'ok' 
-      when s>=5 && s<15 then return 'good' 
-      when s>=15 then return 'done' 
+      when s<-8 then return 'color-red'
+      when s>=-8 && s<-4 then return 'color-pink'
+      when s>=-4 && s<0 then return 'color-orange' 
+      when s>=0 && s<1.5 then return 'color-yellow'
+      when s>=1.5 && s<5 then return 'color-green' 
+      when s>=5 && s<10 then return 'color-light-blue' 
+      when s>=10 then return 'color-blue' 
      end
   end
   
