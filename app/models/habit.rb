@@ -10,13 +10,13 @@ class Habit < ActiveRecord::Base
   # TODO set cron for this
   def self.clear_done
     Habit.where(:habit_type => Habit::DAILY).collect do |h|
-      h.vote('down') unless h.done
+      h.vote('down', true) unless h.done
       h.done = false
       h.save
     end
   end
   
-  def vote(direction)
+  def vote(direction, clear=false)
     # For negative values, use a line: something like y=-.1x+1
     # For positibe values, taper off with inverse log: y=.9^x
     # Would love to use inverse log for the whole thing, but after 13 fails it hits infinity
@@ -31,7 +31,7 @@ class Habit < ActiveRecord::Base
     self.score += value
     
     # also add money. Only take away money if it was a mistake (aka, a checkbox)
-    if (direction=='up') || (direction=='down' && self.habit_type!=Habit::ALWAYS)
+    if (direction=='up') || (direction=='down' && clear==false && self.habit_type!=Habit::ALWAYS)
       self.user.money += value
       self.user.save
     end
