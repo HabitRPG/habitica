@@ -29,6 +29,7 @@ class Habit < ActiveRecord::Base
     end
 
     self.score += value
+    self.user.exp += value
     
     # also add money. Only take away money if it was a mistake (aka, a checkbox)
     if (direction=='up') || (direction=='down' && clear==false && self.habit_type!=Habit::ALWAYS)

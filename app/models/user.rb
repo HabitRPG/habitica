@@ -9,4 +9,20 @@ class User < ActiveRecord::Base
   
   has_many :habits, :dependent => :destroy
   has_many :rewards, :dependent => :destroy
+  
+  before_save :calculate_experience
+  
+  def calculate_experience
+    self.exp = 0 if self.exp < 0
+    if (self.exp > self.tnl)
+      self.exp -= self.tnl # carry over
+      self.lvl += 1
+    end
+  end
+
+  #TODO figure this out. Google "RPG level up formula" or something
+  def tnl
+    # http://tibia.wikia.com/wiki/Formula
+    50*self.lvl**2 - 150*self.lvl + 200
+  end
 end
