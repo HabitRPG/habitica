@@ -59,6 +59,7 @@
               <li id="reward_<%= reward.id %>" class="reward">
                 <%= link_to(image_tag('dollar.png'), { :controller=>"rewards", :action => "buy", :id => reward.id }, :remote=>true) %>
                 <%= reward.name %>
+                ($<%= reward.value %>)
                 <div class='edit'>
                   <%= link_to 'Edit', edit_reward_path(reward) %>
                 </div>
