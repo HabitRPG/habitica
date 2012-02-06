@@ -12,10 +12,10 @@ module HabitsHelper
     s = habit.score
     case
       when s<-8 then return 'color-red'
-      when s>=-8 && s<-4 then return 'color-pink'
-      when s>=-4 && s<0 then return 'color-orange' 
-      when s>=0 && s<1.5 then return 'color-yellow'
-      when s>=1.5 && s<5 then return 'color-green' 
+      when s>=-8 && s<-5 then return 'color-pink'
+      when s>=-5 && s<-1 then return 'color-orange' 
+      when s>=-1 && s<1 then return 'color-yellow'
+      when s>=1 && s<5 then return 'color-green' 
       when s>=5 && s<10 then return 'color-light-blue' 
       when s>=10 then return 'color-blue' 
      end
