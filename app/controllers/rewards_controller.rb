@@ -65,8 +65,12 @@ class RewardsController < ApplicationController
   
   def buy
     @reward = current_user.rewards.find(params[:id])
-    current_user.money -= @reward.value
-    current_user.save
+    @too_expensive = true
+    if current_user.money > @reward.value
+      current_user.money -= @reward.value
+      current_user.save
+      @too_expensive = false
+    end
         
     respond_to do |format|
       # format.html { render action: "edit" }
