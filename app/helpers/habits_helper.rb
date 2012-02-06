@@ -10,6 +10,7 @@ module HabitsHelper
     
   def score_color(habit)
     s = habit.score
+    return 'done' if habit.done?
     case
       when s<-8 then return 'color-red'
       when s>=-8 && s<-5 then return 'color-pink'
