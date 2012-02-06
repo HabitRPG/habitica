@@ -11,7 +11,7 @@ $(document).ready ->
     text: (api) ->
       $(this).next().html()
   
-  $.each ['#habits', '#daily'], (index, list_id) -> 
+  $.each ['#habits', '#daily', '#one-offs'], (index, list_id) -> 
     $(list_id).sortable
       axis: "y"
       dropOnEmpty: false

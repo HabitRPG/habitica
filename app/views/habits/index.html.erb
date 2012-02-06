@@ -37,7 +37,7 @@
         <div class='content'>
           <h2 class='title'>One-offs</h2>
           <div class='inner'>
-            <ul id="daily">
+            <ul id="one-offs">
             <% @one_time.each do |habit| %>
               <%= render :partial => "habit", :locals => { :habit => habit } %>
             <% end %>
