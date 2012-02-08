@@ -7,7 +7,6 @@ class HabitTracker.Routers.HabitsRouter extends Backbone.Router
     "/new"      : "newHabit"
     "/index"    : "index"
     "/:id/edit" : "edit"
-    "/:id"      : "show"
     ".*"        : "index"
 
   newHabit: ->
@@ -16,12 +15,6 @@ class HabitTracker.Routers.HabitsRouter extends Backbone.Router
 
   index: ->
     @view = new HabitTracker.Views.Habits.IndexView(habits: @habits)
-    $("#habits").html(@view.render().el)
-
-  show: (id) ->
-    habit = @habits.get(id)
-
-    @view = new HabitTracker.Views.Habits.ShowView(model: habit)
     $("#habits").html(@view.render().el)
 
   edit: (id) ->
