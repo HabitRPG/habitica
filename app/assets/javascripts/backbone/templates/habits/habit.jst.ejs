@@ -16,8 +16,8 @@
 <% } %>
 <div class='edit'>
   <% if (notes) { %>
-    <!-- TODO image_tag('comment.png', :class=>'comment') -->
-    <img src='/images/comment.png' class="comment" />
+    <!-- TODO how to make this assets-aware? image_tag('comment.png', :class=>'comment') -->
+    <img src='/assets/comment.png' class="comment" />
     <div class='qtip'><%= notes %></div>
   <% } %>
   <a href="#/<%= id %>/edit">Edit</a>
