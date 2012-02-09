@@ -1,27 +1,24 @@
-<li id="habit_<%= id %>" class="habit habit-type-<%= habit_type %> <!-- TODO score_color -->">
+<!-- Habits -->
+<% if (habit_type==1) { %>
+  <a href="#" class="vote-up">+</a>
+  <a href="#" class="vote-down">-</a>
+  <%= name %>
+<% } else { %>
   
-  <!-- Habits -->
-  <% if (habit_type==1) { %>
-    <a href="#" class="vote-up">+</a>
-    <a href="#" class="vote-down">-</a>
-    <%= name %>
+  <!-- Daily & Todos -->
+  <% if (done) { %>
+    <a href="#" class="vote-down">[X]</a>
+    <strike><%= name %></strike>
   <% } else { %>
-    
-    <!-- Daily & Todos -->
-    <% if (done) { %>
-      <a href="#" class="vote-down">[X]</a>
-      <strike><%= name %></strike>
-    <% } else { %>
-      <a href="#" class="vote-up">[ ]</a>
-      <%= name %>
-    <% } %>
+    <a href="#" class="vote-up">[ ]</a>
+    <%= name %>
   <% } %>
-  <div class='edit'>
-    <% if (notes) { %>
-      <!-- TODO image_tag('comment.png', :class=>'comment') -->
-      <img src='/images/comment.png' class="comment" />
-      <div class='qtip'><%= notes %></div>
-    <% } %>
-    <a href="#/<%= id %>/edit">Edit</a>
-  </div>
-</li>
+<% } %>
+<div class='edit'>
+  <% if (notes) { %>
+    <!-- TODO image_tag('comment.png', :class=>'comment') -->
+    <img src='/images/comment.png' class="comment" />
+    <div class='qtip'><%= notes %></div>
+  <% } %>
+  <a href="#/<%= id %>/edit">Edit</a>
+</div>
