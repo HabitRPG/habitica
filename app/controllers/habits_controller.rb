@@ -2,14 +2,10 @@ class HabitsController < ApplicationController
   
   before_filter :authenticate_user!
   
-  # GET /habits
   # GET /habits.json
   def index
-    @habits = current_user.habits.where(:habit_type => Habit::ALWAYS)
-    @daily = current_user.habits.where(:habit_type => Habit::DAILY)
-    @one_time = current_user.habits.where(:habit_type => Habit::ONE_TIME).where(:done=>false)
-    @rewards = current_user.rewards
-
+    # TODO @rewards = current_user.rewards 
+    @habits = current_user.habits
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @habits }

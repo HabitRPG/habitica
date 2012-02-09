@@ -36,11 +36,9 @@
   cursor: move;
 }
 
-.up, .down, .check {
+.vote-up, .vote-down {
   text-decoration:none;
 }
-
-.up, .down { font-weight: bold; }
 
 .edit { float:right; }
 

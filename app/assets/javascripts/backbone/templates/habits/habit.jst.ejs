@@ -1,12 +1,27 @@
-<td><%= name %></td>
-<td><%= habit_type %></td>
-<td><%= score %></td>
-<td><%= notes %></td>
-<td><%= up %></td>
-<td><%= down %></td>
-<td><%= done %></td>
-<td><%= position %></td>
-
-<td><a href="#/<%= id %>">Show</td>
-<td><a href="#/<%= id %>/edit">Edit</td>
-<td><a href="#/<%= id %>/destroy" class="destroy">Destroy</a></td>
+<li id="habit_<%= id %>" class="habit habit-type-<%= habit_type %> <!-- TODO score_color -->">
+  
+  <!-- Habits -->
+  <% if (habit_type==1) { %>
+    <a href="#" class="vote-up">+</a>
+    <a href="#" class="vote-down">-</a>
+    <%= name %>
+  <% } else { %>
+    
+    <!-- Daily & Todos -->
+    <% if (done) { %>
+      <a href="#" class="vote-down">[X]</a>
+      <strike><%= name %></strike>
+    <% } else { %>
+      <a href="#" class="vote-up">[ ]</a>
+      <%= name %>
+    <% } %>
+  <% } %>
+  <div class='edit'>
+    <% if (notes) { %>
+      <!-- TODO image_tag('comment.png', :class=>'comment') -->
+      <img src='/images/comment.png' class="comment" />
+      <div class='qtip'><%= notes %></div>
+    <% } %>
+    <a href="#/<%= id %>/edit">Edit</a>
+  </div>
+</li>

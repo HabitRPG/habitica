@@ -1,21 +1,75 @@
-<h1>Listing habits</h1>
+<a href="#/new">New Habit</a>
 
-<table id="habits-table">
+<!--<ul id="habits-table" />-->
+
+<table id="layout">
   <tr>
-    <th>Name</th>
-    <th>Habit type</th>
-    <th>Score</th>
-    <th>Notes</th>
-    <th>Up</th>
-    <th>Down</th>
-    <th>Done</th>
-    <th>Position</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <td class="panel">
+      <div class="block">
+        <div class='content'>
+          <h2 class='title'>Habits</h2>
+          <div class='inner'>
+            <ul id="habits-habits" />
+          </div>
+        </div>
+      </div>
+    </td>
+    
+    <td class="panel">
+      <div class="block">
+        <div class='content'>
+          <h2 class='title'>Daily</h2>
+          <div class='inner'>
+            <ul id="habits-daily" />
+          </div>
+        </div>
+      </div>
+    </td>
+
+    <td class="panel">
+      <div class="block">
+        <div class='content'>
+          <h2 class='title'>Todos</h2>
+          <div class='inner'>
+            
+            <div id="habits-todos">
+              <ul>
+                <li><a href="#tabs-1">Remaining</a></li>
+                <li><a href="#tabs-2">Done</a></li>
+              </ul>
+              <div id="tabs-1">
+                <ul id="habits-todos-remaining" />
+              </div>
+              <div id="tabs-2">
+                <ul id="habits-todos-done" />
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <!-- TODO link_to 'View Completed', :action=>'completed' -->
+    </td>
+    
+    <td class="panel">
+      <div class="block">
+        <div class='content'>
+          <h2 class='title'>Rewards
+            <!-- TODO render 'shared/money' --> 
+          </h2>
+          <div class='inner'>
+            <!-- TODO rewards code block (see old code) -->
+            <ul id="rewards" />
+          </div>
+        </div>
+      </div>
+      <!-- TODO link_to 'New Reward', new_reward_path --> 
+    </td>
   </tr>
 </table>
 
-<br/>
 
-<a href="#/new">New Habit</a>
+
+
+
+<br/>

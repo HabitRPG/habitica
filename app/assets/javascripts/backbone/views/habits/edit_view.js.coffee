@@ -13,7 +13,7 @@ class HabitTracker.Views.Habits.EditView extends Backbone.View
     @model.save(null,
       success : (habit) =>
         @model = habit
-        window.location.hash = "/#{@model.id}"
+        window.location.hash = "#/index"
     )
 
   render : ->

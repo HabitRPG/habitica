@@ -23,7 +23,7 @@ class HabitTracker.Views.Habits.NewView extends Backbone.View
     @collection.create(@model.toJSON(),
       success: (habit) =>
         @model = habit
-        window.location.hash = "/#{@model.id}"
+        window.location.hash = "#/index"
 
       error: (habit, jqXHR) =>
         @model.set({errors: $.parseJSON(jqXHR.responseText)})

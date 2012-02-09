@@ -7,10 +7,6 @@ $(document).ready ->
   $(".one-time a.vote-link").click ->
     $(this).parent().fadeOut()
   
-  $(".comment").qtip content:
-    text: (api) ->
-      $(this).next().html()
-  
   $.each ['#habits', '#daily', '#one-offs'], (index, list_id) -> 
     $(list_id).sortable
       axis: "y"
