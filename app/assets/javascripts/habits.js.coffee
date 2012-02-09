@@ -4,9 +4,6 @@
 
 $(document).ready ->
   
-  $(".one-time a.vote-link").click ->
-    $(this).parent().fadeOut()
-  
   $.each ['#habits', '#daily', '#one-offs'], (index, list_id) -> 
     $(list_id).sortable
       axis: "y"
@@ -21,14 +18,3 @@ $(document).ready ->
           url: "/habits/sort"
           data: $(list_id).sortable("serialize")
           dataType: "script"
-          complete: (request) ->
-            $(list_id).effect "highlight"
-
-(($) ->
-  $.fn.highlight = ->
-    $(this).css
-      color: "red"
-      background: "yellow"
-      
-    $(this).fadeIn()
-) jQuery
