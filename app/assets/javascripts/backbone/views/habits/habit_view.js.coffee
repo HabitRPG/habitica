@@ -2,7 +2,7 @@ HabitTracker.Views.Habits ||= {}
 
 class HabitTracker.Views.Habits.HabitView extends Backbone.View
   template: JST["backbone/templates/habits/habit"]
-
+  
   events:
     "click .destroy" : "destroy"
     "click .vote-up" : "voteUp"
@@ -15,7 +15,6 @@ class HabitTracker.Views.Habits.HabitView extends Backbone.View
     
   voteUp: ->
     @model.vote("up")
-    @trigger("reset")
 
   voteDown: ->
     @model.vote("down")

@@ -5,8 +5,7 @@ class HabitTracker.Views.Habits.IndexView extends Backbone.View
 
   initialize: () ->
     @options.habits.bind('reset', @addAll)
-    #TODO this is causing "Remaining" tab to be auto-selected
-    @options.habits.bind('change', @render, this)
+    @options.habits.bind('change', @render, this) #TODO this ruins tabs, revisit
 
   addAll: () =>
     @options.habits.each(@addOne)
@@ -17,7 +16,7 @@ class HabitTracker.Views.Habits.IndexView extends Backbone.View
     if habit.isDaily() then @$("#habits-daily").append(view.render().el)
     if habit.isDoneTodo() then @$("#habits-todos-done").append(view.render().el)
     if habit.isRemainingTodo() then @$("#habits-todos-remaining").append(view.render().el)
-      
+    
   render: =>
     $(@el).html(@template(habits: @options.habits.toJSON() ))
     @addAll()
