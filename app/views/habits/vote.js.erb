@@ -1,5 +1,0 @@
-<% unless @habit.habit_type==Habit::ONE_TIME %>
-  $('#habit_<%= @habit.id %>').replaceWith("<%= escape_javascript(render :partial => "habit", :locals => { :habit => @habit }) %>");
-<% end %>
-$('#progressbar').replaceWith("<%= escape_javascript(render :partial => "shared/progressbar") %>");
-$('#money').replaceWith("<%= escape_javascript(render 'shared/money') %>");
