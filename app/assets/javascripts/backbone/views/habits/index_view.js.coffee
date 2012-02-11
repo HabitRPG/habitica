@@ -36,6 +36,7 @@ class HabitTracker.Views.Habits.IndexView extends Backbone.View
   clearCompleted: ->
     _.each @options.habits.doneTodos(), (todo) ->
       todo.destroy()
+    @render()
     return false
 
   # TODO create a view & template, bind to existing element
