@@ -22,10 +22,10 @@ class HabitTracker.Views.Habits.HabitView extends Backbone.View
   tagName: "li"
   
   # why is @model not available in this function? having to pass it in like this
-  dynamicClass= (model) ->
-    output = "habit habit-type-#{model.get('habit_type')}"
-    if model.get("done") then output += " done"
-    score = model.get("score")
+  dynamicClass: () =>
+    output = "habit habit-type-#{@model.get('habit_type')}"
+    if @model.get("done") then output += " done"
+    score = @model.get("score")
     switch
       when score<-8 then output += ' color-red'
       when score>=-8 and score<-5 then output += ' color-pink'
@@ -38,7 +38,7 @@ class HabitTracker.Views.Habits.HabitView extends Backbone.View
     
   render: ->
     $(@el).attr('id', "habit_#{@model.get('id')}")
-    $(@el).attr('class', dynamicClass(@model))
+    $(@el).attr('class', @dynamicClass())
     $(@el).html(@template(@model.toJSON() ))
     
     @$(".comment").qtip content:

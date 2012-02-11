@@ -27,6 +27,6 @@ class User < ActiveRecord::Base
   end
   
   def as_json(options={})
-    super(:only => [:email, :lvl, :exp] )
+    super(:only => [:email, :lvl, :exp, :money] )
   end
 end
