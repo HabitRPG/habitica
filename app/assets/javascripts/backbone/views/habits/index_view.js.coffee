@@ -11,9 +11,10 @@ class HabitTracker.Views.Habits.IndexView extends Backbone.View
   # TODO create a view & template, bind to existing element
   updateStats: () =>
     stats = window.userStats
-    @$('#tnl').html( "(Level #{stats.get('lvl')})&nbsp;&nbsp;&nbsp;#{Math.round(stats.get('exp'))} / #{stats.tnl()}" )
-    @$( "#progressbar" ).progressbar value: stats.get('exp')/stats.tnl() * 100
+    $('#tnl').html( "(Level #{stats.get('lvl')})&nbsp;&nbsp;&nbsp;#{Math.round(stats.get('exp'))} / #{stats.tnl()}" )
+    $( "#progressbar" ).progressbar value: stats.get('exp')/stats.tnl() * 100
 
+    # TODO for some reason this has to be @$, but above has to be $
     money = stats.get('money').toFixed(1).split('.')
     @$('#money').html("#{money[0]} <img src='assets/coin_single_gold.png'/>  #{money[1]} <img src='assets/coin_single_silver.png'/>")
 
@@ -26,6 +27,9 @@ class HabitTracker.Views.Habits.IndexView extends Backbone.View
     if habit.isDaily() then @$("#habits-daily").append(view.render().el)
     if habit.isDoneTodo() then @$("#habits-todos-done").append(view.render().el)
     if habit.isRemainingTodo() then @$("#habits-todos-remaining").append(view.render().el)
+    if habit.isReward()
+      view = new HabitTracker.Views.Habits.RewardView({model : habit})
+      @$("#rewards").append(view.render().el)
     
   render: =>
     $(@el).html(@template(habits: @options.habits.toJSON() ))

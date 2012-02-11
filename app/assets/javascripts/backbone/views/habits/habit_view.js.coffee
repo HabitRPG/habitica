@@ -8,15 +8,15 @@ class HabitTracker.Views.Habits.HabitView extends Backbone.View
     "click .vote-up" : "voteUp"
     "click .vote-down" : "voteDown"
 
-  destroy: () ->
+  destroy: () =>
     @model.destroy()
     this.remove()
     return false
     
-  voteUp: ->
+  voteUp: =>
     @model.vote("up")
 
-  voteDown: ->
+  voteDown: =>
     @model.vote("down")
 
   tagName: "li"

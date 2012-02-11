@@ -11,17 +11,23 @@ class HabitTracker.Models.Habit extends Backbone.Model
     done: false
     position: 0
     
-  isHabit: ->
+  isHabit: =>
     @get("habit_type")==1
 
-  isDaily: ->
+  isDaily: =>
     @get("habit_type")==2
+    
+  isTodo: =>
+    @get('habit_type')==3
 
-  isDoneTodo: ->
-    @get("habit_type")==3 and @get("done")
+  isDoneTodo: =>
+    @isTodo() and @get("done")
 
-  isRemainingTodo: ->
-    @get("habit_type")==3 and !@get("done")
+  isRemainingTodo: =>
+    @isTodo() and !@get("done")
+    
+  isReward: =>
+    @get('habit_type')==4
     
   vote: (direction) ->
     # For negative values, use a line: something like y=-.1x+1
@@ -34,17 +40,19 @@ class HabitTracker.Models.Habit extends Backbone.Model
       delta = (( -0.1 * score + 1 ) * sign)
     else
       delta = (( Math.pow(0.9, score) ) * sign)
-      
-    score += delta
+    
+    score += delta unless @isReward  
     
     # up/down -voting as checkbox & assigning as done, 2 birds one stone
     done = @get("done")
     if !@isHabit()
       done = true if direction=="up"
       done = false if direction=="down"
-    
-    @save({ score: score, done: done })
+    @set({ score: score, done: done })
     window.userStats.updateStats(this, delta)
+    
+    #send all the update information, as well as tack on userStats which will save to Users
+    @save({ user_stats: window.userStats })
     
 class HabitTracker.Collections.HabitsCollection extends Backbone.Collection
   model: HabitTracker.Models.Habit

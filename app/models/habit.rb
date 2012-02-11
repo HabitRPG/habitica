@@ -2,6 +2,7 @@ class Habit < ActiveRecord::Base
   ALWAYS = 1
   DAILY = 2
   ONE_TIME = 3
+  REWARD = 4
   
   belongs_to :user
   default_scope :order => 'position ASC'

@@ -2,7 +2,6 @@ class HabitsController < ApplicationController
   
   before_filter :authenticate_user!
   
-  # GET /habits.json
   def index
     @user = current_user
     respond_to do |format|
@@ -11,81 +10,53 @@ class HabitsController < ApplicationController
     end
   end
   
-  # GET /habits/new
-  # GET /habits/new.json
   def new
-    @habit = Habit.new
-    @habit.position = (Habit.maximum('position') || 0) + 1
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @habit }
-    end
+    render :json => Habit.new
   end
 
-  # GET /habits/1/edit
   def edit
-    @habit = current_user.habits.find(params[:id])
+    render :json => current_user.habits.find(params[:id])
   end
 
-  # POST /habits
-  # POST /habits.json
   def create
     @habit = Habit.new(params[:habit])
+    @habit.position ||= (Habit.maximum('position') || 0) + 1
     @habit.user_id = current_user.id
 
     respond_to do |format|
       if @habit.save
-        format.html { redirect_to habits_url, notice: 'Habit was successfully created.' }
         format.json { render json: @habit, status: :created, location: @habit }
       else
-        format.html { render action: "new" }
         format.json { render json: @habit.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PUT /habits/1
-  # PUT /habits/1.json
   def update
     @habit = current_user.habits.find(params[:id])
+    test = params[:habit]
+    user_stats = params[:habit][:user_stats]
+    params[:habit].delete('user_stats')
+    @habit.user.lvl = user_stats['lvl']
+    @habit.user.exp = user_stats['exp']
+    @habit.user.money = user_stats['money']
+    @habit.user.save
 
     respond_to do |format|
       if @habit.update_attributes(params[:habit])
-        format.html { redirect_to habits_url, notice: 'Habit was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
         format.json { render json: @habit.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /habits/1
-  # DELETE /habits/1.json
   def destroy
     @habit = current_user.habits.find(params[:id])
     @habit.destroy
 
     respond_to do |format|
-      format.html { redirect_to habits_url }
       format.json { head :no_content }
-    end
-  end
-  
-  def vote
-    @habit = current_user.habits.find(params[:id])
-    
-    # habit.vote() saves money to the user, this hack prevents having to
-    # reload current_user to catch that change
-    @habit.user=current_user
-    
-    @habit.vote(params[:vote])
-        
-    respond_to do |format|
-      # format.html { render action: "edit" }
-      # format.json { render json: @habit.errors, status: :unprocessable_entity }
-      format.js
     end
   end
   
