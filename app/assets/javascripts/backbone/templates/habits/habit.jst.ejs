@@ -1,16 +1,16 @@
 <!-- Habits -->
 <% if (habit_type==1) { %>
-  <a href="#" class="vote-up">+</a>
-  <a href="#" class="vote-down">-</a>
+  <a href="#" class="vote-up"><img src="assets/add.png" /></a>
+  <a href="#" class="vote-down"><img src="assets/remove.png" /></a>
   <%= name %>
 <% } else { %>
   
   <!-- Daily & Todos -->
   <% if (done) { %>
-    <a href="#" class="vote-down">[X]</a>
+    <input class="vote-down" type="checkbox" checked="checked"/>
     <strike><%= name %></strike>
   <% } else { %>
-    <a href="#" class="vote-up">[ ]</a>
+    <input class="vote-up" type="checkbox"/>
     <%= name %>
   <% } %>
 <% } %>
