@@ -17,6 +17,8 @@ class HabitTracker.Views.Habits.IndexView extends Backbone.View
   createOnEnter: (e) ->
     input = $(e.target)
     if (!input.val() or e.keyCode != 13) then return
+    
+    # See commit bd7a49c new_view.js.coffee for more code surrounding this functionality
     @options.habits.create {name: input.val(), habit_type: input.attr('data-type'), position: @options.habits.nextPosition()},
       #TODO what's this all about?
       success: (habit) ->
