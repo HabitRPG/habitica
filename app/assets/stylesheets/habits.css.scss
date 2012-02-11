@@ -40,10 +40,18 @@
   text-decoration:none;
 }
 
-.edit { float:right; }
-
 #progressbar { margin-top: 20px; }
 
 #tnl { float:right; margin:5px; }
 
 #money { float:right; }
+
+.habit-meta { float:right; }
+
+.habit-meta .edit-link {
+  display: none;
+}
+
+li:hover .habit-meta .edit-link {
+  display: inline;
+}
