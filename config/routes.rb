@@ -8,12 +8,6 @@ HabitTracker::Application.routes.draw do
     end
   end
 
-  resources :rewards do
-    member do
-      get 'buy'
-    end
-  end
-
   devise_for :users
 
   # The priority is based upon order of creation:

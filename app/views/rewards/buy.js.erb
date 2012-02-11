@@ -1,5 +1,0 @@
-<% if @too_expensive %>
-  $('#money').effect("pulsate", 100);
-<% else %>
-  $('#money').replaceWith("<%= escape_javascript(render 'shared/money') %>");
-<% end %>
