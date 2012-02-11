@@ -2,18 +2,17 @@
 <% if (habit_type==1) { %>
   <a href="#" class="vote-up"><img src="assets/add.png" /></a>
   <a href="#" class="vote-down"><img src="assets/remove.png" /></a>
-  <%= name %>
 <% } else { %>
   
   <!-- Daily & Todos -->
   <% if (done) { %>
     <input class="vote-down" type="checkbox" checked="checked"/>
-    <strike><%= name %></strike>
   <% } else { %>
     <input class="vote-up" type="checkbox"/>
-    <%= name %>
   <% } %>
 <% } %>
+
+<%= name %>
 <div class='edit'>
   <% if (notes) { %>
     <!-- TODO how to make this assets-aware? image_tag('comment.png', :class=>'comment') -->
