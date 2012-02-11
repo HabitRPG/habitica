@@ -34,13 +34,8 @@ class HabitsController < ApplicationController
 
   def update
     @habit = current_user.habits.find(params[:id])
-    test = params[:habit]
-    user_stats = params[:habit][:user_stats]
-    params[:habit].delete('user_stats')
-    @habit.user.lvl = user_stats['lvl']
-    @habit.user.exp = user_stats['exp']
-    @habit.user.money = user_stats['money']
-    @habit.user.save
+    user_stats = params[:habit].delete('user_stats')
+    @habit.user.update_attributes({:lvl => user_stats['lvl'], :exp => user_stats['exp'], :money => user_stats['money']})
 
     respond_to do |format|
       if @habit.update_attributes(params[:habit])
