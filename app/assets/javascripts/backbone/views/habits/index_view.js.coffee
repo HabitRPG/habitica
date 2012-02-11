@@ -5,8 +5,8 @@ class HabitTracker.Views.Habits.IndexView extends Backbone.View
   
   events: 
     "keypress .new-habit":  "createOnEnter",
-    "keyup .new-habit":     "showTooltip",
-    "click .todo-clear a": "clearCompleted"
+    # "keyup .new-habit":     "showTooltip", #TODO get this function todo.js
+    "click .clear-completed": "clearCompleted"
 
   initialize: () ->
     @options.habits.bind('reset', @addAll)
@@ -17,29 +17,19 @@ class HabitTracker.Views.Habits.IndexView extends Backbone.View
   createOnEnter: (e) ->
     input = $(e.target)
     if (!input.val() or e.keyCode != 13) then return
-    @options.habits.create {name: input.val(), habit_type: input.attr('data-type')} #,
-    #TODO
-      # success: (habit) =>
-        # @model = habit
-      # error: (habit, jqXHR) =>
-        # @model.set({errors: $.parseJSON(jqXHR.responseText)}
+    @options.habits.create {name: input.val(), habit_type: input.attr('data-type'), position: @options.habits.nextPosition()},
+      #TODO what's this all about?
+      success: (habit) ->
+        @model = habit
+      error: (habit, jqXHR) ->
+        @model.set({errors: $.parseJSON(jqXHR.responseText)})
     input.val('')
     
-    #TODO
   clearCompleted: ->
-    # _.each(Todos.done(), function(todo){ todo.destroy(); });
-    # return false;
+    _.each @options.habits.doneTodos(), (todo) ->
+      todo.destroy()
+    return false
 
-    #TODO    
-  showTooltip: (e) -> 
-    # var tooltip = this.$(".ui-tooltip-top");
-    # var val = this.input.val();
-    # tooltip.fadeOut();
-    # if (this.tooltipTimeout) clearTimeout(this.tooltipTimeout);
-    # if (val == '' || val == this.input.attr('placeholder')) return;
-    # var show = function(){ tooltip.show().fadeIn(); };
-    # this.tooltipTimeout = _.delay(show, 1000);
-  
   # TODO create a view & template, bind to existing element
   updateStats: () =>
     stats = window.userStats
