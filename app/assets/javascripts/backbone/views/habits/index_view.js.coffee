@@ -19,7 +19,13 @@ class HabitTracker.Views.Habits.IndexView extends Backbone.View
     if (!input.val() or e.keyCode != 13) then return
     
     # See commit bd7a49c new_view.js.coffee for more code surrounding this functionality
-    @options.habits.create {name: input.val(), habit_type: input.attr('data-type'), position: @options.habits.nextPosition()},
+    new_habit =
+      name: input.val()
+      habit_type: input.attr('data-type') 
+      position: @options.habits.nextPosition()
+      # score: ( (input.attr('data-type')=='4') ? 0.0 : 0.0 ) #TODO not working
+      
+    @options.habits.create new_habit,
       #TODO what's this all about?
       success: (habit) ->
         @model = habit
@@ -51,9 +57,7 @@ class HabitTracker.Views.Habits.IndexView extends Backbone.View
     if habit.isDaily() then @$("#habits-daily").append(view.render().el)
     if habit.isDoneTodo() then @$("#habits-todos-done").append(view.render().el)
     if habit.isRemainingTodo() then @$("#habits-todos-remaining").append(view.render().el)
-    if habit.isReward()
-      view = new HabitTracker.Views.Habits.RewardView({model : habit})
-      @$("#rewards").append(view.render().el)
+    if habit.isReward() then @$("#rewards").append(view.render().el)
     
   render: =>
     $(@el).html(@template(habits: @options.habits.toJSON() ))

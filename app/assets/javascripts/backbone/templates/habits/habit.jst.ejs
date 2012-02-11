@@ -2,14 +2,18 @@
 <% if (habit_type==1) { %>
   <a href="#" class="vote-up"><img src="assets/add.png" /></a>
   <a href="#" class="vote-down"><img src="assets/remove.png" /></a>
-<% } else { %>
   
-  <!-- Daily & Todos -->
+<!-- Rewards -->
+<% } else if (habit_type==4) { %>
+  <a class="buy-link" href=#><img src="assets/dollar.png" /></a>
+
+<!-- Daily & Todos -->
+<% } else { %>  
   <input type="checkbox" <%= done ? "class='vote-down' checked='checked'" : "class='vote-up'" %>/>
   
 <% } %>
 
-<span class="habit-text"><%= name %></span>
+<span class="habit-text"><%= name %><%= habit_type==4 ? "($"+score+")" : '' %></span>
 
 <div class='habit-meta'>
   <a class="edit-link" href="#/<%= id %>/edit">Edit</a>

@@ -17,12 +17,16 @@ class HabitTracker.Views.Habits.HabitView extends Backbone.View
     @model.vote("up")
 
   voteDown: =>
-    @model.vote("down")
+    if @model.isReward and (@model.get('score') > window.userStats.get('money'))
+      $('#money').effect("pulsate", 100);      
+    else
+      @model.vote("down")
 
   tagName: "li"
   
   # why is @model not available in this function? having to pass it in like this
   dynamicClass: () =>
+    if @model.isReward() then return "reward"
     output = "habit habit-type-#{@model.get('habit_type')}"
     if @model.get("done") then output += " done"
     score = @model.get("score")
