@@ -2,27 +2,27 @@
 
 <form id="edit-habit" name="habit">
   <div class="field">
-    <label for="name"> name:</label>
-    <input type="text" name="name" id="name" value="<%= name %>" >
+    <label for="name">Name:</label>
+    <%= EJS.Helpers.prototype.text_field_tag("name", name) %>
   </div>
 
   <div class="field">
-    <label for="habit_type"> habit_type:</label>
-    <input type="text" name="habit_type" id="habit_type" value="<%= habit_type %>" >
+    <label for="habit_type">Type:</label>
+    <%= EJS.Helpers.prototype.select_tag('habit_type', habit_type, [{value: 1, text: 'Habit' }, {value: 2, text: 'Daily'}, {value: 3, text: 'Todo'}, {value: 4, text: 'Reward'}]) %>
   </div>
 
   <div class="field">
-    <label for="notes"> notes:</label>
-    <input type="text" name="notes" id="notes" value="<%= notes %>" >
+    <label for="notes">Notes:</label>
+    <%= EJS.Helpers.prototype.text_area_tag('notes', notes) %>
   </div>
 
   <div class="field">
-    <label for="up"> up:</label>
+    <label for="up">Vote Up:</label>
     <input type="text" name="up" id="up" value="<%= up %>" >
   </div>
 
   <div class="field">
-    <label for="down"> down:</label>
+    <label for="down">Vote Down:</label>
     <input type="text" name="down" id="down" value="<%= down %>" >
   </div>
 
