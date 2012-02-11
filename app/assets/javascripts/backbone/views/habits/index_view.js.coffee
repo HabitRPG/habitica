@@ -6,6 +6,14 @@ class HabitTracker.Views.Habits.IndexView extends Backbone.View
   initialize: () ->
     @options.habits.bind('reset', @addAll)
     @options.habits.bind('change', @render, this) #TODO this ruins tabs, revisit
+    window.userStats.bind('updatedStats', @updateStats, this)
+  
+  updateStats: () =>
+    # TODO create a view & template, bind to existing element
+    stats = window.userStats
+    #.to_i.to_s
+    $('#tnl').html( "(Level #{stats.get('lvl')})&nbsp;&nbsp;&nbsp;#{Math.round(stats.get('exp'))} / #{stats.tnl()}" )
+    $( "#progressbar" ).progressbar value: stats.get('exp')/stats.tnl() * 100
 
   addAll: () =>
     @options.habits.each(@addOne)

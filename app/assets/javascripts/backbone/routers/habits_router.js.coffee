@@ -2,6 +2,7 @@ class HabitTracker.Routers.HabitsRouter extends Backbone.Router
   initialize: (options) ->
     @habits = new HabitTracker.Collections.HabitsCollection()
     @habits.reset options.habits
+    window.userStats = new HabitTracker.Models.User(options.user)
 
   routes:
     "/new"      : "newHabit"

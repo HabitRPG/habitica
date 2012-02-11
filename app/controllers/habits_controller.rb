@@ -4,26 +4,13 @@ class HabitsController < ApplicationController
   
   # GET /habits.json
   def index
-    # TODO @rewards = current_user.rewards 
-    @habits = current_user.habits
+    @user = current_user
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @habits }
+      format.json { render json: @user }
     end
   end
   
-  # GET /habits/completed
-  # GET /habits/completed.json
-  def completed
-    @one_time = current_user.habits.where(:habit_type => Habit::ONE_TIME).where(:done=>true)
-
-    respond_to do |format|
-      format.html # completed.html.erb
-      format.json { render json: @one_time }
-    end
-  end
-
-
   # GET /habits/new
   # GET /habits/new.json
   def new

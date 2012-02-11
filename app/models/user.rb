@@ -25,4 +25,8 @@ class User < ActiveRecord::Base
     # http://tibia.wikia.com/wiki/Formula
     50*self.lvl**2 - 150*self.lvl + 200
   end
+  
+  def as_json(options={})
+    super(:only => [:email, :lvl, :exp] )
+  end
 end
