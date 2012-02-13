@@ -1,7 +1,7 @@
 <!-- Habits -->
 <% if (habit_type==1) { %>
-  <a href="#" class="vote-up"><img src="assets/add.png" /></a>
-  <a href="#" class="vote-down"><img src="assets/remove.png" /></a>
+  <% if (up) { %> <a href="#" class="vote-up"><img src="assets/add.png" /></a> <% } %>
+  <% if (down) { %> <a href="#" class="vote-down"><img src="assets/remove.png" /></a> <% } %>
   
 <!-- Rewards -->
 <% } else if (habit_type==4) { %>
