@@ -5,7 +5,7 @@ HabitTracker::Application.configure do
   # config.assets.enabled = false
 
   # Needed for devise
-  config.action_mailer.default_url_options = { :host => 'habits.ocdevel.com' }
+  config.action_mailer.default_url_options = { :host => 'habit-tracker.herokuapp.com' }
 
   # Code is not reloaded between requests
   config.cache_classes = true
