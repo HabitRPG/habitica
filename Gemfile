@@ -36,7 +36,6 @@ gem 'jquery-rails'
 
 gem 'devise', '>= 2.0'
 gem 'whenever'
-gem "acts_as_list"
 gem 'web-app-theme', :git => 'https://github.com/pilu/web-app-theme.git'
 gem 'rails-backbone'
 gem 'heroku'
