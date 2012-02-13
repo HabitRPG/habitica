@@ -65,18 +65,17 @@ class HabitTracker.Views.Habits.IndexView extends Backbone.View
     @addAll()
     @$("#habits-todos").tabs()
     @updateStats()
-    $.each ['#habits', '#daily', '#one-offs'], (index, list_id) -> 
-      $(list_id).sortable
-        axis: "y"
-        dropOnEmpty: false
-        cursor: "move"
-        items: "li"
-        opacity: 0.4
-        scroll: true
-        update: ->
-          $.ajax
-            type: "post"
-            url: "/habits/sort"
-            data: $(list_id).sortable("serialize")
-            dataType: "script"
+    @$(".sortable").sortable
+      axis: "y"
+      dropOnEmpty: false
+      cursor: "move"
+      items: "li"
+      opacity: 0.4
+      scroll: true
+      update: ->
+        $.ajax
+          type: "post"
+          url: "/habits/sort"
+          data: $(this).sortable("serialize")
+          dataType: "script"
     return this
