@@ -5,9 +5,6 @@ gem 'rails', '3.2.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
-
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -39,8 +36,15 @@ gem 'jquery-rails'
 
 gem 'devise', '>= 2.0'
 gem 'whenever'
-gem 'mysql2'
-gem 'therubyracer'
 gem "acts_as_list"
 gem 'web-app-theme', :git => 'https://github.com/pilu/web-app-theme.git'
 gem 'rails-backbone'
+gem 'heroku'
+
+group :development, :test do
+  gem 'mysql2'
+end
+group :production do
+  gem 'pg'
+  gem 'thin'
+end
