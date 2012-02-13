@@ -65,7 +65,7 @@ class HabitTracker.Views.Habits.IndexView extends Backbone.View
     @addAll()
     @$("#habits-todos").tabs()
     @updateStats()
-    @$(".sortable").sortable
+    $("#habits").sortable
       axis: "y"
       dropOnEmpty: false
       cursor: "move"
