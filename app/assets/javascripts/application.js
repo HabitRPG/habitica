@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require_tree ../../../vendor/assets/javascripts/.
 //= require underscore
 //= require backbone
 //= require backbone_rails_sync
