@@ -6,7 +6,7 @@ class HabitsController < ApplicationController
     @user = current_user
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @user }
+      format.json { render json: { habits: @user.habits, user: @user } }
     end
   end
   
