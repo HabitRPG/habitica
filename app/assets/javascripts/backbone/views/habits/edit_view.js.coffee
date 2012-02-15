@@ -18,11 +18,12 @@ class HabitTracker.Views.Habits.EditView extends Backbone.View
     )
   
   destroy: () ->
-    @model.destroy()
-    this.remove()
-    window.location.hash = "#"
-
-    return false
+    answer = confirm("Are you sure you want to delete this task?")
+    if (answer)
+      @model.destroy()
+      this.remove()
+      window.location.hash = "#"
+      return false
 
   render : ->
     $(@el).html(@template(@model.toJSON() ))
