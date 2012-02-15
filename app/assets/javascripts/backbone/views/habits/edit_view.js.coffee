@@ -5,6 +5,7 @@ class HabitTracker.Views.Habits.EditView extends Backbone.View
 
   events :
     "submit #edit-habit" : "update"
+    "click .destroy" : "destroy"
 
   update : (e) ->
     e.preventDefault()
@@ -13,8 +14,15 @@ class HabitTracker.Views.Habits.EditView extends Backbone.View
     @model.save(null,
       success : (habit) =>
         @model = habit
-        window.location.hash = "#/index"
+        window.location.hash = "#"
     )
+  
+  destroy: () ->
+    @model.destroy()
+    this.remove()
+    window.location.hash = "#"
+
+    return false
 
   render : ->
     $(@el).html(@template(@model.toJSON() ))
