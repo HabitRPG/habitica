@@ -2,7 +2,6 @@ HabitTracker::Application.routes.draw do
 
   resources :habits do
     post :sort, on: :collection
-    get :completed, on: :collection
     member do
       get 'vote'
     end
