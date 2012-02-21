@@ -23,7 +23,7 @@ class Habit < ActiveRecord::Base
         end
         h.score += value
       end
-      h.done = false
+      h.done = false if (h.habit_type==2)
       h.save
     end
   end
