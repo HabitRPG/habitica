@@ -17,9 +17,9 @@
 
       <div id="user-navigation">
         <ul class="wat-cf">
-          <li><a href="#"><%= t("web-app-theme.profile", :default => "Profile") %></a></li>
-          <li><a href="#"><%= t("web-app-theme.settings", :default => "Settings") %></a></li>
-          <li><a href="/logout" class="logout"><%= t("web-app-theme.logout", :default => "Logout") %></a></li>
+          <!--<li><a href="#"><%= t("web-app-theme.profile", :default => "Profile") %></a></li>
+          <li><a href="#"><%= t("web-app-theme.settings", :default => "Settings") %></a></li>-->
+          <li><%= link_to t("web-app-theme.logout", :default => "Logout"), destroy_user_session_path, :method => :delete, :class=>'logout' %></li>
         </ul>
       </div>
       <div id="main-navigation">
