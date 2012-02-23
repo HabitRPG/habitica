@@ -16,11 +16,6 @@
       <% end %>
 
       <div id="user-navigation">
-        <ul class="wat-cf">
-          <!--<li><a href="#"><%= t("web-app-theme.profile", :default => "Profile") %></a></li>
-          <li><a href="#"><%= t("web-app-theme.settings", :default => "Settings") %></a></li>-->
-          <li><%= link_to t("web-app-theme.logout", :default => "Logout"), destroy_user_session_path, :method => :delete, :class=>'logout' %></li>
-        </ul>
       </div>
       <div id="main-navigation">
         <ul class="wat-cf"></ul>
@@ -40,7 +35,7 @@
         <%= yield %>
         <div id="footer">
           <div class="block">
-            <p>Copyright &copy; <%= Time.now.year %> OCDevel.</p>
+            <p>Copyright &copy; <%= Time.now.year %> OCDevel | <%= link_to "Logout", destroy_user_session_path, :method => :delete %></p>
           </div>
         </div>
       </div>
