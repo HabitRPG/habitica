@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
   before_save :calculate_experience
   
   def calculate_experience
+    
+    self.money = 0 if self.money < 0
+    
     self.exp = 0 if self.exp < 0
     if (self.exp > self.tnl)
       self.exp -= self.tnl # carry over

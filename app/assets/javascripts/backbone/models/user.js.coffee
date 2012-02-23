@@ -14,9 +14,15 @@ class HabitTracker.Models.User extends Backbone.Model
       @set({ exp: @get('exp') - @tnl() })
       @set({ lvl: @get('lvl') + 1 })
     
-    # also add money. Only take away money if it was a mistake (aka, a checkbox) 
-    if delta>0 or (habit.isDaily() or habit.isTodo()) 
-      @set({money: @get('money')+delta})
+    # @deprecated also add money. Only take away money if it was a mistake (aka, a checkbox) 
+    # if delta>0 or (habit.isDaily() or habit.isTodo()) 
+      # @set({money: @get('money')+delta})
+      
+    # apply same logic to money
+    @set({money: @get('money')+delta})
+    if @get('money') < 0 then @set({money: 0})
+      
+      
     # if buying an item, deduct cost
     if habit.isReward()
       @set({money: @get('money')-habit.get('score')})

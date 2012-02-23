@@ -19,6 +19,7 @@ class Habit < ActiveRecord::Base
         # but not for Todos (just increase todo's value)
         if(h.habit_type==2)
           h.user.exp += value
+          h.user.money += value
           h.user.save
         end
         h.score += value
