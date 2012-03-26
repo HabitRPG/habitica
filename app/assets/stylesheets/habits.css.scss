@@ -10,9 +10,11 @@
 .color-light-blue { background-color: rgb(208, 224, 227); }
 .color-blue { background-color: rgb(201, 218, 248); }
 .done { background-color: rgb(217, 217, 217); color: rgb(153, 153, 153); }
+.reward { background-color: white; }
 
 .panel {
-  vertical-align:top;
+  float:left;
+  margin:10px;
   min-width: 300px;
 }
 
@@ -54,4 +56,8 @@
 
 li:hover .habit-meta .edit-link {
   display: inline;
+}
+
+#footer {
+  clear:both;
 }
