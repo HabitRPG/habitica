@@ -36,8 +36,8 @@ gem 'jquery-rails'
 
 gem 'devise', '>= 2.0'
 gem 'whenever'
-gem 'web-app-theme', :git => 'https://github.com/pilu/web-app-theme.git'
 gem 'rails-backbone'
+gem 'rails-boilerplate'
 gem 'heroku'
 
 group :development, :test do
