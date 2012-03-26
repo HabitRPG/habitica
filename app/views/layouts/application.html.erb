@@ -14,33 +14,20 @@
           <span id="tnl"></span>
         </div>
       <% end %>
-
-      <div id="user-navigation">
-      </div>
-      <div id="main-navigation">
-        <ul class="wat-cf"></ul>
-      </div>
     </div>-->
-    <div id="wrapper" class="wat-cf">
+    <div id="wrapper">
       <div class="flash">
         <% flash.each do |type, message| -%>
           <div class="message <%= type %>">
             <p><%= message %></p>
-            <p class="notice"><%= notice %></p>
-  			<p class="alert"><%= alert %></p>
           </div>
         <% end -%>
       </div>
       <div id="main">
         <%= yield %>
         <div id="footer">
-          <div class="block">
-            <p>Copyright &copy; <%= Time.now.year %> OCDevel | <%= link_to "Logout", destroy_user_session_path, :method => :delete %></p>
-          </div>
+          <p>Copyright &copy; <%= Time.now.year %> OCDevel | <%= link_to "Logout", destroy_user_session_path, :method => :delete %></p>
         </div>
-      </div>
-      <div id="sidebar">
-        <%= yield :sidebar %>
       </div>
     </div>
   </div>
