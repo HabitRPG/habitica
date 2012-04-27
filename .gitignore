@@ -1,4 +1,5 @@
 .DS_Store
 public/gen
 node_modules
+lib/
 *.swp

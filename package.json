@@ -8,5 +8,8 @@
     "express": "3.x",
     "gzippo": ">=0.1.4"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "coffee-script": ">=1.2"
+  }
 }
