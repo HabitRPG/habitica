@@ -48,4 +48,8 @@ expressApp.all '*', (req) ->
 
 ## STORE SETUP ##
 
-store = app.createStore listen: server
+derby.use(require 'racer-db-mongo')
+
+app.createStore
+  listen: server
+  db: {type: 'Mongo', uri: 'mongodb://localhost/habitrpg'}
