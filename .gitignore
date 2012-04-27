@@ -1,0 +1,4 @@
+.DS_Store
+public/gen
+node_modules
+*.swp

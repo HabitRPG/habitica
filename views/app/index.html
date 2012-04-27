@@ -1,0 +1,57 @@
+<!--
+  Derby templates are similar to Handlebars, except that they are first
+  parsed as HTML, and there are a few extensions to make them work directly
+  with models. A single HTML template defines the HTML output, the event
+  handlers that update the model after user interaction, and the event handlers
+  that update the DOM when the model changes.
+
+  As in Handlebars, double curly braces output a value literally. Derby
+  templates add single curly braces, which output a value and set up
+  model <- -> view bindings for that object.
+
+  Elements that end in colon define template names. Pre-defined templates
+  are capitalized by convention, but template names are case-insensitive.
+  Pre-defined templates are automatically included when the page is rendered.
+-->
+
+<Title:>
+  {{roomName}} - {_room.visits} visits
+
+<Header:>
+  <!-- Other templates are referenced like custom HTML elements -->
+  <app:alert>
+
+<Body:>
+  <h1>{_room.welcome}</h1>
+  <p><label>Welcome message: <input value="{_room.welcome}"></label></p>
+
+  <p>This page has been visted {_room.visits} times. <app:timer></p>
+
+  <p>Let's go <a href="/{{randomUrl}}">somewhere random</a>.</p>
+
+<timer:>
+  {#if _stopped}
+    <a x-bind="click:start">Start timer</a>
+  {else}
+    You have been here for {_timer} seconds. <a x-bind="click:stop">Stop</a>
+  {/}
+
+<!--
+  connected and canConnect are built-in properties of model. If a variable
+  is not defined in the current context, it will be looked up in the model
+  data and the model properties
+-->
+<alert:>
+  <div id="alert">
+    {#unless connected}
+      <p>
+        {#if canConnect}
+          <!-- Leading space is removed, and trailing space is maintained -->
+          Offline 
+          {#if _showReconnect}&ndash; <a x-bind="click:connect">Reconnect</a>{/}
+        {else}
+          Unable to reconnect &ndash; <a x-bind="click:reload">Reload</a>
+        {/}
+      </p>
+    {/}
+  </div>
