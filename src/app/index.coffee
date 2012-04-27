@@ -2,65 +2,139 @@
 
 ## ROUTES ##
 
-start = +new Date()
+get '/', (page) ->
+  page.redirect '/derby'
 
-# Derby routes can be rendered on the client and the server
-get '/:roomName?', (page, model, {roomName}) ->
-  roomName ||= 'home'
+get '/:groupName', (page, model, {groupName}) ->
+  groupTodosQuery = model.query('todos').where('group').equals(groupName)
+  model.subscribe "groups.#{groupName}", groupTodosQuery, (err, group) ->
+    model.ref '_group', group
+    todoIds = group.at 'todoIds'
+    group.setNull 'id', groupName
 
-  # Subscribes the model to any updates on this room's object. Calls back
-  # with a scoped model equivalent to:
-  #   room = model.at "rooms.#{roomName}"
-  model.subscribe "rooms.#{roomName}", (err, room) ->
-    model.ref '_room', room
+    # The refList supports array methods, but it stores the todo values
+    # on an object by id. The todos are stored on the object 'todos',
+    # and their order is stored in an array of ids at '_group.todoIds'
+    model.refList '_todoList', 'todos', todoIds
 
-    # setNull will set a value if the object is currently null or undefined
-    room.setNull 'welcome', "Welcome to #{roomName}!"
+    # Add some default todos if this is a new group. Items inserted into
+    # a refList will automatically get an 'id' property if not specified
+    unless todoIds.get()
+      model.push '_todoList',
+        {group: groupName, text: 'Example todo'},
+        {group: groupName, text: 'Another example'},
+        {group: groupName, text: 'This one is done already', completed: true}
 
-    room.incr 'visits'
+    # Create a reactive function that automatically keeps '_remaining'
+    # updated with the number of remaining todos
+    model.fn '_remaining', '_todoList', (list) ->
+      remaining = 0
+      for todo in list
+        remaining++ unless todo?.completed
+      return remaining
 
-    # This value is set for when the page initially renders
-    model.set '_timer', '0.0'
-    # Reset the counter when visiting a new route client-side
-    start = +new Date()
+    page.render()
 
-    # Render will use the model data as well as an optional context object
-    page.render
-      roomName: roomName
-      randomUrl: parseInt(Math.random() * 1e9).toString(36)
-
+# TODO Implement this commented out API
+#get '/:groupName', (page, model, {groupName, query}) ->
+#  model.subscribe "groups.#{groupName}", (group) ->
+#    model.ref '_group', group
+##    group.setNull 'id', groupName
+#    todoIds = group.at 'todoIds'
+#    model.subscribe query('todos').where('id').within(todoIds), ->
+#      # The refList supports array methods, but it stores the todo values
+#      # on an object by id. The todos are stored on the object 'todos',
+#      # and their order is stored in an array of ids at '_group.todoIds'
+#      todoList = model.refList '_todoList', 'todos', todoIds
+#      unless todoIds.get()
+#        todoList.push
+#          {text: 'Example todo', tags: ['wknd']},
+#          {text: 'Another example', tags: ['wknd', 'work']},
+#          {text: 'This one is done already', tags: ['work'], completed: true}
+#
+#      # Create a reactive function that automatically keeps '_remaining'
+#      # updated with the number of remaining todos
+#      model.fn '_remaining', '_todoList', (list) ->
+#        remaining = 0
+#        for todo in list
+#          remaining++ unless todo.completed
+#        return remaining
+#
+#      if tags = query.tags?.split ','
+#        # TODO Hide / show tag classes
+#      else
+#        # TODO Hide / show tag classes
+#
+#      page.render()
 
 ## CONTROLLER FUNCTIONS ##
 
 ready (model) ->
-  timer = null
 
-  # Expose the model as a global variable in the browser. This is fun in
-  # development, but it should be removed when writing an app
-  window.model = model
+  list = model.at '_todoList'
 
-  # Exported functions are exposed as a global in the browser with the same
-  # name as the module that includes Derby. They can also be bound to DOM
-  # events using the "x-bind" attribute in a template.
-  exports.stop = ->
-
-    # Any path name that starts with an underscore is private to the current
-    # client. Nothing set under a private path is synced back to the server.
-    model.set '_stopped', true
-    clearInterval timer
-
-  do exports.start = ->
-    model.set '_stopped', false
-    timer = setInterval ->
-      model.set '_timer', (((+new Date()) - start) / 1000).toFixed(1)
-    , 100
+  # Make the list draggable using jQuery UI
+  ul = $('#todos')
+  ul.sortable
+    handle: '.handle'
+    axis: 'y'
+    containment: '#dragbox'
+    update: (e, ui) ->
+      item = ui.item[0]
+      domId = item.id
+      id = item.getAttribute 'data-id'
+      to = ul.children().index(item)
+      # Use the Derby ignore option to suppress the normal move event
+      # binding, since jQuery UI will move the element in the DOM.
+      # Also, note that refList index arguments can either be an index
+      # or the item's id property
+      list.pass(ignore: domId).move {id}, to
 
 
-  model.set '_showReconnect', true
+  list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
+    # Move the item to the bottom if it was checked off
+    list.move i, -1  if completed && isLocal
+
+  newTodo = model.at '_newTodo'
+  exports.add = ->
+    # Don't add a blank todo
+    return unless text = view.escapeHtml newTodo.get()
+    newTodo.set ''
+    # Insert the new todo before the first completed item in the list
+    # or append to the end if none are completed
+    for todo, i in list.get()
+      break if todo.completed
+    list.insert i, {text, group: model.get '_group.id'}
+
+  exports.del = (e) ->
+    # Derby extends model.at to support creation from DOM nodes
+    model.at(e.target).remove()
+
+
+  showReconnect = model.at '_showReconnect'
+  showReconnect.set true
   exports.connect = ->
-    # Hide the reconnect link for a second after clicking it
-    model.set '_showReconnect', false
-    setTimeout (-> model.set '_showReconnect', true), 1000
+    showReconnect.set false
+    setTimeout (-> showReconnect.set true), 1000
     model.socket.socket.connect()
 
   exports.reload = -> window.location.reload()
+
+  exports.shortcuts = (e) ->
+    return unless e.metaKey || e.ctrlKey
+    code = e.which
+    return unless command = (switch code
+      when 66 then 'bold'           # Bold: Ctrl/Cmd + B
+      when 73 then 'italic'         # Italic: Ctrl/Cmd + I
+      when 32 then 'removeFormat'   # Clear formatting: Ctrl/Cmd + Space
+      when 220 then 'removeFormat'  # Clear formatting: Ctrl/Cmd + \
+      else null
+    )
+    document.execCommand command, false, null
+    e.preventDefault() if e.preventDefault
+    return false
+
+  # Tell Firefox to use elements for styles instead of CSS
+  # See: https://developer.mozilla.org/en/Rich-Text_Editing_in_Mozilla
+  document.execCommand 'useCSS', false, true
+  document.execCommand 'styleWithCSS', false, false
