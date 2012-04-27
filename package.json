@@ -6,7 +6,8 @@
   "dependencies": {
     "derby": "*",
     "express": "3.x",
-    "gzippo": ">=0.1.4"
+    "gzippo": ">=0.1.4",
+    "racer-db-mongo": "*"
   },
   "private": true,
   "devDependencies": {
