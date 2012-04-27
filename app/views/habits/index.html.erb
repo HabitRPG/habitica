@@ -1,9 +1,0 @@
-<div id="habits"></div>
-
-<script type="text/javascript">
-  $(function() {
-    // HabitTracker is the app name
-    window.router = new HabitTracker.Routers.HabitsRouter({ habits: <%= @user.habits.to_json.html_safe -%>, user: <%= @user.to_json.html_safe -%> });
-    Backbone.history.start();
-  });
-</script>
