@@ -23,12 +23,12 @@ get '/', (page, model) ->
 getRoom = (page, model, userId) ->
   model.subscribe "users.#{userId}", (err, user) ->
     model.ref '_user', user
-    todoIds = model.at '_user.todos.todoIds'
+    todoIds = user.at 'todoIds'
     
     # The refList supports array methods, but it stores the todo values
     # on an object by id. The todos are stored on the object 'todos',
     # and their order is stored in an array of ids at '_group.todoIds'
-    model.refList '_todoList', "_user.todos", todoIds
+    model.refList '_todoList', '_user.todos', '_user.todoIds'
 
     # Add some default todos if this is a new group. Items inserted into
     # a refList will automatically get an 'id' property if not specified
