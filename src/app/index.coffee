@@ -2,28 +2,41 @@
 
 ## ROUTES ##
 
-get '/', (page) ->
-  page.redirect '/derby'
+# get '/:groupName', (page, model, {groupName}) ->
+get '/', (page, model) ->
+  
+ # Render page if a userId is already stored in session data
+  if userId = model.get '_session.userId'
+    return getRoom page, model, userId
 
-get '/:groupName', (page, model, {groupName}) ->
-  groupTodosQuery = model.query('todos').where('group').equals(groupName)
-  model.subscribe "groups.#{groupName}", groupTodosQuery, (err, group) ->
-    model.ref '_group', group
-    todoIds = group.at 'todoIds'
-    group.setNull 'id', groupName
+  # Otherwise, select a new userId and initialize user
+  model.async.incr 'configs.1.nextUserId', (err, userId) ->
+    model.set '_session.userId', userId
+    model.set "users.#{userId}",
+      name: 'User ' + userId
+      money: 0
+      exp: 0
+      lvl: 1
+      todos: []
+    getRoom page, model, userId
 
+getRoom = (page, model, userId) ->
+  model.subscribe "users.#{userId}", (err, user) ->
+    model.ref '_user', user
+    todoIds = model.at '_user.todos.todoIds'
+    
     # The refList supports array methods, but it stores the todo values
     # on an object by id. The todos are stored on the object 'todos',
     # and their order is stored in an array of ids at '_group.todoIds'
-    model.refList '_todoList', 'todos', todoIds
+    model.refList '_todoList', "_user.todos", todoIds
 
     # Add some default todos if this is a new group. Items inserted into
     # a refList will automatically get an 'id' property if not specified
     unless todoIds.get()
       model.push '_todoList',
-        {group: groupName, text: 'Example todo'},
-        {group: groupName, text: 'Another example'},
-        {group: groupName, text: 'This one is done already', completed: true}
+        {text: 'Example todo'},
+        {text: 'Another example'},
+        {text: 'This one is done already', completed: true}
 
     # Create a reactive function that automatically keeps '_remaining'
     # updated with the number of remaining todos
@@ -35,37 +48,6 @@ get '/:groupName', (page, model, {groupName}) ->
 
     page.render()
 
-# TODO Implement this commented out API
-#get '/:groupName', (page, model, {groupName, query}) ->
-#  model.subscribe "groups.#{groupName}", (group) ->
-#    model.ref '_group', group
-##    group.setNull 'id', groupName
-#    todoIds = group.at 'todoIds'
-#    model.subscribe query('todos').where('id').within(todoIds), ->
-#      # The refList supports array methods, but it stores the todo values
-#      # on an object by id. The todos are stored on the object 'todos',
-#      # and their order is stored in an array of ids at '_group.todoIds'
-#      todoList = model.refList '_todoList', 'todos', todoIds
-#      unless todoIds.get()
-#        todoList.push
-#          {text: 'Example todo', tags: ['wknd']},
-#          {text: 'Another example', tags: ['wknd', 'work']},
-#          {text: 'This one is done already', tags: ['work'], completed: true}
-#
-#      # Create a reactive function that automatically keeps '_remaining'
-#      # updated with the number of remaining todos
-#      model.fn '_remaining', '_todoList', (list) ->
-#        remaining = 0
-#        for todo in list
-#          remaining++ unless todo.completed
-#        return remaining
-#
-#      if tags = query.tags?.split ','
-#        # TODO Hide / show tag classes
-#      else
-#        # TODO Hide / show tag classes
-#
-#      page.render()
 
 ## CONTROLLER FUNCTIONS ##
 
@@ -104,7 +86,7 @@ ready (model) ->
     # or append to the end if none are completed
     for todo, i in list.get()
       break if todo.completed
-    list.insert i, {text, group: model.get '_group.id'}
+    list.insert i, {text}
 
   exports.del = (e) ->
     # Derby extends model.at to support creation from DOM nodes
