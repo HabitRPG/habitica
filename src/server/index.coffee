@@ -2,6 +2,7 @@ http = require 'http'
 path = require 'path'
 express = require 'express'
 gzippo = require 'gzippo'
+MongoStore = require('connect-mongo')(express)
 derby = require 'derby'
 app = require '../app'
 serverError = require './serverError'
@@ -26,11 +27,12 @@ publicPath = path.join root, 'public'
   # .use(express.methodOverride())
 
   # Derby session middleware creates req.model and subscribes to _session
-  # .use(express.cookieParser 'secret_sauce')
-  # .use(express.session
-  #   cookie: {maxAge: ONE_YEAR}
-  # )
-  # .use(app.session())
+  .use(express.cookieParser 'secret_sauce')
+  .use(express.session
+    cookie: {maxAge: ONE_YEAR}
+    store: new MongoStore(db: 'habitrpg', collection: 'express-sessions')
+  )
+  .use(app.session())
 
   # The router method creates an express middleware from the app's routes
   .use(app.router())

@@ -7,7 +7,8 @@
     "derby": "*",
     "express": "3.x",
     "gzippo": ">=0.1.4",
-    "racer-db-mongo": "*"
+    "racer-db-mongo": "*",
+    "connect-mongo": ">=0.1.9"
   },
   "private": true,
   "devDependencies": {
