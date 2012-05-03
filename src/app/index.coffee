@@ -17,7 +17,9 @@ get '/', (page, model) ->
       money: 0
       exp: 0
       lvl: 1
-      todos: []
+      todos:
+        0: {id: 0, completed: false, text: 'Example 1'}
+      todoIds: [0]
     getRoom page, model, userId
 
 getRoom = (page, model, userId) ->
@@ -29,14 +31,6 @@ getRoom = (page, model, userId) ->
     # on an object by id. The todos are stored on the object 'todos',
     # and their order is stored in an array of ids at '_group.todoIds'
     model.refList '_todoList', '_user.todos', '_user.todoIds'
-
-    # Add some default todos if this is a new group. Items inserted into
-    # a refList will automatically get an 'id' property if not specified
-    unless todoIds.get()
-      model.push '_todoList',
-        {text: 'Example todo'},
-        {text: 'Another example'},
-        {text: 'This one is done already', completed: true}
 
     # Create a reactive function that automatically keeps '_remaining'
     # updated with the number of remaining todos
