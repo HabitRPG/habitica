@@ -74,22 +74,13 @@ ready (model) ->
         # or the item's id property
         list.pass(ignore: domId).move {id}, to
   
-  
-    list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
-      # Move the item to the bottom if it was checked off
-      list.move i, -1  if completed && isLocal
-  
   exports.addHabit = ->
     newHabit = model.at "_newHabit"
     list = model.at "_habitList"
     # Don't add a blank todo
     return unless text = view.escapeHtml newHabit.get()
     newHabit.set ''
-    # Insert the new todo before the first completed item in the list
-    # or append to the end if none are completed
-    for todo, i in list.get()
-      break if todo.completed
-    list.insert i, {text}
+    list.push {text}
     
   exports.addDaily = ->
     newDaily = model.at "_newDaily"
@@ -103,6 +94,10 @@ ready (model) ->
       break if todo.completed
     list.insert i, {text}
     
+    list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
+      # Move the item to the bottom if it was checked off
+      list.move i, -1  if completed && isLocal
+    
   exports.addTodo = ->
     newTodo = model.at "_newTodo"
     list = model.at "_todoList"
@@ -115,17 +110,17 @@ ready (model) ->
       break if todo.completed
     list.insert i, {text}
     
+    list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
+      # Move the item to the bottom if it was checked off
+      list.move i, -1  if completed && isLocal
+    
   exports.addReward = ->
     newReward = model.at "_newReward"
     list = model.at "_rewardList"
     # Don't add a blank todo
     return unless text = view.escapeHtml newReward.get()
     newReward.set ''
-    # Insert the new todo before the first completed item in the list
-    # or append to the end if none are completed
-    for todo, i in list.get()
-      break if todo.completed
-    list.insert i, {text}
+    list.push {text}
 
   exports.del = (e) ->
     # Derby extends model.at to support creation from DOM nodes
