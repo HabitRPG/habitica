@@ -2,7 +2,6 @@
 
 ## ROUTES ##
 
-# get '/:groupName', (page, model, {groupName}) ->
 get '/', (page, model) ->
   
  # Render page if a userId is already stored in session data
@@ -19,19 +18,19 @@ get '/', (page, model) ->
       lvl: 1
       
       habits:
-        0: {id: 0, text: 'Take the stairs'}
+        0: {id: 0, text: 'Take the stairs', notes: '', score: 0, up: true, down: true}
       habitIds: [0]
 
       dailys: # I know it's bad pluralization, but codes easier later
-        0: {id: 0, completed: false, text: 'Go to the gym'}
+        0: {id: 0, text: 'Go to the gym', notes: '', score: 0, completed: false }
       dailyIds: [0]
       
       todos:
-        0: {id: 0, text: 'Make a doctor appointment'}
+        0: {id: 0, text: 'Make a doctor appointment', notes: '', score: 0, completed: false }
       todoIds: [0]
 
       rewards:
-        0: {id: 0, text: '1 TV episode'}
+        0: {id: 0, text: '1 TV episode', notes: '', price: 20 }
       rewardIds: [0]
       
     getRoom page, model, userId
@@ -80,12 +79,8 @@ ready (model) ->
       # Move the item to the bottom if it was checked off
       list.move i, -1  if completed && isLocal
   
-  newHabit = model.at "_newHabit"
-  newDaily = model.at "_newDaily"
-  newTodo = model.at "_newTodo"
-  newReward = model.at "_newReward"
-        
   exports.addHabit = ->
+    newHabit = model.at "_newHabit"
     list = model.at "_habitList"
     # Don't add a blank todo
     return unless text = view.escapeHtml newHabit.get()
@@ -97,6 +92,7 @@ ready (model) ->
     list.insert i, {text}
     
   exports.addDaily = ->
+    newDaily = model.at "_newDaily"
     list = model.at "_dailyList"
     # Don't add a blank todo
     return unless text = view.escapeHtml newDaily.get()
@@ -108,6 +104,7 @@ ready (model) ->
     list.insert i, {text}
     
   exports.addTodo = ->
+    newTodo = model.at "_newTodo"
     list = model.at "_todoList"
     # Don't add a blank todo
     return unless text = view.escapeHtml newTodo.get()
@@ -119,6 +116,7 @@ ready (model) ->
     list.insert i, {text}
     
   exports.addReward = ->
+    newReward = model.at "_newReward"
     list = model.at "_rewardList"
     # Don't add a blank todo
     return unless text = view.escapeHtml newReward.get()
@@ -132,7 +130,8 @@ ready (model) ->
   exports.del = (e) ->
     # Derby extends model.at to support creation from DOM nodes
     model.at(e.target).remove()
-
+    
+  ## RECONNECT & SHORTCUTS ##
 
   showReconnect = model.at '_showReconnect'
   showReconnect.set true
