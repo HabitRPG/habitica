@@ -22,7 +22,7 @@ get '/', (page, model) ->
         0: {id: 0, text: 'Take the stairs'}
       habitIds: [0]
 
-      dailies:
+      dailys: # I know it's bad pluralization, but codes easier later
         0: {id: 0, completed: false, text: 'Go to the gym'}
       dailyIds: [0]
       
@@ -39,23 +39,12 @@ get '/', (page, model) ->
 getRoom = (page, model, userId) ->
   model.subscribe "users.#{userId}", (err, user) ->
     model.ref '_user', user
-    habitIds = user.at 'habitIds'
-    dailyIds = user.at 'dailyIds'
-    todoIds = user.at 'todoIds'
-    rewardIds = user.at 'rewardIds'
-    
-    model.refList '_habitList', '_user.habits', '_user.habitIds'
-    model.refList '_dailyList', '_user.dailies', '_user.dailyIds'
-    model.refList '_todoList', '_user.todos', '_user.todoIds'
-    model.refList '_rewardList', '_user.rewards', '_user.rewardIds'
 
-    # Create a reactive function that automatically keeps '_remaining'
-    # updated with the number of remaining todos
-    model.fn '_remaining', '_todoList', (list) ->
-      remaining = 0
-      for todo in list
-        remaining++ unless todo?.completed
-      return remaining
+    # Setup "_todoList" for all the habit types 
+    lists = [ 'habit', 'daily', 'todo', 'reward']
+    for habitType in lists
+      ids = user.at "#{habitType}Ids"
+      model.refList "_#{habitType}List", "_user.#{habitType}s", "_user.#{habitType}Ids"
 
     page.render()
 
@@ -64,35 +53,76 @@ getRoom = (page, model, userId) ->
 
 ready (model) ->
 
-  list = model.at '_todoList'
+  lists = [ 'habit', 'daily', 'todo', 'reward']
 
-  # Make the list draggable using jQuery UI
-  ul = $('#todos')
-  ul.sortable
-    handle: '.handle'
-    axis: 'y'
-    containment: '#dragbox'
-    update: (e, ui) ->
-      item = ui.item[0]
-      domId = item.id
-      id = item.getAttribute 'data-id'
-      to = ul.children().index(item)
-      # Use the Derby ignore option to suppress the normal move event
-      # binding, since jQuery UI will move the element in the DOM.
-      # Also, note that refList index arguments can either be an index
-      # or the item's id property
-      list.pass(ignore: domId).move {id}, to
-
-
-  list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
-    # Move the item to the bottom if it was checked off
-    list.move i, -1  if completed && isLocal
-
-  newTodo = model.at '_newTodo'
-  exports.add = ->
+  for habitType in lists
+    list = model.at "_#{habitType}List"
+  
+    # Make the list draggable using jQuery UI
+    ul = $("\##{habitType}s")
+    ul.sortable
+      handle: '.handle'
+      axis: 'y'
+      containment: "\#dragbox-#{habitType}"
+      update: (e, ui) ->
+        item = ui.item[0]
+        domId = item.id
+        id = item.getAttribute 'data-id'
+        to = ul.children().index(item)
+        # Use the Derby ignore option to suppress the normal move event
+        # binding, since jQuery UI will move the element in the DOM.
+        # Also, note that refList index arguments can either be an index
+        # or the item's id property
+        list.pass(ignore: domId).move {id}, to
+  
+  
+    list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
+      # Move the item to the bottom if it was checked off
+      list.move i, -1  if completed && isLocal
+  
+  newHabit = model.at "_newHabit"
+  newDaily = model.at "_newDaily"
+  newTodo = model.at "_newTodo"
+  newReward = model.at "_newReward"
+        
+  exports.addHabit = ->
+    list = model.at "_habitList"
+    # Don't add a blank todo
+    return unless text = view.escapeHtml newHabit.get()
+    newHabit.set ''
+    # Insert the new todo before the first completed item in the list
+    # or append to the end if none are completed
+    for todo, i in list.get()
+      break if todo.completed
+    list.insert i, {text}
+    
+  exports.addDaily = ->
+    list = model.at "_dailyList"
+    # Don't add a blank todo
+    return unless text = view.escapeHtml newDaily.get()
+    newDaily.set ''
+    # Insert the new todo before the first completed item in the list
+    # or append to the end if none are completed
+    for todo, i in list.get()
+      break if todo.completed
+    list.insert i, {text}
+    
+  exports.addTodo = ->
+    list = model.at "_todoList"
     # Don't add a blank todo
     return unless text = view.escapeHtml newTodo.get()
     newTodo.set ''
+    # Insert the new todo before the first completed item in the list
+    # or append to the end if none are completed
+    for todo, i in list.get()
+      break if todo.completed
+    list.insert i, {text}
+    
+  exports.addReward = ->
+    list = model.at "_rewardList"
+    # Don't add a blank todo
+    return unless text = view.escapeHtml newReward.get()
+    newReward.set ''
     # Insert the new todo before the first completed item in the list
     # or append to the end if none are completed
     for todo, i in list.get()
@@ -131,3 +161,4 @@ ready (model) ->
   # See: https://developer.mozilla.org/en/Rich-Text_Editing_in_Mozilla
   document.execCommand 'useCSS', false, true
   document.execCommand 'styleWithCSS', false, false
+  

@@ -6,15 +6,38 @@
 
 <Body:>
   <div id=overlay></div>
-  <form id=head x-bind=submit:add>
-    <h1>Todos <span>{_remaining} remaining</span></h1>
-    <div id=add>
-      <div id=add-input><input id=new-todo value={_newTodo}></div>
-      <input id=add-button type=submit value=Add>
-    </div>
+  
+  <h1>Habits</h1>
+  <div id=dragbox-habit></div>
+  <div id=content-habit><ul id=habits>{#each _habitList}<app:todo>{/}</ul></div>
+  <form x-bind=submit:addHabit>
+    <input id=new-habit value={_newHabit}></div>
+    <input type=submit value=Add>
   </form>
-  <div id=dragbox></div>
-  <div id=content><ul id=todos>{#each _todoList}<app:todo>{/}</ul></div>
+  
+  <h1>Dailies</h1>
+  <div id=dragbox-daily></div>
+  <div id=content-daily><ul id=dailys>{#each _dailyList}<app:todo>{/}</ul></div>
+  <form x-bind=submit:addDaily>
+    <input id=new-daily value={_newDaily}></div>
+    <input type=submit value=Add>
+  </form>
+  
+  <h1>Todos</h1>
+  <div id=dragbox-todo></div>
+  <div id=content-todo><ul id=todos>{#each _todoList}<app:todo>{/}</ul></div>
+  <form x-bind=submit:addTodo>
+    <input id=new-todo value={_newTodo}></div>
+    <input type=submit value=Add>
+  </form>
+  
+  <h1>Rewards</h1>
+  <div id=dragbox-reward></div>
+  <div id=content-reward><ul id=rewards>{#each _rewardList}<app:todo>{/}</ul></div>
+  <form x-bind=submit:addReward>
+    <input id=new-reward value={_newReward}></div>
+    <input type=submit value=Add>
+  </form>
 
 <todo:>
   <li data-id={{id}} class="{#if .completed}completed{/}">
