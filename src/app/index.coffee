@@ -17,20 +17,37 @@ get '/', (page, model) ->
       money: 0
       exp: 0
       lvl: 1
+      
+      habits:
+        0: {id: 0, text: 'Take the stairs'}
+      habitIds: [0]
+
+      dailies:
+        0: {id: 0, completed: false, text: 'Go to the gym'}
+      dailyIds: [0]
+      
       todos:
-        0: {id: 0, completed: false, text: 'Example 1'}
+        0: {id: 0, text: 'Make a doctor appointment'}
       todoIds: [0]
+
+      rewards:
+        0: {id: 0, text: '1 TV episode'}
+      rewardIds: [0]
+      
     getRoom page, model, userId
 
 getRoom = (page, model, userId) ->
   model.subscribe "users.#{userId}", (err, user) ->
     model.ref '_user', user
+    habitIds = user.at 'habitIds'
+    dailyIds = user.at 'dailyIds'
     todoIds = user.at 'todoIds'
+    rewardIds = user.at 'rewardIds'
     
-    # The refList supports array methods, but it stores the todo values
-    # on an object by id. The todos are stored on the object 'todos',
-    # and their order is stored in an array of ids at '_group.todoIds'
+    model.refList '_habitList', '_user.habits', '_user.habitIds'
+    model.refList '_dailyList', '_user.dailies', '_user.dailyIds'
     model.refList '_todoList', '_user.todos', '_user.todoIds'
+    model.refList '_rewardList', '_user.rewards', '_user.rewardIds'
 
     # Create a reactive function that automatically keeps '_remaining'
     # updated with the number of remaining todos
