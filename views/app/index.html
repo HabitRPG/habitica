@@ -6,10 +6,15 @@
 
 <Body:>
   <div id=overlay></div>
+  <div id=head>
+    Money: {_user.money}<br/>
+    Exp: {_user.exp}<br/>
+    Lvl: {_user.lvl}<br/>
+  </div>
   
   <h1>Habits</h1>
   <div id=dragbox-habit></div>
-  <div id=content-habit><ul id=habits>{#each _habitList}<app:todo>{/}</ul></div>
+  <div id=content-habit><ul id=habits>{#each _habitList}<app:habit>{/}</ul></div>
   <form x-bind=submit:addHabit>
     <input id=new-habit value={_newHabit}></div>
     <input type=submit value=Add>
@@ -17,7 +22,7 @@
   
   <h1>Dailies</h1>
   <div id=dragbox-daily></div>
-  <div id=content-daily><ul id=dailys>{#each _dailyList}<app:todo>{/}</ul></div>
+  <div id=content-daily><ul id=dailys>{#each _dailyList}<app:daily>{/}</ul></div>
   <form x-bind=submit:addDaily>
     <input id=new-daily value={_newDaily}></div>
     <input type=submit value=Add>
@@ -33,12 +38,44 @@
   
   <h1>Rewards</h1>
   <div id=dragbox-reward></div>
-  <div id=content-reward><ul id=rewards>{#each _rewardList}<app:todo>{/}</ul></div>
+  <div id=content-reward><ul id=rewards>{#each _rewardList}<app:reward>{/}</ul></div>
   <form x-bind=submit:addReward>
     <input id=new-reward value={_newReward}></div>
     <input type=submit value=Add>
   </form>
 
+<habit:>
+  <li data-id={{id}} class="habit">
+    <table width=100%>
+      <tr>
+        <td class=handle width=0></td>
+        <td width=100%>
+          <div class=todo>
+            <label>+ -<i></i></label>
+            <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
+          </div>
+        </td>
+        <td width=0><button class=delete x-bind=click:del>Delete</button></td>
+      </tr>
+    </table>
+  </li>
+
+<daily:>
+  <li data-id={{id}} class="{#if .completed}completed{/}">
+    <table width=100%>
+      <tr>
+        <td class=handle width=0></td>
+        <td width=100%>
+          <div class=todo>
+            <label><input type=checkbox checked={.completed}><i></i></label>
+            <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
+          </div>
+        </td>
+        <td width=0><button class=delete x-bind=click:del>Delete</button></td>
+      </tr>
+    </table>
+  </li>
+  
 <todo:>
   <li data-id={{id}} class="{#if .completed}completed{/}">
     <table width=100%>
@@ -47,6 +84,22 @@
         <td width=100%>
           <div class=todo>
             <label><input type=checkbox checked={.completed}><i></i></label>
+            <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
+          </div>
+        </td>
+        <td width=0><button class=delete x-bind=click:del>Delete</button></td>
+      </tr>
+    </table>
+  </li>
+
+<reward:>
+  <li data-id={{id}} class="reward">
+    <table width=100%>
+      <tr>
+        <td class=handle width=0></td>
+        <td width=100%>
+          <div class=todo>
+            <label>${.price}<i></i></label>
             <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
           </div>
         </td>
