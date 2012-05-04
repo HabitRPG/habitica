@@ -56,7 +56,7 @@ ready (model) ->
 
   for habitType in lists
     list = model.at "_#{habitType}List"
-  
+    
     # Make the list draggable using jQuery UI
     ul = $("\##{habitType}s")
     ul.sortable
@@ -125,6 +125,12 @@ ready (model) ->
   exports.del = (e) ->
     # Derby extends model.at to support creation from DOM nodes
     model.at(e.target).remove()
+    
+  exports.voteUp = (e) ->
+    todo = model.at(e.target)
+    exp = model.get '_user.exp'
+    model.set '_user.exp', exp +1
+    console.log todo
     
   ## RECONNECT & SHORTCUTS ##
 
