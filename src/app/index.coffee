@@ -80,7 +80,7 @@ ready (model) ->
     # Don't add a blank todo
     return unless text = view.escapeHtml newHabit.get()
     newHabit.set ''
-    list.push {text}
+    list.push {text, notes: '', score: 0, up: true, down: true}
     
   exports.addDaily = ->
     newDaily = model.at "_newDaily"
@@ -92,7 +92,7 @@ ready (model) ->
     # or append to the end if none are completed
     for todo, i in list.get()
       break if todo.completed
-    list.insert i, {text}
+    list.insert i, {text, notes: '', score: 0, completed: false }
     
     list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
       # Move the item to the bottom if it was checked off
@@ -108,7 +108,7 @@ ready (model) ->
     # or append to the end if none are completed
     for todo, i in list.get()
       break if todo.completed
-    list.insert i, {text}
+    list.insert i, {text, notes: '', score: 0, completed: false }
     
     list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
       # Move the item to the bottom if it was checked off
@@ -120,7 +120,7 @@ ready (model) ->
     # Don't add a blank todo
     return unless text = view.escapeHtml newReward.get()
     newReward.set ''
-    list.push {text}
+    list.push {text, notes: '', price: 20 }
 
   exports.del = (e) ->
     # Derby extends model.at to support creation from DOM nodes
