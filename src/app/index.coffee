@@ -38,12 +38,12 @@ get '/', (page, model) ->
 getRoom = (page, model, userId) ->
   model.subscribe "users.#{userId}", (err, user) ->
     model.ref '_user', user
-
+    
     # Setup "_todoList" for all the habit types 
     lists = [ 'habit', 'daily', 'todo', 'reward']
-    for habitType in lists
-      ids = user.at "#{habitType}Ids"
-      model.refList "_#{habitType}List", "_user.#{habitType}s", "_user.#{habitType}Ids"
+    for type in lists
+      ids = user.at "#{type}Ids"
+      model.refList "_#{type}List", "_user.#{type}s", "_user.#{type}Ids"
 
     page.render()
 
@@ -54,15 +54,15 @@ ready (model) ->
 
   lists = [ 'habit', 'daily', 'todo', 'reward']
 
-  for habitType in lists
-    list = model.at "_#{habitType}List"
+  for type in lists
+    list = model.at "_#{type}List"
     
     # Make the list draggable using jQuery UI
-    ul = $("\##{habitType}s")
+    ul = $("\##{type}s")
     ul.sortable
       handle: '.handle'
       axis: 'y'
-      containment: "\#dragbox-#{habitType}"
+      containment: "\#dragbox-#{type}"
       update: (e, ui) ->
         item = ui.item[0]
         domId = item.id
