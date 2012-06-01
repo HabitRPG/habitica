@@ -3,6 +3,11 @@
 
 <Header:>
   <app:alert>
+  
+<dragList: nonvoid>
+  <h1>{{{title}}}</h1>
+  <div id=dragbox-{{{type}}}></div>
+  <div id=content-{{{type}}}><ul id={{{type}}}s>{{{content}}}</ul></div>
 
 <Body:>
   <div id=overlay></div>
@@ -12,33 +17,25 @@
     Lvl: {_user.lvl}<br/>
   </div>
   
-  <h1>Habits</h1>
-  <div id=dragbox-habit></div>
-  <div id=content-habit><ul id=habits>{#each _habitList}<app:habit>{/}</ul></div>
+  <app:dragList title="Habits" type="habit">{#each _habitList}<app:habit>{/}</app:dragList>
   <form x-bind=submit:addHabit>
     <input id=new-habit value={_newHabit}>
     <input type=submit value=Add>
   </form>
   
-  <h1>Dailies</h1>
-  <div id=dragbox-daily></div>
-  <div id=content-daily><ul id=dailys>{#each _dailyList}<app:daily>{/}</ul></div>
+  <app:dragList title="Dailies" type="daily">{#each _dailyList}<app:daily>{/}</app:dragList>
   <form x-bind=submit:addDaily>
     <input id=new-daily value={_newDaily}>
     <input type=submit value=Add>
   </form>
   
-  <h1>Todos</h1>
-  <div id=dragbox-todo></div>
-  <div id=content-todo><ul id=todos>{#each _todoList}<app:todo>{/}</ul></div>
+  <app:dragList title="Todos" type="todo">{#each _todoList}<app:todo>{/}</app:dragList>
   <form x-bind=submit:addTodo>
     <input id=new-todo value={_newTodo}>
     <input type=submit value=Add>
   </form>
   
-  <h1>Rewards</h1>
-  <div id=dragbox-reward></div>
-  <div id=content-reward><ul id=rewards>{#each _rewardList}<app:reward>{/}</ul></div>
+  <app:dragList title="Rewards" type="todo">{#each _rewardList}<app:reward>{/}</app:dragList>
   <form x-bind=submit:addReward>
     <input id=new-reward value={_newReward}>
     <input type=submit value=Add>
