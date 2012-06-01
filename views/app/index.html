@@ -8,6 +8,10 @@
   <h1>{{{title}}}</h1>
   <div id=dragbox-{{{type}}}></div>
   <div id=content-{{{type}}}><ul id={{{type}}}s>{{{content}}}</ul></div>
+  <form x-bind=submit:{{{addFunc}}}>
+    <input id=new-{{{type}}} value={{{newVal}}}>
+    <input type=submit value=Add>
+  </form>
 
 <Body:>
   <div id=overlay></div>
@@ -17,93 +21,81 @@
     Lvl: {_user.lvl}<br/>
   </div>
   
-  <app:dragList title="Habits" type="habit">{#each _habitList}<app:habit>{/}</app:dragList>
-  <form x-bind=submit:addHabit>
-    <input id=new-habit value={_newHabit}>
-    <input type=submit value=Add>
-  </form>
+  <app:dragList title="Habits" type="habit" addFunc=addHabit newVal={_newHabit}>
+  {#each _habitList}
+    <li data-id={{id}} class="habit">
+      <table width=100%>
+        <tr>
+          <td class=handle width=0></td>
+          <td width=100%>
+            <div class=todo>
+              <label>+ -<i></i></label>
+              <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
+            </div>
+          </td>
+          <td width=0><button class=delete x-bind=click:del>Delete</button></td>
+        </tr>
+      </table>
+    </li>
+  {/}
+  </app:dragList>
   
-  <app:dragList title="Dailies" type="daily">{#each _dailyList}<app:daily>{/}</app:dragList>
-  <form x-bind=submit:addDaily>
-    <input id=new-daily value={_newDaily}>
-    <input type=submit value=Add>
-  </form>
-  
-  <app:dragList title="Todos" type="todo">{#each _todoList}<app:todo>{/}</app:dragList>
-  <form x-bind=submit:addTodo>
-    <input id=new-todo value={_newTodo}>
-    <input type=submit value=Add>
-  </form>
-  
-  <app:dragList title="Rewards" type="todo">{#each _rewardList}<app:reward>{/}</app:dragList>
-  <form x-bind=submit:addReward>
-    <input id=new-reward value={_newReward}>
-    <input type=submit value=Add>
-  </form>
+  <app:dragList title="Dailies" type="daily" addFunc=addDaily newVal={_newDaily}>
+  {#each _dailyList}
+    <li data-id={{id}} class="{#if .completed}completed{/}">
+      <table width=100%>
+        <tr>
+          <td class=handle width=0></td>
+          <td width=100%>
+            <div class=todo>
+              <label><input type=checkbox checked={.completed}><i></i></label>
+              <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
+            </div>
+          </td>
+          <td width=0><button class=delete x-bind=click:del>Delete</button></td>
+        </tr>
+      </table>
+    </li>
+  {/}
+  </app:dragList>
 
-<habit:>
-  <li data-id={{id}} class="habit">
-    <table width=100%>
-      <tr>
-        <td class=handle width=0></td>
-        <td width=100%>
-          <div class=todo>
-            <label>+ -<i></i></label>
-            <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
-          </div>
-        </td>
-        <td width=0><button class=delete x-bind=click:del>Delete</button></td>
-      </tr>
-    </table>
-  </li>
-
-<daily:>
-  <li data-id={{id}} class="{#if .completed}completed{/}">
-    <table width=100%>
-      <tr>
-        <td class=handle width=0></td>
-        <td width=100%>
-          <div class=todo>
-            <label><input type=checkbox checked={.completed}><i></i></label>
-            <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
-          </div>
-        </td>
-        <td width=0><button class=delete x-bind=click:del>Delete</button></td>
-      </tr>
-    </table>
-  </li>
+  <app:dragList title="Todos" type="todo" addFunc=addTodo newVal={_newTodo}>
+  {#each _todoList}
+    <li data-id={{id}} class="{#if .completed}completed{/}">
+      <table width=100%>
+        <tr>
+          <td class=handle width=0></td>
+          <td width=100%>
+            <div class=todo>
+              <label><input type=checkbox checked={.completed}><i></i></label>
+              <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
+            </div>
+          </td>
+          <td width=0><button class=delete x-bind=click:del>Delete</button></td>
+        </tr>
+      </table>
+    </li>
+  {/}
+  </app:dragList>
   
-<todo:>
-  <li data-id={{id}} class="{#if .completed}completed{/}">
-    <table width=100%>
-      <tr>
-        <td class=handle width=0></td>
-        <td width=100%>
-          <div class=todo>
-            <label><input type=checkbox checked={.completed}><i></i></label>
-            <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
-          </div>
-        </td>
-        <td width=0><button class=delete x-bind=click:del>Delete</button></td>
-      </tr>
-    </table>
-  </li>
-
-<reward:>
-  <li data-id={{id}} class="reward">
-    <table width=100%>
-      <tr>
-        <td class=handle width=0></td>
-        <td width=100%>
-          <div class=todo>
-            <label>${.price}<i></i></label>
-            <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
-          </div>
-        </td>
-        <td width=0><button class=delete x-bind=click:del>Delete</button></td>
-      </tr>
-    </table>
-  </li>
+  <app:dragList title="Rewards" type="todo" addFunc=addReward newVal={_newReward}>
+  {#each _rewardList}
+    <li data-id={{id}} class="reward">
+      <table width=100%>
+        <tr>
+          <td class=handle width=0></td>
+          <td width=100%>
+            <div class=todo>
+              <label>${.price}<i></i></label>
+              <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
+            </div>
+          </td>
+          <td width=0><button class=delete x-bind=click:del>Delete</button></td>
+        </tr>
+      </table>
+    </li>
+  {/}
+  </app:dragList>
 
 <alert:>
   <div id=alert>
