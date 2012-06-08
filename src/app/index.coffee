@@ -2,13 +2,7 @@
 
 ## ROUTES ##
 
-get '/', (page, model) ->
-  
- # Render page if a userId is already stored in session data
-  if userId = model.get '_session.userId'
-    return getRoom page, model, userId
-
-  # Otherwise, select a new userId and initialize user
+newUser = (model, userId) ->
   model.async.incr 'configs.1.nextUserId', (err, userId) ->
     model.set '_session.userId', userId
     model.set "users.#{userId}",
@@ -32,10 +26,15 @@ get '/', (page, model) ->
       rewards:
         0: {id: 0, text: '1 TV episode', notes: '', price: 20 }
       rewardIds: [0]
-      
-    getRoom page, model, userId
+  
 
-getRoom = (page, model, userId) ->
+get '/', (page, model) ->
+  # Render page if a userId is already stored in session data
+  userId = model.get '_session.userId'
+  # Otherwise, select a new userId and initialize user
+  if !userId
+    userId = newUser(model, userId)
+  
   model.subscribe "users.#{userId}", (err, user) ->
     model.ref '_user', user
     
