@@ -57,11 +57,11 @@ ready (model) ->
     list = model.at "_#{type}List"
     
     # Make the list draggable using jQuery UI
-    ul = $("\##{type}s")
+    ul = $(".#{type}s ul")
     ul.sortable
       handle: '.handle'
       axis: 'y'
-      containment: "\#dragbox-#{type}"
+      # containment: ".#{type}s .dragbox"
       update: (e, ui) ->
         item = ui.item[0]
         domId = item.id
