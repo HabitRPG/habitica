@@ -40,7 +40,7 @@
         {/}
         </ul>
       </div>
-      <form x-bind=submit:addHabit>
+      <form data-task-type=habit x-bind=submit:addTask>
         <input class=new value={_newHabit}>
         <input type=submit value=Add>
       </form>
@@ -69,7 +69,7 @@
         {/}
         </ul>
       </div>
-      <form x-bind=submit:addDaily>
+      <form data-task-type=daily x-bind=submit:addTask>
         <input class=new value={_newDaily}>
         <input type=submit value=Add>
       </form>
@@ -98,7 +98,7 @@
         {/}
         </ul>
       </div>
-      <form x-bind=submit:addTodo>
+      <form data-task-type=todo x-bind=submit:addTask>
         <input class=new value={_newTodo}>
         <input type=submit value=Add>
       </form>
@@ -127,7 +127,7 @@
         {/}
         </ul>
       </div>
-      <form x-bind=submit:addReward>
+      <form data-task-type=reward x-bind=submit:addTask>
         <input class=new value={_newReward}>
         <input type=submit value=Add>
       </form>
