@@ -44,38 +44,78 @@
   </form>
 
 <Body:>
-  <div id=overlay></div>
-  <div id=head>
-    Money: {_user.money}<br/>
-    Exp: {_user.exp}<br/>
-    Lvl: {_user.lvl}<br/>
+  <div id="container">
+    
+    <div id=overlay></div>
+    <div id="head">
+      <!--<% if current_user %>-->
+        <table id="character">
+          <tr>
+            <td id="avatar">
+              <img src="/img/avatar/{_user.lvl}.png" /><br/>
+              <b><div id="lvl"></div></b>
+            </td>
+            <td id="bars">
+              <div id="hp-bar" style="width:400px;">
+                <span id="hp"></span>
+              </div>
+              <div id="tnl-bar" style="width:400px;">
+                <span id="tnl"></span>
+              </div>
+            </td>
+          </tr>
+        </table>
+      <!--<% else %>
+        <h1>HabitRPG</h1>
+        <p>A habit tracker app which treats your goals like a Role Playing Game. <a href="https://github.com/lefnire/habitrpg#habitrpg">More Information</a></p>
+      <% end %>-->
+    </div>
+    <br/>
+    
+    <div id="content">
+      <!--<% if !current_user %>
+        <%= link_to(image_tag("http://line6.com/images/connections/facebook-login-button.png", :alt =>  "Login with Facebook"), user_omniauth_authorize_path(:facebook)) %>
+      <% else %>-->
+      
+      <!-- would rather have one component: <app:taskList>, which handles taskList, task, and newTask.  However,
+        can't pass references as paramters.  so <app:taskList newModel={_newHabit} list={_habitList}> doesn't work
+        and have to pass those in via {{{content}}} instead -->
+      <app:taskList title=Habits type=habit>
+        {#each _habitList}<app:task />{/}
+      </app:taskList>
+      <app:newTask type=habit><input class=new value={_newHabit}></app:newTask>
+  
+      <app:taskList title=Dailies type=daily>
+        {#each _dailyList}<app:task />{/}
+      </app:taskList>
+      <app:newTask type=daily><input class=new value={_newDaily}></app:newTask>
+  
+      <app:taskList title=Todos type=todo>
+        {#each _todoList}<app:task />{/}
+      </app:taskList>
+      <app:newTask type=todo><input class=new value={_newTodo}></app:newTask>
+  
+      <app:taskList title=Rewards type=reward>
+        {#each _rewardList}<app:task />{/}
+      </app:taskList>
+      <app:newTask type=reward><input class=new value={_newReward}></app:newTask>
+        
+      <!--<% end %>-->
+        
+    </div>
+  </div>
+
+    
+  
   </div>
   
-  <div id=content>
-    
-    <!-- would rather have one component: <app:taskList>, which handles taskList, task, and newTask.  However,
-      can't pass references as paramters.  so <app:taskList newModel={_newHabit} list={_habitList}> doesn't work
-      and have to pass those in via {{{content}}} instead -->
-    <app:taskList title=Habits type=habit>
-      {#each _habitList}<app:task />{/}
-    </app:taskList>
-    <app:newTask type=habit><input class=new value={_newHabit}></app:newTask>
-
-    <app:taskList title=Dailies type=daily>
-      {#each _dailyList}<app:task />{/}
-    </app:taskList>
-    <app:newTask type=daily><input class=new value={_newDaily}></app:newTask>
-
-    <app:taskList title=Todos type=todo>
-      {#each _todoList}<app:task />{/}
-    </app:taskList>
-    <app:newTask type=todo><input class=new value={_newTodo}></app:newTask>
-
-    <app:taskList title=Rewards type=reward>
-      {#each _rewardList}<app:task />{/}
-    </app:taskList>
-    <app:newTask type=reward><input class=new value={_newReward}></app:newTask>
-  
+<Footer:>
+  <a href="https://github.com/lefnire/habitrpg"><img style="z-index:11; position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+  <div id="footer">
+    <!--<%if current_user %>-->
+      <p><a href="https://github.com/lefnire/habitrpg#habitrpg">Help</a> | <%= link_to "Logout", destroy_user_session_path, :method => :delete %></p>
+    <!--<% end %>-->
+    <p>Copyright &copy; 2012 Tyler Renelle</p>
   </div>
   
 <alert:>
