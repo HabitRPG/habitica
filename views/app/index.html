@@ -20,8 +20,8 @@
     <label>
       <!-- Habits -->
       {#if equal(.type, 'habit')}
-        {#if up}<a href="#" class="vote-up"><img src="img/add.png" /></a>{/}
-        {#if down}<a href="#" class="vote-down"><img src="img/remove.png" /></a>{/}
+        {#if up}<a data-direction=up x-bind=click:vote><img src="img/add.png" /></a>{/}
+        {#if down}<a data-direction=up x-bind=click:vote><img src="img/remove.png" /></a>{/}
       <!-- Rewards -->
       {else if equal(.type, 'reward')}
         <a class="vote-down buy-link" href="#">{.price}<img src="img/coin_single_gold.png"/></a>

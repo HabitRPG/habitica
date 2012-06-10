@@ -132,11 +132,10 @@ ready (model) ->
     
     # up/down -voting as checkbox & assigning as done, 2 birds one stone
     done = task.get("done")
-    if task.type != 'habit'
+    if task.get('type') != 'habit'
       done = true if direction=="up"
       done = false if direction=="down"
-    task.set({ score: score, done: done })
-    # TODO: window.userStats.updateStats(this, delta)
+    [task.score, task.done] = [score, done]
     
     # Update the user's status
     [money, hp, exp, lvl] = [user.get('money'), user.get('hp'), user.get('exp'), user.get('lvl')]
@@ -158,27 +157,28 @@ ready (model) ->
     else if task.get('type') != 'reward'
       hp += delta
 
+    #TODO this should be a func, since called elswhere.. but getting error
+    tnl = 50 * Math.pow(user.get('lvl'), 2) - 150 * user.get('lvl') + 200
     # level up & carry-over exp
-    if exp > tnl()
-      exp -= tnl()
+    if exp > tnl
+      exp -= tnl
       lvl += 1
-      refresh = true
 
     # game over
     if hp < 0
       [hp, lvl, exp] = [50, 1, 0]
-      refresh = true
     
-    #TODO is this necessary?
-    user.set({money: money, hp: hp, exp: exp, lvl: lvl})
+    [user.money, user.hp, user.exp, user.lvl] = [money, hp, exp, lvl]
+    
+    console.log user.exp 
 
     #TODO why do I have this?
     # @trigger 'updatedStats'
 
-  tnl: () ->
+  exports.tnl = () ->
     # http://tibia.wikia.com/wiki/Formula
     user = model.at('_user')
-    50 * Math.pow(usre.get('lvl'), 2) - 150 * user.get('lvl') + 200
+    50 * Math.pow(user.get('lvl'), 2) - 150 * user.get('lvl') + 200
     
   ## RECONNECT & SHORTCUTS ##
 
