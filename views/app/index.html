@@ -17,24 +17,34 @@
   
 <task:>
   <li data-id={{id}} class="{taskClasses(.type, .completed)}">
-    <table width=100%>
-      <tr>
-        <td class=handle width=0></td>
-        <td width=100%>
-          <div class=todo>
-            <label>
-              {#if equal(.type, 'habit')}+ -<i></i>{/}
-              {#if equal(.type, 'daily')}<input type=checkbox checked={.completed}><i></i>{/}
-              {#if equal(.type, 'todo')}<input type=checkbox checked={.completed}><i></i>{/}
-              {#if equal(.type, 'reward')}${.price}{/}
-            <i></i>  
-            </label>
-            <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
-          </div>
-        </td>
-        <td width=0><button class=delete x-bind=click:del>Delete</button></td>
-      </tr>
-    </table>
+    <label>
+      <!-- Habits -->
+      {#if equal(.type, 'habit')}
+        {#if up}<a href="#" class="vote-up"><img src="img/add.png" /></a>{/}
+        {#if down}<a href="#" class="vote-down"><img src="img/remove.png" /></a>{/}
+      <!-- Rewards -->
+      {else if equal(.type, 'reward')}
+        <a class="vote-down buy-link" href="#">{.price}<img src="img/coin_single_gold.png"/></a>
+      <!-- Daily & Todos -->
+      {else}  
+        <!--TODO this was part of input below <%= done ? "class='vote-down' checked='checked'" : "class='vote-up'" %>-->
+        <input type="checkbox" checked={.completed} />
+      {/}
+    <i></i>  
+    </label>
+    <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
+    
+    <!--<span class="habit-text"><%= name %></span>
+
+    <% if (user_id != -1) { %>
+    <div class='habit-meta'>
+      <a class="edit-link" href="#/<%= id %>/edit">Edit</a>
+      <% if (notes) { %>
+        <img src='/assets/comment.png' class="comment" />
+        <div class='qtip'><%= notes %></div>
+      <% } %>
+    </div>
+    <% } %>-->
   </li>
 
 <newTask: nonvoid>
