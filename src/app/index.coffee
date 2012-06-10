@@ -109,11 +109,76 @@ ready (model) ->
     # Derby extends model.at to support creation from DOM nodes
     model.at(e.target).remove()
     
-  exports.voteUp = (e) ->
-    todo = model.at(e.target)
-    exp = model.get '_user.exp'
-    model.set '_user.exp', exp +1
-    console.log todo
+  exports.vote = (e, el, next) -> 
+    direction = $(el).attr('data-direction')
+    task = model.at(e.target)
+    user = model.at('_user')
+    # For negative values, use a line: something like y=-.1x+1
+    # For positibe values, taper off with inverse log: y=.9^x
+    # Would love to use inverse log for the whole thing, but after 13 fails it hits infinity
+    sign = if (direction == "up") then 1 else -1
+    score = task.get('score')
+    delta = 0
+    if score < 0
+      delta = (( -0.1 * score + 1 ) * sign)
+    else
+      delta = (( Math.pow(0.9, score) ) * sign)
+    
+    # Don't adjust scores for rewards, or for habits that don't have both + and -
+    adjustScore = (task.get('type') != 'reward')
+    if (task.get('type') == 'habit') and (task.get("up")==false or task.get("down")==false)
+      adjustScore = false
+    score += delta if adjustScore 
+    
+    # up/down -voting as checkbox & assigning as done, 2 birds one stone
+    done = task.get("done")
+    if task.type != 'habit'
+      done = true if direction=="up"
+      done = false if direction=="down"
+    task.set({ score: score, done: done })
+    # TODO: window.userStats.updateStats(this, delta)
+    
+    # Update the user's status
+    [money, hp, exp, lvl] = [user.get('money'), user.get('hp'), user.get('exp'), user.get('lvl')]
+
+    if task.get('type') == 'reward'
+      # purchase item
+      money -= task.get('score')
+      # if too expensive, reduce health & zero money
+      if money < 0
+        hp += money # hp - money difference
+        money = 0
+
+    # If positive delta, add points to exp & money
+    # Only take away mony if it was a mistake (aka, a checkbox)
+    if delta > 0 or (task.get('type') == 'daily'  or task.get('type') == 'todo')
+      exp += delta
+      money += delta
+    # Deduct from health (rewards case handled above)
+    else if task.get('type') != 'reward'
+      hp += delta
+
+    # level up & carry-over exp
+    if exp > tnl()
+      exp -= tnl()
+      lvl += 1
+      refresh = true
+
+    # game over
+    if hp < 0
+      [hp, lvl, exp] = [50, 1, 0]
+      refresh = true
+    
+    #TODO is this necessary?
+    user.set({money: money, hp: hp, exp: exp, lvl: lvl})
+
+    #TODO why do I have this?
+    # @trigger 'updatedStats'
+
+  tnl: () ->
+    # http://tibia.wikia.com/wiki/Formula
+    user = model.at('_user')
+    50 * Math.pow(usre.get('lvl'), 2) - 150 * user.get('lvl') + 200
     
   ## RECONNECT & SHORTCUTS ##
 
