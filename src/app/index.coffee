@@ -12,19 +12,20 @@ newUser = (model, userId) ->
       lvl: 1
       
       habits:
-        0: {id: 0, text: 'Take the stairs', notes: '', score: 0, up: true, down: true}
+        # TODO :{type: 'habit'} should be coded instead as a model function so as not to clutter the database
+        0: {id: 0, type: 'habit', text: 'Take the stairs', notes: '', score: 0, up: true, down: true}
       habitIds: [0]
 
       dailys: # I know it's bad pluralization, but codes easier later
-        0: {id: 0, text: 'Go to the gym', notes: '', score: 0, completed: false }
+        0: {id: 0, type: 'daily', text: 'Go to the gym', notes: '', score: 0, completed: false }
       dailyIds: [0]
       
       todos:
-        0: {id: 0, text: 'Make a doctor appointment', notes: '', score: 0, completed: false }
+        0: {id: 0, type: 'todo', text: 'Make a doctor appointment', notes: '', score: 0, completed: false }
       todoIds: [0]
 
       rewards:
-        0: {id: 0, text: '1 TV episode', notes: '', price: 20 }
+        0: {id: 0, type: 'reward', text: '1 TV episode', notes: '', price: 20 }
       rewardIds: [0]
   
 
@@ -46,6 +47,11 @@ get '/', (page, model) ->
 
     page.render()
 
+## VIEW HELPERS ##
+view.fn 'taskClasses', (type, completed) ->
+  classes = type 
+  classes += " completed" if completed
+  return classes
 
 ## CONTROLLER FUNCTIONS ##
 
@@ -83,17 +89,17 @@ ready (model) ->
     switch type
     
       when 'habit'
-        list.push {text: text, notes: '', score: 0, up: true, down: true}
+        list.push {type: type, text: text, notes: '', score: 0, up: true, down: true}
         
       when 'reward'
-        list.push {text, notes: '', price: 20 }
+        list.push {type: type, text: text, notes: '', price: 20 }
         
       when 'daily', 'todo'
         # Insert the new todo before the first completed item in the list
         # or append to the end if none are completed
         for todo, i in list.get()
           break if todo.completed
-        list.insert i, {text: text, notes: '', score: 0, completed: false }
+        list.insert i, {type: type, text: text, notes: '', score: 0, completed: false }
         
         list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
           # Move the item to the bottom if it was checked off

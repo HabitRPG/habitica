@@ -4,8 +4,44 @@
 <Header:>
   <app:alert>
   
-<dragList: nonvoid>
+<taskList: nonvoid>
+  <div class="{{{type}}}s">
+    <h1>{{{title}}}</h1>
+    <div class=dragbox></div>
+    <div class=content>
+      <ul>
+        {{{content}}}
+      </ul>
+    </div>
+  </div>
   
+<task:>
+  <li data-id={{id}} class="{taskClasses(.type, .completed)}">
+    <table width=100%>
+      <tr>
+        <td class=handle width=0></td>
+        <td width=100%>
+          <div class=todo>
+            <label>
+              {#if equal(.type, 'habit')}+ -<i></i>{/}
+              {#if equal(.type, 'daily')}<input type=checkbox checked={.completed}><i></i>{/}
+              {#if equal(.type, 'todo')}<input type=checkbox checked={.completed}><i></i>{/}
+              {#if equal(.type, 'reward')}${.price}{/}
+            <i></i>  
+            </label>
+            <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
+          </div>
+        </td>
+        <td width=0><button class=delete x-bind=click:del>Delete</button></td>
+      </tr>
+    </table>
+  </li>
+
+<newTask: nonvoid>
+  <form data-task-type={{{type}}} x-bind=submit:addTask>
+    {{{content}}}
+    <input type=submit value=Add>
+  </form>
 
 <Body:>
   <div id=overlay></div>
@@ -17,121 +53,28 @@
   
   <div id=content>
     
-    <div class=habits>
-      <h1>Habits</h1>
-      <div class=dragbox></div>
-      <div class=content>
-        <ul>
-        {#each _habitList}
-          <li data-id={{id}} class="habit">
-            <table width=100%>
-              <tr>
-                <td class=handle width=0></td>
-                <td width=100%>
-                  <div class=todo>
-                    <label>+ -<i></i></label>
-                    <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
-                  </div>
-                </td>
-                <td width=0><button class=delete x-bind=click:del>Delete</button></td>
-              </tr>
-            </table>
-          </li>
-        {/}
-        </ul>
-      </div>
-      <form data-task-type=habit x-bind=submit:addTask>
-        <input class=new value={_newHabit}>
-        <input type=submit value=Add>
-      </form>
-    </div>
-    
-    <div class=dailys>
-      <h1>Dailies</h1>
-      <div class=dragbox></div>
-      <div class=content>
-        <ul>
-        {#each _dailyList}
-          <li data-id={{id}} class="{#if .completed}completed{/}">
-            <table width=100%>
-              <tr>
-                <td class=handle width=0></td>
-                <td width=100%>
-                  <div class=todo>
-                    <label><input type=checkbox checked={.completed}><i></i></label>
-                    <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
-                  </div>
-                </td>
-                <td width=0><button class=delete x-bind=click:del>Delete</button></td>
-              </tr>
-            </table>
-          </li>
-        {/}
-        </ul>
-      </div>
-      <form data-task-type=daily x-bind=submit:addTask>
-        <input class=new value={_newDaily}>
-        <input type=submit value=Add>
-      </form>
-    </div>
+    <!-- would rather have one component: <app:taskList>, which handles taskList, task, and newTask.  However,
+      can't pass references as paramters.  so <app:taskList newModel={_newHabit} list={_habitList}> doesn't work
+      and have to pass those in via {{{content}}} instead -->
+    <app:taskList title=Habits type=habit>
+      {#each _habitList}<app:task />{/}
+    </app:taskList>
+    <app:newTask type=habit><input class=new value={_newHabit}></app:newTask>
 
-    <div class=todos>
-      <h1>Todos</h1>
-      <div class=dragbox></div>
-      <div class=content>
-        <ul>
-        {#each _todoList}
-          <li data-id={{id}} class="{#if .completed}completed{/}">
-            <table width=100%>
-              <tr>
-                <td class=handle width=0></td>
-                <td width=100%>
-                  <div class=todo>
-                    <label><input type=checkbox checked={.completed}><i></i></label>
-                    <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
-                  </div>
-                </td>
-                <td width=0><button class=delete x-bind=click:del>Delete</button></td>
-              </tr>
-            </table>
-          </li>
-        {/}
-        </ul>
-      </div>
-      <form data-task-type=todo x-bind=submit:addTask>
-        <input class=new value={_newTodo}>
-        <input type=submit value=Add>
-      </form>
-    </div>
+    <app:taskList title=Dailies type=daily>
+      {#each _dailyList}<app:task />{/}
+    </app:taskList>
+    <app:newTask type=daily><input class=new value={_newDaily}></app:newTask>
 
-    <div class=rewards>
-      <h1>Rewards</h1>
-      <div class=dragbox></div>
-      <div class=content>
-        <ul>
-        {#each _rewardList}
-          <li data-id={{id}} class="reward">
-            <table width=100%>
-              <tr>
-                <td class=handle width=0></td>
-                <td width=100%>
-                  <div class=todo>
-                    <label>${.price}<i></i></label>
-                    <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
-                  </div>
-                </td>
-                <td width=0><button class=delete x-bind=click:del>Delete</button></td>
-              </tr>
-            </table>
-          </li>
-        {/}
-        </ul>
-      </div>
-      <form data-task-type=reward x-bind=submit:addTask>
-        <input class=new value={_newReward}>
-        <input type=submit value=Add>
-      </form>
-    </div>
+    <app:taskList title=Todos type=todo>
+      {#each _todoList}<app:task />{/}
+    </app:taskList>
+    <app:newTask type=todo><input class=new value={_newTodo}></app:newTask>
+
+    <app:taskList title=Rewards type=reward>
+      {#each _rewardList}<app:task />{/}
+    </app:taskList>
+    <app:newTask type=reward><input class=new value={_newReward}></app:newTask>
   
   </div>
   
