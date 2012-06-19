@@ -5,13 +5,14 @@
   "main": "./server.js",
   "dependencies": {
     "derby": "git://github.com/codeparty/derby.git#master",
-    "express": "3.x",
+    "express": "3.0.0beta2",
     "gzippo": ">=0.1.4",
     "racer-db-mongo": "*",
-    "connect-mongo": ">=0.1.9"
+    "connect-mongo": ">=0.1.9",
+    "racer": "*"
   },
   "private": true,
   "devDependencies": {
-    "coffee-script": ">=1.2"
+    "coffee-script": ">=1.3.1"
   }
 }
