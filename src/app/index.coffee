@@ -18,7 +18,7 @@ newUser = (model, userId) ->
 
       habits:
         # TODO :{type: 'habit'} should be coded instead as a model function so as not to clutter the database
-        0: {id: 0, type: 'habit', text: 'Take the stairs', notes: '', score: 0, up: true, down: true}
+        0: {id: 0, type: 'habit', text: 'Take the stairs', notes: 'Test Notes', score: 0, up: true, down: true}
       habitIds: [0]
 
       dailys: # I know it's bad pluralization, but codes easier later
