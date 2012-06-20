@@ -9,7 +9,8 @@
     "gzippo": ">=0.1.4",
     "racer-db-mongo": "*",
     "connect-mongo": ">=0.1.9",
-    "racer": "*"
+    "racer": "*",
+    "derby-ui-boot": "*"
   },
   "private": true,
   "devDependencies": {
