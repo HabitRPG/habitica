@@ -37,33 +37,39 @@ get '/', (page, model) ->
   # Otherwise, select a new userId and initialize user
   if !userId
     userId = newUser(model, userId)
-  
+
   model.subscribe "users.#{userId}", (err, user) ->
     model.ref '_user', user
     
-    # Setup "_todoList" for all the habit types 
+    # Setup "_todoList" for all the habit types
     lists = [ 'habit', 'daily', 'todo', 'reward']
     for type in lists
       ids = user.at "#{type}Ids"
       model.refList "_#{type}List", "_user.#{type}s", "_user.#{type}Ids"
-
+      
+    # http://tibia.wikia.com/wiki/Formula
+    model.fn '_tnl', '_user.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
+    
     page.render()
 
 ## VIEW HELPERS ##
 view.fn 'taskClasses', (type, completed) ->
-  classes = type 
+  classes = type
   classes += " completed" if completed
   return classes
 
 ## CONTROLLER FUNCTIONS ##
 
 ready (model) ->
-
+  
+  #TODO remove this!!!!! dangerous temporary debugging helper
+  window.model = model
+    
   lists = [ 'habit', 'daily', 'todo', 'reward']
 
   for type in lists
     list = model.at "_#{type}List"
-    
+
     # Make the list draggable using jQuery UI
     ul = $(".#{type}s ul")
     ul.sortable
