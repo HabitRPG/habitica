@@ -34,17 +34,14 @@
     </label>
     <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
     
-    <!--<span class="habit-text"><%= name %></span>
+    <!--<span class="habit-text"><%= name %></span>-->
 
-    <% if (user_id != -1) { %>
     <div class='habit-meta'>
-      <a class="edit-link" href="#/<%= id %>/edit">Edit</a>
-      <% if (notes) { %>
-        <img src='/assets/comment.png' class="comment" />
-        <div class='qtip'><%= notes %></div>
-      <% } %>
+      <!--<a class="edit-link" href="#/<%= id %>/edit">Edit</a>-->
+      {#if .notes}
+        <a href="#" rel="popover" data-content="{notes}" title="{notes}"><i class="icon-comment"></i></a>
+      {/}
     </div>
-    <% } %>-->
   </li>
 
 <newTask: nonvoid>
