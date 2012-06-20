@@ -108,11 +108,12 @@ ready (model) ->
   exports.del = (e) ->
     # Derby extends model.at to support creation from DOM nodes
     model.at(e.target).remove()
-    
-  exports.vote = (e, el, next) -> 
+
+  exports.vote = (e, el, next) ->
     direction = $(el).attr('data-direction')
-    task = model.at(e.target)
-    user = model.at('_user')
+    #TODO this should be model.at(el), shouldn't have to find parent
+    task = model.at $(el).parents('li')[0]
+    user = model.at '_user'
     # For negative values, use a line: something like y=-.1x+1
     # For positibe values, taper off with inverse log: y=.9^x
     # Would love to use inverse log for the whole thing, but after 13 fails it hits infinity
@@ -167,10 +168,15 @@ ready (model) ->
     # game over
     if hp < 0
       [hp, lvl, exp] = [50, 1, 0]
-    
-    [user.money, user.hp, user.exp, user.lvl] = [money, hp, exp, lvl]
-    
-    console.log user.exp 
+
+    user.set('money', money)
+    user.set('hp', hp)
+    user.set('exp', exp)
+    user.set('lvl', lvl)
+    #[user.money, user.hp, user.exp, user.lvl] = [money, hp, exp, lvl]
+
+    # console.log task
+    # console.log user
 
     #TODO why do I have this?
     # @trigger 'updatedStats'
