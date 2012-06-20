@@ -57,6 +57,15 @@ view.fn 'taskClasses', (type, completed) ->
   classes = type
   classes += " completed" if completed
   return classes
+    
+view.fn "round", (num) ->
+  Math.round num
+  
+view.fn "gold", (num) -> 
+  num.toFixed(1).split('.')[0]
+
+view.fn "silver", (num) -> 
+  num.toFixed(1).split('.')[1]
 
 ## CONTROLLER FUNCTIONS ##
 
@@ -86,7 +95,10 @@ ready (model) ->
         # Also, note that refList index arguments can either be an index
         # or the item's id property
         list.pass(ignore: domId).move {id}, to
-  
+     
+    $("#tnl-bar" ).progressbar value: model.at('_user.exp')/model.at('_tnl') * 100
+    $("#hp-bar" ).progressbar value: model.at('_user.hp')/50 * 100
+
   exports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
     list = model.at "_#{type}List"
