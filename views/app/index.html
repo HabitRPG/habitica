@@ -132,24 +132,17 @@
       <!-- would rather have one component: <app:taskList>, which handles taskList, task, and newTask.  However,
         can't pass references as paramters.  so <app:taskList newModel={_newHabit} list={_habitList}> doesn't work
         and have to pass those in via {{{content}}} instead -->
-      
-  
-      
-  
-      
-  
-      
         
       <!--<% end %>-->
   
 <Footer:>
   <a href="https://github.com/lefnire/habitrpg"><img style="z-index:11; position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
-  <div id="footer">
-    <!--<%if current_user %>-->
+  <!--<div id="footer">
+    <%if current_user %>
       <p><a href="https://github.com/lefnire/habitrpg#habitrpg">Help</a> | <%= link_to "Logout", destroy_user_session_path, :method => :delete %></p>
-    <!--<% end %>-->
-    <p>Copyright &copy; 2012 Tyler Renelle</p>
-  </div>
+    <% end %>
+    <p>Copyright &copy; 2012<!-- -<%= Time.now.year %>--> Tyler Renelle</p>
+  </div>-->
   
 <alert:>
   <div id=alert>
