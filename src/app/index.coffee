@@ -166,8 +166,7 @@ ready (model) ->
     else if task.get('type') != 'reward'
       hp += delta
 
-    #TODO this should be a func, since called elswhere.. but getting error
-    tnl = 50 * Math.pow(user.get('lvl'), 2) - 150 * user.get('lvl') + 200
+    tnl = model.at '_tnl'
     # level up & carry-over exp
     if exp > tnl
       exp -= tnl
@@ -183,17 +182,6 @@ ready (model) ->
     user.set('lvl', lvl)
     #[user.money, user.hp, user.exp, user.lvl] = [money, hp, exp, lvl]
 
-    # console.log task
-    # console.log user
-
-    #TODO why do I have this?
-    # @trigger 'updatedStats'
-
-  exports.tnl = () ->
-    # http://tibia.wikia.com/wiki/Formula
-    user = model.at('_user')
-    50 * Math.pow(user.get('lvl'), 2) - 150 * user.get('lvl') + 200
-    
   ## RECONNECT & SHORTCUTS ##
 
   showReconnect = model.at '_showReconnect'
