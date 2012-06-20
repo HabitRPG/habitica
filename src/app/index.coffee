@@ -21,7 +21,7 @@ newUser = (model, userId) ->
       dailys: # I know it's bad pluralization, but codes easier later
         0: {id: 0, type: 'daily', text: 'Go to the gym', notes: '', score: 0, completed: false }
       dailyIds: [0]
-      
+
       todos:
         0: {id: 0, type: 'todo', text: 'Make a doctor appointment', notes: '', score: 0, completed: false }
       todoIds: [0]
@@ -29,7 +29,7 @@ newUser = (model, userId) ->
       rewards:
         0: {id: 0, type: 'reward', text: '1 TV episode', notes: '', price: 20 }
       rewardIds: [0]
-  
+
 
 get '/', (page, model) ->
   # Render page if a userId is already stored in session data
@@ -49,7 +49,7 @@ get '/', (page, model) ->
       
     # http://tibia.wikia.com/wiki/Formula
     model.fn '_tnl', '_user.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
-    
+
     page.render()
 
 ## VIEW HELPERS ##
@@ -107,20 +107,20 @@ ready (model) ->
     return unless text = view.escapeHtml newModel.get()
     newModel.set ''
     switch type
-    
+
       when 'habit'
         list.push {type: type, text: text, notes: '', score: 0, up: true, down: true}
-        
+
       when 'reward'
         list.push {type: type, text: text, notes: '', price: 20 }
-        
+
       when 'daily', 'todo'
         # Insert the new todo before the first completed item in the list
         # or append to the end if none are completed
         for todo, i in list.get()
           break if todo.completed
         list.insert i, {type: type, text: text, notes: '', score: 0, completed: false }
-        
+
         list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
           # Move the item to the bottom if it was checked off
           list.move i, -1  if completed && isLocal
@@ -144,20 +144,20 @@ ready (model) ->
       delta = (( -0.1 * score + 1 ) * sign)
     else
       delta = (( Math.pow(0.9, score) ) * sign)
-    
+
     # Don't adjust scores for rewards, or for habits that don't have both + and -
     adjustScore = (task.get('type') != 'reward')
     if (task.get('type') == 'habit') and (task.get("up")==false or task.get("down")==false)
       adjustScore = false
-    score += delta if adjustScore 
-    
+    score += delta if adjustScore
+
     # up/down -voting as checkbox & assigning as done, 2 birds one stone
     done = task.get("done")
     if task.get('type') != 'habit'
       done = true if direction=="up"
       done = false if direction=="down"
     [task.score, task.done] = [score, done]
-    
+
     # Update the user's status
     [money, hp, exp, lvl] = [user.get('money'), user.get('hp'), user.get('exp'), user.get('lvl')]
 
@@ -223,4 +223,3 @@ ready (model) ->
   # See: https://developer.mozilla.org/en/Rich-Text_Editing_in_Mozilla
   document.execCommand 'useCSS', false, true
   document.execCommand 'styleWithCSS', false, false
-  
