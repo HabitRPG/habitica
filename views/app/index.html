@@ -87,6 +87,10 @@
   <div class="container-fluid">
     <div class="row-fluid">
       
+      <!-- would rather have one component: <app:taskList>, which handles taskList, task, and newTask.  However,
+        can't pass references as paramters.  so <app:taskList newModel={_newHabit} list={_habitList}> doesn't work
+        and have to pass those in via {{{content}}} instead -->  
+      
       <div class="span2">
         <app:taskList title=Habits type=habit>
           {#each _habitList}<app:task />{/}
@@ -120,17 +124,10 @@
     </div>
   </div>
     
-    
-    
-      <!--<% if !current_user %>
-        <%= link_to(image_tag("http://line6.com/images/connections/facebook-login-button.png", :alt =>  "Login with Facebook"), user_omniauth_authorize_path(:facebook)) %>
-      <% else %>-->
-      
-      <!-- would rather have one component: <app:taskList>, which handles taskList, task, and newTask.  However,
-        can't pass references as paramters.  so <app:taskList newModel={_newHabit} list={_habitList}> doesn't work
-        and have to pass those in via {{{content}}} instead -->
-        
-      <!--<% end %>-->
+  <!--<% if !current_user %>
+    <%= link_to(image_tag("http://line6.com/images/connections/facebook-login-button.png", :alt =>  "Login with Facebook"), user_omniauth_authorize_path(:facebook)) %>
+  <% else %>-->
+  <!--<% end %>-->
   
 <Footer:>
   <a href="https://github.com/lefnire/habitrpg"><img style="z-index:11; position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
