@@ -64,11 +64,18 @@
             <b><div id="lvl">Lvl: {_user.lvl}</div></b>
           </td>
           <td id="bars">
-            <div id="hp-bar" style="width:400px;">
-              <span id="hp">HP: {round(_user.hp)}</span>
+            <div class="progress progress-danger">
+              <div class="bar" style="width: {percent(_user.hp,50)}%;">
+                <span id="hp">HP: {round(_user.hp)} / 50</span>
+              </div>
             </div>
-            <div id="tnl-bar" style="width:400px;">
-              <span id="tnl">Exp: {round(_user.exp)} / {_tnl}</span>
+
+            <div class="progress progress-warning">
+              <div class="bar" style="width: {percent(_user.exp,_tnl)}%;">
+                <span id="tnl">Exp: {round(_user.exp)} / {_tnl}</span>
+              </div>
+            </div>
+              
             </div>
           </td>
         </tr>

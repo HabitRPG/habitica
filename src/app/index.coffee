@@ -33,7 +33,6 @@ newUser = (model, userId) ->
         0: {id: 0, type: 'reward', text: '1 TV episode', notes: '', price: 20 }
       rewardIds: [0]
 
-
 get '/', (page, model) ->
   # Render page if a userId is already stored in session data
   userId = model.get '_session.userId'
@@ -61,14 +60,18 @@ view.fn 'taskClasses', (type, completed) ->
   classes += " completed" if completed
   return classes
     
+view.fn "percent", (x, y) ->
+  x=1 if x==0
+  Math.round(x/y*100)
+    
 view.fn "round", (num) ->
   Math.round num
   
 view.fn "gold", (num) -> 
-  num.toFixed(1).split('.')[0]
+  num.toFixed(1).split('.')[0] if num
 
 view.fn "silver", (num) -> 
-  num.toFixed(1).split('.')[1]
+  num.toFixed(1).split('.')[1] if num
 
 ## CONTROLLER FUNCTIONS ##
 
