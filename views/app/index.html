@@ -16,23 +16,23 @@
   </div>
   
 <task:>
-  <li data-id={{id}} class="{taskClasses(.type, .completed)}">
+  <li class="{taskClasses(type, completed)}">
     <label>
       <!-- Habits -->
-      {#if equal(.type, 'habit')}
-        {#if up}<a data-direction=up x-bind=click:vote><img src="img/add.png" /></a>{/}
-        {#if down}<a data-direction=up x-bind=click:vote><img src="img/remove.png" /></a>{/}
+      {#if equal(type, 'habit')}
+        {#if up}<a data-id={{id}} data-direction=up x-bind=click:vote><img src="img/add.png" /></a>{/}
+        {#if down}<a data-id={{id}} data-direction=down x-bind=click:vote><img src="img/remove.png" /></a>{/}
       <!-- Rewards -->
-      {else if equal(.type, 'reward')}
-        <a class="vote-down buy-link" href="#">{.price}<img src="img/coin_single_gold.png"/></a>
+      {else if equal(type, 'reward')}
+        <a class="vote-down buy-link" href="#">{price}<img src="img/coin_single_gold.png"/></a>
       <!-- Daily & Todos -->
       {else}  
         <!--TODO this was part of input below <%= done ? "class='vote-down' checked='checked'" : "class='vote-up'" %>-->
-        <input type="checkbox" checked={.completed} />
+        <input type="checkbox" checked={completed} />
       {/}
     <i></i>  
     </label>
-    <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
+    <div x-bind=keydown:shortcuts contenteditable>{unescaped text}</div>
     
     <!--<span class="habit-text"><%= name %></span>
 
