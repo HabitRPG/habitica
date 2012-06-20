@@ -102,9 +102,6 @@ ready (model) ->
         # or the item's id property
         list.pass(ignore: domId).move {id}, to
      
-    $("#tnl-bar" ).progressbar value: model.at('_user.exp')/model.at('_tnl') * 100
-    $("#hp-bar" ).progressbar value: model.at('_user.hp')/50 * 100
-
   exports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
     list = model.at "_#{type}List"
