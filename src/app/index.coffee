@@ -3,14 +3,16 @@
 ## ROUTES ##
 
 newUser = (model, userId) ->
-  model.async.incr 'configs.1.nextUserId', (err, userId) ->
+  # TODO this used to be model.async.incr, revisit this
+  model.incr 'configs.1.nextUserId', (err, userId) ->
     model.set '_session.userId', userId
     model.set "users.#{userId}",
       name: 'User ' + userId
       money: 0
       exp: 0
       lvl: 1
-      
+      hp: 50
+
       habits:
         # TODO :{type: 'habit'} should be coded instead as a model function so as not to clutter the database
         0: {id: 0, type: 'habit', text: 'Take the stairs', notes: '', score: 0, up: true, down: true}
