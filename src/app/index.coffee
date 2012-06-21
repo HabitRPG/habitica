@@ -1,7 +1,7 @@
 derby = require('derby')
 {get, view, ready} = derby.createApp module
 derby.use require('derby-ui-boot')
-#derby.use(require('../../ui'))
+derby.use(require('../../ui'))
 
 ## ROUTES ##
 

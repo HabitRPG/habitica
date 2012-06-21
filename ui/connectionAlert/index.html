@@ -1,0 +1,15 @@
+<connectionAlert:>
+  <div class="connection">
+    {#unless connected}
+      <p class="alert">
+        {#if canConnect}
+          Offline 
+          {#unless :self.hideReconnect}
+            &ndash; <a x-bind="click:connect">Reconnect</a>
+          {/}
+        {else}
+          Unable to reconnect &ndash; <a x-bind="click:reload">Reload</a>
+        {/}
+      </p>
+    {/}
+  </div>
