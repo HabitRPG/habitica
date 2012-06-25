@@ -36,17 +36,16 @@
 
     <!-- TODO make this a popover -->    
     <a x-bind=click:toggleEdit data-selector="{{:task.id}}-edit">Edit</a>
-    <app:editPopover/>
-    
     
     <!--<span class="habit-text"><%= name %></span>-->
 
     <div class='habit-meta'>
       <!--<a class="edit-link" href="#/<%= id %>/edit">Edit</a>-->
       {#if :task.notes}
-        <a href="#" rel="tooltip" title="{:task.notes}"><i class="icon-comment"></i></a>
+        <a href="#" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></a>
       {/}
     </div>
+    <app:editPopover />
   </li>
   
 <editPopover:>

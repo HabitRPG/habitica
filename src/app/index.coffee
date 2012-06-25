@@ -80,6 +80,8 @@ ready (model) ->
   #TODO remove this!!!!! dangerous temporary debugging helper
   window.model = model
   
+  $('.task-notes').popover()
+      
   lists = [ 'habit', 'daily', 'todo', 'reward']
 
   for type in lists
