@@ -22,16 +22,16 @@ newUser = (model, userId) ->
       habitIds: [0]
 
       dailys: # I know it's bad pluralization, but codes easier later
-        0: {id: 0, type: 'daily', text: 'Go to the gym', notes: '', score: 0, completed: false }
-      dailyIds: [0]
+        1: {id: 1, type: 'daily', text: 'Go to the gym', notes: '', score: 0, completed: false }
+      dailyIds: [1]
 
       todos:
-        0: {id: 0, type: 'todo', text: 'Make a doctor appointment', notes: '', score: 0, completed: false }
-      todoIds: [0]
+        2: {id: 2, type: 'todo', text: 'Make a doctor appointment', notes: '', score: 0, completed: false }
+      todoIds: [2]
 
       rewards:
-        0: {id: 0, type: 'reward', text: '1 TV episode', notes: '', price: 20 }
-      rewardIds: [0]
+        3: {id: 3, type: 'reward', text: '1 TV episode', notes: '', price: 20 }
+      rewardIds: [3]
 
 get '/', (page, model) ->
   # Render page if a userId is already stored in session data

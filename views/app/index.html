@@ -2,7 +2,6 @@
   HabitRPG
 
 <Header:>
-  <body>
   <ui:connectionAlert>
   
 <taskList: nonvoid>
@@ -17,33 +16,55 @@
   </div>
   
 <task:>
-  <li data-id={{id}} class="{taskClasses(.type, .completed)}">
+  <li data-id={{:task.id}} class="{taskClasses(:task.type, :task.completed)}">
     <label>
       <!-- Habits -->
-      {#if equal(.type, 'habit')}
-        {#if up}<a data-id={{id}} data-direction=up x-bind=click:vote><img src="img/add.png" /></a>{/}
-        {#if down}<a data-id={{id}} data-direction=down x-bind=click:vote><img src="img/remove.png" /></a>{/}
+      {#if equal(:task.type, 'habit')}
+        {#if :task.up}<a data-direction=up x-bind=click:vote><img src="img/add.png" /></a>{/}
+        {#if :task.down}<a data-direction=down x-bind=click:vote><img src="img/remove.png" /></a>{/}
       <!-- Rewards -->
-      {else if equal(.type, 'reward')}
-        <a class="vote-down buy-link" href="#">{.price}<img src="img/coin_single_gold.png"/></a>
+      {else if equal(:task.type, 'reward')}
+        <a class="vote-down buy-link" href="#">{:task.price}<img src="img/coin_single_gold.png"/></a>
       <!-- Daily & Todos -->
       {else}  
         <!--TODO this was part of input below <%= done ? "class='vote-down' checked='checked'" : "class='vote-up'" %>-->
-        <input type="checkbox" checked={.completed} />
+        <input type="checkbox" checked={:task.completed} />
       {/}
     <i></i>  
     </label>
-    <div x-bind=keydown:shortcuts contenteditable>{unescaped .text}</div>
+    <div x-bind=keydown:shortcuts contenteditable>{unescaped :task.text}</div>
+    
+    <a class="btn" data-toggle="modal" data-target="#{:task.id}-modal" >Launch Modal</a>
+
+    <app:editModal />
     
     <!--<span class="habit-text"><%= name %></span>-->
 
     <div class='habit-meta'>
       <!--<a class="edit-link" href="#/<%= id %>/edit">Edit</a>-->
-      {#if .notes}
-        <a href="#" rel="popover" data-content="{notes}" title="{notes}"><i class="icon-comment"></i></a>
+      {#if :task.notes}
+        <a href="#" rel="tooltip" title="{:task.notes}"><i class="icon-comment"></i></a>
       {/}
     </div>
   </li>
+  
+<editModal:>
+  <div class="modal hide" id="{{:task.id}}-modal">
+      <div class="modal-header">
+        <h3 contenteditable>{:task.text}</h3>
+      </div>
+      <div class="modal-body">
+        <label>Notes<input type=textarea rows=5 value={:task.notes} /></label>
+        {#if equal(:task.type, 'habit')}
+          <label><input type=checkbox checked={:task.up}><i></i>Up</label>
+          <label><input type=checkbox checked={:task.down}><i></i>Down</label>
+        {/}
+      </div>
+      <div class="modal-footer">
+       <a href="#" class="btn btn-primary" data-dismiss="modal">Save</a>
+       <a href="#" style='display:none;' class="btn btn-primary">Save changes</a>
+      </div>
+    </div>
 
 <newTask: nonvoid>
   <form data-task-type={{{type}}} x-bind=submit:addTask>
@@ -94,21 +115,21 @@
       
       <div class="span2">
         <app:taskList title=Habits type=habit>
-          {#each _habitList}<app:task />{/}
+          {#each _habitList as :task}<app:task />{/}
         </app:taskList>
         <app:newTask type=habit><input class=new value={_newHabit}></app:newTask>
       </div>
       
       <div class="span2">
         <app:taskList title=Dailies type=daily>
-          {#each _dailyList}<app:task />{/}
+          {#each _dailyList as :task}<app:task />{/}
         </app:taskList>
         <app:newTask type=daily><input class=new value={_newDaily}></app:newTask>
       </div>
 
       <div class="span2">
         <app:taskList title=Todos type=todo>
-          {#each _todoList}<app:task />{/}
+          {#each _todoList as :task}<app:task />{/}
         </app:taskList>
         <app:newTask type=todo><input class=new value={_newTodo}></app:newTask>
       </div>
@@ -116,7 +137,7 @@
       <div class="span2">
         {gold(_user.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.money)} <img src='/img/coin_single_silver.png'/>
         <app:taskList title=Rewards type=reward>
-          {#each _rewardList}<app:task />{/}
+          {#each _rewardList as :task}<app:task />{/}
         </app:taskList>
         <app:newTask type=reward><input class=new value={_newReward}></app:newTask>
       </div>
