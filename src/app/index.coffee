@@ -135,8 +135,10 @@ ready (model) ->
     model.at(e.target).remove()
     
   exports.toggleEdit = (e, el) ->
-    selector = '#\\' + $(el).attr('data-selector')
-    $(selector).toggle()
+    selector = $(el).attr('data-selector')
+    if selector.charAt(0) == '$'
+      selector = '\\' + selector
+    $('#'+selector).toggle()
 
   exports.vote = (e, el, next) ->
     direction = $(el).attr('data-direction')
