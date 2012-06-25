@@ -60,7 +60,7 @@
     {#if equal(:task.type, 'reward')}
       <label>Price<input type=text value={:task.price} /></label>
     {/}
-    <a x-bind=click:toggleEdit data-selector="{{:task.id}}-edit" class="btn btn-primary">Save</a>
+    <a x-bind=click:toggleEdit data-selector="{{:task.id}}-edit" class="btn">Save</a>
     <a x-bind=click:del class="btn btn-danger">Delete</a>
   </div>
   
