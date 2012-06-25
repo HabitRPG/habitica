@@ -133,7 +133,7 @@ ready (model) ->
     model.at(e.target).remove()
     
   exports.toggleEdit = (e, el) ->
-    selector = '#' + $(el).attr('data-selector')
+    selector = '#\\' + $(el).attr('data-selector')
     $(selector).toggle()
 
   exports.vote = (e, el, next) ->
