@@ -33,10 +33,11 @@
     <i></i>  
     </label>
     <div x-bind=keydown:shortcuts contenteditable>{unescaped :task.text}</div>
-    
-    <a class="btn" data-toggle="modal" data-target="#{:task.id}-modal" >Launch Modal</a>
 
-    <app:editModal />
+    <!-- TODO make this a popover -->    
+    <a x-bind=click:toggleEdit data-selector="{{:task.id}}-edit">Edit</a>
+    <app:editPopover/>
+    
     
     <!--<span class="habit-text"><%= name %></span>-->
 
@@ -48,23 +49,16 @@
     </div>
   </li>
   
-<editModal:>
-  <div class="modal hide" id="{{:task.id}}-modal">
-      <div class="modal-header">
-        <h3 contenteditable>{:task.text}</h3>
-      </div>
-      <div class="modal-body">
-        <label>Notes<input type=textarea rows=5 value={:task.notes} /></label>
-        {#if equal(:task.type, 'habit')}
-          <label><input type=checkbox checked={:task.up}><i></i>Up</label>
-          <label><input type=checkbox checked={:task.down}><i></i>Down</label>
-        {/}
-      </div>
-      <div class="modal-footer">
-       <a href="#" class="btn btn-primary" data-dismiss="modal">Save</a>
-       <a href="#" style='display:none;' class="btn btn-primary">Save changes</a>
-      </div>
-    </div>
+<editPopover:>
+  <div style="display:none;" id={{:task.id}}-edit>
+    <label>Text<input type=text value={:task.text} /></label>
+    <label>Notes<input type=textarea rows=5 value={:task.notes} /></label>
+    {#if equal(:task.type, 'habit')}
+      <label><input type=checkbox checked={:task.up}><i></i>Up</label>
+      <label><input type=checkbox checked={:task.down}><i></i>Down</label>
+    {/}
+    <a x-bind=click:toggleEdit data-selector="{{:task.id}}-edit" class="btn btn-primary">Save</a>
+  </div>
 
 <newTask: nonvoid>
   <form data-task-type={{{type}}} x-bind=submit:addTask>

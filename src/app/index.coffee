@@ -79,7 +79,7 @@ ready (model) ->
   
   #TODO remove this!!!!! dangerous temporary debugging helper
   window.model = model
-    
+  
   lists = [ 'habit', 'daily', 'todo', 'reward']
 
   for type in lists
@@ -131,6 +131,10 @@ ready (model) ->
   exports.del = (e) ->
     # Derby extends model.at to support creation from DOM nodes
     model.at(e.target).remove()
+    
+  exports.toggleEdit = (e, el) ->
+    selector = '#' + $(el).attr('data-selector')
+    $(selector).toggle()
 
   exports.vote = (e, el, next) ->
     direction = $(el).attr('data-direction')
