@@ -57,9 +57,13 @@
       <label><input type=checkbox checked={:task.up}><i></i>Up</label>
       <label><input type=checkbox checked={:task.down}><i></i>Down</label>
     {/}
+    {#if equal(:task.type, 'reward')}
+      <label>Price<input type=text value={:task.price} /></label>
+    {/}
     <a x-bind=click:toggleEdit data-selector="{{:task.id}}-edit" class="btn btn-primary">Save</a>
+    <a x-bind=click:del class="btn btn-danger">Delete</a>
   </div>
-
+  
 <newTask: nonvoid>
   <form data-task-type={{{type}}} x-bind=submit:addTask>
     {{{content}}}
