@@ -18,20 +18,16 @@ newUser = (model, userId) ->
 
       habits:
         # TODO :{type: 'habit'} should be coded instead as a model function so as not to clutter the database
-        0: {id: 0, type: 'habit', text: 'Take the stairs', notes: 'Test Notes', score: 0, up: true, down: true}
-      habitIds: [0]
+        {type: 'habit', text: 'Take the stairs', notes: 'Test Notes', score: 0, up: true, down: true}
 
       dailys: # I know it's bad pluralization, but codes easier later
-        1: {id: 1, type: 'daily', text: 'Go to the gym', notes: '', score: 0, completed: false }
-      dailyIds: [1]
+        {type: 'daily', text: 'Go to the gym', notes: '', score: 0, completed: false }
 
       todos:
-        2: {id: 2, type: 'todo', text: 'Make a doctor appointment', notes: '', score: 0, completed: false }
-      todoIds: [2]
+        {type: 'todo', text: 'Make a doctor appointment', notes: '', score: 0, completed: false }
 
       rewards:
-        3: {id: 3, type: 'reward', text: '1 TV episode', notes: '', price: 20 }
-      rewardIds: [3]
+        {type: 'reward', text: '1 TV episode', notes: '', price: 20 }
 
 get '/', (page, model) ->
   # Render page if a userId is already stored in session data
@@ -120,15 +116,11 @@ ready (model) ->
         list.push {type: type, text: text, notes: '', price: 20 }
 
       when 'daily', 'todo'
-        # Insert the new todo before the first completed item in the list
-        # or append to the end if none are completed
-        for todo, i in list.get()
-          break if todo.completed
-        list.insert i, {type: type, text: text, notes: '', score: 0, completed: false }
+        list.push {type: type, text: text, notes: '', score: 0, completed: false }
 
-        list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
-          # Move the item to the bottom if it was checked off
-          list.move i, -1  if completed && isLocal
+        # list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
+          # # Move the item to the bottom if it was checked off
+          # list.move i, -1  if completed && isLocal
 
   exports.del = (e) ->
     # Derby extends model.at to support creation from DOM nodes
