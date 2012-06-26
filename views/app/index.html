@@ -3,6 +3,34 @@
 
 <Header:>
   <ui:connectionAlert>
+  <div id="head">
+    <!--<% if current_user %>-->
+      <table id="character">
+        <tr>
+          <td id="avatar">
+            <img src="/img/avatar/{_user.lvl}.png" /><br/>
+            <b><div id="lvl">Lvl: {_user.lvl}</div></b>
+          </td>
+          <td id="bars">
+            <div class="progress progress-danger">
+              <span class="progress-text">HP: {round(_user.hp)} / 50</span>
+              <div class="bar" style="width: {percent(_user.hp,50)}%;"></div>
+            </div>
+
+            <div class="progress progress-warning">
+              <span class="progress-text">Exp: {round(_user.exp)} / {_tnl}</span>
+              <div class="bar" style="width: {percent(_user.exp,_tnl)}%;"></div>
+            </div>
+              
+            </div>
+          </td>
+        </tr>
+      </table>
+    <!--<% else %>
+      <h1>HabitRPG</h1>
+      <p>A habit tracker app which treats your goals like a Role Playing Game. <a href="https://github.com/lefnire/habitrpg#habitrpg">More Information</a></p>
+    <% end %>-->
+  </div>
   
 <newTask:>
   <form class="form-inline" data-task-type={{{type}}} x-bind=submit:addTask>
@@ -68,34 +96,6 @@
   </div>
 
 <Body:>
-  <div id="head">
-    <!--<% if current_user %>-->
-      <table id="character">
-        <tr>
-          <td id="avatar">
-            <img src="/img/avatar/{_user.lvl}.png" /><br/>
-            <b><div id="lvl">Lvl: {_user.lvl}</div></b>
-          </td>
-          <td id="bars">
-            <div class="progress progress-danger">
-              <span class="progress-text">HP: {round(_user.hp)} / 50</span>
-              <div class="bar" style="width: {percent(_user.hp,50)}%;"></div>
-            </div>
-
-            <div class="progress progress-warning">
-              <span class="progress-text">Exp: {round(_user.exp)} / {_tnl}</span>
-              <div class="bar" style="width: {percent(_user.exp,_tnl)}%;"></div>
-            </div>
-              
-            </div>
-          </td>
-        </tr>
-      </table>
-    <!--<% else %>
-      <h1>HabitRPG</h1>
-      <p>A habit tracker app which treats your goals like a Role Playing Game. <a href="https://github.com/lefnire/habitrpg#habitrpg">More Information</a></p>
-    <% end %>-->
-  </div>
   <br/>
   
   <div class="container-fluid">
