@@ -53,7 +53,7 @@ get '/', (page, model) ->
 ## VIEW HELPERS ##
 view.fn 'taskClasses', (type, completed, score) ->
   classes = type
-  classes += " completed" if completed #TODO .done instead
+  classes += " completed" if completed
   switch
     when score<-8 then classes += ' color-worst'
     when score>=-8 and score<-5 then classes += ' color-worse'
