@@ -61,7 +61,7 @@ view.fn 'taskClasses', (type, completed, score) ->
     when score>=-1 and score<1 then classes += ' color-neutral'
     when score>=1 and score<5 then classes += ' color-good' 
     when score>=5 and score<10 then classes += ' color-better' 
-    when score>=10 then output += ' color-best'
+    when score>=10 then classes += ' color-best'
   return classes
     
 view.fn "percent", (x, y) ->
