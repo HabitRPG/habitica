@@ -142,7 +142,6 @@ ready (model) ->
 
   exports.vote = (e, el, next) ->
     direction = $(el).attr('data-direction')
-    console.log direction
     direction = 'up' if direction == 'true/'
     direction = 'down' if direction == 'false/'
     
@@ -194,9 +193,9 @@ ready (model) ->
     else if task.get('type') != 'reward'
       hp += delta
 
-    tnl = model.at '_tnl'
+    tnl = model.at('_tnl').get()
     # level up & carry-over exp
-    if exp > tnl
+    if exp >= tnl
       exp -= tnl
       lvl += 1
 
