@@ -129,6 +129,7 @@
   
 <editPopover:>
   <div style="display:none;" id={{:task.id}}-edit>
+    <hr/>
     <label>Text<input type=text value={:task.text} /></label>
     <label>Notes<textarea rows=3>{:task.notes}</textarea></label>
     {#if equal(:task.type, 'habit')}
