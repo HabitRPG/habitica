@@ -92,7 +92,7 @@ ready (model) ->
     list = model.at "_#{type}List"
 
     # Make the list draggable using jQuery UI
-    ul = $(".#{type}s ul")
+    ul = $("ul.#{type}s")
     ul.sortable
       dropOnEmpty: false
       cursor: "move"
