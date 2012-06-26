@@ -18,16 +18,16 @@ newUser = (model, userId) ->
 
       habits:
         # TODO :{type: 'habit'} should be coded instead as a model function so as not to clutter the database
-        {type: 'habit', text: 'Take the stairs', notes: 'Test Notes', score: 0, up: true, down: true}
+        {type: 'habit', text: 'Take the stairs', notes: 'Test Notes', value: 0, up: true, down: true}
 
       dailys: # I know it's bad pluralization, but codes easier later
-        {type: 'daily', text: 'Go to the gym', notes: '', score: 0, completed: false }
+        {type: 'daily', text: 'Go to the gym', notes: '', value: 0, completed: false }
 
       todos:
-        {type: 'todo', text: 'Make a doctor appointment', notes: '', score: 0, completed: false }
+        {type: 'todo', text: 'Make a doctor appointment', notes: '', value: 0, completed: false }
 
       rewards:
-        {type: 'reward', text: '1 TV episode', notes: '', price: 20 }
+        {type: 'reward', text: '1 TV episode', notes: '', value: 20 }
 
 get '/', (page, model) ->
   # Render page if a userId is already stored in session data
@@ -51,17 +51,17 @@ get '/', (page, model) ->
     page.render()
 
 ## VIEW HELPERS ##
-view.fn 'taskClasses', (type, completed, score) ->
+view.fn 'taskClasses', (type, completed, value) ->
   classes = type
   classes += " completed" if completed
   switch
-    when score<-8 then classes += ' color-worst'
-    when score>=-8 and score<-5 then classes += ' color-worse'
-    when score>=-5 and score<-1 then classes += ' color-bad' 
-    when score>=-1 and score<1 then classes += ' color-neutral'
-    when score>=1 and score<5 then classes += ' color-good' 
-    when score>=5 and score<10 then classes += ' color-better' 
-    when score>=10 then classes += ' color-best'
+    when value<-8 then classes += ' color-worst'
+    when value>=-8 and value<-5 then classes += ' color-worse'
+    when value>=-5 and value<-1 then classes += ' color-bad' 
+    when value>=-1 and value<1 then classes += ' color-neutral'
+    when value>=1 and value<5 then classes += ' color-good' 
+    when value>=5 and value<10 then classes += ' color-better' 
+    when value>=10 then classes += ' color-best'
   return classes
     
 view.fn "percent", (x, y) ->
@@ -118,13 +118,13 @@ ready (model) ->
     switch type
 
       when 'habit'
-        list.push {type: type, text: text, notes: '', score: 0, up: true, down: true}
+        list.push {type: type, text: text, notes: '', value: 0, up: true, down: true}
 
       when 'reward'
-        list.push {type: type, text: text, notes: '', price: 20 }
+        list.push {type: type, text: text, notes: '', value: 20 }
 
       when 'daily', 'todo'
-        list.push {type: type, text: text, notes: '', score: 0, completed: false }
+        list.push {type: type, text: text, notes: '', value: 0, completed: false }
 
         # list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
           # # Move the item to the bottom if it was checked off
@@ -153,25 +153,25 @@ ready (model) ->
     # For positibe values, taper off with inverse log: y=.9^x
     # Would love to use inverse log for the whole thing, but after 13 fails it hits infinity
     sign = if (direction == "up") then 1 else -1
-    score = task.get('score')
+    value = task.get('value')
     delta = 0
-    if score < 0
-      delta = (( -0.1 * score + 1 ) * sign)
+    if value < 0
+      delta = (( -0.1 * value + 1 ) * sign)
     else
-      delta = (( Math.pow(0.9, score) ) * sign)
+      delta = (( Math.pow(0.9, value) ) * sign)
 
-    # Don't adjust scores for rewards, or for habits that don't have both + and -
-    adjustScore = (task.get('type') != 'reward')
+    # Don't adjust values for rewards, or for habits that don't have both + and -
+    adjustvalue = (task.get('type') != 'reward')
     if (task.get('type') == 'habit') and (task.get("up")==false or task.get("down")==false)
-      adjustScore = false
-    score += delta if adjustScore
+      adjustvalue = false
+    value += delta if adjustvalue
 
     # up/down -voting as checkbox & assigning as completed, 2 birds one stone
     completed = task.get("completed")
     if task.get('type') != 'habit'
       completed = true if direction=="up"
       completed = false if direction=="down"
-    task.set('score', score)
+    task.set('value', value)
     task.set('completed', completed)
 
     # Update the user's status
@@ -179,7 +179,7 @@ ready (model) ->
 
     if task.get('type') == 'reward'
       # purchase item
-      money -= task.get('score')
+      money -= task.get('value')
       # if too expensive, reduce health & zero money
       if money < 0
         hp += money # hp - money difference

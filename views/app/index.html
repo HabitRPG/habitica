@@ -96,7 +96,7 @@
   </form>  
   
 <task:>
-  <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.score)}">
+  <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value)}">
     <div class="task-meta">
       <!-- TODO make this a popover -->    
       
@@ -115,7 +115,7 @@
         {#if :task.down}<a data-direction=down x-bind=click:vote><img src="img/remove.png" /></a>{/}
       <!-- Rewards -->
       {else if equal(:task.type, 'reward')}
-        <a x-bind=click:vote class="buy-link" data-direction=down>{:task.price}<img src="img/coin_single_gold.png"/></a>
+        <a x-bind=click:vote class="buy-link" data-direction=down>{:task.value}<img src="img/coin_single_gold.png"/></a>
       <!-- Daily & Todos -->
       {else}  
         <input type="checkbox" checked={:task.completed} x-bind=click:vote data-direction={:task.completed}/>
@@ -138,7 +138,7 @@
       </div>
     {/}
     {#if equal(:task.type, 'reward')}
-      <label>Price<input type=text value={:task.price} /></label>
+      <label>value<input type=text value={:task.value} /></label>
     {/}
     <a x-bind=click:toggleEdit data-selector="{{:task.id}}-edit" class="btn">Save</a>
     <a x-bind=click:del class="btn btn-danger">Delete</a>
