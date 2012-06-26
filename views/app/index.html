@@ -119,7 +119,7 @@
       <!-- Daily & Todos -->
       {else}  
         <!--TODO this was part of input below <%= done ? "class='vote-down' checked='checked'" : "class='vote-up'" %>-->
-        <input type="checkbox" checked={:task.completed} />
+        <input type="checkbox" checked={:task.completed} x-bind=click:vote data-direction={:task.completed}/>
       {/}
     </div>
     <div class="task-text" x-bind=keydown:shortcuts contenteditable>{unescaped :task.text}</div>

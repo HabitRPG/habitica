@@ -142,6 +142,10 @@ ready (model) ->
 
   exports.vote = (e, el, next) ->
     direction = $(el).attr('data-direction')
+    console.log direction
+    direction = 'up' if direction == 'true/'
+    direction = 'down' if direction == 'false/'
+    
     #TODO this should be model.at(el), shouldn't have to find parent
     task = model.at $(el).parents('li')[0]
     user = model.at '_user'
@@ -162,13 +166,13 @@ ready (model) ->
       adjustScore = false
     score += delta if adjustScore
 
-    # up/down -voting as checkbox & assigning as done, 2 birds one stone
-    done = task.get("done")
+    # up/down -voting as checkbox & assigning as completed, 2 birds one stone
+    completed = task.get("completed")
     if task.get('type') != 'habit'
-      done = true if direction=="up"
-      done = false if direction=="down"
+      completed = true if direction=="up"
+      completed = false if direction=="down"
     task.set('score', score)
-    task.set('done', done)
+    task.set('completed', completed)
 
     # Update the user's status
     [money, hp, exp, lvl] = [user.get('money'), user.get('hp'), user.get('exp'), user.get('lvl')]
