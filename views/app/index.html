@@ -99,7 +99,8 @@
   <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.score)}">
     <div class="task-meta">
       <!-- TODO make this a popover -->    
-      <a x-bind=click:toggleEdit data-selector="{{:task.id}}-edit" class="edit-link">Edit</a>
+      
+      <a x-bind=click:toggleEdit data-selector="{{:task.id}}-edit" class="edit-link"><i class="icon-pencil"></i></a>
       
       <!--<a class="edit-link" href="#/<%= id %>/edit">Edit</a>-->
       {#if :task.notes}
