@@ -16,12 +16,6 @@ newUser = (model, userId) ->
       lvl: 1
       hp: 50
 
-      # tasks:
-        # {type: 'habit', text: 'Take the stairs', notes: 'Test Notes', value: 0, up: true, down: true},
-        # {type: 'daily', text: 'Go to the gym', notes: '', value: 0, completed: false },
-        # {type: 'todo', text: 'Make a doctor appointment', notes: '', value: 0, completed: false },
-        # {type: 'reward', text: '1 TV episode', notes: '', value: 20 }
-
 get '/', (page, model) ->
   # Render page if a userId is already stored in session data
   userId = model.get '_session.userId'
@@ -43,6 +37,11 @@ get '/', (page, model) ->
     model.refList "_dailyList", dailys.path(), "_user.dailyIds"
     model.refList "_todoList", todos.path(), "_user.todoIds"
     model.refList "_rewardList", rewards.path(), "_user.rewardIds"
+    unless habits.get() or dailys.get() or todos.get() or rewards.get()
+      model.push '_habitList',  {type: 'habit', text: 'Take the stairs', notes: 'Test Notes', value: 0, up: true, down: true}
+      model.push '_dailyList',  {type: 'daily', text: 'Go to the gym', notes: '', value: 0, completed: false }
+      model.push '_todoList',   {type: 'todo', text: 'Make a doctor appointment', notes: '', value: 0, completed: false }
+      model.push '_rewardList', {type: 'reward', text: '1 TV episode', notes: '', value: 20 }
       
     # http://tibia.wikia.com/wiki/Formula
     model.fn '_tnl', '_user.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
