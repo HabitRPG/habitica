@@ -8,24 +8,7 @@
 .done { background-color: rgb(217, 217, 217); color: rgb(153, 153, 153); }
 .reward { background-color: white; }
 
-.panel {
-  float:left;
-  margin: 10px;
-  min-width: 300px;
-/*
-  border: 1px solid #EEEEEE;
-  border-radius: 4px 4px 4px 4px;
-  box-shadow: 0 1px 1px #777777;
-  padding: 10px;
-*/
-}
-
-.panel ul {
-  padding:0px;
-  margin-left:0px;
-}
-
-.habit, .reward {
+.task {
   list-style:none;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -36,9 +19,14 @@
   text-shadow:none;
 }
 
-.habit:hover, .reward:hover {
+.task:hover {
   cursor: move;
 }
+
+.task-controls, .task-text {
+  display:inline;
+}
+
 
 .vote-up, .vote-down {
   text-decoration:none;
@@ -96,13 +84,13 @@
 
 #money { float:right; }
 
-.habit-meta { float:right; }
+.task-meta { float:right; }
 
-.habit-meta .edit-link {
+.task-meta .edit-link {
   display: none;
 }
 
-li:hover .habit-meta .edit-link {
+li:hover .task-meta .edit-link {
   display: inline;
 }
 
