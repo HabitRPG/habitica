@@ -167,7 +167,8 @@ ready (model) ->
     if task.get('type') != 'habit'
       done = true if direction=="up"
       done = false if direction=="down"
-    [task.score, task.done] = [score, done]
+    task.set('score', score)
+    task.set('done', done)
 
     # Update the user's status
     [money, hp, exp, lvl] = [user.get('money'), user.get('hp'), user.get('exp'), user.get('lvl')]
