@@ -42,7 +42,7 @@ h1 > span {
 
 /**------------ Habits.styl ------------ */
 /*****************************************/
-#head {
+#head
   background: #ddd;
   background: -webkit-gradient(linear,0 0,0 100%,from(#e7e7e7),to(#d0d0d0));
   background: -moz-linear-gradient(#e7e7e7, #d0d0d0);
@@ -54,75 +54,71 @@ h1 > span {
   box-shadow: inset 0 1px #f7f7f7, 0 1px #888, 0 2px #e7e7e7;
   padding: 12px 16px;
   white-space: nowrap;
-}
 
-.color-worst { background-color: rgb(230, 184, 175);  }
-.color-worse { background-color: rgb(244, 204, 204);  }
-.color-bad { background-color: rgb(252, 229, 205);   }
-.color-neutral { background-color: rgb(255, 242, 204); }
-.color-good { background-color: rgb(217, 234, 211); }
-.color-better { background-color: rgb(208, 224, 227); }
-.color-best { background-color: rgb(201, 218, 248); }
-.completed { background-color: rgb(217, 217, 217); color: rgb(153, 153, 153); }
-.reward { background-color: white; }
+.color-worst
+  background-color: rgb(230, 184, 175)
+.color-worse
+  background-color: rgb(244, 204, 204)
+.color-bad
+  background-color: rgb(252, 229, 205)
+.color-neutral
+  background-color: rgb(255, 242, 204)
+.color-good
+  background-color: rgb(217, 234, 211)
+.color-better
+  background-color: rgb(208, 224, 227)
+.color-best
+  background-color: rgb(201, 218, 248)
+.completed
+  background-color: rgb(217, 217, 217)
+  color: rgb(153, 153, 153)
+.reward
+  background-color: white
 
-.task {
-  list-style:none;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  border: 1px solid black;
-  margin-bottom: 5px;
-  padding:5px;
-  text-shadow:none;
-}
+.task:hover
+  cursor: move
+  
+li:hover .task-meta .edit-link
+  display: inline  
 
-.task:hover {
-  cursor: move;
-}
+.task
+  list-style:none
+  -moz-border-radius: 3px
+  -webkit-border-radius: 3px
+  border-radius: 3px
+  border: 1px solid black
+  margin-bottom: 5px
+  padding:5px
+  text-shadow:none
 
-.task-controls, .task-text {
-  display:inline;
-  margin-right:10px;
-}
+  .task-meta
+    float:right
+    
+  .task-controls,.task-text
+    display:inline
+    margin-right:10px
 
-.task-meta { float:right; }
+  .task-meta .edit-link
+    display: none;
 
-.task-meta .edit-link {
-  display: none;
-}
+  .vote-up, .vote-down
+    text-decoration:none;
 
-.vote-up, .vote-down {
-  text-decoration:none;
-}
+  .buy-link
+    background-color: #DEE5F2
+    padding: 2px
+    margin-right: 10px
+    border-radius: 5px
+  
+    img
+      height:20px  
 
-.buy-link {
-  background-color:#DEE5F2;
-  padding:2px;
-  margin-right:10px;
-  border-radius: 5px;
-}
+#character 
+  img
+    width: 60px
 
-.buy-link img {
-  height:20px;  
-}
-
-.container {
-  margin: 0 auto;
-  width: 920px;  
-}
-
-#top-links {
-  float:right;
-}
-
-#character img {
-  height: 60px; 
-}
-
-#character td {
-  text-align: center;
-}
+  td
+    text-align: center
 
 #bars 
   width: 400px
@@ -136,16 +132,5 @@ h1 > span {
     margin: 5px
     color: black
 
-#money { float:right; }
-
-li:hover .task-meta .edit-link {
-  display: inline;
-}
-
-#wrapper {
-  padding: 0 20px 20px 20px;
-}
-
-#footer {
-  clear:both;
-}
+#money
+  float:right
