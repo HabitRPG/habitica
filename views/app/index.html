@@ -43,32 +43,42 @@
         and have to pass those in via {{{content}}} instead -->  
       
       <div class="span2">
-        <app:taskList title=Habits type=habit>
-          {#each _habitList as :task}<app:task />{/}
-        </app:taskList>
-        <app:newTask type=habit task={_newHabit} />
+        <h1>Habits</h1>
+        <ul>{#each _habitList as :task}<app:task />{/}</ul>
+        <app:newTask type=habit><input value={_newHabit} class="input-medium" type="text" /></app:newTask>
       </div>
       
       <div class="span2">
-        <app:taskList title=Dailies type=daily>
-          {#each _dailyList as :task}<app:task />{/}
-        </app:taskList>
-        <app:newTask type=daily task={_newDaily} />
+        <h1>Dailies</h1>
+        <ul>{#each _dailyList as :task}<app:task />{/}</ul>
+        <app:newTask type=daily><input value={_newDaily} class="input-medium" type="text" /></app:newTask>
       </div>
 
       <div class="span2">
-        <app:taskList title=Todos type=todo>
-          {#each _todoList as :task}<app:task />{/}
-        </app:taskList>
-        <app:newTask type=todo task={_newTodo} />
+        <h1>Todos</h1>
+        <div class="tabbable"> <!-- Only required for left/right tabs -->
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab1" data-toggle="tab">Remaining</a></li>
+            <li><a href="#tab2" data-toggle="tab">Complete</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab1">
+              <ul>{#each _todoList as :task}<app:task />{/}</ul>
+            </div>
+            <div class="tab-pane" id="tab2">
+              TODO: Implement completed
+            </div>
+          </div>
+        </div>
+
+        <app:newTask type=todo><input value={_newTodo} class="input-medium" type="text" /></app:newTask>
       </div>
 
       <div class="span2">
+        <h1>Rewards</h1>
         {gold(_user.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.money)} <img src='/img/coin_single_silver.png'/>
-        <app:taskList title=Rewards type=reward>
-          {#each _rewardList as :task}<app:task />{/}
-        </app:taskList>
-        <app:newTask type=reward task={_newReward} />
+        <ul>{#each _rewardList as :task}<app:task />{/}</ul>
+        <app:newTask type=reward><input value={_newReward} class="input-medium" type="text" /></app:newTask>
       </div>
       
       
@@ -80,22 +90,11 @@
   <% else %>-->
   <!--<% end %>-->
   
-<newTask:>
+<newTask: nonvoid>
   <form class="form-inline" data-task-type={{{type}}} x-bind=submit:addTask>
-    <input class="input-medium" type="text" value={{{task}}} />
+    {{{content}}}
     <input class="btn" type=submit value=Add>
   </form>  
-  
-<taskList: nonvoid>
-  <div class="{{{type}}}s">
-    <h1>{{{title}}}</h1>
-    <div class=dragbox></div>
-    <div class=content>
-      <ul>
-        {{{content}}}
-      </ul>
-    </div>
-  </div>
   
 <task:>
   <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.score)}">
