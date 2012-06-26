@@ -107,6 +107,27 @@ ready (model) ->
         # Also, note that refList index arguments can either be an index
         # or the item's id property
         list.pass(ignore: domId).move {id}, to
+    
+  #TODO: Implement this for cron 
+  # # Note: Set 12am daily cron for this
+  # # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
+  # # For incomplete Dailys, deduct experience  
+  # def self.clear_done
+    # Habit.where('habit_type in (2,3)').collect do |h|
+      # unless h.done
+        # value = (h.score < 0) ? (( -0.1 * h.score + 1 ) * -1) : (( 0.9 ** h.score ) * -1)
+        # # Deduct experience for missed Daily tasks, 
+        # # but not for Todos (just increase todo's value)
+        # if (h.habit_type==2)
+          # h.user.hp += value
+          # h.user.save
+        # end
+        # h.score += value
+      # end
+      # h.done = false if (h.habit_type==2)
+      # h.save
+    # end
+  # end   
      
   exports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
