@@ -115,10 +115,9 @@
         {#if :task.down}<a data-direction=down x-bind=click:vote><img src="img/remove.png" /></a>{/}
       <!-- Rewards -->
       {else if equal(:task.type, 'reward')}
-        <a class="vote-down buy-link" href="#">{:task.price}<img src="img/coin_single_gold.png"/></a>
+        <a x-bind=click:vote class="buy-link" data-direction=down>{:task.price}<img src="img/coin_single_gold.png"/></a>
       <!-- Daily & Todos -->
       {else}  
-        <!--TODO this was part of input below <%= done ? "class='vote-down' checked='checked'" : "class='vote-up'" %>-->
         <input type="checkbox" checked={:task.completed} x-bind=click:vote data-direction={:task.completed}/>
       {/}
     </div>
