@@ -51,9 +51,17 @@ get '/', (page, model) ->
     page.render()
 
 ## VIEW HELPERS ##
-view.fn 'taskClasses', (type, completed) ->
+view.fn 'taskClasses', (type, completed, score) ->
   classes = type
-  classes += " completed" if completed
+  classes += " completed" if completed #TODO .done instead
+  switch
+    when score<-8 then classes += ' color-worst'
+    when score>=-8 and score<-5 then classes += ' color-worse'
+    when score>=-5 and score<-1 then classes += ' color-bad' 
+    when score>=-1 and score<1 then classes += ' color-neutral'
+    when score>=1 and score<5 then classes += ' color-good' 
+    when score>=5 and score<10 then classes += ' color-better' 
+    when score>=10 then output += ' color-best'
   return classes
     
 view.fn "percent", (x, y) ->
