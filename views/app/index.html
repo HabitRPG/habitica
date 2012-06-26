@@ -132,8 +132,10 @@
     <label>Text<input type=text value={:task.text} /></label>
     <label>Notes<textarea rows=3>{:task.notes}</textarea></label>
     {#if equal(:task.type, 'habit')}
-      <label><input type=checkbox checked={:task.up}><i></i>Up</label>
-      <label><input type=checkbox checked={:task.down}><i></i>Down</label>
+      <div class="control-group">
+        <label class="checkbox inline"><input type=checkbox checked={:task.up}>Up</label>
+        <label class="checkbox inline"><input type=checkbox checked={:task.down}>Down</label>
+      </div>
     {/}
     {#if equal(:task.type, 'reward')}
       <label>Price<input type=text value={:task.price} /></label>
