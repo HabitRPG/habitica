@@ -237,16 +237,7 @@ ready (model) ->
     user.set('lvl', lvl)
     #[user.money, user.hp, user.exp, user.lvl] = [money, hp, exp, lvl]
 
-  ## RECONNECT & SHORTCUTS ##
-
-  showReconnect = model.at '_showReconnect'
-  showReconnect.set true
-  exports.connect = ->
-    showReconnect.set false
-    setTimeout (-> showReconnect.set true), 1000
-    model.socket.socket.connect()
-
-  exports.reload = -> window.location.reload()
+  ## SHORTCUTS ##
 
   exports.shortcuts = (e) ->
     return unless e.metaKey || e.ctrlKey
