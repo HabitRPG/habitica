@@ -78,15 +78,13 @@
           </td>
           <td id="bars">
             <div class="progress progress-danger">
-              <div class="bar" style="width: {percent(_user.hp,50)}%;">
-                <span id="hp">HP: {round(_user.hp)} / 50</span>
-              </div>
+              <span class="progress-text">HP: {round(_user.hp)} / 50</span>
+              <div class="bar" style="width: {percent(_user.hp,50)}%;"></div>
             </div>
 
             <div class="progress progress-warning">
-              <div class="bar" style="width: {percent(_user.exp,_tnl)}%;">
-                <span id="tnl">Exp: {round(_user.exp)} / {_tnl}</span>
-              </div>
+              <span class="progress-text">Exp: {round(_user.exp)} / {_tnl}</span>
+              <div class="bar" style="width: {percent(_user.exp,_tnl)}%;"></div>
             </div>
               
             </div>
