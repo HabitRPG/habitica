@@ -42,19 +42,19 @@
         can't pass references as paramters.  so <app:taskList newModel={_newHabit} list={_habitList}> doesn't work
         and have to pass those in via {{{content}}} instead -->  
       
-      <div class="span2">
+      <div class="span3">
         <h1>Habits</h1>
         <ul>{#each _habitList as :task}<app:task />{/}</ul>
         <app:newTask type=habit><input value={_newHabit} class="input-medium" type="text" /></app:newTask>
       </div>
       
-      <div class="span2">
+      <div class="span3">
         <h1>Dailies</h1>
         <ul>{#each _dailyList as :task}<app:task />{/}</ul>
         <app:newTask type=daily><input value={_newDaily} class="input-medium" type="text" /></app:newTask>
       </div>
 
-      <div class="span2">
+      <div class="span3">
         <h1>Todos</h1>
         <div class="tabbable"> <!-- Only required for left/right tabs -->
           <ul class="nav nav-tabs">
@@ -73,7 +73,7 @@
         </div>
       </div>
 
-      <div class="span2">
+      <div class="span3">
         <h1>Rewards</h1>
         {gold(_user.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.money)} <img src='/img/coin_single_silver.png'/>
         <ul>{#each _rewardList as :task}<app:task />{/}</ul>
