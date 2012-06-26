@@ -94,9 +94,12 @@ ready (model) ->
     # Make the list draggable using jQuery UI
     ul = $(".#{type}s ul")
     ul.sortable
-      handle: '.handle'
+      dropOnEmpty: false
+      cursor: "move"
+      items: "li"
+      opacity: 0.4
+      scroll: true
       axis: 'y'
-      # containment: ".#{type}s .dragbox"
       update: (e, ui) ->
         item = ui.item[0]
         domId = item.id
