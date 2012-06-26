@@ -16,18 +16,11 @@ newUser = (model, userId) ->
       lvl: 1
       hp: 50
 
-      habits:
-        # TODO :{type: 'habit'} should be coded instead as a model function so as not to clutter the database
-        {type: 'habit', text: 'Take the stairs', notes: 'Test Notes', value: 0, up: true, down: true}
-
-      dailys: # I know it's bad pluralization, but codes easier later
-        {type: 'daily', text: 'Go to the gym', notes: '', value: 0, completed: false }
-
-      todos:
-        {type: 'todo', text: 'Make a doctor appointment', notes: '', value: 0, completed: false }
-
-      rewards:
-        {type: 'reward', text: '1 TV episode', notes: '', value: 20 }
+      # tasks:
+        # {type: 'habit', text: 'Take the stairs', notes: 'Test Notes', value: 0, up: true, down: true},
+        # {type: 'daily', text: 'Go to the gym', notes: '', value: 0, completed: false },
+        # {type: 'todo', text: 'Make a doctor appointment', notes: '', value: 0, completed: false },
+        # {type: 'reward', text: '1 TV episode', notes: '', value: 20 }
 
 get '/', (page, model) ->
   # Render page if a userId is already stored in session data
@@ -36,14 +29,20 @@ get '/', (page, model) ->
   if !userId
     userId = newUser(model, userId)
 
-  model.subscribe "users.#{userId}", (err, user) ->
+  userQ = "users.#{userId}"
+  model.subscribe userQ,\
+  model.query("#{userQ}.tasks").where('type').equals('habit'),\ 
+  model.query("#{userQ}.tasks").where('type').equals('daily'),\
+  model.query("#{userQ}.tasks").where('type').equals('todo'),\
+  model.query("#{userQ}.tasks").where('type').equals('reward'),\
+  (err, user, habits, dailys, todos, rewards) ->
+    
     model.ref '_user', user
     
-    # Setup "_todoList" for all the habit types
-    lists = [ 'habit', 'daily', 'todo', 'reward']
-    for type in lists
-      ids = user.at "#{type}Ids"
-      model.refList "_#{type}List", "_user.#{type}s", "_user.#{type}Ids"
+    model.refList "_habitList", habits.path(), "_user.habitIds"
+    model.refList "_dailyList", dailys.path(), "_user.dailyIds"
+    model.refList "_todoList", todos.path(), "_user.todoIds"
+    model.refList "_rewardList", rewards.path(), "_user.rewardIds"
       
     # http://tibia.wikia.com/wiki/Formula
     model.fn '_tnl', '_user.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
