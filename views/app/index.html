@@ -130,7 +130,7 @@
 <editPopover:>
   <div style="display:none;" id={{:task.id}}-edit>
     <label>Text<input type=text value={:task.text} /></label>
-    <label>Notes<input type=textarea rows=5 value={:task.notes} /></label>
+    <label>Notes<textarea rows=3>{:task.notes}</textarea></label>
     {#if equal(:task.type, 'habit')}
       <label><input type=checkbox checked={:task.up}><i></i>Up</label>
       <label><input type=checkbox checked={:task.down}><i></i>Down</label>
