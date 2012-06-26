@@ -107,6 +107,13 @@ ready (model) ->
         # Also, note that refList index arguments can either be an index
         # or the item's id property
         list.pass(ignore: domId).move {id}, to
+        
+  #TODO: implement this for completed tab
+  # clearCompleted: ->
+    # _.each @options.habits.doneTodos(), (todo) ->
+      # todo.destroy()
+    # @render()
+    # return false
     
   #TODO: Implement this for cron 
   # # Note: Set 12am daily cron for this
