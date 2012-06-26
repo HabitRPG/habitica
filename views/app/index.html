@@ -55,7 +55,7 @@
       </div>
 
       <div class="span3">
-        <h1>Todos</h1>
+        <h1 class='todos'>Todos</h1>
         <div class="tabbable"> <!-- Only required for left/right tabs -->
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab1" data-toggle="tab">Remaining</a></li>
@@ -74,7 +74,7 @@
       </div>
 
       <div class="span3">
-        <h1>Rewards</h1>
+        <h1 class='rewards'>Rewards</h1>
         {gold(_user.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.money)} <img src='/img/coin_single_silver.png'/>
         <ul class='rewards'>{#each _rewardList as :task}<app:task />{/}</ul>
         <app:newTask type=reward><input value={_newReward} class="input-medium" type="text" /></app:newTask>
