@@ -45,13 +45,13 @@
       <div class="span3 well">
         <h1>Habits</h1>
         <ul class='habits'>{#each _habitList as :task}<app:task />{/}</ul>
-        <app:newTask type=habit><input value={_newHabit} class="input-medium" type="text" /></app:newTask>
+        <app:newTask type=habit><input value={_newHabit} type="text" /></app:newTask>
       </div>
       
       <div class="span3 well">
         <h1>Dailies</h1>
         <ul classes='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
-        <app:newTask type=daily><input value={_newDaily} class="input-medium" type="text" /></app:newTask>
+        <app:newTask type=daily><input value={_newDaily} type="text" /></app:newTask>
       </div>
 
       <div class="span3 well">
@@ -66,7 +66,7 @@
               <ul class='todos'>
                 {#each _todoList as :task}<app:task />{/}
               </ul>
-              <app:newTask type=todo><input value={_newTodo} class="input-medium" type="text" /></app:newTask>
+              <app:newTask type=todo><input value={_newTodo} type="text" /></app:newTask>
             </div>
             <div class="tab-pane" id="tab2">
               <ul class='completeds'>
@@ -81,7 +81,7 @@
         <h1 class='rewards'>Rewards</h1>
         <div id="money">{gold(_user.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.money)} <img src='/img/coin_single_silver.png'/></div>
         <ul class='rewards'>{#each _rewardList as :task}<app:task />{/}</ul>
-        <app:newTask type=reward><input value={_newReward} class="input-medium" type="text" /></app:newTask>
+        <app:newTask type=reward><input value={_newReward} type="text" /></app:newTask>
       </div>
       
       
