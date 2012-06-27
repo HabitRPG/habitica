@@ -49,9 +49,13 @@ get '/', (page, model) ->
     page.render()
 
 ## VIEW HELPERS ##
-view.fn 'taskClasses', (type, completed, value) ->
+view.fn 'taskClasses', (type, completed, value, hideCompleted) ->
+  #TODO figure out how to just pass in the task model, so i can access all these properties from one object
   classes = type
   classes += " completed" if completed
+  if type == 'todo'
+    classes += " hide" if (hideCompleted and completed) or (!hideCompleted and !completed)
+    
   switch
     when value<-8 then classes += ' color-worst'
     when value>=-8 and value<-5 then classes += ' color-worse'
@@ -83,6 +87,12 @@ ready (model) ->
   window.model = model
   
   $('.task-notes').popover()
+  
+  model.set('_hideCompleted', true)
+  $('a[data-toggle="tab"]').on 'shown', (e) ->
+    #see http://twitter.github.com/bootstrap/javascript.html#tabs 
+    hideCompleted = if $(e.target).attr('href') == '#tab1' then true else false  
+    model.set('_hideCompleted', hideCompleted)
       
   lists = [ 'habit', 'daily', 'todo', 'reward']
 

@@ -63,11 +63,15 @@
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab1">
-              <ul class='todos'>{#each _todoList as :task}<app:task />{/}</ul>
+              <ul class='todos'>
+                {#each _todoList as :task}<app:task />{/}
+              </ul>
               <app:newTask type=todo><input value={_newTodo} class="input-medium" type="text" /></app:newTask>
             </div>
             <div class="tab-pane" id="tab2">
-              TODO: Implement completed
+              <ul class='completeds'>
+                {#each _todoList as :task}<app:task />{/}
+              </ul>
             </div>
           </div>
         </div>
@@ -96,7 +100,7 @@
   </form>  
   
 <task:>
-  <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value)}">
+  <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, _hideCompleted)}">
     <div class="task-meta">
       <!-- TODO make this a popover -->    
       
