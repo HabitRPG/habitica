@@ -133,19 +133,29 @@
 <editPopover:>
   <div style="display:none;" id={{:task.id}}-edit>
     <hr/>
-    <label>Text<input type=text value={:task.text} /></label>
-    <label>Notes<textarea rows=3>{:task.notes}</textarea></label>
-    {#if equal(:task.type, 'habit')}
-      <div class="control-group">
-        <label class="checkbox inline"><input type=checkbox checked={:task.up}>Up</label>
-        <label class="checkbox inline"><input type=checkbox checked={:task.down}>Down</label>
+    <form x-bind=submit:toggleEdit data-selector="{{:task.id}}-edit">
+      <div class=control-group>
+        <label>Text</label><input type=text value={:task.text} />
+        <label>Notes</label><textarea rows=3>{:task.notes}</textarea>
       </div>
-    {/}
-    {#if equal(:task.type, 'reward')}
-      <label>value<input type=text value={:task.value} /></label>
-    {/}
-    <a x-bind=click:toggleEdit data-selector="{{:task.id}}-edit" class="btn">Save</a>
-    <a x-bind=click:del class="btn btn-danger">Delete</a>
+      {#if equal(:task.type, 'habit')}
+        <div class="control-group">
+          <label class="checkbox inline"><input type=checkbox checked={:task.up}>Up</label>
+          <label class="checkbox inline"><input type=checkbox checked={:task.down}>Down</label>
+        </div>
+      {/}
+      {#if equal(:task.type, 'reward')}
+        <div class=control-group>
+          <label>Price
+            <div class="input-append">
+              <input class="span2" size="16" type="text" value={:task.value}><span class="add-on">Gold</span>
+            </div>
+          </label>
+        </div>
+      {/}
+      <button type=submit class="btn">Save</a>
+      <button x-bind=click:del class="btn btn-danger">Delete</a>
+    </form>
   </div>  
   
 <Footer:>
