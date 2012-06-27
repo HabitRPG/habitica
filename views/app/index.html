@@ -79,7 +79,7 @@
 
       <div class="span3">
         <h1 class='rewards'>Rewards</h1>
-        {gold(_user.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.money)} <img src='/img/coin_single_silver.png'/>
+        <div id="money">{gold(_user.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.money)} <img src='/img/coin_single_silver.png'/></div>
         <ul class='rewards'>{#each _rewardList as :task}<app:task />{/}</ul>
         <app:newTask type=reward><input value={_newReward} class="input-medium" type="text" /></app:newTask>
       </div>
