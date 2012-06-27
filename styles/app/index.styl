@@ -17,24 +17,24 @@ html,body,p,h1,ul,li,table,tr,th,td
   padding: 12px 16px
   white-space: nowrap
 
-.color-worst
+.color-worst pre
   background-color: rgb(230, 184, 175)
-.color-worse
+.color-worse pre
   background-color: rgb(244, 204, 204)
-.color-bad
+.color-bad pre
   background-color: rgb(252, 229, 205)
-.color-neutral
+.color-neutral pre
   background-color: rgb(255, 242, 204)
-.color-good
+.color-good pre
   background-color: rgb(217, 234, 211)
-.color-better
+.color-better pre
   background-color: rgb(208, 224, 227)
-.color-best
+.color-best pre
   background-color: rgb(201, 218, 248)
-.completed
+.completed pre
   background-color: rgb(217, 217, 217)
   color: rgb(153, 153, 153)
-.reward
+.reward pre
   background-color: white
   
 h1.todos, h1.rewards
@@ -49,13 +49,12 @@ li:hover .task-meta .edit-link
 
 .task
   list-style:none
-  -moz-border-radius: 3px
-  -webkit-border-radius: 3px
-  border-radius: 3px
-  border: 1px solid black
-  margin-bottom: 5px
-  padding:5px
-  text-shadow:none
+
+  pre
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+    font-size: 13px
+    line-height: 18px
+    color: black
 
   .task-meta
     float:right

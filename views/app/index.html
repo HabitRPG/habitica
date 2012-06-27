@@ -101,6 +101,7 @@
   
 <task:>
   <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, _hideCompleted)}">
+    <pre>
     <div class="task-meta">
       <!-- TODO make this a popover -->    
       
@@ -128,6 +129,7 @@
     <div class="task-text" x-bind=keydown:shortcuts contenteditable>{unescaped :task.text}</div>
 
     <app:editPopover />
+    </pre>
   </li>
   
 <editPopover:>
