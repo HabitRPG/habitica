@@ -23,21 +23,13 @@ get '/', (page, model) ->
   if !userId
     userId = newUser(model, userId)
 
-  userQ = "users.#{userId}"
-  model.subscribe userQ,\
-  model.query("#{userQ}.tasks").where('type').equals('habit'),\ 
-  model.query("#{userQ}.tasks").where('type').equals('daily'),\
-  model.query("#{userQ}.tasks").where('type').equals('todo'),\
-  model.query("#{userQ}.tasks").where('type').equals('reward'),\
-  (err, user, habits, dailys, todos, rewards) ->
-    
+  model.subscribe "users.#{userId}", (err, user) -> 
     model.ref '_user', user
-    
-    model.refList "_habitList", habits.path(), "_user.habitIds"
-    model.refList "_dailyList", dailys.path(), "_user.dailyIds"
-    model.refList "_todoList", todos.path(), "_user.todoIds"
-    model.refList "_rewardList", rewards.path(), "_user.rewardIds"
-    unless habits.get() or dailys.get() or todos.get() or rewards.get()
+    model.refList "_habitList", "_user.tasks", "_user.habitIds"
+    model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
+    model.refList "_todoList", "_user.tasks", "_user.todoIds"
+    model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
+    unless model.at('_user.tasks').get()
       model.push '_habitList',  {type: 'habit', text: 'Take the stairs', notes: 'Test Notes', value: 0, up: true, down: true}
       model.push '_dailyList',  {type: 'daily', text: 'Go to the gym', notes: '', value: 0, completed: false }
       model.push '_todoList',   {type: 'todo', text: 'Make a doctor appointment', notes: '', value: 0, completed: false }
