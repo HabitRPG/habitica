@@ -4,12 +4,11 @@
   "version": "0.0.0",
   "main": "./server.js",
   "dependencies": {
-    "derby": "git://github.com/codeparty/derby.git#master",
-    "express": "3.0.0beta2",
+    "derby": "*",
+    "express": "3.x",
     "gzippo": ">=0.1.4",
     "racer-db-mongo": "*",
     "connect-mongo": ">=0.1.9",
-    "racer": "*",
     "derby-ui-boot": "*"
   },
   "private": true,
