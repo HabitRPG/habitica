@@ -92,8 +92,47 @@ get '/', (page, model) ->
       
     # http://tibia.wikia.com/wiki/Formula
     model.fn '_tnl', '_user.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
+    
+    poormanscron(model)
 
     page.render()
+    
+#TODO: Implement this for cron 
+poormanscron = (model) ->
+  lastCron = model.get('_user.lastCron')
+  if lastCron
+    DAY = 1000 * 60 * 60  * 24
+    today = new Date()
+    days_passed = Math.round((today.getTime() - lastCron.getTime()) / DAY)
+    if days_passed > 0
+      endOfDayTally(model) for[]in length:days_passed
+      lastCron = new Date()
+  else
+    lastCron = new Date()
+  model.set('_user.lastCron', lastCron)
+  
+endOfDayTally = (model) ->
+# Note: Set 12am daily cron for this
+# At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
+# For incomplete Dailys, deduct experience  
+  # users = model.at('users') #TODO this isn't working, iterate over all users
+  # for user in users
+  user = model.at '_user'
+  for key of model.get '_user.tasks'
+    task = model.at "_user.tasks.#{key}"
+    [type, value, completed] = [task.get('type'), task.get('value'), task.get('completed')] 
+    if type == 'todo' or type == 'daily'
+      unless completed
+        value += if (value < 0) then (( -0.1 * value + 1 ) * -1) else (( Math.pow(0.9,value) ) * -1)
+        task.set('value', value)
+        # Deduct experience for missed Daily tasks, 
+        # but not for Todos (just increase todo's value)
+        if (type == 'daily')
+          user.set('hp', user.get('hp') + value)
+          if user.get('hp') < 0
+            #TODO this is implemented in exports.vote also, make it a user.on or something
+            user.set('hp',50);user.set('lvl',1);user.set('exp',0)
+      task.set('completed', false) if type == 'daily'
 
 ## VIEW HELPERS ##
 view.fn 'taskClasses', (type, completed, value, hideCompleted) ->
@@ -274,30 +313,6 @@ ready (model) ->
     user.set('lvl', lvl)
     #[user.money, user.hp, user.exp, user.lvl] = [money, hp, exp, lvl]
     
-  #TODO: Implement this for cron 
-  # Note: Set 12am daily cron for this
-  # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-  # For incomplete Dailys, deduct experience  
-  exports.endOfDayTally = (e, el, next) ->
-    # users = model.at('users') #TODO this isn't working, iterate over all users
-    # for user in users
-    user = model.at '_user'
-    for key of model.get '_user.tasks'
-      task = model.at "_user.tasks.#{key}"
-      [type, value, completed] = [task.get('type'), task.get('value'), task.get('completed')] 
-      if type == 'todo' or type == 'daily'
-        unless completed
-          value += if (value < 0) then (( -0.1 * value + 1 ) * -1) else (( Math.pow(0.9,value) ) * -1)
-          task.set('value', value)
-          # Deduct experience for missed Daily tasks, 
-          # but not for Todos (just increase todo's value)
-          if (type == 'daily')
-            user.set('hp', user.get('hp') + value)
-            if user.get('hp') < 0
-              #TODO this is implemented in exports.vote also, make it a user.on or something
-              user.set('hp',50);user.set('lvl',1);user.set('exp',0)
-        task.set('completed', false) if type == 'daily'
-
   ## SHORTCUTS ##
 
   exports.shortcuts = (e) ->
