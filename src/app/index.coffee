@@ -23,13 +23,14 @@ get '/', (page, model) ->
   if !userId
     userId = newUser(model, userId)
 
+  model.setNull '_user.tasks', []
   model.subscribe "users.#{userId}", (err, user) -> 
     model.ref '_user', user
     model.refList "_habitList", "_user.tasks", "_user.habitIds"
     model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
     model.refList "_todoList", "_user.tasks", "_user.todoIds"
     model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
-    unless model.at('_user.tasks').get()
+    unless model.get('_user.tasks')
       starter_habits = [
         {type: 'habit', text: 'Stairs', notes: '', value: 0, up: true, down: true}
         {type: 'habit', text: 'Diet', notes: '', value: 0, up: true, down: true}
@@ -176,22 +177,22 @@ ready (model) ->
   # # Note: Set 12am daily cron for this
   # # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
   # # For incomplete Dailys, deduct experience  
-  # def self.clear_done
-    # Habit.where('habit_type in (2,3)').collect do |h|
-      # unless h.done
-        # value = (h.score < 0) ? (( -0.1 * h.score + 1 ) * -1) : (( 0.9 ** h.score ) * -1)
-        # # Deduct experience for missed Daily tasks, 
-        # # but not for Todos (just increase todo's value)
-        # if (h.habit_type==2)
-          # h.user.hp += value
-          # h.user.save
-        # end
-        # h.score += value
-      # end
-      # h.done = false if (h.habit_type==2)
-      # h.save
-    # end
-  # end   
+  exports.endOfDayTally = (e, el, next) ->
+    # users = model.at('users') #TODO this isn't working, iterate over all users
+    # for user in users
+    user = model.at '_user'
+    for key of model.get '_user.tasks'
+      task = model.at "_user.tasks.#{key}"
+      [type, value, completed] = [task.get('type'), task.get('value'), task.get('completed')] 
+      if type == 'todo' or type == 'daily'
+        unless completed
+          value += if (value < 0) then (( -0.1 * value + 1 ) * -1) else (( Math.pow(0.9,value) ) * -1)
+          task.set('value', value)
+          # Deduct experience for missed Daily tasks, 
+          # but not for Todos (just increase todo's value)
+          if (type == 'daily')
+            user.set('hp', user.get('hp') + value)
+        task.set('completed', false) if type == 'daily'
      
   exports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
