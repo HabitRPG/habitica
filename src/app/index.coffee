@@ -173,27 +173,6 @@ ready (model) ->
     # @render()
     # return false
     
-  #TODO: Implement this for cron 
-  # # Note: Set 12am daily cron for this
-  # # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-  # # For incomplete Dailys, deduct experience  
-  exports.endOfDayTally = (e, el, next) ->
-    # users = model.at('users') #TODO this isn't working, iterate over all users
-    # for user in users
-    user = model.at '_user'
-    for key of model.get '_user.tasks'
-      task = model.at "_user.tasks.#{key}"
-      [type, value, completed] = [task.get('type'), task.get('value'), task.get('completed')] 
-      if type == 'todo' or type == 'daily'
-        unless completed
-          value += if (value < 0) then (( -0.1 * value + 1 ) * -1) else (( Math.pow(0.9,value) ) * -1)
-          task.set('value', value)
-          # Deduct experience for missed Daily tasks, 
-          # but not for Todos (just increase todo's value)
-          if (type == 'daily')
-            user.set('hp', user.get('hp') + value)
-        task.set('completed', false) if type == 'daily'
-     
   exports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
     list = model.at "_#{type}List"
@@ -279,7 +258,7 @@ ready (model) ->
     else if task.get('type') != 'reward'
       hp += delta
 
-    tnl = model.at('_tnl').get()
+    tnl = model.get '_tnl'
     # level up & carry-over exp
     if exp >= tnl
       exp -= tnl
@@ -294,6 +273,30 @@ ready (model) ->
     user.set('exp', exp)
     user.set('lvl', lvl)
     #[user.money, user.hp, user.exp, user.lvl] = [money, hp, exp, lvl]
+    
+  #TODO: Implement this for cron 
+  # Note: Set 12am daily cron for this
+  # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
+  # For incomplete Dailys, deduct experience  
+  exports.endOfDayTally = (e, el, next) ->
+    # users = model.at('users') #TODO this isn't working, iterate over all users
+    # for user in users
+    user = model.at '_user'
+    for key of model.get '_user.tasks'
+      task = model.at "_user.tasks.#{key}"
+      [type, value, completed] = [task.get('type'), task.get('value'), task.get('completed')] 
+      if type == 'todo' or type == 'daily'
+        unless completed
+          value += if (value < 0) then (( -0.1 * value + 1 ) * -1) else (( Math.pow(0.9,value) ) * -1)
+          task.set('value', value)
+          # Deduct experience for missed Daily tasks, 
+          # but not for Todos (just increase todo's value)
+          if (type == 'daily')
+            user.set('hp', user.get('hp') + value)
+            if user.get('hp') < 0
+              #TODO this is implemented in exports.vote also, make it a user.on or something
+              user.set('hp',50);user.set('lvl',1);user.set('exp',0)
+        task.set('completed', false) if type == 'daily'
 
   ## SHORTCUTS ##
 
