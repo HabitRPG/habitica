@@ -39,7 +39,7 @@ publicPath = path.join root, 'public'
   .use(expressApp.router)
   .use(serverError root)
 
-module.exports = server = http.createServer expressApp
+exports = module.exports = server = http.createServer expressApp
 
 
 ## SERVER ONLY ROUTES ##
@@ -52,7 +52,7 @@ expressApp.all '*', (req) ->
 
 derby.use(require 'racer-db-mongo')
 
-store = app.createStore
+exports.store = app.createStore
   listen: server
   db: {type: 'Mongo', uri: 'mongodb://localhost/habitrpg'}
 
