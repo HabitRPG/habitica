@@ -133,11 +133,12 @@ endOfDayTally = (model) ->
           if user.get('hp') < 0
             #TODO this is implemented in exports.vote also, make it a user.on or something
             user.set('hp',50);user.set('lvl',1);user.set('exp',0)
-      task.set('completed', false) if type == 'daily'
       if type == 'daily'
-        task.push "history", { date: new Date(), value: task.get('value') }
+        task.push "history", { date: new Date(), value: value }
       else
-        todoTally += task.get('value')
+        absVal = if (completed) then Math.abs(value) else value
+        todoTally += absVal
+      task.set('completed', false) if type == 'daily'
   model.push '_user.history.todos', { date: new Date(), value: todoTally } 
 
 ## VIEW HELPERS ##
@@ -244,12 +245,12 @@ ready (model) ->
     # Derby extends model.at to support creation from DOM nodes
     model.at(e.target).remove()
     
-  exports.toggleEdit = (e, el) ->
+  exports.toggleTaskEdit = (e, el) ->
     task = model.at $(el).parents('li')[0]
     $('#\\' + task.get('id') + '-chart').hide()
     $('#\\' + task.get('id') + '-edit').toggle()
 
-  exports.toggleChart = (e, el) ->
+  exports.toggleTaskChart = (e, el) ->
     task = model.at $(el).parents('li')[0]
     $('#\\' + task.get('id') + '-edit').hide()
     $('#\\' + task.get('id') + '-chart').toggle()
@@ -268,6 +269,24 @@ ready (model) ->
     }
 
     chart = new google.visualization.LineChart(document.getElementById( task.get('id') + '-chart' ))
+    chart.draw(data, options)
+    
+  exports.toggleTodosChart = (e, el) ->
+    $('#todos-chart').toggle()
+    
+    matrix = [['Date', 'Score']]
+    for obj in model.get('_user.history.todos')
+      date = new Date(obj.date)
+      readableDate = "#{date.getMonth()}/#{date.getDate()}/#{date.getFullYear()}"
+      matrix.push [ readableDate, obj.value ]
+    data = google.visualization.arrayToDataTable matrix
+    
+    options = {
+      title: 'History'
+      backgroundColor: 'whiteSmoke'
+    }
+
+    chart = new google.visualization.LineChart(document.getElementById( 'todos-chart' ))
     chart.draw(data, options)
 
   exports.vote = (e, el, next) ->
