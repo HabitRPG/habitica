@@ -76,8 +76,10 @@
             </div>
           </div>
         </div>
-        <a x-bind=click:toggleTodosChart><i class=icon-signal></i></a>
-        <div id="todos-chart" style="display:none;"></div>
+        {#if _user.history.todos}
+          <a x-bind=click:toggleTodosChart><i class=icon-signal></i></a>
+          <div id="todos-chart" style="display:none;"></div>
+        {/}
       </div>
 
       <div class="span3 well">

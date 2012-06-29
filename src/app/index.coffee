@@ -100,14 +100,12 @@ get '/', (page, model) ->
 #TODO: Implement this for cron 
 poormanscron = (model) ->
   lastCron = model.get('_user.lastCron')
-  if lastCron
-    DAY = 1000 * 60 * 60  * 24
-    today = new Date()
-    days_passed = Math.round((today.getTime() - lastCron.getTime()) / DAY)
-    if days_passed > 0
-      endOfDayTally(model) for[]in length:days_passed
-      lastCron = new Date()
-  else
+  lastCron = if lastCron then (new Date(lastCron)) else new Date() 
+  DAY = 1000 * 60 * 60  * 24
+  today = new Date()
+  days_passed = Math.round((today.getTime() - lastCron.getTime()) / DAY)
+  if days_passed > 0
+    endOfDayTally(model) for[]in length:days_passed
     lastCron = new Date()
   model.set('_user.lastCron', lastCron)
   
