@@ -252,7 +252,9 @@ ready (model) ->
     
     matrix = [['Date', 'Score']]
     for obj in task.get('history')
-      matrix.push [obj.date, obj.value]
+      date = new Date(obj.date)
+      readableDate = "#{date.getMonth()}/#{date.getDate()}/#{date.getFullYear()}"
+      matrix.push [ readableDate, obj.value ]
     data = google.visualization.arrayToDataTable matrix
     
     options = {
