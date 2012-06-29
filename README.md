@@ -16,6 +16,15 @@ How It Works
 **Goal Details**
 ![Goal Details](https://img.skitch.com/20120607-mphu3r65tdrs2gpyx3wjm3hn4s.jpg "Goal Details")
 
+FAQ
+-------
+* **How do I heal?**
+
+  You have to level up, HP resets on ding (you'll understand if you're familiar with RPGs). I'm thinking of adding a buyable Health Potion, but I think this might compromise pushing yourself. Think about it - the closer you are to leveling, the harder you'll try to be accountable. 
+  
+* **My tasks are too red, they're killing me too fast**
+  
+  This is good. The worse you are at a task, the more valuable it becomes - meaning you gain more experience for completing those red tasks. This will incentivise you to try harder the more you're struggling, as well as to avoid failing (since the more valuable tasks drain more HP).
 
 License
 -------
