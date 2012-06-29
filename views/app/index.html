@@ -103,10 +103,15 @@
 <task:>
   <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, _hideCompleted)}">
     <pre>
-    <div class="task-meta">
+    <div class="task-meta-controls">
       <!-- TODO make this a popover -->    
       
-      <a x-bind=click:toggleEdit data-selector="{{:task.id}}-edit" class="edit-link"><i class="icon-pencil"></i></a>
+      <div class="hover-show">
+        <a x-bind=click:toggleMeta data-selector="{{:task.id}}-edit" class="edit-link"><i class="icon-pencil"></i></a>
+        {#if :task.history} 
+          <a x-bind=click:toggleMeta data-selector="{{:task.id}}-chart" class="chart-link"><i class="icon-signal"></i></a>
+        {/}
+      </div>
       
       <!--<a class="edit-link" href="#/<%= id %>/edit">Edit</a>-->
       {#if :task.notes}
@@ -129,11 +134,11 @@
     </div>
     <div class="task-text" x-bind=keydown:shortcuts contenteditable>{unescaped :task.text}</div>
 
-    <app:editPopover />
+    <app:taskMeta />
     </pre>
   </li>
   
-<editPopover:>
+<taskMeta:>
   <div style="display:none;" id={{:task.id}}-edit>
     <hr/>
     <form x-bind=submit:toggleEdit data-selector="{{:task.id}}-edit">
@@ -159,15 +164,14 @@
       <button type=submit class="btn">Save</button>
       <button x-bind=click:del class="btn btn-danger">Delete</button>
     </form>
-    
-    <div id="{:task.id}-chart">
-      {#each :task.history}
-        Date:<div>{date}</div>
-        Value:<div>{value}</div>
-      {/}
-    </div>
-    
   </div>  
+  
+  <div style="display:none;" id={{:task.id}}-chart>
+    <hr/>
+    {#each :task.history}
+      Value: {value} | Date: {date}<br/>
+    {/}
+  </div>
   
 <Footer:>
   <a href="https://github.com/lefnire/habitrpg"><img style="z-index:11; position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>

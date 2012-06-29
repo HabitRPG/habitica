@@ -240,7 +240,7 @@ ready (model) ->
     # Derby extends model.at to support creation from DOM nodes
     model.at(e.target).remove()
     
-  exports.toggleEdit = (e, el) ->
+  exports.toggleMeta = (e, el) ->
     selector = $(el).attr('data-selector')
     if selector.charAt(0) == '$'
       selector = '\\' + selector

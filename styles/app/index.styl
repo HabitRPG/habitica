@@ -44,7 +44,7 @@ h1.todos, h1.rewards
 .task:hover
   cursor: move
   
-li:hover .task-meta .edit-link
+li:hover .task-meta-controls .hover-show
   display: inline  
 
 .task
@@ -56,14 +56,14 @@ li:hover .task-meta .edit-link
     line-height: 18px
     color: black
 
-  .task-meta
+  .task-meta-controls
     float:right
     
   .task-controls,.task-text
     display:inline
     margin-right:10px
 
-  .task-meta .edit-link
+  .task-meta-controls .hover-show
     display: none;
 
   .vote-up, .vote-down
