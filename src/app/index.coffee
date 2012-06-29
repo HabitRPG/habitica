@@ -254,9 +254,11 @@ ready (model) ->
     for obj in task.get('history')
       matrix.push [obj.date, obj.value]
     data = google.visualization.arrayToDataTable matrix
-
+    
     options = {
       title: 'History'
+      #TODO use current background color: $(el).css('background-color), but convert to hex (see http://goo.gl/ql5pR)
+      backgroundColor: 'whiteSmoke'
     }
 
     chart = new google.visualization.LineChart(document.getElementById( task.get('id') + '-chart' ))
