@@ -112,9 +112,7 @@
       
       <div class="hover-show">
         <a x-bind=click:toggleTaskEdit><i class="icon-pencil"></i></a>
-        {#if :task.history} 
-          <a x-bind=click:toggleTaskChart><i class="icon-signal"></i></a>
-        {/}
+        {#if :task.history}<a x-bind=click:toggleTaskChart><i class="icon-signal"></i></a>{/}
       </div>
       
       <!--<a class="edit-link" href="#/<%= id %>/edit">Edit</a>-->
@@ -145,7 +143,7 @@
 <taskMeta:>
   <div style="display:none;" id={{:task.id}}-edit>
     <hr/>
-    <form x-bind=submit:toggleEdit data-selector="{{:task.id}}-edit">
+    <form x-bind=submit:toggleTaskEdit data-selector="{{:task.id}}-edit">
       <div class=control-group>
         <label>Text</label><input type=text value={:task.text} />
         <label>Notes</label><textarea rows=3>{:task.notes}</textarea>
