@@ -156,9 +156,17 @@
           </label>
         </div>
       {/}
-      <button type=submit class="btn">Save</a>
-      <button x-bind=click:del class="btn btn-danger">Delete</a>
+      <button type=submit class="btn">Save</button>
+      <button x-bind=click:del class="btn btn-danger">Delete</button>
     </form>
+    
+    <div id="{:task.id}-chart">
+      {#each :task.history}
+        Date:<div>{date}</div>
+        Value:<div>{value}</div>
+      {/}
+    </div>
+    
   </div>  
   
 <Footer:>
@@ -174,5 +182,3 @@
   <script src=/jquery.min.js></script>
   <script src=/jquery-ui.min.js></script>
   <script src=/bootstrap.min.js></script>
-  
-  

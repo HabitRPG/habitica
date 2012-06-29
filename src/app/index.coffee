@@ -125,6 +125,8 @@ endOfDayTally = (model) ->
       unless completed
         value += if (value < 0) then (( -0.1 * value + 1 ) * -1) else (( Math.pow(0.9,value) ) * -1)
         task.set('value', value)
+        task.setNull 'history', []
+        task.push "history", { date: new Date(), value: value }
         # Deduct experience for missed Daily tasks, 
         # but not for Todos (just increase todo's value)
         if (type == 'daily')
