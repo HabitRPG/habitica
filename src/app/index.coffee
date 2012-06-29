@@ -240,11 +240,27 @@ ready (model) ->
     # Derby extends model.at to support creation from DOM nodes
     model.at(e.target).remove()
     
-  exports.toggleMeta = (e, el) ->
-    selector = $(el).attr('data-selector')
-    if selector.charAt(0) == '$'
-      selector = '\\' + selector
-    $('#'+selector).toggle()
+  exports.toggleEdit = (e, el) ->
+    task = model.at $(el).parents('li')[0]
+    $('#\\' + task.get('id') + '-chart').hide()
+    $('#\\' + task.get('id') + '-edit').toggle()
+
+  exports.toggleChart = (e, el) ->
+    task = model.at $(el).parents('li')[0]
+    $('#\\' + task.get('id') + '-edit').hide()
+    $('#\\' + task.get('id') + '-chart').toggle()
+    
+    matrix = [['Date', 'Score']]
+    for obj in task.get('history')
+      matrix.push [obj.date, obj.value]
+    data = google.visualization.arrayToDataTable matrix
+
+    options = {
+      title: 'History'
+    }
+
+    chart = new google.visualization.LineChart(document.getElementById( task.get('id') + '-chart' ))
+    chart.draw(data, options)
 
   exports.vote = (e, el, next) ->
     direction = $(el).attr('data-direction')

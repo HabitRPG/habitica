@@ -107,9 +107,9 @@
       <!-- TODO make this a popover -->    
       
       <div class="hover-show">
-        <a x-bind=click:toggleMeta data-selector="{{:task.id}}-edit" class="edit-link"><i class="icon-pencil"></i></a>
+        <a x-bind=click:toggleEdit><i class="icon-pencil"></i></a>
         {#if :task.history} 
-          <a x-bind=click:toggleMeta data-selector="{{:task.id}}-chart" class="chart-link"><i class="icon-signal"></i></a>
+          <a x-bind=click:toggleChart><i class="icon-signal"></i></a>
         {/}
       </div>
       
@@ -166,12 +166,7 @@
     </form>
   </div>  
   
-  <div style="display:none;" id={{:task.id}}-chart>
-    <hr/>
-    {#each :task.history}
-      Value: {value} | Date: {date}<br/>
-    {/}
-  </div>
+  <div style="display:none;" id={{:task.id}}-chart></div>
   
 <Footer:>
   <a href="https://github.com/lefnire/habitrpg"><img style="z-index:11; position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
@@ -186,3 +181,9 @@
   <script src=/jquery.min.js></script>
   <script src=/jquery-ui.min.js></script>
   <script src=/bootstrap.min.js></script>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(function(){});
+  </script>
+  
