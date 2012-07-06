@@ -29,64 +29,22 @@ getRoom = (page, model, userId) ->
     model.refList "_todoList", "_user.tasks", "_user.todoIds"
     model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
     unless model.get('_user.tasks')
-      starter_habits = [
-        {type: 'habit', text: 'Stairs', notes: '', value: 0, up: true, down: true}
-        {type: 'habit', text: 'Diet', notes: '', value: 0, up: true, down: true}
-        {type: 'habit', text: 'Ticket (Workflowy, Pivotal)', notes: '', value: 0, up: true, down: false}
-        {type: 'habit', text: 'Temptation Control', notes: '* meditate for 1 minute, visualize<br/>* positive, specific, present self-talk<br/>* do first task', value: 0, up: true, down: false}
-        {type: 'habit', text: 'Propose, not ask', notes: '', value: 0, up: true, down: false}
-        {type: 'habit', text: 'Focus', notes: '', value: 0, up: false, down: true}
-        {type: 'habit', text: 'Facebook/RSS out of turn', notes: '', value: 0, up: false, down: true}
-        {type: 'habit', text: 'Negative Talk', notes: '', value: 0, up: false, down: true}
-        {type: 'habit', text: 'Exaggeration', notes: '', value: 0, up: false, down: true}
-        {type: 'habit', text: 'Insult Self', notes: '', value: 0, up: false, down: true}
-        {type: 'habit', text: 'Other', notes: '* Nail-biting<br/>* Posture<br/>* Visualize / Meditate to sleep<br/>* Smile/eye-gaze', value: 0, up: false, down: false}
+      model.push '_habitList', task for task in [
+        {type: 'habit', text: 'Take the stairs', notes: '', value: 0, up: true, down: true}
+        {type: 'habit', text: 'Nail-biting', notes: '', value: 0, up: true, down: true}
       ]
-      starter_dailys = [
-        {type: 'daily', text: 'Review Pivotal, Asana, Workflowy', notes: '', value: 0, completed: false }
-        {type: 'daily', text: 'TMJ Exercise', notes: '', value: 0, completed: false }
-        {type: 'daily', text: 'Anki (20m)', notes: '', value: 0, completed: false }
-        {type: 'daily', text: '30m Code Reading', notes: '', value: 0, completed: false }
-        {type: 'daily', text: 'Google News', notes: '', value: 0, completed: false }
-        {type: 'daily', text: 'Mint', notes: '', value: 0, completed: false }
-        {type: 'daily', text: 'Anki (new / review)', notes: '', value: 0, completed: false }
-        {type: 'daily', text: 'Check Meetup', notes: '', value: 0, completed: false }
-        {type: 'daily', text: 'Read it later', notes: '', value: 0, completed: false }
-        {type: 'daily', text: 'RSS (Drupal)', notes: '', value: 0, completed: false }
-        {type: 'daily', text: 'RSS (Other)', notes: '', value: 0, completed: false }
-        {type: 'daily', text: 'Lunch TODO', notes: '', value: 0, completed: false }
+      model.push '_dailyList', task for task in [
         {type: 'daily', text: 'Exercise', notes: '', value: 0, completed: false }
-        {type: 'daily', text: 'Read (45m)', notes: '', value: 0, completed: false }
-        {type: 'daily', text: 'Night TODO', notes: '', value: 0, completed: false }
-        {type: 'daily', text: 'Brain Game', notes: '', value: 0, completed: false }
-        {type: 'daily', text: '1h Personal Project', notes: '', value: 0, completed: false }
+        {type: 'daily', text: '1 hour personal project', notes: '', value: 0, completed: false }
       ]
-      starter_todos = [
-        {type: 'todo', text: 'Print insurance request card', notes: '"travel" tag', value: 0, completed: false }
-        {type: 'todo', text: 'VPM', notes: '', value: 0, completed: false }
-        {type: 'todo', text: 'set STO as PTO or makup time with joshua (email)', notes: '', value: 0, completed: false }
-        {type: 'todo', text: 'ocdevel ads', notes: '', value: 0, completed: false }
-        {type: 'todo', text: 'mail', notes: '', value: 0, completed: false }
-        {type: 'todo', text: 'krav', notes: '', value: 0, completed: false }
-        {type: 'todo', text: 'rubber cement', notes: '', value: 0, completed: false }
-        {type: 'todo', text: 'bike', notes: '', value: 0, completed: false }
-        {type: 'todo', text: 'clean ~/.ievms', notes: '', value: 0, completed: false }
-        {type: 'todo', text: 'http://www.php-debug.com/www/', notes: '', value: 0, completed: false }
-        {type: 'todo', text: 'make sure IRA is setup for auto distribution', notes: '', value: 0, completed: false }
+      model.push '_todoList', task for task in [
+        {type: 'todo', text: 'Call Frank', notes: '', value: 0, completed: false }
+        {type: 'todo', text: 'Buy a bike', notes: '', value: 0, completed: false }
       ]
-      starter_rewards = [
-        {type: 'reward', text: 'TV Show', notes: '', value: 20 }
-        {type: 'reward', text: '1h Novel', notes: '', value: 10 }
-        {type: 'reward', text: 'Shop', notes: '', value: 10 }
-        {type: 'reward', text: 'Junk Food', notes: '', value: 10 }
-        {type: 'reward', text: '9gag', notes: '', value: 5 }
-        {type: 'reward', text: 'Coffee', notes: '', value: 5 }
+      model.push '_rewardList', task for task in [
+        {type: 'reward', text: '1 Episode of Game of Thrones', notes: '', value: 20 }
+        {type: 'reward', text: 'Cake', notes: '', value: 10 }
       ]
-      
-      model.push '_habitList', habit for habit in starter_habits
-      model.push '_dailyList', daily for daily in starter_dailys  
-      model.push '_todoList',  todo for todo in starter_todos
-      model.push '_rewardList', reward for reward in starter_rewards
       
     # http://tibia.wikia.com/wiki/Formula
     model.fn '_tnl', '_user.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
@@ -214,6 +172,69 @@ ready (model) ->
       # todo.destroy()
     # @render()
     # return false
+    
+  exports.loadDebugDefaults = (e, el) ->
+    
+    model.remove '_habitList', 0, 100, ->  
+      model.push '_habitList', task for task in [
+        {type: 'habit', text: 'Stairs', notes: '', value: 0, up: true, down: true}
+        {type: 'habit', text: 'Diet', notes: '', value: 0, up: true, down: true}
+        {type: 'habit', text: 'Ticket (Workflowy, Pivotal)', notes: '', value: 0, up: true, down: false}
+        {type: 'habit', text: 'Temptation Control', notes: '* meditate for 1 minute, visualize<br/>* positive, specific, present self-talk<br/>* do first task', value: 0, up: true, down: false}
+        {type: 'habit', text: 'Propose, not ask', notes: '', value: 0, up: true, down: false}
+        {type: 'habit', text: 'Focus', notes: '', value: 0, up: false, down: true}
+        {type: 'habit', text: 'Facebook/RSS out of turn', notes: '', value: 0, up: false, down: true}
+        {type: 'habit', text: 'Negative Talk', notes: '', value: 0, up: false, down: true}
+        {type: 'habit', text: 'Exaggeration', notes: '', value: 0, up: false, down: true}
+        {type: 'habit', text: 'Insult Self', notes: '', value: 0, up: false, down: true}
+        {type: 'habit', text: 'Other', notes: '* Nail-biting<br/>* Posture<br/>* Visualize / Meditate to sleep<br/>* Smile/eye-gaze', value: 0, up: false, down: false}
+      ]
+    
+    model.remove '_dailyList', 0, 100, ->
+      model.push '_dailyList', task for task in [
+        {type: 'daily', text: 'Review Pivotal, Asana, Workflowy', notes: '', value: 0, completed: false }
+        {type: 'daily', text: 'TMJ Exercise', notes: '', value: 0, completed: false }
+        {type: 'daily', text: 'Anki (20m)', notes: '', value: 0, completed: false }
+        {type: 'daily', text: '30m Code Reading', notes: '', value: 0, completed: false }
+        {type: 'daily', text: 'Google News', notes: '', value: 0, completed: false }
+        {type: 'daily', text: 'Mint', notes: '', value: 0, completed: false }
+        {type: 'daily', text: 'Anki (new / review)', notes: '', value: 0, completed: false }
+        {type: 'daily', text: 'Check Meetup', notes: '', value: 0, completed: false }
+        {type: 'daily', text: 'Read it later', notes: '', value: 0, completed: false }
+        {type: 'daily', text: 'RSS (Drupal)', notes: '', value: 0, completed: false }
+        {type: 'daily', text: 'RSS (Other)', notes: '', value: 0, completed: false }
+        {type: 'daily', text: 'Lunch TODO', notes: '', value: 0, completed: false }
+        {type: 'daily', text: 'Exercise', notes: '', value: 0, completed: false }
+        {type: 'daily', text: 'Read (45m)', notes: '', value: 0, completed: false }
+        {type: 'daily', text: 'Night TODO', notes: '', value: 0, completed: false }
+        {type: 'daily', text: 'Brain Game', notes: '', value: 0, completed: false }
+        {type: 'daily', text: '1h Personal Project', notes: '', value: 0, completed: false }
+      ]
+      
+    model.remove '_todoList', 0, 100, ->
+      model.push '_todoList', task for task in [
+        {type: 'todo', text: 'Print insurance request card', notes: '"travel" tag', value: 0, completed: false }
+        {type: 'todo', text: 'VPM', notes: '', value: 0, completed: false }
+        {type: 'todo', text: 'set STO as PTO or makup time with joshua (email)', notes: '', value: 0, completed: false }
+        {type: 'todo', text: 'ocdevel ads', notes: '', value: 0, completed: false }
+        {type: 'todo', text: 'mail', notes: '', value: 0, completed: false }
+        {type: 'todo', text: 'krav', notes: '', value: 0, completed: false }
+        {type: 'todo', text: 'rubber cement', notes: '', value: 0, completed: false }
+        {type: 'todo', text: 'bike', notes: '', value: 0, completed: false }
+        {type: 'todo', text: 'clean ~/.ievms', notes: '', value: 0, completed: false }
+        {type: 'todo', text: 'http://www.php-debug.com/www/', notes: '', value: 0, completed: false }
+        {type: 'todo', text: 'make sure IRA is setup for auto distribution', notes: '', value: 0, completed: false }
+      ]
+    
+    model.remove '_rewardList', 0, 100, ->  
+      model.push '_rewardList', task for task in [
+        {type: 'reward', text: 'TV Show', notes: '', value: 20 }
+        {type: 'reward', text: '1h Novel', notes: '', value: 10 }
+        {type: 'reward', text: 'Shop', notes: '', value: 10 }
+        {type: 'reward', text: 'Junk Food', notes: '', value: 10 }
+        {type: 'reward', text: '9gag', notes: '', value: 5 }
+        {type: 'reward', text: 'Coffee', notes: '', value: 5 }
+      ]
     
   exports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
