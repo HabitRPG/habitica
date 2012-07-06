@@ -92,11 +92,12 @@ getRoom = (page, model, userId) ->
     # http://tibia.wikia.com/wiki/Formula
     model.fn '_tnl', '_user.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
     
+    #TODO remove when cron implemented
     poormanscron(model)
 
     page.render()
     
-#TODO: Implement this for cron 
+#TODO: remove when cron implemented 
 poormanscron = (model) ->
   lastCron = model.get('_user.lastCron')
   lastCron = if lastCron then (new Date(lastCron)) else new Date() 
@@ -110,7 +111,8 @@ poormanscron = (model) ->
   
 # Note: Set 12am daily cron for this
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-# For incomplete Dailys, deduct experience  
+# For incomplete Dailys, deduct experience
+#TODO: remove from exports when cron implemented  
 endOfDayTally = (model) ->
   # users = model.at('users') #TODO this isn't working, iterate over all users
   # for user in users
@@ -172,10 +174,6 @@ view.fn "silver", (num) ->
 ## CONTROLLER FUNCTIONS ##
 
 ready (model) ->
-  
-  #TODO remove this!!!!! dangerous temporary debugging helper
-  window.model = model
-  
   $('.task-notes').popover()
   
   model.set('_hideCompleted', true)
