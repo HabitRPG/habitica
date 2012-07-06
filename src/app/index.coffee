@@ -336,6 +336,9 @@ ready (model) ->
     if task.get('type') != 'habit'
       completed = true if direction=="up"
       completed = false if direction=="down"
+    else
+      # Add habit value to habit-history (if different)
+      task.push 'history', { date: new Date(), value: value } if task.get('value') != value
     task.set('value', value)
     task.set('completed', completed)
 
