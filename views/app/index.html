@@ -18,12 +18,16 @@
             </div>
 
             <div class="progress progress-warning">
-              <span class="progress-text">Exp: {round(_user.exp)} / {_tnl}</span>
+              <span class="progress-text"><a x-bind=click:toggleExpChart><i class=icon-signal></i></a> Exp: {round(_user.exp)} / {_tnl}</span>
               <div class="bar" style="width: {percent(_user.exp,_tnl)}%;"></div>
             </div>
               
-            </div>
           </td>
+
+          <td>
+            &nbsp;<div id="exp-chart" style="display:none;height:95px;width:300px;"></div>
+          </td>
+
         </tr>
       </table>
     <!--<% else %>

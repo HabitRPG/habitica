@@ -116,6 +116,13 @@ ready (model) ->
           todoTally += absVal
         task.set('completed', false) if type == 'daily'
     model.push '_user.history.todos', { date: new Date(), value: todoTally }
+    
+    # tally experience
+    expTally = user.get 'exp'
+    _(user.get('lvl')-1).times ->
+      expTally += 50 * Math.pow(lvl, 2) - 150 * lvl + 200
+    model.push '_user.history.exp',  { date: new Date(), value: expTally }
+    
      
   #TODO: remove when cron implemented 
   poormanscron = ->
@@ -304,6 +311,24 @@ ready (model) ->
     }
 
     chart = new google.visualization.LineChart(document.getElementById( 'todos-chart' ))
+    chart.draw(data, options)
+
+  exports.toggleExpChart = (e, el) ->
+    $('#exp-chart').toggle()
+    
+    matrix = [['Date', 'Score']]
+    for obj in model.get('_user.history.exp')
+      date = new Date(obj.date)
+      readableDate = "#{date.getMonth()}/#{date.getDate()}/#{date.getFullYear()}"
+      matrix.push [ readableDate, obj.value ]
+    data = google.visualization.arrayToDataTable matrix
+    
+    options = {
+      title: 'History'
+      backgroundColor: 'whiteSmoke'
+    }
+
+    chart = new google.visualization.LineChart(document.getElementById( 'exp-chart' ))
     chart.draw(data, options)
 
   exports.vote = (e, el, next) ->
