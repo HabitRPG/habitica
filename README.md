@@ -3,7 +3,7 @@
 
 A habit tracker app which treats your goals like a Role Playing Game.  As you accomplish goals, you level up and earn gold to spend on rewards. When you fail at your goals, you lose hit points. Lose all your HP and you die (aka, have to start over with GP & Lvl).
 
-* The live application can be found at [HabitRPG.com](http://habitrpg.com)
+* The live application can be found at [198.101.220.61:3000](http://198.101.220.61:3000/)
 * Roadmap: https://workflowy.com/shared/cd06313a-7c93-ae5f-ae55-e64cae0556e4/
 * For more habit tracking examples, see [7 Tools to Help Keep Track of Habits and Goals](http://www.lifehack.org/articles/technology/7-tools-to-help-keep-track-of-habits-and-goals.html).
 
