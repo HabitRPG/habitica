@@ -5,7 +5,6 @@ derby.use(require('../../ui'))
 
 ## ROUTES ##
 
-
 get '/', (page, model) ->
   # Render page if a userId is already stored in session data
   if userId = model.get '_session.userId'
@@ -92,54 +91,8 @@ getRoom = (page, model, userId) ->
     # http://tibia.wikia.com/wiki/Formula
     model.fn '_tnl', '_user.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
     
-    #TODO remove when cron implemented
-    poormanscron(model)
-
     page.render()
     
-#TODO: remove when cron implemented 
-poormanscron = (model) ->
-  lastCron = model.get('_user.lastCron')
-  lastCron = if lastCron then (new Date(lastCron)) else new Date() 
-  DAY = 1000 * 60 * 60  * 24
-  today = new Date()
-  days_passed = Math.round((today.getTime() - lastCron.getTime()) / DAY)
-  if days_passed > 0
-    endOfDayTally(model) for[]in length:days_passed
-    lastCron = new Date()
-  model.set('_user.lastCron', lastCron)
-  
-# Note: Set 12am daily cron for this
-# At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-# For incomplete Dailys, deduct experience
-#TODO: remove from exports when cron implemented  
-endOfDayTally = (model) ->
-  # users = model.at('users') #TODO this isn't working, iterate over all users
-  # for user in users
-  user = model.at '_user'
-  todoTally = 0
-  for key of model.get '_user.tasks'
-    task = model.at "_user.tasks.#{key}"
-    [type, value, completed] = [task.get('type'), task.get('value'), task.get('completed')] 
-    if type == 'todo' or type == 'daily'
-      unless completed
-        value += if (value < 0) then (( -0.1 * value + 1 ) * -1) else (( Math.pow(0.9,value) ) * -1)
-        task.set('value', value)
-        # Deduct experience for missed Daily tasks, 
-        # but not for Todos (just increase todo's value)
-        if (type == 'daily')
-          user.set('hp', user.get('hp') + value)
-          if user.get('hp') < 0
-            #TODO this is implemented in exports.vote also, make it a user.on or something
-            user.set('hp',50);user.set('lvl',1);user.set('exp',0)
-      if type == 'daily'
-        task.push "history", { date: new Date(), value: value }
-      else
-        absVal = if (completed) then Math.abs(value) else value
-        todoTally += absVal
-      task.set('completed', false) if type == 'daily'
-  model.push '_user.history.todos', { date: new Date(), value: todoTally } 
-
 ## VIEW HELPERS ##
 view.fn 'taskClasses', (type, completed, value, hideCompleted) ->
   #TODO figure out how to just pass in the task model, so i can access all these properties from one object
@@ -174,6 +127,54 @@ view.fn "silver", (num) ->
 ## CONTROLLER FUNCTIONS ##
 
 ready (model) ->
+
+  # Note: Set 12am daily cron for this
+  # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
+  # For incomplete Dailys, deduct experience
+  #TODO: remove from exports when cron implemented  
+  exports.endOfDayTally = endOfDayTally = (e, el) ->
+    # users = model.at('users') #TODO this isn't working, iterate over all users
+    # for user in users
+    user = model.at '_user'
+    todoTally = 0
+    for key of model.get '_user.tasks'
+      task = model.at "_user.tasks.#{key}"
+      [type, value, completed] = [task.get('type'), task.get('value'), task.get('completed')] 
+      if type == 'todo' or type == 'daily'
+        unless completed
+          value += if (value < 0) then (( -0.1 * value + 1 ) * -1) else (( Math.pow(0.9,value) ) * -1)
+          task.set('value', value)
+          # Deduct experience for missed Daily tasks, 
+          # but not for Todos (just increase todo's value)
+          if (type == 'daily')
+            user.set('hp', user.get('hp') + value)
+            if user.get('hp') < 0
+              #TODO this is implemented in exports.vote also, make it a user.on or something
+              user.set('hp',50);user.set('lvl',1);user.set('exp',0)
+        if type == 'daily'
+          task.push "history", { date: new Date(), value: value }
+        else
+          absVal = if (completed) then Math.abs(value) else value
+          todoTally += absVal
+        task.set('completed', false) if type == 'daily'
+    model.push '_user.history.todos', { date: new Date(), value: todoTally }
+     
+  #TODO: remove when cron implemented 
+  poormanscron = ->
+    lastCron = model.get('_user.lastCron')
+    lastCron = if lastCron then (new Date(lastCron)) else new Date() 
+    DAY = 1000 * 60 * 60  * 24
+    today = new Date()
+    days_passed = Math.round((today.getTime() - lastCron.getTime()) / DAY)
+    if days_passed > 0
+      endOfDayTally() for[]in length:days_passed
+      lastCron = new Date()
+    model.set('_user.lastCron', lastCron)
+  poormanscron()
+  exports.toggleDebug = ->
+    model.set('_debug', !model.get('_debug'))
+
+
   $('.task-notes').popover()
   
   model.set('_hideCompleted', true)
@@ -352,10 +353,6 @@ ready (model) ->
     user.set('exp', exp)
     user.set('lvl', lvl)
     #[user.money, user.hp, user.exp, user.lvl] = [money, hp, exp, lvl]
-    
-  exports.eodTally = (e, el) ->
-    #copy/paste endOfDayTally() here for testing purposes
-    return
     
   ## SHORTCUTS ##
 

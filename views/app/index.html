@@ -36,9 +36,17 @@
   <br/>
   
   <div class="container-fluid">
-    <a x-bind=click:eodTally data-content="Implement on cron: this is meant to be run automatically once every night. <br/>See goo.gl/icdTT" data-original-title="TODO" class='task-notes btn'>Tally</a>
+    {#if _debug}
+    <div class="alert">
+      <i class="icon-warning-sign"></i> <b>Debug Buttons</b>
+      <!-- TODO: Implement on cron: this is meant to be run automatically once every night. See goo.gl/icdTT -->
+      &nbsp;<a x-bind=click:endOfDayTally class="btn">Tally</a>
+      &nbsp;<a x-bind=click:loadDebugDefaults class="btn">Debuggin Defaults</a>
+    </div>
+    {/}
+    <a x-bind=click:toggleDebug style="position:absolute;bottom:0;right:0;"><i class="icon-warning-sign"></i></a>
+    
     <div class="row-fluid">
-      
       <!-- would rather have one component: <app:taskList>, which handles taskList, task, and newTask.  However,
         can't pass references as paramters.  so <app:taskList newModel={_newHabit} list={_habitList}> doesn't work
         and have to pass those in via {{{content}}} instead -->  
