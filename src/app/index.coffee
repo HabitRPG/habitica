@@ -119,7 +119,9 @@ ready (model) ->
     
     # tally experience
     expTally = user.get 'exp'
+    lvl = 0 #iterator
     _(user.get('lvl')-1).times ->
+      lvl++
       expTally += 50 * Math.pow(lvl, 2) - 150 * lvl + 200
     model.push '_user.history.exp',  { date: new Date(), value: expTally }
     
