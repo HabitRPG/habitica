@@ -130,9 +130,10 @@ ready (model) ->
     lastCron = if lastCron then (new Date(lastCron)) else new Date() 
     DAY = 1000 * 60 * 60  * 24
     today = new Date()
-    days_passed = Math.round((today.getTime() - lastCron.getTime()) / DAY)
-    if days_passed > 0
-      endOfDayTally() for[]in length:days_passed
+    daysPassed = Math.round((today.getTime() - lastCron.getTime()) / DAY)
+    if daysPassed > 0
+      _(daysPassed).times ->
+        endOfDayTally()
       lastCron = new Date()
     model.set('_user.lastCron', lastCron)
   poormanscron()
