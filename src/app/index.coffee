@@ -5,9 +5,14 @@ derby.use(require('../../ui'))
 
 ## ROUTES ##
 
-newUser = (model, userId) ->
-  # TODO this used to be model.async.incr, revisit this
-  model.incr 'configs.1.nextUserId', (err, userId) ->
+
+get '/', (page, model) ->
+  # Render page if a userId is already stored in session data
+  if userId = model.get '_session.userId'
+    return getRoom page, model, userId
+
+  # Otherwise, select a new userId and initialize user
+  model.async.incr 'configs.1.nextUserId', (err, userId) ->
     model.set '_session.userId', userId
     model.set "users.#{userId}",
       name: 'User ' + userId
@@ -15,15 +20,9 @@ newUser = (model, userId) ->
       exp: 0
       lvl: 1
       hp: 50
+    getRoom page, model, userId
 
-get '/', (page, model) ->
-  # Render page if a userId is already stored in session data
-  userId = model.get '_session.userId'
-  # Otherwise, select a new userId and initialize user
-  if !userId
-    userId = newUser(model, userId)
-
-  model.setNull '_user.tasks', []
+getRoom = (page, model, userId) ->
   model.subscribe "users.#{userId}", (err, user) -> 
     model.ref '_user', user
     model.refList "_habitList", "_user.tasks", "_user.habitIds"
