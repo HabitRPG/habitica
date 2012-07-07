@@ -51,7 +51,6 @@
       &nbsp;<a x-bind=click:loadDebugDefaults class="btn">Debuggin Defaults</a>
     </div>
     {/}
-    <a x-bind=click:toggleDebug style="position:absolute;bottom:0;right:0;"><i class="icon-warning-sign"></i></a>
     
     <div class="row-fluid">
       <!-- would rather have one component: <app:taskList>, which handles taskList, task, and newTask.  However,
@@ -103,6 +102,9 @@
       
       
     </div>
+    <footer class="footer">
+      <a href="https://github.com/lefnire/habitrpg#habitrpg">Help</a> | Copyright &copy; 2012 Tyler Renelle | <a x-bind=click:toggleDebug><i class="icon-warning-sign"></i></a>
+    </footer>
   </div>
   <!--<% if !current_user %>
     <%= link_to(image_tag("http://line6.com/images/connections/facebook-login-button.png", :alt =>  "Login with Facebook"), user_omniauth_authorize_path(:facebook)) %>
@@ -197,13 +199,7 @@
   
 <Footer:>
   <a href="https://github.com/lefnire/habitrpg"><img style="z-index:11; position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
-  <!--<div id="footer">
-    <%if current_user %>
-      <p><a href="https://github.com/lefnire/habitrpg#habitrpg">Help</a> | <%= link_to "Logout", destroy_user_session_path, :method => :delete %></p>
-    <% end %>
-    <p>Copyright &copy; 2012-<%= Time.now.year %> Tyler Renelle</p>
-  </div>-->
-  
+
 <Scripts:>
   <script src=/jquery.min.js></script>
   <script src=/jquery-ui.min.js></script>
