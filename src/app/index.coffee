@@ -22,6 +22,7 @@ get '/', (page, model) ->
     getRoom page, model, userId
 
 getRoom = (page, model, userId) ->
+  
   model.subscribe "users.#{userId}", (err, user) -> 
     model.ref '_user', user
     model.refList "_habitList", "_user.tasks", "_user.habitIds"
@@ -268,9 +269,13 @@ ready (model) ->
           # # Move the item to the bottom if it was checked off
           # list.move i, -1  if completed && isLocal
 
-  exports.del = (e) ->
+  exports.del = (e, el) ->
     # Derby extends model.at to support creation from DOM nodes
-    model.at(e.target).remove()
+    task = model.at(e.target)
+    #TODO bug where I have to delete from _users.tasks AND _{type}List, 
+    # fix when query subscriptions implemented properly
+    console.log model.del('_user.tasks.'+task.get('id'))
+    console.log task.remove()
     
   exports.toggleTaskEdit = (e, el) ->
     task = model.at $(el).parents('li')[0]
