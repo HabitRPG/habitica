@@ -16,7 +16,7 @@ FAQ
   
 * **This is confusing**
 
-  If you played RPGs (Role Playing Games) growing up, this app will make perfect sense to you. It's not for everyone, it's for gamers. Checkout the above link, as well as [MindBloom](https://www.mindbloom.com/) if you're having trouble adjusting to HabitRPG.
+  If you played RPGs (Role Playing Games) growing up, this app will make perfect sense to you; otherwise, it might be overwhelming at first. Be sure to follow the tutorial when you first load the website. If it's still not your cup of tea, checkout the above link, as well as [MindBloom](https://www.mindbloom.com/).
 
 * **How do I heal?**
 
