@@ -144,7 +144,7 @@ ready (model) ->
     model.set('_debug', !model.get('_debug'))
 
 
-  $('.task-notes').popover()
+  $('.task-notes, [rel=popover]').popover()
   
   model.set('_hideCompleted', true)
   $('a[data-toggle="tab"]').on 'shown', (e) ->
@@ -202,7 +202,7 @@ ready (model) ->
   tour.addStep
     element: "ul.rewards"
     title: "Rewards"
-    content: "As you complete goals, you earn gold. Buy rewards, and buy them liberally - rewards are integral in forming good habits."
+    content: "As you complete goals, you earn gold to buy rewards. Buy them liberally - rewards are integral in forming good habits."
     placement: "bottom"
   tour.start()
         
