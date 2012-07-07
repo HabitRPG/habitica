@@ -25,9 +25,7 @@
               {/}
               <div class="bar" style="width: {percent(_user.exp,_tnl)}%;"></div>
             </div>
-              
           </td>
-
         </tr>
         
         <tr>
@@ -49,8 +47,7 @@
     {#if _debug}
     <div class="alert">
       <i class="icon-warning-sign"></i> <b>Debug Buttons</b>
-      <!-- TODO: Implement on cron: this is meant to be run automatically once every night. See goo.gl/icdTT -->
-      &nbsp;<a x-bind=click:endOfDayTally class="btn">Tally</a>
+      &nbsp;<a x-bind=click:endOfDayTally class="btn">Run Cron</a>
       &nbsp;<a x-bind=click:loadDebugDefaults class="btn">Debuggin Defaults</a>
     </div>
     {/}
@@ -61,26 +58,18 @@
         can't pass references as paramters.  so <app:taskList newModel={_newHabit} list={_habitList}> doesn't work
         and have to pass those in via {{{content}}} instead -->  
       
-      <app:taskColumn
-        title="Habits"
-        helpTitle="Habits: Constantly Track." 
-        helpContent="Some habits only makes sense to gain points (1h of productive work). Others only lose points (swearing). For the rest, both + and - make sense (stairs=gain, elevator=lose).">
+      <!--helpTitle & helpContent moved to tour -->
+      <app:taskColumn title="Habits">
         <ul class='habits'>{#each _habitList as :task}<app:task />{/}</ul>
         <app:newTask type=habit><input value={_newHabit} type="text" /></app:newTask>
       </app:taskColumn>
       
-      <app:taskColumn
-        title="Daily" 
-        helpTitle="Dailies: Complete Once Each Day" 
-        helpContent="At the end of each day, non-completed Dailies dock you points. They also become more valueable (worth more experience). This wil push you to focus on the reds (the goals that are doing worse)">
+      <app:taskColumn title="Daily">
         <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
         <app:newTask type=daily><input value={_newDaily} type="text" /></app:newTask>
       </app:taskColumn>
 
-      <app:taskColumn 
-        title="Todos" type="todo"
-        helpTitle="Todos: Complete Eventually" 
-        helpContent="Non-completed TODOs won't dock you points, but they will become more valuable over time.">
+      <app:taskColumn title="Todos" type="todo">
         <div class="tabbable"> <!-- Only required for left/right tabs -->
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab1" data-toggle="tab">Remaining</a></li>
@@ -106,10 +95,7 @@
         {/}
       </app:taskColumn>
 
-      <app:taskColumn 
-        title="Rewards" type="reward"  
-        helpTitle="Rewards: Treat Yourself!" 
-        helpContent="As you complete goals, you earn gold to buy rewards. Buy them liberally - rewards are integral in forming good habits.">
+      <app:taskColumn title="Rewards" type="reward">
         <div id="money">{gold(_user.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.money)} <img src='/img/coin_single_silver.png'/></div>
         <ul class='rewards'>{#each _rewardList as :task}<app:task />{/}</ul>
         <app:newTask type=reward><input value={_newReward} type="text" /></app:newTask>
@@ -118,14 +104,15 @@
       
     </div>
   </div>
-    
   <!--<% if !current_user %>
     <%= link_to(image_tag("http://line6.com/images/connections/facebook-login-button.png", :alt =>  "Login with Facebook"), user_omniauth_authorize_path(:facebook)) %>
   <% else %>-->
   <!--<% end %>-->
+  
 <taskColumn: nonvoid>
   <div class="span3 well {{{type}}}s">
-    <span class="help-icon" rel="popover" data-placement="bottom" data-original-title="{{{helpTitle}}}" data-content="{{{helpContent}}}"><i class="icon-question-sign"></i></span>
+    <!--removing for now, help-info in the tour instead-->
+    <!--<span class="help-icon" rel="popover" data-placement="bottom" data-original-title="{{{helpTitle}}}" data-content="{{{helpContent}}}"><i class="icon-question-sign"></i></span>-->
     <h1>{{{title}}}</h1>
     {{{content}}}
   </div>
@@ -140,8 +127,7 @@
   <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, _hideCompleted)}">
     <pre>
     <div class="task-meta-controls">
-      <!-- TODO make this a popover -->    
-      
+
       <div class="hover-show">
         <a x-bind=click:toggleTaskEdit><i class="icon-pencil"></i></a>
         {#if :task.history}
@@ -151,9 +137,12 @@
         {/}
       </div>
       
-      <!--<a class="edit-link" href="#/<%= id %>/edit">Edit</a>-->
       {#if :task.notes}
-        <a href="#" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></a>
+        {#if equal(:task.type,'reward')}
+          <span data-placement="left" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
+        {else}
+          <span data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
+        {/}  
       {/}
     </div>
     

@@ -31,20 +31,21 @@ getRoom = (page, model, userId) ->
     model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
     unless model.get('_user.tasks')
       model.push '_habitList', task for task in [
-        {type: 'habit', text: 'Take the stairs', notes: '', value: 0, up: true, down: true}
-        {type: 'habit', text: 'Nail-biting', notes: '', value: 0, up: true, down: true}
+        {type: 'habit', text: '1h Productive Work', notes: '<u>Habits: Constantly Track</u><br/>For some habits, it only makes sense to <b>gain</b> points (like this one).', value: 0, up: true, down: false}
+        {type: 'habit', text: 'Eat Junk Food', notes: 'For others, it only makes sense to <b>lose</b> points', value: 0, up: false, down: true}
+        {type: 'habit', text: 'Take The Stairs', notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose)', value: 0, up: true, down: true}
       ]
       model.push '_dailyList', task for task in [
-        {type: 'daily', text: 'Exercise', notes: '', value: 0, completed: false }
-        {type: 'daily', text: '1 hour personal project', notes: '', value: 0, completed: false }
+        {type: 'daily', text: '1h Personal Project', notes: '<u>Dailies: Complete Once a Day</u><br/>At the end of each day, non-completed Dailies dock you points.', value: 0, completed: false }
+        {type: 'daily', text: 'Exercise', notes: 'If you are doing well, they turn green and are less valuable (experience, gold) and less damaging (HP). This means you can ease up on them for a bit.', value: 3, completed: false }
+        {type: 'daily', text: '45m Reading', notes: 'But if you are doing poorly, they turn red. The worse you do, the more valuable (exp, gold) and more damaging (HP) these goals become. This encourages you to focus on your shortcomings, the reds.', value: -10, completed: false }
       ]
       model.push '_todoList', task for task in [
-        {type: 'todo', text: 'Call Frank', notes: '', value: 0, completed: false }
-        {type: 'todo', text: 'Buy a bike', notes: '', value: 0, completed: false }
+        {type: 'todo', text: 'Call Mom', notes: "<u>Todos: Complete Eventually</u><br/>Non-completed Todos won't hurt you, but they will become more valuable over time. This will encourage you to wrap up stale Todos.", value: -3, completed: false }
       ]
       model.push '_rewardList', task for task in [
-        {type: 'reward', text: '1 Episode of Game of Thrones', notes: '', value: 20 }
-        {type: 'reward', text: 'Cake', notes: '', value: 10 }
+        {type: 'reward', text: '1 Episode of Game of Thrones', notes: '<u>Rewards: Treat Yourself!</u><br/>As you complete goals, you earn gold to buy rewards. Buy them liberally - rewards are integral in forming good habits.', value: 20 }
+        {type: 'reward', text: 'Cake', notes: 'But only buy if you have enough gold - you lose HP otherwise.', value: 10 }
       ]
       
     # http://tibia.wikia.com/wiki/Formula
@@ -179,15 +180,15 @@ ready (model) ->
   tour.addStep
     element: "#avatar"
     title: "Welcome to HabitRPG"
-    content: "A habit-tracker which treats your goals like a Role Playing Game."
+    content: "Welcome to HabitRPG, a habit-tracker which treats your goals like a Role Playing Game."
   tour.addStep
     element: "#bars"
     title: "Acheive goals and level up"
-    content: "As you accomplish goals, you level up and earn gold to spend on rewards. If you fail your goals, you lose hit points. Lose all your HP and you die."
+    content: "As you accomplish goals, you level up. If you fail your goals, you lose hit points. Lose all your HP and you die."
   tour.addStep
     element: "ul.habits"
     title: "Habits"
-    content: "Habits are goals that you constantly monitor."
+    content: "Habits are goals that you constantly track."
     placement: "bottom"
   tour.addStep
     element: "ul.dailys"
@@ -204,6 +205,11 @@ ready (model) ->
     title: "Rewards"
     content: "As you complete goals, you earn gold to buy rewards. Buy them liberally - rewards are integral in forming good habits."
     placement: "bottom"
+  tour.addStep
+    element: "ul.habits li:first-child"
+    title: "Hover over comments"
+    content: "Different task-types have special properties. Hover over each task's comment for more information. When you're ready to get started, delete the existing tasks and add your own."
+    placement: "right"
   tour.start()
         
   #TODO: implement this for completed tab
