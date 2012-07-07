@@ -174,6 +174,37 @@ ready (model) ->
         # or the item's id property
         model.at("_#{type}List").pass(ignore: domId).move {id}, to
   setupSortable(type) for type in ['habit', 'daily', 'todo', 'reward']
+  
+  tour = new Tour()
+  tour.addStep
+    element: "#avatar"
+    title: "Welcome to HabitRPG"
+    content: "A habit-tracker which treats your goals like a Role Playing Game."
+  tour.addStep
+    element: "#bars"
+    title: "Acheive goals and level up"
+    content: "As you accomplish goals, you level up and earn gold to spend on rewards. If you fail your goals, you lose hit points. Lose all your HP and you die."
+  tour.addStep
+    element: "ul.habits"
+    title: "Habits"
+    content: "Habits are goals that you constantly monitor."
+    placement: "bottom"
+  tour.addStep
+    element: "ul.dailys"
+    title: "Dailies"
+    content: "Dailies are goals that you want to complete once a day."
+    placement: "bottom"
+  tour.addStep
+    element: "ul.todos"
+    title: "Todos"
+    content: "Todos are one-off goals which need to be completed eventually."
+    placement: "bottom"
+  tour.addStep
+    element: "ul.rewards"
+    title: "Rewards"
+    content: "As you complete goals, you earn gold. Buy rewards, and buy them liberally - rewards are integral in forming good habits."
+    placement: "bottom"
+  tour.start()
         
   #TODO: implement this for completed tab
   # clearCompleted: ->
