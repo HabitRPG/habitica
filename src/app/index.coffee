@@ -152,14 +152,11 @@ ready (model) ->
     hideCompleted = if $(e.target).attr('href') == '#tab1' then true else false  
     model.set('_hideCompleted', hideCompleted)
       
-  lists = [ 'habit', 'daily', 'todo', 'reward']
-
-  for type in lists
-    list = model.at "_#{type}List"
-
-    # Make the list draggable using jQuery UI
-    ul = $("ul.#{type}s")
-    ul.sortable
+  # Make the lists draggable using jQuery UI
+  # Note, have to setup helper function here and call it for each type later
+  # due to variable binding of "type"
+  setupSortable = (type) ->
+    $("ul.#{type}s").sortable
       dropOnEmpty: false
       cursor: "move"
       items: "li"
@@ -170,12 +167,13 @@ ready (model) ->
         item = ui.item[0]
         domId = item.id
         id = item.getAttribute 'data-id'
-        to = ul.children().index(item)
+        to = $("ul.#{type}s").children().index(item)
         # Use the Derby ignore option to suppress the normal move event
         # binding, since jQuery UI will move the element in the DOM.
         # Also, note that refList index arguments can either be an index
         # or the item's id property
-        list.pass(ignore: domId).move {id}, to
+        model.at("_#{type}List").pass(ignore: domId).move {id}, to
+  setupSortable(type) for type in ['habit', 'daily', 'todo', 'reward']
         
   #TODO: implement this for completed tab
   # clearCompleted: ->
