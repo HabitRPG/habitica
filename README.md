@@ -1,26 +1,26 @@
-[HabitRPG](http://habitrpg.com)
+[HabitRPG](http://198.101.220.61:3000/)
 ============
 
-A habit tracker app which treats your goals like a Role Playing Game.  As you accomplish goals, you level up and earn gold to spend on rewards. When you fail at your goals, you lose hit points. Lose all your HP and you die (aka, have to start over with GP & Lvl).
+A habit tracker app which treats your goals like a Role Playing Game. As you accomplish goals, you level up. If you fail your goals, you lose hit points. Lose all your HP and you die.
 
-* The live application can be found at [198.101.220.61:3000](http://198.101.220.61:3000/)
-* Roadmap: https://workflowy.com/shared/cd06313a-7c93-ae5f-ae55-e64cae0556e4/
-* For more habit tracking examples, see [7 Tools to Help Keep Track of Habits and Goals](http://www.lifehack.org/articles/technology/7-tools-to-help-keep-track-of-habits-and-goals.html).
+* [Website](http://198.101.220.61:3000/)
+* [Roadmap](https://workflowy.com/shared/cd06313a-7c93-ae5f-ae55-e64cae0556e4/)
 
-
-How It Works
--------
-**General Breakdown**
-![General Breakdown](https://img.skitch.com/20120607-esscyibxfqqwqybsrcxwhhh5a8.jpg "General Breakdown")
-
-**Goal Details**
-![Goal Details](https://img.skitch.com/20120607-mphu3r65tdrs2gpyx3wjm3hn4s.jpg "Goal Details")
+![Screenshot](https://img.skitch.com/20120707-daj9pp7g87yg829j61pnpwhff3.jpg "Screenshot")
 
 FAQ
 -------
+* **What is habit tracking?**
+
+  See [7 Tools to Help Keep Track of Habits and Goals](http://www.lifehack.org/articles/technology/7-tools-to-help-keep-track-of-habits-and-goals.html) for a description and more habit tracking examples.
+  
+* **This is confusing**
+
+  If you played RPGs (Role Playing Games) growing up, this app will make perfect sense to you; otherwise, it might be overwhelming at first. Be sure to follow the tutorial when you first load the website. If it's still not your cup of tea, checkout the above link, as well as [MindBloom](https://www.mindbloom.com/).
+
 * **How do I heal?**
 
-  You have to level up, HP resets on ding (you'll understand if you're familiar with RPGs). I'm thinking of adding a buyable Health Potion, but I think this might compromise pushing yourself. Think about it - the closer you are to leveling, the harder you'll try to be accountable. 
+  You have to level up, HP resets upon leveling up. I'm thinking of adding a buyable Health Potion, but I think this might compromise pushing yourself. Think about it - the closer you are to leveling, the harder you'll try to be accountable. 
   
 * **My tasks are too red, they're killing me too fast**
   
