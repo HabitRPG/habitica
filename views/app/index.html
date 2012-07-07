@@ -61,23 +61,26 @@
         can't pass references as paramters.  so <app:taskList newModel={_newHabit} list={_habitList}> doesn't work
         and have to pass those in via {{{content}}} instead -->  
       
-      <div class="span3 well">
-        <app:helpIcon helpTitle="Habits: Constantly Track." helpContent="Some habits only makes sense to gain points (1h of productive work). Others only lose points (swearing). For the rest, both + and - make sense (stairs=gain, elevator=lose)."/>
-        <h1>Habits</h1>
+      <app:taskColumn
+        title="Habits"
+        helpTitle="Habits: Constantly Track." 
+        helpContent="Some habits only makes sense to gain points (1h of productive work). Others only lose points (swearing). For the rest, both + and - make sense (stairs=gain, elevator=lose).">
         <ul class='habits'>{#each _habitList as :task}<app:task />{/}</ul>
         <app:newTask type=habit><input value={_newHabit} type="text" /></app:newTask>
-      </div>
+      </app:taskColumn>
       
-      <div class="span3 well">
-        <app:helpIcon helpTitle="Dailies: Complete Once Each Day" helpContent="At the end of each day, non-completed Dailies dock you points. They also become more valueable (worth more experience). This wil push you to focus on the reds (the goals that are doing worse)"/>
-        <h1>Dailies</h1>
+      <app:taskColumn
+        title="Daily" 
+        helpTitle="Dailies: Complete Once Each Day" 
+        helpContent="At the end of each day, non-completed Dailies dock you points. They also become more valueable (worth more experience). This wil push you to focus on the reds (the goals that are doing worse)">
         <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
         <app:newTask type=daily><input value={_newDaily} type="text" /></app:newTask>
-      </div>
+      </app:taskColumn>
 
-      <div class="span3 well">
-        <app:helpIcon helpTitle="Todos: Complete Eventually" helpContent="Non-completed TODOs won't dock you points, but they will become more valuable over time."/>
-        <h1 class='todos'>Todos</h1>
+      <app:taskColumn 
+        title="Todos" type="todo"
+        helpTitle="Todos: Complete Eventually" 
+        helpContent="Non-completed TODOs won't dock you points, but they will become more valuable over time.">
         <div class="tabbable"> <!-- Only required for left/right tabs -->
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab1" data-toggle="tab">Remaining</a></li>
@@ -101,15 +104,16 @@
           <a x-bind=click:toggleChart data-chart-selector="todos-chart" data-history-path="_user.history.todos"><i class=icon-signal></i></a>
           <div id="todos-chart" style="display:none;"></div>
         {/}
-      </div>
+      </app:taskColumn>
 
-      <div class="span3 well">
-        <app:helpIcon helpTitle="Rewards: Treat Yourself!" helpContent="As you complete goals, you earn gold to buy rewards. Buy them liberally - rewards are integral in forming good habits."/>
-        <h1 class='rewards'>Rewards</h1>
+      <app:taskColumn 
+        title="Rewards" type="reward"  
+        helpTitle="Rewards: Treat Yourself!" 
+        helpContent="As you complete goals, you earn gold to buy rewards. Buy them liberally - rewards are integral in forming good habits.">
         <div id="money">{gold(_user.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.money)} <img src='/img/coin_single_silver.png'/></div>
         <ul class='rewards'>{#each _rewardList as :task}<app:task />{/}</ul>
         <app:newTask type=reward><input value={_newReward} type="text" /></app:newTask>
-      </div>
+      </app:taskColumn>
       
       
     </div>
@@ -119,8 +123,12 @@
     <%= link_to(image_tag("http://line6.com/images/connections/facebook-login-button.png", :alt =>  "Login with Facebook"), user_omniauth_authorize_path(:facebook)) %>
   <% else %>-->
   <!--<% end %>-->
-<helpIcon:>
-  <span class="help-icon" rel="popover" data-placement="bottom" data-original-title="{{{helpTitle}}}" data-content="{{{helpContent}}}"><i class="icon-question-sign"></i></span>
+<taskColumn: nonvoid>
+  <div class="span3 well {{{type}}}s">
+    <span class="help-icon" rel="popover" data-placement="bottom" data-original-title="{{{helpTitle}}}" data-content="{{{helpContent}}}"><i class="icon-question-sign"></i></span>
+    <h1>{{{title}}}</h1>
+    {{{content}}}
+  </div>
   
 <newTask: nonvoid>
   <form class="form-inline" data-task-type={{{type}}} x-bind=submit:addTask>
