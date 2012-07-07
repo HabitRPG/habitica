@@ -261,8 +261,6 @@ ready (model) ->
       model.push '_todoList', task for task in [
         {type: 'todo', text: 'Print insurance request card', notes: '"travel" tag', value: 0, completed: false }
         {type: 'todo', text: 'VPM', notes: '', value: 0, completed: false }
-        {type: 'todo', text: 'set STO as PTO or makup time with joshua (email)', notes: '', value: 0, completed: false }
-        {type: 'todo', text: 'ocdevel ads', notes: '', value: 0, completed: false }
         {type: 'todo', text: 'mail', notes: '', value: 0, completed: false }
         {type: 'todo', text: 'krav', notes: '', value: 0, completed: false }
         {type: 'todo', text: 'rubber cement', notes: '', value: 0, completed: false }
