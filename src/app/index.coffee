@@ -282,13 +282,15 @@ ready (model) ->
     $('#\\' + task.get('id') + '-chart').hide()
     $('#\\' + task.get('id') + '-edit').toggle()
 
-  exports.toggleTaskChart = (e, el) ->
-    task = model.at $(el).parents('li')[0]
-    $('#\\' + task.get('id') + '-edit').hide()
-    $('#\\' + task.get('id') + '-chart').toggle()
+  exports.toggleChart = (e, el) ->
+    hideSelector = $(el).attr('data-hide-selector')
+    chartSelector = $(el).attr('data-chart-selector')
+    historyPath = $(el).attr('data-history-path')
+    $(document.getElementById(hideSelector)).hide()
+    $(document.getElementById(chartSelector)).toggle()
     
     matrix = [['Date', 'Score']]
-    for obj in task.get('history')
+    for obj in model.get(historyPath)
       date = new Date(obj.date)
       readableDate = "#{date.getMonth()}/#{date.getDate()}/#{date.getFullYear()}"
       matrix.push [ readableDate, obj.value ]
@@ -300,45 +302,9 @@ ready (model) ->
       backgroundColor: 'whiteSmoke'
     }
 
-    chart = new google.visualization.LineChart(document.getElementById( task.get('id') + '-chart' ))
+    chart = new google.visualization.LineChart(document.getElementById( chartSelector ))
     chart.draw(data, options)
     
-  exports.toggleTodosChart = (e, el) ->
-    $('#todos-chart').toggle()
-    
-    matrix = [['Date', 'Score']]
-    for obj in model.get('_user.history.todos')
-      date = new Date(obj.date)
-      readableDate = "#{date.getMonth()}/#{date.getDate()}/#{date.getFullYear()}"
-      matrix.push [ readableDate, obj.value ]
-    data = google.visualization.arrayToDataTable matrix
-    
-    options = {
-      title: 'History'
-      backgroundColor: 'whiteSmoke'
-    }
-
-    chart = new google.visualization.LineChart(document.getElementById( 'todos-chart' ))
-    chart.draw(data, options)
-
-  exports.toggleExpChart = (e, el) ->
-    $('#exp-chart').toggle()
-    
-    matrix = [['Date', 'Score']]
-    for obj in model.get('_user.history.exp')
-      date = new Date(obj.date)
-      readableDate = "#{date.getMonth()}/#{date.getDate()}/#{date.getFullYear()}"
-      matrix.push [ readableDate, obj.value ]
-    data = google.visualization.arrayToDataTable matrix
-    
-    options = {
-      title: 'History'
-      backgroundColor: 'whiteSmoke'
-    }
-
-    chart = new google.visualization.LineChart(document.getElementById( 'exp-chart' ))
-    chart.draw(data, options)
-
   exports.vote = (e, el, next) ->
     direction = $(el).attr('data-direction')
     direction = 'up' if direction == 'true/'

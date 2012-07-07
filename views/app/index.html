@@ -19,7 +19,9 @@
 
             <div class="progress progress-warning">
               {#if _user.history.exp}
-                <span class="progress-text"><a x-bind=click:toggleExpChart><i class=icon-signal></i></a> Exp: {round(_user.exp)} / {_tnl}</span>
+                <span class="progress-text">
+                  <a x-bind=click:toggleChart data-chart-selector="exp-chart" data-history-path="_user.history.exp"><i class=icon-signal></i></a> Exp: {round(_user.exp)} / {_tnl}
+                </span>
               {/}
               <div class="bar" style="width: {percent(_user.exp,_tnl)}%;"></div>
             </div>
@@ -88,7 +90,7 @@
           </div>
         </div>
         {#if _user.history.todos}
-          <a x-bind=click:toggleTodosChart><i class=icon-signal></i></a>
+          <a x-bind=click:toggleChart data-chart-selector="todos-chart" data-history-path="_user.history.todos"><i class=icon-signal></i></a>
           <div id="todos-chart" style="display:none;"></div>
         {/}
       </div>
@@ -123,7 +125,11 @@
       
       <div class="hover-show">
         <a x-bind=click:toggleTaskEdit><i class="icon-pencil"></i></a>
-        {#if :task.history}<a x-bind=click:toggleTaskChart><i class="icon-signal"></i></a>{/}
+        {#if :task.history}
+          <a x-bind=click:toggleChart data-chart-selector="{{:task.id}}-chart" data-hide-selector="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history">
+            <i class="icon-signal"></i>
+          </a>
+        {/}
       </div>
       
       <!--<a class="edit-link" href="#/<%= id %>/edit">Edit</a>-->
