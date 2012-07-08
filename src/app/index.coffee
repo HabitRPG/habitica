@@ -30,6 +30,7 @@ getRoom = (page, model, userId) ->
     model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
     model.refList "_todoList", "_user.tasks", "_user.todoIds"
     model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
+    model.set '_staticRewards', content.staticRewards
     unless model.get('_user.tasks')
       model.push '_habitList', task for task in content.defaultTasks.habits
       model.push '_dailyList', task for task in content.defaultTasks.dailys
@@ -75,7 +76,7 @@ view.fn "silver", (num) ->
 ## CONTROLLER FUNCTIONS ##
 
 ready (model) ->
-
+  
   # Note: Set 12am daily cron for this
   # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
   # For incomplete Dailys, deduct experience

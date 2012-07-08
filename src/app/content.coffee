@@ -113,4 +113,11 @@ module.exports = {
         placement: "right"
       }
     ]
+    
+  staticRewards: [
+    { text: "Re-Roll", notes: "Reset your task values to 0. Do this only if you're floundering.", value: 100, icon:"icon-retweet" }
+    { text: "Re-Roll", notes: "Reset your task values to 0. Do this only if you're floundering.", value: 100 }
+  ]  
+  staticRewardIds: [0] #stupid, but necessary for refList
+  
 }

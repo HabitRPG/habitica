@@ -103,7 +103,7 @@
           {#each _rewardList as :task}<app:task />{/}
         </ul>
         <ul class='static-rewards'>
-          <app:staticReward text="Re-Roll" notes="Reset your task values to 0. Do this only if you're floundering." icon="icon-retweet" value="100" />  
+          {#each _staticRewards as :reward}<app:staticReward />{/}  
         </ul>
         <app:newTask type=reward><input value={_newReward} type="text" /></app:newTask>
       </app:taskColumn>
@@ -209,12 +209,12 @@
   <li class="task reward">
     <pre>
       <div class="task-meta-controls">
-        <span data-placement="left" data-content="{{{notes}}}" data-original-title="{{{text}}}" class='task-notes'><i class="icon-comment"></i></span>
+        <span data-placement="left" data-content="{:reward.notes}" data-original-title="{:reward.text}" class='task-notes'><i class="icon-comment"></i></span>
       </div>
       <div class="task-controls">
-        <a x-bind=click:vote class="static-buy-link" data-direction=down>{{{value}}}<img src="img/coin_single_gold.png"/></a>
+        <a x-bind=click:vote class="static-buy-link" data-direction=down>{:reward.value}<img src="img/coin_single_gold.png"/></a>
       </div>
-      <div class="task-text"><i class={{{icon}}}></i> {{{text}}}</div>
+      <div class="task-text"><i class="{:reward.icon}"></i> {:reward.text}</div>
     </pre>
   </li>
   
