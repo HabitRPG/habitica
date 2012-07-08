@@ -4,53 +4,6 @@ derby.use require('derby-ui-boot')
 derby.use(require('../../ui'))
 content = require('./content')
 
-## ROUTES ##
-
-get '/', (page, model) ->
-  # Render page if a userId is already stored in session data
-  if userId = model.get '_session.userId'
-    return getRoom page, model, userId
-
-  # Otherwise, select a new userId and initialize user
-  model.async.incr 'configs.1.nextUserId', (err, userId) ->
-    model.set '_session.userId', userId
-    model.set "users.#{userId}",
-      name: 'User ' + userId
-      money: 0
-      exp: 0
-      lvl: 1
-      hp: 50
-    getRoom page, model, userId
-
-getRoom = (page, model, userId) ->
-  
-  model.subscribe "users.#{userId}", (err, user) -> 
-    model.ref '_user', user
-    model.refList "_habitList", "_user.tasks", "_user.habitIds"
-    model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
-    model.refList "_todoList", "_user.tasks", "_user.todoIds"
-    model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
-    unless model.get('_user.tasks')
-      model.push '_habitList', task for task in content.defaultTasks.habits
-      model.push '_dailyList', task for task in content.defaultTasks.dailys
-      model.push '_todoList', task for task in content.defaultTasks.todos
-      model.push '_rewardList', task for task in content.defaultTasks.rewards
-      
-    #static rewards
-    model.setNull('_user.inventory', {armor:0, weapon:0})
-    sr = [
-      content.staticRewards.armor[user.get('inventory.armor')+1]
-      content.staticRewards.weapon[user.get('inventory.weapon')+1]
-      content.staticRewards.potion
-      content.staticRewards.reroll
-    ]
-    model.set '_staticRewards', sr
-      
-    # http://tibia.wikia.com/wiki/Formula
-    model.fn '_tnl', '_user.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
-    
-    page.render()
-    
 ## VIEW HELPERS ##
 view.fn 'taskClasses', (type, completed, value, hideCompleted) ->
   #TODO figure out how to just pass in the task model, so i can access all these properties from one object
@@ -81,6 +34,52 @@ view.fn "gold", (num) ->
 
 view.fn "silver", (num) -> 
   num.toFixed(1).split('.')[1] if num
+  
+## ROUTES ##
+
+get '/', (page, model) ->
+  # Render page if a userId is already stored in session data
+  if userId = model.get '_session.userId'
+    return getRoom page, model, userId
+
+  # Otherwise, select a new userId and initialize user
+  model.async.incr 'configs.1.nextUserId', (err, userId) ->
+    model.set '_session.userId', userId
+    model.set "users.#{userId}",
+      name: 'User ' + userId
+    getRoom page, model, userId
+
+getRoom = (page, model, userId) ->
+  
+  model.subscribe "users.#{userId}", (err, user) -> 
+    model.ref '_user', user
+    
+    ### Set User Defaults ###
+    
+    # Default Items & Stats
+    user.setNull 'stats', { money: 0, exp: 0, lvl: 1, hp: 50 }
+    user.setNull 'items', { armor: 0, weapon: 0 }
+    model.set '_items', [
+      content.items.armor[user.get('items.armor')+1]
+      content.items.weapon[user.get('items.weapon')+1]
+      content.items.potion
+      content.items.reroll
+    ]
+    # http://tibia.wikia.com/wiki/Formula 
+    model.fn '_tnl', '_user.stats.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
+    
+    # Default Tasks
+    model.refList "_habitList", "_user.tasks", "_user.habitIds"
+    model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
+    model.refList "_todoList", "_user.tasks", "_user.todoIds"
+    model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
+    unless model.get('_user.tasks')
+      model.push '_habitList', task for task in content.defaultTasks.habits
+      model.push '_dailyList', task for task in content.defaultTasks.dailys
+      model.push '_todoList', task for task in content.defaultTasks.todos
+      model.push '_rewardList', task for task in content.defaultTasks.rewards
+      
+    page.render()  
 
 ## CONTROLLER FUNCTIONS ##
 
@@ -105,10 +104,12 @@ ready (model) ->
           # Deduct experience for missed Daily tasks, 
           # but not for Todos (just increase todo's value)
           if (type == 'daily')
-            user.set('hp', user.get('hp') + value)
-            if user.get('hp') < 0
+            user.set('stats.hp', user.get('stats.hp') + value)
+            if user.get('stats.hp') < 0
               #TODO this is implemented in exports.vote also, make it a user.on or something
-              user.set('hp',50);user.set('lvl',1);user.set('exp',0)
+              user.set('stats.hp',50)
+              user.set('stats.lvl',1)
+              user.set('stats.exp',0)
         if type == 'daily'
           task.push "history", { date: new Date(), value: value }
         else
@@ -118,9 +119,9 @@ ready (model) ->
     model.push '_user.history.todos', { date: new Date(), value: todoTally }
     
     # tally experience
-    expTally = user.get 'exp'
+    expTally = user.get 'stats.exp'
     lvl = 0 #iterator
-    _(user.get('lvl')-1).times ->
+    _(user.get('stats.lvl')-1).times ->
       lvl++
       expTally += 50 * Math.pow(lvl, 2) - 150 * lvl + 200
     model.push '_user.history.exp',  { date: new Date(), value: expTally }
@@ -295,7 +296,7 @@ ready (model) ->
     task.set('completed', completed)
 
     # Update the user's status
-    [money, hp, exp, lvl] = [user.get('money'), user.get('hp'), user.get('exp'), user.get('lvl')]
+    [money, hp, exp, lvl] = [user.get('stats.money'), user.get('stats.hp'), user.get('stats.exp'), user.get('stats.lvl')]
 
     if task.get('type') == 'reward'
       # purchase item
@@ -324,11 +325,10 @@ ready (model) ->
     if hp < 0
       [hp, lvl, exp] = [50, 1, 0]
 
-    user.set('money', money)
-    user.set('hp', hp)
-    user.set('exp', exp)
-    user.set('lvl', lvl)
-    #[user.money, user.hp, user.exp, user.lvl] = [money, hp, exp, lvl]
+    user.set('stats.money', money)
+    user.set('stats.hp', hp)
+    user.set('stats.exp', exp)
+    user.set('stats.lvl', lvl)
     
   ## SHORTCUTS ##
 

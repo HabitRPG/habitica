@@ -114,7 +114,7 @@ module.exports = {
       }
     ]
     
-  staticRewards: {
+  items: {
     weapon: [
       {text: "Sword 1", icon: "item-sword1", notes:'', value:0}
       {text: "Sword 2", icon:'item-sword2', notes:'', value:100}

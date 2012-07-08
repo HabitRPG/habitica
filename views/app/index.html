@@ -11,22 +11,22 @@
       <table id="character">
         <tr>
           <td id="avatar">
-            <img src="/img/avatar/{_user.lvl}.png" /><br/>
-            <div id="lvl"><span class="badge badge-info">Lvl: {_user.lvl}</span></div>
+            <img src="/img/avatar/{_user.stats.lvl}.png" /><br/>
+            <div id="lvl"><span class="badge badge-info">Lvl: {_user.stats.lvl}</span></div>
           </td>
           <td id="bars">
             <div class="progress progress-danger">
-              <span class="progress-text">HP: {round(_user.hp)} / 50</span>
-              <div class="bar" style="width: {percent(_user.hp,50)}%;"></div>
+              <span class="progress-text">HP: {round(_user.stats.hp)} / 50</span>
+              <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
             </div>
 
             <div class="progress progress-warning">
               {#if _user.history.exp}
                 <span class="progress-text">
-                  <a x-bind=click:toggleChart data-chart-selector="exp-chart" data-history-path="_user.history.exp"><i class=icon-signal></i></a> Exp: {round(_user.exp)} / {_tnl}
+                  <a x-bind=click:toggleChart data-chart-selector="exp-chart" data-history-path="_user.history.exp"><i class=icon-signal></i></a> Exp: {round(_user.stats.exp)} / {_tnl}
                 </span>
               {/}
-              <div class="bar" style="width: {percent(_user.exp,_tnl)}%;"></div>
+              <div class="bar" style="width: {percent(_user.stats.exp,_tnl)}%;"></div>
             </div>
           </td>
         </tr>
@@ -98,12 +98,12 @@
       </app:taskColumn>
 
       <app:taskColumn title="Rewards" type="reward">
-        <div id="money">{gold(_user.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.money)} <img src='/img/coin_single_silver.png'/></div>
+        <div id="money">{gold(_user.stats.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.stats.money)} <img src='/img/coin_single_silver.png'/></div>
         <ul class='rewards'>
           {#each _rewardList as :task}<app:task />{/}
         </ul>
-        <ul class='static-rewards'>
-          {#each _staticRewards as :reward}<app:staticReward />{/}  
+        <ul class='items'>
+          {#each _items as :item}<app:item />{/}  
         </ul>
         <app:newTask type=reward><input value={_newReward} type="text" /></app:newTask>
       </app:taskColumn>
@@ -205,16 +205,16 @@
   
   <div style="display:none;" id={{:task.id}}-chart></div>
   
-<staticReward:>
-  <li class="task reward static-reward">
+<item:>
+  <li class="task reward item">
     <pre>
       <div class="task-meta-controls">
-        <span data-placement="left" data-content="{:reward.notes}" data-original-title="{:reward.text}" class='task-notes'><i class="icon-comment"></i></span>
+        <span data-placement="left" data-content="{:item.notes}" data-original-title="{:item.text}" class='task-notes'><i class="icon-comment"></i></span>
       </div>
       <div class="task-controls">
-        <a x-bind=click:vote class="static-buy-link" data-direction=down>{:reward.value}<img src="img/coin_single_gold.png"/></a>
+        <a x-bind=click:vote class="static-buy-link" data-direction=down>{:item.value}<img src="img/coin_single_gold.png"/></a>
       </div>
-      <div class="task-text"><img src="/img/BrowserQuest/{:reward.icon}.png" /> {:reward.text}</div>
+      <div class="task-text"><img src="/img/BrowserQuest/{:item.icon}.png" /> {:item.text}</div>
     </pre>
   </li>
   
