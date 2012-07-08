@@ -137,7 +137,7 @@ module.exports = {
       {type: 'armor', index: 5, text: "Golden Armor", icon: 'item-goldenarmor', notes:'', value:500}
     ]
     potion: {type: 'potion', text: "Potion", notes: "Recover 15 HP", value: 100, icon: 'item-flask'}
-    reroll: {type: 'reroll', text: "Re-Roll", icon: 'chest', notes: "Reset your task values to 0. Do this only if you're floundering."}
+    reroll: {type: 'reroll', text: "Re-Roll", icon: 'favicon', notes: "Reset your task values to 0. Do this only if you're floundering.", value:0}
   }
   
 }
