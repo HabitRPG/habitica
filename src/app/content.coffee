@@ -127,7 +127,7 @@ module.exports = {
     armor: [
       {text: "Cloth Armor", icon: 'item-clotharmor', notes:'', value:0}
       {text: "Leather Armor", icon: 'item-leatherarmor', notes:'', value:100}
-      {text: "Chain Mail", icon: 'item-chainarmor', notes:'', value:200}
+      {text: "Chain Mail", icon: 'item-mailarmor', notes:'', value:200}
       {text: "Plate Mail", icon: 'item-platearmor', notes:'', value:200}
       {text: "Red Armor", icon: 'item-redarmor', notes:'', value:200}
       {text: "Golden Armor", icon: 'item-goldenarmor', notes:'', value:200}
