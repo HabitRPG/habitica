@@ -21,11 +21,12 @@
             </div>
 
             <div class="progress progress-warning">
-              {#if _user.history.exp}
-                <span class="progress-text">
-                  <a x-bind=click:toggleChart data-chart-selector="exp-chart" data-history-path="_user.history.exp"><i class=icon-signal></i></a> Exp: {round(_user.stats.exp)} / {_tnl}
-                </span>
-              {/}
+              <span class="progress-text">
+                {#if _user.history.exp}
+                  <a x-bind=click:toggleChart data-chart-selector="exp-chart" data-history-path="_user.history.exp"><i class=icon-signal></i></a>&nbsp;
+                {/}
+                Exp: {round(_user.stats.exp)} / {_tnl}
+              </span>
               <div class="bar" style="width: {percent(_user.stats.exp,_tnl)}%;"></div>
             </div>
           </td>
