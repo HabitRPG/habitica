@@ -217,7 +217,7 @@
         <span data-placement="left" data-content="{:item.notes}" data-original-title="{:item.text}" class='task-notes'><i class="icon-comment"></i></span>
       </div>
       <div class="task-controls">
-        <a x-bind=click:vote class="static-buy-link" data-direction=down>{:item.value}<img src="img/coin_single_gold.png"/></a>
+        <a x-bind=click:buy-item class="item-buy-link" data-direction=down>{:item.value}<img src="img/coin_single_gold.png"/></a>
       </div>
       <div class="task-text"><img src="/img/BrowserQuest/{:item.icon}.png" /> {:item.text}</div>
     </pre>

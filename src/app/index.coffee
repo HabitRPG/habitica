@@ -104,13 +104,13 @@ ready (model) ->
       if !user.get('items.itemsEnabled') and stats.exp >=50
         user.set 'items.itemsEnabled', true
         $('ul.items').popover
-          title: "Item Store Unlocked"
+          title: content.items.unlockedMessage.title
           placement: 'left'
           html: true
           content: "<div class='item-store-popover'>\
             <img src='/img/BrowserQuest/chest.png' />\
-            Congradulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information. \
-            <a href='#' onClick=\"$('ul.items').popover('hide');return false;\">[Close]</a></div>"
+            #{content.items.unlockedMessage.content} <a href='#' onClick=\"$('ul.items').popover('hide');return false;\">[Close]</a>\
+            </div>"
         $('ul.items').popover 'show'
 
       user.set 'stats.exp', stats.exp
@@ -287,6 +287,9 @@ ready (model) ->
 
     chart = new google.visualization.LineChart(document.getElementById( chartSelector ))
     chart.draw(data, options)
+    
+  exports.buyItem = (e, el) ->
+    
     
   exports.vote = (e, el, next) ->
     direction = $(el).attr('data-direction')

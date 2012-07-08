@@ -115,6 +115,9 @@ module.exports = {
     ]
     
   items: {
+    unlockedMessage:
+      title: "Item Store Unlocked"
+      content: "Congradulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information."
     weapon: [
       {text: "Sword 1", icon: "item-sword1", notes:'', value:0}
       {text: "Sword 2", icon:'item-sword2', notes:'', value:100}
