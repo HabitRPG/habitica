@@ -65,12 +65,12 @@ getRoom = (page, model, userId) ->
     # Default Items & Stats
     user.setNull 'stats', { money: 0, exp: 0, lvl: 1, hp: 50 }
     user.setNull 'items', { itemsEnabled: false, armor: 0, weapon: 0 }
-    model.set '_items', [
-      content.items.armor[user.get('items.armor')+1]
-      content.items.weapon[user.get('items.weapon')+1]
-      content.items.potion
-      content.items.reroll
-    ]
+    model.set '_items', []
+    model.push '_items', content.items.armor[user.get('items.armor')+1] if content.items.armor[user.get('items.armor')+1] 
+    model.push '_items', content.items.armor[user.get('items.weapon')+1] if content.items.weapon[user.get('items.weapon')+1] 
+    model.push '_items', content.items.potion
+    model.push '_items', content.items.reroll
+
     # http://tibia.wikia.com/wiki/Formula 
     model.fn '_tnl', '_user.stats.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
     
@@ -96,8 +96,11 @@ ready (model) ->
     if stats.hp?
       # game over
       if stats.hp < 0
-        user.set 'stats', { hp: 50, lvl: 1, exp: 0, money: 0 }
-        user.set 'items', { weapon: 1, armor: 1 }
+        user.set 'stats.hp', 50
+        user.set 'stats.lvl', 1
+        user.set 'stats.exp', 0
+        user.set 'stats.money', 0
+        user.set 'items', { weapon: 0, armor: 0 }
       else
         user.set 'stats.hp', stats.hp
   

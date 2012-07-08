@@ -11,7 +11,10 @@
       <table id="character">
         <tr>
           <td id="avatar">
-            <img src="/img/avatar/{_user.stats.lvl}.png" /><br/>
+            <div class='avatar-sprites'>
+              <img class='weapon weapon-{_user.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{_user.items.weapon}.png" />
+              <img class='armor armor-{_user.items.armor}' src="/img/BrowserQuest/habitrpg_mods/armor{_user.items.armor}.png" />
+            </div>
             <div id="lvl"><span class="badge badge-info">Lvl: {_user.stats.lvl}</span></div>
           </td>
           <td id="bars">

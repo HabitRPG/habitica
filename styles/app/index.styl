@@ -88,12 +88,25 @@ li:hover .task-meta-controls .hover-show
      background-color: #DEE5F2
   
 #character 
-  img
-    width: 60px
 
   td#avatar
     vertical-align: top
     text-align: center
+    
+    .avatar-sprites
+      position: relative
+        
+      .weapon
+        position: absolute
+        z-index: 200
+        left: -13px
+        bottom: 7px
+      .weapon-0
+        left: -7px
+      .weapon-5
+        left: -16px
+      .weapon-6
+        left:-20px
   td#bars
     padding: 10px 0 0 10px
 
@@ -118,8 +131,6 @@ footer.footer
 .item-store-popover img
   float:left
   padding-right:7px;
-  
-
 
 .item .task-text img
   max-height: 16px
