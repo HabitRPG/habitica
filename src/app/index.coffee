@@ -95,12 +95,24 @@ ready (model) ->
       else
         user.set 'stats.hp', stats.hp
   
-    # level up & carry-over exp
     if stats.exp?
+      # level up & carry-over exp
       tnl = model.get '_tnl'
       if stats.exp >= tnl
         stats.exp -= tnl
         user.set 'stats.lvl', user.get('stats.lvl') + 1
+      if !user.get('items.itemsEnabled') and stats.exp >=50
+        user.set 'items.itemsEnabled', true
+        $('ul.items').popover
+          title: "Item Store Unlocked"
+          placement: 'left'
+          html: true
+          content: "<div class='item-store-popover'>\
+            <img src='/img/BrowserQuest/chest.png' />\
+            Congradulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information. \
+            <a href='#' onClick=\"$('ul.items').popover('hide');return false;\">[Close]</a></div>"
+        $('ul.items').popover 'show'
+
       user.set 'stats.exp', stats.exp
       
     if stats.money?

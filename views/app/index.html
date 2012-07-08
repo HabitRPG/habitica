@@ -102,9 +102,13 @@
         <ul class='rewards'>
           {#each _rewardList as :task}<app:task />{/}
         </ul>
-        <ul class='items'>
-          {#each _items as :item}<app:item />{/}  
-        </ul>
+        
+        {#if _user.items.itemsEnabled}        
+          <ul class='items'>
+            {#each _items as :item}<app:item />{/}  
+          </ul>
+        {/}
+        
         <app:newTask type=reward><input value={_newReward} type="text" /></app:newTask>
       </app:taskColumn>
       
