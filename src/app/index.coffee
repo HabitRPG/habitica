@@ -58,7 +58,7 @@ getRoom = (page, model, userId) ->
     
     # Default Items & Stats
     user.setNull 'stats', { money: 0, exp: 0, lvl: 1, hp: 50 }
-    user.setNull 'items', { armor: 0, weapon: 0 }
+    user.setNull 'items', { itemsEnabled: false, armor: 0, weapon: 0 }
     model.set '_items', [
       content.items.armor[user.get('items.armor')+1]
       content.items.weapon[user.get('items.weapon')+1]
@@ -85,6 +85,27 @@ getRoom = (page, model, userId) ->
 
 ready (model) ->
   
+  # Setter for user.stats: handles death, leveling up, etc
+  exports.updateStats = updateStats = (user, stats) ->
+    if stats.hp?
+      # game over
+      if stats.hp < 0
+        user.set 'stats', { hp: 50, lvl: 1, exp: 0, money: 0 }
+        user.set 'items', { weapon: 1, armor: 1 }
+      else
+        user.set 'stats.hp', stats.hp
+  
+    # level up & carry-over exp
+    if stats.exp?
+      tnl = model.get '_tnl'
+      if stats.exp >= tnl
+        stats.exp -= tnl
+        user.set 'stats.lvl', user.get('stats.lvl') + 1
+      user.set 'stats.exp', stats.exp
+      
+    if stats.money?
+      user.set 'money', stats.money
+  
   # Note: Set 12am daily cron for this
   # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
   # For incomplete Dailys, deduct experience
@@ -104,12 +125,8 @@ ready (model) ->
           # Deduct experience for missed Daily tasks, 
           # but not for Todos (just increase todo's value)
           if (type == 'daily')
-            user.set('stats.hp', user.get('stats.hp') + value)
-            if user.get('stats.hp') < 0
-              #TODO this is implemented in exports.vote also, make it a user.on or something
-              user.set('stats.hp',50)
-              user.set('stats.lvl',1)
-              user.set('stats.exp',0)
+            hp = user.get('stats.hp') + value
+            updateStats user, { hp: hp }
         if type == 'daily'
           task.push "history", { date: new Date(), value: value }
         else
@@ -314,21 +331,8 @@ ready (model) ->
     # Deduct from health (rewards case handled above)
     else if task.get('type') != 'reward'
       hp += delta
-
-    tnl = model.get '_tnl'
-    # level up & carry-over exp
-    if exp >= tnl
-      exp -= tnl
-      lvl += 1
-
-    # game over
-    if hp < 0
-      [hp, lvl, exp] = [50, 1, 0]
-
-    user.set('stats.money', money)
-    user.set('stats.hp', hp)
-    user.set('stats.exp', exp)
-    user.set('stats.lvl', lvl)
+      
+    updateStats(user, {hp: hp, exp: exp, money: money})
     
   ## SHORTCUTS ##
 
