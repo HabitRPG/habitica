@@ -114,10 +114,26 @@ module.exports = {
       }
     ]
     
-  staticRewards: [
-    { text: "Re-Roll", notes: "Reset your task values to 0. Do this only if you're floundering.", value: 100, icon:"icon-retweet" }
-    { text: "Re-Roll", notes: "Reset your task values to 0. Do this only if you're floundering.", value: 100 }
-  ]  
-  staticRewardIds: [0] #stupid, but necessary for refList
+  staticRewards: {
+    weapon: [
+      {text: "Hands", notes:'', value:0}
+      {text: "Sword", notes:'', value:100}
+      {text: "Mace", notes:'', value:200}
+    ]
+    armor: [
+      {text: "Cloth Armor", notes:'', value:0}
+      {text: "Leather Armor", notes:'', value:100}
+      {text: "Chain Mail", notes:'', value:200}
+    ]
+    potion:
+      text: "Potion"
+      notes: "Recover 15 HP"
+      value: 100
+      icon:"icon-retweet"
+    reroll:
+      text: "Re-Roll"
+      notes: "Reset your task values to 0. Do this only if you're floundering."
+      icon: "icon-retweet"
+  }
   
 }

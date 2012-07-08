@@ -30,12 +30,21 @@ getRoom = (page, model, userId) ->
     model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
     model.refList "_todoList", "_user.tasks", "_user.todoIds"
     model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
-    model.set '_staticRewards', content.staticRewards
     unless model.get('_user.tasks')
       model.push '_habitList', task for task in content.defaultTasks.habits
       model.push '_dailyList', task for task in content.defaultTasks.dailys
       model.push '_todoList', task for task in content.defaultTasks.todos
       model.push '_rewardList', task for task in content.defaultTasks.rewards
+      
+    #static rewards
+    model.setNull('_user.inventory', {armor:0, weapon:0})
+    sr = [
+      content.staticRewards.armor[user.get('inventory.armor')+1]
+      content.staticRewards.weapon[user.get('inventory.weapon')+1]
+      content.staticRewards.potion
+      content.staticRewards.reroll
+    ]
+    model.set '_staticRewards', sr
       
     # http://tibia.wikia.com/wiki/Formula
     model.fn '_tnl', '_user.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
