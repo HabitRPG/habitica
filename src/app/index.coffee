@@ -30,10 +30,16 @@ view.fn "round", (num) ->
   Math.round num
   
 view.fn "gold", (num) -> 
-  num.toFixed(1).split('.')[0] if num
+  if num
+    return num.toFixed(1).split('.')[0]
+  else
+    return "0"
 
 view.fn "silver", (num) -> 
-  num.toFixed(1).split('.')[1] if num
+  if num
+    num.toFixed(1).split('.')[1]
+  else
+    return "0" 
   
 ## ROUTES ##
 
@@ -106,6 +112,7 @@ ready (model) ->
         $('ul.items').popover
           title: content.items.unlockedMessage.title
           placement: 'left'
+          trigger: 'manual'
           html: true
           content: "<div class='item-store-popover'>\
             <img src='/img/BrowserQuest/chest.png' />\
@@ -116,7 +123,8 @@ ready (model) ->
       user.set 'stats.exp', stats.exp
       
     if stats.money?
-      user.set 'money', stats.money
+      money = 0.0 if (!money? or money<0)
+      user.set 'stats.money', stats.money
   
   # Note: Set 12am daily cron for this
   # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
@@ -257,8 +265,8 @@ ready (model) ->
     task = model.at(e.target)
     #TODO bug where I have to delete from _users.tasks AND _{type}List, 
     # fix when query subscriptions implemented properly
-    console.log model.del('_user.tasks.'+task.get('id'))
-    console.log task.remove()
+    model.del('_user.tasks.'+task.get('id'))
+    task.remove()
     
   exports.toggleTaskEdit = (e, el) ->
     task = model.at $(el).parents('li')[0]
@@ -288,7 +296,27 @@ ready (model) ->
     chart = new google.visualization.LineChart(document.getElementById( chartSelector ))
     chart.draw(data, options)
     
-  exports.buyItem = (e, el) ->
+  exports.buyItem = (e, el, next) ->
+    user = model.at '_user'
+    item = model.at e.target
+    money = user.get 'stats.money'
+    [type, value] = [item.get('type'), item.get('value')]
+    return if money < value
+    
+    user.set 'stats.money', money - value
+    if type == 'armor'
+      user.set 'items.armor', item.get('index')
+      model.set '_items.0', content.items.armor[item.get('index') + 1]
+    else if type == 'weapon'
+      user.set 'items.weapon', item.get('index')
+      model.set '_items.1', content.items.weapon[item.get('index') + 1]
+    else if type == 'potion'
+      hp = user.get 'stats.hp'
+      hp += 15
+      hp = 50 if hp > 50 
+      user.set 'stats.hp', hp
+    else if type == 'reroll'
+      console.log 'reroll'  
     
     
   exports.vote = (e, el, next) ->
