@@ -99,7 +99,12 @@
 
       <app:taskColumn title="Rewards" type="reward">
         <div id="money">{gold(_user.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.money)} <img src='/img/coin_single_silver.png'/></div>
-        <ul class='rewards'>{#each _rewardList as :task}<app:task />{/}</ul>
+        <ul class='rewards'>
+          {#each _rewardList as :task}<app:task />{/}
+        </ul>
+        <ul class='static-rewards'>
+          <app:staticReward text="Re-Roll" notes="Reset your task values to 0. Do this only if you're floundering." icon="icon-retweet" value="100" />  
+        </ul>
         <app:newTask type=reward><input value={_newReward} type="text" /></app:newTask>
       </app:taskColumn>
       
@@ -126,8 +131,8 @@
   <form class="form-inline" data-task-type={{{type}}} x-bind=submit:addTask>
     {{{content}}}
     <input class="btn" type=submit value=Add>
-  </form>  
-  
+  </form>
+
 <task:>
   <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, _hideCompleted)}">
     <pre>
@@ -199,6 +204,20 @@
   </div>  
   
   <div style="display:none;" id={{:task.id}}-chart></div>
+  
+<staticReward:>
+  <li class="task reward">
+    <pre>
+      <div class="task-meta-controls">
+        <span data-placement="left" data-content="{{{notes}}}" data-original-title="{{{text}}}" class='task-notes'><i class="icon-comment"></i></span>
+      </div>
+      <div class="task-controls">
+        <a x-bind=click:vote class="static-buy-link" data-direction=down>{{{value}}}<img src="img/coin_single_gold.png"/></a>
+      </div>
+      <div class="task-text"><i class={{{icon}}}></i> {{{text}}}</div>
+    </pre>
+  </li>
+  
   
 <Footer:>
   <a href="https://github.com/lefnire/habitrpg"><img style="z-index:11; position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
