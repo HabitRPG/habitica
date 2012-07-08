@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "main": "./server.js",
   "dependencies": {
-    "derby": "*",
+    "derby": "git://github.com/codeparty/derby.git#master",
     "express": "3.x",
     "gzippo": ">=0.1.4",
     "racer-db-mongo": "*",
