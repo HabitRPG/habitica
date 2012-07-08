@@ -116,24 +116,27 @@ module.exports = {
     
   staticRewards: {
     weapon: [
-      {text: "Hands", notes:'', value:0}
-      {text: "Sword", notes:'', value:100}
-      {text: "Mace", notes:'', value:200}
+      {text: "Sword 1", icon: "item-sword1", notes:'', value:0}
+      {text: "Sword 2", icon:'item-sword2', notes:'', value:100}
+      {text: "Blue Sword", icon:'item-bluesword', notes:'', value:200}
+      {text: "Axe", icon:'item-axe', notes:'', value:300}
+      {text: "Morningstar", icon:'item-morningstar', notes:'', value:400}
+      {text: "Red Sword", icon:'item-redsword', notes:'', value:500}
+      {text: "Gold Sword", icon:'item-goldsword', notes:'', value:600}
     ]
     armor: [
-      {text: "Cloth Armor", notes:'', value:0}
-      {text: "Leather Armor", notes:'', value:100}
-      {text: "Chain Mail", notes:'', value:200}
+      {text: "Cloth Armor", icon: 'item-clotharmor', notes:'', value:0}
+      {text: "Leather Armor", icon: 'item-leatherarmor', notes:'', value:100}
+      {text: "Chain Mail", icon: 'item-chainarmor', notes:'', value:200}
+      {text: "Plate Mail", icon: 'item-platearmor', notes:'', value:200}
+      {text: "Red Armor", icon: 'item-redarmor', notes:'', value:200}
+      {text: "Golden Armor", icon: 'item-goldenarmor', notes:'', value:200}
     ]
-    potion:
-      text: "Potion"
-      notes: "Recover 15 HP"
-      value: 100
-      icon:"icon-retweet"
+    potion: {text: "Potion", notes: "Recover 15 HP", value: 100, icon: 'item-flask'}
     reroll:
       text: "Re-Roll"
+      icon: 'chest'
       notes: "Reset your task values to 0. Do this only if you're floundering."
-      icon: "icon-retweet"
   }
   
 }

@@ -206,7 +206,7 @@
   <div style="display:none;" id={{:task.id}}-chart></div>
   
 <staticReward:>
-  <li class="task reward">
+  <li class="task reward static-reward">
     <pre>
       <div class="task-meta-controls">
         <span data-placement="left" data-content="{:reward.notes}" data-original-title="{:reward.text}" class='task-notes'><i class="icon-comment"></i></span>
@@ -214,7 +214,7 @@
       <div class="task-controls">
         <a x-bind=click:vote class="static-buy-link" data-direction=down>{:reward.value}<img src="img/coin_single_gold.png"/></a>
       </div>
-      <div class="task-text"><i class="{:reward.icon}"></i> {:reward.text}</div>
+      <div class="task-text"><img src="/img/BrowserQuest/{:reward.icon}.png" /> {:reward.text}</div>
     </pre>
   </li>
   
