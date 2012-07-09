@@ -2,7 +2,7 @@ http = require 'http'
 path = require 'path'
 express = require 'express'
 gzippo = require 'gzippo'
-# MongoStore = require('connect-mongo')(express)
+MongoStore = require('connect-mongo')(express)
 derby = require 'derby'
 app = require '../app'
 serverError = require './serverError'
@@ -30,7 +30,7 @@ publicPath = path.join root, 'public'
   .use(express.cookieParser 'secret_sauce')
   .use(express.session
     cookie: {maxAge: ONE_YEAR}
-    # store: new MongoStore(db: 'habitrpg', collection: 'express-sessions')
+    store: new MongoStore(db: 'habitrpg', collection: 'express-sessions')
   )
   .use(app.session())
 
@@ -50,11 +50,11 @@ expressApp.all '*', (req) ->
 
 ## STORE SETUP ##
 
-# derby.use(require 'racer-db-mongo')
+derby.use(require 'racer-db-mongo')
 
 exports.store = app.createStore
   listen: server
-  # db: {type: 'Mongo', uri: 'mongodb://localhost/habitrpg'}
+  db: {type: 'Mongo', uri: 'mongodb://localhost/habitrpg'}
 
 # Would implement cron here, using node-cron & https://github.com/codeparty/derby/issues/99#issuecomment-6596460
 # But it's not working

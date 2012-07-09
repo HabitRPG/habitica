@@ -1,12 +1,14 @@
 {
   "name": "habitrpg",
   "description": "",
-  "version": "0.0.0-5",
+  "version": "0.0.0-7",
   "main": "./server.js",
   "dependencies": {
     "derby": "*",
     "express": "3.x",
     "gzippo": ">=0.1.4",
+    "racer-db-mongo": "*",
+    "connect-mongo": ">=0.1.9",
     "derby-ui-boot": "*"
   },
   "private": true,
