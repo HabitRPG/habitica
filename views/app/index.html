@@ -182,11 +182,11 @@
     <div class="task-controls">
       <!-- Habits -->
       {#if equal(:task.type, 'habit')}
-        {#if :task.up}<a data-direction=up x-bind=click:vote><img src="img/add.png" /></a>{/}
-        {#if :task.down}<a data-direction=down x-bind=click:vote><img src="img/remove.png" /></a>{/}
+        {#if :task.up}<a data-direction=up x-bind=click:vote><img src="/img/add.png" /></a>{/}
+        {#if :task.down}<a data-direction=down x-bind=click:vote><img src="/img/remove.png" /></a>{/}
       <!-- Rewards -->
       {else if equal(:task.type, 'reward')}
-        <a x-bind=click:vote class="buy-link" data-direction=down>{:task.value}<img src="img/coin_single_gold.png"/></a>
+        <a x-bind=click:vote class="buy-link" data-direction=down>{:task.value}<img src="/img/coin_single_gold.png"/></a>
       <!-- Daily & Todos -->
       {else}  
         <input type="checkbox" checked={:task.completed} x-bind=click:vote data-direction={:task.completed}/>
@@ -236,10 +236,10 @@
       </div>
       <div class="task-controls">
         {{{#unless disabled}}}
-          <a x-bind=click:buyItem class="item-buy-link" data-type={:item.type} data-value={:item.value} data-index={:item.index}>{:item.value}<img src="img/coin_single_gold.png"/></a>
+          <a x-bind=click:buyItem class="item-buy-link" data-type={:item.type} data-value={:item.value} data-index={:item.index}>{:item.value}<img src="/img/coin_single_gold.png"/></a>
         {{{/}}}
       </div>
-      <div class="task-text"><img src="/img/BrowserQuest/{:item.icon}.png" /> {:item.text}</div>
+      <div class="task-text"><img src="/img/BrowserQuest/habitrpg_mods/{:item.icon}.png" /> {:item.text}</div>
     </pre>
   </li>
   
