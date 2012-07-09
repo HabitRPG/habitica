@@ -121,23 +121,23 @@ module.exports = {
     #TODO: figure out how to calculate index & type without having to store it in the JSON
     weapon: [
       {type: 'weapon', index: 0, text: "Sword 1", icon: "item-sword1", notes:'Training weapon.', value:0}
-      {type: 'weapon', index: 1, text: "Sword 2", icon:'item-sword2', notes:'Increases experience gain by 3%.', value:100}
-      {type: 'weapon', index: 2, text: "Axe", icon:'item-axe', notes:'Increases experience gain by 6%.', value:200}
-      {type: 'weapon', index: 3, text: "Morningstar", icon:'item-morningstar', notes:'Increases experience gain by 9%.', value:300}
-      {type: 'weapon', index: 4, text: "Blue Sword", icon:'item-bluesword', notes:'Increases experience gain by 12%.', value:400}
-      {type: 'weapon', index: 5, text: "Red Sword", icon:'item-redsword', notes:'Increases experience gain by 15%.', value:500}
-      {type: 'weapon', index: 6, text: "Golden Sword", icon:'item-goldensword', notes:'Increases experience gain by 18%.', value:600}
+      {type: 'weapon', index: 1, text: "Sword 2", icon:'item-sword2', notes:'Increases experience gain by 3%.', value:50}
+      {type: 'weapon', index: 2, text: "Axe", icon:'item-axe', notes:'Increases experience gain by 6%.', value:100}
+      {type: 'weapon', index: 3, text: "Morningstar", icon:'item-morningstar', notes:'Increases experience gain by 9%.', value:150}
+      {type: 'weapon', index: 4, text: "Blue Sword", icon:'item-bluesword', notes:'Increases experience gain by 12%.', value:200}
+      {type: 'weapon', index: 5, text: "Red Sword", icon:'item-redsword', notes:'Increases experience gain by 15%.', value:250}
+      {type: 'weapon', index: 6, text: "Golden Sword", icon:'item-goldensword', notes:'Increases experience gain by 18%.', value:300}
     ]
     armor: [
       {type: 'armor', index: 0, text: "Cloth Armor", icon: 'item-clotharmor', notes:'Training armor.', value:0}
-      {type: 'armor', index: 1, text: "Leather Armor", icon: 'item-leatherarmor', notes:'Decreases HP loss by 3%.', value:100}
-      {type: 'armor', index: 2, text: "Chain Mail", icon: 'item-mailarmor', notes:'Decreases HP loss by 6%.', value:200}
-      {type: 'armor', index: 3, text: "Plate Mail", icon: 'item-platearmor', notes:'Decreases HP loss by 9%.', value:300}
-      {type: 'armor', index: 4, text: "Red Armor", icon: 'item-redarmor', notes:'Decreases HP loss by 12%.', value:400}
-      {type: 'armor', index: 5, text: "Golden Armor", icon: 'item-goldenarmor', notes:'Decreases HP loss by 15%.', value:500}
+      {type: 'armor', index: 1, text: "Leather Armor", icon: 'item-leatherarmor', notes:'Decreases HP loss by 3%.', value:50}
+      {type: 'armor', index: 2, text: "Chain Mail", icon: 'item-mailarmor', notes:'Decreases HP loss by 6%.', value:100}
+      {type: 'armor', index: 3, text: "Plate Mail", icon: 'item-platearmor', notes:'Decreases HP loss by 9%.', value:150}
+      {type: 'armor', index: 4, text: "Red Armor", icon: 'item-redarmor', notes:'Decreases HP loss by 12%.', value:200}
+      {type: 'armor', index: 5, text: "Golden Armor", icon: 'item-goldenarmor', notes:'Decreases HP loss by 15%.', value:250}
     ]
-    potion: {type: 'potion', text: "Potion", notes: "Recover 15 HP", value: 100, icon: 'item-flask'}
-    reroll: {type: 'reroll', text: "Re-Roll", icon: 'favicon', notes: "Reset your task values to 0. Do this only if you're <b>really</b> struggling.", value:500}
+    potion: {type: 'potion', text: "Potion", notes: "Recover 15 HP", value: 30, icon: 'item-flask'}
+    reroll: {type: 'reroll', text: "Re-Roll", icon: 'favicon', notes: "Reset your task values to 0. Do this only if you're <b>really</b> struggling.", value:100}
   }
   
 }
