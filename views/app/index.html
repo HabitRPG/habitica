@@ -11,22 +11,26 @@
       <table id="character">
         <tr>
           <td id="avatar">
-            <img src="/img/avatar/{_user.lvl}.png" /><br/>
-            <div id="lvl"><span class="badge badge-info">Lvl: {_user.lvl}</span></div>
+            <div class='avatar-sprites'>
+              <img class='weapon weapon-{_user.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{_user.items.weapon}.png" />
+              <img class='armor armor-{_user.items.armor}' src="/img/BrowserQuest/habitrpg_mods/armor{_user.items.armor}.png" />
+            </div>
+            <div id="lvl"><span class="badge badge-info">Lvl: {_user.stats.lvl}</span></div>
           </td>
           <td id="bars">
             <div class="progress progress-danger">
-              <span class="progress-text">HP: {round(_user.hp)} / 50</span>
-              <div class="bar" style="width: {percent(_user.hp,50)}%;"></div>
+              <span class="progress-text">HP: {round(_user.stats.hp)} / 50</span>
+              <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
             </div>
 
             <div class="progress progress-warning">
-              {#if _user.history.exp}
-                <span class="progress-text">
-                  <a x-bind=click:toggleChart data-chart-selector="exp-chart" data-history-path="_user.history.exp"><i class=icon-signal></i></a> Exp: {round(_user.exp)} / {_tnl}
-                </span>
-              {/}
-              <div class="bar" style="width: {percent(_user.exp,_tnl)}%;"></div>
+              <span class="progress-text">
+                {#if _user.history.exp}
+                  <a x-bind=click:toggleChart data-chart-selector="exp-chart" data-history-path="_user.history.exp"><i class=icon-signal></i></a>&nbsp;
+                {/}
+                Exp: {round(_user.stats.exp)} / {_tnl}
+              </span>
+              <div class="bar" style="width: {percent(_user.stats.exp,_tnl)}%;"></div>
             </div>
           </td>
         </tr>
@@ -98,8 +102,20 @@
       </app:taskColumn>
 
       <app:taskColumn title="Rewards" type="reward">
-        <div id="money">{gold(_user.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.money)} <img src='/img/coin_single_silver.png'/></div>
-        <ul class='rewards'>{#each _rewardList as :task}<app:task />{/}</ul>
+        <div id="money">{gold(_user.stats.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.stats.money)} <img src='/img/coin_single_silver.png'/></div>
+        <ul class='rewards'>
+          {#each _rewardList as :task}<app:task />{/}
+        </ul>
+        
+        {#if _user.items.itemsEnabled}        
+          <ul class='items'>
+            {#with _items.armor as :item}<app:item />{/}  
+            {#with _items.weapon as :item}<app:item />{/}  
+            {#with _items.potion as :item}<app:item />{/}  
+            {#with _items.reroll as :item}<app:item disabled=true/>{/}  
+          </ul>
+        {/}
+        
         <app:newTask type=reward><input value={_newReward} type="text" /></app:newTask>
       </app:taskColumn>
       
@@ -126,8 +142,8 @@
   <form class="form-inline" data-task-type={{{type}}} x-bind=submit:addTask>
     {{{content}}}
     <input class="btn" type=submit value=Add>
-  </form>  
-  
+  </form>
+
 <task:>
   <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, _hideCompleted)}">
     <pre>
@@ -199,6 +215,22 @@
   </div>  
   
   <div style="display:none;" id={{:task.id}}-chart></div>
+  
+<item:>
+  <li class="task reward item">
+    <pre>
+      <div class="task-meta-controls">
+        <span data-placement="left" data-content="{:item.notes}" data-original-title="{:item.text}" class='task-notes'><i class="icon-comment"></i></span>
+      </div>
+      <div class="task-controls">
+        {{{#unless disabled}}}
+          <a x-bind=click:buyItem class="item-buy-link" data-type={:item.type} data-value={:item.value} data-index={:item.index}>{:item.value}<img src="img/coin_single_gold.png"/></a>
+        {{{/}}}
+      </div>
+      <div class="task-text"><img src="/img/BrowserQuest/{:item.icon}.png" /> {:item.text}</div>
+    </pre>
+  </li>
+  
   
 <Footer:>
   <a href="https://github.com/lefnire/habitrpg"><img style="z-index:11; position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>

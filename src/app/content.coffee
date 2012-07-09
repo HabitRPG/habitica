@@ -113,4 +113,31 @@ module.exports = {
         placement: "right"
       }
     ]
+    
+  items: {
+    unlockedMessage:
+      title: "Item Store Unlocked"
+      content: "Congradulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information."
+    #TODO: figure out how to calculate index & type without having to store it in the JSON
+    weapon: [
+      {type: 'weapon', index: 0, text: "Sword 1", icon: "item-sword1", notes:'', value:0}
+      {type: 'weapon', index: 1, text: "Sword 2", icon:'item-sword2', notes:'', value:100}
+      {type: 'weapon', index: 2, text: "Axe", icon:'item-axe', notes:'', value:200}
+      {type: 'weapon', index: 3, text: "Morningstar", icon:'item-morningstar', notes:'', value:300}
+      {type: 'weapon', index: 4, text: "Blue Sword", icon:'item-bluesword', notes:'', value:400}
+      {type: 'weapon', index: 5, text: "Red Sword", icon:'item-redsword', notes:'', value:500}
+      {type: 'weapon', index: 6, text: "Golden Sword", icon:'item-goldensword', notes:'', value:600}
+    ]
+    armor: [
+      {type: 'armor', index: 0, text: "Cloth Armor", icon: 'item-clotharmor', notes:'', value:0}
+      {type: 'armor', index: 1, text: "Leather Armor", icon: 'item-leatherarmor', notes:'', value:100}
+      {type: 'armor', index: 2, text: "Chain Mail", icon: 'item-mailarmor', notes:'', value:200}
+      {type: 'armor', index: 3, text: "Plate Mail", icon: 'item-platearmor', notes:'', value:300}
+      {type: 'armor', index: 4, text: "Red Armor", icon: 'item-redarmor', notes:'', value:400}
+      {type: 'armor', index: 5, text: "Golden Armor", icon: 'item-goldenarmor', notes:'', value:500}
+    ]
+    potion: {type: 'potion', text: "Potion", notes: "Recover 15 HP", value: 100, icon: 'item-flask'}
+    reroll: {type: 'reroll', text: "Re-Roll", icon: 'favicon', notes: "Reset your task values to 0. Do this only if you're floundering.", value:0}
+  }
+  
 }

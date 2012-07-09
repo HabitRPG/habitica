@@ -4,43 +4,6 @@ derby.use require('derby-ui-boot')
 derby.use(require('../../ui'))
 content = require('./content')
 
-## ROUTES ##
-
-get '/', (page, model) ->
-  # Render page if a userId is already stored in session data
-  if userId = model.get '_session.userId'
-    return getRoom page, model, userId
-
-  # Otherwise, select a new userId and initialize user
-  model.async.incr 'configs.1.nextUserId', (err, userId) ->
-    model.set '_session.userId', userId
-    model.set "users.#{userId}",
-      name: 'User ' + userId
-      money: 0
-      exp: 0
-      lvl: 1
-      hp: 50
-    getRoom page, model, userId
-
-getRoom = (page, model, userId) ->
-  
-  model.subscribe "users.#{userId}", (err, user) -> 
-    model.ref '_user', user
-    model.refList "_habitList", "_user.tasks", "_user.habitIds"
-    model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
-    model.refList "_todoList", "_user.tasks", "_user.todoIds"
-    model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
-    unless model.get('_user.tasks')
-      model.push '_habitList', task for task in content.defaultTasks.habits
-      model.push '_dailyList', task for task in content.defaultTasks.dailys
-      model.push '_todoList', task for task in content.defaultTasks.todos
-      model.push '_rewardList', task for task in content.defaultTasks.rewards
-      
-    # http://tibia.wikia.com/wiki/Formula
-    model.fn '_tnl', '_user.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
-    
-    page.render()
-    
 ## VIEW HELPERS ##
 view.fn 'taskClasses', (type, completed, value, hideCompleted) ->
   #TODO figure out how to just pass in the task model, so i can access all these properties from one object
@@ -67,15 +30,105 @@ view.fn "round", (num) ->
   Math.round num
   
 view.fn "gold", (num) -> 
-  num.toFixed(1).split('.')[0] if num
+  if num
+    return num.toFixed(1).split('.')[0]
+  else
+    return "0"
 
 view.fn "silver", (num) -> 
-  num.toFixed(1).split('.')[1] if num
+  if num
+    num.toFixed(1).split('.')[1]
+  else
+    return "0" 
+  
+## ROUTES ##
+
+get '/', (page, model) ->
+  # Render page if a userId is already stored in session data
+  if userId = model.get '_session.userId'
+    return getRoom page, model, userId
+
+  # Otherwise, select a new userId and initialize user
+  model.async.incr 'configs.1.nextUserId', (err, userId) ->
+    model.set '_session.userId', userId
+    model.set "users.#{userId}",
+      name: 'User ' + userId
+    getRoom page, model, userId
+
+getRoom = (page, model, userId) ->
+  
+  model.subscribe "users.#{userId}", (err, user) -> 
+    model.ref '_user', user
+    
+    ### Set User Defaults ###
+    
+    # Default Items & Stats
+    user.setNull 'stats', { money: 0, exp: 0, lvl: 1, hp: 50 }
+    user.setNull 'items', { itemsEnabled: false, armor: 0, weapon: 0 }
+    model.set '_items'
+      armor: content.items.armor[parseInt(user.get('items.armor')) + 1]
+      weapon: content.items.weapon[parseInt(user.get('items.weapon')) + 1]
+      potion: content.items.potion
+      reroll: content.items.reroll
+
+    # http://tibia.wikia.com/wiki/Formula 
+    model.fn '_tnl', '_user.stats.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
+    
+    # Default Tasks
+    model.refList "_habitList", "_user.tasks", "_user.habitIds"
+    model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
+    model.refList "_todoList", "_user.tasks", "_user.todoIds"
+    model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
+    unless model.get('_user.tasks')
+      model.push '_habitList', task for task in content.defaultTasks.habits
+      model.push '_dailyList', task for task in content.defaultTasks.dailys
+      model.push '_todoList', task for task in content.defaultTasks.todos
+      model.push '_rewardList', task for task in content.defaultTasks.rewards
+      
+    page.render()  
 
 ## CONTROLLER FUNCTIONS ##
 
 ready (model) ->
+  
+  # Setter for user.stats: handles death, leveling up, etc
+  exports.updateStats = updateStats = (user, stats) ->
+    if stats.hp?
+      # game over
+      if stats.hp < 0
+        user.set 'stats', {hp: 50, lvl: 1, exp: 0, money: 0}
+        user.set 'items.armor', 0
+        user.set 'items.weapon', 0
+        model.set '_items.armor', content.items.armor[1]
+        model.set '_items.weapon', content.items.weapon[1]
+      else
+        user.set 'stats.hp', stats.hp
+  
+    if stats.exp?
+      # level up & carry-over exp
+      tnl = model.get '_tnl'
+      if stats.exp >= tnl
+        stats.exp -= tnl
+        user.set 'stats.lvl', user.get('stats.lvl') + 1
+      if !user.get('items.itemsEnabled') and stats.exp >=50
+        user.set 'items.itemsEnabled', true
+        $('ul.items').popover
+          title: content.items.unlockedMessage.title
+          placement: 'left'
+          trigger: 'manual'
+          html: true
+          content: "<div class='item-store-popover'>\
+            <img src='/img/BrowserQuest/chest.png' />\
+            #{content.items.unlockedMessage.content} <a href='#' onClick=\"$('ul.items').popover('hide');return false;\">[Close]</a>\
+            </div>"
+        $('ul.items').popover 'show'
 
+      user.set 'stats.exp', stats.exp
+      
+    if stats.money?
+      money = 0.0 if (!money? or money<0)
+      user.set 'stats.money', stats.money
+  
   # Note: Set 12am daily cron for this
   # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
   # For incomplete Dailys, deduct experience
@@ -95,10 +148,8 @@ ready (model) ->
           # Deduct experience for missed Daily tasks, 
           # but not for Todos (just increase todo's value)
           if (type == 'daily')
-            user.set('hp', user.get('hp') + value)
-            if user.get('hp') < 0
-              #TODO this is implemented in exports.vote also, make it a user.on or something
-              user.set('hp',50);user.set('lvl',1);user.set('exp',0)
+            hp = user.get('stats.hp') + value
+            updateStats user, { hp: hp }
         if type == 'daily'
           task.push "history", { date: new Date(), value: value }
         else
@@ -108,9 +159,9 @@ ready (model) ->
     model.push '_user.history.todos', { date: new Date(), value: todoTally }
     
     # tally experience
-    expTally = user.get 'exp'
+    expTally = user.get 'stats.exp'
     lvl = 0 #iterator
-    _(user.get('lvl')-1).times ->
+    _(user.get('stats.lvl')-1).times ->
       lvl++
       expTally += 50 * Math.pow(lvl, 2) - 150 * lvl + 200
     model.push '_user.history.exp',  { date: new Date(), value: expTally }
@@ -217,8 +268,8 @@ ready (model) ->
     task = model.at(e.target)
     #TODO bug where I have to delete from _users.tasks AND _{type}List, 
     # fix when query subscriptions implemented properly
-    console.log model.del('_user.tasks.'+task.get('id'))
-    console.log task.remove()
+    model.del('_user.tasks.'+task.get('id'))
+    task.remove()
     
   exports.toggleTaskEdit = (e, el) ->
     task = model.at $(el).parents('li')[0]
@@ -247,6 +298,31 @@ ready (model) ->
 
     chart = new google.visualization.LineChart(document.getElementById( chartSelector ))
     chart.draw(data, options)
+    
+  exports.buyItem = (e, el, next) ->
+    user = model.at '_user'
+    #TODO: this should be working but it's not. so instead, i'm passing all needed values as data-attrs
+    # item = model.at(e.target)
+    
+    money = user.get 'stats.money'
+    [type, value, index] = [ $(el).attr('data-type'), $(el).attr('data-value'), $(el).attr('data-index') ]
+    
+    return if money < value
+    user.set 'stats.money', money - value
+    if type == 'armor'
+      user.set 'items.armor', index
+      model.set '_items.armor', content.items.armor[parseInt(index) + 1]
+    else if type == 'weapon'
+      user.set 'items.weapon', index
+      model.set '_items.weapon', content.items.weapon[parseInt(index) + 1]
+    else if type == 'potion'
+      hp = user.get 'stats.hp'
+      hp += 15
+      hp = 50 if hp > 50 
+      user.set 'stats.hp', hp
+    else if type == 'reroll'
+      console.log 'reroll'  
+    
     
   exports.vote = (e, el, next) ->
     direction = $(el).attr('data-direction')
@@ -285,7 +361,7 @@ ready (model) ->
     task.set('completed', completed)
 
     # Update the user's status
-    [money, hp, exp, lvl] = [user.get('money'), user.get('hp'), user.get('exp'), user.get('lvl')]
+    [money, hp, exp, lvl] = [user.get('stats.money'), user.get('stats.hp'), user.get('stats.exp'), user.get('stats.lvl')]
 
     if task.get('type') == 'reward'
       # purchase item
@@ -303,22 +379,8 @@ ready (model) ->
     # Deduct from health (rewards case handled above)
     else if task.get('type') != 'reward'
       hp += delta
-
-    tnl = model.get '_tnl'
-    # level up & carry-over exp
-    if exp >= tnl
-      exp -= tnl
-      lvl += 1
-
-    # game over
-    if hp < 0
-      [hp, lvl, exp] = [50, 1, 0]
-
-    user.set('money', money)
-    user.set('hp', hp)
-    user.set('exp', exp)
-    user.set('lvl', lvl)
-    #[user.money, user.hp, user.exp, user.lvl] = [money, hp, exp, lvl]
+      
+    updateStats(user, {hp: hp, exp: exp, money: money})
     
   ## SHORTCUTS ##
 
