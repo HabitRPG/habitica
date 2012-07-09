@@ -31,7 +31,7 @@ publicPath = path.join root, 'public'
   .use(express.session
     secret: 'secret_sauce'
     cookie: {maxAge: ONE_YEAR}
-    store: new MongoStore(db: 'habitrpg', collection: 'express-sessions')
+    store: new MongoStore(url: 'mongodb://test:test@staff.mongohq.com:10024/habitrpg', collection: 'express-sessions')
   )
   .use(app.session())
 
@@ -55,7 +55,7 @@ derby.use(require 'racer-db-mongo')
 
 exports.store = app.createStore
   listen: server
-  db: {type: 'Mongo', uri: 'mongodb://localhost/habitrpg'}
+  db: {type: 'Mongo', uri: 'mongodb://test:test@staff.mongohq.com:10024/habitrpg'}
 
 # Would implement cron here, using node-cron & https://github.com/codeparty/derby/issues/99#issuecomment-6596460
 # But it's not working
