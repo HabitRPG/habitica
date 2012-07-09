@@ -3,6 +3,7 @@
   "description": "",
   "version": "0.0.0-7",
   "main": "./server.js",
+  "node": "0.6.17",
   "dependencies": {
     "derby": "*",
     "express": "3.x",
