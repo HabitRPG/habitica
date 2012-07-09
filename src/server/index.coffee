@@ -29,6 +29,7 @@ publicPath = path.join root, 'public'
   # Derby session middleware creates req.model and subscribes to _session
   .use(express.cookieParser 'secret_sauce')
   .use(express.session
+    secret: 'secret_sauce'
     cookie: {maxAge: ONE_YEAR}
     store: new MongoStore(db: 'habitrpg', collection: 'express-sessions')
   )
