@@ -1,14 +1,12 @@
 {
   "name": "habitrpg",
   "description": "",
-  "version": "0.0.0-2",
+  "version": "0.0.0-3",
   "main": "./server.js",
   "dependencies": {
     "derby": "git://github.com/codeparty/derby.git#master",
     "express": "3.x",
     "gzippo": ">=0.1.4",
-    "racer-db-mongo": "*",
-    "connect-mongo": ">=0.1.9",
     "derby-ui-boot": "*"
   },
   "private": true,
