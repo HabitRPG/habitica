@@ -1,7 +1,7 @@
 {
   "name": "habitrpg",
   "description": "",
-  "version": "0.0.0",
+  "version": "0.0.0-1",
   "main": "./server.js",
   "dependencies": {
     "derby": "git://github.com/codeparty/derby.git#master",
@@ -14,5 +14,12 @@
   "private": true,
   "devDependencies": {
     "coffee-script": ">=1.3.1"
+  },
+  "subdomain": "habitrpg",
+  "scripts": {
+    "start": "server.js"
+  },
+  "engines": {
+    "node": "0.6.x"
   }
 }
