@@ -109,7 +109,10 @@
         
         {#if _user.items.itemsEnabled}        
           <ul class='items'>
-            {#each _items as :item}<app:item />{/}  
+            {#with _items.armor as :item}<app:item />{/}  
+            {#with _items.weapon as :item}<app:item />{/}  
+            {#with _items.potion as :item}<app:item />{/}  
+            {#with _items.reroll as :item}<app:item disabled=true/>{/}  
           </ul>
         {/}
         
@@ -220,9 +223,9 @@
         <span data-placement="left" data-content="{:item.notes}" data-original-title="{:item.text}" class='task-notes'><i class="icon-comment"></i></span>
       </div>
       <div class="task-controls">
-        {#unless :item.disabled}
-          <a x-bind=click:buyItem class="item-buy-link" data-item-id={:item.id}>{:item.value}<img src="img/coin_single_gold.png"/></a>
-        {/}
+        {{{#unless disabled}}}
+          <a x-bind=click:buyItem class="item-buy-link" data-type={:item.type} data-value={:item.value} data-index={:item.index}>{:item.value}<img src="img/coin_single_gold.png"/></a>
+        {{{/}}}
       </div>
       <div class="task-text"><img src="/img/BrowserQuest/{:item.icon}.png" /> {:item.text}</div>
     </pre>

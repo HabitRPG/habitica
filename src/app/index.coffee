@@ -65,20 +65,11 @@ getRoom = (page, model, userId) ->
     # Default Items & Stats
     user.setNull 'stats', { money: 0, exp: 0, lvl: 1, hp: 50 }
     user.setNull 'items', { itemsEnabled: false, armor: 0, weapon: 0 }
-    nextArmor = content.items.armor[user.get('items.armor')+1]
-    unless nextArmor?
-      nextArmor = content.items.armor[user.get('items.armor')]
-      nextArmor.disabled = true
-    nextWeapon = content.items.weapon[user.get('items.weapon')+1]
-    unless nextWeapon?
-      nextWeapon = content.items.weapon[user.get('items.weapon')]
-      nextWeapon.disabled = true
-    model.set '_items', [
-      nextArmor
-      nextWeapon
-      content.items.potion
-      content.items.reroll
-    ]
+    model.set '_items'
+      armor: content.items.armor[parseInt(user.get('items.armor')) + 1]
+      weapon: content.items.weapon[parseInt(user.get('items.weapon')) + 1]
+      potion: content.items.potion
+      reroll: content.items.reroll
 
     # http://tibia.wikia.com/wiki/Formula 
     model.fn '_tnl', '_user.stats.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
@@ -108,6 +99,8 @@ ready (model) ->
         user.set 'stats', {hp: 50, lvl: 1, exp: 0, money: 0}
         user.set 'items.armor', 0
         user.set 'items.weapon', 0
+        model.set '_items.armor', content.items.armor[1]
+        model.set '_items.weapon', content.items.weapon[1]
       else
         user.set 'stats.hp', stats.hp
   
@@ -308,18 +301,20 @@ ready (model) ->
     
   exports.buyItem = (e, el, next) ->
     user = model.at '_user'
-    item = model.at e.target
-    money = user.get 'stats.money'
-    [type, value] = [item.get('type'), item.get('value')]
-    return if money < value
+    #TODO: this should be working but it's not. so instead, i'm passing all needed values as data-attrs
+    # item = model.at(e.target)
     
+    money = user.get 'stats.money'
+    [type, value, index] = [ $(el).attr('data-type'), $(el).attr('data-value'), $(el).attr('data-index') ]
+    
+    return if money < value
     user.set 'stats.money', money - value
     if type == 'armor'
-      user.set 'items.armor', item.get('index')
-      model.set '_items.0', content.items.armor[item.get('index') + 1]
+      user.set 'items.armor', index
+      model.set '_items.armor', content.items.armor[parseInt(index) + 1]
     else if type == 'weapon'
-      user.set 'items.weapon', item.get('index')
-      model.set '_items.1', content.items.weapon[item.get('index') + 1]
+      user.set 'items.weapon', index
+      model.set '_items.weapon', content.items.weapon[parseInt(index) + 1]
     else if type == 'potion'
       hp = user.get 'stats.hp'
       hp += 15

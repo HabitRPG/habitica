@@ -126,7 +126,7 @@ module.exports = {
       {type: 'weapon', index: 3, text: "Morningstar", icon:'item-morningstar', notes:'', value:300}
       {type: 'weapon', index: 4, text: "Blue Sword", icon:'item-bluesword', notes:'', value:400}
       {type: 'weapon', index: 5, text: "Red Sword", icon:'item-redsword', notes:'', value:500}
-      {type: 'weapon', index: 6, text: "Gold Sword", icon:'item-goldsword', notes:'', value:600}
+      {type: 'weapon', index: 6, text: "Golden Sword", icon:'item-goldensword', notes:'', value:600}
     ]
     armor: [
       {type: 'armor', index: 0, text: "Cloth Armor", icon: 'item-clotharmor', notes:'', value:0}
