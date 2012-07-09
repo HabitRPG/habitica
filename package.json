@@ -1,7 +1,7 @@
 {
   "name": "habitrpg",
   "description": "",
-  "version": "0.0.0-1",
+  "version": "0.0.0-2",
   "main": "./server.js",
   "dependencies": {
     "derby": "git://github.com/codeparty/derby.git#master",
