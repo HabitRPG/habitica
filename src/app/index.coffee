@@ -91,99 +91,6 @@ getRoom = (page, model, userId) ->
 
 ready (model) ->
   
-  # Setter for user.stats: handles death, leveling up, etc
-  exports.updateStats = updateStats = (user, stats) ->
-    if stats.hp?
-      # game over
-      if stats.hp < 0
-        user.set 'stats', {hp: 50, lvl: 1, exp: 0, money: 0}
-        user.set 'items.armor', 0
-        user.set 'items.weapon', 0
-        model.set '_items.armor', content.items.armor[1]
-        model.set '_items.weapon', content.items.weapon[1]
-      else
-        user.set 'stats.hp', stats.hp
-  
-    if stats.exp?
-      # level up & carry-over exp
-      tnl = model.get '_tnl'
-      if stats.exp >= tnl
-        stats.exp -= tnl
-        user.set 'stats.lvl', user.get('stats.lvl') + 1
-      if !user.get('items.itemsEnabled') and stats.exp >=50
-        user.set 'items.itemsEnabled', true
-        $('ul.items').popover
-          title: content.items.unlockedMessage.title
-          placement: 'left'
-          trigger: 'manual'
-          html: true
-          content: "<div class='item-store-popover'>\
-            <img src='/img/BrowserQuest/chest.png' />\
-            #{content.items.unlockedMessage.content} <a href='#' onClick=\"$('ul.items').popover('hide');return false;\">[Close]</a>\
-            </div>"
-        $('ul.items').popover 'show'
-
-      user.set 'stats.exp', stats.exp
-      
-    if stats.money?
-      money = 0.0 if (!money? or money<0)
-      user.set 'stats.money', stats.money
-  
-  # Note: Set 12am daily cron for this
-  # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-  # For incomplete Dailys, deduct experience
-  #TODO: remove from exports when cron implemented  
-  exports.endOfDayTally = endOfDayTally = (e, el) ->
-    # users = model.at('users') #TODO this isn't working, iterate over all users
-    # for user in users
-    user = model.at '_user'
-    todoTally = 0
-    for key of model.get '_user.tasks'
-      task = model.at "_user.tasks.#{key}"
-      [type, value, completed] = [task.get('type'), task.get('value'), task.get('completed')] 
-      if type == 'todo' or type == 'daily'
-        unless completed
-          value += if (value < 0) then (( -0.1 * value + 1 ) * -1) else (( Math.pow(0.9,value) ) * -1)
-          task.set('value', value)
-          # Deduct experience for missed Daily tasks, 
-          # but not for Todos (just increase todo's value)
-          if (type == 'daily')
-            hp = user.get('stats.hp') + value
-            updateStats user, { hp: hp }
-        if type == 'daily'
-          task.push "history", { date: new Date(), value: value }
-        else
-          absVal = if (completed) then Math.abs(value) else value
-          todoTally += absVal
-        task.set('completed', false) if type == 'daily'
-    model.push '_user.history.todos', { date: new Date(), value: todoTally }
-    
-    # tally experience
-    expTally = user.get 'stats.exp'
-    lvl = 0 #iterator
-    _(user.get('stats.lvl')-1).times ->
-      lvl++
-      expTally += 50 * Math.pow(lvl, 2) - 150 * lvl + 200
-    model.push '_user.history.exp',  { date: new Date(), value: expTally }
-    
-     
-  #TODO: remove when cron implemented 
-  poormanscron = ->
-    lastCron = model.get('_user.lastCron')
-    lastCron = if lastCron then (new Date(lastCron)) else new Date() 
-    DAY = 1000 * 60 * 60  * 24
-    today = new Date()
-    daysPassed = Math.round((today.getTime() - lastCron.getTime()) / DAY)
-    if daysPassed > 0
-      _(daysPassed).times ->
-        endOfDayTally()
-      lastCron = new Date()
-    model.set('_user.lastCron', lastCron)
-  poormanscron()
-  exports.toggleDebug = ->
-    model.set('_debug', !model.get('_debug'))
-
-
   $('[rel=popover]').popover()
   #TODO: this isn't very efficient, do model.on set for specific attrs for popover 
   model.on 'set', '*', ->
@@ -327,8 +234,63 @@ ready (model) ->
       for taskId of user.get('tasks')
         task = model.at('_user.tasks.'+taskId)
         task.set('value', 0) unless task.get('type')=='reward' 
-    
-    
+        
+  # Setter for user.stats: handles death, leveling up, etc
+  exports.updateStats = updateStats = (user, stats) ->
+    if stats.hp?
+      # game over
+      if stats.hp < 0
+        user.set 'stats', {hp: 50, lvl: 1, exp: 0, money: 0}
+        user.set 'items.armor', 0
+        user.set 'items.weapon', 0
+        model.set '_items.armor', content.items.armor[1]
+        model.set '_items.weapon', content.items.weapon[1]
+      else
+        user.set 'stats.hp', stats.hp
+  
+    if stats.exp?
+      # level up & carry-over exp
+      tnl = model.get '_tnl'
+      if stats.exp >= tnl
+        stats.exp -= tnl
+        user.set 'stats.lvl', user.get('stats.lvl') + 1
+      if !user.get('items.itemsEnabled') and stats.exp >=50
+        user.set 'items.itemsEnabled', true
+        $('ul.items').popover
+          title: content.items.unlockedMessage.title
+          placement: 'left'
+          trigger: 'manual'
+          html: true
+          content: "<div class='item-store-popover'>\
+            <img src='/img/BrowserQuest/chest.png' />\
+            #{content.items.unlockedMessage.content} <a href='#' onClick=\"$('ul.items').popover('hide');return false;\">[Close]</a>\
+            </div>"
+        $('ul.items').popover 'show'
+
+      user.set 'stats.exp', stats.exp
+      
+    if stats.money?
+      money = 0.0 if (!money? or money<0)
+      user.set 'stats.money', stats.money
+      
+  # Calculates Exp modification based on weapon & lvl
+  expModifier = (value) ->
+    user = model.at '_user'
+    dmg = user.get('items.weapon') * .03 # each new weapon adds an additional 3% experience
+    dmg += user.get('stats.lvl') * .03 # same for lvls
+    modified = value + (value * dmg)
+    console.log modified, 'exp modified'
+    return modified
+
+  # Calculates HP-loss modification based on armor & lvl
+  hpModifier = (value) ->
+    user = model.at '_user'
+    ac = user.get('items.armor') * .03 # each new armor blocks an additional 3% damage
+    ac += user.get('stats.lvl') * .03 # same for lvls
+    modified = value - (value * ac)
+    console.log modified, 'hp modified'
+    return modified
+      
   exports.vote = (e, el, next) ->
     direction = $(el).attr('data-direction')
     direction = 'up' if direction == 'true/'
@@ -379,13 +341,67 @@ ready (model) ->
     # If positive delta, add points to exp & money
     # Only take away mony if it was a mistake (aka, a checkbox)
     if delta > 0 or (task.get('type') == 'daily'  or task.get('type') == 'todo')
-      exp += delta
+      exp += expModifier(delta)
       money += delta
     # Deduct from health (rewards case handled above)
     else if task.get('type') != 'reward'
-      hp += delta
-      
+      hp += hpModifier(delta)
+
     updateStats(user, {hp: hp, exp: exp, money: money})
+    
+  # Note: Set 12am daily cron for this
+  # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
+  # For incomplete Dailys, deduct experience
+  #TODO: remove from exports when cron implemented  
+  exports.endOfDayTally = endOfDayTally = (e, el) ->
+    # users = model.at('users') #TODO this isn't working, iterate over all users
+    # for user in users
+    user = model.at '_user'
+    todoTally = 0
+    for key of model.get '_user.tasks'
+      task = model.at "_user.tasks.#{key}"
+      [type, value, completed] = [task.get('type'), task.get('value'), task.get('completed')] 
+      if type == 'todo' or type == 'daily'
+        unless completed
+          value += if (value < 0) then (( -0.1 * value + 1 ) * -1) else (( Math.pow(0.9,value) ) * -1)
+          task.set('value', value)
+          # Deduct experience for missed Daily tasks, 
+          # but not for Todos (just increase todo's value)
+          if (type == 'daily')
+            hp = user.get('stats.hp') + hpModifier(value)
+            updateStats user, { hp: hp }
+        if type == 'daily'
+          task.push "history", { date: new Date(), value: value }
+        else
+          absVal = if (completed) then Math.abs(value) else value
+          todoTally += absVal
+        task.set('completed', false) if type == 'daily'
+    model.push '_user.history.todos', { date: new Date(), value: todoTally }
+    
+    # tally experience
+    expTally = user.get 'stats.exp'
+    lvl = 0 #iterator
+    _(user.get('stats.lvl')-1).times ->
+      lvl++
+      expTally += 50 * Math.pow(lvl, 2) - 150 * lvl + 200
+    model.push '_user.history.exp',  { date: new Date(), value: expTally }
+    
+     
+  #TODO: remove when cron implemented 
+  poormanscron = ->
+    lastCron = model.get('_user.lastCron')
+    lastCron = if lastCron then (new Date(lastCron)) else new Date() 
+    DAY = 1000 * 60 * 60  * 24
+    today = new Date()
+    daysPassed = Math.round((today.getTime() - lastCron.getTime()) / DAY)
+    if daysPassed > 0
+      _(daysPassed).times ->
+        endOfDayTally()
+      lastCron = new Date()
+    model.set('_user.lastCron', lastCron)
+  poormanscron()
+  exports.toggleDebug = ->
+    model.set('_debug', !model.get('_debug'))
     
   ## SHORTCUTS ##
 
