@@ -50,6 +50,19 @@
 <Body:>
   <br/>
   
+  <div style="{#unless equal(_user.stats.lvl,0)}display:none;{/}"> 
+    <div data-action="backdrop" class="modal-backdrop"></div>
+    <div class="modal" id="dead-modal">
+      <div class="modal-header">
+        <h3>Game Over</h3>
+      </div>
+      <div class="modal-body">
+        <p>You're Dead.</p>
+        <p><a x-bind=click:revive class="btn btn-danger">Revive</a></p>
+      </div>
+    </div>
+  </div>
+  
   <div class="container-fluid">
     {#if _debug}
     <div class="alert">

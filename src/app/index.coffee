@@ -240,11 +240,7 @@ ready (model) ->
     if stats.hp?
       # game over
       if stats.hp < 0
-        user.set 'stats', {hp: 50, lvl: 1, exp: 0, money: 0}
-        user.set 'items.armor', 0
-        user.set 'items.weapon', 0
-        model.set '_items.armor', content.items.armor[1]
-        model.set '_items.weapon', content.items.weapon[1]
+        user.set 'stats.lvl', 0 # this signifies dead
       else
         user.set 'stats.hp', stats.hp
   
@@ -402,6 +398,14 @@ ready (model) ->
   poormanscron()
   exports.toggleDebug = ->
     model.set('_debug', !model.get('_debug'))
+    
+  exports.revive = (e, el) ->
+    stats = model.at '_user.stats'
+    stats.set 'hp', 50; stats.set 'lvl', 1; stats.set 'exp', 0; stats.set 'money', 0
+    model.set '_user.items.armor', 0
+    model.set '_user.items.weapon', 0
+    model.set '_items.armor', content.items.armor[1]
+    model.set '_items.weapon', content.items.weapon[1]
     
   ## SHORTCUTS ##
 
