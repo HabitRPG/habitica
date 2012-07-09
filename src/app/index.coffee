@@ -321,7 +321,9 @@ ready (model) ->
       hp = 50 if hp > 50 
       user.set 'stats.hp', hp
     else if type == 'reroll'
-      console.log 'reroll'  
+      for taskId of user.get('tasks')
+        task = model.at('_user.tasks.'+taskId)
+        task.set('value', 0) unless task.get('type')=='reward' 
     
     
   exports.vote = (e, el, next) ->
