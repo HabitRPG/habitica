@@ -1,10 +1,10 @@
 {
   "name": "habitrpg",
   "description": "",
-  "version": "0.0.0-3",
+  "version": "0.0.0-4",
   "main": "./server.js",
   "dependencies": {
-    "derby": "git://github.com/codeparty/derby.git#master",
+    "derby": "*",
     "express": "3.x",
     "gzippo": ">=0.1.4",
     "derby-ui-boot": "*"
