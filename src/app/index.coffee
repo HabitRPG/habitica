@@ -184,7 +184,10 @@ ready (model) ->
     model.set('_debug', !model.get('_debug'))
 
 
-  $('.task-notes, [rel=popover]').popover()
+  $('[rel=popover]').popover()
+  #TODO: this isn't very efficient, do model.on set for specific attrs for popover 
+  model.on 'set', '*', ->
+    $('[rel=popover]').popover()
   
   model.set('_hideCompleted', true)
   $('a[data-toggle="tab"]').on 'shown', (e) ->
