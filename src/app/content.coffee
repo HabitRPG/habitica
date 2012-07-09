@@ -52,7 +52,6 @@ module.exports = {
       {type: 'daily', text: '1h Personal Project', notes: '', value: 0, completed: false }
     ]
     todos: [
-      {type: 'todo', text: 'Print insurance request card', notes: '"travel" tag', value: 0, completed: false }
       {type: 'todo', text: 'VPM', notes: '', value: 0, completed: false }
       {type: 'todo', text: 'mail', notes: '', value: 0, completed: false }
       {type: 'todo', text: 'krav', notes: '', value: 0, completed: false }
