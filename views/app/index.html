@@ -79,12 +79,12 @@
       <!--helpTitle & helpContent moved to tour -->
       <app:taskColumn title="Habits">
         <ul class='habits'>{#each _habitList as :task}<app:task />{/}</ul>
-        <app:newTask type=habit><input value={_newHabit} type="text" /></app:newTask>
+        <app:newTask type=habit><input value={_newHabit} type="text" placeholder="New Habit"/></app:newTask>
       </app:taskColumn>
       
       <app:taskColumn title="Daily">
         <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
-        <app:newTask type=daily><input value={_newDaily} type="text" /></app:newTask>
+        <app:newTask type=daily><input value={_newDaily} type="text" placeholder="New Daily"/></app:newTask>
       </app:taskColumn>
 
       <app:taskColumn title="Todos" type="todo">
@@ -98,7 +98,7 @@
               <ul class='todos'>
                 {#each _todoList as :task}<app:task />{/}
               </ul>
-              <app:newTask type=todo><input value={_newTodo} type="text" /></app:newTask>
+              <app:newTask type=todo><input value={_newTodo} type="text" placeholder="New Todo"/></app:newTask>
             </div>
             <div class="tab-pane" id="tab2">
               <ul class='completeds'>
@@ -128,7 +128,7 @@
           </ul>
         {/}
         
-        <app:newTask type=reward><input value={_newReward} type="text" /></app:newTask>
+        <app:newTask type=reward><input value={_newReward} type="text" placeholder="New Reward"/></app:newTask>
       </app:taskColumn>
       
       
