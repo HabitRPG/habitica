@@ -1,9 +1,9 @@
-[HabitRPG](http://198.101.220.61:3000/)
+[HabitRPG](http://habitrpg.com/)
 ============
 
 A habit tracker app which treats your goals like a Role Playing Game. As you accomplish goals, you level up. If you fail your goals, you lose hit points. Lose all your HP and you die.
 
-* [Website](http://198.101.220.61:3000/)
+* [HabitRPG.com](http://habitrpg.com/)
 * [Roadmap](https://workflowy.com/shared/cd06313a-7c93-ae5f-ae55-e64cae0556e4/)
 
 ![Screenshot](https://img.skitch.com/20120707-daj9pp7g87yg829j61pnpwhff3.jpg "Screenshot")
