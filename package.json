@@ -1,7 +1,7 @@
 {
-  "name": "HabitRPG",
-  "description": "",
-  "version": "0.0.0-34",
+  "name": "habitrpg",
+  "description": "A habit tracker app which treats your goals like a Role Playing Game.",
+  "version": "0.0.0-35",
   "main": "./server.js",
   "dependencies": {
     "derby": "*",
