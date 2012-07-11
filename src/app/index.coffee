@@ -386,11 +386,9 @@ ready (model) ->
   #TODO: remove when cron implemented 
   poormanscron = ->
     model.setNull('_user.lastCron', new Date())
-    # need to do date calculation, seems it's stored in db as string
     lastCron = new Date(new Date(model.get('_user.lastCron')).toDateString()) # calculate as midnight
-    console.log lastCron
-    DAY = 1000 * 60 * 60  * 24
     today = new Date(new Date().toDateString()) # calculate as midnight
+    DAY = 1000 * 60 * 60  * 24
     daysPassed = Math.floor((today.getTime() - lastCron.getTime()) / DAY)
     if daysPassed > 0
       _(daysPassed).times ->
