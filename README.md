@@ -17,6 +17,9 @@ FAQ
 * **This is confusing**
 
   If you played RPGs (Role Playing Games) growing up, this app will make perfect sense to you; otherwise, it might be overwhelming at first. Be sure to follow the tutorial when you first load the website. If it's still not your cup of tea, checkout the above link, as well as [MindBloom](https://www.mindbloom.com/).
+  
+* **How do I log in / save my data?**
+  Sooo… HabitRPG doesn't have authentication of any sort yet, unfortunately. Which sucks *big time* because you can't log in to different machines / mobile devices yet, or even a different browser on the same computer :/ I'm using a framework called [DerbyJS](http://derbyjs.com/) and [everyone's](https://groups.google.com/forum/?fromgroups#!topic/derbyjs/7U3xvoPWd-g) [prodding](https://groups.google.com/forum/?fromgroups#!topic/derbyjs/oyz2JBwo1AQ) the developer to integrate authentication (aka, Facebook login), myself included… and I'm desperately trying to find a [temporary solution](https://workflowy.com/shared/cd06313a-7c93-ae5f-ae55-e64cae0556e4/) in the mean time.
 
 * **How do I heal?**
 
