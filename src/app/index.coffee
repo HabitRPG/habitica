@@ -395,7 +395,11 @@ ready (model) ->
         endOfDayTally()
       lastCron = new Date()
     model.set('_user.lastCron', lastCron)
-  poormanscron()
+  poormanscron() # Run once on refresh
+  setInterval (-> # Then run once every hour
+    poormanscron()
+  ), 3600000
+  
   exports.toggleDebug = ->
     model.set('_debug', !model.get('_debug'))
     

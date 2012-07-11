@@ -1,9 +1,8 @@
 {
   "name": "habitrpg",
-  "description": "",
-  "version": "0.0.0-7",
+  "description": "A habit tracker app which treats your goals like a Role Playing Game.",
+  "version": "0.0.0-38",
   "main": "./server.js",
-  "node": "0.6.17",
   "dependencies": {
     "derby": "*",
     "express": "3.x",
@@ -17,6 +16,10 @@
     "coffee-script": ">=1.3.1"
   },
   "subdomain": "habitrpg",
+  "domains": [
+    "habitrpg.com",
+    "www.habitrpg.com"
+  ],
   "scripts": {
     "start": "server.js"
   },

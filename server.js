@@ -1,1 +1,1 @@
-require('derby').run(__dirname + '/lib/server', 3000)
+require('derby').run(__dirname + '/lib/server', (process.env.PORT || 3000))
