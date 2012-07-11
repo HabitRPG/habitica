@@ -1,9 +1,9 @@
-[HabitRPG](http://198.101.220.61:3000/)
+[HabitRPG](http://habitrpg.com/)
 ============
 
 A habit tracker app which treats your goals like a Role Playing Game. As you accomplish goals, you level up. If you fail your goals, you lose hit points. Lose all your HP and you die.
 
-* [Website](http://198.101.220.61:3000/)
+* [HabitRPG.com](http://habitrpg.com/)
 * [Roadmap](https://workflowy.com/shared/cd06313a-7c93-ae5f-ae55-e64cae0556e4/)
 
 ![Screenshot](https://img.skitch.com/20120707-daj9pp7g87yg829j61pnpwhff3.jpg "Screenshot")
@@ -20,11 +20,11 @@ FAQ
 
 * **How do I heal?**
 
-  You have to level up, HP resets upon leveling up. I'm thinking of adding a buyable Health Potion, but I think this might compromise pushing yourself. Think about it - the closer you are to leveling, the harder you'll try to be accountable. 
+  After you play for a while you unlock the Item Store, from which you can buy health potions. Also, HP resets upon leveling up.
   
 * **My tasks are too red, they're killing me too fast**
   
-  This is good. The worse you are at a task, the more valuable it becomes - meaning you gain more experience for completing those red tasks. This will incentivise you to try harder the more you're struggling, as well as to avoid failing (since the more valuable tasks drain more HP).
+  This is good. The worse you are at a task, the more valuable it becomes - meaning you gain more experience for completing those red tasks. This will incentivise you to try harder the more you're struggling, as well as to avoid failing (since the more valuable tasks drain more HP). If you're *really* struggling, you can buy "Re-Roll" from the item store, which resets all your tasks to 0.
   
 * **How do I log in / save my data?**
 
