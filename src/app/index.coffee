@@ -389,7 +389,7 @@ ready (model) ->
     lastCron = if lastCron then (new Date(lastCron)) else new Date() 
     DAY = 1000 * 60 * 60  * 24
     today = new Date()
-    daysPassed = Math.round((today.getTime() - lastCron.getTime()) / DAY)
+    daysPassed = Math.floor((today.getTime() - lastCron.getTime()) / DAY)
     if daysPassed > 0
       _(daysPassed).times ->
         endOfDayTally()
