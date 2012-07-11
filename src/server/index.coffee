@@ -8,7 +8,7 @@ app = require '../app'
 serverError = require './serverError'
 racer = require 'derby/node_modules/racer'
 
-# racer.set('transports', ['xhr-polling'])
+racer.set('transports', ['xhr-polling'])
 
 
 ## SERVER CONFIGURATION ##
