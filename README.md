@@ -1,5 +1,4 @@
-[HabitRPG](http://habitrpg.jit.su/)
-============
+#[HabitRPG](http://habitrpg.jit.su/)
 
 A habit tracker app which treats your goals like a Role Playing Game. As you accomplish goals, you level up. If you fail your goals, you lose hit points. Lose all your HP and you die.
 
@@ -8,38 +7,36 @@ A habit tracker app which treats your goals like a Role Playing Game. As you acc
 
 ![Screenshot](https://img.skitch.com/20120707-daj9pp7g87yg829j61pnpwhff3.jpg "Screenshot")
 
-FAQ
--------
-* **What is habit tracking?**
+##FAQ
 
-  See [7 Tools to Help Keep Track of Habits and Goals](http://www.lifehack.org/articles/technology/7-tools-to-help-keep-track-of-habits-and-goals.html) for a description and more habit tracking examples.
+###What is habit tracking?
+
+See [7 Tools to Help Keep Track of Habits and Goals](http://www.lifehack.org/articles/technology/7-tools-to-help-keep-track-of-habits-and-goals.html) for a description and more habit tracking examples.
   
-* **This is confusing**
+###This is confusing
 
-  If you played RPGs (Role Playing Games) growing up, this app will make perfect sense to you; otherwise, it might be overwhelming at first. Be sure to follow the tutorial when you first load the website. If it's still not your cup of tea, checkout the above link, as well as [MindBloom](https://www.mindbloom.com/).
+If you played RPGs (Role Playing Games) growing up, this app will make perfect sense to you; otherwise, it might be overwhelming at first. Be sure to follow the tutorial when you first load the website. If it's still not your cup of tea, checkout the above link, as well as [MindBloom](https://www.mindbloom.com/).
 
-* **How do I heal?**
+###How do I heal?
 
-  After you play for a while you unlock the Item Store, from which you can buy health potions. Also, HP resets upon leveling up.
+After you play for a while you unlock the Item Store, from which you can buy health potions. Also, HP resets upon leveling up.
   
-* **My tasks are too red, they're killing me too fast**
+###My tasks are too red, they're killing me too fast
+
+This is good. The worse you are at a task, the more valuable it becomes - meaning you gain more experience for completing those red tasks. This will incentivise you to try harder the more you're struggling, as well as to avoid failing (since the more valuable tasks drain more HP). If you're *really* struggling, you can buy "Re-Roll" from the item store, which resets all your tasks to 0.
   
-  This is good. The worse you are at a task, the more valuable it becomes - meaning you gain more experience for completing those red tasks. This will incentivise you to try harder the more you're struggling, as well as to avoid failing (since the more valuable tasks drain more HP). If you're *really* struggling, you can buy "Re-Roll" from the item store, which resets all your tasks to 0.
-  
-* **How do I log in / save my data?**
+###How do I log in / save my data?
 
-	Sooo… HabitRPG doesn't have authentication of any sort yet, unfortunately. Which sucks *big time* because you can't log in to different machines / mobile devices yet, or even a different browser on the same computer :/ I'm using a framework called [DerbyJS](http://derbyjs.com/) and [everyone's](https://groups.google.com/forum/?fromgroups#!topic/derbyjs/7U3xvoPWd-g) [prodding](https://groups.google.com/forum/?fromgroups#!topic/derbyjs/oyz2JBwo1AQ) the developer to integrate authentication (aka, Facebook login), myself included… and I'm desperately trying to find a [temporary solution](https://workflowy.com/shared/cd06313a-7c93-ae5f-ae55-e64cae0556e4/) in the mean time.
+HabitRPG is built on [DerbyJS](http://derbyjs.com/), which doesn't yet support authentication. As soon as EveryAuth becomes available to Derby, I'll implement it - that and the other network integration aspects on the roadmap. You can follow the progress [here](https://groups.google.com/forum/?fromgroups#!topic/derbyjs/7U3xvoPWd-g) and [here](https://groups.google.com/forum/?fromgroups#!topic/derbyjs/oyz2JBwo1AQ).
 
-	In the mean time, consider this an alpha product and don't put too much data in just yet.
+In the meantime, a workaround has been built to use a private url, similar to Workflowy's shared lists, which you can use to access your account from multiple computers. Click the top-right profile button and bookmark the URL it provides.
 
-License
--------
+##License
 Code is licensed under GNU GPL v3. Content is licensed under CC-BY-SA 3.0.
 See the LICENSE file for details.
 
 
-Credits
--------
+##Credits
 Content comes from Mozilla's [BrowserQuest](http://browserquest.mozilla.org/) 
 
 * [Mozilla](http://mozilla.org)
