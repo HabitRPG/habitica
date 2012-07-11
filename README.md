@@ -10,7 +10,7 @@ A habit tracker app which treats your goals like a Role Playing Game. As you acc
 
 FAQ
 -------
-* **<a id="whatis">What is habit tracking?</a>**
+* **What is habit tracking?**
 
   See [7 Tools to Help Keep Track of Habits and Goals](http://www.lifehack.org/articles/technology/7-tools-to-help-keep-track-of-habits-and-goals.html) for a description and more habit tracking examples.
   
