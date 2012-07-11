@@ -386,15 +386,22 @@ ready (model) ->
   #TODO: remove when cron implemented 
   poormanscron = ->
     lastCron = model.get('_user.lastCron')
-    lastCron = if lastCron then (new Date(lastCron)) else new Date() 
+    if lastCron
+      # need to do date calculation, seems it's stored in db as string
+      lastCron = new Date(model.get('_user.lastCron'))
+    else
+      lastCron = new Date()
+      model.set('_user.lastCron', lastCron)
+    lastCron = new Date("#{lastCron.getMonth()}/#{lastCron.getDate()}/#{lastCron.getFullYear()}") # calculate as midnight
+    console.log lastCron
     DAY = 1000 * 60 * 60  * 24
     today = new Date()
+    today = new Date("#{today.getMonth()}/#{today.getDate()}/#{today.getFullYear()}") # calculate as midnight
     daysPassed = Math.floor((today.getTime() - lastCron.getTime()) / DAY)
     if daysPassed > 0
       _(daysPassed).times ->
         endOfDayTally()
-      lastCron = new Date()
-    model.set('_user.lastCron', lastCron)
+      model.set('_user.lastCron', today) # reset cron
   poormanscron() # Run once on refresh
   setInterval (-> # Then run once every hour
     poormanscron()
