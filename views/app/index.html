@@ -66,12 +66,6 @@
     {#if _debug}
     <div class="alert">
       <i class="icon-warning-sign"></i> <b>Debugging Options</b><br/><br/>
-      <form x-bind=submit:loadUserSession>
-        <div class=form-search>
-          <input type=text class=input-medium placeholder="User Id" value={_loadUserId} />
-          <button type=submit class=btn>Load Session</button>
-        </div>
-      </form> 
       <a x-bind=click:poormanscron class="btn">Cron</a>
       <a x-bind=click:endOfDayTally class="btn">Tally</a>
       <a x-bind=click:loadDebugDefaults class="btn">Tyler Defaults</a>
