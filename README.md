@@ -29,7 +29,7 @@ This is good. The worse you are at a task, the more valuable it becomes - meanin
 
 HabitRPG is built on [DerbyJS](http://derbyjs.com/), which doesn't yet support authentication. As soon as EveryAuth becomes available to Derby, I'll implement it - that and the other network integration aspects on the roadmap. You can follow the progress [here](https://groups.google.com/forum/?fromgroups#!topic/derbyjs/7U3xvoPWd-g) and [here](https://groups.google.com/forum/?fromgroups#!topic/derbyjs/oyz2JBwo1AQ).
 
-In the meantime, a workaround has been built to use a private url, similar to Workflowy's shared lists, which you can use to access your account from multiple computers.
+In the meantime, a workaround has been built to use a private url, similar to Workflowy's shared lists, which you can use to access your account from multiple computers. Click the top-right profile button and bookmark the URL it provides.
 
 ##License
 Code is licensed under GNU GPL v3. Content is licensed under CC-BY-SA 3.0.
