@@ -47,6 +47,9 @@ view.fn "silver", (num) ->
 
 get '/:userId?', (page, model, {userId}) ->
   # Saved session
+  # TODO: this doesn't check that the user at guid exists, and 
+  # will probably error since no user is created. Will only happen if 
+  # first access, but still 
   if userId?# and model.get(userId)?
     model.set '_session.userId', userId
     return getRoom page, model, userId
