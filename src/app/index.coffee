@@ -196,7 +196,7 @@ ready (model) ->
     matrix = [['Date', 'Score']]
     for obj in model.get(historyPath)
       date = new Date(obj.date)
-      readableDate = "#{date.getMonth()}/#{date.getDate()}/#{date.getFullYear()}"
+      readableDate = "#{date.getMonth()}+1/#{date.getDate()}/#{date.getFullYear()}"
       matrix.push [ readableDate, obj.value ]
     data = google.visualization.arrayToDataTable matrix
     
@@ -385,18 +385,12 @@ ready (model) ->
      
   #TODO: remove when cron implemented 
   poormanscron = ->
-    lastCron = model.get('_user.lastCron')
-    if lastCron
-      # need to do date calculation, seems it's stored in db as string
-      lastCron = new Date(model.get('_user.lastCron'))
-    else
-      lastCron = new Date()
-      model.set('_user.lastCron', lastCron)
-    lastCron = new Date("#{lastCron.getMonth()}/#{lastCron.getDate()}/#{lastCron.getFullYear()}") # calculate as midnight
+    model.setNull('_user.lastCron', new Date())
+    # need to do date calculation, seems it's stored in db as string
+    lastCron = new Date(new Date(model.get('_user.lastCron')).toDateString()) # calculate as midnight
     console.log lastCron
     DAY = 1000 * 60 * 60  * 24
-    today = new Date()
-    today = new Date("#{today.getMonth()}/#{today.getDate()}/#{today.getFullYear()}") # calculate as midnight
+    today = new Date(new Date().toDateString()) # calculate as midnight
     daysPassed = Math.floor((today.getTime() - lastCron.getTime()) / DAY)
     if daysPassed > 0
       _(daysPassed).times ->
