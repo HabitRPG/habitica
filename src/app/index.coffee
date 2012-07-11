@@ -402,6 +402,10 @@ ready (model) ->
   exports.toggleDebug = ->
     model.set('_debug', !model.get('_debug'))
     
+  exports.loadUserSession = (e, el) ->
+    model.set('_session.userId', model.get('_loadUserId'))
+    window.location.reload()
+    
   exports.revive = (e, el) ->
     stats = model.at '_user.stats'
     stats.set 'hp', 50; stats.set 'lvl', 1; stats.set 'exp', 0; stats.set 'money', 0
