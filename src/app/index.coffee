@@ -384,7 +384,7 @@ ready (model) ->
     
      
   #TODO: remove when cron implemented 
-  poormanscron = ->
+  exports.poormanscron = poormanscron = ->
     model.setNull('_user.lastCron', new Date())
     lastCron = new Date(new Date(model.get('_user.lastCron')).toDateString()) # calculate as midnight
     today = new Date(new Date().toDateString()) # calculate as midnight

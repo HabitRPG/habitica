@@ -65,9 +65,10 @@
   <div class="container-fluid">
     {#if _debug}
     <div class="alert">
-      <i class="icon-warning-sign"></i> <b>Debug Buttons</b>
-      &nbsp;<a x-bind=click:endOfDayTally class="btn">Run Cron</a>
-      &nbsp;<a x-bind=click:loadDebugDefaults class="btn">Debuggin Defaults</a>
+      <i class="icon-warning-sign"></i> <b>Debugging Options</b>
+      &nbsp;<a x-bind=click:poormanscron class="btn">Cron</a>
+      &nbsp;<a x-bind=click:endOfDayTally class="btn">Tally</a>
+      &nbsp;<a x-bind=click:loadDebugDefaults class="btn">Tyler Defaults</a>
     </div>
     {/}
     
