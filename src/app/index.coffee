@@ -196,7 +196,7 @@ ready (model) ->
     matrix = [['Date', 'Score']]
     for obj in model.get(historyPath)
       date = new Date(obj.date)
-      readableDate = "#{date.getMonth()}+1/#{date.getDate()}/#{date.getFullYear()}"
+      readableDate = date.toISOString() #use toDateString() when done debugging
       matrix.push [ readableDate, obj.value ]
     data = google.visualization.arrayToDataTable matrix
     
