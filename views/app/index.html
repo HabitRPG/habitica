@@ -7,6 +7,16 @@
 <Header:>
   <ui:connectionAlert>
   <div id="head">
+    <div class='pull-right'>
+       <a class='btn pull-right' onClick="$('#copy-link-section').toggle();"><i class=icon-user></i></a><br/>
+       <div id=copy-link-section style='display:none;' class=well>
+         <h3>Secret Link</h3>
+         <p>Authentication isn't yet available (<a href="https://github.com/lefnire/habitrpg">follow progress here</a>),<br/> 
+           In the meantime a persistent URL can be used accross <br/>
+           browsers to access your data. Bookmark the following URL.</p>
+         <input type=text class=input-xlarge value="{_purl}" onClick="$(this).select();"/>
+       </div>
+    </div>
     <!--<% if current_user %>-->
       <table id="character">
         <tr>
@@ -135,7 +145,11 @@
       
     </div>
     <footer class="footer">
-      <a href="https://github.com/lefnire/habitrpg#habitrpg">Help</a> | <a href="http://habitrpg-rails.herokuapp.com/">Old Site</a> | Copyright &copy; 2012 Tyler Renelle | <a x-bind=click:toggleDebug><i class="icon-warning-sign"></i></a>
+      <a href="https://github.com/lefnire/habitrpg#habitrpg">Help</a> |
+      &nbsp;<a href="https://github.com/lefnire/habitrpg">Github</a> | 
+      &nbsp;<a href="http://habitrpg-rails.herokuapp.com/">Old Site</a> | 
+      &nbsp;Copyright &copy; 2012 Tyler Renelle | 
+      &nbsp;<a x-bind=click:toggleDebug><i class="icon-warning-sign"></i></a>
     </footer>
   </div>
   <!--<% if !current_user %>
@@ -243,10 +257,6 @@
       <div class="task-text"><img src="/img/BrowserQuest/habitrpg_mods/{:item.icon}.png" /> {:item.text}</div>
     </pre>
   </li>
-  
-  
-<Footer:>
-  <a href="https://github.com/lefnire/habitrpg"><img style="z-index:11; position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 
 <Scripts:>
   <script src=/jquery.min.js></script>

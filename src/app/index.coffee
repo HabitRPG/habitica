@@ -3,6 +3,7 @@ derby = require('derby')
 derby.use require('derby-ui-boot')
 derby.use(require('../../ui'))
 content = require('./content')
+Guid = require('guid')
 
 ## VIEW HELPERS ##
 view.fn 'taskClasses', (type, completed, value, hideCompleted) ->
@@ -43,21 +44,25 @@ view.fn "silver", (num) ->
   
 ## ROUTES ##
 
-get '/', (page, model) ->
+
+get '/:userId?', (page, model, {userId}) ->
+  # Saved session
+  if userId?# and model.get(userId)?
+    model.set '_session.userId', userId
+    return getRoom page, model, userId
+      
   # Render page if a userId is already stored in session data
   if userId = model.get '_session.userId'
     return getRoom page, model, userId
 
   # Otherwise, select a new userId and initialize user
-  model.async.incr 'configs.1.nextUserId', (err, userId) ->
-    model.set '_session.userId', userId
-    model.set "users.#{userId}",
-      name: 'User ' + userId
-    getRoom page, model, userId
+  userId = Guid.raw()
+  model.set '_session.userId', userId
+  model.set "users.#{userId}", {}
+  getRoom page, model, userId
 
 getRoom = (page, model, userId) ->
-  
-  model.subscribe "users.#{userId}", (err, user) -> 
+  model.subscribe "users.#{userId}", (err, user) ->
     model.ref '_user', user
     
     ### Set User Defaults ###
@@ -90,6 +95,8 @@ getRoom = (page, model, userId) ->
 ## CONTROLLER FUNCTIONS ##
 
 ready (model) ->
+  
+  model.set '_purl', window.location.href + model.get('_user.id')
   
   $('[rel=popover]').popover()
   #TODO: this isn't very efficient, do model.on set for specific attrs for popover 
