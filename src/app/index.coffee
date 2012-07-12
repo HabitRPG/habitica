@@ -49,8 +49,10 @@ get '/:userId?', (page, model, {userId}) ->
   # Saved session
   # TODO: this doesn't check that the user at guid exists, and 
   # will probably error since no user is created. Will only happen if 
-  # first access, but still 
-  if userId?# and model.get(userId)?
+  # first access, but still. model.get(userId) and model.get("users.#{userId}") aren't 
+  # working for some reason
+  debuggingUsers = (parseInt(userId) < 40) #these are users created before guid was in use, need to convert them to guid and get rid of this 
+  if userId? and (Guid.isGuid(userId) or debuggingUsers)# and model.get(userId)?
     model.set '_session.userId', userId
     return getRoom page, model, userId
       
