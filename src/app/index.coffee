@@ -99,7 +99,7 @@ getRoom = (page, model, userId) ->
 
 ready (model) ->
   
-  model.set '_purl', window.location.href + model.get('_user.id')
+  model.set '_purl', window.location.origin + '/' + model.get('_user.id')
   
   $('[rel=popover]').popover()
   #TODO: this isn't very efficient, do model.on set for specific attrs for popover 
