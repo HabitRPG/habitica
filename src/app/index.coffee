@@ -398,14 +398,15 @@ ready (model) ->
   #TODO: remove when cron implemented 
   exports.poormanscron = poormanscron = ->
     model.setNull('_user.lastCron', new Date())
-    lastCron = new Date(new Date(model.get('_user.lastCron')).toDateString()) # calculate as midnight
-    today = new Date(new Date().toDateString()) # calculate as midnight
+    lastCron = new Date( (new Date(model.get('_user.lastCron'))).toDateString() ) # calculate as midnight
+    today = new Date((new Date).toDateString()) # calculate as midnight
     DAY = 1000 * 60 * 60  * 24
     daysPassed = Math.floor((today.getTime() - lastCron.getTime()) / DAY)
     if daysPassed > 0
       _(daysPassed).times ->
         endOfDayTally()
       model.set('_user.lastCron', today) # reset cron
+      console.log {today: today, lastCron: lastCron, daysPassed: daysPassed}, 'cron debugging'
   poormanscron() # Run once on refresh
   setInterval (-> # Then run once every hour
     poormanscron()
