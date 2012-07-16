@@ -287,7 +287,6 @@ ready (model) ->
     dmg = user.get('items.weapon') * .03 # each new weapon adds an additional 3% experience
     dmg += user.get('stats.lvl') * .03 # same for lvls
     modified = value + (value * dmg)
-    console.log modified, 'exp modified'
     return modified
 
   # Calculates HP-loss modification based on armor & lvl
@@ -296,7 +295,6 @@ ready (model) ->
     ac = user.get('items.armor') * .03 # each new armor blocks an additional 3% damage
     ac += user.get('stats.lvl') * .03 # same for lvls
     modified = value - (value * ac)
-    console.log modified, 'hp modified'
     return modified
       
   exports.vote = (e, el, next) ->
