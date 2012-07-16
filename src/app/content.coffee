@@ -18,58 +18,6 @@ module.exports = {
       {type: 'reward', text: 'Cake', notes: 'But only buy if you have enough gold - you lose HP otherwise.', value: 10 }
     ]
     
-  tylerDefaultTasks:
-    habits: [
-      {type: 'habit', text: 'Stairs', notes: '', value: 0, up: true, down: true}
-      {type: 'habit', text: 'Diet', notes: '', value: 0, up: true, down: true}
-      {type: 'habit', text: 'Ticket (Workflowy, Pivotal)', notes: '', value: 0, up: true, down: false}
-      {type: 'habit', text: 'Temptation Control', notes: '* meditate for 1 minute, visualize<br/>* positive, specific, present self-talk<br/>* do first task', value: 0, up: true, down: false}
-      {type: 'habit', text: 'Propose, not ask', notes: '', value: 0, up: true, down: false}
-      {type: 'habit', text: 'Focus', notes: '', value: 0, up: false, down: true}
-      {type: 'habit', text: 'Facebook/RSS out of turn', notes: '', value: 0, up: false, down: true}
-      {type: 'habit', text: 'Negative Talk', notes: '', value: 0, up: false, down: true}
-      {type: 'habit', text: 'Exaggeration', notes: '', value: 0, up: false, down: true}
-      {type: 'habit', text: 'Insult Self', notes: '', value: 0, up: false, down: true}
-      {type: 'habit', text: 'Other', notes: '* Nail-biting<br/>* Posture<br/>* Visualize / Meditate to sleep<br/>* Smile/eye-gaze', value: 0, up: false, down: false}
-    ]
-    dailys: [
-      {type: 'daily', text: 'Review Pivotal, Asana, Workflowy', notes: '', value: 0, completed: false }
-      {type: 'daily', text: 'TMJ Exercise', notes: '', value: 0, completed: false }
-      {type: 'daily', text: 'Anki (20m)', notes: '', value: 0, completed: false }
-      {type: 'daily', text: '30m Code Reading', notes: '', value: 0, completed: false }
-      {type: 'daily', text: 'Google News', notes: '', value: 0, completed: false }
-      {type: 'daily', text: 'Mint', notes: '', value: 0, completed: false }
-      {type: 'daily', text: 'Anki (new / review)', notes: '', value: 0, completed: false }
-      {type: 'daily', text: 'Check Meetup', notes: '', value: 0, completed: false }
-      {type: 'daily', text: 'Read it later', notes: '', value: 0, completed: false }
-      {type: 'daily', text: 'RSS (Drupal)', notes: '', value: 0, completed: false }
-      {type: 'daily', text: 'RSS (Other)', notes: '', value: 0, completed: false }
-      {type: 'daily', text: 'Lunch TODO', notes: '', value: 0, completed: false }
-      {type: 'daily', text: 'Exercise', notes: '', value: 0, completed: false }
-      {type: 'daily', text: 'Read (45m)', notes: '', value: 0, completed: false }
-      {type: 'daily', text: 'Night TODO', notes: '', value: 0, completed: false }
-      {type: 'daily', text: 'Brain Game', notes: '', value: 0, completed: false }
-      {type: 'daily', text: '1h Personal Project', notes: '', value: 0, completed: false }
-    ]
-    todos: [
-      {type: 'todo', text: 'VPM', notes: '', value: 0, completed: false }
-      {type: 'todo', text: 'mail', notes: '', value: 0, completed: false }
-      {type: 'todo', text: 'krav', notes: '', value: 0, completed: false }
-      {type: 'todo', text: 'rubber cement', notes: '', value: 0, completed: false }
-      {type: 'todo', text: 'bike', notes: '', value: 0, completed: false }
-      {type: 'todo', text: 'clean ~/.ievms', notes: '', value: 0, completed: false }
-      {type: 'todo', text: 'http://www.php-debug.com/www/', notes: '', value: 0, completed: false }
-      {type: 'todo', text: 'make sure IRA is setup for auto distribution', notes: '', value: 0, completed: false }
-    ]
-    rewards: [
-      {type: 'reward', text: 'TV Show', notes: '', value: 20 }
-      {type: 'reward', text: '1h Novel', notes: '', value: 10 }
-      {type: 'reward', text: 'Shop', notes: '', value: 10 }
-      {type: 'reward', text: 'Junk Food', notes: '', value: 10 }
-      {type: 'reward', text: '9gag', notes: '', value: 5 }
-      {type: 'reward', text: 'Coffee', notes: '', value: 5 }
-    ]
-    
   tourSteps: [
       { 
         element: "#avatar"

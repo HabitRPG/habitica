@@ -153,16 +153,6 @@ ready (model) ->
     # @render()
     # return false
     
-  exports.loadDebugDefaults = (e, el) ->
-    model.remove '_habitList', 0, 100, ->  
-      model.push '_habitList', task for task in content.tylerDefaultTasks.habits
-    model.remove '_dailyList', 0, 100, ->
-      model.push '_dailyList', task for task in content.tylerDefaultTasks.dailys
-    model.remove '_todoList', 0, 100, ->
-      model.push '_todoList', task for task in content.tylerDefaultTasks.todos
-    model.remove '_rewardList', 0, 100, ->  
-      model.push '_rewardList', task for task in content.tylerDefaultTasks.rewards
-    
   exports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
     list = model.at "_#{type}List"
@@ -410,9 +400,6 @@ ready (model) ->
     poormanscron()
   ), 3600000
   
-  exports.toggleDebug = ->
-    model.set('_debug', !model.get('_debug'))
-    
   exports.revive = (e, el) ->
     stats = model.at '_user.stats'
     stats.set 'hp', 50; stats.set 'lvl', 1; stats.set 'exp', 0; stats.set 'money', 0
