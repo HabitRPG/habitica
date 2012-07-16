@@ -387,7 +387,7 @@ ready (model) ->
     # tally experience
     expTally = user.get 'stats.exp'
     lvl = 0 #iterator
-    _(user.get('stats.lvl')-1).times ->
+    while lvl < (user.get('stats.lvl')-1)
       lvl++
       expTally += 50 * Math.pow(lvl, 2) - 150 * lvl + 200
     model.push '_user.history.exp',  { date: new Date(), value: expTally }
@@ -401,10 +401,10 @@ ready (model) ->
     DAY = 1000 * 60 * 60  * 24
     daysPassed = Math.floor((today.getTime() - lastCron.getTime()) / DAY)
     if daysPassed > 0
-      _(daysPassed).times ->
-        endOfDayTally()
       model.set('_user.lastCron', today) # reset cron
-      console.log {today: today, lastCron: lastCron, daysPassed: daysPassed}, 'cron debugging'
+      for n in [1..daysPassed]
+        console.log {today: today, lastCron: lastCron, daysPassed: daysPassed, n:n}, "[debug] Cron (#{today}, #{n})"
+        endOfDayTally()
   poormanscron() # Run once on refresh
   setInterval (-> # Then run once every hour
     poormanscron()
