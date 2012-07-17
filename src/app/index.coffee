@@ -70,6 +70,7 @@ get '/:userId?', (page, model, {userId}) ->
       }
       for task in content.defaultTasks
         guid = Guid.raw()
+        task.id = guid
         newUser.tasks[guid] = task
         switch task.type
           when 'habit' then newUser.habitIds.push guid 
@@ -187,13 +188,14 @@ ready (model) ->
     task.remove()
     
   exports.toggleTaskEdit = (e, el) ->
-    task = model.at $(el).parents('li')[0]
-    # $( document.getElementById(task.get('id')+'-chart') ).hide()
-    # $( document.getElementById(task.get('id')+'-edit') ).toggle()
+    hideId = $(el).attr('data-hide-id')
+    toggleId = $(el).attr('data-toggle-id')
+    $(document.getElementById(hideId)).hide()
+    $(document.getElementById(toggleId)).toggle()
 
   exports.toggleChart = (e, el) ->
-    hideSelector = $(el).attr('data-hide-selector')
-    chartSelector = $(el).attr('data-chart-selector')
+    hideSelector = $(el).attr('data-hide-id')
+    chartSelector = $(el).attr('data-toggle-id')
     historyPath = $(el).attr('data-history-path')
     $(document.getElementById(hideSelector)).hide()
     $(document.getElementById(chartSelector)).toggle()

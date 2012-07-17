@@ -176,9 +176,9 @@
     <div class="task-meta-controls">
 
       <div class="hover-show">
-        <a x-bind=click:toggleTaskEdit><i class="icon-pencil"></i></a>
+        <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit"><i class="icon-pencil"></i></a>
         {#if :task.history}
-          <a x-bind=click:toggleChart data-chart-selector="{{:task.id}}-chart" data-hide-selector="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history">
+          <a x-bind=click:toggleChart data-toggle-id="{{:task.id}}-chart" data-hide-id="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history">
             <i class="icon-signal"></i>
           </a>
         {/}
