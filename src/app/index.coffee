@@ -48,24 +48,20 @@ debug = (obj, message) ->
   console.log obj, "[debug] #{message}"
 
 get '/:userId?', (page, model, {userId}) ->
-  # # Saved session
-  # # TODO: this doesn't check that the user at guid exists, and 
-  # # will probably error since no user is created. Will only happen if 
-  # # first access, but still. model.get(userId) and model.get("users.#{userId}") aren't 
-  # # working for some reason
-  # debuggingUsers = (parseInt(userId) < 40) #these are users created before guid was in use, need to convert them to guid and get rid of this 
-  # if userId? and (Guid.isGuid(userId) or debuggingUsers)# and model.get(userId)?
-    # model.set '_userId', userId
-    # return getRoom page, model, userId
     
   model.subscribe "users", (err, users) ->
+    
+     # Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
+    debuggingUsers = (parseInt(userId) < 40) #these are users created before guid was in use, need to convert them to guid and get rid of this 
+    if userId? and (users.get(userId) or debuggingUsers)
+      model.set '_userId', userId
+      
+    # Current browser session
     # The session middleware will assign a _userId automatically
     # Render page if a userId is already stored in session data
-    userId = model.get '_userId' 
-    debug userId, 'model.get _userId'
-    if model.get "users.#{userId}"
-      debug userId, 'model.get userId'
-    else
+    userId = model.get '_userId'
+
+    unless model.get "users.#{userId}"
       # Otherwise, select a new userId and initialize user
       newUser = {
         stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
@@ -108,7 +104,7 @@ get '/:userId?', (page, model, {userId}) ->
 
 ready (model) ->
   
-  model.set '_purl', window.location.origin + '/' + model.get('_user.id')
+  model.set '_purl', window.location.origin + '/' + model.get('_userId')
   
   $('[rel=popover]').popover()
   #TODO: this isn't very efficient, do model.on set for specific attrs for popover 
