@@ -48,14 +48,15 @@ debug = (obj, message) ->
   console.log obj, "[debug] #{message}"
 
 get '/:userId?', (page, model, {userId}) ->
-    
+
   model.subscribe "users", (err, users) ->
     
-     # Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
+    # Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
     debuggingUsers = (parseInt(userId) < 40) #these are users created before guid was in use, need to convert them to guid and get rid of this 
     if userId? and (users.get(userId) or debuggingUsers)
-      model.set '_userId', userId
-      
+      model.set '_userId', userId # set for this request
+      model.session.userId = userId # and for next requests
+   
     # Current browser session
     # The session middleware will assign a _userId automatically
     # Render page if a userId is already stored in session data
