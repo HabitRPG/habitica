@@ -47,7 +47,6 @@ view.fn "silver", (num) ->
 debug = (obj, message) ->
   console.log obj, "[debug] #{message}"
 
-
 get '/:userId?', (page, model, {userId}) ->
   # # Saved session
   # # TODO: this doesn't check that the user at guid exists, and 
@@ -58,7 +57,7 @@ get '/:userId?', (page, model, {userId}) ->
   # if userId? and (Guid.isGuid(userId) or debuggingUsers)# and model.get(userId)?
     # model.set '_userId', userId
     # return getRoom page, model, userId
-  
+    
   model.subscribe "users", (err, users) ->
     # The session middleware will assign a _userId automatically
     # Render page if a userId is already stored in session data
@@ -66,26 +65,25 @@ get '/:userId?', (page, model, {userId}) ->
     debug userId, 'model.get _userId'
     if model.get "users.#{userId}"
       debug userId, 'model.get userId'
-      return getRoom page, model, userId
     else
       # Otherwise, select a new userId and initialize user
       newUser = {
-        tasks: {}
+        stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
+        items: { itemsEnabled: false, armor: 0, weapon: 0 }
+        tasks: content.defaultTasks.tasks
+        habitIds: content.defaultTasks.habitIds
+        dailyIds: content.defaultTasks.dailyIds
+        todoIds: content.defaultTasks.todoIds
+        rewardIds: content.defaultTasks.rewardIds
       }
+          
       users.set userId, newUser, (err, path, value) ->
         debug {err:err, path:path, value:value}, 'new user'
-        getRoom page, model, userId
 
-getRoom = (page, model, userId) ->
     user = model.at("users.#{userId}")
     model.ref '_user', user
-    debug user, 'user'
     
-    ### Set User Defaults ###
-    
-    # Default Items & Stats
-    user.setNull 'stats', { money: 0, exp: 0, lvl: 1, hp: 50 }
-    user.setNull 'items', { itemsEnabled: false, armor: 0, weapon: 0 }
+    # Store
     model.set '_items'
       armor: content.items.armor[parseInt(user.get('items.armor')) + 1]
       weapon: content.items.weapon[parseInt(user.get('items.weapon')) + 1]
@@ -100,12 +98,6 @@ getRoom = (page, model, userId) ->
     model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
     model.refList "_todoList", "_user.tasks", "_user.todoIds"
     model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
-    unless model.get('_user.tasks')
-      model.push '_habitList', {type: 'habit', text: '1h Productive Work', notes: '<u>Habits: Constantly Track</u><br/>For some habits, it only makes sense to <b>gain</b> points (like this one).', value: 0, up: true, down: false }
-      # model.push '_habitList', task for task in content.defaultTasks.habits
-      # model.push '_dailyList', task for task in content.defaultTasks.dailys
-      # model.push '_todoList', task for task in content.defaultTasks.todos
-      # model.push '_rewardList', task for task in content.defaultTasks.rewards
       
     page.render()  
 
@@ -197,8 +189,8 @@ ready (model) ->
     
   exports.toggleTaskEdit = (e, el) ->
     task = model.at $(el).parents('li')[0]
-    $('#\\' + task.get('id') + '-chart').hide()
-    $('#\\' + task.get('id') + '-edit').toggle()
+    # $( document.getElementById(task.get('id')+'-chart') ).hide()
+    # $( document.getElementById(task.get('id')+'-edit') ).toggle()
 
   exports.toggleChart = (e, el) ->
     hideSelector = $(el).attr('data-hide-selector')
