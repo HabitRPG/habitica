@@ -70,13 +70,16 @@ get '/:userId?', (page, model, {userId}) ->
       newUser = {
         stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
         items: { itemsEnabled: false, armor: 0, weapon: 0 }
-        tasks: content.defaultTasks.tasks
-        habitIds: content.defaultTasks.habitIds
-        dailyIds: content.defaultTasks.dailyIds
-        todoIds: content.defaultTasks.todoIds
-        rewardIds: content.defaultTasks.rewardIds
+        tasks: {}, habitIds: [], dailyIds: [], todoIds: [], rewardIds: []
       }
-          
+      for task in content.defaultTasks
+        guid = Guid.raw()
+        newUser.tasks[guid] = task
+        switch task.type
+          when 'habit' then newUser.habitIds.push guid 
+          when 'daily' then newUser.dailyIds.push guid 
+          when 'todo' then newUser.todoIds.push guid 
+          when 'reward' then newUser.rewardIds.push guid 
       users.set userId, newUser, (err, path, value) ->
         debug {err:err, path:path, value:value}, 'new user'
 
