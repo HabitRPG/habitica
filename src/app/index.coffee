@@ -44,9 +44,6 @@ view.fn "silver", (num) ->
   
 ## ROUTES ##
 
-debug = (obj, message) ->
-  console.log obj, "[debug] #{message}"
-
 get '/:userId?', (page, model, {userId}) ->
 
   model.subscribe "users", (err, users) ->
@@ -78,8 +75,7 @@ get '/:userId?', (page, model, {userId}) ->
           when 'daily' then newUser.dailyIds.push guid 
           when 'todo' then newUser.todoIds.push guid 
           when 'reward' then newUser.rewardIds.push guid 
-      users.set userId, newUser, (err, path, value) ->
-        debug {err:err, path:path, value:value}, 'new user'
+      users.set userId, newUser
 
     user = model.at("users.#{userId}")
     model.ref '_user', user
