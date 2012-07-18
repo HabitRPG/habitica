@@ -118,7 +118,7 @@
           </div>
         </div>
         {#if _user.history.todos}
-          <a x-bind=click:toggleChart data-chart-selector="todos-chart" data-history-path="_user.history.todos"><i class=icon-signal></i></a>
+          <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos"><i class=icon-signal></i></a>
           <div id="todos-chart" style="display:none;"></div>
         {/}
       </app:taskColumn>
