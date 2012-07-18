@@ -9,9 +9,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,14 +30,21 @@
       function Tour(options) {
         var _this = this;
         this._options = $.extend({
+          name: 'tour',
           afterSetState: function(key, value) {},
-          afterGetState: function(key, value) {}
+          afterGetState: function(key, value) {},
+          onShow: function(tour) {},
+          onHide: function(tour) {}
         }, options);
         this._steps = [];
         this.setCurrentStep();
         $(document).on("click", ".popover .next", function(e) {
           e.preventDefault();
           return _this.next();
+        });
+        $(document).on("click", ".popover .prev", function(e) {
+          e.preventDefault();
+          return _this.prev();
         });
         $(document).on("click", ".popover .end", function(e) {
           e.preventDefault();
@@ -46,7 +53,7 @@
       }
 
       Tour.prototype.setState = function(key, value) {
-        $.cookie("tour_" + key, value, {
+        $.cookie("" + this._options.name + "_" + key, value, {
           expires: 36500,
           path: '/'
         });
@@ -55,7 +62,7 @@
 
       Tour.prototype.getState = function(key) {
         var value;
-        value = $.cookie("tour_" + key);
+        value = $.cookie("" + this._options.name + "_" + key);
         this._options.afterGetState(key, value);
         return value;
       };
@@ -70,9 +77,11 @@
           placement: "right",
           title: "",
           content: "",
-          next: i + 1,
-          end: i === this._steps.length - 1,
-          animation: true
+          next: i === this._steps.length - 1 ? -1 : i + 1,
+          prev: i - 1,
+          animation: true,
+          onShow: this._options.onShow,
+          onHide: this._options.onHide
         }, this._steps[i]);
       };
 
@@ -88,6 +97,11 @@
       Tour.prototype.next = function() {
         this.hideStep(this._current);
         return this.showNextStep();
+      };
+
+      Tour.prototype.prev = function() {
+        this.hideStep(this._current);
+        return this.showPrevStep();
       };
 
       Tour.prototype.end = function() {
@@ -116,26 +130,17 @@
       };
 
       Tour.prototype.showStep = function(i) {
-        var endOnClick, step,
-          _this = this;
-        step = this.getStep(i);
-        if (step.element == null) {
-          this.end;
-          return;
-        }
+        var step;
         this.setCurrentStep(i);
+        step = this.getStep(i);
         if (step.path !== "" && document.location.pathname !== step.path && document.location.pathname.replace(/^.*[\\\/]/, '') !== step.path) {
           document.location.href = step.path;
           return;
         }
-        if ($(step.element).is(":hidden")) {
+        if (!((step.element != null) && $(step.element).length !== 0 && $(step.element).is(":visible"))) {
           this.showNextStep();
           return;
         }
-        endOnClick = step.endOnClick || step.element;
-        $(endOnClick).one("click", function() {
-          return _this.endCurrentStep();
-        });
         if (step.onShow != null) {
           step.onShow(this);
         }
@@ -156,27 +161,30 @@
         }
       };
 
-      Tour.prototype.endCurrentStep = function() {
-        var step;
-        this.hideStep(this._current);
-        step = this.getStep(this._current);
-        return this.setCurrentStep(step.next);
-      };
-
       Tour.prototype.showNextStep = function() {
         var step;
         step = this.getStep(this._current);
         return this.showStep(step.next);
       };
 
+      Tour.prototype.showPrevStep = function() {
+        var step;
+        step = this.getStep(this._current);
+        return this.showStep(step.prev);
+      };
+
       Tour.prototype._showPopover = function(step, i) {
-        var content, tip;
+        var content, nav, tip;
         content = "" + step.content + "<br /><p>";
-        if (step.end) {
-          content += "<a href='#' class='end'>End</a>";
-        } else {
-          content += "<a href='#" + step.next + "' class='next'>Next &raquo;</a>          <a href='#' class='pull-right end'>End tour</a></p>";
+        nav = [];
+        if (step.prev >= 0) {
+          nav.push("<a href='#" + step.prev + "' class='prev'>&laquo; Prev</a>");
         }
+        if (step.next >= 0) {
+          nav.push("<a href='#" + step.next + "' class='next'>Next &raquo;</a>");
+        }
+        content += nav.join(" | ");
+        content += "<a href='#' class='pull-right end'>End Tour</a>";
         $(step.element).popover({
           placement: step.placement,
           trigger: "manual",
