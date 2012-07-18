@@ -10,8 +10,8 @@ serverError = require './serverError'
 
 racer = require 'derby/node_modules/racer'
 racer.use(racer.logPlugin)
-#racer.set('transports', ['xhr-polling'])
-racer.set('bundle timeout', 10000)
+racer.set('transports', ['xhr-polling'])
+# racer.set('bundle timeout', 10000)
 
 ## SERVER CONFIGURATION ##
 
