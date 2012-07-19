@@ -79,9 +79,10 @@ get '/:uidParam?', (page, model, {uidParam}) ->
     #TODO these *Access functions aren't being called, why?      
     model.store.accessControl = true
     model.store.readPathAccess 'users.*', (id, accept) ->
+      console.log "model.writeAccess called with id:#{id}" # never called
       accept(id == userId)
     model.store.writeAccess '*', 'users.*', (id, accept) ->
-      console.log "model.writeAccess called with id:#{id}"
+      console.log "model.writeAccess called with id:#{id}" # never called
       accept(id == userId)
       
     getHabits(page, model, userId)      
