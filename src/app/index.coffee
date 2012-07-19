@@ -44,23 +44,22 @@ view.fn "silver", (num) ->
   
 ## ROUTES ##
 
-get '/:userId?', (page, model, {userId}) ->
-
-  model.subscribe "users", (err, users) ->
+get '/:uidParam?', (page, model, {uidParam}) ->
+  
+  model.fetch 'users', (err, users) ->
     
     # Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
-    debuggingUsers = (parseInt(userId) < 40) #these are users created before guid was in use, need to convert them to guid and get rid of this 
-    if userId? and (users.get(userId) or debuggingUsers)
-      model.set '_userId', userId # set for this request
-      model.session.userId = userId # and for next requests
-   
+    if uidParam? and users.get(uidParam)
+      model.set '_userId', uidParam # set for this request
+      model.session.userId = uidParam # and for next requests
+    
     # Current browser session
     # The session middleware will assign a _userId automatically
-    # Render page if a userId is already stored in session data
     userId = model.get '_userId'
-
-    unless model.get "users.#{userId}"
-      # Otherwise, select a new userId and initialize user
+    user = users.get(userId)
+    
+    # Else, select a new userId and initialize user
+    unless user?
       newUser = {
         stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
         items: { itemsEnabled: false, armor: 0, weapon: 0 }
@@ -76,8 +75,24 @@ get '/:userId?', (page, model, {userId}) ->
           when 'todo' then newUser.todoIds.push guid 
           when 'reward' then newUser.rewardIds.push guid 
       users.set userId, newUser
+      
+    #TODO these *Access functions aren't being called, why?      
+    model.store.accessControl = true
+    model.store.readPathAccess 'users.*', (id, accept) ->
+      accept(id == userId)
+    model.store.writeAccess '*', 'users.*', (id, accept) ->
+      console.log "model.writeAccess called with id:#{id}"
+      accept(id == userId)
+      
+    getHabits(page, model, userId)      
+      
+getHabits = (page, model, userId) ->  
 
-    user = model.at("users.#{userId}")
+  model.subscribe "users.#{userId}", (err, user) ->
+    console.log userId, 'userId'
+    console.log err, 'err'
+    console.log user.get(), '[debug] user'
+    
     model.ref '_user', user
     
     # Store
