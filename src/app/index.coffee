@@ -89,9 +89,9 @@ get '/:uidParam?', (page, model, {uidParam}) ->
 getHabits = (page, model, userId) ->  
 
   model.subscribe "users.#{userId}", (err, user) ->
-    console.log userId, 'userId'
-    console.log err, 'err'
-    console.log user.get(), '[debug] user'
+    
+    console.log userId, 'userId' # = 26c48325-2fea-4e2e-a60f-a5fa28d7b410 
+    console.log err, 'err' # = Unauthorized: No access control declared for path users.26c48325-2fea-4e2e-a60f-a5fa28d7b410 ???
     
     model.ref '_user', user
     
