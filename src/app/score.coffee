@@ -93,7 +93,7 @@ module.exports = (user, task, direction, cron) ->
     exp += expModifier(user, delta)
     money += delta
   # Deduct from health (rewards case handled above)
-  else if type != 'reward' and ( type!='todo' and cron )
+  else unless type in ['reward', 'todo']
     hp += hpModifier(user, delta)
 
   updateStats(user, {hp: hp, exp: exp, money: money})
