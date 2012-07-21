@@ -4,6 +4,7 @@ derby.use require('derby-ui-boot')
 derby.use(require('../../ui'))
 content = require('./content')
 Guid = require('guid')
+score = require('./score')
 
 ## VIEW HELPERS ##
 view.fn 'taskClasses', (type, completed, value, hideCompleted) ->
@@ -76,14 +77,14 @@ get '/:uidParam?', (page, model, {uidParam}) ->
           when 'reward' then newUser.rewardIds.push guid 
       users.set userId, newUser
       
-    #TODO these *Access functions aren't being called, why?      
-    model.store.accessControl = true
-    model.store.readPathAccess 'users.*', (id, accept) ->
-      console.log "model.writeAccess called with id:#{id}" # never called
-      accept(id == userId)
-    model.store.writeAccess '*', 'users.*', (id, accept) ->
-      console.log "model.writeAccess called with id:#{id}" # never called
-      accept(id == userId)
+    # #TODO these *Access functions aren't being called, why?      
+    # model.store.accessControl = true
+    # model.store.readPathAccess 'users.*', (id, accept) ->
+      # console.log "model.writeAccess called with id:#{id}" # never called
+      # accept(id == userId)
+    # model.store.writeAccess '*', 'users.*', (id, accept) ->
+      # console.log "model.writeAccess called with id:#{id}" # never called
+      # accept(id == userId)
       
     getHabits(page, model, userId)      
       
@@ -104,7 +105,7 @@ getHabits = (page, model, userId) ->
       reroll: content.items.reroll
 
     # http://tibia.wikia.com/wiki/Formula 
-    model.fn '_tnl', '_user.stats.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
+    model.fn '_user._tnl', '_user.stats.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
     
     # Default Tasks
     model.refList "_habitList", "_user.tasks", "_user.habitIds"
@@ -255,113 +256,15 @@ ready (model) ->
         task = model.at('_user.tasks.'+taskId)
         task.set('value', 0) unless task.get('type')=='reward' 
         
-  # Setter for user.stats: handles death, leveling up, etc
-  exports.updateStats = updateStats = (user, stats) ->
-    if stats.hp?
-      # game over
-      if stats.hp < 0
-        user.set 'stats.lvl', 0 # this signifies dead
-      else
-        user.set 'stats.hp', stats.hp
-  
-    if stats.exp?
-      # level up & carry-over exp
-      tnl = model.get '_tnl'
-      if stats.exp >= tnl
-        stats.exp -= tnl
-        user.set 'stats.lvl', user.get('stats.lvl') + 1
-      if !user.get('items.itemsEnabled') and stats.exp >=50
-        user.set 'items.itemsEnabled', true
-        $('ul.items').popover
-          title: content.items.unlockedMessage.title
-          placement: 'left'
-          trigger: 'manual'
-          html: true
-          content: "<div class='item-store-popover'>\
-            <img src='/img/BrowserQuest/chest.png' />\
-            #{content.items.unlockedMessage.content} <a href='#' onClick=\"$('ul.items').popover('hide');return false;\">[Close]</a>\
-            </div>"
-        $('ul.items').popover 'show'
-
-      user.set 'stats.exp', stats.exp
-      
-    if stats.money?
-      money = 0.0 if (!money? or money<0)
-      user.set 'stats.money', stats.money
-      
-  # Calculates Exp modification based on weapon & lvl
-  expModifier = (value) ->
-    user = model.at '_user'
-    dmg = user.get('items.weapon') * .03 # each new weapon adds an additional 3% experience
-    dmg += user.get('stats.lvl') * .03 # same for lvls
-    modified = value + (value * dmg)
-    return modified
-
-  # Calculates HP-loss modification based on armor & lvl
-  hpModifier = (value) ->
-    user = model.at '_user'
-    ac = user.get('items.armor') * .03 # each new armor blocks an additional 3% damage
-    ac += user.get('stats.lvl') * .03 # same for lvls
-    modified = value - (value * ac)
-    return modified
       
   exports.vote = (e, el, next) ->
     direction = $(el).attr('data-direction')
     direction = 'up' if direction == 'true/'
     direction = 'down' if direction == 'false/'
-    
-    #TODO this should be model.at(el), shouldn't have to find parent
+    user = model.at('_user')
     task = model.at $(el).parents('li')[0]
-    user = model.at '_user'
-    # For negative values, use a line: something like y=-.1x+1
-    # For positibe values, taper off with inverse log: y=.9^x
-    # Would love to use inverse log for the whole thing, but after 13 fails it hits infinity
-    sign = if (direction == "up") then 1 else -1
-    value = task.get('value')
-    delta = 0
-    if value < 0
-      delta = (( -0.1 * value + 1 ) * sign)
-    else
-      delta = (( Math.pow(0.9, value) ) * sign)
-
-    # Don't adjust values for rewards, or for habits that don't have both + and -
-    adjustvalue = (task.get('type') != 'reward')
-    if (task.get('type') == 'habit') and (task.get("up")==false or task.get("down")==false)
-      adjustvalue = false
-    value += delta if adjustvalue
-
-    # up/down -voting as checkbox & assigning as completed, 2 birds one stone
-    completed = task.get("completed")
-    if task.get('type') != 'habit'
-      completed = true if direction=="up"
-      completed = false if direction=="down"
-    else
-      # Add habit value to habit-history (if different)
-      task.push 'history', { date: new Date(), value: value } if task.get('value') != value
-    task.set('value', value)
-    task.set('completed', completed)
-
-    # Update the user's status
-    [money, hp, exp, lvl] = [user.get('stats.money'), user.get('stats.hp'), user.get('stats.exp'), user.get('stats.lvl')]
-
-    if task.get('type') == 'reward'
-      # purchase item
-      money -= task.get('value')
-      # if too expensive, reduce health & zero money
-      if money < 0
-        hp += money # hp - money difference
-        money = 0
-
-    # If positive delta, add points to exp & money
-    # Only take away mony if it was a mistake (aka, a checkbox)
-    if delta > 0 or (task.get('type') == 'daily'  or task.get('type') == 'todo')
-      exp += expModifier(delta)
-      money += delta
-    # Deduct from health (rewards case handled above)
-    else if task.get('type') != 'reward'
-      hp += hpModifier(delta)
-
-    updateStats(user, {hp: hp, exp: exp, money: money})
+    
+    score(user, task, direction) 
     
   # Note: Set 12am daily cron for this
   # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
@@ -375,15 +278,10 @@ ready (model) ->
     for key of model.get '_user.tasks'
       task = model.at "_user.tasks.#{key}"
       [type, value, completed] = [task.get('type'), task.get('value'), task.get('completed')] 
-      if type == 'todo' or type == 'daily'
-        unless completed
-          value += if (value < 0) then (( -0.1 * value + 1 ) * -1) else (( Math.pow(0.9,value) ) * -1)
-          task.set('value', value)
-          # Deduct experience for missed Daily tasks, 
-          # but not for Todos (just increase todo's value)
-          if (type == 'daily')
-            hp = user.get('stats.hp') + hpModifier(value)
-            updateStats user, { hp: hp }
+      if type in ['todo', 'daily']
+        # Deduct experience for missed Daily tasks, 
+        # but not for Todos (just increase todo's value)
+        score(user, task, 'down', true) unless completed
         if type == 'daily'
           task.push "history", { date: new Date(), value: value }
         else
