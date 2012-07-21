@@ -3,7 +3,6 @@ derby = require('derby')
 derby.use require('derby-ui-boot')
 derby.use(require('../../ui'))
 content = require('./content')
-Guid = require('guid')
 score = require('./score')
 
 ## VIEW HELPERS ##
@@ -67,8 +66,7 @@ get '/:uidParam?', (page, model, {uidParam}) ->
         tasks: {}, habitIds: [], dailyIds: [], todoIds: [], rewardIds: []
       }
       for task in content.defaultTasks
-        guid = Guid.raw()
-        task.id = guid
+        guid = task.id = require('derby/node_modules/racer').uuid()
         newUser.tasks[guid] = task
         switch task.type
           when 'habit' then newUser.habitIds.push guid 
