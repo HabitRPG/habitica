@@ -6,12 +6,11 @@ content = require('./content')
 score = require('./score')
 
 ## VIEW HELPERS ##
-view.fn 'taskClasses', (type, completed, value, hideCompleted) ->
+
+view.fn 'taskClasses', (type, completed, value) ->
   #TODO figure out how to just pass in the task model, so i can access all these properties from one object
   classes = type
   classes += " completed" if completed
-  if type == 'todo'
-    classes += " hide" if (hideCompleted and completed) or (!hideCompleted and !completed)
     
   switch
     when value<-8 then classes += ' color-worst'
@@ -63,7 +62,7 @@ get '/:uidParam?', (page, model, {uidParam}) ->
       newUser = {
         stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
         items: { itemsEnabled: false, armor: 0, weapon: 0 }
-        tasks: {}, habitIds: [], dailyIds: [], todoIds: [], rewardIds: []
+        tasks: {}, habitIds: [], dailyIds: [], todoIds: [], completedIds: [], rewardIds: []
       }
       for task in content.defaultTasks
         guid = task.id = require('derby/node_modules/racer').uuid()
@@ -109,6 +108,7 @@ getHabits = (page, model, userId) ->
     model.refList "_habitList", "_user.tasks", "_user.habitIds"
     model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
     model.refList "_todoList", "_user.tasks", "_user.todoIds"
+    model.refList "_completedList", "_user.tasks", "_user.completedIds"
     model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
       
     page.render()  
@@ -124,12 +124,21 @@ ready (model) ->
   model.on 'set', '*', ->
     $('[rel=popover]').popover()
   
-  model.set('_hideCompleted', true)
-  $('a[data-toggle="tab"]').on 'shown', (e) ->
-    #see http://twitter.github.com/bootstrap/javascript.html#tabs 
-    hideCompleted = if $(e.target).attr('href') == '#tab1' then true else false  
-    model.set('_hideCompleted', hideCompleted)
-      
+  model.on 'set', '_user.tasks.*.completed', (i, completed, previous, isLocal) ->
+    [from, to, shouldTransfer, direction] = [null, null, false, null]
+    if completed==true and previous==false and isLocal
+      [from, to, shouldTransfer, direction] = ['_todoList', '_completedList', true, 'up']
+    else if completed==false and previous==true and isLocal
+      [from, to, shouldTransfer, direction] = ['_completedList', '_todoList', true, 'down']
+    if shouldTransfer
+      ids = _.map model.get(from), (obj) ->
+        obj.id
+      index = ids.indexOf(i)
+      model.push to, model.remove(from, index)
+      score(model.at('_user'), model.at(i), direction) 
+ 
+    console.log {i:i, completed:completed, previous:previous, isLocal:isLocal}, 'on completed'
+  
   # Make the lists draggable using jQuery UI
   # Note, have to setup helper function here and call it for each type later
   # due to variable binding of "type"

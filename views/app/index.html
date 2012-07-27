@@ -115,7 +115,7 @@
             </div>
             <div class="tab-pane" id="tab2">
               <ul class='completeds'>
-                {#each _todoList as :task}<app:task />{/}
+                {#each _completedList as :task}<app:task />{/}
               </ul>
             </div>
           </div>
@@ -174,7 +174,7 @@
   </form>
 
 <task:>
-  <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, _hideCompleted)}">
+  <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value)}">
     <pre>
     <div class="task-meta-controls">
 
