@@ -2,45 +2,13 @@ derby = require('derby')
 {get, view, ready} = derby.createApp module
 derby.use require('derby-ui-boot')
 derby.use(require('../../ui'))
+
+# Custom requires
 content = require('./content')
-Scoring = require('./scoring')
-  
-# ========== VIEW HELPERS ==========
+scoring = require('./scoring')
+schema = require('./schema')
+require('./viewHelpers')(view)
 
-view.fn 'taskClasses', (type, completed, value) ->
-  #TODO figure out how to just pass in the task model, so i can access all these properties from one object
-  classes = type
-  classes += " completed" if completed
-    
-  switch
-    when value<-8 then classes += ' color-worst'
-    when value>=-8 and value<-5 then classes += ' color-worse'
-    when value>=-5 and value<-1 then classes += ' color-bad' 
-    when value>=-1 and value<1 then classes += ' color-neutral'
-    when value>=1 and value<5 then classes += ' color-good' 
-    when value>=5 and value<10 then classes += ' color-better' 
-    when value>=10 then classes += ' color-best'
-  return classes
-    
-view.fn "percent", (x, y) ->
-  x=1 if x==0
-  Math.round(x/y*100)
-    
-view.fn "round", (num) ->
-  Math.round num
-  
-view.fn "gold", (num) -> 
-  if num
-    return num.toFixed(1).split('.')[0]
-  else
-    return "0"
-
-view.fn "silver", (num) -> 
-  if num
-    num.toFixed(1).split('.')[1]
-  else
-    return "0" 
-  
 # ========== ROUTES ==========
 
 get '/:uidParam?', (page, model, {uidParam}) ->
@@ -59,7 +27,7 @@ get '/:uidParam?', (page, model, {uidParam}) ->
     
     # Else, select a new userId and initialize user
     unless user?
-      newUser = require('./schema').userSchema
+      newUser = schema.userSchema
       for task in content.defaultTasks
         guid = task.id = require('derby/node_modules/racer').uuid()
         newUser.tasks[guid] = task
@@ -159,7 +127,7 @@ ready (model) ->
       
     # Score the user based on todo task
     task = model.at("_user.tasks.#{i}")
-    Scoring.score({user:model.at('_user'), task:task, direction:direction()})
+    scoring.score({user:model.at('_user'), task:task, direction:direction()})
     
     # Then move the todos to/from _todoList/_completedList
     if task.get('type') == 'todo'
@@ -272,7 +240,7 @@ ready (model) ->
     user = model.at('_user')
     task = model.at $(el).parents('li')[0]
     
-    Scoring.score({user:user, task:task, direction:direction}) 
+    scoring.score({user:user, task:task, direction:direction}) 
     
   exports.revive = (e, el) ->
     stats = model.at '_user.stats'
@@ -295,7 +263,7 @@ ready (model) ->
       model.set('_user.lastCron', today) # reset cron
       for n in [1..daysPassed]
         console.log {today: today, lastCron: lastCron, daysPassed: daysPassed, n:n}, "[debug] Cron (#{today}, #{n})"
-        Scoring.tally(model)
+        scoring.tally(model)
   poormanscron() # Run once on refresh
   setInterval (-> # Then run once every hour
     poormanscron()
@@ -304,11 +272,11 @@ ready (model) ->
   # ========== DEBUGGING ==========
   
   exports.endOfDayTally = (e, el) ->
-    Scoring.tally(model)
+    scoring.tally(model)
   
   # Temporary solution to running updates against the schema when the code changes
   exports.updateSchema = (e, el) ->
-    require('./schema').updateSchema(model)
+    schema.updateSchema(model)
     
   # ========== SHORTCUTS ==========
 

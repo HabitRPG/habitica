@@ -11,7 +11,19 @@ module.exports.userSchema = userSchema = {
 }  
   
 module.exports.updateSchema = (model) ->
-  # removed old update code, dangerous to run twice. 
-  # I'm placing db-update code in this function while still in dev, then running
-  # once on the server, then removing the code. FIXME figure out something better
-  return
+  # users = model.get('users')
+  # console.log _.size(users), 'users.size before'
+  # for uid,userObj of users
+    # # remove if they don't have a lastCron (older accounts didn't)
+    # unless userObj.lastCron?
+      # model.del "users.#{uid}"
+#    
+    # # remove if they haven't logged in in 30 days
+    # lastCron = new Date( (new Date(userObj.lastCron)).toDateString() ) # calculate as midnight
+    # today = new Date((new Date).toDateString()) # calculate as midnight
+    # DAY = 1000 * 60 * 60  * 24
+    # daysPassed = Math.floor((today.getTime() - lastCron.getTime()) / DAY)
+    # if daysPassed > 30
+      # model.del "users.#{uid}"
+    
+    # TODO  instead of the above, remove all users who's tasks compare directly to require('./content).defaultTasks
