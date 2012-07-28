@@ -44,7 +44,6 @@ view.fn "silver", (num) ->
 # ========== ROUTES ==========
 
 get '/:uidParam?', (page, model, {uidParam}) ->
-  console.log Scoring
   
   model.fetch 'users', (err, users) ->
     
@@ -89,9 +88,8 @@ get '/:uidParam?', (page, model, {uidParam}) ->
 getHabits = (page, model, userId) ->  
 
   model.subscribe "users.#{userId}", (err, user) ->
-    
-    console.log userId, 'userId' # = 26c48325-2fea-4e2e-a60f-a5fa28d7b410 
-    console.log err, 'err' # = Unauthorized: No access control declared for path users.26c48325-2fea-4e2e-a60f-a5fa28d7b410 ???
+    console.log {userId:userId, err:err}, "app/index.coffee: model.subscribe"
+    # => {userId: 26c48325-2fea-4e2e-a60f-a5fa28d7b410, err: Unauthorized: No access control declared for path users.26c48325-2fea-4e2e-a60f-a5fa28d7b410 }
     
     model.ref '_user', user
     
@@ -177,12 +175,16 @@ ready (model) ->
     
     # Then move the todos to/from _todoList/_completedList
     if task.get('type') == 'todo'
-      [from, to] = if (direction()=='up') then ['_todoList', '_completedList'] else ['_completedList', '_todoList']
-      ids = _.map model.get(from), (obj) ->
-        obj.id
-      index = ids.indexOf(i)
-      model.push to, task.get(), () -> 
-        model.remove from, index
+      [from, to] = if (direction()=='up') then ['todo', 'completed'] else ['completed', 'todo']
+      [from, to] = ["_user.#{from}Ids", "_user.#{to}Ids"]
+      # Remove from source (just remove the id from id-list)
+      fromIds = model.get(from)
+      fromIds.splice(fromIds.indexOf(i), 1)
+      model.set from, fromIds
+      # Push to target (just the id to id-list)
+      toIds = model.get(to)
+      toIds.push i
+      model.set to, toIds
     
   exports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
