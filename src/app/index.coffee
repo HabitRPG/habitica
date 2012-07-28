@@ -164,17 +164,18 @@ ready (model) ->
     # return false
     
   model.on 'set', '_user.tasks.*.completed', (i, completed, previous, isLocal) ->
-
-    [from, to, shouldTransfer, direction] = [null, null, false, null]
-    if completed==true and previous==false and isLocal
-      [from, to, shouldTransfer, direction] = ['_todoList', '_completedList', true, 'up']
-    else if completed==false and previous==true and isLocal
-      [from, to, shouldTransfer, direction] = ['_completedList', '_todoList', true, 'down']
-    if shouldTransfer
-      task = model.at("_user.tasks.#{i}")
-      # Score the user based on todo task
-      score({user:model.at('_user'), task:task, direction:direction})
-      # Then move the task to/from _todoList/_completedList      
+    direction = () ->
+      return 'up' if completed==true and previous == false
+      return 'down' if completed==false and previous == true
+      console.error 'Error: direction neither "up" nor "down" on checkbox set.'
+      
+    # Score the user based on todo task
+    task = model.at("_user.tasks.#{i}")
+    score({user:model.at('_user'), task:task, direction:direction()})
+    
+    # Then move the todos to/from _todoList/_completedList
+    if task.get('type') == 'todo'
+      [from, to] = if (direction()=='up') then ['_todoList', '_completedList'] else ['_completedList', '_todoList']
       ids = _.map model.get(from), (obj) ->
         obj.id
       index = ids.indexOf(i)
