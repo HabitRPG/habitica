@@ -5,6 +5,34 @@ derby.use(require('../../ui'))
 content = require('./content')
 Scoring = require('./scoring')
 
+# ========== MODEL SCHEMA ==========
+
+userSchema = 
+  stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
+  items: { itemsEnabled: false, armor: 0, weapon: 0 }
+  tasks: {}
+  habitIds: [] 
+  dailyIds: [] 
+  todoIds: []
+  completedIds: [] 
+  rewardIds: []
+  
+# Temporary solution to running updates against the schema when the code changes
+schemaUpdates = (model) ->
+  user = model.at('_user')
+  for key, val of userSchema
+    user.setNull key, val
+  
+  # _todoList <-> _completdList transfering code update
+  completedIds = user.get('completedIds')
+  todoIds = user.get('todoIds')
+  if completedIds.length==0
+    for todo in model.get('_todoList')
+      if todo.completed
+        index = todoIds.indexOf(todo.id)
+        todoIds.splice(index, 1)
+        completedIds.push todo.id
+
 # ========== VIEW HELPERS ==========
 
 view.fn 'taskClasses', (type, completed, value) ->
@@ -59,11 +87,7 @@ get '/:uidParam?', (page, model, {uidParam}) ->
     
     # Else, select a new userId and initialize user
     unless user?
-      newUser = {
-        stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
-        items: { itemsEnabled: false, armor: 0, weapon: 0 }
-        tasks: {}, habitIds: [], dailyIds: [], todoIds: [], completedIds: [], rewardIds: []
-      }
+      newUser = userSchema
       for task in content.defaultTasks
         guid = task.id = require('derby/node_modules/racer').uuid()
         newUser.tasks[guid] = task
@@ -90,7 +114,6 @@ getHabits = (page, model, userId) ->
   model.subscribe "users.#{userId}", (err, user) ->
     console.log {userId:userId, err:err}, "app/index.coffee: model.subscribe"
     # => {userId: 26c48325-2fea-4e2e-a60f-a5fa28d7b410, err: Unauthorized: No access control declared for path users.26c48325-2fea-4e2e-a60f-a5fa28d7b410 }
-    
     model.ref '_user', user
     
     # Store
@@ -109,6 +132,10 @@ getHabits = (page, model, userId) ->
     model.refList "_todoList", "_user.tasks", "_user.todoIds"
     model.refList "_completedList", "_user.tasks", "_user.completedIds"
     model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
+    
+    # Run any database updates in case the code has been updated. Strange placement,
+    # I know - FIXME
+    schemaUpdates(model)
       
     page.render()  
 
