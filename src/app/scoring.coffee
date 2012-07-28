@@ -49,6 +49,7 @@ updateStats = (user, stats) ->
     user.set 'stats.money', stats.money
     
 exports.score = score = (spec = {user:null, task:null, direction:null, cron:null}) ->
+  # console.log spec, "scoring.coffee: score( ->spec<- )" 
   [user, task, direction, cron] = [spec.user, spec.task, spec.direction, spec.cron]
   
   # For negative values, use a line: something like y=-.1x+1
@@ -66,17 +67,10 @@ exports.score = score = (spec = {user:null, task:null, direction:null, cron:null
     adjustvalue = false
   value += delta if adjustvalue
 
-  # # up/down -voting as checkbox & assigning as completed, 2 birds one stone
-  # completed = task.get("completed")
-  # if type != 'habit'
-    # completed = true if direction=="up"
-    # completed = false if direction=="down"
-  # else
   if type == 'habit'
     # Add habit value to habit-history (if different)
     task.push 'history', { date: new Date(), value: value } if task.get('value') != value
   task.set('value', value)
-  # task.set('completed', completed)
 
   # Update the user's status
   [money, hp, exp, lvl] = [user.get('stats.money'), user.get('stats.hp'), user.get('stats.exp'), user.get('stats.lvl')]
@@ -91,7 +85,7 @@ exports.score = score = (spec = {user:null, task:null, direction:null, cron:null
       
   # Add points to exp & money if positive delta
   # Only take away mony if it was a mistake (aka, a checkbox)
-  if delta > 0 or ( type in ['daily', 'todo'] and !cron )
+  if (delta > 0 or ( type in ['daily', 'todo'])) and !cron
     exp += expModifier(user, delta)
     money += delta
   # Deduct from health (rewards case handled above)
@@ -121,7 +115,7 @@ exports.tally = tally = (model) ->
       else
         absVal = if (completed) then Math.abs(value) else value
         todoTally += absVal
-      task.set('completed', false) if type == 'daily'
+      task.pass({cron:true}).set('completed', false) if type == 'daily'
   model.push '_user.history.todos', { date: new Date(), value: todoTally }
   
   # tally experience

@@ -164,11 +164,12 @@ ready (model) ->
     # @render()
     # return false
     
-  model.on 'set', '_user.tasks.*.completed', (i, completed, previous, isLocal) ->
+  model.on 'set', '_user.tasks.*.completed', (i, completed, previous, isLocal, passed) ->
+    return if passed.cron? # Don't do this stuff on cron
     direction = () ->
       return 'up' if completed==true and previous == false
       return 'down' if completed==false and previous == true
-      console.error 'Error: direction neither "up" nor "down" on checkbox set.'
+      throw new Error("Direction neither 'up' nor 'down' on checkbox set.")
       
     # Score the user based on todo task
     task = model.at("_user.tasks.#{i}")
