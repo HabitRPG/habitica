@@ -182,13 +182,6 @@ ready (model) ->
       placement: step.placement
   tour.start()
         
-  #TODO: implement this for completed tab
-  # clearCompleted: ->
-    # _.each @options.habits.doneTodos(), (todo) ->
-      # todo.destroy()
-    # @render()
-    # return false
-    
   model.on 'set', '_user.tasks.*.completed', (i, completed, previous, isLocal, passed) ->
     return if passed.cron? # Don't do this stuff on cron
     direction = () ->
@@ -242,6 +235,11 @@ ready (model) ->
     # fix when query subscriptions implemented properly
     model.del('_user.tasks.'+task.get('id'))
     task.remove()
+    
+  exports.clearCompleted = (e, el) ->
+    _.each model.get('_completedList'), (task) ->
+      model.del('_user.tasks.'+task.id)
+      model.set('_user.completedIds', [])
     
   exports.toggleTaskEdit = (e, el) ->
     hideId = $(el).attr('data-hide-id')

@@ -117,6 +117,7 @@
               <ul class='completeds'>
                 {#each _completedList as :task}<app:task />{/}
               </ul>
+              <a x-bind=click:clearCompleted>Clear Completed</a>
             </div>
           </div>
         </div>
