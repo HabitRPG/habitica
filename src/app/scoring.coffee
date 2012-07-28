@@ -47,8 +47,8 @@ updateStats = (user, stats) ->
   if stats.money?
     money = 0.0 if (!money? or money<0)
     user.set 'stats.money', stats.money
- 
-module.exports = (spec = {user:null, task:null, direction:null, cron:null}) ->
+    
+exports.score = score = (spec = {user:null, task:null, direction:null, cron:null}) ->
   [user, task, direction, cron] = [spec.user, spec.task, spec.direction, spec.cron]
   
   # For negative values, use a line: something like y=-.1x+1
@@ -100,4 +100,34 @@ module.exports = (spec = {user:null, task:null, direction:null, cron:null}) ->
 
   updateStats(user, {hp: hp, exp: exp, money: money})
   
-  return delta
+  return delta 
+
+# At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
+# For incomplete Dailys, deduct experience
+exports.tally = tally = (model) ->
+  # users = model.at('users') #TODO this isn't working, iterate over all users
+  # for user in users
+  user = model.at '_user'
+  todoTally = 0
+  for key of model.get '_user.tasks'
+    task = model.at "_user.tasks.#{key}"
+    [type, value, completed] = [task.get('type'), task.get('value'), task.get('completed')] 
+    if type in ['todo', 'daily']
+      # Deduct experience for missed Daily tasks, 
+      # but not for Todos (just increase todo's value)
+      score({user:user, task:task, direction:'down', cron:true}) unless completed
+      if type == 'daily'
+        task.push "history", { date: new Date(), value: value }
+      else
+        absVal = if (completed) then Math.abs(value) else value
+        todoTally += absVal
+      task.set('completed', false) if type == 'daily'
+  model.push '_user.history.todos', { date: new Date(), value: todoTally }
+  
+  # tally experience
+  expTally = user.get 'stats.exp'
+  lvl = 0 #iterator
+  while lvl < (user.get('stats.lvl')-1)
+    lvl++
+    expTally += 50 * Math.pow(lvl, 2) - 150 * lvl + 200
+  model.push '_user.history.exp',  { date: new Date(), value: expTally } 

@@ -3,9 +3,9 @@ derby = require('derby')
 derby.use require('derby-ui-boot')
 derby.use(require('../../ui'))
 content = require('./content')
-score = require('./score')
+Scoring = require('./scoring')
 
-## VIEW HELPERS ##
+# ========== VIEW HELPERS ==========
 
 view.fn 'taskClasses', (type, completed, value) ->
   #TODO figure out how to just pass in the task model, so i can access all these properties from one object
@@ -41,9 +41,10 @@ view.fn "silver", (num) ->
   else
     return "0" 
   
-## ROUTES ##
+# ========== ROUTES ==========
 
 get '/:uidParam?', (page, model, {uidParam}) ->
+  console.log Scoring
   
   model.fetch 'users', (err, users) ->
     
@@ -113,7 +114,7 @@ getHabits = (page, model, userId) ->
       
     page.render()  
 
-## CONTROLLER FUNCTIONS ##
+# ========== CONTROLLER FUNCTIONS ==========
 
 ready (model) ->
   
@@ -171,7 +172,7 @@ ready (model) ->
       
     # Score the user based on todo task
     task = model.at("_user.tasks.#{i}")
-    score({user:model.at('_user'), task:task, direction:direction()})
+    Scoring.score({user:model.at('_user'), task:task, direction:direction()})
     
     # Then move the todos to/from _todoList/_completedList
     if task.get('type') == 'todo'
@@ -275,41 +276,18 @@ ready (model) ->
     user = model.at('_user')
     task = model.at $(el).parents('li')[0]
     
-    score({user:user, task:task, direction:direction}) 
+    Scoring.score({user:user, task:task, direction:direction}) 
     
-  # Note: Set 12am daily cron for this
-  # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-  # For incomplete Dailys, deduct experience
-  #TODO: remove from exports when cron implemented  
-  exports.endOfDayTally = endOfDayTally = (e, el) ->
-    # users = model.at('users') #TODO this isn't working, iterate over all users
-    # for user in users
-    user = model.at '_user'
-    todoTally = 0
-    for key of model.get '_user.tasks'
-      task = model.at "_user.tasks.#{key}"
-      [type, value, completed] = [task.get('type'), task.get('value'), task.get('completed')] 
-      if type in ['todo', 'daily']
-        # Deduct experience for missed Daily tasks, 
-        # but not for Todos (just increase todo's value)
-        score({user:user, task:task, direction:'down', cron:true}) unless completed
-        if type == 'daily'
-          task.push "history", { date: new Date(), value: value }
-        else
-          absVal = if (completed) then Math.abs(value) else value
-          todoTally += absVal
-        task.set('completed', false) if type == 'daily'
-    model.push '_user.history.todos', { date: new Date(), value: todoTally }
+  exports.revive = (e, el) ->
+    stats = model.at '_user.stats'
+    stats.set 'hp', 50; stats.set 'lvl', 1; stats.set 'exp', 0; stats.set 'money', 0
+    model.set '_user.items.armor', 0
+    model.set '_user.items.weapon', 0
+    model.set '_items.armor', content.items.armor[1]
+    model.set '_items.weapon', content.items.weapon[1]
     
-    # tally experience
-    expTally = user.get 'stats.exp'
-    lvl = 0 #iterator
-    while lvl < (user.get('stats.lvl')-1)
-      lvl++
-      expTally += 50 * Math.pow(lvl, 2) - 150 * lvl + 200
-    model.push '_user.history.exp',  { date: new Date(), value: expTally }
-    
-     
+  # ========== CRON ==========
+  
   #TODO: remove when cron implemented 
   exports.poormanscron = poormanscron = ->
     model.setNull('_user.lastCron', new Date())
@@ -327,15 +305,12 @@ ready (model) ->
     poormanscron()
   ), 3600000
   
-  exports.revive = (e, el) ->
-    stats = model.at '_user.stats'
-    stats.set 'hp', 50; stats.set 'lvl', 1; stats.set 'exp', 0; stats.set 'money', 0
-    model.set '_user.items.armor', 0
-    model.set '_user.items.weapon', 0
-    model.set '_items.armor', content.items.armor[1]
-    model.set '_items.weapon', content.items.weapon[1]
+  # Note: Set 12am daily cron for this
+  #TODO: remove from exports when cron implemented  
+  exports.endOfDayTally = endOfDayTally = (e, el) ->
+    Scoring.tally(model)
     
-  ## SHORTCUTS ##
+  # ========== SHORTCUTS ==========
 
   exports.shortcuts = (e) ->
     return unless e.metaKey || e.ctrlKey
