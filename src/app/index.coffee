@@ -124,21 +124,6 @@ ready (model) ->
   model.on 'set', '*', ->
     $('[rel=popover]').popover()
   
-  model.on 'set', '_user.tasks.*.completed', (i, completed, previous, isLocal) ->
-    [from, to, shouldTransfer, direction] = [null, null, false, null]
-    if completed==true and previous==false and isLocal
-      [from, to, shouldTransfer, direction] = ['_todoList', '_completedList', true, 'up']
-    else if completed==false and previous==true and isLocal
-      [from, to, shouldTransfer, direction] = ['_completedList', '_todoList', true, 'down']
-    if shouldTransfer
-      ids = _.map model.get(from), (obj) ->
-        obj.id
-      index = ids.indexOf(i)
-      model.push to, model.remove(from, index)
-      score(model.at('_user'), model.at(i), direction) 
- 
-    console.log {i:i, completed:completed, previous:previous, isLocal:isLocal}, 'on completed'
-  
   # Make the lists draggable using jQuery UI
   # Note, have to setup helper function here and call it for each type later
   # due to variable binding of "type"
@@ -177,6 +162,24 @@ ready (model) ->
       # todo.destroy()
     # @render()
     # return false
+    
+  model.on 'set', '_user.tasks.*.completed', (i, completed, previous, isLocal) ->
+
+    [from, to, shouldTransfer, direction] = [null, null, false, null]
+    if completed==true and previous==false and isLocal
+      [from, to, shouldTransfer, direction] = ['_todoList', '_completedList', true, 'up']
+    else if completed==false and previous==true and isLocal
+      [from, to, shouldTransfer, direction] = ['_completedList', '_todoList', true, 'down']
+    if shouldTransfer
+      task = model.at("_user.tasks.#{i}")
+      # Score the user based on todo task
+      score({user:model.at('_user'), task:task, direction:direction})
+      # Then move the task to/from _todoList/_completedList      
+      ids = _.map model.get(from), (obj) ->
+        obj.id
+      index = ids.indexOf(i)
+      model.push to, task.get(), () -> 
+        model.remove from, index
     
   exports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
@@ -271,7 +274,7 @@ ready (model) ->
     user = model.at('_user')
     task = model.at $(el).parents('li')[0]
     
-    score(user, task, direction) 
+    score({user:user, task:task, direction:direction}) 
     
   # Note: Set 12am daily cron for this
   # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
@@ -288,7 +291,7 @@ ready (model) ->
       if type in ['todo', 'daily']
         # Deduct experience for missed Daily tasks, 
         # but not for Todos (just increase todo's value)
-        score(user, task, 'down', true) unless completed
+        score({user:user, task:task, direction:'down', cron:true}) unless completed
         if type == 'daily'
           task.push "history", { date: new Date(), value: value }
         else

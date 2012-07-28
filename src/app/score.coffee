@@ -48,7 +48,8 @@ updateStats = (user, stats) ->
     money = 0.0 if (!money? or money<0)
     user.set 'stats.money', stats.money
  
-module.exports = (user, task, direction, cron) ->
+module.exports = (spec = {user:null, task:null, direction:null, cron:null}) ->
+  [user, task, direction, cron] = [spec.user, spec.task, spec.direction, spec.cron]
   
   # For negative values, use a line: something like y=-.1x+1
   # For positibe values, taper off with inverse log: y=.9^x
@@ -65,16 +66,17 @@ module.exports = (user, task, direction, cron) ->
     adjustvalue = false
   value += delta if adjustvalue
 
-  # up/down -voting as checkbox & assigning as completed, 2 birds one stone
-  completed = task.get("completed")
-  if type != 'habit'
-    completed = true if direction=="up"
-    completed = false if direction=="down"
-  else
+  # # up/down -voting as checkbox & assigning as completed, 2 birds one stone
+  # completed = task.get("completed")
+  # if type != 'habit'
+    # completed = true if direction=="up"
+    # completed = false if direction=="down"
+  # else
+  if type == 'habit'
     # Add habit value to habit-history (if different)
     task.push 'history', { date: new Date(), value: value } if task.get('value') != value
   task.set('value', value)
-  task.set('completed', completed)
+  # task.set('completed', completed)
 
   # Update the user's status
   [money, hp, exp, lvl] = [user.get('stats.money'), user.get('stats.hp'), user.get('stats.exp'), user.get('stats.lvl')]
