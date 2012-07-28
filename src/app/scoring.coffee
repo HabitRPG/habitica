@@ -48,7 +48,7 @@ updateStats = (user, stats) ->
     money = 0.0 if (!money? or money<0)
     user.set 'stats.money', stats.money
     
-exports.score = score = (spec = {user:null, task:null, direction:null, cron:null}) ->
+module.exports.score = score = (spec = {user:null, task:null, direction:null, cron:null}) ->
   # console.log spec, "scoring.coffee: score( ->spec<- )" 
   [user, task, direction, cron] = [spec.user, spec.task, spec.direction, spec.cron]
   
@@ -98,7 +98,7 @@ exports.score = score = (spec = {user:null, task:null, direction:null, cron:null
 
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
 # For incomplete Dailys, deduct experience
-exports.tally = tally = (model) ->
+module.exports.tally = tally = (model) ->
   # users = model.at('users') #TODO this isn't working, iterate over all users
   # for user in users
   user = model.at '_user'

@@ -4,35 +4,7 @@ derby.use require('derby-ui-boot')
 derby.use(require('../../ui'))
 content = require('./content')
 Scoring = require('./scoring')
-
-# ========== MODEL SCHEMA ==========
-
-userSchema = 
-  stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
-  items: { itemsEnabled: false, armor: 0, weapon: 0 }
-  tasks: {}
-  habitIds: [] 
-  dailyIds: [] 
-  todoIds: []
-  completedIds: [] 
-  rewardIds: []
   
-# Temporary solution to running updates against the schema when the code changes
-schemaUpdates = (model) ->
-  user = model.at('_user')
-  for key, val of userSchema
-    user.setNull key, val
-  
-  # _todoList <-> _completdList transfering code update
-  completedIds = user.get('completedIds')
-  todoIds = user.get('todoIds')
-  if completedIds.length==0
-    for todo in model.get('_todoList')
-      if todo.completed
-        index = todoIds.indexOf(todo.id)
-        todoIds.splice(index, 1)
-        completedIds.push todo.id
-
 # ========== VIEW HELPERS ==========
 
 view.fn 'taskClasses', (type, completed, value) ->
@@ -87,7 +59,7 @@ get '/:uidParam?', (page, model, {uidParam}) ->
     
     # Else, select a new userId and initialize user
     unless user?
-      newUser = userSchema
+      newUser = require('./schema').userSchema
       for task in content.defaultTasks
         guid = task.id = require('derby/node_modules/racer').uuid()
         newUser.tasks[guid] = task
@@ -133,10 +105,6 @@ getHabits = (page, model, userId) ->
     model.refList "_completedList", "_user.tasks", "_user.completedIds"
     model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
     
-    # Run any database updates in case the code has been updated. Strange placement,
-    # I know - FIXME
-    schemaUpdates(model)
-      
     page.render()  
 
 # ========== CONTROLLER FUNCTIONS ==========
@@ -327,16 +295,20 @@ ready (model) ->
       model.set('_user.lastCron', today) # reset cron
       for n in [1..daysPassed]
         console.log {today: today, lastCron: lastCron, daysPassed: daysPassed, n:n}, "[debug] Cron (#{today}, #{n})"
-        endOfDayTally()
+        Scoring.tally(model)
   poormanscron() # Run once on refresh
   setInterval (-> # Then run once every hour
     poormanscron()
   ), 3600000
   
-  # Note: Set 12am daily cron for this
-  #TODO: remove from exports when cron implemented  
-  exports.endOfDayTally = endOfDayTally = (e, el) ->
+  # ========== DEBUGGING ==========
+  
+  exports.endOfDayTally = (e, el) ->
     Scoring.tally(model)
+  
+  # Temporary solution to running updates against the schema when the code changes
+  exports.updateSchema = (e, el) ->
+    require('./schema').updateSchema(model)
     
   # ========== SHORTCUTS ==========
 
