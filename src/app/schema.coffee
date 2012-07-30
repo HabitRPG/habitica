@@ -11,15 +11,15 @@ module.exports.userSchema = userSchema = {
 }  
   
 module.exports.updateSchema = (model) ->
-  users = model.get('users')
-  console.log _.size(users), 'users.size before'
-  for uid,userObj of users
-    # remove if they don't have a lastCron (older accounts didn't)
-    unless userObj.lastCron?
-      model.del "users.#{uid}"
+  # users = model.get('users')
+  # console.log _.size(users), 'users.size before'
+  # for uid,userObj of users
+    # # remove if they don't have a lastCron (older accounts didn't)
+    # unless userObj.lastCron?
+      # model.del "users.#{uid}"
    
     # TODO remove all users who's tasks compare directly to require('./content).defaultTasks
     # and haven't logged in for a week
-    daysOld = require('./helpers').daysBetween(userObj.lastCron, new Date())
+    # daysOld = require('./helpers').daysBetween(userObj.lastCron, new Date())
     
     
