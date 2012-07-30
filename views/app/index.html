@@ -262,6 +262,7 @@
     </pre>
   </li>
 
+<!-- Required scripts, needed by ready() -->
 <Scripts:>
   <script src=/js/jquery.min.js></script><!-- http://code.jquery.com/jquery-1.7.2.min.js -->
   <script src=/js/jquery-ui.min.js></script>
@@ -270,6 +271,8 @@
   <script src=/js/jquery.cookie.js></script><!-- https://raw.github.com/carhartl/jquery-cookie/master/jquery.cookie.js -->
   <script src=/js/bootstrap-tour.js></script><!-- https://raw.github.com/pushly/bootstrap-tour/master/bootstrap-tour.js -->
   
+<!-- Scripts not needed right away (google charts) or entirely optional (analytics) -->
+<Tail:>
   <script src=/js/google-jsapi.js></script><!-- https://www.google.com/jsapi -->
   <script type="text/javascript">
     google.load("visualization", "1", {packages:["corechart"]});
