@@ -4,7 +4,7 @@
 html,body,p,h1,ul,li,table,tr,th,td
   margin: 0
   padding: 0
-
+  
 #head
   background: #ddd
   background: -webkit-gradient(linear,0 0,0 100%,from(#e7e7e7),to(#d0d0d0))
@@ -127,11 +127,6 @@ li:hover .task-meta-controls .hover-show
     margin: 5px
     color: black
 
-footer.footer
-  position: absolute
-  bottom: 10px
-  right: 10px
-  
 /* ----- Items, Weapons, Armor -----*/
 .item-store-popover img
   float:left
@@ -143,3 +138,21 @@ footer.footer
 #dead-modal img
   float:left
   padding-right:10px
+  
+/* ------- Sticky Footer ------ */
+html, body {height: 100%;}
+
+#wrap {min-height: 100%;}
+
+#main 
+  overflow:auto;
+  padding-bottom: 200px; /* must be same height as the footer */
+
+#footer 
+  position: relative;
+  margin-top: -200px; /* negative value of footer height */
+  height: 200px;
+  clear:both;
+
+table.social-links td
+  vertical-align: top
