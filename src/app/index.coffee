@@ -7,7 +7,8 @@ derby.use(require('../../ui'))
 content = require('./content')
 scoring = require('./scoring')
 schema = require('./schema')
-require('./viewHelpers')(view)
+helpers = require('./helpers')
+helpers.viewHelpers(view)
 
 # ========== ROUTES ==========
 
