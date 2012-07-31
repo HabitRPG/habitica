@@ -158,6 +158,7 @@
           Copyright &copy; 2012 Tyler Renelle&nbsp;&nbsp;&nbsp;
         </td>
         
+        {#unless _mobileDevice}
         <td>
           <!-- Github -->
           <iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=lefnire&repo=habitrpg&type=watch&count=true"
@@ -178,6 +179,7 @@
           <!-- AddThis Button END -->
           <a href="https://twitter.com/share" class="twitter-share-button" data-via="lefnire">Tweet</a>
         </td>
+        {/}
          
       </tr>
     </table>
@@ -287,7 +289,7 @@
 <!-- Required scripts, needed by ready() -->
 <Scripts:>
   <script src=/js/jquery.min.js></script><!-- http://code.jquery.com/jquery-1.7.2.min.js -->
-  <script src=/js/jquery-ui.min.js></script>
+  {#unless _mobileDevice}<script src=/js/jquery-ui.min.js></script>{/}
   <script src=/js/underscore-min.js></script><!-- http://underscorejs.org/underscore-min.js -->
   <script src=/js/bootstrap.min.js></script><!-- http://twitter.github.com/bootstrap/assets/js/bootstrap.min.js -->
   <script src=/js/jquery.cookie.js></script><!-- https://raw.github.com/carhartl/jquery-cookie/master/jquery.cookie.js -->
@@ -295,11 +297,13 @@
   
 <!-- Scripts not needed right away (google charts) or entirely optional (analytics) -->
 <Tail:>
+  {#unless _mobileDevice}
   <script src=/js/google-jsapi.js></script><!-- https://www.google.com/jsapi -->
   <script type="text/javascript">
     google.load("visualization", "1", {packages:["corechart"]});
     google.setOnLoadCallback(function(){});
   </script>
+  {/}
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -317,5 +321,5 @@
   <!--<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire"></script>-->
   
   <!-- Twitter -->
-  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  {#unless _mobileDevice}<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>{/}
   

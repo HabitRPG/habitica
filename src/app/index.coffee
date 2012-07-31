@@ -53,7 +53,7 @@ get '/:uidParam?', (page, model, {uidParam}) ->
 getHabits = (page, model, userId) ->  
 
   model.subscribe "users.#{userId}", (err, user) ->
-    console.log {userId:userId, err:err}, "app/index.coffee: model.subscribe"
+    # console.log {userId:userId, err:err}, "app/index.coffee: model.subscribe"
     # => {userId: 26c48325-2fea-4e2e-a60f-a5fa28d7b410, err: Unauthorized: No access control declared for path users.26c48325-2fea-4e2e-a60f-a5fa28d7b410 }
     model.ref '_user', user
     
@@ -87,28 +87,29 @@ ready (model) ->
   model.on 'set', '*', ->
     $('[rel=popover]').popover()
   
-  # Make the lists draggable using jQuery UI
-  # Note, have to setup helper function here and call it for each type later
-  # due to variable binding of "type"
-  setupSortable = (type) ->
-    $("ul.#{type}s").sortable
-      dropOnEmpty: false
-      cursor: "move"
-      items: "li"
-      opacity: 0.4
-      scroll: true
-      axis: 'y'
-      update: (e, ui) ->
-        item = ui.item[0]
-        domId = item.id
-        id = item.getAttribute 'data-id'
-        to = $("ul.#{type}s").children().index(item)
-        # Use the Derby ignore option to suppress the normal move event
-        # binding, since jQuery UI will move the element in the DOM.
-        # Also, note that refList index arguments can either be an index
-        # or the item's id property
-        model.at("_#{type}List").pass(ignore: domId).move {id}, to
-  setupSortable(type) for type in ['habit', 'daily', 'todo', 'reward']
+  unless (model.get('_mobileDevice') == true) #don't do sortable on mobile
+    # Make the lists draggable using jQuery UI
+    # Note, have to setup helper function here and call it for each type later
+    # due to variable binding of "type"
+    setupSortable = (type) ->
+      $("ul.#{type}s").sortable
+        dropOnEmpty: false
+        cursor: "move"
+        items: "li"
+        opacity: 0.4
+        scroll: true
+        axis: 'y'
+        update: (e, ui) ->
+          item = ui.item[0]
+          domId = item.id
+          id = item.getAttribute 'data-id'
+          to = $("ul.#{type}s").children().index(item)
+          # Use the Derby ignore option to suppress the normal move event
+          # binding, since jQuery UI will move the element in the DOM.
+          # Also, note that refList index arguments can either be an index
+          # or the item's id property
+          model.at("_#{type}List").pass(ignore: domId).move {id}, to
+    setupSortable(type) for type in ['habit', 'daily', 'todo', 'reward']
   
   tour = new Tour()
   for step in content.tourSteps

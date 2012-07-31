@@ -9,7 +9,7 @@ serverError = require './serverError'
 ## RACER CONFIGURATION ##
 
 racer = require 'derby/node_modules/racer'
-racer.use(racer.logPlugin)
+# racer.use(racer.logPlugin)
 racer.set('transports', ['xhr-polling'])
 # racer.set('bundle timeout', 10000)
 
@@ -30,6 +30,12 @@ ONE_YEAR = 1000 * 60 * 60 * 24 * 365
 root = path.dirname path.dirname __dirname
 publicPath = path.join root, 'public'
 
+# Custom request object middleware
+mobileMiddleware = (req, res, next) ->
+  model = req.getModel()
+  model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
+  next()
+  
 expressApp
   .use(express.favicon())
   # Gzip static files and serve from memory
@@ -51,6 +57,9 @@ expressApp
 
   # Adds req.getModel method
   .use(store.modelMiddleware())
+  # Middelware can be inserted after the modelMiddleware and before
+  # the app router to pass server accessible data to a model
+  .use(mobileMiddleware)
   # Creates an express middleware from the app's routes
   .use(app.router())
   .use(expressApp.router)
