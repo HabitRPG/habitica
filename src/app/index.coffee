@@ -12,19 +12,13 @@ helpers.viewHelpers(view)
 
 # ========== ROUTES ==========
 
-get '/:uidParam?', (page, model, {uidParam}) ->
+get '/', (page, model) ->
   
-  model.fetch 'users', (err, users) ->
-    
-    # Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
-    if uidParam? and users.get(uidParam)
-      model.set '_userId', uidParam # set for this request
-      model.session.userId = uidParam # and for next requests
-    
-    # Current browser session
-    # The session middleware will assign a _userId automatically
-    userId = model.get '_userId'
-    user = users.get(userId)
+  # Current browser session
+  # The session middleware will assign a _userId automatically
+  userId = model.get '_userId'
+  
+  model.fetch "users.#{userId}", (err, user) ->
     
     # Else, select a new userId and initialize user
     unless user?
@@ -37,7 +31,7 @@ get '/:uidParam?', (page, model, {uidParam}) ->
           when 'daily' then newUser.dailyIds.push guid 
           when 'todo' then newUser.todoIds.push guid 
           when 'reward' then newUser.rewardIds.push guid 
-      users.set userId, newUser
+      model.set "users.#{userId}", newUser
       
     # #TODO these *Access functions aren't being called, why?      
     # model.store.accessControl = true

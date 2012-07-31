@@ -30,12 +30,23 @@ ONE_YEAR = 1000 * 60 * 60 * 24 * 365
 root = path.dirname path.dirname __dirname
 publicPath = path.join root, 'public'
 
-# Custom request object middleware
-mobileMiddleware = (req, res, next) ->
+customMiddleware = (req, res, next) ->
+  # Setup for mobile-device customizations
   model = req.getModel()
   model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
-  next()
   
+  # PURL pseudo-auth: Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
+  uidParam = req.url.split('/')[1]
+  acceptableUid = require('Guid').isGuid(uidParam) or (uidParam in [0..40])
+  if acceptableUid and model.session.userId!=uidParam 
+    model.fetch "users.#{uidParam}", (err, user) ->
+      console.log {uidParam:uidParam, split:req.url.split('/'), err:err, user:user}
+      unless user.get('id')
+        model.set '_userId', uidParam # set for this request
+        model.session.userId = uidParam # and for next requests
+      
+  next()
+    
 expressApp
   .use(express.favicon())
   # Gzip static files and serve from memory
@@ -59,7 +70,7 @@ expressApp
   .use(store.modelMiddleware())
   # Middelware can be inserted after the modelMiddleware and before
   # the app router to pass server accessible data to a model
-  .use(mobileMiddleware)
+  .use(customMiddleware)
   # Creates an express middleware from the app's routes
   .use(app.router())
   .use(expressApp.router)
