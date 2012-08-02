@@ -24,31 +24,26 @@ derby.use(require 'racer-db-mongo')
 store = derby.createStore
   db: {type: 'Mongo', uri: process.env.NODE_DB_URI}
   listen: server
-require('./setupStore').accessControl(store)
+# require('./setupStore').accessControl(store)
 
 ONE_YEAR = 1000 * 60 * 60 * 24 * 365
 root = path.dirname path.dirname __dirname
 publicPath = path.join root, 'public'
 
-customMiddleware = (that) -> 
-  return (req, res, next) ->
-    # Setup for mobile-device customizations
-    model = req.getModel()
-    model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
-    
-    uidParam = req.url.split('/')[1]
-    # PURL pseudo-auth: Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
-    #TODO use racer's uuid dependency to validate guid instead of Guid here, to reduce deps
-    acceptableUid = require('guid').isGuid(uidParam) or (uidParam in ['3','4','9'])
-    if acceptableUid and model.session.userId!=uidParam 
-      ##FIXME why isn't this working?
-      # model.fetch "users.#{uidParam}", (err, user) ->
-        # console.log {uidParam:uidParam, split:req.url.split('/'), err:err, user:user}
-        # unless user.get('id')
-      model.set '_userId', uidParam # set for this request
-      model.session.userId = uidParam # and for next requests
-    next()
-    return that
+habitrpgMobile = (req, res, next) ->
+  model = req.getModel()
+  model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
+  next()
+  
+# PURL pseudo-auth: Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
+habitrpgSessions = (req, res, next) ->
+  uidParam = req.url.split('/')[1]  
+  acceptableUid = require('guid').isGuid(uidParam) or (uidParam in ['3','4','9'])
+  if acceptableUid and req.session.userId!=uidParam 
+    # model.fetch "users.#{uidParam}", (err, user) -> #test whether user exists
+      # if user.get('id')
+    req.session.userId = uidParam # and for next requests
+  next()
     
 expressApp
   .use(express.favicon())
@@ -68,12 +63,13 @@ expressApp
     secret: process.env.SESSION_SECRET || 'YOUR SECRET HERE'
     cookie: {maxAge: ONE_YEAR}
   )
+  .use(habitrpgSessions)  
 
   # Adds req.getModel method
   .use(store.modelMiddleware())
   # Middelware can be inserted after the modelMiddleware and before
   # the app router to pass server accessible data to a model
-  .use(customMiddleware(this))
+  .use(habitrpgMobile)
   # Creates an express middleware from the app's routes
   .use(app.router())
   .use(expressApp.router)
