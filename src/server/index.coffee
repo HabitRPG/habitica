@@ -38,7 +38,8 @@ customMiddleware = (that) ->
     
     uidParam = req.url.split('/')[1]
     # PURL pseudo-auth: Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
-    acceptableUid = require('Guid').isGuid(uidParam) or (uidParam in ['3','4','9'])
+    #TODO use racer's uuid dependency to validate guid instead of Guid here, to reduce deps
+    acceptableUid = require('guid').isGuid(uidParam) or (uidParam in ['3','4','9'])
     if acceptableUid and model.session.userId!=uidParam 
       ##FIXME why isn't this working?
       # model.fetch "users.#{uidParam}", (err, user) ->
