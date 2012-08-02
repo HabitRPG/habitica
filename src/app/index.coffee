@@ -18,9 +18,9 @@ get '/:uidParam?', (page, model, {uidParam}) ->
   # The session middleware will assign a _userId automatically
   userId = model.get '_userId'
   
-  model.fetch "users.#{userId}", (err, user) ->
+  model.subscribe "users.#{userId}", (err, user) ->
     
-    # Else, select a new userId and initialize user
+    # Create new user if none exists
     unless user.get('id')
       newUser = schema.userSchema
       for task in content.defaultTasks
@@ -32,14 +32,8 @@ get '/:uidParam?', (page, model, {uidParam}) ->
           when 'todo' then newUser.todoIds.push guid 
           when 'reward' then newUser.rewardIds.push guid 
       model.set "users.#{userId}", newUser
-      
-    getHabits(page, model, userId)      
-      
-getHabits = (page, model, userId) ->  
-
-  model.subscribe "users.#{userId}", (err, user) ->
-    # console.log {userId:userId, err:err}, "app/index.coffee: model.subscribe"
-    # => {userId: 26c48325-2fea-4e2e-a60f-a5fa28d7b410, err: Unauthorized: No access control declared for path users.26c48325-2fea-4e2e-a60f-a5fa28d7b410 }
+    # /end create new user
+  
     model.ref '_user', user
     
     # Store
