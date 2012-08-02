@@ -24,28 +24,30 @@ derby.use(require 'racer-db-mongo')
 store = derby.createStore
   db: {type: 'Mongo', uri: process.env.NODE_DB_URI}
   listen: server
-require('./queries')(store)
+require('./setupStore').accessControl(store)
 
 ONE_YEAR = 1000 * 60 * 60 * 24 * 365
 root = path.dirname path.dirname __dirname
 publicPath = path.join root, 'public'
 
-customMiddleware = (req, res, next) ->
-  # Setup for mobile-device customizations
-  model = req.getModel()
-  model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
-  
-  # PURL pseudo-auth: Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
-  uidParam = req.url.split('/')[1]
-  acceptableUid = require('Guid').isGuid(uidParam) or (uidParam in [0..40])
-  if acceptableUid and model.session.userId!=uidParam 
-    model.fetch "users.#{uidParam}", (err, user) ->
-      console.log {uidParam:uidParam, split:req.url.split('/'), err:err, user:user}
-      unless user.get('id')
-        model.set '_userId', uidParam # set for this request
-        model.session.userId = uidParam # and for next requests
-      
-  next()
+customMiddleware = (that) -> 
+  return (req, res, next) ->
+    # Setup for mobile-device customizations
+    model = req.getModel()
+    model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
+    
+    uidParam = req.url.split('/')[1]
+    # PURL pseudo-auth: Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
+    acceptableUid = require('Guid').isGuid(uidParam) or (uidParam in ['3','4','9'])
+    if acceptableUid and model.session.userId!=uidParam 
+      ##FIXME why isn't this working?
+      # model.fetch "users.#{uidParam}", (err, user) ->
+        # console.log {uidParam:uidParam, split:req.url.split('/'), err:err, user:user}
+        # unless user.get('id')
+      model.set '_userId', uidParam # set for this request
+      model.session.userId = uidParam # and for next requests
+    next()
+    return that
     
 expressApp
   .use(express.favicon())
@@ -70,7 +72,7 @@ expressApp
   .use(store.modelMiddleware())
   # Middelware can be inserted after the modelMiddleware and before
   # the app router to pass server accessible data to a model
-  .use(customMiddleware)
+  .use(customMiddleware(this))
   # Creates an express middleware from the app's routes
   .use(app.router())
   .use(expressApp.router)

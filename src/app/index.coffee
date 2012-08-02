@@ -12,7 +12,7 @@ helpers.viewHelpers(view)
 
 # ========== ROUTES ==========
 
-get '/', (page, model) ->
+get '/:uidParam?', (page, model, {uidParam}) ->
   
   # Current browser session
   # The session middleware will assign a _userId automatically
@@ -21,7 +21,7 @@ get '/', (page, model) ->
   model.fetch "users.#{userId}", (err, user) ->
     
     # Else, select a new userId and initialize user
-    unless user?
+    unless user.get('id')
       newUser = schema.userSchema
       for task in content.defaultTasks
         guid = task.id = require('derby/node_modules/racer').uuid()
@@ -32,15 +32,6 @@ get '/', (page, model) ->
           when 'todo' then newUser.todoIds.push guid 
           when 'reward' then newUser.rewardIds.push guid 
       model.set "users.#{userId}", newUser
-      
-    # #TODO these *Access functions aren't being called, why?      
-    # model.store.accessControl = true
-    # model.store.readPathAccess 'users.*', (id, accept) ->
-      # console.log "model.writeAccess called with id:#{id}" # never called
-      # accept(id == userId)
-    # model.store.writeAccess '*', 'users.*', (id, accept) ->
-      # console.log "model.writeAccess called with id:#{id}" # never called
-      # accept(id == userId)
       
     getHabits(page, model, userId)      
       
