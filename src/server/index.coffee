@@ -38,11 +38,12 @@ habitrpgMobile = (req, res, next) ->
 # PURL pseudo-auth: Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
 habitrpgSessions = (req, res, next) ->
   uidParam = req.url.split('/')[1]  
-  acceptableUid = require('guid').isGuid(uidParam) or (uidParam in ['3','4','9'])
-  if acceptableUid and req.session.userId!=uidParam 
+  acceptableUid = require('guid').isGuid(uidParam) or (uidParam in ['3','9'])
+  if acceptableUid# and req.session.userId!=uidParam 
     # model.fetch "users.#{uidParam}", (err, user) -> #test whether user exists
       # if user.get('id')
-    req.session.userId = uidParam # and for next requests
+    req.session ||= {}
+    req.session.userId = uidParam
   next()
     
 expressApp
@@ -59,11 +60,11 @@ expressApp
   # Uncomment and supply secret to add Derby session handling
   # Derby session middleware creates req.session and socket.io sessions
   .use(express.cookieParser())
+  .use(habitrpgSessions)  
   .use(store.sessionMiddleware
     secret: process.env.SESSION_SECRET || 'YOUR SECRET HERE'
     cookie: {maxAge: ONE_YEAR}
   )
-  .use(habitrpgSessions)  
 
   # Adds req.getModel method
   .use(store.modelMiddleware())
