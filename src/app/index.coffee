@@ -9,12 +9,13 @@ scoring = require('./scoring')
 schema = require('./schema')
 helpers = require('./helpers')
 helpers.viewHelpers(view)
+# $ = require('jQuery')
+# _ = require('underscore')
 
 # ========== ROUTES ==========
 
 get '/:uidParam?', (page, model, {uidParam}) ->
   
-  # Current browser session
   # The session middleware will assign a _userId automatically
   userId = model.get '_userId'
   
@@ -22,7 +23,8 @@ get '/:uidParam?', (page, model, {uidParam}) ->
     
     # Create new user if none exists
     unless user.get('id')
-      newUser = schema.userSchema
+      # deep clone, else further new users get duplicate objects
+      newUser = require('node.extend')(true, {}, schema.userSchema)
       for task in content.defaultTasks
         guid = task.id = require('derby/node_modules/racer').uuid()
         newUser.tasks[guid] = task
