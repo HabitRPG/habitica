@@ -48,7 +48,7 @@ updateStats = (user, stats) ->
     money = 0.0 if (!money? or money<0)
     user.set 'stats.money', stats.money
     
-module.exports.score = (spec = {user:null, task:null, direction:null, cron:null}) ->
+module.exports.score = score = (spec = {user:null, task:null, direction:null, cron:null}) ->
   # console.log spec, "scoring.coffee: score( ->spec<- )" 
   [user, task, direction, cron] = [spec.user, spec.task, spec.direction, spec.cron]
   
@@ -99,17 +99,15 @@ module.exports.score = (spec = {user:null, task:null, direction:null, cron:null}
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
 # For incomplete Dailys, deduct experience
 module.exports.tally = (model) ->
-  # users = model.at('users') #TODO this isn't working, iterate over all users
-  # for user in users
   user = model.at '_user'
   todoTally = 0
-  for key of model.get '_user.tasks'
-    task = model.at "_user.tasks.#{key}"
-    [type, value, completed] = [task.get('type'), task.get('value'), task.get('completed')] 
+  _.each user.get('tasks'), (taskObj, taskId, list) ->
+    [type, value, completed] = [taskObj.type, taskObj.value, taskObj.completed]
+    task = model.at("_user.tasks.#{taskId}") 
     if type in ['todo', 'daily']
       # Deduct experience for missed Daily tasks, 
       # but not for Todos (just increase todo's value)
-      module.exports.score({user:user, task:task, direction:'down', cron:true}) unless completed
+      score({user:user, task:task, direction:'down', cron:true}) unless completed
       if type == 'daily'
         task.push "history", { date: new Date(), value: value }
       else

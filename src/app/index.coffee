@@ -241,9 +241,10 @@ ready (model) ->
     lastCron = model.get('_user.lastCron')
     daysPassed = helpers.daysBetween(lastCron, today)
     if daysPassed > 0
-      for n in [1..daysPassed]
-        scoring.tally(model) 
       model.set('_user.lastCron', today) # reset cron
+      _.times daysPassed, (->
+        scoring.tally(model) 
+      )
   # FIXME seems can't call poormanscron() instantly, have to call after some time (2s here)
   # Doesn't do anything otherwise. Don't know why... model not initialized enough yet?   
   setTimeout (-> # Run once on refresh
