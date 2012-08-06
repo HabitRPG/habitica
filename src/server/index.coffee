@@ -81,12 +81,4 @@ expressApp
 
 expressApp.all '*', (req) ->
   throw "404: #{req.url}"
-
-# Would implement cron here, using node-cron & https://github.com/codeparty/derby/issues/99#issuecomment-6596460
-# But it's not working
-# cronJob = require("cron").CronJob
-# model = store.createModel()
-# new cronJob("* * * * * *", ->
-  # model.get() #TODO this returns {}, can't seem to access the data
-# , null, true, "America/Los_Angeles")
-
+  
