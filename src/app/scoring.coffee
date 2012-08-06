@@ -48,7 +48,7 @@ updateStats = (user, stats) ->
     money = 0.0 if (!money? or money<0)
     user.set 'stats.money', stats.money
     
-module.exports.score = score = (spec = {user:null, task:null, direction:null, cron:null}) ->
+module.exports.score = (spec = {user:null, task:null, direction:null, cron:null}) ->
   # console.log spec, "scoring.coffee: score( ->spec<- )" 
   [user, task, direction, cron] = [spec.user, spec.task, spec.direction, spec.cron]
   
@@ -98,7 +98,7 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
 
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
 # For incomplete Dailys, deduct experience
-module.exports.tally = tally = (model) ->
+module.exports.tally = (model) ->
   # users = model.at('users') #TODO this isn't working, iterate over all users
   # for user in users
   user = model.at '_user'
@@ -109,7 +109,7 @@ module.exports.tally = tally = (model) ->
     if type in ['todo', 'daily']
       # Deduct experience for missed Daily tasks, 
       # but not for Todos (just increase todo's value)
-      score({user:user, task:task, direction:'down', cron:true}) unless completed
+      module.exports.score({user:user, task:task, direction:'down', cron:true}) unless completed
       if type == 'daily'
         task.push "history", { date: new Date(), value: value }
       else

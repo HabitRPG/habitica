@@ -236,16 +236,18 @@ ready (model) ->
   # ========== CRON ==========
   
   #TODO: remove when cron implemented 
-  exports.poormanscron = poormanscron = ->
+  exports.poormanscron = poormanscron = () ->
     today = new Date()
     model.setNull('_user.lastCron', today)
     lastCron = model.get('_user.lastCron')
     daysPassed = helpers.daysBetween(lastCron, today)
     if daysPassed > 0
-      model.set('_user.lastCron', today) # reset cron
       for n in [1..daysPassed]
-        scoring.tally(model)
-  poormanscron() # Run once on refresh
+        scoring.tally(model) 
+      model.set('_user.lastCron', today) # reset cron
+  ## FIXME scoring.tally isn't working for calling poormanscron() on refresh, but does
+  ## for setInterval & button-click -- what's going on?     
+  # poormanscron() # Run once on refresh
   setInterval (-> # Then run once every hour
     poormanscron()
   ), 3600000
