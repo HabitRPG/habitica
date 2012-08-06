@@ -102,7 +102,7 @@ ready (model) ->
   tour.start()
         
   model.on 'set', '_user.tasks.*.completed', (i, completed, previous, isLocal, passed) ->
-    return if passed.cron? # Don't do this stuff on cron
+    return if passed? && passed.cron # Don't do this stuff on cron
     direction = () ->
       return 'up' if completed==true and previous == false
       return 'down' if completed==false and previous == true
@@ -244,7 +244,6 @@ ready (model) ->
     if daysPassed > 0
       model.set('_user.lastCron', today) # reset cron
       for n in [1..daysPassed]
-        console.log {today: today, lastCron: lastCron, daysPassed: daysPassed, n:n}, "[debug] Cron (#{today}, #{n})"
         scoring.tally(model)
   poormanscron() # Run once on refresh
   setInterval (-> # Then run once every hour
