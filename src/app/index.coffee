@@ -237,11 +237,10 @@ ready (model) ->
   
   #TODO: remove when cron implemented 
   exports.poormanscron = poormanscron = ->
-    model.setNull('_user.lastCron', new Date())
-    lastCron = new Date( (new Date(model.get('_user.lastCron'))).toDateString() ) # calculate as midnight
-    today = new Date((new Date).toDateString()) # calculate as midnight
-    DAY = 1000 * 60 * 60  * 24
-    daysPassed = Math.floor((today.getTime() - lastCron.getTime()) / DAY)
+    today = new Date()
+    model.setNull('_user.lastCron', today)
+    lastCron = model.get('_user.lastCron')
+    daysPassed = helpers.daysBetween(lastCron, today)
     if daysPassed > 0
       model.set('_user.lastCron', today) # reset cron
       for n in [1..daysPassed]

@@ -4,7 +4,7 @@ module.exports.daysBetween = (a, b) ->
   # calculate as midnight
   a = new Date( (new Date(a)).toDateString() ) 
   b = new Date( (new Date(b)).toDateString() )
-  return Math.floor((a.getTime() - b.getTime()) / DAY)
+  return Math.abs(Math.floor((a.getTime() - b.getTime()) / DAY))
 
 module.exports.viewHelpers = (view) ->
   view.fn 'taskClasses', (type, completed, value) ->
