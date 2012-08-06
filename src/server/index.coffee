@@ -9,9 +9,10 @@ serverError = require './serverError'
 ## RACER CONFIGURATION ##
 
 racer = require 'derby/node_modules/racer'
-# racer.use(racer.logPlugin)
 racer.set('transports', ['xhr-polling'])
-# racer.set('bundle timeout', 10000)
+unless process.env.NODE_ENV == 'production'
+  racer.use(racer.logPlugin)
+  derby.use(derby.logPlugin)
 
 ## SERVER CONFIGURATION ##
 
@@ -19,7 +20,6 @@ expressApp = express()
 server = http.createServer expressApp
 module.exports = server
 
-derby.use(derby.logPlugin)
 derby.use(require 'racer-db-mongo')
 store = derby.createStore
   db: {type: 'Mongo', uri: process.env.NODE_DB_URI}
