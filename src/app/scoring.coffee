@@ -102,8 +102,10 @@ module.exports.tally = (model) ->
   user = model.at '_user'
   todoTally = 0
   _.each user.get('tasks'), (taskObj, taskId, list) ->
+    #FIXME is it hiccuping here? taskId == "$_65255f4e-3728-4d50-bade-3b05633639af_2", & taskObj.id = undefined
+    return unless taskObj.id? #this shouldn't be happening, some tasks seem to be corrupted
     [type, value, completed] = [taskObj.type, taskObj.value, taskObj.completed]
-    task = model.at("_user.tasks.#{taskId}") 
+    task = user.at("tasks.#{taskId}")
     if type in ['todo', 'daily']
       # Deduct experience for missed Daily tasks, 
       # but not for Todos (just increase todo's value)

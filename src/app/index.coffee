@@ -10,7 +10,7 @@ schema = require('./schema')
 helpers = require('./helpers')
 helpers.viewHelpers(view)
 # $ = require('jQuery')
-# _ = require('underscore')
+# und = require('underscore') # node.js uses _
 
 # ========== ROUTES ==========
 
@@ -69,7 +69,7 @@ get '/:uidParam?', (page, model, {uidParam}) ->
 
 ready (model) ->
   
-  model.set '_purl', window.location.origin + '/' + model.get('_userId')
+  model.set('_purl', (window.location.origin + '/' + model.get('_userId')))
   
   $('[rel=popover]').popover()
   #TODO: this isn't very efficient, do model.on set for specific attrs for popover 
