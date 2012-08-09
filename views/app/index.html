@@ -298,14 +298,22 @@
 <!-- Scripts not needed right away (google charts) or entirely optional (analytics) -->
 <Tail:>
   {#unless _mobileDevice}
+  <!-- Google Charts -->
   <script src=/js/google-jsapi.js></script><!-- https://www.google.com/jsapi -->
   <script type="text/javascript">
     google.load("visualization", "1", {packages:["corechart"]});
     google.setOnLoadCallback(function(){});
   </script>
+  
+  <!-- Addthis -->
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire"></script>
+  
+  <!-- Twitter -->
+  <!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>-->
   {/}
   
   {#if equal(_nodeEnv,'production')}
+  <!-- Google Analytics -->
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-33510635-1']);
@@ -318,10 +326,3 @@
     })();
   </script>
   {/}
-  
-  <!-- Addthis -->
-  {#unless _mobileDevice}<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire"></script>{/}
-  
-  <!-- Twitter -->
-  <!--{#unless _mobileDevice}<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>{/}-->
-  
