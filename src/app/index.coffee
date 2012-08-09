@@ -54,7 +54,8 @@ get '/:uidParam?', (page, model, {uidParam}) ->
       reroll: content.items.reroll
 
     # http://tibia.wikia.com/wiki/Formula 
-    model.fn '_user._tnl', '_user.stats.lvl', (lvl) -> 50 * Math.pow(lvl, 2) - 150 * lvl + 200
+    model.fn '_user._tnl', '_user.stats.lvl', (lvl) -> 
+      50 * Math.pow(lvl, 2) - 150 * lvl + 200
     
     # Default Tasks
     model.refList "_habitList", "_user.tasks", "_user.habitIds"
@@ -250,17 +251,16 @@ ready (model) ->
     daysPassed = helpers.daysBetween(lastCron, today)
     if daysPassed > 0
       model.set('_user.lastCron', today) # reset cron
-      _.times daysPassed, (->
-        scoring.tally(model) 
-      )
+      _(daysPassed).times () ->
+        scoring.tally(model.at('_user')) 
   # FIXME seems can't call poormanscron() instantly, have to call after some time (2s here)
   # Doesn't do anything otherwise. Don't know why... model not initialized enough yet?   
-  setTimeout (-> # Run once on refresh
+  setTimeout () -> # Run once on refresh
     poormanscron() 
-  ), 2000
-  setInterval (-> # Then run once every hour
+  , 2000
+  setInterval () -> # Then run once every hour
     poormanscron()
-  ), 3600000
+  , 3600000
   
   # ========== DEBUGGING ==========
   

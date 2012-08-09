@@ -98,8 +98,7 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
 
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
 # For incomplete Dailys, deduct experience
-module.exports.tally = (model) ->
-  user = model.at '_user'
+module.exports.tally = (user) ->
   todoTally = 0
   _.each user.get('tasks'), (taskObj, taskId, list) ->
     #FIXME is it hiccuping here? taskId == "$_65255f4e-3728-4d50-bade-3b05633639af_2", & taskObj.id = undefined
@@ -116,7 +115,7 @@ module.exports.tally = (model) ->
         absVal = if (completed) then Math.abs(value) else value
         todoTally += absVal
       task.pass({cron:true}).set('completed', false) if type == 'daily'
-  model.push '_user.history.todos', { date: new Date(), value: todoTally }
+  user.push 'history.todos', { date: new Date(), value: todoTally }
   
   # tally experience
   expTally = user.get 'stats.exp'
@@ -124,4 +123,4 @@ module.exports.tally = (model) ->
   while lvl < (user.get('stats.lvl')-1)
     lvl++
     expTally += 50 * Math.pow(lvl, 2) - 150 * lvl + 200
-  model.push '_user.history.exp',  { date: new Date(), value: expTally } 
+  user.push 'history.exp',  { date: new Date(), value: expTally } 
