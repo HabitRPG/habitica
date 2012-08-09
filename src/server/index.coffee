@@ -30,9 +30,12 @@ ONE_YEAR = 1000 * 60 * 60 * 24 * 365
 root = path.dirname path.dirname __dirname
 publicPath = path.join root, 'public'
 
-habitrpgMobile = (req, res, next) ->
+habitrpgMiddleware = (req, res, next) ->
+  # set _mobileDevice to true or false so view can exclude portions from mobile device
   model = req.getModel()
   model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
+  # same for production/development
+  model.set '_nodeEnv', process.env.NODE_ENV
   next()
   
 expressApp
@@ -58,7 +61,7 @@ expressApp
   .use(store.modelMiddleware())
   # Middelware can be inserted after the modelMiddleware and before
   # the app router to pass server accessible data to a model
-  .use(habitrpgMobile)
+  .use(habitrpgMiddleware)
   # Creates an express middleware from the app's routes
   .use(app.router())
   .use(expressApp.router)

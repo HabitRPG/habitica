@@ -306,6 +306,7 @@
   </script>
   {/}
   
+  {#if equal(_nodeEnv,'production')}
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-33510635-1']);
@@ -317,6 +318,7 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
+  {/}
   
   <!-- Addthis -->
   {#unless _mobileDevice}<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire"></script>{/}
