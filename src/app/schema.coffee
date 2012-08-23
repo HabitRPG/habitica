@@ -11,15 +11,33 @@ module.exports.userSchema = userSchema = {
 }  
   
 module.exports.updateSchema = (model) ->
-  # users = model.get('users')
-  # console.log _.size(users), 'users.size before'
-  # for uid,userObj of users
-    # # remove if they don't have a lastCron (older accounts didn't)
-    # unless userObj.lastCron?
-      # model.del "users.#{uid}"
-   
-    # TODO remove all users who's tasks compare directly to require('./content).defaultTasks
-    # and haven't logged in for a week
-    # daysOld = require('./helpers').daysBetween(userObj.lastCron, new Date())
-    
-    
+  # Reset history, remove inactive users
+  model.fetch 'users', (err, users) ->
+    _.each users.get(), (userObj) ->
+      userPath = "users.#{userObj._id}"
+      user = model.at(userPath)
+      
+      # Remove inactive users
+      # remove if they don't have a lastCron (older accounts didn't)
+      unless userObj.lastCron?
+        model.del(userPath)
+        return
+             
+      # Remove all users who haven't logged in for a month
+      daysOld = require('./helpers').daysBetween(userObj.lastCron, new Date())
+      if daysOld > 30
+        # and who have mostly the default tasks
+        sameTasks = _.filter require('./content').defaultTasks, (defaultTask) ->
+          foundSame = _.find userObj.tasks, (userTask) ->
+            userTask.text == defaultTask.text
+          return foundSame?
+        if _.size(sameTasks)>5
+          model.del(userPath)
+          return
+      
+      # Reset all history
+      user.set 'history', {exp:[], todos:[]}
+      _.each userObj.tasks, (taskObj) ->
+        task = user.at "tasks.#{taskObj.id}"
+        if task.get("history")
+          task.set "history", []
