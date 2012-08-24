@@ -70,7 +70,8 @@ get '/:uidParam?', (page, model, {uidParam}) ->
 
 ready (model) ->
   
-  model.set('_purl', (window.location.origin + '/' + model.get('_userId')))
+  # FIXME weirdest thing: doing model.set('_purl',...) and binding {_purl} in the view does not work
+  $('#purl-link').val(window.location.toString() + model.get('_userId'))
   
   $('[rel=popover]').popover()
   #TODO: this isn't very efficient, do model.on set for specific attrs for popover 
@@ -109,7 +110,7 @@ ready (model) ->
       content: step.content
       placement: step.placement
   tour.start()
-        
+
   model.on 'set', '_user.tasks.*.completed', (i, completed, previous, isLocal, passed) ->
     return if passed? && passed.cron # Don't do this stuff on cron
     direction = () ->
