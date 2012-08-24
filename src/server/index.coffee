@@ -9,7 +9,7 @@ serverError = require './serverError'
 ## RACER CONFIGURATION ##
 
 racer = require 'derby/node_modules/racer'
-racer.set('transports', ['xhr-polling'])
+racer.io.set('transports', ['xhr-polling'])
 unless process.env.NODE_ENV == 'production'
   racer.use(racer.logPlugin)
   derby.use(derby.logPlugin)
