@@ -32,18 +32,18 @@
           </td>
           <td id="bars">
             <div class="progress progress-danger">
-              <span class="progress-text">HP: {round(_user.stats.hp)} / 50</span>
               <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
+              <span class="progress-text">HP: {round(_user.stats.hp)} / 50</span>
             </div>
 
             <div class="progress progress-warning">
+              <div class="bar" style="width: {percent(_user.stats.exp,_user._tnl)}%;"></div>
               <span class="progress-text">
                 {#if _user.history.exp}
                   <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp"><i class=icon-signal></i></a>&nbsp;
                 {/}
                 Exp: {round(_user.stats.exp)} / {_user._tnl}
               </span>
-              <div class="bar" style="width: {percent(_user.stats.exp,_user._tnl)}%;"></div>
             </div>
           </td>
         </tr>
