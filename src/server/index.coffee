@@ -31,11 +31,18 @@ root = path.dirname path.dirname __dirname
 publicPath = path.join root, 'public'
 
 habitrpgMiddleware = (req, res, next) ->
-  # set _mobileDevice to true or false so view can exclude portions from mobile device
   model = req.getModel()
+  
+  # chat userId is no longer auto-created by session middleware
+  req.session.userId ||= derby.uuid()
+  model.setNull('_userId', req.session.userId)
+
+  # set _mobileDevice to true or false so view can exclude portions from mobile device
   model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
+
   # same for production/development
   model.set '_nodeEnv', process.env.NODE_ENV
+
   next()
   
 expressApp
