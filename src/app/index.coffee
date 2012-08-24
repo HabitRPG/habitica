@@ -70,11 +70,13 @@ get '/:uidParam?', (page, model, {uidParam}) ->
 
 ready (model) ->
   
+  # TODO should all UI stuff be placed in this.on('render',function(){}) ? see chat example
+  
   # FIXME weirdest thing: doing model.set('_purl',...) and binding {_purl} in the view does not work
   $('#purl-link').val(window.location.toString() + model.get('_userId'))
   
   $('[rel=popover]').popover()
-  #TODO: this isn't very efficient, do model.on set for specific attrs for popover 
+  # FIXME: this isn't very efficient, do model.on set for specific attrs for popover 
   model.on 'set', '*', ->
     $('[rel=popover]').popover()
   
