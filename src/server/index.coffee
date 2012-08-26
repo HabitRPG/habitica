@@ -24,7 +24,6 @@ derby.use(require 'racer-db-mongo')
 store = derby.createStore
   db: {type: 'Mongo', uri: process.env.NODE_DB_URI}
   listen: server
-# require('./setupStore').accessControl(store)
 
 ONE_YEAR = 1000 * 60 * 60 * 24 * 365
 root = path.dirname path.dirname __dirname
@@ -42,6 +41,8 @@ habitrpgMiddleware = (req, res, next) ->
 
   # same for production/development
   model.set '_nodeEnv', process.env.NODE_ENV
+  
+  require('./setupStore').accessControl(store)
 
   next()
   
