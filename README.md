@@ -21,9 +21,9 @@ If you played RPGs (Role Playing Games) growing up, this app will make perfect s
 
 After you play for a while you unlock the Item Store, from which you can buy health potions. Also, HP resets upon leveling up.
   
-###My tasks are too red, they're killing me too fast
+###All my tasks are red, I'm dying too fast
 
-This is good. The worse you are at a task, the more valuable it becomes - meaning you gain more experience for completing those red tasks. This will incentivise you to try harder the more you're struggling, as well as to avoid failing (since the more valuable tasks drain more HP). If you're *really* struggling, you can buy "Re-Roll" from the item store, which resets all your tasks to 0.
+This is good. The worse you are at a task, the more valuable it becomes - meaning you gain more experience for completing those red tasks. This will incentivise you to try harder and to focus on the more difficult tasks. If you *really* need a bail-out, you can "Re-Roll" from the item store for $1, which resets all your tasks to a clean slate. It costs real money to prevent you from abusing it.
   
 ###How do I log in / save my data?
 
