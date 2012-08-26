@@ -32,16 +32,24 @@ publicPath = path.join root, 'public'
 habitrpgMiddleware = (req, res, next) ->
   model = req.getModel()
   
-  # chat userId is no longer auto-created by session middleware
-  req.session.userId ||= derby.uuid()
-  model.setNull('_userId', req.session.userId)
+  ## PURL authentication
+  # Setup userId for new users
+  req.session.userId ||= derby.uuid() 
+  # Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
+  uidParam = req.url.split('/')[1]
+  acceptableUid = require('guid').isGuid(uidParam) or (uidParam in ['3','9'])
+  if acceptableUid && req.session.userId!=uidParam
+    # TODO test whether user exists: ```model.fetch("users.#{uidParam}", function(err,user){if(user.get(..){})}})```, but doesn't seem to work
+    req.session.userId = uidParam
+  model.set '_userId', req.session.userId
 
-  # set _mobileDevice to true or false so view can exclude portions from mobile device
+  ## Set _mobileDevice to true or false so view can exclude portions from mobile device
   model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
 
-  # same for production/development
+  ## Same for production/development
   model.set '_nodeEnv', process.env.NODE_ENV
   
+  ## Setup access control
   require('./setupStore').accessControl(store)
 
   next()

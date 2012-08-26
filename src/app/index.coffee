@@ -16,15 +16,6 @@ helpers.viewHelpers(view)
 
 get '/:uidParam?', (page, model, {uidParam}) ->
   
-  # PURL pseudo-auth: Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
-  acceptableUid = require('guid').isGuid(uidParam) or (uidParam in ['3','9'])
-  if acceptableUid# && model.session.userId!=uidParam 
-    # model.fetch "users.#{uidParam}", (err, user) -> #test whether user exists
-      # if user.get('id')
-    model.session.userId = uidParam
-    return page.redirect('/')
-  
-  # The session middleware will assign a _userId automatically
   userId = model.get '_userId'
   
   model.subscribe "users.#{userId}", (err, user) ->
