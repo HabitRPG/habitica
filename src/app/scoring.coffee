@@ -52,6 +52,20 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
   # console.log spec, "scoring.coffee: score( ->spec<- )" 
   [user, task, direction, cron] = [spec.user, spec.task, spec.direction, spec.cron]
   
+  # up / down was called by itself, probably as REST from 3rd party service
+  if !task
+    [money, hp, exp] = [user.get('stats.money'), user.get('stats.hp'), user.get('stats.exp')]
+    if (direction == "up")
+      money += 1
+      exp += expModifier(user, 1)
+    else
+      modified = hpModifier(user, 1)
+      hp -= modified
+      console.log {modified:modified}
+    updateStats(user, {hp: hp, exp: exp, money: money})
+    return
+    
+  
   # For negative values, use a line: something like y=-.1x+1
   # For positibe values, taper off with inverse log: y=.9^x
   # Would love to use inverse log for the whole thing, but after 13 fails it hits infinity
