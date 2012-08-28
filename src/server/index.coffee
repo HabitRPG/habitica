@@ -88,6 +88,8 @@ expressApp
 
 ## SERVER ONLY ROUTES ##
 
+require('./api')(expressApp)
+
 expressApp.all '*', (req) ->
   throw "404: #{req.url}"
   
