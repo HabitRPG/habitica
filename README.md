@@ -31,6 +31,7 @@ In the meantime, a workaround has been built to use a private url, similar to Wo
 ##Roadmap
 * Authentication (Facebook / Twitter)
 * Groups, so you can compete with your friends
+* [Chrome Extension](https://github.com/lefnire/habitrpg-chrome) currently being developed
 * Integration with productivity tools such as Pivotal Tracker, Pomodoro, RescueTime, and MyFitnessPal
 * [See the full list](https://workflowy.com/shared/cd06313a-7c93-ae5f-ae55-e64cae0556e4/)
 
