@@ -29,9 +29,9 @@ HabitRPG is built on [DerbyJS](http://derbyjs.com/), which doesn't yet support a
 In the meantime, a workaround has been built to use a private url, similar to Workflowy's shared lists, which you can use to access your account from multiple computers. Click the top-right profile button and bookmark the URL it provides.
 
 ##Roadmap
+* [Chrome Extension](https://chrome.google.com/webstore/detail/pidkmpibnnnhneohdgjclfdjpijggmjj) currently being developed [(source code)](https://github.com/lefnire/habitrpg-chrome)
 * Authentication (Facebook / Twitter)
 * Groups, so you can compete with your friends
-* [Chrome Extension](https://github.com/lefnire/habitrpg-chrome) currently being developed
 * Integration with productivity tools such as Pivotal Tracker, Pomodoro, RescueTime, and MyFitnessPal
 * [See the full list](https://workflowy.com/shared/cd06313a-7c93-ae5f-ae55-e64cae0556e4/)
 
