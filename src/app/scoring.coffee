@@ -1,12 +1,13 @@
 content = require('./content')
 
-statsNotification = (html, type, number) ->
+statsNotification = (html, type) ->
+      
   $.bootstrapGrowl html, {
     type: type # (null, 'info', 'error', 'success')
     top_offset: 20
     align: 'center' # ('left', 'right', or 'center')
     width: 250 # (integer, or 'auto')
-    delay: 4000
+    delay: 3000
     allow_dismiss: true
     stackup_spacing: 10 # spacing between consecutive stacecked growls.
   }
@@ -71,11 +72,11 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
       modified = expModifier(user, 1)
       money += modified
       exp += modified
-      statsNotification "Exp,GP +#{modified.toFixed(2)}", 'success'
+      statsNotification "<i class='icon-star'></i>Exp,GP +#{modified.toFixed(2)}", 'success'
     else
       modified = hpModifier(user, 1)
       hp -= modified
-      statsNotification "HP #{modified.toFixed(2)}", 'error'
+      statsNotification "<i class='icon-heart'></i>HP #{modified.toFixed(2)}", 'error'
     updateStats(user, {hp: hp, exp: exp, money: money})
     return
     
@@ -107,12 +108,12 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
     # purchase item
     money -= task.get('value')
     num = task.get('value').toFixed(2)
-    statsNotification "GP -#{num}", 'success'
+    statsNotification "<i class='icon-star'></i>GP -#{num}", 'success'
     # if too expensive, reduce health & zero money
     if money < 0
       diff = hp + money # hp - money difference
       hp = diff
-      statsNotification "HP -#{diff.toFixed(2)}", 'error'
+      statsNotification "<i class='icon-heart'></i>HP -#{diff.toFixed(2)}", 'error'
       money = 0
       
   # Add points to exp & money if positive delta
@@ -121,12 +122,12 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
     modified = expModifier(user, delta)
     exp += modified
     money += modified
-    statsNotification "Exp,GP +#{modified.toFixed(2)}", 'success'
+    statsNotification "<i class='icon-star'></i>Exp,GP +#{modified.toFixed(2)}", 'success'
   # Deduct from health (rewards case handled above)
   else unless type in ['reward', 'todo']
     modified = hpModifier(user, delta)
     hp += modified
-    statsNotification "HP #{modified.toFixed(2)}", 'error'
+    statsNotification "<i class='icon-heart'></i>HP #{modified.toFixed(2)}", 'error'
 
   updateStats(user, {hp: hp, exp: exp, money: money})
   
