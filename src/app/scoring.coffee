@@ -111,9 +111,8 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
     statsNotification "<i class='icon-star'></i>GP -#{num}", 'success'
     # if too expensive, reduce health & zero money
     if money < 0
-      diff = hp + money # hp - money difference
-      hp = diff
-      statsNotification "<i class='icon-heart'></i>HP -#{diff.toFixed(2)}", 'error'
+      hp += money# hp - money difference
+      statsNotification "<i class='icon-heart'></i>HP #{money.toFixed(2)}", 'error'
       money = 0
       
   # Add points to exp & money if positive delta
