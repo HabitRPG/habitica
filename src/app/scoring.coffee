@@ -72,11 +72,11 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
       modified = expModifier(user, 1)
       money += modified
       exp += modified
-      statsNotification "<i class='icon-star'></i>Exp,GP +#{modified.toFixed(2)}", 'success'
+      # statsNotification "<i class='icon-star'></i>Exp,GP +#{modified.toFixed(2)}", 'success'
     else
       modified = hpModifier(user, 1)
       hp -= modified
-      statsNotification "<i class='icon-heart'></i>HP #{modified.toFixed(2)}", 'error'
+      # statsNotification "<i class='icon-heart'></i>HP #{modified.toFixed(2)}", 'error'
     updateStats(user, {hp: hp, exp: exp, money: money})
     return
     
