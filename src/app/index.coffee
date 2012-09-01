@@ -153,6 +153,17 @@ ready (model) ->
   exports.del = (e, el) ->
     # Derby extends model.at to support creation from DOM nodes
     task = model.at(e.target)
+    
+    # prevent long-standing red tasks from being deleted
+    history = task.get('history')
+    if history and history.length>3 and task.get('value')<0
+      result = confirm("Are you sure? Deleting this task will hurt you (to prevent deleting, then re-creating red tasks).")
+      if result != true
+        return # Cancel. Don't delete, don't hurt user 
+      else
+        task.set('type','habit') # hack to make sure it hits HP, instead of performing "undo checkbox"
+        scoring.score({user:model.at('_user'), task:task, direction:'down'})
+      
     #TODO bug where I have to delete from _users.tasks AND _{type}List, 
     # fix when query subscriptions implemented properly
     model.del('_user.tasks.'+task.get('id'))
