@@ -1,5 +1,16 @@
 content = require('./content')
 
+statsNotification = (html, type, number) ->
+  $.bootstrapGrowl html, {
+    type: type # (null, 'info', 'error', 'success')
+    top_offset: 20
+    align: 'center' # ('left', 'right', or 'center')
+    width: 250 # (integer, or 'auto')
+    delay: 4000
+    allow_dismiss: true
+    stackup_spacing: 10 # spacing between consecutive stacecked growls.
+  }
+  
 # Calculates Exp modification based on weapon & lvl
 expModifier = (user, value) ->
   dmg = user.get('items.weapon') * .03 # each new weapon adds an additional 3% experience
@@ -29,7 +40,8 @@ updateStats = (user, stats) ->
     if stats.exp >= tnl
       stats.exp -= tnl
       user.set 'stats.lvl', user.get('stats.lvl') + 1
-    if !user.get('items.itemsEnabled') and stats.exp >=50
+      statsNotification('<i class="icon-chevron-up"></i> Level Up!', 'info')
+    if !user.get('items.itemsEnabled') and stats.exp >=15
       user.set 'items.itemsEnabled', true
       $('ul.items').popover
         title: content.items.unlockedMessage.title
@@ -56,12 +68,14 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
   if !task
     [money, hp, exp] = [user.get('stats.money'), user.get('stats.hp'), user.get('stats.exp')]
     if (direction == "up")
-      money += 1
-      exp += expModifier(user, 1)
+      modified = expModifier(user, 1)
+      money += modified
+      exp += modified
+      statsNotification "Exp,GP +#{modified.toFixed(2)}", 'success'
     else
       modified = hpModifier(user, 1)
       hp -= modified
-      console.log {modified:modified}
+      statsNotification "HP #{modified.toFixed(2)}", 'error'
     updateStats(user, {hp: hp, exp: exp, money: money})
     return
     
@@ -92,19 +106,27 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
   if type == 'reward'
     # purchase item
     money -= task.get('value')
+    num = task.get('value').toFixed(2)
+    statsNotification "GP -#{num}", 'success'
     # if too expensive, reduce health & zero money
     if money < 0
-      hp += money # hp - money difference
+      diff = hp + money # hp - money difference
+      hp = diff
+      statsNotification "HP -#{diff.toFixed(2)}", 'error'
       money = 0
       
   # Add points to exp & money if positive delta
   # Only take away mony if it was a mistake (aka, a checkbox)
   if (delta > 0 or ( type in ['daily', 'todo'])) and !cron
-    exp += expModifier(user, delta)
-    money += delta
+    modified = expModifier(user, delta)
+    exp += modified
+    money += modified
+    statsNotification "Exp,GP +#{modified.toFixed(2)}", 'success'
   # Deduct from health (rewards case handled above)
   else unless type in ['reward', 'todo']
-    hp += hpModifier(user, delta)
+    modified = hpModifier(user, delta)
+    hp += modified
+    statsNotification "HP #{modified.toFixed(2)}", 'error'
 
   updateStats(user, {hp: hp, exp: exp, money: money})
   
