@@ -121,7 +121,11 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
     modified = expModifier(user, delta)
     exp += modified
     money += modified
-    statsNotification "<i class='icon-star'></i>Exp,GP +#{modified.toFixed(2)}", 'success'
+    if modified > 0
+      statsNotification "<i class='icon-star'></i>Exp,GP +#{modified.toFixed(2)}", 'success'
+    else
+      # unchecking an accidently completed daily/todo
+      statsNotification "<i class='icon-star'></i>Exp,GP #{modified.toFixed(2)}", 'warning'
   # Deduct from health (rewards case handled above)
   else unless type in ['reward', 'todo']
     modified = hpModifier(user, delta)
