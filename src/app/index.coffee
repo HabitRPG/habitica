@@ -44,9 +44,9 @@ get '/:uidParam?', (page, model, {uidParam}) ->
       potion: content.items.potion
       reroll: content.items.reroll
 
-    # http://tibia.wikia.com/wiki/Formula 
-    model.fn '_user._tnl', '_user.stats.lvl', (lvl) -> 
-      50 * Math.pow(lvl, 2) - 150 * lvl + 200
+    model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
+      # http://tibia.wikia.com/wiki/Formula 
+      (50 * Math.pow(lvl, 2) - 150 * lvl + 200)/5
     
     # Default Tasks
     model.refList "_habitList", "_user.tasks", "_user.habitIds"

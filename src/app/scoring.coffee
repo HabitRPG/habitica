@@ -158,5 +158,5 @@ module.exports.tally = (user) ->
   lvl = 0 #iterator
   while lvl < (user.get('stats.lvl')-1)
     lvl++
-    expTally += 50 * Math.pow(lvl, 2) - 150 * lvl + 200
+    expTally += (50 * Math.pow(lvl, 2) - 150 * lvl + 200)/5
   user.push 'history.exp',  { date: new Date(), value: expTally } 
