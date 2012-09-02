@@ -41,6 +41,7 @@ updateStats = (user, stats) ->
     if stats.exp >= tnl
       stats.exp -= tnl
       user.set 'stats.lvl', user.get('stats.lvl') + 1
+      user.set 'stats.hp', 50
       statsNotification('<i class="icon-chevron-up"></i> Level Up!', 'info')
     if !user.get('items.itemsEnabled') and stats.exp >=15
       user.set 'items.itemsEnabled', true
