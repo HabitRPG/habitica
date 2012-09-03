@@ -85,10 +85,20 @@ expressApp
   .use(expressApp.router)
   .use(serverError root)
 
-
 ## SERVER ONLY ROUTES ##
 
 require('./api')(expressApp)
+
+expressApp.post '/', (req) ->
+  require('../app/reroll').stripeResponse(req)
+  
+expressApp.get '/privacy', (req, res) ->
+  staticPages = derby.createStatic root
+  staticPages.render 'privacy', res
+
+expressApp.get '/terms', (req, res) ->
+  staticPages = derby.createStatic root
+  staticPages.render 'terms', res
 
 expressApp.all '*', (req) ->
   throw "404: #{req.url}"

@@ -14,7 +14,9 @@ helpers.viewHelpers(view)
 
 # ========== ROUTES ==========
 
-get '/:uidParam?', (page, model, {uidParam}) ->
+get '/:uidParam?', (page, model, {uidParam}, next) ->
+  #FIXME figure out a better way to do this
+  return next() if (uidParam == 'privacy' or uidParam == 'terms')  
   
   userId = model.get '_userId'
   
