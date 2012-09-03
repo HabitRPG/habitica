@@ -4,6 +4,13 @@
 
 ![Screenshot](https://img.skitch.com/20120707-daj9pp7g87yg829j61pnpwhff3.jpg "Screenshot")
 
+##Roadmap
+* [Chrome Extension](https://chrome.google.com/webstore/detail/pidkmpibnnnhneohdgjclfdjpijggmjj) currently being developed [(source code)](https://github.com/lefnire/habitrpg-chrome)
+* Authentication (Facebook / Twitter)
+* Groups, so you can compete with your friends
+* Integration with tools like Astrid, Pivotal Tracker, Pomodoro, RescueTime, and MyFitnessPal
+* [See the full list](https://workflowy.com/shared/cd06313a-7c93-ae5f-ae55-e64cae0556e4/)
+
 ##FAQ
 
 ###What is habit tracking?
@@ -27,13 +34,6 @@ This is good. The worse you are at a task, the more valuable it becomes - meanin
 HabitRPG is built on [DerbyJS](http://derbyjs.com/), which doesn't yet support authentication. As soon as EveryAuth becomes available to Derby, I'll implement it - that and the other network integration aspects on the roadmap. You can follow the progress [here](https://groups.google.com/forum/?fromgroups#!topic/derbyjs/7U3xvoPWd-g) and [here](https://groups.google.com/forum/?fromgroups#!topic/derbyjs/oyz2JBwo1AQ).
 
 In the meantime, a workaround has been built to use a private url, similar to Workflowy's shared lists, which you can use to access your account from multiple computers. Click the top-right profile button and bookmark the URL it provides.
-
-##Roadmap
-* [Chrome Extension](https://chrome.google.com/webstore/detail/pidkmpibnnnhneohdgjclfdjpijggmjj) currently being developed [(source code)](https://github.com/lefnire/habitrpg-chrome)
-* Authentication (Facebook / Twitter)
-* Groups, so you can compete with your friends
-* Integration with productivity tools such as Pivotal Tracker, Pomodoro, RescueTime, and MyFitnessPal
-* [See the full list](https://workflowy.com/shared/cd06313a-7c93-ae5f-ae55-e64cae0556e4/)
 
 ##License
 Code is licensed under GNU GPL v3. Content is licensed under CC-BY-SA 3.0.
