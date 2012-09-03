@@ -147,47 +147,47 @@
   <app:myFooter/>
     
 <myFooter:>
-  <footer id=footer class=pull-right>
-    <table class=social-links>
-      <tr>
-        
-        <td>
-          Copyright &copy; 2012 Tyler Renelle&nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
-        
-        <td>
-          <a target="_blank" href="https://github.com/lefnire/habitrpg#habitrpg">About</a>&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="/privacy">Privacy</a>&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="/terms">Terms</a>&nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
-        
+  <footer class=footer>
+    <div class=container>
+      <div clas=row>
+        <div class='span5'>
+            <ul>
+              <li>Copyright &copy; 2012 Tyler Renelle</li>
+              <li><a target="_blank" href="https://github.com/lefnire/habitrpg#habitrpg">About</a></li>
+              <li><a href="/privacy">Privacy</a></li>
+              <li><a href="/terms">Terms</a></li>
+              <li><a target="_blank" hredf="http://ocdevel.com/contact">Contact</a></li>
+            </ul>
+        </div>
+            
         {#unless _mobileDevice}
-        <td>
-          <!-- Github -->
-          <iframe src="http://ghbtns.com/github-btn.html?user=lefnire&repo=habitrpg&type=watch&count=true"
-          allowtransparency="true" frameborder="0" scrolling="0" width="85px" height="20px"></iframe>
-        </td>
-          
-        <td>
-          <!-- Gittip -->
-          <!-- <iframe style="border: 0; margin: 0; padding: 0;" src="https://www.gittip.com/lefnire/widget.html" width="48pt" height="20pt"></iframe> -->
-        </td>
-        
-        <td>
-          <!-- AddThis Button BEGIN -->
-          <div class="addthis_toolbox addthis_default_style "
-            addthis:url="http://habitrpg.com"
-            addthis:title="HabitRPG: Role Playing Game for Self Improvement"> 
-            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-            <a class="addthis_button_tweet"></a>
+          <div class='span5'>
+            <table>
+              <tr>
+                <td>
+                  <!-- Github -->
+                  <iframe src="http://ghbtns.com/github-btn.html?user=lefnire&repo=habitrpg&type=watch&count=true"
+                  allowtransparency="true" frameborder="0" scrolling="0" width="85px" height="20px"></iframe>
+                  <!-- Gittip -->
+                  <!-- <iframe style="border: 0; margin: 0; padding: 0;" src="https://www.gittip.com/lefnire/widget.html" width="48pt" height="20pt"></iframe> -->
+                  <!-- AddThis Button BEGIN -->
+                </td>
+                <td>
+                  <div class="addthis_toolbox addthis_default_style "
+                    addthis:url="http://habitrpg.com"
+                    addthis:title="HabitRPG: Role Playing Game for Self Improvement"> 
+                    <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                    <a class="addthis_button_tweet"></a>
+                  </div>
+                  <!-- AddThis Button END -->
+                  <!--<a href="https://twitter.com/share" class="twitter-share-button" data-via="lefnire">Tweet</a>-->
+                </td>
+              </tr>
+            </table>
           </div>
-          <!-- AddThis Button END -->
-          <!--<a href="https://twitter.com/share" class="twitter-share-button" data-via="lefnire">Tweet</a>-->
-        </td>
         {/}
-         
-      </tr>
-    </table>
+      </div>  
+    </div>
   </footer>
   
 <taskColumn: nonvoid>

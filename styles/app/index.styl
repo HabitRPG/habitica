@@ -141,20 +141,38 @@ li:hover .task-meta-controls .hover-show
   float:left
   padding-right:10px
   
-/* ------- Sticky Footer ------ */
-html, body {height: 100%;}
+/* Footer
+-------------------------------------------------- */
 
-#wrap {min-height: 100%;}
+.footer ul li
+  list-style:none
+  float:left
+  padding-right:10px
+.footer table td                                                                                                                                                                                                                        
+  vertical-align: top 
+  
+/* Bootstrap website boilerplate */
+.footer {
+  padding: 70px 0;
+  margin-top: 70px;
+  border-top: 1px solid #e5e5e5;
+  background-color: #f5f5f5;
+}
+.footer p {
+  margin-bottom: 0;
+  color: #777;
+}
+.footer-links {
+  margin: 10px 0;
+}
+.footer-links li {
+  display: inline;
+  margin-right: 10px;
+}
 
-#main 
-  overflow:auto;
-  padding-bottom: 200px; /* must be same height as the footer */
-
-#footer 
-  position: relative;
-  margin-top: -200px; /* negative value of footer height */
-  height: 200px;
-  clear:both;
-
-table.social-links td
-  vertical-align: top
+/* Customizations to make footer sticky */
+/*html, body {height: 100%;}*/                                                                                                                                                                                                                   
+#wrap {min-height: 100%;}                                                                                                                                                                                                                    
+#main                                                                                                                                                                                                                                        
+  /*overflow:auto;*/                                                                                                                                                                                                                             
+  padding-bottom: 250px; /* don't know why this works, sticky footers are weird */                                                                                                                                                                             
