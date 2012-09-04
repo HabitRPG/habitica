@@ -296,5 +296,6 @@ ready (model) ->
 
   # Tell Firefox to use elements for styles instead of CSS
   # See: https://developer.mozilla.org/en/Rich-Text_Editing_in_Mozilla
-  document.execCommand 'useCSS', false, true
-  document.execCommand 'styleWithCSS', false, false
+  # FIXME, removing for now - seems to break our app in FireFox
+  # document.execCommand 'useCSS', false, true
+  # document.execCommand 'styleWithCSS', false, false
