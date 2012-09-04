@@ -20,41 +20,46 @@
          <input id="purl-link" type=text class=input-xlarge value="" />
        </div>
     </div>
-    <!--<% if current_user %>-->
-      <table id="character">
-        <tr>
-          <td id="avatar">
-            <div class='avatar-sprites'>
-              <img class='weapon weapon-{_user.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{_user.items.weapon}.png" />
-              <img class='armor armor-{_user.items.armor}' src="/img/BrowserQuest/habitrpg_mods/armor{_user.items.armor}.png" />
-            </div>
-            <div id="lvl"><span class="badge badge-info">Lvl: {_user.stats.lvl}</span></div>
-          </td>
-          <td id="bars">
-            <div class="progress progress-danger">
-              <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
-              <span class="progress-text">HP: {round(_user.stats.hp)} / 50</span>
-            </div>
-
-            <div class="progress progress-warning">
-              <div class="bar" style="width: {percent(_user.stats.exp,_user._tnl)}%;"></div>
-              <span class="progress-text">
-                {#if _user.history.exp}
-                  <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp"><i class=icon-signal></i></a>&nbsp;
-                {/}
-                Exp: {round(_user.stats.exp)} / {_user._tnl}
-              </span>
-            </div>
-          </td>
-        </tr>
-        
-        <tr>
-          <td colspan=2>
-            <div id="exp-chart" style="display:none;"></div>
-          </td>
-        </tr>
-      </table>
-      
+    
+    <div class='container-fluid'>
+      <div class='row-fluid'>
+        <div id=character class='span4'>
+          <table>
+            <tr>
+              <td id="avatar">
+                <div class='avatar-sprites'>
+                  <img class='weapon weapon-{_user.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{_user.items.weapon}.png" />
+                  <img class='armor armor-{_user.items.armor}' src="/img/BrowserQuest/habitrpg_mods/armor{_user.items.armor}.png" />
+                </div>
+                <div id="lvl"><span class="badge badge-info">Lvl: {_user.stats.lvl}</span></div>
+              </td>
+              <td id="bars">
+                <div class="progress progress-danger">
+                  <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
+                  <span class="progress-text">HP: {round(_user.stats.hp)} / 50</span>
+                </div>
+    
+                <div class="progress progress-warning">
+                  <div class="bar" style="width: {percent(_user.stats.exp,_user._tnl)}%;"></div>
+                  <span class="progress-text">
+                    {#if _user.history.exp}
+                      <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp"><i class=icon-signal></i></a>&nbsp;
+                    {/}
+                    Exp: {round(_user.stats.exp)} / {_user._tnl}
+                  </span>
+                </div>
+              </td>
+            </tr>
+            
+            <tr>
+              <td colspan=2>
+                <div id="exp-chart" style="display:none;"></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>    
   </div>
   
 <Body:>
