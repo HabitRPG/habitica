@@ -5,7 +5,7 @@ statsNotification = (html, type) ->
   $.bootstrapGrowl html, {
     type: type # (null, 'info', 'error', 'success')
     top_offset: 20
-    align: 'center' # ('left', 'right', or 'center')
+    align: 'right' # ('left', 'right', or 'center')
     width: 250 # (integer, or 'auto')
     delay: 3000
     allow_dismiss: true
