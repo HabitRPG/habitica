@@ -12,7 +12,7 @@ module.exports.accessControl = (store) ->
     return unless @session && @session.userId # https://github.com/codeparty/racer/issues/37
     captures = arguments[0]
     next = arguments[arguments.length-1]
-    console.log { readPathAccess: {captures:captures, sessionUserId:@session.userId, next:next} }
+    # console.log { readPathAccess: {captures:captures, sessionUserId:@session.userId, next:next} }
     next(captures == @session.userId)
     
   store.writeAccess '*', 'users.*', () -> #captures, value, next) ->
@@ -20,5 +20,5 @@ module.exports.accessControl = (store) ->
     captures = arguments[0]
     next = arguments[arguments.length-1]
     pathArray = captures.split('.')
-    console.log { writeAccess: {captures:captures, next:next, pathArray:pathArray, arguments:arguments} }
+    # console.log { writeAccess: {captures:captures, next:next, pathArray:pathArray, arguments:arguments} }
     next(pathArray[0] == @session.userId)
