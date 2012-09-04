@@ -149,19 +149,8 @@
 <myFooter:>
   <footer class=footer>
     <div class=container>
-      <div clas=row>
-        <div class='span5'>
-            <ul>
-              <li>Copyright &copy; 2012 Tyler Renelle</li>
-              <li><a target="_blank" href="https://github.com/lefnire/habitrpg#habitrpg">About</a></li>
-              <li><a href="/privacy">Privacy</a></li>
-              <li><a href="/terms">Terms</a></li>
-              <li><a target="_blank" href="http://ocdevel.com/contact">Contact</a></li>
-            </ul>
-        </div>
-            
         {#unless _mobileDevice}
-          <div class='span5'>
+          <div class='pull-right'>
             <table>
               <tr>
                 <td>
@@ -186,7 +175,16 @@
             </table>
           </div>
         {/}
-      </div>  
+        
+        <div>
+          <ul>
+            <li>Copyright &copy; 2012 Tyler Renelle</li>
+            <li><a target="_blank" href="https://github.com/lefnire/habitrpg#habitrpg">About</a></li>
+            <li><a href="/privacy">Privacy</a></li>
+            <li><a href="/terms">Terms</a></li>
+            <li><a target="_blank" href="http://ocdevel.com/contact">Contact</a></li>
+          </ul>
+        </div>
     </div>
   </footer>
   
