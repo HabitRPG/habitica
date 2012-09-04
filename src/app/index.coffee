@@ -68,6 +68,7 @@ ready (model) ->
   # FIXME weirdest thing: doing model.set('_purl',...) and binding {_purl} in the view does not work
   $('#purl-link').val(window.location.toString() + model.get('_userId'))
   
+  $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
   # FIXME: this isn't very efficient, do model.on set for specific attrs for popover 
   model.on 'set', '*', ->
