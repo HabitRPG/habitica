@@ -278,24 +278,3 @@ ready (model) ->
   exports.updateSchema = (e, el) ->
     schema.updateSchema(model)
     
-  # ========== SHORTCUTS ==========
-
-  exports.shortcuts = (e) ->
-    return unless e.metaKey || e.ctrlKey
-    code = e.which
-    return unless command = (switch code
-      when 66 then 'bold'           # Bold: Ctrl/Cmd + B
-      when 73 then 'italic'         # Italic: Ctrl/Cmd + I
-      when 32 then 'removeFormat'   # Clear formatting: Ctrl/Cmd + Space
-      when 220 then 'removeFormat'  # Clear formatting: Ctrl/Cmd + \
-      else null
-    )
-    document.execCommand command, false, null
-    e.preventDefault() if e.preventDefault
-    return false
-
-  # Tell Firefox to use elements for styles instead of CSS
-  # See: https://developer.mozilla.org/en/Rich-Text_Editing_in_Mozilla
-  # FIXME, removing for now - seems to break our app in FireFox
-  # document.execCommand 'useCSS', false, true
-  # document.execCommand 'styleWithCSS', false, false
