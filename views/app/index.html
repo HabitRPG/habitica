@@ -11,7 +11,7 @@
   <ui:connectionAlert>
   <div id="head">
     <div class='pull-right'>
-       <a class='btn pull-right' onClick="$('#copy-link-section').toggle();"><i class=icon-user></i></a><br/>
+       <a class='btn pull-right' onClick="$('#copy-link-section').toggle();"><i class=icon-bookmark></i></a><br/>
        <div id=copy-link-section style='display:none;' class=well>
          <h3>Secret Link</h3>
          <p>Authentication isn't yet available (<a href="https://github.com/lefnire/habitrpg#how-do-i-log-in--save-my-data">follow progress here</a>),<br/> 
@@ -43,7 +43,7 @@
                   <div class="bar" style="width: {percent(_user.stats.exp,_user._tnl)}%;"></div>
                   <span class="progress-text">
                     {#if _user.history.exp}
-                      <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp"><i class=icon-signal></i></a>&nbsp;
+                      <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp;
                     {/}
                     <i class=icon-star></i> {round(_user.stats.exp)} / {_user._tnl}
                   </span>
@@ -120,7 +120,7 @@
           </div>
         </div>
         {#if _user.history.todos}
-          <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos"><i class=icon-signal></i></a>
+          <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
           <div id="todos-chart" style="display:none;"></div>
         {/}
       </app:taskColumn>
@@ -208,9 +208,10 @@
     <div class="task-meta-controls">
 
       <div class="hover-show">
-        <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit"><i class="icon-pencil"></i></a>
+        <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
+        <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
         {#if :task.history}
-          <a x-bind=click:toggleChart data-toggle-id="{{:task.id}}-chart" data-hide-id="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history">
+          <a x-bind=click:toggleChart data-toggle-id="{{:task.id}}-chart" data-hide-id="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history" rel=tooltip title="Progress">
             <i class="icon-signal"></i>
           </a>
         {/}
@@ -267,8 +268,7 @@
           </label>
         </div>
       {/}
-      <button type=submit class="btn">Save</button>
-      <button x-bind=click:del class="btn btn-danger">Delete</button>
+      <button type=submit class="btn">Save & Close</button>
     </form>
   </div>
   
