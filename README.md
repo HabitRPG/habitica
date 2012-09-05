@@ -5,8 +5,8 @@
 ![Screenshot](https://www.evernote.com/shard/s17/sh/ca83638e-191f-4648-bc5d-529645b3ec47/32534a827a66d3ee9e4f7c4389ec0f5f/res/2212ac3f-ee49-4075-bdf7-253876f0de5e/habitrpg_screen-20120904-232117.jpg.jpg "Screenshot")
 
 ##Roadmap
-* [Chrome Extension](https://chrome.google.com/webstore/detail/pidkmpibnnnhneohdgjclfdjpijggmjj) currently being developed [(source code)](https://github.com/lefnire/habitrpg-chrome)
-* Authentication (Facebook / Twitter)
+* [Chrome Extension](https://chrome.google.com/webstore/detail/pidkmpibnnnhneohdgjclfdjpijggmjj) currently being developed ([source code](https://github.com/lefnire/habitrpg-chrome))
+* Authentication ([progress here](https://github.com/lefnire/habitrpg/issues/3))
 * Groups, so you can compete with your friends
 * Integration with tools like Astrid, Pivotal Tracker, Pomodoro, RescueTime, and MyFitnessPal
 * [See the full list](https://workflowy.com/shared/cd06313a-7c93-ae5f-ae55-e64cae0556e4/)
