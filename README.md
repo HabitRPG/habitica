@@ -1,6 +1,6 @@
 #[HabitRPG](http://habitrpg.com/)
 
-[HabitRPG](http://habitrpg.com/) is a habit tracker app which treats your goals like a Role Playing Game. As you accomplish goals, you level up. If you fail your goals, you lose hit points.
+[HabitRPG](http://habitrpg.com/) is a habit tracker app which treats your goals like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
 
 ![Screenshot](https://s3.amazonaws.com/lefnirePublicFiles/habitrpg_screen.jpeg "Screenshot")
 
