@@ -1,13 +1,13 @@
 #[HabitRPG](http://habitrpg.com/)
 
-[HabitRPG](http://habitrpg.com/) is a habit tracker app which treats your goals like a Role Playing Game. As you accomplish goals, you level up. If you fail your goals, you lose hit points. Lose all your HP and you die.
+[HabitRPG](http://habitrpg.com/) is a habit tracker app which treats your goals like a Role Playing Game. As you accomplish goals, you level up. If you fail your goals, you lose hit points.
 
 ![Screenshot](https://s3.amazonaws.com/lefnirePublicFiles/habitrpg_screen.jpeg "Screenshot")
 
 ##Roadmap
 * [Chrome Extension](https://chrome.google.com/webstore/detail/pidkmpibnnnhneohdgjclfdjpijggmjj) currently being developed ([source code](https://github.com/lefnire/habitrpg-chrome))
-* Authentication ([progress here](https://github.com/lefnire/habitrpg/issues/3))
-* Groups, so you can compete with your friends
+* Authentication ([progress](https://github.com/lefnire/habitrpg/issues/3))
+* Groups: compete with your friends
 * Integration with tools like Astrid, Pivotal Tracker, Pomodoro, RescueTime, and MyFitnessPal
 * [See the full list](https://workflowy.com/shared/cd06313a-7c93-ae5f-ae55-e64cae0556e4/)
 
@@ -23,11 +23,11 @@ If you played RPGs (Role Playing Games) growing up, this app will make sense to 
 
 ###How do I heal?
 
-After you play for a while you unlock the Item Store, from which you can buy health potions. Also, HP resets upon leveling up (everyone knows that!).
+After you play for a while you unlock the Item Store from which you can buy health potions. Also, HP resets upon leveling up (of course!).
   
 ###All my tasks are red, I'm dying too fast
 
-This is good. The worse you are at a task, the more valuable it becomes - meaning you gain more experience for completing those red tasks. This will incentivise you to try harder and to focus on the more difficult tasks. If you *really* need a bail-out, you can "Re-Roll" from the item store for $1, which resets all your tasks to a clean slate. It costs real money to prevent you from abusing it.
+Good! Your red tasks provide the most incentive. The worse you are at a task, the more valuable it becomes in Exp & GP, which will push you to focus on the harder tasks. However, if you *really* need a bail-out, you can "Re-Roll" from the item store for $1, which resets all your tasks to a clean slate. It costs real money to prevent you from abusing it.
   
 ###How do I log in / save my data?
 
