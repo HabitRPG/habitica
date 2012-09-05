@@ -3,7 +3,7 @@ module.exports.queries = (store) ->
     @byId(id)
     
 module.exports.accessControl = (store) ->
-  # store.accessControl = true
+  store.accessControl = true
   
   # FIXME callback signatures here have variable length, eg `callback(captures..., next)` 
   # Is using arguments[n] the correct way to handle this?  
