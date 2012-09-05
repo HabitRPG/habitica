@@ -139,24 +139,27 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
 
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
 # For incomplete Dailys, deduct experience
-module.exports.tally = (user) ->
+module.exports.tally = (user, momentDate) ->
   todoTally = 0
   _.each user.get('tasks'), (taskObj, taskId, list) ->
     #FIXME is it hiccuping here? taskId == "$_65255f4e-3728-4d50-bade-3b05633639af_2", & taskObj.id = undefined
     return unless taskObj.id? #this shouldn't be happening, some tasks seem to be corrupted
-    [type, value, completed] = [taskObj.type, taskObj.value, taskObj.completed]
+    [type, value, completed, repeat] = [taskObj.type, taskObj.value, taskObj.completed, taskObj.repeat]
     task = user.at("tasks.#{taskId}")
     if type in ['todo', 'daily']
       # Deduct experience for missed Daily tasks, 
       # but not for Todos (just increase todo's value)
-      score({user:user, task:task, direction:'down', cron:true}) unless completed
+      unless completed
+        dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
+        if repeat && repeat[dayMapping[momentDate.day()]]==true
+          score({user:user, task:task, direction:'down', cron:true})
       if type == 'daily'
-        task.push "history", { date: new Date(), value: value }
+        task.push "history", { date: new Date(momentDate), value: value }
       else
         absVal = if (completed) then Math.abs(value) else value
         todoTally += absVal
       task.pass({cron:true}).set('completed', false) if type == 'daily'
-  user.push 'history.todos', { date: new Date(), value: todoTally }
+  user.push 'history.todos', { date: new Date(momentDate), value: todoTally }
   
   # tally experience
   expTally = user.get 'stats.exp'

@@ -11,7 +11,8 @@
     "connect-mongo": ">=0.1.9",
     "derby-ui-boot": "*",
     "guid": "*",
-    "node.extend": "*"
+    "node.extend": "*",
+    "moment": "*"
   },
   "private": true,
   "devDependencies": {

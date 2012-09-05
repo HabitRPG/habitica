@@ -11,6 +11,7 @@ module.exports.userSchema = userSchema = {
 }  
   
 module.exports.updateSchema = (model) ->
+  return
   # Reset history, remove inactive users
   model.fetch 'users', (err, users) ->
     _.each users.get(), (userObj) ->

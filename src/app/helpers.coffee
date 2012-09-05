@@ -1,5 +1,7 @@
+moment = require('moment')
 
 module.exports.daysBetween = (a, b) ->
+  #TODO replace this function with moment().diff()?
   DAY = 1000 * 60 * 60  * 24
   # calculate as midnight
   a = new Date( (new Date(a)).toDateString() ) 
@@ -7,10 +9,14 @@ module.exports.daysBetween = (a, b) ->
   return Math.abs(Math.floor((a.getTime() - b.getTime()) / DAY))
 
 module.exports.viewHelpers = (view) ->
-  view.fn 'taskClasses', (type, completed, value) ->
+  view.fn 'taskClasses', (type, completed, value, repeat) ->
     #TODO figure out how to just pass in the task model, so i can access all these properties from one object
     classes = type
-    classes += " completed" if completed
+      
+    # show as completed if completed (naturally) or not required for today
+    dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
+    if completed or (repeat and repeat[dayMapping[moment().day()]]==false)
+      classes += " completed"
       
     switch
       when value<-8 then classes += ' color-worst'

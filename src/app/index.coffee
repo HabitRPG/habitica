@@ -147,7 +147,10 @@ ready (model) ->
       when 'reward'
         list.push {type: type, text: text, notes: '', value: 20 }
 
-      when 'daily', 'todo'
+      when 'daily'
+        list.push {type: type, text: text, notes: '', value: 0, repeat:{su:true,m:true,t:true,w:true,th:true,f:true,s:true}, completed: false }
+      
+      when 'todo'
         list.push {type: type, text: text, notes: '', value: 0, completed: false }
 
         # list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
@@ -184,6 +187,13 @@ ready (model) ->
     _.each model.get('_completedList'), (task) ->
       model.del('_user.tasks.'+task.id)
       model.set('_user.completedIds', [])
+      
+  exports.toggleDay = (e, el) ->
+    task = model.at(e.target)
+    if /active/.test($(el).attr('class')) # previous state, not current
+      task.set('repeat.' + $(el).attr('data-day'), false) 
+    else
+      task.set('repeat.' + $(el).attr('data-day'), true)
     
   exports.toggleTaskEdit = (e, el) ->
     hideId = $(el).attr('data-hide-id')
@@ -267,8 +277,9 @@ ready (model) ->
     daysPassed = helpers.daysBetween(lastCron, today)
     if daysPassed > 0
       model.set('_user.lastCron', today) # reset cron
-      _(daysPassed).times () ->
-        scoring.tally(model.at('_user')) 
+      _(daysPassed).times (n) ->
+        tallyFor = moment(lastCron).add('d',n)
+        scoring.tally(model.at('_user'), tallyFor) 
   # FIXME seems can't call poormanscron() instantly, have to call after some time (2s here)
   # Doesn't do anything otherwise. Don't know why... model not initialized enough yet?   
   setTimeout () -> # Run once on refresh
@@ -284,6 +295,6 @@ ready (model) ->
     scoring.tally(model)
   
   # Temporary solution to running updates against the schema when the code changes
-  exports.updateSchema = (e, el) ->
-    schema.updateSchema(model)
+  # exports.updateSchema = (e, el) ->
+    # schema.updateSchema(model)
     

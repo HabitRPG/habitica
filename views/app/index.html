@@ -78,7 +78,6 @@
       <i class="icon-warning-sign"></i> <b>Debugging Options</b><br/><br/>
       <a x-bind=click:poormanscron class="btn">Cron</a>
       <a x-bind=click:endOfDayTally class="btn">Tally</a>
-      <a x-bind=click:updateSchema class="btn">Update Schema</a>
     </div>
     {/}
     
@@ -203,7 +202,7 @@
   </form>
 
 <task:>
-  <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value)}">
+  <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, :task.repeat)}">
     <pre>
     <div class="task-meta-controls">
 
@@ -259,6 +258,19 @@
           <label class="checkbox inline"><input type=checkbox checked={:task.down}>Down</label>
         </div>
       {/}
+      {#if equal(:task.type, 'daily')}
+        <label>Repeat</label>
+        <div class="control-group btn-group repeat-days">
+        <!-- note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding -->
+          <button type="button" class="btn btn-info {#if :task.repeat.su}active{/}" data-day='su' x-bind=click:toggleDay>Su</button>
+          <button type="button" class="btn btn-info {#if :task.repeat.m}active{/}" data-day='m' x-bind=click:toggleDay>M</button>
+          <button type="button" class="btn btn-info {#if :task.repeat.t}active{/}" data-day='t' x-bind=click:toggleDay>T</button>
+          <button type="button" class="btn btn-info {#if :task.repeat.w}active{/}" data-day='w' x-bind=click:toggleDay>W</button>
+          <button type="button" class="btn btn-info {#if :task.repeat.th}active{/}" data-day='th' x-bind=click:toggleDay>Th</button>
+          <button type="button" class="btn btn-info {#if :task.repeat.f}active{/}" data-day='f' x-bind=click:toggleDay>F</button>
+          <button type="button" class="btn btn-info {#if :task.repeat.s}active{/}" data-day='s' x-bind=click:toggleDay>S</button>
+        </div>
+      {/}
       {#if equal(:task.type, 'reward')}
         <div class=control-group>
           <label>Price
@@ -293,6 +305,7 @@
 <Scripts:>
   <script src=/js/jquery.min.js></script>
   {#unless _mobileDevice}<script src=/js/jquery-ui.min.js></script>{/}
+  <script src=/js/moment.min.js></script><!-- https://raw.github.com/timrwood/moment/1.7.0/min/moment.min.js -->
   <script src=/js/underscore-min.js></script><!-- http://underscorejs.org/underscore-min.js -->
   <script src=/js/bootstrap.min.js></script><!-- http://twitter.github.com/bootstrap/assets/js/bootstrap.min.js -->
   <script src=/js/jquery.cookie.js></script><!-- https://raw.github.com/carhartl/jquery-cookie/master/jquery.cookie.js -->
