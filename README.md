@@ -31,7 +31,7 @@ This is good. The worse you are at a task, the more valuable it becomes - meanin
   
 ###How do I log in / save my data?
 
-HabitRPG is built on [DerbyJS](http://derbyjs.com/), which doesn't yet support authentication. As soon as EveryAuth becomes available to Derby, I'll implement it - that and the other network integration aspects on the roadmap. You can follow the progress [here](https://groups.google.com/forum/?fromgroups#!topic/derbyjs/7U3xvoPWd-g) and [here](https://groups.google.com/forum/?fromgroups#!topic/derbyjs/oyz2JBwo1AQ).
+HabitRPG is built on [DerbyJS](http://derbyjs.com/), which doesn't yet support authentication. As soon as EveryAuth becomes available to Derby, I'll implement it - that and the other network integration aspects on the roadmap. You can follow the progress [here](https://github.com/lefnire/habitrpg/issues/3).
 
 In the meantime, a workaround has been built to use a private url, similar to Workflowy's shared lists, which you can use to access your account from multiple computers. Click the top-right profile button and bookmark the URL it provides.
 
