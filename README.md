@@ -2,7 +2,7 @@
 
 [HabitRPG](http://habitrpg.com/) is a habit tracker app which treats your goals like a Role Playing Game. As you accomplish goals, you level up. If you fail your goals, you lose hit points. Lose all your HP and you die.
 
-![Screenshot](https://www.evernote.com/shard/s17/sh/ca83638e-191f-4648-bc5d-529645b3ec47/32534a827a66d3ee9e4f7c4389ec0f5f/res/2212ac3f-ee49-4075-bdf7-253876f0de5e/habitrpg_screen-20120904-232117.jpg.jpg "Screenshot")
+![Screenshot](https://img.skitch.com/20120905-1ywtqiqdner9x5qkw3yf72jjhp.jpg "Screenshot")
 
 ##Roadmap
 * [Chrome Extension](https://chrome.google.com/webstore/detail/pidkmpibnnnhneohdgjclfdjpijggmjj) currently being developed ([source code](https://github.com/lefnire/habitrpg-chrome))
