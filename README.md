@@ -15,11 +15,11 @@
 
 ###What is habit tracking?
 
-See [7 Tools to Help Keep Track of Habits and Goals](http://www.lifehack.org/articles/technology/7-tools-to-help-keep-track-of-habits-and-goals.html) for a description and more habit tracking examples.
+See [Trackers vs Lifehackers](http://blog.beeminder.com/trackhack/) for a description and more habit tracking examples.
   
 ###This is confusing
 
-If you played RPGs (Role Playing Games) growing up, this app will make perfect sense to you; otherwise, it might be overwhelming at first. Be sure to follow the tutorial when you first load the website. If it's still not your cup of tea, checkout the above link, as well as [MindBloom](https://www.mindbloom.com/).
+If you played RPGs (Role Playing Games) growing up, this app will make sense to you; otherwise, it might be overwhelming at first. Be sure to follow the tutorial when you first load the website. If it's still not your cup of tea, checkout [Trackers vs Lifehackers](http://blog.beeminder.com/trackhack/) for alternatives.
 
 ###How do I heal?
 
