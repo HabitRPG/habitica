@@ -47,8 +47,9 @@ get '/:uidParam?', (page, model, {uidParam}, next) ->
       reroll: content.items.reroll
 
     model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
-      # http://tibia.wikia.com/wiki/Formula 
-      (50 * Math.pow(lvl, 2) - 150 * lvl + 200)/5
+      # see https://github.com/lefnire/habitrpg/issues/4
+      # also update in scoring.coffee. TODO create a function accessible in both locations 
+      (lvl*100)/5
     
     # Default Tasks
     model.refList "_habitList", "_user.tasks", "_user.habitIds"
