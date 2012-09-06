@@ -17,7 +17,7 @@
          <p>Authentication isn't yet available (<a href="https://github.com/lefnire/habitrpg#how-do-i-log-in--save-my-data">follow progress here</a>),<br/> 
            In the meantime a persistent URL can be used accross <br/>
            browsers to access your data. Bookmark the following URL.</p>
-         <input id="purl-link" type=text class=input-xlarge value="" />
+         <input id='purl' type=text class=input-xlarge value="" />
        </div>
     </div>
     
@@ -135,7 +135,7 @@
             {#with _items.armor as :item}<app:item />{/}  
             {#with _items.weapon as :item}<app:item />{/}  
             {#with _items.potion as :item}<app:item />{/}  
-            {#with _items.reroll as :item}<app:item />{/}  
+            {#with _items.reroll as :item}<app:item reroll=true/>{/}  
           </ul>
         {/}
         

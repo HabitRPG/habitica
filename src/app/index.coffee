@@ -63,11 +63,11 @@ get '/:uidParam?', (page, model, {uidParam}, next) ->
 # ========== CONTROLLER FUNCTIONS ==========
 
 ready (model) ->
-  
-  # TODO should all UI stuff be placed in this.on('render',function(){}) ? see chat example
-  
-  # FIXME weirdest thing: doing model.set('_purl',...) and binding {_purl} in the view does not work
-  $('#purl-link').val(window.location.toString() + model.get('_userId'))
+    
+  # protocol+host+port = window.location.origin, only webkit. stupid.
+  # also, {_purl} in template won't register, have to use $().val something is messed up
+  pathParts = window.location.toString().split('/')   
+  $('#purl').val "#{pathParts[0]}//#{pathParts[2]}/#{model.get('_userId')}"
   
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
@@ -246,12 +246,7 @@ ready (model) ->
       hp += 15
       hp = 50 if hp > 50 
       user.set 'stats.hp', hp
-    else if type == 'reroll'
-      for taskId of user.get('tasks')
-        task = model.at('_user.tasks.'+taskId)
-        task.set('value', 0) unless task.get('type')=='reward' 
-        
-      
+  
   exports.vote = (e, el, next) ->
     direction = $(el).attr('data-direction')
     direction = 'up' if direction == 'true/'

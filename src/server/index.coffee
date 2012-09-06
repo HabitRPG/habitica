@@ -63,7 +63,7 @@ expressApp
   .use(express.compress())
 
   # Uncomment to add form data parsing support
-  # .use(express.bodyParser())
+  .use(express.bodyParser())
   # .use(express.methodOverride())
 
   # Uncomment and supply secret to add Derby session handling
@@ -72,7 +72,7 @@ expressApp
   .use(store.sessionMiddleware
     secret: process.env.SESSION_SECRET || 'YOUR SECRET HERE'
     cookie: {maxAge: ONE_YEAR}
-    store: new MongoStore(db: 'habitrpg')
+    store: new MongoStore(url: process.env.NODE_DB_URI)
   )
 
   # Adds req.getModel method
