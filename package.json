@@ -1,18 +1,20 @@
 {
   "name": "habitrpg",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "0.0.0-101",
+  "version": "0.0.0-106",
   "main": "./server.js",
   "dependencies": {
     "derby": "0.3.13",
     "racer-db-mongo": "0.3.13",
-    "express": "3.0.0beta4",
-    "gzippo": ">=0.1.7",
+    "express": "*",
+    "gzippo": "git://github.com/dbashford/gzippo.git",
     "connect-mongo": ">=0.1.9",
+    "everyauth": "git://github.com/bnoguchi/everyauth#express3",
     "derby-ui-boot": "*",
     "guid": "*",
     "node.extend": "*",
-    "moment": "*"
+    "moment": "*",
+    "stripe": "*"
   },
   "private": true,
   "devDependencies": {
@@ -28,6 +30,6 @@
   },
   "engines": {
     "node": "0.8.x",
-    "npm":  "1.1.x" 
+    "npm":  "1.1.x"
   }
 }

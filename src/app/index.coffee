@@ -22,21 +22,6 @@ get '/:uidParam?', (page, model, {uidParam}, next) ->
   
   model.subscribe "users.#{userId}", (err, user) ->
     
-    # Create new user if none exists
-    unless user.get('id')
-      # deep clone, else further new users get duplicate objects
-      newUser = require('node.extend')(true, {}, schema.userSchema)
-      for task in content.defaultTasks
-        guid = task.id = require('derby/node_modules/racer').uuid()
-        newUser.tasks[guid] = task
-        switch task.type
-          when 'habit' then newUser.habitIds.push guid 
-          when 'daily' then newUser.dailyIds.push guid 
-          when 'todo' then newUser.todoIds.push guid 
-          when 'reward' then newUser.rewardIds.push guid 
-      model.set "users.#{userId}", newUser
-    # /end create new user
-  
     model.ref '_user', user
     
     # Store

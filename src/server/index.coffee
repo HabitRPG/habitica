@@ -4,8 +4,10 @@ express = require 'express'
 gzippo = require 'gzippo'
 derby = require 'derby'
 app = require '../app'
+everyauth = require('everyauth')
 serverError = require './serverError'
 MongoStore = require('connect-mongo')(express)
+auth = require('./auth')
 
 ## RACER CONFIGURATION ##
 
@@ -25,6 +27,8 @@ derby.use(require 'racer-db-mongo')
 store = derby.createStore
   db: {type: 'Mongo', uri: process.env.NODE_DB_URI}
   listen: server
+auth.setupQueries(store)
+auth.setupEveryauth(everyauth)
 
 ONE_YEAR = 1000 * 60 * 60 * 24 * 365
 root = path.dirname path.dirname __dirname
@@ -33,25 +37,14 @@ publicPath = path.join root, 'public'
 habitrpgMiddleware = (req, res, next) ->
   model = req.getModel()
   
-  ## PURL authentication
-  # Setup userId for new users
-  req.session.userId ||= derby.uuid() 
-  # Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
-  uidParam = req.url.split('/')[1]
-  acceptableUid = require('guid').isGuid(uidParam) or (uidParam in ['3','9'])
-  if acceptableUid && req.session.userId!=uidParam
-    # TODO test whether user exists: ```model.fetch("users.#{uidParam}", function(err,user){if(user.get(..){})}})```, but doesn't seem to work
-    req.session.userId = uidParam
-  model.set '_userId', req.session.userId
-
-  ## Set _mobileDevice to true or false so view can exclude portions from mobile device
-  model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
-
-  ## Same for production/development
+  auth.setupPurlAuth(req)
+  auth.setupAccessControl(store)
+  
+  model.set '_stripePubKey', process.env.STRIPE_PUB_KEY
   model.set '_nodeEnv', process.env.NODE_ENV
   
-  ## Setup access control
-  require('./setupStore').accessControl(store)
+  ## Set _mobileDevice to true or false so view can exclude portions from mobile device
+  model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
 
   next()
   
@@ -64,7 +57,7 @@ expressApp
 
   # Uncomment to add form data parsing support
   .use(express.bodyParser())
-  # .use(express.methodOverride())
+  .use(express.methodOverride())
 
   # Uncomment and supply secret to add Derby session handling
   # Derby session middleware creates req.session and socket.io sessions
@@ -74,32 +67,16 @@ expressApp
     cookie: {maxAge: ONE_YEAR}
     store: new MongoStore(url: process.env.NODE_DB_URI)
   )
-
+  
   # Adds req.getModel method
   .use(store.modelMiddleware())
   # Middelware can be inserted after the modelMiddleware and before
   # the app router to pass server accessible data to a model
   .use(habitrpgMiddleware)
+  .use(everyauth.middleware())
   # Creates an express middleware from the app's routes
   .use(app.router())
   .use(expressApp.router)
   .use(serverError root)
 
-## SERVER ONLY ROUTES ##
-
-require('./api')(expressApp)
-
-expressApp.post '/', (req) ->
-  require('../app/reroll').stripeResponse(req)
-  
-expressApp.get '/privacy', (req, res) ->
-  staticPages = derby.createStatic root
-  staticPages.render 'privacy', res
-
-expressApp.get '/terms', (req, res) ->
-  staticPages = derby.createStatic root
-  staticPages.render 'terms', res
-
-expressApp.all '*', (req) ->
-  throw "404: #{req.url}"
-  
+require('./serverRoutes')(expressApp)

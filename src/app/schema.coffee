@@ -1,7 +1,7 @@
 
 module.exports.userSchema = userSchema = { 
   stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
-  items: { itemsEnabled: false, armor: 0, weapon: 0 }
+  items: { itemsEnabled: false, armor: 0, weapon: 0, rerollsRemaining: 5 }
   tasks: {}
   habitIds: [] 
   dailyIds: [] 
