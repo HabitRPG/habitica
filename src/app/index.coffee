@@ -16,7 +16,15 @@ helpers.viewHelpers(view)
 
 get '/:uidParam?', (page, model, {uidParam}, next) ->
   #FIXME figure out a better way to do this
-  return next() if (uidParam == 'privacy' or uidParam == 'terms')  
+  return next() if (uidParam == 'privacy' or uidParam == 'terms')
+  
+  sess = model.session
+  if sess.auth && sess.auth.facebook
+    q = model.query('users').withEveryauth('facebook', sess.auth.facebook.id)
+    model.fetch q, (err, user) ->
+      if (user && user.get('id')!=sess.auth.id)
+        sess.auth.id = user.get('id')
+        return page.redirect('/')
   
   userId = model.get '_userId'
   
