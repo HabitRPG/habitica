@@ -11,15 +11,13 @@
   <ui:connectionAlert>
   <div id="head">
     <div class='pull-right'>
-       <a class='btn btn-small pull-right' onClick="$('#copy-link-section').toggle();"><i class=icon-bookmark></i></a><br/>
-       <div id=copy-link-section style='display:none;' class=well>
-         <h3>Secret Link</h3>
-         <p>Authentication isn't yet available (<a href="https://github.com/lefnire/habitrpg#how-do-i-log-in--save-my-data">follow progress here</a>),<br/> 
-           In the meantime a persistent URL can be used accross <br/>
-           browsers to access your data. Bookmark the following URL.</p>
-         <input id='purl' type=text class=input-xlarge value="" />
-       </div>
+      {#unless _facebookAuthenticated}
+        <a href="/auth/facebook" class='btn btn-small pull-right'><i class=icon-user></i>Login / Signup With Facebook</a>
+      {else}
+        <span class=label>{_user.auth.facebook.name}</span>
+      {/}
     </div>
+
     
     <div class='container-fluid'>
       <div class='row-fluid'>

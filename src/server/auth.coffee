@@ -1,58 +1,50 @@
 conf = require("./conf")
 derby = require('derby')
+schema = require('../app/schema')
+content = require('../app/content')
 
-# FIXME I need access to model in everyauth, so that I can test whether a user exists in the database or 
-# create a new one otherwise. Everyauth configs must be declared before expressApp.use(...); howeve,r model is 
-# setup during expresApp.use(...). So my hack is - declare model here, define everyauth configs early in the server (like
-# we should), then use our own middleware (habitrpgMiddleware) to model during expresApp.use(...)
-model = undefined
-sess = undefined
+# Need this for later use by EveryAuth in the MiddleWare
+req = undefined
+module.exports.setRequest = (r) ->
+  req = r
 
-# Ultimate goal: set `sess.auth.userId`
-
-## PURL authentication
-# This is temporary and will go away when everyauth is setup. It tests to see if
-# a UUID was used (bookmarked private url), and restores the user session if so
-module.exports.setupPurlAuth = (req) ->
+module.exports.newUserAndPurl = () ->
   model = req.getModel()
-  sess = req.session
-  
-  # Setup userId for new users
-  sess.userId ||= derby.uuid()
-  sess.auth ||= {userId: sess.userId} # prepare for everyauth  
-  # Previously saved session (eg, http://localhost/{guid}) (temporary solution until authentication built)
+  sess = model.session
   uidParam = req.url.split('/')[1]
+
+  ## -------- (1) New user --------
+  # They get to play around before creating a new account.
+  unless sess.userId
+    sess.userId = derby.uuid()
+    # deep clone, else further new users get duplicate objects
+    newUser = require('node.extend')(true, {}, schema.userSchema)
+    for task in content.defaultTasks
+      guid = task.id = require('derby/node_modules/racer').uuid()
+      newUser.tasks[guid] = task
+      switch task.type
+        when 'habit' then newUser.habitIds.push guid
+        when 'daily' then newUser.dailyIds.push guid
+        when 'todo' then newUser.todoIds.push guid
+        when 'reward' then newUser.rewardIds.push guid
+    model.set "users.#{sess.userId}", newUser
+
+  ## -------- (2) PURL --------
+  # eg, http://localhost/{guid}), legacy - will be removed eventually
+  # tests if UUID was used (bookmarked private url), and restores that session
   acceptableUid = require('guid').isGuid(uidParam) or (uidParam in ['3','9'])
   if acceptableUid && sess.userId!=uidParam
-    # TODO test whether user exists: ```model.fetch("users.#{uidParam}", function(err,user){if(user.get(..){})}})```, but doesn't seem to work
+    # TODO check if in database - issue with accessControl which is on current uid?
     sess.userId = uidParam
-  model.set '_userId', sess.userId
 
-## Setup callbacks for serializing/deserializing users to/from model.
 module.exports.setupEveryauth = (everyauth) ->
-  
+
   everyauth.debug = true
   
   everyauth.everymodule.findUserById (id, callback) ->
-    model.fetch "users.#{id}", (err, user) ->
-      if user && user.get('id')
-        callback null, user.get() # FIXME what format are we supposed to return user?
-      else 
-        # Create new user if none exists
-        # deep clone, else further new users get duplicate objects
-        schema = require('../app/schema')
-        content = require('../app/content')
-        newUser = require('node.extend')(true, {}, schema.userSchema)
-        for task in content.defaultTasks
-          guid = task.id = require('derby/node_modules/racer').uuid()
-          newUser.tasks[guid] = task
-          switch task.type
-            when 'habit' then newUser.habitIds.push guid 
-            when 'daily' then newUser.dailyIds.push guid 
-            when 'todo' then newUser.todoIds.push guid 
-            when 'reward' then newUser.rewardIds.push guid 
-        model.set "users.#{id}", newUser
-        callback null, newUser
+    # will never be called, can't fetch user from database at this point on the server
+    # see https://github.com/codeparty/racer/issues/39. Handled in app/auth.coffee for now
+    callback null, null
   
   # Facebook Authentication Logic 
   everyauth
@@ -60,28 +52,27 @@ module.exports.setupEveryauth = (everyauth) ->
     .appId(process.env.FACEBOOK_KEY)
     .appSecret(process.env.FACEBOOK_SECRET)
     .findOrCreateUser( (session, accessToken, accessTokenExtra, fbUserMetadata) ->
-      # usersByFbId[fbUserMetadata.id] or (usersByFbId[fbUserMetadata.id] = addUser("facebook", fbUserMetadata))
+
+      # Put it in the session for later use
+      # FIXME shouldn't this be set by everyauth? (session.auth.facebook)
+      session.habitRpgAuth ||= {}
+      session.habitRpgAuth.facebook = fbUserMetadata.id
+
+      model = req.getModel()
       q = model.query('users').withEveryauth('facebook', fbUserMetadata.id)
-      model.fetch q, (err,user) ->
-        console.log {err:err,user:user} #FIXME this is always returning user:null, however; this runs fine on the client
-        if user.get('id')
-          sess.userId = user.get('id') # is necessary?
+      model.fetch q, (err, user) ->
+        id = user && user.get() && user.get()[0].id
+        console.log {err:err, id:id, fbUserMetadata:fbUserMetadata}
+        # Has user been tied to facebook account already?
+        if (id && id!=session.userId)
+          session.userId = id
+        # Else tie user to their facebook account
         else
-          model.setNull "users.#{sess.userId}.auth", {'facebook':{}}
-          model.set "users.#{sess.userId}.auth.facebook", fbUserMetadata
+          model.setNull "users.#{session.userId}.auth", {'facebook':{}}
+          model.set "users.#{session.userId}.auth.facebook", fbUserMetadata
+
       fbUserMetadata
   ).redirectPath "/"
-  
-  # addUser = (source, sourceUser) ->
-    # user = undefined
-    # if arguments.length is 1 # password-based
-      # user = sourceUser = source
-      # user.id = ++nextUserId
-      # return usersById[nextUserId] = user
-    # else # non-password-based
-      # user = usersById[++nextUserId] = id: nextUserId
-      # user[source] = sourceUser
-    # user
   
 module.exports.setupQueries = (store) ->
   ## Setup Queries

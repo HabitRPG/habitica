@@ -29,6 +29,7 @@ store = derby.createStore
   listen: server
 auth.setupQueries(store)
 auth.setupEveryauth(everyauth)
+auth.setupAccessControl(store)
 
 ONE_YEAR = 1000 * 60 * 60 * 24 * 365
 root = path.dirname path.dirname __dirname
@@ -36,16 +37,10 @@ publicPath = path.join root, 'public'
 
 habitrpgMiddleware = (req, res, next) ->
   model = req.getModel()
-  
-  auth.setupPurlAuth(req)
-  auth.setupAccessControl(store)
-  
-  model.set '_stripePubKey', process.env.STRIPE_PUB_KEY
-  model.set '_nodeEnv', process.env.NODE_ENV
-  
   ## Set _mobileDevice to true or false so view can exclude portions from mobile device
   model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
-
+  auth.setRequest(req) # Need to pass into auth, so auth can save as private variable used later by EveryAuth
+  auth.newUserAndPurl()
   next()
   
 expressApp
@@ -79,4 +74,4 @@ expressApp
   .use(expressApp.router)
   .use(serverError root)
 
-require('./serverRoutes')(expressApp)
+require('./serverRoutes')(expressApp, root, derby)

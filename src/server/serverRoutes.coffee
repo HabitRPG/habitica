@@ -1,6 +1,6 @@
 scoring = require('../app/scoring')
 
-module.exports = (expressApp) ->
+module.exports = (expressApp, root, derby) ->
   
   expressApp.get '/:uid/up/:score?', (req, res) ->
     score = parseInt(req.params.score) || 1
@@ -27,9 +27,9 @@ module.exports = (expressApp) ->
   expressApp.get '/terms', (req, res) ->
     staticPages = derby.createStatic root
     staticPages.render 'terms', res
-  
-  expressApp.all '*', (req) ->
-    throw "404: #{req.url}"
-    
+
   expressApp.post '/', (req) ->
     require('../app/reroll').stripeResponse(req)
+
+  expressApp.all '*', (req) ->
+    throw "404: #{req.url}"

@@ -3,3 +3,4 @@ public/gen
 node_modules
 #lib/
 *.swp
+.idea*
