@@ -12,10 +12,34 @@
   <div id="head">
     <div class='pull-right'>
       {#unless _facebookAuthenticated}
-        <a href="/auth/facebook" class='btn btn-small pull-right'><i class=icon-user></i>Login / Signup With Facebook</a>
+        <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt="Login / Register With Facebook"/></a>
       {else}
-        <span class=label>{_user.auth.facebook.name}</span>
-      {/}
+        <div class="btn-group">
+            <button class="btn btn-small">{_user.auth.facebook.name}</button>
+            <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#settings-modal" data-toggle="modal">Settings</a></li>
+                <!-- FIXME href='/logout' isn't redirecting the page.. window.history? -->
+                <li><a onclick="window.location='/logout'">Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- User Settings Modal -->
+        <div class="modal hide" id="settings-modal" role="dialog">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Settings</h3>
+            </div>
+            <div class="modal-body">
+                <strong>User ID</strong><br/>
+                <small>Copy this ID for use in third party applications.</small>
+                <pre class=prettyprint>{_user.id}</pre><br/>
+            </div>
+        </div>
+
+        {/}
     </div>
 
     

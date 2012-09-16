@@ -32,8 +32,8 @@ module.exports.newUserAndPurl = () ->
   ## -------- (2) PURL --------
   # eg, http://localhost/{guid}), legacy - will be removed eventually
   # tests if UUID was used (bookmarked private url), and restores that session
-  acceptableUid = require('guid').isGuid(uidParam) or (uidParam in ['3','9'])
-  if acceptableUid && sess.userId!=uidParam
+  acceptableUid = require('guid').isGuid(uidParam) or (uidParam == '3')
+  if acceptableUid && sess.userId!=uidParam && !(sess.habitRpgAuth && sess.habitRpgAuth.facebook)
     # TODO check if in database - issue with accessControl which is on current uid?
     sess.userId = uidParam
 
@@ -73,7 +73,14 @@ module.exports.setupEveryauth = (everyauth) ->
 
       fbUserMetadata
   ).redirectPath "/"
-  
+
+  everyauth.everymodule.handleLogout (req, res) ->
+    if req.session.habitRpgAuth && req.session.habitRpgAuth.facebook
+      req.session.habitRpgAuth.facebook = undefined
+    req.session.userId = undefined
+    req.logout() # The logout method is added for you by everyauth, too
+    @redirect res, @logoutRedirectPath()
+
 module.exports.setupQueries = (store) ->
   ## Setup Queries
   store.query.expose 'users', 'withId', (id) ->

@@ -50,11 +50,6 @@ get '/:uidParam?', (page, model, {uidParam}, next) ->
 
 ready (model) ->
     
-  # protocol+host+port = window.location.origin, only webkit. stupid.
-  # also, {_purl} in template won't register, have to use $().val something is messed up
-  pathParts = window.location.toString().split('/')   
-  $('#purl').val "#{pathParts[0]}//#{pathParts[2]}/#{model.get('_userId')}"
-  
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
   # FIXME: this isn't very efficient, do model.on set for specific attrs for popover 
