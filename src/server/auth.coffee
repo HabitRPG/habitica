@@ -1,4 +1,3 @@
-conf = require("./conf")
 derby = require('derby')
 schema = require('../app/schema')
 content = require('../app/content')
