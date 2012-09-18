@@ -150,7 +150,8 @@ module.exports.tally = (user, momentDate) ->
       # but not for Todos (just increase todo's value)
       unless completed
         dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
-        if repeat && repeat[dayMapping[momentDate.day()]]==true
+        dueToday = (repeat && repeat[dayMapping[momentDate.day()]]==true) 
+        if dueToday or type=='todo'
           score({user:user, task:task, direction:'down', cron:true})
       if type == 'daily'
         task.push "history", { date: new Date(momentDate), value: value }
