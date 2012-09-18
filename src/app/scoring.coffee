@@ -28,13 +28,6 @@ hpModifier = (user, value) ->
   
 # Setter for user.stats: handles death, leveling up, etc
 updateStats = (user, stats) ->
-  if stats.hp?
-    # game over
-    if stats.hp < 0
-      user.set 'stats.lvl', 0 # this signifies dead
-    else
-      user.set 'stats.hp', stats.hp
-
   if stats.exp?
     # level up & carry-over exp
     tnl = user.get '_tnl'
@@ -58,12 +51,18 @@ updateStats = (user, stats) ->
 
     user.set 'stats.exp', stats.exp
     
+  if stats.hp?
+    # game over
+    if stats.hp < 0
+      user.set 'stats.lvl', 0 # this signifies dead
+    else
+      user.set 'stats.hp', stats.hp
+    
   if stats.money?
     money = 0.0 if (!money? or money<0)
     user.set 'stats.money', stats.money
     
 module.exports.score = score = (spec = {user:null, task:null, direction:null, cron:null}) ->
-  # console.log spec, "scoring.coffee: score( ->spec<- )" 
   [user, task, direction, cron] = [spec.user, spec.task, spec.direction, spec.cron]
   
   # up / down was called by itself, probably as REST from 3rd party service
