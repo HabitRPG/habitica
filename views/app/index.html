@@ -76,17 +76,17 @@
   <!-- Game Over Modal -->
   <div style="{#unless equal(_user.stats.lvl,0)}display:none;{/}"> 
     <app:myModal noDismiss=true modalId='dead-modal'>
-        <span class="well pull-right">Quarters: {quarters(_user.balance)}</span>
+        <span class="well pull-right">Tokens: {tokens(_user.balance)}</span>
         <table>
           <tr>
             <td><img src="/img/BrowserQuest/habitrpg_mods/dead.png" /></td>
             <td>
               <h3>Game Over</h3>
               {#if lessThan(_user.balance,0.50)}
-                <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Quarters</a>  <span class='label'>Not enough quarters</span>
+                <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Tokens</a>  <span class='label'>Not enough tokens</span>
               {else}
                 <p>
-                  <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a>  <span class='label'>2 Quarters</span>
+                  <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a>  <span class='label'>2 Tokens</span>
                 </p>
               {/}
             </td>
@@ -166,19 +166,19 @@
       </app:taskColumn>
       <!-- Re-Roll modal -->
       <app:myModal modalId='reroll-modal' header="Reset Your Tasks">
-        <span class="well pull-right">Quarters: {quarters(_user.balance)}</span>
+        <span class="well pull-right">Tokens: {tokens(_user.balance)}</span>
         <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
         {#if lessThan(_user.balance,1)}
-          <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Quarters</a>  <span class='label'>Not enough quarters</span>
+          <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Tokens</a>  <span class='label'>Not enough tokens</span>
         {else}
-          <button data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</button>  <span class='label'>4 Quarters</span>
+          <button data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</button>  <span class='label'>4 Tokens</span>
         {/}
       </app:myModal>
     </div>
   </div>
   
   <!-- Stripe Modal -->
-  <app:myModal modalId="stripe-modal" header='Buy More Quarters'>
+  <app:myModal modalId="stripe-modal" header='Buy More Tokens'>
     <div class='payment-errors'></div>
     <!-- Stripe form from https://stripe.com/docs/tutorials/forms -->
     <form action="/" method="POST" id="payment-form" x-bind=submit:submitPayment>

@@ -56,5 +56,5 @@ module.exports.viewHelpers = (view) ->
   view.fn "lessThan", (a, b) ->
     a < b
   
-  view.fn "quarters", (money) ->
+  view.fn "tokens", (money) ->
     return money/0.25
