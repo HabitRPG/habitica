@@ -83,10 +83,10 @@
             <td>
               <h3>Game Over</h3>
               {#if lessThan(_user.balance,0.50)}
-                <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Tokens</a>  <span class='label'>Not enough tokens</span>
+                <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
               {else}
                 <p>
-                  <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a>  <span class='label'>2 Tokens</span>
+                  <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a><a class='token-cost'>2 Tokens</a>
                 </p>
               {/}
             </td>
@@ -169,9 +169,9 @@
         <span class="well pull-right">Tokens: {tokens(_user.balance)}</span>
         <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
         {#if lessThan(_user.balance,1)}
-          <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Tokens</a>  <span class='label'>Not enough tokens</span>
+          <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
         {else}
-          <button data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</button>  <span class='label'>4 Tokens</span>
+          <button data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</button><span class='token-cost'>4 Tokens</span>
         {/}
       </app:myModal>
     </div>

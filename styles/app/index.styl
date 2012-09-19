@@ -182,3 +182,43 @@ li:hover .task-meta-controls .hover-show
 #main                                                                                                                                                                                                                                        
   /*overflow:auto;*/                                                                                                                                                                                                                             
   padding-bottom: 250px; /* don't know why this works, sticky footers are weird */                                                                                                                                                                             
+
+/* ----- Adaptation of GH's social-count for Tokens -----*/ 
+  
+.token-cost
+  border: 1px solid #D4D4D4;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 6px 7px 5px;
+  line-height: 20px;
+  margin-left: 8px;
+  border-radius: 3px;
+  color: #333;
+  background-color: #FAFAFA;
+  position: relative;
+  
+.token-cost::before
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border: 6px solid #D4D4D4;
+  border-color: transparent #D4D4D4 transparent transparent;
+  position: absolute;
+  right: 100%;
+  margin-right: 0;
+  top: 50%;
+  margin-top: -6px;
+
+.token-cost::after
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border: 6px solid #FAFAFA;
+  border-color: transparent #FAFAFA transparent transparent;
+  position: absolute;
+  right: 100%;
+  margin-right: -1px;
+  top: 50%;
+  margin-top: -6px;
