@@ -25,6 +25,8 @@ get '/:uidParam?', (page, model, {uidParam}, next) ->
   model.subscribe "users.#{sess.userId}", (err, user) ->
     model.ref '_user', user
     
+    user.setNull 'balance', 2
+    
     # Store
     model.set '_items'
       armor: content.items.armor[parseInt(user.get('items.armor')) + 1]
@@ -234,7 +236,6 @@ ready (model) ->
     direction = 'down' if direction == 'false/'
     user = model.at('_user')
     task = model.at $(el).parents('li')[0]
-    
     scoring.score({user:user, task:task, direction:direction}) 
     
   exports.revive = (e, el) ->
@@ -244,6 +245,7 @@ ready (model) ->
     model.set '_user.items.weapon', 0
     model.set '_items.armor', content.items.armor[1]
     model.set '_items.weapon', content.items.weapon[1]
+    model.set '_user.balance', (model.get('_user.balance') - 0.50)
     
   # ========== CRON ==========
   

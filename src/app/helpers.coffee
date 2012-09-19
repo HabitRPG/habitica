@@ -46,3 +46,15 @@ module.exports.viewHelpers = (view) ->
       num.toFixed(1).split('.')[1]
     else
       return "0" 
+  
+  view.fn "money", (num) ->
+    if num
+      return num.toFixed(2)
+    else
+      return "0.00"
+      
+  view.fn "lessThan", (a, b) ->
+    a < b
+  
+  view.fn "quarters", (money) ->
+    return money/0.25

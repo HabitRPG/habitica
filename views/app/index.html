@@ -3,7 +3,8 @@
   
 <Head:>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+  
 <Header:>
   <!-- SEO text, else Google gets strange copy -->
   <h2 style="display:none;">A habit tracker app which treats your goals like a Role Playing Game. As you accomplish goals, you level up. If you fail your goals, you lose hit points. Lose all your HP and you die.</h2>
@@ -25,24 +26,14 @@
                 <li><a onclick="window.location='/logout'">Logout</a></li>
             </ul>
         </div>
-
-        <!-- User Settings Modal -->
-        <div class="modal hide" id="settings-modal" role="dialog">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3>Settings</h3>
-            </div>
-            <div class="modal-body">
-                <strong>User ID</strong><br/>
-                <small>Copy this ID for use in third party applications.</small>
-                <pre class=prettyprint>{_user.id}</pre><br/>
-            </div>
-        </div>
-
-        {/}
+        <app:myModal modalId="settings-modal" header="Settings">
+          <strong>User ID</strong><br/>
+          <small>Copy this ID for use in third party applications.</small>
+          <pre class=prettyprint>{_user.id}</pre><br/>
+        </app:myModal>
+      {/}
     </div>
 
-    
     <div class='container-fluid'>
       <div class='row-fluid'>
         <div id=character class='span4'>
@@ -82,16 +73,26 @@
 <Body:>
   <br/>
     
-  <!-- Revive Modal -->
+  <!-- Game Over Modal -->
   <div style="{#unless equal(_user.stats.lvl,0)}display:none;{/}"> 
-    <div data-action="backdrop" class="modal-backdrop"></div>
-    <div class="modal" id="dead-modal">
-      <div class="modal-body">
-        <img src="/img/BrowserQuest/habitrpg_mods/dead.png" />
-        <h3>You're Dead</h3>
-        <p><a x-bind=click:revive class="btn btn-danger btn-large">Revive</a></p>
-      </div>
-    </div>
+    <app:myModal noDismiss=true modalId='dead-modal'>
+        <span class="well pull-right">Quarters: {quarters(_user.balance)}</span>
+        <table>
+          <tr>
+            <td><img src="/img/BrowserQuest/habitrpg_mods/dead.png" /></td>
+            <td>
+              <h3>Game Over</h3>
+              {#if lessThan(_user.balance,0.50)}
+                <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Quarters</a>  <span class='label'>Not enough quarters</span>
+              {else}
+                <p>
+                  <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a>  <span class='label'>2 Quarters</span>
+                </p>
+              {/}
+            </td>
+          </tr>
+        </table>
+    </app:myModal>
   </div>
   
   <div id=wrap class=container-fluid>
@@ -111,12 +112,12 @@
       <!--helpTitle & helpContent moved to tour -->
       <app:taskColumn title="Habits">
         <ul class='habits'>{#each _habitList as :task}<app:task />{/}</ul>
-        <app:newTask type=habit><input value={_newHabit} type="text" placeholder="New Habit"/></app:newTask>
+        <app:newTask type=habit><input value={_newHabit} type="text" name=new-task placeholder="New Habit"/></app:newTask>
       </app:taskColumn>
       
       <app:taskColumn title="Daily">
         <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
-        <app:newTask type=daily><input value={_newDaily} type="text" placeholder="New Daily"/></app:newTask>
+        <app:newTask type=daily><input value={_newDaily} type="text" name=new-task placeholder="New Daily"/></app:newTask>
       </app:taskColumn>
 
       <app:taskColumn title="Todos" type="todo">
@@ -130,7 +131,7 @@
               <ul class='todos'>
                 {#each _todoList as :task}<app:task />{/}
               </ul>
-              <app:newTask type=todo><input value={_newTodo} type="text" placeholder="New Todo"/></app:newTask>
+              <app:newTask type=todo><input value={_newTodo} type="text" name=new-task placeholder="New Todo"/></app:newTask>
             </div>
             <div class="tab-pane" id="tab2">
               <ul class='completeds'>
@@ -161,13 +162,46 @@
           </ul>
         {/}
         
-        <app:newTask type=reward><input value={_newReward} type="text" placeholder="New Reward"/></app:newTask>
+        <app:newTask type=reward><input value={_newReward} type="text" name=new-task placeholder="New Reward"/></app:newTask>
       </app:taskColumn>
+      <!-- Re-Roll modal -->
+      <app:myModal modalId='reroll-modal' header="Reset Your Tasks">
+        <span class="well pull-right">Quarters: {quarters(_user.balance)}</span>
+        <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
+        {#if lessThan(_user.balance,1)}
+          <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Quarters</a>  <span class='label'>Not enough quarters</span>
+        {else}
+          <button data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</button>  <span class='label'>4 Quarters</span>
+        {/}
+      </app:myModal>
     </div>
   </div>
-  <app:myFooter/>
-    
-<myFooter:>
+  
+  <!-- Stripe Modal -->
+  <app:myModal modalId="stripe-modal" header='Buy More Quarters'>
+    <div class='payment-errors'></div>
+    <!-- Stripe form from https://stripe.com/docs/tutorials/forms -->
+    <form action="/" method="POST" id="payment-form" x-bind=submit:submitPayment>
+      <div class="alert alert-info pull-right"><h2>$5</h2></div>
+      <div class="form-row">
+        <label>Card Number</label>
+        <input type="text" size="20" autocomplete="off" class="card-number"/>
+      </div>
+      <div class="form-row">
+        <label>CVC</label>
+        <input type="text" size="4" autocomplete="off" class="card-cvc"/>
+      </div>
+      <div class="form-row">
+        <label>Expiration (MM/YYYY)</label>
+        <input type="text" size="2" class="card-expiry-month"/>
+        <span> / </span>
+        <input type="text" size="4" class="card-expiry-year"/>
+      </div>
+      <button type="submit" class="submit-button">Submit Payment</button>
+    </form>
+  </app:myModal>
+  
+  <!-- Footer -->
   <footer class=footer>
     <div class=container>
         {#unless _mobileDevice}
@@ -209,6 +243,18 @@
     </div>
   </footer>
   
+<myModal: nonvoid>
+  {{{#if noDismiss}}}<div data-action="backdrop" class="modal-backdrop"></div>{{{/}}}
+  <div class="modal {{{#unless noDismiss}}}hide{{{/}}}" id={{{modalId}}} role="dialog">
+    {{{#if header}}}
+    <div class="modal-header">
+        {{{#unless noDismiss}}}<button type="button" class="close" data-dismiss="modal">×</button>{{{/}}}
+        <h3>{{{unescaped header}}}</h3>
+    </div>
+    {{{/}}}
+    <div class="modal-body">{{{content}}}</div>
+  </div>
+  
 <taskColumn: nonvoid>
   <div class="span3 well {{{type}}}s">
     <!--removing for now, help-info in the tour instead-->
@@ -218,7 +264,7 @@
   </div>
   
 <newTask: nonvoid>
-  <form class="form-inline" data-task-type={{{type}}} x-bind=submit:addTask>
+  <form class="form-inline" id=new-{{{type}}} data-task-type={{{type}}} x-bind=submit:addTask>
     {{{content}}}
     <input class="btn" type=submit value=Add>
   </form>
@@ -315,14 +361,16 @@
         <span rel="popover" data-placement="left" data-content="{:item.notes}" data-original-title="{:item.text}" class='task-notes'><i class="icon-comment"></i></span>
       </div>
       <div class="task-controls">
-        {{{#unless disabled}}}
+        {{{#if reroll}}}
+          <a data-toggle="modal" data-target="#reroll-modal" class="item-buy-link" style='cursor:pointer'><i class=icon-retweet></i></a>
+        {{{else}}}
           <a x-bind=click:buyItem class="item-buy-link" data-type={:item.type} data-value={:item.value} data-index={:item.index}>{:item.value}<img src="/img/coin_single_gold.png"/></a>
         {{{/}}}
       </div>
       <div class="task-text"><img src="/img/BrowserQuest/habitrpg_mods/{:item.icon}.png" /> {:item.text}</div>
     </pre>
   </li>
-
+  
 <!-- Required scripts, needed by ready() -->
 <Scripts:>
   <script src=/js/jquery.min.js></script>

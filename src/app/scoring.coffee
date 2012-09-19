@@ -107,7 +107,7 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
   if type == 'reward'
     # purchase item
     money -= task.get('value')
-    num = task.get('value').toFixed(2)
+    num = parseFloat(task.get('value')).toFixed(2)
     statsNotification "<i class='icon-star'></i>GP -#{num}", 'success'
     # if too expensive, reduce health & zero money
     if money < 0
