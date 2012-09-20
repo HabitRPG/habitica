@@ -1,7 +1,14 @@
 content = require('./content')
 
+# This is required by all the functions, make sure it's set before anythign else is called
+user = undefined
+module.exports.setUser = (u) ->
+  user = u
+
 statsNotification = (html, type) ->
-      
+  #don't show notifications if user dead
+  return if user.get('stats.lvl') == 0
+  
   $.bootstrapGrowl html, {
     type: type # (null, 'info', 'error', 'success')
     top_offset: 20
@@ -13,21 +20,33 @@ statsNotification = (html, type) ->
   }
   
 # Calculates Exp modification based on weapon & lvl
-expModifier = (user, value) ->
+expModifier = (value) ->
   dmg = user.get('items.weapon') * .03 # each new weapon adds an additional 3% experience
   dmg += user.get('stats.lvl') * .03 # same for lvls
   modified = value + (value * dmg)
   return modified
 
 # Calculates HP-loss modification based on armor & lvl
-hpModifier = (user, value) ->
+hpModifier = (value) ->
   ac = user.get('items.armor') * .03 # each new armor blocks an additional 3% damage
   ac += user.get('stats.lvl') * .03 # same for lvls
   modified = value - (value * ac)
   return modified
   
 # Setter for user.stats: handles death, leveling up, etc
-updateStats = (user, stats) ->
+updateStats = (stats) ->
+  # if user is dead, dont do anything
+  return if user.get('stats.lvl') == 0
+    
+  if stats.hp?
+    # game over
+    if stats.hp <= 0
+      user.set 'stats.lvl', 0 # this signifies dead
+      user.set 'stast.hp', 0
+      return
+    else
+      user.set 'stats.hp', stats.hp
+      
   if stats.exp?
     # level up & carry-over exp
     tnl = user.get '_tnl'
@@ -51,33 +70,26 @@ updateStats = (user, stats) ->
 
     user.set 'stats.exp', stats.exp
     
-  if stats.hp?
-    # game over
-    if stats.hp < 0
-      user.set 'stats.lvl', 0 # this signifies dead
-    else
-      user.set 'stats.hp', stats.hp
-    
   if stats.money?
     money = 0.0 if (!money? or money<0)
     user.set 'stats.money', stats.money
     
-module.exports.score = score = (spec = {user:null, task:null, direction:null, cron:null}) ->
-  [user, task, direction, cron] = [spec.user, spec.task, spec.direction, spec.cron]
+module.exports.score = score = (spec = {task:null, direction:null, cron:null}) ->
+  [task, direction, cron] = [spec.task, spec.direction, spec.cron]
   
   # up / down was called by itself, probably as REST from 3rd party service
   if !task
     [money, hp, exp] = [user.get('stats.money'), user.get('stats.hp'), user.get('stats.exp')]
     if (direction == "up")
-      modified = expModifier(user, 1)
+      modified = expModifier(1)
       money += modified
       exp += modified
       # statsNotification "<i class='icon-star'></i>Exp,GP +#{modified.toFixed(2)}", 'success'
     else
-      modified = hpModifier(user, 1)
+      modified = hpModifier(1)
       hp -= modified
       # statsNotification "<i class='icon-heart'></i>HP #{modified.toFixed(2)}", 'error'
-    updateStats(user, {hp: hp, exp: exp, money: money})
+    updateStats({hp: hp, exp: exp, money: money})
     return
     
   
@@ -118,7 +130,7 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
   # Add points to exp & money if positive delta
   # Only take away mony if it was a mistake (aka, a checkbox)
   if (delta > 0 or ( type in ['daily', 'todo'])) and !cron
-    modified = expModifier(user, delta)
+    modified = expModifier(delta)
     exp += modified
     money += modified
     if modified > 0
@@ -128,17 +140,17 @@ module.exports.score = score = (spec = {user:null, task:null, direction:null, cr
       statsNotification "<i class='icon-star'></i>Exp,GP #{modified.toFixed(2)}", 'warning'
   # Deduct from health (rewards case handled above)
   else unless type in ['reward', 'todo']
-    modified = hpModifier(user, delta)
+    modified = hpModifier(delta)
     hp += modified
     statsNotification "<i class='icon-heart'></i>HP #{modified.toFixed(2)}", 'error'
 
-  updateStats(user, {hp: hp, exp: exp, money: money})
+  updateStats({hp: hp, exp: exp, money: money})
   
   return delta 
 
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
 # For incomplete Dailys, deduct experience
-module.exports.tally = (user, momentDate) ->
+module.exports.tally = (momentDate) ->
   todoTally = 0
   _.each user.get('tasks'), (taskObj, taskId, list) ->
     #FIXME is it hiccuping here? taskId == "$_65255f4e-3728-4d50-bade-3b05633639af_2", & taskObj.id = undefined
@@ -152,7 +164,7 @@ module.exports.tally = (user, momentDate) ->
         dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
         dueToday = (repeat && repeat[dayMapping[momentDate.day()]]==true) 
         if dueToday or type=='todo'
-          score({user:user, task:task, direction:'down', cron:true})
+          score({task:task, direction:'down', cron:true})
       if type == 'daily'
         task.push "history", { date: new Date(momentDate), value: value }
       else

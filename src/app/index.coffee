@@ -51,6 +51,7 @@ get '/:uidParam?', (page, model, {uidParam}, next) ->
 # ========== CONTROLLER FUNCTIONS ==========
 
 ready (model) ->
+  scoring.setUser(model.at('_user'))
     
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
@@ -101,7 +102,7 @@ ready (model) ->
       
     # Score the user based on todo task
     task = model.at("_user.tasks.#{i}")
-    scoring.score({user:model.at('_user'), task:task, direction:direction()})
+    scoring.score({task:task, direction:direction()})
     
     # Then move the todos to/from _todoList/_completedList
     if task.get('type') == 'todo'
@@ -154,7 +155,7 @@ ready (model) ->
           return # Cancel. Don't delete, don't hurt user 
         else
           task.set('type','habit') # hack to make sure it hits HP, instead of performing "undo checkbox"
-          scoring.score({user:model.at('_user'), task:task, direction:'down'})
+          scoring.score({task:task, direction:'down'})
           
       # prevent accidently deleting long-standing tasks
       else
@@ -236,7 +237,7 @@ ready (model) ->
     direction = 'down' if direction == 'false/'
     user = model.at('_user')
     task = model.at $(el).parents('li')[0]
-    scoring.score({user:user, task:task, direction:direction}) 
+    scoring.score({task:task, direction:direction}) 
     
   exports.revive = (e, el) ->
     stats = model.at '_user.stats'
@@ -258,7 +259,7 @@ ready (model) ->
       model.set('_user.lastCron', today) # reset cron
       _(daysPassed).times (n) ->
         tallyFor = moment(lastCron).add('d',n)
-        scoring.tally(model.at('_user'), tallyFor) 
+        scoring.tally(tallyFor) 
   # FIXME seems can't call poormanscron() instantly, have to call after some time (2s here)
   # Doesn't do anything otherwise. Don't know why... model not initialized enough yet?   
   setTimeout () -> # Run once on refresh
@@ -271,7 +272,7 @@ ready (model) ->
   # ========== DEBUGGING ==========
   
   exports.endOfDayTally = (e, el) ->
-    scoring.tally(model)
+    scoring.tally()
   
   # Temporary solution to running updates against the schema when the code changes
   # exports.updateSchema = (e, el) ->
