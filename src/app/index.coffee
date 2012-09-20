@@ -262,12 +262,8 @@ ready (model) ->
         scoring.tally(tallyFor) 
   # FIXME seems can't call poormanscron() instantly, have to call after some time (2s here)
   # Doesn't do anything otherwise. Don't know why... model not initialized enough yet?   
-  setTimeout () -> # Run once on refresh
-    poormanscron() 
-  , 2000
-  setInterval () -> # Then run once every hour
-    poormanscron()
-  , 3600000
+  setTimeout poormanscron, 2000 # Run once on refresh
+  setInterval poormanscron, 3600000 # Then run once every hour
   
   # ========== DEBUGGING ==========
   

@@ -1,5 +1,6 @@
 
-module.exports.userSchema = userSchema = { 
+module.exports.userSchema = userSchema = {
+  balance: 2
   stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
   items: { itemsEnabled: false, armor: 0, weapon: 0, rerollsRemaining: 5 }
   tasks: {}
@@ -11,7 +12,7 @@ module.exports.userSchema = userSchema = {
 }  
   
 module.exports.updateSchema = (model) ->
-  return
+  return # not using, will revisit this later
   # Reset history, remove inactive users
   model.fetch 'users', (err, users) ->
     _.each users.get(), (userObj) ->
