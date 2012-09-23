@@ -1,5 +1,6 @@
+content = require './content'
 
-module.exports.userSchema = userSchema = {
+userSchema = {
   balance: 2
   stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
   items: { itemsEnabled: false, armor: 0, weapon: 0, rerollsRemaining: 5 }
@@ -10,6 +11,19 @@ module.exports.userSchema = userSchema = {
   completedIds: [] 
   rewardIds: []
 }  
+
+module.exports.newUserObject = ->
+    # deep clone, else further new users get duplicate objects
+  newUser = require('node.extend')(true, {}, userSchema)
+  for task in content.defaultTasks
+    guid = task.id = require('derby/node_modules/racer').uuid()
+    newUser.tasks[guid] = task
+    switch task.type
+      when 'habit' then newUser.habitIds.push guid
+      when 'daily' then newUser.dailyIds.push guid
+      when 'todo' then newUser.todoIds.push guid
+      when 'reward' then newUser.rewardIds.push guid
+  return newUser
   
 module.exports.updateSchema = (model) ->
   return # not using, will revisit this later

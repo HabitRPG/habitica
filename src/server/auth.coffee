@@ -6,8 +6,8 @@ content = require('../app/content')
 req = undefined
 module.exports.setRequest = (r) ->
   req = r
-
-module.exports.newUserAndPurl = () ->
+  
+module.exports.newUserAndPurl = ->
   model = req.getModel()
   sess = model.session
   uidParam = req.url.split('/')[1]
@@ -16,17 +16,7 @@ module.exports.newUserAndPurl = () ->
   # They get to play around before creating a new account.
   unless sess.userId
     sess.userId = derby.uuid()
-    # deep clone, else further new users get duplicate objects
-    newUser = require('node.extend')(true, {}, schema.userSchema)
-    for task in content.defaultTasks
-      guid = task.id = require('derby/node_modules/racer').uuid()
-      newUser.tasks[guid] = task
-      switch task.type
-        when 'habit' then newUser.habitIds.push guid
-        when 'daily' then newUser.dailyIds.push guid
-        when 'todo' then newUser.todoIds.push guid
-        when 'reward' then newUser.rewardIds.push guid
-    model.set "users.#{sess.userId}", newUser
+    model.set "users.#{sess.userId}", schema.newUserObject()
 
   ## -------- (2) PURL --------
   # eg, http://localhost/{guid}), legacy - will be removed eventually
@@ -37,7 +27,6 @@ module.exports.newUserAndPurl = () ->
     sess.userId = uidParam
 
 module.exports.setupEveryauth = (everyauth) ->
-
   everyauth.debug = true
   
   everyauth.everymodule.findUserById (id, callback) ->
