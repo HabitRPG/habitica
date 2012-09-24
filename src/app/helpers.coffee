@@ -1,13 +1,5 @@
 moment = require('moment')
 
-module.exports.daysBetween = (a, b) ->
-  #TODO replace this function with moment().diff()?
-  DAY = 1000 * 60 * 60  * 24
-  # calculate as midnight
-  a = new Date( (new Date(a)).toDateString() ) 
-  b = new Date( (new Date(b)).toDateString() )
-  return Math.abs(Math.floor((a.getTime() - b.getTime()) / DAY))
-
 module.exports.viewHelpers = (view) ->
   view.fn 'taskClasses', (type, completed, value, repeat) ->
     #TODO figure out how to just pass in the task model, so i can access all these properties from one object

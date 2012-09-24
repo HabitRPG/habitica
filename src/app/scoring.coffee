@@ -166,14 +166,14 @@ score = (spec = {task:null, direction:null, cron:null}) ->
   return delta 
 
 cron = ->  
-  today = new Date()
-  user.setNull('lastCron', today)
-  lastCron = user.get('lastCron')
-  daysPassed = helpers.daysBetween(lastCron, today)
+  today = moment().sod() # start of day
+  user.setNull 'lastCron', today.toDate()
+  lastCron = moment(user.get('lastCron'))
+  daysPassed = today.diff(lastCron, 'days')
   if daysPassed > 0
-    user.set('lastCron', today) # reset cron
-    _(daysPassed).times (n) ->
-      tallyFor = moment(lastCron).add('d',n)
+    user.set('lastCron', today.toDate()) # reset cron
+    _.times daysPassed, (n) ->
+      tallyFor = lastCron.add('d',n)
       tally(tallyFor)   
 
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)

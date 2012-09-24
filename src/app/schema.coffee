@@ -1,4 +1,5 @@
 content = require './content'
+moment = require 'moment'
 
 userSchema = {
   balance: 2
@@ -40,7 +41,7 @@ module.exports.updateSchema = (model) ->
         return
              
       # Remove all users who haven't logged in for a month
-      daysOld = require('./helpers').daysBetween(userObj.lastCron, new Date())
+      daysOld = moment().sod().diff(moment(userObj.lastCron), 'days')
       if daysOld > 30
         # and who have mostly the default tasks
         sameTasks = _.filter require('./content').defaultTasks, (defaultTask) ->
