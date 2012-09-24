@@ -4,6 +4,9 @@ content = require('./content')
 user = undefined
 module.exports.setUser = (u) ->
   user = u
+  
+# each new level, armor, weapon add 3% modifier (this number may change)
+module.exports.MODIFIER = MODIFIER = .03 
 
 statsNotification = (html, type) ->
   #don't show notifications if user dead
@@ -21,15 +24,15 @@ statsNotification = (html, type) ->
   
 # Calculates Exp modification based on weapon & lvl
 expModifier = (value) ->
-  dmg = user.get('items.weapon') * .03 # each new weapon adds an additional 3% experience
-  dmg += user.get('stats.lvl') * .03 # same for lvls
+  dmg = user.get('items.weapon') * MODIFIER # each new weapon increases exp gain
+  dmg += user.get('stats.lvl') * MODIFIER # same for lvls
   modified = value + (value * dmg)
   return modified
 
 # Calculates HP-loss modification based on armor & lvl
 hpModifier = (value) ->
-  ac = user.get('items.armor') * .03 # each new armor blocks an additional 3% damage
-  ac += user.get('stats.lvl') * .03 # same for lvls
+  ac = user.get('items.armor') * MODIFIER # each new armor decreases HP loss
+  ac += user.get('stats.lvl') * MODIFIER # same for lvls
   modified = value - (value * ac)
   return modified
   
