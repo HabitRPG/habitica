@@ -12,6 +12,7 @@ helpers.viewHelpers(view)
 # $ = require('jQuery')
 # und = require('underscore') # node.js uses _
 
+
 # ========== ROUTES ==========
 
 get '/:uidParam?', (page, model, {uidParam}, next) ->
@@ -23,36 +24,41 @@ get '/:uidParam?', (page, model, {uidParam}, next) ->
     model.set('_facebookAuthenticated', true)
   model.set '_userId', sess.userId
   model.subscribe "users.#{sess.userId}", (err, user) ->
+    # Set variables which are passed from the controller to the view
     model.ref '_user', user
-    
+
+    #FIXME remove this eventually, part of user schema
     user.setNull 'balance', 2
     
-    # Store
+    # Setup Item Store
     model.set '_items'
       armor: content.items.armor[parseInt(user.get('items.armor')) + 1]
       weapon: content.items.weapon[parseInt(user.get('items.weapon')) + 1]
       potion: content.items.potion
       reroll: content.items.reroll
-
-    model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
-      # see https://github.com/lefnire/habitrpg/issues/4
-      # also update in scoring.coffee. TODO create a function accessible in both locations 
-      (lvl*100)/5
-    
-    # Default Tasks
+      
+    # Setup Task Lists
     model.refList "_habitList", "_user.tasks", "_user.habitIds"
     model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
     model.refList "_todoList", "_user.tasks", "_user.todoIds"
     model.refList "_completedList", "_user.tasks", "_user.completedIds"
     model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
     
+    # Setup Model Functions
+    model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
+      # see https://github.com/lefnire/habitrpg/issues/4
+      # also update in scoring.coffee. TODO create a function accessible in both locations 
+      (lvl*100)/5
+    
+    # Render Page    
     page.render()  
 
 # ========== CONTROLLER FUNCTIONS ==========
 
 ready (model) ->
+  # Setup model in scoring functions
   scoring.setModel(model)
-    
+  
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
   # FIXME: this isn't very efficient, do model.on set for specific attrs for popover 
@@ -101,8 +107,8 @@ ready (model) ->
       throw new Error("Direction neither 'up' nor 'down' on checkbox set.")
       
     # Score the user based on todo task
-    task = model.at("_user.tasks.#{i}")
-    scoring.score({task:task, direction:direction()})
+    # task = model.at("_user.tasks.#{i}")
+    scoring.score(i, direction())
     
     # Then move the todos to/from _todoList/_completedList
     if task.get('type') == 'todo'
@@ -155,7 +161,7 @@ ready (model) ->
           return # Cancel. Don't delete, don't hurt user 
         else
           task.set('type','habit') # hack to make sure it hits HP, instead of performing "undo checkbox"
-          scoring.score({task:task, direction:'down'})
+          scoring.score(task.get('id'), direction:'down')
           
       # prevent accidently deleting long-standing tasks
       else
@@ -236,7 +242,7 @@ ready (model) ->
     direction = 'up' if direction == 'true/'
     direction = 'down' if direction == 'false/'
     task = model.at $(el).parents('li')[0]
-    scoring.score({task:task, direction:direction}) 
+    scoring.score(task.get('id'), direction) 
     
   exports.revive = (e, el) ->
     stats = model.at '_user.stats'

@@ -7,6 +7,9 @@ scoring = require '../src/app/scoring'
 schema = require '../src/app/schema'
 _ = require '../public/js/underscore-min'
 
+modifictionLookup = (value, direction) ->
+  #TODO implement a lookup table to test if user stats & task value has been modified properly
+
 describe 'User', ->
   model = null
   
@@ -48,33 +51,54 @@ describe 'User', ->
         expect(task.value).to.eql 0
         
       it 'made proper modifications when down-scored', ->
-        # Down-score the habit
-        [userBefore, taskBefore] = [model.get('_user'), model.get(taskPath)]
-        scoring.score({taskId:uuid, direction:'down'})
-        [userAfter, taskAfter] = [model.get('_user'), model.get(taskPath)]
+        # Setup 'before' objects for before/after comparisons
+        statsBefore = _.clone(model.get('_user.stats'))
+        taskBefore = _.clone(model.get(taskPath))
+        
+        ## Trial 1
+        scoring.score(uuid, 'down')
+        statsAfter = _.clone(model.get('_user.stats'))
+        taskAfter = _.clone(model.get(taskPath))
         
         # User should have lost HP 
-        expect(userAfter.stats.hp).to.be.lessThan userBefore.stats.hp
+        expect(statsAfter.hp).to.be.lessThan statsBefore.hp
         # Exp, GP should stay the same
-        expect(userAfter.stats.money).to.eql userBefore.stats.money
-        expect(userAfter.stats.exp).to.eql userBefore.stats.exp
-        # Task should have gained in value
-        expect(taskAfter.value).to.be.greaterThan taskBefore.value
+        expect(statsAfter.money).to.eql statsBefore.money
+        expect(statsAfter.exp).to.eql statsBefore.exp
+        
+        # Task should have gained in value (we're going down, so think Math.abs(task.value))
+        expect(taskBefore.value).to.eql 0
+        expect(taskAfter.value).to.eql -1
+        
+        ## Trial 2
+        taskBefore = _.clone(taskAfter)        
+        scoring.score(uuid, 'down')
+        taskAfter = _.clone(model.get(taskPath))
+        # Should have gained in value
+        expect(taskAfter.value).to.be < taskBefore.value
+        # And gained more than trial 1
+        expect(Math.abs(taskAfter.value) - Math.abs(taskBefore.value)).to.be.greaterThan 1
         
       it 'made proper modifications when up-scored', ->
         # Up-score the habit
-        [userBefore, taskBefore] = [model.get('_user'), model.get(taskPath)]
+        statsBefore = _.clone(model.get('_user.stats'))
+        taskBefore = _.clone(model.get(taskPath))
         scoring.score(uuid, 'up')
-        [userAfter, taskAfter] = [model.get('_user'), model.get(taskPath)]
+        statsAfter = _.clone(model.get('_user.stats'))
+        taskAfter = _.clone(model.get(taskPath))
         
         # User should have gained Exp, GP 
-        expect(userAfter.stats.exp).to.be.greaterThan userBefore.stats.exp
-        expect(userAfter.stats.money).to.be.greaterThan userBefore.stats.money
+        expect(statsAfter.exp).to.be.greaterThan statsBefore.exp
+        expect(statsAfter.money).to.be.greaterThan statsBefore.money
         # HP should not change
-        expect(userAfter.stats.hp).to.eql userBefore.stats.hp
+        expect(statsAfter.hp).to.eql statsBefore.hp
         # Task should have lost value
-        expect(taskAfter.value).to.be.lessThan taskBefore.value
+        expect(taskBefore.value).to.eql 0
+        expect(taskAfter.value).to.be.lessThan 1
         
+      it 'makes history entry for habit'      
+      it 'makes proper modifications each time when clicking + / - in rapid succession'
+      # saw an issue here once, so test that it wasn't a fluke
      
       it 'should not modify certain attributes given certain conditions'
         # non up+down habits
@@ -82,26 +106,24 @@ describe 'User', ->
         
       it 'should show "undo" notification if user unchecks completed daily'
       
-    describe 'Dailies', ->  
+    describe 'Dailies', -> 
       #TODO clicking repeat dates on newly-created item doesn't refresh until you refresh the page
       #TODO dates on dailies is having issues, possibility: date cusps? my saturday exempts were set to exempt at 8pm friday
     
     #TODO refactor as user->habits, user->dailys, user->todos, user->rewards
       
   describe 'Lvl & Items', ->        
-    it 'modified damage based on lvl & armor'     
+    it 'modified damage based on lvl & armor' 
     it 'always decreases hp with damage, regardless of stats/items'
     it 'always increases exp/gp with gain, regardless of stats/items'
     
   describe 'Cron', ->
+    it 'should calculate user.stats & task.value properly on cron'
     it 'should calculate cron based on difference between start-of-days, and not run in the middle of the day'
-    
     it 'should only run set operations once per task, even when daysPassed > 1'
     # pass in daysPassed to score, multiply modification values by daysPassed before running set
-    
     it 'should only push a history point for lastCron, not each day in between'
     # stop passing in tallyFor, let moment().sod().toDate() be handled in scoring.score()
-  
     it 'should defer saving user modifications until, save as aggregate values'
     # pass in commit parameter to scoring func, if true save right away, otherwise return aggregated array so can save in the end (so total hp loss, etc)
   

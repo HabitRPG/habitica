@@ -1,5 +1,6 @@
-content = require('./content')
-helpers = require('./helpers')
+moment = require 'moment'
+content = require './content'
+helpers = require './helpers'
 MODIFIER = .03 # each new level, armor, weapon add 3% modifier (this number may change) 
 user = undefined
 model = undefined
@@ -103,12 +104,20 @@ updateStats = (stats) ->
     money = 0.0 if (!money? or money<0)
     user.set 'stats.money', stats.money
     
-score = (spec = {task:null, direction:null, cron:null}) ->
-  [task, direction, cron] = [spec.task, spec.direction, spec.cron]
+# {taskId} task you want to score
+# {direction} 'up' or 'down'
+# {cron} is this function being called by cron? (this will usually be false)
+score = (taskId, direction, cron=false) ->
+  taskPath = "_user.tasks.#{taskId}"
+  [task, taskObj] = [model.at(taskPath), model.get(taskPath)]
+  [type, value] = [taskObj.type, taskObj.value]
+  userObj = user.get()
+  
   
   # up / down was called by itself, probably as REST from 3rd party service
+  #FIXME handle this
   if !task
-    [money, hp, exp] = [user.get('stats.money'), user.get('stats.hp'), user.get('stats.exp')]
+    [money, hp, exp] = [userObj.stats.money, userObj.stats.hp, userObj.stats.exp]
     if (direction == "up")
       modified = expModifier(1)
       money += modified
@@ -124,24 +133,21 @@ score = (spec = {task:null, direction:null, cron:null}) ->
   # For positibe values, taper off with inverse log: y=.9^x
   # Would love to use inverse log for the whole thing, but after 13 fails it hits infinity
   sign = if (direction == "up") then 1 else -1
-  value = task.get('value')
   delta = if (value < 0) then (( -0.1 * value + 1 ) * sign) else (( Math.pow(0.9,value) ) * sign)
-  
-  type = task.get('type')
 
   # Don't adjust values for rewards, or for habits that don't have both + and -
   adjustvalue = (type != 'reward')
-  if (type == 'habit') and (task.get("up")==false or task.get("down")==false)
+  if (type == 'habit') and (taskObj.up==false or taskObj.down==false)
     adjustvalue = false
   value += delta if adjustvalue
 
   if type == 'habit'
     # Add habit value to habit-history (if different)
-    task.push 'history', { date: new Date(), value: value } if task.get('value') != value
+    task.push 'history', { date: moment().sod().toDate(), value: value } if taskObj.value != value
   task.set('value', value)
 
   # Update the user's status
-  [money, hp, exp, lvl] = [user.get('stats.money'), user.get('stats.hp'), user.get('stats.exp'), user.get('stats.lvl')]
+  [money, hp, exp, lvl] = [userObj.stats.money, userObj.stats.hp, userObj.stats.exp, userObj.stats.lvl]
 
   if type == 'reward'
     # purchase item
@@ -154,7 +160,7 @@ score = (spec = {task:null, direction:null, cron:null}) ->
       
   # Add points to exp & money if positive delta
   # Only take away mony if it was a mistake (aka, a checkbox)
-  if (delta > 0 or ( type in ['daily', 'todo'])) and !cron
+  if (delta > 0 or (type in ['daily', 'todo'])) and !cron
     modified = expModifier(delta)
     exp += modified
     money += modified
@@ -194,7 +200,7 @@ tally = (momentDate) ->
         dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
         dueToday = (repeat && repeat[dayMapping[momentDate.day()]]==true) 
         if dueToday or type=='todo'
-          score({task:task, direction:'down', cron:true})
+          score(taskId, 'down', true)
       if type == 'daily'
         task.push "history", { date: new Date(momentDate), value: value }
       else
