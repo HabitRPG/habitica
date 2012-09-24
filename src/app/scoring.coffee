@@ -148,7 +148,7 @@ score = (taskId, direction, options={cron:false, times:1}) ->
   
   if type == 'habit'
     # Add habit value to habit-history (if different)
-    task.push 'history', { date: moment().toDate(), value: value } if taskObj.value != value
+    task.push 'history', { date: new Date(), value: value } if taskObj.value != value
   task.set('value', value)
 
   # Update the user's status

@@ -1,27 +1,18 @@
 {expect} = require 'derby/node_modules/racer/test/util'
 {BrowserModel: Model} = require 'derby/node_modules/racer/test/util/model'
 derby = require 'derby'
+_ = require 'lodash'
+moment = require 'moment'
 
 # Custom modules
 scoring = require '../src/app/scoring'
 schema = require '../src/app/schema'
-_ = require 'lodash'
-moment = require 'moment'
-
-###### Helper Functions ######  
-
-modifictionLookup = (value, direction) ->
-  #TODO implement a lookup table to test if user stats & task value has been modified properly
   
 ###### Specs ######
 
 describe 'User', ->
   model = null
-  
-  ## Helper which clones the content at a path so tests can compare before/after values
-  pathSnapshots = (paths) ->
-    _.map paths, (path) -> _.clone(model.get(path))
-  
+
   beforeEach ->
     model = new Model
     model.set '_user', schema.newUserObject()
@@ -43,6 +34,14 @@ describe 'User', ->
   describe 'Tasks', ->
     uuid = null
     taskPath = null
+    
+    ## Helper which clones the content at a path so tests can compare before/after values
+    # Otherwise, using model.get(path) will give the same object before as after
+    pathSnapshots = (paths) ->
+      if _.isString(paths)
+        return _.clone(model.get(paths)) 
+      _.map paths, (path) -> _.clone(model.get(path))
+    statsTask = -> pathSnapshots(['_user.stats', taskPath]) # quick snapshot of user.stats & task
     
     before ->
       # Reset tasks
@@ -67,14 +66,10 @@ describe 'User', ->
         expect(task.value).to.eql 0
         
       it 'made proper modifications when down-scored', ->
-        # Setup 'before' objects for before/after comparisons
-        statsBefore = _.clone(model.get('_user.stats'))
-        taskBefore = _.clone(model.get(taskPath))
-        
         ## Trial 1
+        [statsBefore, taskBefore] = statsTask()
         scoring.score(uuid, 'down')
-        statsAfter = _.clone(model.get('_user.stats'))
-        taskAfter = _.clone(model.get(taskPath))
+        [statsAfter, taskAfter] = statsTask()
         
         # User should have lost HP 
         expect(statsAfter.hp).to.be.lessThan statsBefore.hp
@@ -87,21 +82,20 @@ describe 'User', ->
         expect(taskAfter.value).to.eql -1
         
         ## Trial 2
-        taskBefore = _.clone(taskAfter)        
+        taskBefore = pathSnapshots(taskPath)        
         scoring.score(uuid, 'down')
-        taskAfter = _.clone(model.get(taskPath))
+        taskAfter = pathSnapshots(taskPath)
         # Should have gained in value
         expect(taskAfter.value).to.be < taskBefore.value
         # And gained more than trial 1
-        expect(Math.abs(taskAfter.value) - Math.abs(taskBefore.value)).to.be.greaterThan 1
+        diff = Math.abs(taskAfter.value) - Math.abs(taskBefore.value)
+        expect(diff).to.be.greaterThan 1
         
       it 'made proper modifications when up-scored', ->
         # Up-score the habit
-        statsBefore = _.clone(model.get('_user.stats'))
-        taskBefore = _.clone(model.get(taskPath))
+        [statsBefore, taskBefore] = statsTask()
         scoring.score(uuid, 'up')
-        statsAfter = _.clone(model.get('_user.stats'))
-        taskAfter = _.clone(model.get(taskPath))
+        [statsAfter, taskAfter] = statsTask()
         
         # User should have gained Exp, GP 
         expect(statsAfter.exp).to.be.greaterThan statsBefore.exp
@@ -139,14 +133,14 @@ describe 'User', ->
       it 'does proper calculations when daily is complete'
       
       it 'calculates user.stats & task.value properly on cron', ->
-        [statsBefore, taskBefore] = pathSnapshots(['_user.stats', taskPath])
+        [statsBefore, taskBefore] = statsTask()
         # Set lastCron to yesterday
         today = new moment()
         yesterday = new moment().subtract('days',1)
         model.set '_user.lastCron', yesterday.toDate()
         # Run run
         scoring.cron() 
-        [statsAfter, taskAfter] = pathSnapshots(['_user.stats', taskPath])
+        [statsAfter, taskAfter] = statsTask()
         
         # Should have updated cron to today
         lastCron = moment(model.get('_user.lastCron'))
@@ -162,6 +156,7 @@ describe 'User', ->
     
     describe 'Todos', ->
       describe 'Cron', ->
+        it 'calls cron asyncronously'
         it 'should calculate user.stats & task.value properly on cron'
         it 'should calculate cron based on difference between start-of-days, and not run in the middle of the day'
         it 'should only run set operations once per task, even when daysPassed > 1'
