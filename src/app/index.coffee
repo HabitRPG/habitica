@@ -48,6 +48,11 @@ get '/:uidParam?', (page, model, {uidParam}, next) ->
       # see https://github.com/lefnire/habitrpg/issues/4
       # also update in scoring.coffee. TODO create a function accessible in both locations 
       (lvl*100)/5
+      
+    # TODO, running on the server for now. It looks better when run on the client,
+    # but sometimes it doesn't work
+    scoring.setModel(model)
+    scoring.cron()
     
     # Render Page    
     page.render()  
@@ -256,6 +261,5 @@ ready (model) ->
   
   # FIXME seems can't call scoring.cron() instantly, have to call after some time (2s here)
   # Doesn't do anything otherwise. Don't know why... model not initialized enough yet?   
-  setTimeout scoring.cron, 2000 # Run once on refresh
+  # setTimeout scoring.cron, 2000 # Run once on refresh
   setInterval scoring.cron, 3600000 # Then run once every hour
-  

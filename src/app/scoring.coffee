@@ -30,13 +30,13 @@ setupNotifications = ->
     }
     
   # Setup listeners which trigger notifications
-  user.on 'set', 'stats.hp', (captures, args, out, isLocal, passed) ->
+  user.on 'set', 'stats.hp', (captures, args) ->
     num = captures - args
     rounded = Math.abs(num.toFixed(1))
     if num < 0
       statsNotification "<i class='icon-heart'></i>HP -#{rounded}", 'error' # lost hp from purchase
     
-  user.on 'set', 'stats.money', (captures, args, out, isLocal, passed) ->
+  user.on 'set', 'stats.money', (captures, args) ->
     num = captures - args
     rounded = Math.abs(num.toFixed(1))
     # made purchase
@@ -48,7 +48,7 @@ setupNotifications = ->
       num = Math.abs(num)
       statsNotification "<i class='icon-star'></i>Exp,GP +#{rounded}", 'success'
     
-  user.on 'set', 'stats.lvl', (captures, args, out, isLocal, passed) ->
+  user.on 'set', 'stats.lvl', (captures, args) ->
     if captures > args
       statsNotification('<i class="icon-chevron-up"></i> Level Up!', 'info')
   
@@ -186,9 +186,6 @@ cron = ->
   lastCron = user.get('lastCron')
   daysPassed = helpers.daysBetween(today, lastCron)
   if daysPassed > 0
-    # reset cron
-    user.set('lastCron', today) 
-    
     # Tally function, which is called asyncronously below - but function is defined here. 
     # We need access to some closure variables above
     todoTally = 0
@@ -223,19 +220,19 @@ cron = ->
       next()
     
     # Tally each task
-    # FIXME calling this as async doesn't seem to save to database, revisit
-    # tasks = _.toArray(user.get('tasks'))
-    # async.forEach tasks, tallyTask, (err) ->  
+    #Syncronous version: _.each user.get('tasks'), (taskObj) -> tallyTask(taskObj, ->) 
+    tasks = _.toArray(user.get('tasks'))
+    async.forEach tasks, tallyTask, (err) ->  
       # Finished tallying, this is the 'completed' callback
-    _.each user.get('tasks'), (taskObj) -> tallyTask(taskObj, ->) #this will be replaced with above async call when i can get it working
-    user.push 'history.todos', { date: today, value: todoTally }
-    # tally experience
-    expTally = user.get 'stats.exp'
-    lvl = 0 #iterator
-    while lvl < (user.get('stats.lvl')-1)
-      lvl++
-      expTally += (lvl*100)/5
-    user.push 'history.exp',  { date: today, value: expTally }
+      user.push 'history.todos', { date: today, value: todoTally }
+      # tally experience
+      expTally = user.get 'stats.exp'
+      lvl = 0 #iterator
+      while lvl < (user.get('stats.lvl')-1)
+        lvl++
+        expTally += (lvl*100)/5
+      user.push 'history.exp',  { date: today, value: expTally }
+      user.set('lastCron', today) # reset cron
   
 
 module.exports = {
