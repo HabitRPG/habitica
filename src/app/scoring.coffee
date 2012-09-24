@@ -179,14 +179,20 @@ score = (taskId, direction, options={cron:false, times:1}) ->
   return delta 
   
 
+daysBetween = (a, b) ->
+  Math.abs(moment(a).sod().diff(moment(b).sod(), 'days'))
+
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
 # For incomplete Dailys, deduct experience
 cron = ->  
-  today = moment().sod() # start of day
-  user.setNull 'lastCron', today.toDate()
-  lastCron = moment(user.get('lastCron'))
-  daysPassed = today.diff(lastCron, 'days')
+  today = new Date()
+  user.setNull 'lastCron', today
+  lastCron = user.get('lastCron')
+  daysPassed = daysBetween(today, lastCron)
   if daysPassed > 0
+    # reset cron
+    user.set('lastCron', today) 
+    
     # Tally function, which is called asyncronously below - but function is defined here. 
     # We need access to some closure variables above
     todoTally = 0
@@ -206,14 +212,14 @@ cron = ->
             dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
             daysFailed = 0
             _.times daysPassed, (n) ->
-              thatDay = today.subtract('days', n+1)
+              thatDay = moment().subtract('days', n+1)
               if repeat[dayMapping[thatDay.day()]]==true
                 daysFailed++ 
           score(id, 'down', {cron:true, times:daysFailed})
 
         value = task.get('value') #get updated value
         if type == 'daily'
-          task.push "history", { date: today.toDate(), value: value }
+          task.push "history", { date: today, value: value }
         else
           absVal = if (completed) then Math.abs(value) else value
           todoTally += absVal
@@ -221,18 +227,17 @@ cron = ->
       next()
     
     # Tally each task
-    tasks = _.toArray(user.get('tasks'))    
-    async.forEach tasks, tallyTask, (err) ->
+    tasks = _.toArray(user.get('tasks'))
+    async.forEach tasks, tallyTask, (err) ->  
       # Finished tallying, this is the 'completed' callback
-      user.push 'history.todos', { date: today.toDate(), value: todoTally }
+      user.push 'history.todos', { date: today, value: todoTally }
       # tally experience
       expTally = user.get 'stats.exp'
       lvl = 0 #iterator
       while lvl < (user.get('stats.lvl')-1)
         lvl++
         expTally += (lvl*100)/5
-      user.push 'history.exp',  { date: today.toDate(), value: expTally }
-      user.set('lastCron', today.toDate()) # reset cron 
+      user.push 'history.exp',  { date: today, value: expTally }
   
 
 module.exports = {
