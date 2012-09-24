@@ -7,7 +7,7 @@ module.exports = (expressApp, root, derby) ->
     model = req.getModel()
     model.fetch "users.#{req.params.uid}", (err, user) ->
       return if err || !user.get()
-      scoring.setUser(user)
+      scoring.setModel(model)
       scoring.score({direction:'up'})
     res.send(200)
 
@@ -16,7 +16,7 @@ module.exports = (expressApp, root, derby) ->
     model = req.getModel()
     model.fetch "users.#{req.params.uid}", (err, user) ->
       return if err || !user.get()
-      scoring.setUser(user)
+      scoring.setModel(model)
       scoring.score({direction:'down'})
     res.send(200)
     

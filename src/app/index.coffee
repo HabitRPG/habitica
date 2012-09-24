@@ -51,7 +51,7 @@ get '/:uidParam?', (page, model, {uidParam}, next) ->
 # ========== CONTROLLER FUNCTIONS ==========
 
 ready (model) ->
-  scoring.setUser(model.at('_user'))
+  scoring.setModel(model)
     
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()

@@ -2,25 +2,50 @@ content = require('./content')
 helpers = require('./helpers')
 MODIFIER = .03 # each new level, armor, weapon add 3% modifier (this number may change) 
 user = undefined
+model = undefined
 
 # This is required by all the functions, make sure it's set before anythign else is called
-setUser = (u) ->
-  user = u
-
-# FIXME move to index.coffee as module.on('set','*')
-statsNotification = (html, type) ->
-  #don't show notifications if user dead
-  return if user.get('stats.lvl') == 0
+setModel = (m) ->
+  model = m
+  user = model.at('_user')
+  setupNotifications()
   
-  $.bootstrapGrowl html, {
-    type: type # (null, 'info', 'error', 'success')
-    top_offset: 20
-    align: 'right' # ('left', 'right', or 'center')
-    width: 250 # (integer, or 'auto')
-    delay: 3000
-    allow_dismiss: true
-    stackup_spacing: 10 # spacing between consecutive stacecked growls.
-  }
+setupNotifications = ->
+  statsNotification = (html, type) ->
+    #don't show notifications if user dead
+    return if user.get('stats.lvl') == 0
+    $.bootstrapGrowl html, {
+      type: type # (null, 'info', 'error', 'success')
+      top_offset: 20
+      align: 'right' # ('left', 'right', or 'center')
+      width: 250 # (integer, or 'auto')
+      delay: 3000
+      allow_dismiss: true
+      stackup_spacing: 10 # spacing between consecutive stacecked growls.
+    }
+    
+  # Setup listeners which trigger notifications
+  user.on 'set', 'stats.hp', (captures, args, out, isLocal, passed) ->
+    num = captures - args
+    rounded = Math.abs(num.toFixed(1))
+    if num < 0
+      statsNotification "<i class='icon-heart'></i>HP -#{rounded}", 'error' # lost hp from purchase
+    
+  user.on 'set', 'stats.money', (captures, args, out, isLocal, passed) ->
+    num = captures - args
+    rounded = Math.abs(num.toFixed(1))
+    # made purchase
+    if num < 0
+      # FIXME use 'warning' when unchecking an accidently completed daily/todo, and notify of exp too
+      statsNotification "<i class='icon-star'></i>GP -#{rounded}", 'success'
+    # gained money (and thereby exp)
+    else if num > 0
+      num = Math.abs(num)
+      statsNotification "<i class='icon-star'></i>Exp,GP +#{rounded}", 'success'
+    
+  user.on 'set', 'stats.lvl', (captures, args, out, isLocal, passed) ->
+    if captures > args
+      statsNotification('<i class="icon-chevron-up"></i> Level Up!', 'info')
   
 # Calculates Exp modification based on weapon & lvl
 expModifier = (value) ->
@@ -57,7 +82,6 @@ updateStats = (stats) ->
       stats.exp -= tnl
       user.set 'stats.lvl', user.get('stats.lvl') + 1
       user.set 'stats.hp', 50
-      statsNotification('<i class="icon-chevron-up"></i> Level Up!', 'info')
     if !user.get('items.itemsEnabled') and stats.exp >=15
       user.set 'items.itemsEnabled', true
       $('ul.items').popover
@@ -87,11 +111,9 @@ score = (spec = {task:null, direction:null, cron:null}) ->
       modified = expModifier(1)
       money += modified
       exp += modified
-      # statsNotification "<i class='icon-star'></i>Exp,GP +#{modified.toFixed(2)}", 'success'
     else
       modified = hpModifier(1)
       hp -= modified
-      # statsNotification "<i class='icon-heart'></i>HP #{modified.toFixed(2)}", 'error'
     updateStats({hp: hp, exp: exp, money: money})
     return
     
@@ -123,11 +145,9 @@ score = (spec = {task:null, direction:null, cron:null}) ->
     # purchase item
     money -= task.get('value')
     num = parseFloat(task.get('value')).toFixed(2)
-    statsNotification "<i class='icon-star'></i>GP -#{num}", 'success'
     # if too expensive, reduce health & zero money
     if money < 0
       hp += money# hp - money difference
-      statsNotification "<i class='icon-heart'></i>HP #{money.toFixed(2)}", 'error'
       money = 0
       
   # Add points to exp & money if positive delta
@@ -136,16 +156,10 @@ score = (spec = {task:null, direction:null, cron:null}) ->
     modified = expModifier(delta)
     exp += modified
     money += modified
-    if modified > 0
-      statsNotification "<i class='icon-star'></i>Exp,GP +#{modified.toFixed(2)}", 'success'
-    else
-      # unchecking an accidently completed daily/todo
-      statsNotification "<i class='icon-star'></i>Exp,GP #{modified.toFixed(2)}", 'warning'
   # Deduct from health (rewards case handled above)
   else unless type in ['reward', 'todo']
     modified = hpModifier(delta)
     hp += modified
-    statsNotification "<i class='icon-heart'></i>HP #{modified.toFixed(2)}", 'error'
 
   updateStats({hp: hp, exp: exp, money: money})
   
@@ -198,7 +212,7 @@ tally = (momentDate) ->
 
 module.exports = {
   MODIFIER: MODIFIER
-  setUser: setUser
+  setModel: setModel
   score: score
   cron: cron
 }
