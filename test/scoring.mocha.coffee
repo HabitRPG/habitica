@@ -78,9 +78,23 @@ describe 'Scoring', ->
       # non up+down habits
       # what else?
       
+    it 'should only run set operations once per task, even when daysPassed > 1'
+    # pass in daysPassed to score, multiply modification values by daysPassed before running set
+    
+    it 'should only push a history point for lastCron, not each day in between'
+    # stop passing in tallyFor, let moment().sod().toDate() be handled in scoring.score()
+      
           
   it 'should modify damage based on lvl & armor'     
   it 'should always decrease hp with damage, regardless of stats/items'
   it 'should always increase exp/gp with gain, regardless of stats/items'
   it 'should calculate cron based on difference between start-of-days, and not run in the middle of the day'
   it 'should show "undo" notification if user unchecks completed daily'
+  #TODO clicking repeat dates on newly-created item doesn't refresh until you refresh the page
+  #TODO pass in commit parameter to scoring func, if true save right away, otherwise return aggregated array so can save in the end (so total hp loss, etc)
+  #TODO refactor as user->habits, user->dailys, user->todos, user->rewards
+  #TODO dates on dailies is having issues, possibility: date cusps? my saturday exempts were set to exempt at 8pm friday
+  
+  #### Require.js stuff, might be necessary to place in casper.coffee
+  it "doesn't setup dependent functions until their modules are loaded, require.js callback"
+  # sortable, stripe, etc 
