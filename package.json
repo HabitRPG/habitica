@@ -14,7 +14,9 @@
     "guid": "*",
     "node.extend": "*",
     "moment": "*",
-    "stripe": "*"
+    "stripe": "*",
+    "async": "*",
+    "lodash": "*"
   },
   "private": true,
   "devDependencies": {

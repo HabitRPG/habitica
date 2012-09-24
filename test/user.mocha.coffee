@@ -5,13 +5,22 @@ derby = require 'derby'
 # Custom modules
 scoring = require '../src/app/scoring'
 schema = require '../src/app/schema'
-_ = require '../public/js/underscore-min'
+_ = require 'lodash'
+moment = require 'moment'
+
+###### Helper Functions ######  
 
 modifictionLookup = (value, direction) ->
   #TODO implement a lookup table to test if user stats & task value has been modified properly
+  
+###### Specs ######
 
 describe 'User', ->
   model = null
+  
+  ## Helper which clones the content at a path so tests can compare before/after values
+  pathSnapshots = (paths) ->
+    _.map paths, (path) -> _.clone(model.get(path))
   
   beforeEach ->
     model = new Model
@@ -35,11 +44,18 @@ describe 'User', ->
     uuid = null
     taskPath = null
     
+    before ->
+      # Reset tasks
+      model.set '_user.tasks', {}
+      model.set '_user.habitIds', []
+      model.set '_user.dailyIds', []
+      model.set '_user.todoIds', []
+      model.set '_user.rewardIds', []
+    
     describe 'Habits', ->
     
       beforeEach ->
         # create a test task
-        user = model.get('_user')
         uuid = derby.uuid()
         taskPath = "_user.tasks.#{uuid}"
         model.refList "_habitList", "_user.tasks", "_user.habitIds"
@@ -106,27 +122,63 @@ describe 'User', ->
         
       it 'should show "undo" notification if user unchecks completed daily'
       
-    describe 'Dailies', -> 
+    describe 'Dailies', ->
+      
+      beforeEach ->
+        # create a test task
+        uuid = derby.uuid()
+        taskPath = "_user.tasks.#{uuid}"
+        model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
+        model.at('_dailyList').push {type: 'daily', text: 'Daily', value: 0, completed: false, id: uuid }
+        
+      it 'created the daily', ->
+        task = model.get(taskPath)
+        expect(task.text).to.eql 'Daily'
+        expect(task.value).to.eql 0
+        
+      it 'does proper calculations when daily is complete'
+      
+      it 'calculates user.stats & task.value properly on cron', ->
+        [statsBefore, taskBefore] = pathSnapshots(['_user.stats', taskPath])
+        # Set lastCron to yesterday
+        today = moment()
+        model.set '_user.lastCron', today.subtract('days',1).toDate()
+        # Run run
+        scoring.cron() 
+        [statsAfter, taskAfter] = pathSnapshots(['_user.stats', taskPath])
+        
+        # Should have updated cron to today
+        lastCron = moment(model.get('_user.lastCron'))
+        expect(today.diff(lastCron, 'days')).to.eql 0
+        
+        # Should have updated points properly
+        expect(statsBefore.hp).to.be.lessThan statsAfter.hp
+        expect(taskBefore.value).to.eql 0
+        expect(taskAfter.value).to.eql -1
+         
       #TODO clicking repeat dates on newly-created item doesn't refresh until you refresh the page
       #TODO dates on dailies is having issues, possibility: date cusps? my saturday exempts were set to exempt at 8pm friday
     
-    #TODO refactor as user->habits, user->dailys, user->todos, user->rewards
+    describe 'Todos', ->
+      describe 'Cron', ->
+        it 'should calculate user.stats & task.value properly on cron'
+        it 'should calculate cron based on difference between start-of-days, and not run in the middle of the day'
+        it 'should only run set operations once per task, even when daysPassed > 1'
+        # pass in daysPassed to score, multiply modification values by daysPassed before running set
+        it 'should only push a history point for lastCron, not each day in between'
+        # stop passing in tallyFor, let moment().sod().toDate() be handled in scoring.score()
+        it 'should defer saving user modifications until, save as aggregate values'
+        # pass in commit parameter to scoring func, if true save right away, otherwise return aggregated array so can save in the end (so total hp loss, etc)
+    
+    describe 'Rewards', ->
       
   describe 'Lvl & Items', ->        
     it 'modified damage based on lvl & armor' 
     it 'always decreases hp with damage, regardless of stats/items'
     it 'always increases exp/gp with gain, regardless of stats/items'
-    
-  describe 'Cron', ->
-    it 'should calculate user.stats & task.value properly on cron'
-    it 'should calculate cron based on difference between start-of-days, and not run in the middle of the day'
-    it 'should only run set operations once per task, even when daysPassed > 1'
-    # pass in daysPassed to score, multiply modification values by daysPassed before running set
-    it 'should only push a history point for lastCron, not each day in between'
-    # stop passing in tallyFor, let moment().sod().toDate() be handled in scoring.score()
-    it 'should defer saving user modifications until, save as aggregate values'
-    # pass in commit parameter to scoring func, if true save right away, otherwise return aggregated array so can save in the end (so total hp loss, etc)
   
   #### Require.js stuff, might be necessary to place in casper.coffee
   it "doesn't setup dependent functions until their modules are loaded, require.js callback"
   # sortable, stripe, etc 
+
+#TODO refactor as user->habits, user->dailys, user->todos, user->rewards

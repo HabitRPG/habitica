@@ -1,3 +1,4 @@
+async = require 'async'
 moment = require 'moment'
 content = require './content'
 helpers = require './helpers'
@@ -107,17 +108,17 @@ updateStats = (stats) ->
 # {taskId} task you want to score
 # {direction} 'up' or 'down'
 # {cron} is this function being called by cron? (this will usually be false)
-score = (taskId, direction, cron=false) ->
+score = (taskId, direction, options={cron:false, times:1}) ->
   taskPath = "_user.tasks.#{taskId}"
   [task, taskObj] = [model.at(taskPath), model.get(taskPath)]
-  [type, value] = [taskObj.type, taskObj.value]
+  {type, value} = taskObj
   userObj = user.get()
   
   
   # up / down was called by itself, probably as REST from 3rd party service
   #FIXME handle this
   if !task
-    [money, hp, exp] = [userObj.stats.money, userObj.stats.hp, userObj.stats.exp]
+    {money, hp, exp} = userObj.stats
     if (direction == "up")
       modified = expModifier(1)
       money += modified
@@ -140,6 +141,9 @@ score = (taskId, direction, cron=false) ->
   if (type == 'habit') and (taskObj.up==false or taskObj.down==false)
     adjustvalue = false
   value += delta if adjustvalue
+  
+  # If multiple days have passed, multiply times days missed
+  value *= options.times
 
   if type == 'habit'
     # Add habit value to habit-history (if different)
@@ -160,7 +164,7 @@ score = (taskId, direction, cron=false) ->
       
   # Add points to exp & money if positive delta
   # Only take away mony if it was a mistake (aka, a checkbox)
-  if (delta > 0 or (type in ['daily', 'todo'])) and !cron
+  if (delta > 0 or (type in ['daily', 'todo'])) and !options.cron
     modified = expModifier(delta)
     exp += modified
     money += modified
@@ -172,50 +176,58 @@ score = (taskId, direction, cron=false) ->
   updateStats({hp: hp, exp: exp, money: money})
   
   return delta 
+  
 
+# At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
+# For incomplete Dailys, deduct experience
 cron = ->  
   today = moment().sod() # start of day
   user.setNull 'lastCron', today.toDate()
   lastCron = moment(user.get('lastCron'))
   daysPassed = today.diff(lastCron, 'days')
   if daysPassed > 0
-    user.set('lastCron', today.toDate()) # reset cron
-    _.times daysPassed, (n) ->
-      tallyFor = lastCron.add('d',n)
-      tally(tallyFor)   
+    # Tally function, which is called asyncronously below - but function is defined here. 
+    # We need access to some closure variables above
+    todoTally = 0
+    tallyTask = (taskObj, next) ->
+      {id, type, completed, repeat} = taskObj
+      return unless id? #this shouldn't be happening, some tasks seem to be corrupted
+      task = user.at("tasks.#{id}")
+      if type in ['todo', 'daily']
+        # Deduct experience for missed Daily tasks, 
+        # but not for Todos (just increase todo's value)
+        unless completed
+          # for todos & typical dailies, these are equivalent
+          daysFailed = daysPassed
+          # however, for dailys which have repeat dates, need
+          # to calculate how many they've missed according to their own schedule
+          if type=='daily' && repeat
+            dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
+            dueToday = (repeat && repeat[dayMapping[momentDate.day()]]==true) 
+          score(taskId, 'down', {cron:true, times: daysFailed})
 
-# At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-# For incomplete Dailys, deduct experience
-tally = (momentDate) ->
-  todoTally = 0
-  _.each user.get('tasks'), (taskObj, taskId, list) ->
-    #FIXME is it hiccuping here? taskId == "$_65255f4e-3728-4d50-bade-3b05633639af_2", & taskObj.id = undefined
-    return unless taskObj.id? #this shouldn't be happening, some tasks seem to be corrupted
-    [type, value, completed, repeat] = [taskObj.type, taskObj.value, taskObj.completed, taskObj.repeat]
-    task = user.at("tasks.#{taskId}")
-    if type in ['todo', 'daily']
-      # Deduct experience for missed Daily tasks, 
-      # but not for Todos (just increase todo's value)
-      unless completed
-        dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
-        dueToday = (repeat && repeat[dayMapping[momentDate.day()]]==true) 
-        if dueToday or type=='todo'
-          score(taskId, 'down', true)
-      if type == 'daily'
-        task.push "history", { date: new Date(momentDate), value: value }
-      else
-        absVal = if (completed) then Math.abs(value) else value
-        todoTally += absVal
-      task.pass({cron:true}).set('completed', false) if type == 'daily'
-  user.push 'history.todos', { date: new Date(momentDate), value: todoTally }
-  
-  # tally experience
-  expTally = user.get 'stats.exp'
-  lvl = 0 #iterator
-  while lvl < (user.get('stats.lvl')-1)
-    lvl++
-    expTally += (lvl*100)/5
-  user.push 'history.exp',  { date: new Date(), value: expTally } 
+        value = task.get('value') #get updated value
+        if type == 'daily'
+          task.push "history", { date: today.toDate(), value: value }
+        else
+          absVal = if (completed) then Math.abs(value) else value
+          todoTally += absVal
+        task.pass({cron:true}).set('completed', false) if type == 'daily'
+      next()
+    
+    # Tally each task
+    tasks = _.toArray(user.get('tasks'))    
+    async.forEach tasks, tallyTask, (err) ->
+      # Finished tallying, this is the 'completed' callback
+      user.push 'history.todos', { date: today.toDate(), value: todoTally }
+      # tally experience
+      expTally = user.get 'stats.exp'
+      lvl = 0 #iterator
+      while lvl < (user.get('stats.lvl')-1)
+        lvl++
+        expTally += (lvl*100)/5
+      user.push 'history.exp',  { date: today.toDate(), value: expTally }
+      user.set('lastCron', today.toDate()) # reset cron 
   
 
 module.exports = {
