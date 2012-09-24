@@ -11,6 +11,8 @@ setModel = (m) ->
   setupNotifications()
   
 setupNotifications = ->
+  return unless jQuery? # Only run this in the browser 
+  
   statsNotification = (html, type) ->
     #don't show notifications if user dead
     return if user.get('stats.lvl') == 0
