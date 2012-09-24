@@ -96,14 +96,6 @@
   </div>
   
   <div id=wrap class=container-fluid>
-    {#if _debug}
-    <div class="alert">
-      <i class="icon-warning-sign"></i> <b>Debugging Options</b><br/><br/>
-      <a x-bind=click:poormanscron class="btn">Cron</a>
-      <a x-bind=click:endOfDayTally class="btn">Tally</a>
-    </div>
-    {/}
-    
     <div id=main class=row-fluid>
       <!-- would rather have one component: <app:taskList>, which handles taskList, task, and newTask.  However,
         can't pass references as paramters.  so <app:taskList newModel={_newHabit} list={_habitList}> doesn't work
@@ -305,11 +297,11 @@
     <div class="task-controls">
       <!-- Habits -->
       {#if equal(:task.type, 'habit')}
-        {#if :task.up}<a data-direction=up x-bind=click:vote><img src="/img/add.png" /></a>{/}
-        {#if :task.down}<a data-direction=down x-bind=click:vote><img src="/img/remove.png" /></a>{/}
+        {#if :task.up}<a data-direction=up x-bind=click:score><img src="/img/add.png" /></a>{/}
+        {#if :task.down}<a data-direction=down x-bind=click:score><img src="/img/remove.png" /></a>{/}
       <!-- Rewards -->
       {else if equal(:task.type, 'reward')}
-        <a x-bind=click:vote class="buy-link" data-direction=down>{:task.value}<img src="/img/coin_single_gold.png"/></a>
+        <a x-bind=click:score class="buy-link" data-direction=down>{:task.value}<img src="/img/coin_single_gold.png"/></a>
       <!-- Daily & Todos -->
       {else}  
         <input type=checkbox checked="{:task.completed}"/>

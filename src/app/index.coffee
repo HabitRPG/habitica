@@ -231,11 +231,10 @@ ready (model) ->
       hp = 50 if hp > 50 
       user.set 'stats.hp', hp
   
-  exports.vote = (e, el, next) ->
+  exports.score = (e, el, next) ->
     direction = $(el).attr('data-direction')
     direction = 'up' if direction == 'true/'
     direction = 'down' if direction == 'false/'
-    user = model.at('_user')
     task = model.at $(el).parents('li')[0]
     scoring.score({task:task, direction:direction}) 
     
@@ -250,27 +249,8 @@ ready (model) ->
     
   # ========== CRON ==========
   
-  exports.poormanscron = poormanscron = () ->
-    today = new Date()
-    model.setNull('_user.lastCron', today)
-    lastCron = model.get('_user.lastCron')
-    daysPassed = helpers.daysBetween(lastCron, today)
-    if daysPassed > 0
-      model.set('_user.lastCron', today) # reset cron
-      _(daysPassed).times (n) ->
-        tallyFor = moment(lastCron).add('d',n)
-        scoring.tally(tallyFor) 
-  # FIXME seems can't call poormanscron() instantly, have to call after some time (2s here)
+  # FIXME seems can't call scoring.cron() instantly, have to call after some time (2s here)
   # Doesn't do anything otherwise. Don't know why... model not initialized enough yet?   
-  setTimeout poormanscron, 2000 # Run once on refresh
-  setInterval poormanscron, 3600000 # Then run once every hour
+  setTimeout scoring.cron, 2000 # Run once on refresh
+  setInterval scoring.cron, 3600000 # Then run once every hour
   
-  # ========== DEBUGGING ==========
-  
-  exports.endOfDayTally = (e, el) ->
-    scoring.tally()
-  
-  # Temporary solution to running updates against the schema when the code changes
-  # exports.updateSchema = (e, el) ->
-    # schema.updateSchema(model)
-    

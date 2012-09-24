@@ -1,13 +1,13 @@
 content = require('./content')
+helpers = require('./helpers')
+MODIFIER = .03 # each new level, armor, weapon add 3% modifier (this number may change) 
+user = undefined
 
 # This is required by all the functions, make sure it's set before anythign else is called
-user = undefined
-module.exports.setUser = (u) ->
+setUser = (u) ->
   user = u
-  
-# each new level, armor, weapon add 3% modifier (this number may change)
-module.exports.MODIFIER = MODIFIER = .03 
 
+# FIXME move to index.coffee as module.on('set','*')
 statsNotification = (html, type) ->
   #don't show notifications if user dead
   return if user.get('stats.lvl') == 0
@@ -77,7 +77,7 @@ updateStats = (stats) ->
     money = 0.0 if (!money? or money<0)
     user.set 'stats.money', stats.money
     
-module.exports.score = score = (spec = {task:null, direction:null, cron:null}) ->
+score = (spec = {task:null, direction:null, cron:null}) ->
   [task, direction, cron] = [spec.task, spec.direction, spec.cron]
   
   # up / down was called by itself, probably as REST from 3rd party service
@@ -151,9 +151,20 @@ module.exports.score = score = (spec = {task:null, direction:null, cron:null}) -
   
   return delta 
 
+cron = ->  
+  today = new Date()
+  user.setNull('lastCron', today)
+  lastCron = user.get('lastCron')
+  daysPassed = helpers.daysBetween(lastCron, today)
+  if daysPassed > 0
+    user.set('lastCron', today) # reset cron
+    _(daysPassed).times (n) ->
+      tallyFor = moment(lastCron).add('d',n)
+      tally(tallyFor)   
+
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
 # For incomplete Dailys, deduct experience
-module.exports.tally = (momentDate) ->
+tally = (momentDate) ->
   todoTally = 0
   _.each user.get('tasks'), (taskObj, taskId, list) ->
     #FIXME is it hiccuping here? taskId == "$_65255f4e-3728-4d50-bade-3b05633639af_2", & taskObj.id = undefined
@@ -183,3 +194,11 @@ module.exports.tally = (momentDate) ->
     lvl++
     expTally += (lvl*100)/5
   user.push 'history.exp',  { date: new Date(), value: expTally } 
+  
+
+module.exports = {
+  MODIFIER: MODIFIER
+  setUser: setUser
+  score: score
+  cron: cron
+}
