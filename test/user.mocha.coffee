@@ -141,8 +141,8 @@ describe 'User', ->
       it 'calculates user.stats & task.value properly on cron', ->
         [statsBefore, taskBefore] = pathSnapshots(['_user.stats', taskPath])
         # Set lastCron to yesterday
-        today = moment()
-        model.set '_user.lastCron', today.subtract('days',1).toDate()
+        today = moment().sod()
+        model.set '_user.lastCron', today.subtract('days',1).sod().toDate()
         # Run run
         scoring.cron() 
         [statsAfter, taskAfter] = pathSnapshots(['_user.stats', taskPath])
@@ -152,9 +152,9 @@ describe 'User', ->
         expect(today.diff(lastCron, 'days')).to.eql 0
         
         # Should have updated points properly
+        expect(taskAfter.value).to.eql -1
         expect(statsBefore.hp).to.be.lessThan statsAfter.hp
         expect(taskBefore.value).to.eql 0
-        expect(taskAfter.value).to.eql -1
          
       #TODO clicking repeat dates on newly-created item doesn't refresh until you refresh the page
       #TODO dates on dailies is having issues, possibility: date cusps? my saturday exempts were set to exempt at 8pm friday

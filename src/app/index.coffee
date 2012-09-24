@@ -1,16 +1,15 @@
-derby = require('derby')
+derby = require 'derby'
 {get, view, ready} = derby.createApp module
-derby.use require('derby-ui-boot')
-derby.use(require('../../ui'))
+derby.use require 'derby-ui-boot'
+derby.use require('../../ui')
 
 # Custom requires
-content = require('./content')
-scoring = require('./scoring')
-schema = require('./schema')
-helpers = require('./helpers')
-helpers.viewHelpers(view)
-# $ = require('jQuery')
-# und = require('underscore') # node.js uses _
+content = require './content'
+scoring = require './scoring'
+schema = require './schema'
+helpers = require './helpers'
+helpers.viewHelpers view
+_ = require 'lodash'
 
 
 # ========== ROUTES ==========

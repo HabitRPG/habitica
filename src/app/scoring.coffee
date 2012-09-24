@@ -1,5 +1,6 @@
 async = require 'async'
 moment = require 'moment'
+_ = require 'lodash'
 content = require './content'
 helpers = require './helpers'
 MODIFIER = .03 # each new level, armor, weapon add 3% modifier (this number may change) 
@@ -144,10 +145,10 @@ score = (taskId, direction, options={cron:false, times:1}) ->
   
   # If multiple days have passed, multiply times days missed
   value *= options.times
-
+  
   if type == 'habit'
     # Add habit value to habit-history (if different)
-    task.push 'history', { date: moment().sod().toDate(), value: value } if taskObj.value != value
+    task.push 'history', { date: moment().toDate(), value: value } if taskObj.value != value
   task.set('value', value)
 
   # Update the user's status
@@ -203,8 +204,12 @@ cron = ->
           # to calculate how many they've missed according to their own schedule
           if type=='daily' && repeat
             dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
-            dueToday = (repeat && repeat[dayMapping[momentDate.day()]]==true) 
-          score(taskId, 'down', {cron:true, times: daysFailed})
+            daysFailed = 0
+            _.times daysPassed, (n) ->
+              thatDay = today.subtract('days', n+1)
+              if repeat[dayMapping[thatDay.day()]]==true
+                daysFailed++ 
+          score(id, 'down', {cron:true, times:daysFailed})
 
         value = task.get('value') #get updated value
         if type == 'daily'

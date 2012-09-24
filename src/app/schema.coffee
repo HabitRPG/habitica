@@ -1,5 +1,6 @@
 content = require './content'
 moment = require 'moment'
+_ = require 'lodash'
 
 userSchema = {
   balance: 2
