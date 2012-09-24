@@ -104,7 +104,17 @@ describe 'User', ->
         expect(statsAfter.hp).to.eql statsBefore.hp
         # Task should have lost value
         expect(taskBefore.value).to.eql 0
-        expect(taskAfter.value).to.be.lessThan 1
+        expect(taskAfter.value).to.be.greaterThan taskBefore.value
+        
+        ## Trial 2
+        taskBefore = pathSnapshots(taskPath)        
+        scoring.score(uuid, 'up')
+        taskAfter = pathSnapshots(taskPath)
+        # Should have lost in value
+        expect(taskAfter.value).to.be > taskBefore.value
+        # And lost more than trial 1
+        diff = Math.abs(taskAfter.value) - Math.abs(taskBefore.value)
+        expect(diff).to.be.lessThan 1
         
       it 'makes history entry for habit'      
       it 'makes proper modifications each time when clicking + / - in rapid succession'
