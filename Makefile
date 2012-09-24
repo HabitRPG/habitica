@@ -12,7 +12,7 @@ g = "."
 
 #@NODE_ENV=test $(MOCHA) --grep "$(g)" $(MOCHA_TESTS) | tee $(OUT_FILE)
 test-mocha:
-	@NODE_ENV=test $(MOCHA) ./test/scoring.mocha.coffee
+	@NODE_ENV=test $(MOCHA) ./test/user.mocha.coffee
 
 
 test: test-mocha

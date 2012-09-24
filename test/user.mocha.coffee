@@ -7,7 +7,7 @@ scoring = require '../src/app/scoring'
 schema = require '../src/app/schema'
 _ = require '../public/js/underscore-min'
 
-describe 'Scoring', ->
+describe 'User', ->
   model = null
   
   beforeEach ->
@@ -48,7 +48,7 @@ describe 'Scoring', ->
     it 'should make proper modifications when down-scored', ->
       # Down-score the habit
       [userBefore, taskBefore] = [model.get('_user'), model.get(taskPath)]
-      scoring.score(uuid, 'down')
+      scoring.score({taskId:uuid, direction:'down'})
       [userAfter, taskAfter] = [model.get('_user'), model.get(taskPath)]
       
       # User should have lost HP 
