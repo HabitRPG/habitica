@@ -152,7 +152,7 @@ score = (taskId, direction, options={cron:false, times:1}) ->
   task.set('value', value)
 
   # Update the user's status
-  [money, hp, exp, lvl] = [userObj.stats.money, userObj.stats.hp, userObj.stats.exp, userObj.stats.lvl]
+  {money, hp, exp, lvl} = userObj.stats
 
   if type == 'reward'
     # purchase item
@@ -178,17 +178,13 @@ score = (taskId, direction, options={cron:false, times:1}) ->
   
   return delta 
   
-
-daysBetween = (a, b) ->
-  Math.abs(moment(a).sod().diff(moment(b).sod(), 'days'))
-
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
 # For incomplete Dailys, deduct experience
 cron = ->  
   today = new Date()
   user.setNull 'lastCron', today
   lastCron = user.get('lastCron')
-  daysPassed = daysBetween(today, lastCron)
+  daysPassed = helpers.daysBetween(today, lastCron)
   if daysPassed > 0
     # reset cron
     user.set('lastCron', today) 
@@ -227,17 +223,19 @@ cron = ->
       next()
     
     # Tally each task
-    tasks = _.toArray(user.get('tasks'))
-    async.forEach tasks, tallyTask, (err) ->  
+    # FIXME calling this as async doesn't seem to save to database, revisit
+    # tasks = _.toArray(user.get('tasks'))
+    # async.forEach tasks, tallyTask, (err) ->  
       # Finished tallying, this is the 'completed' callback
-      user.push 'history.todos', { date: today, value: todoTally }
-      # tally experience
-      expTally = user.get 'stats.exp'
-      lvl = 0 #iterator
-      while lvl < (user.get('stats.lvl')-1)
-        lvl++
-        expTally += (lvl*100)/5
-      user.push 'history.exp',  { date: today, value: expTally }
+    _.each user.get('tasks'), (taskObj) -> tallyTask(taskObj, ->) #this will be replaced with above async call when i can get it working
+    user.push 'history.todos', { date: today, value: todoTally }
+    # tally experience
+    expTally = user.get 'stats.exp'
+    lvl = 0 #iterator
+    while lvl < (user.get('stats.lvl')-1)
+      lvl++
+      expTally += (lvl*100)/5
+    user.push 'history.exp',  { date: today, value: expTally }
   
 
 module.exports = {

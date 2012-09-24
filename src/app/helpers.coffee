@@ -1,5 +1,9 @@
 moment = require('moment')
 
+# Absolute diff between two dates, based on 12am for both days
+module.exports.daysBetween = (a, b) ->
+  Math.abs(moment(a).sod().diff(moment(b).sod(), 'days'))
+
 module.exports.viewHelpers = (view) ->
   view.fn 'taskClasses', (type, completed, value, repeat) ->
     #TODO figure out how to just pass in the task model, so i can access all these properties from one object
