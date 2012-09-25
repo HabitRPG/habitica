@@ -210,11 +210,10 @@ cron = ->
           # however, for dailys which have repeat dates, need
           # to calculate how many they've missed according to their own schedule
           if type=='daily' && repeat
-            dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
             daysFailed = 0
             _.times daysPassed, (n) ->
               thatDay = moment().subtract('days', n+1)
-              if repeat[dayMapping[thatDay.day()]]==true
+              if repeat[helpers.dayMapping[thatDay.day()]]==true
                 daysFailed++ 
           hpTally += score(id, 'down', {cron:true, times:daysFailed})
 

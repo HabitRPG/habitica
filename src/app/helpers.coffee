@@ -3,6 +3,8 @@ moment = require('moment')
 # Absolute diff between two dates, based on 12am for both days
 module.exports.daysBetween = (a, b) ->
   Math.abs(moment(a).sod().diff(moment(b).sod(), 'days'))
+  
+module.exports.dayMapping = dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
 
 module.exports.viewHelpers = (view) ->
   view.fn 'taskClasses', (type, completed, value, repeat) ->
@@ -10,7 +12,6 @@ module.exports.viewHelpers = (view) ->
     classes = type
       
     # show as completed if completed (naturally) or not required for today
-    dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
     if completed or (repeat and repeat[dayMapping[moment().day()]]==false)
       classes += " completed"
       
