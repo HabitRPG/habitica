@@ -136,6 +136,9 @@ score = (taskId, direction, options={cron:false, times:1}) ->
   # Would love to use inverse log for the whole thing, but after 13 fails it hits infinity
   sign = if (direction == "up") then 1 else -1
   delta = if (value < 0) then (( -0.1 * value + 1 ) * sign) else (( Math.pow(0.9,value) ) * sign)
+  
+  # If multiple days have passed, multiply times days missed
+  delta *= options.times
 
   # Don't adjust values for rewards, or for habits that don't have both + and -
   adjustvalue = (type != 'reward')
@@ -143,13 +146,14 @@ score = (taskId, direction, options={cron:false, times:1}) ->
     adjustvalue = false
   value += delta if adjustvalue
   
-  # If multiple days have passed, multiply times days missed
-  value *= options.times
-  
   if type == 'habit'
     # Add habit value to habit-history (if different)
     task.push 'history', { date: new Date(), value: value } if taskObj.value != value
   task.set('value', value)
+  
+  if options.cron
+    # Will modify the user later as an aggregate, just return the delta
+    return if (type == 'daily') then delta else 0
 
   # Update the user's status
   {money, hp, exp, lvl} = userObj.stats
@@ -189,6 +193,7 @@ cron = ->
     # Tally function, which is called asyncronously below - but function is defined here. 
     # We need access to some closure variables above
     todoTally = 0
+    hpTally = 0
     tallyTask = (taskObj, callback) ->
       # setTimeout {THIS_FUNCTION}, 1 # strange hack that seems necessary when using async
       {id, type, completed, repeat} = taskObj
@@ -211,7 +216,7 @@ cron = ->
               thatDay = moment().subtract('days', n+1)
               if repeat[dayMapping[thatDay.day()]]==true
                 daysFailed++ 
-          score(id, 'down', {cron:true, times:daysFailed})
+          hpTally += score(id, 'down', {cron:true, times:daysFailed})
 
         value = task.get('value') #get updated value
         if type == 'daily'
@@ -223,20 +228,21 @@ cron = ->
       callback()
     
     # Tally each task
-    _.each user.get('tasks'), (taskObj) -> tallyTask(taskObj, ->) 
+    # _.each user.get('tasks'), (taskObj) -> tallyTask(taskObj, ->) 
     # Asyncronous version: 
-    # tasks = _.toArray(user.get('tasks'))
-    # async.forEach tasks, tallyTask, (err) ->  
+    tasks = _.toArray(user.get('tasks'))
+    async.forEach tasks, tallyTask, (err) ->  
       # Finished tallying, this is the 'completed' callback
-    user.push 'history.todos', { date: today, value: todoTally }
-    # tally experience
-    expTally = user.get 'stats.exp'
-    lvl = 0 #iterator
-    while lvl < (user.get('stats.lvl')-1)
-      lvl++
-      expTally += (lvl*100)/5
-    user.push 'history.exp',  { date: today, value: expTally }
-    user.set('lastCron', today) # reset cron
+      user.push 'history.todos', { date: today, value: todoTally }
+      # tally experience
+      expTally = user.get 'stats.exp'
+      lvl = 0 #iterator
+      while lvl < (user.get('stats.lvl')-1)
+        lvl++
+        expTally += (lvl*100)/5
+      user.push 'history.exp',  { date: today, value: expTally }
+      updateStats({hp:user.get('stats.hp')+hpTally}) # finally, the user if they've failed the last few days
+      user.set('lastCron', today) # reset cron
   
 
 module.exports = {
