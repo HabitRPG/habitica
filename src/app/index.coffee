@@ -106,7 +106,7 @@ ready (model) ->
       throw new Error("Direction neither 'up' nor 'down' on checkbox set.")
       
     # Score the user based on todo task
-    # task = model.at("_user.tasks.#{i}")
+    task = model.at("_user.tasks.#{i}")
     scoring.score(i, direction())
     
     # Then move the todos to/from _todoList/_completedList
