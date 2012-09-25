@@ -12,7 +12,6 @@
     "everyauth": "git://github.com/bnoguchi/everyauth#express3",
     "derby-ui-boot": "*",
     "guid": "*",
-    "node.extend": "*",
     "moment": "*",
     "stripe": "*",
     "async": "*",

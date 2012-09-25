@@ -16,7 +16,7 @@ userSchema = {
 
 module.exports.newUserObject = ->
     # deep clone, else further new users get duplicate objects
-  newUser = require('node.extend')(true, {}, userSchema)
+  newUser = _.clone(userSchema)
   for task in content.defaultTasks
     guid = task.id = require('derby/node_modules/racer').uuid()
     newUser.tasks[guid] = task
