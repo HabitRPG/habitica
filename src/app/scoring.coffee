@@ -189,9 +189,12 @@ cron = ->
     # Tally function, which is called asyncronously below - but function is defined here. 
     # We need access to some closure variables above
     todoTally = 0
-    tallyTask = (taskObj, next) ->
+    tallyTask = (taskObj, callback) ->
+      # setTimeout {THIS_FUNCTION}, 1 # strange hack that seems necessary when using async
       {id, type, completed, repeat} = taskObj
-      return unless id? #this shouldn't be happening, some tasks seem to be corrupted
+      #don't know why this happens, but it does. need to investigate
+      unless id?
+        return callback('a task had a null id during cron, this should not be happening')
       task = user.at("tasks.#{id}")
       if type in ['todo', 'daily']
         # Deduct experience for missed Daily tasks, 
@@ -217,22 +220,23 @@ cron = ->
           absVal = if (completed) then Math.abs(value) else value
           todoTally += absVal
         task.pass({cron:true}).set('completed', false) if type == 'daily'
-      next()
+      callback()
     
     # Tally each task
-    #Syncronous version: _.each user.get('tasks'), (taskObj) -> tallyTask(taskObj, ->) 
-    tasks = _.toArray(user.get('tasks'))
-    async.forEach tasks, tallyTask, (err) ->  
+    _.each user.get('tasks'), (taskObj) -> tallyTask(taskObj, ->) 
+    # Asyncronous version: 
+    # tasks = _.toArray(user.get('tasks'))
+    # async.forEach tasks, tallyTask, (err) ->  
       # Finished tallying, this is the 'completed' callback
-      user.push 'history.todos', { date: today, value: todoTally }
-      # tally experience
-      expTally = user.get 'stats.exp'
-      lvl = 0 #iterator
-      while lvl < (user.get('stats.lvl')-1)
-        lvl++
-        expTally += (lvl*100)/5
-      user.push 'history.exp',  { date: today, value: expTally }
-      user.set('lastCron', today) # reset cron
+    user.push 'history.todos', { date: today, value: todoTally }
+    # tally experience
+    expTally = user.get 'stats.exp'
+    lvl = 0 #iterator
+    while lvl < (user.get('stats.lvl')-1)
+      lvl++
+      expTally += (lvl*100)/5
+    user.push 'history.exp',  { date: today, value: expTally }
+    user.set('lastCron', today) # reset cron
   
 
 module.exports = {
