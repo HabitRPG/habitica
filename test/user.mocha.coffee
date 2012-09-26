@@ -57,12 +57,11 @@ modificationsLookup = (modifiers, direction, times=1) ->
     if direction=='up'
       gain = scoring.expModifier(delta, modifiers)
       userObj.stats.exp += gain
-      userObj.stats.gp += gain
+      userObj.stats.money += gain
     else
       loss = scoring.hpModifier(delta, modifiers)
       userObj.stats.hp += loss
-    console.log {stats:userObj.stats, value:value}
-  return userObj
+  return {user:userObj, value:value}
   
 ###### Specs ###### 
 
@@ -101,6 +100,18 @@ describe 'User', ->
         task = model.get(taskPath)
         expect(task.text).to.eql 'Habit'
         expect(task.value).to.eql 0
+        
+      it 'test a few scoring modifications (this will change if constants / formulae change)', ->
+        {user} = modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', 1)
+        expect(user.stats.hp).to.eql 49
+        {user} = modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', 5)
+        expect(user.stats.hp).to.be.within(42,44)
+
+        {user} = modificationsLookup({lvl:1,armor:0,weapon:0}, 'up', 1)
+        expect(user.stats.exp).to.eql 1
+        expect(user.stats.money).to.eql 1
+        {user} = modificationsLookup({lvl:1,armor:0,weapon:0}, 'up', 5)
+        expect(user.stats.exp).to.be.within(4,5)
         
       it 'made proper modifications when down-scored', ->
         ## Trial 1
