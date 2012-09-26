@@ -72,7 +72,8 @@ describe 'User', ->
       [taskObj.id, taskObj.value] = [uuid, 0]
       model.at("_#{type}List").push taskObj
     
-    beforeEach -> resetUser()
+    beforeEach -> 
+      resetUser()
     
     describe 'Habits', ->
       
@@ -147,6 +148,7 @@ describe 'User', ->
       
       
       describe 'Lvl & Items', ->  
+      
         beforeEach -> 
           freshTask {type: 'habit', text: 'Habit', up: true, down: true}
               
@@ -159,18 +161,18 @@ describe 'User', ->
           
           scoring.score(uuid, 'down')
           [stats, task] = statsTask()
-          expect(stast.hp).to.eql 49
+          expect(stats.hp).to.eql 49
           expect(task.value).to.eql -1
           
           scoring.score(uuid, 'down')
           [stats, task] = statsTask()
-          expect(stast.hp).to.eql 48
+          expect(stats.hp).to.eql 47.9
           expect(task.value).to.eql -2.1
 
           scoring.score(uuid, 'down')
           [stats, task] = statsTask()
-          expect(stast.hp).to.eql 47
-          expect(task.value).to.eql -3.2
+          expect(stats.hp).to.eql 46.69
+          expect(task.value).to.eql -3.31
           
         it 'modified exp/gp based on lvl & weapon', ->
           
