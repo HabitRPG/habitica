@@ -55,14 +55,14 @@ setupNotifications = ->
 # Calculates Exp modification based on weapon & lvl
 expModifier = (value) ->
   dmg = user.get('items.weapon') * MODIFIER # each new weapon increases exp gain
-  dmg += user.get('stats.lvl') * MODIFIER # same for lvls
+  dmg += (user.get('stats.lvl')-1) * MODIFIER # same for lvls
   modified = value + (value * dmg)
   return modified
 
 # Calculates HP-loss modification based on armor & lvl
 hpModifier = (value) ->
   ac = user.get('items.armor') * MODIFIER # each new armor decreases HP loss
-  ac += user.get('stats.lvl') * MODIFIER # same for lvls
+  ac += (user.get('stats.lvl')-1) * MODIFIER # same for lvls
   modified = value - (value * ac)
   return modified
   
