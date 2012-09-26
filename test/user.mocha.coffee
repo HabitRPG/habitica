@@ -12,8 +12,18 @@ schema = require '../src/app/schema'
 
 describe 'User', ->
   model = null
+  
+  ### TODO 
+  Helper function to determine if stats-updates are numerically correct based on scoring
+  {userObj} The user object, including stats & items, which will effect the results
+  {taskObj} The task object, which will have modifications applied
+  {direction} 'up' or 'down'
+  ###
+  # modificationsLookup = (userObj, taskObj, direction) ->
+    # {hp, lvl} = userObj.stats
+    # {armor, weapon} = userObj.items
 
-  beforeEach ->
+  before ->
     model = new Model
     model.set '_user', schema.newUserObject()
     scoring.setModel model
@@ -43,22 +53,31 @@ describe 'User', ->
       _.map paths, (path) -> _.clone(model.get(path))
     statsTask = -> pathSnapshots(['_user.stats', taskPath]) # quick snapshot of user.stats & task
     
-    before ->
-      # Reset tasks
-      model.set '_user.tasks', {}
-      model.set '_user.habitIds', []
-      model.set '_user.dailyIds', []
-      model.set '_user.todoIds', []
-      model.set '_user.rewardIds', []
+    resetUser = -> 
+      userObj = schema.newUserObject()
+      userObj.tasks = {}
+      userObj.habitIds = []
+      userObj.dailyIds = []
+      userObj.todoIds = []
+      userObj.rewardIds = []
+      model.set '_user', userObj
+    
+    freshTask = (taskObj) ->
+      resetUser()
+      # create a test task
+      uuid = derby.uuid()
+      taskPath = "_user.tasks.#{uuid}"
+      {type} = taskObj
+      model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+      [taskObj.id, taskObj.value] = [uuid, 0]
+      model.at("_#{type}List").push taskObj
+    
+    beforeEach -> resetUser()
     
     describe 'Habits', ->
-    
-      beforeEach ->
-        # create a test task
-        uuid = derby.uuid()
-        taskPath = "_user.tasks.#{uuid}"
-        model.refList "_habitList", "_user.tasks", "_user.habitIds"
-        model.at('_habitList').push {type: 'habit', text: 'Habit', value: 0, up: true, down: true, id: uuid}
+      
+      beforeEach -> 
+        freshTask {type: 'habit', text: 'Habit', up: true, down: true}
       
       it 'created the habit', ->
         task = model.get(taskPath)
@@ -126,14 +145,42 @@ describe 'User', ->
         
       it 'should show "undo" notification if user unchecks completed daily'
       
+      
+      describe 'Lvl & Items', ->  
+        beforeEach -> 
+          freshTask {type: 'habit', text: 'Habit', up: true, down: true}
+              
+        it 'modified damage based on lvl & armor', ->
+          
+          ## No Armor, Lvl 1
+          [stats, task] = statsTask()
+          expect(stats.hp).to.eql 50
+          expect(task.value).to.eql 0
+          
+          scoring.score(uuid, 'down')
+          [stats, task] = statsTask()
+          expect(stast.hp).to.eql 49
+          expect(task.value).to.eql -1
+          
+          scoring.score(uuid, 'down')
+          [stats, task] = statsTask()
+          expect(stast.hp).to.eql 48
+          expect(task.value).to.eql -2.1
+
+          scoring.score(uuid, 'down')
+          [stats, task] = statsTask()
+          expect(stast.hp).to.eql 47
+          expect(task.value).to.eql -3.2
+          
+        it 'modified exp/gp based on lvl & weapon', ->
+          
+        it 'always decreases hp with damage, regardless of stats/items'
+        it 'always increases exp/gp with gain, regardless of stats/items'
+      
     describe 'Dailies', ->
       
       beforeEach ->
-        # create a test task
-        uuid = derby.uuid()
-        taskPath = "_user.tasks.#{uuid}"
-        model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
-        model.at('_dailyList').push {type: 'daily', text: 'Daily', value: 0, completed: false, id: uuid }
+        freshTask {type: 'daily', text: 'Daily', completed: false}
         
       it 'created the daily', ->
         task = model.get(taskPath)
@@ -178,11 +225,6 @@ describe 'User', ->
     
     describe 'Rewards', ->
       
-  describe 'Lvl & Items', ->        
-    it 'modified damage based on lvl & armor' 
-    it 'always decreases hp with damage, regardless of stats/items'
-    it 'always increases exp/gp with gain, regardless of stats/items'
-  
   #### Require.js stuff, might be necessary to place in casper.coffee
   it "doesn't setup dependent functions until their modules are loaded, require.js callback"
   # sortable, stripe, etc 
