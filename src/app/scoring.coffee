@@ -52,19 +52,43 @@ setupNotifications = ->
     if captures > args
       statsNotification('<i class="icon-chevron-up"></i> Level Up!', 'info')
   
-# Calculates Exp modification based on weapon & lvl
-expModifier = (value) ->
-  dmg = user.get('items.weapon') * MODIFIER # each new weapon increases exp gain
-  dmg += (user.get('stats.lvl')-1) * MODIFIER # same for lvls
+### 
+Calculates Exp & GP modification based on weapon & lvl
+{value} task.value for gain
+{modifiers} may manually pass in stats as {weapon, exp}. This is used for testing
+###
+expModifier = (value, modifiers=null) ->
+  [weapon, lvl] = [user.get('items.weapon'), user.get('stats.lvl')]
+  if modifiers then {weapon, lvl} = modifiers 
+  dmg = weapon * MODIFIER # each new weapon increases exp gain
+  dmg += (lvl-1) * MODIFIER # same for lvls
   modified = value + (value * dmg)
   return modified
 
-# Calculates HP-loss modification based on armor & lvl
-hpModifier = (value) ->
-  ac = user.get('items.armor') * MODIFIER # each new armor decreases HP loss
-  ac += (user.get('stats.lvl')-1) * MODIFIER # same for lvls
+### 
+Calculates HP-loss modification based on armor & lvl
+{value} task.value which is hurting us
+{modifiers} may manually pass in modifier as {armor, lvl}. This is used for testing
+###
+hpModifier = (value, modifiers=null) ->
+  [armor, lvl] = [user.get('items.armor'),user.get('stats.lvl')]
+  if modifiers then {armor, lvl} = modifiers
+  ac = armor * MODIFIER # each new armor decreases HP loss
+  ac += (lvl-1) * MODIFIER # same for lvls
   modified = value - (value * ac)
   return modified
+  
+###
+Calculates the next task.value based on direction
+For negative values, use a line: something like y=-.1x+1
+For positibe values, taper off with inverse log: y=.9^x
+Would love to use inverse log for the whole thing, but after 13 fails it hits infinity. Revisit this formula later
+{currentValue} the current value of the task, determines it's next value
+{direction} 'up' or 'down'
+###
+taskDeltaFormula = (currentValue, direction) ->
+  sign = if (direction == "up") then 1 else -1
+  delta = if (currentValue < 0) then (( -0.1 * currentValue + 1 ) * sign) else (( Math.pow(0.9,currentValue) ) * sign)
   
 # Setter for user.stats: handles death, leveling up, etc
 updateStats = (stats) ->
@@ -130,13 +154,7 @@ score = (taskId, direction, options={cron:false, times:1}) ->
     updateStats({hp: hp, exp: exp, money: money})
     return
     
-  
-  # For negative values, use a line: something like y=-.1x+1
-  # For positibe values, taper off with inverse log: y=.9^x
-  # Would love to use inverse log for the whole thing, but after 13 fails it hits infinity
-  sign = if (direction == "up") then 1 else -1
-  delta = if (value < 0) then (( -0.1 * value + 1 ) * sign) else (( Math.pow(0.9,value) ) * sign)
-  
+  delta = taskDeltaFormula(value, direction)
   # If multiple days have passed, multiply times days missed
   delta *= options.times
 
@@ -245,8 +263,13 @@ cron = ->
   
 
 module.exports = {
-  MODIFIER: MODIFIER
   setModel: setModel
+  MODIFIER: MODIFIER
   score: score
   cron: cron
+  
+  # testing stuff
+  expModifier: expModifier
+  hpModifier: hpModifier
+  taskDeltaFormula: taskDeltaFormula
 }
