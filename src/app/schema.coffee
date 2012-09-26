@@ -5,7 +5,7 @@ _ = require 'lodash'
 userSchema = {
   balance: 2
   stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
-  items: { itemsEnabled: false, armor: 0, weapon: 0, rerollsRemaining: 5 }
+  items: { itemsEnabled: false, armor: 0, weapon: 0 }
   tasks: {}
   habitIds: [] 
   dailyIds: [] 

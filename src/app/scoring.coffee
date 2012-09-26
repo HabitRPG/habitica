@@ -89,6 +89,7 @@ Would love to use inverse log for the whole thing, but after 13 fails it hits in
 taskDeltaFormula = (currentValue, direction) ->
   sign = if (direction == "up") then 1 else -1
   delta = if (currentValue < 0) then (( -0.1 * currentValue + 1 ) * sign) else (( Math.pow(0.9,currentValue) ) * sign)
+  return delta
   
 # Setter for user.stats: handles death, leveling up, etc
 updateStats = (stats) ->

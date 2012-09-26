@@ -8,21 +8,67 @@ moment = require 'moment'
 scoring = require '../src/app/scoring'
 schema = require '../src/app/schema'
   
-###### Specs ######
+###### Helpers & Variables ######
+
+model = null
+uuid = null
+taskPath = null
+
+## Helper which clones the content at a path so tests can compare before/after values
+# Otherwise, using model.get(path) will give the same object before as after
+pathSnapshots = (paths) ->
+  if _.isString(paths)
+    return _.clone(model.get(paths)) 
+  _.map paths, (path) -> _.clone(model.get(path))
+statsTask = -> pathSnapshots(['_user.stats', taskPath]) # quick snapshot of user.stats & task
+
+cleanUserObj = -> 
+  userObj = schema.newUserObject()
+  userObj.tasks = {}
+  userObj.habitIds = []
+  userObj.dailyIds = []
+  userObj.todoIds = []
+  userObj.rewardIds = []
+  return userObj
+resetUser = -> model.set '_user', cleanUserObj()
+
+freshTask = (taskObj) ->
+  resetUser()
+  # create a test task
+  uuid = derby.uuid()
+  taskPath = "_user.tasks.#{uuid}"
+  {type} = taskObj
+  model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+  [taskObj.id, taskObj.value] = [uuid, 0]
+  model.at("_#{type}List").push taskObj
+  
+###
+Helper function to determine if stats-updates are numerically correct based on scoring
+{modifiers} The user stats modifiers as {lvl, armor, weapon}
+{direction} 'up' or 'down'
+###
+modificationsLookup = (modifiers, direction, times=1) ->
+  userObj = cleanUserObj()
+  value = 0
+  {lvl, armor, weapon}  = modifiers
+  _.times times, (n) ->
+    delta = scoring.taskDeltaFormula(value, direction)
+    value += delta
+    if direction=='up'
+      gain = scoring.expModifier(delta, modifiers)
+      userObj.stats.exp += gain
+      userObj.stats.gp += gain
+    else
+      loss = scoring.hpModifier(delta, modifiers)
+      userObj.stats.hp += loss
+    console.log {stats:userObj.stats, value:value}
+  return userObj
+  
+###### Specs ###### 
 
 describe 'User', ->
   model = null
   
-  ### TODO 
-  Helper function to determine if stats-updates are numerically correct based on scoring
-  {userObj} The user object, including stats & items, which will effect the results
-  {taskObj} The task object, which will have modifications applied
-  {direction} 'up' or 'down'
-  ###
-  # modificationsLookup = (userObj, taskObj, direction) ->
-    # {hp, lvl} = userObj.stats
-    # {armor, weapon} = userObj.items
-
   before ->
     model = new Model
     model.set '_user', schema.newUserObject()
@@ -31,7 +77,7 @@ describe 'User', ->
   it 'sets correct user defaults', ->
     user = model.get '_user'
     expect(user.stats).to.eql { money: 0, exp: 0, lvl: 1, hp: 50 }
-    expect(user.items).to.eql { itemsEnabled: false, armor: 0, weapon: 0, rerollsRemaining: 5 }
+    expect(user.items).to.eql { itemsEnabled: false, armor: 0, weapon: 0 }
     expect(user.balance).to.eql 2
     expect(_.size(user.tasks)).to.eql 9
     expect(_.size(user.habitIds)).to.eql 3
@@ -42,35 +88,6 @@ describe 'User', ->
   
   ##### Habits #####  
   describe 'Tasks', ->
-    uuid = null
-    taskPath = null
-    
-    ## Helper which clones the content at a path so tests can compare before/after values
-    # Otherwise, using model.get(path) will give the same object before as after
-    pathSnapshots = (paths) ->
-      if _.isString(paths)
-        return _.clone(model.get(paths)) 
-      _.map paths, (path) -> _.clone(model.get(path))
-    statsTask = -> pathSnapshots(['_user.stats', taskPath]) # quick snapshot of user.stats & task
-    
-    resetUser = -> 
-      userObj = schema.newUserObject()
-      userObj.tasks = {}
-      userObj.habitIds = []
-      userObj.dailyIds = []
-      userObj.todoIds = []
-      userObj.rewardIds = []
-      model.set '_user', userObj
-    
-    freshTask = (taskObj) ->
-      resetUser()
-      # create a test task
-      uuid = derby.uuid()
-      taskPath = "_user.tasks.#{uuid}"
-      {type} = taskObj
-      model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-      [taskObj.id, taskObj.value] = [uuid, 0]
-      model.at("_#{type}List").push taskObj
     
     beforeEach -> 
       resetUser()
@@ -190,8 +207,12 @@ describe 'User', ->
         expect(task.value).to.eql 0
         
       it 'does proper calculations when daily is complete'
+      it 'calculates dailys properly when they have repeat dates'
       
       it 'calculates user.stats & task.value properly on cron', ->
+        
+        modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', 10)
+        
         [statsBefore, taskBefore] = statsTask()
         # Set lastCron to yesterday
         today = new moment()
