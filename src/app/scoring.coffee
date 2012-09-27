@@ -155,15 +155,17 @@ score = (taskId, direction, options={cron:false, times:1}) ->
     updateStats({hp: hp, exp: exp, money: money})
     return
     
-  delta = taskDeltaFormula(value, direction)
-  # If multiple days have passed, multiply times days missed
-  delta *= options.times
-
   # Don't adjust values for rewards, or for habits that don't have both + and -
   adjustvalue = (type != 'reward')
   if (type == 'habit') and (taskObj.up==false or taskObj.down==false)
     adjustvalue = false
-  value += delta if adjustvalue
+  
+  delta = 0
+  # If multiple days have passed, multiply times days missed
+  # TODO integrate this multiplier into the formula, so don't have to loop
+  _.times options.times, (n) -> 
+    delta = taskDeltaFormula(value, direction)
+    value += delta if adjustvalue
   
   if type == 'habit'
     # Add habit value to habit-history (if different)

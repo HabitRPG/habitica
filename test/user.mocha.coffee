@@ -101,7 +101,7 @@ describe 'User', ->
         expect(task.text).to.eql 'Habit'
         expect(task.value).to.eql 0
         
-      it 'test a few scoring modifications (this will change if constants / formulae change)', ->
+      it 'test a few scoring numbers (this will change if constants / formulae change)', ->
         {user} = modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', 1)
         expect(user.stats.hp).to.eql 49
         {user} = modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', 5)
@@ -115,29 +115,20 @@ describe 'User', ->
         
       it 'made proper modifications when down-scored', ->
         ## Trial 1
-        [statsBefore, taskBefore] = statsTask()
-        scoring.score(uuid, 'down')
-        [statsAfter, taskAfter] = statsTask()
         
-        # User should have lost HP 
-        expect(statsAfter.hp).to.be.lessThan statsBefore.hp
-        # Exp, GP should stay the same
-        expect(statsAfter.money).to.eql statsBefore.money
-        expect(statsAfter.exp).to.eql statsBefore.exp
-        
-        # Task should have gained in value (we're going down, so think Math.abs(task.value))
-        expect(taskBefore.value).to.eql 0
-        expect(taskAfter.value).to.eql -1
-        
+        shouldBe = modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', 1)
+        scoring.score(uuid,'down')
+        [stats, task] = statsTask()
+        expect(stats.hp).to.be.eql shouldBe.user.stats.hp
+        expect(task.value).to.eql  shouldBe.value
+
         ## Trial 2
-        taskBefore = pathSnapshots(taskPath)        
-        scoring.score(uuid, 'down')
-        taskAfter = pathSnapshots(taskPath)
-        # Should have gained in value
-        expect(taskAfter.value).to.be < taskBefore.value
-        # And gained more than trial 1
-        diff = Math.abs(taskAfter.value) - Math.abs(taskBefore.value)
-        expect(diff).to.be.greaterThan 1
+        freshTask {type: 'habit', text: 'Habit', completed: false}
+        shouldBe = modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', 10)
+        _.times 10, -> scoring.score(uuid,'down', {times:10})
+        [stats, task] = statsTask()
+        expect(stats.hp).to.be.eql shouldBe.user.stats.hp
+        expect(task.value).to.eql  shouldBe.value
         
       it 'made proper modifications when up-scored', ->
         # Up-score the habit
@@ -180,30 +171,8 @@ describe 'User', ->
         beforeEach -> 
           freshTask {type: 'habit', text: 'Habit', up: true, down: true}
               
-        it 'modified damage based on lvl & armor', ->
-          
-          ## No Armor, Lvl 1
-          [stats, task] = statsTask()
-          expect(stats.hp).to.eql 50
-          expect(task.value).to.eql 0
-          
-          scoring.score(uuid, 'down')
-          [stats, task] = statsTask()
-          expect(stats.hp).to.eql 49
-          expect(task.value).to.eql -1
-          
-          scoring.score(uuid, 'down')
-          [stats, task] = statsTask()
-          expect(stats.hp).to.eql 47.9
-          expect(task.value).to.eql -2.1
-
-          scoring.score(uuid, 'down')
-          [stats, task] = statsTask()
-          expect(stats.hp).to.eql 46.69
-          expect(task.value).to.eql -3.31
-          
-        it 'modified exp/gp based on lvl & weapon', ->
-          
+        it 'modified damage based on lvl & armor'
+        it 'modified exp/gp based on lvl & weapon'
         it 'always decreases hp with damage, regardless of stats/items'
         it 'always increases exp/gp with gain, regardless of stats/items'
       
@@ -222,25 +191,23 @@ describe 'User', ->
       
       it 'calculates user.stats & task.value properly on cron', ->
         
-        modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', 10)
-        
-        [statsBefore, taskBefore] = statsTask()
-        # Set lastCron to yesterday
+        times = 10
+        # Set lastCron to days ago
         today = new moment()
-        yesterday = new moment().subtract('days',1)
-        model.set '_user.lastCron', yesterday.toDate()
+        ago = new moment().subtract('days',times)
+        model.set '_user.lastCron', ago.toDate()
         # Run run
         scoring.cron() 
-        [statsAfter, taskAfter] = statsTask()
+        [stats, task] = statsTask()
         
         # Should have updated cron to today
         lastCron = moment(model.get('_user.lastCron'))
         expect(today.diff(lastCron, 'days')).to.eql 0
         
+        shouldBe = modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', times)
         # Should have updated points properly
-        expect(statsBefore.hp).to.be.greaterThan statsAfter.hp
-        expect(taskBefore.value).to.eql 0
-        expect(taskAfter.value).to.eql -1
+        expect(stats.hp).to.be.eql shouldBe.user.stats.hp
+        expect(task.value).to.eql  shouldBe.value
          
       #TODO clicking repeat dates on newly-created item doesn't refresh until you refresh the page
       #TODO dates on dailies is having issues, possibility: date cusps? my saturday exempts were set to exempt at 8pm friday
