@@ -7,8 +7,8 @@ module.exports.daysBetween = (a, b) ->
 module.exports.dayMapping = dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
 
 module.exports.viewHelpers = (view) ->
-  view.fn 'taskClasses', (type, completed, value, repeat) ->
-    #TODO figure out how to just pass in the task model, so i can access all these properties from one object
+  view.fn 'taskClasses', (task) ->
+    {type, completed, value, repeat} = task 
     classes = type
       
     # show as completed if completed (naturally) or not required for today
