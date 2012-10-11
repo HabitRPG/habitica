@@ -125,7 +125,7 @@ describe 'User', ->
         ## Trial 2
         freshTask {type: 'habit', text: 'Habit', completed: false}
         shouldBe = modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', 10)
-        _.times 10, -> scoring.score(uuid,'down', {times:10})
+        scoring.score(uuid,'down', {times:10})
         [stats, task] = statsTask()
         expect(stats.hp).to.be.eql shouldBe.user.stats.hp
         expect(task.value).to.eql  shouldBe.value
