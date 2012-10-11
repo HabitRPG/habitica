@@ -190,25 +190,31 @@ describe 'User', ->
       it 'does proper calculations when daily is complete'
       it 'calculates dailys properly when they have repeat dates'
       
-      it 'calculates user.stats & task.value properly on cron', ->
-        
-        times = 10
+      runCron = (times, pass=1) ->
         # Set lastCron to days ago
-        today = new moment()
-        ago = new moment().subtract('days',times)
-        model.set '_user.lastCron', ago.toDate()
-        # Run run
-        scoring.cron() 
-        [stats, task] = statsTask()
-        
-        # Should have updated cron to today
-        lastCron = moment(model.get('_user.lastCron'))
-        expect(today.diff(lastCron, 'days')).to.eql 0
-        
-        shouldBe = modificationsLookup('down', {times:times})
-        # Should have updated points properly
-        expect(stats.hp).to.be.eql shouldBe.user.stats.hp
-        expect(task.value).to.eql  shouldBe.value
+          today = new moment()
+          ago = new moment().subtract('days',times)
+          model.set '_user.lastCron', ago.toDate()
+          # Run run
+          scoring.cron() 
+          [stats, task] = statsTask()
+          
+          # Should have updated cron to today
+          lastCron = moment(model.get('_user.lastCron'))
+          expect(today.diff(lastCron, 'days')).to.eql 0
+          
+          shouldBe = modificationsLookup('down', {times:times*pass})
+          # Should have updated points properly
+          expect(Math.round(stats.hp)).to.be.eql Math.round(shouldBe.user.stats.hp)
+          expect(Math.round(task.value)).to.eql  Math.round(shouldBe.value)
+
+      it 'calculates user.stats & task.value properly on cron', ->
+        runCron(10)
+
+      it 'runs cron multiple times properly', ->
+        runCron(5)
+        runCron(5, 2)
+
          
       #TODO clicking repeat dates on newly-created item doesn't refresh until you refresh the page
       #TODO dates on dailies is having issues, possibility: date cusps? my saturday exempts were set to exempt at 8pm friday
