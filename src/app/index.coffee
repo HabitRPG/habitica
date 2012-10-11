@@ -4,6 +4,7 @@ derby.use require 'derby-ui-boot'
 derby.use require('../../ui')
 
 # Custom requires
+moment = require('moment')
 content = require './content'
 scoring = require './scoring'
 schema = require './schema'
@@ -201,7 +202,7 @@ ready (model) ->
     matrix = [['Date', 'Score']]
     for obj in model.get(historyPath)
       date = new Date(obj.date)
-      readableDate = date.toISOString() #use toDateString() when done debugging
+      readableDate = moment(date).format('MM/DD')
       matrix.push [ readableDate, obj.value ]
     data = google.visualization.arrayToDataTable matrix
     
