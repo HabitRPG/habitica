@@ -43,23 +43,24 @@ freshTask = (taskObj) ->
   model.at("_#{type}List").push taskObj
   
 ###
-Helper function to determine if stats-updates are numerically correct based on scoring
-{modifiers} The user stats modifiers as {lvl, armor, weapon}
-{direction} 'up' or 'down'
+Helper function to determine if stats updates are numerically correct based on scoring
+@direction: 'up' or 'down'
+@options: The user stats modifiers and times to run, defaults to {times:1, modifiers:{lvl:1, weapon:0, armor:0}} 
 ###
-modificationsLookup = (modifiers, direction, times=1) ->
+modificationsLookup = (direction, options = {}) ->
+  merged = _.merge {times:1, lvl:1, weapon:0, armor:0}, options
+  {times, lvl, armor, weapon}  = merged
   userObj = cleanUserObj()
   value = 0
-  {lvl, armor, weapon}  = modifiers
   _.times times, (n) ->
     delta = scoring.taskDeltaFormula(value, direction)
     value += delta
     if direction=='up'
-      gain = scoring.expModifier(delta, modifiers)
+      gain = scoring.expModifier(delta, options)
       userObj.stats.exp += gain
       userObj.stats.money += gain
     else
-      loss = scoring.hpModifier(delta, modifiers)
+      loss = scoring.hpModifier(delta, options)
       userObj.stats.hp += loss
   return {user:userObj, value:value}
   
@@ -102,21 +103,21 @@ describe 'User', ->
         expect(task.value).to.eql 0
         
       it 'test a few scoring numbers (this will change if constants / formulae change)', ->
-        {user} = modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', 1)
+        {user} = modificationsLookup('down')
         expect(user.stats.hp).to.eql 49
-        {user} = modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', 5)
+        {user} = modificationsLookup('down', {times:5})
         expect(user.stats.hp).to.be.within(42,44)
 
-        {user} = modificationsLookup({lvl:1,armor:0,weapon:0}, 'up', 1)
+        {user} = modificationsLookup('up')
         expect(user.stats.exp).to.eql 1
         expect(user.stats.money).to.eql 1
-        {user} = modificationsLookup({lvl:1,armor:0,weapon:0}, 'up', 5)
+        {user} = modificationsLookup('up', {times:5})
         expect(user.stats.exp).to.be.within(4,5)
         
       it 'made proper modifications when down-scored', ->
         ## Trial 1
         
-        shouldBe = modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', 1)
+        shouldBe = modificationsLookup('down')
         scoring.score(uuid,'down')
         [stats, task] = statsTask()
         expect(stats.hp).to.be.eql shouldBe.user.stats.hp
@@ -124,7 +125,7 @@ describe 'User', ->
 
         ## Trial 2
         freshTask {type: 'habit', text: 'Habit', completed: false}
-        shouldBe = modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', 10)
+        shouldBe = modificationsLookup('down', {times:10})
         scoring.score(uuid,'down', {times:10})
         [stats, task] = statsTask()
         expect(stats.hp).to.be.eql shouldBe.user.stats.hp
@@ -204,7 +205,7 @@ describe 'User', ->
         lastCron = moment(model.get('_user.lastCron'))
         expect(today.diff(lastCron, 'days')).to.eql 0
         
-        shouldBe = modificationsLookup({lvl:1,armor:0,weapon:0}, 'down', times)
+        shouldBe = modificationsLookup('down', {times:times})
         # Should have updated points properly
         expect(stats.hp).to.be.eql shouldBe.user.stats.hp
         expect(task.value).to.eql  shouldBe.value

@@ -57,9 +57,9 @@ Calculates Exp & GP modification based on weapon & lvl
 {value} task.value for gain
 {modifiers} may manually pass in stats as {weapon, exp}. This is used for testing
 ###
-expModifier = (value, modifiers=null) ->
-  [weapon, lvl] = [user.get('items.weapon'), user.get('stats.lvl')]
-  if modifiers then {weapon, lvl} = modifiers 
+expModifier = (value, modifiers = {}) ->
+  weapon = modifiers.weapon || user.get('items.weapon')
+  lvl = modifiers.lvl || user.get('stats.lvl')
   dmg = weapon * MODIFIER # each new weapon increases exp gain
   dmg += (lvl-1) * MODIFIER # same for lvls
   modified = value + (value * dmg)
@@ -70,9 +70,9 @@ Calculates HP-loss modification based on armor & lvl
 {value} task.value which is hurting us
 {modifiers} may manually pass in modifier as {armor, lvl}. This is used for testing
 ###
-hpModifier = (value, modifiers=null) ->
-  [armor, lvl] = [user.get('items.armor'),user.get('stats.lvl')]
-  if modifiers then {armor, lvl} = modifiers
+hpModifier = (value, modifiers = {}) ->
+  armor = modifiers.armor || user.get('items.armor')
+  lvl = modifiers.lvl || user.get('stats.lvl')
   ac = armor * MODIFIER # each new armor decreases HP loss
   ac += (lvl-1) * MODIFIER # same for lvls
   modified = value - (value * ac)
