@@ -18,6 +18,10 @@ _ = require 'lodash'
 get '/:uidParam?', (page, model, {uidParam}, next) ->
   #FIXME figure out a better way to do this
   return next() if (uidParam in ['privacy','terms','auth'])
+  # Force SSL
+  req = page._res.req
+  if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
+    return page.redirect 'https://' + req.headers.host + req.url
 
   sess = model.session
   if sess.habitRpgAuth && sess.habitRpgAuth.facebook
