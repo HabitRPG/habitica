@@ -21,7 +21,7 @@ module.exports.newUserAndPurl = ->
   ## -------- (2) PURL --------
   # eg, http://localhost/{guid}), legacy - will be removed eventually
   # tests if UUID was used (bookmarked private url), and restores that session
-  acceptableUid = require('guid').isGuid(uidParam) or (uidParam == '3')
+  acceptableUid = require('guid').isGuid(uidParam)
   if acceptableUid && sess.userId!=uidParam && !(sess.habitRpgAuth && sess.habitRpgAuth.facebook)
     # TODO check if in database - issue with accessControl which is on current uid?
     sess.userId = uidParam

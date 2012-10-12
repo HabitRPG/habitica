@@ -15,9 +15,11 @@ _ = require 'lodash'
 
 # ========== ROUTES ==========
 
-get '/:uidParam?', (page, model, {uidParam}, next) ->
-  #FIXME figure out a better way to do this
-  return next() if (uidParam in ['privacy','terms','auth'])
+get '/:uid?', (page, model, {uid}, next) ->
+  # delegate to other routes. FIXME how to define express routes first?
+  if uid && !(require('guid').isGuid(uid))
+    return next() 
+    
   # Force SSL
   req = page._res.req
   if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
