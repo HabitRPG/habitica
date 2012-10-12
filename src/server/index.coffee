@@ -36,10 +36,6 @@ root = path.dirname path.dirname __dirname
 publicPath = path.join root, 'public'
 
 habitrpgMiddleware = (req, res, next) ->
-  # Force SSL 
-  if req.headers['x-forwarded-proto']!='https'
-    res.redirect('https://'+req.headers.host+req.url)
-
   model = req.getModel()
   ## Set _mobileDevice to true or false so view can exclude portions from mobile device
   model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
