@@ -5,8 +5,8 @@
 ![Screenshot](https://raw.github.com/lefnire/habitrpg/master/public/img/screenshot.jpeg "Screenshot")
 
 ##Roadmap
-* [Chrome Extension](https://chrome.google.com/webstore/detail/pidkmpibnnnhneohdgjclfdjpijggmjj) currently being developed ([source code](https://github.com/lefnire/habitrpg-chrome))
 * Groups: compete with your friends
+* Mobile App
 * Integration with tools like Astrid, Pivotal Tracker, Pomodoro, RescueTime, and MyFitnessPal
 * [See the full list](https://workflowy.com/shared/cd06313a-7c93-ae5f-ae55-e64cae0556e4/)
 
@@ -29,6 +29,9 @@ After you play for a while you unlock the Item Store from which you can buy heal
 Good! Your red tasks provide the most incentive. The worse you are at a task, the more valuable it becomes in Exp & GP, which will push you to focus on the harder tasks. However, if you *really* need a bail-out, you can "Re-Roll" from the item store, which resets all your tasks to a clean slate. You have to use your quarters, which will prevent you from re-rolling frequently.
 
 Again, try as hard as you can to avoid using re-roll. The point of red tasks is to push you to try harder.
+
+##API
+HabitRPG has a simple API for up-scoring and down-scoring third party Habits: ```POST /users/:userId/tasks/:taskId/:direction```. This API is currently used in the [Chrome extension](https://chrome.google.com/webstore/detail/habitrpg/pidkmpibnnnhneohdgjclfdjpijggmjj), and you can use it wherever (eg, I'm using it in my [Pomodoro scripts](https://www.evernote.com/shard/s17/sh/9cd765e9-9b5e-44ff-a3e1-b46691c3f593/4ab39c1fca3fe6d54c831dfe6550bf5d)). See [the API page](https://github.com/lefnire/habitrpg/wiki/API) for more details.
   
 ##License
 Code is licensed under GNU GPL v3. Content is licensed under CC-BY-SA 3.0.
