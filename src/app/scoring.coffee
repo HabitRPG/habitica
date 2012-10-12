@@ -133,7 +133,7 @@ updateStats = (stats) ->
     
 # {taskId} task you want to score
 # {direction} 'up' or 'down'
-# {cron} is this function being called by cron? (this will usually be false)
+# {options} will usually be passed in via cron or tests, safe to ignore this param
 score = (taskId, direction, options={cron:false, times:1}) ->
   taskPath = "_user.tasks.#{taskId}"
   [task, taskObj] = [model.at(taskPath), model.get(taskPath)]

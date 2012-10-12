@@ -7,16 +7,29 @@ uid = undefined
 
 casper.start url, ->
   uid = @evaluate -> window.DERBY.model.get("_user.id")
-  utils.dump uid
 
-# ---------- REST API ------------
+  # ---------- REST API ------------
 
-  casper.thenOpen "#{url}/users/#{uid}"
-  casper.thenOpen "#{url}/users/#{uid}/tasks"
-  casper.thenOpen "#{url}/users/#{uid}/tasks/{taskId}"
-  casper.thenOpen "#{url}/users/#{uid}/tasks/{taskId}"
+  # casper.thenOpen "#{url}/users/#{uid}"
+  # casper.thenOpen "#{url}/users/#{uid}/tasks"
+  # casper.thenOpen "#{url}/users/#{uid}/tasks/{taskId}"
 
-  casper.thenOpen "#{url}/users/#{uid}/score"
+  taskId = 'productivity'
+  pomodoro = {
+    'title': 'Stay Focused',
+    'service':  'pomodoro',
+    'icon': 'http://www.veryicon.com/icon/16/Food%20%26%20Drinks/Paradise%20Fruits/Tomato.png'
+  }
+
+  @thenOpen "#{url}/users/#{uid}/tasks/#{taskId}/up", {
+    method: 'post',
+    data: pomodoro
+  }
+
+  @thenOpen "#{url}/users/#{uid}/tasks/#{taskId}/down", {
+    method: 'post',
+    data: pomodoro
+  }
 
 # ---------- Run ------------
 
