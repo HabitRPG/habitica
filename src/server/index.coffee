@@ -23,12 +23,6 @@ expressApp = express()
 server = http.createServer expressApp
 module.exports = server
 
-# Force SSL 
-# Set before other routes, as early as possible
-if process.env.NODE_ENV=='production' and req.headers['x-forwarded-proto']!='https'
-  expressApp.get '*', (req, res, next) ->
-    res.redirect('https://'+req.headers.host+req.url)
-
 derby.use(require 'racer-db-mongo')
 store = derby.createStore
   db: {type: 'Mongo', uri: process.env.NODE_DB_URI}
@@ -42,6 +36,10 @@ root = path.dirname path.dirname __dirname
 publicPath = path.join root, 'public'
 
 habitrpgMiddleware = (req, res, next) ->
+  # Force SSL 
+  if req.headers['x-forwarded-proto']!='https'
+    res.redirect('https://'+req.headers.host+req.url)
+
   model = req.getModel()
   ## Set _mobileDevice to true or false so view can exclude portions from mobile device
   model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
