@@ -1,6 +1,8 @@
 scoring = require('../app/scoring')
 
 module.exports = (expressApp, root, derby) ->
+
+  staticPages = derby.createStatic root
   
   expressApp.get '/:uid/up/:score?', (req, res) ->
     score = parseInt(req.params.score) || 1
@@ -21,11 +23,9 @@ module.exports = (expressApp, root, derby) ->
     res.send(200)
     
   expressApp.get '/privacy', (req, res) ->
-    staticPages = derby.createStatic root
     staticPages.render 'privacy', res
   
   expressApp.get '/terms', (req, res) ->
-    staticPages = derby.createStatic root
     staticPages.render 'terms', res
 
   expressApp.post '/', (req) ->

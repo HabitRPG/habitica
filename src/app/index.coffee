@@ -17,7 +17,7 @@ _ = require 'lodash'
 
 get '/:uidParam?', (page, model, {uidParam}, next) ->
   #FIXME figure out a better way to do this
-  return next() if (uidParam == 'privacy' or uidParam == 'terms' or uidParam == 'auth')
+  return next() if (uidParam in ['privacy','terms','auth'])
 
   sess = model.session
   if sess.habitRpgAuth && sess.habitRpgAuth.facebook

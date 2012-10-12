@@ -25,7 +25,7 @@ module.exports = server
 
 # Force SSL 
 # Set before other routes, as early as possible
-if process.env.NODE_ENV!='production'
+if process.env.NODE_ENV=='production'
   expressApp.all '*', (req, res, next) ->
     if req.headers['x-forwarded-proto']!='https'
       res.redirect('https://'+req.headers.host+req.url)
