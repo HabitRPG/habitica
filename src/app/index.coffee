@@ -49,6 +49,10 @@ get '/:uid?', (page, model, {uid}, next) ->
     model.refList "_todoList", "_user.tasks", "_user.todoIds"
     model.refList "_completedList", "_user.tasks", "_user.completedIds"
     model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
+
+    # FIXME temporary hack to remove duplicates. Need to figure out why they're being produced
+    _.each ['habitIds','dailyIds','todoIds','rewardIds'], (path) ->
+      user.set path, _.uniq(user.get(path), true)
     
     # Setup Model Functions
     model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
