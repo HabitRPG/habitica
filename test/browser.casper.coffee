@@ -22,7 +22,7 @@ casper.then ->
 casper.then ->
   @evaluate -> window.DERBY.model.set('_user.lastCron', new Date('09/01/2012'));
   @then -> @reload -> 
-    @echo 'Refreshing pag (running cron)'
+    @echo 'Refreshing page (running cron)'
   @then -> @reload ->
     @echo 'Refreshing page (trying to trigger the database-spaz bug)'
 

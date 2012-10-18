@@ -209,7 +209,12 @@ score = (taskId, direction, options={cron:false, times:1}) ->
   
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
 # For incomplete Dailys, deduct experience
-cron = ->  
+cron = ->
+        
+  # FIXME temporary hack to remove duplicates. Need to figure out why they're being produced
+  _.each ['habitIds','dailyIds','todoIds','rewardIds'], (path) ->
+    user.set path, _.uniq(user.get(path))
+        
   today = new Date()
   user.setNull 'lastCron', today
   lastCron = user.get('lastCron')
