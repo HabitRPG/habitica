@@ -1,6 +1,7 @@
 derby = require('derby')
 schema = require('../app/schema')
 content = require('../app/content')
+_ = require('lodash')
 
 # Need this for later use by EveryAuth in the MiddleWare
 req = undefined
@@ -49,7 +50,7 @@ module.exports.setupEveryauth = (everyauth) ->
       model = req.getModel()
       q = model.query('users').withEveryauth('facebook', fbUserMetadata.id)
       model.fetch q, (err, user) ->
-        id = user && user.get().length>0 && user.get()[0].id
+        id = user && !_.isEmpty(user.get()) && user.get()[0].id
         console.log {err:err, id:id, fbUserMetadata:fbUserMetadata}
         # Has user been tied to facebook account already?
         if (id && id!=session.userId)
