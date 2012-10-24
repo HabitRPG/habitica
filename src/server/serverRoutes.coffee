@@ -1,4 +1,5 @@
 scoring = require('../app/scoring')
+_ = require('lodash')
 
 module.exports = (expressApp, root, derby) ->
 
@@ -29,7 +30,7 @@ module.exports = (expressApp, root, derby) ->
     model = req.getModel()
     model.session.userId = uid
     model.fetch "users.#{uid}", (err, user) ->
-      if err || !user.get()
+      if err || _.isEmpty(user.get())
         err ||= 'No user with that ID'
         return res.send(500, err)
       model.ref('_user', user)

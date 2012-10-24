@@ -135,6 +135,10 @@ updateStats = (stats) ->
 # {direction} 'up' or 'down'
 # {options} will usually be passed in via cron or tests, safe to ignore this param
 score = (taskId, direction, options={cron:false, times:1}) ->
+  # FIXME seem to be finding issues here
+  if _.isEmpty(model.get('_user'))
+    console.log {taskId:taskId, direction:direction, options:options, user:model.get('_user'), error: 'non-user attempted to score'}
+    return 0
   taskPath = "_user.tasks.#{taskId}"
   [task, taskObj] = [model.at(taskPath), model.get(taskPath)]
   {type, value} = taskObj
