@@ -262,18 +262,7 @@ ready (model) ->
     model.set '_items.armor', content.items.armor[1]
     model.set '_items.weapon', content.items.weapon[1]
     model.set '_user.balance', (model.get('_user.balance') - 0.50)
-
-  exports.reset = (e, el) ->
-    model.set '_user.tasks', {}
-    _.each ['habit', 'daily', 'todo', 'completed', 'reward'], (type) ->
-      model.set "_user.#{type}Ids", []
-      model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-    model.set('_user.stats.hp', 50)
-    model.set('_user.stats.money', 0)
-    model.set('_user.stats.exp', 0)
-    model.set('_user.stats.lvl', 1)
-
-
+    
   # ========== CRON ==========
   
   # FIXME seems can't call scoring.cron() instantly, have to call after some time (2s here)
