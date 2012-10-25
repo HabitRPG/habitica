@@ -6,7 +6,7 @@
   "dependencies": {
     "derby": "0.3.13",
     "racer-db-mongo": "0.3.13",
-    "express": "*",
+    "express": "3.0.0rc3",
     "gzippo": "git://github.com/dbashford/gzippo.git",
     "connect-mongo": ">=0.1.9",
     "everyauth": "git://github.com/bnoguchi/everyauth#express3",
