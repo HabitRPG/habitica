@@ -22,15 +22,23 @@
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#settings-modal" data-toggle="modal">Settings</a></li>
-                <!-- FIXME href='/logout' isn't redirecting the page.. window.history? -->
-                <li><a href='/logout' onclick="window.location='/logout'">Logout</a></li>
+                <li><a href="#reset-modal" data-toggle="modal">Reset</a></li>
+                <li><a href='/logout'>Logout</a></li>
             </ul>
         </div>
+
         <app:myModal modalId="settings-modal" header="Settings">
           <strong>User ID</strong><br/>
           <small>Copy this ID for use in third party applications.</small>
           <pre class=prettyprint>{_user.id}</pre><br/>
         </app:myModal>
+
+        <app:myModal modalId="reset-modal" header="Reset">
+          <p>This resets your entire account - your tasks will be deleted and your character will start over.</p>
+          <p>This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.</p>
+          <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger btn-large">Reset</button>
+        </app:myModal>
+
       {/}
     </div>
 
