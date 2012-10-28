@@ -32,8 +32,8 @@ module.exports = (expressApp, root, derby) ->
     model.fetch "users.#{uid}", (err, user) ->
       return res.send(500, err) if err
       userObj = user.get()
-      #FIXME The server keeps crashing. I think it's because some users are entering non-guids as their userId, test that here
-      unless userObj && userObj.stats && userObj.stats.money && !_.isEmpty(userObj.tasks)
+      # Server crashes without this, I think some users are entering non-guid userIds and/or trying to use the API without having an account
+      unless userObj && !_.isEmpty(userObj.stats)
         console.log {taskId:taskId, direction:direction, user:userObj, error: 'non-user attempted to score'}
         return res.send(500, "User #{uid} not found") 
        
