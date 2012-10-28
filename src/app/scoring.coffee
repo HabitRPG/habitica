@@ -140,12 +140,6 @@ score = (taskId, direction, options={cron:false, times:1}) ->
   {type, value} = taskObj
   userObj = user.get()
 
-  # FIXME seem to be finding issues here
-  if _.isEmpty(userObj) || _.isEmpty(userObj.stats) || _.isEmpty(userObj.tasks)
-    console.log {taskId:taskId, direction:direction, options:options, user:userObj, error: 'non-user attempted to score'}
-    return 0
-  
-  
   # up / down was called by itself, probably as REST from 3rd party service
   #FIXME handle this
   if !task
