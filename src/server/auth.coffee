@@ -1,7 +1,7 @@
 derby = require('derby')
 schema = require('../app/schema')
 content = require('../app/content')
-_ = require('lodash')
+_ = require('underscore')
 
 # Need this for later use by EveryAuth in the MiddleWare
 req = undefined

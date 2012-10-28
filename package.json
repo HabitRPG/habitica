@@ -1,7 +1,7 @@
 {
   "name": "habitrpg",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "0.0.0-106",
+  "version": "0.0.0-142",
   "main": "./server.js",
   "dependencies": {
     "derby": "0.3.13",
@@ -15,7 +15,8 @@
     "moment": "*",
     "stripe": "*",
     "async": "*",
-    "lodash": "*"
+    "underscore": "*",
+    "clone": "*"
   },
   "private": true,
   "devDependencies": {
@@ -31,6 +32,6 @@
   },
   "engines": {
     "node": "0.8.x",
-    "npm":  "1.1.x"
+    "npm": "1.1.x"
   }
 }

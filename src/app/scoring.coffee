@@ -1,6 +1,6 @@
 async = require 'async'
 moment = require 'moment'
-_ = require 'lodash'
+_ = require 'underscore'
 content = require './content'
 helpers = require './helpers'
 MODIFIER = .03 # each new level, armor, weapon add 3% modifier (this number may change) 
