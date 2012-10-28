@@ -1,7 +1,8 @@
 {expect} = require 'derby/node_modules/racer/test/util'
 {BrowserModel: Model} = require 'derby/node_modules/racer/test/util/model'
 derby = require 'derby'
-_ = require 'lodash'
+clone = require 'clone'
+_ = require 'underscore'
 moment = require 'moment'
 
 # Custom modules
@@ -18,8 +19,8 @@ taskPath = null
 # Otherwise, using model.get(path) will give the same object before as after
 pathSnapshots = (paths) ->
   if _.isString(paths)
-    return _.clone(model.get(paths)) 
-  _.map paths, (path) -> _.clone(model.get(path))
+    return clone(model.get(paths)) 
+  _.map paths, (path) -> clone(model.get(path))
 statsTask = -> pathSnapshots(['_user.stats', taskPath]) # quick snapshot of user.stats & task
 
 cleanUserObj = -> 
@@ -48,7 +49,7 @@ Helper function to determine if stats updates are numerically correct based on s
 @options: The user stats modifiers and times to run, defaults to {times:1, modifiers:{lvl:1, weapon:0, armor:0}} 
 ###
 modificationsLookup = (direction, options = {}) ->
-  merged = _.merge {times:1, lvl:1, weapon:0, armor:0}, options
+  merged = _.defaults options, {times:1, lvl:1, weapon:0, armor:0} 
   {times, lvl, armor, weapon}  = merged
   userObj = cleanUserObj()
   value = 0
