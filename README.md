@@ -4,13 +4,13 @@
 
 ![Screenshot](https://raw.github.com/lefnire/habitrpg/master/public/img/screenshot.jpeg "Screenshot")
 
-##[More Information](https://github.com/lefnire/habitrpg/wiki)
+###[More Information](https://github.com/lefnire/habitrpg/wiki)
 
-##[FAQ](https://github.com/lefnire/habitrpg/wiki/FAQ)
+###[FAQ](https://github.com/lefnire/habitrpg/wiki/FAQ)
 
-##[API](https://github.com/lefnire/habitrpg/wiki/API)
+###[API](https://github.com/lefnire/habitrpg/wiki/API)
 
-##[Contact](https://github.com/lefnire/habitrpg/wiki/Contact)
+###[Contact](https://github.com/lefnire/habitrpg/wiki/Contact)
 
 ##License
 Code is licensed under GNU GPL v3. Content is licensed under CC-BY-SA 3.0.
