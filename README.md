@@ -14,11 +14,11 @@
 See the [Frequently Asked Questions](https://github.com/lefnire/habitrpg/wiki/FAQ) page.
 
 ##Contact
-###Issues and Suggestions
-If you find any bugs, or have any feature requests or suggestions, please file them [in the issue queue](https://github.com/lefnire/habitrpg/issues).
+###[Issue Queue](https://github.com/lefnire/habitrpg/issues)
+For bugs, issues, feature requests, or suggestions.
 
-###Contact Me
-If you want to contact me for any other reason, don't hesitate to [email me](mailto:tylerrenelle@gmail.com)
+###[Email Me](mailto:tylerrenelle@gmail.com)
+For everything else. Don't be shy.
 
 
 ##API
