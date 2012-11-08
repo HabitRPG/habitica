@@ -23,3 +23,13 @@ If you want to contact me for any other reason, don't hesitate to [email me](mai
 
 ##API
 HabitRPG has a simple API for up-scoring and down-scoring third party Habits: ```POST /users/:userId/tasks/:taskId/:direction```. This API is currently used in the [Chrome extension](https://chrome.google.com/webstore/detail/habitrpg/pidkmpibnnnhneohdgjclfdjpijggmjj), and you can use it wherever (eg, I'm using it in my [Pomodoro scripts](https://www.evernote.com/shard/s17/sh/9cd765e9-9b5e-44ff-a3e1-b46691c3f593/4ab39c1fca3fe6d54c831dfe6550bf5d)). See [the API page](https://github.com/lefnire/habitrpg/wiki/API) for more details.
+
+##License
+Code is licensed under GNU GPL v3. Content is licensed under CC-BY-SA 3.0.
+See the LICENSE file for details.
+
+##Credits
+Content comes from Mozilla's [BrowserQuest](http://browserquest.mozilla.org/) 
+
+* [Mozilla](http://mozilla.org)
+* [Little Workshop](http://www.littleworkshop.fr)
