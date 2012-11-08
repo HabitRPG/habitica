@@ -4,7 +4,7 @@
 
 ![Screenshot](https://raw.github.com/lefnire/habitrpg/master/public/img/screenshot.jpeg "Screenshot")
 
-###[More Information](https://github.com/lefnire/habitrpg/wiki)
+###[About](https://github.com/lefnire/habitrpg/wiki)
 
 ###[FAQ](https://github.com/lefnire/habitrpg/wiki/FAQ)
 
