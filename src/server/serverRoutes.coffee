@@ -46,7 +46,7 @@ module.exports = (expressApp, root, derby) ->
         model.at('_habitList').push {
           id: taskId
           type: 'habit'
-          text: (title || taskId) + ' *'
+          text: (title || taskId)
           value: 0
           up: true
           down: true
