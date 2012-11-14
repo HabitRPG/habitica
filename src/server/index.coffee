@@ -40,6 +40,7 @@ habitrpgMiddleware = (req, res, next) ->
   model = req.getModel()
   ## Set _mobileDevice to true or false so view can exclude portions from mobile device
   model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
+  model.set '_nodeEnv', process.env.NODE_ENV
   auth.setRequest(req) # Need to pass into auth, so auth can save as private variable used later by EveryAuth
   auth.newUserAndPurl()
   next()
