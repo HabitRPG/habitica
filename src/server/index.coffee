@@ -8,6 +8,7 @@ everyauth = require('everyauth')
 serverError = require './serverError'
 MongoStore = require('connect-mongo')(express)
 auth = require('./auth')
+priv = require('./private')
 
 ## RACER CONFIGURATION ##
 
@@ -67,6 +68,7 @@ expressApp
   .use(store.modelMiddleware())
   # Middelware can be inserted after the modelMiddleware and before
   # the app router to pass server accessible data to a model
+  .use(priv.middleware)
   .use(habitrpgMiddleware)
   .use(everyauth.middleware())
   # Creates an express middleware from the app's routes
@@ -74,4 +76,9 @@ expressApp
   .use(expressApp.router)
   .use(serverError root)
 
+priv.routes(expressApp)
 require('./serverRoutes')(expressApp, root, derby)
+
+# Errors
+expressApp.all '*', (req) ->
+  throw "404: #{req.url}"

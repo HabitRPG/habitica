@@ -280,3 +280,5 @@ ready (model) ->
   # Doesn't do anything otherwise. Don't know why... model not initialized enough yet?   
   setTimeout scoring.cron, 1 # Run once on refresh
   setInterval scoring.cron, 3600000 # Then run once every hour
+
+  require('../server/private').app(exports, model)

@@ -1,4 +1,4 @@
-module.exports = {
+module.exports =
   defaultTasks: [
     {type: 'habit', text: '1h Productive Work', notes: '<u>Habits: Constantly Track</u><br/>For some habits, it only makes sense to <b>gain</b> points (like this one).', value: 0, up: true, down: false }
     {type: 'habit', text: 'Eat Junk Food', notes: 'For others, it only makes sense to <b>lose</b> points', value: 0, up: false, down: true}
@@ -54,7 +54,7 @@ module.exports = {
       }
     ]
     
-  items: {
+  items:
     unlockedMessage:
       title: "Item Store Unlocked"
       content: "Congradulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information."
@@ -83,6 +83,3 @@ module.exports = {
       icon: 'favicon' 
       notes: "Resets your tasks. When you're struggling and everything's red, use for a clean slate."
       value:0
-  }
-  
-}
