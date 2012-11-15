@@ -39,6 +39,10 @@ get '/:uid?', (page, model, {uid}, next) ->
 
     #FIXME remove this eventually, part of user schema
     user.setNull 'balance', 2
+    # support legacy Everyauth schema (now using derby-auth, Passport)
+    fb = user.get('auth.facebook')
+    if fb
+      model.set('_loginName', if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name)
     
     # Setup Item Store
     model.set '_items'

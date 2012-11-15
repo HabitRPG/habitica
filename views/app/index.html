@@ -16,14 +16,7 @@
         <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt="Login / Register With Facebook"/></a>
       {else}
         <div class="btn-group">
-            <button class="btn btn-small">
-                {#if _user.auth.facebook.name.giveName}
-                    {_user.auth.facebook.name.givenName} {_user.auth.facebook.name.familyName}
-                {else}
-                    <!-- support legacy Everyauth schema (now using derby-auth, Passport) -->
-                    {_user.auth.facebook.name}
-                {/}
-            </button>
+            <button class="btn btn-small">{_loginName}</button>
             <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
                 <span class="caret"></span>
             </button>
