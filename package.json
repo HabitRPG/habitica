@@ -18,7 +18,8 @@
     "async": "*",
     "underscore": "*",
     "clone": "*",
-    "coffee-script": "*"
+    "coffee-script": "*",
+    "guid": "*"
   },
   "private": true,
   "subdomain": "habitrpg",
