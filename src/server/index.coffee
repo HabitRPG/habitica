@@ -4,7 +4,6 @@ express = require 'express'
 gzippo = require 'gzippo'
 derby = require 'derby'
 app = require '../app'
-everyauth = require('everyauth')
 serverError = require './serverError'
 MongoStore = require('connect-mongo')(express)
 auth = require 'derby-auth'
