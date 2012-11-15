@@ -20,7 +20,7 @@ get '/:uid?', (page, model, {uid}, next) ->
   # Legacy - won't be allowing PURL auth in the future. Remove once password auth in place
   # Creates stink here too because :uid accounts for every single-param path (terms, privacy, etc)
   if uid
-    if require('derby-auth/node_modules/guid').isGuid(uid)
+    if require('../../node_modules/derby-auth/node_modules/guid').isGuid(uid)
       return page.redirect('/users/'+uid)
     else
       return next()
