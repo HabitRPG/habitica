@@ -16,10 +16,15 @@ _ = require 'underscore'
 # ========== ROUTES ==========
 
 get '/:uid?', (page, model, {uid}, next) ->
-  # delegate to other routes. FIXME how to define express routes first?
-  if uid && !(require('derby-auth/node_modules/guid').isGuid(uid))
-    return next() 
-    
+
+  # Legacy - won't be allowing PURL auth in the future. Remove once password auth in place
+  # Creates stink here too because :uid accounts for every single-param path (terms, privacy, etc)
+  if uid
+    if require('derby-auth/node_modules/guid').isGuid(uid)
+      return page.redirect('/users/'+uid)
+    else
+      return next()
+
   # Force SSL
   req = page._res.req
   if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
