@@ -7,8 +7,8 @@ app = require '../app'
 everyauth = require('everyauth')
 serverError = require './serverError'
 MongoStore = require('connect-mongo')(express)
-auth = require('./auth')
-priv = require('./private')
+auth = require 'derby-auth'
+priv = require './private'
 
 ## RACER CONFIGURATION ##
 
@@ -28,9 +28,6 @@ derby.use(require 'racer-db-mongo')
 store = derby.createStore
   db: {type: 'Mongo', uri: process.env.NODE_DB_URI}
   listen: server
-auth.setupQueries(store)
-auth.setupEveryauth(everyauth)
-auth.setupAccessControl(store)
 
 ONE_YEAR = 1000 * 60 * 60 * 24 * 365
 root = path.dirname path.dirname __dirname
@@ -41,9 +38,20 @@ habitrpgMiddleware = (req, res, next) ->
   ## Set _mobileDevice to true or false so view can exclude portions from mobile device
   model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
   model.set '_nodeEnv', process.env.NODE_ENV
-  auth.setRequest(req) # Need to pass into auth, so auth can save as private variable used later by EveryAuth
-  auth.newUserAndPurl()
   next()
+
+# Authentication setup
+strategies =
+  facebook:
+    strategy: require("passport-facebook").Strategy
+    conf:
+      clientID: process.env.FACEBOOK_KEY
+      clientSecret: process.env.FACEBOOK_SECRET
+options =
+  domain: "http://localhost:3000"
+  allowPurl: true
+  schema: require('../app/schema').newUserObject()
+auth.init expressApp, store, strategies, options
   
 expressApp
   .use(express.favicon())
@@ -71,12 +79,13 @@ expressApp
   # the app router to pass server accessible data to a model
   .use(priv.middleware)
   .use(habitrpgMiddleware)
-  .use(everyauth.middleware())
+  .use(auth.middleware())
   # Creates an express middleware from the app's routes
   .use(app.router())
   .use(expressApp.router)
   .use(serverError root)
 
+auth.routes()
 priv.routes(expressApp)
 require('./serverRoutes')(expressApp, root, derby)
 

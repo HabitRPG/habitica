@@ -12,11 +12,11 @@
   <ui:connectionAlert>
   <div id="head">
     <div class='pull-right'>
-      {#unless _facebookAuthenticated}
+      {#unless _loggedIn}
         <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt="Login / Register With Facebook"/></a>
       {else}
         <div class="btn-group">
-            <button class="btn btn-small">{_user.auth.facebook.name}</button>
+            <button class="btn btn-small">{_user.auth.facebook.name.givenName} {_user.auth.facebook.name.familyName}</button>
             <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
                 <span class="caret"></span>
             </button>

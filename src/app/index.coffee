@@ -17,7 +17,7 @@ _ = require 'underscore'
 
 get '/:uid?', (page, model, {uid}, next) ->
   # delegate to other routes. FIXME how to define express routes first?
-  if uid && !(require('guid').isGuid(uid))
+  if uid && !(require('derby-auth/node_modules/guid').isGuid(uid))
     return next() 
     
   # Force SSL
@@ -26,8 +26,7 @@ get '/:uid?', (page, model, {uid}, next) ->
     return page.redirect 'https://' + req.headers.host + req.url
 
   sess = model.session
-  if sess.habitRpgAuth && sess.habitRpgAuth.facebook
-    model.set('_facebookAuthenticated', true)
+  model.set('_loggedIn', true) if sess.loggedIn
   model.set '_userId', sess.userId
   model.subscribe "users.#{sess.userId}", (err, user) ->
     # Set variables which are passed from the controller to the view
