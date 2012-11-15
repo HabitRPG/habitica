@@ -17,12 +17,10 @@
     "stripe": "*",
     "async": "*",
     "underscore": "*",
-    "clone": "*"
+    "clone": "*",
+    "coffee-script": "*"
   },
   "private": true,
-  "devDependencies": {
-    "coffee-script": ">=1.3.3"
-  },
   "subdomain": "habitrpg",
   "domains": [
     "habitrpg.com",
