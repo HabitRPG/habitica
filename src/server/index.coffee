@@ -47,7 +47,7 @@ strategies =
       clientID: process.env.FACEBOOK_KEY
       clientSecret: process.env.FACEBOOK_SECRET
 options =
-  domain: "http://localhost:3000"
+  domain: (if process.env.NODE_ENV == 'production' then 'https://habitrpg.com' else "http://localhost:3000")
   allowPurl: true
   schema: require('../app/schema').newUserObject()
 auth.init expressApp, store, strategies, options
