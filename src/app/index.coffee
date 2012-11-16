@@ -59,8 +59,11 @@ get '/:uid?', (page, model, {uid}, next) ->
 
     # FIXME temporary hack to remove duplicates. Need to figure out why they're being produced
     _.each ['habitIds','dailyIds','todoIds','rewardIds'], (path) ->
-      user.set path, _.uniq(user.get(path), true)
-    
+      orig = user.get(path)
+      unique = _.uniq(orig, true)
+      if orig.length != unique.length
+        user.set path, unique
+
     # Setup Model Functions
     model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
       # see https://github.com/lefnire/habitrpg/issues/4
