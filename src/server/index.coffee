@@ -50,8 +50,7 @@ options =
   domain: (if process.env.NODE_ENV == 'production' then 'https://habitrpg.com' else "http://localhost:3000")
   allowPurl: true
   schema: require('../app/schema').newUserObject()
-auth.init expressApp, store, strategies, options
-  
+
 expressApp
   .use(express.favicon())
   # Gzip static files and serve from memory
@@ -78,13 +77,12 @@ expressApp
   # the app router to pass server accessible data to a model
   .use(priv.middleware)
   .use(habitrpgMiddleware)
-  .use(auth.middleware())
+  .use(auth(store, strategies, options))
   # Creates an express middleware from the app's routes
   .use(app.router())
   .use(expressApp.router)
   .use(serverError root)
 
-auth.routes()
 priv.routes(expressApp)
 require('./serverRoutes')(expressApp, root, derby)
 
