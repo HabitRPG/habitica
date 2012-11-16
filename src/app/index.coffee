@@ -31,7 +31,6 @@ get '/:uid?', (page, model, {uid}, next) ->
     return page.redirect 'https://' + req.headers.host + req.url
 
   sess = model.session
-  model.set('_loggedIn', true) if sess.loggedIn
   model.set '_userId', sess.userId
   model.subscribe "users.#{sess.userId}", (err, user) ->
     # Set variables which are passed from the controller to the view
