@@ -8,7 +8,7 @@
     "derby-ui-boot": "*",
     "racer-db-mongo": "0.3.13",
     "connect-mongo": ">=0.1.9",
-    "derby-auth": "*",
+    "derby-auth": "git://github.com/lefnire/derby-auth#master",
     "passport-facebook": "*",
     "express": "*",
     "gzippo": "*",
