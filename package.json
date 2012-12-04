@@ -28,7 +28,7 @@
     "www.habitrpg.com"
   ],
   "scripts": {
-    "start": "server.js"
+    "start": "node server.js"
   },
   "engines": {
     "node": "0.8.x",

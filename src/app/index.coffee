@@ -2,6 +2,7 @@ derby = require 'derby'
 {get, view, ready} = derby.createApp module
 derby.use require 'derby-ui-boot'
 derby.use require('../../ui')
+derby.use require('derby-auth/components');
 
 # Custom requires
 moment = require('moment')
@@ -39,9 +40,10 @@ get '/:uid?', (page, model, {uid}, next) ->
     #FIXME remove this eventually, part of user schema
     user.setNull 'balance', 2
     # support legacy Everyauth schema (now using derby-auth, Passport)
-    fb = user.get('auth.facebook')
-    if fb
+    if fb = user.get('auth.facebook')
       model.set('_loginName', if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name)
+    else if username = user.get('auth.local.username')
+      model.set('_loginName', username)
     
     # Setup Item Store
     model.set '_items'
