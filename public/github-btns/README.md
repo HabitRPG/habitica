@@ -14,7 +14,7 @@ These buttons are hosted via GitHub Pages, meaning all you need to do is include
 
 ``` html
 <iframe src="http://ghbtns.com/github-btn.html?user=USERNAME&repo=REPONAME&type=BUTTONTYPE"
-  allowtransparency="true" frameborder="0" scrolling="0" width="62px" height="20px"></iframe>
+  allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20"></iframe>
 ```
 
 ### Requirements
@@ -45,49 +45,49 @@ Examples
 
 ``` html
 <iframe src="http://ghbtns.com/github-btn.html?user=markdotto&repo=github-buttons&type=watch"
-  allowtransparency="true" frameborder="0" scrolling="0" width="62px" height="20px"></iframe>
+  allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20"></iframe>
 ```
 
 **Basic Fork button**
 
 ``` html
 <iframe src="http://ghbtns.com/github-btn.html?user=markdotto&repo=github-buttons&type=fork"
-  allowtransparency="true" frameborder="0" scrolling="0" width="53px" height="20px"></iframe>
+  allowtransparency="true" frameborder="0" scrolling="0" width="53" height="20"></iframe>
 ```
 
 **Basic Follow button**
 
 ``` html
 <iframe src="http://ghbtns.com/github-btn.html?user=markdotto&type=follow"
-  allowtransparency="true" frameborder="0" scrolling="0" width="132px" height="20px"></iframe>
+  allowtransparency="true" frameborder="0" scrolling="0" width="132" height="20"></iframe>
 ```
 
 **Watch with count**
 
 ``` html
 <iframe src="http://ghbtns.com/github-btn.html?user=markdotto&repo=github-buttons&type=watch&count=true"
-  allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"></iframe>
+  allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
 ```
 
 **Fork with count**
 
 ``` html
 <iframe src="http://ghbtns.com/github-btn.html?user=markdotto&repo=github-buttons&type=fork&count=true"
-  allowtransparency="true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe>
+  allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
 ```
 
 **Follow with count**
 
 ``` html
 <iframe src="http://ghbtns.com/github-btn.html?user=markdotto&type=follow&count=true"
-  allowtransparency="true" frameborder="0" scrolling="0" width="165px" height="20px"></iframe>
+  allowtransparency="true" frameborder="0" scrolling="0" width="165" height="20"></iframe>
 ```
 
 **Large Watch button with count**
 
 ``` html
 <iframe src="http://ghbtns.com/github-btn.html?user=markdotto&repo=github-buttons&type=watch&count=true&size=large"
-  allowtransparency="true" frameborder="0" scrolling="0" width="170px" height="30px"></iframe>
+  allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
 ```
 
 Limitations
@@ -98,6 +98,15 @@ For the first version, functionality is limited and some concessions were made:
 - Width and height must be specificed for all buttons (which actually adds some control for those with OCD like myself).
 - All attributes must be passed through via URL parameters.
 - CSS and javascript are all included in the same HTML file to reduce complexity and requests.
+
+**Usage with SSL**
+
+In order to avoid `insecure content` warnings when using GitHub Buttons on a page behind an SSL certificate, simply host a copy of the `github-btn.html` file on your secure directory and substitute your domain in the iframe include: 
+
+``` html
+<iframe src="https://YOURDOMAIN.com/github-btn.html?user=USERNAME&repo=REPONAME&type=BUTTONTYPE"
+  allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20"></iframe>
+```
 
 More refinement and functionalty is planned with open-sourcing--any help is always appreciated!
 
