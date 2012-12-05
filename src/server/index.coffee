@@ -25,7 +25,7 @@ module.exports = server
 
 derby.use(require 'racer-db-mongo')
 store = derby.createStore
-  db: {type: 'Mongo', uri: process.env.NODE_DB_URI}
+  db: {type: 'Mongo', uri: process.env.NODE_DB_URI, safe:true}
   listen: server
 
 ONE_YEAR = 1000 * 60 * 60 * 24 * 365
