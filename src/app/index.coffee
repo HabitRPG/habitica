@@ -78,6 +78,8 @@ get '/:uid?', (page, model, {uid}, next) ->
 # ========== CONTROLLER FUNCTIONS ==========
 
 ready (model) ->
+  require('./loadJavascripts')(model)
+
   # Setup model in scoring functions
   scoring.setModel(model)
   
