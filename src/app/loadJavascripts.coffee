@@ -32,10 +32,9 @@ module.exports = (model) ->
 
     # Google Analyatics
     if model.get('_nodeEnv') == 'production'
-      _gaq = _gaq || []
-      _gaq.push(['_setAccount', 'UA-33510635-1'])
-      _gaq.push(['_trackPageview'])
-
+      _gaq = _gaq or []
+      _gaq.push ["_setAccount", "UA-33510635-1"]
+      _gaq.push ["_trackPageview"]
       (->
         ga = document.createElement("script")
         ga.type = "text/javascript"
