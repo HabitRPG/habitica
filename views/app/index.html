@@ -130,22 +130,29 @@
         and have to pass those in via {{{content}}} instead -->  
       
       <!--helpTitle & helpContent moved to tour -->
-      <app:taskColumn title="Habits">
+      <div class="span3 well habits">
+        <h2>Habits</h2>
+        <!--removing for now, help-info in the tour instead-->
+        <!--<span class="help-icon" rel="popover" data-placement="bottom" data-trigger="hover" data-original-title="{{{helpTitle}}}" data-content="{{{helpContent}}}"><i class="icon-question-sign"></i></span>-->
         <ul class='habits'>{#each _habitList as :task}<app:task />{/}</ul>
         <app:newTask type=habit><input value={_newHabit} type="text" name=new-task placeholder="New Habit"/></app:newTask>
-      </app:taskColumn>
-      
-      <app:taskColumn title="Daily">
+      </div>
+
+      <div class="span3 well dailys">
+        <h2>Daily</h2>
         <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
         <app:newTask type=daily><input value={_newDaily} type="text" name=new-task placeholder="New Daily"/></app:newTask>
-      </app:taskColumn>
+      </div>
 
-      <app:taskColumn title="Todos" type="todo">
+      <div class="span3 well todos">
         <div class="tabbable"> <!-- Only required for left/right tabs -->
-          <ul class="nav nav-pills">
-            <li class="active"><a href="#tab1" data-toggle="tab">Remaining</a></li>
-            <li><a href="#tab2" data-toggle="tab">Complete</a></li>
-          </ul>
+          <div class="row-fluid">
+            <h2 class="span6">Todos</h2>
+            <ul class="span6 nav nav-pills">
+                <li class="active"><a href="#tab1" data-toggle="tab">Remaining</a></li>
+                <li><a href="#tab2" data-toggle="tab">Complete</a></li>
+            </ul>
+          </div>
           <div class="tab-content">
             <div class="tab-pane active" id="tab1">
               <ul class='todos'>
@@ -165,25 +172,33 @@
           <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
           <div id="todos-chart" style="display:none;"></div>
         {/}
-      </app:taskColumn>
+      </div>
 
-      <app:taskColumn title="Rewards" type="reward">
-        <div id="money">{gold(_user.stats.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.stats.money)} <img src='/img/coin_single_silver.png'/></div>
-        <ul class='rewards'>
-          {#each _rewardList as :task}<app:task />{/}
-        </ul>
-        
-        {#if _user.items.itemsEnabled}        
-          <ul class='items'>
-            {#with _items.armor as :item}<app:item />{/}  
-            {#with _items.weapon as :item}<app:item />{/}  
-            {#with _items.potion as :item}<app:item />{/}  
-            {#with _items.reroll as :item}<app:item reroll=true/>{/}  
-          </ul>
-        {/}
+        <div class="span3 well rewards">
+
+            <!--Title -->
+            <div class="row-fluid">
+                <div class="span6"><h2>Rewards</h2></div>
+                <div class="span6" id="money">{gold(_user.stats.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.stats.money)} <img src='/img/coin_single_silver.png'/></div>
+            </div>
+
+            <!-- Content -->
+            <ul class='rewards'>
+                {#each _rewardList as :task}<app:task />{/}
+            </ul>
+
+            {#if _user.items.itemsEnabled}
+              <ul class='items'>
+                {#with _items.armor as :item}<app:item />{/}
+                {#with _items.weapon as :item}<app:item />{/}
+                {#with _items.potion as :item}<app:item />{/}
+                {#with _items.reroll as :item}<app:item reroll=true/>{/}
+              </ul>
+            {/}
         
         <app:newTask type=reward><input value={_newReward} type="text" name=new-task placeholder="New Reward"/></app:newTask>
-      </app:taskColumn>
+      </div>
+
       <!-- Re-Roll modal -->
       <app:myModal modalId='reroll-modal' header="Reset Your Tasks">
         <app:userTokens/>
@@ -285,15 +300,7 @@
     </div>
   </div>
   <!--<span class="well pull-right">Tokens: {tokens(_user.balance)}</span>-->
-  
-<taskColumn: nonvoid>
-  <div class="span3 well {{{type}}}s">
-    <!--removing for now, help-info in the tour instead-->
-    <!--<span class="help-icon" rel="popover" data-placement="bottom" data-trigger="hover" data-original-title="{{{helpTitle}}}" data-content="{{{helpContent}}}"><i class="icon-question-sign"></i></span>-->
-    <h1>{{{title}}}</h1>
-    {{{content}}}
-  </div>
-  
+
 <newTask: nonvoid>
   <form class="form-inline" id=new-{{{type}}} data-task-type={{{type}}} x-bind=submit:addTask>
     {{{content}}}
