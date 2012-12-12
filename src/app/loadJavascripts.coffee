@@ -27,20 +27,5 @@ module.exports = (model) ->
       # Specifying callback in options param is vital! Otherwise you get blank screen, see http://stackoverflow.com/a/12200566/362790
       google.load "visualization", "1", {packages:["corechart"], callback: ->}
 
-    # Twitter
-    #<!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>-->
-
-    # Google Analyatics
-    if model.get('_nodeEnv') == 'production'
-      _gaq = _gaq or []
-      _gaq.push ["_setAccount", "UA-33510635-1"]
-      _gaq.push ["_trackPageview"]
-      (->
-        ga = document.createElement("script")
-        ga.type = "text/javascript"
-        ga.async = true
-        ga.src = ((if "https:" is document.location.protocol then "https://ssl" else "http://www")) + ".google-analytics.com/ga.js"
-        s = document.getElementsByTagName("script")[0]
-        s.parentNode.insertBefore ga, s
-      )()
-
+  # Note, Google Analyatics giving beef if in this file. Moved back to index.html. It's ok, it's async - really the
+  # syncronous requires up top are what benefit the most from this file.
