@@ -117,6 +117,7 @@ ready (model) ->
   tour = new Tour()
   for step in content.tourSteps
     tour.addStep
+      html: true
       element: step.element
       title: step.title
       content: step.content
