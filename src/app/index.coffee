@@ -1,8 +1,8 @@
 derby = require 'derby'
-{get, view, ready} = derby.createApp module
 derby.use require 'derby-ui-boot'
 derby.use require('../../ui')
 derby.use require('derby-auth/components');
+{get, view, ready} = derby.createApp module
 
 # Custom requires
 moment = require('moment')
@@ -11,7 +11,7 @@ scoring = require './scoring'
 schema = require './schema'
 helpers = require './helpers'
 helpers.viewHelpers view
-_ = require 'underscore'
+_ = require('underscore')._
 
 
 # ========== ROUTES ==========
