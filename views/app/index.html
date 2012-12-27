@@ -281,15 +281,15 @@
   </footer>
   
 <myModal: nonvoid>
-  {{{#if noDismiss}}}<div data-action="backdrop" class="modal-backdrop"></div>{{{/}}}
-  <div class="modal {{{#unless noDismiss}}}hide{{{/}}}" id={{{modalId}}} role="dialog">
-    {{{#if header}}}
+  {{#if @noDismiss}}<div data-action="backdrop" class="modal-backdrop"></div>{{/}}
+  <div class="modal {{#unless @noDismiss}}hide{{/}}" id={{@modalId}} role="dialog">
+    {{#if @header}}
     <div class="modal-header">
-        {{{#unless noDismiss}}}<button type="button" class="close" data-dismiss="modal">×</button>{{{/}}}
-        <h3>{{{unescaped header}}}</h3>
+        {{#unless @noDismiss}}<button type="button" class="close" data-dismiss="modal">×</button>{{/}}
+        <h3>{{unescaped @header}}</h3>
     </div>
-    {{{/}}}
-    <div class="modal-body">{{{content}}}</div>
+    {{/}}
+    <div class="modal-body">{@content}</div>
   </div>
 
 <userTokens:>
@@ -302,8 +302,8 @@
   <!--<span class="well pull-right">Tokens: {tokens(_user.balance)}</span>-->
 
 <newTask: nonvoid>
-  <form class="form-inline" id=new-{{{type}}} data-task-type={{{type}}} x-bind=submit:addTask>
-    {{{content}}}
+  <form class="form-inline" id=new-{{@type}} data-task-type={{@type}} x-bind=submit:addTask>
+    {{@content}}
     <input class="btn" type=submit value=Add>
   </form>
 
@@ -399,11 +399,11 @@
         <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:item.notes}" data-original-title="{:item.text}" class='task-notes'><i class="icon-comment"></i></span>
       </div>
       <div class="task-controls">
-        {{{#if reroll}}}
+        {#if @reroll}
           <a data-toggle="modal" data-target="#reroll-modal" class="item-buy-link" style='cursor:pointer'><i class=icon-retweet></i></a>
-        {{{else}}}
+        {else}
           <a x-bind=click:buyItem class="item-buy-link" data-type={:item.type} data-value={:item.value} data-index={:item.index}>{:item.value}<img src="/img/coin_single_gold.png"/></a>
-        {{{/}}}
+        {/}
       </div>
       <div class="task-text"><img src="/img/BrowserQuest/habitrpg_mods/{:item.icon}.png" /> {:item.text}</div>
     </pre>
