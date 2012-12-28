@@ -2,7 +2,7 @@
   "name": "habitrpg",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
   "version": "0.0.0-146",
-  "main": "./server.js",
+  "main": "./forever.js",
   "dependencies": {
     "derby": "git://github.com/codeparty/derby#master",
     "racer": "git://github.com/codeparty/racer#master",
@@ -10,6 +10,7 @@
     "derby-ui-boot": "git://github.com/codeparty/derby-ui-boot#master",
     "derby-auth": "git://github.com/lefnire/derby-auth#master",
 
+    "forever-monitor": "*",
     "connect-mongo": "git://github.com/kcbanner/connect-mongo#master",
     "passport-facebook": "*",
     "express": "*",
@@ -30,7 +31,7 @@
     "www.habitrpg.com"
   ],
   "scripts": {
-    "start": "node server.js"
+    "start": "node forever.js"
   },
   "engines": {
     "node": "0.8.x",
