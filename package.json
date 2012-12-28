@@ -10,7 +10,7 @@
     "derby-ui-boot": "git://github.com/codeparty/derby-ui-boot#master",
     "derby-auth": "git://github.com/lefnire/derby-auth#master",
 
-    "connect-mongo": ">=0.1.9",
+    "connect-mongo": "git://github.com/kcbanner/connect-mongo#master",
     "passport-facebook": "*",
     "express": "*",
     "gzippo": "*",
