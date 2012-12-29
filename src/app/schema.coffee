@@ -18,7 +18,7 @@ module.exports.newUserObject = ->
     # deep clone, else further new users get duplicate objects
   newUser = require('clone')(userSchema, true) #deep
   for task in content.defaultTasks
-    guid = task.id = require('racer').uuid()
+    guid = task.id = require('derby/node_modules/racer').uuid()
     newUser.tasks[guid] = task
     switch task.type
       when 'habit' then newUser.habitIds.push guid
