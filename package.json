@@ -2,7 +2,7 @@
   "name": "habitrpg",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
   "version": "0.0.0-146",
-  "main": "./forever.js",
+  "main": "./server.js",
   "dependencies": {
     "derby": "git://github.com/codeparty/derby#master",
     "racer": "git://github.com/codeparty/racer#master",
@@ -30,9 +30,6 @@
     "habitrpg.com",
     "www.habitrpg.com"
   ],
-  "scripts": {
-    "start": "node forever.js"
-  },
   "engines": {
     "node": "0.8.x",
     "npm": "1.1.x"

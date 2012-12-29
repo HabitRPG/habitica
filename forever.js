@@ -1,8 +1,5 @@
-var forever = require('forever-monitor');
-var child = new (forever.Monitor)('server.js');
+require('coffee-script') // remove intermediate compilation requirement
+require('./src/server').listen(process.env.PORT || 3000);
 
-child.on('exit', function () {
-    console.log('server.js has exited after 10 restarts');
-});
-
-child.start();
+// Note: removed "up" module, which is default for development (but interferes with and production + PaaS)
+// Restore to 5310bb0 if I want it back (see https://github.com/codeparty/derby/issues/165#issuecomment-10405693)
