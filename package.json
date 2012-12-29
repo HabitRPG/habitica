@@ -4,7 +4,8 @@
   "version": "0.0.0-146",
   "main": "./forever.js",
   "dependencies": {
-    "derby": "git://github.com/lefnire/derby#master",
+    "derby": "git://github.com/codeparty/derby#master",
+    "racer": "git://github.com/codeparty/racer#master",
     "racer-db-mongo": "git://github.com/codeparty/racer-db-mongo#master",
     "derby-ui-boot": "git://github.com/codeparty/derby-ui-boot#master",
     "derby-auth": "git://github.com/lefnire/derby-auth#master",
