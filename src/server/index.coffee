@@ -11,7 +11,7 @@ priv = require './private'
 
 ## RACER CONFIGURATION ##
 
-racer = require 'racer'
+racer = require 'derby/node_modules/racer'
 racer.io.set('transports', ['xhr-polling'])
 unless process.env.NODE_ENV == 'production'
   racer.use(racer.logPlugin)
