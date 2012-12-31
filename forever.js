@@ -1,3 +1,8 @@
+process.on('uncaughtException', function (err) {
+    console.error(err);
+    console.log("Node NOT Exiting...");
+});
+
 require('coffee-script') // remove intermediate compilation requirement
 require('./src/server').listen(process.env.PORT || 3000);
 
