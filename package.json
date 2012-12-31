@@ -4,12 +4,11 @@
   "version": "0.0.0-146",
   "main": "./server.js",
   "dependencies": {
-    "derby": "git://github.com/codeparty/derby#master",
+    "derby": "git://github.com/lefnire/derby#master",
     "racer": "git://github.com/codeparty/racer#master",
     "racer-db-mongo": "git://github.com/codeparty/racer-db-mongo#master",
     "derby-ui-boot": "git://github.com/codeparty/derby-ui-boot#master",
     "derby-auth": "git://github.com/lefnire/derby-auth#master",
-
     "forever-monitor": "*",
     "connect-mongo": "0.2.0",
     "passport-facebook": "*",
@@ -21,8 +20,7 @@
     "async": "*",
     "underscore": "*",
     "clone": "*",
-    "coffee-script": "*",
-    "guid": "*"
+    "coffee-script": "*"
   },
   "private": true,
   "subdomain": "habitrpg",
@@ -33,5 +31,8 @@
   "engines": {
     "node": "0.8.x",
     "npm": "1.1.x"
+  },
+  "scripts": {
+    "start": "server.js"
   }
 }
