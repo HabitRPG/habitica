@@ -11,7 +11,7 @@
     "derby-auth": "git://github.com/lefnire/derby-auth#master",
 
     "forever-monitor": "*",
-    "connect-mongo": "*",
+    "connect-mongo": "git://github.com/kcbanner/connect-mongo#master",
     "passport-facebook": "*",
     "express": "*",
     "gzippo": "*",
