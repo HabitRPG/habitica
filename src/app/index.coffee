@@ -11,7 +11,7 @@ scoring = require './scoring'
 schema = require './schema'
 helpers = require './helpers'
 helpers.viewHelpers view
-_ = require('underscore')
+_ = require('lodash')
 
 
 # ========== ROUTES ==========

@@ -1,6 +1,6 @@
 content = require './content'
 moment = require 'moment'
-_ = require 'underscore'
+_ = require 'lodash'
 
 userSchema = {
   balance: 2
@@ -16,7 +16,7 @@ userSchema = {
 
 module.exports.newUserObject = ->
   # deep clone, else further new users get duplicate objects
-  newUser = require('clone')(userSchema, true) #deep
+  newUser = _.cloneDeep(userSchema)
   for task in content.defaultTasks
     guid = task.id = require('racer').uuid()
     newUser.tasks[guid] = task

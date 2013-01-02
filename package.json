@@ -18,8 +18,7 @@
     "moment": "*",
     "stripe": "*",
     "async": "*",
-    "underscore": "*",
-    "clone": "*",
+    "lodash": "*",
     "coffee-script": "*"
   },
   "private": true,
