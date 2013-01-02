@@ -2,21 +2,19 @@ content = require './content'
 moment = require 'moment'
 _ = require 'lodash'
 
-userSchema = {
-  balance: 2
-  stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
-  items: { itemsEnabled: false, armor: 0, weapon: 0 }
-  tasks: {}
-  habitIds: [] 
-  dailyIds: [] 
-  todoIds: []
-  completedIds: [] 
-  rewardIds: []
-}  
-
-module.exports.newUserObject = ->
+module.exports.userSchema = ->
   # deep clone, else further new users get duplicate objects
-  newUser = _.cloneDeep(userSchema)
+  newUser = _.cloneDeep
+    balance: 2
+    stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
+    items: { itemsEnabled: false, armor: 0, weapon: 0 }
+    tasks: {}
+    habitIds: []
+    dailyIds: []
+    todoIds: []
+    completedIds: []
+    rewardIds: []
+
   for task in content.defaultTasks
     guid = task.id = require('racer').uuid()
     newUser.tasks[guid] = task

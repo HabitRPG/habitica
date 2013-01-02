@@ -49,7 +49,7 @@ strategies =
 options =
   domain: (if process.env.NODE_ENV == 'production' then 'https://habitrpg.com' else "http://localhost:3000")
   allowPurl: true
-  schema: require('../app/schema').newUserObject()
+  schema: require('../app/schema').userSchema()
 
 mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
   expressApp
