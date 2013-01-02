@@ -15,7 +15,7 @@ userSchema = {
 }  
 
 module.exports.newUserObject = ->
-    # deep clone, else further new users get duplicate objects
+  # deep clone, else further new users get duplicate objects
   newUser = require('clone')(userSchema, true) #deep
   for task in content.defaultTasks
     guid = task.id = require('racer').uuid()
