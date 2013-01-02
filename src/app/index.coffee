@@ -11,7 +11,7 @@ scoring = require './scoring'
 schema = require './schema'
 helpers = require './helpers'
 helpers.viewHelpers view
-_ = require('underscore')._
+_ = require('underscore')
 
 
 # ========== ROUTES ==========
@@ -61,10 +61,7 @@ get '/:uid?', (page, model, {uid}, next) ->
 
     # FIXME temporary hack to remove duplicates. Need to figure out why they're being produced
     _.each ['habitIds','dailyIds','todoIds','rewardIds'], (path) ->
-      orig = user.get(path)
-      unique = _.uniq(orig, true)
-      if orig.length != unique.length
-        user.set path, unique
+      user.set path, _.uniq(user.get(path))
 
     # Setup Model Functions
     model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
