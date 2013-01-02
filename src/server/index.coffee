@@ -51,41 +51,42 @@ options =
   allowPurl: true
   schema: require('../app/schema').newUserObject()
 
-expressApp
-  .use(express.favicon())
-  # Gzip static files and serve from memory
-  .use(gzippo.staticGzip publicPath, maxAge: ONE_YEAR)
-  # Gzip dynamically rendered content
-  .use(express.compress())
+mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
+  expressApp
+    .use(express.favicon())
+    # Gzip static files and serve from memory
+    .use(gzippo.staticGzip publicPath, maxAge: ONE_YEAR)
+    # Gzip dynamically rendered content
+    .use(express.compress())
 
-  # Uncomment to add form data parsing support
-  .use(express.bodyParser())
-  .use(express.methodOverride())
+    # Uncomment to add form data parsing support
+    .use(express.bodyParser())
+    .use(express.methodOverride())
 
-  # Uncomment and supply secret to add Derby session handling
-  # Derby session middleware creates req.session and socket.io sessions
-  .use(express.cookieParser())
-  .use(store.sessionMiddleware
-    secret: process.env.SESSION_SECRET || 'YOUR SECRET HERE'
-    cookie: {maxAge: ONE_YEAR}
-    store: new MongoStore {url: process.env.NODE_DB_URI}
-  )
+    # Uncomment and supply secret to add Derby session handling
+    # Derby session middleware creates req.session and socket.io sessions
+    .use(express.cookieParser())
+    .use(store.sessionMiddleware
+      secret: process.env.SESSION_SECRET || 'YOUR SECRET HERE'
+      cookie: {maxAge: ONE_YEAR}
+      store: mongo_store
+    )
 
-  # Adds req.getModel method
-  .use(store.modelMiddleware())
-  # Middelware can be inserted after the modelMiddleware and before
-  # the app router to pass server accessible data to a model
-  .use(priv.middleware)
-  .use(habitrpgMiddleware)
-  .use(auth(store, strategies, options))
-  # Creates an express middleware from the app's routes
-  .use(app.router())
-  .use(expressApp.router)
-  .use(serverError root)
+    # Adds req.getModel method
+    .use(store.modelMiddleware())
+    # Middelware can be inserted after the modelMiddleware and before
+    # the app router to pass server accessible data to a model
+    .use(priv.middleware)
+    .use(habitrpgMiddleware)
+    .use(auth(store, strategies, options))
+    # Creates an express middleware from the app's routes
+    .use(app.router())
+    .use(expressApp.router)
+    .use(serverError root)
 
-priv.routes(expressApp)
-require('./serverRoutes')(expressApp, root, derby)
+  priv.routes(expressApp)
+  require('./serverRoutes')(expressApp, root, derby)
 
-# Errors
-expressApp.all '*', (req) ->
-  throw "404: #{req.url}"
+  # Errors
+  expressApp.all '*', (req) ->
+    throw "404: #{req.url}"
