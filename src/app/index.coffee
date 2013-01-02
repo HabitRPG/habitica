@@ -40,11 +40,11 @@ get '/:uid?', (page, model, {uid}, next) ->
     #FIXME remove this eventually, part of user schema
     user.setNull 'balance', 2
     # support legacy Everyauth schema (now using derby-auth, Passport)
-    if fb = user.get('auth.facebook')
-      model.set('_loginName', if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name)
-    else if username = user.get('auth.local.username')
+    if username = user.get('auth.local.username')
       model.set('_loginName', username)
-    
+    else if fb = user.get('auth.facebook')
+      model.set('_loginName', if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name)
+
     # Setup Item Store
     model.set '_items'
       armor: content.items.armor[parseInt(user.get('items.armor')) + 1]
