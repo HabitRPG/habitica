@@ -47,7 +47,7 @@ strategies =
       clientID: process.env.FACEBOOK_KEY
       clientSecret: process.env.FACEBOOK_SECRET
 options =
-  domain: process.env.NODE_BASE || 'http://localhost:3000'
+  domain: process.env.BASE_URL || 'http://localhost:3000'
   allowPurl: true
   schema: require('../app/schema').newUserObject()
 
