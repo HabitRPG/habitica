@@ -284,6 +284,7 @@ ready (model) ->
     model.set('_user.stats.money', 0)
     model.set('_user.stats.exp', 0)
     model.set('_user.stats.lvl', 1)
+    model.set('_user.balance', 2) if model.get('_user.balance') < 2 #only if they haven't manually bought tokens
 
 
   # ========== CRON ==========
