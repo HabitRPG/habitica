@@ -57,7 +57,7 @@ module.exports =
   items:
     unlockedMessage:
       title: "Item Store Unlocked"
-      content: "Congradulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information."
+      content: "Congratulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information."
     #TODO: figure out how to calculate index & type without having to store it in the JSON
     weapon: [
       {type: 'weapon', index: 0, text: "Sword 1", icon: "item-sword1", notes:'Training weapon.', value:0}
