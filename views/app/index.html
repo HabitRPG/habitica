@@ -111,10 +111,12 @@
             <td>
               <h3>Game Over</h3>
               {#if lessThan(_user.balance,0.50)}
-                <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
+                <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Tokens</a>
+                <span class='token-cost'>Not enough tokens</span>
               {else}
                 <p>
-                  <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a><a class='token-cost'>2 Tokens</a>
+                  <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a>
+                  <a class='token-cost'>2 Tokens</a>
                 </p>
               {/}
             </td>
@@ -285,7 +287,7 @@
   <div class="modal {{#unless @noDismiss}}hide{{/}}" id={{@modalId}} role="dialog">
     {{#if @header}}
     <div class="modal-header">
-        {{#unless @noDismiss}}<button type="button" class="close" data-dismiss="modal">×</button>{{/}}
+        {{#unless @noDismiss}}<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>{{/}}
         <h3>{{unescaped @header}}</h3>
     </div>
     {{/}}
@@ -298,6 +300,7 @@
       <span class="uneditable-input" style="width:auto;">{tokens(_user.balance)}</span>
       <span class="add-on">Tokens</span>
     </div>
+    <a class="label" data-toggle="modal" href='#reset-modal'><i class="icon-ban-circle"></i>Reset</a>
   </div>
   <!--<span class="well pull-right">Tokens: {tokens(_user.balance)}</span>-->
 
