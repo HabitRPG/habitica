@@ -11,6 +11,14 @@
 
   <ui:connectionAlert>
   <div id="head">
+
+  {#if equal(_user.notifications.kickstarter,'show')}
+      <div class='alert alert-success'>
+          <a x-bind="click:closeKickstarterNofitication" class='pull-right'>&times;</a>
+          Want Habit on iPhone & Android? See the <strong><a href="http://kck.st/XoA3Yg">Kickstarter Campaign</a></strong>! Also funds new features and bug-squashing.
+      </div>
+  {/}
+
     <div class='pull-right'>
       {#unless _loggedIn}
         <a class="btn btn-small btn-info" href="#login-modal" data-toggle="modal">Login / Register</a>

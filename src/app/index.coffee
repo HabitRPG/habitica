@@ -68,9 +68,13 @@ get '/:uid?', (page, model, {uid}, next) ->
       # see https://github.com/lefnire/habitrpg/issues/4
       # also update in scoring.coffee. TODO create a function accessible in both locations 
       (lvl*100)/5
-      
-    # Render Page    
-    page.render()  
+
+    # ========== KickStarter Campaign Notifiation ==========
+    if (model.get('_user.auth.local') || model.get('_user.auth.facebook')) && !model.get('_user.notifications.kickstarter')
+      model.set('_user.notifications.kickstarter', 'show')
+
+    # Render Page
+    page.render()
 
 # ========== CONTROLLER FUNCTIONS ==========
 
@@ -286,12 +290,14 @@ ready (model) ->
     model.set('_user.stats.lvl', 1)
     model.set('_user.balance', 2) if model.get('_user.balance') < 2 #only if they haven't manually bought tokens
 
+  exports.closeKickstarterNofitication = (e, el) ->
+    model.set('_user.notifications.kickstarter', 'hide')
 
   # ========== CRON ==========
-  
+
   # FIXME seems can't call scoring.cron() instantly, have to call after some time (2s here)
-  # Doesn't do anything otherwise. Don't know why... model not initialized enough yet?   
-  setTimeout scoring.cron, 1000 # Run once on refresh
+  # Doesn't do anything otherwise. Don't know why... model not initialized enough yet?
+  setTimeout scoring.cron, 2000 # Run once on refresh
   setInterval scoring.cron, 3600000 # Then run once every hour
 
   require('../server/private').app(exports, model)
