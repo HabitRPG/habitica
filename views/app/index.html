@@ -112,21 +112,14 @@
   <!-- Game Over Modal -->
   <div style="{#unless equal(_user.stats.lvl,0)}display:none;{/}"> 
     <app:myModal noDismiss=true modalId='dead-modal'>
-        <app:userTokens/>
         <table>
           <tr>
             <td><img src="/img/BrowserQuest/habitrpg_mods/dead.png" /></td>
             <td>
               <h3>Game Over</h3>
-              {#if lessThan(_user.balance,0.50)}
-                <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Tokens</a>
-                <span class='token-cost'>Not enough tokens</span>
-              {else}
-                <p>
-                  <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a>
-                  <a class='token-cost'>2 Tokens</a>
-                </p>
-              {/}
+              <p>
+                <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a>
+              </p>
             </td>
           </tr>
         </table>

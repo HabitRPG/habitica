@@ -277,7 +277,6 @@ ready (model) ->
     model.set '_user.items.weapon', 0
     model.set '_items.armor', content.items.armor[1]
     model.set '_items.weapon', content.items.weapon[1]
-    model.set '_user.balance', (model.get('_user.balance') - 0.50)
 
   exports.reset = (e, el) ->
     model.set '_user.tasks', {}
