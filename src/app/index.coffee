@@ -70,7 +70,7 @@ get '/:uid?', (page, model, {uid}, next) ->
       (lvl*100)/5
 
     # ========== KickStarter Campaign Notifiation ==========
-    if (model.get('_user.auth.local') || model.get('_user.auth.facebook')) && !model.get('_user.notifications.kickstarter')
+    unless model.get('_user.notifications.kickstarter')
       model.set('_user.notifications.kickstarter', 'show')
 
     # Render Page
