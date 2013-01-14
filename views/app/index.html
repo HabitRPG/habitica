@@ -217,7 +217,8 @@
   </div>
   
   <!-- Stripe Modal -->
-  <app:myModal modalId="stripe-modal" header='Buy More Tokens'>
+  <app:myModal modalId="stripe-modal" header='Checkout'>
+    <p class='alert alert-info'>Adds 20 tokens and removes ads.</p>
     <div class='payment-errors'></div>
     <!-- Stripe form from https://stripe.com/docs/tutorials/forms -->
     <form action="/" method="POST" id="payment-form" x-bind=submit:submitPayment>
@@ -307,10 +308,27 @@
   <!--<span class="well pull-right">Tokens: {tokens(_user.balance)}</span>-->
 
 <newTask: nonvoid>
-  <form class="form-inline" id=new-{{@type}} data-task-type={{@type}} x-bind=submit:addTask>
+  <form class="form-inline new-task-form" id=new-{{@type}} data-task-type={{@type}} x-bind=submit:addTask>
     {{@content}}
     <input class="btn" type=submit value=Add>
   </form>
+
+  {#if _loggedIn}
+    {#unless equal(@type,'reward')}
+        <a class='pull-right' data-target="#stripe-modal" data-toggle="modal" rel='tooltip' title='Remove Ads'><i class='icon-remove'></i></a>
+        <script type="text/javascript" x-no-minify><!--
+        google_ad_client = "ca-pub-3242350243827794";
+        /* Test */
+        google_ad_slot = "5883123375";
+        google_ad_width = 234;
+        google_ad_height = 60;
+        //-->
+        </script>
+        <script type="text/javascript"
+                src="https://pagead2.googlesyndication.com/pagead/show_ads.js" x-no-minify>
+        </script>
+    {/}
+  {/}
 
 <task:>
   <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, :task.repeat)}">
