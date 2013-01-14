@@ -61,6 +61,12 @@
           <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger btn-large">Reset</button>
         </app:myModal>
 
+        <app:myModal modalId="why-ads-modal" header="Why Ads?">
+            <p>Habit is maintained by one dude: <a href="https://github.com/lefnire">Tyler</a>. Until Habit can make some money, I need to stay afloat to fix bugs and add features. Consider it a donation to get the project rolling.</p>
+            <p>Chime in on <a href="https://github.com/lefnire/habitrpg/wiki/Business-Model">discussion of Habit's business model</a>, in hopes to eventually get rid of those nasty ads.</p>
+            <button data-dismiss="modal" class="btn btn-success btn-large">Ok</button>
+        </app:myModal>
+
       {/}
     </div>
 
@@ -315,7 +321,12 @@
 
   {#if _loggedIn}
     {#unless equal(@type,'reward')}
-        <a class='pull-right' data-target="#stripe-modal" data-toggle="modal" rel='tooltip' title='Remove Ads'><i class='icon-remove'></i></a>
+        <span class='pull-right'>
+            <a data-target="#stripe-modal" data-toggle="modal" rel='tooltip' title='Remove Ads'><i class='icon-remove'></i></a><br/>
+            <a data-target="#why-ads-modal" data-toggle="modal" rel='tooltip' title='Why Ads?'><i class='icon-question-sign'></i></a>
+
+        </span>
+
         <script type="text/javascript" x-no-minify><!--
         google_ad_client = "ca-pub-3242350243827794";
         /* Test */
