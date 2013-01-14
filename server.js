@@ -1,7 +1,11 @@
 var forever = require('forever-monitor');
 var child = new (forever.Monitor)('forever.js');
 
-child.on('stdout', notifyAdmin); // FIXME on('error') and on('stderr') aren't working
+// FIXME on('error') and on('stderr') aren't working
+child.on('restart', function(){
+    notifyAdmin('Server has restarted.')
+});
+
 child.on('exit', function () {
     var err = 'server.js has exited after 10 restarts';
     console.log(err);
