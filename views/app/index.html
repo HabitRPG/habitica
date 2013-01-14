@@ -23,19 +23,6 @@
     <div class='pull-right'>
       {#unless _loggedIn}
         <a class="btn btn-small btn-info" href="#login-modal" data-toggle="modal">Login / Register</a>
-
-        <app:myModal modalId="login-modal" header="Login / Register">
-            <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt="Login / Register With Facebook"/></a>
-            <h3>Or</h3>
-            <boot:tabs>
-                <boot:tab title="Login">
-                    <derby-auth:login />
-                </boot:tab>
-                <boot:tab title="Register">
-                    <derby-auth:register />
-                </boot:tab>
-            </boot:tabs>
-        </app:myModal>
       {else}
         <div class="btn-group">
             <button class="btn btn-small">{_loginName}</button>
@@ -48,25 +35,6 @@
                 <li><a href='/logout'>Logout</a></li>
             </ul>
         </div>
-
-        <app:myModal modalId="settings-modal" header="Settings">
-          <strong>User ID</strong><br/>
-          <small>Copy this ID for use in third party applications.</small>
-          <pre class=prettyprint>{_user.id}</pre><br/>
-        </app:myModal>
-
-        <app:myModal modalId="reset-modal" header="Reset">
-          <p>This resets your entire account - your tasks will be deleted and your character will start over.</p>
-          <p>This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.</p>
-          <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger btn-large">Reset</button>
-        </app:myModal>
-
-        <app:myModal modalId="why-ads-modal" header="Why Ads?">
-            <p>Habit is maintained by one dude: <a href="https://github.com/lefnire">Tyler</a>. Until Habit can make some money, I need to stay afloat to fix bugs and add features. Consider it a donation to get the project rolling.</p>
-            <p>Chime in on <a href="https://github.com/lefnire/habitrpg/wiki/Business-Model">discussion of Habit's business model</a>, in hopes to eventually get rid of those nasty ads.</p>
-            <button data-dismiss="modal" class="btn btn-success btn-large">Ok</button>
-        </app:myModal>
-
       {/}
     </div>
 
@@ -112,26 +80,107 @@
       </div>
     </div>    
   </div>
+
+<modalDialogs:>
+    {#if _loggedIn}
+        <app:myModal modalId="settings-modal" header="Settings">
+            <strong>User ID</strong><br/>
+            <small>Copy this ID for use in third party applications.</small>
+            <pre class=prettyprint>{_user.id}</pre><br/>
+            <@footer>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            </@footer>
+        </app:myModal>
+
+        <app:myModal modalId="reset-modal" header="Reset">
+            <p>This resets your entire account - your tasks will be deleted and your character will start over.</p>
+            <p>This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.</p>
+            <@footer>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger btn-large">Reset</button>
+            </@footer>
+        </app:myModal>
+
+        <app:myModal modalId="why-ads-modal" header="Why Ads?">
+            <p>Habit is maintained by one dude: <a href="https://github.com/lefnire">Tyler</a>. Until Habit can make some money, I need to stay afloat to fix bugs and add features. Consider it a donation to get the project rolling.</p>
+            <p>Chime in on <a href="https://github.com/lefnire/habitrpg/wiki/Business-Model">discussion of Habit's business model</a>, in hopes to eventually get rid of those nasty ads.</p>
+            <@footer>
+                <button data-dismiss="modal" class="btn btn-success">Ok</button>
+            </@footer>
+        </app:myModal>
+    {else}
+        <app:myModal modalId="login-modal" header="Login / Register">
+            <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt="Login / Register With Facebook"/></a>
+            <h3>Or</h3>
+            <boot:tabs>
+                <boot:tab title="Login">
+                    <derby-auth:login />
+                </boot:tab>
+                <boot:tab title="Register">
+                    <derby-auth:register />
+                </boot:tab>
+            </boot:tabs>
+        </app:myModal>
+    {/}
+    <!-- Game Over Modal -->
+    <div style="{#unless equal(_user.stats.lvl,0)}display:none;{/}">
+        <app:myModal noDismiss=true modalId='dead-modal'>
+            <table>
+                <tr>
+                    <td><img src="/img/BrowserQuest/habitrpg_mods/dead.png" /></td>
+                    <td>
+                        <h3>Game Over</h3>
+                        <p>
+                            <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </app:myModal>
+    </div>
+
+    <!-- Re-Roll modal -->
+    <app:myModal modalId='reroll-modal' header="Reset Your Tasks">
+        <app:userTokens/>
+        <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
+        <@footer>
+            {#if lessThan(_user.balance,1)}
+            <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
+            {else}
+            <button data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</button><span class='token-cost'>4 Tokens</span>
+            {/}
+        </@footer>
+    </app:myModal>
+
+    <!-- Stripe Modal -->
+    <app:myModal modalId="stripe-modal" header='Checkout'>
+        <p class='alert alert-info'>Adds 20 tokens and removes ads.</p>
+        <div class='payment-errors'></div>
+        <!-- Stripe form from https://stripe.com/docs/tutorials/forms -->
+        <form action="/" method="POST" id="payment-form" x-bind=submit:submitPayment>
+            <div class="alert alert-info pull-right"><h2>$5</h2></div>
+            <div class="form-row">
+                <label>Card Number</label>
+                <input type="text" size="20" autocomplete="off" class="card-number"/>
+            </div>
+            <div class="form-row">
+                <label>CVC</label>
+                <input type="text" size="4" autocomplete="off" class="card-cvc"/>
+            </div>
+            <div class="form-row">
+                <label>Expiration (MM/YYYY)</label>
+                <input type="text" size="2" class="card-expiry-month"/>
+                <span> / </span>
+                <input type="text" size="4" class="card-expiry-year"/>
+            </div>
+            <button type="submit" class="submit-button">Submit Payment</button>
+        </form>
+    </app:myModal>
   
 <Body:>
   <br/>
     
-  <!-- Game Over Modal -->
-  <div style="{#unless equal(_user.stats.lvl,0)}display:none;{/}"> 
-    <app:myModal noDismiss=true modalId='dead-modal'>
-        <table>
-          <tr>
-            <td><img src="/img/BrowserQuest/habitrpg_mods/dead.png" /></td>
-            <td>
-              <h3>Game Over</h3>
-              <p>
-                <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a>
-              </p>
-            </td>
-          </tr>
-        </table>
-    </app:myModal>
-  </div>
+  <app:modalDialogs />
   
   <div id=wrap class=container-fluid>
     <div id=main class=row-fluid>
@@ -209,43 +258,9 @@
         <app:newTask type=reward><input value={_newReward} type="text" name=new-task placeholder="New Reward"/></app:newTask>
       </div>
 
-      <!-- Re-Roll modal -->
-      <app:myModal modalId='reroll-modal' header="Reset Your Tasks">
-        <app:userTokens/>
-        <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
-        {#if lessThan(_user.balance,1)}
-          <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
-        {else}
-          <button data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</button><span class='token-cost'>4 Tokens</span>
-        {/}
-      </app:myModal>
+
     </div>
   </div>
-  
-  <!-- Stripe Modal -->
-  <app:myModal modalId="stripe-modal" header='Checkout'>
-    <p class='alert alert-info'>Adds 20 tokens and removes ads.</p>
-    <div class='payment-errors'></div>
-    <!-- Stripe form from https://stripe.com/docs/tutorials/forms -->
-    <form action="/" method="POST" id="payment-form" x-bind=submit:submitPayment>
-      <div class="alert alert-info pull-right"><h2>$5</h2></div>
-      <div class="form-row">
-        <label>Card Number</label>
-        <input type="text" size="20" autocomplete="off" class="card-number"/>
-      </div>
-      <div class="form-row">
-        <label>CVC</label>
-        <input type="text" size="4" autocomplete="off" class="card-cvc"/>
-      </div>
-      <div class="form-row">
-        <label>Expiration (MM/YYYY)</label>
-        <input type="text" size="2" class="card-expiry-month"/>
-        <span> / </span>
-        <input type="text" size="4" class="card-expiry-year"/>
-      </div>
-      <button type="submit" class="submit-button">Submit Payment</button>
-    </form>
-  </app:myModal>
   
   <!-- Footer -->
   <footer class=footer>
@@ -301,6 +316,9 @@
     </div>
     {{/}}
     <div class="modal-body">{@content}</div>
+    {{#if @footer}}
+      <div class="modal-footer">{{@footer}}</div>
+    {{/}}
   </div>
 
 <userTokens:>
