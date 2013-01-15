@@ -83,7 +83,9 @@ ready (model) ->
 
   # Setup model in scoring functions
   scoring.setModel(model)
-  
+
+  require('../server/private').app(exports, model)
+
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
   # FIXME: this isn't very efficient, do model.on set for specific attrs for popover 
@@ -300,5 +302,3 @@ ready (model) ->
   # Doesn't do anything otherwise. Don't know why... model not initialized enough yet?
   setTimeout scoring.cron, 2000 # Run once on refresh
   setInterval scoring.cron, 3600000 # Then run once every hour
-
-  require('../server/private').app(exports, model)

@@ -4,8 +4,7 @@
 <Head:>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
-  
+
 <Header:>
   <!-- SEO text, else Google gets strange copy -->
   <h2 style="display:none;">A habit tracker app which treats your goals like a Role Playing Game. As you accomplish goals, you level up. If you fail your goals, you lose hit points. Lose all your HP and you die.</h2>
@@ -145,38 +144,13 @@
         <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
         <@footer>
             {#if lessThan(_user.balance,1)}
-            <a data-toggle="modal" data-target="#stripe-modal" class="btn btn-danger btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
+                <a x-bind="click:showStripe" class="btn btn-danger btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
             {else}
-            <button data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</button><span class='token-cost'>4 Tokens</span>
+                <a data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</a><span class='token-cost'>4 Tokens</span>
             {/}
         </@footer>
     </app:myModal>
 
-    <!-- Stripe Modal -->
-    <app:myModal modalId="stripe-modal" header='Checkout'>
-        <p class='alert alert-info'>Adds 20 tokens and removes ads.</p>
-        <div class='payment-errors'></div>
-        <!-- Stripe form from https://stripe.com/docs/tutorials/forms -->
-        <form action="/" method="POST" id="payment-form" x-bind=submit:submitPayment>
-            <div class="alert alert-info pull-right"><h2>$5</h2></div>
-            <div class="form-row">
-                <label>Card Number</label>
-                <input type="text" size="20" autocomplete="off" class="card-number"/>
-            </div>
-            <div class="form-row">
-                <label>CVC</label>
-                <input type="text" size="4" autocomplete="off" class="card-cvc"/>
-            </div>
-            <div class="form-row">
-                <label>Expiration (MM/YYYY)</label>
-                <input type="text" size="2" class="card-expiry-month"/>
-                <span> / </span>
-                <input type="text" size="4" class="card-expiry-year"/>
-            </div>
-            <button type="submit" class="submit-button">Submit Payment</button>
-        </form>
-    </app:myModal>
-  
 <Body:>
   <br/>
     
@@ -340,7 +314,7 @@
   {#if _loggedIn}
     {#unless equal(@type,'reward')}
         <span class='pull-right'>
-            <a data-target="#stripe-modal" data-toggle="modal" rel='tooltip' title='Remove Ads'><i class='icon-remove'></i></a><br/>
+            <a x-bind="click:showStripe" rel='tooltip' title='Remove Ads'><i class='icon-remove'></i></a><br/>
             <a data-target="#why-ads-modal" data-toggle="modal" rel='tooltip' title='Why Ads?'><i class='icon-question-sign'></i></a>
 
         </span>
@@ -462,6 +436,7 @@
   </li>
 
 <Scripts:>
+    <script src="https://checkout.stripe.com/v2/checkout.js"></script>
     {#if equal(_nodeEnv,"production")}
         <!-- Google Analytics -->
         <script type="text/javascript">
