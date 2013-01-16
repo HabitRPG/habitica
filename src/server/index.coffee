@@ -32,13 +32,6 @@ ONE_YEAR = 1000 * 60 * 60 * 24 * 365
 root = path.dirname path.dirname __dirname
 publicPath = path.join root, 'public'
 
-habitrpgMiddleware = (req, res, next) ->
-  model = req.getModel()
-  ## Set _mobileDevice to true or false so view can exclude portions from mobile device
-  model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
-  model.set '_nodeEnv', process.env.NODE_ENV
-  next()
-
 # Authentication setup
 strategies =
   facebook:
@@ -72,12 +65,28 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
       store: mongo_store
     )
 
+    #show splash page for newcomers
+    .use (req, res, next) ->
+      console.log(req)
+      if !req.session.userId? and !req.query?.play?
+        res.redirect('/splash.html')
+      else
+        next()
+
     # Adds req.getModel method
     .use(store.modelMiddleware())
     # Middelware can be inserted after the modelMiddleware and before
     # the app router to pass server accessible data to a model
     .use(priv.middleware)
-    .use(habitrpgMiddleware)
+
+    # HabitRPG Custom Middleware
+    .use (req, res, next) ->
+      model = req.getModel()
+      ## Set _mobileDevice to true or false so view can exclude portions from mobile device
+      model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
+      model.set '_nodeEnv', process.env.NODE_ENV
+      next()
+
     .use(auth(store, strategies, options))
     # Creates an express middleware from the app's routes
     .use(app.router())
