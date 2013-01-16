@@ -67,7 +67,7 @@ get '/:uid?', (page, model, {uid}, next) ->
       preened = _.reject unique, (obj, key) -> #remove empty grey tasks
         !_.contains(taskIds, key)
       if original.length != preened.length # issues were indeed found
-        user.set path, _.uniq(user.get(path))
+        user.set path, preened
 
     # Setup Model Functions
     model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
