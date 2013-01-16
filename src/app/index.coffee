@@ -59,9 +59,15 @@ get '/:uid?', (page, model, {uid}, next) ->
     model.refList "_completedList", "_user.tasks", "_user.completedIds"
     model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
 
-    # FIXME temporary hack to remove duplicates. Need to figure out why they're being produced
+    # FIXME temporary hack to remove duplicates and empty (grey) tasks. Need to figure out why they're being produced
+    taskIds = _.keys model.get('_user.tasks')
     _.each ['habitIds','dailyIds','todoIds','rewardIds'], (path) ->
-      user.set path, _.uniq(user.get(path))
+      original = user.get(path)
+      unique = _.uniq original #remove duplicates
+      preened = _.reject unique, (obj, key) -> #remove empty grey tasks
+        !_.contains(taskIds, key)
+      if original.length != preened.length # issues were indeed found
+        user.set path, _.uniq(user.get(path))
 
     # Setup Model Functions
     model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
