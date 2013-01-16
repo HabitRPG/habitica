@@ -66,7 +66,8 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     )
 
     #show splash page for newcomers
-#    .use (req, res, next) ->
+    .use (req, res, next) ->
+       res.redirect("http://ec2-174-129-140-0.compute-1.amazonaws.com:3000")
 #      if !req.session.userId? and !req.query?.play?
 #        res.redirect('/splash.html')
 #      else
