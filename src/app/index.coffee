@@ -69,9 +69,11 @@ get '/:uid?', (page, model, {uid}, next) ->
       # also update in scoring.coffee. TODO create a function accessible in both locations 
       (lvl*100)/5
 
-    # ========== KickStarter Campaign Notifiation ==========
+    # ========== Notifiations ==========
     unless model.get('_user.notifications.kickstarter')
       model.set('_user.notifications.kickstarter', 'show')
+    unless model.get('_user.flags.aws_migrating')
+      model.set('_user.flags.aws_migrating', 'show')
 
     # Render Page
     page.render()
@@ -295,6 +297,8 @@ ready (model) ->
 
   exports.closeKickstarterNofitication = (e, el) ->
     model.set('_user.notifications.kickstarter', 'hide')
+  exports.closeAwsNotification = (e, el) ->
+    model.set('_user.flags.aws_migrating', 'hide')
 
   # ========== CRON ==========
 

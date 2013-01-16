@@ -123,6 +123,13 @@
       </div>
   {/}
 
+  {#if equal(_user.flags.aws_migrating,'show')}
+      <div class='alert'>
+          <a x-bind="click:closeAwsNotification" class='pull-right'>Dismiss</a>
+          Hey guys, Tyler here. Working on migrating to AWS to fix the "Offline" error people are experiencing (follow <a href="https://github.com/lefnire/habitrpg/issues/91">issue here</a>. Hang tight.
+      </div>
+  {/}
+
     <div class='pull-right'>
       {#unless _loggedIn}
         <a class="btn btn-small btn-info" href="#login-modal" data-toggle="modal">Login / Register</a>
