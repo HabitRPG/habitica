@@ -1,11 +1,118 @@
 <Title:>
   HabitRPG | Gamify Your Life
-  
+
 <Head:>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
+<modalDialogs:>
+  <app:myModal modalId="about-modal" header="HabitRPG - Gamify Your Life">
+      <p>A habit tracker app which treats your goals like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.</p>
+      <h3>How Does it Work</h3>
+      <p>Watch the <a href="http://www.youtube.com/watch?feature=player_detailpage&v=uF8ZuN_xxjw#t=261s">video tutorial here</a>.</p>
+      <h4>Habits</h4>
+      <p>Habits are goals that you constantly track. For some habits, it only makes sense to gain points (eg, "1h Productive Work"). For others, it only makes sense to lose points (like "Eat Junk Food"). For the rest, both gain and loss apply (eg, for "Take The Stairs", stairs is a gain, elevator is a loss).</p>
+      <h4>Dailies</h4>
+      <p>Dailies are goals that you want to complete once a day. At the end of each day, non-completed Dailies dock you points. If you are doing well, they turn green and are less valuable (experience, gold) and less damaging (HP). This means you can ease up on them for a bit. But if you are doing poorly, they turn red. The worse you do, the more valuable (exp, gold) and more damaging (HP) these goals become. This encourages you to focus on your shortcomings, the reds.</p>
+      <h4>Todos</h4>
+      <p>Todos are one-off goals which need to be completed eventually. Non-completed Todos won’t hurt you, but they will become more valuable over time. This will encourage you to wrap up stale Todos.</p>
+      <h4>Rewards</h4>
+      <p>As you complete goals, you earn gold to buy rewards. Buy them liberally - rewards are integral in forming good habits. But only buy if you have enough gold - you lose HP otherwise.</p>
+      <p>After you’ve played for a while, you unlock the <strong>Item Store</strong> under the rewards column. You can now buy weapons, armor, potions, etc. Armor decreases HP loss (by an increasing amount wich each upgrade). Weapons increase experience gain. Potions recover 15 HP.</p>
+      Watch the video tutorial here.
+      <h3>Resources</h3>
+      <ul>
+       <li><a href="https://github.com/lefnire/habitrpg#faq">FAQ</a></li>
+       <li><a href="https://github.com/lefnire/habitrpg#roadmap">Roadmap</a></li>
+       <li><a href="https://github.com/lefnire/habitrpg#api">API</a></li>
+       <li><a href="https://github.com/lefnire/habitrpg#contact">Contact</a></li>
+      </ul>
+
+      <h4>License</h4>
+      <p>Code is licensed under GNU GPL v3. Content is licensed under CC-BY-SA 3.0. See the LICENSE file for details.</p>
+      <h4>Credits</h4>
+      <p>Content comes from Mozilla’s <a href="http://browserquest.mozilla.org/">BrowserQuest</a></p>
+      <ul>
+          <li><a href="http://mozilla.org">Mozilla</a></li>
+          <li><a href="http://www.littleworkshop.fr">Little Workshop</a></li>
+      </ul>
+      <@footer>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </@footer>
+  </app:myModal>
+
+  {#if _loggedIn}
+      <app:myModal modalId="settings-modal" header="Settings">
+          <strong>User ID</strong><br/>
+          <small>Copy this ID for use in third party applications.</small>
+          <pre class=prettyprint>{_user.id}</pre><br/>
+          <@footer>
+              <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+          </@footer>
+      </app:myModal>
+
+      <app:myModal modalId="reset-modal" header="Reset">
+          <p>This resets your entire account - your tasks will be deleted and your character will start over.</p>
+          <p>This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.</p>
+          <@footer>
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+          <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger btn-large">Reset</button>
+      </@footer>
+      </app:myModal>
+
+      <app:myModal modalId="why-ads-modal" header="Why Ads?">
+          <p>Habit is maintained by one dude: <a href="https://github.com/lefnire">Tyler</a>. Until Habit can make money, I need to stay afloat to fix bugs and add features. Consider it a donation :D</p>
+          <p>If ads make you sick, chime in on Habit's open <a href="https://github.com/lefnire/habitrpg/wiki/Business-Model">business model discussion</a></p>
+          <@footer>
+              <button data-dismiss="modal" class="btn btn-success">Ok</button>
+          </@footer>
+      </app:myModal>
+  {else}
+      <app:myModal modalId="login-modal" header="Login / Register">
+          <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt="Login / Register With Facebook"/></a>
+          <h3>Or</h3>
+          <boot:tabs>
+              <boot:tab title="Login">
+                  <derby-auth:login />
+              </boot:tab>
+              <boot:tab title="Register">
+                  <derby-auth:register />
+              </boot:tab>
+          </boot:tabs>
+      </app:myModal>
+  {/}
+  <!-- Game Over Modal -->
+  <div style="{#unless equal(_user.stats.lvl,0)}display:none;{/}">
+      <app:myModal noDismiss=true modalId='dead-modal'>
+          <table>
+              <tr>
+                  <td><img src="/img/BrowserQuest/habitrpg_mods/dead.png" /></td>
+                  <td>
+                      <h3>Game Over</h3>
+                      <p>
+                          <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a>
+                      </p>
+                  </td>
+              </tr>
+          </table>
+      </app:myModal>
+  </div>
+
+  <!-- Re-Roll modal -->
+  <app:myModal modalId='reroll-modal' header="Reset Your Tasks">
+      <app:userTokens/>
+      <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
+      <@footer>
+          {#if lessThan(_user.balance,1)}
+              <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-danger btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
+          {else}
+              <a data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</a><span class='token-cost'>4 Tokens</span>
+          {/}
+      </@footer>
+  </app:myModal>
+
 <Header:>
+  <app:modalDialogs />
   <ui:connectionAlert>
   <div id="head">
 
@@ -77,82 +184,8 @@
     </div>    
   </div>
 
-<modalDialogs:>
-    {#if _loggedIn}
-        <app:myModal modalId="settings-modal" header="Settings">
-            <strong>User ID</strong><br/>
-            <small>Copy this ID for use in third party applications.</small>
-            <pre class=prettyprint>{_user.id}</pre><br/>
-            <@footer>
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-            </@footer>
-        </app:myModal>
-
-        <app:myModal modalId="reset-modal" header="Reset">
-            <p>This resets your entire account - your tasks will be deleted and your character will start over.</p>
-            <p>This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.</p>
-            <@footer>
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger btn-large">Reset</button>
-            </@footer>
-        </app:myModal>
-
-        <app:myModal modalId="why-ads-modal" header="Why Ads?">
-            <p>Habit is maintained by one dude: <a href="https://github.com/lefnire">Tyler</a>. Until Habit can make money, I need to stay afloat to fix bugs and add features. Consider it a donation :D</p>
-            <p>If ads make you sick, chime in on Habit's open <a href="https://github.com/lefnire/habitrpg/wiki/Business-Model">business model discussion</a></p>
-            <@footer>
-                <button data-dismiss="modal" class="btn btn-success">Ok</button>
-            </@footer>
-        </app:myModal>
-    {else}
-        <app:myModal modalId="login-modal" header="Login / Register">
-            <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt="Login / Register With Facebook"/></a>
-            <h3>Or</h3>
-            <boot:tabs>
-                <boot:tab title="Login">
-                    <derby-auth:login />
-                </boot:tab>
-                <boot:tab title="Register">
-                    <derby-auth:register />
-                </boot:tab>
-            </boot:tabs>
-        </app:myModal>
-    {/}
-    <!-- Game Over Modal -->
-    <div style="{#unless equal(_user.stats.lvl,0)}display:none;{/}">
-        <app:myModal noDismiss=true modalId='dead-modal'>
-            <table>
-                <tr>
-                    <td><img src="/img/BrowserQuest/habitrpg_mods/dead.png" /></td>
-                    <td>
-                        <h3>Game Over</h3>
-                        <p>
-                            <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a>
-                        </p>
-                    </td>
-                </tr>
-            </table>
-        </app:myModal>
-    </div>
-
-    <!-- Re-Roll modal -->
-    <app:myModal modalId='reroll-modal' header="Reset Your Tasks">
-        <app:userTokens/>
-        <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
-        <@footer>
-            {#if lessThan(_user.balance,1)}
-                <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-danger btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
-            {else}
-                <a data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</a><span class='token-cost'>4 Tokens</span>
-            {/}
-        </@footer>
-    </app:myModal>
-
 <Body:>
   <br/>
-    
-  <app:modalDialogs />
-  
   <div id=wrap class=container-fluid>
     <div id=main class=row-fluid>
       <!-- would rather have one component: <app:taskList>, which handles taskList, task, and newTask.  However,
@@ -267,7 +300,7 @@
         <div>
           <ul>
             <li>Copyright &copy; 2012 OCDevel LLC</li>
-            <li><a target="_blank" href="https://github.com/lefnire/habitrpg#habitrpg">About</a></li>
+            <li><a href="#about-modal" data-toggle="modal">About</a></li>
             <li><a target="_blank" href="https://github.com/lefnire/habitrpg/wiki/FAQ">FAQ</a></li>
             <li><a target="_blank" href="https://github.com/lefnire/habitrpg#contact">Contact</a></li>
             <li><a href="/privacy">Privacy</a></li>
