@@ -66,12 +66,11 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     )
 
     #show splash page for newcomers
-    .use (req, res, next) ->
-      console.log(req)
-      if !req.session.userId? and !req.query?.play?
-        res.redirect('/splash.html')
-      else
-        next()
+#    .use (req, res, next) ->
+#      if !req.session.userId? and !req.query?.play?
+#        res.redirect('/splash.html')
+#      else
+#        next()
 
     # Adds req.getModel method
     .use(store.modelMiddleware())
