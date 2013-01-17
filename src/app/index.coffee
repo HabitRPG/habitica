@@ -26,10 +26,10 @@ get '/:uid?', (page, model, {uid}, next) ->
     else
       return next()
 
-  # Force SSL
-  req = page._res.req
-  if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
-    return page.redirect 'https://' + req.headers.host + req.url
+  # Force SSL # NOTE handled by ngix now
+  #req = page._res.req
+  #if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
+  #  return page.redirect 'https://' + req.headers.host + req.url
 
   sess = model.session
   model.set '_userId', sess.userId
