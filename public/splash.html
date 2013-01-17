@@ -12,6 +12,20 @@
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript">
             $.getScript("https://s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
+
+            //custom thumb
+            $(function(){
+                $('.ytembed:not(.processed)').addClass('processed').each(function() {
+                    $(this).find('a').click(function(e) {
+                        e.preventDefault();
+                        var width = $(this).find('img').width();
+                        var height = $(this).find('img').height();
+                        var url = $(this).attr('href');
+                        var $iframe = $('<iframe src="'+url+'" width="'+width+'" height="'+height+'" frameborder="0"/>');
+                        $(this).parent().html($iframe);
+                    });
+                });
+            });
         </script>
 
         <style type="text/css">
@@ -68,9 +82,17 @@
         <div class='container'>
             <div class='marketing'>
                 <p>&nbsp;</p>
-                <p><img src='https://raw.github.com/lefnire/habitrpg/master/public/img/screenshot.jpeg' /></p>
-                <h2>How Does it Work</h2>
-                <p class=''>Watch the <a href="http://www.youtube.com/watch?feature=player_detailpage&v=uF8ZuN_xxjw#t=261s">video tutorial here</a>.</p>
+                <p>
+                    <!-- you need a div with the class 'ytembed' -->
+                <div class="ytembed">
+                    <!-- put a link with the url + embed options of your video -->
+                    <a href="http://www.youtube.com/embed/uF8ZuN_xxjw?rel=0&amp;showinfo=0&amp;autohide=1&amp;autoplay=1&amp;wmode=transparent">
+                        <!-- and a thumbnail, with the width/height specified -->
+                        <img src="/img/play_screenshot.jpeg" alt="Click to play"/>
+                    </a>
+                </div>
+
+                </p>
                 <h2>Habits</h2>
                 <p>Habits are goals that you constantly track. For some habits, it only makes sense to gain points (eg, "1h Productive Work"). For others, it only makes sense to lose points (like "Eat Junk Food"). For the rest, both gain and loss apply (eg, for "Take The Stairs", stairs is a gain, elevator is a loss).</p>
                 <h2>Dailies</h2>
