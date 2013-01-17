@@ -71,14 +71,16 @@
       <app:myModal modalId="login-modal" header="Login / Register">
           <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt="Login / Register With Facebook"/></a>
           <h3>Or</h3>
-          <boot:tabs>
-              <boot:tab title="Login">
-                  <derby-auth:login />
-              </boot:tab>
-              <boot:tab title="Register">
-                  <derby-auth:register />
-              </boot:tab>
-          </boot:tabs>
+
+          <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#login">Login</a></li>
+              <li><a data-toggle="tab" href="#register">Register</a></li>
+          </ul>
+
+          <div class="tab-content">
+              <div class="tab-pane active" id="login"><derby-auth:login /></div>
+              <div class="tab-pane" id="register"><derby-auth:register /></div>
+          </div>
       </app:myModal>
   {/}
   <!-- Game Over Modal -->
