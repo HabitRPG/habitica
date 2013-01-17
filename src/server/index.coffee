@@ -8,6 +8,7 @@ serverError = require './serverError'
 MongoStore = require('connect-mongo')(express)
 auth = require 'derby-auth'
 priv = require './private'
+toobusy = require 'toobusy'
 
 ## RACER CONFIGURATION ##
 
@@ -46,6 +47,11 @@ options =
 
 mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
   expressApp
+    .use((req, res, next) ->
+      if toobusy()
+        return res.redirect 307, 'https://habitrpg.aws.af.cm/'
+      next()
+    )
     .use(express.favicon())
     # Gzip static files and serve from memory
     .use(gzippo.staticGzip publicPath, maxAge: ONE_YEAR)
