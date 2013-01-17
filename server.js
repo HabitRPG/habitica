@@ -1,17 +1,25 @@
-var forever = require('forever-monitor');
-var child = new (forever.Monitor)('forever.js');
-
-// FIXME on('error') and on('stderr') aren't working
-child.on('restart', function(){
-    notifyAdmin('Server has restarted.')
+process.on('uncaughtException', function(exception) {
+    notifyAdmin(exception)
+    console.error(exception)
 });
 
-child.on('exit', function () {
-    var err = 'server.js has exited after 10 restarts';
-    console.log(err);
-    notifyAdmin(err);
-});
-child.start();
+require('coffee-script') // remove intermediate compilation requirement
+require('./src/server').listen(process.env.PORT || 3000);
+
+/*var forever = require('forever-monitor');
+ var child = new (forever.Monitor)('forever.js');
+
+ // FIXME on('error') and on('stderr') aren't working
+ child.on('restart', ƒ(){
+ notifyAdmin('Server has restarted.')
+ });
+
+ child.on('exit', ƒ() {
+ var err = 'server.js has exited after 10 restarts';
+ console.log(err);
+ notifyAdmin(err);
+ });
+ child.start();*/
 
 function notifyAdmin(err){
     var nodemailer = require("derby-auth/node_modules/nodemailer");
