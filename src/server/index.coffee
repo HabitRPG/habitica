@@ -66,8 +66,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     )
 
     #show splash page for newcomers
-    .use (req, res, next) ->
-      res.redirect('https://habitrpg.aws.af.cm/')
+#    .use (req, res, next) ->
 #      if !req.session.userId? and !req.query?.play?
 #        res.redirect('/splash.html')
 #      else
