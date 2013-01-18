@@ -24,7 +24,7 @@ module.exports.userSchema = ->
       when 'todo' then newUser.todoIds.push guid
       when 'reward' then newUser.rewardIds.push guid
   return newUser
-  
+
 module.exports.updateSchema = (model) ->
   return # not using, will revisit this later
   # Reset history, remove inactive users
@@ -32,13 +32,13 @@ module.exports.updateSchema = (model) ->
     _.each users.get(), (userObj) ->
       userPath = "users.#{userObj._id}"
       user = model.at(userPath)
-      
+
       # Remove inactive users
       # remove if they don't have a lastCron (older accounts didn't)
       unless userObj.lastCron?
         model.del(userPath)
         return
-             
+
       # Remove all users who haven't logged in for a month
       daysOld = helpers.daysBetween(new Date(), userObj.lastCron)
       if daysOld > 30
@@ -50,7 +50,7 @@ module.exports.updateSchema = (model) ->
         if _.size(sameTasks)>5
           model.del(userPath)
           return
-      
+
       # Reset all history
       user.set 'history', {exp:[], todos:[]}
       _.each userObj.tasks, (taskObj) ->
