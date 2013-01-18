@@ -16,41 +16,50 @@ _ = require('lodash')
 
 # ========== ROUTES ==========
 
-get '/:uid?', (page, model, {uid}, next) ->
-
-  # Legacy - won't be allowing PURL auth in the future. Remove once password auth in place
-  # Creates stink here too because :uid accounts for every single-param path (terms, privacy, etc)
-  if uid
-    if require('guid').isGuid(uid)
-      return page.redirect('/users/'+uid)
-    else
-      return next()
+get '/', (page, model, next) ->
+  # temporary view variables, so we don't call model.set() too fast
+  _view = model.get '_view' || {}
 
   # Force SSL # NOTE handled by ngix now
   #req = page._res.req
   #if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
   #  return page.redirect 'https://' + req.headers.host + req.url
 
-  sess = model.session
-  model.set '_userId', sess.userId
-  model.subscribe "users.#{sess.userId}", (err, user) ->
+  userPath = "users.#{model.session.userId}"
+  model.subscribe userPath, (err, user) ->
     # Set variables which are passed from the controller to the view
-    model.ref '_user', user
+    userObj = user.get()
 
     #FIXME remove this eventually, part of user schema
-    user.setNull 'balance', 2
+    userObj.balance = userObj.balance || 2
     # support legacy Everyauth schema (now using derby-auth, Passport)
-    if username = user.get('auth.local.username')
-      model.set('_loginName', username)
-    else if fb = user.get('auth.facebook')
-      model.set('_loginName', if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name)
+    if username = userObj.auth?.local?.username
+      _view.loginName = username
+    else if fb = userObj.auth?.facebook
+      _view.loginName = if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name
 
     # Setup Item Store
-    model.set '_items'
-      armor: content.items.armor[parseInt(user.get('items.armor')) + 1]
-      weapon: content.items.weapon[parseInt(user.get('items.weapon')) + 1]
+    _view.items =
+      armor: content.items.armor[parseInt(userObj.items.armor) + 1]
+      weapon: content.items.weapon[parseInt(userObj.items.weapon) + 1]
       potion: content.items.potion
       reroll: content.items.reroll
+
+    # FIXME temporary hack to remove duplicates and empty (grey) tasks. Need to figure out why they're being produced
+    taskIds = _.pluck(userObj.tasks, 'id')
+    _.each ['habitIds','dailyIds','todoIds','rewardIds'], (path) ->
+      unique = _.uniq userObj[path] #remove duplicates
+      #remove empty grey tasks
+      userObj[path] = _.filter(unique, (val) -> _.contains(taskIds, val))
+
+    # ========== Notifiations ==========
+    unless userObj.notifications?.kickstarter
+      userObj.notifications = userObj.notifications || {}
+      userObj.notifications.kickstarter = 'show'
+
+    model.set "users.#{userObj.id}", userObj unless _.isEqual(user.get('userObj'), userObj)
+    model.set '_view', _view
+    model.ref '_user', user
 
     # Setup Task Lists
     model.refList "_habitList", "_user.tasks", "_user.habitIds"
@@ -59,21 +68,12 @@ get '/:uid?', (page, model, {uid}, next) ->
     model.refList "_completedList", "_user.tasks", "_user.completedIds"
     model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
 
-    # FIXME temporary hack to remove duplicates. Need to figure out why they're being produced
-    _.each ['habitIds','dailyIds','todoIds','rewardIds'], (path) ->
-      user.set path, _.uniq(user.get(path))
-
     # Setup Model Functions
     model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
       # see https://github.com/lefnire/habitrpg/issues/4
       # also update in scoring.coffee. TODO create a function accessible in both locations
       (lvl*100)/5
 
-    # ========== Notifiations ==========
-    unless model.get('_user.notifications.kickstarter')
-      model.set('_user.notifications.kickstarter', 'show')
-
-    # Render Page
     page.render()
 
 # ========== CONTROLLER FUNCTIONS ==========
@@ -93,7 +93,7 @@ ready (model) ->
     $('[rel=tooltip]').tooltip()
     $('[rel=popover]').popover()
 
-  unless (model.get('_mobileDevice') == true) #don't do sortable on mobile
+  unless (model.get('_view.mobileDevice') == true) #don't do sortable on mobile
     # Make the lists draggable using jQuery UI
     # Note, have to setup helper function here and call it for each type later
     # due to variable binding of "type"

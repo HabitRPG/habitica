@@ -154,7 +154,7 @@
         <a class="btn btn-small btn-info" href="#login-modal" data-toggle="modal">Login / Register</a>
       {else}
         <div class="btn-group">
-            <button class="btn btn-small">{_loginName}</button>
+            <button class="btn btn-small">{_view.loginName}</button>
             <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
                 <span class="caret"></span>
             </button>
@@ -278,10 +278,10 @@
 
             {#if _user.items.itemsEnabled}
               <ul class='items'>
-                {#with _items.armor as :item}<app:item />{/}
-                {#with _items.weapon as :item}<app:item />{/}
-                {#with _items.potion as :item}<app:item />{/}
-                {#with _items.reroll as :item}<app:item reroll=true/>{/}
+                {#with _view.items.armor as :item}<app:item />{/}
+                {#with _view.items.weapon as :item}<app:item />{/}
+                {#with _view.items.potion as :item}<app:item />{/}
+                {#with _view.items.reroll as :item}<app:item reroll=true/>{/}
               </ul>
             {/}
         
