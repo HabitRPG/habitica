@@ -1,3 +1,8 @@
+process.on('uncaughtException', function (exception) {
+   console.error(exception);
+    // don't crash for now
+});
+
 require('coffee-script') // remove intermediate compilation requirement
 require('./src/server').listen(process.env.PORT || 3000);
 
