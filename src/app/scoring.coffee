@@ -93,29 +93,28 @@ taskDeltaFormula = (currentValue, direction) ->
   
 # Setter for user.stats: handles death, leveling up, etc
 updateStats = (stats) ->
+  userObj = user.get()
   # if user is dead, dont do anything
-  return if user.get('stats.lvl') == 0
+  return if userObj.stats.lvl == 0
   
-  update = {}
-
   if stats.hp?
     # game over
     if stats.hp <= 0
-      update.lvl = 0 # this signifies dead
-      update.hp = 0
+      userObj.stats.lvl = 0 # this signifies dead
+      userObj.stats.hp = 0
       return
     else
-      update.hp = stats.hp
+      userObj.stats.hp = stats.hp
       
   if stats.exp?
     # level up & carry-over exp
     tnl = user.get '_tnl'
     if stats.exp >= tnl
       stats.exp -= tnl
-      update.lvl = user.get('stats.lvl') + 1
-      update.hp = 50
-    if !user.get('items.itemsEnabled') and stats.exp >=15
-      user.set 'items.itemsEnabled', true
+      userObj.stats.lvl = userObj.stats.lvl + 1
+      userObj.stats.hp = 50
+    if !userObj.items.itemsEnabled and stats.exp >=15
+      user.set('items.itemsEnabled', true)
       $('ul.items').popover
         title: content.items.unlockedMessage.title
         placement: 'left'
@@ -127,14 +126,14 @@ updateStats = (stats) ->
           </div>"
       $('ul.items').popover 'show'
 
-    update.exp = stats.exp
+    userObj.stats.exp = stats.exp
     
   if stats.money?
     money = 0.0 if (!money? or money<0)
-    update.money = stats.money
+    userObj.stats.money = stats.money
 
-  user.set 'stats', update
-    
+  user.set 'stats', userObj.stats
+
 # {taskId} task you want to score
 # {direction} 'up' or 'down'
 # {options} will usually be passed in via cron or tests, safe to ignore this param
