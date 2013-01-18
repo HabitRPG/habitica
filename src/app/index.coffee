@@ -72,8 +72,6 @@ get '/:uid?', (page, model, {uid}, next) ->
     # ========== Notifiations ==========
     unless model.get('_user.notifications.kickstarter')
       model.set('_user.notifications.kickstarter', 'show')
-    unless model.get('_user.flags.aws_migrating')
-      model.set('_user.flags.aws_migrating', 'show')
 
     # Render Page
     page.render()
@@ -297,8 +295,6 @@ ready (model) ->
 
   exports.closeKickstarterNofitication = (e, el) ->
     model.set('_user.notifications.kickstarter', 'hide')
-  exports.closeAwsNotification = (e, el) ->
-    model.set('_user.flags.aws_migrating', 'hide')
 
   # ========== CRON ==========
 
