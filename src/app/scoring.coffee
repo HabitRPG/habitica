@@ -100,7 +100,7 @@ updateStats = (stats) ->
     # game over
     if stats.hp <= 0
       user.set 'stats.lvl', 0 # this signifies dead
-      user.set 'stast.hp', 0
+      user.set 'stats.hp', 0
       return
     else
       user.set 'stats.hp', stats.hp
