@@ -35,7 +35,7 @@ get '/', (page, model, next) ->
     # support legacy Everyauth schema (now using derby-auth, Passport)
     if username = userObj.auth?.local?.username
       _view.loginName = username
-    else if fb = userObj.auth.facebook
+    else if fb = userObj.auth?.facebook
       _view.loginName = if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name
 
     # Setup Item Store
@@ -50,10 +50,7 @@ get '/', (page, model, next) ->
     _.each ['habitIds','dailyIds','todoIds','rewardIds'], (path) ->
       unique = _.uniq userObj[path] #remove duplicates
       #remove empty grey tasks
-      userObj[path] = _.filter(unique, (val) ->
-        console.log {objId:val, taskIds:taskIds}
-        _.contains(taskIds, val)
-      )
+      userObj[path] = _.filter(unique, (val) -> _.contains(taskIds, val))
 
     # ========== Notifiations ==========
     unless userObj.notifications.kickstarter
@@ -97,7 +94,7 @@ ready (model) ->
     $('[rel=tooltip]').tooltip()
     $('[rel=popover]').popover()
   
-  unless (model.get('_mobileDevice') == true) #don't do sortable on mobile
+  unless (model.get('_view.mobileDevice') == true) #don't do sortable on mobile
     # Make the lists draggable using jQuery UI
     # Note, have to setup helper function here and call it for each type later
     # due to variable binding of "type"

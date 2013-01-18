@@ -11,7 +11,7 @@ model = undefined
 setModel = (m) ->
   model = m
   user = model.at('_user')
-  setupNotifications() unless model.get('_mobileDevice')
+  setupNotifications() unless model.get('_view.mobileDevice')
   
 setupNotifications = ->
   return unless jQuery? # Only run this in the browser 
