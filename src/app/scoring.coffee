@@ -95,25 +95,23 @@ taskDeltaFormula = (currentValue, direction) ->
 updateStats = (stats) ->
   # if user is dead, dont do anything
   return if user.get('stats.lvl') == 0
-  
-  update = {}
-
+    
   if stats.hp?
     # game over
     if stats.hp <= 0
-      update.lvl = 0 # this signifies dead
-      update.hp = 0
+      user.set 'stats.lvl', 0 # this signifies dead
+      user.set 'stats.hp', 0
       return
     else
-      update.hp = stats.hp
+      user.set 'stats.hp', stats.hp
       
   if stats.exp?
     # level up & carry-over exp
     tnl = user.get '_tnl'
     if stats.exp >= tnl
       stats.exp -= tnl
-      update.lvl = user.get('stats.lvl') + 1
-      update.hp = 50
+      user.set 'stats.lvl', user.get('stats.lvl') + 1
+      user.set 'stats.hp', 50
     if !user.get('items.itemsEnabled') and stats.exp >=15
       user.set 'items.itemsEnabled', true
       $('ul.items').popover
@@ -127,13 +125,11 @@ updateStats = (stats) ->
           </div>"
       $('ul.items').popover 'show'
 
-    update.exp = stats.exp
+    user.set 'stats.exp', stats.exp
     
   if stats.money?
     money = 0.0 if (!money? or money<0)
-    update.money = stats.money
-
-  user.set 'stats', update
+    user.set 'stats.money', stats.money
     
 # {taskId} task you want to score
 # {direction} 'up' or 'down'
