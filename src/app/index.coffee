@@ -53,13 +53,12 @@ get '/', (page, model, next) ->
       userObj[path] = _.filter(unique, (val) -> _.contains(taskIds, val))
 
     # ========== Notifiations ==========
-    unless userObj.notifications.kickstarter
+    unless userObj.notifications?.kickstarter
+      userObj.notifications = userObj.notifications || {}
       userObj.notifications.kickstarter = 'show'
 
+    model.set "users.#{userObj.id}", userObj unless _.isEqual(user.get('userObj'), userObj)
     model.set '_view', _view
-
-    model.set "users.#{userObj.id}", userObj
-
     model.ref '_user', user
 
     # Setup Task Lists
