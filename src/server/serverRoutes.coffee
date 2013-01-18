@@ -25,7 +25,7 @@ module.exports = (expressApp, root, derby) ->
   expressApp.post '/users/:uid/tasks/:taskId/:direction', (req, res) ->
     {uid, taskId, direction} = req.params
     {title, service, icon} = req.body
-    console.log {params:req.params, body:req.body}
+    console.log {params:req.params, body:req.body} if process.env.NODE_ENV == 'development'
     return res.send(500, ":direction must be 'up' or 'down'") unless direction in ['up','down']
     model = req.getModel()
     model.session.userId = uid
@@ -34,7 +34,7 @@ module.exports = (expressApp, root, derby) ->
       userObj = user.get()
       # Server crashes without this, I think some users are entering non-guid userIds and/or trying to use the API without having an account
       unless userObj && !_.isEmpty(userObj.stats)
-        console.log {taskId:taskId, direction:direction, user:userObj, error: 'non-user attempted to score'}
+        console.log {taskId:taskId, direction:direction, user:userObj, error: 'non-user attempted to score'} if process.env.NODE_ENV == 'development'
         return res.send(500, "User #{uid} not found") 
        
       model.ref('_user', user)
