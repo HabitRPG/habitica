@@ -26,9 +26,9 @@ get '/', (page, model, next) ->
   #  return page.redirect 'https://' + req.headers.host + req.url
 
   userPath = "users.#{model.session.userId}"
-  model.fetch userPath, (err, userFetch) ->
+  model.subscribe userPath, (err, user) ->
     # Set variables which are passed from the controller to the view
-    userObj = userFetch.get()
+    userObj = user.get()
 
     #FIXME remove this eventually, part of user schema
     userObj.balance = userObj.balance || 2
@@ -46,13 +46,14 @@ get '/', (page, model, next) ->
       reroll: content.items.reroll
 
     # FIXME temporary hack to remove duplicates and empty (grey) tasks. Need to figure out why they're being produced
-    taskIds = _.keys userObj.tasks
+    taskIds = _.pluck(userObj.tasks, 'id')
     _.each ['habitIds','dailyIds','todoIds','rewardIds'], (path) ->
-      original = userObj[path]
-      unique = _.uniq original #remove duplicates
-      preened = _.reject unique, (obj, key) -> #remove empty grey tasks
-        !_.contains(taskIds, key)
-#      userObj[path]= preened
+      unique = _.uniq userObj[path] #remove duplicates
+      #remove empty grey tasks
+      userObj[path] = _.filter(unique, (val) ->
+        console.log {objId:val, taskIds:taskIds}
+        _.contains(taskIds, val)
+      )
 
     # ========== Notifiations ==========
     unless userObj.notifications.kickstarter
@@ -61,23 +62,23 @@ get '/', (page, model, next) ->
     model.set '_view', _view
 
     model.set "users.#{userObj.id}", userObj
-    model.subscribe userPath, (err, userSubscribe) ->
-      model.ref '_user', userSubscribe
 
-      # Setup Task Lists
-      model.refList "_habitList", "_user.tasks", "_user.habitIds"
-      model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
-      model.refList "_todoList", "_user.tasks", "_user.todoIds"
-      model.refList "_completedList", "_user.tasks", "_user.completedIds"
-      model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
+    model.ref '_user', user
 
-      # Setup Model Functions
-      model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
-        # see https://github.com/lefnire/habitrpg/issues/4
-        # also update in scoring.coffee. TODO create a function accessible in both locations
-        (lvl*100)/5
+    # Setup Task Lists
+    model.refList "_habitList", "_user.tasks", "_user.habitIds"
+    model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
+    model.refList "_todoList", "_user.tasks", "_user.todoIds"
+    model.refList "_completedList", "_user.tasks", "_user.completedIds"
+    model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
 
-      page.render()
+    # Setup Model Functions
+    model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
+      # see https://github.com/lefnire/habitrpg/issues/4
+      # also update in scoring.coffee. TODO create a function accessible in both locations
+      (lvl*100)/5
+
+    page.render()
 
 # ========== CONTROLLER FUNCTIONS ==========
 
