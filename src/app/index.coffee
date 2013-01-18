@@ -88,11 +88,11 @@ ready (model) ->
 
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
-  # FIXME: this isn't very efficient, do model.on set for specific attrs for popover 
+  # FIXME: this isn't very efficient, do model.on set for specific attrs for popover
   model.on 'set', '*', ->
     $('[rel=tooltip]').tooltip()
     $('[rel=popover]').popover()
-  
+
   unless (model.get('_view.mobileDevice') == true) #don't do sortable on mobile
     # Make the lists draggable using jQuery UI
     # Note, have to setup helper function here and call it for each type later
@@ -116,7 +116,7 @@ ready (model) ->
           # or the item's id property
           model.at("_#{type}List").pass(ignore: domId).move {id}, to
     setupSortable(type) for type in ['habit', 'daily', 'todo', 'reward']
-  
+
   tour = new Tour()
   for step in content.tourSteps
     tour.addStep
@@ -133,11 +133,11 @@ ready (model) ->
       return 'up' if completed==true and previous == false
       return 'down' if completed==false and previous == true
       throw new Error("Direction neither 'up' nor 'down' on checkbox set.")
-      
+
     # Score the user based on todo task
     task = model.at("_user.tasks.#{i}")
     scoring.score(i, direction())
-    
+
     # Then move the todos to/from _todoList/_completedList
     if task.get('type') == 'todo'
       [from, to] = if (direction()=='up') then ['todo', 'completed'] else ['completed', 'todo']
@@ -150,7 +150,7 @@ ready (model) ->
       toIds = model.get(to)
       toIds.push i
       model.set to, toIds
-    
+
   exports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
     list = model.at "_#{type}List"
@@ -168,7 +168,7 @@ ready (model) ->
 
       when 'daily'
         list.push {type: type, text: text, notes: '', value: 0, repeat:{su:true,m:true,t:true,w:true,th:true,f:true,s:true}, completed: false }
-      
+
       when 'todo'
         list.push {type: type, text: text, notes: '', value: 0, completed: false }
 
@@ -179,41 +179,41 @@ ready (model) ->
   exports.del = (e, el) ->
     # Derby extends model.at to support creation from DOM nodes
     task = model.at(e.target)
-    
+
     history = task.get('history')
     if history and history.length>2
       # prevent delete-and-recreate hack on red tasks
       if task.get('value') < 0
         result = confirm("Are you sure? Deleting this task will hurt you (to prevent deleting, then re-creating red tasks).")
         if result != true
-          return # Cancel. Don't delete, don't hurt user 
+          return # Cancel. Don't delete, don't hurt user
         else
           task.set('type','habit') # hack to make sure it hits HP, instead of performing "undo checkbox"
           scoring.score(task.get('id'), direction:'down')
-          
+
       # prevent accidently deleting long-standing tasks
       else
         result = confirm("Are you sure you want to delete this task?")
         return if result != true
-      
-    #TODO bug where I have to delete from _users.tasks AND _{type}List, 
+
+    #TODO bug where I have to delete from _users.tasks AND _{type}List,
     # fix when query subscriptions implemented properly
     $('[rel=tooltip]').tooltip('hide')
     model.del('_user.tasks.'+task.get('id'))
     task.remove()
-    
+
   exports.clearCompleted = (e, el) ->
     _.each model.get('_completedList'), (task) ->
       model.del('_user.tasks.'+task.id)
       model.set('_user.completedIds', [])
-      
+
   exports.toggleDay = (e, el) ->
     task = model.at(e.target)
     if /active/.test($(el).attr('class')) # previous state, not current
-      task.set('repeat.' + $(el).attr('data-day'), false) 
+      task.set('repeat.' + $(el).attr('data-day'), false)
     else
       task.set('repeat.' + $(el).attr('data-day'), true)
-    
+
   exports.toggleTaskEdit = (e, el) ->
     hideId = $(el).attr('data-hide-id')
     toggleId = $(el).attr('data-toggle-id')
@@ -226,14 +226,14 @@ ready (model) ->
     historyPath = $(el).attr('data-history-path')
     $(document.getElementById(hideSelector)).hide()
     $(document.getElementById(chartSelector)).toggle()
-    
+
     matrix = [['Date', 'Score']]
     for obj in model.get(historyPath)
       date = new Date(obj.date)
       readableDate = moment(date).format('MM/DD')
       matrix.push [ readableDate, obj.value ]
     data = google.visualization.arrayToDataTable matrix
-    
+
     options = {
       title: 'History'
       #TODO use current background color: $(el).css('background-color), but convert to hex (see http://goo.gl/ql5pR)
@@ -242,15 +242,15 @@ ready (model) ->
 
     chart = new google.visualization.LineChart(document.getElementById( chartSelector ))
     chart.draw(data, options)
-    
+
   exports.buyItem = (e, el, next) ->
     user = model.at '_user'
     #TODO: this should be working but it's not. so instead, i'm passing all needed values as data-attrs
     # item = model.at(e.target)
-    
+
     money = user.get 'stats.money'
     [type, value, index] = [ $(el).attr('data-type'), $(el).attr('data-value'), $(el).attr('data-index') ]
-    
+
     return if money < value
     user.set 'stats.money', money - value
     if type == 'armor'
@@ -262,16 +262,16 @@ ready (model) ->
     else if type == 'potion'
       hp = user.get 'stats.hp'
       hp += 15
-      hp = 50 if hp > 50 
+      hp = 50 if hp > 50
       user.set 'stats.hp', hp
-  
+
   exports.score = (e, el, next) ->
     direction = $(el).attr('data-direction')
     direction = 'up' if direction == 'true/'
     direction = 'down' if direction == 'false/'
     task = model.at $(el).parents('li')[0]
-    scoring.score(task.get('id'), direction) 
-    
+    scoring.score(task.get('id'), direction)
+
   exports.revive = (e, el) ->
     stats = model.at '_user.stats'
     stats.set 'hp', 50; stats.set 'lvl', 1; stats.set 'exp', 0; stats.set 'money', 0

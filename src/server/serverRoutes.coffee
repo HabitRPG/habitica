@@ -5,14 +5,14 @@ module.exports = (expressApp, root, derby) ->
 
   # ---------- Static Pages ------------
   staticPages = derby.createStatic root
-    
+
   expressApp.get '/privacy', (req, res) ->
     staticPages.render 'privacy', res
-  
+
   expressApp.get '/terms', (req, res) ->
     staticPages.render 'terms', res
 
-  # ---------- REST API ------------  
+  # ---------- REST API ------------
 
   # Deprecated API (will remove soon)
   deprecatedMessage = 'This REST resource is no longer supported, use /users/:uid/tasks/:taskId/:direction instead.'
@@ -35,10 +35,10 @@ module.exports = (expressApp, root, derby) ->
       # Server crashes without this, I think some users are entering non-guid userIds and/or trying to use the API without having an account
       unless userObj && !_.isEmpty(userObj.stats)
         console.log {taskId:taskId, direction:direction, user:userObj, error: 'non-user attempted to score'}
-        return res.send(500, "User #{uid} not found") 
-       
+        return res.send(500, "User #{uid} not found")
+
       model.ref('_user', user)
-      
+
       # Create task if doesn't exist
       # TODO add service & icon to task
       unless model.get("_user.tasks.#{taskId}")

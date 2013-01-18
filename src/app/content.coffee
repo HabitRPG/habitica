@@ -9,10 +9,10 @@ module.exports =
     {type: 'todo', text: 'Call Mom', notes: "-- Todos: Complete Eventually --\nNon-completed Todos won't hurt you, but they will become more valuable over time. This will encourage you to wrap up stale Todos.", value: -3, completed: false }
     {type: 'reward', text: '1 Episode of Game of Thrones', notes: '-- Rewards: Treat Yourself! --\nAs you complete goals, you earn gold to buy rewards. Buy them liberally - rewards are integral in forming good habits.', value: 20 }
     {type: 'reward', text: 'Cake', notes: 'But only buy if you have enough gold - you lose HP otherwise.', value: 10 }
-  ]    
-  
+  ]
+
   tourSteps: [
-      { 
+      {
         element: "#avatar"
         title: "Welcome to HabitRPG"
         content: "Welcome to HabitRPG, a habit-tracker which treats your goals like a Role Playing Game."
@@ -53,7 +53,7 @@ module.exports =
         placement: "right"
       }
     ]
-    
+
   items:
     unlockedMessage:
       title: "Item Store Unlocked"
@@ -78,8 +78,8 @@ module.exports =
     ]
     potion: {type: 'potion', text: "Potion", notes: "Recover 15 HP", value: 25, icon: 'item-flask'}
     reroll:
-      type: 'reroll' 
+      type: 'reroll'
       text: "Re-Roll"
-      icon: 'favicon' 
+      icon: 'favicon'
       notes: "Resets your tasks. When you're struggling and everything's red, use for a clean slate."
       value:0
