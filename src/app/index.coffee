@@ -25,10 +25,9 @@ get '/', (page, model, next) ->
   #if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
   #  return page.redirect 'https://' + req.headers.host + req.url
 
-  userPath = "users.#{model.session.userId}"
-  model.subscribe userPath, (err, user) ->
-    # Set variables which are passed from the controller to the view
+  model.subscribe "users.#{model.session.userId}", (err, user) ->
     userObj = user.get()
+    return page.redirect '/500.html' unless userObj? #this should never happen, but it is. Looking into it
 
     # support legacy Everyauth schema (now using derby-auth, Passport)
     if username = userObj.auth?.local?.username
