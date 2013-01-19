@@ -50,7 +50,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
   expressApp
     .use (req, res, next) ->
       if toobusy()
-        res.send(503, "Habit's under some heavy load right now, try again in a bit.");
+        return res.redirect 307, '/heavyLoad.html'
       else
         next()
 
