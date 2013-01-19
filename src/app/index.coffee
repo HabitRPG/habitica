@@ -30,8 +30,6 @@ get '/', (page, model, next) ->
     # Set variables which are passed from the controller to the view
     userObj = user.get()
 
-    #FIXME remove this eventually, part of user schema
-    userObj.balance = userObj.balance || 2
     # support legacy Everyauth schema (now using derby-auth, Passport)
     if username = userObj.auth?.local?.username
       _view.loginName = username
