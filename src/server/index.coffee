@@ -48,11 +48,11 @@ options =
 
 mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
   expressApp
-    .use (req, res, next) ->
-      if toobusy()
-        return res.redirect 307, '/heavyLoad.html'
-      else
-        next()
+#    .use (req, res, next) ->
+#      if toobusy()
+#        return res.redirect 307, '/500.html'
+#      else
+#        next()
 
     .use(express.favicon())
     # Gzip static files and serve from memory
