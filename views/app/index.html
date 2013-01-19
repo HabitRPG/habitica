@@ -490,7 +490,7 @@
 
 <Scripts:>
     <script src="https://checkout.stripe.com/v2/checkout.js"></script>
-    {#if equal(_nodeEnv,"production")}
+    {#if equal(_view.nodeEnv,"production")}
         <!-- Google Analytics -->
         <script type="text/javascript">
             var _gaq = _gaq || [];
