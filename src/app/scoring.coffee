@@ -92,21 +92,19 @@ taskDeltaFormula = (currentValue, direction) ->
   return delta
 
 
-# Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
-pathSet = (obj, path, val) ->
-  arr = path.split('.')
-  arr.reduce (curr, next, index) ->
-    if (arr.length - 1) == index
-      curr[next] = val
-    curr[next]
-  , obj
 ###
   Handles updating the user model. If this is an en-mass operation (eg, server cron), pass the user object as {update}.
   otherwise, null means commit the changes immediately
 ###
 userSet = (path, value, update) ->
   if update
-    pathSet(update, path, value)
+    # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
+    arr = path.split('.')
+    arr.reduce (curr, next, index) ->
+      if (arr.length - 1) == index
+        curr[next] = value
+      curr[next]
+    , update
   else
     user.set path, value
   
@@ -158,27 +156,15 @@ updateStats = (newStats, update) ->
     
 # {taskId} task you want to score
 # {direction} 'up' or 'down'
-# {options} will usually be passed in via cron or tests, safe to ignore this param
-score = (taskId, direction, options={cron:false, times:1}) ->
-  taskPath = "_user.tasks.#{taskId}"
-  [task, taskObj] = [model.at(taskPath), model.get(taskPath)]
+# {times} # times to call score on this task (1 unless cron, usually)
+# {update} if we're running updates en-mass (eg, cron on server) pass in userObj
+score = (taskId, direction, times, update) ->
+  times ||= 1
+  taskPath = "tasks.#{taskId}"
+  [task, taskObj] = [model.at("_user.#{taskPath}"), model.get("_user.#{taskPath}")]
   {type, value} = taskObj
-  userObj = user.get()
+  userObj = update || user.get()
 
-  # up / down was called by itself, probably as REST from 3rd party service
-  #FIXME handle this
-  if !task
-    {money, hp, exp} = userObj.stats
-    if (direction == "up")
-      modified = expModifier(1)
-      money += modified
-      exp += modified
-    else
-      modified = hpModifier(1)
-      hp -= modified
-    updateStats({hp: hp, exp: exp, money: money})
-    return
-    
   # Don't adjust values for rewards, or for habits that don't have both + and -
   adjustvalue = (type != 'reward')
   if (type == 'habit') and (taskObj.up==false or taskObj.down==false)
@@ -187,7 +173,7 @@ score = (taskId, direction, options={cron:false, times:1}) ->
   delta = 0
   # If multiple days have passed, multiply times days missed
   # TODO integrate this multiplier into the formula, so don't have to loop
-  _.times options.times, (n) -> 
+  _.times times, (n) ->
     # Each iteration calculate the delta (nextDelta), which is then accumulated in delta
     # (aka, the total delta). This weirdness won't be necessary when calculating mathematically
     # rather than iteratively
@@ -197,10 +183,14 @@ score = (taskId, direction, options={cron:false, times:1}) ->
   
   if type == 'habit'
     # Add habit value to habit-history (if different)
-    task.push 'history', { date: new Date(), value: value } if taskObj.value != value
-  task.set('value', value)
+    historyEntry = { date: new Date(), value: value } if taskObj.value != value
+    if update
+      taskObj.history.push historyEntry
+    else
+      task.push 'history', historyEntry
+  userSet "#{taskPath}.value", value, update
   
-  if options.cron
+  if update
     # Will modify the user later as an aggregate, just return the delta
     return if (type == 'daily') then delta else 0
 
@@ -209,16 +199,16 @@ score = (taskId, direction, options={cron:false, times:1}) ->
 
   if type == 'reward'
     # purchase item
-    money -= task.get('value')
-    num = parseFloat(task.get('value')).toFixed(2)
+    money -= taskObj.value
+    num = parseFloat(taskObj.value).toFixed(2)
     # if too expensive, reduce health & zero money
     if money < 0
-      hp += money# hp - money difference
+      hp += money # hp - money difference
       money = 0
       
   # Add points to exp & money if positive delta
   # Only take away mony if it was a mistake (aka, a checkbox)
-  if (delta > 0 or (type in ['daily', 'todo'])) and !options.cron
+  if (delta > 0 or (type in ['daily', 'todo'])) and !update? # update==cron
     modified = expModifier(delta)
     exp += modified
     money += modified
@@ -227,7 +217,7 @@ score = (taskId, direction, options={cron:false, times:1}) ->
     modified = hpModifier(delta)
     hp += modified
 
-  updateStats({hp: hp, exp: exp, money: money})
+  updateStats {hp: hp, exp: exp, money: money}, update
   
   return delta 
   
