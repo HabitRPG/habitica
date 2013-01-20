@@ -53,9 +53,9 @@ setupNotifications = ->
       statsNotification('<i class="icon-chevron-up"></i> Level Up!', 'info')
   
 ### 
-Calculates Exp & GP modification based on weapon & lvl
-{value} task.value for gain
-{modifiers} may manually pass in stats as {weapon, exp}. This is used for testing
+  Calculates Exp & GP modification based on weapon & lvl
+  {value} task.value for gain
+  {modifiers} may manually pass in stats as {weapon, exp}. This is used for testing
 ###
 expModifier = (value, modifiers = {}) ->
   weapon = modifiers.weapon || user.get('items.weapon')
@@ -66,9 +66,9 @@ expModifier = (value, modifiers = {}) ->
   return modified
 
 ### 
-Calculates HP-loss modification based on armor & lvl
-{value} task.value which is hurting us
-{modifiers} may manually pass in modifier as {armor, lvl}. This is used for testing
+  Calculates HP-loss modification based on armor & lvl
+  {value} task.value which is hurting us
+  {modifiers} may manually pass in modifier as {armor, lvl}. This is used for testing
 ###
 hpModifier = (value, modifiers = {}) ->
   armor = modifiers.armor || user.get('items.armor')
@@ -79,41 +79,66 @@ hpModifier = (value, modifiers = {}) ->
   return modified
   
 ###
-Calculates the next task.value based on direction
-For negative values, use a line: something like y=-.1x+1
-For positibe values, taper off with inverse log: y=.9^x
-Would love to use inverse log for the whole thing, but after 13 fails it hits infinity. Revisit this formula later
-{currentValue} the current value of the task, determines it's next value
-{direction} 'up' or 'down'
+  Calculates the next task.value based on direction
+  For negative values, use a line: something like y=-.1x+1
+  For positibe values, taper off with inverse log: y=.9^x
+  Would love to use inverse log for the whole thing, but after 13 fails it hits infinity. Revisit this formula later
+  {currentValue} the current value of the task, determines it's next value
+  {direction} 'up' or 'down'
 ###
 taskDeltaFormula = (currentValue, direction) ->
   sign = if (direction == "up") then 1 else -1
   delta = if (currentValue < 0) then (( -0.1 * currentValue + 1 ) * sign) else (( Math.pow(0.9,currentValue) ) * sign)
   return delta
+
+
+# Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
+pathSet = (obj, path, val) ->
+  arr = path.split('.')
+  arr.reduce (curr, next, index) ->
+    if (arr.length - 1) == index
+      curr[next] = val
+    curr[next]
+  , obj
+###
+  Handles updating the user model. If this is an en-mass operation (eg, server cron), pass the user object as {update}.
+  otherwise, null means commit the changes immediately
+###
+userSet = (path, value, update) ->
+  if update
+    pathSet(update, path, value)
+  else
+    user.set path, value
   
-# Setter for user.stats: handles death, leveling up, etc
-updateStats = (stats) ->
+###
+  Updates user stats with new stats. Handles death, leveling up, etc
+  {stats} new stats
+  {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
+###
+updateStats = (newStats, update) ->
+  userObj = update || user.get()
+
   # if user is dead, dont do anything
-  return if user.get('stats.lvl') == 0
+  return if userObj.stats.lvl == 0
     
-  if stats.hp?
-    # game over
-    if stats.hp <= 0
-      user.set 'stats.lvl', 0 # this signifies dead
-      user.set 'stats.hp', 0
+  if newStats.hp?
+    # Game Over
+    if newStats.hp <= 0
+      userSet 'stats.lvl', 0, update # signifies dead
+      userSet 'stats.hp', 0, update
       return
     else
-      user.set 'stats.hp', stats.hp
+      userSet 'stats.hp', newStats.hp
       
-  if stats.exp?
+  if newStats.exp?
     # level up & carry-over exp
     tnl = user.get '_tnl'
-    if stats.exp >= tnl
-      stats.exp -= tnl
-      user.set 'stats.lvl', user.get('stats.lvl') + 1
-      user.set 'stats.hp', 50
-    if !user.get('items.itemsEnabled') and stats.exp >=15
-      user.set 'items.itemsEnabled', true
+    if newStats.exp >= tnl
+      newStats.exp -= tnl
+      userSet 'stats.lvl', userObj.stats.lvl + 1, update
+      userSet 'stats.hp', 50, update
+    if !userObj.items.itemsEnabled and newStats.exp >=15
+      userSet 'items.itemsEnabled', true, update
       $('ul.items').popover
         title: content.items.unlockedMessage.title
         placement: 'left'
@@ -125,11 +150,11 @@ updateStats = (stats) ->
           </div>"
       $('ul.items').popover 'show'
 
-    user.set 'stats.exp', stats.exp
+    userSet 'stats.exp', newStats.exp, update
     
-  if stats.money?
+  if newStats.money?
     money = 0.0 if (!money? or money<0)
-    user.set 'stats.money', stats.money
+    userSet 'stats.money', newStats.money, update
     
 # {taskId} task you want to score
 # {direction} 'up' or 'down'
