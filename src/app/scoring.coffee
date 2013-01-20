@@ -122,68 +122,73 @@ updateStats = (newStats, update) ->
 # {update} if we're running updates en-mass (eg, cron on server) pass in userObj
 score = (taskId, direction, times, update) ->
   times ||= 1
+
+  userObj = update || user.get()
+  {money, hp, exp, lvl} = userObj.stats
+
   taskPath = "tasks.#{taskId}"
   taskObj = model.get("_user.#{taskPath}")
   {type, value} = taskObj
-  userObj = update || user.get()
 
-  # Don't adjust values for rewards, or for habits that don't have both + and -
-  adjustvalue = (type != 'reward')
-  if (type == 'habit') and (taskObj.up==false or taskObj.down==false)
-    adjustvalue = false
-  
+
   delta = 0
-  # If multiple days have passed, multiply times days missed
-  # TODO integrate this multiplier into the formula, so don't have to loop
-  _.times times, (n) ->
-    # Each iteration calculate the delta (nextDelta), which is then accumulated in delta
-    # (aka, the total delta). This weirdness won't be necessary when calculating mathematically
-    # rather than iteratively
-    nextDelta = taskDeltaFormula(value, direction)
-    value += nextDelta if adjustvalue
-    delta += nextDelta
+  calculateDelta = (adjustvalue=true) ->
+    # If multiple days have passed, multiply times days missed
+    # TODO integrate this multiplier into the formula, so don't have to loop
+    _.times times, (n) ->
+      # Each iteration calculate the delta (nextDelta), which is then accumulated in delta
+      # (aka, the total delta). This weirdness won't be necessary when calculating mathematically
+      # rather than iteratively
+      nextDelta = taskDeltaFormula(value, direction)
+      value += nextDelta if adjustvalue
+      delta += nextDelta
 
-  if type == 'habit'
-    # Add habit value to habit-history (if different)
-    historyEntry = { date: new Date(), value: value } if taskObj.value != value
-    if update
-      update.tasks[taskObj.id].history ||= []
-      update.tasks[taskObj.id].history.push historyEntry
-    else
-      model.push "_user.#{taskPath}.history", historyEntry
-  userSet "#{taskPath}.value", value, update
-  
-  if update
-    # Will modify the user later as an aggregate, just return the delta
-    return if (type == 'daily') then delta else 0
-
-  # Update the user's status
-  {money, hp, exp, lvl} = userObj.stats
-
-  if type == 'reward'
-    # purchase item
-    money -= taskObj.value
-    num = parseFloat(taskObj.value).toFixed(2)
-    # if too expensive, reduce health & zero money
-    if money < 0
-      hp += money # hp - money difference
-      money = 0
-      
-  # Add points to exp & money if positive delta
-  # Only take away mony if it was a mistake (aka, a checkbox)
-  if (delta > 0 or (type in ['daily', 'todo'])) and !update? # update==cron
+  addPoints = () ->
     modified = expModifier(delta)
     exp += modified
     money += modified
-  # Deduct from health (rewards case handled above)
-  else unless type in ['reward', 'todo']
+
+  subtractPoints = () ->
     modified = hpModifier(delta)
     hp += modified
 
+  switch type
+    when 'habit'
+      # Don't adjust values for habits that don't have both + and -
+      adjustvalue = if (taskObj.up==false or taskObj.down==false) then false else true
+      calculateDelta(adjustvalue)
+      # Add habit value to habit-history (if different)
+      historyEntry = { date: new Date(), value: value } if taskObj.value != value
+      if (delta > 0) then addPoints() else subtractPoints()
+      if update
+        update.tasks[taskObj.id].history ||= []
+        update.tasks[taskObj.id].history.push historyEntry
+      else
+        model.push "_user.#{taskPath}.history", historyEntry
+
+    when 'daily', 'todo'
+      calculateDelta()
+      if delta > 0
+        addPoints()
+      else if delta < 0 and !update? # update==cron
+        addPoints() # trick to "undo" points when they mistakenly checked a checkbox
+      else
+        subtractPoints()
+
+    when 'reward'
+      # Don't adjust values for rewards
+      calculateDelta(false)
+      # purchase item
+      money -= taskObj.value
+      num = parseFloat(taskObj.value).toFixed(2)
+      # if too expensive, reduce health & zero money
+      if money < 0
+        hp += money # hp - money difference
+        money = 0
+
+  userSet "#{taskPath}.value", value, update
   updateStats {hp: hp, exp: exp, money: money}, update
-  
-  return delta 
-  
+
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
 # For incomplete Dailys, deduct experience
 cron = (userObj) ->
@@ -195,15 +200,23 @@ cron = (userObj) ->
     # Tally function, which is called asyncronously below - but function is defined here. 
     # We need access to some closure variables above
     todoTally = 0
-    hpTally = 0
-    tallyTask = (taskObj, callback) ->
+
+    # Tally each task
+    # _.each user.get('tasks'), (taskObj) -> tallyTask(taskObj, ->) 
+    # Asyncronous version: 
+    tasks = _.toArray(userObj.tasks)
+    userObj.history ||= {}
+    userObj.history.todos ||= []
+    userObj.history.exp ||= []
+
+    _.each tasks, (taskObj) ->
       # setTimeout {THIS_FUNCTION}, 1 # strange hack that seems necessary when using async
       {id, type, completed, repeat} = taskObj
       #don't know why this happens, but it does. need to investigate
       unless id?
         return callback('a task had a null id during cron, this should not be happening')
       if type in ['todo', 'daily']
-        # Deduct experience for missed Daily tasks, 
+        # Deduct experience for missed Daily tasks,
         # but not for Todos (just increase todo's value)
         unless completed
           # for todos & typical dailies, these are equivalent
@@ -216,7 +229,7 @@ cron = (userObj) ->
               thatDay = moment().subtract('days', n+1)
               if repeat[helpers.dayMapping[thatDay.day()]]==true
                 daysFailed++
-          hpTally += score(id, 'down', daysFailed, userObj)
+          score(id, 'down', daysFailed, userObj)
 
         value = userObj.tasks[taskObj.id].value #get updated value
         if type == 'daily'
@@ -226,28 +239,18 @@ cron = (userObj) ->
           absVal = if (completed) then Math.abs(value) else value
           todoTally += absVal
         userObj.tasks[taskObj.id].completed = false if type == 'daily'
-      callback()
-    
-    # Tally each task
-    # _.each user.get('tasks'), (taskObj) -> tallyTask(taskObj, ->) 
-    # Asyncronous version: 
-    tasks = _.toArray(userObj.tasks)
-    userObj.history ||= {}
-    userObj.history.todos ||= []
-    userObj.history.exp ||= []
-    async.forEach tasks, tallyTask, (err) ->
-      # Finished tallying, this is the 'completed' callback
-      userObj.history.todos.push { date: today, value: todoTally }
-      # tally experience
-      expTally = userObj.stats.exp
-      lvl = 0 #iterator
-      while lvl < (userObj.stats.lvl-1)
-        lvl++
-        expTally += (lvl*100)/5
-      userObj.history.exp.push  { date: today, value: expTally }
-      updateStats {hp:userObj.stats.hp + hpTally}, userObj # finally, the user if they've failed the last few days
-      userObj.lastCron = today # reset cron
-      return userObj
+
+    # Finished tallying, this is the 'completed' callback
+    userObj.history.todos.push { date: today, value: todoTally }
+    # tally experience
+    expTally = userObj.stats.exp
+    lvl = 0 #iterator
+    while lvl < (userObj.stats.lvl-1)
+      lvl++
+      expTally += (lvl*100)/5
+    userObj.history.exp.push  { date: today, value: expTally }
+    userObj.lastCron = today # reset cron
+    return userObj
 
 
 module.exports = {
