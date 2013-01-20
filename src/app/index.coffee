@@ -57,9 +57,9 @@ get '/', (page, model, next) ->
 
     model.ref '_user', user
     scoring.setModel(model)
-    userObj = scoring.cron(userObj)
+    scoring.cron(userObj)
 
-    model.set "users.#{userObj.id}", userObj unless _.isEqual(user.get('userObj'), userObj)
+    model.set "users.#{userObj.id}", userObj unless _.isEqual(user.get(), userObj)
     model.set '_view', _view
 
     # Setup Task Lists

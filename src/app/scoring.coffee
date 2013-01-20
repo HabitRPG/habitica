@@ -202,8 +202,8 @@ cron = (userObj) ->
     # Tally each task
     tasks = _.toArray(userObj.tasks)
     _.each tasks, (taskObj) ->
+      return unless taskObj? and taskObj.id? # a task had a null id during cron, this should not be happening
       {id, type, completed, repeat} = taskObj
-      return unless id? # a task had a null id during cron, this should not be happening
       if type in ['todo', 'daily']
         # Deduct experience for missed Daily tasks,
         # but not for Todos (just increase todo's value)
@@ -224,10 +224,10 @@ cron = (userObj) ->
         if type == 'daily'
           userObj.tasks[taskObj.id].history ||= []
           userObj.tasks[taskObj.id].history.push { date: today, value: value }
+          userObj.tasks[taskObj.id].completed = false
         else
           absVal = if (completed) then Math.abs(value) else value
           todoTally += absVal
-        userObj.tasks[taskObj.id].completed = false if type == 'daily'
 
     # Finished tallying, this is the 'completed' callback
     userObj.history.todos.push { date: today, value: todoTally }
