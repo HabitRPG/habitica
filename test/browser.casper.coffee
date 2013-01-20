@@ -11,6 +11,20 @@ getUser = () -> casper.evaluate -> window.DERBY.app.model.get('_user')
 casper.start url, ->
   @test.assertTitle "HabitRPG | Gamify Your Life", "[√] Page Title"
 
+# ---------- Remove sample tasks ------------
+casper.then ->
+  @evaluate ->
+    model = window.DERBY.app.model
+    tasks = model.get('_user.tasks')
+    _.each tasks, (task) -> model.remove()
+    model.set '_user.tasks', {}
+    model.set '_user.habitIds', []
+    model.set '_user.dailyIds', []
+    model.set '_user.todoIds', []
+    model.set '_user.rewardIds', []
+  @then -> @reload()
+  # FIXME this function does jack shit
+
 # ---------- Setup Tasks ------------
 casper.then ->
   ['habit', 'daily', 'todo', 'reward'].forEach (type) ->
@@ -58,22 +72,20 @@ casper.then ->
     { habits:model.get('_habitList'), dailies:model.get('_dailyList'), todos:model.get('_todoList'), rewards:model.get('_rewardList')}
 
   # Run Cron
-  @then ->
-    utils.dump {beforeCron: (getUser()).stats}
-    @evaluate -> window.DERBY.model.set('_user.lastCron', new Date('01/10/2013'))
-    @echo 'Refreshing page (running cron)'
-    @reload()
+  @evaluate -> window.DERBY.model.set('_user.lastCron', new Date('01/10/2013'))
+  @echo 'Refreshing page (running cron)'
+  @reload()
 
   @then ->
-    @wait 3000, ->
+    @wait 2000, ->
       user = getUser()
-      utils.dump {afterCron: user.stats}
       tasksAfter = @evaluate ->
         model = window.DERBY.app.model
         { habits:model.get('_habitList'), dailies:model.get('_dailyList'), todos:model.get('_todoList'), rewards:model.get('_rewardList')}
 
       @test.assert tasksBefore.count == tasksAfter.count, "[√] We didn't lose anything"
-      @test.assert tasksBefore.todos[0].value < tasksAfter.todos[0].value, "Todo gained value on cron"
+      utils.dump {before:tasksBefore.todos[4], after:tasksAfter.todos[4]}
+      @test.assert tasksBefore.todos[4].value < tasksAfter.todos[4].value, "Todo gained value on cron"
       @test.assert user.stats.hp < 50, 'User lost HP on cron'
 
 
