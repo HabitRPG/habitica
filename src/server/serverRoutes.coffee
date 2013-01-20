@@ -26,7 +26,12 @@ module.exports = (expressApp, root, derby) ->
     {uid, taskId, direction} = req.params
     {title, service, icon} = req.body
     console.log {params:req.params, body:req.body} if process.env.NODE_ENV == 'development'
+
+    # Send error responses for improper API call
+    return res.send(500, ':uid required') unless uid
+    return res.send(500, ':taskId required') unless taskId
     return res.send(500, ":direction must be 'up' or 'down'") unless direction in ['up','down']
+
     model = req.getModel()
     model.session.userId = uid
     model.fetch "users.#{uid}", (err, user) ->
