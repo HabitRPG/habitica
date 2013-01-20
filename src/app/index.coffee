@@ -81,9 +81,9 @@ get '/', (page, model, next) ->
 
 ready (model) ->
   browser.loadJavaScripts(model)
-  browser.setupSortable()
-  browser.setupTooltips()
-  browser.setupTour()
+  browser.setupSortable(model)
+  browser.setupTooltips(model)
+  browser.setupTour(model)
 
   # Setup model in scoring functions
   scoring.setModel(model)

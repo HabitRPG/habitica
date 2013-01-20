@@ -134,7 +134,6 @@ score = (taskId, direction, times, update) ->
   delta = 0
   calculateDelta = (adjustvalue=true) ->
     # If multiple days have passed, multiply times days missed
-    # TODO integrate this multiplier into the formula, so don't have to loop
     _.times times, (n) ->
       # Each iteration calculate the delta (nextDelta), which is then accumulated in delta
       # (aka, the total delta). This weirdness won't be necessary when calculating mathematically
@@ -172,7 +171,7 @@ score = (taskId, direction, times, update) ->
         addPoints()
       else if delta < 0 and !update? # update==cron
         addPoints() # trick to "undo" points when they mistakenly checked a checkbox
-      else
+      else if type == 'daily' #dont' subtract cron points for todos
         subtractPoints()
 
     when 'reward'
