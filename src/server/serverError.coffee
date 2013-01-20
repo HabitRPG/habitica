@@ -14,5 +14,8 @@ module.exports = (root) ->
     status = parseInt message
     if status is 404
       staticPages.render '404', res, {url: req.url}, 404
+    else if status >= 400 and status < 600
+      res.send status
     else
-      res.send if 400 <= status < 600 then status else 500
+      #TODO send error to email
+      res.redirect('/500.html')
