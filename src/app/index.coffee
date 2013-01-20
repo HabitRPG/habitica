@@ -11,6 +11,7 @@ scoring = require './scoring'
 schema = require './schema'
 helpers = require './helpers'
 helpers.viewHelpers view
+browser = require './browser'
 _ = require('lodash')
 
 
@@ -79,53 +80,15 @@ get '/', (page, model, next) ->
 # ========== CONTROLLER FUNCTIONS ==========
 
 ready (model) ->
-  require('./browser').loadJavaScripts(model)
+  browser.loadJavaScripts(model)
+  browser.setupSortable()
+  browser.setupTooltips()
+  browser.setupTour()
 
   # Setup model in scoring functions
   scoring.setModel(model)
 
   require('../server/private').app(exports, model)
-
-  $('[rel=tooltip]').tooltip()
-  $('[rel=popover]').popover()
-  # FIXME: this isn't very efficient, do model.on set for specific attrs for popover 
-  model.on 'set', '*', ->
-    $('[rel=tooltip]').tooltip()
-    $('[rel=popover]').popover()
-  
-  unless (model.get('_view.mobileDevice') == true) #don't do sortable on mobile
-    # Make the lists draggable using jQuery UI
-    # Note, have to setup helper function here and call it for each type later
-    # due to variable binding of "type"
-    setupSortable = (type) ->
-      $("ul.#{type}s").sortable
-        dropOnEmpty: false
-        cursor: "move"
-        items: "li"
-        opacity: 0.4
-        scroll: true
-        axis: 'y'
-        update: (e, ui) ->
-          item = ui.item[0]
-          domId = item.id
-          id = item.getAttribute 'data-id'
-          to = $("ul.#{type}s").children().index(item)
-          # Use the Derby ignore option to suppress the normal move event
-          # binding, since jQuery UI will move the element in the DOM.
-          # Also, note that refList index arguments can either be an index
-          # or the item's id property
-          model.at("_#{type}List").pass(ignore: domId).move {id}, to
-    setupSortable(type) for type in ['habit', 'daily', 'todo', 'reward']
-  
-  tour = new Tour()
-  for step in content.tourSteps
-    tour.addStep
-      html: true
-      element: step.element
-      title: step.title
-      content: step.content
-      placement: step.placement
-  tour.start()
 
   model.on 'set', '_user.tasks.*.completed', (i, completed, previous, isLocal, passed) ->
     return if passed? && passed.cron # Don't do this stuff on cron
@@ -298,7 +261,6 @@ ready (model) ->
 
   # ========== CRON ==========
 
-  # FIXME seems can't call scoring.cron() instantly, have to call after some time (2s here)
-  # Doesn't do anything otherwise. Don't know why... model not initialized enough yet?
+  # FIXME add animated HP loss on timeout
 #  setTimeout scoring.cron, 2000 # Run once on refresh
 #  setInterval scoring.cron, 3600000 # Then run once every hour
