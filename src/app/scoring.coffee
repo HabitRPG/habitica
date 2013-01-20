@@ -3,6 +3,7 @@ moment = require 'moment'
 _ = require 'lodash'
 content = require './content'
 helpers = require './helpers'
+browser = require './browser'
 MODIFIER = .03 # each new level, armor, weapon add 3% modifier (this number may change) 
 user = undefined
 model = undefined
@@ -11,48 +12,9 @@ model = undefined
 setModel = (m) ->
   model = m
   user = model.at('_user')
-  setupNotifications() unless model.get('_view.mobileDevice')
+  browser.setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
   
-setupNotifications = ->
-  return unless jQuery? # Only run this in the browser 
-  
-  statsNotification = (html, type) ->
-    #don't show notifications if user dead
-    return if user.get('stats.lvl') == 0
-    $.bootstrapGrowl html, {
-      type: type # (null, 'info', 'error', 'success')
-      top_offset: 20
-      align: 'right' # ('left', 'right', or 'center')
-      width: 250 # (integer, or 'auto')
-      delay: 3000
-      allow_dismiss: true
-      stackup_spacing: 10 # spacing between consecutive stacecked growls.
-    }
-    
-  # Setup listeners which trigger notifications
-  user.on 'set', 'stats.hp', (captures, args) ->
-    num = captures - args
-    rounded = Math.abs(num.toFixed(1))
-    if num < 0
-      statsNotification "<i class='icon-heart'></i>HP -#{rounded}", 'error' # lost hp from purchase
-    
-  user.on 'set', 'stats.money', (captures, args) ->
-    num = captures - args
-    rounded = Math.abs(num.toFixed(1))
-    # made purchase
-    if num < 0
-      # FIXME use 'warning' when unchecking an accidently completed daily/todo, and notify of exp too
-      statsNotification "<i class='icon-star'></i>GP -#{rounded}", 'success'
-    # gained money (and thereby exp)
-    else if num > 0
-      num = Math.abs(num)
-      statsNotification "<i class='icon-star'></i>Exp,GP +#{rounded}", 'success'
-    
-  user.on 'set', 'stats.lvl', (captures, args) ->
-    if captures > args
-      statsNotification('<i class="icon-chevron-up"></i> Level Up!', 'info')
-  
-### 
+###
   Calculates Exp & GP modification based on weapon & lvl
   {value} task.value for gain
   {modifiers} may manually pass in stats as {weapon, exp}. This is used for testing

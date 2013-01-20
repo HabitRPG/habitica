@@ -79,7 +79,7 @@ get '/', (page, model, next) ->
 # ========== CONTROLLER FUNCTIONS ==========
 
 ready (model) ->
-  require('./loadJavascripts')(model)
+  require('./browser').loadJavaScripts(model)
 
   # Setup model in scoring functions
   scoring.setModel(model)
