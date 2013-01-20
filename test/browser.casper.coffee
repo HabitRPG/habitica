@@ -1,44 +1,49 @@
-url = 'http://localhost:3000'
+url = 'http://localhost:3000/?play=1'
 utils = require('utils')
-casper = require("casper").create()
+casper = require("casper").create
+  clientScripts: 'test/includes/lodash.min.js'
 
-# ---------- Main Stuff ------------
+# ---------- Init ------------
 
 casper.start url, ->
-  @test.assertTitle "HabitRPG", "homepage title is the one expected"
+  @test.assertTitle "HabitRPG | Gamify Your Life", "[√] Page Title"
 
 # ---------- Setup Tasks ------------
 casper.then ->
   ['habit', 'daily', 'todo', 'reward'].forEach (type) ->
     # Add 15 of each task type
-    casper.repeat 15, -> 
-      casper.fill "form#new-#{type}", {'new-task': type } # why can't I use true here?
+    num = 0
+    casper.repeat 15, ->
+      casper.fill "form#new-#{type}", {'new-task': "#{type}-#{num}"} # why can't I use true here?
       casper.click "form#new-#{type} input[type=submit]"
-  @then ->
-    utils.dump @evaluate -> _.pluck(window.DERBY.model.get('_user.tasks'), 'text')
-    
 
-# ---------- Run Cron ------------
+# ---------- Cron ------------
+getUser = () -> casper.evaluate -> window.DERBY.app.model.get('_user')
+
 casper.then ->
-  @evaluate -> window.DERBY.model.set('_user.lastCron', new Date('09/01/2012'));
-  @then -> @reload -> 
+
+  tasksBefore = @evaluate ->
+    model = window.DERBY.app.model
+    { habits:model.get('_habitList'), dailies:model.get('_dailyList'), todos:model.get('_todoList'), rewards:model.get('_rewardList')}
+
+  # Run Cron
+  @then ->
+    utils.dump {beforeCron: (getUser()).stats}
+    @evaluate -> window.DERBY.model.set('_user.lastCron', new Date('01/10/2013'))
     @echo 'Refreshing page (running cron)'
-  @then -> @reload ->
-    @echo 'Refreshing page (trying to trigger the database-spaz bug)'
+    @reload()
 
-# ---------- Todos gain delta on cron ------------
-casper.then ->
-  todoBefore = @evaluate -> window.DERBY.model.get('_todoList')[0]
-  @then -> 
-    @evaluate ->
-      window.DERBY.model.set('_user.lastCron', new Date('09/17/2012'))
-  @then -> @reload()
   @then ->
-    @wait 2000, ->
-      todoAfter = @evaluate -> window.DERBY.model.get('_todoList')[0]
-      @then -> @test.assert(todoBefore.value > todoAfter.value, "Incomplete TODO gained value on cron")
-      utils.dump todoBefore
-      utils.dump todoAfter
+    @wait 3000, ->
+      user = getUser()
+      utils.dump {afterCron: user.stats}
+      tasksAfter = @evaluate ->
+        model = window.DERBY.app.model
+        { habits:model.get('_habitList'), dailies:model.get('_dailyList'), todos:model.get('_todoList'), rewards:model.get('_rewardList')}
+
+      @test.assert tasksBefore.count == tasksAfter.count, "[√] We didn't lose anything"
+      @test.assert tasksBefore.todos[0].value < tasksAfter.todos[0].value, "Todo gained value on cron"
+      @test.assert user.stats.hp < 50, 'User lost HP on cron'
 
 # ---------- User Death ------------
 casper.then ->
@@ -47,7 +52,7 @@ casper.then ->
     
 casper.then ->
   userStats = @evaluate ->
-    window.DERBY.model.get('_user.stats')
+    window.DERBY.app.model.get('_user.stats')
   utils.dump userStats
   
   @test.assert(@visible('#dead-modal'), 'Revive Modal Visible')
