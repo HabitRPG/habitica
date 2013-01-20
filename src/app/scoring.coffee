@@ -197,24 +197,14 @@ cron = (userObj) ->
   lastCron = userObj.lastCron
   daysPassed = helpers.daysBetween(today, lastCron)
   if daysPassed > 0
-    # Tally function, which is called asyncronously below - but function is defined here. 
-    # We need access to some closure variables above
     todoTally = 0
+    userObj.history ||= {}; userObj.history.todos ||= []; userObj.history.exp ||= []
 
     # Tally each task
-    # _.each user.get('tasks'), (taskObj) -> tallyTask(taskObj, ->) 
-    # Asyncronous version: 
     tasks = _.toArray(userObj.tasks)
-    userObj.history ||= {}
-    userObj.history.todos ||= []
-    userObj.history.exp ||= []
-
     _.each tasks, (taskObj) ->
-      # setTimeout {THIS_FUNCTION}, 1 # strange hack that seems necessary when using async
       {id, type, completed, repeat} = taskObj
-      #don't know why this happens, but it does. need to investigate
-      unless id?
-        return callback('a task had a null id during cron, this should not be happening')
+      return unless id? # a task had a null id during cron, this should not be happening
       if type in ['todo', 'daily']
         # Deduct experience for missed Daily tasks,
         # but not for Todos (just increase todo's value)
