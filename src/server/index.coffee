@@ -89,7 +89,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     # HabitRPG Custom Middleware
     .use (req, res, next) ->
       model = req.getModel()
-      _view = model.get('view') || {}
+      _view = model.get('_view') || {}
       ## Set _mobileDevice to true or false so view can exclude portions from mobile device
       _view.mobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
       _view.nodeEnv = process.env.NODE_ENV
