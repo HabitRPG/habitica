@@ -161,7 +161,7 @@ updateStats = (newStats, update) ->
 score = (taskId, direction, times, update) ->
   times ||= 1
   taskPath = "tasks.#{taskId}"
-  [task, taskObj] = [model.at("_user.#{taskPath}"), model.get("_user.#{taskPath}")]
+  taskObj = model.get("_user.#{taskPath}")
   {type, value} = taskObj
   userObj = update || user.get()
 
@@ -180,14 +180,15 @@ score = (taskId, direction, times, update) ->
     nextDelta = taskDeltaFormula(value, direction)
     value += nextDelta if adjustvalue
     delta += nextDelta
-  
+
   if type == 'habit'
     # Add habit value to habit-history (if different)
     historyEntry = { date: new Date(), value: value } if taskObj.value != value
     if update
-      taskObj.history.push historyEntry
+      update.tasks[taskObj.id].history ||= []
+      update.tasks[taskObj.id].history.push historyEntry
     else
-      task.push 'history', historyEntry
+      model.push "_user.#{taskPath}.history", historyEntry
   userSet "#{taskPath}.value", value, update
   
   if update
@@ -223,10 +224,10 @@ score = (taskId, direction, times, update) ->
   
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
 # For incomplete Dailys, deduct experience
-cron = ->
+cron = (userObj) ->
   today = new Date()
-  user.setNull 'lastCron', today
-  lastCron = user.get('lastCron')
+  userObj.lastCron ||= today
+  lastCron = userObj.lastCron
   daysPassed = helpers.daysBetween(today, lastCron)
   if daysPassed > 0
     # Tally function, which is called asyncronously below - but function is defined here. 
@@ -239,7 +240,6 @@ cron = ->
       #don't know why this happens, but it does. need to investigate
       unless id?
         return callback('a task had a null id during cron, this should not be happening')
-      task = user.at("tasks.#{id}")
       if type in ['todo', 'daily']
         # Deduct experience for missed Daily tasks, 
         # but not for Todos (just increase todo's value)
@@ -253,35 +253,40 @@ cron = ->
             _.times daysPassed, (n) ->
               thatDay = moment().subtract('days', n+1)
               if repeat[helpers.dayMapping[thatDay.day()]]==true
-                daysFailed++ 
-          hpTally += score(id, 'down', {cron:true, times:daysFailed})
+                daysFailed++
+          hpTally += score(id, 'down', daysFailed, userObj)
 
-        value = task.get('value') #get updated value
+        value = userObj.tasks[taskObj.id].value #get updated value
         if type == 'daily'
-          task.push "history", { date: today, value: value }
+          userObj.tasks[taskObj.id].history ||= []
+          userObj.tasks[taskObj.id].history.push { date: today, value: value }
         else
           absVal = if (completed) then Math.abs(value) else value
           todoTally += absVal
-        task.pass({cron:true}).set('completed', false) if type == 'daily'
+        userObj.tasks[taskObj.id].completed = false if type == 'daily'
       callback()
     
     # Tally each task
     # _.each user.get('tasks'), (taskObj) -> tallyTask(taskObj, ->) 
     # Asyncronous version: 
-    tasks = _.toArray(user.get('tasks'))
-    async.forEach tasks, tallyTask, (err) ->  
+    tasks = _.toArray(userObj.tasks)
+    userObj.history ||= {}
+    userObj.history.todos ||= []
+    userObj.history.exp ||= []
+    async.forEach tasks, tallyTask, (err) ->
       # Finished tallying, this is the 'completed' callback
-      user.push 'history.todos', { date: today, value: todoTally }
+      userObj.history.todos.push { date: today, value: todoTally }
       # tally experience
-      expTally = user.get 'stats.exp'
+      expTally = userObj.stats.exp
       lvl = 0 #iterator
-      while lvl < (user.get('stats.lvl')-1)
+      while lvl < (userObj.stats.lvl-1)
         lvl++
         expTally += (lvl*100)/5
-      user.push 'history.exp',  { date: today, value: expTally }
-      updateStats({hp:user.get('stats.hp')+hpTally}) # finally, the user if they've failed the last few days
-      user.set('lastCron', today) # reset cron
-  
+      userObj.history.exp.push  { date: today, value: expTally }
+      updateStats {hp:userObj.stats.hp + hpTally}, userObj # finally, the user if they've failed the last few days
+      userObj.lastCron = today # reset cron
+      return userObj
+
 
 module.exports = {
   setModel: setModel

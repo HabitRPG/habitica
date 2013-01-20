@@ -54,9 +54,12 @@ get '/', (page, model, next) ->
       userObj.notifications = userObj.notifications || {}
       userObj.notifications.kickstarter = 'show'
 
+    model.ref '_user', user
+    scoring.setModel(model)
+    userObj = scoring.cron(userObj)
+
     model.set "users.#{userObj.id}", userObj unless _.isEqual(user.get('userObj'), userObj)
     model.set '_view', _view
-    model.ref '_user', user
 
     # Setup Task Lists
     model.refList "_habitList", "_user.tasks", "_user.habitIds"
