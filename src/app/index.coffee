@@ -224,10 +224,10 @@ ready (model) ->
     user.set 'stats.money', money - value
     if type == 'armor'
       user.set 'items.armor', index
-      model.set '_items.armor', content.items.armor[parseInt(index) + 1]
+      model.set '_view.items.armor', content.items.armor[parseInt(index) + 1]
     else if type == 'weapon'
       user.set 'items.weapon', index
-      model.set '_items.weapon', content.items.weapon[parseInt(index) + 1]
+      model.set '_view.items.weapon', content.items.weapon[parseInt(index) + 1]
     else if type == 'potion'
       hp = user.get 'stats.hp'
       hp += 15
@@ -242,12 +242,23 @@ ready (model) ->
     scoring.score(task.get('id'), direction) 
     
   exports.revive = (e, el) ->
-    stats = model.at '_user.stats'
-    stats.set 'hp', 50; stats.set 'lvl', 1; stats.set 'exp', 0; stats.set 'money', 0
-    model.set '_user.items.armor', 0
-    model.set '_user.items.weapon', 0
-    model.set '_items.armor', content.items.armor[1]
-    model.set '_items.weapon', content.items.weapon[1]
+    user = model.at('_user'); userObj = user.get()
+
+    # Reset stats
+    userObj.stats.lvl = 1; userObj.stats.money = 0; userObj.stats.exp = 0
+    user.set 'stats', userObj.stats
+
+    # Reset items
+    userObj.items.armor = 0; userObj.items.weapon = 0
+    user.set 'items', userObj.items
+
+    # Reset item store
+    model.set '_view.items.armor', content.items.armor[1]
+    model.set '_view.items.weapon', content.items.weapon[1]
+
+    # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
+    view.render(model)
+    setTimeout (-> user.set('stats.hp', 50)), 0 # we want this animated
 
   exports.reset = (e, el) ->
     model.set '_user.tasks', {}
