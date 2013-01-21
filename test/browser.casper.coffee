@@ -11,19 +11,21 @@ getUser = () -> casper.evaluate -> window.DERBY.app.model.get('_user')
 casper.start url, ->
   @test.assertTitle "HabitRPG | Gamify Your Life", "[√] Page Title"
 
-# ---------- Remove sample tasks ------------
+# ---------- Register ------------
 casper.then ->
-  @evaluate ->
-    model = window.DERBY.app.model
-    tasks = model.get('_user.tasks')
-    _.each tasks, (task) -> model.remove()
-    model.set '_user.tasks', {}
-    model.set '_user.habitIds', []
-    model.set '_user.dailyIds', []
-    model.set '_user.todoIds', []
-    model.set '_user.rewardIds', []
-  @then -> @reload()
-  # FIXME this function does jack shit
+  @fill 'form#derby-auth-register',
+    username: 'lefnire'
+    email: 'x@x.com'
+    'email-confirmation': 'x@x.com'
+    password: 'habitrpg123'
+  , true
+
+# Clear tasks
+casper.then ->
+  @debugHTML()
+  @click '#reset-modal button:contains(Reset)'
+  tasks = @evaluate -> window.DERBY.app.model.get('_user.tasks')
+  @test.assertEual tasks.length,0
 
 # ---------- Setup Tasks ------------
 casper.then ->
