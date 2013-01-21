@@ -1,6 +1,6 @@
 async = require 'async'
 moment = require 'moment'
-_ = require 'lodash'
+_ = require 'underscore'
 content = require './content'
 helpers = require './helpers'
 browser = require './browser'
@@ -111,17 +111,17 @@ updateStats = (newStats, update) ->
       $('ul.items').popover 'show'
 
     userSet 'stats.exp', newStats.exp, update
-    
+
   if newStats.money?
     money = 0.0 if (!money? or money<0)
     userSet 'stats.money', newStats.money, update
-    
+
 # {taskId} task you want to score
 # {direction} 'up' or 'down'
 # {times} # times to call score on this task (1 unless cron, usually)
 # {update} if we're running updates en-mass (eg, cron on server) pass in userObj
 score = (taskId, direction, times, update) ->
-  times ||= 1
+  times ?= 1
 
   userObj = update || user.get()
   {money, hp, exp, lvl} = userObj.stats
@@ -192,44 +192,45 @@ score = (taskId, direction, times, update) ->
 # For incomplete Dailys, deduct experience
 cron = (userObj) ->
   today = new Date()
-  userObj.lastCron ||= today
+  userObj.lastCron ?= today
   lastCron = userObj.lastCron
   daysPassed = helpers.daysBetween(today, lastCron)
   if daysPassed > 0
     todoTally = 0
-    userObj.history ||= {}; userObj.history.todos ||= []; userObj.history.exp ||= []
+    userObj.history ?= {}; userObj.history.todos ?= []; userObj.history.exp ?= []
 
     # Tally each task
-    tasks = _.toArray(userObj.tasks)
-    _.each tasks, (taskObj) ->
-      return unless taskObj? and taskObj.id? # a task had a null id during cron, this should not be happening
-      {id, type, completed, repeat} = taskObj
-      if type in ['todo', 'daily']
-        # Deduct experience for missed Daily tasks,
-        # but not for Todos (just increase todo's value)
-        unless completed
-          # for todos & typical dailies, these are equivalent
-          daysFailed = daysPassed
-          # however, for dailys which have repeat dates, need
-          # to calculate how many they've missed according to their own schedule
-          if type=='daily' && repeat
-            daysFailed = 0
-            _.times daysPassed, (n) ->
-              thatDay = moment().subtract('days', n+1)
-              if repeat[helpers.dayMapping[thatDay.day()]]==true
-                daysFailed++
-          score(id, 'down', daysFailed, userObj)
+    _.each userObj.tasks, (taskObj) ->
+      #FIXME remove broken tasks
+      if taskObj.id? # a task had a null id during cron, this should not be happening
+        console.log taskObj
+        {id, type, completed, repeat} = taskObj
+        if type in ['todo', 'daily']
+          # Deduct experience for missed Daily tasks,
+          # but not for Todos (just increase todo's value)
+          unless completed
+            # for todos & typical dailies, these are equivalent
+            daysFailed = daysPassed
+            # however, for dailys which have repeat dates, need
+            # to calculate how many they've missed according to their own schedule
+            if type=='daily' && repeat
+              daysFailed = 0
+              _.times daysPassed, (n) ->
+                thatDay = moment().subtract('days', n+1)
+                if repeat[helpers.dayMapping[thatDay.day()]]==true
+                  daysFailed++
+            score(id, 'down', daysFailed, userObj)
 
-        value = userObj.tasks[taskObj.id].value #get updated value
-        if type == 'daily'
-          userObj.tasks[taskObj.id].history ||= []
-          userObj.tasks[taskObj.id].history.push { date: today, value: value }
-          userObj.tasks[taskObj.id].completed = false
-        else
-          absVal = if (completed) then Math.abs(value) else value
-          todoTally += absVal
+          value = userObj.tasks[taskObj.id].value #get updated value
+          if type == 'daily'
+            userObj.tasks[taskObj.id].history ?= []
+            userObj.tasks[taskObj.id].history.push { date: today, value: value }
+            userObj.tasks[taskObj.id].completed = false
+          else
+            absVal = if (completed) then Math.abs(value) else value
+            todoTally += absVal
 
-    # Finished tallying, this is the 'completed' callback
+    # Finished tallying
     userObj.history.todos.push { date: today, value: todoTally }
     # tally experience
     expTally = userObj.stats.exp
@@ -239,15 +240,13 @@ cron = (userObj) ->
       expTally += (lvl*100)/5
     userObj.history.exp.push  { date: today, value: expTally }
     userObj.lastCron = today # reset cron
-    return userObj
-
 
 module.exports = {
   setModel: setModel
   MODIFIER: MODIFIER
   score: score
   cron: cron
-  
+
   # testing stuff
   expModifier: expModifier
   hpModifier: hpModifier

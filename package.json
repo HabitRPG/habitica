@@ -19,7 +19,8 @@
     "async": "*",
     "lodash": "*",
     "coffee-script": "*",
-    "toobusy": "~0.2.0"
+    "toobusy": "~0.2.0",
+    "underscore": "*"
   },
   "private": true,
   "subdomain": "habitrpg",

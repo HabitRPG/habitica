@@ -1,10 +1,10 @@
 content = require './content'
 moment = require 'moment'
-_ = require 'lodash'
+_ = require 'underscore'
 
 module.exports.userSchema = ->
   # deep clone, else further new users get duplicate objects
-  newUser = _.cloneDeep
+  newUser = require('lodash').cloneDeep
     balance: 2
     stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
     items: { itemsEnabled: false, armor: 0, weapon: 0 }

@@ -1,5 +1,5 @@
 scoring = require('../app/scoring')
-_ = require('lodash')
+_ = require('underscore')
 
 module.exports = (expressApp, root, derby) ->
 

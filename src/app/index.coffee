@@ -12,7 +12,7 @@ schema = require './schema'
 helpers = require './helpers'
 helpers.viewHelpers view
 browser = require './browser'
-_ = require('lodash')
+_ = require('underscore')
 
 
 # ========== ROUTES ==========
