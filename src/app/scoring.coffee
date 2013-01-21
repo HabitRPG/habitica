@@ -12,8 +12,7 @@ model = undefined
 setModel = (m) ->
   model = m
   user = model.at('_user')
-  browser.setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
-  
+
 ###
   Calculates Exp & GP modification based on weapon & lvl
   {value} task.value for gain
