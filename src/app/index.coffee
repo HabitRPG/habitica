@@ -85,6 +85,9 @@ get '/', (page, model, next) ->
 # ========== CONTROLLER FUNCTIONS ==========
 
 ready (model) ->
+  user = model.at('_user')
+
+  # Load all the jQuery, Growl, Tour, etc
   browser.loadJavaScripts(model)
   browser.setupSortable(model)
   browser.setupTooltips(model)
@@ -96,7 +99,7 @@ ready (model) ->
 
   require('../server/private').app(exports, model)
 
-  model.on 'set', '_user.tasks.*.completed', (i, completed, previous, isLocal, passed) ->
+  user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
     return if passed? && passed.cron # Don't do this stuff on cron
     direction = () ->
       return 'up' if completed==true and previous == false
@@ -104,21 +107,21 @@ ready (model) ->
       throw new Error("Direction neither 'up' nor 'down' on checkbox set.")
       
     # Score the user based on todo task
-    task = model.at("_user.tasks.#{i}")
+    task = user.at("tasks.#{i}")
     scoring.score(i, direction())
     
     # Then move the todos to/from _todoList/_completedList
     if task.get('type') == 'todo'
       [from, to] = if (direction()=='up') then ['todo', 'completed'] else ['completed', 'todo']
-      [from, to] = ["_user.#{from}Ids", "_user.#{to}Ids"]
+      [from, to] = ["#{from}Ids", "#{to}Ids"]
       # Remove from source (just remove the id from id-list)
-      fromIds = model.get(from)
+      fromIds = user.get(from)
       fromIds.splice(fromIds.indexOf(i), 1)
-      model.set from, fromIds
+      user.set from, fromIds
       # Push to target (just the id to id-list)
       toIds = model.get(to)
       toIds.push i
-      model.set to, toIds
+      user.set to, toIds
     
   exports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
@@ -173,8 +176,8 @@ ready (model) ->
     
   exports.clearCompleted = (e, el) ->
     _.each model.get('_completedList'), (task) ->
-      model.del('_user.tasks.'+task.id)
-      model.set('_user.completedIds', [])
+      user.del('tasks.'+task.id)
+      user.set('completedIds', [])
       
   exports.toggleDay = (e, el) ->
     task = model.at(e.target)
@@ -224,10 +227,10 @@ ready (model) ->
     user.set 'stats.money', money - value
     if type == 'armor'
       user.set 'items.armor', index
-      model.set '_view.items.armor', content.items.armor[parseInt(index) + 1]
+      model.set '_items.armor', content.items.armor[parseInt(index) + 1]
     else if type == 'weapon'
       user.set 'items.weapon', index
-      model.set '_view.items.weapon', content.items.weapon[parseInt(index) + 1]
+      model.set '_items.weapon', content.items.weapon[parseInt(index) + 1]
     else if type == 'potion'
       hp = user.get 'stats.hp'
       hp += 15
@@ -239,42 +242,47 @@ ready (model) ->
     direction = 'up' if direction == 'true/'
     direction = 'down' if direction == 'false/'
     task = model.at $(el).parents('li')[0]
-    scoring.score(task.get('id'), direction) 
-    
-  exports.revive = (e, el) ->
-    user = model.at('_user'); userObj = user.get()
+    scoring.score(task.get('id'), direction)
 
+  revive = (userObj) ->
     # Reset stats
     userObj.stats.lvl = 1; userObj.stats.money = 0; userObj.stats.exp = 0
-    user.set 'stats', userObj.stats
 
     # Reset items
     userObj.items.armor = 0; userObj.items.weapon = 0
-    user.set 'items', userObj.items
 
     # Reset item store
     model.set '_view.items.armor', content.items.armor[1]
     model.set '_view.items.weapon', content.items.weapon[1]
+    
+  exports.revive = (e, el) ->
+    userObj = user.get()
+    revive(userObj)
+    user.set 'stats', userObj.stats
+    user.set 'items', userObj.items
 
     # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
     view.render(model)
     setTimeout (-> user.set('stats.hp', 50)), 0 # we want this animated
 
   exports.reset = (e, el) ->
-    model.set '_user.tasks', {}
-    _.each ['habit', 'daily', 'todo', 'completed', 'reward'], (type) ->
-      model.set "_user.#{type}Ids", []
-      model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-    model.set('_user.stats.hp', 50)
-    model.set('_user.stats.money', 0)
-    model.set('_user.stats.exp', 0)
-    model.set('_user.stats.lvl', 1)
-    model.set('_user.items.armor',0)
-    model.set('_user.items.weapon',0)
-    model.set('_user.balance', 2) if model.get('_user.balance') < 2 #only if they haven't manually bought tokens
+    userObj = user.get()
+    taskTypes = ['habit', 'daily', 'todo', 'completed', 'reward']
+    userObj.tasks = {}
+    _.each taskTypes, (type) -> userObj["#{type}Ids"] = []
+    userObj.balance = 2 if userObj.balance < 2 #only if they haven't manually bought tokens
+    revive(userObj)
+
+    # Set new user
+    model.set "users.#{userObj.id}", userObj
+
+    # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
+    _.each taskTypes, (type) ->  model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+    view.render(model)
+    setTimeout (-> user.set('stats.hp', 50)), 0 # we want this animated
 
   exports.closeKickstarterNofitication = (e, el) ->
-    model.set('_user.notifications.kickstarter', 'hide')
+    user.set('notifications.kickstarter', 'hide')
 
   # ========== CRON ==========
 
