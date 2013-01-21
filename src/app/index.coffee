@@ -53,14 +53,13 @@ get '/', (page, model, next) ->
     _.each ['habitIds','dailyIds','todoIds', 'completedIds', 'rewardIds'], (path) ->
       unique = _.uniq userObj[path] #remove duplicates
       #remove empty grey tasks
-      userObj[path] = _.filter(unique, (val) -> _.contains(taskIds, val))
+      preened = _.filter(unique, (val) -> _.contains(taskIds, val))
+      user.set(path, preened) if _.size(preened) != _.size(userObj[path]) # There were indeed duplicates or empties
 
     # ========== Notifiations ==========
     unless userObj.notifications?.kickstarter
-      userObj.notifications = userObj.notifications || {}
-      userObj.notifications.kickstarter = 'show'
+      user.set('notifications.kickstarter', 'show')
 
-    model.set userPath, userObj #unless _.isEqual(user.get(), userObj)
     model.ref '_user', user
     model.set '_view', _view
 
@@ -254,7 +253,7 @@ ready (model) ->
       user.set 'items', userObj.items, ->
         # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
         #view.render(model)
-        window.location.reload(true) # refresh - FIXME view.render() borks the dom
+        window.location.reload() # refresh - FIXME view.render() borks the dom
 
   exports.reset = (e, el) ->
     userObj = user.get()
@@ -269,8 +268,9 @@ ready (model) ->
 
       # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
       #setupListReferences(model)
+      #view.resetModel(model)
       #view.render(model)
-      window.location.reload(true) # refresh - FIXME view.render() borks the dom
+      window.location.reload() # refresh - FIXME view.render() borks the dom
 
   exports.closeKickstarterNofitication = (e, el) ->
     user.set('notifications.kickstarter', 'hide')
@@ -292,9 +292,9 @@ ready (model) ->
     #set necessary references
     model.set "users.#{userObj.id}", userObj, ->
       #setupListReferences(model)
-      #view.render(model)
+      #view.resetModel(model)
       #setTimeout (-> user.set('stats.hp', after.hp)), 0 # animated
-      window.location.reload(true)
+      window.location.reload()
   #    browser.setupSortable(model)
   #    browser.setupTooltips(model)
   #    browser.setupTour(model)
