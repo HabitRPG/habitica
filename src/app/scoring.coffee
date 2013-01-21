@@ -88,8 +88,8 @@ updateStats = (newStats, update) ->
       userSet 'stats.hp', 0, update
       return
     else
-      userSet 'stats.hp', newStats.hp
-      
+      userSet 'stats.hp', newStats.hp, update
+
   if newStats.exp?
     # level up & carry-over exp
     tnl = user.get '_tnl'

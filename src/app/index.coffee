@@ -26,7 +26,8 @@ get '/', (page, model, next) ->
   #if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
   #  return page.redirect 'https://' + req.headers.host + req.url
 
-  model.subscribe "users.#{model.session.userId}", (err, user) ->
+  userPath = "users.#{model.session.userId}"
+  model.subscribe userPath, (err, user) ->
     userObj = user.get()
     return page.redirect '/500.html' unless userObj? #this should never happen, but it is. Looking into it
 
@@ -59,7 +60,8 @@ get '/', (page, model, next) ->
     scoring.setModel(model)
     scoring.cron(userObj)
 
-    model.set "users.#{userObj.id}", userObj unless _.isEqual(user.get(), userObj)
+    model.set userPath, userObj unless _.isEqual(user.get(), userObj)
+
     model.set '_view', _view
 
     # Setup Task Lists
@@ -84,6 +86,7 @@ ready (model) ->
   browser.setupSortable(model)
   browser.setupTooltips(model)
   browser.setupTour(model)
+  browser.setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
 
   # Setup model in scoring functions
   scoring.setModel(model)

@@ -77,16 +77,16 @@ casper.then ->
   @reload()
 
   @then ->
-    @wait 2000, ->
-      user = getUser()
-      tasksAfter = @evaluate ->
-        model = window.DERBY.app.model
-        { habits:model.get('_habitList'), dailies:model.get('_dailyList'), todos:model.get('_todoList'), rewards:model.get('_rewardList')}
+#    @wait 1000, ->
+    user = getUser()
+    tasksAfter = @evaluate ->
+      model = window.DERBY.app.model
+      { habits:model.get('_habitList'), dailies:model.get('_dailyList'), todos:model.get('_todoList'), rewards:model.get('_rewardList')}
 
-      @test.assert tasksBefore.count == tasksAfter.count, "[√] We didn't lose anything"
-      utils.dump {before:tasksBefore.todos[4], after:tasksAfter.todos[4]}
-      @test.assert tasksBefore.todos[4].value < tasksAfter.todos[4].value, "Todo gained value on cron"
-      @test.assert user.stats.hp < 50, 'User lost HP on cron'
+    @test.assert tasksBefore.count == tasksAfter.count, "[√] We didn't lose anything"
+    utils.dump {before:tasksBefore.todos[4], after:tasksAfter.todos[4]}
+    @test.assert tasksBefore.todos[4].value < tasksAfter.todos[4].value, "Todo gained value on cron"
+    @test.assertEqual user.stats.hp, 13, 'User lost HP on cron'
 
 
 # ---------- Misc Pages ------------
