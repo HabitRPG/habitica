@@ -14,7 +14,6 @@ helpers.viewHelpers view
 browser = require './browser'
 _ = require('underscore')
 
-
 setupListReferences = (model) ->
   # Setup Task Lists
   taskTypes = ['habit', 'daily', 'todo', 'completed', 'reward']
@@ -239,7 +238,7 @@ ready (model) ->
 
   revive = (userObj) ->
     # Reset stats
-    userObj.stats.lvl = 1; userObj.stats.money = 0; userObj.stats.exp = 0
+    userObj.stats.hp = 50; userObj.stats.lvl = 1; userObj.stats.money = 0; userObj.stats.exp = 0
 
     # Reset items
     userObj.items.armor = 0; userObj.items.weapon = 0
@@ -255,8 +254,8 @@ ready (model) ->
     user.set 'items', userObj.items
 
     # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
-    view.render(model)
-    setTimeout (-> user.set('stats.hp', 50)), 0 # we want this animated
+    #view.render(model)
+    setTimeout (-> window.location.href = window.location.href), 0 # refresh - FIXME view.render() borks the dom
 
   exports.reset = (e, el) ->
     userObj = user.get()
@@ -271,8 +270,8 @@ ready (model) ->
 
     # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
     setupListReferences(model)
-    view.render(model)
-    setTimeout (-> user.set('stats.hp', 50)), 0 # we want this animated
+    #view.render(model)
+    setTimeout (-> window.location.href = window.location.href), 0 # refresh - FIXME view.render() borks the dom
 
   exports.closeKickstarterNofitication = (e, el) ->
     user.set('notifications.kickstarter', 'hide')
@@ -286,14 +285,18 @@ ready (model) ->
     before = {hp:userObj.stats.hp, lastCron:userObj.lastCron}
     scoring.cron(userObj)
     after = {hp:userObj.stats.hp, lastCron:userObj.lastCron}
-    userObj.stats.hp = before.hp
+    #userObj.stats.hp = before.hp
 
     # Don't do anything if same day
-    return if before.lastCron == after.lastCron
+    return if before.lastCron == after.lastCron or !before.lastCron?
 
     #set necessary references
-    model.set "users.#{userObj.id}", userObj
-    setupListReferences(model)
-    view.render(model)
-    setTimeout (-> user.set('stats.hp', after.hp)), 0 # animated
+    model.set "users.#{userObj.id}", userObj, ->
+      #setupListReferences(model)
+      view.render(model)
+      #setTimeout (-> user.set('stats.hp', after.hp)), 0 # animated
+      setTimeout (-> window.location.href = window.location.href), 1 # refresh - FIXME view.render() borks the dom
+  #    browser.setupSortable(model)
+  #    browser.setupTooltips(model)
+  #    browser.setupTour(model)
   , 1000
