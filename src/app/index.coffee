@@ -51,6 +51,10 @@ get '/', (page, model, next) ->
 
     model.set '_view', _view
 
+    ## Notifiations
+    unless userObj.notifications?.kickstarter
+      user.set('notifications.kickstarter', 'show')
+
     setupListReferences(model)
 
     # Setup Model Functions
@@ -63,22 +67,24 @@ get '/', (page, model, next) ->
 
 # ========== CONTROLLER FUNCTIONS ==========
 
+resetDom = (model) ->
+  window.DERBY.app.dom.clear()
+  view.render(model)
+
 cron = (model) ->
   user = model.at('_user')
   userObj = user.get()
+
+  # This is an expensive function, only call it on cron
+  return unless scoring.cronCount(userObj) > 0
 
   ## User Cleanup
   # FIXME temporary hack to remove duplicates and empty (grey) tasks. Need to figure out why they're being produced
   taskIds = _.pluck(userObj.tasks, 'id')
   _.each ['habitIds','dailyIds','todoIds', 'completedIds', 'rewardIds'], (path) ->
     unique = _.uniq userObj[path] #remove duplicates
-    #remove empty grey tasks
-    preened = _.filter(unique, (val) -> _.contains(taskIds, val))
+    preened = _.filter(unique, (val) -> _.contains(taskIds, val)) #remove empty grey tasks
     userObj[path] = preened if _.size(preened) != _.size(userObj[path]) # There were indeed duplicates or empties
-
-  ## Notifiations
-  unless userObj.notifications?.kickstarter
-    user.set('notifications.kickstarter', 'show')
 
   ## Cron
   # hp-shimmy so we can animate the hp-loss
@@ -88,19 +94,8 @@ cron = (model) ->
   userObj.stats.hp = before.hp
 
   model.set "users.#{userObj.id}", userObj, ->
-    # Don't do anything if same day or new user
-    return if before.lastCron == after.lastCron or !before.lastCron?
-
-    setTimeout ->
-        #setupListReferences(model)
-        view.render(model)
-        user.set 'stats.hp', after.hp
-        #setTimeout (-> user.set('stats.hp', after.hp)), 0 # animated
-#        window.location.reload()
-      #    browser.setupSortable(model)
-      #    browser.setupTooltips(model)
-      #    browser.setupTour(model)
-    , 1000
+  resetDom(model)
+  setTimeout (-> user.set 'stats.hp', after.hp), 1000 # animate hp loss
 
 ready (model) ->
   user = model.at('_user')
@@ -265,9 +260,10 @@ ready (model) ->
     task = model.at $(el).parents('li')[0]
     scoring.score(task.get('id'), direction)
 
-  revive = (userObj) ->
+  revive = (userObj, animateHp = false) ->
     # Reset stats
-    userObj.stats.hp = 50; userObj.stats.lvl = 1; userObj.stats.money = 0; userObj.stats.exp = 0
+    userObj.stats.hp = 50 unless animateHp # if we're animating hp-reset, we'll set to 50 ourselves later in our functions
+    userObj.stats.lvl = 1; userObj.stats.money = 0; userObj.stats.exp = 0
 
     # Reset items
     userObj.items.armor = 0; userObj.items.weapon = 0
@@ -278,12 +274,13 @@ ready (model) ->
     
   exports.revive = (e, el) ->
     userObj = user.get()
-    revive(userObj)
-    user.set 'stats', userObj.stats, ->
-      user.set 'items', userObj.items, ->
-        # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
-        #view.render(model)
-        window.location.reload() # refresh - FIXME view.render() borks the dom
+    revive(userObj, true)
+
+    user.set 'stats', userObj.stats
+    user.set 'items', userObj.items
+    # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
+    resetDom(model)
+    setTimeout (-> user.set 'stats.hp', 50), 0 # animate hp loss
 
   exports.reset = (e, el) ->
     userObj = user.get()
@@ -291,16 +288,12 @@ ready (model) ->
     userObj.tasks = {}
     _.each taskTypes, (type) -> userObj["#{type}Ids"] = []
     userObj.balance = 2 if userObj.balance < 2 #only if they haven't manually bought tokens
-    revive(userObj)
+    revive(userObj, true)
 
     # Set new user
-    model.set "users.#{userObj.id}", userObj, ->
-
-      # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
-      #setupListReferences(model)
-      #view.resetModel(model)
-      #view.render(model)
-      window.location.reload() # refresh - FIXME view.render() borks the dom
+    model.set "users.#{userObj.id}", userObj
+    resetDom(model)
+    setTimeout (-> user.set 'stats.hp', 50), 0 # animate hp loss
 
   exports.closeKickstarterNofitication = (e, el) ->
     user.set('notifications.kickstarter', 'hide')
