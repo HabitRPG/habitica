@@ -250,12 +250,11 @@ ready (model) ->
   exports.revive = (e, el) ->
     userObj = user.get()
     revive(userObj)
-    user.set 'stats', userObj.stats
-    user.set 'items', userObj.items
-
-    # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
-    #view.render(model)
-    setTimeout (-> window.location.href = window.location.href), 0 # refresh - FIXME view.render() borks the dom
+    user.set 'stats', userObj.stats, ->
+      user.set 'items', userObj.items, ->
+        # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
+        #view.render(model)
+        window.location.reload(true) # refresh - FIXME view.render() borks the dom
 
   exports.reset = (e, el) ->
     userObj = user.get()
@@ -266,12 +265,12 @@ ready (model) ->
     revive(userObj)
 
     # Set new user
-    model.set "users.#{userObj.id}", userObj
+    model.set "users.#{userObj.id}", userObj, ->
 
-    # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
-    setupListReferences(model)
-    #view.render(model)
-    setTimeout (-> window.location.href = window.location.href), 0 # refresh - FIXME view.render() borks the dom
+      # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
+      #setupListReferences(model)
+      #view.render(model)
+      window.location.reload(true) # refresh - FIXME view.render() borks the dom
 
   exports.closeKickstarterNofitication = (e, el) ->
     user.set('notifications.kickstarter', 'hide')
@@ -287,15 +286,15 @@ ready (model) ->
     after = {hp:userObj.stats.hp, lastCron:userObj.lastCron}
     #userObj.stats.hp = before.hp
 
-    # Don't do anything if same day
+    # Don't do anything if same day or new user
     return if before.lastCron == after.lastCron or !before.lastCron?
 
     #set necessary references
     model.set "users.#{userObj.id}", userObj, ->
       #setupListReferences(model)
-      view.render(model)
+      #view.render(model)
       #setTimeout (-> user.set('stats.hp', after.hp)), 0 # animated
-      setTimeout (-> window.location.href = window.location.href), 1 # refresh - FIXME view.render() borks the dom
+      window.location.reload(true)
   #    browser.setupSortable(model)
   #    browser.setupTooltips(model)
   #    browser.setupTour(model)
