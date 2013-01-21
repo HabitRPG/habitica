@@ -51,7 +51,7 @@ get '/', (page, model, next) ->
 
     # FIXME temporary hack to remove duplicates and empty (grey) tasks. Need to figure out why they're being produced
     taskIds = _.pluck(userObj.tasks, 'id')
-    _.each ['habitIds','dailyIds','todoIds','rewardIds'], (path) ->
+    _.each ['habitIds','dailyIds','todoIds', 'completedIds', 'rewardIds'], (path) ->
       unique = _.uniq userObj[path] #remove duplicates
       #remove empty grey tasks
       userObj[path] = _.filter(unique, (val) -> _.contains(taskIds, val))
@@ -112,7 +112,7 @@ ready (model) ->
       fromIds.splice(fromIds.indexOf(i), 1)
       user.set from, fromIds
       # Push to target (just the id to id-list)
-      toIds = model.get(to)
+      toIds = user.get(to)
       toIds.push i
       user.set to, toIds
     
@@ -283,14 +283,17 @@ ready (model) ->
     userObj = user.get()
 
     # hp-shimmy so we can animate the hp-loss
-    hpBefore = userObj.stats.hp
+    before = {hp:userObj.stats.hp, lastCron:userObj.lastCron}
     scoring.cron(userObj)
-    hpAfter = userObj.stats.hp
-    userObj.stats.hp = hpBefore
+    after = {hp:userObj.stats.hp, lastCron:userObj.lastCron}
+    userObj.stats.hp = before.hp
+
+    # Don't do anything if same day
+    return if before.lastCron == after.lastCron
 
     #set necessary references
     model.set "users.#{userObj.id}", userObj
     setupListReferences(model)
     view.render(model)
-    setTimeout (-> user.set('stats.hp', hpAfter)), 0 # animated
+    setTimeout (-> user.set('stats.hp', after.hp)), 0 # animated
   , 1000
