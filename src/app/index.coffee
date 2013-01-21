@@ -32,6 +32,7 @@ get '/', (page, model, next) ->
 
   userPath = "users.#{model.session.userId}"
   model.subscribe userPath, (err, user) ->
+    model.ref '_user', user
     userObj = user.get()
     return page.redirect '/500.html' unless userObj? #this should never happen, but it is. Looking into it
 
@@ -48,19 +49,6 @@ get '/', (page, model, next) ->
       potion: content.items.potion
       reroll: content.items.reroll
 
-    # FIXME temporary hack to remove duplicates and empty (grey) tasks. Need to figure out why they're being produced
-    taskIds = _.pluck(userObj.tasks, 'id')
-    _.each ['habitIds','dailyIds','todoIds', 'completedIds', 'rewardIds'], (path) ->
-      unique = _.uniq userObj[path] #remove duplicates
-      #remove empty grey tasks
-      preened = _.filter(unique, (val) -> _.contains(taskIds, val))
-      user.set(path, preened) if _.size(preened) != _.size(userObj[path]) # There were indeed duplicates or empties
-
-    # ========== Notifiations ==========
-    unless userObj.notifications?.kickstarter
-      user.set('notifications.kickstarter', 'show')
-
-    model.ref '_user', user
     model.set '_view', _view
 
     setupListReferences(model)
@@ -75,8 +63,53 @@ get '/', (page, model, next) ->
 
 # ========== CONTROLLER FUNCTIONS ==========
 
+cron = (model) ->
+  user = model.at('_user')
+  userObj = user.get()
+
+  ## User Cleanup
+  # FIXME temporary hack to remove duplicates and empty (grey) tasks. Need to figure out why they're being produced
+  taskIds = _.pluck(userObj.tasks, 'id')
+  _.each ['habitIds','dailyIds','todoIds', 'completedIds', 'rewardIds'], (path) ->
+    unique = _.uniq userObj[path] #remove duplicates
+    #remove empty grey tasks
+    preened = _.filter(unique, (val) -> _.contains(taskIds, val))
+    userObj[path] = preened if _.size(preened) != _.size(userObj[path]) # There were indeed duplicates or empties
+
+  ## Notifiations
+  unless userObj.notifications?.kickstarter
+    user.set('notifications.kickstarter', 'show')
+
+  ## Cron
+  # hp-shimmy so we can animate the hp-loss
+  before = {hp:userObj.stats.hp, lastCron:userObj.lastCron}
+  scoring.cron(userObj)
+  after = {hp:userObj.stats.hp, lastCron:userObj.lastCron}
+  userObj.stats.hp = before.hp
+
+  model.set "users.#{userObj.id}", userObj, ->
+    # Don't do anything if same day or new user
+    return if before.lastCron == after.lastCron or !before.lastCron?
+
+    setTimeout ->
+        #setupListReferences(model)
+        view.render(model)
+        user.set 'stats.hp', after.hp
+        #setTimeout (-> user.set('stats.hp', after.hp)), 0 # animated
+#        window.location.reload()
+      #    browser.setupSortable(model)
+      #    browser.setupTooltips(model)
+      #    browser.setupTour(model)
+    , 1000
+
 ready (model) ->
   user = model.at('_user')
+
+  # Setup model in scoring functions
+  scoring.setModel(model)
+
+  # First things first. Preen the user object, check if dailies, etc
+  cron(model)
 
   # Load all the jQuery, Growl, Tour, etc
   browser.loadJavaScripts(model)
@@ -84,9 +117,6 @@ ready (model) ->
   browser.setupTooltips(model)
   browser.setupTour(model)
   browser.setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
-
-  # Setup model in scoring functions
-  scoring.setModel(model)
 
   require('../server/private').app(exports, model)
 
@@ -274,28 +304,3 @@ ready (model) ->
 
   exports.closeKickstarterNofitication = (e, el) ->
     user.set('notifications.kickstarter', 'hide')
-
-  # ========== CRON ==========
-
-  setTimeout ->
-    userObj = user.get()
-
-    # hp-shimmy so we can animate the hp-loss
-    before = {hp:userObj.stats.hp, lastCron:userObj.lastCron}
-    scoring.cron(userObj)
-    after = {hp:userObj.stats.hp, lastCron:userObj.lastCron}
-    #userObj.stats.hp = before.hp
-
-    # Don't do anything if same day or new user
-    return if before.lastCron == after.lastCron or !before.lastCron?
-
-    #set necessary references
-    model.set "users.#{userObj.id}", userObj, ->
-      #setupListReferences(model)
-      #view.resetModel(model)
-      #setTimeout (-> user.set('stats.hp', after.hp)), 0 # animated
-      window.location.reload()
-  #    browser.setupSortable(model)
-  #    browser.setupTooltips(model)
-  #    browser.setupTour(model)
-  , 1000
