@@ -60,7 +60,7 @@ get '/', (page, model, next) ->
     scoring.setModel(model)
     scoring.cron(userObj)
 
-    model.set userPath, userObj unless _.isEqual(user.get(), userObj)
+    model.set userPath, userObj #unless _.isEqual(user.get(), userObj)
 
     model.set '_view', _view
 
