@@ -15,6 +15,11 @@ browser = require './browser'
 _ = require('underscore')
 
 
+setupListReferences = (model) ->
+  # Setup Task Lists
+  taskTypes = ['habit', 'daily', 'todo', 'completed', 'reward']
+  _.each taskTypes, (type) ->  model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+
 # ========== ROUTES ==========
 
 get '/', (page, model, next) ->
@@ -56,23 +61,11 @@ get '/', (page, model, next) ->
       userObj.notifications = userObj.notifications || {}
       userObj.notifications.kickstarter = 'show'
 
-    model.ref '_user', user
-    scoring.setModel(model)
-    try
-      scoring.cron userObj
-    catch e # always random errors, dont' crash the server
-      console.error e
-
     model.set userPath, userObj #unless _.isEqual(user.get(), userObj)
-
+    model.ref '_user', user
     model.set '_view', _view
 
-    # Setup Task Lists
-    model.refList "_habitList", "_user.tasks", "_user.habitIds"
-    model.refList "_dailyList", "_user.tasks", "_user.dailyIds"
-    model.refList "_todoList", "_user.tasks", "_user.todoIds"
-    model.refList "_completedList", "_user.tasks", "_user.completedIds"
-    model.refList "_rewardList", "_user.tasks", "_user.rewardIds"
+    setupListReferences(model)
 
     # Setup Model Functions
     model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
@@ -171,7 +164,7 @@ ready (model) ->
     #TODO bug where I have to delete from _users.tasks AND _{type}List, 
     # fix when query subscriptions implemented properly
     $('[rel=tooltip]').tooltip('hide')
-    model.del('_user.tasks.'+task.get('id'))
+    user.del('tasks.'+task.get('id'))
     task.remove()
     
   exports.clearCompleted = (e, el) ->
@@ -277,7 +270,7 @@ ready (model) ->
     model.set "users.#{userObj.id}", userObj
 
     # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
-    _.each taskTypes, (type) ->  model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+    setupListReferences(model)
     view.render(model)
     setTimeout (-> user.set('stats.hp', 50)), 0 # we want this animated
 
@@ -286,6 +279,18 @@ ready (model) ->
 
   # ========== CRON ==========
 
-  # FIXME add animated HP loss on timeout
-#  setTimeout scoring.cron, 2000 # Run once on refresh
-#  setInterval scoring.cron, 3600000 # Then run once every hour
+  setTimeout ->
+    userObj = user.get()
+
+    # hp-shimmy so we can animate the hp-loss
+    hpBefore = userObj.stats.hp
+    scoring.cron(userObj)
+    hpAfter = userObj.stats.hp
+    userObj.stats.hp = hpBefore
+
+    #set necessary references
+    model.set "users.#{userObj.id}", userObj
+    setupListReferences(model)
+    view.render(model)
+    setTimeout (-> user.set('stats.hp', hpAfter)), 0 # animated
+  , 1000
