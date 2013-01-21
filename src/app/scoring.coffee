@@ -196,10 +196,8 @@ cron = (userObj) ->
   lastCron = userObj.lastCron
   daysPassed = helpers.daysBetween(today, lastCron)
   if daysPassed > 0
-    todoTally = 0
-    userObj.history ?= {}; userObj.history.todos ?= []; userObj.history.exp ?= []
-
     # Tally each task
+    todoTally = 0
     _.each userObj.tasks, (taskObj) ->
       #FIXME remove broken tasks
       if taskObj.id? # a task had a null id during cron, this should not be happening
@@ -230,6 +228,7 @@ cron = (userObj) ->
             todoTally += absVal
 
     # Finished tallying
+    userObj.history ?= {}; userObj.history.todos ?= []; userObj.history.exp ?= []
     userObj.history.todos.push { date: today, value: todoTally }
     # tally experience
     expTally = userObj.stats.exp

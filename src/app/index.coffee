@@ -58,7 +58,10 @@ get '/', (page, model, next) ->
 
     model.ref '_user', user
     scoring.setModel(model)
-    scoring.cron(userObj)
+    try
+      scoring.cron userObj
+    catch e # always random errors, dont' crash the server
+      console.error e
 
     model.set userPath, userObj #unless _.isEqual(user.get(), userObj)
 
