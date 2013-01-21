@@ -123,13 +123,12 @@ updateStats = (newStats, update) ->
 score = (taskId, direction, times, update) ->
   times ?= 1
 
-  userObj = update || user.get()
+  userObj = update or user.get()
   {money, hp, exp, lvl} = userObj.stats
 
   taskPath = "tasks.#{taskId}"
-  taskObj = model.get("_user.#{taskPath}")
+  taskObj = userObj.tasks[taskId]
   {type, value} = taskObj
-
 
   delta = 0
   calculateDelta = (adjustvalue=true) ->
@@ -142,12 +141,12 @@ score = (taskId, direction, times, update) ->
       value += nextDelta if adjustvalue
       delta += nextDelta
 
-  addPoints = () ->
+  addPoints = ->
     modified = expModifier(delta)
     exp += modified
     money += modified
 
-  subtractPoints = () ->
+  subtractPoints = ->
     modified = hpModifier(delta)
     hp += modified
 
@@ -159,20 +158,19 @@ score = (taskId, direction, times, update) ->
       # Add habit value to habit-history (if different)
       historyEntry = { date: new Date(), value: value } if taskObj.value != value
       if (delta > 0) then addPoints() else subtractPoints()
-      if update
-        update.tasks[taskObj.id].history ||= []
-        update.tasks[taskObj.id].history.push historyEntry
-      else
-        model.push "_user.#{taskPath}.history", historyEntry
+      model.push "_user.#{taskPath}.history", historyEntry
 
-    when 'daily', 'todo'
+    when 'daily'
       calculateDelta()
-      if delta > 0
-        addPoints()
-      else if delta < 0 and !update? # update==cron
-        addPoints() # trick to "undo" points when they mistakenly checked a checkbox
-      else if type == 'daily' #dont' subtract cron points for todos
+      if update? # cron
         subtractPoints()
+      else
+        addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
+
+    when 'todo'
+      calculateDelta()
+      unless update? # don't touch stats on cron
+        addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
     when 'reward'
       # Don't adjust values for rewards
@@ -187,6 +185,7 @@ score = (taskId, direction, times, update) ->
 
   userSet "#{taskPath}.value", value, update
   updateStats {hp: hp, exp: exp, money: money}, update
+  return delta
 
 # At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
 # For incomplete Dailys, deduct experience
@@ -203,7 +202,6 @@ cron = (userObj) ->
     _.each userObj.tasks, (taskObj) ->
       #FIXME remove broken tasks
       if taskObj.id? # a task had a null id during cron, this should not be happening
-        console.log taskObj
         {id, type, completed, repeat} = taskObj
         if type in ['todo', 'daily']
           # Deduct experience for missed Daily tasks,
@@ -219,7 +217,7 @@ cron = (userObj) ->
                 thatDay = moment().subtract('days', n+1)
                 if repeat[helpers.dayMapping[thatDay.day()]]==true
                   daysFailed++
-            score(id, 'down', daysFailed, userObj)
+            score id, 'down', daysFailed, userObj
 
           value = userObj.tasks[taskObj.id].value #get updated value
           if type == 'daily'
