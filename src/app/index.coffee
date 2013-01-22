@@ -99,7 +99,7 @@ cron = (model) ->
   after = {hp:userObj.stats.hp, lastCron:userObj.lastCron}
   userObj.stats.hp = before.hp
 
-  model.set "users.#{userObj.id}", userObj, ->
+  model.set "users.#{userObj.id}", userObj
   resetDom(model)
   setTimeout (-> user.set 'stats.hp', after.hp), 1000 # animate hp loss
 
