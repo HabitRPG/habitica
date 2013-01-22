@@ -4,31 +4,9 @@ casper = require("casper").create
   clientScripts: 'test/includes/lodash.min.js'
 
 # ---------- Util Functions ------------
-getUser = () -> casper.evaluate -> window.DERBY.app.model.get('_user')
+getUser = -> casper.evaluate -> window.DERBY.app.model.get('_user')
 
-# ---------- Init ------------
-
-casper.start url, ->
-  @test.assertTitle "HabitRPG | Gamify Your Life", "[√] Page Title"
-
-# ---------- Register ------------
-casper.then ->
-  @fill 'form#derby-auth-register',
-    username: 'lefnire'
-    email: 'x@x.com'
-    'email-confirmation': 'x@x.com'
-    password: 'habitrpg123'
-  , true
-
-# Clear tasks
-casper.then ->
-  @debugHTML()
-  @click '#reset-modal button:contains(Reset)'
-  tasks = @evaluate -> window.DERBY.app.model.get('_user.tasks')
-  @test.assertEual tasks.length,0
-
-# ---------- Setup Tasks ------------
-casper.then ->
+addTasks = () ->
   ['habit', 'daily', 'todo', 'reward'].forEach (type) ->
     # Add 15 of each task type
     num = 0
@@ -36,60 +14,145 @@ casper.then ->
       casper.fill "form#new-#{type}", {'new-task': "#{type}-#{num}"} # why can't I use true here?
       casper.click "form#new-#{type} input[type=submit]"
 
-# ---------- Habit ------------
+reset = -> casper.evaluate -> window.DERBY.app.reset()
+
+userBeforeAfter = (callback) ->
+  user = {}
+  user.before = getUser()
+  callback()
+  user.after = getUser()
+  user
+
+runCron = ->
+  casper.evaluate -> window.DERBY.model.set('_user.lastCron', new Date('01/10/2013'))
+  casper.reload()
+
+# ---------- Init ------------
+
+casper.start url, ->
+  @test.assertTitle "HabitRPG | Gamify Your Life", "[√] Page Title"
+
+# ---------- Register ------------
+#casper.then ->
+#  @fill 'form#derby-auth-register',
+#    username: 'lefnire'
+#    email: 'x@x.com'
+#    'email-confirmation': 'x@x.com'
+#    password: 'habitrpg123'
+#  , true
+
+
+# ---------- Habits ------------
 casper.then ->
-  userBefore = getUser()
-  @click '.habits a[data-direction="down"]'
-  userAfter = getUser()
-  @test.assert userBefore.stats.hp > userAfter.stats.hp, '-habit: -hp'
-  @test.assert userBefore.stats.exp == userAfter.stats.exp, '-habit: =exp'
+  reset()
+  addTasks()
+
+casper.then ->
+  user = userBeforeAfter (-> casper.click '.habits a[data-direction="down"]')
+  @test.assert user.before.stats.hp > user.after.stats.hp, '-habit -hp'
+  @test.assert user.before.stats.exp == user.after.stats.exp, '-habit =exp'
 
   @then ->
-    useBefore = getUser()
-    @click '.habits a[data-direction="up"]'
-    userAfter = getUser()
-    @test.assert userBefore.stats.exp < userAfter.stats.exp, '+habit: +exp'
-    @test.assert userBefore.stats.hp == userAfter.stats.hp, '+habit: =hp'
+    user = userBeforeAfter (-> casper.click '.habits a[data-direction="up"]')
+    @test.assert user.before.stats.exp < user.after.stats.exp, '+habit +exp'
+    @test.assertEquals user.before.stats.hp, user.after.stats.hp, '+habit =hp'
 
 # Test Death
 casper.then ->
-  @repeat 50, ->
-    @click '.habits a[data-direction="down"]'
-
+  @repeat 50, (-> casper.click '.habits a[data-direction="down"]')
   @then ->
-    userStats = @evaluate ->
-      window.DERBY.app.model.get('_user.stats')
-    utils.dump userStats
-
+    user = getUser()
+    @test.assertEquals user.stats.hp, 0, 'hp==0 (death by habits)'
+    @test.assertEquals user.stats.lvl, 0, 'lvl==0 (death by habits)'
     @test.assert(@visible('#dead-modal'), 'Revive Modal Visible')
-    @test.assert(userStats.hp == 0, 'User HP: 0')
-    @test.assert(userStats.lvl == 0, 'User Lvl: 0')
-    @test.assert(userStats.money == 0, 'User GP: 0')
+
+# ---------- Daily ------------
+casper.then ->
+  reset()
+  addTasks()
+
+# Gained exp on +daily
+casper.then ->
+  user = userBeforeAfter (-> casper.click '.dailys input[type="checkbox"]')
+  @test.assertEquals user.before.stats.hp, user.after.stats.hp, '+daily =hp'
+  @test.assert user.before.stats.exp < user.after.stats.exp, '+daily +exp'
+  @test.assert user.before.stats.money < user.after.stats.money, '+daily +money'
+
+# -daily acts as undo
+casper.then ->
+  user = userBeforeAfter (-> casper.click '.dailys input[type="checkbox"]')
+  @test.assertEquals user.before.stats.hp, user.after.stats.hp, '-daily =hp'
+  @test.assert user.before.stats.exp > user.after.stats.exp, '-daily -exp'
+  @test.assert user.before.stats.money > user.after.stats.money, '-daily -money'
+
+
+# ---------- Todos ------------
+casper.then ->
+  reset()
+  addTasks()
+
+# Gained exp on +daily
+casper.then ->
+  user = userBeforeAfter (-> casper.click '.todos input[type="checkbox"]')
+  @test.assertEquals user.before.stats.hp, user.after.stats.hp, '+daily =hp'
+  @test.assert user.before.stats.exp < user.after.stats.exp, '+daily +exp'
+  @test.assert user.before.stats.money < user.after.stats.money, '+daily +money'
+
+# -daily acts as undo
+casper.then ->
+  user = userBeforeAfter (-> casper.click '.todos input[type="checkbox"]')
+  @test.assertEquals user.before.stats.hp, user.after.stats.hp, '-daily =hp'
+  @test.assert user.before.stats.exp > user.after.stats.exp, '-daily -exp'
+  @test.assert user.before.stats.money > user.after.stats.money, '-daily -money'
+
+# ---------- Rewards ------------
+#TODO
 
 # ---------- Cron ------------
+
 casper.then ->
+  reset()
+  addTasks()
 
-  tasksBefore = @evaluate ->
-    model = window.DERBY.app.model
-    { habits:model.get('_habitList'), dailies:model.get('_dailyList'), todos:model.get('_todoList'), rewards:model.get('_rewardList')}
-
-  # Run Cron
-  @evaluate -> window.DERBY.model.set('_user.lastCron', new Date('01/10/2013'))
-  @echo 'Refreshing page (running cron)'
-  @reload()
+casper.then ->
+  user = {before:getUser()}
+  tasks =
+    before:
+      daily: @evaluate -> window.DERBY.app.model.get('_dailyList')
+      todo: @evaluate -> window.DERBY.app.model.get('_todoList')
+  runCron()
 
   @then ->
-#    @wait 1000, ->
-    user = getUser()
-    tasksAfter = @evaluate ->
-      model = window.DERBY.app.model
-      { habits:model.get('_habitList'), dailies:model.get('_dailyList'), todos:model.get('_todoList'), rewards:model.get('_rewardList')}
+    @wait 1050, -> # user's hp is updated after 1s for animation
+      user.after = getUser()
+      tasks =
+        after:
+          daily: @evaluate -> window.DERBY.app.model.get('_dailyList')
+          todo: @evaluate -> window.DERBY.app.model.get('_todoList')
 
-    @test.assert tasksBefore.count == tasksAfter.count, "[√] We didn't lose anything"
-    utils.dump {before:tasksBefore.todos[4], after:tasksAfter.todos[4]}
-    @test.assert tasksBefore.todos[4].value < tasksAfter.todos[4].value, "Todo gained value on cron"
-    @test.assertEqual user.stats.hp, 13, 'User lost HP on cron'
+      @test.assertEqual user.before.tasks.length, user.after.tasks.length, "Didn't lose anything on cron"
 
+      #TODO make sure true for all todos
+      todoId = tasks.before.todos[0].id
+      @test.assert user.before.tasks[todoId].value < user.before.tasks[todoId].value, "todo gained value on cron"
+      @test.assert user.before.stats.hp < user.after.stats.hp, 'user lost HP on cron'
+
+# ---------- Reset ------------
+#  @then ->
+#   utils.dump @evaluate -> window.DERBY.app.model.get('_user.auth')
+#   @click '#reset-modal button:contains(Reset)'
+
+# Clear tasks
+casper.then ->
+  #TODO test after stats have been modified
+  casper.repeat 5, -> @click '.habits a[data-direction="down"]'
+  casper.repeat 5, -> @click '.habits a[data-direction="up"]'
+  userObj = @evaluate ->
+    window.DERBY.app.reset()
+    return window.DERBY.app.model.get('_user')
+
+  @test.assertEqual userObj.tasks.length, 0
+  @test.assertEqual userObj.stats.hp, 50
 
 # ---------- Misc Pages ------------
 
