@@ -187,23 +187,14 @@ score = (taskId, direction, times, update) ->
   updateStats {hp: hp, exp: exp, money: money}, update
   return delta
 
-
-###
-  Is it time for cron? (aka, has user not logged in for a day or more)
-###
-cronCount = (userObj) ->
-  today = new Date()
-  userObj.lastCron ?= today
-  daysPassed = helpers.daysBetween(today, userObj.lastCron)
-  daysPassed
-
 ###
   At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
   For incomplete Dailys, deduct experience
 ###
 cron = (userObj) ->
   today = new Date()
-  daysPassed = cronCount(userObj)
+  userObj.lastCron ?= today
+  daysPassed = helpers.daysBetween(today, userObj.lastCron)
   if daysPassed > 0
     # Tally each task
     todoTally = 0
@@ -253,7 +244,6 @@ module.exports = {
   MODIFIER: MODIFIER
   score: score
   cron: cron
-  cronCount: cronCount
 
   # testing stuff
   expModifier: expModifier

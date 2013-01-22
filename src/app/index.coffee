@@ -30,10 +30,13 @@ get '/', (page, model, next) ->
   #if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
   #  return page.redirect 'https://' + req.headers.host + req.url
 
-  userPath = "users.#{model.session.userId}"
-  model.subscribe userPath, (err, user) ->
+  userId = model.session.userId
+  q = "users.#{userId}"
+  #q = model.query('users').withId(userId) # FIXME this should be working, and we need to get it working so we can use mongodb indexes
+  model.subscribe q, (err, user) ->
     model.ref '_user', user
     userObj = user.get()
+
     return page.redirect '/500.html' unless userObj? #this should never happen, but it is. Looking into it
 
     # support legacy Everyauth schema (now using derby-auth, Passport)
@@ -43,16 +46,27 @@ get '/', (page, model, next) ->
       _view.loginName = if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name
 
     # Setup Item Store
+    items = userObj.items
     _view.items =
-      armor: content.items.armor[parseInt(userObj.items?.armor || 0) + 1]
-      weapon: content.items.weapon[parseInt(userObj.items?.weapon || 0) + 1]
+      armor: content.items.armor[parseInt(items?.armor || 0) + 1]
+      weapon: content.items.weapon[parseInt(items?.weapon || 0) + 1]
       potion: content.items.potion
       reroll: content.items.reroll
 
     model.set '_view', _view
 
+    ## User Cleanup
+    # FIXME temporary hack to remove duplicates and empty (grey) tasks. Need to figure out why they're being produced
+    # FIXME consolidate these all under user.listIds so we can set them en-masse
+    tasks = userObj.tasks
+    taskIds = _.pluck(tasks, 'id')
+    _.each ['habitIds','dailyIds','todoIds', 'completedIds', 'rewardIds'], (path) ->
+      unique = _.uniq userObj[path] #remove duplicates
+      preened = _.filter(unique, (val) -> _.contains(taskIds, val)) #remove empty grey tasks
+      user.set(path, preened) if _.size(preened) != _.size(userObj[path]) # There were indeed duplicates or empties
+
     ## Notifiations
-    unless userObj.notifications?.kickstarter
+    unless userObj.notifications?.kickstarter?
       user.set('notifications.kickstarter', 'show')
 
     setupListReferences(model)
@@ -73,20 +87,13 @@ resetDom = (model) ->
 
 cron = (model) ->
   user = model.at('_user')
-  userObj = user.get()
 
   # This is an expensive function, only call it on cron
-  return unless scoring.cronCount(userObj) > 0
+  lastCron = user.get('lastCron')
+  return unless !lastCron or (helpers.daysBetween(new Date(), lastCron) > 0)
 
-  ## User Cleanup
-  # FIXME temporary hack to remove duplicates and empty (grey) tasks. Need to figure out why they're being produced
-  taskIds = _.pluck(userObj.tasks, 'id')
-  _.each ['habitIds','dailyIds','todoIds', 'completedIds', 'rewardIds'], (path) ->
-    unique = _.uniq userObj[path] #remove duplicates
-    preened = _.filter(unique, (val) -> _.contains(taskIds, val)) #remove empty grey tasks
-    userObj[path] = preened if _.size(preened) != _.size(userObj[path]) # There were indeed duplicates or empties
+  userObj = user.get()
 
-  ## Cron
   # hp-shimmy so we can animate the hp-loss
   before = {hp:userObj.stats.hp, lastCron:userObj.lastCron}
   scoring.cron(userObj)
