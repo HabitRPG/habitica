@@ -30,12 +30,9 @@ get '/', (page, model, next) ->
   #if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
   #  return page.redirect 'https://' + req.headers.host + req.url
 
-  userId = model.session.userId
-  # FIXME TMK we should be using model.query() in order to utilize mongo index on _id; however, it's returning empty result
-  # See derby-auth for current motif (goo.gl/uNOGI) and Racer query README (goo.gl/p7YRt) for side-by-side comparison
-  #q = model.query('users').withId(userId)
-  q = "users.#{userId}"
-  model.subscribe q, (err, user) ->
+  q = model.query('users').withId(model.session.userId)
+  model.subscribe q, (err, result) ->
+    user = result.at(0)
     model.ref '_user', user
     userObj = user.get()
 
