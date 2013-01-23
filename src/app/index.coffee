@@ -30,9 +30,11 @@ get '/', (page, model, next) ->
   #if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
   #  return page.redirect 'https://' + req.headers.host + req.url
 
-  q = model.query('users').withId(model.session.userId)
-  model.subscribe q, (err, result) ->
-    user = result.at(0)
+  #FIXME subscribing to this query causes "Fatal Error: Unauuthorized" after conncetion for a time (racer/lib/accessControl/accessControl.Store.js)
+  #q = model.query('users').withId(model.session.userId)
+  q = "users.#{model.session.userId}"
+  model.subscribe q, (err, user) ->
+    #user = result.at(0)
     model.ref '_user', user
     userObj = user.get()
 
