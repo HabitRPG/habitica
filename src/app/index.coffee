@@ -66,6 +66,7 @@ get '/', (page, model, next) ->
       # 2. restore missing zombie tasks back into list
       where = {type:type}
       if type in ['completed', 'todo']
+        where.type = 'todo'
         where.completed = if type == 'completed' then true else false
       taskIds =  _.pluck( _.where(userObj.tasks, where), 'id')
       union = _.union userObj[path], taskIds
