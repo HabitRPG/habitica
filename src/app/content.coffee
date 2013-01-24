@@ -19,7 +19,7 @@ module.exports =
       }
       {
         element: "#bars"
-        title: "Acheive goals and level up"
+        title: "Achieve goals and level up"
         content: "As you accomplish goals, you level up. If you fail your goals, you lose hit points. Lose all your HP and you die."
       }
       {
