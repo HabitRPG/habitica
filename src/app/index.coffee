@@ -56,15 +56,25 @@ get '/', (page, model, next) ->
 
     model.set '_view', _view
 
-    ## User Cleanup
-    # FIXME temporary hack to remove duplicates and empty (grey) tasks. Need to figure out why they're being produced
+    ## Task List Cleanup
+    # FIXME temporary hack to fix lists (Need to figure out why these are happening)
     # FIXME consolidate these all under user.listIds so we can set them en-masse
-    tasks = userObj.tasks
-    taskIds = _.pluck(tasks, 'id')
-    _.each ['habitIds','dailyIds','todoIds', 'completedIds', 'rewardIds'], (path) ->
-      unique = _.uniq userObj[path] #remove duplicates
-      preened = _.filter(unique, (val) -> _.contains(taskIds, val)) #remove empty grey tasks
-      user.set(path, preened) if _.size(preened) != _.size(userObj[path]) # There were indeed duplicates or empties
+    _.each ['habit','daily','todo', 'completed', 'reward'], (type) ->
+      path = "#{type}Ids"
+
+      # 1. remove duplicates
+      # 2. restore missing zombie tasks back into list
+      where = {type:type}
+      if type in ['completed', 'todo']
+        where.completed = if type == 'completed' then true else false
+      taskIds =  _.pluck( _.where(userObj.tasks, where), 'id')
+      union = _.union userObj[path], taskIds
+
+      # 2. remove empty (grey) tasks
+      preened = _.filter(union, (val) -> _.contains(taskIds, val))
+
+      # There were indeed issues found, set the new list
+      user.set(path, preened) if _.size(preened) != _.size(userObj[path])
 
     ## Notifiations
     unless userObj.notifications?.kickstarter?
