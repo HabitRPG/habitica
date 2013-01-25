@@ -98,7 +98,7 @@ updateStats = (newStats, update) ->
       userSet 'stats.hp', 50, update
     if !userObj.items.itemsEnabled and newStats.exp >=15
       userSet 'items.itemsEnabled', true, update
-      if (jQuery) #can't run this on the server
+      if ($?) #can't run this on the server
         $('ul.items').popover
           title: content.items.unlockedMessage.title
           placement: 'left'
