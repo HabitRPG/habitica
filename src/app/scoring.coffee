@@ -98,18 +98,6 @@ updateStats = (newStats, update) ->
       userSet 'stats.hp', 50, update
     if !userObj.items.itemsEnabled and newStats.exp >=15
       userSet 'items.itemsEnabled', true, update
-      if ($?) #can't run this on the server
-        $('ul.items').popover
-          title: content.items.unlockedMessage.title
-          placement: 'left'
-          trigger: 'manual'
-          html: true
-          content: "<div class='item-store-popover'>\
-            <img src='/img/BrowserQuest/chest.png' />\
-            #{content.items.unlockedMessage.content} <a href='#' onClick=\"$('ul.items').popover('hide');return false;\">[Close]</a>\
-            </div>"
-        $('ul.items').popover 'show'
-
     userSet 'stats.exp', newStats.exp, update
 
   if newStats.money?

@@ -95,6 +95,19 @@ module.exports.setupGrowlNotifications = (model) ->
       allow_dismiss: true
       stackup_spacing: 10 # spacing between consecutive stacecked growls.
 
+  user.on 'set', 'items.itemsEnabled', (captures, args) ->
+    return unless captures == true
+    $('ul.items').popover
+      title: content.items.unlockedMessage.title
+      placement: 'left'
+      trigger: 'manual'
+      html: true
+      content: "<div class='item-store-popover'>
+                  <img src='/img/BrowserQuest/chest.png' />
+                  #{content.items.unlockedMessage.content} <a href='#' onClick=\"$('ul.items').popover('hide');return false;\">[Close]</a>
+                  </div>"
+    $('ul.items').popover 'show'
+
   # Setup listeners which trigger notifications
   user.on 'set', 'stats.hp', (captures, args) ->
     num = captures - args
