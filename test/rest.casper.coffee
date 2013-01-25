@@ -36,27 +36,30 @@ casper.thenOpen "#{url}/?play=1", ->
 
   # ---------- v1 ------------
 
-  @thenOpen "#{url}/users/#{user1.id}/tasks/#{taskId}/up", {
+  @thenOpen "#{url}/users/#{user2.id}/tasks/#{taskId}/up", {
     method: 'post',
     data: pomodoro
   }, ->
     result = JSON.parse @getPageContent()
-    @test.assertEqual user1.stats.hp, result.hp, 'REST +habit =hp'
-    @test.assert user1.stats.exp < result.exp, 'REST +habit +exp'
-    @test.assert user1.stats.money < result.money, 'REST +habit +money'
+    @test.assertEqual user2.stats.hp, result.hp, 'REST +habit =hp'
+    @test.assert user2.stats.exp < result.exp, 'REST +habit +exp'
+    @test.assert user2.stats.money < result.money, 'REST +habit +money'
     utils.dump result
 
-  @thenOpen "#{url}/users/#{user2.id}/tasks/#{taskId}/down", {
+  @thenOpen "#{url}/users/#{user1.id}/tasks/#{taskId}/down", {
     method: 'post',
     data: pomodoro
   }, ->
     result = JSON.parse @getPageContent()
-    @test.assert user2.stats.hp > result.hp, 'REST -habit -hp'
-    @test.assertEqual user2.stats.exp, result.exp, 'REST -habit =exp'
-    @test.assertEqual user2.stats.money, result.money, 'REST -habit =money'
+    @test.assert user1.stats.hp > result.hp, 'REST -habit -hp'
+    @test.assertEqual user1.stats.exp, result.exp, 'REST -habit =exp'
+    @test.assertEqual user1.stats.money, result.money, 'REST -habit =money'
     utils.dump result
 
-  @thenOpen ""
+casper.thenOpen "#{url}/?play=1", ->
+  # User2 is logged in by now. Make sure we don't get logged in as user1 since that was the last REST call
+  current = casper.evaluate -> window.DERBY.app.model.get('_user')
+  casper.then -> casper.test.assertEqual current.id, user2.id, "session remains user2's"
 
   # ---------- v2 ------------
 

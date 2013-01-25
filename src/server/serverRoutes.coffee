@@ -33,7 +33,6 @@ module.exports = (expressApp, root, derby) ->
     return res.send(500, ":direction must be 'up' or 'down'") unless direction in ['up','down']
 
     model = req.getModel()
-    model.session.userId = uid
     model.fetch "users.#{uid}", (err, user) ->
       return res.send(500, err) if err
       userObj = user.get()
