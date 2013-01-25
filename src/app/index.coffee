@@ -13,6 +13,10 @@ helpers = require './helpers'
 helpers.viewHelpers view
 browser = require './browser'
 _ = require('underscore')
+Validator = require('validator').Validator
+v = new Validator
+exports.Validator = Validator
+
 
 setupListReferences = (model) ->
   # Setup Task Lists
@@ -157,6 +161,9 @@ ready (model) ->
       toIds = user.get(to)
       toIds.push i
       user.set to, toIds
+
+  user.on 'set', 'tasks.*.value', (i, value, previous, isLocal, passed) ->
+    user.set('tasks.' + i + '.value', 0) if value < 0
     
   exports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
@@ -257,6 +264,11 @@ ready (model) ->
     
     money = user.get 'stats.money'
     [type, value, index] = [ $(el).attr('data-type'), $(el).attr('data-value'), $(el).attr('data-index') ]
+
+    try
+      v.check(value).isInt()
+    catch e
+      console.log e.message
     
     return if money < value
     user.set 'stats.money', money - value

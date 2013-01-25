@@ -9,6 +9,7 @@ MongoStore = require('connect-mongo')(express)
 auth = require 'derby-auth'
 priv = require './private'
 toobusy = require 'toobusy'
+expressValidator = require('express-validator')
 
 ## RACER CONFIGURATION ##
 
@@ -86,6 +87,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     # Middelware can be inserted after the modelMiddleware and before
     # the app router to pass server accessible data to a model
     .use(priv.middleware)
+    .use(expressValidator)
 
     # HabitRPG Custom Middleware
     .use (req, res, next) ->
