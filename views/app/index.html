@@ -346,10 +346,7 @@
       </div>
       
       {#if :task.notes}
-        {#if equal(:task.type,'reward')}
-          <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
-        {else}
-          <span rel="popover" data-trigger="hover" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
+       <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
         {/}  
       {/}
     </div>
