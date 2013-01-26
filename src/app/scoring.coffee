@@ -96,7 +96,7 @@ updateStats = (newStats, update) ->
       newStats.exp -= tnl
       userSet 'stats.lvl', userObj.stats.lvl + 1, update
       userSet 'stats.hp', 50, update
-    if !userObj.items.itemsEnabled and newStats.exp >=15
+    if !userObj.items?.itemsEnabled? and newStats.exp >=15
       userSet 'items.itemsEnabled', true, update
     userSet 'stats.exp', newStats.exp, update
 
