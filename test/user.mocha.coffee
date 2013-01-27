@@ -84,7 +84,6 @@ describe 'User', ->
     expect(_.size(user.habitIds)).to.eql 3
     expect(_.size(user.dailyIds)).to.eql 3
     expect(_.size(user.todoIds)).to.eql 1
-    expect(_.size(user.completedIds)).to.eql 0
     expect(_.size(user.rewardIds)).to.eql 2
   
   ##### Habits #####  

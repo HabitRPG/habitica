@@ -59,15 +59,12 @@ get '/', (page, model, next) ->
     ## Task List Cleanup
     # FIXME temporary hack to fix lists (Need to figure out why these are happening)
     # FIXME consolidate these all under user.listIds so we can set them en-masse
-    _.each ['habit','daily','todo', 'completed', 'reward'], (type) ->
+    _.each ['habit','daily','todo','reward'], (type) ->
       path = "#{type}Ids"
 
       # 1. remove duplicates
       # 2. restore missing zombie tasks back into list
       where = {type:type}
-      if type in ['completed', 'todo']
-        where.type = 'todo'
-        where.completed = if type == 'completed' then true else false
       taskIds =  _.pluck( _.where(userObj.tasks, where), 'id')
       union = _.union userObj[path], taskIds
 
