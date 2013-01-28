@@ -39,6 +39,36 @@ module.exports = ->
       casper.evaluate -> window.DERBY.model.set('_user.lastCron', new Date('01/25/2013'))
       casper.reload()
 
+    cronBeforeAfter: (cb) ->
+      that = @
+
+      getLists = ->
+        {
+          habit: casper.evaluate -> window.DERBY.app.model.get('_habitList')
+          daily: casper.evaluate -> window.DERBY.app.model.get('_dailyList')
+          todo: casper.evaluate -> window.DERBY.app.model.get('_todoList')
+          reward: casper.evaluate -> window.DERBY.app.model.get('_rewardList')
+        }
+
+      beforeAfter =
+        before:
+          user: that.getUser()
+          tasks: getLists()
+
+      casper.then -> that.runCron()
+
+      casper.then ->
+        casper.wait 1050, -> # user's hp is updated after 1s for animation
+          beforeAfter.after =
+            user: that.getUser()
+            tasks: getLists()
+
+          casper.then ->
+            casper.test.assertEqual beforeAfter.before.user.id, beforeAfter.after.user.id, 'user id equal after cron'
+            casper.test.assertEqual beforeAfter.before.user.tasks.length, beforeAfter.after.user.tasks.length, "Didn't lose anything on cron"
+            cb(beforeAfter)
+
+
     register: ->
       casper.fill 'form#derby-auth-register',
         username: random
