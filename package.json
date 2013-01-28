@@ -20,7 +20,8 @@
     "lodash": "*",
     "coffee-script": "*",
     "toobusy": "~0.2.0",
-    "underscore": "*"
+    "underscore": "*",
+    "mongoskin": "*"
   },
   "private": true,
   "subdomain": "habitrpg",
