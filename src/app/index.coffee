@@ -16,7 +16,7 @@ _ = require('underscore')
 
 setupListReferences = (model) ->
   # Setup Task Lists
-  taskTypes = ['habit', 'daily', 'todo', 'completed', 'reward']
+  taskTypes = ['habit', 'daily', 'todo', 'reward']
   _.each taskTypes, (type) ->  model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
 
 # ========== ROUTES ==========
@@ -59,15 +59,12 @@ get '/', (page, model, next) ->
     ## Task List Cleanup
     # FIXME temporary hack to fix lists (Need to figure out why these are happening)
     # FIXME consolidate these all under user.listIds so we can set them en-masse
-    _.each ['habit','daily','todo', 'completed', 'reward'], (type) ->
+    _.each ['habit','daily','todo','reward'], (type) ->
       path = "#{type}Ids"
 
       # 1. remove duplicates
       # 2. restore missing zombie tasks back into list
       where = {type:type}
-      if type in ['completed', 'todo']
-        where.type = 'todo'
-        where.completed = if type == 'completed' then true else false
       taskIds =  _.pluck( _.where(userObj.tasks, where), 'id')
       union = _.union userObj[path], taskIds
 
@@ -145,19 +142,6 @@ ready (model) ->
     task = user.at("tasks.#{i}")
     scoring.score(i, direction())
     
-    # Then move the todos to/from _todoList/_completedList
-    if task.get('type') == 'todo'
-      [from, to] = if (direction()=='up') then ['todo', 'completed'] else ['completed', 'todo']
-      [from, to] = ["#{from}Ids", "#{to}Ids"]
-      # Remove from source (just remove the id from id-list)
-      fromIds = user.get(from)
-      fromIds.splice(fromIds.indexOf(i), 1)
-      user.set from, fromIds
-      # Push to target (just the id to id-list)
-      toIds = user.get(to)
-      toIds.push i
-      user.set to, toIds
-    
   exports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
     list = model.at "_#{type}List"
@@ -212,9 +196,15 @@ ready (model) ->
     task.remove()
     
   exports.clearCompleted = (e, el) ->
-    _.each model.get('_completedList'), (task) ->
-      user.del('tasks.'+task.id)
-      user.set('completedIds', [])
+    todoIds = user.get('todoIds')
+    removed = false
+    _.each model.get('_todoList'), (task) ->
+      if task.completed
+        removed = true
+        user.del('tasks.'+task.id)
+        todoIds.splice(todoIds.indexOf(task.id), 1)
+    if removed
+      user.set('todoIds', todoIds)
       
   exports.toggleDay = (e, el) ->
     task = model.at(e.target)
@@ -305,7 +295,7 @@ ready (model) ->
 
   exports.reset = (e, el) ->
     userObj = user.get()
-    taskTypes = ['habit', 'daily', 'todo', 'completed', 'reward']
+    taskTypes = ['habit', 'daily', 'todo', 'reward']
     userObj.tasks = {}
     _.each taskTypes, (type) -> userObj["#{type}Ids"] = []
     userObj.balance = 2 if userObj.balance < 2 #only if they haven't manually bought tokens
