@@ -1,46 +1,46 @@
-helpers = require('./helpers')
-casper = helpers.casper
-utils = helpers.utils
-url = helpers.url
+helper = new require('./test/casper/helpers')()
+casper = helper.casper
+utils = helper.utils
+url = helper.url
 
+casper.start url + '/?play=1'
 
 # ---------- Daily ------------
 casper.then ->
-  reset()
-  addTasks()
+  helper.reset()
+  helper.addTasks()
 
 # Gained exp on +daily
 casper.then ->
-  user = userBeforeAfter (-> casper.click '.dailys input[type="checkbox"]')
+  user = helper.userBeforeAfter (-> casper.click '.dailys input[type="checkbox"]')
   @test.assertEquals user.before.stats.hp, user.after.stats.hp, '+daily =hp'
   @test.assert user.before.stats.exp < user.after.stats.exp, '+daily +exp'
   @test.assert user.before.stats.money < user.after.stats.money, '+daily +money'
 
 # -daily acts as undo
 casper.then ->
-  user = userBeforeAfter (-> casper.click '.dailys input[type="checkbox"]')
+  user = helper.userBeforeAfter (-> casper.click '.dailys input[type="checkbox"]')
   @test.assertEquals user.before.stats.hp, user.after.stats.hp, '-daily =hp'
   @test.assert user.before.stats.exp > user.after.stats.exp, '-daily -exp'
   @test.assert user.before.stats.money > user.after.stats.money, '-daily -money'
 
-
 # ---------- Cron ------------
 
 casper.then ->
-  reset()
-  addTasks()
+  helper.reset()
+  helper.addTasks()
 
 casper.then ->
-  user = {before:getUser()}
+  user = {before:helper.getUser()}
   tasks =
     before:
       daily: @evaluate -> window.DERBY.app.model.get('_dailyList')
       todo: @evaluate -> window.DERBY.app.model.get('_todoList')
-  runCron()
+  helper.runCron()
 
   @then ->
     @wait 1050, -> # user's hp is updated after 1s for animation
-      user.after = getUser()
+      user.after = helper.getUser()
       @test.assertEqual user.before.id, user.after.id, 'user id equal after cron'
       tasks.after =
           daily: @evaluate -> window.DERBY.app.model.get('_dailyList')
