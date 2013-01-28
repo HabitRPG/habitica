@@ -30,9 +30,9 @@ module.exports = ->
 
     userBeforeAfter: (callback) ->
       user = {}
-      user.before = getUser()
+      user.before = @getUser()
       callback()
-      user.after = getUser()
+      user.after = @getUser()
       user
 
     runCron: ->
