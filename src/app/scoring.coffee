@@ -180,7 +180,7 @@ score = (taskId, direction, times, update) ->
   For incomplete Dailys, deduct experience
 ###
 cron = (userObj) ->
-  today = new Date()
+  today = +new Date
   userObj.lastCron ?= today
   daysPassed = helpers.daysBetween(today, userObj.lastCron)
   if daysPassed > 0
