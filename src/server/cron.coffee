@@ -36,6 +36,6 @@ module.exports.deleteStaleAccounts = ->
       removeAccount(collection, user._id)
       return
     diff = Math.abs(moment(today).sod().diff(moment(lastCron).sod(), "days"))
-    if diff > 30
+    if diff > 15
       removeAccount(collection, user._id)
       return
