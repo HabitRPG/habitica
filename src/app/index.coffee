@@ -162,8 +162,10 @@ ready (model) ->
     type = $(el).attr('data-task-type')
     list = model.at "_#{type}List"
     newModel = model.at('_new' + type.charAt(0).toUpperCase() + type.slice(1))
+    text = newModel.get()
     # Don't add a blank todo
-    return unless text = view.escapeHtml newModel.get()
+    return if /^(\s)*$/.test(text)
+
     newModel.set ''
     switch type
 
