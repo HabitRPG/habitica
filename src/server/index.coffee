@@ -10,6 +10,9 @@ auth = require 'derby-auth'
 priv = require './private'
 toobusy = require 'toobusy'
 
+## Run server cron ##
+require('./cron').deleteStaleAccounts()
+
 ## RACER CONFIGURATION ##
 
 racer = require 'racer'
