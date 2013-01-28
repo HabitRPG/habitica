@@ -22,20 +22,20 @@ module.exports.deleteStaleAccounts = ->
 
   today = +new Date
 
-  isValidDate = (d) ->
-    return false  if Object::toString.call(d) isnt "[object Date]"
-    not isNaN(d.getTime())
+#  isValidDate = (d) ->
+#    return false  if Object::toString.call(d) isnt "[object Date]"
+#    not isNaN(d.getTime())
 
   removeAccount = (collection, id) -> collection.remove {_id: id}, (err, res) -> throw err if err
 
   collection.findEach un_registered, (err, user) ->
     throw err if err
     return unless user? #why does this happen sometimes?
-    lastCron = new Date(user.lastCron)
-    if !isValidDate(lastCron)
+    unless user.lastCron
       removeAccount(collection, user._id)
       return
+
+    lastCron = new Date(user.lastCron)
     diff = Math.abs(moment(today).sod().diff(moment(lastCron).sod(), "days"))
     if diff > 15
       removeAccount(collection, user._id)
-      return
