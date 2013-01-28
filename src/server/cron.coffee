@@ -2,9 +2,14 @@ moment = require('moment')
 mongo = require("mongoskin")
 _ = require('underscore')
 
-module.exports.deleteStaleAccounts = () ->
+###
+  Users are allowed to experiment with the site before registering. Every time a new browser visits habitrpg, a new
+  "staged" account is created - and if the user later registeres, that staged account is considered a "production" account.
+  This function removes all staged accounts that have been abandoned - either older than a month, or corrupted in some way (lastCron==undefined)
+###
+module.exports.deleteStaleAccounts = ->
 
-  unRegistered = { "auth.local": {$exists: false} , "auth.facebook": {$exists: false} }
+  un_registered = { "auth.local": {$exists: false} , "auth.facebook": {$exists: false} }
   registered = registered = { $or: [
     { 'auth.local': { $exists: true } },
     { 'auth.facebook': { $exists: true} }
@@ -13,21 +18,24 @@ module.exports.deleteStaleAccounts = () ->
   collection = mongo.db(process.env.NODE_DB_URI, {safe:true}).collection("users")
 
   collection.count registered, (err, result) -> console.log("#{result} registered users [before]")
-  collection.count unRegistered, (err, result) -> console.log("#{result} un-registered users [before]")
+  collection.count un_registered, (err, result) -> console.log("#{result} un-registered users [before]")
+
+  today = +new Date
 
   isValidDate = (d) ->
     return false  if Object::toString.call(d) isnt "[object Date]"
     not isNaN(d.getTime())
 
-  today = +new Date
-  collection.findEach unRegistered, (err, user) ->
-    throw err if err
-    return unless user?
-    lastCron = new Date(user.lastCron)
-    return unless isValidDate(lastCron) # still gotta figure out what to do with users with "undefined" lastCron
-    diff = Math.abs(moment(today).sod().diff(moment(lastCron).sod(), "days"))
-    if diff > 15
-      collection.remove {_id: user._id}, (err, res) -> throw err if err
+  removeAccount = (collection, id) -> collection.remove {_id: id}, (err, res) -> throw err if err
 
-  collection.count registered, (err, result) -> console.log("#{result} registered users [after]")
-  collection.count unRegistered, (err, result) -> console.log("#{result} un-registered users [after]")
+  collection.findEach un_registered, (err, user) ->
+    throw err if err
+    return unless user? #why does this happen sometimes?
+    lastCron = new Date(user.lastCron)
+    if !isValidDate(lastCron)
+      removeAccount(collection, user._id)
+      return
+    diff = Math.abs(moment(today).sod().diff(moment(lastCron).sod(), "days"))
+    if diff > 30
+      removeAccount(collection, user._id)
+      return
