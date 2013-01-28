@@ -24,11 +24,9 @@ module.exports.deleteStaleAccounts = () ->
     throw err if err
     return unless user?
     lastCron = new Date(user.lastCron)
-    unless isValidDate(lastCron)
-      console.log user.lastCron
-      return
+    return unless isValidDate(lastCron) # still gotta figure out what to do with users with "undefined" lastCron
     diff = Math.abs(moment(today).sod().diff(moment(lastCron).sod(), "days"))
-    if diff > 30
+    if diff > 15
       collection.remove {_id: user._id}, (err, res) -> throw err if err
 
   collection.count registered, (err, result) -> console.log("#{result} registered users [after]")
