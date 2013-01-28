@@ -102,7 +102,7 @@ cron = (model) ->
 
   # This is an expensive function, only call it on cron
   lastCron = user.get('lastCron')
-  return unless !lastCron or (helpers.daysBetween(new Date(), lastCron) > 0)
+  return unless helpers.daysBetween(+new Date, lastCron) > 0
 
   userObj = user.get()
 
@@ -118,6 +118,7 @@ cron = (model) ->
 
 ready (model) ->
   user = model.at('_user')
+  user.setNull 'lastCron', +new Date #set cron immediately
 
   # Setup model in scoring functions
   scoring.setModel(model)
@@ -236,7 +237,7 @@ ready (model) ->
     
     matrix = [['Date', 'Score']]
     for obj in model.get(historyPath)
-      date = new Date(obj.date)
+      date = +new Date(obj.date)
       readableDate = moment(date).format('MM/DD')
       matrix.push [ readableDate, obj.value ]
     data = google.visualization.arrayToDataTable matrix

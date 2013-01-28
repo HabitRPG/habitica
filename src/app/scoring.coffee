@@ -144,7 +144,7 @@ score = (taskId, direction, times, update) ->
       adjustvalue = if (taskObj.up==false or taskObj.down==false) then false else true
       calculateDelta(adjustvalue)
       # Add habit value to habit-history (if different)
-      historyEntry = { date: new Date(), value: value } if taskObj.value != value
+      historyEntry = { date: +new Date(), value: value } if taskObj.value != value
       if (delta > 0) then addPoints() else subtractPoints()
       model.push "_user.#{taskPath}.history", historyEntry
 
@@ -181,7 +181,6 @@ score = (taskId, direction, times, update) ->
 ###
 cron = (userObj) ->
   today = +new Date
-  userObj.lastCron ?= today
   daysPassed = helpers.daysBetween(today, userObj.lastCron)
   if daysPassed > 0
     # Tally each task
