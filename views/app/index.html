@@ -210,13 +210,21 @@
           <div class="tab-content">
             <div class="tab-pane active" id="tab1">
               <ul class='todos'>
-                {#each _todoList as :task}<app:task />{/}
+                {#each _todoList as :task}
+                  {#if not(:task.completed)}
+                    <app:task />
+                  {/}
+                {/}
               </ul>
               <app:newTask type=todo><input value={_newTodo} type="text" name=new-task placeholder="New Todo"/></app:newTask>
             </div>
             <div class="tab-pane" id="tab2">
               <ul class='completeds'>
-                {#each _completedList as :task}<app:task />{/}
+                {#each _todoList as :task}
+                  {#if :task.completed}
+                    <app:task />
+                  {/}
+                {/}
               </ul>
               <a x-bind=click:clearCompleted>Clear Completed</a>
             </div>

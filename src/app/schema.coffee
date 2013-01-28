@@ -12,7 +12,6 @@ module.exports.userSchema = ->
     habitIds: []
     dailyIds: []
     todoIds: []
-    completedIds: []
     rewardIds: []
 
   for task in content.defaultTasks
