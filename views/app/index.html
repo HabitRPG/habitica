@@ -38,8 +38,8 @@
           <h3>Or</h3>
 
           <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#login">Login</a></li>
-              <li><a data-toggle="tab" href="#register">Register</a></li>
+              <li class="active"><a href="#" data-toggle="tab" data-target="#login">Login</a></li>
+              <li><a href="#" data-toggle="tab" data-target="#register">Register</a></li>
           </ul>
 
           <div class="tab-content">
@@ -123,7 +123,7 @@
 
     <div class='pull-right'>
       {#unless _loggedIn}
-        <a class="btn btn-small btn-info" href="#login-modal" data-toggle="modal">Login / Register</a>
+        <a href="#" class="btn btn-small btn-info" data-target="#login-modal" data-toggle="modal">Login / Register</a>
       {else}
         <div class="btn-group">
             <button class="btn btn-small">{_view.loginName}</button>
@@ -131,8 +131,8 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#settings-modal" data-toggle="modal">Settings</a></li>
-                <li><a href="#reset-modal" data-toggle="modal">Reset</a></li>
+                <li><a href="#" data-target="#settings-modal" data-toggle="modal">Settings</a></li>
+                <li><a href="#" data-target="#reset-modal" data-toggle="modal">Reset</a></li>
                 <li><a href='/logout'>Logout</a></li>
             </ul>
         </div>
@@ -207,8 +207,8 @@
           <div class="row-fluid">
             <h2 class="span6">Todos</h2>
             <ul class="span6 nav nav-pills">
-                <li class="active"><a href="#tab1" data-toggle="tab">Remaining</a></li>
-                <li><a href="#tab2" data-toggle="tab">Complete</a></li>
+                <li class="active"><a href="#" data-target="#tab1" data-toggle="tab">Remaining</a></li>
+                <li><a href="#" data-target="#tab2" data-toggle="tab">Complete</a></li>
             </ul>
           </div>
           <div class="tab-content">
@@ -324,7 +324,7 @@
     {#unless equal(@type,'reward')}
         <span class='pull-right'>
             <a x-bind="click:showStripe" rel='tooltip' title='Remove Ads'><i class='icon-remove'></i></a><br/>
-            <a data-target="#why-ads-modal" data-toggle="modal" rel='tooltip' title='Why Ads?'><i class='icon-question-sign'></i></a>
+            <a href="#" data-target="#why-ads-modal" data-toggle="modal" rel='tooltip' title='Why Ads?'><i class='icon-question-sign'></i></a>
 
         </span>
 
@@ -431,7 +431,7 @@
       </div>
       <div class="task-controls">
         {#if @reroll}
-          <a data-toggle="modal" data-target="#reroll-modal" class="item-buy-link" style='cursor:pointer'><i class=icon-retweet></i></a>
+          <a href="#" data-toggle="modal" data-target="#reroll-modal" class="item-buy-link" style='cursor:pointer'><i class=icon-retweet></i></a>
         {else}
           <a x-bind=click:buyItem class="item-buy-link" data-type={:item.type} data-value={:item.value} data-index={:item.index}>{:item.value}<img src="/img/coin_single_gold.png"/></a>
         {/}
