@@ -5,7 +5,7 @@ _ = require 'underscore'
 module.exports.userSchema = ->
   # deep clone, else further new users get duplicate objects
   newUser = require('lodash').cloneDeep
-    lastCron: 'new' #this will be replaced with a date on first run
+    lastCron: 'new' #this will be replaced with `+new Date` on first run
     balance: 2
     stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
     items: { itemsEnabled: false, armor: 0, weapon: 0 }

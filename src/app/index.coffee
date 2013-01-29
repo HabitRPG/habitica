@@ -97,7 +97,10 @@ resetDom = (model) ->
 
 ready (model) ->
   user = model.at('_user')
-  user.set('lastCron', +new Date) if user.get('lastCron')=='new' #set cron immediately
+
+  #set cron immediately
+  lastCron = user.get('lastCron')
+  user.set('lastCron', +new Date) if (!lastCron or lastCron == 'new')
 
   # Setup model in scoring functions
   scoring.setModel(model)
