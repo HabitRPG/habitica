@@ -8,7 +8,6 @@ serverError = require './serverError'
 MongoStore = require('connect-mongo')(express)
 auth = require 'derby-auth'
 priv = require './private'
-toobusy = require 'toobusy'
 
 ## Run server cron ##
 #require('./cron').deleteStaleAccounts()
