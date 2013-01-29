@@ -50,64 +50,65 @@ options =
   allowPurl: true
   schema: require('../app/schema').userSchema()
 
-expressApp
-  #.use (req, res, next) ->
-  #  if toobusy()
-  #    return res.redirect 307, '/500.html'
-  #  else
-  #    next()
+mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
+  expressApp
+    #.use (req, res, next) ->
+    #  if toobusy()
+    #    return res.redirect 307, '/500.html'
+    #  else
+    #    next()
 
-  .use(express.favicon())
-  # Gzip static files and serve from memory
-  .use(gzippo.staticGzip publicPath, maxAge: ONE_YEAR)
-  # Gzip dynamically rendered content
-  .use(express.compress())
+    .use(express.favicon())
+    # Gzip static files and serve from memory
+    .use(gzippo.staticGzip publicPath, maxAge: ONE_YEAR)
+    # Gzip dynamically rendered content
+    .use(express.compress())
 
-  # Uncomment to add form data parsing support
-  .use(express.bodyParser())
-  .use(express.methodOverride())
+    # Uncomment to add form data parsing support
+    .use(express.bodyParser())
+    .use(express.methodOverride())
 
-  # Uncomment and supply secret to add Derby session handling
-  # Derby session middleware creates req.session and socket.io sessions
-  .use(express.cookieParser())
-  .use(store.sessionMiddleware
-    secret: process.env.SESSION_SECRET || 'YOUR SECRET HERE'
-    cookie: {maxAge: ONE_YEAR}
-    store: new MongoStore {url: process.env.NODE_DB_URI}
-  )
+    # Uncomment and supply secret to add Derby session handling
+    # Derby session middleware creates req.session and socket.io sessions
+    .use(express.cookieParser())
+    .use(store.sessionMiddleware
+      secret: process.env.SESSION_SECRET || 'YOUR SECRET HERE'
+      cookie: {maxAge: ONE_YEAR}
+      store: mongo_store
+    )
 
-  #show splash page for newcomers
-  .use (req, res, next) ->
-    if !req.session.userId? and !req.query?.play?
-      res.redirect('/splash.html')
-    else
+    #show splash page for newcomers
+    .use (req, res, next) ->
+      if !req.session.userId? and !req.query?.play?
+        res.redirect('/splash.html')
+      else
+        next()
+
+    # Adds req.getModel method
+    .use(store.modelMiddleware())
+    # Middelware can be inserted after the modelMiddleware and before
+    # the app router to pass server accessible data to a model
+    .use(priv.middleware)
+
+    # HabitRPG Custom Middleware
+    .use (req, res, next) ->
+      model = req.getModel()
+      _view = model.get('_view') || {}
+      ## Set _mobileDevice to true or false so view can exclude portions from mobile device
+      _view.mobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
+      _view.nodeEnv = process.env.NODE_ENV
+      model.set '_view', _view
       next()
 
-  # Adds req.getModel method
-  .use(store.modelMiddleware())
-  # Middelware can be inserted after the modelMiddleware and before
-  # the app router to pass server accessible data to a model
-  .use(priv.middleware)
+    .use(auth(store, strategies, options))
+    # Creates an express middleware from the app's routes
+    .use(app.router())
+    .use(expressApp.router)
+    .use(serverError root)
 
-  # HabitRPG Custom Middleware
-  .use (req, res, next) ->
-    model = req.getModel()
-    _view = model.get('_view') || {}
-    ## Set _mobileDevice to true or false so view can exclude portions from mobile device
-    _view.mobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
-    _view.nodeEnv = process.env.NODE_ENV
-    model.set '_view', _view
-    next()
+  priv.routes(expressApp)
+  require('./serverRoutes')(expressApp, root, derby)
 
-  .use(auth(store, strategies, options))
-  # Creates an express middleware from the app's routes
-  .use(app.router())
-  .use(expressApp.router)
-  .use(serverError root)
-
-priv.routes(expressApp)
-require('./serverRoutes')(expressApp, root, derby)
-
-# Errors
-expressApp.all '*', (req) ->
-  throw "404: #{req.url}"
+  # Errors
+  expressApp.all '*', (req) ->
+    throw "404: #{req.url}"
