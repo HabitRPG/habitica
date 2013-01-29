@@ -31,11 +31,8 @@ module.exports.deleteStaleAccounts = ->
   collection.findEach un_registered, (err, user) ->
     throw err if err
     return unless user? #why does this happen sometimes?
-    unless user.lastCron
-      removeAccount(collection, user._id)
-      return
-
-    lastCron = new Date(user.lastCron)
-    diff = Math.abs(moment(today).sod().diff(moment(lastCron).sod(), "days"))
-    if diff > 30
-      removeAccount(collection, user._id)
+    if !!user.lastCron # for now ignore missing crons, still looking into why this is happening
+      lastCron = new Date(user.lastCron)
+      diff = Math.abs(moment(today).sod().diff(moment(lastCron).sod(), "days"))
+      if diff > 30
+        removeAccount(collection, user._id)
