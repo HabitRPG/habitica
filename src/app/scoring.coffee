@@ -183,6 +183,7 @@ cron = ->
   today = +new Date
   daysPassed = helpers.daysBetween(today, user.get('lastCron'))
   if daysPassed > 0
+    user.set 'lastCron', today
     userObj = user.get()
     hpBefore = userObj.stats.hp #we'll use this later so we can animate hp loss
     # Tally each task
@@ -207,11 +208,11 @@ cron = ->
                   daysFailed++
             score id, 'down', daysFailed, userObj
 
-          value = userObj.tasks[taskObj.id].value #get updated value
+          value = taskObj.value #get updated value
           if type == 'daily'
-            userObj.tasks[taskObj.id].history ?= []
-            userObj.tasks[taskObj.id].history.push { date: today, value: value }
-            userObj.tasks[taskObj.id].completed = false
+            taskObj.history ?= []
+            taskObj.history.push { date: today, value: value }
+            taskObj.completed = false
           else
             absVal = if (completed) then Math.abs(value) else value
             todoTally += absVal
@@ -227,7 +228,6 @@ cron = ->
       lvl++
       expTally += (lvl*100)/5
     userObj.history.exp.push  { date: today, value: expTally }
-    user.set 'lastCron', today
 
     # Set the new user specs, and animate HP loss
     [hpAfter, userObj.stats.hp] = [userObj.stats.hp, hpBefore]
