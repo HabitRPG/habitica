@@ -79,6 +79,12 @@
   </app:myModal>
 
 <alerts:>
+    {#if _flash.error}
+        <ul class="alert alert-error">
+            {#each _flash.error as :error}<li>{:error}</li>{/}
+        </ul>
+    {/}
+
     {#if equal(_user.notifications.kickstarter,'show')}
     <div class='alert alert-success'>
         <a x-bind="click:closeKickstarterNofitication" class='pull-right'>Dismiss</a>
@@ -134,12 +140,6 @@
     </div>
 
     <div class='container-fluid'>
-
-      {#if _flash.error}
-        <ul class="alert alert-error">
-            {#each _flash.error as :error}<li>{:error}</li>{/}
-        </ul>
-      {/}
 
       <div class='row-fluid'>
         <div id=character class='span4'>
