@@ -11,7 +11,7 @@ priv = require './private'
 toobusy = require 'toobusy'
 
 ## Run server cron ##
-require('./cron').deleteStaleAccounts()
+#require('./cron').deleteStaleAccounts()
 
 ## RACER CONFIGURATION ##
 
