@@ -17,6 +17,12 @@ html,body,p,h1,ul,li,table,tr,th,td
   box-shadow: inset 0 1px #f7f7f7, 0 1px #888, 0 2px #e7e7e7
   padding: 12px 16px
   white-space: nowrap
+  position:fixed
+  width: 100%;
+
+#head .pull-right
+  margin-right: 2%
+  margin-left: 1%
 
 .color-worst pre
   background-color: rgb(230, 184, 175)
@@ -176,7 +182,6 @@ li:hover .task-meta-controls .hover-show
 /* Bootstrap website boilerplate */
 .footer {
   padding: 70px 0;
-  margin-top: 70px;
   border-top: 1px solid #e5e5e5;
   background-color: #f5f5f5;
 }
@@ -194,7 +199,7 @@ li:hover .task-meta-controls .hover-show
 
 /* Customizations to make footer sticky */
 /*html, body {height: 100%;}*/                                                                                                                                                                                                                   
-#wrap {min-height: 100%;}                                                                                                                                                                                                                    
+#wrap {min-height: 100%; margin-top:130px; z-index:-1}                                                                                                                                                                                                                    
 #main                                                                                                                                                                                                                                        
   /*overflow:auto;*/                                                                                                                                                                                                                             
   padding-bottom: 250px; /* don't know why this works, sticky footers are weird */                                                                                                                                                                             
