@@ -78,41 +78,42 @@
       </@footer>
   </app:myModal>
 
+<alerts:>
+    {#if equal(_user.notifications.kickstarter,'show')}
+    <div class='alert alert-success'>
+        <a x-bind="click:closeKickstarterNofitication" class='pull-right'>Dismiss</a>
+        Help Habit by backing the <strong><a href="http://kck.st/XoA3Yg">Kickstarter</a></strong>! Funds iPhone & Android apps, <a href="https://github.com/lefnire/habitrpg/issues?labels=critical&page=1&state=open">bug fixes</a>, and the <a href="https://github.com/lefnire/habitrpg/issues/58">Groups feature</a>.
+    </div>
+    {/}
+
+    <!-- change to equal(_user.flags.aws_migrating,'show') when you're ready -->
+    {#if false}
+    <div class='alert'>
+        <div id="mc_embed_signup">
+            <form action="http://habitrpg.us6.list-manage.com/subscribe/post?u=274fbd56713d1968df2e18e18&amp;id=7d09ec341f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                Tyler Here. You're awesome. I'm working on scaling the site as fast as I can. Add your email if you want to be reminded. Thank you for understanding.
+                <div class="indicates-required"></div>
+                <div class="mc-field-group">
+                    <label for="mce-EMAIL">Email Address  <span class="asterisk">*</span></label>
+                    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>
+                <div class="clear">
+                    <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+                </div>
+                <div class='clear-both'></div>
+            </form>
+        </div>
+    </div>
+    {/if}
+
 <Header:>
   <app:modalDialogs />
   <ui:connectionAlert>
   <div id="head">
-
-  {#if equal(_user.notifications.kickstarter,'show')}
-      <div class='alert alert-success'>
-          <a x-bind="click:closeKickstarterNofitication" class='pull-right'>Dismiss</a>
-          Help Habit by backing the <strong><a href="http://kck.st/XoA3Yg">Kickstarter</a></strong>! Funds iPhone & Android apps, <a href="https://github.com/lefnire/habitrpg/issues?labels=critical&page=1&state=open">bug fixes</a>, and the <a href="https://github.com/lefnire/habitrpg/issues/58">Groups feature</a>.
-      </div>
-  {/}
-
-  <!-- change to equal(_user.flags.aws_migrating,'show') when you're ready -->
-  {#if false}
-    <div class='alert'>
-      <div id="mc_embed_signup">
-        <form action="http://habitrpg.us6.list-manage.com/subscribe/post?u=274fbd56713d1968df2e18e18&amp;id=7d09ec341f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-          Tyler Here. You're awesome. I'm working on scaling the site as fast as I can. Add your email if you want to be reminded. Thank you for understanding.
-          <div class="indicates-required"></div>
-          <div class="mc-field-group">
-            <label for="mce-EMAIL">Email Address  <span class="asterisk">*</span></label>
-            <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
-          </div>
-          <div id="mce-responses" class="clear">
-            <div class="response" id="mce-error-response" style="display:none"></div>
-            <div class="response" id="mce-success-response" style="display:none"></div>
-          </div>
-          <div class="clear">
-            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
-          </div>
-          <div class='clear-both'></div>
-        </form>
-      </div>
-    </div>
-  {/if}
 
     <div class='pull-right'>
       {#unless _loggedIn}
@@ -178,6 +179,9 @@
 <Body:>
   <br/>
   <div id=wrap class=container-fluid>
+
+    <app:alerts />
+
     <div id=main class=row-fluid>
       <!-- would rather have one component: <app:taskList>, which handles taskList, task, and newTask.  However,
         can't pass references as paramters.  so <app:taskList newModel={_newHabit} list={_habitList}> doesn't work
@@ -355,7 +359,6 @@
       
       {#if :task.notes}
        <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
-        {/}  
       {/}
     </div>
     
