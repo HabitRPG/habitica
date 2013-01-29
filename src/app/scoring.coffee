@@ -144,7 +144,7 @@ score = (taskId, direction, times, update) ->
       adjustvalue = if (taskObj.up==false or taskObj.down==false) then false else true
       calculateDelta(adjustvalue)
       # Add habit value to habit-history (if different)
-      historyEntry = { date: new Date(), value: value } if taskObj.value != value
+      historyEntry = { date: +new Date(), value: value } if taskObj.value != value
       if (delta > 0) then addPoints() else subtractPoints()
       model.push "_user.#{taskPath}.history", historyEntry
 
@@ -179,11 +179,12 @@ score = (taskId, direction, times, update) ->
   At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
   For incomplete Dailys, deduct experience
 ###
-cron = (userObj) ->
-  today = new Date()
-  userObj.lastCron ?= today
-  daysPassed = helpers.daysBetween(today, userObj.lastCron)
+cron = ->
+  today = +new Date
+  daysPassed = helpers.daysBetween(today, user.get('lastCron'))
   if daysPassed > 0
+    userObj = user.get()
+    hpBefore = userObj.stats.hp #we'll use this later so we can animate hp loss
     # Tally each task
     todoTally = 0
     _.each userObj.tasks, (taskObj) ->
@@ -214,6 +215,7 @@ cron = (userObj) ->
           else
             absVal = if (completed) then Math.abs(value) else value
             todoTally += absVal
+          user.set 'tasks.' + taskObj.id, taskObj
 
     # Finished tallying
     userObj.history ?= {}; userObj.history.todos ?= []; userObj.history.exp ?= []
@@ -225,7 +227,16 @@ cron = (userObj) ->
       lvl++
       expTally += (lvl*100)/5
     userObj.history.exp.push  { date: today, value: expTally }
-    userObj.lastCron = today # reset cron
+    user.set 'lastCron', today
+
+    # Set the new user specs, and animate HP loss
+    [hpAfter, userObj.stats.hp] = [userObj.stats.hp, hpBefore]
+    user.set 'stats', userObj.stats
+    user.set 'history', userObj.history
+    window.DERBY.app.dom.clear()
+    window.DERBY.app.view.render(model)
+    setTimeout (-> user.set 'stats.hp', hpAfter), 1000 # animate hp loss
+
 
 module.exports = {
   setModel: setModel
