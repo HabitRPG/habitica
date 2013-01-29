@@ -94,34 +94,14 @@ resetDom = (model) ->
   window.DERBY.app.dom.clear()
   view.render(model)
 
-cron = (model) ->
-  user = model.at('_user')
-
-  # This is an expensive function, only call it on cron
-  lastCron = user.get('lastCron')
-  return unless helpers.daysBetween(+new Date, lastCron) > 0
-
-  userObj = user.get()
-
-  # hp-shimmy so we can animate the hp-loss
-  before = {hp:userObj.stats.hp, lastCron:userObj.lastCron}
-  scoring.cron(userObj)
-  after = {hp:userObj.stats.hp, lastCron:userObj.lastCron}
-  userObj.stats.hp = before.hp
-
-  model.set "users.#{userObj.id}", userObj
-  resetDom(model)
-  setTimeout (-> user.set 'stats.hp', after.hp), 1000 # animate hp loss
 
 ready (model) ->
   user = model.at('_user')
-  user.setNull 'lastCron', +new Date #set cron immediately
+  user.set('lastCron', +new Date) if user.get('lastCron')=='new' #set cron immediately
 
   # Setup model in scoring functions
   scoring.setModel(model)
-
-  # First things first. Preen the user object, check if dailies, etc
-  cron(model)
+  scoring.cron()
 
   # Load all the jQuery, Growl, Tour, etc
   browser.loadJavaScripts(model)

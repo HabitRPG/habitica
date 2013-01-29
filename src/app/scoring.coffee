@@ -179,10 +179,13 @@ score = (taskId, direction, times, update) ->
   At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
   For incomplete Dailys, deduct experience
 ###
-cron = (userObj) ->
+cron = ->
   today = +new Date
-  daysPassed = helpers.daysBetween(today, userObj.lastCron)
+  daysPassed = helpers.daysBetween(today, user.get('lastCron'))
   if daysPassed > 0
+    user.set 'lastCron', today
+    userObj = user.get()
+    hpBefore = userObj.stats.hp #we'll use this later so we can animate hp loss
     # Tally each task
     todoTally = 0
     _.each userObj.tasks, (taskObj) ->
@@ -205,14 +208,15 @@ cron = (userObj) ->
                   daysFailed++
             score id, 'down', daysFailed, userObj
 
-          value = userObj.tasks[taskObj.id].value #get updated value
+          value = taskObj.value #get updated value
           if type == 'daily'
-            userObj.tasks[taskObj.id].history ?= []
-            userObj.tasks[taskObj.id].history.push { date: today, value: value }
-            userObj.tasks[taskObj.id].completed = false
+            taskObj.history ?= []
+            taskObj.history.push { date: today, value: value }
+            taskObj.completed = false
           else
             absVal = if (completed) then Math.abs(value) else value
             todoTally += absVal
+          user.set 'tasks.' + taskObj.id, taskObj
 
     # Finished tallying
     userObj.history ?= {}; userObj.history.todos ?= []; userObj.history.exp ?= []
@@ -224,7 +228,15 @@ cron = (userObj) ->
       lvl++
       expTally += (lvl*100)/5
     userObj.history.exp.push  { date: today, value: expTally }
-    userObj.lastCron = today # reset cron
+
+    # Set the new user specs, and animate HP loss
+    [hpAfter, userObj.stats.hp] = [userObj.stats.hp, hpBefore]
+    user.set 'stats', userObj.stats
+    user.set 'history', userObj.history
+    window.DERBY.app.dom.clear()
+    window.DERBY.app.view.render(model)
+    setTimeout (-> user.set 'stats.hp', hpAfter), 1000 # animate hp loss
+
 
 module.exports = {
   setModel: setModel
