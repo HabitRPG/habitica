@@ -179,7 +179,7 @@ score = (taskId, direction, times, update) ->
   At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
   For incomplete Dailys, deduct experience
 ###
-cron = ->
+cron = (resetDom_cb) ->
   today = +new Date
   daysPassed = helpers.daysBetween(today, user.get('lastCron'))
   if daysPassed > 0
@@ -233,8 +233,7 @@ cron = ->
     [hpAfter, userObj.stats.hp] = [userObj.stats.hp, hpBefore]
     user.set 'stats', userObj.stats
     user.set 'history', userObj.history
-    window.DERBY.app.dom.clear()
-    window.DERBY.app.view.render(model)
+    resetDom_cb(model)
     setTimeout (-> user.set 'stats.hp', hpAfter), 1000 # animate hp loss
 
 

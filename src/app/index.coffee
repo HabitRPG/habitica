@@ -114,7 +114,7 @@ ready (model) ->
 
   # Setup model in scoring functions
   scoring.setModel(model)
-  scoring.cron()
+  scoring.cron(resetDom)
 
   # Load all the jQuery, Growl, Tour, etc
   browser.loadJavaScripts(model)
