@@ -78,6 +78,9 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
 
     #show splash page for newcomers
     .use (req, res, next) ->
+      # This was an API call, not a page load
+      return next() if req.is('json')
+
       if !req.session.userId? and !req.query?.play?
         res.redirect('/splash.html')
       else

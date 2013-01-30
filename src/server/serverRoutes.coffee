@@ -22,6 +22,7 @@ module.exports = (expressApp, root, derby) ->
     res.send(200, deprecatedMessage)
 
   # New API
+  # test with `curl -X POST -H "Content-Type:application/json" localhost:3000/users/{uid}/tasks/productivity/up`
   expressApp.post '/users/:uid/tasks/:taskId/:direction', (req, res) ->
     {uid, taskId, direction} = req.params
     {title, service, icon} = req.body
