@@ -300,16 +300,17 @@ ready (model) ->
   exports.addFriend = ->
     friendId = model.get('_newFriend').replace(/[\s"]/g, '')
     return if _.isEmpty(friendId)
+    if user.get('friends').indexOf(friendId) != -1
+      model.set "_view.addFriendError", "#{friendId} already in party."
+      return
     query = model.query('users').friends([friendId])
     model.fetch query, (err, users) ->
       friend = users.get(0)
-      if friend
+      if friend.id?
         #TODO ensure unique
-        #TODO trim, remove quotes
         user.push('friends', friendId)
         $('#add-friend-modal').modal('hide')
         window.location.reload() #TODO break old subscript, setup new, then remove reload
         model.set '_newFriend', ''
       else
         model.set "_view.addFriendError", "User with id #{friendId} not found."
-        return
