@@ -166,7 +166,7 @@
               <td class="avatar main-avatar">
                 <div class='avatar-sprites'>
                   <img class='weapon weapon-{_user.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{_user.items.weapon}.png" />
-                  <img class='armor armor-{_user.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(_user)}" />
+                  <img class='armor armor-{_user.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(_user.preferences.gender, _user.items.armor, _user.preferences.armorSet)}" />
                 </div>
                 <div id="lvl"><span class="badge badge-info">Lvl {_user.stats.lvl}</span></div>
               </td>
@@ -195,7 +195,7 @@
                     <td class="avatar friend-avatar" rel="tooltip" title="{userName(:friend.auth)}" data-placement="bottom" >
                         <div class='avatar-sprites'>
                             <img class='weapon weapon-{:friend.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:friend.items.weapon}.png" />
-                            <img class='armor armor-{:friend.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:friend)}" />
+                            <img class='armor armor-{:friend.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:friend.preferences.gender, :friend.items.armor, :friend.preferences.armorSet)}" />
                         </div>
                         <div id="lvl"><span class="badge badge-info">Lvl {:friend.stats.lvl}</span></div>
                     </td>
