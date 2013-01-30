@@ -12,17 +12,27 @@ casper.then ->
 
 # Gained exp on +daily
 casper.then ->
-  user = helper.userBeforeAfter (-> casper.click '.todos input[type="checkbox"]')
-  @test.assertEquals user.before.stats.hp, user.after.stats.hp, '+todo =hp'
-  @test.assert user.before.stats.exp < user.after.stats.exp, '+todo +exp'
-  @test.assert user.before.stats.money < user.after.stats.money, '+todo +money'
+  helper.modelBeforeAfter (-> casper.click '.todos input[type="checkbox"]'), (model) ->
+    casper.test.assertEquals model.before._user.stats.hp, 50, 'todo:hp starts at 50'
+    casper.test.assertEquals model.before._user.stats.hp, model.after._user.stats.hp, '+todo =hp'
+    casper.test.assertEquals model.after._user.stats.exp, 1, '+todo exp=1'
+    casper.test.assertEquals model.after._user.stats.money, 1, '+todo gp=1'
+
+    #FIXME before._user.stats not fully available until modified? Is this a Derby JIT caching mechanism?
+    #casper.test.assert model.before._user.stats.exp < model.after._user.stats.exp, '+todo +exp'
+    #casper.test.assert model.before._user.stats.money < model.after._user.stats.money, '+todo +money'
 
 # -daily acts as undo
 casper.then ->
-  user = helper.userBeforeAfter (-> casper.click '.todos input[type="checkbox"]')
-  @test.assertEquals user.before.stats.hp, user.after.stats.hp, '-todo =hp'
-  @test.assert user.before.stats.exp > user.after.stats.exp, '-todo -exp'
-  @test.assert user.before.stats.money > user.after.stats.money, '-todo -money'
+  helper.modelBeforeAfter (-> casper.click '.completeds input[type="checkbox"]'), (model) ->
+    casper.test.assertEquals model.before._user.stats.hp, model.after._user.stats.hp, '-todo =hp'
+    casper.test.assert model.before._user.stats.exp > model.after._user.stats.exp, '-todo -exp'
+    casper.test.assert model.before._user.stats.money > model.after._user.stats.money, '-todo -money'
+    utils.dump {before:model.before._user.stats, after:model.after._user.stats}
+
+casper.then -> helper.deleteOne('todo')
+casper.then -> helper.deleteOne('completed')
+
 
 # ---------- Cron ------------
 casper.then ->
