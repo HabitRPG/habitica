@@ -71,28 +71,7 @@ get '/', (page, model, next) ->
 
     model.set '_view', _view
 
-    ## Task List Cleanup
-    # FIXME temporary hack to fix lists (Need to figure out why these are happening)
-    # FIXME consolidate these all under user.listIds so we can set them en-masse
-    _.each ['habit','daily','todo','reward'], (type) ->
-      path = "#{type}Ids"
-
-      # 1. remove duplicates
-      # 2. restore missing zombie tasks back into list
-      where = {type:type}
-      taskIds =  _.pluck( _.where(userObj.tasks, where), 'id')
-      union = _.union userObj[path], taskIds
-
-      # 2. remove empty (grey) tasks
-      preened = _.filter(union, (val) -> _.contains(taskIds, val))
-
-      # There were indeed issues found, set the new list
-      user.set(path, preened) if _.size(preened) != _.size(userObj[path])
-
-    ## Notifiations
-    unless userObj.notifications?.kickstarter?
-      user.set('notifications.kickstarter', 'show')
-
+    schema.updateUser(user, userObj)
     setupListReferences(model)
     setupModelFns(model)
 

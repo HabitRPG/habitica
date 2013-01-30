@@ -47,7 +47,7 @@ strategies =
 options =
   domain: process.env.BASE_URL || 'http://localhost:3000'
   allowPurl: true
-  schema: require('../app/schema').userSchema()
+  schema: require('../app/schema').newUserObject()
 
 mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
   expressApp
