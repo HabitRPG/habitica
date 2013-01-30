@@ -97,16 +97,32 @@ module.exports.setupGrowlNotifications = (model) ->
 
   user.on 'set', 'items.itemsEnabled', (captures, args) ->
     return unless captures == true
+    message = "Congratulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information."
     $('ul.items').popover
-      title: content.items.unlockedMessage.title
+      title: "Item Store Unlocked"
       placement: 'left'
       trigger: 'manual'
       html: true
       content: "<div class='item-store-popover'>
                   <img src='/img/BrowserQuest/chest.png' />
-                  #{content.items.unlockedMessage.content} <a href='#' onClick=\"$('ul.items').popover('hide');return false;\">[Close]</a>
+                  #{message} <a href='#' onClick=\"$('ul.items').popover('hide');return false;\">[Close]</a>
                   </div>"
     $('ul.items').popover 'show'
+
+  user.on 'set', 'flags.partyEnabled', (captures, args) ->
+    return unless captures == true
+    message = "Congratulations, you have unlocked the Party System! You can now group with your friends by adding their User Ids."
+    $('#add-friend-button').popover
+      title: "Pary System Unlocked"
+      placement: 'bottom'
+      trigger: 'manual'
+      html: true
+      content: "<div class='party-system-popover'>
+              <img src='/img/BrowserQuest/favicon.png' />
+              #{message} <a href='#' onClick=\"$('#add-friend-button').popover('hide');return false;\">[Close]</a>
+              </div>"
+    $('#add-friend-button').popover 'show'
+
 
   # Setup listeners which trigger notifications
   user.on 'set', 'stats.hp', (captures, args) ->

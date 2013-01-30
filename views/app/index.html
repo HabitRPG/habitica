@@ -158,7 +158,7 @@
     <div class='container-fluid'>
 
       <div class='row-fluid'>
-        <div id=character class='span4'>
+        <div id=character class='{#if _user.flags.partyEnabled}span9{else}span4{/}'>
           <table>
             <tr>
 
@@ -190,17 +190,18 @@
               </td>
 
               <!-- Party -->
-              <!--if _user.flags.partyUnlocked-->
-              {#each _friends as :friend}
-                    <td class="avatar friend-avatar">
+              {#if _user.flags.partyEnabled}
+                  {#each _friends as :friend}
+                    <td class="avatar friend-avatar" rel="tooltip" title="{userName(:friend.auth)}" data-placement="bottom" >
                         <div class='avatar-sprites'>
                             <img class='weapon weapon-{:friend.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:friend.items.weapon}.png" />
                             <img class='armor armor-{:friend.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:friend)}" />
                         </div>
                         <div id="lvl"><span class="badge badge-info">Lvl {:friend.stats.lvl}</span></div>
                     </td>
+                  {/}
+                  <td><a class="btn" id="add-friend-button" data-target="#add-friend-modal" data-toggle="modal"><i class="icon-user"></i></a></td>
               {/}
-              <td><a class="btn" data-target="#add-friend-modal" data-toggle="modal"><i class="icon-user"></i></a></td>
 
             </tr>
 

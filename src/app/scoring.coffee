@@ -96,8 +96,10 @@ updateStats = (newStats, update) ->
       newStats.exp -= tnl
       userSet 'stats.lvl', userObj.stats.lvl + 1, update
       userSet 'stats.hp', 50, update
-    if !userObj.items?.itemsEnabled and newStats.exp >=15
+    if !userObj.items?.itemsEnabled and newStats.lvl >= 2
       user.set 'items.itemsEnabled', true #bit of trouble using userSet here
+    if !userObj.flags?.partyEnabled and newStats.lvl >= 3
+      user.set 'flags.partyEnabled', true
     userSet 'stats.exp', newStats.exp, update
 
   if newStats.money?

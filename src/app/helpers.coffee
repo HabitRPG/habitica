@@ -66,3 +66,11 @@ module.exports.viewHelpers = (view) ->
       return "#{str}.png"
     else
       return "armor#{armor}_m.png"
+
+  view.fn "userName", (auth) ->
+    if auth?.facebook?.displayName?
+      auth.facebook.displayName
+    else if auth?.local?
+      auth.local.username
+    else
+      'Anonymous'

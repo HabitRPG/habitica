@@ -69,6 +69,7 @@ get '/', (page, model, next) ->
     setupListReferences(model)
     setupModelFns(model)
 
+    # Subscribe to friends
     if !_.isEmpty(userObj.friends)
       model.subscribe model.query('users').friends(userObj.friends), (err, friends) ->
         model.ref '_friends', friends
@@ -307,10 +308,9 @@ ready (model) ->
     model.fetch query, (err, users) ->
       friend = users.get(0)
       if friend.id?
-        #TODO ensure unique
         user.push('friends', friendId)
         $('#add-friend-modal').modal('hide')
-        window.location.reload() #TODO break old subscript, setup new, then remove reload
+        window.location.reload() #TODO break old subscription, setup new subscript, remove this reload
         model.set '_newFriend', ''
       else
         model.set "_view.addFriendError", "User with id #{friendId} not found."

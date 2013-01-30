@@ -12,6 +12,7 @@ module.exports.newUserObject = ->
     items: { itemsEnabled: false, armor: 0, weapon: 0 }
     notifications: { kickstarter: 'show' }
     preferences: { gender: 'm', armorSet: 'v1' }
+    flags: { partyEnabled: false }
     friends: []
     tasks: {}
     habitIds: []
