@@ -28,3 +28,13 @@ module.exports = (store) ->
     return next(false) unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
     isServer = not @req.socket
     next(isServer)
+
+  ###
+    Party permissions
+  ###
+  store.query.expose "users", "friends", (ids) ->
+    @where("id").within(ids)
+      .only('stats', 'items', 'auth.local.username', 'auth.facebook.displayName')
+
+  store.queryAccess "users", "friends", (ids, next) ->
+    next(true) # no harm in public user stats
