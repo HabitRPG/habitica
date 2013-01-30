@@ -27,8 +27,9 @@ setupModelFns = (model) ->
   model.fn '_user._armor', '_user.items.armor', '_user.preferences.gender', (armor, gender) ->
     if gender == 'f'
       str = "armor#{armor}_f"
-      version = if parseInt(armor) > 1 then 'v1' #TODO implement different version
-      "#{str}_#{version}.png"
+      if parseInt(armor) > 1
+        str += '_v1' #TODO implement different version
+      return "#{str}.png"
     else
       "armor#{armor}_m.png"
 
@@ -312,3 +313,6 @@ ready (model) ->
 
   exports.closeKickstarterNofitication = (e, el) ->
     user.set('notifications.kickstarter', 'hide')
+
+  exports.setMale = -> user.set('preferences.gender', 'm')
+  exports.setFemale = -> user.set('preferences.gender', 'f')

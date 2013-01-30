@@ -11,6 +11,16 @@
           <strong>User ID</strong><br/>
           <small>Copy this ID for use in third party applications.</small>
           <pre class=prettyprint>{_user.id}</pre><br/>
+
+          <label class="radio">
+              <input type="radio" name="genderRadios" value="m" x-bind="click:setMale" checked="{equal(_user.preferences.gender,'m')}">
+              Male
+          </label>
+          <label class="radio">
+              <input type="radio" name="genderRadios" value="f" x-bind="click:setFemale" checked="{equal(_user.preferences.gender,'f')}">
+              Female
+          </label>
+
           <@footer>
               <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
           </@footer>
