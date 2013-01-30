@@ -166,7 +166,7 @@
               <td id="avatar">
                 <div class='avatar-sprites'>
                   <img class='weapon weapon-{_user.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{_user.items.weapon}.png" />
-                  <img class='armor armor-{_user.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{_user._armor}" />
+                  <img class='armor armor-{_user.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(_user)}" />
                 </div>
                 <div id="lvl"><span class="badge badge-info">Lvl {_user.stats.lvl}</span></div>
               </td>
@@ -195,7 +195,13 @@
                 <ul>
                 {#each _friends as :friend}
                     <li>
-                        {:friend.id}
+                        <div class="friend-avatar">
+                            <div class='avatar-sprites'>
+                                <img class='weapon weapon-{:friend.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:friend.items.weapon}.png" />
+                                <img class='armor armor-{:friend.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:friend)}" />
+                            </div>
+                            <div id="lvl"><span class="badge badge-info">Lvl {_user.stats.lvl}</span></div>
+                        </div>
                     </li>
 
                 {/}

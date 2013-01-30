@@ -34,7 +34,7 @@ module.exports = (store) ->
   ###
   store.query.expose "users", "friends", (ids) ->
     @where("id").within(ids)
-      .only('stats', 'items', 'auth.local.username', 'auth.facebook.displayName')
+      .only('stats', 'preferences.gender', 'preferences.armorSet', 'items', 'auth.local.username', 'auth.facebook.displayName')
 
   store.queryAccess "users", "friends", (ids, next) ->
     next(true) # no harm in public user stats

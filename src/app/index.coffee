@@ -24,16 +24,6 @@ setupModelFns = (model) ->
     # also update in scoring.coffee. TODO create a function accessible in both locations
     (lvl*100)/5
 
-  model.fn '_user._armor', '_user.items.armor', '_user.preferences.armorSet', '_user.preferences.gender', (armor, armorSet, gender) ->
-    if gender == 'f'
-      str = "armor#{armor}_f"
-      if parseInt(armor) > 1
-        armorSet = if armorSet then armorSet else 'v1'
-        str += '_' + armorSet
-      return "#{str}.png"
-    else
-      "armor#{armor}_m.png"
-
 #  model.fn '_user._friends', '_user.friends', (friendIds) ->
 #    model.fetch model.query('users').friends(friendIds), (err, friends) ->
 #      model.set '_view.friends', friends

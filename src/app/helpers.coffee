@@ -55,3 +55,15 @@ module.exports.viewHelpers = (view) ->
   
   view.fn "tokens", (money) ->
     return money/0.25
+
+  view.fn 'currentArmor', (user) ->
+    console.log user
+    [gender, armor, armorSet] = [user.preferences.gender, user.items.armor, user.preferences.armorSet]
+    if gender == 'f'
+      str = "armor#{armor}_f"
+      if parseInt(armor) > 1
+        armorSet = if armorSet then armorSet else 'v1'
+        str += '_' + armorSet
+      return "#{str}.png"
+    else
+      return "armor#{armor}_m.png"
