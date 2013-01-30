@@ -12,6 +12,7 @@ module.exports.newUserObject = ->
     items: { itemsEnabled: false, armor: 0, weapon: 0 }
     notifications: { kickstarter: 'show' }
     preferences: { gender: 'm', armorSet: 'v1' }
+    friends: []
     tasks: {}
     habitIds: []
     dailyIds: []
@@ -35,6 +36,8 @@ module.exports.updateUser = (user, userObj) ->
   prefs = _.clone(userObj.preferences)
   _.defaults prefs, { gender: 'm', armorSet: 'v1', api_token: derby.uuid() }
   user.set 'preferences', prefs unless _.isEqual(prefs, userObj.preferences)
+
+  user.setNull 'friends', []
 
   ## Task List Cleanup
   # FIXME temporary hack to fix lists (Need to figure out why these are happening)

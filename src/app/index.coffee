@@ -34,9 +34,9 @@ setupModelFns = (model) ->
     else
       "armor#{armor}_m.png"
 
-  model.fn '_user._friends', '_user.friends', (friendIds) ->
-    model.subscribe model.query('users').friends(friendIds), (err, friends) ->
-      model.ref '_view.party', friends
+#  model.fn '_user._friends', '_user.friends', (friendIds) ->
+#    model.fetch model.query('users').friends(friendIds), (err, friends) ->
+#      model.set '_view.friends', friends
 
 # ========== ROUTES ==========
 
@@ -78,6 +78,10 @@ get '/', (page, model, next) ->
     schema.updateUser(user, userObj)
     setupListReferences(model)
     setupModelFns(model)
+
+    if !_.isEmpty(userObj.friends)
+      model.subscribe model.query('users').friends(userObj.friends), (err, friends) ->
+        model.ref '_friends', friends
 
     page.render()
 

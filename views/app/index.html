@@ -190,16 +190,12 @@
               </td>
 
               <!-- Party -->
-              <!--#if _user.flags.partyUnlocked-->
+              <!--if _user.flags.partyUnlocked-->
               <td>
                 <ul>
-                {#each _view.friends}
+                {#each _friends as :friend}
                     <li>
-                        <div class='avatar-sprites'>
-                            <img class='weapon weapon-{_user.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{_user.items.weapon}.png" />
-                            <img class='armor armor-{_user.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{_user._armor}" />
-                        </div>
-                        <div id="lvl"><span class="badge badge-info">Lvl {_user.stats.lvl}</span></div>
+                        {:friend.id}
                     </li>
 
                 {/}
