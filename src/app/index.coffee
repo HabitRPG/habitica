@@ -308,15 +308,18 @@ ready (model) ->
   exports.setArmorsetV2 = -> user.set('preferences.armorSet', 'v2')
 
   exports.addFriend = ->
-    friendId = model.get('_newFriend')
-    return if /^(\s)*$/.test(friendId)
+    friendId = model.get('_newFriend').replace(/[\s"]/g, '')
+    return if _.isEmpty(friendId)
     query = model.query('users').friends([friendId])
     model.fetch query, (err, users) ->
       friend = users.get(0)
-      unless friend
-          model.set "_view.addFriendError", "User with id #{friendId} not found."
-          return
-      #TODO ensure unique
-      user.push('friends', friendId)
-      $('#add-friend-modal').modal('hide')
-    model.set '_newFriend', ''
+      if friend
+        #TODO ensure unique
+        #TODO trim, remove quotes
+        user.push('friends', friendId)
+        $('#add-friend-modal').modal('hide')
+        window.location.reload() #TODO break old subscript, setup new, then remove reload
+        model.set '_newFriend', ''
+      else
+        model.set "_view.addFriendError", "User with id #{friendId} not found."
+        return
