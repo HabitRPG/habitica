@@ -163,7 +163,7 @@
             <tr>
 
               <!-- Avatar -->
-              <td id="avatar">
+              <td class="avatar main-avatar">
                 <div class='avatar-sprites'>
                   <img class='weapon weapon-{_user.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{_user.items.weapon}.png" />
                   <img class='armor armor-{_user.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(_user)}" />
@@ -191,23 +191,16 @@
 
               <!-- Party -->
               <!--if _user.flags.partyUnlocked-->
-              <td>
-                <ul>
-                {#each _friends as :friend}
-                    <li>
-                        <div class="friend-avatar">
-                            <div class='avatar-sprites'>
-                                <img class='weapon weapon-{:friend.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:friend.items.weapon}.png" />
-                                <img class='armor armor-{:friend.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:friend)}" />
-                            </div>
-                            <div id="lvl"><span class="badge badge-info">Lvl {_user.stats.lvl}</span></div>
+              {#each _friends as :friend}
+                    <td class="avatar friend-avatar">
+                        <div class='avatar-sprites'>
+                            <img class='weapon weapon-{:friend.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:friend.items.weapon}.png" />
+                            <img class='armor armor-{:friend.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:friend)}" />
                         </div>
-                    </li>
-
-                {/}
-                </ul>
-                <a class="btn" data-target="#add-friend-modal" data-toggle="modal"><i class="icon-user"></i></a>
-              </td>
+                        <div id="lvl"><span class="badge badge-info">Lvl {:friend.stats.lvl}</span></div>
+                    </td>
+              {/}
+              <td><a class="btn" data-target="#add-friend-modal" data-toggle="modal"><i class="icon-user"></i></a></td>
 
             </tr>
 
