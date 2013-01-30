@@ -12,6 +12,7 @@
           <small>Copy this ID for use in third party applications.</small>
           <pre class=prettyprint>{_user.id}</pre><br/>
 
+          <h4>Gender</h4>
           <label class="radio">
               <input type="radio" name="genderRadios" value="m" x-bind="click:setMale" checked="{equal(_user.preferences.gender,'m')}">
               Male
@@ -20,6 +21,19 @@
               <input type="radio" name="genderRadios" value="f" x-bind="click:setFemale" checked="{equal(_user.preferences.gender,'f')}">
               Female
           </label>
+
+
+          {#if equal(_user.preferences.gender,'f')}
+              <h4>Armor Set</h4>
+              <label class="radio">
+                  <input type="radio" name="armorSet" value="v1" x-bind="click:setArmorsetV1" checked="{equal(_user.preferences.armorSet,'v1')}">
+                  v1
+              </label>
+              <label class="radio">
+                  <input type="radio" name="armorSet" value="v2" x-bind="click:setArmorsetV2" checked="{equal(_user.preferences.armorSet,'v2')}">
+                  v2
+              </label>
+          {/}
 
           <@footer>
               <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

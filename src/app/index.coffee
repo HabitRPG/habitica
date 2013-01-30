@@ -24,11 +24,12 @@ setupModelFns = (model) ->
     # also update in scoring.coffee. TODO create a function accessible in both locations
     (lvl*100)/5
 
-  model.fn '_user._armor', '_user.items.armor', '_user.preferences.gender', (armor, gender) ->
+  model.fn '_user._armor', '_user.items.armor', '_user.preferences.armorSet', '_user.preferences.gender', (armor, armorSet, gender) ->
     if gender == 'f'
       str = "armor#{armor}_f"
       if parseInt(armor) > 1
-        str += '_v1' #TODO implement different version
+        armorSet = if armorSet then armorSet else 'v1'
+        str += '_' + armorSet
       return "#{str}.png"
     else
       "armor#{armor}_m.png"
@@ -316,3 +317,5 @@ ready (model) ->
 
   exports.setMale = -> user.set('preferences.gender', 'm')
   exports.setFemale = -> user.set('preferences.gender', 'f')
+  exports.setArmorsetV1 = -> user.set('preferences.armorSet', 'v1')
+  exports.setArmorsetV2 = -> user.set('preferences.armorSet', 'v2')
