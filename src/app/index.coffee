@@ -15,9 +15,20 @@ browser = require './browser'
 _ = require('underscore')
 
 setupListReferences = (model) ->
-  # Setup Task Lists
   taskTypes = ['habit', 'daily', 'todo', 'reward']
   _.each taskTypes, (type) ->  model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+
+setupModelFns = (model) ->
+  model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
+    # see https://github.com/lefnire/habitrpg/issues/4
+    # also update in scoring.coffee. TODO create a function accessible in both locations
+    (lvl*100)/5
+
+  model.fn '_user._armor', '_user.items.armor', '_user.preferences.gender', (armor, gender) ->
+    if gender == 'f'
+      "armor#{armor}_f.png"
+    else
+      "armor#{armor}_m.png"
 
 # ========== ROUTES ==========
 
@@ -79,12 +90,7 @@ get '/', (page, model, next) ->
       user.set('notifications.kickstarter', 'show')
 
     setupListReferences(model)
-
-    # Setup Model Functions
-    model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
-      # see https://github.com/lefnire/habitrpg/issues/4
-      # also update in scoring.coffee. TODO create a function accessible in both locations
-      (lvl*100)/5
+    setupModelFns(model)
 
     page.render()
 
@@ -93,7 +99,7 @@ get '/', (page, model, next) ->
 resetDom = (model) ->
   window.DERBY.app.dom.clear()
   view.render(model)
-
+  setupModelFns(model)
 
 ready (model) ->
   user = model.at('_user')
@@ -250,10 +256,10 @@ ready (model) ->
     user.set 'stats.money', money - value
     if type == 'armor'
       user.set 'items.armor', index
-      model.set '_items.armor', content.items.armor[parseInt(index) + 1]
+      model.set '_view.items.armor', content.items.armor[parseInt(index) + 1]
     else if type == 'weapon'
       user.set 'items.weapon', index
-      model.set '_items.weapon', content.items.weapon[parseInt(index) + 1]
+      model.set '_view.items.weapon', content.items.weapon[parseInt(index) + 1]
     else if type == 'potion'
       hp = user.get 'stats.hp'
       hp += 15
