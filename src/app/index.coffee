@@ -26,7 +26,9 @@ setupModelFns = (model) ->
 
   model.fn '_user._armor', '_user.items.armor', '_user.preferences.gender', (armor, gender) ->
     if gender == 'f'
-      "armor#{armor}_f.png"
+      str = "armor#{armor}_f"
+      version = if parseInt(armor) > 1 then 'v1' #TODO implement different version
+      "#{str}_#{version}.png"
     else
       "armor#{armor}_m.png"
 
