@@ -61,6 +61,17 @@
               <button data-dismiss="modal" class="btn btn-success">Ok</button>
           </@footer>
       </app:myModal>
+
+      <app:myModal modalId="add-friend-modal" header="Add Friend">
+          <form x-bind="submit: addFriend">
+              {#if _view.addFriendError}
+                <div class='alert alert-danger'>{_view.addFriendError}</div>
+              {/}
+              <input type="text" class="input-medium search-query" value="{_newFriend}">
+              <input type="submit" class="btn" value="Add" />
+          </form>
+      </app:myModal>
+
   {else}
       <app:myModal modalId="login-modal" header="Login / Register">
           <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt="Login / Register With Facebook"/></a>
@@ -150,6 +161,8 @@
         <div id=character class='span4'>
           <table>
             <tr>
+
+              <!-- Avatar -->
               <td id="avatar">
                 <div class='avatar-sprites'>
                   <img class='weapon weapon-{_user.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{_user.items.weapon}.png" />
@@ -157,6 +170,8 @@
                 </div>
                 <div id="lvl"><span class="badge badge-info">Lvl {_user.stats.lvl}</span></div>
               </td>
+
+              <!-- Progress Bars -->
               <td id="bars">
                 <div class="progress progress-danger" rel=tooltip data-placement=bottom title="Health">
                   <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
@@ -173,7 +188,27 @@
                   </span>
                 </div>
               </td>
+
+              <!-- Party -->
+              <!--#if _user.flags.partyUnlocked-->
+              <td>
+                <ul>
+                {#each _view.friends}
+                    <li>
+                        <div class='avatar-sprites'>
+                            <img class='weapon weapon-{_user.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{_user.items.weapon}.png" />
+                            <img class='armor armor-{_user.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{_user._armor}" />
+                        </div>
+                        <div id="lvl"><span class="badge badge-info">Lvl {_user.stats.lvl}</span></div>
+                    </li>
+
+                {/}
+                </ul>
+                <a class="btn" data-target="#add-friend-modal" data-toggle="modal"><i class="icon-user"></i></a>
+              </td>
+
             </tr>
+
           </table>
           <div id="exp-chart" style="display:none;"></div>
         </div>

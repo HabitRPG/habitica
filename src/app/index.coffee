@@ -34,6 +34,10 @@ setupModelFns = (model) ->
     else
       "armor#{armor}_m.png"
 
+  model.fn '_user._friends', '_user.friends', (friendIds) ->
+    model.subscribe model.query('users').friends(friendIds), (err, friends) ->
+      model.ref '_view.party', friends
+
 # ========== ROUTES ==========
 
 get '/', (page, model, next) ->
@@ -298,3 +302,17 @@ ready (model) ->
   exports.setFemale = -> user.set('preferences.gender', 'f')
   exports.setArmorsetV1 = -> user.set('preferences.armorSet', 'v1')
   exports.setArmorsetV2 = -> user.set('preferences.armorSet', 'v2')
+
+  exports.addFriend = ->
+    friendId = model.get('_newFriend')
+    return if /^(\s)*$/.test(friendId)
+    query = model.query('users').friends([friendId])
+    model.fetch query, (err, users) ->
+      friend = users.get(0)
+      unless friend
+          model.set "_view.addFriendError", "User with id #{friendId} not found."
+          return
+      #TODO ensure unique
+      user.push('friends', friendId)
+      $('#add-friend-modal').modal('hide')
+    model.set '_newFriend', ''
