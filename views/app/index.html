@@ -8,10 +8,15 @@
 <modalDialogs:>
   {#if _loggedIn}
       <app:myModal modalId="settings-modal" header="Settings">
-          <strong>User ID</strong><br/>
-          <small>Copy this ID for use in third party applications.</small>
-          <pre class=prettyprint>{_user.id}</pre><br/>
+          <h4>API</h4>
+          <small>Copy these for use in third party applications.</small>
+          <h6>User ID</h6>
+          <pre class=prettyprint>{_user.id}</pre>
 
+          <h6>API Token</h6>
+          <pre class=prettyprint>{_user.preferences.api_token}</pre>
+
+          <hr/>
           <h4>Gender</h4>
           <label class="radio">
               <input type="radio" name="genderRadios" value="m" x-bind="click:setMale" checked="{equal(_user.preferences.gender,'m')}">
