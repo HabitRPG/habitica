@@ -57,7 +57,6 @@ module.exports.viewHelpers = (view) ->
     return money/0.25
 
   view.fn 'currentArmor', (user) ->
-    console.log user
     [gender, armor, armorSet] = [user.preferences.gender, user.items.armor, user.preferences.armorSet]
     if gender == 'f'
       str = "armor#{armor}_f"
