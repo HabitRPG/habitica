@@ -302,7 +302,7 @@ ready (model) ->
     model.fetch query, (err, users) ->
       friend = users.at(0).get()
       debugger
-      if friend.id?
+      if friend?.id?
         user.push('friends', friendId)
         $('#add-friend-modal').modal('hide')
         window.location.reload() #TODO break old subscription, setup new subscript, remove this reload
