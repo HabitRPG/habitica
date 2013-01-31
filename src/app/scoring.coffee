@@ -96,6 +96,7 @@ updateStats = (newStats, update) ->
       newStats.exp -= tnl
       userSet 'stats.lvl', userObj.stats.lvl + 1, update
       userSet 'stats.hp', 50, update
+    newStats.lvl = userObj.stats.lvl
     if !userObj.items?.itemsEnabled and newStats.lvl >= 2
       user.set 'items.itemsEnabled', true #bit of trouble using userSet here
     if !userObj.flags?.partyEnabled and newStats.lvl >= 3
