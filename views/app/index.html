@@ -62,16 +62,6 @@
           </@footer>
       </app:myModal>
 
-      <app:myModal modalId="add-friend-modal" header="Add Friend">
-          <form x-bind="submit: addFriend">
-              {#if _view.addFriendError}
-                <div class='alert alert-danger'>{_view.addFriendError}</div>
-              {/}
-              <input type="text" class="input-medium search-query" value="{_newFriend}">
-              <input type="submit" class="btn" value="Add" />
-          </form>
-      </app:myModal>
-
   {else}
       <app:myModal modalId="login-modal" header="Login / Register">
           <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt="Login / Register With Facebook"/></a>
@@ -116,6 +106,16 @@
               <a data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</a><span class='token-cost'>4 Tokens</span>
           {/}
       </@footer>
+  </app:myModal>
+
+  <app:myModal modalId="add-friend-modal" header="Add Friend">
+      <form x-bind="submit: addFriend">
+          {#if _view.addFriendError}
+          <div class='alert alert-danger'>{_view.addFriendError}</div>
+          {/}
+          <input type="text" class="input-medium search-query" value="{_newFriend}">
+          <input type="submit" class="btn" value="Add" />
+      </form>
   </app:myModal>
 
 <alerts:>
