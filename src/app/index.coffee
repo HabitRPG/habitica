@@ -300,7 +300,8 @@ ready (model) ->
       return
     query = model.query('users').friends([friendId])
     model.fetch query, (err, users) ->
-      friend = users.get(0)
+      friend = users.at(0).get()
+      debugger
       if friend.id?
         user.push('friends', friendId)
         $('#add-friend-modal').modal('hide')
