@@ -49,12 +49,6 @@ get '/', (page, model, next) ->
 
     return page.redirect '/500.html' unless userObj? #this should never happen, but it is. Looking into it
 
-    # support legacy Everyauth schema (now using derby-auth, Passport)
-    if username = userObj.auth?.local?.username
-      _view.loginName = username
-    else if fb = userObj.auth?.facebook
-      _view.loginName = if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name
-
     # Setup Item Store
     items = userObj.items
     _view.items =

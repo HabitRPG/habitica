@@ -66,9 +66,12 @@ module.exports.viewHelpers = (view) ->
     else
       return "armor#{armor}_m.png"
 
-  view.fn "userName", (auth) ->
+  view.fn "username", (auth) ->
     if auth?.facebook?.displayName?
       auth.facebook.displayName
+    else if auth?.facebook?
+      fb = auth.facebook
+      if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name
     else if auth?.local?
       auth.local.username
     else
