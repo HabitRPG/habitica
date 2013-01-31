@@ -10,7 +10,7 @@ _ = require('underscore')
 module.exports.deleteStaleAccounts = ->
 
   un_registered = { "auth.local": {$exists: false} , "auth.facebook": {$exists: false} }
-  registered = registered = { $or: [
+  registered = { $or: [
     { 'auth.local': { $exists: true } },
     { 'auth.facebook': { $exists: true} }
   ]};
@@ -34,5 +34,8 @@ module.exports.deleteStaleAccounts = ->
     if !!user.lastCron # for now ignore missing crons, still looking into why this is happening
       lastCron = new Date(user.lastCron)
       diff = Math.abs(moment(today).sod().diff(moment(lastCron).sod(), "days"))
-      if diff > 30
+      if diff > 10
         removeAccount(collection, user._id)
+    else
+      # cron was missing for some reason
+      collection.update {_id: user._id}, {$set:{lastCron: today}}, (err, res) -> throw err if err
