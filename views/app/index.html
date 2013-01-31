@@ -158,7 +158,7 @@
     <div class='container-fluid'>
 
       <div class='row-fluid'>
-        <div id=character class='{#if _user.flags.partyEnabled}span9{else}span4{/}'>
+        <div id=character class='{#if _friends}span9{else}span5{/}'>
           <table>
             <tr>
 
@@ -172,7 +172,7 @@
               </td>
 
               <!-- Progress Bars -->
-              <td id="bars">
+              <td id="bars" style="width:{#if _friends}70%{else}90%{/};">
                 <div class="progress progress-danger" rel=tooltip data-placement=bottom title="Health">
                   <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
                   <span class="progress-text"><i class=icon-heart></i> {round(_user.stats.hp)} / 50</span>
