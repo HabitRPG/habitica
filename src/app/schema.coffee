@@ -66,9 +66,18 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
   user = model.at('_user')
 
   # this is really stupid, but i can't find how to get around user.get() making only available what has been gotten specifically before
-  userObj = {}
-  _.each Object.keys(userSchema), (key) -> userObj[key] = lodash.cloneDeep user.get(key)
-#  userObj = lodash.cloneDeep obj  # whaaa??? modifying userObj modifies the value of user.get() at that path?
+#  userObj = {}
+#  _.each Object.keys(userSchema), (key) -> userObj[key] = lodash.cloneDeep user.get(key)
+#  userObj = lodash.cloneDeep obj  # whaaa???
+
+  #FIXME - this doesn't work, modifying userObj modifies the value of user.get() at that path
+  # though that shouldn't be happening
+  userObj = user.get()
+
+  orig_commit = model._commit
+  model._commit = (txn) ->
+    txn.dontPersist = true
+    orig_commit.apply(model, arguments)
 
   updates = {}
   {
@@ -91,12 +100,8 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
       , userObj
 
     commit: ->
-      commit = model._commit
-      model._commit = (txn) ->
-        txn.dontPersist = true
-        commit.apply(model, arguments)
       _.each updates, (val, path) ->
         user.set(path, val)
-      model._commit = commit
+      model._commit = orig_commit
       user.set "update__", updates # some hackery in our own branched racer-db-mongo, see findAndModify
   }
