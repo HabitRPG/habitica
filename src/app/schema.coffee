@@ -4,22 +4,24 @@ _ = require 'underscore'
 lodash = require 'lodash'
 derby = require 'derby'
 
+userSchema =
+  lastCron: 'new' #this will be replaced with `+new Date` on first run
+  balance: 2
+  stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
+  items: { itemsEnabled: false, armor: 0, weapon: 0 }
+  notifications: { kickstarter: 'show' }
+  preferences: { gender: 'm', armorSet: 'v1' }
+  flags: { partyEnabled: false }
+  friends: []
+  tasks: {}
+  habitIds: []
+  dailyIds: []
+  todoIds: []
+  rewardIds: []
+
 module.exports.newUserObject = ->
   # deep clone, else further new users get duplicate objects
-  newUser = require('lodash').cloneDeep
-    lastCron: 'new' #this will be replaced with `+new Date` on first run
-    balance: 2
-    stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
-    items: { itemsEnabled: false, armor: 0, weapon: 0 }
-    notifications: { kickstarter: 'show' }
-    preferences: { gender: 'm', armorSet: 'v1' }
-    flags: { partyEnabled: false }
-    friends: []
-    tasks: {}
-    habitIds: []
-    dailyIds: []
-    todoIds: []
-    rewardIds: []
+  newUser = require('lodash').cloneDeep userSchema
   for task in content.defaultTasks
     guid = task.id = require('racer').uuid()
     newUser.tasks[guid] = task
@@ -31,7 +33,7 @@ module.exports.newUserObject = ->
   return newUser
 
 module.exports.updateUser = (batch) ->
-  userObj = batch.getUser()
+  userObj = batch.userObj
 
   batch.queue('notifications.kickstarter', 'show') unless userObj.notifications?.kickstarter?
   batch.queue('friends', []) unless !_.isEmpty(userObj.friends)
@@ -63,13 +65,17 @@ module.exports.updateUser = (batch) ->
 
 module.exports.BatchUpdate = BatchUpdate = (model) ->
   user = model.at('_user')
-  userObj = undefined
+
+  # this is really stupid, but i can't find how to get around user.get() making only available what has been gotten specifically before
+  obj = {}
+  _.each Object.keys(userSchema), (key) -> obj[key] = user.get(key)
+  userObj = lodash.cloneDeep obj  # whaaa??? modifying userObj modifies the value of user.get() at that path?
+
   updates = {}
   {
     queue: (path, val) -> updates[path] = val
 
-    getUser: ->
-      userObj ?= lodash.cloneDeep(user.get()) # whaaa??? modifying userObj modifies the value of user.get() at that path?
+    userObj: userObj
 
     ###
       Handles updating the user model. If this is an en-mass operation (eg, server cron), pass the user object as {update}.
@@ -83,7 +89,7 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
          if (arr.length - 1) == index
            curr[next] = val
          curr[next]
-      , @getUser()
+      , userObj
 
     commit: ->
       commit = model._commit

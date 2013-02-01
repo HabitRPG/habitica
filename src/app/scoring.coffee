@@ -59,7 +59,7 @@ taskDeltaFormula = (currentValue, direction) ->
   {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
 ###
 updateStats = (newStats, batch) ->
-  userObj = batch.getUser()
+  userObj = batch.userObj
 
   # if user is dead, dont do anything
   return if userObj.stats.lvl == 0
@@ -98,9 +98,11 @@ updateStats = (newStats, batch) ->
 score = (taskId, direction, times, batch) ->
   times ?= 1
 
-  commit = !batch?
-  batch ?= new schema.BatchUpdate(model)
-  userObj = batch.getUser()
+  commit = false
+  unless batch?
+    commit = true
+    batch = new schema.BatchUpdate(model)
+  userObj = batch.userObj
 
   {money, hp, exp, lvl} = userObj.stats
 
@@ -178,7 +180,7 @@ cron = (resetDom_cb) ->
   if daysPassed > 0
     user.set 'lastCron', today
     batch = new schema.BatchUpdate(model)
-    userObj = batch.getUser()
+    userObj = batch.userObj
     hpBefore = userObj.stats.hp #we'll use this later so we can animate hp loss
     # Tally each task
     todoTally = 0
@@ -200,7 +202,7 @@ cron = (resetDom_cb) ->
                 thatDay = moment().subtract('days', n+1)
                 if repeat[helpers.dayMapping[thatDay.day()]]==true
                   daysFailed++
-            score id, 'down', daysFailed, userObj
+            score id, 'down', daysFailed, batch
 
           value = taskObj.value #get updated value
           if type == 'daily'

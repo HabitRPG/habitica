@@ -46,7 +46,7 @@ get '/', (page, model, next) ->
     #user = result.at(0)
     model.ref '_user', user
     batch = new schema.BatchUpdate(model)
-    userObj = batch.getUser()
+    userObj = batch.userObj
 
     return page.redirect '/500.html' unless userObj? #this should never happen, but it is. Looking into it
 
@@ -82,13 +82,13 @@ resetDom = (model) ->
 
 ready (model) ->
   user = model.at('_user')
+  scoring.setModel(model)
 
   #set cron immediately
   lastCron = user.get('lastCron')
-  user.set('lastCron', +new Date) if (!lastCron or lastCron == 'new')
+  user.set('lastCron', +new Date) if (!lastCron? or lastCron == 'new')
 
   # Setup model in scoring functions
-  scoring.setModel(model)
   scoring.cron(resetDom)
 
   # Load all the jQuery, Growl, Tour, etc
