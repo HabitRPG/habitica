@@ -249,40 +249,34 @@ ready (model) ->
     task = model.at $(el).parents('li')[0]
     scoring.score(task.get('id'), direction)
 
-  revive = (userObj, animateHp = false) ->
+  revive = (batch) ->
     # Reset stats
-    userObj.stats.hp = 50 unless animateHp # if we're animating hp-reset, we'll set to 50 ourselves later in our functions
-    userObj.stats.lvl = 1; userObj.stats.money = 0; userObj.stats.exp = 0
+    batch.queue 'stats.hp', 50
+    batch.queue 'stats.lvl', 1
+    batch.queue 'stats.money', 0
+    batch.queue 'stats.exp', 0
 
     # Reset items
-    userObj.items.armor = 0; userObj.items.weapon = 0
+    batch.queue 'items.armor', 0
+    batch.queue 'items.weapon', 0
 
     # Reset item store
     model.set '_view.items.armor', content.items.armor[1]
     model.set '_view.items.weapon', content.items.weapon[1]
     
   exports.revive = (e, el) ->
-    userObj = user.get()
-    revive(userObj, true)
-
-    user.set 'stats', userObj.stats
-    user.set 'items', userObj.items
-    # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
-    resetDom(model)
-    setTimeout (-> user.set 'stats.hp', 50), 0 # animate hp loss
+    batch = new schema.BatchUpdate(model)
+    revive(batch)
+    batch.commit()
 
   exports.reset = (e, el) ->
-    userObj = user.get()
+    batch = new schema.BatchUpdate(model)
     taskTypes = ['habit', 'daily', 'todo', 'reward']
-    userObj.tasks = {}
-    _.each taskTypes, (type) -> userObj["#{type}Ids"] = []
-    userObj.balance = 2 if userObj.balance < 2 #only if they haven't manually bought tokens
-    revive(userObj, true)
-
-    # Set new user
-    model.set "users.#{userObj.id}", userObj
-    resetDom(model)
-    setTimeout (-> user.set 'stats.hp', 50), 0 # animate hp loss
+    batch.queue 'tasks', {}
+    _.each taskTypes, (type) -> batch.queue "#{type}Ids", []
+    batch.queue 'balance', 2 if user.get('balance') < 2 #only if they haven't manually bought tokens
+    revive(batch, true)
+    batch.commit()
 
   exports.closeKickstarterNofitication = (e, el) ->
     user.set('notifications.kickstarter', 'hide')
