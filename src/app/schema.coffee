@@ -56,4 +56,5 @@ module.exports.updateUser = (user, userObj) ->
     preened = _.filter(union, (val) -> _.contains(taskIds, val))
 
     # There were indeed issues found, set the new list
-    user.set(path, preened) if _.size(preened) != _.size(userObj[path])
+    # TODO _.difference might still be empty for duplicates in one list?
+    user.set(path, preened) if _.difference(preened, userObj[path]).length != 0
