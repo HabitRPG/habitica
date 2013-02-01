@@ -10,7 +10,7 @@ auth = require 'derby-auth'
 priv = require './private'
 
 ## Run server cron ##
-#require('./cron').deleteStaleAccounts()
+require('./cron').deleteStaleAccounts()
 
 ## RACER CONFIGURATION ##
 
