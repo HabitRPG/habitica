@@ -95,11 +95,11 @@ updateStats = (newStats, batch) ->
 # {direction} 'up' or 'down'
 # {times} # times to call score on this task (1 unless cron, usually)
 # {update} if we're running updates en-mass (eg, cron on server) pass in userObj
-score = (taskId, direction, times, batch) ->
+score = (taskId, direction, times, batch, cron) ->
   times ?= 1
 
   commit = false
-  unless batch?
+  unless batch
     commit = true
     batch = new schema.BatchUpdate(model)
   userObj = batch.userObj
@@ -144,14 +144,14 @@ score = (taskId, direction, times, batch) ->
 
     when 'daily'
       calculateDelta()
-      if update? # cron
+      if cron? # cron
         subtractPoints()
       else
         addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
     when 'todo'
       calculateDelta()
-      unless update? # don't touch stats on cron
+      unless cron? # don't touch stats on cron
         addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
     when 'reward'
@@ -202,7 +202,7 @@ cron = (resetDom_cb) ->
                 thatDay = moment().subtract('days', n+1)
                 if repeat[helpers.dayMapping[thatDay.day()]]==true
                   daysFailed++
-            score id, 'down', daysFailed, batch
+            score id, 'down', daysFailed, batch, true
 
           value = taskObj.value #get updated value
           if type == 'daily'
