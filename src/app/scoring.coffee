@@ -99,7 +99,6 @@ score = (taskId, direction, times, batch) ->
   times ?= 1
 
   commit = !batch?
-  console.log {commit:commit}
   batch ?= new schema.BatchUpdate(model)
   userObj = batch.getUser()
 
@@ -135,9 +134,11 @@ score = (taskId, direction, times, batch) ->
       adjustvalue = if (taskObj.up==false or taskObj.down==false) then false else true
       calculateDelta(adjustvalue)
       # Add habit value to habit-history (if different)
-      historyEntry = { date: +new Date(), value: value } if taskObj.value != value
+      historyEntry = { date: +new Date, value: value }
       if (delta > 0) then addPoints() else subtractPoints()
-      model.push "_user.#{taskPath}.history", historyEntry
+      taskObj.history ?= []
+      taskObj.history.push historyEntry
+      batch.updateAndQueue "#{taskPath}.history", taskObj.history if taskObj.value != value
 
     when 'daily'
       calculateDelta()

@@ -6,7 +6,7 @@
   "dependencies": {
     "derby": "git://github.com/codeparty/derby#master",
     "racer": "git://github.com/lefnire/racer#master",
-    "racer-db-mongo": "git://github.com/codeparty/racer-db-mongo#master",
+    "racer-db-mongo": "git://github.com/lefnire/racer-db-mongo#mongo-update",
     "derby-ui-boot": "git://github.com/codeparty/derby-ui-boot#master",
     "derby-auth": "git://github.com/lefnire/derby-auth#master",
     "connect-mongo": "0.2.0",

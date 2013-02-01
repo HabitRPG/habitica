@@ -1,6 +1,7 @@
 content = require './content'
 moment = require 'moment'
 _ = require 'underscore'
+lodash = require 'lodash'
 derby = require 'derby'
 
 module.exports.newUserObject = ->
@@ -65,22 +66,17 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
   userObj = undefined
   updates = {}
   {
-    queue: (path, val) ->
-      commit = model._commit
-      model._commit = (txn) ->
-        txn.isPrivate = true
-        commit.apply(this, arguments)
-      user.set(path, val)
-      model._commit = commit
-      updates[path] = val
+    queue: (path, val) -> updates[path] = val
 
-    getUser: -> userObj ?= user.get()
+    getUser: ->
+      userObj ?= lodash.cloneDeep(user.get()) # whaaa??? modifying userObj modifies the value of user.get() at that path?
 
     ###
       Handles updating the user model. If this is an en-mass operation (eg, server cron), pass the user object as {update}.
       otherwise, null means commit the changes immediately
     ###
     updateAndQueue: (path, val) ->
+      @queue path, val
       # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
       arr = path.split('.')
       arr.reduce (curr, next, index) ->
@@ -88,8 +84,15 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
            curr[next] = val
          curr[next]
       , @getUser()
-      @queue path, val
 
     commit: ->
+      commit = model._commit
+      model._commit = (txn) ->
+        txn.isPrivate = true
+        commit.apply(model, arguments)
+      _.each updates, (val, path) ->
+        if path == 'stats.hp' then debugger
+        user.set(path, val)
+      model._commit = commit
       user.set "update__", updates # some hackery in our own branched racer-db-mongo, see findAndModify
   }
