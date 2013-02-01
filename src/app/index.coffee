@@ -307,3 +307,8 @@ ready (model) ->
       else
         model.set "_view.addFriendError", "User with id #{friendId} not found."
 
+  exports.emulateNextDay = ->
+    yesterday = moment().subtract('days', 1).toString()
+    user.set 'lastCron', yesterday
+    window.location.reload()
+
