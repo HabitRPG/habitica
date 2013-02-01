@@ -88,7 +88,7 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
     commit: ->
       commit = model._commit
       model._commit = (txn) ->
-        txn.isPrivate = true
+        txn.dontPersist = true
         commit.apply(model, arguments)
       _.each updates, (val, path) ->
         if path == 'stats.hp' then debugger
