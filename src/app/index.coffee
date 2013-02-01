@@ -59,7 +59,7 @@ get '/', (page, model, next) ->
 
     model.set '_view', _view
 
-    schema.updateUser(user, userObj)
+    schema.updateUser(model, userObj)
     setupListReferences(model)
     setupModelFns(model)
 
@@ -309,3 +309,4 @@ ready (model) ->
         model.set '_newFriend', ''
       else
         model.set "_view.addFriendError", "User with id #{friendId} not found."
+

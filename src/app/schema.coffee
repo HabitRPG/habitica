@@ -29,16 +29,18 @@ module.exports.newUserObject = ->
       when 'reward' then newUser.rewardIds.push guid
   return newUser
 
-module.exports.updateUser = (user, userObj) ->
-  user.set 'notifications.kickstarter', 'show' unless userObj.notifications?.kickstarter?
+module.exports.updateUser = (model, userObj) ->
+  user = model.at('_user')
+  batch = new BatchUpdate(model)
+
+  batch.queue('notifications.kickstarter', 'show') unless userObj.notifications?.kickstarter?
+  batch.queue('friends', []) unless !_.isEmpty(userObj.friends)
 
   # Preferences, including API key
   # Some side-stepping to avoid unecessary set (one day, model.update... one day..)
   prefs = _.clone(userObj.preferences)
   _.defaults prefs, { gender: 'm', armorSet: 'v1', api_token: derby.uuid() }
-  user.set 'preferences', prefs unless _.isEqual(prefs, userObj.preferences)
-
-  user.setNull 'friends', []
+  batch.queue('preferences', prefs) unless _.isEqual(prefs, userObj.preferences)
 
   ## Task List Cleanup
   # FIXME temporary hack to fix lists (Need to figure out why these are happening)
@@ -57,4 +59,21 @@ module.exports.updateUser = (user, userObj) ->
 
     # There were indeed issues found, set the new list
     # TODO _.difference might still be empty for duplicates in one list?
-    user.set(path, preened) if _.difference(preened, userObj[path]).length != 0
+    batch.queue(path, preened) if _.difference(preened, userObj[path]).length != 0
+
+module.exports.BatchUpdate = BatchUpdate = (model) ->
+  user = model.at('_user')
+  updates = {}
+  {
+    queue: (path, val) ->
+      commit = model._commit
+      model._commit = (txn) ->
+        txn.isPrivate = true
+        commit.apply(this, arguments)
+      user.set(path, val)
+      model._commit = commit
+      updates[path] = val
+
+    commit: ->
+      user.set "update__", updates # some hackery in our own branched racer-db-mongo, see findAndModify
+  }
