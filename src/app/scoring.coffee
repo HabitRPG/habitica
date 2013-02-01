@@ -53,30 +53,13 @@ taskDeltaFormula = (currentValue, direction) ->
   delta = if (currentValue < 0) then (( -0.1 * currentValue + 1 ) * sign) else (( Math.pow(0.9,currentValue) ) * sign)
   return delta
 
-
-###
-  Handles updating the user model. If this is an en-mass operation (eg, server cron), pass the user object as {update}.
-  otherwise, null means commit the changes immediately
-###
-userSet = (path, value, update) ->
-  if update
-    # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
-    arr = path.split('.')
-    arr.reduce (curr, next, index) ->
-      if (arr.length - 1) == index
-        curr[next] = value
-      curr[next]
-    , update
-  else
-    user.set path, value
-  
 ###
   Updates user stats with new stats. Handles death, leveling up, etc
   {stats} new stats
   {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
 ###
-updateStats = (newStats, update) ->
-  userObj = update || user.get()
+updateStats = (newStats, batch) ->
+  userObj = batch.getUser()
 
   # if user is dead, dont do anything
   return if userObj.stats.lvl == 0
@@ -84,38 +67,42 @@ updateStats = (newStats, update) ->
   if newStats.hp?
     # Game Over
     if newStats.hp <= 0
-      userSet 'stats.lvl', 0, update # signifies dead
-      userSet 'stats.hp', 0, update
+      batch.updateAndQueue 'stats.lvl', 0 # signifies dead
+      batch.updateAndQueue 'stats.hp', 0
       return
     else
-      userSet 'stats.hp', newStats.hp, update
+      batch.updateAndQueue 'stats.hp', newStats.hp
 
   if newStats.exp?
     # level up & carry-over exp
     tnl = user.get '_tnl'
     if newStats.exp >= tnl
       newStats.exp -= tnl
-      userSet 'stats.lvl', userObj.stats.lvl + 1, update
-      userSet 'stats.hp', 50, update
+      batch.updateAndQueue 'stats.lvl', userObj.stats.lvl + 1
+      batch.updateAndQueue 'stats.hp', 50
     newStats.lvl = userObj.stats.lvl
     if !userObj.items?.itemsEnabled and newStats.lvl >= 2
-      user.set 'items.itemsEnabled', true #bit of trouble using userSet here
+      batch.queue 'items.itemsEnabled', true #bit of trouble using userSet here
     if !userObj.flags?.partyEnabled and newStats.lvl >= 3
-      user.set 'flags.partyEnabled', true
-    userSet 'stats.exp', newStats.exp, update
+      batch.queue 'flags.partyEnabled', true
+    batch.updateAndQueue 'stats.exp', newStats.exp
 
   if newStats.money?
     money = 0.0 if (!money? or money<0)
-    userSet 'stats.money', newStats.money, update
+    batch.updateAndQueue 'stats.money', newStats.money
 
 # {taskId} task you want to score
 # {direction} 'up' or 'down'
 # {times} # times to call score on this task (1 unless cron, usually)
 # {update} if we're running updates en-mass (eg, cron on server) pass in userObj
-score = (taskId, direction, times, update) ->
+score = (taskId, direction, times, batch) ->
   times ?= 1
 
-  userObj = update or user.get()
+  commit = !batch?
+  console.log {commit:commit}
+  batch ?= new schema.BatchUpdate(model)
+  userObj = batch.getUser()
+
   {money, hp, exp, lvl} = userObj.stats
 
   taskPath = "tasks.#{taskId}"
@@ -175,8 +162,9 @@ score = (taskId, direction, times, update) ->
         hp += money # hp - money difference
         money = 0
 
-  userSet "#{taskPath}.value", value, update
-  updateStats {hp: hp, exp: exp, money: money}, update
+  batch.updateAndQueue "#{taskPath}.value", value
+  updateStats {hp: hp, exp: exp, money: money}, batch
+  batch.commit() if commit
   return delta
 
 ###
@@ -188,8 +176,8 @@ cron = (resetDom_cb) ->
   daysPassed = helpers.daysBetween(today, user.get('lastCron'))
   if daysPassed > 0
     user.set 'lastCron', today
-    userObj = user.get()
     batch = new schema.BatchUpdate(model)
+    userObj = batch.getUser()
     hpBefore = userObj.stats.hp #we'll use this later so we can animate hp loss
     # Tally each task
     todoTally = 0

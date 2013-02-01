@@ -45,7 +45,8 @@ get '/', (page, model, next) ->
   model.subscribe q, (err, user) ->
     #user = result.at(0)
     model.ref '_user', user
-    userObj = user.get()
+    batch = new schema.BatchUpdate(model)
+    userObj = batch.getUser()
 
     return page.redirect '/500.html' unless userObj? #this should never happen, but it is. Looking into it
 
@@ -59,7 +60,9 @@ get '/', (page, model, next) ->
 
     model.set '_view', _view
 
-    schema.updateUser(model, userObj)
+    schema.updateUser(batch)
+    batch.commit()
+
     setupListReferences(model)
     setupModelFns(model)
 

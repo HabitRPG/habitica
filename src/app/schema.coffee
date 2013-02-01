@@ -29,9 +29,8 @@ module.exports.newUserObject = ->
       when 'reward' then newUser.rewardIds.push guid
   return newUser
 
-module.exports.updateUser = (model, userObj) ->
-  user = model.at('_user')
-  batch = new BatchUpdate(model)
+module.exports.updateUser = (batch) ->
+  userObj = batch.getUser()
 
   batch.queue('notifications.kickstarter', 'show') unless userObj.notifications?.kickstarter?
   batch.queue('friends', []) unless !_.isEmpty(userObj.friends)
@@ -63,6 +62,7 @@ module.exports.updateUser = (model, userObj) ->
 
 module.exports.BatchUpdate = BatchUpdate = (model) ->
   user = model.at('_user')
+  userObj = undefined
   updates = {}
   {
     queue: (path, val) ->
@@ -73,6 +73,22 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
       user.set(path, val)
       model._commit = commit
       updates[path] = val
+
+    getUser: -> userObj ?= user.get()
+
+    ###
+      Handles updating the user model. If this is an en-mass operation (eg, server cron), pass the user object as {update}.
+      otherwise, null means commit the changes immediately
+    ###
+    updateAndQueue: (path, val) ->
+      # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
+      arr = path.split('.')
+      arr.reduce (curr, next, index) ->
+         if (arr.length - 1) == index
+           curr[next] = val
+         curr[next]
+      , @getUser()
+      @queue path, val
 
     commit: ->
       user.set "update__", updates # some hackery in our own branched racer-db-mongo, see findAndModify
