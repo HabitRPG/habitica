@@ -4,7 +4,8 @@ _ = require 'underscore'
 content = require './content'
 helpers = require './helpers'
 browser = require './browser'
-MODIFIER = .03 # each new level, armor, weapon add 3% modifier (this number may change) 
+schema = require './schema'
+MODIFIER = .03 # each new level, armor, weapon add 3% modifier (this number may change)
 user = undefined
 model = undefined
 
@@ -188,6 +189,7 @@ cron = (resetDom_cb) ->
   if daysPassed > 0
     user.set 'lastCron', today
     userObj = user.get()
+    batch = new schema.BatchUpdate(model)
     hpBefore = userObj.stats.hp #we'll use this later so we can animate hp loss
     # Tally each task
     todoTally = 0
@@ -219,7 +221,7 @@ cron = (resetDom_cb) ->
           else
             absVal = if (completed) then Math.abs(value) else value
             todoTally += absVal
-          user.set 'tasks.' + taskObj.id, taskObj
+          batch.queue('tasks.' + taskObj.id, taskObj)
 
     # Finished tallying
     userObj.history ?= {}; userObj.history.todos ?= []; userObj.history.exp ?= []
@@ -234,8 +236,9 @@ cron = (resetDom_cb) ->
 
     # Set the new user specs, and animate HP loss
     [hpAfter, userObj.stats.hp] = [userObj.stats.hp, hpBefore]
-    user.set 'stats', userObj.stats
-    user.set 'history', userObj.history
+    batch.queue('stats', userObj.stats)
+    batch.queue('history', userObj.history)
+    batch.commit()
     resetDom_cb(model)
     setTimeout (-> user.set 'stats.hp', hpAfter), 1000 # animate hp loss
 
