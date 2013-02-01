@@ -60,16 +60,15 @@ module.exports.updateUser = (batch) ->
     preened = _.filter(union, (val) -> _.contains(taskIds, val))
 
     # There were indeed issues found, set the new list
-    # TODO _.difference might still be empty for duplicates in one list?
-    batch.queue(path, preened) if _.difference(preened, userObj[path]).length != 0
+    batch.queue(path, preened) # if _.difference(preened, userObj[path]).length != 0
 
 module.exports.BatchUpdate = BatchUpdate = (model) ->
   user = model.at('_user')
 
   # this is really stupid, but i can't find how to get around user.get() making only available what has been gotten specifically before
-  obj = {}
-  _.each Object.keys(userSchema), (key) -> obj[key] = user.get(key)
-  userObj = lodash.cloneDeep obj  # whaaa??? modifying userObj modifies the value of user.get() at that path?
+  userObj = {}
+  _.each Object.keys(userSchema), (key) -> userObj[key] = lodash.cloneDeep user.get(key)
+#  userObj = lodash.cloneDeep obj  # whaaa??? modifying userObj modifies the value of user.get() at that path?
 
   updates = {}
   {
@@ -97,7 +96,6 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
         txn.dontPersist = true
         commit.apply(model, arguments)
       _.each updates, (val, path) ->
-        if path == 'stats.hp' then debugger
         user.set(path, val)
       model._commit = commit
       user.set "update__", updates # some hackery in our own branched racer-db-mongo, see findAndModify
