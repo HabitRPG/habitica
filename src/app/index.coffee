@@ -271,6 +271,7 @@ ready (model) ->
     batch = new schema.BatchUpdate(model)
     revive(batch)
     batch.commit()
+    resetDom(model)
 
   exports.reset = (e, el) ->
     batch = new schema.BatchUpdate(model)
@@ -280,6 +281,7 @@ ready (model) ->
     batch.queue 'balance', 2 if user.get('balance') < 2 #only if they haven't manually bought tokens
     revive(batch, true)
     batch.commit()
+    resetDom(model)
 
   exports.closeKickstarterNofitication = (e, el) ->
     user.set('notifications.kickstarter', 'hide')
@@ -298,7 +300,6 @@ ready (model) ->
     query = model.query('users').friends([friendId])
     model.fetch query, (err, users) ->
       friend = users.at(0).get()
-      debugger
       if friend?.id?
         user.push('friends', friendId)
         $('#add-friend-modal').modal('hide')
