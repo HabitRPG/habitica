@@ -59,10 +59,11 @@ taskDeltaFormula = (currentValue, direction) ->
   {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
 ###
 updateStats = (newStats, batch) ->
-  userObj = batch.userObj
+  user = batch.user
+  stats = batch.user.get('stats')
 
   # if user is dead, dont do anything
-  return if userObj.stats.lvl == 0
+  return if stats.lvl == 0
     
   if newStats.hp?
     # Game Over
@@ -78,16 +79,17 @@ updateStats = (newStats, batch) ->
     tnl = user.get '_tnl'
     if newStats.exp >= tnl
       newStats.exp -= tnl
-      batch.set 'stats.lvl', userObj.stats.lvl + 1
+      batch.set 'stats.lvl', stats.lvl + 1
       batch.set 'stats.hp', 50
-    newStats.lvl = userObj.stats.lvl
-    if !userObj.items?.itemsEnabled and newStats.lvl >= 2
+    newStats.lvl = stats.lvl
+    if !user.get('items.itemsEnabled') and newStats.lvl >= 2
       batch.set 'items.itemsEnabled', true #bit of trouble using userSet here
-    if !userObj.flags?.partyEnabled and newStats.lvl >= 3
+    if !user.get('flags.partyEnabled') and newStats.lvl >= 3
       batch.set 'flags.partyEnabled', true
     batch.set 'stats.exp', newStats.exp
 
   if newStats.money?
+    #FIXME what was I doing here? I can't remember, money isn't defined
     money = 0.0 if (!money? or money<0)
     batch.set 'stats.money', newStats.money
 
@@ -100,15 +102,15 @@ score = (taskId, direction, times, batch, cron) ->
 
   commit = false
   unless batch?
+    console.log("HI")
     commit = true
     batch = new schema.BatchUpdate(model)
     batch.startTransaction()
-  userObj = batch.userObj
 
-  {money, hp, exp, lvl} = userObj.stats
+  {money, hp, exp, lvl} = user.get('stats')
 
   taskPath = "tasks.#{taskId}"
-  taskObj = userObj.tasks[taskId]
+  taskObj = user.get(taskPath)
   {type, value} = taskObj
 
   delta = 0
@@ -182,11 +184,11 @@ cron = (resetDom_cb) ->
     batch = new schema.BatchUpdate(model)
     batch.startTransaction()
     batch.set 'lastCron', today
-    userObj = batch.userObj
-    hpBefore = userObj.stats.hp #we'll use this later so we can animate hp loss
+    user = batch.user
+    hpBefore = user.get('stats.hp') #we'll use this later so we can animate hp loss
     # Tally each task
     todoTally = 0
-    _.each userObj.tasks, (taskObj) ->
+    _.each user.get('tasks'), (taskObj) ->
       #FIXME remove broken tasks
       if taskObj.id? # a task had a null id during cron, this should not be happening
         {id, type, completed, repeat} = taskObj
@@ -217,20 +219,22 @@ cron = (resetDom_cb) ->
           batch.set('tasks.' + taskObj.id, taskObj)
 
     # Finished tallying
-    userObj.history ?= {}; userObj.history.todos ?= []; userObj.history.exp ?= []
-    userObj.history.todos.push { date: today, value: todoTally }
+    history = user.get('history') || {}
+    history.todos ?= []; history.exp ?= []
+    history.todos.push { date: today, value: todoTally }
     # tally experience
-    expTally = userObj.stats.exp
+    expTally = user.get('stats.exp')
     lvl = 0 #iterator
-    while lvl < (userObj.stats.lvl-1)
+    while lvl < (user.get('stats.lvl')-1)
       lvl++
       expTally += (lvl*100)/5
-    userObj.history.exp.push  { date: today, value: expTally }
+    history.exp.push  { date: today, value: expTally }
 
     # Set the new user specs, and animate HP loss
-    [hpAfter, userObj.stats.hp] = [userObj.stats.hp, hpBefore]
-    batch.set('stats', userObj.stats)
-    batch.set('history', userObj.history)
+    stats = user.get('stats')
+    [hpAfter, stats.hp] = [stats.hp, hpBefore]
+    batch.set('stats', stats)
+    batch.set('history', history)
     batch.commit()
     resetDom_cb(model)
     setTimeout (-> user.set 'stats.hp', hpAfter), 1000 # animate hp loss

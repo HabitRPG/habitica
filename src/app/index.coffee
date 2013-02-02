@@ -47,16 +47,9 @@ get '/', (page, model, next) ->
     model.ref '_user', user
     batch = new schema.BatchUpdate(model)
     batch.startTransaction()
-    userObj = batch.userObj
-
-    unless userObj?
-      #this should never happen, but it is. Looking into it
-      console.error 'User object was null!'
-      return page.redirect '/500.html'
-
 
     # Setup Item Store
-    items = userObj.items
+    items = user.get('items')
     _view.items =
       armor: content.items.armor[parseInt(items?.armor || 0) + 1]
       weapon: content.items.weapon[parseInt(items?.weapon || 0) + 1]
@@ -72,8 +65,8 @@ get '/', (page, model, next) ->
     setupModelFns(model)
 
     # Subscribe to friends
-    if !_.isEmpty(userObj.friends)
-      model.subscribe model.query('users').friends(userObj.friends), (err, friends) ->
+    if !_.isEmpty(user.get('friends'))
+      model.subscribe model.query('users').friends(user.get('friends')), (err, friends) ->
         model.ref '_friends', friends
 
     page.render()

@@ -33,28 +33,28 @@ module.exports.newUserObject = ->
   return newUser
 
 module.exports.updateUser = (batch) ->
-  userObj = batch.userObj
+  user = batch.user
 
-  batch.set('notifications.kickstarter', 'show') unless userObj.notifications?.kickstarter?
-  batch.set('friends', []) unless !_.isEmpty(userObj.friends)
+  batch.set('notifications.kickstarter', 'show') unless user.get('notifications.kickstarter')
+  batch.set('friends', []) unless !_.isEmpty(user.get('friends'))
 
   # Preferences, including API key
   # Some side-stepping to avoid unecessary set (one day, model.update... one day..)
-  prefs = _.clone(userObj.preferences)
-  prefs = _.defaults prefs, { gender: 'm', armorSet: 'v1', api_token: derby.uuid() }
-  batch.set('preferences', prefs) unless _.isEqual(prefs, userObj.preferences)
+  currentPrefs = _.clone user.get('preferences')
+  mergedPrefs = _.defaults currentPrefs, { gender: 'm', armorSet: 'v1', api_token: derby.uuid() }
+  batch.set('preferences', mergedPrefs)
 
   ## Task List Cleanup
   # FIXME temporary hack to fix lists (Need to figure out why these are happening)
   # FIXME consolidate these all under user.listIds so we can set them en-masse
+  tasks = user.get('tasks')
   _.each ['habit','daily','todo','reward'], (type) ->
     path = "#{type}Ids"
 
     # 1. remove duplicates
     # 2. restore missing zombie tasks back into list
-    where = {type:type}
-    taskIds =  _.pluck( _.where(userObj.tasks, where), 'id')
-    union = _.union userObj[path], taskIds
+    taskIds =  _.pluck( _.where(tasks, {type:type}), 'id')
+    union = _.union user.get(path), taskIds
 
     # 2. remove empty (grey) tasks
     preened = _.filter(union, (val) -> _.contains(taskIds, val))
@@ -64,13 +64,12 @@ module.exports.updateUser = (batch) ->
 
 module.exports.BatchUpdate = BatchUpdate = (model) ->
   user = model.at("_user")
-  userObj = user.get()
   origCommit = model._commit
   transactionInProgress = false
   updates = {}
 
   {
-    userObj: userObj
+    user: user
 
     startTransaction: ->
       # start a batch transaction - nothing between now and @commit() will be set immediately
@@ -80,7 +79,7 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
       # many cases, userObj.tasks.{taskId}.value is undefined - so we manually .get() each attribute here.
       # Additionally, for some reason after getting the user object, changing properies manually (userObj.stats.hp = 50)
       # seems to actually run user.set('stats.hp',50) which we don't want to do - so we deepClone here
-      _.each Object.keys(userSchema), (key) -> userObj[key] = lodash.cloneDeep user.get(key)
+      #_.each Object.keys(userSchema), (key) -> userObj[key] = lodash.cloneDeep user.get(key)
       model._commit = (txn) ->
         txn.dontPersist = true
         origCommit.apply(model, arguments)
@@ -91,22 +90,13 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
       If transaction not in progress, it just runs standard model.set()
     ###
     set: (path, val) ->
-      if transactionInProgress
-        updates[path] = val
-        # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
-        arr = path.split('.')
-        arr.reduce (curr, next, index) ->
-          if (arr.length - 1) == index then curr[next] = val
-          return curr[next]
-        , userObj
-      else
-        user.set(path, val)
+      updates[path] = val if transactionInProgress
+      user.set(path, val)
 
     commit: ->
-      _.each updates, (val, path) ->
-        user.set(path, val)
       model._commit = origCommit
       # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
       user.set "update__", updates
       transactionInProgress = false
+      updates = {}
   }
