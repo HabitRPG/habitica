@@ -67,29 +67,29 @@ updateStats = (newStats, batch) ->
   if newStats.hp?
     # Game Over
     if newStats.hp <= 0
-      batch.updateAndQueue 'stats.lvl', 0 # signifies dead
-      batch.updateAndQueue 'stats.hp', 0
+      batch.set 'stats.lvl', 0 # signifies dead
+      batch.set 'stats.hp', 0
       return
     else
-      batch.updateAndQueue 'stats.hp', newStats.hp
+      batch.set 'stats.hp', newStats.hp
 
   if newStats.exp?
     # level up & carry-over exp
     tnl = user.get '_tnl'
     if newStats.exp >= tnl
       newStats.exp -= tnl
-      batch.updateAndQueue 'stats.lvl', userObj.stats.lvl + 1
-      batch.updateAndQueue 'stats.hp', 50
+      batch.set 'stats.lvl', userObj.stats.lvl + 1
+      batch.set 'stats.hp', 50
     newStats.lvl = userObj.stats.lvl
     if !userObj.items?.itemsEnabled and newStats.lvl >= 2
-      batch.queue 'items.itemsEnabled', true #bit of trouble using userSet here
+      batch.set 'items.itemsEnabled', true #bit of trouble using userSet here
     if !userObj.flags?.partyEnabled and newStats.lvl >= 3
-      batch.queue 'flags.partyEnabled', true
-    batch.updateAndQueue 'stats.exp', newStats.exp
+      batch.set 'flags.partyEnabled', true
+    batch.set 'stats.exp', newStats.exp
 
   if newStats.money?
     money = 0.0 if (!money? or money<0)
-    batch.updateAndQueue 'stats.money', newStats.money
+    batch.set 'stats.money', newStats.money
 
 # {taskId} task you want to score
 # {direction} 'up' or 'down'
@@ -99,9 +99,10 @@ score = (taskId, direction, times, batch, cron) ->
   times ?= 1
 
   commit = false
-  unless batch
+  unless batch?
     commit = true
     batch = new schema.BatchUpdate(model)
+    batch.startTransaction()
   userObj = batch.userObj
 
   {money, hp, exp, lvl} = userObj.stats
@@ -140,7 +141,7 @@ score = (taskId, direction, times, batch, cron) ->
       if (delta > 0) then addPoints() else subtractPoints()
       taskObj.history ?= []
       taskObj.history.push historyEntry
-      batch.updateAndQueue "#{taskPath}.history", taskObj.history if taskObj.value != value
+      batch.set "#{taskPath}.history", taskObj.history if taskObj.value != value
 
     when 'daily'
       calculateDelta()
@@ -165,7 +166,7 @@ score = (taskId, direction, times, batch, cron) ->
         hp += money # hp - money difference
         money = 0
 
-  batch.updateAndQueue "#{taskPath}.value", value
+  batch.set "#{taskPath}.value", value
   updateStats {hp: hp, exp: exp, money: money}, batch
   batch.commit() if commit
   return delta
@@ -212,7 +213,7 @@ cron = (resetDom_cb) ->
           else
             absVal = if (completed) then Math.abs(value) else value
             todoTally += absVal
-          batch.queue('tasks.' + taskObj.id, taskObj)
+          batch.set('tasks.' + taskObj.id, taskObj)
 
     # Finished tallying
     userObj.history ?= {}; userObj.history.todos ?= []; userObj.history.exp ?= []
@@ -227,8 +228,8 @@ cron = (resetDom_cb) ->
 
     # Set the new user specs, and animate HP loss
     [hpAfter, userObj.stats.hp] = [userObj.stats.hp, hpBefore]
-    batch.queue('stats', userObj.stats)
-    batch.queue('history', userObj.history)
+    batch.set('stats', userObj.stats)
+    batch.set('history', userObj.history)
     batch.commit()
     resetDom_cb(model)
     setTimeout (-> user.set 'stats.hp', hpAfter), 1000 # animate hp loss

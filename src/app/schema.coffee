@@ -35,14 +35,14 @@ module.exports.newUserObject = ->
 module.exports.updateUser = (batch) ->
   userObj = batch.userObj
 
-  batch.queue('notifications.kickstarter', 'show') unless userObj.notifications?.kickstarter?
-  batch.queue('friends', []) unless !_.isEmpty(userObj.friends)
+  batch.set('notifications.kickstarter', 'show') unless userObj.notifications?.kickstarter?
+  batch.set('friends', []) unless !_.isEmpty(userObj.friends)
 
   # Preferences, including API key
   # Some side-stepping to avoid unecessary set (one day, model.update... one day..)
   prefs = _.clone(userObj.preferences)
-  _.defaults prefs, { gender: 'm', armorSet: 'v1', api_token: derby.uuid() }
-  batch.queue('preferences', prefs) unless _.isEqual(prefs, userObj.preferences)
+  prefs = _.defaults prefs, { gender: 'm', armorSet: 'v1', api_token: derby.uuid() }
+  batch.set('preferences', prefs) unless _.isEqual(prefs, userObj.preferences)
 
   ## Task List Cleanup
   # FIXME temporary hack to fix lists (Need to figure out why these are happening)
@@ -60,48 +60,54 @@ module.exports.updateUser = (batch) ->
     preened = _.filter(union, (val) -> _.contains(taskIds, val))
 
     # There were indeed issues found, set the new list
-    batch.queue(path, preened) # if _.difference(preened, userObj[path]).length != 0
+    batch.set(path, preened) # if _.difference(preened, userObj[path]).length != 0
 
 module.exports.BatchUpdate = BatchUpdate = (model) ->
-  user = model.at('_user')
-
-  # this is really stupid, but i can't find how to get around user.get() making only available what has been gotten specifically before
-#  userObj = {}
-#  _.each Object.keys(userSchema), (key) -> userObj[key] = lodash.cloneDeep user.get(key)
-#  userObj = lodash.cloneDeep obj  # whaaa???
-
-  #FIXME - this doesn't work, modifying userObj modifies the value of user.get() at that path
-  # though that shouldn't be happening
+  user = model.at("_user")
   userObj = user.get()
-
-  orig_commit = model._commit
-  model._commit = (txn) ->
-    txn.dontPersist = true
-    orig_commit.apply(model, arguments)
-
+  origCommit = model._commit
+  transactionInProgress = false
   updates = {}
-  {
-    queue: (path, val) -> updates[path] = val
 
+  {
     userObj: userObj
 
+    startTransaction: ->
+      # start a batch transaction - nothing between now and @commit() will be set immediately
+      transactionInProgress = true
+
+      # Really strange, user.get() seems to only return attributes which have previously been accessed. So in
+      # many cases, userObj.tasks.{taskId}.value is undefined - so we manually .get() each attribute here.
+      # Additionally, for some reason after getting the user object, changing properies manually (userObj.stats.hp = 50)
+      # seems to actually run user.set('stats.hp',50) which we don't want to do - so we deepClone here
+      #_.each Object.keys(userSchema), (key) -> userObj[key] = lodash.cloneDeep user.get(key)
+      #userObj = user.get()
+      model._commit = (txn) ->
+        txn.dontPersist = true
+        origCommit.apply(model, arguments)
+
     ###
-      Handles updating the user model. If this is an en-mass operation (eg, server cron), pass the user object as {update}.
-      otherwise, null means commit the changes immediately
+      Handles updating the user model. If this is an en-mass operation (eg, server cron), changes are queued
+      but not actually set to the model. It also modifies userObj in case you need to access properties manually later.
+      If transaction not in progress, it just runs standard model.set()
     ###
-    updateAndQueue: (path, val) ->
-      @queue path, val
-      # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
-      arr = path.split('.')
-      arr.reduce (curr, next, index) ->
-         if (arr.length - 1) == index
-           curr[next] = val
-         curr[next]
-      , userObj
+    set: (path, val) ->
+      if transactionInProgress
+        updates[path] = val
+        # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
+        arr = path.split('.')
+        arr.reduce (curr, next, index) ->
+          if (arr.length - 1) == index then curr[next] = val
+          return curr[next]
+        , userObj
+      else
+        user.set(path, val)
 
     commit: ->
       _.each updates, (val, path) ->
         user.set(path, val)
-      model._commit = orig_commit
-      user.set "update__", updates # some hackery in our own branched racer-db-mongo, see findAndModify
+      model._commit = origCommit
+      # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
+      user.set "update__", updates
+      transactionInProgress = false
   }

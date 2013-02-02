@@ -46,9 +46,14 @@ get '/', (page, model, next) ->
     #user = result.at(0)
     model.ref '_user', user
     batch = new schema.BatchUpdate(model)
+    batch.startTransaction()
     userObj = batch.userObj
 
-    return page.redirect '/500.html' unless userObj? #this should never happen, but it is. Looking into it
+    unless userObj?
+      #this should never happen, but it is. Looking into it
+      console.error 'User object was null!'
+      return page.redirect '/500.html'
+
 
     # Setup Item Store
     items = userObj.items
@@ -254,14 +259,14 @@ ready (model) ->
 
   revive = (batch) ->
     # Reset stats
-    batch.queue 'stats.hp', 50
-    batch.queue 'stats.lvl', 1
-    batch.queue 'stats.money', 0
-    batch.queue 'stats.exp', 0
+    batch.set 'stats.hp', 50
+    batch.set 'stats.lvl', 1
+    batch.set 'stats.money', 0
+    batch.set 'stats.exp', 0
 
     # Reset items
-    batch.queue 'items.armor', 0
-    batch.queue 'items.weapon', 0
+    batch.set 'items.armor', 0
+    batch.set 'items.weapon', 0
 
     # Reset item store
     model.set '_view.items.armor', content.items.armor[1]
@@ -269,16 +274,18 @@ ready (model) ->
     
   exports.revive = (e, el) ->
     batch = new schema.BatchUpdate(model)
+    batch.startTransaction()
     revive(batch)
     batch.commit()
     resetDom(model)
 
   exports.reset = (e, el) ->
     batch = new schema.BatchUpdate(model)
+    batch.startTransaction()
     taskTypes = ['habit', 'daily', 'todo', 'reward']
-    batch.queue 'tasks', {}
-    _.each taskTypes, (type) -> batch.queue "#{type}Ids", []
-    batch.queue 'balance', 2 if user.get('balance') < 2 #only if they haven't manually bought tokens
+    batch.set 'tasks', {}
+    _.each taskTypes, (type) -> batch.set "#{type}Ids", []
+    batch.set 'balance', 2 if user.get('balance') < 2 #only if they haven't manually bought tokens
     revive(batch, true)
     batch.commit()
     resetDom(model)
