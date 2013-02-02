@@ -179,8 +179,9 @@ cron = (resetDom_cb) ->
   today = +new Date
   daysPassed = helpers.daysBetween(today, user.get('lastCron'))
   if daysPassed > 0
-    user.set 'lastCron', today
     batch = new schema.BatchUpdate(model)
+    batch.startTransaction()
+    batch.set 'lastCron', today
     userObj = batch.userObj
     hpBefore = userObj.stats.hp #we'll use this later so we can animate hp loss
     # Tally each task
