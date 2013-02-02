@@ -33,7 +33,7 @@ module.exports.updateUser = (user, userObj) ->
   # Preferences, including API key
   # Some side-stepping to avoid unecessary set (one day, model.update... one day..)
   prefs = _.clone(userObj.preferences)
-  _.defaults prefs, { gender: 'm', armorSet: 'v1', api_token: derby.uuid() }
+  prefs = _.defaults prefs, { gender: 'm', armorSet: 'v1', api_token: derby.uuid() }
   user.set 'preferences', prefs unless _.isEqual(prefs, userObj.preferences)
 
   ## Task List Cleanup
