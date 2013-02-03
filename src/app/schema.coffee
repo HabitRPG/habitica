@@ -64,7 +64,6 @@ module.exports.updateUser = (batch) ->
 
 module.exports.BatchUpdate = BatchUpdate = (model) ->
   user = model.at("_user")
-  origCommit = model._commit
   transactionInProgress = false
   updates = {}
 
@@ -80,9 +79,8 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
       # Additionally, for some reason after getting the user object, changing properies manually (userObj.stats.hp = 50)
       # seems to actually run user.set('stats.hp',50) which we don't want to do - so we deepClone here
       #_.each Object.keys(userSchema), (key) -> userObj[key] = lodash.cloneDeep user.get(key)
-      model._commit = (txn) ->
-        txn.dontPersist = true
-        origCommit.apply(model, arguments)
+
+      model._dontPersist = true
 
     ###
       Handles updating the user model. If this is an en-mass operation (eg, server cron), changes are queued
@@ -94,7 +92,7 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
       user.set(path, val)
 
     commit: ->
-      model._commit = origCommit
+      model._dontPersist = false
       # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
       user.set "update__", updates
       transactionInProgress = false
