@@ -151,11 +151,6 @@ score = (taskId, direction, times, batch, cron) ->
       calculateDelta()
       if cron? # cron
         subtractPoints()
-        taskObj.history ?= []
-        taskObj.history.push { date: +new Date, value: value }
-        taskObj.completed = false
-        batch.set "#{taskPath}.history", taskObj.history
-        batch.set "#{taskPath}.completed", false
       else
         addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
@@ -225,7 +220,12 @@ cron = (resetDom_cb) ->
                 daysFailed++
           score id, 'down', daysFailed, batch, true
 
-        if type == 'todo'
+        if type == 'daily'
+          taskObj.history ?= []
+          taskObj.history.push { date: +new Date, value: value }
+          batch.set "tasks.#{taskObj.id}.history", taskObj.history
+          batch.set "tasks.#{taskObj.id}.completed", false
+        else
           value = obj.tasks[taskObj.id].value #get updated value
           absVal = if (completed) then Math.abs(value) else value
           todoTally += absVal
