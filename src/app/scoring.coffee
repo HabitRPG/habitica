@@ -164,7 +164,7 @@ score = (taskId, direction, times, update) ->
       # Don't adjust values for rewards
       calculateDelta(false)
       # purchase item
-      money -= taskObj.value
+      money -= Math.abs(taskObj.value)
       num = parseFloat(taskObj.value).toFixed(2)
       # if too expensive, reduce health & zero money
       if money < 0
