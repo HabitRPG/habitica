@@ -108,6 +108,7 @@ score = (taskId, direction, times, batch, cron) ->
 
   {money, hp, exp, lvl} = obj.stats
 
+  taskPath = "tasks.#{taskId}"
   taskObj = obj.tasks[taskId]
   {type, value} = taskObj
 
@@ -141,7 +142,10 @@ score = (taskId, direction, times, batch, cron) ->
       historyEntry = { date: +new Date, value: value }
       if (delta > 0) then addPoints() else subtractPoints()
       taskObj.history ?= []
-      taskObj.history.push historyEntry if taskObj.value != value
+      if taskObj.value != value
+        taskObj.history.push historyEntry
+        batch.set "#{taskPath}.history", taskObj.history
+
 
     when 'daily'
       calculateDelta()
@@ -150,6 +154,8 @@ score = (taskId, direction, times, batch, cron) ->
         taskObj.history ?= []
         taskObj.history.push { date: +new Date, value: value }
         taskObj.completed = false
+        batch.set "#{taskPath}.history", taskObj.history
+        batchSet "#{taskObj}.completed", false
       else
         addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
@@ -170,9 +176,14 @@ score = (taskId, direction, times, batch, cron) ->
         money = 0
 
   taskObj.value = value
-  batch.set "tasks.#{taskId}", taskObj
+  batch.set "#{taskPath}.value", taskObj.value
+  origStats = _.clone obj.stats
   updateStats {hp: hp, exp: exp, money: money}, batch
   if commit
+    # newStats / origStats is a glorious hack to trick Derby into seeing the change in model.on(*)
+    newStats = _.clone batch.obj().stats
+    _.each Object.keys(origStats), (key) -> obj.stats[key] = origStats[key]
+    batch.setStats(newStats)
     batch.setStats()
     batch.commit()
   return delta

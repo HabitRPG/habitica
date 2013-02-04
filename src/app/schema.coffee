@@ -83,7 +83,7 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
       # Additionally, for some reason after getting the user object, changing properies manually (userObj.stats.hp = 50)
       # seems to actually run user.set('stats.hp',50) which we don't want to do - so we deepClone here
       #_.each Object.keys(userSchema), (key) -> obj[key] = lodash.cloneDeep user.get(key)
-      obj = user.get()
+      obj = model.get('users.'+user.get('id'), {getRef:false})
 
     ###
       Handles updating the user model. If this is an en-mass operation (eg, server cron), changes are queued
@@ -98,9 +98,10 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
       Hack to get around dom bindings being lost if parent objects are replaced whole-sale
       eg, user.set('stats', {hp:50, exp:10...}) will break dom bindings, but user.set('stats.hp',50) is ok
     ###
-    setStats: ->
+    setStats: (stats) ->
+      stats ?= obj.stats
       that = @
-      _.each Object.keys(obj.stats), (key) -> that.set "stats.#{key}", obj.stats[key]
+      _.each Object.keys(stats), (key) -> that.set "stats.#{key}", stats[key]
 
 #    queue: (path, val) ->
 #      # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
