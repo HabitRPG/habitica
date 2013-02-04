@@ -17,9 +17,9 @@ require('./cron').deleteStaleAccounts()
 racer = require 'racer'
 racer.io.set('transports', ['xhr-polling'])
 racer.set('bundleTimeout', 40000)
-unless process.env.NODE_ENV == 'production'
-  racer.use(racer.logPlugin)
-  derby.use(derby.logPlugin)
+#unless process.env.NODE_ENV == 'production'
+#  racer.use(racer.logPlugin)
+#  derby.use(derby.logPlugin)
 
 ## SERVER CONFIGURATION ##
 
