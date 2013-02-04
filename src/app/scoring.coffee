@@ -81,8 +81,11 @@ updateStats = (newStats, batch) ->
       obj.stats.lvl++
       obj.stats.hp = 50
     if !obj.items.itemsEnabled and obj.stats.lvl >= 2
-      obj.items.itemsEnabled = true #bit of trouble using userSet here
+      # Set to object, then also send to browser right away to get model.on() subscription notification
+      batch.set 'items.itemsEnabled', true
+      obj.items.itemsEnabled = true
     if !obj.flags.partyEnabled and obj.stats.lvl >= 3
+      batch.set 'flags.partyEnabled', true
       obj.flags.partyEnabled = true
     obj.stats.exp = newStats.exp
 

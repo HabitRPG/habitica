@@ -104,9 +104,9 @@ module.exports.setupGrowlNotifications = (model) ->
       trigger: 'manual'
       html: true
       content: "<div class='item-store-popover'>
-                  <img src='/img/BrowserQuest/chest.png' />
-                  #{message} <a href='#' onClick=\"$('ul.items').popover('hide');return false;\">[Close]</a>
-                  </div>"
+          <img src='/img/BrowserQuest/chest.png' />
+          #{message} <a href='#' onClick=\"$('ul.items').popover('hide');return false;\">[Close]</a>
+          </div>"
     $('ul.items').popover 'show'
 
   user.on 'set', 'flags.partyEnabled', (captures, args) ->
@@ -118,9 +118,9 @@ module.exports.setupGrowlNotifications = (model) ->
       trigger: 'manual'
       html: true
       content: "<div class='party-system-popover'>
-              <img src='/img/BrowserQuest/favicon.png' />
-              #{message} <a href='#' onClick=\"$('#add-friend-button').popover('hide');return false;\">[Close]</a>
-              </div>"
+          <img src='/img/BrowserQuest/favicon.png' />
+          #{message} <a href='#' onClick=\"$('#add-friend-button').popover('hide');return false;\">[Close]</a>
+          </div>"
     $('#add-friend-button').popover 'show'
 
 
