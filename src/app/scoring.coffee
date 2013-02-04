@@ -139,13 +139,12 @@ score = (taskId, direction, times, batch, cron) ->
       adjustvalue = if (taskObj.up==false or taskObj.down==false) then false else true
       calculateDelta(adjustvalue)
       # Add habit value to habit-history (if different)
-      historyEntry = { date: +new Date, value: value }
       if (delta > 0) then addPoints() else subtractPoints()
       taskObj.history ?= []
       if taskObj.value != value
+        historyEntry = { date: +new Date, value: value }
         taskObj.history.push historyEntry
         batch.set "#{taskPath}.history", taskObj.history
-
 
     when 'daily'
       calculateDelta()
@@ -179,7 +178,7 @@ score = (taskId, direction, times, batch, cron) ->
     newStats = _.clone batch.obj().stats
     _.each Object.keys(origStats), (key) -> obj.stats[key] = origStats[key]
     batch.setStats(newStats)
-    batch.setStats()
+#    batch.setStats()
     batch.commit()
   return delta
 
