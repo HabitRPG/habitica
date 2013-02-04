@@ -155,7 +155,7 @@ score = (taskId, direction, times, batch, cron) ->
         taskObj.history.push { date: +new Date, value: value }
         taskObj.completed = false
         batch.set "#{taskPath}.history", taskObj.history
-        batchSet "#{taskObj}.completed", false
+        batch.set "#{taskPath}.completed", false
       else
         addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
