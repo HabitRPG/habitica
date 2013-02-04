@@ -55,3 +55,24 @@ module.exports.viewHelpers = (view) ->
   
   view.fn "tokens", (money) ->
     return money/0.25
+
+  view.fn 'currentArmor', (gender, armor, armorSet) ->
+    if gender == 'f'
+      str = "armor#{armor}_f"
+      if parseInt(armor) > 1
+        armorSet = if armorSet then armorSet else 'v1'
+        str += '_' + armorSet
+      return "#{str}.png"
+    else
+      return "armor#{armor}_m.png"
+
+  view.fn "username", (auth) ->
+    if auth?.facebook?.displayName?
+      auth.facebook.displayName
+    else if auth?.facebook?
+      fb = auth.facebook
+      if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name
+    else if auth?.local?
+      auth.local.username
+    else
+      'Anonymous'

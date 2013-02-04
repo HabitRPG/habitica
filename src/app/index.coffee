@@ -24,15 +24,9 @@ setupModelFns = (model) ->
     # also update in scoring.coffee. TODO create a function accessible in both locations
     (lvl*100)/5
 
-  model.fn '_user._armor', '_user.items.armor', '_user.preferences.armorSet', '_user.preferences.gender', (armor, armorSet, gender) ->
-    if gender == 'f'
-      str = "armor#{armor}_f"
-      if parseInt(armor) > 1
-        armorSet = if armorSet then armorSet else 'v1'
-        str += '_' + armorSet
-      return "#{str}.png"
-    else
-      "armor#{armor}_m.png"
+#  model.fn '_party', '_user.party', (ids) ->
+#    model.fetch model.query('users').party(ids), (err, party) ->
+#      model.set '_view.party', party
 
 # ========== ROUTES ==========
 
@@ -51,18 +45,11 @@ get '/', (page, model, next) ->
   model.subscribe q, (err, user) ->
     #user = result.at(0)
     model.ref '_user', user
-    userObj = user.get()
-
-    return page.redirect '/500.html' unless userObj? #this should never happen, but it is. Looking into it
-
-    # support legacy Everyauth schema (now using derby-auth, Passport)
-    if username = userObj.auth?.local?.username
-      _view.loginName = username
-    else if fb = userObj.auth?.facebook
-      _view.loginName = if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name
+    batch = new schema.BatchUpdate(model)
+    batch.startTransaction()
 
     # Setup Item Store
-    items = userObj.items
+    items = user.get('items')
     _view.items =
       armor: content.items.armor[parseInt(items?.armor || 0) + 1]
       weapon: content.items.weapon[parseInt(items?.weapon || 0) + 1]
@@ -71,9 +58,16 @@ get '/', (page, model, next) ->
 
     model.set '_view', _view
 
-    schema.updateUser(user, userObj)
+    schema.updateUser(batch)
+    batch.commit()
+
     setupListReferences(model)
     setupModelFns(model)
+
+    # Subscribe to friends
+    if !_.isEmpty(user.get('party'))
+      model.subscribe model.query('users').party(user.get('party')), (err, party) ->
+        model.ref '_party', party
 
     page.render()
 
@@ -86,13 +80,13 @@ resetDom = (model) ->
 
 ready (model) ->
   user = model.at('_user')
+  scoring.setModel(model)
 
   #set cron immediately
   lastCron = user.get('lastCron')
-  user.set('lastCron', +new Date) if (!lastCron or lastCron == 'new')
+  user.set('lastCron', +new Date) if (!lastCron? or lastCron == 'new')
 
   # Setup model in scoring functions
-  scoring.setModel(model)
   scoring.cron(resetDom)
 
   # Load all the jQuery, Growl, Tour, etc
@@ -256,40 +250,38 @@ ready (model) ->
     task = model.at $(el).parents('li')[0]
     scoring.score(task.get('id'), direction)
 
-  revive = (userObj, animateHp = false) ->
+  revive = (batch) ->
     # Reset stats
-    userObj.stats.hp = 50 unless animateHp # if we're animating hp-reset, we'll set to 50 ourselves later in our functions
-    userObj.stats.lvl = 1; userObj.stats.money = 0; userObj.stats.exp = 0
+    batch.set 'stats.hp', 50
+    batch.set 'stats.lvl', 1
+    batch.set 'stats.money', 0
+    batch.set 'stats.exp', 0
 
     # Reset items
-    userObj.items.armor = 0; userObj.items.weapon = 0
+    batch.set 'items.armor', 0
+    batch.set 'items.weapon', 0
 
     # Reset item store
     model.set '_view.items.armor', content.items.armor[1]
     model.set '_view.items.weapon', content.items.weapon[1]
     
   exports.revive = (e, el) ->
-    userObj = user.get()
-    revive(userObj, true)
-
-    user.set 'stats', userObj.stats
-    user.set 'items', userObj.items
-    # Re-render (since we replaced objects en-masse, see https://github.com/lefnire/habitrpg/issues/80)
+    batch = new schema.BatchUpdate(model)
+    batch.startTransaction()
+    revive(batch)
+    batch.commit()
     resetDom(model)
-    setTimeout (-> user.set 'stats.hp', 50), 0 # animate hp loss
 
   exports.reset = (e, el) ->
-    userObj = user.get()
+    batch = new schema.BatchUpdate(model)
+    batch.startTransaction()
     taskTypes = ['habit', 'daily', 'todo', 'reward']
-    userObj.tasks = {}
-    _.each taskTypes, (type) -> userObj["#{type}Ids"] = []
-    userObj.balance = 2 if userObj.balance < 2 #only if they haven't manually bought tokens
-    revive(userObj, true)
-
-    # Set new user
-    model.set "users.#{userObj.id}", userObj
+    batch.set 'tasks', {}
+    _.each taskTypes, (type) -> batch.set "#{type}Ids", []
+    batch.set 'balance', 2 if user.get('balance') < 2 #only if they haven't manually bought tokens
+    revive(batch, true)
+    batch.commit()
     resetDom(model)
-    setTimeout (-> user.set 'stats.hp', 50), 0 # animate hp loss
 
   exports.closeKickstarterNofitication = (e, el) ->
     user.set('notifications.kickstarter', 'hide')
@@ -298,3 +290,27 @@ ready (model) ->
   exports.setFemale = -> user.set('preferences.gender', 'f')
   exports.setArmorsetV1 = -> user.set('preferences.armorSet', 'v1')
   exports.setArmorsetV2 = -> user.set('preferences.armorSet', 'v2')
+
+  exports.addParty = ->
+    id = model.get('_newPartyMember').replace(/[\s"]/g, '')
+    debugger
+    return if _.isEmpty(id)
+    if user.get('party').indexOf(id) != -1
+      model.set "_view.addPartyError", "#{id} already in party."
+      return
+    query = model.query('users').party([id])
+    model.fetch query, (err, users) ->
+      partyMember = users.at(0).get()
+      if partyMember?.id?
+        user.push('party', id)
+        $('#add-party-modal').modal('hide')
+        window.location.reload() #TODO break old subscription, setup new subscript, remove this reload
+        model.set '_newPartyMember', ''
+      else
+        model.set "_view.addPartyError", "User with id #{id} not found."
+
+  exports.emulateNextDay = ->
+    yesterday = +moment().subtract('days', 1).toDate()
+    user.set 'lastCron', yesterday
+    window.location.reload()
+

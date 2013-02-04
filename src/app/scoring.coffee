@@ -4,7 +4,8 @@ _ = require 'underscore'
 content = require './content'
 helpers = require './helpers'
 browser = require './browser'
-MODIFIER = .03 # each new level, armor, weapon add 3% modifier (this number may change) 
+schema = require './schema'
+MODIFIER = .03 # each new level, armor, weapon add 3% modifier (this number may change)
 user = undefined
 model = undefined
 
@@ -52,73 +53,67 @@ taskDeltaFormula = (currentValue, direction) ->
   delta = if (currentValue < 0) then (( -0.1 * currentValue + 1 ) * sign) else (( Math.pow(0.9,currentValue) ) * sign)
   return delta
 
-
-###
-  Handles updating the user model. If this is an en-mass operation (eg, server cron), pass the user object as {update}.
-  otherwise, null means commit the changes immediately
-###
-userSet = (path, value, update) ->
-  if update
-    # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
-    arr = path.split('.')
-    arr.reduce (curr, next, index) ->
-      if (arr.length - 1) == index
-        curr[next] = value
-      curr[next]
-    , update
-  else
-    user.set path, value
-  
 ###
   Updates user stats with new stats. Handles death, leveling up, etc
   {stats} new stats
   {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
 ###
-updateStats = (newStats, update) ->
-  userObj = update || user.get()
+updateStats = (newStats, batch) ->
+  obj = batch.obj()
 
   # if user is dead, dont do anything
-  return if userObj.stats.lvl == 0
-    
+  return if obj.stats.lvl == 0
+
   if newStats.hp?
     # Game Over
     if newStats.hp <= 0
-      userSet 'stats.lvl', 0, update # signifies dead
-      userSet 'stats.hp', 0, update
+      obj.stats.lvl = 0 # signifies dead
+      obj.stats.hp = 0
       return
     else
-      userSet 'stats.hp', newStats.hp, update
+      obj.stats.hp = newStats.hp
 
   if newStats.exp?
     # level up & carry-over exp
     tnl = user.get '_tnl'
     if newStats.exp >= tnl
       newStats.exp -= tnl
-      userSet 'stats.lvl', userObj.stats.lvl + 1, update
-      userSet 'stats.hp', 50, update
-    if !userObj.items?.itemsEnabled and newStats.exp >=15
-      user.set 'items.itemsEnabled', true #bit of trouble using userSet here
-    userSet 'stats.exp', newStats.exp, update
+      obj.stats.lvl++
+      obj.stats.hp = 50
+    if !obj.items.itemsEnabled and obj.stats.lvl >= 2
+      # Set to object, then also send to browser right away to get model.on() subscription notification
+      batch.set 'items.itemsEnabled', true
+      obj.items.itemsEnabled = true
+#    if !obj.flags.partyEnabled and obj.stats.lvl >= 3
+#      batch.set 'flags.partyEnabled', true
+#      obj.flags.partyEnabled = true
+    obj.stats.exp = newStats.exp
 
   if newStats.money?
+    #FIXME what was I doing here? I can't remember, money isn't defined
     money = 0.0 if (!money? or money<0)
-    userSet 'stats.money', newStats.money, update
+    obj.stats.money = newStats.money
 
 # {taskId} task you want to score
 # {direction} 'up' or 'down'
 # {times} # times to call score on this task (1 unless cron, usually)
 # {update} if we're running updates en-mass (eg, cron on server) pass in userObj
-score = (taskId, direction, times, update) ->
-  times ?= 1
+score = (taskId, direction, times, batch, cron) ->
+  commit = false
+  unless batch?
+    commit = true
+    batch = new schema.BatchUpdate(model)
+    batch.startTransaction()
+  obj = batch.obj()
 
-  userObj = update or user.get()
-  {money, hp, exp, lvl} = userObj.stats
+  {money, hp, exp, lvl} = obj.stats
 
   taskPath = "tasks.#{taskId}"
-  taskObj = userObj.tasks[taskId]
+  taskObj = obj.tasks[taskId]
   {type, value} = taskObj
 
   delta = 0
+  times ?= 1
   calculateDelta = (adjustvalue=true) ->
     # If multiple days have passed, multiply times days missed
     _.times times, (n) ->
@@ -144,20 +139,23 @@ score = (taskId, direction, times, update) ->
       adjustvalue = if (taskObj.up==false or taskObj.down==false) then false else true
       calculateDelta(adjustvalue)
       # Add habit value to habit-history (if different)
-      historyEntry = { date: +new Date(), value: value } if taskObj.value != value
       if (delta > 0) then addPoints() else subtractPoints()
-      model.push "_user.#{taskPath}.history", historyEntry
+      taskObj.history ?= []
+      if taskObj.value != value
+        historyEntry = { date: +new Date, value: value }
+        taskObj.history.push historyEntry
+        batch.set "#{taskPath}.history", taskObj.history
 
     when 'daily'
       calculateDelta()
-      if update? # cron
+      if cron? # cron
         subtractPoints()
       else
         addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
     when 'todo'
       calculateDelta()
-      unless update? # don't touch stats on cron
+      unless cron? # don't touch stats on cron
         addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
     when 'reward'
@@ -171,8 +169,17 @@ score = (taskId, direction, times, update) ->
         hp += money # hp - money difference
         money = 0
 
-  userSet "#{taskPath}.value", value, update
-  updateStats {hp: hp, exp: exp, money: money}, update
+  taskObj.value = value
+  batch.set "#{taskPath}.value", taskObj.value
+  origStats = _.clone obj.stats
+  updateStats {hp: hp, exp: exp, money: money}, batch
+  if commit
+    # newStats / origStats is a glorious hack to trick Derby into seeing the change in model.on(*)
+    newStats = _.clone batch.obj().stats
+    _.each Object.keys(origStats), (key) -> obj.stats[key] = origStats[key]
+    batch.setStats(newStats)
+#    batch.setStats()
+    batch.commit()
   return delta
 
 ###
@@ -183,56 +190,61 @@ cron = (resetDom_cb) ->
   today = +new Date
   daysPassed = helpers.daysBetween(today, user.get('lastCron'))
   if daysPassed > 0
-    user.set 'lastCron', today
-    userObj = user.get()
-    hpBefore = userObj.stats.hp #we'll use this later so we can animate hp loss
+    batch = new schema.BatchUpdate(model)
+    batch.startTransaction()
+    batch.set 'lastCron', today
+    obj = batch.obj()
+    hpBefore = obj.stats.hp #we'll use this later so we can animate hp loss
     # Tally each task
     todoTally = 0
-    _.each userObj.tasks, (taskObj) ->
-      #FIXME remove broken tasks
-      if taskObj.id? # a task had a null id during cron, this should not be happening
-        {id, type, completed, repeat} = taskObj
-        if type in ['todo', 'daily']
-          # Deduct experience for missed Daily tasks,
-          # but not for Todos (just increase todo's value)
-          unless completed
-            # for todos & typical dailies, these are equivalent
-            daysFailed = daysPassed
-            # however, for dailys which have repeat dates, need
-            # to calculate how many they've missed according to their own schedule
-            if type=='daily' && repeat
-              daysFailed = 0
-              _.times daysPassed, (n) ->
-                thatDay = moment().subtract('days', n+1)
-                if repeat[helpers.dayMapping[thatDay.day()]]==true
-                  daysFailed++
-            score id, 'down', daysFailed, userObj
+    _.each obj.tasks, (taskObj) ->
+      unless taskObj.id?
+        console.error "a task had a null id during cron, this should not be happening"
+        return
 
-          value = taskObj.value #get updated value
-          if type == 'daily'
-            taskObj.history ?= []
-            taskObj.history.push { date: today, value: value }
-            taskObj.completed = false
-          else
-            absVal = if (completed) then Math.abs(value) else value
-            todoTally += absVal
-          user.set 'tasks.' + taskObj.id, taskObj
+      {id, type, completed, repeat} = taskObj
+      if type in ['todo', 'daily']
+        # Deduct experience for missed Daily tasks,
+        # but not for Todos (just increase todo's value)
+        unless completed
+          # for todos & typical dailies, these are equivalent
+          daysFailed = daysPassed
+          # however, for dailys which have repeat dates, need
+          # to calculate how many they've missed according to their own schedule
+          if type=='daily' && repeat
+            daysFailed = 0
+            _.times daysPassed, (n) ->
+              thatDay = moment().subtract('days', n+1)
+              if repeat[helpers.dayMapping[thatDay.day()]]==true
+                daysFailed++
+          score id, 'down', daysFailed, batch, true
+
+        if type == 'daily'
+          taskObj.history ?= []
+          taskObj.history.push { date: +new Date, value: value }
+          batch.set "tasks.#{taskObj.id}.history", taskObj.history
+          batch.set "tasks.#{taskObj.id}.completed", false
+        else
+          value = obj.tasks[taskObj.id].value #get updated value
+          absVal = if (completed) then Math.abs(value) else value
+          todoTally += absVal
 
     # Finished tallying
-    userObj.history ?= {}; userObj.history.todos ?= []; userObj.history.exp ?= []
-    userObj.history.todos.push { date: today, value: todoTally }
+    obj.history ?= {}; obj.history.todos ?= []; obj.history.exp ?= []
+    obj.history.todos.push { date: today, value: todoTally }
     # tally experience
-    expTally = userObj.stats.exp
+    expTally = obj.stats.exp
     lvl = 0 #iterator
-    while lvl < (userObj.stats.lvl-1)
+    while lvl < (obj.stats.lvl-1)
       lvl++
       expTally += (lvl*100)/5
-    userObj.history.exp.push  { date: today, value: expTally }
+    obj.history.exp.push  { date: today, value: expTally }
 
     # Set the new user specs, and animate HP loss
-    [hpAfter, userObj.stats.hp] = [userObj.stats.hp, hpBefore]
-    user.set 'stats', userObj.stats
-    user.set 'history', userObj.history
+    [hpAfter, obj.stats.hp] = [obj.stats.hp, hpBefore]
+    batch.setStats()
+    batch.set('history', obj.history)
+    batch.commit()
     resetDom_cb(model)
     setTimeout (-> user.set 'stats.hp', hpAfter), 1000 # animate hp loss
 
