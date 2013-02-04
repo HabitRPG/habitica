@@ -24,9 +24,9 @@ setupModelFns = (model) ->
     # also update in scoring.coffee. TODO create a function accessible in both locations
     (lvl*100)/5
 
-#  model.fn '_user._friends', '_user.friends', (friendIds) ->
-#    model.fetch model.query('users').friends(friendIds), (err, friends) ->
-#      model.set '_view.friends', friends
+#  model.fn '_party', '_user.party', (ids) ->
+#    model.fetch model.query('users').party(ids), (err, party) ->
+#      model.set '_view.party', party
 
 # ========== ROUTES ==========
 
@@ -65,9 +65,9 @@ get '/', (page, model, next) ->
     setupModelFns(model)
 
     # Subscribe to friends
-    if !_.isEmpty(user.get('friends'))
-      model.subscribe model.query('users').friends(user.get('friends')), (err, friends) ->
-        model.ref '_friends', friends
+    if !_.isEmpty(user.get('party'))
+      model.subscribe model.query('users').party(user.get('party')), (err, party) ->
+        model.ref '_party', party
 
     page.render()
 
@@ -291,22 +291,23 @@ ready (model) ->
   exports.setArmorsetV1 = -> user.set('preferences.armorSet', 'v1')
   exports.setArmorsetV2 = -> user.set('preferences.armorSet', 'v2')
 
-  exports.addFriend = ->
-    friendId = model.get('_newFriend').replace(/[\s"]/g, '')
-    return if _.isEmpty(friendId)
-    if user.get('friends').indexOf(friendId) != -1
-      model.set "_view.addFriendError", "#{friendId} already in party."
+  exports.addParty = ->
+    id = model.get('_newPartyMember').replace(/[\s"]/g, '')
+    debugger
+    return if _.isEmpty(id)
+    if user.get('party').indexOf(id) != -1
+      model.set "_view.addPartyError", "#{id} already in party."
       return
-    query = model.query('users').friends([friendId])
+    query = model.query('users').party([id])
     model.fetch query, (err, users) ->
-      friend = users.at(0).get()
-      if friend?.id?
-        user.push('friends', friendId)
-        $('#add-friend-modal').modal('hide')
+      partyMember = users.at(0).get()
+      if partyMember?.id?
+        user.push('party', id)
+        $('#add-party-modal').modal('hide')
         window.location.reload() #TODO break old subscription, setup new subscript, remove this reload
-        model.set '_newFriend', ''
+        model.set '_newPartyMember', ''
       else
-        model.set "_view.addFriendError", "User with id #{friendId} not found."
+        model.set "_view.addPartyError", "User with id #{id} not found."
 
   exports.emulateNextDay = ->
     yesterday = +moment().subtract('days', 1).toDate()

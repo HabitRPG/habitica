@@ -32,9 +32,9 @@ module.exports = (store) ->
   ###
     Party permissions
   ###
-  store.query.expose "users", "friends", (ids) ->
+  store.query.expose "users", "party", (ids) ->
     @where("id").within(ids)
       .only('stats', 'preferences.gender', 'preferences.armorSet', 'items', 'auth.local.username', 'auth.facebook.displayName')
 
-  store.queryAccess "users", "friends", (ids, next) ->
+  store.queryAccess "users", "party", (ids, next) ->
     next(true) # no harm in public user stats

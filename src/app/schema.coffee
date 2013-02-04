@@ -12,7 +12,7 @@ userSchema =
   notifications: { kickstarter: 'show' }
   preferences: { gender: 'm', armorSet: 'v1' }
   flags: { partyEnabled: false }
-  friends: []
+  party: []
   tasks: {}
   habitIds: []
   dailyIds: []
@@ -36,7 +36,7 @@ module.exports.updateUser = (batch) ->
   user = batch.user
 
   batch.set('notifications.kickstarter', 'show') unless user.get('notifications.kickstarter')
-  batch.set('friends', []) unless !_.isEmpty(user.get('friends'))
+  batch.set('party', []) unless !_.isEmpty(user.get('party'))
 
   # Preferences, including API key
   # Some side-stepping to avoid unecessary set (one day, model.update... one day..)
@@ -83,7 +83,7 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
       # Additionally, for some reason after getting the user object, changing properies manually (userObj.stats.hp = 50)
       # seems to actually run user.set('stats.hp',50) which we don't want to do - so we deepClone here
       #_.each Object.keys(userSchema), (key) -> obj[key] = lodash.cloneDeep user.get(key)
-      obj = model.get('users.'+user.get('id'), {getRef:false})
+      obj = model.get('users.'+user.get('id'), true)
 
     ###
       Handles updating the user model. If this is an en-mass operation (eg, server cron), changes are queued

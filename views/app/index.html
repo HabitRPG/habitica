@@ -108,12 +108,12 @@
       </@footer>
   </app:myModal>
 
-  <app:myModal modalId="add-friend-modal" header="Add Friend">
-      <form x-bind="submit: addFriend">
-          {#if _view.addFriendError}
-          <div class='alert alert-danger'>{_view.addFriendError}</div>
+  <app:myModal modalId="add-party-modal" header="Add Party Member">
+      <form x-bind="submit: addParty">
+          {#if _view.addPartyError}
+          <div class='alert alert-danger'>{_view.addPartyError}</div>
           {/}
-          <input type="text" class="input-medium search-query" value="{_newFriend}">
+          <input type="text" class="input-medium search-query" value="{_newPartyMember}">
           <input type="submit" class="btn" value="Add" />
       </form>
   </app:myModal>
@@ -158,7 +158,7 @@
     <div class='container-fluid'>
 
       <div class='row-fluid'>
-        <div id=character class='{#if _friends}span9{else}span5{/}'>
+        <div id=character class='{#if _party}span9{else}span5{/}'>
           <table>
             <tr>
 
@@ -172,7 +172,7 @@
               </td>
 
               <!-- Progress Bars -->
-              <td id="bars" style="width:{#if _friends}70%{else}90%{/};">
+              <td id="bars" style="width:{#if _party}70%{else}90%{/};">
                 <div class="progress progress-danger" rel=tooltip data-placement=bottom title="Health">
                   <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
                   <span class="progress-text"><i class=icon-heart></i> {round(_user.stats.hp)} / 50</span>
@@ -191,16 +191,16 @@
 
               <!-- Party -->
               {#if _user.flags.partyEnabled}
-                  {#each _friends as :friend}
-                    <td class="avatar friend-avatar" rel="tooltip" title="{username(:friend.auth)}" data-placement="bottom" >
+                  {#each _party as :member}
+                    <td class="avatar party-avatar" rel="tooltip" title="{username(:member.auth)}" data-placement="bottom" >
                         <div class='avatar-sprites'>
-                            <img class='weapon weapon-{:friend.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:friend.items.weapon}.png" />
-                            <img class='armor armor-{:friend.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:friend.preferences.gender, :friend.items.armor, :friend.preferences.armorSet)}" />
+                            <img class='weapon weapon-{:member.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:member.items.weapon}.png" />
+                            <img class='armor armor-{:member.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:member.preferences.gender, :member.items.armor, :member.preferences.armorSet)}" />
                         </div>
-                        <div id="lvl"><span class="badge badge-info">Lvl {:friend.stats.lvl}</span></div>
+                        <div id="lvl"><span class="badge badge-info">Lvl {:member.stats.lvl}</span></div>
                     </td>
                   {/}
-                  <td><a class="btn" id="add-friend-button" data-target="#add-friend-modal" data-toggle="modal"><i class="icon-user"></i></a></td>
+                  <td><a class="btn" id="add-party-button" data-target="#add-party-modal" data-toggle="modal"><i class="icon-user"></i></a></td>
               {/}
 
             </tr>
