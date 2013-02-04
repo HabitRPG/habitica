@@ -1,4 +1,5 @@
 _ = require 'underscore'
+schema = require "../app/schema"
 
 module.exports.middleware = (req, res, next) ->
   model = req.getModel()
@@ -32,13 +33,12 @@ module.exports.app = (appExports, model) ->
     Buy Reroll Button
   ###
   appExports.buyReroll = (e, el, next) ->
-    user = model.at('_user')
-    tasks = user.get('tasks')
-    user.set('balance', user.get('balance')-1)
-    _.each tasks, (task) -> task.value = 0 unless task.type == 'reward'
-    user.set('tasks', tasks)
-    window.DERBY.app.dom.clear()
-    window.DERBY.app.view.render(model)
+    batch = new schema.BatchUpdate(model)
+    obj = model.get('_user')
+    batch.set 'balance', obj.balance-1
+    _.each obj.tasks, (task) -> batch.set("tasks.#{task.id}.value", 0) unless task.type == 'reward'
+    console.log(obj)
+    batch.commit()
 
 module.exports.routes = (expressApp) ->
   ###

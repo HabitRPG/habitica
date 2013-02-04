@@ -270,7 +270,6 @@ ready (model) ->
     batch.startTransaction()
     revive(batch)
     batch.commit()
-    resetDom(model)
 
   exports.reset = (e, el) ->
     batch = new schema.BatchUpdate(model)
