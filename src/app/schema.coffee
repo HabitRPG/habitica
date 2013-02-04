@@ -65,22 +65,25 @@ module.exports.updateUser = (batch) ->
 module.exports.BatchUpdate = BatchUpdate = (model) ->
   user = model.at("_user")
   transactionInProgress = false
+  obj = {}
   updates = {}
 
   {
     user: user
 
+    obj: -> obj
+
     startTransaction: ->
       # start a batch transaction - nothing between now and @commit() will be set immediately
       transactionInProgress = true
+      model._dontPersist = true
 
       # Really strange, user.get() seems to only return attributes which have previously been accessed. So in
       # many cases, userObj.tasks.{taskId}.value is undefined - so we manually .get() each attribute here.
       # Additionally, for some reason after getting the user object, changing properies manually (userObj.stats.hp = 50)
       # seems to actually run user.set('stats.hp',50) which we don't want to do - so we deepClone here
       #_.each Object.keys(userSchema), (key) -> userObj[key] = lodash.cloneDeep user.get(key)
-
-      model._dontPersist = true
+      obj = user.get()
 
     ###
       Handles updating the user model. If this is an en-mass operation (eg, server cron), changes are queued
@@ -90,6 +93,23 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
     set: (path, val) ->
       updates[path] = val if transactionInProgress
       user.set(path, val)
+
+    ###
+      Hack to get around dom bindings being lost if parent objects are replaced whole-sale
+      eg, user.set('stats', {hp:50, exp:10...}) will break dom bindings, but user.set('stats.hp',50) is ok
+    ###
+    setStats: ->
+      that = @
+      _.each Object.keys(obj.stats), (key) -> that.set "stats.#{key}", obj.stats[key]
+
+#    queue: (path, val) ->
+#      # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
+#      arr = path.split('.')
+#      arr.reduce (curr, next, index) ->
+#         if (arr.length - 1) == index
+#           curr[next] = val
+#         curr[next]
+#      , obj
 
     commit: ->
       model._dontPersist = false

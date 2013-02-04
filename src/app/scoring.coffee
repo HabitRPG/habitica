@@ -59,61 +59,57 @@ taskDeltaFormula = (currentValue, direction) ->
   {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
 ###
 updateStats = (newStats, batch) ->
-  user = batch.user
-  stats = batch.user.get('stats')
+  obj = batch.obj()
 
   # if user is dead, dont do anything
-  return if stats.lvl == 0
-    
+  return if obj.stats.lvl == 0
+
   if newStats.hp?
     # Game Over
     if newStats.hp <= 0
-      batch.set 'stats.lvl', 0 # signifies dead
-      batch.set 'stats.hp', 0
+      obj.stats.lvl = 0 # signifies dead
+      obj.stats.hp = 0
       return
     else
-      batch.set 'stats.hp', newStats.hp
+      obj.stats.hp = newStats.hp
 
   if newStats.exp?
     # level up & carry-over exp
     tnl = user.get '_tnl'
     if newStats.exp >= tnl
       newStats.exp -= tnl
-      batch.set 'stats.lvl', stats.lvl + 1
-      batch.set 'stats.hp', 50
-    newStats.lvl = stats.lvl
-    if !user.get('items.itemsEnabled') and newStats.lvl >= 2
-      batch.set 'items.itemsEnabled', true #bit of trouble using userSet here
-    if !user.get('flags.partyEnabled') and newStats.lvl >= 3
-      batch.set 'flags.partyEnabled', true
-    batch.set 'stats.exp', newStats.exp
+      obj.stats.lvl++
+      obj.stats.hp = 50
+    if !obj.items.itemsEnabled and obj.stats.lvl >= 2
+      obj.items.itemsEnabled = true #bit of trouble using userSet here
+    if !obj.flags.partyEnabled and obj.stats.lvl >= 3
+      obj.flags.partyEnabled = true
+    obj.stats.exp = newStats.exp
 
   if newStats.money?
     #FIXME what was I doing here? I can't remember, money isn't defined
     money = 0.0 if (!money? or money<0)
-    batch.set 'stats.money', newStats.money
+    obj.stats.money = newStats.money
 
 # {taskId} task you want to score
 # {direction} 'up' or 'down'
 # {times} # times to call score on this task (1 unless cron, usually)
 # {update} if we're running updates en-mass (eg, cron on server) pass in userObj
 score = (taskId, direction, times, batch, cron) ->
-  times ?= 1
-
   commit = false
   unless batch?
-    console.log("HI")
     commit = true
     batch = new schema.BatchUpdate(model)
     batch.startTransaction()
+  obj = batch.obj()
 
-  {money, hp, exp, lvl} = user.get('stats')
+  {money, hp, exp, lvl} = obj.stats
 
-  taskPath = "tasks.#{taskId}"
-  taskObj = user.get(taskPath)
+  taskObj = obj.tasks[taskId]
   {type, value} = taskObj
 
   delta = 0
+  times ?= 1
   calculateDelta = (adjustvalue=true) ->
     # If multiple days have passed, multiply times days missed
     _.times times, (n) ->
@@ -142,13 +138,15 @@ score = (taskId, direction, times, batch, cron) ->
       historyEntry = { date: +new Date, value: value }
       if (delta > 0) then addPoints() else subtractPoints()
       taskObj.history ?= []
-      taskObj.history.push historyEntry
-      batch.set "#{taskPath}.history", taskObj.history if taskObj.value != value
+      taskObj.history.push historyEntry if taskObj.value != value
 
     when 'daily'
       calculateDelta()
       if cron? # cron
         subtractPoints()
+        taskObj.history ?= []
+        taskObj.history.push { date: +new Date, value: value }
+        taskObj.completed = false
       else
         addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
@@ -168,9 +166,12 @@ score = (taskId, direction, times, batch, cron) ->
         hp += money # hp - money difference
         money = 0
 
-  batch.set "#{taskPath}.value", value
+  taskObj.value = value
+  batch.set "tasks.#{taskId}", taskObj
   updateStats {hp: hp, exp: exp, money: money}, batch
-  batch.commit() if commit
+  if commit
+    batch.setStats()
+    batch.commit()
   return delta
 
 ###
@@ -184,57 +185,52 @@ cron = (resetDom_cb) ->
     batch = new schema.BatchUpdate(model)
     batch.startTransaction()
     batch.set 'lastCron', today
-    user = batch.user
-    hpBefore = user.get('stats.hp') #we'll use this later so we can animate hp loss
+    obj = batch.obj()
+    hpBefore = obj.stats.hp #we'll use this later so we can animate hp loss
     # Tally each task
     todoTally = 0
-    _.each user.get('tasks'), (taskObj) ->
-      #FIXME remove broken tasks
-      if taskObj.id? # a task had a null id during cron, this should not be happening
-        {id, type, completed, repeat} = taskObj
-        if type in ['todo', 'daily']
-          # Deduct experience for missed Daily tasks,
-          # but not for Todos (just increase todo's value)
-          unless completed
-            # for todos & typical dailies, these are equivalent
-            daysFailed = daysPassed
-            # however, for dailys which have repeat dates, need
-            # to calculate how many they've missed according to their own schedule
-            if type=='daily' && repeat
-              daysFailed = 0
-              _.times daysPassed, (n) ->
-                thatDay = moment().subtract('days', n+1)
-                if repeat[helpers.dayMapping[thatDay.day()]]==true
-                  daysFailed++
-            score id, 'down', daysFailed, batch, true
+    _.each obj.tasks, (taskObj) ->
+      unless taskObj.id?
+        console.error "a task had a null id during cron, this should not be happening"
+        return
 
-          value = taskObj.value #get updated value
-          if type == 'daily'
-            taskObj.history ?= []
-            taskObj.history.push { date: today, value: value }
-            taskObj.completed = false
-          else
-            absVal = if (completed) then Math.abs(value) else value
-            todoTally += absVal
-          batch.set('tasks.' + taskObj.id, taskObj)
+      {id, type, completed, repeat} = taskObj
+      if type in ['todo', 'daily']
+        # Deduct experience for missed Daily tasks,
+        # but not for Todos (just increase todo's value)
+        unless completed
+          # for todos & typical dailies, these are equivalent
+          daysFailed = daysPassed
+          # however, for dailys which have repeat dates, need
+          # to calculate how many they've missed according to their own schedule
+          if type=='daily' && repeat
+            daysFailed = 0
+            _.times daysPassed, (n) ->
+              thatDay = moment().subtract('days', n+1)
+              if repeat[helpers.dayMapping[thatDay.day()]]==true
+                daysFailed++
+          score id, 'down', daysFailed, batch, true
+
+        if type == 'todo'
+          value = obj.tasks[taskObj.id].value #get updated value
+          absVal = if (completed) then Math.abs(value) else value
+          todoTally += absVal
 
     # Finished tallying
-    history = user.get('history') || {}
-    history.todos ?= []; history.exp ?= []
-    history.todos.push { date: today, value: todoTally }
+    obj.history ?= {}; obj.history.todos ?= []; obj.history.exp ?= []
+    obj.history.todos.push { date: today, value: todoTally }
     # tally experience
-    expTally = user.get('stats.exp')
+    expTally = obj.stats.exp
     lvl = 0 #iterator
-    while lvl < (user.get('stats.lvl')-1)
+    while lvl < (obj.stats.lvl-1)
       lvl++
       expTally += (lvl*100)/5
-    history.exp.push  { date: today, value: expTally }
+    obj.history.exp.push  { date: today, value: expTally }
 
     # Set the new user specs, and animate HP loss
-    stats = user.get('stats')
-    [hpAfter, stats.hp] = [stats.hp, hpBefore]
-    batch.set('stats', stats)
-    batch.set('history', history)
+    [hpAfter, obj.stats.hp] = [obj.stats.hp, hpBefore]
+    batch.setStats()
+    batch.set('history', obj.history)
     batch.commit()
     resetDom_cb(model)
     setTimeout (-> user.set 'stats.hp', hpAfter), 1000 # animate hp loss
