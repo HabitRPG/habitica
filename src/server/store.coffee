@@ -79,6 +79,11 @@ module.exports.customAccessControl = (store) ->
   store.queryAccess "users", "party", (ids, next) ->
     next(true) # no harm in public user stats
 
+  store.query.expose "parties", "withId", (id) ->
+    @where("id").equals(id)
+  store.queryAccess "parties", "withId", (id, next) ->
+    next(true)
+
   store.readPathAccess "parties.*", ->
     arguments[arguments.length-1](true)
 

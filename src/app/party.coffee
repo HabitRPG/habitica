@@ -1,14 +1,23 @@
 _ = require('underscore')
 
-module.exports = (appExports, model) ->
+module.exports.server = (model) ->
+  obj = model.get('_user')
+  if obj.party?.current
+    model.subscribe model.query('parties').withId(obj.party.current), (err, parties) ->
+      party = parties.at(0)
+      model.ref '_party', party
+      model.subscribe model.query('users').party(party.get('members')), (err, members) ->
+        model.ref '_partyMembers', members
+
+module.exports.app = (exports, model) ->
   user = model.at('_user')
 
-  appExports.partyCreate = ->
+  exports.partyCreate = ->
     newParty = model.get("_newParty")
     id = model.add 'parties', { name: newParty, leader: user.get('id'), members: [], invites: [] }
     user.set 'party', {current: id, invitation: null, leader: true}
 
-  appExports.partyInvite = ->
+  exports.partyInvite = ->
     id = model.get('_newPartyMember').replace(/[\s"]/g, '')
     return if _.isEmpty(id)
 
@@ -30,18 +39,18 @@ module.exports = (appExports, model) ->
         #model.set '_newPartyMember', ''
         #window.location.reload() #TODO break old subscription, setup new subscript, remove this reload
 
-  appExports.partyAccept = ->
+  exports.partyAccept = ->
     invitation = user.get('party.invitation')
     user.set 'party.current', invitation
     user.set 'party.invitation', null
     model.push "parties.#{invitation}.members", user.get('id')
     window.location.reload()
 
-  appExports.partyReject = ->
+  exports.partyReject = ->
     user.set 'party.invitation', null
     # TODO notify sender
 
-  appExports.partyLeave = ->
+  exports.partyLeave = ->
     id = user.get('party.current')
     user.set 'party.current', null
     members = model.get ("parties.#{id}.members")
@@ -49,7 +58,11 @@ module.exports = (appExports, model) ->
     model.set "parties.#{id}.members", members.slice(index)
     window.location.reload()
 
-  appExports.partyDisband = ->
+  exports.partyDisband = ->
 
-
-  user.on 'set', 'parties.invitation', (after, before) ->
+#  user.on 'set', 'parties.invitation', (after, before) ->
+#
+#  model.on '*', '_party.members', (ids) ->
+#    # TODO unsubscribe to previous subscription
+#    model.subscribe model.query('users').party(ids), (err, members) ->
+#      model.ref '_view.partyMembers', members

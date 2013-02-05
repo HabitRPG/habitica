@@ -11,6 +11,7 @@ scoring = require './scoring'
 schema = require './schema'
 helpers = require './helpers'
 browser = require './browser'
+party = require './party'
 helpers.viewHelpers view
 _ = require('underscore')
 
@@ -23,10 +24,6 @@ setupModelFns = (model) ->
     # see https://github.com/lefnire/habitrpg/issues/4
     # also update in scoring.coffee. TODO create a function accessible in both locations
     (lvl*100)/5
-
-#  model.fn '_party', '_user.party', (ids) ->
-#    model.fetch model.query('users').party(ids), (err, party) ->
-#      model.set '_view.party', party
 
 # ========== ROUTES ==========
 
@@ -64,10 +61,7 @@ get '/', (page, model, next) ->
     setupListReferences(model)
     setupModelFns(model)
 
-    # Subscribe to friends
-#    if obj.party?.current?
-#      model.subscribe model.query('users').party(obj.party), (err, party) ->
-#        model.ref '_party', party
+    party.server(model)
 
     page.render()
 
@@ -96,7 +90,7 @@ ready (model) ->
   browser.setupTour(model)
   browser.setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
 
-  require('./party')(exports, model)
+  party.app(exports, model)
 
   require('../server/private').app(exports, model)
 

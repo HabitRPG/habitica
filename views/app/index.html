@@ -113,14 +113,14 @@
 
   <app:myModal modalId="party-modal" header="Party">
       <h2>
-        {#if _user.party.current}Invite Member To "{_user.party.current}"
-        {else if _user.party.invitation}You're Invited To A Party
+        {#if _user.party.current}Invite Member To "{_party.name}"
+        {else if _user.party.invitation}You're Invited To "{_party.name}"
         {else}Create A Party{/}
       </h2>
 
     {#if _user.party.current}
         <!-- In a party -->
-        {#each _party as :member}
+        {#each _partyMembers as :member}
             {:member.id}
         {/}
         <form x-bind="submit: partyInvite">
@@ -229,8 +229,8 @@
               </td>
 
               <!-- Party -->
-              {#if _user.flags.partyEnabled}
-                  {#each _party as :member}
+              {#if _party}
+                  {#each _partyMembers as :member}
                     <td class="avatar party-avatar" rel="tooltip" title="{username(:member.auth)}" data-placement="bottom" >
                         <div class='avatar-sprites'>
                             <img class='weapon weapon-{:member.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:member.items.weapon}.png" />
@@ -319,7 +319,7 @@
             <!--Title -->
             <div class="row-fluid">
                 <div class="span6"><h2>Rewards</h2></div>
-                <div class="span6" id="money">{gold(_user.stats.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.stats.money)} <img src='/img/coin_single_silver.png'/></div>
+                <div class="span6" id="money">{gold(_user.stats.gp)} <img src='/img/coin_single_gold.png'/>  {silver(_user.stats.gp)} <img src='/img/coin_single_silver.png'/></div>
             </div>
 
             <!-- Content -->
