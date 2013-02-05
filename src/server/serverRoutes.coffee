@@ -49,8 +49,8 @@ module.exports = (expressApp, root, derby) ->
       
       # Create task if doesn't exist
       # TODO add service & icon to task
-      unless model.get("_user.priv.tasks.#{taskId}")
-        model.refList "_habitList", "_user.priv.tasks", "_user.priv.idLists.habit"
+      unless model.get("_user.tasks.#{taskId}")
+        model.refList "_habitList", "_user.tasks", "_user.idLists.habit"
         model.at('_habitList').push {
           id: taskId
           type: 'habit'

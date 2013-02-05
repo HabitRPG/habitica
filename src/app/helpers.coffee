@@ -57,9 +57,9 @@ module.exports.viewHelpers = (view) ->
     return gp/0.25
 
   view.fn 'currentArmor', (user) ->
-    user = { pub:{ items: {armor:0}, preferences: {gender:'m', armorSet:'v1'}}} unless user?
-    armor = user.pub.items.armor
-    {gender, armorSet} = user.pub.items
+    user = { items: {armor:0}, preferences: {gender:'m', armorSet:'v1'}} unless user?
+    armor = user.items.armor
+    {gender, armorSet} = user.preferences
     if gender == 'f'
       str = "armor#{armor}_f"
       if parseInt(armor) > 1

@@ -16,10 +16,10 @@ _ = require('underscore')
 
 setupListReferences = (model) ->
   taskTypes = ['habit', 'daily', 'todo', 'reward']
-  _.each taskTypes, (type) ->  model.refList "_#{type}List", "_user.priv.tasks", "_user.priv.idLists.#{type}"
+  _.each taskTypes, (type) ->  model.refList "_#{type}List", "_user.tasks", "_user.idLists.#{type}"
 
 setupModelFns = (model) ->
-  model.fn '_tnl', '_user.pub.stats.lvl', (lvl) ->
+  model.fn '_tnl', '_user.stats.lvl', (lvl) ->
     # see https://github.com/lefnire/habitrpg/issues/4
     # also update in scoring.coffee. TODO create a function accessible in both locations
     (lvl*100)/5
@@ -51,8 +51,8 @@ get '/', (page, model, next) ->
 
     # Setup Item Store
     _view.items =
-      armor: content.items.armor[parseInt(obj.pub.items?.armor || 0) + 1]
-      weapon: content.items.weapon[parseInt(obj.pub.items?.weapon || 0) + 1]
+      armor: content.items.armor[parseInt(obj.items?.armor || 0) + 1]
+      weapon: content.items.weapon[parseInt(obj.items?.weapon || 0) + 1]
       potion: content.items.potion
       reroll: content.items.reroll
 
@@ -65,8 +65,8 @@ get '/', (page, model, next) ->
     setupModelFns(model)
 
     # Subscribe to friends
-    if !_.isEmpty(obj.pub.party)
-      model.subscribe model.query('users').party(obj.pub.party), (err, party) ->
+    if !_.isEmpty(obj.party)
+      model.subscribe model.query('users').party(obj.party), (err, party) ->
         model.ref '_party', party
 
     page.render()
@@ -83,8 +83,8 @@ ready (model) ->
   scoring.setModel(model)
 
   #set cron immediately
-  lastCron = user.get('priv.lastCron')
-  user.set('priv.lastCron', +new Date) if (!lastCron? or lastCron == 'new')
+  lastCron = user.get('lastCron')
+  user.set('lastCron', +new Date) if (!lastCron? or lastCron == 'new')
 
   # Setup model in scoring functions
   scoring.cron(resetDom)
@@ -98,7 +98,7 @@ ready (model) ->
 
   require('../server/private').app(exports, model)
 
-  user.on 'set', 'priv.tasks.*.completed', (i, completed, previous, isLocal, passed) ->
+  user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
     return if passed? && passed.cron # Don't do this stuff on cron
     direction = () ->
       return 'up' if completed==true and previous == false
@@ -106,7 +106,7 @@ ready (model) ->
       throw new Error("Direction neither 'up' nor 'down' on checkbox set.")
       
     # Score the user based on todo task
-    task = user.at("priv.tasks.#{i}")
+    task = user.at("tasks.#{i}")
     scoring.score(i, direction())
     
   exports.addTask = (e, el, next) ->
@@ -145,10 +145,10 @@ ready (model) ->
     id = $(e.target).parents('li.task').attr('data-id')
     return unless id?
 
-    task = user.at "priv.tasks.#{id}"
+    task = user.at "tasks.#{id}"
     type = task.get('type')
 
-    history = task.get('priv.history')
+    history = task.get('history')
     if history and history.length>2
       # prevent delete-and-recreate hack on red tasks
       if task.get('value') < 0
@@ -168,22 +168,22 @@ ready (model) ->
     # fix when query subscriptions implemented properly
     $('[rel=tooltip]').tooltip('hide')
 
-    ids = user.get("priv.idLists.#{type}")
+    ids = user.get("idLists.#{type}")
     ids.splice(ids.indexOf(id),1)
-    user.del('priv.tasks.'+id)
-    user.set("priv.idLists.#{type}", ids)
+    user.del('tasks.'+id)
+    user.set("idLists.#{type}", ids)
 
     
   exports.clearCompleted = (e, el) ->
-    todoIds = user.get('priv.idLists.todo')
+    todoIds = user.get('idLists.todo')
     removed = false
     _.each model.get('_todoList'), (task) ->
       if task.completed
         removed = true
-        user.del('priv.tasks.'+task.id)
+        user.del('tasks.'+task.id)
         todoIds.splice(todoIds.indexOf(task.id), 1)
     if removed
-      user.set('priv.idLists.todo', todoIds)
+      user.set('idLists.todo', todoIds)
       
   exports.toggleDay = (e, el) ->
     task = model.at(e.target)
@@ -226,22 +226,22 @@ ready (model) ->
     #TODO: this should be working but it's not. so instead, i'm passing all needed values as data-attrs
     # item = model.at(e.target)
     
-    gp = user.get 'pub.stats.gp'
+    gp = user.get 'stats.gp'
     [type, value, index] = [ $(el).attr('data-type'), $(el).attr('data-value'), $(el).attr('data-index') ]
     
     return if gp < value
-    user.set 'pub.stats.gp', gp - value
+    user.set 'stats.gp', gp - value
     if type == 'armor'
-      user.set 'pub.items.armor', index
+      user.set 'items.armor', index
       model.set '_view.items.armor', content.items.armor[parseInt(index) + 1]
     else if type == 'weapon'
-      user.set 'pub.items.weapon', index
+      user.set 'items.weapon', index
       model.set '_view.items.weapon', content.items.weapon[parseInt(index) + 1]
     else if type == 'potion'
-      hp = user.get 'pub.stats.hp'
+      hp = user.get 'stats.hp'
       hp += 15
       hp = 50 if hp > 50 
-      user.set 'pub.stats.hp', hp
+      user.set 'stats.hp', hp
   
   exports.score = (e, el, next) ->
     direction = $(el).attr('data-direction')
@@ -252,14 +252,14 @@ ready (model) ->
 
   revive = (batch) ->
     # Reset stats
-    batch.set 'pub.stats.hp', 50
-    batch.set 'pub.stats.lvl', 1
-    batch.set 'pub.stats.gp', 0
-    batch.set 'pub.stats.exp', 0
+    batch.set 'stats.hp', 50
+    batch.set 'stats.lvl', 1
+    batch.set 'stats.gp', 0
+    batch.set 'stats.exp', 0
 
     # Reset items
-    batch.set 'pub.items.armor', 0
-    batch.set 'pub.items.weapon', 0
+    batch.set 'items.armor', 0
+    batch.set 'items.weapon', 0
 
     # Reset item store
     model.set '_view.items.armor', content.items.armor[1]
@@ -275,33 +275,33 @@ ready (model) ->
     batch = new schema.BatchUpdate(model)
     batch.startTransaction()
     taskTypes = ['habit', 'daily', 'todo', 'reward']
-    batch.set 'priv.tasks', {}
-    _.each taskTypes, (type) -> batch.set "priv.idLists.#{type}", []
-    batch.set 'priv.balance', 2 if user.get('priv.balance') < 2 #only if they haven't manually bought tokens
+    batch.set 'tasks', {}
+    _.each taskTypes, (type) -> batch.set "idLists.#{type}", []
+    batch.set 'balance', 2 if user.get('balance') < 2 #only if they haven't manually bought tokens
     revive(batch, true)
     batch.commit()
     resetDom(model)
 
   exports.closeKickstarterNofitication = (e, el) ->
-    user.set('priv.flags.kickstarter', 'hide')
+    user.set('flags.kickstarter', 'hide')
 
-  exports.setMale = -> user.set('pub.preferences.gender', 'm')
-  exports.setFemale = -> user.set('pub.preferences.gender', 'f')
-  exports.setArmorsetV1 = -> user.set('pub.preferences.armorSet', 'v1')
-  exports.setArmorsetV2 = -> user.set('pub.preferences.armorSet', 'v2')
+  exports.setMale = -> user.set('preferences.gender', 'm')
+  exports.setFemale = -> user.set('preferences.gender', 'f')
+  exports.setArmorsetV1 = -> user.set('preferences.armorSet', 'v1')
+  exports.setArmorsetV2 = -> user.set('preferences.armorSet', 'v2')
 
   exports.addParty = ->
     id = model.get('_newPartyMember').replace(/[\s"]/g, '')
     debugger
     return if _.isEmpty(id)
-    if user.get('pub.party').indexOf(id) != -1
+    if user.get('party').indexOf(id) != -1
       model.set "_view.addPartyError", "#{id} already in party."
       return
     query = model.query('users').party([id])
     model.fetch query, (err, users) ->
       partyMember = users.at(0).get()
       if partyMember?.id?
-        user.push('pub.party', id)
+        user.push('party', id)
         $('#add-party-modal').modal('hide')
         window.location.reload() #TODO break old subscription, setup new subscript, remove this reload
         model.set '_newPartyMember', ''
@@ -310,6 +310,6 @@ ready (model) ->
 
   exports.emulateNextDay = ->
     yesterday = +moment().subtract('days', 1).toDate()
-    user.set 'priv.lastCron', yesterday
+    user.set 'lastCron', yesterday
     window.location.reload()
 

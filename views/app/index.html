@@ -14,28 +14,28 @@
           <pre class=prettyprint>{_user.id}</pre>
 
           <h6>API Token</h6>
-          <pre class=prettyprint>{_user.priv.apiToken}</pre>
+          <pre class=prettyprint>{_user.apiToken}</pre>
 
           <hr/>
           <h4>Gender</h4>
           <label class="radio">
-              <input type="radio" name="genderRadios" value="m" x-bind="click:setMale" checked="{equal(_user.pub.preferences.gender,'m')}">
+              <input type="radio" name="genderRadios" value="m" x-bind="click:setMale" checked="{equal(_user.preferences.gender,'m')}">
               Male
           </label>
           <label class="radio">
-              <input type="radio" name="genderRadios" value="f" x-bind="click:setFemale" checked="{equal(_user.pub.preferences.gender,'f')}">
+              <input type="radio" name="genderRadios" value="f" x-bind="click:setFemale" checked="{equal(_user.preferences.gender,'f')}">
               Female
           </label>
 
 
-          {#if equal(_user.pub.preferences.gender,'f')}
+          {#if equal(_user.preferences.gender,'f')}
               <h4>Armor Set</h4>
               <label class="radio">
-                  <input type="radio" name="armorSet" value="v1" x-bind="click:setArmorsetV1" checked="{equal(_user.pub.preferences.armorSet,'v1')}">
+                  <input type="radio" name="armorSet" value="v1" x-bind="click:setArmorsetV1" checked="{equal(_user.preferences.armorSet,'v1')}">
                   v1
               </label>
               <label class="radio">
-                  <input type="radio" name="armorSet" value="v2" x-bind="click:setArmorsetV2" checked="{equal(_user.pub.preferences.armorSet,'v2')}">
+                  <input type="radio" name="armorSet" value="v2" x-bind="click:setArmorsetV2" checked="{equal(_user.preferences.armorSet,'v2')}">
                   v2
               </label>
           {/}
@@ -79,7 +79,7 @@
       </app:myModal>
   {/}
   <!-- Game Over Modal -->
-  <div style="{#unless equal(_user.pub.stats.lvl,0)}display:none;{/}">
+  <div style="{#unless equal(_user.stats.lvl,0)}display:none;{/}">
       <app:myModal noDismiss=true modalId='dead-modal'>
           <table>
               <tr>
@@ -100,7 +100,7 @@
       <app:userTokens/>
       <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
       <@footer>
-          {#if lessThan(_user.priv.balance,1)}
+          {#if lessThan(_user.balance,1)}
               <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-danger btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
           {else}
               <a data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</a><span class='token-cost'>4 Tokens</span>
@@ -125,7 +125,7 @@
         </ul>
     {/}
 
-    {#if equal(_user.priv.flags.kickstarter,'show')}
+    {#if equal(_user.flags.kickstarter,'show')}
     <div class='alert alert-success'>
         <a x-bind="click:closeKickstarterNofitication" class='pull-right'>Dismiss</a>
         Help Habit by backing the <strong><a href="http://kck.st/XoA3Yg">Kickstarter</a></strong>! Funds iPhone & Android apps, <a href="https://github.com/lefnire/habitrpg/issues?labels=critical&page=1&state=open">bug fixes</a>, and the <a href="https://github.com/lefnire/habitrpg/issues/58">Groups feature</a>.
@@ -165,39 +165,39 @@
               <!-- Avatar -->
               <td class="avatar main-avatar">
                 <div class='avatar-sprites'>
-                  <img class='weapon weapon-{_user.pub.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{_user.pub.items.weapon}.png" />
-                  <img class='armor armor-{_user.pub.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(_user)}" />
+                  <img class='weapon weapon-{_user.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{_user.items.weapon}.png" />
+                  <img class='armor armor-{_user.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(_user)}" />
                 </div>
-                <div id="lvl"><span class="badge badge-info">Lvl {_user.pub.stats.lvl}</span></div>
+                <div id="lvl"><span class="badge badge-info">Lvl {_user.stats.lvl}</span></div>
               </td>
 
               <!-- Progress Bars -->
               <td id="bars" style="width:{#if _party}70%{else}90%{/};">
                 <div class="progress progress-danger" rel=tooltip data-placement=bottom title="Health">
-                  <div class="bar" style="width: {percent(_user.pub.stats.hp, 50)}%;"></div>
-                  <span class="progress-text"><i class=icon-heart></i> {round(_user.pub.stats.hp)} / 50</span>
+                  <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
+                  <span class="progress-text"><i class=icon-heart></i> {round(_user.stats.hp)} / 50</span>
                 </div>
     
                 <div class="progress progress-warning" rel=tooltip data-placement=bottom title="Experience">
-                  <div class="bar" style="width: {percent(_user.pub.stats.exp,_tnl)}%;"></div>
+                  <div class="bar" style="width: {percent(_user.stats.exp,_tnl)}%;"></div>
                   <span class="progress-text">
                     {#if _user.history.exp}
                       <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp;
                     {/}
-                    <i class=icon-star></i> {round(_user.pub.stats.exp)} / {_tnl}
+                    <i class=icon-star></i> {round(_user.stats.exp)} / {_tnl}
                   </span>
                 </div>
               </td>
 
               <!-- Party -->
-              {#if _user.priv.flags.partyEnabled}
+              {#if _user.flags.partyEnabled}
                   {#each _party as :member}
                     <td class="avatar party-avatar" rel="tooltip" title="{username(:member.auth)}" data-placement="bottom" >
                         <div class='avatar-sprites'>
-                            <img class='weapon weapon-{:member.pub.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:member.pub.items.weapon}.png" />
-                            <img class='armor armor-{:member.pub.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:member)}" />
+                            <img class='weapon weapon-{:member.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:member.items.weapon}.png" />
+                            <img class='armor armor-{:member.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:member)}" />
                         </div>
-                        <div id="lvl"><span class="badge badge-info">Lvl {:member.pub.stats.lvl}</span></div>
+                        <div id="lvl"><span class="badge badge-info">Lvl {:member.stats.lvl}</span></div>
                     </td>
                   {/}
                   <td><a class="btn" id="add-party-button" data-target="#add-party-modal" data-toggle="modal"><i class="icon-user"></i></a></td>
@@ -281,7 +281,7 @@
             <!--Title -->
             <div class="row-fluid">
                 <div class="span6"><h2>Rewards</h2></div>
-                <div class="span6" id="money">{gold(_user.pub.stats.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.pub.stats.money)} <img src='/img/coin_single_silver.png'/></div>
+                <div class="span6" id="money">{gold(_user.stats.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.stats.money)} <img src='/img/coin_single_silver.png'/></div>
             </div>
 
             <!-- Content -->
@@ -289,7 +289,7 @@
                 {#each _rewardList as :task}<app:task />{/}
             </ul>
 
-            {#if _user.priv.flags.itemsEnabled}
+            {#if _user.flags.itemsEnabled}
               <ul class='items'>
                 {#with _view.items.armor as :item}<app:item />{/}
                 {#with _view.items.weapon as :item}<app:item />{/}
@@ -346,12 +346,12 @@
 <userTokens:>
   <div class="pull-right">
     <div class="input-append">
-      <span class="uneditable-input" style="width:auto;">{tokens(_user.priv.balance)}</span>
+      <span class="uneditable-input" style="width:auto;">{tokens(_user.balance)}</span>
       <span class="add-on">Tokens</span>
     </div>
     <a class="label" data-toggle="modal" href='#reset-modal'><i class="icon-ban-circle"></i>Reset</a>
   </div>
-  <!--<span class="well pull-right">Tokens: {tokens(_user.priv.balance)}</span>-->
+  <!--<span class="well pull-right">Tokens: {tokens(_user.balance)}</span>-->
 
 <newTask: nonvoid>
   <form class="form-inline new-task-form" id=new-{{@type}} data-task-type={{@type}} x-bind=submit:addTask>

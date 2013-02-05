@@ -6,62 +6,62 @@ derby = require 'derby'
 
 userSchema =
   # _id
-  pub:
-    stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
-    party: null
-    invitations: []
-    items: { armor: 0, weapon: 0 }
-    preferences: { gender: 'm', armorSet: 'v1' }
-  priv:
-    idLists:
-      habit: []
-      daily: []
-      todo: []
-      reward: []
-    apiToken: null # set in newUserObject below
-    lastCron: 'new' #this will be replaced with `+new Date` on first run
-    balance: 2
-    tasks: {}
-    flags:
-      partyEnabled: false
-      itemsEnabled: false
-      kickstarter: 'show'
-      # ads: 'show' # added on registration
+  stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
+  party: {
+    current: null
+    invitation: null
+  }
+  items: { armor: 0, weapon: 0 }
+  preferences: { gender: 'm', armorSet: 'v1' }
+  idLists:
+    habit: []
+    daily: []
+    todo: []
+    reward: []
+  apiToken: null # set in newUserObject below
+  lastCron: 'new' #this will be replaced with `+new Date` on first run
+  balance: 2
+  tasks: {}
+  flags:
+    partyEnabled: false
+    itemsEnabled: false
+    kickstarter: 'show'
+    # ads: 'show' # added on registration
 
 module.exports.newUserObject = ->
   # deep clone, else further new users get duplicate objects
   newUser = lodash.cloneDeep userSchema
-  newUser.priv.apiToken = derby.uuid()
+  newUser.apiToken = derby.uuid()
   for task in content.defaultTasks
     guid = task.id = derby.uuid()
-    newUser.priv.tasks[guid] = task
+    newUser.tasks[guid] = task
     switch task.type
-      when 'habit' then newUser.priv.idLists.habit.push guid
-      when 'daily' then newUser.priv.idLists.daily.push guid
-      when 'todo' then newUser.priv.idLists.todo.push guid
-      when 'reward' then newUser.priv.idLists.reward.push guid
+      when 'habit' then newUser.idLists.habit.push guid
+      when 'daily' then newUser.idLists.daily.push guid
+      when 'todo' then newUser.idLists.todo.push guid
+      when 'reward' then newUser.idLists.reward.push guid
   return newUser
 
 module.exports.updateUser = (batch) ->
   user = batch.user
   obj = batch.obj()
 
-  batch.set('priv.apiToken', derby.uuid()) unless obj.priv.apiToken
+  batch.set('apiToken', derby.uuid()) unless obj.apiToken
 
   ## Task List Cleanup
   # FIXME temporary hack to fix lists (Need to figure out why these are happening)
-  tasks = obj.priv.tasks
+  tasks = obj.tasks
   _.each ['habit','daily','todo','reward'], (type) ->
     # 1. remove duplicates
     # 2. restore missing zombie tasks back into list
     taskIds =  _.pluck( _.where(tasks, {type:type}), 'id')
-    union = _.union obj.priv.idLists[type], taskIds
+    union = _.union obj.idLists[type], taskIds
 
     # 2. remove empty (grey) tasks
     preened = _.filter(union, (val) -> _.contains(taskIds, val))
 
     # There were indeed issues found, set the new list
-    batch.set("priv.idLists.#{type}", preened) # if _.difference(preened, userObj[path]).length != 0
+    batch.set("idLists.#{type}", preened) # if _.difference(preened, userObj[path]).length != 0
 
 module.exports.BatchUpdate = BatchUpdate = (model) ->
   user = model.at("_user")
@@ -100,9 +100,9 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
       eg, user.set('stats', {hp:50, exp:10...}) will break dom bindings, but user.set('stats.hp',50) is ok
     ###
     setStats: (stats) ->
-      stats ?= obj.pub.stats
+      stats ?= obj.stats
       that = @
-      _.each Object.keys(stats), (key) -> that.set "pub.stats.#{key}", stats[key]
+      _.each Object.keys(stats), (key) -> that.set "stats.#{key}", stats[key]
 
 #    queue: (path, val) ->
 #      # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790

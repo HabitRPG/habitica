@@ -52,42 +52,40 @@ db.users.find().forEach(function(user){
     // Note 'public' and 'private' are reserved words
     var newUser = {
         auth: user.auth, // we need this top-level due to derby-auth
-        pub:{
-            party: null,
-            invitations: [],
-            items: {
-                armor: user.items.armor || 0,
-                weapon: user.items.weapon || 0
-            },
-            stats: {
-                gp: user.stats.money || 0,
-                hp: user.stats.hp || 50,
-                exp: user.stats.exp || 0,
-                lvl: user.stats.lvl || 1
-            },
-            preferences: {
-                armorSet: user.preferences.armorSet || 'v1',
-                gender: user.preferences.gender || 'm'
-            }
+        apiToken: user.preferences.api_token || null, // set on update, we need derby.uuid()
+        preferences: {
+            armorSet: user.preferences.armorSet || 'v1',
+            gender: user.preferences.gender || 'm'
         },
-        priv: {
-            balance: user.balance || 2,
-            lastCron: user.lastCron || +new Date,
-            tasks: user.tasks || {},
-            history: user.history || [],
-            apiToken: user.preferences.api_token || null, // set on update, we need derby.uuid()
-            idLists: {
-                habit:user.habitList || [],
-                daily:user.dailyList || [],
-                todo:user.todoList || [],
-                reward:user.rewardList || []
-            },
-            flags: {
-                partyEnabled: false,
-                itemsEnabled: user.items.itemsEnabled || false,
-                kickstarter: user.notifications.kickstarter || 'show',
-                ads: user.flags.ads || null // null because it's set on registration
-            }
+        balance: user.balance || 2,
+        lastCron: user.lastCron || +new Date,
+        history: user.history || [],
+        stats: {
+            gp: user.stats.money || 0,
+            hp: user.stats.hp || 50,
+            exp: user.stats.exp || 0,
+            lvl: user.stats.lvl || 1
+        },
+        items: {
+            armor: user.items.armor || 0,
+            weapon: user.items.weapon || 0
+        },
+        tasks: user.tasks || {},
+        idLists: {
+            habit: user.habitIds || [],
+            daily: user.dailyIds || [],
+            todo: user.todoIds || [],
+            reward: user.rewardIds || []
+        },
+        flags: {
+            partyEnabled: false,
+            itemsEnabled: user.items.itemsEnabled || false,
+            kickstarter: user.notifications.kickstarter || 'show',
+            ads: user.flags.ads || null // null because it's set on registration
+        },
+        party: {
+            current: null,
+            invitation: null
         }
     };
 

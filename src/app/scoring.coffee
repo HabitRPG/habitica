@@ -20,8 +20,8 @@ setModel = (m) ->
   {modifiers} may manually pass in stats as {weapon, exp}. This is used for testing
 ###
 expModifier = (value, modifiers = {}) ->
-  weapon = modifiers.weapon || user.get('pub.items.weapon')
-  lvl = modifiers.lvl || user.get('pub.stats.lvl')
+  weapon = modifiers.weapon || user.get('items.weapon')
+  lvl = modifiers.lvl || user.get('stats.lvl')
   dmg = weapon * MODIFIER # each new weapon increases exp gain
   dmg += (lvl-1) * MODIFIER # same for lvls
   modified = value + (value * dmg)
@@ -33,8 +33,8 @@ expModifier = (value, modifiers = {}) ->
   {modifiers} may manually pass in modifier as {armor, lvl}. This is used for testing
 ###
 hpModifier = (value, modifiers = {}) ->
-  armor = modifiers.armor || user.get('pub.items.armor')
-  lvl = modifiers.lvl || user.get('pub.stats.lvl')
+  armor = modifiers.armor || user.get('items.armor')
+  lvl = modifiers.lvl || user.get('stats.lvl')
   ac = armor * MODIFIER # each new armor decreases HP loss
   ac += (lvl-1) * MODIFIER # same for lvls
   modified = value - (value * ac)
@@ -62,37 +62,37 @@ updateStats = (newStats, batch) ->
   obj = batch.obj()
 
   # if user is dead, dont do anything
-  return if obj.pub.stats.lvl == 0
+  return if obj.stats.lvl == 0
 
   if newStats.hp?
     # Game Over
     if newStats.hp <= 0
-      obj.pub.stats.lvl = 0 # signifies dead
-      obj.pub.stats.hp = 0
+      obj.stats.lvl = 0 # signifies dead
+      obj.stats.hp = 0
       return
     else
-      obj.pub.stats.hp = newStats.hp
+      obj.stats.hp = newStats.hp
 
   if newStats.exp?
     # level up & carry-over exp
     tnl = model.get '_tnl'
     if newStats.exp >= tnl
       newStats.exp -= tnl
-      obj.pub.stats.lvl++
-      obj.pub.stats.hp = 50
-    if !obj.priv.flags.itemsEnabled and obj.pub.stats.lvl >= 2
+      obj.stats.lvl++
+      obj.stats.hp = 50
+    if !obj.flags.itemsEnabled and obj.stats.lvl >= 2
       # Set to object, then also send to browser right away to get model.on() subscription notification
-      batch.set 'priv.flags.itemsEnabled', true
-      obj.priv.flags.itemsEnabled = true
-    if !obj.priv.flags.partyEnabled and obj.pub.stats.lvl >= 3
-      batch.set 'priv.flags.partyEnabled', true
-      obj.priv.flags.partyEnabled = true
-    obj.pub.stats.exp = newStats.exp
+      batch.set 'flags.itemsEnabled', true
+      obj.flags.itemsEnabled = true
+    if !obj.flags.partyEnabled and obj.stats.lvl >= 3
+      batch.set 'flags.partyEnabled', true
+      obj.flags.partyEnabled = true
+    obj.stats.exp = newStats.exp
 
   if newStats.gp?
     #FIXME what was I doing here? I can't remember, gp isn't defined
     gp = 0.0 if (!gp? or gp<0)
-    obj.pub.stats.gp = newStats.gp
+    obj.stats.gp = newStats.gp
 
 # {taskId} task you want to score
 # {direction} 'up' or 'down'
@@ -106,10 +106,10 @@ score = (taskId, direction, times, batch, cron) ->
     batch.startTransaction()
   obj = batch.obj()
 
-  {gp, hp, exp, lvl} = obj.pub.stats
+  {gp, hp, exp, lvl} = obj.stats
 
-  taskPath = "priv.tasks.#{taskId}"
-  taskObj = obj.priv.tasks[taskId]
+  taskPath = "tasks.#{taskId}"
+  taskObj = obj.tasks[taskId]
   {type, value} = taskObj
 
   delta = 0
@@ -171,12 +171,12 @@ score = (taskId, direction, times, batch, cron) ->
 
   taskObj.value = value
   batch.set "#{taskPath}.value", taskObj.value
-  origStats = _.clone obj.pub.stats
+  origStats = _.clone obj.stats
   updateStats {hp: hp, exp: exp, gp: gp}, batch
   if commit
     # newStats / origStats is a glorious hack to trick Derby into seeing the change in model.on(*)
-    newStats = _.clone batch.obj().pub.stats
-    _.each Object.keys(origStats), (key) -> obj.pub.stats[key] = origStats[key]
+    newStats = _.clone batch.obj().stats
+    _.each Object.keys(origStats), (key) -> obj.stats[key] = origStats[key]
     batch.setStats(newStats)
 #    batch.setStats()
     batch.commit()
@@ -192,12 +192,12 @@ cron = (resetDom_cb) ->
   if daysPassed > 0
     batch = new schema.BatchUpdate(model)
     batch.startTransaction()
-    batch.set 'priv.lastCron', today
+    batch.set 'lastCron', today
     obj = batch.obj()
-    hpBefore = obj.pub.stats.hp #we'll use this later so we can animate hp loss
+    hpBefore = obj.stats.hp #we'll use this later so we can animate hp loss
     # Tally each task
     todoTally = 0
-    _.each obj.priv.tasks, (taskObj) ->
+    _.each obj.tasks, (taskObj) ->
       unless taskObj.id?
         console.error "a task had a null id during cron, this should not be happening"
         return
@@ -222,31 +222,31 @@ cron = (resetDom_cb) ->
         if type == 'daily'
           taskObj.history ?= []
           taskObj.history.push { date: +new Date, value: value }
-          batch.set "priv.tasks.#{taskObj.id}.history", taskObj.history
-          batch.set "priv.tasks.#{taskObj.id}.completed", false
+          batch.set "tasks.#{taskObj.id}.history", taskObj.history
+          batch.set "tasks.#{taskObj.id}.completed", false
         else
-          value = obj.priv.tasks[taskObj.id].value #get updated value
+          value = obj.tasks[taskObj.id].value #get updated value
           absVal = if (completed) then Math.abs(value) else value
           todoTally += absVal
 
     # Finished tallying
-    obj.priv.history ?= {}; obj.priv.history.todos ?= []; obj.priv.history.exp ?= []
-    obj.priv.history.todos.push { date: today, value: todoTally }
+    obj.history ?= {}; obj.history.todos ?= []; obj.history.exp ?= []
+    obj.history.todos.push { date: today, value: todoTally }
     # tally experience
-    expTally = obj.pub.stats.exp
+    expTally = obj.stats.exp
     lvl = 0 #iterator
-    while lvl < (obj.pub.stats.lvl-1)
+    while lvl < (obj.stats.lvl-1)
       lvl++
       expTally += (lvl*100)/5
-    obj.priv.history.exp.push  { date: today, value: expTally }
+    obj.history.exp.push  { date: today, value: expTally }
 
     # Set the new user specs, and animate HP loss
-    [hpAfter, obj.pub.stats.hp] = [obj.pub.stats.hp, hpBefore]
+    [hpAfter, obj.stats.hp] = [obj.stats.hp, hpBefore]
     batch.setStats()
-    batch.set('history', obj.priv.history)
+    batch.set('history', obj.history)
     batch.commit()
     resetDom_cb(model)
-    setTimeout (-> user.set 'pub.stats.hp', hpAfter), 1000 # animate hp loss
+    setTimeout (-> user.set 'stats.hp', hpAfter), 1000 # animate hp loss
 
 
 module.exports = {
