@@ -56,7 +56,9 @@ module.exports.viewHelpers = (view) ->
   view.fn "tokens", (money) ->
     return money/0.25
 
-  view.fn 'currentArmor', (gender, armor, armorSet) ->
+  view.fn 'currentArmor', (user) ->
+    armor = user?.items?.armor || 0
+    {gender, armorSet} = user?.preferences || {'m', 'v1'}
     if gender == 'f'
       str = "armor#{armor}_f"
       if parseInt(armor) > 1
