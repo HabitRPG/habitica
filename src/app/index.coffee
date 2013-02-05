@@ -138,15 +138,7 @@ ready (model) ->
 
   exports.del = (e, el) ->
     # Derby extends model.at to support creation from DOM nodes
-    #task = model.at(e.target)
-    # FIXME normally that would work, and we'd later simply call `user.del task` (instead of that 4-liner down there)
-    # however, see https://github.com/lefnire/habitrpg/pull/226#discussion_r2810391
-
-    id = $(e.target).parents('li.task').attr('data-id')
-    return unless id?
-
-    task = user.at "tasks.#{id}"
-    type = task.get('type')
+    task = model.at(e.target)
 
     history = task.get('history')
     if history and history.length>2
@@ -157,7 +149,7 @@ ready (model) ->
           return # Cancel. Don't delete, don't hurt user 
         else
           task.set('type','habit') # hack to make sure it hits HP, instead of performing "undo checkbox"
-          scoring.score(id, direction:'down')
+          scoring.score(task.get('id'), direction:'down')
           
       # prevent accidently deleting long-standing tasks
       else
@@ -167,12 +159,8 @@ ready (model) ->
     #TODO bug where I have to delete from _users.tasks AND _{type}List, 
     # fix when query subscriptions implemented properly
     $('[rel=tooltip]').tooltip('hide')
-
-    ids = user.get("#{type}Ids")
-    ids.splice(ids.indexOf(id),1)
-    user.del('tasks.'+id)
-    user.set("#{type}Ids", ids)
-
+    user.del('tasks.'+task.get('id'))
+    task.remove()
     
   exports.clearCompleted = (e, el) ->
     todoIds = user.get('todoIds')

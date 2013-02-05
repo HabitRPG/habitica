@@ -14,6 +14,8 @@ module.exports.viewHelpers = (view) ->
     # show as completed if completed (naturally) or not required for today
     if completed or (repeat and repeat[dayMapping[moment().day()]]==false)
       classes += " completed"
+    else
+      classes += " not-completed"
       
     switch
       when value<-8 then classes += ' color-worst'

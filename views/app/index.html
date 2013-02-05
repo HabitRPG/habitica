@@ -243,28 +243,20 @@
           <div class="row-fluid">
             <h2 class="span6">Todos</h2>
             <ul class="span6 nav nav-pills">
-                <li class="active"><a href="#" data-target="#tab1" data-toggle="tab">Remaining</a></li>
-                <li><a href="#" data-target="#tab2" data-toggle="tab">Complete</a></li>
+                <li class="active"><a href="#" data-target="#tab-todos-remaining" data-toggle="tab">Remaining</a></li>
+                <li><a href="#" data-target="#tab-todos-completed" data-toggle="tab">Complete</a></li>
             </ul>
           </div>
           <div class="tab-content">
-            <div class="tab-pane active" id="tab1">
+            <div class="tab-pane active" id="tab-todos-remaining">
               <ul class='todos'>
-                {#each _todoList as :task}
-                  {#if not(:task.completed)}
-                    <app:task />
-                  {/}
-                {/}
+                {#each _todoList as :task}<app:task />{/}
               </ul>
               <app:newTask type=todo><input value={_newTodo} type="text" name=new-task placeholder="New Todo"/></app:newTask>
             </div>
-            <div class="tab-pane" id="tab2">
+            <div class="tab-pane" id="tab-todos-completed">
               <ul class='completeds'>
-                {#each _todoList as :task}
-                  {#if :task.completed}
-                    <app:task />
-                  {/}
-                {/}
+                {#each _todoList as :task}<app:task />{/}
               </ul>
               <a x-bind=click:clearCompleted>Clear Completed</a>
             </div>
