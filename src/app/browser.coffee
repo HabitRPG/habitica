@@ -85,7 +85,7 @@ module.exports.setupGrowlNotifications = (model) ->
 
   statsNotification = (html, type) ->
     #don't show notifications if user dead
-    return if user.get('stats.lvl') == 0
+    return if user.get('pub.stats.lvl') == 0
     $.bootstrapGrowl html,
       type: type # (null, 'info', 'error', 'success')
       top_offset: 20
@@ -95,7 +95,7 @@ module.exports.setupGrowlNotifications = (model) ->
       allow_dismiss: true
       stackup_spacing: 10 # spacing between consecutive stacecked growls.
 
-  user.on 'set', 'items.itemsEnabled', (captures, args) ->
+  user.on 'set', 'priv.flags.itemsEnabled', (captures, args) ->
     return unless captures == true
     message = "Congratulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information."
     $('ul.items').popover
@@ -109,7 +109,7 @@ module.exports.setupGrowlNotifications = (model) ->
           </div>"
     $('ul.items').popover 'show'
 
-  user.on 'set', 'flags.partyEnabled', (captures, args) ->
+  user.on 'set', 'priv.flags.partyEnabled', (captures, args) ->
     return unless captures == true
     message = "Congratulations, you have unlocked the Party System! You can now group with your friends by adding their User Ids."
     $('#add-party-button').popover
@@ -125,24 +125,24 @@ module.exports.setupGrowlNotifications = (model) ->
 
 
   # Setup listeners which trigger notifications
-  user.on 'set', 'stats.hp', (captures, args) ->
+  user.on 'set', 'pub.stats.hp', (captures, args) ->
     num = captures - args
     rounded = Math.abs(num.toFixed(1))
     if num < 0
       statsNotification "<i class='icon-heart'></i>HP -#{rounded}", 'error' # lost hp from purchase
 
-  user.on 'set', 'stats.money', (captures, args) ->
+  user.on 'set', 'pub.stats.gp', (captures, args) ->
     num = captures - args
     rounded = Math.abs(num.toFixed(1))
     # made purchase
     if num < 0
       # FIXME use 'warning' when unchecking an accidently completed daily/todo, and notify of exp too
       statsNotification "<i class='icon-star'></i>GP -#{rounded}", 'success'
-      # gained money (and thereby exp)
+      # gained gp (and thereby exp)
     else if num > 0
       num = Math.abs(num)
       statsNotification "<i class='icon-star'></i>Exp,GP +#{rounded}", 'success'
 
-  user.on 'set', 'stats.lvl', (captures, args) ->
+  user.on 'set', 'pub.stats.lvl', (captures, args) ->
     if captures > args
       statsNotification('<i class="icon-chevron-up"></i> Level Up!', 'info')

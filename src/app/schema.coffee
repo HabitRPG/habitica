@@ -30,11 +30,11 @@ userSchema =
 
 module.exports.newUserObject = ->
   # deep clone, else further new users get duplicate objects
-  newUser = require('lodash').cloneDeep userSchema
+  newUser = lodash.cloneDeep userSchema
   newUser.priv.apiToken = derby.uuid()
   for task in content.defaultTasks
     guid = task.id = derby.uuid()
-    newUser.tasks[guid] = task
+    newUser.priv.tasks[guid] = task
     switch task.type
       when 'habit' then newUser.priv.idLists.habit.push guid
       when 'daily' then newUser.priv.idLists.daily.push guid
@@ -44,26 +44,24 @@ module.exports.newUserObject = ->
 
 module.exports.updateUser = (batch) ->
   user = batch.user
-  obj = user.batch.obj()
+  obj = batch.obj()
 
   batch.set('priv.apiToken', derby.uuid()) unless obj.priv.apiToken
 
   ## Task List Cleanup
   # FIXME temporary hack to fix lists (Need to figure out why these are happening)
-  tasks = user.get('tasks')
+  tasks = obj.priv.tasks
   _.each ['habit','daily','todo','reward'], (type) ->
-    path = "#{type}Ids"
-
     # 1. remove duplicates
     # 2. restore missing zombie tasks back into list
     taskIds =  _.pluck( _.where(tasks, {type:type}), 'id')
-    union = _.union user.get(path), taskIds
+    union = _.union obj.priv.idLists[type], taskIds
 
     # 2. remove empty (grey) tasks
     preened = _.filter(union, (val) -> _.contains(taskIds, val))
 
     # There were indeed issues found, set the new list
-    batch.set(path, preened) # if _.difference(preened, userObj[path]).length != 0
+    batch.set("priv.idLists.#{type}", preened) # if _.difference(preened, userObj[path]).length != 0
 
 module.exports.BatchUpdate = BatchUpdate = (model) ->
   user = model.at("_user")
@@ -102,9 +100,9 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
       eg, user.set('stats', {hp:50, exp:10...}) will break dom bindings, but user.set('stats.hp',50) is ok
     ###
     setStats: (stats) ->
-      stats ?= obj.stats
+      stats ?= obj.pub.stats
       that = @
-      _.each Object.keys(stats), (key) -> that.set "stats.#{key}", stats[key]
+      _.each Object.keys(stats), (key) -> that.set "pub.stats.#{key}", stats[key]
 
 #    queue: (path, val) ->
 #      # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790

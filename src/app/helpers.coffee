@@ -44,7 +44,7 @@ module.exports.viewHelpers = (view) ->
     else
       return "0" 
   
-  view.fn "money", (num) ->
+  view.fn "gp", (num) ->
     if num
       return num.toFixed(2)
     else
@@ -53,10 +53,13 @@ module.exports.viewHelpers = (view) ->
   view.fn "lessThan", (a, b) ->
     a < b
   
-  view.fn "tokens", (money) ->
-    return money/0.25
+  view.fn "tokens", (gp) ->
+    return gp/0.25
 
-  view.fn 'currentArmor', (gender, armor, armorSet) ->
+  view.fn 'currentArmor', (user) ->
+    user = { pub:{ items: {armor:0}, preferences: {gender:'m', armorSet:'v1'}}} unless user?
+    armor = user.pub.items.armor
+    {gender, armorSet} = user.pub.items
     if gender == 'f'
       str = "armor#{armor}_f"
       if parseInt(armor) > 1

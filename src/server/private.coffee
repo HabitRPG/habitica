@@ -35,9 +35,8 @@ module.exports.app = (appExports, model) ->
   appExports.buyReroll = (e, el, next) ->
     batch = new schema.BatchUpdate(model)
     obj = model.get('_user')
-    batch.set 'balance', obj.balance-1
-    _.each obj.tasks, (task) -> batch.set("tasks.#{task.id}.value", 0) unless task.type == 'reward'
-    console.log(obj)
+    batch.set 'priv.balance', obj.priv.balance-1
+    _.each obj.priv.tasks, (task) -> batch.set("priv.tasks.#{task.id}.value", 0) unless task.type == 'reward'
     batch.commit()
 
 module.exports.routes = (expressApp) ->
@@ -54,8 +53,8 @@ module.exports.routes = (expressApp) ->
         userId = model.session.userId
         model.fetch "users.#{userId}", (err, user) ->
           model.ref '_user', "users.#{userId}"
-          model.set('_user.balance', model.get('_user.balance')+5)
-          model.set('_user.flags.ads','hide')
+          model.set('_user.priv.balance', model.get('_user.priv.balance')+5)
+          model.set('_user.priv.flags.ads','hide')
           return res.send(200)
 
     api_key = process.env.STRIPE_API_KEY # secret stripe API key
