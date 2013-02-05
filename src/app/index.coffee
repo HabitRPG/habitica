@@ -38,55 +38,54 @@ get '/', (page, model, next) ->
 
   # This used to be in party.server(model, cb), but was getting `TypeError: Object #<Model> has no method 'server'`
   # on the second load for some reason
-  partyQueries = (cb) ->
-    selfQ = model.query('users').withId(model.session.userId)
-    model.fetch selfQ, (err, self) ->
-      console.error err if err
-      currentParty = self.at(0).get('party.current')
-      console.log {self: self.get()}
-      console.log {currentParty:currentParty}
-      if currentParty
-        partiesQ = model.query('parties').withId(currentParty)
-        model.fetch partiesQ, (err, parties) ->
-          console.error err if err
-          membersQ = model.query('users').party(parties.at(0).get('members'))
-          cb([partiesQ, membersQ, selfQ])
-      else
-        cb([selfQ])
+  selfQ = model.query('users').withId(model.session.userId)
+  model.subscribe selfQ, (err, users) ->
+    console.log err if err
 
-  partyQueries (queries) ->
-    subscribeCb = ->
-      [err, user] = [arguments[0], null]
-      throw err if err
-      if arguments.length == 4
-        [party, members, user] = [arguments[1].at(0), arguments[2], arguments[3].at(0)]
-        console.log {err:err, user:user.get(), party:party.get(), members:members.get()}
+    user = users.at(0)
+    model.ref '_user', user
+    obj = user.get()
+
+    batch = new schema.BatchUpdate(model)
+    batch.startTransaction()
+    obj = batch.obj()
+
+    # Setup Item Store
+    _view.items =
+      armor: content.items.armor[parseInt(obj.items?.armor || 0) + 1]
+      weapon: content.items.weapon[parseInt(obj.items?.weapon || 0) + 1]
+      potion: content.items.potion
+      reroll: content.items.reroll
+
+    model.set '_view', _view
+
+    schema.updateUser(batch)
+    batch.commit()
+
+    setupListReferences(model)
+    setupModelFns(model)
+
+    if obj.party?.current?
+      console.log obj.party.current
+      console.log err if err
+      partiesQ = model.query('parties').withId(obj.party.current)
+      model.subscribe partiesQ, (err, parties) ->
+        console.log err if err
+        party = parties.at(0)
         model.ref '_party', party
-        model.ref '_partyMembers', members
-      else
-        user = arguments[1].at(0)
-      model.ref '_user', user
-      batch = new schema.BatchUpdate(model)
-      batch.startTransaction()
-      obj = batch.obj()
+        membersQ = model.query('users').party(parties.at(0).get('members'))
+        model.subscribe membersQ, (err, members) ->
+          throw err if err
+          model.ref '_partyMembers', members
 
-      # Setup Item Store
-      _view.items =
-        armor: content.items.armor[parseInt(obj.items?.armor || 0) + 1]
-        weapon: content.items.weapon[parseInt(obj.items?.weapon || 0) + 1]
-        potion: content.items.potion
-        reroll: content.items.reroll
-
-      model.set '_view', _view
-
-      schema.updateUser(batch)
-      batch.commit()
-
-      setupListReferences(model)
-      setupModelFns(model)
-
+          # Here's a hack we need to get fixed (hopefully Lever will) - later model.queries override previous model.queries'
+          # returned fields. Aka, we need this here otherwise we only get the "public" fields for the current user, which
+          # are defined in model.query('users')party()
+          model.subscribe selfQ, (err, users) ->
+            model.ref '_user', users.at(0)
+            page.render()
+    else
       page.render()
-    model.subscribe.apply model, queries.concat(subscribeCb)
 
 # ========== CONTROLLER FUNCTIONS ==========
 

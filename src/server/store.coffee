@@ -11,8 +11,7 @@ module.exports.customAccessControl = (store) ->
 #    return next(true)
 
   store.readPathAccess "users.*", -> # captures, next) ->
-    return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
-    console.log arguments
+    #return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
     captures = arguments[0]
     next = arguments[arguments.length - 1]
     sameSession = captures is @session.userId
@@ -20,7 +19,7 @@ module.exports.customAccessControl = (store) ->
     next sameSession or isServer
 
   store.writeAccess "*", "users.*", -> # captures, value, next) ->
-    return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
+    #return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
     [captures, next] = [arguments[0].split('.'), arguments[arguments.length-1]]
     uid = captures.shift()
     attrPath = captures.join('.') # new array shifted left, after shift() was run
@@ -29,10 +28,10 @@ module.exports.customAccessControl = (store) ->
     #return next(true) if !this.req.socket;
 
     # public access to users.*.party.invitation (TODO, lock down a bit more)
-    console.log attrPath
     return next(true) if (attrPath == 'party.invitation')
 
     # Same session (user.id = this.session.userId)
+    console.log {uid:uid, sess:@session.userId}
     return next(true) if uid is @session.userId
 
     next(false)
@@ -45,7 +44,7 @@ module.exports.customAccessControl = (store) ->
 #    next(purchasingSomethingOnClient or isServer)
 
   store.writeAccess "*", "users.*.flags.ads", -> # captures, value, next ->
-    return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
+    #return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
     next = arguments[arguments.length - 1]
     isServer = not @req.socket
     next(isServer)
@@ -59,7 +58,7 @@ module.exports.customAccessControl = (store) ->
       .limit(1)
 
   store.queryAccess "users", "withIdAndToken", (id, token, next) ->
-    return next(false) unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
+    #return next(false) unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
     isServer = not @req.socket
     next(isServer)
 

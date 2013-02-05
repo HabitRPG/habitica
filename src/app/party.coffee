@@ -1,15 +1,18 @@
 _ = require('underscore')
 schema = require './schema'
 
-module.exports.app = (exports, model) ->
+module.exports.app = (appExports, model) ->
   user = model.at('_user')
 
-  exports.partyCreate = ->
+  appExports.partyCreate = ->
     newParty = model.get("_newParty")
-    id = model.add 'parties', { name: newParty, leader: user.get('id'), members: [user.get('id')] }
+    id = model.add 'parties', { name: newParty, leader: user.get('id'), members: [user.get('id')], invites:[] }
     user.set 'party', {current: id, invitation: null, leader: true}
+    model.subscribe model.query('parties').withId(id), (err, party) ->
+      throw err if err
+      model.ref '_party', party.at(0)
 
-  exports.partyInvite = ->
+  appExports.partyInvite = ->
     id = model.get('_newPartyMember').replace(/[\s"]/g, '')
     return if _.isEmpty(id)
 
@@ -25,42 +28,56 @@ module.exports.app = (exports, model) ->
         model.set "_view.partyError", "User already in a party or pending invitation."
         return
       else
-        model.push "parties.#{obj.party.current}.invites", id
-        model.set "users.#{id}.party.invitation", obj.party.current
+        party = model.at '_party'
+        party.push "invites", id
+        model.set "users.#{id}.party.invitation", party.get('id')
         $.bootstrapGrowl "Invitation Sent."
         $('#party-modal').modal('hide')
-        #model.set '_newPartyMember', ''
-        #window.location.reload() #TODO break old subscription, setup new subscript, remove this reload
+        model.subscribe model.query('uesres').party(party.get('members')), (err, members) ->
+          throw err if err
+          model.ref '_partyMembers', members
+        model.set '_newPartyMember', ''
+        #TODO break old subscription, setup new subscript, remove this reload
 
-  exports.partyAccept = ->
+  appExports.partyAccept = ->
     invitation = user.get('party.invitation')
-    model.push "parties.#{invitation}.members", user.get('id')
-    user.set 'party.invitation', null, ->
-      user.set 'party.current', invitation, ->
-          window.location.reload()
+    debugger
+    model.subscribe model.query("parties").withId(invitation), (err, parties) ->
+      debugger
+      throw err if err
+      party = parties.at(0)
+      party.push 'members', user.get('id')
+      user.set 'party.invitation', null
+      user.set 'party.current', party.get('id')
+      model.ref '_party', party
+      model.subscribe model.query('users').party(party.get('members')), (err, members) ->
+        debugger
+        throw err if err
+        model.ref '_partyMembers', members
 
-  exports.partyReject = ->
+  appExports.partyReject = ->
     user.set 'party.invitation', null
+
     # TODO splice parties.*.invites[key]
     # TODO notify sender
 
-  exports.partyLeave = ->
-    id = user.get('party.current')
-    user.set 'party.current', null, ->
-      members = model.get "parties.#{id}.members"
-      index = members.indexOf(user.get('id'))
-      newMembers = members.slice(index)
-      model.set "parties.#{id}.members", newMembers ->
-        if (newMembers.length == 0)
-          # last member out, kill the party
-          model.del "parties.#{id}", -> window.location.reload()
-        else
-          window.location.reload()
+  appExports.partyLeave = ->
+    user.set 'party.current', null
+    party = model.at '_party'
+    members = party.get('members')
+    index = members.indexOf(user.get('id'))
+    newMembers = members.slice(index)
+    party.set 'members', newMembers
+    if (newMembers.length == 0)
+      # last member out, kill the party
+      model.del "parties.#{id}", -> window.location.reload()
+    else
+      window.location.reload()
 
-  exports.partyDisband = ->
+  #exports.partyDisband = ->
 
   user.on 'set', 'party.invitation', (id) ->
-    model.fetch "parties.#{id}", (err, party) -> model.set '_party', party
+    model.fetch model.query('parties').withId(id), (err, party) -> model.set '_party', party
 #
 #  model.on '*', '_party.members', (ids) ->
 #    # TODO unsubscribe to previous subscription
