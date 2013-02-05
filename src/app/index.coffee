@@ -36,34 +36,34 @@ get '/', (page, model, next) ->
   #if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
   #  return page.redirect 'https://' + req.headers.host + req.url
 
-  #FIXME subscribing to this query causes "Fatal Error: Unauuthorized" after conncetion for a time (racer/lib/accessControl/accessControl.Store.js)
-  #q = model.query('users').withId(model.session.userId)
-  q = "users.#{model.session.userId}"
-  model.subscribe q, (err, user) ->
-    #user = result.at(0)
-    model.ref '_user', user
-    batch = new schema.BatchUpdate(model)
-    batch.startTransaction()
-    obj = batch.obj()
+  party.server model, (queries) ->
+    subscribeCb = ->
+      [err, party, members, user] = [arguments[0], arguments[1].at(0), arguments[2], arguments[3].at(0)]
+      console.log {err:err, user:user.get(), party:party.get(), members:members.get()}
+      model.ref '_user', user
+      model.ref '_party', party
+      model.ref '_partyMembers', members
+      batch = new schema.BatchUpdate(model)
+      batch.startTransaction()
+      obj = batch.obj()
 
-    # Setup Item Store
-    _view.items =
-      armor: content.items.armor[parseInt(obj.items?.armor || 0) + 1]
-      weapon: content.items.weapon[parseInt(obj.items?.weapon || 0) + 1]
-      potion: content.items.potion
-      reroll: content.items.reroll
+      # Setup Item Store
+      _view.items =
+        armor: content.items.armor[parseInt(obj.items?.armor || 0) + 1]
+        weapon: content.items.weapon[parseInt(obj.items?.weapon || 0) + 1]
+        potion: content.items.potion
+        reroll: content.items.reroll
 
-    model.set '_view', _view
+      model.set '_view', _view
 
-    schema.updateUser(batch)
-    batch.commit()
+      schema.updateUser(batch)
+      batch.commit()
 
-    setupListReferences(model)
-    setupModelFns(model)
+      setupListReferences(model)
+      setupModelFns(model)
 
-    party.server(model)
-
-    page.render()
+      page.render()
+    model.subscribe.apply model, queries.concat(subscribeCb)
 
 # ========== CONTROLLER FUNCTIONS ==========
 

@@ -1,13 +1,19 @@
 _ = require('underscore')
 
-module.exports.server = (model) ->
-  obj = model.get('_user')
-  if obj.party?.current
-    model.subscribe model.query('parties').withId(obj.party.current), (err, parties) ->
-      party = parties.at(0)
-      model.ref '_party', party
-      model.subscribe model.query('users').party(party.get('members')), (err, members) ->
-        model.ref '_partyMembers', members
+module.exports.server = (model, cb) ->
+
+  selfQ = model.query('users').withId(model.session.userId)
+  model.fetch selfQ, (err, self) ->
+    console.error err if err
+    currentParty = self.at(0).get('party.current')
+    if currentParty
+      partiesQ = model.query('parties').withId(currentParty)
+      model.fetch partiesQ, (err, parties) ->
+        console.error err if err
+        membersQ = model.query('users').party(parties.at(0).get('members'))
+        cb([partiesQ, membersQ, selfQ])
+    else
+      cb([selfQ])
 
 module.exports.app = (exports, model) ->
   user = model.at('_user')
