@@ -361,6 +361,7 @@
 
   {#if _loggedIn}
     {#unless equal(@type,'reward')}
+        {#unless equal(_user.flags.ads,'hide')}
         <span class='pull-right'>
             <a x-bind="click:showStripe" rel='tooltip' title='Remove Ads'><i class='icon-remove'></i></a><br/>
             <a href="#" data-target="#why-ads-modal" data-toggle="modal" rel='tooltip' title='Why Ads?'><i class='icon-question-sign'></i></a>
@@ -378,6 +379,7 @@
         <script type="text/javascript"
                 src="https://pagead2.googlesyndication.com/pagead/show_ads.js" x-no-minify>
         </script>
+        {/}
     {/}
   {/}
 
