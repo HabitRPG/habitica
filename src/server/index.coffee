@@ -8,6 +8,7 @@ serverError = require './serverError'
 MongoStore = require('connect-mongo')(express)
 auth = require 'derby-auth'
 priv = require './private'
+habitrpgStore = require('./store')
 
 ## Run server cron ##
 require('./cron').deleteStaleAccounts()
@@ -31,7 +32,6 @@ derby.use(require 'racer-db-mongo')
 store = derby.createStore
   db: {type: 'Mongo', uri: process.env.NODE_DB_URI, safe:true}
   listen: server
-require('./store')(store) #setup custom accessControl
 
 ONE_YEAR = 1000 * 60 * 60 * 24 * 365
 root = path.dirname path.dirname __dirname
@@ -48,6 +48,7 @@ options =
   domain: process.env.BASE_URL || 'http://localhost:3000'
   allowPurl: true
   schema: require('../app/schema').newUserObject()
+  customAccessControl: habitrpgStore.customAccessControl
 
 mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
   expressApp

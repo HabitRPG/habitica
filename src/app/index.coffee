@@ -10,8 +10,8 @@ content = require './content'
 scoring = require './scoring'
 schema = require './schema'
 helpers = require './helpers'
-helpers.viewHelpers view
 browser = require './browser'
+helpers.viewHelpers view
 _ = require('underscore')
 
 setupListReferences = (model) ->
@@ -65,9 +65,9 @@ get '/', (page, model, next) ->
     setupModelFns(model)
 
     # Subscribe to friends
-    if !_.isEmpty(obj.party)
-      model.subscribe model.query('users').party(obj.party), (err, party) ->
-        model.ref '_party', party
+#    if obj.party?.current?
+#      model.subscribe model.query('users').party(obj.party), (err, party) ->
+#        model.ref '_party', party
 
     page.render()
 
@@ -95,6 +95,8 @@ ready (model) ->
   browser.setupTooltips(model)
   browser.setupTour(model)
   browser.setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
+
+  require('./party')(exports, model)
 
   require('../server/private').app(exports, model)
 
@@ -282,34 +284,16 @@ ready (model) ->
     batch.commit()
     resetDom(model)
 
-  exports.closeKickstarterNofitication = (e, el) ->
-    user.set('flags.kickstarter', 'hide')
+  exports.closeKickstarterNofitication = (e, el) -> user.set('flags.kickstarter', 'hide')
 
   exports.setMale = -> user.set('preferences.gender', 'm')
   exports.setFemale = -> user.set('preferences.gender', 'f')
   exports.setArmorsetV1 = -> user.set('preferences.armorSet', 'v1')
   exports.setArmorsetV2 = -> user.set('preferences.armorSet', 'v2')
 
-  exports.addParty = ->
-    id = model.get('_newPartyMember').replace(/[\s"]/g, '')
-    debugger
-    return if _.isEmpty(id)
-    if user.get('party').indexOf(id) != -1
-      model.set "_view.addPartyError", "#{id} already in party."
-      return
-    query = model.query('users').party([id])
-    model.fetch query, (err, users) ->
-      partyMember = users.at(0).get()
-      if partyMember?.id?
-        user.push('party', id)
-        $('#add-party-modal').modal('hide')
-        window.location.reload() #TODO break old subscription, setup new subscript, remove this reload
-        model.set '_newPartyMember', ''
-      else
-        model.set "_view.addPartyError", "User with id #{id} not found."
-
   exports.emulateNextDay = ->
     yesterday = +moment().subtract('days', 1).toDate()
     user.set 'lastCron', yesterday
     window.location.reload()
+
 
