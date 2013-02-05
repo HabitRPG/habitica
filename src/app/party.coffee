@@ -14,7 +14,7 @@ module.exports.app = (exports, model) ->
 
   exports.partyCreate = ->
     newParty = model.get("_newParty")
-    id = model.add 'parties', { name: newParty, leader: user.get('id'), members: [], invites: [] }
+    id = model.add 'parties', { name: newParty, leader: user.get('id'), members: [user.get('id')] }
     user.set 'party', {current: id, invitation: null, leader: true}
 
   exports.partyInvite = ->
@@ -55,7 +55,12 @@ module.exports.app = (exports, model) ->
     user.set 'party.current', null
     members = model.get ("parties.#{id}.members")
     index = members.indexOf(user.get('id'))
-    model.set "parties.#{id}.members", members.slice(index)
+    newMembers = members.slice(index)
+    if (newMembers.length == 0)
+      # last member out, kill the party
+      model.del "parties.#{id}"
+    else
+      model.set "parties.#{id}.members", members.slice(index)
     window.location.reload()
 
   exports.partyDisband = ->

@@ -120,9 +120,11 @@
 
     {#if _user.party.current}
         <!-- In a party -->
+        <ul>
         {#each _partyMembers as :member}
-            {:member.id}
+            <li>{username(:member.auth)}</li>
         {/}
+        </ul>
         <form x-bind="submit: partyInvite">
           {#if _view.partyError}
             <div class='alert alert-danger'>{_view.partyError}</div>
@@ -231,13 +233,15 @@
               <!-- Party -->
               {#if _party}
                   {#each _partyMembers as :member}
-                    <td class="avatar party-avatar" rel="tooltip" title="{username(:member.auth)}" data-placement="bottom" >
-                        <div class='avatar-sprites'>
-                            <img class='weapon weapon-{:member.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:member.items.weapon}.png" />
-                            <img class='armor armor-{:member.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:member)}" />
-                        </div>
-                        <div id="lvl"><span class="badge badge-info">Lvl {:member.stats.lvl}</span></div>
-                    </td>
+                    {#unless equal(:member.id, _userId)}
+                        <td class="avatar party-avatar" rel="tooltip" title="{username(:member.auth)}" data-placement="bottom" >
+                            <div class='avatar-sprites'>
+                                <img class='weapon weapon-{:member.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:member.items.weapon}.png" />
+                                <img class='armor armor-{:member.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:member)}" />
+                            </div>
+                            <div id="lvl"><span class="badge badge-info">Lvl {:member.stats.lvl}</span></div>
+                        </td>
+                    {/}
                   {/}
               {/}
 
