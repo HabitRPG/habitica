@@ -36,13 +36,36 @@ get '/', (page, model, next) ->
   #if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
   #  return page.redirect 'https://' + req.headers.host + req.url
 
-  party.server model, (queries) ->
+  # This used to be in party.server(model, cb), but was getting `TypeError: Object #<Model> has no method 'server'`
+  # on the second load for some reason
+  partyQueries = (cb) ->
+    selfQ = model.query('users').withId(model.session.userId)
+    model.fetch selfQ, (err, self) ->
+      console.error err if err
+      currentParty = self.at(0).get('party.current')
+      console.log {self: self.get()}
+      console.log {currentParty:currentParty}
+      if currentParty
+        partiesQ = model.query('parties').withId(currentParty)
+        model.fetch partiesQ, (err, parties) ->
+          console.error err if err
+          membersQ = model.query('users').party(parties.at(0).get('members'))
+          cb([partiesQ, membersQ, selfQ])
+      else
+        cb([selfQ])
+
+  partyQueries (queries) ->
     subscribeCb = ->
-      [err, party, members, user] = [arguments[0], arguments[1].at(0), arguments[2], arguments[3].at(0)]
-      console.log {err:err, user:user.get(), party:party.get(), members:members.get()}
+      [err, user] = [arguments[0], null]
+      throw err if err
+      if arguments.length == 4
+        [party, members, user] = [arguments[1].at(0), arguments[2], arguments[3].at(0)]
+        console.log {err:err, user:user.get(), party:party.get(), members:members.get()}
+        model.ref '_party', party
+        model.ref '_partyMembers', members
+      else
+        user = arguments[1].at(0)
       model.ref '_user', user
-      model.ref '_party', party
-      model.ref '_partyMembers', members
       batch = new schema.BatchUpdate(model)
       batch.startTransaction()
       obj = batch.obj()

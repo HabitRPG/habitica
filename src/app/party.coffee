@@ -1,19 +1,5 @@
 _ = require('underscore')
-
-module.exports.server = (model, cb) ->
-
-  selfQ = model.query('users').withId(model.session.userId)
-  model.fetch selfQ, (err, self) ->
-    console.error err if err
-    currentParty = self.at(0).get('party.current')
-    if currentParty
-      partiesQ = model.query('parties').withId(currentParty)
-      model.fetch partiesQ, (err, parties) ->
-        console.error err if err
-        membersQ = model.query('users').party(parties.at(0).get('members'))
-        cb([partiesQ, membersQ, selfQ])
-    else
-      cb([selfQ])
+schema = require './schema'
 
 module.exports.app = (exports, model) ->
   user = model.at('_user')
@@ -30,6 +16,7 @@ module.exports.app = (exports, model) ->
     obj = user.get()
     query = model.query('users').party([id])
     model.fetch query, (err, users) ->
+      throw err if err
       partyMember = users.at(0).get()
       if !partyMember?.id?
         model.set "_view.partyError", "User with id #{id} not found."
@@ -47,31 +34,33 @@ module.exports.app = (exports, model) ->
 
   exports.partyAccept = ->
     invitation = user.get('party.invitation')
-    user.set 'party.current', invitation
-    user.set 'party.invitation', null
     model.push "parties.#{invitation}.members", user.get('id')
-    window.location.reload()
+    user.set 'party.invitation', null, ->
+      user.set 'party.current', invitation, ->
+          window.location.reload()
 
   exports.partyReject = ->
     user.set 'party.invitation', null
+    # TODO splice parties.*.invites[key]
     # TODO notify sender
 
   exports.partyLeave = ->
     id = user.get('party.current')
-    user.set 'party.current', null
-    members = model.get ("parties.#{id}.members")
-    index = members.indexOf(user.get('id'))
-    newMembers = members.slice(index)
-    if (newMembers.length == 0)
-      # last member out, kill the party
-      model.del "parties.#{id}"
-    else
-      model.set "parties.#{id}.members", members.slice(index)
-    window.location.reload()
+    user.set 'party.current', null, ->
+      members = model.get "parties.#{id}.members"
+      index = members.indexOf(user.get('id'))
+      newMembers = members.slice(index)
+      model.set "parties.#{id}.members", newMembers ->
+        if (newMembers.length == 0)
+          # last member out, kill the party
+          model.del "parties.#{id}", -> window.location.reload()
+        else
+          window.location.reload()
 
   exports.partyDisband = ->
 
-#  user.on 'set', 'parties.invitation', (after, before) ->
+  user.on 'set', 'party.invitation', (id) ->
+    model.fetch "parties.#{id}", (err, party) -> model.set '_party', party
 #
 #  model.on '*', '_party.members', (ids) ->
 #    # TODO unsubscribe to previous subscription
