@@ -52,9 +52,9 @@
           <p>This resets your entire account - your tasks will be deleted and your character will start over.</p>
           <p>This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.</p>
           <@footer>
-          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-          <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger btn-large">Reset</button>
-      </@footer>
+              <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+              <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger btn-large">Reset</button>
+          </@footer>
       </app:myModal>
 
       <app:myModal modalId="why-ads-modal" header="Why Ads?">
@@ -111,26 +111,28 @@
       </@footer>
   </app:myModal>
 
-  <app:myModal modalId="party-modal" header="Party">
-      <h2>
-        {#if _user.party.current}Invite Member To "{_party.name}"
-        {else if _user.party.invitation}You're Invited To "{_party.name}"
+  <app:myModal modalId="party-modal">
+    <h2>
+        {#if _party}{_party.name}
+        {else if _user.party.invitation}You're Invited To {_party.name}
         {else}Create A Party{/}
-      </h2>
+    </h2>
 
     {#if _user.party.current}
         <!-- In a party -->
-        <ul>
+        <table class="table table-stripe">
         {#each _partyMembers as :member}
-            <li>{username(:member.auth)}</li>
+            <tr><td>{username(:member.auth)}</td><td>({:member.id})</td></tr>
         {/}
-        </ul>
-        <form x-bind="submit: partyInvite">
+        </table>
+        <form class=form-inline x-bind="submit: partyInvite">
           {#if _view.partyError}
             <div class='alert alert-danger'>{_view.partyError}</div>
           {/}
-          <input type="text" class="input-medium search-query" value="{_newPartyMember}">
-          <input type="submit" class="btn" value="Add" />
+          <div class='control-group'>
+              <input type="text" class="input-medium" placeholder="User Id" value="{_newPartyMember}">
+              <input type="submit" class="btn" value="Invite" />
+          </div>
         </form>
         <a class='btn btn-danger' x-bind="click: partyLeave">Leave</a>
 
@@ -143,16 +145,17 @@
             <a class='btn btn-danger' x-bind="click: partyReject">Reject</a>
         {else}
           <!-- Not in a party , no invites - create a new one -->
-          <form x-bind="submit: partyCreate">
+          <form class=form-inline x-bind="submit: partyCreate">
               {#if _view.partyError}
                 <div class='alert alert-danger'>{_view.partyError}</div>
               {/}
-              <input type="text" class="input-medium search-query" value="{_newParty}">
-              <input type="submit" class="btn" value="Add" />
+              <div class=control-group>
+                  <input type="text" class="input-medium" placeholder="Party Name" value="{_newParty}">
+                  <input type="submit" class="btn" value="Create" />
+              </div>
           </form>
         {/}
       {/}
-
 
   </app:myModal>
 

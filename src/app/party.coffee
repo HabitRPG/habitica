@@ -41,9 +41,7 @@ module.exports.app = (appExports, model) ->
 
   appExports.partyAccept = ->
     invitation = user.get('party.invitation')
-    debugger
     model.subscribe model.query("parties").withId(invitation), (err, parties) ->
-      debugger
       throw err if err
       party = parties.at(0)
       party.push 'members', user.get('id')
@@ -51,7 +49,6 @@ module.exports.app = (appExports, model) ->
       user.set 'party.current', party.get('id')
       model.ref '_party', party
       model.subscribe model.query('users').party(party.get('members')), (err, members) ->
-        debugger
         throw err if err
         model.ref '_partyMembers', members
 
@@ -63,8 +60,7 @@ module.exports.app = (appExports, model) ->
     # TODO notify sender
 
   appExports.partyLeave = ->
-    debugger
-    user.set 'party.current', null
+    id = user.set 'party.current', null
     party = model.at '_party'
     members = party.get('members')
     index = members.indexOf(user.get('id'))
@@ -72,9 +68,9 @@ module.exports.app = (appExports, model) ->
     party.set 'members', members
     if (members.length == 0)
       # last member out, kill the party
-      model.del "parties.#{id}", -> window.location.reload()
-    else
-      window.location.reload()
+      model.del "parties.#{id}"
+    model.unsubscribe model.query('parties').withId(id)
+    model.set('_party', null)
 
   #exports.partyDisband = ->
 
