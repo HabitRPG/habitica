@@ -38,7 +38,7 @@ get '/', (page, model, next) ->
 
   # This used to be in party.server(model, cb), but was getting `TypeError: Object #<Model> has no method 'server'`
   # on the second load for some reason
-  selfQ = model.query('users').withId(model.session.userId)
+  selfQ = model.query('users').withId(model.get('_userId'))
   model.subscribe selfQ, (err, users) ->
     console.log err if err
 

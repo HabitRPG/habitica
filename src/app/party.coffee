@@ -33,7 +33,7 @@ module.exports.app = (appExports, model) ->
         model.set "users.#{id}.party.invitation", party.get('id')
         $.bootstrapGrowl "Invitation Sent."
         $('#party-modal').modal('hide')
-        model.subscribe model.query('uesres').party(party.get('members')), (err, members) ->
+        model.subscribe model.query('users').party(party.get('members')), (err, members) ->
           throw err if err
           model.ref '_partyMembers', members
         model.set '_newPartyMember', ''
@@ -56,19 +56,21 @@ module.exports.app = (appExports, model) ->
         model.ref '_partyMembers', members
 
   appExports.partyReject = ->
+    debugger
     user.set 'party.invitation', null
 
     # TODO splice parties.*.invites[key]
     # TODO notify sender
 
   appExports.partyLeave = ->
+    debugger
     user.set 'party.current', null
     party = model.at '_party'
     members = party.get('members')
     index = members.indexOf(user.get('id'))
-    newMembers = members.slice(index)
-    party.set 'members', newMembers
-    if (newMembers.length == 0)
+    members.splice(index)
+    party.set 'members', members
+    if (members.length == 0)
       # last member out, kill the party
       model.del "parties.#{id}", -> window.location.reload()
     else
@@ -77,7 +79,8 @@ module.exports.app = (appExports, model) ->
   #exports.partyDisband = ->
 
   user.on 'set', 'party.invitation', (id) ->
-    model.fetch model.query('parties').withId(id), (err, party) -> model.set '_party', party
+    debugger
+    model.subscribe model.query('parties').withId(id), (err, party) -> model.set '_party', party
 #
 #  model.on '*', '_party.members', (ids) ->
 #    # TODO unsubscribe to previous subscription
