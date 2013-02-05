@@ -84,9 +84,9 @@ updateStats = (newStats, batch) ->
       # Set to object, then also send to browser right away to get model.on() subscription notification
       batch.set 'items.itemsEnabled', true
       obj.items.itemsEnabled = true
-    if !obj.flags.partyEnabled and obj.stats.lvl >= 3
-      batch.set 'flags.partyEnabled', true
-      obj.flags.partyEnabled = true
+#    if !obj.flags.partyEnabled and obj.stats.lvl >= 3
+#      batch.set 'flags.partyEnabled', true
+#      obj.flags.partyEnabled = true
     obj.stats.exp = newStats.exp
 
   if newStats.money?

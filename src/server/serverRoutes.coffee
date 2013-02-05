@@ -25,7 +25,8 @@ module.exports = (expressApp, root, derby) ->
     v1 API. Requires user-id and api_token, task-id, direction. Test with:
     curl -X POST -H "Content-Type:application/json" -d '{"api_token":"{TOKEN}"}' localhost:3000/v1/users/{UID}/tasks/productivity/up
   ###
-  expressApp.post '/v1/users/:uid/tasks/:taskId/:direction', (req, res) ->
+  # TODO /v1/..
+  expressApp.post '/users/:uid/tasks/:taskId/:direction', (req, res) ->
     {uid, taskId, direction} = req.params
     {api_token, title, service, icon} = req.body
     console.log {params:req.params, body:req.body} if process.env.NODE_ENV == 'development'
