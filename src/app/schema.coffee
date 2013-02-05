@@ -8,8 +8,8 @@ userSchema =
   # _id
   pub:
     stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
-    # party: null
-    # TODO invitations
+    party: null
+    invitations: []
     items: { armor: 0, weapon: 0 }
     preferences: { gender: 'm', armorSet: 'v1' }
   priv:
