@@ -4,19 +4,20 @@ Setup read / write access
 ###
 
 module.exports.customAccessControl = (store) ->
+  userAccess(store)
+  partySystem(store)
+  REST(store)
 
-#  store.readPathAccess "users.*", () -> # captures, next
-#    next = arguments[arguments.length-1]
-#    return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
-#    return next(true)
+###
+  General user access
+###
+userAccess = (store) ->
 
   store.readPathAccess "users.*", -> # captures, next) ->
     #return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
-    captures = arguments[0]
+    uid = arguments[0]
     next = arguments[arguments.length - 1]
-    sameSession = captures is @session.userId
-    isServer = false #!this.req.socket; //TODO how to determine if request came from server, as in REST?
-    next sameSession or isServer
+    next (uid is @session.userId) or @req._isServer
 
   store.writeAccess "*", "users.*", -> # captures, value, next) ->
     #return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
@@ -24,33 +25,33 @@ module.exports.customAccessControl = (store) ->
     uid = captures.shift()
     attrPath = captures.join('.') # new array shifted left, after shift() was run
 
-    # TODO the server can write to anything - aka, REST
-    #return next(true) if !this.req.socket;
-
     # public access to users.*.party.invitation (TODO, lock down a bit more)
-    return next(true) if (attrPath == 'party.invitation')
+    if (attrPath == 'party.invitation')
+      return next(true)
 
     # Same session (user.id = this.session.userId)
-    return next(true) if uid is @session.userId
+    if (uid is @session.userId) or @req._isServer
+      return next(true)
 
     next(false)
 
-
-#  store.writeAccess "*", "users.*.balance", (id, newBalance, next) ->
-#    return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
-#    purchasingSomethingOnClient = newBalance < this.session.req._racerModel.get("users.#{id}.balance")
-#    isServer = not @req.socket
-#    next(purchasingSomethingOnClient or isServer)
+  store.writeAccess "*", "users.*.balance", (id, newBalance, next) ->
+    #return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
+    oldBalance = @session.req._racerModel?.get("users.#{id}.balance") || 0
+    purchasingSomethingOnClient = newBalance < oldBalance
+    next(purchasingSomethingOnClient or @req._isServer)
 
   store.writeAccess "*", "users.*.flags.ads", -> # captures, value, next ->
     #return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
     next = arguments[arguments.length - 1]
-    isServer = not @req.socket
-    next(isServer)
+    next(@req._isServer)
 
-  ###
-    Get user with API token
-  ###
+
+###
+  REST
+  Get user with API token
+###
+REST = (store) ->
   store.query.expose "users", "withIdAndToken", (id, api_token) ->
     @where("id").equals(id)
       .where('preferences.api_token').equals(api_token)
@@ -58,12 +59,13 @@ module.exports.customAccessControl = (store) ->
 
   store.queryAccess "users", "withIdAndToken", (id, token, next) ->
     #return next(false) unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
-    isServer = not @req.socket
-    next(isServer)
+    next(true) # only user has id & token
 
-  ###
-    Party permissions
-  ###
+
+###
+  Party permissions
+###
+partySystem = (store) ->
   store.query.expose "users", "party", (ids) ->
     @where("id").within(ids)
       .only('stats',
@@ -83,7 +85,9 @@ module.exports.customAccessControl = (store) ->
     next(true)
 
   store.readPathAccess "parties.*", ->
-    arguments[arguments.length-1](true)
+    next = arguments[arguments.length-1]
+    next(true)
 
   store.writeAccess "*", "parties.*", ->
-    arguments[arguments.length-1](true)
+    next = arguments[arguments.length-1]
+    next(true)
