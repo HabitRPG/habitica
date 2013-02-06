@@ -1,6 +1,19 @@
 _ = require('underscore')
 schema = require './schema'
 
+_partyQ = null
+_membersQ = null
+
+module.exports.partyQuery = partyQuery = (model, id, reset) ->
+  if !_partyQ? or reset
+    _partyQ = model.query('parties').withId(id)
+  _partyQ
+
+module.exports.membersQuery = membersQuery = (model, ids, reset) ->
+  if !_membersQ? or reset
+    _membersQ = model.query('users').party(ids)
+  _membersQ
+
 setupListeners = (model) ->
 
   model.on 'set', '_user.party.invitation', (id) ->

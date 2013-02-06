@@ -65,16 +65,13 @@ get '/', (page, model, next) ->
     setupModelFns(model)
 
     if obj.party?.current?
-      throw err if err
-      partiesQ = model.query('parties').withId(obj.party.current)
-      model.subscribe partiesQ, (err, parties) ->
+      party.partyQuery(model, obj.party.current, true).subscribe (err, res) ->
         throw err if err
-        party = parties.at(0)
-        model.ref '_party', party
-        membersQ = model.query('users').party(parties.at(0).get('members'))
-        model.subscribe membersQ, (err, members) ->
+        p = res.at(0)
+        model.ref '_party', p
+        party.membersQuery(model, p.get('members'), true).subscribe (err, res) ->
           throw err if err
-          model.ref '_partyMembers', members
+          model.ref '_partyMembers', res
 
           # Here's a hack we need to get fixed (hopefully Lever will) - later model.queries override previous model.queries'
           # returned fields. Aka, we need this here otherwise we only get the "public" fields for the current user, which
