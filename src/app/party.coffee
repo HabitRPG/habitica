@@ -75,7 +75,7 @@ module.exports.app = (appExports, model) ->
     party = model.at '_party'
     members = party.get('members')
     index = members.indexOf(user.get('id'))
-    members.splice(index)
+    members.splice(index,1)
     party.set 'members', members
     if (members.length == 0)
       # last member out, kill the party
