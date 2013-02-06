@@ -78,7 +78,7 @@ module.exports.app = (appExports, model) ->
     debugger
     model.subscribe model.query('parties').withId(id), (err, party) -> model.set '_party', party
 #
-#  model.on '*', '_party.members', (ids) ->
-#    # TODO unsubscribe to previous subscription
-#    model.subscribe model.query('users').party(ids), (err, members) ->
-#      model.ref '_view.partyMembers', members
+  model.on '*', '_party.members', (ids) ->
+    # TODO unsubscribe to previous subscription
+    q = model.query('users').party(ids)
+    model.subscribe q, (err, members) -> model.ref '_partyMembers', members

@@ -44,7 +44,6 @@ get '/', (page, model, next) ->
 
     user = users.at(0)
     model.ref '_user', user
-    obj = user.get()
 
     batch = new schema.BatchUpdate(model)
     batch.startTransaction()
