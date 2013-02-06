@@ -7,10 +7,7 @@ derby = require 'derby'
 userSchema =
   # _id
   stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
-  party: {
-    current: null
-    invitation: null
-  }
+  party: { current: null, invitation: null }
   items: { armor: 0, weapon: 0 }
   preferences: { gender: 'm', armorSet: 'v1' }
   idLists:

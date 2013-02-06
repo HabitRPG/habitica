@@ -105,6 +105,8 @@ ready (model) ->
 
   require('../server/private').app(exports, model)
 
+  require('./debug').app(exports, model)
+
   user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
     return if passed? && passed.cron # Don't do this stuff on cron
     direction = () ->
@@ -295,10 +297,3 @@ ready (model) ->
   exports.setFemale = -> user.set('preferences.gender', 'f')
   exports.setArmorsetV1 = -> user.set('preferences.armorSet', 'v1')
   exports.setArmorsetV2 = -> user.set('preferences.armorSet', 'v2')
-
-  exports.emulateNextDay = ->
-    yesterday = +moment().subtract('days', 1).toDate()
-    user.set 'lastCron', yesterday
-    window.location.reload()
-
-
