@@ -19,11 +19,6 @@ setupListReferences = (model) ->
   taskTypes = ['habit', 'daily', 'todo', 'reward']
   _.each taskTypes, (type) ->  model.refList "_#{type}List", "_user.tasks", "_user.idLists.#{type}"
 
-setupModelFns = (model) ->
-  model.fn '_tnl', '_user.stats.lvl', (lvl) ->
-    # see https://github.com/lefnire/habitrpg/issues/4
-    # also update in scoring.coffee. TODO create a function accessible in both locations
-    (lvl*100)/5
 
 # ========== ROUTES ==========
 
@@ -62,26 +57,17 @@ get '/', (page, model, next) ->
     batch.commit()
 
     setupListReferences(model)
-    setupModelFns(model)
+    model.fn '_tnl', '_user.stats.lvl', (lvl) ->
+      # see https://github.com/lefnire/habitrpg/issues/4
+      # also update in scoring.coffee. TODO create a function accessible in both locations
+      (lvl*100)/5
 
     if obj.party?.current?
-      party.partySubscribe model, obj.party.current, (p) ->
-
-          # Here's a hack we need to get fixed (hopefully Lever will) - later model.queries override previous model.queries'
-          # returned fields. Aka, we need this here otherwise we only get the "public" fields for the current user, which
-          # are defined in model.query('users')party()
-          model.subscribe selfQ, (err, users) ->
-            model.ref '_user', users.at(0)
-            page.render()
+      party.partySubscribe model, obj.party.current, (p) -> page.render()
     else
       page.render()
 
 # ========== CONTROLLER FUNCTIONS ==========
-
-resetDom = (model) ->
-  window.DERBY.app.dom.clear()
-  view.render(model)
-  setupModelFns(model)
 
 ready (model) ->
   user = model.at('_user')
@@ -92,7 +78,7 @@ ready (model) ->
   user.set('lastCron', +new Date) if (!lastCron? or lastCron == 'new')
 
   # Setup model in scoring functions
-  scoring.cron(resetDom)
+  scoring.cron()
 
   # Load all the jQuery, Growl, Tour, etc
   browser.loadJavaScripts(model)
@@ -289,7 +275,7 @@ ready (model) ->
     batch.set 'balance', 2 if user.get('balance') < 2 #only if they haven't manually bought tokens
     revive(batch, true)
     batch.commit()
-    resetDom(model)
+    browser.resetDom(model)
 
   exports.closeKickstarterNofitication = (e, el) -> user.set('flags.kickstarter', 'hide')
 

@@ -1,5 +1,11 @@
 content = require('./content')
 
+
+module.exports.resetDom = (model) ->
+  window.DERBY.app.dom.clear()
+  window.DERBY.app.view.render(model)
+  model.fn '_tnl', '_user.stats.lvl', (lvl) -> (lvl*100)/5
+
 ###
   Loads JavaScript files from (1) public/js/* and (2) external sources
   We use this file (instead of <Scripts:> or <Tail:> inside .html) so we can utilize require() to concatinate for

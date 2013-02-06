@@ -186,7 +186,7 @@ score = (taskId, direction, times, batch, cron) ->
   At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
   For incomplete Dailys, deduct experience
 ###
-cron = (resetDom_cb) ->
+cron = () ->
   today = +new Date
   daysPassed = helpers.daysBetween(today, user.get('lastCron'))
   if daysPassed > 0
@@ -245,7 +245,7 @@ cron = (resetDom_cb) ->
     batch.setStats()
     batch.set('history', obj.history)
     batch.commit()
-    resetDom_cb(model)
+    require('./browser').reset(model)
     setTimeout (-> user.set 'stats.hp', hpAfter), 1000 # animate hp loss
 
 

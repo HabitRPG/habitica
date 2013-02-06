@@ -1,5 +1,6 @@
 _ = require('underscore')
 schema = require './schema'
+browser = require './browser'
 
 _subscriptions =
   party:
@@ -35,11 +36,16 @@ module.exports.partySubscribe = partySubscribe = (model, id, cb) ->
 
     # FIXME this is the kicker right here. This isn't getting triggered, and it's the reason why we have to refresh
     # after every event. Get this working
-    p.on '*', 'members', (ids) ->
-      console.log("members listener got called")
-      membersSubscribe model, ids
-
-    membersSubscribe model, p.get('members'), (m) ->
+#    p.on '*', 'members', (ids) ->
+#      console.log("members listener got called")
+#      membersSubscribe model, ids
+    ids = p.get('members')
+    if !_.isEmpty(ids)
+      membersSubscribe model, ids, (m) ->
+        browser.resetDom(model) if window?
+        cb(p) if cb?
+    else
+      browser.resetDom(model) if window?
       cb(p) if cb?
 
 
@@ -63,7 +69,14 @@ module.exports.membersSubscribe = membersSubscribe = (model, ids, cb) ->
   s.members.query.subscribe (err, m) ->
     throw err if err
     model.ref '_partyMembers', m
-    cb(m) if cb?
+
+    # Here's a hack we need to get fixed (hopefully Lever will) - later model.queries override previous model.queries'
+    # returned fields. Aka, we need this here otherwise we only get the "public" fields for the current user, which
+    # are defined in model.query('users')party()
+    selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
+    model.subscribe selfQ, (err, users) ->
+      model.ref '_user', users.at(0)
+      cb(m) if cb?
 
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
@@ -75,7 +88,7 @@ module.exports.app = (appExports, model) ->
     newParty = model.get("_newParty")
     id = model.add 'parties', { name: newParty, leader: user.get('id'), members: [user.get('id')], invites:[] }
     user.set 'party', {current: id, invitation: null, leader: true}
-    partySubscribe model, id
+    partySubscribe model, id, -> $('#party-modal').modal('show')
 
   appExports.partyInvite = ->
     id = model.get('_newPartyMember').replace(/[\s"]/g, '')
@@ -100,8 +113,7 @@ module.exports.app = (appExports, model) ->
         $('#party-modal').modal('hide')
         model.set '_newPartyMember', ''
         membersSubscribe model, p.get('members'), ->
-          # TODO get subscriptions really working so we don't need to reload
-          window.location.reload()
+          #window.location.reload(true)
 
   appExports.partyAccept = ->
     invitation = user.get('party.invitation')
@@ -110,12 +122,12 @@ module.exports.app = (appExports, model) ->
       user.set 'party.invitation', null
       user.set 'party.current', p.get('id')
       membersSubscribe model, p.get('members'), (m) ->
-        window.location.reload()
+        window.location.reload(true)
 
   appExports.partyReject = ->
     user.set 'party.invitation', null
     model.set '_party', null
-
+    browser.resetDom(model)
     # TODO splice parties.*.invites[key]
     # TODO notify sender
 
@@ -130,8 +142,9 @@ module.exports.app = (appExports, model) ->
       # last member out, kill the party
       model.del "parties.#{id}"
     #_subscriptions.party.query.unsubscribe()
-    model.set '_party', null
-    model.set '_partyMembers', null
-    setTimeout window.location.reload, 1
+    #model.set '_party', null
+    #model.set '_partyMembers', null
+    #browser.resetDom()
+    setTimeout (-> window.location.reload true), 1
 
   #exports.partyDisband = ->
