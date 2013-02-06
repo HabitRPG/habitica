@@ -9,6 +9,11 @@ db.users.find().forEach(function(user){
         return; // need to figure out how to delete these buggers if they don't have an id to delete from
     }
 
+    if (!!user.idLists) {
+        print("User " + user._id + " has already been migrated")
+        return
+    }
+
     if (user._id.indexOf("$") === 0) {
         print("User id starts with $ (" + user._id + ")")
         return;
