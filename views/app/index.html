@@ -119,8 +119,7 @@
     </h2>
 
     {#if _user.party.current}
-        <!-- In a party -->
-        <table class="table table-stripe">
+        <table class="table table-striped">
         {#each _partyMembers as :member}
             <tr><td>{username(:member.auth)}</td><td>({:member.id})</td></tr>
         {/}

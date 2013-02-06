@@ -38,9 +38,9 @@ get '/', (page, model, next) ->
 
   # This used to be in party.server(model, cb), but was getting `TypeError: Object #<Model> has no method 'server'`
   # on the second load for some reason
-  selfQ = model.query('users').withId(model.get('_userId'))
+  selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
   model.subscribe selfQ, (err, users) ->
-    console.log err if err
+    throw err if err
 
     user = users.at(0)
     model.ref '_user', user
@@ -65,11 +65,10 @@ get '/', (page, model, next) ->
     setupModelFns(model)
 
     if obj.party?.current?
-      console.log obj.party.current
-      console.log err if err
+      throw err if err
       partiesQ = model.query('parties').withId(obj.party.current)
       model.subscribe partiesQ, (err, parties) ->
-        console.log err if err
+        throw err if err
         party = parties.at(0)
         model.ref '_party', party
         membersQ = model.query('users').party(parties.at(0).get('members'))
