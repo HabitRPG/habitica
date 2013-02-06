@@ -1,5 +1,5 @@
 content = require('./content')
-
+_ = require 'underscore'
 
 module.exports.resetDom = (model) ->
   window.DERBY.app.dom.clear()
@@ -60,7 +60,7 @@ module.exports.setupSortable = (model) ->
           # Also, note that refList index arguments can either be an index
           # or the item's id property
           model.at("_#{type}List").pass(ignore: domId).move {id}, to
-    setupSortable(type) for type in ['habit', 'daily', 'todo', 'reward']
+    _.each ['habit', 'daily', 'todo', 'reward'], (type) -> setupSortable(type)
 
 module.exports.setupTooltips = (model) ->
   $('[rel=tooltip]').tooltip()

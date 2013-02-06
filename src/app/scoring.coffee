@@ -245,7 +245,7 @@ cron = () ->
     batch.setStats()
     batch.set('history', obj.history)
     batch.commit()
-    require('./browser').reset(model)
+    browser.resetDom(model)
     setTimeout (-> user.set 'stats.hp', hpAfter), 1000 # animate hp loss
 
 

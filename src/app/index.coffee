@@ -273,7 +273,7 @@ ready (model) ->
     batch.set 'tasks', {}
     _.each taskTypes, (type) -> batch.set "idLists.#{type}", []
     batch.set 'balance', 2 if user.get('balance') < 2 #only if they haven't manually bought tokens
-    revive(batch, true)
+    revive(batch)
     batch.commit()
     browser.resetDom(model)
 
