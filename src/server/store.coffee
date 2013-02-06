@@ -31,7 +31,6 @@ module.exports.customAccessControl = (store) ->
     return next(true) if (attrPath == 'party.invitation')
 
     # Same session (user.id = this.session.userId)
-    console.log {uid:uid, sess:@session.userId}
     return next(true) if uid is @session.userId
 
     next(false)

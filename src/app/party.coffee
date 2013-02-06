@@ -1,8 +1,19 @@
 _ = require('underscore')
 schema = require './schema'
 
+setupListeners = (model) ->
+
+  model.on 'set', '_user.party.invitation', (id) ->
+    model.subscribe model.query('parties').withId(id), (err, party) -> model.set '_party', party
+
+  model.on '*', '_party.members', (ids) ->
+    # TODO unsubscribe to previous subscription
+    q = model.query('users').party(ids)
+    model.subscribe q, (err, members) -> model.ref '_partyMembers', members
+
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
+  setupListeners(model)
 
   appExports.partyCreate = ->
     newParty = model.get("_newParty")
@@ -11,8 +22,10 @@ module.exports.app = (appExports, model) ->
     model.subscribe model.query('parties').withId(id), (err, party) ->
       throw err if err
       model.ref '_party', party.at(0)
+      setupListeners(model)
 
   appExports.partyInvite = ->
+    debugger
     id = model.get('_newPartyMember').replace(/[\s"]/g, '')
     return if _.isEmpty(id)
 
@@ -40,6 +53,7 @@ module.exports.app = (appExports, model) ->
         #TODO break old subscription, setup new subscript, remove this reload
 
   appExports.partyAccept = ->
+    debugger
     invitation = user.get('party.invitation')
     model.subscribe model.query("parties").withId(invitation), (err, parties) ->
       throw err if err
@@ -60,6 +74,7 @@ module.exports.app = (appExports, model) ->
     # TODO notify sender
 
   appExports.partyLeave = ->
+    debugger
     id = user.set 'party.current', null
     party = model.at '_party'
     members = party.get('members')
@@ -73,12 +88,3 @@ module.exports.app = (appExports, model) ->
     model.set('_party', null)
 
   #exports.partyDisband = ->
-
-  user.on 'set', 'party.invitation', (id) ->
-    debugger
-    model.subscribe model.query('parties').withId(id), (err, party) -> model.set '_party', party
-#
-  model.on '*', '_party.members', (ids) ->
-    # TODO unsubscribe to previous subscription
-    q = model.query('users').party(ids)
-    model.subscribe q, (err, members) -> model.ref '_partyMembers', members
