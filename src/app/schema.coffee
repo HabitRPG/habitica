@@ -5,62 +5,60 @@ lodash = require 'lodash'
 derby = require 'derby'
 
 userSchema =
+  # _id
+  stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
+  party: { current: null, invitation: null }
+  items: { armor: 0, weapon: 0 }
+  preferences: { gender: 'm', armorSet: 'v1' }
+  idLists:
+    habit: []
+    daily: []
+    todo: []
+    reward: []
+  apiToken: null # set in newUserObject below
   lastCron: 'new' #this will be replaced with `+new Date` on first run
   balance: 2
-  stats: { money: 0, exp: 0, lvl: 1, hp: 50 }
-  items: { itemsEnabled: false, armor: 0, weapon: 0 }
-  notifications: { kickstarter: 'show' }
-  preferences: { gender: 'm', armorSet: 'v1' }
-  flags: { partyEnabled: false }
-  party: []
   tasks: {}
-  habitIds: []
-  dailyIds: []
-  todoIds: []
-  rewardIds: []
+  flags:
+    partyEnabled: false
+    itemsEnabled: false
+    kickstarter: 'show'
+    # ads: 'show' # added on registration
 
 module.exports.newUserObject = ->
   # deep clone, else further new users get duplicate objects
-  newUser = require('lodash').cloneDeep userSchema
+  newUser = lodash.cloneDeep userSchema
+  newUser.apiToken = derby.uuid()
   for task in content.defaultTasks
-    guid = task.id = require('racer').uuid()
+    guid = task.id = derby.uuid()
     newUser.tasks[guid] = task
     switch task.type
-      when 'habit' then newUser.habitIds.push guid
-      when 'daily' then newUser.dailyIds.push guid
-      when 'todo' then newUser.todoIds.push guid
-      when 'reward' then newUser.rewardIds.push guid
+      when 'habit' then newUser.idLists.habit.push guid
+      when 'daily' then newUser.idLists.daily.push guid
+      when 'todo' then newUser.idLists.todo.push guid
+      when 'reward' then newUser.idLists.reward.push guid
   return newUser
 
 module.exports.updateUser = (batch) ->
   user = batch.user
+  obj = batch.obj()
 
-  batch.set('notifications.kickstarter', 'show') unless user.get('notifications.kickstarter')
-  batch.set('party', []) unless !_.isEmpty(user.get('party'))
-
-  # Preferences, including API key
-  # Some side-stepping to avoid unecessary set (one day, model.update... one day..)
-  currentPrefs = _.clone user.get('preferences')
-  mergedPrefs = _.defaults currentPrefs, { gender: 'm', armorSet: 'v1', api_token: derby.uuid() }
-  batch.set('preferences', mergedPrefs)
+  batch.set('apiToken', derby.uuid()) unless obj.apiToken
 
   ## Task List Cleanup
   # FIXME temporary hack to fix lists (Need to figure out why these are happening)
-  # FIXME consolidate these all under user.listIds so we can set them en-masse
-  tasks = user.get('tasks')
+  tasks = obj.tasks
   _.each ['habit','daily','todo','reward'], (type) ->
-    path = "#{type}Ids"
-
     # 1. remove duplicates
     # 2. restore missing zombie tasks back into list
     taskIds =  _.pluck( _.where(tasks, {type:type}), 'id')
-    union = _.union user.get(path), taskIds
+    union = _.union obj.idLists[type], taskIds
 
     # 2. remove empty (grey) tasks
     preened = _.filter(union, (val) -> _.contains(taskIds, val))
 
     # There were indeed issues found, set the new list
-    batch.set(path, preened) # if _.difference(preened, userObj[path]).length != 0
+    batch.set("idLists.#{type}", preened) # if _.difference(preened, userObj[path]).length != 0
 
 module.exports.BatchUpdate = BatchUpdate = (model) ->
   user = model.at("_user")

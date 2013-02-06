@@ -44,17 +44,18 @@ module.exports.viewHelpers = (view) ->
     else
       return "0" 
   
-  view.fn "money", (num) ->
+  view.fn "gp", (num) ->
     if num
       return num.toFixed(2)
     else
       return "0.00"
       
-  view.fn "lessThan", (a, b) ->
+  view.fn "lt", (a, b) ->
     a < b
+  view.fn 'gt', (a, b) -> a > b
   
-  view.fn "tokens", (money) ->
-    return money/0.25
+  view.fn "tokens", (gp) ->
+    return gp/0.25
 
   view.fn 'currentArmor', (user) ->
     armor = user?.items?.armor || 0

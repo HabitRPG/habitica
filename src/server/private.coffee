@@ -37,7 +37,6 @@ module.exports.app = (appExports, model) ->
     obj = model.get('_user')
     batch.set 'balance', obj.balance-1
     _.each obj.tasks, (task) -> batch.set("tasks.#{task.id}.value", 0) unless task.type == 'reward'
-    console.log(obj)
     batch.commit()
 
 module.exports.routes = (expressApp) ->
@@ -52,6 +51,7 @@ module.exports.routes = (expressApp) ->
       else
         model = req.getModel()
         userId = model.session.userId
+        req._isServer = true
         model.fetch "users.#{userId}", (err, user) ->
           model.ref '_user', "users.#{userId}"
           model.set('_user.balance', model.get('_user.balance')+5)

@@ -75,24 +75,24 @@ updateStats = (newStats, batch) ->
 
   if newStats.exp?
     # level up & carry-over exp
-    tnl = user.get '_tnl'
+    tnl = model.get '_tnl'
     if newStats.exp >= tnl
       newStats.exp -= tnl
       obj.stats.lvl++
       obj.stats.hp = 50
-    if !obj.items.itemsEnabled and obj.stats.lvl >= 2
+    if !obj.flags.itemsEnabled and obj.stats.lvl >= 2
       # Set to object, then also send to browser right away to get model.on() subscription notification
-      batch.set 'items.itemsEnabled', true
-      obj.items.itemsEnabled = true
-#    if !obj.flags.partyEnabled and obj.stats.lvl >= 3
-#      batch.set 'flags.partyEnabled', true
-#      obj.flags.partyEnabled = true
+      batch.set 'flags.itemsEnabled', true
+      obj.flags.itemsEnabled = true
+    if !obj.flags.partyEnabled and obj.stats.lvl >= 3
+      batch.set 'flags.partyEnabled', true
+      obj.flags.partyEnabled = true
     obj.stats.exp = newStats.exp
 
-  if newStats.money?
-    #FIXME what was I doing here? I can't remember, money isn't defined
-    money = 0.0 if (!money? or money<0)
-    obj.stats.money = newStats.money
+  if newStats.gp?
+    #FIXME what was I doing here? I can't remember, gp isn't defined
+    gp = 0.0 if (!gp? or gp<0)
+    obj.stats.gp = newStats.gp
 
 # {taskId} task you want to score
 # {direction} 'up' or 'down'
@@ -106,7 +106,7 @@ score = (taskId, direction, times, batch, cron) ->
     batch.startTransaction()
   obj = batch.obj()
 
-  {money, hp, exp, lvl} = obj.stats
+  {gp, hp, exp, lvl} = obj.stats
 
   taskPath = "tasks.#{taskId}"
   taskObj = obj.tasks[taskId]
@@ -127,7 +127,7 @@ score = (taskId, direction, times, batch, cron) ->
   addPoints = ->
     modified = expModifier(delta)
     exp += modified
-    money += modified
+    gp += modified
 
   subtractPoints = ->
     modified = hpModifier(delta)
@@ -162,17 +162,17 @@ score = (taskId, direction, times, batch, cron) ->
       # Don't adjust values for rewards
       calculateDelta(false)
       # purchase item
-      money -= Math.abs(taskObj.value)
+      gp -= Math.abs(taskObj.value)
       num = parseFloat(taskObj.value).toFixed(2)
-      # if too expensive, reduce health & zero money
-      if money < 0
-        hp += money # hp - money difference
-        money = 0
+      # if too expensive, reduce health & zero gp
+      if gp < 0
+        hp += gp # hp - gp difference
+        gp = 0
 
   taskObj.value = value
   batch.set "#{taskPath}.value", taskObj.value
   origStats = _.clone obj.stats
-  updateStats {hp: hp, exp: exp, money: money}, batch
+  updateStats {hp: hp, exp: exp, gp: gp}, batch
   if commit
     # newStats / origStats is a glorious hack to trick Derby into seeing the change in model.on(*)
     newStats = _.clone batch.obj().stats
@@ -186,7 +186,7 @@ score = (taskId, direction, times, batch, cron) ->
   At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
   For incomplete Dailys, deduct experience
 ###
-cron = (resetDom_cb) ->
+cron = () ->
   today = +new Date
   daysPassed = helpers.daysBetween(today, user.get('lastCron'))
   if daysPassed > 0
@@ -245,7 +245,7 @@ cron = (resetDom_cb) ->
     batch.setStats()
     batch.set('history', obj.history)
     batch.commit()
-    resetDom_cb(model)
+    browser.resetDom(model)
     setTimeout (-> user.set 'stats.hp', hpAfter), 1000 # animate hp loss
 
 

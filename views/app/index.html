@@ -14,7 +14,7 @@
           <pre class=prettyprint>{_user.id}</pre>
 
           <h6>API Token</h6>
-          <pre class=prettyprint>{_user.preferences.api_token}</pre>
+          <pre class=prettyprint>{_user.apiToken}</pre>
 
           <hr/>
           <h4>Gender</h4>
@@ -40,6 +40,9 @@
               </label>
           {/}
 
+          <hr/>
+          <a class='btn btn-danger' data-target="#reset-modal" data-toggle="modal">Reset</a>
+
           <@footer>
               <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
           </@footer>
@@ -49,9 +52,9 @@
           <p>This resets your entire account - your tasks will be deleted and your character will start over.</p>
           <p>This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.</p>
           <@footer>
-          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-          <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger btn-large">Reset</button>
-      </@footer>
+              <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+              <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger btn-large">Reset</button>
+          </@footer>
       </app:myModal>
 
       <app:myModal modalId="why-ads-modal" header="Why Ads?">
@@ -100,7 +103,7 @@
       <app:userTokens/>
       <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
       <@footer>
-          {#if lessThan(_user.balance,1)}
+          {#if lt(_user.balance,1)}
               <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-danger btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
           {else}
               <a data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</a><span class='token-cost'>4 Tokens</span>
@@ -108,14 +111,46 @@
       </@footer>
   </app:myModal>
 
-  <app:myModal modalId="add-party-modal" header="Add Party Member">
-      <form x-bind="submit: addParty">
-          {#if _view.addPartyError}
-          <div class='alert alert-danger'>{_view.addPartyError}</div>
+  <app:myModal modalId="party-modal">
+
+      {#if _user.party.current}
+        <h2>{_party.name}</h2>
+        <table class="table table-striped">
+        {#each _partyMembers as :member}
+            <tr><td>{username(:member.auth)}</td><td>({:member.id})</td></tr>
+        {/}
+        </table>
+        <form class=form-inline x-bind="submit: partyInvite">
+          {#if _view.partyError}
+            <div class='alert alert-danger'>{_view.partyError}</div>
           {/}
-          <input type="text" class="input-medium search-query" value="{_newPartyMember}">
-          <input type="submit" class="btn" value="Add" />
-      </form>
+          <div class='control-group'>
+              <input type="text" class="input-medium" placeholder="User Id" value="{_newPartyMember}">
+              <input type="submit" class="btn" value="Invite" />
+          </div>
+        </form>
+        <a class='btn btn-danger' x-bind="click: partyLeave">Leave</a>
+
+    {else if _user.party.invitation}
+        <!-- TODO show by whom -->
+        <h2>You're Invited To {_party.name}</h2>
+        <a class='btn btn-success' x-bind="click: partyAccept">Accept</a>
+        <a class='btn btn-danger' x-bind="click: partyReject">Reject</a>
+
+    {else}
+        <h2>Create A Party</h2>
+        <!-- Not in a party , no invites - create a new one -->
+        <form class=form-inline x-bind="submit: partyCreate">
+            {#if _view.partyError}
+              <div class='alert alert-danger'>{_view.partyError}</div>
+            {/}
+            <div class=control-group>
+                <input type="text" class="input-medium" placeholder="Party Name" value="{_newParty}">
+                <input type="submit" class="btn" value="Create" />
+            </div>
+        <form>
+    {/}
+
   </app:myModal>
 
 <alerts:>
@@ -125,7 +160,7 @@
         </ul>
     {/}
 
-    {#if equal(_user.notifications.kickstarter,'show')}
+    {#if equal(_user.flags.kickstarter,'show')}
     <div class='alert alert-success'>
         <a x-bind="click:closeKickstarterNofitication" class='pull-right'>Dismiss</a>
         Help Habit by backing the <strong><a href="http://kck.st/XoA3Yg">Kickstarter</a></strong>! Funds iPhone & Android apps, <a href="https://github.com/lefnire/habitrpg/issues?labels=critical&page=1&state=open">bug fixes</a>, and the <a href="https://github.com/lefnire/habitrpg/issues/58">Groups feature</a>.
@@ -142,13 +177,20 @@
         <a href="#" class="btn btn-small btn-info" data-target="#login-modal" data-toggle="modal">Login / Register</a>
       {else}
         <div class="btn-group">
-            <button class="btn btn-small">{username(_user.auth)}</button>
+            <button class="btn btn-small">
+                {#if _user.party.invitation}<span class="badge badge-success">1</span>{/}
+                {username(_user.auth)}
+            </button>
             <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#" data-target="#settings-modal" data-toggle="modal">Settings</a></li>
-                <li><a href="#" data-target="#reset-modal" data-toggle="modal">Reset</a></li>
+                {#if _user.flags.partyEnabled}
+                    <li><a href="#" data-target="#party-modal" data-toggle="modal">
+                        Party{#if _user.party.invitation}<span class="badge badge-success">1</span>{/}
+                    </a></li>
+                {/}
                 <li><a href='/logout'>Logout</a></li>
             </ul>
         </div>
@@ -158,7 +200,7 @@
     <div class='container-fluid'>
 
       <div class='row-fluid'>
-        <div id=character class='{#if _party}span9{else}span5{/}'>
+        <div id=character class='{#if gt(_partyMembers.length,1)}span9{else}span5{/}'>
           <table>
             <tr>
 
@@ -172,26 +214,26 @@
               </td>
 
               <!-- Progress Bars -->
-              <td id="bars" style="width:{#if _party}70%{else}90%{/};">
+              <td id="bars" style="width:{#if gt(_partyMembers.length,1)}80%{else}90%{/};">
                 <div class="progress progress-danger" rel=tooltip data-placement=bottom title="Health">
                   <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
                   <span class="progress-text"><i class=icon-heart></i> {round(_user.stats.hp)} / 50</span>
                 </div>
     
                 <div class="progress progress-warning" rel=tooltip data-placement=bottom title="Experience">
-                  <div class="bar" style="width: {percent(_user.stats.exp,_user._tnl)}%;"></div>
+                  <div class="bar" style="width: {percent(_user.stats.exp,_tnl)}%;"></div>
                   <span class="progress-text">
                     {#if _user.history.exp}
                       <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp;
                     {/}
-                    <i class=icon-star></i> {round(_user.stats.exp)} / {_user._tnl}
+                    <i class=icon-star></i> {round(_user.stats.exp)} / {_tnl}
                   </span>
                 </div>
               </td>
 
               <!-- Party -->
-              {#if _user.flags.partyEnabled}
-                  {#each _party as :member}
+              {#each _partyMembers as :member}
+                {#unless equal(:member.id, _userId)}
                     <td class="avatar party-avatar" rel="tooltip" title="{username(:member.auth)}" data-placement="bottom" >
                         <div class='avatar-sprites'>
                             <img class='weapon weapon-{:member.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:member.items.weapon}.png" />
@@ -199,8 +241,7 @@
                         </div>
                         <div id="lvl"><span class="badge badge-info">Lvl {:member.stats.lvl}</span></div>
                     </td>
-                  {/}
-                  <td><a class="btn" id="add-party-button" data-target="#add-party-modal" data-toggle="modal"><i class="icon-user"></i></a></td>
+                {/}
               {/}
 
             </tr>
@@ -281,7 +322,7 @@
             <!--Title -->
             <div class="row-fluid">
                 <div class="span6"><h2>Rewards</h2></div>
-                <div class="span6" id="money">{gold(_user.stats.money)} <img src='/img/coin_single_gold.png'/>  {silver(_user.stats.money)} <img src='/img/coin_single_silver.png'/></div>
+                <div class="span6" id="money">{gold(_user.stats.gp)} <img src='/img/coin_single_gold.png'/>  {silver(_user.stats.gp)} <img src='/img/coin_single_silver.png'/></div>
             </div>
 
             <!-- Content -->
@@ -289,7 +330,7 @@
                 {#each _rewardList as :task}<app:task />{/}
             </ul>
 
-            {#if _user.items.itemsEnabled}
+            {#if _user.flags.itemsEnabled}
               <ul class='items'>
                 {#with _view.items.armor as :item}<app:item />{/}
                 {#with _view.items.weapon as :item}<app:item />{/}
@@ -308,9 +349,10 @@
   <!-- Footer -->
   <footer class=footer>
     <div class=container>
-        <!--<div class='pull-right'>
+        <div class='pull-right'>
             <button class='btn' x-bind="click:emulateNextDay">Emulate Next Day</button>
-        </div>-->
+            <button class='btn' x-bind="click:cheat">Add GP & Exp</button>
+        </div>
         <div>
           <ul>
             <li>Copyright &copy; 2012 OCDevel LLC</li>

@@ -10,23 +10,15 @@ content = require './content'
 scoring = require './scoring'
 schema = require './schema'
 helpers = require './helpers'
-helpers.viewHelpers view
 browser = require './browser'
+party = require './party'
+helpers.viewHelpers view
 _ = require('underscore')
 
 setupListReferences = (model) ->
   taskTypes = ['habit', 'daily', 'todo', 'reward']
-  _.each taskTypes, (type) ->  model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+  _.each taskTypes, (type) ->  model.refList "_#{type}List", "_user.tasks", "_user.idLists.#{type}"
 
-setupModelFns = (model) ->
-  model.fn '_user._tnl', '_user.stats.lvl', (lvl) ->
-    # see https://github.com/lefnire/habitrpg/issues/4
-    # also update in scoring.coffee. TODO create a function accessible in both locations
-    (lvl*100)/5
-
-#  model.fn '_party', '_user.party', (ids) ->
-#    model.fetch model.query('users').party(ids), (err, party) ->
-#      model.set '_view.party', party
 
 # ========== ROUTES ==========
 
@@ -39,20 +31,23 @@ get '/', (page, model, next) ->
   #if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
   #  return page.redirect 'https://' + req.headers.host + req.url
 
-  #FIXME subscribing to this query causes "Fatal Error: Unauuthorized" after conncetion for a time (racer/lib/accessControl/accessControl.Store.js)
-  #q = model.query('users').withId(model.session.userId)
-  q = "users.#{model.session.userId}"
-  model.subscribe q, (err, user) ->
-    #user = result.at(0)
+  # This used to be in party.server(model, cb), but was getting `TypeError: Object #<Model> has no method 'server'`
+  # on the second load for some reason
+  selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
+  model.subscribe selfQ, (err, users) ->
+    throw err if err
+
+    user = users.at(0)
     model.ref '_user', user
+
     batch = new schema.BatchUpdate(model)
     batch.startTransaction()
+    obj = batch.obj()
 
     # Setup Item Store
-    items = user.get('items')
     _view.items =
-      armor: content.items.armor[parseInt(items?.armor || 0) + 1]
-      weapon: content.items.weapon[parseInt(items?.weapon || 0) + 1]
+      armor: content.items.armor[parseInt(obj.items?.armor || 0) + 1]
+      weapon: content.items.weapon[parseInt(obj.items?.weapon || 0) + 1]
       potion: content.items.potion
       reroll: content.items.reroll
 
@@ -62,21 +57,17 @@ get '/', (page, model, next) ->
     batch.commit()
 
     setupListReferences(model)
-    setupModelFns(model)
+    model.fn '_tnl', '_user.stats.lvl', (lvl) ->
+      # see https://github.com/lefnire/habitrpg/issues/4
+      # also update in scoring.coffee. TODO create a function accessible in both locations
+      (lvl*100)/5
 
-    # Subscribe to friends
-    if !_.isEmpty(user.get('party'))
-      model.subscribe model.query('users').party(user.get('party')), (err, party) ->
-        model.ref '_party', party
-
-    page.render()
+    if obj.party?.current?
+      party.partySubscribe model, obj.party.current, (p) -> page.render()
+    else
+      page.render()
 
 # ========== CONTROLLER FUNCTIONS ==========
-
-resetDom = (model) ->
-  window.DERBY.app.dom.clear()
-  view.render(model)
-  setupModelFns(model)
 
 ready (model) ->
   user = model.at('_user')
@@ -87,7 +78,7 @@ ready (model) ->
   user.set('lastCron', +new Date) if (!lastCron? or lastCron == 'new')
 
   # Setup model in scoring functions
-  scoring.cron(resetDom)
+  scoring.cron()
 
   # Load all the jQuery, Growl, Tour, etc
   browser.loadJavaScripts(model)
@@ -96,7 +87,11 @@ ready (model) ->
   browser.setupTour(model)
   browser.setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
 
+  party.app(exports, model)
+
   require('../server/private').app(exports, model)
+
+  require('./debug').app(exports, model)
 
   user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
     return if passed? && passed.cron # Don't do this stuff on cron
@@ -168,14 +163,14 @@ ready (model) ->
     # fix when query subscriptions implemented properly
     $('[rel=tooltip]').tooltip('hide')
 
-    ids = user.get("#{type}Ids")
+    ids = user.get("idLists.#{type}")
     ids.splice(ids.indexOf(id),1)
     user.del('tasks.'+id)
-    user.set("#{type}Ids", ids)
+    user.set("idLists.#{type}", ids)
 
     
   exports.clearCompleted = (e, el) ->
-    todoIds = user.get('todoIds')
+    todoIds = user.get('idLists.todo')
     removed = false
     _.each model.get('_todoList'), (task) ->
       if task.completed
@@ -183,7 +178,7 @@ ready (model) ->
         user.del('tasks.'+task.id)
         todoIds.splice(todoIds.indexOf(task.id), 1)
     if removed
-      user.set('todoIds', todoIds)
+      user.set('idLists.todo', todoIds)
       
   exports.toggleDay = (e, el) ->
     task = model.at(e.target)
@@ -226,11 +221,11 @@ ready (model) ->
     #TODO: this should be working but it's not. so instead, i'm passing all needed values as data-attrs
     # item = model.at(e.target)
     
-    money = user.get 'stats.money'
+    gp = user.get 'stats.gp'
     [type, value, index] = [ $(el).attr('data-type'), $(el).attr('data-value'), $(el).attr('data-index') ]
     
-    return if money < value
-    user.set 'stats.money', money - value
+    return if gp < value
+    user.set 'stats.gp', gp - value
     if type == 'armor'
       user.set 'items.armor', index
       model.set '_view.items.armor', content.items.armor[parseInt(index) + 1]
@@ -254,7 +249,7 @@ ready (model) ->
     # Reset stats
     batch.set 'stats.hp', 50
     batch.set 'stats.lvl', 1
-    batch.set 'stats.money', 0
+    batch.set 'stats.gp', 0
     batch.set 'stats.exp', 0
 
     # Reset items
@@ -276,40 +271,15 @@ ready (model) ->
     batch.startTransaction()
     taskTypes = ['habit', 'daily', 'todo', 'reward']
     batch.set 'tasks', {}
-    _.each taskTypes, (type) -> batch.set "#{type}Ids", []
+    _.each taskTypes, (type) -> batch.set "idLists.#{type}", []
     batch.set 'balance', 2 if user.get('balance') < 2 #only if they haven't manually bought tokens
-    revive(batch, true)
+    revive(batch)
     batch.commit()
-    resetDom(model)
+    browser.resetDom(model)
 
-  exports.closeKickstarterNofitication = (e, el) ->
-    user.set('notifications.kickstarter', 'hide')
+  exports.closeKickstarterNofitication = (e, el) -> user.set('flags.kickstarter', 'hide')
 
   exports.setMale = -> user.set('preferences.gender', 'm')
   exports.setFemale = -> user.set('preferences.gender', 'f')
   exports.setArmorsetV1 = -> user.set('preferences.armorSet', 'v1')
   exports.setArmorsetV2 = -> user.set('preferences.armorSet', 'v2')
-
-  exports.addParty = ->
-    id = model.get('_newPartyMember').replace(/[\s"]/g, '')
-    debugger
-    return if _.isEmpty(id)
-    if user.get('party').indexOf(id) != -1
-      model.set "_view.addPartyError", "#{id} already in party."
-      return
-    query = model.query('users').party([id])
-    model.fetch query, (err, users) ->
-      partyMember = users.at(0).get()
-      if partyMember?.id?
-        user.push('party', id)
-        $('#add-party-modal').modal('hide')
-        window.location.reload() #TODO break old subscription, setup new subscript, remove this reload
-        model.set '_newPartyMember', ''
-      else
-        model.set "_view.addPartyError", "User with id #{id} not found."
-
-  exports.emulateNextDay = ->
-    yesterday = +moment().subtract('days', 1).toDate()
-    user.set 'lastCron', yesterday
-    window.location.reload()
-

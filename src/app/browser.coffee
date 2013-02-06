@@ -1,4 +1,10 @@
 content = require('./content')
+_ = require 'underscore'
+
+module.exports.resetDom = (model) ->
+  window.DERBY.app.dom.clear()
+  window.DERBY.app.view.render(model)
+  model.fn '_tnl', '_user.stats.lvl', (lvl) -> (lvl*100)/5
 
 ###
   Loads JavaScript files from (1) public/js/* and (2) external sources
@@ -54,7 +60,7 @@ module.exports.setupSortable = (model) ->
           # Also, note that refList index arguments can either be an index
           # or the item's id property
           model.at("_#{type}List").pass(ignore: domId).move {id}, to
-    setupSortable(type) for type in ['habit', 'daily', 'todo', 'reward']
+    _.each ['habit', 'daily', 'todo', 'reward'], (type) -> setupSortable(type)
 
 module.exports.setupTooltips = (model) ->
   $('[rel=tooltip]').tooltip()
@@ -95,7 +101,7 @@ module.exports.setupGrowlNotifications = (model) ->
       allow_dismiss: true
       stackup_spacing: 10 # spacing between consecutive stacecked growls.
 
-  user.on 'set', 'items.itemsEnabled', (captures, args) ->
+  user.on 'set', 'flags.itemsEnabled', (captures, args) ->
     return unless captures == true
     message = "Congratulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information."
     $('ul.items').popover
@@ -112,16 +118,16 @@ module.exports.setupGrowlNotifications = (model) ->
   user.on 'set', 'flags.partyEnabled', (captures, args) ->
     return unless captures == true
     message = "Congratulations, you have unlocked the Party System! You can now group with your friends by adding their User Ids."
-    $('#add-party-button').popover
+    $('.main-avatar').popover
       title: "Pary System Unlocked"
       placement: 'bottom'
       trigger: 'manual'
       html: true
       content: "<div class='party-system-popover'>
-          <img src='/img/BrowserQuest/favicon.png' />
-          #{message} <a href='#' onClick=\"$('#add-party-button').popover('hide');return false;\">[Close]</a>
+          <img src='/img/party-unlocked.png' style='float:right;padding:5px;' />
+          #{message} <a href='#' onClick=\"$('.main-avatar').popover('hide');return false;\">[Close]</a>
           </div>"
-    $('#add-party-button').popover 'show'
+    $('.main-avatar').popover 'show'
 
 
   # Setup listeners which trigger notifications
@@ -131,14 +137,14 @@ module.exports.setupGrowlNotifications = (model) ->
     if num < 0
       statsNotification "<i class='icon-heart'></i>HP -#{rounded}", 'error' # lost hp from purchase
 
-  user.on 'set', 'stats.money', (captures, args) ->
+  user.on 'set', 'stats.gp', (captures, args) ->
     num = captures - args
     rounded = Math.abs(num.toFixed(1))
     # made purchase
     if num < 0
       # FIXME use 'warning' when unchecking an accidently completed daily/todo, and notify of exp too
       statsNotification "<i class='icon-star'></i>GP -#{rounded}", 'success'
-      # gained money (and thereby exp)
+      # gained gp (and thereby exp)
     else if num > 0
       num = Math.abs(num)
       statsNotification "<i class='icon-star'></i>Exp,GP +#{rounded}", 'success'
