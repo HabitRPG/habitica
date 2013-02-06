@@ -112,16 +112,16 @@ module.exports.setupGrowlNotifications = (model) ->
   user.on 'set', 'flags.partyEnabled', (captures, args) ->
     return unless captures == true
     message = "Congratulations, you have unlocked the Party System! You can now group with your friends by adding their User Ids."
-    $('#add-party-button').popover
+    $('.main-avatar').popover
       title: "Pary System Unlocked"
       placement: 'bottom'
       trigger: 'manual'
       html: true
       content: "<div class='party-system-popover'>
-          <img src='/img/BrowserQuest/favicon.png' />
-          #{message} <a href='#' onClick=\"$('#add-party-button').popover('hide');return false;\">[Close]</a>
+          <img src='/img/party-unlocked.png' style='float:right;padding:5px;' />
+          #{message} <a href='#' onClick=\"$('.main-avatar').popover('hide');return false;\">[Close]</a>
           </div>"
-    $('#add-party-button').popover 'show'
+    $('.main-avatar').popover 'show'
 
 
   # Setup listeners which trigger notifications
