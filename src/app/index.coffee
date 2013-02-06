@@ -46,8 +46,8 @@ get '/', (page, model, next) ->
 
     # Setup Item Store
     _view.items =
-      armor: content.items.armor[parseInt(obj.items?.armor || 0) + 1]
-      weapon: content.items.weapon[parseInt(obj.items?.weapon || 0) + 1]
+      armor: content.items.armor[parseInt(obj?.items?.armor || 0) + 1]
+      weapon: content.items.weapon[parseInt(obj?.items?.weapon || 0) + 1]
       potion: content.items.potion
       reroll: content.items.reroll
 
