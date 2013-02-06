@@ -25,7 +25,6 @@ module.exports.app = (appExports, model) ->
       setupListeners(model)
 
   appExports.partyInvite = ->
-    debugger
     id = model.get('_newPartyMember').replace(/[\s"]/g, '')
     return if _.isEmpty(id)
 
@@ -53,7 +52,6 @@ module.exports.app = (appExports, model) ->
         #TODO break old subscription, setup new subscript, remove this reload
 
   appExports.partyAccept = ->
-    debugger
     invitation = user.get('party.invitation')
     model.subscribe model.query("parties").withId(invitation), (err, parties) ->
       throw err if err
@@ -67,14 +65,12 @@ module.exports.app = (appExports, model) ->
         model.ref '_partyMembers', members
 
   appExports.partyReject = ->
-    debugger
     user.set 'party.invitation', null
 
     # TODO splice parties.*.invites[key]
     # TODO notify sender
 
   appExports.partyLeave = ->
-    debugger
     id = user.set 'party.current', null
     party = model.at '_party'
     members = party.get('members')
