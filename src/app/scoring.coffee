@@ -188,7 +188,7 @@ score = (taskId, direction, times, batch, cron) ->
 ###
 cron = (resetDom_cb) ->
   today = +new Date
-  daysPassed = helpers.daysBetween(today, user.get('privlastCron'))
+  daysPassed = helpers.daysBetween(today, user.get('lastCron'))
   if daysPassed > 0
     batch = new schema.BatchUpdate(model)
     batch.startTransaction()
