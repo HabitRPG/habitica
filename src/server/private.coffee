@@ -51,6 +51,7 @@ module.exports.routes = (expressApp) ->
       else
         model = req.getModel()
         userId = model.session.userId
+        req._isServer = true
         model.fetch "users.#{userId}", (err, user) ->
           model.ref '_user', "users.#{userId}"
           model.set('_user.balance', model.get('_user.balance')+5)

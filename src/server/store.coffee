@@ -17,7 +17,7 @@ userAccess = (store) ->
     #return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
     uid = arguments[0]
     next = arguments[arguments.length - 1]
-    next (uid is @session.userId) or @req._isServer
+    next (uid is @session.userId) or @session.req?._isServer
 
   store.writeAccess "*", "users.*", -> # captures, value, next) ->
     #return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
@@ -30,7 +30,7 @@ userAccess = (store) ->
       return next(true)
 
     # Same session (user.id = this.session.userId)
-    if (uid is @session.userId) or @req._isServer
+    if (uid is @session.userId) or @session.req?._isServer
       return next(true)
 
     next(false)
@@ -39,12 +39,12 @@ userAccess = (store) ->
     #return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
     oldBalance = @session.req._racerModel?.get("users.#{id}.balance") || 0
     purchasingSomethingOnClient = newBalance < oldBalance
-    next(purchasingSomethingOnClient or @req._isServer)
+    next(purchasingSomethingOnClient or @session.req?._isServer)
 
   store.writeAccess "*", "users.*.flags.ads", -> # captures, value, next ->
     #return  unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
     next = arguments[arguments.length - 1]
-    next(@req._isServer)
+    next(@session.req?._isServer)
 
 
 ###
@@ -52,12 +52,12 @@ userAccess = (store) ->
   Get user with API token
 ###
 REST = (store) ->
-  store.query.expose "users", "withIdAndToken", (id, api_token) ->
+  store.query.expose "users", "withIdAndToken", (id, apiToken) ->
     @where("id").equals(id)
-      .where('preferences.api_token').equals(api_token)
+      .where('apiToken').equals(apiToken)
       .limit(1)
 
-  store.queryAccess "users", "withIdAndToken", (id, token, next) ->
+  store.queryAccess "users", "withIdAndToken", (id, apiToken, next) ->
     #return next(false) unless @session and @session.userId # https://github.com/codeparty/racer/issues/37
     next(true) # only user has id & token
 
