@@ -14,10 +14,14 @@ module.exports.partySubscribe = partySubscribe = (model, id, cb) ->
   if true #!_subscriptions.party.query? or _subscriptions.party.id != id
     _subscriptions.party.query = model.query('parties').withId(id)
     _subscriptions.party.id = id
-    _subscriptions.party.query.subscribe (err, p) ->
+    _subscriptions.party.query.subscribe (err, res) ->
       throw err if err
-      model.ref '_party', p.at(0)
-      cb(p.at(0)) if cb?
+      p = res.at(0)
+      model.ref '_party', p
+      p.on '*', 'members', (ids) ->
+        # FIXME not being triggered...
+        membersSubscribe model, ids
+      cb(p) if cb?
   else
     cb(model.at('_party')) if cb?
 
@@ -33,17 +37,11 @@ module.exports.membersSubscribe = membersSubscribe = (model, ids, cb) ->
   else
     cb(model.at('_partyMembers')) if cb?
 
-setupListeners = (model) ->
+module.exports.app = (appExports, model) ->
+  user = model.at('_user')
 
   model.on 'set', '_user.party.invitation', (id) ->
     partySubscribe model, id
-
-  model.on '*', '_party.members', (ids) ->
-    membersSubscribe model, ids
-
-module.exports.app = (appExports, model) ->
-  user = model.at('_user')
-  setupListeners(model)
 
   appExports.partyCreate = ->
     newParty = model.get("_newParty")
@@ -57,13 +55,13 @@ module.exports.app = (appExports, model) ->
 
     obj = user.get()
     query = model.query('users').party([id])
-    model.fetch query, (err, users) ->
+    model.fetch query, (err, res) ->
       throw err if err
-      partyMember = users.at(0).get()
-      if !partyMember?.id?
+      u = res.at(0).get()
+      if !u?.id?
         model.set "_view.partyError", "User with id #{id} not found."
         return
-      else if partyMember.party.current?.id? or partyMember.party.invitation?
+      else if u.party.current? or u.party.invitation?
         model.set "_view.partyError", "User already in a party or pending invitation."
         return
       else
@@ -72,9 +70,10 @@ module.exports.app = (appExports, model) ->
         model.set "users.#{id}.party.invitation", p.get('id')
         $.bootstrapGrowl "Invitation Sent."
         $('#party-modal').modal('hide')
-        membersSubscribe model, p.get('members')
         model.set '_newPartyMember', ''
-        #TODO break old subscription, setup new subscript, remove this reload
+        membersSubscribe model, p.get('members'), ->
+          # TODO get subscriptions really working so we don't need to reload
+          window.location.reload()
 
   appExports.partyAccept = ->
     invitation = user.get('party.invitation')
@@ -82,10 +81,12 @@ module.exports.app = (appExports, model) ->
       p.push 'members', user.get('id')
       user.set 'party.invitation', null
       user.set 'party.current', p.get('id')
-      membersSubscribe model, p.get('members'), (m)
+      membersSubscribe model, p.get('members'), (m) ->
+        window.location.reload()
 
   appExports.partyReject = ->
     user.set 'party.invitation', null
+    model.set '_party', null
 
     # TODO splice parties.*.invites[key]
     # TODO notify sender
@@ -100,7 +101,9 @@ module.exports.app = (appExports, model) ->
     if (members.length == 0)
       # last member out, kill the party
       model.del "parties.#{id}"
-    _subscriptions.party.query.unsubscribe()
-    model.set('_party', null)
+    #_subscriptions.party.query.unsubscribe()
+    model.set '_party', null
+    model.set '_partyMembers', null
+    window.location.reload()
 
   #exports.partyDisband = ->

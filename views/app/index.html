@@ -112,13 +112,9 @@
   </app:myModal>
 
   <app:myModal modalId="party-modal">
-    <h2>
-        {#if _party}{_party.name}
-        {else if _user.party.invitation}You're Invited To {_party.name}
-        {else}Create A Party{/}
-    </h2>
 
-    {#if _user.party.current}
+      {#if _user.party.current}
+        <h2>{_party.name}</h2>
         <table class="table table-striped">
         {#each _partyMembers as :member}
             <tr><td>{username(:member.auth)}</td><td>({:member.id})</td></tr>
@@ -135,26 +131,25 @@
         </form>
         <a class='btn btn-danger' x-bind="click: partyLeave">Leave</a>
 
-      {else}
+    {else if _user.party.invitation}
+        <!-- TODO show by whom -->
+        <h2>You're Invited To {_party.name}</h2>
+        <a class='btn btn-success' x-bind="click: partyAccept">Accept</a>
+        <a class='btn btn-danger' x-bind="click: partyReject">Reject</a>
 
-        <!-- Not in a party , pending invitation -->
-        {#if _user.party.invitation}
-            <!-- TODO show by whom -->
-            <a class='btn btn-success' x-bind="click: partyAccept">Accept</a>
-            <a class='btn btn-danger' x-bind="click: partyReject">Reject</a>
-        {else}
-          <!-- Not in a party , no invites - create a new one -->
-          <form class=form-inline x-bind="submit: partyCreate">
-              {#if _view.partyError}
-                <div class='alert alert-danger'>{_view.partyError}</div>
-              {/}
-              <div class=control-group>
-                  <input type="text" class="input-medium" placeholder="Party Name" value="{_newParty}">
-                  <input type="submit" class="btn" value="Create" />
-              </div>
-          </form>
-        {/}
-      {/}
+    {else}
+        <h2>Create A Party</h2>
+        <!-- Not in a party , no invites - create a new one -->
+        <form class=form-inline x-bind="submit: partyCreate">
+            {#if _view.partyError}
+              <div class='alert alert-danger'>{_view.partyError}</div>
+            {/}
+            <div class=control-group>
+                <input type="text" class="input-medium" placeholder="Party Name" value="{_newParty}">
+                <input type="submit" class="btn" value="Create" />
+            </div>
+        <form>
+    {/}
 
   </app:myModal>
 
