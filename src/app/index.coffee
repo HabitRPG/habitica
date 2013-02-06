@@ -66,8 +66,6 @@ get '/', (page, model, next) ->
 
     if obj.party?.current?
       party.partySubscribe model, obj.party.current, (p) ->
-        console.log {current:obj.party.current, pMembers: p.get('members')}
-        party.membersSubscribe model, p.get('members'), (m) ->
 
           # Here's a hack we need to get fixed (hopefully Lever will) - later model.queries override previous model.queries'
           # returned fields. Aka, we need this here otherwise we only get the "public" fields for the current user, which

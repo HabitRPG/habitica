@@ -103,7 +103,7 @@
       <app:userTokens/>
       <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
       <@footer>
-          {#if lessThan(_user.balance,1)}
+          {#if lt(_user.balance,1)}
               <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-danger btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
           {else}
               <a data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</a><span class='token-cost'>4 Tokens</span>
@@ -200,7 +200,7 @@
     <div class='container-fluid'>
 
       <div class='row-fluid'>
-        <div id=character class='{#if _party}span9{else}span5{/}'>
+        <div id=character class='{#if gt(_partyMembers.length,1)}span9{else}span5{/}'>
           <table>
             <tr>
 
@@ -214,7 +214,7 @@
               </td>
 
               <!-- Progress Bars -->
-              <td id="bars" style="width:{#if _party}70%{else}90%{/};">
+              <td id="bars" style="width:{#if gt(_partyMembers.length,1)}80%{else}90%{/};">
                 <div class="progress progress-danger" rel=tooltip data-placement=bottom title="Health">
                   <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
                   <span class="progress-text"><i class=icon-heart></i> {round(_user.stats.hp)} / 50</span>
@@ -232,18 +232,16 @@
               </td>
 
               <!-- Party -->
-              {#if _party}
-                  {#each _partyMembers as :member}
-                    {#unless equal(:member.id, _userId)}
-                        <td class="avatar party-avatar" rel="tooltip" title="{username(:member.auth)}" data-placement="bottom" >
-                            <div class='avatar-sprites'>
-                                <img class='weapon weapon-{:member.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:member.items.weapon}.png" />
-                                <img class='armor armor-{:member.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:member)}" />
-                            </div>
-                            <div id="lvl"><span class="badge badge-info">Lvl {:member.stats.lvl}</span></div>
-                        </td>
-                    {/}
-                  {/}
+              {#each _partyMembers as :member}
+                {#unless equal(:member.id, _userId)}
+                    <td class="avatar party-avatar" rel="tooltip" title="{username(:member.auth)}" data-placement="bottom" >
+                        <div class='avatar-sprites'>
+                            <img class='weapon weapon-{:member.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:member.items.weapon}.png" />
+                            <img class='armor armor-{:member.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:member)}" />
+                        </div>
+                        <div id="lvl"><span class="badge badge-info">Lvl {:member.stats.lvl}</span></div>
+                    </td>
+                {/}
               {/}
 
             </tr>

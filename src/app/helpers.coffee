@@ -50,8 +50,9 @@ module.exports.viewHelpers = (view) ->
     else
       return "0.00"
       
-  view.fn "lessThan", (a, b) ->
+  view.fn "lt", (a, b) ->
     a < b
+  view.fn 'gt', (a, b) -> a > b
   
   view.fn "tokens", (gp) ->
     return gp/0.25

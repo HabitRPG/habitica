@@ -32,10 +32,15 @@ module.exports.partySubscribe = partySubscribe = (model, id, cb) ->
     throw err if err
     p = res.at(0)
     model.ref '_party', p
+
+    # FIXME this is the kicker right here. This isn't getting triggered, and it's the reason why we have to refresh
+    # after every event. Get this working
     p.on '*', 'members', (ids) ->
-      # FIXME not being triggered...
+      console.log("members listener got called")
       membersSubscribe model, ids
-    cb(p) if cb?
+
+    membersSubscribe model, p.get('members'), (m) ->
+      cb(p) if cb?
 
 
 module.exports.membersSubscribe = membersSubscribe = (model, ids, cb) ->
@@ -64,7 +69,7 @@ module.exports.app = (appExports, model) ->
   user = model.at('_user')
 
   model.on 'set', '_user.party.invitation', (id) ->
-    partySubscribe model, id
+    partySubscribe(model, id) if id?
 
   appExports.partyCreate = ->
     newParty = model.get("_newParty")
@@ -127,6 +132,6 @@ module.exports.app = (appExports, model) ->
     #_subscriptions.party.query.unsubscribe()
     model.set '_party', null
     model.set '_partyMembers', null
-    window.location.reload()
+    setTimeout window.location.reload, 1
 
   #exports.partyDisband = ->
