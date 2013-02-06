@@ -91,7 +91,7 @@ ready (model) ->
 
   require('../server/private').app(exports, model)
 
-  require('./debug').app(exports, model)
+  #require('./debug').app(exports, model)
 
   user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
     return if passed? && passed.cron # Don't do this stuff on cron
