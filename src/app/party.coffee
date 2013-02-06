@@ -10,32 +10,55 @@ _subscriptions =
     ids: null
 
 module.exports.partySubscribe = partySubscribe = (model, id, cb) ->
-  # New subscription coming in, or reset subscription with new parameters
-  if true #!_subscriptions.party.query? or _subscriptions.party.id != id
-    _subscriptions.party.query = model.query('parties').withId(id)
-    _subscriptions.party.id = id
-    _subscriptions.party.query.subscribe (err, res) ->
-      throw err if err
-      p = res.at(0)
-      model.ref '_party', p
-      p.on '*', 'members', (ids) ->
-        # FIXME not being triggered...
-        membersSubscribe model, ids
-      cb(p) if cb?
-  else
-    cb(model.at('_party')) if cb?
+  s = _subscriptions
+
+  ###
+  # Note, this tries to unsubscribe from previous similar subscriptions so we don't have a memory leak. However,
+  # This causes the page to crash on refresh. We need to fix this in the future. Same goes for membersSubscribe
+  if s.party.query? and id == s.party.id
+    # No need to resubscribe, same parameters
+    return cb(model.at('_party'))
+
+  # already have a subscription, but we want a new one
+  if s.party.query? and s.party.id != id
+    s.party.query.unsubscribe()
+    s.party.query = null
+  ###
+
+  # subscripe
+  s.party.query = model.query('parties').withId(id)
+  s.party.id = id
+  s.party.query.subscribe (err, res) ->
+    throw err if err
+    p = res.at(0)
+    model.ref '_party', p
+    p.on '*', 'members', (ids) ->
+      # FIXME not being triggered...
+      membersSubscribe model, ids
+    cb(p) if cb?
+
 
 module.exports.membersSubscribe = membersSubscribe = (model, ids, cb) ->
-  # New subscription coming in, or reset subscription with new parameters
-  if true #!_subscriptions.members.query? or !_.isEmpty(_.difference(_subscriptions.members.ids, ids))
-    _subscriptions.members.query = model.query('users').party(ids)
-    _subscriptions.members.ids = ids
-    _subscriptions.members.query.subscribe (err, m) ->
-      throw err if err
-      model.ref '_partyMembers', m
-      cb(m) if cb?
-  else
-    cb(model.at('_partyMembers')) if cb?
+  s = _subscriptions
+
+  ### @see above
+  if s.members.query? and !_.isEmpty(_.difference(s.members.ids, ids))
+    # No need to resubscribe, same parameters
+    return cb(model.at('_partyMembers'))
+
+  # already have a subscription, but we want a new one
+  if s.members.query? and _.isEmpty(_.difference(s.members.ids, ids))
+    s.members.query.unsubscribe()
+    s.members.query = null
+  ###
+
+  # subscripe
+  s.members.query = model.query('users').party(ids)
+  s.members.ids = ids
+  s.members.query.subscribe (err, m) ->
+    throw err if err
+    model.ref '_partyMembers', m
+    cb(m) if cb?
 
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
