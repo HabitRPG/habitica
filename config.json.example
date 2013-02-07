@@ -1,0 +1,15 @@
+{
+    "PORT":3000,
+    "IP":"0.0.0.0",
+    "BASE_URL": "http://localhost",
+    "FACEBOOK_KEY":"123456789012345",
+    "FACEBOOK_SECRET":"aaaabbbbccccddddeeeeffff00001111",
+    "NODE_DB_URI":"mongodb://user:pass@hostname:27017/db_name",
+    "NODE_ENV":"development",
+    "SESSION_SECRET":"YOUR SECRET HERE",
+    "SMTP_USER":"user@domain.com",
+    "SMTP_PASS":"password",
+    "SMTP_SERVICE":"Gmail",
+    "STRIPE_API_KEY":"aaaabbbbccccddddeeeeffff00001111",
+    "STRIPE_PUB_KEY":"22223333444455556666777788889999"
+}
