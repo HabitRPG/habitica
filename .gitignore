@@ -4,3 +4,4 @@ node_modules
 #lib/
 *.swp
 .idea*
+config.json
