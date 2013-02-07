@@ -69,7 +69,9 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
   {
     user: user
 
-    obj: -> obj
+    obj: ->
+      obj ?= user.get()
+      return obj
 
     startTransaction: ->
       # start a batch transaction - nothing between now and @commit() will be set immediately
