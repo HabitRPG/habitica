@@ -119,7 +119,7 @@ module.exports.setupGrowlNotifications = (model) ->
     return unless captures == true
     message = "Congratulations, you have unlocked the Party System! You can now group with your friends by adding their User Ids."
     $('.main-avatar').popover
-      title: "Pary System Unlocked"
+      title: "Party System Unlocked"
       placement: 'bottom'
       trigger: 'manual'
       html: true

@@ -43,6 +43,7 @@ get '/', (page, model, next) ->
     batch = new schema.BatchUpdate(model)
     batch.startTransaction()
     obj = batch.obj()
+    obj = user.get() unless obj.items? #why is this happening?
 
     # Setup Item Store
     _view.items =
@@ -62,7 +63,7 @@ get '/', (page, model, next) ->
       # also update in scoring.coffee. TODO create a function accessible in both locations
       (lvl*100)/5
 
-    if obj.party?.current?
+    if obj.party?.current
       party.partySubscribe model, obj.party.current, (p) -> page.render()
     else
       page.render()
