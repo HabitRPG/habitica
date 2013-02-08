@@ -1,43 +1,48 @@
+_ = require 'underscore'
+
 items =
   weapon: [
-    {type: 'weapon', index: 0, text: "Sword 1", classes: "weapon_0", notes:'Training weapon.', value:0}
-    {type: 'weapon', index: 1, text: "Sword 2", classes:'weapon_1', notes:'Increases experience gain by 3%.', value:20}
-    {type: 'weapon', index: 2, text: "Axe", classes:'weapon_2', notes:'Increases experience gain by 6%.', value:30}
-    {type: 'weapon', index: 3, text: "Morningstar", classes:'weapon_3', notes:'Increases experience gain by 9%.', value:45}
-    {type: 'weapon', index: 4, text: "Blue Sword", classes:'weapon_4', notes:'Increases experience gain by 12%.', value:65}
-    {type: 'weapon', index: 5, text: "Red Sword", classes:'weapon_5', notes:'Increases experience gain by 15%.', value:90}
-    {type: 'weapon', index: 6, text: "Golden Sword", classes:'weapon_6', notes:'Increases experience gain by 18%.', value:120}
+    {index: 0, text: "Sword 1", classes: "weapon_0", notes:'Training weapon.', modifier: 0.0, value:0}
+    {index: 1, text: "Sword 2", classes:'weapon_1', notes:'Increases experience gain by 3%.', modifier: 0.3, value:20}
+    {index: 2, text: "Axe", classes:'weapon_2', notes:'Increases experience gain by 6%.', modifier: 0.6, value:30}
+    {index: 3, text: "Morningstar", classes:'weapon_3', notes:'Increases experience gain by 9%.', modifier: 0.9, value:45}
+    {index: 4, text: "Blue Sword", classes:'weapon_4', notes:'Increases experience gain by 12%.', modifier: 1.2, value:65}
+    {index: 5, text: "Red Sword", classes:'weapon_5', notes:'Increases experience gain by 15%.', modifier: 1.5, value:90}
+    {index: 6, text: "Golden Sword", classes:'weapon_6', notes:'Increases experience gain by 18%.', modifier: 1.8, value:120}
   ]
   armor: [
-    {type: 'armor', index: 0, text: "Cloth Armor", classes: 'armor_0', notes:'Training armor.', value:0}
-    {type: 'armor', index: 1, text: "Leather Armor", classes: 'armor_1', notes:'Decreases HP loss by 3%.', value:30}
-    {type: 'armor', index: 2, text: "Chain Mail", classes: 'armor_2', notes:'Decreases HP loss by 6%.', value:45}
-    {type: 'armor', index: 3, text: "Plate Mail", classes: 'armor_3', notes:'Decreases HP loss by 9%.', value:65}
-    {type: 'armor', index: 4, text: "Red Armor", classes: 'armor_4', notes:'Decreases HP loss by 12%.', value:90}
-    {type: 'armor', index: 5, text: "Golden Armor", classes: 'armor_5', notes:'Decreases HP loss by 15%.', value:120}
+    {index: 0, text: "Cloth Armor", classes: 'armor_0', notes:'Training armor.', modifier: 0.0, value:0}
+    {index: 1, text: "Leather Armor", classes: 'armor_1', notes:'Decreases HP loss by 3%.', modifier: 0.3, value:30}
+    {index: 2, text: "Chain Mail", classes: 'armor_2', notes:'Decreases HP loss by 6%.', modifier: 0.6, value:45}
+    {index: 3, text: "Plate Mail", classes: 'armor_3', notes:'Decreases HP loss by 9%.', modifier: 0.9, value:65}
+    {index: 4, text: "Red Armor", classes: 'armor_4', notes:'Decreases HP loss by 12%.', modifier: 1.2, value:90}
+    {index: 5, text: "Golden Armor", classes: 'armor_5', notes:'Decreases HP loss by 15%.', modifier: 1.5, value:120}
   ]
   head: [
-    {type: 'head', index: 0, text: "No Helm", classes: 'head_0', notes:'Training armor.', value:0}
-    {type: 'head', index: 1, text: "Leather Helm", classes: 'head_1', notes:'Decreases HP loss by 3%.', value:30}
-    {type: 'head', index: 2, text: "Chain Coif", classes: 'head_2', notes:'Decreases HP loss by 6%.', value:45}
-    {type: 'head', index: 3, text: "Plate Helm", classes: 'head_3', notes:'Decreases HP loss by 9%.', value:65}
-    {type: 'head', index: 4, text: "Red Helm", classes: 'head_4', notes:'Decreases HP loss by 12%.', value:90}
-    {type: 'head', index: 5, text: "Golden Helm", classes: 'head_5', notes:'Decreases HP loss by 15%.', value:120}
+    {index: 0, text: "No Helm", classes: 'head_0', notes:'Training armor.', modifier: 0.0, value:0}
+    {index: 1, text: "Leather Helm", classes: 'head_1', notes:'Decreases HP loss by 3%.', modifier: 0.3, value:30}
+    {index: 2, text: "Chain Coif", classes: 'head_2', notes:'Decreases HP loss by 6%.', modifier: 0.6, value:45}
+    {index: 3, text: "Plate Helm", classes: 'head_3', notes:'Decreases HP loss by 9%.', modifier: 0.9, value:65}
+    {index: 4, text: "Red Helm", classes: 'head_4', notes:'Decreases HP loss by 12%.', modifier: 1.2, value:90}
+    {index: 5, text: "Golden Helm", classes: 'head_5', notes:'Decreases HP loss by 15%.', modifier: 1.5, value:120}
   ]
   shield: [
-    {type: 'shield', index: 0, text: "Shield 1", classes: 'shield_0', notes:'Training armor.', value:0}
-    {type: 'shield', index: 1, text: "Shield 2", classes: 'shield_1', notes:'Decreases HP loss by 3%.', value:30}
-    {type: 'shield', index: 2, text: "Shield 3", classes: 'shield_2', notes:'Decreases HP loss by 6%.', value:45}
-    {type: 'shield', index: 3, text: "Shield 4", classes: 'shield_3', notes:'Decreases HP loss by 9%.', value:65}
-    {type: 'shield', index: 4, text: "Shielf 5", classes: 'shield_4', notes:'Decreases HP loss by 12%.', value:90}
+    {index: 0, text: "Shield 1", classes: 'shield_0', notes:'Training armor.', value:0}
+    {index: 1, text: "Shield 2", classes: 'shield_1', notes:'Decreases HP loss by 3%.', modifier: 0.3, value:30}
+    {index: 2, text: "Shield 3", classes: 'shield_2', notes:'Decreases HP loss by 6%.', modifier: 0.6, value:45}
+    {index: 3, text: "Shield 4", classes: 'shield_3', notes:'Decreases HP loss by 9%.', modifier: 0.9, value:65}
+    {index: 4, text: "Shielf 5", classes: 'shield_4', notes:'Decreases HP loss by 12%.', modifier: 1.2, value:90}
   ]
-  potion: {type: 'potion', text: "Potion", notes: "Recover 15 HP", value: 25, icon: 'item-flask.png'}
+  potion: {text: "Potion", notes: "Recover 15 HP", value: 25, icon: 'item-flask.png'}
   reroll:
-    type: 'reroll'
     text: "Re-Roll"
     icon: 'favicon.png'
     notes: "Resets your tasks. When you're struggling and everything's red, use for a clean slate."
     value:0
+
+# add "type" to each item, so we can reference that as "weapon" or "armor" in the html
+_.each items, (category, key) ->
+  _.each category, (item) -> item.type = key
 
 ###
   view exports
@@ -123,26 +128,39 @@ module.exports.app = (appExports, model) ->
 ###
 module.exports.updateStore = updateStore = (model) ->
   obj = model.get('_user')
+  [nextWeapon, nextArmor, nextHead, nextShield] = [null, null, null, null]
+
+  i = parseInt(obj.items.weapon) + 1
+  nextWeapon = if (i == _.size items.weapon) then {hide:true} else items.weapon[i]
+  model.set '_view.items.weapon',
 
   i = parseInt(obj?.items?.armor || 0) + 1
-  nextArmor = items.armor[i]
-  nextArmor.classes = obj.preferences.gender + "_armor_#{i}"
+  if i == _.size items.armor
+    nextArmor = {hide:true}
+  else
+    nextArmor = items.armor[i]
+    nextArmor.classes = obj.preferences.gender + "_armor_#{i}"
+  model.set '_view.items.armor', nextArmor
 
   i = parseInt(parseInt(obj?.items?.head || 0) + 1)
-  nextHead = items.head[i]
-  nextHead.classes = obj.preferences.gender + "_head_#{i}"
-  nextHead.classes += "_#{obj.preferences.armorSet}" if obj.preferences.gender == 'f'
+  if i == _.size items.armor
+    nextHead = {hide:true}
+  else
+    nextHead = items.head[i]
+    nextHead.classes = obj.preferences.gender + "_head_#{i}"
+    nextHead.classes += "_#{obj.preferences.armorSet}" if obj.preferences.gender == 'f'
+  model.set '_view.items.head', nextHead
 
-  nextShield = items.shield[parseInt(obj?.items?.shield || 0) + 1]
-  nextShield.classes = obj.preferences.gender + "_" + nextShield.classes
+  i = parseInt(obj?.items?.shield || 0) + 1
+  if i == _.size items.shield
+    nextShield = {hide:true}
+  else
+    nextShield = items.shield[i]
+    nextShield.classes = obj.preferences.gender + "_" + nextShield.classes
+  model.set '_vie.items.shield', nextShield
 
-  model.set '_view.items',
-    weapon: items.weapon[parseInt(obj.items.weapon) + 1]
-    armor: nextArmor
-    head: nextHead
-    shield: nextShield
-    potion: items.potion
-    reroll: items.reroll
+  model.set '_view.items.potion', items.potion
+  model.set '_view.items.reroll', items.reroll
 
 
 

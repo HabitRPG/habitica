@@ -223,6 +223,8 @@ ready (model) ->
     # Reset items
     batch.set 'items.armor', 0
     batch.set 'items.weapon', 0
+    batch.set 'items.head', 0
+    batch.set 'items.shield', 0
 
     # Reset item store
     items.updateStore(model)

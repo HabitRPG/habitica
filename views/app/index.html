@@ -528,6 +528,7 @@
   <div style="display:none;" id={{:task.id}}-chart></div>
   
 <item:>
+  {#unless :item.hide}
   <li class="task reward item">
     <pre>
       <div class="task-meta-controls">
@@ -550,6 +551,7 @@
       </div>
     </pre>
   </li>
+  {/}
 
 <Scripts:>
     <script src="https://checkout.stripe.com/v2/checkout.js"></script>
