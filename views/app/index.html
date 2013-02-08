@@ -205,12 +205,18 @@
             <tr>
 
               <!-- Avatar -->
-              <td class="avatar main-avatar">
-                <div class='avatar-sprites'>
-                  <img class='weapon weapon-{_user.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{_user.items.weapon}.png" />
-                  <img class='armor armor-{_user.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(_user)}" />
+              <td>
+                <div class="avatar">
+                    <div class='character-sprites'>
+                        <span class='m_skin_white'></span>
+                        <span class='m_head_0'></span>
+                        <span class='m_hair_blond'></span>
+                        <span class='m_armor_0'></span>
+                        <span class='m_shield_1'></span>
+                        <span class='item-sword1'></span>
+                    </div>
+                    <div class="lvl"><span class="badge badge-info">Lvl {_user.stats.lvl}</span></div>
                 </div>
-                <div id="lvl"><span class="badge badge-info">Lvl {_user.stats.lvl}</span></div>
               </td>
 
               <!-- Progress Bars -->
