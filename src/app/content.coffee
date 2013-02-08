@@ -57,41 +57,41 @@ module.exports =
   items:
     #TODO: figure out how to calculate index & type without having to store it in the JSON
     weapon: [
-      {type: 'weapon', index: 0, text: "Sword 1", icon: "item-sword1", notes:'Training weapon.', value:0}
-      {type: 'weapon', index: 1, text: "Sword 2", icon:'item-sword2', notes:'Increases experience gain by 3%.', value:20}
-      {type: 'weapon', index: 2, text: "Axe", icon:'item-axe', notes:'Increases experience gain by 6%.', value:30}
-      {type: 'weapon', index: 3, text: "Morningstar", icon:'item-morningstar', notes:'Increases experience gain by 9%.', value:45}
-      {type: 'weapon', index: 4, text: "Blue Sword", icon:'item-bluesword', notes:'Increases experience gain by 12%.', value:65}
-      {type: 'weapon', index: 5, text: "Red Sword", icon:'item-redsword', notes:'Increases experience gain by 15%.', value:90}
-      {type: 'weapon', index: 6, text: "Golden Sword", icon:'item-goldensword', notes:'Increases experience gain by 18%.', value:120}
+      {type: 'weapon', index: 0, text: "Sword 1", classes: "weapon_0", notes:'Training weapon.', value:0}
+      {type: 'weapon', index: 1, text: "Sword 2", classes:'weapon_1', notes:'Increases experience gain by 3%.', value:20}
+      {type: 'weapon', index: 2, text: "Axe", classes:'weapon_2', notes:'Increases experience gain by 6%.', value:30}
+      {type: 'weapon', index: 3, text: "Morningstar", classes:'weapon_3', notes:'Increases experience gain by 9%.', value:45}
+      {type: 'weapon', index: 4, text: "Blue Sword", classes:'weapon_4', notes:'Increases experience gain by 12%.', value:65}
+      {type: 'weapon', index: 5, text: "Red Sword", classes:'weapon_5', notes:'Increases experience gain by 15%.', value:90}
+      {type: 'weapon', index: 6, text: "Golden Sword", classes:'weapon_6', notes:'Increases experience gain by 18%.', value:120}
     ]
     armor: [
-      {type: 'armor', index: 0, text: "Cloth Armor", icon: 'item-clotharmor', notes:'Training armor.', value:0}
-      {type: 'armor', index: 1, text: "Leather Armor", icon: 'item-leatherarmor', notes:'Decreases HP loss by 3%.', value:30}
-      {type: 'armor', index: 2, text: "Chain Mail", icon: 'item-mailarmor', notes:'Decreases HP loss by 6%.', value:45}
-      {type: 'armor', index: 3, text: "Plate Mail", icon: 'item-platearmor', notes:'Decreases HP loss by 9%.', value:65}
-      {type: 'armor', index: 4, text: "Red Armor", icon: 'item-redarmor', notes:'Decreases HP loss by 12%.', value:90}
-      {type: 'armor', index: 5, text: "Golden Armor", icon: 'item-goldenarmor', notes:'Decreases HP loss by 15%.', value:120}
+      {type: 'armor', index: 0, text: "Cloth Armor", classes: 'armor_0', notes:'Training armor.', value:0}
+      {type: 'armor', index: 1, text: "Leather Armor", classes: 'armor_1', notes:'Decreases HP loss by 3%.', value:30}
+      {type: 'armor', index: 2, text: "Chain Mail", classes: 'armor_2', notes:'Decreases HP loss by 6%.', value:45}
+      {type: 'armor', index: 3, text: "Plate Mail", classes: 'armor_3', notes:'Decreases HP loss by 9%.', value:65}
+      {type: 'armor', index: 4, text: "Red Armor", classes: 'armor_4', notes:'Decreases HP loss by 12%.', value:90}
+      {type: 'armor', index: 5, text: "Golden Armor", classes: 'armor_5', notes:'Decreases HP loss by 15%.', value:120}
     ]
     head: [
-      {type: 'armor', index: 0, text: "No Helm", icon: 'item-nohelm', notes:'Training armor.', value:0}
-      {type: 'armor', index: 1, text: "Leather Helm", icon: 'item-leatherhelm', notes:'Decreases HP loss by 3%.', value:30}
-      {type: 'armor', index: 2, text: "Chain Coif", icon: 'item-mailhelm', notes:'Decreases HP loss by 6%.', value:45}
-      {type: 'armor', index: 3, text: "Plate Helm", icon: 'item-platehelm', notes:'Decreases HP loss by 9%.', value:65}
-      {type: 'armor', index: 4, text: "Red Helm", icon: 'item-redhelm', notes:'Decreases HP loss by 12%.', value:90}
-      {type: 'armor', index: 5, text: "Golden Helm", icon: 'item-goldenhelm', notes:'Decreases HP loss by 15%.', value:120}
+      {type: 'armor', index: 0, text: "No Helm", classes: 'head_0', notes:'Training armor.', value:0}
+      {type: 'armor', index: 1, text: "Leather Helm", classes: 'head_1', notes:'Decreases HP loss by 3%.', value:30}
+      {type: 'armor', index: 2, text: "Chain Coif", classes: 'head_2', notes:'Decreases HP loss by 6%.', value:45}
+      {type: 'armor', index: 3, text: "Plate Helm", classes: 'head_3', notes:'Decreases HP loss by 9%.', value:65}
+      {type: 'armor', index: 4, text: "Red Helm", classes: 'head_4', notes:'Decreases HP loss by 12%.', value:90}
+      {type: 'armor', index: 5, text: "Golden Helm", classes: 'head_5', notes:'Decreases HP loss by 15%.', value:120}
     ]
     shield: [
-      {type: 'armor', index: 0, text: "Shield 1", icon: 'item-clotharmor', notes:'Training armor.', value:0}
-      {type: 'armor', index: 1, text: "Shield 2", icon: 'item-leatherarmor', notes:'Decreases HP loss by 3%.', value:30}
-      {type: 'armor', index: 2, text: "Shield 3", icon: 'item-mailarmor', notes:'Decreases HP loss by 6%.', value:45}
-      {type: 'armor', index: 3, text: "Shield 4", icon: 'item-platearmor', notes:'Decreases HP loss by 9%.', value:65}
-      {type: 'armor', index: 4, text: "Shielf 5", icon: 'item-redarmor', notes:'Decreases HP loss by 12%.', value:90}
+      {type: 'armor', index: 0, text: "Shield 1", classes: 'shield_0', notes:'Training armor.', value:0}
+      {type: 'armor', index: 1, text: "Shield 2", classes: 'shield_1', notes:'Decreases HP loss by 3%.', value:30}
+      {type: 'armor', index: 2, text: "Shield 3", classes: 'shield_2', notes:'Decreases HP loss by 6%.', value:45}
+      {type: 'armor', index: 3, text: "Shield 4", classes: 'shield_3', notes:'Decreases HP loss by 9%.', value:65}
+      {type: 'armor', index: 4, text: "Shielf 5", classes: 'shield_4', notes:'Decreases HP loss by 12%.', value:90}
     ]
-    potion: {type: 'potion', text: "Potion", notes: "Recover 15 HP", value: 25, icon: 'item-flask'}
+    potion: {type: 'potion', text: "Potion", notes: "Recover 15 HP", value: 25, icon: 'item-flask.png'}
     reroll:
       type: 'reroll' 
       text: "Re-Roll"
-      icon: 'favicon' 
+      icon: 'favicon.png'
       notes: "Resets your tasks. When you're struggling and everything's red, use for a clean slate."
       value:0

@@ -222,9 +222,9 @@
                         {#with _user.preferences as :p}
                             <span class='{:p.gender}_skin_{:p.skin}'></span>
                             <span class='{:p.gender}_hair_{:p.hair}'></span>
-                            <span class="{armor(_user)}"></span>
+                            <span class="{equipped(_user, 'armor')}"></span>
                             <span class='{:p.gender}_shield_{_user.items.shield}'></span>
-                            <span class='{head(_user)}'></span>
+                            <span class="{equipped(_user, 'head')}"></span>
                             <span class='weapon_{_user.items.weapon}'></span>
                         {/}
                     </div>
@@ -351,8 +351,8 @@
 
             {#if _user.flags.itemsEnabled}
               <ul class='items'>
-                {#with _view.items.armor as :item}<app:item />{/}
                 {#with _view.items.weapon as :item}<app:item />{/}
+                {#with _view.items.armor as :item}<app:item />{/}
                 {#with _view.items.head as :item}<app:item />{/}
                 {#with _view.items.shield as :item}<app:item />{/}
                 {#with _view.items.potion as :item}<app:item />{/}
@@ -540,7 +540,14 @@
           <a x-bind=click:buyItem class="item-buy-link" data-type={:item.type} data-value={:item.value} data-index={:item.index}>{:item.value}<img src="/img/coin_single_gold.png"/></a>
         {/}
       </div>
-      <div class="task-text"><img src="/img/BrowserQuest/habitrpg_mods/{:item.icon}.png" /> {:item.text}</div>
+      <div class="task-text">
+          {#if :item.icon}
+            <img src="/img/BrowserQuest/habitrpg_mods/{:item.icon}" />
+          {else}
+            <div class="{:item.classes} itemstore-icons"></div>
+          {/}
+          {:item.text}
+      </div>
     </pre>
   </li>
 

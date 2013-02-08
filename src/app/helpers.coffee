@@ -57,21 +57,23 @@ module.exports.viewHelpers = (view) ->
   view.fn "tokens", (gp) ->
     return gp/0.25
 
-  view.fn 'armor', (user) ->
-    armor = user?.items?.armor || 0
+  view.fn 'equipped', (user, type) ->
     {gender, armorSet} = user?.preferences || {'m', 'v1'}
-    if gender == 'f'
-      return if (parseInt(armor) == 0) then "f_armor_#{armor}_#{armorSet}" else "f_armor_#{armor}"
-    else
-      return "m_armor_#{armor}"
 
-  view.fn 'head', (user) ->
-    head = user?.items?.head || 0
-    {gender, armorSet} = user?.preferences || {'m', 'v1'}
-    if gender == 'f'
-      return if (parseInt(head) > 1) then "f_head_#{head}_#{armorSet}" else "f_head_#{head}"
-    else
-      return "m_head_#{head}"
+    if type=='armor'
+      armor = user?.items?.armor || 0
+      if gender == 'f'
+        return if (parseInt(armor) == 0) then "f_armor_#{armor}_#{armorSet}" else "f_armor_#{armor}"
+      else
+        return "m_armor_#{armor}"
+
+    else if type=='head'
+      head = user?.items?.head || 0
+      if gender == 'f'
+        return if (parseInt(head) > 1) then "f_head_#{head}_#{armorSet}" else "f_head_#{head}"
+      else
+        return "m_head_#{head}"
+
 
   view.fn "username", (auth) ->
     if auth?.facebook?.displayName?
