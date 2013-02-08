@@ -1,8 +1,8 @@
 _ = require 'underscore'
 
-items =
+items = module.exports.items =
   weapon: [
-    {index: 0, text: "Sword 1", classes: "weapon_0", notes:'Training weapon.', modifier: 0.0, value:0}
+    {index: 0, text: "Sword 1", classes: "weapon_0", notes:'Training weapon.', modifier: 0.01, value:0}
     {index: 1, text: "Sword 2", classes:'weapon_1', notes:'Increases experience gain by 3%.', modifier: 0.3, value:20}
     {index: 2, text: "Axe", classes:'weapon_2', notes:'Increases experience gain by 6%.', modifier: 0.6, value:30}
     {index: 3, text: "Morningstar", classes:'weapon_3', notes:'Increases experience gain by 9%.', modifier: 0.9, value:45}
@@ -11,7 +11,7 @@ items =
     {index: 6, text: "Golden Sword", classes:'weapon_6', notes:'Increases experience gain by 18%.', modifier: 1.8, value:120}
   ]
   armor: [
-    {index: 0, text: "Cloth Armor", classes: 'armor_0', notes:'Training armor.', modifier: 0.0, value:0}
+    {index: 0, text: "Cloth Armor", classes: 'armor_0', notes:'Training armor.', modifier: 0.01, value:0}
     {index: 1, text: "Leather Armor", classes: 'armor_1', notes:'Decreases HP loss by 3%.', modifier: 0.3, value:30}
     {index: 2, text: "Chain Mail", classes: 'armor_2', notes:'Decreases HP loss by 6%.', modifier: 0.6, value:45}
     {index: 3, text: "Plate Mail", classes: 'armor_3', notes:'Decreases HP loss by 9%.', modifier: 0.9, value:65}
@@ -19,7 +19,7 @@ items =
     {index: 5, text: "Golden Armor", classes: 'armor_5', notes:'Decreases HP loss by 15%.', modifier: 1.5, value:120}
   ]
   head: [
-    {index: 0, text: "No Helm", classes: 'head_0', notes:'Training armor.', modifier: 0.0, value:0}
+    {index: 0, text: "No Helm", classes: 'head_0', notes:'Training armor.', modifier: 0.01, value:0}
     {index: 1, text: "Leather Helm", classes: 'head_1', notes:'Decreases HP loss by 3%.', modifier: 0.3, value:30}
     {index: 2, text: "Chain Coif", classes: 'head_2', notes:'Decreases HP loss by 6%.', modifier: 0.6, value:45}
     {index: 3, text: "Plate Helm", classes: 'head_3', notes:'Decreases HP loss by 9%.', modifier: 0.9, value:65}
@@ -27,7 +27,7 @@ items =
     {index: 5, text: "Golden Helm", classes: 'head_5', notes:'Decreases HP loss by 15%.', modifier: 1.5, value:120}
   ]
   shield: [
-    {index: 0, text: "Shield 1", classes: 'shield_0', notes:'Training armor.', value:0}
+    {index: 0, text: "Shield 1", classes: 'shield_0', notes:'Training armor.', modifier: 0.01, value:0}
     {index: 1, text: "Shield 2", classes: 'shield_1', notes:'Decreases HP loss by 3%.', modifier: 0.3, value:30}
     {index: 2, text: "Shield 3", classes: 'shield_2', notes:'Decreases HP loss by 6%.', modifier: 0.6, value:45}
     {index: 3, text: "Shield 4", classes: 'shield_3', notes:'Decreases HP loss by 9%.', modifier: 0.9, value:65}
