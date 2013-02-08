@@ -3,11 +3,17 @@
 @import "./female_sprites.styl";
 @import "./male_sprites.styl";
 @import "./shop_sprites.styl";
+@import "./tasks.styl";
+@import "./avatar.styl";
+@import "./items.styl";
 
 html,body,p,h1,ul,li,table,tr,th,td
   margin: 0
   padding: 0
-  
+
+/* Header
+-------------------------------------------------- */
+
 #head
   background: #ddd
   background: -webkit-gradient(linear,0 0,0 100%,from(#e7e7e7),to(#d0d0d0))
@@ -27,135 +33,9 @@ html,body,p,h1,ul,li,table,tr,th,td
   margin-right: 2%
   margin-left: 1%
 
-.color-worst pre
-  background-color: rgb(230, 184, 175)
-.color-worse pre
-  background-color: rgb(244, 204, 204)
-.color-bad pre
-  background-color: rgb(252, 229, 205)
-.color-neutral pre
-  background-color: rgb(255, 242, 204)
-.color-good pre
-  background-color: rgb(217, 234, 211)
-.color-better pre
-  background-color: rgb(208, 224, 227)
-.color-best pre
-  background-color: rgb(201, 218, 248)
-.completed pre
-  background-color: rgb(217, 217, 217)
-  color: rgb(153, 153, 153)
-.reward pre
-  background-color: white
-
-label.checkbox.inline{
-  width: 40px
-}
-  
-.todos
-  .nav-pills > .active > a, .nav-pills > .active > a:hover
-    color: #005580
-    background-color: #DEE5F2
-
-.dailys
-  .repeat-days > .btn:not(.active)
-    background-color: #aaa;
-    background-image: -moz-linear-gradient(top, #eee, #aaa);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eee), to(#aaa));
-    background-image: -webkit-linear-gradient(top, #eee, #aaa);
-    background-image: -o-linear-gradient(top, #eee, #aaa);
-    background-image: linear-gradient(to bottom, #eee, #aaa);
-    background-repeat: repeat-x;
-
-.help-icon
-  float:right;
-
-.task:hover
-  cursor: move
-  
-li:hover .task-meta-controls .hover-show
-  display: inline  
-
-.task
-  list-style:none
-
-  pre
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
-    font-size: 13px
-    line-height: 18px
-    color: black
-    word-break: normal
-
-  .task-meta-controls
-    float:right
-    i
-      margin-left:5px    
-    
-  .task-controls,.task-text
-    display:inline
-    margin-right:10px
-
-  .task-meta-controls .hover-show
-    display: none;
-
-  .vote-up, .vote-down
-    text-decoration:none;
-
-  .buy-link, .item-buy-link
-    background-color: #DEE5F2
-    padding: 2px
-    margin-right: 10px
-    border-radius: 5px
-  
-    img
-      height:20px  
-      
-  .item-buy-link
-    background-color: #ccffcc
-
-.new-task-form
-  margin-bottom:5px;
-  
-#character
-
-  float:none
-  margin:0px auto
-
-  td
-    padding-right: 2em
-
-  td#bars
-    padding-top: 10px
-
-#bars 
-  .progress
-    position: relative
-    height: 25px
-  .bar
-    height: 25px 
-    border: 1px solid black
-  .progress-text
-    position: absolute
-    right: 5px
-    top: 3px 
-    color: black
-
-/* ----- Items, Weapons, Armor -----*/
-.item-store-popover img
-  float:left
-  padding-right:7px;
-
-.item .task-text img
-  max-height: 16px
-
-#dead-modal img
-  float:left
-  padding-right:10px
-
-#reset-modal
-  z-index:1500
-
 .modal
   whitespace:normal
+
 
 /* Footer
 -------------------------------------------------- */
@@ -193,9 +73,11 @@ li:hover .task-meta-controls .hover-show
 #wrap {min-height: 100%; margin-top:130px; z-index:-1}                                                                                                                                                                                                                    
 #main                                                                                                                                                                                                                                        
   /*overflow:auto;*/                                                                                                                                                                                                                             
-  padding-bottom: 250px; /* don't know why this works, sticky footers are weird */                                                                                                                                                                             
+  padding-bottom: 250px; /* don't know why this works, sticky footers are weird */
 
-/* ----- Adaptation of GH's social-count for Tokens -----*/ 
+/* Tokens
+-------------------------------------------------- */
+/* Adaptation of GH's social-count for Tokens */
   
 .token-cost
   border: 1px solid #D4D4D4;
@@ -235,25 +117,12 @@ li:hover .task-meta-controls .hover-show
   top: 50%;
   margin-top: -6px;
 
+/* Misc
+-------------------------------------------------- */
 
+#dead-modal img
+  float:left
+  padding-right:10px
 
-.avatar
-    position: relative
-    margin-top: -12px
-    width: 90px
-    height: 90px
-
-    .character-sprites
-        position: absolute
-        top: -15px
-
-    .lvl
-        position: absolute
-        bottom: 0px
-        right: 10px
-
-.character-sprites span
-    position: absolute
-
-.itemstore-icons
-    background-size: 50%
+#reset-modal
+  z-index:1500
