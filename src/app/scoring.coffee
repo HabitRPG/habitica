@@ -82,6 +82,13 @@ updateStats = (newStats, batch) ->
       newStats.exp -= tnl
       obj.stats.lvl++
       obj.stats.hp = 50
+
+    obj.stats.exp = newStats.exp
+
+    # Set flags when they unlock features
+    if !obj.flags.customizationsNotification and (obj.stats.exp > 10 or obj.stats.lvl > 1)
+      batch.set 'flags.customizationsNotification', true
+      obj.flags.customizationsNotification = true
     if !obj.flags.itemsEnabled and obj.stats.lvl >= 2
       # Set to object, then also send to browser right away to get model.on() subscription notification
       batch.set 'flags.itemsEnabled', true
@@ -89,7 +96,6 @@ updateStats = (newStats, batch) ->
     if !obj.flags.partyEnabled and obj.stats.lvl >= 3
       batch.set 'flags.partyEnabled', true
       obj.flags.partyEnabled = true
-    obj.stats.exp = newStats.exp
 
   if newStats.gp?
     #FIXME what was I doing here? I can't remember, gp isn't defined

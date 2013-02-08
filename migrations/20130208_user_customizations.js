@@ -12,7 +12,9 @@ db.users.find().forEach(function(user){
         'preferences.hair': 'blond',
 
         'items.head': user.items.armor,
-        'items.shield': user.items.armor
+        'items.shield': user.items.armor,
+
+        'flags.customizationsNotification': 'show'
     }
 
     db.users.update({_id:user._id}, {$set:updates});

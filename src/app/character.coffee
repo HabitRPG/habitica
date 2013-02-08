@@ -70,6 +70,19 @@ module.exports.app = (appExports, model) ->
   appExports.customizeArmorSet = (e, el) ->
     user.set 'preferences.armorSet', $(el).attr('data-value')
 
+  user.on 'set', 'flags.customizationsNotification', (captures, args) ->
+    return unless captures == true
+    html = """
+           Click your avatar to customize your appearance. <a href='#' onClick="$('.main-avatar').popover('hide');return false;">[Close]</a>
+           """
+    $('.main-avatar').popover
+      title: "Customize Your Avatar"
+      placement: 'bottom'
+      trigger: 'manual'
+      html: true
+      content: html
+    $('.main-avatar').popover 'show'
+
 
 userSchema =
 # _id

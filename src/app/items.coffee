@@ -123,7 +123,6 @@ module.exports.app = (appExports, model) ->
 
   user.on 'set', 'flags.itemsEnabled', (captures, args) ->
     return unless captures == true
-    console.log "IH"
     html = """
            <div class='item-store-popover'>
            <img src='/img/BrowserQuest/chest.png' />
