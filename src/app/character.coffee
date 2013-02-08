@@ -71,6 +71,7 @@ module.exports.app = (appExports, model) ->
     user.set 'preferences.armorSet', $(el).attr('data-value')
 
   user.on 'set', 'flags.customizationsNotification', (captures, args) ->
+    $('.main-avatar').popover('destroy') #remove the tour popover
     return unless captures == true
     html = """
            Click your avatar to customize your appearance. <a href='#' onClick="$('.main-avatar').popover('hide');return false;">[Close]</a>

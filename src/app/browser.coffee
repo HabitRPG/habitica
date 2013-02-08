@@ -80,7 +80,7 @@ setupTooltips = (model) ->
 setupTour = (model) ->
   tourSteps = [
     {
-      element: "#avatar"
+      element: ".main-avatar"
       title: "Welcome to HabitRPG"
       content: "Welcome to HabitRPG, a habit-tracker which treats your goals like a Role Playing Game."
     }
@@ -122,7 +122,7 @@ setupTour = (model) ->
   ]
 
   tour = new Tour()
-  for step in tourSteps
+  _.each tourSteps, (step) ->
     tour.addStep
       html: true
       element: step.element
