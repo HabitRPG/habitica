@@ -33,12 +33,12 @@ items =
     {index: 3, text: "Shield 4", classes: 'shield_3', notes:'Decreases HP loss by 9%.', modifier: 0.9, value:65}
     {index: 4, text: "Shielf 5", classes: 'shield_4', notes:'Decreases HP loss by 12%.', modifier: 1.2, value:90}
   ]
-  potion: {text: "Potion", notes: "Recover 15 HP", value: 25, classes: 'potion'}
-  reroll: {text: "Re-Roll", classes: 'reroll', notes: "Resets your tasks. When you're struggling and everything's red, use for a clean slate.", value:0 }
+  potion: {type: 'potion', text: "Potion", notes: "Recover 15 HP", value: 25, classes: 'potion'}
+  reroll: {type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your tasks. When you're struggling and everything's red, use for a clean slate.", value:0 }
 
 # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
-_.each items, (category, key) ->
-  _.each category, (item) -> item.type = key
+_.each ['weapon', 'armor', 'head', 'shield'], (key) ->
+  _.each items[key], (item) -> item.type = key
 
 ###
   view exports
