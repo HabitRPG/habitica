@@ -275,17 +275,19 @@ ready (model) ->
     batch.commit()
     browser.resetDom(model)
 
-  exports.closeKickstarterNofitication = (e, el) -> user.set('flags.kickstarter', 'hide')
+  exports.closeKickstarterNofitication = (e, el) ->
+    user.set('flags.kickstarter', 'hide')
 
-  exports.setMale = -> user.set('preferences.gender', 'm')
-  exports.setFemale = -> user.set('preferences.gender', 'f')
-  exports.setArmorsetV1 = -> user.set('preferences.armorSet', 'v1')
-  exports.setArmorsetV2 = -> user.set('preferences.armorSet', 'v2')
+  exports.customizeGender = (e, el) ->
+    user.set 'preferences.gender', $(el).attr('data-value')
 
-  exports.customizationsPopover = ->
-    $('.main-avatar').popover
-        html:true
-        placement:'bottom'
-        content: $('#customizations-popover').html()
-        trigger:'manual'
-    $('.main-avatar').popover 'show'
+  exports.customizeHair = (e, el) ->
+    user.set 'preferences.hair', $(el).attr('data-value')
+
+  exports.customizeSkin = (e, el) ->
+    user.set 'preferences.skin', $(el).attr('data-value')
+
+  exports.customizeArmorSet = (e, el) ->
+    user.set 'preferences.armorSet', $(el).attr('data-value')
+
+
