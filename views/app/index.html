@@ -17,30 +17,6 @@
           <pre class=prettyprint>{_user.apiToken}</pre>
 
           <hr/>
-          <h4>Gender</h4>
-          <label class="radio">
-              <input type="radio" name="genderRadios" value="m" x-bind="click:setMale" checked="{equal(_user.preferences.gender,'m')}">
-              Male
-          </label>
-          <label class="radio">
-              <input type="radio" name="genderRadios" value="f" x-bind="click:setFemale" checked="{equal(_user.preferences.gender,'f')}">
-              Female
-          </label>
-
-
-          {#if equal(_user.preferences.gender,'f')}
-              <h4>Armor Set</h4>
-              <label class="radio">
-                  <input type="radio" name="armorSet" value="v1" x-bind="click:setArmorsetV1" checked="{equal(_user.preferences.armorSet,'v1')}">
-                  v1
-              </label>
-              <label class="radio">
-                  <input type="radio" name="armorSet" value="v2" x-bind="click:setArmorsetV2" checked="{equal(_user.preferences.armorSet,'v2')}">
-                  v2
-              </label>
-          {/}
-
-          <hr/>
           <a class='btn btn-danger' data-target="#reset-modal" data-toggle="modal">Reset</a>
 
           <@footer>
@@ -63,6 +39,46 @@
           <@footer>
               <button data-dismiss="modal" class="btn btn-success">Ok</button>
           </@footer>
+      </app:myModal>
+
+      <app:myModal modalId="party-modal">
+          {#if _user.party.current}
+              <h2>{_party.name}</h2>
+              <table class="table table-striped">
+                  {#each _partyMembers as :member}
+                  <tr><td>{username(:member.auth)}</td><td>({:member.id})</td></tr>
+                  {/}
+              </table>
+              <form class=form-inline x-bind="submit: partyInvite">
+                  {#if _view.partyError}
+                  <div class='alert alert-danger'>{_view.partyError}</div>
+                  {/}
+                  <div class='control-group'>
+                      <input type="text" class="input-medium" placeholder="User Id" value="{_newPartyMember}">
+                      <input type="submit" class="btn" value="Invite" />
+                  </div>
+              </form>
+              <a class='btn btn-danger' x-bind="click: partyLeave">Leave</a>
+
+          {else if _user.party.invitation}
+              <!-- TODO show by whom -->
+              <h2>You're Invited To {_party.name}</h2>
+              <a class='btn btn-success' x-bind="click: partyAccept">Accept</a>
+              <a class='btn btn-danger' x-bind="click: partyReject">Reject</a>
+
+          {else}
+              <h2>Create A Party</h2>
+              <!-- Not in a party , no invites - create a new one -->
+              <form class=form-inline x-bind="submit: partyCreate">
+                  {#if _view.partyError}
+                  <div class='alert alert-danger'>{_view.partyError}</div>
+                  {/}
+                  <div class=control-group>
+                      <input type="text" class="input-medium" placeholder="Party Name" value="{_newParty}">
+                      <input type="submit" class="btn" value="Create" />
+                  </div>
+              <form>
+          {/}
       </app:myModal>
 
   {else}
@@ -111,46 +127,38 @@
       </@footer>
   </app:myModal>
 
-  <app:myModal modalId="party-modal">
+  <app:myModal modalId="customizations-modal" header="Customize">
+      {#with _user.preferences}
+      <table class='customize'><tr>
+          <td><div class='m_head_0' x-bind='click:customizeGender' data-value='m'></div></td>
+          <td><div class='f_head_0' x-bind='click:customizeGender' data-value='f'></div></td>
+      </tr></table>
 
-      {#if _user.party.current}
-        <h2>{_party.name}</h2>
-        <table class="table table-striped">
-        {#each _partyMembers as :member}
-            <tr><td>{username(:member.auth)}</td><td>({:member.id})</td></tr>
-        {/}
-        </table>
-        <form class=form-inline x-bind="submit: partyInvite">
-          {#if _view.partyError}
-            <div class='alert alert-danger'>{_view.partyError}</div>
-          {/}
-          <div class='control-group'>
-              <input type="text" class="input-medium" placeholder="User Id" value="{_newPartyMember}">
-              <input type="submit" class="btn" value="Invite" />
-          </div>
-        </form>
-        <a class='btn btn-danger' x-bind="click: partyLeave">Leave</a>
+      <table class='customize'><tr>
+          <td><div class='{.gender}_hair_blond' x-bind="click:customizeHair" data-value='blond'></div></td>
+          <td><div class='{.gender}_hair_black' x-bind="click:customizeHair" data-value='black'></div></td>
+          <td><div class='{.gender}_hair_brown' x-bind="click:customizeHair" data-value='brown'></div></td>
+          <td><div class='{.gender}_hair_white' x-bind="click:customizeHair" data-value='white'></div></td>
+      </tr></table>
 
-    {else if _user.party.invitation}
-        <!-- TODO show by whom -->
-        <h2>You're Invited To {_party.name}</h2>
-        <a class='btn btn-success' x-bind="click: partyAccept">Accept</a>
-        <a class='btn btn-danger' x-bind="click: partyReject">Reject</a>
+      <table class='customize'><tr>
+          <td><div class='{.gender}_skin_dead' x-bind="click:customizeSkin" data-value='dead'></div></td>
+          <td><div class='{.gender}_skin_orc' x-bind="click:customizeSkin" data-value='orc'></div></td>
+          <td><div class='{.gender}_skin_asian' x-bind="click:customizeSkin" data-value='asian'></div></td>
+          <td><div class='{.gender}_skin_black' x-bind="click:customizeSkin" data-value='black'></div></td>
+          <td><div class='{.gender}_skin_white' x-bind="click:customizeSkin" data-value='white'></div></td>
+      </tr></table>
 
-    {else}
-        <h2>Create A Party</h2>
-        <!-- Not in a party , no invites - create a new one -->
-        <form class=form-inline x-bind="submit: partyCreate">
-            {#if _view.partyError}
-              <div class='alert alert-danger'>{_view.partyError}</div>
-            {/}
-            <div class=control-group>
-                <input type="text" class="input-medium" placeholder="Party Name" value="{_newParty}">
-                <input type="submit" class="btn" value="Create" />
-            </div>
-        <form>
-    {/}
-
+      {#if equal(_user.preferences.gender, 'f')} <!-- Sorry boys -->
+      <table class='customize'><tr>
+          <td><div class='f_armor_0_v1' x-bind="click:customizeArmorSet" data-value='v1'></div></td>
+          <td><div class='f_armor_0_v2' x-bind="click:customizeArmorSet" data-value='v2'></div></td>
+      </tr></table>
+      {/}
+      {/}
+      <@footer>
+          <button data-dismiss="modal" class="btn btn-success">Ok</button>
+      </@footer>
   </app:myModal>
 
 <alerts:>
@@ -200,21 +208,17 @@
     <div class='container-fluid'>
 
       <div class='row-fluid'>
-        <div id=character class='{#if gt(_partyMembers.length,1)}span9{else}span5{/}'>
+        <div id=character class='{#if gt(_partyMembers.length,1)}span8{else}span5{/}'>
           <table>
             <tr>
 
               <!-- Avatar -->
-              <td class="avatar main-avatar">
-                <div class='avatar-sprites'>
-                  <img class='weapon weapon-{_user.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{_user.items.weapon}.png" />
-                  <img class='armor armor-{_user.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(_user)}" />
-                </div>
-                <div id="lvl"><span class="badge badge-info">Lvl {_user.stats.lvl}</span></div>
+              <td>
+                <app:avatar profile={_user} main="true" />
               </td>
 
               <!-- Progress Bars -->
-              <td id="bars" style="width:{#if gt(_partyMembers.length,1)}80%{else}90%{/};">
+              <td id="bars" style="width:{#if gt(_partyMembers.length,1)}75%{else}90%{/};">
                 <div class="progress progress-danger" rel=tooltip data-placement=bottom title="Health">
                   <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
                   <span class="progress-text"><i class=icon-heart></i> {round(_user.stats.hp)} / 50</span>
@@ -234,12 +238,8 @@
               <!-- Party -->
               {#each _partyMembers as :member}
                 {#unless equal(:member.id, _userId)}
-                    <td class="avatar party-avatar" rel="tooltip" title="{username(:member.auth)}" data-placement="bottom" >
-                        <div class='avatar-sprites'>
-                            <img class='weapon weapon-{:member.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:member.items.weapon}.png" />
-                            <img class='armor armor-{:member.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:member)}" />
-                        </div>
-                        <div id="lvl"><span class="badge badge-info">Lvl {:member.stats.lvl}</span></div>
+                    <td rel="tooltip" title="{username(:member.auth)}" data-placement="bottom" >
+                        <app:avatar profile={:member} />
                     </td>
                 {/}
               {/}
@@ -322,7 +322,16 @@
             <!--Title -->
             <div class="row-fluid">
                 <div class="span6"><h2>Rewards</h2></div>
-                <div class="span6" id="money">{gold(_user.stats.gp)} <img src='/img/coin_single_gold.png'/>  {silver(_user.stats.gp)} <img src='/img/coin_single_silver.png'/></div>
+                <div class="span6">
+                    <table><tr>
+                        <td>{gold(_user.stats.gp)} </td>
+                        <td><div class='shop_gold' rel='tooltip' title='Gold'></div></td>
+                        <td>{silver(_user.stats.gp)} </td>
+                        <td><div class='shop_silver' rel='tooltip' title='Silver'></div></td>
+                        <!--<td>{copper(_user.stats.gp)} </td>
+                        <td><div class='shop_copper' rel='tooltip' title='shop_copper'></div></td>-->
+                    </tr></table>
+                </div>
             </div>
 
             <!-- Content -->
@@ -332,8 +341,10 @@
 
             {#if _user.flags.itemsEnabled}
               <ul class='items'>
-                {#with _view.items.armor as :item}<app:item />{/}
                 {#with _view.items.weapon as :item}<app:item />{/}
+                {#with _view.items.armor as :item}<app:item />{/}
+                {#with _view.items.head as :item}<app:item />{/}
+                {#with _view.items.shield as :item}<app:item />{/}
                 {#with _view.items.potion as :item}<app:item />{/}
                 {#with _view.items.reroll as :item}<app:item reroll=true />{/}
               </ul>
@@ -349,10 +360,12 @@
   <!-- Footer -->
   <footer class=footer>
     <div class=container>
-        <!--<div class='pull-right'>
+        {#unless equal(_view.nodeEnv, 'production')}
+        <div class='pull-right'>
             <button class='btn' x-bind="click:emulateNextDay">Emulate Next Day</button>
             <button class='btn' x-bind="click:cheat">Add GP & Exp</button>
-        </div>-->
+        </div>
+        {/}
         <div>
           <ul>
             <li>Copyright &copy; 2012 OCDevel LLC</li>
@@ -507,6 +520,7 @@
   <div style="display:none;" id={{:task.id}}-chart></div>
   
 <item:>
+  {#unless :item.hide}
   <li class="task reward item">
     <pre>
       <div class="task-meta-controls">
@@ -519,9 +533,35 @@
           <a x-bind=click:buyItem class="item-buy-link" data-type={:item.type} data-value={:item.value} data-index={:item.index}>{:item.value}<img src="/img/coin_single_gold.png"/></a>
         {/}
       </div>
-      <div class="task-text"><img src="/img/BrowserQuest/habitrpg_mods/{:item.icon}.png" /> {:item.text}</div>
+      <div class="task-text">
+          {#if :item.icon}
+            <img src="/img/BrowserQuest/habitrpg_mods/{:item.icon}" /> {:item.text}
+          {else}
+            <table class='shop-table'><tr>
+                <td><div class="shop_{:item.classes} shop-sprite"></div></td>
+                <td>{:item.text}</td>
+            </tr></table>
+          {/}
+
+      </div>
     </pre>
   </li>
+  {/}
+
+<avatar:>
+    <div class="avatar {{#if @main}}main-avatar{{/}}" data-toggle='{{#if @main}}modal{{/}}' data-target='{{#if @main}}#customizations-modal{{/}}'>
+        <div class='character-sprites'>
+            {#with @profile.preferences as :p}
+            <span class='{:p.gender}_skin_{:p.skin}'></span>
+            <span class='{:p.gender}_hair_{:p.hair}'></span>
+            <span class="{equipped(@profile, 'armor')}"></span>
+            <span class="{equipped(@profile, 'head')}"></span>
+            <span class='{:p.gender}_shield_{@profile.items.shield}'></span>
+            <span class='{:p.gender}_weapon_{@profile.items.weapon}'></span>
+            {/}
+        </div>
+        <div class="lvl"><span class="badge badge-info">Lvl {@profile.stats.lvl}</span></div>
+    </div>
 
 <Scripts:>
     <script src="https://checkout.stripe.com/v2/checkout.js"></script>

@@ -1,11 +1,11 @@
 async = require 'async'
 moment = require 'moment'
 _ = require 'underscore'
-content = require './content'
 helpers = require './helpers'
 browser = require './browser'
-schema = require './schema'
-MODIFIER = .03 # each new level, armor, weapon add 3% modifier (this number may change)
+character = require './character'
+items = require './items'
+MODIFIER = .02 # each new level, armor, weapon add 2% modifier (this number may change)
 user = undefined
 model = undefined
 
@@ -22,7 +22,7 @@ setModel = (m) ->
 expModifier = (value, modifiers = {}) ->
   weapon = modifiers.weapon || user.get('items.weapon')
   lvl = modifiers.lvl || user.get('stats.lvl')
-  dmg = weapon * MODIFIER # each new weapon increases exp gain
+  dmg = items.items.weapon[weapon].modifier # each new weapon increases exp gain
   dmg += (lvl-1) * MODIFIER # same for lvls
   modified = value + (value * dmg)
   return modified
@@ -34,8 +34,10 @@ expModifier = (value, modifiers = {}) ->
 ###
 hpModifier = (value, modifiers = {}) ->
   armor = modifiers.armor || user.get('items.armor')
+  head = modifiers.head || user.get('items.head')
+  shield = modifiers.shield || user.get('items.shield')
   lvl = modifiers.lvl || user.get('stats.lvl')
-  ac = armor * MODIFIER # each new armor decreases HP loss
+  ac = items.items.armor[armor].modifier + items.items.head[head].modifier + items.items.shield[shield].modifier # each new armor decreases HP loss
   ac += (lvl-1) * MODIFIER # same for lvls
   modified = value - (value * ac)
   return modified
@@ -80,6 +82,13 @@ updateStats = (newStats, batch) ->
       newStats.exp -= tnl
       obj.stats.lvl++
       obj.stats.hp = 50
+
+    obj.stats.exp = newStats.exp
+
+    # Set flags when they unlock features
+    if !obj.flags.customizationsNotification and (obj.stats.exp > 10 or obj.stats.lvl > 1)
+      batch.set 'flags.customizationsNotification', true
+      obj.flags.customizationsNotification = true
     if !obj.flags.itemsEnabled and obj.stats.lvl >= 2
       # Set to object, then also send to browser right away to get model.on() subscription notification
       batch.set 'flags.itemsEnabled', true
@@ -87,7 +96,6 @@ updateStats = (newStats, batch) ->
     if !obj.flags.partyEnabled and obj.stats.lvl >= 3
       batch.set 'flags.partyEnabled', true
       obj.flags.partyEnabled = true
-    obj.stats.exp = newStats.exp
 
   if newStats.gp?
     #FIXME what was I doing here? I can't remember, gp isn't defined
@@ -102,7 +110,7 @@ score = (taskId, direction, times, batch, cron) ->
   commit = false
   unless batch?
     commit = true
-    batch = new schema.BatchUpdate(model)
+    batch = new character.BatchUpdate(model)
     batch.startTransaction()
   obj = batch.obj()
 
@@ -190,7 +198,7 @@ cron = () ->
   today = +new Date
   daysPassed = helpers.daysBetween(today, user.get('lastCron'))
   if daysPassed > 0
-    batch = new schema.BatchUpdate(model)
+    batch = new character.BatchUpdate(model)
     batch.startTransaction()
     batch.set 'lastCron', today
     obj = batch.obj()

@@ -1,4 +1,3 @@
-content = require('./content')
 _ = require 'underscore'
 
 module.exports.resetDom = (model) ->
@@ -6,12 +5,19 @@ module.exports.resetDom = (model) ->
   window.DERBY.app.view.render(model)
   model.fn '_tnl', '_user.stats.lvl', (lvl) -> (lvl*100)/5
 
+module.exports.app = (appExports, model) ->
+  loadJavaScripts(model)
+  setupSortable(model)
+  setupTooltips(model)
+  setupTour(model)
+  setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
+
 ###
   Loads JavaScript files from (1) public/js/* and (2) external sources
   We use this file (instead of <Scripts:> or <Tail:> inside .html) so we can utilize require() to concatinate for
   faster page load, and $.getScript for asyncronous external script loading
 ###
-module.exports.loadJavaScripts = (model) ->
+loadJavaScripts = (model) ->
 
   # Load public/js/* files
   # TODO use Bower
@@ -37,7 +43,7 @@ module.exports.loadJavaScripts = (model) ->
 ###
   Setup jQuery UI Sortable
 ###
-module.exports.setupSortable = (model) ->
+setupSortable = (model) ->
   unless (model.get('_view.mobileDevice') == true) #don't do sortable on mobile
     # Make the lists draggable using jQuery UI
     # Note, have to setup helper function here and call it for each type later
@@ -62,7 +68,7 @@ module.exports.setupSortable = (model) ->
           model.at("_#{type}List").pass(ignore: domId).move {id}, to
     _.each ['habit', 'daily', 'todo', 'reward'], (type) -> setupSortable(type)
 
-module.exports.setupTooltips = (model) ->
+setupTooltips = (model) ->
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
   # FIXME: this isn't very efficient, do model.on set for specific attrs for popover
@@ -71,9 +77,52 @@ module.exports.setupTooltips = (model) ->
     $('[rel=popover]').popover()
 
 
-module.exports.setupTour = (model) ->
+setupTour = (model) ->
+  tourSteps = [
+    {
+      element: "#avatar"
+      title: "Welcome to HabitRPG"
+      content: "Welcome to HabitRPG, a habit-tracker which treats your goals like a Role Playing Game."
+    }
+    {
+      element: "#bars"
+      title: "Achieve goals and level up"
+      content: "As you accomplish goals, you level up. If you fail your goals, you lose hit points. Lose all your HP and you die."
+    }
+    {
+      element: "ul.habits"
+      title: "Habits"
+      content: "Habits are goals that you constantly track."
+      placement: "bottom"
+    }
+    {
+      element: "ul.dailys"
+      title: "Dailies"
+      content: "Dailies are goals that you want to complete once a day."
+      placement: "bottom"
+    }
+    {
+      element: "ul.todos"
+      title: "Todos"
+      content: "Todos are one-off goals which need to be completed eventually."
+      placement: "bottom"
+    }
+    {
+      element: "ul.rewards"
+      title: "Rewards"
+      content: "As you complete goals, you earn gold to buy rewards. Buy them liberally - rewards are integral in forming good habits."
+      placement: "bottom"
+    }
+    {
+      element: "ul.habits li:first-child"
+      title: "Hover over comments"
+      content: "Different task-types have special properties. Hover over each task's comment for more information. When you're ready to get started, delete the existing tasks and add your own."
+      placement: "right"
+    }
+  ]
+
   tour = new Tour()
-  for step in content.tourSteps
+  for step in tourSteps
     tour.addStep
       html: true
       element: step.element
@@ -85,7 +134,7 @@ module.exports.setupTour = (model) ->
 ###
   Sets up "+1 Exp", "Level Up", etc notifications
 ###
-module.exports.setupGrowlNotifications = (model) ->
+setupGrowlNotifications = (model) ->
   return unless jQuery? # Only run this in the browser
   user = model.at '_user'
 
@@ -100,35 +149,6 @@ module.exports.setupGrowlNotifications = (model) ->
       delay: 3000
       allow_dismiss: true
       stackup_spacing: 10 # spacing between consecutive stacecked growls.
-
-  user.on 'set', 'flags.itemsEnabled', (captures, args) ->
-    return unless captures == true
-    message = "Congratulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information."
-    $('ul.items').popover
-      title: "Item Store Unlocked"
-      placement: 'left'
-      trigger: 'manual'
-      html: true
-      content: "<div class='item-store-popover'>
-          <img src='/img/BrowserQuest/chest.png' />
-          #{message} <a href='#' onClick=\"$('ul.items').popover('hide');return false;\">[Close]</a>
-          </div>"
-    $('ul.items').popover 'show'
-
-  user.on 'set', 'flags.partyEnabled', (captures, args) ->
-    return unless captures == true
-    message = "Congratulations, you have unlocked the Party System! You can now group with your friends by adding their User Ids."
-    $('.main-avatar').popover
-      title: "Party System Unlocked"
-      placement: 'bottom'
-      trigger: 'manual'
-      html: true
-      content: "<div class='party-system-popover'>
-          <img src='/img/party-unlocked.png' style='float:right;padding:5px;' />
-          #{message} <a href='#' onClick=\"$('.main-avatar').popover('hide');return false;\">[Close]</a>
-          </div>"
-    $('.main-avatar').popover 'show'
-
 
   # Setup listeners which trigger notifications
   user.on 'set', 'stats.hp', (captures, args) ->

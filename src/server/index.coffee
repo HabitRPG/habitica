@@ -47,7 +47,7 @@ strategies =
 options =
   domain: process.env.BASE_URL || 'http://localhost:3000'
   allowPurl: true
-  schema: require('../app/schema').newUserObject()
+  schema: require('../app/character').newUserObject()
   customAccessControl: habitrpgStore.customAccessControl
 
 mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
