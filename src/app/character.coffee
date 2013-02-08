@@ -1,10 +1,78 @@
+character = require './character'
+browser = require './browser'
+items = require './items'
+
 moment = require 'moment'
 _ = require 'underscore'
 lodash = require 'lodash'
 derby = require 'derby'
 
+module.exports.view = (view) ->
+  view.fn "username", (auth) ->
+    if auth?.facebook?.displayName?
+      auth.facebook.displayName
+    else if auth?.facebook?
+      fb = auth.facebook
+      if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name
+    else if auth?.local?
+      auth.local.username
+    else
+      'Anonymous'
+
+module.exports.app = (appExports, model) ->
+  user = model.at '_user'
+
+  revive = (batch) ->
+    # Reset stats
+    batch.set 'stats.hp', 50
+    batch.set 'stats.lvl', 1
+    batch.set 'stats.gp', 0
+    batch.set 'stats.exp', 0
+
+    # Reset items
+    batch.set 'items.armor', 0
+    batch.set 'items.weapon', 0
+    batch.set 'items.head', 0
+    batch.set 'items.shield', 0
+
+    # Reset item store
+    items.updateStore(model)
+
+  appExports.revive = (e, el) ->
+    batch = new character.BatchUpdate(model)
+    batch.startTransaction()
+    revive(batch)
+    batch.commit()
+
+  appExports.reset = (e, el) ->
+    batch = new character.BatchUpdate(model)
+    batch.startTransaction()
+    taskTypes = ['habit', 'daily', 'todo', 'reward']
+    batch.set 'tasks', {}
+    _.each taskTypes, (type) -> batch.set "idLists.#{type}", []
+    batch.set 'balance', 2 if user.get('balance') < 2 #only if they haven't manually bought tokens
+    revive(batch)
+    batch.commit()
+    browser.resetDom(model)
+
+  appExports.closeKickstarterNofitication = (e, el) ->
+    user.set('flags.kickstarter', 'hide')
+
+  appExports.customizeGender = (e, el) ->
+    user.set 'preferences.gender', $(el).attr('data-value')
+
+  appExports.customizeHair = (e, el) ->
+    user.set 'preferences.hair', $(el).attr('data-value')
+
+  appExports.customizeSkin = (e, el) ->
+    user.set 'preferences.skin', $(el).attr('data-value')
+
+  appExports.customizeArmorSet = (e, el) ->
+    user.set 'preferences.armorSet', $(el).attr('data-value')
+
+
 userSchema =
-  # _id
+# _id
   stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
   party: { current: null, invitation: null }
   items: { weapon: 0, armor: 0, head: 0, shield: 0 }
@@ -22,7 +90,7 @@ userSchema =
     partyEnabled: false
     itemsEnabled: false
     kickstarter: 'show'
-    # ads: 'show' # added on registration
+# ads: 'show' # added on registration
 
 module.exports.newUserObject = ->
   # deep clone, else further new users get duplicate objects
@@ -79,41 +147,41 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
   updates = {}
 
   {
-    user: user
+  user: user
 
-    obj: ->
-      obj ?= user.get()
-      return obj
+  obj: ->
+    obj ?= user.get()
+    return obj
 
-    startTransaction: ->
-      # start a batch transaction - nothing between now and @commit() will be set immediately
-      transactionInProgress = true
-      model._dontPersist = true
+  startTransaction: ->
+    # start a batch transaction - nothing between now and @commit() will be set immediately
+    transactionInProgress = true
+    model._dontPersist = true
 
-      # Really strange, user.get() seems to only return attributes which have previously been accessed. So in
-      # many cases, userObj.tasks.{taskId}.value is undefined - so we manually .get() each attribute here.
-      # Additionally, for some reason after getting the user object, changing properies manually (userObj.stats.hp = 50)
-      # seems to actually run user.set('stats.hp',50) which we don't want to do - so we deepClone here
-      #_.each Object.keys(userSchema), (key) -> obj[key] = lodash.cloneDeep user.get(key)
-      obj = model.get('users.'+user.get('id'), true)
+    # Really strange, user.get() seems to only return attributes which have previously been accessed. So in
+    # many cases, userObj.tasks.{taskId}.value is undefined - so we manually .get() each attribute here.
+    # Additionally, for some reason after getting the user object, changing properies manually (userObj.stats.hp = 50)
+    # seems to actually run user.set('stats.hp',50) which we don't want to do - so we deepClone here
+    #_.each Object.keys(userSchema), (key) -> obj[key] = lodash.cloneDeep user.get(key)
+    obj = model.get('users.'+user.get('id'), true)
 
-    ###
-      Handles updating the user model. If this is an en-mass operation (eg, server cron), changes are queued
-      but not actually set to the model. It also modifies userObj in case you need to access properties manually later.
-      If transaction not in progress, it just runs standard model.set()
-    ###
-    set: (path, val) ->
-      updates[path] = val if transactionInProgress
-      user.set(path, val)
+  ###
+    Handles updating the user model. If this is an en-mass operation (eg, server cron), changes are queued
+    but not actually set to the model. It also modifies userObj in case you need to access properties manually later.
+    If transaction not in progress, it just runs standard model.set()
+  ###
+  set: (path, val) ->
+    updates[path] = val if transactionInProgress
+    user.set(path, val)
 
-    ###
-      Hack to get around dom bindings being lost if parent objects are replaced whole-sale
-      eg, user.set('stats', {hp:50, exp:10...}) will break dom bindings, but user.set('stats.hp',50) is ok
-    ###
-    setStats: (stats) ->
-      stats ?= obj.stats
-      that = @
-      _.each Object.keys(stats), (key) -> that.set "stats.#{key}", stats[key]
+  ###
+    Hack to get around dom bindings being lost if parent objects are replaced whole-sale
+    eg, user.set('stats', {hp:50, exp:10...}) will break dom bindings, but user.set('stats.hp',50) is ok
+  ###
+  setStats: (stats) ->
+    stats ?= obj.stats
+    that = @
+    _.each Object.keys(stats), (key) -> that.set "stats.#{key}", stats[key]
 
 #    queue: (path, val) ->
 #      # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
@@ -124,10 +192,10 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
 #         curr[next]
 #      , obj
 
-    commit: ->
-      model._dontPersist = false
-      # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
-      user.set "update__", updates
-      transactionInProgress = false
-      updates = {}
+  commit: ->
+    model._dontPersist = false
+    # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
+    user.set "update__", updates
+    transactionInProgress = false
+    updates = {}
   }

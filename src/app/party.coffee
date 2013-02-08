@@ -1,5 +1,5 @@
 _ = require('underscore')
-schema = require './schema'
+character = require './character'
 browser = require './browser'
 
 partyQ = null

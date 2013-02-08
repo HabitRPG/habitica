@@ -3,7 +3,7 @@ moment = require 'moment'
 _ = require 'underscore'
 helpers = require './helpers'
 browser = require './browser'
-schema = require './schema'
+character = require './character'
 items = require './items'
 MODIFIER = .02 # each new level, armor, weapon add 2% modifier (this number may change)
 user = undefined
@@ -25,7 +25,6 @@ expModifier = (value, modifiers = {}) ->
   dmg = items.items.weapon[weapon].modifier # each new weapon increases exp gain
   dmg += (lvl-1) * MODIFIER # same for lvls
   modified = value + (value * dmg)
-  debugger
   return modified
 
 ### 
@@ -40,7 +39,6 @@ hpModifier = (value, modifiers = {}) ->
   lvl = modifiers.lvl || user.get('stats.lvl')
   ac = items.items.armor[armor].modifier + items.items.head[head].modifier + items.items.shield[shield].modifier # each new armor decreases HP loss
   ac += (lvl-1) * MODIFIER # same for lvls
-  debugger
   modified = value - (value * ac)
   return modified
   
@@ -106,7 +104,7 @@ score = (taskId, direction, times, batch, cron) ->
   commit = false
   unless batch?
     commit = true
-    batch = new schema.BatchUpdate(model)
+    batch = new character.BatchUpdate(model)
     batch.startTransaction()
   obj = batch.obj()
 
@@ -194,7 +192,7 @@ cron = () ->
   today = +new Date
   daysPassed = helpers.daysBetween(today, user.get('lastCron'))
   if daysPassed > 0
-    batch = new schema.BatchUpdate(model)
+    batch = new character.BatchUpdate(model)
     batch.startTransaction()
     batch.set 'lastCron', today
     obj = batch.obj()

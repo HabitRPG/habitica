@@ -1,5 +1,5 @@
 _ = require 'underscore'
-schema = require "../app/schema"
+character = require "../app/character"
 
 module.exports.middleware = (req, res, next) ->
   model = req.getModel()
@@ -33,7 +33,7 @@ module.exports.app = (appExports, model) ->
     Buy Reroll Button
   ###
   appExports.buyReroll = (e, el, next) ->
-    batch = new schema.BatchUpdate(model)
+    batch = new character.BatchUpdate(model)
     obj = model.get('_user')
     batch.set 'balance', obj.balance-1
     _.each obj.tasks, (task) -> batch.set("tasks.#{task.id}.value", 0) unless task.type == 'reward'
