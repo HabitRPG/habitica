@@ -63,10 +63,7 @@ get '/', (page, model, next) ->
       # also update in scoring.coffee. TODO create a function accessible in both locations
       (lvl*100)/5
 
-    if obj.party?.current
-      party.partySubscribe model, obj.party.current, (p) -> page.render()
-    else
-      page.render()
+    party.partySubscribe model, -> page.render()
 
 # ========== CONTROLLER FUNCTIONS ==========
 
