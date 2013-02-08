@@ -322,7 +322,16 @@
             <!--Title -->
             <div class="row-fluid">
                 <div class="span6"><h2>Rewards</h2></div>
-                <div class="span6" id="money">{gold(_user.stats.gp)} <img src='/img/coin_single_gold.png'/>  {silver(_user.stats.gp)} <img src='/img/coin_single_silver.png'/></div>
+                <div class="span6">
+                    <table><tr>
+                        <td>{gold(_user.stats.gp)} </td>
+                        <td><div class='shop_gold' rel='tooltip' title='Gold'></div></td>
+                        <td>{silver(_user.stats.gp)} </td>
+                        <td><div class='shop_silver' rel='tooltip' title='Silver'></div></td>
+                        <!--<td>{copper(_user.stats.gp)} </td>
+                        <td><div class='shop_copper' rel='tooltip' title='shop_copper'></div></td>-->
+                    </tr></table>
+                </div>
             </div>
 
             <!-- Content -->

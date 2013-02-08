@@ -62,6 +62,25 @@ module.exports.view = (view) ->
       else
         return "m_head_#{head}"
 
+  view.fn "gold", (num) ->
+    if num
+      return (num).toFixed(1).split('.')[0]
+    else
+      return "0"
+
+  view.fn "silver", (num) ->
+    if num
+      (num).toFixed(2).split('.')[1]
+    else
+      return "00"
+
+  view.fn "copper", (num) ->
+    if num
+      c = (num).toFixed(4).split('.')[1]
+      c.toString().substr(2,2)
+    else
+      return "00"
+
 ###
   server exports
 ###

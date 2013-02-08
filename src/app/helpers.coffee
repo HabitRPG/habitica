@@ -32,24 +32,6 @@ module.exports.viewHelpers = (view) ->
   view.fn "round", (num) ->
     Math.round num
     
-  view.fn "gold", (num) -> 
-    if num
-      return num.toFixed(1).split('.')[0]
-    else
-      return "0"
-  
-  view.fn "silver", (num) -> 
-    if num
-      num.toFixed(1).split('.')[1]
-    else
-      return "0" 
-  
-  view.fn "gp", (num) ->
-    if num
-      return num.toFixed(2)
-    else
-      return "0.00"
-      
   view.fn "lt", (a, b) ->
     a < b
   view.fn 'gt', (a, b) -> a > b
