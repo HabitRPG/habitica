@@ -1,6 +1,8 @@
 @import "nib/vendor";
 @import "../bootstrap-responsive.styl";
-@import "../sprites.styl";
+@import "./female_sprites.styl";
+@import "./male_sprites.styl";
+@import "./shop_sprites.styl";
 
 html,body,p,h1,ul,li,table,tr,th,td
   margin: 0
@@ -232,3 +234,26 @@ li:hover .task-meta-controls .hover-show
   margin-right: -1px;
   top: 50%;
   margin-top: -6px;
+
+
+
+.avatar
+    position: relative
+    margin-top: -12px
+    width: 90px
+    height: 90px
+
+    .character-sprites
+        position: absolute
+        top: -15px
+
+    .lvl
+        position: absolute
+        bottom: 0px
+        right: 10px
+
+.character-sprites span
+    position: absolute
+
+.itemstore-icons
+    background-size: 50%

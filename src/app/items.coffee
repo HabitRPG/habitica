@@ -128,36 +128,11 @@ module.exports.app = (appExports, model) ->
 ###
 module.exports.updateStore = updateStore = (model) ->
   obj = model.get('_user')
-  [nextWeapon, nextArmor, nextHead, nextShield] = [null, null, null, null]
 
-  i = parseInt(obj.items.weapon) + 1
-  nextWeapon = if (i == _.size items.weapon) then {hide:true} else items.weapon[i]
-  model.set '_view.items.weapon',
-
-  i = parseInt(obj?.items?.armor || 0) + 1
-  if i == _.size items.armor
-    nextArmor = {hide:true}
-  else
-    nextArmor = items.armor[i]
-    nextArmor.classes = obj.preferences.gender + "_armor_#{i}"
-  model.set '_view.items.armor', nextArmor
-
-  i = parseInt(parseInt(obj?.items?.head || 0) + 1)
-  if i == _.size items.armor
-    nextHead = {hide:true}
-  else
-    nextHead = items.head[i]
-    nextHead.classes = obj.preferences.gender + "_head_#{i}"
-    nextHead.classes += "_#{obj.preferences.armorSet}" if obj.preferences.gender == 'f'
-  model.set '_view.items.head', nextHead
-
-  i = parseInt(obj?.items?.shield || 0) + 1
-  if i == _.size items.shield
-    nextShield = {hide:true}
-  else
-    nextShield = items.shield[i]
-    nextShield.classes = obj.preferences.gender + "_" + nextShield.classes
-  model.set '_vie.items.shield', nextShield
+  _.each ['weapon', 'armor', 'shield', 'head'], (type) ->
+    i = parseInt(obj?.items?[type] || 0) + 1
+    nextItem = if (i == _.size items[type]) then {hide:true} else items[type][i]
+    model.set "_view.items.#{type}", nextItem
 
   model.set '_view.items.potion', items.potion
   model.set '_view.items.reroll', items.reroll

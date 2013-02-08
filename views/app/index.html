@@ -225,7 +225,7 @@
                             <span class="{equipped(_user, 'armor')}"></span>
                             <span class='{:p.gender}_shield_{_user.items.shield}'></span>
                             <span class="{equipped(_user, 'head')}"></span>
-                            <span class='weapon_{_user.items.weapon}'></span>
+                            <span class='{:p.gender}_weapon_{_user.items.weapon}'></span>
                         {/}
                     </div>
                     <div class="lvl"><span class="badge badge-info">Lvl {_user.stats.lvl}</span></div>
@@ -545,7 +545,7 @@
           {#if :item.icon}
             <img src="/img/BrowserQuest/habitrpg_mods/{:item.icon}" />
           {else}
-            <div class="{:item.classes} itemstore-icons"></div>
+            <div class="shop_{:item.classes}"></div>
           {/}
           {:item.text}
       </div>
