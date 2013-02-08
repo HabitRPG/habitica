@@ -223,8 +223,8 @@
                             <span class='{:p.gender}_skin_{:p.skin}'></span>
                             <span class='{:p.gender}_hair_{:p.hair}'></span>
                             <span class="{equipped(_user, 'armor')}"></span>
-                            <span class='{:p.gender}_shield_{_user.items.shield}'></span>
                             <span class="{equipped(_user, 'head')}"></span>
+                            <span class='{:p.gender}_shield_{_user.items.shield}'></span>
                             <span class='{:p.gender}_weapon_{_user.items.weapon}'></span>
                         {/}
                     </div>
@@ -543,11 +543,14 @@
       </div>
       <div class="task-text">
           {#if :item.icon}
-            <img src="/img/BrowserQuest/habitrpg_mods/{:item.icon}" />
+            <img src="/img/BrowserQuest/habitrpg_mods/{:item.icon}" /> {:item.text}
           {else}
-            <div class="shop_{:item.classes}"></div>
+            <table class='shop-table'><tr>
+                <td><div class="shop_{:item.classes} shop-sprite"></div></td>
+                <td>{:item.text}</td>
+            </tr></table>
           {/}
-          {:item.text}
+
       </div>
     </pre>
   </li>
