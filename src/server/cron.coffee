@@ -33,7 +33,7 @@ module.exports.deleteStaleAccounts = ->
     return unless user? #why does this happen sometimes?
     if !!user.lastCron # for now ignore missing crons, still looking into why this is happening
       lastCron = new Date(user.lastCron)
-      diff = Math.abs(moment(today).sod().diff(moment(lastCron).sod(), "days"))
+      diff = Math.abs(moment(today).startOf('day').diff(moment(lastCron).startOf('day'), "days"))
       if diff > 10
         removeAccount(collection, user._id)
     else
