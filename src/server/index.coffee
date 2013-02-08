@@ -11,7 +11,7 @@ priv = require './private'
 habitrpgStore = require('./store')
 
 ## Run server cron ##
-require('./cron').deleteStaleAccounts()
+#require('./cron').deleteStaleAccounts()
 
 ## RACER CONFIGURATION ##
 
