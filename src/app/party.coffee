@@ -70,6 +70,7 @@ module.exports.app = (appExports, model) ->
 
   user.on 'set', 'flags.partyEnabled', (captures, args) ->
     return unless captures == true
+    $('.main-avatar').popover('destroy') #remove previous popovers
     html = """
            <div class='party-system-popover'>
            <img src='/img/party-unlocked.png' style='float:right;padding:5px;' />

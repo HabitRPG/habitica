@@ -121,6 +121,7 @@ setupTour = (model) ->
     }
   ]
 
+  $('.main-avatar').popover('destroy') #remove previous popovers
   tour = new Tour()
   _.each tourSteps, (step) ->
     tour.addStep

@@ -13,8 +13,6 @@ db.users.find().forEach(function(user){
 
         'items.head': user.items.armor,
         'items.shield': user.items.armor,
-
-        'flags.customizationsNotification': 'show'
     }
 
     db.users.update({_id:user._id}, {$set:updates});
