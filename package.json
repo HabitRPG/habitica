@@ -5,7 +5,7 @@
   "main": "./server.js",
   "dependencies": {
     "derby": "git://github.com/codeparty/derby#master",
-    "racer": "git://github.com/lefnire/racer#a01861e",
+    "racer": "git://github.com/lefnire/racer#habitrpg",
     "racer-db-mongo": "git://github.com/lefnire/racer-db-mongo#habitrpg",
     "derby-ui-boot": "git://github.com/codeparty/derby-ui-boot#master",
     "derby-auth": "git://github.com/lefnire/derby-auth#master",
