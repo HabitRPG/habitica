@@ -281,3 +281,11 @@ ready (model) ->
   exports.setFemale = -> user.set('preferences.gender', 'f')
   exports.setArmorsetV1 = -> user.set('preferences.armorSet', 'v1')
   exports.setArmorsetV2 = -> user.set('preferences.armorSet', 'v2')
+
+  exports.customizationsPopover = ->
+    $('.main-avatar').popover
+        html:true
+        placement:'bottom'
+        content: $('#customizations-popover').html()
+        trigger:'manual'
+    $('.main-avatar').popover 'show'

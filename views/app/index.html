@@ -206,7 +206,16 @@
 
               <!-- Avatar -->
               <td>
-                <div class="avatar">
+                <div id='customizations-popover' style='display:none;'>
+                    <div style='height:500px;'>
+                        <table class='customize'><tr>
+                            <td><div class='m_head_0'></div></td>
+                            <td><div class='f_head_0'></div></td>
+                        </tr></table>
+                    </div>
+
+                </div>
+                <div class="avatar main-avatar" x-bind="click:customizationsPopover">
                     <div class='character-sprites'>
                         <span class='m_skin_white'></span>
                         <span class='m_head_0'></span>
