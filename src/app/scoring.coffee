@@ -5,7 +5,7 @@ helpers = require './helpers'
 browser = require './browser'
 schema = require './schema'
 items = require './items'
-MODIFIER = .03 # each new level, armor, weapon add 3% modifier (this number may change)
+MODIFIER = .02 # each new level, armor, weapon add 2% modifier (this number may change)
 user = undefined
 model = undefined
 
@@ -23,7 +23,6 @@ expModifier = (value, modifiers = {}) ->
   weapon = modifiers.weapon || user.get('items.weapon')
   lvl = modifiers.lvl || user.get('stats.lvl')
   dmg = items.items.weapon[weapon].modifier # each new weapon increases exp gain
-  debugger
   dmg += (lvl-1) * MODIFIER # same for lvls
   modified = value + (value * dmg)
   return modified
@@ -37,7 +36,6 @@ hpModifier = (value, modifiers = {}) ->
   armor = modifiers.armor || user.get('items.armor')
   head = modifiers.head || user.get('items.head')
   shield = modifiers.shield || user.get('items.shield')
-  debugger
   lvl = modifiers.lvl || user.get('stats.lvl')
   ac = items.items.armor[armor].modifier + items.items.head[head].modifier + items.items.shield[shield].modifier # each new armor decreases HP loss
   ac += (lvl-1) * MODIFIER # same for lvls
