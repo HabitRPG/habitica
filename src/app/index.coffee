@@ -6,12 +6,12 @@ derby.use require('derby-auth/components');
 
 # Custom requires
 moment = require('moment')
-content = require './content'
 scoring = require './scoring'
 schema = require './schema'
 helpers = require './helpers'
 browser = require './browser'
 party = require './party'
+items = require './items'
 helpers.viewHelpers view
 _ = require('underscore')
 
@@ -45,16 +45,9 @@ get '/', (page, model, next) ->
     obj = batch.obj()
     obj = user.get() unless obj.items? #why is this happening?
 
-    # Setup Item Store
-    _view.items =
-      weapon: content.items.weapon[parseInt(obj?.items?.weapon || 0) + 1]
-      armor: content.items.armor[parseInt(obj?.items?.armor || 0) + 1]
-      head: content.items.head[parseInt(obj?.items?.head || 0) + 1]
-      shield: content.items.shield[parseInt(obj?.items?.shield || 0) + 1]
-      potion: content.items.potion
-      reroll: content.items.reroll
-
     model.set '_view', _view
+
+    items.updateStore(model)
 
     schema.updateUser(batch)
     batch.commit()
@@ -80,15 +73,9 @@ ready (model) ->
   # Setup model in scoring functions
   scoring.cron()
 
-  # Load all the jQuery, Growl, Tour, etc
-  browser.loadJavaScripts(model)
-  browser.setupSortable(model)
-  browser.setupTooltips(model)
-  browser.setupTour(model)
-  browser.setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
-
+  browser.app(exports, model)
   party.app(exports, model)
-
+  items.app(exports, model)
   require('../server/private').app(exports, model)
 
   #require('./debug').app(exports, model)
@@ -216,34 +203,6 @@ ready (model) ->
     chart = new google.visualization.LineChart(document.getElementById( chartSelector ))
     chart.draw(data, options)
     
-  exports.buyItem = (e, el, next) ->
-    user = model.at '_user'
-    #TODO: this should be working but it's not. so instead, i'm passing all needed values as data-attrs
-    # item = model.at(e.target)
-    
-    gp = user.get 'stats.gp'
-    [type, value, index] = [ $(el).attr('data-type'), $(el).attr('data-value'), $(el).attr('data-index') ]
-    
-    return if gp < value
-    user.set 'stats.gp', gp - value
-    if type == 'armor'
-      user.set 'items.armor', index
-      model.set '_view.items.armor', content.items.armor[parseInt(index) + 1]
-    else if type == 'weapon'
-      user.set 'items.weapon', index
-      model.set '_view.items.weapon', content.items.weapon[parseInt(index) + 1]
-    else if type == 'head'
-      user.set 'items.head', index
-      model.set '_view.items.head', content.items.head[parseInt(index) + 1]
-    else if type == 'shield'
-      user.set 'items.shield', index
-      model.set '_view.items.shield', content.items.shield[parseInt(index) + 1]
-    else if type == 'potion'
-      hp = user.get 'stats.hp'
-      hp += 15
-      hp = 50 if hp > 50 
-      user.set 'stats.hp', hp
-  
   exports.score = (e, el, next) ->
     direction = $(el).attr('data-direction')
     direction = 'up' if direction == 'true/'
@@ -263,9 +222,8 @@ ready (model) ->
     batch.set 'items.weapon', 0
 
     # Reset item store
-    model.set '_view.items.armor', content.items.armor[1]
-    model.set '_view.items.weapon', content.items.weapon[1]
-    
+    items.updateStore(model)
+
   exports.revive = (e, el) ->
     batch = new schema.BatchUpdate(model)
     batch.startTransaction()
