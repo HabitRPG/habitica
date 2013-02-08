@@ -25,6 +25,7 @@ expModifier = (value, modifiers = {}) ->
   dmg = items.items.weapon[weapon].modifier # each new weapon increases exp gain
   dmg += (lvl-1) * MODIFIER # same for lvls
   modified = value + (value * dmg)
+  debugger
   return modified
 
 ### 
@@ -39,6 +40,7 @@ hpModifier = (value, modifiers = {}) ->
   lvl = modifiers.lvl || user.get('stats.lvl')
   ac = items.items.armor[armor].modifier + items.items.head[head].modifier + items.items.shield[shield].modifier # each new armor decreases HP loss
   ac += (lvl-1) * MODIFIER # same for lvls
+  debugger
   modified = value - (value * ac)
   return modified
   
