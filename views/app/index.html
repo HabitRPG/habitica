@@ -214,20 +214,7 @@
 
               <!-- Avatar -->
               <td>
-
-                <div class="avatar main-avatar" data-toggle='modal' data-target='#customizations-modal'>
-                    <div class='character-sprites'>
-                        {#with _user.preferences as :p}
-                            <span class='{:p.gender}_skin_{:p.skin}'></span>
-                            <span class='{:p.gender}_hair_{:p.hair}'></span>
-                            <span class="{equipped(_user, 'armor')}"></span>
-                            <span class="{equipped(_user, 'head')}"></span>
-                            <span class='{:p.gender}_shield_{_user.items.shield}'></span>
-                            <span class='{:p.gender}_weapon_{_user.items.weapon}'></span>
-                        {/}
-                    </div>
-                    <div class="lvl"><span class="badge badge-info">Lvl {_user.stats.lvl}</span></div>
-                </div>
+                <app:avatar profile={_user} main="true" />
               </td>
 
               <!-- Progress Bars -->
@@ -251,12 +238,8 @@
               <!-- Party -->
               {#each _partyMembers as :member}
                 {#unless equal(:member.id, _userId)}
-                    <td class="avatar party-avatar" rel="tooltip" title="{username(:member.auth)}" data-placement="bottom" >
-                        <div class='avatar-sprites'>
-                            <img class='weapon weapon-{:member.items.weapon}' src="/img/BrowserQuest/habitrpg_mods/weapon{:member.items.weapon}.png" />
-                            <img class='armor armor-{:member.items.armor}' src="/img/BrowserQuest/habitrpg_mods/{currentArmor(:member)}" />
-                        </div>
-                        <div id="lvl"><span class="badge badge-info">Lvl {:member.stats.lvl}</span></div>
+                    <td rel="tooltip" title="{username(:member.auth)}" data-placement="bottom" >
+                        <app:avatar profile={:member} />
                     </td>
                 {/}
               {/}
@@ -555,6 +538,21 @@
     </pre>
   </li>
   {/}
+
+<avatar:>
+    <div class="avatar {{#if @main}}main-avatar{{/}}" data-toggle='{{#if @main}}modal{{/}}' data-target='{{#if @main}}#customizations-modal{{/}}'>
+        <div class='character-sprites'>
+            {#with @profile.preferences as :p}
+            <span class='{:p.gender}_skin_{:p.skin}'></span>
+            <span class='{:p.gender}_hair_{:p.hair}'></span>
+            <span class="{equipped(@profile, 'armor')}"></span>
+            <span class="{equipped(@profile, 'head')}"></span>
+            <span class='{:p.gender}_shield_{@profile.items.shield}'></span>
+            <span class='{:p.gender}_weapon_{@profile.items.weapon}'></span>
+            {/}
+        </div>
+        <div class="lvl"><span class="badge badge-info">Lvl {@profile.stats.lvl}</span></div>
+    </div>
 
 <Scripts:>
     <script src="https://checkout.stripe.com/v2/checkout.js"></script>
