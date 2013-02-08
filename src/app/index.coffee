@@ -5,14 +5,17 @@ derby.use require('../../ui')
 derby.use require('derby-auth/components');
 
 # Custom requires
-moment = require('moment')
 scoring = require './scoring'
 schema = require './schema'
 helpers = require './helpers'
 browser = require './browser'
 party = require './party'
 items = require './items'
+
 helpers.viewHelpers view
+items.view view
+
+moment = require('moment')
 _ = require('underscore')
 
 setupListReferences = (model) ->
@@ -47,7 +50,7 @@ get '/', (page, model, next) ->
 
     model.set '_view', _view
 
-    items.updateStore(model)
+    items.server(model)
 
     schema.updateUser(batch)
     batch.commit()

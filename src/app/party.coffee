@@ -68,6 +68,23 @@ module.exports.partySubscribe = partySubscribe = (model, cb) ->
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
 
+  user.on 'set', 'flags.partyEnabled', (captures, args) ->
+    return unless captures == true
+    html = """
+           <div class='party-system-popover'>
+           <img src='/img/party-unlocked.png' style='float:right;padding:5px;' />
+           Congratulations, you have unlocked the Party System! You can now group with your friends by adding their User Ids.
+           <a href='#' onClick="$('.main-avatar').popover('hide');return false;">[Close]</a>
+           </div>
+           """
+    $('.main-avatar').popover
+      title: "Party System Unlocked"
+      placement: 'bottom'
+      trigger: 'manual'
+      html: true
+      content: html
+    $('.main-avatar').popover 'show'
+
   model.on 'set', '_user.party.invitation', -> partySubscribe(model)
 
   appExports.partyCreate = ->

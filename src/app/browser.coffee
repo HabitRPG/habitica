@@ -17,7 +17,7 @@ module.exports.app = (appExports, model) ->
   We use this file (instead of <Scripts:> or <Tail:> inside .html) so we can utilize require() to concatinate for
   faster page load, and $.getScript for asyncronous external script loading
 ###
-module.exports.loadJavaScripts = (model) ->
+loadJavaScripts = (model) ->
 
   # Load public/js/* files
   # TODO use Bower
@@ -43,7 +43,7 @@ module.exports.loadJavaScripts = (model) ->
 ###
   Setup jQuery UI Sortable
 ###
-module.exports.setupSortable = (model) ->
+setupSortable = (model) ->
   unless (model.get('_view.mobileDevice') == true) #don't do sortable on mobile
     # Make the lists draggable using jQuery UI
     # Note, have to setup helper function here and call it for each type later
@@ -68,7 +68,7 @@ module.exports.setupSortable = (model) ->
           model.at("_#{type}List").pass(ignore: domId).move {id}, to
     _.each ['habit', 'daily', 'todo', 'reward'], (type) -> setupSortable(type)
 
-module.exports.setupTooltips = (model) ->
+setupTooltips = (model) ->
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
   # FIXME: this isn't very efficient, do model.on set for specific attrs for popover
@@ -77,7 +77,7 @@ module.exports.setupTooltips = (model) ->
     $('[rel=popover]').popover()
 
 
-module.exports.setupTour = (model) ->
+setupTour = (model) ->
   tourSteps = [
     {
       element: "#avatar"
@@ -134,7 +134,7 @@ module.exports.setupTour = (model) ->
 ###
   Sets up "+1 Exp", "Level Up", etc notifications
 ###
-module.exports.setupGrowlNotifications = (model) ->
+setupGrowlNotifications = (model) ->
   return unless jQuery? # Only run this in the browser
   user = model.at '_user'
 
@@ -149,21 +149,6 @@ module.exports.setupGrowlNotifications = (model) ->
       delay: 3000
       allow_dismiss: true
       stackup_spacing: 10 # spacing between consecutive stacecked growls.
-
-  user.on 'set', 'flags.partyEnabled', (captures, args) ->
-    return unless captures == true
-    message = "Congratulations, you have unlocked the Party System! You can now group with your friends by adding their User Ids."
-    $('.main-avatar').popover
-      title: "Party System Unlocked"
-      placement: 'bottom'
-      trigger: 'manual'
-      html: true
-      content: "<div class='party-system-popover'>
-          <img src='/img/party-unlocked.png' style='float:right;padding:5px;' />
-          #{message} <a href='#' onClick=\"$('.main-avatar').popover('hide');return false;\">[Close]</a>
-          </div>"
-    $('.main-avatar').popover 'show'
-
 
   # Setup listeners which trigger notifications
   user.on 'set', 'stats.hp', (captures, args) ->
