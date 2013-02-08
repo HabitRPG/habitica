@@ -221,11 +221,11 @@
                     <div class='character-sprites'>
                         {#with _user.preferences as :p}
                             <span class='{:p.gender}_skin_{:p.skin}'></span>
-                            <span class='{head(_user)}'></span>
                             <span class='{:p.gender}_hair_{:p.hair}'></span>
                             <span class="{armor(_user)}"></span>
-                            <span class='{:p.gender}_shield_1'></span>
-                            <span class='item-sword1'></span>
+                            <span class='{:p.gender}_shield_{_user.items.shield}'></span>
+                            <span class='{head(_user)}'></span>
+                            <span class='weapon_{_user.items.weapon}'></span>
                         {/}
                     </div>
                     <div class="lvl"><span class="badge badge-info">Lvl {_user.stats.lvl}</span></div>
@@ -353,6 +353,8 @@
               <ul class='items'>
                 {#with _view.items.armor as :item}<app:item />{/}
                 {#with _view.items.weapon as :item}<app:item />{/}
+                {#with _view.items.head as :item}<app:item />{/}
+                {#with _view.items.shield as :item}<app:item />{/}
                 {#with _view.items.potion as :item}<app:item />{/}
                 {#with _view.items.reroll as :item}<app:item reroll=true />{/}
               </ul>

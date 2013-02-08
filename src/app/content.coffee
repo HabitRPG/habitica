@@ -73,6 +73,21 @@ module.exports =
       {type: 'armor', index: 4, text: "Red Armor", icon: 'item-redarmor', notes:'Decreases HP loss by 12%.', value:90}
       {type: 'armor', index: 5, text: "Golden Armor", icon: 'item-goldenarmor', notes:'Decreases HP loss by 15%.', value:120}
     ]
+    head: [
+      {type: 'armor', index: 0, text: "No Helm", icon: 'item-nohelm', notes:'Training armor.', value:0}
+      {type: 'armor', index: 1, text: "Leather Helm", icon: 'item-leatherhelm', notes:'Decreases HP loss by 3%.', value:30}
+      {type: 'armor', index: 2, text: "Chain Coif", icon: 'item-mailhelm', notes:'Decreases HP loss by 6%.', value:45}
+      {type: 'armor', index: 3, text: "Plate Helm", icon: 'item-platehelm', notes:'Decreases HP loss by 9%.', value:65}
+      {type: 'armor', index: 4, text: "Red Helm", icon: 'item-redhelm', notes:'Decreases HP loss by 12%.', value:90}
+      {type: 'armor', index: 5, text: "Golden Helm", icon: 'item-goldenhelm', notes:'Decreases HP loss by 15%.', value:120}
+    ]
+    shield: [
+      {type: 'armor', index: 0, text: "Shield 1", icon: 'item-clotharmor', notes:'Training armor.', value:0}
+      {type: 'armor', index: 1, text: "Shield 2", icon: 'item-leatherarmor', notes:'Decreases HP loss by 3%.', value:30}
+      {type: 'armor', index: 2, text: "Shield 3", icon: 'item-mailarmor', notes:'Decreases HP loss by 6%.', value:45}
+      {type: 'armor', index: 3, text: "Shield 4", icon: 'item-platearmor', notes:'Decreases HP loss by 9%.', value:65}
+      {type: 'armor', index: 4, text: "Shielf 5", icon: 'item-redarmor', notes:'Decreases HP loss by 12%.', value:90}
+    ]
     potion: {type: 'potion', text: "Potion", notes: "Recover 15 HP", value: 25, icon: 'item-flask'}
     reroll:
       type: 'reroll' 
