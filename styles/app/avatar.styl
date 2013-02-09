@@ -1,48 +1,23 @@
-#character
-  float:none
-  margin:0px auto
-
-  td#bars
-    padding-top: 10px
-
-#bars
-  .progress
-    position: relative
-    height: 25px
-  .bar
-    height: 25px
-    border: 1px solid black
-  .progress-text
-    position: absolute
-    right: 5px
-    top: 3px
-    color: black
-
-
+// basic avatar sprite group
 .avatar
     cursor: pointer
     position: relative
-    margin-top: -12px
     width: 90px
     height: 90px
 
     .character-sprites
         position: absolute
-        top: -15px
 
     .lvl
         position: absolute
         bottom: 0px
         right: 10px
 
+// main and party avatars
+.main-avatar, .party-avatar
+  .character-sprites
+    top: -15px
+
+
 .character-sprites span
     position: absolute
-
-  table.customize td div
-    cursor: pointer
-    -webkit-transition: 0.25s ease-out
-    -moz-transition: 0.25s ease-out
-    transition: 0.25s ease-out
-
-  table.customize td div:active
-    background-color: rgb(255, 242, 204);
