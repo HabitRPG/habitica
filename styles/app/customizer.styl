@@ -10,20 +10,53 @@
     margin-top: 6px;
     border-top: 1px solid darkgrey;
     text-align: center
+    line-height: 2
+    
 
+menu
+  padding: 0;
+  margin: 0;
 
-
-table.customize td
-  padding: 10px
+.customize-menu
+  padding: 0;
+  width: 70%;
+  list-style: none;
+  padding-bottom: 10px
   
-table.customize td div
-  cursor: pointer
-  -webkit-transition: 0.5s ease-out
-  -moz-transition: 0.5s ease-out
-  transition: 0.5s ease-out
+  menu:before
+    content: attr(label);
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 2
 
-table.customize td div:active
+.customize-option
+  border: 1px solid grey;
+  background-color: hsl(0, 0%, 93%);
+  margin-bottom: 10px
+  
+  cursor: pointer;
+  -webkit-transition: background-color 0.5s ease-out
+  -moz-transition: background-color 0.5s ease-out
+  transition: background-color 0.5s ease-out
+
+.customize-option:active
   background-color: rgb(255, 242, 204);
   -webkit-transition: none
   -moz-transition: none
   transition: none
+  
+.customize-option:not(:last-of-type)
+  margin-right: 10px
+  
+
+@media (max-width: 480px) {
+  .avatar-window {
+    float: none;
+    margin-bottom: 1em
+  }
+
+  .customize-menu {
+    width: 100%;
+  }
+}
