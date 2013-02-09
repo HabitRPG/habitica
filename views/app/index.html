@@ -279,37 +279,22 @@
         <app:newTask type=daily><input value={_newDaily} type="text" name=new-task placeholder="New Daily"/></app:newTask>
       </div>
 
-      <div class="span3 well todos">
-        <div class="tabbable"> <!-- Only required for left/right tabs -->
-          <div class="row-fluid">
-            <h2 class="span6">Todos</h2>
-            <ul class="span6 nav nav-pills">
-                <li class="active"><a href="#" data-target="#tab1" data-toggle="tab">Remaining</a></li>
-                <li><a href="#" data-target="#tab2" data-toggle="tab">Complete</a></li>
-            </ul>
-          </div>
-          <div class="tab-content">
-            <div class="tab-pane active" id="tab1">
-              <ul class='todos'>
-                {#each _todoList as :task}
-                  {#if not(:task.completed)}
-                    <app:task />
-                  {/}
-                {/}
-              </ul>
-              <app:newTask type=todo><input value={_newTodo} type="text" name=new-task placeholder="New Todo"/></app:newTask>
-            </div>
-            <div class="tab-pane" id="tab2">
-              <ul class='completeds'>
-                {#each _todoList as :task}
-                  {#if :task.completed}
-                    <app:task />
-                  {/}
-                {/}
-              </ul>
-              <a x-bind=click:clearCompleted>Clear Completed</a>
-            </div>
-          </div>
+      <div class="span3 well todos context-enabled context-uncompleted" id="todo-well">
+        <div class="row-fluid">
+          <h2 class="span6">Todos</h2>
+          <ul class="span6 nav nav-pills">
+            <li class="active"><a x-bind=click:changeContext data-target="#todo-well" data-context="context-uncompleted">Remaining</a></li>
+            <li><a x-bind=click:changeContext data-target="#todo-well" data-context="context-completed">Complete</a></li>
+          </ul>
+        </div>
+        <ul class='todos task-list'>
+          {#each _todoList as :task}<app:task />{/}
+        </ul>
+        <div class="display-context-dependant show-for-uncompleted">
+          <app:newTask type=todo><input value={_newTodo} type="text" name=new-task placeholder="New Todo"/></app:newTask>
+        </div>
+        <div class="display-context-dependant show-for-completed">
+          <a x-bind=click:clearCompleted>Clear Completed</a>
         </div>
         {#if _user.history.todos}
           <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
