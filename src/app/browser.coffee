@@ -34,6 +34,8 @@ loadJavaScripts = (model) ->
   # Each file getsload asyncronously via $.getScript, so it doesn't bog page-load
   unless model.get('_view.mobileDevice')
 
+    $.getScript("https://s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
+
     # Google Charts
     $.getScript "https://www.google.com/jsapi", ->
       # Specifying callback in options param is vital! Otherwise you get blank screen, see http://stackoverflow.com/a/12200566/362790

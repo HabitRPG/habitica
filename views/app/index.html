@@ -362,7 +362,22 @@
   <!-- Footer -->
   <footer class=footer>
     <div class=container>
-        {#unless equal(_view.nodeEnv, 'production')}
+        {#if equal(_view.nodeEnv, 'production')}
+        <table class=pull-right><tr>
+            <td><!-- Github -->
+                <iframe src="/github-btns/github-btn.html?user=lefnire&repo=habitrpg&type=watch&count=true"
+                        allowtransparency="true" frameborder="0" scrolling="0" width="85px" height="20px"></iframe>
+            </td>
+            <td>
+                <div class="addthis_toolbox addthis_default_style "
+                     addthis:url="http://habitrpg.com"
+                     addthis:title="HabitRPG - Gamify Your Life">
+                    <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                    <a class="addthis_button_tweet" tw:via="lefnire"></a>
+                </div>
+            </td>
+        </tr></table>
+        {else}
         <div class='pull-right'>
             <button class='btn' x-bind="click:emulateNextDay">Emulate Next Day</button>
             <button class='btn' x-bind="click:cheat">Add GP & Exp</button>
