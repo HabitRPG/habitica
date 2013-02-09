@@ -1,3 +1,12 @@
+<!--  $table-of-contents
+===================================
+do a find for the string after "→"
+-----------------------------------
+→ $modal-template
+→ $customizations-modal
+→ $avatar-template
+=================================== -->
+
 <Title:>
   HabitRPG | Gamify Your Life
 
@@ -127,11 +136,20 @@
       </@footer>
   </app:myModal>
 
+  <!-- $customizations-modal -->
   <app:myModal modalId="customizations-modal" header="Customize">
       {#with _user.preferences}
-      <table class='customize'><tr>
-          <td><div class='m_head_0' x-bind='click:customizeGender' data-value='m'></div></td>
-          <td><div class='f_head_0' x-bind='click:customizeGender' data-value='f'></div></td>
+
+      <table>
+        <td>
+          <app:avatar profile={_user} />
+        </td>
+      </table>
+      <table class='customize'>
+        <tr>Change Gender:</tr>
+        <tr>
+          <td><div class='m_head_0' x-bind='click:customizeGender' data-value='m'></div>Male</td>
+          <td><div class='f_head_0' x-bind='click:customizeGender' data-value='f'></div>Female</td>
       </tr></table>
 
       <table class='customize'><tr>
@@ -382,6 +400,8 @@
     </div>
   </footer>
   
+
+<!-- $modal-template -->
 <myModal: nonvoid>
   {{#if @noDismiss}}<div data-action="backdrop" class="modal-backdrop"></div>{{/}}
   <div class="modal {{#unless @noDismiss}}hide{{/}}" id={{@modalId}} role="dialog">
@@ -547,6 +567,7 @@
   </li>
   {/}
 
+<!-- $avatar-template -->
 <avatar:>
     <div class="avatar {{#if @main}}main-avatar{{/}}" data-toggle='{{#if @main}}modal{{/}}' data-target='{{#if @main}}#customizations-modal{{/}}'>
         <div class='character-sprites'>
