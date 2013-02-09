@@ -4,8 +4,8 @@ module.exports.resetDom = (model) ->
   window.DERBY.app.dom.clear()
   window.DERBY.app.view.render(model)
   model.fn '_tnl', '_user.stats.lvl', (lvl) -> (lvl*100)/5
-  _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
-    model.refList "_#{type}List", "_user.tasks", "_user.{type}Ids"
+#  _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
+#    model.refList "_#{type}List", "_user.tasks", "_user.{type}Ids"
 
 module.exports.app = (appExports, model) ->
   loadJavaScripts(model)

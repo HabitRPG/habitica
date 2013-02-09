@@ -3,6 +3,7 @@
 // We could just delete user.idLists, since it's re-created on refresh. However, users's first refresh will scare them
 // since everything will dissappear - second refresh will bring everything back.
 db.users.find().forEach(function(user){
+    if (!user.idLists) return;
     db.users.update(
         {_id:user._id},
         {
