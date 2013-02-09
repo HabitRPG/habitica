@@ -1,3 +1,12 @@
+<!--  $table-of-contents
+===================================
+do a find for the string after "→"
+-----------------------------------
+→ $modal-template
+→ $customizations-modal
+→ $avatar-template
+=================================== -->
+
 <Title:>
   HabitRPG | Gamify Your Life
 
@@ -100,17 +109,11 @@
   <!-- Game Over Modal -->
   <div style="{#unless equal(_user.stats.lvl,0)}display:none;{/}">
       <app:myModal noDismiss=true modalId='dead-modal'>
-          <table>
-              <tr>
-                  <td><img src="/img/BrowserQuest/habitrpg_mods/dead.png" /></td>
-                  <td>
-                      <h3>Game Over</h3>
-                      <p>
-                          <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a>
-                      </p>
-                  </td>
-              </tr>
-          </table>
+          <figure class="notification-character">
+            <img src="/img/BrowserQuest/habitrpg_mods/dead.png">
+          </figure>
+          <h3 class="notification-message">You died! Game Over.</h3>
+          <a x-bind=click:revive class="btn btn-danger btn-large notification-action">Continue</a>
       </app:myModal>
   </div>
 
@@ -127,38 +130,62 @@
       </@footer>
   </app:myModal>
 
+  <!-- $customizations-modal -->
   <app:myModal modalId="customizations-modal" header="Customize">
-      {#with _user.preferences}
-      <table class='customize'><tr>
-          <td><div class='m_head_0' x-bind='click:customizeGender' data-value='m'></div></td>
-          <td><div class='f_head_0' x-bind='click:customizeGender' data-value='f'></div></td>
-      </tr></table>
+    {#with _user.preferences}
+      
+      <!-- user avatar preview -->
+      <figure class="avatar-window">
+          <app:avatar profile={_user} />
+          <figcaption class="char-name">{username(_user.auth)}</figcaption>
+      </figure>
 
-      <table class='customize'><tr>
-          <td><div class='{.gender}_hair_blond' x-bind="click:customizeHair" data-value='blond'></div></td>
-          <td><div class='{.gender}_hair_black' x-bind="click:customizeHair" data-value='black'></div></td>
-          <td><div class='{.gender}_hair_brown' x-bind="click:customizeHair" data-value='brown'></div></td>
-          <td><div class='{.gender}_hair_white' x-bind="click:customizeHair" data-value='white'></div></td>
-      </tr></table>
+      <!-- customization options -->
+      <menu type="list">
+        <!-- gender -->
+        <li class="customize-menu">
+          <menu label="Gender">
+            <button type="button" class="m_head_0 customize-option" data-value="m" x-bind="click:customizeGender"></button>
+            <button type="button" class="f_head_0 customize-option" data-value="f" x-bind="click:customizeGender"></button>
+          </menu>
+        </li>
 
-      <table class='customize'><tr>
-          <td><div class='{.gender}_skin_dead' x-bind="click:customizeSkin" data-value='dead'></div></td>
-          <td><div class='{.gender}_skin_orc' x-bind="click:customizeSkin" data-value='orc'></div></td>
-          <td><div class='{.gender}_skin_asian' x-bind="click:customizeSkin" data-value='asian'></div></td>
-          <td><div class='{.gender}_skin_black' x-bind="click:customizeSkin" data-value='black'></div></td>
-          <td><div class='{.gender}_skin_white' x-bind="click:customizeSkin" data-value='white'></div></td>
-      </tr></table>
+        <!-- hair -->
+        <li class="customize-menu">
+          <menu label="Hair">
+            <button type="button" class="{.gender}_hair_blond customize-option" data-value="blond" x-bind="click:customizeHair"></button>
+            <button type="button" class="{.gender}_hair_black customize-option" data-value="black" x-bind="click:customizeHair"></button>
+            <button type="button" class="{.gender}_hair_brown customize-option" data-value="brown" x-bind="click:customizeHair"></button>
+            <button type="button" class="{.gender}_hair_white customize-option" data-value="white" x-bind="click:customizeHair"></button>
+          </menu>
+        </li>
+
+        <!-- skin -->
+        <li class="customize-menu">
+          <menu label="Skin">
+            <button type="button" class='{.gender}_skin_dead customize-option' data-value="dead" x-bind="click:customizeSkin"></button>
+            <button type="button" class='{.gender}_skin_orc customize-option' data-value="orc" x-bind="click:customizeSkin"></button>
+            <button type="button" class='{.gender}_skin_asian customize-option' data-value="asian" x-bind="click:customizeSkin"></button>
+            <button type="button" class='{.gender}_skin_black customize-option' data-value="black" x-bind="click:customizeSkin"></button>
+            <button type="button" class='{.gender}_skin_white customize-option' data-value="white" x-bind="click:customizeSkin"></button>
+          </menu>
+        </li>
+      </menu>
 
       {#if equal(_user.preferences.gender, 'f')} <!-- Sorry boys -->
-      <table class='customize'><tr>
-          <td><div class='f_armor_0_v1' x-bind="click:customizeArmorSet" data-value='v1'></div></td>
-          <td><div class='f_armor_0_v2' x-bind="click:customizeArmorSet" data-value='v2'></div></td>
-      </tr></table>
+      <menu type="list">
+        <li class="customize-menu">
+          <menu label="Clothing">
+            <button type="button" class="f_armor_0_v1 customize-option" data-value="v1" x-bind="click:customizeArmorSet"></button>
+            <button type="button" class="f_armor_0_v2 customize-option" data-value="v2" x-bind="click:customizeArmorSet"></button>
+          </menu>
+        </li>
+      </menu>
       {/}
-      {/}
-      <@footer>
-          <button data-dismiss="modal" class="btn btn-success">Ok</button>
-      </@footer>
+    {/}
+    <@footer>
+      <button data-dismiss="modal" class="btn btn-success">Ok</button>
+    </@footer>
   </app:myModal>
 
 <alerts:>
@@ -194,8 +221,9 @@
 <Header:>
   <app:modalDialogs />
   <ui:connectionAlert>
-  <div id="head">
+  <div id="head" class="container-fluid">
 
+  <!-- options menu -->
     <div class='pull-right'>
       {#unless _loggedIn}
         <a href="#" class="btn btn-small btn-info" data-target="#login-modal" data-toggle="modal">Login / Register</a>
@@ -221,52 +249,48 @@
       {/}
     </div>
 
-    <div class='container-fluid'>
+  <!-- main header -->
+    <div class="row-fluid">
+      <div class='char-status {#if gt(_partyMembers.length,1)}span8 offset2 has-party{else}span6 offset3{/}'>
+        
+        <!-- avatar -->
+        <figure class="main-avatar-wrap">
+          <app:avatar profile={_user} main="true" />
+        </figure>
 
-      <div class='row-fluid'>
-        <div id=character class='{#if gt(_partyMembers.length,1)}span8{else}span5{/}'>
-          <table>
-            <tr>
+        <!-- party -->
+        {#each _partyMembers as :member}
+          {#unless equal(:member.id, _userId)}
+          <figure class="party-avatar-wrap" rel="tooltip" title="{username(:member.auth)}" data-placement="bottom">
+            <app:avatar profile={:member} party="true" />
+          </figure>
+          {/}
+        {/}
 
-              <!-- Avatar -->
-              <td>
-                <app:avatar profile={_user} main="true" />
-              </td>
+        <!-- progress bars -->
+        <div class="progress-bars">
+          <div class="progress progress-danger" rel=tooltip data-placement=bottom title="Health">
+            <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
+            <span class="progress-text"><i class=icon-heart></i> {round(_user.stats.hp)} / 50</span>  
+          </div>
 
-              <!-- Progress Bars -->
-              <td id="bars" style="width:{#if gt(_partyMembers.length,1)}75%{else}90%{/};">
-                <div class="progress progress-danger" rel=tooltip data-placement=bottom title="Health">
-                  <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
-                  <span class="progress-text"><i class=icon-heart></i> {round(_user.stats.hp)} / 50</span>
-                </div>
-    
-                <div class="progress progress-warning" rel=tooltip data-placement=bottom title="Experience">
-                  <div class="bar" style="width: {percent(_user.stats.exp,_tnl)}%;"></div>
-                  <span class="progress-text">
-                    {#if _user.history.exp}
-                      <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp;
-                    {/}
-                    <i class=icon-star></i> {round(_user.stats.exp)} / {_tnl}
-                  </span>
-                </div>
-              </td>
-
-              <!-- Party -->
-              {#each _partyMembers as :member}
-                {#unless equal(:member.id, _userId)}
-                    <td rel="tooltip" title="{username(:member.auth)}" data-placement="bottom" >
-                        <app:avatar profile={:member} />
-                    </td>
-                {/}
+          <div class="progress progress-warning" rel=tooltip data-placement=bottom title="Experience">
+            <div class="bar" style="width: {percent(_user.stats.exp,_tnl)}%;"></div>
+            <span class="progress-text">
+              {#if _user.history.exp}
+                <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp;
               {/}
-
-            </tr>
-
-          </table>
+              <i class=icon-star></i> {round(_user.stats.exp)} / {_tnl}
+            </span>
+          </div>
           <div id="exp-chart" style="display:none;"></div>
         </div>
+      <!-- end .char-status -->
       </div>
-    </div>    
+    <!-- end .row-fluid -->
+    </div>
+
+  <!-- end #head -->
   </div>
 
 <Body:>
@@ -399,6 +423,8 @@
     </div>
   </footer>
   
+
+<!-- $modal-template -->
 <myModal: nonvoid>
   {{#if @noDismiss}}<div data-action="backdrop" class="modal-backdrop"></div>{{/}}
   <div class="modal {{#unless @noDismiss}}hide{{/}}" id={{@modalId}} role="dialog">
@@ -564,8 +590,9 @@
   </li>
   {/}
 
+<!-- $avatar-template -->
 <avatar:>
-    <div class="avatar {{#if @main}}main-avatar{{/}}" data-toggle='{{#if @main}}modal{{/}}' data-target='{{#if @main}}#customizations-modal{{/}}'>
+    <div class="avatar {{#if @main}}main-avatar{{/}} {{#if @party}}party-avatar{{/}}" data-toggle='{{#if @main}}modal{{/}}' data-target='{{#if @main}}#customizations-modal{{/}}'>
         <div class='character-sprites'>
             {#with @profile.preferences as :p}
             <span class='{:p.gender}_skin_{:p.skin}'></span>
@@ -576,7 +603,11 @@
             <span class='{:p.gender}_weapon_{@profile.items.weapon}'></span>
             {/}
         </div>
-        <div class="lvl"><span class="badge badge-info">Lvl {@profile.stats.lvl}</span></div>
+        {{#if @main}}
+          <div class="lvl"><span class="badge badge-info">Lvl {@profile.stats.lvl}</span></div>
+        {{else if @party}}
+          <div class="lvl"><span class="badge badge-info">Lvl {@profile.stats.lvl}</span></div>
+        {{/}}
     </div>
 
 <Scripts:>
