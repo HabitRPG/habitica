@@ -29,15 +29,61 @@ html,body,p,h1,ul,li,table,tr,th,td
   white-space: nowrap
   position:fixed
   width: 100%
+  box-sizing: border-box
   z-index: 1000
 
 #head .pull-right
-  margin-right: 2%
+  margin-right: 0
   margin-left: 1%
 
 .modal
   whitespace:normal
 
+.dropdown-menu
+  right: 0
+  left: auto
+  
+.char-status
+  // border: 1px dotted grey
+
+.main-avatar-wrap
+  margin: 0 5px 0 0
+  float: left
+  
+.party-avatar-wrap
+  margin: 0
+  float: right
+
+.progress-bars
+  padding-top: 15px
+
+.progress
+  position: relative
+  height: 25px
+.bar
+  height: 25px
+  border: 1px solid black
+.progress-text
+  position: absolute
+  right: 5px
+  top: 3px
+  color: black
+
+@media (max-width: 600px) {
+  .char-status {
+    padding-top: 30px
+  }
+  .main-avatar-wrap {
+    border-right: 1px solid grey;
+    padding-right: 20px
+  }
+  .party-avatar-wrap {
+    float: left;
+  }
+  .progress-bars {
+    clear: both
+  }
+}
 
 /* Footer
 -------------------------------------------------- */
