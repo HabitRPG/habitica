@@ -109,17 +109,11 @@ do a find for the string after "→"
   <!-- Game Over Modal -->
   <div style="{#unless equal(_user.stats.lvl,0)}display:none;{/}">
       <app:myModal noDismiss=true modalId='dead-modal'>
-          <table>
-              <tr>
-                  <td><img src="/img/BrowserQuest/habitrpg_mods/dead.png" /></td>
-                  <td>
-                      <h3>Game Over</h3>
-                      <p>
-                          <a x-bind=click:revive class="btn btn-danger btn-large">Continue</a>
-                      </p>
-                  </td>
-              </tr>
-          </table>
+          <figure class="notification-character">
+            <img src="/img/BrowserQuest/habitrpg_mods/dead.png">
+          </figure>
+          <h3 class="notification-message">You died! Game Over.</h3>
+          <a x-bind=click:revive class="btn btn-danger btn-large notification-action">Continue</a>
       </app:myModal>
   </div>
 
