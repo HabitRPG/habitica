@@ -11,6 +11,8 @@ module.exports.view = (view) ->
     # show as completed if completed (naturally) or not required for today
     if completed or (repeat and repeat[helpers.dayMapping[moment().day()]]==false)
       classes += " completed"
+    else
+      classes += " uncompleted"
 
     switch
       when value<-8 then classes += ' color-worst'
@@ -65,15 +67,8 @@ module.exports.app = (appExports, model) ->
 
   appExports.del = (e, el) ->
     # Derby extends model.at to support creation from DOM nodes
-    #task = model.at(e.target)
-    # FIXME normally that would work, and we'd later simply call `user.del task` (instead of that 4-liner down there)
-    # however, see https://github.com/lefnire/habitrpg/pull/226#discussion_r2810391
-
-    id = $(e.target).parents('li.task').attr('data-id')
-    return unless id?
-
-    task = user.at "tasks.#{id}"
-    type = task.get('type')
+    task = model.at(e.target)
+    id = task.get('id')
 
     history = task.get('history')
     if history and history.length>2
@@ -95,10 +90,8 @@ module.exports.app = (appExports, model) ->
     # fix when query subscriptions implemented properly
     $('[rel=tooltip]').tooltip('hide')
 
-    ids = user.get("#{type}Ids")
-    ids.splice(ids.indexOf(id),1)
     user.del('tasks.'+id)
-    user.set("#{type}Ids", ids)
+    task.remove()
 
 
   appExports.clearCompleted = (e, el) ->
@@ -147,6 +140,29 @@ module.exports.app = (appExports, model) ->
 
     chart = new google.visualization.LineChart(document.getElementById( chartSelector ))
     chart.draw(data, options)
+
+  appExports.changeContext = (e, el) ->
+    # Get the data from the element
+    targetSelector = $(el).attr('data-target')
+    newContext = $(el).attr('data-context')
+    newActiveNav = $(el).parent('li')
+
+    # If the clicked nav is already active, do nothing
+    if newActiveNav.hasClass('active')
+      return
+
+    # Find the old active nav and context
+    oldActiveNav = $(el).closest('ul').find('> .active')
+    oldContext = oldActiveNav.find('a').attr('data-context')
+
+    # Set the new active nav
+    oldActiveNav.removeClass('active')
+    newActiveNav.addClass('active')
+
+    # Set the new context on the target
+    target = $(targetSelector)
+    target.removeClass(oldContext)
+    target.addClass(newContext)
 
   appExports.score = (e, el, next) ->
     direction = $(el).attr('data-direction')

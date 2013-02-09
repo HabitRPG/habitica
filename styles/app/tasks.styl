@@ -37,6 +37,19 @@ label.checkbox.inline{
     background-image: linear-gradient(to bottom, #eee, #aaa);
     background-repeat: repeat-x;
 
+.context-enabled
+  .display-context-dependant,
+  .task-list li
+    display: none
+
+  &.context-completed
+    .show-for-completed, .completed
+      display: block
+
+  &.context-uncompleted
+    .show-for-uncompleted, .uncompleted
+      display: block
+
 .help-icon
   float:right;
 
