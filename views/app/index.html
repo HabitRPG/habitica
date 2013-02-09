@@ -138,13 +138,15 @@ do a find for the string after "→"
 
   <!-- $customizations-modal -->
   <app:myModal modalId="customizations-modal" header="Customize">
-      {#with _user.preferences}
+    {#with _user.preferences}
+    
+    <!-- user avatar preview -->
+    <figure class="avatar-window">
+        <app:avatar profile={_user} />
+        <figcaption class="char-name">{username(_user.auth)}</figcaption>
+    </figure>
 
-      <table>
-        <td>
-          <app:avatar profile={_user} />
-        </td>
-      </table>
+    
       <table class='customize'>
         <tr>Change Gender:</tr>
         <tr>

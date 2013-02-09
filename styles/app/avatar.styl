@@ -19,6 +19,7 @@
     color: black
 
 
+// basic avatar sprite group
 .avatar
     cursor: pointer
     position: relative
@@ -27,31 +28,19 @@
 
     .character-sprites
         position: absolute
-        top: -15px
 
     .lvl
         position: absolute
         bottom: 0px
         right: 10px
 
-.main-avatar
+// main and party avatars
+.main-avatar, .party-avatar
   margin-top: -12px
-  
+
+  .character-sprites
+    top: -15px
+
 
 .character-sprites span
     position: absolute
-
-  table.customize td
-    padding: 10px
-    
-  table.customize td div
-    cursor: pointer
-    -webkit-transition: 0.5s ease-out
-    -moz-transition: 0.5s ease-out
-    transition: 0.5s ease-out
-
-  table.customize td div:active
-    background-color: rgb(255, 242, 204);
-    -webkit-transition: none
-    -moz-transition: none
-    transition: none
