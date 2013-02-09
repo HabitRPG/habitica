@@ -257,7 +257,7 @@ do a find for the string after "→"
               {#each _partyMembers as :member}
                 {#unless equal(:member.id, _userId)}
                     <td rel="tooltip" title="{username(:member.auth)}" data-placement="bottom" >
-                        <app:avatar profile={:member} />
+                        <app:avatar profile={:member} party="true" />
                     </td>
                 {/}
               {/}
@@ -570,7 +570,7 @@ do a find for the string after "→"
 
 <!-- $avatar-template -->
 <avatar:>
-    <div class="avatar {{#if @main}}main-avatar{{/}}" data-toggle='{{#if @main}}modal{{/}}' data-target='{{#if @main}}#customizations-modal{{/}}'>
+    <div class="avatar {{#if @main}}main-avatar{{/}} {{#if @party}}party-avatar{{/}}" data-toggle='{{#if @main}}modal{{/}}' data-target='{{#if @main}}#customizations-modal{{/}}'>
         <div class='character-sprites'>
             {#with @profile.preferences as :p}
             <span class='{:p.gender}_skin_{:p.skin}'></span>
@@ -581,9 +581,11 @@ do a find for the string after "→"
             <span class='{:p.gender}_weapon_{@profile.items.weapon}'></span>
             {/}
         </div>
-        {#if @main}
+        {{#if @main}}
           <div class="lvl"><span class="badge badge-info">Lvl {@profile.stats.lvl}</span></div>
-        {/}
+        {{else if @party}}
+          <div class="lvl"><span class="badge badge-info">Lvl {@profile.stats.lvl}</span></div>
+        {{/}}
     </div>
 
 <Scripts:>
