@@ -54,7 +54,7 @@ get '/', (page, model, next) ->
 
     # refLists
     _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
-      model.refList "_#{type}List", "_user.tasks", "_user.idLists.#{type}"
+      model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
 
     # tnl function
     model.fn '_tnl', '_user.stats.lvl', (lvl) ->

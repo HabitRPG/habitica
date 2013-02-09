@@ -49,7 +49,7 @@ module.exports.app = (appExports, model) ->
     batch.startTransaction()
     taskTypes = ['habit', 'daily', 'todo', 'reward']
     batch.set 'tasks', {}
-    _.each taskTypes, (type) -> batch.set "idLists.#{type}", []
+    _.each taskTypes, (type) -> batch.set "#{type}Ids", []
     batch.set 'balance', 2 if user.get('balance') < 2 #only if they haven't manually bought tokens
     revive(batch)
     batch.commit()
@@ -91,11 +91,10 @@ userSchema =
   party: { current: null, invitation: null }
   items: { weapon: 0, armor: 0, head: 0, shield: 0 }
   preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1' }
-  idLists:
-    habit: []
-    daily: []
-    todo: []
-    reward: []
+  habitIds: []
+  dailyIds: []
+  todoIds: []
+  rewardIds: []
   apiToken: null # set in newUserObject below
   lastCron: 'new' #this will be replaced with `+new Date` on first run
   balance: 2
@@ -127,10 +126,10 @@ module.exports.newUserObject = ->
     guid = task.id = derby.uuid()
     newUser.tasks[guid] = task
     switch task.type
-      when 'habit' then newUser.idLists.habit.push guid
-      when 'daily' then newUser.idLists.daily.push guid
-      when 'todo' then newUser.idLists.todo.push guid
-      when 'reward' then newUser.idLists.reward.push guid
+      when 'habit' then newUser.habitIds.push guid
+      when 'daily' then newUser.dailyIds.push guid
+      when 'todo' then newUser.todoIds.push guid
+      when 'reward' then newUser.rewardIds.push guid
   return newUser
 
 module.exports.updateUser = (batch) ->
@@ -146,13 +145,13 @@ module.exports.updateUser = (batch) ->
     # 1. remove duplicates
     # 2. restore missing zombie tasks back into list
     taskIds =  _.pluck( _.where(tasks, {type:type}), 'id')
-    union = _.union obj.idLists[type], taskIds
+    union = _.union obj[type + 'Ids'], taskIds
 
     # 2. remove empty (grey) tasks
     preened = _.filter(union, (val) -> _.contains(taskIds, val))
 
     # There were indeed issues found, set the new list
-    batch.set("idLists.#{type}", preened) # if _.difference(preened, userObj[path]).length != 0
+    batch.set("#{type}Ids", preened) # if _.difference(preened, userObj[path]).length != 0
 
 module.exports.BatchUpdate = BatchUpdate = (model) ->
   user = model.at("_user")

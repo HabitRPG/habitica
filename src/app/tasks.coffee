@@ -95,14 +95,14 @@ module.exports.app = (appExports, model) ->
     # fix when query subscriptions implemented properly
     $('[rel=tooltip]').tooltip('hide')
 
-    ids = user.get("idLists.#{type}")
+    ids = user.get("#{type}Ids")
     ids.splice(ids.indexOf(id),1)
     user.del('tasks.'+id)
-    user.set("idLists.#{type}", ids)
+    user.set("#{type}Ids", ids)
 
 
   appExports.clearCompleted = (e, el) ->
-    todoIds = user.get('idLists.todo')
+    todoIds = user.get('todoIds')
     removed = false
     _.each model.get('_todoList'), (task) ->
       if task.completed
@@ -110,7 +110,7 @@ module.exports.app = (appExports, model) ->
         user.del('tasks.'+task.id)
         todoIds.splice(todoIds.indexOf(task.id), 1)
     if removed
-      user.set('idLists.todo', todoIds)
+      user.set('todoIds', todoIds)
 
   appExports.toggleDay = (e, el) ->
     task = model.at(e.target)
