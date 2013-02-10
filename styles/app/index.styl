@@ -32,6 +32,12 @@ html,body,p,h1,ul,li,table,tr,th,td
   box-sizing: border-box
   z-index: 1000
 
+@media (max-width: 480px) {
+  #head {
+    position: static;
+  }
+}
+
 #head .pull-right
   margin-right: 0
   margin-left: 1%
@@ -122,6 +128,12 @@ html,body,p,h1,ul,li,table,tr,th,td
 #main                                                                                                                                                                                                                                        
   /*overflow:auto;*/                                                                                                                                                                                                                             
   padding-bottom: 250px; /* don't know why this works, sticky footers are weird */
+
+@media (max-width: 480px) {
+  #wrap {
+    margin-top: 0
+  }
+}
 
 /* Tokens
 -------------------------------------------------- */
