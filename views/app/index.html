@@ -641,7 +641,7 @@ do a find for the string after "→"
 <!-- $avatar-template -->
 <avatar:>
     <div class="avatar {{#if @main}}main-avatar{{/}} {{#if @party}}party-avatar{{/}}" data-toggle='{{#if @main}}modal{{/}}' data-target='{{#if @main}}#customizations-modal{{/}}'>
-        {#unless @minimal}{#if @profile.items.pet}<img src='img/BrowserQuest/habitrpg_mods/{_user.items.pet.icon}' />{/}{/}
+        {#unless @minimal}{#if @profile.items.pet}<img src='img/BrowserQuest/habitrpg_mods/{@profile.items.pet.icon}' />{/}{/}
         <div class='character-sprites'>
             {#with @profile.preferences as :p}
             <span class='{:p.gender}_skin_{:p.skin}'></span>
