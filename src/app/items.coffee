@@ -150,10 +150,11 @@ module.exports.app = (appExports, model) ->
     else
       tokens = user.get('balance')*4
       if tokens > 3
-        r = confirm("Buy this pet with 2 of your #{tokens} tokens?");
+        r = confirm("Buy this pet with #{pet.value} of your #{tokens} tokens?");
         if r
           user.set "items.pets.#{name}", true
           user.set 'items.pet', pet
+          user.set 'balance', (tokens-pet.value)/4
       else
         $('#more-tokens-modal').modal('show')
 
