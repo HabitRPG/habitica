@@ -50,16 +50,16 @@ module.exports.app = (appExports, model) ->
     switch type
 
       when 'habit'
-        list.push {type: type, text: text, notes: '', value: 0, up: true, down: true}
+        list.unshift {type: type, text: text, notes: '', value: 0, up: true, down: true}
 
       when 'reward'
-        list.push {type: type, text: text, notes: '', value: 20 }
+        list.unshift {type: type, text: text, notes: '', value: 20 }
 
       when 'daily'
-        list.push {type: type, text: text, notes: '', value: 0, repeat:{su:true,m:true,t:true,w:true,th:true,f:true,s:true}, completed: false }
+        list.unshift {type: type, text: text, notes: '', value: 0, repeat:{su:true,m:true,t:true,w:true,th:true,f:true,s:true}, completed: false }
 
       when 'todo'
-        list.push {type: type, text: text, notes: '', value: 0, completed: false }
+        list.unshift {type: type, text: text, notes: '', value: 0, completed: false }
 
   # list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
   # # Move the item to the bottom if it was checked off
