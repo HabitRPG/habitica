@@ -47,7 +47,7 @@ items = module.exports.items =
     {index: 6, text: 'Panda Cub', name: 'pandacub', icon: 'Pet-PandaCub-Base.png', value: 3}
     {index: 7, text: 'Tiger Cub', name: 'tigercub', icon: 'Pet-TigerCub-Base.png', value: 3}
     {index: 8, text: 'Desert Wolf', name: 'wolfDesert', icon: 'Pet-Wolf-Desert.png', value: 3}
-    {index: 9, text: 'Golden Wolf', name: 'wolfGolden', icon: 'Pet-Wolf-Golden.png', valu: 3}
+    {index: 9, text: 'Golden Wolf', name: 'wolfGolden', icon: 'Pet-Wolf-Golden.png', value: 3}
     {index: 10, text: 'Red Wolf', name: 'wolfRed', icon: 'Pet-Wolf-Red.png', value: 3}
     {index: 11, text: 'Shade Wolf', name: 'wolfShade', icon: 'Pet-Wolf-Shade.png', value: 3}
     {index: 12, text: 'Skeleton Wolf', name: 'wolfSkeleton', icon: 'Pet-Wolf-Skeleton.png', value: 3}
