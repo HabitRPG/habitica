@@ -17,6 +17,7 @@ habitrpgStore = require('./store')
 
 racer = require 'racer'
 racer.io.set('transports', ['xhr-polling'])
+racer.ioClient.set('reconnect limit', 300000) # max reconect timeout to 5 minutes
 racer.set('bundleTimeout', 40000)
 #unless process.env.NODE_ENV == 'production'
 #  racer.use(racer.logPlugin)
