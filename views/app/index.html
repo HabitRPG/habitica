@@ -652,9 +652,7 @@ do a find for the string after "→"
             <span class='{:p.gender}_weapon_{@profile.items.weapon}'></span>
             {/}
         </div>
-        {{#if @main}}
-          <div class="lvl"><span class="badge badge-info">Lvl {@profile.stats.lvl}</span></div>
-        {{else if @party}}
+        {{#unless @minimal}}
           <div class="lvl"><span class="badge badge-info">Lvl {@profile.stats.lvl}</span></div>
         {{/}}
     </div>
