@@ -469,8 +469,13 @@ do a find for the string after "→"
   </footer>
 
 <pet:>
-    <div class="span3"><img x-bind="click:selectPet" data-pet='{.name}' src='img/BrowserQuest/habitrpg_mods/{.icon}'/></div>
-  
+    <div class="span3 shop-pet" rel=tooltip title="{.text} - {.value} Tokens">
+        <div style='position:relative'>
+            {#if .userOwns}<i class='icon-ok shop-pet-owned-check'></i>{/}
+            <img x-bind="click:selectPet" data-pet='{.name}' src='img/BrowserQuest/habitrpg_mods/{.icon}'/>
+        </div>
+    </div>
+
 
 <!-- $modal-template -->
 <myModal: nonvoid>

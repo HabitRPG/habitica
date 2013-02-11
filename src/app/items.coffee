@@ -38,23 +38,23 @@ items = module.exports.items =
   reroll: {type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your tasks. When you're struggling and everything's red, use for a clean slate.", value:0 }
 
   pets: [
-    {index: 0, name: 'bearcub', icon: 'Pet-BearCub-Base.png'}
-    {index: 1, name: 'cactus', icon: 'Pet-Cactus-Base.png'}
-    {index: 2, name: 'dragon', icon: 'Pet-Dragon-Base.png'}
-    {index: 3, name: 'flyingpig', icon: 'Pet-FlyingPig-Base.png'}
-    {index: 4, name: 'fox', icon: 'Pet-Fox-Base.png'}
-    {index: 5, name: 'lioncub', icon: 'Pet-LionCub-Base.png'}
-    {index: 6, name: 'pandacub', icon: 'Pet-PandaCub-Base.png'}
-    {index: 7, name: 'tigercub', icon: 'Pet-TigerCub-Base.png'}
-    {index: 8, name: 'wolfDesert', icon: 'Pet-Wolf-Desert.png'}
-    {index: 9, name: 'wolfGolden', icon: 'Pet-Wolf-Golden.png'}
-    {index: 10, name: 'wolfRed', icon: 'Pet-Wolf-Red.png'}
-    {index: 11, name: 'wolfShade', icon: 'Pet-Wolf-Shade.png'}
-    {index: 12, name: 'wolfSkeleton', icon: 'Pet-Wolf-Skeleton.png'}
-    {index: 13, name: 'wolfVeteran', icon: 'Pet-Wolf-Veteran.png'}
-    {index: 14, name: 'wolfWhite', icon: 'Pet-Wolf-White.png'}
-    {index: 15, name: 'wolfZombie', icon: 'Pet-Wolf-Zombie.png'}
-    {index: 16, name: 'wolfBorder', icon: 'wolf_border.png'}
+    {index: 0, text: 'Bear Cub', name: 'bearcub', icon: 'Pet-BearCub-Base.png', value: 3}
+    {index: 1, text: 'Cactus', name: 'cactus', icon: 'Pet-Cactus-Base.png', value: 3}
+    {index: 2, text: 'Drake', name: 'dragon', icon: 'Pet-Dragon-Base.png', value: 3}
+    {index: 3, text: 'Flying Pig', name: 'flyingpig', icon: 'Pet-FlyingPig-Base.png', value: 3}
+    {index: 4, text: 'Fox', name: 'fox', icon: 'Pet-Fox-Base.png', value: 3}
+    {index: 5, text: 'Lion Cub', name: 'lioncub', icon: 'Pet-LionCub-Base.png', value: 3}
+    {index: 6, text: 'Panda Cub', name: 'pandacub', icon: 'Pet-PandaCub-Base.png', value: 3}
+    {index: 7, text: 'Tiger Cub', name: 'tigercub', icon: 'Pet-TigerCub-Base.png', value: 3}
+    {index: 8, text: 'Red Wolf', name: 'wolfDesert', icon: 'Pet-Wolf-Desert.png', value: 3}
+    {index: 9, text: 'Red Wolf', name: 'wolfGolden', icon: 'Pet-Wolf-Golden.png', valu: 3}
+    {index: 10, text: 'Red Wolf', name: 'wolfRed', icon: 'Pet-Wolf-Red.png', value: 3}
+    {index: 11, text: 'Shade Wolf', name: 'wolfShade', icon: 'Pet-Wolf-Shade.png', value: 3}
+    {index: 12, text: 'Skeleton Wolf', name: 'wolfSkeleton', icon: 'Pet-Wolf-Skeleton.png', value: 3}
+    {index: 13, text: 'Veteran Wolf', name: 'wolfVeteran', icon: 'Pet-Wolf-Veteran.png', value: 3}
+    {index: 14, text: 'White Wolf', name: 'wolfWhite', icon: 'Pet-Wolf-White.png', value: 3}
+    {index: 15, text: 'Zombie Wolf', name: 'wolfZombie', icon: 'Pet-Wolf-Zombie.png', value: 3}
+    {index: 16, text: 'Wolf', name: 'wolfBorder', icon: 'wolf_border.png', value: 3}
   ]
 
 # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
@@ -156,6 +156,7 @@ module.exports.app = (appExports, model) ->
       if r
         user.set "items.pets.#{name}",true
         user.set 'items.pet', pet
+        model.set "_view.pets.#{name}.userOwns", true
         user.set 'balance', (tokens - 2) / 4
 
   user.on 'set', 'flags.itemsEnabled', (captures, args) ->
@@ -188,6 +189,9 @@ module.exports.updateStore = updateStore = (model) ->
 
   model.set '_view.items.potion', items.potion
   model.set '_view.items.reroll', items.reroll
+
+  _.each items.pets, (p, key) ->
+    items.pets[key].userOwns = true if obj.items.pets[p.name]
   model.set '_view.items.pets', items.pets
 
 
