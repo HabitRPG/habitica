@@ -152,10 +152,8 @@ module.exports.app = (appExports, model) ->
       if tokens > 3
         r = confirm("Buy this pet with 2 of your #{tokens} tokens?");
         if r
-          user.set "items.pets.#{name}",true
+          user.set "items.pets.#{name}", true
           user.set 'items.pet', pet
-          model.set "_view.pets.#{name}.userOwns", true
-          user.set 'balance', (tokens - 2) / 4
       else
         $('#more-tokens-modal').modal('show')
 
@@ -196,9 +194,6 @@ module.exports.updateStore = updateStore = (model) ->
 
   model.set '_view.items.potion', items.potion
   model.set '_view.items.reroll', items.reroll
-
-  _.each items.pets, (p, key) ->
-    items.pets[key].userOwns = true if obj.items.pets[p.name]
   model.set '_view.items.pets', items.pets
 
 
