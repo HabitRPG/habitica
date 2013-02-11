@@ -186,7 +186,7 @@ module.exports.app = (appExports, model) ->
     return unless captures == true
     html = """
            <img src='/img/BrowserQuest/habitrpg_mods/wolf_border.png' style='width:30px;height:30px;float:left;padding-right:5px' />
-           You have unlocked Pets! You can now buy buy pets with tokens (note, you replenish tokens with real-life money - so chose your pets wisely!)
+           You have unlocked Pets! You can now buy pets with tokens (note, you replenish tokens with real-life money - so chose your pets wisely!)
            <a href='#' onClick="$('#rewardsTabs').popover('hide');return false;">[Close]</a>
            """
     $('#rewardsTabs').popover
