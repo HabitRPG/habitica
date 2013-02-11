@@ -137,7 +137,7 @@ do a find for the string after "→"
       
       <!-- user avatar preview -->
       <figure class="avatar-window">
-          <app:avatar profile={_user} />
+          <app:avatar profile={_user} minimal="true" />
           <figcaption class="char-name">{username(_user.auth)}</figcaption>
       </figure>
 
@@ -634,7 +634,7 @@ do a find for the string after "→"
 <!-- $avatar-template -->
 <avatar:>
     <div class="avatar {{#if @main}}main-avatar{{/}} {{#if @party}}party-avatar{{/}}" data-toggle='{{#if @main}}modal{{/}}' data-target='{{#if @main}}#customizations-modal{{/}}'>
-        {#if _user.items.pet}<img src='img/BrowserQuest/habitrpg_mods/{_user.items.pet.icon}' />{/}
+        {#unless @minimal}{#if _user.items.pet}<img src='img/BrowserQuest/habitrpg_mods/{_user.items.pet.icon}' />{/}{/}
         <div class='character-sprites'>
             {#with @profile.preferences as :p}
             <span class='{:p.gender}_skin_{:p.skin}'></span>
