@@ -339,6 +339,7 @@ do a find for the string after "→"
             <div class="row-fluid">
                 <div class="span6"><h2>Rewards</h2></div>
                 <div class="span6">
+                    {#unless _view.activeTabPets}
                     <table><tr>
                         <td>{gold(_user.stats.gp)} </td>
                         <td><div class='shop_gold' rel='tooltip' title='Gold'></div></td>
@@ -347,6 +348,9 @@ do a find for the string after "→"
                         <!--<td>{copper(_user.stats.gp)} </td>
                         <td><div class='shop_copper' rel='tooltip' title='shop_copper'></div></td>-->
                     </tr></table>
+                    {else}
+                        <app:userTokens />
+                    {/}
                 </div>
             </div>
             <app:newTask type=reward><input value={_newReward} type="text" name=new-task placeholder="New Reward"/></app:newTask>
@@ -416,8 +420,8 @@ do a find for the string after "→"
 
 
                 <ul class="nav nav-tabs" id="myTab">
-                    <li class="active"><a href="#rewards-tab" data-toggle="tab">Rewards</a></li>
-                    <li><a href="#pets-tab" data-toggle="tab">Pets</a></li>
+                    <li class="active"><a href="#rewards-tab" data-toggle="tab" x-bind="click:activateRewardsTab">Rewards</a></li>
+                    <li><a href="#pets-tab" data-toggle="tab" x-bind='click:activatePetsTab'>Pets</a></li>
                     <li><a href="#mounts-tab" data-toggle="tab">Mounts</a></li>
                 </ul>
             </div>
@@ -499,7 +503,6 @@ do a find for the string after "→"
       <span class="uneditable-input" style="width:auto;">{tokens(_user.balance)}</span>
       <span class="add-on">Tokens</span>
     </div>
-    <a class="label" data-toggle="modal" href='#reset-modal'><i class="icon-ban-circle"></i>Reset</a>
   </div>
   <!--<span class="well pull-right">Tokens: {tokens(_user.balance)}</span>-->
 

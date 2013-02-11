@@ -159,6 +159,13 @@ module.exports.app = (appExports, model) ->
         model.set "_view.pets.#{name}.userOwns", true
         user.set 'balance', (tokens - 2) / 4
 
+  appExports.activateRewardsTab = ->
+    model.set '_view.activeTabRewards', true
+    model.set '_view.activeTabPets', false
+  appExports.activatePetsTab = ->
+    model.set '_view.activeTabPets', true
+    model.set '_view.activeTabRewards', false
+
   user.on 'set', 'flags.itemsEnabled', (captures, args) ->
     return unless captures == true
     html = """
