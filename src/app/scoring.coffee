@@ -89,14 +89,14 @@ updateStats = (newStats, batch) ->
     if !obj.flags.customizationsNotification and (obj.stats.exp > 10 or obj.stats.lvl > 1)
       batch.set 'flags.customizationsNotification', true
       obj.flags.customizationsNotification = true
-    if !obj.flags.itemsEnabled and obj.stats.lvl >= 2
+    if !obj.flags.itemsEnabled and obj.stats.lvl >= 1
       # Set to object, then also send to browser right away to get model.on() subscription notification
       batch.set 'flags.itemsEnabled', true
       obj.flags.itemsEnabled = true
-    if !obj.flags.partyEnabled and obj.stats.lvl >= 3
+    if !obj.flags.partyEnabled and obj.stats.lvl >= 2
       batch.set 'flags.partyEnabled', true
       obj.flags.partyEnabled = true
-    if !obj.flags.petsEnabled and obj.stats.lvl >= 4
+    if !obj.flags.petsEnabled and obj.stats.lvl >= 3
       batch.set 'flags.petsEnabled', true
       obj.flags.petsEnabled = true
 
