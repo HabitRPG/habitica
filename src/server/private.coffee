@@ -25,7 +25,7 @@ module.exports.app = (appExports, model) ->
       address: false
       amount: 500
       name: "Checkout"
-      description: "Removes ads and grants 20 additional tokens."
+      description: "Purchase 20 Tokens."
       panelLabel: "Checkout"
       token: token
 
