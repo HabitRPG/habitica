@@ -301,37 +301,36 @@ do a find for the string after "→"
         <h2>Habits</h2>
         <!--removing for now, help-info in the tour instead-->
         <!--<span class="help-icon" rel="popover" data-placement="bottom" data-trigger="hover" data-original-title="{{{helpTitle}}}" data-content="{{{helpContent}}}"><i class="icon-question-sign"></i></span>-->
-        <ul class='habits'>{#each _habitList as :task}<app:task />{/}</ul>
         <app:newTask type=habit><input value={_newHabit} type="text" name=new-task placeholder="New Habit"/></app:newTask>
+        <ul class='habits'>{#each _habitList as :task}<app:task />{/}</ul>
       </div>
 
       <div class="span3 well dailys">
         <h2>Daily</h2>
-        <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
         <app:newTask type=daily><input value={_newDaily} type="text" name=new-task placeholder="New Daily"/></app:newTask>
+        <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
       </div>
 
-      <div class="span3 well todos context-enabled context-uncompleted" id="todo-well">
-        <div class="row-fluid">
-          <h2 class="span6">Todos</h2>
-          <ul class="span6 nav nav-pills">
-            <li class="active"><a x-bind=click:changeContext data-target="#todo-well" data-context="context-uncompleted">Remaining</a></li>
-            <li><a x-bind=click:changeContext data-target="#todo-well" data-context="context-completed">Complete</a></li>
-          </ul>
+      <div class="span3 well todos context-enabled context-uncompleted tabbable tabs-below" id="todo-well">
+        <h2>Todos</h2>
+        <div class="display-context-dependant show-for-uncompleted">
+          <app:newTask type=todo><input value={_newTodo} type="text" name=new-task placeholder="New Todo"/></app:newTask>
         </div>
         <ul class='todos task-list'>
           {#each _todoList as :task}<app:task />{/}
         </ul>
-        <div class="display-context-dependant show-for-uncompleted">
-          <app:newTask type=todo><input value={_newTodo} type="text" name=new-task placeholder="New Todo"/></app:newTask>
-        </div>
         <div class="display-context-dependant show-for-completed">
-          <a x-bind=click:clearCompleted>Clear Completed</a>
+          <a class='btn' x-bind=click:clearCompleted>Clear Completed</a>
         </div>
         {#if _user.history.todos}
-          <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
+          <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip class="pull-right" title="Progress"><i class=icon-signal></i></a>
           <div id="todos-chart" style="display:none;"></div>
         {/}
+        <ul class="nav nav-tabs">
+          <li class="active"><a x-bind=click:changeContext data-target="#todo-well" data-context="context-uncompleted">Remaining</a></li>
+          <li><a x-bind=click:changeContext data-target="#todo-well" data-context="context-completed">Complete</a></li>
+        </ul>
+
       </div>
 
         <div class="span3 well rewards">
@@ -350,24 +349,66 @@ do a find for the string after "→"
                     </tr></table>
                 </div>
             </div>
+            <app:newTask type=reward><input value={_newReward} type="text" name=new-task placeholder="New Reward"/></app:newTask>
 
-            <!-- Content -->
-            <ul class='rewards'>
-                {#each _rewardList as :task}<app:task />{/}
-            </ul>
+            <div class='tabbable tabs-below'>
 
-            {#if _user.flags.itemsEnabled}
-              <ul class='items'>
-                {#with _view.items.weapon as :item}<app:item />{/}
-                {#with _view.items.armor as :item}<app:item />{/}
-                {#with _view.items.head as :item}<app:item />{/}
-                {#with _view.items.shield as :item}<app:item />{/}
-                {#with _view.items.potion as :item}<app:item />{/}
-                {#with _view.items.reroll as :item}<app:item reroll=true />{/}
-              </ul>
-            {/}
-        
-        <app:newTask type=reward><input value={_newReward} type="text" name=new-task placeholder="New Reward"/></app:newTask>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="rewards-tab">
+                        <!-- Content -->
+                        <ul class='rewards'>
+                            {#each _rewardList as :task}<app:task />{/}
+                        </ul>
+
+
+                        {#if _user.flags.itemsEnabled}
+                        <ul class='items'>
+                            {#with _view.items.weapon as :item}<app:item />{/}
+                            {#with _view.items.armor as :item}<app:item />{/}
+                            {#with _view.items.head as :item}<app:item />{/}
+                            {#with _view.items.shield as :item}<app:item />{/}
+                            {#with _view.items.potion as :item}<app:item />{/}
+                            {#with _view.items.reroll as :item}<app:item reroll=true />{/}
+                        </ul>
+                        {/}
+                    </div>
+
+                    <div class="tab-pane" id="pets-tab">
+                        <div class="row-fluid">
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-BearCub-Base.png'/></div>
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Cactus-Base.png'/></div>
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Dragon-Base.png'/></div>
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-FlyingPig-Base.png'/></div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-LionCub-Base.png'/></div>
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-PandaCub-Base.png'/></div>
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-TigerCub-Base.png'/></div>
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-Desert.png'/></div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-Golden.png'/></div>
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-Red.png'/></div>
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-Shade.png'/></div>
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-Skeleton.png'/></div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-Veteran.png'/></div>
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-White.png'/></div>
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-Zombie.png'/></div>
+                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/wolf_border.png'/></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="mounts-tab">...</div>
+                </div>
+
+
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active"><a href="#rewards-tab" data-toggle="tab">Rewards</a></li>
+                    <li><a href="#pets-tab" data-toggle="tab">Pets</a></li>
+                    <li><a href="#mounts-tab" data-toggle="tab">Mounts</a></li>
+                </ul>
+            </div>
       </div>
 
 
