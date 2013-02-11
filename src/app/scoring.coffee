@@ -96,6 +96,9 @@ updateStats = (newStats, batch) ->
     if !obj.flags.partyEnabled and obj.stats.lvl >= 3
       batch.set 'flags.partyEnabled', true
       obj.flags.partyEnabled = true
+    if !obj.flags.petsEnabled and obj.stats.lvl >= 4
+      batch.set 'flags.petsEnabled', true
+      obj.flags.petsEnabled = true
 
   if newStats.gp?
     #FIXME what was I doing here? I can't remember, gp isn't defined
