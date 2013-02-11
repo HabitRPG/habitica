@@ -22,4 +22,7 @@ module.exports.viewHelpers = (view) ->
   view.fn "tokens", (gp) ->
     return gp/0.25
 
+  view.fn "mod", (a, b) ->
+    parseInt(a) % parseInt(b) == 0
+
 

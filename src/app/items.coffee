@@ -37,6 +37,26 @@ items = module.exports.items =
   potion: {type: 'potion', text: "Potion", notes: "Recover 15 HP", value: 25, classes: 'potion'}
   reroll: {type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your tasks. When you're struggling and everything's red, use for a clean slate.", value:0 }
 
+  pets: [
+    {index: 0, name: 'bearcub', icon: 'Pet-BearCub-Base.png'}
+    {index: 1, name: 'cactus', icon: 'Pet-Cactus-Base.png'}
+    {index: 2, name: 'dragon', icon: 'Pet-Dragon-Base.png'}
+    {index: 3, name: 'flyingpig', icon: 'Pet-FlyingPig-Base.png'}
+    {index: 4, name: 'fox', icon: 'Pet-Fox-Base.png'}
+    {index: 5, name: 'lioncub', icon: 'Pet-LionCub-Base.png'}
+    {index: 6, name: 'pandacub', icon: 'Pet-PandaCub-Base.png'}
+    {index: 7, name: 'tigercub', icon: 'Pet-TigerCub-Base.png'}
+    {index: 8, name: 'wolfDesert', icon: 'Pet-Wolf-Desert.png'}
+    {index: 9, name: 'wolfGolden', icon: 'Pet-Wolf-Golden.png'}
+    {index: 10, name: 'wolfRed', icon: 'Pet-Wolf-Red.png'}
+    {index: 11, name: 'wolfShade', icon: 'Pet-Wolf-Shade.png'}
+    {index: 12, name: 'wolfSkeleton', icon: 'Pet-Wolf-Skeleton.png'}
+    {index: 13, name: 'wolfVeteran', icon: 'Pet-Wolf-Veteran.png'}
+    {index: 14, name: 'wolfWhite', icon: 'Pet-Wolf-White.png'}
+    {index: 15, name: 'wolfZombie', icon: 'Pet-Wolf-Zombie.png'}
+    {index: 16, name: 'wolfBorder', icon: 'wolf_border.png'}
+  ]
+
 # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
 _.each ['weapon', 'armor', 'head', 'shield'], (key) ->
   _.each items[key], (item) -> item.type = key
@@ -121,6 +141,23 @@ module.exports.app = (appExports, model) ->
       hp = 50 if hp > 50
       user.set 'stats.hp', hp
 
+  appExports.selectPet = (e, el) ->
+    name = $(el).attr('data-pet')
+    pet = _.find items.pets, (p) -> p.name == name
+    debugger
+    if user.get "items.pets.#{name}"
+      user.set 'items.pet', pet
+    else
+      tokens = user.get('balance')*4
+      if tokens < 2
+        alert "Not enough tokens"
+        return
+      r = confirm("Buy this pet with 2 of your #{tokens} tokens?");
+      if r
+        user.set "items.pets.#{name}",true
+        user.set 'items.pet', pet
+        user.set 'balance', (tokens - 2) / 4
+
   user.on 'set', 'flags.itemsEnabled', (captures, args) ->
     return unless captures == true
     html = """
@@ -151,6 +188,7 @@ module.exports.updateStore = updateStore = (model) ->
 
   model.set '_view.items.potion', items.potion
   model.set '_view.items.reroll', items.reroll
+  model.set '_view.items.pets', items.pets
 
 
 

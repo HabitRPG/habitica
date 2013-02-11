@@ -374,30 +374,42 @@ do a find for the string after "→"
                     </div>
 
                     <div class="tab-pane" id="pets-tab">
+                        {#with _view.items.pets as :pets}
+
                         <div class="row-fluid">
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-BearCub-Base.png'/></div>
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Cactus-Base.png'/></div>
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Dragon-Base.png'/></div>
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-FlyingPig-Base.png'/></div>
+                            {#with :pets[0]}<app:pet />{/}
+                            {#with :pets[1]}<app:pet />{/}
+                            {#with :pets[2]}<app:pet />{/}
+                            {#with :pets[3]}<app:pet />{/}
                         </div>
+
                         <div class="row-fluid">
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-LionCub-Base.png'/></div>
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-PandaCub-Base.png'/></div>
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-TigerCub-Base.png'/></div>
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-Desert.png'/></div>
+                            {#with :pets[4]}<app:pet />{/}
+                            {#with :pets[5]}<app:pet />{/}
+                            {#with :pets[6]}<app:pet />{/}
+                            {#with :pets[7]}<app:pet />{/}
                         </div>
+
                         <div class="row-fluid">
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-Golden.png'/></div>
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-Red.png'/></div>
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-Shade.png'/></div>
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-Skeleton.png'/></div>
+                            {#with :pets[8]}<app:pet />{/}
+                            {#with :pets[9]}<app:pet />{/}
+                            {#with :pets[10]}<app:pet />{/}
+                            {#with :pets[11]}<app:pet />{/}
                         </div>
+
                         <div class="row-fluid">
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-Veteran.png'/></div>
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-White.png'/></div>
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/Pet-Wolf-Zombie.png'/></div>
-                            <div class="span3"><img src='img/BrowserQuest/habitrpg_mods/wolf_border.png'/></div>
+                            {#with :pets[12]}<app:pet />{/}
+                            {#with :pets[13]}<app:pet />{/}
+                            {#with :pets[14]}<app:pet />{/}
+                            {#with :pets[15]}<app:pet />{/}
                         </div>
+
+                        <div class="row-fluid">
+                            {#with :pets[16]}<app:pet />{/}
+                        </div>
+
+
+                        {/}
                     </div>
                     <div class="tab-pane" id="mounts-tab">...</div>
                 </div>
@@ -455,6 +467,9 @@ do a find for the string after "→"
         </div>
     </div>
   </footer>
+
+<pet:>
+    <div class="span3"><img x-bind="click:selectPet" data-pet='{.name}' src='img/BrowserQuest/habitrpg_mods/{.icon}'/></div>
   
 
 <!-- $modal-template -->
@@ -602,6 +617,7 @@ do a find for the string after "→"
 <!-- $avatar-template -->
 <avatar:>
     <div class="avatar {{#if @main}}main-avatar{{/}} {{#if @party}}party-avatar{{/}}" data-toggle='{{#if @main}}modal{{/}}' data-target='{{#if @main}}#customizations-modal{{/}}'>
+        {#if _user.items.pet}<img src='img/BrowserQuest/habitrpg_mods/{_user.items.pet.icon}' />{/}
         <div class='character-sprites'>
             {#with @profile.preferences as :p}
             <span class='{:p.gender}_skin_{:p.skin}'></span>
