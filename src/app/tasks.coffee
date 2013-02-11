@@ -43,8 +43,10 @@ module.exports.app = (appExports, model) ->
     list = model.at "_#{type}List"
     newModel = model.at('_new' + type.charAt(0).toUpperCase() + type.slice(1))
     text = newModel.get()
-    # Don't add a blank todo
-    return if /^(\s)*$/.test(text)
+    # Don't add a blank task
+    if /^(\s)*$/.test(text)
+      console.error "Task text entered was an empty string."
+      return
 
     newModel.set ''
     switch type
