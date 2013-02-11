@@ -122,6 +122,15 @@ do a find for the string after "→"
       </@footer>
   </app:myModal>
 
+  <!-- Buy more tokens modal -->
+  <app:myModal modalId='more-tokens-modal' header="Out Of Tokens">
+      <app:userTokens/>
+      <p>You're out of tokens, which are used to buy pets and mounts.</p>
+      <@footer>
+      <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-danger btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
+  </@footer>
+  </app:myModal>
+
   <!-- $customizations-modal -->
   <app:myModal modalId="customizations-modal" header="Customize">
     {#with _user.preferences}

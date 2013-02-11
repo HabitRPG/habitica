@@ -149,15 +149,15 @@ module.exports.app = (appExports, model) ->
       user.set 'items.pet', pet
     else
       tokens = user.get('balance')*4
-      if tokens < 2
-        alert "Not enough tokens"
-        return
-      r = confirm("Buy this pet with 2 of your #{tokens} tokens?");
-      if r
-        user.set "items.pets.#{name}",true
-        user.set 'items.pet', pet
-        model.set "_view.pets.#{name}.userOwns", true
-        user.set 'balance', (tokens - 2) / 4
+      if tokens > 3
+        r = confirm("Buy this pet with 2 of your #{tokens} tokens?");
+        if r
+          user.set "items.pets.#{name}",true
+          user.set 'items.pet', pet
+          model.set "_view.pets.#{name}.userOwns", true
+          user.set 'balance', (tokens - 2) / 4
+      else
+        $('#more-tokens-modal').modal('show')
 
   appExports.activateRewardsTab = ->
     model.set '_view.activeTabRewards', true
