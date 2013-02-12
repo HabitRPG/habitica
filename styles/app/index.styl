@@ -17,11 +17,6 @@ html,body,p,h1,ul,li,table,tr,th,td
 
 #head
   background: #ddd
-  background: -webkit-gradient(linear,0 0,0 100%,from(#e7e7e7),to(#d0d0d0))
-  background: -moz-linear-gradient(#e7e7e7, #d0d0d0)
-  background: -ms-linear-gradient(#e7e7e7, #d0d0d0)
-  background: -o-linear-gradient(#e7e7e7, #d0d0d0)
-  background: linear-gradient(#e7e7e7, #d0d0d0)
   -webkit-box-shadow: inset 0 1px #f7f7f7, 0 1px #888, 0 2px #e7e7e7
   -moz-box-shadow: inset 0 1px #f7f7f7, 0 1px #888, 0 2px #e7e7e7
   box-shadow: inset 0 1px #f7f7f7, 0 1px #888, 0 2px #e7e7e7
@@ -42,6 +37,9 @@ html,body,p,h1,ul,li,table,tr,th,td
   margin-right: 0
   margin-left: 1%
 
+#exp-chart
+  padding-top: 3em 
+  
 .modal
   whitespace:normal
 
@@ -85,49 +83,48 @@ html,body,p,h1,ul,li,table,tr,th,td
   vertical-align: 20%
 
 progress
-  display: inline-block
   width: 100%
   height: 25px
-  line-height: 1.5em
   border: 1px solid #111;
   background: #fff;
   -webkit-border-radius 4px
   border-radius 4px
 
-progress::-webkit-progress-bar {
+progress::-webkit-progress-bar
   background: transparent;
-}
 
-progress::-webkit-progress-value {
+progress::-webkit-progress-value
   -webkit-transition 0.25s linear
   -moz-transition 0.25s linear
-  -ms-transition 0.25s linear
-  -o-transition 0.25s linear
   transition 0.25s linear
-}
 
-.health progress::-moz-progress-bar {
-  border-right: 1px solid #888
-  background:#dd514c;
-}
+.health 
+  progress::-webkit-progress-value
+    border-right: 1px solid #666
+    background:#dd514c;
+  progress::-moz-progress-bar
+    border-right: 1px solid #888
+    background:#dd514c;
 
-.health progress::-webkit-progress-value {
-  border-right: 1px solid #666
-  background:#dd514c;
-}
+.full-hp
+  progress::-webkit-progress-value
+    border-right: none
+  progress::-moz-progress-bar
+    border-right: none
 
-.exp progress::-moz-progress-bar {
-  border-right: 1px solid #888
-  background:#faa732;
-}
-.exp progress::-webkit-progress-value {
-  border-right: 1px solid #888
-  background:#faa732;
-}
+.exp
+  progress::-webkit-progress-value
+    border-right: 1px solid #888
+    background:#faa732;
+  progress::-moz-progress-bar
+    border-right: 1px solid #888
+    background:#faa732;
 
-
-#exp-chart
-  padding-top: 3em
+/* Main Area
+-------------------------------------------------- */
+.well {
+  border: 1px solid #bbb
+}
 
 
 /* Footer

@@ -274,7 +274,7 @@ do a find for the string after "→"
 
         <!-- progress bars -->
         <div class="progress-bars">
-          <div class="stat-meter health">
+          <div class="stat-meter health {#if gt(_user.stats.hp,49)}full-hp{/}">
             <progress max="50" value="{_user.stats.hp}" rel=tooltip data-placement=bottom title="Health"></progress>
             <span class="progress-text"><i class=icon-heart></i> {round(_user.stats.hp)} / 50</span>
           </div>
