@@ -149,6 +149,6 @@ module.exports.app = (appExports, model) ->
       selfQ.subscribe (err, u) ->
         model.ref '_user', u.at(0)
         browser.resetDom model
-    #setTimeout (-> window.location.reload true), 1
+        #setTimeout (-> window.location.reload true), 1
 
   #exports.partyDisband = ->
