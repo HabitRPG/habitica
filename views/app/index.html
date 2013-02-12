@@ -4,6 +4,7 @@ do a find for the string after "→"
 -----------------------------------
 → $modal-template
 → $customizations-modal
+→ $avatar
 → $avatar-template
 =================================== -->
 
@@ -139,7 +140,7 @@ do a find for the string after "→"
     {#with _user.preferences}
       
       <!-- user avatar preview -->
-      <figure class="avatar-window">
+      <figure class="customization-avatar-wrap char-box">
           <app:avatar profile={_user} minimal="true" />
           <figcaption class="char-name">{username(_user.auth)}</figcaption>
       </figure>
@@ -257,7 +258,7 @@ do a find for the string after "→"
     <div class="row-fluid">
       <div class='char-status {#if gt(_partyMembers.length,1)}span8 offset2 has-party{else}span6 offset3{/}'>
         
-        <!-- avatar -->
+        <!-- $avatar -->
         <figure class="main-avatar-wrap">
           <app:avatar profile={_user} main="true" />
         </figure>
