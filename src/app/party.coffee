@@ -144,11 +144,15 @@ module.exports.app = (appExports, model) ->
       model.del "parties.#{id}"
     model.set '_party', null
     model.set '_partyMembers', null
+    setTimeout (-> window.location.reload true), 10
+    return
+
+    # This should handle not requiring a refresh, but alas.
     partyUnsubscribe model, ->
       selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
       selfQ.subscribe (err, u) ->
         model.ref '_user', u.at(0)
         browser.resetDom model
-        #setTimeout (-> window.location.reload true), 1
+
 
   #exports.partyDisband = ->
