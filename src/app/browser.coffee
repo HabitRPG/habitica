@@ -1,11 +1,20 @@
 _ = require 'underscore'
 
+module.exports.restoreRefs = restoreRefs = (model) ->
+  # tnl function
+  model.fn '_tnl', '_user.stats.lvl', (lvl) ->
+    # see https://github.com/lefnire/habitrpg/issues/4
+    # also update in scoring.coffee. TODO create a function accessible in both locations
+    (lvl*100)/5
+
+  #refLists
+  _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
+    model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+
 module.exports.resetDom = (model) ->
   window.DERBY.app.dom.clear()
+  restoreRefs(model)
   window.DERBY.app.view.render(model)
-  model.fn '_tnl', '_user.stats.lvl', (lvl) -> (lvl*100)/5
-#  _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
-#    model.refList "_#{type}List", "_user.tasks", "_user.{type}Ids"
 
 module.exports.app = (appExports, model) ->
   loadJavaScripts(model)

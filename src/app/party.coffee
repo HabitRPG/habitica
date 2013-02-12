@@ -5,10 +5,11 @@ browser = require './browser'
 partyQ = null
 membersQ = null
 
-partyUnsubscribe = (model) ->
+partyUnsubscribe = (model, cb) ->
   if window?
     subs = model._subs()
     model.unsubscribe.apply(model, subs)
+    cb() if cb?
 
 module.exports.partySubscribe = partySubscribe = (model, cb) ->
 
@@ -143,11 +144,11 @@ module.exports.app = (appExports, model) ->
       model.del "parties.#{id}"
     model.set '_party', null
     model.set '_partyMembers', null
-    partyUnsubscribe model
-    selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
-    selfQ.subscribe (err, u) ->
-      model.ref '_user', u.at(0)
-      browser.resetDom model
+    partyUnsubscribe model, ->
+      selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
+      selfQ.subscribe (err, u) ->
+        model.ref '_user', u.at(0)
+        browser.resetDom model
     #setTimeout (-> window.location.reload true), 1
 
   #exports.partyDisband = ->

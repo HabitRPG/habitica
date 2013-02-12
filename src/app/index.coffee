@@ -1,8 +1,8 @@
 derby = require 'derby'
 {get, view, ready} = derby.createApp module
 derby.use require 'derby-ui-boot'
-derby.use require('../../ui')
-derby.use require('derby-auth/components');
+derby.use require '../../ui'
+derby.use require 'derby-auth/components'
 
 # Custom requires
 character = require './character'
@@ -52,15 +52,7 @@ get '/', (page, model, next) ->
     character.updateUser(batch)
     batch.commit()
 
-    # refLists
-    _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
-      model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-
-    # tnl function
-    model.fn '_tnl', '_user.stats.lvl', (lvl) ->
-      # see https://github.com/lefnire/habitrpg/issues/4
-      # also update in scoring.coffee. TODO create a function accessible in both locations
-      (lvl*100)/5
+    browser.restoreRefs model
 
     party.partySubscribe model, -> page.render()
 
