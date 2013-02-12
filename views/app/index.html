@@ -308,20 +308,20 @@ do a find for the string after "→"
       <!--helpTitle & helpContent moved to tour -->
       <div class="span3 well habits">
         <h2>Habits</h2>
-        <app:newTask type="habit"><input value="{_newHabit}" type="text" name="new-task" placeholder="New Habit"/></app:newTask>
+        <app:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
         <ul class="habits">{#each _habitList as :task}<app:task />{/}</ul>
       </div>
 
       <div class="span3 well dailys">
         <h2>Daily</h2>
-        <app:newTask type="daily"><input value={_newDaily} type="text" name=new-task placeholder="New Daily"/></app:newTask>
+        <app:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
         <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
       </div>
 
       <div class="span3 well todos context-enabled context-uncompleted tabbable tabs-below" id="todo-well">
         <h2>Todos</h2>
         <div class="display-context-dependant show-for-uncompleted">
-          <app:newTask type="todo"><input value={_newTodo} type="text" name=new-task placeholder="New Todo"/></app:newTask>
+          <app:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />
         </div>
         <ul class='todos task-list'>
           {#each _todoList as :task}<app:task />{/}
@@ -361,7 +361,7 @@ do a find for the string after "→"
                     {/}
                 </div>
             </div>
-            <app:newTask type="reward"><input value={_newReward} type="text" name=new-task placeholder="New Reward"/></app:newTask>
+            <app:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
 
             {#if _user.flags.petsEnabled}
                 <div class='tabbable tabs-below'>
@@ -520,9 +520,9 @@ do a find for the string after "→"
   </div>
   <!--<span class="well pull-right">Tokens: {tokens(_user.balance)}</span>-->
 
-<newTask: nonvoid>
-  <form class="form-inline new-task-form" id="new-{{@type}}" data-task-type="{{@type}}" x-bind="submit:addTask">
-    {{@content}}
+<newTask:>
+  <form class="form-inline new-task-form" id="new-{@type}" data-task-type="{@type}" x-bind="submit:addTask">
+    <input value="{@inputValue}" type="text" name="new-task" placeholder="{@placeHolder}"/>
     <input class="btn" type="submit" value="Add" />
   </form>
 
