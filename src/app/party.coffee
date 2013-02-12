@@ -8,8 +8,8 @@ membersQ = null
 partyUnsubscribe = (model, cb) ->
   if window?
     subs = model._subs()
+    subs.concat cb if cb?
     model.unsubscribe.apply(model, subs)
-    cb() if cb?
 
 module.exports.partySubscribe = partySubscribe = (model, cb) ->
 

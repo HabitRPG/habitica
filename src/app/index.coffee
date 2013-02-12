@@ -52,9 +52,9 @@ get '/', (page, model, next) ->
     character.updateUser(batch)
     batch.commit()
 
-    browser.restoreRefs model
-
-    party.partySubscribe model, -> page.render()
+    party.partySubscribe model, ->
+      browser.restoreRefs model
+      page.render()
 
 # ========== CONTROLLER FUNCTIONS ==========
 
