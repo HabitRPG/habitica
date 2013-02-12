@@ -106,26 +106,23 @@ progress::-webkit-progress-value {
   transition 0.25s linear
 }
 
+.health progress::-moz-progress-bar {
+  border-right: 1px solid #888
+  background:#dd514c;
+}
+
 .health progress::-webkit-progress-value {
   border-right: 1px solid #666
   background:#dd514c;
-  background-image:-moz-linear-gradient(top,#ee5f5b,#c43c35);
-  background-image:-webkit-gradient(linear,0 0,0 100%,from(#ee5f5b),to(#c43c35));
-  background-image:-webkit-linear-gradient(top,#ee5f5b,#c43c35);
-  background-image:-o-linear-gradient(top,#ee5f5b,#c43c35);
-  background-image:linear-gradient(to bottom,#ee5f5b,#c43c35);
-  background-repeat:repeat-x;
 }
 
+.exp progress::-moz-progress-bar {
+  border-right: 1px solid #888
+  background:#faa732;
+}
 .exp progress::-webkit-progress-value {
   border-right: 1px solid #888
   background:#faa732;
-  background-image:-moz-linear-gradient(top,#fbb450,#f89406);
-  background-image:-webkit-gradient(linear,0 0,0 100%,from(#fbb450),to(#f89406));
-  background-image:-webkit-linear-gradient(top,#fbb450,#f89406);
-  background-image:-o-linear-gradient(top,#fbb450,#f89406);
-  background-image:linear-gradient(to bottom,#fbb450,#f89406);
-  background-repeat:repeat-x;
 }
 
 
