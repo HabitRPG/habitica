@@ -176,8 +176,11 @@ score = (taskId, direction, times, batch, cron) ->
       gp -= Math.abs(taskObj.value)
       num = parseFloat(taskObj.value).toFixed(2)
       # if too expensive, reduce health & zero gp
+
       if gp < 0
-        hp += gp # hp - gp difference
+        r = confirm "You don't have enough GP to purchase this reward, purchase anyway and lose health?"
+        if r
+          hp += gp # hp - gp difference
         gp = 0
 
   taskObj.value = value
