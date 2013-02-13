@@ -33,7 +33,6 @@ loadJavaScripts = (model) ->
   # Load public/js/* files
   # TODO use Bower
   require '../../public/js/jquery.min'
-  require '../../public/js/progress-polyfill'
   require '../../public/js/jquery-ui.min' unless model.get('_view.mobileDevice')
   require '../../public/js/bootstrap.min' #http://twitter.github.com/bootstrap/assets/js/bootstrap.min.js
   require '../../public/js/jquery.cookie' #https://raw.github.com/carhartl/jquery-cookie/master/jquery.cookie.js
