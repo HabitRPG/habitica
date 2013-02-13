@@ -19,13 +19,18 @@ var registered = {
 
 var today = +(new Date);
 
+//  isValidDate = (d) ->
+//    return false  if Object::toString.call(d) isnt "[object Date]"
+//    not isNaN(d.getTime())
+
+
 db.users.find(un_registered).forEach(function(user) {
     var diff, lastCron;
     if (!user) return;
     if (!!user.lastCron) {
         lastCron = new Date(user.lastCron);
         diff = Math.abs(moment(today).startOf('day').diff(moment(lastCron).startOf('day'), "days"));
-        if (diff > 10) {
+        if (diff > 7) {
             return db.users.remove({_id:user._id});
         }
     } else {
