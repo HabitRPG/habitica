@@ -4,6 +4,7 @@ do a find for the string after "→"
 -----------------------------------
 → $modal-template
 → $customizations-modal
+→ $avatar
 → $avatar-template
 =================================== -->
 
@@ -13,6 +14,9 @@ do a find for the string after "→"
 <Head:>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- progress element polyfill ** TODO: SET UP WITH MODERNIZR **-->
+  <script>document.createElement('progress');</script>
+  <link rel="stylesheet" href="css/progress-polyfill.css">
 
 <modalDialogs:>
   {#if _loggedIn}
@@ -142,7 +146,7 @@ do a find for the string after "→"
     {#with _user.preferences}
       
       <!-- user avatar preview -->
-      <figure class="avatar-window">
+      <figure class="customization-avatar-wrap char-box">
           <app:avatar profile={_user} minimal="true" />
           <figcaption class="char-name">{username(_user.auth)}</figcaption>
       </figure>
@@ -260,7 +264,7 @@ do a find for the string after "→"
     <div class="row-fluid">
       <div class='char-status {#if gt(_partyMembers.length,1)}span8 offset2 has-party{else}span6 offset3{/}'>
         
-        <!-- avatar -->
+        <!-- $avatar -->
         <figure class="main-avatar-wrap">
           <app:avatar profile={_user} main="true" />
         </figure>
@@ -276,19 +280,18 @@ do a find for the string after "→"
 
         <!-- progress bars -->
         <div class="progress-bars">
-          <div class="progress progress-danger" rel=tooltip data-placement=bottom title="Health">
-            <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
-            <span class="progress-text"><i class=icon-heart></i> {round(_user.stats.hp)} / 50</span>  
+          <div class="stat-meter health {#if gt(_user.stats.hp,49)}full-hp{/}">
+            <progress max="50" value="{_user.stats.hp}" rel=tooltip data-placement=bottom title="Health"></progress>
+            <span class="progress-text"><i class=icon-heart></i> {round(_user.stats.hp)} / 50</span>
           </div>
-
-          <div class="progress progress-warning" rel=tooltip data-placement=bottom title="Experience">
-            <div class="bar" style="width: {percent(_user.stats.exp,_tnl)}%;"></div>
-            <span class="progress-text">
-              {#if _user.history.exp}
-                <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp;
-              {/}
-              <i class=icon-star></i> {round(_user.stats.exp)} / {_tnl}
-            </span>
+          <div class="stat-meter exp">
+            <progress max="{_tnl}" value="{round(_user.stats.exp)}" rel=tooltip data-placement=bottom title="Experience"></progress>
+              <span class="progress-text">
+                {#if _user.history.exp}
+                  <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp;
+                {/}
+                <i class=icon-star></i> {round(_user.stats.exp)} / {_tnl}
+              </span>
           </div>
           <div id="exp-chart" style="display:none;"></div>
         </div>
@@ -662,6 +665,7 @@ do a find for the string after "→"
     </div>
 
 <Scripts:>
+    <script src="js/progress-polyfill.js"></script>
     <script src="https://checkout.stripe.com/v2/checkout.js"></script>
     {#if equal(_view.nodeEnv,"production")}
         <!-- Google Analytics -->
