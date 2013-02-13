@@ -13,39 +13,39 @@ module.exports.customAccessControl = (store) ->
 ###
 userAccess = (store) ->
 
-  store.readPathAccess "users.*", -> # captures, next) ->
-    next = arguments[arguments.length - 1]
-    return next(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
+  store.readPathAccess "users.*", -> # captures, accept, err ->
+    accept = arguments[arguments.length - 2]
+    return accept(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
     uid = arguments[0]
-    next (uid is @session.userId) or @session.req?._isServer
+    accept (uid is @session.userId) or @session.req?._isServer
 
-  store.writeAccess "*", "users.*", -> # captures, value, next) ->
-    next = arguments[arguments.length-1]
-    return next(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
+  store.writeAccess "*", "users.*", -> # captures, value, accept, err ->
+    accept = arguments[arguments.length-2]
+    return accept(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
     captures = arguments[0].split('.')
     uid = captures.shift()
     attrPath = captures.join('.') # new array shifted left, after shift() was run
 
     # public access to users.*.party.invitation (TODO, lock down a bit more)
     if (attrPath == 'party.invitation')
-      return next(true)
+      return accept(true)
 
     # Same session (user.id = this.session.userId)
     if (uid is @session.userId) or @session.req?._isServer
-      return next(true)
+      return accept(true)
 
-    next(false)
+    accept(false)
 
-  store.writeAccess "*", "users.*.balance", (id, newBalance, next) ->
-    return next(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
+  store.writeAccess "*", "users.*.balance", (id, newBalance, accept, err) ->
+    return accept(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
     oldBalance = @session.req._racerModel?.get("users.#{id}.balance") || 0
     purchasingSomethingOnClient = newBalance < oldBalance
-    next(purchasingSomethingOnClient or @session.req?._isServer)
+    accept(purchasingSomethingOnClient or @session.req?._isServer)
 
-  store.writeAccess "*", "users.*.flags.ads", -> # captures, value, next ->
-    next = arguments[arguments.length - 1]
-    return next(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
-    next(@session.req?._isServer)
+  store.writeAccess "*", "users.*.flags.ads", -> # captures, value, accept, err ->
+    accept = arguments[arguments.length - 1]
+    return accept(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
+    accept(@session.req?._isServer)
 
 
 ###
@@ -58,9 +58,9 @@ REST = (store) ->
       .where('apiToken').equals(apiToken)
       .limit(1)
 
-  store.queryAccess "users", "withIdAndToken", (id, apiToken, next) ->
-    return next(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
-    next(true) # only user has id & token
+  store.queryAccess "users", "withIdAndToken", (id, apiToken, accept, err) ->
+    return accept(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
+    accept(true) # only user has id & token
 
 
 ###
@@ -76,18 +76,18 @@ partySystem = (store) ->
             'auth.local.username',
             'auth.facebook.displayName')
 
-  store.queryAccess "users", "party", (ids, next) ->
-    next(true) # no harm in public user stats
+  store.queryAccess "users", "party", (ids, accept, err) ->
+    accept(true) # no harm in public user stats
 
   store.query.expose "parties", "withId", (id) ->
     @where("id").equals(id)
-  store.queryAccess "parties", "withId", (id, next) ->
-    next(true)
+  store.queryAccess "parties", "withId", (id, accept, err) ->
+    accept(true)
 
   store.readPathAccess "parties.*", ->
-    next = arguments[arguments.length-1]
-    next(true)
+    accept = arguments[arguments.length-2]
+    accept(true)
 
   store.writeAccess "*", "parties.*", ->
-    next = arguments[arguments.length-1]
-    next(true)
+    accept = arguments[arguments.length-2]
+    accept(true)
