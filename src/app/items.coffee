@@ -149,7 +149,7 @@ module.exports.app = (appExports, model) ->
       user.set 'items.pet', pet
     else
       tokens = user.get('balance')*4
-      if tokens > 3
+      if tokens > pet.value
         r = confirm("Buy this pet with #{pet.value} of your #{tokens} tokens?");
         if r
           user.set "items.pets.#{name}", true

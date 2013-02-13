@@ -50,7 +50,7 @@ module.exports.app = (appExports, model) ->
     taskTypes = ['habit', 'daily', 'todo', 'reward']
     batch.set 'tasks', {}
     _.each taskTypes, (type) -> batch.set "#{type}Ids", []
-    batch.set 'balance', 2 if user.get('balance') < 2 #only if they haven't manually bought tokens
+    batch.set 'balance', 1 if user.get('balance') < 1 #only if they haven't manually bought tokens
     revive(batch)
     batch.commit()
     browser.resetDom(model)
@@ -97,7 +97,7 @@ userSchema =
   rewardIds: []
   apiToken: null # set in newUserObject below
   lastCron: 'new' #this will be replaced with `+new Date` on first run
-  balance: 2
+  balance: 1
   tasks: {}
   flags:
     partyEnabled: false
