@@ -110,6 +110,7 @@ updateStats = (newStats, batch) ->
 # {times} # times to call score on this task (1 unless cron, usually)
 # {update} if we're running updates en-mass (eg, cron on server) pass in userObj
 score = (taskId, direction, times, batch, cron) ->
+
   commit = false
   unless batch?
     commit = true
@@ -122,6 +123,13 @@ score = (taskId, direction, times, batch, cron) ->
   taskPath = "tasks.#{taskId}"
   taskObj = obj.tasks[taskId]
   {type, value} = taskObj
+
+  # If they're trying to purhcase a too-expensive reward, confirm they want to take a hit for it
+  if taskObj.value > obj.stats.gp and taskObj.type is 'reward'
+    r = confirm "Not enough GP to purchase this reward, buy anyway and lose HP? (Punishment for taking a reward you didn't earn)."
+    unless r
+      batch.commit()
+      return
 
   delta = 0
   times ?= 1
@@ -176,11 +184,8 @@ score = (taskId, direction, times, batch, cron) ->
       gp -= Math.abs(taskObj.value)
       num = parseFloat(taskObj.value).toFixed(2)
       # if too expensive, reduce health & zero gp
-
       if gp < 0
-        r = confirm "You don't have enough GP to purchase this reward, purchase anyway and lose health?"
-        if r
-          hp += gp # hp - gp difference
+        hp += gp # hp - gp difference
         gp = 0
 
   taskObj.value = value
