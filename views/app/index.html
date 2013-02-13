@@ -318,10 +318,16 @@ do a find for the string after "→"
         <ul class="habits">{#each _habitList as :task}<app:task />{/}</ul>
       </div>
 
-      <div class="span3 well dailys">
+      <div class="span3 well dailys context-enabled context-uncompleted tabbable tabs-below" id="daily-well">
         <h2>Daily</h2>
         <app:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
-        <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
+        <ul class='dailys task-list'>
+          {#each _dailyList as :task}<app:task />{/}
+        </ul>
+        <ul class="nav nav-tabs">
+          <li class="active"><a x-bind=click:changeContext data-target="#daily-well" data-context="context-uncompleted">Due today</a></li>
+          <li><a x-bind=click:changeContext data-target="#daily-well" data-context="context-uncompleted context-completed">All</a></li>
+        </ul>
       </div>
 
       <div class="span3 well todos context-enabled context-uncompleted tabbable tabs-below" id="todo-well">
@@ -344,7 +350,6 @@ do a find for the string after "→"
           <li class="active"><a x-bind=click:changeContext data-target="#todo-well" data-context="context-uncompleted">Remaining</a></li>
           <li><a x-bind=click:changeContext data-target="#todo-well" data-context="context-completed">Complete</a></li>
         </ul>
-
       </div>
 
         <div class="span3 well rewards">
@@ -533,7 +538,7 @@ do a find for the string after "→"
   </form>
 
 <task:>
-  <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, :task.repeat)}">
+  <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, :task.repeat, :task._editing)}">
     <pre>
     <div class="task-meta-controls">
 
