@@ -10,9 +10,6 @@ auth = require 'derby-auth'
 priv = require './private'
 habitrpgStore = require('./store')
 
-## Run server cron ##
-#require('./cron').deleteStaleAccounts()
-
 ## RACER CONFIGURATION ##
 
 racer = require 'racer'
