@@ -120,7 +120,8 @@ module.exports.app = (appExports, model) ->
   appExports.toggleTaskEdit = (e, el) ->
     # Toggle the task editing state
     task = model.at(e.target)
-    task.set('_editing', !task.get('_editing'))
+    if task.get('type') in ['habit', 'daily', 'todo']
+      task.set('_editing', !task.get('_editing'))
 
     hideId = $(el).attr('data-hide-id')
     toggleId = $(el).attr('data-toggle-id')
@@ -128,6 +129,11 @@ module.exports.app = (appExports, model) ->
     $(document.getElementById(toggleId)).toggle()
 
   appExports.toggleChart = (e, el) ->
+    # Make sure if it's a task, it's not in editing mode anymore
+    task = model.at(e.target).parent()
+    if task.get('type') in ['habit', 'daily', 'todo']
+      task.set('_editing', false)
+
     hideSelector = $(el).attr('data-hide-id')
     chartSelector = $(el).attr('data-toggle-id')
     historyPath = $(el).attr('data-history-path')
