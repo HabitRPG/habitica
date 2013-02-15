@@ -29,8 +29,9 @@ module.exports = (expressApp, root, derby) ->
       _.each tasksWithDates, (task) ->
         event = new icalendar.VEvent(task.id);
         event.setSummary(task.text);
-#        event.setDate new Date(task.date), 60 * 60 # Duration in seconds
-        event.setDate new Date(task.date)
+        d = new Date(task.date)
+        d.date_only = true
+        event.setDate d
         ical.addComponent event
       res.type('ics')
       res.send(200, ical.toString())
