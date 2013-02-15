@@ -12,6 +12,28 @@ module.exports = (expressApp, root, derby) ->
   expressApp.get '/terms', (req, res) ->
     staticPages.render 'terms', res
 
+  # localhost:3000/users/9/tasks.ics?apiToken=ae164366-f1ad-4a7d-83ef-b1d1085a96b6
+  expressApp.get '/users/:uid/tasks.ics', (req, res, next) ->
+    {uid} = req.params
+    {apiToken} = req.query
+
+    model = req.getModel()
+    query = model.query('users').withIdAndToken(uid, apiToken)
+    query.fetch (err, result) ->
+      return next(err) if err
+      userObj = result.at(0).get()
+      tasksWithDates = _.filter userObj.tasks, (task) -> !!task.date
+      console.log("DATES LOLOL " + tasksWithDates)
+
+      ical = new icalendar.iCalendar()
+      _.each tasksWithDates, (task) ->
+        ical.addComponent event
+        event2 = ical.addComponent("VEVENT")
+        event2.setSummary "Second test event"
+        event2.setDate new Date(2011, 11, 5, 12, 0, 0), 60 * 60 # Duration in seconds
+      res.send(200, ical.generateIcs())
+      next()
+
   # ---------- Deprecated Paths ------------
 
   deprecatedMessage = 'This API is no longer supported, see https://github.com/lefnire/habitrpg/wiki/API for new protocol'

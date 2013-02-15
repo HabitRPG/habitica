@@ -584,8 +584,7 @@ do a find for the string after "→"
           <label class="checkbox inline"><input type=checkbox checked={:task.up}>Up</label>
           <label class="checkbox inline"><input type=checkbox checked={:task.down}>Down</label>
         </div>
-      {/}
-      {#if equal(:task.type, 'daily')}
+      {else if equal(:task.type, 'daily')}
         <label>Repeat</label>
         <div class="control-group btn-group repeat-days">
         <!-- note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding -->
@@ -597,14 +596,18 @@ do a find for the string after "→"
           <button type="button" class="btn btn-info {#if :task.repeat.f}active{/}" data-day='f' x-bind=click:toggleDay>F</button>
           <button type="button" class="btn btn-info {#if :task.repeat.s}active{/}" data-day='s' x-bind=click:toggleDay>S</button>
         </div>
-      {/}
-      {#if equal(:task.type, 'reward')}
+      {else if equal(:task.type, 'reward')}
         <div class=control-group>
           <label>Price
             <div class="input-append">
               <input class="span5" size="16" type="number" min="0" value={:task.value}><span class="add-on">Gold</span>
             </div>
           </label>
+        </div>
+      {else if equal(:task.type, 'todo')}
+        <div class=control-group>
+            <label>Date</label>
+            <input type="date" value={:task.date} />
         </div>
       {/}
       <button type=submit class="btn">Save & Close</button>
