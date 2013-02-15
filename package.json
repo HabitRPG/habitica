@@ -21,7 +21,8 @@
     "coffee-script": "*",
     "underscore": "*",
     "mongoskin": "*",
-    "nconf": "*"
+    "nconf": "*",
+    "icalendar": "*"
   },
   "private": true,
   "subdomain": "habitrpg",

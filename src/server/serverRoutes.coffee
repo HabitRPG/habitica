@@ -1,5 +1,6 @@
 scoring = require('../app/scoring')
 _ = require('underscore')
+icalendar = require('icalendar')
 
 module.exports = (expressApp, root, derby) ->
 
@@ -13,26 +14,26 @@ module.exports = (expressApp, root, derby) ->
     staticPages.render 'terms', res
 
   # localhost:3000/users/9/tasks.ics?apiToken=ae164366-f1ad-4a7d-83ef-b1d1085a96b6
-  expressApp.get '/users/:uid/tasks.ics', (req, res, next) ->
+  expressApp.get '/users/:uid/tasks.ics', (req, res) ->
     {uid} = req.params
     {apiToken} = req.query
 
     model = req.getModel()
     query = model.query('users').withIdAndToken(uid, apiToken)
     query.fetch (err, result) ->
-      return next(err) if err
-      userObj = result.at(0).get()
-      tasksWithDates = _.filter userObj.tasks, (task) -> !!task.date
-      console.log("DATES LOLOL " + tasksWithDates)
+      throw err if err
+      tasks = result.at(0).get('tasks')
+      tasksWithDates = _.filter tasks, (task) -> !!task.date
 
       ical = new icalendar.iCalendar()
       _.each tasksWithDates, (task) ->
+        event = new icalendar.VEvent(task.id);
+        event.setSummary(task.text);
+#        event.setDate new Date(task.date), 60 * 60 # Duration in seconds
+        event.setDate new Date(task.date), 60 * 60 # Duration in seconds
         ical.addComponent event
-        event2 = ical.addComponent("VEVENT")
-        event2.setSummary "Second test event"
-        event2.setDate new Date(2011, 11, 5, 12, 0, 0), 60 * 60 # Duration in seconds
-      res.send(200, ical.generateIcs())
-      next()
+      res.type('ics')
+      res.send(200, ical.toString())
 
   # ---------- Deprecated Paths ------------
 
