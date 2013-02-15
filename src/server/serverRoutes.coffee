@@ -13,7 +13,8 @@ module.exports = (expressApp, root, derby) ->
   expressApp.get '/terms', (req, res) ->
     staticPages.render 'terms', res
 
-  expressApp.get '/v1/users/:uid/calendar.ics', (req, res) ->
+  expressApp.get '/v1/users/:uid/calendar.ics', (req, res, next) ->
+    return next() #disable for now
     {uid} = req.params
     {apiToken} = req.query
 
@@ -23,6 +24,7 @@ module.exports = (expressApp, root, derby) ->
     require('mongoskin').db(process.env.NODE_DB_URI, {safe:true}).collection('users').find({_id:uid, apiToken:apiToken}).toArray (err, result) ->
       return res.send(500, err) if err
 #      tasks = result.at(0).get('tasks')
+      return next() if _.isEmpty(result)
       tasks = result[0].tasks
       tasksWithDates = _.filter tasks, (task) -> !!task.date
 
