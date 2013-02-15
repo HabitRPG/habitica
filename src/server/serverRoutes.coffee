@@ -1,7 +1,6 @@
 scoring = require('../app/scoring')
 _ = require('underscore')
 icalendar = require('icalendar')
-db = require('mongoskin').db(process.env.NODE_DB_URI, {safe:true})
 
 module.exports = (expressApp, root, derby) ->
 
@@ -21,7 +20,7 @@ module.exports = (expressApp, root, derby) ->
 #    model = req.getModel()
 #    query = model.query('users').withIdAndToken(uid, apiToken)
 #    model.fetch query, (err, result) ->
-    db.collection('users').find({_id:uid, apiToken:apiToken}).toArray (err, result) ->
+    require('mongoskin').db(process.env.NODE_DB_URI, {safe:true}).collection('users').find({_id:uid, apiToken:apiToken}).toArray (err, result) ->
       return res.send(500, err) if err
 #      tasks = result.at(0).get('tasks')
       tasks = result[0].tasks
