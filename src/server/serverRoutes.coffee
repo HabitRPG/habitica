@@ -1,6 +1,7 @@
 scoring = require('../app/scoring')
 _ = require('underscore')
 icalendar = require('icalendar')
+db = require('mongoskin').db(process.env.NODE_DB_URI, {safe:true})
 
 module.exports = (expressApp, root, derby) ->
 
@@ -18,11 +19,13 @@ module.exports = (expressApp, root, derby) ->
     {uid} = req.params
     {apiToken} = req.query
 
-    model = req.getModel()
-    query = model.query('users').withIdAndToken(uid, apiToken)
-    model.fetch query, (err, result) ->
+#    model = req.getModel()
+#    query = model.query('users').withIdAndToken(uid, apiToken)
+#    model.fetch query, (err, result) ->
+    db.collection('users').find({_id:uid, apiToken:apiToken}).toArray (err, result) ->
       return next(err) if err
-      tasks = result.at(0).get('tasks')
+#      tasks = result.at(0).get('tasks')
+      tasks = result[0].tasks
       return next "No tasks found for user #{uid}" unless tasks?
       tasksWithDates = _.filter tasks, (task) -> !!task.date
 
