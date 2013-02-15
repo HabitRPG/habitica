@@ -14,15 +14,16 @@ module.exports = (expressApp, root, derby) ->
     staticPages.render 'terms', res
 
   # localhost:3000/users/9/tasks.ics?apiToken=ae164366-f1ad-4a7d-83ef-b1d1085a96b6
-  expressApp.get '/users/:uid/tasks.ics', (req, res) ->
+  expressApp.get '/users/:uid/tasks.ics', (req, res, next) ->
     {uid} = req.params
     {apiToken} = req.query
 
     model = req.getModel()
     query = model.query('users').withIdAndToken(uid, apiToken)
-    query.fetch (err, result) ->
-      throw err if err
+    model.fetch query, (err, result) ->
+      return next(err) if err
       tasks = result.at(0).get('tasks')
+      return next "No tasks found for user #{uid}" unless tasks?
       tasksWithDates = _.filter tasks, (task) -> !!task.date
 
       ical = new icalendar.iCalendar()

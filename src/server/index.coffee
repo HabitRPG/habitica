@@ -81,7 +81,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
       return next() if req.is('json')
 
       if !req.session.userId? and !req.query?.play? and req.url == '/'
-        res.redirect('/splash.html')
+        return res.redirect('/splash.html')
       else
         next()
 
