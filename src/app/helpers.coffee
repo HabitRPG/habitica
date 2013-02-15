@@ -25,4 +25,8 @@ module.exports.viewHelpers = (view) ->
   view.fn "mod", (a, b) ->
     parseInt(a) % parseInt(b) == 0
 
+  view.fn "encodeiCalLink", (uid, apiToken) ->
+    loc = window?.location.href or process.env.BASE_URL
+    encodeURIComponent "#{loc}users/#{uid}/tasks.ics?apiToken=#{apiToken}"
+
 

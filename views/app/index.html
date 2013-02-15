@@ -336,10 +336,14 @@ do a find for the string after "→"
           <a class='btn' x-bind=click:clearCompleted>Clear Completed</a>
           <p>&nbsp;</p>
         </div>
-        {#if _user.history.todos}
-          <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip class="pull-right" title="Progress"><i class=icon-signal></i></a>
-          <div id="todos-chart" style="display:none;"></div>
-        {/}
+        <span class='pull-right'>
+            {#if _user.history.todos}
+              <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
+            {/}
+            <a href="/users/{{_user.id}}/tasks.ics?apiToken={{_user.apiToken}}">iCal</a>
+            <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}">GCal</a>
+        </span>
+        <div id="todos-chart" style="display:none;"></div>
         <ul class="nav nav-tabs">
           <li class="active"><a x-bind=click:changeContext data-target="#todo-well" data-context="context-uncompleted">Remaining</a></li>
           <li><a x-bind=click:changeContext data-target="#todo-well" data-context="context-completed">Complete</a></li>
