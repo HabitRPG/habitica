@@ -80,7 +80,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
       # This was an API call, not a page load
       return next() if req.is('json')
 
-      if !req.session.userId? and !req.query?.play?
+      if !req.session.userId? and !req.query?.play? and req.url == '/'
         res.redirect('/splash.html')
       else
         next()
