@@ -32,6 +32,7 @@ store = derby.createStore
   listen: server
 
 ONE_YEAR = 1000 * 60 * 60 * 24 * 365
+TWO_WEEKS = 1000 * 60 * 60 * 24 * 14
 root = path.dirname path.dirname __dirname
 publicPath = path.join root, 'public'
 
@@ -71,7 +72,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     .use(express.cookieParser())
     .use(store.sessionMiddleware
       secret: process.env.SESSION_SECRET || 'YOUR SECRET HERE'
-      #cookie: {maxAge: ONE_YEAR} # defaults to 2 weeks, AFAIK - so just don't specify
+      cookie: {maxAge: TWO_WEEKS} # defaults to 2 weeks? aka, can delete this line?
       store: mongo_store
     )
 
