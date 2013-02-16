@@ -340,8 +340,10 @@ do a find for the string after "→"
             {#if _user.history.todos}
               <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
             {/}
+            {#if _user.flags.enableDueDates}
             &nbsp;<a href="/v1/users/{{_user.id}}/calendar.ics?apiToken={{_user.apiToken}}"><img src='/img/calendar_ical.png' title="iCal" alt="iCal" rel=tooltip /></a>
             &nbsp;<a target="_blank" href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}"><img src='/img/calendar_google.png' title="Google Calendar" alt="Google Calendar" rel=tooltip /></a>
+            {/}
         </span>
         <div id="todos-chart" style="display:none;"></div>
         <ul class="nav nav-tabs">
@@ -609,10 +611,12 @@ do a find for the string after "→"
           </label>
         </div>
       {else if equal(:task.type, 'todo')}
+        {#if _user.flags.enableDueDates}
         <div class=control-group>
-            <label>Date</label>
+            <label>Due Date</label>
             <input type="date" value="{:task.date}" />
         </div>
+        {/}
       {/}
       <button type=submit class="btn">Save & Close</button>
     </form>
