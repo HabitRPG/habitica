@@ -156,6 +156,7 @@ setupGrowlNotifications = (model) ->
     #don't show notifications if user dead
     return if user.get('stats.lvl') == 0
     $.bootstrapGrowl html,
+      ele: '#notification-area',
       type: type # (null, 'info', 'error', 'success')
       top_offset: 20
       align: 'right' # ('left', 'right', or 'center')
