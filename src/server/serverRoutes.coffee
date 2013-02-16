@@ -28,7 +28,8 @@ module.exports.API = ->
         event.setDate d
         ical.addComponent event
       res.type('ics')
-      res.send(200, ical.toString())
+      formattedIcal = ical.toString().replace(/DTSTART\:/g, 'DTSTART;VALUE=DATE:')
+      res.send(200, formattedIcal)
 
 
   # ---------- Deprecated Paths ------------
