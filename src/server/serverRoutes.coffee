@@ -20,6 +20,7 @@ module.exports.API = ->
       return res.send(500, "No events found") if _.isEmpty(tasksWithDates)
 
       ical = new icalendar.iCalendar()
+      ical.addProperty('NAME', 'HabitRPG')
       _.each tasksWithDates, (task) ->
         event = new icalendar.VEvent(task.id);
         event.setSummary(task.text);
@@ -27,7 +28,7 @@ module.exports.API = ->
         d.date_only = true
         event.setDate d
         ical.addComponent event
-      res.type('ics')
+      res.type('text/calendar')
       formattedIcal = ical.toString().replace(/DTSTART\:/g, 'DTSTART;VALUE=DATE:')
       res.send(200, formattedIcal)
 
