@@ -225,6 +225,13 @@ do a find for the string after "→"
     </div>
     {/}
 
+    {#unless equal(_user.flags.celebrationEvent,'hide')}
+        <div class='alert alert-success'>
+            <a x-bind="click:closeCelebrationNofitication" class=pull-right>[x]</a>
+            <i class='icon-facetime-video'></i> We did it! Let's have a celebration live-stream for making our <a target="_blank" href='http://www.kickstarter.com/projects/lefnire/197254176/'>Kickstarter</a> goal. Sun 2/17 5pm EST, details the <a target="_blank" href='https://plus.google.com/events/cd9hu45bvrgkb5qgra7q05bhnf4?enfplm'>G+ event</a>.
+        </div>
+    {/}
+
 <Header:>
   <app:modalDialogs />
   <ui:connectionAlert>
