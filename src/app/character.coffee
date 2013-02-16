@@ -58,6 +58,9 @@ module.exports.app = (appExports, model) ->
   appExports.closeKickstarterNofitication = (e, el) ->
     user.set('flags.kickstarter', 'hide')
 
+  appExports.closeCelebrationNofitication = (e, el) ->
+    user.set('flags.celebrationEvent', 'hide')
+
   appExports.customizeGender = (e, el) ->
     user.set 'preferences.gender', $(el).attr('data-value')
 
