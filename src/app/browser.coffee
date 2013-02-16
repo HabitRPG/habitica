@@ -15,6 +15,7 @@ module.exports.resetDom = (model) ->
   window.DERBY.app.dom.clear()
   restoreRefs(model)
   window.DERBY.app.view.render(model)
+  $('.datepicker').datepicker();
 
 module.exports.app = (appExports, model) ->
   loadJavaScripts(model)
@@ -22,6 +23,7 @@ module.exports.app = (appExports, model) ->
   setupTooltips(model)
   setupTour(model)
   setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
+  $('.datepicker').datepicker();
 
 ###
   Loads JavaScript files from (1) public/js/* and (2) external sources
@@ -37,6 +39,7 @@ loadJavaScripts = (model) ->
   require '../../public/js/bootstrap.min' #http://twitter.github.com/bootstrap/assets/js/bootstrap.min.js
   require '../../public/js/jquery.cookie' #https://raw.github.com/carhartl/jquery-cookie/master/jquery.cookie.js
   require '../../public/js/bootstrap-tour' #https://raw.github.com/pushly/bootstrap-tour/master/bootstrap-tour.js
+  require '../../public/vendor/bootstrap-datepicker/js/bootstrap-datepicker'
   require '../../public/js/jquery.bootstrap-growl.min'
 
   # JS files not needed right away (google charts) or entirely optional (analytics)

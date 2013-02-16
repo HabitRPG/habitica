@@ -13,6 +13,7 @@ do a find for the string after "→"
 <Head:>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="vendor/bootstrap-datepicker/css/datepicker.css" type="text/css" />
 
 <modalDialogs:>
   {#if _loggedIn}
@@ -622,7 +623,7 @@ do a find for the string after "→"
         {#if _user.flags.enableDueDates}
         <div class=control-group>
             <label>Due Date</label>
-            <input type="date" value="{:task.date}" />
+            <input type="text" value="{:task.date}" data-date-format="mm/dd/yy" class="datepicker" >
         </div>
         {/}
       {/}
