@@ -9,6 +9,7 @@ MongoStore = require('connect-mongo')(express)
 auth = require 'derby-auth'
 priv = require './private'
 habitrpgStore = require('./store')
+serverRoutes = require './serverRoutes'
 
 ## RACER CONFIGURATION ##
 
@@ -101,6 +102,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
       model.set '_view', _view
       next()
 
+    .use(serverRoutes.API())
     .use(auth(store, strategies, options))
     # Creates an express middleware from the app's routes
     .use(app.router())
@@ -108,7 +110,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     .use(serverError root)
 
   priv.routes(expressApp)
-  require('./serverRoutes')(expressApp, root, derby)
+  serverRoutes.serverPages(expressApp, root, derby)
 
   # Errors
   expressApp.all '*', (req) ->
