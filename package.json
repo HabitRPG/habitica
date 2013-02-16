@@ -22,7 +22,7 @@
     "underscore": "*",
     "mongoskin": "*",
     "nconf": "*",
-    "icalendar": "*"
+    "icalendar": "git://github.com/lefnire/node-icalendar#master"
   },
   "private": true,
   "subdomain": "habitrpg",
