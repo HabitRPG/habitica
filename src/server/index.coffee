@@ -71,7 +71,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     .use(express.cookieParser())
     .use(store.sessionMiddleware
       secret: process.env.SESSION_SECRET || 'YOUR SECRET HERE'
-      cookie: {maxAge: ONE_YEAR}
+      #cookie: {maxAge: ONE_YEAR} # defaults to 2 weeks, AFAIK - so just don't specify
       store: mongo_store
     )
 
