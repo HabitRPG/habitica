@@ -38,7 +38,7 @@ userAccess = (store) ->
 
   store.writeAccess "*", "users.*.balance", (id, newBalance, accept, err) ->
     return accept(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
-    oldBalance = @session.req._racerModel?.get("users.#{id}.balance") || 0
+    oldBalance = @session.req?._racerModel?.get("users.#{id}.balance") || 0
     purchasingSomethingOnClient = newBalance < oldBalance
     accept(purchasingSomethingOnClient or @session.req?._isServer)
 
