@@ -137,16 +137,24 @@ module.exports.newUserObject = ->
       when 'reward' then newUser.rewardIds.push guid
   return newUser
 
-module.exports.updateUser = (batch) ->
+module.exports.updateUser = (model) ->
+  batch = new BatchUpdate(model)
   user = batch.user
   obj = batch.obj()
+  tasks = obj.tasks
+
+  # Remove corrupted tasks
+  _.each tasks, (task, key) ->
+    unless task?
+      user.del("tasks.#{key}")
+      delete tasks[key]
+
+  batch.startTransaction()
 
   batch.set('apiToken', derby.uuid()) unless obj.apiToken
 
   ## Task List Cleanup
   # FIXME temporary hack to fix lists (Need to figure out why these are happening)
-  tasks = obj.tasks
-  tasks = _.reject tasks, (task) -> !task?
   _.each ['habit','daily','todo','reward'], (type) ->
     # 1. remove duplicates
     # 2. restore missing zombie tasks back into list
@@ -159,10 +167,12 @@ module.exports.updateUser = (batch) ->
     # There were indeed issues found, set the new list
     batch.set("#{type}Ids", preened) # if _.difference(preened, userObj[path]).length != 0
 
+  batch.commit()
+
 module.exports.BatchUpdate = BatchUpdate = (model) ->
   user = model.at("_user")
   transactionInProgress = false
-  obj = {}
+  obj = null
   updates = {}
 
   {
@@ -182,7 +192,7 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
     # Additionally, for some reason after getting the user object, changing properies manually (userObj.stats.hp = 50)
     # seems to actually run user.set('stats.hp',50) which we don't want to do - so we deepClone here
     #_.each Object.keys(userSchema), (key) -> obj[key] = lodash.cloneDeep user.get(key)
-    obj = model.get('users.'+user.get('id'), true)
+    obj = @obj()
 
   ###
     Handles updating the user model. If this is an en-mass operation (eg, server cron), changes are queued

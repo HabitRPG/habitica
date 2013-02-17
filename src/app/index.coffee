@@ -40,18 +40,10 @@ get '/', (page, model, next) ->
 
     user = users.at(0)
     model.ref '_user', user
-
-    batch = new character.BatchUpdate(model)
-    batch.startTransaction()
-    obj = batch.obj()
-    obj = user.get() unless obj.items? #why is this happening?
-
     model.set '_view', _view
 
+    character.updateUser(model)
     items.server(model)
-
-    character.updateUser(batch)
-    batch.commit()
 
     party.partySubscribe model, ->
       browser.restoreRefs model
