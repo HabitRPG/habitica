@@ -15,9 +15,12 @@ module.exports.resetDom = (model) ->
   window.DERBY.app.dom.clear()
   restoreRefs(model)
   window.DERBY.app.view.render(model)
-  $('.datepicker').datepicker();
+  reconstructPage model
 
 module.exports.app = (appExports, model) ->
+  reconstructPage model
+
+reconstructPage = (model) ->
   loadJavaScripts(model)
   setupSortable(model)
   setupTooltips(model)
