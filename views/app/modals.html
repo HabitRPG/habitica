@@ -1,0 +1,208 @@
+<modalDialogs:>
+    {#if _loggedIn}
+    <app:myModal modalId="settings-modal" header="Settings">
+        <h4>API</h4>
+        <small>Copy these for use in third party applications.</small>
+        <h6>User ID</h6>
+        <pre class=prettyprint>{_user.id}</pre>
+
+        <h6>API Token</h6>
+        <pre class=prettyprint>{_user.apiToken}</pre>
+
+        <hr/>
+        <a class='btn btn-danger' data-target="#reset-modal" data-toggle="modal">Reset</a>
+
+        <@footer>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </@footer>
+    </app:myModal>
+
+    <app:myModal modalId="reset-modal" header="Reset">
+        <p>This resets your entire account - your tasks will be deleted and your character will start over.</p>
+        <p>This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.</p>
+        <@footer>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger btn-large">Reset</button>
+    </@footer>
+    </app:myModal>
+
+    <app:myModal modalId="party-modal">
+        {#if _user.party.current}
+        <h2>{_party.name}</h2>
+        <table class="table table-striped">
+            {#each _partyMembers as :member}
+            <tr><td>{username(:member.auth)}</td><td>({:member.id})</td></tr>
+            {/}
+        </table>
+        <form class=form-inline x-bind="submit: partyInvite">
+            {#if _view.partyError}
+            <div class='alert alert-danger'>{_view.partyError}</div>
+            {/}
+            <div class='control-group'>
+                <input type="text" class="input-medium" placeholder="User Id" value="{_newPartyMember}">
+                <input type="submit" class="btn" value="Invite" />
+            </div>
+        </form>
+        <a class='btn btn-danger' x-bind="click: partyLeave">Leave</a>
+
+        {else if _user.party.invitation}
+        <!-- TODO show by whom -->
+        <h2>You're Invited To {_party.name}</h2>
+        <a class='btn btn-success' x-bind="click: partyAccept">Accept</a>
+        <a class='btn btn-danger' x-bind="click: partyReject">Reject</a>
+
+        {else}
+        <h2>Create A Party</h2>
+        <!-- Not in a party , no invites - create a new one -->
+        <p>You are not in a party. You can either create one and invite friends, or if you want to join an existing party, have them enter:</p>
+        <pre class=prettyprint>{_user.id}</pre>
+        <form class=form-inline x-bind="submit: partyCreate">
+            {#if _view.partyError}
+            <div class='alert alert-danger'>{_view.partyError}</div>
+            {/}
+            <div class=control-group>
+                <input type="text" class="input-medium" placeholder="Party Name" value="{_newParty}" />
+                <input type="submit" class="btn" value="Create" />
+            </div>
+        </form>
+
+        {/}
+        <@footer>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </@footer>
+    </app:myModal>
+
+    {else}
+    <app:myModal modalId="login-modal" header="Login / Register">
+        <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt="Login / Register With Facebook"/></a>
+        <h3>Or</h3>
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#" data-toggle="tab" data-target="#login">Login</a></li>
+            <li><a href="#" data-toggle="tab" data-target="#register">Register</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="login"><derby-auth:login /></div>
+            <div class="tab-pane" id="register"><derby-auth:register /></div>
+        </div>
+    </app:myModal>
+    {/}
+    <!-- Game Over Modal -->
+    <div style="{#unless equal(_user.stats.lvl,0)}display:none;{/}">
+        <app:myModal noDismiss=true modalId='dead-modal'>
+            <figure class="notification-character">
+                <img src="/img/BrowserQuest/habitrpg_mods/dead.png">
+            </figure>
+            <h3 class="notification-message">You died! Game Over.</h3>
+            <a x-bind=click:revive class="btn btn-danger btn-large notification-action">Continue</a>
+        </app:myModal>
+    </div>
+
+    <!-- Re-Roll modal -->
+    <app:myModal modalId='reroll-modal' header="Reset Your Tasks">
+        <app:userTokens/>
+        <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
+        <@footer>
+        {#if lt(_user.balance,1)}
+        <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-success btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
+        {else}
+        <a data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</a><span class='token-cost'>4 Tokens</span>
+        {/}
+    </@footer>
+    </app:myModal>
+
+    <!-- Buy more tokens modal -->
+    <app:myModal modalId='more-tokens-modal' header="Out Of Tokens">
+        <app:userTokens/>
+        <p>You're out of tokens, which are used to buy pets and mounts.</p>
+        <@footer>
+        <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-success btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
+    </@footer>
+    </app:myModal>
+
+    <!-- $customizations-modal -->
+    <app:myModal modalId="customizations-modal" header="Customize">
+        {#with _user.preferences}
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle='tab' href="#profileCustomize">Avatar</a></li>
+            <li><a data-toggle='tab' href="#profileEdit">Profile</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="profileCustomize">
+
+                <!-- user avatar preview -->
+                <figure class="avatar-window">
+                    <app:avatar profile={_user} minimal="true" />
+                    <figcaption class="char-name">{username(_user.auth)}</figcaption>
+                </figure>
+
+                <!-- customization options -->
+                <menu type="list">
+                    <!-- gender -->
+                    <li class="customize-menu">
+                        <menu label="Gender">
+                            <button type="button" class="m_head_0 customize-option" data-value="m" x-bind="click:customizeGender"></button>
+                            <button type="button" class="f_head_0 customize-option" data-value="f" x-bind="click:customizeGender"></button>
+                        </menu>
+                    </li>
+
+                    <!-- hair -->
+                    <li class="customize-menu">
+                        <menu label="Hair">
+                            <button type="button" class="{.gender}_hair_blond customize-option" data-value="blond" x-bind="click:customizeHair"></button>
+                            <button type="button" class="{.gender}_hair_black customize-option" data-value="black" x-bind="click:customizeHair"></button>
+                            <button type="button" class="{.gender}_hair_brown customize-option" data-value="brown" x-bind="click:customizeHair"></button>
+                            <button type="button" class="{.gender}_hair_white customize-option" data-value="white" x-bind="click:customizeHair"></button>
+                        </menu>
+                    </li>
+
+                    <!-- skin -->
+                    <li class="customize-menu">
+                        <menu label="Skin">
+                            <button type="button" class='{.gender}_skin_dead customize-option' data-value="dead" x-bind="click:customizeSkin"></button>
+                            <button type="button" class='{.gender}_skin_orc customize-option' data-value="orc" x-bind="click:customizeSkin"></button>
+                            <button type="button" class='{.gender}_skin_asian customize-option' data-value="asian" x-bind="click:customizeSkin"></button>
+                            <button type="button" class='{.gender}_skin_black customize-option' data-value="black" x-bind="click:customizeSkin"></button>
+                            <button type="button" class='{.gender}_skin_white customize-option' data-value="white" x-bind="click:customizeSkin"></button>
+                        </menu>
+                    </li>
+                </menu>
+
+                {#if equal(_user.preferences.gender, 'f')} <!-- Sorry boys -->
+                <menu type="list">
+                    <li class="customize-menu">
+                        <menu label="Clothing">
+                            <button type="button" class="f_armor_0_v1 customize-option" data-value="v1" x-bind="click:customizeArmorSet"></button>
+                            <button type="button" class="f_armor_0_v2 customize-option" data-value="v2" x-bind="click:customizeArmorSet"></button>
+                        </menu>
+                    </li>
+                </menu>
+                {/}
+            </div>
+
+            <div class="tab-pane" id="profileEdit"><app:profile user="{_user}" main="true" /></div>
+        </div>
+        {/}
+        <@footer>
+        <button data-dismiss="modal" class="btn btn-success">Ok</button>
+    </@footer>
+    </app:myModal>
+
+<!-- $modal-template -->
+<myModal: nonvoid>
+    {{#if @noDismiss}}<div data-action="backdrop" class="modal-backdrop"></div>{{/}}
+    <div class="modal {{#unless @noDismiss}}hide{{/}}" id={{@modalId}} role="dialog">
+        {{#if @header}}
+        <div class="modal-header">
+            {{#unless @noDismiss}}<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>{{/}}
+            <h3>{{unescaped @header}}</h3>
+        </div>
+        {{/}}
+        <div class="modal-body">{@content}</div>
+        {{#if @footer}}
+        <div class="modal-footer">{{@footer}}</div>
+        {{/}}
+    </div>

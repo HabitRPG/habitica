@@ -1,0 +1,66 @@
+<mainHeader:>
+    <div class="row-fluid">
+        <div class='char-status {#if gt(_partyMembers.length,1)}span8 offset2 has-party{else}span6 offset3{/}'>
+
+            <!-- avatar -->
+            <figure class="main-avatar-wrap">
+                <app:avatar profile={_user} main="true" />
+            </figure>
+
+            <!-- party -->
+            {#each _partyMembers as :member}
+            {#unless equal(:member.id, _userId)}
+            <figure class="party-avatar-wrap" rel="tooltip" title="{username(:member.auth)}" data-placement="bottom">
+                <app:avatar profile={:member} party="true" />
+            </figure>
+            {/}
+            {/}
+
+            <!-- progress bars -->
+            <div class="progress-bars">
+                <div class="progress progress-danger" rel=tooltip data-placement=bottom title="Health">
+                    <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
+                    <span class="progress-text"><i class=icon-heart></i> {round(_user.stats.hp)} / 50</span>
+                </div>
+
+                <div class="progress progress-warning" rel=tooltip data-placement=bottom title="Experience">
+                    <div class="bar" style="width: {percent(_user.stats.exp,_tnl)}%;"></div>
+                <span class="progress-text">
+                  {#if _user.history.exp}
+                    <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp;
+                  {/}
+                  <i class=icon-star></i> {round(_user.stats.exp)} / {_tnl}
+                </span>
+                </div>
+                <div id="exp-chart" style="display:none;"></div>
+            </div>
+            <!-- end .char-status -->
+        </div>
+        <!-- end .row-fluid -->
+    </div>
+
+<userMenu:>
+    <div class='pull-right'>
+        {#unless _loggedIn}
+        <a href="#" class="btn btn-small btn-info" data-target="#login-modal" data-toggle="modal">Login / Register</a>
+        {else}
+        <div class="btn-group">
+            <button class="btn btn-small">
+                {#if _user.party.invitation}<span class="badge badge-success">1</span>{/}
+                {username(_user.auth)}
+            </button>
+            <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#" data-target="#settings-modal" data-toggle="modal">Settings</a></li>
+                {#if _user.flags.partyEnabled}
+                <li><a href="#" data-target="#party-modal" data-toggle="modal">
+                    Party{#if _user.party.invitation}<span class="badge badge-success">1</span>{/}
+                </a></li>
+                {/}
+                <li><a href='/logout'>Logout</a></li>
+            </ul>
+        </div>
+        {/}
+    </div>

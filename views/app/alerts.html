@@ -1,0 +1,36 @@
+<alerts:>
+    {#if _flash.error}
+    <ul class="alert alert-error">
+        {#each _flash.error as :error}<li>{:error}</li>{/}
+    </ul>
+    {/}
+
+    {#if equal(_user.flags.kickstarter,'show')}
+    <div class='alert alert-success'>
+        <a x-bind="click:closeKickstarterNofitication" class=pull-right>[x]</a>
+
+        <table><tr>
+            <td>
+                Hi everyone, last stretch of the <a target="_blank" href="http://kck.st/XoA3Yg">Kickstarter</a>! Let's get a <a target="_blank" href="http://www.kickstarter.com/projects/lefnire/habitrpg-mobile/posts/403016">ton</a> of new features plus mobile apps. With ~25k registered users, if everyone backs $1 we can do it! Help spread the word:
+            </td>
+            <td>
+                <div class="addthis_toolbox addthis_default_style "
+                     addthis:url="https://habitrpg.com"
+                     addthis:title="HabitRPG - Gamify Your Life">
+                    <a class="addthis_button_facebook"></a>
+                    <a class="addthis_button_twitter" tw:via="habitrpg"></a>
+                    <a class="addthis_button_compact"></a>
+                    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+                </div>
+            </td>
+        </tr></table>
+
+    </div>
+    {/}
+
+    {#unless equal(_user.flags.celebrationEvent,'hide')}
+    <div class='alert alert-success'>
+        <a x-bind="click:closeCelebrationNofitication" class=pull-right>[x]</a>
+        <i class='icon-facetime-video'></i> We did it! Let's have a celebration live-stream for making our <a target="_blank" href='http://www.kickstarter.com/projects/lefnire/197254176/'>Kickstarter</a> goal. Sun 2/17 5pm EST, details the <a target="_blank" href='https://plus.google.com/events/cd9hu45bvrgkb5qgra7q05bhnf4?enfplm'>G+ event</a>.
+    </div>
+    {/}
