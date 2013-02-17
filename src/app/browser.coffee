@@ -1,4 +1,5 @@
 _ = require 'underscore'
+moment = require 'moment'
 
 module.exports.restoreRefs = restoreRefs = (model) ->
   # tnl function
@@ -26,11 +27,12 @@ reconstructPage = (model) ->
   setupTooltips(model)
   setupTour(model)
   setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
-  #Date picker doensn't seem to fire change event to update value
-#  $('.datepicker').datepicker()
-#    .on 'changeDate', (ev) ->
-#      # very strange, doesn't seem to automatically change the input value, meaning our changes aren't saved
-#      $(ev.target).val(ev.target.value)
+  $('.datepicker').datepicker({autoclose:true, todayBtn:true})
+  .on 'changeDate', (ev) ->
+    #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
+    #FIXME also, it saves as a day behind??
+    model.at(ev.target).set 'date', moment(ev.date).add('d',1).format('MM/DD/YYYY')
+    debugger
 
 ###
   Loads JavaScript files from (1) public/js/* and (2) external sources
