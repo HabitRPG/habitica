@@ -1,19 +1,19 @@
-<mainHeader:>
+<header:>
     <div class="row-fluid">
         <div class='char-status {#if gt(_partyMembers.length,1)}span8 offset2 has-party{else}span6 offset3{/}'>
 
             <!-- avatar -->
             <figure class="main-avatar-wrap">
-                <app:avatar profile={_user} main="true" />
+                <app:avatar:avatar profile={_user} main="true" />
             </figure>
 
             <!-- party -->
             {#each _partyMembers as :member}
-            {#unless equal(:member.id, _userId)}
-            <figure class="party-avatar-wrap" rel="tooltip" title="{username(:member.auth)}" data-placement="bottom">
-                <app:avatar profile={:member} party="true" />
-            </figure>
-            {/}
+                {#unless equal(:member.id, _userId)}
+                    <figure class="party-avatar-wrap" rel="tooltip" title="{username(:member.auth)}" data-placement="bottom">
+                        <app:avatar:avatar profile={:member} party="true" />
+                    </figure>
+                {/}
             {/}
 
             <!-- progress bars -->
@@ -37,30 +37,4 @@
             <!-- end .char-status -->
         </div>
         <!-- end .row-fluid -->
-    </div>
-
-<userMenu:>
-    <div class='pull-right'>
-        {#unless _loggedIn}
-        <a href="#" class="btn btn-small btn-info" data-target="#login-modal" data-toggle="modal">Login / Register</a>
-        {else}
-        <div class="btn-group">
-            <button class="btn btn-small">
-                {#if _user.party.invitation}<span class="badge badge-success">1</span>{/}
-                {username(_user.auth)}
-            </button>
-            <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#" data-target="#settings-modal" data-toggle="modal">Settings</a></li>
-                {#if _user.flags.partyEnabled}
-                <li><a href="#" data-target="#party-modal" data-toggle="modal">
-                    Party{#if _user.party.invitation}<span class="badge badge-success">1</span>{/}
-                </a></li>
-                {/}
-                <li><a href='/logout'>Logout</a></li>
-            </ul>
-        </div>
-        {/}
     </div>

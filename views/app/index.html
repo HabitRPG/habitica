@@ -1,10 +1,12 @@
 <import: src="modals" ns="">
-<import: src="profile" ns="">
-<import: src="alerts" ns="">
 <import: src="tasks" ns="">
+<import: src="header">
+<import: src="alerts" ns="">
+<import: src="avatar">
 <import: src="rewards" ns="">
-<import: src="footer" ns="">
-<import: src="header" ns="">
+<import: src="footer">
+<import: src="settings">
+<import: src="party">
 
 <Title:>
   HabitRPG | Gamify Your Life
@@ -17,8 +19,8 @@
   <app:modalDialogs />
   <ui:connectionAlert>
   <div id="head" class="container-fluid">
-    <app:userMenu />
-    <app:mainHeader />
+    <app:settings:menu />
+    <app:header:header />
   </div>
 
 <Body:>
@@ -31,10 +33,11 @@
     </div>
   </div>
   
-  <app:appFooter />
+  <app:footer:footer />
 
 <Scripts:>
-    <!--<script src="js/progress-polyfill.js"></script>-->
+    <!-- scripts go in /src/app/browser.coffee, that way we can get min/concat -->
+    <!-- only the ones that are remote and can't be done async are here -->
     <script src="https://checkout.stripe.com/v2/checkout.js"></script>
     {#if equal(_view.nodeEnv,"production")}
         <!-- Google Analytics -->
