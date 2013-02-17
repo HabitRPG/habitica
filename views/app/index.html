@@ -1,7 +1,7 @@
-<import: src="modals" ns="">
+<import: src="modals">
 <import: src="tasks" ns="">
 <import: src="header">
-<import: src="alerts" ns="">
+<import: src="alerts">
 <import: src="avatar">
 <import: src="rewards" ns="">
 <import: src="footer">
@@ -16,7 +16,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
 
 <Header:>
-  <app:modalDialogs />
+  <app:modals:modals />
   <ui:connectionAlert>
   <div id="head" class="container-fluid">
     <app:settings:menu />
@@ -27,7 +27,7 @@
   <br/>
   <div id="notification-area"></div>
   <div id=wrap class="container-fluid">
-    <app:alerts />
+    <app:alerts:alerts />
     <div id=main class="row-fluid">
       <app:taskLists />
     </div>

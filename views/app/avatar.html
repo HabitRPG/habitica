@@ -1,7 +1,6 @@
 <modals:>
-    <app:myModal modalId="avatar-modal" header="Customize">
+    <app:modals:modal modalId="avatar-modal" header="Customize">
         {#with _user.preferences}
-
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle='tab' href="#profileCustomize">Avatar</a></li>
                 <li><a data-toggle='tab' href="#profileEdit">Profile</a></li>
@@ -9,64 +8,66 @@
 
             <div class="tab-content">
                 <div class="tab-pane active" id="profileCustomize">
-
-                    <!-- user avatar preview -->
-                    <figure class="avatar-window">
-                        <app:avatar:avatar profile={_user} minimal="true" />
-                        <figcaption class="char-name">{username(_user.auth)}</figcaption>
-                    </figure>
-
-                    <!-- customization options -->
-                    <menu type="list">
-                        <!-- gender -->
-                        <li class="customize-menu">
-                            <menu label="Gender">
-                                <button type="button" class="m_head_0 customize-option" data-value="m" x-bind="click:customizeGender"></button>
-                                <button type="button" class="f_head_0 customize-option" data-value="f" x-bind="click:customizeGender"></button>
-                            </menu>
-                        </li>
-
-                        <!-- hair -->
-                        <li class="customize-menu">
-                            <menu label="Hair">
-                                <button type="button" class="{.gender}_hair_blond customize-option" data-value="blond" x-bind="click:customizeHair"></button>
-                                <button type="button" class="{.gender}_hair_black customize-option" data-value="black" x-bind="click:customizeHair"></button>
-                                <button type="button" class="{.gender}_hair_brown customize-option" data-value="brown" x-bind="click:customizeHair"></button>
-                                <button type="button" class="{.gender}_hair_white customize-option" data-value="white" x-bind="click:customizeHair"></button>
-                            </menu>
-                        </li>
-
-                        <!-- skin -->
-                        <li class="customize-menu">
-                            <menu label="Skin">
-                                <button type="button" class='{.gender}_skin_dead customize-option' data-value="dead" x-bind="click:customizeSkin"></button>
-                                <button type="button" class='{.gender}_skin_orc customize-option' data-value="orc" x-bind="click:customizeSkin"></button>
-                                <button type="button" class='{.gender}_skin_asian customize-option' data-value="asian" x-bind="click:customizeSkin"></button>
-                                <button type="button" class='{.gender}_skin_black customize-option' data-value="black" x-bind="click:customizeSkin"></button>
-                                <button type="button" class='{.gender}_skin_white customize-option' data-value="white" x-bind="click:customizeSkin"></button>
-                            </menu>
-                        </li>
-                    </menu>
-
-                    {#if equal(_user.preferences.gender, 'f')} <!-- Sorry boys -->
-                    <menu type="list">
-                        <li class="customize-menu">
-                            <menu label="Clothing">
-                                <button type="button" class="f_armor_0_v1 customize-option" data-value="v1" x-bind="click:customizeArmorSet"></button>
-                                <button type="button" class="f_armor_0_v2 customize-option" data-value="v2" x-bind="click:customizeArmorSet"></button>
-                            </menu>
-                        </li>
-                    </menu>
-                    {/}
+                    <app:avatar:customize />
                 </div>
 
                 <div class="tab-pane" id="profileEdit"><app:avatar:profile user="{_user}" main="true" /></div>
             </div>
-            {/}
-            <@footer>
-                <button data-dismiss="modal" class="btn btn-success">Ok</button>
-            </@footer>
-    </app:myModal>
+        {/}
+        <@footer>
+            <button data-dismiss="modal" class="btn btn-success">Ok</button>
+        </@footer>
+    </app:modals:modal>
+
+<customize:>
+    <!-- user avatar preview -->
+    <figure class="avatar-window">
+        <app:avatar:avatar profile={_user} minimal="true" />
+        <figcaption class="char-name">{username(_user.auth)}</figcaption>
+    </figure>
+
+    <!-- customization options -->
+    <menu type="list">
+        <!-- gender -->
+        <li class="customize-menu">
+            <menu label="Gender">
+                <button type="button" class="m_head_0 customize-option" data-value="m" x-bind="click:customizeGender"></button>
+                <button type="button" class="f_head_0 customize-option" data-value="f" x-bind="click:customizeGender"></button>
+            </menu>
+        </li>
+
+        <!-- hair -->
+        <li class="customize-menu">
+            <menu label="Hair">
+                <button type="button" class="{.gender}_hair_blond customize-option" data-value="blond" x-bind="click:customizeHair"></button>
+                <button type="button" class="{.gender}_hair_black customize-option" data-value="black" x-bind="click:customizeHair"></button>
+                <button type="button" class="{.gender}_hair_brown customize-option" data-value="brown" x-bind="click:customizeHair"></button>
+                <button type="button" class="{.gender}_hair_white customize-option" data-value="white" x-bind="click:customizeHair"></button>
+            </menu>
+        </li>
+
+        <!-- skin -->
+        <li class="customize-menu">
+            <menu label="Skin">
+                <button type="button" class='{.gender}_skin_dead customize-option' data-value="dead" x-bind="click:customizeSkin"></button>
+                <button type="button" class='{.gender}_skin_orc customize-option' data-value="orc" x-bind="click:customizeSkin"></button>
+                <button type="button" class='{.gender}_skin_asian customize-option' data-value="asian" x-bind="click:customizeSkin"></button>
+                <button type="button" class='{.gender}_skin_black customize-option' data-value="black" x-bind="click:customizeSkin"></button>
+                <button type="button" class='{.gender}_skin_white customize-option' data-value="white" x-bind="click:customizeSkin"></button>
+            </menu>
+        </li>
+    </menu>
+
+    {#if equal(_user.preferences.gender, 'f')} <!-- Sorry boys -->
+        <menu type="list">
+            <li class="customize-menu">
+                <menu label="Clothing">
+                    <button type="button" class="f_armor_0_v1 customize-option" data-value="v1" x-bind="click:customizeArmorSet"></button>
+                    <button type="button" class="f_armor_0_v2 customize-option" data-value="v2" x-bind="click:customizeArmorSet"></button>
+                </menu>
+            </li>
+        </menu>
+    {/}
 
 <avatar:>
     <div class="avatar {{#if @main}}main-avatar{{/}} {{#if @party}}party-avatar{{/}}" data-toggle='modal' data-target='#avatar-modal'>
@@ -90,67 +91,67 @@
     <div class='row-fluid'>
         <div class='span6'>
             {#if _profileEditing}
-            <a class='btn btn-success' x-bind="click:profileSave">Save</a>
-            <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak -->
-            <div class="control-group">
-                <label class="control-label" for="profileImageUrl">Photo Url</label>
-                <div class="controls">
-                    <input type="url" id="profileImageUrl" value="{_user.profile.imageUrl}" placeholder="Image Url"/>
+                <a class='btn btn-success' x-bind="click:profileSave">Save</a>
+                <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak -->
+                <div class="control-group">
+                    <label class="control-label" for="profileImageUrl">Photo Url</label>
+                    <div class="controls">
+                        <input type="url" id="profileImageUrl" value="{_user.profile.imageUrl}" placeholder="Image Url"/>
+                    </div>
                 </div>
-            </div>
 
-            <div class="control-group">
-                <label class="control-label" for="profileFullName">Full Name</label>
-                <div class="controls">
-                    <input type="text" id="profileFullName" placeholder="Full Name" value="{_user.profile.name}" />
+                <div class="control-group">
+                    <label class="control-label" for="profileFullName">Full Name</label>
+                    <div class="controls">
+                        <input type="text" id="profileFullName" placeholder="Full Name" value="{_user.profile.name}" />
+                    </div>
                 </div>
-            </div>
 
-            <div class="control-group">
-                <label class="control-label" for="profileBlurb">Blurb</label>
-                <div class="controls">
-                    <textarea id="profileBlurb" placeholder="Blurb" >{_user.profile.blurb}</textarea>
+                <div class="control-group">
+                    <label class="control-label" for="profileBlurb">Blurb</label>
+                    <div class="controls">
+                        <textarea id="profileBlurb" placeholder="Blurb" >{_user.profile.blurb}</textarea>
+                    </div>
                 </div>
-            </div>
 
-            <div class="control-group">
-                <label class="control-label" for="profileWebsite">Websites</label>
-                <div class="controls">
-                    <form x-bind="submit:profileAddWebsite">
-                        <input type="url" id="profileWebsite" value="{_newProfileWebsite}" placeholder="Add Website"/>
-                    </form>
+                <div class="control-group">
+                    <label class="control-label" for="profileWebsite">Websites</label>
+                    <div class="controls">
+                        <form x-bind="submit:profileAddWebsite">
+                            <input type="url" id="profileWebsite" value="{_newProfileWebsite}" placeholder="Add Website"/>
+                        </form>
+                    </div>
+                    <ul>
+                        {#each _user.profile.websites as :website}
+                        <!-- would prefer if there were and index in #each, instead using data-website to search with indexOf -->
+                        <li>{:website} <a data-website="{:website}" x-bind="click:profileRemoveWebsite"><i class='icon-remove'></i></a></li>
+                        {/}
+                    </ul>
+
                 </div>
-                <ul>
-                    {#each _user.profile.websites as :website}
-                    <!-- would prefer if there were and index in #each, instead using data-website to search with indexOf -->
-                    <li>{:website} <a data-website="{:website}" x-bind="click:profileRemoveWebsite"><i class='icon-remove'></i></a></li>
-                    {/}
-                </ul>
-
-            </div>
-            <a class='btn btn-success' x-bind="click:profileSave">Save</a>
+                <a class='btn btn-success' x-bind="click:profileSave">Save</a>
             {else}
-            <h3>
-                {#if @user.profile.name}{@user.profile.name}
-                {else}{username(@user.auth)}
-                {/}
-                {#if @main}<a class='btn pull-right' x-bind="click:profileEdit">Edit</a>{/}
-            </h3>
+                <h3>
+                    {#if @user.profile.name}{@user.profile.name}
+                    {else}{username(@user.auth)}
+                    {/}
+                    {#if @main}<a class='btn pull-right' x-bind="click:profileEdit">Edit</a>{/}
+                </h3>
             {#if @user.profile.imageUrl}
-            <img src="{@user.profile.imageUrl}" />
+                <img src="{@user.profile.imageUrl}" />
             {/}
             {#if @user.profile.blurb}
-            <p>{@user.profile.blurb}</p>
+                <p>{@user.profile.blurb}</p>
             {/}
             {#if @user.profile.websites}
-            <ul>
-                {#each @user.profile.websites as :website}
-                <li>{:website}</li>
-                {/}
-            </ul>
+                <ul>
+                    {#each @user.profile.websites as :website}
+                    <li>{:website}</li>
+                    {/}
+                </ul>
             {/}
 
-            {/}
+        {/}
         </div>
 
         <div class='span6'>

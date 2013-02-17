@@ -1,6 +1,6 @@
 <modals:>
     {{#if _loggedIn}}
-        <app:myModal modalId="settings-modal" header="Settings">
+        <app:modals:modal modalId="settings-modal" header="Settings">
             <h4>API</h4>
             <small>Copy these for use in third party applications.</small>
             <h6>User ID</h6>
@@ -15,18 +15,18 @@
             <@footer>
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
             </@footer>
-        </app:myModal>
+        </app:modals:modal>
 
-        <app:myModal modalId="reset-modal" header="Reset">
+        <app:modals:modal modalId="reset-modal" header="Reset">
             <p>This resets your entire account - your tasks will be deleted and your character will start over.</p>
             <p>This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.</p>
             <@footer>
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                 <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger btn-large">Reset</button>
             </@footer>
-        </app:myModal>
+        </app:modals:modal>
     {{else}}
-        <app:myModal modalId="login-modal" header="Login / Register">
+        <app:modals:modal modalId="login-modal" header="Login / Register">
             <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt="Login / Register With Facebook"/></a>
             <h3>Or</h3>
 
@@ -39,7 +39,7 @@
                 <div class="tab-pane active" id="login"><derby-auth:login /></div>
                 <div class="tab-pane" id="register"><derby-auth:register /></div>
             </div>
-        </app:myModal>
+        </app:modals:modal>
     {{/}}
 
 <menu:>

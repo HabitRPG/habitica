@@ -1,5 +1,5 @@
 <modals:>
-    <app:myModal modalId="party-modal">
+    <app:modals:modal modalId="party-modal">
         {#if _user.party.current}
         <h2>{_party.name}</h2>
         <table class="table table-striped">
@@ -43,4 +43,4 @@
         <@footer>
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
         </@footer>
-    </app:myModal>
+    </app:modals:modal>
