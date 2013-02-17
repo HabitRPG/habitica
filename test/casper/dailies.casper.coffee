@@ -1,47 +1,42 @@
-helper = new require('./test/casper/helpers')()
-casper = helper.casper
-utils = helper.utils
-url = helper.url
+helpers = new require('./test/casper/helpers')()
+casper = helpers.casper
+utils = helpers.utils
+url = helpers.playUrl
 
-casper.start url + '/?play=1'
+casper.start url
 
 # ---------- Daily ------------
 casper.then ->
-  helper.reset()
-  helper.addTasks()
+  helpers.reset()
+  helpers.addTasks()
 
 # Gained exp on +daily
 casper.then ->
-  user = helper.userBeforeAfter (-> casper.click '.dailys input[type="checkbox"]')
-  @test.assertEquals user.before.stats.hp, user.after.stats.hp, '+daily =hp'
-  @test.assert user.before.stats.exp < user.after.stats.exp, '+daily +exp'
-  @test.assert user.before.stats.money < user.after.stats.money, '+daily +money'
+  helpers.modelBeforeAfter (-> casper.click '.dailys input[type="checkbox"]'), (model) ->
+    casper.test.assertEquals model.before._user.stats.hp, model.after._user.stats.hp, '+daily =hp'
+    casper.test.assert model.before._user.stats.exp < model.after._user.stats.exp, '+daily +exp'
+    casper.test.assert model.before._user.stats.gp < model.after._user.stats.gp, '+daily +gp'
 
 # -daily acts as undo
 casper.then ->
-  user = helper.userBeforeAfter (-> casper.click '.dailys input[type="checkbox"]')
-  @test.assertEquals user.before.stats.hp, user.after.stats.hp, '-daily =hp'
-  @test.assert user.before.stats.exp > user.after.stats.exp, '-daily -exp'
-  @test.assert user.before.stats.money > user.after.stats.money, '-daily -money'
+  helpers.modelBeforeAfter (-> casper.click '.dailys input[type="checkbox"]'), (model) ->
+    casper.test.assertEquals model.before._user.stats.hp, model.after._user.stats.hp, '-daily =hp'
+    casper.test.assert model.before._user.stats.exp > model.after._user.stats.exp, '-daily -exp'
+    casper.test.assert model.before._user.stats.gp > model.after._user.stats.gp, '-daily -gp'
 
 # ---------- Cron ------------
+casper.then ->
+  helpers.reset()
+  helpers.addTasks()
 
 casper.then ->
-  helper.reset()
-  helper.addTasks()
-
-casper.then ->
-  helper.cronBeforeAfter (beforeAfter) ->
+  helpers.cronBeforeAfter (model) ->
     casper.then ->
-        #TODO make sure true for all dailies
-        dailyId = beforeAfter.before.tasks.daily[0].id
-#        utils.dump
-#          dailyBefore:user.before.tasks[dailyId].value
-#          dailyAfter:user.before.tasks[dailyId].value
-        casper.test.assert beforeAfter.before.user.tasks[dailyId].value < beforeAfter.after.user.tasks[dailyId].value, "daily:cron:daily gained value"
-        casper.test.assert beforeAfter.before.user.stats.hp < beforeAfter.after.user.stats.hp, 'daily:cron:hp lost value'
+      #TODO make sure true for all dailies
+      dailyId = model.before._user.dailyIds[0]
+      casper.test.assert model.before._user.tasks[dailyId].value < model.after._user.tasks[dailyId].value, "daily:cron:daily gained value"
+      casper.test.assert model.before._user.stats.hp < model.after._user.stats.hp, 'daily:cron:hp lost value'
 
 # ---------- Run ------------
-
 casper.run ->
   @test.renderResults true
