@@ -4,7 +4,7 @@
   "version": "0.0.0-150",
   "main": "./server.js",
   "dependencies": {
-    "derby": "git://github.com/codeparty/derby#master",
+    "derby": "git://github.com/lefnire/derby#master",
     "racer": "git://github.com/lefnire/racer.git#master",
     "racer-db-mongo": "git://github.com/lefnire/racer-db-mongo#habitrpg",
     "derby-ui-boot": "git://github.com/codeparty/derby-ui-boot#master",
