@@ -29,7 +29,7 @@
                   <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
                 {/}
                 &nbsp;<a href="/v1/users/{{_user.id}}/calendar.ics?apiToken={{_user.apiToken}}"><img src='/img/calendar_ical.png' title="iCal" alt="iCal" rel=tooltip /></a>
-                &nbsp;<a target="_blank" href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}"><img src='/img/calendar_google.png' title="Google Calendar" alt="Google Calendar" rel=tooltip /></a>
+                <!--&nbsp;<a target="_blank" href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}"><img src='/img/calendar_google.png' title="Google Calendar" alt="Google Calendar" rel=tooltip /></a>-->
             </span>
         <div id="todos-chart" style="display:none;"></div>
         <ul class="nav nav-tabs">
