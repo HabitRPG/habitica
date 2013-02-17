@@ -7,17 +7,19 @@ _ = require 'underscore'
 lodash = require 'lodash'
 derby = require 'derby'
 
+module.exports.username = username = (auth) ->
+  if auth?.facebook?.displayName?
+    auth.facebook.displayName
+  else if auth?.facebook?
+    fb = auth.facebook
+    if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name
+  else if auth?.local?
+    auth.local.username
+  else
+    'Anonymous'
+
 module.exports.view = (view) ->
-  view.fn "username", (auth) ->
-    if auth?.facebook?.displayName?
-      auth.facebook.displayName
-    else if auth?.facebook?
-      fb = auth.facebook
-      if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name
-    else if auth?.local?
-      auth.local.username
-    else
-      'Anonymous'
+  view.fn "username", (auth) -> username(auth)
 
 module.exports.app = (appExports, model) ->
   user = model.at '_user'

@@ -1,3 +1,5 @@
+character = require './character'
+
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
 
@@ -19,4 +21,5 @@ module.exports.app = (appExports, model) ->
     uid = $(el).attr('data-uid')
     model.ref '_profileActive', model.at("users.#{uid}")
     model.set '_profileActiveMain', model.get('_user.id') == uid
+    model.set '_profileActiveUsername', character.username model.get('_profileActive.auth')
 

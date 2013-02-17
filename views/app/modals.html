@@ -41,16 +41,18 @@
 
 <!-- $modal-template -->
 <modal: nonvoid>
-    {{#if @noDismiss}}<div data-action="backdrop" class="modal-backdrop"></div>{{/}}
+    {{#if @noDismiss}}
+        <div data-action="backdrop" class="modal-backdrop"></div>
+    {{/}}
     <div class="modal {{#unless @noDismiss}}hide{{/}}" id={{@modalId}} role="dialog">
-        {{#if @header}}
-        <div class="modal-header">
-            {{#unless @noDismiss}}<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>{{/}}
-            <h3>{{unescaped @header}}</h3>
-        </div>
-        {{/}}
+        {#if @header}
+            <div class="modal-header">
+                {{#unless @noDismiss}}<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>{{/}}
+                <h3>{unescaped @header}</h3>
+            </div>
+        {/}
         <div class="modal-body">{@content}</div>
         {{#if @footer}}
-        <div class="modal-footer">{{@footer}}</div>
+            <div class="modal-footer">{{@footer}}</div>
         {{/}}
     </div>
