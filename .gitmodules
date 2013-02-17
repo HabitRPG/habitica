@@ -7,3 +7,6 @@
 [submodule "public/vendor/bootstrap"]
 	path = public/vendor/bootstrap
 	url = https://github.com/twitter/bootstrap.git
+[submodule "public/vendor/github-buttons"]
+	path = public/vendor/github-buttons
+	url = https://github.com/mdo/github-buttons.git
