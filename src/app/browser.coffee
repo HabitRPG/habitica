@@ -32,7 +32,6 @@ reconstructPage = (model) ->
     #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
     #FIXME also, it saves as a day behind??
     model.at(ev.target).set 'date', moment(ev.date).add('d',1).format('MM/DD/YYYY')
-    debugger
 
 ###
   Loads JavaScript files from (1) public/js/* and (2) external sources
