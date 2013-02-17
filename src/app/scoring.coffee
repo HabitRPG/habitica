@@ -218,6 +218,7 @@ cron = () ->
     todoTally = 0
     _.each obj.tasks, (taskObj) ->
       unless taskObj?
+        #TODO delete the object
         console.error "a task had a null id during cron, this should not be happening"
         return
 
