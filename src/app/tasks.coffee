@@ -4,7 +4,7 @@ _ = require 'underscore'
 moment = require 'moment'
 
 module.exports.view = (view) ->
-  view.fn 'taskClasses', (type, completed, value, repeat) ->
+  view.fn 'taskClasses', (type, completed, value, repeat, editing) ->
     #TODO figure out how to just pass in the task model, so i can access all these properties from one object
     classes = type
 
@@ -13,6 +13,9 @@ module.exports.view = (view) ->
       classes += " completed"
     else
       classes += " uncompleted"
+
+    if editing
+      classes += " editing"
 
     switch
       when value<-8 then classes += ' color-worst'
@@ -115,12 +118,22 @@ module.exports.app = (appExports, model) ->
       task.set('repeat.' + $(el).attr('data-day'), true)
 
   appExports.toggleTaskEdit = (e, el) ->
+    # Toggle the task editing state
+    task = model.at(e.target)
+    if task.get('type') in ['habit', 'daily', 'todo']
+      task.set('_editing', !task.get('_editing'))
+
     hideId = $(el).attr('data-hide-id')
     toggleId = $(el).attr('data-toggle-id')
     $(document.getElementById(hideId)).hide()
     $(document.getElementById(toggleId)).toggle()
 
   appExports.toggleChart = (e, el) ->
+    # Make sure if it's a task, it's not in editing mode anymore
+    task = model.at(e.target).parent()
+    if task.get('type') in ['habit', 'daily', 'todo']
+      task.set('_editing', false)
+
     hideSelector = $(el).attr('data-hide-id')
     chartSelector = $(el).attr('data-toggle-id')
     historyPath = $(el).attr('data-history-path')
