@@ -26,7 +26,11 @@ reconstructPage = (model) ->
   setupTooltips(model)
   setupTour(model)
   setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
-  $('.datepicker').datepicker();
+  #Date picker doensn't seem to fire change event to update value
+#  $('.datepicker').datepicker()
+#    .on 'changeDate', (ev) ->
+#      # very strange, doesn't seem to automatically change the input value, meaning our changes aren't saved
+#      $(ev.target).val(ev.target.value)
 
 ###
   Loads JavaScript files from (1) public/js/* and (2) external sources

@@ -622,7 +622,9 @@ do a find for the string after "→"
         {#if _user.flags.enableDueDates}
         <div class=control-group>
             <label>Due Date</label>
-            <input type="text" value="{:task.date}" data-date-format="mm/dd/yy" class="datepicker" >
+            <input type="text" value="{:task.date}" data-date-format="mm/dd/yy" class="datepicker" />
+            <div><small>Enter as date, eg 02/19/2013 or 02-19-2013</small></div>
+
         </div>
         {/}
       {/}
