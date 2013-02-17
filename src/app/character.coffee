@@ -144,6 +144,7 @@ module.exports.updateUser = (batch) ->
   ## Task List Cleanup
   # FIXME temporary hack to fix lists (Need to figure out why these are happening)
   tasks = obj.tasks
+  tasks = _.reject tasks, (task) -> !task?
   _.each ['habit','daily','todo','reward'], (type) ->
     # 1. remove duplicates
     # 2. restore missing zombie tasks back into list
@@ -166,7 +167,7 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
   user: user
 
   obj: ->
-    obj ?= user.get()
+    obj ?= model.get('users.'+user.get('id'), true)
     return obj
 
   startTransaction: ->
