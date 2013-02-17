@@ -2,15 +2,32 @@ utils = require('utils')
 
 module.exports = ->
 
+  SYNC_WAIT_TIME = 20
+
+  baseUrl = 'http://localhost:3000'
+
   random = Math.random().toString(36).substring(7)
 
   casper = require("casper").create
     clientScripts: 'test/includes/lodash.min.js'
 
+  getModel = ->
+    casper.evaluate ->
+      model = window.DERBY.app.model
+      {
+        _userId: model.get('_userId')
+        _user: model.get('_user')
+        _todoList: model.get('_todoList')
+        _dailyList: model.get('_dailyList')
+        _rewardList: model.get('_rewardList')
+        _habitList: model.get('_habitList')
+      }
+
   {
     casper: casper
 
-    url: 'http://localhost:3000'
+    baseUrl: baseUrl
+    playUrl: baseUrl + '/?play=1'
 
     utils: utils
 
@@ -25,27 +42,20 @@ module.exports = ->
     reset: ->
       casper.evaluate -> window.DERBY.app.reset()
 
-    getModel: ->
-      casper.evaluate ->
-        model = window.DERBY.app.model
-        {
-          _userId: model.get('_userId')
-          _user: model.get("_user")
-          _todoList: model.get('_todoList')
-          _dailyList: model.get('_dailyList')
-          _rewardList: model.get('_rewardList')
-          _habitList: model.get('_habitList')
-        }
+    getModelDelayed: (cb) ->
+      casper.wait SYNC_WAIT_TIME, ->
+        cb(getModel())
 
     modelBeforeAfter: (between_cb, done_cb) ->
       that = @
-      model = {before:@getModel()}
-      casper.then ->
-        between_cb()
+      model = {}
+      @getModelDelayed (before) ->
+        model.before = before
         casper.then ->
-          model.after = that.getModel()
-          #utils.dump model
-          casper.then -> done_cb(model)
+          between_cb()
+          that.getModelDelayed (after) ->
+            model.after = after
+            casper.then -> done_cb(model)
 
     runCron: ->
       casper.evaluate -> window.DERBY.model.set('_user.lastCron', new Date('01/25/2013'))
@@ -53,15 +63,17 @@ module.exports = ->
 
     cronBeforeAfter: (cb) ->
       that = @
-      model = {before:@getModel()}
-      casper.then -> that.runCron()
-      casper.then ->
-        casper.wait 1050, -> # user's hp is updated after 1s for animation
-          model.after = that.getModel()
-          casper.then ->
-            casper.test.assertEqual beforeAfter.before.user.id, beforeAfter.after.user.id, 'user id equal after cron'
-            casper.test.assertEqual beforeAfter.before.user.tasks.length, beforeAfter.after.user.tasks.length, "Didn't lose anything on cron"
-            cb(beforeAfter)
+      model = {}
+      @getModelDelayed (before) ->
+        model.before = before
+        casper.then -> that.runCron()
+        casper.then ->
+          casper.wait 1050, -> # user's hp is updated after 1s for animation
+            model.after = getModel()
+            casper.then ->
+              casper.test.assertEqual model.before._user.id, model.after._user.id, 'user id equal after cron'
+              casper.test.assertEqual model.before._user.tasks.length, model.after._user.tasks.length, "Didn't lose anything on cron"
+              cb(model)
 
 
     register: ->
