@@ -1,23 +1,45 @@
 <modals:>
-    <app:modals:modal modalId="avatar-modal" header="Customize">
-        {#with _user.preferences}
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle='tab' href="#profileCustomize">Avatar</a></li>
-                <li><a data-toggle='tab' href="#profileEdit">Profile</a></li>
-            </ul>
+    <app:modals:modal modalId="avatar-modal" header="{Profile}">
+        {#if _profileActiveMain}
+            {#with _user.preferences}
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle='tab' href="#profileCustomize">Avatar</a></li>
+                    <li><a data-toggle='tab' href="#profileEdit">Profile</a></li>
+                </ul>
 
-            <div class="tab-content">
-                <div class="tab-pane active" id="profileCustomize">
-                    <app:avatar:customize />
+                <div class="tab-content">
+                    <div class="tab-pane active" id="profileCustomize">
+                        <app:avatar:customize />
+                    </div>
+
+                    <div class="tab-pane" id="profileEdit"><app:avatar:profile user="{_user}" main="true" /></div>
                 </div>
-
-                <div class="tab-pane" id="profileEdit"><app:avatar:profile user="{_user}" main="true" /></div>
-            </div>
+            {/}
+        {else}
+            <app:avatar:profile profile={_profileActive} />
         {/}
         <@footer>
             <button data-dismiss="modal" class="btn btn-success">Ok</button>
         </@footer>
     </app:modals:modal>
+
+<avatar:>
+    <div class="avatar {{#if @main}}main-avatar{{/}} {{#if @party}}party-avatar{{/}}" data-toggle='modal' data-target='#avatar-modal' data-uid="{@profile.id}" x-bind="click:profileChangeActive">
+        {#unless @minimal}{#if @profile.items.pet}<img src='img/BrowserQuest/habitrpg_mods/{@profile.items.pet.icon}' />{/}{/}
+        <div class='character-sprites'>
+            {#with @profile.preferences as :p}
+            <span class='{:p.gender}_skin_{:p.skin}'></span>
+            <span class='{:p.gender}_hair_{:p.hair}'></span>
+            <span class="{equipped(@profile, 'armor')}"></span>
+            <span class="{equipped(@profile, 'head')}"></span>
+            <span class='{:p.gender}_shield_{@profile.items.shield}'></span>
+            <span class='{:p.gender}_weapon_{@profile.items.weapon}'></span>
+            {/}
+        </div>
+        {{#unless @minimal}}
+        <div class="lvl"><span class="badge badge-info">Lvl {@profile.stats.lvl}</span></div>
+        {{/}}
+    </div>
 
 <customize:>
     <!-- user avatar preview -->
@@ -69,89 +91,72 @@
         </menu>
     {/}
 
-<avatar:>
-    <div class="avatar {{#if @main}}main-avatar{{/}} {{#if @party}}party-avatar{{/}}" data-toggle='modal' data-target='#avatar-modal'>
-        {#unless @minimal}{#if @profile.items.pet}<img src='img/BrowserQuest/habitrpg_mods/{@profile.items.pet.icon}' />{/}{/}
-        <div class='character-sprites'>
-            {#with @profile.preferences as :p}
-            <span class='{:p.gender}_skin_{:p.skin}'></span>
-            <span class='{:p.gender}_hair_{:p.hair}'></span>
-            <span class="{equipped(@profile, 'armor')}"></span>
-            <span class="{equipped(@profile, 'head')}"></span>
-            <span class='{:p.gender}_shield_{@profile.items.shield}'></span>
-            <span class='{:p.gender}_weapon_{@profile.items.weapon}'></span>
-            {/}
-        </div>
-        {{#unless @minimal}}
-        <div class="lvl"><span class="badge badge-info">Lvl {@profile.stats.lvl}</span></div>
-        {{/}}
-    </div>
-
 <profile:>
     <div class='row-fluid'>
         <div class='span6'>
             {#if _profileEditing}
-                <a class='btn btn-success' x-bind="click:profileSave">Save</a>
-                <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak -->
-                <div class="control-group">
-                    <label class="control-label" for="profileImageUrl">Photo Url</label>
-                    <div class="controls">
-                        <input type="url" id="profileImageUrl" value="{_user.profile.imageUrl}" placeholder="Image Url"/>
+                {#if _profileActiveMain}
+                    <a class='btn btn-success' x-bind="click:profileSave">Save</a>
+                    <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak -->
+                    <div class="control-group">
+                        <label class="control-label" for="profileImageUrl">Photo Url</label>
+                        <div class="controls">
+                            <input type="url" id="profileImageUrl" value="{_user.profile.imageUrl}" placeholder="Image Url"/>
+                        </div>
                     </div>
-                </div>
 
-                <div class="control-group">
-                    <label class="control-label" for="profileFullName">Full Name</label>
-                    <div class="controls">
-                        <input type="text" id="profileFullName" placeholder="Full Name" value="{_user.profile.name}" />
+                    <div class="control-group">
+                        <label class="control-label" for="profileFullName">Full Name</label>
+                        <div class="controls">
+                            <input type="text" id="profileFullName" placeholder="Full Name" value="{_user.profile.name}" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="control-group">
-                    <label class="control-label" for="profileBlurb">Blurb</label>
-                    <div class="controls">
-                        <textarea id="profileBlurb" placeholder="Blurb" >{_user.profile.blurb}</textarea>
+                    <div class="control-group">
+                        <label class="control-label" for="profileBlurb">Blurb</label>
+                        <div class="controls">
+                            <textarea id="profileBlurb" placeholder="Blurb" >{_user.profile.blurb}</textarea>
+                        </div>
                     </div>
-                </div>
 
-                <div class="control-group">
-                    <label class="control-label" for="profileWebsite">Websites</label>
-                    <div class="controls">
-                        <form x-bind="submit:profileAddWebsite">
-                            <input type="url" id="profileWebsite" value="{_newProfileWebsite}" placeholder="Add Website"/>
-                        </form>
+                    <div class="control-group">
+                        <label class="control-label" for="profileWebsite">Websites</label>
+                        <div class="controls">
+                            <form x-bind="submit:profileAddWebsite">
+                                <input type="url" id="profileWebsite" value="{_newProfileWebsite}" placeholder="Add Website"/>
+                            </form>
+                        </div>
+                        <ul>
+                            {#each _user.profile.websites as :website}
+                            <!-- would prefer if there were and index in #each, instead using data-website to search with indexOf -->
+                            <li>{:website} <a data-website="{:website}" x-bind="click:profileRemoveWebsite"><i class='icon-remove'></i></a></li>
+                            {/}
+                        </ul>
+
                     </div>
-                    <ul>
-                        {#each _user.profile.websites as :website}
-                        <!-- would prefer if there were and index in #each, instead using data-website to search with indexOf -->
-                        <li>{:website} <a data-website="{:website}" x-bind="click:profileRemoveWebsite"><i class='icon-remove'></i></a></li>
-                        {/}
-                    </ul>
-
-                </div>
-                <a class='btn btn-success' x-bind="click:profileSave">Save</a>
+                    <a class='btn btn-success' x-bind="click:profileSave">Save</a>
+                {/}
             {else}
                 <h3>
-                    {#if @user.profile.name}{@user.profile.name}
-                    {else}{username(@user.auth)}
+                    {#if _profileActive.profile.name}{_profileActive.profile.name}
+                    {else}{username(_profileActive.auth)}
                     {/}
-                    {#if @main}<a class='btn pull-right' x-bind="click:profileEdit">Edit</a>{/}
+                    {#if _profileActiveMain}<a class='btn pull-right' x-bind="click:profileEdit">Edit</a>{/}
                 </h3>
-            {#if @user.profile.imageUrl}
-                <img src="{@user.profile.imageUrl}" />
+                {#if _profileActive.profile.imageUrl}
+                    <img src="{@user.profile.imageUrl}" />
+                {/}
+                {#if _profileActive.profile.blurb}
+                    <p>{_profileActive.profile.blurb}</p>
+                {/}
+                {#if _profileActive.profile.websites}
+                    <ul>
+                        {#each _profileActive.profile.websites as :website}
+                        <li>{:website}</li>
+                        {/}
+                    </ul>
+                {/}
             {/}
-            {#if @user.profile.blurb}
-                <p>{@user.profile.blurb}</p>
-            {/}
-            {#if @user.profile.websites}
-                <ul>
-                    {#each @user.profile.websites as :website}
-                    <li>{:website}</li>
-                    {/}
-                </ul>
-            {/}
-
-        {/}
         </div>
 
         <div class='span6'>

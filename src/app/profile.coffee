@@ -15,3 +15,8 @@ module.exports.app = (appExports, model) ->
     sites.splice(i,1)
     user.set 'profile.websites', sites
 
+  appExports.profileChangeActive = (e, el) ->
+    uid = $(el).attr('data-uid')
+    model.ref '_profileActive', model.at("users.#{uid}")
+    model.set '_profileActiveMain', model.get('_user.id') == uid
+
