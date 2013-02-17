@@ -1,0 +1,219 @@
+<taskLists:>
+    <!--helpTitle & helpContent moved to tour -->
+    <div class="span3 well habits">
+        <h2>Habits</h2>
+        <app:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
+        <ul class="habits">{#each _habitList as :task}<app:task />{/}</ul>
+    </div>
+
+    <div class="span3 well dailys">
+        <h2>Daily</h2>
+        <app:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
+        <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
+    </div>
+
+    <div class="span3 well todos context-enabled context-uncompleted tabbable tabs-below" id="todo-well">
+        <h2>Todos</h2>
+        <div class="display-context-dependant show-for-uncompleted">
+            <app:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />
+        </div>
+        <ul class='todos task-list'>
+            {#each _todoList as :task}<app:task />{/}
+        </ul>
+        <div class="display-context-dependant show-for-completed">
+            <a class='btn' x-bind=click:clearCompleted>Clear Completed</a>
+            <p>&nbsp;</p>
+        </div>
+            <span class='pull-right'>
+                {#if _user.history.todos}
+                  <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
+                {/}
+                {#if _user.flags.enableDueDates}
+                &nbsp;<a href="/v1/users/{{_user.id}}/calendar.ics?apiToken={{_user.apiToken}}"><img src='/img/calendar_ical.png' title="iCal" alt="iCal" rel=tooltip /></a>
+                &nbsp;<a target="_blank" href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}"><img src='/img/calendar_google.png' title="Google Calendar" alt="Google Calendar" rel=tooltip /></a>
+                {/}
+            </span>
+        <div id="todos-chart" style="display:none;"></div>
+        <ul class="nav nav-tabs">
+            <li class="active"><a x-bind=click:changeContext data-target="#todo-well" data-context="context-uncompleted">Remaining</a></li>
+            <li><a x-bind=click:changeContext data-target="#todo-well" data-context="context-completed">Complete</a></li>
+        </ul>
+
+    </div>
+
+    <div class="span3 well rewards">
+
+        <!--Title -->
+        <div class="row-fluid">
+            <div class="span6"><h2>Rewards</h2></div>
+            <div class="span6">
+                {#unless _view.activeTabPets}
+                <table><tr>
+                    <td>{gold(_user.stats.gp)} </td>
+                    <td><div class='shop_gold' rel='tooltip' title='Gold'></div></td>
+                    <td>{silver(_user.stats.gp)} </td>
+                    <td><div class='shop_silver' rel='tooltip' title='Silver'></div></td>
+                    <!--<td>{copper(_user.stats.gp)} </td>
+                    <td><div class='shop_copper' rel='tooltip' title='shop_copper'></div></td>-->
+                </tr></table>
+                {else}
+                <app:userTokens />
+                {/}
+            </div>
+        </div>
+        <app:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
+
+        {#if _user.flags.petsEnabled}
+        <div class='tabbable tabs-below'>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="rewards-tab">
+                    <app:rewardsTab />
+                </div>
+
+                <div class="tab-pane" id="pets-tab">
+                    {#with _view.items.pets as :pets}
+
+                    <div class="row-fluid">
+                        {#with :pets[0]}<app:pet />{/}
+                        {#with :pets[1]}<app:pet />{/}
+                        {#with :pets[2]}<app:pet />{/}
+                        {#with :pets[3]}<app:pet />{/}
+                    </div>
+
+                    <div class="row-fluid">
+                        {#with :pets[4]}<app:pet />{/}
+                        {#with :pets[5]}<app:pet />{/}
+                        {#with :pets[6]}<app:pet />{/}
+                        {#with :pets[7]}<app:pet />{/}
+                    </div>
+
+                    <div class="row-fluid">
+                        {#with :pets[8]}<app:pet />{/}
+                        {#with :pets[9]}<app:pet />{/}
+                        {#with :pets[10]}<app:pet />{/}
+                        {#with :pets[11]}<app:pet />{/}
+                    </div>
+
+                    <div class="row-fluid">
+                        {#with :pets[12]}<app:pet />{/}
+                        {#with :pets[13]}<app:pet />{/}
+                        {#with :pets[14]}<app:pet />{/}
+                        {#with :pets[15]}<app:pet />{/}
+                    </div>
+
+                    <div class="row-fluid">
+                        {#with :pets[16]}<app:pet />{/}
+                    </div>
+
+
+                    {/}
+                </div>
+                <!--<div class="tab-pane" id="mounts-tab">...</div>-->
+            </div>
+
+
+            <ul class="nav nav-tabs" id="rewardsTabs">
+                <li class="active"><a href="#rewards-tab" data-toggle="tab" x-bind="click:activateRewardsTab">Rewards</a></li>
+                <li><a href="#pets-tab" id='pets-tab' data-toggle="tab" x-bind='click:activatePetsTab'>Pets</a></li>
+                <!--<li><a href="#mounts-tab" data-toggle="tab">Mounts</a></li>-->
+            </ul>
+        </div>
+    {else}
+        <app:rewardsTab />
+    {/}
+    </div>
+
+<newTask:>
+    <form class="form-inline new-task-form" id="new-{@type}" data-task-type="{@type}" x-bind="submit:addTask">
+        <input value="{@inputValue}" type="text" name="new-task" placeholder="{@placeHolder}"/>
+        <input class="btn" type="submit" value="Add" />
+    </form>
+
+    <task:>
+        <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, :task.repeat)}">
+    <pre>
+    <div class="task-meta-controls">
+
+        <div class="hover-show">
+            <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
+            <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
+            {#if :task.history}
+            <a x-bind=click:toggleChart data-toggle-id="{{:task.id}}-chart" data-hide-id="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history" rel="tooltip" title="Progress">
+                <i class="icon-signal"></i>
+            </a>
+            {/}
+        </div>
+
+        {#if :task.notes}
+        <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
+        {/}
+    </div>
+
+    <div class="task-controls">
+        <!-- Habits -->
+        {#if equal(:task.type, 'habit')}
+        {#if :task.up}<a data-direction=up x-bind=click:score><img src="/img/add.png" /></a>{/}
+        {#if :task.down}<a data-direction=down x-bind=click:score><img src="/img/remove.png" /></a>{/}
+        <!-- Rewards -->
+        {else if equal(:task.type, 'reward')}
+        <a x-bind=click:score class="buy-link" data-direction=down>{:task.value}<img src="/img/coin_single_gold.png"/></a>
+        <!-- Daily & Todos -->
+        {else}
+        <input type=checkbox checked="{:task.completed}"/>
+        {/}
+    </div>
+    <div class="task-text">{:task.text}</div>
+
+    <app:taskMeta />
+    </pre>
+    </li>
+
+<taskMeta:>
+    <div style="display:none;" id={{:task.id}}-edit>
+        <hr/>
+        <form x-bind=submit:toggleTaskEdit data-toggle-id="{{:task.id}}-edit">
+            <div class=control-group>
+                <label>Text</label><input type=text value={:task.text} />
+                <label>Notes</label><textarea rows=3>{:task.notes}</textarea>
+            </div>
+            {#if equal(:task.type, 'habit')}
+            <div class="control-group">
+                <label class="checkbox inline"><input type=checkbox checked={:task.up}>Up</label>
+                <label class="checkbox inline"><input type=checkbox checked={:task.down}>Down</label>
+            </div>
+            {else if equal(:task.type, 'daily')}
+            <label>Repeat</label>
+            <div class="control-group btn-group repeat-days">
+                <!-- note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding -->
+                <button type="button" class="btn btn-info {#if :task.repeat.su}active{/}" data-day='su' x-bind=click:toggleDay>Su</button>
+                <button type="button" class="btn btn-info {#if :task.repeat.m}active{/}" data-day='m' x-bind=click:toggleDay>M</button>
+                <button type="button" class="btn btn-info {#if :task.repeat.t}active{/}" data-day='t' x-bind=click:toggleDay>T</button>
+                <button type="button" class="btn btn-info {#if :task.repeat.w}active{/}" data-day='w' x-bind=click:toggleDay>W</button>
+                <button type="button" class="btn btn-info {#if :task.repeat.th}active{/}" data-day='th' x-bind=click:toggleDay>Th</button>
+                <button type="button" class="btn btn-info {#if :task.repeat.f}active{/}" data-day='f' x-bind=click:toggleDay>F</button>
+                <button type="button" class="btn btn-info {#if :task.repeat.s}active{/}" data-day='s' x-bind=click:toggleDay>S</button>
+            </div>
+            {else if equal(:task.type, 'reward')}
+            <div class=control-group>
+                <label>Price
+                    <div class="input-append">
+                        <input class="span5" size="16" type="number" min="0" value={:task.value}><span class="add-on">Gold</span>
+                    </div>
+                </label>
+            </div>
+            {else if equal(:task.type, 'todo')}
+            {#if _user.flags.enableDueDates}
+            <div class=control-group>
+                <label>Due Date</label>
+                <input type="text" value="{:task.date}" data-date-format="mm/dd/yy" class="datepicker" />
+                <div><small>Enter as date, eg 02/19/2013 or 02-19-2013</small></div>
+
+            </div>
+            {/}
+            {/}
+            <button type=submit class="btn">Save & Close</button>
+        </form>
+    </div>
+
+    <div style="display:none;" id={{:task.id}}-chart></div>
