@@ -1,3 +1,9 @@
 [submodule "public/vendor/bootstrap-datepicker"]
 	path = public/vendor/bootstrap-datepicker
 	url = https://github.com/eternicode/bootstrap-datepicker.git
+[submodule "public/vendor/bootstrap-growl"]
+	path = public/vendor/bootstrap-growl
+	url = https://github.com/ifightcrime/bootstrap-growl.git
+[submodule "public/vendor/bootstrap"]
+	path = public/vendor/bootstrap
+	url = https://github.com/twitter/bootstrap.git

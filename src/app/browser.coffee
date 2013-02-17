@@ -32,15 +32,22 @@ module.exports.app = (appExports, model) ->
 ###
 loadJavaScripts = (model) ->
 
-  # Load public/js/* files
-  # TODO use Bower
-  require '../../public/js/jquery.min'
-  require '../../public/js/jquery-ui.min' unless model.get('_view.mobileDevice')
-  require '../../public/js/bootstrap.min' #http://twitter.github.com/bootstrap/assets/js/bootstrap.min.js
-  require '../../public/js/jquery.cookie' #https://raw.github.com/carhartl/jquery-cookie/master/jquery.cookie.js
-  require '../../public/js/bootstrap-tour' #https://raw.github.com/pushly/bootstrap-tour/master/bootstrap-tour.js
+  require '../../public/vendor/jquery.min'
+  require '../../public/vendor/jquery-ui.min' unless model.get('_view.mobileDevice')
+
+  # Bootstrap
+  require '../../public/vendor/bootstrap/js/bootstrap-tooltip'
+  require '../../public/vendor/bootstrap/js/bootstrap-tab'
+  require '../../public/vendor/bootstrap/js/bootstrap-popover'
+  require '../../public/vendor/bootstrap/js/bootstrap-modal'
+  require '../../public/vendor/bootstrap/js/bootstrap-dropdown'
+
+
+  require '../../public/vendor/jquery.cookie' #https://raw.github.com/carhartl/jquery-cookie/master/jquery.cookie.js
+  require '../../public/vendor/bootstrap-tour' #https://raw.github.com/pushly/bootstrap-tour/master/bootstrap-tour.js
   require '../../public/vendor/bootstrap-datepicker/js/bootstrap-datepicker'
-  require '../../public/js/jquery.bootstrap-growl.min'
+  require '../../public/vendor/bootstrap-growl/jquery.bootstrap-growl.min'
+
 
   # JS files not needed right away (google charts) or entirely optional (analytics)
   # Each file getsload asyncronously via $.getScript, so it doesn't bog page-load
