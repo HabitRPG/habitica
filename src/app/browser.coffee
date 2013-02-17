@@ -32,8 +32,14 @@ module.exports.app = (appExports, model) ->
 ###
 loadJavaScripts = (model) ->
 
-  require '../../public/vendor/jquery.min'
-  require '../../public/vendor/jquery-ui.min' unless model.get('_view.mobileDevice')
+  require '../../public/vendor/jquery-ui/jquery-1.9.1'
+  unless model.get('_view.mobileDevice')
+    require '../../public/vendor/jquery-ui/ui/jquery.ui.core'
+    require '../../public/vendor/jquery-ui/ui/jquery.ui.widget'
+    require '../../public/vendor/jquery-ui/ui/jquery.ui.mouse'
+    require '../../public/vendor/jquery-ui/ui/jquery.ui.draggable'
+    require '../../public/vendor/jquery-ui/ui/jquery.ui.position'
+    require '../../public/vendor/jquery-ui/ui/jquery.ui.sortable'
 
   # Bootstrap
   require '../../public/vendor/bootstrap/js/bootstrap-tooltip'
@@ -43,7 +49,7 @@ loadJavaScripts = (model) ->
   require '../../public/vendor/bootstrap/js/bootstrap-dropdown'
 
 
-  require '../../public/vendor/jquery.cookie' #https://raw.github.com/carhartl/jquery-cookie/master/jquery.cookie.js
+  require '../../public/vendor/jquery-cookie/jquery.cookie'
   require '../../public/vendor/bootstrap-tour' #https://raw.github.com/pushly/bootstrap-tour/master/bootstrap-tour.js
   require '../../public/vendor/bootstrap-datepicker/js/bootstrap-datepicker'
   require '../../public/vendor/bootstrap-growl/jquery.bootstrap-growl.min'

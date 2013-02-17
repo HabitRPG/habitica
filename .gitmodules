@@ -10,3 +10,9 @@
 [submodule "public/vendor/github-buttons"]
 	path = public/vendor/github-buttons
 	url = https://github.com/mdo/github-buttons.git
+[submodule "public/vendor/jquery-cookie"]
+	path = public/vendor/jquery-cookie
+	url = https://github.com/carhartl/jquery-cookie.git
+[submodule "public/vendor/jquery-ui"]
+	path = public/vendor/jquery-ui
+	url = https://github.com/jquery/jquery-ui.git
