@@ -14,23 +14,30 @@ partyUnsubscribe = (model, cb) ->
 module.exports.partySubscribe = partySubscribe = (model, cb) ->
 
   # unsubscribe from everything - we're starting over
-  partyUnsubscribe model
+  #partyUnsubscribe model
 
   # Restart subscription to the main user
   selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
-  selfQ.subscribe (err, res) ->
+  selfQ.fetch (err, res) ->
     throw err if err
     u = res.at(0)
     uObj = u.get()
 
-    # If user not in a party, just send over that subscription
-    unless uObj.party?.current
-      model.ref '_user', u
-      return cb()
+    finished = (reset, cb) ->
+      # Here's a hack we need to get fixed - later model.queries override previous model.queries'
+      # returned fields. Aka, we need this here otherwise we only get the "public" fields for the current user, which
+      # are defined in model.query('users').party()
+      selfQ.subscribe (err, res) ->
+        model.ref '_user', res.at(0)
+        browser.resetDom(model) if window? and reset
+        cb() if cb?
+
+    ## (1) User is solo, just return that subscription
+    return finished(false, cb) unless uObj.party?.current
 
     # User in a party
     partiesQ = model.query('parties').withId(uObj.party.current)
-    partiesQ.subscribe (err, res) ->
+    partiesQ.fetch (err, res) ->
       throw err if err
       p = res.at(0)
       model.ref '_party', p
@@ -42,28 +49,19 @@ module.exports.partySubscribe = partySubscribe = (model, cb) ->
       #  debugger
       #  membersSubscribe model, ids
 
-      finished = (cb) ->
-        # Here's a hack we need to get fixed (hopefully Lever will) - later model.queries override previous model.queries'
-        # returned fields. Aka, we need this here otherwise we only get the "public" fields for the current user, which
-        # are defined in model.query('users')party()
-        model.subscribe selfQ, (err, users) ->
-          model.ref '_user', users.at(0)
-          browser.resetDom(model) if window?
-          cb() if cb?
-
-
       ids = p.get('members')
-      # Party has no members, just subscribe to the party itself
-      if _.isEmpty(ids)
-        finished(cb)
 
-      # Party has members, subscribe to those users too
+      ## (2) Party has no members, just subscribe to the party itself
+      if _.isEmpty(ids)
+        return finished(true, cb)
+
+      ## (3) Party has members, subscribe to those users too
       else
         membersQ = model.query('users').party(ids)
-        membersQ.subscribe (err, m) ->
+        membersQ.fetch (err, m) ->
           throw err if err
           model.ref '_partyMembers', m
-          finished(cb)
+          finished(true, cb)
 
 
 module.exports.app = (appExports, model) ->

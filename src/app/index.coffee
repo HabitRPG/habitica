@@ -32,22 +32,12 @@ get '/', (page, model, next) ->
   #if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
   #  return page.redirect 'https://' + req.headers.host + req.url
 
-  # This used to be in party.server(model, cb), but was getting `TypeError: Object #<Model> has no method 'server'`
-  # on the second load for some reason
-  selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
-  model.subscribe selfQ, (err, users) ->
-    throw err if err
-
-    user = users.at(0)
-    model.ref '_user', user
-    model.set '_view', _view
-
+  party.partySubscribe model, ->
     character.updateUser(model)
     items.server(model)
-
-    party.partySubscribe model, ->
-      browser.restoreRefs model
-      page.render()
+    model.set '_view', _view
+    browser.restoreRefs model
+    page.render()
 
 # ========== CONTROLLER FUNCTIONS ==========
 
