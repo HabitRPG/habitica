@@ -2,67 +2,72 @@ _ = require('underscore')
 character = require './character'
 browser = require './browser'
 
-partyQ = null
-membersQ = null
-
 partyUnsubscribe = (model, cb) ->
   if window?
+    throw "unsubscribe requires cb" unless cb?
     subs = model._subs()
-    subs.concat cb if cb?
+    subs.concat cb
     model.unsubscribe.apply(model, subs)
+  else
+    cb()
 
+###
+  Subscribe to the user, the users's party (meta), and the party's members. 3 subscriptions.
+  If the user is solo, just subscribe to the user. If in a an empty party, just subscribe to the party. If full party,
+  subscribe to everything.
+
+  Note a strange hack - later model.queries override previous model.queries'
+  returned fields. Aka, we need this here otherwise we only get the "public" fields for the current user, which
+  are defined in model.query('users').party(). So we need to subscribe to the main user last
+###
 module.exports.partySubscribe = partySubscribe = (model, cb) ->
 
   # unsubscribe from everything - we're starting over
-  #partyUnsubscribe model
+  partyUnsubscribe model, ->
 
-  # Restart subscription to the main user
-  selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
-  selfQ.fetch (err, res) ->
-    throw err if err
-    u = res.at(0)
-    uObj = u.get()
-
-    finished = (reset, cb) ->
-      # Here's a hack we need to get fixed - later model.queries override previous model.queries'
-      # returned fields. Aka, we need this here otherwise we only get the "public" fields for the current user, which
-      # are defined in model.query('users').party()
-      selfQ.subscribe (err, res) ->
-        model.ref '_user', res.at(0)
-        browser.resetDom(model) if window? and reset
-        cb() if cb?
-
-    ## (1) User is solo, just return that subscription
-    return finished(false, cb) unless uObj.party?.current
-
-    # User in a party
-    partiesQ = model.query('parties').withId(uObj.party.current)
-    partiesQ.fetch (err, res) ->
+    # Restart subscription to the main user
+    selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
+    selfQ.fetch (err, res) ->
       throw err if err
-      p = res.at(0)
-      model.ref '_party', p
+      u = res.at(0)
+      uObj = u.get()
 
-      # FIXME this is the kicker right here. This isn't getting triggered, and it's the reason why we have to refresh
-      # after every event. Get this working
-      #p.on '*', 'members', (ids) ->
-      #  console.log("members listener got called")
-      #  debugger
-      #  membersSubscribe model, ids
+      finished = ->
+        selfQ.subscribe (err, res) ->
+          model.ref '_user', res.at(0)
+          browser.resetDom(model) if window?
+          cb() if cb?
 
-      ids = p.get('members')
+      ## (1) User is solo, just return that subscription
+      return finished() unless uObj.party?.current
 
-      ## (2) Party has no members, just subscribe to the party itself
-      if _.isEmpty(ids)
-        return finished(true, cb)
 
-      ## (3) Party has members, subscribe to those users too
-      else
-        membersQ = model.query('users').party(ids)
-        membersQ.fetch (err, m) ->
-          throw err if err
-          model.ref '_partyMembers', m
-          finished(true, cb)
+      # User in a party
+      partiesQ = model.query('parties').withId(uObj.party.current)
+      partiesQ.subscribe (err, res) ->
+        throw err if err
+        p = res.at(0)
+        model.ref '_party', p
+        ids = p.get('members')
 
+        # FIXME this is the kicker right here. This isn't getting triggered, and it's the reason why we have to refresh
+        # after every event. Get this working
+        #p.on '*', 'members', (ids) ->
+        #  console.log("members listener got called")
+        #  debugger
+        #  membersSubscribe model, ids
+
+        ## (2) Party has no members, just subscribe to the party itself
+        if _.isEmpty(ids)
+          return finished()
+
+        else
+          ## (3) Party has members, subscribe to those users too
+          membersQ = model.query('users').party(ids)
+          membersQ.subscribe (err, members) ->
+            throw err if err
+            model.ref '_partyMembers', members
+            finished()
 
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
