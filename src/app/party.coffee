@@ -23,51 +23,51 @@ partyUnsubscribe = (model, cb) ->
 module.exports.partySubscribe = partySubscribe = (model, cb) ->
 
   # unsubscribe from everything - we're starting over
-  partyUnsubscribe model, ->
+  # partyUnsubscribe model, ->
 
-    # Restart subscription to the main user
-    selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
-    selfQ.fetch (err, res) ->
+  # Restart subscription to the main user
+  selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
+  selfQ.fetch (err, res) ->
+    throw err if err
+    u = res.at(0)
+    uObj = u.get()
+
+    finished = ->
+      selfQ.subscribe (err, res) ->
+        model.ref '_user', res.at(0)
+        browser.resetDom(model) if window?
+        cb() if cb?
+
+    ## (1) User is solo, just return that subscription
+    return finished() unless uObj.party?.current
+
+
+    # User in a party
+    partiesQ = model.query('parties').withId(uObj.party.current)
+    partiesQ.subscribe (err, res) ->
       throw err if err
-      u = res.at(0)
-      uObj = u.get()
+      p = res.at(0)
+      model.ref '_party', p
+      ids = p.get('members')
 
-      finished = ->
-        selfQ.subscribe (err, res) ->
-          model.ref '_user', res.at(0)
-          browser.resetDom(model) if window?
-          cb() if cb?
+      # FIXME this is the kicker right here. This isn't getting triggered, and it's the reason why we have to refresh
+      # after every event. Get this working
+      #p.on '*', 'members', (ids) ->
+      #  console.log("members listener got called")
+      #  debugger
+      #  membersSubscribe model, ids
 
-      ## (1) User is solo, just return that subscription
-      return finished() unless uObj.party?.current
+      ## (2) Party has no members, just subscribe to the party itself
+      if _.isEmpty(ids)
+        return finished()
 
-
-      # User in a party
-      partiesQ = model.query('parties').withId(uObj.party.current)
-      partiesQ.subscribe (err, res) ->
-        throw err if err
-        p = res.at(0)
-        model.ref '_party', p
-        ids = p.get('members')
-
-        # FIXME this is the kicker right here. This isn't getting triggered, and it's the reason why we have to refresh
-        # after every event. Get this working
-        #p.on '*', 'members', (ids) ->
-        #  console.log("members listener got called")
-        #  debugger
-        #  membersSubscribe model, ids
-
-        ## (2) Party has no members, just subscribe to the party itself
-        if _.isEmpty(ids)
-          return finished()
-
-        else
-          ## (3) Party has members, subscribe to those users too
-          membersQ = model.query('users').party(ids)
-          membersQ.subscribe (err, members) ->
-            throw err if err
-            model.ref '_partyMembers', members
-            finished()
+      else
+        ## (3) Party has members, subscribe to those users too
+        membersQ = model.query('users').party(ids)
+        membersQ.subscribe (err, members) ->
+          throw err if err
+          model.ref '_partyMembers', members
+          finished()
 
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
@@ -125,6 +125,9 @@ module.exports.app = (appExports, model) ->
   appExports.partyAccept = ->
     user.set 'party.current', user.get('party.invitation')
     user.set 'party.invitation', null
+    setTimeout (-> window.location.reload true), 10
+    return
+    # FIXME This should handle not requiring a refresh, but alas.
     partySubscribe model, ->
       p = model.at('_party')
       p.push 'members', user.get('id')
@@ -150,7 +153,7 @@ module.exports.app = (appExports, model) ->
     setTimeout (-> window.location.reload true), 10
     return
 
-    # This should handle not requiring a refresh, but alas.
+    # FIXME This should handle not requiring a refresh, but alas.
     partyUnsubscribe model, ->
       selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
       selfQ.subscribe (err, u) ->
