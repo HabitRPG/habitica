@@ -48,7 +48,9 @@ options =
   domain: process.env.BASE_URL || 'http://localhost:3000'
   allowPurl: true
   schema: require('../app/character').newUserObject()
-  customAccessControl: habitrpgStore.customAccessControl
+
+# This has to happen before our middleware stuff
+auth.store(store, habitrpgStore.customAccessControl)
 
 mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
   expressApp
@@ -104,7 +106,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
       next()
 
     .use(serverRoutes.API())
-    .use(auth(store, strategies, options))
+    .use(auth.middleware(strategies, options))
     # Creates an express middleware from the app's routes
     .use(app.router())
     .use(expressApp.router)
