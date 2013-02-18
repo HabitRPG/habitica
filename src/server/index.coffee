@@ -52,34 +52,35 @@ options =
 
 mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
   expressApp
-    .use express.favicon()
+    .use(express.favicon())
     # Gzip static files and serve from memory
-    .use gzippo.staticGzip publicPath, maxAge: ONE_YEAR
+    .use(gzippo.staticGzip(publicPath, maxAge: ONE_YEAR))
     # Gzip dynamically rendered content
-    .use express.compress()
-    .use express.bodyParser()
-    .use express.methodOverride()
+    .use(express.compress())
+    .use(express.bodyParser())
+    .use(express.methodOverride())
     # Uncomment and supply secret to add Derby session handling
     # Derby session middleware creates req.session and socket.io sessions
-    .use express.cookieParser())
-    .use store.sessionMiddleware
+    .use(express.cookieParser())
+    .use(store.sessionMiddleware
       secret: process.env.SESSION_SECRET || 'YOUR SECRET HERE'
-      cookie: {maxAge: TWO_WEEKS} # defaults to 2 weeks? aka, can delete this line?
+      cookie: { maxAge: TWO_WEEKS } # defaults to 2 weeks? aka, can delete this line?
       store: mongo_store
+    )
     # Show splash page for newcomers
-    .use middleware.splash
+    .use(middleware.splash)
     # Adds req.getModel method
-    .use store.modelMiddleware()
-    .use priv.middleware
-    .use middleware.view
-    .use auth(store, strategies, options)
+    .use(store.modelMiddleware())
+    .use(priv.middleware)
+    .use(middleware.view)
+    .use(auth(store, strategies, options))
     # Creates an express middleware from the app's routes
-    .use app.router()
-    .use '/v1', require('./api').middleware
-    .use require('./static').middleware
-    .use require('./deprecated').middleware
-    .use expressApp.router
-    .use serverError(root)
+    .use(app.router())
+    .use('/v1', require('./api').middleware)
+    .use(require('./static').middleware)
+    .use(require('./deprecated').middleware)
+    .use(expressApp.router)
+    .use(serverError(root))
 
   priv.routes(expressApp)
 
