@@ -3,17 +3,17 @@ path = require 'path'
 express = require 'express'
 gzippo = require 'gzippo'
 derby = require 'derby'
+racer = require 'racer'
+auth = require 'derby-auth'
 app = require '../app'
 serverError = require './serverError'
 MongoStore = require('connect-mongo')(express)
-auth = require 'derby-auth'
 priv = require './private'
 habitrpgStore = require './store'
 middleware = require './middleware'
 
 ## RACER CONFIGURATION ##
 
-racer = require 'racer'
 racer.io.set('transports', ['xhr-polling'])
 racer.ioClient.set('reconnection limit', 300000) # max reconect timeout to 5 minutes
 racer.set('bundleTimeout', 40000)
@@ -27,7 +27,7 @@ expressApp = express()
 server = http.createServer expressApp
 module.exports = server
 
-derby.use(require 'racer-db-mongo')
+derby.use require('racer-db-mongo')
 store = derby.createStore
   db: {type: 'Mongo', uri: process.env.NODE_DB_URI, safe:true}
   listen: server
