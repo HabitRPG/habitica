@@ -5,6 +5,7 @@ scoring = require('../app/scoring')
 _ = require('underscore')
 
 # ---------- /v1 API ------------
+# Every url added beneath router is prefaced by /v1
 
 ###
   v1 API. Requires user-id and apiToken, task-id, direction. Test with:
