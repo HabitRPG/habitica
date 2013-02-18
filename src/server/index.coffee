@@ -105,11 +105,13 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     .use(auth(store, strategies, options))
     # Creates an express middleware from the app's routes
     .use(app.router())
+    .use('/v1', require('./api').middleware)
+    .use(require('./static').middleware)
+    .use(require('./deprecated').middleware)
     .use(expressApp.router)
     .use(serverError root)
 
   priv.routes(expressApp)
-  require('./serverRoutes')(expressApp, root, derby)
 
   # Errors
   expressApp.all '*', (req) ->
