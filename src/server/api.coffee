@@ -1,8 +1,8 @@
 express = require 'express'
 router = new express.Router()
 
-scoring = require('../app/scoring')
-_ = require('underscore')
+scoring = require '../app/scoring'
+_ = require 'underscore'
 
 # ---------- /v1 API ------------
 # Every url added beneath router is prefaced by /v1
