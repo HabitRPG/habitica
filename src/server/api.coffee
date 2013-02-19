@@ -55,14 +55,13 @@ router.post '/users/:uid/tasks/:taskId/:direction', (req, res) ->
     res.send(result)
 
 router.get '/users/:uid/calendar.ics', (req, res) ->
-  #    return next() #disable for now
+    #return next() #disable for now
     {uid} = req.params
     {apiToken} = req.query
 
     model = req.getModel()
     query = model.query('users').withIdAndToken(uid, apiToken)
     query.fetch (err, result) ->
-  #    require('mongoskin').db(process.env.NODE_DB_URI, {safe:true}).collection('users').find({_id:uid, apiToken:apiToken}).toArray (err, result) ->
       return res.send(500, err) if err
       tasks = result.at(0).get('tasks')
       #      tasks = result[0].tasks
