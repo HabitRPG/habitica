@@ -1,4 +1,5 @@
 _ = require 'underscore'
+moment = require 'moment'
 
 module.exports.restoreRefs = restoreRefs = (model) ->
   # tnl function
@@ -15,13 +16,22 @@ module.exports.resetDom = (model) ->
   window.DERBY.app.dom.clear()
   restoreRefs(model)
   window.DERBY.app.view.render(model)
+  reconstructPage model
 
 module.exports.app = (appExports, model) ->
+  reconstructPage model
+
+reconstructPage = (model) ->
   loadJavaScripts(model)
   setupSortable(model)
   setupTooltips(model)
   setupTour(model)
   setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
+  $('.datepicker').datepicker({autoclose:true, todayBtn:true})
+  .on 'changeDate', (ev) ->
+    #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
+    #FIXME also, it saves as a day behind??
+    model.at(ev.target).set 'date', moment(ev.date).add('d',1).format('MM/DD/YYYY')
 
 ###
   Loads JavaScript files from (1) public/js/* and (2) external sources
@@ -30,14 +40,28 @@ module.exports.app = (appExports, model) ->
 ###
 loadJavaScripts = (model) ->
 
-  # Load public/js/* files
-  # TODO use Bower
-  require '../../public/js/jquery.min'
-  require '../../public/js/jquery-ui.min' unless model.get('_view.mobileDevice')
-  require '../../public/js/bootstrap.min' #http://twitter.github.com/bootstrap/assets/js/bootstrap.min.js
-  require '../../public/js/jquery.cookie' #https://raw.github.com/carhartl/jquery-cookie/master/jquery.cookie.js
-  require '../../public/js/bootstrap-tour' #https://raw.github.com/pushly/bootstrap-tour/master/bootstrap-tour.js
-  require '../../public/js/jquery.bootstrap-growl.min'
+  require '../../public/vendor/jquery-ui/jquery-1.9.1'
+  unless model.get('_view.mobileDevice')
+    require '../../public/vendor/jquery-ui/ui/jquery.ui.core'
+    require '../../public/vendor/jquery-ui/ui/jquery.ui.widget'
+    require '../../public/vendor/jquery-ui/ui/jquery.ui.mouse'
+    require '../../public/vendor/jquery-ui/ui/jquery.ui.draggable'
+    require '../../public/vendor/jquery-ui/ui/jquery.ui.position'
+    require '../../public/vendor/jquery-ui/ui/jquery.ui.sortable'
+
+  # Bootstrap
+  require '../../public/vendor/bootstrap/js/bootstrap-tooltip'
+  require '../../public/vendor/bootstrap/js/bootstrap-tab'
+  require '../../public/vendor/bootstrap/js/bootstrap-popover'
+  require '../../public/vendor/bootstrap/js/bootstrap-modal'
+  require '../../public/vendor/bootstrap/js/bootstrap-dropdown'
+
+
+  require '../../public/vendor/jquery-cookie/jquery.cookie'
+  require '../../public/vendor/bootstrap-tour' #https://raw.github.com/pushly/bootstrap-tour/master/bootstrap-tour.js
+  require '../../public/vendor/bootstrap-datepicker/js/bootstrap-datepicker'
+  require '../../public/vendor/bootstrap-growl/jquery.bootstrap-growl.min'
+
 
   # JS files not needed right away (google charts) or entirely optional (analytics)
   # Each file getsload asyncronously via $.getScript, so it doesn't bog page-load

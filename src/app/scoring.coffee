@@ -217,10 +217,6 @@ cron = () ->
     # Tally each task
     todoTally = 0
     _.each obj.tasks, (taskObj) ->
-      unless taskObj.id?
-        console.error "a task had a null id during cron, this should not be happening"
-        return
-
       {id, type, completed, repeat} = taskObj
       if type in ['todo', 'daily']
         # Deduct experience for missed Daily tasks,
@@ -264,7 +260,7 @@ cron = () ->
     batch.setStats()
     batch.set('history', obj.history)
     batch.commit()
-    browser.resetDom(model)
+    #browser.resetDom(model)
     setTimeout (-> user.set 'stats.hp', hpAfter), 1000 # animate hp loss
 
 
