@@ -23,7 +23,8 @@
     "mongoskin": "*",
     "nconf": "*",
     "icalendar": "git://github.com/lefnire/node-icalendar#master",
-    "nodetime": "*"
+    "nodetime": "*",
+    "resolve": "~0.2.3"
   },
   "private": true,
   "subdomain": "habitrpg",
