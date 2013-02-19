@@ -27,19 +27,23 @@ module.exports.partySubscribe = partySubscribe = (model, cb) ->
 
   # Restart subscription to the main user
   selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
-  selfQ.fetch (err, res) ->
+  selfQ.subscribe (err, self) ->
     throw err if err
-    u = res.at(0)
+    u = self.at(0)
     uObj = u.get()
 
     finished = ->
-      selfQ.subscribe (err, res) ->
-        model.ref '_user', res.at(0)
-        browser.resetDom(model) if window?
-        cb() if cb?
+      model.unsubscribe selfQ, ->
+        selfQ.subscribe (err, self) ->
+          model.ref '_user', self.at(0)
+          browser.resetDom(model) if window?
+          cb() if cb?
 
     ## (1) User is solo, just return that subscription
-    return finished() unless uObj.party?.current
+    unless uObj.party?.current
+      model.ref '_user', u
+      browser.resetDom(model) if window?
+      return if cb then cb() else null
 
 
     # User in a party
