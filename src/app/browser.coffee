@@ -45,16 +45,15 @@ loadJavaScripts = (model) ->
     require '../../public/vendor/jquery-ui/ui/jquery.ui.core'
     require '../../public/vendor/jquery-ui/ui/jquery.ui.widget'
     require '../../public/vendor/jquery-ui/ui/jquery.ui.mouse'
-    require '../../public/vendor/jquery-ui/ui/jquery.ui.draggable'
-    require '../../public/vendor/jquery-ui/ui/jquery.ui.position'
     require '../../public/vendor/jquery-ui/ui/jquery.ui.sortable'
 
   # Bootstrap
-  require '../../public/vendor/bootstrap/js/bootstrap-tooltip'
-  require '../../public/vendor/bootstrap/js/bootstrap-tab'
-  require '../../public/vendor/bootstrap/js/bootstrap-popover'
-  require '../../public/vendor/bootstrap/js/bootstrap-modal'
-  require '../../public/vendor/bootstrap/js/bootstrap-dropdown'
+  require '../../public/vendor/bootstrap/docs/assets/js/bootstrap'
+#  require '../../public/vendor/bootstrap/js/bootstrap-tooltip'
+#  require '../../public/vendor/bootstrap/js/bootstrap-tab'
+#  require '../../public/vendor/bootstrap/js/bootstrap-popover'
+#  require '../../public/vendor/bootstrap/js/bootstrap-modal'
+#  require '../../public/vendor/bootstrap/js/bootstrap-dropdown'
 
 
   require '../../public/vendor/jquery-cookie/jquery.cookie'
