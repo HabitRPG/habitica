@@ -32,17 +32,16 @@ module.exports.partySubscribe = partySubscribe = (model, cb) ->
     u = self.at(0)
     uObj = u.get()
 
+    ## (1) User is solo, just return that subscription
+    unless uObj.party?.current?
+      model.ref '_user', u
+      return cb()
+
     finished = ->
       model.unsubscribe selfQ, ->
         selfQ.subscribe (err, self) ->
           model.ref '_user', self.at(0)
-          browser.resetDom(model) if window?
-          cb() if cb?
-
-    ## (1) User is solo, just return that subscription
-    unless uObj.party?.current
-      return finished()
-
+          cb()
 
     # User in a party
     partiesQ = model.query('parties').withId(uObj.party.current)
@@ -98,7 +97,7 @@ module.exports.app = (appExports, model) ->
     newParty = model.get("_newParty")
     id = model.add 'parties', { name: newParty, leader: user.get('id'), members: [user.get('id')], invites:[] }
     user.set 'party', {current: id, invitation: null, leader: true}, ->
-      setTimeout (-> window.location.reload true), 10
+      window.location.reload true
 #    partySubscribe model, -> $('#party-modal').modal('show')
 
   appExports.partyInvite = ->
@@ -122,8 +121,7 @@ module.exports.app = (appExports, model) ->
         model.set "users.#{id}.party.invitation", p.get('id')
         $.bootstrapGrowl "Invitation Sent."
         $('#party-modal').modal('hide')
-        model.set '_newPartyMember', '', ->
-          setTimeout (-> window.location.reload true), 10
+        model.set '_newPartyMember', '', -> window.location.reload true
         #partySubscribe model
 
   appExports.partyAccept = ->
@@ -135,7 +133,6 @@ module.exports.app = (appExports, model) ->
       members = p.at(0).get('members')
       members.push user.get('id')
       p.at(0).set 'members', members, ->
-        debugger
         window.location.reload true
 #    partySubscribe model, ->
 #      p = model.at('_party')
@@ -155,10 +152,10 @@ module.exports.app = (appExports, model) ->
     members.splice(index,1)
     p.set 'members', members, ->
       if (members.length == 0)
-        model.del "parties.#{id}" # last member out, kill the party
-        setTimeout (-> window.location.reload true), 10
+        # last member out, kill the party
+        model.del "parties.#{id}", -> window.location.reload true
       else
-        setTimeout (-> window.location.reload true), 10
+        window.location.reload true
 #    model.set '_party', null
 #    model.set '_partyMembers', null
 #    partyUnsubscribe model, ->
