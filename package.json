@@ -4,7 +4,7 @@
   "version": "0.0.0-150",
   "main": "./server.js",
   "dependencies": {
-    "derby": "git://github.com/codeparty/derby#master",
+    "derby": "git://github.com/lefnire/derby#habitrpg",
     "racer": "git://github.com/lefnire/racer#habitrpg",
     "racer-db-mongo": "git://github.com/lefnire/racer-db-mongo#habitrpg",
     "derby-ui-boot": "git://github.com/codeparty/derby-ui-boot#master",
@@ -21,7 +21,9 @@
     "coffee-script": "*",
     "underscore": "*",
     "mongoskin": "*",
-    "nconf": "*"
+    "nconf": "*",
+    "icalendar": "git://github.com/lefnire/node-icalendar#master",
+    "nodetime": "*"
   },
   "private": true,
   "subdomain": "habitrpg",

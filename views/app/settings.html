@@ -1,0 +1,69 @@
+<modals:>
+    {{#if _loggedIn}}
+        <app:modals:modal modalId="settings-modal" header="Settings">
+            <h4>API</h4>
+            <small>Copy these for use in third party applications.</small>
+            <h6>User ID</h6>
+            <pre class=prettyprint>{_user.id}</pre>
+
+            <h6>API Token</h6>
+            <pre class=prettyprint>{_user.apiToken}</pre>
+
+            <hr/>
+            <a class='btn btn-danger' data-target="#reset-modal" data-toggle="modal">Reset</a>
+
+            <@footer>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            </@footer>
+        </app:modals:modal>
+
+        <app:modals:modal modalId="reset-modal" header="Reset">
+            <p>This resets your entire account - your tasks will be deleted and your character will start over.</p>
+            <p>This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.</p>
+            <@footer>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger btn-large">Reset</button>
+            </@footer>
+        </app:modals:modal>
+    {{else}}
+        <app:modals:modal modalId="login-modal" header="Login / Register">
+            <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt="Login / Register With Facebook"/></a>
+            <h3>Or</h3>
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#" data-toggle="tab" data-target="#login">Login</a></li>
+                <li><a href="#" data-toggle="tab" data-target="#register">Register</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="login"><derby-auth:login /></div>
+                <div class="tab-pane" id="register"><derby-auth:register /></div>
+            </div>
+        </app:modals:modal>
+    {{/}}
+
+<menu:>
+    <div class='pull-right'>
+        {#unless _loggedIn}
+        <a href="#" class="btn btn-small btn-info" data-target="#login-modal" data-toggle="modal">Login / Register</a>
+        {else}
+        <div class="btn-group">
+            <button class="btn btn-small">
+                {#if _user.party.invitation}<span class="badge badge-success">1</span>{/}
+                {username(_user.auth)}
+            </button>
+            <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#" data-target="#settings-modal" data-toggle="modal">Settings</a></li>
+                {#if _user.flags.partyEnabled}
+                <li><a href="#" data-target="#party-modal" data-toggle="modal">
+                    Party{#if _user.party.invitation}<span class="badge badge-success">1</span>{/}
+                </a></li>
+                {/}
+                <li><a href='/logout'>Logout</a></li>
+            </ul>
+        </div>
+        {/}
+    </div>

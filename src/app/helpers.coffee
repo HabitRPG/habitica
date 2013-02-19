@@ -25,4 +25,8 @@ module.exports.viewHelpers = (view) ->
   view.fn "mod", (a, b) ->
     parseInt(a) % parseInt(b) == 0
 
+  view.fn "encodeiCalLink", (uid, apiToken) ->
+    loc = window?.location.host or process.env.BASE_URL
+    encodeURIComponent "http://#{loc}/v1/users/#{uid}/calendar.ics?apiToken=#{apiToken}"
+
 

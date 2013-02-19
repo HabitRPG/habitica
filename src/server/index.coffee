@@ -9,6 +9,7 @@ MongoStore = require('connect-mongo')(express)
 auth = require 'derby-auth'
 priv = require './private'
 habitrpgStore = require('./store')
+serverRoutes = require './serverRoutes'
 
 ## RACER CONFIGURATION ##
 
@@ -47,7 +48,9 @@ options =
   domain: process.env.BASE_URL || 'http://localhost:3000'
   allowPurl: true
   schema: require('../app/character').newUserObject()
-  customAccessControl: habitrpgStore.customAccessControl
+
+# This has to happen before our middleware stuff
+auth.store(store, habitrpgStore.customAccessControl)
 
 mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
   expressApp
@@ -81,8 +84,8 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
       # This was an API call, not a page load
       return next() if req.is('json')
 
-      if !req.session.userId? and !req.query?.play?
-        res.redirect('/splash.html')
+      if !req.session.userId? and !req.query?.play? and req.url == '/'
+        return res.redirect('/splash.html')
       else
         next()
 
@@ -102,7 +105,8 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
       model.set '_view', _view
       next()
 
-    .use(auth(store, strategies, options))
+    .use(serverRoutes.API())
+    .use(auth.middleware(strategies, options))
     # Creates an express middleware from the app's routes
     .use(app.router())
     .use('/v1', require('./api').middleware)
