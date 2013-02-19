@@ -41,14 +41,12 @@ module.exports.partySubscribe = partySubscribe = (model, cb) ->
 
     ## (1) User is solo, just return that subscription
     unless uObj.party?.current
-      model.ref '_user', u
-      browser.resetDom(model) if window?
-      return if cb then cb() else null
+      return finished()
 
 
     # User in a party
     partiesQ = model.query('parties').withId(uObj.party.current)
-    partiesQ.subscribe (err, res) ->
+    partiesQ.fetch (err, res) ->
       throw err if err
       p = res.at(0)
       model.ref '_party', p
@@ -68,7 +66,7 @@ module.exports.partySubscribe = partySubscribe = (model, cb) ->
       else
         ## (3) Party has members, subscribe to those users too
         membersQ = model.query('users').party(ids)
-        membersQ.subscribe (err, members) ->
+        membersQ.fetch (err, members) ->
           throw err if err
           model.ref '_partyMembers', members
           finished()
@@ -99,8 +97,9 @@ module.exports.app = (appExports, model) ->
   appExports.partyCreate = ->
     newParty = model.get("_newParty")
     id = model.add 'parties', { name: newParty, leader: user.get('id'), members: [user.get('id')], invites:[] }
-    user.set 'party', {current: id, invitation: null, leader: true}
-    partySubscribe model, -> $('#party-modal').modal('show')
+    user.set 'party', {current: id, invitation: null, leader: true}, ->
+      setTimeout (-> window.location.reload true), 10
+#    partySubscribe model, -> $('#party-modal').modal('show')
 
   appExports.partyInvite = ->
     id = model.get('_newPartyMember').replace(/[\s"]/g, '')
@@ -123,18 +122,22 @@ module.exports.app = (appExports, model) ->
         model.set "users.#{id}.party.invitation", p.get('id')
         $.bootstrapGrowl "Invitation Sent."
         $('#party-modal').modal('hide')
-        model.set '_newPartyMember', ''
-        partySubscribe model
+        model.set '_newPartyMember', '', ->
+          setTimeout (-> window.location.reload true), 10
+        #partySubscribe model
 
   appExports.partyAccept = ->
-    user.set 'party.current', user.get('party.invitation')
+    partyId = user.get('party.invitation')
     user.set 'party.invitation', null
-    setTimeout (-> window.location.reload true), 10
-    return
-    # FIXME This should handle not requiring a refresh, but alas.
-    partySubscribe model, ->
-      p = model.at('_party')
-      p.push 'members', user.get('id')
+    user.set 'party.current', partyId
+    model.fetch model.query('parties').withId(partyId), (err, p) ->
+      throw err if err
+      debugger
+      p.at(0).at('members').push user.get('id'), ->
+        setTimeout (-> window.location.reload true), 10
+#    partySubscribe model, ->
+#      p = model.at('_party')
+#      p.push 'members', user.get('id')
 
   appExports.partyReject = ->
     user.set 'party.invitation', null
@@ -148,21 +151,16 @@ module.exports.app = (appExports, model) ->
     members = p.get('members')
     index = members.indexOf(user.get('id'))
     members.splice(index,1)
-    p.set 'members', members
-    if (members.length == 0)
-      # last member out, kill the party
-      model.del "parties.#{id}"
-    model.set '_party', null
-    model.set '_partyMembers', null
-    setTimeout (-> window.location.reload true), 10
-    return
-
-    # FIXME This should handle not requiring a refresh, but alas.
-    partyUnsubscribe model, ->
-      selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
-      selfQ.subscribe (err, u) ->
-        model.ref '_user', u.at(0)
-        browser.resetDom model
-
-
-  #exports.partyDisband = ->
+    p.set 'members', members, ->
+      if (members.length == 0)
+        model.del "parties.#{id}" # last member out, kill the party
+        setTimeout (-> window.location.reload true), 10
+      else
+        setTimeout (-> window.location.reload true), 10
+#    model.set '_party', null
+#    model.set '_partyMembers', null
+#    partyUnsubscribe model, ->
+#      selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
+#      selfQ.subscribe (err, u) ->
+#        model.ref '_user', u.at(0)
+#        browser.resetDom model
