@@ -38,10 +38,10 @@ module.exports.partySubscribe = partySubscribe = (model, cb) ->
       return cb()
 
     finished = ->
-      model.unsubscribe selfQ, ->
-        selfQ.subscribe (err, self) ->
-          model.ref '_user', self.at(0)
-          cb()
+#      model.unsubscribe selfQ, ->
+      selfQ.subscribe (err, self) ->
+        model.ref '_user', self.at(0)
+        cb()
 
     # User in a party
     partiesQ = model.query('parties').withId(uObj.party.current)
