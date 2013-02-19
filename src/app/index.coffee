@@ -51,7 +51,6 @@ ready (model) ->
 
   scoring.cron()
 
-  browser.app(exports, model)
   character.app(exports, model)
   tasks.app(exports, model)
   items.app(exports, model)
@@ -59,4 +58,5 @@ ready (model) ->
   profile.app(exports, model)
   require('../server/private').app(exports, model)
   require('./debug').app(exports, model) if model.get('_view.nodeEnv') != 'production'
+  browser.app(exports, model)
 
