@@ -130,11 +130,13 @@ module.exports.app = (appExports, model) ->
     partyId = user.get('party.invitation')
     user.set 'party.invitation', null
     user.set 'party.current', partyId
-    model.fetch model.query('parties').withId(partyId), (err, p) ->
-      throw err if err
-      debugger
-      p.at(0).at('members').push user.get('id'), ->
-        setTimeout (-> window.location.reload true), 10
+#    model.push "parties.#{partyId}.members", user.get('id'), -> #FIXME why this not working?
+    model.query('parties').withId(partyId).fetch (err, p) ->
+      members = p.at(0).get('members')
+      members.push user.get('id')
+      p.at(0).set 'members', members, ->
+        debugger
+        window.location.reload true
 #    partySubscribe model, ->
 #      p = model.at('_party')
 #      p.push 'members', user.get('id')
