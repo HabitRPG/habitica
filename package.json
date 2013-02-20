@@ -24,7 +24,8 @@
     "nconf": "*",
     "icalendar": "git://github.com/lefnire/node-icalendar#master",
     "nodetime": "*",
-    "resolve": "~0.2.3"
+    "resolve": "~0.2.3",
+    "request": "~2.14.0"
   },
   "private": true,
   "subdomain": "habitrpg",

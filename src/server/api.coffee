@@ -13,6 +13,33 @@ icalendar = require('icalendar')
   curl -X POST -H "Content-Type:application/json" -d '{"apiToken":"{TOKEN}"}' localhost:3000/v1/users/{UID}/tasks/productivity/up
 ###
 
+router.get '/users/:uid/tasks', (req, res) ->
+  {uid, taskId, direction} = req.params
+  {apiToken, title, service, icon} = req.body
+  console.log {params:req.params, body:req.body} if process.env.NODE_ENV == 'development'
+
+  # Send error responses for improper API call
+  return res.send(500, 'request body "apiToken" required') unless apiToken
+  return res.send(500, ':uid required') unless uid
+
+  model = req.getModel()
+  req._isServer = true
+  model.fetch model.query('users').withIdAndToken(uid, apiToken), (err, result) ->
+    return res.send(500, err) if err
+    user = result.at(0)
+    userObj = user.get()
+    if _.isEmpty(userObj)
+      return res.send(500, "User with uid=#{uid}, token=#{apiToken} not found. Make sure you're not using your username, but your User Id")
+
+    model.ref('_user', user)
+
+    # Create task if doesn't exist
+    # TODO add service & icon to task
+    unless model.get("_user.tasks")
+      model.refList "_habitList", "_user.tasks", "_user.habitIds"
+      return res.json model.get '_habitList'
+
+
 router.post '/users/:uid/tasks/:taskId/:direction', (req, res) ->
   {uid, taskId, direction} = req.params
   {apiToken, title, service, icon} = req.body
