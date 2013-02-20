@@ -179,20 +179,14 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
   user: user
 
   obj: ->
-    obj ?= model.get('users.'+user.get('id'), true)
+    obj ?= model.get 'users.'+user.get('id')
     return obj
 
   startTransaction: ->
     # start a batch transaction - nothing between now and @commit() will be set immediately
     transactionInProgress = true
     model._dontPersist = true
-
-    # Really strange, user.get() seems to only return attributes which have previously been accessed. So in
-    # many cases, userObj.tasks.{taskId}.value is undefined - so we manually .get() each attribute here.
-    # Additionally, for some reason after getting the user object, changing properies manually (userObj.stats.hp = 50)
-    # seems to actually run user.set('stats.hp',50) which we don't want to do - so we deepClone here
-    #_.each Object.keys(userSchema), (key) -> obj[key] = lodash.cloneDeep user.get(key)
-    obj = @obj()
+    @obj()
 
   ###
     Handles updating the user model. If this is an en-mass operation (eg, server cron), changes are queued
