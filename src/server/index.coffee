@@ -54,7 +54,7 @@ auth.store(store, habitrpgStore.customAccessControl)
 
 mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
   expressApp
-    .use(express.favicon())
+    .use(express.favicon("#{publicPath}/favicon.ico"))
     # Gzip static files and serve from memory
     .use(gzippo.staticGzip(publicPath, maxAge: ONE_YEAR))
     # Gzip dynamically rendered content
