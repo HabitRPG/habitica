@@ -9,12 +9,8 @@ app = require '../app'
 serverError = require './serverError'
 MongoStore = require('connect-mongo')(express)
 priv = require './private'
-<<<<<<< HEAD
 habitrpgStore = require './store'
 middleware = require './middleware'
-=======
-habitrpgStore = require('./store')
->>>>>>> b1f7c3cdfa9363b26b59f6e651ccf0d680313773
 
 ## RACER CONFIGURATION ##
 
