@@ -12,13 +12,10 @@ partyUnsubscribe = (model, cb) ->
     cb()
 
 ###
-  Subscribe to the user, the users's party (meta), and the party's members. 3 subscriptions.
-  If the user is solo, just subscribe to the user. If in a an empty party, just subscribe to the party. If full party,
-  subscribe to everything.
-
-  Note a strange hack - later model.queries override previous model.queries'
-  returned fields. Aka, we need this here otherwise we only get the "public" fields for the current user, which
-  are defined in model.query('users').party(). So we need to subscribe to the main user last
+  Subscribe to the user, the users's party (meta info like party name, member ids, etc), and the party's members. 3 subscriptions.
+  1) If the user is solo, just subscribe to the user.
+  2) If in a an empty party, just subscribe to the user & party meta.
+  3) If full party, subscribe to everything.
 ###
 module.exports.partySubscribe = partySubscribe = (model, cb) ->
 
@@ -37,8 +34,18 @@ module.exports.partySubscribe = partySubscribe = (model, cb) ->
       model.ref '_user', u
       return cb()
 
+    ###
+      Note this strange hack - we subscribe to queries incrementally. First self, then party, then party members.
+      Party members come with limited fields, so you can't hack their stuff. Strangely, subscribing to the members after
+      already subscribing to self limits self's fields to the fields which members are limited to. As a result, we have
+      to re-subscribe to self to get all the fields (otherwise everything breaks). Weirdly, this last subscription doesn't
+      do the opposite - granting all the fields back to members. I dont' know what's going on here
+
+      Another issue: `model.unsubscribe(selfQ)` would seem to mitigate  the above, so we at least don't have a stray
+      subscription floating around - but alas, it doesn't seem to work (or at least never calls the callback)
+    ###
     finished = ->
-#      model.unsubscribe selfQ, ->
+      # model.unsubscribe selfQ, ->
       selfQ.subscribe (err, self) ->
         model.ref '_user', self.at(0)
         cb()
