@@ -54,12 +54,12 @@ userAccess = (store) ->
 ###
 REST = (store) ->
   store.query.expose "users", "withIdAndToken", (uid, token) ->
-    @where('id').equals(uid)
+    @byId(uid)
       .where('apiToken').equals(token)
       .one
 
-  store.queryAccess "users", "withIdAndToken", (id, token, accept, err) ->
-    return accept(true) if id && token
+  store.queryAccess "users", "withIdAndToken", (uid, token, accept, err) ->
+    return accept(true) if uid && token
     accept(false) # only user has id & token
 
 

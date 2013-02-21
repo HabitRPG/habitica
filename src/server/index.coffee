@@ -17,9 +17,9 @@ middleware = require './middleware'
 racer.io.set('transports', ['xhr-polling'])
 racer.ioClient.set('reconnection limit', 300000) # max reconect timeout to 5 minutes
 racer.set('bundleTimeout', 40000)
-#unless process.env.NODE_ENV == 'production'
-#  racer.use(racer.logPlugin)
-#  derby.use(derby.logPlugin)
+unless process.env.NODE_ENV == 'production'
+  racer.use(racer.logPlugin)
+  derby.use(derby.logPlugin)
 
 ## SERVER CONFIGURATION ##
 
@@ -28,7 +28,7 @@ server = http.createServer expressApp
 module.exports = server
 
 derby.use require('racer-db-mongo')
-store = derby.createStore
+module.exports.habitStore = store = derby.createStore
   db: {type: 'Mongo', uri: process.env.NODE_DB_URI, safe:true}
   listen: server
 

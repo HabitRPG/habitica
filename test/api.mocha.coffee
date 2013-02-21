@@ -1,10 +1,15 @@
 assert = require 'assert'
 {BrowserModel: Model} = require 'racer/test/util/model'
 derby = require 'derby'
+racer = require 'racer'
 _ = require 'underscore'
 moment = require 'moment'
-request = require 'request'
+request = require 'superagent'
 qs = require 'querystring'
+
+app = require '../server'
+
+store = app.habitStore
 
 # Custom modules
 scoring = require '../src/app/scoring'
@@ -75,27 +80,55 @@ modificationsLookup = (direction, options = {}) ->
 
 describe 'API', ->
   model = null
+  user = null
+  params = null
 
   describe 'Without token or user id', ->
 
     it '/api/v1/user', (done) ->
-      request.get { uri: "#{baseURL}/user" }, (err, res, body) ->
-        console.log "#{baseURL}/user", body
-        assert.ok !err
-        assert.equal res.statusCode, 500
-        assert.ok body.err
-        done()
+      request(app)
+        .get("/api/v1/user")
+        .set('Accept', 'application/json')
+        .on('error', (err) ->
+          console.log 'err', err
+        )
+        .end (res) ->
+          assert.equal res.statusCode, 500
+          assert.ok JSON.parse(res.text).err
+          done()
 
   describe 'With token and user id', ->
-    before ->
-      model = new Model
-      model.set '_user', character.newUserObject()
-      scoring.setModel model
+    before (done) ->
+      model = store.createModel()
+      store.flush()
+
+      uid = model.id()
+      user = character.newUserObject()
+      user.apiToken = derby.uuid()
+      model.set "users.#{uid}", user
+      user = model.get("users.#{uid}")
+
+      params =
+        uid: user.id
+        token: user.apiToken
+
+      done()
+
+    after (done) ->
+      store.flush done
 
     it '/api/v1/user', (done) ->
-      user = model.get '_user'
-
-      request.get { uri: "#{baseURL}/user?#{qs.stringify(UID_AND_TOKEN)}" }, (err, res, body) ->
-        assert.ok !err
-        assert.equal res.statusCode, 200
-        done()
+      console.log params
+      request(app)
+        .get("/api/v1/user")
+        .set('Accept', 'application/json')
+        .query(params)
+        .on('error', (err) ->
+          console.log 'err', err
+        )
+        .end (res) ->
+          console.log 'test', res.body
+          assert.ok !res.body.err
+          assert.equal res.statusCode, 200
+          assert.ok res.body
+          done()

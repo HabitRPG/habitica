@@ -21,17 +21,19 @@ router.get '/status', (req, res) ->
     status: 'up'
 
 router.get '/user', (req, res) ->
+  console.log 'hi'
   { uid, token } = req.query
   return res.json 500, NO_TOKEN_OR_UID unless uid || token
 
   model = req.getModel()
   query = model.query('users').withIdAndToken(uid, token)
 
-  model.fetch query, (err, user) ->
+  query.fetch (err, user) ->
+    self = user.get()
     return res.json 500, err: err if err
-    return res.json 500, NO_USER_FOUND if !user || _.isEmpty(user)
+    return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
 
-    res.json user
+    res.json self
 
 router.get '/user/calendar.ics', (req, res) ->
   #return next() #disable for now

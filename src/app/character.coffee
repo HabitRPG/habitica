@@ -137,7 +137,7 @@ module.exports.updateUser = (model) ->
   batch = new BatchUpdate(model)
   user = batch.user
   obj = batch.obj()
-  tasks = obj.tasks
+  tasks = obj?.tasks
 
   # Remove corrupted tasks
   _.each tasks, (task, key) ->
@@ -172,49 +172,49 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
   updates = {}
 
   {
-  user: user
+    user: user
 
-  obj: ->
-    obj ?= model.get 'users.'+user.get('id')
-    return obj
+    obj: ->
+      obj ?= model.get 'users.'+user.get('id')
+      return obj
 
-  startTransaction: ->
-    # start a batch transaction - nothing between now and @commit() will be set immediately
-    transactionInProgress = true
-    model._dontPersist = true
-    @obj()
+    startTransaction: ->
+      # start a batch transaction - nothing between now and @commit() will be set immediately
+      transactionInProgress = true
+      model._dontPersist = true
+      @obj()
 
-  ###
-    Handles updating the user model. If this is an en-mass operation (eg, server cron), changes are queued
-    but not actually set to the model. It also modifies userObj in case you need to access properties manually later.
-    If transaction not in progress, it just runs standard model.set()
-  ###
-  set: (path, val) ->
-    updates[path] = val if transactionInProgress
-    user.set(path, val)
+    ###
+      Handles updating the user model. If this is an en-mass operation (eg, server cron), changes are queued
+      but not actually set to the model. It also modifies userObj in case you need to access properties manually later.
+      If transaction not in progress, it just runs standard model.set()
+    ###
+    set: (path, val) ->
+      updates[path] = val if transactionInProgress
+      user.set(path, val)
 
-  ###
-    Hack to get around dom bindings being lost if parent objects are replaced whole-sale
-    eg, user.set('stats', {hp:50, exp:10...}) will break dom bindings, but user.set('stats.hp',50) is ok
-  ###
-  setStats: (stats) ->
-    stats ?= obj.stats
-    that = @
-    _.each Object.keys(stats), (key) -> that.set "stats.#{key}", stats[key]
+    ###
+      Hack to get around dom bindings being lost if parent objects are replaced whole-sale
+      eg, user.set('stats', {hp:50, exp:10...}) will break dom bindings, but user.set('stats.hp',50) is ok
+    ###
+    setStats: (stats) ->
+      stats ?= obj.stats
+      that = @
+      _.each Object.keys(stats), (key) -> that.set "stats.#{key}", stats[key]
 
-#    queue: (path, val) ->
-#      # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
-#      arr = path.split('.')
-#      arr.reduce (curr, next, index) ->
-#         if (arr.length - 1) == index
-#           curr[next] = val
-#         curr[next]
-#      , obj
+  #    queue: (path, val) ->
+  #      # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
+  #      arr = path.split('.')
+  #      arr.reduce (curr, next, index) ->
+  #         if (arr.length - 1) == index
+  #           curr[next] = val
+  #         curr[next]
+  #      , obj
 
-  commit: ->
-    model._dontPersist = false
-    # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
-    user.set "update__", updates
-    transactionInProgress = false
-    updates = {}
+    commit: ->
+      model._dontPersist = false
+      # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
+      user.set "update__", updates
+      transactionInProgress = false
+      updates = {}
   }
