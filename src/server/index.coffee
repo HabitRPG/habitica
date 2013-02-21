@@ -69,10 +69,10 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
       cookie: { maxAge: TWO_WEEKS } # defaults to 2 weeks? aka, can delete this line?
       store: mongo_store
     )
-    # Show splash page for newcomers
-    .use(middleware.splash)
     # Adds req.getModel method
     .use(store.modelMiddleware())
+    # Show splash page for newcomers
+    .use(middleware.splash)
     .use(priv.middleware)
     .use(middleware.view)
     .use(auth.middleware(strategies, options))

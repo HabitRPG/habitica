@@ -2,7 +2,7 @@ module.exports.splash = (req, res, next) ->
   # This was an API call, not a page load
   return next() if req.is('json')
 
-  if !req.session.userId? and !req.query?.play?
+  unless req.query?.play? or req.getModel().get('_userId')
     res.redirect('/splash.html')
   else
     next()
