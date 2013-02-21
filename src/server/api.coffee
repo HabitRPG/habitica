@@ -29,7 +29,7 @@ router.get '/user', (req, res) ->
 
   model.fetch query, (err, user) ->
     return res.json 500, err: err if err
-    return res.json 500, err: NO_USER_FOUND unless user
+    return res.json 500, NO_USER_FOUND if !user || _.isEmpty(user)
 
     res.json user
 
