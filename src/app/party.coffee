@@ -12,13 +12,10 @@ partyUnsubscribe = (model, cb) ->
     cb()
 
 ###
-  Subscribe to the user, the users's party (meta), and the party's members. 3 subscriptions.
-  If the user is solo, just subscribe to the user. If in a an empty party, just subscribe to the party. If full party,
-  subscribe to everything.
-
-  Note a strange hack - later model.queries override previous model.queries'
-  returned fields. Aka, we need this here otherwise we only get the "public" fields for the current user, which
-  are defined in model.query('users').party(). So we need to subscribe to the main user last
+  Subscribe to the user, the users's party (meta info like party name, member ids, etc), and the party's members. 3 subscriptions.
+  1) If the user is solo, just subscribe to the user.
+  2) If in a an empty party, just subscribe to the user & party meta.
+  3) If full party, subscribe to everything.
 ###
 module.exports.partySubscribe = partySubscribe = (model, cb) ->
 
@@ -32,23 +29,30 @@ module.exports.partySubscribe = partySubscribe = (model, cb) ->
     u = self.at(0)
     uObj = u.get()
 
-    finished = ->
-      model.unsubscribe selfQ, ->
-        selfQ.subscribe (err, self) ->
-          model.ref '_user', self.at(0)
-          browser.resetDom(model) if window?
-          cb() if cb?
-
     ## (1) User is solo, just return that subscription
-    unless uObj.party?.current
+    unless uObj.party?.current?
       model.ref '_user', u
-      browser.resetDom(model) if window?
-      return if cb then cb() else null
+      return cb()
 
+    ###
+      Note this strange hack - we subscribe to queries incrementally. First self, then party, then party members.
+      Party members come with limited fields, so you can't hack their stuff. Strangely, subscribing to the members after
+      already subscribing to self limits self's fields to the fields which members are limited to. As a result, we have
+      to re-subscribe to self to get all the fields (otherwise everything breaks). Weirdly, this last subscription doesn't
+      do the opposite - granting all the fields back to members. I dont' know what's going on here
+
+      Another issue: `model.unsubscribe(selfQ)` would seem to mitigate  the above, so we at least don't have a stray
+      subscription floating around - but alas, it doesn't seem to work (or at least never calls the callback)
+    ###
+    finished = ->
+      # model.unsubscribe selfQ, ->
+      selfQ.subscribe (err, self) ->
+        model.ref '_user', self.at(0)
+        cb()
 
     # User in a party
     partiesQ = model.query('parties').withId(uObj.party.current)
-    partiesQ.subscribe (err, res) ->
+    partiesQ.fetch (err, res) ->
       throw err if err
       p = res.at(0)
       model.ref '_party', p
@@ -68,7 +72,7 @@ module.exports.partySubscribe = partySubscribe = (model, cb) ->
       else
         ## (3) Party has members, subscribe to those users too
         membersQ = model.query('users').party(ids)
-        membersQ.subscribe (err, members) ->
+        membersQ.fetch (err, members) ->
           throw err if err
           model.ref '_partyMembers', members
           finished()
@@ -99,8 +103,9 @@ module.exports.app = (appExports, model) ->
   appExports.partyCreate = ->
     newParty = model.get("_newParty")
     id = model.add 'parties', { name: newParty, leader: user.get('id'), members: [user.get('id')], invites:[] }
-    user.set 'party', {current: id, invitation: null, leader: true}
-    partySubscribe model, -> $('#party-modal').modal('show')
+    user.set 'party', {current: id, invitation: null, leader: true}, ->
+      window.location.reload true
+#    partySubscribe model, -> $('#party-modal').modal('show')
 
   appExports.partyInvite = ->
     id = model.get('_newPartyMember').replace(/[\s"]/g, '')
@@ -123,18 +128,22 @@ module.exports.app = (appExports, model) ->
         model.set "users.#{id}.party.invitation", p.get('id')
         $.bootstrapGrowl "Invitation Sent."
         $('#party-modal').modal('hide')
-        model.set '_newPartyMember', ''
-        partySubscribe model
+        model.set '_newPartyMember', '', -> window.location.reload true
+        #partySubscribe model
 
   appExports.partyAccept = ->
-    user.set 'party.current', user.get('party.invitation')
+    partyId = user.get('party.invitation')
     user.set 'party.invitation', null
-    setTimeout (-> window.location.reload true), 10
-    return
-    # FIXME This should handle not requiring a refresh, but alas.
-    partySubscribe model, ->
-      p = model.at('_party')
-      p.push 'members', user.get('id')
+    user.set 'party.current', partyId
+#    model.push "parties.#{partyId}.members", user.get('id'), -> #FIXME why this not working?
+    model.query('parties').withId(partyId).fetch (err, p) ->
+      members = p.at(0).get('members')
+      members.push user.get('id')
+      p.at(0).set 'members', members, ->
+        window.location.reload true
+#    partySubscribe model, ->
+#      p = model.at('_party')
+#      p.push 'members', user.get('id')
 
   appExports.partyReject = ->
     user.set 'party.invitation', null
@@ -148,21 +157,16 @@ module.exports.app = (appExports, model) ->
     members = p.get('members')
     index = members.indexOf(user.get('id'))
     members.splice(index,1)
-    p.set 'members', members
-    if (members.length == 0)
-      # last member out, kill the party
-      model.del "parties.#{id}"
-    model.set '_party', null
-    model.set '_partyMembers', null
-    setTimeout (-> window.location.reload true), 10
-    return
-
-    # FIXME This should handle not requiring a refresh, but alas.
-    partyUnsubscribe model, ->
-      selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
-      selfQ.subscribe (err, u) ->
-        model.ref '_user', u.at(0)
-        browser.resetDom model
-
-
-  #exports.partyDisband = ->
+    p.set 'members', members, ->
+      if (members.length == 0)
+        # last member out, kill the party
+        model.del "parties.#{id}", -> window.location.reload true
+      else
+        window.location.reload true
+#    model.set '_party', null
+#    model.set '_partyMembers', null
+#    partyUnsubscribe model, ->
+#      selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
+#      selfQ.subscribe (err, u) ->
+#        model.ref '_user', u.at(0)
+#        browser.resetDom model

@@ -57,9 +57,6 @@ module.exports.app = (appExports, model) ->
     batch.commit()
     browser.resetDom(model)
 
-  appExports.closeKickstarterNofitication = (e, el) ->
-    user.set('flags.kickstarter', 'hide')
-
   appExports.closeCelebrationNofitication = (e, el) ->
     user.set('flags.celebrationEvent', 'hide')
 
@@ -107,7 +104,6 @@ userSchema =
   flags:
     partyEnabled: false
     itemsEnabled: false
-    kickstarter: 'show'
 # ads: 'show' # added on registration
 
 module.exports.newUserObject = ->

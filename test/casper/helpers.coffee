@@ -2,7 +2,7 @@ utils = require('utils')
 
 module.exports = ->
 
-  SYNC_WAIT_TIME = 20
+  SYNC_WAIT_TIME = 40
 
   baseUrl = 'http://localhost:3000'
 
@@ -31,12 +31,13 @@ module.exports = ->
 
     utils: utils
 
-    addTasks: ->
-      ['habit', 'daily', 'todo', 'reward'].forEach (type) ->
-        # Add 15 of each task type
-        num = 0
-        casper.repeat 5, ->
-          casper.fill "form#new-#{type}", {'new-task': "#{type}-#{num}"} # why can't I use true here?
+    addTasks: (types = 'all', num = 5)->
+      if types == 'all'
+        types = ['habit', 'daily', 'todo', 'reward']
+      types.forEach (type) ->
+        i = 0
+        casper.repeat num, ->
+          casper.fill "form#new-#{type}", {'new-task': "#{type}-#{i}"} # why can't I use true here?
           casper.click "form#new-#{type} input[type=submit]"
 
     reset: ->
@@ -58,7 +59,10 @@ module.exports = ->
             casper.then -> done_cb(model)
 
     runCron: ->
-      casper.evaluate -> window.DERBY.model.set('_user.lastCron', new Date('01/25/2013'))
+      casper.evaluate ->
+        yesterday = new Date()
+        yesterday.setDate(yesterday.getDate() - 1);
+        window.DERBY.app.model.set('_user.lastCron', yesterday)
       casper.then -> casper.reload()
 
     cronBeforeAfter: (cb) ->
@@ -68,13 +72,12 @@ module.exports = ->
         model.before = before
         casper.then -> that.runCron()
         casper.then ->
-          casper.wait 1050, -> # user's hp is updated after 1s for animation
+          casper.wait 1100, -> # user's hp is updated after 1s for animation
             model.after = getModel()
             casper.then ->
               casper.test.assertEqual model.before._user.id, model.after._user.id, 'user id equal after cron'
               casper.test.assertEqual model.before._user.tasks.length, model.after._user.tasks.length, "Didn't lose anything on cron"
               cb(model)
-
 
     register: ->
       casper.fill 'form#derby-auth-register',
@@ -90,13 +93,10 @@ module.exports = ->
         password: random
       , true
 
-
-    deleteOne: (type) ->
-      listType = if type == 'completed' then 'todo' else type
-      selector = ".#{type}s a[data-original-title=\"Delete\"]"
+    deleteOne: (list, typeSelector) ->
+      selector = "#{typeSelector} a[data-original-title=\"Delete\"]"
       @modelBeforeAfter (-> casper.click selector), (model) ->
-#        utils.dump model
-        casper.test.assertEquals Object.keys(model.before._user.tasks).length - 1, Object.keys(model.after._user.tasks).length, "1 #{type} deleted from user.tasks"
-        casper.test.assertEquals model.before._user["#{listType}Ids"].length - 1, model.after._user["#{listType}Ids"].length, "1 #{type} deleted from user._typeIds"
-        casper.test.assertEquals model.before["_#{listType}List"].length - 1, model.after["_#{listType}List"].length, "1 #{type} deleted from _typeList"
+        casper.test.assertEquals Object.keys(model.before._user.tasks).length - 1, Object.keys(model.after._user.tasks).length, "1 #{typeSelector} deleted from user.tasks"
+        casper.test.assertEquals model.before._user["#{list}Ids"].length - 1, model.after._user["#{list}Ids"].length, "1 #{typeSelector} deleted from user._typeIds"
+        casper.test.assertEquals model.before["_#{list}List"].length - 1, model.after["_#{list}List"].length, "1 #{typeSelector} deleted from _typeList"
   }
