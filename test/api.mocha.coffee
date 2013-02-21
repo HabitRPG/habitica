@@ -4,17 +4,22 @@ derby = require 'derby'
 _ = require 'underscore'
 moment = require 'moment'
 request = require 'request'
+qs = require 'querystring'
 
 # Custom modules
 scoring = require '../src/app/scoring'
 character = require '../src/app/character'
+config = require './config'
 
 ###### Helpers & Variables ######
 
 model = null
 uuid = null
 taskPath = null
-baseURL = 'http://localhost:3000'
+baseURL = 'http://localhost:3000/api/v1'
+UID_AND_TOKEN =
+  uid: config.uid
+  token: config.token
 
 ## Helper which clones the content at a path so tests can compare before/after values
 # Otherwise, using model.get(path) will give the same object before as after
@@ -71,22 +76,26 @@ modificationsLookup = (direction, options = {}) ->
 describe 'API', ->
   model = null
 
-  before ->
-    model = new Model
-    model.set '_user', character.newUserObject()
-    scoring.setModel model
+  describe 'Without token or user id', ->
 
-  it '/v1/:uid/tasks returns correct user defaults', (done) ->
-    user = model.get '_user'
+    it '/api/v1/user', (done) ->
+      request.get { uri: "#{baseURL}/user" }, (err, res, body) ->
+        console.log "#{baseURL}/user", body
+        assert.ok !err
+        assert.equal res.statusCode, 500
+        assert.ok body.err
+        done()
 
-    request "#{baseURL}/#{user.id}/tasks", (err, res, body) ->
-      assert.ok !err
-      tasks = []
+  describe 'With token and user id', ->
+    before ->
+      model = new Model
+      model.set '_user', character.newUserObject()
+      scoring.setModel model
 
-      ['habit','daily'].map (type) ->
-        model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-        tasks.concat model.get "_#{type}List"
+    it '/api/v1/user', (done) ->
+      user = model.get '_user'
 
-      console.log 'hi', tasks
-      assert.ok _.isEqual tasks, body
-      done()
+      request.get { uri: "#{baseURL}/user?#{qs.stringify(UID_AND_TOKEN)}" }, (err, res, body) ->
+        assert.ok !err
+        assert.equal res.statusCode, 200
+        done()

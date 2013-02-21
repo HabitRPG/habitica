@@ -5,3 +5,4 @@ node_modules
 *.swp
 .idea*
 config.json
+test/config.json

@@ -53,14 +53,14 @@ userAccess = (store) ->
   Get user with API token
 ###
 REST = (store) ->
-  store.query.expose "users", "withIdAndToken", (id, apiToken) ->
-    @where("id").equals(id)
-      .where('apiToken').equals(apiToken)
-      .limit(1)
+  store.query.expose "users", "withIdAndToken", (uid, token) ->
+    @where('id').equals(uid)
+      .where('apiToken').equals(token)
+      .one
 
-  store.queryAccess "users", "withIdAndToken", (id, apiToken, accept, err) ->
-    return accept(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
-    accept(true) # only user has id & token
+  store.queryAccess "users", "withIdAndToken", (id, token, accept, err) ->
+    return accept(true) if id && token
+    accept(false) # only user has id & token
 
 
 ###
