@@ -43,8 +43,8 @@ module.exports.app = (appExports, model) ->
     list = model.at "_#{type}List"
     newModel = model.at('_new' + type.charAt(0).toUpperCase() + type.slice(1))
     text = newModel.get()
-    # Don't add a blank task
-    if /^(\s)*$/.test(text)
+    # Don't add a blank task; 20/02/13 Added a check for undefined value, more at issue #463 -lancemanfv
+    if /^(\s)*$/.test(text) || text == undefined
       console.error "Task text entered was an empty string."
       return
 
