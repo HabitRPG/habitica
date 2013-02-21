@@ -50,7 +50,7 @@ module.exports.routes = (expressApp) ->
         return res.send(500, err.response.error.message)
       else
         model = req.getModel()
-        userId = model.get('_userId') or model.session.userId
+        userId = model.get('_userId') #or model.session.userId # see http://goo.gl/TPYIt
         req._isServer = true
         model.fetch "users.#{userId}", (err, user) ->
           model.ref '_user', "users.#{userId}"
