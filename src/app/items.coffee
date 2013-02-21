@@ -28,7 +28,7 @@ items = module.exports.items =
   ]
   shield: [
     {index: 0, text: "No Shield", classes: 'shield_0', notes:'No Shield.', modifier: 0.00, value:0}
-    {index: 1, text: "Wooden Shield", classes: 'shield_1', notes:'Decreases HP loss by 2%', modifier: 0.02, value:20}
+    {index: 1, text: "Wooden Shield", classes: 'shield_1', notes:'Decreases HP loss by 2%', modifier: 0.03, value:20}
     {index: 2, text: "Buckler", classes: 'shield_2', notes:'Decreases HP loss by 4%.', modifier: 0.04, value:35}
     {index: 3, text: "Enforced Shield", classes: 'shield_3', notes:'Decreases HP loss by 5%.', modifier: 0.05, value:55}
     {index: 4, text: "Red Shield", classes: 'shield_4', notes:'Decreases HP loss by 7%.', modifier: 0.07, value:70}
