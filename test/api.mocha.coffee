@@ -88,6 +88,14 @@ describe 'API', ->
 
   describe 'Without token or user id', ->
 
+    it '/api/v1/status', (done) ->
+      request.get("#{baseURL}/status")
+        .set('Accept', 'application/json')
+        .end (res) ->
+          assert.equal res.statusCode, 200
+          assert.equal res.body.status, 'up'
+          done()
+
     it '/api/v1/user', (done) ->
       request.get("#{baseURL}/user")
         .set('Accept', 'application/json')
