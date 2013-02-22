@@ -28,16 +28,28 @@ router.get '/user', (req, res) ->
   query = model.query('users').withIdAndToken(uid, token)
 
   query.fetch (err, user) ->
-    throw err if err
-    console.log user.at(0).get()
-    self = user.get()
-    console.log self
     return res.json 500, err: err if err
+    self = user.at(0).get()
+    console.log self
     return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
 
     return res.json self
   res.json {err: 'Something went wrong'}
 
+router.post '/task', (req, res) ->
+  { uid, token } = req.body
+  return res.json 500, NO_TOKEN_OR_UID unless uid || token
+
+  model = req.getModel()
+  query = model.query('users').withIdAndToken(uid, token)
+
+  query.fetch (err, user) ->
+    return res.json 500, err: err if err
+    self = user.at(0).get()
+    return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
+
+    return res.json self
+  res.json {err: 'Something went wrong'}
 
 router.get '/user/calendar.ics', (req, res) ->
   #return next() #disable for now

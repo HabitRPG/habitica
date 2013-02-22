@@ -110,20 +110,36 @@ describe 'API', ->
       params =
         uid: user.id
         token: user.apiToken
+      setTimeout ->
+        done()
+      , 800
 
-      done()
-
-    it '/api/v1/user', (done) ->
+    ###
+    test '/api/v1/user', (done) ->
       console.log "#{baseURL}/user?#{qs.stringify(params)}"
-      request.get("#{baseURL}/user")
+      _.defer ->
+        request.get("#{baseURL}/user")
+          .set('Accept', 'application/json')
+          .query(params)
+          .on('error', (err) ->
+            console.log 'err', err
+          )
+          .end (res) ->
+            assert.ok !res.body.err
+            assert.equal res.statusCode, 200
+            assert.ok res.body.tasks
+            done()
+    ###
+    it '/api/v1/task', (done) ->
+      request.post("#{baseURL}/task")
         .set('Accept', 'application/json')
-        .query(params)
+        .send(params)
         .on('error', (err) ->
           console.log 'err', err
         )
         .end (res) ->
-          console.log res.body
+          #console.log 'task', res.body
           assert.ok !res.body.err
           assert.equal res.statusCode, 200
-          assert.ok res.body
+          assert.ok res.body.tasks
           done()

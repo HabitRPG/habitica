@@ -62,6 +62,8 @@ REST = (store) ->
     return accept(true) if uid && token
     accept(false) # only user has id & token
 
+  #store.query.expose
+
 
 ###
   Party permissions
