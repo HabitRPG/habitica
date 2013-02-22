@@ -21,14 +21,6 @@ process.env.SMTP_PASS = conf.get("SMTP_PASS");
 process.env.SMTP_SERVICE = conf.get("SMTP_SERVICE");
 process.env.STRIPE_API_KEY = conf.get("STRIPE_API_KEY");
 process.env.STRIPE_PUB_KEY = conf.get("STRIPE_PUB_KEY");
-process.env.NODETIME_KEY = conf.get("NODETIME_KEY");
-
-if (process.env.NODETIME_KEY) {
-    require('nodetime').profile({
-        accountKey: process.env.NODETIME_KEY,
-        appName: 'HabitRPG'
-    });
-}
 
 process.on('uncaughtException', function (error) {
 
