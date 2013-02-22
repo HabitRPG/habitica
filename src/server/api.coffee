@@ -34,7 +34,6 @@ router.get '/user', (req, res) ->
     return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
 
     return res.json self
-  res.json {err: 'Something went wrong'}
 
 router.post '/task', (req, res) ->
   { uid, token } = req.body
@@ -49,7 +48,6 @@ router.post '/task', (req, res) ->
     return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
 
     return res.json self
-  res.json {err: 'Something went wrong'}
 
 router.get '/user/calendar.ics', (req, res) ->
   #return next() #disable for now
