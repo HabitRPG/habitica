@@ -7,9 +7,12 @@ moment = require 'moment'
 request = require 'superagent'
 qs = require 'querystring'
 
-app = require '../server'
+racer.use require 'racer-db-mongo'
 
-store = app.habitStore
+store = racer.createStore
+  db:
+    type: 'Mongo'
+    uri: process.env.NODE_DB_URI
 
 # Custom modules
 scoring = require '../src/app/scoring'
@@ -86,12 +89,8 @@ describe 'API', ->
   describe 'Without token or user id', ->
 
     it '/api/v1/user', (done) ->
-      request(app)
-        .get("/api/v1/user")
+      request.get("#{baseURL}/user")
         .set('Accept', 'application/json')
-        .on('error', (err) ->
-          console.log 'err', err
-        )
         .end (res) ->
           assert.equal res.statusCode, 500
           assert.ok JSON.parse(res.text).err
@@ -100,9 +99,9 @@ describe 'API', ->
   describe 'With token and user id', ->
     before (done) ->
       model = store.createModel()
-      store.flush()
+      #store.flush()
 
-      uid = model.id()
+      model.set '_userId', uid = model.id()
       user = character.newUserObject()
       user.apiToken = derby.uuid()
       model.set "users.#{uid}", user
@@ -114,20 +113,16 @@ describe 'API', ->
 
       done()
 
-    after (done) ->
-      store.flush done
-
     it '/api/v1/user', (done) ->
-      console.log params
-      request(app)
-        .get("/api/v1/user")
+      console.log "#{baseURL}/user?#{qs.stringify(params)}"
+      request.get("#{baseURL}/user")
         .set('Accept', 'application/json')
         .query(params)
         .on('error', (err) ->
           console.log 'err', err
         )
         .end (res) ->
-          console.log 'test', res.body
+          console.log res.body
           assert.ok !res.body.err
           assert.equal res.statusCode, 200
           assert.ok res.body

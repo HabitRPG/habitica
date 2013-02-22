@@ -21,19 +21,23 @@ router.get '/status', (req, res) ->
     status: 'up'
 
 router.get '/user', (req, res) ->
-  console.log 'hi'
-  { uid, token } = req.query
+  console.log 'hi', { uid, token } = req.query
   return res.json 500, NO_TOKEN_OR_UID unless uid || token
 
   model = req.getModel()
   query = model.query('users').withIdAndToken(uid, token)
 
   query.fetch (err, user) ->
+    throw err if err
+    console.log user.at(0).get()
     self = user.get()
+    console.log self
     return res.json 500, err: err if err
     return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
 
-    res.json self
+    return res.json self
+  res.json {err: 'Something went wrong'}
+
 
 router.get '/user/calendar.ics', (req, res) ->
   #return next() #disable for now

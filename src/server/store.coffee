@@ -56,7 +56,7 @@ REST = (store) ->
   store.query.expose "users", "withIdAndToken", (uid, token) ->
     @byId(uid)
       .where('apiToken').equals(token)
-      .one
+      .limit(1)
 
   store.queryAccess "users", "withIdAndToken", (uid, token, accept, err) ->
     return accept(true) if uid && token
