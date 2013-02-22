@@ -16,6 +16,7 @@ module.exports.customAccessControl = (store) ->
 userAccess = (store) ->
 
   store.readPathAccess "users.*", -> # captures, accept, err ->
+    accept = arguments[arguments.length-2]
     err = arguments[arguments.length - 1]
 #    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
     return accept(true) if derbyAuth.sessionInvalidated(@)
@@ -25,11 +26,11 @@ userAccess = (store) ->
     accept (uid is @session.userId) or @session.req?._isServer
 
   store.writeAccess "*", "users.*", -> # captures, value, accept, err ->
+    accept = arguments[arguments.length-2]
     err = arguments[arguments.length - 1]
 #    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
     return accept(true) if derbyAuth.sessionInvalidated(@)
 
-    accept = arguments[arguments.length-2]
     captures = arguments[0].split('.')
     uid = captures.shift()
     attrPath = captures.join('.') # new array shifted left, after shift() was run
@@ -89,7 +90,6 @@ partySystem = (store) ->
             'auth.facebook.displayName')
 
   store.queryAccess "users", "party", (ids, accept, err) ->
-    err = arguments[arguments.length - 1]
 #    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
     return accept(true) if derbyAuth.sessionInvalidated(@)
     accept(true) # no harm in public user stats
@@ -97,7 +97,6 @@ partySystem = (store) ->
   store.query.expose "parties", "withId", (id) ->
     @where("id").equals(id)
   store.queryAccess "parties", "withId", (id, accept, err) ->
-    err = arguments[arguments.length - 1]
 #    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
     return accept(true) if derbyAuth.sessionInvalidated(@)
     accept(true)
@@ -107,8 +106,8 @@ partySystem = (store) ->
     accept(true)
 
   store.writeAccess "*", "parties.*", ->
+    accept = arguments[arguments.length-2]
     err = arguments[arguments.length - 1]
 #    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
     return accept(true) if derbyAuth.sessionInvalidated(@)
-    accept = arguments[arguments.length-2]
     accept(true)
