@@ -17,7 +17,8 @@ userAccess = (store) ->
 
   store.readPathAccess "users.*", -> # captures, accept, err ->
     err = arguments[arguments.length - 1]
-    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
+#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
+    return accept(true) if derbyAuth.sessionInvalidated(@)
 
     accept = arguments[arguments.length - 2]
     uid = arguments[0]
@@ -25,7 +26,8 @@ userAccess = (store) ->
 
   store.writeAccess "*", "users.*", -> # captures, value, accept, err ->
     err = arguments[arguments.length - 1]
-    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
+#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
+    return accept(true) if derbyAuth.sessionInvalidated(@)
 
     accept = arguments[arguments.length-2]
     captures = arguments[0].split('.')
@@ -43,7 +45,8 @@ userAccess = (store) ->
     accept(false)
 
   store.writeAccess "*", "users.*.balance", (id, newBalance, accept, err) ->
-    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
+#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
+    return accept(true) if derbyAuth.sessionInvalidated(@)
 
     oldBalance = @session.req?._racerModel?.get("users.#{id}.balance") || 0
     purchasingSomethingOnClient = newBalance < oldBalance
@@ -51,7 +54,8 @@ userAccess = (store) ->
 
   store.writeAccess "*", "users.*.flags.ads", -> # captures, value, accept, err ->
     err = arguments[arguments.length - 1]
-    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
+#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
+    return accept(true) if derbyAuth.sessionInvalidated(@)
 
     accept(@session.req?._isServer)
 
@@ -86,14 +90,16 @@ partySystem = (store) ->
 
   store.queryAccess "users", "party", (ids, accept, err) ->
     err = arguments[arguments.length - 1]
-    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
+#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
+    return accept(true) if derbyAuth.sessionInvalidated(@)
     accept(true) # no harm in public user stats
 
   store.query.expose "parties", "withId", (id) ->
     @where("id").equals(id)
   store.queryAccess "parties", "withId", (id, accept, err) ->
     err = arguments[arguments.length - 1]
-    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
+#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
+    return accept(true) if derbyAuth.sessionInvalidated(@)
     accept(true)
 
   store.readPathAccess "parties.*", ->
@@ -102,6 +108,7 @@ partySystem = (store) ->
 
   store.writeAccess "*", "parties.*", ->
     err = arguments[arguments.length - 1]
-    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
+#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
+    return accept(true) if derbyAuth.sessionInvalidated(@)
     accept = arguments[arguments.length-2]
     accept(true)
