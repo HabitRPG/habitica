@@ -85,11 +85,15 @@ partySystem = (store) ->
             'auth.facebook.displayName')
 
   store.queryAccess "users", "party", (ids, accept, err) ->
+    err = arguments[arguments.length - 1]
+    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
     accept(true) # no harm in public user stats
 
   store.query.expose "parties", "withId", (id) ->
     @where("id").equals(id)
   store.queryAccess "parties", "withId", (id, accept, err) ->
+    err = arguments[arguments.length - 1]
+    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
     accept(true)
 
   store.readPathAccess "parties.*", ->
@@ -97,5 +101,7 @@ partySystem = (store) ->
     accept(true)
 
   store.writeAccess "*", "parties.*", ->
+    err = arguments[arguments.length - 1]
+    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.sessionInvalidated(@)
     accept = arguments[arguments.length-2]
     accept(true)
