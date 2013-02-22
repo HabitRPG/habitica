@@ -110,9 +110,7 @@ describe 'API', ->
       params =
         uid: user.id
         token: user.apiToken
-      setTimeout ->
-        done()
-      , 800
+      done()
 
     ###
     test '/api/v1/user', (done) ->
