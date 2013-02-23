@@ -1,10 +1,11 @@
 module.exports.splash = (req, res, next) ->
   # This was an API call, not a page load
-  return next() if /^\/api/.test req.path
-  if !req.session.userId? and !req.query?.play?
-    res.redirect('/splash.html')
-  else
-    next()
+return next() if /^\/(api)|(v1)/.test req.path
+
+unless req.query?.play? or req.getModel().get('_userId')
+  res.redirect('/splash.html')
+else
+  next()
 
 module.exports.view = (req, res, next) ->
     model = req.getModel()

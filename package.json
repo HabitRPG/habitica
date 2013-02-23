@@ -24,11 +24,10 @@
     "nconf": "*",
     "icalendar": "git://github.com/lefnire/node-icalendar#master",
     "nodetime": "*",
-    "resolve": "~0.2.3",
-    "request": "~2.14.0",
     "querystring": "~0.1.0",
-    "nock": "~0.15.2",
-    "superagent": "~0.12.4"
+    "superagent": "~0.12.4",
+    "resolve": "~0.2.3",
+    "browserify": "1.17.3"
   },
   "private": true,
   "subdomain": "habitrpg",

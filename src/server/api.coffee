@@ -60,7 +60,7 @@ router.post '/user/tasks', (req, res) ->
 
     return res.json task
 
-router.get '/user/calendar.ics', (req, res) ->
+router.get '/users/:uid/calendar.ics', (req, res) ->
   #return next() #disable for now
   {uid} = req.params
   {apiToken} = req.query
