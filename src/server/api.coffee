@@ -3,7 +3,10 @@ router = new express.Router()
 
 scoring = require '../app/scoring'
 _ = require 'underscore'
-icalendar = require('icalendar')
+validator = require 'validator'
+check = validator.check
+snaitize = validator.sanitize
+icalendar = require 'icalendar'
 
 NO_TOKEN_OR_UID = err: "You must include a token and uid (user id) in your request"
 NO_USER_FOUND = err: "No user found."
@@ -35,8 +38,9 @@ router.get '/user', (req, res) ->
 
     return res.json self
 
-router.post '/task', (req, res) ->
+router.post '/user/tasks', (req, res) ->
   { uid, token } = req.body
+  task = { title, text, type, value, note } = req.body
   return res.json 500, NO_TOKEN_OR_UID unless uid || token
 
   model = req.getModel()
@@ -46,6 +50,13 @@ router.post '/task', (req, res) ->
     return res.json 500, err: err if err
     self = user.at(0).get()
     return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
+    return res.json 500, err: "type must be habit, todo, daily, reward" unless check(type).is /habit|todo|daily|reward/
+    return res.json 500, err: "must have a title" unless check(title).notEmpty()
+    return res.json 500, err: "must have text" unless check(text).notEmpty()
+    value ||= 0
+    
+    model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+    model.push "_#{type}List", task
 
     return res.json self
 
