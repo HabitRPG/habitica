@@ -1,8 +1,8 @@
 // Load nconf and define default configuration values if config.json or ENV vars are not found
 var conf = require('nconf');
 conf.argv().env().file({ file: __dirname + "/config.json" }).defaults({
-   'PORT': process.env.PORT,
-   'IP': process.env.IP
+   'PORT': 3000,
+   'IP': '0.0.0.0'
 });
 
 // Override normal ENV values with nconf ENV values (ENV values are used the same way without nconf)
@@ -58,6 +58,8 @@ process.on('uncaughtException', function (error) {
 
 require('coffee-script') // remove intermediate compilation requirement
 module.exports = server = require('./src/server')
+
+Error.stackTraceLimit = Infinity;
 
 server.listen(process.env.PORT || 3000, process.env.IP || '0.0.0.0');
 

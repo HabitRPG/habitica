@@ -113,13 +113,18 @@ describe 'API', ->
       user = character.newUserObject()
       user.apiToken = derby.uuid()
       model.set "users.#{uid}", user
-      user = model.get("users.#{uid}")
+      user = model.at("users.#{uid}")
+      currentUser = user.get()
 
       params =
-        uid: user.id
-        token: user.apiToken
+        uid: currentUser.id
+        token: currentUser.apiToken
+        title: 'Title'
+        text: 'Text'
+        type: 'habit'
       done()
 
+    ###
     it '/api/v1/user', (done) ->
       console.log "#{baseURL}/user?#{qs.stringify(params)}"
       request.get("#{baseURL}/user")
@@ -133,18 +138,17 @@ describe 'API', ->
           assert.equal res.statusCode, 200
           assert.ok res.body
           console.log res.body
-          done()
+         done()
+    ###
 
-    it '/api/v1/task', (done) ->
-      request.post("#{baseURL}/task")
+    it '/api/v1/user/task', (done) ->
+      request.post("#{baseURL}/user/task")
         .set('Accept', 'application/json')
         .send(params)
-        .on('error', (err) ->
-          console.log 'err', err
-        )
         .end (res) ->
-          #console.log 'task', res.body
+          currentUser = user.get()
           assert.ok !res.body.err
-          assert.equal res.statusCode, 200
-          assert.ok res.body.tasks
+          assert.equal res.statusCode, 201
+          assert.ok res.body.id
+          assert.ok currentUser.tasks[res.body.id]
           done()

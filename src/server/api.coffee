@@ -3,7 +3,7 @@ router = new express.Router()
 
 scoring = require '../app/scoring'
 _ = require 'underscore'
-validator = require 'validator'
+validator = require 'derby-auth/node_modules/validator'
 check = validator.check
 snaitize = validator.sanitize
 icalendar = require 'icalendar'
@@ -24,7 +24,7 @@ router.get '/status', (req, res) ->
     status: 'up'
 
 router.get '/user', (req, res) ->
-  console.log 'hi', { uid, token } = req.query
+  { uid, token } = req.query
   return res.json 500, NO_TOKEN_OR_UID unless uid || token
 
   model = req.getModel()
@@ -33,12 +33,11 @@ router.get '/user', (req, res) ->
   query.fetch (err, user) ->
     return res.json 500, err: err if err
     self = user.at(0).get()
-    console.log self
     return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
 
     return res.json self
 
-router.post '/user/tasks', (req, res) ->
+router.post '/user/task', (req, res) ->
   { uid, token } = req.body
   task = { title, text, type, value, note } = req.body
   return res.json 500, NO_TOKEN_OR_UID unless uid || token
@@ -50,15 +49,16 @@ router.post '/user/tasks', (req, res) ->
     return res.json 500, err: err if err
     self = user.at(0).get()
     return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
-    return res.json 500, err: "type must be habit, todo, daily, reward" unless check(type).is /habit|todo|daily|reward/
+    return res.json 500, err: "type must be habit, todo, daily, reward" unless /habit|todo|daily|reward/.test type
     return res.json 500, err: "must have a title" unless check(title).notEmpty()
     return res.json 500, err: "must have text" unless check(text).notEmpty()
     value ||= 0
 
+    #model.ref '_user', user
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
     model.push "_#{type}List", task
 
-    return res.json task
+    return res.json 201, task
 
 router.get '/users/:uid/calendar.ics', (req, res) ->
   #return next() #disable for now
