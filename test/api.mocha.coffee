@@ -120,22 +120,21 @@ describe 'API', ->
         token: user.apiToken
       done()
 
-    ###
-    test '/api/v1/user', (done) ->
+    it '/api/v1/user', (done) ->
       console.log "#{baseURL}/user?#{qs.stringify(params)}"
-      _.defer ->
-        request.get("#{baseURL}/user")
-          .set('Accept', 'application/json')
-          .query(params)
-          .on('error', (err) ->
-            console.log 'err', err
-          )
-          .end (res) ->
-            assert.ok !res.body.err
-            assert.equal res.statusCode, 200
-            assert.ok res.body.tasks
-            done()
-    ###
+      request.get("#{baseURL}/user")
+        .set('Accept', 'application/json')
+        .query(params)
+        .on('error', (err) ->
+          console.log 'err', err
+        )
+        .end (res) ->
+          assert.ok !res.body.err
+          assert.equal res.statusCode, 200
+          assert.ok res.body
+          console.log res.body
+          done()
+
     it '/api/v1/task', (done) ->
       request.post("#{baseURL}/task")
         .set('Accept', 'application/json')

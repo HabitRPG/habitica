@@ -54,11 +54,11 @@ router.post '/user/tasks', (req, res) ->
     return res.json 500, err: "must have a title" unless check(title).notEmpty()
     return res.json 500, err: "must have text" unless check(text).notEmpty()
     value ||= 0
-    
+
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
     model.push "_#{type}List", task
 
-    return res.json self
+    return res.json task
 
 router.get '/user/calendar.ics', (req, res) ->
   #return next() #disable for now
