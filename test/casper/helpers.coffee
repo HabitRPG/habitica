@@ -44,6 +44,10 @@ module.exports = ->
       casper.evaluate -> window.DERBY.app.reset()
 
     getModelDelayed: (cb) ->
+      # This time is needed for derby to have enough time to update all it's data.
+      # It still happens sometimes that the retrieved model does not contain any
+      # data. It might be worth to do some basic checks on the model here, and if
+      # it doesn't look OK, wait a bit longer and get it again.
       casper.wait SYNC_WAIT_TIME, ->
         cb(getModel())
 
@@ -82,9 +86,9 @@ module.exports = ->
     register: ->
       casper.fill 'form#derby-auth-register',
         username: random
-        email: random + '@gmail.com'
-        'email-confirmation': random + '@gmail.com'
+        email: random + '@example.com'
         password: random
+        'password-confirmation': random
       , true
 
     login: ->
