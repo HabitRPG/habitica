@@ -1,4 +1,4 @@
-assert = require 'assert'
+expect = require 'expect.js'
 {BrowserModel: Model} = require 'racer/test/util/model'
 derby = require 'derby'
 racer = require 'racer'
@@ -92,16 +92,16 @@ describe 'API', ->
       request.get("#{baseURL}/status")
         .set('Accept', 'application/json')
         .end (res) ->
-          assert.equal res.statusCode, 200
-          assert.equal res.body.status, 'up'
+          expect(res.statusCode).to.be 200
+          expect(res.body.status).to.be 'up'
           done()
 
     it '/api/v1/user', (done) ->
       request.get("#{baseURL}/user")
         .set('Accept', 'application/json')
         .end (res) ->
-          assert.equal res.statusCode, 500
-          assert.ok JSON.parse(res.text).err
+          expect(res.statusCode).to.be 500
+          expect(res.body.err).to.be 'You must include a token and uid (user id) in your request'
           done()
 
   describe 'With token and user id', ->
@@ -114,6 +114,7 @@ describe 'API', ->
       user.apiToken = derby.uuid()
       model.set "users.#{uid}", user
       user = model.at("users.#{uid}")
+      user.set 'tasks', {}
       currentUser = user.get()
 
       params =
@@ -147,8 +148,10 @@ describe 'API', ->
         .send(params)
         .end (res) ->
           currentUser = user.get()
-          assert.ok !res.body.err
-          assert.equal res.statusCode, 201
-          assert.ok res.body.id
-          assert.ok currentUser.tasks[res.body.id]
+          expect(currentUser).to.eql res.body
+          expect(res.body.err).to.be.empty()
+          expect(res.statusCode).to.be 201
+          expect(res.body.id).not.to.be.empty()
+          # Ensure that user owns the newly created object
+          #expect(currentUser.tasks[res.body.id]).to.be.an('object')
           done()

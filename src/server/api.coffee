@@ -54,7 +54,7 @@ router.post '/user/task', (req, res) ->
     return res.json 500, err: "must have text" unless check(text).notEmpty()
     value ||= 0
 
-    #model.ref '_user', user
+    model.ref '_user', user.at(0)
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
     model.push "_#{type}List", task
 
