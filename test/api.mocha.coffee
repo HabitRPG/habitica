@@ -106,9 +106,9 @@ describe 'API', ->
     user = null
     model = null
 
-    before (done) ->
-      model = store.createModel()
+    before ->
       #store.flush()
+      model = store.createModel()
 
       model.set '_userId', uid = model.id()
       user = character.newUserObject()
@@ -117,12 +117,9 @@ describe 'API', ->
       user = model.at("users.#{uid}")
       currentUser = user.get()
       params =
-        uid: currentUser.id
-        token: currentUser.apiToken
         title: 'Title'
         text: 'Text'
         type: 'habit'
-      done()
 
     beforeEach ->
       currentUser = user.get()
@@ -130,7 +127,7 @@ describe 'API', ->
     it 'GET /api/v1/user', (done) ->
       request.get("#{baseURL}/user")
         .set('Accept', 'application/json')
-        .auth(params.uid, params.token)
+        .auth(currentUser.id, currentUser.apiToken)
         .end (res) ->
           expect(res.body.err).to.be undefined
           expect(res.statusCode).to.be 200
@@ -141,24 +138,28 @@ describe 'API', ->
     it 'POST /api/v1/user/task', (done) ->
       request.post("#{baseURL}/user/task")
         .set('Accept', 'application/json')
-        .auth(params.uid, params.token)
+        .auth(currentUser.id, currentUser.apiToken)
         .send(params)
         .end (res) ->
           expect(res.body.err).to.be undefined
+          console.log res.body
           expect(res.statusCode).to.be 201
           expect(res.body.id).not.to.be.empty()
           # Ensure that user owns the newly created object
-          #expect(currentUser.tasks[res.body.id]).to.be.an('object')
+          console.log _.size(user.get().tasks)
+          expect(user.get().tasks[res.body.id]).to.be.an('object')
           done()
 
     it 'GET /api/v1/user/tasks', (done) ->
       request.get("#{baseURL}/user/tasks")
         .set('Accept', 'application/json')
-        .auth(params.uid, params.token)
+        .auth(currentUser.id, currentUser.apiToken)
         .end (res) ->
           expect(res.body.err).to.be undefined
           expect(res.statusCode).to.be 200
-          model.set '_user', user.get()
+          currentUser = user.get()
+          console.log _.size(currentUser.tasks)
+          model.ref '_user', user
           tasks = []
           for type in ['habit','todo','daily','reward']
             model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"

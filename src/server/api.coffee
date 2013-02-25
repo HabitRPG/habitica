@@ -28,7 +28,8 @@ auth = (req, res, next) ->
 
     query.fetch (err, user) ->
       return callback err if err
-      callback null, user.at(0)
+      user = user.at(0)
+      callback null, user
   )(req, res, next)
 
 router.get '/status', (req, res) ->
