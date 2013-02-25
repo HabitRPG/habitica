@@ -187,8 +187,5 @@ describe 'API', ->
             tasks = tasks.concat model.get("_#{type}List")
           # Ensure that user owns the tasks
           console.log _.difference(_.pluck(res.body,'id'), _.pluck(tasks,'id'))
-          #expect(res.body.length).to.equal tasks.length
-          setTimeout ->
-            console.log 'hi', _.size(user.get().tasks)
-            done()
-          , 1100
+          expect(res.body.length).to.equal tasks.length
+          done()
