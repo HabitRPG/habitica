@@ -20,17 +20,17 @@ NO_USER_FOUND = err: "No user found."
 ###
 
 auth = (req, res, next) ->
-  express.basicAuth((uid, token, callback) ->
-    return res.json 500, NO_TOKEN_OR_UID unless uid || token
+  uid = req.headers['x-api-user']
+  token = req.headers['x-api-key']
+  return res.json 500, NO_TOKEN_OR_UID unless uid || token
 
-    model = req.getModel()
-    query = model.query('users').withIdAndToken(uid, token)
+  model = req.getModel()
+  query = model.query('users').withIdAndToken(uid, token)
 
-    query.fetch (err, user) ->
-      return callback err if err
-      user = user.at(0)
-      callback null, user
-  )(req, res, next)
+  query.fetch (err, user) ->
+    return res.json err: err if err
+    req.user = user.at(0)
+    next()
 
 router.get '/status', (req, res) ->
   res.json status: 'up'
