@@ -82,10 +82,6 @@ modificationsLookup = (direction, options = {}) ->
 ###### Specs ######
 
 describe 'API', ->
-  model = null
-  user = null
-  params = null
-
   describe 'Without token or user id', ->
 
     it '/api/v1/status', (done) ->
@@ -105,6 +101,11 @@ describe 'API', ->
           done()
 
   describe 'With token and user id', ->
+    params = null
+    currentUser = null
+    user = null
+    model = null
+
     before (done) ->
       model = store.createModel()
       #store.flush()
@@ -114,9 +115,7 @@ describe 'API', ->
       user.apiToken = derby.uuid()
       model.set "users.#{uid}", user
       user = model.at("users.#{uid}")
-      user.set 'tasks', {}
       currentUser = user.get()
-
       params =
         uid: currentUser.id
         token: currentUser.apiToken
@@ -125,33 +124,46 @@ describe 'API', ->
         type: 'habit'
       done()
 
-    ###
-    it '/api/v1/user', (done) ->
-      console.log "#{baseURL}/user?#{qs.stringify(params)}"
+    beforeEach ->
+      currentUser = user.get()
+
+    it 'GET /api/v1/user', (done) ->
       request.get("#{baseURL}/user")
         .set('Accept', 'application/json')
-        .query(params)
-        .on('error', (err) ->
-          console.log 'err', err
-        )
+        .auth(params.uid, params.token)
         .end (res) ->
-          assert.ok !res.body.err
-          assert.equal res.statusCode, 200
-          assert.ok res.body
-          console.log res.body
-         done()
-    ###
+          expect(res.body.err).to.be undefined
+          expect(res.statusCode).to.be 200
+          expect(res.body.id).not.to.be.empty()
+          expect(res.body).to.eql(currentUser)
+          done()
 
-    it '/api/v1/user/task', (done) ->
+    it 'POST /api/v1/user/task', (done) ->
       request.post("#{baseURL}/user/task")
         .set('Accept', 'application/json')
+        .auth(params.uid, params.token)
         .send(params)
         .end (res) ->
-          currentUser = user.get()
-          expect(currentUser).to.eql res.body
-          expect(res.body.err).to.be.empty()
+          expect(res.body.err).to.be undefined
           expect(res.statusCode).to.be 201
           expect(res.body.id).not.to.be.empty()
           # Ensure that user owns the newly created object
           #expect(currentUser.tasks[res.body.id]).to.be.an('object')
+          done()
+
+    it 'GET /api/v1/user/tasks', (done) ->
+      request.get("#{baseURL}/user/tasks")
+        .set('Accept', 'application/json')
+        .auth(params.uid, params.token)
+        .end (res) ->
+          expect(res.body.err).to.be undefined
+          expect(res.statusCode).to.be 200
+          model.set '_user', user.get()
+          tasks = []
+          for type in ['habit','todo','daily','reward']
+            model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+            tasks = tasks.concat model.get("_#{type}List")
+          # Ensure that user owns the tasks
+          console.log _.difference(_.pluck(res.body,'id'), _.pluck(tasks,'id'))
+          expect(res.body.length).to.equal tasks.length
           done()

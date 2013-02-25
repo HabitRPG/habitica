@@ -19,46 +19,57 @@ NO_USER_FOUND = err: "No user found."
   curl -X POST -H "Content-Type:application/json" -d '{"apiToken":"{TOKEN}"}' localhost:3000/v1/users/{UID}/tasks/productivity/up
 ###
 
+auth = (req, res, next) ->
+  express.basicAuth((uid, token, callback) ->
+    return res.json 500, NO_TOKEN_OR_UID unless uid || token
+
+    model = req.getModel()
+    query = model.query('users').withIdAndToken(uid, token)
+
+    query.fetch (err, user) ->
+      return callback err if err
+      callback null, user.at(0)
+  )(req, res, next)
+
 router.get '/status', (req, res) ->
-  res.json
-    status: 'up'
+  res.json status: 'up'
 
-router.get '/user', (req, res) ->
-  { uid, token } = req.query
-  return res.json 500, NO_TOKEN_OR_UID unless uid || token
+router.get '/user', auth, (req, res) ->
+  self = req.user.get()
+  return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
 
-  model = req.getModel()
-  query = model.query('users').withIdAndToken(uid, token)
+  return res.json self
 
-  query.fetch (err, user) ->
-    return res.json 500, err: err if err
-    self = user.at(0).get()
-    return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
-
-    return res.json self
-
-router.post '/user/task', (req, res) ->
-  { uid, token } = req.body
+router.post '/user/task', auth, (req, res) ->
   task = { title, text, type, value, note } = req.body
-  return res.json 500, NO_TOKEN_OR_UID unless uid || token
+  return res.json 500, err: "type must be habit, todo, daily, or reward" unless /habit|todo|daily|reward/.test type
+  return res.json 500, err: "must have a title" unless check(title).notEmpty()
+  return res.json 500, err: "must have text" unless check(text).notEmpty()
+
+  self = req.user.get()
+  return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
+
+  value ||= 0
 
   model = req.getModel()
-  query = model.query('users').withIdAndToken(uid, token)
+  model.ref '_user', req.user
+  model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+  model.at("_#{type}List").push task
 
-  query.fetch (err, user) ->
-    return res.json 500, err: err if err
-    self = user.at(0).get()
-    return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
-    return res.json 500, err: "type must be habit, todo, daily, reward" unless /habit|todo|daily|reward/.test type
-    return res.json 500, err: "must have a title" unless check(title).notEmpty()
-    return res.json 500, err: "must have text" unless check(text).notEmpty()
-    value ||= 0
+  return res.json 201, task
 
-    model.ref '_user', user.at(0)
+router.get '/user/tasks', auth, (req, res) ->
+  self = req.user.get()
+  return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
+
+  model = req.getModel()
+  model.ref '_user', req.user
+  tasks = []
+  for type in ['habit','todo','daily','reward']
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-    model.push "_#{type}List", task
+    tasks = tasks.concat model.get("_#{type}List")
 
-    return res.json 201, task
+  return res.json 200, tasks
 
 router.get '/users/:uid/calendar.ics', (req, res) ->
   #return next() #disable for now
