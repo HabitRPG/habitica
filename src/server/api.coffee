@@ -11,12 +11,11 @@ icalendar = require 'icalendar'
 NO_TOKEN_OR_UID = err: "You must include a token and uid (user id) in your request"
 NO_USER_FOUND = err: "No user found."
 
-# ---------- /v1 API ------------
-# Every url added beneath router is prefaced by /v1
+# ---------- /api/v1 API ------------
+# Every url added beneath router is prefaced by /api/v1
 
 ###
   v1 API. Requires user-id and apiToken, task-id, direction. Test with:
-  curl -X POST -H "Content-Type:application/json" -d '{"apiToken":"{TOKEN}"}' localhost:3000/v1/users/{UID}/tasks/productivity/up
 ###
 
 auth = (req, res, next) ->

@@ -186,6 +186,7 @@ describe 'API', ->
             model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
             tasks = tasks.concat model.get("_#{type}List")
           # Ensure that user owns the tasks
-          console.log _.difference(_.pluck(res.body,'id'), _.pluck(tasks,'id'))
           expect(res.body.length).to.equal tasks.length
+          # Ensure that the two sets are equal
+          expect(_.difference(_.pluck(res.body,'id'), _.pluck(tasks,'id')).length).to.equal 0
           done()
