@@ -24,8 +24,8 @@ router.post '/users/:uid/tasks/:taskId/:direction', (req, res) ->
   return res.send(500, ':taskId required') unless taskId
   return res.send(500, ":direction must be 'up' or 'down'") unless direction in ['up','down']
 
-  model = req.getModel()
   req._isServer = true
+  model = req.getModel()
   model.fetch model.query('users').withIdAndToken(uid, apiToken), (err, result) ->
     return res.send(500, err) if err
     user = result.at(0)

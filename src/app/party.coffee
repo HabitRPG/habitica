@@ -23,7 +23,7 @@ module.exports.partySubscribe = partySubscribe = (model, cb) ->
   # partyUnsubscribe model, ->
 
   # Restart subscription to the main user
-  selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
+  selfQ = model.query('users').withId model.get('_userId') #or model.session.userId # see http://goo.gl/TPYIt
   selfQ.subscribe (err, self) ->
     throw err if err
     u = self.at(0)
@@ -166,7 +166,7 @@ module.exports.app = (appExports, model) ->
 #    model.set '_party', null
 #    model.set '_partyMembers', null
 #    partyUnsubscribe model, ->
-#      selfQ = model.query('users').withId(model.get('_userId') or model.session.userId)
+#      selfQ = model.query('users').withId model.get('_userId') #or model.session.userId # see http://goo.gl/TPYIt
 #      selfQ.subscribe (err, u) ->
 #        model.ref '_user', u.at(0)
 #        browser.resetDom model

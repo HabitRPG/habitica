@@ -24,6 +24,8 @@ _ = require('underscore')
 # ========== ROUTES ==========
 
 get '/', (page, model, next) ->
+  return page.redirect '/' if page.params?.query?.play?
+
   # temporary view variables, so we don't call model.set() too fast
   _view = model.get '_view' || {}
 
