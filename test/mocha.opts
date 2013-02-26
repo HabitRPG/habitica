@@ -1,6 +1,7 @@
 --colors
 --reporter spec
---timeout 1200
+--timeout 2500
+--ignore-leaks
 --growl
 --debug
 --compilers coffee:coffee-script

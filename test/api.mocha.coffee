@@ -6,6 +6,7 @@ _ = require 'underscore'
 moment = require 'moment'
 request = require 'superagent'
 qs = require 'querystring'
+require 'coffee-script'
 
 ## monkey-patch expect.js for better diffs on mocha
 ## see: https://github.com/LearnBoost/expect.js/pull/34
@@ -101,6 +102,12 @@ modificationsLookup = (direction, options = {}) ->
 ###### Specs ######
 
 describe 'API', ->
+  before (done) ->
+    server = require '../src/server'
+    server.listen '3000', '0.0.0.0'
+    server.on 'listening', (data) ->
+      # Crappy hack to let server start before tests run
+      setTimeout done, 2000
 
   describe 'Without token or user id', ->
 
@@ -143,7 +150,6 @@ describe 'API', ->
         type: 'habit'
 
     beforeEach ->
-      model = store.createModel()
       currentUser = user.get()
 
     it 'GET /api/v1/user', (done) ->
@@ -198,12 +204,17 @@ describe 'API', ->
         .set('X-API-User', currentUser.id)
         .set('X-API-Key', currentUser.apiToken)
         .end (res) ->
+          store = racer.createStore
+            db:
+              type: 'Mongo'
+              uri: process.env.NODE_DB_URI
+          model = store.createModel()
           expect(res.body.err).to.be undefined
           expect(res.statusCode).to.be 200
           currentUser = user.get()
           console.log _.size(currentUser.tasks)
           console.log uid
-          console.log 'hellomate', model.get("users.#{uid}")
+          console.log 'hellomate', user.get()
           model.ref '_user', user
           tasks = []
           for type in ['habit','todo','daily','reward']
