@@ -53,7 +53,7 @@ module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb)
     partyId = user.get('party.current')
 
     # (1) Solo player
-    return finished([selfQ], ['_user']) #unless partyId
+    return finished([selfQ], ['_user']) unless partyId
 
     # User in a party
     partyQ = model.query('parties').withId(partyId)
