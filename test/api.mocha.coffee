@@ -26,14 +26,14 @@ expect.Assertion::assert = (truth, msg, error) ->
       err.actual = @obj
     throw err
   @and = new expect.Assertion(@obj)
-
+###
 racer.use require 'racer-db-mongo'
 
 store = racer.createStore
   db:
     type: 'Mongo'
     uri: process.env.NODE_DB_URI
-
+###
 # Custom modules
 scoring = require '../src/app/scoring'
 character = require '../src/app/character'
@@ -45,9 +45,6 @@ model = null
 uuid = null
 taskPath = null
 baseURL = 'http://localhost:1337/api/v1'
-UID_AND_TOKEN =
-  uid: config.uid
-  token: config.token
 
 ## Helper which clones the content at a path so tests can compare before/after values
 # Otherwise, using model.get(path) will give the same object before as after
@@ -102,10 +99,23 @@ modificationsLookup = (direction, options = {}) ->
 ###### Specs ######
 
 describe 'API', ->
+  server = null
+  store = null
+  model = null
+  user = null
+  uid = null
+
   before (done) ->
     server = require '../src/server'
     server.listen '1337', '0.0.0.0'
     server.on 'listening', (data) ->
+      store = server.habitStore
+      #store.flush()
+      model = store.createModel()
+      model.set '_userId', uid = model.id()
+      user = character.newUserObject()
+      user.apiToken = derby.uuid()
+      model.set "users.#{uid}", user
       # Crappy hack to let server start before tests run
       setTimeout done, 2000
 
@@ -130,18 +140,8 @@ describe 'API', ->
   describe 'With token and user id', ->
     params = null
     currentUser = null
-    user = null
-    model = null
-    uid = null
 
     before ->
-      #store.flush()
-      model = store.createModel()
-
-      model.set '_userId', uid = model.id()
-      user = character.newUserObject()
-      user.apiToken = derby.uuid()
-      model.set "users.#{uid}", user
       user = model.at("users.#{uid}")
       currentUser = user.get()
       params =
@@ -161,19 +161,15 @@ describe 'API', ->
           expect(res.body.err).to.be undefined
           expect(res.statusCode).to.be 200
           expect(res.body.id).not.to.be.empty()
-          model.set '_user', currentUser
-          ###
-          currentUser.tasks = []
-          for type in ['habit','todo','daily','reward']
-            model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-            currentUser.tasks = currentUser.tasks.concat model.get("_#{type}List")
-          ###
-          expect(res.body).to.eql(currentUser)
+          self = _.clone(currentUser)
+          delete self[val] for val in ['tasks', 'apiToken', 'flags', 'lastCron']
+
+          expect(res.body).to.eql self
           done()
 
     it 'GET /api/v1/task/:id', (done) ->
       tid = _.values(currentUser.tasks)[0].id
-      request.post("#{baseURL}/task/#{tid}")
+      request.get("#{baseURL}/task/#{tid}")
         .set('Accept', 'application/json')
         .set('X-API-User', currentUser.id)
         .set('X-API-Key', currentUser.apiToken)
@@ -190,13 +186,14 @@ describe 'API', ->
         .set('X-API-Key', currentUser.apiToken)
         .send(params)
         .end (res) ->
-          expect(res.body.err).to.be undefined
-          expect(res.statusCode).to.be 201
-          expect(res.body.id).not.to.be.empty()
-          # Ensure that user owns the newly created object
-          console.log 'test', _.size(user.get().tasks)
-          expect(user.get().tasks[res.body.id]).to.be.an('object')
-          done()
+          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+          query.fetch (err, user) ->
+            expect(res.body.err).to.be undefined
+            expect(res.statusCode).to.be 201
+            expect(res.body.id).not.to.be.empty()
+            # Ensure that user owns the newly created object
+            expect(user.at(0).get().tasks[res.body.id]).to.be.an('object')
+            done()
 
     it 'GET /api/v1/user/tasks', (done) ->
       request.get("#{baseURL}/user/tasks")
@@ -204,19 +201,18 @@ describe 'API', ->
         .set('X-API-User', currentUser.id)
         .set('X-API-Key', currentUser.apiToken)
         .end (res) ->
-          expect(res.body.err).to.be undefined
-          expect(res.statusCode).to.be 200
-          currentUser = user.get()
-          console.log _.size(currentUser.tasks)
-          console.log uid
-          console.log 'hellomate', user.get()
-          model.ref '_user', user
-          tasks = []
-          for type in ['habit','todo','daily','reward']
-            model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-            tasks = tasks.concat model.get("_#{type}List")
-          # Ensure that user owns the tasks
-          expect(res.body.length).to.equal tasks.length
-          # Ensure that the two sets are equal
-          expect(_.difference(_.pluck(res.body,'id'), _.pluck(tasks,'id')).length).to.equal 0
-          done()
+          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+          query.fetch (err, user) ->
+            expect(res.body.err).to.be undefined
+            expect(res.statusCode).to.be 200
+            currentUser = user.at(0).get()
+            model.ref '_user', user.at(0)
+            tasks = []
+            for type in ['habit','todo','daily','reward']
+              model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+              tasks = tasks.concat model.get("_#{type}List")
+            # Ensure that user owns the tasks
+            expect(res.body.length).to.equal tasks.length
+            # Ensure that the two sets are equal
+            expect(_.difference(_.pluck(res.body,'id'), _.pluck(tasks,'id')).length).to.equal 0
+            done()

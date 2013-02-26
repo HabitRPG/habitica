@@ -47,8 +47,7 @@ router.get '/user', auth, (req, res) ->
   return res.json self
 
 router.get '/task/:id', auth, (req, res) ->
-  task = req.user.get("tasks.#{req.params.id}")
-  console.log task
+  task = req.userObj.tasks[req.params.id]
   return res.json 500, err: "No task found." if !task || _.isEmpty(task)
 
   return res.json 200, task
