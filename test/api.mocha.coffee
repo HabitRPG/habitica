@@ -44,7 +44,7 @@ config = require './config'
 model = null
 uuid = null
 taskPath = null
-baseURL = 'http://localhost:3000/api/v1'
+baseURL = 'http://localhost:1337/api/v1'
 UID_AND_TOKEN =
   uid: config.uid
   token: config.token
@@ -104,7 +104,7 @@ modificationsLookup = (direction, options = {}) ->
 describe 'API', ->
   before (done) ->
     server = require '../src/server'
-    server.listen '3000', '0.0.0.0'
+    server.listen '1337', '0.0.0.0'
     server.on 'listening', (data) ->
       # Crappy hack to let server start before tests run
       setTimeout done, 2000
@@ -204,11 +204,6 @@ describe 'API', ->
         .set('X-API-User', currentUser.id)
         .set('X-API-Key', currentUser.apiToken)
         .end (res) ->
-          store = racer.createStore
-            db:
-              type: 'Mongo'
-              uri: process.env.NODE_DB_URI
-          model = store.createModel()
           expect(res.body.err).to.be undefined
           expect(res.statusCode).to.be 200
           currentUser = user.get()
