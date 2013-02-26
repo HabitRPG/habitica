@@ -17,7 +17,7 @@ partyUnsubscribe = (model, cb) ->
   2) If in a an empty party, just subscribe to the user & party meta.
   3) If full party, subscribe to everything.
 ###
-module.exports.partySubscribe = partySubscribe = (model, cb) ->
+module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb) ->
 
   # unsubscribe from everything - we're starting over
   # partyUnsubscribe model, ->
@@ -25,9 +25,14 @@ module.exports.partySubscribe = partySubscribe = (model, cb) ->
   # Restart subscription to the main user
   selfQ = model.query('users').withId model.get('_userId') #or model.session.userId # see http://goo.gl/TPYIt
   selfQ.subscribe (err, self) ->
-    throw err if err
+    return next(err) if err
     u = self.at(0)
     uObj = u.get()
+
+    # Attempted handling for 'party of undefined' error, which is caused by bustedSession (see derby-auth).
+    # Theoretically simply reloading the page should restore model.at('_userId') and the second load should work just fine
+    # bustedSession victims might hit a redirection loop if I'm wrong :/
+    return page.redirect('/') unless uObj
 
     ## (1) User is solo, just return that subscription
     unless uObj.party?.current?
@@ -47,13 +52,14 @@ module.exports.partySubscribe = partySubscribe = (model, cb) ->
     finished = ->
       # model.unsubscribe selfQ, ->
       selfQ.subscribe (err, self) ->
+        return next(err) if err
         model.ref '_user', self.at(0)
         cb()
 
     # User in a party
     partiesQ = model.query('parties').withId(uObj.party.current)
     partiesQ.fetch (err, res) ->
-      throw err if err
+      return next(err) if err
       p = res.at(0)
       model.ref '_party', p
       ids = p.get('members')
@@ -73,7 +79,7 @@ module.exports.partySubscribe = partySubscribe = (model, cb) ->
         ## (3) Party has members, subscribe to those users too
         membersQ = model.query('users').party(ids)
         membersQ.fetch (err, members) ->
-          throw err if err
+          return next(err) if err
           model.ref '_partyMembers', members
           finished()
 

@@ -42,4 +42,4 @@ casper.then ->
 
 # ---------- Run ------------
 casper.run ->
-  @test.renderResults true
+  casper.test.renderResults true

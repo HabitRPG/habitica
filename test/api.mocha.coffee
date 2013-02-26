@@ -168,7 +168,7 @@ describe 'API', ->
           done()
 
     it 'GET /api/v1/task/:id', (done) ->
-      tid = _.values(currentUser.tasks)[0].id
+      tid = _.pluck(currentUser.tasks, 'id')[0]
       request.get("#{baseURL}/task/#{tid}")
         .set('Accept', 'application/json')
         .set('X-API-User', currentUser.id)
@@ -194,6 +194,20 @@ describe 'API', ->
             # Ensure that user owns the newly created object
             expect(user.at(0).get().tasks[res.body.id]).to.be.an('object')
             done()
+
+    it 'PUT /api/v1/task/:id', (done) ->
+      tid = _.pluck(currentUser.tasks, 'id')[0]
+      request.put("#{baseURL}/task/#{tid}")
+        .set('Accept', 'application/json')
+        .set('X-API-User', currentUser.id)
+        .set('X-API-Key', currentUser.apiToken)
+        .send(title: 'a new title')
+        .end (res) ->
+          expect(res.body.err).to.be undefined
+          expect(res.statusCode).to.be 200
+          currentUser.tasks[tid].title = 'a new title'
+          expect(res.body).to.eql currentUser.tasks[tid]
+          done()
 
     it 'GET /api/v1/user/tasks', (done) ->
       request.get("#{baseURL}/user/tasks")

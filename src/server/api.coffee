@@ -44,13 +44,25 @@ router.get '/user', auth, (req, res) ->
 
   delete self[val] for val in ['tasks', 'apiToken', 'flags', 'lastCron']
 
-  return res.json self
+  res.json self
 
 router.get '/task/:id', auth, (req, res) ->
   task = req.userObj.tasks[req.params.id]
   return res.json 500, err: "No task found." if !task || _.isEmpty(task)
 
-  return res.json 200, task
+  res.json 200, task
+
+router.put '/task/:id', auth, (req, res) ->
+  task = req.userObj.tasks[req.params.id]
+  return res.json 500, err: "No task found." if !task || _.isEmpty(task)
+
+  task.title = req.body.title if req.body.title
+  task.text = req.body.text if req.body.text
+  task.type = req.body.type if req.body.type
+
+  req.user.set "tasks.#{task.id}", task
+
+  res.send task
 
 router.post '/user/task', auth, (req, res) ->
   task = { title, text, type, value, note } = req.body
@@ -67,7 +79,7 @@ router.post '/user/task', auth, (req, res) ->
   model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
   model.at("_#{type}List").push task
 
-  return res.json 201, task
+  res.json 201, task
 
 router.get '/user/tasks', auth, (req, res) ->
   self = req.userObj
@@ -80,7 +92,7 @@ router.get '/user/tasks', auth, (req, res) ->
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
     tasks = tasks.concat model.get("_#{type}List")
 
-  return res.json 200, tasks
+  res.json 200, tasks
 
 router.get '/users/:uid/calendar.ics', (req, res) ->
   #return next() #disable for now
