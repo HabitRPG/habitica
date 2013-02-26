@@ -5,7 +5,7 @@ scoring = require '../app/scoring'
 _ = require 'underscore'
 validator = require 'derby-auth/node_modules/validator'
 check = validator.check
-snaitize = validator.sanitize
+sanitize = validator.sanitize
 icalendar = require 'icalendar'
 
 NO_TOKEN_OR_UID = err: "You must include a token and uid (user id) in your request"
@@ -23,7 +23,7 @@ NO_USER_FOUND = err: "No user found."
 auth = (req, res, next) ->
   uid = req.headers['x-api-user']
   token = req.headers['x-api-key']
-  return res.json 500, NO_TOKEN_OR_UID unless uid || token
+  return res.json 401, NO_TOKEN_OR_UID unless uid || token
 
   model = req.getModel()
   query = model.query('users').withIdAndToken(uid, token)
@@ -33,7 +33,7 @@ auth = (req, res, next) ->
     user = user.at(0)
     req.user = user
     req.userObj = user.get()
-    return res.json 500, NO_USER_FOUND if !req.userObj || _.isEmpty(req.userObj)
+    return res.json 401, NO_USER_FOUND if !req.userObj || _.isEmpty(req.userObj)
     next()
 
 router.get '/status', (req, res) ->
@@ -48,27 +48,30 @@ router.get '/user', auth, (req, res) ->
 
 router.get '/task/:id', auth, (req, res) ->
   task = req.userObj.tasks[req.params.id]
-  return res.json 500, err: "No task found." if !task || _.isEmpty(task)
+  return res.json 400, err: "No task found." if !task || _.isEmpty(task)
 
   res.json 200, task
 
 router.put '/task/:id', auth, (req, res) ->
   task = req.userObj.tasks[req.params.id]
-  return res.json 500, err: "No task found." if !task || _.isEmpty(task)
+  return res.json 400, err: "No task found." if !task || _.isEmpty(task)
 
-  task.title = req.body.title if req.body.title
-  task.text = req.body.text if req.body.text
-  task.type = req.body.type if req.body.type
+  title = sanitize(req.body.title).xss()
+  text = sanitize(req.body.text).xss()
+
+  task.title = title if title
+  task.text = text if text
+  #task.type = req.body.type if /^(habit|todo|daily|reward)$/.test req.body.type
 
   req.user.set "tasks.#{task.id}", task
 
-  res.send task
+  res.json 200, task
 
 router.post '/user/task', auth, (req, res) ->
   task = { title, text, type, value, note } = req.body
-  return res.json 500, err: "type must be habit, todo, daily, or reward" unless /habit|todo|daily|reward/.test type
-  return res.json 500, err: "must have a title" unless check(title).notEmpty()
-  return res.json 500, err: "must have text" unless check(text).notEmpty()
+  return res.json 400, err: "type must be habit, todo, daily, or reward" unless /^habit|todo|daily|reward$/.test type
+  return res.json 400, err: "must have a title" unless check(title).notEmpty()
+  return res.json 400, err: "must have text" unless check(text).notEmpty()
 
   self = req.userObj
 
@@ -83,12 +86,15 @@ router.post '/user/task', auth, (req, res) ->
 
 router.get '/user/tasks', auth, (req, res) ->
   self = req.userObj
-  return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
+  return res.json 400, NO_USER_FOUND if !self || _.isEmpty(self)
 
   model = req.getModel()
   model.ref '_user', req.user
   tasks = []
-  for type in ['habit','todo','daily','reward']
+  types = ['habit','todo','daily','reward']
+  if /^habit|todo|daily|reward$/.test req.query.type
+    types = [req.query.type]
+  for type in types
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
     tasks = tasks.concat model.get("_#{type}List")
 
@@ -102,11 +108,11 @@ router.get '/users/:uid/calendar.ics', (req, res) ->
   model = req.getModel()
   query = model.query('users').withIdAndToken(uid, apiToken)
   query.fetch (err, result) ->
-    return res.send(500, err) if err
+    return res.send(400, err) if err
     tasks = result.at(0).get('tasks')
     #      tasks = result[0].tasks
     tasksWithDates = _.filter tasks, (task) -> !!task.date
-    return res.send(500, "No events found") if _.isEmpty(tasksWithDates)
+    return res.send(400, "No events found") if _.isEmpty(tasksWithDates)
 
     ical = new icalendar.iCalendar()
     ical.addProperty('NAME', 'HabitRPG')

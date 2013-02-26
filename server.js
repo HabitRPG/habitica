@@ -20,8 +20,6 @@ process.env.SMTP_SERVICE = conf.get("SMTP_SERVICE");
 process.env.STRIPE_API_KEY = conf.get("STRIPE_API_KEY");
 process.env.STRIPE_PUB_KEY = conf.get("STRIPE_PUB_KEY");
 
-/*
-
 var agent;
 if (process.env.NODE_ENV === 'development') {
     // Follow these instructions for profiling / debugging leaks
@@ -68,13 +66,9 @@ process.on('uncaughtException', function (error) {
     });
     console.log(error.stack);
 });
-*/
+
 require('coffee-script') // remove intermediate compilation requirement
-module.exports = server = require('./src/server')
-
-Error.stackTraceLimit = Infinity;
-
-server.listen(process.env.PORT || 3000, process.env.IP || '0.0.0.0');
+require('./src/server').listen(process.env.PORT || 3000, process.env.IP || '0.0.0.0');
 
 // Note: removed "up" module, which is default for development (but interferes with and production + PaaS)
 // Restore to 5310bb0 if I want it back (see https://github.com/codeparty/derby/issues/165#issuecomment-10405693)

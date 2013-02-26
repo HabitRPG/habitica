@@ -1,6 +1,6 @@
 --colors
 --reporter spec
---timeout 2500
+--timeout 2800
 --ignore-leaks
 --growl
 --debug
