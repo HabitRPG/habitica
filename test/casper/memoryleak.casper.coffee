@@ -5,7 +5,7 @@ url = helpers.playUrl
 
 casper.start url
 
-casper.repeat 50, ->
+casper.repeat 100, ->
   casper.reload()
 
 casper.run ->
