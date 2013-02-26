@@ -48,8 +48,8 @@ router.post '/users/:uid/tasks/:taskId/:direction', (req, res) ->
         down: true
         notes: "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
 
-    scoring.setModel(model)
-    delta = scoring.score(taskId, direction)
+    score = scoring.Scoring(model)
+    delta = score.score(taskId, direction)
     result = model.get ('_user.stats')
     result.delta = delta
     res.send(result)
