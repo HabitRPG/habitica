@@ -28,7 +28,7 @@ router.post '/users/:uid/tasks/:taskId/:direction', (req, res) ->
   model = req.getModel()
   model.fetch model.query('users').withIdAndToken(uid, apiToken), (err, result) ->
     return res.send(500, err) if err
-    user = result.at(0)
+    user = result
     userObj = user.get()
     if _.isEmpty(userObj)
       return res.send(500, "User with uid=#{uid}, token=#{apiToken} not found. Make sure you're not using your username, but your User Id")
@@ -63,7 +63,7 @@ router.get '/users/:uid/calendar.ics', (req, res) ->
   query = model.query('users').withIdAndToken(uid, apiToken)
   query.fetch (err, result) ->
     return res.send(500, err) if err
-    tasks = result.at(0).get('tasks')
+    tasks = result.get('tasks')
     #      tasks = result[0].tasks
     tasksWithDates = _.filter tasks, (task) -> !!task.date
     return res.send(500, "No events found") if _.isEmpty(tasksWithDates)
