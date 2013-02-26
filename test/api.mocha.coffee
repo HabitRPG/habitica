@@ -101,6 +101,7 @@ modificationsLookup = (direction, options = {}) ->
 ###### Specs ######
 
 describe 'API', ->
+
   describe 'Without token or user id', ->
 
     it '/api/v1/status', (done) ->
@@ -124,6 +125,7 @@ describe 'API', ->
     currentUser = null
     user = null
     model = null
+    uid = null
 
     before ->
       #store.flush()
@@ -141,6 +143,7 @@ describe 'API', ->
         type: 'habit'
 
     beforeEach ->
+      model = store.createModel()
       currentUser = user.get()
 
     it 'GET /api/v1/user', (done) ->
@@ -152,7 +155,26 @@ describe 'API', ->
           expect(res.body.err).to.be undefined
           expect(res.statusCode).to.be 200
           expect(res.body.id).not.to.be.empty()
+          model.set '_user', currentUser
+          ###
+          currentUser.tasks = []
+          for type in ['habit','todo','daily','reward']
+            model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+            currentUser.tasks = currentUser.tasks.concat model.get("_#{type}List")
+          ###
           expect(res.body).to.eql(currentUser)
+          done()
+
+    it 'GET /api/v1/task/:id', (done) ->
+      tid = _.values(currentUser.tasks)[0].id
+      request.post("#{baseURL}/task/#{tid}")
+        .set('Accept', 'application/json')
+        .set('X-API-User', currentUser.id)
+        .set('X-API-Key', currentUser.apiToken)
+        .end (res) ->
+          expect(res.body.err).to.be undefined
+          expect(res.statusCode).to.be 200
+          expect(res.body).to.eql currentUser.tasks[tid]
           done()
 
     it 'POST /api/v1/user/task', (done) ->
@@ -166,7 +188,7 @@ describe 'API', ->
           expect(res.statusCode).to.be 201
           expect(res.body.id).not.to.be.empty()
           # Ensure that user owns the newly created object
-          console.log _.size(user.get().tasks)
+          console.log 'test', _.size(user.get().tasks)
           expect(user.get().tasks[res.body.id]).to.be.an('object')
           done()
 
@@ -180,6 +202,8 @@ describe 'API', ->
           expect(res.statusCode).to.be 200
           currentUser = user.get()
           console.log _.size(currentUser.tasks)
+          console.log uid
+          console.log 'hellomate', model.get("users.#{uid}")
           model.ref '_user', user
           tasks = []
           for type in ['habit','todo','daily','reward']

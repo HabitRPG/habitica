@@ -15,7 +15,9 @@ NO_USER_FOUND = err: "No user found."
 # Every url added beneath router is prefaced by /api/v1
 
 ###
-  v1 API. Requires user-id and apiToken, task-id, direction. Test with:
+  v1 API. Requires api-v1-user (user id) and api-v1-key (api key) headers, Test with:
+  $ cd node_modules/racer && npm install && cd ../..
+  $ mocha test/api.mocha.coffee
 ###
 
 auth = (req, res, next) ->
@@ -28,17 +30,28 @@ auth = (req, res, next) ->
 
   query.fetch (err, user) ->
     return res.json err: err if err
-    req.user = user.at(0)
+    user = user.at(0)
+    req.user = user
+    req.userObj = user.get()
+    return res.json 500, NO_USER_FOUND if !req.userObj || _.isEmpty(req.userObj)
     next()
 
 router.get '/status', (req, res) ->
   res.json status: 'up'
 
 router.get '/user', auth, (req, res) ->
-  self = req.user.get()
-  return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
+  self = req.userObj
+
+  delete self[val] for val in ['tasks', 'apiToken', 'flags', 'lastCron']
 
   return res.json self
+
+router.get '/task/:id', auth, (req, res) ->
+  task = req.user.get("tasks.#{req.params.id}")
+  console.log task
+  return res.json 500, err: "No task found." if !task || _.isEmpty(task)
+
+  return res.json 200, task
 
 router.post '/user/task', auth, (req, res) ->
   task = { title, text, type, value, note } = req.body
@@ -46,8 +59,7 @@ router.post '/user/task', auth, (req, res) ->
   return res.json 500, err: "must have a title" unless check(title).notEmpty()
   return res.json 500, err: "must have text" unless check(text).notEmpty()
 
-  self = req.user.get()
-  return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
+  self = req.userObj
 
   value ||= 0
 
@@ -59,7 +71,7 @@ router.post '/user/task', auth, (req, res) ->
   return res.json 201, task
 
 router.get '/user/tasks', auth, (req, res) ->
-  self = req.user.get()
+  self = req.userObj
   return res.json 500, NO_USER_FOUND if !self || _.isEmpty(self)
 
   model = req.getModel()

@@ -19,7 +19,7 @@ process.env.SMTP_PASS = conf.get("SMTP_PASS");
 process.env.SMTP_SERVICE = conf.get("SMTP_SERVICE");
 process.env.STRIPE_API_KEY = conf.get("STRIPE_API_KEY");
 process.env.STRIPE_PUB_KEY = conf.get("STRIPE_PUB_KEY");
-
+/*
 process.on('uncaughtException', function (error) {
 
     function sendEmail(mailData) {
@@ -55,7 +55,7 @@ process.on('uncaughtException', function (error) {
     });
     console.log(error.stack);
 });
-
+*/
 require('coffee-script') // remove intermediate compilation requirement
 module.exports = server = require('./src/server')
 
