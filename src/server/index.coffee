@@ -17,9 +17,9 @@ middleware = require './middleware'
 racer.io.set('transports', ['xhr-polling'])
 racer.ioClient.set('reconnection limit', 300000) # max reconect timeout to 5 minutes
 racer.set('bundleTimeout', 40000)
-unless process.env.NODE_ENV == 'production'
-  racer.use(racer.logPlugin)
-  derby.use(derby.logPlugin)
+#unless process.env.NODE_ENV == 'production'
+#  racer.use(racer.logPlugin)
+#  derby.use(derby.logPlugin)
 
 # Infinite stack trace
 Error.stackTraceLimit = Infinity if process.env.NODE_ENV is 'development'
