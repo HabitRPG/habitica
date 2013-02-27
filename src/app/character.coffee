@@ -75,9 +75,8 @@ module.exports.app = (appExports, model) ->
   appExports.restoreSave = (e, el) ->
     batch = new BatchUpdate(model)
     batch.startTransaction()
-    obj = batch.obj()
-    _.each obj.stats, (stat, key) -> batch.set("stats.#{key}", parseInt(stat))
-    _.each obj.items, (item, key) -> batch.set("items.#{key}", parseInt(item))
+    $('#restore-form input').each ->
+      batch.set $(this).attr('data-for'), parseInt($(this).val())
     batch.commit()
 
   user.on 'set', 'flags.customizationsNotification', (captures, args) ->
