@@ -18,7 +18,7 @@
     "stripe": "*",
     "async": "*",
     "lodash": "*",
-    "coffee-script": "*",
+    "coffee-script": "1.4.x",
     "underscore": "*",
     "mongoskin": "*",
     "nconf": "*",
