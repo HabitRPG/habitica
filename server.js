@@ -1,6 +1,7 @@
 // Load nconf and define default configuration values if config.json or ENV vars are not found
 var conf = require('nconf');
 conf.argv().env().file({ file: __dirname + "/config.json" }).defaults({
+   'PORT': 3000,
    'IP': '0.0.0.0',
    'BASE_URL': 'http://localhost',
    'NODE_ENV': 'development'
