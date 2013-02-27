@@ -90,7 +90,12 @@ module.exports.app = (appExports, model) ->
     $('.main-avatar').popover 'show'
 
   #TODO implement this when we have unsubscribe working properly
-  #model.on 'set', '_user.party.invitation', -> partySubscribe(null, model, null, null, null)
+  model.on 'set', '_user.party.invitation', (after, before) ->
+    if !before? and after? # they just got invited
+      # if they haven't unlocked parties yet, unlock it for them
+      user.set('flags.partyEnabled',true) unless user.get('flags.partyEnabled')
+      window.setTimeout (-> window.location.reload true), 1000
+    #partySubscribe(null, model, null, null, null)
 
   appExports.partyCreate = ->
     newParty = model.get("_newParty")
