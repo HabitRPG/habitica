@@ -110,7 +110,7 @@ describe 'API', ->
           expect(res.statusCode).to.be 200
           expect(res.body.id).not.to.be.empty()
           self = _.clone(currentUser)
-          delete self[val] for val in ['tasks', 'apiToken', 'flags', 'lastCron']
+          delete self.apiToken
 
           expect(res.body).to.eql self
           done()

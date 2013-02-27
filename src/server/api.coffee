@@ -41,7 +41,7 @@ router.get '/status', (req, res) ->
 router.get '/user', auth, (req, res) ->
   self = req.userObj
 
-  delete self[val] for val in ['tasks', 'apiToken', 'flags', 'lastCron']
+  delete self.apiToken
 
   res.json self
 
