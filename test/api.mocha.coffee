@@ -12,9 +12,7 @@ expect.Assertion::be = expect.Assertion::equal = (obj) ->
   origBe.call this, obj
 
 # Custom modules
-scoring = require '../src/app/scoring'
 character = require '../src/app/character'
-config = require './config'
 
 ###### Helpers & Variables ######
 
