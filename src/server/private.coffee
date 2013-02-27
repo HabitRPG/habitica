@@ -12,13 +12,13 @@ module.exports.app = (appExports, model) ->
     token = (res) ->
       console.log(res);
       $.ajax({
-             type:"POST",
-             url:"/charge",
-             data:res
-             }).success ->
-                          window.location.href = "/"
-        .error (err) ->
-                 alert err.responseText
+         type: "POST",
+         url: "/charge",
+         data: res
+      }).success ->
+        window.location.href = "/"
+      .error (err) ->
+        alert err.responseText
 
     StripeCheckout.open
       key: model.get('_stripePubKey')

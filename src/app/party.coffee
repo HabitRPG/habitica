@@ -16,66 +16,57 @@ partyUnsubscribe = (model, cb) ->
   1) If the user is solo, just subscribe to the user.
   2) If in a an empty party, just subscribe to the user & party meta.
   3) If full party, subscribe to everything.
+
+  Note a strange hack - we subscribe to queries incrementally. First self, then party, then party members.
+  Party members come with limited fields, so you can't hack their stuff. Strangely, subscribing to the members after
+  already subscribing to self limits self's fields to the fields which members are limited to. As a result, we have
+  to re-subscribe to self to get all the fields (otherwise everything breaks). Weirdly, this last subscription doesn't
+  do the opposite - granting all the fields back to members. I dont' know what's going on here
+
+  Another issue: `model.unsubscribe(selfQ)` would seem to mitigate  the above, so we at least don't have a stray
+  subscription floating around - but alas, it doesn't seem to work (or at least never calls the callback)
 ###
-module.exports.partySubscribe = partySubscribe = (model, cb) ->
+module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb) ->
 
   # unsubscribe from everything - we're starting over
   # partyUnsubscribe model, ->
 
   # Restart subscription to the main user
-  selfQ = model.query('users').withId model.get('_userId') #or model.session.userId # see http://goo.gl/TPYIt
-  selfQ.subscribe (err, self) ->
-    throw err if err
-    u = self.at(0)
-    uObj = u.get()
+  selfQ = model.query('users').withId (model.get('_userId') or model.session.userId) # see http://goo.gl/TPYIt
+  selfQ.fetch (err, user) ->
+    return next(err) if err
+    return next("User not found - this shouldn't be happening!") unless user.get()
 
-    ## (1) User is solo, just return that subscription
-    unless uObj.party?.current?
-      model.ref '_user', u
-      return cb()
-
-    ###
-      Note this strange hack - we subscribe to queries incrementally. First self, then party, then party members.
-      Party members come with limited fields, so you can't hack their stuff. Strangely, subscribing to the members after
-      already subscribing to self limits self's fields to the fields which members are limited to. As a result, we have
-      to re-subscribe to self to get all the fields (otherwise everything breaks). Weirdly, this last subscription doesn't
-      do the opposite - granting all the fields back to members. I dont' know what's going on here
-
-      Another issue: `model.unsubscribe(selfQ)` would seem to mitigate  the above, so we at least don't have a stray
-      subscription floating around - but alas, it doesn't seem to work (or at least never calls the callback)
-    ###
-    finished = ->
-      # model.unsubscribe selfQ, ->
-      selfQ.subscribe (err, self) ->
-        model.ref '_user', self.at(0)
+    finished = (descriptors, paths) ->
+      model.subscribe.apply model, descriptors.concat ->
+        [err, refs] = [arguments[0], arguments]
+        return next(err) if err
+        _.each paths, (path, idx) -> model.ref path, refs[idx+1]
         cb()
 
-    # User in a party
-    partiesQ = model.query('parties').withId(uObj.party.current)
-    partiesQ.fetch (err, res) ->
-      throw err if err
-      p = res.at(0)
-      model.ref '_party', p
-      ids = p.get('members')
 
-      # FIXME this is the kicker right here. This isn't getting triggered, and it's the reason why we have to refresh
-      # after every event. Get this working
-      #p.on '*', 'members', (ids) ->
-      #  console.log("members listener got called")
-      #  debugger
-      #  membersSubscribe model, ids
+    # Attempted handling for 'party of undefined' error, which is caused by bustedSession (see derby-auth).
+    # Theoretically simply reloading the page should restore model.at('_userId') and the second load should work just fine
+    # bustedSession victims might hit a redirection loop if I'm wrong :/
+#    return page.redirect('/') unless uObj
+
+    partyId = user.get('party.current')
+
+    # (1) Solo player
+    return finished([selfQ], ['_user']) unless partyId
+
+    # User in a party
+    partyQ = model.query('parties').withId(partyId)
+    partyQ.fetch (err, party) ->
+      return next(err) if err
+      members = party.get('members')
 
       ## (2) Party has no members, just subscribe to the party itself
-      if _.isEmpty(ids)
-        return finished()
+      return finished([partyQ, selfQ], ['_party', '_user']) if _.isEmpty(members)
 
-      else
-        ## (3) Party has members, subscribe to those users too
-        membersQ = model.query('users').party(ids)
-        membersQ.fetch (err, members) ->
-          throw err if err
-          model.ref '_partyMembers', members
-          finished()
+      ## (3) Party has members, subscribe to those users too
+      membersQ = model.query('users').party(members)
+      return finished [partyQ, membersQ, selfQ], ['_party', '_partyMembers', '_user']
 
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
@@ -98,7 +89,13 @@ module.exports.app = (appExports, model) ->
       content: html
     $('.main-avatar').popover 'show'
 
-  model.on 'set', '_user.party.invitation', -> partySubscribe(model)
+  #TODO implement this when we have unsubscribe working properly
+  model.on 'set', '_user.party.invitation', (after, before) ->
+    if !before? and after? # they just got invited
+      # if they haven't unlocked parties yet, unlock it for them
+      user.set('flags.partyEnabled',true) unless user.get('flags.partyEnabled')
+      window.setTimeout (-> window.location.reload true), 1000
+    #partySubscribe(null, model, null, null, null)
 
   appExports.partyCreate = ->
     newParty = model.get("_newParty")
@@ -111,12 +108,10 @@ module.exports.app = (appExports, model) ->
     id = model.get('_newPartyMember').replace(/[\s"]/g, '')
     return if _.isEmpty(id)
 
-    obj = user.get()
-    query = model.query('users').party([id])
-    model.fetch query, (err, res) ->
+    model.query('users').party([id]).fetch (err, res) ->
       throw err if err
       u = res.at(0).get()
-      if !u?.id?
+      if !u?
         model.set "_view.partyError", "User with id #{id} not found."
         return
       else if u.party.current? or u.party.invitation?
@@ -124,23 +119,24 @@ module.exports.app = (appExports, model) ->
         return
       else
         p = model.at '_party'
-        p.push "invites", id
-        model.set "users.#{id}.party.invitation", p.get('id')
+        #p.push "invites", id
         $.bootstrapGrowl "Invitation Sent."
         $('#party-modal').modal('hide')
-        model.set '_newPartyMember', '', -> window.location.reload true
+        model.set "users.#{id}.party.invitation", p.get('id'), -> window.location.reload(true)
+        #model.set '_newPartyMember', ''
         #partySubscribe model
 
   appExports.partyAccept = ->
     partyId = user.get('party.invitation')
     user.set 'party.invitation', null
     user.set 'party.current', partyId
-#    model.push "parties.#{partyId}.members", user.get('id'), -> #FIXME why this not working?
-    model.query('parties').withId(partyId).fetch (err, p) ->
-      members = p.at(0).get('members')
-      members.push user.get('id')
-      p.at(0).set 'members', members, ->
-        window.location.reload true
+    model.at("parties.#{partyId}.members").push user.get('id'), -> window.location.reload(true)
+#    model.query('parties').withId(partyId).fetch (err, p) ->
+#      members = p.get('members')
+#      members.push user.get('id')
+#      p.set 'members', members, ->
+#        window.location.reload true
+
 #    partySubscribe model, ->
 #      p = model.at('_party')
 #      p.push 'members', user.get('id')
@@ -168,5 +164,5 @@ module.exports.app = (appExports, model) ->
 #    partyUnsubscribe model, ->
 #      selfQ = model.query('users').withId model.get('_userId') #or model.session.userId # see http://goo.gl/TPYIt
 #      selfQ.subscribe (err, u) ->
-#        model.ref '_user', u.at(0)
+#        model.ref '_user', u
 #        browser.resetDom model

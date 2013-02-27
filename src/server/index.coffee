@@ -21,6 +21,9 @@ racer.set('bundleTimeout', 40000)
 #  racer.use(racer.logPlugin)
 #  derby.use(derby.logPlugin)
 
+# Infinite stack trace
+Error.stackTraceLimit = Infinity if process.env.NODE_ENV is 'development'
+
 ## SERVER CONFIGURATION ##
 
 expressApp = express()

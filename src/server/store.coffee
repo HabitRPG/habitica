@@ -69,7 +69,7 @@ REST = (store) ->
   store.query.expose "users", "withIdAndToken", (uid, token) ->
     @byId(uid)
       .where('apiToken').equals(token)
-      .one
+      .findOne()
 
   store.queryAccess "users", "withIdAndToken", (uid, token, accept, err) ->
     return accept(true) if uid && token
@@ -96,6 +96,7 @@ partySystem = (store) ->
 
   store.query.expose "parties", "withId", (id) ->
     @where("id").equals(id)
+      .findOne()
   store.queryAccess "parties", "withId", (id, accept, err) ->
 #    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
     return accept(false) if derbyAuth.bustedSession(@)

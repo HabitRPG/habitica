@@ -26,6 +26,7 @@ module.exports.view = (view) ->
 
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
+  score = new scoring.Scoring(model)
 
   user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
     return if passed? && passed.cron # Don't do this stuff on cron
@@ -36,7 +37,7 @@ module.exports.app = (appExports, model) ->
 
     # Score the user based on todo task
     task = user.at("tasks.#{i}")
-    scoring.score(i, direction())
+    score.score(i, direction())
 
   appExports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
@@ -81,7 +82,7 @@ module.exports.app = (appExports, model) ->
           return # Cancel. Don't delete, don't hurt user
         else
           task.set('type','habit') # hack to make sure it hits HP, instead of performing "undo checkbox"
-          scoring.score(id, direction:'down')
+          score.score(id, direction:'down')
 
         # prevent accidently deleting long-standing tasks
       else
@@ -171,4 +172,4 @@ module.exports.app = (appExports, model) ->
     direction = 'up' if direction == 'true/'
     direction = 'down' if direction == 'false/'
     task = model.at $(el).parents('li')[0]
-    scoring.score(task.get('id'), direction)
+    score.score(task.get('id'), direction)

@@ -23,7 +23,7 @@ _ = require('underscore')
 
 # ========== ROUTES ==========
 
-get '/', (page, model, next) ->
+get '/', (page, model, params, next) ->
   return page.redirect '/' if page.params?.query?.play?
 
   # temporary view variables, so we don't call model.set() too fast
@@ -34,7 +34,7 @@ get '/', (page, model, next) ->
   #if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
   #  return page.redirect 'https://' + req.headers.host + req.url
 
-  party.partySubscribe model, ->
+  party.partySubscribe page, model, params, next, ->
     character.updateUser(model)
     items.server(model)
     model.set '_view', _view
@@ -45,13 +45,13 @@ get '/', (page, model, next) ->
 
 ready (model) ->
   user = model.at('_user')
-  scoring.setModel(model)
+  score = new scoring.Scoring(model)
 
   #set cron immediately
   lastCron = user.get('lastCron')
   user.set('lastCron', +new Date) if (!lastCron? or lastCron == 'new')
 
-  scoring.cron()
+  score.cron()
 
   character.app(exports, model)
   tasks.app(exports, model)
