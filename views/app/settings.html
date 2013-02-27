@@ -1,20 +1,21 @@
 <modals:>
     {{#if _loggedIn}}
-        <app:modals:modal modalId="settings-modal" header="Settings">
-            <h4>API</h4>
-            <small>Copy these for use in third party applications.</small>
-            <h6>User ID</h6>
-            <pre class=prettyprint>{_user.id}</pre>
-
-            <h6>API Token</h6>
-            <pre class=prettyprint>{_user.apiToken}</pre>
-
-            <hr/>
-            <a class='btn btn-danger' data-target="#reset-modal" data-toggle="modal">Reset</a>
-
-            <@footer>
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-            </@footer>
+        <app:modals:modal modalId="settings-modal">
+        	<ul class="nav nav-tabs">
+        		<li class="active"><a data-toggle='tab' href="#apiOptions">API</a></li>
+        		<li><a data-toggle='tab' href="#gameOptions">Game</a></li>
+        	</ul>
+        	<div class="tab-content">
+        		<div class="tab-pane active" id="apiOptions">
+        			<app:settings:apiOptions />
+        		</div>
+        		<div class="tab-pane" id="gameOptions">
+        			<app:settings:gameOptions />
+        		</div>
+			</div>
+           	<@footer>
+               	<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">Ok</button>
+           	</@footer>
         </app:modals:modal>
 
         <app:modals:modal modalId="reset-modal" header="Reset">
@@ -67,3 +68,13 @@
         </div>
         {/}
     </div>
+<apiOptions:>
+	<h4>API</h4>
+    <small>Copy these for use in third party applications.</small>
+    <h6>User ID</h6>
+    <pre class=prettyprint>{_user.id}</pre>
+
+   	<h6>API Token</h6>
+   	<pre class=prettyprint>{_user.apiToken}</pre>
+<gameOptions:>
+	<a class='btn btn-danger' data-target="#reset-modal" data-toggle="modal">Reset</a>
