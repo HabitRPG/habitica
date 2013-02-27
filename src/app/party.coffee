@@ -89,7 +89,8 @@ module.exports.app = (appExports, model) ->
       content: html
     $('.main-avatar').popover 'show'
 
-  model.on 'set', '_user.party.invitation', -> partySubscribe(model)
+  #TODO implement this when we have unsubscribe working properly
+  #model.on 'set', '_user.party.invitation', -> partySubscribe(null, model, null, null, null)
 
   appExports.partyCreate = ->
     newParty = model.get("_newParty")
@@ -102,12 +103,10 @@ module.exports.app = (appExports, model) ->
     id = model.get('_newPartyMember').replace(/[\s"]/g, '')
     return if _.isEmpty(id)
 
-    obj = user.get()
-    query = model.query('users').party([id])
-    model.fetch query, (err, res) ->
+    model.query('users').party([id]).fetch (err, res) ->
       throw err if err
-      u = res.get()
-      if !u?.id?
+      u = res.at(0).get()
+      if !u?
         model.set "_view.partyError", "User with id #{id} not found."
         return
       else if u.party.current? or u.party.invitation?
@@ -115,23 +114,24 @@ module.exports.app = (appExports, model) ->
         return
       else
         p = model.at '_party'
-        p.push "invites", id
-        model.set "users.#{id}.party.invitation", p.get('id')
+        #p.push "invites", id
         $.bootstrapGrowl "Invitation Sent."
         $('#party-modal').modal('hide')
-        model.set '_newPartyMember', '', -> window.location.reload true
+        model.set "users.#{id}.party.invitation", p.get('id'), -> window.location.reload(true)
+        #model.set '_newPartyMember', ''
         #partySubscribe model
 
   appExports.partyAccept = ->
     partyId = user.get('party.invitation')
     user.set 'party.invitation', null
     user.set 'party.current', partyId
-#    model.push "parties.#{partyId}.members", user.get('id'), -> #FIXME why this not working?
-    model.query('parties').withId(partyId).fetch (err, p) ->
-      members = p.get('members')
-      members.push user.get('id')
-      p.set 'members', members, ->
-        window.location.reload true
+    model.at("parties.#{partyId}.members").push user.get('id'), -> window.location.reload(true)
+#    model.query('parties').withId(partyId).fetch (err, p) ->
+#      members = p.get('members')
+#      members.push user.get('id')
+#      p.set 'members', members, ->
+#        window.location.reload true
+
 #    partySubscribe model, ->
 #      p = model.at('_party')
 #      p.push 'members', user.get('id')
