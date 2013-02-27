@@ -30,7 +30,6 @@ auth = (req, res, next) ->
 
   query.fetch (err, user) ->
     return res.json err: err if err
-    user = user.at(0)
     req.user = user
     req.userObj = user.get()
     return res.json 401, NO_USER_FOUND if !req.userObj || _.isEmpty(req.userObj)
@@ -109,7 +108,7 @@ router.get '/users/:uid/calendar.ics', (req, res) ->
   query = model.query('users').withIdAndToken(uid, apiToken)
   query.fetch (err, result) ->
     return res.send(400, err) if err
-    tasks = result.at(0).get('tasks')
+    tasks = result.get('tasks')
     #      tasks = result[0].tasks
     tasksWithDates = _.filter tasks, (task) -> !!task.date
     return res.send(400, "No events found") if _.isEmpty(tasksWithDates)

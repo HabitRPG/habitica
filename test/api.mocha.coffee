@@ -119,7 +119,7 @@ describe 'API', ->
             expect(res.statusCode).to.be 201
             expect(res.body.id).not.to.be.empty()
             # Ensure that user owns the newly created object
-            expect(user.at(0).get().tasks[res.body.id]).to.be.an('object')
+            expect(user.get().tasks[res.body.id]).to.be.an('object')
             done()
 
     it 'PUT /api/v1/task/:id', (done) ->
@@ -128,11 +128,12 @@ describe 'API', ->
         .set('Accept', 'application/json')
         .set('X-API-User', currentUser.id)
         .set('X-API-Key', currentUser.apiToken)
-        .send(title: 'a new title')
+        .send(title: 'a new title',text: 'hi')
         .end (res) ->
           expect(res.body.err).to.be undefined
           expect(res.statusCode).to.be 200
           currentUser.tasks[tid].title = 'a new title'
+          currentUser.tasks[tid].text = 'hi'
           expect(res.body).to.eql currentUser.tasks[tid]
           done()
 
@@ -146,8 +147,7 @@ describe 'API', ->
           query.fetch (err, user) ->
             expect(res.body.err).to.be undefined
             expect(res.statusCode).to.be 200
-            currentUser = user.at(0).get()
-            model.ref '_user', user.at(0)
+            model.ref '_user', user
             tasks = []
             for type in ['habit','todo','daily','reward']
               model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
@@ -169,8 +169,7 @@ describe 'API', ->
           query.fetch (err, user) ->
             expect(res.body.err).to.be undefined
             expect(res.statusCode).to.be 200
-            currentUser = user.at(0).get()
-            model.ref '_user', user.at(0)
+            model.ref '_user', user
             model.refList "_todoList", "_user.tasks", "_user.todoIds"
             tasks = model.get("_todoList")
             # Ensure that user owns the tasks
