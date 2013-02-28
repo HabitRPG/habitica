@@ -28,7 +28,7 @@
             <p>This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.</p>
             <@footer>
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger btn-large">Reset</button>
+                <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger">Reset</button>
             </@footer>
         </app:modals:modal>
 
@@ -103,7 +103,7 @@
         {#unless _loggedIn}
         <a href="#" class="btn btn-small btn-info" data-target="#login-modal" data-toggle="modal">Login / Register</a>
         {else}
-        <div class="btn-group">
+        <div class="btn-group user-actions">
             <button class="btn btn-small">
                 {#if _user.party.invitation}<span class="badge badge-success">1</span>{/}
                 {username(_user.auth)}

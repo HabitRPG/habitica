@@ -128,8 +128,8 @@
         <input class="btn" type="submit" value="Add" />
     </form>
 
-    <task:>
-        <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, :task.repeat)}">
+<task:>
+    <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, :task.repeat, :task.tags, _user._tagFilters)}">
     <pre>
     <div class="task-meta-controls">
 
@@ -161,7 +161,14 @@
         <input type=checkbox checked="{:task.completed}"/>
         {/}
     </div>
-    <div class="task-text">{:task.text}</div>
+    <div class="task-text">
+        {:task.text} 
+        {#each _user.tags as :tag}
+            {#if :task.tags[:tag.id]}
+                <span class="label {#if _user._tagFilters[:tag.id]}label-info{/}">{:tag.name}</span>  
+            {/}
+        {/}
+    </div>
 
     <app:taskMeta />
     </pre>
@@ -206,6 +213,20 @@
                     <input type="text" value="{:task.date}" data-date-format="mm/dd/yyyy" class="datepicker" />
                     <div><small>Enter as date, eg 02/19/2013 or 02-19-2013</small></div>
                 </div>
+            {/}
+            {#if not(equal(:task.type, 'reward'))}
+            <div class="control-group">
+                <div class="btn-group">
+                    <button class="btn dropdown-toggle" data-toggle="dropdown">
+                        Tags <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        {#each _user.tags as :tag}
+                            <li class="{#if :task.tags[:tag.id]}active{/}"><a data-task-id="{{:task.id}}" data-tag-id="{:tag.id}" x-bind=click:addTag>{:tag.name}</a></li>
+                        {/}
+                    </ul>
+                </div>
+            </div>
             {/}
             <button type=submit class="btn" x-bind="click:tasksSaveAndClose">Save & Close</button>
         </form>

@@ -1,0 +1,11 @@
+<filters:>
+  <div class="well well-small filters">
+    <div class="pull-left filter-description">
+      Filter by tag: 
+    </div>
+    <ul class="nav nav-pills">
+      {#each _user.tags as :tag}
+        <li class="{#if _user._tagFilters[:tag.id]}active{/}"><a data-tag-id="{:tag.id}" x-bind=click:toggleFilterByTag>{:tag.name}</a></li>
+      {/}
+    </ul>
+  </div>

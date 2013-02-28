@@ -13,6 +13,7 @@ browser = require './browser'
 party = require './party'
 items = require './items'
 profile = require './profile'
+filters = require './filters'
 
 helpers.viewHelpers view
 character.view view
@@ -61,4 +62,5 @@ ready (model) ->
   require('../server/private').app(exports, model)
   require('./debug').app(exports, model) if model.get('_view.nodeEnv') != 'production'
   browser.app(exports, model)
+  filters.app(exports, model)
 
