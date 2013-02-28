@@ -12,8 +12,8 @@ casper.start "#{url}/?play=1", ->
   @fill 'form#derby-auth-register',
     username: user1.id
     email: "{user1.id}@gmail.com"
-    'email-confirmation': "{user1.id}@gmail.com"
     password: 'habitrpg123'
+    'password-confirmation': "habitrpg123"
   , true
 casper.thenOpen "#{url}/logout"
 casper.thenOpen "#{url}/?play=1", ->
