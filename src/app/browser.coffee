@@ -6,7 +6,7 @@ module.exports.restoreRefs = restoreRefs = (model) ->
   model.fn '_tnl', '_user.stats.lvl', (lvl) ->
     # see https://github.com/lefnire/habitrpg/issues/4
     # also update in scoring.coffee. TODO create a function accessible in both locations
-    (lvl*100)/5
+    10*Math.pow(lvl,2)+(lvl*10)+80
 
   #refLists
   _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
@@ -193,20 +193,30 @@ setupGrowlNotifications = (model) ->
     num = captures - args
     rounded = Math.abs(num.toFixed(1))
     if num < 0
-      statsNotification "<i class='icon-heart'></i> -#{rounded} HP", 'hp' # lost hp from purchase
+      statsNotification "<i class='icon-heart'></i> - #{rounded} HP", 'hp' # lost hp from purchase
+    else if num > 0
+      statsNotification "<i class='icon-heart'></i> + #{rounded} HP", 'hp' # gained hp from potion/level? 
+  
+  user.on 'set', 'stats.exp', (captures, args) ->
+    num = captures - args
+    rounded = Math.abs(num.toFixed(1))
+    if num < 0
+      statsNotification "<i class='icon-star'></i> - #{rounded} XP", 'xp'
+    else if num > 0
+      statsNotification "<i class='icon-star'></i> + #{rounded} XP", 'xp'
 
   user.on 'set', 'stats.gp', (captures, args) ->
     num = captures - args
-    rounded = Math.abs(num.toFixed(1))
-    # made purchase
-    if num < 0
-      # FIXME use 'warning' when unchecking an accidently completed daily/todo, and notify of exp too
-      statsNotification "<i class='icon-star'></i> -#{rounded} GP", 'gp'
-      # gained gp (and thereby exp)
-    else if num > 0
-      num = Math.abs(num)
-      statsNotification "<i class='icon-star'></i> +#{rounded} XP", 'xp'
-      statsNotification "<i class='icon-gp'></i> +#{rounded} GP", 'gp'
+    absolute = Math.abs(num)
+    gold = Math.floor(absolute)
+    silver = Math.floor((absolute-gold)*100)
+    sign = if num < 0 then '-' else '+'
+    if gold and silver > 0
+      statsNotification "#{sign} #{gold} <i class='icon-gold'></i> #{silver} <i class='icon-silver'></i>", 'gp'
+    else if gold > 0
+      statsNotification "#{sign} #{gold} <i class='icon-gold'></i>", 'gp'
+    else if silver > 0
+      statsNotification "#{sign} #{silver} <i class='icon-silver'></i>", 'gp'
 
   user.on 'set', 'stats.lvl', (captures, args) ->
     if captures > args
