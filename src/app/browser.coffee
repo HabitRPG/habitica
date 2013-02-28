@@ -180,7 +180,7 @@ setupGrowlNotifications = (model) ->
     return if user.get('stats.lvl') == 0
     $.bootstrapGrowl html,
       ele: '#notification-area',
-      type: type # (null, 'info', 'error', 'success', 'gp', 'xp', 'hp', 'lvl')
+      type: type # (null, 'info', 'error', 'success')
       top_offset: 20
       align: 'right' # ('left', 'right', or 'center')
       width: 250 # (integer, or 'auto')
@@ -193,7 +193,7 @@ setupGrowlNotifications = (model) ->
     num = captures - args
     rounded = Math.abs(num.toFixed(1))
     if num < 0
-      statsNotification "<i class='icon-heart'></i> -#{rounded} HP", 'hp' # lost hp from purchase
+      statsNotification "<i class='icon-heart'></i>HP -#{rounded}", 'error' # lost hp from purchase
 
   user.on 'set', 'stats.gp', (captures, args) ->
     num = captures - args
@@ -201,13 +201,12 @@ setupGrowlNotifications = (model) ->
     # made purchase
     if num < 0
       # FIXME use 'warning' when unchecking an accidently completed daily/todo, and notify of exp too
-      statsNotification "<i class='icon-star'></i> -#{rounded} GP", 'gp'
+      statsNotification "<i class='icon-star'></i>GP -#{rounded}", 'success'
       # gained gp (and thereby exp)
     else if num > 0
       num = Math.abs(num)
-      statsNotification "<i class='icon-star'></i> +#{rounded} XP", 'xp'
-      statsNotification "<i class='icon-gp'></i> +#{rounded} GP", 'gp'
+      statsNotification "<i class='icon-star'></i>Exp,GP +#{rounded}", 'success'
 
   user.on 'set', 'stats.lvl', (captures, args) ->
     if captures > args
-      statsNotification('<i class="icon-chevron-up"></i> Level Up!', 'lvl')
+      statsNotification('<i class="icon-chevron-up"></i> Level Up!', 'info')
