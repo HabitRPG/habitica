@@ -76,6 +76,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     .use(store.modelMiddleware())
     # API should be hit before all other routes
     .use('/api/v1', require('./api').middleware)
+    .use(require('./deprecated').middleware)
     # Show splash page for newcomers
     .use(middleware.splash)
     .use(priv.middleware)
@@ -84,7 +85,6 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     # Creates an express middleware from the app's routes
     .use(app.router())
     .use(require('./static').middleware)
-    .use(require('./deprecated').middleware)
     .use(expressApp.router)
     .use(serverError(root))
 
