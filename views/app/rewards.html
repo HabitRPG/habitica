@@ -19,7 +19,7 @@
     <div class="span3 shop-pet" rel=tooltip title="{.text} - {.value} Tokens">
         <div style='position:relative'>
             {#if _user.items.pets[.name]}<i class='icon-ok shop-pet-owned-check'></i>{/}
-            <img x-bind="click:selectPet" data-pet='{.name}' src='img/BrowserQuest/habitrpg_mods/{.icon}'/>
+            <img x-bind="click:selectPet" data-pet='{.name}' src='img/sprites/{.icon}'/>
         </div>
     </div>
 
@@ -51,7 +51,7 @@
       </div>
       <div class="task-text">
           {#if :item.icon}
-          <img src="/img/BrowserQuest/habitrpg_mods/{:item.icon}" /> {:item.text}
+          <img src="/img/sprites/{:item.icon}" /> {:item.text}
           {else}
           <table class='shop-table'><tr>
               <td><div class="shop_{:item.classes} shop-sprite"></div></td>

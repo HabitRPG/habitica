@@ -169,7 +169,7 @@ module.exports.app = (appExports, model) ->
     return unless captures == true
     html = """
            <div class='item-store-popover'>
-           <img src='/img/BrowserQuest/chest.png' />
+           <img src='/vendor/BrowserQuest/client/img/1chest.png' />
            Congratulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information.
            <a href='#' onClick="$('ul.items').popover('hide');return false;">[Close]</a>
            </div>
@@ -185,7 +185,7 @@ module.exports.app = (appExports, model) ->
   user.on 'set', 'flags.petsEnabled', (captures, args) ->
     return unless captures == true
     html = """
-           <img src='/img/BrowserQuest/habitrpg_mods/wolf_border.png' style='width:30px;height:30px;float:left;padding-right:5px' />
+           <img src='/img/sprites/wolf_border.png' style='width:30px;height:30px;float:left;padding-right:5px' />
            You have unlocked Pets! You can now buy pets with tokens (note, you replenish tokens with real-life money - so chose your pets wisely!)
            <a href='#' onClick="$('#rewardsTabs').popover('hide');return false;">[Close]</a>
            """
