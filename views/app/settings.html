@@ -9,6 +9,11 @@
             <h6>API Token</h6>
             <pre class=prettyprint>{_user.apiToken}</pre>
 
+            {{#if _user.auth.local}}
+                <hr/>
+                <derby-auth:changePassword />
+            {{/}}
+
             <hr/>
             <a class='btn btn-danger' data-target="#reset-modal" data-toggle="modal" rel=tooltip title="Resets your entire account (dangerous).">Reset</a>
             &nbsp;<a class='btn btn-danger' data-target="#restore-modal" data-toggle="modal" rel=tooltip title="Restores attributes to your character.">Restore</a>
