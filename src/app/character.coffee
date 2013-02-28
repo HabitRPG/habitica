@@ -72,6 +72,13 @@ module.exports.app = (appExports, model) ->
   appExports.customizeArmorSet = (e, el) ->
     user.set 'preferences.armorSet', $(el).attr('data-value')
 
+  appExports.restoreSave = (e, el) ->
+    batch = new BatchUpdate(model)
+    batch.startTransaction()
+    $('#restore-form input').each ->
+      batch.set $(this).attr('data-for'), parseInt($(this).val())
+    batch.commit()
+
   user.on 'set', 'flags.customizationsNotification', (captures, args) ->
     return unless captures == true
     $('.main-avatar').popover('destroy') #remove previous popovers
