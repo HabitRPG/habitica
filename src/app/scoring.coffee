@@ -142,8 +142,8 @@ module.exports.Scoring = (model) ->
 
     addPoints = ->
       modified = expModifier(delta)
-      exp += modified
-      gp += modified
+      exp += modified*10
+      gp += delta
 
     subtractPoints = ->
       modified = hpModifier(delta)
