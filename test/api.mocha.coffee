@@ -139,11 +139,9 @@ describe 'API', ->
         .set('X-API-Key', currentUser.apiToken)
         .send({})
         .end (res) ->
-          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
-          query.fetch (err, user) ->
-            expect(res.body.err).to.be 'type must be habit, todo, daily, or reward'
-            expect(res.statusCode).to.be 400
-            done()
+          expect(res.body.err).to.be 'type must be habit, todo, daily, or reward'
+          expect(res.statusCode).to.be 400
+          done()
 
     it 'POST /api/v1/user/task (only type)', (done) ->
       request.post("#{baseURL}/user/task")
