@@ -81,10 +81,7 @@ loadJavaScripts = (model) ->
 ###
 setupSortable = (model) ->
   unless (model.get('_view.mobileDevice') == true) #don't do sortable on mobile
-    # Make the lists draggable using jQuery UI
-    # Note, have to setup helper function here and call it for each type later
-    # due to variable binding of "type"
-    setupSortable = (type) ->
+    _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
       $("ul.#{type}s").sortable
         dropOnEmpty: false
         cursor: "move"
@@ -102,7 +99,6 @@ setupSortable = (model) ->
           # Also, note that refList index arguments can either be an index
           # or the item's id property
           model.at("_#{type}List").pass(ignore: domId).move {id}, to
-    _.each ['habit', 'daily', 'todo', 'reward'], (type) -> setupSortable(type)
 
 setupTooltips = (model) ->
   $('[rel=tooltip]').tooltip()
