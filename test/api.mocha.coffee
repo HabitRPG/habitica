@@ -132,18 +132,61 @@ describe 'API', ->
             expect(user.get().tasks[res.body.id]).to.be.an('object')
             done()
 
+    it 'POST /api/v1/user/task (without type)', (done) ->
+      request.post("#{baseURL}/user/task")
+        .set('Accept', 'application/json')
+        .set('X-API-User', currentUser.id)
+        .set('X-API-Key', currentUser.apiToken)
+        .send({})
+        .end (res) ->
+          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+          query.fetch (err, user) ->
+            expect(res.body.err).to.be 'type must be habit, todo, daily, or reward'
+            expect(res.statusCode).to.be 400
+            done()
+
+    it 'POST /api/v1/user/task (only type)', (done) ->
+      request.post("#{baseURL}/user/task")
+        .set('Accept', 'application/json')
+        .set('X-API-User', currentUser.id)
+        .set('X-API-Key', currentUser.apiToken)
+        .send(type: 'habit')
+        .end (res) ->
+          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+          query.fetch (err, user) ->
+            expect(res.body.err).to.be undefined
+            expect(res.statusCode).to.be 201
+            expect(res.body.id).not.to.be.empty()
+            # Ensure that user owns the newly created object
+            expect(user.get().tasks[res.body.id]).to.be.an('object')
+            done()
+
     it 'PUT /api/v1/task/:id', (done) ->
       tid = _.pluck(currentUser.tasks, 'id')[0]
       request.put("#{baseURL}/task/#{tid}")
         .set('Accept', 'application/json')
         .set('X-API-User', currentUser.id)
         .set('X-API-Key', currentUser.apiToken)
-        .send(title: 'a new title',text: 'hi')
+        .send(text: 'bye')
         .end (res) ->
           expect(res.body.err).to.be undefined
           expect(res.statusCode).to.be 200
-          currentUser.tasks[tid].title = 'a new title'
+          currentUser.tasks[tid].text = 'bye'
+          expect(res.body).to.eql currentUser.tasks[tid]
+          done()
+
+    it 'PUT /api/v1/task/:id (update notes)', (done) ->
+      tid = _.pluck(currentUser.tasks, 'id')[0]
+      request.put("#{baseURL}/task/#{tid}")
+        .set('Accept', 'application/json')
+        .set('X-API-User', currentUser.id)
+        .set('X-API-Key', currentUser.apiToken)
+        .send(text: 'hi',notes:'foobar matey')
+        .end (res) ->
+          expect(res.body.err).to.be undefined
+          expect(res.statusCode).to.be 200
           currentUser.tasks[tid].text = 'hi'
+          currentUser.tasks[tid].notes = 'foobar matey'
           expect(res.body).to.eql currentUser.tasks[tid]
           done()
 

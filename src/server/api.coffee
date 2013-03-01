@@ -40,11 +40,11 @@ router.get '/status', (req, res) ->
   res.json status: 'up'
 
 router.get '/user', auth, (req, res) ->
-  self = req.userObj
+  user = req.userObj
 
-  delete self.apiToken
+  delete user.apiToken
 
-  res.json self
+  res.json user
 
 router.get '/task/:id', auth, (req, res) ->
   task = req.userObj.tasks[req.params.id]
@@ -52,30 +52,41 @@ router.get '/task/:id', auth, (req, res) ->
 
   res.json 200, task
 
-router.put '/task/:id', auth, (req, res) ->
-  task = req.userObj.tasks[req.params.id]
-  return res.json 400, err: "No task found." if !task || _.isEmpty(task)
+validateTask = (req, res, next) ->
+  task = {}
+  # If we're updating, get the task from the user
+  if req.method is 'PUT'
+    task = req.userObj?.tasks[req.params.id]
+    return res.json 400, err: "No task found." if !task || _.isEmpty(task)
 
-  title = sanitize(req.body.title).xss()
-  text = sanitize(req.body.text).xss()
+  newTask = { type, text, notes, value, up, down, completed } = req.body
 
-  task.title = title if title
-  task.text = text if text
-  #task.type = req.body.type if /^(habit|todo|daily|reward)$/.test req.body.type
+  text = sanitize(text).xss()
+  notes = sanitize(notes).xss()
+  value = sanitize(value).toInt()
 
-  req.user.set "tasks.#{task.id}", task
+  switch type
+    when 'habit'
+      newTask.up = true unless typeof up is 'boolean'
+      newTask.down = true unless typeof down is 'boolean'
+    when 'daily', 'todo'
+      newTask.completed = false unless typeof completed is 'boolean'
 
-  res.json 200, task
+  _.extend task, newTask
+  req.task = task
+  next()
 
-router.post '/user/task', auth, (req, res) ->
-  task = { title, text, type, value, note } = req.body
-  return res.json 400, err: "type must be habit, todo, daily, or reward" unless /^habit|todo|daily|reward$/.test type
-  return res.json 400, err: "must have a title" unless check(title).notEmpty()
-  return res.json 400, err: "must have text" unless check(text).notEmpty()
+router.put '/task/:id', auth, validateTask, (req, res) ->
+  req.user.set "tasks.#{req.task.id}", req.task
 
-  self = req.userObj
+  res.json 200, req.task
 
-  value ||= 0
+router.post '/user/task', auth, validateTask, (req, res) ->
+  task = req.task
+  type = task.type
+
+  unless /^habit|todo|daily|reward$/.test type
+    return res.json 400, err: 'type must be habit, todo, daily, or reward'
 
   model = req.getModel()
   model.ref '_user', req.user
@@ -85,8 +96,8 @@ router.post '/user/task', auth, (req, res) ->
   res.json 201, task
 
 router.get '/user/tasks', auth, (req, res) ->
-  self = req.userObj
-  return res.json 400, NO_USER_FOUND if !self || _.isEmpty(self)
+  user = req.userObj
+  return res.json 400, NO_USER_FOUND if !user || _.isEmpty(user)
 
   model = req.getModel()
   model.ref '_user', req.user
