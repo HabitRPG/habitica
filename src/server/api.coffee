@@ -33,6 +33,7 @@ auth = (req, res, next) ->
     req.user = user
     req.userObj = user.get()
     return res.json 401, NO_USER_FOUND if !req.userObj || _.isEmpty(req.userObj)
+    req._isServer = true
     next()
 
 router.get '/status', (req, res) ->

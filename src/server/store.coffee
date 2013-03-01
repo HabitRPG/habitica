@@ -30,9 +30,7 @@ userAccess = (store) ->
     err = arguments[arguments.length - 1]
     # return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
 
-    # TEMPORARY token check to allow api
-    # Must fix before release
-    return accept(true)
+    return accept(true) if derbyAuth.isServer(@)
 
     return accept(false) if derbyAuth.bustedSession(@)
 
@@ -45,8 +43,7 @@ userAccess = (store) ->
       return accept(true)
 
     # Same session (user.id = this.session.userId)
-    if (uid is @session.userId) or derbyAuth.isServer(@)
-      return accept(true)
+    return accept(true) if uid is @session.userId
 
     accept(false)
 
