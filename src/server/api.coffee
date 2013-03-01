@@ -20,6 +20,9 @@ NO_USER_FOUND = err: "No user found."
   $ mocha test/api.mocha.coffee
 ###
 
+router.get '/status', (req, res) ->
+  res.json status: 'up'
+
 auth = (req, res, next) ->
   uid = req.headers['x-api-user']
   token = req.headers['x-api-key']
@@ -36,9 +39,6 @@ auth = (req, res, next) ->
     req._isServer = true
     next()
 
-router.get '/status', (req, res) ->
-  res.json status: 'up'
-
 router.get '/user', auth, (req, res) ->
   user = req.userObj
 
@@ -46,7 +46,7 @@ router.get '/user', auth, (req, res) ->
 
   res.json user
 
-router.get '/task/:id', auth, (req, res) ->
+router.get '/user/task/:id', auth, (req, res) ->
   task = req.userObj.tasks[req.params.id]
   return res.json 400, err: "No task found." if !task || _.isEmpty(task)
 
@@ -82,7 +82,7 @@ validateTask = (req, res, next) ->
   req.task = task
   next()
 
-router.put '/task/:id', auth, validateTask, (req, res) ->
+router.put '/user/task/:id', auth, validateTask, (req, res) ->
   req.user.set "tasks.#{req.task.id}", req.task
 
   res.json 200, req.task

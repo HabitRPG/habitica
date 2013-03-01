@@ -104,9 +104,9 @@ describe 'API', ->
           expect(res.body).to.eql self
           done()
 
-    it 'GET /api/v1/task/:id', (done) ->
+    it 'GET /api/v1/user/task/:id', (done) ->
       tid = _.pluck(currentUser.tasks, 'id')[0]
-      request.get("#{baseURL}/task/#{tid}")
+      request.get("#{baseURL}/user/task/#{tid}")
         .set('Accept', 'application/json')
         .set('X-API-User', currentUser.id)
         .set('X-API-Key', currentUser.apiToken)
@@ -159,9 +159,9 @@ describe 'API', ->
             expect(user.get().tasks[res.body.id]).to.be.an('object')
             done()
 
-    it 'PUT /api/v1/task/:id', (done) ->
+    it 'PUT /api/v1/user/task/:id', (done) ->
       tid = _.pluck(currentUser.tasks, 'id')[0]
-      request.put("#{baseURL}/task/#{tid}")
+      request.put("#{baseURL}/user/task/#{tid}")
         .set('Accept', 'application/json')
         .set('X-API-User', currentUser.id)
         .set('X-API-Key', currentUser.apiToken)
@@ -173,10 +173,10 @@ describe 'API', ->
           expect(res.body).to.eql currentUser.tasks[tid]
           done()
 
-    it 'PUT /api/v1/task/:id (shouldnt update type)', (done) ->
+    it 'PUT /api/v1/user/task/:id (shouldnt update type)', (done) ->
       tid = _.pluck(currentUser.tasks, 'id')[1]
       type = if currentUser.tasks[tid].type is 'habit' then 'daily' else 'habit'
-      request.put("#{baseURL}/task/#{tid}")
+      request.put("#{baseURL}/user/task/#{tid}")
         .set('Accept', 'application/json')
         .set('X-API-User', currentUser.id)
         .set('X-API-Key', currentUser.apiToken)
@@ -188,9 +188,9 @@ describe 'API', ->
           expect(res.body).to.eql currentUser.tasks[tid]
           done()
 
-    it 'PUT /api/v1/task/:id (update notes)', (done) ->
+    it 'PUT /api/v1/user/task/:id (update notes)', (done) ->
       tid = _.pluck(currentUser.tasks, 'id')[2]
-      request.put("#{baseURL}/task/#{tid}")
+      request.put("#{baseURL}/user/task/#{tid}")
         .set('Accept', 'application/json')
         .set('X-API-User', currentUser.id)
         .set('X-API-Key', currentUser.apiToken)
