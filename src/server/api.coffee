@@ -64,7 +64,7 @@ validateTask = (req, res, next) ->
     type = undefined
     delete newTask.type
   else if req.method is 'POST'
-    unless /^habit|todo|daily|reward$/.test type
+    unless /^(habit|todo|daily|reward)$/.test type
       return res.json 400, err: 'type must be habit, todo, daily, or reward'
 
   text = sanitize(text).xss()
@@ -106,7 +106,7 @@ router.get '/user/tasks', auth, (req, res) ->
   model.ref '_user', req.user
   tasks = []
   types = ['habit','todo','daily','reward']
-  if /^habit|todo|daily|reward$/.test req.query.type
+  if /^(habit|todo|daily|reward)$/.test req.query.type
     types = [req.query.type]
   for type in types
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
