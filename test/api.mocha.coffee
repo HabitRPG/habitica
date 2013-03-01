@@ -175,8 +175,23 @@ describe 'API', ->
           expect(res.body).to.eql currentUser.tasks[tid]
           done()
 
+    it 'PUT /api/v1/task/:id (shouldnt update type)', (done) ->
+      tid = _.pluck(currentUser.tasks, 'id')[1]
+      type = if currentUser.tasks[tid].type is 'habit' then 'daily' else 'habit'
+      request.put("#{baseURL}/task/#{tid}")
+        .set('Accept', 'application/json')
+        .set('X-API-User', currentUser.id)
+        .set('X-API-Key', currentUser.apiToken)
+        .send(type: type, text: 'fishman')
+        .end (res) ->
+          expect(res.body.err).to.be undefined
+          expect(res.statusCode).to.be 200
+          currentUser.tasks[tid].text = 'fishman'
+          expect(res.body).to.eql currentUser.tasks[tid]
+          done()
+
     it 'PUT /api/v1/task/:id (update notes)', (done) ->
-      tid = _.pluck(currentUser.tasks, 'id')[0]
+      tid = _.pluck(currentUser.tasks, 'id')[2]
       request.put("#{baseURL}/task/#{tid}")
         .set('Accept', 'application/json')
         .set('X-API-User', currentUser.id)

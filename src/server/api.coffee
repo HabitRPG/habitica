@@ -54,12 +54,18 @@ router.get '/task/:id', auth, (req, res) ->
 
 validateTask = (req, res, next) ->
   task = {}
+  newTask = { type, text, notes, value, up, down, completed } = req.body
+
   # If we're updating, get the task from the user
   if req.method is 'PUT'
     task = req.userObj?.tasks[req.params.id]
     return res.json 400, err: "No task found." if !task || _.isEmpty(task)
-
-  newTask = { type, text, notes, value, up, down, completed } = req.body
+    # Strip for now
+    type = undefined
+    delete newTask.type
+  else if req.method is 'POST'
+    unless /^habit|todo|daily|reward$/.test type
+      return res.json 400, err: 'type must be habit, todo, daily, or reward'
 
   text = sanitize(text).xss()
   notes = sanitize(notes).xss()
@@ -84,9 +90,6 @@ router.put '/task/:id', auth, validateTask, (req, res) ->
 router.post '/user/task', auth, validateTask, (req, res) ->
   task = req.task
   type = task.type
-
-  unless /^habit|todo|daily|reward$/.test type
-    return res.json 400, err: 'type must be habit, todo, daily, or reward'
 
   model = req.getModel()
   model.ref '_user', req.user
