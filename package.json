@@ -23,8 +23,10 @@
     "mongoskin": "*",
     "nconf": "*",
     "icalendar": "git://github.com/lefnire/node-icalendar#master",
+    "superagent": "~0.12.4",
     "resolve": "~0.2.3",
     "browserify": "1.17.3",
+    "expect.js": "~0.2.0",
     "webkit-devtools-agent": "*"
   },
   "private": true,
@@ -38,6 +40,7 @@
     "npm": "1.1.x"
   },
   "scripts": {
-    "start": "server.js"
+    "start": "server.js",
+    "test": "mocha test/api.mocha.coffee"
   }
 }
