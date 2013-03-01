@@ -50,7 +50,9 @@ describe 'API', ->
       model.set '_userId', uid = model.id()
       user = character.newUserObject()
       user.apiToken = model.id()
+      model.session = {userId:uid}
       model.set "users.#{uid}", user
+      delete model.session
       # Crappy hack to let server start before tests run
       setTimeout done, 2000
 
