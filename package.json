@@ -23,7 +23,6 @@
     "mongoskin": "*",
     "nconf": "*",
     "icalendar": "git://github.com/lefnire/node-icalendar#master",
-    "nodetime": "*",
     "superagent": "~0.12.4",
     "resolve": "~0.2.3",
     "browserify": "1.17.3",
