@@ -184,7 +184,7 @@ setupGrowlNotifications = (model) ->
     return if user.get('stats.lvl') == 0
     $.bootstrapGrowl html,
       ele: '#notification-area',
-      type: type # (null, 'info', 'error', 'success', 'gp', 'xp', 'hp', 'lvl')
+      type: type # (null, 'info', 'error', 'success', 'gp', 'xp', 'hp', 'lvl','death')
       top_offset: 20
       align: 'right' # ('left', 'right', or 'center')
       width: 250 # (integer, or 'auto')
@@ -195,7 +195,6 @@ setupGrowlNotifications = (model) ->
   # Setup listeners which trigger notifications
   user.on 'set', 'stats.hp', (captures, args) ->
     num = captures - args
-    console.log("hp = " + num)
     rounded = Math.abs(num.toFixed(1))
     if num < 0
       statsNotification "<i class='icon-heart'></i> - #{rounded} HP", 'hp' # lost hp from purchase
@@ -203,10 +202,9 @@ setupGrowlNotifications = (model) ->
       statsNotification "<i class='icon-heart'></i> + #{rounded} HP", 'hp' # gained hp from potion/level? 
   
   user.on 'set', 'stats.exp', (captures, args, isLocal, silent) ->
-    if not silent
       num = captures - args
       rounded = Math.abs(num.toFixed(1))
-      if num < 0
+      if num < 0 and not silent
         statsNotification "<i class='icon-star'></i> - #{rounded} XP", 'xp'
       else if num > 0
         statsNotification "<i class='icon-star'></i> + #{rounded} XP", 'xp'
@@ -226,4 +224,7 @@ setupGrowlNotifications = (model) ->
 
   user.on 'set', 'stats.lvl', (captures, args) ->
     if captures > args
-      statsNotification('<i class="icon-chevron-up"></i> Level Up!', 'lvl')
+      if captures is 1 and args is 0
+        statsNotification '<i class="icon-death"></i> You died!', 'death' 
+      else 
+        statsNotification '<i class="icon-chevron-up"></i> Level Up!', 'lvl'

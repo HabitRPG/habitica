@@ -169,7 +169,7 @@ module.exports.app = (appExports, model) ->
     return unless captures == true
     html = """
            <div class='item-store-popover'>
-           <img src='/vendor/BrowserQuest/client/img/1chest.png' />
+           <img src='/vendor/BrowserQuest/client/img/1/chest.png' />
            Congratulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information.
            <a href='#' onClick="$('ul.items').popover('hide');return false;">[Close]</a>
            </div>

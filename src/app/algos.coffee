@@ -37,14 +37,18 @@ module.exports.gpModifier = (value, modifier) ->
 
 ###
   Calculates the next task.value based on direction
-  Uses a capped inverse log y=.9^x, y>= -5
+  Uses a capped inverse log y=.95^x, y>= -5
   {currentValue} the current value of the task
   {direction} up or down
 ###
 module.exports.taskDeltaFormula = (currentValue, direction) ->
-	sign = if (direction is 'up') then 1 else -1
-	delta = Math.pow(0.9,currentValue) * sign
-	if delta < -5 then delta = -5
-	console.log("CurrentValue: " + currentValue + " delta: " + delta)
+	if direction is 'up'
+		delta = Math.max(Math.pow(0.95,currentValue),0.25)
+	else
+		delta = -Math.min(Math.pow(0.95,currentValue),5)
+	#sign = if (direction is 'up') then 1 else -1
+	#delta = Math.pow(0.95,currentValue) * sign
+	#if delta < -5 then delta = -5
+	#console.log("CurrentValue: " + currentValue + " delta: " + delta)
 	#delta = if (currentValue < 0) then (( -0.1 * currentValue + 1 ) * sign) else (( Math.pow(0.9,currentValue) ) * sign)
 	return delta

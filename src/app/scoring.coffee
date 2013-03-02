@@ -11,59 +11,6 @@ module.exports.Scoring = (model) ->
   MODIFIER = algos.MODIFIER # each new level, armor, weapon add 2% modifier (this mechanism will change)
   user = model.at '_user'
 
-  ###
-    Updates user stats with new stats. Handles death, leveling up, etc
-    {stats} new stats
-    {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
-  ###
-  updateStats = (newStats, batch) ->
-    obj = batch.obj()
-
-    # if user is dead, dont do anything
-    return if obj.stats.lvl == 0
-
-    if newStats.hp?
-      # Game Over
-      if newStats.hp <= 0
-        obj.stats.lvl = 0 # signifies dead
-        obj.stats.hp = 0
-        return
-      else
-        obj.stats.hp = newStats.hp
-
-    if newStats.exp?
-      # level up & carry-over exp
-      tnl = model.get '_tnl'
-      silent = false
-      if newStats.exp >= tnl
-        silent = true
-        newStats.exp -= tnl
-        obj.stats.lvl++
-        obj.stats.hp = 50
-
-      obj.stats.exp = newStats.exp
-      user.pass(silent:true).set('stats.exp', obj.stats.exp) if silent
-
-      # Set flags when they unlock features
-      if !obj.flags.customizationsNotification and (obj.stats.exp > 10 or obj.stats.lvl > 1)
-        batch.set 'flags.customizationsNotification', true
-        obj.flags.customizationsNotification = true
-      if !obj.flags.itemsEnabled and obj.stats.lvl >= 2
-        # Set to object, then also send to browser right away to get model.on() subscription notification
-        batch.set 'flags.itemsEnabled', true
-        obj.flags.itemsEnabled = true
-      if !obj.flags.partyEnabled and obj.stats.lvl >= 3
-        batch.set 'flags.partyEnabled', true
-        obj.flags.partyEnabled = true
-      if !obj.flags.petsEnabled and obj.stats.lvl >= 4
-        batch.set 'flags.petsEnabled', true
-        obj.flags.petsEnabled = true
-
-    if newStats.gp?
-      #FIXME what was I doing here? I can't remember, gp isn't defined
-      gp = 0.0 if (!gp? or gp<0)
-      obj.stats.gp = newStats.gp
-
   # {taskId} task you want to score
   # {direction} 'up' or 'down'
   # {times} # times to call score on this task (1 unless cron, usually)
@@ -119,7 +66,8 @@ module.exports.Scoring = (model) ->
     switch type
       when 'habit'
         # Don't adjust values for habits that don't have both + and -
-        adjustvalue = if (taskObj.up==false or taskObj.down==false) then false else true
+        #adjustvalue = if (taskObj.up==false or taskObj.down==false) then false else true
+        adjustvalue = true;
         calculateDelta(adjustvalue)
         # Add habit value to habit-history (if different)
         if (delta > 0) then addPoints() else subtractPoints()
@@ -130,15 +78,20 @@ module.exports.Scoring = (model) ->
           batch.set "#{taskPath}.history", taskObj.history
 
       when 'daily'
-        calculateDelta()
+        #calculateDelta()
         if cron? # cron
+          calculateDelta()
           subtractPoints()
         else
+          calculateDelta(false)
           addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
       when 'todo'
-        calculateDelta()
-        unless cron? # don't touch stats on cron
+        if cron? #cron
+          calculateDelta()
+          #don't touch stats on cron
+        else
+          calculateDelta(false)
           addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
       when 'reward'
@@ -161,9 +114,63 @@ module.exports.Scoring = (model) ->
       newStats = _.clone batch.obj().stats
       _.each Object.keys(origStats), (key) -> obj.stats[key] = origStats[key]
       batch.setStats(newStats)
-  #    batch.setStats()
+      # batch.setStats()
       batch.commit()
     return delta
+
+  ###
+    Updates user stats with new stats. Handles death, leveling up, etc
+    {stats} new stats
+    {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
+  ###
+  updateStats = (newStats, batch) ->
+    obj = batch.obj()
+
+    # if user is dead, dont do anything
+    return if obj.stats.lvl == 0
+
+    if newStats.hp?
+      # Game Over
+      if newStats.hp <= 0
+        obj.stats.lvl = 0 # signifies dead
+        obj.stats.hp = 0
+        return
+      else
+        obj.stats.hp = newStats.hp
+
+    if newStats.exp?
+      # level up & carry-over exp
+      tnl = model.get '_tnl'
+      silent = false
+      if newStats.exp >= tnl
+        silent = true
+        user.set('stats.exp', newStats.exp)
+        newStats.exp -= tnl
+        obj.stats.lvl++
+        obj.stats.hp = 50
+
+      obj.stats.exp = newStats.exp
+      user.pass(silent:true).set('stats.exp', obj.stats.exp) if silent
+
+      # Set flags when they unlock features
+      if !obj.flags.customizationsNotification and (obj.stats.exp > 10 or obj.stats.lvl > 1)
+        batch.set 'flags.customizationsNotification', true
+        obj.flags.customizationsNotification = true
+      if !obj.flags.itemsEnabled and obj.stats.lvl >= 2
+        # Set to object, then also send to browser right away to get model.on() subscription notification
+        batch.set 'flags.itemsEnabled', true
+        obj.flags.itemsEnabled = true
+      if !obj.flags.partyEnabled and obj.stats.lvl >= 3
+        batch.set 'flags.partyEnabled', true
+        obj.flags.partyEnabled = true
+      if !obj.flags.petsEnabled and obj.stats.lvl >= 4
+        batch.set 'flags.petsEnabled', true
+        obj.flags.petsEnabled = true
+
+    if newStats.gp?
+      #FIXME what was I doing here? I can't remember, gp isn't defined
+      gp = 0.0 if (!gp? or gp<0)
+      obj.stats.gp = newStats.gp
 
   ###
     At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
