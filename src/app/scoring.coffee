@@ -5,109 +5,17 @@ helpers = require './helpers'
 browser = require './browser'
 character = require './character'
 items = require './items'
+algos = require './algos'
 
 module.exports.Scoring = (model) ->
-
-  MODIFIER = .02 # each new level, armor, weapon add 2% modifier (this mechanism will change)
+  MODIFIER = algos.MODIFIER # each new level, armor, weapon add 2% modifier (this mechanism will change)
   user = model.at '_user'
-
-  ###
-    Calculates Exp & GP modification based on weapon & lvl
-    {value} task.value for gain
-    {modifiers} may manually pass in stats as {weapon, exp}. This is used for testing
-  ###
-  expModifier = (value, modifiers = {}) ->
-    weapon = modifiers.weapon || user.get('items.weapon')
-    lvl = modifiers.lvl || user.get('stats.lvl')
-    dmg = items.items.weapon[weapon].modifier # each new weapon increases exp gain
-    dmg += (lvl-1) * MODIFIER # same for lvls
-    modified = value + (value * dmg)
-    return modified
-
-  ###
-    Calculates HP-loss modification based on armor & lvl
-    {value} task.value which is hurting us
-    {modifiers} may manually pass in modifier as {armor, lvl}. This is used for testing
-  ###
-  hpModifier = (value, modifiers = {}) ->
-    armor = modifiers.armor || user.get('items.armor')
-    head = modifiers.head || user.get('items.head')
-    shield = modifiers.shield || user.get('items.shield')
-    lvl = modifiers.lvl || user.get('stats.lvl')
-    ac = items.items.armor[armor].modifier + items.items.head[head].modifier + items.items.shield[shield].modifier # each new armor decreases HP loss
-    ac += (lvl-1) * MODIFIER # same for lvls
-    modified = value - (value * ac)
-    return modified
-
-  ###
-    Calculates the next task.value based on direction
-    For negative values, use a line: something like y=-.1x+1
-    For positibe values, taper off with inverse log: y=.9^x
-    Would love to use inverse log for the whole thing, but after 13 fails it hits infinity. Revisit this formula later
-    {currentValue} the current value of the task, determines it's next value
-    {direction} 'up' or 'down'
-  ###
-  taskDeltaFormula = (currentValue, direction) ->
-    sign = if (direction == "up") then 1 else -1
-    delta = if (currentValue < 0) then (( -0.1 * currentValue + 1 ) * sign) else (( Math.pow(0.9,currentValue) ) * sign)
-    return delta
-
-  ###
-    Updates user stats with new stats. Handles death, leveling up, etc
-    {stats} new stats
-    {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
-  ###
-  updateStats = (newStats, batch) ->
-    obj = batch.obj()
-
-    # if user is dead, dont do anything
-    return if obj.stats.lvl == 0
-
-    if newStats.hp?
-      # Game Over
-      if newStats.hp <= 0
-        obj.stats.lvl = 0 # signifies dead
-        obj.stats.hp = 0
-        return
-      else
-        obj.stats.hp = newStats.hp
-
-    if newStats.exp?
-      # level up & carry-over exp
-      tnl = model.get '_tnl'
-      if newStats.exp >= tnl
-        newStats.exp -= tnl
-        obj.stats.lvl++
-        obj.stats.hp = 50
-
-      obj.stats.exp = newStats.exp
-
-      # Set flags when they unlock features
-      if !obj.flags.customizationsNotification and (obj.stats.exp > 10 or obj.stats.lvl > 1)
-        batch.set 'flags.customizationsNotification', true
-        obj.flags.customizationsNotification = true
-      if !obj.flags.itemsEnabled and obj.stats.lvl >= 2
-        # Set to object, then also send to browser right away to get model.on() subscription notification
-        batch.set 'flags.itemsEnabled', true
-        obj.flags.itemsEnabled = true
-      if !obj.flags.partyEnabled and obj.stats.lvl >= 3
-        batch.set 'flags.partyEnabled', true
-        obj.flags.partyEnabled = true
-      if !obj.flags.petsEnabled and obj.stats.lvl >= 4
-        batch.set 'flags.petsEnabled', true
-        obj.flags.petsEnabled = true
-
-    if newStats.gp?
-      #FIXME what was I doing here? I can't remember, gp isn't defined
-      gp = 0.0 if (!gp? or gp<0)
-      obj.stats.gp = newStats.gp
 
   # {taskId} task you want to score
   # {direction} 'up' or 'down'
   # {times} # times to call score on this task (1 unless cron, usually)
   # {update} if we're running updates en-mass (eg, cron on server) pass in userObj
   score = (taskId, direction, times, batch, cron) ->
-
     commit = false
     unless batch?
       commit = true
@@ -136,23 +44,30 @@ module.exports.Scoring = (model) ->
         # Each iteration calculate the delta (nextDelta), which is then accumulated in delta
         # (aka, the total delta). This weirdness won't be necessary when calculating mathematically
         # rather than iteratively
-        nextDelta = taskDeltaFormula(value, direction)
+        nextDelta = algos.taskDeltaFormula(value, direction)
         value += nextDelta if adjustvalue
         delta += nextDelta
 
     addPoints = ->
-      modified = expModifier(delta)
-      exp += modified
-      gp += modified
+      level = user.get('stats.lvl')
+      weaponStrength = items.items.weapon[user.get('items.weapon')].strength
+      modified = algos.expModifier(delta,weaponStrength,level)
+      exp += modified*10
+      gp += delta
 
     subtractPoints = ->
-      modified = hpModifier(delta)
+      level = user.get('stats.lvl')
+      armorDefense = items.items.armor[user.get('items.armor')].defense
+      helmDefense = items.items.head[user.get('items.head')].defense
+      shieldDefense = items.items.shield[user.get('items.shield')].defense
+      modified = algos.hpModifier(delta,armorDefense,helmDefense,shieldDefense,level)
       hp += modified
 
     switch type
       when 'habit'
         # Don't adjust values for habits that don't have both + and -
-        adjustvalue = if (taskObj.up==false or taskObj.down==false) then false else true
+        #adjustvalue = if (taskObj.up==false or taskObj.down==false) then false else true
+        adjustvalue = true;
         calculateDelta(adjustvalue)
         # Add habit value to habit-history (if different)
         if (delta > 0) then addPoints() else subtractPoints()
@@ -163,15 +78,20 @@ module.exports.Scoring = (model) ->
           batch.set "#{taskPath}.history", taskObj.history
 
       when 'daily'
-        calculateDelta()
+        #calculateDelta()
         if cron? # cron
+          calculateDelta()
           subtractPoints()
         else
+          calculateDelta(false)
           addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
       when 'todo'
-        calculateDelta()
-        unless cron? # don't touch stats on cron
+        if cron? #cron
+          calculateDelta()
+          #don't touch stats on cron
+        else
+          calculateDelta(false)
           addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
       when 'reward'
@@ -194,9 +114,63 @@ module.exports.Scoring = (model) ->
       newStats = _.clone batch.obj().stats
       _.each Object.keys(origStats), (key) -> obj.stats[key] = origStats[key]
       batch.setStats(newStats)
-  #    batch.setStats()
+      # batch.setStats()
       batch.commit()
     return delta
+
+  ###
+    Updates user stats with new stats. Handles death, leveling up, etc
+    {stats} new stats
+    {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
+  ###
+  updateStats = (newStats, batch) ->
+    obj = batch.obj()
+
+    # if user is dead, dont do anything
+    return if obj.stats.lvl == 0
+
+    if newStats.hp?
+      # Game Over
+      if newStats.hp <= 0
+        obj.stats.lvl = 0 # signifies dead
+        obj.stats.hp = 0
+        return
+      else
+        obj.stats.hp = newStats.hp
+
+    if newStats.exp?
+      # level up & carry-over exp
+      tnl = model.get '_tnl'
+      silent = false
+      if newStats.exp >= tnl
+        silent = true
+        user.set('stats.exp', newStats.exp)
+        newStats.exp -= tnl
+        obj.stats.lvl++
+        obj.stats.hp = 50
+
+      obj.stats.exp = newStats.exp
+      user.pass(silent:true).set('stats.exp', obj.stats.exp) if silent
+
+      # Set flags when they unlock features
+      if !obj.flags.customizationsNotification and (obj.stats.exp > 10 or obj.stats.lvl > 1)
+        batch.set 'flags.customizationsNotification', true
+        obj.flags.customizationsNotification = true
+      if !obj.flags.itemsEnabled and obj.stats.lvl >= 2
+        # Set to object, then also send to browser right away to get model.on() subscription notification
+        batch.set 'flags.itemsEnabled', true
+        obj.flags.itemsEnabled = true
+      if !obj.flags.partyEnabled and obj.stats.lvl >= 3
+        batch.set 'flags.partyEnabled', true
+        obj.flags.partyEnabled = true
+      if !obj.flags.petsEnabled and obj.stats.lvl >= 4
+        batch.set 'flags.petsEnabled', true
+        obj.flags.petsEnabled = true
+
+    if newStats.gp?
+      #FIXME what was I doing here? I can't remember, gp isn't defined
+      gp = 0.0 if (!gp? or gp<0)
+      obj.stats.gp = newStats.gp
 
   ###
     At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
@@ -249,7 +223,7 @@ module.exports.Scoring = (model) ->
       lvl = 0 #iterator
       while lvl < (obj.stats.lvl-1)
         lvl++
-        expTally += (lvl*100)/5
+        expTally += algos.tnl(lvl)
       obj.history.exp.push  { date: today, value: expTally }
 
       # Set the new user specs, and animate HP loss
@@ -262,12 +236,11 @@ module.exports.Scoring = (model) ->
 
 
   return {
-    MODIFIER: MODIFIER
     score: score
     cron: cron
 
     # testing stuff
-    expModifier: expModifier
-    hpModifier: hpModifier
-    taskDeltaFormula: taskDeltaFormula
+    expModifier: algos.expModifier
+    hpModifier: algos.hpModifier
+    taskDeltaFormula: algos.taskDeltaFormula
   }

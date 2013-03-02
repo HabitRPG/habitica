@@ -221,6 +221,7 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
   commit: ->
     model._dontPersist = false
     # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
+    # pass true if we have levelled to supress xp notification
     user.set "update__", updates
     transactionInProgress = false
     updates = {}
