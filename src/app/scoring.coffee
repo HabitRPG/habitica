@@ -5,52 +5,11 @@ helpers = require './helpers'
 browser = require './browser'
 character = require './character'
 items = require './items'
+algos = require './algos'
 
 module.exports.Scoring = (model) ->
-
-  MODIFIER = .02 # each new level, armor, weapon add 2% modifier (this mechanism will change)
+  MODIFIER = algos.MODIFIER # each new level, armor, weapon add 2% modifier (this mechanism will change)
   user = model.at '_user'
-
-  ###
-    Calculates Exp & GP modification based on weapon & lvl
-    {value} task.value for gain
-    {modifiers} may manually pass in stats as {weapon, exp}. This is used for testing
-  ###
-  expModifier = (value, modifiers = {}) ->
-    weapon = modifiers.weapon || user.get('items.weapon')
-    lvl = modifiers.lvl || user.get('stats.lvl')
-    dmg = items.items.weapon[weapon].modifier # each new weapon increases exp gain
-    dmg += (lvl-1) * MODIFIER # same for lvls
-    modified = value + (value * dmg)
-    return modified
-
-  ###
-    Calculates HP-loss modification based on armor & lvl
-    {value} task.value which is hurting us
-    {modifiers} may manually pass in modifier as {armor, lvl}. This is used for testing
-  ###
-  hpModifier = (value, modifiers = {}) ->
-    armor = modifiers.armor || user.get('items.armor')
-    head = modifiers.head || user.get('items.head')
-    shield = modifiers.shield || user.get('items.shield')
-    lvl = modifiers.lvl || user.get('stats.lvl')
-    ac = items.items.armor[armor].modifier + items.items.head[head].modifier + items.items.shield[shield].modifier # each new armor decreases HP loss
-    ac += (lvl-1) * MODIFIER # same for lvls
-    modified = value - (value * ac)
-    return modified
-
-  ###
-    Calculates the next task.value based on direction
-    For negative values, use a line: something like y=-.1x+1
-    For positibe values, taper off with inverse log: y=.9^x
-    Would love to use inverse log for the whole thing, but after 13 fails it hits infinity. Revisit this formula later
-    {currentValue} the current value of the task, determines it's next value
-    {direction} 'up' or 'down'
-  ###
-  taskDeltaFormula = (currentValue, direction) ->
-    sign = if (direction == "up") then 1 else -1
-    delta = if (currentValue < 0) then (( -0.1 * currentValue + 1 ) * sign) else (( Math.pow(0.9,currentValue) ) * sign)
-    return delta
 
   ###
     Updates user stats with new stats. Handles death, leveling up, etc
@@ -75,12 +34,15 @@ module.exports.Scoring = (model) ->
     if newStats.exp?
       # level up & carry-over exp
       tnl = model.get '_tnl'
+      silent = false
       if newStats.exp >= tnl
+        silent = true
         newStats.exp -= tnl
         obj.stats.lvl++
         obj.stats.hp = 50
 
       obj.stats.exp = newStats.exp
+      user.pass(silent:true).set('stats.exp', obj.stats.exp) if silent
 
       # Set flags when they unlock features
       if !obj.flags.customizationsNotification and (obj.stats.exp > 10 or obj.stats.lvl > 1)
@@ -107,7 +69,6 @@ module.exports.Scoring = (model) ->
   # {times} # times to call score on this task (1 unless cron, usually)
   # {update} if we're running updates en-mass (eg, cron on server) pass in userObj
   score = (taskId, direction, times, batch, cron) ->
-
     commit = false
     unless batch?
       commit = true
@@ -136,17 +97,23 @@ module.exports.Scoring = (model) ->
         # Each iteration calculate the delta (nextDelta), which is then accumulated in delta
         # (aka, the total delta). This weirdness won't be necessary when calculating mathematically
         # rather than iteratively
-        nextDelta = taskDeltaFormula(value, direction)
+        nextDelta = algos.taskDeltaFormula(value, direction)
         value += nextDelta if adjustvalue
         delta += nextDelta
 
     addPoints = ->
-      modified = expModifier(delta)
+      level = user.get('stats.lvl')
+      weaponStrength = items.items.weapon[user.get('items.weapon')].strength
+      modified = algos.expModifier(delta,weaponStrength,level)
       exp += modified*10
       gp += delta
 
     subtractPoints = ->
-      modified = hpModifier(delta)
+      level = user.get('stats.lvl')
+      armorDefense = items.items.armor[user.get('items.armor')].defense
+      helmDefense = items.items.head[user.get('items.head')].defense
+      shieldDefense = items.items.shield[user.get('items.shield')].defense
+      modified = algos.hpModifier(delta,armorDefense,helmDefense,shieldDefense,level)
       hp += modified
 
     switch type
@@ -249,7 +216,7 @@ module.exports.Scoring = (model) ->
       lvl = 0 #iterator
       while lvl < (obj.stats.lvl-1)
         lvl++
-        expTally += (lvl*100)/5
+        expTally += algos.tnl(lvl)
       obj.history.exp.push  { date: today, value: expTally }
 
       # Set the new user specs, and animate HP loss
@@ -262,12 +229,11 @@ module.exports.Scoring = (model) ->
 
 
   return {
-    MODIFIER: MODIFIER
     score: score
     cron: cron
 
     # testing stuff
-    expModifier: expModifier
-    hpModifier: hpModifier
-    taskDeltaFormula: taskDeltaFormula
+    expModifier: algos.expModifier
+    hpModifier: algos.hpModifier
+    taskDeltaFormula: algos.taskDeltaFormula
   }

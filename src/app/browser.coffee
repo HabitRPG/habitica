@@ -1,11 +1,13 @@
 _ = require 'underscore'
 moment = require 'moment'
+#algos = require './algos'
 
 module.exports.restoreRefs = restoreRefs = (model) ->
   # tnl function
   model.fn '_tnl', '_user.stats.lvl', (lvl) ->
     # see https://github.com/lefnire/habitrpg/issues/4
     # also update in scoring.coffee. TODO create a function accessible in both locations
+    #TODO find a method of calling algos.tnl()
     10*Math.pow(lvl,2)+(lvl*10)+80
 
   #refLists
@@ -85,7 +87,9 @@ setupSortable = (model) ->
     # Note, have to setup helper function here and call it for each type later
     # due to variable binding of "type"
     setupSortable = (type) ->
-      $("ul.#{type}s").sortable
+      for key, value of type
+        parsedType = value
+      $("ul.#{parsedType}s").sortable
         dropOnEmpty: false
         cursor: "move"
         items: "li"
@@ -191,19 +195,21 @@ setupGrowlNotifications = (model) ->
   # Setup listeners which trigger notifications
   user.on 'set', 'stats.hp', (captures, args) ->
     num = captures - args
+    console.log("hp = " + num)
     rounded = Math.abs(num.toFixed(1))
     if num < 0
       statsNotification "<i class='icon-heart'></i> - #{rounded} HP", 'hp' # lost hp from purchase
     else if num > 0
       statsNotification "<i class='icon-heart'></i> + #{rounded} HP", 'hp' # gained hp from potion/level? 
   
-  user.on 'set', 'stats.exp', (captures, args) ->
-    num = captures - args
-    rounded = Math.abs(num.toFixed(1))
-    if num < 0
-      statsNotification "<i class='icon-star'></i> - #{rounded} XP", 'xp'
-    else if num > 0
-      statsNotification "<i class='icon-star'></i> + #{rounded} XP", 'xp'
+  user.on 'set', 'stats.exp', (captures, args, isLocal, silent) ->
+    if not silent
+      num = captures - args
+      rounded = Math.abs(num.toFixed(1))
+      if num < 0
+        statsNotification "<i class='icon-star'></i> - #{rounded} XP", 'xp'
+      else if num > 0
+        statsNotification "<i class='icon-star'></i> + #{rounded} XP", 'xp'
 
   user.on 'set', 'stats.gp', (captures, args) ->
     num = captures - args

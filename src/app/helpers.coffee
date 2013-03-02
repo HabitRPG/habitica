@@ -14,6 +14,9 @@ module.exports.viewHelpers = (view) ->
       
   view.fn "round", (num) ->
     Math.round num
+
+  view.fn "floor", (num) ->
+    Math.floor num
     
   view.fn "lt", (a, b) ->
     a < b
