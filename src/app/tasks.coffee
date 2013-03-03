@@ -177,3 +177,12 @@ module.exports.app = (appExports, model) ->
     # When they update their notes, re-establish tooltip & popover
     $('[rel=tooltip]').tooltip()
     $('[rel=popover]').popover()
+
+  appExports.tasksToggleAdvanced = (e, el) ->
+    $(el).next('.advanced').toggle()
+
+  appExports.tasksSetMultiplier = (e, el) ->
+    dataId = $(el).parent('[data-id]').attr('data-id')
+    #"_user.tasks.#{dataId}"
+    model.at(e.target).set 'multiplier', parseInt($(el).attr('data-multiplier'))
+    debugger
