@@ -105,11 +105,6 @@ setupSortable = (model) ->
 setupTooltips = (model) ->
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
-  # FIXME: this isn't very efficient, do model.on set for specific attrs for popover
-  model.on 'set', '*', ->
-    $('[rel=tooltip]').tooltip()
-    $('[rel=popover]').popover()
-
 
 setupTour = (model) ->
   tourSteps = [

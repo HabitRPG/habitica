@@ -172,3 +172,8 @@ module.exports.app = (appExports, model) ->
     direction = 'down' if direction == 'false/'
     task = model.at $(el).parents('li')[0]
     scoring.score(model, task.get('id'), direction)
+
+  appExports.tasksSaveAndClose = ->
+    # When they update their notes, re-establish tooltip & popover
+    $('[rel=tooltip]').tooltip()
+    $('[rel=popover]').popover()
