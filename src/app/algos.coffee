@@ -10,11 +10,11 @@ module.exports.tnl = (level) ->
   {weaponStrength) weapon strength 
   {level} current user level
 ###
-module.exports.expModifier = (value, weaponStrength, level) ->
-	levelModifier = (level-1) * MODIFIER
-	weaponModifier = weaponStrength / 100
-	strength = 1 + weaponModifier + levelModifier
-	return value * strength
+module.exports.expModifier = (value, weaponStrength, level, multiplier=1) ->
+  levelModifier = (level-1) * MODIFIER
+  weaponModifier = weaponStrength / 100
+  strength = 1 + weaponModifier + levelModifier
+  return value * strength * multiplier
 
 ###
   Calculates HP modification based on level and armor defence
@@ -23,17 +23,17 @@ module.exports.expModifier = (value, weaponStrength, level) ->
   {helmDefense} defense from helm 
   {level} current user level
 ###
-module.exports.hpModifier = (value, armorDefense, helmDefense, shieldDefense, level) ->
-	levelModifier = (level-1) * MODIFIER
-	armorModifier = (armorDefense + helmDefense + shieldDefense) / 100
-	defense = 1 - levelModifier + armorModifier
-	return value * defense
+module.exports.hpModifier = (value, armorDefense, helmDefense, shieldDefense, level, multiplier=1) ->
+  levelModifier = (level-1) * MODIFIER
+  armorModifier = (armorDefense + helmDefense + shieldDefense) / 100
+  defense = 1 - levelModifier + armorModifier
+  return value * defense * multiplier
 
 ###
   Future use
 ###
-module.exports.gpModifier = (value, modifier) ->
-	return value * modifier
+module.exports.gpModifier = (value, modifier, multiplier=1) ->
+  return value * modifier * multiplier
 
 ###
   Calculates the next task.value based on direction
