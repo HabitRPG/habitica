@@ -1,0 +1,88 @@
+.color-worst pre
+  background-color: rgb(230, 184, 175)
+.color-worse pre
+  background-color: rgb(244, 204, 204)
+.color-bad pre
+  background-color: rgb(252, 229, 205)
+.color-neutral pre
+  background-color: rgb(255, 242, 204)
+.color-good pre
+  background-color: rgb(217, 234, 211)
+.color-better pre
+  background-color: rgb(208, 224, 227)
+.color-best pre
+  background-color: rgb(201, 218, 248)
+.completed pre
+  background-color: rgb(217, 217, 217)
+  color: rgb(153, 153, 153)
+.reward pre
+  background-color: white
+
+label.checkbox.inline{
+    width: 40px
+}
+
+.todos
+  .nav-pills > .active > a, .nav-pills > .active > a:hover
+    color: #005580
+    background-color: #DEE5F2
+
+.dailys
+  .repeat-days > .btn:not(.active)
+    background-color: #aaa;
+    background-image: -moz-linear-gradient(top, #eee, #aaa);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eee), to(#aaa));
+    background-image: -webkit-linear-gradient(top, #eee, #aaa);
+    background-image: -o-linear-gradient(top, #eee, #aaa);
+    background-image: linear-gradient(to bottom, #eee, #aaa);
+    background-repeat: repeat-x;
+
+.context-enabled
+  .display-context-dependant,
+  .task-list li
+    display: none
+
+  &.context-completed
+    .show-for-completed, .completed
+      display: block
+
+  &.context-uncompleted
+    .show-for-uncompleted, .uncompleted
+      display: block
+
+.help-icon
+  float:right;
+
+.task:hover
+  cursor: move
+
+li:hover .task-meta-controls .hover-show
+  display: inline
+
+.task
+  list-style:none
+
+  pre
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+    font-size: 13px
+    line-height: 18px
+    color: black
+    word-break: normal
+
+  .task-meta-controls
+    float:right
+    i
+      margin-left:5px
+
+  .task-controls,.task-text
+    display:inline
+    margin-right:10px
+
+  .task-meta-controls .hover-show
+    display: none;
+
+.vote-up, .vote-down
+    text-decoration:none;
+
+.new-task-form
+  margin-bottom:5px;

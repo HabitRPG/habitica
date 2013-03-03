@@ -1,3 +1,5 @@
+derbyAuth = require('derby-auth/store')
+
 ###
 Setup read / write access
 @param store
@@ -13,39 +15,50 @@ module.exports.customAccessControl = (store) ->
 ###
 userAccess = (store) ->
 
-  store.readPathAccess "users.*", -> # captures, next) ->
-    next = arguments[arguments.length - 1]
-    return next(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
-    uid = arguments[0]
-    next (uid is @session.userId) or @session.req?._isServer
+  store.readPathAccess "users.*", -> # captures, accept, err ->
+    accept = arguments[arguments.length-2]
+    err = arguments[arguments.length - 1]
+#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
+    return accept(false) if derbyAuth.bustedSession(@)
 
-  store.writeAccess "*", "users.*", -> # captures, value, next) ->
-    next = arguments[arguments.length-1]
-    return next(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
+    accept = arguments[arguments.length - 2]
+    uid = arguments[0]
+    accept (uid is @session.userId) or derbyAuth.isServer(@)
+
+  store.writeAccess "*", "users.*", -> # captures, value, accept, err ->
+    accept = arguments[arguments.length-2]
+    err = arguments[arguments.length - 1]
+#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
+    return accept(false) if derbyAuth.bustedSession(@)
+
     captures = arguments[0].split('.')
     uid = captures.shift()
     attrPath = captures.join('.') # new array shifted left, after shift() was run
 
     # public access to users.*.party.invitation (TODO, lock down a bit more)
     if (attrPath == 'party.invitation')
-      return next(true)
+      return accept(true)
 
     # Same session (user.id = this.session.userId)
-    if (uid is @session.userId) or @session.req?._isServer
-      return next(true)
+    if (uid is @session.userId) or derbyAuth.isServer(@)
+      return accept(true)
 
-    next(false)
+    accept(false)
 
-  store.writeAccess "*", "users.*.balance", (id, newBalance, next) ->
-    return next(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
-    oldBalance = @session.req._racerModel?.get("users.#{id}.balance") || 0
+  store.writeAccess "*", "users.*.balance", (id, newBalance, accept, err) ->
+#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
+    return accept(false) if derbyAuth.bustedSession(@)
+
+    oldBalance = @session.req?._racerModel?.get("users.#{id}.balance") || 0
     purchasingSomethingOnClient = newBalance < oldBalance
-    next(purchasingSomethingOnClient or @session.req?._isServer)
+    accept(purchasingSomethingOnClient or @session.req?._isServer)
 
-  store.writeAccess "*", "users.*.flags.ads", -> # captures, value, next ->
-    next = arguments[arguments.length - 1]
-    return next(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
-    next(@session.req?._isServer)
+  store.writeAccess "*", "users.*.flags.ads", -> # captures, value, accept, err ->
+    err = arguments[arguments.length - 1]
+#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
+    return accept(false) if derbyAuth.bustedSession(@)
+
+    accept(derbyAuth.isServer(@))
 
 
 ###
@@ -53,14 +66,14 @@ userAccess = (store) ->
   Get user with API token
 ###
 REST = (store) ->
-  store.query.expose "users", "withIdAndToken", (id, apiToken) ->
-    @where("id").equals(id)
-      .where('apiToken').equals(apiToken)
-      .limit(1)
+  store.query.expose "users", "withIdAndToken", (uid, token) ->
+    @byId(uid)
+      .where('apiToken').equals(token)
+      .findOne()
 
-  store.queryAccess "users", "withIdAndToken", (id, apiToken, next) ->
-    return next(true) unless @session?.userId # https://github.com/codeparty/racer/issues/37
-    next(true) # only user has id & token
+  store.queryAccess "users", "withIdAndToken", (uid, token, accept, err) ->
+    return accept(true) if uid && token
+    accept(false) # only user has id & token
 
 
 ###
@@ -72,23 +85,30 @@ partySystem = (store) ->
       .only('stats',
             'items',
             'party',
-            'preferences.gender',
-            'preferences.armorSet',
+            'preferences',
             'auth.local.username',
             'auth.facebook.displayName')
 
-  store.queryAccess "users", "party", (ids, next) ->
-    next(true) # no harm in public user stats
+  store.queryAccess "users", "party", (ids, accept, err) ->
+#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
+    return accept(false) if derbyAuth.bustedSession(@)
+    accept(true) # no harm in public user stats
 
   store.query.expose "parties", "withId", (id) ->
     @where("id").equals(id)
-  store.queryAccess "parties", "withId", (id, next) ->
-    next(true)
+      .findOne()
+  store.queryAccess "parties", "withId", (id, accept, err) ->
+#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
+    return accept(false) if derbyAuth.bustedSession(@)
+    accept(true)
 
   store.readPathAccess "parties.*", ->
-    next = arguments[arguments.length-1]
-    next(true)
+    accept = arguments[arguments.length-2]
+    accept(true)
 
   store.writeAccess "*", "parties.*", ->
-    next = arguments[arguments.length-1]
-    next(true)
+    accept = arguments[arguments.length-2]
+    err = arguments[arguments.length - 1]
+#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
+    return accept(false) if derbyAuth.bustedSession(@)
+    accept(true)

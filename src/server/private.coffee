@@ -1,5 +1,5 @@
 _ = require 'underscore'
-schema = require "../app/schema"
+character = require "../app/character"
 
 module.exports.middleware = (req, res, next) ->
   model = req.getModel()
@@ -12,20 +12,20 @@ module.exports.app = (appExports, model) ->
     token = (res) ->
       console.log(res);
       $.ajax({
-             type:"POST",
-             url:"/charge",
-             data:res
-             }).success ->
-                          window.location.href = "/"
-        .error (err) ->
-                 alert err.responseText
+         type: "POST",
+         url: "/charge",
+         data: res
+      }).success ->
+        window.location.href = "/"
+      .error (err) ->
+        alert err.responseText
 
     StripeCheckout.open
       key: model.get('_stripePubKey')
       address: false
       amount: 500
       name: "Checkout"
-      description: "Removes ads and grants 20 additional tokens."
+      description: "Purchase 20 Tokens."
       panelLabel: "Checkout"
       token: token
 
@@ -33,7 +33,7 @@ module.exports.app = (appExports, model) ->
     Buy Reroll Button
   ###
   appExports.buyReroll = (e, el, next) ->
-    batch = new schema.BatchUpdate(model)
+    batch = new character.BatchUpdate(model)
     obj = model.get('_user')
     batch.set 'balance', obj.balance-1
     _.each obj.tasks, (task) -> batch.set("tasks.#{task.id}.value", 0) unless task.type == 'reward'
@@ -50,7 +50,7 @@ module.exports.routes = (expressApp) ->
         return res.send(500, err.response.error.message)
       else
         model = req.getModel()
-        userId = model.session.userId
+        userId = model.get('_userId') #or model.session.userId # see http://goo.gl/TPYIt
         req._isServer = true
         model.fetch "users.#{userId}", (err, user) ->
           model.ref '_user', "users.#{userId}"

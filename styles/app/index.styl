@@ -1,10 +1,22 @@
 @import "nib/vendor";
-@import "../bootstrap-responsive";
+@import "./female_sprites.styl";
+@import "./male_sprites.styl";
+@import "./shop_sprites.styl";
+@import "./tasks.styl";
+@import "./avatar.styl";
+@import "./customizer.styl";
+@import "./items.styl";
+@import "./alerts.styl";
+
+@import "../../public/vendor/bootstrap-datepicker/css/datepicker.css";
 
 html,body,p,h1,ul,li,table,tr,th,td
   margin: 0
   padding: 0
-  
+
+/* Header
+-------------------------------------------------- */
+
 #head
   background: #ddd
   background: -webkit-gradient(linear,0 0,0 100%,from(#e7e7e7),to(#d0d0d0))
@@ -18,159 +30,68 @@ html,body,p,h1,ul,li,table,tr,th,td
   padding: 12px 16px
   white-space: nowrap
   position:fixed
-  width: 100%;
+  width: 100%
+  box-sizing: border-box
+  z-index: 1000
+
+@media (max-width: 480px) {
+  #head {
+    position: static;
+  }
+}
 
 #head .pull-right
-  margin-right: 2%
+  margin-right: 0
   margin-left: 1%
-
-.color-worst pre
-  background-color: rgb(230, 184, 175)
-.color-worse pre
-  background-color: rgb(244, 204, 204)
-.color-bad pre
-  background-color: rgb(252, 229, 205)
-.color-neutral pre
-  background-color: rgb(255, 242, 204)
-.color-good pre
-  background-color: rgb(217, 234, 211)
-.color-better pre
-  background-color: rgb(208, 224, 227)
-.color-best pre
-  background-color: rgb(201, 218, 248)
-.completed pre
-  background-color: rgb(217, 217, 217)
-  color: rgb(153, 153, 153)
-.reward pre
-  background-color: white
-
-label.checkbox.inline{
-  width: 40px
-}
-  
-.todos
-  .nav-pills > .active > a, .nav-pills > .active > a:hover
-    color: #005580
-    background-color: #DEE5F2
-
-.dailys
-  .repeat-days > .btn:not(.active)
-    background-color: #aaa;
-    background-image: -moz-linear-gradient(top, #eee, #aaa);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eee), to(#aaa));
-    background-image: -webkit-linear-gradient(top, #eee, #aaa);
-    background-image: -o-linear-gradient(top, #eee, #aaa);
-    background-image: linear-gradient(to bottom, #eee, #aaa);
-    background-repeat: repeat-x;
-
-.help-icon
-  float:right;
-
-.task:hover
-  cursor: move
-  
-li:hover .task-meta-controls .hover-show
-  display: inline  
-
-.task
-  list-style:none
-
-  pre
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
-    font-size: 13px
-    line-height: 18px
-    color: black
-    word-break: normal
-
-  .task-meta-controls
-    float:right
-    i
-      margin-left:5px    
-    
-  .task-controls,.task-text
-    display:inline
-    margin-right:10px
-
-  .task-meta-controls .hover-show
-    display: none;
-
-  .vote-up, .vote-down
-    text-decoration:none;
-
-  .buy-link, .item-buy-link
-    background-color: #DEE5F2
-    padding: 2px
-    margin-right: 10px
-    border-radius: 5px
-  
-    img
-      height:20px  
-      
-  .item-buy-link
-    background-color: #ccffcc
-
-.new-task-form
-  margin-bottom:5px;
-  
-#character
-
-  float:none
-  margin:0px auto
-
-  td
-    padding-right: 2em
-
-  td.avatar
-    vertical-align: top
-    text-align: center
-    
-    .avatar-sprites
-      position: relative
-        
-      .weapon
-        position: absolute
-        z-index: 200
-        left: -13px
-        bottom: 7px
-      .weapon-0
-        left: -7px
-      .weapon-5
-        left: -16px
-      .weapon-6
-        left:-20px
-  td#bars
-    padding-top: 10px
-
-#bars 
-  .progress
-    position: relative
-    height: 25px
-  .bar
-    height: 25px 
-    border: 1px solid black
-  .progress-text
-    position: absolute
-    right: 5px
-    top: 3px 
-    color: black
-
-/* ----- Items, Weapons, Armor -----*/
-.item-store-popover img
-  float:left
-  padding-right:7px;
-
-.item .task-text img
-  max-height: 16px
-
-#dead-modal img
-  float:left
-  padding-right:10px
-
-#reset-modal
-  z-index:1500
 
 .modal
   whitespace:normal
+
+.dropdown-menu
+  right: 0
+  left: auto
+  
+.char-status
+  // border: 1px dotted grey
+
+.main-avatar-wrap
+  margin: 0 5px 0 0
+  float: left
+  
+.party-avatar-wrap
+  margin: 0
+  float: right
+
+.progress-bars
+  padding-top: 15px
+
+.progress
+  position: relative
+  height: 25px
+.bar
+  height: 25px
+  border: 1px solid black
+.progress-text
+  position: absolute
+  right: 5px
+  top: 3px
+  color: black
+
+@media (max-width: 600px) {
+  .char-status {
+    padding-top: 30px
+  }
+  .main-avatar-wrap {
+    border-right: 1px solid grey;
+    padding-right: 20px
+  }
+  .party-avatar-wrap {
+    float: left;
+  }
+  .progress-bars {
+    clear: both
+  }
+}
 
 /* Footer
 -------------------------------------------------- */
@@ -208,9 +129,17 @@ li:hover .task-meta-controls .hover-show
 #wrap {min-height: 100%; margin-top:130px; z-index:-1}                                                                                                                                                                                                                    
 #main                                                                                                                                                                                                                                        
   /*overflow:auto;*/                                                                                                                                                                                                                             
-  padding-bottom: 250px; /* don't know why this works, sticky footers are weird */                                                                                                                                                                             
+  padding-bottom: 250px; /* don't know why this works, sticky footers are weird */
 
-/* ----- Adaptation of GH's social-count for Tokens -----*/ 
+@media (max-width: 480px) {
+  #wrap {
+    margin-top: 0
+  }
+}
+
+/* Tokens
+-------------------------------------------------- */
+/* Adaptation of GH's social-count for Tokens */
   
 .token-cost
   border: 1px solid #D4D4D4;
@@ -249,3 +178,24 @@ li:hover .task-meta-controls .hover-show
   margin-right: -1px;
   top: 50%;
   margin-top: -6px;
+
+/* Misc
+-------------------------------------------------- */
+
+.notification-character
+  float:left
+
+.notification-message
+  display: inline-block;
+  padding-right: 1em
+  line-height: 3
+  
+.notification-action
+  vertical-align: baseline
+#reset-modal
+  z-index:1500
+#notification-area
+  position: fixed;
+  top: 0;
+  right: 0px;
+  z-index: 1001;

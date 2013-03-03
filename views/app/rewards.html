@@ -1,0 +1,65 @@
+<rewardsTab:>
+    <ul class='rewards'>
+        {#each _rewardList as :task}<app:task />{/}
+    </ul>
+
+
+    {#if _user.flags.itemsEnabled}
+    <ul class='items'>
+        {#with _view.items.weapon as :item}<app:item />{/}
+        {#with _view.items.armor as :item}<app:item />{/}
+        {#with _view.items.head as :item}<app:item />{/}
+        {#with _view.items.shield as :item}<app:item />{/}
+        {#with _view.items.potion as :item}<app:item />{/}
+        {#with _view.items.reroll as :item}<app:item reroll=true />{/}
+    </ul>
+    {/}
+
+<pet:>
+    <div class="span3 shop-pet" rel=tooltip title="{.text} - {.value} Tokens">
+        <div style='position:relative'>
+            {#if _user.items.pets[.name]}<i class='icon-ok shop-pet-owned-check'></i>{/}
+            <img x-bind="click:selectPet" data-pet='{.name}' src='img/sprites/{.icon}'/>
+        </div>
+    </div>
+
+
+<userTokens:>
+    <div class="pull-right">
+        <div class="input-append">
+            <span class="uneditable-input" style="width:auto;">{tokens(_user.balance)}</span>
+            <span class="add-on">Tokens</span>
+        </div>
+    </div>
+    <!--<span class="well pull-right">Tokens: {tokens(_user.balance)}</span>-->
+
+
+
+<item:>
+    {#unless :item.hide}
+    <li class="task reward item">
+    <pre>
+      <div class="task-meta-controls">
+          <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:item.notes}" data-original-title="{:item.text}" class='task-notes'><i class="icon-comment"></i></span>
+      </div>
+      <div class="task-controls">
+          {#if @reroll}
+          <a href="#" data-toggle="modal" data-target="#reroll-modal" class="item-buy-link" style='cursor:pointer'><i class=icon-retweet></i></a>
+          {else}
+          <a x-bind=click:buyItem class="item-buy-link" data-type={:item.type} data-value={:item.value} data-index={:item.index}>{:item.value}<img src="/img/coin_single_gold.png"/></a>
+          {/}
+      </div>
+      <div class="task-text">
+          {#if :item.icon}
+          <img src="/img/sprites/{:item.icon}" /> {:item.text}
+          {else}
+          <table class='shop-table'><tr>
+              <td><div class="shop_{:item.classes} shop-sprite"></div></td>
+              <td>{:item.text}</td>
+          </tr></table>
+          {/}
+
+      </div>
+    </pre>
+    </li>
+    {/}

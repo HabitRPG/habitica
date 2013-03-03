@@ -5,11 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Le styles -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
-        <link href="css/docs.css" rel="stylesheet">
+        <link href="/vendor/bootstrap/docs/assets/css/bootstrap.css" rel="stylesheet">
+        <link href="/vendor/bootstrap/docs/assets/css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="/vendor/bootstrap/docs/assets/css/docs.css" rel="stylesheet">
 
-        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="vendor/jquery-ui/jquery-1.9.1.js"></script>
         <script type="text/javascript">
             $.getScript("https://s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
         </script>
@@ -25,6 +25,12 @@
                 background-repeat: repeat-x;
                 border-color: #252525;
                 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
+                background:none;
+                color:black;
+
+            }
+            body {
+                padding-top:0px;
             }
         </style>
     </head>
@@ -32,9 +38,8 @@
     <body>
         <div class='jumbotron masthead'>
             <div class='container'>            
-                <h1>HabitRPG</h1>
-                <p>A habit tracker app which treats your goals like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.</p>
-                <a href="http://kck.st/XoA3Yg" class='btn btn-success btn-large'>Kickstarter</a>
+                <h1><img src="/img/logo/habitrpg_pixel.png" alt="HabitRPG"/></h1>
+                <p>Habit tracking which treats your goals like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.</p>
                 <a href="/?play=1" class='btn btn-primary btn-small'>Play</a>
             </div>
         </div>
@@ -45,15 +50,15 @@
                         <table>
                             <tr>
                                 <td><!-- Github -->
-                                    <iframe src="/github-btns/github-btn.html?user=lefnire&repo=habitrpg&type=watch&count=true"
+                                    <iframe src="/vendor/github-buttons/github-btn.html?user=lefnire&repo=habitrpg&type=watch&count=true"
                                             allowtransparency="true" frameborder="0" scrolling="0" width="85px" height="20px"></iframe>
                                 </td>
                                 <td>
                                     <div class="addthis_toolbox addthis_default_style "
-                                         addthis:url="http://habitrpg.com"
+                                         addthis:url="https://habitrpg.com"
                                          addthis:title="HabitRPG: Role Playing Game for Self Improvement">
                                         <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-                                        <a class="addthis_button_tweet" tw:via="lefnire"></a>
+                                        <a class="addthis_button_tweet" tw:via="habitrpg"></a>
                                     </div>
                                 </td>
                                 <td><a href="http://habitrpg.tumblr.com/">Blog</a>&nbsp;-&nbsp;</td>

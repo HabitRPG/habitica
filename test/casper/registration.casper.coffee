@@ -1,35 +1,34 @@
-helper = new require('./test/casper/helpers')()
-casper = helper.casper
-utils = helper.utils
-url = helper.url
+helpers = new require('./test/casper/helpers')()
+casper = helpers.casper
+utils = helpers.utils
+url = helpers.playUrl
 
-casper.start url + '/?play=1'
+casper.start url
 
 # ---------- Register ------------
-user = undefined
-casper.then -> helper.register()
-casper.then -> user = helper.getUser()
+registeredUser = undefined
+casper.then -> helpers.register()
+casper.then ->
+  helpers.getModelDelayed (model) ->
+    registeredUser = model
+
 casper.then -> casper.reload()
 casper.then ->
-  nowUser = helper.getUser()
-  casper.then ->
-    casper.test.assertEqual user.id, nowUser.id, 'user registered and maintained session'
+  helpers.getModelDelayed (nowModel) ->
+    casper.test.assertEqual registeredUser._userId, nowModel._userId, 'user registered and maintained session'
 
 # ---------- Log Out ------------
-casper.thenOpen helper.url + '/logout'
-casper.thenOpen helper.url + '/?play=1'
+casper.thenOpen helpers.baseUrl + '/logout'
+casper.thenOpen helpers.playUrl
 casper.then ->
-  nowUser = helper.getUser()
-  casper.then ->
-    casper.test.assertNotEquals user.id, nowUser.id, 'user logged out'
+  helpers.getModelDelayed (nowModel) ->
+    casper.test.assertNotEquals registeredUser._userId, nowModel._userId, 'user logged out'
 
 # ---------- Login ------------
-casper.then -> helper.login()
-casper.then -> utils.dump casper.debugHTML '#derby-auth-login'
+casper.then -> helpers.login()
 casper.then ->
-  nowUser = helper.getUser()
-  casper.then ->
-    casper.test.assertEqual user.id, nowUser.id, 'user logged in'
+  helpers.getModelDelayed (nowModel) ->
+    casper.test.assertEqual registeredUser._userId, nowModel._userId, 'user logged out'
 
 # ---------- Run ------------
 casper.run ->
