@@ -53,9 +53,10 @@ userAccess = (store) ->
 
     oldBalance = @session.req?._racerModel?.get("users.#{id}.balance") || 0
     purchasingSomethingOnClient = newBalance < oldBalance
-    accept(purchasingSomethingOnClient or @session.req?._isServer)
+    accept(purchasingSomethingOnClient or derbyAuth.isServer(@))
 
   store.writeAccess "*", "users.*.flags.ads", -> # captures, value, accept, err ->
+    accept = arguments[arguments.length - 2]
     err = arguments[arguments.length - 1]
 #    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
     return accept(false) if derbyAuth.bustedSession(@)
