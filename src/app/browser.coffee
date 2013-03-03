@@ -2,6 +2,7 @@ _ = require 'underscore'
 moment = require 'moment'
 #algos = require './algos'
 
+
 module.exports.restoreRefs = restoreRefs = (model) ->
   # tnl function
   model.fn '_tnl', '_user.stats.lvl', (lvl) ->
@@ -22,13 +23,13 @@ module.exports.resetDom = (model) ->
 
 module.exports.app = (appExports, model) ->
   reconstructPage model
+  setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
 
 reconstructPage = (model) ->
   loadJavaScripts(model)
   setupSortable(model)
   setupTooltips(model)
   setupTour(model)
-  setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
   $('.datepicker').datepicker({autoclose:true, todayBtn:true})
   .on 'changeDate', (ev) ->
     #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
