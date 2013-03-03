@@ -4,3 +4,11 @@
             {#each _flash.error as :error}<li>{:error}</li>{/}
         </ul>
     {/}
+
+    {#if equal(_user.flags.algosNotification,'show')}
+        <div class='alert alert-success'>
+            <a target="_blank" x-bind="click:closeAlgosNotification" class=pull-right>[x]</a>
+            <p>New features! Custom day start, new and better algorithms, authentication enhancements. See <a href="http://habitrpg.tumblr.com/post/44468869138/custom-day-start-better-algorithms-auth-enhancements">details here.</a>
+            &nbsp;"Hey, I had more Exp before this roll-out!" <a href="#restore-modal" data-toggle=modal>Restore your Exp here.</a></p>
+        </div>
+    {/}

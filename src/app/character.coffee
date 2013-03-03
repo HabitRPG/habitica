@@ -57,8 +57,8 @@ module.exports.app = (appExports, model) ->
     batch.commit()
     browser.resetDom(model)
 
-  appExports.closeCelebrationNofitication = (e, el) ->
-    user.set('flags.celebrationEvent', 'hide')
+  appExports.closeAlgosNotification = (e, el) ->
+    user.set('flags.algosNotification', 'hide')
 
   appExports.customizeGender = (e, el) ->
     user.set 'preferences.gender', $(el).attr('data-value')
