@@ -1,13 +1,14 @@
 {expect} = require 'derby/node_modules/racer/test/util'
 {BrowserModel: Model} = require 'derby/node_modules/racer/test/util/model'
 derby = require 'derby'
-clone = require 'clone'
+lodash = require 'lodash'
 _ = require 'underscore'
 moment = require 'moment'
 
 # Custom modules
 scoring = require '../src/app/scoring'
-schema = require '../src/app/schema'
+schema = require '../src/app/character'
+helpers = require '../src/app/helpers'
 
 ###### Helpers & Variables ######
 
@@ -19,8 +20,8 @@ taskPath = null
 # Otherwise, using model.get(path) will give the same object before as after
 pathSnapshots = (paths) ->
   if _.isString(paths)
-    return clone(model.get(paths))
-  _.map paths, (path) -> clone(model.get(path))
+    return lodash.cloneDeep(model.get(paths))
+  _.map paths, (path) -> lodash.cloneDeep(model.get(path))
 statsTask = -> pathSnapshots(['_user.stats', taskPath]) # quick snapshot of user.stats & task
 
 cleanUserObj = ->
@@ -66,6 +67,18 @@ modificationsLookup = (direction, options = {}) ->
   return {user:userObj, value:value}
 
 ###### Specs ######
+
+describe 'Cron', ->
+  it 'calculates day differences with dayStart properly', ->
+    dayStart = 4
+    yesterday = moment().subtract('d', 1).add('h', dayStart)
+    now = moment().startOf('day').add('h', dayStart-1) #today
+    console.log {yesterday: yesterday.format('MM/DD HH:00'), now: now.format('MM/DD HH:00')}
+    console.log {diff: Math.abs(moment(yesterday).diff(moment(now), 'days'))}
+    expect(helpers.daysBetween(yesterday, now, dayStart)).to.eql 0
+    now = moment().startOf('day').add('h', dayStart)
+    console.log {now: now.format('MM/DD HH:00')}
+    expect(helpers.daysBetween(yesterday, now, dayStart)).to.eql 1
 
 describe 'User', ->
   model = null

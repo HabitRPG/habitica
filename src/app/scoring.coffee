@@ -180,7 +180,7 @@ updateStats = (model, newStats, batch) ->
 cron = (model) ->
   user = model.at '_user'
   today = +new Date
-  daysPassed = helpers.daysBetween(today, user.get('lastCron'))
+  daysPassed = helpers.daysBetween(user.get('lastCron'), today, user.get('preferences.dayStart'))
   if daysPassed > 0
     batch = new character.BatchUpdate(model)
     batch.startTransaction()
