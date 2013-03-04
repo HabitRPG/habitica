@@ -201,12 +201,12 @@ module.exports.resetDom = (model) ->
 
 module.exports.app = (appExports, model, app) ->
   loadJavaScripts(model)
+  setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
 
   app.on 'render', (ctx) ->
     #restoreRefs(model)
     setupSortable(model)
     setupTooltips(model)
-    setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
     #setupTour(model)
     $('.datepicker').datepicker({autoclose:true, todayBtn:true})
       .on 'changeDate', (ev) ->
