@@ -15,9 +15,9 @@ module.exports.view = (view) ->
       classes += " uncompleted"
 
     switch
-      when value<-8 then classes += ' color-worst'
-      when value>=-8 and value<-5 then classes += ' color-worse'
-      when value>=-5 and value<-1 then classes += ' color-bad'
+      when value<-20 then classes += ' color-worst'
+      when value>=-20 and value<-10 then classes += ' color-worse'
+      when value>=-10 and value<-1 then classes += ' color-bad'
       when value>=-1 and value<1 then classes += ' color-neutral'
       when value>=1 and value<5 then classes += ' color-good'
       when value>=5 and value<10 then classes += ' color-better'
