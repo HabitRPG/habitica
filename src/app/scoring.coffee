@@ -28,6 +28,7 @@ score = (model, taskId, direction, times, batch, cron) ->
   taskPath = "tasks.#{taskId}"
   taskObj = obj.tasks[taskId]
   {type, value} = taskObj
+  priority = taskObj.priority or '!'
 
   # If they're trying to purhcase a too-expensive reward, confirm they want to take a hit for it
   if taskObj.value > obj.stats.gp and taskObj.type is 'reward'
@@ -51,16 +52,16 @@ score = (model, taskId, direction, times, batch, cron) ->
   addPoints = ->
     level = user.get('stats.lvl')
     weaponStrength = items.items.weapon[user.get('items.weapon')].strength
-    modified = algos.expModifier(delta,weaponStrength,level)
+    modified = algos.expModifier(delta,weaponStrength,level, priority)
     exp += modified*10
-    gp += delta
+    gp += algos.gpModifier(delta, 1, priority)
 
   subtractPoints = ->
     level = user.get('stats.lvl')
     armorDefense = items.items.armor[user.get('items.armor')].defense
     helmDefense = items.items.head[user.get('items.head')].defense
     shieldDefense = items.items.shield[user.get('items.shield')].defense
-    modified = algos.hpModifier(delta,armorDefense,helmDefense,shieldDefense,level)
+    modified = algos.hpModifier(delta,armorDefense,helmDefense,shieldDefense,level, priority)
     hp += modified
 
   switch type
