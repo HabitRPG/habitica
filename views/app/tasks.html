@@ -217,10 +217,10 @@
                 <hr/>
                 <div>
                     <div class="control-group btn-group priority-multiplier" data-id="{{:task.id}}">
-                        <label>Multiplier <a href="https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17" target="_blank"><i class='icon-question-sign'></i></a></label>
-                        <button type="button" class="btn btn-info {#if equal(:task.multiplier,1)}active{/}{#unless :task.multiplier}active{/}" data-multiplier='1' x-bind=click:tasksSetMultiplier>1</button>
-                        <button type="button" class="btn btn-info {#if equal(:task.multiplier,2)}active{/}" data-multiplier='2' x-bind=click:tasksSetMultiplier>2</button>
-                        <button type="button" class="btn btn-info {#if equal(:task.multiplier,3)}active{/}" data-multiplier='3' x-bind=click:tasksSetMultiplier>3</button>
+                        <label>Priority <a href="https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17" target="_blank"><i class='icon-question-sign'></i></a></label>
+                        <button type="button" class="btn btn-info {#if equal(:task.priority,'!')}active{/}{#unless :task.priority}active{/}" data-priority='!' x-bind=click:tasksSetPriority>!</button>
+                        <button type="button" class="btn btn-info {#if equal(:task.priority,'!!')}active{/}" data-priority='!!' x-bind=click:tasksSetPriority>!!</button>
+                        <button type="button" class="btn btn-info {#if equal(:task.priority,'!!!')}active{/}" data-priority='!!!' x-bind=click:tasksSetPriority>!!!</button>
                     </div>
                 </div>
             {/}

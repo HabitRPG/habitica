@@ -178,7 +178,7 @@ module.exports.app = (appExports, model) ->
     $('[rel=tooltip]').tooltip()
     $('[rel=popover]').popover()
 
-  appExports.tasksSetMultiplier = (e, el) ->
+  appExports.tasksSetPriority = (e, el) ->
     dataId = $(el).parent('[data-id]').attr('data-id')
     #"_user.tasks.#{dataId}"
-    model.at(e.target).set 'multiplier', parseInt($(el).attr('data-multiplier'))
+    model.at(e.target).set 'priority', $(el).attr('data-priority')

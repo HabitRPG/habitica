@@ -63,8 +63,8 @@ module.exports.app = (appExports, model) ->
   appExports.closeOnliesNotification = (e, el) ->
     user.set('flags.onliesNotification', 'hide')
 
-  appExports.closeMultiplierNotification = (e, el) ->
-    user.set('flags.multiplierNotification', 'hide')
+  appExports.closePriorityNotification = (e, el) ->
+    user.set('flags.priorityNotification', 'hide')
 
   appExports.customizeGender = (e, el) ->
     user.set 'preferences.gender', $(el).attr('data-value')

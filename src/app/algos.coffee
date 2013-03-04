@@ -1,6 +1,13 @@
 
 MODIFIER = .02
 
+priorityValue = (priority='!') ->
+  switch priority
+    when '!' then 1
+    when '!!' then 1.5
+    when '!!!' then 2
+    else 1
+
 module.exports.tnl = (level) ->
 	return (Math.pow(level,2)*10)+(level*10)+80
 
@@ -9,13 +16,13 @@ module.exports.tnl = (level) ->
   {value} task.value for exp gain
   {weaponStrength) weapon strength 
   {level} current user level
-  {multiplier} user-defined priority multiplier
+  {priority} user-defined priority multiplier
 ###
-module.exports.expModifier = (value, weaponStrength, level, multiplier=1) ->
+module.exports.expModifier = (value, weaponStrength, level, priority='!') ->
   levelModifier = (level-1) * MODIFIER
   weaponModifier = weaponStrength / 100
   strength = 1 + weaponModifier + levelModifier
-  return value * strength * multiplier
+  return value * strength * priorityValue(priority)
 
 ###
   Calculates HP modification based on level and armor defence
@@ -23,20 +30,20 @@ module.exports.expModifier = (value, weaponStrength, level, multiplier=1) ->
   {armorDefense} defense from armor
   {helmDefense} defense from helm 
   {level} current user level
-  {multiplier} user-defined priority multiplier
+  {priority} user-defined priority multiplier
 ###
-module.exports.hpModifier = (value, armorDefense, helmDefense, shieldDefense, level, multiplier=1) ->
+module.exports.hpModifier = (value, armorDefense, helmDefense, shieldDefense, level, priority='!') ->
   levelModifier = (level-1) * MODIFIER
   armorModifier = (armorDefense + helmDefense + shieldDefense) / 100
   defense = 1 - levelModifier + armorModifier
-  return value * defense * multiplier
+  return value * defense * priorityValue(priority)
 
 ###
   Future use
-  {multiplier} user-defined priority multiplier
+  {priority} user-defined priority multiplier
 ###
-module.exports.gpModifier = (value, modifier, multiplier=1) ->
-  return value * modifier * multiplier
+module.exports.gpModifier = (value, modifier, priority='!') ->
+  return value * modifier * priorityValue(priority)
 
 ###
   Calculates the next task.value based on direction
