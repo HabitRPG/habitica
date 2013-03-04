@@ -3,7 +3,7 @@ moment = require 'moment'
 #algos = require './algos'
 
 
-module.exports.restoreRefs = restoreRefs = (model) ->
+restoreRefs = module.exports.restoreRefs = (model) ->
   # tnl function
   model.fn '_tnl', '_user.stats.lvl', (lvl) ->
     # see https://github.com/lefnire/habitrpg/issues/4
@@ -14,27 +14,6 @@ module.exports.restoreRefs = restoreRefs = (model) ->
   #refLists
   _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-
-module.exports.resetDom = (model) ->
-  window.DERBY.app.dom.clear()
-  restoreRefs(model)
-  window.DERBY.app.view.render(model)
-  reconstructPage model
-
-module.exports.app = (appExports, model) ->
-  reconstructPage model
-  setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
-
-reconstructPage = (model) ->
-  loadJavaScripts(model)
-  setupSortable(model)
-  setupTooltips(model)
-  setupTour(model)
-  $('.datepicker').datepicker({autoclose:true, todayBtn:true})
-  .on 'changeDate', (ev) ->
-    #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
-    #FIXME also, it saves as a day behind??
-    model.at(ev.target).set 'date', moment(ev.date).add('d',1).format('MM/DD/YYYY')
 
 ###
   Loads JavaScript files from (1) public/js/* and (2) external sources
@@ -218,3 +197,23 @@ setupGrowlNotifications = (model) ->
         statsNotification '<i class="icon-death"></i> You died!', 'death' 
       else 
         statsNotification '<i class="icon-chevron-up"></i> Level Up!', 'lvl'
+
+
+module.exports.resetDom = (model) ->
+  window.DERBY.app.dom.clear()
+  window.DERBY.app.view.render(model)
+
+module.exports.app = (appExports, model, app) ->
+  loadJavaScripts(model)
+
+  app.on 'render', (ctx) ->
+    #restoreRefs(model)
+    setupSortable(model)
+    setupTooltips(model)
+    setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
+    setupTour(model)
+    $('.datepicker').datepicker({autoclose:true, todayBtn:true})
+      .on 'changeDate', (ev) ->
+            #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
+            #FIXME also, it saves as a day behind??
+            model.at(ev.target).set 'date', moment(ev.date).add('d',1).format('MM/DD/YYYY')

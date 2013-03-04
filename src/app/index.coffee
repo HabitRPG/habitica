@@ -1,5 +1,6 @@
 derby = require 'derby'
-{get, view, ready} = derby.createApp module
+app = derby.createApp module
+{get, view, ready} = app
 derby.use require('derby-ui-boot'), {styles: ['bootstrap', 'responsive']}
 derby.use require '../../ui'
 derby.use require 'derby-auth/components'
@@ -59,5 +60,5 @@ ready (model) ->
   profile.app(exports, model)
   require('../server/private').app(exports, model)
   require('./debug').app(exports, model) if model.get('_view.nodeEnv') != 'production'
-  browser.app(exports, model)
+  browser.app(exports, model, app)
 
