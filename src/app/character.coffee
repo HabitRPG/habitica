@@ -175,7 +175,7 @@ module.exports.updateUser = (model) ->
     union = _.union obj[type + 'Ids'], taskIds
 
     # 2. remove empty (grey) tasks
-    preened = _.filter(union, (val) -> _.contains(taskIds, val))
+    preened = _.filter union, (val) -> _.contains(taskIds, val) and val?
 
     # There were indeed issues found, set the new list
     batch.set("#{type}Ids", preened) # if _.difference(preened, userObj[path]).length != 0
