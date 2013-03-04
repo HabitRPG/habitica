@@ -46,7 +46,7 @@ score = (model, taskId, direction, times, batch, cron) ->
       # (aka, the total delta). This weirdness won't be necessary when calculating mathematically
       # rather than iteratively
       nextDelta = algos.taskDeltaFormula(value, direction)
-      value += nextDelta if adjustvalue
+      value = Math.max(value + nextDelta, -31) if adjustvalue #cap values so we don't get silly values
       delta += nextDelta
 
   addPoints = ->
@@ -66,10 +66,7 @@ score = (model, taskId, direction, times, batch, cron) ->
 
   switch type
     when 'habit'
-      # Don't adjust values for habits that don't have both + and -
-      #adjustvalue = if (taskObj.up==false or taskObj.down==false) then false else true
-      adjustvalue = true;
-      calculateDelta(adjustvalue)
+      calculateDelta()
       # Add habit value to habit-history (if different)
       if (delta > 0) then addPoints() else subtractPoints()
       taskObj.history ?= []
@@ -79,7 +76,6 @@ score = (model, taskId, direction, times, batch, cron) ->
         batch.set "#{taskPath}.history", taskObj.history
 
     when 'daily'
-      #calculateDelta()
       if cron? # cron
         calculateDelta()
         subtractPoints()
@@ -92,7 +88,7 @@ score = (model, taskId, direction, times, batch, cron) ->
         calculateDelta()
         #don't touch stats on cron
       else
-        calculateDelta(false)
+        calculateDelta()
         addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
     when 'reward'
@@ -207,8 +203,11 @@ cron = (model) ->
               if repeat[helpers.dayMapping[thatDay.day()]]==true
                 daysFailed++
           score model, id, 'down', daysFailed, batch, true
-
         if type == 'daily'
+          if completed #set OHV for completed dailies
+            newValue = taskObj.value + algos.taskDeltaFormula(taskObj.value,'up')
+            batch.set "tasks.#{taskObj.id}.value", newValue
+
           taskObj.history ?= []
           taskObj.history.push { date: +new Date, value: value }
           batch.set "tasks.#{taskObj.id}.history", taskObj.history
@@ -219,7 +218,10 @@ cron = (model) ->
           todoTally += absVal
       else if type is 'habit' #reset 'onlies' value to 0
         if taskObj.up==false or taskObj.down==false
-          batch.set "tasks.#{taskObj.id}.value", 0
+          if Math.abs(taskObj.value) < 0.02
+            batch.set "tasks.#{taskObj.id}.value", 0
+          else
+            batch.set "tasks.#{taskObj.id}.value", taskObj.value / 2
 
     # Finished tallying
     obj.history ?= {}; obj.history.todos ?= []; obj.history.exp ?= []
