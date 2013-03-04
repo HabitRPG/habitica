@@ -217,6 +217,9 @@ cron = (model) ->
           value = obj.tasks[taskObj.id].value #get updated value
           absVal = if (completed) then Math.abs(value) else value
           todoTally += absVal
+      else if type is 'habit' #reset 'onlies' value to 0
+        if taskObj.up==false or taskObj.down==false
+          batch.set "tasks.#{taskObj.id}.value", 0
 
     # Finished tallying
     obj.history ?= {}; obj.history.todos ?= []; obj.history.exp ?= []

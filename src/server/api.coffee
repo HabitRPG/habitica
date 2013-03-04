@@ -117,38 +117,39 @@ router.get '/user/tasks', auth, (req, res) ->
   This is called form deprecated.coffee's score function, and the req.headers are setup properly to handle the login
 ###
 scoreTask = (req, res, next) ->
-  auth req, res, ->
-    {taskId, direction} = req.params
-    {title, service, icon} = req.body
+  {taskId, direction} = req.params
+  {title, service, icon} = req.body
 
-    # Send error responses for improper API call
-    return res.send(500, ':taskId required') unless taskId
-    return res.send(500, ":direction must be 'up' or 'down'") unless direction in ['up','down']
+  # Send error responses for improper API call
+  return res.send(500, ':taskId required') unless taskId
+  return res.send(500, ":direction must be 'up' or 'down'") unless direction in ['up','down']
 
-    model = req.getModel()
-    {user, userObj} = req
+  model = req.getModel()
+  {user, userObj} = req
 
-    model.ref('_user', user)
+  model.ref('_user', user)
 
-    # Create task if doesn't exist
-    # TODO add service & icon to task
-    unless model.get("_user.tasks.#{taskId}")
-      model.refList "_habitList", "_user.tasks", "_user.habitIds"
-      model.at('_habitList').push
-        id: taskId
-        type: 'habit'
-        text: (title || taskId)
-        value: 0
-        up: true
-        down: true
-        notes: "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
+  # Create task if doesn't exist
+  # TODO add service & icon to task
+  unless model.get("_user.tasks.#{taskId}")
+    model.refList "_habitList", "_user.tasks", "_user.habitIds"
+    model.at('_habitList').push
+      id: taskId
+      type: 'habit'
+      text: (title || taskId)
+      value: 0
+      up: true
+      down: true
+      notes: "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
 
-    delta = scoring.score(model, taskId, direction)
-    result = model.get ('_user.stats')
-    result.delta = delta
-    res.send(result)
-router.post '/user/tasks/:taskId/:direction', scoreTask
+  delta = scoring.score(model, taskId, direction)
+  result = model.get ('_user.stats')
+  result.delta = delta
+  res.send(result)
+
+router.post '/user/tasks/:taskId/:direction', auth, scoreTask
 
 module.exports = router
+module.exports.auth = auth
 module.exports.scoreTask = scoreTask # export so deprecated can call it
 
