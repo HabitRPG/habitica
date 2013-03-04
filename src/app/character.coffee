@@ -60,6 +60,9 @@ module.exports.app = (appExports, model) ->
   appExports.closeAlgosNotification = (e, el) ->
     user.set('flags.algosNotification', 'hide')
 
+  appExports.closeOnliesNotification = (e, el) ->
+    user.set('flags.onliesNotification', 'hide')
+
   appExports.customizeGender = (e, el) ->
     user.set 'preferences.gender', $(el).attr('data-value')
 
