@@ -39,7 +39,7 @@ loadJavaScripts = (model) ->
 
 
   require '../../public/vendor/jquery-cookie/jquery.cookie'
-  require '../../public/vendor/bootstrap-tour' #https://raw.github.com/pushly/bootstrap-tour/master/bootstrap-tour.js
+  require '../../public/vendor/bootstrap-tour/bootstrap-tour'
   require '../../public/vendor/bootstrap-datepicker/js/bootstrap-datepicker'
   require '../../public/vendor/bootstrap-growl/jquery.bootstrap-growl.min'
 
@@ -133,12 +133,8 @@ setupTour = (model) ->
   $('.main-avatar').popover('destroy') #remove previous popovers
   tour = new Tour()
   _.each tourSteps, (step) ->
-    tour.addStep
-      html: true
-      element: step.element
-      title: step.title
-      content: step.content
-      placement: step.placement
+    tour.addStep _.defaults step, {html:true}
+  tour._current = 0 if isNaN(tour._current) #bootstrap-tour bug
   tour.start()
 
 ###
