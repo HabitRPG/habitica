@@ -54,7 +54,7 @@ score = (model, taskId, direction, times, batch, cron) ->
     weaponStrength = items.items.weapon[user.get('items.weapon')].strength
     modified = algos.expModifier(delta,weaponStrength,level, multiplier)
     exp += modified*10
-    gp += delta
+    gp += algos.gpModifier(delta, 1, multiplier)
 
   subtractPoints = ->
     level = user.get('stats.lvl')

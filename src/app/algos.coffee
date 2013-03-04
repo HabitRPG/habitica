@@ -9,6 +9,7 @@ module.exports.tnl = (level) ->
   {value} task.value for exp gain
   {weaponStrength) weapon strength 
   {level} current user level
+  {multiplier} user-defined priority multiplier
 ###
 module.exports.expModifier = (value, weaponStrength, level, multiplier=1) ->
   levelModifier = (level-1) * MODIFIER
@@ -22,6 +23,7 @@ module.exports.expModifier = (value, weaponStrength, level, multiplier=1) ->
   {armorDefense} defense from armor
   {helmDefense} defense from helm 
   {level} current user level
+  {multiplier} user-defined priority multiplier
 ###
 module.exports.hpModifier = (value, armorDefense, helmDefense, shieldDefense, level, multiplier=1) ->
   levelModifier = (level-1) * MODIFIER
@@ -31,6 +33,7 @@ module.exports.hpModifier = (value, armorDefense, helmDefense, shieldDefense, le
 
 ###
   Future use
+  {multiplier} user-defined priority multiplier
 ###
 module.exports.gpModifier = (value, modifier, multiplier=1) ->
   return value * modifier * multiplier
