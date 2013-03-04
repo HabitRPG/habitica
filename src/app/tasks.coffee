@@ -177,3 +177,8 @@ module.exports.app = (appExports, model) ->
     # When they update their notes, re-establish tooltip & popover
     $('[rel=tooltip]').tooltip()
     $('[rel=popover]').popover()
+
+  appExports.tasksSetPriority = (e, el) ->
+    dataId = $(el).parent('[data-id]').attr('data-id')
+    #"_user.tasks.#{dataId}"
+    model.at(e.target).set 'priority', $(el).attr('data-priority')

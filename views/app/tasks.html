@@ -176,37 +176,55 @@
                 <label>Notes</label><textarea rows=3>{:task.notes}</textarea>
             </div>
             {#if equal(:task.type, 'habit')}
-            <div class="control-group">
-                <label class="checkbox inline"><input type=checkbox checked={:task.up}>Up</label>
-                <label class="checkbox inline"><input type=checkbox checked={:task.down}>Down</label>
-            </div>
+                <hr/>
+                <label>Direction</label>
+                <div class="control-group">
+                    <label class="checkbox inline"><input type=checkbox checked={:task.up}>Up</label>
+                    <label class="checkbox inline"><input type=checkbox checked={:task.down}>Down</label>
+                </div>
             {else if equal(:task.type, 'daily')}
-            <label>Repeat</label>
-            <div class="control-group btn-group repeat-days">
-                <!-- note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding -->
-                <button type="button" class="btn btn-info {#if :task.repeat.su}active{/}" data-day='su' x-bind=click:toggleDay>Su</button>
-                <button type="button" class="btn btn-info {#if :task.repeat.m}active{/}" data-day='m' x-bind=click:toggleDay>M</button>
-                <button type="button" class="btn btn-info {#if :task.repeat.t}active{/}" data-day='t' x-bind=click:toggleDay>T</button>
-                <button type="button" class="btn btn-info {#if :task.repeat.w}active{/}" data-day='w' x-bind=click:toggleDay>W</button>
-                <button type="button" class="btn btn-info {#if :task.repeat.th}active{/}" data-day='th' x-bind=click:toggleDay>Th</button>
-                <button type="button" class="btn btn-info {#if :task.repeat.f}active{/}" data-day='f' x-bind=click:toggleDay>F</button>
-                <button type="button" class="btn btn-info {#if :task.repeat.s}active{/}" data-day='s' x-bind=click:toggleDay>S</button>
-            </div>
+                <hr/>
+                <label>Repeat</label>
+                <div class="control-group btn-group repeat-days">
+                    <!-- note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding -->
+                    <button type="button" class="btn btn-info {#if :task.repeat.su}active{/}" data-day='su' x-bind=click:toggleDay>Su</button>
+                    <button type="button" class="btn btn-info {#if :task.repeat.m}active{/}" data-day='m' x-bind=click:toggleDay>M</button>
+                    <button type="button" class="btn btn-info {#if :task.repeat.t}active{/}" data-day='t' x-bind=click:toggleDay>T</button>
+                    <button type="button" class="btn btn-info {#if :task.repeat.w}active{/}" data-day='w' x-bind=click:toggleDay>W</button>
+                    <button type="button" class="btn btn-info {#if :task.repeat.th}active{/}" data-day='th' x-bind=click:toggleDay>Th</button>
+                    <button type="button" class="btn btn-info {#if :task.repeat.f}active{/}" data-day='f' x-bind=click:toggleDay>F</button>
+                    <button type="button" class="btn btn-info {#if :task.repeat.s}active{/}" data-day='s' x-bind=click:toggleDay>S</button>
+                </div>
             {else if equal(:task.type, 'reward')}
-            <div class=control-group>
-                <label>Price
+                <hr/>
+                <div class=control-group>
+                    <label>Price</label>
                     <div class="input-append">
                         <input class="span5" size="16" type="number" min="0" value={:task.value}><span class="add-on">Gold</span>
                     </div>
-                </label>
-            </div>
+
+                </div>
             {else if equal(:task.type, 'todo')}
+                <hr/>
                 <div class=control-group>
                     <label>Due Date</label>
                     <input type="text" value="{:task.date}" data-date-format="mm/dd/yyyy" class="datepicker" />
                     <div><small>Enter as date, eg 02/19/2013 or 02-19-2013</small></div>
                 </div>
             {/}
+
+            {#unless equal(:task.type, 'reward')}
+                <hr/>
+                <div>
+                    <div class="control-group btn-group priority-multiplier" data-id="{{:task.id}}">
+                        <label>Priority <a href="https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17" target="_blank"><i class='icon-question-sign'></i></a></label>
+                        <button type="button" class="btn btn-info {#if equal(:task.priority,'!')}active{/}{#unless :task.priority}active{/}" data-priority='!' x-bind=click:tasksSetPriority>!</button>
+                        <button type="button" class="btn btn-info {#if equal(:task.priority,'!!')}active{/}" data-priority='!!' x-bind=click:tasksSetPriority>!!</button>
+                        <button type="button" class="btn btn-info {#if equal(:task.priority,'!!!')}active{/}" data-priority='!!!' x-bind=click:tasksSetPriority>!!!</button>
+                    </div>
+                </div>
+            {/}
+            <hr/>
             <button type=submit class="btn" x-bind="click:tasksSaveAndClose">Save & Close</button>
         </form>
     </div>
