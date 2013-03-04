@@ -57,8 +57,11 @@ module.exports.app = (appExports, model) ->
     batch.commit()
     browser.resetDom(model)
 
-  appExports.closeCelebrationNofitication = (e, el) ->
-    user.set('flags.celebrationEvent', 'hide')
+  appExports.closeAlgosNotification = (e, el) ->
+    user.set('flags.algosNotification', 'hide')
+
+  appExports.closeOnliesNotification = (e, el) ->
+    user.set('flags.onliesNotification', 'hide')
 
   appExports.customizeGender = (e, el) ->
     user.set 'preferences.gender', $(el).attr('data-value')
@@ -99,7 +102,7 @@ userSchema =
   stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
   party: { current: null, invitation: null }
   items: { weapon: 0, armor: 0, head: 0, shield: 0 }
-  preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1' }
+  preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0 }
   habitIds: []
   dailyIds: []
   todoIds: []
@@ -118,14 +121,18 @@ module.exports.newUserObject = ->
   newUser = lodash.cloneDeep userSchema
   newUser.apiToken = derby.uuid()
 
+  repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
   defaultTasks = [
     {type: 'habit', text: '1h Productive Work', notes: '-- Habits: Constantly Track --\nFor some habits, it only makes sense to *gain* points (like this one).', value: 0, up: true, down: false }
     {type: 'habit', text: 'Eat Junk Food', notes: 'For others, it only makes sense to *lose* points', value: 0, up: false, down: true}
     {type: 'habit', text: 'Take The Stairs', notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose)', value: 0, up: true, down: true}
-    {type: 'daily', text: '1h Personal Project', notes: '-- Dailies: Complete Once a Day --\nAt the end of each day, non-completed Dailies dock you points.', value: 0, completed: false }
-    {type: 'daily', text: 'Exercise', notes: "If you are doing well, they turn green and are less valuable (experience, gold) and less damaging (HP). This means you can ease up on them for a bit.", value: 3, completed: false }
-    {type: 'daily', text: '45m Reading', notes: 'But if you are doing poorly, they turn red. The worse you do, the more valuable (exp, gold) and more damaging (HP) these goals become. This encourages you to focus on your shortcomings, the reds.', value: -10, completed: false }
+
+    {type: 'daily', text: '1h Personal Project', notes: '-- Dailies: Complete Once a Day --\nAt the end of each day, non-completed Dailies dock you points.', value: 0, completed: false, repeat: repeat }
+    {type: 'daily', text: 'Exercise', notes: "If you are doing well, they turn green and are less valuable (experience, gold) and less damaging (HP). This means you can ease up on them for a bit.", value: 3, completed: false, repeat: repeat }
+    {type: 'daily', text: '45m Reading', notes: 'But if you are doing poorly, they turn red. The worse you do, the more valuable (exp, gold) and more damaging (HP) these goals become. This encourages you to focus on your shortcomings, the reds.', value: -10, completed: false, repeat: repeat }
+
     {type: 'todo', text: 'Call Mom', notes: "-- Todos: Complete Eventually --\nNon-completed Todos won't hurt you, but they will become more valuable over time. This will encourage you to wrap up stale Todos.", value: -3, completed: false }
+
     {type: 'reward', text: '1 Episode of Game of Thrones', notes: '-- Rewards: Treat Yourself! --\nAs you complete goals, you earn gold to buy rewards. Buy them liberally - rewards are integral in forming good habits.', value: 20 }
     {type: 'reward', text: 'Cake', notes: 'But only buy if you have enough gold - you lose HP otherwise.', value: 10 }
   ]
@@ -221,6 +228,7 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
   commit: ->
     model._dontPersist = false
     # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
+    # pass true if we have levelled to supress xp notification
     user.set "update__", updates
     transactionInProgress = false
     updates = {}

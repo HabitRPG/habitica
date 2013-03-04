@@ -26,7 +26,6 @@ module.exports.view = (view) ->
 
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
-  score = new scoring.Scoring(model)
 
   user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
     return if passed? && passed.cron # Don't do this stuff on cron
@@ -37,7 +36,7 @@ module.exports.app = (appExports, model) ->
 
     # Score the user based on todo task
     task = user.at("tasks.#{i}")
-    score.score(i, direction())
+    scoring.score(model, i, direction())
 
   appExports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
@@ -82,7 +81,7 @@ module.exports.app = (appExports, model) ->
           return # Cancel. Don't delete, don't hurt user
         else
           task.set('type','habit') # hack to make sure it hits HP, instead of performing "undo checkbox"
-          score.score(id, direction:'down')
+          scoring.score(model, id, direction:'down')
 
         # prevent accidently deleting long-standing tasks
       else
@@ -172,4 +171,9 @@ module.exports.app = (appExports, model) ->
     direction = 'up' if direction == 'true/'
     direction = 'down' if direction == 'false/'
     task = model.at $(el).parents('li')[0]
-    score.score(task.get('id'), direction)
+    scoring.score(model, task.get('id'), direction)
+
+  appExports.tasksSaveAndClose = ->
+    # When they update their notes, re-establish tooltip & popover
+    $('[rel=tooltip]').tooltip()
+    $('[rel=popover]').popover()

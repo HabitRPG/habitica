@@ -9,8 +9,19 @@
             <h6>API Token</h6>
             <pre class=prettyprint>{_user.apiToken}</pre>
 
+            <hr/>
+            <h4>Custom Day Start</h4>
+            <div class="input-append">
+                <input class="span2" type="number" min=0 max=24 value={_user.preferences.dayStart} />
+                <span class="add-on">:00 (24h)</span>
+            </div>
+            <div>
+                <small>Habit defaults to check and reset your dailies at midnight each day. You can customize that here (Enter number between 0 and 24).</small>
+            </div>
+
             {{#if _user.auth.local}}
                 <hr/>
+                <h4>Change Password</h4>
                 <derby-auth:changePassword />
             {{/}}
 

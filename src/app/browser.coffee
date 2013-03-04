@@ -1,12 +1,15 @@
 _ = require 'underscore'
 moment = require 'moment'
+#algos = require './algos'
+
 
 module.exports.restoreRefs = restoreRefs = (model) ->
   # tnl function
   model.fn '_tnl', '_user.stats.lvl', (lvl) ->
     # see https://github.com/lefnire/habitrpg/issues/4
     # also update in scoring.coffee. TODO create a function accessible in both locations
-    (lvl*100)/5
+    #TODO find a method of calling algos.tnl()
+    10*Math.pow(lvl,2)+(lvl*10)+80
 
   #refLists
   _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
@@ -20,13 +23,13 @@ module.exports.resetDom = (model) ->
 
 module.exports.app = (appExports, model) ->
   reconstructPage model
+  setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
 
 reconstructPage = (model) ->
   loadJavaScripts(model)
   setupSortable(model)
   setupTooltips(model)
   setupTour(model)
-  setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
   $('.datepicker').datepicker({autoclose:true, todayBtn:true})
   .on 'changeDate', (ev) ->
     #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
@@ -81,10 +84,7 @@ loadJavaScripts = (model) ->
 ###
 setupSortable = (model) ->
   unless (model.get('_view.mobileDevice') == true) #don't do sortable on mobile
-    # Make the lists draggable using jQuery UI
-    # Note, have to setup helper function here and call it for each type later
-    # due to variable binding of "type"
-    setupSortable = (type) ->
+    _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
       $("ul.#{type}s").sortable
         dropOnEmpty: false
         cursor: "move"
@@ -102,16 +102,10 @@ setupSortable = (model) ->
           # Also, note that refList index arguments can either be an index
           # or the item's id property
           model.at("_#{type}List").pass(ignore: domId).move {id}, to
-    _.each ['habit', 'daily', 'todo', 'reward'], (type) -> setupSortable(type)
 
 setupTooltips = (model) ->
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
-  # FIXME: this isn't very efficient, do model.on set for specific attrs for popover
-  model.on 'set', '*', ->
-    $('[rel=tooltip]').tooltip()
-    $('[rel=popover]').popover()
-
 
 setupTour = (model) ->
   tourSteps = [
@@ -180,7 +174,7 @@ setupGrowlNotifications = (model) ->
     return if user.get('stats.lvl') == 0
     $.bootstrapGrowl html,
       ele: '#notification-area',
-      type: type # (null, 'info', 'error', 'success', 'gp', 'xp', 'hp', 'lvl')
+      type: type # (null, 'info', 'error', 'success', 'gp', 'xp', 'hp', 'lvl','death')
       top_offset: 20
       align: 'right' # ('left', 'right', or 'center')
       width: 250 # (integer, or 'auto')
@@ -193,21 +187,34 @@ setupGrowlNotifications = (model) ->
     num = captures - args
     rounded = Math.abs(num.toFixed(1))
     if num < 0
-      statsNotification "<i class='icon-heart'></i> -#{rounded} HP", 'hp' # lost hp from purchase
+      statsNotification "<i class='icon-heart'></i> - #{rounded} HP", 'hp' # lost hp from purchase
+    else if num > 0
+      statsNotification "<i class='icon-heart'></i> + #{rounded} HP", 'hp' # gained hp from potion/level? 
+  
+  user.on 'set', 'stats.exp', (captures, args, isLocal, silent) ->
+      num = captures - args
+      rounded = Math.abs(num.toFixed(1))
+      if num < 0 and not silent
+        statsNotification "<i class='icon-star'></i> - #{rounded} XP", 'xp'
+      else if num > 0
+        statsNotification "<i class='icon-star'></i> + #{rounded} XP", 'xp'
 
   user.on 'set', 'stats.gp', (captures, args) ->
     num = captures - args
-    rounded = Math.abs(num.toFixed(1))
-    # made purchase
-    if num < 0
-      # FIXME use 'warning' when unchecking an accidently completed daily/todo, and notify of exp too
-      statsNotification "<i class='icon-star'></i> -#{rounded} GP", 'gp'
-      # gained gp (and thereby exp)
-    else if num > 0
-      num = Math.abs(num)
-      statsNotification "<i class='icon-star'></i> +#{rounded} XP", 'xp'
-      statsNotification "<i class='icon-gp'></i> +#{rounded} GP", 'gp'
+    absolute = Math.abs(num)
+    gold = Math.floor(absolute)
+    silver = Math.floor((absolute-gold)*100)
+    sign = if num < 0 then '-' else '+'
+    if gold and silver > 0
+      statsNotification "#{sign} #{gold} <i class='icon-gold'></i> #{silver} <i class='icon-silver'></i>", 'gp'
+    else if gold > 0
+      statsNotification "#{sign} #{gold} <i class='icon-gold'></i>", 'gp'
+    else if silver > 0
+      statsNotification "#{sign} #{silver} <i class='icon-silver'></i>", 'gp'
 
   user.on 'set', 'stats.lvl', (captures, args) ->
     if captures > args
-      statsNotification('<i class="icon-chevron-up"></i> Level Up!', 'lvl')
+      if captures is 1 and args is 0
+        statsNotification '<i class="icon-death"></i> You died!', 'death' 
+      else 
+        statsNotification '<i class="icon-chevron-up"></i> Level Up!', 'lvl'

@@ -1,6 +1,26 @@
 <alerts:>
     {#if _flash.error}
-        <ul class="alert alert-error">
+        <ul class="unstyled alert alert-error">
             {#each _flash.error as :error}<li>{:error}</li>{/}
         </ul>
+    {/}
+
+    {#if equal(_user.flags.algosNotification,'show')}
+        <div class='alert alert-success'>
+            <a x-bind="click:closeAlgosNotification" class=pull-right>[x]</a>
+            <p>New features! Custom day start, new and better algorithms, authentication enhancements. See <a target="_blank" href="http://habitrpg.tumblr.com/post/44468869138/custom-day-start-better-algorithms-auth-enhancements">details here.</a>
+            &nbsp;"Hey, I had more Exp before this roll-out!" <a data-target="#restore-modal" data-toggle=modal>Restore your Exp here.</a></p>
+        </div>
+    {/}
+
+    {#if equal(_user.flags.onliesNotification, 'show')}
+        <div class='alert alert-success'>
+            <a x-bind="click:closeOnliesNotification " class=pull-right>[x]</a>
+            <p>
+                "Onlies" now gain / lose value just like other habits, and are reset back to 0 at the beginning of each day.
+                &nbsp;See <a target="_blank" href="https://trello.com/card/shading-onlies/50e5d3684fe3a7266b0036d6/67">details here</a>, and
+                &nbsp;chime in with your recommendations on this mechanic.
+            </p>
+        </div>
+
     {/}

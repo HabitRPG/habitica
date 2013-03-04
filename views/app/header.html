@@ -29,7 +29,7 @@
                   {#if _user.history.exp}
                     <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp;
                   {/}
-                  <i class=icon-star></i> {round(_user.stats.exp)} / {_tnl}
+                  <i class=icon-star></i> {floor(_user.stats.exp)} / {_tnl}
                 </span>
                 </div>
                 <div id="exp-chart" style="display:none;"></div>

@@ -1,14 +1,15 @@
 {expect} = require 'derby/node_modules/racer/test/util'
 {BrowserModel: Model} = require 'derby/node_modules/racer/test/util/model'
 derby = require 'derby'
-clone = require 'clone'
+lodash = require 'lodash'
 _ = require 'underscore'
 moment = require 'moment'
 
 # Custom modules
 scoring = require '../src/app/scoring'
-schema = require '../src/app/schema'
-  
+schema = require '../src/app/character'
+helpers = require '../src/app/helpers'
+
 ###### Helpers & Variables ######
 
 model = null
@@ -19,11 +20,11 @@ taskPath = null
 # Otherwise, using model.get(path) will give the same object before as after
 pathSnapshots = (paths) ->
   if _.isString(paths)
-    return clone(model.get(paths)) 
-  _.map paths, (path) -> clone(model.get(path))
+    return lodash.cloneDeep(model.get(paths))
+  _.map paths, (path) -> lodash.cloneDeep(model.get(path))
 statsTask = -> pathSnapshots(['_user.stats', taskPath]) # quick snapshot of user.stats & task
 
-cleanUserObj = -> 
+cleanUserObj = ->
   userObj = schema.newUserObject()
   userObj.tasks = {}
   userObj.habitIds = []
@@ -42,14 +43,14 @@ freshTask = (taskObj) ->
   model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
   [taskObj.id, taskObj.value] = [uuid, 0]
   model.at("_#{type}List").push taskObj
-  
+
 ###
 Helper function to determine if stats updates are numerically correct based on scoring
 @direction: 'up' or 'down'
-@options: The user stats modifiers and times to run, defaults to {times:1, modifiers:{lvl:1, weapon:0, armor:0}} 
+@options: The user stats modifiers and times to run, defaults to {times:1, modifiers:{lvl:1, weapon:0, armor:0}}
 ###
 modificationsLookup = (direction, options = {}) ->
-  merged = _.defaults options, {times:1, lvl:1, weapon:0, armor:0} 
+  merged = _.defaults options, {times:1, lvl:1, weapon:0, armor:0}
   {times, lvl, armor, weapon}  = merged
   userObj = cleanUserObj()
   value = 0
@@ -64,12 +65,24 @@ modificationsLookup = (direction, options = {}) ->
       loss = scoring.hpModifier(delta, options)
       userObj.stats.hp += loss
   return {user:userObj, value:value}
-  
-###### Specs ###### 
+
+###### Specs ######
+
+describe 'Cron', ->
+  it 'calculates day differences with dayStart properly', ->
+    dayStart = 4
+    yesterday = moment().subtract('d', 1).add('h', dayStart)
+    now = moment().startOf('day').add('h', dayStart-1) #today
+    console.log {yesterday: yesterday.format('MM/DD HH:00'), now: now.format('MM/DD HH:00')}
+    console.log {diff: Math.abs(moment(yesterday).diff(moment(now), 'days'))}
+    expect(helpers.daysBetween(yesterday, now, dayStart)).to.eql 0
+    now = moment().startOf('day').add('h', dayStart)
+    console.log {now: now.format('MM/DD HH:00')}
+    expect(helpers.daysBetween(yesterday, now, dayStart)).to.eql 1
 
 describe 'User', ->
   model = null
-  
+
   before ->
     model = new Model
     model.set '_user', schema.newUserObject()
@@ -85,23 +98,23 @@ describe 'User', ->
     expect(_.size(user.dailyIds)).to.eql 3
     expect(_.size(user.todoIds)).to.eql 1
     expect(_.size(user.rewardIds)).to.eql 2
-  
-  ##### Habits #####  
+
+  ##### Habits #####
   describe 'Tasks', ->
-    
-    beforeEach -> 
+
+    beforeEach ->
       resetUser()
-    
+
     describe 'Habits', ->
-      
-      beforeEach -> 
+
+      beforeEach ->
         freshTask {type: 'habit', text: 'Habit', up: true, down: true}
-      
+
       it 'created the habit', ->
         task = model.get(taskPath)
         expect(task.text).to.eql 'Habit'
         expect(task.value).to.eql 0
-        
+
       it 'test a few scoring numbers (this will change if constants / formulae change)', ->
         {user} = modificationsLookup('down')
         expect(user.stats.hp).to.eql 49
@@ -113,10 +126,10 @@ describe 'User', ->
         expect(user.stats.money).to.eql 1
         {user} = modificationsLookup('up', {times:5})
         expect(user.stats.exp).to.be.within(4,5)
-        
+
       it 'made proper modifications when down-scored', ->
         ## Trial 1
-        
+
         shouldBe = modificationsLookup('down')
         scoring.score(uuid,'down')
         [stats, task] = statsTask()
@@ -130,14 +143,14 @@ describe 'User', ->
         [stats, task] = statsTask()
         expect(stats.hp).to.be.eql shouldBe.user.stats.hp
         expect(task.value).to.eql  shouldBe.value
-        
+
       it 'made proper modifications when up-scored', ->
         # Up-score the habit
         [statsBefore, taskBefore] = statsTask()
         scoring.score(uuid, 'up')
         [statsAfter, taskAfter] = statsTask()
-        
-        # User should have gained Exp, GP 
+
+        # User should have gained Exp, GP
         expect(statsAfter.exp).to.be.greaterThan statsBefore.exp
         expect(statsAfter.money).to.be.greaterThan statsBefore.money
         # HP should not change
@@ -145,9 +158,9 @@ describe 'User', ->
         # Task should have lost value
         expect(taskBefore.value).to.eql 0
         expect(taskAfter.value).to.be.greaterThan taskBefore.value
-        
+
         ## Trial 2
-        taskBefore = pathSnapshots(taskPath)        
+        taskBefore = pathSnapshots(taskPath)
         scoring.score(uuid, 'up')
         taskAfter = pathSnapshots(taskPath)
         # Should have lost in value
@@ -155,54 +168,54 @@ describe 'User', ->
         # And lost more than trial 1
         diff = Math.abs(taskAfter.value) - Math.abs(taskBefore.value)
         expect(diff).to.be.lessThan 1
-        
-      it 'makes history entry for habit'      
+
+      it 'makes history entry for habit'
       it 'makes proper modifications each time when clicking + / - in rapid succession'
       # saw an issue here once, so test that it wasn't a fluke
-     
+
       it 'should not modify certain attributes given certain conditions'
         # non up+down habits
         # what else?
-        
+
       it 'should show "undo" notification if user unchecks completed daily'
-      
-      
-      describe 'Lvl & Items', ->  
-      
-        beforeEach -> 
+
+
+      describe 'Lvl & Items', ->
+
+        beforeEach ->
           freshTask {type: 'habit', text: 'Habit', up: true, down: true}
-              
+
         it 'modified damage based on lvl & armor'
         it 'modified exp/gp based on lvl & weapon'
         it 'always decreases hp with damage, regardless of stats/items'
         it 'always increases exp/gp with gain, regardless of stats/items'
-      
+
     describe 'Dailies', ->
-      
+
       beforeEach ->
         freshTask {type: 'daily', text: 'Daily', completed: false}
-        
+
       it 'created the daily', ->
         task = model.get(taskPath)
         expect(task.text).to.eql 'Daily'
         expect(task.value).to.eql 0
-        
+
       it 'does proper calculations when daily is complete'
       it 'calculates dailys properly when they have repeat dates'
-      
+
       runCron = (times, pass=1) ->
         # Set lastCron to days ago
           today = new moment()
           ago = new moment().subtract('days',times)
           model.set '_user.lastCron', ago.toDate()
           # Run run
-          scoring.cron() 
+          scoring.cron()
           [stats, task] = statsTask()
-          
+
           # Should have updated cron to today
           lastCron = moment(model.get('_user.lastCron'))
           expect(today.diff(lastCron, 'days')).to.eql 0
-          
+
           shouldBe = modificationsLookup('down', {times:times*pass})
           # Should have updated points properly
           expect(Math.round(stats.hp)).to.be.eql Math.round(shouldBe.user.stats.hp)
@@ -215,10 +228,10 @@ describe 'User', ->
         runCron(5)
         runCron(5, 2)
 
-         
+
       #TODO clicking repeat dates on newly-created item doesn't refresh until you refresh the page
       #TODO dates on dailies is having issues, possibility: date cusps? my saturday exempts were set to exempt at 8pm friday
-    
+
     describe 'Todos', ->
       describe 'Cron', ->
         it 'calls cron asyncronously'
@@ -230,11 +243,11 @@ describe 'User', ->
         # stop passing in tallyFor, let moment().sod().toDate() be handled in scoring.score()
         it 'should defer saving user modifications until, save as aggregate values'
         # pass in commit parameter to scoring func, if true save right away, otherwise return aggregated array so can save in the end (so total hp loss, etc)
-    
+
     describe 'Rewards', ->
-      
+
   #### Require.js stuff, might be necessary to place in casper.coffee
   it "doesn't setup dependent functions until their modules are loaded, require.js callback"
-  # sortable, stripe, etc 
+  # sortable, stripe, etc
 
 #TODO refactor as user->habits, user->dailys, user->todos, user->rewards

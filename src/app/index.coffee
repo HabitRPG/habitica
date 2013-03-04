@@ -45,13 +45,12 @@ get '/', (page, model, params, next) ->
 
 ready (model) ->
   user = model.at('_user')
-  score = new scoring.Scoring(model)
 
   #set cron immediately
   lastCron = user.get('lastCron')
   user.set('lastCron', +new Date) if (!lastCron? or lastCron == 'new')
 
-  score.cron()
+  scoring.cron(model)
 
   character.app(exports, model)
   tasks.app(exports, model)
