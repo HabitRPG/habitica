@@ -56,5 +56,5 @@ module.exports.taskDeltaFormula = (currentValue, direction) ->
 		delta = Math.max(Math.pow(0.95,currentValue),0.25)
 	else
 		delta = -Math.min(Math.pow(0.95,currentValue),5)
-	console.log("CV = " + currentValue + " Dir = " + direction + " delta = " + delta)
+	#console.log("CV = " + currentValue + " Dir = " + direction + " delta = " + delta)
 	return delta
