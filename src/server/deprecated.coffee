@@ -15,10 +15,12 @@ router.get '/:uid/down/:score?', (req, res) -> res.send(500, deprecatedMessage)
 router.post '/users/:uid/tasks/:taskId/:direction', (req, res) -> res.send(500, deprecatedMessage)
 
 # Redirect to new API
-router.post '/v1/users/:uid/tasks/:taskId/:direction', (req, res, next) ->
+initDeprecated = (req, res, next) ->
   req.headers['x-api-user'] = req.params.uid
   req.headers['x-api-key'] = req.body.apiToken
-  api.scoreTask(req, res, next)
+  next()
+
+router.post '/v1/users/:uid/tasks/:taskId/:direction', initDeprecated, api.auth, api.scoreTask
 
 router.get '/v1/users/:uid/calendar.ics', (req, res) ->
   #return next() #disable for now
