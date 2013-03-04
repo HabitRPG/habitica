@@ -22,5 +22,11 @@
                 &nbsp;chime in with your recommendations on this mechanic.
             </p>
         </div>
+    {/}
 
+    {#if equal(_user.flags.multiplierNotification, 'show')}
+        <div class='alert alert-success'>
+            <a x-bind="click:closeMultiplierNotification" class=pull-right>[x]</a>
+            <p>New Feature: Priority Multiplier! You can now multiply "more important" tasks on a 1x, 2x, or 3x scale. <a target="_blank" href="https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17">See details</a>.</p>
+        </div>
     {/}
