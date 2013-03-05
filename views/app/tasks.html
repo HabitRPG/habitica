@@ -1,18 +1,27 @@
 <taskLists:>
-    <!--helpTitle & helpContent moved to tour -->
-    <div class="task-column span3 habits">
+<!--helpTitle & helpContent moved to tour -->
+
+<!-- Habits Column -->
+<div class="module">
+    <div class="task-column habits">
         <h2>Habits</h2>
         <app:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
         <ul class="habits">{#each _habitList as :task}<app:task />{/}</ul>
     </div>
+</div>
 
-    <div class="task-column span3 dailys">
+<!-- Dailys Column -->
+<div class="module">
+    <div class="task-column dailys">
         <h2>Daily</h2>
         <app:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
         <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
     </div>
+</div>
 
-    <div class="task-column span3 todos context-enabled context-uncompleted tabbable tabs-below" id="todo-well">
+<!-- Todos Column -->
+<div class="module">
+    <div class="task-column todos context-enabled context-uncompleted tabbable tabs-below" id="todo-well">
         <span class='option-box pull-right'>
             {#if _user.history.todos}
               <a class="option-action" x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
@@ -36,11 +45,12 @@
             <li class="active"><a x-bind=click:changeContext data-target="#todo-well" data-context="context-uncompleted">Remaining</a></li>
             <li><a x-bind=click:changeContext data-target="#todo-well" data-context="context-completed">Complete</a></li>
         </ul>
-
     </div>
+</div>
 
-    <div class="task-column span3 rewards">
-
+<!-- Rewards Column -->
+<div class="module">
+    <div class="task-column rewards">
         <!--Title -->
         <div class="row-fluid">
             <div class="span6"><h2>Rewards</h2></div>
@@ -60,68 +70,69 @@
             </div>
         </div>
         <app:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
-
+        
         {#if _user.flags.petsEnabled}
         <div class='tabbable tabs-below'>
-
+        
             <div class="tab-content">
                 <div class="tab-pane active" id="rewards-tab">
                     <app:rewardsTab />
                 </div>
-
+        
                 <div class="tab-pane" id="pets-tab">
                     {#with _view.items.pets as :pets}
-
+        
                     <div class="row-fluid">
                         {#with :pets[0]}<app:pet />{/}
                         {#with :pets[1]}<app:pet />{/}
                         {#with :pets[2]}<app:pet />{/}
                         {#with :pets[3]}<app:pet />{/}
                     </div>
-
+        
                     <div class="row-fluid">
                         {#with :pets[4]}<app:pet />{/}
                         {#with :pets[5]}<app:pet />{/}
                         {#with :pets[6]}<app:pet />{/}
                         {#with :pets[7]}<app:pet />{/}
                     </div>
-
+        
                     <div class="row-fluid">
                         {#with :pets[8]}<app:pet />{/}
                         {#with :pets[9]}<app:pet />{/}
                         {#with :pets[10]}<app:pet />{/}
                         {#with :pets[11]}<app:pet />{/}
                     </div>
-
+        
                     <div class="row-fluid">
                         {#with :pets[12]}<app:pet />{/}
                         {#with :pets[13]}<app:pet />{/}
                         {#with :pets[14]}<app:pet />{/}
                         {#with :pets[15]}<app:pet />{/}
                     </div>
-
+        
                     <div class="row-fluid">
                         {#with :pets[16]}<app:pet />{/}
                     </div>
-
-
+        
+        
                     {/}
                 </div>
                 <!--<div class="tab-pane" id="mounts-tab">...</div>-->
             </div>
-
-
+        
+        
             <ul class="nav nav-tabs" id="rewardsTabs">
                 <li class="active"><a href="#rewards-tab" data-toggle="tab" x-bind="click:activateRewardsTab">Rewards</a></li>
                 <li><a href="#pets-tab" id='pets-tab' data-toggle="tab" x-bind='click:activatePetsTab'>Pets</a></li>
                 <!--<li><a href="#mounts-tab" data-toggle="tab">Mounts</a></li>-->
             </ul>
         </div>
-    {else}
+        {else}
         <app:rewardsTab />
-    {/}
-    </div>
+        {/}</div>
+</div>
 
+<!-- Templates -->
 <newTask:>
     <form class="addtask-form form-inline new-task-form" id="new-{@type}" data-task-type="{@type}" x-bind="submit:addTask">
         <input class="addtask-btn" type="submit" value="＋">

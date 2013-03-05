@@ -8,6 +8,10 @@
 @import "./items.styl";
 @import "./alerts.styl";
 @import "./helpers.styl";
+@import "./responsive.styl";
+
+// where's the actual bootstrap include?
+// @import "../bootstrap-responsive.styl";
 
 @import "../../public/vendor/bootstrap-datepicker/css/datepicker.css";
 
@@ -35,7 +39,7 @@ html,body,p,h1,ul,li,table,tr,th,td
   box-sizing: border-box
   z-index: 1000
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   #head {
     position: static;
   }
@@ -132,7 +136,7 @@ html,body,p,h1,ul,li,table,tr,th,td
   /*overflow:auto;*/                                                                                                                                                                                                                             
   padding-bottom: 250px; /* don't know why this works, sticky footers are weird */
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   #wrap {
     margin-top: 0
   }
