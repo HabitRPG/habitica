@@ -61,7 +61,7 @@
         </div>
         <app:tasks:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
 
-        {#if _user.flags.petsEnabled}
+        {#if equal(_user.flags.petsEnabled,true)}
             <div class='tabbable tabs-below'>
 
                 <div class="tab-content">
