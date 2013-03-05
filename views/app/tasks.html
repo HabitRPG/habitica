@@ -17,8 +17,8 @@
             {#if _user.history.todos}
               <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
             {/}
-            &nbsp;<a href="/v1/users/{{_user.id}}/calendar.ics?apiToken={{_user.apiToken}}" rel=tooltip title="iCal"><i class=icon-calendar></i></a>
-            <!--&nbsp;<a target="_blank" href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}"><img src='/img/calendar_google.png' title="Google Calendar" alt="Google Calendar" rel=tooltip /></a>-->
+            <a href="/v1/users/{{_user.id}}/calendar.ics?apiToken={{_user.apiToken}}" rel=tooltip title="iCal"><i class=icon-calendar></i></a>
+            <!-- <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a> -->
         </span>
         <h2>Todos</h2>
         <div class="display-context-dependant show-for-uncompleted">
