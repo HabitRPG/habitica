@@ -167,10 +167,11 @@ li:hover .task-meta-controls .hover-show
   min-height: 2.5em
   line-height: 2.5
   margin-bottom: 0.75em
-  // border: 1px solid rgba(0,0,0,0.2)
-  // -webkit-background-clip: padding-box
+  outline: 1px solid rgba(0,0,0,0.1)
+  outline-offset: -1px
+  -webkit-background-clip: padding-box
   border-radius: 0.25em
-  overflow: hidden
+  // overflow: hidden
   &:last-child
     margin-bottom: 0
 
@@ -191,21 +192,31 @@ li:hover .task-meta-controls .hover-show
     cursor: pointer
     // border-radius: 0.25em 0 0 0.25em
     &:after
-      content: '¬'
-      transform: rotate(135deg)
+      content: '○'
       display: block
-      line-height: 1.1
-      text-align: left
-      opacity: 0.1
+      opacity: 0.2
+      line-height: 0.8
+      text-align: center
       color: black
       font-size: 3em
-    &:hover:after,
-    &:focus:after
+    &:hover:before,
+    &:focus:before
+      content: '¬'
+      display: block
+      font-size: 3em
+      color: black
+      transform: rotate(135deg)
+      line-height: 1.1
+      text-align: left
       opacity: 0.5 !important
-    &:active:after
+    &:active:before
       opacity: 0.75 !important
 
   & input[type=checkbox]:checked + label:after
+    content: '¬'
+    transform: rotate(135deg)
+    line-height: 1.1
+    text-align: left
     opacity: 1
   
   input[type=checkbox]
