@@ -2,23 +2,23 @@
     <!--helpTitle & helpContent moved to tour -->
     <div class="task-column span3 habits">
         <h2>Habits</h2>
-        <app:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
-        <ul class="habits">{#each _habitList as :task}<app:task />{/}</ul>
+        <app:tasks:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
+        <ul class="habits">{#each _habitList as :task}<app:tasks:task />{/}</ul>
     </div>
 
     <div class="task-column span3 dailys">
         <h2>Daily</h2>
-        <app:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
-        <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
+        <app:tasks:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
+        <ul class='dailys'>{#each _dailyList as :task}<app:tasks:task />{/}</ul>
     </div>
 
     <div class="task-column span3 todos context-enabled context-uncompleted tabbable tabs-below" id="todo-well">
         <h2>Todos</h2>
         <div class="display-context-dependant show-for-uncompleted">
-            <app:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />
+            <app:tasks:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />
         </div>
         <ul class='todos task-list'>
-            {#each _todoList as :task}<app:task />{/}
+            {#each _todoList as :task}<app:tasks:task />{/}
         </ul>
         <div class="display-context-dependant show-for-completed">
             <a class='btn' x-bind=click:clearCompleted>Clear Completed</a>
@@ -55,53 +55,53 @@
                     <td><div class='shop_copper' rel='tooltip' title='shop_copper'></div></td>-->
                 </tr></table>
                 {else}
-                <app:userTokens />
+                <app:rewards:userTokens />
                 {/}
             </div>
         </div>
-        <app:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
+        <app:tasks:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
 
         {#if _user.flags.petsEnabled}
         <div class='tabbable tabs-below'>
 
             <div class="tab-content">
                 <div class="tab-pane active" id="rewards-tab">
-                    <app:rewardsTab />
+                    <app:rewards:rewardsTab />
                 </div>
 
                 <div class="tab-pane" id="pets-tab">
                     {#with _view.items.pets as :pets}
 
                     <div class="row-fluid">
-                        {#with :pets[0]}<app:pet />{/}
-                        {#with :pets[1]}<app:pet />{/}
-                        {#with :pets[2]}<app:pet />{/}
-                        {#with :pets[3]}<app:pet />{/}
+                        {#with :pets[0]}<app:rewards:pet />{/}
+                        {#with :pets[1]}<app:rewards:pet />{/}
+                        {#with :pets[2]}<app:rewards:pet />{/}
+                        {#with :pets[3]}<app:rewards:pet />{/}
                     </div>
 
                     <div class="row-fluid">
-                        {#with :pets[4]}<app:pet />{/}
-                        {#with :pets[5]}<app:pet />{/}
-                        {#with :pets[6]}<app:pet />{/}
-                        {#with :pets[7]}<app:pet />{/}
+                        {#with :pets[4]}<app:rewards:pet />{/}
+                        {#with :pets[5]}<app:rewards:pet />{/}
+                        {#with :pets[6]}<app:rewards:pet />{/}
+                        {#with :pets[7]}<app:rewards:pet />{/}
                     </div>
 
                     <div class="row-fluid">
-                        {#with :pets[8]}<app:pet />{/}
-                        {#with :pets[9]}<app:pet />{/}
-                        {#with :pets[10]}<app:pet />{/}
-                        {#with :pets[11]}<app:pet />{/}
+                        {#with :pets[8]}<app:rewards:pet />{/}
+                        {#with :pets[9]}<app:rewards:pet />{/}
+                        {#with :pets[10]}<app:rewards:pet />{/}
+                        {#with :pets[11]}<app:rewards:pet />{/}
                     </div>
 
                     <div class="row-fluid">
-                        {#with :pets[12]}<app:pet />{/}
-                        {#with :pets[13]}<app:pet />{/}
-                        {#with :pets[14]}<app:pet />{/}
-                        {#with :pets[15]}<app:pet />{/}
+                        {#with :pets[12]}<app:rewards:pet />{/}
+                        {#with :pets[13]}<app:rewards:pet />{/}
+                        {#with :pets[14]}<app:rewards:pet />{/}
+                        {#with :pets[15]}<app:rewards:pet />{/}
                     </div>
 
                     <div class="row-fluid">
-                        {#with :pets[16]}<app:pet />{/}
+                        {#with :pets[16]}<app:rewards:pet />{/}
                     </div>
 
 
@@ -113,12 +113,12 @@
 
             <ul class="nav nav-tabs" id="rewardsTabs">
                 <li class="active"><a href="#rewards-tab" data-toggle="tab" x-bind="click:activateRewardsTab">Rewards</a></li>
-                <li><a href="#pets-tab" id='pets-tab' data-toggle="tab" x-bind='click:activatePetsTab'>Pets</a></li>
+                <li><a href="#pets-tab" data-toggle="tab" x-bind='click:activatePetsTab'>Pets</a></li>
                 <!--<li><a href="#mounts-tab" data-toggle="tab">Mounts</a></li>-->
             </ul>
         </div>
     {else}
-        <app:rewardsTab />
+        <app:rewards:rewardsTab />
     {/}
     </div>
 
@@ -167,7 +167,7 @@
         <div class="task-text">{:task.text}</div>
 
         <!-- edit/options dialog -->
-        <app:taskMeta />
+        <app:tasks:taskMeta />
     </li>
 
 <taskMeta:>
