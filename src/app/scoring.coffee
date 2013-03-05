@@ -143,8 +143,10 @@ updateStats = (model, newStats, batch) ->
     if newStats.exp >= tnl
       silent = true
       user.set('stats.exp', newStats.exp)
-      newStats.exp -= tnl
-      obj.stats.lvl++
+      while newStats.exp >= tnl # keep levelling up
+        newStats.exp -= tnl
+        obj.stats.lvl++
+        tnl = algos.tnl(obj.stats.lvl)
       obj.stats.hp = 50
 
     obj.stats.exp = newStats.exp
