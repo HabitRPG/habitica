@@ -123,49 +123,54 @@
     </div>
 
 <newTask:>
-    <form class="form-inline new-task-form" id="new-{@type}" data-task-type="{@type}" x-bind="submit:addTask">
-        <input value="{@inputValue}" type="text" name="new-task" placeholder="{@placeHolder}"/>
-        <input class="btn" type="submit" value="Add" />
+    <form class="addtask-form form-inline new-task-form" id="new-{@type}" data-task-type="{@type}" x-bind="submit:addTask">
+        <input class="addtask-field" value="{@inputValue}" type="text" name="new-task" placeholder="{@placeHolder}"/>
+        <input class="btn addtask-btn" type="submit" value="Add">
     </form>
 
+    <!-- all the parts of a single task -->
     <task:>
         <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, :task.repeat)}">
-    <pre>
-    <div class="task-meta-controls">
+            <pre>
+                <!-- right-hand side control buttons -->
+                <div class="task-meta-controls">
+                    <div class="hover-show">
+                        <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
+                        <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
+                        {#if :task.history}
+                        <a x-bind=click:toggleChart data-toggle-id="{{:task.id}}-chart" data-hide-id="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history" rel="tooltip" title="Progress">
+                            <i class="icon-signal"></i>
+                        </a>
+                        {/}
+                    </div>
 
-        <div class="hover-show">
-            <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
-            <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
-            {#if :task.history}
-            <a x-bind=click:toggleChart data-toggle-id="{{:task.id}}-chart" data-hide-id="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history" rel="tooltip" title="Progress">
-                <i class="icon-signal"></i>
-            </a>
-            {/}
-        </div>
+                    {#if :task.notes}
+                    <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
+                    {/}
+                </div>
 
-        {#if :task.notes}
-        <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
-        {/}
-    </div>
+                <!-- left-hand side checkbox -->
+                <div class="task-controls">
+                    <!-- Habits -->
+                    {#if equal(:task.type, 'habit')}
+                    {#if :task.up}<a data-direction=up x-bind=click:score><img src="/img/add.png" /></a>{/}
+                    {#if :task.down}<a data-direction=down x-bind=click:score><img src="/img/remove.png" /></a>{/}
+                    <!-- Rewards -->
+                    {else if equal(:task.type, 'reward')}
+                    <a x-bind=click:score class="buy-link" data-direction=down>{:task.value}<img src="/img/coin_single_gold.png"/></a>
+                    <!-- Daily & Todos -->
+                    {else}
+                    <input type=checkbox checked="{:task.completed}">
+                    {/}
+                </div>
 
-    <div class="task-controls">
-        <!-- Habits -->
-        {#if equal(:task.type, 'habit')}
-        {#if :task.up}<a data-direction=up x-bind=click:score><img src="/img/add.png" /></a>{/}
-        {#if :task.down}<a data-direction=down x-bind=click:score><img src="/img/remove.png" /></a>{/}
-        <!-- Rewards -->
-        {else if equal(:task.type, 'reward')}
-        <a x-bind=click:score class="buy-link" data-direction=down>{:task.value}<img src="/img/coin_single_gold.png"/></a>
-        <!-- Daily & Todos -->
-        {else}
-        <input type=checkbox checked="{:task.completed}"/>
-        {/}
-    </div>
-    <div class="task-text">{:task.text}</div>
+                <!-- main content -->
+                <div class="task-text">{:task.text}</div>
 
-    <app:taskMeta />
-    </pre>
-    </li>
+                <!-- edit/options dialog -->
+                <app:taskMeta />
+            </pre>
+        </li>
 
 <taskMeta:>
     <div style="display:none;" id={{:task.id}}-edit>
