@@ -57,4 +57,5 @@ module.exports.taskDeltaFormula = (currentValue, direction) ->
 	else
 		delta = -Math.min(Math.pow(0.95,currentValue),5)
 	#console.log("CV = " + currentValue + " Dir = " + direction + " delta = " + delta)
+	delta = 20 if delta > 20
 	return delta
