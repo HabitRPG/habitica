@@ -2,23 +2,23 @@
     <!--helpTitle & helpContent moved to tour -->
     <div class="task-column span3 habits">
         <h2>Habits</h2>
-        <app:tasks:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
-        <ul class="habits">{#each _habitList as :task}<app:tasks:task />{/}</ul>
+        <app:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
+        <ul class="habits">{#each _habitList as :task}<app:task />{/}</ul>
     </div>
 
     <div class="task-column span3 dailys">
         <h2>Daily</h2>
-        <app:tasks:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
-        <ul class='dailys'>{#each _dailyList as :task}<app:tasks:task />{/}</ul>
+        <app:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
+        <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
     </div>
 
     <div class="task-column span3 todos context-enabled context-uncompleted tabbable tabs-below" id="todo-well">
         <h2>Todos</h2>
         <div class="display-context-dependant show-for-uncompleted">
-            <app:tasks:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />
+            <app:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />
         </div>
         <ul class='todos task-list'>
-            {#each _todoList as :task}<app:tasks:task />{/}
+            {#each _todoList as :task}<app:task />{/}
         </ul>
         <div class="display-context-dependant show-for-completed">
             <a class='btn' x-bind=click:clearCompleted>Clear Completed</a>
@@ -55,120 +55,120 @@
                     <td><div class='shop_copper' rel='tooltip' title='shop_copper'></div></td>-->
                 </tr></table>
                 {else}
-                <app:rewards:userTokens />
+                <app:userTokens />
                 {/}
             </div>
         </div>
-        <app:tasks:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
+        <app:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
 
-        {#if equal(_user.flags.petsEnabled,true)}
-            <div class='tabbable tabs-below'>
+        {#if _user.flags.petsEnabled}
+        <div class='tabbable tabs-below'>
 
-                <div class="tab-content">
-                    <div class="tab-pane active" id="rewards-tab">
-                        <app:rewards:rewardsTab />
-                    </div>
-
-                    <div class="tab-pane" id="pets-tab">
-                        {#with _view.items.pets as :pets}
-
-                        <div class="row-fluid">
-                            {#with :pets[0]}<app:rewards:pet />{/}
-                            {#with :pets[1]}<app:rewards:pet />{/}
-                            {#with :pets[2]}<app:rewards:pet />{/}
-                            {#with :pets[3]}<app:rewards:pet />{/}
-                        </div>
-
-                        <div class="row-fluid">
-                            {#with :pets[4]}<app:rewards:pet />{/}
-                            {#with :pets[5]}<app:rewards:pet />{/}
-                            {#with :pets[6]}<app:rewards:pet />{/}
-                            {#with :pets[7]}<app:rewards:pet />{/}
-                        </div>
-
-                        <div class="row-fluid">
-                            {#with :pets[8]}<app:rewards:pet />{/}
-                            {#with :pets[9]}<app:rewards:pet />{/}
-                            {#with :pets[10]}<app:rewards:pet />{/}
-                            {#with :pets[11]}<app:rewards:pet />{/}
-                        </div>
-
-                        <div class="row-fluid">
-                            {#with :pets[12]}<app:rewards:pet />{/}
-                            {#with :pets[13]}<app:rewards:pet />{/}
-                            {#with :pets[14]}<app:rewards:pet />{/}
-                            {#with :pets[15]}<app:rewards:pet />{/}
-                        </div>
-
-                        <div class="row-fluid">
-                            {#with :pets[16]}<app:rewards:pet />{/}
-                        </div>
-
-
-                        {/}
-                    </div>
-                    <!--<div class="tab-pane" id="mounts-tab">...</div>-->
+            <div class="tab-content">
+                <div class="tab-pane active" id="rewards-tab">
+                    <app:rewardsTab />
                 </div>
 
+                <div class="tab-pane" id="pets-tab">
+                    {#with _view.items.pets as :pets}
 
-                <ul class="nav nav-tabs" id="rewardsTabs">
-                    <li class="active"><a href="#rewards-tab" data-toggle="tab" x-bind="click:activateRewardsTab">Rewards</a></li>
-                    <li><a href="#pets-tab" data-toggle="tab" x-bind='click:activatePetsTab'>Pets</a></li>
-                    <!--<li><a href="#mounts-tab" data-toggle="tab">Mounts</a></li>-->
-                </ul>
+                    <div class="row-fluid">
+                        {#with :pets[0]}<app:pet />{/}
+                        {#with :pets[1]}<app:pet />{/}
+                        {#with :pets[2]}<app:pet />{/}
+                        {#with :pets[3]}<app:pet />{/}
+                    </div>
+
+                    <div class="row-fluid">
+                        {#with :pets[4]}<app:pet />{/}
+                        {#with :pets[5]}<app:pet />{/}
+                        {#with :pets[6]}<app:pet />{/}
+                        {#with :pets[7]}<app:pet />{/}
+                    </div>
+
+                    <div class="row-fluid">
+                        {#with :pets[8]}<app:pet />{/}
+                        {#with :pets[9]}<app:pet />{/}
+                        {#with :pets[10]}<app:pet />{/}
+                        {#with :pets[11]}<app:pet />{/}
+                    </div>
+
+                    <div class="row-fluid">
+                        {#with :pets[12]}<app:pet />{/}
+                        {#with :pets[13]}<app:pet />{/}
+                        {#with :pets[14]}<app:pet />{/}
+                        {#with :pets[15]}<app:pet />{/}
+                    </div>
+
+                    <div class="row-fluid">
+                        {#with :pets[16]}<app:pet />{/}
+                    </div>
+
+
+                    {/}
+                </div>
+                <!--<div class="tab-pane" id="mounts-tab">...</div>-->
             </div>
-        {else}
-            <app:rewards:rewardsTab />
-        {/}
+
+
+            <ul class="nav nav-tabs" id="rewardsTabs">
+                <li class="active"><a href="#rewards-tab" data-toggle="tab" x-bind="click:activateRewardsTab">Rewards</a></li>
+                <li><a href="#pets-tab" id='pets-tab' data-toggle="tab" x-bind='click:activatePetsTab'>Pets</a></li>
+                <!--<li><a href="#mounts-tab" data-toggle="tab">Mounts</a></li>-->
+            </ul>
+        </div>
+    {else}
+        <app:rewardsTab />
+    {/}
     </div>
 
 <newTask:>
-    <form class="addtask-form form-inline new-task-form" id="new-{{@type}}" data-task-type="{{@type}}" x-bind="submit:addTask">
-        <input class="addtask-field" value="{@inputValue}" type="text" name="new-task" placeholder="{{@placeHolder}}"/>
+    <form class="addtask-form form-inline new-task-form" id="new-{@type}" data-task-type="{@type}" x-bind="submit:addTask">
+        <input class="addtask-field" value="{@inputValue}" type="text" name="new-task" placeholder="{@placeHolder}"/>
         <input class="btn addtask-btn" type="submit" value="Add">
     </form>
 
-<!-- all the parts of a single task -->
-<task:>
-    <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, :task.repeat)}">
-        <!-- right-hand side control buttons -->
-        <div class="task-meta-controls">
-            <div class="hover-show">
-                <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
-                <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
-                {#if :task.history}
-                <a x-bind=click:toggleChart data-toggle-id="{{:task.id}}-chart" data-hide-id="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history" rel="tooltip" title="Progress">
-                    <i class="icon-signal"></i>
-                </a>
+    <!-- all the parts of a single task -->
+    <task:>
+        <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, :task.repeat)}">
+            <!-- right-hand side control buttons -->
+            <div class="task-meta-controls">
+                <div class="hover-show">
+                    <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
+                    <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
+                    {#if :task.history}
+                    <a x-bind=click:toggleChart data-toggle-id="{{:task.id}}-chart" data-hide-id="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history" rel="tooltip" title="Progress">
+                        <i class="icon-signal"></i>
+                    </a>
+                    {/}
+                </div>
+
+                {#if :task.notes}
+                <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
                 {/}
             </div>
 
-            {#if :task.notes}
-            <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
-            {/}
-        </div>
+            <!-- left-hand side checkbox -->
+            <div class="task-controls">
+                <!-- Habits -->
+                {#if equal(:task.type, 'habit')}
+                {#if :task.up}<a data-direction=up x-bind=click:score><img src="/img/add.png" /></a>{/}
+                {#if :task.down}<a data-direction=down x-bind=click:score><img src="/img/remove.png" /></a>{/}
+                <!-- Rewards -->
+                {else if equal(:task.type, 'reward')}
+                <a x-bind=click:score class="buy-link" data-direction=down>{:task.value}<img src="/img/coin_single_gold.png"/></a>
+                <!-- Daily & Todos -->
+                {else}
+                <input type=checkbox checked="{:task.completed}">
+                {/}
+            </div>
 
-        <!-- left-hand side checkbox -->
-        <div class="task-controls">
-            <!-- Habits -->
-            {#if equal(:task.type, 'habit')}
-            {#if :task.up}<a data-direction=up x-bind=click:score><img src="/img/add.png" /></a>{/}
-            {#if :task.down}<a data-direction=down x-bind=click:score><img src="/img/remove.png" /></a>{/}
-            <!-- Rewards -->
-            {else if equal(:task.type, 'reward')}
-            <a x-bind=click:score class="buy-link" data-direction=down>{:task.value}<img src="/img/coin_single_gold.png"/></a>
-            <!-- Daily & Todos -->
-            {else}
-            <input type=checkbox checked="{:task.completed}">
-            {/}
-        </div>
+            <!-- main content -->
+            <div class="task-text">{:task.text}</div>
 
-        <!-- main content -->
-        <div class="task-text">{:task.text}</div>
-
-        <!-- edit/options dialog -->
-        <app:tasks:taskMeta />
-    </li>
+            <!-- edit/options dialog -->
+            <app:taskMeta />
+        </li>
 
 <taskMeta:>
     <div style="display:none;" id={{:task.id}}-edit>

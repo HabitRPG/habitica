@@ -1,17 +1,17 @@
 <rewardsTab:>
     <ul class='rewards'>
-        {#each _rewardList as :task}<app:tasks:task />{/}
+        {#each _rewardList as :task}<app:task />{/}
     </ul>
 
 
     {#if _user.flags.itemsEnabled}
     <ul class='items'>
-        {#with _view.items.weapon as :item}<app:rewards:item />{/}
-        {#with _view.items.armor as :item}<app:rewards:item />{/}
-        {#with _view.items.head as :item}<app:rewards:item />{/}
-        {#with _view.items.shield as :item}<app:rewards:item />{/}
-        {#with _view.items.potion as :item}<app:rewards:item />{/}
-        {#with _view.items.reroll as :item}<app:rewards:item reroll=true />{/}
+        {#with _view.items.weapon as :item}<app:item />{/}
+        {#with _view.items.armor as :item}<app:item />{/}
+        {#with _view.items.head as :item}<app:item />{/}
+        {#with _view.items.shield as :item}<app:item />{/}
+        {#with _view.items.potion as :item}<app:item />{/}
+        {#with _view.items.reroll as :item}<app:item reroll=true />{/}
     </ul>
     {/}
 
