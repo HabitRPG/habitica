@@ -13,11 +13,11 @@
     </div>
 
     <div class="task-column span3 todos context-enabled context-uncompleted tabbable tabs-below" id="todo-well">
-        <span class='pull-right'>
+        <span class='option-box pull-right'>
             {#if _user.history.todos}
-              <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
+              <a class="option-action" x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
             {/}
-            <a href="/v1/users/{{_user.id}}/calendar.ics?apiToken={{_user.apiToken}}" rel=tooltip title="iCal"><i class=icon-calendar></i></a>
+            <a class="option-action" href="/v1/users/{{_user.id}}/calendar.ics?apiToken={{_user.apiToken}}" rel=tooltip title="iCal"><i class=icon-calendar></i></a>
             <!-- <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a> -->
         </span>
         <h2>Todos</h2>
@@ -124,9 +124,10 @@
 
 <newTask:>
     <form class="addtask-form form-inline new-task-form" id="new-{@type}" data-task-type="{@type}" x-bind="submit:addTask">
-        <input class="addtask-field" value="{@inputValue}" type="text" name="new-task" placeholder="{@placeHolder}"/>
-        <input class="btn addtask-btn" type="submit" value="Add">
+        <input class="addtask-btn" type="submit" value="＋">
+        <span class="addtask-field"><input value="{@inputValue}" type="text" name="new-task" placeholder="{@placeHolder}"/></span>
     </form>
+    <hr>
 
     <!-- all the parts of a single task -->
     <task:>
@@ -152,19 +153,22 @@
             <div class="task-controls">
                 <!-- Habits -->
                 {#if equal(:task.type, 'habit')}
-                {#if :task.up}<a data-direction=up x-bind=click:score><img src="/img/add.png" /></a>{/}
-                {#if :task.down}<a data-direction=down x-bind=click:score><img src="/img/remove.png" /></a>{/}
+                {#if :task.up}<a class="task-action-btn action-plus" data-direction=up x-bind=click:score>＋</a>{/}
+                {#if :task.down}<a class="task-action-btn action-minus" data-direction=down x-bind=click:score>−</a>{/}
                 <!-- Rewards -->
                 {else if equal(:task.type, 'reward')}
-                <a x-bind=click:score class="buy-link" data-direction=down>{:task.value}<img src="/img/coin_single_gold.png"/></a>
+                <a class="task-action-btn action-buy" x-bind=click:score class="buy-link" data-direction=down>{:task.value}<img src="/img/coin_single_gold.png"/></a>
                 <!-- Daily & Todos -->
                 {else}
-                <input type=checkbox checked="{:task.completed}">
+                <span class="task-checker">
+                    <input type=checkbox id="box-{{:task.id}}" class="visuallyhidden focusable" checked="{:task.completed}">
+                    <label for="box-{{:task.id}}"></label>
+                </span>
                 {/}
             </div>
 
             <!-- main content -->
-            <div class="task-text">{:task.text}</div>
+            <p class="task-text">{:task.text}</p>
 
             <!-- edit/options dialog -->
             <app:taskMeta />

@@ -1,19 +1,73 @@
+// color variables
+$color-worst      =   rgb(230, 184, 175)
+$color-worse      =   rgb(244, 204, 204)
+$color-bad        =   rgb(252, 229, 205)
+$color-neutral    =   rgb(255, 242, 204)
+$color-good       =   rgb(217, 234, 211)
+$color-better     =   rgb(208, 224, 227)
+$color-best       =   rgb(201, 218, 248)
+$color-completed  =   rgb(217, 217, 217)
+
 .color-worst
-  background-color: rgb(230, 184, 175)
+  background-color: $color-worst
+  .task-checker label
+    background-color: darken($color-worst, 30%)
+  .action-plus
+    background-color: darken($color-worst, 30%)
+  .action-minus
+    background-color: darken($color-worst, 30%)
 .color-worse
-  background-color: rgb(244, 204, 204)
+  background-color: $color-worse
+  .task-checker label
+    background-color: darken($color-worse, 30%)
+  .action-plus
+    background-color: darken($color-worse, 30%)
+  .action-minus
+    background-color: darken($color-worse, 30%)
 .color-bad
-  background-color: rgb(252, 229, 205)
+  background-color: $color-bad
+  .task-checker label
+    background-color: darken($color-bad, 30%)
+  .action-plus
+    background-color: darken($color-bad, 30%)
+  .action-minus
+    background-color: darken($color-bad, 30%)
 .color-neutral
-  background-color: rgb(255, 242, 204)
+  background-color: $color-neutral
+  .task-checker label
+    background-color: darken($color-neutral, 30%)
+  .action-plus
+    background-color: darken($color-neutral, 30%)
+  .action-minus
+    background-color: darken($color-neutral, 30%)
 .color-good
-  background-color: rgb(217, 234, 211)
+  background-color: $color-good
+  .task-checker label
+    background-color: darken($color-good, 30%)
+  .action-plus
+    background-color: darken($color-good, 30%)
+  .action-minus
+    background-color: darken($color-good, 30%)
 .color-better
-  background-color: rgb(208, 224, 227)
+  background-color: $color-better
+  .task-checker label
+    background-color: darken($color-better, 30%)
+  .action-plus
+    background-color: darken($color-better, 30%)
+  .action-minus
+    background-color: darken($color-better, 30%)
 .color-best
-  background-color: rgb(201, 218, 248)
+  background-color: $color-best
+  .task-checker label
+    background-color: darken($color-best, 30%)
+  .action-plus
+    background-color: darken($color-best, 30%)
+  .action-minus
+    background-color: darken($color-best, 30%)
 .completed
-  background-color: rgb(217, 217, 217)
+  background-color: $color-completed
+  .task-checker label
+    background-color: darken($color-completed, 30%)
   color: rgb(153, 153, 153)
 .reward
   background-color: white
@@ -60,26 +114,18 @@ li:hover .task-meta-controls .hover-show
   display: inline
 
 .task
-  list-style:none
-
-  pre
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
-    font-size: 13px
-    line-height: 18px
-    color: black
-    word-break: normal
 
   .task-meta-controls
     float:right
     i
       margin-left:5px
 
-  .task-controls,.task-text
-    display:inline
-    margin: 0 10px 0 0
+  // .task-controls,.task-text
+  //   // display:inline
+  //   // margin: 0 10px 0 0
 
-    input
-      margin-top: 0
+  //   input
+  //     margin-top: 0
 
   .task-meta-controls .hover-show
     display: none;
@@ -102,23 +148,127 @@ li:hover .task-meta-controls .hover-show
   h2
     margin: 0 0 0.5em
     padding: 0
+  
+  .nav-tabs
+    margin-top: 0.75em
+
+  .option-box
+    .option-action
+      margin-left: 0.25em
+
+
+.rewards
+  margin-bottom: 0.75em
 
 .task
+  list-style: none
   clear: both
-  padding: 0.5em
+  padding: 0 0.5em 0 0
+  min-height: 2.5em
+  line-height: 2.5
   margin-bottom: 0.75em
-  border: 1px solid rgba(0, 0, 0, 0.2)
+  // border: 1px solid rgba(0,0,0,0.2)
+  // -webkit-background-clip: padding-box
   border-radius: 0.25em
+  overflow: hidden
   &:last-child
     margin-bottom: 0
 
+.task-controls
+  display: inline
+.task-text
+  display: inline-block
+  text-indent: 0.5em
+
+.task-checker
+  label
+    display: inline-block
+    width: 2.5em
+    height: 2.5em
+    padding: 0
+    margin: 0
+    vertical-align: top
+    cursor: pointer
+    // border-radius: 0.25em 0 0 0.25em
+    &:after
+      content: '¬'
+      transform: rotate(135deg)
+      display: block
+      line-height: 1.1
+      text-align: left
+      opacity: 0.1
+      color: black
+      font-size: 3em
+    &:hover:after,
+    &:focus:after
+      opacity: 0.5 !important
+    &:active:after
+      opacity: 0.75 !important
+
+  & input[type=checkbox]:checked + label:after
+    opacity: 1
+  
+  input[type=checkbox]
+    margin: 0
+    padding: 0
+    visibility: hidden
+
 .addtask-form
   margin-bottom: 0.75em
+  border-radius: 0.25em
+  overflow: hidden
   .addtask-field
-    max-width: 70%
+    display: inline-block
+    width: 80% // fallback for Safari 5.1
+    // width: calc(unquote('100% - 3em'))
+    input
+      font-family: 'Lato', sans-serif
+      outline: 0
+      border: 0
+      box-shadow: none
+      background-color: white
+      border-radius 0 0.25em 0.25em 0
+      height: 2.5em
+      padding: 0 0 0 0.5em
+      width: 100%
+      &:focus
+        box-shadow: inset 0 0 3px darken($color-best, 20%)
   .addtask-btn
-    float: right
-    font-family: 'Lato', sans-serif
+    display: inline-block
+    width: 1.51515em
+    height: 1.51515em
+    padding: 0
+    font-size: 1.65em
+    line-height: 1.55
+    outline: 0
+    border: 0
+    background-color: darken($color-best, 20%)
+    opacity: 0.5
+    &:hover,
+    &:focus
+      opacity: 0.75
+      background-color: darken($color-best, 20%)
+    &:active
+      background-color: darken($color-best, 30%)
+      opacity: 1
 
-.todo-status-toggler
-  margin-top: 0.75em
+.task-action-btn
+  display: inline-block
+  width: 1.773em
+  height: 1.773em
+  padding: 0
+  font-size: 1.41em
+  line-height: 1.773
+  text-align: center
+  color: black
+  vertical-align: top
+  border-right: 1px solid rgba(0,0,0,0.25)
+  &:last-child
+    border: 0
+  &:hover,
+  &:focus
+    text-decoration: none
+  // &.action-plus
+  //   background-color: darken($color-good, 20%)
+  // &.action-minus
+  //   background-color: darken($color-worst, 20%)
