@@ -213,18 +213,21 @@
                 </div>
             {/}
 
+            <hr/>
             {#unless equal(:task.type, 'reward')}
-                <hr/>
                 <div>
-                    <div class="control-group btn-group priority-multiplier" data-id="{{:task.id}}">
-                        <label>Priority <a href="https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17" target="_blank"><i class='icon-question-sign'></i></a></label>
-                        <button type="button" class="btn btn-info {#if equal(:task.priority,'!')}active{/}{#unless :task.priority}active{/}" data-priority='!' x-bind=click:tasksSetPriority>!</button>
-                        <button type="button" class="btn btn-info {#if equal(:task.priority,'!!')}active{/}" data-priority='!!' x-bind=click:tasksSetPriority>!!</button>
-                        <button type="button" class="btn btn-info {#if equal(:task.priority,'!!!')}active{/}" data-priority='!!!' x-bind=click:tasksSetPriority>!!!</button>
+                    <a x-bind="click:tasksToggleAdvanced">Advanced</a>
+                    <div class='advanced hide'>
+                        <div class="control-group btn-group priority-multiplier" data-id="{{:task.id}}">
+                            <label>Difficulty <a href="https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17" target="_blank" title="How difficult is this task? Multiplies it's point value." rel='tooltip'><i class='icon-question-sign'></i></a></label>
+                            <button type="button" class="btn btn-info {#if equal(:task.priority,'!')}active{/}{#unless :task.priority}active{/}" data-priority='!' x-bind=click:tasksSetPriority>Easy</button>
+                            <button type="button" class="btn btn-info {#if equal(:task.priority,'!!')}active{/}" data-priority='!!' x-bind=click:tasksSetPriority>Medium</button>
+                            <button type="button" class="btn btn-info {#if equal(:task.priority,'!!!')}active{/}" data-priority='!!!' x-bind=click:tasksSetPriority>Hard</button>
+                        </div>
                     </div>
                 </div>
+                <br/>
             {/}
-            <hr/>
             <button type=submit class="btn" x-bind="click:tasksSaveAndClose">Save & Close</button>
         </form>
     </div>
