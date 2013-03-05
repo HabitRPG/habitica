@@ -142,9 +142,14 @@ updateStats = (model, newStats, batch) ->
     silent = false
     if newStats.exp >= tnl
       silent = true
-      user.set('stats.exp', newStats.exp)
-      newStats.exp -= tnl
-      obj.stats.lvl++
+      #user.set('stats.exp', newStats.exp)
+      while newStats.exp >= tnl
+        console.log(newStats.exp + " " + tnl)
+        newStats.exp -= tnl
+        obj.stats.lvl++
+        tnl = obj.stats.lvl * 2
+        #tnl = algos.tnl(obj.stats.lvl)
+        console.log(tnl)
       obj.stats.hp = 50
 
     obj.stats.exp = newStats.exp
