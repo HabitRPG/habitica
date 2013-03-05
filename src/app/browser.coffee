@@ -86,6 +86,11 @@ setupTooltips = (model) ->
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
 
+  $('.priority-multiplier-help').popover
+    title: "How difficult is this task?"
+    trigger: "hover"
+    content: "This multiplies its point value. Use sparingly, rely instead on our organic value-adjustment algorithms. But some tasks are grossly more valuable (Write Thesis vs Floss Teeth). Click for more info."
+
 setupTour = (model) ->
   tourSteps = [
     {
