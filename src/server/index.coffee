@@ -79,6 +79,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     .use('/api/v1', require('./api').middleware)
     .use(require('./deprecated').middleware)
     # Show splash page for newcomers
+    .use(middleware.splash)
     .use(priv.middleware)
     .use(middleware.view)
     .use(auth.middleware(strategies, options))
