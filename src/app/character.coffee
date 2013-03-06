@@ -82,7 +82,7 @@ module.exports.app = (appExports, model) ->
     batch = new BatchUpdate(model)
     batch.startTransaction()
     $('#restore-form input').each ->
-      batch.set $(this).attr('data-for'), parseInt($(this).val())
+      batch.set $(this).attr('data-for'), parseInt($(this).val() || 1)
     batch.commit()
 
   user.on 'set', 'flags.customizationsNotification', (captures, args) ->
