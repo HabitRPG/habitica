@@ -1,76 +1,41 @@
-// color variables
-$color-worst      =   rgb(230, 184, 175)
-$color-worse      =   rgb(244, 204, 204)
-$color-bad        =   rgb(252, 229, 205)
-$color-neutral    =   rgb(255, 242, 204)
-$color-good       =   rgb(217, 234, 211)
-$color-better     =   rgb(208, 224, 227)
-$color-best       =   rgb(201, 218, 248)
-$color-completed  =   rgb(217, 217, 217)
+// 1. Set up color classes
+// ========================
 
-.color-worst
-  background-color: $color-worst
-  .task-checker label
-    background-color: darken($color-worst, 30%)
-  .action-plus
-    background-color: darken($color-worst, 30%)
-  .action-minus
-    background-color: darken($color-worst, 30%)
-.color-worse
-  background-color: $color-worse
-  .task-checker label
-    background-color: darken($color-worse, 30%)
-  .action-plus
-    background-color: darken($color-worse, 30%)
-  .action-minus
-    background-color: darken($color-worse, 30%)
-.color-bad
-  background-color: $color-bad
-  .task-checker label
-    background-color: darken($color-bad, 30%)
-  .action-plus
-    background-color: darken($color-bad, 30%)
-  .action-minus
-    background-color: darken($color-bad, 30%)
-.color-neutral
-  background-color: $color-neutral
-  .task-checker label
-    background-color: darken($color-neutral, 30%)
-  .action-plus
-    background-color: darken($color-neutral, 30%)
-  .action-minus
-    background-color: darken($color-neutral, 30%)
-.color-good
-  background-color: $color-good
-  .task-checker label
-    background-color: darken($color-good, 30%)
-  .action-plus
-    background-color: darken($color-good, 30%)
-  .action-minus
-    background-color: darken($color-good, 30%)
-.color-better
-  background-color: $color-better
-  .task-checker label
-    background-color: darken($color-better, 30%)
-  .action-plus
-    background-color: darken($color-better, 30%)
-  .action-minus
-    background-color: darken($color-better, 30%)
-.color-best
-  background-color: $color-best
-  .task-checker label
-    background-color: darken($color-best, 30%)
-  .action-plus
-    background-color: darken($color-best, 30%)
-  .action-minus
-    background-color: darken($color-best, 30%)
+// color variables
+$worst      =   rgb(230, 184, 175)
+$worse      =   rgb(244, 204, 204)
+$bad        =   rgb(252, 229, 205)
+$neutral    =   rgb(255, 242, 204)
+$good       =   rgb(217, 234, 211)
+$better     =   rgb(208, 224, 227)
+$best       =   rgb(201, 218, 248)
+$completed  =   rgb(217, 217, 217)
+
+// array of keywords and their associated color vars
+$stages = (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $good) (better $better) (best $best)
+
+// for each color stage, generate a named class w/ the appropriate color
+for $stage in $stages
+  .color-{$stage[0]}
+    background-color: $stage[1]
+    .task-checker label,
+    .action-plus,
+    .action-minus
+      background-color: darken($stage[1], 30%)
+
+// completed has to be outside the loop to override the color class
 .completed
-  background-color: $color-completed
+  background-color: $completed
+  color: #999
   .task-checker label
-    background-color: darken($color-completed, 30%)
-  color: rgb(153, 153, 153)
+    background-color: darken($completed, 30%)
+
 .reward
   background-color: white
+
+
+// 2. Task Options
+// ================
 
 label.checkbox.inline{
     width: 40px
@@ -119,13 +84,6 @@ li:hover .task-meta-controls .hover-show
     float:right
     i
       margin-left:5px
-
-  // .task-controls,.task-text
-  //   // display:inline
-  //   // margin: 0 10px 0 0
-
-  //   input
-  //     margin-top: 0
 
   .task-meta-controls .hover-show
     display: none;
@@ -190,17 +148,16 @@ li:hover .task-meta-controls .hover-show
     margin: 0
     vertical-align: top
     cursor: pointer
-    // border-radius: 0.25em 0 0 0.25em
     &:after
       content: '○'
       display: block
       opacity: 0.2
-      line-height: 0.8
+      line-height: 0.76
       text-align: center
       color: black
       font-size: 3em
-    &:hover:before,
-    &:focus:before
+    &:hover:after,
+    &:focus:after
       content: '¬'
       display: block
       font-size: 3em
@@ -209,7 +166,7 @@ li:hover .task-meta-controls .hover-show
       line-height: 1.1
       text-align: left
       opacity: 0.5 !important
-    &:active:before
+    &:active:after
       opacity: 0.75 !important
 
   & input[type=checkbox]:checked + label:after
@@ -243,7 +200,7 @@ li:hover .task-meta-controls .hover-show
       padding: 0 0 0 0.5em
       width: 100%
       &:focus
-        box-shadow: inset 0 0 3px darken($color-best, 20%)
+        box-shadow: inset 0 0 3px darken($best, 20%)
   .addtask-btn
     display: inline-block
     width: 1.51515em
@@ -253,14 +210,14 @@ li:hover .task-meta-controls .hover-show
     line-height: 1.55
     outline: 0
     border: 0
-    background-color: darken($color-best, 20%)
+    background-color: darken($best, 20%)
     opacity: 0.5
     &:hover,
     &:focus
       opacity: 0.75
-      background-color: darken($color-best, 20%)
+      background-color: darken($best, 20%)
     &:active
-      background-color: darken($color-best, 30%)
+      background-color: darken($best, 30%)
       opacity: 1
 
 .task-action-btn
