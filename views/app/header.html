@@ -20,7 +20,7 @@
             <div class="progress-bars">
                 <div class="progress progress-danger" rel=tooltip data-placement=bottom title="Health">
                     <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
-                    <span class="progress-text"><i class=icon-heart></i> {round(_user.stats.hp)} / 50</span>
+                    <span class="progress-text"><i class=icon-heart></i> {ceil(_user.stats.hp)} / 50</span>
                 </div>
 
                 <div class="progress progress-warning" rel=tooltip data-placement=bottom title="Experience">

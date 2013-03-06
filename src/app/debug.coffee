@@ -8,8 +8,13 @@ module.exports.app = (appExports, model) ->
     user.set 'lastCron', yesterday
     window.location.reload()
 
+  appExports.emulateTenDays = ->
+    yesterday = +moment().subtract('days', 10).toDate()
+    user.set 'lastCron', yesterday
+    window.location.reload()
+
   appExports.cheat = ->
-    user.incr 'stats.exp', 20
+    user.incr 'stats.exp', model.get '_tnl'
     user.incr 'stats.gp', 1000
 
   appExports.reset = ->
