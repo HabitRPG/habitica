@@ -184,9 +184,10 @@
         <app:taskMeta />
     </li>
 
+<!-- task edit/options -->
 <taskMeta:>
-    <div style="display:none;" id={{:task.id}}-edit>
-        <hr/>
+    <div id="{{:task.id}}-edit" class="task-options visuallyhidden">
+        <hr>
         <form x-bind=submit:toggleTaskEdit data-toggle-id="{{:task.id}}-edit">
             <div class=control-group>
                 <label>Text</label><input type=text value={:task.text} />
