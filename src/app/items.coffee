@@ -165,22 +165,22 @@ module.exports.app = (appExports, model) ->
     model.set '_view.activeTabPets', true
     model.set '_view.activeTabRewards', false
 
-  user.on 'set', 'flags.itemsEnabled', (captures, args) ->
-    return unless captures == true
+  model.on 'set', '_user.flags.itemsEnabled', (captures, args) ->
+    return unless captures is true
     html = """
            <div class='item-store-popover'>
            <img src='/vendor/BrowserQuest/client/img/1/chest.png' />
            Congratulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information.
-           <a href='#' onClick="$('ul.items').popover('hide');return false;">[Close]</a>
+           <a href='#' onClick="$('div.rewards').popover('hide');return false;">[Close]</a>
            </div>
            """
-    $('ul.items').popover
+    $('div.rewards').popover({
       title: "Item Store Unlocked"
       placement: 'left'
       trigger: 'manual'
       html: true
       content: html
-    $('ul.items').popover 'show'
+    }).popover 'show'
 
   user.on 'set', 'flags.petsEnabled', (captures, args) ->
     return unless captures == true
