@@ -10,14 +10,26 @@
 @import "./helpers.styl";
 @import "./responsive.styl";
 
-// where's the actual bootstrap include?
-// @import "../bootstrap-responsive.styl";
-
 @import "../../public/vendor/bootstrap-datepicker/css/datepicker.css";
+
+// fix exploding to very wide for some reason
+.datepicker
+  width: 210px
 
 html,body,p,h1,ul,li,table,tr,th,td
   margin: 0
   padding: 0
+
+*
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+
+hr
+  border-top: 0
+  border-bottom: 1px solid #ddd
+  border-color: rgba(0,0,0,0.1)
+
 
 /* Header
 -------------------------------------------------- */

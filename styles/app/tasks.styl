@@ -18,16 +18,19 @@ $stages = (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $goo
 for $stage in $stages
   .color-{$stage[0]}
     background-color: $stage[1]
-    .task-checker label,
-    .action-plus,
-    .action-minus
+    .action-yesno label,
+    .task-action-btn
       background-color: darken($stage[1], 30%)
+      &:hover, &:focus
+        background-color: darken($stage[1], 40%)
 
 // completed has to be outside the loop to override the color class
 .completed
   background-color: $completed
   color: #999
   .task-checker label
+    background-color: darken($completed, 30%)
+  .task-action-btn
     background-color: darken($completed, 30%)
 
 .reward
@@ -50,9 +53,6 @@ for $stage in $stages
     margin: 0 0 0.5em
     padding: 0
 
-  hr
-    border: 0
-    border-bottom: 1px solid #ddd
 
 // add new task form
 // -----------------
@@ -65,7 +65,7 @@ for $stage in $stages
 .addtask-field
   display: inline-block
   width: 80% // fallback for Safari 5.1
-  width: calc(unquote('100% - 3em'))
+  width: calc(unquote('100% - 2.5em'))
   input
     font-family: 'Lato', sans-serif
     border: 0
@@ -109,7 +109,7 @@ for $stage in $stages
   padding: 0 0.5em 0 0.5em
   min-height: 2.5em
   line-height: 2.5
-  margin-bottom: 0.75em
+  margin-bottom: 1em
   outline: 1px solid rgba(0,0,0,0.1)
   outline-offset: -1px
   &:hover
@@ -129,61 +129,88 @@ for $stage in $stages
   margin-left: -0.5em
   margin-right: 0.5em
 
-  // plus/minus commands
-  .task-action-btn
-    display: inline-block
+// plus/minus commands
+.task-action-btn
+  display: inline-block
+  width: 1.773em
+  height: 1.773em
+  padding: 0
+  font-size: 1.41em
+  line-height: 1.773
+  text-align: center
+  color: #222
+  vertical-align: top
+  border-right: 1px solid rgba(0,0,0,0.25)
+  &:last-child
+    border: 0
+  &:hover, &:focus
+    color: #222
+    text-decoration: none
+
+// checkbox
+.task-checker input[type=checkbox]
+  margin: 0
+  padding: 0
+  visibility: hidden
+
+.task-checker label
+  display: inline-block
+  width: 2.5em
+  height: 2.5em
+  margin: 0
+  vertical-align: top
+  cursor: pointer
+
+// plus/minus checkbox
+.action-plusminus
+  label
+    margin-right: 1.5em
+  label:after
+    font-size: 1.41em
     width: 1.773em
     height: 1.773em
-    padding: 0
-    font-size: 1.41em
     line-height: 1.773
     text-align: center
-    color: black
-    vertical-align: top
-    border-right: 1px solid rgba(0,0,0,0.25)
-    &:last-child
-      border: 0
-    &:hover, &:focus
-      text-decoration: none
-
-  // checkbox
-  .task-checker input[type=checkbox]
-    margin: 0
-    padding: 0
-    visibility: hidden
-
-  .task-checker label
     display: inline-block
-    width: 2.5em
-    height: 2.5em
-    margin: 0
-    vertical-align: top
-    cursor: pointer
+    vertical-align top
+    opacity: 0.3
+    background-color: #ddd
+    outline: 1px solid rgba(0,0,0,0.5)
+    color: #222
+  label[for$="plus"]:after
+    content: '＋'
+  label[for$="minus"]:after
+    content: '−'
 
-    // uncompleted icon
-    &:after
-      content: '○'
-      display: block
-      font-size: 3em
-      line-height: 0.76
-      text-align: center
-      color: black
-      opacity: 0.2
+  &.select-toggle input[type=checkbox]:checked + label:after
+    opacity: 1
 
-    // hint at completed icon
-    &:hover:after,
-    &:focus:after
-      content: '¬'
-      font-size: 3em
-      line-height: 1.1
-      text-align: left
-      transform: rotate(135deg)
-      opacity: 0.5 !important
-    &:active:after
-      opacity: 0.75 !important
+// yes/no checkbox
+.action-yesno
+  // uncompleted icon
+  label:after
+    content: '○'
+    display: block
+    font-size: 3em
+    line-height: 0.76
+    text-align: center
+    color: black
+    opacity: 0.2
+
+  // hint at completed icon
+  label:hover:after,
+  label:focus:after
+    content: '¬'
+    font-size: 3em
+    line-height: 1.1
+    text-align: left
+    transform: rotate(135deg)
+    opacity: 0.5 !important
+  label:active:after
+    opacity: 0.75 !important
 
   // completed icon
-  .task-checker input[type=checkbox]:checked + label:after
+  input[type=checkbox]:checked + label:after
     content: '¬'
     transform: rotate(135deg)
     line-height: 1.1
@@ -204,6 +231,78 @@ for $stage in $stages
 
 .task:hover .task-meta-controls
   opacity: 1
+
+
+// task editing
+// ------------
+.task-options
+  padding: 0 0.5em
+  margin-top: 1.25em
+  color: #333
+
+  .option-group
+    border-bottom: 1px solid rgba(0,0,0,0.1)
+    padding: 0 0 1em
+    margin-bottom: 1em
+
+  .option-title
+    font-size: 1em
+    margin: 0 0 0.5em
+    line-height: 1.5
+    border: 0
+    padding: 0
+    color: #333
+    font-style: italic
+    &:not(.mega):after
+      content: ':'
+    &.mega
+      cursor: pointer
+      font-style: normal
+      font-weight: bold
+      text-decoration: underline
+
+
+  .option-content
+    height: 2.5em
+    width: 100%
+    margin: 0 0 1em
+    padding: 0 0 0 0.5em
+    outline: 0
+    border: 1px solid rgba(0,0,0,0.2)
+    box-shadow: none
+    border-radius: 0
+    font-family: 'Lato', sans-serif //bootstrap override
+  
+  textarea.option-content
+    height: 5em
+    padding-top: 0.25em
+    resize: none
+    margin-bottom: 0
+
+// button-group
+.task-controls.tile-group
+  display: block
+  text-align: center
+  margin: 0
+
+.task-action-btn.tile
+  border: 0
+  font-size: 1.15em
+  font-weight: 300
+  outline: 1px solid rgba(0,0,0,0.2)
+  outline-offset: -1px
+  margin: 0 0 0 3px
+  font-family: 'Lato', sans-serif
+  text-align: inherit
+  opacity: 0.5
+  width: auto
+  padding: 0 0.5em
+  &.active
+    opacity: 1
+  &.spacious
+    margin: 0.75em 0
+    font-size: 1.5em
+    opacity: 1
 
 
 // .context-enabled
