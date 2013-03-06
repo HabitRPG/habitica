@@ -34,89 +34,75 @@ for $stage in $stages
   background-color: white
 
 
-// 2. Task Options
-// ================
 
-label.checkbox.inline{
-    width: 40px
-}
+// 2. Columns & Tasks
+// ===================
 
-.todos
-  .nav-pills > .active > a, .nav-pills > .active > a:hover
-    color: #005580
-    background-color: #DEE5F2
-
-.dailys
-  .repeat-days > .btn:not(.active)
-    background-color: #aaa;
-    background-image: -moz-linear-gradient(top, #eee, #aaa);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eee), to(#aaa));
-    background-image: -webkit-linear-gradient(top, #eee, #aaa);
-    background-image: -o-linear-gradient(top, #eee, #aaa);
-    background-image: linear-gradient(to bottom, #eee, #aaa);
-    background-repeat: repeat-x;
-
-.context-enabled
-  .display-context-dependant,
-  .task-list li
-    display: none
-
-  &.context-completed
-    .show-for-completed, .completed
-      display: block
-
-  &.context-uncompleted
-    .show-for-uncompleted, .uncompleted
-      display: block
-
-.help-icon
-  float:right;
-
-.task:hover
-  cursor: move
-
-li:hover .task-meta-controls .hover-show
-  display: inline
-
-.task
-
-  .task-meta-controls
-    float:right
-    i
-      margin-left:5px
-
-  .task-meta-controls .hover-show
-    display: none;
-
-.vote-up, .vote-down
-    text-decoration:none;
-
-.new-task-form
-  margin-bottom:5px;
-
-
-// begin rewrite css 2013-03-04
-
+// main columns
+// ------------
 .task-column
   padding: 1.5em
   background: #f5f5f5
   border: 1px solid #ccc
   font-family: 'Lato', sans-serif
-  h2
+
+  .task-column_title
     margin: 0 0 0.5em
     padding: 0
-  
-  .nav-tabs
-    margin-top: 0.75em
 
-  .option-box
-    .option-action
-      margin-left: 0.25em
+  hr
+    border: 0
+    border-bottom: 1px solid #ddd
 
-
-.rewards
+// add new task form
+// -----------------
+.addtask-form
   margin-bottom: 0.75em
+  outline: 1px solid rgba(0,0,0,0.15)
+  outline-offset: -1px
 
+// the input field
+.addtask-field
+  display: inline-block
+  width: 80% // fallback for Safari 5.1
+  width: calc(unquote('100% - 3em'))
+  input
+    font-family: 'Lato', sans-serif
+    border: 0
+    outline: 0
+    border-radius: 0
+    box-shadow: none
+    background-color: white
+    height: 2.5em
+    padding: 0 0 0 0.5em
+    width: 100%
+    &:focus
+      box-shadow: inset 0 0 3px darken($best, 20%)
+
+// the button
+.addtask-btn
+  display: inline-block
+  // important for overriding bootstrap, remove later
+  width: 1.51515em !important
+  height: 1.51515em
+  padding: 0
+  font-size: 1.65em
+  line-height: 1.55
+  outline: 0
+  border: 0
+  background-color: darken($best, 20%)
+  opacity: 0.75
+  &:hover,
+  &:focus
+    opacity: 1
+    background-color: darken($best, 20%)
+  &:active
+    background-color: darken($best, 30%)
+    opacity: 1
+
+
+// an individual task entry
+// ------------------------
 .task
   list-style: none
   clear: both
@@ -126,114 +112,109 @@ li:hover .task-meta-controls .hover-show
   margin-bottom: 0.75em
   outline: 1px solid rgba(0,0,0,0.1)
   outline-offset: -1px
-  -webkit-background-clip: padding-box
-  border-radius: 0.25em
-  // overflow: hidden
+  &:hover
+    cursor: move
   &:last-child
     margin-bottom: 0
 
+// task content
+.task-text
+  display: inline
+
+
+// primary task commands
+// ----------------------
 .task-controls
   display: inline
   margin-left: -0.5em
   margin-right: 0.5em
-.task-text
-  display: inline
 
-.task-checker
-  label
+  // plus/minus commands
+  .task-action-btn
+    display: inline-block
+    width: 1.773em
+    height: 1.773em
+    padding: 0
+    font-size: 1.41em
+    line-height: 1.773
+    text-align: center
+    color: black
+    vertical-align: top
+    border-right: 1px solid rgba(0,0,0,0.25)
+    &:last-child
+      border: 0
+    &:hover, &:focus
+      text-decoration: none
+
+  // checkbox
+  .task-checker input[type=checkbox]
+    margin: 0
+    padding: 0
+    visibility: hidden
+
+  .task-checker label
     display: inline-block
     width: 2.5em
     height: 2.5em
-    padding: 0
     margin: 0
     vertical-align: top
     cursor: pointer
+
+    // uncompleted icon
     &:after
       content: '○'
       display: block
-      opacity: 0.2
+      font-size: 3em
       line-height: 0.76
       text-align: center
       color: black
-      font-size: 3em
+      opacity: 0.2
+
+    // hint at completed icon
     &:hover:after,
     &:focus:after
       content: '¬'
-      display: block
       font-size: 3em
-      color: black
-      transform: rotate(135deg)
       line-height: 1.1
       text-align: left
+      transform: rotate(135deg)
       opacity: 0.5 !important
     &:active:after
       opacity: 0.75 !important
 
-  & input[type=checkbox]:checked + label:after
+  // completed icon
+  .task-checker input[type=checkbox]:checked + label:after
     content: '¬'
     transform: rotate(135deg)
     line-height: 1.1
     text-align: left
     opacity: 0.75
-  
-  input[type=checkbox]
-    margin: 0
-    padding: 0
-    visibility: hidden
 
-.addtask-form
-  margin-bottom: 0.75em
-  .addtask-field
-    display: inline-block
-    width: 80% // fallback for Safari 5.1
-    width: calc(unquote('100% - 3em'))
-    input
-      font-family: 'Lato', sans-serif
-      outline: 0
-      border: 0
-      box-shadow: none
-      background-color: white
-      height: 2.5em
-      padding: 0 0 0 0.5em
-      width: 100%
-      &:focus
-        box-shadow: inset 0 0 3px darken($best, 20%)
-  .addtask-btn
-    display: inline-block
-    width: 1.51515em
-    height: 1.51515em
-    padding: 0
-    font-size: 1.65em
-    line-height: 1.55
-    outline: 0
-    border: 0
-    background-color: darken($best, 20%)
-    opacity: 0.5
-    &:hover,
-    &:focus
-      opacity: 0.75
-      background-color: darken($best, 20%)
-    &:active
-      background-color: darken($best, 30%)
-      opacity: 1
 
-.task-action-btn
-  display: inline-block
-  width: 1.773em
-  height: 1.773em
-  padding: 0
-  font-size: 1.41em
-  line-height: 1.773
-  text-align: center
-  color: black
-  vertical-align: top
-  border-right: 1px solid rgba(0,0,0,0.25)
-  &:last-child
-    border: 0
-  &:hover,
-  &:focus
-    text-decoration: none
-  // &.action-plus
-  //   background-color: darken($color-good, 20%)
-  // &.action-minus
-  //   background-color: darken($color-worst, 20%)
+// secondary task commands
+// -----------------------
+.task-meta-controls
+  float: right
+  margin-left: 0.25em
+  opacity: 0.25
+  a > i
+    margin-left: 0.125em
+  .task-notes
+    margin-left: 0.125em
+
+.task:hover .task-meta-controls
+  opacity: 1
+
+
+// .context-enabled
+//   .display-context-dependant,
+//   .task-list li
+//     display: none
+
+//   &.context-completed
+//     .show-for-completed, .completed
+//       display: block
+
+//   &.context-uncompleted
+//     .show-for-uncompleted, .uncompleted
+//       display: block

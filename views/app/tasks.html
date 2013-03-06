@@ -4,7 +4,7 @@
     <!-- Habits Column -->
     <div class="module">
         <div class="task-column habits">
-            <h2>Habits</h2>
+            <h2 class="task-column_title">Habits</h2>
             <app:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
             <ul class="habits">{#each _habitList as :task}<app:task />{/}</ul>
         </div>
@@ -13,7 +13,7 @@
     <!-- Dailys Column -->
     <div class="module">
         <div class="task-column dailys">
-            <h2>Daily</h2>
+            <h2 class="task-column_title">Daily</h2>
             <app:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
             <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
         </div>
@@ -29,7 +29,7 @@
                 <a class="option-action" href="/v1/users/{{_user.id}}/calendar.ics?apiToken={{_user.apiToken}}" rel=tooltip title="iCal"><i class=icon-calendar></i></a>
                 <!-- <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a> -->
             </span>
-            <h2>Todos</h2>
+            <h2 class="task-column_title">Todos</h2>
             <div class="display-context-dependant show-for-uncompleted">
                 <app:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />
             </div>
@@ -38,7 +38,6 @@
             </ul>
             <div class="display-context-dependant show-for-completed">
                 <a class='btn' x-bind=click:clearCompleted>Clear Completed</a>
-                <p>&nbsp;</p>
             </div>
             <div id="todos-chart" style="display:none;"></div>
             <ul class="todo-status-toggler nav nav-tabs">
@@ -53,7 +52,7 @@
         <div class="task-column rewards">
             <!--Title -->
             <div class="row-fluid">
-                <div class="span6"><h2>Rewards</h2></div>
+                <div class="span6"><h2 class="task-column_title">Rewards</h2></div>
                 <div class="span6">
                     {#unless _view.activeTabPets}
                     <table><tr>
@@ -145,16 +144,16 @@
     <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, :task.repeat)}">
         <!-- right-hand side control buttons -->
         <div class="task-meta-controls">
-            <div class="hover-show">
-                <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
-                <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
-                {#if :task.history}
-                <a x-bind=click:toggleChart data-toggle-id="{{:task.id}}-chart" data-hide-id="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history" rel="tooltip" title="Progress">
-                    <i class="icon-signal"></i>
-                </a>
-                {/}
-            </div>
-
+            <!-- edit -->
+            <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
+            <!-- delete -->
+            <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
+            <!-- chart -->
+            <!-- removing for now cuz it's broken -->
+            {#if :task.history}
+            <!-- <a x-bind=click:toggleChart data-toggle-id="{{:task.id}}-chart" data-hide-id="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history" rel="tooltip" title="Progress"><i class="icon-signal"></i></a> -->
+            {/}
+            <!-- notes -->
             {#if :task.notes}
             <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
             {/}
