@@ -3,6 +3,7 @@ router = new express.Router()
 
 scoring = require '../app/scoring'
 _ = require 'underscore'
+{ tnl } = require '../app/algos'
 validator = require 'derby-auth/node_modules/validator'
 check = validator.check
 sanitize = validator.sanitize
@@ -40,6 +41,8 @@ auth = (req, res, next) ->
 
 router.get '/user', auth, (req, res) ->
   user = req.userObj
+
+  user.stats.tnl = tnl user.stats.lvl
 
   delete user.apiToken
 
