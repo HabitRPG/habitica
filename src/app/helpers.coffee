@@ -19,6 +19,9 @@ module.exports.viewHelpers = (view) ->
 
   view.fn "floor", (num) ->
     Math.floor num
+
+  view.fn "ceil", (num) ->
+    Math.ceil num
     
   view.fn "lt", (a, b) ->
     a < b
