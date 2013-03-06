@@ -173,6 +173,9 @@ module.exports.app = (appExports, model) ->
     task = model.at $(el).parents('li')[0]
     scoring.score(model, task.get('id'), direction)
 
+  appExports.tasksToggleAdvanced = (e, el) ->
+    $(el).next('.advanced').toggle()
+
   appExports.tasksSaveAndClose = ->
     # When they update their notes, re-establish tooltip & popover
     $('[rel=tooltip]').tooltip()

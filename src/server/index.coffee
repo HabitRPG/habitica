@@ -74,6 +74,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     )
     # Adds req.getModel method
     .use(store.modelMiddleware())
+    .use(middleware.allowCrossDomain)
     # API should be hit before all other routes
     .use('/api/v1', require('./api').middleware)
     .use(require('./deprecated').middleware)
