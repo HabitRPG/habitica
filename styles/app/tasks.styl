@@ -66,7 +66,7 @@ for $stage in $stages
 .addtask-field
   display: inline-block
   width: 80% // fallback for Safari 5.1
-  width: calc(unquote('100% - 2.5em'))
+  width: calc(unquote('100% - 3em'))
   input
     font-family: 'Lato', sans-serif
     border: 0
@@ -74,7 +74,7 @@ for $stage in $stages
     border-radius: 0
     box-shadow: none
     background-color: white
-    height: 2.5em
+    height: 3em
     padding: 0 0 0 0.5em
     width: 100%
     &:focus
@@ -84,11 +84,11 @@ for $stage in $stages
 .addtask-btn
   display: inline-block
   // important for overriding bootstrap, remove later
-  width: 1.51515em !important
-  height: 1.51515em
+  width: 1.81818em !important
+  height: 1.88em
   padding: 0
-  font-size: 1.65em
-  line-height: 1.55
+  font-size: 1.61em
+  line-height: 1.7
   outline: 0
   border: 0
   border-radius: 0 //required to nuke BB-playbook user agent styles
@@ -109,9 +109,9 @@ for $stage in $stages
   list-style: none
   clear: both
   padding: 0 0.5em 0 0.5em
-  min-height: 2.5em
-  line-height: 2.5
-  margin-bottom: 1em
+  min-height: 3em
+  line-height: 3
+  margin-bottom: 0.75em
   outline: 1px solid rgba(0,0,0,0.1)
   outline-offset: -1px
   &:hover
@@ -134,11 +134,11 @@ for $stage in $stages
 // plus/minus commands
 .task-action-btn
   display: inline-block
-  width: 1.773em
-  height: 1.773em
+  width: 2.12765em
+  height: 2.12765em
   padding: 0
   font-size: 1.41em
-  line-height: 1.773
+  line-height: 2.12765
   text-align: center
   color: #222
   vertical-align: top
@@ -157,8 +157,8 @@ for $stage in $stages
 
 .task-checker label
   display: inline-block
-  width: 2.5em
-  height: 2.5em
+  width: 3em
+  height: 3em
   margin: 0
   vertical-align: top
   cursor: pointer
@@ -169,9 +169,9 @@ for $stage in $stages
     margin-right: 1.5em
   label:after
     font-size: 1.41em
-    width: 1.773em
-    height: 1.773em
-    line-height: 1.773
+    width: 2.12765em
+    height: 2.12765em
+    line-height: 2.12765
     text-align: center
     display: inline-block
     vertical-align top
@@ -194,7 +194,7 @@ for $stage in $stages
     content: '○'
     display: block
     font-size: 3em
-    line-height: 0.8
+    line-height: 0.93
     text-align: center
     color: black
     opacity: 0.2
@@ -204,7 +204,8 @@ for $stage in $stages
   label:focus:after
     content: '¬'
     font-size: 3em
-    line-height: 1.1
+    margin-left: -9px
+    line-height: 1.5
     text-align: left
     transform: rotate(135deg)
     opacity: 0.5 !important
@@ -215,7 +216,8 @@ for $stage in $stages
   input[type=checkbox]:checked + label:after
     content: '¬'
     transform: rotate(135deg)
-    line-height: 1.1
+    line-height: 1.5
+    margin-left: -9px
     text-align: left
     opacity: 0.75
 
