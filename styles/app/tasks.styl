@@ -261,7 +261,6 @@ for $stage in $stages
       font-weight: bold
       text-decoration: underline
 
-
   .option-content
     height: 2.5em
     width: 100%
@@ -299,21 +298,42 @@ for $stage in $stages
   padding: 0 0.5em
   &.active
     opacity: 1
-  &.spacious
-    margin: 0.75em 0
-    font-size: 1.5em
-    opacity: 1
 
+.tile.spacious
+  margin: 0.75em 0
+  font-size: 1.5em
+  opacity: 1
+.tile.bright
+  background-color: lighten($best, 20%)
+  &:hover, &:focus
+    background-color: lighten($best, 40%)
 
-// .context-enabled
-//   .display-context-dependant,
-//   .task-list li
-//     display: none
+// todo context switching
+.context-enabled
+  .display-context-dependant,
+  .task-list li
+    display: none
 
-//   &.context-completed
-//     .show-for-completed, .completed
-//       display: block
+  &.context-completed
+    .show-for-completed, .completed
+      display: block
 
-//   &.context-uncompleted
-//     .show-for-uncompleted, .uncompleted
-//       display: block
+  &.context-uncompleted
+    .show-for-uncompleted, .uncompleted
+      display: block
+
+// nav tabs
+.nav-tabs
+  margin-top: 1.5em
+.nav-tabs > li
+  &.active > a
+    color: #333
+    &:hover
+      margin-top: 1px
+  > a
+    border-radius: 0 !important
+    margin-top: 1px
+    color: #333
+    &:hover
+      border-top: 0
+      margin-top: 2px
