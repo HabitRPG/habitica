@@ -6,26 +6,26 @@
  */
 db.users.find().forEach(function(user){
     if (user.stats.exp >= 3580) {
-        user.stats.exp = 0
+        user.stats.exp = 0;
     }
 
     if (user.stats.lvl > 100) {
-        user.stats.lvl = 100
+        user.stats.lvl = 100;
     }
 
     _.each(user.tasks, function(task, key){
         // remove corrupt tasks
         if (!task) {
-            delete user.tasks[key]
-            return
+            delete user.tasks[key];
+            return;
         }
 
         // Fix busted values
         if (task.value > 21.27) {
-            task.value = 21.27
+            task.value = 21.27;
         }
         else if (task.value < -47.27) {
-            task.value = -47.27
+            task.value = -47.27;
         }
     });
 
