@@ -42,7 +42,7 @@ auth = (req, res, next) ->
 router.get '/user', auth, (req, res) ->
   user = req.userObj
 
-  user.stats.tnl = tnl user.stats.lvl
+  user.stats.toNextLevel = tnl user.stats.lvl
   user.stats.maxHealth = 50
 
   delete user.apiToken
