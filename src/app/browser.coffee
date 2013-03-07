@@ -9,7 +9,10 @@ restoreRefs = module.exports.restoreRefs = (model) ->
     # see https://github.com/lefnire/habitrpg/issues/4
     # also update in scoring.coffee. TODO create a function accessible in both locations
     #TODO find a method of calling algos.tnl()
-    10*Math.pow(lvl,2)+(lvl*10)+80
+    if lvl==100
+      0
+    else
+      Math.round(((Math.pow(lvl,2)*0.25)+(10 * lvl) + 139.75)/10)*10
 
   #refLists
   _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
@@ -171,13 +174,14 @@ setupGrowlNotifications = (model) ->
     else if num > 0
       statsNotification "<i class='icon-heart'></i> + #{rounded} HP", 'hp' # gained hp from potion/level? 
   
-  user.on 'set', 'stats.exp', (captures, args, isLocal, silent) ->
-      num = captures - args
-      rounded = Math.abs(num.toFixed(1))
-      if num < 0 and not silent
-        statsNotification "<i class='icon-star'></i> - #{rounded} XP", 'xp'
-      else if num > 0
-        statsNotification "<i class='icon-star'></i> + #{rounded} XP", 'xp'
+  user.on 'set', 'stats.exp', (captures, args, isLocal, silent=false) ->
+    # unless silent
+    num = captures - args
+    rounded = Math.abs(num.toFixed(1))
+    if num < 0 and num > -100 # TODO fix hackey negative notification supress
+      statsNotification "<i class='icon-star'></i> - #{rounded} XP", 'xp'
+    else if num > 0
+      statsNotification "<i class='icon-star'></i> + #{rounded} XP", 'xp'
 
   user.on 'set', 'stats.gp', (captures, args) ->
     num = captures - args
@@ -195,7 +199,7 @@ setupGrowlNotifications = (model) ->
   user.on 'set', 'stats.lvl', (captures, args) ->
     if captures > args
       if captures is 1 and args is 0
-        statsNotification '<i class="icon-death"></i> You died!', 'death' 
+        statsNotification '<i class="icon-death"></i> You died! Game over.', 'death' 
       else 
         statsNotification '<i class="icon-chevron-up"></i> Level Up!', 'lvl'
 
