@@ -38,23 +38,16 @@ items = module.exports.items =
   reroll: {type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your tasks. When you're struggling and everything's red, use for a clean slate.", value:0 }
 
   pets: [
-    {index: 0, text: 'Bear Cub', name: 'bearcub', icon: 'Pet-BearCub-Base.png', value: 3}
-    {index: 1, text: 'Cactus', name: 'cactus', icon: 'Pet-Cactus-Base.png', value: 3}
-    {index: 2, text: 'Drake', name: 'dragon', icon: 'Pet-Dragon-Base.png', value: 3}
-    {index: 3, text: 'Flying Pig', name: 'flyingpig', icon: 'Pet-FlyingPig-Base.png', value: 3}
-    {index: 4, text: 'Fox', name: 'fox', icon: 'Pet-Fox-Base.png', value: 3}
-    {index: 5, text: 'Lion Cub', name: 'lioncub', icon: 'Pet-LionCub-Base.png', value: 3}
-    {index: 6, text: 'Panda Cub', name: 'pandacub', icon: 'Pet-PandaCub-Base.png', value: 3}
-    {index: 7, text: 'Tiger Cub', name: 'tigercub', icon: 'Pet-TigerCub-Base.png', value: 3}
-    {index: 8, text: 'Desert Wolf', name: 'wolfDesert', icon: 'Pet-Wolf-Desert.png', value: 3}
-    {index: 9, text: 'Golden Wolf', name: 'wolfGolden', icon: 'Pet-Wolf-Golden.png', value: 3}
-    {index: 10, text: 'Red Wolf', name: 'wolfRed', icon: 'Pet-Wolf-Red.png', value: 3}
-    {index: 11, text: 'Shade Wolf', name: 'wolfShade', icon: 'Pet-Wolf-Shade.png', value: 3}
-    {index: 12, text: 'Skeleton Wolf', name: 'wolfSkeleton', icon: 'Pet-Wolf-Skeleton.png', value: 3}
-    {index: 13, text: 'Veteran Wolf', name: 'wolfVeteran', icon: 'Pet-Wolf-Veteran.png', value: 3}
-    {index: 14, text: 'White Wolf', name: 'wolfWhite', icon: 'Pet-Wolf-White.png', value: 3}
-    {index: 15, text: 'Zombie Wolf', name: 'wolfZombie', icon: 'Pet-Wolf-Zombie.png', value: 3}
-    {index: 16, text: 'Wolf', name: 'wolfBorder', icon: 'wolf_border.png', value: 3}
+    {text: 'Wolf', name: 'Wolf', value: 3}
+    {text: 'Tiger Cub', name: 'TigerCub', value: 3}
+    {text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3}
+    {text: 'Panda Cub', name: 'PandaCub', value: 3}
+    {text: 'Lion Cub', name: 'LionCub', value: 3}
+    {text: 'Fox', name: 'Fox', value: 3}
+    {text: 'Flying Pig', name: 'FlyingPig', value: 3}
+    {text: 'Dragon', name: 'Dragon', value: 3}
+    {text: 'Cactus', name: 'Cactus', value: 3}
+    {text: 'Bear Cub', name: 'BearCub', value: 3}
   ]
 
 # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
