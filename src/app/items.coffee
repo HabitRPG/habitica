@@ -197,6 +197,10 @@ module.exports.app = (appExports, model) ->
       content: html
     $('#rewardsTabs').popover 'show'
 
+  user.on 'set', 'flags.dropsEnabled', (captures, args) ->
+    return unless captures == true
+    # do drops enabled stuff
+
 ###
   update store
 ###
