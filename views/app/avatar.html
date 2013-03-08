@@ -5,6 +5,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle='tab' href="#profileCustomize">Avatar</a></li>
                     <li><a data-toggle='tab' href="#profileEdit">Profile</a></li>
+                    <li><a data-toggle='tab' href="#profileInventory">Inventory</a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -12,7 +13,13 @@
                         <app:avatar:customize />
                     </div>
 
-                    <div class="tab-pane" id="profileEdit"><app:avatar:profile user="{_user}" main="true" /></div>
+                    <div class="tab-pane" id="profileEdit">
+                        <app:avatar:profile user="{_user}" main="true" />
+                    </div>
+
+                    <div class="tab-pane" id="profileInventory">
+                        <app:avatar:inventory user="{_user}" main="true" />
+                    </div>
                 </div>
             {/}
         {else}
@@ -170,3 +177,10 @@
     <!--TODO replce this in the future with HTML from BrowserQuest's index.html, which properly handles the achievements
         sprite-sheets (see BQ's achievements.css, main.css) -->
     <img src='/img/original_user.png' /> Original User!
+
+<inventory:>
+    <div class='row-fluid'>
+        <div class='span6 well'>
+            testing
+        </div>
+    </div>
