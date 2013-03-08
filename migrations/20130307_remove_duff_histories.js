@@ -1,5 +1,4 @@
-// mongo habitrpg ./node_modules/underscore/underscore.js ./migrations/20130307_normalize_algo_values.js
-
+// mongo habitrpg ./node_modules/underscore/underscore.js ./migrations/20130307_remove_duff_histories.js
 /**
  * Remove duff histories for dailies
  */
