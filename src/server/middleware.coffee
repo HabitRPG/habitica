@@ -15,7 +15,8 @@ module.exports.view = (req, res, next) ->
 
 #CORS middleware
 module.exports.allowCrossDomain = (req, res, next) ->
-  res.header "Access-Control-Allow-Origin", '*'
-  res.header "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE"
+  console.log req.headers.origin
+  res.header "Access-Control-Allow-Origin", (req.headers.origin || "*")
+  res.header "Access-Control-Allow-Methods", "OPTIONS,GET,PUT,POST,DELETE"
   res.header "Access-Control-Allow-Headers", "Content-Type,x-requested-with,x-api-user,x-api-key"
   next()
