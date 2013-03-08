@@ -170,8 +170,7 @@ updateStats = (model, newStats, batch) ->
       batch.set 'flags.itemsEnabled', obj.flags.itemsEnabled = true
     if !obj.flags.partyEnabled and obj.stats.lvl >= 3
       batch.set 'flags.partyEnabled', obj.flags.partyEnabled = true
-    if !obj.flags.petsEnabled and obj.stats.lvl >= 4
-      batch.set 'flags.petsEnabled', obj.flags.petsEnabled = true
+    if !obj.flags.dropsEnabled and obj.stats.lvl >= 4
       batch.set 'flags.dropsEnabled', obj.flags.dropsEnabled = true
 
   if newStats.gp?
