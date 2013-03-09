@@ -38,21 +38,29 @@ items = module.exports.items =
   reroll: {type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your tasks. When you're struggling and everything's red, use for a clean slate.", value:0 }
 
   pets: [
-    {text: 'Wolf', name: 'Wolf', value: 3}
-    {text: 'Tiger Cub', name: 'TigerCub', value: 3}
-    {text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3}
-    {text: 'Panda Cub', name: 'PandaCub', value: 3}
-    {text: 'Lion Cub', name: 'LionCub', value: 3}
-    {text: 'Fox', name: 'Fox', value: 3}
-    {text: 'Flying Pig', name: 'FlyingPig', value: 3}
-    {text: 'Dragon', name: 'Dragon', value: 3}
-    {text: 'Cactus', name: 'Cactus', value: 3}
-    {text: 'Bear Cub', name: 'BearCub', value: 3}
+    {text: 'Wolf', classes: 'Wolf', value: 3}
+    {text: 'Tiger Cub', classes: 'TigerCub', value: 3}
+    #{text: 'Polar Bear Cub', classes: 'PolarBearCub', value: 3} #commented out because there are no polarbear modifiers yet, special drop?
+    {text: 'Panda Cub', classes: 'PandaCub', value: 3}
+    {text: 'Lion Cub', classes: 'LionCub', value: 3}
+    {text: 'Fox', classes: 'Fox', value: 3}
+    {text: 'Flying Pig', classes: 'FlyingPig', value: 3}
+    {text: 'Dragon', classes: 'Dragon', value: 3}
+    {text: 'Cactus', classes: 'Cactus', value: 3}
+    {text: 'Bear Cub', classes: 'BearCub', value: 3}
   ]
 
-  meats: [
-    {index: 0, name: 'Red Meat', text: 'Turns your animal into a mean red meat eater.'}
-    {index: 1, name: 'Blue Meat', text: 'Turns your animal into Neo.' }
+  food: [
+    {text: 'Zombie', classes: 'Zombie', notes: 'Turns your animal into a Zombie.', value: 3}
+    {text: 'White', classes: 'White', notes: 'Turns your animal into a White.', value: 3}
+    {text: 'Veteran', classes: 'Veteran', notes: 'Turns your animal into a Veteran.', value: 3}
+    {text: 'Skeleton', classes: 'Skeleton', notes: 'Turns your animal into a Skeleton.', value: 3}
+    {text: 'Shade', classes: 'Shade', notes: 'Turns your animal into a Shade.', value: 3}
+    {text: 'Red', classes: 'Red', notes: 'Turns your animal into a Red.', value: 3}
+    {text: 'Golden', classes: 'Golden', notes: 'Turns your animal into a Golden.', value: 3}
+    {text: 'Desert', classes: 'Desert', notes: 'Turns your animal into a Desert.', value: 3}
+    {text: 'CottonCandyPink', classes: 'CottonCandyPink', notes: 'Turns your animal into a CottonCandyPink.', value: 3}
+    {text: 'CottonCandyBlue', classes: 'CottonCandyBlue', notes: 'Turns your animal into a CottonCandyBlue.', value: 3}
   ]
 
 # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
