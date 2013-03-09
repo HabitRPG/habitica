@@ -7,6 +7,7 @@
                     <li><a data-toggle='tab' href="#profileEdit">Profile</a></li>
                     {#if _user.flags.dropsEnabled}
                         <li><a data-toggle='tab' href="#profileInventory">Inventory</a></li>
+                        <li><a data-toggle='tab' href="#profileStable">Stable</a></li>
                     {/if}
                 </ul>
 
@@ -21,6 +22,9 @@
 
                     <div class="tab-pane" id="profileInventory">
                         <app:avatar:inventory user="{_user}" main="true" />
+                    </div>
+                    <div class="tab-pane" id="profileStable">
+                        <app:avatar:stable user="{_user}" main="true" />
                     </div>
                 </div>
             {/}
@@ -201,3 +205,17 @@
             {/each}
         </div>
     </div>
+
+<stable:>
+    <div class='row-fluid'>
+        <div class='span6 well'>
+            <h3>Stable</h3>
+            {#if not(_user.items.pets)}
+                <p>You don't have any pets yet.</p>
+            {/if}
+            {#each _user.items.pets as :pet}
+                <p>{:pet}</p>
+            {/each}
+        </div>
+    </div>
+

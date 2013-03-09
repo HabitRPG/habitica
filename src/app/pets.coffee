@@ -1,5 +1,5 @@
 { randomProp } = require './helpers'
-{ pets } = require('./items').items
+{ pets, food } = require('./items').items
 
 ###
   app exports
@@ -10,13 +10,14 @@ module.exports.app = (appExports, model) ->
   user.on 'set', 'flags.dropsEnabled', (captures, args) ->
     return unless captures == true
 
-    egg = randomProp pets
+    droppedEgg = randomProp pets
+    droppedFood = randomProp pets
 
-    user.push 'items.eggs', egg.name
+    user.push 'items.eggs', droppedEgg.name
+    user.push 'items.food', droppedFood.name
 
     # do drops enabled stuff
     $('#dropsEnabled-modal').show()
-
 
   appExports.selectPet = (e, el) ->
     name = $(el).attr('data-pet')
