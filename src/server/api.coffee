@@ -91,10 +91,11 @@ router.put '/user/task/:id', auth, validateTask, (req, res) ->
   res.json 200, req.task
 
 router.delete '/user/task/:id', auth, validateTask, (req, res) ->
-  taskIds = req.user.get("#{req.task.type}Ids")
-  taskIds.splice(taskIds.indexOf(req.task.id),1)
-  req.user.set "#{req.task.type}Ids", taskIds
+  taskIds = req.user.get "#{req.task.type}Ids"
+
   req.user.del "tasks.#{req.task.id}"
+  # Remove one id from array of typeIds
+  req.user.remove "#{req.task.type}Ids", taskIds.indexOf(req.task.id), 1
 
   res.send 204
 
@@ -164,4 +165,3 @@ router.post '/user/tasks/:taskId/:direction', auth, scoreTask
 module.exports = router
 module.exports.auth = auth
 module.exports.scoreTask = scoreTask # export so deprecated can call it
-

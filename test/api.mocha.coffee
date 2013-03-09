@@ -257,8 +257,8 @@ describe 'API', ->
           expect(res.statusCode).to.be 204
           query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
           query.fetch (err, user) ->
-            expect(user.get().habitIds.indexOf(tid)).to.be -1
-            expect(user.get().tasks[tid]).to.be undefined
+            expect(user.get('habitIds').indexOf(tid)).to.be -1
+            expect(user.get("tasks.#{tid}")).to.be undefined
             done()
 
     it 'DELETE /api/v1/user/task/:id (no task found)', (done) ->
