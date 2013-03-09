@@ -70,7 +70,7 @@ userAccess = (store) ->
 ###
 REST = (store) ->
   store.query.expose "users", "withIdAndToken", (uid, token) ->
-    @byId(uid)
+    @where("id").equals(uid)
       .where('apiToken').equals(token)
       .findOne()
 
