@@ -34,8 +34,10 @@
 
 <avatar:>
     <div class="avatar {{#if @main}}main-avatar{{/}} {{#if @party}}party-avatar{{/}}" data-toggle='modal' data-target='#avatar-modal' data-uid="{@profile.id}" x-bind="click:profileChangeActive">
-        {#unless @minimal}{#if @profile.items.pet}<img src='img/sprites/{@profile.items.pet.icon}' />{/}{/}
         <div class='character-sprites'>
+            {#unless @minimal}{#if @profile.items.currentPet}
+                <span class="Pet-{_user.items.currentPet.name}-{_user.items.currentPet.modifier}" ></span>
+            {/}{/}
             {#with @profile.preferences as :p}
             <span class='{:p.gender}_skin_{:p.skin}'></span>
             <span class='{:p.gender}_hair_{:p.hair}'></span>
