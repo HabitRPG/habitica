@@ -159,7 +159,7 @@ updateStats = (model, newStats, batch) ->
     obj.stats.exp = newStats.exp
     #if silent
       #console.log("pushing silent :"  + obj.stats.exp)
-      #user.pass(true).set('stats.exp', obj.stats.exp) 
+      #user.pass(true).set('stats.exp', obj.stats.exp)
 
     # Set flags when they unlock features
     if !obj.flags.customizationsNotification and (obj.stats.exp > 10 or obj.stats.lvl > 1)

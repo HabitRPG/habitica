@@ -181,6 +181,11 @@
 <inventory:>
     <div class='row-fluid'>
         <div class='span6 well'>
-            testing
+            {#if not(_user.items.meats)}
+                <p>You don't have any meat yet.</p>
+            {/if}
+            {#each _user.items.meats as :meat}
+                {:meat}
+            {/each}
         </div>
     </div>
