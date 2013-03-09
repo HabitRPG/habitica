@@ -245,3 +245,29 @@ describe 'API', ->
             # Ensure that the two sets are equal
             expect(_.difference(_.pluck(res.body,'id'), _.pluck(tasks,'id')).length).to.equal 0
             done()
+
+    it 'DELETE /api/v1/user/task/:id', (done) ->
+      tid = currentUser.habitIds[2]
+      request.del("#{baseURL}/user/task/#{tid}")
+        .set('Accept', 'application/json')
+        .set('X-API-User', currentUser.id)
+        .set('X-API-Key', currentUser.apiToken)
+        .end (res) ->
+          expect(res.body.err).to.be undefined
+          expect(res.statusCode).to.be 204
+          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+          query.fetch (err, user) ->
+            expect(user.get().habitIds.indexOf(tid)).to.be -1
+            expect(user.get().tasks[tid]).to.be undefined
+            done()
+
+    it 'DELETE /api/v1/user/task/:id (no task found)', (done) ->
+      tid = "adsfasdfjunkshouldntbeatask"
+      request.del("#{baseURL}/user/task/#{tid}")
+        .set('Accept', 'application/json')
+        .set('X-API-User', currentUser.id)
+        .set('X-API-Key', currentUser.apiToken)
+        .end (res) ->
+          expect(res.statusCode).to.be 400
+          expect(res.body.err).to.be 'No task found.'
+          done()
