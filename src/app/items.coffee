@@ -56,6 +56,10 @@ items = module.exports.items =
     {index: 15, text: 'Zombie Wolf', name: 'wolfZombie', icon: 'Pet-Wolf-Zombie.png', value: 3}
     {index: 16, text: 'Wolf', name: 'wolfBorder', icon: 'wolf_border.png', value: 3}
   ]
+  meats: [
+    {index: 0, name: 'Red Meat', text: 'Turns your animal into a mean red meat eater.'}
+    {index: 1, name: 'Blue Meat', text: 'Turns your animal into Neo.' }
+  ]
 
 # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
 _.each ['weapon', 'armor', 'head', 'shield'], (key) ->
