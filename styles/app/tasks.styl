@@ -61,12 +61,13 @@ for $stage in $stages
   outline: 1px solid rgba(0,0,0,0.15)
   outline-offset: -1px
   background-color: white
+  // box-shadow: 0 0 3px rgba(0,0,0,0.15)
+  position: relative
 
 // the input field
 .addtask-field
-  display: inline-block
-  width: 80% // fallback for Safari 5.1
-  width: calc(unquote('100% - 3em'))
+  display: block
+  width: 100%
   input
     font-family: 'Lato', sans-serif
     border: 0
@@ -78,11 +79,13 @@ for $stage in $stages
     padding: 0 0 0 0.5em
     width: 100%
     &:focus
-      box-shadow: inset 0 0 3px darken($best, 20%)
+      box-shadow: inset 0 0 3px darken($best, 20%),inset -1px 0 1px darken($best, 30%)
 
 // the button
 .addtask-btn
-  display: inline-block
+  position: absolute
+  right: 0
+  top: 0
   // important for overriding bootstrap, remove later
   width: 1.81818em !important
   height: 1.88em
@@ -123,6 +126,12 @@ for $stage in $stages
 .task-text
   display: inline
 
+// when a task is being dragged
+.task.ui-sortable-helper {
+  box-shadow: 0 0 3px rgba(0,0,0,0.15), 0 0 5px rgba(0,0,0,0.1)
+  transform: scale(1.05)
+  outline: 1px solid rgba(0,0,0,0.2)
+}
 
 // primary task commands
 // ----------------------
@@ -193,22 +202,22 @@ for $stage in $stages
   label:after
     content: '◯'
     display: block
-    height: 1.875em
-    width: 1.875em
-    font-size: 1.6em
-    line-height: 1.875em
+    height: 1.714285714em
+    width: 1.714285714em
+    font-size: 1.75em
+    line-height: 1.714285714em
     text-align: center
     color: black
-    opacity: 0.1
+    opacity: 0.2
 
   // hint at completed icon
   label:hover:after,
   label:focus:after
     content: '¬'
-    font-size: 3em
-    line-height: 1em
-    height: 1em
-    width: 1.2em
+    font-size: 3.2em
+    line-height: 0.9375em
+    height: 0.9375em
+    width: 1.15em
     text-align: center
     transform: rotate(135deg)
     opacity: 0.5 !important
@@ -218,10 +227,10 @@ for $stage in $stages
   // completed icon
   input[type=checkbox]:checked + label:after
     content: '¬'
-    font-size: 3em
-    line-height: 1em
-    height: 1em
-    width: 1.2em
+    font-size: 3.2em
+    line-height: 0.9375em
+    height: 0.9375em
+    width: 1.15em
     text-align: center
     transform: rotate(135deg)
     opacity: 0.75
@@ -317,7 +326,12 @@ for $stage in $stages
   &:hover, &:focus
     background-color: lighten($best, 40%)
 
-// todo context switching
+
+
+// todos ui
+// --------
+
+// context switching
 .context-enabled
   .display-context-dependant,
   .task-list li
@@ -330,6 +344,7 @@ for $stage in $stages
   &.context-uncompleted
     .show-for-uncompleted, .uncompleted
       display: block
+
 
 // nav tabs
 .nav-tabs

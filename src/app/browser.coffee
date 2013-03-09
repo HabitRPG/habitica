@@ -71,7 +71,6 @@ setupSortable = (model) ->
         dropOnEmpty: false
         cursor: "move"
         items: "li"
-        opacity: 0.4
         scroll: true
         axis: 'y'
         update: (e, ui) ->
