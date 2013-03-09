@@ -198,10 +198,11 @@ for $stage in $stages
 
 // yes/no checkbox
 .action-yesno
+  position: relative
   // uncompleted icon
-  label:after
-    // content: '▨'
-    content: '◯'
+  label:after, label:before
+    content: '▨'
+    // content: '◯'
     display: block
     height: 1.714285714em
     width: 1.714285714em
@@ -211,6 +212,9 @@ for $stage in $stages
     color: black
     opacity: 0.2
 
+  label:before
+    position: absolute
+    left: 0
   // hint at completed icon
   label:hover:after,
   label:focus:after
