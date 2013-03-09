@@ -191,22 +191,25 @@ for $stage in $stages
 .action-yesno
   // uncompleted icon
   label:after
-    content: '○'
+    content: '◯'
     display: block
-    font-size: 3em
-    line-height: 0.93
+    height: 1.875em
+    width: 1.875em
+    font-size: 1.6em
+    line-height: 1.875em
     text-align: center
     color: black
-    opacity: 0.2
+    opacity: 0.1
 
   // hint at completed icon
   label:hover:after,
   label:focus:after
     content: '¬'
     font-size: 3em
-    margin-left: -9px
-    line-height: 1.5
-    text-align: left
+    line-height: 1em
+    height: 1em
+    width: 1.2em
+    text-align: center
     transform: rotate(135deg)
     opacity: 0.5 !important
   label:active:after
@@ -215,10 +218,12 @@ for $stage in $stages
   // completed icon
   input[type=checkbox]:checked + label:after
     content: '¬'
+    font-size: 3em
+    line-height: 1em
+    height: 1em
+    width: 1.2em
+    text-align: center
     transform: rotate(135deg)
-    line-height: 1.5
-    margin-left: -9px
-    text-align: left
     opacity: 0.75
 
 
