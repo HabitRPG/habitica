@@ -8,6 +8,13 @@ module.exports.daysBetween = (yesterday, now, dayStart) ->
   
 module.exports.dayMapping = dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
 
+module.exports.randomProp = (obj) ->
+  result = undefined
+  count = 0
+  for key, val of obj
+    result = val if Math.random() < (1 / ++count)
+  result
+
 module.exports.viewHelpers = (view) ->
 
   view.fn "percent", (x, y) ->
