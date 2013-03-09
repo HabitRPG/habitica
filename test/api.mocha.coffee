@@ -100,6 +100,8 @@ describe 'API', ->
           expect(res.body.id).not.to.be.empty()
           self = _.clone(currentUser)
           delete self.apiToken
+          self.stats.toNextLevel = 150
+          self.stats.maxHealth = 50
 
           expect(res.body).to.eql self
           done()

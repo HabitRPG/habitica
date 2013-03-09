@@ -46,14 +46,13 @@ score = (model, taskId, direction, times, batch, cron) ->
       # (aka, the total delta). This weirdness won't be necessary when calculating mathematically
       # rather than iteratively
       nextDelta = algos.taskDeltaFormula(value, direction)
-      value = Math.max(value + nextDelta, -31) if adjustvalue #cap values so we don't get silly values
+      value += nextDelta if adjustvalue
       delta += nextDelta
 
   addPoints = ->
     level = user.get('stats.lvl')
     weaponStrength = items.items.weapon[user.get('items.weapon')].strength
-    modified = algos.expModifier(delta,weaponStrength,level, priority)
-    exp += modified*10
+    exp += algos.expModifier(delta,weaponStrength,level, priority)
     gp += algos.gpModifier(delta, 1, priority)
 
   subtractPoints = ->
@@ -61,8 +60,7 @@ score = (model, taskId, direction, times, batch, cron) ->
     armorDefense = items.items.armor[user.get('items.armor')].defense
     helmDefense = items.items.head[user.get('items.head')].defense
     shieldDefense = items.items.shield[user.get('items.shield')].defense
-    modified = algos.hpModifier(delta,armorDefense,helmDefense,shieldDefense,level, priority)
-    hp += modified
+    hp += algos.hpModifier(delta,armorDefense,helmDefense,shieldDefense,level, priority)
 
   switch type
     when 'habit'
@@ -81,7 +79,8 @@ score = (model, taskId, direction, times, batch, cron) ->
         subtractPoints()
       else
         calculateDelta(false)
-        addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
+        if delta != 0
+          addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
     when 'todo'
       if cron? #cron
@@ -137,20 +136,30 @@ updateStats = (model, newStats, batch) ->
       obj.stats.hp = newStats.hp
 
   if newStats.exp?
-    # level up & carry-over exp
     tnl = model.get '_tnl'
-    silent = false
-    if newStats.exp >= tnl
-      silent = true
-      user.set('stats.exp', newStats.exp)
-      while newStats.exp >= tnl # keep levelling up
-        newStats.exp -= tnl
-        obj.stats.lvl++
-        tnl = algos.tnl(obj.stats.lvl)
-      obj.stats.hp = 50
+    #silent = false
+    # if we're at level 100, turn xp to gold
+    if obj.stats.lvl >= 100
+      newStats.gp += newStats.exp / 15
+      newStats.exp = 0
+      obj.stats.lvl = 100
+    else
+      # level up & carry-over exp
+      if newStats.exp >= tnl
+        #silent = true # push through the negative xp silently
+        user.set('stats.exp', newStats.exp) # push normal + notification
+        while newStats.exp >= tnl and obj.stats.lvl < 100 # keep levelling up
+          newStats.exp -= tnl
+          obj.stats.lvl++
+          tnl = algos.tnl(obj.stats.lvl)
+        if obj.stats.lvl== 100
+          newStats.exp = 0
+        obj.stats.hp = 50
 
     obj.stats.exp = newStats.exp
-    user.pass(silent:true).set('stats.exp', obj.stats.exp) if silent
+    #if silent
+      #console.log("pushing silent :"  + obj.stats.exp)
+      #user.pass(true).set('stats.exp', obj.stats.exp) 
 
     # Set flags when they unlock features
     if !obj.flags.customizationsNotification and (obj.stats.exp > 10 or obj.stats.lvl > 1)
@@ -218,7 +227,7 @@ cron = (model) ->
           value = obj.tasks[taskObj.id].value #get updated value
           absVal = if (completed) then Math.abs(value) else value
           todoTally += absVal
-      else if type is 'habit' #reset 'onlies' value to 0
+      else if type is 'habit' # slowly reset 'onlies' value to 0
         if taskObj.up==false or taskObj.down==false
           if Math.abs(taskObj.value) < 0.02
             batch.set "tasks.#{taskObj.id}.value", 0
