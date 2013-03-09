@@ -13,7 +13,6 @@ module.exports.app = (appExports, model) ->
     egg = randomProp pets
 
     user.push 'items.eggs', egg.name
-    user.set 'items.egg', egg
 
     # do drops enabled stuff
     $('#dropsEnabled-modal').show()

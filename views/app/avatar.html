@@ -5,7 +5,9 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle='tab' href="#profileCustomize">Avatar</a></li>
                     <li><a data-toggle='tab' href="#profileEdit">Profile</a></li>
-                    <li><a data-toggle='tab' href="#profileInventory">Inventory</a></li>
+                    {#if _user.flags.dropsEnabled}
+                        <li><a data-toggle='tab' href="#profileInventory">Inventory</a></li>
+                    {/if}
                 </ul>
 
                 <div class="tab-content">
@@ -181,11 +183,19 @@
 <inventory:>
     <div class='row-fluid'>
         <div class='span6 well'>
-            {#if not(_user.items.meats)}
-                <p>You don't have any meat yet.</p>
+            <h3>Food</h3>
+            {#if not(_user.items.food)}
+                <p>You don't have any food yet.</p>
             {/if}
-            {#each _user.items.meats as :meat}
-                {:meat}
+            {#each _user.items.food as :food}
+                {:food}
+            {/each}
+            <h3>Eggs</h3>
+            {#if not(_user.items.eggs)}
+                <p>You don't have any eggs yet.</p>
+            {/if}
+            {#each _user.items.eggs as :egg}
+                {:egg}
             {/each}
         </div>
     </div>
