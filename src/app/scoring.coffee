@@ -220,7 +220,7 @@ cron = (model) ->
             batch.set "tasks.#{taskObj.id}.value", newValue
 
           taskObj.history ?= []
-          taskObj.history.push { date: +new Date, value: newValue || taskObj.value }
+          taskObj.history.push { date: +new Date, value: taskObj.value }
           batch.set "tasks.#{taskObj.id}.history", taskObj.history
           batch.set "tasks.#{taskObj.id}.completed", false
         else

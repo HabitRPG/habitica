@@ -1,14 +1,14 @@
-// mongo habitrpg ./node_modules/underscore/underscore.js ./migrations/20130307_remove_duff_histories.js
 /**
  * Remove duff histories for dailies
  */
+// mongo habitrpg ./node_modules/underscore/underscore.js ./migrations/20130307_remove_duff_histories.js
 db.users.find().forEach(function(user){
 
 
     _.each(user.tasks, function(task, key){
-        // remove task history 
         if (task.type === "daily") {
-            task.history = []
+            // remove busted history entries
+            task.history = _.filter(task.history, function(h){return !!h.value})
         }
     });
 
