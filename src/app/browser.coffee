@@ -178,7 +178,7 @@ setupGrowlNotifications = (model) ->
     # unless silent
     num = captures - args
     rounded = Math.abs(num.toFixed(1))
-    if num < 0 and num > -100 # TODO fix hackey negative notification supress
+    if num < 0 and num > -50 # TODO fix hackey negative notification supress
       statsNotification "<i class='icon-star'></i> - #{rounded} XP", 'xp'
     else if num > 0
       statsNotification "<i class='icon-star'></i> + #{rounded} XP", 'xp'
