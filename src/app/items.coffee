@@ -42,7 +42,7 @@ items = module.exports.items =
     {text: 'Tiger Cub', name: 'TigerCub', value: 3}
     #{text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3} #commented out because there are no polarbear modifiers yet, special drop?
     {text: 'Panda Cub', name: 'PandaCub', value: 3}
-    {text: 'Lion Cub', id: 'LionCub', value: 3}
+    {text: 'Lion Cub', name: 'LionCub', value: 3}
     {text: 'Fox', name: 'Fox', value: 3}
     {text: 'Flying Pig', name: 'FlyingPig', value: 3}
     {text: 'Dragon', name: 'Dragon', value: 3}

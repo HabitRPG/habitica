@@ -201,7 +201,7 @@
                 <p>You don't have any eggs yet.</p>
             {/if}
             {#each _user.items.eggs as :egg}
-                {:egg}
+                <p>{:egg.text}</p>
             {/each}
         </div>
     </div>

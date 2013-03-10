@@ -10,11 +10,13 @@ module.exports.app = (appExports, model) ->
   user.on 'set', 'flags.dropsEnabled', (captures, args) ->
     return unless captures == true
 
-    droppedEgg = randomProp pets
-    droppedFood = randomProp pets
+    egg = randomProp pets
 
-    user.push 'items.eggs', droppedEgg.name
-    user.push 'items.food', droppedFood.name
+    dontPersist =  model._dontPersist
+
+    model._dontPersist = false if dontPersist
+    user.push 'items.eggs', egg
+    model._dontPersist = true if dontPersist
 
     # do drops enabled stuff
     $('#dropsEnabled-modal').show()

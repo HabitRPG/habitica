@@ -1,10 +1,9 @@
 <modals:>
   <app:modals:modal modalId='dropsEnabled-modal' header="Drops Enabled!">
-    <app:userTokens/>
     <p>You've unlocked the drop system.</p>
-    <p>Here's your first egg! {_user.items.eggs.0}</p>
+    <p>Here's your first egg! {_user.items.eggs.0.text}</p>
     <p>Feed it some meat to get it to hatch.</p>
     <@footer>
-      <button data-dismiss="modal" class="btn btn-success">Ok</button>
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     </@footer>
   </app:modals:modal>
