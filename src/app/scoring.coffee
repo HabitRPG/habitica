@@ -52,7 +52,7 @@ score = (model, taskId, direction, times, batch, cron) ->
   addPoints = ->
     level = user.get('stats.lvl')
     weaponStrength = items.items.weapon[user.get('items.weapon')].strength
-    exp += algos.expModifier(delta,weaponStrength,level, priority)
+    exp += algos.expModifier(delta,weaponStrength,level, priority) / 2 # / 2 hack for now bcause people leveling too fast
     gp += algos.gpModifier(delta, 1, priority)
 
   subtractPoints = ->
