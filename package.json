@@ -1,0 +1,8 @@
+{
+    "name": "habitrpg-shared",
+    "version": "0.0.0",
+    "dependencies": {
+        "browserify": "*",
+        "moment": "*"
+    }
+}
