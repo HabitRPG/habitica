@@ -18,8 +18,7 @@ module.exports.app = (appExports, model) ->
     user.push 'items.eggs', egg
     model._dontPersist = true if dontPersist
 
-    # do drops enabled stuff
-    $('#dropsEnabled-modal').show()
+    $('#drops-enabled-modal').modal 'show'
 
   appExports.selectPet = (e, el) ->
     name = $(el).attr('data-pet')
@@ -36,4 +35,4 @@ module.exports.app = (appExports, model) ->
           user.set 'items.currentPet', pet
           user.set 'balance', (tokens - pet.value)/4
       else
-        $('#more-tokens-modal').modal('show')
+        $('#more-tokens-modal').modal 'show'

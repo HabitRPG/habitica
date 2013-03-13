@@ -108,7 +108,7 @@ score = (model, taskId, direction, times, batch, cron) ->
   updateStats model, {hp: hp, exp: exp, gp: gp}, batch
 
   # 1% chance of getting a pet or meat
-  if Math.random() < .01
+  if obj.flags.dropsEnabled and Math.random() < .01
     if Math.random() < .5
       drop = randomProp(food)
       user.push 'items.food', drop.name
@@ -119,7 +119,7 @@ score = (model, taskId, direction, times, batch, cron) ->
       drop.type = 'egg'
 
     model.set '_drop', drop
-    $('#itemDropped-modal').show()
+    $('#item-dropped-modal').modal 'show'
 
   if commit
     # newStats / origStats is a glorious hack to trick Derby into seeing the change in model.on(*)
