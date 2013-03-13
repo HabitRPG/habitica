@@ -52,7 +52,7 @@ score = (model, taskId, direction, times, batch, cron) ->
   addPoints = ->
     level = user.get('stats.lvl')
     weaponStrength = items.items.weapon[user.get('items.weapon')].strength
-    exp += algos.expModifier(delta,weaponStrength,level, priority)
+    exp += algos.expModifier(delta,weaponStrength,level, priority) / 2 # / 2 hack for now bcause people leveling too fast
     gp += algos.gpModifier(delta, 1, priority)
 
   subtractPoints = ->
@@ -217,7 +217,7 @@ cron = (model) ->
             batch.set "tasks.#{taskObj.id}.value", newValue
 
           taskObj.history ?= []
-          taskObj.history.push { date: +new Date, value: value }
+          taskObj.history.push { date: +new Date, value: taskObj.value }
           batch.set "tasks.#{taskObj.id}.history", taskObj.history
           batch.set "tasks.#{taskObj.id}.completed", false
         else
@@ -226,7 +226,7 @@ cron = (model) ->
           todoTally += absVal
       else if type is 'habit' # slowly reset 'onlies' value to 0
         if taskObj.up==false or taskObj.down==false
-          if Math.abs(taskObj.value) < 0.02
+          if Math.abs(taskObj.value) < 0.1
             batch.set "tasks.#{taskObj.id}.value", 0
           else
             batch.set "tasks.#{taskObj.id}.value", taskObj.value / 2
