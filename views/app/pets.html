@@ -7,3 +7,11 @@
       <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     </@footer>
   </app:modals:modal>
+  <app:modals:modal modalId='itemDropped-modal' header="Item Dropped!">
+    <p>An item has dropped!</p>
+    <p>Here's your first {_drop.type} – {_drop.text}!</p>
+    <p>{_drop.notes}</p>
+    <@footer>
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </@footer>
+  </app:modals:modal>

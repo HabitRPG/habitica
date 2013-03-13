@@ -1,10 +1,11 @@
 async = require 'async'
 moment = require 'moment'
 _ = require 'underscore'
-helpers = require './helpers'
+{ randomProp } = helpers = require './helpers'
 browser = require './browser'
 character = require './character'
 items = require './items'
+{ pets, food } = items.items
 algos = require './algos'
 
 MODIFIER = algos.MODIFIER # each new level, armor, weapon add 2% modifier (this mechanism will change)
@@ -105,6 +106,21 @@ score = (model, taskId, direction, times, batch, cron) ->
   batch.set "#{taskPath}.value", taskObj.value
   origStats = _.clone obj.stats
   updateStats model, {hp: hp, exp: exp, gp: gp}, batch
+
+  # 1% chance of getting a pet or meat
+  if Math.random() < .01
+    if Math.random() < .5
+      drop = randomProp(food)
+      user.push 'items.food', drop.name
+      drop.type = 'food'
+    else
+      drop = randomProp(pets)
+      user.push 'items.eggs', drop
+      drop.type = 'egg'
+
+    model.set '_drop', drop
+    $('#itemDropped-modal').show()
+
   if commit
     # newStats / origStats is a glorious hack to trick Derby into seeing the change in model.on(*)
     newStats = _.clone batch.obj().stats
