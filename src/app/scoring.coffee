@@ -105,7 +105,15 @@ score = (model, taskId, direction, times, batch, cron) ->
   taskObj.value = value
   batch.set "#{taskPath}.value", taskObj.value
   origStats = _.clone obj.stats
-  updateStats model, {hp: hp, exp: exp, gp: gp}, batch
+  updateStats model, { hp, exp, gp }, batch
+
+  if commit
+    # newStats / origStats is a glorious hack to trick Derby into seeing the change in model.on(*)
+    newStats = _.clone batch.obj().stats
+    _.each Object.keys(origStats), (key) -> obj.stats[key] = origStats[key]
+    batch.setStats(newStats)
+    # batch.setStats()
+    batch.commit()
 
   # 1% chance of getting a pet or meat
   if obj.flags.dropsEnabled and Math.random() < .01
@@ -121,13 +129,6 @@ score = (model, taskId, direction, times, batch, cron) ->
     model.set '_drop', drop
     $('#item-dropped-modal').modal 'show'
 
-  if commit
-    # newStats / origStats is a glorious hack to trick Derby into seeing the change in model.on(*)
-    newStats = _.clone batch.obj().stats
-    _.each Object.keys(origStats), (key) -> obj.stats[key] = origStats[key]
-    batch.setStats(newStats)
-    # batch.setStats()
-    batch.commit()
   return delta
 
 ###
