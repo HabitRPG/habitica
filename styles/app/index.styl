@@ -7,12 +7,31 @@
 @import "./customizer.styl";
 @import "./items.styl";
 @import "./alerts.styl";
+@import "./helpers.styl";
+@import "./responsive.styl";
+
+@import "./scrollbars.styl";
 
 @import "../../public/vendor/bootstrap-datepicker/css/datepicker.css";
+
+// fix exploding to very wide for some reason
+.datepicker
+  width: 210px
 
 html,body,p,h1,ul,li,table,tr,th,td
   margin: 0
   padding: 0
+
+*
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+
+hr
+  border-top: 0
+  border-bottom: 1px solid #ddd
+  border-color: rgba(0,0,0,0.1)
+
 
 /* Header
 -------------------------------------------------- */
@@ -34,7 +53,7 @@ html,body,p,h1,ul,li,table,tr,th,td
   box-sizing: border-box
   z-index: 1000
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   #head {
     position: static;
   }
@@ -131,7 +150,7 @@ html,body,p,h1,ul,li,table,tr,th,td
   /*overflow:auto;*/                                                                                                                                                                                                                             
   padding-bottom: 250px; /* don't know why this works, sticky footers are weird */
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   #wrap {
     margin-top: 0
   }
