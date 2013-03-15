@@ -10,16 +10,19 @@
             <!-- party -->
             {{#each _partyMembers as :member}}
                 {{#unless equal(:member.id, _userId)}}
-                    <figure class="party-avatar-wrap" rel="tooltip" title="{{username(:member.auth)}}" data-placement="bottom">
-                        <app:avatar:avatar profile={{:member}} party="true" />
-                        <div>
-                            <div class="progress progress-danger" style="height:5px; margin:5px">
-                                <div class="bar" style="height: 5px; width: {percent(:member.stats.hp, 50)}%;"></div>
+                    <figure class="party-avatar-wrap" rel="popover" data-title="{{username(:member.auth)}}" data-placement="bottom" data-trigger="hover" data-html="true" data-content="
+                         <div>
+                            <div class='progress progress-danger' style='height:5px;'>
+                                <div class='bar' style='height: 5px; width: {percent(:member.stats.hp, 50)}%;'></div>
                             </div>
-                            <div class="progress progress-warning" style="height:5px; margin:5px">
-                                <div class="bar" style="height: 5px; width: {percent(:member.stats.exp, tnl(:member.stats.lvl))}%;"></div>
+                            <div class='progress progress-warning' style='height:5px;'>
+                                <div class='bar' style='height: 5px; width: {percent(:member.stats.exp, tnl(:member.stats.lvl))}%;'></div>
                             </div>
+                            <div>GP: {{floor(:member.stats.gp)}}</div>
                         </div>
+                    ">
+                        <!-- Yes that would have been way cleaner as a derby template `<app:party:member-stats profile={{:member}} />`, but I couldn't get it working -->
+                        <app:avatar:avatar profile={{:member}} party="true" />
                     </figure>
                 {{/}}
             {{/}}
