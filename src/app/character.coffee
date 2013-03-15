@@ -89,6 +89,9 @@ module.exports.app = (appExports, model) ->
       batch.set $(this).attr('data-for'), parseInt($(this).val() || 1)
     batch.commit()
 
+  appExports.toggleHeader = (e, el) ->
+    user.set 'preferences.hideHeader', !user.get('preferences.hideHeader')
+
   user.on 'set', 'flags.customizationsNotification', (captures, args) ->
     return unless captures == true
     $('.main-avatar').popover('destroy') #remove previous popovers
