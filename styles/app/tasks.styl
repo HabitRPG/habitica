@@ -202,8 +202,8 @@ for $stage in $stages
   position: relative
   // uncompleted icon
   label:after, label:before
-    content: '▨'
     // content: '◯'
+    content: ''
     display: block
     height: 1.714285714em
     width: 1.714285714em
@@ -213,10 +213,15 @@ for $stage in $stages
     color: black
     opacity: 0.2
 
+  label:after
+    content: '▨'
   label:before
     position: absolute
     left: 0
   // hint at completed icon
+  label:hover:before,
+  label:focus:before
+    content: ''
   label:hover:after,
   label:focus:after
     content: '¬'
