@@ -1,6 +1,7 @@
 character = require './character'
 browser = require './browser'
 items = require './items'
+algos = require './algos'
 
 moment = require 'moment'
 _ = require 'underscore'
@@ -20,6 +21,9 @@ module.exports.username = username = (auth) ->
 
 module.exports.view = (view) ->
   view.fn "username", (auth) -> username(auth)
+
+  view.fn "tnl", (level) -> algos.tnl(level)
+
 
 module.exports.app = (appExports, model) ->
   user = model.at '_user'

@@ -4,16 +4,6 @@ moment = require 'moment'
 
 
 restoreRefs = module.exports.restoreRefs = (model) ->
-  # tnl function
-  model.fn '_tnl', '_user.stats.lvl', (lvl) ->
-    # see https://github.com/lefnire/habitrpg/issues/4
-    # also update in scoring.coffee. TODO create a function accessible in both locations
-    #TODO find a method of calling algos.tnl()
-    if lvl==100
-      0
-    else
-      Math.round(((Math.pow(lvl,2)*0.25)+(10 * lvl) + 139.75)/10)*10
-
   #refLists
   _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
