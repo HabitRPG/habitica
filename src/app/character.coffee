@@ -92,6 +92,10 @@ module.exports.app = (appExports, model) ->
   appExports.toggleHeader = (e, el) ->
     user.set 'preferences.hideHeader', !user.get('preferences.hideHeader')
 
+  appExports.deleteAccount = (e, el) ->
+    model.del "users.#{user.get('id')}", ->
+      window.location.href = "/logout"
+
   user.on 'set', 'flags.customizationsNotification', (captures, args) ->
     return unless captures == true
     $('.main-avatar').popover('destroy') #remove previous popovers

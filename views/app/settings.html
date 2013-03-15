@@ -28,8 +28,10 @@
                     {{/}}
 
                     <hr/>
+                    <h4>Danger Zone</h4>
                     <a class='btn btn-danger' data-target="#reset-modal" data-toggle="modal" rel=tooltip title="Resets your entire account (dangerous).">Reset</a>
                     &nbsp;<a class='btn btn-danger' data-target="#restore-modal" data-toggle="modal" rel=tooltip title="Restores attributes to your character.">Restore</a>
+                    &nbsp;<a class='btn btn-danger' data-target="#delete-modal" data-toggle="modal" rel=tooltip title="Delete your account.">Delete</a>
                 </div>
                 <div class="tab-pane" id="settings-api">
                     <small>Copy these for use in third party applications.</small>
@@ -101,6 +103,16 @@
 
             <@footer>
                 <button class="btn" x-bind="click:restoreSave" data-dismiss="modal" aria-hidden="true">Save & Close</button>
+            </@footer>
+        </app:modals:modal>
+
+        <app:modals:modal modalId="delete-modal" header="Delete Account">
+            <p>Woa woa woa! Are you sure? This will seriously delete your account forever, and it can never be restored. (Seriously, I don't know why people want this feature - but it was highly requested, so here it is).</p>
+            <p>If you're absolutely certain, type <strong>DELETE</strong> into the text-box below.</p>
+            <p><input type="text" value="{_deleteAccount}" /></p>
+            <@footer>
+                <button class="btn btn-large" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button data-dismiss="modal" x-bind="click:deleteAccount" class="btn btn-danger btn-small {#unless equal(_deleteAccount,'DELETE')}disabled{/}">Delete Account</button>
             </@footer>
         </app:modals:modal>
 
