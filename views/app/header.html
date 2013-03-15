@@ -21,7 +21,8 @@
                             <div>GP: {{floor(:member.stats.gp)}}</div>
                         </div>
                     ">
-                        <!-- Yes that would have been way cleaner as a derby template `<app:party:member-stats profile={{:member}} />`, but I couldn't get it working -->
+                    <!-- Would be way cleaner as a Derby template `data-content="<app:party:member-stats profile={{:member}} />"`, but it was just printing HTML as text -->
+
                         <app:avatar:avatar profile={{:member}} party="true" />
                     </figure>
                 {{/}}
