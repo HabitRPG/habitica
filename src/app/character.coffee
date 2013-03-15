@@ -22,7 +22,7 @@ module.exports.username = username = (auth) ->
 module.exports.view = (view) ->
   view.fn "username", (auth) -> username(auth)
 
-  view.fn "tnl", (level) -> algos.tnl(level)
+  view.fn "tnl", algos.tnl
 
 
 module.exports.app = (appExports, model) ->
