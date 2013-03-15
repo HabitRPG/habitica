@@ -1,20 +1,33 @@
+XP = 15
+HP = 2
 
-MODIFIER = .02
+priorityValue = (priority='!') ->
+  switch priority
+    when '!' then 1
+    when '!!' then 1.5
+    when '!!!' then 2
+    else 1
 
 module.exports.tnl = (level) ->
-	return (Math.pow(level,2)*10)+(level*10)+80
+  if level >= 100
+    value = 0
+  else
+    value = Math.round(((Math.pow(level,2)*0.25)+(10 * level) + 139.75)/10)*10 # round to nearest 10
+  return value
 
 ###
   Calculates Exp modificaiton based on level and weapon strength
   {value} task.value for exp gain
   {weaponStrength) weapon strength 
   {level} current user level
+  {priority} user-defined priority multiplier
 ###
-module.exports.expModifier = (value, weaponStrength, level) ->
-	levelModifier = (level-1) * MODIFIER
-	weaponModifier = weaponStrength / 100
-	strength = 1 + weaponModifier + levelModifier
-	return value * strength
+module.exports.expModifier = (value, weaponStr, level, priority='!') ->
+  str = (level-1) / 2 # ultimately get this from user
+  totalStr = (str + weaponStr) / 100
+  strMod = 1 + totalStr
+  exp = value * XP * strMod * priorityValue(priority)
+  return Math.round(exp)
 
 ###
   Calculates HP modification based on level and armor defence
@@ -22,18 +35,21 @@ module.exports.expModifier = (value, weaponStrength, level) ->
   {armorDefense} defense from armor
   {helmDefense} defense from helm 
   {level} current user level
+  {priority} user-defined priority multiplier
 ###
-module.exports.hpModifier = (value, armorDefense, helmDefense, shieldDefense, level) ->
-	levelModifier = (level-1) * MODIFIER
-	armorModifier = (armorDefense + helmDefense + shieldDefense) / 100
-	defense = 1 - levelModifier + armorModifier
-	return value * defense
+module.exports.hpModifier = (value, armorDef, helmDef, shieldDef, level, priority='!') ->
+  def = (level-1) / 2 # ultimately get this from user?
+  totalDef = (def + armorDef + helmDef + shieldDef) / 100 #ultimate get this from user
+  defMod = 1 - totalDef
+  hp = value * HP * defMod * priorityValue(priority)
+  return Math.round(hp * 10)/10 # round to 1dp
 
 ###
   Future use
+  {priority} user-defined priority multiplier
 ###
-module.exports.gpModifier = (value, modifier) ->
-	return value * modifier
+module.exports.gpModifier = (value, modifier, priority='!') ->
+  return value * modifier * priorityValue(priority)
 
 ###
   Calculates the next task.value based on direction
@@ -42,13 +58,10 @@ module.exports.gpModifier = (value, modifier) ->
   {direction} up or down
 ###
 module.exports.taskDeltaFormula = (currentValue, direction) ->
-	if direction is 'up'
-		delta = Math.max(Math.pow(0.95,currentValue),0.25)
-	else
-		delta = -Math.min(Math.pow(0.95,currentValue),5)
-	#sign = if (direction is 'up') then 1 else -1
-	#delta = Math.pow(0.95,currentValue) * sign
-	#if delta < -5 then delta = -5
-	#console.log("CurrentValue: " + currentValue + " delta: " + delta)
-	#delta = if (currentValue < 0) then (( -0.1 * currentValue + 1 ) * sign) else (( Math.pow(0.9,currentValue) ) * sign)
-	return delta
+  if currentValue < -47.27 then currentValue = -47.27
+  else if currentValue > 21.27 then currentValue = 21.27
+  delta = Math.pow(0.9747,currentValue)
+  return delta if direction is 'up'
+  return -delta
+	
+	

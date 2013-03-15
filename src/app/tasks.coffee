@@ -14,14 +14,20 @@ module.exports.view = (view) ->
     else
       classes += " uncompleted"
 
-    switch
-      when value<-8 then classes += ' color-worst'
-      when value>=-8 and value<-5 then classes += ' color-worse'
-      when value>=-5 and value<-1 then classes += ' color-bad'
-      when value>=-1 and value<1 then classes += ' color-neutral'
-      when value>=1 and value<5 then classes += ' color-good'
-      when value>=5 and value<10 then classes += ' color-better'
-      when value>=10 then classes += ' color-best'
+    if value < -20
+      classes += ' color-worst'
+    else if value < -10
+      classes += ' color-worse'
+    else if value < -1
+      classes += ' color-bad'
+    else if value < 1
+      classes += ' color-neutral'
+    else if value < 5
+      classes += ' color-good'
+    else if value < 10
+      classes += ' color-better'
+    else
+      classes += ' color-best'
     return classes
 
 module.exports.app = (appExports, model) ->
@@ -135,9 +141,9 @@ module.exports.app = (appExports, model) ->
     data = google.visualization.arrayToDataTable matrix
 
     options = {
-    title: 'History'
-    #TODO use current background color: $(el).css('background-color), but convert to hex (see http://goo.gl/ql5pR)
-    backgroundColor: 'whiteSmoke'
+      title: 'History'
+      #TODO use current background color: $(el).css('background-color), but convert to hex (see http://goo.gl/ql5pR)
+      backgroundColor: 'whiteSmoke'
     }
 
     chart = new google.visualization.LineChart(document.getElementById( chartSelector ))
@@ -173,7 +179,15 @@ module.exports.app = (appExports, model) ->
     task = model.at $(el).parents('li')[0]
     scoring.score(model, task.get('id'), direction)
 
+  appExports.tasksToggleAdvanced = (e, el) ->
+    $(el).next('.advanced').toggle()
+
   appExports.tasksSaveAndClose = ->
     # When they update their notes, re-establish tooltip & popover
     $('[rel=tooltip]').tooltip()
     $('[rel=popover]').popover()
+
+  appExports.tasksSetPriority = (e, el) ->
+    dataId = $(el).parent('[data-id]').attr('data-id')
+    #"_user.tasks.#{dataId}"
+    model.at(e.target).set 'priority', $(el).attr('data-priority')

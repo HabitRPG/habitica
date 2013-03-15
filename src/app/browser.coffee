@@ -3,38 +3,20 @@ moment = require 'moment'
 #algos = require './algos'
 
 
-module.exports.restoreRefs = restoreRefs = (model) ->
+restoreRefs = module.exports.restoreRefs = (model) ->
   # tnl function
   model.fn '_tnl', '_user.stats.lvl', (lvl) ->
     # see https://github.com/lefnire/habitrpg/issues/4
     # also update in scoring.coffee. TODO create a function accessible in both locations
     #TODO find a method of calling algos.tnl()
-    10*Math.pow(lvl,2)+(lvl*10)+80
+    if lvl==100
+      0
+    else
+      Math.round(((Math.pow(lvl,2)*0.25)+(10 * lvl) + 139.75)/10)*10
 
   #refLists
   _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-
-module.exports.resetDom = (model) ->
-  window.DERBY.app.dom.clear()
-  restoreRefs(model)
-  window.DERBY.app.view.render(model)
-  reconstructPage model
-
-module.exports.app = (appExports, model) ->
-  reconstructPage model
-  setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
-
-reconstructPage = (model) ->
-  loadJavaScripts(model)
-  setupSortable(model)
-  setupTooltips(model)
-  setupTour(model)
-  $('.datepicker').datepicker({autoclose:true, todayBtn:true})
-  .on 'changeDate', (ev) ->
-    #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
-    #FIXME also, it saves as a day behind??
-    model.at(ev.target).set 'date', moment(ev.date).add('d',1).format('MM/DD/YYYY')
 
 ###
   Loads JavaScript files from (1) public/js/* and (2) external sources
@@ -60,7 +42,7 @@ loadJavaScripts = (model) ->
 
 
   require '../../public/vendor/jquery-cookie/jquery.cookie'
-  require '../../public/vendor/bootstrap-tour' #https://raw.github.com/pushly/bootstrap-tour/master/bootstrap-tour.js
+  require '../../public/vendor/bootstrap-tour/bootstrap-tour'
   require '../../public/vendor/bootstrap-datepicker/js/bootstrap-datepicker'
   require '../../public/vendor/bootstrap-growl/jquery.bootstrap-growl.min'
 
@@ -106,6 +88,11 @@ setupSortable = (model) ->
 setupTooltips = (model) ->
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
+
+  $('.priority-multiplier-help').popover
+    title: "How difficult is this task?"
+    trigger: "hover"
+    content: "This multiplies its point value. Use sparingly, rely instead on our organic value-adjustment algorithms. But some tasks are grossly more valuable (Write Thesis vs Floss Teeth). Click for more info."
 
 setupTour = (model) ->
   tourSteps = [
@@ -154,12 +141,8 @@ setupTour = (model) ->
   $('.main-avatar').popover('destroy') #remove previous popovers
   tour = new Tour()
   _.each tourSteps, (step) ->
-    tour.addStep
-      html: true
-      element: step.element
-      title: step.title
-      content: step.content
-      placement: step.placement
+    tour.addStep _.defaults step, {html:true}
+  tour._current = 0 if isNaN(tour._current) #bootstrap-tour bug
   tour.start()
 
 ###
@@ -191,13 +174,14 @@ setupGrowlNotifications = (model) ->
     else if num > 0
       statsNotification "<i class='icon-heart'></i> + #{rounded} HP", 'hp' # gained hp from potion/level? 
   
-  user.on 'set', 'stats.exp', (captures, args, isLocal, silent) ->
-      num = captures - args
-      rounded = Math.abs(num.toFixed(1))
-      if num < 0 and not silent
-        statsNotification "<i class='icon-star'></i> - #{rounded} XP", 'xp'
-      else if num > 0
-        statsNotification "<i class='icon-star'></i> + #{rounded} XP", 'xp'
+  user.on 'set', 'stats.exp', (captures, args, isLocal, silent=false) ->
+    # unless silent
+    num = captures - args
+    rounded = Math.abs(num.toFixed(1))
+    if num < 0 and num > -50 # TODO fix hackey negative notification supress
+      statsNotification "<i class='icon-star'></i> - #{rounded} XP", 'xp'
+    else if num > 0
+      statsNotification "<i class='icon-star'></i> + #{rounded} XP", 'xp'
 
   user.on 'set', 'stats.gp', (captures, args) ->
     num = captures - args
@@ -215,6 +199,26 @@ setupGrowlNotifications = (model) ->
   user.on 'set', 'stats.lvl', (captures, args) ->
     if captures > args
       if captures is 1 and args is 0
-        statsNotification '<i class="icon-death"></i> You died!', 'death' 
+        statsNotification '<i class="icon-death"></i> You died! Game over.', 'death' 
       else 
         statsNotification '<i class="icon-chevron-up"></i> Level Up!', 'lvl'
+
+
+module.exports.resetDom = (model) ->
+  window.DERBY.app.dom.clear()
+  window.DERBY.app.view.render(model)
+
+module.exports.app = (appExports, model, app) ->
+  loadJavaScripts(model)
+  setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
+
+  app.on 'render', (ctx) ->
+    #restoreRefs(model)
+    setupSortable(model)
+    setupTooltips(model)
+    setupTour(model)
+    $('.datepicker').datepicker({autoclose:true, todayBtn:true})
+      .on 'changeDate', (ev) ->
+            #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
+            #FIXME also, it saves as a day behind??
+            model.at(ev.target).set 'date', moment(ev.date).add('d',1).format('MM/DD/YYYY')

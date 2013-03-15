@@ -63,6 +63,9 @@ module.exports.app = (appExports, model) ->
   appExports.closeOnliesNotification = (e, el) ->
     user.set('flags.onliesNotification', 'hide')
 
+  appExports.closePriorityNotification = (e, el) ->
+    user.set('flags.priorityNotification', 'hide')
+
   appExports.customizeGender = (e, el) ->
     user.set 'preferences.gender', $(el).attr('data-value')
 
@@ -79,7 +82,7 @@ module.exports.app = (appExports, model) ->
     batch = new BatchUpdate(model)
     batch.startTransaction()
     $('#restore-form input').each ->
-      batch.set $(this).attr('data-for'), parseInt($(this).val())
+      batch.set $(this).attr('data-for'), parseInt($(this).val() || 1)
     batch.commit()
 
   user.on 'set', 'flags.customizationsNotification', (captures, args) ->
@@ -172,7 +175,7 @@ module.exports.updateUser = (model) ->
     union = _.union obj[type + 'Ids'], taskIds
 
     # 2. remove empty (grey) tasks
-    preened = _.filter(union, (val) -> _.contains(taskIds, val))
+    preened = _.filter union, (val) -> _.contains(taskIds, val) and val?
 
     # There were indeed issues found, set the new list
     batch.set("#{type}Ids", preened) # if _.difference(preened, userObj[path]).length != 0

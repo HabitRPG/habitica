@@ -3,6 +3,7 @@ router = new express.Router()
 
 scoring = require '../app/scoring'
 _ = require 'underscore'
+{ tnl } = require '../app/algos'
 validator = require 'derby-auth/node_modules/validator'
 check = validator.check
 sanitize = validator.sanitize
@@ -41,6 +42,9 @@ auth = (req, res, next) ->
 router.get '/user', auth, (req, res) ->
   user = req.userObj
 
+  user.stats.toNextLevel = tnl user.stats.lvl
+  user.stats.maxHealth = 50
+
   delete user.apiToken
 
   res.json user
@@ -56,7 +60,7 @@ validateTask = (req, res, next) ->
   newTask = { type, text, notes, value, up, down, completed } = req.body
 
   # If we're updating, get the task from the user
-  if req.method is 'PUT'
+  if req.method is 'PUT' or req.method is 'DELETE'
     task = req.userObj?.tasks[req.params.id]
     return res.json 400, err: "No task found." if !task || _.isEmpty(task)
     # Strip for now
@@ -85,6 +89,15 @@ router.put '/user/task/:id', auth, validateTask, (req, res) ->
   req.user.set "tasks.#{req.task.id}", req.task
 
   res.json 200, req.task
+
+router.delete '/user/task/:id', auth, validateTask, (req, res) ->
+  taskIds = req.user.get "#{req.task.type}Ids"
+
+  req.user.del "tasks.#{req.task.id}"
+  # Remove one id from array of typeIds
+  req.user.remove "#{req.task.type}Ids", taskIds.indexOf(req.task.id), 1
+
+  res.send 204
 
 router.post '/user/task', auth, validateTask, (req, res) ->
   task = req.task
@@ -152,4 +165,3 @@ router.post '/user/tasks/:taskId/:direction', auth, scoreTask
 module.exports = router
 module.exports.auth = auth
 module.exports.scoreTask = scoreTask # export so deprecated can call it
-

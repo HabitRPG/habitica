@@ -11,7 +11,6 @@
 ##Contact
 ###[Bugs](https://github.com/lefnire/habitrpg/issues)
 ###[New Features](https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6)
-###[Email](mailto:tylerrenelle@gmail.com)
 
 ##License
 Code is licensed under GNU GPL v3. Content is licensed under CC-BY-SA 3.0.

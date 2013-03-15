@@ -28,6 +28,7 @@ score = (model, taskId, direction, times, batch, cron) ->
   taskPath = "tasks.#{taskId}"
   taskObj = obj.tasks[taskId]
   {type, value} = taskObj
+  priority = taskObj.priority or '!'
 
   # If they're trying to purhcase a too-expensive reward, confirm they want to take a hit for it
   if taskObj.value > obj.stats.gp and taskObj.type is 'reward'
@@ -51,24 +52,19 @@ score = (model, taskId, direction, times, batch, cron) ->
   addPoints = ->
     level = user.get('stats.lvl')
     weaponStrength = items.items.weapon[user.get('items.weapon')].strength
-    modified = algos.expModifier(delta,weaponStrength,level)
-    exp += modified*10
-    gp += delta
+    exp += algos.expModifier(delta,weaponStrength,level, priority) / 2 # / 2 hack for now bcause people leveling too fast
+    gp += algos.gpModifier(delta, 1, priority)
 
   subtractPoints = ->
     level = user.get('stats.lvl')
     armorDefense = items.items.armor[user.get('items.armor')].defense
     helmDefense = items.items.head[user.get('items.head')].defense
     shieldDefense = items.items.shield[user.get('items.shield')].defense
-    modified = algos.hpModifier(delta,armorDefense,helmDefense,shieldDefense,level)
-    hp += modified
+    hp += algos.hpModifier(delta,armorDefense,helmDefense,shieldDefense,level, priority)
 
   switch type
     when 'habit'
-      # Don't adjust values for habits that don't have both + and -
-      #adjustvalue = if (taskObj.up==false or taskObj.down==false) then false else true
-      adjustvalue = true;
-      calculateDelta(adjustvalue)
+      calculateDelta()
       # Add habit value to habit-history (if different)
       if (delta > 0) then addPoints() else subtractPoints()
       taskObj.history ?= []
@@ -78,20 +74,20 @@ score = (model, taskId, direction, times, batch, cron) ->
         batch.set "#{taskPath}.history", taskObj.history
 
     when 'daily'
-      #calculateDelta()
       if cron? # cron
         calculateDelta()
         subtractPoints()
       else
         calculateDelta(false)
-        addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
+        if delta != 0
+          addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
     when 'todo'
       if cron? #cron
         calculateDelta()
         #don't touch stats on cron
       else
-        calculateDelta(false)
+        calculateDelta()
         addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
 
     when 'reward'
@@ -140,18 +136,30 @@ updateStats = (model, newStats, batch) ->
       obj.stats.hp = newStats.hp
 
   if newStats.exp?
-    # level up & carry-over exp
     tnl = model.get '_tnl'
-    silent = false
-    if newStats.exp >= tnl
-      silent = true
-      user.set('stats.exp', newStats.exp)
-      newStats.exp -= tnl
-      obj.stats.lvl++
-      obj.stats.hp = 50
+    #silent = false
+    # if we're at level 100, turn xp to gold
+    if obj.stats.lvl >= 100
+      newStats.gp += newStats.exp / 15
+      newStats.exp = 0
+      obj.stats.lvl = 100
+    else
+      # level up & carry-over exp
+      if newStats.exp >= tnl
+        #silent = true # push through the negative xp silently
+        user.set('stats.exp', newStats.exp) # push normal + notification
+        while newStats.exp >= tnl and obj.stats.lvl < 100 # keep levelling up
+          newStats.exp -= tnl
+          obj.stats.lvl++
+          tnl = algos.tnl(obj.stats.lvl)
+        if obj.stats.lvl== 100
+          newStats.exp = 0
+        obj.stats.hp = 50
 
     obj.stats.exp = newStats.exp
-    user.pass(silent:true).set('stats.exp', obj.stats.exp) if silent
+    #if silent
+      #console.log("pushing silent :"  + obj.stats.exp)
+      #user.pass(true).set('stats.exp', obj.stats.exp) 
 
     # Set flags when they unlock features
     if !obj.flags.customizationsNotification and (obj.stats.exp > 10 or obj.stats.lvl > 1)
@@ -206,19 +214,25 @@ cron = (model) ->
               if repeat[helpers.dayMapping[thatDay.day()]]==true
                 daysFailed++
           score model, id, 'down', daysFailed, batch, true
-
         if type == 'daily'
+          if completed #set OHV for completed dailies
+            newValue = taskObj.value + algos.taskDeltaFormula(taskObj.value,'up')
+            batch.set "tasks.#{taskObj.id}.value", newValue
+
           taskObj.history ?= []
-          taskObj.history.push { date: +new Date, value: value }
+          taskObj.history.push { date: +new Date, value: taskObj.value }
           batch.set "tasks.#{taskObj.id}.history", taskObj.history
           batch.set "tasks.#{taskObj.id}.completed", false
         else
           value = obj.tasks[taskObj.id].value #get updated value
           absVal = if (completed) then Math.abs(value) else value
           todoTally += absVal
-      else if type is 'habit' #reset 'onlies' value to 0
+      else if type is 'habit' # slowly reset 'onlies' value to 0
         if taskObj.up==false or taskObj.down==false
-          batch.set "tasks.#{taskObj.id}.value", 0
+          if Math.abs(taskObj.value) < 0.1
+            batch.set "tasks.#{taskObj.id}.value", 0
+          else
+            batch.set "tasks.#{taskObj.id}.value", taskObj.value / 2
 
     # Finished tallying
     obj.history ?= {}; obj.history.todos ?= []; obj.history.exp ?= []
