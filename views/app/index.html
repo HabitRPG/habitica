@@ -41,11 +41,13 @@
     <!-- scripts go in /src/app/browser.coffee, that way we can get min/concat -->
     <!-- only the ones that are remote and can't be done async are here -->
     <script src="https://checkout.stripe.com/v2/checkout.js"></script>
+
     {#if equal(_view.nodeEnv,"production")}
         <!-- Google Analytics -->
         <script type="text/javascript">
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-33510635-1']);
+            _gaq.push(['_setDomainName', 'habitrpg.com']);
             _gaq.push(['_trackPageview']);
 
             (function() {
