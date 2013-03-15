@@ -1,5 +1,4 @@
 <header:>
-    <a x-bind="click:toggleHeader">[toggle header]</a>
     {#unless _user.preferences.hideHeader}
         <div class="row-fluid">
             <div class='char-status {#if gt(_partyMembers.length,1)}span8 offset2 has-party{else}span6 offset3{/}'>

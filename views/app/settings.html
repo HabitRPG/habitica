@@ -19,6 +19,10 @@
                 <small>Habit defaults to check and reset your dailies at midnight each day. You can customize that here (Enter number between 0 and 24).</small>
             </div>
 
+            <hr/>
+            <h4>Toggle Header</h4>
+            <button x-bind="click:toggleHeader">{#if _user.preferences.hideHeader}Show{else}Hide{/}</button>
+
             {{#if _user.auth.local}}
                 <hr/>
                 <h4>Change Password</h4>
