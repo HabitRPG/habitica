@@ -23,7 +23,7 @@ module.exports.tnl = (level) ->
   {priority} user-defined priority multiplier
 ###
 module.exports.expModifier = (value, weaponStr, level, priority='!') ->
-  str = (level-1) * 2 # ultimately get this from user
+  str = (level-1) / 2 # ultimately get this from user
   totalStr = (str + weaponStr) / 100
   strMod = 1 + totalStr
   exp = value * XP * strMod * priorityValue(priority)
@@ -38,7 +38,7 @@ module.exports.expModifier = (value, weaponStr, level, priority='!') ->
   {priority} user-defined priority multiplier
 ###
 module.exports.hpModifier = (value, armorDef, helmDef, shieldDef, level, priority='!') ->
-  def = (level-1) * 2 # ultimately get this from user?
+  def = (level-1) / 2 # ultimately get this from user?
   totalDef = (def + armorDef + helmDef + shieldDef) / 100 #ultimate get this from user
   defMod = 1 - totalDef
   hp = value * HP * defMod * priorityValue(priority)

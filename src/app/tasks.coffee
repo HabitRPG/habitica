@@ -14,14 +14,20 @@ module.exports.view = (view) ->
     else
       classes += " uncompleted"
 
-    switch
-      when value<-20 then classes += ' color-worst'
-      when value>=-20 and value<-10 then classes += ' color-worse'
-      when value>=-10 and value<-1 then classes += ' color-bad'
-      when value>=-1 and value<1 then classes += ' color-neutral'
-      when value>=1 and value<5 then classes += ' color-good'
-      when value>=5 and value<10 then classes += ' color-better'
-      when value>=10 then classes += ' color-best'
+    if value < -20
+      classes += ' color-worst'
+    else if value < -10
+      classes += ' color-worse'
+    else if value < -1
+      classes += ' color-bad'
+    else if value < 1
+      classes += ' color-neutral'
+    else if value < 5
+      classes += ' color-good'
+    else if value < 10
+      classes += ' color-better'
+    else
+      classes += ' color-best'
     return classes
 
 module.exports.app = (appExports, model) ->
@@ -135,9 +141,9 @@ module.exports.app = (appExports, model) ->
     data = google.visualization.arrayToDataTable matrix
 
     options = {
-    title: 'History'
-    #TODO use current background color: $(el).css('background-color), but convert to hex (see http://goo.gl/ql5pR)
-    backgroundColor: 'whiteSmoke'
+      title: 'History'
+      #TODO use current background color: $(el).css('background-color), but convert to hex (see http://goo.gl/ql5pR)
+      backgroundColor: 'whiteSmoke'
     }
 
     chart = new google.visualization.LineChart(document.getElementById( chartSelector ))

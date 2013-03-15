@@ -19,6 +19,7 @@ module.exports.allowCrossDomain = (req, res, next) ->
   res.header "Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,HEAD,DELETE"
   res.header "Access-Control-Allow-Headers", "Content-Type,X-Requested-With,x-api-user,x-api-key"
 
+  # wtf is this for?
   if req.method is 'OPTIONS'
     res.send(200);
   else
