@@ -105,7 +105,7 @@ userSchema =
   stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
   party: { current: null, invitation: null }
   items: { weapon: 0, armor: 0, head: 0, shield: 0 }
-  preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0 }
+  preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0, showHelm: true }
   habitIds: []
   dailyIds: []
   todoIds: []
