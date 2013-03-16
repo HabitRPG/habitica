@@ -2,7 +2,7 @@
     <!-- add new reward -->
     <app:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
 
-    {#if _rewardList}        
+    {#if _rewardList}
     <ul class='rewards'>
         {#each _rewardList as :task}<app:task />{/}
     </ul>
