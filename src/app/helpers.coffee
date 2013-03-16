@@ -46,3 +46,7 @@ module.exports.viewHelpers = (view) ->
   view.fn "encodeiCalLink", (uid, apiToken) ->
     loc = window?.location.host or process.env.BASE_URL
     encodeURIComponent "http://#{loc}/v1/users/#{uid}/calendar.ics?apiToken=#{apiToken}"
+
+  view.fn 'removeWhitespace', (str) ->
+    return '' unless str
+    str.replace /\s/g, ''

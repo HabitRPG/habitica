@@ -189,32 +189,57 @@
 <inventory:>
     <div class='row-fluid'>
         <div class='span6 well'>
-            <h3>Food</h3>
-            {#if not(_user.items.food)}
-                <p>You don't have any food yet.</p>
-            {/if}
-            {#each _user.items.food as :food}
-                {:food}
-            {/each}
-            <h3>Eggs</h3>
-            {#if not(_user.items.eggs)}
-                <p>You don't have any eggs yet.</p>
-            {/if}
-            {#each _user.items.eggs as :egg}
-                <p>{:egg.text}</p>
-            {/each}
+            <menu type="list">
+                <h3>Food</h3>
+                {#if not(_user.items.food)}
+                    <p>You don't have any food yet.</p>
+                {/if}
+                <li class="customize-menu">
+                    {#each _user.items.food as :food}
+                        <button class="customize-option" x-bind="click: chooseFood">{:food}</button>
+                    {/each}
+                </li>
+                <h3>Eggs</h3>
+                {#if not(_user.items.eggs)}
+                    <p>You don't have any eggs yet.</p>
+                {/if}
+                <li class="customize-menu">
+                    {#each _user.items.eggs as :egg}
+                        <button class="customize-option Pet-Egg" x-bind="click: chooseEgg"></button>
+                        <p>{:egg.text}</p>
+                    {/each}
+                </li>
+            </menu>
         </div>
+        {#if _feedEgg}
+            <div class='span6 well'>
+                <h3>Feed Your Egg</h3>
+                {#if not(_user.items.food)}
+                    <p>You don't have any food yet.</p>
+                {else}
+                    <p>What would you like to feed your {_feedEgg.text}?</p>
+                    <form x-bind="submit:feedEgg">
+                        <select>
+                            {#each _user.items.food as :food}
+                                <option>{:food}</option>
+                            {/each}
+                        </select>
+                        <button type=submit>Feed!</button>
+                    </form>
+                {/if}
+            </div>
+        {/if}
     </div>
 
 <stable:>
     <div class='row-fluid'>
-        <div class='span6 well'>
+        <div class='span12 well'>
             <h3>Stable</h3>
             {#if not(_user.items.pets)}
                 <p>You don't have any pets yet.</p>
             {/if}
             {#each _user.items.pets as :pet}
-                <p>{:pet}</p>
+                <div class="Pet-{removeWhitespace(:pet)}">{:pet}</div>
             {/each}
         </div>
     </div>

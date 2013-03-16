@@ -31,7 +31,7 @@ module.exports.app = (appExports, model) ->
       if tokens > pet.value
         r = confirm("Buy this pet with #{pet.value} of your #{tokens} tokens?");
         if r
-          user.push "items.pets", name
+          user.push 'items.pets', name
           user.set 'items.currentPet', pet
           user.set 'balance', (tokens - pet.value)/4
       else

@@ -116,15 +116,15 @@ score = (model, taskId, direction, times, batch, cron) ->
     batch.commit()
 
   # 1% chance of getting a pet or meat
-  if obj.flags.dropsEnabled and Math.random() < .01
+  if obj.flags.dropsEnabled and Math.random() < .50
     if Math.random() < .5
       drop = randomProp(food)
       user.push 'items.food', drop.name
-      drop.type = 'food'
+      drop.type = 'Food'
     else
       drop = randomProp(pets)
       user.push 'items.eggs', drop
-      drop.type = 'egg'
+      drop.type = 'Egg'
 
     model.set '_drop', drop
     $('#item-dropped-modal').modal 'show'

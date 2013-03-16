@@ -78,6 +78,27 @@ module.exports.app = (appExports, model) ->
   appExports.customizeArmorSet = (e, el) ->
     user.set 'preferences.armorSet', $(el).attr('data-value')
 
+  appExports.chooseEgg = (e, el) ->
+    egg = model.at el
+
+    model.ref '_feedEgg', egg
+
+  appExports.feedEgg = (e, el) ->
+    food = $(el).children('select').val()
+    foods = user.get 'items.food'
+    egg = model.get '_feedEgg'
+    eggs = user.get 'items.eggs'
+
+    foodIdx = foods.indexOf food
+    eggIdx = eggs.indexOf egg
+
+    return alert "You don't own that food :\\" if foodIdx is -1
+    return alert "You don't own that egg :\\" if eggIdx is -1
+
+    user.push 'items.pets', egg.name + '-' + food
+    user.remove 'items.food', foodIdx, 1
+    user.remove 'items.eggs', eggIdx, 1
+
   appExports.restoreSave = (e, el) ->
     batch = new BatchUpdate(model)
     batch.startTransaction()
@@ -98,7 +119,6 @@ module.exports.app = (appExports, model) ->
       html: true
       content: html
     $('.main-avatar').popover 'show'
-
 
 userSchema =
 # _id

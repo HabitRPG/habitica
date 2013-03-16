@@ -9,7 +9,8 @@
   </app:modals:modal>
   <app:modals:modal modalId='item-dropped-modal' header="Item Dropped!">
     <p>An item has dropped!</p>
-    <p>Here's your first {_drop.type} – {_drop.text}!</p>
+    <p>Here's your {_drop.type} – {_drop.text}!</p>
+    <div class="Pet-{_drop.type}"></div>
     <p>{_drop.notes}</p>
     <@footer>
       <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
