@@ -241,7 +241,7 @@
                 <p>You don't have any pets yet.</p>
             {/if}
             {#each _user.items.pets as :pet}
-                <div class="Pet-{removeWhitespace(:pet)}" data-pet="{:pet}" x-bind="click:choosePet">{:pet}</div>
+                <div class="Pet-{:pet} {#if equal(_user.items.currentPet.str, :pet)}active{/if}" data-pet="{:pet}" x-bind="click:choosePet">{:pet}</div>
             {/each}
         </div>
     </div>

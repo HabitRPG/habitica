@@ -28,6 +28,7 @@ module.exports.app = (appExports, model) ->
     petStr = "#{text}-#{modifier}"
     pet = _.findWhere pets, text: text
     pet.modifier = modifier
+    pet.str = petStr
     ownsThisPet = user.get('items.pets').indexOf petStr
     if ownsThisPet != -1
       user.set 'items.currentPet', pet
