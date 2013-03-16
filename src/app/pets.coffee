@@ -31,6 +31,8 @@ module.exports.app = (appExports, model) ->
     pet.str = petStr
     ownsThisPet = user.get('items.pets').indexOf petStr
     if ownsThisPet != -1
+      if user.get('items.currentPet').str is petStr
+        pet = {}
       user.set 'items.currentPet', pet
     else
       tokens = user.get('balance')*4
