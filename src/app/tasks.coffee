@@ -123,8 +123,8 @@ module.exports.app = (appExports, model) ->
   appExports.toggleTaskEdit = (e, el) ->
     hideId = $(el).attr('data-hide-id')
     toggleId = $(el).attr('data-toggle-id')
-    $(document.getElementById(hideId)).hide()
-    $(document.getElementById(toggleId)).toggle()
+    $(document.getElementById(hideId)).addClass('visuallyhidden')
+    $(document.getElementById(toggleId)).toggleClass('visuallyhidden')
 
   appExports.toggleChart = (e, el) ->
     hideSelector = $(el).attr('data-hide-id')
@@ -180,7 +180,7 @@ module.exports.app = (appExports, model) ->
     scoring.score(model, task.get('id'), direction)
 
   appExports.tasksToggleAdvanced = (e, el) ->
-    $(el).next('.advanced').toggle()
+    $(el).next('.advanced-option').toggleClass('visuallyhidden')
 
   appExports.tasksSaveAndClose = ->
     # When they update their notes, re-establish tooltip & popover

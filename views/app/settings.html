@@ -1,33 +1,48 @@
 <modals:>
     {{#if _loggedIn}}
         <app:modals:modal modalId="settings-modal" header="Settings">
-            <h4>API</h4>
-            <small>Copy these for use in third party applications.</small>
-            <h6>User ID</h6>
-            <pre class=prettyprint>{_user.id}</pre>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#" data-target="#settings-settings">General</a></li>
+                <li><a data-toggle="tab" href="#" data-target="#settings-api">API</a></li>
+            </ul>
 
-            <h6>API Token</h6>
-            <pre class=prettyprint>{_user.apiToken}</pre>
+            <div class="tab-content">
+                <div class="tab-pane active" id="settings-settings">
+                    <h4>Custom Day Start</h4>
+                    <div class="input-append">
+                        <input class="span2" type="number" min=0 max=24 value={_user.preferences.dayStart} />
+                        <span class="add-on">:00 (24h)</span>
+                    </div>
+                    <div>
+                        <small>Habit defaults to check and reset your dailies at midnight each day. You can customize that here (Enter number between 0 and 24).</small>
+                    </div>
 
-            <hr/>
-            <h4>Custom Day Start</h4>
-            <div class="input-append">
-                <input class="span2" type="number" min=0 max=24 value={_user.preferences.dayStart} />
-                <span class="add-on">:00 (24h)</span>
+                    <hr/>
+                    <h4>Misc</h4>
+                    <button x-bind="click:toggleHeader">{#if _user.preferences.hideHeader}Show Header{else}Hide Header{/}</button>
+                    {#unless _user.flags.partyEnabled}&nbsp;<button x-bind="click:manuallyUnlockParties" data-dismiss='modal' rel=tooltip title="Parties are unlocked automatically for usability reasons, but you can override that here.">Enable Parties</button>{/}
+
+                    {{#if _user.auth.local}}
+                        <hr/>
+                        <h4>Change Password</h4>
+                        <derby-auth:changePassword />
+                    {{/}}
+
+                    <hr/>
+                    <h4>Danger Zone</h4>
+                    <a class='btn btn-danger' data-target="#reset-modal" data-toggle="modal" rel=tooltip title="Resets your entire account (dangerous).">Reset</a>
+                    &nbsp;<a class='btn btn-danger' data-target="#restore-modal" data-toggle="modal" rel=tooltip title="Restores attributes to your character.">Restore</a>
+                    &nbsp;<a class='btn btn-danger' data-target="#delete-modal" data-toggle="modal" rel=tooltip title="Delete your account.">Delete</a>
+                </div>
+                <div class="tab-pane" id="settings-api">
+                    <small>Copy these for use in third party applications.</small>
+                    <h6>User ID</h6>
+                    <pre class=prettyprint>{_user.id}</pre>
+
+                    <h6>API Token</h6>
+                    <pre class=prettyprint>{_user.apiToken}</pre>
+                </div>
             </div>
-            <div>
-                <small>Habit defaults to check and reset your dailies at midnight each day. You can customize that here (Enter number between 0 and 24).</small>
-            </div>
-
-            {{#if _user.auth.local}}
-                <hr/>
-                <h4>Change Password</h4>
-                <derby-auth:changePassword />
-            {{/}}
-
-            <hr/>
-            <a class='btn btn-danger' data-target="#reset-modal" data-toggle="modal" rel=tooltip title="Resets your entire account (dangerous).">Reset</a>
-            &nbsp;<a class='btn btn-danger' data-target="#restore-modal" data-toggle="modal" rel=tooltip title="Restores attributes to your character.">Restore</a>
 
             <@footer>
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -89,6 +104,15 @@
 
             <@footer>
                 <button class="btn" x-bind="click:restoreSave" data-dismiss="modal" aria-hidden="true">Save & Close</button>
+            </@footer>
+        </app:modals:modal>
+
+        <app:modals:modal modalId="delete-modal" header="Delete Account">
+            <p>Woa woa woa! Are you sure? This will seriously delete your account forever, and it can never be restored. If you're absolutely certain, type <strong>DELETE</strong> into the text-box below.</p>
+            <p><input type="text" value="{_deleteAccount}" /></p>
+            <@footer>
+                <button class="btn btn-large" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button data-dismiss="modal" x-bind="click:deleteAccount" class="btn btn-danger btn-small {#unless equal(_deleteAccount,'DELETE')}disabled{/}">Delete Account</button>
             </@footer>
         </app:modals:modal>
 

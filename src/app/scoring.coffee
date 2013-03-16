@@ -153,7 +153,7 @@ updateStats = (model, newStats, batch) ->
       obj.stats.hp = newStats.hp
 
   if newStats.exp?
-    tnl = model.get '_tnl'
+    tnl = algos.tnl(obj.stats.lvl)
     #silent = false
     # if we're at level 100, turn xp to gold
     if obj.stats.lvl >= 100

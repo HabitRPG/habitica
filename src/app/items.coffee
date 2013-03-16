@@ -59,8 +59,8 @@ items = module.exports.items =
     {text: 'Red', name: 'Red', notes: 'Turns your animal into a Red.', value: 3}
     {text: 'Golden', name: 'Golden', notes: 'Turns your animal into a Golden.', value: 3}
     {text: 'Desert', name: 'Desert', notes: 'Turns your animal into a Desert.', value: 3}
-    {text: 'CottonCandyPink', name: 'CottonCandyPink', notes: 'Turns your animal into a CottonCandyPink.', value: 3}
-    {text: 'CottonCandyBlue', name: 'CottonCandyBlue', notes: 'Turns your animal into a CottonCandyBlue.', value: 3}
+    {text: 'Cotton Candy Pink', name: 'CottonCandyPink', notes: 'Turns your animal into a CottonCandyPink.', value: 3}
+    {text: 'Cotton Candy Blue', name: 'CottonCandyBlue', notes: 'Turns your animal into a CottonCandyBlue.', value: 3}
   ]
 
 # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
@@ -201,6 +201,7 @@ module.exports.updateStore = updateStore = (model) ->
   model.set '_view.items.potion', items.potion
   model.set '_view.items.reroll', items.reroll
   model.set '_view.items.pets', items.pets
+  model.set '_view.items.food', items.food
 
 
 

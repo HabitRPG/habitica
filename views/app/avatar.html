@@ -46,7 +46,11 @@
             <span class='{:p.gender}_skin_{:p.skin}'></span>
             <span class='{:p.gender}_hair_{:p.hair}'></span>
             <span class="{equipped(@profile, 'armor')}"></span>
-            <span class="{equipped(@profile, 'head')}"></span>
+            {#if :p.showHelm}
+                <span class="{equipped(@profile, 'head')}"></span>
+            {else}
+                <span class="{:p.gender}_head_0"></span>
+            {/}
             <span class='{:p.gender}_shield_{@profile.items.shield}'></span>
             <span class='{:p.gender}_weapon_{@profile.items.weapon}'></span>
             {/}
@@ -67,10 +71,14 @@
     <menu type="list">
         <!-- gender -->
         <li class="customize-menu">
-            <menu label="Gender">
+            <menu label="Head">
                 <button type="button" class="m_head_0 customize-option" data-value="m" x-bind="click:customizeGender"></button>
                 <button type="button" class="f_head_0 customize-option" data-value="f" x-bind="click:customizeGender"></button>
             </menu>
+            <label class="checkbox">
+                <input type=checkbox checked="{_user.preferences.showHelm}" /> Show Helm
+            </label>
+
         </li>
 
         <!-- hair -->

@@ -1,6 +1,7 @@
 character = require './character'
 browser = require './browser'
 items = require './items'
+algos = require './algos'
 
 moment = require 'moment'
 _ = require 'underscore'
@@ -20,6 +21,9 @@ module.exports.username = username = (auth) ->
 
 module.exports.view = (view) ->
   view.fn "username", (auth) -> username(auth)
+
+  view.fn "tnl", algos.tnl
+
 
 module.exports.app = (appExports, model) ->
   user = model.at '_user'
@@ -78,33 +82,19 @@ module.exports.app = (appExports, model) ->
   appExports.customizeArmorSet = (e, el) ->
     user.set 'preferences.armorSet', $(el).attr('data-value')
 
-  appExports.chooseEgg = (e, el) ->
-    egg = model.at el
-
-    model.ref '_feedEgg', egg
-
-  appExports.feedEgg = (e, el) ->
-    food = $(el).children('select').val()
-    foods = user.get 'items.food'
-    egg = model.get '_feedEgg'
-    eggs = user.get 'items.eggs'
-
-    foodIdx = foods.indexOf food
-    eggIdx = eggs.indexOf egg
-
-    return alert "You don't own that food :\\" if foodIdx is -1
-    return alert "You don't own that egg :\\" if eggIdx is -1
-
-    user.push 'items.pets', egg.text + '-' + food
-    user.remove 'items.food', foodIdx, 1
-    user.remove 'items.eggs', eggIdx, 1
-
   appExports.restoreSave = (e, el) ->
     batch = new BatchUpdate(model)
     batch.startTransaction()
     $('#restore-form input').each ->
       batch.set $(this).attr('data-for'), parseInt($(this).val() || 1)
     batch.commit()
+
+  appExports.toggleHeader = (e, el) ->
+    user.set 'preferences.hideHeader', !user.get('preferences.hideHeader')
+
+  appExports.deleteAccount = (e, el) ->
+    model.del "users.#{user.get('id')}", ->
+      window.location.href = "/logout"
 
   user.on 'set', 'flags.customizationsNotification', (captures, args) ->
     return unless captures == true
@@ -125,7 +115,7 @@ userSchema =
   stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
   party: { current: null, invitation: null }
   items: { weapon: 0, armor: 0, head: 0, shield: 0 }
-  preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0 }
+  preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0, showHelm: true }
   habitIds: []
   dailyIds: []
   todoIds: []
