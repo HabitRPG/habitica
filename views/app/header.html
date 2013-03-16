@@ -1,5 +1,5 @@
 <header:>
-    {#unless _user.preferences.hideHeader}
+    {#unless equal(_user.preferences.hideHeader,true)}
         <div class="row-fluid">
             <div class='char-status {#if gt(_partyMembers.length,1)}span8 offset2 has-party{else}span6 offset3{/}'>
 
