@@ -1,22 +1,22 @@
 <rewardsTab:>
     <!-- add new reward -->
-    <app:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
+    <app:tasks:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
 
     {#if _rewardList}        
     <ul class='rewards'>
-        {#each _rewardList as :task}<app:task />{/}
+        {#each _rewardList as :task}<app:tasks:task />{/}
     </ul>
     {/}
 
 
     {#if _user.flags.itemsEnabled}
     <ul class='items'>
-        {#with _view.items.weapon as :item}<app:item />{/}
-        {#with _view.items.armor as :item}<app:item />{/}
-        {#with _view.items.head as :item}<app:item />{/}
-        {#with _view.items.shield as :item}<app:item />{/}
-        {#with _view.items.potion as :item}<app:item />{/}
-        {#with _view.items.reroll as :item}<app:item reroll=true />{/}
+        {#with _view.items.weapon as :item}<app:rewards:item />{/}
+        {#with _view.items.armor as :item}<app:rewards:item />{/}
+        {#with _view.items.head as :item}<app:rewards:item />{/}
+        {#with _view.items.shield as :item}<app:rewards:item />{/}
+        {#with _view.items.potion as :item}<app:rewards:item />{/}
+        {#with _view.items.reroll as :item}<app:rewards:item reroll=true />{/}
     </ul>
     {/}
 

@@ -5,8 +5,8 @@
     <div class="module">
         <div class="task-column habits">
             <h2 class="task-column_title">Habits</h2>
-            <app:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
-            <ul class="habits">{#each _habitList as :task}<app:task />{/}</ul>
+            <app:tasks:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
+            <ul class="habits">{#each _habitList as :task}<app:tasks:task />{/}</ul>
         </div>
     </div>
 
@@ -14,8 +14,8 @@
     <div class="module">
         <div class="task-column dailys">
             <h2 class="task-column_title">Daily</h2>
-            <app:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
-            <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
+            <app:tasks:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
+            <ul class='dailys'>{#each _dailyList as :task}<app:tasks:task />{/}</ul>
         </div>
     </div>
 
@@ -34,12 +34,12 @@
 
             <!-- create new todo -->
             <div class="display-context-dependant show-for-uncompleted">
-                <app:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />
+                <app:tasks:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />
             </div>
 
             <!-- list of all the todos -->
             <ul class='todos task-list'>
-                {#each _todoList as :task}<app:task />{/}
+                {#each _todoList as :task}<app:tasks:task />{/}
             </ul>
             
             <button class='task-action-btn tile spacious bright display-context-dependant show-for-completed' x-bind=click:clearCompleted>Clear Completed</button>
@@ -72,7 +72,7 @@
                     <span class='shop_copper' rel='tooltip' title='Copper'></span>
                 </div> -->
                 {else}
-                <app:userTokens />
+                <app:rewards:userTokens />
                 {/}
             </span>
             <h2 class="task-column_title">Rewards</h2>
@@ -82,7 +82,7 @@
                 <div class='tabbable tabs-below'>
                     <div class="tab-content">
                         <div class="tab-pane active" id="rewards-tab">
-                            <app:rewardsTab />
+                            <app:rewards:rewardsTab />
                         </div>
                         
                         <!-- pets pane -->
@@ -90,31 +90,31 @@
                             {#with _view.items.pets as :pets}
                             <table>
                                 <tr>
-                                    {#with :pets[0]}<app:pet />{/}
-                                    {#with :pets[1]}<app:pet />{/}
-                                    {#with :pets[2]}<app:pet />{/}
-                                    {#with :pets[3]}<app:pet />{/}
+                                    {#with :pets[0]}<app:rewards:pet />{/}
+                                    {#with :pets[1]}<app:rewards:pet />{/}
+                                    {#with :pets[2]}<app:rewards:pet />{/}
+                                    {#with :pets[3]}<app:rewards:pet />{/}
                                 </tr>
                                 <tr>
-                                    {#with :pets[4]}<app:pet />{/}
-                                    {#with :pets[5]}<app:pet />{/}
-                                    {#with :pets[6]}<app:pet />{/}
-                                    {#with :pets[7]}<app:pet />{/}
+                                    {#with :pets[4]}<app:rewards:pet />{/}
+                                    {#with :pets[5]}<app:rewards:pet />{/}
+                                    {#with :pets[6]}<app:rewards:pet />{/}
+                                    {#with :pets[7]}<app:rewards:pet />{/}
                                 </tr>
                                 <tr>
-                                    {#with :pets[8]}<app:pet />{/}
-                                    {#with :pets[9]}<app:pet />{/}
-                                    {#with :pets[10]}<app:pet />{/}
-                                    {#with :pets[11]}<app:pet />{/}
+                                    {#with :pets[8]}<app:rewards:pet />{/}
+                                    {#with :pets[9]}<app:rewards:pet />{/}
+                                    {#with :pets[10]}<app:rewards:pet />{/}
+                                    {#with :pets[11]}<app:rewards:pet />{/}
                                 </tr>
                                 <tr>
-                                    {#with :pets[12]}<app:pet />{/}
-                                    {#with :pets[13]}<app:pet />{/}
-                                    {#with :pets[14]}<app:pet />{/}
-                                    {#with :pets[15]}<app:pet />{/}
+                                    {#with :pets[12]}<app:rewards:pet />{/}
+                                    {#with :pets[13]}<app:rewards:pet />{/}
+                                    {#with :pets[14]}<app:rewards:pet />{/}
+                                    {#with :pets[15]}<app:rewards:pet />{/}
                                 </tr>
                                 <tr>
-                                    {#with :pets[16]}<app:pet />{/}
+                                    {#with :pets[16]}<app:rewards:pet />{/}
                                 </tr>
                             </table>
                             {/}
@@ -131,7 +131,7 @@
 
             <!-- if pets are disabled, just do rewards tab -->
             {else}
-                <app:rewardsTab />
+                <app:rewards:rewardsTab />
             {/}
         </div>
     </div>
@@ -192,7 +192,7 @@
         <p class="task-text">{:task.text}</p>
 
         <!-- edit/options dialog -->
-        <app:taskMeta />
+        <app:tasks:taskMeta />
     </li>
 
 <!-- task edit/options -->
