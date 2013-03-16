@@ -190,6 +190,18 @@
     <div class='row-fluid'>
         <div class='span6 well'>
             <menu type="list">
+                <h3>Eggs</h3>
+                {#if not(_user.items.eggs)}
+                    <p>You don't have any eggs yet.</p>
+                {/if}
+                <li class="customize-menu">
+                    {#each _user.items.eggs as :egg}
+                        <div>
+                            <button class="customize-option Pet-Egg" x-bind="click: chooseEgg"></button>
+                            <p>{:egg.text}</p>
+                        </div>
+                    {/each}
+                </li>
                 <h3>Food</h3>
                 {#if not(_user.items.food)}
                     <p>You don't have any food yet.</p>
@@ -197,16 +209,6 @@
                 <li class="customize-menu">
                     {#each _user.items.food as :food}
                         <button class="customize-option" x-bind="click: chooseFood">{:food}</button>
-                    {/each}
-                </li>
-                <h3>Eggs</h3>
-                {#if not(_user.items.eggs)}
-                    <p>You don't have any eggs yet.</p>
-                {/if}
-                <li class="customize-menu">
-                    {#each _user.items.eggs as :egg}
-                        <button class="customize-option Pet-Egg" x-bind="click: chooseEgg"></button>
-                        <p>{:egg.text}</p>
                     {/each}
                 </li>
             </menu>
@@ -239,7 +241,7 @@
                 <p>You don't have any pets yet.</p>
             {/if}
             {#each _user.items.pets as :pet}
-                <div class="Pet-{removeWhitespace(:pet)}">{:pet}</div>
+                <div class="Pet-{removeWhitespace(:pet)}" data-pet="{:pet}" x-bind="click:choosePet">{:pet}</div>
             {/each}
         </div>
     </div>

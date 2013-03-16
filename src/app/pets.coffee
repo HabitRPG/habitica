@@ -1,4 +1,5 @@
-{ randomProp } = require './helpers'
+_ = require 'underscore'
+{ randomProp, removeWhitespace } = require './helpers'
 { pets, food } = require('./items').items
 
 ###
@@ -20,10 +21,14 @@ module.exports.app = (appExports, model) ->
 
     $('#drops-enabled-modal').modal 'show'
 
-  appExports.selectPet = (e, el) ->
-    name = $(el).attr('data-pet')
-    pet = _.findWhere pets, {name:name}
-    ownsThisPet = user.get('items.pets').indexOf(name)
+  appExports.choosePet = (e, el) ->
+    petArray = $(el).attr('data-pet').split '-'
+    text = petArray[0]
+    modifier = petArray[1]
+    petStr = "#{text}-#{modifier}"
+    pet = _.findWhere pets, text: text
+    pet.modifier = modifier
+    ownsThisPet = user.get('items.pets').indexOf petStr
     if ownsThisPet != -1
       user.set 'items.currentPet', pet
     else
@@ -31,7 +36,7 @@ module.exports.app = (appExports, model) ->
       if tokens > pet.value
         r = confirm("Buy this pet with #{pet.value} of your #{tokens} tokens?");
         if r
-          user.push 'items.pets', name
+          user.push 'items.pets', text
           user.set 'items.currentPet', pet
           user.set 'balance', (tokens - pet.value)/4
       else

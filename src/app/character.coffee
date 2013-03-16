@@ -95,7 +95,7 @@ module.exports.app = (appExports, model) ->
     return alert "You don't own that food :\\" if foodIdx is -1
     return alert "You don't own that egg :\\" if eggIdx is -1
 
-    user.push 'items.pets', egg.name + '-' + food
+    user.push 'items.pets', egg.text + '-' + food
     user.remove 'items.food', foodIdx, 1
     user.remove 'items.eggs', eggIdx, 1
 
