@@ -43,8 +43,17 @@
   <app:footer:footer />
 
 <Scripts:>
-    <!-- scripts go in /src/app/browser.coffee, that way we can get min/concat -->
-    <!-- only the ones that are remote and can't be done async are here -->
+    <!-- we load as many CDN-available javascript files here as possible. For the rest,
+        we use /src/app/browser.coffee -> loadJavaScripts() which concats/minifies /public/vendor javascript libraries,
+        as well as runs async loads -->
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.3.1/jquery.cookie.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.0.0/js/bootstrap-datepicker.min.js"></script>
+
     <script src="https://checkout.stripe.com/v2/checkout.js"></script>
 
     {#if equal(_view.nodeEnv,"production")}
