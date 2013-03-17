@@ -35,7 +35,7 @@ items = module.exports.items =
     {index: 5, text: "Golden Shield", classes: 'shield_5', notes:'Decreases HP loss by 8%.', defense: 8, value:90}
   ]
   potion: {type: 'potion', text: "Potion", notes: "Recover 15 HP", value: 25, classes: 'potion'}
-  reroll: {type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your tasks. When you're struggling and everything's red, use for a clean slate.", value:0 }
+  reroll: {type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your task values back to 0 (yellow). Useful when everything's red and it's hard to stay alive.", value:0 }
 
   pets: [
     {index: 0, text: 'Bear Cub', name: 'bearcub', icon: 'Pet-BearCub-Base.png', value: 3}
