@@ -1,7 +1,7 @@
 derby = require 'derby'
 app = derby.createApp module
 {get, view, ready} = app
-derby.use require('derby-ui-boot'), {styles: ['bootstrap', 'responsive']}
+derby.use require('derby-ui-boot'), {styles: []}
 derby.use require '../../ui'
 derby.use require 'derby-auth/components'
 
