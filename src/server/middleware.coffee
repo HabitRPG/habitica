@@ -1,6 +1,7 @@
 module.exports.splash = (req, res, next) ->
-  unless req.query?.play? or req.getModel().get('_userId')
-    res.redirect('/splash.html')
+  isStatic = req.url.split('/')[1] is 'static'
+  unless req.query?.play? or req.getModel().get('_userId') or isStatic
+    res.redirect('/static/front')
   else
     next()
 

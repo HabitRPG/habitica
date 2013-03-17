@@ -1,0 +1,43 @@
+<import: src="head">
+<import: src="header">
+<import: src="../app/footer">
+
+<Title:>
+    HabitRPG | Add-ons & Extensions
+
+<Head:>
+    <app:head:head active="about"/>
+
+<Body:>
+    <div id="wrap">
+        <app:header:header />
+        <div class='container'>
+            <section>
+                <div class="page-header">
+                    <h1>Add-ons & Extensions</h1>
+                </div>
+            </section>
+
+            <h2 id="chrome-extension"><a href="https://chrome.google.com/webstore/detail/habitrpg/pidkmpibnnnhneohdgjclfdjpijggmjj">Chrome Extension</a></h2>
+            <p>Monitors your browsing habits to divvy points to your HabitRPG character. Think Stayfocusd for HabitRPG (http://habitrpg.com).</p>
+            <p>Lose HP for lingering on bad websites, gain Exp and GP for hanging out on good websites. Set the hours and days of the week you want to be productive and integrate your browsing habits with HabitRPG to improve your overall productivity.</p>
+            <p>To use, enter your HabitRPG User ID and API Token in the options page (User -&gt; Settings, see the screenshot). Hit me up with suggestions</p>
+            <h2 id="pomodoro">Pomodoro</h2>
+            <p>I use Ugo Landini's Pomodoro, which allows start / stop custom scripts: <code>shell do shell script &quot;curl -X POST -H 'Content-Type:application/json' https://habitrpg.com/v1/users/.../tasks/productivity/up -d '{\\&quot;apiToken\\&quot;:\\&quot;...\\&quot;}&quot;</code></p>
+            <h2 id="anki"><a href="https://github.com/Pherr/HabitRPG-Anki-Addon">Anki</a></h2>
+            <p>A HabitRPG addon for Anki.</p>
+            <h2 id="habitrpg-mobile"><a href="https://github.com/HabitRPG/habitrpg-mobile">HabitRPG Mobile</a></h2>
+            <p>HabitRPG mobile application under development. Angular + PhoneGap</p>
+            <h2 id="habitrpg-ncurses"><a href="https://github.com/arscan/habitrpg-ncurses">habitrpg-ncurses</a></h2>
+            <p>node + ncurses interface for habitRPG.</p>
+            <p>This is set up to meet my general task workflow and my preferences. Todo lists are simple enought that I feel like investing time into making something that works exactly how I want it to work is worthwhile. Plus I felt like learning ncurses. At this point, attempt to use at your own risk.</p>
+            <p>Apparently the ncurses binding doesn't seem to work properly when loaded from npm. Grabbing the master branch from https://github.com/mscdex/node-ncurses works for me.</p>
+            <h2 id="pyhabit"><a href="https://github.com/elssar/pyhabit">pyhabit</a></h2>
+            <p>Python command line app for HabitRPG (http://habitrpg.com)</p>
+            <h2 id="php-api"><a href="http://github.com/ruddfawcett/HabitRPG_PHP">PHP API</a></h2>
+            <p>A PHP class for the HabitRPG API. Will be expanded when more features become available in the API.</p>
+            <h2 id="suggest-an-add-on-extension">Suggest an Add-on / Extension</h2>
+            <p><a href="mailto:tylerrenelle@gmail.com">Email me</a> to have something listed here</p>
+        </div>
+    </div>
+    <app:footer:footer />
