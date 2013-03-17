@@ -11,7 +11,7 @@ conf.argv().env().file({file: __dirname + '../config.json'}).defaults
 process.env.BASE_URL = conf.get("BASE_URL")
 process.env.FACEBOOK_KEY = conf.get("FACEBOOK_KEY")
 process.env.FACEBOOK_SECRET = conf.get("FACEBOOK_SECRET")
-process.env.NODE_DB_URI = 'mongodb://localhost/habirpg'
+process.env.NODE_DB_URI = 'mongodb://localhost/habitrpg'
 
 ## monkey-patch expect.js for better diffs on mocha
 ## see: https://github.com/LearnBoost/expect.js/pull/34

@@ -1,65 +1,60 @@
 <rewardsTab:>
+    <!-- add new reward -->
+    <app:tasks:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
+
+    {#if _rewardList}        
     <ul class='rewards'>
-        {#each _rewardList as :task}<app:task />{/}
+        {#each _rewardList as :task}<app:tasks:task />{/}
     </ul>
+    {/}
 
 
     {#if _user.flags.itemsEnabled}
     <ul class='items'>
-        {#with _view.items.weapon as :item}<app:item />{/}
-        {#with _view.items.armor as :item}<app:item />{/}
-        {#with _view.items.head as :item}<app:item />{/}
-        {#with _view.items.shield as :item}<app:item />{/}
-        {#with _view.items.potion as :item}<app:item />{/}
-        {#with _view.items.reroll as :item}<app:item reroll=true />{/}
+        {#with _view.items.weapon as :item}<app:rewards:item />{/}
+        {#with _view.items.armor as :item}<app:rewards:item />{/}
+        {#with _view.items.head as :item}<app:rewards:item />{/}
+        {#with _view.items.shield as :item}<app:rewards:item />{/}
+        {#with _view.items.potion as :item}<app:rewards:item />{/}
+        {#with _view.items.reroll as :item}<app:rewards:item reroll=true />{/}
     </ul>
     {/}
 
 <pet:>
-    <div class="span3 shop-pet" rel=tooltip title="{.text} - {.value} Tokens">
-        <div style='position:relative'>
-            {#if _user.items.pets[.name]}<i class='icon-ok shop-pet-owned-check'></i>{/}
-            <img x-bind="click:selectPet" data-pet='{.name}' src='img/sprites/{.icon}'/>
-        </div>
-    </div>
+    <td class="{{#if _user.items.pets[.name]}}active-pet{{/}}">
+      <img rel=tooltip title="{.text} - {.value} Tokens" x-bind="click:selectPet" data-pet='{.name}' src='img/sprites/{.icon}'/>
+    </td>
 
 
 <userTokens:>
-    <div class="pull-right">
-        <div class="input-append">
-            <span class="uneditable-input" style="width:auto;">{tokens(_user.balance)}</span>
-            <span class="add-on">Tokens</span>
-        </div>
-    </div>
-    <!--<span class="well pull-right">Tokens: {tokens(_user.balance)}</span>-->
+  <a class="pull-right token-wallet">
+    <span class="task-action-btn tile flush bright add-token-btn">＋</span>
+    <span class="task-action-btn tile flush neutral">{tokens(_user.balance)} Tokens</span>
+  </a>
 
 
 
 <item:>
-    {#unless :item.hide}
-    <li class="task reward item">
-    <pre>
-      <div class="task-meta-controls">
-          <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:item.notes}" data-original-title="{:item.text}" class='task-notes'><i class="icon-comment"></i></span>
-      </div>
-      <div class="task-controls">
-          {#if @reroll}
-          <a href="#" data-toggle="modal" data-target="#reroll-modal" class="item-buy-link" style='cursor:pointer'><i class=icon-retweet></i></a>
-          {else}
-          <a x-bind=click:buyItem class="item-buy-link" data-type={:item.type} data-value={:item.value} data-index={:item.index}>{:item.value}<img src="/img/coin_single_gold.png"/></a>
-          {/}
-      </div>
-      <div class="task-text">
-          {#if :item.icon}
-          <img src="/img/sprites/{:item.icon}" /> {:item.text}
-          {else}
-          <table class='shop-table'><tr>
-              <td><div class="shop_{:item.classes} shop-sprite"></div></td>
-              <td>{:item.text}</td>
-          </tr></table>
-          {/}
-
-      </div>
-    </pre>
-    </li>
-    {/}
+  {#unless :item.hide}
+  <li class="task reward-item">
+    <!-- right-hand side control buttons -->
+    <div class="task-meta-controls">
+        <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:item.notes}" data-original-title="{:item.text}" class='task-notes'><i class="icon-comment"></i></span>
+    </div>
+    
+    <!-- left-hand size commands -->
+    <div class="task-controls">
+      {#if @reroll}
+        <a class="task-action-btn btn-reroll" data-toggle="modal" data-target="#reroll-modal">⟲</a>
+      {else}
+        <a class="money btn-buy item-btn" x-bind=click:buyItem data-type={:item.type} data-value={:item.value} data-index={:item.index}>
+            <span class="reward-cost">{:item.value}</span>
+            <span class='shop_gold'></span>
+        </a>
+      {/}
+    </div>
+    <!-- main content -->
+    <span class="shop_{:item.classes} shop-sprite item-img"></span>
+    <p class="task-text">{:item.text}</p>
+  </li>
+  {/}

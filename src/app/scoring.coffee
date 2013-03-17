@@ -52,7 +52,7 @@ score = (model, taskId, direction, times, batch, cron) ->
   addPoints = ->
     level = user.get('stats.lvl')
     weaponStrength = items.items.weapon[user.get('items.weapon')].strength
-    exp += algos.expModifier(delta,weaponStrength,level, priority)
+    exp += algos.expModifier(delta,weaponStrength,level, priority) / 2 # / 2 hack for now bcause people leveling too fast
     gp += algos.gpModifier(delta, 1, priority)
 
   subtractPoints = ->
@@ -136,7 +136,7 @@ updateStats = (model, newStats, batch) ->
       obj.stats.hp = newStats.hp
 
   if newStats.exp?
-    tnl = model.get '_tnl'
+    tnl = algos.tnl(obj.stats.lvl)
     #silent = false
     # if we're at level 100, turn xp to gold
     if obj.stats.lvl >= 100

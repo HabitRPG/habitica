@@ -71,8 +71,7 @@ module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb)
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
 
-  user.on 'set', 'flags.partyEnabled', (captures, args) ->
-    return unless captures == true
+  unlockPartiesNotification = ->
     $('.main-avatar').popover('destroy') #remove previous popovers
     html = """
            <div class='party-system-popover'>
@@ -88,6 +87,14 @@ module.exports.app = (appExports, model) ->
       html: true
       content: html
     $('.main-avatar').popover 'show'
+
+  appExports.manuallyUnlockParties = ->
+    $("#settings-modal").modal("hide")
+    user.set('flags.partyEnabled', true)
+    unlockPartiesNotification()
+
+  user.on 'set', 'flags.partyEnabled', (captures, args) ->
+    unlockPartiesNotification() if captures == true
 
   #TODO implement this when we have unsubscribe working properly
   model.on 'set', '_user.party.invitation', (after, before) ->

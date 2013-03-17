@@ -1,4 +1,5 @@
 moment = require 'moment'
+algos = require './algos'
 
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
@@ -14,7 +15,7 @@ module.exports.app = (appExports, model) ->
     window.location.reload()
 
   appExports.cheat = ->
-    user.incr 'stats.exp', model.get '_tnl'
+    user.incr 'stats.exp', algos.tnl(user.get('stats.lvl'))
     user.incr 'stats.gp', 1000
 
   appExports.reset = ->
