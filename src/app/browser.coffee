@@ -194,8 +194,8 @@ setupGrowlNotifications = (model) ->
 
 
 module.exports.resetDom = (model) ->
-  window.DERBY.app.dom.clear()
-  window.DERBY.app.view.render(model)
+  DERBY.app.dom.clear()
+  DERBY.app.view.render(model, DERBY.app.view._lastRender.ns, DERBY.app.view._lastRender.context);
 
 module.exports.app = (appExports, model, app) ->
   loadJavaScripts(model)
