@@ -1,6 +1,7 @@
 derby = require 'derby'
-{get, view, ready} = derby.createApp module
-derby.use require('derby-ui-boot'), {styles: ['bootstrap', 'responsive']}
+app = derby.createApp module
+{get, view, ready} = app
+derby.use require('derby-ui-boot'), {styles: []}
 derby.use require '../../ui'
 derby.use require 'derby-auth/components'
 
@@ -46,13 +47,12 @@ get '/', (page, model, params, next) ->
 
 ready (model) ->
   user = model.at('_user')
-  score = new scoring.Scoring(model)
 
   #set cron immediately
   lastCron = user.get('lastCron')
   user.set('lastCron', +new Date) if (!lastCron? or lastCron == 'new')
 
-  score.cron()
+  scoring.cron(model)
 
   character.app(exports, model)
   tasks.app(exports, model)
@@ -61,6 +61,6 @@ ready (model) ->
   profile.app(exports, model)
   require('../server/private').app(exports, model)
   require('./debug').app(exports, model) if model.get('_view.nodeEnv') != 'production'
-  browser.app(exports, model)
   filters.app(exports, model)
+  browser.app(exports, model, app)
 

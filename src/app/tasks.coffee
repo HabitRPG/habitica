@@ -2,48 +2,45 @@ scoring = require './scoring'
 helpers = require './helpers'
 _ = require 'underscore'
 moment = require 'moment'
+character = require './character'
 
 module.exports.view = (view) ->
-  view.fn 'taskClasses', (type, completed, value, repeat, tags = {}, filters = {}) ->
-    #TODO figure out how to just pass in the task model, so i can access all these properties from one object
-    if type != 'reward'
-      for filter, enabled of filters
-        if enabled and not tags[filter]
-          # All the other classes don't matter
-          return 'filtered-out'
+  view.fn 'taskClasses', (task, filters) ->
+    return unless task
+    {type, completed, value, repeat} = task
+
+    for filter, enabled of filters
+      if enabled and not task.tags?[filter]
+        # All the other classes don't matter
+        return 'hide'
 
     classes = type
 
     # show as completed if completed (naturally) or not required for today
-    if completed or (repeat and repeat[helpers.dayMapping[moment().day()]]==false)
-      classes += " completed"
-    else
-      classes += " uncompleted"
+    if type in ['todo', 'daily']
+      if completed or (repeat and repeat[helpers.dayMapping[moment().day()]]==false)
+        classes += " completed"
+      else
+        classes += " uncompleted"
 
-    switch
-      when value<-8 then classes += ' color-worst'
-      when value>=-8 and value<-5 then classes += ' color-worse'
-      when value>=-5 and value<-1 then classes += ' color-bad'
-      when value>=-1 and value<1 then classes += ' color-neutral'
-      when value>=1 and value<5 then classes += ' color-good'
-      when value>=5 and value<10 then classes += ' color-better'
-      when value>=10 then classes += ' color-best'
+    if value < -20
+      classes += ' color-worst'
+    else if value < -10
+      classes += ' color-worse'
+    else if value < -1
+      classes += ' color-bad'
+    else if value < 1
+      classes += ' color-neutral'
+    else if value < 5
+      classes += ' color-good'
+    else if value < 10
+      classes += ' color-better'
+    else
+      classes += ' color-best'
     return classes
 
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
-  score = new scoring.Scoring(model)
-
-  user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
-    return if passed? && passed.cron # Don't do this stuff on cron
-    direction = () ->
-      return 'up' if completed==true and previous == false
-      return 'down' if completed==false and previous == true
-      throw new Error("Direction neither 'up' nor 'down' on checkbox set.")
-
-    # Score the user based on todo task
-    task = user.at("tasks.#{i}")
-    score.score(i, direction())
 
   appExports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
@@ -76,7 +73,7 @@ module.exports.app = (appExports, model) ->
 
   appExports.del = (e, el) ->
     # Derby extends model.at to support creation from DOM nodes
-    task = model.at(e.target)
+    task = e.at()
     id = task.get('id')
 
     history = task.get('history')
@@ -88,7 +85,7 @@ module.exports.app = (appExports, model) ->
           return # Cancel. Don't delete, don't hurt user
         else
           task.set('type','habit') # hack to make sure it hits HP, instead of performing "undo checkbox"
-          score.score(id, direction:'down')
+          scoring.score(model, id, direction:'down')
 
         # prevent accidently deleting long-standing tasks
       else
@@ -124,8 +121,8 @@ module.exports.app = (appExports, model) ->
   appExports.toggleTaskEdit = (e, el) ->
     hideId = $(el).attr('data-hide-id')
     toggleId = $(el).attr('data-toggle-id')
-    $(document.getElementById(hideId)).hide()
-    $(document.getElementById(toggleId)).toggle()
+    $(document.getElementById(hideId)).addClass('visuallyhidden')
+    $(document.getElementById(toggleId)).toggleClass('visuallyhidden')
 
   appExports.toggleChart = (e, el) ->
     hideSelector = $(el).attr('data-hide-id')
@@ -142,9 +139,9 @@ module.exports.app = (appExports, model) ->
     data = google.visualization.arrayToDataTable matrix
 
     options = {
-    title: 'History'
-    #TODO use current background color: $(el).css('background-color), but convert to hex (see http://goo.gl/ql5pR)
-    backgroundColor: 'whiteSmoke'
+      title: 'History'
+      #TODO use current background color: $(el).css('background-color), but convert to hex (see http://goo.gl/ql5pR)
+      backgroundColor: 'whiteSmoke'
     }
 
     chart = new google.visualization.LineChart(document.getElementById( chartSelector ))
@@ -180,9 +177,70 @@ module.exports.app = (appExports, model) ->
     path = "_user.tasks.#{taskId}.tags.#{tagId}"
     model.set path, !(model.get path)
 
-  appExports.score = (e, el, next) ->
+
+  setUndo = (stats, task) ->
+    previousUndo = model.get('_undo')
+    clearTimeout(previousUndo.timeoutId) if previousUndo?.timeoutId
+    timeoutId = setTimeout (-> model.del('_undo')), 10000
+    model.set '_undo', {stats:stats, task:task, timeoutId: timeoutId}
+
+
+  ###
+    Call scoring functions for habits & rewards (todos & dailies handled below)
+  ###
+  appExports.score = (e, el) ->
+    task= model.at $(el).parents('li')[0]
+    taskObj = task.get()
     direction = $(el).attr('data-direction')
-    direction = 'up' if direction == 'true/'
-    direction = 'down' if direction == 'false/'
-    task = model.at $(el).parents('li')[0]
-    score.score(task.get('id'), direction)
+
+    # set previous state for undo
+    setUndo _.clone(user.get('stats')), _.clone(taskObj)
+
+    scoring.score(model, taskObj.id, direction)
+
+  ###
+    This is how we handle appExports.score for todos & dailies. Due to Derby's special handling of `checked={:task.completd}`,
+    the above function doesn't work so we need a listener here
+  ###
+  user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
+    return if passed? && passed.cron # Don't do this stuff on cron
+    direction = if completed then 'up' else 'down'
+
+    # set previous state for undo
+    taskObj = _.clone user.get("tasks.#{i}")
+    taskObj.completed = previous
+    setUndo _.clone(user.get('stats')), taskObj
+
+    scoring.score(model, i, direction)
+
+  ###
+    Undo
+  ###
+  appExports.undo = () ->
+    undo = model.get '_undo'
+    clearTimeout(undo.timeoutId) if undo?.timeoutId
+    batch = character.BatchUpdate(model)
+    batch.startTransaction()
+    model.del '_undo'
+    _.each undo.stats, (val, key) -> batch.set "stats.#{key}", val
+    taskPath = "tasks.#{undo.task.id}"
+    _.each undo.task, (val, key) ->
+      return if key in ['id', 'type'] # strange bugs in this world: https://workflowy.com/shared/a53582ea-43d6-bcce-c719-e134f9bf71fd/
+      if key is 'completed'
+        user.pass({cron:true}).set("#{taskPath}.completed",val)
+      else
+        batch.set "#{taskPath}.#{key}", val
+    batch.commit()
+
+  appExports.tasksToggleAdvanced = (e, el) ->
+    $(el).next('.advanced-option').toggleClass('visuallyhidden')
+
+  appExports.tasksSaveAndClose = ->
+    # When they update their notes, re-establish tooltip & popover
+    $('[rel=tooltip]').tooltip()
+    $('[rel=popover]').popover()
+
+  appExports.tasksSetPriority = (e, el) ->
+    dataId = $(el).parent('[data-id]').attr('data-id')
+    #"_user.tasks.#{dataId}"
+    model.at(e.target).set 'priority', $(el).attr('data-priority')

@@ -31,7 +31,7 @@ server = http.createServer expressApp
 module.exports = server
 
 derby.use require('racer-db-mongo')
-store = derby.createStore
+module.exports.habitStore = store = derby.createStore
   db: {type: 'Mongo', uri: process.env.NODE_DB_URI, safe:true}
   listen: server
 
@@ -57,6 +57,7 @@ auth.store(store, habitrpgStore.customAccessControl)
 
 mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
   expressApp
+    .use(middleware.allowCrossDomain)
     .use(express.favicon("#{publicPath}/favicon.ico"))
     # Gzip static files and serve from memory
     .use(gzippo.staticGzip(publicPath, maxAge: ONE_YEAR))
@@ -74,6 +75,9 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     )
     # Adds req.getModel method
     .use(store.modelMiddleware())
+    # API should be hit before all other routes
+    .use('/api/v1', require('./api').middleware)
+    .use(require('./deprecated').middleware)
     # Show splash page for newcomers
     .use(middleware.splash)
     .use(priv.middleware)
@@ -81,9 +85,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     .use(auth.middleware(strategies, options))
     # Creates an express middleware from the app's routes
     .use(app.router())
-    .use('/v1', require('./api').middleware)
     .use(require('./static').middleware)
-    .use(require('./deprecated').middleware)
     .use(expressApp.router)
     .use(serverError(root))
 

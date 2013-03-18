@@ -1,75 +1,36 @@
 _ = require 'underscore'
 moment = require 'moment'
+#algos = require './algos'
 
-module.exports.restoreRefs = restoreRefs = (model) ->
-  # tnl function
-  model.fn '_tnl', '_user.stats.lvl', (lvl) ->
-    # see https://github.com/lefnire/habitrpg/issues/4
-    # also update in scoring.coffee. TODO create a function accessible in both locations
-    (lvl*100)/5
 
+restoreRefs = module.exports.restoreRefs = (model) ->
   #refLists
   _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
 
-module.exports.resetDom = (model) ->
-  window.DERBY.app.dom.clear()
-  restoreRefs(model)
-  window.DERBY.app.view.render(model)
-  reconstructPage model
-
-module.exports.app = (appExports, model) ->
-  reconstructPage model
-
-reconstructPage = (model) ->
-  loadJavaScripts(model)
-  setupSortable(model)
-  setupTooltips(model)
-  setupTour(model)
-  setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
-  $('.datepicker').datepicker({autoclose:true, todayBtn:true})
-  .on 'changeDate', (ev) ->
-    #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
-    #FIXME also, it saves as a day behind??
-    model.at(ev.target).set 'date', moment(ev.date).add('d',1).format('MM/DD/YYYY')
-
 ###
   Loads JavaScript files from (1) public/js/* and (2) external sources
-  We use this file (instead of <Scripts:> or <Tail:> inside .html) so we can utilize require() to concatinate for
-  faster page load, and $.getScript for asyncronous external script loading
+  If a library is available in a CDN, we put it in <Scripts:> (index.html) for better caching. If not, we use
+  this function to utilize require() to concatinate for faster page load, and $.getScript for asyncronous external script loading
 ###
 loadJavaScripts = (model) ->
 
-  require '../../public/vendor/jquery-ui/jquery-1.9.1'
   unless model.get('_view.mobileDevice')
     require '../../public/vendor/jquery-ui/ui/jquery.ui.core'
     require '../../public/vendor/jquery-ui/ui/jquery.ui.widget'
     require '../../public/vendor/jquery-ui/ui/jquery.ui.mouse'
     require '../../public/vendor/jquery-ui/ui/jquery.ui.sortable'
 
-  # Bootstrap
-  require '../../public/vendor/bootstrap/docs/assets/js/bootstrap'
-#  require '../../public/vendor/bootstrap/js/bootstrap-tooltip'
-#  require '../../public/vendor/bootstrap/js/bootstrap-tab'
-#  require '../../public/vendor/bootstrap/js/bootstrap-popover'
-#  require '../../public/vendor/bootstrap/js/bootstrap-modal'
-#  require '../../public/vendor/bootstrap/js/bootstrap-dropdown'
-
-
-  require '../../public/vendor/jquery-cookie/jquery.cookie'
-  require '../../public/vendor/bootstrap-tour' #https://raw.github.com/pushly/bootstrap-tour/master/bootstrap-tour.js
-  require '../../public/vendor/bootstrap-datepicker/js/bootstrap-datepicker'
-  require '../../public/vendor/bootstrap-growl/jquery.bootstrap-growl.min'
-
+  require '../../public/vendor/bootstrap-tour/bootstrap-tour'
 
   # JS files not needed right away (google charts) or entirely optional (analytics)
   # Each file getsload asyncronously via $.getScript, so it doesn't bog page-load
   unless model.get('_view.mobileDevice')
 
-    $.getScript("https://s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
+    $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
 
     # Google Charts
-    $.getScript "https://www.google.com/jsapi", ->
+    $.getScript "//www.google.com/jsapi", ->
       # Specifying callback in options param is vital! Otherwise you get blank screen, see http://stackoverflow.com/a/12200566/362790
       google.load "visualization", "1", {packages:["corechart"], callback: ->}
 
@@ -81,15 +42,11 @@ loadJavaScripts = (model) ->
 ###
 setupSortable = (model) ->
   unless (model.get('_view.mobileDevice') == true) #don't do sortable on mobile
-    # Make the lists draggable using jQuery UI
-    # Note, have to setup helper function here and call it for each type later
-    # due to variable binding of "type"
-    setupSortable = (type) ->
+    _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
       $("ul.#{type}s").sortable
         dropOnEmpty: false
         cursor: "move"
         items: "li"
-        opacity: 0.4
         scroll: true
         axis: 'y'
         update: (e, ui) ->
@@ -102,16 +59,15 @@ setupSortable = (model) ->
           # Also, note that refList index arguments can either be an index
           # or the item's id property
           model.at("_#{type}List").pass(ignore: domId).move {id}, to
-    _.each ['habit', 'daily', 'todo', 'reward'], (type) -> setupSortable(type)
 
 setupTooltips = (model) ->
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
-  # FIXME: this isn't very efficient, do model.on set for specific attrs for popover
-  model.on 'set', '*', ->
-    $('[rel=tooltip]').tooltip()
-    $('[rel=popover]').popover()
 
+  $('.priority-multiplier-help').popover
+    title: "How difficult is this task?"
+    trigger: "hover"
+    content: "This multiplies its point value. Use sparingly, rely instead on our organic value-adjustment algorithms. But some tasks are grossly more valuable (Write Thesis vs Floss Teeth). Click for more info."
 
 setupTour = (model) ->
   tourSteps = [
@@ -160,12 +116,8 @@ setupTour = (model) ->
   $('.main-avatar').popover('destroy') #remove previous popovers
   tour = new Tour()
   _.each tourSteps, (step) ->
-    tour.addStep
-      html: true
-      element: step.element
-      title: step.title
-      content: step.content
-      placement: step.placement
+    tour.addStep _.defaults step, {html:true}
+  tour._current = 0 if isNaN(tour._current) #bootstrap-tour bug
   tour.start()
 
 ###
@@ -180,7 +132,7 @@ setupGrowlNotifications = (model) ->
     return if user.get('stats.lvl') == 0
     $.bootstrapGrowl html,
       ele: '#notification-area',
-      type: type # (null, 'info', 'error', 'success', 'gp', 'xp', 'hp', 'lvl')
+      type: type # (null, 'info', 'error', 'success', 'gp', 'xp', 'hp', 'lvl','death')
       top_offset: 20
       align: 'right' # ('left', 'right', or 'center')
       width: 250 # (integer, or 'auto')
@@ -193,21 +145,55 @@ setupGrowlNotifications = (model) ->
     num = captures - args
     rounded = Math.abs(num.toFixed(1))
     if num < 0
-      statsNotification "<i class='icon-heart'></i> -#{rounded} HP", 'hp' # lost hp from purchase
+      statsNotification "<i class='icon-heart'></i> - #{rounded} HP", 'hp' # lost hp from purchase
+    else if num > 0
+      statsNotification "<i class='icon-heart'></i> + #{rounded} HP", 'hp' # gained hp from potion/level? 
+  
+  user.on 'set', 'stats.exp', (captures, args, isLocal, silent=false) ->
+    # unless silent
+    num = captures - args
+    rounded = Math.abs(num.toFixed(1))
+    if num < 0 and num > -50 # TODO fix hackey negative notification supress
+      statsNotification "<i class='icon-star'></i> - #{rounded} XP", 'xp'
+    else if num > 0
+      statsNotification "<i class='icon-star'></i> + #{rounded} XP", 'xp'
 
   user.on 'set', 'stats.gp', (captures, args) ->
     num = captures - args
-    rounded = Math.abs(num.toFixed(1))
-    # made purchase
-    if num < 0
-      # FIXME use 'warning' when unchecking an accidently completed daily/todo, and notify of exp too
-      statsNotification "<i class='icon-star'></i> -#{rounded} GP", 'gp'
-      # gained gp (and thereby exp)
-    else if num > 0
-      num = Math.abs(num)
-      statsNotification "<i class='icon-star'></i> +#{rounded} XP", 'xp'
-      statsNotification "<i class='icon-gp'></i> +#{rounded} GP", 'gp'
+    absolute = Math.abs(num)
+    gold = Math.floor(absolute)
+    silver = Math.floor((absolute-gold)*100)
+    sign = if num < 0 then '-' else '+'
+    if gold and silver > 0
+      statsNotification "#{sign} #{gold} <i class='icon-gold'></i> #{silver} <i class='icon-silver'></i>", 'gp'
+    else if gold > 0
+      statsNotification "#{sign} #{gold} <i class='icon-gold'></i>", 'gp'
+    else if silver > 0
+      statsNotification "#{sign} #{silver} <i class='icon-silver'></i>", 'gp'
 
   user.on 'set', 'stats.lvl', (captures, args) ->
     if captures > args
-      statsNotification('<i class="icon-chevron-up"></i> Level Up!', 'lvl')
+      if captures is 1 and args is 0
+        statsNotification '<i class="icon-death"></i> You died! Game over.', 'death' 
+      else 
+        statsNotification '<i class="icon-chevron-up"></i> Level Up!', 'lvl'
+
+
+module.exports.resetDom = (model) ->
+  DERBY.app.dom.clear()
+  DERBY.app.view.render(model, DERBY.app.view._lastRender.ns, DERBY.app.view._lastRender.context);
+
+module.exports.app = (appExports, model, app) ->
+  loadJavaScripts(model)
+  setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
+
+  app.on 'render', (ctx) ->
+    #restoreRefs(model)
+    setupSortable(model)
+    setupTooltips(model)
+    setupTour(model)
+    $('.datepicker').datepicker({autoclose:true, todayBtn:true})
+      .on 'changeDate', (ev) ->
+            #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
+            #FIXME also, it saves as a day behind??
+            model.at(ev.target).set 'date', moment(ev.date).add('d',1).format('MM/DD/YYYY')

@@ -28,7 +28,10 @@ userAccess = (store) ->
   store.writeAccess "*", "users.*", -> # captures, value, accept, err ->
     accept = arguments[arguments.length-2]
     err = arguments[arguments.length - 1]
-#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
+    # return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
+
+    return accept(true) if derbyAuth.isServer(@)
+
     return accept(false) if derbyAuth.bustedSession(@)
 
     captures = arguments[0].split('.')
@@ -40,8 +43,7 @@ userAccess = (store) ->
       return accept(true)
 
     # Same session (user.id = this.session.userId)
-    if (uid is @session.userId) or derbyAuth.isServer(@)
-      return accept(true)
+    return accept(true) if uid is @session.userId
 
     accept(false)
 
@@ -51,9 +53,10 @@ userAccess = (store) ->
 
     oldBalance = @session.req?._racerModel?.get("users.#{id}.balance") || 0
     purchasingSomethingOnClient = newBalance < oldBalance
-    accept(purchasingSomethingOnClient or @session.req?._isServer)
+    accept(purchasingSomethingOnClient or derbyAuth.isServer(@))
 
   store.writeAccess "*", "users.*.flags.ads", -> # captures, value, accept, err ->
+    accept = arguments[arguments.length - 2]
     err = arguments[arguments.length - 1]
 #    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
     return accept(false) if derbyAuth.bustedSession(@)
@@ -67,7 +70,7 @@ userAccess = (store) ->
 ###
 REST = (store) ->
   store.query.expose "users", "withIdAndToken", (uid, token) ->
-    @byId(uid)
+    @where("id").equals(uid)
       .where('apiToken').equals(token)
       .findOne()
 
