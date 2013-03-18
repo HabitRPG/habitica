@@ -2,6 +2,7 @@ scoring = require './scoring'
 helpers = require './helpers'
 _ = require 'underscore'
 moment = require 'moment'
+character = require './character'
 
 module.exports.view = (view) ->
   view.fn 'taskClasses', (type, completed, value, repeat) ->
@@ -32,17 +33,6 @@ module.exports.view = (view) ->
 
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
-
-  user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
-    return if passed? && passed.cron # Don't do this stuff on cron
-    direction = () ->
-      return 'up' if completed==true and previous == false
-      return 'down' if completed==false and previous == true
-      throw new Error("Direction neither 'up' nor 'down' on checkbox set.")
-
-    # Score the user based on todo task
-    task = user.at("tasks.#{i}")
-    scoring.score(model, i, direction())
 
   appExports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
@@ -172,12 +162,54 @@ module.exports.app = (appExports, model) ->
     target.removeClass(oldContext)
     target.addClass(newContext)
 
-  appExports.score = (e, el, next) ->
+
+
+
+  ###
+    Call scoring functions for habits & rewards (todos & dailies handled below)
+  ###
+  appExports.score = (e, el) ->
+    task= model.at $(el).parents('li')[0]
+    taskObj = task.get()
     direction = $(el).attr('data-direction')
-    direction = 'up' if direction == 'true/'
-    direction = 'down' if direction == 'false/'
-    task = model.at $(el).parents('li')[0]
-    scoring.score(model, task.get('id'), direction)
+
+    # set previous state for undo
+    model.set '_undo',
+        stats: _.clone user.get('stats')
+        task: _.clone taskObj
+
+    scoring.score(model, taskObj.id, direction)
+
+  ###
+    This is how we handle appExports.score for todos & dailies. Due to Derby's special handling of `checked={:task.completd}`,
+    the above function doesn't work so we need a listener here
+  ###
+  user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
+    return if passed? && passed.cron # Don't do this stuff on cron
+    direction = if completed then 'up' else 'down'
+
+    # set previous state for undo
+    taskObj = _.clone user.get("tasks.#{i}")
+    taskObj.completed = previous
+    console.log taskObj
+    model.set '_undo',
+        stats: _.clone user.get('stats')
+        task: taskObj
+
+    scoring.score(model, i, direction)
+
+  ###
+    Undo
+  ###
+  appExports.undo = () ->
+    undo = model.get '_undo'
+    batch = character.BatchUpdate(model)
+    batch.startTransaction()
+    _.each undo.stats, (val, key) -> batch.set "stats.#{key}", val
+    taskPath = "tasks.#{undo.task.id}"
+    _.each undo.task, (val, key) -> batch.set "#{taskPath}.#{key}", val
+    batch.commit()
+    model.del '_undo'
 
   appExports.tasksToggleAdvanced = (e, el) ->
     $(el).next('.advanced-option').toggleClass('visuallyhidden')
