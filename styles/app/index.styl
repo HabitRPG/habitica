@@ -9,6 +9,7 @@
 @import "./alerts.styl";
 @import "./helpers.styl";
 @import "./responsive.styl";
+@import "./header.styl";
 
 @import "./scrollbars.styl";
 
@@ -33,96 +34,6 @@ hr
   border-color: rgba(0,0,0,0.1)
 
 
-/* Header
--------------------------------------------------- */
-
-.site-header
-  padding: 0 0.75em 0.75em
-  background: #f5f5f5
-  border: 1px solid #ccc
-  white-space: nowrap
-  width: 100%
-  box-sizing: border-box
-  z-index: 1
-
-.site-header .pull-right
-  margin-right: 0
-  margin-left: 1%
-
-.modal
-  whitespace:normal
-
-.user-menu {
-  text-align: right
-  position: relative
-  top: 1em
-}
-
-.dropdown-menu
-  right: 0
-  left: auto
-  
-.main-avatar-wrap
-  margin: 0 5px 0 0
-  float: left
-  
-.party-avatar-wrap
-  margin: 0
-  float: right
-
-.progress-bars
-  // padding-top: 15px
-
-.progress
-  position: relative
-  height: 2em
-.bar
-  height: 2em
-  border: 1px solid black
-.progress-text
-  color: #111
-  float: right
-  margin-right: 1em
-  line-height: 2
-
-@media (max-width: 600px) {
-  // .char-status {
-  //   padding-top: 30px
-  // }
-  .main-avatar-wrap {
-    border-right: 1px solid grey;
-    padding-right: 20px
-  }
-  .party-avatar-wrap {
-    float: left;
-  }
-  .progress-bars {
-    clear: both
-  }
-}
-
-$worse      =   rgb(244, 204, 204)
-$neutral    =   rgb(255, 242, 204)
-
-.progress-bars
-  .progress
-    border-radius: 0
-    background: white
-    opacity: 1
-    outline: 1px solid rgba(0,0,0,0.3)
-    overflow: hidden
-    outline-offset: -1px
-    box-shadow: none
-    .bar
-      background-image: none
-      border: 1px solid rgba(0,0,0,0.3)
-      box-shadow: none
-
-  .progress-danger .bar
-    background-color: darken($worse, 40%)
-
-  .progress-warning .bar
-    background-color: darken($neutral, 40%)
 
 
 /* Footer
@@ -223,14 +134,3 @@ $neutral    =   rgb(255, 242, 204)
   top: 0;
   right: 0px;
   z-index: 1001;
-
-
-/* hero box
--------------------- */
-@media (min-width: 37.5em)
-  .hero-box
-    width: 70%
-
-@media (min-width: 60em)
-  .hero-box
-    width: 50%

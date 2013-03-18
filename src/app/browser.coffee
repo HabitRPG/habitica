@@ -124,7 +124,7 @@ setupTour = (model) ->
 
 # jquery sticky header on scroll, no need for position fixed
 initStickyHeader = (model) ->
-  # $('.site-header').sticky({topSpacing:1})
+  $('.site-header').sticky({topSpacing:1})
 
 ###
   Sets up "+1 Exp", "Level Up", etc notifications
