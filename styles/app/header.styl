@@ -1,0 +1,150 @@
+/* site header
+-------------------- */
+
+.site-header
+  width: 100% // this is for the sticky
+  height: 10em
+  padding: 2.5em 1.5em 2em
+  z-index: 1
+  background: #f5f5f5
+  border-bottom: 1px solid #ccc
+
+.user-menu
+  position: absolute
+  top: 0.5em
+  right: 0.5em
+  .tile
+    cursor: pointer
+    font-weight: 400
+    color: #494949
+    color: hsla(0, 0%, 15%, 0.8)
+    background-color: darken($better, 10%)
+    &:hover, &:focus
+      background-color: darken($best, 20%)
+    &:active
+      background-color: darken($best, 30%)
+      color: white
+
+.user-reporter:after
+  content: '▾'
+  float: right
+
+.stacked > li
+  display:list-item
+  > a
+    display:block
+
+.flyout, .flyout-alt
+  position: relative
+.flyout-content
+  position: absolute
+  top: 100%
+  right: -99999px
+  height: 0
+  overflow: hidden
+.flyout:hover > .flyout-content
+  right: 0
+.flyout-alt:hover > .flyout-content
+  top: 0
+  right: 100%
+
+.flyout:hover > .flyout-content,
+.flyout-alt:hover > .flyout-content
+  height: auto
+  overflow: visible
+
+.flyout .tile {
+  width: 5em;
+}
+.stacked .tile {
+  outline: 0
+  border: 1px solid rgba(0,0,0,0.2)
+  border-top: 0
+}
+
+
+.progress
+  position: relative
+  height: 2em
+.bar
+  border: 1px solid black
+.progress-text
+  color: #111
+  float: right
+  margin-right: 1em
+  line-height: 2
+
+@media (max-width: 600px) {
+  .main-avatar-wrap {
+    border-right: 1px solid grey;
+    padding-right: 20px
+  }
+  .party-avatar-wrap {
+    float: left;
+  }
+  .progress-bars {
+    clear: both
+  }
+}
+
+$worse      =   rgb(244, 204, 204)
+$neutral    =   rgb(255, 242, 204)
+
+.progress-bars
+  padding: 0
+  margin: 0
+  .progress
+    border-radius: 0
+    background: white
+    opacity: 1
+    outline: 1px solid rgba(0,0,0,0.2)
+    outline-offset: -1px
+    overflow: hidden
+    box-shadow: none
+    margin-bottom: 1em
+    .bar
+      background-image: none
+      border: 1px solid rgba(0,0,0,0.2)
+      border: 0
+      box-shadow: none
+
+  .progress-danger .bar
+    background-color: darken($worse, 38%)
+
+  .progress-warning .bar
+    background-color: darken($neutral, 30%)
+
+
+/* hero box
+-------------------- */
+.hero-box
+  display: table
+  margin: 0 auto
+
+.hero-box > [class^="hero-"]
+  display: table-cell
+  vertical-align: top
+
+@media (min-width: 37.5em)
+  .hero-box
+    width: 70%
+@media (min-width: 60em)
+  .hero-box
+    width: 70%
+
+.main-avatar-wrap, .party-avatar-wrap
+  display: inline-block
+  padding: 0
+  margin: 0
+
+.main-avatar-wrap
+  width: 105px
+
+.party-avatar-wrap
+
+.hero-progress
+  padding: 0
+  margin: 0
+
+.hero-party-member
+  width: 105px

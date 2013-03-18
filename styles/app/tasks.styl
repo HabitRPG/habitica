@@ -96,13 +96,10 @@ for $stage in $stages
   border: 0
   border-radius: 0 //required to nuke BB-playbook user agent styles
   background-color: darken($best, 15%)
-  &:hover,
-  &:focus
-    // opacity: 1
+  &:hover, &:focus
     background-color: darken($best, 20%)
   &:active
     background-color: darken($best, 30%)
-    // opacity: 1
 
 
 // an individual task entry
@@ -201,7 +198,6 @@ for $stage in $stages
   position: relative
   // uncompleted icon
   label:after, label:before
-    // content: '◯'
     content: ''
     display: block
     height: 1.714285714em
@@ -213,7 +209,10 @@ for $stage in $stages
     opacity: 0.2
 
   label:after
-    content: '▨'
+    // content: '◯'
+    // content: '⬚'
+    content: '▢'
+    // content: '⧠'
   label:before
     position: absolute
     left: 0
@@ -335,6 +334,8 @@ for $stage in $stages
   &.active
     opacity: 1
 
+.tile.solid
+  opacity: 1
 .tile.spacious
   margin: 0.75em 0
   font-size: 1.5em
