@@ -210,6 +210,7 @@ module.exports.app = (appExports, model) ->
     _.each undo.stats, (val, key) -> batch.set "stats.#{key}", val
     taskPath = "tasks.#{undo.task.id}"
     _.each undo.task, (val, key) ->
+      return if key in ['id', 'type'] # strange bugs in this world: https://workflowy.com/shared/a53582ea-43d6-bcce-c719-e134f9bf71fd/
       if key is 'completed'
         user.pass({cron:true}).set("#{taskPath}.completed",val)
       else
