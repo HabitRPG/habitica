@@ -25,13 +25,13 @@
 <Header:>
   <app:modals:modals />
   <ui:connectionAlert>
-  <header class="container-fluid site-header">
+  <div class="header-wrap">
 
     {#if _undo}<a x-bind="click:undo" class='label undo-button'>Undo</a>{/}
 
     <app:settings:menu />
     <app:header:header />
-  </header>
+  </div>
 
 <Body:>
   <br/>

@@ -1,13 +1,14 @@
 /* site header
 -------------------- */
 
-.site-header
+.header-wrap
   width: 100% // this is for the sticky
   height: 10em
-  padding: 2.5em 1.5em 2em
+  padding: 2.25em 1.5em 2em
   z-index: 1
   background: #f5f5f5
   border-bottom: 1px solid #ccc
+  margin-top: -1px
 
 .user-menu
   position: absolute
@@ -29,6 +30,9 @@
   content: '▾'
   float: right
 
+
+/* flyout navigation pattern
+----------------------------- */
 .stacked > li
   display:list-item
   > a
@@ -62,89 +66,71 @@
   border-top: 0
 }
 
+/* hero box
+-------------------- */
+.site-header
+  display: table
+  margin: 0 auto
+  width: 100%
 
-.progress
-  position: relative
-  height: 2em
-.bar
-  border: 1px solid black
-.progress-text
-  color: #111
-  float: right
-  margin-right: 1em
-  line-height: 2
+.hero-avatar, .party-member-avatar
+  display: table-cell
 
-@media (max-width: 600px) {
-  .main-avatar-wrap {
-    border-right: 1px solid grey;
-    padding-right: 20px
-  }
-  .party-avatar-wrap {
-    float: left;
-  }
-  .progress-bars {
-    clear: both
-  }
-}
+@media (min-width: 37.5em)
+  .site-header
+    width: 80%
+@media (min-width: 60em)
+  .site-header
+    width: 60%
 
-$worse      =   rgb(244, 204, 204)
-$neutral    =   rgb(255, 242, 204)
-
-.progress-bars
+.hero-avatar, .party-member-avatar
   padding: 0
   margin: 0
-  .progress
+  vertical-align: top
+
+.hero-avatar
+  width: 90px
+
+.party-member-avatar
+  width: 90px
+
+
+/* progress bars
+-------------------- */
+.hero-stats
+  padding: 0 0.5em
+  display: table-cell
+  vertical-align: middle
+  
+  .meter, .bar
+    box-shadow: none
     border-radius: 0
+
+  .meter
+    position: relative
     background: white
     opacity: 1
     outline: 1px solid rgba(0,0,0,0.2)
     outline-offset: -1px
-    overflow: hidden
-    box-shadow: none
-    margin-bottom: 1em
+    overflow: visible // firefox outline fix
+    margin-bottom: 1.5em
+    height: 2em
+
     .bar
-      background-image: none
+      background: none
       border: 1px solid rgba(0,0,0,0.2)
-      border: 0
-      box-shadow: none
+      height: 100%
 
-  .progress-danger .bar
+
+  .health .bar
     background-color: darken($worse, 38%)
-
-  .progress-warning .bar
+  .experience .bar
     background-color: darken($neutral, 30%)
 
-
-/* hero box
--------------------- */
-.hero-box
-  display: table
-  margin: 0 auto
-
-.hero-box > [class^="hero-"]
-  display: table-cell
-  vertical-align: top
-
-@media (min-width: 37.5em)
-  .hero-box
-    width: 70%
-@media (min-width: 60em)
-  .hero-box
-    width: 70%
-
-.main-avatar-wrap, .party-avatar-wrap
-  display: inline-block
-  padding: 0
-  margin: 0
-
-.main-avatar-wrap
-  width: 105px
-
-.party-avatar-wrap
-
-.hero-progress
-  padding: 0
-  margin: 0
-
-.hero-party-member
-  width: 105px
+  .meter-text
+    position: absolute
+    top: 0
+    right: 1em
+    z-index: 1
+    color: #111
+    line-height: 2
