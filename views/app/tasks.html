@@ -111,11 +111,15 @@
         <!-- main content -->
         <p class="task-text">
             {:task.text}
-            {#each _user.tags as :tag}
-                {#if :task.tags[:tag.id]}
-                    <span class="label {#if _user.filters[:tag.id]}label-info{/}">{:tag.name}</span>
-                {/}
-            {/}
+
+            <!-- There's a very strange bug where live-bound #each here loses model.at reference on _{type}List alter -->
+            {{#each _user.tags as :tag}}
+                <span>
+                    {#if :task.tags[:tag.id]}
+                        <span class="label {#if _user.filters[:tag.id]}label-info{/}">{:tag.name}</span>
+                    {/}
+                </span>
+            {{/}}
         </p>
 
         <!-- edit/options dialog -->
@@ -198,9 +202,9 @@
                         Tags <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        {#each _user.tags as :tag}
+                        {{#each _user.tags as :tag}}
                             <li class="{#if :task.tags[:tag.id]}active{/}"><a data-task-id="{{:task.id}}" data-tag-id="{:tag.id}" x-bind=click:addTag>{:tag.name}</a></li>
-                        {/}
+                        {{/}}
                     </ul>
                 </div>
             </div>
