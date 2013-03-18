@@ -37,35 +37,31 @@ hr
 -------------------------------------------------- */
 
 .site-header
-  padding: 0.75em
+  padding: 0 0.75em 0.75em
   background: #f5f5f5
   border: 1px solid #ccc
   white-space: nowrap
-  position:fixed
   width: 100%
   box-sizing: border-box
-  z-index: 1000
+  z-index: 1
 
-@media (max-width: 600px) {
-  #head {
-    position: static;
-  }
-}
-
-#head .pull-right
+.site-header .pull-right
   margin-right: 0
   margin-left: 1%
 
 .modal
   whitespace:normal
 
+.user-menu {
+  text-align: right
+  position: relative
+  top: 1em
+}
+
 .dropdown-menu
   right: 0
   left: auto
   
-.char-status
-  // border: 1px dotted grey
-
 .main-avatar-wrap
   margin: 0 5px 0 0
   float: left
@@ -75,24 +71,24 @@ hr
   float: right
 
 .progress-bars
-  padding-top: 15px
+  // padding-top: 15px
 
 .progress
   position: relative
-  height: 25px
+  height: 2em
 .bar
-  height: 25px
+  height: 2em
   border: 1px solid black
 .progress-text
-  position: absolute
-  right: 5px
-  top: 3px
-  color: black
+  color: #111
+  float: right
+  margin-right: 1em
+  line-height: 2
 
 @media (max-width: 600px) {
-  .char-status {
-    padding-top: 30px
-  }
+  // .char-status {
+  //   padding-top: 30px
+  // }
   .main-avatar-wrap {
     border-right: 1px solid grey;
     padding-right: 20px
@@ -104,6 +100,30 @@ hr
     clear: both
   }
 }
+
+$worse      =   rgb(244, 204, 204)
+$neutral    =   rgb(255, 242, 204)
+
+.progress-bars
+  .progress
+    border-radius: 0
+    background: white
+    opacity: 1
+    outline: 1px solid rgba(0,0,0,0.3)
+    overflow: hidden
+    outline-offset: -1px
+    box-shadow: none
+    .bar
+      background-image: none
+      border: 1px solid rgba(0,0,0,0.3)
+      box-shadow: none
+
+  .progress-danger .bar
+    background-color: darken($worse, 40%)
+
+  .progress-warning .bar
+    background-color: darken($neutral, 40%)
+
 
 /* Footer
 -------------------------------------------------- */
@@ -128,7 +148,9 @@ hr
 
 /* Customizations to make footer sticky */
 /*html, body {height: 100%;}*/                                                                                                                                                                                                                   
-#wrap {min-height: 100%; margin-top:130px; z-index:-1}                                                                                                                                                                                                                    
+#wrap
+  min-height: 100%
+  z-index:-1
 #main                                                                                                                                                                                                                                        
   /*overflow:auto;*/                                                                                                                                                                                                                             
   padding-bottom: 250px; /* don't know why this works, sticky footers are weird */
@@ -201,3 +223,14 @@ hr
   top: 0;
   right: 0px;
   z-index: 1001;
+
+
+/* hero box
+-------------------- */
+@media (min-width: 37.5em)
+  .hero-box
+    width: 70%
+
+@media (min-width: 60em)
+  .hero-box
+    width: 50%
