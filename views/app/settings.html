@@ -7,11 +7,11 @@
             </ul>
 
             <div class="tab-content">
-                <div class="tab-pane active" id="settings-settings">
+                <div class="tab-pane active personal-options" id="settings-settings">
                     <h4>Custom Day Start</h4>
-                    <div class="input-append">
-                        <input class="span2" type="number" min=0 max=24 value={_user.preferences.dayStart} />
-                        <span class="add-on">:00 (24h)</span>
+                    <div class="option-group option-short">
+                        <input class="option-content option-time" type="number" min=0 max=24 value={_user.preferences.dayStart}>
+                        <span class="input-suffix">:00 (24h clock)</span>
                     </div>
                     <div>
                         <small>Habit defaults to check and reset your dailies at midnight each day. You can customize that here (Enter number between 0 and 24).</small>
