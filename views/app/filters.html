@@ -7,5 +7,10 @@
       {#each _user.tags as :tag}
         <li class="{#if _user.filters[:tag.id]}active{/}"><a data-tag-id="{:tag.id}" x-bind=click:toggleFilterByTag>{:tag.name}</a></li>
       {/}
+      <li>
+          <form x-bind="submit:filtersNewTag">
+              <input type="text" value="{_newTag}" placeholder="New Tag"/>
+          </form>
+      </li>
     </ul>
   </div>
