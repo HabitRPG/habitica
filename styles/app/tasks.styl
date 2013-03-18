@@ -264,7 +264,7 @@ for $stage in $stages
 
 // task editing
 // ------------
-.task-options
+[class$="-options"]
   padding: 0 0.5em
   margin-top: 1.25em
   color: #333
@@ -307,12 +307,13 @@ for $stage in $stages
     resize: none
     margin-bottom: 0
 
-.option-pricer
+.option-short
   .option-content
-    width: 20%
+    width: 3em
     display: inline-block
-  .money [class^="shop_"]
-    vertical-align: 0
+  .input-suffix
+    vertical-align: 20%
+    padding-left: 0.25em
 
 // button-group
 .task-controls.tile-group
