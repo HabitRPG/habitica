@@ -5,15 +5,17 @@ moment = require 'moment'
 character = require './character'
 
 module.exports.view = (view) ->
-  view.fn 'taskClasses', (type, completed, value, repeat) ->
-    #TODO figure out how to just pass in the task model, so i can access all these properties from one object
+  view.fn 'taskClasses', (task) ->
+    {type, completed, value, repeat} = task
+
     classes = type
 
     # show as completed if completed (naturally) or not required for today
-    if completed or (repeat and repeat[helpers.dayMapping[moment().day()]]==false)
-      classes += " completed"
-    else
-      classes += " uncompleted"
+    if type in ['todo', 'daily']
+      if completed or (repeat and repeat[helpers.dayMapping[moment().day()]]==false)
+        classes += " completed"
+      else
+        classes += " uncompleted"
 
     if value < -20
       classes += ' color-worst'
