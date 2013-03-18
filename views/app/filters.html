@@ -5,7 +5,7 @@
     </div>
     <ul class="nav nav-pills">
       {#each _user.tags as :tag}
-        <li class="{#if _user._tagFilters[:tag.id]}active{/}"><a data-tag-id="{:tag.id}" x-bind=click:toggleFilterByTag>{:tag.name}</a></li>
+        <li class="{#if _user.filters[:tag.id]}active{/}"><a data-tag-id="{:tag.id}" x-bind=click:toggleFilterByTag>{:tag.name}</a></li>
       {/}
     </ul>
   </div>

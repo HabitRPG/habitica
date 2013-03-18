@@ -3,5 +3,5 @@ module.exports.app = (appExports, model) ->
 
   appExports.toggleFilterByTag = (e, el) ->
     tagId = $(el).attr('data-tag-id')
-    path = '_tagFilters.' + tagId
+    path = 'filters.' + tagId
     user.set path, !(user.get path)
