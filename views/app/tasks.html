@@ -237,12 +237,12 @@
 
             <!-- if Reward, pricing -->
             {else if equal(:task.type, 'reward')}
-                <div class=control-group>
-                    <label>Price</label>
-                    <div class="input-append">
-                        <input class="span5" size="16" type="number" min="0" value={:task.value}><span class="add-on">Gold</span>
-                    </div>
-                </div>
+                <fieldset class="option-group option-pricer">
+                    <legend class="option-title">Price</legend>
+                    <input class="option-content" size="16" type="number" min="0" value={:task.value}>
+                    <div class="money"><span class='shop_gold'></span></div>
+                </fieldset>
+                
 
             <!-- if Todo, the due date -->
             {else if equal(:task.type, 'todo')}
