@@ -207,7 +207,11 @@ module.exports.app = (appExports, model) ->
     batch.startTransaction()
     _.each undo.stats, (val, key) -> batch.set "stats.#{key}", val
     taskPath = "tasks.#{undo.task.id}"
-    _.each undo.task, (val, key) -> batch.set "#{taskPath}.#{key}", val
+    _.each undo.task, (val, key) ->
+      if key is 'completed'
+        user.pass({cron:true}).set("#{taskPath}.completed",val)
+      else
+        batch.set "#{taskPath}.#{key}", val
     batch.commit()
     model.del '_undo'
 
