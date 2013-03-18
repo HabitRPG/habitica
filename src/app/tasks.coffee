@@ -6,6 +6,7 @@ character = require './character'
 
 module.exports.view = (view) ->
   view.fn 'taskClasses', (task) ->
+    return unless task
     {type, completed, value, repeat} = task
 
     classes = type
@@ -67,7 +68,7 @@ module.exports.app = (appExports, model) ->
 
   appExports.del = (e, el) ->
     # Derby extends model.at to support creation from DOM nodes
-    task = model.at(e.target)
+    task = e.at()
     id = task.get('id')
 
     history = task.get('history')
