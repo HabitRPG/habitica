@@ -166,6 +166,11 @@ module.exports.app = (appExports, model) ->
     target.addClass(newContext)
 
 
+  setUndo = (stats, task) ->
+    previousUndo = model.get('_undo')
+    clearTimeout(previousUndo.timeoutId) if previousUndo?.timeoutId
+    timeoutId = setTimeout (-> model.del('_undo')), 10000
+    model.set '_undo', {stats:stats, task:task, timeoutId: timeoutId}
 
 
   ###
@@ -177,9 +182,7 @@ module.exports.app = (appExports, model) ->
     direction = $(el).attr('data-direction')
 
     # set previous state for undo
-    model.set '_undo',
-        stats: _.clone user.get('stats')
-        task: _.clone taskObj
+    setUndo _.clone(user.get('stats')), _.clone(taskObj)
 
     scoring.score(model, taskObj.id, direction)
 
@@ -194,10 +197,7 @@ module.exports.app = (appExports, model) ->
     # set previous state for undo
     taskObj = _.clone user.get("tasks.#{i}")
     taskObj.completed = previous
-    console.log taskObj
-    model.set '_undo',
-        stats: _.clone user.get('stats')
-        task: taskObj
+    setUndo _.clone(user.get('stats')), taskObj
 
     scoring.score(model, i, direction)
 
@@ -206,8 +206,10 @@ module.exports.app = (appExports, model) ->
   ###
   appExports.undo = () ->
     undo = model.get '_undo'
+    clearTimeout(undo.timeoutId) if undo?.timeoutId
     batch = character.BatchUpdate(model)
     batch.startTransaction()
+    model.del '_undo'
     _.each undo.stats, (val, key) -> batch.set "stats.#{key}", val
     taskPath = "tasks.#{undo.task.id}"
     _.each undo.task, (val, key) ->
@@ -217,7 +219,6 @@ module.exports.app = (appExports, model) ->
       else
         batch.set "#{taskPath}.#{key}", val
     batch.commit()
-    model.del '_undo'
 
   appExports.tasksToggleAdvanced = (e, el) ->
     $(el).next('.advanced-option').toggleClass('visuallyhidden')
