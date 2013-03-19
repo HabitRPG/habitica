@@ -1,42 +1,361 @@
-.color-worst pre
-  background-color: rgb(230, 184, 175)
-.color-worse pre
-  background-color: rgb(244, 204, 204)
-.color-bad pre
-  background-color: rgb(252, 229, 205)
-.color-neutral pre
-  background-color: rgb(255, 242, 204)
-.color-good pre
-  background-color: rgb(217, 234, 211)
-.color-better pre
-  background-color: rgb(208, 224, 227)
-.color-best pre
-  background-color: rgb(201, 218, 248)
-.completed pre
-  background-color: rgb(217, 217, 217)
-  color: rgb(153, 153, 153)
-.reward pre
+// 1. Set up color classes
+// ========================
+
+// color variables
+$worst      =   rgb(230, 184, 175)
+$worse      =   rgb(244, 204, 204)
+$bad        =   rgb(252, 229, 205)
+$neutral    =   rgb(255, 242, 204)
+$good       =   rgb(217, 234, 211)
+$better     =   rgb(208, 224, 227)
+$best       =   rgb(201, 218, 248)
+$completed  =   rgb(217, 217, 217)
+
+// array of keywords and their associated color vars
+$stages = (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $good) (better $better) (best $best)
+
+// for each color stage, generate a named class w/ the appropriate color
+for $stage in $stages
+  .color-{$stage[0]}
+    background-color: $stage[1]
+    .action-yesno label,
+    .task-action-btn
+      background-color: darken($stage[1], 30%)
+      &:hover, &:focus
+        background-color: darken($stage[1], 40%)
+
+// completed has to be outside the loop to override the color class
+.completed
+  background-color: $completed
+  color: #999
+  .task-checker label
+    background-color: darken($completed, 30%)
+  .task-action-btn
+    background-color: darken($completed, 30%)
+
+.reward
   background-color: white
 
-label.checkbox.inline{
-    width: 40px
+
+
+// 2. Columns & Tasks
+// ===================
+
+// main columns
+// ------------
+.task-column
+  padding: 1.5em
+  background: #f5f5f5
+  border: 1px solid #ccc
+  font-family: 'Lato', sans-serif
+
+  .task-column_title
+    margin: 0 0 0.5em
+    padding: 0
+
+
+// add new task form
+// -----------------
+.addtask-form
+  margin-bottom: 0.75em
+  outline: 1px solid rgba(0,0,0,0.15)
+  outline-offset: -1px
+  background-color: white
+  // box-shadow: 0 0 3px rgba(0,0,0,0.15)
+  position: relative
+
+// the input field
+.addtask-field
+  display: block
+  width: 100%
+  input
+    font-family: 'Lato', sans-serif
+    border: 0
+    outline: 0
+    border-radius: 0
+    box-shadow: none
+    background-color: white
+    height: 3em
+    padding: 0 0 0 0.5em
+    width: 100%
+    &:focus
+      box-shadow: inset 0 0 3px darken($best, 20%),inset -1px 0 1px darken($best, 30%)
+
+// the button
+.addtask-btn
+  position: absolute
+  right: 0
+  top: 0
+  // important for overriding bootstrap, remove later
+  width: 1.81818em !important
+  height: 1.88em
+  padding: 0
+  font-size: 1.61em
+  line-height: 1.7
+  outline: 0
+  border: 0
+  border-radius: 0 //required to nuke BB-playbook user agent styles
+  background-color: darken($best, 15%)
+  &:hover,
+  &:focus
+    // opacity: 1
+    background-color: darken($best, 20%)
+  &:active
+    background-color: darken($best, 30%)
+    // opacity: 1
+
+
+// an individual task entry
+// ------------------------
+.task
+  overflow: hidden
+  list-style: none
+  clear: both
+  padding: 0 0.5em 0 0.5em
+  min-height: 3em
+  line-height: 3
+  margin-bottom: 0.75em
+  outline: 1px solid rgba(0,0,0,0.1)
+  outline-offset: -1px
+  &:hover
+    cursor: move
+  &:last-child
+    margin-bottom: 0
+
+// task content
+.task-text
+  display: inline
+
+// when a task is being dragged
+.task.ui-sortable-helper {
+  box-shadow: 0 0 3px rgba(0,0,0,0.15), 0 0 5px rgba(0,0,0,0.1)
+  transform: scale(1.05)
+  outline: 1px solid rgba(0,0,0,0.2)
 }
 
-.todos
-  .nav-pills > .active > a, .nav-pills > .active > a:hover
-    color: #005580
-    background-color: #DEE5F2
+// primary task commands
+// ----------------------
+.task-controls
+  display: inline
+  margin-left: -0.5em
+  margin-right: 0.5em
 
-.dailys
-  .repeat-days > .btn:not(.active)
-    background-color: #aaa;
-    background-image: -moz-linear-gradient(top, #eee, #aaa);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eee), to(#aaa));
-    background-image: -webkit-linear-gradient(top, #eee, #aaa);
-    background-image: -o-linear-gradient(top, #eee, #aaa);
-    background-image: linear-gradient(to bottom, #eee, #aaa);
-    background-repeat: repeat-x;
+// plus/minus commands
+.task-action-btn
+  display: inline-block
+  width: 2.12765em
+  height: 2.12765em
+  padding: 0
+  font-size: 1.41em
+  line-height: 2.12765
+  text-align: center
+  color: #222
+  vertical-align: top
+  border-right: 1px solid rgba(0,0,0,0.25)
+  &:last-child
+    border: 0
+  &:hover, &:focus
+    color: #222
+    text-decoration: none
 
+// checkbox
+.task-checker input[type=checkbox]
+  margin: 0
+  padding: 0
+  visibility: hidden
+
+.task-checker label
+  display: inline-block
+  width: 3em
+  height: 3em
+  margin: 0
+  vertical-align: top
+  cursor: pointer
+
+// plus/minus checkbox
+.action-plusminus
+  label
+    margin-right: 1.5em
+  label:after
+    font-size: 1.41em
+    width: 2.12765em
+    height: 2.12765em
+    line-height: 2.12765
+    text-align: center
+    display: inline-block
+    vertical-align top
+    opacity: 0.3
+    background-color: #ddd
+    outline: 1px solid rgba(0,0,0,0.5)
+    color: #222
+  label[for$="plus"]:after
+    content: '＋'
+  label[for$="minus"]:after
+    content: '−'
+
+  &.select-toggle input[type=checkbox]:checked + label:after
+    opacity: 1
+
+// yes/no checkbox
+.action-yesno
+  position: relative
+  // uncompleted icon
+  label:after, label:before
+    // content: '◯'
+    content: ''
+    display: block
+    height: 1.714285714em
+    width: 1.714285714em
+    font-size: 1.75em
+    line-height: 1.714285714em
+    text-align: center
+    color: black
+    opacity: 0.2
+
+  label:after
+    content: '▨'
+  label:before
+    position: absolute
+    left: 0
+  // hint at completed icon
+  label:hover:before,
+  label:focus:before
+    content: ''
+  label:hover:after,
+  label:focus:after
+    content: '¬'
+    font-size: 3.2em
+    line-height: 0.9375em
+    height: 0.9375em
+    width: 1.15em
+    text-align: center
+    transform: rotate(135deg)
+    opacity: 0.5 !important
+  label:active:after
+    opacity: 0.75 !important
+
+  // completed icon
+  input[type=checkbox]:checked + label:after
+    content: '¬'
+    font-size: 3.2em
+    line-height: 0.9375em
+    height: 0.9375em
+    width: 1.15em
+    text-align: center
+    transform: rotate(135deg)
+    opacity: 0.75
+
+
+// secondary task commands
+// -----------------------
+.task-meta-controls
+  float: right
+  margin-left: 0.25em
+  opacity: 0.25
+  a > i
+    margin-left: 0.125em
+  .task-notes
+    margin-left: 0.125em
+
+.task:hover .task-meta-controls
+  opacity: 1
+
+
+// task editing
+// ------------
+[class$="-options"]
+  padding: 0 0.5em
+  margin-top: 1.25em
+  color: #333
+
+  .option-group
+    border-bottom: 1px solid rgba(0,0,0,0.1)
+    padding: 0 0 1em
+    margin-bottom: 1em
+
+  .option-title
+    font-size: 1em
+    margin: 0 0 0.5em
+    line-height: 1.5
+    border: 0
+    padding: 0
+    color: #333
+    font-style: italic
+    &:not(.mega):after
+      content: ':'
+    &.mega
+      cursor: pointer
+      font-style: normal
+      font-weight: bold
+      text-decoration: underline
+
+  .option-content
+    height: 2.5em
+    width: 100%
+    margin: 0 0 1em
+    padding: 0 0 0 0.5em
+    outline: 0
+    border: 1px solid rgba(0,0,0,0.2)
+    box-shadow: none
+    border-radius: 0
+    font-family: 'Lato', sans-serif //bootstrap override
+
+  textarea.option-content
+    height: 5em
+    padding-top: 0.25em
+    resize: none
+    margin-bottom: 0
+
+.option-short
+  .option-content
+    width: 3em
+    display: inline-block
+  .input-suffix
+    vertical-align: 20%
+    padding-left: 0.25em
+
+// button-group
+.task-controls.tile-group
+  display: block
+  text-align: center
+  margin: 0
+
+.task-action-btn.tile
+  border: 0
+  font-size: 1.15em
+  font-weight: 300
+  outline: 1px solid rgba(0,0,0,0.2)
+  outline-offset: -1px
+  margin: 0 0 0 3px
+  font-family: 'Lato', sans-serif
+  text-align: inherit
+  opacity: 0.5
+  width: auto
+  padding: 0 0.5em
+  &.active
+    opacity: 1
+
+.tile.spacious
+  margin: 0.75em 0
+  font-size: 1.5em
+  opacity: 1
+.tile.bright
+  background-color: lighten($best, 20%)
+  &:hover, &:focus
+    background-color: lighten($best, 40%)
+.tile.flush
+  margin-left: 0
+  border: 1px solid rgba(0,0,0,0.2)
+  outline: 0
+  line-height: 2em
+  &:first-child
+    border-right: 0
+
+
+// todos ui
+// --------
+
+// context switching
 .context-enabled
   .display-context-dependant,
   .task-list li
@@ -50,39 +369,19 @@ label.checkbox.inline{
     .show-for-uncompleted, .uncompleted
       display: block
 
-.help-icon
-  float:right;
 
-.task:hover
-  cursor: move
-
-li:hover .task-meta-controls .hover-show
-  display: inline
-
-.task
-  list-style:none
-
-  pre
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
-    font-size: 13px
-    line-height: 18px
-    color: black
-    word-break: normal
-
-  .task-meta-controls
-    float:right
-    i
-      margin-left:5px
-
-  .task-controls,.task-text
-    display:inline
-    margin-right:10px
-
-  .task-meta-controls .hover-show
-    display: none;
-
-.vote-up, .vote-down
-    text-decoration:none;
-
-.new-task-form
-  margin-bottom:5px;
+// nav tabs
+.nav-tabs
+  margin-top: 1.5em
+.nav-tabs > li
+  &.active > a
+    color: #333
+    &:hover
+      margin-top: 1px
+  > a
+    border-radius: 0 !important
+    margin-top: 1px
+    color: #333
+    &:hover
+      border-top: 0
+      margin-top: 2px
