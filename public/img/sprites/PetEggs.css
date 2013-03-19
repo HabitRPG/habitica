@@ -1,17 +1,10 @@
-#PetEggs {
-    /* egg sprite size */
-    width: 48px;
-    height: 51px;
-    /* link to sprite sheet image */
-    background-image: url(Egg_Sprite_Sheet.png);
-}
-/* defines where in the sheet the eggs are */
-.WolfEgg{background-position: 0px 0px;}
-.TigerEgg{background-position: 0px -51px;}
-.PolarBearEgg{background-position: 0px -102px;}
-.PandaEgg{background-position: 0px -153px;}
-.LionEgg{background-position: 0px -204px;}
-.FlyingPigEgg{background-position: 0px -255px;}
-.DrakeEgg{background-position: 0px -306px;}
-.CactusEgg{background-position: 0px -357px;}
-.BearEgg{background-position: 0px -408px;}
+Pet_Egg_Wolf, Pet_Egg_Tiger, Pet_Egg_PolarBear, Pet_Egg_Panda, Pet_Egg_Lion, Pet_Egg_FlyingPig, Pet_Egg_Drake, Pet_Egg_Cactus, Pet_Egg_Bear {background: url(Egg_Sprite_Sheet.png) no-repeat}
+Pet_Egg_Wolf {background-position: 0 0; width: 48px; height: 51px}
+Pet_Egg_Tiger {background-position: 0 -51; width: 48px; height: 51px}
+Pet_Egg_PolarBear{background-position: 0 -102; width: 48px; height: 51px}
+Pet_Egg_Panda {background-position: 0 -153; width: 48px; height: 51px}
+Pet_Egg_Lion {background-position: 0 -204; width: 48px; height: 51px}
+Pet_Egg_FlyingPig {background-position: 0 -255; width: 48px; height: 51px}
+Pet_Egg_Drake {background-position: 0 -306; width: 48px; height: 51px}
+Pet_Egg_Cactus {background-position: 0 -357; width: 48px; height: 51px}
+Pet_Egg_Bear {background-position: 0 -408; width: 48px; height: 51px}
