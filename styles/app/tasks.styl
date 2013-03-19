@@ -95,15 +95,14 @@ for $stage in $stages
   outline: 0
   border: 0
   border-radius: 0 //required to nuke BB-playbook user agent styles
-  background-color: darken($best, 20%)
-  opacity: 0.75
+  background-color: darken($best, 15%)
   &:hover,
   &:focus
-    opacity: 1
+    // opacity: 1
     background-color: darken($best, 20%)
   &:active
     background-color: darken($best, 30%)
-    opacity: 1
+    // opacity: 1
 
 
 // an individual task entry
@@ -264,7 +263,7 @@ for $stage in $stages
 
 // task editing
 // ------------
-.task-options
+[class$="-options"]
   padding: 0 0.5em
   margin-top: 1.25em
   color: #333
@@ -300,12 +299,20 @@ for $stage in $stages
     box-shadow: none
     border-radius: 0
     font-family: 'Lato', sans-serif //bootstrap override
-  
+
   textarea.option-content
     height: 5em
     padding-top: 0.25em
     resize: none
     margin-bottom: 0
+
+.option-short
+  .option-content
+    width: 3em
+    display: inline-block
+  .input-suffix
+    vertical-align: 20%
+    padding-left: 0.25em
 
 // button-group
 .task-controls.tile-group
