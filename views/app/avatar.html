@@ -24,9 +24,13 @@
     </app:modals:modal>
 
 <avatar:>
-    <div class="avatar {{#if @main}}main-avatar{{/}} {{#if @party}}party-avatar{{/}}" data-toggle='modal' data-target='#avatar-modal' data-uid="{@profile.id}" x-bind="click:profileChangeActive">
-        {#unless @minimal}{#if @profile.items.pet}<img src='img/sprites/{@profile.items.pet.icon}' />{/}{/}
+    <figure class="herobox"
+                data-name="{@profile.auth.local.username}"
+                data-level="{@profile.stats.lvl}"
+                data-haspet="{#if @profile.items.pet}hasPet{/}"
+            data-toggle='modal' data-target='#avatar-modal' data-uid="{@profile.id}" x-bind="click:profileChangeActive">
         <div class='character-sprites'>
+            {#unless @minimal}{#if @profile.items.pet}<img class="pet" src='img/sprites/{@profile.items.pet.icon}' />{/}{/}
             {#with @profile.preferences as :p}
             <span class='{:p.gender}_skin_{:p.skin}'></span>
             <span class='{:p.gender}_hair_{:p.hair}'></span>
@@ -41,9 +45,8 @@
             {/}
         </div>
         {{#unless @minimal}}
-        <div class="lvl"><span class="badge badge-info">Lvl {@profile.stats.lvl}</span></div>
         {{/}}
-    </div>
+    </figure>
 
 <customize:>
     <!-- user avatar preview -->

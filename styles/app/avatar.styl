@@ -1,23 +1,71 @@
-// basic avatar sprite group
-.avatar
-    cursor: pointer
-    position: relative
-    width: 90px
-    height: 90px
+/* herobox & avatar
+======================
+* this is the canonical `herobox` avatar component
+* it can be placed anywhere on the site and look the
+* way it's supposed to. TODO: add variables for show/
+* or hiding user metadata in different situations
 
-    .character-sprites
-        position: absolute
+Seeing as the sprites might change drastically in the
+future re: pets and whatnot, this is just temporary.
+---------------------------------------------------- */
 
-    .lvl
-        position: absolute
-        bottom: 0px
-        right: 10px
+// basic herobox styles
+.herobox
+	height: 10.5em // higher to acct for the name area
+	width: 10em
+	max-width: 10em
+	margin: 0 // need this b/c of bootstrap, remove or reset later
+	padding: 0 // push down the sprite
+	position: relative
+	cursor: pointer
+	background: #f5f5f5
+	transition: padding 0.13s ease-out, border 0.25s ease-out, background 0.25s ease-out
+	outline: 1px solid rgba(0,0,0,0.1)
 
-// main and party avatars
-.main-avatar, .party-avatar
-  .character-sprites
-    top: -15px
+// vertically center avatar sprite
+// depending on if they have a pet
+.herobox[data-haspet="hasPet"]
+	padding-top: 2em
+.herobox:not([data-haspet="hasPet"])
+	padding-top: 1.75em
+
+// the hero's info frame
+.herobox:after
+	content: attr(data-name) ": " "lv " attr(data-level) // " " attr(data-class)
+	opacity: 0 // hidden by default
+	position: absolute
+	top: 0
+	display: block
+	width: 100%
+	line-height: 2
+	color: black
+	text-align: center
+	border-bottom: 1px solid rgba(0,0,0,0.1)
+	background: darken($good, 15%)
+	transition: opacity 0.2s ease-out
+
+// expose hero info on hover, taking
+// into account the extra pet space
+.herobox:hover, .herobox:focus
+	background: desaturate(lighten($better, 30%), 10%)
+	&:after
+		opacity: 1
+
+.herobox[data-haspet="hasPet"]
+	&:hover, &:focus
+		padding-top: 3.25em
+
+.herobox:not([data-haspet="hasPet"])
+	&:hover, &:focus
+		padding-top: 2.5em
 
 
-.character-sprites span
-    position: absolute
+// positioning the sprites, etc
+.herobox
+	.character-sprites
+		width: 6.428571429em // 90px
+		height: 6.428571429em
+		margin: 0 auto
+
+	.character-sprites span, .pet
+		position: absolute
