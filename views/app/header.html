@@ -28,6 +28,9 @@
             </div>
 
             <!-- party -->
+            <!-- I have an idea to use this loop for the user's herobox/avatar as well
+                 NOTE TO SELF: Ask Tyler if some kind of inter-leaving is possible 
+                 where we can put ONE of the results of this loop BEFORE the progress bars, and the rest after-->
             {{#each _partyMembers as :member}}
                 {{#unless equal(:member.id, _userId)}}
                     <div class="herobox-wrap">

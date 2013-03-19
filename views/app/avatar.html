@@ -27,7 +27,8 @@
     <figure class="herobox"
                 data-name="{@profile.auth.local.username}"
                 data-level="{@profile.stats.lvl}"
-                data-haspet="{#if @profile.items.pet}hasPet{/}"
+                data-checkpet="{#if @profile.items.pet}hasPet{/}"
+                data-checkuser="{#if equal(@profile.id, _user.id)}isUser{/}"
             data-toggle='modal' data-target='#avatar-modal' data-uid="{@profile.id}" x-bind="click:profileChangeActive">
         <div class='character-sprites'>
             {#unless @minimal}{#if @profile.items.pet}<img class="pet" src='img/sprites/{@profile.items.pet.icon}' />{/}{/}

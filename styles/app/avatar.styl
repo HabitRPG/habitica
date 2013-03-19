@@ -22,17 +22,9 @@ future re: pets and whatnot, this is just temporary.
 	transition: padding 0.13s ease-out, border 0.25s ease-out, background 0.25s ease-out
 	outline: 1px solid rgba(0,0,0,0.1)
 
-// vertically center avatar sprite
-// depending on if they have a pet
-.herobox[data-haspet="hasPet"]
-	padding-top: 2em
-.herobox:not([data-haspet="hasPet"])
-	padding-top: 1.75em
-
 // the hero's info frame
 .herobox:after
-	content: attr(data-name) ": " "lv " attr(data-level) // " " attr(data-class)
-	opacity: 0 // hidden by default
+	content: attr(data-name) " – " "lvl " attr(data-level) // " " attr(data-class)
 	position: absolute
 	top: 0
 	display: block
@@ -44,18 +36,37 @@ future re: pets and whatnot, this is just temporary.
 	background: darken($good, 15%)
 	transition: opacity 0.2s ease-out
 
+// info revealed on hover/focus for party
+// always visible on the user's own avatar
+.herobox:after
+	opacity: 0
+.herobox[data-checkuser="isUser"]:after
+	opacity: 1
+	// make it a bit special
+	background darken($better, 15%)
+
+// vertically center avatar sprite
+// depending on if they have a pet
+.herobox[data-checkpet="hasPet"]
+	padding-top: 2em
+.herobox:not([data-checkpet="hasPet"])
+	padding-top: 1.75em
+
+// if it is the user's avatar, check if
+// they have a pet and pad accordingly
+.herobox[data-checkpet="hasPet"][data-checkuser="isUser"]
+	padding-top: 3.25em
+
 // expose hero info on hover, taking
 // into account the extra pet space
 .herobox:hover, .herobox:focus
 	background: desaturate(lighten($better, 30%), 10%)
 	&:after
 		opacity: 1
-
-.herobox[data-haspet="hasPet"]
+.herobox[data-checkpet="hasPet"]
 	&:hover, &:focus
 		padding-top: 3.25em
-
-.herobox:not([data-haspet="hasPet"])
+.herobox:not([data-checkpet="hasPet"])
 	&:hover, &:focus
 		padding-top: 2.5em
 
