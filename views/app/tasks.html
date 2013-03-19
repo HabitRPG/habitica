@@ -203,7 +203,9 @@
                     </button>
                     <ul class="dropdown-menu">
                         {{#each _user.tags as :tag}}
-                            <li class="{#if :task.tags[:tag.id]}active{/}"><a data-task-id="{{:task.id}}" data-tag-id="{:tag.id}" x-bind=click:addTag>{:tag.name}</a></li>
+                            <li class="{#if :task.tags[:tag.id]}active{/}">
+                                <a data-task-id="{{:task.id}}" data-tag-id="{:tag.id}" x-bind=click:addTag>{:tag.name}</a>
+                            </li>
                         {{/}}
                     </ul>
                 </div>
