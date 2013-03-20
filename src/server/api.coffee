@@ -46,6 +46,8 @@ router.get '/user', auth, (req, res) ->
   user.stats.maxHealth = 50
 
   delete user.apiToken
+  delete user.auth.hashed_password
+  delete user.auth.salt
 
   res.json user
 
