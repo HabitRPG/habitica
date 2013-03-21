@@ -5,21 +5,21 @@ module.exports = ->
   casper = require("casper").create
     clientScripts: 'lib/lodash.min.js'
   getModel = (cb)->
+    casper.echo 'Getting model...'
     casper.waitFor(
                     ->
                       casper.evaluate ->
-                        console.log typeof window.DERBY.app.model.get('_user.stats')
-                        typeof window.DERBY.app.model == "object" && typeof window.DERBY.app.model.get('_user.stats') == "object"
-                    cb casper.evaluate ->
-                      model = window.DERBY.app.model
-                      {
-                      _userId: model.get('_userId')
-                      _user: model.get('_user')
-                      _todoList: model.get('_todoList')
-                      _dailyList: model.get('_dailyList')
-                      _rewardList: model.get('_rewardList')
-                      _habitList: model.get('_habitList')
-                      }
+                        user = window.DERBY.app.model.get('_user')
+                        check = (typeof user == "object" && typeof user.stats == "object" && typeof user.stats.exp == 'number')
+                        window.userCopy = userCopy = {} #assign to the window so we can access it later
+                        for k of user
+                          userCopy[k] = user[k] #dirty hack to get all fields in the object
+                        if check then console.log '...sending model...'
+                        check
+                    ->
+                      casper.echo '...model ready...'
+                      cb casper.evaluate ->
+                        window.userCopy
                   )
 
   {
