@@ -31,6 +31,7 @@
                 <!-- <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a> -->
             </span>
             <h2 class="task-column_title">Todos</h2>
+            <div id="todos-chart" style="display:none;"></div>
 
             <!-- create new todo -->
             <div class="display-context-dependant show-for-uncompleted">
@@ -43,8 +44,7 @@
             </ul>
             
             <button class='task-action-btn tile spacious bright display-context-dependant show-for-completed' x-bind=click:clearCompleted>Clear Completed</button>
-            <div id="todos-chart" style="display:none;"></div>
-            
+
             <!-- remaining/completed tabs -->
             <ul class="todo-status-toggler nav nav-tabs">
                 <li class="active"><a x-bind=click:changeContext data-target="#todo-well" data-context="context-uncompleted">Remaining</a></li>
