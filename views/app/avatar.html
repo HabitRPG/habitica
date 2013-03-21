@@ -23,7 +23,7 @@
 
 <avatar:>
     <figure class="herobox"
-                data-name="{#if @profile.auth.local.username}{@profile.auth.local.username}{else}Anonymous{/}"
+                data-name="{username(@profile.auth)}"
                 data-level="{@profile.stats.lvl}"
                 data-checkpet="{#if @profile.items.pet}hasPet{/}"
                 data-checkuser="{#if equal(@profile.id, _user.id)}isUser{/}"
