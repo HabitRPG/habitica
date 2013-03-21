@@ -12,7 +12,7 @@ dayMapping = dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
 # http://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
 # obj: object
 # returns random property (the value)
-randomProp = (obj) ->
+randomVal = (obj) ->
   result = undefined
   count = 0
   for key, val of obj
@@ -60,4 +60,4 @@ viewHelpers = (view) ->
   view.fn "truarr", (num) ->
       return num-1
 
-module.exports = { viewHelpers, removeWhitespace, randomProp, daysBetween, dayMapping }
+module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping }

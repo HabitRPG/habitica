@@ -1,7 +1,7 @@
 async = require 'async'
 moment = require 'moment'
 _ = require 'underscore'
-{ randomProp } = helpers = require './helpers'
+{ randomVal } = helpers = require './helpers'
 browser = require './browser'
 character = require './character'
 items = require './items'
@@ -118,11 +118,11 @@ score = (model, taskId, direction, times, batch, cron) ->
   # 1% chance of getting a pet or meat
   if obj.flags.dropsEnabled and Math.random() < .5
     if Math.random() < .5
-      drop = randomProp(food)
+      drop = randomVal(food)
       user.push 'items.food', drop.text
       drop.type = 'Food'
     else
-      drop = randomProp(pets)
+      drop = randomVal(pets)
       user.push 'items.eggs', drop
       drop.type = 'Egg'
 

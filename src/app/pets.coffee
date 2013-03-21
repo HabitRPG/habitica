@@ -1,5 +1,5 @@
 _ = require 'underscore'
-{ randomProp, removeWhitespace } = require './helpers'
+{ randomVal, removeWhitespace } = require './helpers'
 { pets, food } = require('./items').items
 
 ###
@@ -11,7 +11,7 @@ module.exports.app = (appExports, model) ->
   user.on 'set', 'flags.dropsEnabled', (captures, args) ->
     return unless captures == true
 
-    egg = randomProp pets
+    egg = randomVal pets
 
     dontPersist =  model._dontPersist
 
