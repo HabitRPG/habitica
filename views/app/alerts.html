@@ -1,32 +1,16 @@
-<alerts:>
+<newStuff:>
+    {#if equal(_user.flags.newStuff,'show')}
+        <div class='new-stuff'>
+            <p class='alert alert-success'>
+                <a href="https://github.com/lefnire/habitrpg/blob/develop/CHANGELOG.md#3212013" target="_blank">New Stuff!</a>  <a x-bind="click:closeNewStuff"><i class='icon-remove'></i></a>
+            </p>
+
+        </div>
+    {/}
+
+<flash:>
     {#if _flash.error}
         <ul class="unstyled alert alert-error">
             {#each _flash.error as :error}<li>{:error}</li>{/}
         </ul>
-    {/}
-
-    {#if equal(_user.flags.algosNotification,'show')}
-        <div class='alert alert-success'>
-            <a x-bind="click:closeAlgosNotification" class=pull-right>[x]</a>
-            <p>New features! Custom day start, new and better algorithms, authentication enhancements. See <a target="_blank" href="http://habitrpg.tumblr.com/post/44468869138/custom-day-start-better-algorithms-auth-enhancements">details here.</a>
-            &nbsp;"Hey, I had more Exp before this roll-out!" <a data-target="#restore-modal" data-toggle=modal>Restore your Exp here.</a></p>
-        </div>
-    {/}
-
-    {#if equal(_user.flags.onliesNotification, 'show')}
-        <div class='alert alert-success'>
-            <a x-bind="click:closeOnliesNotification " class=pull-right>[x]</a>
-            <p>
-                "Onlies" now gain / lose value just like other habits, and are reset back to 0 at the beginning of each day.
-                &nbsp;See <a target="_blank" href="https://trello.com/card/shading-onlies/50e5d3684fe3a7266b0036d6/67">details here</a>, and
-                &nbsp;chime in with your recommendations on this mechanic.
-            </p>
-        </div>
-    {/}
-
-    {#if equal(_user.flags.priorityNotification, 'show')}
-        <div class='alert alert-success'>
-            <a x-bind="click:closePriorityNotification" class=pull-right>[x]</a>
-            <p>New Feature: Priority Multiplier! You can now multiply "more important" tasks on a 1x, 1.5x, or 2x scale. <a target="_blank" href="https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17">See details</a>.</p>
-        </div>
     {/}

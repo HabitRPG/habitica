@@ -1,4 +1,5 @@
 moment = require 'moment'
+_ = require 'underscore'
 
 # Absolute diff between two dates
 daysBetween = (yesterday, now, dayStart) ->
@@ -51,5 +52,12 @@ viewHelpers = (view) ->
     encodeURIComponent "http://#{loc}/v1/users/#{uid}/calendar.ics?apiToken=#{apiToken}"
 
   view.fn 'removeWhitespace', removeWhitespace
+
+  view.fn "notEqual", (a, b) -> (a != b)
+  view.fn "and", -> _.reduce arguments, (cumm, curr) -> cumm && curr
+  view.fn "or", -> _.reduce arguments, (cumm, curr) -> cumm || curr
+
+  view.fn "truarr", (num) ->
+      return num-1
 
 module.exports = { viewHelpers, removeWhitespace, randomProp, daysBetween, dayMapping }

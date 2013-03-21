@@ -10,41 +10,28 @@ restoreRefs = module.exports.restoreRefs = (model) ->
 
 ###
   Loads JavaScript files from (1) public/js/* and (2) external sources
-  We use this file (instead of <Scripts:> or <Tail:> inside .html) so we can utilize require() to concatinate for
-  faster page load, and $.getScript for asyncronous external script loading
+  If a library is available in a CDN, we put it in <Scripts:> (index.html) for better caching. If not, we use
+  this function to utilize require() to concatinate for faster page load, and $.getScript for asyncronous external script loading
 ###
 loadJavaScripts = (model) ->
 
-  require '../../public/vendor/jquery-ui/jquery-1.9.1'
   unless model.get('_view.mobileDevice')
     require '../../public/vendor/jquery-ui/ui/jquery.ui.core'
     require '../../public/vendor/jquery-ui/ui/jquery.ui.widget'
     require '../../public/vendor/jquery-ui/ui/jquery.ui.mouse'
     require '../../public/vendor/jquery-ui/ui/jquery.ui.sortable'
+    require '../../public/sticky.js'
 
-  # Bootstrap
-  require '../../public/vendor/bootstrap/docs/assets/js/bootstrap'
-#  require '../../public/vendor/bootstrap/js/bootstrap-tooltip'
-#  require '../../public/vendor/bootstrap/js/bootstrap-tab'
-#  require '../../public/vendor/bootstrap/js/bootstrap-popover'
-#  require '../../public/vendor/bootstrap/js/bootstrap-modal'
-#  require '../../public/vendor/bootstrap/js/bootstrap-dropdown'
-
-
-  require '../../public/vendor/jquery-cookie/jquery.cookie'
   require '../../public/vendor/bootstrap-tour/bootstrap-tour'
-  require '../../public/vendor/bootstrap-datepicker/js/bootstrap-datepicker'
-  require '../../public/vendor/bootstrap-growl/jquery.bootstrap-growl.min'
-
 
   # JS files not needed right away (google charts) or entirely optional (analytics)
   # Each file getsload asyncronously via $.getScript, so it doesn't bog page-load
   unless model.get('_view.mobileDevice')
 
-    $.getScript("https://s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
+    $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
 
     # Google Charts
-    $.getScript "https://www.google.com/jsapi", ->
+    $.getScript "//www.google.com/jsapi", ->
       # Specifying callback in options param is vital! Otherwise you get blank screen, see http://stackoverflow.com/a/12200566/362790
       google.load "visualization", "1", {packages:["corechart"], callback: ->}
 
@@ -134,6 +121,11 @@ setupTour = (model) ->
   tour._current = 0 if isNaN(tour._current) #bootstrap-tour bug
   tour.start()
 
+
+# jquery sticky header on scroll, no need for position fixed
+initStickyHeader = (model) ->
+  $('.header-wrap').sticky({topSpacing:0})
+
 ###
   Sets up "+1 Exp", "Level Up", etc notifications
 ###
@@ -194,8 +186,8 @@ setupGrowlNotifications = (model) ->
 
 
 module.exports.resetDom = (model) ->
-  window.DERBY.app.dom.clear()
-  window.DERBY.app.view.render(model)
+  DERBY.app.dom.clear()
+  DERBY.app.view.render(model, DERBY.app.view._lastRender.ns, DERBY.app.view._lastRender.context);
 
 module.exports.app = (appExports, model, app) ->
   loadJavaScripts(model)
@@ -206,6 +198,7 @@ module.exports.app = (appExports, model, app) ->
     setupSortable(model)
     setupTooltips(model)
     setupTour(model)
+    initStickyHeader(model) unless model.get('_view.mobileDevice')
     $('.datepicker').datepicker({autoclose:true, todayBtn:true})
       .on 'changeDate', (ev) ->
             #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved

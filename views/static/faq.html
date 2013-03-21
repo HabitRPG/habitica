@@ -1,0 +1,107 @@
+<import: src="head">
+<import: src="header">
+<import: src="../app/footer">
+
+<Title:>
+    HabitRPG | FAQ
+
+<Head:>
+    <app:head:head active="about"/>
+
+<Body:>
+    <div id="wrap">
+        <app:header:header />
+        <div class='container'>
+            <section>
+                <div class="page-header">
+                    <h1>FAQ</h1>
+                </div>
+            </section>
+
+            <section id="habit-tracking">
+                <div class="page-header">
+                    <h2>What is habit tracking?</h2>
+                </div>
+                <p>Habit tracking is keeping tabs on all your habits to help you improve. It is to life what calorie-counting is to diets (and calorie-counting falls under the habit-tracking umbrella). See <a href="http://blog.beeminder.com/trackhack/">Trackers vs Lifehackers</a> for more information and website examples.</p>
+                <p>There are many habit-tracking apps, but HabitRPG takes a different spin: treating your goals and habits like a Role Playing Game (RPG). If you've played RPGs growing up, this app will make sense to you; otherwise, it may be overwhelming at first. Be sure to follow the tutorial when you first load the website, and if you're still confused watch this <a href="/static/about">video tutorial</a></p>
+            </section>
+
+
+            <section id="which-task-type">
+                <div class="page-header">
+                    <h2>Should this task be a Habit, Daily, or Todo?</h2>
+                </div>
+                <p>See <a href="https://habitrpg.com/static/about">About</a> on task type definitions, but think of it like this.</p>
+                <ul>
+                    <li>Habits you track many times per day. Taking the stairs, eating candy, biting your nails, etc. They're sort of micro-tasks. They're also the dumping ground for 3rd-party tasks, created via API calls - for example, when you visit vice websites (Reddit, 9gag) while using the <a href="https://chrome.google.com/webstore/detail/habitrpg/pidkmpibnnnhneohdgjclfdjpijggmjj">Chrome extension</a> - that's updated as a habit.</li>
+                    <li>Dailies are things you track once or twice a day. Exercising, 1h Reading, Anki Session, etc. They reset at the end of each day, and must be completed each day. The confusion is usually between Dailies and Habits, and it usually goes like this: &quot;Should I have a Daily called <em>1h Reading</em> (I want to read 1 hour each day), or a Habit called <em>1h Reading</em> that I up-score for every hour I read in a day?&quot;. My answer - Daily. If it's a decently difficult task that you want to become a good habit, make it a Daily - you're more likely to do it when it loses points at the end of each day than if it sits.</li>
+                    <li>Todos are things you'll do once and only once. <em>Call Mom</em>, <em>Send eBay Package</em>, <em>Pay Doctor Bill</em>, etc. Pretty straight forward.</li>
+                </ul>
+            </section>
+
+            <section id="what-are-tokens">
+                <div class="page-header">
+                    <h2>What are tokens?</h2>
+                </div>
+                <p>In the days of yore, arcade machines ran on tokens or quarters, and were known to gobble such nuggets with avaricious glee. HabitRPG has no wish to drain your pocket change, but those who use and appreciate it can support the project by turning real-world quarters into tokens, and using the tokens in turn to reroll your tasks, spruce up their character, and tame fearsome pets & mounts to impress friend and foe alike!</p>
+            </section>
+
+            <section id="how-do-i-reset">
+                <div class="page-header">
+                    <h2>How do I reset?</h2>
+                </div>
+                <p>Many people have requested the ability to start completely from scratch. This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while - once they've become accustomed to how things work, they want to start playing &quot;for real&quot;. To do this, make sure you're logged in and click the profile drop-down in the top-right corner, then click &quot;Reset&quot;.</p>
+            </section>
+
+            <section id="how-do-i-customize-a-tasks-value">
+                <div class="page-header">
+                    <h2>How do I customize a task's value?</h2>
+                </div>
+                <p>Some tasks are more valuable to you than others. Finishing your research paper, for example, should be worth more points than flossing your teeth. Instead of customizing value upon task-creation, HabitRPG calculates a task's value automatically over time. The longer something sits without being completed (Dailies and Todos), the more valuable it becomes; and the more frequently you complete Dailies, the less valuable they become. Trust in the system's machine-learning of task-values.</p>
+                <p>If you <em>absolutely</em> must customize a task's value, there's a &quot;difficulty&quot; setting under the Advanced section of task-editing.</p>
+            </section>
+
+            <section id="vacation">
+                <div class="page-header">
+                    <h2>I'm going on vacation, how can I disable my Dailies?</h2>
+                </div>
+                <p>Dailies have a &quot;Repeat&quot; field, which specifies which week days this item is due. When you on go vacation, just set each Daily's repeats such that they aren't due on any week days at all. <a href="https://www.evernote.com/shard/s17/sh/e362a4ec-97aa-4c35-8a09-74dc5c16a0fe/a9e895c1f93f4398c56eedef0e58c6fe/res/a44859e5-726e-4e1f-817a-d4f37adbc6f9/skitch.png?resizeSmall&amp;width=832">See this screenshot</a>. As for Todos, they will still gain value but they won't hurt you.</p>
+            </section>
+
+            <section id="beta-access">
+                <div class="page-header">
+                    <h2>Beta Access</h2>
+                </div>
+                <h3>Release Date</h3>
+                <p>The mobile apps are slated to be released in April / May 2013. We hope sooner than that, but that's our current estimate. For the Kickstarter beta access, here's how we'll handle that:</p>
+                <h3>Website</h3>
+                <p>If you like to live dangerously, you can use <a href="https://beta.habitrpg.com">beta.habitrpg.com</a> instead of the production site, which will introduce new features faster. It tracks the production database, so yes your account will be synced.</p>
+                <h3>Mobile App</h3>
+                <p>We'll post updates on the Kickstarter when we have a beta version of the mobile app that y'all can play with (downloadable files, outside the various app stores), and will post each new beta version update on the KS update section as well.</p>
+            </section>
+
+            <section id="browserquest-art">
+                <div class="page-header">
+                    <h2>BrowserQuest Art</h2>
+                </div>
+                <p>We're currently using the pixel art from <a href="https://github.com/mozilla/BrowserQuest">Mozilla BrowserQuest</a>. Some have been opposed because they've played BQ themselves, and don't like design recycling, but here's my reasoning:</p>
+                <p>It is licensed under CC-BY-SA 3.0 (so we can use it). Fortunately for us (but sadly for Mozilla), BQ is mothballed. That has two implications. First, only those in-the-know will recognize it - which is mostly developers &amp; designers who have been keeping abreast HTML5's progress. Second, it's absolutely superb in design and nostalgia - it does an excellent job of bringing back SNES, and it would be a shame to see it go to waste. Also, it's free, and will get pretty far before we need to start customizing.</p>
+            </section>
+
+            <section id="browser-support">
+                <div class="page-header">
+                    <h2>Browser Support</h2>
+                </div>
+                <p>Everything except Internet Explorer. Derby doesn't currently support IE (see <a href="https://github.com/codeparty/derby/issues/126">this thread</a>), though support is <a href="https://github.com/codeparty/saddle">eventually planned</a>. Use Chrome for best results.</p>
+            </section>
+
+            <section id="how-can-i-get-involved">
+                <div class="page-header">
+                    <h2>How can I get involved?</h2>
+                </div>
+                <p>Check out <a href="https://github.com/lefnire/habitrpg/wiki/Business-Model#count-me-in">"Count Me In!"</a>, we need all the help we can get!</p>
+            </section>
+
+        </div>
+    </div>
+    <app:footer:footer />

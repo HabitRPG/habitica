@@ -5,8 +5,8 @@
     <div class="module">
         <div class="task-column habits">
             <h2 class="task-column_title">Habits</h2>
-            <app:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
-            <ul class="habits">{#each _habitList as :task}<app:task />{/}</ul>
+            <app:tasks:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
+            <ul class="habits">{#each _habitList as :task}<app:tasks:task />{/}</ul>
         </div>
     </div>
 
@@ -14,8 +14,8 @@
     <div class="module">
         <div class="task-column dailys">
             <h2 class="task-column_title">Daily</h2>
-            <app:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
-            <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
+            <app:tasks:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
+            <ul class='dailys'>{#each _dailyList as :task}<app:tasks:task />{/}</ul>
         </div>
     </div>
 
@@ -34,12 +34,12 @@
 
             <!-- create new todo -->
             <div class="display-context-dependant show-for-uncompleted">
-                <app:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />
+                <app:tasks:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />
             </div>
 
             <!-- list of all the todos -->
             <ul class='todos task-list'>
-                {#each _todoList as :task}<app:task />{/}
+                {#each _todoList as :task}<app:tasks:task />{/}
             </ul>
             
             <button class='task-action-btn tile spacious bright display-context-dependant show-for-completed' x-bind=click:clearCompleted>Clear Completed</button>
@@ -54,77 +54,8 @@
     </div>
 
     <!-- Rewards Column -->
-    <div class="module">
-        <div class="task-column rewards">
-            <!-- cash or tokens -->
-            <span class='option-box pull-right wallet'>
-                {#unless _view.activeTabPets}
-                <div class="money">
-                    {gold(_user.stats.gp)}
-                    <span class='shop_gold' rel='tooltip' title='Gold'></span>
-                </div>
-                <div class="money">
-                    {silver(_user.stats.gp)}
-                    <span class='shop_silver' rel='tooltip' title='Silver'></span>
-                </div>
-                <!-- <div class="money">
-                    {copper(_user.stats.gp)}
-                    <span class='shop_copper' rel='tooltip' title='Copper'></span>
-                </div> -->
-                {else}
-                <app:userTokens />
-                {/}
-            </span>
-            <h2 class="task-column_title">Rewards</h2>
+    <app:rewards:rewardsColumn />
 
-            <!-- if pets are enabled, make tabs -->
-            {#if equal(_user.flags.dropsEnabled,true)}
-                <div class='tabbable tabs-below'>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="rewards-tab">
-                            <app:rewardsTab />
-                        </div>
-
-                        <!-- pets pane -->
-                        <div class="tab-pane pet-grid" id="market-tab">
-                            <h4>Welcome to the market</h4>
-                            {#with _view.items.food as :food}
-                            <table>
-                                <tr>
-                                    {#with :food[0]}<app:food />{/}
-                                    {#with :food[1]}<app:food />{/}
-                                    {#with :food[2]}<app:food />{/}
-                                    {#with :food[3]}<app:food />{/}
-                                </tr>
-                                <tr>
-                                    {#with :food[4]}<app:food />{/}
-                                    {#with :food[5]}<app:food />{/}
-                                    {#with :food[6]}<app:food />{/}
-                                    {#with :food[7]}<app:food />{/}
-                                </tr>
-                                <tr>
-                                    {#with :food[8]}<app:food />{/}
-                                    {#with :food[9]}<app:food />{/}
-                                </tr>
-                            </table>
-                            {/}
-                        </div>
-                        <!--<div class="tab-pane" id="mounts-tab">...</div>-->
-                    </div>
-
-                    <ul class="nav nav-tabs" id="rewardsTabs">
-                        <li class="active"><a href="#rewards-tab" data-toggle="tab" x-bind="click:activateRewardsTab">Rewards</a></li>
-                        <li><a href="#market-tab" id='market-tab' data-toggle="tab" x-bind='click:activatePetsTab'>Market</a></li>
-                        <!--<li><a href="#mounts-tab" data-toggle="tab">Mounts</a></li>-->
-                    </ul>
-                </div>
-
-            <!-- if pets are disabled, just do rewards tab -->
-            {else}
-                <app:rewardsTab />
-            {/}
-        </div>
-    </div>
 
 <!-- Templates -->
 <newTask:>
@@ -136,7 +67,7 @@
 
 <!-- all the parts of a single task -->
 <task:>
-    <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, :task.repeat)}">
+    <li data-id={{:task.id}} class="task {taskClasses(:task)}">
         
         <!-- right-hand side control buttons -->
         <div class="task-meta-controls">
@@ -182,7 +113,7 @@
         <p class="task-text">{:task.text}</p>
 
         <!-- edit/options dialog -->
-        <app:taskMeta />
+        <app:tasks:taskMeta />
     </li>
 
 <!-- task edit/options -->
@@ -227,12 +158,12 @@
 
             <!-- if Reward, pricing -->
             {else if equal(:task.type, 'reward')}
-                <div class=control-group>
-                    <label>Price</label>
-                    <div class="input-append">
-                        <input class="span5" size="16" type="number" min="0" value={:task.value}><span class="add-on">Gold</span>
-                    </div>
-                </div>
+                <fieldset class="option-group option-short">
+                    <legend class="option-title">Price</legend>
+                    <input class="option-content" size="16" type="number" min="0" value={:task.value}>
+                    <div class="money input-suffix"><span class='shop_gold'></span></div>
+                </fieldset>
+                
 
             <!-- if Todo, the due date -->
             {else if equal(:task.type, 'todo')}

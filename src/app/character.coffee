@@ -61,14 +61,8 @@ module.exports.app = (appExports, model) ->
     batch.commit()
     browser.resetDom(model)
 
-  appExports.closeAlgosNotification = (e, el) ->
-    user.set('flags.algosNotification', 'hide')
-
-  appExports.closeOnliesNotification = (e, el) ->
-    user.set('flags.onliesNotification', 'hide')
-
-  appExports.closePriorityNotification = (e, el) ->
-    user.set('flags.priorityNotification', 'hide')
+  appExports.closeNewStuff = (e, el) ->
+    user.set('flags.newStuff', 'hide')
 
   appExports.customizeGender = (e, el) ->
     user.set 'preferences.gender', $(el).attr('data-value')
