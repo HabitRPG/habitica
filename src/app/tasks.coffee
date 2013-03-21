@@ -135,8 +135,7 @@ module.exports.app = (appExports, model) ->
 
     options = {
       title: 'History'
-      #TODO use current background color: $(el).css('background-color), but convert to hex (see http://goo.gl/ql5pR)
-      backgroundColor: 'whiteSmoke'
+      backgroundColor: { fill:'transparent' }
     }
 
     chart = new google.visualization.LineChart(document.getElementById( chartSelector ))
