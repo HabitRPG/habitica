@@ -53,7 +53,6 @@ items = module.exports.items =
   food: [
     {text: 'Zombie', name: 'Zombie', notes: 'Turns your animal into a Zombie.', value: 3}
     {text: 'White', name: 'White', notes: 'Turns your animal into a White.', value: 3}
-    {text: 'Veteran', name: 'Veteran', notes: 'Turns your animal into a Veteran.', value: 3}
     {text: 'Skeleton', name: 'Skeleton', notes: 'Turns your animal into a Skeleton.', value: 3}
     {text: 'Shade', name: 'Shade', notes: 'Turns your animal into a Shade.', value: 3}
     {text: 'Red', name: 'Red', notes: 'Turns your animal into a Red.', value: 3}
