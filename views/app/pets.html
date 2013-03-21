@@ -1,4 +1,5 @@
 <modals:>
+
   <app:modals:modal modalId='drops-enabled-modal' header="Drops Enabled!">
     <p>You've unlocked the drop system.</p>
     <p>Here's your first egg! {_user.items.eggs.0.text}</p>
@@ -7,11 +8,11 @@
       <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     </@footer>
   </app:modals:modal>
-  <app:modals:modal modalId='item-dropped-modal' header="Item Dropped!">
-    <p>An item has dropped!</p>
-    <p>Here's your {_drop.type} – {_drop.text}!</p>
-    <div class="Pet-{_drop.type}"></div>
-    <p>{_drop.notes}</p>
+
+  <app:modals:modal modalId='item-dropped-modal' header="An item has dropped!">
+    <p><span class="Pet_{_drop.type}_{_drop.name} item-drop-icon"></span>{_drop.dialog}</p>
+
+
     <@footer>
       <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     </@footer>
