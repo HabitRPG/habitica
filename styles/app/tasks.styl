@@ -2,14 +2,7 @@
 // ========================
 
 // color variables
-$worst      =   rgb(230, 184, 175)
-$worse      =   rgb(244, 204, 204)
-$bad        =   rgb(252, 229, 205)
-$neutral    =   rgb(255, 242, 204)
-$good       =   rgb(217, 234, 211)
-$better     =   rgb(208, 224, 227)
-$best       =   rgb(201, 218, 248)
-$completed  =   rgb(217, 217, 217)
+@import "./color-vars.styl";
 
 // array of keywords and their associated color vars
 $stages = (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $good) (better $better) (best $best)
@@ -96,13 +89,10 @@ for $stage in $stages
   border: 0
   border-radius: 0 //required to nuke BB-playbook user agent styles
   background-color: darken($best, 15%)
-  &:hover,
-  &:focus
-    // opacity: 1
+  &:hover, &:focus
     background-color: darken($best, 20%)
   &:active
     background-color: darken($best, 30%)
-    // opacity: 1
 
 
 // an individual task entry
@@ -124,7 +114,8 @@ for $stage in $stages
 
 // task content
 .task-text
-  display: inline
+  padding: 0.75em 0
+  line-height: 1.4
 
 // when a task is being dragged
 .task.ui-sortable-helper {
@@ -136,7 +127,8 @@ for $stage in $stages
 // primary task commands
 // ----------------------
 .task-controls
-  display: inline
+  display: inline-block
+  float: left
   margin-left: -0.5em
   margin-right: 0.5em
 
@@ -201,7 +193,6 @@ for $stage in $stages
   position: relative
   // uncompleted icon
   label:after, label:before
-    // content: '◯'
     content: ''
     display: block
     height: 1.714285714em
@@ -213,7 +204,7 @@ for $stage in $stages
     opacity: 0.2
 
   label:after
-    content: '▨'
+    content: ''
   label:before
     position: absolute
     left: 0
@@ -260,6 +251,8 @@ for $stage in $stages
 .task:hover .task-meta-controls
   opacity: 1
 
+.popover
+  line-height: 1.5
 
 // task editing
 // ------------
@@ -314,6 +307,14 @@ for $stage in $stages
     vertical-align: 20%
     padding-left: 0.25em
 
+.option-medium
+  .option-content
+    width: 6em
+    display: inline-block
+  .input-suffix
+    vertical-align: 20%
+    padding-left: 0.25em
+
 // button-group
 .task-controls.tile-group
   display: block
@@ -335,6 +336,8 @@ for $stage in $stages
   &.active
     opacity: 1
 
+.tile.solid
+  opacity: 1
 .tile.spacious
   margin: 0.75em 0
   font-size: 1.5em

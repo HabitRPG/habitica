@@ -9,6 +9,7 @@
 @import "./alerts.styl";
 @import "./helpers.styl";
 @import "./responsive.styl";
+@import "./header.styl";
 @import "./scrollbars.styl";
 
 
@@ -25,90 +26,15 @@ html,body,p,h1,ul,li,table,tr,th,td
   -moz-box-sizing: border-box
   box-sizing: border-box
 
+* { font-family: "Lato", sans-serif }
+
 hr
   border-top: 0
   border-bottom: 1px solid #ddd
   border-color: rgba(0,0,0,0.1)
 
 
-/* Header
--------------------------------------------------- */
 
-#head
-  background: #ddd
-  background: -webkit-gradient(linear,0 0,0 100%,from(#e7e7e7),to(#d0d0d0))
-  background: -moz-linear-gradient(#e7e7e7, #d0d0d0)
-  background: -ms-linear-gradient(#e7e7e7, #d0d0d0)
-  background: -o-linear-gradient(#e7e7e7, #d0d0d0)
-  background: linear-gradient(#e7e7e7, #d0d0d0)
-  -webkit-box-shadow: inset 0 1px #f7f7f7, 0 1px #888, 0 2px #e7e7e7
-  -moz-box-shadow: inset 0 1px #f7f7f7, 0 1px #888, 0 2px #e7e7e7
-  box-shadow: inset 0 1px #f7f7f7, 0 1px #888, 0 2px #e7e7e7
-  padding: 12px 16px
-  white-space: nowrap
-  position:fixed
-  width: 100%
-  box-sizing: border-box
-  z-index: 1000
-
-@media (max-width: 600px) {
-  #head {
-    position: static;
-  }
-}
-
-#head .pull-right
-  margin-right: 0
-  margin-left: 1%
-
-.modal
-  whitespace:normal
-
-.dropdown-menu
-  right: 0
-  left: auto
-  
-.char-status
-  // border: 1px dotted grey
-
-.main-avatar-wrap
-  margin: 0 5px 0 0
-  float: left
-  
-.party-avatar-wrap
-  margin: 0
-  float: right
-
-.progress-bars
-  padding-top: 15px
-
-.progress
-  position: relative
-  height: 25px
-.bar
-  height: 25px
-  border: 1px solid black
-.progress-text
-  position: absolute
-  right: 5px
-  top: 3px
-  color: black
-
-@media (max-width: 600px) {
-  .char-status {
-    padding-top: 30px
-  }
-  .main-avatar-wrap {
-    border-right: 1px solid grey;
-    padding-right: 20px
-  }
-  .party-avatar-wrap {
-    float: left;
-  }
-  .progress-bars {
-    clear: both
-  }
-}
 
 /* Footer
 -------------------------------------------------- */
@@ -132,10 +58,11 @@ hr
 }
 
 /* Customizations to make footer sticky */
-/*html, body {height: 100%;}*/                                                                                                                                                                                                                   
-#wrap {min-height: 100%; margin-top:130px; z-index:-1}                                                                                                                                                                                                                    
-#main                                                                                                                                                                                                                                        
-  /*overflow:auto;*/                                                                                                                                                                                                                             
+/*html, body {height: 100%;}*/
+#wrap
+  min-height: 100%
+  z-index:-1
+#main
   padding-bottom: 250px; /* don't know why this works, sticky footers are weird */
 
 @media (max-width: 600px) {
@@ -188,6 +115,9 @@ hr
 
 /* Misc
 -------------------------------------------------- */
+
+.modal
+  whitespace: normal
 
 .notification-character
   float:left

@@ -1,58 +1,46 @@
 <header:>
     {#unless equal(_user.preferences.hideHeader,true)}
-        <div class="row-fluid">
-            <div class='char-status {#if gt(_partyMembers.length,1)}span8 offset2 has-party{else}span6 offset3{/}'>
+        <header class="site-header" role="banner" data-partySize="{#if gt(_partyMembers.length,1)}{truarr(_partyMembers.length)}{else}0{/}">
+            <!-- avatar -->
+            <div class="herobox-wrap">
+                <app:avatar:avatar profile={_user}>
+            </div>
 
-                <!-- avatar -->
-                <figure class="main-avatar-wrap">
-                    <app:avatar:avatar profile={_user} main="true" />
-                </figure>
+            <!-- stat bars -->
+            <div class="hero-stats">
+                <div class="meter health" title="Health">
+                    <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
+                    <span class="meter-text"><i class=icon-heart></i> {ceil(_user.stats.hp)} / 50</span>
+                </div>
 
-                <!-- party -->
-                {{#each _partyMembers as :member}}
-                    <!-- #each requires an element, so #if / #unless blocks nested immediately inside cause issues if they return false -->
-                    <!-- see https://github.com/codeparty/derby/issues/215 -->
-                    <span>
-                    {{#unless equal(:member.id, _userId)}}
-                        <figure class="party-avatar-wrap" rel="popover" data-title="{{username(:member.auth)}}" data-placement="bottom" data-trigger="hover" data-html="true" data-content="
-                             <div>
-                                <div class='progress progress-danger' style='height:5px;'>
-                                    <div class='bar' style='height: 5px; width: {percent(:member.stats.hp, 50)}%;'></div>
-                                </div>
-                                <div class='progress progress-warning' style='height:5px;'>
-                                    <div class='bar' style='height: 5px; width: {percent(:member.stats.exp, tnl(:member.stats.lvl))}%;'></div>
-                                </div>
-                                <div>GP: {{floor(:member.stats.gp)}}</div>
-                            </div>
-                        ">
-                        <!-- Would be way cleaner as a Derby template `data-content="<app:party:member-stats profile={{:member}} />"`, but it was just printing HTML as text -->
-
-                            <app:avatar:avatar profile={{:member}} party="true" />
-                        </figure>
-                    {{/}}
-                    </span>
-                {{/}}
-
-                <!-- progress bars -->
-                <div class="progress-bars">
-                    <div class="progress progress-danger" rel=tooltip data-placement=bottom title="Health">
-                        <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
-                        <span class="progress-text"><i class=icon-heart></i> {ceil(_user.stats.hp)} / 50</span>
-                    </div>
-
-                    <div class="progress progress-warning" rel=tooltip data-placement=bottom title="Experience">
-                        <div class="bar" style="width: {percent(_user.stats.exp,tnl(_user.stats.lvl))}%;"></div>
-                    <span class="progress-text">
-                      {#if _user.history.exp}
-                        <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp;
-                      {/}
+                <div class="meter experience" title="Experience">
+                    <div class="bar" style="width: {percent(_user.stats.exp,tnl(_user.stats.lvl))}%;"></div>
+                    <span class="meter-text">
+                      <!-- disabled chart for now, it doesn't work -->
+                      <!-- {#if _user.history.exp} -->
+                        <!-- <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp; -->
+                      <!-- {/} -->
                       <i class=icon-star></i> {floor(_user.stats.exp)} / {tnl(_user.stats.lvl)}
                     </span>
-                    </div>
-                    <div id="exp-chart" style="display:none;"></div>
                 </div>
-                <!-- end .char-status -->
+                <!-- hiding the button until we revamp stats/graphs -->
+                <!-- <div id="exp-chart" style="display:none;"></div> -->
             </div>
-            <!-- end .row-fluid -->
-        </div>
+
+            <!-- party -->
+            <!-- I have an idea to use this loop for the user's herobox/avatar as well
+                 NOTE TO SELF: Ask Tyler if some kind of inter-leaving is possible 
+                 where we can put ONE of the results of this loop BEFORE the progress bars, and the rest after-->
+            {{#each _partyMembers as :member}}
+                {{#unless equal(:member.id, _userId)}}
+                    <div class="herobox-wrap">
+                        <app:avatar:avatar profile={{:member}} party="true" />
+                    <!-- Would be way cleaner as a Derby template `data-content="<app:party:member-stats profile={{:member}} />"`, but it was just printing HTML as text -->
+                    <!-- I've re-implemented the rollover using the actual `herobox`/avatar template and data-attributes.
+                        This Derby template idea would have been really handy but this is pretty versatile, and keeps it all in the avatar section -->
+                    </div>
+                {{/}}
+            {{/}}
+
+        </header>
     {/}

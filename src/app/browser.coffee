@@ -20,6 +20,7 @@ loadJavaScripts = (model) ->
     require '../../public/vendor/jquery-ui/ui/jquery.ui.widget'
     require '../../public/vendor/jquery-ui/ui/jquery.ui.mouse'
     require '../../public/vendor/jquery-ui/ui/jquery.ui.sortable'
+    require '../../public/sticky.js'
 
   require '../../public/vendor/bootstrap-tour/bootstrap-tour'
 
@@ -120,6 +121,11 @@ setupTour = (model) ->
   tour._current = 0 if isNaN(tour._current) #bootstrap-tour bug
   tour.start()
 
+
+# jquery sticky header on scroll, no need for position fixed
+initStickyHeader = (model) ->
+  $('.header-wrap').sticky({topSpacing:0})
+
 ###
   Sets up "+1 Exp", "Level Up", etc notifications
 ###
@@ -192,6 +198,7 @@ module.exports.app = (appExports, model, app) ->
     setupSortable(model)
     setupTooltips(model)
     setupTour(model)
+    initStickyHeader(model) unless model.get('_view.mobileDevice')
     $('.datepicker').datepicker({autoclose:true, todayBtn:true})
       .on 'changeDate', (ev) ->
             #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
