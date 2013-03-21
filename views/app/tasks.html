@@ -1,235 +1,191 @@
 <taskLists:>
     <!--helpTitle & helpContent moved to tour -->
-    <div class="span3 well habits">
-        <h2>Habits</h2>
-        <app:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
-        <ul class="habits">{#each _habitList as :task}<app:task />{/}</ul>
+
+    <!-- Habits Column -->
+    <div class="module">
+        <div class="task-column habits">
+            <h2 class="task-column_title">Habits</h2>
+            <app:tasks:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
+            <ul class="habits">{#each _habitList as :task}<app:tasks:task />{/}</ul>
+        </div>
     </div>
 
-    <div class="span3 well dailys">
-        <h2>Daily</h2>
-        <app:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
-        <ul class='dailys'>{#each _dailyList as :task}<app:task />{/}</ul>
+    <!-- Dailys Column -->
+    <div class="module">
+        <div class="task-column dailys">
+            <h2 class="task-column_title">Daily</h2>
+            <app:tasks:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
+            <ul class='dailys'>{#each _dailyList as :task}<app:tasks:task />{/}</ul>
+        </div>
     </div>
 
-    <div class="span3 well todos context-enabled context-uncompleted tabbable tabs-below" id="todo-well">
-        <h2>Todos</h2>
-        <div class="display-context-dependant show-for-uncompleted">
-            <app:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />
-        </div>
-        <ul class='todos task-list'>
-            {#each _todoList as :task}<app:task />{/}
-        </ul>
-        <div class="display-context-dependant show-for-completed">
-            <a class='btn' x-bind=click:clearCompleted>Clear Completed</a>
-            <p>&nbsp;</p>
-        </div>
-            <span class='pull-right'>
+    <!-- Todos Column -->
+    <div class="module">
+        <div class="task-column todos context-enabled context-uncompleted tabbable tabs-below" id="todo-well">
+            <!-- todo export/graph options -->
+            <span class='option-box pull-right'>
                 {#if _user.history.todos}
-                  <a x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
+                  <a class="option-action" x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
                 {/}
-                &nbsp;<a href="/v1/users/{{_user.id}}/calendar.ics?apiToken={{_user.apiToken}}"><img src='/img/calendar_ical.png' title="iCal" alt="iCal" rel=tooltip /></a>
-                <!--&nbsp;<a target="_blank" href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}"><img src='/img/calendar_google.png' title="Google Calendar" alt="Google Calendar" rel=tooltip /></a>-->
+                <a class="option-action" href="/v1/users/{{_user.id}}/calendar.ics?apiToken={{_user.apiToken}}" rel=tooltip title="iCal"><i class=icon-calendar></i></a>
+                <!-- <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a> -->
             </span>
-        <div id="todos-chart" style="display:none;"></div>
-        <ul class="nav nav-tabs">
-            <li class="active"><a x-bind=click:changeContext data-target="#todo-well" data-context="context-uncompleted">Remaining</a></li>
-            <li><a x-bind=click:changeContext data-target="#todo-well" data-context="context-completed">Complete</a></li>
-        </ul>
+            <h2 class="task-column_title">Todos</h2>
 
-    </div>
-
-    <div class="span3 well rewards">
-
-        <!--Title -->
-        <div class="row-fluid">
-            <div class="span6"><h2>Rewards</h2></div>
-            <div class="span6">
-                {#unless _view.activeTabPets}
-                <table><tr>
-                    <td>{gold(_user.stats.gp)} </td>
-                    <td><div class='shop_gold' rel='tooltip' title='Gold'></div></td>
-                    <td>{silver(_user.stats.gp)} </td>
-                    <td><div class='shop_silver' rel='tooltip' title='Silver'></div></td>
-                    <!--<td>{copper(_user.stats.gp)} </td>
-                    <td><div class='shop_copper' rel='tooltip' title='shop_copper'></div></td>-->
-                </tr></table>
-                {else}
-                <app:userTokens />
-                {/}
-            </div>
-        </div>
-        <app:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
-
-        {#if equal(_user.flags.petsEnabled,true)}
-        <div class='tabbable tabs-below'>
-
-            <div class="tab-content">
-                <div class="tab-pane active" id="rewards-tab">
-                    <app:rewardsTab />
-                </div>
-
-                <div class="tab-pane" id="pets-tab">
-                    {#with _view.items.pets as :pets}
-
-                    <div class="row-fluid">
-                        {#with :pets[0]}<app:pet />{/}
-                        {#with :pets[1]}<app:pet />{/}
-                        {#with :pets[2]}<app:pet />{/}
-                        {#with :pets[3]}<app:pet />{/}
-                    </div>
-
-                    <div class="row-fluid">
-                        {#with :pets[4]}<app:pet />{/}
-                        {#with :pets[5]}<app:pet />{/}
-                        {#with :pets[6]}<app:pet />{/}
-                        {#with :pets[7]}<app:pet />{/}
-                    </div>
-
-                    <div class="row-fluid">
-                        {#with :pets[8]}<app:pet />{/}
-                        {#with :pets[9]}<app:pet />{/}
-                        {#with :pets[10]}<app:pet />{/}
-                        {#with :pets[11]}<app:pet />{/}
-                    </div>
-
-                    <div class="row-fluid">
-                        {#with :pets[12]}<app:pet />{/}
-                        {#with :pets[13]}<app:pet />{/}
-                        {#with :pets[14]}<app:pet />{/}
-                        {#with :pets[15]}<app:pet />{/}
-                    </div>
-
-                    <div class="row-fluid">
-                        {#with :pets[16]}<app:pet />{/}
-                    </div>
-
-
-                    {/}
-                </div>
-                <!--<div class="tab-pane" id="mounts-tab">...</div>-->
+            <!-- create new todo -->
+            <div class="display-context-dependant show-for-uncompleted">
+                <app:tasks:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />
             </div>
 
-
-            <ul class="nav nav-tabs" id="rewardsTabs">
-                <li class="active"><a href="#rewards-tab" data-toggle="tab" x-bind="click:activateRewardsTab">Rewards</a></li>
-                <li><a href="#pets-tab" id='pets-tab' data-toggle="tab" x-bind='click:activatePetsTab'>Pets</a></li>
-                <!--<li><a href="#mounts-tab" data-toggle="tab">Mounts</a></li>-->
+            <!-- list of all the todos -->
+            <ul class='todos task-list'>
+                {#each _todoList as :task}<app:tasks:task />{/}
+            </ul>
+            
+            <button class='task-action-btn tile spacious bright display-context-dependant show-for-completed' x-bind=click:clearCompleted>Clear Completed</button>
+            <div id="todos-chart" style="display:none;"></div>
+            
+            <!-- remaining/completed tabs -->
+            <ul class="todo-status-toggler nav nav-tabs">
+                <li class="active"><a x-bind=click:changeContext data-target="#todo-well" data-context="context-uncompleted">Remaining</a></li>
+                <li><a x-bind=click:changeContext data-target="#todo-well" data-context="context-completed">Complete</a></li>
             </ul>
         </div>
-    {else}
-        <app:rewardsTab />
-    {/}
     </div>
 
+    <!-- Rewards Column -->
+    <app:rewards:rewardsColumn />
+
+
+<!-- Templates -->
 <newTask:>
-    <form class="form-inline new-task-form" id="new-{@type}" data-task-type="{@type}" x-bind="submit:addTask">
-        <input value="{@inputValue}" type="text" name="new-task" placeholder="{@placeHolder}"/>
-        <input class="btn" type="submit" value="Add" />
+    <form class="addtask-form form-inline new-task-form" id="new-{@type}" data-task-type="{@type}" x-bind="submit:addTask">
+        <span class="addtask-field"><input value="{@inputValue}" type="text" name="new-task" placeholder="{@placeHolder}"/></span>
+        <input class="addtask-btn" type="submit" value="＋">
     </form>
+    <hr>
 
+<!-- all the parts of a single task -->
 <task:>
-    <li data-id={{:task.id}} class="task {taskClasses(:task.type, :task.completed, :task.value, :task.repeat)}">
-        <pre>
-            <div class="task-meta-controls">
+    <li data-id={{:task.id}} class="task {taskClasses(:task)}">
+        
+        <!-- right-hand side control buttons -->
+        <div class="task-meta-controls">
+            <!-- edit -->
+            <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
+            <!-- delete -->
+            <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
+            <!-- chart -->
+            <!-- removing for now cuz it's broken -->
+            {#if :task.history}
+            <!-- <a x-bind=click:toggleChart data-toggle-id="{{:task.id}}-chart" data-hide-id="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history" rel="tooltip" title="Progress"><i class="icon-signal"></i></a> -->
+            {/}
+            <!-- notes -->
+            {#if :task.notes}
+            <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
+            {/}
+        </div>
 
-                <div class="hover-show">
-                    <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
-                    <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
-                    {#if :task.history}
-                    <a x-bind=click:toggleChart data-toggle-id="{{:task.id}}-chart" data-hide-id="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history" rel="tooltip" title="Progress">
-                        <i class="icon-signal"></i>
-                    </a>
-                    {/}
-                </div>
+        <!-- left-hand side checkbox -->
+        <div class="task-controls">
+            <!-- Habits -->
+            {#if equal(:task.type, 'habit')}
+            {#if :task.up}<a class="task-action-btn" data-direction=up x-bind=click:score>＋</a>{/}
+            {#if :task.down}<a class="task-action-btn" data-direction=down x-bind=click:score>−</a>{/}
+            
+            <!-- Rewards -->
+            {else if equal(:task.type, 'reward')}
+            <a class="money btn-buy" x-bind=click:score data-direction=down>
+                <span class="reward-cost">{:task.value}</span>
+                <span class='shop_gold'></span>
+            </a>
+            
+            <!-- Daily & Todos -->
+            {else}
+            <span class="task-checker action-yesno">
+                <input type=checkbox id="box-{{:task.id}}" class="visuallyhidden focusable" checked="{:task.completed}">
+                <label for="box-{{:task.id}}"></label>
+            </span>
+            {/}
+        </div>
 
-                {#if :task.notes}
-                <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
-                {/}
-            </div>
+        <!-- main content -->
+        <p class="task-text">{:task.text}</p>
 
-            <div class="task-controls">
-                <!-- Habits -->
-                {#if equal(:task.type, 'habit')}
-                {#if :task.up}<a data-direction=up x-bind=click:score><img src="/img/add.png" /></a>{/}
-                {#if :task.down}<a data-direction=down x-bind=click:score><img src="/img/remove.png" /></a>{/}
-                <!-- Rewards -->
-                {else if equal(:task.type, 'reward')}
-                <a x-bind=click:score class="buy-link" data-direction=down>{:task.value}<img src="/img/coin_single_gold.png"/></a>
-                <!-- Daily & Todos -->
-                {else}
-                <input type=checkbox checked="{:task.completed}"/>
-                {/}
-            </div>
-            <div class="task-text">{:task.text}</div>
-
-            <app:taskMeta />
-        </pre>
+        <!-- edit/options dialog -->
+        <app:tasks:taskMeta />
     </li>
 
+<!-- task edit/options -->
 <taskMeta:>
-    <div style="display:none;" id={{:task.id}}-edit>
-        <hr/>
+    <div id="{{:task.id}}-edit" class="task-options visuallyhidden">
         <form x-bind=submit:toggleTaskEdit data-toggle-id="{{:task.id}}-edit">
-            <div class=control-group>
-                <label>Text</label><input type=text value={:task.text} />
-                <label>Notes</label><textarea rows=3>{:task.notes}</textarea>
-            </div>
+            <!-- text & notes -->
+            <fieldset class="option-group">
+                <label class="option-title">Text</label><input class="option-content" type=text value={:task.text}>
+                <label class="option-title">Extra Notes</label><textarea class="option-content" rows=3>{:task.notes}</textarea>
+            </fieldset>
+
+            <!-- if Habit, plus/minus command options -->
             {#if equal(:task.type, 'habit')}
-                <hr/>
-                <label>Direction</label>
-                <div class="control-group">
-                    <label class="checkbox inline"><input type=checkbox checked={:task.up}>Up</label>
-                    <label class="checkbox inline"><input type=checkbox checked={:task.down}>Down</label>
-                </div>
+                <fieldset class="option-group">
+                    <legend class="option-title">Direction/Actions</legend>
+                    <span class="task-checker action-plusminus select-toggle">
+                        <input class="visuallyhidden focusable" type=checkbox id="{{:task.id}}-option-plus" checked={:task.up}>
+                        <label for="{{:task.id}}-option-plus"></label>
+                    </span>
+                    <span class="task-checker action-plusminus select-toggle">
+                        <input class="visuallyhidden focusable" type=checkbox id="{{:task.id}}-option-minus" checked={:task.down}>
+                        <label for="{{:task.id}}-option-minus"></label>
+                    </span>
+                </fieldset>
+
+            <!-- if Daily, calendar -->
             {else if equal(:task.type, 'daily')}
-                <hr/>
-                <label>Repeat</label>
-                <div class="control-group btn-group repeat-days">
-                    <!-- note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding -->
-                    <button type="button" class="btn btn-info {#if :task.repeat.su}active{/}" data-day='su' x-bind=click:toggleDay>Su</button>
-                    <button type="button" class="btn btn-info {#if :task.repeat.m}active{/}" data-day='m' x-bind=click:toggleDay>M</button>
-                    <button type="button" class="btn btn-info {#if :task.repeat.t}active{/}" data-day='t' x-bind=click:toggleDay>T</button>
-                    <button type="button" class="btn btn-info {#if :task.repeat.w}active{/}" data-day='w' x-bind=click:toggleDay>W</button>
-                    <button type="button" class="btn btn-info {#if :task.repeat.th}active{/}" data-day='th' x-bind=click:toggleDay>Th</button>
-                    <button type="button" class="btn btn-info {#if :task.repeat.f}active{/}" data-day='f' x-bind=click:toggleDay>F</button>
-                    <button type="button" class="btn btn-info {#if :task.repeat.s}active{/}" data-day='s' x-bind=click:toggleDay>S</button>
-                </div>
+                <fieldset class="option-group">
+                    <legend class="option-title">Repeat</legend>
+                    <div class="task-controls tile-group repeat-days">
+                        <!-- note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding -->
+                        <button type="button" class="task-action-btn tile {#if :task.repeat.su}active{/}" data-day='su' x-bind=click:toggleDay>Su</button>
+                        <button type="button" class="task-action-btn tile {#if :task.repeat.m}active{/}" data-day='m' x-bind=click:toggleDay>M</button>
+                        <button type="button" class="task-action-btn tile {#if :task.repeat.t}active{/}" data-day='t' x-bind=click:toggleDay>T</button>
+                        <button type="button" class="task-action-btn tile {#if :task.repeat.w}active{/}" data-day='w' x-bind=click:toggleDay>W</button>
+                        <button type="button" class="task-action-btn tile {#if :task.repeat.th}active{/}" data-day='th' x-bind=click:toggleDay>Th</button>
+                        <button type="button" class="task-action-btn tile {#if :task.repeat.f}active{/}" data-day='f' x-bind=click:toggleDay>F</button>
+                        <button type="button" class="task-action-btn tile {#if :task.repeat.s}active{/}" data-day='s' x-bind=click:toggleDay>S</button>
+                    </div>
+                </fieldset>
+
+            <!-- if Reward, pricing -->
             {else if equal(:task.type, 'reward')}
-                <hr/>
-                <div class=control-group>
-                    <label>Price</label>
-                    <div class="input-append">
-                        <input class="span5" size="16" type="number" min="0" value={:task.value}><span class="add-on">Gold</span>
-                    </div>
+                <fieldset class="option-group option-short">
+                    <legend class="option-title">Price</legend>
+                    <input class="option-content" size="16" type="number" min="0" value={:task.value}>
+                    <div class="money input-suffix"><span class='shop_gold'></span></div>
+                </fieldset>
+                
 
-                </div>
+            <!-- if Todo, the due date -->
             {else if equal(:task.type, 'todo')}
-                <hr/>
-                <div class=control-group>
-                    <label>Due Date</label>
-                    <input type="text" value="{:task.date}" data-date-format="mm/dd/yyyy" class="datepicker" />
-                    <div><small>Enter as date, eg 02/19/2013 or 02-19-2013</small></div>
-                </div>
+                <fieldset class="option-group">
+                    <legend class="option-title">Due Date</legend>
+                    <input class="option-content datepicker" type="text" value="{:task.date}" data-date-format="mm/dd/yyyy">
+                </fieldset>
             {/}
-
-            <hr/>
+            
+            <!-- Advanced Options -->
             {#unless equal(:task.type, 'reward')}
-                <div>
-                    <a x-bind="click:tasksToggleAdvanced">Advanced</a>
-                    <div class='advanced hide'>
-
-                        <label>Difficulty <a class='priority-multiplier-help' href="https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17" target="_blank"><i class='icon-question-sign'></i></a></label>
-                        <div class="control-group btn-group priority-multiplier" data-id="{{:task.id}}">
-                            <button type="button" class="btn btn-info {#if equal(:task.priority,'!')}active{/}{#unless :task.priority}active{/}" data-priority='!' x-bind=click:tasksSetPriority>Easy</button>
-                            <button type="button" class="btn btn-info {#if equal(:task.priority,'!!')}active{/}" data-priority='!!' x-bind=click:tasksSetPriority>Medium</button>
-                            <button type="button" class="btn btn-info {#if equal(:task.priority,'!!!')}active{/}" data-priority='!!!' x-bind=click:tasksSetPriority>Hard</button>
-                        </div>
+                <p x-bind="click:tasksToggleAdvanced" class="option-title mega">Advanced Options</p>
+                <fieldset class="option-group advanced-option visuallyhidden">
+                    <legend class="option-title"><a class='priority-multiplier-help' href="https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17" target="_blank"><i class='icon-question-sign'></i></a> Difficulty</legend>
+                    <div class="task-controls tile-group priority-multiplier" data-id="{{:task.id}}">
+                        <button type="button" class="task-action-btn tile {#if equal(:task.priority,'!')}active{/}{#unless :task.priority}active{/}" data-priority='!' x-bind=click:tasksSetPriority>Easy</button>
+                        <button type="button" class="task-action-btn tile {#if equal(:task.priority,'!!')}active{/}" data-priority='!!' x-bind=click:tasksSetPriority>Medium</button>
+                        <button type="button" class="task-action-btn tile {#if equal(:task.priority,'!!!')}active{/}" data-priority='!!!' x-bind=click:tasksSetPriority>Hard</button>
                     </div>
-                </div>
-                <br/>
+                </fieldset>
             {/}
-            <button type=submit class="btn" x-bind="click:tasksSaveAndClose">Save & Close</button>
+            <button type=submit class="task-action-btn tile spacious" x-bind="click:tasksSaveAndClose">Save & Close</button>
         </form>
     </div>
 

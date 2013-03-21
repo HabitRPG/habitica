@@ -1,4 +1,5 @@
-moment = require('moment')
+moment = require 'moment'
+_ = require 'underscore'
 
 # Absolute diff between two dates
 module.exports.daysBetween = (yesterday, now, dayStart) ->
@@ -36,5 +37,9 @@ module.exports.viewHelpers = (view) ->
   view.fn "encodeiCalLink", (uid, apiToken) ->
     loc = window?.location.host or process.env.BASE_URL
     encodeURIComponent "http://#{loc}/v1/users/#{uid}/calendar.ics?apiToken=#{apiToken}"
+
+  view.fn "notEqual", (a, b) -> (a != b)
+  view.fn "and", -> _.reduce arguments, (cumm, curr) -> cumm && curr
+  view.fn "or", -> _.reduce arguments, (cumm, curr) -> cumm || curr
 
 

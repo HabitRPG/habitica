@@ -10,6 +10,9 @@
 
                 <!-- party -->
                 {{#each _partyMembers as :member}}
+                    <!-- #each requires an element, so #if / #unless blocks nested immediately inside cause issues if they return false -->
+                    <!-- see https://github.com/codeparty/derby/issues/215 -->
+                    <span>
                     {{#unless equal(:member.id, _userId)}}
                         <figure class="party-avatar-wrap" rel="popover" data-title="{{username(:member.auth)}}" data-placement="bottom" data-trigger="hover" data-html="true" data-content="
                              <div>
@@ -27,6 +30,7 @@
                             <app:avatar:avatar profile={{:member}} party="true" />
                         </figure>
                     {{/}}
+                    </span>
                 {{/}}
 
                 <!-- progress bars -->

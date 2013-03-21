@@ -20,9 +20,15 @@ NO_USER_FOUND = err: "No user found."
   $ mocha test/api.mocha.coffee
 ###
 
+###
+  API Status
+###
 router.get '/status', (req, res) ->
   res.json status: 'up'
 
+###
+  beforeEach auth interceptor
+###
 auth = (req, res, next) ->
   uid = req.headers['x-api-user']
   token = req.headers['x-api-key']
@@ -38,7 +44,9 @@ auth = (req, res, next) ->
     return res.json 401, NO_USER_FOUND if !req.userObj || _.isEmpty(req.userObj)
     req._isServer = true
     next()
-
+###
+  GET /user
+###
 router.get '/user', auth, (req, res) ->
   user = req.userObj
 
@@ -46,17 +54,24 @@ router.get '/user', auth, (req, res) ->
   user.stats.maxHealth = 50
 
   delete user.apiToken
-  delete user.auth.hashed_password
-  delete user.auth.salt
+  if user.auth
+    delete user.auth.hashed_password
+    delete user.auth.salt
 
   res.json user
 
+###
+  GET /user/task/:id
+###
 router.get '/user/task/:id', auth, (req, res) ->
   task = req.userObj.tasks[req.params.id]
   return res.json 400, err: "No task found." if !task || _.isEmpty(task)
 
   res.json 200, task
 
+###
+  validate task
+###
 validateTask = (req, res, next) ->
   task = {}
   newTask = { type, text, notes, value, up, down, completed } = req.body
@@ -87,11 +102,17 @@ validateTask = (req, res, next) ->
   req.task = task
   next()
 
+###
+  PUT /user/task/:id
+###
 router.put '/user/task/:id', auth, validateTask, (req, res) ->
   req.user.set "tasks.#{req.task.id}", req.task
 
   res.json 200, req.task
 
+###
+  DELETE /user/task/:id
+###
 router.delete '/user/task/:id', auth, validateTask, (req, res) ->
   taskIds = req.user.get "#{req.task.type}Ids"
 
@@ -101,6 +122,9 @@ router.delete '/user/task/:id', auth, validateTask, (req, res) ->
 
   res.send 204
 
+###
+  POST /user/task/
+###
 router.post '/user/task', auth, validateTask, (req, res) ->
   task = req.task
   type = task.type
@@ -112,6 +136,9 @@ router.post '/user/task', auth, validateTask, (req, res) ->
 
   res.json 201, task
 
+###
+  GET /user/tasks
+###
 router.get '/user/tasks', auth, (req, res) ->
   user = req.userObj
   return res.json 400, NO_USER_FOUND if !user || _.isEmpty(user)
@@ -160,8 +187,12 @@ scoreTask = (req, res, next) ->
   delta = scoring.score(model, taskId, direction)
   result = model.get ('_user.stats')
   result.delta = delta
-  res.send(result)
+  res.json result
 
+###
+  POST /user/tasks/:taskId/:direction
+###
+router.post '/user/task/:taskId/:direction', auth, scoreTask
 router.post '/user/tasks/:taskId/:direction', auth, scoreTask
 
 module.exports = router
