@@ -116,7 +116,7 @@ score = (model, taskId, direction, times, batch, cron) ->
     batch.commit()
 
   # 1% chance of getting a pet or meat
-  if obj.flags.dropsEnabled and Math.random() < .5
+  if direction is 'up' and obj.flags.dropsEnabled and Math.random() < .5
     if Math.random() < .5
       drop = randomVal(food)
       user.push 'items.food', drop.text
