@@ -54,8 +54,9 @@ router.get '/user', auth, (req, res) ->
   user.stats.maxHealth = 50
 
   delete user.apiToken
-  delete user.auth.hashed_password
-  delete user.auth.salt
+  if user.auth
+    delete user.auth.hashed_password
+    delete user.auth.salt
 
   res.json user
 
@@ -186,8 +187,12 @@ scoreTask = (req, res, next) ->
   delta = scoring.score(model, taskId, direction)
   result = model.get ('_user.stats')
   result.delta = delta
-  res.send(result)
+  res.json result
 
+###
+  POST /user/tasks/:taskId/:direction
+###
+router.post '/user/task/:taskId/:direction', auth, scoreTask
 router.post '/user/tasks/:taskId/:direction', auth, scoreTask
 
 module.exports = router
