@@ -28,7 +28,7 @@
                 data-checkpet="{#if @profile.items.pet}hasPet{/}"
                 data-checkuser="{#if equal(@profile.id, _user.id)}isUser{/}"
                 data-toggle='modal' data-target='#avatar-modal' data-uid="{@profile.id}" x-bind="click:profileChangeActive"
-                rel="popover" data-title="{{username(@profile.auth)}}" data-placement="bottom" data-trigger="hover" data-html="true" data-content="
+                rel="popover" data-placement="bottom" data-trigger="hover" data-html="true" data-content="
                              <div>
                                 <div class='progress progress-danger' style='height:5px;'>
                                     <div class='bar' style='height: 5px; width: {percent(@profile.stats.hp, 50)}%;'></div>
