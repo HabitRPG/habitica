@@ -195,7 +195,6 @@ scoreTask = (req, res, next) ->
 router.post '/user/task/:taskId/:direction', auth, scoreTask
 router.post '/user/tasks/:taskId/:direction', auth, scoreTask
 
-
 module.exports = router
 module.exports.auth = auth
 module.exports.scoreTask = scoreTask # export so deprecated can call it
