@@ -62,41 +62,41 @@
             <p>HabitRPG is quite Beta-quality at present, and many find they need to restore character attributes as a result. Enter your numbers here and it will be applied automatically to your character. This will be removed once Habit is more stable.</p>
 
             {#with _user}
-            <form id='restore-form' class="form-horizontal">
+            <form id='restore-form' class="form-horizontal restore-options">
                 <h3>Stats</h3>
-                <div class="input-prepend">
-                    <span class="add-on">HP</span>
-                    <input class="span2" type="number" data-for='stats.hp' value="{{.stats.hp}}">
+                <div class="option-group option-medium">
+                    <input class="option-content" type="number" data-for='stats.hp' value="{{.stats.hp}}">
+                    <span class="input-suffix">HP</span>
                 </div>
-                <div class="input-prepend">
-                    <span class="add-on">Exp</span>
-                    <input class="span2" type="number" data-for='stats.exp' value="{{.stats.exp}}">
+                <div class="option-group option-medium">
+                    <input class="option-content" type="number" data-for='stats.exp' value="{{.stats.exp}}">
+                    <span class="input-suffix">Exp</span>
                 </div>
-                <div class="input-prepend">
-                    <span class="add-on">GP</span>
-                    <input class="span2" type="number" data-for='stats.gp' value="{{.stats.gp}}">
+                <div class="option-group option-medium">
+                    <input class="option-content" type="number" data-for='stats.gp' value="{{.stats.gp}}">
+                    <span class="input-suffix">GP</span>
                 </div>
-                <div class="input-prepend">
-                    <span class="add-on">Level</span>
-                    <input class="span2" type="number" data-for='stats.lvl' value="{{.stats.lvl}}">
+                <div class="option-group option-medium">
+                    <input class="option-content" type="number" data-for='stats.lvl' value="{{.stats.lvl}}">
+                    <span class="input-suffix">Level</span>
                 </div>
 
                 <h3>Items</h3>
-                <div class="input-prepend">
-                    <span class="add-on">Weapon</span>
-                    <input class="span2" type="number" data-for='items.weapon' value="{{.items.weapon}}">
+                <div class="option-group option-medium">
+                    <input class="option-content" type="number" data-for='items.weapon' value="{{.items.weapon}}">
+                    <span class="input-suffix">Weapon</span>
                 </div>
-                <div class="input-prepend">
-                    <span class="add-on">Armor</span>
-                    <input class="span2" type="number" data-for='items.armor' value="{{.items.armor}}">
+                <div class="option-group option-medium">
+                    <input class="option-content" type="number" data-for='items.armor' value="{{.items.armor}}">
+                    <span class="input-suffix">Armor</span>
                 </div>
-                <div class="input-prepend">
-                    <span class="add-on">Helm</span>
-                    <input class="span2" type="number" data-for='items.head' value="{{.items.head}}">
+                <div class="option-group option-medium">
+                    <input class="option-content" type="number" data-for='items.head' value="{{.items.head}}">
+                    <span class="input-suffix">Helm</span>
                 </div>
-                <div class="input-prepend">
-                    <span class="add-on">Shield</span>
-                    <input class="span2" type="number" data-for='items.shield' value="{{.items.shield}}">
+                <div class="option-group option-medium">
+                    <input class="option-content" type="number" data-for='items.shield' value="{{.items.shield}}">
+                    <span class="input-suffix">Shield</span>
                 </div>
 
             </form>
