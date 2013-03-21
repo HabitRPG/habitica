@@ -121,10 +121,12 @@ score = (model, taskId, direction, times, batch, cron) ->
       drop = randomVal(food)
       user.push 'items.food', drop.text
       drop.type = 'Food'
+      drop.dialog = "You've found #{drop.text} Hatching Powder! #{drop.notes}"
     else
       drop = randomVal(pets)
       user.push 'items.eggs', drop
       drop.type = 'Egg'
+      drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
 
     model.set '_drop', drop
     $('#item-dropped-modal').modal 'show'
