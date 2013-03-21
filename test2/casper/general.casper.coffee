@@ -3,9 +3,16 @@ casper = helpers.casper
 utils = helpers.utils
 url = helpers.playUrl
 
+casper.on('remote.message'
+           (msg) ->
+             this.echo '[Console] : ' + msg
+         )
+
 # ---------- Basic Test ------------
 casper.start url, ->
-  casper.test.assertTitle 'HabitRPG | Gamify Your Life', 'Page Title'  
+  casper.test.assertTitle 'HabitRPG | Gamify Your Life', 'Page Title'
+  helpers.getModel (res) ->
+    utils.dump res._user.stats
   casper.echo 'aaa'
 
 
