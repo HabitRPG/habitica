@@ -57,6 +57,10 @@ future re: pets and whatnot, this is just temporary.
 .herobox[data-checkpet="hasPet"][data-checkuser="isUser"]
 	padding-top: 3.25em
 
+// if not user's avatar, remove lines for party unity
+.herobox:not([data-checkuser="isUser"])
+	outline: 0
+
 // expose hero info on hover, taking
 // into account the extra pet space
 .herobox:hover, .herobox:focus
