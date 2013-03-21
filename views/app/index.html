@@ -25,6 +25,7 @@
 <Header:>
   <app:modals:modals />
   <ui:connectionAlert>
+  <app:alerts:newStuff />
   <div id="head" class="container-fluid">
 
     {#if _undo}<a x-bind="click:undo" class='label undo-button'>Undo</a>{/}
@@ -37,7 +38,7 @@
   <br/>
   <div id="notification-area"></div>
   <div id="wrap">
-    <app:alerts:alerts />
+    <app:alerts:flash />
     <div id=main class="grid">
       <app:tasks:taskLists />
     </div>
