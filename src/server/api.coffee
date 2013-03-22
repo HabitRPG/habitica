@@ -123,6 +123,28 @@ router.delete '/user/task/:id', auth, validateTask, (req, res) ->
   res.send 204
 
 ###
+  POST /user/tasks
+###
+router.post '/user/tasks', auth, (req, res) ->
+  for idx, task of req.body
+    if task.id
+      if task.del
+        req.user.del "tasks.#{task.id}"
+        task = deleted: true
+      else
+        req.user.set "tasks.#{task.id}", task
+    else
+      model = req.getModel()
+      type = task.type || 'habit'
+      model.ref '_user', req.user
+      model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+      model.at("_#{type}List").push task
+    req.body[idx] = task
+
+  res.json 201, req.body
+
+
+###
   POST /user/task/
 ###
 router.post '/user/task', auth, validateTask, (req, res) ->

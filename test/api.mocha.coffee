@@ -300,3 +300,41 @@ describe 'API', ->
           query.fetch (err, user) ->
             expect(user.get("tasks.#{tid}.completed")).to.be true
             done()
+
+    it 'POST /api/v1/user/task (array)', (done) ->
+      habitId = currentUser.habitIds[0]
+      dailyId = currentUser.dailyIds[0]
+      arr = [{
+        id: habitId
+        text: 'hello'
+        notes: 'note'
+      },{
+        text: 'new task'
+        notes: 'notes!'
+      },{
+        id: dailyId
+        del: true
+      }]
+
+      request.post("#{baseURL}/user/tasks")
+        .set('Accept', 'application/json')
+        .set('X-API-User', currentUser.id)
+        .set('X-API-Key', currentUser.apiToken)
+        .send(arr)
+        .end (res) ->
+          expect(res.body.err).to.be undefined
+          expect(res.statusCode).to.be 201
+          expect(res.body[0]).to.eql {id: habitId,text: 'hello',notes: 'note'}
+          expect(res.body[1].id).to.be.a 'string'
+          expect(res.body[1].text).to.be 'new task'
+          expect(res.body[1].notes).to.be 'notes!'
+          expect(res.body[2]).to.eql deleted: true
+
+          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+          query.fetch (err, user) ->
+            expect(user.get("tasks.#{habitId}")).to.eql {id: habitId,text: 'hello',notes: 'note'}
+            expect(user.get("tasks.#{dailyId}")).to.be undefined
+            expect(user.get("tasks.#{res.body[1].id}")).to.eql id: res.body[1].id, text: 'new task', notes: 'notes!'
+            done()
+
+
