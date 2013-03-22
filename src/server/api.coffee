@@ -74,7 +74,7 @@ router.get '/user/task/:id', auth, (req, res) ->
 ###
 validateTask = (req, res, next) ->
   task = {}
-  newTask = { type, text, notes, value, up, down, completed } = req.body
+  newTask = { type, text, notes, value, up, down, completed } = req.task || req.body
 
   # If we're updating, get the task from the user
   if req.method is 'PUT' or req.method is 'DELETE'
@@ -121,6 +121,28 @@ router.delete '/user/task/:id', auth, validateTask, (req, res) ->
   req.user.remove "#{req.task.type}Ids", taskIds.indexOf(req.task.id), 1
 
   res.send 204
+
+###
+  POST /user/tasks
+###
+router.post '/user/tasks', auth, (req, res) ->
+  for idx, task of req.body
+    if task.id
+      if task.del
+        req.user.del "tasks.#{task.id}"
+        task = deleted: true
+      else
+        req.user.set "tasks.#{task.id}", task
+    else
+      model = req.getModel()
+      type = task.type || 'habit'
+      model.ref '_user', req.user
+      model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+      model.at("_#{type}List").push task
+    req.body[idx] = task
+
+  res.json 201, req.body
+
 
 ###
   POST /user/task/
