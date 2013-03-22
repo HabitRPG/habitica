@@ -74,7 +74,7 @@ router.get '/user/task/:id', auth, (req, res) ->
 ###
 validateTask = (req, res, next) ->
   task = {}
-  newTask = { type, text, notes, value, up, down, completed } = req.task || req.body
+  newTask = { type, text, notes, value, up, down, completed } = req.body
 
   # If we're updating, get the task from the user
   if req.method is 'PUT' or req.method is 'DELETE'
