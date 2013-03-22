@@ -9,13 +9,16 @@ casper.on('remote.message'
          )
 
 # ---------- Basic Test ------------
-casper.start url, ->
-  casper.test.assertTitle 'HabitRPG | Gamify Your Life', 'Page Title'
-  helpers.getModel (res) ->
-    casper.echo '...model received.'
-    casper.test.assertEquals(typeof res.stats.exp,"number",'experience is number')
-    casper.test.assertEquals(typeof res.stats.exp,0,'experience == 0')
-
+casper.start url, ->        
+  helpers.getModel (model) ->
+    casper.test.assertEquals(typeof model.user.stats.exp, "number", 'exp is number')
+    casper.test.assertEquals(model.user.stats.exp, 0, 'exp == 0')    
+    casper.echo 'Clicking...'
+    casper.click '.habits a[data-direction="up"]'
+    casper.echo '...clicked'    
+    helpers.getModel (model) ->      
+      casper.test.assertEquals(model.user.stats.exp, 7.5, 'exp == 7.5')
+  
 
 # ---------- Run ------------
 casper.run ->
