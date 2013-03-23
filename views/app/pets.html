@@ -1,9 +1,7 @@
 <modals:>
 
   <app:modals:modal modalId='drops-enabled-modal' header="Drops Enabled!">
-    <p>You've unlocked the drop system.</p>
-    <p>Here's your first egg! {_user.items.eggs.0.text}</p>
-    <p>Feed it some meat to get it to hatch.</p>
+    <p>You've unlocked the drop system! Now when you complete tasks, you have a random chance of finding an item drop. And guess what? You just found a {_user.items.eggs.0.text} egg! {_user.items.eggs.0.notes}</p>
     <@footer>
       <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     </@footer>
@@ -17,3 +15,13 @@
       <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     </@footer>
   </app:modals:modal>
+
+<pet:>
+    <td class="{#if _user.items.pets[.name]}active-pet{/}">
+        <img rel=tooltip title="{.text} - {.value} Tokens" x-bind="click:selectPet" data-pet='{.name}' src='img/sprites/{.icon}'/>
+    </td>
+
+<food:>
+    <td class="active-food">
+        <div rel=tooltip class="{.name}" title="{.text} - {.value} Tokens" x-bind="click:buyFood" data-food='{.name}'>{.text}</div>
+    </td>

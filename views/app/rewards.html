@@ -36,20 +36,20 @@
                         {#with _view.items.food as :food}
                         <table>
                             <tr>
-                                {#with :food[0]}<app:food />{/}
-                                {#with :food[1]}<app:food />{/}
-                                {#with :food[2]}<app:food />{/}
-                                {#with :food[3]}<app:food />{/}
+                                {#with :food[0]}<app:pets:food />{/}
+                                {#with :food[1]}<app:pets:food />{/}
+                                {#with :food[2]}<app:pets:food />{/}
+                                {#with :food[3]}<app:pets:food />{/}
                             </tr>
                             <tr>
-                                {#with :food[4]}<app:food />{/}
-                                {#with :food[5]}<app:food />{/}
-                                {#with :food[6]}<app:food />{/}
-                                {#with :food[7]}<app:food />{/}
+                                {#with :food[4]}<app:pets:food />{/}
+                                {#with :food[5]}<app:pets:food />{/}
+                                {#with :food[6]}<app:pets:food />{/}
+                                {#with :food[7]}<app:pets:food />{/}
                             </tr>
                             <tr>
-                                {#with :food[8]}<app:food />{/}
-                                {#with :food[9]}<app:food />{/}
+                                {#with :food[8]}<app:pets:food />{/}
+                                {#with :food[9]}<app:pets:food />{/}
                             </tr>
                         </table>
                         {/}
@@ -93,16 +93,6 @@
         {#with _view.items.reroll as :item}<app:rewards:item reroll=true />{/}
     </ul>
     {/}
-
-<pet:>
-    <td class="{#if _user.items.pets[.name]}active-pet{/}">
-      <img rel=tooltip title="{.text} - {.value} Tokens" x-bind="click:selectPet" data-pet='{.name}' src='img/sprites/{.icon}'/>
-    </td>
-
-<food:>
-    <td class="active-food">
-      <div rel=tooltip class="{.name}" title="{.text} - {.value} Tokens" x-bind="click:buyFood" data-food='{.name}'>{.text}</div>
-    </td>
 
 <userTokens:>
   <a class="pull-right token-wallet">
