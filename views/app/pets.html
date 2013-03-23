@@ -75,14 +75,10 @@
     </div>
 
 <stable:>
-    <div class='row-fluid'>
-        <div class='span12 well'>
-            <h3>Stable</h3>
-            {#if not(_user.items.pets)}
-            <p>You don't have any pets yet.</p>
-            {/if}
-            {#each _user.items.pets as :pet}
-            <div class="Pet-{removeWhitespace(:pet)} {#if equal(_user.items.currentPet.str, :pet)}active{/if}" data-pet="{:pet}" x-bind="click:choosePet">{:pet}</div>
-            {/each}
-        </div>
-    </div>
+    {#if _user.items.pets}
+        {#each _user.items.pets as :pet}
+            <div class="Pet-{:pet} {#if equal(_user.items.currentPet.name, :pet)}active{/if}" data-pet="{:pet}" x-bind="click:choosePet">{:pet}</div>
+        {/}
+    {else}
+        <p>You don't have any pets yet.</p>
+    {/}

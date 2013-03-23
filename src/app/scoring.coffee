@@ -119,7 +119,7 @@ score = (model, taskId, direction, times, batch, cron) ->
   if direction is 'up' and obj.flags.dropsEnabled and Math.random() < .5
     if Math.random() < .5
       drop = randomVal(food)
-      user.push 'items.food', drop.text
+      user.push 'items.food', drop.name
       drop.type = 'Food'
       drop.dialog = "You've found #{drop.text} Hatching Powder! #{drop.notes}"
     else
