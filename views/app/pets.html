@@ -56,18 +56,18 @@
         </div>
         {#if _feedEgg}
         <div class='span6 well'>
-            <h3>Feed Your Egg</h3>
+            <h3>Hatch Your Egg</h3>
             {#if not(_user.items.food)}
-            <p>You don't have any food yet.</p>
+            <p>You don't have any hatching powder yet.</p>
             {else}
-            <p>What would you like to feed your {_feedEgg.text}?</p>
+            <p>What would you like to sprinkle on your {_feedEgg.text} egg?</p>
             <form x-bind="submit:feedEgg">
                 <select>
                     {#each _user.items.food as :food}
                     <option>{:food}</option>
                     {/each}
                 </select>
-                <button type=submit>Feed!</button>
+                <button type=submit>Sprinkle</button>
             </form>
             {/if}
         </div>
