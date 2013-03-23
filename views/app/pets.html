@@ -77,7 +77,9 @@
 <stable:>
     {#if _user.items.pets}
         {#each _user.items.pets as :pet}
-            <div class="Pet-{:pet} {#if equal(_user.items.currentPet.name, :pet)}active{/if}" data-pet="{:pet}" x-bind="click:choosePet">{:pet}</div>
+            <a rel="tooltip" title="{:pet}" data-pet="{:pet}" x-bind="click:choosePet">
+                <div class="Pet-{:pet} {#if equal(_user.items.currentPet.name, :pet)}active{/if}"></div>
+            </a>
         {/}
     {else}
         <p>You don't have any pets yet.</p>
