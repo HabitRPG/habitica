@@ -2,7 +2,7 @@
     {#unless equal(_user.preferences.hideHeader,true)}
         <header class="site-header" role="banner" data-partySize="{#if gt(_partyMembers.length,1)}{truarr(_partyMembers.length)}{else}0{/}">
             <!-- avatar -->
-            <div class="herobox-wrap">
+            <div class="herobox-wrap main-herobox">
                 <app:avatar:avatar profile={_user}>
             </div>
 
