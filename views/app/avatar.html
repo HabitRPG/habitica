@@ -24,7 +24,7 @@
                         <app:avatar:inventory user="{_user}" main="true" />
                     </div>
                     <div class="tab-pane" id="profileStable">
-                        <app:avatar:stable user="{_user}" main="true" />
+                        <app:pets:stable user="{_user}" main="true" />
                     </div>
                 </div>
              {/}
@@ -209,62 +209,6 @@
     <img src='/img/original_user.png' /> Original User!
 
 <inventory:>
-    <div class='row-fluid'>
-        <div class='span6 well'>
-            <menu type="list">
-                <h3>Eggs</h3>
-                {#if not(_user.items.eggs)}
-                    <p>You don't have any eggs yet.</p>
-                {/if}
-                <li class="customize-menu">
-                    {#each _user.items.eggs as :egg}
-                        <div>
-                            <button class="customize-option Pet-Egg" x-bind="click: chooseEgg"></button>
-                            <p>{:egg.text}</p>
-                        </div>
-                    {/each}
-                </li>
-                <h3>Food</h3>
-                {#if not(_user.items.food)}
-                    <p>You don't have any food yet.</p>
-                {/if}
-                <li class="customize-menu">
-                    {#each _user.items.food as :food}
-                        <button class="customize-option" x-bind="click: chooseFood">{:food}</button>
-                    {/each}
-                </li>
-            </menu>
-        </div>
-        {#if _feedEgg}
-            <div class='span6 well'>
-                <h3>Feed Your Egg</h3>
-                {#if not(_user.items.food)}
-                    <p>You don't have any food yet.</p>
-                {else}
-                    <p>What would you like to feed your {_feedEgg.text}?</p>
-                    <form x-bind="submit:feedEgg">
-                        <select>
-                            {#each _user.items.food as :food}
-                                <option>{:food}</option>
-                            {/each}
-                        </select>
-                        <button type=submit>Feed!</button>
-                    </form>
-                {/if}
-            </div>
-        {/if}
-    </div>
-
-<stable:>
-    <div class='row-fluid'>
-        <div class='span12 well'>
-            <h3>Stable</h3>
-            {#if not(_user.items.pets)}
-                <p>You don't have any pets yet.</p>
-            {/if}
-            {#each _user.items.pets as :pet}
-                <div class="Pet-{removeWhitespace(:pet)} {#if equal(_user.items.currentPet.str, :pet)}active{/if}" data-pet="{:pet}" x-bind="click:choosePet">{:pet}</div>
-            {/each}
-        </div>
-    </div>
+    <!-- we'll have other inventory here later too, like enchantments, quest scrolls, etc -->
+    <app:pets:inventory/>
 
