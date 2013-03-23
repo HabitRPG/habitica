@@ -55,20 +55,20 @@
                             </div>
                         ">
         <div class='character-sprites'>
-            {#if and(@profile.items.currentPet, not(@minimal))}
-            <span class="Pet-{_user.items.currentPet.name}-{_user.items.currentPet.modifier}" ></span>
-            {/}
             {#with @profile.preferences as :p}
-            <span class='{:p.gender}_skin_{:p.skin}'></span>
-            <span class='{:p.gender}_hair_{:p.hair}'></span>
-            <span class="{equipped(@profile, 'armor')}"></span>
-            {#if :p.showHelm}
-                <span class="{equipped(@profile, 'head')}"></span>
-            {else}
-                <span class="{:p.gender}_head_0"></span>
+                <span class='{:p.gender}_skin_{:p.skin}'></span>
+                <span class='{:p.gender}_hair_{:p.hair}'></span>
+                <span class="{equipped(@profile, 'armor')}"></span>
+                {#if :p.showHelm}
+                    <span class="{equipped(@profile, 'head')}"></span>
+                {else}
+                    <span class="{:p.gender}_head_0"></span>
+                {/}
+                <span class='{:p.gender}_shield_{@profile.items.shield}'></span>
+                <span class='{:p.gender}_weapon_{@profile.items.weapon}'></span>
             {/}
-            <span class='{:p.gender}_shield_{@profile.items.shield}'></span>
-            <span class='{:p.gender}_weapon_{@profile.items.weapon}'></span>
+            {#if and(@profile.items.currentPet, not(@minimal))}
+                <span class="Pet-{_user.items.currentPet.name}-{_user.items.currentPet.modifier} current-pet" ></span>
             {/}
         </div>
     </figure>
