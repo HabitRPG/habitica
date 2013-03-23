@@ -57,7 +57,6 @@ viewHelpers = (view) ->
   view.fn "and", -> _.reduce arguments, (cumm, curr) -> cumm && curr
   view.fn "or", -> _.reduce arguments, (cumm, curr) -> cumm || curr
 
-  view.fn "truarr", (num) ->
-      return num-1
+  view.fn "truarr", (num) -> num-1
 
 module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping }

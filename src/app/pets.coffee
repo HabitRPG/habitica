@@ -1,5 +1,5 @@
 _ = require 'underscore'
-{ randomVal, removeWhitespace } = require './helpers'
+{ randomVal } = require './helpers'
 { pets, food } = require('./items').items
 
 ###
@@ -15,16 +15,14 @@ module.exports.app = (appExports, model) ->
 
     dontPersist =  model._dontPersist
 
-    model._dontPersist = false if dontPersist
+    model._dontPersist = false
     user.push 'items.eggs', egg
-    model._dontPersist = true if dontPersist
+    model._dontPersist = dontPersist
 
     $('#drops-enabled-modal').modal 'show'
 
   appExports.chooseEgg = (e, el) ->
-    egg = model.at el
-
-    model.ref '_feedEgg', egg
+    model.ref '_feedEgg', e.at()
 
   appExports.feedEgg = (e, el) ->
     foodName = $(el).children('select').val()
@@ -38,16 +36,16 @@ module.exports.app = (appExports, model) ->
     return alert "You don't own that food :\\" if foodIdx is -1
     return alert "You don't own that egg :\\" if eggIdx is -1
 
-    user.push 'items.pets', egg.text + '-' + foodName
+    user.push 'items.pets', egg.name + '-' + foodName
     user.remove 'items.food', foodIdx, 1
     user.remove 'items.eggs', eggIdx, 1
 
   appExports.choosePet = (e, el) ->
     petArray = $(el).attr('data-pet').split '-'
-    text = petArray[0]
+    name = petArray[0]
     modifier = petArray[1]
-    petStr = "#{text}-#{modifier}"
-    pet = _.findWhere pets, text: text
+    petStr = "#{name}-#{modifier}"
+    pet = _.findWhere pets, name: name
     pet.modifier = modifier
     pet.str = petStr
     ownsThisPet = user.get('items.pets').indexOf petStr
@@ -60,7 +58,7 @@ module.exports.app = (appExports, model) ->
       if tokens > pet.value
         r = confirm("Buy this pet with #{pet.value} of your #{tokens} tokens?");
         if r
-          user.push 'items.pets', text
+          user.push 'items.pets', name
           user.set 'items.currentPet', pet
           user.set 'balance', (tokens - pet.value)/4
       else
@@ -72,7 +70,7 @@ module.exports.app = (appExports, model) ->
     tokens = user.get('balance') * 4
     if tokens > newFood.value
       if confirm "Buy this food with #{newFood.value} of your #{tokens} tokens?"
-        user.push 'items.food', newFood.text
+        user.push 'items.food', newFood.name
         user.set 'balance', (tokens - newFood.value) / 4
     else
       $('#more-tokens-modal').modal 'show'

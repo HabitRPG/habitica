@@ -2,7 +2,7 @@
     {#unless equal(_user.preferences.hideHeader,true)}
         <header class="site-header" role="banner" data-partySize="{#if gt(_partyMembers.length,1)}{truarr(_partyMembers.length)}{else}0{/}">
             <!-- avatar -->
-            <div class="herobox-wrap">
+            <div class="herobox-wrap main-herobox">
                 <app:avatar:avatar profile={_user}>
             </div>
 
@@ -16,15 +16,12 @@
                 <div class="meter experience" title="Experience">
                     <div class="bar" style="width: {percent(_user.stats.exp,tnl(_user.stats.lvl))}%;"></div>
                     <span class="meter-text">
-                      <!-- disabled chart for now, it doesn't work -->
-                      <!-- {#if _user.history.exp} -->
-                        <!-- <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp; -->
-                      <!-- {/} -->
+                       {#if _user.history.exp}
+                         <a x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp;
+                       {/}
                       <i class=icon-star></i> {floor(_user.stats.exp)} / {tnl(_user.stats.lvl)}
                     </span>
                 </div>
-                <!-- hiding the button until we revamp stats/graphs -->
-                <!-- <div id="exp-chart" style="display:none;"></div> -->
             </div>
 
             <!-- party -->

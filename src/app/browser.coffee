@@ -73,7 +73,7 @@ setupTooltips = (model) ->
 setupTour = (model) ->
   tourSteps = [
     {
-      element: ".main-avatar"
+      element: ".main-herobox"
       title: "Welcome to HabitRPG"
       content: "Welcome to HabitRPG, a habit-tracker which treats your goals like a Role Playing Game."
     }
