@@ -114,12 +114,14 @@ score = (model, taskId, direction, times, batch, cron) ->
   if direction is 'up' and obj.flags.dropsEnabled and Math.random() < .5
     if Math.random() < .5
       drop = randomVal(food)
+      obj.items.food ?= []
       obj.items.food.push drop.name
       batch.set 'items.food', obj.items.food
       drop.type = 'Food'
       drop.dialog = "You've found #{drop.text} Hatching Powder! #{drop.notes}"
     else
       drop = randomVal(pets)
+      obj.items.food ?= []
       obj.items.eggs.push drop
       batch.set 'items.eggs', obj.items.eggs
       drop.type = 'Egg'
