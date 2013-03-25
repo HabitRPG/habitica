@@ -38,7 +38,7 @@
                 <li class="customize-menu">
                     {#each _user.items.eggs as :egg}
                     <div>
-                        <button class="customize-option Pet-Egg" x-bind="click: chooseEgg"></button>
+                        <button class="customize-option Pet_Egg_{{:egg.name}}" x-bind="click: chooseEgg"></button>
                         <p>{:egg.text}</p>
                     </div>
                     {/each}
