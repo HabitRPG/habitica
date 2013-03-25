@@ -67,7 +67,7 @@
 
 <!-- all the parts of a single task -->
 <task:>
-    <li data-id={{:task.id}} class="task {taskClasses(:task)}">
+    <li data-id={{:task.id}} class="task {taskClasses(:task)} {#if :task.down}{#if :task.up}habit-wide{/}{/}">
         
         <!-- right-hand side control buttons -->
         <div class="task-meta-controls">
@@ -87,7 +87,7 @@
         </div>
 
         <!-- left-hand side checkbox -->
-        <div class="task-controls">
+        <div class="task-controls task-primary">
             <!-- Habits -->
             {#if equal(:task.type, 'habit')}
             {#if :task.up}<a class="task-action-btn" data-direction=up x-bind=click:score>＋</a>{/}
