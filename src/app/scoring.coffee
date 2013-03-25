@@ -132,15 +132,15 @@ score = (model, taskId, direction, times, batch, cron) ->
     # If they got a drop: 50% chance of egg, 50% Food. If food, broken down further even further
     rarity = Math.random()
 
-    # Egg, 50% chance
-    if rarity > .5
+    # Egg, 40% chance
+    if rarity > .6
       drop = randomVal(pets)
       user.push 'items.eggs', drop
       drop.type = 'Egg'
       drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
 
 
-    # Food, 50% chance - break down by rarity even more. FIXME this may not be the best method, so revisit
+    # Food, 60% chance - break down by rarity even more. FIXME this may not be the best method, so revisit
     else
       acceptableDrops = []
 
