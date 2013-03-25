@@ -21,53 +21,7 @@
                 {/}
             </span>
             <h2 class="task-column_title">Rewards</h2>
-
-            <!-- if pets are enabled, make tabs -->
-            {#if equal(_user.flags.dropsEnabled,true)}
-            <div class='tabbable tabs-below'>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="rewards-tab">
-                        <app:rewardsTab />
-                    </div>
-
-                    <!-- pets pane -->
-                    <div class="tab-pane pet-grid" id="market-tab">
-                        <h4>Welcome to the market</h4>
-                        {#with _view.items.food as :food}
-                        <table>
-                            <tr>
-                                {#with :food[0]}<app:pets:food />{/}
-                                {#with :food[1]}<app:pets:food />{/}
-                                {#with :food[2]}<app:pets:food />{/}
-                                {#with :food[3]}<app:pets:food />{/}
-                            </tr>
-                            <tr>
-                                {#with :food[4]}<app:pets:food />{/}
-                                {#with :food[5]}<app:pets:food />{/}
-                                {#with :food[6]}<app:pets:food />{/}
-                                {#with :food[7]}<app:pets:food />{/}
-                            </tr>
-                            <tr>
-                                {#with :food[8]}<app:pets:food />{/}
-                                {#with :food[9]}<app:pets:food />{/}
-                            </tr>
-                        </table>
-                        {/}
-                    </div>
-                    <!--<div class="tab-pane" id="mounts-tab">...</div>-->
-                </div>
-
-                <ul class="nav nav-tabs" id="rewardsTabs">
-                    <li class="active"><a href="#rewards-tab" data-toggle="tab" x-bind="click:activateRewardsTab">Rewards</a></li>
-                    <li><a href="#market-tab" data-target='#market-tab' data-toggle="tab" x-bind='click:activatePetsTab'>Market</a></li>
-                    <!--<li><a href="#mounts-tab" data-toggle="tab">Mounts</a></li>-->
-                </ul>
-            </div>
-
-            <!-- if pets are disabled, just do rewards tab -->
-            {else}
             <app:rewards:rewardsTab />
-            {/}
         </div>
     </div>
 

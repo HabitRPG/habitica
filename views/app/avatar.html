@@ -8,6 +8,7 @@
                     {#if _user.flags.dropsEnabled}
                         <li><a data-toggle='tab' href="#profileInventory">Inventory</a></li>
                         <li><a data-toggle='tab' href="#profileStable">Stable</a></li>
+                        <li><a data-toggle='tab' href="#profileMarket">Market</a></li>
                     {/if}
                 </ul>
 
@@ -25,6 +26,9 @@
                     </div>
                     <div class="tab-pane" id="profileStable">
                         <app:pets:stable />
+                    </div>
+                    <div class='tab-pane' id='profileMarket'>
+                        <app:avatar:market />
                     </div>
                 </div>
              {/}
@@ -211,4 +215,54 @@
 <inventory:>
     <!-- we'll have other inventory here later too, like enchantments, quest scrolls, etc -->
     <app:pets:inventory/>
+
+<market:>
+
+    <!-- pets pane -->
+    <div class="tab-pane pet-grid" id="market-tab">
+        <h4>Welcome to the market!</h4>
+        <small>Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!</small>
+        <h4>Eggs</h4>
+        {#with _view.items.pets as :egg}
+        <table>
+            <tr>
+                {#with :egg[0]}<app:pets:egg />{/}
+                {#with :egg[1]}<app:pets:egg />{/}
+                {#with :egg[2]}<app:pets:egg />{/}
+                {#with :egg[3]}<app:pets:egg />{/}
+            </tr>
+            <tr>
+                {#with :egg[4]}<app:pets:egg />{/}
+                {#with :egg[5]}<app:pets:egg />{/}
+                {#with :egg[6]}<app:pets:egg />{/}
+                {#with :egg[7]}<app:pets:egg />{/}
+            </tr>
+            <tr>
+                {#with :egg[8]}<app:pets:egg />{/}
+            </tr>
+        </table>
+        {/}
+        <h4>Hatching Powder</h4>
+        {#with _view.items.food as :food}
+        <table>
+            <tr>
+                {#with :food[0]}<app:pets:food />{/}
+                {#with :food[1]}<app:pets:food />{/}
+                {#with :food[2]}<app:pets:food />{/}
+                {#with :food[3]}<app:pets:food />{/}
+            </tr>
+            <tr>
+                {#with :food[4]}<app:pets:food />{/}
+                {#with :food[5]}<app:pets:food />{/}
+                {#with :food[6]}<app:pets:food />{/}
+                {#with :food[7]}<app:pets:food />{/}
+            </tr>
+            <tr>
+                {#with :food[8]}<app:pets:food />{/}
+                {#with :food[9]}<app:pets:food />{/}
+            </tr>
+        </table>
+        {/}
+    </div>
+
 

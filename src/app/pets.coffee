@@ -83,3 +83,14 @@ module.exports.app = (appExports, model) ->
         user.set 'balance', (tokens - newFood.value) / 4
     else
       $('#more-tokens-modal').modal 'show'
+
+  appExports.buyEgg = (e, el) ->
+    name = $(el).attr 'data-egg'
+    newEgg = _.findWhere pets, name: name
+    tokens = user.get('balance') * 4
+    if tokens > newEgg.value
+      if confirm "Buy this egg with #{newEgg.value} of your #{tokens} tokens?"
+        user.push 'items.eggs', newEgg
+        user.set 'balance', (tokens - newEgg.value) / 4
+    else
+      $('#more-tokens-modal').modal 'show'

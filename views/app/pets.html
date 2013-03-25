@@ -23,9 +23,15 @@
 
 <food:>
     <td class="active-food">
-        <div rel=tooltip class="{.name}" title="{.text} - {.value} Tokens" x-bind="click:buyFood" data-food='{.name}'>{.text}</div>
+        <div rel=tooltip class="Pet_Food_{.name}" title="{.text} - {.value} Tokens" x-bind="click:buyFood" data-food='{.name}'></div>
+        {.text}
     </td>
 
+<egg:>
+    <td class="active-egg">
+        <div rel=tooltip class="Pet_Egg_{.name}" title="{.text} - {.value} Tokens" x-bind="click:buyEgg" data-egg='{.name}'></div>
+        {.text}
+    </td>
 
 <inventory:>
     <div class='row-fluid'>
