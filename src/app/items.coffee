@@ -51,15 +51,16 @@ items = module.exports.items =
   ]
 
   food: [
+    {text: 'Common', name: 'Base', notes: "Hatches your pet in it's base form.", value: 3}
     {text: 'Zombie', name: 'Zombie', notes: 'Turns your animal into a Zombie.', value: 3}
-    {text: 'White', name: 'White', notes: 'Turns your animal into a White.', value: 3}
+    {text: 'White', name: 'White', notes: 'Turns your animal into a White pet.', value: 3}
     {text: 'Skeleton', name: 'Skeleton', notes: 'Turns your animal into a Skeleton.', value: 3}
-    {text: 'Shade', name: 'Shade', notes: 'Turns your animal into a Shade.', value: 3}
-    {text: 'Red', name: 'Red', notes: 'Turns your animal into a Red.', value: 3}
-    {text: 'Golden', name: 'Golden', notes: 'Turns your animal into a Golden.', value: 3}
-    {text: 'Desert', name: 'Desert', notes: 'Turns your animal into a Desert.', value: 3}
-    {text: 'Cotton Candy Pink', name: 'CottonCandyPink', notes: 'Turns your animal into a CottonCandyPink.', value: 3}
-    {text: 'Cotton Candy Blue', name: 'CottonCandyBlue', notes: 'Turns your animal into a CottonCandyBlue.', value: 3}
+    {text: 'Shade', name: 'Shade', notes: 'Turns your animal into a Shade pet.', value: 3}
+    {text: 'Red', name: 'Red', notes: 'Turns your animal into a Red pet.', value: 3}
+    {text: 'Golden', name: 'Golden', notes: 'Turns your animal into a Golden pet.', value: 3}
+    {text: 'Desert', name: 'Desert', notes: 'Turns your animal into a Desert pet.', value: 3}
+    {text: 'Cotton Candy Pink', name: 'CottonCandyPink', notes: 'Turns your animal into a Cotton Candy Pink pet.', value: 3}
+    {text: 'Cotton Candy Blue', name: 'CottonCandyBlue', notes: 'Turns your animal into a Cotton Candy Blue pet.', value: 3}
   ]
 
 # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
