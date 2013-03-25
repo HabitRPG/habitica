@@ -10,8 +10,9 @@
 
 .btn-buy
   width: 4.5em
-  height: 3em
-  padding: 0.75em 0 0
+  min-height: 3em
+  height: 100%
+  padding: 0.75em 0 0 0.5em
   text-align: center
   vertical-align: top
   background-color: $better
@@ -32,9 +33,16 @@
 .reward-cost
   display: inline
 
+.rewards .task-text
+  padding-left: 5em
+
+.rewards .task-options
+  background: white
 
 // store items
 .btn-reroll
+  width: 2.5em
+  padding-left: 0.25em
   background-color: $better
   cursor: pointer
   box-shadow: inset -1px -1px 0 rgba(0,0,0,0.1)
