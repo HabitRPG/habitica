@@ -38,8 +38,15 @@ module.exports.app = (appExports, model) ->
     return alert "You already have that pet." if user.get('items.pets').indexOf("#{egg.name}-#{foodName}") != -1
 
     user.push 'items.pets', egg.name + '-' + foodName
-    user.remove 'items.food', foodIdx, 1
-    user.remove 'items.eggs', eggIdx, 1
+
+    eggs.splice eggIdx, 1
+    myFood.splice foodIdx, 1
+    user.set 'items.eggs', eggs
+    user.set 'items.food', myFood
+
+    #FIXME Bug: this removes from the array properly in the browser, but on refresh is has removed all items from the arrays
+#    user.remove 'items.food', foodIdx, 1
+#    user.remove 'items.eggs', eggIdx, 1
 
   appExports.choosePet = (e, el) ->
     petArray = $(el).attr('data-pet').split '-'
