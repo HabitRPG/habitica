@@ -29,14 +29,14 @@ module.exports.app = (appExports, model) ->
     myFood = user.get 'items.food'
     egg = model.get '_feedEgg'
     eggs = user.get 'items.eggs'
-    pets = user.get 'items.pets'
+    myPets = user.get 'items.pets'
 
     foodIdx = myFood.indexOf foodName
     eggIdx = eggs.indexOf egg
 
     return alert "You don't own that food :\\" if foodIdx is -1
     return alert "You don't own that egg :\\" if eggIdx is -1
-    return alert "You already have that pet." if pets and pets.indexOf("#{egg.name}-#{foodName}") != -1
+    return alert "You already have that pet." if myPets and myPets.indexOf("#{egg.name}-#{foodName}") != -1
 
     user.push 'items.pets', egg.name + '-' + foodName
 
