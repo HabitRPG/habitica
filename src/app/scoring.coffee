@@ -107,29 +107,6 @@ score = (model, taskId, direction, times, batch, cron) ->
   origStats = _.clone obj.stats
   updateStats model, { hp, exp, gp }, batch
 
-  ###
-    Drops
-  ###
-  # 1% chance of getting a pet or meat
-  if direction is 'up' and obj.flags.dropsEnabled and Math.random() < .5
-    if Math.random() < .5
-      drop = randomVal(food)
-      obj.items.food ?= []
-      obj.items.food.push drop.name
-      batch.set 'items.food', obj.items.food
-      drop.type = 'Food'
-      drop.dialog = "You've found #{drop.text} Hatching Powder! #{drop.notes}"
-    else
-      drop = randomVal(pets)
-      obj.items.food ?= []
-      obj.items.eggs.push drop
-      batch.set 'items.eggs', obj.items.eggs
-      drop.type = 'Egg'
-      drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
-
-    model.set '_drop', drop
-    $('#item-dropped-modal').modal 'show'
-
 
   ###
     Commit
@@ -141,6 +118,60 @@ score = (model, taskId, direction, times, batch, cron) ->
     batch.setStats(newStats)
     # batch.setStats()
     batch.commit()
+
+  ###
+   Drops
+  ###
+
+  # debugging purpose - 50% chance during development, 3% chance on prod
+  chanceMultiplier = if (model.flags.nodeEnv is 'development') then 50 else 3
+
+  # % chance of getting a pet or meat
+  if direction is 'up' and user.get('flags.dropsEnabled') and Math.random() < (.01 * chanceMultiplier)
+    # current breakdown - 3% (adjustable) chance on drop
+    # If they got a drop: 50% chance of egg, 50% Food. If food, broken down further even further
+    rarity = Math.random()
+
+    # Egg, 50% chance
+    if rarity > .5
+      drop = randomVal(pets)
+      user.push 'items.eggs', drop
+      drop.type = 'Egg'
+      drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
+
+
+    # Food, 50% chance - break down by rarity even more. FIXME this may not be the best method, so revisit
+    else
+      acceptableDrops = []
+
+      # Tier 5 (Blue Moon Rare)
+      if rarity < .1
+        acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue', 'Golden']
+
+      # Tier 4 (Very Rare)
+      else if rarity < .2
+        acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue']
+
+      # Tier 3 (Rare)
+      else if rarity < .3
+        acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton']
+
+      # Tier 2 (Scarce)
+      else if rarity < .4
+        acceptableDrops = ['Base', 'White', 'Desert']
+      # Tier 1 (Common)
+      else
+        acceptableDrops = ['Base']
+
+      acceptableDrops = _.filter(food, (foodItem) -> foodItem.name in acceptableDrops)
+      drop = randomVal acceptableDrops
+      user.push 'items.food', drop.name
+      drop.type = 'Food'
+      drop.dialog = "You've found #{drop.text} Hatching Powder! #{drop.notes}"
+
+
+    model.set '_drop', drop
+    $('#item-dropped-modal').modal 'show'
 
   return delta
 
