@@ -71,38 +71,31 @@ module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb)
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
 
-  unlockPartiesNotification = ->
-    $('.main-herobox').popover('destroy') #remove previous popovers
+  user.on 'set', 'flags.partyEnabled', (captures, args) ->
+    return if (captures != true) or user.get('party.current')
+    $('.user-menu').popover('destroy') #remove previous popovers
     html = """
            <div class='party-system-popover'>
            <img src='/img/party-unlocked.png' style='float:right;padding:5px;' />
-           Congratulations, you have unlocked the Party System! You can now group with your friends by adding their User Ids.
-           <a href='#' onClick="$('.main-herobox').popover('hide');return false;">[Close]</a>
+           Be social, join a party and play Habit with your friends! You'll be better at your habits with accountability partners. LFG anyone?
+           <a href='#' onClick="$('.user-menu').popover('hide');return false;">[Close]</a>
            </div>
            """
-    $('.main-herobox').popover
-      title: "Party System Unlocked"
+    $('.user-menu').popover
+      title: "Party System"
       placement: 'bottom'
       trigger: 'manual'
       html: true
       content: html
-    $('.main-herobox').popover 'show'
+    $('.user-menu').popover 'show'
 
-  appExports.manuallyUnlockParties = ->
-    $("#settings-modal").modal("hide")
-    user.set('flags.partyEnabled', true)
-    unlockPartiesNotification()
-
-  user.on 'set', 'flags.partyEnabled', (captures, args) ->
-    unlockPartiesNotification() if captures == true
-
-  #TODO implement this when we have unsubscribe working properly
   model.on 'set', '_user.party.invitation', (after, before) ->
     if !before? and after? # they just got invited
-      # if they haven't unlocked parties yet, unlock it for them
-      user.set('flags.partyEnabled',true) unless user.get('flags.partyEnabled')
-      window.setTimeout (-> window.location.reload true), 1000
-    #partySubscribe(null, model, null, null, null)
+      partyQ = model.query('parties').withId(after)
+      partyQ.fetch (err, party) ->
+        return next(err) if err
+        model.ref '_party', party
+        browser.resetDom(model)
 
   appExports.partyCreate = ->
     newParty = model.get("_newParty")
