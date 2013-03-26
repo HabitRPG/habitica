@@ -2,14 +2,7 @@
 // ========================
 
 // color variables
-$worst      =   rgb(230, 184, 175)
-$worse      =   rgb(244, 204, 204)
-$bad        =   rgb(252, 229, 205)
-$neutral    =   rgb(255, 242, 204)
-$good       =   rgb(217, 234, 211)
-$better     =   rgb(208, 224, 227)
-$best       =   rgb(201, 218, 248)
-$completed  =   rgb(217, 217, 217)
+@import "./color-vars.styl";
 
 // array of keywords and their associated color vars
 $stages = (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $good) (better $better) (best $best)
@@ -23,6 +16,8 @@ for $stage in $stages
       background-color: darken($stage[1], 30%)
       &:hover, &:focus
         background-color: darken($stage[1], 40%)
+    .task-options
+      background-color: $stage[1]
 
 // completed has to be outside the loop to override the color class
 .completed
@@ -96,27 +91,22 @@ for $stage in $stages
   border: 0
   border-radius: 0 //required to nuke BB-playbook user agent styles
   background-color: darken($best, 15%)
-  &:hover,
-  &:focus
-    // opacity: 1
+  &:hover, &:focus
     background-color: darken($best, 20%)
   &:active
     background-color: darken($best, 30%)
-    // opacity: 1
 
 
 // an individual task entry
 // ------------------------
 .task
-  overflow: hidden
   list-style: none
   clear: both
-  padding: 0 0.5em 0 0.5em
+  padding: 0
   min-height: 3em
-  line-height: 3
   margin-bottom: 0.75em
-  outline: 1px solid rgba(0,0,0,0.1)
-  outline-offset: -1px
+  box-shadow: inset 0 0 1px rgba(0,0,0,0.5)
+  position: relative
   &:hover
     cursor: move
   &:last-child
@@ -124,7 +114,12 @@ for $stage in $stages
 
 // task content
 .task-text
-  display: inline
+  display: block
+  padding: 0.75em 0 0.75em 3.5em
+  line-height: 1.4
+
+.habit-wide .task-text
+  padding-left: 7em
 
 // when a task is being dragged
 .task.ui-sortable-helper {
@@ -136,9 +131,18 @@ for $stage in $stages
 // primary task commands
 // ----------------------
 .task-controls
-  display: inline
+  display: inline-block
+  float: left
   margin-left: -0.5em
   margin-right: 0.5em
+
+.task-controls.task-primary
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  float: none
+  margin: 0
 
 // plus/minus commands
 .task-action-btn
@@ -167,7 +171,7 @@ for $stage in $stages
 .task-checker label
   display: inline-block
   width: 3em
-  height: 3em
+  height: 100%
   margin: 0
   vertical-align: top
   cursor: pointer
@@ -201,7 +205,6 @@ for $stage in $stages
   position: relative
   // uncompleted icon
   label:after, label:before
-    // content: '◯'
     content: ''
     display: block
     height: 1.714285714em
@@ -213,7 +216,7 @@ for $stage in $stages
     opacity: 0.2
 
   label:after
-    content: '▨'
+    content: '◻'
   label:before
     position: absolute
     left: 0
@@ -250,7 +253,8 @@ for $stage in $stages
 // -----------------------
 .task-meta-controls
   float: right
-  margin-left: 0.25em
+  margin: 0.75em 0.5em 0 0.25em
+  height: 1em
   opacity: 0.25
   a > i
     margin-left: 0.125em
@@ -260,13 +264,20 @@ for $stage in $stages
 .task:hover .task-meta-controls
   opacity: 1
 
+.popover
+  line-height: 1.5
 
 // task editing
 // ------------
+form
+  margin-bottom: 0 // stupid bootstrap override
+
 [class$="-options"]
-  padding: 0 0.5em
-  margin-top: 1.25em
+  padding: 1em 1em 0
   color: #333
+  z-index: 0
+  position: relative
+  background-color: 
 
   .option-group
     border-bottom: 1px solid rgba(0,0,0,0.1)
@@ -314,6 +325,14 @@ for $stage in $stages
     vertical-align: 20%
     padding-left: 0.25em
 
+.option-medium
+  .option-content
+    width: 6em
+    display: inline-block
+  .input-suffix
+    vertical-align: 20%
+    padding-left: 0.25em
+
 // button-group
 .task-controls.tile-group
   display: block
@@ -335,9 +354,11 @@ for $stage in $stages
   &.active
     opacity: 1
 
+.tile.solid
+  opacity: 1
 .tile.spacious
   margin: 0.75em 0
-  font-size: 1.5em
+  font-size: 1.25em
   opacity: 1
 .tile.bright
   background-color: lighten($best, 20%)

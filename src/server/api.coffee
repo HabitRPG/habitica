@@ -54,6 +54,9 @@ router.get '/user', auth, (req, res) ->
   user.stats.maxHealth = 50
 
   delete user.apiToken
+  if user.auth
+    delete user.auth.hashed_password
+    delete user.auth.salt
 
   res.json user
 
@@ -120,6 +123,28 @@ router.delete '/user/task/:id', auth, validateTask, (req, res) ->
   res.send 204
 
 ###
+  POST /user/tasks
+###
+router.post '/user/tasks', auth, (req, res) ->
+  for idx, task of req.body
+    if task.id
+      if task.del
+        req.user.del "tasks.#{task.id}"
+        task = deleted: true
+      else
+        req.user.set "tasks.#{task.id}", task
+    else
+      model = req.getModel()
+      type = task.type || 'habit'
+      model.ref '_user', req.user
+      model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+      model.at("_#{type}List").push task
+    req.body[idx] = task
+
+  res.json 201, req.body
+
+
+###
   POST /user/task/
 ###
 router.post '/user/task', auth, validateTask, (req, res) ->
@@ -157,7 +182,8 @@ router.get '/user/tasks', auth, (req, res) ->
 ###
 scoreTask = (req, res, next) ->
   {taskId, direction} = req.params
-  {title, service, icon} = req.body
+  {title, service, icon, type} = req.body
+  type ||= 'habit'
 
   # Send error responses for improper API call
   return res.send(500, ':taskId required') unless taskId
@@ -168,24 +194,39 @@ scoreTask = (req, res, next) ->
 
   model.ref('_user', user)
 
-  # Create task if doesn't exist
+  existingTask = model.at "_user.tasks.#{taskId}"
   # TODO add service & icon to task
-  unless model.get("_user.tasks.#{taskId}")
-    model.refList "_habitList", "_user.tasks", "_user.habitIds"
-    model.at('_habitList').push
+  # If task exists, set it's compltion
+  if existingTask.get()
+    # Set completed if type is daily or todo
+    existingTask.set 'completed', (direction is 'up') if /^(daily|todo)$/.test existingTask.get('type')
+  else
+    task =
       id: taskId
-      type: 'habit'
+      type: type
       text: (title || taskId)
       value: 0
-      up: true
-      down: true
       notes: "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
 
-  delta = scoring.score(model, taskId, direction)
-  result = model.get ('_user.stats')
-  result.delta = delta
-  res.send(result)
+    switch type
+      when 'habit'
+        task.up = true
+        task.down = true
+      when 'daily', 'todo'
+        task.completed = direction is 'up'
 
+    model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+    model.at("_#{type}List").push task
+
+  delta = scoring.score(model, taskId, direction)
+  result = model.get '_user.stats'
+  result.delta = delta
+  res.json result
+
+###
+  POST /user/tasks/:taskId/:direction
+###
+router.post '/user/task/:taskId/:direction', auth, scoreTask
 router.post '/user/tasks/:taskId/:direction', auth, scoreTask
 
 module.exports = router

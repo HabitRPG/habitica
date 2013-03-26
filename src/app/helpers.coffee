@@ -42,4 +42,6 @@ module.exports.viewHelpers = (view) ->
   view.fn "and", -> _.reduce arguments, (cumm, curr) -> cumm && curr
   view.fn "or", -> _.reduce arguments, (cumm, curr) -> cumm || curr
 
+  view.fn "truarr", (num) ->
+      return num-1
 

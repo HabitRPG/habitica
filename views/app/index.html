@@ -21,11 +21,14 @@
   <!-- CDN -->
   <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
   <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.0.0/css/datepicker.css" rel="stylesheet">
+
 
 <Header:>
   <app:modals:modals />
   <ui:connectionAlert>
-  <div id="head" class="container-fluid">
+  <app:alerts:newStuff />
+  <div class="header-wrap">
 
     {#if _undo}<a x-bind="click:undo" class='label undo-button'>Undo</a>{/}
 
@@ -37,7 +40,8 @@
   <br/>
   <div id="notification-area"></div>
   <div id="wrap">
-    <app:alerts:alerts />
+    <app:alerts:flash />
+      <div id="exp-chart" style="display:none;"></div>
     <div id=main class="grid">
       <app:tasks:taskLists />
     </div>
