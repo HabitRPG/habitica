@@ -1,42 +1,92 @@
-/* ----- Items, Weapons, Armor -----*/
-.item-store-popover img
-  float:left
-  padding-right:7px;
+// money styles
+.money
+  display: inline-block
+  line-height: 1.5em
+  padding-left: 0.75em
 
-.item .task-text img
-  max-height: 16px
+  [class^="shop_"]
+    vertical-align: top
+    display: inline-block
 
-.buy-link, .item-buy-link
-    background-color: #DEE5F2
-    padding: 2px
-    margin-right: 10px
-    border-radius: 5px
+.btn-buy
+  width: 4.5em
+  min-height: 3em
+  height: 100%
+  padding: 0.75em 0 0 0.5em
+  text-align: center
+  vertical-align: top
+  background-color: $better
 
-    img
-      height:20px
+  color: #555
+  &:hover, &:focus
+    background-color: $bad
+    text-decoration: none
 
-  .item-buy-link
-    background-color: #ccffcc
+.rewards
+  margin-bottom: 1.5em
+  padding-bottom: 1.5em
+  border-bottom: 1px solid rgba(0,0,0,0.1)
 
-.item
-    position:relative
+.reward-item
+  background: white
 
-.shop-table
-    position:absolute
-    top: 0
-    left: 50px
+.reward-cost
+  display: inline
 
-#money
-    position:relative
-.shop_gold, .shop_silver, .shop_copper
-    float:right
-.money-table
-    position:absolute
-    top: 0
+.rewards .task-text
+  padding-left: 5em
 
-.shop-pet
-    mouse: pointer
-.shop-pet-owned-check
-    position:absolute
-    right:0px
-    bottom:0px
+.rewards .task-options
+  background: white
+
+// store items
+.btn-reroll
+  width: 2.5em
+  padding-left: 0.25em
+  background-color: $better
+  cursor: pointer
+  box-shadow: inset -1px -1px 0 rgba(0,0,0,0.1)
+  &:hover, &:focus
+    background-color: $bad
+
+.item-img
+  float: left
+  display: inline-block
+  vertical-align: top
+  // background-color: $bad
+  height: 3em
+  margin-left: -0.5em
+  margin-right: 0.5em
+  // border: 1px solid rgba(0,0,0,0.1)
+  border-top: 0
+  border-bottom: 0
+
+.token-wallet
+  cursor: pointer
+  .tile
+    background-color: darken($neutral, 10%)
+  .add-token-btn
+    opacity: 0
+  &:hover, &:focus
+    .add-token-btn
+      opacity: 1
+      background-color: $good
+    .tile
+      opacity: 1
+
+
+// pets (this will all change when pet system is overhauled)
+.pet-grid
+  padding-top: 1.5em
+  border-top: rgba(0,0,0,0.1)
+  table
+    width: 100%
+  td
+    padding: 0.5em
+    width: 25%
+    &.active-pet
+      background-color: $bad
+      outline: 1px solid rgba(0,0,0,0.1)
+      outline-offset: -1px
+    &:hover, &:focus
+      background-color: darken($better, 10%)
