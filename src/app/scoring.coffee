@@ -1,10 +1,11 @@
 async = require 'async'
 moment = require 'moment'
 _ = require 'underscore'
-helpers = require './helpers'
+{ randomVal } = helpers = require './helpers'
 browser = require './browser'
 character = require './character'
 items = require './items'
+{ pets, food } = items.items
 algos = require './algos'
 
 MODIFIER = algos.MODIFIER # each new level, armor, weapon add 2% modifier (this mechanism will change)
@@ -104,7 +105,12 @@ score = (model, taskId, direction, times, batch, cron) ->
   taskObj.value = value
   batch.set "#{taskPath}.value", taskObj.value
   origStats = _.clone obj.stats
-  updateStats model, {hp: hp, exp: exp, gp: gp}, batch
+  updateStats model, { hp, exp, gp }, batch
+
+
+  ###
+    Commit
+  ###
   if commit
     # newStats / origStats is a glorious hack to trick Derby into seeing the change in model.on(*)
     newStats = _.clone batch.obj().stats
@@ -112,6 +118,60 @@ score = (model, taskId, direction, times, batch, cron) ->
     batch.setStats(newStats)
     # batch.setStats()
     batch.commit()
+
+  ###
+   Drops
+  ###
+
+  # % chance of getting a pet or meat
+  if direction is 'up'
+    # debugging purpose - 50% chance during development, 3% chance on prod
+    chanceMultiplier = if (model.flags.nodeEnv is 'development') then 50 else 1
+    chanceMultiplier *= Math.abs(delta) # multiply chance by reddness
+    if user.get('flags.dropsEnabled') and Math.random() < (.01 * chanceMultiplier)
+      # current breakdown - 3% (adjustable) chance on drop
+      # If they got a drop: 50% chance of egg, 50% Food. If food, broken down further even further
+      rarity = Math.random()
+
+      # Egg, 40% chance
+      if rarity > .6
+        drop = randomVal(pets)
+        user.push 'items.eggs', drop
+        drop.type = 'Egg'
+        drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
+
+      # Food, 60% chance - break down by rarity even more. FIXME this may not be the best method, so revisit
+      else
+        acceptableDrops = []
+
+        # Tier 5 (Blue Moon Rare)
+        if rarity < .1
+          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue', 'Golden']
+
+        # Tier 4 (Very Rare)
+        else if rarity < .2
+          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue']
+
+        # Tier 3 (Rare)
+        else if rarity < .3
+          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton']
+
+        # Tier 2 (Scarce)
+        else if rarity < .4
+          acceptableDrops = ['Base', 'White', 'Desert']
+        # Tier 1 (Common)
+        else
+          acceptableDrops = ['Base']
+
+        acceptableDrops = _.filter(food, (foodItem) -> foodItem.name in acceptableDrops)
+        drop = randomVal acceptableDrops
+        user.push 'items.food', drop.name
+        drop.type = 'Food'
+        drop.dialog = "You've found #{drop.text} Hatching Powder! #{drop.notes}"
+
+      model.set '_drop', drop
+      $('#item-dropped-modal').modal 'show'
+
   return delta
 
 ###
@@ -159,7 +219,7 @@ updateStats = (model, newStats, batch) ->
     obj.stats.exp = newStats.exp
     #if silent
       #console.log("pushing silent :"  + obj.stats.exp)
-      #user.pass(true).set('stats.exp', obj.stats.exp) 
+      #user.pass(true).set('stats.exp', obj.stats.exp)
 
     # Set flags when they unlock features
     if !obj.flags.customizationsNotification and (obj.stats.exp > 10 or obj.stats.lvl > 1)
@@ -167,14 +227,11 @@ updateStats = (model, newStats, batch) ->
       obj.flags.customizationsNotification = true
     if !obj.flags.itemsEnabled and obj.stats.lvl >= 2
       # Set to object, then also send to browser right away to get model.on() subscription notification
-      batch.set 'flags.itemsEnabled', true
-      obj.flags.itemsEnabled = true
+      batch.set 'flags.itemsEnabled', obj.flags.itemsEnabled = true
     if !obj.flags.partyEnabled and obj.stats.lvl >= 3
-      batch.set 'flags.partyEnabled', true
-      obj.flags.partyEnabled = true
-    if !obj.flags.petsEnabled and obj.stats.lvl >= 4
-      batch.set 'flags.petsEnabled', true
-      obj.flags.petsEnabled = true
+      batch.set 'flags.partyEnabled', obj.flags.partyEnabled = true
+    if !obj.flags.dropsEnabled and obj.stats.lvl >= 4
+      batch.set 'flags.dropsEnabled', obj.flags.dropsEnabled = true
 
   if newStats.gp?
     #FIXME what was I doing here? I can't remember, gp isn't defined

@@ -104,7 +104,6 @@ module.exports.app = (appExports, model) ->
       content: html
     $('.main-avatar').popover 'show'
 
-
 userSchema =
 # _id
   stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }

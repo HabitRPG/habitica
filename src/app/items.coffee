@@ -38,28 +38,37 @@ items = module.exports.items =
   reroll: {type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your task values back to 0 (yellow). Useful when everything's red and it's hard to stay alive.", value:0 }
 
   pets: [
-    {index: 0, text: 'Bear Cub', name: 'bearcub', icon: 'Pet-BearCub-Base.png', value: 3}
-    {index: 1, text: 'Cactus', name: 'cactus', icon: 'Pet-Cactus-Base.png', value: 3}
-    {index: 2, text: 'Drake', name: 'dragon', icon: 'Pet-Dragon-Base.png', value: 3}
-    {index: 3, text: 'Flying Pig', name: 'flyingpig', icon: 'Pet-FlyingPig-Base.png', value: 3}
-    {index: 4, text: 'Fox', name: 'fox', icon: 'Pet-Fox-Base.png', value: 3}
-    {index: 5, text: 'Lion Cub', name: 'lioncub', icon: 'Pet-LionCub-Base.png', value: 3}
-    {index: 6, text: 'Panda Cub', name: 'pandacub', icon: 'Pet-PandaCub-Base.png', value: 3}
-    {index: 7, text: 'Tiger Cub', name: 'tigercub', icon: 'Pet-TigerCub-Base.png', value: 3}
-    {index: 8, text: 'Desert Wolf', name: 'wolfDesert', icon: 'Pet-Wolf-Desert.png', value: 3}
-    {index: 9, text: 'Golden Wolf', name: 'wolfGolden', icon: 'Pet-Wolf-Golden.png', value: 3}
-    {index: 10, text: 'Red Wolf', name: 'wolfRed', icon: 'Pet-Wolf-Red.png', value: 3}
-    {index: 11, text: 'Shade Wolf', name: 'wolfShade', icon: 'Pet-Wolf-Shade.png', value: 3}
-    {index: 12, text: 'Skeleton Wolf', name: 'wolfSkeleton', icon: 'Pet-Wolf-Skeleton.png', value: 3}
-    {index: 13, text: 'Veteran Wolf', name: 'wolfVeteran', icon: 'Pet-Wolf-Veteran.png', value: 3}
-    {index: 14, text: 'White Wolf', name: 'wolfWhite', icon: 'Pet-Wolf-White.png', value: 3}
-    {index: 15, text: 'Zombie Wolf', name: 'wolfZombie', icon: 'Pet-Wolf-Zombie.png', value: 3}
-    {index: 16, text: 'Wolf', name: 'wolfBorder', icon: 'wolf_border.png', value: 3}
+    {text: 'Wolf', name: 'Wolf', value: 3}
+    {text: 'Tiger Cub', name: 'TigerCub', value: 3}
+    #{text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3} #commented out because there are no polarbear modifiers yet, special drop?
+    {text: 'Panda Cub', name: 'PandaCub', value: 3}
+    {text: 'Lion Cub', name: 'LionCub', value: 3}
+    {text: 'Fox', name: 'Fox', value: 3}
+    {text: 'Flying Pig', name: 'FlyingPig', value: 3}
+    {text: 'Dragon', name: 'Dragon', value: 3}
+    {text: 'Cactus', name: 'Cactus', value: 3}
+    {text: 'Bear Cub', name: 'BearCub', value: 3}
+  ]
+
+  food: [
+    {text: 'Common', name: 'Base', notes: "Hatches your pet in it's base form.", value: 3}
+    {text: 'Zombie', name: 'Zombie', notes: 'Turns your animal into a Zombie.', value: 3}
+    {text: 'White', name: 'White', notes: 'Turns your animal into a White pet.', value: 3}
+    {text: 'Skeleton', name: 'Skeleton', notes: 'Turns your animal into a Skeleton.', value: 3}
+    {text: 'Shade', name: 'Shade', notes: 'Turns your animal into a Shade pet.', value: 3}
+    {text: 'Red', name: 'Red', notes: 'Turns your animal into a Red pet.', value: 3}
+    {text: 'Golden', name: 'Golden', notes: 'Turns your animal into a Golden pet.', value: 3}
+    {text: 'Desert', name: 'Desert', notes: 'Turns your animal into a Desert pet.', value: 3}
+    {text: 'Cotton Candy Pink', name: 'CottonCandyPink', notes: 'Turns your animal into a Cotton Candy Pink pet.', value: 3}
+    {text: 'Cotton Candy Blue', name: 'CottonCandyBlue', notes: 'Turns your animal into a Cotton Candy Blue pet.', value: 3}
   ]
 
 # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
 _.each ['weapon', 'armor', 'head', 'shield'], (key) ->
   _.each items[key], (item) -> item.type = key
+
+_.each items.pets, (pet) -> pet.notes = 'Find some Hatching Powder to sprinkle on this egg, and one day it will hatch into a loyal pet.'
+_.each items.food, (food) -> food.notes = "Sprinkle this on an egg, and it will hatch as a #{food.text} pet."
 
 ###
   view exports
@@ -141,22 +150,6 @@ module.exports.app = (appExports, model) ->
       hp = 50 if hp > 50
       user.set 'stats.hp', hp
 
-  appExports.selectPet = (e, el) ->
-    name = $(el).attr('data-pet')
-    pet = _.find items.pets, (p) -> p.name == name
-    debugger
-    if user.get "items.pets.#{name}"
-      user.set 'items.pet', pet
-    else
-      tokens = user.get('balance')*4
-      if tokens > pet.value
-        r = confirm("Buy this pet with #{pet.value} of your #{tokens} tokens?");
-        if r
-          user.set "items.pets.#{name}", true
-          user.set 'items.pet', pet
-          user.set 'balance', (tokens-pet.value)/4
-      else
-        $('#more-tokens-modal').modal('show')
 
   appExports.activateRewardsTab = ->
     model.set '_view.activeTabRewards', true
@@ -211,6 +204,7 @@ module.exports.updateStore = updateStore = (model) ->
   model.set '_view.items.potion', items.potion
   model.set '_view.items.reroll', items.reroll
   model.set '_view.items.pets', items.pets
+  model.set '_view.items.food', items.food
 
 
 

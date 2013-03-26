@@ -2,82 +2,26 @@
     <div class="module">
         <div class="task-column rewards">
             <!-- cash or tokens -->
-                <span class='option-box pull-right wallet'>
-                    {#unless _view.activeTabPets}
-                    <div class="money">
-                        {gold(_user.stats.gp)}
-                        <span class='shop_gold' rel='tooltip' title='Gold'></span>
-                    </div>
-                    <div class="money">
-                        {silver(_user.stats.gp)}
-                        <span class='shop_silver' rel='tooltip' title='Silver'></span>
-                    </div>
-                    <!-- <div class="money">
-                        {copper(_user.stats.gp)}
-                        <span class='shop_copper' rel='tooltip' title='Copper'></span>
-                    </div> -->
-                    {else}
-                    <app:rewards:userTokens />
-                    {/}
-                </span>
-            <h2 class="task-column_title">Rewards</h2>
-
-            <!-- if pets are enabled, make tabs -->
-            {#if equal(_user.flags.petsEnabled,true)}
-            <div class='tabbable tabs-below'>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="rewards-tab">
-                        <app:rewards:rewardsTab />
-                    </div>
-
-                    <!-- pets pane -->
-                    <div class="tab-pane pet-grid" id="pets-tab">
-                        {#with _view.items.pets as :pets}
-                        <table>
-                            <tr>
-                                {#with :pets[0]}<app:rewards:pet />{/}
-                                {#with :pets[1]}<app:rewards:pet />{/}
-                                {#with :pets[2]}<app:rewards:pet />{/}
-                                {#with :pets[3]}<app:rewards:pet />{/}
-                            </tr>
-                            <tr>
-                                {#with :pets[4]}<app:rewards:pet />{/}
-                                {#with :pets[5]}<app:rewards:pet />{/}
-                                {#with :pets[6]}<app:rewards:pet />{/}
-                                {#with :pets[7]}<app:rewards:pet />{/}
-                            </tr>
-                            <tr>
-                                {#with :pets[8]}<app:rewards:pet />{/}
-                                {#with :pets[9]}<app:rewards:pet />{/}
-                                {#with :pets[10]}<app:rewards:pet />{/}
-                                {#with :pets[11]}<app:rewards:pet />{/}
-                            </tr>
-                            <tr>
-                                {#with :pets[12]}<app:rewards:pet />{/}
-                                {#with :pets[13]}<app:rewards:pet />{/}
-                                {#with :pets[14]}<app:rewards:pet />{/}
-                                {#with :pets[15]}<app:rewards:pet />{/}
-                            </tr>
-                            <tr>
-                                {#with :pets[16]}<app:rewards:pet />{/}
-                            </tr>
-                        </table>
-                        {/}
-                    </div>
-                    <!--<div class="tab-pane" id="mounts-tab">...</div>-->
+            <span class='option-box pull-right wallet'>
+                {#unless _view.activeTabPets}
+                <div class="money">
+                    {gold(_user.stats.gp)}
+                    <span class='shop_gold' rel='tooltip' title='Gold'></span>
                 </div>
-
-                <ul class="nav nav-tabs" id="rewardsTabs">
-                    <li class="active"><a href="#rewards-tab" data-toggle="tab" x-bind="click:activateRewardsTab">Rewards</a></li>
-                    <li><a href="#pets-tab" data-toggle="tab" x-bind='click:activatePetsTab'>Pets</a></li>
-                    <!--<li><a href="#mounts-tab" data-toggle="tab">Mounts</a></li>-->
-                </ul>
-            </div>
-
-            <!-- if pets are disabled, just do rewards tab -->
-            {else}
+                <div class="money">
+                    {silver(_user.stats.gp)}
+                    <span class='shop_silver' rel='tooltip' title='Silver'></span>
+                </div>
+                <!-- <div class="money">
+                    {copper(_user.stats.gp)}
+                    <span class='shop_copper' rel='tooltip' title='Copper'></span>
+                </div> -->
+                {else}
+                <app:rewards:userTokens />
+                {/}
+            </span>
+            <h2 class="task-column_title">Rewards</h2>
             <app:rewards:rewardsTab />
-            {/}
         </div>
     </div>
 
@@ -86,7 +30,7 @@
     <!-- add new reward -->
     <app:tasks:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
 
-    {#if _rewardList}        
+    {#if _rewardList}
     <ul class='rewards'>
         {#each _rewardList as :task}<app:tasks:task />{/}
     </ul>
@@ -104,12 +48,6 @@
     </ul>
     {/}
 
-<pet:>
-    <td class="{#if _user.items.pets[.name]}active-pet{/}">
-      <img rel=tooltip title="{.text} - {.value} Tokens" x-bind="click:selectPet" data-pet='{.name}' src='img/sprites/{.icon}'/>
-    </td>
-
-
 <userTokens:>
   <a class="pull-right token-wallet">
     <span class="task-action-btn tile flush bright add-token-btn">＋</span>
@@ -124,7 +62,7 @@
     <div class="task-meta-controls">
         <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:item.notes}" data-original-title="{:item.text}" class='task-notes'><i class="icon-comment"></i></span>
     </div>
-    
+
     <!-- left-hand size commands -->
     <div class="task-controls">
       {#if @reroll}

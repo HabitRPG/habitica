@@ -1,0 +1,101 @@
+<modals:>
+
+  <app:modals:modal modalId='drops-enabled-modal' header="Drops Enabled!">
+    <p>You've unlocked the drop system! Now when you complete tasks, you have a random chance of finding an item drop. And guess what? You just found a {_user.items.eggs.0.text} egg! {_user.items.eggs.0.notes}</p>
+    <@footer>
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </@footer>
+  </app:modals:modal>
+
+  <app:modals:modal modalId='item-dropped-modal' header="An item has dropped!">
+    <p><span class="Pet_{_drop.type}_{_drop.name} item-drop-icon"></span>{_drop.dialog}</p>
+
+
+    <@footer>
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </@footer>
+  </app:modals:modal>
+
+<pet:>
+    <td class="{#if _user.items.pets[.name]}active-pet{/}">
+        <img rel=tooltip title="{.text} - {.value} Tokens" x-bind="click:selectPet" data-pet='{.name}' src='img/sprites/{.icon}'/>
+    </td>
+
+<food:>
+    <td class="active-food">
+        <div rel=tooltip class="Pet_Food_{.name}" title="{.text} - {.value} Tokens" x-bind="click:buyFood" data-food='{.name}'></div>
+        {.text}
+    </td>
+
+<egg:>
+    <td class="active-egg">
+        <div rel=tooltip class="Pet_Egg_{.name}" title="{.text} - {.value} Tokens" x-bind="click:buyEgg" data-egg='{.name}'></div>
+        {.text}
+    </td>
+
+<inventory:>
+    <div class='row-fluid'>
+        <div class='span6 well'>
+            <menu type="list" class="inventory-list">
+                <li class="customize-menu">
+                    {#if not(_user.items.eggs)}
+                        <p>You don't have any eggs yet.</p>
+                    {/if}
+                    <menu label="Eggs" class='pets-menu'>
+                        {#each _user.items.eggs as :egg}
+                            <div>
+                                <button rel=tooltip title="{:egg.text}" class="customize-option Pet_Egg_{{:egg.name}}" x-bind="click: chooseEgg"></button>
+                                <p>{:egg.text}</p>
+                            </div>
+                        {/each}
+                    </menu>
+                </li>
+                <li class="customize-menu">
+                    {#if not(_user.items.food)}
+                        <p>You don't have any food yet.</p>
+                    {/if}
+                    <menu label="Food" class='food-menu'>
+                        {#each _user.items.food as :food}
+                            <div>
+                                <button rel=tooltip title="{:food}" class="customize-option Pet_Food_{{:food}}" x-bind="click: chooseFood"></button>
+                                <p>{:food}</p>
+                            </div>
+                        {/each}
+                    </menu>
+                </li>
+            </menu>
+        </div>
+        {#if _feedEgg}
+        <div class='span6 well'>
+            <h3>Hatch Your Egg</h3>
+            {#if not(_user.items.food)}
+            <p>You don't have any hatching powder yet.</p>
+            {else}
+            <p>What would you like to sprinkle on your {_feedEgg.text} egg?</p>
+            <form x-bind="submit:feedEgg">
+                <select>
+                    {#each _user.items.food as :food}
+                    <option>{:food}</option>
+                    {/each}
+                </select>
+                <button type=submit>Sprinkle</button>
+            </form>
+            {/if}
+        </div>
+        {/if}
+    </div>
+
+<stable:>
+    {#if _user.items.pets}
+        <menu type="list">
+            <li class="customize-menu">
+                <menu>
+                    {#each _user.items.pets as :pet}
+                        <button type="button" class="customize-option Pet-{:pet} {#if equal(_user.items.currentPet.name, :pet)}active{/if}" rel="tooltip" title="{:pet}" data-pet="{:pet}" x-bind="click:choosePet"></button>
+                    {/}
+                </menu>
+            </li>
+        </menu>
+    {else}
+        <p>You don't have any pets yet.</p>
+    {/}

@@ -14,6 +14,7 @@ browser = require './browser'
 party = require './party'
 items = require './items'
 profile = require './profile'
+pets = require './pets'
 
 helpers.viewHelpers view
 character.view view
@@ -58,6 +59,7 @@ ready (model) ->
   items.app(exports, model)
   party.app(exports, model)
   profile.app(exports, model)
+  pets.app(exports, model)
   require('../server/private').app(exports, model)
   require('./debug').app(exports, model) if model.get('_view.nodeEnv') != 'production'
   browser.app(exports, model, app)
