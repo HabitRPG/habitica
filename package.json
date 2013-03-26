@@ -26,7 +26,8 @@
     "superagent": "~0.12.4",
     "resolve": "~0.2.3",
     "browserify": "1.17.3",
-    "expect.js": "~0.2.0"
+    "expect.js": "~0.2.0",
+    "derby-i18n": "0.0.1"
   },
   "private": true,
   "subdomain": "habitrpg",
