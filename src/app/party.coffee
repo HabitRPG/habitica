@@ -72,21 +72,21 @@ module.exports.app = (appExports, model) ->
   user = model.at('_user')
 
   unlockPartiesNotification = ->
-    $('.main-avatar').popover('destroy') #remove previous popovers
+    $('.main-herobox').popover('destroy') #remove previous popovers
     html = """
            <div class='party-system-popover'>
            <img src='/img/party-unlocked.png' style='float:right;padding:5px;' />
            Congratulations, you have unlocked the Party System! You can now group with your friends by adding their User Ids.
-           <a href='#' onClick="$('.main-avatar').popover('hide');return false;">[Close]</a>
+           <a href='#' onClick="$('.main-herobox').popover('hide');return false;">[Close]</a>
            </div>
            """
-    $('.main-avatar').popover
+    $('.main-herobox').popover
       title: "Party System Unlocked"
       placement: 'bottom'
       trigger: 'manual'
       html: true
       content: html
-    $('.main-avatar').popover 'show'
+    $('.main-herobox').popover 'show'
 
   appExports.manuallyUnlockParties = ->
     $("#settings-modal").modal("hide")

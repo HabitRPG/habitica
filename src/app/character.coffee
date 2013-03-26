@@ -92,17 +92,17 @@ module.exports.app = (appExports, model) ->
 
   user.on 'set', 'flags.customizationsNotification', (captures, args) ->
     return unless captures == true
-    $('.main-avatar').popover('destroy') #remove previous popovers
+    $('.main-herobox').popover('destroy') #remove previous popovers
     html = """
-           Click your avatar to customize your appearance. <a href='#' onClick="$('.main-avatar').popover('hide');return false;">[Close]</a>
+           Click your avatar to customize your appearance. <a href='#' onClick="$('.main-herobox').popover('hide');return false;">[Close]</a>
            """
-    $('.main-avatar').popover
+    $('.main-herobox').popover
       title: "Customize Your Avatar"
       placement: 'bottom'
       trigger: 'manual'
       html: true
       content: html
-    $('.main-avatar').popover 'show'
+    $('.main-herobox').popover 'show'
 
 
 userSchema =
