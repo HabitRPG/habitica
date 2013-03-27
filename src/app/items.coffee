@@ -38,19 +38,19 @@ items = module.exports.items =
   reroll: {type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your task values back to 0 (yellow). Useful when everything's red and it's hard to stay alive.", value:0 }
 
   pets: [
-    {text: 'Wolf', name: 'Wolf', value: 2}
-    {text: 'Tiger Cub', name: 'TigerCub', value: 2}
+    {text: 'Wolf', name: 'Wolf', value: 3}
+    {text: 'Tiger Cub', name: 'TigerCub', value: 3}
     #{text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3} #commented out because there are no polarbear modifiers yet, special drop?
-    {text: 'Panda Cub', name: 'PandaCub', value: 2}
-    {text: 'Lion Cub', name: 'LionCub', value: 2}
-    {text: 'Fox', name: 'Fox', value: 2}
-    {text: 'Flying Pig', name: 'FlyingPig', value: 2}
-    {text: 'Dragon', name: 'Dragon', value: 2}
-    {text: 'Cactus', name: 'Cactus', value: 2}
-    {text: 'Bear Cub', name: 'BearCub', value: 2}
+    {text: 'Panda Cub', name: 'PandaCub', value: 3}
+    {text: 'Lion Cub', name: 'LionCub', value: 3}
+    {text: 'Fox', name: 'Fox', value: 3}
+    {text: 'Flying Pig', name: 'FlyingPig', value: 3}
+    {text: 'Dragon', name: 'Dragon', value: 3}
+    {text: 'Cactus', name: 'Cactus', value: 3}
+    {text: 'Bear Cub', name: 'BearCub', value: 3}
   ]
 
-  food: [
+  hatchingPotions: [
     {text: 'Common', name: 'Base', notes: "Hatches your pet in it's base form.", value: 1}
     {text: 'White', name: 'White', notes: 'Turns your animal into a White pet.', value: 2}
     {text: 'Desert', name: 'Desert', notes: 'Turns your animal into a Desert pet.', value: 2}
@@ -67,8 +67,8 @@ items = module.exports.items =
 _.each ['weapon', 'armor', 'head', 'shield'], (key) ->
   _.each items[key], (item) -> item.type = key
 
-_.each items.pets, (pet) -> pet.notes = 'Find some Hatching Powder to sprinkle on this egg, and one day it will hatch into a loyal pet.'
-_.each items.food, (food) -> food.notes = "Sprinkle this on an egg, and it will hatch as a #{food.text} pet."
+_.each items.pets, (pet) -> pet.notes = 'Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.'
+_.each items.hatchingPotions, (hatchingPotion) -> hatchingPotion.notes = "Pour this on an egg, and it will hatch as a #{hatchingPotion.text} pet."
 
 ###
   view exports
@@ -204,7 +204,7 @@ module.exports.updateStore = updateStore = (model) ->
   model.set '_view.items.potion', items.potion
   model.set '_view.items.reroll', items.reroll
   model.set '_view.items.pets', items.pets
-  model.set '_view.items.food', items.food
+  model.set '_view.items.hatchingPotions', items.hatchingPotions
 
 
 

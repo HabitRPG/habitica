@@ -5,7 +5,7 @@ _ = require 'underscore'
 browser = require './browser'
 character = require './character'
 items = require './items'
-{ pets, food } = items.items
+{ pets, hatchingPotions } = items.items
 algos = require './algos'
 
 MODIFIER = algos.MODIFIER # each new level, armor, weapon add 2% modifier (this mechanism will change)
@@ -29,7 +29,7 @@ randomDrop = (model, delta) ->
   chanceMultiplier *= Math.abs(delta) # multiply chance by reddness
   if user.get('flags.dropsEnabled') and Math.random() < (.01 * chanceMultiplier)
     # current breakdown - 3% (adjustable) chance on drop
-    # If they got a drop: 50% chance of egg, 50% Food. If food, broken down further even further
+    # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
     rarity = Math.random()
 
     # Egg, 40% chance
@@ -39,7 +39,7 @@ randomDrop = (model, delta) ->
       drop.type = 'Egg'
       drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
 
-      # Food, 60% chance - break down by rarity even more. FIXME this may not be the best method, so revisit
+      # Hatching Potion, 60% chance - break down by rarity even more. FIXME this may not be the best method, so revisit
     else
       acceptableDrops = []
 
@@ -62,11 +62,11 @@ randomDrop = (model, delta) ->
       else
         acceptableDrops = ['Base']
 
-      acceptableDrops = _.filter(food, (foodItem) -> foodItem.name in acceptableDrops)
+      acceptableDrops = _.filter(hatchingPotions, (hatchingPotion) -> hatchingPotion.name in acceptableDrops)
       drop = randomVal acceptableDrops
-      user.push 'items.food', drop.name
-      drop.type = 'Food'
-      drop.dialog = "You've found #{drop.text} Hatching Powder! #{drop.notes}"
+      user.push 'items.hatchingPotions', drop.name
+      drop.type = 'HatchingPotion'
+      drop.dialog = "You've found a #{drop.text} Hatching Potion! #{drop.notes}"
 
     model.set '_drop', drop
     $('#item-dropped-modal').modal 'show'
