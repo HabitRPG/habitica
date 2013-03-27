@@ -54,23 +54,27 @@ db.users.find().forEach(function(user){
 
     // migrate items.pet to items.currentPet
     if (!!user.items.pet) {
-        var oldPet = user.items.pet,
-            mapped = mapping[oldPet.name];
+        var mapped = mapping[user.items.pet.name];
+        delete user.items.pet;
         user.items.currentPet = {
             modifier: mapped.modifier,
             name: mapped.name,
             str: mapped.name + "-" + mapped.modifier,
             text: '' // FIXME?
         }
-        delete user.items.pet
     }
 
     // migrate items.pets
     if (!!user.items.pets) {
         var newPets = [];
         _.each(user.items.pets, function(val, key){
-            if (_.isNumber(key)) throw "Error: User appears already migrated, this shouldn't be happening!"
-            newPets.push(mapping[key].name + "-" + mapping[key].modifier);
+            if (_.isNumber(key)) {
+                newPets.push(val)
+                //FIXME why is this happening? seems the user gets migrated already...
+                //throw "Error: User appears already migrated, this shouldn't be happening!"
+            } else {
+                newPets.push(mapping[key].name + "-" + mapping[key].modifier);
+            }
         });
         user.items.pets = newPets;
     }
@@ -80,8 +84,7 @@ db.users.find().forEach(function(user){
             {_id:user._id},
             {$set:
                 { 'items' : user.items }
-            },
-            {multi:true}
+            }
         );
     } catch(e) {
         print(e);
