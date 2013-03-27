@@ -52,9 +52,9 @@
                 </li>
                 <li class="customize-menu">
                     {#if not(_user.items.food)}
-                        <p>You don't have any food yet.</p>
+                        <p>You don't have any hatching powder yet.</p>
                     {/if}
-                    <menu label="Food" class='food-menu'>
+                    <menu label="Hatching Powder" class='food-menu'>
                         {#each _user.items.food as :food}
                             <div>
                                 <button rel=tooltip title="{:food}" class="customize-option Pet_Food_{{:food}}" x-bind="click: chooseFood"></button>
