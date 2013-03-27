@@ -10,6 +10,70 @@ algos = require './algos'
 
 MODIFIER = algos.MODIFIER # each new level, armor, weapon add 2% modifier (this mechanism will change)
 
+###
+  Drop System
+###
+randomDrop = (model, delta) ->
+  user = model.at('_user')
+
+  # limit drops to 2 / day
+  user.setNull 'items.lastDrop',
+    date: +moment().subtract('d',1) # trick - set it to yesterday on first run, that way they can get drops today
+    count: 0
+  reachedDropLimit = (helpers.daysBetween(user.get('items.lastDrop.date'), +new Date) is 0) and user.get('items.lastDrop.count') >= 2
+  return if reachedDropLimit and model.flags.nodeEnv != 'development'
+
+  # % chance of getting a pet or meat
+  # debugging purpose - 50% chance during development, 3% chance on prod
+  chanceMultiplier = if (model.flags.nodeEnv is 'development') then 50 else 1
+  chanceMultiplier *= Math.abs(delta) # multiply chance by reddness
+  if user.get('flags.dropsEnabled') and Math.random() < (.01 * chanceMultiplier)
+    # current breakdown - 3% (adjustable) chance on drop
+    # If they got a drop: 50% chance of egg, 50% Food. If food, broken down further even further
+    rarity = Math.random()
+
+    # Egg, 40% chance
+    if rarity > .6
+      drop = randomVal(pets)
+      user.push 'items.eggs', drop
+      drop.type = 'Egg'
+      drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
+
+      # Food, 60% chance - break down by rarity even more. FIXME this may not be the best method, so revisit
+    else
+      acceptableDrops = []
+
+      # Tier 5 (Blue Moon Rare)
+      if rarity < .1
+        acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue', 'Golden']
+
+        # Tier 4 (Very Rare)
+      else if rarity < .2
+        acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue']
+
+        # Tier 3 (Rare)
+      else if rarity < .3
+        acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton']
+
+        # Tier 2 (Scarce)
+      else if rarity < .4
+        acceptableDrops = ['Base', 'White', 'Desert']
+        # Tier 1 (Common)
+      else
+        acceptableDrops = ['Base']
+
+      acceptableDrops = _.filter(food, (foodItem) -> foodItem.name in acceptableDrops)
+      drop = randomVal acceptableDrops
+      user.push 'items.food', drop.name
+      drop.type = 'Food'
+      drop.dialog = "You've found #{drop.text} Hatching Powder! #{drop.notes}"
+
+    model.set '_drop', drop
+    $('#item-dropped-modal').modal 'show'
+
+    user.set 'items.lastDrop.date', +new Date
+    user.incr 'items.lastDrop.count'
+
 # {taskId} task you want to score
 # {direction} 'up' or 'down'
 # {times} # times to call score on this task (1 unless cron, usually)
@@ -107,10 +171,7 @@ score = (model, taskId, direction, times, batch, cron) ->
   origStats = _.clone obj.stats
   updateStats model, { hp, exp, gp }, batch
 
-
-  ###
-    Commit
-  ###
+  # Commit
   if commit
     # newStats / origStats is a glorious hack to trick Derby into seeing the change in model.on(*)
     newStats = _.clone batch.obj().stats
@@ -119,58 +180,8 @@ score = (model, taskId, direction, times, batch, cron) ->
     # batch.setStats()
     batch.commit()
 
-  ###
-   Drops
-  ###
-
-  # % chance of getting a pet or meat
-  if direction is 'up'
-    # debugging purpose - 50% chance during development, 3% chance on prod
-    chanceMultiplier = if (model.flags.nodeEnv is 'development') then 50 else 1
-    chanceMultiplier *= Math.abs(delta) # multiply chance by reddness
-    if user.get('flags.dropsEnabled') and Math.random() < (.01 * chanceMultiplier)
-      # current breakdown - 3% (adjustable) chance on drop
-      # If they got a drop: 50% chance of egg, 50% Food. If food, broken down further even further
-      rarity = Math.random()
-
-      # Egg, 40% chance
-      if rarity > .6
-        drop = randomVal(pets)
-        user.push 'items.eggs', drop
-        drop.type = 'Egg'
-        drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
-
-      # Food, 60% chance - break down by rarity even more. FIXME this may not be the best method, so revisit
-      else
-        acceptableDrops = []
-
-        # Tier 5 (Blue Moon Rare)
-        if rarity < .1
-          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue', 'Golden']
-
-        # Tier 4 (Very Rare)
-        else if rarity < .2
-          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue']
-
-        # Tier 3 (Rare)
-        else if rarity < .3
-          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton']
-
-        # Tier 2 (Scarce)
-        else if rarity < .4
-          acceptableDrops = ['Base', 'White', 'Desert']
-        # Tier 1 (Common)
-        else
-          acceptableDrops = ['Base']
-
-        acceptableDrops = _.filter(food, (foodItem) -> foodItem.name in acceptableDrops)
-        drop = randomVal acceptableDrops
-        user.push 'items.food', drop.name
-        drop.type = 'Food'
-        drop.dialog = "You've found #{drop.text} Hatching Powder! #{drop.notes}"
-
-      model.set '_drop', drop
-      $('#item-dropped-modal').modal 'show'
+  # Drop system
+  randomDrop(model, delta) if direction is 'up'
 
   return delta
 
