@@ -1,6 +1,6 @@
 _ = require 'underscore'
 { randomVal } = require './helpers'
-{ pets, food } = require('./items').items
+{ pets, hatchingPotions } = require('./items').items
 
 ###
   app exports
@@ -22,33 +22,33 @@ module.exports.app = (appExports, model) ->
     $('#drops-enabled-modal').modal 'show'
 
   appExports.chooseEgg = (e, el) ->
-    model.ref '_feedEgg', e.at()
+    model.ref '_hatchEgg', e.at()
 
-  appExports.feedEgg = (e, el) ->
-    foodName = $(el).children('select').val()
-    myFood = user.get 'items.food'
-    egg = model.get '_feedEgg'
+  appExports.hatchEgg = (e, el) ->
+    hatchingPotionName = $(el).children('select').val()
+    myHatchingPotion = user.get 'items.hatchingPotions'
+    egg = model.get '_hatchEgg'
     eggs = user.get 'items.eggs'
     myPets = user.get 'items.pets'
 
-    foodIdx = myFood.indexOf foodName
+    hatchingPotionIdx = myHatchingPotion.indexOf hatchingPotionName
     eggIdx = eggs.indexOf egg
 
-    return alert "You don't own that food :\\" if foodIdx is -1
-    return alert "You don't own that egg :\\" if eggIdx is -1
-    return alert "You already have that pet." if myPets and myPets.indexOf("#{egg.name}-#{foodName}") != -1
+    return alert "You don't own that hatching potion yet, complete more tasks!" if hatchingPotionIdx is -1
+    return alert "You don't own that egg yet, complete more tasks!" if eggIdx is -1
+    return alert "You already have that pet, hatch a different combo." if myPets and myPets.indexOf("#{egg.name}-#{hatchingPotionName}") != -1
 
-    user.push 'items.pets', egg.name + '-' + foodName
+    user.push 'items.pets', egg.name + '-' + hatchingPotionName
 
     eggs.splice eggIdx, 1
-    myFood.splice foodIdx, 1
+    myHatchingPotion.splice hatchingPotionIdx, 1
     user.set 'items.eggs', eggs
-    user.set 'items.food', myFood
+    user.set 'items.hatchingPotions', myHatching Potion
 
     alert 'Your egg hatched! Visit your stable to equip your pet.'
 
     #FIXME Bug: this removes from the array properly in the browser, but on refresh is has removed all items from the arrays
-#    user.remove 'items.food', foodIdx, 1
+#    user.remove 'items.hatchingPotions', hatchingPotionIdx, 1
 #    user.remove 'items.eggs', eggIdx, 1
 
   appExports.choosePet = (e, el) ->
@@ -63,14 +63,14 @@ module.exports.app = (appExports, model) ->
       pet = {} if user.get('items.currentPet.str') is petStr
       user.set 'items.currentPet', pet
 
-  appExports.buyFood = (e, el) ->
-    name = $(el).attr 'data-food'
-    newFood = _.findWhere food, name: name
+  appExports.buyHatchingPotion = (e, el) ->
+    name = $(el).attr 'data-hatchingPotion'
+    newHatchingPotion = _.findWhere hatchingPotion, name: name
     tokens = user.get('balance') * 4
-    if tokens > newFood.value
-      if confirm "Buy this food with #{newFood.value} of your #{tokens} tokens?"
-        user.push 'items.food', newFood.name
-        user.set 'balance', (tokens - newFood.value) / 4
+    if tokens > newHatching Potion.value
+      if confirm "Buy this hatching potion with #{newHatchingPotion.value} of your #{tokens} tokens?"
+        user.push 'items.hatchingPotions', newHatchingPotion.name
+        user.set 'balance', (tokens - newHatchingPotion.value) / 4
     else
       $('#more-tokens-modal').modal 'show'
 

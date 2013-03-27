@@ -21,9 +21,9 @@
         <img rel=tooltip title="{.text} - {.value} Tokens" x-bind="click:selectPet" data-pet='{.name}' src='img/sprites/{.icon}'/>
     </td>
 
-<food:>
-    <td class="active-food">
-        <div rel=tooltip class="Pet_HatchingPotion_{.name}" title="{.text} - {.value} Tokens" x-bind="click:buyFood" data-food='{.name}'></div>
+<hatchingPotion:>
+    <td class="active-hatchingPotion">
+        <div rel=tooltip class="Pet_HatchingPotion_{.name}" title="{.text} - {.value} Tokens" x-bind="click:buyHatchingPotion" data-hatchingPotion='{.name}'></div>
         {.text}
     </td>
 
@@ -51,31 +51,31 @@
                     </menu>
                 </li>
                 <li class="customize-menu">
-                    {#if not(_user.items.food)}
+                    {#if not(_user.items.hatchingPotions)}
                         <p>You don't have any hatching potions yet.</p>
                     {/if}
-                    <menu label="Hatching Potion" class='food-menu'>
-                        {#each _user.items.food as :food}
+                    <menu label="Hatching Potion" class='hatchingPotion-menu'>
+                        {#each _user.items.hatchingPotions as :hatchingPotion}
                             <div>
-                                <button rel=tooltip title="{:food}" class="customize-option Pet_HatchingPotion_{{:food}}" x-bind="click: chooseFood"></button>
-                                <p>{:food}</p>
+                                <button rel=tooltip title="{:hatchingPotion}" class="customize-option Pet_HatchingPotion_{{:hatchingPotion}}" x-bind="click: chooseHatching Potion"></button>
+                                <p>{:hatchingPotion}</p>
                             </div>
                         {/each}
                     </menu>
                 </li>
             </menu>
         </div>
-        {#if _feedEgg}
+        {#if _hatchEgg}
         <div class='span6 well'>
             <h3>Hatch Your Egg</h3>
-            {#if not(_user.items.food)}
+            {#if not(_user.items.hatchingPotions)}
             <p>You don't have any hatching potions yet.</p>
             {else}
-            <p>What would you like to sprinkle on your {_feedEgg.text} egg?</p>
-            <form x-bind="submit:feedEgg">
+            <p>What would you like to sprinkle on your {_hatchEgg.text} egg?</p>
+            <form x-bind="submit:hatchEgg">
                 <select>
-                    {#each _user.items.food as :food}
-                    <option>{:food}</option>
+                    {#each _user.items.hatchingPotions as :hatchingPotion}
+                    <option>{:hatchingPotion}</option>
                     {/each}
                 </select>
                 <button type=submit>Sprinkle</button>
