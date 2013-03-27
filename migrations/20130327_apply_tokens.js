@@ -58,7 +58,10 @@ var mapping = [
 _.each(mapping, function(tier){
     db.users.update(
         {
-            _id: { $in: tier.users },
+            $or: [
+                { _id: { $in: tier.users } },
+                { 'auth.local.username': { $in: tier.users } }
+            ],
             'backer.tokensApplied': { $exists: false }
         },
 
