@@ -75,7 +75,7 @@
                 <span class='{:p.gender}_weapon_{@profile.items.weapon}'></span>
             {/}
             {#if and(@profile.items.currentPet, not(@minimal))}
-                <span class="Pet-{_user.items.currentPet.name}-{_user.items.currentPet.modifier} current-pet" ></span>
+                <span class="Pet-{@profile.items.currentPet.name}-{@profile.items.currentPet.modifier} current-pet" ></span>
             {/}
         </div>
     </figure>
