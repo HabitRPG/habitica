@@ -116,7 +116,7 @@ userSchema =
   rewardIds: []
   apiToken: null # set in newUserObject below
   lastCron: 'new' #this will be replaced with `+new Date` on first run
-  balance: 1
+  balance: 0
   tasks: {}
   flags:
     partyEnabled: false

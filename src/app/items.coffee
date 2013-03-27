@@ -38,29 +38,29 @@ items = module.exports.items =
   reroll: {type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your task values back to 0 (yellow). Useful when everything's red and it's hard to stay alive.", value:0 }
 
   pets: [
-    {text: 'Wolf', name: 'Wolf', value: 3}
-    {text: 'Tiger Cub', name: 'TigerCub', value: 3}
+    {text: 'Wolf', name: 'Wolf', value: 2}
+    {text: 'Tiger Cub', name: 'TigerCub', value: 2}
     #{text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3} #commented out because there are no polarbear modifiers yet, special drop?
-    {text: 'Panda Cub', name: 'PandaCub', value: 3}
-    {text: 'Lion Cub', name: 'LionCub', value: 3}
-    {text: 'Fox', name: 'Fox', value: 3}
-    {text: 'Flying Pig', name: 'FlyingPig', value: 3}
-    {text: 'Dragon', name: 'Dragon', value: 3}
-    {text: 'Cactus', name: 'Cactus', value: 3}
-    {text: 'Bear Cub', name: 'BearCub', value: 3}
+    {text: 'Panda Cub', name: 'PandaCub', value: 2}
+    {text: 'Lion Cub', name: 'LionCub', value: 2}
+    {text: 'Fox', name: 'Fox', value: 2}
+    {text: 'Flying Pig', name: 'FlyingPig', value: 2}
+    {text: 'Dragon', name: 'Dragon', value: 2}
+    {text: 'Cactus', name: 'Cactus', value: 2}
+    {text: 'Bear Cub', name: 'BearCub', value: 2}
   ]
 
   food: [
-    {text: 'Common', name: 'Base', notes: "Hatches your pet in it's base form.", value: 3}
-    {text: 'Zombie', name: 'Zombie', notes: 'Turns your animal into a Zombie.', value: 3}
-    {text: 'White', name: 'White', notes: 'Turns your animal into a White pet.', value: 3}
-    {text: 'Skeleton', name: 'Skeleton', notes: 'Turns your animal into a Skeleton.', value: 3}
-    {text: 'Shade', name: 'Shade', notes: 'Turns your animal into a Shade pet.', value: 3}
+    {text: 'Common', name: 'Base', notes: "Hatches your pet in it's base form.", value: 1}
+    {text: 'White', name: 'White', notes: 'Turns your animal into a White pet.', value: 2}
+    {text: 'Desert', name: 'Desert', notes: 'Turns your animal into a Desert pet.', value: 2}
     {text: 'Red', name: 'Red', notes: 'Turns your animal into a Red pet.', value: 3}
-    {text: 'Golden', name: 'Golden', notes: 'Turns your animal into a Golden pet.', value: 3}
-    {text: 'Desert', name: 'Desert', notes: 'Turns your animal into a Desert pet.', value: 3}
-    {text: 'Cotton Candy Pink', name: 'CottonCandyPink', notes: 'Turns your animal into a Cotton Candy Pink pet.', value: 3}
-    {text: 'Cotton Candy Blue', name: 'CottonCandyBlue', notes: 'Turns your animal into a Cotton Candy Blue pet.', value: 3}
+    {text: 'Shade', name: 'Shade', notes: 'Turns your animal into a Shade pet.', value: 3}
+    {text: 'Skeleton', name: 'Skeleton', notes: 'Turns your animal into a Skeleton.', value: 3}
+    {text: 'Zombie', name: 'Zombie', notes: 'Turns your animal into a Zombie.', value: 4}
+    {text: 'Cotton Candy Pink', name: 'CottonCandyPink', notes: 'Turns your animal into a Cotton Candy Pink pet.', value: 4}
+    {text: 'Cotton Candy Blue', name: 'CottonCandyBlue', notes: 'Turns your animal into a Cotton Candy Blue pet.', value: 4}
+    {text: 'Golden', name: 'Golden', notes: 'Turns your animal into a Golden pet.', value: 5}
   ]
 
 # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
