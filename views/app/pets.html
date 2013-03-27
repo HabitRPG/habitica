@@ -38,10 +38,10 @@
         <div class='span6 well'>
             <menu type="list" class="inventory-list">
                 <li class="customize-menu">
-                    {#if not(_user.items.eggs)}
-                        <p>You don't have any eggs yet.</p>
-                    {/if}
                     <menu label="Eggs" class='pets-menu'>
+                        {#if not(_user.items.eggs)}
+                            <p>You don't have any eggs yet.</p>
+                        {/if}
                         {#each _user.items.eggs as :egg}
                             <div>
                                 <button rel=tooltip title="{:egg.text}" class="customize-option Pet_Egg_{{:egg.name}}" x-bind="click: chooseEgg"></button>
@@ -51,10 +51,10 @@
                     </menu>
                 </li>
                 <li class="customize-menu">
-                    {#if not(_user.items.hatchingPotions)}
-                        <p>You don't have any hatching potions yet.</p>
-                    {/if}
-                    <menu label="Hatching Potion" class='hatchingPotion-menu'>
+                    <menu label="Hatching Potions" class='hatchingPotion-menu'>
+                        {#if not(_user.items.hatchingPotions)}
+                            <p>You don't have any hatching potions yet.</p>
+                        {/if}
                         {#each _user.items.hatchingPotions as :hatchingPotion}
                             <div>
                                 <button rel=tooltip title="{:hatchingPotion}" class="customize-option Pet_HatchingPotion_{{:hatchingPotion}}" x-bind="click: chooseHatching Potion"></button>
@@ -71,7 +71,7 @@
             {#if not(_user.items.hatchingPotions)}
             <p>You don't have any hatching potions yet.</p>
             {else}
-            <p>What would you like to sprinkle on your {_hatchEgg.text} egg?</p>
+            <p>Which hatching potion will you pour on your {_hatchEgg.text} egg?</p>
             <form x-bind="submit:hatchEgg">
                 <select>
                     {#each _user.items.hatchingPotions as :hatchingPotion}

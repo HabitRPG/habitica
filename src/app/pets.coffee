@@ -43,7 +43,7 @@ module.exports.app = (appExports, model) ->
     eggs.splice eggIdx, 1
     myHatchingPotion.splice hatchingPotionIdx, 1
     user.set 'items.eggs', eggs
-    user.set 'items.hatchingPotions', myHatching Potion
+    user.set 'items.hatchingPotions', myHatchingPotion
 
     alert 'Your egg hatched! Visit your stable to equip your pet.'
 
@@ -65,9 +65,9 @@ module.exports.app = (appExports, model) ->
 
   appExports.buyHatchingPotion = (e, el) ->
     name = $(el).attr 'data-hatchingPotion'
-    newHatchingPotion = _.findWhere hatchingPotion, name: name
+    newHatchingPotion = _.findWhere hatchingPotions, name: name
     tokens = user.get('balance') * 4
-    if tokens > newHatching Potion.value
+    if tokens > newHatchingPotion.value
       if confirm "Buy this hatching potion with #{newHatchingPotion.value} of your #{tokens} tokens?"
         user.push 'items.hatchingPotions', newHatchingPotion.name
         user.set 'balance', (tokens - newHatchingPotion.value) / 4
