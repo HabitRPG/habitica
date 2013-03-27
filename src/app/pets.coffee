@@ -52,10 +52,8 @@ module.exports.app = (appExports, model) ->
 #    user.remove 'items.eggs', eggIdx, 1
 
   appExports.choosePet = (e, el) ->
-    petArray = $(el).attr('data-pet').split '-'
-    name = petArray[0]
-    modifier = petArray[1]
-    petStr = "#{name}-#{modifier}"
+    petStr = $(el).attr('data-pet')
+    [name, modifier] = petStr.split('-')
     pet = _.findWhere pets, name: name
     pet.modifier = modifier
     pet.str = petStr
@@ -64,16 +62,6 @@ module.exports.app = (appExports, model) ->
       # If user's pet is already active, deselect it
       pet = {} if user.get('items.currentPet.str') is petStr
       user.set 'items.currentPet', pet
-    else
-      tokens = user.get('balance')*4
-      if tokens > pet.value
-        r = confirm("Buy this pet with #{pet.value} of your #{tokens} tokens?");
-        if r
-          user.push 'items.pets', name
-          user.set 'items.currentPet', pet
-          user.set 'balance', (tokens - pet.value)/4
-      else
-        $('#more-tokens-modal').modal 'show'
 
   appExports.buyFood = (e, el) ->
     name = $(el).attr 'data-food'
