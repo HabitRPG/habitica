@@ -38,16 +38,16 @@ items = module.exports.items =
   reroll: {type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your task values back to 0 (yellow). Useful when everything's red and it's hard to stay alive.", value:0 }
 
   pets: [
-    {text: 'Wolf', name: 'Wolf', value: 2}
-    {text: 'Tiger Cub', name: 'TigerCub', value: 2}
+    {text: 'Wolf', name: 'Wolf', value: 3}
+    {text: 'Tiger Cub', name: 'TigerCub', value: 3}
     #{text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3} #commented out because there are no polarbear modifiers yet, special drop?
-    {text: 'Panda Cub', name: 'PandaCub', value: 2}
-    {text: 'Lion Cub', name: 'LionCub', value: 2}
-    {text: 'Fox', name: 'Fox', value: 2}
-    {text: 'Flying Pig', name: 'FlyingPig', value: 2}
-    {text: 'Dragon', name: 'Dragon', value: 2}
-    {text: 'Cactus', name: 'Cactus', value: 2}
-    {text: 'Bear Cub', name: 'BearCub', value: 2}
+    {text: 'Panda Cub', name: 'PandaCub', value: 3}
+    {text: 'Lion Cub', name: 'LionCub', value: 3}
+    {text: 'Fox', name: 'Fox', value: 3}
+    {text: 'Flying Pig', name: 'FlyingPig', value: 3}
+    {text: 'Dragon', name: 'Dragon', value: 3}
+    {text: 'Cactus', name: 'Cactus', value: 3}
+    {text: 'Bear Cub', name: 'BearCub', value: 3}
   ]
 
   hatchingPotions: [
