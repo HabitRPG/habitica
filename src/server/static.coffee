@@ -16,7 +16,7 @@ router.get '/static/front',   beforeEach, (req, res) -> staticPages.render 'stat
 router.get '/static/about',   beforeEach, (req, res) -> staticPages.render 'static/about', res
 router.get '/static/team',    beforeEach, (req, res) -> staticPages.render 'static/team', res
 router.get '/static/extensions',    beforeEach, (req, res) -> staticPages.render 'static/extensions', res
-router.get '/static/faq',    beforeEach, (req, res) -> staticPages.render 'static/faq', res
+router.get '/static/faq',    (req, res) -> res.redirect 'http://community.habitrpg.com/faq-page'
 
 router.get '/static/privacy', beforeEach, (req, res) -> staticPages.render 'static/privacy', res
 router.get '/static/terms',   beforeEach, (req, res) -> staticPages.render 'static/terms', res

@@ -1,9 +1,16 @@
 derby = require 'derby'
 app = derby.createApp module
+
 {get, view, ready} = app
 derby.use require('derby-ui-boot'), {styles: []}
 derby.use require '../../ui'
 derby.use require 'derby-auth/components'
+
+# Translations
+i18n = require './i18n'
+i18n.localize app,
+  availableLocales: ['en', 'he']
+  defaultLocale: 'en'
 
 # Custom requires
 character = require './character'
