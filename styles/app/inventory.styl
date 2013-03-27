@@ -1,0 +1,50 @@
+.token-wallet
+  cursor: pointer
+  .tile
+    background-color: darken($neutral, 10%)
+  .add-token-btn
+    opacity: 0
+  &:hover, &:focus
+    .add-token-btn
+      opacity: 1
+      background-color: $good
+    .tile
+      opacity: 1
+
+
+// pets (this will all change when pet system is overhauled)
+.pet-grid
+  padding-top: 1.5em
+  border-top: rgba(0,0,0,0.1)
+  table
+    width: 100%
+  td
+    padding: 0.5em
+    width: 25%
+    &.active-pet
+      background-color: $bad
+      outline: 1px solid rgba(0,0,0,0.1)
+      outline-offset: -1px
+    &:hover, &:focus
+      background-color: darken($better, 10%)
+
+.current-pet
+    left: 0px
+    bottom: 5px
+
+.item-drop-icon
+    float:left
+    padding-right:20px
+    padding-bottom:20px
+
+.Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Veteran, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_SugarCube, .Pet_Food_Strawberry, .Pet_Food_Rotten, .Pet_Food_Licorice, .Pet_Food_Golden, .Pet_Food_Cream, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Chocolate, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base
+    background: url("/img/hatching_powder.png") no-repeat
+    width:34px
+    height:34px
+
+.inventory-list li
+    clear:both
+.pets-menu > div
+    float:left
+.food-menu > div
+    float:left
