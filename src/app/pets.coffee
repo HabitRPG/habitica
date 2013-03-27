@@ -45,6 +45,8 @@ module.exports.app = (appExports, model) ->
     user.set 'items.eggs', eggs
     user.set 'items.food', myFood
 
+    alert 'Your egg hatched! Visit your stable to equip your pet.'
+
     #FIXME Bug: this removes from the array properly in the browser, but on refresh is has removed all items from the arrays
 #    user.remove 'items.food', foodIdx, 1
 #    user.remove 'items.eggs', eggIdx, 1
