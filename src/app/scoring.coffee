@@ -65,8 +65,8 @@ randomDrop = (model, delta) ->
       acceptableDrops = _.filter(food, (foodItem) -> foodItem.name in acceptableDrops)
       drop = randomVal acceptableDrops
       user.push 'items.food', drop.name
-      drop.type = 'Food'
-      drop.dialog = "You've found #{drop.text} Hatching Powder! #{drop.notes}"
+      drop.type = 'HatchingPotion'
+      drop.dialog = "You've found a #{drop.text} Hatching Potion! #{drop.notes}"
 
     model.set '_drop', drop
     $('#item-dropped-modal').modal 'show'

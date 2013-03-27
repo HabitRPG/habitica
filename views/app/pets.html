@@ -23,7 +23,7 @@
 
 <food:>
     <td class="active-food">
-        <div rel=tooltip class="Pet_Food_{.name}" title="{.text} - {.value} Tokens" x-bind="click:buyFood" data-food='{.name}'></div>
+        <div rel=tooltip class="Pet_HatchingPotion_{.name}" title="{.text} - {.value} Tokens" x-bind="click:buyFood" data-food='{.name}'></div>
         {.text}
     </td>
 
@@ -52,12 +52,12 @@
                 </li>
                 <li class="customize-menu">
                     {#if not(_user.items.food)}
-                        <p>You don't have any hatching powder yet.</p>
+                        <p>You don't have any hatching potions yet.</p>
                     {/if}
-                    <menu label="Hatching Powder" class='food-menu'>
+                    <menu label="Hatching Potion" class='food-menu'>
                         {#each _user.items.food as :food}
                             <div>
-                                <button rel=tooltip title="{:food}" class="customize-option Pet_Food_{{:food}}" x-bind="click: chooseFood"></button>
+                                <button rel=tooltip title="{:food}" class="customize-option Pet_HatchingPotion_{{:food}}" x-bind="click: chooseFood"></button>
                                 <p>{:food}</p>
                             </div>
                         {/each}
@@ -69,7 +69,7 @@
         <div class='span6 well'>
             <h3>Hatch Your Egg</h3>
             {#if not(_user.items.food)}
-            <p>You don't have any hatching powder yet.</p>
+            <p>You don't have any hatching potions yet.</p>
             {else}
             <p>What would you like to sprinkle on your {_feedEgg.text} egg?</p>
             <form x-bind="submit:feedEgg">
