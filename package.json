@@ -17,7 +17,7 @@
     "moment": "*",
     "stripe": "*",
     "async": "*",
-    "lodash": "*",
+    "lodash": "1.0.x",
     "coffee-script": "1.4.x",
     "underscore": "*",
     "mongoskin": "*",
