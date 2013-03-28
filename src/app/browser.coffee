@@ -61,7 +61,7 @@ setupSortable = (model) ->
           # or the item's id property
           model.at("_#{type}List").pass(ignore: domId).move {id}, to
 
-setupTooltips = (model) ->
+setupTooltips = module.exports.setupTooltips = (model) ->
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
 

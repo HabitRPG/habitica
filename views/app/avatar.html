@@ -1,6 +1,10 @@
 <modals:>
     <app:modals:modal modalId="avatar-modal">
         {#if _profileActiveMain}
+            <span class='option-box pull-right wallet'>
+                <app:rewards:userTokens />
+            </span>
+
             {#with _user.preferences}
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle='tab' href="#profileCustomize">Avatar</a></li>
@@ -223,9 +227,6 @@
 
     <!-- pets pane -->
     <div class="tab-pane pet-grid" id="market-tab">
-        <span class='option-box pull-right wallet'>
-            <app:rewards:userTokens />
-        </span>
 
         <h4>Welcome to the market!</h4>
         <small>Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!</small>
