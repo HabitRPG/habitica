@@ -20,20 +20,3 @@
 .Pet_HatchingPotion_CottonCandyPink {background-position: -48px -357px; width: 48px; height: 51px}
 .Pet_HatchingPotion_CottonCandyBlue {background-position: -48px -408px; width: 48px; height: 51px}
 .Pet_HatchingPotion_Golden {background-position: -48px -459px; width: 48px; height: 54px} /* This sprite was a bit taller than everything else, will affect the math of anything inserted below it */
-
-/* Temporary until we get the other hatching potions */
-/* Commenting this out since it's no longer needed, feel free to completely remove -Shaners
-.Pet_HatchingPotion_Zombie, .Pet_HatchingPotion_CottonCandyPink, .Pet_HatchingPotion_CottonCandyBlue, .Pet_HatchingPotion_Golden  {background-position: -48px -0px; width: 48px; height: 51px}
-.Pet_HatchingPotion_Zombie  {
-    -webkit-filter: invert(1);
-}
-.Pet_HatchingPotion_CottonCandyPink  {
-    -webkit-filter: hue-rotate(120deg);
-}
-.Pet_HatchingPotion_CottonCandyBlue  {
-    -webkit-filter: saturate(3);
-}
-.Pet_HatchingPotion_Golden  {
-    -webkit-filter: hue-rotate(220deg);
-}
-*/
