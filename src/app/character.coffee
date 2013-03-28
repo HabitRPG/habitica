@@ -104,7 +104,6 @@ module.exports.app = (appExports, model) ->
       content: html
     $('.main-herobox').popover 'show'
 
-
 userSchema =
 # _id
   stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
@@ -117,7 +116,7 @@ userSchema =
   rewardIds: []
   apiToken: null # set in newUserObject below
   lastCron: 'new' #this will be replaced with `+new Date` on first run
-  balance: 1
+  balance: 0
   tasks: {}
   flags:
     partyEnabled: false
