@@ -20,12 +20,14 @@ module.exports.app = (appExports, model) ->
       .error (err) ->
         alert err.responseText
 
+    disableAds = if (model.get('_user.flags.ads') is 'hide') then '' else 'Disable Ads, '
+
     StripeCheckout.open
       key: model.get('_stripePubKey')
       address: false
       amount: 500
       name: "Checkout"
-      description: "Purchase 20 Tokens, Disable Ads."
+      description: "Buy 20 Tokens, #{disableAds}Support the Developers"
       panelLabel: "Checkout"
       token: token
 
