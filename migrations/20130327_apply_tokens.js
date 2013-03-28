@@ -55,6 +55,38 @@ var mapping = [
     }
 ];
 
+db.users.find().forEach(function(user){
+
+    _.each(mapping, function(tier){
+        if(
+            (!user.backer || !user.backer.tokensApplied) &&
+
+                (
+                    _.contains(tier.users, user._id) ||
+                        !!user.local && (
+                            _.contains(tier.users, user.local.username) ||
+                                _.contains(tier.users, user.local.email)
+                            )
+                    )
+            ) {
+            try {
+                db.users.update(
+                    {_id:user._id},
+                    {
+                        $set: { 'backer.tokensApplied': true, 'flags.ads': 'hide' },
+                        $inc: { balance: (tier.tokens/4) }
+                    }
+                );
+            } catch(e) {
+                print(e);
+            }
+        }
+    })
+
+})
+
+// This doesn't work, but shows the idea we're after better than the above
+/*
 _.each(mapping, function(tier){
     db.users.update(
         {
@@ -74,3 +106,4 @@ _.each(mapping, function(tier){
         { multi: true}
     )
 })
+*/
