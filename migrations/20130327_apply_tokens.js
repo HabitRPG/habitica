@@ -60,7 +60,8 @@ _.each(mapping, function(tier){
         {
             $or: [
                 { _id: { $in: tier.users } },
-                { 'auth.local.username': { $in: tier.users } }
+                { 'auth.local.username': { $in: tier.users } },
+                { 'auth.local.email': { $in: tier.users } }
             ],
             'backer.tokensApplied': { $exists: false }
         },
