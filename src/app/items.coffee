@@ -51,7 +51,7 @@ items = module.exports.items =
   ]
 
   hatchingPotions: [
-    {text: 'Common', name: 'Base', notes: "Hatches your pet in it's base form.", value: 1}
+    {text: 'Base', name: 'Base', notes: "Hatches your pet in it's base form.", value: 1}
     {text: 'White', name: 'White', notes: 'Turns your animal into a White pet.', value: 2}
     {text: 'Desert', name: 'Desert', notes: 'Turns your animal into a Desert pet.', value: 2}
     {text: 'Red', name: 'Red', notes: 'Turns your animal into a Red pet.', value: 3}
