@@ -1,4 +1,5 @@
 character = require './character'
+browser = require './browser'
 
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
@@ -22,4 +23,5 @@ module.exports.app = (appExports, model) ->
     model.ref '_profileActive', model.at("users.#{uid}")
     model.set '_profileActiveMain', user.get('id') is uid
     model.set '_profileActiveUsername', character.username model.get('_profileActive.auth')
+    browser.setupTooltips(model)
 
