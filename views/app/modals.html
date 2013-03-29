@@ -32,10 +32,22 @@
     <!-- Buy more tokens modal -->
     <app:modals:modal modalId='more-tokens-modal' header="Out Of Tokens">
         <app:rewards:userTokens/>
-        <p>You're out of tokens, which are used to buy pets and mounts.</p>
+        <p>Oops, out of tokens, which are used to buy special items! Habit is an open source project, and can use all the help it can get - buy more tokens to receive this pet, and consider it a donation to the contributors</p>
         <@footer>
         <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-success btn-large">Buy More Tokens</a><span class='token-cost'>Not enough tokens</span>
     </@footer>
+    </app:modals:modal>
+
+    <app:modals:modal modalId="why-ads-modal" header="Why Ads?">
+        <p>
+            Habit an open source project, and can use all the help it can get - consider this a donation to the contributors. You also get 20 tokens from the purchase, which you can use to buy special items.
+        </p>
+        <p>
+            "Hey, I backed the Kickstarter!" - follow <a target="_blank" href="http://community.habitrpg.com/node/22">these instructions</a>.
+        </p>
+        <@footer>
+            <button data-dismiss="modal" class="btn btn-success">Ok</button>
+        </@footer>
     </app:modals:modal>
 
 
