@@ -1,7 +1,7 @@
 {
-"_comment": "TUTORIAL",
+"_commenttut": "TUTORIAL",
   
-"_comment": "HEADER",
+"_commenthead": "HEADER",
   "Health": "Health",
   "Experience": "Experience",
     "History": "History",
@@ -9,7 +9,7 @@
   "Party": "Party",
   "Logout": "Logout",
   
-"_comment": "USER",
+"_commentuser": "USER",
   "Anonymous": "Anonymous",
   "Avatar": "Avatar",
     "Level": "Level",
@@ -38,7 +38,7 @@
   "Stable": "Stable",
   "Tokens": "Tokens",
   
-"_comment": "DROPS, ITEMS & REWARDS",
+"_commentitems": "DROPS, ITEMS & REWARDS",
   "_comment": "PET EGGS",
     "WolfEgg": "Wolf Cub",
     "TigerEgg": "Tiger Cub",
@@ -65,7 +65,7 @@
 
   
 
-"_comment": "MAIN WINDOW",
+"_commentmain": "MAIN WINDOW",
   "Habits": "Habits",
     "NewHabit": "New Habit",
     "Edit": "Edit",
@@ -104,9 +104,9 @@
     "NewReward": "New Reward",
     "Price": "Price",
 
-"_comment": "FOOTER",
+"_commentfooter": "FOOTER",
 
-"_comment": "MISC",
+"_commentmisc": "MISC",
   "RemoveAds": "Remove Ads",
   "WhyAds": "Why Ads?",
     "WhyAdsContent1": "Habit an open source project, and can use all the help it can get - consider this a donation to the contributors. You also get 20 tokens from the purchase, which you can use to buy special items.",
