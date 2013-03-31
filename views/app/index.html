@@ -61,6 +61,14 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.0.0/js/bootstrap-datepicker.min.js"></script>
 
+    {{#if and( _loggedIn, notEqual(_user.flags.ads,'hide') )}}
+        <script type="text/javascript" src="//wms.assoc-amazon.com/20070822/US/js/link-enhancer-common.js?tag=ha0d2-20">
+        </script>
+        <noscript>
+            <img src="//wms.assoc-amazon.com/20070822/US/img/noscript.gif?tag=ha0d2-20" alt="" />
+        </noscript>
+    {{/}}
+
     {{#if equal(_view.nodeEnv,"production")}}
         <!-- Google Analytics -->
         <script type="text/javascript">
