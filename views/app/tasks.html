@@ -1,21 +1,11 @@
-<ads:>
+<ads: nonvoid>
     {{#if and( _loggedIn, notEqual(_user.flags.ads,'hide') )}}
         <span class='pull-right'>
             <a x-bind="click:showStripe" rel='tooltip' title='Remove Ads'><i class='icon-remove'></i></a><br/>
             <a href="#" data-target="#why-ads-modal" data-toggle="modal" rel='tooltip' title='Why Ads?'><i class='icon-question-sign'></i></a>
         </span>
 
-        <script type="text/javascript" x-no-minify><!--
-        google_ad_client = "ca-pub-3242350243827794";
-        /* HabitTask */
-        google_ad_slot = "5883123375";
-        google_ad_width = 234;
-        google_ad_height = 60;
-        //-->
-        </script>
-        <script type="text/javascript"
-                src="//pagead2.googlesyndication.com/pagead/show_ads.js" x-no-minify>
-        </script>
+        {{@content}}
     {{/}}
 
 <taskLists:>
@@ -30,7 +20,9 @@
                 {#each _habitList as :task}<app:tasks:task />{/}
             </ul>
             <br/>
-            <app:tasks:ads />
+            <app:tasks:ads>
+                <a href="http://www.amazon.com/gp/product/1400069289/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1400069289&linkCode=as2&tag=ha0d2-20">The Power of Habit: Why We Do What We Do in Life and Business</a><img src="http://www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=1400069289" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+            </app:tasks:ads>
         </div>
     </div>
 
@@ -43,7 +35,10 @@
                 {#each _dailyList as :task}<app:tasks:task />{/}
             </ul>
             <br/>
-            <app:tasks:ads />
+            <app:tasks:ads>
+                <a href="http://www.amazon.com/gp/product/0142000280/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0142000280&linkCode=as2&tag=ha0d2-20">Getting Things Done: The Art of Stress-Free Productivity</a><img src="http://www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=0142000280" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+
+            </app:tasks:ads>
         </div>
     </div>
 
@@ -71,7 +66,9 @@
                 {#each _todoList as :task}<app:tasks:task />{/}
             </ul>
             <br/>
-            <app:tasks:ads />
+            <app:tasks:ads>
+                <a href="http://www.amazon.com/gp/product/0312430000/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0312430000&linkCode=as2&tag=ha0d2-20">The Checklist Manifesto: How to Get Things Right</a><img src="http://www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=0312430000" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+            </app:tasks:ads>
             
             <button class='task-action-btn tile spacious bright display-context-dependant show-for-completed' x-bind=click:clearCompleted>Clear Completed</button>
 
