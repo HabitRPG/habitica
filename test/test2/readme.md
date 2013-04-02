@@ -5,5 +5,5 @@
 5) So far phantomJS is given new userID every time so app.reset,app.revive is not necessary. I'll add it later.
 
 To run the tests run from terminal:
-cd test2
+cd test/test2
 casperjs test ./casper/ --includes=./lib/helpers.coffee
