@@ -1,8 +1,8 @@
 utils = require('utils')
 
 #enable this to get remote console output, useful for debug.
-#casper.on "remote.message", (msg)->
-#  casper.echo "Remote console: " + msg
+casper.on "remote.message", (msg)->
+  casper.echo "Remote console: " + msg
 
 casper.helpers = (->
   baseUrl = 'http://localhost:3000'

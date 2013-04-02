@@ -5,7 +5,9 @@ eTest = helpers.evalTest
 getModel = helpers.getModel
 # ---------- Checks if clicking on the buttons changes stats and in right direction ------------
 
+
 casper.start helpers.playUrl, ->
+  test = 'EXP and GP increasing after clicking habits "+"'
   getModel (err, model) ->
     casper.test.assertEquals(typeof model.user.stats.exp, "number", 'XP is number')
     casper.test.assertEquals(model.user.stats.exp, 0, 'XP == 0')
@@ -13,69 +15,83 @@ casper.start helpers.playUrl, ->
     eTest(
            (oldStats)->
              stats = window.DERBY.app.model.get '_user.stats'
-             console.log "Is: " + stats.exp + " Was:" + oldStats.exp
-             console.log "Is: " + stats.gp + " Was:" + oldStats.gp
+             console.log "Was:" + oldStats.exp + "Is: " + stats.exp
+             console.log "Was:" + oldStats.gp + "Is: " + stats.gp
              (stats.exp > oldStats.exp && stats.gp > oldStats.gp)
-           'EXP and GP has increased after clicking habits "+"'
+           test
            model.user.stats
-
          )
 
 
-#
-##click .habits "-" and see if HP is going down
-#casper.then ->
-#  helpers.getModel (err, model) ->
-#    casper.test.assertEquals(typeof model.user.stats.hp, "number", 'HP is number')
-#    casper.test.assertEquals(model.user.stats.hp, 50, 'HP == 50')
-#    casper.click '.habits a[data-direction="down"]'
-#    helpers.getModel (err, newModel) ->
-#      casper.test.assert(newModel.user.stats.hp < model.user.stats.hp, 'HP has decreased after clicking habits "-"')
-#
-##click .todo.uncompleted and see if GP and XP are going up.
-#casper.then ->
-#  helpers.getModel (err, model) ->
-#    casper.click '.task.todo.uncompleted input[type=checkbox]'
-#    helpers.getModel (err, newModel) ->
-#      casper.test.assert(newModel.user.stats.exp > model.user.stats.exp,
-#                         'XP has increased after checking uncompleted todo')
-#      casper.test.assert(newModel.user.stats.gp > model.user.stats.gp,
-#                         'GP has increased after checking uncompleted todo')
-#
-#
-##click .todo.completed and see if GP and XP are going down.
-#casper.then ->
-#  helpers.getModel (err, model) ->
-#    casper.click '.task.todo.completed input[type=checkbox]'
-#    helpers.getModel (err, newModel) ->
-#      casper.test.assert(newModel.user.stats.exp < model.user.stats.exp,
-#                         'XP has increased after unchecking completed todo')
-#      casper.test.assert(newModel.user.stats.gp < model.user.stats.gp,
-#                         'GP has increased after unchecking completed todo')
-#
-##click .daily.uncompleted and see if GP and XP are going up.
-#casper.then ->
-#  helpers.getModel (err, model) ->
-#    casper.click '.task.daily.uncompleted input[type=checkbox]'
-#    helpers.getModel (err, newModel) ->
-#      casper.test.assert(newModel.user.stats.exp > model.user.stats.exp,
-#                         'XP has increased after checking uncompleted daliy')
-#      casper.test.assert(newModel.user.stats.gp > model.user.stats.gp,
-#                         'GP has increased after checking uncompleted daliy')
-
-
-#click .daily.uncompleted and see if GP and EXP are going up.
 casper.then ->
+  test = 'HP decreasing after clicking habits "-"'
+  getModel (err, model) ->
+    casper.click '.habits a[data-direction="down"]'
+    eTest(
+           (oldStats)->
+             stats = window.DERBY.app.model.get '_user.stats'
+             console.log "Was:" + oldStats.hp + "Is: " + stats.hp
+             (stats.hp < oldStats.hp)
+           test
+           model.user.stats
+         )
+
+casper.then ->
+  test = 'EXP and GP increasing after clicking .todo.uncompleted'
+  getModel (err, model) ->
+    casper.click '.task.todo.uncompleted input[type=checkbox]'
+    eTest(
+           (oldStats)->
+             stats = window.DERBY.app.model.get '_user.stats'
+             console.log "Was:" + oldStats.exp + "Is: " + stats.exp
+             console.log "Was:" + oldStats.gp + "Is: " + stats.gp
+             (stats.exp > oldStats.exp && stats.gp > oldStats.gp)
+           test
+           model.user.stats
+         )
+
+casper.then ->
+  test = 'EXP and GP decreasing after clicking .todo.completed'
+  getModel (err, model) ->
+    casper.click '.task.todo.completed input[type=checkbox]'
+    eTest(
+           (oldStats)->
+             stats = window.DERBY.app.model.get '_user.stats'
+             console.log "Was:" + oldStats.exp + "Is: " + stats.exp
+             console.log "Was:" + oldStats.gp + "Is: " + stats.gp
+             (stats.exp < oldStats.exp && stats.gp < oldStats.gp)
+           test
+           model.user.stats
+         )
+
+casper.then ->
+  test = 'EXP and GP increasing after clicking .daily.uncompleted'
   getModel (err, model) ->
     casper.click '.task.daily.uncompleted input[type=checkbox]'
     eTest(
-           (exp)->
-             console.log "Is: " + window.DERBY.app.model.get('_user.stats.exp') + " Was:" + exp
-             (window.DERBY.app.model.get('_user.stats.exp') > exp)
-           'EXP has increased after checking uncompleted daliy'
-           model.user.stats.exp
-
+           (oldStats)->
+             stats = window.DERBY.app.model.get '_user.stats'
+             console.log "Was:" + oldStats.exp + "Is: " + stats.exp
+             console.log "Was:" + oldStats.gp + "Is: " + stats.gp
+             (stats.exp > oldStats.exp && stats.gp > oldStats.gp)
+           test
+           model.user.stats
          )
+
+casper.then ->
+  test = 'EXP and GP decreasing after clicking .daily.completed'
+  getModel (err, model) ->
+    casper.click '.task.daily.completed input[type=checkbox]'
+    eTest(
+           (oldStats)->
+             stats = window.DERBY.app.model.get '_user.stats'
+             console.log "Was:" + oldStats.exp + "Is: " + stats.exp
+             console.log "Was:" + oldStats.gp + "Is: " + stats.gp
+             (stats.exp < oldStats.exp && stats.gp < oldStats.gp)
+           test
+           model.user.stats
+         )
+
 
 # ---------- finish tests ------------
 casper.then ->
