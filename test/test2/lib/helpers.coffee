@@ -1,8 +1,8 @@
 utils = require('utils')
 
 #enable this to get remote console output, useful for debug.
-casper.on "remote.message", (msg)->
-  casper.echo "Remote console: " + msg
+#casper.on "remote.message", (msg)->
+#  casper.echo "Remote console: " + msg
 
 casper.helpers = (->
   baseUrl = 'http://localhost:3000'
@@ -25,9 +25,10 @@ casper.helpers = (->
                         {user: window.userCopy}
                       cb null, model
                   )
-  evalTest = (check, text) ->
+  evalTest = (check, text, variables) ->
     casper.waitFor(
-                    check
+                    -> #check function
+                      casper.evaluate check, variables
                     -> #run this if check passed
                       casper.test.assert(true, text)
                     -> #run this if timeout

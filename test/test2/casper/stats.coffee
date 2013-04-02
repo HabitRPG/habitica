@@ -1,17 +1,27 @@
 #helpers = new require('./lib/helpers')()
 #casper = helpers.casper
 helpers = casper.helpers
+eTest = helpers.evalTest
+getModel = helpers.getModel
 # ---------- Checks if clicking on the buttons changes stats and in right direction ------------
 
-#click .habits "+" and see if GP and XP are going up.
 casper.start helpers.playUrl, ->
-  helpers.getModel (err, model) ->
+  getModel (err, model) ->
     casper.test.assertEquals(typeof model.user.stats.exp, "number", 'XP is number')
     casper.test.assertEquals(model.user.stats.exp, 0, 'XP == 0')
     casper.click '.habits a[data-direction="up"]'
-    helpers.getModel (err, newModel) ->
-      casper.test.assert(newModel.user.stats.exp > model.user.stats.exp, 'XP has increased after clicking habits "+"')
-      casper.test.assert(newModel.user.stats.gp > model.user.stats.gp, 'GP has increased after clicking habits "+"')
+    eTest(
+           (oldStats)->
+             stats = window.DERBY.app.model.get '_user.stats'
+             console.log "Is: " + stats.exp + " Was:" + oldStats.exp
+             console.log "Is: " + stats.gp + " Was:" + oldStats.gp
+             (stats.exp > oldStats.exp && stats.gp > oldStats.gp)
+           'EXP and GP has increased after clicking habits "+"'
+           model.user.stats
+
+         )
+
+
 #
 ##click .habits "-" and see if HP is going down
 #casper.then ->
@@ -56,15 +66,16 @@ casper.start helpers.playUrl, ->
 
 #click .daily.uncompleted and see if GP and EXP are going up.
 casper.then ->
-  helpers.getModel (err, model) ->
+  getModel (err, model) ->
     casper.click '.task.daily.uncompleted input[type=checkbox]'
-    helpers.evalTest(
-                      -> #check function
-                        casper.evaluate ((exp)->
-                          console.log "Is: " + window.DERBY.app.model.get('_user.stats.exp') + " Was:" + exp
-                          (window.DERBY.app.model.get('_user.stats.exp') > exp)), model.user.stats.exp
-                      'EXP has increased after checking uncompleted daliy'
-                    )
+    eTest(
+           (exp)->
+             console.log "Is: " + window.DERBY.app.model.get('_user.stats.exp') + " Was:" + exp
+             (window.DERBY.app.model.get('_user.stats.exp') > exp)
+           'EXP has increased after checking uncompleted daliy'
+           model.user.stats.exp
+
+         )
 
 # ---------- finish tests ------------
 casper.then ->
