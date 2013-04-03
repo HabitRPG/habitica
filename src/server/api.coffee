@@ -44,6 +44,7 @@ auth = (req, res, next) ->
     return res.json 401, NO_USER_FOUND if !req.userObj || _.isEmpty(req.userObj)
     req._isServer = true
     next()
+
 ###
   GET /user
 ###
@@ -59,6 +60,32 @@ router.get '/user', auth, (req, res) ->
     delete user.auth.salt
 
   res.json user
+
+###
+  TODO POST /user
+  when a put attempt didn't work, create a new one with POST
+###
+
+###
+  PUT /user
+###
+router.put '/user', auth, (req, res) ->
+  user = req.user
+  partialUser = req.body.user
+
+  protectedAttrs = ['id', 'apiToken', 'auth', 'dailyIds', 'habitIds', 'rewardIds', 'todoIds', 'update__']
+  protectedAttrs.push 'tasks' # we'll be handling tasks separately
+
+  _.each partialUser, (val, key) ->
+    user.set(key, val) unless key in protectedAttrs
+
+  req.body = partialUser.tasks
+  updateTasks req
+
+  userObj = user.get()
+  [tasks, req.body] = [req.body, userObj]
+
+  res.json 201, req.body
 
 ###
   GET /user/task/:id
@@ -126,11 +153,19 @@ router.delete '/user/task/:id', auth, validateTask, (req, res) ->
 ###
   POST /user/tasks
 ###
-router.post '/user/tasks', auth, (req, res) ->
+updateTasks = (req, res) ->
   for idx, task of req.body
     if task.id
       if task.del
+        # model.at("_user.tasks.#{task.id}").remove()
+        # FIXME normally we can use model.at().remove() to remove both _user.tasks.{ID} and user.{type}Ids.{IDX} (above),
+        # but it's failing here with `TypeError: [object Object] is not an Array at Object.arrayLookupSet [as _arrayLookupSet] (/Users/lefnire/Dropbox/Sites/personal/habitrpg/modules/racer/lib/Memory.js:185:11)`
+        # Can it only be called on the client? As a result, we manually delete from both locations.
+
         req.user.del "tasks.#{task.id}"
+        idList = req.user.get "#{task.type}Ids"
+        idList.splice idList.indexOf(task.id), 1 if idList.indexOf(task.id) != -1
+        req.user.set "#{task.type}Ids", idList
         task = deleted: true
       else
         req.user.set "tasks.#{task.id}", task
@@ -142,6 +177,8 @@ router.post '/user/tasks', auth, (req, res) ->
       model.at("_#{type}List").push task
     req.body[idx] = task
 
+router.post '/user/tasks', auth, (req, res) ->
+  updateTasks req, res
   res.json 201, req.body
 
 
