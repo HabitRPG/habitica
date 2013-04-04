@@ -1,7 +1,7 @@
 XP = 15
 HP = 2
 
-priorityValue = (priority='!') ->
+priorityValue = module.exports.priorityValue = (priority='!') ->
   switch priority
     when '!' then 1
     when '!!' then 1.5
