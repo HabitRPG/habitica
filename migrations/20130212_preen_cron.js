@@ -44,9 +44,13 @@ db.users.find(un_registered).forEach(function(user) {
 });
 
 
-db.sessions.find().forEach(function(sess){
+/**
+ * Don't remove missing user auths anymore. This was previously necessary due to data corruption,
+ * revisit if needs be
+ */
+/*db.sessions.find().forEach(function(sess){
     var uid = JSON.parse(sess.session).userId;
     if (!uid || db.users.count({_id:uid}) === 0) {
         db.sessions.remove({_id:sess._id});
     }
-});
+});*/
