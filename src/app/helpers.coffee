@@ -1,5 +1,6 @@
 moment = require 'moment'
 _ = require 'underscore'
+algos = require './algos'
 
 # Absolute diff between two dates
 daysBetween = (yesterday, now, dayStart) ->
@@ -22,6 +23,17 @@ randomVal = (obj) ->
 removeWhitespace = (str) ->
   return '' unless str
   str.replace /\s/g, ''
+
+username = (auth) ->
+  if auth?.facebook?.displayName?
+    auth.facebook.displayName
+  else if auth?.facebook?
+    fb = auth.facebook
+    if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name
+  else if auth?.local?
+    auth.local.username
+  else
+    'Anonymous'
 
 viewHelpers = (view) ->
   view.fn "percent", (x, y) ->
@@ -59,4 +71,74 @@ viewHelpers = (view) ->
 
   view.fn "truarr", (num) -> num-1
 
-module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping }
+  ###
+    User
+  ###
+  view.fn "username", (auth) -> username(auth)
+  view.fn "tnl", algos.tnl
+
+  ###
+    Items
+  ###
+  view.fn 'equipped', (user, type) ->
+    {gender, armorSet} = user?.preferences || {'m', 'v1'}
+
+    if type=='armor'
+      armor = user?.items?.armor || 0
+      if gender == 'f'
+        return if (parseInt(armor) == 0) then "f_armor_#{armor}_#{armorSet}" else "f_armor_#{armor}"
+      else
+        return "m_armor_#{armor}"
+
+    else if type=='head'
+      head = user?.items?.head || 0
+      if gender == 'f'
+        return if (parseInt(head) > 1) then "f_head_#{head}_#{armorSet}" else "f_head_#{head}"
+      else
+        return "m_head_#{head}"
+
+  view.fn "gold", (num) ->
+    if num
+      return (num).toFixed(1).split('.')[0]
+    else
+      return "0"
+
+  view.fn "silver", (num) ->
+    if num
+      (num).toFixed(2).split('.')[1]
+    else
+      return "00"
+
+  ###
+    Tasks
+  ###
+  view.fn 'taskClasses', (task) ->
+    return unless task
+    {type, completed, value, repeat} = task
+
+    classes = type
+
+    # show as completed if completed (naturally) or not required for today
+    if type in ['todo', 'daily']
+      if completed or (repeat and repeat[dayMapping[moment().day()]]==false)
+        classes += " completed"
+      else
+        classes += " uncompleted"
+
+    if value < -20
+      classes += ' color-worst'
+    else if value < -10
+      classes += ' color-worse'
+    else if value < -1
+      classes += ' color-bad'
+    else if value < 1
+      classes += ' color-neutral'
+    else if value < 5
+      classes += ' color-good'
+    else if value < 10
+      classes += ' color-better'
+    else
+      classes += ' color-best'
+    return classes
+
+module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }

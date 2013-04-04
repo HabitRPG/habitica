@@ -4,36 +4,6 @@ _ = require 'underscore'
 moment = require 'moment'
 character = require './character'
 
-module.exports.view = (view) ->
-  view.fn 'taskClasses', (task) ->
-    return unless task
-    {type, completed, value, repeat} = task
-
-    classes = type
-
-    # show as completed if completed (naturally) or not required for today
-    if type in ['todo', 'daily']
-      if completed or (repeat and repeat[helpers.dayMapping[moment().day()]]==false)
-        classes += " completed"
-      else
-        classes += " uncompleted"
-
-    if value < -20
-      classes += ' color-worst'
-    else if value < -10
-      classes += ' color-worse'
-    else if value < -1
-      classes += ' color-bad'
-    else if value < 1
-      classes += ' color-neutral'
-    else if value < 5
-      classes += ' color-good'
-    else if value < 10
-      classes += ' color-better'
-    else
-      classes += ' color-best'
-    return classes
-
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
 

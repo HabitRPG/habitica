@@ -24,9 +24,6 @@ profile = require './profile'
 pets = require './pets'
 
 helpers.viewHelpers view
-character.view view
-tasks.view view
-items.view view
 
 _ = require('underscore')
 
