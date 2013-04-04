@@ -1,6 +1,5 @@
 _ = require 'underscore'
 moment = require 'moment'
-#algos = require './algos'
 
 ###
   Loads JavaScript files from public/js/*
