@@ -12,7 +12,7 @@ MODIFIER = algos.MODIFIER # each new level, armor, weapon add 2% modifier (this 
 ###
   Drop System
 ###
-randomDrop = (model, delta) ->
+randomDrop = (model, delta, priority) ->
   user = model.at('_user')
 
   # limit drops to 2 / day
@@ -25,7 +25,10 @@ randomDrop = (model, delta) ->
   # % chance of getting a pet or meat
   # debugging purpose - 50% chance during development, 3% chance on prod
   chanceMultiplier = if (model.flags.nodeEnv is 'development') then 50 else 1
-  chanceMultiplier *= Math.abs(delta) # multiply chance by reddness
+  # TODO temporary min cap of 1 so people still get rewarded for good habits. Will change once we have streaks
+  deltaMultiplier = if Math.abs(delta) < 1 then 1 else Math.abs(delta)
+  chanceMultiplier = chanceMultiplier * deltaMultiplier * algos.priorityValue(priority) # multiply chance by reddness
+
   if user.get('flags.dropsEnabled') and Math.random() < (.01 * chanceMultiplier)
     # current breakdown - 3% (adjustable) chance on drop
     # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
@@ -180,7 +183,7 @@ score = (model, taskId, direction, times, batch, cron) ->
     batch.commit()
 
   # Drop system
-  randomDrop(model, delta) if direction is 'up'
+  randomDrop(model, delta, priority) if direction is 'up'
 
   return delta
 
