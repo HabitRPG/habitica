@@ -2,12 +2,6 @@ _ = require 'underscore'
 moment = require 'moment'
 #algos = require './algos'
 
-
-restoreRefs = module.exports.restoreRefs = (model) ->
-  #refLists
-  _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
-    model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-
 ###
   Loads JavaScript files from public/js/*
   If a library is available in a CDN, we put it in <Scripts:> (index.html) for better caching. If not, we use

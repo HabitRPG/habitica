@@ -41,10 +41,20 @@ get '/', (page, model, params, next) ->
   #  return page.redirect 'https://' + req.headers.host + req.url
 
   party.partySubscribe page, model, params, next, ->
-    character.updateUser(model)
+    user = model.at('_user')
+    user.setNull('apiToken', derby.uuid())
+
+    # Remove corrupted tasks
+    tasks = user.get('tasks')
+    _.each tasks, (task, key) -> user.del("tasks.#{key}") unless task?
+
     items.server(model)
     model.set '_view', _view
-    browser.restoreRefs model
+
+    #refLists
+    _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
+      model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+
     page.render()
 
 # ========== CONTROLLER FUNCTIONS ==========
