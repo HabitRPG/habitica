@@ -19,23 +19,19 @@
             <app:tasks:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
 
             <!-- Custom Rewards -->
-            {#if _rewardList}
-                <ul class='rewards'>
-                    {#each _rewardList as :task}<app:tasks:task />{/}
-                </ul>
-            {/}
+            <ul class='rewards' style="{#unless _rewardList}display:none{/}">
+                {#each _rewardList as :task}<app:tasks:task />{/}
+            </ul>
 
             <!-- Static Rewards -->
-            {#if _user.flags.itemsEnabled}
-                <ul class='items'>
-                    {#with _view.items.weapon as :item}<app:rewards:item />{/}
-                    {#with _view.items.armor as :item}<app:rewards:item />{/}
-                    {#with _view.items.head as :item}<app:rewards:item />{/}
-                    {#with _view.items.shield as :item}<app:rewards:item />{/}
-                    {#with _view.items.potion as :item}<app:rewards:item />{/}
-                    {#with _view.items.reroll as :item}<app:rewards:item reroll=true />{/}
-                </ul>
-            {/}
+            <ul class='items' style="{#unless _user.flags.itemsEnabled}display:none{/}">
+                {#with _view.items.weapon as :item}<app:rewards:item />{/}
+                {#with _view.items.armor as :item}<app:rewards:item />{/}
+                {#with _view.items.head as :item}<app:rewards:item />{/}
+                {#with _view.items.shield as :item}<app:rewards:item />{/}
+                {#with _view.items.potion as :item}<app:rewards:item />{/}
+                {#with _view.items.reroll as :item}<app:rewards:item reroll=true />{/}
+            </ul>
 
             <app:tasks:ads>
                 <a href="http://www.amazon.com/gp/product/1594484805/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1594484805&linkCode=as2&tag=ha0d2-20">Drive: The Surprising Truth About What Motivates Us</a><img src="//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=1594484805" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
