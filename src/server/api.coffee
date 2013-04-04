@@ -87,9 +87,9 @@ validateTask = (req, res, next) ->
     unless /^(habit|todo|daily|reward)$/.test type
       return res.json 400, err: 'type must be habit, todo, daily, or reward'
 
-  text = sanitize(text).xss()
-  notes = sanitize(notes).xss()
-  value = sanitize(value).toInt()
+  newTask.text = sanitize(text).xss()
+  newTask.notes = sanitize(notes).xss()
+  newTask.value = sanitize(value).toInt()
 
   switch type
     when 'habit'
@@ -97,6 +97,8 @@ validateTask = (req, res, next) ->
       newTask.down = true unless typeof down is 'boolean'
     when 'daily', 'todo'
       newTask.completed = false unless typeof completed is 'boolean'
+
+  newTask.value = 0 if isNaN newTask.value
 
   _.extend task, newTask
   req.task = task
