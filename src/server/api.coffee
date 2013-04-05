@@ -84,12 +84,13 @@ validateTask = (req, res, next) ->
     type = undefined
     delete newTask.type
   else if req.method is 'POST'
+    newTask.value = sanitize(value).toInt()
+    newTask.value = 0 if isNaN newTask.value
     unless /^(habit|todo|daily|reward)$/.test type
       return res.json 400, err: 'type must be habit, todo, daily, or reward'
 
-  text = sanitize(text).xss()
-  notes = sanitize(notes).xss()
-  value = sanitize(value).toInt()
+  newTask.text = sanitize(text).xss() if typeof text is "string"
+  newTask.notes = sanitize(notes).xss() if typeof notes is "string"
 
   switch type
     when 'habit'
