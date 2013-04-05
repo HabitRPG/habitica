@@ -71,46 +71,6 @@ _.each items.pets, (pet) -> pet.notes = 'Find a hatching potion to pour on this 
 _.each items.hatchingPotions, (hatchingPotion) -> hatchingPotion.notes = "Pour this on an egg, and it will hatch as a #{hatchingPotion.text} pet."
 
 ###
-  view exports
-###
-module.exports.view = (view) ->
-  view.fn 'equipped', (user, type) ->
-    {gender, armorSet} = user?.preferences || {'m', 'v1'}
-
-    if type=='armor'
-      armor = user?.items?.armor || 0
-      if gender == 'f'
-        return if (parseInt(armor) == 0) then "f_armor_#{armor}_#{armorSet}" else "f_armor_#{armor}"
-      else
-        return "m_armor_#{armor}"
-
-    else if type=='head'
-      head = user?.items?.head || 0
-      if gender == 'f'
-        return if (parseInt(head) > 1) then "f_head_#{head}_#{armorSet}" else "f_head_#{head}"
-      else
-        return "m_head_#{head}"
-
-  view.fn "gold", (num) ->
-    if num
-      return (num).toFixed(1).split('.')[0]
-    else
-      return "0"
-
-  view.fn "silver", (num) ->
-    if num
-      (num).toFixed(2).split('.')[1]
-    else
-      return "00"
-
-  view.fn "copper", (num) ->
-    if num
-      c = (num).toFixed(4).split('.')[1]
-      c.toString().substr(2,2)
-    else
-      return "00"
-
-###
   server exports
 ###
 module.exports.server = (model) ->

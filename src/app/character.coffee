@@ -8,23 +8,6 @@ _ = require 'underscore'
 lodash = require 'lodash'
 derby = require 'derby'
 
-module.exports.username = username = (auth) ->
-  if auth?.facebook?.displayName?
-    auth.facebook.displayName
-  else if auth?.facebook?
-    fb = auth.facebook
-    if fb._raw then "#{fb.name.givenName} #{fb.name.familyName}" else fb.name
-  else if auth?.local?
-    auth.local.username
-  else
-    'Anonymous'
-
-module.exports.view = (view) ->
-  view.fn "username", (auth) -> username(auth)
-
-  view.fn "tnl", algos.tnl
-
-
 module.exports.app = (appExports, model) ->
   user = model.at '_user'
 
@@ -153,38 +136,6 @@ module.exports.newUserObject = ->
       when 'todo' then newUser.todoIds.push guid
       when 'reward' then newUser.rewardIds.push guid
   return newUser
-
-module.exports.updateUser = (model) ->
-  batch = new BatchUpdate(model)
-  user = batch.user
-  obj = batch.obj()
-  tasks = obj.tasks
-
-  # Remove corrupted tasks
-  _.each tasks, (task, key) ->
-    unless task?
-      user.del("tasks.#{key}")
-      delete tasks[key]
-
-  batch.startTransaction()
-
-  batch.set('apiToken', derby.uuid()) unless obj.apiToken
-
-  ## Task List Cleanup
-  # FIXME temporary hack to fix lists (Need to figure out why these are happening)
-  _.each ['habit','daily','todo','reward'], (type) ->
-    # 1. remove duplicates
-    # 2. restore missing zombie tasks back into list
-    taskIds =  _.pluck( _.where(tasks, {type:type}), 'id')
-    union = _.union obj[type + 'Ids'], taskIds
-
-    # 2. remove empty (grey) tasks
-    preened = _.filter union, (val) -> _.contains(taskIds, val) and val?
-
-    # There were indeed issues found, set the new list
-    batch.set("#{type}Ids", preened) # if _.difference(preened, userObj[path]).length != 0
-
-  batch.commit()
 
 module.exports.BatchUpdate = BatchUpdate = (model) ->
   user = model.at("_user")

@@ -1,4 +1,3 @@
-async = require 'async'
 moment = require 'moment'
 _ = require 'underscore'
 { randomVal } = helpers = require './helpers'

@@ -1,6 +1,4 @@
 _ = require('underscore')
-character = require './character'
-browser = require './browser'
 
 partyUnsubscribe = (model, cb) ->
   if window?
@@ -69,6 +67,9 @@ module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb)
       return finished [partyQ, membersQ, selfQ], ['_party', '_partyMembers', '_user']
 
 module.exports.app = (appExports, model) ->
+  character = require './character'
+  browser = require './browser'
+
   user = model.at('_user')
 
   user.on 'set', 'flags.partyEnabled', (captures, args) ->
