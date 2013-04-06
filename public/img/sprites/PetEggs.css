@@ -19,7 +19,7 @@
 .Pet_HatchingPotion_Zombie {background-position: -48px -306px; width: 48px; height: 51px}
 .Pet_HatchingPotion_CottonCandyPink {background-position: -48px -357px; width: 48px; height: 51px}
 .Pet_HatchingPotion_CottonCandyBlue {background-position: -48px -408px; width: 48px; height: 51px}
-.Pet_HatchingPotion_Golden {background-position: -48px -459px; width: 48px; height: 54px} /* This sprite was a bit taller than everything else, will affect the math of anything inserted below it */
+.Pet_HatchingPotion_Golden {background-position: -48px -459px; width: 48px; height: 51px}
 
 .Pet_Currency_Gem {background-position: 0px -510px; width: 51px; height: 45px} /* Not an egg or potion so has a different size */
 .Pet_Currency_Gem2x {background-position: -55px -513px; width: 34px; height: 30px}
