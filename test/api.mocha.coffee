@@ -159,6 +159,8 @@ describe 'API', ->
             expect(res.body.id).not.to.be.empty()
             # Ensure that user owns the newly created object
             expect(user.get().tasks[res.body.id]).to.be.an('object')
+            # Ensure that value gets set to 0 since not otherwise specified
+            expect(user.get().tasks[res.body.id].value).to.be.equal(0)
             done()
 
     it 'PUT /api/v1/user/task/:id', (done) ->
