@@ -20,7 +20,6 @@
                     <hr/>
                     <h4>Misc</h4>
                     <button x-bind="click:toggleHeader" class="btn">{#if _user.preferences.hideHeader}Show Header{else}Hide Header{/}</button>
-                    {#unless _user.flags.partyEnabled}&nbsp;<button x-bind="click:manuallyUnlockParties" data-dismiss='modal' rel=tooltip title="Parties are unlocked automatically for usability reasons, but you can override that here.">Enable Parties</button>{/}
 
                     {{#if _user.auth.local}}
                         <hr/>
@@ -135,18 +134,18 @@
 
 <menu:>
     <div class="user-menu">
-        {#unless _loggedIn}
-        <button class="task-action-btn tile solid" href="#" data-target="#login-modal" data-toggle="modal">Login / Register</button>
-        {else}
-        <ul class="nav site-nav">
-            <li class="flyout">
-                <h1 class="task-action-btn tile solid user-reporter">{username(_user.auth)}</h1>
-                <ul class="flyout-content nav stacked">
-                    <li><a class="task-action-btn tile solid" data-target="#settings-modal" data-toggle="modal">Settings</a></li>
-                    <li>{#if _user.flags.partyEnabled}<a class="task-action-btn tile solid" data-target="#party-modal" data-toggle="modal">Party</a>{/}</li>
-                    <li><a class="task-action-btn tile solid" href="/logout">Logout</a></li>
-                </ul>
-            </li>
-        </ul>
-        {/}
+        {{#unless _loggedIn}}
+            <button class="task-action-btn tile solid" href="#" data-target="#login-modal" data-toggle="modal">Login / Register</button>
+        {{else}}
+            <ul class="nav site-nav">
+                <li class="flyout">
+                    <h1 class="task-action-btn tile solid user-reporter">{#if _user.party.invitation}<i class='icon-bell'></i> {/}{{username(_user.auth)}}</h1>
+                    <ul class="flyout-content nav stacked">
+                        <li><a class="task-action-btn tile solid" data-target="#settings-modal" data-toggle="modal">Settings</a></li>
+                        <li><a class="task-action-btn tile solid" data-target="#party-modal" data-toggle="modal">{#if _user.party.invitation}<i class='icon-bell'></i> {/}Party</a></li>
+                        <li><a class="task-action-btn tile solid" href="/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        {{/}}
     </div>

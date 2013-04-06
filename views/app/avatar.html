@@ -1,18 +1,43 @@
 <modals:>
     <app:modals:modal modalId="avatar-modal">
         {#if _profileActiveMain}
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle='tab' href="#profileCustomize">Avatar</a></li>
-                <li><a data-toggle='tab' href="#profileEdit">Profile</a></li>
-            </ul>
+            <span class='option-box pull-right wallet'>
+                <app:rewards:userTokens />
+            </span>
 
-            <div class="tab-content">
-                <div class="tab-pane active" id="profileCustomize">
-                    <app:avatar:customize />
+            {#with _user.preferences}
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle='tab' href="#profileCustomize">Avatar</a></li>
+                    <li><a data-toggle='tab' href="#profileEdit">Profile</a></li>
+                    {#if _user.flags.dropsEnabled}
+                        <li><a data-toggle='tab' data-target="#profileInventory">Inventory</a></li>
+                        <li><a data-toggle='tab' data-target="#profileMarket">Market</a></li>
+                        <li><a data-toggle='tab' data-target="#profileStable">Stable</a></li>
+                    {/if}
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="profileCustomize">
+                        <app:avatar:customize />
+                    </div>
+
+                    <div class="tab-pane" id="profileEdit">
+                        <app:avatar:profile user="{_user}" main="true" />
+                    </div>
+
+                    <div class="tab-pane" id="profileInventory">
+                        <app:avatar:inventory />
+                    </div>
+
+                    <div class="tab-pane" id="profileMarket">
+                        <app:avatar:market />
+                    </div>
+
+                    <div class="tab-pane" id="profileStable">
+                        <app:pets:stable />
+                    </div>
                 </div>
-
-                <div class="tab-pane" id="profileEdit"><app:avatar:profile user="{_user}" main="true" /></div>
-            </div>
+             {/}
         {else}
             <app:avatar:profile profile={_profileActive} />
         {/}
@@ -41,18 +66,20 @@
                             </div>
                         ">
         <div class='character-sprites'>
-            {#if and(@profile.items.pet, not(@minimal))}<img class="pet" src='img/sprites/{@profile.items.pet.icon}' />{/}
             {#with @profile.preferences as :p}
-            <span class='{:p.gender}_skin_{:p.skin}'></span>
-            <span class='{:p.gender}_hair_{:p.hair}'></span>
-            <span class="{equipped(@profile, 'armor')}"></span>
-            {#if :p.showHelm}
-                <span class="{equipped(@profile, 'head')}"></span>
-            {else}
-                <span class="{:p.gender}_head_0"></span>
+                <span class='{:p.gender}_skin_{:p.skin}'></span>
+                <span class='{:p.gender}_hair_{:p.hair}'></span>
+                <span class="{equipped(@profile, 'armor')}"></span>
+                {#if :p.showHelm}
+                    <span class="{equipped(@profile, 'head')}"></span>
+                {else}
+                    <span class="{:p.gender}_head_0"></span>
+                {/}
+                <span class='{:p.gender}_shield_{@profile.items.shield}'></span>
+                <span class='{:p.gender}_weapon_{@profile.items.weapon}'></span>
             {/}
-            <span class='{:p.gender}_shield_{@profile.items.shield}'></span>
-            <span class='{:p.gender}_weapon_{@profile.items.weapon}'></span>
+            {#if and(@profile.items.currentPet, not(@minimal))}
+                <span class="Pet-{@profile.items.currentPet.name}-{@profile.items.currentPet.modifier} current-pet" ></span>
             {/}
         </div>
     </figure>
@@ -191,3 +218,59 @@
     <!--TODO replce this in the future with HTML from BrowserQuest's index.html, which properly handles the achievements
         sprite-sheets (see BQ's achievements.css, main.css) -->
     <img src='/img/original_user.png' /> Original User!
+
+<inventory:>
+    <!-- we'll have other inventory here later too, like enchantments, quest scrolls, etc -->
+    <app:pets:inventory/>
+
+<market:>
+
+    <!-- pets pane -->
+    <div class="tab-pane pet-grid" id="market-tab">
+
+        <h4>Welcome to the market!</h4>
+        <small>Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!</small>
+        <h4>Eggs</h4>
+        {#with _view.items.pets as :egg}
+        <table>
+            <tr>
+                {#with :egg[0]}<app:pets:egg />{/}
+                {#with :egg[1]}<app:pets:egg />{/}
+                {#with :egg[2]}<app:pets:egg />{/}
+                {#with :egg[3]}<app:pets:egg />{/}
+            </tr>
+            <tr>
+                {#with :egg[4]}<app:pets:egg />{/}
+                {#with :egg[5]}<app:pets:egg />{/}
+                {#with :egg[6]}<app:pets:egg />{/}
+                {#with :egg[7]}<app:pets:egg />{/}
+            </tr>
+            <tr>
+                {#with :egg[8]}<app:pets:egg />{/}
+            </tr>
+        </table>
+        {/}
+        <h4>Hatching Potions</h4>
+        {#with _view.items.hatchingPotions as :hatchingPotion}
+        <table>
+            <tr>
+                {#with :hatchingPotion[0]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[1]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[2]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[3]}<app:pets:hatchingPotion />{/}
+            </tr>
+            <tr>
+                {#with :hatchingPotion[4]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[5]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[6]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[7]}<app:pets:hatchingPotion />{/}
+            </tr>
+            <tr>
+                {#with :hatchingPotion[8]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[9]}<app:pets:hatchingPotion />{/}
+            </tr>
+        </table>
+        {/}
+    </div>
+
+

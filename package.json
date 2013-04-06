@@ -1,7 +1,7 @@
 {
   "name": "habitrpg",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "0.0.0-150",
+  "version": "0.0.0-151",
   "main": "./server.js",
   "dependencies": {
     "derby": "git://github.com/Unroll-Me/derby#master",
@@ -17,7 +17,7 @@
     "moment": "*",
     "stripe": "*",
     "async": "*",
-    "lodash": "*",
+    "lodash": "1.0.x",
     "coffee-script": "1.4.x",
     "underscore": "*",
     "mongoskin": "*",

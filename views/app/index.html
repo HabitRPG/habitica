@@ -7,6 +7,7 @@
 <import: src="footer">
 <import: src="settings">
 <import: src="party">
+<import: src="pets">
 
 <Title:>
   HabitRPG | Gamify Your Life
@@ -46,7 +47,6 @@
       <app:tasks:taskLists />
     </div>
   </div>
-  
   <app:footer:footer />
 
 <Scripts:>
@@ -61,9 +61,15 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.0.0/js/bootstrap-datepicker.min.js"></script>
 
-    <script src="https://checkout.stripe.com/v2/checkout.js"></script>
+    {{#if and( _loggedIn, notEqual(_user.flags.ads,'hide') )}}
+        <script type="text/javascript" src="//wms.assoc-amazon.com/20070822/US/js/link-enhancer-common.js?tag=ha0d2-20">
+        </script>
+        <noscript>
+            <img src="//wms.assoc-amazon.com/20070822/US/img/noscript.gif?tag=ha0d2-20" alt="" />
+        </noscript>
+    {{/}}
 
-    {#if equal(_view.nodeEnv,"production")}
+    {{#if equal(_view.nodeEnv,"production")}}
         <!-- Google Analytics -->
         <script type="text/javascript">
             var _gaq = _gaq || [];
@@ -77,4 +83,4 @@
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
         </script>
-    {/}
+    {{/}}

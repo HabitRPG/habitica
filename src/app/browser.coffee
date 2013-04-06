@@ -1,17 +1,10 @@
 _ = require 'underscore'
 moment = require 'moment'
-#algos = require './algos'
-
-
-restoreRefs = module.exports.restoreRefs = (model) ->
-  #refLists
-  _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
-    model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
 
 ###
-  Loads JavaScript files from (1) public/js/* and (2) external sources
+  Loads JavaScript files from public/js/*
   If a library is available in a CDN, we put it in <Scripts:> (index.html) for better caching. If not, we use
-  this function to utilize require() to concatinate for faster page load, and $.getScript for asyncronous external script loading
+  this function to utilize require() to concatinate for faster page load
 ###
 loadJavaScripts = (model) ->
 
@@ -24,19 +17,6 @@ loadJavaScripts = (model) ->
 
   require '../../public/vendor/bootstrap-tour/bootstrap-tour'
 
-  # JS files not needed right away (google charts) or entirely optional (analytics)
-  # Each file getsload asyncronously via $.getScript, so it doesn't bog page-load
-  unless model.get('_view.mobileDevice')
-
-    $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
-
-    # Google Charts
-    $.getScript "//www.google.com/jsapi", ->
-      # Specifying callback in options param is vital! Otherwise you get blank screen, see http://stackoverflow.com/a/12200566/362790
-      google.load "visualization", "1", {packages:["corechart"], callback: ->}
-
-# Note, Google Analyatics giving beef if in this file. Moved back to index.html. It's ok, it's async - really the
-# syncronous requires up top are what benefit the most from this file.
 
 ###
   Setup jQuery UI Sortable
@@ -61,7 +41,7 @@ setupSortable = (model) ->
           # or the item's id property
           model.at("_#{type}List").pass(ignore: domId).move {id}, to
 
-setupTooltips = (model) ->
+setupTooltips = module.exports.setupTooltips = (model) ->
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
 
@@ -114,7 +94,7 @@ setupTour = (model) ->
     }
   ]
 
-  $('.main-avatar').popover('destroy') #remove previous popovers
+  $('.main-herobox').popover('destroy') #remove previous popovers
   tour = new Tour()
   _.each tourSteps, (step) ->
     tour.addStep _.defaults step, {html:true}
@@ -189,6 +169,26 @@ module.exports.resetDom = (model) ->
   DERBY.app.dom.clear()
   DERBY.app.view.render(model, DERBY.app.view._lastRender.ns, DERBY.app.view._lastRender.context);
 
+###
+  Load external scripts that need re-calculation on page re-write
+###
+loadExternalScripts = (model) ->
+  $.getScript('//checkout.stripe.com/v2/checkout.js')
+
+  # JS files not needed right away (google charts) or entirely optional (analytics)
+  # Each file getsload asyncronously via $.getScript, so it doesn't bog page-load
+  unless model.get('_view.mobileDevice')
+
+    $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire")
+
+    # Google Charts
+    $.getScript "//www.google.com/jsapi", ->
+      # Specifying callback in options param is vital! Otherwise you get blank screen, see http://stackoverflow.com/a/12200566/362790
+      google.load "visualization", "1", {packages:["corechart"], callback: ->}
+
+# Note, Google Analyatics giving beef if in this file. Moved back to index.html. It's ok, it's async - really the
+# syncronous requires up top are what benefit the most from this file.
+
 module.exports.app = (appExports, model, app) ->
   loadJavaScripts(model)
   setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
@@ -199,8 +199,9 @@ module.exports.app = (appExports, model, app) ->
     setupTooltips(model)
     setupTour(model)
     initStickyHeader(model) unless model.get('_view.mobileDevice')
+    loadExternalScripts(model)
     $('.datepicker').datepicker({autoclose:true, todayBtn:true})
       .on 'changeDate', (ev) ->
-            #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
-            #FIXME also, it saves as a day behind??
-            model.at(ev.target).set 'date', moment(ev.date).add('d',1).format('MM/DD/YYYY')
+        #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
+        #FIXME also, it saves as a day behind??
+        model.at(ev.target).set 'date', moment(ev.date).add('d',1).format('MM/DD/YYYY')

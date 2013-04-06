@@ -1,3 +1,8 @@
+## 3/27/2013
+ * Drop system + pets overhaul
+   * http://www.kickstarter.com/projects/lefnire/habitrpg-mobile/posts/439433
+   * https://trello.com/card/pets/50e5d3684fe3a7266b0036d6/166
+
 ## 3/21/2013
  * More design tweaks to header & avatars: https://github.com/lefnire/habitrpg/issues/585
 
