@@ -79,13 +79,10 @@ router.put '/user', auth, (req, res) ->
   _.each partialUser, (val, key) ->
     user.set(key, val) unless key in protectedAttrs
 
-  req.body = partialUser.tasks
-  updateTasks req
+  tasks = updateTasks partialUser.tasks, req.user, req.getModel()
 
-  userObj = user.get()
-  [tasks, req.body] = [req.body, userObj]
-
-  res.json 201, req.body
+  userObj = req.user.get()
+  res.json 201, req.userObj
 
 ###
   GET /user/task/:id
@@ -153,33 +150,28 @@ router.delete '/user/task/:id', auth, validateTask, (req, res) ->
 ###
   POST /user/tasks
 ###
-updateTasks = (req, res) ->
-  for idx, task of req.body
+updateTasks = (tasks, user, model) ->
+  for idx, task of tasks
     if task.id
       if task.del
-        # model.at("_user.tasks.#{task.id}").remove()
-        # FIXME normally we can use model.at().remove() to remove both _user.tasks.{ID} and user.{type}Ids.{IDX} (above),
-        # but it's failing here with `TypeError: [object Object] is not an Array at Object.arrayLookupSet [as _arrayLookupSet] (/Users/lefnire/Dropbox/Sites/personal/habitrpg/modules/racer/lib/Memory.js:185:11)`
-        # Can it only be called on the client? As a result, we manually delete from both locations.
-
-        req.user.del "tasks.#{task.id}"
-        idList = req.user.get "#{task.type}Ids"
-        idList.splice idList.indexOf(task.id), 1 if idList.indexOf(task.id) != -1
-        req.user.set "#{task.type}Ids", idList
+        user.del "tasks.#{task.id}"
+        if task.type # TODO we should enforce they pass in type, so we can properly remove from idList
+          i = model.get("_#{task.type}List").indexOf(task.id)
+          model.remove("_#{task.type}List", i, 1) # doens't work when task.type isn't passed up
         task = deleted: true
       else
-        req.user.set "tasks.#{task.id}", task
+        user.set "tasks.#{task.id}", task
     else
-      model = req.getModel()
       type = task.type || 'habit'
-      model.ref '_user', req.user
+      model.ref '_user', user
       model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
       model.at("_#{type}List").push task
-    req.body[idx] = task
+    tasks[idx] = task
+  return tasks
 
 router.post '/user/tasks', auth, (req, res) ->
-  updateTasks req, res
-  res.json 201, req.body
+  tasks = updateTasks req.body, req.user, req.getModel()
+  res.json 201, tasks
 
 
 ###
