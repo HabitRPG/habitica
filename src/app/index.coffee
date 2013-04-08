@@ -22,9 +22,6 @@ _ = require('underscore')
 get '/', (page, model, params, next) ->
   return page.redirect '/' if page.params?.query?.play?
 
-  # temporary view variables, so we don't call model.set() too fast
-  _view = model.get '_view' || {}
-
   # Force SSL # NOTE handled by ngix now
   #req = page._res.req
   #if req.headers['x-forwarded-proto']!='https' and process.env.NODE_ENV=='production'
@@ -35,7 +32,6 @@ get '/', (page, model, params, next) ->
     user.setNull('apiToken', derby.uuid())
 
     require('./items').server(model)
-    model.set '_view', _view
 
     #refLists
     _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
@@ -61,6 +57,6 @@ ready (model) ->
   require('./profile').app(exports, model)
   require('./pets').app(exports, model)
   require('../server/private').app(exports, model)
-  require('./debug').app(exports, model) if model.get('_nodeEnv') != 'production'
+  require('./debug').app(exports, model) if model.flags.nodeEnv != 'production'
   require('./browser').app(exports, model, app)
 

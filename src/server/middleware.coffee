@@ -7,11 +7,9 @@ module.exports.splash = (req, res, next) ->
 
 module.exports.view = (req, res, next) ->
   model = req.getModel()
-  _view = model.get('_view') || {}
   ## Set _mobileDevice to true or false so view can exclude portions from mobile device
-  _mobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
-  _nodeEnv = process.env.NODE_ENV
-  model.set '_view', _view
+  model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
+  model.set '_nodeEnv', model.flags.nodeEnv
   next()
 
 #CORS middleware
