@@ -34,10 +34,6 @@ get '/', (page, model, params, next) ->
     user = model.at('_user')
     user.setNull('apiToken', derby.uuid())
 
-    # Remove corrupted tasks
-    tasks = user.get('tasks')
-    _.each tasks, (task, key) -> user.del("tasks.#{key}") unless task?
-
     require('./items').server(model)
     model.set '_view', _view
 
@@ -65,6 +61,6 @@ ready (model) ->
   require('./profile').app(exports, model)
   require('./pets').app(exports, model)
   require('../server/private').app(exports, model)
-  require('./debug').app(exports, model) if model.get('_view.nodeEnv') != 'production'
+  require('./debug').app(exports, model) if model.get('_nodeEnv') != 'production'
   require('./browser').app(exports, model, app)
 

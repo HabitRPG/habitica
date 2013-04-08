@@ -113,10 +113,10 @@ module.exports.app = (appExports, model) ->
       throw err if err
       u = res.at(0).get()
       if !u?
-        model.set "_view.partyError", "User with id #{id} not found."
+        model.set "_partyError", "User with id #{id} not found."
         return
       else if u.party.current? or u.party.invitation?
-        model.set "_view.partyError", "User already in a party or pending invitation."
+        model.set "_partyError", "User already in a party or pending invitation."
         return
       else
         p = model.at '_party'
