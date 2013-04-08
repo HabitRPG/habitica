@@ -91,24 +91,25 @@ module.exports.app = (appExports, model) ->
     [type, value, index] = [ $(el).attr('data-type'), $(el).attr('data-value'), $(el).attr('data-index') ]
 
     return if gp < value
-    user.set 'stats.gp', gp - value
+    # make sure deduction doesn't happen unless purchase was successful, see https://github.com/lefnire/habitrpg/issues/233
+    deductGP = -> user.set 'stats.gp', gp - value
     if type == 'weapon'
-      user.set 'items.weapon', index
+      user.set 'items.weapon', index, deductGP
       updateStore model
     else if type == 'armor'
-      user.set 'items.armor', index
+      user.set 'items.armor', index, deductGP
       updateStore model
     else if type == 'head'
-      user.set 'items.head', index
+      user.set 'items.head', index, deductGP
       updateStore model
     else if type == 'shield'
-      user.set 'items.shield', index
+      user.set 'items.shield', index, deductGP
       updateStore model
     else if type == 'potion'
       hp = user.get 'stats.hp'
       hp += 15
       hp = 50 if hp > 50
-      user.set 'stats.hp', hp
+      user.set 'stats.hp', hp, deductGP
 
 
   appExports.activateRewardsTab = ->
