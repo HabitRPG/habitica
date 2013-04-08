@@ -266,10 +266,10 @@ cron = (model) ->
     tasks = user.get('tasks')
     _.each tasks, (task, key) ->
       # Remove null tasks
-      unless task?
+      unless task?.type?
         user.del("tasks.#{key}")
       # Put rogue tasks back into their lists. We could alternatively delete them (they're rogue because they weren't properly deleted), but that's dangerous
-      if user.get("#{task.type}Ids").indexOf(task.id) is -1
+      else if user.get("#{task.type}Ids").indexOf(task.id) is -1
         user.push "#{task.type}Ids", task.id
 
     batch = new character.BatchUpdate(model)
