@@ -10,7 +10,6 @@ module.exports.app = (appExports, model) ->
 
   appExports.showStripe = (e, el) ->
     token = (res) ->
-      console.log(res);
       $.ajax({
          type: "POST",
          url: "/charge",
