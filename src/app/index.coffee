@@ -65,6 +65,6 @@ ready (model) ->
   require('./profile').app(exports, model)
   require('./pets').app(exports, model)
   require('../server/private').app(exports, model)
-  require('./debug').app(exports, model) if model.get('_view.nodeEnv') != 'production'
+  require('./debug').app(exports, model) if model.get('_nodeEnv') != 'production'
   require('./browser').app(exports, model, app)
 

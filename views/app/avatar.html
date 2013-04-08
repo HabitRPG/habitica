@@ -231,7 +231,7 @@
         <h4>Welcome to the market!</h4>
         <small>Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!</small>
         <h4>Eggs</h4>
-        {#with _view.items.pets as :egg}
+        {#with _items.pets as :egg}
         <table>
             <tr>
                 {#with :egg[0]}<app:pets:egg />{/}
@@ -251,7 +251,7 @@
         </table>
         {/}
         <h4>Hatching Potions</h4>
-        {#with _view.items.hatchingPotions as :hatchingPotion}
+        {#with _items.hatchingPotions as :hatchingPotion}
         <table>
             <tr>
                 {#with :hatchingPotion[0]}<app:pets:hatchingPotion />{/}

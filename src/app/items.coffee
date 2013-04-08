@@ -113,11 +113,11 @@ module.exports.app = (appExports, model) ->
 
 
   appExports.activateRewardsTab = ->
-    model.set '_view.activeTabRewards', true
-    model.set '_view.activeTabPets', false
+    model.set '_activeTabRewards', true
+    model.set '_activeTabPets', false
   appExports.activatePetsTab = ->
-    model.set '_view.activeTabPets', true
-    model.set '_view.activeTabRewards', false
+    model.set '_activeTabPets', true
+    model.set '_activeTabRewards', false
 
   model.on 'set', '_user.flags.itemsEnabled', (captures, args) ->
     return unless captures is true
@@ -160,12 +160,12 @@ module.exports.updateStore = updateStore = (model) ->
   _.each ['weapon', 'armor', 'shield', 'head'], (type) ->
     i = parseInt(obj?.items?[type] || 0) + 1
     nextItem = if (i == _.size items[type]) then {hide:true} else items[type][i]
-    model.set "_view.items.#{type}", nextItem
+    model.set "_items.#{type}", nextItem
 
-  model.set '_view.items.potion', items.potion
-  model.set '_view.items.reroll', items.reroll
-  model.set '_view.items.pets', items.pets
-  model.set '_view.items.hatchingPotions', items.hatchingPotions
+  model.set '_items.potion', items.potion
+  model.set '_items.reroll', items.reroll
+  model.set '_items.pets', items.pets
+  model.set '_items.hatchingPotions', items.hatchingPotions
 
 
 

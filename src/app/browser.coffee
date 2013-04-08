@@ -8,7 +8,7 @@ moment = require 'moment'
 ###
 loadJavaScripts = (model) ->
 
-  unless model.get('_view.mobileDevice')
+  unless model.get('_mobileDevice')
     require '../../public/vendor/jquery-ui/ui/jquery.ui.core'
     require '../../public/vendor/jquery-ui/ui/jquery.ui.widget'
     require '../../public/vendor/jquery-ui/ui/jquery.ui.mouse'
@@ -22,7 +22,7 @@ loadJavaScripts = (model) ->
   Setup jQuery UI Sortable
 ###
 setupSortable = (model) ->
-  unless (model.get('_view.mobileDevice') == true) #don't do sortable on mobile
+  unless (model.get('_mobileDevice') == true) #don't do sortable on mobile
     _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
       $("ul.#{type}s").sortable
         dropOnEmpty: false
@@ -177,7 +177,7 @@ loadExternalScripts = (model) ->
 
   # JS files not needed right away (google charts) or entirely optional (analytics)
   # Each file getsload asyncronously via $.getScript, so it doesn't bog page-load
-  unless model.get('_view.mobileDevice')
+  unless model.get('_mobileDevice')
 
     $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire")
 
@@ -191,14 +191,14 @@ loadExternalScripts = (model) ->
 
 module.exports.app = (appExports, model, app) ->
   loadJavaScripts(model)
-  setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
+  setupGrowlNotifications(model) unless model.get('_mobileDevice')
 
   app.on 'render', (ctx) ->
     #restoreRefs(model)
     setupSortable(model)
     setupTooltips(model)
     setupTour(model)
-    initStickyHeader(model) unless model.get('_view.mobileDevice')
+    initStickyHeader(model) unless model.get('_mobileDevice')
     loadExternalScripts(model)
     $('.datepicker').datepicker({autoclose:true, todayBtn:true})
       .on 'changeDate', (ev) ->
