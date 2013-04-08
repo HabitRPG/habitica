@@ -34,10 +34,6 @@ get '/', (page, model, params, next) ->
     user = model.at('_user')
     user.setNull('apiToken', derby.uuid())
 
-    # Remove corrupted tasks
-    tasks = user.get('tasks')
-    _.each tasks, (task, key) -> user.del("tasks.#{key}") unless task?
-
     require('./items').server(model)
     model.set '_view', _view
 

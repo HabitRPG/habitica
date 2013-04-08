@@ -260,6 +260,18 @@ cron = (model) ->
   today = +new Date
   daysPassed = helpers.daysBetween(user.get('lastCron'), today, user.get('preferences.dayStart'))
   if daysPassed > 0
+
+    # Cleanup some task-corruption (null tasks, rogue/invisible tasks, etc)
+    # Obviously none of this should be happening, but we'll stop-gap until we can find & fix
+    tasks = user.get('tasks')
+    _.each tasks, (task, key) ->
+      # Remove null tasks
+      unless task?
+        user.del("tasks.#{key}")
+      # Put rogue tasks back into their lists. We could alternatively delete them (they're rogue because they weren't properly deleted), but that's dangerous
+      if user.get("#{task.type}Ids").indexOf(task.id) is -1
+        user.push "#{task.type}Ids", task.id
+
     batch = new character.BatchUpdate(model)
     batch.startTransaction()
     batch.set 'lastCron', today
