@@ -2,21 +2,46 @@ _ = require 'underscore'
 moment = require 'moment'
 
 ###
-  Loads JavaScript files from public/js/*
-  If a library is available in a CDN, we put it in <Scripts:> (index.html) for better caching. If not, we use
-  this function to utilize require() to concatinate for faster page load
+  Loads JavaScript files from public/vendor/*
+  Use require() to min / concatinate for faster page load
 ###
 loadJavaScripts = (model) ->
 
-  unless model.get('_mobileDevice')
-    require '../../public/vendor/jquery-ui/ui/jquery.ui.core'
-    require '../../public/vendor/jquery-ui/ui/jquery.ui.widget'
-    require '../../public/vendor/jquery-ui/ui/jquery.ui.mouse'
-    require '../../public/vendor/jquery-ui/ui/jquery.ui.sortable'
-    require '../../public/sticky.js'
+  # Turns out you can't have expressions in browserify require() statements
+  #vendor = '../../public/vendor'
+  #require "#{vendor}/jquery-ui/jquery-1.9.1"
 
-  require '../../public/vendor/bootstrap-tour/bootstrap-tour'
+  mobile = model.get '_mobileDevice'
 
+  ###
+  Internal Scripts
+  ###
+  require "../../public/vendor/jquery-ui/jquery-1.9.1"
+  require "../../public/vendor/jquery.cookie.min"
+  require "../../public/vendor/bootstrap/js/bootstrap.min"
+  require "../../public/vendor/jquery.bootstrap-growl.min"
+  require "../../public/vendor/datepicker/js/bootstrap-datepicker"
+  require "../../public/vendor/bootstrap-tour/bootstrap-tour"
+
+  unless mobile
+    require "../../public/vendor/jquery-ui/ui/jquery.ui.core"
+    require "../../public/vendor/jquery-ui/ui/jquery.ui.widget"
+    require "../../public/vendor/jquery-ui/ui/jquery.ui.mouse"
+    require "../../public/vendor/jquery-ui/ui/jquery.ui.sortable"
+    require "../../public/vendor/sticky"
+
+  ###
+  External Scripts
+    JS files not needed right away (google charts) or entirely optional (analytics)
+    Each file getsload asyncronously via $.getScript, so it doesn't bog page-load
+  ###
+  $.getScript('//checkout.stripe.com/v2/checkout.js')
+  unless mobile
+    $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire")
+    # Google Charts
+    $.getScript "//www.google.com/jsapi", ->
+      # Specifying callback in options param is vital! Otherwise you get blank screen, see http://stackoverflow.com/a/12200566/362790
+      google.load "visualization", "1", {packages:["corechart"], callback: ->}
 
 ###
   Setup jQuery UI Sortable
@@ -169,23 +194,6 @@ module.exports.resetDom = (model) ->
   DERBY.app.dom.clear()
   DERBY.app.view.render(model, DERBY.app.view._lastRender.ns, DERBY.app.view._lastRender.context);
 
-###
-  Load external scripts that need re-calculation on page re-write
-###
-loadExternalScripts = (model) ->
-  $.getScript('//checkout.stripe.com/v2/checkout.js')
-
-  # JS files not needed right away (google charts) or entirely optional (analytics)
-  # Each file getsload asyncronously via $.getScript, so it doesn't bog page-load
-  unless model.get('_mobileDevice')
-
-    $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire")
-
-    # Google Charts
-    $.getScript "//www.google.com/jsapi", ->
-      # Specifying callback in options param is vital! Otherwise you get blank screen, see http://stackoverflow.com/a/12200566/362790
-      google.load "visualization", "1", {packages:["corechart"], callback: ->}
-
 # Note, Google Analyatics giving beef if in this file. Moved back to index.html. It's ok, it's async - really the
 # syncronous requires up top are what benefit the most from this file.
 
@@ -199,7 +207,6 @@ module.exports.app = (appExports, model, app) ->
     setupTooltips(model)
     setupTour(model)
     initStickyHeader(model) unless model.get('_mobileDevice')
-    loadExternalScripts(model)
     $('.datepicker').datepicker({autoclose:true, todayBtn:true})
       .on 'changeDate', (ev) ->
         #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved

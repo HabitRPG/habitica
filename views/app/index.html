@@ -13,17 +13,11 @@
   HabitRPG | Gamify Your Life
 
 <Head:>
-  <meta name="viewport" content="width=device-width">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-
   <!-- webfonts -->
   <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 
-  <!-- CDN -->
-  <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
-  <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
-  <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.0.0/css/datepicker.css" rel="stylesheet">
-
+  <meta name="viewport" content="width=device-width">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 
 <Header:>
   <app:modals:modals />
@@ -50,24 +44,6 @@
   <app:footer:footer />
 
 <Scripts:>
-    <!-- we load as many CDN-available javascript files here as possible. For the rest,
-        we use /src/app/browser.coffee -> loadJavaScripts() which concats/minifies /public/vendor javascript libraries,
-        as well as runs async loads -->
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.3.1/jquery.cookie.min.js"></script>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.0.0/js/bootstrap-datepicker.min.js"></script>
-
-    {{#if and( _loggedIn, notEqual(_user.flags.ads,'hide') )}}
-        <script type="text/javascript" src="//wms.assoc-amazon.com/20070822/US/js/link-enhancer-common.js?tag=ha0d2-20">
-        </script>
-        <noscript>
-            <img src="//wms.assoc-amazon.com/20070822/US/img/noscript.gif?tag=ha0d2-20" alt="" />
-        </noscript>
-    {{/}}
 
     {{#if equal(_nodeEnv,"production")}}
         <!-- Google Analytics -->
@@ -83,4 +59,12 @@
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
         </script>
+    {{/}}
+
+    {{#if and( _loggedIn, notEqual(_user.flags.ads,'hide') )}}
+        <script type="text/javascript" src="//wms.assoc-amazon.com/20070822/US/js/link-enhancer-common.js?tag=ha0d2-20">
+        </script>
+        <noscript>
+            <img src="//wms.assoc-amazon.com/20070822/US/img/noscript.gif?tag=ha0d2-20" alt="" />
+        </noscript>
     {{/}}
