@@ -9,7 +9,7 @@ derby.use require 'derby-auth/components'
 # Translations
 i18n = require './i18n'
 i18n.localize app,
-  availableLocales: ['en', 'he']
+  availableLocales: ['en', 'he', 'nl']
   defaultLocale: 'en'
 
 helpers = require './helpers'
