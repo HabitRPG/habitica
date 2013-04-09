@@ -9,14 +9,14 @@ loadJavaScripts = (model) ->
 
   # Turns out you can't have expressions in browserify require() statements
   #vendor = '../../public/vendor'
-  #require "#{vendor}/jquery-ui/jquery-1.9.1"
+  #require "#{vendor}/jquery-ui-1.10.2/jquery-1.9.1"
 
   mobile = model.get '_mobileDevice'
 
   ###
   Internal Scripts
   ###
-  require "../../public/vendor/jquery-ui/jquery-1.9.1"
+  require "../../public/vendor/jquery-ui-1.10.2/jquery-1.9.1"
   require "../../public/vendor/jquery.cookie.min"
   require "../../public/vendor/bootstrap/js/bootstrap.min"
   require "../../public/vendor/jquery.bootstrap-growl.min"
@@ -24,10 +24,10 @@ loadJavaScripts = (model) ->
   require "../../public/vendor/bootstrap-tour/bootstrap-tour"
 
   unless mobile
-    require "../../public/vendor/jquery-ui/ui/jquery.ui.core"
-    require "../../public/vendor/jquery-ui/ui/jquery.ui.widget"
-    require "../../public/vendor/jquery-ui/ui/jquery.ui.mouse"
-    require "../../public/vendor/jquery-ui/ui/jquery.ui.sortable"
+    require "../../public/vendor/jquery-ui-1.10.2/ui/jquery.ui.core"
+    require "../../public/vendor/jquery-ui-1.10.2/ui/jquery.ui.widget"
+    require "../../public/vendor/jquery-ui-1.10.2/ui/jquery.ui.mouse"
+    require "../../public/vendor/jquery-ui-1.10.2/ui/jquery.ui.sortable"
     require "../../public/vendor/sticky"
 
   ###

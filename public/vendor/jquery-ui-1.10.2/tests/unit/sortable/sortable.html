@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Sortable Test Suite</title>
+
+	<script src="../../jquery.js"></script>
+	<link rel="stylesheet" href="../../../external/qunit.css">
+	<script src="../../../external/qunit.js"></script>
+	<script src="../../jquery.simulate.js"></script>
+	<script src="../testsuite.js"></script>
+	<script>
+	TestHelpers.loadResources({
+		css: [ "ui.core" ],
+		js: [
+			"ui/jquery.ui.core.js",
+			"ui/jquery.ui.widget.js",
+			"ui/jquery.ui.mouse.js",
+			"ui/jquery.ui.sortable.js"
+		]
+	});
+	</script>
+
+	<script src="sortable_common.js"></script>
+	<script src="sortable_core.js"></script>
+	<script src="sortable_events.js"></script>
+	<script src="sortable_methods.js"></script>
+	<script src="sortable_options.js"></script>
+	<script src="sortable_test_helpers.js"></script>
+
+	<script src="../swarminject.js"></script>
+	<style>
+	#sortable, #sortable2 {
+		position:relative;
+		top:0;
+		left:0;
+		padding: 0;
+		margin: 1px;
+		border-width: 0;
+	}
+	#sortable li{
+		padding: 0;
+		margin: 0;
+		border-width: 0;
+		height:19px;
+	}
+	</style>
+</head>
+<body>
+
+<h1 id="qunit-header">jQuery UI Sortable Test Suite</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+<div id="qunit-fixture">
+
+<ul id="sortable">
+	<li>Item 1</li>
+	<li>Item 2</li>
+	<li>Item 3</li>
+	<li>Item 4</li>
+	<li>Item 5</li>
+</ul>
+
+<table id="sortable-table">
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>6</td>
+		</tr>
+		<tr>
+			<td>7</td>
+			<td>8</td>
+		</tr>
+	</tbody>
+</table>
+
+<div id="sortable-images">
+	<img src="../images/jqueryui_32x32.png" alt="">
+	<img src="../images/jqueryui_32x32.png" alt="">
+	<img src="../images/jqueryui_32x32.png" alt="">
+	<img src="../images/jqueryui_32x32.png" alt="">
+</div>
+
+</div>
+</body>
+</html>

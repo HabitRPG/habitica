@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Dialog Visual Test</title>
+	<link rel="stylesheet" href="../../../themes/base/jquery.ui.all.css">
+	<script src="../../../jquery-1.9.1.js"></script>
+	<script src="../../../ui/jquery.ui.core.js"></script>
+	<script src="../../../ui/jquery.ui.widget.js"></script>
+	<script src="../../../ui/jquery.ui.mouse.js"></script>
+	<script src="../../../ui/jquery.ui.draggable.js"></script>
+	<script src="../../../ui/jquery.ui.position.js"></script>
+	<script src="../../../ui/jquery.ui.resizable.js"></script>
+	<script src="../../../ui/jquery.ui.button.js"></script>
+	<script src="../../../ui/jquery.ui.dialog.js"></script>
+	<script src="../../../ui/jquery.ui.effect.js"></script>
+	<script src="../../../ui/jquery.ui.effect-blind.js"></script>
+	<script src="../../../ui/jquery.ui.effect-explode.js"></script>
+	<script>
+	$(function() {
+		$( "#dialog" ).dialog({
+			autoOpen: false,
+			show: {
+				effect: "blind",
+				duration: 1000
+			},
+			hide: {
+				effect: "explode",
+				duration: 1000
+			},
+			modal: true
+		});
+
+		$( "#opener" ).click(function() {
+			$( "#dialog" ).dialog( "open" );
+		});
+	});
+	</script>
+</head>
+<body>
+
+<p>WHAT: A animated modal dialog, using blind effect to show, explode to hide.</p>
+<p>EXPECTED: Dialog shows up on top of the overlay and stays there during and after the animation. Focus is set to the input inside the dialog and stays there after the animation finishes.</p>
+
+<div id="dialog" title="Are you sure?">
+	<p>Please enter password to continue.</p>
+	<label for="password">Password</label><input id="password">
+</div>
+
+<button id="opener">Open Dialog</button>
+
+</body>
+</html>

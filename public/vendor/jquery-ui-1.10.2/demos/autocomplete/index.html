@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Autocomplete Demos</title>
+</head>
+<body>
+
+<ul>
+	<li><a href="default.html">Default functionality</a></li>
+	<li><a href="remote.html">Remote datasource</a></li>
+	<li><a href="remote-with-cache.html">Remote with caching</a></li>
+	<li><a href="remote-jsonp.html">Remote JSONP datasource</a></li>
+	<li><a href="maxheight.html">Scrollable results</a></li>
+	<li><a href="combobox.html">Combobox</a></li>
+	<li><a href="custom-data.html">Custom data and display</a></li>
+	<li><a href="xml.html">XML data parsed once</a></li>
+	<li><a href="categories.html">Categories</a></li>
+	<li><a href="folding.html">Accent folding</a></li>
+	<li><a href="multiple.html">Multiple values</a></li>
+	<li><a href="multiple-remote.html">Multiple, remote</a></li>
+</ul>
+
+</body>
+</html>

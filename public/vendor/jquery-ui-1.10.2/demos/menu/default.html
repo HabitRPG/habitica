@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Menu - Default functionality</title>
+	<link rel="stylesheet" href="../../themes/base/jquery.ui.all.css">
+	<script src="../../jquery-1.9.1.js"></script>
+	<script src="../../ui/jquery.ui.core.js"></script>
+	<script src="../../ui/jquery.ui.widget.js"></script>
+	<script src="../../ui/jquery.ui.position.js"></script>
+	<script src="../../ui/jquery.ui.menu.js"></script>
+	<link rel="stylesheet" href="../demos.css">
+	<script>
+	$(function() {
+		$( "#menu" ).menu();
+	});
+	</script>
+	<style>
+	.ui-menu { width: 150px; }
+	</style>
+</head>
+<body>
+
+<ul id="menu">
+	<li class="ui-state-disabled"><a href="#">Aberdeen</a></li>
+	<li><a href="#">Ada</a></li>
+	<li><a href="#">Adamsville</a></li>
+	<li><a href="#">Addyston</a></li>
+	<li>
+		<a href="#">Delphi</a>
+		<ul>
+			<li class="ui-state-disabled"><a href="#">Ada</a></li>
+			<li><a href="#">Saarland</a></li>
+			<li><a href="#">Salzburg</a></li>
+		</ul>
+	</li>
+	<li><a href="#">Saarland</a></li>
+	<li>
+		<a href="#">Salzburg</a>
+		<ul>
+			<li>
+				<a href="#">Delphi</a>
+				<ul>
+					<li><a href="#">Ada</a></li>
+					<li><a href="#">Saarland</a></li>
+					<li><a href="#">Salzburg</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">Delphi</a>
+				<ul>
+					<li><a href="#">Ada</a></li>
+					<li><a href="#">Saarland</a></li>
+					<li><a href="#">Salzburg</a></li>
+				</ul>
+			</li>
+			<li><a href="#">Perch</a></li>
+		</ul>
+	</li>
+	<li class="ui-state-disabled"><a href="#">Amesville</a></li>
+</ul>
+
+<div class="demo-description">
+<p>A menu with the default configuration, disabled items and nested menus. A list is transformed, adding theming, mouse and keyboard navigation support. Try to tab to the menu then use the cursor keys to navigate.</p>
+</div>
+</body>
+</html>

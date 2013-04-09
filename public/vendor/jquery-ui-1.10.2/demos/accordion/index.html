@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Accordion Demos</title>
+</head>
+<body>
+
+<ul>
+	<li><a href="default.html">Default functionality</a></li>
+	<li><a href="fillspace.html">Fill space</a></li>
+	<li><a href="no-auto-height.html">No auto height</a></li>
+	<li><a href="collapsible.html">Collapse content</a></li>
+	<li><a href="hoverintent.html">Open on hoverintent</a></li>
+	<li><a href="custom-icons.html">Customize icons</a></li>
+	<li><a href="sortable.html">Sortable</a></li>
+</ul>
+
+</body>
+</html>
