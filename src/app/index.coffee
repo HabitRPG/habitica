@@ -37,6 +37,17 @@ get '/', (page, model, params, next) ->
     _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
       model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
 
+    # Cleanup some task-corruption (null tasks, rogue/invisible tasks, etc)
+    # Obviously none of this should be happening, but we'll stop-gap until we can find & fix
+    tasks = user.get('tasks')
+    _.each tasks, (task, key) ->
+      # Remove null tasks
+      unless task?.type?
+        user.del("tasks.#{key}")
+        # Put rogue tasks back into their lists. We could alternatively delete them (they're rogue because they weren't properly deleted), but that's dangerous
+      else if user.get("#{task.type}Ids").indexOf(task.id) is -1
+        user.push "#{task.type}Ids", task.id
+
     page.render()
 
 # ========== CONTROLLER FUNCTIONS ==========
