@@ -19,6 +19,36 @@ _ = require('underscore')
 
 # ========== ROUTES ==========
 
+###
+  Cleanup task-corruption (null tasks, rogue/invisible tasks, etc)
+  Obviously none of this should be happening, but we'll stop-gap until we can find & fix
+  Gotta love refLists!
+###
+cleanupCorruptTasks = (model) ->
+  user = model.at('_user')
+  tasks = user.get('tasks')
+
+  ## Remove corrupted tasks
+  _.each tasks, (task, key) ->
+    unless task?.type?
+      user.del("tasks.#{key}")
+      delete tasks[key]
+
+  ## Task List Cleanup
+  _.each ['habit','daily','todo','reward'], (type) ->
+    idList = user.get("#{type}Ids")
+
+    # 1. remove duplicates
+    # 2. restore missing zombie tasks back into list
+    taskIds =  _.pluck( _.where(tasks, {type:type}), 'id')
+    union = _.union idList, taskIds
+
+    # 2. remove empty (grey) tasks
+    preened = _.filter union, (val) -> _.contains(taskIds, val) and val?
+
+    # There were indeed issues found, set the new list
+    user.set("#{type}Ids", preened) if _.difference(preened, idList).length != 0
+
 get '/', (page, model, params, next) ->
   return page.redirect '/' if page.params?.query?.play?
 
@@ -33,20 +63,11 @@ get '/', (page, model, params, next) ->
 
     require('./items').server(model)
 
+    cleanupCorruptTasks(model)
+
     #refLists
     _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
       model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-
-    # Cleanup some task-corruption (null tasks, rogue/invisible tasks, etc)
-    # Obviously none of this should be happening, but we'll stop-gap until we can find & fix
-    tasks = user.get('tasks')
-    _.each tasks, (task, key) ->
-      # Remove null tasks
-      unless task?.type?
-        user.del("tasks.#{key}")
-        # Put rogue tasks back into their lists. We could alternatively delete them (they're rogue because they weren't properly deleted), but that's dangerous
-      else if user.get("#{task.type}Ids").indexOf(task.id) is -1
-        user.push "#{task.type}Ids", task.id
 
     page.render()
 
