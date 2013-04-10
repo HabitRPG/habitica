@@ -1,11 +1,14 @@
-;(function(e,t,n,r){function i(r){if(!n[r]){if(!t[r]){if(e)return e(r);throw new Error("Cannot find module '"+r+"'")}var s=n[r]={exports:{}};t[r][0](function(e){var n=t[r][1][e];return i(n?n:e)},s,s.exports)}return n[r].exports}for(var s=0;s<r.length;s++)i(r[s]);return i})(typeof require!=="undefined"&&require,{1:[function(require,module,exports){
+;(function(e,t,n){function i(n,s){if(!t[n]){if(!e[n]){var o=typeof require=="function"&&require;if(!s&&o)return o(n,!0);if(r)return r(n,!0);throw new Error("Cannot find module '"+n+"'")}var u=t[n]={exports:{}};e[n][0].call(u.exports,function(t){var r=e[n][1][t];return i(r?r:t)},u,u.exports)}return t[n].exports}var r=typeof require=="function"&&require;for(var s=0;s<n.length;s++)i(n[s]);return i})({1:[function(require,module,exports){
 exports.algos = require('./algos')
 exports.items = require('./items')
 exports.helpers = require('./helpers')
 
 // This is how we're exporting this module to the browser. A preferable way would be http://requirejs.org/docs/api.html#packages
 // but I couldn't get that working
-if (!!window) window.habitrpgShared = exports;
+try {
+    window;
+    window.habitrpgShared = exports;
+} catch(e) {}
 },{"./algos":2,"./items":3,"./helpers":4}],3:[function(require,module,exports){
 exports.items = {
     weapon: [
@@ -594,6 +597,39 @@ exports.dayMapping = dayMapping = {
     6: 's',
     7: 'su'
 };
+
+
+exports.equipped = function(user, type) {
+    var armor, armorSet, gender, head, _ref, _ref1, _ref2;
+    _ref = (user != null ? user.preferences : void 0) || {
+        'm': 'm',
+        'v1': 'v1'
+    }, gender = _ref.gender, armorSet = _ref.armorSet;
+    if (type === 'armor') {
+        armor = (user != null ? (_ref1 = user.items) != null ? _ref1.armor : void 0 : void 0) || 0;
+        if (gender === 'f') {
+            if (parseInt(armor) === 0) {
+                return "f_armor_" + armor + "_" + armorSet;
+            } else {
+                return "f_armor_" + armor;
+            }
+        } else {
+            return "m_armor_" + armor;
+        }
+    } else if (type === 'head') {
+        head = (user != null ? (_ref2 = user.items) != null ? _ref2.head : void 0 : void 0) || 0;
+        if (gender === 'f') {
+            if (parseInt(head) > 1) {
+                return "f_head_" + head + "_" + armorSet;
+            } else {
+                return "f_head_" + head;
+            }
+        } else {
+            return "m_head_" + head;
+        }
+    }
+};
+
 },{"moment":5}],5:[function(require,module,exports){
 (function(){// moment.js
 // version : 2.0.0
