@@ -22,7 +22,7 @@ _ = require('underscore')
 ###
   Cleanup task-corruption (null tasks, rogue/invisible tasks, etc)
   Obviously none of this should be happening, but we'll stop-gap until we can find & fix
-  Gotta love refLists!
+  Gotta love refLists! see https://github.com/lefnire/habitrpg/issues/803
 ###
 cleanupCorruptTasks = (model) ->
   user = model.at('_user')
@@ -30,24 +30,27 @@ cleanupCorruptTasks = (model) ->
 
   ## Remove corrupted tasks
   _.each tasks, (task, key) ->
-    unless task?.type?
+    unless task?.id? and task?.type?
       user.del("tasks.#{key}")
       delete tasks[key]
 
   ## Task List Cleanup
   _.each ['habit','daily','todo','reward'], (type) ->
-    idList = user.get("#{type}Ids")
 
     # 1. remove duplicates
     # 2. restore missing zombie tasks back into list
+    idList = user.get("#{type}Ids")
     taskIds =  _.pluck( _.where(tasks, {type:type}), 'id')
     union = _.union idList, taskIds
 
     # 2. remove empty (grey) tasks
-    preened = _.filter union, (val) -> _.contains(taskIds, val) and val?
+    preened = _.filter union, (id) -> id and _.contains(taskIds, id)
 
     # There were indeed issues found, set the new list
-    user.set("#{type}Ids", preened) if _.difference(preened, idList).length != 0
+    wasCorrupted = !_.isEmpty _.difference(idList, preened)
+    if wasCorrupted
+      user.set("#{type}Ids", preened)
+      console.error user.get('id') + "'s #{type}s were corrupt."
 
 get '/', (page, model, params, next) ->
   return page.redirect '/' if page.params?.query?.play?
