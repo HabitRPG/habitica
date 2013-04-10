@@ -11,8 +11,6 @@ loadJavaScripts = (model) ->
   #vendor = '../../public/vendor'
   #require "#{vendor}/jquery-ui-1.10.2/jquery-1.9.1"
 
-  mobile = model.get '_mobileDevice'
-
   ###
   Internal Scripts
   ###
@@ -23,31 +21,20 @@ loadJavaScripts = (model) ->
   require "../../public/vendor/datepicker/js/bootstrap-datepicker"
   require "../../public/vendor/bootstrap-tour/bootstrap-tour"
 
-  unless mobile
+  unless (model.get('_mobileDevice') is true)
     require "../../public/vendor/jquery-ui-1.10.2/ui/jquery.ui.core"
     require "../../public/vendor/jquery-ui-1.10.2/ui/jquery.ui.widget"
     require "../../public/vendor/jquery-ui-1.10.2/ui/jquery.ui.mouse"
     require "../../public/vendor/jquery-ui-1.10.2/ui/jquery.ui.sortable"
     require "../../public/vendor/sticky"
 
-  ###
-  External Scripts
-    JS files not needed right away (google charts) or entirely optional (analytics)
-    Each file getsload asyncronously via $.getScript, so it doesn't bog page-load
-  ###
-  $.getScript('//checkout.stripe.com/v2/checkout.js')
-  unless mobile
-    $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire")
-    # Google Charts
-    $.getScript "//www.google.com/jsapi", ->
-      # Specifying callback in options param is vital! Otherwise you get blank screen, see http://stackoverflow.com/a/12200566/362790
-      google.load "visualization", "1", {packages:["corechart"], callback: ->}
+  # note: external script loading is handled in app.on('render') near the bottom of this file (see https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/x8FwdTLEuXo)
 
 ###
   Setup jQuery UI Sortable
 ###
 setupSortable = (model) ->
-  unless (model.get('_mobileDevice') == true) #don't do sortable on mobile
+  unless (model.get('_mobileDevice') is true) #don't do sortable on mobile
     _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
       $("ul.#{type}s").sortable
         dropOnEmpty: false
@@ -212,3 +199,17 @@ module.exports.app = (appExports, model, app) ->
         #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
         #FIXME also, it saves as a day behind??
         model.at(ev.target).set 'date', moment(ev.date).add('d',1).format('MM/DD/YYYY')
+
+    ###
+    External Scripts
+      JS files not needed right away (google charts) or entirely optional (analytics)
+      Each file getsload asyncronously via $.getScript, so it doesn't bog page-load
+      These need to be handled in app.on('render'), see https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/x8FwdTLEuXo
+    ###
+    $.getScript('//checkout.stripe.com/v2/checkout.js')
+    unless (model.get('_mobileDevice') is true)
+      $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire")
+      # Google Charts
+      $.getScript "//www.google.com/jsapi", ->
+        # Specifying callback in options param is vital! Otherwise you get blank screen, see http://stackoverflow.com/a/12200566/362790
+        google.load "visualization", "1", {packages:["corechart"], callback: ->}

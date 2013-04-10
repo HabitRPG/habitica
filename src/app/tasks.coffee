@@ -66,15 +66,11 @@ module.exports.app = (appExports, model) ->
 
 
   appExports.clearCompleted = (e, el) ->
+    completedIds =  _.pluck( _.where(model.get('_todoList'), {completed:true}), 'id')
     todoIds = user.get('todoIds')
-    removed = false
-    _.each model.get('_todoList'), (task) ->
-      if task.completed
-        removed = true
-        user.del('tasks.'+task.id)
-        todoIds.splice(todoIds.indexOf(task.id), 1)
-    if removed
-      user.set('todoIds', todoIds)
+
+    _.each completedIds, (id) -> user.del "tasks.#{id}"
+    user.set 'todoIds', _.difference(todoIds, completedIds)
 
   appExports.toggleDay = (e, el) ->
     task = model.at(e.target)
