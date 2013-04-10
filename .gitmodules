@@ -1,9 +1,6 @@
 [submodule "public/vendor/github-buttons"]
 	path = public/vendor/github-buttons
 	url = https://github.com/mdo/github-buttons.git
-[submodule "public/vendor/jquery-ui"]
-	path = public/vendor/jquery-ui
-	url = https://github.com/jquery/jquery-ui.git
 [submodule "public/vendor/BrowserQuest"]
 	path = public/vendor/BrowserQuest
 	url = https://github.com/mozilla/BrowserQuest.git
