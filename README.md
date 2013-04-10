@@ -18,3 +18,4 @@ To do so,
  * remove the first line `@import nib/vendor` from index.styl
  * `stylus styles/app/index.styl`
  * copy the output index.css into this shared/css directory
+ * remove bootstrap @improrts, find/replace "img/" with "../img/"

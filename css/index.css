@@ -1,6 +1,3 @@
-@import "../../public/vendor/bootstrap/css/bootstrap.min.css";
-@import "../../public/vendor/bootstrap/css/bootstrap-responsive.min.css";
-@import "../../public/vendor/datepicker/css/datepicker.css";
 .f_weapon_6,
 .f_weapon_5,
 .f_weapon_4,
@@ -39,7 +36,7 @@
 .f_skin_asian,
 .f_skin_black,
 .f_skin_white {
-  background: url("img/sprites/female_sprites.png") no-repeat;
+  background: url("../img/sprites/female_sprites.png") no-repeat;
 }
 .f_weapon_6 {
   background-position: 0 0;
@@ -307,7 +304,7 @@
 .m_skin_asian,
 .m_skin_black,
 .m_skin_white {
-  background: url("img/sprites/male_sprites.png") no-repeat;
+  background: url("../img/sprites/male_sprites.png") no-repeat;
 }
 .m_weapon_6 {
   background-position: 0 0;
@@ -536,7 +533,7 @@
 .shop_copper,
 .shop_silver,
 .shop_gold {
-  background: url("img/sprites/shop_sprites.png") no-repeat;
+  background: url("../img/sprites/shop_sprites.png") no-repeat;
 }
 .shop_weapon_6 {
   background-position: 0 0;
@@ -1482,7 +1479,7 @@ menu {
 .Pet_Food_CottonCandyPink,
 .Pet_Food_CottonCandyBlue,
 .Pet_Food_Base {
-  background: url("/img/hatching_powder.png") no-repeat;
+  background: url("/../img/hatching_powder.png") no-repeat;
   width: 34px;
   height: 34px;
 }
@@ -1536,21 +1533,21 @@ menu {
   color: #ababab;
 }
 .icon-gold {
-  background: url("img/coin_single_gold.png") no-repeat;
+  background: url("../img/coin_single_gold.png") no-repeat;
   background-position: center center;
   background-size: 18px;
   width: 14px;
   height: 14px;
 }
 .icon-silver {
-  background: url("img/coin_single_silver.png") no-repeat;
+  background: url("../img/coin_single_silver.png") no-repeat;
   background-position: center center;
   background-size: 18px;
   width: 14px;
   height: 14px;
 }
 .icon-death {
-  background: url("img/sprites/dead.png") no-repeat;
+  background: url("../img/sprites/dead.png") no-repeat;
   background-position: center center;
   background-size: 14px;
   width: 14px;
@@ -1562,8 +1559,8 @@ menu {
   left: 5px;
   top: 5px;
 }
-@import "../../public/img/sprites/pet_sprites.css";
-@import "../../public/img/sprites/PetEggs.css";
+@import "../../public/../img/sprites/pet_sprites.css";
+@import "../../public/../img/sprites/PetEggs.css";
 .hidden {
   display: none !important;
   visibility: hidden;
