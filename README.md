@@ -9,3 +9,12 @@ Note: We can't load CommonJS format into the browser. There's a way to pull it i
 ##Installation
  * `npm install`
  * `make`
+
+##CSS
+Shared CSS between the website and the mobile app is a fuzzy area. For now we'll have the website define canonical CSS, and share that down the mobile app.
+
+To do so,
+ * go to the website repo
+ * remove the first line `@import nib/vendor` from index.styl
+ * `stylus styles/app/index.styl`
+ * copy the output index.css into this shared/css directory
