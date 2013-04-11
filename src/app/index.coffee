@@ -50,8 +50,7 @@ cleanupCorruptTasks = (model) ->
     preened = _.filter union, (id) -> id and _.contains(taskIds, id)
 
     # There were indeed issues found, set the new list
-    wasCorrupted = !_.isEmpty _.difference(idList, preened)
-    if wasCorrupted
+    if !_.isEqual(idList, preened)
       batch.set("#{type}Ids", preened)
       console.error user.get('id') + "'s #{type}s were corrupt."
 
