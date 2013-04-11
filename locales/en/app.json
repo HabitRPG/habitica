@@ -1,6 +1,6 @@
 {
 "_commenttut": "TUTORIAL",
-  
+
 "_commenthead": "HEADER",
   "Health": "Health",
   "Experience": "Experience",
@@ -8,7 +8,7 @@
   "Settings": "Settings",
   "Party": "Party",
   "Logout": "Logout",
-  
+
 "_commentuser": "USER",
   "Anonymous": "Anonymous",
   "Avatar": "Avatar",
@@ -37,7 +37,7 @@
       "MarketContent": "Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!",
   "Stable": "Stable",
   "Tokens": "Tokens",
-  
+
 "_commentitems": "DROPS, ITEMS & REWARDS",
   "_comment": "PET EGGS",
     "WolfEgg": "Wolf Cub",
@@ -63,7 +63,7 @@
     "GoldenPot": "Golden",
   "_comment": "GOLD REWARDS",
 
-  
+
 
 "_commentmain": "MAIN WINDOW",
   "Habits": "Habits",
@@ -94,7 +94,7 @@
       "F": "F",
       "S": "S",
   "Todos": "Todos",
-    "NewTodo": "New Todo", 
+    "NewTodo": "New Todo",
     "DueDate": "Due Date",
     "Remaining": "Remaining",
     "Complete": "Complete",
