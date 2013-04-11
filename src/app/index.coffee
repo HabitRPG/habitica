@@ -22,7 +22,7 @@ _ = require('underscore')
 ###
   Cleanup task-corruption (null tasks, rogue/invisible tasks, etc)
   Obviously none of this should be happening, but we'll stop-gap until we can find & fix
-  Gotta love refLists! see https://github.com/lefnire/habitrpg/issues/803
+  Gotta love refLists! see https://github.com/lefnire/habitrpg/issues/803 & https://github.com/lefnire/habitrpg/issues/6343
 ###
 cleanupCorruptTasks = (model) ->
   user = model.at('_user')
@@ -66,12 +66,11 @@ get '/', (page, model, params, next) ->
   #  return page.redirect 'https://' + req.headers.host + req.url
 
   require('./party').partySubscribe page, model, params, next, ->
-    user = model.at('_user')
-    user.setNull('apiToken', derby.uuid())
+    model.setNull '_user.apiToken', derby.uuid()
+
+    cleanupCorruptTasks(model) # https://github.com/lefnire/habitrpg/issues/634
 
     require('./items').server(model)
-
-    cleanupCorruptTasks(model)
 
     #refLists
     _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
