@@ -1,4 +1,3 @@
-character = require './character'
 browser = require './browser'
 items = require './items'
 algos = require './algos'
@@ -28,13 +27,13 @@ module.exports.app = (appExports, model) ->
     items.updateStore(model)
 
   appExports.revive = (e, el) ->
-    batch = new character.BatchUpdate(model)
+    batch = new BatchUpdate(model)
     batch.startTransaction()
     revive(batch)
     batch.commit()
 
   appExports.reset = (e, el) ->
-    batch = new character.BatchUpdate(model)
+    batch = new BatchUpdate(model)
     batch.startTransaction()
     taskTypes = ['habit', 'daily', 'todo', 'reward']
     batch.set 'tasks', {}
