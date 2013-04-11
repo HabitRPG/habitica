@@ -9,6 +9,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle='tab' href="#profileCustomize">Avatar</a></li>
                     <li><a data-toggle='tab' href="#profileEdit">Profile</a></li>
+                    <li><a data-toggle='tab' data-target="#rest">Rest</a></li>
                     {#if _user.flags.dropsEnabled}
                         <li><a data-toggle='tab' data-target="#profileInventory">Inventory</a></li>
                         <li><a data-toggle='tab' data-target="#profileMarket">Market</a></li>
@@ -23,6 +24,10 @@
 
                     <div class="tab-pane" id="profileEdit">
                         <app:avatar:profile user="{_user}" main="true" />
+                    </div>
+
+                    <div class="tab-pane" id="rest">
+                        <app:avatar:rest />
                     </div>
 
                     <div class="tab-pane" id="profileInventory">
@@ -213,6 +218,9 @@
         </div>
 
     </div>
+
+<rest:>
+    <input type="checkbox" name="rest" checked={_user.flags.rest} >Rest</input>
 
 <achievements:>
     <!--TODO replce this in the future with HTML from BrowserQuest's index.html, which properly handles the achievements

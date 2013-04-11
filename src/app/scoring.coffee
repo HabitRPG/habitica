@@ -258,6 +258,7 @@ updateStats = (model, newStats, batch) ->
 cron = (model) ->
   user = model.at '_user'
   today = +new Date
+  return if user.get 'flags.rest'
   daysPassed = helpers.daysBetween(user.get('lastCron'), today, user.get('preferences.dayStart'))
   if daysPassed > 0
 
