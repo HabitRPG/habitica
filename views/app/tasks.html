@@ -69,7 +69,7 @@
             <app:tasks:ads>
                 <a href="http://www.amazon.com/gp/product/0312430000/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0312430000&linkCode=as2&tag=ha0d2-20">The Checklist Manifesto: How to Get Things Right</a><img src="//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=0312430000" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
             </app:tasks:ads>
-            
+
             <button class='task-action-btn tile spacious bright display-context-dependant show-for-completed' x-bind=click:clearCompleted>Clear Completed</button>
 
             <!-- remaining/completed tabs -->
@@ -94,8 +94,8 @@
 
 <!-- all the parts of a single task -->
 <task:>
-    <li data-id={{:task.id}} class="task {taskClasses(:task)} {#if :task.down}{#if :task.up}habit-wide{/}{/}">
-        
+    <li data-id={{:task.id}} class="task {taskClasses(:task, _user.preferences.dayStart, _user.lastCron)} {#if :task.down}{#if :task.up}habit-wide{/}{/}">
+
         <!-- right-hand side control buttons -->
         <div class="task-meta-controls">
             <!-- edit -->
@@ -119,14 +119,14 @@
             {#if equal(:task.type, 'habit')}
             {#if :task.up}<a class="task-action-btn" data-direction=up x-bind=click:score>＋</a>{/}
             {#if :task.down}<a class="task-action-btn" data-direction=down x-bind=click:score>−</a>{/}
-            
+
             <!-- Rewards -->
             {else if equal(:task.type, 'reward')}
             <a class="money btn-buy" x-bind=click:score data-direction=down>
                 <span class="reward-cost">{:task.value}</span>
                 <span class='shop_gold'></span>
             </a>
-            
+
             <!-- Daily & Todos -->
             {else}
             <span class="task-checker action-yesno">
@@ -190,7 +190,7 @@
                     <input class="option-content" size="16" type="number" min="0" value={:task.value}>
                     <div class="money input-suffix"><span class='shop_gold'></span></div>
                 </fieldset>
-                
+
 
             <!-- if Todo, the due date -->
             {else if equal(:task.type, 'todo')}
@@ -199,7 +199,7 @@
                     <input class="option-content datepicker" type="text" value="{:task.date}" data-date-format="mm/dd/yyyy">
                 </fieldset>
             {/}
-            
+
             <!-- Advanced Options -->
             {#unless equal(:task.type, 'reward')}
                 <p x-bind="click:tasksToggleAdvanced" class="option-title mega">Advanced Options</p>

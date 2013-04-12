@@ -112,15 +112,23 @@ viewHelpers = (view) ->
   ###
     Tasks
   ###
-  view.fn 'taskClasses', (task) ->
+  view.fn 'taskClasses', (task, dayStart, lastCron) ->
     return unless task
     {type, completed, value, repeat} = task
 
     classes = type
 
+    now = moment().day()
+
+    # calculate the current contextual day (e.g. if it's 12 AM Fri and the user's custom day start is 4 AM, then we should still act like it's Thursday)
+    dayStart = 0 unless (dayStart? and (dayStart = parseInt(dayStart)) and dayStart >= 0 and dayStart <= 24)
+    hourDiff = Math.abs moment(lastCron).startOf('day').add('h', dayStart).diff(moment(now), 'hours')
+    dayStamp = moment(now).add('h', hourDiff)
+    day = dayStamp.day()
+
     # show as completed if completed (naturally) or not required for today
     if type in ['todo', 'daily']
-      if completed or (repeat and repeat[dayMapping[moment().day()]]==false)
+      if completed or (repeat and (repeat[dayMapping[day]] == false))
         classes += " completed"
       else
         classes += " uncompleted"
