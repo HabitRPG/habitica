@@ -73,16 +73,23 @@ router.put '/user', auth, (req, res) ->
   user = req.user
   partialUser = req.body.user
 
-  protectedAttrs = ['id', 'apiToken', 'auth', 'dailyIds', 'habitIds', 'rewardIds', 'todoIds', 'update__']
-  protectedAttrs.push 'tasks' # we'll be handling tasks separately
+  # REVISIT is this the best way of handling protected v acceptable attr mass-setting? Possible pitfalls: (1) we have to remember
+  # to update here when we add new schema attrs in the future, (2) developers can't assign random variables (which
+  # is currently beneficial for Kevin & Paul). Pros: protects accidental or malicious user data corruption
 
-  _.each partialUser, (val, key) ->
-    user.set(key, val) unless key in protectedAttrs
+  # TODO - this accounts for single-nested items (stats.hp, stats.exp) but will clobber any other depth.
+  # See http://stackoverflow.com/a/6394168/362790 for when we need to cross that road
 
-  tasks = updateTasks partialUser.tasks, req.user, req.getModel()
+  acceptableAttrs = ['flags', 'history', 'items', 'preferences', 'profile', 'stats']
+  user.set 'lastCron', partialUser.lastCron if partialUser.lastCron?
+  _.each acceptableAttrs, (attr) ->
+    _.each partialUser[attr], (val, key) -> user.set("#{attr}.#{key}", val)
 
-  userObj = req.user.get()
-  res.json 201, req.userObj
+  updateTasks partialUser.tasks, req.user, req.getModel() if partialUser.tasks?
+
+  userObj = user.get()
+  userObj.tasks = _.toArray(userObj.tasks) # FIXME figure out how we're going to consistently handle this. should always be array
+  res.json 201, userObj
 
 ###
   GET /user/task/:id

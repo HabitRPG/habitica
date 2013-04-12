@@ -339,4 +339,55 @@ describe 'API', ->
             expect(user.get("tasks.#{res.body[1].id}")).to.eql id: res.body[1].id, text: 'new task', notes: 'notes!'
             done()
 
+    it 'PUT /api/v1/user', (done) ->
+      userBefore = {}
+      query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+      query.fetch (err, user) -> userBefore = user.get()
+
+      habitId = currentUser.habitIds[0]
+      dailyId = currentUser.dailyIds[0]
+      userUpdates =
+        stats:
+          hp: 30
+        flags:
+          itemsEnabled: true
+        tasks: [{
+          id: habitId
+          text: 'hello2'
+          notes: 'note2'
+        },{
+          text: 'new task2'
+          notes: 'notes2'
+        },{
+          id: dailyId
+          del: true
+        }]
+
+      request.put("#{baseURL}/user")
+        .set('Accept', 'application/json')
+        .set('X-API-User', currentUser.id)
+        .set('X-API-Key', currentUser.apiToken)
+        .send(user: userUpdates)
+        .end (res) ->
+          expect(res.body.err).to.be undefined
+          expect(res.statusCode).to.be 201
+          tasks = res.body.tasks
+
+          expect(_.findWhere(tasks,{id:habitId})).to.eql {id: habitId,text: 'hello2',notes: 'note2'}
+        
+          foundNewTask = _.findWhere(tasks,{text:'new task2'})
+          expect(foundNewTask.text).to.be 'new task2'
+          expect(foundNewTask.notes).to.be 'notes2'
+        
+          found = _.findWhere(res.body.tasks, {id:dailyId})
+          expect(found).to.not.be.ok()
+
+          query.fetch (err, user) ->
+            expect(user.get("tasks.#{habitId}")).to.eql {id: habitId, text: 'hello2',notes: 'note2'}
+            expect(user.get("tasks.#{dailyId}")).to.be undefined
+            tasks = res.body.tasks
+            expect(user.get("tasks.#{foundNewTask.id}")).to.eql id: foundNewTask.id, text: 'new task2', notes: 'notes2'
+            done()
+
+
 
