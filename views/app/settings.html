@@ -20,6 +20,8 @@
                     <hr/>
                     <h4>Misc</h4>
                     <button x-bind="click:toggleHeader" class="btn">{#if _user.preferences.hideHeader}Show Header{else}Hide Header{/}</button>
+                    <br/><br/>
+                    <app:avatar:rest />
 
                     {{#if _user.auth.local}}
                         <hr/>
