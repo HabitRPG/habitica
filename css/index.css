@@ -1,9 +1,4 @@
 .herobox {
-  height: 10.5em;
-  width: 10em;
-  max-width: 10em;
-  margin: 0;
-  padding: 0;
   position: relative;
 }
 .herobox:after {
