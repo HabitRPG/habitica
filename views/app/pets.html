@@ -86,16 +86,30 @@
     </div>
 
 <stable:>
-    {#if _user.items.pets}
-        <menu type="list">
-            <li class="customize-menu">
-                <menu>
-                    {#each _user.items.pets as :pet}
-                        <button type="button" class="customize-option Pet-{:pet} {#if equal(_user.items.currentPet.name, :pet)}active{/if}" rel="tooltip" title="{:pet}" data-pet="{:pet}" x-bind="click:choosePet"></button>
-                    {/}
-                </menu>
-            </li>
-        </menu>
-    {else}
-        <p>You don't have any pets yet.</p>
-    {/}
+    <table>
+        {{#each _items.pets as :pet}}
+            <tr>
+                {{#each _items.hatchingPotions as :potion}}
+                    <td>
+                        <app:pets:stable-pet string="{{:pet.name}}-{{:potion.name}}" />
+                    </td>
+                {{/}}
+            </tr>
+        {{/}}
+    </table>
+    <!--<menu type="list">
+        <li class="customize-menu">
+            <menu>
+
+            </menu>
+        </li>
+    </menu>-->
+
+<stable-pet:>
+    <div rel="tooltip" title="{{:potion.text}} {{:pet.text}}">
+        {{#if ownsPet(@string, _user.items.pets)}}
+            <button class="pet-button Pet-{{@string}} {#if equal(_user.items.currentPet.name, @string)}active{/if}" data-pet="{{@string}}" x-bind="click:choosePet"></button>
+        {{else}}
+            <button class="pet-button pet-not-owned" data-pet="{{@string}}"><img src="/img/paw.png"/></button>
+        {{/}}
+    </div>

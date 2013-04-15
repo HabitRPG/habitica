@@ -149,4 +149,6 @@ viewHelpers = (view) ->
       classes += ' color-best'
     return classes
 
+  view.fn 'ownsPet', (pet, userPets) -> userPets?.indexOf(pet) != -1
+
 module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }
