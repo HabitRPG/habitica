@@ -258,13 +258,14 @@ updateStats = (model, newStats, batch) ->
 cron = (model) ->
   user = model.at '_user'
   today = +new Date
-  return if user.get 'flags.rest'
   daysPassed = helpers.daysBetween(user.get('lastCron'), today, user.get('preferences.dayStart'))
   if daysPassed > 0
 
+    user.set 'lastCron', today # at least this must be called, even if user resting
+    return if user.get 'flags.rest'
+
     batch = new character.BatchUpdate(model)
     batch.startTransaction()
-    batch.set 'lastCron', today
     obj = batch.obj()
     hpBefore = obj.stats.hp #we'll use this later so we can animate hp loss
     # Tally each task
