@@ -48,11 +48,11 @@
 
 <avatar:>
     <figure class="herobox"
-                data-name="{username(@profile.auth)}"
+                data-name="{{username(@profile.auth)}}"
                 data-level="{@profile.stats.lvl}"
                 data-checkpet="{#if @profile.items.pet}hasPet{/}"
-                data-checkuser="{#if equal(@profile.id, _user.id)}isUser{/}"
-                data-toggle='modal' data-target='#avatar-modal' data-uid="{@profile.id}" x-bind="click:profileChangeActive"
+                data-checkuser="{{#if equal(@profile.id, _user.id)}}isUser{{/}}"
+                data-toggle='modal' data-target='#avatar-modal' data-uid="{{@profile.id}}" x-bind="click:profileChangeActive"
                 rel="popover" data-placement="bottom" data-trigger="hover" data-html="true" data-content="
                              <div>
                                 <div class='progress progress-danger' style='height:5px;'>
@@ -62,7 +62,8 @@
                                     <div class='bar' style='height: 5px; width: {percent(@profile.stats.exp, tnl(@profile.stats.lvl))}%;'></div>
                                 </div>
                                 <div>Level: {@profile.stats.lvl}</div>
-                                <div>GP: {{floor(@profile.stats.gp)}}</div>
+                                <div>GP: {floor(@profile.stats.gp)}</div>
+                                <div>{count(@profile.items.pets)} / 90 Pets Found</div>
                             </div>
                         ">
         <div class='character-sprites'>
