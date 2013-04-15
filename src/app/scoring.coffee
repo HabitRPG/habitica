@@ -262,7 +262,6 @@ cron = (model) ->
   if daysPassed > 0
 
     user.set 'lastCron', today # at least this must be called, even if user resting
-    debugger
     return if user.get('flags.rest') is true
 
     batch = new character.BatchUpdate(model)
