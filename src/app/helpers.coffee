@@ -24,7 +24,10 @@ removeWhitespace = (str) ->
   return '' unless str
   str.replace /\s/g, ''
 
-username = (auth) ->
+username = (auth, override) ->
+  #some people define custom profile name in Avatar -> Profile
+  return override if override?
+
   if auth?.facebook?.displayName?
     auth.facebook.displayName
   else if auth?.facebook?
@@ -74,7 +77,7 @@ viewHelpers = (view) ->
   ###
     User
   ###
-  view.fn "username", (auth) -> username(auth)
+  view.fn "username", (auth, override) -> username(auth, override)
   view.fn "tnl", algos.tnl
 
   ###

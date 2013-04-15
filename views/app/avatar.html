@@ -48,7 +48,7 @@
 
 <avatar:>
     <figure class="herobox"
-                data-name="{{username(@profile.auth)}}"
+                data-name="{username(@profile.auth, @profile.profile.name)}"
                 data-level="{@profile.stats.lvl}"
                 data-checkpet="{#if @profile.items.pet}hasPet{/}"
                 data-checkuser="{{#if equal(@profile.id, _user.id)}}isUser{{/}}"
@@ -188,7 +188,7 @@
                     {#if _profileActive.profile.name}
                         {_profileActive.profile.name}
                     {else}
-                        {username(_profileActive.auth)}
+                        {username(_profileActive.auth, _profileActive.profile.name)}
                     {/}
                     {#if _profileActiveMain}<a class='btn pull-right' x-bind="click:profileEdit">Edit</a>{/}
                 </h3>

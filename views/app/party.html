@@ -1,15 +1,15 @@
 <modals:>
     <app:modals:modal modalId="party-modal">
         {#if _user.party.current}
-            <h2>{_party.name}</h2>
+            <h2>{{_party.name}}</h2>
             <table class="table table-striped">
-                {#each _partyMembers as :member}
-                <tr><td>{username(:member.auth)}</td><td>({:member.id})</td></tr>
-                {/}
+                {{#each _partyMembers as :member}}
+                    <tr><td>{{username(:member.auth, :member.profile.name)}}</td><td>({{:member.id}})</td></tr>
+                {{/}}
             </table>
             <form class=form-inline x-bind="submit: partyInvite">
                 {#if _partyError}
-                <div class='alert alert-danger'>{_partyError}</div>
+                    <div class='alert alert-danger'>{_partyError}</div>
                 {/}
                 <div class='control-group'>
                     <input type="text" class="input-medium" placeholder="User Id" value="{_newPartyMember}">
