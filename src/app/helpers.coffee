@@ -154,6 +154,6 @@ viewHelpers = (view) ->
 
   view.fn 'ownsPet', (pet, userPets) -> userPets?.indexOf(pet) != -1
 
-  view.fn 'count', (arr) -> (arr?.length - 1) or 0
+  view.fn 'count', (arr) -> arr?.length or 0
 
 module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }
