@@ -119,38 +119,6 @@ module.exports.app = (appExports, model) ->
     model.set '_activeTabPets', true
     model.set '_activeTabRewards', false
 
-  model.on 'set', '_user.flags.itemsEnabled', (captures, args) ->
-    return unless captures is true
-    html = """
-           <div class='item-store-popover'>
-           <img src='/vendor/BrowserQuest/client/img/1/chest.png' />
-           Congratulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information.
-           <a href='#' onClick="$('div.rewards').popover('hide');return false;">[Close]</a>
-           </div>
-           """
-    $('div.rewards').popover({
-      title: "Item Store Unlocked"
-      placement: 'left'
-      trigger: 'manual'
-      html: true
-      content: html
-    }).popover 'show'
-
-  user.on 'set', 'flags.petsEnabled', (captures, args) ->
-    return unless captures == true
-    html = """
-           <img src='/img/sprites/wolf_border.png' style='width:30px;height:30px;float:left;padding-right:5px' />
-           You have unlocked Pets! You can now buy pets with tokens (note, you replenish tokens with real-life money - so chose your pets wisely!)
-           <a href='#' onClick="$('#rewardsTabs').popover('hide');return false;">[Close]</a>
-           """
-    $('#rewardsTabs').popover
-      title: "Pets Unlocked"
-      placement: 'left'
-      trigger: 'manual'
-      html: true
-      content: html
-    $('#rewardsTabs').popover 'show'
-
 ###
   update store
 ###

@@ -72,24 +72,6 @@ module.exports.app = (appExports, model) ->
 
   user = model.at('_user')
 
-  user.on 'set', 'flags.partyEnabled', (captures, args) ->
-    return if (captures != true) or user.get('party.current')
-    $('.user-menu').popover('destroy') #remove previous popovers
-    html = """
-           <div class='party-system-popover'>
-           <img src='/img/party-unlocked.png' style='float:right;padding:5px;' />
-           Be social, join a party and play Habit with your friends! You'll be better at your habits with accountability partners. LFG anyone?
-           <a href='#' onClick="$('.user-menu').popover('hide');return false;">[Close]</a>
-           </div>
-           """
-    $('.user-menu').popover
-      title: "Party System"
-      placement: 'bottom'
-      trigger: 'manual'
-      html: true
-      content: html
-    $('.user-menu').popover 'show'
-
   model.on 'set', '_user.party.invitation', (after, before) ->
     if !before? and after? # they just got invited
       partyQ = model.query('parties').withId(after)

@@ -8,19 +8,6 @@ _ = require 'underscore'
 module.exports.app = (appExports, model) ->
   user = model.at '_user'
 
-  user.on 'set', 'flags.dropsEnabled', (captures, args) ->
-    return unless captures == true
-
-    egg = randomVal pets
-
-    dontPersist =  model._dontPersist
-
-    model._dontPersist = false
-    user.push 'items.eggs', egg
-    model._dontPersist = dontPersist
-
-    $('#drops-enabled-modal').modal 'show'
-
   appExports.chooseEgg = (e, el) ->
     model.ref '_hatchEgg', e.at()
 

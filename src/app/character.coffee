@@ -72,20 +72,6 @@ module.exports.app = (appExports, model) ->
     model.del "users.#{user.get('id')}", ->
       window.location.href = "/logout"
 
-  user.on 'set', 'flags.customizationsNotification', (captures, args) ->
-    return unless captures == true
-    $('.main-herobox').popover('destroy') #remove previous popovers
-    html = """
-           Click your avatar to customize your appearance. <a href='#' onClick="$('.main-herobox').popover('hide');return false;">[Close]</a>
-           """
-    $('.main-herobox').popover
-      title: "Customize Your Avatar"
-      placement: 'bottom'
-      trigger: 'manual'
-      html: true
-      content: html
-    $('.main-herobox').popover 'show'
-
 userSchema =
 # _id
   stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }

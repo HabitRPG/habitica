@@ -235,16 +235,22 @@ updateStats = (model, newStats, batch) ->
       #user.pass(true).set('stats.exp', obj.stats.exp)
 
     # Set flags when they unlock features
+    # NOTE we have to first model.set() the flag to true, then AFTER that obj.flags.flag = true
+    # The reason is model.on() listeners still track object references, so if obj.flags.flags = true and then we
+    # model.set(), the second argument of .on() listeners will be true (in otherwords, before/after tests will fail)
     if !obj.flags.customizationsNotification and (obj.stats.exp > 10 or obj.stats.lvl > 1)
       batch.set 'flags.customizationsNotification', true
       obj.flags.customizationsNotification = true
     if !obj.flags.itemsEnabled and obj.stats.lvl >= 2
       # Set to object, then also send to browser right away to get model.on() subscription notification
-      batch.set 'flags.itemsEnabled', obj.flags.itemsEnabled = true
+      batch.set 'flags.itemsEnabled', true
+      obj.flags.itemsEnabled = true
     if !obj.flags.partyEnabled and obj.stats.lvl >= 3
-      batch.set 'flags.partyEnabled', obj.flags.partyEnabled = true
+      batch.set 'flags.partyEnabled', true
+      obj.flags.partyEnabled = true
     if !obj.flags.dropsEnabled and obj.stats.lvl >= 4
-      batch.set 'flags.dropsEnabled', obj.flags.dropsEnabled = true
+      batch.set 'flags.dropsEnabled', true
+      obj.flags.dropsEnabled = true
 
   if newStats.gp?
     #FIXME what was I doing here? I can't remember, gp isn't defined
