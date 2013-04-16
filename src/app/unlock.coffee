@@ -1,3 +1,7 @@
+_ = require 'underscore'
+{ randomVal } = require './helpers'
+{ pets, hatchingPotions } = require('./items').items
+
 ###
   Listeners to enabled flags, set notifications to the user when they've unlocked features
 ###
