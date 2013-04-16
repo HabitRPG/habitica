@@ -9,9 +9,7 @@ _ = require 'underscore'
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
 
-  alreadyShown = (before, after) ->
-    debugger
-    !(!before and after is true)
+  alreadyShown = (before, after) -> !(!before and after is true)
 
   showPopover = (selector, title, html, placement='bottom') ->
     $(selector).popover('destroy')
