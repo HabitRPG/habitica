@@ -266,13 +266,17 @@ cron = (model) ->
   today = +new Date
   daysPassed = helpers.daysBetween(user.get('lastCron'), today, user.get('preferences.dayStart'))
   if daysPassed > 0
-
-    user.set 'lastCron', today # at least this must be called, even if user resting
-    return if user.get('flags.rest') is true
-
     batch = new character.BatchUpdate(model)
     batch.startTransaction()
     obj = batch.obj()
+    batch.set 'lastCron', today
+
+    if user.get('flags.rest') is true
+      _.each model.get('_dailyList'), (daily) -> batch.set("tasks.#{daily.id}.completed", false)
+      browser.resetDom(model)
+      batch.commit()
+      return
+
     hpBefore = obj.stats.hp #we'll use this later so we can animate hp loss
     # Tally each task
     todoTally = 0
