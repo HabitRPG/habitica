@@ -91,12 +91,19 @@
             <tr>
                 {{#each _items.hatchingPotions as :potion}}
                     <td>
-                        <app:pets:stable-pet string="{{:pet.name}}-{{:potion.name}}" />
+                        <app:pets:stable-pet tooltip="{{:potion.text}} {{:pet.text}}" pet="{{:pet.name}}-{{:potion.name}}" />
                     </td>
                 {{/}}
             </tr>
         {{/}}
     </table>
+    <h4>Rare Pets</h4>
+    <table>
+        <tr>
+            <td><app:pets:stable-pet potion='Veteran Wolf' pet="Wolf-Veteran" /></td>
+        </tr>
+    </table>
+
     <!--<menu type="list">
         <li class="customize-menu">
             <menu>
@@ -106,10 +113,10 @@
     </menu>-->
 
 <stable-pet:>
-    <div rel="tooltip" title="{{:potion.text}} {{:pet.text}}">
-        {{#if ownsPet(@string, _user.items.pets)}}
-            <button class="pet-button Pet-{{@string}} {#if equal(_user.items.currentPet.name, @string)}active{/if}" data-pet="{{@string}}" x-bind="click:choosePet"></button>
+    <div rel="tooltip" title="{{@tooltip}}">
+        {{#if ownsPet(@pet, _user.items.pets)}}
+            <button class="pet-button Pet-{{@pet}} {#if equal(_user.items.currentPet.name, @string)}active{/if}" data-pet="{{@pet}}" x-bind="click:choosePet"></button>
         {{else}}
-            <button class="pet-button pet-not-owned" data-pet="{{@string}}"><img src="/img/paw.png"/></button>
+            <button class="pet-button pet-not-owned" data-pet="{{@pet}}"><img src="/img/paw.png"/></button>
         {{/}}
     </div>
