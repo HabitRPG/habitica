@@ -27,6 +27,7 @@ _ = require('underscore')
 cleanupCorruptTasks = (model) ->
   user = model.at('_user')
   tasks = user.get('tasks')
+  wasCorrupt = false
 
   ## Remove corrupted tasks
   _.each tasks, (task, key) ->
@@ -34,15 +35,13 @@ cleanupCorruptTasks = (model) ->
       user.del("tasks.#{key}")
       delete tasks[key]
 
-  batch = null
-
   ## Task List Cleanup
   _.each ['habit','daily','todo','reward'], (type) ->
 
     # 1. remove duplicates
     # 2. restore missing zombie tasks back into list
     idList = user.get("#{type}Ids")
-    taskIds =  _.pluck( _.where(tasks, {type:type}), 'id')
+    taskIds =  _.pluck( _.where(tasks, {type:type}), 'id' )
     union = _.union idList, taskIds
 
     # 2. remove empty (grey) tasks
@@ -50,13 +49,11 @@ cleanupCorruptTasks = (model) ->
 
     # There were indeed issues found, set the new list
     if !_.isEqual(idList, preened)
-      unless batch?
-        batch = new require('./character').BatchUpdate(model)
-        batch.startTransaction()
-      batch.set("#{type}Ids", preened)
-      console.error user.get('id') + "'s #{type}s were corrupt."
+      user.set("#{type}Ids", preened)
+      wasCorrupt = true
+      "#{type}s were corrupt."
 
-  batch.commit() if batch?
+  require('./browser').resetDom(model) if wasCorrupt
 
 get '/', (page, model, params, next) ->
   return page.redirect '/' if page.params?.query?.play?
@@ -68,8 +65,6 @@ get '/', (page, model, params, next) ->
 
   require('./party').partySubscribe page, model, params, next, ->
     model.setNull '_user.apiToken', derby.uuid()
-
-    cleanupCorruptTasks(model) # https://github.com/lefnire/habitrpg/issues/634
 
     require('./items').server(model)
 
@@ -83,6 +78,7 @@ get '/', (page, model, params, next) ->
 
 ready (model) ->
   user = model.at('_user')
+  cleanupCorruptTasks(model) # https://github.com/lefnire/habitrpg/issues/634
 
   #set cron immediately
   lastCron = user.get('lastCron')
