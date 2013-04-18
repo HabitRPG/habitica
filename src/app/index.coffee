@@ -34,8 +34,7 @@ cleanupCorruptTasks = (model) ->
       user.del("tasks.#{key}")
       delete tasks[key]
 
-  batch = new require('./character').BatchUpdate(model)
-  batch.startTransaction()
+  batch = null
 
   ## Task List Cleanup
   _.each ['habit','daily','todo','reward'], (type) ->
@@ -51,10 +50,13 @@ cleanupCorruptTasks = (model) ->
 
     # There were indeed issues found, set the new list
     if !_.isEqual(idList, preened)
+      unless batch?
+        batch = new require('./character').BatchUpdate(model)
+        batch.startTransaction()
       batch.set("#{type}Ids", preened)
       console.error user.get('id') + "'s #{type}s were corrupt."
 
-  batch.commit()
+  batch.commit() if batch?
 
 get '/', (page, model, params, next) ->
   return page.redirect '/' if page.params?.query?.play?
