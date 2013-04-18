@@ -197,8 +197,7 @@ module.exports.app = (appExports, model, app) ->
     $('.datepicker').datepicker({autoclose:true, todayBtn:true})
       .on 'changeDate', (ev) ->
         #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
-        #FIXME also, it saves as a day behind??
-        model.at(ev.target).set 'date', moment(ev.date).add('d',1).format('MM/DD/YYYY')
+        model.at(ev.target).set 'date', moment(ev.date).format('MM/DD/YYYY')
 
     ###
     External Scripts
