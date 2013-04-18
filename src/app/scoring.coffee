@@ -29,7 +29,7 @@ randomDrop = (model, delta, priority) ->
   deltaMultiplier = if Math.abs(delta) < 1 then 1 else Math.abs(delta)
   chanceMultiplier = chanceMultiplier * deltaMultiplier * algos.priorityValue(priority) # multiply chance by reddness
 
-  if user.get('flags.dropsEnabled') and Math.random() < (.01 * chanceMultiplier)
+  if user.get('flags.dropsEnabled') and Math.random() < (.05 * chanceMultiplier)
     # current breakdown - 3% (adjustable) chance on drop
     # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
     rarity = Math.random()
