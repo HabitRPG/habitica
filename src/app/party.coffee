@@ -1,56 +1,70 @@
 _ = require('underscore')
 
+partyUnsubscribe = (model, cb) ->
+  if window?
+    throw "unsubscribe requires cb" unless cb?
+    subs = model._subs()
+    subs.concat cb
+    model.unsubscribe.apply(model, subs)
+  else
+    cb()
+
 ###
   Subscribe to the user, the users's party (meta info like party name, member ids, etc), and the party's members. 3 subscriptions.
   1) If the user is solo, just subscribe to the user.
   2) If in a an empty party, just subscribe to the user & party meta.
   3) If full party, subscribe to everything.
+
+  Note a strange hack - we subscribe to queries incrementally. First self, then party, then party members.
+  Party members come with limited fields, so you can't hack their stuff. Strangely, subscribing to the members after
+  already subscribing to self limits self's fields to the fields which members are limited to. As a result, we have
+  to re-subscribe to self to get all the fields (otherwise everything breaks). Weirdly, this last subscription doesn't
+  do the opposite - granting all the fields back to members. I dont' know what's going on here
+
+  Another issue: `model.unsubscribe(selfQ)` would seem to mitigate  the above, so we at least don't have a stray
+  subscription floating around - but alas, it doesn't seem to work (or at least never calls the callback)
 ###
 module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb) ->
 
+  # unsubscribe from everything - we're starting over
+  # partyUnsubscribe model, ->
+
   # Restart subscription to the main user
   selfQ = model.query('users').withId (model.get('_userId') or model.session.userId) # see http://goo.gl/TPYIt
-  selfQ.subscribe (err, user) ->
+  selfQ.fetch (err, user) ->
     return next(err) if err
     return next("User not found - this shouldn't be happening!") unless user.get()
+
+    finished = (descriptors, paths) ->
+      model.subscribe.apply model, descriptors.concat ->
+        [err, refs] = [arguments[0], arguments]
+        return next(err) if err
+        _.each paths, (path, idx) -> model.ref path, refs[idx+1]
+        cb()
+
 
     # Attempted handling for 'party of undefined' error, which is caused by bustedSession (see derby-auth).
     # Theoretically simply reloading the page should restore model.at('_userId') and the second load should work just fine
     # bustedSession victims might hit a redirection loop if I'm wrong :/
 #    return page.redirect('/') unless uObj
 
-    model.ref '_user', user
     partyId = user.get('party.current')
 
     # (1) Solo player
-    return cb() unless partyId
+    return finished([selfQ], ['_user']) unless partyId
 
     # User in a party
     partyQ = model.query('parties').withId(partyId)
-    partyQ.subscribe (err, party) ->
+    partyQ.fetch (err, party) ->
       return next(err) if err
-      model.ref '_party', party
       members = party.get('members')
 
       ## (2) Party has no members, just subscribe to the party itself
-      return cb() if _.isEmpty(members)
+      return finished([partyQ, selfQ], ['_party', '_user']) if _.isEmpty(members)
 
       ## (3) Party has members, subscribe to those users too
       membersQ = model.query('users').party(members)
-      membersQ.subscribe (err, members) ->
-        return next(err) if err
-        model.ref '_partyMembers', members
-
-        # Ok, now we've subscribed to everything. Now there's a strange issue:
-        # Party members come with limited fields, so you can't hack their stuff. Strangely, subscribing to the members after
-        # already subscribing to self limits self's fields to the fields which members are limited to. As a result, we have
-        # to re-subscribe to self to get all the fields (otherwise everything breaks). Weirdly, this last subscription doesn't
-        # do the opposite - granting all the fields back to members. I dont' know what's going on here
-        model.unsubscribe selfQ, ->
-          selfQ.subscribe (err, userAgain) ->
-            return next(err) if err
-            model.ref '_user', userAgain
-            return cb()
+      return finished [partyQ, membersQ, selfQ], ['_party', '_partyMembers', '_user']
 
 module.exports.app = (appExports, model) ->
   character = require './character'
