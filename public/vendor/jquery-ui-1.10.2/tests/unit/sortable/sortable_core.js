@@ -1,3 +1,0 @@
-/*
- * sortable_core.js
- */

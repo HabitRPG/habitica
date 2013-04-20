@@ -1,9 +1,0 @@
-[submodule "public/vendor/github-buttons"]
-	path = public/vendor/github-buttons
-	url = https://github.com/mdo/github-buttons.git
-[submodule "public/vendor/BrowserQuest"]
-	path = public/vendor/BrowserQuest
-	url = https://github.com/mozilla/BrowserQuest.git
-[submodule "public/vendor/bootstrap-tour"]
-	path = public/vendor/bootstrap-tour
-	url = git://github.com/sorich87/bootstrap-tour.git
