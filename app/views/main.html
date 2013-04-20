@@ -1,9 +1,21 @@
-<div class="hero-unit">
-  <h1>'Allo, 'Allo!</h1>
-  <p>You now have</p>
-  <ul>
-      <li ng-repeat="thing in awesomeThings">{{thing}}</li>
-  </ul>
-  <p>installed.</p>
-  <h3>Enjoy coding! - Yeoman</h3>
+<!--<ng-include src="'views/modals/main.html'" />-->
+<!--<ng-include src="'views/alerts/new-stuff.html'" />-->
+
+<div class="header-wrap">
+    <!--{#if _undo}<a x-bind="click:undo" class='label undo-button'>Undo</a>{/}-->
+    <ng-include src="'views/menu.html'" />
+    <!--<app:header:header />-->
 </div>
+
+<!--<br/>-->
+<!--<div id="notification-area"></div>-->
+<!--<div id="wrap">-->
+<!--<app:alerts:flash />-->
+  <!--<div id="exp-chart" style="display:none;"></div>-->
+<!--<div id=main class="grid">-->
+  <!--<app:tasks:taskLists />-->
+<!--</div>-->
+<!--</div>-->
+
+
+<ng-include src="'views/footer.html'" />
