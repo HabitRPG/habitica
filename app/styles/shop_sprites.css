@@ -1,0 +1,27 @@
+weapon_6, weapon_5, weapon_4, weapon_3, weapon_2, weapon_1, shield_5, shield_4, shield_3, shield_2, shield_1, head_5, head_4, head_3, head_2, head_1, armor_5, armor_4, armor_3, armor_2, armor_1, reroll, potion, copper, silver, gold {background: url(shop_sprites.css) no-repeat}
+weapon_6 {background-position: 0 0; width: 40px; height: 40px}
+weapon_5 {background-position: -40px 0; width: 40px; height: 40px}
+weapon_4 {background-position: -80px 0; width: 40px; height: 40px}
+weapon_3 {background-position: -120px 0; width: 40px; height: 40px}
+weapon_2 {background-position: -160px 0; width: 40px; height: 40px}
+weapon_1 {background-position: -200px 0; width: 40px; height: 40px}
+shield_5 {background-position: -240px 0; width: 40px; height: 40px}
+shield_4 {background-position: -280px 0; width: 40px; height: 40px}
+shield_3 {background-position: -320px 0; width: 40px; height: 40px}
+shield_2 {background-position: -360px 0; width: 40px; height: 40px}
+shield_1 {background-position: -400px 0; width: 40px; height: 40px}
+head_5 {background-position: -440px 0; width: 40px; height: 40px}
+head_4 {background-position: -480px 0; width: 40px; height: 40px}
+head_3 {background-position: -520px 0; width: 40px; height: 40px}
+head_2 {background-position: -560px 0; width: 40px; height: 40px}
+head_1 {background-position: -600px 0; width: 40px; height: 40px}
+armor_5 {background-position: -640px 0; width: 40px; height: 40px}
+armor_4 {background-position: -680px 0; width: 40px; height: 40px}
+armor_3 {background-position: -720px 0; width: 40px; height: 40px}
+armor_2 {background-position: -760px 0; width: 40px; height: 40px}
+armor_1 {background-position: -800px 0; width: 40px; height: 40px}
+reroll {background-position: -840px 0; width: 40px; height: 40px}
+potion {background-position: -880px 0; width: 40px; height: 40px}
+copper {background-position: -920px 0; width: 40px; height: 40px}
+silver {background-position: -960px 0; width: 40px; height: 40px}
+gold {background-position: -1000px 0; width: 40px; height: 40px}
