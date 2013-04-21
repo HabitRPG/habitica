@@ -29,7 +29,7 @@
                  NOTE TO SELF: Ask Tyler if some kind of inter-leaving is possible 
                  where we can put ONE of the results of this loop BEFORE the progress bars, and the rest after-->
             {{#each _partyMembers as :member}}
-                <div class="herobox-wrap">
+                <div class="herobox-wrap" style="{{#if equal(:member.id, _userId)}}display:none;{{/}}">
                     {{#unless equal(:member.id, _userId)}}
                         <app:avatar:avatar profile={{:member}} party="true" />
                     <!-- Would be way cleaner as a Derby template `data-content="<app:party:member-stats profile={{:member}} />"`, but it was just printing HTML as text -->
