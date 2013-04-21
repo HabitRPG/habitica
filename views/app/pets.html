@@ -75,7 +75,7 @@
             <form x-bind="submit:hatchEgg">
                 <select>
                     {#each _user.items.hatchingPotions as :hatchingPotion}
-                    <option>{:hatchingPotion}</option>
+                        <option>{:hatchingPotion}</option>
                     {/each}
                 </select>
                 <button type=submit>Pour</button>

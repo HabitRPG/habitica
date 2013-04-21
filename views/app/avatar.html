@@ -175,8 +175,8 @@
                         </form>
                     </div>
                     <ul>
-                        {#each _user.profile.websites as :website}
                         <!-- would prefer if there were and index in #each, instead using data-website to search with indexOf -->
+                        {#each _user.profile.websites as :website}
                         <li>{:website} <a data-website="{:website}" x-bind="click:profileRemoveWebsite"><i class='icon-remove'></i></a></li>
                         {/}
                     </ul>
