@@ -4,8 +4,7 @@
 <div class="module">
     <div class="task-column habits">
         <h2 class="task-column_title">Habits</h2>
-        <!-- TODO -->
-        <!--<app:tasks:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />-->
+        <ng-include src="'views/tasks/new.html'" ng-controller="HabitsCtrl"></ng-include>
         <ul class="habits">
             <li ng-repeat="task in user.habits" ng-include="'views/tasks/task.html'" class='task'></li>
         </ul>
@@ -20,8 +19,7 @@
 <div class="module">
     <div class="task-column dailys">
         <h2 class="task-column_title">Dailies</h2>
-        <!-- TODO -->
-        <!--<app:tasks:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />-->
+        <ng-include src="'views/tasks/new.html'" ng-controller="DailysCtrl"></ng-include>
         <ul class="dailys">
             <li ng-repeat="task in user.dailys" ng-include="'views/tasks/task.html'" class='task'></li>
         </ul>
@@ -48,8 +46,7 @@
 
         <!-- create new todo -->
         <div class="display-context-dependant show-for-uncompleted">
-            <!-- TODO -->
-            <!--<app:tasks:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />-->
+            <ng-include src="'views/tasks/new.html'" ng-controller="TodosCtrl"></ng-include>
         </div>
 
         <!-- list of all the todos -->
@@ -88,9 +85,7 @@
 
         <h2 class="task-column_title">Rewards</h2>
 
-        <!-- add new reward -->
-        <!-- TODO -->
-        <!--<app:tasks:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />-->
+        <ng-include src="'views/tasks/new.html'" ng-controller="RewardsCtrl"></ng-include>
 
         <!-- Custom Rewards -->
         <ul class='rewards' ng-class="{hidden: !user.rewards}">
