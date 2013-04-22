@@ -1,0 +1,7 @@
+<span ng-show="loggedIn && user.flags.ads!='hide'">
+    <span class='pull-right'>
+        <a x-bind="click:showStripe" rel='tooltip' title='Remove Ads'><i class='icon-remove'></i></a><br/>
+        <a href="#" data-target="#why-ads-modal" data-toggle="modal" rel='tooltip' title='Why Ads?'><i class='icon-question-sign'></i></a>
+    </span>
+    <div ng-transclude></div>
+</span>

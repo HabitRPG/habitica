@@ -1,0 +1,21 @@
+<ul class='items' ng-class="{hidden: !user.flags.itemsEnabled}" ng-controller="ItemsCtrl">
+    <li class="task reward-item {#if item.hide}hide{/}" ng-repeat="item in [items.weapon,items.armor,items.head,items.shield,items.reroll]">
+        <!-- right-hand side control buttons -->
+        <div class="task-meta-controls">
+            <span rel="popover" data-trigger="hover" data-placement="left" data-content="{{item.notes}}" data-original-title="{{item.text}}" class='task-notes'><i class="icon-comment"></i></span>
+        </div>
+
+        <!-- left-hand size commands -->
+        <div class="task-controls">
+            <a ng-show="item.type == 'reroll'" class="task-action-btn btn-reroll" data-toggle="modal" data-target="#reroll-modal">⟲</a>
+            <a ng-hide="item.type == 'reroll'" class="money btn-buy item-btn" x-bind=click:buyItem data-type={{item.type}} data-value={{item.value}} data-index={{item.index}}>
+                <span class="reward-cost">{{item.value}}</span>
+                <span class='shop_gold'></span>
+            </a>
+        </div>
+        <!-- main content -->
+        <span class="shop_{{item.classes}} shop-sprite item-img"></span>
+        <p class="task-text">{{item.text}}</p>
+    </li>
+
+</ul>

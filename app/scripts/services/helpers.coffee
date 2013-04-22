@@ -125,7 +125,7 @@ angular.module('habitRPG').factory 'Helpers', (Algos) ->
 
       # show as completed if completed (naturally) or not required for today
       if type in ['todo', 'daily']
-        if completed or (repeat and (repeat[dayMapping[day]] == false))
+        if completed or (repeat and (repeat[@dayMapping[day]] == false))
           classes += " completed"
         else
           classes += " uncompleted"
@@ -144,6 +144,8 @@ angular.module('habitRPG').factory 'Helpers', (Algos) ->
         classes += ' color-better'
       else
         classes += ' color-best'
+
+      classes += ' habit-wide' if task.up and task.down
       return classes
 
     ownsPet: (pet, userPets) -> userPets?.indexOf(pet) != -1

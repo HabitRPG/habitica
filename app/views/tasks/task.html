@@ -1,0 +1,46 @@
+<li data-id={{task.id}} class="task {{taskClasses(task, user.preferences.dayStart, user.lastCron)}}">
+
+    <!-- right-hand side control buttons -->
+    <div class="task-meta-controls">
+        <!-- edit -->
+        <a x-bind=click:toggleTaskEdit data-hide-id="{{task.id}}-chart" data-toggle-id="{{task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
+        <!-- delete -->
+        <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
+        <!-- chart -->
+        <!-- removing for now cuz it's broken -->
+        <a ng-show="task.history" x-bind=click:toggleChart data-toggle-id="{{task.id}}-chart" data-hide-id="{{task.id}}-edit" data-history-path="_user.tasks.{{task.id}}.history" rel="tooltip" title="Progress"><i class="icon-signal"></i></a>
+        <!-- notes -->
+        <span ng-show="task.notes" rel="popover" data-trigger="hover" data-placement="left" data-content="{{task.notes}}" data-original-title="{{task.text}}" class='task-notes'><i class="icon-comment"></i></span>
+    </div>
+
+    <!-- left-hand side checkbox -->
+    <div class="task-controls task-primary">
+        <!-- Habits -->
+        <span ng-show="task.type == 'habit'">
+            <a ng-show="task.up" class="task-action-btn" data-direction=up x-bind=click:score>＋</a>
+            <a ng-show="task.down" class="task-action-btn" data-direction=down x-bind=click:score>−</a>
+        </span>
+
+        <!-- Rewards -->
+        <span ng-show="task.type == 'reward'">
+            <a class="money btn-buy" x-bind=click:score data-direction=down>
+                <span class="reward-cost">{{task.value}}</span>
+                <span class='shop_gold'></span>
+            </a>
+        </span>
+
+        <!-- Daily & Todos -->
+        <span ng-show="task.type == 'daily' || task.type =='todo'">
+            <span class="task-checker action-yesno">
+                <input type=checkbox id="box-{{task.id}}" class="visuallyhidden focusable" checked="{{task.completed}}">
+                <label for="box-{{task.id}}"></label>
+            </span>
+        </span>
+    </div>
+
+    <!-- main content -->
+    <p class="task-text">{{task.text}}</p>
+
+    <!-- edit/options dialog -->
+    <ng-include src="'views/tasks/edit.html'"></ng-include>
+</li>

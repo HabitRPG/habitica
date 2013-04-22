@@ -138,7 +138,7 @@ var user = {
     ],
     "flags":{
         "partyEnabled":false,
-        "itemsEnabled":false
+        "itemsEnabled":true
     },
     "auth":{
         "local": {username: "lefnire"}
