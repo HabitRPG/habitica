@@ -4,9 +4,10 @@
 <div class="module">
     <div class="task-column habits">
         <h2 class="task-column_title">Habits</h2>
-        <app:tasks:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
-        <ul class="habits" ng-repeat="task in user.habits">
-            <ng-include src="'views/tasks/task.html'"></ng-include>
+        <!-- TODO -->
+        <!--<app:tasks:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />-->
+        <ul class="habits">
+            <li ng-repeat="task in user.habits" ng-include="'views/tasks/task.html'" class='task'></li>
         </ul>
         <br/>
         <habit-ads>
@@ -19,9 +20,10 @@
 <div class="module">
     <div class="task-column dailys">
         <h2 class="task-column_title">Dailies</h2>
-        <app:tasks:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />
-        <ul class="dailys" ng-repeat="task in user.dailys">
-            <ng-include src="'views/tasks/task.html'"></ng-include>
+        <!-- TODO -->
+        <!--<app:tasks:newTask type="daily" inputValue="{_newDaily}" placeHolder="New Daily" />-->
+        <ul class="dailys">
+            <li ng-repeat="task in user.dailys" ng-include="'views/tasks/task.html'" class='task'></li>
         </ul>
         <br/>
         <habit-ads>
@@ -46,12 +48,13 @@
 
         <!-- create new todo -->
         <div class="display-context-dependant show-for-uncompleted">
-            <app:tasks:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />
+            <!-- TODO -->
+            <!--<app:tasks:newTask type="todo" inputValue="{_newTodo}" placeHolder="New Todo" />-->
         </div>
 
         <!-- list of all the todos -->
-        <ul class="todos task-list" ng-repeat="task in user.todos">
-            <ng-include src="'views/tasks/task.html'"></ng-include>
+        <ul class="todos task-list">
+            <li ng-repeat="task in user.todos" ng-include="'views/tasks/task.html'" class='task'></li>
         </ul>
         <br/>
         <habit-ads>
@@ -86,11 +89,12 @@
         <h2 class="task-column_title">Rewards</h2>
 
         <!-- add new reward -->
-        <app:tasks:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
+        <!-- TODO -->
+        <!--<app:tasks:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />-->
 
         <!-- Custom Rewards -->
-        <ul class='rewards' ng-class="{hidden: !user.rewards}" ng-repeat="task in user.rewards">
-            <ng-include src="'views/tasks/task.html'" replace></ng-include>
+        <ul class='rewards' ng-class="{hidden: !user.rewards}">
+            <li ng-repeat="task in user.rewards" ng-include="'views/tasks/task.html'" class='task'></li>
         </ul>
 
         <!-- Static Rewards -->

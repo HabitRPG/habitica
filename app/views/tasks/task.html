@@ -1,4 +1,4 @@
-<li data-id={{task.id}} class="task {{taskClasses(task, user.preferences.dayStart, user.lastCron)}}">
+<div data-id={{task.id}} class="{{taskClasses(task, user.preferences.dayStart, user.lastCron)}}">
 
     <!-- right-hand side control buttons -->
     <div class="task-meta-controls">
@@ -43,4 +43,4 @@
 
     <!-- edit/options dialog -->
     <ng-include src="'views/tasks/edit.html'"></ng-include>
-</li>
+</div>
