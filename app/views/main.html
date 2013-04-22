@@ -3,19 +3,20 @@
 
 <div class="header-wrap">
     <!--{#if _undo}<a x-bind="click:undo" class='label undo-button'>Undo</a>{/}-->
-    <ng-include src="'views/menu.html'" />
-    <!--<app:header:header />-->
+    <ng-include src="'views/menu.html'"></ng-include>
+    <ng-include src="'views/header.html'"></ng-include>
 </div>
 
-<!--<br/>-->
-<!--<div id="notification-area"></div>-->
-<!--<div id="wrap">-->
-<!--<app:alerts:flash />-->
-  <!--<div id="exp-chart" style="display:none;"></div>-->
-<!--<div id=main class="grid">-->
-  <!--<app:tasks:taskLists />-->
-<!--</div>-->
-<!--</div>-->
+<br/>
+
+<div id="notification-area"></div>
+<div id="wrap">
+  <!--<app:alerts:flash />-->
+  <div id="exp-chart" style="display:none;"></div>
+  <div id=main class="grid">
+    <!--<ng-include src="'views/tasks/main.html'"></ng-include>-->
+  </div>
+</div>
 
 
 <ng-include src="'views/footer.html'" />

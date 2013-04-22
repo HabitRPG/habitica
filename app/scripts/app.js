@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('websiteAngularApp', [])
+angular.module('habitRPG', [])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

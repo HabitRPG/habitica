@@ -1,0 +1,36 @@
+<header ng-controller="HeaderCtrl" ng-hide="user.preferences.hideHeader == true" class="site-header" role="banner" data-partySize="{{partySize()}}">
+    <!-- avatar -->
+    <div class="herobox-wrap main-herobox">
+        <ng-include src="'views/avatar/toon.html'" ng-controller="MainAvatarCtrl"></ng-include>
+    </div>
+
+    <!-- stat bars -->
+    <div class="hero-stats">
+        <div class="meter health" title="Health">
+            <div class="bar" style="width: {{user.stats.hp / 50 * 100}}%;"></div>
+            <span class="meter-text"><i class=icon-heart></i> {{user.stats.hp}} / 50</span>
+        </div>
+
+        <div class="meter experience" title="Experience">
+            <div class="bar" style="width: {{ user.stats.exp / tnl(user.stats.lvl) * 100 }}%;"></div>
+            <span class="meter-text">
+              <a ng-show="user.history.exp" x-bind=click:toggleChart data-toggle-id="exp-chart" data-history-path="_user.history.exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp;
+              <i class=icon-star></i> {{ user.stats.exp}} / {{tnl(user.stats.lvl)}}
+            </span>
+        </div>
+    </div>
+
+    <!-- party -->
+    <!-- I have an idea to use this loop for the user's herobox/avatar as well
+         NOTE TO SELF: Ask Tyler if some kind of inter-leaving is possible
+         where we can put ONE of the results of this loop BEFORE the progress bars, and the rest after-->
+    <!--<div ng-repeat="member in user.party.members">-->
+        <!--<div ng-hide="member.id == user.id" class="herobox-wrap" ng-controller="PartyAvatarCtrl">-->
+            <!--<ng-include src="'views/avatar/toon.html'" />-->
+            <!--&lt;!&ndash; Would be way cleaner as a Derby template `data-content="<app:party:member-stats profile={{:member}} />"`, but it was just printing HTML as text &ndash;&gt;-->
+            <!--&lt;!&ndash; I've re-implemented the rollover using the actual `herobox`/avatar template and data-attributes.-->
+                <!--This Derby template idea would have been really handy but this is pretty versatile, and keeps it all in the avatar section &ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+
+</header>

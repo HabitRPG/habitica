@@ -146,7 +146,7 @@ var user = {
     "id":"5b38917d-a674-4288-ab54-a6045f4a7828"
 };
 
-angular.module('websiteAngularApp')
+angular.module('habitRPG')
   .factory('User', function () {
     // Service logic
     // ...
@@ -155,28 +155,7 @@ angular.module('websiteAngularApp')
     return {
       get: function () {
         return user;
-      },
-
-      username: function(auth, override) {
-            var fb, _ref;
-            if (override != null) {
-                return override;
-            }
-            if ((auth != null ? (_ref = auth.facebook) != null ? _ref.displayName : void 0 : void 0) != null) {
-                return auth.facebook.displayName;
-            } else if ((auth != null ? auth.facebook : void 0) != null) {
-                fb = auth.facebook;
-                if (fb._raw) {
-                    return "" + fb.name.givenName + " " + fb.name.familyName;
-                } else {
-                    return fb.name;
-                }
-            } else if ((auth != null ? auth.local : void 0) != null) {
-                return auth.local.username;
-            } else {
-                return 'Anonymous';
-            }
-        }
+      }
     }
 
   });

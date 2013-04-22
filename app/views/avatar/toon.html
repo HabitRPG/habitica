@@ -1,0 +1,30 @@
+<figure class="herobox"
+        data-name="{{username(profile.auth, profile.profile.name)}}"
+        data-level="{{profile.stats.lvl}}"
+        data-checkpet="{{hasPet}}"
+        data-checkuser="{{isUser}}"
+        data-toggle='modal' data-target='#avatar-modal' data-uid="{{profile.id}}" x-bind="click:profileChangeActive"
+        rel="popover" data-placement="bottom" data-trigger="hover" data-html="true" data-content="
+             <div>
+                <div class='progress progress-danger' style='height:5px;'>
+                    <div class='bar' style='height: 5px; width: {{profile.stats.hp / 50}}%;'></div>
+                </div>
+                <div class='progress progress-warning' style='height:5px;'>
+                    <div class='bar' style='height: 5px; width: {{profile.stats.exp / tnl(profile.stats.lvl)}}%;'></div>
+                </div>
+                <div>Level: {{profile.stats.lvl}}</div>
+                <div>GP: {floor({profile.stats.gp}}</div>
+                <div>{count({profile.items.pets}} / 90 Pets Found</div>
+            </div>
+        ">
+    <div class='character-sprites'>
+        <span class="{{profile.preferences.gender}}_skin_{{profile.preferences.skin}}"></span>
+        <span class='{{profile.preferences.gender}}_hair_{{profile.preferences.hair}}'></span>
+        <span class="{{equipped(profile, 'armor')}}"></span>
+        <span ng-show="profile.preferences.showHelm" class="{{equipped(profile, 'head')}}"></span>
+        <span ng-hide="profile.preferences.showHelm" class="{{profile.preferences.gender}}_head_0"></span>
+        <span class='{{profile.preferences.gender}}_shield_{{profile.items.shield}}'></span>
+        <span class='{{profile.preferences.gender}}_weapon_{{profile.items.weapon}}'></span>
+        <span ng-show="profile.items.currentPet && !minimal" class="Pet-{{profile.items.currentPet.name}}-{{profile.items.currentPet.modifier}} current-pet" ></span>
+    </div>
+</figure>
