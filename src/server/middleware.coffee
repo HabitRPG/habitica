@@ -16,7 +16,7 @@ module.exports.view = (req, res, next) ->
 module.exports.allowCrossDomain = (req, res, next) ->
   res.header "Access-Control-Allow-Origin", (req.headers.origin || "*")
   res.header "Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,HEAD,DELETE"
-  res.header "Access-Control-Allow-Headers", "Content-Type,X-Requested-With,x-api-user,x-api-key"
+  res.header "Access-Control-Allow-Headers", "Content-Type,Accept,Content-Encoding,X-Requested-With,x-api-user,x-api-key"
 
   # wtf is this for?
   if req.method is 'OPTIONS'
