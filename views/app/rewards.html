@@ -4,7 +4,7 @@
             <!-- cash or tokens -->
             <span class='option-box pull-right wallet'>
                 <div class="money">
-                    {gold(_user.stats.gp)}
+                    {gold(floor(_user.stats.gp))}
                     <span class='shop_gold' rel='tooltip' title='Gold'></span>
                 </div>
                 <div class="money">
