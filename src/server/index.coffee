@@ -61,7 +61,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     expressApp.use(gzippo.staticGzip(publicPath, maxAge: ONE_YEAR))
 
   expressApp
-    .use('api/v1', middleware.allowCrossDomain)
+    .use('/api/v1', middleware.allowCrossDomain)
     .use(express.favicon("#{publicPath}/favicon.ico"))
     # Gzip dynamically rendered content
     .use(express.compress())
