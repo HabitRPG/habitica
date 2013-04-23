@@ -58,7 +58,7 @@ auth.store(store, habitrpgStore.customAccessControl)
 mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
   expressApp.configure 'development', ->
     # Gzip static files and serve from memory
-    expressApp.use(gzippo.staticGzip(publicPath, maxAge: ONE_YEAR))
+    expressApp.use express.static(publicPath)
 
   expressApp
     .use('/api/v1', middleware.allowCrossDomain)
