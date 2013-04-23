@@ -19,10 +19,9 @@ allowCrossDomain = (req, res, next) ->
   res.header "Access-Control-Allow-Headers", "Content-Type,X-Requested-With,x-api-user,x-api-key"
 
   # wtf is this for?
-  if req.method is 'OPTIONS'
-    res.send(200);
-  else
-    next()
+  return res.send 200 if req.method is 'OPTIONS'
+
+  next()
 
 httpsApi = (req, res, next) ->
   return next() if process.env.NODE_ENV == 'development' || req.headers["x-forwarded-proto"] == "https"
