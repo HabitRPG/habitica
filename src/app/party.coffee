@@ -34,8 +34,9 @@ module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb)
   selfQ.fetch (err, user) ->
     return next(err) if err
     unless user.get()
-      return page.redirect('/logout') #delete model.session.userId
       #return next("User not found - this shouldn't be happening!")
+      console.error "User not found - this shouldn't be happening!"
+      return page.redirect('/logout') #delete model.session.userId
 
     finished = (descriptors, paths) ->
       model.subscribe.apply model, descriptors.concat ->
