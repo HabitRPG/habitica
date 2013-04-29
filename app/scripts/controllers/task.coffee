@@ -1,6 +1,6 @@
 'use strict'
 del = (User, $scope) ->
-
+  #We should wrap tasks array in ordered hash so we could adderss them by ID and keep order as well.
   User.get()[$scope.task.type + 's'].forEach(
                                          (task, index, array) ->
                                             if task.id == $scope.task.id

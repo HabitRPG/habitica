@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "angular": "~1.0.5",
+    "angular-ui": "~0.4.0",
     "json3": "~3.2.4",
     "es5-shim": "~2.0.8",
     "angular-resource": "~1.0.5",
