@@ -5,7 +5,7 @@
         <!-- edit -->
         <a x-bind=click:toggleTaskEdit data-hide-id="{{task.id}}-chart" data-toggle-id="{{task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
         <!-- delete -->
-        <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
+        <a ng-click="del()" rel=tooltip title="Delete"><i class="icon-trash"></i></a>
         <!-- chart -->
         <!-- removing for now cuz it's broken -->
         <a ng-show="task.history" x-bind=click:toggleChart data-toggle-id="{{task.id}}-chart" data-hide-id="{{task.id}}-edit" data-history-path="_user.tasks.{{task.id}}.history" rel="tooltip" title="Progress"><i class="icon-signal"></i></a>
