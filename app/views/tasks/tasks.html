@@ -5,8 +5,11 @@
     <div class="task-column habits">
         <h2 class="task-column_title">Habits</h2>
         <ng-include src="'views/tasks/new.html'" ng-controller="HabitsCtrl"></ng-include>
-        <ul class="habits">
-            <li ng-repeat="task in user.habits" ng-include="'views/tasks/task.html'" class='task'></li>
+        <ul class="habits" ui-sortable ng-model="user.habits">
+            <li ng-repeat="task in user.habits" class='task' ng-controller="HabitCtrl">
+                <ng-include src="'views/tasks/task.html'" ></ng-include>
+            </li>
+
         </ul>
         <br/>
         <habit-ads>
@@ -20,8 +23,10 @@
     <div class="task-column dailys">
         <h2 class="task-column_title">Dailies</h2>
         <ng-include src="'views/tasks/new.html'" ng-controller="DailysCtrl"></ng-include>
-        <ul class="dailys">
-            <li ng-repeat="task in user.dailys" ng-include="'views/tasks/task.html'" class='task'></li>
+        <ul class="dailys" ui-sortable ng-model="user.dailys">
+            <li ng-repeat="task in user.dailys" class='task' ng-controller="DailyCtrl">
+                <ng-include src="'views/tasks/task.html'" ></ng-include>
+            </li>
         </ul>
         <br/>
         <habit-ads>
@@ -50,8 +55,10 @@
         </div>
 
         <!-- list of all the todos -->
-        <ul class="todos task-list">
-            <li ng-repeat="task in user.todos" ng-include="'views/tasks/task.html'" class='task'></li>
+        <ul class="todos task-list" ui-sortable ng-model="user.todos">
+            <li ng-repeat="task in user.todos" class='task' ng-controller="TodoCtrl">
+                <ng-include src="'views/tasks/task.html'" ></ng-include>
+            </li>
         </ul>
         <br/>
         <habit-ads>
@@ -88,8 +95,10 @@
         <ng-include src="'views/tasks/new.html'" ng-controller="RewardsCtrl"></ng-include>
 
         <!-- Custom Rewards -->
-        <ul class='rewards' ng-class="{hidden: !user.rewards}">
-            <li ng-repeat="task in user.rewards" ng-include="'views/tasks/task.html'" class='task'></li>
+        <ul class='rewards' ng-class="{hidden: !user.rewards}" ui-sortable ng-model="user.rewards">
+            <li ng-repeat="task in user.rewards" class='task' ng-controller="RewardCtrl">
+                <ng-include src="'views/tasks/task.html'" ></ng-include>
+            </li>
         </ul>
 
         <!-- Static Rewards -->
