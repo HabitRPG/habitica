@@ -36,7 +36,8 @@ var user = {
             "value":0,
             "up":true,
             "down":false,
-            "id":"8bce6f3f-655c-46ff-bc91-1edf7f2cd661"
+            "id":"8bce6f3f-655c-46ff-bc91-1edf7f2cd661",
+            "priority":"!"
         },
         {
             "type":"habit",
@@ -45,7 +46,8 @@ var user = {
             "value":0,
             "up":false,
             "down":true,
-            "id":"f35f02ed-1662-45e6-bb50-13bc1978509e"
+            "id":"f35f02ed-1662-45e6-bb50-13bc1978509e",
+            "priority":"!!"
         },
         {
             "type":"habit",
@@ -54,7 +56,8 @@ var user = {
             "value":0,
             "up":true,
             "down":true,
-            "id":"875e3bdb-52ec-407b-bbff-e59813e5b81a"
+            "id":"875e3bdb-52ec-407b-bbff-e59813e5b81a",
+            "priority":"!!!"
         }
     ],
     "dailys": [
@@ -73,7 +76,8 @@ var user = {
                 "s":true,
                 "su":true
             },
-            "id":"7fcca8fe-2f22-46dd-98b3-f8832108607b"
+            "id":"7fcca8fe-2f22-46dd-98b3-f8832108607b",
+            "priority":"!"
         },
         {
             "type":"daily",
@@ -90,7 +94,8 @@ var user = {
                 "s":true,
                 "su":true
             },
-            "id":"e5a02e0e-ee03-4e5a-9db9-c97d3aa4416d"
+            "id":"e5a02e0e-ee03-4e5a-9db9-c97d3aa4416d",
+            "priority":"!"
         },
         {
             "type":"daily",
@@ -107,7 +112,8 @@ var user = {
                 "s":true,
                 "su":true
             },
-            "id":"77ba6e72-b1a6-4cfb-8d2b-667df9779985"
+            "id":"77ba6e72-b1a6-4cfb-8d2b-667df9779985",
+            "priority":"!"
         }
     ],
     "todos": [
@@ -117,7 +123,8 @@ var user = {
             "notes":"-- Todos: Complete Eventually --\nNon-completed Todos won't hurt you, but they will become more valuable over time. This will encourage you to wrap up stale Todos.",
             "value":-3,
             "completed":false,
-            "id":"3526bf2b-9e14-4bcc-b865-808e8d8d587e"
+            "id":"3526bf2b-9e14-4bcc-b865-808e8d8d587e",
+            "priority":"!"
         }
     ],
     "rewards": [
