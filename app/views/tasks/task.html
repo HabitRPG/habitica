@@ -1,16 +1,18 @@
+
 <div data-id={{task.id}} class="{{taskClasses(task, user.preferences.dayStart, user.lastCron)}}">
 
     <!-- right-hand side control buttons -->
     <div class="task-meta-controls">
         <!-- edit -->
-        <a x-bind=click:toggleTaskEdit data-hide-id="{{task.id}}-chart" data-toggle-id="{{task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
+        <a ng-click="task.taskEdit=!task.taskEdit" tooltip="Edit"><i class="icon-pencil"></i></a>
         <!-- delete -->
-        <a ng-click="del()" rel=tooltip title="Delete"><i class="icon-trash"></i></a>
+        <a ng-click="del()" tooltip="Delete"><i class="icon-trash"></i></a>
         <!-- chart -->
         <!-- removing for now cuz it's broken -->
         <a ng-show="task.history" x-bind=click:toggleChart data-toggle-id="{{task.id}}-chart" data-hide-id="{{task.id}}-edit" data-history-path="_user.tasks.{{task.id}}.history" rel="tooltip" title="Progress"><i class="icon-signal"></i></a>
         <!-- notes -->
-        <span ng-show="task.notes" rel="popover" data-trigger="hover" data-placement="left" data-content="{{task.notes}}" data-original-title="{{task.text}}" class='task-notes'><i class="icon-comment"></i></span>
+
+        <span ng-show="task.notes" tooltip-placement="left" tooltip="{{task.notes}}" class='task-notes'><i class="icon-comment"></i></span>
     </div>
 
     <!-- left-hand side checkbox -->
@@ -42,5 +44,5 @@
     <p class="task-text">{{task.text}}</p>
 
     <!-- edit/options dialog -->
-    <ng-include src="'views/tasks/edit.html'"></ng-include>
+    <ng-include ng-show="task.taskEdit" src="'views/tasks/edit.html'"></ng-include>
 </div>

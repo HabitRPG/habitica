@@ -1,20 +1,20 @@
-<div id="{{task.id}}-edit" class="task-options visuallyhidden">
+<div id="{{task.id}}-edit" class="task-options">
     <form x-bind=submit:toggleTaskEdit data-toggle-id="{{task.id}}-edit">
         <!-- text & notes -->
         <fieldset class="option-group">
-            <label class="option-title">Text</label><input class="option-content" type=text value={{task.text}}>
-            <label class="option-title">Extra Notes</label><textarea class="option-content" rows=3>{{task.notes}}</textarea>
+            <label class="option-title">Text</label><input class="option-content" type=text ng-model="task.text">
+            <label class="option-title">Extra Notes</label><textarea class="option-content" rows=3 ng-model="task.notes"></textarea>
         </fieldset>
 
         <!-- if Habit, plus/minus command options -->
         <fieldset ng-show="task.type=='habit'" class="option-group">
             <legend class="option-title">Direction/Actions</legend>
                     <span class="task-checker action-plusminus select-toggle">
-                        <input class="visuallyhidden focusable" type=checkbox id="{{task.id}}-option-plus" checked={task.up}>
+                        <input class="visuallyhidden focusable" type=checkbox id="{{task.id}}-option-plus" ng-model="task.up">
                         <label for="{{task.id}}-option-plus"></label>
                     </span>
                     <span class="task-checker action-plusminus select-toggle">
-                        <input class="visuallyhidden focusable" type=checkbox id="{{task.id}}-option-minus" checked={task.down}>
+                        <input class="visuallyhidden focusable" type=checkbox id="{{task.id}}-option-minus" ng-model="task.down">
                         <label for="{{task.id}}-option-minus"></label>
                     </span>
         </fieldset>
@@ -24,13 +24,13 @@
             <legend class="option-title">Repeat</legend>
             <div class="task-controls tile-group repeat-days">
                 <!-- note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding -->
-                <button type="button" class="task-action-btn tile {#if task.repeat.su}active{/}" data-day='su' x-bind=click:toggleDay>Su</button>
-                <button type="button" class="task-action-btn tile {#if task.repeat.m}active{/}" data-day='m' x-bind=click:toggleDay>M</button>
-                <button type="button" class="task-action-btn tile {#if task.repeat.t}active{/}" data-day='t' x-bind=click:toggleDay>T</button>
-                <button type="button" class="task-action-btn tile {#if task.repeat.w}active{/}" data-day='w' x-bind=click:toggleDay>W</button>
-                <button type="button" class="task-action-btn tile {#if task.repeat.th}active{/}" data-day='th' x-bind=click:toggleDay>Th</button>
-                <button type="button" class="task-action-btn tile {#if task.repeat.f}active{/}" data-day='f' x-bind=click:toggleDay>F</button>
-                <button type="button" class="task-action-btn tile {#if task.repeat.s}active{/}" data-day='s' x-bind=click:toggleDay>S</button>
+                <button type="button" class="task-action-btn tile" ng-class="{active: task.repeat.su}" ng-click="task.repeat.su=!task.repeat.su">Su</button>
+                <button type="button" class="task-action-btn tile" ng-class="{active: task.repeat.m}" ng-click="task.repeat.m=!task.repeat.m">M</button>
+                <button type="button" class="task-action-btn tile" ng-class="{active: task.repeat.t}" ng-click="task.repeat.t=!task.repeat.t">T</button>
+                <button type="button" class="task-action-btn tile" ng-class="{active: task.repeat.w}" ng-click="task.repeat.w=!task.repeat.w">W</button>
+                <button type="button" class="task-action-btn tile" ng-class="{active: task.repeat.th}" ng-click="task.repeat.th=!task.repeat.th">Th</button>
+                <button type="button" class="task-action-btn tile" ng-class="{active: task.repeat.f}" ng-click="task.repeat.f=!task.repeat.f">F</button>
+                <button type="button" class="task-action-btn tile" ng-class="{active: task.repeat.s}" ng-click="task.repeat.s=!task.repeat.s">S</button>
             </div>
         </fieldset>
 
@@ -43,23 +43,22 @@
         <!-- if Reward, pricing -->
         <fieldset ng-show="task.type=='reward'"class="option-group option-short">
             <legend class="option-title">Price</legend>
-            <input class="option-content" size="16" type="number" min="0" value={task.value}>
+            <input class="option-content" size="16" type="number" min="0" ng-model="task.value">
             <div class="money input-suffix"><span class='shop_gold'></span></div>
         </fieldset>
 
         <!-- Advanced Options -->
         <span ng-hide="task.type=='reward'">
-            <p x-bind="clicktasksToggleAdvanced" class="option-title mega">Advanced Options</p>
-            <fieldset class="option-group advanced-option visuallyhidden">
+            <p><a ng-click="task.showAdvanced=!task.showAdvanced" class="option-title mega">Advanced Options</a></p>
+            <fieldset ng-show="task.showAdvanced" class="option-group advanced-option">
                 <legend class="option-title"><a class='priority-multiplier-help' href="https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17" target="_blank"><i class='icon-question-sign'></i></a> Difficulty</legend>
                 <div class="task-controls tile-group priority-multiplier" data-id="{{task.id}}">
-                    <button type="button" class="task-action-btn tile {#if equal(task.priority,'!')}active{/}{#unless task.priority}active{/}" data-priority='!' x-bind=clicktasksSetPriority>Easy</button>
-                    <button type="button" class="task-action-btn tile {#if equal(task.priority,'!!')}active{/}" data-priority='!!' x-bind=clicktasksSetPriority>Medium</button>
-                    <button type="button" class="task-action-btn tile {#if equal(task.priority,'!!!')}active{/}" data-priority='!!!' x-bind=clicktasksSetPriority>Hard</button>
-                </div>
+                    <button type="button" class="task-action-btn tile"  ng-click="task.priority='!'" ng-class="{active: task.priority=='!'}">Easy</button>
+                    <button type="button" class="task-action-btn tile"  ng-click="task.priority='!!'" ng-class="{active: task.priority=='!!'}">Medium</button>
+                    <button type="button" class="task-action-btn tile"  ng-click="task.priority='!!!'" ng-class="{active: task.priority=='!!!'}">Hard</button>                            </div>
             </fieldset>
         </span>
-        <button type=submit class="task-action-btn tile spacious" x-bind="clicktasksSaveAndClose">Save & Close</button>
+        <button type=submit class="task-action-btn tile spacious" ng-click="task.taskEdit=false">Save & Close</button>
     </form>
 </div>
 
