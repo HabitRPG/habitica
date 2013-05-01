@@ -184,6 +184,21 @@ module.exports.resetDom = (model) ->
 # Note, Google Analyatics giving beef if in this file. Moved back to index.html. It's ok, it's async - really the
 # syncronous requires up top are what benefit the most from this file.
 
+googleAnalytics = (model) ->
+  if model.flags.nodeEnv is 'production'
+    window._gaq = [["_setAccount", "UA-33510635-1"], ["_setDomainName", "habitrpg.com"], ["_trackPageview"]]
+    $.getScript ((if "https:" is document.location.protocol then "https://ssl" else "http://www")) + ".google-analytics.com/ga.js"
+
+amazonAffiliate = (model) ->
+  if model.get('_loggedIn') and (model.get('_user.flags.ads') != 'hide')
+    $.getScript('//wms.assoc-amazon.com/20070822/US/js/link-enhancer-common.js?tag=ha0d2-20').fail ->
+      $('body').append('<img src="//wms.assoc-amazon.com/20070822/US/img/noscript.gif?tag=ha0d2-20" alt="" />')
+
+googleCharts = ->
+  $.getScript "//www.google.com/jsapi", ->
+    # Specifying callback in options param is vital! Otherwise you get blank screen, see http://stackoverflow.com/a/12200566/362790
+    google.load "visualization", "1", {packages:["corechart"], callback: ->}
+
 module.exports.app = (appExports, model, app) ->
   loadJavaScripts(model)
   setupGrowlNotifications(model) unless model.get('_mobileDevice')
@@ -208,7 +223,7 @@ module.exports.app = (appExports, model, app) ->
     $.getScript('//checkout.stripe.com/v2/checkout.js')
     unless (model.get('_mobileDevice') is true)
       $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire")
-      # Google Charts
-      $.getScript "//www.google.com/jsapi", ->
-        # Specifying callback in options param is vital! Otherwise you get blank screen, see http://stackoverflow.com/a/12200566/362790
-        google.load "visualization", "1", {packages:["corechart"], callback: ->}
+      googleCharts()
+
+    googleAnalytics(model)
+    amazonAffiliate(model)
