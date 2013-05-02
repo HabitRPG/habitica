@@ -55,6 +55,10 @@
                 <app:pets:stable />
             </div>
 
+            <div class="tab-pane" id="profileTavern">
+                <app:game-pane:tavern />
+            </div>
+
             <div class="tab-pane" id="profileSettings">
                 {{#if _loggedIn}}
                     <app:settings:settings-pane />
@@ -62,4 +66,26 @@
             </div>
         </div>
 
+    </div>
+
+<tavern:>
+    <div class='row-fluid tavern-pane'>
+        <div class='span6'>
+            <img src='/img/npcs/daniel.png' />
+            <div class="popover fade right in" style="top: 0px; left: 135px; display: block;">
+                <div class="arrow"></div>
+                <h3 class="popover-title">Daniel Johansson</h3>
+                <div class="popover-content">Welcome to the Tavern! I'm the bar keep, <a target="_blank" href="http://www.kickstarter.com/profile/2014640723">Daniel</a>. If you would like to rest a while (going on vacation?), I can set you up at the inn for 10gp. While you're resting, your dailies won't hurt you. The minimum stay is 24h, but you can check out whenever you want. In the future, you may find other adventurers here, looking meet and mingle (LFG anyone?)</div>
+            </div>
+        </div>
+        <div class='span6'>
+            <form>
+                <fieldset>
+                    <label class="checkbox">
+                        <input type="checkbox" name="rest" checked={_user.flags.rest} >Rest in the inn
+                    </label>
+                </fieldset>
+            </form>
+
+        </div>
     </div>

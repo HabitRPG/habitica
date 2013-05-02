@@ -25,7 +25,6 @@ module.exports.app = (appExports, model) ->
     browser.setupTooltips(model)
 
   appExports.toggleGamePane = ->
-    model.set '_gamePane', !model.get('_gamePane')
-    $('[rel=tooltip]').tooltip()
-    $('[rel=popover]').popover()
+    model.set '_gamePane', !model.get('_gamePane'), ->
+      browser.setupTooltips()
 
