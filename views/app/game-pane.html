@@ -1,0 +1,65 @@
+<main:>
+    <div class="module full-width">
+
+        <span class='option-box pull-right wallet'>
+            <app:rewards:userTokens />
+        </span>
+
+        <ul class="nav nav-tabs game-tabs">
+            <li class="active"><a data-toggle='tab' data-target="#profileCustomize"><i class='icon-user'></i> Profile</a></li>
+            <li class='{#if _user.party.invitation}tab-notification{/}'>
+                <a data-toggle='tab' data-target="#profileParty"><i class='icon-heart'></i> Party</a>
+            </li>
+            {#if _user.flags.dropsEnabled}
+                <li><a data-toggle='tab' data-target="#profileInventory"><i class='icon-gift'></i> Inventory</a></li>
+                <li><a data-toggle='tab' data-target="#profileStable"><i class='icon-leaf'></i> Stable</a></li>
+            {/if}
+            <li><a data-toggle='tab' data-target="#profileTavern"><i class='icon-glass'></i> Tavern</a></li>
+            <li><a data-toggle='tab' data-target="#profileAchievements"><i class='icon-certificate'></i> Achievements</a></li>
+            <li><a data-toggle='tab' data-target="#profileSettings"><i class='icon-wrench'></i> Settings</a></li>
+        </ul>
+
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="profileCustomize">
+                <div class='row-fluid'>
+                    <div class='span6 border-right'>
+                        <app:avatar:customize />
+                    </div>
+                    <div class='span6'>
+                        <app:avatar:profile-edit />
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="profileParty">
+                <app:party:party />
+            </div>
+
+            <div class="tab-pane" id="profileAchievements">
+                <app:avatar:achievements />
+            </div>
+
+            <div class="tab-pane" id="profileInventory">
+                <div class='row-fluid'>
+                    <div class='span6 border-right'>
+                        <app:avatar:inventory />
+                    </div>
+                    <div class='span6'>
+                        <app:avatar:market />
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="profileStable">
+                <app:pets:stable />
+            </div>
+
+            <div class="tab-pane" id="profileSettings">
+                {{#if _loggedIn}}
+                    <app:settings:settings-pane />
+                {{/}}
+            </div>
+        </div>
+
+    </div>

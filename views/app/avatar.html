@@ -1,46 +1,6 @@
 <modals:>
     <app:modals:modal modalId="avatar-modal">
-        {#if _profileActiveMain}
-            <span class='option-box pull-right wallet'>
-                <app:rewards:userTokens />
-            </span>
-
-            {#with _user.preferences}
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle='tab' href="#profileCustomize">Avatar</a></li>
-                    <li><a data-toggle='tab' href="#profileEdit">Profile</a></li>
-                    {#if _user.flags.dropsEnabled}
-                        <li><a data-toggle='tab' data-target="#profileInventory">Inventory</a></li>
-                        <li><a data-toggle='tab' data-target="#profileMarket">Market</a></li>
-                        <li><a data-toggle='tab' data-target="#profileStable">Stable</a></li>
-                    {/if}
-                </ul>
-
-                <div class="tab-content">
-                    <div class="tab-pane active" id="profileCustomize">
-                        <app:avatar:customize />
-                    </div>
-
-                    <div class="tab-pane" id="profileEdit">
-                        <app:avatar:profile user="{_user}" main="true" />
-                    </div>
-
-                    <div class="tab-pane" id="profileInventory">
-                        <app:avatar:inventory />
-                    </div>
-
-                    <div class="tab-pane" id="profileMarket">
-                        <app:avatar:market />
-                    </div>
-
-                    <div class="tab-pane" id="profileStable">
-                        <app:pets:stable />
-                    </div>
-                </div>
-             {/}
-        {else}
-            <app:avatar:profile profile={_profileActive} />
-        {/}
+        <app:avatar:profile profile={_profileActive} />
         <@footer>
             <button data-dismiss="modal" class="btn btn-success">Ok</button>
         </@footer>
@@ -86,10 +46,6 @@
     </figure>
 
 <customize:>
-    <!-- user avatar preview -->
-    <figure class="avatar-window">
-        <app:avatar:avatar profile={_user} minimal="true" />
-    </figure>
 
     <!-- customization options -->
     {#with _user.preferences as :p}
@@ -140,79 +96,76 @@
         {/}
     {/}
 
+<profile-edit:>
+    <!--<a class='btn btn-success' x-bind="click:profileSave">Save</a>-->
+    <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak -->
+    <img class='pull-right' src="{_user.profile.imageUrl}" />
+    <div class="control-group">
+        <label class="control-label" for="profileImageUrl">Photo Url</label>
+        <div class="controls">
+            <input type="url" id="profileImageUrl" value="{_user.profile.imageUrl}" placeholder="Image Url"/>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="profileFullName">Full Name</label>
+        <div class="controls">
+            <input type="text" id="profileFullName" placeholder="Full Name" value="{_user.profile.name}" />
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="profileBlurb">Blurb</label>
+        <div class="controls">
+            <textarea id="profileBlurb" placeholder="Blurb" >{_user.profile.blurb}</textarea>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="profileWebsite">Websites</label>
+        <div class="controls">
+            <form x-bind="submit:profileAddWebsite">
+                <input type="url" id="profileWebsite" value="{_newProfileWebsite}" placeholder="Add Website"/>
+            </form>
+        </div>
+        <ul>
+            <!-- would prefer if there were and index in #each, instead using data-website to search with indexOf -->
+            {#each _user.profile.websites as :website}
+            <li>{:website} <a data-website="{:website}" x-bind="click:profileRemoveWebsite"><i class='icon-remove'></i></a></li>
+            {/}
+        </ul>
+
+    </div>
+
 <profile:>
     <div class='row-fluid'>
-        <div class='span6 well'>
-            {#if and(_profileEditing, _profileActiveMain)}
-                <a class='btn btn-success' x-bind="click:profileSave">Save</a>
-                <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak -->
-                <div class="control-group">
-                    <label class="control-label" for="profileImageUrl">Photo Url</label>
-                    <div class="controls">
-                        <input type="url" id="profileImageUrl" value="{_user.profile.imageUrl}" placeholder="Image Url"/>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label" for="profileFullName">Full Name</label>
-                    <div class="controls">
-                        <input type="text" id="profileFullName" placeholder="Full Name" value="{_user.profile.name}" />
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label" for="profileBlurb">Blurb</label>
-                    <div class="controls">
-                        <textarea id="profileBlurb" placeholder="Blurb" >{_user.profile.blurb}</textarea>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label" for="profileWebsite">Websites</label>
-                    <div class="controls">
-                        <form x-bind="submit:profileAddWebsite">
-                            <input type="url" id="profileWebsite" value="{_newProfileWebsite}" placeholder="Add Website"/>
-                        </form>
-                    </div>
-                    <ul>
-                        <!-- would prefer if there were and index in #each, instead using data-website to search with indexOf -->
-                        {#each _user.profile.websites as :website}
-                        <li>{:website} <a data-website="{:website}" x-bind="click:profileRemoveWebsite"><i class='icon-remove'></i></a></li>
-                        {/}
-                    </ul>
-
-                </div>
-                <a class='btn btn-success' x-bind="click:profileSave">Save</a>
-            {else}
-                <h3>
-                    {#if _profileActive.profile.name}
-                        {_profileActive.profile.name}
-                    {else}
-                        {username(_profileActive.auth, _profileActive.profile.name)}
+        <div class='span6'>
+            <h3>
+                {#if _profileActive.profile.name}
+                    {_profileActive.profile.name}
+                {else}
+                    {username(_profileActive.auth, _profileActive.profile.name)}
+                {/}
+                {#if _profileActiveMain}<a class='btn pull-right' x-bind="click:profileEdit">Edit</a>{/}
+            </h3>
+            {#if _profileActive.profile.imageUrl}
+                <img src="{_profileActive.profile.imageUrl}" />
+            {/}
+            {#if _profileActive.profile.blurb}
+                <p>{_profileActive.profile.blurb}</p>
+            {/}
+            {#if _profileActive.profile.websites}
+                <ul>
+                    {#each _profileActive.profile.websites as :website}
+                        <li>{:website}</li>
                     {/}
-                    {#if _profileActiveMain}<a class='btn pull-right' x-bind="click:profileEdit">Edit</a>{/}
-                </h3>
-                {#if _profileActive.profile.imageUrl}
-                    <img src="{@user.profile.imageUrl}" />
-                {/}
-                {#if _profileActive.profile.blurb}
-                    <p>{_profileActive.profile.blurb}</p>
-                {/}
-                {#if _profileActive.profile.websites}
-                    <ul>
-                        {#each _profileActive.profile.websites as :website}
-                            <li>{:website}</li>
-                        {/}
-                    </ul>
-                {/}
+                </ul>
             {/}
         </div>
-
         <div class='span6'>
             <h3>Achievements</h3>
             <app:avatar:achievements />
         </div>
-
     </div>
 
 <rest:>

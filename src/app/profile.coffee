@@ -22,6 +22,10 @@ module.exports.app = (appExports, model) ->
   appExports.profileChangeActive = (e, el) ->
     uid = $(el).attr('data-uid')
     model.ref '_profileActive', model.at("users.#{uid}")
-    model.set '_profileActiveMain', user.get('id') is uid
     browser.setupTooltips(model)
+
+  appExports.toggleGamePane = ->
+    model.set '_gamePane', !model.get('_gamePane')
+    $('[rel=tooltip]').tooltip()
+    $('[rel=popover]').popover()
 
