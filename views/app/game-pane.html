@@ -16,7 +16,9 @@
             {/if}
             <li><a data-toggle='tab' data-target="#profileTavern"><i class='icon-glass'></i> Tavern</a></li>
             <li><a data-toggle='tab' data-target="#profileAchievements"><i class='icon-certificate'></i> Achievements</a></li>
-            <li><a data-toggle='tab' data-target="#profileSettings"><i class='icon-wrench'></i> Settings</a></li>
+            {{#if _loggedIn}}
+                <li><a data-toggle='tab' data-target="#profileSettings"><i class='icon-wrench'></i> Settings</a></li>
+            {{/}}
         </ul>
 
         <div class="tab-content">
