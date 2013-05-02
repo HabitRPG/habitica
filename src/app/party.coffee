@@ -72,6 +72,7 @@ module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb)
 module.exports.app = (appExports, model) ->
   character = require './character'
   browser = require './browser'
+  helpers = require './helpers'
 
   user = model.at('_user')
 
@@ -152,3 +153,15 @@ module.exports.app = (appExports, model) ->
 #      selfQ.subscribe (err, u) ->
 #        model.ref '_user', u
 #        browser.resetDom model
+
+  appExports.partySendChat = ->
+    chat = model.at '_party.chat'
+    chat.unshift
+      text: model.get('_chatMessage')
+      user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
+      timestamp: +new Date
+
+    # keep a max messages cap
+    chat.remove 200
+
+    model.set '_chatMessage', ''

@@ -24,7 +24,7 @@ removeWhitespace = (str) ->
   return '' unless str
   str.replace /\s/g, ''
 
-username = (auth, override) ->
+username = module.exports.username = (auth, override) ->
   #some people define custom profile name in Avatar -> Profile
   return override if override?
 
@@ -155,5 +155,7 @@ viewHelpers = (view) ->
   view.fn 'ownsPet', (pet, userPets) -> !!userPets && userPets.indexOf(pet) != -1
 
   view.fn 'count', (arr) -> arr?.length or 0
+
+  view.fn 'friendlyTimestamp', (timestamp) -> moment(timestamp).format('MM/DD h:mm:ss a')
 
 module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }
