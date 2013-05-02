@@ -129,27 +129,21 @@
 
 <menu:>
     <div class="user-menu">
-        <table>
-            <tr style='vertical-align:top;'>
-                <td>
-                    <a class="pull-left btn {#if _gamePane}active{/}" style='cursor:pointer' x-bind='click:toggleGamePane' rel=tooltip title="Toggle Tasks / Game Options" data-placement=bottom>
-                        {#if _user.party.invitation}<i class='icon-bell'></i> {/}<img src="/favicon.ico" />
-                    </a>
-                </td>
-                <td>
-                    {{#unless _loggedIn}}
-                        <button class="task-action-btn tile solid" style='cursor:pointer' data-target="#login-modal" data-toggle="modal">Login / Register</button>
-                    {{else}}
-                        <ul class="nav site-nav">
-                            <li class="flyout">
-                                <h1 class="task-action-btn tile solid user-reporter">{{username(_user.auth, _user.profile.name)}}</h1>
-                                <ul class="flyout-content nav stacked">
-                                    <li><a class="task-action-btn tile solid" href="/logout">Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    {{/}}
-                </td>
-            </tr>
-        </table>
+        {{#unless _loggedIn}}
+            <button class="task-action-btn tile solid" style='cursor:pointer' data-target="#login-modal" data-toggle="modal">Login / Register</button>
+        {{else}}
+            <ul class="nav site-nav">
+                <li class="flyout">
+                    <h1 class="task-action-btn tile solid user-reporter">{#if _user.party.invitation}<i class='icon-bell'></i> {/}{{username(_user.auth, _user.profile.name)}}</h1>
+                    <ul class="flyout-content nav stacked">
+                        <li>
+                            <a class="task-action-btn tile solid" x-bind='click:toggleGamePane'>
+                                {#if _gamePane}Tasks{else}{#if _user.party.invitation}<i class='icon-bell'></i> {/}Options{/}
+                            </a>
+                        </li>
+                        <li><a class="task-action-btn tile solid" href="/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        {{/}}
     </div>
