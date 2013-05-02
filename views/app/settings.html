@@ -134,11 +134,11 @@
         {{else}}
             <ul class="nav site-nav">
                 <li class="flyout">
-                    <h1 class="task-action-btn tile solid user-reporter">{#if _user.party.invitation}<i class='icon-bell'></i> {/}{{username(_user.auth, _user.profile.name)}}</h1>
+                    <h1 class="task-action-btn tile solid user-reporter">{{username(_user.auth, _user.profile.name)}}</h1>
                     <ul class="flyout-content nav stacked">
                         <li>
                             <a class="task-action-btn tile solid" x-bind='click:toggleGamePane'>
-                                {#if _gamePane}Tasks{else}{#if _user.party.invitation}<i class='icon-bell'></i> {/}Options{/}
+                                {#if _gamePane}Tasks{else}Options{/}
                             </a>
                         </li>
                         <li><a class="task-action-btn tile solid" href="/logout">Logout</a></li>
@@ -146,4 +146,15 @@
                 </li>
             </ul>
         {{/}}
+
+        <!-- party invitation notification -->
+        {#if _user.party.invitation}
+            <a style='cursor:pointer;' x-bind="click:gotoPartyChat"><i class='icon-user'></i></a>
+        {/}
+
+        <!-- party chat notification -->
+        {#if newChatMessages(_party.chat,_user.party.lastMessageSeen)}
+            <a style='cursor:pointer;' x-bind="click:gotoPartyChat"><i class='icon-comment' rel='tooltip' title='New Party Messages'></i></a>
+        {/}
+
     </div>

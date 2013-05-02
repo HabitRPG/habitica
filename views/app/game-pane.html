@@ -8,7 +8,7 @@
         <ul class="nav nav-tabs game-tabs">
             <li class="active"><a data-toggle='tab' data-target="#profileCustomize"><i class='icon-user'></i> Profile</a></li>
             <li class='{#if _user.party.invitation}tab-notification{/}'>
-                <a data-toggle='tab' data-target="#profileParty"><i class='icon-heart'></i> Party</a>
+                <a data-toggle='tab' data-target="#profileParty" id='party-tab-link'><i class='icon-heart'></i> Party</a>
             </li>
             {#if _user.flags.dropsEnabled}
                 <li><a data-toggle='tab' data-target="#profileInventory"><i class='icon-gift'></i> Inventory</a></li>

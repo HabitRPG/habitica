@@ -69,7 +69,7 @@ module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb)
       membersQ = model.query('users').party(members)
       return finished [partyQ, membersQ, selfQ], ['_party', '_partyMembers', '_user']
 
-module.exports.app = (appExports, model) ->
+module.exports.app = (appExports, model, app) ->
   character = require './character'
   browser = require './browser'
   helpers = require './helpers'
@@ -154,14 +154,27 @@ module.exports.app = (appExports, model) ->
 #        model.ref '_user', u
 #        browser.resetDom model
 
+  ###
+    Chat Functionality
+  ###
+
   appExports.partySendChat = ->
     chat = model.at '_party.chat'
     chat.unshift
+      id: model.id()
       text: model.get('_chatMessage')
       user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
       timestamp: +new Date
+    , -> model.set('_chatMessage', '')
+    model.set '_user.party.lastMessageSeen', chat.get()[0].id
+    chat.remove 200 # keep a max messages cap
 
-    # keep a max messages cap
-    chat.remove 200
+  app.on 'render', (ctx) ->
+    $('#party-tab-link').on 'shown', (e) ->
+      messages = model.get('_party.chat')
+      return false unless messages?.length > 0
+      model.set '_user.party.lastMessageSeen', messages[0].id
 
-    model.set '_chatMessage', ''
+  appExports.gotoPartyChat = ->
+    model.set '_gamePane', true, ->
+      $('#party-tab-link').tab('show')

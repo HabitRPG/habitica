@@ -40,11 +40,8 @@
     <div id="exp-chart" style="display:none;"></div>
 
     <div id=main class="grid">
-    {#if _gamePane}
-        <app:game-pane:main />
-    {else}
-        <app:tasks:taskLists />
-    {/}
+        <div class='{#if _gamePane}hidden{/}'><app:tasks:taskLists /></div>
+        <div class='{#unless _gamePane}hidden{/}'><app:game-pane:main /></div>
     </div>
   </div>
   <app:footer:footer />
