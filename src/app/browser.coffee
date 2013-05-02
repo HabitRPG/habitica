@@ -53,9 +53,10 @@ setupSortable = (model) ->
           # or the item's id property
           model.at("_#{type}List").pass(ignore: domId).move {id}, to
 
-setupTooltips = module.exports.setupTooltips = (model) ->
+setupTooltips = module.exports.setupTooltips = ->
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
+  $('.popover-auto-show').popover('show')
 
   $('.priority-multiplier-help').popover
     title: "How difficult is this task?"

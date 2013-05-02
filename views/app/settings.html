@@ -1,55 +1,48 @@
-<modals:>
-    {{#if _loggedIn}}
-        <app:modals:modal modalId="settings-modal" header="Settings">
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#" data-target="#settings-settings">General</a></li>
-                <li><a data-toggle="tab" href="#" data-target="#settings-api">API</a></li>
-            </ul>
+<settings-pane:>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#" data-target="#settings-settings">General</a></li>
+        <li><a data-toggle="tab" href="#" data-target="#settings-api">API</a></li>
+    </ul>
 
-            <div class="tab-content">
-                <div class="tab-pane active personal-options" id="settings-settings">
-                    <h4>Custom Day Start</h4>
-                    <div class="option-group option-short">
-                        <input class="option-content option-time" type="number" min=0 max=24 value={_user.preferences.dayStart}>
-                        <span class="input-suffix">:00 (24h clock)</span>
-                    </div>
-                    <div>
-                        <small>Habit defaults to check and reset your dailies at midnight each day. You can customize that here (Enter number between 0 and 24).</small>
-                    </div>
-
-                    <hr/>
-                    <h4>Misc</h4>
-                    <button x-bind="click:toggleHeader" class="btn">{#if _user.preferences.hideHeader}Show Header{else}Hide Header{/}</button>
-                    <br/><br/>
-                    <app:avatar:rest />
-
-                    {{#if _user.auth.local}}
-                        <hr/>
-                        <h4>Change Password</h4>
-                        <derby-auth:changePassword />
-                    {{/}}
-
-                    <hr/>
-                    <h4>Danger Zone</h4>
-                    <a class='btn btn-danger' data-target="#reset-modal" data-toggle="modal" rel=tooltip title="Resets your entire account (dangerous).">Reset</a>
-                    &nbsp;<a class='btn btn-danger' data-target="#restore-modal" data-toggle="modal" rel=tooltip title="Restores attributes to your character.">Restore</a>
-                    &nbsp;<a class='btn btn-danger' data-target="#delete-modal" data-toggle="modal" rel=tooltip title="Delete your account.">Delete</a>
-                </div>
-                <div class="tab-pane" id="settings-api">
-                    <small>Copy these for use in third party applications.</small>
-                    <h6>User ID</h6>
-                    <pre class=prettyprint>{_user.id}</pre>
-
-                    <h6>API Token</h6>
-                    <pre class=prettyprint>{_user.apiToken}</pre>
-                </div>
+    <div class="tab-content">
+        <div class="tab-pane active personal-options" id="settings-settings">
+            <h4>Custom Day Start</h4>
+            <div class="option-group option-short">
+                <input class="option-content option-time" type="number" min=0 max=24 value={_user.preferences.dayStart}>
+                <span class="input-suffix">:00 (24h clock)</span>
+            </div>
+            <div>
+                <small>Habit defaults to check and reset your dailies at midnight each day. You can customize that here (Enter number between 0 and 24).</small>
             </div>
 
-            <@footer>
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-            </@footer>
-        </app:modals:modal>
+            <hr/>
+            <h4>Misc</h4>
+            <button x-bind="click:toggleHeader" class="btn">{#if _user.preferences.hideHeader}Show Header{else}Hide Header{/}</button>
 
+            {{#if _user.auth.local}}
+            <hr/>
+            <h4>Change Password</h4>
+            <derby-auth:changePassword />
+            {{/}}
+
+            <hr/>
+            <h4>Danger Zone</h4>
+            <a class='btn btn-danger' data-target="#reset-modal" data-toggle="modal" rel=tooltip title="Resets your entire account (dangerous).">Reset</a>
+            &nbsp;<a class='btn btn-danger' data-target="#restore-modal" data-toggle="modal" rel=tooltip title="Restores attributes to your character.">Restore</a>
+            &nbsp;<a class='btn btn-danger' data-target="#delete-modal" data-toggle="modal" rel=tooltip title="Delete your account.">Delete</a>
+        </div>
+        <div class="tab-pane" id="settings-api">
+            <small>Copy these for use in third party applications.</small>
+            <h6>User ID</h6>
+            <pre class=prettyprint>{_user.id}</pre>
+
+            <h6>API Token</h6>
+            <pre class=prettyprint>{_user.apiToken}</pre>
+        </div>
+    </div>
+
+<modals:>
+    {{#if _loggedIn}}
         <app:modals:modal modalId="reset-modal" header="Reset">
             <p>This resets your entire account - your tasks will be deleted and your character will start over.</p>
             <p>This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.</p>
@@ -137,14 +130,17 @@
 <menu:>
     <div class="user-menu">
         {{#unless _loggedIn}}
-            <button class="task-action-btn tile solid" href="#" data-target="#login-modal" data-toggle="modal">Login / Register</button>
+            <button class="task-action-btn tile solid" style='cursor:pointer' data-target="#login-modal" data-toggle="modal">Login / Register</button>
         {{else}}
             <ul class="nav site-nav">
                 <li class="flyout">
                     <h1 class="task-action-btn tile solid user-reporter">{#if _user.party.invitation}<i class='icon-bell'></i> {/}{{username(_user.auth, _user.profile.name)}}</h1>
                     <ul class="flyout-content nav stacked">
-                        <li><a class="task-action-btn tile solid" data-target="#settings-modal" data-toggle="modal">Settings</a></li>
-                        <li><a class="task-action-btn tile solid" data-target="#party-modal" data-toggle="modal">{#if _user.party.invitation}<i class='icon-bell'></i> {/}Party</a></li>
+                        <li>
+                            <a class="task-action-btn tile solid" x-bind='click:toggleGamePane'>
+                                {#if _gamePane}Tasks{else}{#if _user.party.invitation}<i class='icon-bell'></i> {/}Options{/}
+                            </a>
+                        </li>
                         <li><a class="task-action-btn tile solid" href="/logout">Logout</a></li>
                     </ul>
                 </li>

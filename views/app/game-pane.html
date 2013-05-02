@@ -1,0 +1,149 @@
+<main:>
+    <div class="module full-width">
+
+        <span class='option-box pull-right wallet'>
+            <app:rewards:userTokens />
+        </span>
+
+        <ul class="nav nav-tabs game-tabs">
+            <li class="active"><a data-toggle='tab' data-target="#profileCustomize"><i class='icon-user'></i> Profile</a></li>
+            <li class='{#if _user.party.invitation}tab-notification{/}'>
+                <a data-toggle='tab' data-target="#profileParty"><i class='icon-heart'></i> Party</a>
+            </li>
+            {#if _user.flags.dropsEnabled}
+                <li><a data-toggle='tab' data-target="#profileInventory"><i class='icon-gift'></i> Inventory</a></li>
+                <li><a data-toggle='tab' data-target="#profileStable"><i class='icon-leaf'></i> Stable</a></li>
+            {/if}
+            <li><a data-toggle='tab' data-target="#profileTavern"><i class='icon-glass'></i> Tavern</a></li>
+            <li><a data-toggle='tab' data-target="#profileAchievements"><i class='icon-certificate'></i> Achievements</a></li>
+            {{#if _loggedIn}}
+                <li><a data-toggle='tab' data-target="#profileSettings"><i class='icon-wrench'></i> Settings</a></li>
+            {{/}}
+        </ul>
+
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="profileCustomize">
+                <div class='row-fluid'>
+                    <div class='span6 border-right'>
+                        <app:avatar:customize />
+                    </div>
+                    <div class='span6'>
+                        <app:avatar:profile-edit />
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="profileParty">
+                <app:party:party />
+            </div>
+
+            <div class="tab-pane" id="profileAchievements">
+                <app:avatar:achievements />
+            </div>
+
+            <div class="tab-pane" id="profileInventory">
+                <div class='row-fluid'>
+                    <div class='span6 border-right'>
+                        <h2>Inventory</h2>
+                        <app:avatar:inventory />
+                    </div>
+                    <div class='span6'>
+                        <h2>Market</h2>
+                        <app:game-pane:market />
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="profileStable">
+                <app:pets:stable />
+            </div>
+
+            <div class="tab-pane" id="profileTavern">
+                <app:game-pane:tavern />
+            </div>
+
+            <div class="tab-pane" id="profileSettings">
+                {{#if _loggedIn}}
+                    <app:settings:settings-pane />
+                {{/}}
+            </div>
+        </div>
+
+    </div>
+
+<tavern:>
+    <div class='row-fluid tavern-pane'>
+        <div class='span6'>
+            <img src='/img/npcs/daniel.png' />
+            <div class="popover fade right in" style="top: 0px; left: 135px; display: block;">
+                <div class="arrow"></div>
+                <h3 class="popover-title">Daniel Johansson</h3>
+                <div class="popover-content">Welcome to the Tavern! I'm the bar keep, <a target="_blank" href="http://www.kickstarter.com/profile/2014640723">Daniel</a>. If you would like to rest a while (going on vacation?), I can set you up at the inn for 10gp. While you're resting, your dailies won't hurt you. The minimum stay is 24h, but you can check out whenever you want. In the future, you may find other adventurers here, looking meet and mingle (LFG anyone?)</div>
+            </div>
+        </div>
+        <div class='span6'>
+            <form>
+                <fieldset>
+                    <label class="checkbox">
+                        <input type="checkbox" name="rest" checked={_user.flags.rest} >Rest in the inn
+                    </label>
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+
+<market:>
+
+    <!-- pets pane -->
+    <div class="tab-pane pet-grid" id="market-tab">
+        <img src='/img/npcs/alex.png' />
+        <div class="popover fade right in" style="top: 0px; left: 170px; display: block;">
+            <div class="arrow"></div>
+            <h3 class="popover-title">Alexander Augustin</h3>
+            <div class="popover-content">Welcome to the Market! I'm the merchant, <a target="_blank" href="http://www.kickstarter.com/profile/523661924">Alexander</a>. Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!</div>
+        </div>
+
+        <h4>Eggs</h4>
+        {#with _items.pets as :egg}
+        <table>
+            <tr>
+                {#with :egg[0]}<app:pets:egg />{/}
+                {#with :egg[1]}<app:pets:egg />{/}
+                {#with :egg[2]}<app:pets:egg />{/}
+                {#with :egg[3]}<app:pets:egg />{/}
+            </tr>
+            <tr>
+                {#with :egg[4]}<app:pets:egg />{/}
+                {#with :egg[5]}<app:pets:egg />{/}
+                {#with :egg[6]}<app:pets:egg />{/}
+                {#with :egg[7]}<app:pets:egg />{/}
+            </tr>
+            <tr>
+                {#with :egg[8]}<app:pets:egg />{/}
+            </tr>
+        </table>
+        {/}
+        <h4>Hatching Potions</h4>
+        {#with _items.hatchingPotions as :hatchingPotion}
+        <table>
+            <tr>
+                {#with :hatchingPotion[0]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[1]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[2]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[3]}<app:pets:hatchingPotion />{/}
+            </tr>
+            <tr>
+                {#with :hatchingPotion[4]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[5]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[6]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[7]}<app:pets:hatchingPotion />{/}
+            </tr>
+            <tr>
+                {#with :hatchingPotion[8]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[9]}<app:pets:hatchingPotion />{/}
+            </tr>
+        </table>
+        {/}
+    </div>

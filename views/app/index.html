@@ -8,6 +8,7 @@
 <import: src="settings">
 <import: src="party">
 <import: src="pets">
+<import: src="game-pane">
 
 <Title:>
   HabitRPG | Gamify Your Life
@@ -22,13 +23,13 @@
 <Header:>
   <app:modals:modals />
   <ui:connectionAlert>
-  <app:alerts:newStuff />
   <div class="header-wrap">
 
     {#if _undo}<a x-bind="click:undo" class='label undo-button'>Undo</a>{/}
 
     <app:settings:menu />
     <app:header:header />
+    <app:alerts:hiding-bailey />
   </div>
 
 <Body:>
@@ -36,9 +37,14 @@
   <div id="notification-area"></div>
   <div id="wrap">
     <app:alerts:flash />
-      <div id="exp-chart" style="display:none;"></div>
+    <div id="exp-chart" style="display:none;"></div>
+
     <div id=main class="grid">
-      <app:tasks:taskLists />
+    {#if _gamePane}
+        <app:game-pane:main />
+    {else}
+        <app:tasks:taskLists />
+    {/}
     </div>
   </div>
   <app:footer:footer />

@@ -152,7 +152,7 @@ viewHelpers = (view) ->
       classes += ' color-best'
     return classes
 
-  view.fn 'ownsPet', (pet, userPets) -> userPets?.indexOf(pet) != -1
+  view.fn 'ownsPet', (pet, userPets) -> !!userPets && userPets.indexOf(pet) != -1
 
   view.fn 'count', (arr) -> arr?.length or 0
 

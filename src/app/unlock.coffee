@@ -47,10 +47,8 @@ module.exports.app = (appExports, model) ->
 
   user.on 'set', 'flags.partyEnabled', (after, before) ->
     return if user.get('party.current') or alreadyShown(before,after)
-    $('.user-menu').popover('destroy') #remove previous popovers
     html = """
-           <img src='/img/party-unlocked.png' style='float:right;padding:5px;' />
-           Be social, join a party and play Habit with your friends! You'll be better at your habits with accountability partners. LFG anyone?
+           Be social, join a party and play Habit with your friends! You'll be better at your habits with accountability partners. Click User -> Options -> Party, and follow the instructions. LFG anyone?
            """
     showPopover '.user-menu', 'Party System', html, 'bottom'
 

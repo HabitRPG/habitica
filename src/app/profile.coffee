@@ -19,9 +19,18 @@ module.exports.app = (appExports, model) ->
     sites.splice(i,1)
     user.set 'profile.websites', sites
 
+
+  toggleGamePane = ->
+    model.set '_gamePane', !model.get('_gamePane'), ->
+      browser.setupTooltips()
+
   appExports.profileChangeActive = (e, el) ->
     uid = $(el).attr('data-uid')
-    model.ref '_profileActive', model.at("users.#{uid}")
-    model.set '_profileActiveMain', user.get('id') is uid
-    browser.setupTooltips(model)
+    if uid is model.get('_userId') # clicked self
+      toggleGamePane()
+    else
+      model.ref '_profileActive', model.at("users.#{uid}")
+      $('#avatar-modal').modal('show')
+
+  appExports.toggleGamePane = -> toggleGamePane()
 
