@@ -34,3 +34,6 @@ module.exports.app = (appExports, model) ->
 
   appExports.toggleGamePane = -> toggleGamePane()
 
+  appExports.toggleResting = ->
+    model.set '_user.flags.rest', !model.get('_user.flags.rest')
+
