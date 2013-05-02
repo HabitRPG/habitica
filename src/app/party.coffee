@@ -39,6 +39,7 @@ module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb)
       return page.redirect('/logout') #delete model.session.userId
 
     finished = (descriptors, paths) ->
+      descriptors.push 'tavern'; paths.push '_tavern'
       model.subscribe.apply model, descriptors.concat ->
         [err, refs] = [arguments[0], arguments]
         return next(err) if err
@@ -69,9 +70,10 @@ module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb)
       membersQ = model.query('users').party(members)
       return finished [partyQ, membersQ, selfQ], ['_party', '_partyMembers', '_user']
 
-module.exports.app = (appExports, model) ->
+module.exports.app = (appExports, model, app) ->
   character = require './character'
   browser = require './browser'
+  helpers = require './helpers'
 
   user = model.at('_user')
 
@@ -152,3 +154,35 @@ module.exports.app = (appExports, model) ->
 #      selfQ.subscribe (err, u) ->
 #        model.ref '_user', u
 #        browser.resetDom model
+
+  ###
+    Chat Functionality
+  ###
+
+  sendChat = (path, input) ->
+    chat = model.at path
+    chat.unshift
+      id: model.id()
+      text: model.get(input)
+      user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
+      timestamp: +new Date
+    model.set(input, '')
+    chat.remove 200 # keep a max messages cap
+
+  appExports.partySendChat = ->
+    sendChat('_party.chat', '_chatMessage')
+    model.set '_user.party.lastMessageSeen', model.get('_party.chat')[0].id
+
+  appExports.tavernSendChat = ->
+    model.setNull '_tavern.chat', {messages:[]} #we can remove this later, first time run only
+    sendChat('_tavern.chat.messages', '_tavernMessage')
+
+  app.on 'render', (ctx) ->
+    $('#party-tab-link').on 'shown', (e) ->
+      messages = model.get('_party.chat')
+      return false unless messages?.length > 0
+      model.set '_user.party.lastMessageSeen', messages[0].id
+
+  appExports.gotoPartyChat = ->
+    model.set '_gamePane', true, ->
+      $('#party-tab-link').tab('show')

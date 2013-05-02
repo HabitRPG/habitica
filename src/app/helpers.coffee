@@ -156,4 +156,10 @@ viewHelpers = (view) ->
 
   view.fn 'count', (arr) -> arr?.length or 0
 
+  view.fn 'friendlyTimestamp', (timestamp) -> moment(timestamp).format('MM/DD h:mm:ss a')
+
+  view.fn 'newChatMessages', (messages, lastMessageSeen) ->
+    return false unless messages?.length > 0
+    messages && messages[0].id != lastMessageSeen
+
 module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }

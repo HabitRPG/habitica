@@ -7,9 +7,7 @@
 
         <ul class="nav nav-tabs game-tabs">
             <li class="active"><a data-toggle='tab' data-target="#profileCustomize"><i class='icon-user'></i> Profile</a></li>
-            <li class='{#if _user.party.invitation}tab-notification{/}'>
-                <a data-toggle='tab' data-target="#profileParty"><i class='icon-heart'></i> Party</a>
-            </li>
+            <li><a data-toggle='tab' data-target="#profileParty" id='party-tab-link'><i class='icon-heart'></i> Party</a></li>
             {#if _user.flags.dropsEnabled}
                 <li><a data-toggle='tab' data-target="#profileInventory"><i class='icon-gift'></i> Inventory</a></li>
                 <li><a data-toggle='tab' data-target="#profileStable"><i class='icon-leaf'></i> Stable</a></li>
@@ -73,24 +71,32 @@
     </div>
 
 <tavern:>
-    <div class='row-fluid tavern-pane'>
-        <div class='span6'>
-            <img src='/img/npcs/daniel.png' />
-            <div class="popover fade right in" style="top: 0px; left: 135px; display: block;">
-                <div class="arrow"></div>
-                <h3 class="popover-title">Daniel Johansson</h3>
-                <div class="popover-content">Welcome to the Tavern! I'm the bar keep, <a target="_blank" href="http://www.kickstarter.com/profile/2014640723">Daniel</a>. If you would like to rest a while (going on vacation?), I can set you up at the inn for 10gp. While you're resting, your dailies won't hurt you. The minimum stay is 24h, but you can check out whenever you want. In the future, you may find other adventurers here, looking meet and mingle (LFG anyone?)</div>
+    <div class='row-fluid'>
+        <div class='span6 border-right'>
+            <div class='tavern-pane'>
+                <img src='/img/npcs/daniel.png' />
+                <div class="popover fade right in" style="top: 0px; left: 135px; display: block;">
+                    <div class="arrow"></div>
+                    <h3 class="popover-title">Daniel Johansson</h3>
+                    <div class="popover-content">Welcome to the Tavern! I'm <a target="_blank" href="http://www.kickstarter.com/profile/2014640723">Daniel</a>, the bar keep. If you want to rest a while (going on vacation?), I'll set you up at the inn - dailies won't hurt you while you're resting. The minimum stay is 24h, but you can check out any time. Stay a while & meet the clientele.</div>
+                </div>
             </div>
+            <button x-bind="click:toggleResting" class='btn btn-large btn-success {#if _user.flags.rest}active{/}'>{#if _user.flags.rest}Check Out of Inn{else}Rest In The Inn{/}</button>
         </div>
         <div class='span6'>
-            <form>
-                <fieldset>
-                    <label class="checkbox">
-                        <input type="checkbox" name="rest" checked={_user.flags.rest} >Rest in the inn
-                    </label>
-                </fieldset>
+            <h3>Tavern Talk & LFG</h3>
+            <form x-bind='submit:tavernSendChat'>
+                <textarea>{_tavernMessage}</textarea><br/>
+                <input class=btn type=submit value=Submit />
             </form>
-
+            <ul class='unstyled'>
+                {#each _tavern.chat.messages as :message}
+                    <li>
+                        <hr/>
+                        <span class='badge'>{:message.user}</span> {:message.text} - <span class='muted'>{friendlyTimestamp(:message.timestamp)}</span>
+                    </li>
+                {/}
+            </ul>
         </div>
     </div>
 
