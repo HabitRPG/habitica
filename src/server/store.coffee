@@ -8,6 +8,7 @@ Setup read / write access
 module.exports.customAccessControl = (store) ->
   userAccess(store)
   partySystem(store)
+  tavernSystem(store)
   REST(store)
 
 ###
@@ -115,3 +116,18 @@ partySystem = (store) ->
 #    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
     return accept(false) if derbyAuth.bustedSession(@)
     accept(true)
+
+###
+  LFG / tavern system
+###
+tavernSystem = (store) ->
+  store.readPathAccess 'tavern', ->
+    accept = arguments[arguments.length-2]
+    return accept(false) if derbyAuth.bustedSession(@)
+    accept(true)
+
+  store.writeAccess "*", "tavern.*", ->
+    accept = arguments[arguments.length-2]
+    return accept(false) if derbyAuth.bustedSession(@)
+    accept(true)
+

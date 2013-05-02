@@ -39,6 +39,7 @@ module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb)
       return page.redirect('/logout') #delete model.session.userId
 
     finished = (descriptors, paths) ->
+      descriptors.push 'tavern'; paths.push '_tavern'
       model.subscribe.apply model, descriptors.concat ->
         [err, refs] = [arguments[0], arguments]
         return next(err) if err
@@ -158,16 +159,23 @@ module.exports.app = (appExports, model, app) ->
     Chat Functionality
   ###
 
-  appExports.partySendChat = ->
-    chat = model.at '_party.chat'
+  sendChat = (path, input) ->
+    chat = model.at path
     chat.unshift
       id: model.id()
-      text: model.get('_chatMessage')
+      text: model.get(input)
       user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
       timestamp: +new Date
-    , -> model.set('_chatMessage', '')
-    model.set '_user.party.lastMessageSeen', chat.get()[0].id
+    model.set(input, '')
     chat.remove 200 # keep a max messages cap
+
+  appExports.partySendChat = ->
+    sendChat('_party.chat', '_chatMessage')
+    model.set '_user.party.lastMessageSeen', model.get('_party.chat')[0].id
+
+  appExports.tavernSendChat = ->
+    model.setNull '_tavern.chat', {messages:[]} #we can remove this later, first time run only
+    sendChat('_tavern.chat.messages', '_tavernMessage')
 
   app.on 'render', (ctx) ->
     $('#party-tab-link').on 'shown', (e) ->

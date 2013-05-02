@@ -27,8 +27,10 @@
                 </form>
                <ul class='unstyled'>
                {#each _party.chat as :message}
-                   <hr/>
-                   <li><span class='badge'>{:message.user}</span> {:message.text} - <span class='muted'>{friendlyTimestamp(:message.timestamp)}</span></li>
+                   <li>
+                       <hr/>
+                       <span class='badge'>{:message.user}</span> {:message.text} - <span class='muted'>{friendlyTimestamp(:message.timestamp)}</span>
+                   </li>
                {/}
                </ul>
             </div>
