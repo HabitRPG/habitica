@@ -43,10 +43,12 @@
             <div class="tab-pane" id="profileInventory">
                 <div class='row-fluid'>
                     <div class='span6 border-right'>
+                        <h2>Inventory</h2>
                         <app:avatar:inventory />
                     </div>
                     <div class='span6'>
-                        <app:avatar:market />
+                        <h2>Market</h2>
+                        <app:game-pane:market />
                     </div>
                 </div>
             </div>
@@ -88,4 +90,58 @@
             </form>
 
         </div>
+    </div>
+
+<market:>
+
+    <!-- pets pane -->
+    <div class="tab-pane pet-grid" id="market-tab">
+        <img src='/img/npcs/alex.png' />
+        <div class="popover fade right in" style="top: 0px; left: 170px; display: block;">
+            <div class="arrow"></div>
+            <h3 class="popover-title">Alexander Augustin</h3>
+            <div class="popover-content">Welcome to the Market! I'm the merchant, <a target="_blank" href="http://www.kickstarter.com/profile/523661924">Alexander</a>. Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!</div>
+        </div>
+
+        <h4>Eggs</h4>
+        {#with _items.pets as :egg}
+        <table>
+            <tr>
+                {#with :egg[0]}<app:pets:egg />{/}
+                {#with :egg[1]}<app:pets:egg />{/}
+                {#with :egg[2]}<app:pets:egg />{/}
+                {#with :egg[3]}<app:pets:egg />{/}
+            </tr>
+            <tr>
+                {#with :egg[4]}<app:pets:egg />{/}
+                {#with :egg[5]}<app:pets:egg />{/}
+                {#with :egg[6]}<app:pets:egg />{/}
+                {#with :egg[7]}<app:pets:egg />{/}
+            </tr>
+            <tr>
+                {#with :egg[8]}<app:pets:egg />{/}
+            </tr>
+        </table>
+        {/}
+        <h4>Hatching Potions</h4>
+        {#with _items.hatchingPotions as :hatchingPotion}
+        <table>
+            <tr>
+                {#with :hatchingPotion[0]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[1]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[2]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[3]}<app:pets:hatchingPotion />{/}
+            </tr>
+            <tr>
+                {#with :hatchingPotion[4]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[5]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[6]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[7]}<app:pets:hatchingPotion />{/}
+            </tr>
+            <tr>
+                {#with :hatchingPotion[8]}<app:pets:hatchingPotion />{/}
+                {#with :hatchingPotion[9]}<app:pets:hatchingPotion />{/}
+            </tr>
+        </table>
+        {/}
     </div>
