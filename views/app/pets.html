@@ -16,6 +16,15 @@
     </@footer>
   </app:modals:modal>
 
+    <app:modals:modal modalId='beastmaster-achievement-modal' header="Achievement Unlocked!">
+        <p>
+            <div class='achievement achievement-rat'></div>You have earned the "Beast Master" Achievement for collecting all the pets!
+        </p>
+        <@footer>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        </@footer>
+    </app:modals:modal>
+
 <pet:>
     <td class="{#if _user.items.pets[.name]}active-pet{/}">
         <img rel=tooltip title="{.text} - {.value} Tokens" x-bind="click:selectPet" data-pet='{.name}' src='img/sprites/{.icon}'/>

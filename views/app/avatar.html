@@ -164,28 +164,34 @@
     </div>
 
 <achievements:>
-    <!--<div class='achievement achievement-sword'></div>-->
-    <!--<div class='achievement achievement-tree'></div>-->
-    <!--<div class='achievement achievement-rat'></div>-->
-    <!--<div class='achievement achievement-comment'></div>-->
-    <!--<div class='achievement achievement-armor'></div>-->
-    <!--<div class='achievement achievement-cave'></div>-->
-    <!--<div class='achievement achievement-sun'></div>-->
-    <!--<div class='achievement achievement-boot'></div>-->
-    <!--<div class='achievement achievement-coffin'></div>-->
-    <!--<div class='achievement achievement-alien'></div>-->
-    <!--<div class='achievement achievement-ninja'></div>-->
-    <!--<div class='achievement achievement-cactus'></div>-->
-    <!--<div class='achievement achievement-bow'></div>-->
-    <!--<div class='achievement achievement-heart'></div>-->
-    <!--<div class='achievement achievement-shield'></div>-->
-    <!--<div class='achievement achievement-thermometer'></div>-->
-    <!--<div class='achievement achievement-helm'></div>-->
-    <!--<div class='achievement achievement-firefox'></div>-->
-    <!--<div class='achievement achievement-karaoke'></div>-->
-    {#if @profile.achievements.originalUser}
-        <div class='achievement achievement-cake'></div>  Original User!
-    {/}
+    <div class='achievements-container'>
+        <!--<div class='achievement achievement-sword'></div>-->
+        <!--<div class='achievement achievement-tree'></div>-->
+        <!--<div class='achievement achievement-comment'></div>-->
+        <!--<div class='achievement achievement-armor'></div>-->
+        <!--<div class='achievement achievement-cave'></div>-->
+        <!--<div class='achievement achievement-sun'></div>-->
+        <!--<div class='achievement achievement-boot'></div>-->
+        <!--<div class='achievement achievement-coffin'></div>-->
+        <!--<div class='achievement achievement-alien'></div>-->
+        <!--<div class='achievement achievement-ninja'></div>-->
+        <!--<div class='achievement achievement-cactus'></div>-->
+        <!--<div class='achievement achievement-bow'></div>-->
+        <!--<div class='achievement achievement-heart'></div>-->
+        <!--<div class='achievement achievement-shield'></div>-->
+        <!--<div class='achievement achievement-thermometer'></div>-->
+        <!--<div class='achievement achievement-helm'></div>-->
+        <!--<div class='achievement achievement-firefox'></div>-->
+        <!--<div class='achievement achievement-karaoke'></div>-->
+        {#if @profile.achievements.originalUser}
+            <div class='achievement achievement-cake'></div>Original User
+            <hr/>
+        {/}
+        {#if @profile.achievements.beastMaster}
+            <div class='achievement achievement-rat'></div>Beast Master
+        {/}
+
+    </div>
 
 <inventory:>
     <!-- we'll have other inventory here later too, like enchantments, quest scrolls, etc -->

@@ -64,3 +64,13 @@ module.exports.app = (appExports, model) ->
     model._dontPersist = dontPersist
 
     $('#drops-enabled-modal').modal 'show'
+
+  user.on 'push', 'items.pets', (after, before) ->
+    return if user.get('achievements.beastMaster')
+    if before >= 90 # evidently before is the count?
+      dontPersist =  model._dontPersist
+      model._dontPersist = false
+      user.set 'achievements.beastMaster', true, ->
+        model._dontPersist = dontPersist
+      $('#beastmaster-achievement-modal').modal('show')
+
