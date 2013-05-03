@@ -159,14 +159,15 @@
         </div>
         <div class='span6'>
             <h3>Achievements</h3>
-            <app:avatar:achievements />
+            <app:avatar:achievements profile={{@profile}} />
         </div>
     </div>
 
 <achievements:>
-    <!--TODO replce this in the future with HTML from BrowserQuest's index.html, which properly handles the achievements
-        sprite-sheets (see BQ's achievements.css, main.css) -->
-    <img src='/img/original_user.png' /> Original User!
+    {#if @profile.achievements.originalUser}
+        <!--TODO replce this in the future with HTML from BrowserQuest's index.html, which properly handles the achievements sprite-sheets (see BQ's achievements.css, main.css) -->
+        <img src='/img/original_user.png' /> Original User!
+    {/}
 
 <inventory:>
     <!-- we'll have other inventory here later too, like enchantments, quest scrolls, etc -->
