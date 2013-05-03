@@ -90,6 +90,7 @@ partySystem = (store) ->
             'items',
             'party',
             'profile',
+            'achievements',
             'preferences',
             'auth.local.username',
             'auth.facebook.displayName')
