@@ -161,9 +161,12 @@ module.exports.app = (appExports, model, app) ->
 
   sendChat = (path, input) ->
     chat = model.at path
+    text = model.get input
+    # Check for non-whitespace characters
+    return unless /\S/.test text
     chat.unshift
       id: model.id()
-      text: model.get(input)
+      text: text
       user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
       timestamp: +new Date
     model.set(input, '')
@@ -176,6 +179,10 @@ module.exports.app = (appExports, model, app) ->
   appExports.tavernSendChat = ->
     model.setNull '_tavern.chat', {messages:[]} #we can remove this later, first time run only
     sendChat('_tavern.chat.messages', '_tavernMessage')
+
+  appExports.tavernMessageKeyup = (e, el, next) ->
+    return next() unless e.keyCode is 13
+    appExports.tavernSendChat()
 
   app.on 'render', (ctx) ->
     $('#party-tab-link').on 'shown', (e) ->
