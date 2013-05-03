@@ -86,10 +86,10 @@
         <div class='span6'>
             <h3>Tavern Talk & LFG</h3>
             <form x-bind='submit:tavernSendChat'>
-                <textarea>{_tavernMessage}</textarea><br/>
+                <textarea x-bind='keyup:tavernMessageKeyup'>{_tavernMessage}</textarea><br/>
                 <input class=btn type=submit value=Submit />
             </form>
-            <ul class='unstyled'>
+            <ul class='unstyled tavern-chat'>
                 {#each _tavern.chat.messages as :message}
                     <li>
                         <hr/>
