@@ -48,8 +48,9 @@ module.exports.hpModifier = (value, armorDef, helmDef, shieldDef, level, priorit
   Future use
   {priority} user-defined priority multiplier
 ###
-module.exports.gpModifier = (value, modifier, priority='!') ->
-  return value * modifier * priorityValue(priority)
+module.exports.gpModifier = (value, modifier, priority='!', streak=0) ->
+  streakBonus = streak / 100 + 1 # eg, 1-day streak is 1.1, 2-day is 1.2, etc
+  return value * modifier * priorityValue(priority) * streakBonus
 
 ###
   Calculates the next task.value based on direction

@@ -109,9 +109,9 @@
         <!-- right-hand side control buttons -->
         <div class="task-meta-controls">
             <!-- Streak -->
-            {#if :task.streak}
-                {:task.streak} <span rel='tooltip' title='Streak Counter'><i class='icon-forward'></i></span>
-            {/}
+            <span class='{#unless :task.streak}hide{/}'>
+                {:task.streak}<span rel='tooltip' title='Streak Counter'><i class='icon-forward'></i></span>
+            </span>
             <!-- edit -->
             <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
             <!-- delete -->

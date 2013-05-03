@@ -12,7 +12,7 @@ MODIFIER = algos.MODIFIER # each new level, armor, weapon add 2% modifier (this 
 ###
   Drop System
 ###
-randomDrop = (model, delta, priority) ->
+randomDrop = (model, delta, priority, streak=0) ->
   user = model.at('_user')
 
   # limit drops to 2 / day
@@ -27,7 +27,10 @@ randomDrop = (model, delta, priority) ->
   chanceMultiplier = if (model.flags.nodeEnv is 'development') then 50 else 1
   # TODO temporary min cap of 1 so people still get rewarded for good habits. Will change once we have streaks
   deltaMultiplier = if Math.abs(delta) < 1 then 1 else Math.abs(delta)
-  chanceMultiplier = chanceMultiplier * deltaMultiplier * algos.priorityValue(priority) # multiply chance by reddness
+  chanceMultiplier *= deltaMultiplier
+  chanceMultiplier *= algos.priorityValue(priority) # multiply chance by reddness
+  chanceMultiplier += (streak+ 1) # streak bonus
+  console.log chanceMultiplier
 
   if user.get('flags.dropsEnabled') and Math.random() < (.05 * chanceMultiplier)
     # current breakdown - 3% (adjustable) chance on drop
@@ -120,7 +123,7 @@ score = (model, taskId, direction, times, batch, cron) ->
     level = user.get('stats.lvl')
     weaponStrength = items.items.weapon[user.get('items.weapon')].strength
     exp += algos.expModifier(delta,weaponStrength,level, priority) / 2 # / 2 hack for now bcause people leveling too fast
-    gp += algos.gpModifier(delta, 1, priority)
+    gp += algos.gpModifier(delta, 1, priority, taskObj.streak)
 
   subtractPoints = ->
     level = user.get('stats.lvl')
@@ -189,7 +192,7 @@ score = (model, taskId, direction, times, batch, cron) ->
     batch.commit()
 
   # Drop system
-  randomDrop(model, delta, priority) if direction is 'up'
+  randomDrop(model, delta, priority, taskObj.streak) if direction is 'up'
 
   return delta
 
