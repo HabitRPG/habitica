@@ -68,20 +68,22 @@ module.exports.app = (appExports, model) ->
   user.on 'push', 'items.pets', (after, before) ->
     return if user.get('achievements.beastMaster')
     if before >= 90 # evidently before is the count?
-      dontPersist =  model._dontPersist
-      model._dontPersist = false
-      user.set 'achievements.beastMaster', true, ->
-        model._dontPersist = dontPersist
+      dontPersist =  model._dontPersist; model._dontPersist = false
+      user.set 'achievements.beastMaster', true, (-> model._dontPersist = dontPersist)
       $('#beastmaster-achievement-modal').modal('show')
 
   user.on 'set', 'items.*', (after, before) ->
     return if user.get('achievements.ultimateGear')
     items = user.get('items')
     if parseInt(items.weapon) == 6 and parseInt(items.armor) == 5 and parseInt(items.head) == 5 and parseInt(items.shield) == 5
-      debugger
-      dontPersist =  model._dontPersist
-      model._dontPersist = false
-      user.set 'achievements.ultimateGear', true, ->
-        model._dontPersist = dontPersist
+      dontPersist =  model._dontPersist; model._dontPersist = false
+      user.set 'achievements.ultimateGear', true, (-> model._dontPersist = dontPersist)
       $('#max-gear-achievement-modal').modal('show')
+
+  user.on 'set', 'tasks.*.streak', (id, val) ->
+    # 21-day streak, as per the old philosophy of doign a thing 21-days in a row makes a habit
+    if (val % 21) is 0
+      dontPersist =  model._dontPersist; model._dontPersist = false
+      user.incr 'achievements.streak', 1, (-> model._dontPersist = dontPersist)
+      $('#streak-achievement-modal').modal('show')
 

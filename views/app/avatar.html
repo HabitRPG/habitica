@@ -179,9 +179,11 @@
         <!--<div class='achievement achievement-bow'></div>-->
         <!--<div class='achievement achievement-heart'></div>-->
         <!--<div class='achievement achievement-shield'></div>-->
-        <!--<div class='achievement achievement-thermometer'></div>-->
         <!--<div class='achievement achievement-firefox'></div>-->
         <!--<div class='achievement achievement-karaoke'></div>-->
+        {#if @profile.achievements.streak}
+            <div class='achievement achievement-thermometer'></div> {@profile.achievements.streak} Streak Achievement(s)
+        {/}
         {#if @profile.achievements.originalUser}
             <div class='achievement achievement-cake'></div>Original User
             <hr/>

@@ -144,10 +144,16 @@ score = (model, taskId, direction, times, batch, cron) ->
       if cron? # cron
         calculateDelta()
         subtractPoints()
+        batch.set "#{taskPath}.streak", 0
       else
         calculateDelta(false)
         if delta != 0
           addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
+          if direction is 'up'
+            taskObj.streak = if taskObj.streak then taskObj.streak + 1 else 1
+          else
+            taskObj.streak = if taskObj.streak then taskObj.streak - 1 else 0
+          batch.set "#{taskPath}.streak", taskObj.streak
 
     when 'todo'
       if cron? #cron
