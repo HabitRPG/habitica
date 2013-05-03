@@ -180,7 +180,6 @@
         <!--<div class='achievement achievement-heart'></div>-->
         <!--<div class='achievement achievement-shield'></div>-->
         <!--<div class='achievement achievement-thermometer'></div>-->
-        <!--<div class='achievement achievement-helm'></div>-->
         <!--<div class='achievement achievement-firefox'></div>-->
         <!--<div class='achievement achievement-karaoke'></div>-->
         {#if @profile.achievements.originalUser}
@@ -189,6 +188,9 @@
         {/}
         {#if @profile.achievements.beastMaster}
             <div class='achievement achievement-rat'></div>Beast Master
+        {/}
+        {#if @profile.achievements.ultimateGear}
+            <div class='achievement achievement-helm'></div>Ultimate Gear
         {/}
 
     </div>
