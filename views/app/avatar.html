@@ -1,10 +1,12 @@
 <modals:>
-    <app:modals:modal modalId="avatar-modal">
-        <app:avatar:profile profile={_profileActive} />
-        <@footer>
-            <button data-dismiss="modal" class="btn btn-success">Ok</button>
-        </@footer>
-    </app:modals:modal>
+    {{#each _partyMembers as :profile}}
+        <app:modals:modal modalId="avatar-modal-{{:profile.id}}">
+            <app:avatar:profile profile={{:profile}} />
+            <@footer>
+                <button data-dismiss="modal" class="btn btn-success">Ok</button>
+            </@footer>
+        </app:modals:modal>
+    {{/}}
 
 <avatar:>
     <figure class="herobox"
@@ -12,7 +14,7 @@
                 data-level="{@profile.stats.lvl}"
                 data-checkpet="{#if @profile.items.pet}hasPet{/}"
                 data-checkuser="{{#if @main}}isUser{{/}}"
-                data-uid="{{@profile.id}}" x-bind="click:profileChangeActive"
+                data-uid="{{@profile.id}}" x-bind="click:clickAvatar"
                 rel="popover" data-placement="bottom" data-trigger="hover" data-html="true" data-content="{{#unless @main}}
                              <div>
                                 <div class='progress progress-danger' style='height:5px;'>
@@ -140,27 +142,20 @@
 <profile:>
     <div class='row-fluid'>
         <div class='span6'>
-            <h3>
-                {#if _profileActive.profile.name}
-                    {_profileActive.profile.name}
-                {else}
-                    {username(_profileActive.auth, _profileActive.profile.name)}
-                {/}
-                {#if _profileActiveMain}<a class='btn pull-right' x-bind="click:profileEdit">Edit</a>{/}
-            </h3>
-            {#if _profileActive.profile.imageUrl}
-                <img src="{_profileActive.profile.imageUrl}" />
-            {/}
-            {#if _profileActive.profile.blurb}
-                <p>{_profileActive.profile.blurb}</p>
-            {/}
-            {#if _profileActive.profile.websites}
+            <h3>{{username(@profile.auth, @profile.profile.name)}}</h3>
+            {{#if @profile.profile.imageUrl}}
+                <img src="{{@profile.profile.imageUrl}}" />
+            {{/}}
+            {{#if @profile.profile.blurb}}
+                <p>{{@profile.profile.blurb}}</p>
+            {{/}}
+            {{#if @profile.profile.websites}}
                 <ul>
-                    {#each _profileActive.profile.websites as :website}
-                        <li>{:website}</li>
-                    {/}
+                    {{#each @profile.profile.websites as :website}}
+                        <li>{{:website}}</li>
+                    {{/}}
                 </ul>
-            {/}
+            {{/}}
         </div>
         <div class='span6'>
             <h3>Achievements</h3>

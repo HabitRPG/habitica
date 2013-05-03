@@ -24,13 +24,12 @@ module.exports.app = (appExports, model) ->
     model.set '_gamePane', !model.get('_gamePane'), ->
       browser.setupTooltips()
 
-  appExports.profileChangeActive = (e, el) ->
+  appExports.clickAvatar = (e, el) ->
     uid = $(el).attr('data-uid')
     if uid is model.get('_userId') # clicked self
       toggleGamePane()
     else
-      model.ref '_profileActive', model.at("users.#{uid}")
-      $('#avatar-modal').modal('show')
+      $("#avatar-modal-#{uid}").modal('show')
 
   appExports.toggleGamePane = -> toggleGamePane()
 

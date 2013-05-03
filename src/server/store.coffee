@@ -89,6 +89,7 @@ partySystem = (store) ->
       .only('stats',
             'items',
             'party',
+            'profile',
             'preferences',
             'auth.local.username',
             'auth.facebook.displayName')
