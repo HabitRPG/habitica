@@ -157,24 +157,31 @@ setupGrowlNotifications = (model) ->
     else if num > 0
       statsNotification "<i class='icon-star'></i> + #{rounded} XP", 'xp'
 
-  model.on 'set', '_streakBonus', (captures, args) ->
-    absolute = Math.abs(captures)
+  ###
+    Show "+ 5 {gold_coin} 3 {silver_coin}"
+  ###
+  showCoins = (money) ->
+    absolute = Math.abs(money)
     gold = Math.floor(absolute)
     silver = Math.floor((absolute-gold)*100)
-    statsNotification "+ #{gold} <i class='icon-gold'></i> #{silver} <i class='icon-silver'></i> - Streak Bonus!", 'gp'
+    if gold and silver > 0
+      return "#{gold} <i class='icon-gold'></i> #{silver} <i class='icon-silver'></i>"
+    else if gold > 0
+      return "#{gold} <i class='icon-gold'></i>"
+    else if silver > 0
+      return "#{silver} <i class='icon-silver'></i>"
 
   user.on 'set', 'stats.gp', (captures, args) ->
-    num = captures - args
-    absolute = Math.abs(num)
-    gold = Math.floor(absolute)
-    silver = Math.floor((absolute-gold)*100)
-    sign = if num < 0 then '-' else '+'
-    if gold and silver > 0
-      statsNotification "#{sign} #{gold} <i class='icon-gold'></i> #{silver} <i class='icon-silver'></i>", 'gp'
-    else if gold > 0
-      statsNotification "#{sign} #{gold} <i class='icon-gold'></i>", 'gp'
-    else if silver > 0
-      statsNotification "#{sign} #{silver} <i class='icon-silver'></i>", 'gp'
+    money = captures - args
+    sign = if money < 0 then '-' else '+'
+    statsNotification "#{sign} #{showCoins(money)}", 'gp'
+
+    # Append Bonus
+    bonus = model.get('_streakBonus')
+    if money > 0 and bonus
+      statsNotification "#{showCoins(bonus)} Streak Bonus!"
+      model.del('_streakBonus')
+
 
   user.on 'set', 'stats.lvl', (captures, args) ->
     if captures > args
