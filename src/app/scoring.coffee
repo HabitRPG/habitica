@@ -23,7 +23,7 @@ randomDrop = (model, delta, priority, streak=0) ->
   return if reachedDropLimit and model.flags.nodeEnv != 'development'
 
   # % chance of getting a pet or meat
-  chanceMultiplier = 1
+  chanceMultiplier = Math.abs(delta)
   chanceMultiplier *= algos.priorityValue(priority) # multiply chance by reddness
   chanceMultiplier += (streak+ 1) # streak bonus
   console.log chanceMultiplier
