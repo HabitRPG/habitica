@@ -162,4 +162,8 @@ viewHelpers = (view) ->
     return false unless messages?.length > 0
     messages && messages[0].id != lastMessageSeen
 
+  view.fn 'indexOf', (str1, str2) ->
+    return false unless str1 && str2
+    str1.indexOf(str2) != -1
+
 module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }
