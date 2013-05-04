@@ -92,7 +92,7 @@
             <ul class='unstyled tavern-chat'>
                 {#each _tavern.chat.messages as :message}
                     <li class="{#if indexOf(:message.text, _user.profile.name)}highlight{/if}">
-                        <span class='badge'>{:message.user}</span> {:message.text} {:message.timestamp} - <span class='muted'>{relativeDate(:message.timestamp)}</span>
+                        <span class='badge'>{:message.user}</span> {:message.text} - <span class='muted'>{relativeDate(:message.timestamp)}</span>
                     </li>
                 {/}
             </ul>
