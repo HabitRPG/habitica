@@ -173,12 +173,14 @@ setupGrowlNotifications = (model) ->
 
   user.on 'set', 'stats.gp', (captures, args) ->
     money = captures - args
+    return unless !!money # why is this happening? gotta find where stats.gp is being set from (-)habit
     sign = if money < 0 then '-' else '+'
     statsNotification "#{sign} #{showCoins(money)}", 'gp'
 
     # Append Bonus
     bonus = model.get('_streakBonus')
-    if money > 0 and bonus
+    debugger
+    if (money > 0) and !!bonus
       bonus = 0.01 if bonus < 0.01
       statsNotification "+ #{showCoins(bonus)}  Streak Bonus!"
       model.del('_streakBonus')
