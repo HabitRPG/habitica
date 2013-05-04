@@ -93,7 +93,7 @@ score = (model, taskId, direction, times, batch, cron) ->
 
   taskPath = "tasks.#{taskId}"
   taskObj = obj.tasks[taskId]
-  {type, value} = taskObj
+  {type, value, streak} = taskObj
   priority = taskObj.priority or '!'
 
   # If they're trying to purhcase a too-expensive reward, confirm they want to take a hit for it
@@ -119,7 +119,7 @@ score = (model, taskId, direction, times, batch, cron) ->
     level = user.get('stats.lvl')
     weaponStrength = items.items.weapon[user.get('items.weapon')].strength
     exp += algos.expModifier(delta,weaponStrength,level, priority) / 2 # / 2 hack for now bcause people leveling too fast
-    gp += algos.gpModifier(delta, 1, priority, taskObj.streak, model)
+    gp += algos.gpModifier(delta, 1, priority, streak, model)
 
   subtractPoints = ->
     level = user.get('stats.lvl')
@@ -149,10 +149,12 @@ score = (model, taskId, direction, times, batch, cron) ->
         if delta != 0
           addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
           if direction is 'up'
-            taskObj.streak = if taskObj.streak then taskObj.streak + 1 else 1
+            streak = if streak then streak + 1 else 1
           else
-            taskObj.streak = if taskObj.streak then taskObj.streak - 1 else 0
-          batch.set "#{taskPath}.streak", taskObj.streak
+            streak = if streak then streak - 1 else 0
+          batch.set "#{taskPath}.streak", streak
+          taskObj.streak = streak
+
 
     when 'todo'
       if cron? #cron
@@ -188,7 +190,7 @@ score = (model, taskId, direction, times, batch, cron) ->
     batch.commit()
 
   # Drop system
-  randomDrop(model, delta, priority, taskObj.streak) if direction is 'up'
+  randomDrop(model, delta, priority, streak) if direction is 'up'
 
   return delta
 

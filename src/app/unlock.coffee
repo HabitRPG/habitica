@@ -80,10 +80,16 @@ module.exports.app = (appExports, model) ->
       user.set 'achievements.ultimateGear', true, (-> model._dontPersist = dontPersist)
       $('#max-gear-achievement-modal').modal('show')
 
-  user.on 'set', 'tasks.*.streak', (id, val) ->
-    # 21-day streak, as per the old philosophy of doign a thing 21-days in a row makes a habit
-    if val > 0 and (val % 21) is 0
-      dontPersist =  model._dontPersist; model._dontPersist = false
-      user.incr 'achievements.streak', 1, (-> model._dontPersist = dontPersist)
-      $('#streak-achievement-modal').modal('show')
+  user.on 'set', 'tasks.*.streak', (id, after, before) ->
+    if after > 0
 
+      # 21-day streak, as per the old philosophy of doign a thing 21-days in a row makes a habit
+      if (after % 21) is 0
+        dontPersist =  model._dontPersist; model._dontPersist = false
+        user.incr 'achievements.streak', 1, (-> model._dontPersist = dontPersist)
+        $('#streak-achievement-modal').modal('show')
+
+      # they're undoing a task at the 21 mark, take back their badge
+      if (before - after is 1) and (before % 21 is 0)
+        dontPersist =  model._dontPersist; model._dontPersist = false
+        user.incr 'achievements.streak', -1, (-> model._dontPersist = dontPersist)

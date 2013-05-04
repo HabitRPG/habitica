@@ -179,7 +179,7 @@ setupGrowlNotifications = (model) ->
     # Append Bonus
     bonus = model.get('_streakBonus')
     if money > 0 and bonus
-      statsNotification "#{showCoins(bonus)} Streak Bonus!"
+      statsNotification "+ #{showCoins(bonus)}  Streak Bonus!"
       model.del('_streakBonus')
 
 
