@@ -1,5 +1,6 @@
 moment = require 'moment'
 _ = require 'underscore'
+relative = require 'relative-date'
 algos = require './algos'
 
 # Absolute diff between two dates
@@ -165,5 +166,7 @@ viewHelpers = (view) ->
   view.fn 'indexOf', (str1, str2) ->
     return false unless str1 && str2
     str1.indexOf(str2) != -1
+
+  view.fn 'relativeDate', relative
 
 module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }
