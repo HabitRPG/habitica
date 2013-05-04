@@ -25,7 +25,7 @@ randomDrop = (model, delta, priority, streak=0) ->
   # % chance of getting a pet or meat
   chanceMultiplier = Math.abs(delta)
   chanceMultiplier *= algos.priorityValue(priority) # multiply chance by reddness
-  chanceMultiplier += (streak+ 1) # streak bonus
+  chanceMultiplier += streak # streak bonus
   console.log chanceMultiplier
 
   if user.get('flags.dropsEnabled') and Math.random() < (.05 * chanceMultiplier)
