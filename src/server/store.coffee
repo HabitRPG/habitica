@@ -94,6 +94,7 @@ partySystem = (store) ->
             'party',
             'profile',
             'achievements',
+            'backer',
             'preferences',
             'auth.local.username',
             'auth.facebook.displayName')

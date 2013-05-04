@@ -166,6 +166,7 @@ module.exports.app = (appExports, model, app) ->
     return unless /\S/.test text
     chat.unshift
       id: model.id()
+      uuid: user.get('id')
       contributor: user.get('backer.contributor')
       npc: user.get('backer.npc')
       text: text
@@ -174,8 +175,8 @@ module.exports.app = (appExports, model, app) ->
     model.set(input, '')
     chat.remove 200 # keep a max messages cap
 
-  model.on 'unshift', '_party.chat', -> $('.chatroom [rel="tooltip"]').tooltip()
-  model.on 'unshift', '_tavern.chat.messages', -> $('.chatroom [rel="tooltip"]').tooltip()
+  model.on 'unshift', '_party.chat', -> $('.chat-message').tooltip()
+  model.on 'unshift', '_tavern.chat.messages', -> $('.chat-message').tooltip()
 
   appExports.partySendChat = ->
     sendChat('_party.chat', '_chatMessage')

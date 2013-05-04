@@ -25,7 +25,7 @@
                     <textarea>{_chatMessage}</textarea><br/>
                     <input class=btn type=submit value=Submit />
                 </form>
-               <ul class='unstyled chatroom'>
+               <ul class='unstyled'>
                {#each _party.chat as :message}
                    <li><app:party:chat-message message={{:message}} /></li>
                {/}
@@ -60,7 +60,7 @@
 <chat-message:>
     <hr/>
     <span
-        class="badge {{#if @message.contributor}}badge-inverse{{else if @message.npc}}badge-success{{/}} chat-{{@message.id}}"
+        class="label {{#if @message.npc}}label-success{{else if @message.contributor}}label-inverse{{else if equal(@message.uuid,_user.id)}}label-info{{/}} chat-message"
         rel='tooltip' title="{{@message.contributor}}{{@message.npc}}">
-        {@message.user}</span> {@message.text} - <span class='muted'>{friendlyTimestamp(@message.timestamp)}
+        {{@message.user}}</span> {{@message.text}} - <span class='muted'>{{friendlyTimestamp(@message.timestamp)}}
     </span>

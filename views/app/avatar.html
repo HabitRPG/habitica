@@ -178,16 +178,16 @@
         <!--<div class='achievement achievement-bow'></div>-->
         <!--<div class='achievement achievement-shield'></div>-->
         <!--<div class='achievement achievement-karaoke'></div>-->
-        {{#if equal(@profile.backer.tier,800)}}
-            <div class='achievement achievement-helm'></div><span class='label label-success'>NPC</span>
+        {{#if @profile.backer.npc}}
+            <div class='achievement achievement-helm'></div><span class='label label-success'>{{@profile.backer.npc}} NPC</span>
             <hr/>
         {{/}}
         {{#if @profile.backer.contributor}}
-            <div class='achievement achievement-firefox'></div><span class='label label-inverse'>Contributor</span>
+            <div class='achievement achievement-firefox'></div><span class='label label-inverse'>{{@profile.backer.contributor}}</span>
             <hr/>
         {{/}}
         {{#if @profile.backer.tier}}
-            <div class='achievement achievement-heart'></div>Kickstarter Backer (${{@profile.backer.tier}} Tier)
+            <div class='achievement achievement-heart'></div>Kickstarter Backer - ${{@profile.backer.tier}} Tier
             <hr/>
         {{/}}
         {#if @profile.achievements.streak}
