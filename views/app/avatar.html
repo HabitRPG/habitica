@@ -15,7 +15,7 @@
                 data-checkpet="{#if @profile.items.pet}hasPet{/}"
                 data-checkuser="{{#if @main}}isUser{{/}}"
                 data-uid="{{@profile.id}}" x-bind="click:clickAvatar"
-                rel="popover" data-placement="bottom" data-trigger="hover" data-html="true" data-content="{{#unless @main}}
+                rel="popover" data-placement="bottom" data-trigger="hover" data-html="true" data-content="
                              <div>
                                 <div class='progress progress-danger' style='height:5px;'>
                                     <div class='bar' style='height: 5px; width: {percent(@profile.stats.hp, 50)}%;'></div>
@@ -27,7 +27,7 @@
                                 <div>GP: {floor(@profile.stats.gp)}</div>
                                 <div>{count(@profile.items.pets)} / 90 Pets Found</div>
                             </div>
-                        {{/}}">
+                        ">
         <div class='character-sprites'>
             {#with @profile.preferences as :p}
                 <span class='{:p.gender}_skin_{:p.skin}'></span>
