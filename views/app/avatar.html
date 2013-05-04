@@ -168,7 +168,6 @@
         <!--<div class='achievement achievement-sword'></div>-->
         <!--<div class='achievement achievement-tree'></div>-->
         <!--<div class='achievement achievement-comment'></div>-->
-        <!--<div class='achievement achievement-armor'></div>-->
         <!--<div class='achievement achievement-cave'></div>-->
         <!--<div class='achievement achievement-sun'></div>-->
         <!--<div class='achievement achievement-boot'></div>-->
@@ -177,10 +176,20 @@
         <!--<div class='achievement achievement-ninja'></div>-->
         <!--<div class='achievement achievement-cactus'></div>-->
         <!--<div class='achievement achievement-bow'></div>-->
-        <!--<div class='achievement achievement-heart'></div>-->
         <!--<div class='achievement achievement-shield'></div>-->
-        <!--<div class='achievement achievement-firefox'></div>-->
         <!--<div class='achievement achievement-karaoke'></div>-->
+        {{#if equal(@profile.backer.tier,800)}}
+            <div class='achievement achievement-helm'></div><span class='label label-success'>NPC</span>
+            <hr/>
+        {{/}}
+        {{#if @profile.backer.contributor}}
+            <div class='achievement achievement-firefox'></div><span class='label label-inverse'>Contributor</span>
+            <hr/>
+        {{/}}
+        {{#if @profile.backer.tier}}
+            <div class='achievement achievement-heart'></div>Kickstarter Backer (${{@profile.backer.tier}} Tier)
+            <hr/>
+        {{/}}
         {#if @profile.achievements.streak}
             <div class='achievement achievement-thermometer'></div> {@profile.achievements.streak} Streak Achievement(s)
             <hr/>
@@ -194,7 +203,7 @@
             <hr/>
         {/}
         {#if @profile.achievements.ultimateGear}
-            <div class='achievement achievement-helm'></div>Ultimate Gear
+            <div class='achievement achievement-armor'></div>Ultimate Gear
             <hr/>
         {/}
 
