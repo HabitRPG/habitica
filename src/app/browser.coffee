@@ -157,6 +157,12 @@ setupGrowlNotifications = (model) ->
     else if num > 0
       statsNotification "<i class='icon-star'></i> + #{rounded} XP", 'xp'
 
+  model.on 'set', '_streakBonus', (captures, args) ->
+    absolute = Math.abs(captures)
+    gold = Math.floor(absolute)
+    silver = Math.floor((absolute-gold)*100)
+    statsNotification "+ #{gold} <i class='icon-gold'></i> #{silver} <i class='icon-silver'></i> - Streak Bonus!", 'gp'
+
   user.on 'set', 'stats.gp', (captures, args) ->
     num = captures - args
     absolute = Math.abs(num)
