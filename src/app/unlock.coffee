@@ -90,6 +90,6 @@ module.exports.app = (appExports, model) ->
         $('#streak-achievement-modal').modal('show')
 
       # they're undoing a task at the 21 mark, take back their badge
-      if (before - after is 1) and (before % 21 is 0)
+      else if (before - after is 1) and (before % 21 is 0)
         dontPersist =  model._dontPersist; model._dontPersist = false
         user.incr 'achievements.streak', -1, (-> model._dontPersist = dontPersist)
