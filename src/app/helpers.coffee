@@ -26,7 +26,7 @@ removeWhitespace = (str) ->
 
 username = (auth, override) ->
   #some people define custom profile name in Avatar -> Profile
-  return override if override?
+  return override if override
 
   if auth?.facebook?.displayName?
     auth.facebook.displayName
