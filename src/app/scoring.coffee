@@ -23,11 +23,7 @@ randomDrop = (model, delta, priority, streak=0) ->
   return if reachedDropLimit and model.flags.nodeEnv != 'development'
 
   # % chance of getting a pet or meat
-  # debugging purpose - 50% chance during development, 3% chance on prod
-  chanceMultiplier = if (model.flags.nodeEnv is 'development') then 50 else 1
-  # TODO temporary min cap of 1 so people still get rewarded for good habits. Will change once we have streaks
-  deltaMultiplier = if Math.abs(delta) < 1 then 1 else Math.abs(delta)
-  chanceMultiplier *= deltaMultiplier
+  chanceMultiplier = 1
   chanceMultiplier *= algos.priorityValue(priority) # multiply chance by reddness
   chanceMultiplier += (streak+ 1) # streak bonus
   console.log chanceMultiplier
