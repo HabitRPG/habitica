@@ -1,7 +1,6 @@
 http = require 'http'
 path = require 'path'
 express = require 'express'
-gzippo = require 'gzippo'
 derby = require 'derby'
 racer = require 'racer'
 auth = require 'derby-auth'
@@ -56,11 +55,13 @@ options =
 auth.store(store, habitrpgStore.customAccessControl)
 
 mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
-  expressApp
-    .use(middleware.allowCrossDomain)
-    .use(express.favicon("#{publicPath}/favicon.ico"))
+  expressApp.configure 'development', ->
     # Gzip static files and serve from memory
-    .use(gzippo.staticGzip(publicPath, maxAge: ONE_YEAR))
+    expressApp.use express.static(publicPath)
+
+  expressApp
+    .use('/api/v1', middleware.allowCrossDomain)
+    .use(express.favicon("#{publicPath}/favicon.ico"))
     # Gzip dynamically rendered content
     .use(express.compress())
     .use(express.bodyParser())
@@ -76,6 +77,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     # Adds req.getModel method
     .use(store.modelMiddleware())
     # API should be hit before all other routes
+    .use('/api/v1', middleware.httpsApi)
     .use('/api/v1', require('./api').middleware)
     .use(require('./deprecated').middleware)
     # Show splash page for newcomers
@@ -90,6 +92,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     .use(serverError(root))
 
   priv.routes(expressApp)
+
 
   # Errors
   expressApp.all '*', (req) ->
