@@ -89,12 +89,9 @@
                 <textarea x-bind='keyup:tavernMessageKeyup'>{_tavernMessage}</textarea><br/>
                 <input class=btn type=submit value=Submit />
             </form>
-            <ul class='unstyled tavern-chat'>
+            <ul class='unstyled tavern-chat chatroom'>
                 {#each _tavern.chat.messages as :message}
-                    <li>
-                        <hr/>
-                        <span class='badge'>{:message.user}</span> {:message.text} - <span class='muted'>{friendlyTimestamp(:message.timestamp)}</span>
-                    </li>
+                    <li><app:party:chat-message message={{:message}} /></li>
                 {/}
             </ul>
         </div>

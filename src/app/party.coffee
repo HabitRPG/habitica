@@ -166,11 +166,16 @@ module.exports.app = (appExports, model, app) ->
     return unless /\S/.test text
     chat.unshift
       id: model.id()
+      contributor: user.get('backer.contributor')
+      npc: user.get('backer.npc')
       text: text
       user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
       timestamp: +new Date
     model.set(input, '')
     chat.remove 200 # keep a max messages cap
+
+  model.on 'unshift', '_party.chat', -> $('.chatroom [rel="tooltip"]').tooltip()
+  model.on 'unshift', '_tavern.chat.messages', -> $('.chatroom [rel="tooltip"]').tooltip()
 
   appExports.partySendChat = ->
     sendChat('_party.chat', '_chatMessage')
