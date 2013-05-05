@@ -91,7 +91,7 @@
             </form>
             <ul class='unstyled tavern-chat'>
                 {#each _tavern.chat.messages as :message}
-                    <li><app:party:chat-message message={{:message}} /></li>
+                    <app:party:chat-message message={{:message}} />
                 {/}
             </ul>
         </div>
