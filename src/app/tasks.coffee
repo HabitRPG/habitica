@@ -9,32 +9,24 @@ module.exports.app = (appExports, model) ->
 
   appExports.addTask = (e, el, next) ->
     type = $(el).attr('data-task-type')
-    list = model.at "_#{type}List"
     newModel = model.at('_new' + type.charAt(0).toUpperCase() + type.slice(1))
     text = newModel.get()
     # Don't add a blank task; 20/02/13 Added a check for undefined value, more at issue #463 -lancemanfv
-    if /^(\s)*$/.test(text) || text == undefined
-      console.error "Task text entered was an empty string."
-      return
+    return if /^(\s)*$/.test(text) || text == undefined
 
-    newModel.set ''
+    #FIXME model.id() isn't working, temporary solution https://github.com/lefnire/habitrpg/issues/891#issuecomment-17458776
+    newTask = {id: helpers.uuid(), type: type, text: text, notes: '', value: 0}
     switch type
-
       when 'habit'
-        list.unshift {type: type, text: text, notes: '', value: 0, up: true, down: true}
-
+        newTask = _.defaults {up: true, down: true}, newTask
       when 'reward'
-        list.unshift {type: type, text: text, notes: '', value: 20 }
-
+        newTask = _.defaults {value: 20}, newTask
       when 'daily'
-        list.unshift {type: type, text: text, notes: '', value: 0, repeat:{su:true,m:true,t:true,w:true,th:true,f:true,s:true}, completed: false }
-
+        newTask = _.defaults {repeat:{su:true,m:true,t:true,w:true,th:true,f:true,s:true}, completed: false }, newTask
       when 'todo'
-        list.unshift {type: type, text: text, notes: '', value: 0, completed: false }
-
-  # list.on 'set', '*.completed', (i, completed, previous, isLocal) ->
-  # # Move the item to the bottom if it was checked off
-  # list.move i, -1  if completed && isLocal
+        newTask = _.defaults {completed: false }, newTask
+    model.unshift "_#{type}List", newTask
+    newModel.set ''
 
   appExports.del = (e, el) ->
     # Derby extends model.at to support creation from DOM nodes

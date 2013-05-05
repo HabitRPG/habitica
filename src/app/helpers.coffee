@@ -2,6 +2,12 @@ moment = require 'moment'
 _ = require 'underscore'
 algos = require './algos'
 
+uuid = ->
+  "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace /[xy]/g, (c) ->
+    r = Math.random() * 16 | 0
+    v = (if c is "x" then r else (r & 0x3 | 0x8))
+    v.toString 16
+
 # Absolute diff between two dates
 daysBetween = (yesterday, now, dayStart) ->
   #sanity-check reset-time (is it 24h time?)
@@ -162,4 +168,4 @@ viewHelpers = (view) ->
     return false unless messages?.length > 0
     messages && messages[0].id != lastMessageSeen
 
-module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }
+module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username, uuid }
