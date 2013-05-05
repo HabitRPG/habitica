@@ -58,7 +58,7 @@
 
 
 <chat-message:>
-    <li class="{{#if indexOf(:message.text, _user.profile.name)}}highlight{{/if}}">
+    <li class="{{#if indexOf(:message.text, username(_user.auth, _user.profile.name))}}highlight{{/if}}">
         <span
             class="label {{#if @message.npc}}label-success{{else if @message.contributor}}label-inverse{{else if equal(@message.uuid,_user.id)}}label-info{{/}} chat-message"
             rel='tooltip' title="{{@message.contributor}}{{@message.npc}}">
