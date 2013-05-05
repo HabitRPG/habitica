@@ -62,6 +62,6 @@
         <span
             class="label {{#if @message.npc}}label-success{{else if @message.contributor}}label-inverse{{else if equal(@message.uuid,_user.id)}}label-info{{/}} chat-message"
             rel='tooltip' title="{{@message.contributor}}{{@message.npc}}">
-            {{@message.user}}</span> {{@message.text}} - <span class='muted'>{{relativeDate(@message.timestamp)}}
+            {{@message.user}}</span> {{@message.text}} - <span class='muted time'>{relativeDate(@message.timestamp, _currentTime)}
         </span>
     </li>

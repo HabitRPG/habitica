@@ -75,6 +75,14 @@ module.exports.app = (appExports, model, app) ->
   browser = require './browser'
   helpers = require './helpers'
 
+  model.setNull '_currentTime', +new Date()
+
+  # Every 60 seconds, reset the current time so that the chat
+  # can update relative times
+  setInterval ->
+    model.set '_currentTime', +new Date()
+  , 60000
+
   user = model.at('_user')
 
   model.on 'set', '_user.party.invitation', (after, before) ->
