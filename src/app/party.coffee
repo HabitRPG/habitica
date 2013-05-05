@@ -76,6 +76,16 @@ module.exports.app = (appExports, model, app) ->
   browser = require './browser'
   helpers = require './helpers'
 
+  _currentTime = model.at '_currentTime'
+
+  _currentTime.setNull +new Date()
+
+  # Every 60 seconds, reset the current time so that the chat
+  # can update relative times
+  setInterval ->
+    _currentTime.set +new Date()
+  , 60000
+
   user = model.at('_user')
 
   model.on 'set', '_user.party.invitation', (after, before) ->
@@ -186,6 +196,10 @@ module.exports.app = (appExports, model, app) ->
   appExports.tavernSendChat = ->
     model.setNull '_tavern.chat', {messages:[]} #we can remove this later, first time run only
     sendChat('_tavern.chat.messages', '_tavernMessage')
+
+  appExports.partyMessageKeyup = (e, el, next) ->
+    return next() unless e.keyCode is 13
+    appExports.partySendChat()
 
   appExports.tavernMessageKeyup = (e, el, next) ->
     return next() unless e.keyCode is 13

@@ -1,12 +1,7 @@
 moment = require 'moment'
 _ = require 'underscore'
+relative = require 'relative-date'
 algos = require './algos'
-
-uuid = ->
-  "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace /[xy]/g, (c) ->
-    r = Math.random() * 16 | 0
-    v = (if c is "x" then r else (r & 0x3 | 0x8))
-    v.toString 16
 
 # Absolute diff between two dates
 daysBetween = (yesterday, now, dayStart) ->
@@ -168,4 +163,10 @@ viewHelpers = (view) ->
     return false unless messages?.length > 0
     messages && messages[0].id != lastMessageSeen
 
-module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username, uuid }
+  view.fn 'indexOf', (str1, str2) ->
+    return false unless str1 && str2
+    str1.indexOf(str2) != -1
+
+  view.fn 'relativeDate', relative
+
+module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }
