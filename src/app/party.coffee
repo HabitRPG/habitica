@@ -166,7 +166,7 @@ module.exports.app = (appExports, model, app) ->
     # Check for non-whitespace characters
     return unless /\S/.test text
     chat.unshift
-      id: helpers.uuid() #FIXME model.id() isn't working, temporary solution https://github.com/lefnire/habitrpg/issues/891#issuecomment-17458776
+      id: model.id()
       uuid: user.get('id')
       contributor: user.get('backer.contributor')
       npc: user.get('backer.npc')

@@ -14,8 +14,7 @@ module.exports.app = (appExports, model) ->
     # Don't add a blank task; 20/02/13 Added a check for undefined value, more at issue #463 -lancemanfv
     return if /^(\s)*$/.test(text) || text == undefined
 
-    #FIXME model.id() isn't working, temporary solution https://github.com/lefnire/habitrpg/issues/891#issuecomment-17458776
-    newTask = {id: helpers.uuid(), type: type, text: text, notes: '', value: 0}
+    newTask = {id: model.id(), type: type, text: text, notes: '', value: 0}
     switch type
       when 'habit'
         newTask = _.defaults {up: true, down: true}, newTask
