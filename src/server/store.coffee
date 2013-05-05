@@ -39,8 +39,11 @@ userAccess = (store) ->
     uid = captures.shift()
     attrPath = captures.join('.') # new array shifted left, after shift() was run
 
+    if attrPath is 'backer'
+      return accept(false) # we can only manually set this stuff in the database
+
     # public access to users.*.party.invitation (TODO, lock down a bit more)
-    if (attrPath == 'party.invitation')
+    if attrPath is 'party.invitation'
       return accept(true)
 
     # Same session (user.id = this.session.userId)
@@ -91,6 +94,7 @@ partySystem = (store) ->
             'party',
             'profile',
             'achievements',
+            'backer',
             'preferences',
             'auth.local.username',
             'auth.facebook.displayName')

@@ -22,15 +22,12 @@
             <div class="span6">
                <h3>Chat</h3>
                 <form x-bind='submit:partySendChat'>
-                    <textarea>{_chatMessage}</textarea><br/>
+                    <textarea x-bind='keyup:partyMessageKeyup'>{_chatMessage}</textarea><br/>
                     <input class=btn type=submit value=Submit />
                 </form>
-               <ul class='unstyled'>
+               <ul class='party-chat unstyled'>
                {#each _party.chat as :message}
-                   <li>
-                       <hr/>
-                       <span class='badge'>{:message.user}</span> {:message.text} - <span class='muted'>{friendlyTimestamp(:message.timestamp)}</span>
-                   </li>
+                   <app:party:chat-message message={{:message}} />
                {/}
                </ul>
             </div>
@@ -58,3 +55,13 @@
         </form>
 
     {/}
+
+
+<chat-message:>
+    <li class="{{#if indexOf(:message.text, _user.profile.name)}}highlight{{/if}}">
+        <span
+            class="label {{#if @message.npc}}label-success{{else if @message.contributor}}label-inverse{{else if equal(@message.uuid,_user.id)}}label-info{{/}} chat-message"
+            rel='tooltip' title="{{@message.contributor}}{{@message.npc}}">
+            {{@message.user}}</span> {{@message.text}} - <span class='muted'>{{relativeDate(@message.timestamp)}}
+        </span>
+    </li>

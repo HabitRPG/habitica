@@ -12,7 +12,7 @@ MODIFIER = algos.MODIFIER # each new level, armor, weapon add 2% modifier (this 
 ###
   Drop System
 ###
-randomDrop = (model, delta, priority) ->
+randomDrop = (model, delta, priority, streak=0) ->
   user = model.at('_user')
 
   # limit drops to 2 / day
@@ -23,11 +23,10 @@ randomDrop = (model, delta, priority) ->
   return if reachedDropLimit and model.flags.nodeEnv != 'development'
 
   # % chance of getting a pet or meat
-  # debugging purpose - 50% chance during development, 3% chance on prod
-  chanceMultiplier = if (model.flags.nodeEnv is 'development') then 50 else 1
-  # TODO temporary min cap of 1 so people still get rewarded for good habits. Will change once we have streaks
-  deltaMultiplier = if Math.abs(delta) < 1 then 1 else Math.abs(delta)
-  chanceMultiplier = chanceMultiplier * deltaMultiplier * algos.priorityValue(priority) # multiply chance by reddness
+  chanceMultiplier = Math.abs(delta)
+  chanceMultiplier *= algos.priorityValue(priority) # multiply chance by reddness
+  chanceMultiplier += streak # streak bonus
+  console.log chanceMultiplier
 
   if user.get('flags.dropsEnabled') and Math.random() < (.05 * chanceMultiplier)
     # current breakdown - 3% (adjustable) chance on drop
@@ -94,7 +93,7 @@ score = (model, taskId, direction, times, batch, cron) ->
 
   taskPath = "tasks.#{taskId}"
   taskObj = obj.tasks[taskId]
-  {type, value} = taskObj
+  {type, value, streak} = taskObj
   priority = taskObj.priority or '!'
 
   # If they're trying to purhcase a too-expensive reward, confirm they want to take a hit for it
@@ -120,7 +119,10 @@ score = (model, taskId, direction, times, batch, cron) ->
     level = user.get('stats.lvl')
     weaponStrength = items.items.weapon[user.get('items.weapon')].strength
     exp += algos.expModifier(delta,weaponStrength,level, priority) / 2 # / 2 hack for now bcause people leveling too fast
-    gp += algos.gpModifier(delta, 1, priority)
+    if streak
+      gp += algos.gpModifier(delta, 1, priority, streak, model)
+    else
+      gp += algos.gpModifier(delta, 1, priority)
 
   subtractPoints = ->
     level = user.get('stats.lvl')
@@ -144,10 +146,18 @@ score = (model, taskId, direction, times, batch, cron) ->
       if cron? # cron
         calculateDelta()
         subtractPoints()
+        batch.set "#{taskPath}.streak", 0
       else
         calculateDelta(false)
         if delta != 0
           addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
+          if direction is 'up'
+            streak = if streak then streak + 1 else 1
+          else
+            streak = if streak then streak - 1 else 0
+          batch.set "#{taskPath}.streak", streak
+          taskObj.streak = streak
+
 
     when 'todo'
       if cron? #cron
@@ -183,7 +193,7 @@ score = (model, taskId, direction, times, batch, cron) ->
     batch.commit()
 
   # Drop system
-  randomDrop(model, delta, priority) if direction is 'up'
+  randomDrop(model, delta, priority, streak) if direction is 'up'
 
   return delta
 
