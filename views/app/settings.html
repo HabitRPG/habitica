@@ -1,11 +1,7 @@
 <settings-pane:>
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#" data-target="#settings-settings">General</a></li>
-        <li><a data-toggle="tab" href="#" data-target="#settings-api">API</a></li>
-    </ul>
-
-    <div class="tab-content">
-        <div class="tab-pane active personal-options" id="settings-settings">
+    <div class='row-fluid'>
+        <div class="personal-options span6 border-right">
+            <h2>Settings</h2>
             <h4>Custom Day Start</h4>
             <div class="option-group option-short">
                 <input class="option-content option-time" type="number" min=0 max=24 value={_user.preferences.dayStart}>
@@ -31,7 +27,8 @@
             &nbsp;<a class='btn btn-danger' data-target="#restore-modal" data-toggle="modal" rel=tooltip title="Restores attributes to your character.">Restore</a>
             &nbsp;<a class='btn btn-danger' data-target="#delete-modal" data-toggle="modal" rel=tooltip title="Delete your account.">Delete</a>
         </div>
-        <div class="tab-pane" id="settings-api">
+        <div class='span6'>
+            <h2>API</h2>
             <small>Copy these for use in third party applications.</small>
             <h6>User ID</h6>
             <pre class=prettyprint>{_user.id}</pre>
