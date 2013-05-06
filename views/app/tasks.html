@@ -224,6 +224,15 @@
                 </fieldset>
             {/}
 
+            <fieldset class='option-group'>
+                <select multiple="multiple">
+                    {{#each _user.tags as :tag}}
+                        <option selected="{:task.tags[:tag.id]}">{:tag.name}</option>
+                    {{/}}
+                </select>
+            </fieldset>
+
+
             <!-- Advanced Options -->
             {#unless equal(:task.type, 'reward')}
                 <p x-bind="click:tasksToggleAdvanced" class="option-title mega">Advanced Options</p>
@@ -237,20 +246,6 @@
                 </fieldset>
             {/}
 
-            <div class="control-group">
-                <div class="btn-group">
-                    <button class="btn dropdown-toggle" data-toggle="dropdown">
-                        Tags <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        {{#each _user.tags as :tag}}
-                            <li class="{#if :task.tags[:tag.id]}active{/}">
-                                <a data-task-id="{{:task.id}}" data-tag-id="{:tag.id}" x-bind=click:addTag>{:tag.name}</a>
-                            </li>
-                        {{/}}
-                    </ul>
-                </div>
-            </div>
 
             <button type=submit class="task-action-btn tile spacious" x-bind="click:tasksSaveAndClose">Save & Close</button>
         </form>
