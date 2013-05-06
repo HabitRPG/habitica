@@ -31,3 +31,23 @@
       </li>
     </ul>
   </div>
+
+<applied-filters:>
+    <!-- There's a very strange bug where live-bound #each here loses model.at reference on _{type}List alter -->
+    {{#each _user.tags as :tag}}
+        <span>
+            {#if :task.tags[:tag.id]}
+                <span data-tag-id="{{:tag.id}}" x-bind="click:toggleFilterByTag" class="label tag-label {#if _user.filters[:tag.id]}label-info{/}">{:tag.name}</span>
+            {/}
+        </span>
+    {{/}}
+
+<filter-fieldgroup:>
+    <fieldset class='option-group'>
+        <legend class="option-title">Tags</legend>
+        <select multiple="multiple">
+            {{#each _user.tags as :tag}}
+                <option selected="{:task.tags[:tag.id]}">{:tag.name}</option>
+            {{/}}
+        </select>
+    </fieldset>

@@ -152,15 +152,7 @@
         <!-- main content -->
         <p class="task-text">
             {:task.text}
-
-            <!-- There's a very strange bug where live-bound #each here loses model.at reference on _{type}List alter -->
-            {{#each _user.tags as :tag}}
-                <span>
-                    {#if :task.tags[:tag.id]}
-                        <span class="label {#if _user.filters[:tag.id]}label-info{/}">{:tag.name}</span>
-                    {/}
-                </span>
-            {{/}}
+            <app:filters:applied-filters />
         </p>
 
         <!-- edit/options dialog -->
@@ -225,14 +217,7 @@
             {/}
 
 
-            <fieldset class='option-group'>
-                <legend class="option-title">Tags</legend>
-                <select multiple="multiple">
-                    {{#each _user.tags as :tag}}
-                        <option selected="{:task.tags[:tag.id]}">{:tag.name}</option>
-                    {{/}}
-                </select>
-            </fieldset>
+            <app:filters:filter-fieldgroup />
 
 
             <!-- Advanced Options -->
