@@ -5,7 +5,7 @@
     </div>
     <ul class="nav nav-pills">
       <li>
-          <a rel=tooltip title='Edit Tags' x-bind="click:toggleEditingTags"><i class='{#if _editingTags}icon-ok{else}icon-edit{/}'></i></a>
+          <a rel=tooltip title='Edit Tags' x-bind="click:toggleEditingTags"><i class='{#if _editingTags}icon-ok{else}icon-pencil{/}'></i></a>
       </li>
       {#each _user.tags as :tag}
         <li class="{#if _user.filters[:tag.id]}active{/}" style='position:relative;'>
