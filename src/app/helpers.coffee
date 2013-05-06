@@ -174,4 +174,15 @@ viewHelpers = (view) ->
 
   view.fn 'relativeDate', relative
 
+  view.fn 'noTags', (tags) ->
+    _.isEmpty(tags) or _.isEmpty(_.filter( tags, (t) -> t ) )
+
+  view.fn 'appliedTags', (userTags, taskTags) ->
+    arr = []
+    _.each userTags, (t) ->
+      arr.push(t.name) if taskTags?[t.id]
+    arr.join(', ')
+
+
+
 module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }

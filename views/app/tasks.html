@@ -111,6 +111,7 @@
             <span class='{#unless :task.streak}hide{/}'>
                 {:task.streak}<span rel='tooltip' title='Streak Counter'><i class='icon-forward'></i></span>
             </span>
+            <app:filters:applied-filters />
             <!-- edit -->
             <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
             <!-- delete -->
@@ -152,7 +153,6 @@
         <!-- main content -->
         <p class="task-text">
             {:task.text}
-            <app:filters:applied-filters />
         </p>
 
         <!-- edit/options dialog -->
