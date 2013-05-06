@@ -224,7 +224,9 @@
                 </fieldset>
             {/}
 
+
             <fieldset class='option-group'>
+                <legend class="option-title">Tags</legend>
                 <select multiple="multiple">
                     {{#each _user.tags as :tag}}
                         <option selected="{:task.tags[:tag.id]}">{:tag.name}</option>
