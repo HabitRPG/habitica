@@ -4,7 +4,7 @@
       Filter:
     </div>
     <ul class="nav nav-pills">
-      {#each _user.tags as :tag}
+      {{#each _user.tags as :tag}}
         <li class="{#if _user.filters[:tag.id]}active{/}" style='position:relative;'>
             {#if _editingTags}
                 <a style='float:left;' x-bind=click:filtersDeleteTag data-tag-id={:tag.id}><i class='icon-trash'></i></a>&nbsp
@@ -14,7 +14,7 @@
             {/}
 
         </li>
-      {/}
+      {{/}}
       <li>
           {#if _editingTags}
               <form x-bind="submit:filtersNewTag">

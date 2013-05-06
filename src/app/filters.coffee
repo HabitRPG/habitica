@@ -13,7 +13,9 @@ module.exports.app = (appExports, model) ->
     user.push "tags",
       id: model.id()
       name: model.get("_newTag")
-    , -> browser.resetDom(model)
+    , ->
+      model.set '_newTag', ''
+      browser.resetDom(model)
 
   appExports.toggleEditingTags = ->
     model.set '_editingTags', !model.get('_editingTags')
