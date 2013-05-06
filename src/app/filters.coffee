@@ -10,15 +10,13 @@ module.exports.app = (appExports, model) ->
     user.set path, !(user.get path)
 
   appExports.filtersNewTag = ->
-    user.push "tags",
-      id: model.id()
-      name: model.get("_newTag")
-    , ->
-      model.set '_newTag', ''
-      browser.resetDom(model)
+    user.push 'tags', {id: model.id(), name: model.get("_newTag")} #, (-> browser.resetDom(model))
+    model.set '_newTag', ''
 
   appExports.toggleEditingTags = ->
-    model.set '_editingTags', !model.get('_editingTags')
+    before = model.get('_editingTags')
+    model.set '_editingTags', !before, ->
+      browser.resetDom(model) if before is true #when they're done, refresh the page
 
   appExports.filtersDeleteTag = (e, el) ->
     tags = user.get('tags')
