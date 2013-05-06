@@ -37,7 +37,7 @@
         <!-- if Todo, the due date -->
         <fieldset ng-show="task.type=='todo'"class="option-group">
             <legend class="option-title">Due Date</legend>
-            <input class="option-content datepicker" type="text" value="{task.date}" data-date-format="mm/dd/yyyy">
+            <input class="option-content" type="text" ng-model="task.date" bs-datepicker>
         </fieldset>
 
         <!-- if Reward, pricing -->

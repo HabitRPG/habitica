@@ -50,12 +50,13 @@
         <div id="todos-chart" style="display:none;"></div>
 
         <!-- create new todo -->
-        <div class="display-context-dependant show-for-uncompleted">
-            <ng-include src="'views/tasks/new.html'" ng-controller="TodosCtrl"></ng-include>
-        </div>
-
+        <ng-include src="'views/tasks/new.html'" ng-controller="TodosCtrl"></ng-include>
+        <task>
+            <pane heading="Static title">Static content</pane>
+            <pane heading="Static title2">Static content2</pane>
+        </task>
         <!-- list of all the todos -->
-        <ul class="todos task-list" ui-sortable ng-model="user.todos">
+        <ul class="todos" ui-sortable ng-model="user.todos">
             <li ng-repeat="task in user.todos" class='task' ng-controller="TodoCtrl">
                 <ng-include src="'views/tasks/task.html'" ></ng-include>
             </li>
