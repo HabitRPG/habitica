@@ -1,28 +1,30 @@
 <filters:>
   <div class="well well-small filters">
     <div class="pull-left filter-description">
-      Filter:
+      <i rel=tooltip title='Filters' class='icon-filter'></i>
     </div>
     <ul class="nav nav-pills">
+      <li><a rel=tooltip title='Edit Tags' x-bind="click:toggleEditingTags"><span class='muted'><i class='icon-edit'></i></span></a></li>
       {{#each _user.tags as :tag}}
         <li class="{#if _user.filters[:tag.id]}active{/}" style='position:relative;'>
             {#if _editingTags}
-                <a style='float:left;' x-bind=click:filtersDeleteTag data-tag-id={:tag.id}><i class='icon-trash'></i></a>&nbsp
-                <input type='text' value='{:tag.name}' />
+                <div class="input-append option-group">
+                    <input class="input input-small option-content" type="text" value='{:tag.name}' />
+                    <span class="add-on"><a class='pull-right' x-bind=click:filtersDeleteTag data-tag-id={:tag.id}><i class='icon-trash'></i></a></span>
+                </div>
             {else}
                 <a data-tag-id="{:tag.id}" x-bind="click:toggleFilterByTag">{:tag.name}</a>
             {/}
-
         </li>
       {{/}}
       <li>
           {#if _editingTags}
-              <form x-bind="submit:filtersNewTag">
-                  <input type="text" value="{_newTag}" placeholder="New Tag"/>
+              <form class='form-inline' x-bind="submit:filtersNewTag">
+                  <div class="input-append">
+                      <input class="span2" type="text" value="{_newTag}" placeholder="New Tag" />
+                      <button class="add-on" type="button">Add</button>
+                  </div>
               </form>
-              <a x-bind=click:toggleEditingTags>[done]</a>
-          {else}
-            <a x-bind=click:toggleEditingTags>[edit]</a>
           {/}
       </li>
     </ul>
