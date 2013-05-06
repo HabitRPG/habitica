@@ -54,7 +54,7 @@ module.exports.app = (appExports, model) ->
     name = $(el).attr 'data-hatchingPotion'
     newHatchingPotion = _.findWhere hatchingPotions, name: name
     tokens = user.get('balance') * 4
-    if tokens > newHatchingPotion.value
+    if tokens >= newHatchingPotion.value
       if confirm "Buy this hatching potion with #{newHatchingPotion.value} of your #{tokens} tokens?"
         user.push 'items.hatchingPotions', newHatchingPotion.name
         user.set 'balance', (tokens - newHatchingPotion.value) / 4
@@ -65,7 +65,7 @@ module.exports.app = (appExports, model) ->
     name = $(el).attr 'data-egg'
     newEgg = _.findWhere pets, name: name
     tokens = user.get('balance') * 4
-    if tokens > newEgg.value
+    if tokens >= newEgg.value
       if confirm "Buy this egg with #{newEgg.value} of your #{tokens} tokens?"
         user.push 'items.eggs', newEgg
         user.set 'balance', (tokens - newEgg.value) / 4
