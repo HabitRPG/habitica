@@ -16,7 +16,7 @@ module.exports.app = (appExports, model) ->
   appExports.toggleEditingTags = ->
     before = model.get('_editingTags')
     model.set '_editingTags', !before, ->
-      browser.resetDom(model) if before is true #when they're done, refresh the page
+      location.reload() if before is true #when they're done, refresh the page
 
   appExports.filtersDeleteTag = (e, el) ->
     tags = user.get('tags')
