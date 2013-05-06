@@ -100,4 +100,4 @@ ready (model) ->
   require('./debug').app(exports, model) if model.flags.nodeEnv != 'production'
   require('./browser').app(exports, model, app)
   require('./unlock').app(exports, model)
-
+  require('./filters').app(exports, model)

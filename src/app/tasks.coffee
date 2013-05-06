@@ -121,6 +121,13 @@ module.exports.app = (appExports, model) ->
     target.removeClass(oldContext)
     target.addClass(newContext)
 
+  appExports.addTag = (e, el) ->
+    tagId = $(el).attr('data-tag-id')
+    taskId = $(el).attr('data-task-id')
+    console.log taskId
+    path = "_user.tasks.#{taskId}.tags.#{tagId}"
+    model.set path, !(model.get path)
+
 
   setUndo = (stats, task) ->
     previousUndo = model.get('_undo')

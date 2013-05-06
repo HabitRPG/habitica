@@ -93,7 +93,6 @@
     <!-- Rewards Column -->
     <app:rewards:rewardsColumn />
 
-
 <!-- Templates -->
 <newTask:>
     <form class="addtask-form form-inline new-task-form" id="new-{@type}" data-task-type="{@type}" x-bind="submit:addTask">
@@ -104,8 +103,8 @@
 
 <!-- all the parts of a single task -->
 <task:>
-    <li data-id={{:task.id}} class="task {taskClasses(:task, _user.preferences.dayStart, _user.lastCron)} {#if :task.down}{#if :task.up}habit-wide{/}{/}">
-
+    <li data-id={{:task.id}} class="task {taskClasses(:task, _user.filters, _user.preferences.dayStart, _user.lastCron)} {#if :task.down}{#if :task.up}habit-wide{/}{/}">
+        
         <!-- right-hand side control buttons -->
         <div class="task-meta-controls">
             <!-- Streak -->
@@ -151,7 +150,18 @@
         </div>
 
         <!-- main content -->
-        <p class="task-text">{:task.text}</p>
+        <p class="task-text">
+            {:task.text}
+
+            <!-- There's a very strange bug where live-bound #each here loses model.at reference on _{type}List alter -->
+            {{#each _user.tags as :tag}}
+                <span>
+                    {#if :task.tags[:tag.id]}
+                        <span class="label {#if _user.filters[:tag.id]}label-info{/}">{:tag.name}</span>
+                    {/}
+                </span>
+            {{/}}
+        </p>
 
         <!-- edit/options dialog -->
         <app:tasks:taskMeta />
@@ -226,6 +236,22 @@
                     </div>
                 </fieldset>
             {/}
+
+            <div class="control-group">
+                <div class="btn-group">
+                    <button class="btn dropdown-toggle" data-toggle="dropdown">
+                        Tags <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        {{#each _user.tags as :tag}}
+                            <li class="{#if :task.tags[:tag.id]}active{/}">
+                                <a data-task-id="{{:task.id}}" data-tag-id="{:tag.id}" x-bind=click:addTag>{:tag.name}</a>
+                            </li>
+                        {{/}}
+                    </ul>
+                </div>
+            </div>
+
             <button type=submit class="task-action-btn tile spacious" x-bind="click:tasksSaveAndClose">Save & Close</button>
         </form>
     </div>

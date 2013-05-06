@@ -116,9 +116,14 @@ viewHelpers = (view) ->
   ###
     Tasks
   ###
-  view.fn 'taskClasses', (task, dayStart, lastCron) ->
+  view.fn 'taskClasses', (task, filters, dayStart, lastCron) ->
     return unless task
     {type, completed, value, repeat} = task
+
+    for filter, enabled of filters
+      if enabled and not task.tags?[filter]
+        # All the other classes don't matter
+        return 'hide'
 
     classes = type
 
