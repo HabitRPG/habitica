@@ -10,7 +10,8 @@ module.exports.app = (appExports, model) ->
     user.set path, !(user.get path)
 
   appExports.filtersNewTag = ->
-    model.push '_user.tags', {id: model.id(), name: model.get("_newTag")}
+    user.setNull 'tags', []
+    user.push 'tags', {id: model.id(), name: model.get("_newTag")}
     model.set '_newTag', ''
 
   appExports.toggleEditingTags = ->
