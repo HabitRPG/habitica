@@ -84,22 +84,39 @@ viewHelpers = (view) ->
   ###
     Items
   ###
-  view.fn 'equipped', (user, type) ->
-    {gender, armorSet} = user?.preferences || {'m', 'v1'}
+  view.fn 'equipped', (type, item=0, preferences={gender:'m', armorSet:'v1'}, backer={}) ->
+    {gender, armorSet} = preferences
 
-    if type=='armor'
-      armor = user?.items?.armor || 0
-      if gender == 'f'
-        return if (parseInt(armor) == 0) then "f_armor_#{armor}_#{armorSet}" else "f_armor_#{armor}"
-      else
-        return "m_armor_#{armor}"
+    switch type
+      when'armor'
+        if item is 6
+          return 'armor_6' if backer.tier >= 45
+          item = 5 # set them back if they're trying to cheat
+        if gender is 'f'
+          return if (parseInt(item) is 0) then "f_armor_#{item}_#{armorSet}" else "f_armor_#{item}"
+        else
+          return "m_armor_#{item}"
 
-    else if type=='head'
-      head = user?.items?.head || 0
-      if gender == 'f'
-        return if (parseInt(head) > 1) then "f_head_#{head}_#{armorSet}" else "f_head_#{head}"
-      else
-        return "m_head_#{head}"
+      when 'head'
+        if item is 6
+          return 'head_6' if backer.tier >= 45
+          item = 5
+        if gender is 'f'
+          return if (parseInt(item) > 1) then "f_head_#{item}_#{armorSet}" else "f_head_#{item}"
+        else
+          return "m_head_#{item}"
+
+      when 'shield'
+        if item is 6
+          return 'head_6' if backer.tier >= 45
+          item = 5
+        return "#{preferences.gender}_shield_#{item}"
+
+      when 'weapon'
+        if item is 7
+          return 'weapon_7' if backer.tier >= 70
+          item = 6
+        return "#{preferences.gender}_weapon_#{item}"
 
   view.fn "gold", (num) ->
     if num
