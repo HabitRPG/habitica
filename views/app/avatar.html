@@ -178,36 +178,63 @@
         <!--<div class='achievement achievement-bow'></div>-->
         <!--<div class='achievement achievement-shield'></div>-->
         <!--<div class='achievement achievement-karaoke'></div>-->
-        {{#if @profile.backer.npc}}
-            <div class='achievement achievement-helm'></div><span class='label label-success'>{{@profile.backer.npc}} NPC</span>
-            <hr/>
-        {{/}}
-        {{#if @profile.backer.contributor}}
-            <div class='achievement achievement-firefox'></div><span class='label label-inverse'>{{@profile.backer.contributor}}</span>
-            <hr/>
-        {{/}}
-        {{#if @profile.backer.tier}}
-            <div class='achievement achievement-heart'></div>Kickstarter Backer - ${{@profile.backer.tier}} Tier
-            <hr/>
-        {{/}}
-        {#if @profile.achievements.streak}
-            <div class='achievement achievement-thermometer'></div> {@profile.achievements.streak} Streak Achievement(s)
-            <hr/>
-        {/}
-        {#if @profile.achievements.originalUser}
-            <div class='achievement achievement-cake'></div>Original User
-            <hr/>
-        {/}
-        {#if @profile.achievements.beastMaster}
-            <div class='achievement achievement-rat'></div>Beast Master
-            <hr/>
-        {/}
-        {#if @profile.achievements.ultimateGear}
-            <div class='achievement achievement-armor'></div>Ultimate Gear
-            <hr/>
-        {/}
+
+        <app:avatar:achievement unlocked={{@profile.backer.npc}} classes='achievement-helm' unlockable=false profile={{@profile}}>
+            <p><span class='label label-success'>{{@profile.backer.npc}} NPC</span></p>
+            <small>Backed the Kickstarter project at the maximum level!</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={{@profile.backer.contributor}} classes='achievement-firefox' unlockable=true profile={{@profile}}>
+            <p>
+                {{#if @profile.backer.contributor}}
+                    <span class='label label-inverse'>{{@profile.backer.contributor}}</span>
+                {{else}}
+                    <span class='label'>Contributor</span>
+                {{/}}
+            </p>
+            <small>Has contributed to HabitRPG (code, design, pixel art, legal advice, etc)</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={{@profile.backer.tier}} classes='achievement-heart' unlockable=false profile={{@profile}}>
+            <p>Kickstarter Backer - ${{@profile.backer.tier}} Tier</p>
+            <small>Backed the Kickstarter Project</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={@profile.achievements.streak} classes='achievement-thermometer' unlockable=true profile={@profile}>
+            <p>{#if @profile.achievements.streak}{@profile.achievements.streak}{else}0{/} Streak Achievement(s)</p>
+            <small>Has performed {#if @profile.achievements.streak}{@profile.achievements.streak}{else}0{/} 21-day streaks on Dailies</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={@profile.achievements.originalUser} classes='achievement-cake' unlockable=false profile={@profile}>
+            <p>Original User</p>
+            <small>Goes way back to the Habit's days of yore (bless them for soldiering through bugs!)</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={@profile.achievements.ultimateGear} classes='achievement-armor' unlockable=true profile={@profile}>
+            <p>Ultimate Gear</p>
+            <small>Has upgraded to the maximum weapon and armor set</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={@profile.achievements.beastMaster} classes='achievement-rat' unlockable=true profile={@profile}>
+            <p>Beast Master</p>
+            <small>Has found all 90 pets (insanely difficult, give this user props!)</small>
+        </app:avatar:achievement>
 
     </div>
+
+<achievement: nonvoid>
+    {#if @unlocked}
+        <div class='achievement {{@classes}}'></div>{@content}
+        <hr/>
+    {else if @unlockable} <!-- only show silhouettes on own tab -->
+        {{#if equal(_user.id,@profile.id)}}
+            <span class='muted'>
+            {@content}
+            </span>
+            <hr/>
+        {{/}}
+    {/}
+
 
 <inventory:>
     <!-- we'll have other inventory here later too, like enchantments, quest scrolls, etc -->
