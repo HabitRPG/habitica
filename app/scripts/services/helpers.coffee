@@ -2,7 +2,15 @@
 angular.module('habitRPG').factory 'Helpers', (Algos) ->
 
   return {
-
+    uuid: ->
+      d = new Date().getTime()
+      'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) ->
+        r = (d + Math.random()*16)%16 | 0
+        d = Math.floor(d/16)
+        if c=='x'
+          return r
+        else
+          return (r&0x7|0x8)).toString(16)
     # Absolute diff between two dates
     daysBetween: (yesterday, now, dayStart) ->
       #sanity-check reset-time (is it 24h time?)

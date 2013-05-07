@@ -40,11 +40,8 @@
     <div class="task-column todos context-enabled context-uncompleted tabbable tabs-below" id="todo-well">
         <!-- todo export/graph options -->
             <span class='option-box pull-right'>
-                {#if _user.history.todos}
-                  <a class="option-action" x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
-                {/}
-                <a class="option-action" href="/v1/users/{{_user.id}}/calendar.ics?apiToken={{_user.apiToken}}" rel=tooltip title="iCal"><i class=icon-calendar></i></a>
-                <!-- <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a> -->
+               <i class=icon-signal></i>
+               <i class=icon-calendar></i>
             </span>
         <h2 class="task-column_title">Todos</h2>
         <div id="todos-chart" style="display:none;"></div>
