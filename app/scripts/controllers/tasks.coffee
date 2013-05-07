@@ -1,4 +1,6 @@
 'use strict'
+
+# Sorry for that. Will to be moved to some .helpers
 generateUUID = ->
   d = new Date().getTime()
   'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) ->
@@ -53,6 +55,9 @@ angular.module('habitRPG')
                   "priority":"!!"
                 }
                 $scope.placeHolder = 'New Todo'
+                $scope.clearCompleted = ->
+                  User.get()['todos'] = User.get()['todos'].filter (i)->
+                    !i.completed
                 $scope.save = ->
                   save(User, $scope)
   .controller 'RewardsCtrl', ($scope, User) ->

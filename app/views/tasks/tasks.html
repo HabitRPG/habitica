@@ -65,7 +65,7 @@
                 <li ng-repeat="task in user.todos | filter:{completed:true}" class='task' ng-controller="TodoCtrl">
                     <ng-include src="'views/tasks/task.html'" ></ng-include>
                 </li>
-                <button class='task-action-btn tile spacious bright display-context-dependant show-for-completed' x-bind=click:clearCompleted>Clear Completed</button>
+                <button class='task-action-btn tile spacious bright' ng-click=clearCompleted()>Clear Completed</button>
             </pane>
         </tabs>
 
