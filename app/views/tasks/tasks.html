@@ -1,10 +1,10 @@
 <!--helpTitle & helpContent moved to tour -->
 
 <!-- Habits Column -->
-<div class="module">
+<div class="module" ng-controller="HabitsCtrl">
     <div class="task-column habits">
         <h2 class="task-column_title">Habits</h2>
-        <ng-include src="'views/tasks/new.html'" ng-controller="HabitsCtrl"></ng-include>
+        <ng-include src="'views/tasks/new.html'"></ng-include>
         <ul class="habits" ui-sortable ng-model="user.habits">
             <li ng-repeat="task in user.habits" class='task' ng-controller="HabitCtrl">
                 <ng-include src="'views/tasks/task.html'" ></ng-include>
@@ -19,10 +19,10 @@
 </div>
 
 <!-- Dailys Column -->
-<div class="module">
+<div class="module" ng-controller="DailysCtrl">
     <div class="task-column dailys">
         <h2 class="task-column_title">Dailies</h2>
-        <ng-include src="'views/tasks/new.html'" ng-controller="DailysCtrl"></ng-include>
+        <ng-include src="'views/tasks/new.html'"></ng-include>
         <ul class="dailys" ui-sortable ng-model="user.dailys">
             <li ng-repeat="task in user.dailys" class='task' ng-controller="DailyCtrl">
                 <ng-include src="'views/tasks/task.html'" ></ng-include>
@@ -36,7 +36,7 @@
 </div>
 
 <!-- Todos Column -->
-<div class="module">
+<div class="module" ng-controller="TodosCtrl">
     <div class="task-column todos context-enabled context-uncompleted tabbable tabs-below" id="todo-well">
         <!-- todo export/graph options -->
             <span class='option-box pull-right'>
@@ -48,36 +48,37 @@
             </span>
         <h2 class="task-column_title">Todos</h2>
         <div id="todos-chart" style="display:none;"></div>
+        <tabs>
+            <!-- remaining/completed tabs -->
+            <pane heading="Remaining">
+                <!-- create new todo -->
+                <ng-include src="'views/tasks/new.html'"></ng-include>
+                <!-- list of remaining todos -->
+                <ul class="todos" ui-sortable ng-model="user.todos">
+                    <li ng-repeat="task in user.todos | filter:{completed:false}" class='task' ng-controller="TodoCtrl">
+                        <ng-include src="'views/tasks/task.html'" ></ng-include>
+                    </li>
+                </ul>
+            </pane>
+            <pane heading="Complete">
+                <!-- list of completed todos -->
+                <li ng-repeat="task in user.todos | filter:{completed:true}" class='task' ng-controller="TodoCtrl">
+                    <ng-include src="'views/tasks/task.html'" ></ng-include>
+                </li>
+                <button class='task-action-btn tile spacious bright display-context-dependant show-for-completed' x-bind=click:clearCompleted>Clear Completed</button>
+            </pane>
+        </tabs>
 
-        <!-- create new todo -->
-        <ng-include src="'views/tasks/new.html'" ng-controller="TodosCtrl"></ng-include>
-        <task>
-            <pane heading="Static title">Static content</pane>
-            <pane heading="Static title2">Static content2</pane>
-        </task>
-        <!-- list of all the todos -->
-        <ul class="todos" ui-sortable ng-model="user.todos">
-            <li ng-repeat="task in user.todos" class='task' ng-controller="TodoCtrl">
-                <ng-include src="'views/tasks/task.html'" ></ng-include>
-            </li>
-        </ul>
         <br/>
         <habit-ads>
             <a href="http://www.amazon.com/gp/product/0312430000/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0312430000&linkCode=as2&tag=ha0d2-20">The Checklist Manifesto: How to Get Things Right</a><img src="//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=0312430000" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
         </habit-ads>
 
-        <button class='task-action-btn tile spacious bright display-context-dependant show-for-completed' x-bind=click:clearCompleted>Clear Completed</button>
-
-        <!-- remaining/completed tabs -->
-        <ul class="todo-status-toggler nav nav-tabs">
-            <li class="active"><a x-bind=click:changeContext data-target="#todo-well" data-context="context-uncompleted">Remaining</a></li>
-            <li><a x-bind=click:changeContext data-target="#todo-well" data-context="context-completed">Complete</a></li>
-        </ul>
     </div>
 </div>
 
 <!-- Rewards Column -->
-<div class="module">
+<div class="module" ng-controller="RewardsCtrl">
     <div class="task-column rewards">
         <!-- cash or tokens -->
             <span class='option-box pull-right wallet'>
@@ -93,7 +94,7 @@
 
         <h2 class="task-column_title">Rewards</h2>
 
-        <ng-include src="'views/tasks/new.html'" ng-controller="RewardsCtrl"></ng-include>
+        <ng-include src="'views/tasks/new.html'"></ng-include>
 
         <!-- Custom Rewards -->
         <ul class='rewards' ng-class="{hidden: !user.rewards}" ui-sortable ng-model="user.rewards">

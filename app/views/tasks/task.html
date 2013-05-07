@@ -34,7 +34,7 @@
         <!-- Daily & Todos -->
         <span ng-show="task.type == 'daily' || task.type =='todo'">
             <span class="task-checker action-yesno">
-                <input type=checkbox id="box-{{task.id}}" class="visuallyhidden focusable" checked="{{task.completed}}">
+                <input type=checkbox id="box-{{task.id}}" class="visuallyhidden focusable" ng-model="task.completed">
                 <label for="box-{{task.id}}"></label>
             </span>
         </span>
