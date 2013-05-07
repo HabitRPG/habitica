@@ -121,7 +121,6 @@ module.exports.app = (appExports, model) ->
     target.removeClass(oldContext)
     target.addClass(newContext)
 
-
   setUndo = (stats, task) ->
     previousUndo = model.get('_undo')
     clearTimeout(previousUndo.timeoutId) if previousUndo?.timeoutId

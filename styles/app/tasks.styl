@@ -216,7 +216,10 @@ for $stage in $stages
     opacity: 0.2
 
   label:after
-    content: '◻'
+    height 10px
+    width 10px
+    margin 15px auto
+    border 1px solid #222
   label:before
     position: absolute
     left: 0
@@ -227,6 +230,8 @@ for $stage in $stages
   label:hover:after,
   label:focus:after
     content: '¬'
+    border none
+    margin 0
     font-size: 3.2em
     line-height: 0.9375em
     height: 0.9375em
@@ -247,6 +252,8 @@ for $stage in $stages
     text-align: center
     transform: rotate(135deg)
     opacity: 0.75
+    border none
+    margin 0
 
 
 // secondary task commands
@@ -277,7 +284,7 @@ form
   color: #333
   z-index: 0
   position: relative
-  background-color: 
+  //background-color:
 
   .option-group
     border-bottom: 1px solid rgba(0,0,0,0.1)
@@ -379,7 +386,7 @@ form
 // context switching
 .context-enabled
   .display-context-dependant,
-  .task-list li
+  .task-list > li
     display: none
 
   &.context-completed

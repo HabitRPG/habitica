@@ -9,6 +9,7 @@
 <import: src="party">
 <import: src="pets">
 <import: src="game-pane">
+<import: src="filters">
 
 <Title:>
   HabitRPG | Gamify Your Life
@@ -31,6 +32,7 @@
     <app:header:header />
     <app:alerts:hiding-bailey />
   </div>
+  <span class='{#if _gamePane}hidden{/}'><app:filters:filters /></span>
 
 <Body:>
   <br/>

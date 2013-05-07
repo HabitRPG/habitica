@@ -116,9 +116,14 @@ viewHelpers = (view) ->
   ###
     Tasks
   ###
-  view.fn 'taskClasses', (task, dayStart, lastCron) ->
+  view.fn 'taskClasses', (task, filters, dayStart, lastCron) ->
     return unless task
     {type, completed, value, repeat} = task
+
+    for filter, enabled of filters
+      if enabled and not task.tags?[filter]
+        # All the other classes don't matter
+        return 'hide'
 
     classes = type
 
@@ -168,5 +173,16 @@ viewHelpers = (view) ->
     str1.indexOf(str2) != -1
 
   view.fn 'relativeDate', relative
+
+  view.fn 'noTags', (tags) ->
+    _.isEmpty(tags) or _.isEmpty(_.filter( tags, (t) -> t ) )
+
+  view.fn 'appliedTags', (userTags, taskTags) ->
+    arr = []
+    _.each userTags, (t) ->
+      arr.push(t.name) if taskTags?[t.id]
+    arr.join(', ')
+
+
 
 module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }

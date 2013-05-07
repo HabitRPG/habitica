@@ -93,7 +93,6 @@
     <!-- Rewards Column -->
     <app:rewards:rewardsColumn />
 
-
 <!-- Templates -->
 <newTask:>
     <form class="addtask-form form-inline new-task-form" id="new-{@type}" data-task-type="{@type}" x-bind="submit:addTask">
@@ -104,14 +103,15 @@
 
 <!-- all the parts of a single task -->
 <task:>
-    <li data-id={{:task.id}} class="task {taskClasses(:task, _user.preferences.dayStart, _user.lastCron)} {#if :task.down}{#if :task.up}habit-wide{/}{/}">
-
+    <li data-id={{:task.id}} class="task {taskClasses(:task, _user.filters, _user.preferences.dayStart, _user.lastCron)} {#if :task.down}{#if :task.up}habit-wide{/}{/}">
+        
         <!-- right-hand side control buttons -->
         <div class="task-meta-controls">
             <!-- Streak -->
             <span class='{#unless :task.streak}hide{/}'>
                 {:task.streak}<span rel='tooltip' title='Streak Counter'><i class='icon-forward'></i></span>
             </span>
+            <app:filters:applied-filters />
             <!-- edit -->
             <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
             <!-- delete -->
@@ -151,7 +151,9 @@
         </div>
 
         <!-- main content -->
-        <p class="task-text">{:task.text}</p>
+        <p class="task-text">
+            {:task.text}
+        </p>
 
         <!-- edit/options dialog -->
         <app:tasks:taskMeta />
@@ -214,6 +216,10 @@
                 </fieldset>
             {/}
 
+
+            <app:filters:filter-fieldgroup />
+
+
             <!-- Advanced Options -->
             {#unless equal(:task.type, 'reward')}
                 <p x-bind="click:tasksToggleAdvanced" class="option-title mega">Advanced Options</p>
@@ -226,6 +232,8 @@
                     </div>
                 </fieldset>
             {/}
+
+
             <button type=submit class="task-action-btn tile spacious" x-bind="click:tasksSaveAndClose">Save & Close</button>
         </form>
     </div>

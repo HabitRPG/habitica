@@ -89,6 +89,7 @@ userSchema =
   flags:
     partyEnabled: false
     itemsEnabled: false
+  tags: []
 # ads: 'show' # added on registration
 
 module.exports.newUserObject = ->
@@ -112,6 +113,12 @@ module.exports.newUserObject = ->
     {type: 'reward', text: 'Cake', notes: 'But only buy if you have enough gold - you lose HP otherwise.', value: 10 }
   ]
 
+  defaultTags = [
+    {name: 'morning'}
+    {name: 'afternoon'}
+    {name: 'evening'}
+  ]
+
   for task in defaultTasks
     guid = task.id = derby.uuid()
     newUser.tasks[guid] = task
@@ -120,6 +127,11 @@ module.exports.newUserObject = ->
       when 'daily' then newUser.dailyIds.push guid
       when 'todo' then newUser.todoIds.push guid
       when 'reward' then newUser.rewardIds.push guid
+
+  for tag in defaultTags
+    tag.id = derby.uuid()
+    newUser.tags.push tag
+
   return newUser
 
 module.exports.BatchUpdate = BatchUpdate = (model) ->
