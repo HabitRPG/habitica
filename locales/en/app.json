@@ -257,6 +257,8 @@
     "NPCBochName" : "Matt Boch"
       "NPCBochText" : ""
 
+
+
 "_commentfooter": "FOOTER",
   "FooterCompany" : "Company",
     "CompanyAbout" : "About",
@@ -276,6 +278,8 @@
     "CommunityKickstarter" : "Kickstarter",
     "CommunityFB" : "Facebook",
     "CommunityReddit" : "Reddit",
+
+
 
 "_commentmisc": "MISC & GLOBAL",
   "Tokens" : "Tokens",
