@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('habitRPG', ['ui','ui.bootstrap'])
+angular.module('habitRPG', ['ui','ui.bootstrap','$strap.directives'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

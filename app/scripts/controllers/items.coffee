@@ -76,5 +76,4 @@ angular.module('habitRPG').controller 'ItemsCtrl', ($scope) ->
   items.armor = items.armor[1]
   items.head = items.head[1]
   items.shield = items.shield[1]
-  debugger
   $scope.items = items
