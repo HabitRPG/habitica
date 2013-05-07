@@ -86,7 +86,7 @@
         <div class='span6'>
             <h3>Tavern Talk & LFG</h3>
             <form x-bind='submit:tavernSendChat'>
-                <textarea x-bind='keyup:tavernMessageKeyup'>{_tavernMessage}</textarea><br/>
+                <textarea class="span6" rows="3"x-bind='keyup:tavernMessageKeyup'>{_tavernMessage}</textarea><br/>
                 <input class=btn type=submit value=Submit />
             </form>
             <ul class='unstyled tavern-chat'>

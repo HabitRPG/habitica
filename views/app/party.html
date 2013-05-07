@@ -22,7 +22,7 @@
             <div class="span6">
                <h3>Chat</h3>
                 <form x-bind='submit:partySendChat'>
-                    <textarea x-bind='keyup:partyMessageKeyup'>{_chatMessage}</textarea><br/>
+                    <textarea class="span6" rows="3" x-bind='keyup:partyMessageKeyup'>{_chatMessage}</textarea><br/>
                     <input class=btn type=submit value=Submit />
                 </form>
                <ul class='party-chat unstyled'>
