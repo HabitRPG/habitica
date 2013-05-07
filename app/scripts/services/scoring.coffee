@@ -1,13 +1,3 @@
-moment = require 'moment'
-_ = require 'underscore'
-{ randomVal } = helpers = require './helpers'
-browser = require './browser'
-character = require './character'
-items = require './items'
-{ pets, hatchingPotions } = items.items
-algos = require './algos'
-
-MODIFIER = algos.MODIFIER # each new level, armor, weapon add 2% modifier (this mechanism will change)
 
 ###
   Drop System
