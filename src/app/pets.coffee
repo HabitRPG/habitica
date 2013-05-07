@@ -38,17 +38,18 @@ module.exports.app = (appExports, model) ->
 #    user.remove 'items.hatchingPotions', hatchingPotionIdx, 1
 #    user.remove 'items.eggs', eggIdx, 1
 
-  appExports.choosePet = (e, el) ->
+  appExports.choosePet = (e, el, next) ->
     petStr = $(el).attr('data-pet')
+
+    return next() if user.get('items.pets').indexOf(petStr) == -1
+    # If user's pet is already active, deselect it
+    return user.set 'items.currentPet', {} if user.get('items.currentPet.str') is petStr
+
     [name, modifier] = petStr.split('-')
     pet = _.findWhere pets, name: name
     pet.modifier = modifier
     pet.str = petStr
-    ownsThisPet = user.get('items.pets').indexOf petStr
-    if ownsThisPet != -1
-      # If user's pet is already active, deselect it
-      pet = {} if user.get('items.currentPet.str') is petStr
-      user.set 'items.currentPet', pet
+    user.set 'items.currentPet', pet
 
   appExports.buyHatchingPotion = (e, el) ->
     name = $(el).attr 'data-hatchingPotion'
