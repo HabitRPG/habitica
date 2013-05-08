@@ -1,10 +1,10 @@
 {
   "name": "habitrpg",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "0.0.0-150",
+  "version": "0.0.0-151",
   "main": "./server.js",
   "dependencies": {
-    "derby": "git://github.com/Unroll-Me/derby#master",
+    "derby": "git://github.com/lefnire/derby#habitrpg",
     "racer": "git://github.com/lefnire/racer#habitrpg",
     "racer-db-mongo": "git://github.com/lefnire/racer-db-mongo#habitrpg",
     "derby-ui-boot": "git://github.com/codeparty/derby-ui-boot#master",
@@ -17,7 +17,7 @@
     "moment": "*",
     "stripe": "*",
     "async": "*",
-    "lodash": "*",
+    "lodash": "1.0.x",
     "coffee-script": "1.4.x",
     "underscore": "*",
     "mongoskin": "*",
@@ -26,7 +26,9 @@
     "superagent": "~0.12.4",
     "resolve": "~0.2.3",
     "browserify": "1.17.3",
-    "expect.js": "~0.2.0"
+    "expect.js": "~0.2.0",
+    "derby-i18n": "0.0.1",
+    "relative-date": "~1.1.1"
   },
   "private": true,
   "subdomain": "habitrpg",

@@ -44,6 +44,7 @@ auth = (req, res, next) ->
     return res.json 401, NO_USER_FOUND if !req.userObj || _.isEmpty(req.userObj)
     req._isServer = true
     next()
+
 ###
   GET /user
 ###
@@ -59,6 +60,36 @@ router.get '/user', auth, (req, res) ->
     delete user.auth.salt
 
   res.json user
+
+###
+  TODO POST /user
+  when a put attempt didn't work, create a new one with POST
+###
+
+###
+  PUT /user
+###
+router.put '/user', auth, (req, res) ->
+  user = req.user
+  partialUser = req.body.user
+
+  # REVISIT is this the best way of handling protected v acceptable attr mass-setting? Possible pitfalls: (1) we have to remember
+  # to update here when we add new schema attrs in the future, (2) developers can't assign random variables (which
+  # is currently beneficial for Kevin & Paul). Pros: protects accidental or malicious user data corruption
+
+  # TODO - this accounts for single-nested items (stats.hp, stats.exp) but will clobber any other depth.
+  # See http://stackoverflow.com/a/6394168/362790 for when we need to cross that road
+
+  acceptableAttrs = ['flags', 'history', 'items', 'preferences', 'profile', 'stats']
+  user.set 'lastCron', partialUser.lastCron if partialUser.lastCron?
+  _.each acceptableAttrs, (attr) ->
+    _.each partialUser[attr], (val, key) -> user.set("#{attr}.#{key}", val)
+
+  updateTasks partialUser.tasks, req.user, req.getModel() if partialUser.tasks?
+
+  userObj = user.get()
+  userObj.tasks = _.toArray(userObj.tasks) # FIXME figure out how we're going to consistently handle this. should always be array
+  res.json 201, userObj
 
 ###
   GET /user/task/:id
@@ -84,12 +115,13 @@ validateTask = (req, res, next) ->
     type = undefined
     delete newTask.type
   else if req.method is 'POST'
+    newTask.value = sanitize(value).toInt()
+    newTask.value = 0 if isNaN newTask.value
     unless /^(habit|todo|daily|reward)$/.test type
       return res.json 400, err: 'type must be habit, todo, daily, or reward'
 
-  text = sanitize(text).xss()
-  notes = sanitize(notes).xss()
-  value = sanitize(value).toInt()
+  newTask.text = sanitize(text).xss() if typeof text is "string"
+  newTask.notes = sanitize(notes).xss() if typeof notes is "string"
 
   switch type
     when 'habit'
@@ -125,23 +157,28 @@ router.delete '/user/task/:id', auth, validateTask, (req, res) ->
 ###
   POST /user/tasks
 ###
-router.post '/user/tasks', auth, (req, res) ->
-  for idx, task of req.body
+updateTasks = (tasks, user, model) ->
+  for idx, task of tasks
     if task.id
       if task.del
-        req.user.del "tasks.#{task.id}"
+        user.del "tasks.#{task.id}"
+        if task.type # TODO we should enforce they pass in type, so we can properly remove from idList
+          i = model.get("_#{task.type}List").indexOf(task.id)
+          model.remove("_#{task.type}List", i, 1) # doens't work when task.type isn't passed up
         task = deleted: true
       else
-        req.user.set "tasks.#{task.id}", task
+        user.set "tasks.#{task.id}", task
     else
-      model = req.getModel()
       type = task.type || 'habit'
-      model.ref '_user', req.user
+      model.ref '_user', user
       model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
       model.at("_#{type}List").push task
-    req.body[idx] = task
+    tasks[idx] = task
+  return tasks
 
-  res.json 201, req.body
+router.post '/user/tasks', auth, (req, res) ->
+  tasks = updateTasks req.body, req.user, req.getModel()
+  res.json 201, tasks
 
 
 ###

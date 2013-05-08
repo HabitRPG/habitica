@@ -1,4 +1,11 @@
 @import "nib/vendor";
+
+// Vendor Includes - include first so we can override
+@import "../../public/vendor/bootstrap/css/bootstrap.min.css";
+@import "../../public/vendor/bootstrap/css/bootstrap-responsive.min.css";
+@import "../../public/vendor/datepicker/css/datepicker.css";
+
+// Custom includes
 @import "./female_sprites.styl";
 @import "./male_sprites.styl";
 @import "./shop_sprites.styl";
@@ -6,12 +13,18 @@
 @import "./avatar.styl";
 @import "./customizer.styl";
 @import "./items.styl";
+@import "./inventory.styl";
 @import "./alerts.styl";
+@import "../../public/img/sprites/pet_sprites.css";
+@import "../../public/img/sprites/PetEggs.css";
 @import "./helpers.styl";
 @import "./responsive.styl";
 @import "./header.styl";
+@import "./filters.styl";
 @import "./scrollbars.styl";
-
+@import "./achievements.styl";
+@import "./game-pane.styl";
+@import "./backer.styl";
 
 // fix exploding to very wide for some reason
 .datepicker
@@ -32,8 +45,6 @@ hr
   border-top: 0
   border-bottom: 1px solid #ddd
   border-color: rgba(0,0,0,0.1)
-
-
 
 
 /* Footer
@@ -136,3 +147,6 @@ hr
   top: 0;
   right: 0px;
   z-index: 1001;
+
+.modal-body
+    margin: 10px

@@ -10,7 +10,6 @@ module.exports.app = (appExports, model) ->
 
   appExports.showStripe = (e, el) ->
     token = (res) ->
-      console.log(res);
       $.ajax({
          type: "POST",
          url: "/charge",
@@ -20,12 +19,14 @@ module.exports.app = (appExports, model) ->
       .error (err) ->
         alert err.responseText
 
+    disableAds = if (model.get('_user.flags.ads') is 'hide') then '' else 'Disable Ads, '
+
     StripeCheckout.open
       key: model.get('_stripePubKey')
       address: false
       amount: 500
       name: "Checkout"
-      description: "Purchase 20 Tokens."
+      description: "Buy 20 Tokens, #{disableAds}Support the Developers"
       panelLabel: "Checkout"
       token: token
 

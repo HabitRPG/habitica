@@ -8,6 +8,7 @@ Setup read / write access
 module.exports.customAccessControl = (store) ->
   userAccess(store)
   partySystem(store)
+  tavernSystem(store)
   REST(store)
 
 ###
@@ -38,8 +39,11 @@ userAccess = (store) ->
     uid = captures.shift()
     attrPath = captures.join('.') # new array shifted left, after shift() was run
 
+    if attrPath is 'backer'
+      return accept(false) # we can only manually set this stuff in the database
+
     # public access to users.*.party.invitation (TODO, lock down a bit more)
-    if (attrPath == 'party.invitation')
+    if attrPath is 'party.invitation'
       return accept(true)
 
     # Same session (user.id = this.session.userId)
@@ -88,6 +92,9 @@ partySystem = (store) ->
       .only('stats',
             'items',
             'party',
+            'profile',
+            'achievements',
+            'backer',
             'preferences',
             'auth.local.username',
             'auth.facebook.displayName')
@@ -115,3 +122,25 @@ partySystem = (store) ->
 #    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
     return accept(false) if derbyAuth.bustedSession(@)
     accept(true)
+
+  store.query.expose "parties", "withMember", (id) ->
+    @where('members').contains([id]).findOne()
+
+  store.queryAccess 'parties', 'withMember', (id, accept, err) ->
+    return accept(false) if derbyAuth.bustedSession(@)
+    accept(true)
+
+###
+  LFG / tavern system
+###
+tavernSystem = (store) ->
+  store.readPathAccess 'tavern', ->
+    accept = arguments[arguments.length-2]
+    return accept(false) if derbyAuth.bustedSession(@)
+    accept(true)
+
+  store.writeAccess "*", "tavern.*", ->
+    accept = arguments[arguments.length-2]
+    return accept(false) if derbyAuth.bustedSession(@)
+    accept(true)
+

@@ -1,7 +1,7 @@
 XP = 15
 HP = 2
 
-priorityValue = (priority='!') ->
+priorityValue = module.exports.priorityValue = (priority='!') ->
   switch priority
     when '!' then 1
     when '!!' then 1.5
@@ -48,8 +48,15 @@ module.exports.hpModifier = (value, armorDef, helmDef, shieldDef, level, priorit
   Future use
   {priority} user-defined priority multiplier
 ###
-module.exports.gpModifier = (value, modifier, priority='!') ->
-  return value * modifier * priorityValue(priority)
+module.exports.gpModifier = (value, modifier, priority='!', streak, model) ->
+  val = value * modifier * priorityValue(priority)
+  if streak and model
+    streakBonus = streak / 100 + 1 # eg, 1-day streak is 1.1, 2-day is 1.2, etc
+    afterStreak = val * streakBonus
+    model.set('_streakBonus', afterStreak - val) if (val > 0) # can we do this without model? just global emit?
+    return afterStreak
+  else
+    return val
 
 ###
   Calculates the next task.value based on direction

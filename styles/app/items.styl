@@ -60,33 +60,3 @@
   // border: 1px solid rgba(0,0,0,0.1)
   border-top: 0
   border-bottom: 0
-
-.token-wallet
-  cursor: pointer
-  .tile
-    background-color: darken($neutral, 10%)
-  .add-token-btn
-    opacity: 0
-  &:hover, &:focus
-    .add-token-btn
-      opacity: 1
-      background-color: $good
-    .tile
-      opacity: 1
-
-
-// pets (this will all change when pet system is overhauled)
-.pet-grid
-  padding-top: 1.5em
-  border-top: rgba(0,0,0,0.1)
-  table
-    width: 100%
-  td
-    padding: 0.5em
-    width: 25%
-    &.active-pet
-      background-color: $bad
-      outline: 1px solid rgba(0,0,0,0.1)
-      outline-offset: -1px
-    &:hover, &:focus
-      background-color: darken($better, 10%)
