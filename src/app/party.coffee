@@ -114,13 +114,13 @@ module.exports.app = (appExports, model, app) ->
     browser.resetDom(model)
 
   appExports.partyLeave = ->
-    #id = user.set 'party.current', null
+    id = user.set 'party.current', null
     party = model.at '_party'
     members = party.get('members')
     index = members.indexOf(user.get('id'))
     party.remove 'members', index, 1, ->
       if members.length is 1 # # last member out, kill the party
-        party.del (-> window.location.reload true)
+        model.del "parties.#{id}", (-> window.location.reload true)
       else
         window.location.reload true
 
