@@ -127,12 +127,21 @@ module.exports.app = (appExports, model) ->
   update store
 ###
 module.exports.updateStore = updateStore = (model) ->
-  obj = model.get('_user')
+  user = model.at('_user')
+  equipped = user.get('items')
 
   _.each ['weapon', 'armor', 'shield', 'head'], (type) ->
-    i = parseInt(obj?.items?[type] || 0) + 1
-    nextItem = if (i == _.size items[type]) then {hide:true} else items[type][i]
-    model.set "_items.#{type}", nextItem
+    i = parseInt(equipped?[type] || 0) + 1
+    showNext = true
+    if i is items[type].length - 1
+       if (type in ['armor', 'shield', 'head'])
+         showNext = user.get('backer.tier') >= 45 # backer armor
+       else
+         showNext = user.get('backer.tier') >= 70 # backer weapon
+    else if i is items[type].length
+      showNext = false
+
+    model.set "_items.#{type}", if showNext then items[type][i] else {hide:true}
 
   model.set '_items.potion', items.potion
   model.set '_items.reroll', items.reroll
