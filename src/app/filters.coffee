@@ -23,10 +23,14 @@ module.exports.app = (appExports, model) ->
     tags = user.get('tags')
     tagId = $(el).attr('data-tag-id')
     model.del "_user.filters.#{tagId}"
-    #TODO remove tag from each task
     _.each tags, (tag, i) ->
       if tag.id is tagId
         tags.splice(i,1)
         model.del "_user.filters.#{tag.id}"
+
+    # remove tag from all tasks
+    _.each user.get("tasks"), (task) ->
+      user.del "tasks.#{task.id}.tags.#{tagId}"
+
     model.set "_user.tags", tags , -> browser.resetDom(model)
 
