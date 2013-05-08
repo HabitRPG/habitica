@@ -8,19 +8,6 @@ _ = require 'underscore'
 module.exports.app = (appExports, model) ->
   user = model.at '_user'
 
-  user.on 'set', 'flags.dropsEnabled', (captures, args) ->
-    return unless captures == true
-
-    egg = randomVal pets
-
-    dontPersist =  model._dontPersist
-
-    model._dontPersist = false
-    user.push 'items.eggs', egg
-    model._dontPersist = dontPersist
-
-    $('#drops-enabled-modal').modal 'show'
-
   appExports.chooseEgg = (e, el) ->
     model.ref '_hatchEgg', e.at()
 
@@ -51,23 +38,24 @@ module.exports.app = (appExports, model) ->
 #    user.remove 'items.hatchingPotions', hatchingPotionIdx, 1
 #    user.remove 'items.eggs', eggIdx, 1
 
-  appExports.choosePet = (e, el) ->
+  appExports.choosePet = (e, el, next) ->
     petStr = $(el).attr('data-pet')
+
+    return next() if user.get('items.pets').indexOf(petStr) == -1
+    # If user's pet is already active, deselect it
+    return user.set 'items.currentPet', {} if user.get('items.currentPet.str') is petStr
+
     [name, modifier] = petStr.split('-')
     pet = _.findWhere pets, name: name
     pet.modifier = modifier
     pet.str = petStr
-    ownsThisPet = user.get('items.pets').indexOf petStr
-    if ownsThisPet != -1
-      # If user's pet is already active, deselect it
-      pet = {} if user.get('items.currentPet.str') is petStr
-      user.set 'items.currentPet', pet
+    user.set 'items.currentPet', pet
 
   appExports.buyHatchingPotion = (e, el) ->
     name = $(el).attr 'data-hatchingPotion'
     newHatchingPotion = _.findWhere hatchingPotions, name: name
     tokens = user.get('balance') * 4
-    if tokens > newHatchingPotion.value
+    if tokens >= newHatchingPotion.value
       if confirm "Buy this hatching potion with #{newHatchingPotion.value} of your #{tokens} tokens?"
         user.push 'items.hatchingPotions', newHatchingPotion.name
         user.set 'balance', (tokens - newHatchingPotion.value) / 4
@@ -78,7 +66,7 @@ module.exports.app = (appExports, model) ->
     name = $(el).attr 'data-egg'
     newEgg = _.findWhere pets, name: name
     tokens = user.get('balance') * 4
-    if tokens > newEgg.value
+    if tokens >= newEgg.value
       if confirm "Buy this egg with #{newEgg.value} of your #{tokens} tokens?"
         user.push 'items.eggs', newEgg
         user.set 'balance', (tokens - newEgg.value) / 4

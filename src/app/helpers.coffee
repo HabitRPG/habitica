@@ -1,5 +1,6 @@
 moment = require 'moment'
 _ = require 'underscore'
+relative = require 'relative-date'
 algos = require './algos'
 
 # Absolute diff between two dates
@@ -24,7 +25,10 @@ removeWhitespace = (str) ->
   return '' unless str
   str.replace /\s/g, ''
 
-username = (auth) ->
+username = (auth, override) ->
+  #some people define custom profile name in Avatar -> Profile
+  return override if override
+
   if auth?.facebook?.displayName?
     auth.facebook.displayName
   else if auth?.facebook?
@@ -74,28 +78,45 @@ viewHelpers = (view) ->
   ###
     User
   ###
-  view.fn "username", (auth) -> username(auth)
+  view.fn "username", (auth, override) -> username(auth, override)
   view.fn "tnl", algos.tnl
 
   ###
     Items
   ###
-  view.fn 'equipped', (user, type) ->
-    {gender, armorSet} = user?.preferences || {'m', 'v1'}
+  view.fn 'equipped', (type, item=0, preferences={gender:'m', armorSet:'v1'}, backer={}) ->
+    {gender, armorSet} = preferences
 
-    if type=='armor'
-      armor = user?.items?.armor || 0
-      if gender == 'f'
-        return if (parseInt(armor) == 0) then "f_armor_#{armor}_#{armorSet}" else "f_armor_#{armor}"
-      else
-        return "m_armor_#{armor}"
+    switch type
+      when'armor'
+        if item is 6
+          return 'armor_6' if backer.tier >= 45
+          item = 5 # set them back if they're trying to cheat
+        if gender is 'f'
+          return if (parseInt(item) is 0) then "f_armor_#{item}_#{armorSet}" else "f_armor_#{item}"
+        else
+          return "m_armor_#{item}"
 
-    else if type=='head'
-      head = user?.items?.head || 0
-      if gender == 'f'
-        return if (parseInt(head) > 1) then "f_head_#{head}_#{armorSet}" else "f_head_#{head}"
-      else
-        return "m_head_#{head}"
+      when 'head'
+        if item is 6
+          return 'head_6' if backer.tier >= 45
+          item = 5
+        if gender is 'f'
+          return if (parseInt(item) > 1) then "f_head_#{item}_#{armorSet}" else "f_head_#{item}"
+        else
+          return "m_head_#{item}"
+
+      when 'shield'
+        if item is 6
+          return 'head_6' if backer.tier >= 45
+          item = 5
+        return "#{preferences.gender}_shield_#{item}"
+
+      when 'weapon'
+        if item is 7
+          return 'weapon_7' if backer.tier >= 70
+          item = 6
+        return "#{preferences.gender}_weapon_#{item}"
 
   view.fn "gold", (num) ->
     if num
@@ -112,15 +133,28 @@ viewHelpers = (view) ->
   ###
     Tasks
   ###
-  view.fn 'taskClasses', (task) ->
+  view.fn 'taskClasses', (task, filters, dayStart, lastCron) ->
     return unless task
     {type, completed, value, repeat} = task
 
+    for filter, enabled of filters
+      if enabled and not task.tags?[filter]
+        # All the other classes don't matter
+        return 'hide'
+
     classes = type
+
+    now = moment().day()
+
+    # calculate the current contextual day (e.g. if it's 12 AM Fri and the user's custom day start is 4 AM, then we should still act like it's Thursday)
+    dayStart = 0 unless (dayStart? and (dayStart = parseInt(dayStart)) and dayStart >= 0 and dayStart <= 24)
+    hourDiff = Math.abs moment(lastCron).startOf('day').add('h', dayStart).diff(moment(now), 'hours')
+    dayStamp = moment(now).add('h', hourDiff)
+    day = dayStamp.day()
 
     # show as completed if completed (naturally) or not required for today
     if type in ['todo', 'daily']
-      if completed or (repeat and repeat[dayMapping[moment().day()]]==false)
+      if completed or (repeat and (repeat[dayMapping[day]] == false))
         classes += " completed"
       else
         classes += " uncompleted"
@@ -140,5 +174,32 @@ viewHelpers = (view) ->
     else
       classes += ' color-best'
     return classes
+
+  view.fn 'ownsPet', (pet, userPets) -> !!userPets && userPets.indexOf(pet) != -1
+
+  view.fn 'count', (arr) -> arr?.length or 0
+
+  view.fn 'friendlyTimestamp', (timestamp) -> moment(timestamp).format('MM/DD h:mm:ss a')
+
+  view.fn 'newChatMessages', (messages, lastMessageSeen) ->
+    return false unless messages?.length > 0
+    messages && messages[0].id != lastMessageSeen
+
+  view.fn 'indexOf', (str1, str2) ->
+    return false unless str1 && str2
+    str1.indexOf(str2) != -1
+
+  view.fn 'relativeDate', relative
+
+  view.fn 'noTags', (tags) ->
+    _.isEmpty(tags) or _.isEmpty(_.filter( tags, (t) -> t ) )
+
+  view.fn 'appliedTags', (userTags, taskTags) ->
+    arr = []
+    _.each userTags, (t) ->
+      arr.push(t.name) if taskTags?[t.id]
+    arr.join(', ')
+
+
 
 module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }

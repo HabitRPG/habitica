@@ -1,58 +1,20 @@
 <modals:>
-    <app:modals:modal modalId="avatar-modal">
-        {#if _profileActiveMain}
-            <span class='option-box pull-right wallet'>
-                <app:rewards:userTokens />
-            </span>
-
-            {#with _user.preferences}
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle='tab' href="#profileCustomize">Avatar</a></li>
-                    <li><a data-toggle='tab' href="#profileEdit">Profile</a></li>
-                    {#if _user.flags.dropsEnabled}
-                        <li><a data-toggle='tab' data-target="#profileInventory">Inventory</a></li>
-                        <li><a data-toggle='tab' data-target="#profileMarket">Market</a></li>
-                        <li><a data-toggle='tab' data-target="#profileStable">Stable</a></li>
-                    {/if}
-                </ul>
-
-                <div class="tab-content">
-                    <div class="tab-pane active" id="profileCustomize">
-                        <app:avatar:customize />
-                    </div>
-
-                    <div class="tab-pane" id="profileEdit">
-                        <app:avatar:profile user="{_user}" main="true" />
-                    </div>
-
-                    <div class="tab-pane" id="profileInventory">
-                        <app:avatar:inventory />
-                    </div>
-
-                    <div class="tab-pane" id="profileMarket">
-                        <app:avatar:market />
-                    </div>
-
-                    <div class="tab-pane" id="profileStable">
-                        <app:pets:stable />
-                    </div>
-                </div>
-             {/}
-        {else}
-            <app:avatar:profile profile={_profileActive} />
-        {/}
-        <@footer>
-            <button data-dismiss="modal" class="btn btn-success">Ok</button>
-        </@footer>
-    </app:modals:modal>
+    {{#each _partyMembers as :profile}}
+        <app:modals:modal modalId="avatar-modal-{{:profile.id}}">
+            <app:avatar:profile profile={{:profile}} />
+            <@footer>
+                <button data-dismiss="modal" class="btn btn-success">Ok</button>
+            </@footer>
+        </app:modals:modal>
+    {{/}}
 
 <avatar:>
     <figure class="herobox"
-                data-name="{username(@profile.auth)}"
+                data-name="{username(@profile.auth, @profile.profile.name)}"
                 data-level="{@profile.stats.lvl}"
                 data-checkpet="{#if @profile.items.pet}hasPet{/}"
-                data-checkuser="{#if equal(@profile.id, _user.id)}isUser{/}"
-                data-toggle='modal' data-target='#avatar-modal' data-uid="{@profile.id}" x-bind="click:profileChangeActive"
+                data-checkuser="{{#if @main}}isUser{{/}}"
+                data-uid="{{@profile.id}}" x-bind="click:clickAvatar"
                 rel="popover" data-placement="bottom" data-trigger="hover" data-html="true" data-content="
                              <div>
                                 <div class='progress progress-danger' style='height:5px;'>
@@ -62,21 +24,22 @@
                                     <div class='bar' style='height: 5px; width: {percent(@profile.stats.exp, tnl(@profile.stats.lvl))}%;'></div>
                                 </div>
                                 <div>Level: {@profile.stats.lvl}</div>
-                                <div>GP: {{floor(@profile.stats.gp)}}</div>
+                                <div>GP: {floor(@profile.stats.gp)}</div>
+                                <div>{count(@profile.items.pets)} / 90 Pets Found</div>
                             </div>
                         ">
         <div class='character-sprites'>
             {#with @profile.preferences as :p}
                 <span class='{:p.gender}_skin_{:p.skin}'></span>
                 <span class='{:p.gender}_hair_{:p.hair}'></span>
-                <span class="{equipped(@profile, 'armor')}"></span>
+                <span class="{equipped('armor', @profile.items.armor, @profile.preferences, @profile.backer)}"></span>
                 {#if :p.showHelm}
-                    <span class="{equipped(@profile, 'head')}"></span>
+                    <span class="{equipped('head', @profile.items.head, @profile.preferences, @profile.backer)}"></span>
                 {else}
                     <span class="{:p.gender}_head_0"></span>
                 {/}
-                <span class='{:p.gender}_shield_{@profile.items.shield}'></span>
-                <span class='{:p.gender}_weapon_{@profile.items.weapon}'></span>
+                <span class="{equipped('shield', @profile.items.shield, @profile.preferences, @profile.backer)}"></span>
+                <span class="{equipped('weapon', @profile.items.weapon, @profile.preferences, @profile.backer)}"></span>
             {/}
             {#if and(@profile.items.currentPet, not(@minimal))}
                 <span class="Pet-{@profile.items.currentPet.name}-{@profile.items.currentPet.modifier} current-pet" ></span>
@@ -85,10 +48,6 @@
     </figure>
 
 <customize:>
-    <!-- user avatar preview -->
-    <figure class="avatar-window">
-        <app:avatar:avatar profile={_user} minimal="true" />
-    </figure>
 
     <!-- customization options -->
     {#with _user.preferences as :p}
@@ -139,138 +98,145 @@
         {/}
     {/}
 
-<profile:>
-    <div class='row-fluid'>
-        <div class='span6 well'>
-            {#if and(_profileEditing, _profileActiveMain)}
-                <a class='btn btn-success' x-bind="click:profileSave">Save</a>
-                <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak -->
-                <div class="control-group">
-                    <label class="control-label" for="profileImageUrl">Photo Url</label>
-                    <div class="controls">
-                        <input type="url" id="profileImageUrl" value="{_user.profile.imageUrl}" placeholder="Image Url"/>
-                    </div>
-                </div>
+<profile-edit:>
+    <!--<a class='btn btn-success' x-bind="click:profileSave">Save</a>-->
+    <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak -->
+    <img class='pull-right' src="{_user.profile.imageUrl}" />
+    <div class="control-group">
+        <label class="control-label" for="profileImageUrl">Photo Url</label>
+        <div class="controls">
+            <input type="url" id="profileImageUrl" value="{_user.profile.imageUrl}" placeholder="Image Url"/>
+        </div>
+    </div>
 
-                <div class="control-group">
-                    <label class="control-label" for="profileFullName">Full Name</label>
-                    <div class="controls">
-                        <input type="text" id="profileFullName" placeholder="Full Name" value="{_user.profile.name}" />
-                    </div>
-                </div>
+    <div class="control-group">
+        <label class="control-label" for="profileFullName">Full Name</label>
+        <div class="controls">
+            <input type="text" id="profileFullName" placeholder="Full Name" value="{_user.profile.name}" />
+        </div>
+    </div>
 
-                <div class="control-group">
-                    <label class="control-label" for="profileBlurb">Blurb</label>
-                    <div class="controls">
-                        <textarea id="profileBlurb" placeholder="Blurb" >{_user.profile.blurb}</textarea>
-                    </div>
-                </div>
+    <div class="control-group">
+        <label class="control-label" for="profileBlurb">Blurb</label>
+        <div class="controls">
+            <textarea id="profileBlurb" placeholder="Blurb" >{_user.profile.blurb}</textarea>
+        </div>
+    </div>
 
-                <div class="control-group">
-                    <label class="control-label" for="profileWebsite">Websites</label>
-                    <div class="controls">
-                        <form x-bind="submit:profileAddWebsite">
-                            <input type="url" id="profileWebsite" value="{_newProfileWebsite}" placeholder="Add Website"/>
-                        </form>
-                    </div>
-                    <ul>
-                        {#each _user.profile.websites as :website}
-                        <!-- would prefer if there were and index in #each, instead using data-website to search with indexOf -->
-                        <li>{:website} <a data-website="{:website}" x-bind="click:profileRemoveWebsite"><i class='icon-remove'></i></a></li>
-                        {/}
-                    </ul>
-
-                </div>
-                <a class='btn btn-success' x-bind="click:profileSave">Save</a>
-            {else}
-                <h3>
-                    {#if _profileActive.profile.name}
-                        {_profileActive.profile.name}
-                    {else}
-                        {username(_profileActive.auth)}
-                    {/}
-                    {#if _profileActiveMain}<a class='btn pull-right' x-bind="click:profileEdit">Edit</a>{/}
-                </h3>
-                {#if _profileActive.profile.imageUrl}
-                    <img src="{@user.profile.imageUrl}" />
-                {/}
-                {#if _profileActive.profile.blurb}
-                    <p>{_profileActive.profile.blurb}</p>
-                {/}
-                {#if _profileActive.profile.websites}
-                    <ul>
-                        {#each _profileActive.profile.websites as :website}
-                            <li>{:website}</li>
-                        {/}
-                    </ul>
-                {/}
+    <div class="control-group">
+        <label class="control-label" for="profileWebsite">Websites</label>
+        <div class="controls">
+            <form x-bind="submit:profileAddWebsite">
+                <input type="url" id="profileWebsite" value="{_newProfileWebsite}" placeholder="Add Website"/>
+            </form>
+        </div>
+        <ul>
+            <!-- would prefer if there were and index in #each, instead using data-website to search with indexOf -->
+            {#each _user.profile.websites as :website}
+            <li>{:website} <a data-website="{:website}" x-bind="click:profileRemoveWebsite"><i class='icon-remove'></i></a></li>
             {/}
-        </div>
-
-        <div class='span6'>
-            <h3>Achievements</h3>
-            <app:avatar:achievements />
-        </div>
+        </ul>
 
     </div>
 
+<profile:>
+    <div class='row-fluid'>
+        <div class='span6'>
+            <h3>{{username(@profile.auth, @profile.profile.name)}}</h3>
+            {{#if @profile.profile.imageUrl}}
+                <img src="{{@profile.profile.imageUrl}}" />
+            {{/}}
+            {{#if @profile.profile.blurb}}
+                <p>{{@profile.profile.blurb}}</p>
+            {{/}}
+            {{#if @profile.profile.websites}}
+                <ul>
+                    {{#each @profile.profile.websites as :website}}
+                        <li>{{:website}}</li>
+                    {{/}}
+                </ul>
+            {{/}}
+        </div>
+        <div class='span6'>
+            <h3>Achievements</h3>
+            <app:avatar:achievements profile={{@profile}} />
+        </div>
+    </div>
+
 <achievements:>
-    <!--TODO replce this in the future with HTML from BrowserQuest's index.html, which properly handles the achievements
-        sprite-sheets (see BQ's achievements.css, main.css) -->
-    <img src='/img/original_user.png' /> Original User!
+    <div class='achievements-container'>
+        <!--<div class='achievement achievement-sword'></div>-->
+        <!--<div class='achievement achievement-tree'></div>-->
+        <!--<div class='achievement achievement-comment'></div>-->
+        <!--<div class='achievement achievement-cave'></div>-->
+        <!--<div class='achievement achievement-sun'></div>-->
+        <!--<div class='achievement achievement-boot'></div>-->
+        <!--<div class='achievement achievement-coffin'></div>-->
+        <!--<div class='achievement achievement-alien'></div>-->
+        <!--<div class='achievement achievement-ninja'></div>-->
+        <!--<div class='achievement achievement-cactus'></div>-->
+        <!--<div class='achievement achievement-bow'></div>-->
+        <!--<div class='achievement achievement-shield'></div>-->
+        <!--<div class='achievement achievement-karaoke'></div>-->
+
+        <app:avatar:achievement unlocked={{@profile.backer.npc}} classes='achievement-helm' unlockable=false profile={{@profile}}>
+            <h5><span class='label label-success'>{{@profile.backer.npc}} NPC</span></h5>
+            <small>Backed the Kickstarter project at the maximum level!</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={{@profile.backer.contributor}} classes='achievement-firefox' unlockable=true profile={{@profile}}>
+            <h5>
+                {{#if @profile.backer.contributor}}
+                    <span class='label label-inverse'>{{@profile.backer.contributor}}</span>
+                {{else}}
+                    <span class='label'>Contributor</span>
+                {{/}}
+            </h5>
+            <small>Has contributed to HabitRPG (code, design, pixel art, legal advice, etc)</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={{@profile.backer.tier}} classes='achievement-heart' unlockable=false profile={{@profile}}>
+            <h5>Kickstarter Backer - ${{@profile.backer.tier}} Tier</h5>
+            <small>Backed the Kickstarter Project</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={@profile.achievements.streak} classes='achievement-thermometer' unlockable=true profile={@profile}>
+            <h5>{#if @profile.achievements.streak}{@profile.achievements.streak}{else}0{/} Streak Achievement(s)</h5>
+            <small>Has performed {#if @profile.achievements.streak}{@profile.achievements.streak}{else}0{/} 21-day streaks on Dailies</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={@profile.achievements.originalUser} classes='achievement-cake' unlockable=false profile={@profile}>
+            <h5>Original User</h5>
+            <small>Goes way back to the Habit's days of yore (bless them for soldiering through bugs!)</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={@profile.achievements.ultimateGear} classes='achievement-armor' unlockable=true profile={@profile}>
+            <h5>Ultimate Gear</h5>
+            <small>Has upgraded to the maximum weapon and armor set</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={@profile.achievements.beastMaster} classes='achievement-rat' unlockable=true profile={@profile}>
+            <h5>Beast Master</h5>
+            <small>Has found all 90 pets (insanely difficult, give this user props!)</small>
+        </app:avatar:achievement>
+
+    </div>
+
+<achievement: nonvoid>
+    {#if @unlocked}
+        <div class='achievement {{@classes}}'></div>{@content}
+        <hr/>
+    {else if @unlockable} <!-- only show silhouettes on own tab -->
+        {{#if equal(_user.id,@profile.id)}}
+            <span class='muted'>
+            {@content}
+            </span>
+            <hr/>
+        {{/}}
+    {/}
+
 
 <inventory:>
     <!-- we'll have other inventory here later too, like enchantments, quest scrolls, etc -->
     <app:pets:inventory/>
-
-<market:>
-
-    <!-- pets pane -->
-    <div class="tab-pane pet-grid" id="market-tab">
-
-        <h4>Welcome to the market!</h4>
-        <small>Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!</small>
-        <h4>Eggs</h4>
-        {#with _view.items.pets as :egg}
-        <table>
-            <tr>
-                {#with :egg[0]}<app:pets:egg />{/}
-                {#with :egg[1]}<app:pets:egg />{/}
-                {#with :egg[2]}<app:pets:egg />{/}
-                {#with :egg[3]}<app:pets:egg />{/}
-            </tr>
-            <tr>
-                {#with :egg[4]}<app:pets:egg />{/}
-                {#with :egg[5]}<app:pets:egg />{/}
-                {#with :egg[6]}<app:pets:egg />{/}
-                {#with :egg[7]}<app:pets:egg />{/}
-            </tr>
-            <tr>
-                {#with :egg[8]}<app:pets:egg />{/}
-            </tr>
-        </table>
-        {/}
-        <h4>Hatching Potions</h4>
-        {#with _view.items.hatchingPotions as :hatchingPotion}
-        <table>
-            <tr>
-                {#with :hatchingPotion[0]}<app:pets:hatchingPotion />{/}
-                {#with :hatchingPotion[1]}<app:pets:hatchingPotion />{/}
-                {#with :hatchingPotion[2]}<app:pets:hatchingPotion />{/}
-                {#with :hatchingPotion[3]}<app:pets:hatchingPotion />{/}
-            </tr>
-            <tr>
-                {#with :hatchingPotion[4]}<app:pets:hatchingPotion />{/}
-                {#with :hatchingPotion[5]}<app:pets:hatchingPotion />{/}
-                {#with :hatchingPotion[6]}<app:pets:hatchingPotion />{/}
-                {#with :hatchingPotion[7]}<app:pets:hatchingPotion />{/}
-            </tr>
-            <tr>
-                {#with :hatchingPotion[8]}<app:pets:hatchingPotion />{/}
-                {#with :hatchingPotion[9]}<app:pets:hatchingPotion />{/}
-            </tr>
-        </table>
-        {/}
-    </div>
-
 

@@ -7,18 +7,16 @@ module.exports.splash = (req, res, next) ->
 
 module.exports.view = (req, res, next) ->
   model = req.getModel()
-  _view = model.get('_view') || {}
   ## Set _mobileDevice to true or false so view can exclude portions from mobile device
-  _view.mobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
-  _view.nodeEnv = process.env.NODE_ENV
-  model.set '_view', _view
+  model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
+  model.set '_nodeEnv', model.flags.nodeEnv
   next()
 
 #CORS middleware
 module.exports.allowCrossDomain = (req, res, next) ->
   res.header "Access-Control-Allow-Origin", (req.headers.origin || "*")
   res.header "Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,HEAD,DELETE"
-  res.header "Access-Control-Allow-Headers", "Content-Type,X-Requested-With,x-api-user,x-api-key"
+  res.header "Access-Control-Allow-Headers", "Content-Type,Accept,Content-Encoding,X-Requested-With,x-api-user,x-api-key"
 
   # wtf is this for?
   if req.method is 'OPTIONS'

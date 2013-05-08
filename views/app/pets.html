@@ -16,6 +16,15 @@
     </@footer>
   </app:modals:modal>
 
+    <app:modals:modal modalId='beastmaster-achievement-modal' header="Achievement Unlocked!">
+        <p>
+            <div class='achievement achievement-rat'></div>You have earned the "Beast Master" Achievement for collecting all the pets!
+        </p>
+        <@footer>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        </@footer>
+    </app:modals:modal>
+
 <pet:>
     <td class="{#if _user.items.pets[.name]}active-pet{/}">
         <img rel=tooltip title="{.text} - {.value} Tokens" x-bind="click:selectPet" data-pet='{.name}' src='img/sprites/{.icon}'/>
@@ -35,7 +44,7 @@
 
 <inventory:>
     <div class='row-fluid'>
-        <div class='span6 well'>
+        <div class='{#if _hatchEgg}span6{/}'>
             <menu type="list" class="inventory-list">
                 <li class="customize-menu">
                     <menu label="Eggs" class='pets-menu'>
@@ -66,7 +75,7 @@
             </menu>
         </div>
         {#if _hatchEgg}
-        <div class='span6 well'>
+        <div class='span6'>
             <h3>Hatch Your Egg</h3>
             {#if not(_user.items.hatchingPotions)}
             <p>You don't have any hatching potions yet.</p>
@@ -75,7 +84,7 @@
             <form x-bind="submit:hatchEgg">
                 <select>
                     {#each _user.items.hatchingPotions as :hatchingPotion}
-                    <option>{:hatchingPotion}</option>
+                        <option>{:hatchingPotion}</option>
                     {/each}
                 </select>
                 <button type=submit>Pour</button>
@@ -86,16 +95,38 @@
     </div>
 
 <stable:>
-    {#if _user.items.pets}
-        <menu type="list">
-            <li class="customize-menu">
-                <menu>
-                    {#each _user.items.pets as :pet}
-                        <button type="button" class="customize-option Pet-{:pet} {#if equal(_user.items.currentPet.name, :pet)}active{/if}" rel="tooltip" title="{:pet}" data-pet="{:pet}" x-bind="click:choosePet"></button>
-                    {/}
-                </menu>
-            </li>
-        </menu>
-    {else}
-        <p>You don't have any pets yet.</p>
-    {/}
+    <div>{count(_user.items.pets)} / 90 Pets Found</div>
+    <table>
+        {{#each _items.pets as :pet}}
+            <tr>
+                {{#each _items.hatchingPotions as :potion}}
+                    <td>
+                        <app:pets:stable-pet tooltip="{{:potion.text}} {{:pet.text}}" pet="{{:pet.name}}-{{:potion.name}}" />
+                    </td>
+                {{/}}
+            </tr>
+        {{/}}
+    </table>
+    <h4>Rare Pets</h4>
+    <table>
+        <tr>
+            <td><app:pets:stable-pet potion='Veteran Wolf' pet="Wolf-Veteran" /></td>
+        </tr>
+    </table>
+
+    <!--<menu type="list">
+        <li class="customize-menu">
+            <menu>
+
+            </menu>
+        </li>
+    </menu>-->
+
+<stable-pet:>
+    <div rel="tooltip" title="{{@tooltip}}">
+        {#if ownsPet(@pet, _user.items.pets)}
+            <button class="pet-button Pet-{{@pet}} {#if equal(_user.items.currentPet.name, @string)}active{/if}" data-pet="{{@pet}}" x-bind="click:choosePet"></button>
+        {else}
+            <button class="pet-button pet-not-owned" data-pet="{{@pet}}"><img src="/img/paw.png"/></button>
+        {/}
+    </div>

@@ -40,7 +40,7 @@
                 </div>
 
                 <div class='span3'>
-                    {{#if equal(_view.nodeEnv, 'development')}}
+                    {{#if equal(_nodeEnv, 'development')}}
                         <h4>Cheat</h4>
                         <ul class='unstyled'>
                             <li><button class='btn' x-bind="click:emulateNextDay">Emulate Next Day</button></li>

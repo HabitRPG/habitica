@@ -2,27 +2,39 @@ _ = require 'underscore'
 moment = require 'moment'
 
 ###
-  Loads JavaScript files from public/js/*
-  If a library is available in a CDN, we put it in <Scripts:> (index.html) for better caching. If not, we use
-  this function to utilize require() to concatinate for faster page load
+  Loads JavaScript files from public/vendor/*
+  Use require() to min / concatinate for faster page load
 ###
 loadJavaScripts = (model) ->
 
-  unless model.get('_view.mobileDevice')
-    require '../../public/vendor/jquery-ui/ui/jquery.ui.core'
-    require '../../public/vendor/jquery-ui/ui/jquery.ui.widget'
-    require '../../public/vendor/jquery-ui/ui/jquery.ui.mouse'
-    require '../../public/vendor/jquery-ui/ui/jquery.ui.sortable'
-    require '../../public/sticky.js'
+  # Turns out you can't have expressions in browserify require() statements
+  #vendor = '../../public/vendor'
+  #require "#{vendor}/jquery-ui-1.10.2/jquery-1.9.1"
 
-  require '../../public/vendor/bootstrap-tour/bootstrap-tour'
+  ###
+  Internal Scripts
+  ###
+  require "../../public/vendor/jquery-ui-1.10.2/jquery-1.9.1"
+  require "../../public/vendor/jquery.cookie.min"
+  require "../../public/vendor/bootstrap/js/bootstrap.min"
+  require "../../public/vendor/jquery.bootstrap-growl.min"
+  require "../../public/vendor/datepicker/js/bootstrap-datepicker"
+  require "../../public/vendor/bootstrap-tour/bootstrap-tour"
 
+  unless (model.get('_mobileDevice') is true)
+    require "../../public/vendor/jquery-ui-1.10.2/ui/jquery.ui.core"
+    require "../../public/vendor/jquery-ui-1.10.2/ui/jquery.ui.widget"
+    require "../../public/vendor/jquery-ui-1.10.2/ui/jquery.ui.mouse"
+    require "../../public/vendor/jquery-ui-1.10.2/ui/jquery.ui.sortable"
+    require "../../public/vendor/sticky"
+
+  # note: external script loading is handled in app.on('render') near the bottom of this file (see https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/x8FwdTLEuXo)
 
 ###
   Setup jQuery UI Sortable
 ###
 setupSortable = (model) ->
-  unless (model.get('_view.mobileDevice') == true) #don't do sortable on mobile
+  unless (model.get('_mobileDevice') is true) #don't do sortable on mobile
     _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
       $("ul.#{type}s").sortable
         dropOnEmpty: false
@@ -41,9 +53,10 @@ setupSortable = (model) ->
           # or the item's id property
           model.at("_#{type}List").pass(ignore: domId).move {id}, to
 
-setupTooltips = module.exports.setupTooltips = (model) ->
+setupTooltips = module.exports.setupTooltips = ->
   $('[rel=tooltip]').tooltip()
   $('[rel=popover]').popover()
+  $('.popover-auto-show').popover('show')
 
   $('.priority-multiplier-help').popover
     title: "How difficult is this task?"
@@ -144,18 +157,32 @@ setupGrowlNotifications = (model) ->
     else if num > 0
       statsNotification "<i class='icon-star'></i> + #{rounded} XP", 'xp'
 
-  user.on 'set', 'stats.gp', (captures, args) ->
-    num = captures - args
-    absolute = Math.abs(num)
+  ###
+    Show "+ 5 {gold_coin} 3 {silver_coin}"
+  ###
+  showCoins = (money) ->
+    absolute = Math.abs(money)
     gold = Math.floor(absolute)
     silver = Math.floor((absolute-gold)*100)
-    sign = if num < 0 then '-' else '+'
     if gold and silver > 0
-      statsNotification "#{sign} #{gold} <i class='icon-gold'></i> #{silver} <i class='icon-silver'></i>", 'gp'
+      return "#{gold} <i class='icon-gold'></i> #{silver} <i class='icon-silver'></i>"
     else if gold > 0
-      statsNotification "#{sign} #{gold} <i class='icon-gold'></i>", 'gp'
+      return "#{gold} <i class='icon-gold'></i>"
     else if silver > 0
-      statsNotification "#{sign} #{silver} <i class='icon-silver'></i>", 'gp'
+      return "#{silver} <i class='icon-silver'></i>"
+
+  user.on 'set', 'stats.gp', (captures, args) ->
+    money = captures - args
+    return unless !!money # why is this happening? gotta find where stats.gp is being set from (-)habit
+    sign = if money < 0 then '-' else '+'
+    statsNotification "#{sign} #{showCoins(money)}", 'gp'
+
+    # Append Bonus
+    bonus = model.get('_streakBonus')
+    if (money > 0) and !!bonus
+      bonus = 0.01 if bonus < 0.01
+      statsNotification "+ #{showCoins(bonus)}  Streak Bonus!"
+      model.del('_streakBonus')
 
   user.on 'set', 'stats.lvl', (captures, args) ->
     if captures > args
@@ -169,39 +196,49 @@ module.exports.resetDom = (model) ->
   DERBY.app.dom.clear()
   DERBY.app.view.render(model, DERBY.app.view._lastRender.ns, DERBY.app.view._lastRender.context);
 
-###
-  Load external scripts that need re-calculation on page re-write
-###
-loadExternalScripts = (model) ->
-  $.getScript('//checkout.stripe.com/v2/checkout.js')
-
-  # JS files not needed right away (google charts) or entirely optional (analytics)
-  # Each file getsload asyncronously via $.getScript, so it doesn't bog page-load
-  unless model.get('_view.mobileDevice')
-
-    $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire")
-
-    # Google Charts
-    $.getScript "//www.google.com/jsapi", ->
-      # Specifying callback in options param is vital! Otherwise you get blank screen, see http://stackoverflow.com/a/12200566/362790
-      google.load "visualization", "1", {packages:["corechart"], callback: ->}
-
 # Note, Google Analyatics giving beef if in this file. Moved back to index.html. It's ok, it's async - really the
 # syncronous requires up top are what benefit the most from this file.
 
+googleAnalytics = (model) ->
+  if model.flags.nodeEnv is 'production'
+    window._gaq = [["_setAccount", "UA-33510635-1"], ["_setDomainName", "habitrpg.com"], ["_trackPageview"]]
+    $.getScript ((if "https:" is document.location.protocol then "https://ssl" else "http://www")) + ".google-analytics.com/ga.js"
+
+amazonAffiliate = (model) ->
+  if model.get('_loggedIn') and (model.get('_user.flags.ads') != 'hide')
+    $.getScript('//wms.assoc-amazon.com/20070822/US/js/link-enhancer-common.js?tag=ha0d2-20').fail ->
+      $('body').append('<img src="//wms.assoc-amazon.com/20070822/US/img/noscript.gif?tag=ha0d2-20" alt="" />')
+
+googleCharts = ->
+  $.getScript "//www.google.com/jsapi", ->
+    # Specifying callback in options param is vital! Otherwise you get blank screen, see http://stackoverflow.com/a/12200566/362790
+    google.load "visualization", "1", {packages:["corechart"], callback: ->}
+
 module.exports.app = (appExports, model, app) ->
   loadJavaScripts(model)
-  setupGrowlNotifications(model) unless model.get('_view.mobileDevice')
+  setupGrowlNotifications(model) unless model.get('_mobileDevice')
 
   app.on 'render', (ctx) ->
     #restoreRefs(model)
     setupSortable(model)
     setupTooltips(model)
     setupTour(model)
-    initStickyHeader(model) unless model.get('_view.mobileDevice')
-    loadExternalScripts(model)
+    initStickyHeader(model) unless model.get('_mobileDevice')
     $('.datepicker').datepicker({autoclose:true, todayBtn:true})
       .on 'changeDate', (ev) ->
         #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
-        #FIXME also, it saves as a day behind??
-        model.at(ev.target).set 'date', moment(ev.date).add('d',1).format('MM/DD/YYYY')
+        model.at(ev.target).set 'date', moment(ev.date).format('MM/DD/YYYY')
+
+    ###
+    External Scripts
+      JS files not needed right away (google charts) or entirely optional (analytics)
+      Each file getsload asyncronously via $.getScript, so it doesn't bog page-load
+      These need to be handled in app.on('render'), see https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/x8FwdTLEuXo
+    ###
+    $.getScript('//checkout.stripe.com/v2/checkout.js')
+    unless (model.get('_mobileDevice') is true)
+      $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire")
+      googleCharts()
+
+    googleAnalytics(model)
+    amazonAffiliate(model)

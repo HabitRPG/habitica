@@ -1,4 +1,3 @@
-character = require './character'
 browser = require './browser'
 items = require './items'
 algos = require './algos'
@@ -28,13 +27,13 @@ module.exports.app = (appExports, model) ->
     items.updateStore(model)
 
   appExports.revive = (e, el) ->
-    batch = new character.BatchUpdate(model)
+    batch = new BatchUpdate(model)
     batch.startTransaction()
     revive(batch)
     batch.commit()
 
   appExports.reset = (e, el) ->
-    batch = new character.BatchUpdate(model)
+    batch = new BatchUpdate(model)
     batch.startTransaction()
     taskTypes = ['habit', 'daily', 'todo', 'reward']
     batch.set 'tasks', {}
@@ -73,20 +72,6 @@ module.exports.app = (appExports, model) ->
     model.del "users.#{user.get('id')}", ->
       window.location.href = "/logout"
 
-  user.on 'set', 'flags.customizationsNotification', (captures, args) ->
-    return unless captures == true
-    $('.main-herobox').popover('destroy') #remove previous popovers
-    html = """
-           Click your avatar to customize your appearance. <a href='#' onClick="$('.main-herobox').popover('hide');return false;">[Close]</a>
-           """
-    $('.main-herobox').popover
-      title: "Customize Your Avatar"
-      placement: 'bottom'
-      trigger: 'manual'
-      html: true
-      content: html
-    $('.main-herobox').popover 'show'
-
 userSchema =
 # _id
   stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
@@ -104,6 +89,7 @@ userSchema =
   flags:
     partyEnabled: false
     itemsEnabled: false
+  tags: []
 # ads: 'show' # added on registration
 
 module.exports.newUserObject = ->
@@ -127,6 +113,12 @@ module.exports.newUserObject = ->
     {type: 'reward', text: 'Cake', notes: 'But only buy if you have enough gold - you lose HP otherwise.', value: 10 }
   ]
 
+  defaultTags = [
+    {name: 'morning'}
+    {name: 'afternoon'}
+    {name: 'evening'}
+  ]
+
   for task in defaultTasks
     guid = task.id = derby.uuid()
     newUser.tasks[guid] = task
@@ -135,6 +127,11 @@ module.exports.newUserObject = ->
       when 'daily' then newUser.dailyIds.push guid
       when 'todo' then newUser.todoIds.push guid
       when 'reward' then newUser.rewardIds.push guid
+
+  for tag in defaultTags
+    tag.id = derby.uuid()
+    newUser.tags.push tag
+
   return newUser
 
 module.exports.BatchUpdate = BatchUpdate = (model) ->

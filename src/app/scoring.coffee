@@ -12,7 +12,7 @@ MODIFIER = algos.MODIFIER # each new level, armor, weapon add 2% modifier (this 
 ###
   Drop System
 ###
-randomDrop = (model, delta, priority) ->
+randomDrop = (model, delta, priority, streak=0) ->
   user = model.at('_user')
 
   # limit drops to 2 / day
@@ -23,13 +23,12 @@ randomDrop = (model, delta, priority) ->
   return if reachedDropLimit and model.flags.nodeEnv != 'development'
 
   # % chance of getting a pet or meat
-  # debugging purpose - 50% chance during development, 3% chance on prod
-  chanceMultiplier = if (model.flags.nodeEnv is 'development') then 50 else 1
-  # TODO temporary min cap of 1 so people still get rewarded for good habits. Will change once we have streaks
-  deltaMultiplier = if Math.abs(delta) < 1 then 1 else Math.abs(delta)
-  chanceMultiplier = chanceMultiplier * deltaMultiplier * algos.priorityValue(priority) # multiply chance by reddness
+  chanceMultiplier = Math.abs(delta)
+  chanceMultiplier *= algos.priorityValue(priority) # multiply chance by reddness
+  chanceMultiplier += streak # streak bonus
+  console.log chanceMultiplier
 
-  if user.get('flags.dropsEnabled') and Math.random() < (.01 * chanceMultiplier)
+  if user.get('flags.dropsEnabled') and Math.random() < (.05 * chanceMultiplier)
     # current breakdown - 3% (adjustable) chance on drop
     # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
     rarity = Math.random()
@@ -94,7 +93,7 @@ score = (model, taskId, direction, times, batch, cron) ->
 
   taskPath = "tasks.#{taskId}"
   taskObj = obj.tasks[taskId]
-  {type, value} = taskObj
+  {type, value, streak} = taskObj
   priority = taskObj.priority or '!'
 
   # If they're trying to purhcase a too-expensive reward, confirm they want to take a hit for it
@@ -120,7 +119,10 @@ score = (model, taskId, direction, times, batch, cron) ->
     level = user.get('stats.lvl')
     weaponStrength = items.items.weapon[user.get('items.weapon')].strength
     exp += algos.expModifier(delta,weaponStrength,level, priority) / 2 # / 2 hack for now bcause people leveling too fast
-    gp += algos.gpModifier(delta, 1, priority)
+    if streak
+      gp += algos.gpModifier(delta, 1, priority, streak, model)
+    else
+      gp += algos.gpModifier(delta, 1, priority)
 
   subtractPoints = ->
     level = user.get('stats.lvl')
@@ -144,10 +146,18 @@ score = (model, taskId, direction, times, batch, cron) ->
       if cron? # cron
         calculateDelta()
         subtractPoints()
+        batch.set "#{taskPath}.streak", 0
       else
         calculateDelta(false)
         if delta != 0
           addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
+          if direction is 'up'
+            streak = if streak then streak + 1 else 1
+          else
+            streak = if streak then streak - 1 else 0
+          batch.set "#{taskPath}.streak", streak
+          taskObj.streak = streak
+
 
     when 'todo'
       if cron? #cron
@@ -183,7 +193,7 @@ score = (model, taskId, direction, times, batch, cron) ->
     batch.commit()
 
   # Drop system
-  randomDrop(model, delta, priority) if direction is 'up'
+  randomDrop(model, delta, priority, streak) if direction is 'up'
 
   return delta
 
@@ -235,16 +245,22 @@ updateStats = (model, newStats, batch) ->
       #user.pass(true).set('stats.exp', obj.stats.exp)
 
     # Set flags when they unlock features
+    # NOTE we have to first model.set() the flag to true, then AFTER that obj.flags.flag = true
+    # The reason is model.on() listeners still track object references, so if obj.flags.flags = true and then we
+    # model.set(), the second argument of .on() listeners will be true (in otherwords, before/after tests will fail)
     if !obj.flags.customizationsNotification and (obj.stats.exp > 10 or obj.stats.lvl > 1)
       batch.set 'flags.customizationsNotification', true
       obj.flags.customizationsNotification = true
     if !obj.flags.itemsEnabled and obj.stats.lvl >= 2
       # Set to object, then also send to browser right away to get model.on() subscription notification
-      batch.set 'flags.itemsEnabled', obj.flags.itemsEnabled = true
+      batch.set 'flags.itemsEnabled', true
+      obj.flags.itemsEnabled = true
     if !obj.flags.partyEnabled and obj.stats.lvl >= 3
-      batch.set 'flags.partyEnabled', obj.flags.partyEnabled = true
+      batch.set 'flags.partyEnabled', true
+      obj.flags.partyEnabled = true
     if !obj.flags.dropsEnabled and obj.stats.lvl >= 4
-      batch.set 'flags.dropsEnabled', obj.flags.dropsEnabled = true
+      batch.set 'flags.dropsEnabled', true
+      obj.flags.dropsEnabled = true
 
   if newStats.gp?
     #FIXME what was I doing here? I can't remember, gp isn't defined
@@ -262,8 +278,15 @@ cron = (model) ->
   if daysPassed > 0
     batch = new character.BatchUpdate(model)
     batch.startTransaction()
-    batch.set 'lastCron', today
     obj = batch.obj()
+    batch.set 'lastCron', today
+
+    if user.get('flags.rest') is true
+      _.each model.get('_dailyList'), (daily) -> batch.set("tasks.#{daily.id}.completed", false)
+      browser.resetDom(model)
+      batch.commit()
+      return
+
     hpBefore = obj.stats.hp #we'll use this later so we can animate hp loss
     # Tally each task
     todoTally = 0

@@ -1,4 +1,5 @@
 _ = require('underscore')
+helpers = require './helpers'
 
 partyUnsubscribe = (model, cb) ->
   if window?
@@ -33,9 +34,13 @@ module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb)
   selfQ = model.query('users').withId (model.get('_userId') or model.session.userId) # see http://goo.gl/TPYIt
   selfQ.fetch (err, user) ->
     return next(err) if err
-    return next("User not found - this shouldn't be happening!") unless user.get()
+    unless user.get()
+      #return next("User not found - this shouldn't be happening!")
+      console.error "User not found - this shouldn't be happening!"
+      return page.redirect('/logout') #delete model.session.userId
 
     finished = (descriptors, paths) ->
+      descriptors.push 'tavern'; paths.push '_tavern'
       model.subscribe.apply model, descriptors.concat ->
         [err, refs] = [arguments[0], arguments]
         return next(err) if err
@@ -66,29 +71,22 @@ module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb)
       membersQ = model.query('users').party(members)
       return finished [partyQ, membersQ, selfQ], ['_party', '_partyMembers', '_user']
 
-module.exports.app = (appExports, model) ->
+module.exports.app = (appExports, model, app) ->
   character = require './character'
   browser = require './browser'
+  helpers = require './helpers'
+
+  _currentTime = model.at '_currentTime'
+
+  _currentTime.setNull +new Date()
+
+  # Every 60 seconds, reset the current time so that the chat
+  # can update relative times
+  setInterval ->
+    _currentTime.set +new Date()
+  , 60000
 
   user = model.at('_user')
-
-  user.on 'set', 'flags.partyEnabled', (captures, args) ->
-    return if (captures != true) or user.get('party.current')
-    $('.user-menu').popover('destroy') #remove previous popovers
-    html = """
-           <div class='party-system-popover'>
-           <img src='/img/party-unlocked.png' style='float:right;padding:5px;' />
-           Be social, join a party and play Habit with your friends! You'll be better at your habits with accountability partners. LFG anyone?
-           <a href='#' onClick="$('.user-menu').popover('hide');return false;">[Close]</a>
-           </div>
-           """
-    $('.user-menu').popover
-      title: "Party System"
-      placement: 'bottom'
-      trigger: 'manual'
-      html: true
-      content: html
-    $('.user-menu').popover 'show'
 
   model.on 'set', '_user.party.invitation', (after, before) ->
     if !before? and after? # they just got invited
@@ -113,10 +111,10 @@ module.exports.app = (appExports, model) ->
       throw err if err
       u = res.at(0).get()
       if !u?
-        model.set "_view.partyError", "User with id #{id} not found."
+        model.set "_partyError", "User with id #{id} not found."
         return
       else if u.party.current? or u.party.invitation?
-        model.set "_view.partyError", "User already in a party or pending invitation."
+        model.set "_partyError", "User already in a party or pending invitation."
         return
       else
         p = model.at '_party'
@@ -167,3 +165,52 @@ module.exports.app = (appExports, model) ->
 #      selfQ.subscribe (err, u) ->
 #        model.ref '_user', u
 #        browser.resetDom model
+
+  ###
+    Chat Functionality
+  ###
+
+  sendChat = (path, input) ->
+    chat = model.at path
+    text = model.get input
+    # Check for non-whitespace characters
+    return unless /\S/.test text
+    chat.unshift
+      id: model.id()
+      uuid: user.get('id')
+      contributor: user.get('backer.contributor')
+      npc: user.get('backer.npc')
+      text: text
+      user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
+      timestamp: +new Date
+    model.set(input, '')
+    chat.remove 200 # keep a max messages cap
+
+  model.on 'unshift', '_party.chat', -> $('.chat-message').tooltip()
+  model.on 'unshift', '_tavern.chat.messages', -> $('.chat-message').tooltip()
+
+  appExports.partySendChat = ->
+    sendChat('_party.chat', '_chatMessage')
+    model.set '_user.party.lastMessageSeen', model.get('_party.chat')[0].id
+
+  appExports.tavernSendChat = ->
+    model.setNull '_tavern.chat', {messages:[]} #we can remove this later, first time run only
+    sendChat('_tavern.chat.messages', '_tavernMessage')
+
+  appExports.partyMessageKeyup = (e, el, next) ->
+    return next() unless e.keyCode is 13
+    appExports.partySendChat()
+
+  appExports.tavernMessageKeyup = (e, el, next) ->
+    return next() unless e.keyCode is 13
+    appExports.tavernSendChat()
+
+  app.on 'render', (ctx) ->
+    $('#party-tab-link').on 'shown', (e) ->
+      messages = model.get('_party.chat')
+      return false unless messages?.length > 0
+      model.set '_user.party.lastMessageSeen', messages[0].id
+
+  appExports.gotoPartyChat = ->
+    model.set '_gamePane', true, ->
+      $('#party-tab-link').tab('show')

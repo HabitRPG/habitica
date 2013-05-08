@@ -1,10 +1,21 @@
+<modals:>
+    <app:modals:modal modalId='max-gear-achievement-modal' header="Achievement Unlocked!">
+        <p>
+            <div class='achievement achievement-armor'></div>You have earned the "Ultimate Gear" Achievement for upgrading to the maximum gear set!
+        </p>
+        <@footer>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        </@footer>
+    </app:modals:modal>
+
+
 <rewardsColumn:>
-    <div class="module">
+    <div class="module rewards-module">
         <div class="task-column rewards">
             <!-- cash or tokens -->
             <span class='option-box pull-right wallet'>
                 <div class="money">
-                    {gold(_user.stats.gp)}
+                    {gold(floor(_user.stats.gp))}
                     <span class='shop_gold' rel='tooltip' title='Gold'></span>
                 </div>
                 <div class="money">
@@ -25,12 +36,12 @@
 
             <!-- Static Rewards -->
             <ul class='items' style="{#unless _user.flags.itemsEnabled}display:none{/}">
-                {#with _view.items.weapon as :item}<app:rewards:item />{/}
-                {#with _view.items.armor as :item}<app:rewards:item />{/}
-                {#with _view.items.head as :item}<app:rewards:item />{/}
-                {#with _view.items.shield as :item}<app:rewards:item />{/}
-                {#with _view.items.potion as :item}<app:rewards:item />{/}
-                {#with _view.items.reroll as :item}<app:rewards:item reroll=true />{/}
+                {#with _items.weapon as :item}<app:rewards:item />{/}
+                {#with _items.armor as :item}<app:rewards:item />{/}
+                {#with _items.head as :item}<app:rewards:item />{/}
+                {#with _items.shield as :item}<app:rewards:item />{/}
+                {#with _items.potion as :item}<app:rewards:item />{/}
+                {#with _items.reroll as :item}<app:rewards:item reroll=true />{/}
             </ul>
 
             <app:tasks:ads>
@@ -59,7 +70,7 @@
     <!-- left-hand size commands -->
     <div class="task-controls">
       {#if @reroll}
-        <a class="task-action-btn btn-reroll" data-toggle="modal" data-target="#reroll-modal">⟲</a>
+        <a class="task-action-btn btn-reroll" data-toggle="modal" data-target="#reroll-modal"><i class='icon-repeat'></i></a>
       {else}
         <a class="money btn-buy item-btn" x-bind=click:buyItem data-type={:item.type} data-value={:item.value} data-index={:item.index}>
             <span class="reward-cost">{:item.value}</span>

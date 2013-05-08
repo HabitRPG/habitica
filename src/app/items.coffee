@@ -91,64 +91,33 @@ module.exports.app = (appExports, model) ->
     [type, value, index] = [ $(el).attr('data-type'), $(el).attr('data-value'), $(el).attr('data-index') ]
 
     return if gp < value
-    user.set 'stats.gp', gp - value
+    # make sure deduction doesn't happen unless purchase was successful, see https://github.com/lefnire/habitrpg/issues/233
+    deductGP = -> user.set 'stats.gp', gp - value
     if type == 'weapon'
-      user.set 'items.weapon', index
+      user.set 'items.weapon', index, deductGP
       updateStore model
     else if type == 'armor'
-      user.set 'items.armor', index
+      user.set 'items.armor', index, deductGP
       updateStore model
     else if type == 'head'
-      user.set 'items.head', index
+      user.set 'items.head', index, deductGP
       updateStore model
     else if type == 'shield'
-      user.set 'items.shield', index
+      user.set 'items.shield', index, deductGP
       updateStore model
     else if type == 'potion'
       hp = user.get 'stats.hp'
       hp += 15
       hp = 50 if hp > 50
-      user.set 'stats.hp', hp
+      user.set 'stats.hp', hp, deductGP
 
 
   appExports.activateRewardsTab = ->
-    model.set '_view.activeTabRewards', true
-    model.set '_view.activeTabPets', false
+    model.set '_activeTabRewards', true
+    model.set '_activeTabPets', false
   appExports.activatePetsTab = ->
-    model.set '_view.activeTabPets', true
-    model.set '_view.activeTabRewards', false
-
-  model.on 'set', '_user.flags.itemsEnabled', (captures, args) ->
-    return unless captures is true
-    html = """
-           <div class='item-store-popover'>
-           <img src='/vendor/BrowserQuest/client/img/1/chest.png' />
-           Congratulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information.
-           <a href='#' onClick="$('div.rewards').popover('hide');return false;">[Close]</a>
-           </div>
-           """
-    $('div.rewards').popover({
-      title: "Item Store Unlocked"
-      placement: 'left'
-      trigger: 'manual'
-      html: true
-      content: html
-    }).popover 'show'
-
-  user.on 'set', 'flags.petsEnabled', (captures, args) ->
-    return unless captures == true
-    html = """
-           <img src='/img/sprites/wolf_border.png' style='width:30px;height:30px;float:left;padding-right:5px' />
-           You have unlocked Pets! You can now buy pets with tokens (note, you replenish tokens with real-life money - so chose your pets wisely!)
-           <a href='#' onClick="$('#rewardsTabs').popover('hide');return false;">[Close]</a>
-           """
-    $('#rewardsTabs').popover
-      title: "Pets Unlocked"
-      placement: 'left'
-      trigger: 'manual'
-      html: true
-      content: html
-    $('#rewardsTabs').popover 'show'
+    model.set '_activeTabPets', true
+    model.set '_activeTabRewards', false
 
 ###
   update store
@@ -159,12 +128,12 @@ module.exports.updateStore = updateStore = (model) ->
   _.each ['weapon', 'armor', 'shield', 'head'], (type) ->
     i = parseInt(obj?.items?[type] || 0) + 1
     nextItem = if (i == _.size items[type]) then {hide:true} else items[type][i]
-    model.set "_view.items.#{type}", nextItem
+    model.set "_items.#{type}", nextItem
 
-  model.set '_view.items.potion', items.potion
-  model.set '_view.items.reroll', items.reroll
-  model.set '_view.items.pets', items.pets
-  model.set '_view.items.hatchingPotions', items.hatchingPotions
+  model.set '_items.potion', items.potion
+  model.set '_items.reroll', items.reroll
+  model.set '_items.pets', items.pets
+  model.set '_items.hatchingPotions', items.hatchingPotions
 
 
 

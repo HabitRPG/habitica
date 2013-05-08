@@ -1,11 +1,77 @@
-<newStuff:>
-    {#if equal(_user.flags.newStuff,'show')}
-        <div class='new-stuff'>
-            <p class='alert alert-success'>
-                <a href="https://github.com/lefnire/habitrpg/blob/develop/CHANGELOG.md" target="_blank">New Stuff!</a>  <a x-bind="click:closeNewStuff"><i class='icon-remove'></i></a>
-            </p>
+<modals:>
+    <app:modals:modal modalId='new-stuff-modal' header="New Stuff">
+        <p class='new-stuff-word-bubble-container'>
+            <img src="/img/npcs/bailey.png" />
 
-        </div>
+            <div class="popover fade right in" style="top: 0px; left: 100px; display: block;">
+                <div class="arrow"></div>
+                <h3 class="popover-title">Bailey</h3>
+                <div class="popover-content"><a target="_blank" href="http://www.kickstarter.com/profile/mihakuu">Bailey</a> the Crier here! Announcing new stuff!</div>
+            </div>
+        </p>
+
+        <hr/>
+
+        <p>
+            <h4>5/7/2013</h4>
+            <ul>
+                <li><a _target='blank' href="https://trello.com/card/tags-categories/50e5d3684fe3a7266b0036d6/43">Tags</a>. You can now categorize your tasks, eg "Work", "Home", "Morning", "Taxes", etc.</li>
+            </ul>
+
+            <h4>5/4/2013</h4>
+            <ul>
+                <li><a _target='blank' href="https://trello.com/card/streaks-consecutive-bonus/50e5d3684fe3a7266b0036d6/182">Streaks</a>. You get a GP & drop-% increase the longer you hold daily streaks (they stack). You also get a stacking badge for each 21-day streak.</li>
+            </ul>
+
+            <h4>5/3/2013</h4>
+            <ul>
+                <li>Two new achievements: Beast Master & Ultimate Gear. Got ideas for more achievements? <a target="_blank" href="https://trello.com/card/awards-badges/50e5d3684fe3a7266b0036d6/19">chime in here</a></li>
+            </ul>
+
+            <h4>5/2/2013</h4>
+            <ul>
+                <li><a target="_blank" href="https://trello.com/card/party-chat/50e5d3684fe3a7266b0036d6/267">Party Chat!</a> also, Tavern Chat (LFG)</li>
+                <li><a target="_blank" href="https://trello.com/card/rest-in-tavern/50e5d3684fe3a7266b0036d6/14">Rest in Tavern</a> (basic implementation, more to come)</li>
+                <li>NPCs! <a target="_blank" href="http://www.kickstarter.com/profile/mihakuu">Bailey</a> the Town Crier, <a target="_blank" href="http://www.kickstarter.com/profile/523661924">Alexander</a> the <a target="_blank" href="https://trello.com/card/marketplace/50e5d3684fe3a7266b0036d6/167">Merchant</a>, <a target="_blank" href="http://www.kickstarter.com/profile/2014640723">Daniel</a> the <a target="_blank" href="http://goo.gl/FkSib">Tavern Keep</a></li>
+                <li><a href="https://github.com/lefnire/habitrpg/issues/828">New "Game Options" layout</a> (click your avatar to see)</li>
+            </ul>
+
+            <h4>3/27/2013</h4>
+            <ul>
+                <li>Drop system + pets overhaul (<a href="http://www.kickstarter.com/projects/lefnire/habitrpg-mobile/posts/439433">Blog Post</a> | <a href="https://trello.com/card/pets/50e5d3684fe3a7266b0036d6/166">Trello Card</a>)</li>
+            </ul>
+
+            <h4>3/21/2013</h4>
+            <ul>
+                <li><a href="https://github.com/lefnire/habitrpg/issues/585">More design tweaks to header & avatars</a></li>
+            </ul>
+
+            <h4>3/20/2013</h4>
+            <ul>
+                <li><a href="https://github.com/lefnire/habitrpg/issues/585">New Design</a></li>
+                <li><a href="https://trello.com/card/toggle-helm-visible/50e5d3684fe3a7266b0036d6/153">Toggle helm visible</a></li>
+                <li><a href="https://trello.com/card/toggle-header/50e5d3684fe3a7266b0036d6/241">Toggle Header</a></li>
+                <li><a href="https://trello.com/card/deletable-accounts/50e5d3684fe3a7266b0036d6/69">Deletable Accounts</a></li>
+                <li><a href="https://trello.com/card/undo-button/50e5d3684fe3a7266b0036d6/20">Undo Button</a></li>
+            </ul>
+
+            <h4>3/3/2013</h4>
+            <ul>
+                <li><a href="https://trello.com/card/custom-day-start/50e5d3684fe3a7266b0036d6/15">Add custom day start</a></li>
+            </ul>
+
+        </p>
+        <@footer>
+            <button class="btn" data-dismiss="modal" aria-hidden="true" x-bind="click:closeNewStuff">Close</button>
+        </@footer>
+    </app:modals:modal>
+
+<hiding-bailey:>
+    {#if equal(_user.flags.newStuff,'show')}
+        <img class='hiding-bailey' src="/img/npcs/bailey-face.png"
+             rel=tooltip title=Psst data-placement=top
+             data-toggle=modal data-target='#new-stuff-modal'
+             />
     {/}
 
 <flash:>
