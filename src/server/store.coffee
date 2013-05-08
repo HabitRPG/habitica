@@ -123,6 +123,13 @@ partySystem = (store) ->
     return accept(false) if derbyAuth.bustedSession(@)
     accept(true)
 
+  store.query.expose "parties", "withMember", (id) ->
+    @where('members').contains([id]).findOne()
+
+  store.queryAccess 'parties', 'withMember', (id, accept, err) ->
+    return accept(false) if derbyAuth.bustedSession(@)
+    accept(true)
+
 ###
   LFG / tavern system
 ###

@@ -27,49 +27,33 @@ partyUnsubscribe = (model, cb) ->
 ###
 module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb) ->
 
-  # unsubscribe from everything - we're starting over
-  # partyUnsubscribe model, ->
+  uuid = model.get('_userId') or model.session.userId # see http://goo.gl/TPYIt
+  selfQ = model.query('users').withId(uuid) #keep this for later
+  partyQ = model.query('parties').withMember(uuid)
 
-  # Restart subscription to the main user
-  selfQ = model.query('users').withId (model.get('_userId') or model.session.userId) # see http://goo.gl/TPYIt
-  selfQ.fetch (err, user) ->
+  #TODO add index on parties.members
+  partyQ.fetch (err, party) ->
     return next(err) if err
-    unless user.get()
-      #return next("User not found - this shouldn't be happening!")
-      console.error "User not found - this shouldn't be happening!"
-      return page.redirect('/logout') #delete model.session.userId
 
     finished = (descriptors, paths) ->
-      descriptors.push 'tavern'; paths.push '_tavern'
       model.subscribe.apply model, descriptors.concat ->
         [err, refs] = [arguments[0], arguments]
         return next(err) if err
         _.each paths, (path, idx) -> model.ref path, refs[idx+1]
+        unless model.get('_user')
+          #return next("User not found - this shouldn't be happening!")
+          console.error "User not found - this shouldn't be happening!"
+          return page.redirect('/logout') #delete model.session.userId
         cb()
 
-
-    # Attempted handling for 'party of undefined' error, which is caused by bustedSession (see derby-auth).
-    # Theoretically simply reloading the page should restore model.at('_userId') and the second load should work just fine
-    # bustedSession victims might hit a redirection loop if I'm wrong :/
-#    return page.redirect('/') unless uObj
-
-    partyId = user.get('party.current')
+    party = party.get()
 
     # (1) Solo player
-    return finished([selfQ], ['_user']) unless partyId
+    return finished([selfQ, 'tavern'], ['_user', '_tavern']) unless party
 
-    # User in a party
-    partyQ = model.query('parties').withId(partyId)
-    partyQ.fetch (err, party) ->
-      return next(err) if err
-      members = party.get('members')
-
-      ## (2) Party has no members, just subscribe to the party itself
-      return finished([partyQ, selfQ], ['_party', '_user']) if _.isEmpty(members)
-
-      ## (3) Party has members, subscribe to those users too
-      membersQ = model.query('users').party(members)
-      return finished [partyQ, membersQ, selfQ], ['_party', '_partyMembers', '_user']
+    ## (2) Party has members, subscribe to those users too
+    membersQ = model.query('users').party(party.members)
+    return finished [partyQ, membersQ, selfQ, 'tavern'], ['_party', '_partyMembers', '_user', '_tavern']
 
 module.exports.app = (appExports, model, app) ->
   character = require './character'
