@@ -27,7 +27,7 @@ items = module.exports.items =
     {index: 3, text: "Plate Helm", classes: 'head_3', notes:'Decreases HP loss by 4%.', defense: 4, value:45}
     {index: 4, text: "Red Helm", classes: 'head_4', notes:'Decreases HP loss by 5%.', defense: 5, value:60}
     {index: 5, text: "Golden Helm", classes: 'head_5', notes:'Decreases HP loss by 6%.', defense: 6, value:80}
-    {index: 5, text: "Shade Helm", classes: 'head_6', notes:'Decreases HP loss by 7%.', defense: 7, value:100}
+    {index: 6, text: "Shade Helm", classes: 'head_6', notes:'Decreases HP loss by 7%.', defense: 7, value:100}
   ]
   shield: [
     {index: 0, text: "No Shield", classes: 'shield_0', notes:'No Shield.', defense: 0, value:0}
