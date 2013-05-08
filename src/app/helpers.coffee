@@ -84,37 +84,40 @@ viewHelpers = (view) ->
   ###
     Items
   ###
-  view.fn 'equipped', (type, item=0, preferences={gender:'m', armorSet:'v1'}, backer={}) ->
+  view.fn 'equipped', (type, item=0, preferences={gender:'m', armorSet:'v1'}, backerTier=0) ->
     {gender, armorSet} = preferences
+    item = parseInt(item)
+    backerTier = parseInt(backerTier)
+    console.log backerTier
 
     switch type
       when'armor'
-        if item is 6
-          return 'armor_6' if backer.tier >= 45
+        if item > 5
+          return 'armor_6' if backerTier >= 45
           item = 5 # set them back if they're trying to cheat
         if gender is 'f'
-          return if (parseInt(item) is 0) then "f_armor_#{item}_#{armorSet}" else "f_armor_#{item}"
+          return if (item is 0) then "f_armor_#{item}_#{armorSet}" else "f_armor_#{item}"
         else
           return "m_armor_#{item}"
 
       when 'head'
-        if item is 6
-          return 'head_6' if backer.tier >= 45
+        if item > 5
+          return 'head_6' if backerTier >= 45
           item = 5
         if gender is 'f'
-          return if (parseInt(item) > 1) then "f_head_#{item}_#{armorSet}" else "f_head_#{item}"
+          return if (item > 1) then "f_head_#{item}_#{armorSet}" else "f_head_#{item}"
         else
           return "m_head_#{item}"
 
       when 'shield'
-        if item is 6
-          return 'head_6' if backer.tier >= 45
+        if item > 5
+          return 'shield_6' if backerTier >= 45
           item = 5
         return "#{preferences.gender}_shield_#{item}"
 
       when 'weapon'
-        if item is 7
-          return 'weapon_7' if backer.tier >= 70
+        if item > 6
+          return 'weapon_7' if backerTier >= 70
           item = 6
         return "#{preferences.gender}_weapon_#{item}"
 

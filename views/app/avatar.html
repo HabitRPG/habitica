@@ -32,14 +32,14 @@
             {#with @profile.preferences as :p}
                 <span class='{:p.gender}_skin_{:p.skin}'></span>
                 <span class='{:p.gender}_hair_{:p.hair}'></span>
-                <span class="{equipped('armor', @profile.items.armor, @profile.preferences, @profile.backer)}"></span>
+                <span class="{equipped('armor', @profile.items.armor, @profile.preferences, @profile.backer.tier)}"></span>
                 {#if :p.showHelm}
-                    <span class="{equipped('head', @profile.items.head, @profile.preferences, @profile.backer)}"></span>
+                    <span class="{equipped('head', @profile.items.head, @profile.preferences, @profile.backer.tier)}"></span>
                 {else}
                     <span class="{:p.gender}_head_0"></span>
                 {/}
-                <span class="{equipped('shield', @profile.items.shield, @profile.preferences, @profile.backer)}"></span>
-                <span class="{equipped('weapon', @profile.items.weapon, @profile.preferences, @profile.backer)}"></span>
+                <span class="{equipped('shield', @profile.items.shield, @profile.preferences, @profile.backer.tier)}"></span>
+                <span class="{equipped('weapon', @profile.items.weapon, @profile.preferences, @profile.backer.tier)}"></span>
             {/}
             {#if and(@profile.items.currentPet, not(@minimal))}
                 <span class="Pet-{@profile.items.currentPet.name}-{@profile.items.currentPet.modifier} current-pet" ></span>
