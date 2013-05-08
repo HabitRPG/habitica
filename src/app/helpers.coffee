@@ -185,7 +185,7 @@ viewHelpers = (view) ->
 
   view.fn 'newChatMessages', (messages, lastMessageSeen) ->
     return false unless messages?.length > 0
-    messages && messages[0].id != lastMessageSeen
+    messages?[0] and (messages[0].id != lastMessageSeen)
 
   view.fn 'indexOf', (str1, str2) ->
     return false unless str1 && str2
