@@ -88,7 +88,6 @@ viewHelpers = (view) ->
     {gender, armorSet} = preferences
     item = parseInt(item)
     backerTier = parseInt(backerTier)
-    console.log backerTier
 
     switch type
       when'armor'

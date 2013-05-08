@@ -111,6 +111,7 @@
     <table>
         <tr>
             <td><app:pets:stable-pet potion='Veteran Wolf' pet="Wolf-Veteran" /></td>
+            {{#if gt(_user.backer.npc.tier,70)}}<td><app:pets:stable-pet potion='Cerberus Pup' pet="Wolf-Cerberus" /></td>{{/}}
         </tr>
     </table>
 
