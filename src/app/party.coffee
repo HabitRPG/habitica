@@ -1,49 +1,6 @@
 _ = require('underscore')
 helpers = require './helpers'
 
-partyUnsubscribe = (model, cb) ->
-  if window?
-    throw "unsubscribe requires cb" unless cb?
-    subs = model._subs()
-    subs.concat cb
-    model.unsubscribe.apply(model, subs)
-  else
-    cb()
-
-###
-  Subscribe to the user, the users's party (meta info like party name, member ids, etc), and the party's members. 3 subscriptions.
-
-  Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in
-  store.coffee. Strang bug, but easy to get around
-###
-module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb) ->
-
-  uuid = model.get('_userId') or model.session.userId # see http://goo.gl/TPYIt
-  selfQ = model.query('users').withId(uuid) #keep this for later
-  partyQ = model.query('parties').withMember(uuid)
-
-  partyQ.fetch (err, party) ->
-    return next(err) if err
-
-    finished = (descriptors, paths) ->
-      model.subscribe.apply model, descriptors.concat ->
-        [err, refs] = [arguments[0], arguments]
-        return next(err) if err
-        _.each paths, (path, idx) -> model.ref path, refs[idx+1]
-        unless model.get('_user')
-          console.error "User not found - this shouldn't be happening!"
-          return page.redirect('/logout') #delete model.session.userId
-        cb()
-
-    party = party.get()
-
-    # (1) Solo player
-    return finished([selfQ, 'tavern'], ['_user', '_tavern']) unless party
-
-    ## (2) Party has members, subscribe to those users too
-    membersQ = model.query('users').party(party.members)
-    return finished [partyQ, membersQ, selfQ, 'tavern'], ['_party', '_partyMembers', '_user', '_tavern']
-
 module.exports.app = (appExports, model, app) ->
   character = require './character'
   browser = require './browser'
