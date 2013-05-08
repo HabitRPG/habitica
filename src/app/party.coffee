@@ -85,15 +85,14 @@ module.exports.app = (appExports, model, app) ->
     id = model.add 'parties', { name: newParty, leader: user.get('id'), members: [user.get('id')], invites:[] }
     user.set 'party', {current: id, invitation: null, leader: true}, ->
       window.location.reload true
-#    partySubscribe model, -> $('#party-modal').modal('show')
 
   appExports.partyInvite = ->
     id = model.get('_newPartyMember').replace(/[\s"]/g, '')
     return if _.isEmpty(id)
 
-    model.query('users').party([id]).fetch (err, res) ->
+    model.query('users').party([id]).fetch (err, users) ->
       throw err if err
-      u = res.at(0).get()
+      u = users.at(0).get()
       if !u?
         model.set "_partyError", "User with id #{id} not found."
         return
@@ -101,11 +100,8 @@ module.exports.app = (appExports, model, app) ->
         model.set "_partyError", "User already in a party or pending invitation."
         return
       else
-        p = model.at '_party'
-        #p.push "invites", id
         $.bootstrapGrowl "Invitation Sent."
-        $('#party-modal').modal('hide')
-        model.set "users.#{id}.party.invitation", p.get('id'), -> window.location.reload(true)
+        model.set "users.#{id}.party.invitation", model.get('_party.id'), -> window.location.reload()
         #model.set '_newPartyMember', ''
         #partySubscribe model
 
@@ -113,7 +109,7 @@ module.exports.app = (appExports, model, app) ->
     partyId = user.get('party.invitation')
     user.set 'party.invitation', null
     user.set 'party.current', partyId
-    model.at("parties.#{partyId}.members").push user.get('id'), -> window.location.reload(true)
+    model.at("parties.#{partyId}.members").push user.get('id'), -> window.location.reload()
 #    model.query('parties').withId(partyId).fetch (err, p) ->
 #      members = p.get('members')
 #      members.push user.get('id')
@@ -127,28 +123,17 @@ module.exports.app = (appExports, model, app) ->
   appExports.partyReject = ->
     user.set 'party.invitation', null
     browser.resetDom(model)
-    # TODO splice parties.*.invites[key]
-    # TODO notify sender
 
   appExports.partyLeave = ->
-    id = user.set 'party.current', null
-    p = model.at '_party'
-    members = p.get('members')
+    #id = user.set 'party.current', null
+    party = model.at '_party'
+    members = party.get('members')
     index = members.indexOf(user.get('id'))
-    members.splice(index,1)
-    p.set 'members', members, ->
-      if (members.length == 0)
-        # last member out, kill the party
-        model.del "parties.#{id}", -> window.location.reload true
+    party.remove 'members', index, 1, ->
+      if members.length is 1 # # last member out, kill the party
+        party.del (-> window.location.reload true)
       else
         window.location.reload true
-#    model.set '_party', null
-#    model.set '_partyMembers', null
-#    partyUnsubscribe model, ->
-#      selfQ = model.query('users').withId model.get('_userId') #or model.session.userId # see http://goo.gl/TPYIt
-#      selfQ.subscribe (err, u) ->
-#        model.ref '_user', u
-#        browser.resetDom model
 
   ###
     Chat Functionality
