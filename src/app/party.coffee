@@ -12,18 +12,9 @@ partyUnsubscribe = (model, cb) ->
 
 ###
   Subscribe to the user, the users's party (meta info like party name, member ids, etc), and the party's members. 3 subscriptions.
-  1) If the user is solo, just subscribe to the user.
-  2) If in a an empty party, just subscribe to the user & party meta.
-  3) If full party, subscribe to everything.
 
-  Note a strange hack - we subscribe to queries incrementally. First self, then party, then party members.
-  Party members come with limited fields, so you can't hack their stuff. Strangely, subscribing to the members after
-  already subscribing to self limits self's fields to the fields which members are limited to. As a result, we have
-  to re-subscribe to self to get all the fields (otherwise everything breaks). Weirdly, this last subscription doesn't
-  do the opposite - granting all the fields back to members. I dont' know what's going on here
-
-  Another issue: `model.unsubscribe(selfQ)` would seem to mitigate  the above, so we at least don't have a stray
-  subscription floating around - but alas, it doesn't seem to work (or at least never calls the callback)
+  Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in
+  store.coffee. Strang bug, but easy to get around
 ###
 module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb) ->
 
@@ -31,7 +22,6 @@ module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb)
   selfQ = model.query('users').withId(uuid) #keep this for later
   partyQ = model.query('parties').withMember(uuid)
 
-  #TODO add index on parties.members
   partyQ.fetch (err, party) ->
     return next(err) if err
 
@@ -41,7 +31,6 @@ module.exports.partySubscribe = partySubscribe = (page, model, params, next, cb)
         return next(err) if err
         _.each paths, (path, idx) -> model.ref path, refs[idx+1]
         unless model.get('_user')
-          #return next("User not found - this shouldn't be happening!")
           console.error "User not found - this shouldn't be happening!"
           return page.redirect('/logout') #delete model.session.userId
         cb()
