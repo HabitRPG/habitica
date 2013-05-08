@@ -20,7 +20,7 @@ db.parties.find().forEach(function(party){
     db.users.find( {_id: {$in:party.members} }, {_id:1,party:1} ).forEach(function(user){
         // user somehow is subscribed to this party in the background, but they're it's not their primary party
         if (user.party && user.party.current !== party._id) {
-            i = party.members.indexOf(user._id);
+            var i = party.members.indexOf(user._id);
             party.members.splice(i, 1);
         }
 
