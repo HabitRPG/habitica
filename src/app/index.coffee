@@ -14,6 +14,8 @@ i18n = require './i18n'
 i18n.localize app,
   availableLocales: ['en', 'he', 'bg']
   defaultLocale: 'en'
+  urlScheme: false
+  checkHeader: true
 
 helpers = require './helpers'
 helpers.viewHelpers view
