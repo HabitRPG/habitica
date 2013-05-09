@@ -202,6 +202,10 @@ viewHelpers = (view) ->
       arr.push(t.name) if taskTags?[t.id]
     arr.join(', ')
 
+#  view.fn 'activeFilters', (filters) ->
+#    debugger
+#    (_.find filters, (f) -> f)?
+
 
 
 module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }
