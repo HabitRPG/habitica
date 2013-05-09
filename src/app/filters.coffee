@@ -19,6 +19,9 @@ module.exports.app = (appExports, model) ->
     model.set '_editingTags', !before, ->
       location.reload() if before is true #when they're done, refresh the page
 
+  appExports.clearFilters = ->
+    user.set 'filters', {}
+
   appExports.filtersDeleteTag = (e, el) ->
     tags = user.get('tags')
     tagId = $(el).attr('data-tag-id')
