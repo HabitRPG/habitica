@@ -29,6 +29,10 @@
               </form>
           {/}
       </li>
+      <!--<li class="{#unless activeFilters(_user.filters)}hidden{/}">-->
+      <li>
+          <a rel=tooltip title='Clear Filters' x-bind="click:clearFilters"><i class='icon-remove-sign'></i></a>
+      </li>
     </ul>
   </div>
 

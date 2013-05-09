@@ -20,7 +20,7 @@ randomDrop = (model, delta, priority, streak=0) ->
     date: +moment().subtract('d',1) # trick - set it to yesterday on first run, that way they can get drops today
     count: 0
   reachedDropLimit = (helpers.daysBetween(user.get('items.lastDrop.date'), +new Date) is 0) and user.get('items.lastDrop.count') >= 2
-  return if reachedDropLimit and model.flags.nodeEnv != 'development'
+  return if reachedDropLimit
 
   # % chance of getting a pet or meat
   chanceMultiplier = Math.abs(delta)

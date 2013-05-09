@@ -105,8 +105,8 @@ partySystem = (store) ->
     accept(true) # no harm in public user stats
 
   store.query.expose "parties", "withId", (id) ->
-    @where("id").equals(id)
-      .findOne()
+    @where("id").equals(id).findOne()
+
   store.queryAccess "parties", "withId", (id, accept, err) ->
 #    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
     return accept(false) if derbyAuth.bustedSession(@)
@@ -120,6 +120,13 @@ partySystem = (store) ->
     accept = arguments[arguments.length-2]
     err = arguments[arguments.length - 1]
 #    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
+    return accept(false) if derbyAuth.bustedSession(@)
+    accept(true)
+
+  store.query.expose "parties", "withMember", (id) ->
+    @where('members').contains([id]).findOne()
+
+  store.queryAccess 'parties', 'withMember', (id, accept, err) ->
     return accept(false) if derbyAuth.bustedSession(@)
     accept(true)
 
