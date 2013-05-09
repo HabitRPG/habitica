@@ -16,7 +16,6 @@
     "guid": "*",
     "moment": "*",
     "stripe": "*",
-    "async": "*",
     "lodash": "1.0.x",
     "coffee-script": "1.4.x",
     "underscore": "*",
@@ -25,7 +24,6 @@
     "icalendar": "git://github.com/lefnire/node-icalendar#master",
     "superagent": "~0.12.4",
     "resolve": "~0.2.3",
-    "browserify": "1.17.3",
     "expect.js": "~0.2.0",
     "derby-i18n": "0.0.1",
     "relative-date": "~1.1.1"
