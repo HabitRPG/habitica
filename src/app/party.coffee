@@ -90,7 +90,8 @@ module.exports.app = (appExports, model, app) ->
     text = model.get input
     # Check for non-whitespace characters
     return unless /\S/.test text
-    chat.unshift
+
+    message =
       id: model.id()
       uuid: user.get('id')
       contributor: user.get('backer.contributor')
@@ -98,8 +99,10 @@ module.exports.app = (appExports, model, app) ->
       text: text
       user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
       timestamp: +new Date
+
+    # FIXME how to remove duplicates ?
+    chat.unshift message, -> chat.remove 200 # keep a max messages cap
     model.set(input, '')
-    chat.remove 200 # keep a max messages cap
 
   model.on 'unshift', '_party.chat', -> $('.chat-message').tooltip()
   model.on 'unshift', '_tavern.chat.messages', -> $('.chat-message').tooltip()
