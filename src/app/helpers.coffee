@@ -205,16 +205,16 @@ viewHelpers = (view) ->
 
   view.fn 'userStr', (level) ->
     str = (level-1) / 2
-  view.fn 'totalStr', (level, weapon) ->
+  view.fn 'totalStr', (level, weapon=0) ->
     str = (level-1) / 2
     totalStr = (str + items.weapon[weapon].strength)
   view.fn 'userDef', (level) ->
     def = (level-1) / 2
-  view.fn 'totalDef', (level, armor, helm, shield) ->
+  view.fn 'totalDef', (level, armor=0, helm=0, shield=0) ->
     def = (level-1) / 2
     totalDef = (def + items.armor[armor].defense + items.head[helm].defense + items.shield[shield].defense)
-  view.fn 'itemText', (type, item) -> items[type][parseInt(item)].text
-  view.fn 'itemStat', (type, item) -> if type is 'weapon' then items[type][parseInt(item)].strength else items[type][parseInt(item)].defense
+  view.fn 'itemText', (type, item=0) -> items[type][parseInt(item)].text
+  view.fn 'itemStat', (type, item=0) -> if type is 'weapon' then items[type][parseInt(item)].strength else items[type][parseInt(item)].defense
 
 
 #  view.fn 'activeFilters', (filters) ->
