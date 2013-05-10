@@ -93,3 +93,4 @@
 .Pet-BearCub-Base {background-position: -7290px 0; width: 81px; height: 99px}
 .Pet-Wolf-Base {background-position: -7371px 0; width: 81px; height: 99px}
 .Pet-Egg {background: url("/img/sprites/egg.png") no-repeat; width: 39px; height: 42px;}
+.Gems{background: url("/img/sprites/Egg_Sprite_Sheet.png"); background-position: -57px 50px; display:inline-block; margin-right:5px;border-style:none; width: 30px; height: 30px}
