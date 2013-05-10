@@ -15,6 +15,7 @@ module.exports.app = (appExports, model) ->
     user.set 'stats.hp', 50
     user.set 'stats.exp', 0
     user.set 'stats.gp', 0
+    user.incr 'stats.lvl', -1 if user.get('stats.lvl') > 1
 
     ## Lose a random item
     loseThisItem = false
