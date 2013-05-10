@@ -200,7 +200,7 @@ module.exports.resetDom = (model) ->
 # syncronous requires up top are what benefit the most from this file.
 
 googleAnalytics = (model) ->
-  #if model.flags.nodeEnv is 'production'
+  if model.flags.nodeEnv is 'production'
     window._gaq = [["_setAccount", "UA-33510635-1"], ["_setDomainName", "habitrpg.com"], ["_trackPageview"]]
     $.getScript ((if "https:" is document.location.protocol then "https://ssl" else "http://www")) + ".google-analytics.com/ga.js"
 
