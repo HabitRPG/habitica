@@ -105,7 +105,7 @@ module.exports.app = (appExports, model, app) ->
     # get tons of duplicates. To avoid that, we're just doing a model.set now, but that has the problem of clobbering
     # other senders if sent at the same time
     messages = chat.get() || []
-    messages =_.uniq messages, true, ((m) -> m.id) # get rid of dupes
+    messages =_.uniq messages, true, ((m) -> m?.id) # get rid of dupes
     messages.unshift message
     messages.splice(200)
     model.set path, messages
