@@ -207,13 +207,12 @@ updateStats = (model, newStats, batch) ->
   obj = batch.obj()
 
   # if user is dead, dont do anything
-  return if obj.stats.lvl == 0
+  return if obj.stats.hp <= 0
 
   if newStats.hp?
     # Game Over
     if newStats.hp <= 0
-      obj.stats.lvl = 0 # signifies dead
-      obj.stats.hp = 0
+      obj.stats.hp = 0  # signifies dead
       return
     else
       obj.stats.hp = newStats.hp

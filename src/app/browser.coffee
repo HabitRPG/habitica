@@ -184,13 +184,14 @@ setupGrowlNotifications = (model) ->
       statsNotification "+ #{showCoins(bonus)}  Streak Bonus!"
       model.del('_streakBonus')
 
+  user.on 'set', 'items.*', (item, after, before) ->
+    if item in ['armor','weapon','shield','head'] and parseInt(after) < parseInt(before)
+      item = 'helm' if item is 'head' # don't want to day "lost a head"
+      statsNotification "<i class='icon-death'></i> You died! Lost GP and #{item}.", "death"
+
   user.on 'set', 'stats.lvl', (captures, args) ->
     if captures > args
-      if captures is 1 and args is 0
-        statsNotification '<i class="icon-death"></i> You died! Game over.', 'death' 
-      else 
-        statsNotification '<i class="icon-chevron-up"></i> Level Up!', 'lvl'
-
+      statsNotification '<i class="icon-chevron-up"></i> Level Up!', 'lvl'
 
 module.exports.resetDom = (model) ->
   DERBY.app.dom.clear()
