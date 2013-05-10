@@ -24,7 +24,8 @@ module.exports.app = (appExports, model) ->
 
   appExports.filtersDeleteTag = (e, el) ->
     tags = user.get('tags')
-    tagId = $(el).attr('data-tag-id')
+    tag = e.at "_user.tags." + $(el).attr('data-index')
+    tagId = tag.get('id')
 
     #something got corrupted, let's clear the corrupt tags
     unless tagId
@@ -33,10 +34,8 @@ module.exports.app = (appExports, model) ->
       return
 
     model.del "_user.filters.#{tagId}"
-    _.each tags, (tag, i) ->
-      model.remove "_user.tags", i if tag.id is tagId
+    tag.remove()
 
     # remove tag from all tasks
-    _.each user.get("tasks"), (task) ->
-      user.del "tasks.#{task.id}.tags.#{tagId}"
+    _.each user.get("tasks"), (task) -> user.del "tasks.#{task.id}.tags.#{tagId}"
 

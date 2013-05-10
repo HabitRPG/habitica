@@ -10,9 +10,9 @@
       {#each _user.tags as :tag}
         <li class="{#if _user.filters[:tag.id]}active{/}" style='position:relative;'>
             {#if _editingTags}
-                <div class="input-append option-group tag-editing" > 
+                <div class="input-append option-group tag-editing" >
                     <input class="input input-small option-content tag-editing-pill" type="text" value='{:tag.name}' />
-                    <span class="add-on tag-editing-pill"><a class='pull-right' x-bind=click:filtersDeleteTag data-tag-id={{:tag.id}}><i class='icon-trash'></i></a></span>
+                    <span class="add-on tag-editing-pill"><a class='pull-right' x-bind=click:filtersDeleteTag data-index="{$index}"><i class='icon-trash'></i></a></span>
                 </div>
             {else}
                 <a data-tag-id="{{:tag.id}}" x-bind="click:toggleFilterByTag">{:tag.name}</a>
