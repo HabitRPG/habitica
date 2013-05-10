@@ -8,7 +8,7 @@
     <app:tasks:modals />
 
     <!-- Game Over Modal -->
-    <div style="{#unless equal(_user.stats.lvl,0)}display:none;{/}">
+    <div style="{#unless lt(_user.stats.hp,1)}display:none;{/}">
         <app:modals:modal noDismiss=true modalId='dead-modal'>
             <figure class="notification-character">
                 <img src="/img/sprites/dead.png">
