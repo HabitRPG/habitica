@@ -187,6 +187,7 @@ viewHelpers = (view) ->
   view.fn 'appliedTags', (userTags, taskTags) ->
     arr = []
     _.each userTags, (t) ->
+      return unless t?
       arr.push(t.name) if taskTags?[t.id]
     arr.join(', ')
 

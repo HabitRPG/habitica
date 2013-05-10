@@ -25,15 +25,18 @@ module.exports.app = (appExports, model) ->
   appExports.filtersDeleteTag = (e, el) ->
     tags = user.get('tags')
     tagId = $(el).attr('data-tag-id')
+
+    #something got corrupted, let's clear the corrupt tags
+    unless tagId
+      user.set 'tags', _.filter( tags, ((t)-> t?.id) )
+      user.set 'filters', {}
+      return
+
     model.del "_user.filters.#{tagId}"
     _.each tags, (tag, i) ->
-      if tag.id is tagId
-        tags.splice(i,1)
-        model.del "_user.filters.#{tag.id}"
+      model.remove "_user.tags", i if tag.id is tagId
 
     # remove tag from all tasks
     _.each user.get("tasks"), (task) ->
       user.del "tasks.#{task.id}.tags.#{tagId}"
-
-    model.set "_user.tags", tags , -> browser.resetDom(model)
 
