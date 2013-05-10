@@ -275,16 +275,16 @@ cron = (model) ->
   today = +new Date
   daysPassed = helpers.daysBetween(user.get('lastCron'), today, user.get('preferences.dayStart'))
   if daysPassed > 0
+
+    # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
+    # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
+    if user.get('flags.rest') is true
+      return user.set('lastCron', today)
+
     batch = new character.BatchUpdate(model)
     batch.startTransaction()
     obj = batch.obj()
     batch.set 'lastCron', today
-
-    if user.get('flags.rest') is true
-      _.each model.get('_dailyList'), (daily) -> batch.set("tasks.#{daily.id}.completed", false)
-      browser.resetDom(model)
-      batch.commit()
-      return
 
     hpBefore = obj.stats.hp #we'll use this later so we can animate hp loss
     # Tally each task

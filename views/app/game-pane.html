@@ -81,10 +81,12 @@
                 <div class="popover fade right in" style="top: 0px; left: 135px; display: block;">
                     <div class="arrow"></div>
                     <h3 class="popover-title">Daniel Johansson</h3>
-                    <div class="popover-content">Welcome to the Tavern! I'm <a target="_blank" href="http://www.kickstarter.com/profile/2014640723">Daniel</a>, the bar keep. If you want to rest a while (going on vacation?), I'll set you up at the inn - dailies won't hurt you while you're resting. The minimum stay is 24h, but you can check out any time. Stay a while & meet the clientele.</div>
+                    <div class="popover-content">Welcome to the Tavern! I'm <a target="_blank" href="http://www.kickstarter.com/profile/2014640723">Daniel</a>, the bar keep. If you want to rest a while (going on vacation? sudden illness?), I'll set you up at the inn - dailies won't hurt you while you're resting. Stay a while & meet the locals.</div>
                 </div>
             </div>
-            <button x-bind="click:toggleResting" class='btn btn-large btn-success {#if _user.flags.rest}active{/}'>{#if _user.flags.rest}Check Out of Inn{else}Rest In The Inn{/}</button>
+            <div><button x-bind="click:toggleResting" class='btn btn-large btn-success {#if _user.flags.rest}active{/}'>{#if _user.flags.rest}Check Out of Inn{else}Rest In The Inn{/}</button></div>
+            <div class='alert alert-info {#unless _user.flags.rest}hidden{/}'>While you're resting, your dailies aren't calculated. <span class='label label-warning'>Warning:</span> this means that if you check in today, do some dailies, and check out tomorrow - they won't get un-checked until the day <strong>after</strong> tomorrow. You start where you left off before vacation / illness, and it prevents abusing the inn. See <a _target='blank' href='https://trello.com/card/rest-in-tavern/50e5d3684fe3a7266b0036d6/14'><strong>Trello</strong></a> for more information.</div>
+
         </div>
         <div class='span6'>
             <h3>Tavern Talk & LFG</h3>
