@@ -56,10 +56,10 @@
     <p><strong>{itemText('shield',_user.items.shield)}</strong>: {itemStat('shield',_user.items.shield)}% Defense</p>
 
     <h3>Stats</h3>
-    <p><strong>HP</strong>: {_user.stats.hp} / 50</p>
-    <p><strong>GP</strong>: {_user.stats.gp}</p>
+    <p><strong>HP</strong>: {floor(_user.stats.hp)} / 50</p>
+    <p><strong>GP</strong>: {floor(_user.stats.gp)}</p>
     <p><strong>Lvl</strong>: {_user.stats.lvl}</p>
-    <p><strong>Exp</strong>: {_user.stats.exp} / {tnl(_user.stats.lvl)}</p>
+    <p><strong>Exp</strong>: {floor(_user.stats.exp)} / {tnl(_user.stats.lvl)}</p>
     <p><strong>Strength</strong>: {userStr(_user.stats.lvl)}</p>
     <p><strong>Defense</strong>: {userDef(_user.stats.lvl)}</p>
     <p><strong>Pets Found</strong>: {count(_user.items.pets)}</p>
