@@ -50,22 +50,22 @@
 
 <profile-stats:>
     <h3>Items</h3>
-    <p><strong>{itemText('weapon',_user.items.weapon)}</strong> - {itemStat('weapon',_user.items.weapon)}% Exp gain</p>
-    <p><strong>{itemText('armor',_user.items.armor)}</strong> - {itemStat('armor',_user.items.armor)}% Defense</p>
-    <p><strong>{itemText('head',_user.items.head)}</strong> - {itemStat('head',_user.items.head)}% Defense</p>
-    <p><strong>{itemText('shield',_user.items.shield)}</strong> - {itemStat('shield',_user.items.shield)}% Defense</p>
+    <p><strong>{itemText('weapon',_user.items.weapon)}</strong>: {itemStat('weapon',_user.items.weapon)}% Exp gain</p>
+    <p><strong>{itemText('armor',_user.items.armor)}</strong>: {itemStat('armor',_user.items.armor)}% Defense</p>
+    <p><strong>{itemText('head',_user.items.head)}</strong>: {itemStat('head',_user.items.head)}% Defense</p>
+    <p><strong>{itemText('shield',_user.items.shield)}</strong>: {itemStat('shield',_user.items.shield)}% Defense</p>
 
     <h3>Stats</h3>
-    <p><strong>HP</strong> - {_user.stats.hp} / 50</p>
-    <p><strong>GP</strong> - {_user.stats.gp}</p>
-    <p><strong>Lvl</strong> - {_user.stats.lvl}</p>
-    <p><strong>Exp</strong> - {_user.stats.exp} / {tnl(_user.stats.lvl)}</p>
-    <p><strong>Strength</strong> - {userStr(_user.stats.lvl)}</p>
-    <p><strong>Defense</strong> - {userDef(_user.stats.lvl)}</p>
-    <p><strong>Pets Found</strong> - {count(_user.items.pets)}</p>
+    <p><strong>HP</strong>: {_user.stats.hp} / 50</p>
+    <p><strong>GP</strong>: {_user.stats.gp}</p>
+    <p><strong>Lvl</strong>: {_user.stats.lvl}</p>
+    <p><strong>Exp</strong>: {_user.stats.exp} / {tnl(_user.stats.lvl)}</p>
+    <p><strong>Strength</strong>: {userStr(_user.stats.lvl)}</p>
+    <p><strong>Defense</strong>: {userDef(_user.stats.lvl)}</p>
+    <p><strong>Pets Found</strong>: {count(_user.items.pets)}</p>
     <hr/>
-    <p><strong>Total Strength</strong> - {totalStr(_user.stats.lvl, _user.items.weapon)} %</p>
-    <p><strong>Total Defense</strong> - {totalDef(_user.stats.lvl, _user.items.armor, _user.items.head, _user.items.shield)} %</p>
+    <p><strong>Total Strength</strong>: {totalStr(_user.stats.lvl, _user.items.weapon)} %</p>
+    <p><strong>Total Defense</strong>: {totalDef(_user.stats.lvl, _user.items.armor, _user.items.head, _user.items.shield)} %</p>
 
 
 <customize:>
