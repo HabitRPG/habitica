@@ -30,6 +30,7 @@
                         ">
         <div class='character-sprites'>
             {#with @profile.preferences as :p}
+                <span class='{#if @profile.flags.rest}zzz{/}'></span>
                 <span class='{:p.gender}_skin_{:p.skin}'></span>
                 <span class='{:p.gender}_hair_{:p.hair}'></span>
                 <span class="{equipped('armor', @profile.items.armor, @profile.preferences, @profile.backer.tier)}"></span>
