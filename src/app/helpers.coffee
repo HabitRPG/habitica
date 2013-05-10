@@ -2,6 +2,7 @@ moment = require 'moment'
 _ = require 'underscore'
 relative = require 'relative-date'
 algos = require './algos'
+items = require('./items').items
 
 # Absolute diff between two dates
 daysBetween = (yesterday, now, dayStart) ->
@@ -44,36 +45,25 @@ viewHelpers = (view) ->
     x=1 if x==0
     Math.round(x/y*100)
 
-  view.fn "round", (num) ->
-    Math.round num
-
-  view.fn "floor", (num) ->
-    Math.floor num
-
-  view.fn "ceil", (num) ->
-    Math.ceil num
-
-  view.fn "lt", (a, b) ->
-    a < b
+  view.fn "round", Math.round
+  view.fn "floor", Math.floor
+  view.fn "ceil", Math.ceil
+  view.fn "lt", (a, b) -> a < b
   view.fn 'gt', (a, b) -> a > b
+  view.fn "mod", (a, b) -> parseInt(a) % parseInt(b) == 0
+  view.fn 'removeWhitespace', removeWhitespace
+  view.fn "notEqual", (a, b) -> (a != b)
+  view.fn "and", -> _.reduce arguments, (cumm, curr) -> cumm && curr
+  view.fn "or", -> _.reduce arguments, (cumm, curr) -> cumm || curr
+  view.fn "truarr", (num) -> num-1
+  view.fn 'count', (arr) -> arr?.length or 0
 
-  view.fn "tokens", (gp) ->
-    return gp/0.25
-
-  view.fn "mod", (a, b) ->
-    parseInt(a) % parseInt(b) == 0
+  view.fn "tokens", (gp) -> return gp/0.25
 
   view.fn "encodeiCalLink", (uid, apiToken) ->
     loc = window?.location.host or process.env.BASE_URL
     encodeURIComponent "http://#{loc}/v1/users/#{uid}/calendar.ics?apiToken=#{apiToken}"
 
-  view.fn 'removeWhitespace', removeWhitespace
-
-  view.fn "notEqual", (a, b) -> (a != b)
-  view.fn "and", -> _.reduce arguments, (cumm, curr) -> cumm && curr
-  view.fn "or", -> _.reduce arguments, (cumm, curr) -> cumm || curr
-
-  view.fn "truarr", (num) -> num-1
 
   ###
     User
@@ -179,8 +169,6 @@ viewHelpers = (view) ->
 
   view.fn 'ownsPet', (pet, userPets) -> !!userPets && userPets.indexOf(pet) != -1
 
-  view.fn 'count', (arr) -> arr?.length or 0
-
   view.fn 'friendlyTimestamp', (timestamp) -> moment(timestamp).format('MM/DD h:mm:ss a')
 
   view.fn 'newChatMessages', (messages, lastMessageSeen) ->
@@ -201,6 +189,20 @@ viewHelpers = (view) ->
     _.each userTags, (t) ->
       arr.push(t.name) if taskTags?[t.id]
     arr.join(', ')
+
+  view.fn 'userStr', (level) ->
+    str = (level-1) / 2
+  view.fn 'totalStr', (level, weapon=0) ->
+    str = (level-1) / 2
+    totalStr = (str + items.weapon[weapon].strength)
+  view.fn 'userDef', (level) ->
+    def = (level-1) / 2
+  view.fn 'totalDef', (level, armor=0, helm=0, shield=0) ->
+    def = (level-1) / 2
+    totalDef = (def + items.armor[armor].defense + items.head[helm].defense + items.shield[shield].defense)
+  view.fn 'itemText', (type, item=0) -> items[type][parseInt(item)].text
+  view.fn 'itemStat', (type, item=0) -> if type is 'weapon' then items[type][parseInt(item)].strength else items[type][parseInt(item)].defense
+
 
 #  view.fn 'activeFilters', (filters) ->
 #    debugger
