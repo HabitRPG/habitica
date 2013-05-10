@@ -25,7 +25,7 @@
     "superagent": "~0.12.4",
     "resolve": "~0.2.3",
     "expect.js": "~0.2.0",
-    "derby-i18n": "0.0.1",
+    "derby-i18n": "git://github.com/switz/derby-i18n#master",
     "relative-date": "~1.1.1"
   },
   "private": true,
