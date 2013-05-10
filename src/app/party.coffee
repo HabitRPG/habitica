@@ -100,8 +100,16 @@ module.exports.app = (appExports, model, app) ->
       user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
       timestamp: +new Date
 
-    # FIXME how to remove duplicates ?
-    chat.unshift message, -> chat.remove 200 # keep a max messages cap
+    # FIXME - used to be we used chat.unshift(message) (see code before this commit, cd6a7fb), but seemed Racer
+    # would queue the unshift, and keep trying to send when connection detected. But each send would go through, so we'd
+    # get tons of duplicates. To avoid that, we're just doing a model.set now, but that has the problem of clobbering
+    # other senders if sent at the same time
+    messages = chat.get() || []
+    messages =_.uniq messages, true, ((m) -> m.id) # get rid of dupes
+    messages.unshift message
+    messages.splice(200)
+    model.set path, messages
+
     model.set(input, '')
 
   model.on 'unshift', '_party.chat', -> $('.chat-message').tooltip()
@@ -112,7 +120,6 @@ module.exports.app = (appExports, model, app) ->
     model.set '_user.party.lastMessageSeen', model.get('_party.chat')[0].id
 
   appExports.tavernSendChat = ->
-    model.setNull '_tavern.chat', {messages:[]} #we can remove this later, first time run only
     sendChat('_tavern.chat.messages', '_tavernMessage')
 
   appExports.partyMessageKeyup = (e, el, next) ->
