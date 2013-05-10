@@ -2,6 +2,7 @@ moment = require 'moment'
 _ = require 'underscore'
 relative = require 'relative-date'
 algos = require './algos'
+items = require('./items').items
 
 # Absolute diff between two dates
 daysBetween = (yesterday, now, dayStart) ->
@@ -201,6 +202,20 @@ viewHelpers = (view) ->
     _.each userTags, (t) ->
       arr.push(t.name) if taskTags?[t.id]
     arr.join(', ')
+
+  view.fn 'userStr', (level) ->
+    str = (level-1) / 2
+  view.fn 'totalStr', (level, weapon) ->
+    str = (level-1) / 2
+    totalStr = (str + items.weapon[weapon].strength)
+  view.fn 'userDef', (level) ->
+    def = (level-1) / 2
+  view.fn 'totalDef', (level, armor, helm, shield) ->
+    def = (level-1) / 2
+    totalDef = (def + items.armor[armor].defense + items.head[helm].defense + items.shield[shield].defense)
+  view.fn 'itemText', (type, item) -> items[type][parseInt(item)].text
+  view.fn 'itemStat', (type, item) -> if type is 'weapon' then items[type][parseInt(item)].strength else items[type][parseInt(item)].defense
+
 
 #  view.fn 'activeFilters', (filters) ->
 #    debugger
