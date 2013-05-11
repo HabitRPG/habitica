@@ -58,7 +58,7 @@ viewHelpers = (view) ->
   view.fn "truarr", (num) -> num-1
   view.fn 'count', (arr) -> arr?.length or 0
 
-  view.fn "tokens", (gp) -> return gp/0.25
+  view.fn "gems", (gp) -> return gp/0.25
 
   view.fn "encodeiCalLink", (uid, apiToken) ->
     loc = window?.location.host or process.env.BASE_URL
