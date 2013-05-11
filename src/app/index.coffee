@@ -69,7 +69,7 @@ setupSubscriptions = (page, model, params, next, cb) ->
   selfQ = model.query('users').withId(uuid) #keep this for later
   partyQ = model.query('parties').withMember(uuid)
 
-  partyQ.subscribe (err, party) ->
+  partyQ.fetch (err, party) ->
     return next(err) if err
 
     finished = (descriptors, paths) ->
@@ -83,12 +83,9 @@ setupSubscriptions = (page, model, params, next, cb) ->
         return cb()
 
     # (1) Solo player
-    unless party.get()
-      # they didn't have a party, let's not keep that subscription around. Also, async so we don't have to wait
-      return model.unsubscribe partyQ, ->finished([selfQ, 'tavern'], ['_user', '_tavern'])
+    return finished([selfQ, 'tavern'], ['_user', '_tavern']) unless party.get()
 
     ## (2) Party has members, subscribe to those users too
-    model.ref '_party', party
     membersQ = model.query('users').party(party.get('members'))
 
     # Fetch instead of subscribe. There's nothing dynamic we need from members just yet, they'll update _party instead.
@@ -97,8 +94,8 @@ setupSubscriptions = (page, model, params, next, cb) ->
       return next(err) if err
       model.ref '_partyMembers', members
 
-    # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
-    return finished([selfQ, 'tavern'], ['_user', '_tavern'])
+      # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
+      return finished([partyQ, selfQ, 'tavern'], ['_party', '_user', '_tavern'])
 
 # ========== ROUTES ==========
 
