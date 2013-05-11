@@ -102,6 +102,8 @@ setupSubscriptions = (page, model, params, next, cb) ->
 get '/', (page, model, params, next) ->
   return page.redirect '/' if page.params?.query?.play?
 
+  model.set '_gamePane', true
+
   # removed force-ssl (handled in nginx), see git for code
   setupSubscriptions page, model, params, next, ->
     cleanupCorruptTasks(model) # https://github.com/lefnire/habitrpg/issues/634
@@ -131,3 +133,4 @@ ready (model) ->
   require('./browser').app(exports, model, app)
   require('./unlock').app(exports, model)
   require('./filters').app(exports, model)
+  require('./challenges').app(exports, model)

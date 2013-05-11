@@ -14,6 +14,7 @@
             {/if}
             <li><a data-toggle='tab' data-target="#profileTavern"><i class='icon-eye-close'></i> Tavern</a></li>
             <li><a data-toggle='tab' data-target="#profileAchievements"><i class='icon-certificate'></i> Achievements</a></li>
+            <li><a data-toggle='tab' data-target="#profileChallenges"><i class='icon-bullhorn'></i> Challenges</a></li>
             {{#if _loggedIn}}
                 <li><a data-toggle='tab' data-target="#profileSettings"><i class='icon-wrench'></i> Settings</a></li>
             {{/}}
@@ -62,6 +63,10 @@
 
             <div class="tab-pane" id="profileTavern">
                 <app:game-pane:tavern />
+            </div>
+
+            <div class="tab-pane" id="profileChallenges">
+                <app:challenges:main />
             </div>
 
             <div class="tab-pane" id="profileSettings">

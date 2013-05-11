@@ -1,0 +1,67 @@
+<main:>
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle='tab' data-target="#challengesView">Challenges</a></li>
+        <li ><a data-toggle='tab' data-target="#challengesCreate">Create Challenge</a></li>
+    </ul>
+
+    <div class="tab-content">
+
+        <div class="tab-pane active" id="challengesView">
+            <app:challenges:view />
+        </div>
+
+        <div class="tab-pane" id="challengesCreate">
+            <app:challenges:create />
+        </div>
+    </div>
+
+<view:>
+    <div>
+        <ul class="nav nav-pills">
+            <li class="active"><a data-toggle='tab' data-target="#challengesViewMine">Mine</a></li>
+            <li><a data-toggle='tab' data-target="#challengesViewParty">Party</a></li>
+            <li><a data-toggle='tab' data-target="#challengesViewGuild">Guild</a></li>
+            <li><a data-toggle='tab' data-target="#challengesViewPublic">Public</a></li>
+        </ul>
+
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="challengesViewMine">
+                Mine
+            </div>
+
+            <div class="tab-pane" id="challengesViewParty">
+                Party
+            </div>
+
+            <div class="tab-pane" id="challengesViewGuild">
+                Guild
+            </div>
+
+            <div class="tab-pane" id="challengesViewPublic">
+                Public
+            </div>
+
+        </div>
+    </div>
+
+<create:>
+    <div>
+        {#unless _challenge.creating}
+            <a x-bind='click:challengeCreate' class='btn btn-large btn-success'>Create New Challenge</a>
+        {else}
+            <form x-bind='submit:challengeSave' class=form-horizontal>
+                <input id='newChallengeName' type='text' value={_challenge.new.name} placeholder="Challenge Title" required/>
+
+                <div class="grid">
+                    ...
+                </div>
+
+                <input type='submit' class='btn btn-large btn-success' value='Save' />
+                <input type='button' x-bind='click:challengeDiscard' class='btn btn-large btn-danger' value=Discard />
+            </form>
+        {/}
+
+    </div>
+
