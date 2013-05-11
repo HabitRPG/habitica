@@ -282,10 +282,10 @@
 
 
 "_commentmisc": "MISC & GLOBAL",
-  "Tokens" : "Tokens",
+  "Gems" : "Gems",
   "RemoveAds": "Remove Ads",
   "WhyAds": "Why Ads?",
-    "WhyAdsContent1": "Habit an open source project, and can use all the help it can get - consider this a donation to the contributors. You also get 20 tokens from the purchase, which you can use to buy special items.",
+    "WhyAdsContent1": "Habit an open source project, and can use all the help it can get - consider this a donation to the contributors. You also get 20 Gems from the purchase, which you can use to buy special items.",
     "WhyAdsContent2": "'Hey, I backed the Kickstarter!' - follow ",
     "WhyAdsContent3": "these instructions.",
   "_commentbuttons": "BUTTONS",

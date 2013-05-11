@@ -41,7 +41,7 @@ module.exports.app = (appExports, model) ->
     return if alreadyShown(before,after)
     html = """
            <img src='/img/sprites/wolf_border.png' style='width:30px;height:30px;float:left;padding-right:5px' />
-           You have unlocked Pets! You can now buy pets with tokens (note, you replenish tokens with real-life money - so chose your pets wisely!)
+           You have unlocked Pets! You can now buy pets with Gems (note, you replenish Gems with real-life money - so chose your pets wisely!)
            """
     showPopover '#rewardsTabs', 'Pets Unlocked', html, 'left'
 
