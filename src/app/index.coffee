@@ -84,8 +84,8 @@ setupSubscriptions = (page, model, params, next, cb) ->
 
     # (1) Solo player
     unless party.get()
-      model.unsubscribe partyQ, (-> ) # they didn't have a party, let's not keep that subscription around. Also, async so we don't have to wait
-      return finished([selfQ, 'tavern'], ['_user', '_tavern'])
+      # they didn't have a party, let's not keep that subscription around. Also, async so we don't have to wait
+      return model.unsubscribe partyQ, ->finished([selfQ, 'tavern'], ['_user', '_tavern'])
 
     ## (2) Party has members, subscribe to those users too
     model.ref '_party', party
