@@ -94,8 +94,8 @@ setupSubscriptions = (page, model, params, next, cb) ->
       return next(err) if err
       model.ref '_partyMembers', members
 
-      # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
-      return finished([partyQ, selfQ, 'tavern'], ['_party', '_user', '_tavern'])
+    # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
+    return finished([partyQ, selfQ, 'tavern'], ['_party', '_user', '_tavern'])
 
 # ========== ROUTES ==========
 
