@@ -24,7 +24,7 @@
     <!-- Habits Column -->
     <div class="module">
         <div class="task-column habits">
-            <h2 class="task-column_title">Habits</h2>
+            <h2 class="task-column_title">{{t("Habits")}}</h2>
             <app:tasks:newTask type="habit" inputValue="{_newHabit}" placeHolder="New Habit" />
             <ul class="habits">
                 {#each _habitList as :task}<app:tasks:task />{/}
@@ -104,7 +104,7 @@
 <!-- all the parts of a single task -->
 <task:>
     <li data-id={{:task.id}} class="task {taskClasses(:task, _user.filters, _user.preferences.dayStart, _user.lastCron)} {#if :task.down}{#if :task.up}habit-wide{/}{/}">
-        
+
         <!-- right-hand side control buttons -->
         <div class="task-meta-controls">
             <!-- Streak -->

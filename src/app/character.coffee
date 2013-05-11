@@ -10,27 +10,27 @@ derby = require 'derby'
 module.exports.app = (appExports, model) ->
   user = model.at '_user'
 
-  revive = (batch) ->
+  appExports.revive = ->
     # Reset stats
-    batch.set 'stats.hp', 50
-    batch.set 'stats.lvl', 1
-    batch.set 'stats.gp', 0
-    batch.set 'stats.exp', 0
+    user.set 'stats.hp', 50
+    user.set 'stats.exp', 0
+    user.set 'stats.gp', 0
+    user.incr 'stats.lvl', -1 if user.get('stats.lvl') > 1
 
-    # Reset items
-    batch.set 'items.armor', 0
-    batch.set 'items.weapon', 0
-    batch.set 'items.head', 0
-    batch.set 'items.shield', 0
+    ## Lose a random item
+    loseThisItem = false
+    owned = user.get('items')
+    # unless they're already at 0-everything
+    if parseInt(owned.armor)>0 or parseInt(owned.head)>0 or parseInt(owned.shield)>0 or parseInt(owned.weapon)>0
+      console.log 'test'
+      # find a random item to lose
+      until loseThisItem
+        #candidate = {0:'items.armor', 1:'items.head', 2:'items.shield', 3:'items.weapon', 4:'stats.gp'}[Math.random()*5|0]
+        candidate = {0:'armor', 1:'head', 2:'shield', 3:'weapon'}[Math.random()*4|0]
+        loseThisItem = candidate if owned[candidate] > 0
+      user.set "items.#{loseThisItem}", 0
 
-    # Reset item store
     items.updateStore(model)
-
-  appExports.revive = (e, el) ->
-    batch = new BatchUpdate(model)
-    batch.startTransaction()
-    revive(batch)
-    batch.commit()
 
   appExports.reset = (e, el) ->
     batch = new BatchUpdate(model)
@@ -38,8 +38,20 @@ module.exports.app = (appExports, model) ->
     taskTypes = ['habit', 'daily', 'todo', 'reward']
     batch.set 'tasks', {}
     _.each taskTypes, (type) -> batch.set "#{type}Ids", []
-    batch.set 'balance', 1 if user.get('balance') < 1 #only if they haven't manually bought tokens
-    revive(batch)
+    batch.set 'balance', 1 if user.get('balance') < 1 #only if they haven't manually bought gems
+
+    # Reset stats
+    batch.set 'stats.hp', 50
+    batch.set 'stats.lvl', 1
+    batch.set 'stats.gp', 0
+    batch.set 'stats.exp', 0
+    # Reset items
+    batch.set 'items.armor', 0
+    batch.set 'items.weapon', 0
+    batch.set 'items.head', 0
+    batch.set 'items.shield', 0
+
+    items.updateStore(model)
     batch.commit()
     browser.resetDom(model)
 

@@ -12,7 +12,7 @@
 <rewardsColumn:>
     <div class="module rewards-module">
         <div class="task-column rewards">
-            <!-- cash or tokens -->
+            <!-- cash or gems -->
             <span class='option-box pull-right wallet'>
                 <div class="money">
                     {gold(floor(_user.stats.gp))}
@@ -36,12 +36,12 @@
 
             <!-- Static Rewards -->
             <ul class='items' style="{#unless _user.flags.itemsEnabled}display:none{/}">
-                {#with _items.weapon as :item}<app:rewards:item />{/}
-                {#with _items.armor as :item}<app:rewards:item />{/}
-                {#with _items.head as :item}<app:rewards:item />{/}
-                {#with _items.shield as :item}<app:rewards:item />{/}
-                {#with _items.potion as :item}<app:rewards:item />{/}
-                {#with _items.reroll as :item}<app:rewards:item reroll=true />{/}
+                <app:rewards:item item={_items.next.weapon} />
+                <app:rewards:item item={_items.next.armor} />
+                <app:rewards:item item={_items.next.head} />
+                <app:rewards:item item={_items.next.shield} />
+                <app:rewards:item item={_items.potion} />
+                <app:rewards:item item={_items.reroll} />
             </ul>
 
             <app:tasks:ads>
@@ -52,33 +52,33 @@
 
 
 
-<userTokens:>
-  <a class="pull-right token-wallet" rel='popover' data-trigger='hover' data-title='Tokens' data-content="Used for buying special items (reroll, eggs, hatching potions, etc). You'll need to unlock those features before being able to use tokens." data-placement='bottom'>
-    <span class="task-action-btn tile flush bright add-token-btn" x-bind="click:showStripe">＋</span>
-    <span class="task-action-btn tile flush neutral">{tokens(_user.balance)} Tokens</span>
+<userGems:>
+  <a class="pull-right gem-wallet" rel='popover' data-trigger='hover' data-title='Gems' data-content="Used for buying special items (reroll, eggs, hatching potions, etc). You'll need to unlock those features before being able to use Gems." data-placement='bottom'>
+    <span class="task-action-btn tile flush bright add-gems-btn" x-bind="click:showStripe">＋</span>
+    <span class="task-action-btn tile flush neutral"><div class="Gems"></div> {gems(_user.balance)} Gems
   </a>
 
 
 
 <item:>
-  <li class="task reward-item {#if :item.hide}hide{/}">
+  <li class="task reward-item {#if @item.hide}hide{/}">
     <!-- right-hand side control buttons -->
     <div class="task-meta-controls">
-        <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:item.notes}" data-original-title="{:item.text}" class='task-notes'><i class="icon-comment"></i></span>
+        <span rel="popover" data-trigger="hover" data-placement="left" data-content="{@item.notes}" data-original-title="{@item.text}" class='task-notes'><i class="icon-comment"></i></span>
     </div>
 
     <!-- left-hand size commands -->
     <div class="task-controls">
-      {#if @reroll}
+      {#if equal(@item.type),'reroll')}
         <a class="task-action-btn btn-reroll" data-toggle="modal" data-target="#reroll-modal"><i class='icon-repeat'></i></a>
       {else}
-        <a class="money btn-buy item-btn" x-bind=click:buyItem data-type={:item.type} data-value={:item.value} data-index={:item.index}>
-            <span class="reward-cost">{:item.value}</span>
+        <a class="money btn-buy item-btn" x-bind=click:buyItem data-type={@item.type} data-value={@item.value} data-index={@item.index}>
+            <span class="reward-cost">{@item.value}</span>
             <span class='shop_gold'></span>
         </a>
       {/}
     </div>
     <!-- main content -->
-    <span class="shop_{:item.classes} shop-sprite item-img"></span>
-    <p class="task-text">{:item.text}</p>
+    <span class="shop_{@item.classes} shop-sprite item-img"></span>
+    <p class="task-text">{@item.text}</p>
   </li>

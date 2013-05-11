@@ -54,21 +54,21 @@ module.exports.app = (appExports, model) ->
   appExports.buyHatchingPotion = (e, el) ->
     name = $(el).attr 'data-hatchingPotion'
     newHatchingPotion = _.findWhere hatchingPotions, name: name
-    tokens = user.get('balance') * 4
-    if tokens >= newHatchingPotion.value
-      if confirm "Buy this hatching potion with #{newHatchingPotion.value} of your #{tokens} tokens?"
+    gems = user.get('balance') * 4
+    if gems >= newHatchingPotion.value
+      if confirm "Buy this hatching potion with #{newHatchingPotion.value} of your #{gems} Gems?"
         user.push 'items.hatchingPotions', newHatchingPotion.name
-        user.set 'balance', (tokens - newHatchingPotion.value) / 4
+        user.set 'balance', (gems - newHatchingPotion.value) / 4
     else
-      $('#more-tokens-modal').modal 'show'
+      $('#more-gems-modal').modal 'show'
 
   appExports.buyEgg = (e, el) ->
     name = $(el).attr 'data-egg'
     newEgg = _.findWhere pets, name: name
-    tokens = user.get('balance') * 4
-    if tokens >= newEgg.value
-      if confirm "Buy this egg with #{newEgg.value} of your #{tokens} tokens?"
+    gems = user.get('balance') * 4
+    if gems >= newEgg.value
+      if confirm "Buy this egg with #{newEgg.value} of your #{gems} Gems?"
         user.push 'items.eggs', newEgg
-        user.set 'balance', (tokens - newEgg.value) / 4
+        user.set 'balance', (gems - newEgg.value) / 4
     else
-      $('#more-tokens-modal').modal 'show'
+      $('#more-gems-modal').modal 'show'

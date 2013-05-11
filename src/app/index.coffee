@@ -14,6 +14,8 @@ i18n = require './i18n'
 i18n.localize app,
   availableLocales: ['en', 'he', 'bg']
   defaultLocale: 'en'
+  urlScheme: false
+  checkHeader: true
 
 helpers = require './helpers'
 helpers.viewHelpers view
@@ -80,16 +82,20 @@ setupSubscriptions = (page, model, params, next, cb) ->
           return page.redirect('/logout') #delete model.session.userId
         return cb()
 
-    party = party.get()
-
     # (1) Solo player
-    return finished([selfQ, 'tavern'], ['_user', '_tavern']) unless party
+    return finished([selfQ, 'tavern'], ['_user', '_tavern']) unless party.get()
 
     ## (2) Party has members, subscribe to those users too
-    membersQ = model.query('users').party(party.members)
-    # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in
-    # store.coffee. Strang bug, but easy to get around
-    return finished [partyQ, membersQ, selfQ, 'tavern'], ['_party', '_partyMembers', '_user', '_tavern']
+    membersQ = model.query('users').party(party.get('members'))
+
+    # Fetch instead of subscribe. There's nothing dynamic we need from members just yet, they'll update _party instead.
+    # This may change in the future.
+    membersQ.fetch (err, members) ->
+      return next(err) if err
+      model.ref '_partyMembers', members
+
+      # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
+      return finished([partyQ, selfQ, 'tavern'], ['_party', '_user', '_tavern'])
 
 # ========== ROUTES ==========
 
@@ -125,7 +131,7 @@ ready (model) ->
   require('./profile').app(exports, model)
   require('./pets').app(exports, model)
   require('../server/private').app(exports, model)
-  #require('./debug').app(exports, model) if model.flags.nodeEnv != 'production'
+  require('./debug').app(exports, model) if model.flags.nodeEnv != 'production'
   require('./browser').app(exports, model, app)
   require('./unlock').app(exports, model)
   require('./filters').app(exports, model)

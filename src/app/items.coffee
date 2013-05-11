@@ -78,6 +78,7 @@ _.each items.hatchingPotions, (hatchingPotion) -> hatchingPotion.notes = "Pour t
   server exports
 ###
 module.exports.server = (model) ->
+  model.set '_items', items
   updateStore(model)
 
 ###
@@ -127,6 +128,7 @@ module.exports.app = (appExports, model) ->
   update store
 ###
 module.exports.updateStore = updateStore = (model) ->
+  model.setNull '_items.next', {}
   user = model.at('_user')
   equipped = user.get('items')
 
@@ -141,12 +143,9 @@ module.exports.updateStore = updateStore = (model) ->
     else if i is items[type].length
       showNext = false
 
-    model.set "_items.#{type}", if showNext then items[type][i] else {hide:true}
+    model.set "_items.next.#{type}", if showNext then items[type][i] else {hide:true}
 
-  model.set '_items.potion', items.potion
-  model.set '_items.reroll', items.reroll
-  model.set '_items.pets', items.pets
-  model.set '_items.hatchingPotions', items.hatchingPotions
+
 
 
 

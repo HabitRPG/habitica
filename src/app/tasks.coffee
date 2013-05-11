@@ -7,14 +7,15 @@ character = require './character'
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
 
-  appExports.addTask = (e, el, next) ->
+  appExports.addTask = (e, el) ->
     type = $(el).attr('data-task-type')
     newModel = model.at('_new' + type.charAt(0).toUpperCase() + type.slice(1))
     text = newModel.get()
     # Don't add a blank task; 20/02/13 Added a check for undefined value, more at issue #463 -lancemanfv
     return if /^(\s)*$/.test(text) || text == undefined
 
-    newTask = {id: model.id(), type: type, text: text, notes: '', value: 0}
+    activeFilters = _.reduce user.get('filters'), ((memo,v,k) -> memo[k]=v if v;memo), {}
+    newTask = {id: model.id(), type: type, text: text, notes: '', value: 0, tags: activeFilters}
     switch type
       when 'habit'
         newTask = _.defaults {up: true, down: true}, newTask
