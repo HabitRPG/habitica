@@ -12,7 +12,7 @@
 <rewardsColumn:>
     <div class="module rewards-module">
         <div class="task-column rewards">
-            <!-- cash or tokens -->
+            <!-- cash or gems -->
             <span class='option-box pull-right wallet'>
                 <div class="money">
                     {gold(floor(_user.stats.gp))}
@@ -53,9 +53,9 @@
 
 
 <userTokens:>
-  <a class="pull-right token-wallet" rel='popover' data-trigger='hover' data-title='Tokens' data-content="Used for buying special items (reroll, eggs, hatching potions, etc). You'll need to unlock those features before being able to use tokens." data-placement='bottom'>
+  <a class="pull-right token-wallet" rel='popover' data-trigger='hover' data-title='Gems' data-content="Used for buying special items (reroll, eggs, hatching potions, etc). You'll need to unlock those features before being able to use Gems." data-placement='bottom'>
     <span class="task-action-btn tile flush bright add-token-btn" x-bind="click:showStripe">＋</span>
-    <span class="task-action-btn tile flush neutral">{tokens(_user.balance)} Tokens</span>
+    <span class="task-action-btn tile flush neutral"><div class="Gems"></div> {tokens(_user.balance)} Gems
   </a>
 
 
