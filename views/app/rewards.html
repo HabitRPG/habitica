@@ -32,8 +32,8 @@
                         <app:rewards:item item={_items.next.armor} />
                         <app:rewards:item item={_items.next.head} />
                         <app:rewards:item item={_items.next.shield} />
-                        <app:rewards:item item={_items.potion} />
-                        <app:rewards:item item={_items.reroll} />
+                        <app:rewards:item item={{_items.potion}} />
+                        <app:rewards:item item={{_items.reroll}} />
                     </ul>
                 </@extra>
                 <@ads><a href="http://www.amazon.com/gp/product/1594484805/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1594484805&linkCode=as2&tag=ha0d2-20">Drive: The Surprising Truth About What Motivates Us</a><img src="//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=1594484805" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></@ads>
@@ -43,7 +43,7 @@
 
 
 
-<userGems:>
+<user-gems:>
   <a class="pull-right gem-wallet" rel='popover' data-trigger='hover' data-title='Gems' data-content="Used for buying special items (reroll, eggs, hatching potions, etc). You'll need to unlock those features before being able to use Gems." data-placement='bottom'>
     <span class="task-action-btn tile flush bright add-gems-btn" x-bind="click:showStripe">＋</span>
     <span class="task-action-btn tile flush neutral"><div class="Gems"></div> {gems(_user.balance)} Gems
