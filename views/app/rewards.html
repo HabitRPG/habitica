@@ -60,7 +60,7 @@
 
     <!-- left-hand size commands -->
     <div class="task-controls">
-      {#if equal(@item.type),'reroll')}
+      {#if equal(@item.type,'reroll')}
         <a class="task-action-btn btn-reroll" data-toggle="modal" data-target="#reroll-modal"><i class='icon-repeat'></i></a>
       {else}
         <a class="money btn-buy item-btn" x-bind=click:buyItem data-type={@item.type} data-value={@item.value} data-index={@item.index}>
