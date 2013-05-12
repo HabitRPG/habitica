@@ -40,7 +40,7 @@
                             <a x-bind="click:challengeSubscribe" class='btn btn-large btn-success'><i class='icon-ok'></i> Subscribe</a>
                         {/}
                     </div>
-                    <h3 onClick="$(this).next().toggle();">{:challenge.name} (by {:challenge.user})</h3>
+                    <h3 x-bind="click:challengeCollapse"><i class='icon-chevron-down icon-chevron-right'></i> {:challenge.name} (by {:challenge.user})</h3>
 
 
                     <div class="grid">

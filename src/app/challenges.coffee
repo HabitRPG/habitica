@@ -7,7 +7,6 @@ module.exports.app = (appExports, model) ->
   user = model.at '_user'
 
   appExports.challengeCreate = ->
-    id = model.id()
     model.set '_challenge.new',
       name: ''
       habits: []
@@ -15,7 +14,7 @@ module.exports.app = (appExports, model) ->
       todos: []
       rewards: []
       assignTo: 'Party'
-      id: id
+      id: model.id()
       uuid: user.get('id')
       user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
       timestamp: +new Date
@@ -40,3 +39,7 @@ module.exports.app = (appExports, model) ->
   appExports.challengeUnsubscribe = (e) ->
     i = user.get('challenges')?.indexOf e.get('id')
     user.remove("challenges.#{i}") if i? and i != -1
+
+  appExports.challengeCollapse = (e, el) ->
+    $(el).next().toggle()
+    i = $(el).find('i').toggleClass 'icon-chevron-down'
