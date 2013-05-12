@@ -7,14 +7,15 @@ character = require './character'
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
 
-  appExports.addTask = (e, el, next) ->
+  appExports.addTask = (e, el) ->
     type = $(el).attr('data-task-type')
     newModel = model.at('_new' + type.charAt(0).toUpperCase() + type.slice(1))
     text = newModel.get()
     # Don't add a blank task; 20/02/13 Added a check for undefined value, more at issue #463 -lancemanfv
     return if /^(\s)*$/.test(text) || text == undefined
 
-    newTask = {id: model.id(), type: type, text: text, notes: '', value: 0}
+    activeFilters = _.reduce user.get('filters'), ((memo,v,k) -> memo[k]=v if v;memo), {}
+    newTask = {id: model.id(), type: type, text: text, notes: '', value: 0, tags: activeFilters}
     switch type
       when 'habit'
         newTask = _.defaults {up: true, down: true}, newTask
@@ -98,28 +99,8 @@ module.exports.app = (appExports, model) ->
     chart = new google.visualization.LineChart(document.getElementById( chartSelector ))
     chart.draw(data, options)
 
-  appExports.changeContext = (e, el) ->
-    # Get the data from the element
-    targetSelector = $(el).attr('data-target')
-    newContext = $(el).attr('data-context')
-    newActiveNav = $(el).parent('li')
-
-    # If the clicked nav is already active, do nothing
-    if newActiveNav.hasClass('active')
-      return
-
-    # Find the old active nav and context
-    oldActiveNav = $(el).closest('ul').find('> .active')
-    oldContext = oldActiveNav.find('a').attr('data-context')
-
-    # Set the new active nav
-    oldActiveNav.removeClass('active')
-    newActiveNav.addClass('active')
-
-    # Set the new context on the target
-    target = $(targetSelector)
-    target.removeClass(oldContext)
-    target.addClass(newContext)
+  appExports.todosShowRemaining = -> model.set '_showCompleted', false
+  appExports.todosShowCompleted = -> model.set '_showCompleted', true
 
   setUndo = (stats, task) ->
     previousUndo = model.get('_undo')

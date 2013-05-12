@@ -34,23 +34,23 @@
 
     <!-- Re-Roll modal -->
     <app:modals:modal modalId='reroll-modal' header="Reset Your Tasks">
-        <app:rewards:userTokens/>
+        <app:rewards:userGems />
         <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
         <@footer>   
             {#if lt(_user.balance,1)}
-            <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-success btn-large">Buy More Gems</a><span class='token-cost'>Not enough Gems</span>
+            <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-success btn-large">Buy More Gems</a><span class='gem-cost'>Not enough Gems</span>
             {else}
-            <a data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</a><span class='token-cost'>4 Gems</span>
+            <a data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</a><span class='gem-cost'>4 Gems</span>
             {/}
         </@footer>
     </app:modals:modal>
 
     <!-- Buy more Gems modal -->
-    <app:modals:modal modalId='more-tokens-modal' header="Out Of Gems">
-        <app:rewards:userTokens/>
+    <app:modals:modal modalId='more-gems-modal' header="Out Of Gems">
+        <app:rewards:userGems />
         <p>Oops, out of Gems, which are used to buy special items! Habit is an open source project, and can use all the help it can get - buy more Gems to receive this pet, and consider it a donation to the contributors</p>
         <@footer>
-        <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-success btn-large">Buy More Gems</a><span class='token-cost'>Not enough Gems</span>
+        <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-success btn-large">Buy More Gems</a><span class='gem-cost'>Not enough Gems</span>
     </@footer>
     </app:modals:modal>
 

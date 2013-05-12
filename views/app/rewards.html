@@ -9,7 +9,7 @@
     </app:modals:modal>
 
 
-<rewardsColumn:>
+<rewards-column:>
     <div class="module rewards-module">
         <div class="task-column rewards">
             <!-- cash or gems -->
@@ -24,38 +24,29 @@
                 </div>
             </span>
 
-            <h2 class="task-column_title">Rewards</h2>
-
-            <!-- add new reward -->
-            <app:tasks:newTask type="reward" inputValue="{_newReward}" placeHolder="New Reward" />
-
-            <!-- Custom Rewards -->
-            <ul class='rewards' style="{#unless _rewardList}display:none{/}">
-                {#each _rewardList as :task}<app:tasks:task />{/}
-            </ul>
-
-            <!-- Static Rewards -->
-            <ul class='items' style="{#unless _user.flags.itemsEnabled}display:none{/}">
-                <app:rewards:item item={_items.next.weapon} />
-                <app:rewards:item item={_items.next.armor} />
-                <app:rewards:item item={_items.next.head} />
-                <app:rewards:item item={_items.next.shield} />
-                <app:rewards:item item={_items.potion} />
-                <app:rewards:item item={_items.reroll} />
-            </ul>
-
-            <app:tasks:ads>
-                <a href="http://www.amazon.com/gp/product/1594484805/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1594484805&linkCode=as2&tag=ha0d2-20">Drive: The Surprising Truth About What Motivates Us</a><img src="//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=1594484805" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-            </app:tasks:ads>
+            <app:tasks:task-list header="Rewards" type="reward" inputValue="{_newReward}" placeHolder="New Reward" list={_rewardList} >
+                <@extra>
+                    <!-- Static Rewards -->
+                    <ul class='items {#unless _user.flags.itemsEnabled}hidden{/}'>
+                        <app:rewards:item item={_items.next.weapon} />
+                        <app:rewards:item item={_items.next.armor} />
+                        <app:rewards:item item={_items.next.head} />
+                        <app:rewards:item item={_items.next.shield} />
+                        <app:rewards:item item={_items.potion} />
+                        <app:rewards:item item={_items.reroll} />
+                    </ul>
+                </@extra>
+                <@ads><a href="http://www.amazon.com/gp/product/1594484805/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1594484805&linkCode=as2&tag=ha0d2-20">Drive: The Surprising Truth About What Motivates Us</a><img src="//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=1594484805" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></@ads>
+            </app:tasks:task-list>
         </div>
     </div>
 
 
 
-<userTokens:>
-  <a class="pull-right token-wallet" rel='popover' data-trigger='hover' data-title='Gems' data-content="Used for buying special items (reroll, eggs, hatching potions, etc). You'll need to unlock those features before being able to use Gems." data-placement='bottom'>
-    <span class="task-action-btn tile flush bright add-token-btn" x-bind="click:showStripe">＋</span>
-    <span class="task-action-btn tile flush neutral"><div class="Gems"></div> {tokens(_user.balance)} Gems
+<userGems:>
+  <a class="pull-right gem-wallet" rel='popover' data-trigger='hover' data-title='Gems' data-content="Used for buying special items (reroll, eggs, hatching potions, etc). You'll need to unlock those features before being able to use Gems." data-placement='bottom'>
+    <span class="task-action-btn tile flush bright add-gems-btn" x-bind="click:showStripe">＋</span>
+    <span class="task-action-btn tile flush neutral"><div class="Gems"></div> {gems(_user.balance)} Gems
   </a>
 
 
@@ -69,7 +60,7 @@
 
     <!-- left-hand size commands -->
     <div class="task-controls">
-      {#if equal(@item.type),'reroll')}
+      {#if equal(@item.type,'reroll')}
         <a class="task-action-btn btn-reroll" data-toggle="modal" data-target="#reroll-modal"><i class='icon-repeat'></i></a>
       {else}
         <a class="money btn-buy item-btn" x-bind=click:buyItem data-type={@item.type} data-value={@item.value} data-index={@item.index}>

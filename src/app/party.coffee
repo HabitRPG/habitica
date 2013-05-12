@@ -90,6 +90,7 @@ module.exports.app = (appExports, model, app) ->
     text = model.get input
     # Check for non-whitespace characters
     return unless /\S/.test text
+    model.set(input, '')
 
     message =
       id: model.id()
@@ -100,17 +101,20 @@ module.exports.app = (appExports, model, app) ->
       user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
       timestamp: +new Date
 
-    # FIXME - used to be we used chat.unshift(message) (see code before this commit, cd6a7fb), but seemed Racer
-    # would queue the unshift, and keep trying to send when connection detected. But each send would go through, so we'd
-    # get tons of duplicates. To avoid that, we're just doing a model.set now, but that has the problem of clobbering
-    # other senders if sent at the same time
-    messages = chat.get() || []
-    messages =_.uniq messages, true, ((m) -> m?.id) # get rid of dupes
-    messages.unshift message
-    messages.splice(200)
-    model.set path, messages
-
-    model.set(input, '')
+    # FIXME - sometimes racer will send many duplicates via chat.unshift. I think because it can't make connection, keeps
+    # trying, but all attempts go through. Unfortunately we can't do chat.set without potentially clobbering other chatters,
+    # and we can't make chat an object without using refLists. hack solution for now is to unshift, and if there are dupes
+    # after we set to unique
+    chat.unshift message, ->
+      messages = chat.get() || []
+      count = messages.length
+      messages =_.uniq messages, true, ((m) -> m?.id) # get rid of dupes
+      #There were a bunch of duplicates, let's clean it up
+      if messages.length != count
+        messages.splice(200)
+        chat.set messages
+      else
+        chat.remove(200)
 
   model.on 'unshift', '_party.chat', -> $('.chat-message').tooltip()
   model.on 'unshift', '_tavern.chat.messages', -> $('.chat-message').tooltip()
