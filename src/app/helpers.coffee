@@ -125,14 +125,17 @@ viewHelpers = (view) ->
   ###
     Tasks
   ###
-  view.fn 'taskClasses', (task, filters, dayStart, lastCron) ->
+  view.fn 'taskClasses', (task, filters, dayStart, lastCron, showCompleted=false) ->
     return unless task
     {type, completed, value, repeat} = task
+
+    # completed / remaining toggle
+    return 'hidden' if (type is 'todo') and (completed != showCompleted)
 
     for filter, enabled of filters
       if enabled and not task.tags?[filter]
         # All the other classes don't matter
-        return 'hide'
+        return 'hidden'
 
     classes = type
 
@@ -150,6 +153,8 @@ viewHelpers = (view) ->
         classes += " completed"
       else
         classes += " uncompleted"
+    else if type is 'habit'
+      classes += ' habit-wide' if task.down and task.up
 
     if value < -20
       classes += ' color-worst'

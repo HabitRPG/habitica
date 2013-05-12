@@ -99,28 +99,8 @@ module.exports.app = (appExports, model) ->
     chart = new google.visualization.LineChart(document.getElementById( chartSelector ))
     chart.draw(data, options)
 
-  appExports.changeContext = (e, el) ->
-    # Get the data from the element
-    targetSelector = $(el).attr('data-target')
-    newContext = $(el).attr('data-context')
-    newActiveNav = $(el).parent('li')
-
-    # If the clicked nav is already active, do nothing
-    if newActiveNav.hasClass('active')
-      return
-
-    # Find the old active nav and context
-    oldActiveNav = $(el).closest('ul').find('> .active')
-    oldContext = oldActiveNav.find('a').attr('data-context')
-
-    # Set the new active nav
-    oldActiveNav.removeClass('active')
-    newActiveNav.addClass('active')
-
-    # Set the new context on the target
-    target = $(targetSelector)
-    target.removeClass(oldContext)
-    target.addClass(newContext)
+  appExports.todosShowRemaining = -> model.set '_showCompleted', false
+  appExports.todosShowCompleted = -> model.set '_showCompleted', true
 
   setUndo = (stats, task) ->
     previousUndo = model.get('_undo')
