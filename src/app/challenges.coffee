@@ -8,7 +8,7 @@ module.exports.app = (appExports, model) ->
       daily: []
       todos: []
       rewards: []
-      assignees: 'party'
+      assignTo: 'Party'
     model.set '_challenge.creating', true
 
   appExports.challengeSave = ->

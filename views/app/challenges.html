@@ -62,6 +62,37 @@
                         editable=true />
             </div>
 
+            <fieldset>
+                <div>
+                    <select>
+                        <option selected="{equal('Party',_challenge.new.assignTo)}" >Party</option>
+                        <option selected="{equal('Guild',_challenge.new.assignTo)}" >Guild</option>
+                        <option selected="{equal('Public',_challenge.new.assignTo)}" >Public</option>
+                    </select>
+                </div>
+                <div>
+                    {#if equal(_challenge.new.assignTo,'Party')}
+                        <div class='row-fluid'>
+                            <div class='span4 well'>
+                                <div><input type='radio' name='challenge-party-selection' checked={_challenge.new.partyAssignees} >All Party</input></div>
+                                <small>No individual privacy on the challenge, all party members can see progress even if they decline the challenge. Any new party members can subscribe to this challenge.</small>
+                            </div>
+                            <div class='span8 well'>
+                                <input type='radio' name='challenge-party-selection' checked={not(_challenge.new.partyAssignees)} >Individual Members</input>
+                                {{#each _partyMembers as :member}}
+                                    <div><input type=checkbox checked=true /> {{username(:member.auth,:member.profile.name)}}</div>
+                                {{/}}
+                                <small>Only the invited party members can subscribe to this challenge. New party joins won't see this challenge.</small>
+                            </div>
+                        </div>
+
+                    {/}
+                    {#if equal(_challenge.new.assignTo,'Guild')}
+                        Which Guild?
+                    {/}
+                </div>
+            </fieldset>
+
             <input type='submit' x-bind="click:submit:challengeSave" class='btn btn-large btn-success' value='Save' />
             <input type='button' x-bind='click:challengeDiscard' class='btn btn-large btn-danger' value=Discard />
         {/}
