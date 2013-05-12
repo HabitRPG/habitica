@@ -25,7 +25,7 @@ module.exports.app = (appExports, model) ->
         newTask = _.defaults {repeat:{su:true,m:true,t:true,w:true,th:true,f:true,s:true}, completed: false }, newTask
       when 'todo'
         newTask = _.defaults {completed: false }, newTask
-    model.unshift "_#{type}List", newTask
+    e.at().unshift newTask # e.at() in this case is the list, which was scoped here using {#with @list}...{/}
     newModel.set ''
 
   appExports.del = (e, el) ->

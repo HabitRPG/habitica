@@ -135,10 +135,15 @@
     {{#if equal(@type,'todo')}}<div id="todos-chart" class="hidden"></div>{{/}}
 
     {{#if @editable}}
-    <form class="addtask-form form-inline new-task-form {#if and(_showCompleted,equal(@type,'todo'))}hidden{/}" id="new-{{@type}}" data-task-type="{{@type}}" x-bind="submit:addTask">
-        <span class="addtask-field"><input value="{@inputValue}" type="text" placeholder="{{@placeHolder}}"/></span>
-        <input class="addtask-btn" type="submit" value="＋">
-    </form>
+
+        <!-- need {#with} so we can reference model.at() in the submit handler -->
+        <!-- NOTE: static binding {{}} seems to be required, otherwise things get weird - e.at() is _habitList first time, _habitList.0 second time, etc -->
+        {{#with @list}}
+        <form class="addtask-form form-inline new-task-form {#if and(_showCompleted,equal(@type,'todo'))}hidden{/}" data-task-type="{{@type}}" x-bind="submit:addTask">
+            <span class="addtask-field"><input value="{@inputValue}" type="text" placeholder="{{@placeHolder}}"/></span>
+            <input class="addtask-btn" type="submit" value="＋">
+        </form>
+        {{/}}
     <hr>
     {{/}}
     <ul class="{{@type}}s {#unless @list}hidden{/}">
