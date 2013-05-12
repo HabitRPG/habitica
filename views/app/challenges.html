@@ -33,7 +33,16 @@
 
             <div class="tab-pane" id="challengesViewParty">
                 {#each _party.challenges as :challenge}
+                    <div class='pull-right'>
+                        {#if indexOf(_user.challenges,:challenge.id)}
+                            <a x-bind="click:challengeUnsubscribe" class='btn btn-large btn-danger'><i class='icon-ban-circle'></i> Unsubscribe</a>
+                        {else}
+                            <a x-bind="click:challengeSubscribe" class='btn btn-large btn-success'><i class='icon-ok'></i> Subscribe</a>
+                        {/}
+                    </div>
                     <h3 onClick="$(this).next().toggle();">{:challenge.name} (by {:challenge.user})</h3>
+
+
                     <div class="grid">
                         <app:tasks:task-lists
                             habits={:challenge.habits}
@@ -88,11 +97,15 @@
                                 <small>No individual privacy on the challenge, all party members can see progress even if they decline the challenge. Any new party members can subscribe to this challenge.</small>
                             </div>
                             <div class='span8 well'>
-                                <input type='radio' name='challenge-party-selection' checked={not(_challenge.new.partyAssignees)} >Individual Members</input>
-                                {{#each _partyMembers as :member}}
-                                    <div><input type=checkbox checked=true /> {{username(:member.auth,:member.profile.name)}}</div>
-                                {{/}}
-                                <small>Only the invited party members can subscribe to this challenge. New party joins won't see this challenge.</small>
+                                <div><input type='radio' name='challenge-party-selection' checked={not(_challenge.new.partyAssignees)} >Individual Members</input></div>
+                                <div>
+                                    <select multiple="multiple">
+                                    {{#each _partyMembers as :member}}
+                                        <option>{{username(:member.auth,:member.profile.name)}}</option>
+                                    {{/}}
+                                    </select>
+                                </div>
+                                <div><small>Only the invited party members can subscribe to this challenge. New party joins won't see this challenge.</small></div>
                             </div>
                         </div>
 

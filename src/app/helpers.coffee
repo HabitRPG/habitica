@@ -214,7 +214,6 @@ viewHelpers = (view) ->
   view.fn 'itemText', (type, item=0) -> items[type][parseInt(item)].text
   view.fn 'itemStat', (type, item=0) -> if type is 'weapon' then items[type][parseInt(item)].strength else items[type][parseInt(item)].defense
 
-
 #  view.fn 'activeFilters', (filters) ->
 #    debugger
 #    (_.find filters, (f) -> f)?

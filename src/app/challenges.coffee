@@ -7,25 +7,36 @@ module.exports.app = (appExports, model) ->
   user = model.at '_user'
 
   appExports.challengeCreate = ->
+    id = model.id()
     model.set '_challenge.new',
       name: ''
       habits: []
-      daily: []
+      dailys: []
       todos: []
       rewards: []
       assignTo: 'Party'
-    model.set '_challenge.creating', true
-
-  appExports.challengeSave = ->
-    challenge = _.defaults model.get('_challenge.new'),
-      id: model.id()
+      id: id
       uuid: user.get('id')
       user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
       timestamp: +new Date
-    model.unshift '_party.challenges', challenge
-    challengeDiscard()
+
+    model.set '_challenge.creating', true
+
+  appExports.challengeSave = ->
+    model.unshift '_party.challenges', model.get('_challenge.new'), -> challengeDiscard()
     browser.growlNotification('Challenge Created','success')
 
   appExports.challengeDiscard = challengeDiscard = ->
     model.set '_challenge.new', {}
     model.set '_challenge.creating', false
+
+  appExports.challengeSubscribe = (e) ->
+    userChallenges = user.get('challenges')
+    chal = e.get()
+    user.unshift('challenges', chal.id) unless userChallenges and (userChallenges.indexOf(chal.id) != -1)
+    _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
+      _.each chal["#{type}s"], (task) -> model.push("_#{type}List", task)
+
+  appExports.challengeUnsubscribe = (e) ->
+    i = user.get('challenges')?.indexOf e.get('id')
+    user.remove("challenges.#{i}") if i? and i != -1
