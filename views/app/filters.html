@@ -1,11 +1,11 @@
 <filters:>
   <div class="filters">
     <div class="pull-left filter-description">
-      Tags:
+      {{t("tags")}}:
     </div>
     <ul class="nav nav-pills">
       <li>
-          <a rel=tooltip title='Edit Tags' x-bind="click:toggleEditingTags"><i class='{#if _editingTags}icon-ok{else}icon-pencil{/}'></i></a>
+          <a rel=tooltip title={{t("editTags")}} x-bind="click:toggleEditingTags"><i class='{#if _editingTags}icon-ok{else}icon-pencil{/}'></i></a>
       </li>
       {#each _user.tags as :tag}
         <li class="{#if _user.filters[:tag.id]}active{/}" style='position:relative;'>
@@ -23,15 +23,15 @@
           {#if _editingTags}
               <form class='form-inline' x-bind="submit:filtersNewTag">
                   <div class="input-append tag-editing">
-                      <input class="span2 tag-editing-pill" type="text" value={_newTag} placeholder="New Tag" />
-                      <button class="add-on tag-editing-pill" type="submit">Add</button>
+                      <input class="span2 tag-editing-pill" type="text" value={_newTag} placeholder={{t("newTag")}} />
+                      <button class="add-on tag-editing-pill" type="submit">{{t("add")}}</button>
                   </div>
               </form>
           {/}
       </li>
       <!--<li class="{#unless activeFilters(_user.filters)}hidden{/}">-->
       <li>
-          <a rel=tooltip title='Clear Filters' x-bind="click:clearFilters"><i class='icon-remove-sign'></i></a>
+          <a rel=tooltip title={{t("clearFilters")}} x-bind="click:clearFilters"><i class='icon-remove-sign'></i></a>
       </li>
     </ul>
   </div>
@@ -52,7 +52,7 @@
 
 <filter-fieldgroup:>
     <fieldset class='option-group'>
-        <legend class="option-title">Tags</legend>
+        <legend class="option-title">{{t("tags")}}</legend>
         <select multiple="multiple">
             {{#each _user.tags as :tag}}
                 <option selected="{:task.tags[:tag.id]}">{:tag.name}</option>

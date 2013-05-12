@@ -3,7 +3,7 @@
         <app:modals:modal modalId="avatar-modal-{{:profile.id}}">
             <app:avatar:profile profile={{:profile}} />
             <@footer>
-                <button data-dismiss="modal" class="btn btn-success">Ok</button>
+                <button data-dismiss="modal" class="btn btn-success">{{t("ok")}}</button>
             </@footer>
         </app:modals:modal>
     {{/}}
@@ -49,23 +49,23 @@
     </figure>
 
 <profile-stats:>
-    <h3>Items</h3>
+    <h3>{{t("items")}}</h3>
     <p><strong>{itemText('weapon',_user.items.weapon)}</strong>: {itemStat('weapon',_user.items.weapon)}% Exp gain</p>
     <p><strong>{itemText('armor',_user.items.armor)}</strong>: {itemStat('armor',_user.items.armor)}% Defense</p>
     <p><strong>{itemText('head',_user.items.head)}</strong>: {itemStat('head',_user.items.head)}% Defense</p>
     <p><strong>{itemText('shield',_user.items.shield)}</strong>: {itemStat('shield',_user.items.shield)}% Defense</p>
 
-    <h3>Stats</h3>
+    <h3>{{t("stats")}}</h3>
     <p><strong>HP</strong>: {floor(_user.stats.hp)} / 50</p>
     <p><strong>GP</strong>: {floor(_user.stats.gp)}</p>
     <p><strong>Lvl</strong>: {_user.stats.lvl}</p>
     <p><strong>Exp</strong>: {floor(_user.stats.exp)} / {tnl(_user.stats.lvl)}</p>
-    <p><strong>Strength</strong>: {userStr(_user.stats.lvl)}</p>
-    <p><strong>Defense</strong>: {userDef(_user.stats.lvl)}</p>
-    <p><strong>Pets Found</strong>: {count(_user.items.pets)}</p>
+    <p><strong>{{t("strength")}}</strong>: {userStr(_user.stats.lvl)}</p>
+    <p><strong>{{t("defense")}}</strong>: {userDef(_user.stats.lvl)}</p>
+    <p><strong>{{t("petsFound")}}</strong>: {count(_user.items.pets)}</p>
     <hr/>
-    <p><strong>Total Strength</strong>: {totalStr(_user.stats.lvl, _user.items.weapon)} %</p>
-    <p><strong>Total Defense</strong>: {totalDef(_user.stats.lvl, _user.items.armor, _user.items.head, _user.items.shield)} %</p>
+    <p><strong>{{t("totalStrength")}}</strong>: {totalStr(_user.stats.lvl, _user.items.weapon)} %</p>
+    <p><strong>{{t("totalDefense")}}</strong>: {totalDef(_user.stats.lvl, _user.items.armor, _user.items.head, _user.items.shield)} %</p>
 
 
 <customize:>
@@ -75,19 +75,19 @@
         <menu type="list">
             <!-- gender -->
             <li class="customize-menu">
-                <menu label="Head">
+                <menu label={{t("head")}}>
                     <button type="button" class="m_head_0 customize-option" data-value="m" x-bind="click:customizeGender"></button>
                     <button type="button" class="f_head_0 customize-option" data-value="f" x-bind="click:customizeGender"></button>
                 </menu>
                 <label class="checkbox">
-                    <input type=checkbox checked="{_user.preferences.showHelm}" /> Show Helm
+                    <input type=checkbox checked="{_user.preferences.showHelm}" /> {{t("showHelm")}}
                 </label>
 
             </li>
 
             <!-- hair -->
             <li class="customize-menu">
-                <menu label="Hair">
+                <menu label={{t("hair")}}>
                     <button type="button" class="{:p.gender}_hair_blond customize-option" data-value="blond" x-bind="click:customizeHair"></button>
                     <button type="button" class="{:p.gender}_hair_black customize-option" data-value="black" x-bind="click:customizeHair"></button>
                     <button type="button" class="{:p.gender}_hair_brown customize-option" data-value="brown" x-bind="click:customizeHair"></button>
@@ -97,7 +97,7 @@
 
             <!-- skin -->
             <li class="customize-menu">
-                <menu label="Skin">
+                <menu label={{t("skin")}}>
                     <button type="button" class='{:p.gender}_skin_dead customize-option' data-value="dead" x-bind="click:customizeSkin"></button>
                     <button type="button" class='{:p.gender}_skin_orc customize-option' data-value="orc" x-bind="click:customizeSkin"></button>
                     <button type="button" class='{:p.gender}_skin_asian customize-option' data-value="asian" x-bind="click:customizeSkin"></button>
@@ -110,7 +110,7 @@
         {#if equal(_user.preferences.gender, 'f')} <!-- Sorry boys -->
             <menu type="list">
                 <li class="customize-menu">
-                    <menu label="Clothing">
+                    <menu label={{t("clothing")}}>
                         <button type="button" class="f_armor_0_v1 customize-option" data-value="v1" x-bind="click:customizeArmorSet"></button>
                         <button type="button" class="f_armor_0_v2 customize-option" data-value="v2" x-bind="click:customizeArmorSet"></button>
                     </menu>
@@ -124,31 +124,31 @@
     <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak -->
     <img class='pull-right' src="{_user.profile.imageUrl}" />
     <div class="control-group">
-        <label class="control-label" for="profileImageUrl">Photo Url</label>
+        <label class="control-label" for="profileImageUrl">{{t("photoUrl")}}</label>
         <div class="controls">
-            <input type="url" id="profileImageUrl" value="{_user.profile.imageUrl}" placeholder="Image Url"/>
+            <input type="url" id="profileImageUrl" value="{_user.profile.imageUrl}" placeholder={{t("photoUrl")}}>
         </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="profileFullName">Full Name</label>
+        <label class="control-label" for="profileFullName">{{t("fullName")}}</label>
         <div class="controls">
             <input type="text" id="profileFullName" placeholder="Full Name" value="{_user.profile.name}" />
         </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="profileBlurb">Blurb</label>
+        <label class="control-label" for="profileBlurb">{{t("blurb")}}</label>
         <div class="controls">
-            <textarea id="profileBlurb" placeholder="Blurb" >{_user.profile.blurb}</textarea>
+            <textarea id="profileBlurb" placeholder={{t("blurb")}} >{_user.profile.blurb}</textarea>
         </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="profileWebsite">Websites</label>
+        <label class="control-label" for="profileWebsite">{{t("websites")}}</label>
         <div class="controls">
             <form x-bind="submit:profileAddWebsite">
-                <input type="url" id="profileWebsite" value="{_newProfileWebsite}" placeholder="Add Website"/>
+                <input type="url" id="profileWebsite" value="{_newProfileWebsite}" placeholder={{t("addWebsites")}}>
             </form>
         </div>
         <ul>
@@ -179,7 +179,7 @@
             {{/}}
         </div>
         <div class='span6'>
-            <h3>Achievements</h3>
+            <h3>{{t("achievments")}}</h3>
             <app:avatar:achievements profile={{@profile}} />
         </div>
     </div>
@@ -202,7 +202,7 @@
 
         <app:avatar:achievement unlocked={{@profile.backer.npc}} classes='achievement-helm' unlockable=false profile={{@profile}}>
             <h5><span class='label label-success'>{{@profile.backer.npc}} NPC</span></h5>
-            <small>Backed the Kickstarter project at the maximum level!</small>
+            <small>{{t("npcText")}}</small>
         </app:avatar:achievement>
 
         <app:avatar:achievement unlocked={{@profile.backer.contributor}} classes='achievement-firefox' unlockable=true profile={{@profile}}>
@@ -210,35 +210,35 @@
                 {{#if @profile.backer.contributor}}
                     <span class='label label-inverse'>{{@profile.backer.contributor}}</span>
                 {{else}}
-                    <span class='label'>Contributor</span>
+                    <span class='label'>{{t("contribName")}}</span>
                 {{/}}
             </h5>
-            <small>Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge? Fix a bug :)</small>
+            <small>{{t("contribText")}} :)</small>
         </app:avatar:achievement>
 
         <app:avatar:achievement unlocked={{@profile.backer.tier}} classes='achievement-heart' unlockable=false profile={{@profile}}>
-            <h5>Kickstarter Backer - ${{@profile.backer.tier}} Tier</h5>
-            <small>Backed the Kickstarter Project</small>
+            <h5>{{t("kickstartName1")}} ${{@profile.backer.tier}} {{t("kickstartName2")}}</h5>
+            <small>{{t("kickstartText")}}</small>
         </app:avatar:achievement>
 
         <app:avatar:achievement unlocked={@profile.achievements.streak} classes='achievement-thermometer' unlockable=true profile={@profile}>
-            <h5>{#if @profile.achievements.streak}{@profile.achievements.streak}{else}0{/} Streak Achievement(s)</h5>
-            <small>Has performed {#if @profile.achievements.streak}{@profile.achievements.streak}{else}0{/} 21-day streaks on Dailies</small>
+            <h5>{#if @profile.achievements.streak}{@profile.achievements.streak}{else}0{/} {{t("streakName")}}</h5>
+            <small>{{t("streakText1")}} {#if @profile.achievements.streak}{@profile.achievements.streak}{else}0{/} {{t("streakText2")}}</small>
         </app:avatar:achievement>
 
         <app:avatar:achievement unlocked={@profile.achievements.originalUser} classes='achievement-cake' unlockable=false profile={@profile}>
-            <h5>Original User</h5>
-            <small>Goes way back to the Habit's days of yore (bless them for soldiering through bugs!)</small>
+            <h5>{{t("origUserName")}}</h5>
+            <small>{{t("origUserText")}}</small>
         </app:avatar:achievement>
 
         <app:avatar:achievement unlocked={@profile.achievements.ultimateGear} classes='achievement-armor' unlockable=true profile={@profile}>
-            <h5>Ultimate Gear</h5>
-            <small>Has upgraded to the maximum weapon and armor set</small>
+            <h5>{{t("ultimGearName")}}</h5>
+            <small>{{t("ultimGearText")}}</small>
         </app:avatar:achievement>
 
         <app:avatar:achievement unlocked={@profile.achievements.beastMaster} classes='achievement-rat' unlockable=true profile={@profile}>
-            <h5>Beast Master</h5>
-            <small>Has found all 90 pets (insanely difficult, give this user props!)</small>
+            <h5>{{t("beastMastName")}}</h5>
+            <small>{{t("beastMastName")}}</small>
         </app:avatar:achievement>
 
     </div>

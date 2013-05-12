@@ -1,17 +1,17 @@
 <modals:>
-    <app:modals:modal modalId='max-gear-achievement-modal' header="Achievement Unlocked!">
+    <app:modals:modal modalId='max-gear-achievement-modal' header={{t("achievementUnlocked")}}>
         <p>
-            <div class='achievement achievement-armor'></div>You have earned the "Ultimate Gear" Achievement for upgrading to the maximum gear set!
+            <div class='achievement achievement-armor'></div>{{t("ultimGearUnlocked")}}
         </p>
         <@footer>
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">{{t("close")}}</button>
         </@footer>
     </app:modals:modal>
 
 <user-gems:>
-  <a class="pull-right gem-wallet" rel='popover' data-trigger='hover' data-title='Gems' data-content="Used for buying special items (reroll, eggs, hatching potions, etc). You'll need to unlock those features before being able to use Gems." data-placement='bottom'>
+  <a class="pull-right gem-wallet" rel='popover' data-trigger='hover' data-title='Gems' data-content={{t("gemsWhatFor")}} data-placement='bottom'>
     <span class="task-action-btn tile flush bright add-gems-btn" x-bind="click:showStripe">＋</span>
-    <span class="task-action-btn tile flush neutral"><div class="Gems"></div> {gems(_user.balance)} Gems
+    <span class="task-action-btn tile flush neutral"><div class="Gems"></div> {gems(_user.balance)} {{t("gems")}}
   </a>
 
 

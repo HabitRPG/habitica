@@ -9,13 +9,13 @@
             <li class="active"><a data-toggle='tab' data-target="#profileCustomize"><i class='icon-user'></i> Profile</a></li>
             <li><a data-toggle='tab' data-target="#profileParty" id='party-tab-link'><i class='icon-heart'></i> Party</a></li>
             {#if _user.flags.dropsEnabled}
-                <li><a data-toggle='tab' data-target="#profileInventory"><i class='icon-gift'></i> Inventory</a></li>
-                <li><a data-toggle='tab' data-target="#profileStable"><i class='icon-leaf'></i> Stable</a></li>
+                <li><a data-toggle='tab' data-target="#profileInventory"><i class='icon-gift'></i> {{t("inventory")}}</a></li>
+                <li><a data-toggle='tab' data-target="#profileStable"><i class='icon-leaf'></i> {{t("stable")}}</a></li>
             {/if}
-            <li><a data-toggle='tab' data-target="#profileTavern"><i class='icon-eye-close'></i> Tavern</a></li>
-            <li><a data-toggle='tab' data-target="#profileAchievements"><i class='icon-certificate'></i> Achievements</a></li>
+            <li><a data-toggle='tab' data-target="#profileTavern"><i class='icon-eye-close'></i> {{t("tavern")}}</a></li>
+            <li><a data-toggle='tab' data-target="#profileAchievements"><i class='icon-certificate'></i> {{t("achievements")}}</a></li>
             {{#if _loggedIn}}
-                <li><a data-toggle='tab' data-target="#profileSettings"><i class='icon-wrench'></i> Settings</a></li>
+                <li><a data-toggle='tab' data-target="#profileSettings"><i class='icon-wrench'></i> {{t("settings")}}</a></li>
             {{/}}
         </ul>
 
@@ -46,11 +46,11 @@
             <div class="tab-pane" id="profileInventory">
                 <div class='row-fluid'>
                     <div class='span6 border-right'>
-                        <h2>Inventory</h2>
+                        <h2>{{t("inventory")}}</h2>
                         <app:avatar:inventory />
                     </div>
                     <div class='span6'>
-                        <h2>Market</h2>
+                        <h2>{{t("market")}}</h2>
                         <app:game-pane:market />
                     </div>
                 </div>
@@ -82,32 +82,32 @@
                     <div class="arrow"></div>
                     <h3 class="popover-title">Daniel Johansson</h3>
                     <div class="popover-content">
-                        Welcome to the Tavern! I'm <a target="_blank" href="http://www.kickstarter.com/profile/2014640723">Daniel</a>, the bar keep. If you want to rest a while (going on vacation? sudden illness?), I'll set you up at the inn - dailies won't hurt you while you're resting. Stay a while & meet the locals.
+                       {{t("NPCJohanssonText1")}} <a target="_blank" href="http://www.kickstarter.com/profile/2014640723">Daniel</a>, {{t("NPCJohanssonText2")}}
                         <div><button x-bind="click:toggleResting" class='btn btn-large btn-success {#if _user.flags.rest}active{/}'>{#if _user.flags.rest}Check Out of Inn{else}Rest In The Inn{/}</button></div>
                     </div>
                 </div>
             </div>
 
-            <div class='alert alert-info {#unless _user.flags.rest}hidden{/}'>Whilst resting your dailies are saved and aren't effected by day turn-over. Whether you check out tomorrow or in a weeks time you'll continue in the same state as when you checked in.</div>
+            <div class='alert alert-info {#unless _user.flags.rest}hidden{/}'>{{t("tavernRestingInfo")}}</div>
 
             <div class=well>
-                <h3>Resources</h3>
+                <h3>{{t("resources")}}</h3>
                 <ul class=unstyled>
-                    <li><h4><a _target=blank href="http://community.habitrpg.com/forums/lfg">LFG Posts</a></h4></li>
-                    <li><h4><a _target=blank href="http://www.youtube.com/watch?feature=player_embedded&v=cT5ghzZFfao">Tutorial</a></h4></li>
+                    <li><h4><a _target=blank href="http://community.habitrpg.com/forums/lfg">{{t("LFGPosts")}}</a></h4></li>
+                    <li><h4><a _target=blank href="http://www.youtube.com/watch?feature=player_embedded&v=cT5ghzZFfao">{{t("tutorials")}}</a></h4></li>
                     <li><h4><a _target=blank href="http://community.habitrpg.com/faq-page">FAQ</a></h4></li>
-                    <li><h4><a _target=blank href="https://github.com/lefnire/habitrpg/issues?state=open">Submit a Bug</a></h4></li>
-                    <li><h4><a _target=blank href="https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6">Request a Feature</a></h4></li>
-                    <li><h4><a _target=blank href="http://community.habitrpg.com/forum">Community Forum</a></h4></li>
+                    <li><h4><a _target=blank href="https://github.com/lefnire/habitrpg/issues?state=open">{{t("communityBugs")}}</a></h4></li>
+                    <li><h4><a _target=blank href="https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6">{{t("communityFeatures")}}</a></h4></li>
+                    <li><h4><a _target=blank href="http://community.habitrpg.com/forum">{{t("communityForum")}}</a></h4></li>
                 </ul>
             </div>
 
         </div>
         <div class='span8'>
-            <h3>Tavern Talk & LFG</h3>
+            <h3>{{t("tavernTalkTitle")}}</h3>
             <form x-bind='submit:tavernSendChat'>
                 <textarea class="span6" rows="3"x-bind='keyup:tavernMessageKeyup'>{_tavernMessage}</textarea><br/>
-                <input class=btn type=submit value=Submit />
+                <input class=btn type=submit value={{t("submit")}} />
             </form>
             <ul class='unstyled tavern-chat'>
                 {#each _tavern.chat.messages as :message}
@@ -125,10 +125,10 @@
         <div class="popover fade right in" style="top: 0px; left: 170px; display: block;">
             <div class="arrow"></div>
             <h3 class="popover-title">Alexander Augustin</h3>
-            <div class="popover-content">Welcome to the Market! I'm the merchant, <a target="_blank" href="http://www.kickstarter.com/profile/523661924">Alexander</a>. Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!</div>
+            <div class="popover-content">{{t("NPCAugustinText1")}}  <a target="_blank" href="http://www.kickstarter.com/profile/523661924">Alexander</a>. {{t("NPCAugustinText2")}}</div>
         </div>
 
-        <h4>Eggs</h4>
+        <h4>{{t("eggs")}}</h4>
         {#with _items.pets as :egg}
         <table>
             <tr>
@@ -148,7 +148,7 @@
             </tr>
         </table>
         {/}
-        <h4>Hatching Potions</h4>
+        <h4>{{t("hatchingPotions")}}</h4>
         {#with _items.hatchingPotions as :hatchingPotion}
         <table>
             <tr>
