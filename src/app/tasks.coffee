@@ -16,6 +16,12 @@ module.exports.app = (appExports, model) ->
 
     activeFilters = _.reduce user.get('filters'), ((memo,v,k) -> memo[k]=v if v;memo), {}
     newTask = {id: model.id(), type: type, text: text, notes: '', value: 0, tags: activeFilters}
+
+    isChallenge = e.at().path().indexOf('_challenge.new') != -1
+    if isChallenge
+      activeFilters = {}
+      newTask.challenge = model.get '_challenge.new.id'
+
     switch type
       when 'habit'
         newTask = _.defaults {up: true, down: true}, newTask
