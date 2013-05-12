@@ -32,7 +32,17 @@
             </div>
 
             <div class="tab-pane" id="challengesViewParty">
-                Party
+                {#each _party.challenges as :challenge}
+                    <h3 onClick="$(this).next().toggle();">{:challenge.name} (by {:challenge.user})</h3>
+                    <div class="grid">
+                        <app:tasks:task-lists
+                            habits={:challenge.habits}
+                            dailys={:challenge.dailys}
+                            todos={:challenge.todos}
+                            rewards={:challenge.rewards} />
+                    </div>
+                    <hr/>
+                {/}
             </div>
 
             <div class="tab-pane" id="challengesViewGuild">
@@ -93,7 +103,7 @@
                 </div>
             </fieldset>
 
-            <input type='submit' x-bind="click:submit:challengeSave" class='btn btn-large btn-success' value='Save' />
+            <input type='submit' x-bind="click:challengeSave" class='btn btn-large btn-success' value='Save' />
             <input type='button' x-bind='click:challengeDiscard' class='btn btn-large btn-danger' value=Discard />
         {/}
 

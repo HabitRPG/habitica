@@ -1,4 +1,9 @@
+_ = require 'underscore'
+
 module.exports.app = (appExports, model) ->
+  browser = require './browser'
+  helpers = require './helpers'
+
   user = model.at '_user'
 
   appExports.challengeCreate = ->
@@ -12,8 +17,15 @@ module.exports.app = (appExports, model) ->
     model.set '_challenge.creating', true
 
   appExports.challengeSave = ->
-    #TODO
+    challenge = _.defaults model.get('_challenge.new'),
+      id: model.id()
+      uuid: user.get('id')
+      user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
+      timestamp: +new Date
+    model.unshift '_party.challenges', challenge
+    challengeDiscard()
+    browser.growlNotification('Challenge Created','success')
 
-  appExports.challengeDiscard = ->
+  appExports.challengeDiscard = challengeDiscard = ->
     model.set '_challenge.new', {}
     model.set '_challenge.creating', false
