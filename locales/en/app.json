@@ -3,8 +3,6 @@
 "_commentfrontpage":"HABITRPG FRONT PAGE",
    "synopsis" : "A habit building program which treats your life like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.",
   "playButton" : "Play",
-  ""
-
 
 
 "_commenttut": "TUTORIAL/TOUR",
@@ -22,7 +20,7 @@
   "tour5Title" : "Rewards",
     "tour5Text" : "As you complete goals, you earn gold to buy rewards. Buy them liberally - rewards are integrals in forming good habits. ",            
   "tour6Title" : "Hover over comments",
-    "tour6Text" : "Different task-types have special properties. Hover over each task's comment for more information. When you're ready to get started, delete the existing tasks and add your own.",    
+    "tour6Text" : "Different task-types have special properties. Hover over each task's comment for more information. When you're ready to get started, delete the existing tasks and add your own.",
 
 
 
