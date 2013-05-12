@@ -51,16 +51,19 @@
         {#unless _challenge.creating}
             <a x-bind='click:challengeCreate' class='btn btn-large btn-success'>Create New Challenge</a>
         {else}
-            <form x-bind='submit:challengeSave' class=form-horizontal>
-                <input id='newChallengeName' type='text' value={_challenge.new.name} placeholder="Challenge Title" required/>
+            <input id='newChallengeName' type='text' value={_challenge.new.name} placeholder="Challenge Title" required/>
 
-                <div class="grid">
-                    ...
-                </div>
+            <div class="grid">
+                <app:tasks:task-lists
+                        habits={_challenge.new.habits}
+                        dailys={_challenge.new.dailys}
+                        todos={_challenge.new.todos}
+                        rewards={_challenge.new.rewards}
+                        editable=true />
+            </div>
 
-                <input type='submit' class='btn btn-large btn-success' value='Save' />
-                <input type='button' x-bind='click:challengeDiscard' class='btn btn-large btn-danger' value=Discard />
-            </form>
+            <input type='submit' x-bind="click:submit:challengeSave" class='btn btn-large btn-success' value='Save' />
+            <input type='button' x-bind='click:challengeDiscard' class='btn btn-large btn-danger' value=Discard />
         {/}
 
     </div>

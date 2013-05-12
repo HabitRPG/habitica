@@ -5,7 +5,7 @@ module.exports.app = (appExports, model) ->
     model.set '_challenge.new',
       name: ''
       habits: []
-      dailies: []
+      daily: []
       todos: []
       rewards: []
       assignees: 'party'
