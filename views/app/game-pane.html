@@ -2,7 +2,7 @@
     <div class="module full-width">
 
         <span class='option-box pull-right wallet'>
-            <app:rewards:userGems />
+            <app:rewards:user-gems />
         </span>
 
         <ul class="nav nav-tabs game-tabs">
@@ -88,7 +88,7 @@
                 </div>
             </div>
 
-            <div class='alert alert-info {#unless _user.flags.rest}hidden{/}'>While you're resting, your dailies aren't calculated. <span class='label label-warning'>Warning:</span> this means that if you check in today, do some dailies, and check out tomorrow - they won't get un-checked until the day <strong>after</strong> tomorrow. You start where you left off before vacation / illness, and it prevents abusing the inn. See <a _target='blank' href='https://trello.com/card/rest-in-tavern/50e5d3684fe3a7266b0036d6/14'><strong>Trello</strong></a> for more information.</div>
+            <div class='alert alert-info {#unless _user.flags.rest}hidden{/}'>Whilst resting your dailies are saved and aren't effected by day turn-over. Whether you check out tomorrow or in a weeks time you'll continue in the same state as when you checked in.</div>
 
             <div class=well>
                 <h3>Resources</h3>

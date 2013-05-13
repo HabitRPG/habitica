@@ -14,7 +14,15 @@
     <!-- Habits Column -->
     <div class="module">
         <div class="task-column habits">
-            <app:tasks:task-list header="Habits" type="habit" inputValue="{_newHabit}" placeHolder="New Habit" list={_habitList} >
+            <app:tasks:task-list
+                    header="habits"
+                    type="habit"
+                    inputValue={_newHabit}
+                    placeHolder="New Habit"
+                    list={@habits}
+                    main={{@main}}
+                    editable={{@editable}}
+                    >
                 <@ads><a href="http://www.amazon.com/gp/product/1400069289/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1400069289&linkCode=as2&tag=ha0d2-20">The Power of Habit: Why We Do What We Do in Life and Business</a><img src="//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=1400069289" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></@ads>
             </app:tasks:task-list>
         </div>
@@ -23,7 +31,15 @@
     <!-- Dailys Column -->
     <div class="module">
         <div class="task-column dailys">
-            <app:tasks:task-list header="Dailies" type="daily" inputValue="{_newDaily}" placeHolder="New Daily" list={_dailyList} >
+            <app:tasks:task-list
+                    header="dailies"
+                    type="daily"
+                    inputValue={_newDaily}
+                    placeHolder="New Daily"
+                    list={@dailys}
+                    main={{@main}}
+                    editable={{@editable}}
+                    >
                 <@ads><a href="http://www.amazon.com/gp/product/0142000280/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0142000280&linkCode=as2&tag=ha0d2-20">Getting Things Done: The Art of Stress-Free Productivity</a><img src="//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=0142000280" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></@ads>
             </app:tasks:task-list>
         </div>
@@ -32,6 +48,8 @@
     <!-- Todos Column -->
     <div class="module">
         <div class="task-column todos tabbable tabs-below">
+
+            {{#if @main}}
             <!-- todo export/graph options -->
             <span class='option-box pull-right'>
                 {#if _user.history.todos}
@@ -40,9 +58,18 @@
                 <a class="option-action" href="/v1/users/{{_user.id}}/calendar.ics?apiToken={{_user.apiToken}}" rel=tooltip title="iCal"><i class=icon-calendar></i></a>
                 <!-- <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a> -->
             </span>
+            {{/}}
 
 
-            <app:tasks:task-list header="Todos" type="todo" inputValue="{_newTodo}" placeHolder="New Todo" list={_todoList} >
+            <app:tasks:task-list
+                    header="todos"
+                    type="todo"
+                    inputValue="{_newTodo}"
+                    placeHolder="New Todo"
+                    list={@todos}
+                    main={{@main}}
+                    editable={{@editable}}
+                    >
                 <@ads><a href="http://www.amazon.com/gp/product/0312430000/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0312430000&linkCode=as2&tag=ha0d2-20">The Checklist Manifesto: How to Get Things Right</a><img src="//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=0312430000" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></@ads>
             </app:tasks:task-list>
 
@@ -57,7 +84,49 @@
     </div>
 
     <!-- Rewards Column -->
-    <app:rewards:rewards-column/>
+    <div class="module rewards-module">
+        <div class="task-column rewards">
+
+            {{#if @main}}
+            <!-- cash or gems -->
+            <span class='option-box pull-right wallet'>
+                <div class="money">
+                    {gold(floor(_user.stats.gp))}
+                    <span class='shop_gold' rel='tooltip' title='Gold'></span>
+                </div>
+                <div class="money">
+                    {silver(_user.stats.gp)}
+                    <span class='shop_silver' rel='tooltip' title='Silver'></span>
+                </div>
+            </span>
+            {{/}}
+
+            <app:tasks:task-list
+                    header="rewards"
+                    type="reward"
+                    inputValue="{_newReward}"
+                    placeHolder="New Reward"
+                    list={@rewards}
+                    main={{@main}}
+                    editable={{@editable}}
+                    >
+                <@extra>
+                {{#if @main}}
+                    <!-- Static Rewards -->
+                    <ul class='items {#unless _user.flags.itemsEnabled}hidden{/}'>
+                        <app:rewards:item item={_items.next.weapon} />
+                        <app:rewards:item item={_items.next.armor} />
+                        <app:rewards:item item={_items.next.head} />
+                        <app:rewards:item item={_items.next.shield} />
+                        <app:rewards:item item={{_items.potion}} />
+                        <app:rewards:item item={{_items.reroll}} />
+                    </ul>
+                {{/}}
+                </@extra>
+                <@ads><a href="http://www.amazon.com/gp/product/1594484805/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1594484805&linkCode=as2&tag=ha0d2-20">Drive: The Surprising Truth About What Motivates Us</a><img src="//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=1594484805" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></@ads>
+            </app:tasks:task-list>
+        </div>
+    </div>
 
 <!-- Templates -->
 <task-list: nonvoid>
@@ -65,18 +134,20 @@
 
     {{#if equal(@type,'todo')}}<div id="todos-chart" class="hidden"></div>{{/}}
 
+    {{#if @editable}}
     <form class="addtask-form form-inline new-task-form {#if and(_showCompleted,equal(@type,'todo'))}hidden{/}" id="new-{{@type}}" data-task-type="{{@type}}" x-bind="submit:addTask">
         <span class="addtask-field"><input value="{@inputValue}" type="text" placeholder="{{@placeHolder}}"/></span>
         <input class="addtask-btn" type="submit" value="＋">
     </form>
     <hr>
+    {{/}}
     <ul class="{{@type}}s {#unless @list}hidden{/}">
         {#each @list as :task}<app:tasks:task />{/}
     </ul>
     {{@extra}}
     <br/>
     <!-- ads -->
-    {{#if and( _loggedIn, notEqual(_user.flags.ads,'hide') )}}
+    {{#if and( _loggedIn, notEqual(_user.flags.ads,'hide'), @main )}}
         <span class='pull-right'>
             <a x-bind="click:showStripe" rel='tooltip' title='Remove Ads'><i class='icon-remove'></i></a><br/>
             <a href="#" data-target="#why-ads-modal" data-toggle="modal" rel='tooltip' title='Why Ads?'><i class='icon-question-sign'></i></a>

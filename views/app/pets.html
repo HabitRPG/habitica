@@ -95,33 +95,48 @@
     </div>
 
 <stable:>
-    <div>{count(_user.items.pets)} / 90 Pets Found</div>
-    <table>
-        {{#each _items.pets as :pet}}
-            <tr>
-                {{#each _items.hatchingPotions as :potion}}
-                    <td>
-                        <app:pets:stable-pet tooltip="{{:potion.text}} {{:pet.text}}" pet="{{:pet.name}}-{{:potion.name}}" />
-                    </td>
+    <div class='row-fluid'>
+
+        <div class='span8'>
+            <!--<menu type="list">
+                <li class="customize-menu">
+                    <menu>
+                    </menu>
+                </li>
+            </menu>-->
+            <table>
+                {{#each _items.pets as :pet}}
+                    <tr>
+                        {{#each _items.hatchingPotions as :potion}}
+                            <td>
+                                <app:pets:stable-pet tooltip="{{:potion.text}} {{:pet.text}}" pet="{{:pet.name}}-{{:potion.name}}" />
+                            </td>
+                        {{/}}
+                    </tr>
                 {{/}}
-            </tr>
-        {{/}}
-    </table>
-    <h4>Rare Pets</h4>
-    <table>
-        <tr>
-            <td><app:pets:stable-pet potion='Veteran Wolf' pet="Wolf-Veteran" /></td>
-            {{#if gt(_user.backer.tier,79)}}<td><app:pets:stable-pet potion='Cerberus Pup' pet="Wolf-Cerberus" /></td>{{/}}
-        </tr>
-    </table>
+            </table>
+            <h4>Rare Pets</h4>
+            <table>
+                <tr>
+                    <td><app:pets:stable-pet potion='Veteran Wolf' pet="Wolf-Veteran" /></td>
+                    {{#if gt(_user.backer.tier,79)}}<td><app:pets:stable-pet potion='Cerberus Pup' pet="Wolf-Cerberus" /></td>{{/}}
+                </tr>
+            </table>
+        </div>
 
-    <!--<menu type="list">
-        <li class="customize-menu">
-            <menu>
+        <div class='span4' style='position:relative;'>
+            <img src='/img/npcs/matt.png' />
 
-            </menu>
-        </li>
-    </menu>-->
+            <div class="popover fade bottom in" style="top: 138px; left: 0px; display: block;">
+                <div class="arrow"></div>
+                <h3 class="popover-title">Matt Boche</h3>
+                <div class="popover-content">
+                    Welcome to the Stable! I'm <a target="_blank" href="http://www.kickstarter.com/profile/mattboch">Matt</a>, the beast master. Choose a pet here to adventure at your side - they aren't much help yet, but I forsee a time when they're able to <a href="_target" href="https://trello.com/card/mounts/50e5d3684fe3a7266b0036d6/221">grow into powerful steeds</a>! Until that day, <a target="_blank" href="https://f.cloud.github.com/assets/2374703/164631/3ed5fa6c-78cd-11e2-8743-f65ac477b55e.png">have a look-see</a> at all the pets you can collect.
+                    <h4>{count(_user.items.pets)} / 90 Pets Found</h4>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <stable-pet:>
     <div rel="tooltip" title="{{@tooltip}}">

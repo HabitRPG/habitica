@@ -119,6 +119,17 @@ setupTour = (model) ->
 initStickyHeader = (model) ->
   $('.header-wrap').sticky({topSpacing:0})
 
+growlNotification = module.exports.growlNotification = (html, type) ->
+  $.bootstrapGrowl html,
+    ele: '#notification-area',
+    type: type # (null, 'info', 'error', 'success', 'gp', 'xp', 'hp', 'lvl','death')
+    top_offset: 20
+    align: 'right' # ('left', 'right', or 'center')
+    width: 250 # (integer, or 'auto')
+    delay: 3000
+    allow_dismiss: true
+    stackup_spacing: 10 # spacing between consecutive stacecked growls.
+
 ###
   Sets up "+1 Exp", "Level Up", etc notifications
 ###
@@ -127,17 +138,8 @@ setupGrowlNotifications = (model) ->
   user = model.at '_user'
 
   statsNotification = (html, type) ->
-    #don't show notifications if user dead
-    return if user.get('stats.lvl') == 0
-    $.bootstrapGrowl html,
-      ele: '#notification-area',
-      type: type # (null, 'info', 'error', 'success', 'gp', 'xp', 'hp', 'lvl','death')
-      top_offset: 20
-      align: 'right' # ('left', 'right', or 'center')
-      width: 250 # (integer, or 'auto')
-      delay: 3000
-      allow_dismiss: true
-      stackup_spacing: 10 # spacing between consecutive stacecked growls.
+    return if user.get('stats.lvl') == 0 #don't show notifications if user dead
+    growlNotification(html, type)
 
   # Setup listeners which trigger notifications
   user.on 'set', 'stats.hp', (captures, args) ->
