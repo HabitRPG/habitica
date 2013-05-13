@@ -6,7 +6,6 @@
 
 
 
-
 "_commenttut": "TUTORIAL/TOUR",
   "endTourButton": "End Tour",
   "nextButton" : "Next",
@@ -58,8 +57,15 @@
   "anonymous": "Anonymous",
   "level": "Level",
   "tasks": "Tasks",
+  "loginAndReg" : "Login / Register",
+    "loginFacebookAlt" : "Login / Register with Facebook",
+    "login" : "Login",
+    "register" : "Register",
   "options": "Options",
   "logout": "Logout",
+
+"_commentnotifcations" : "NOTIFICATIONS",
+  "partyNotification" : "New Party Messages",
 
 
 
