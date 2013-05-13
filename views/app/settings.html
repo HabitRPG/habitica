@@ -1,60 +1,60 @@
 <settings-pane:>
     <div class='row-fluid'>
         <div class="personal-options span6 border-right">
-            <h2>Settings</h2>
-            <h4>Custom Day Start</h4>
+            <h2>{{t("settings")}}</h2>
+            <h4>{{t("customDayStart")}}</h4>
             <div class="option-group option-short">
                 <input class="option-content option-time" type="number" min=0 max=24 value={_user.preferences.dayStart}>
-                <span class="input-suffix">:00 (24h clock)</span>
+                <span class="input-suffix">:00 ({{t("24HrClock")}})</span>
             </div>
             <div>
-                <small>Habit defaults to check and reset your dailies at midnight each day. You can customize that here (Enter number between 0 and 24).</small>
+                <small>{{t("clockInfo")}}</small>
             </div>
 
             <hr/>
-            <h4>Misc</h4>
-            <button x-bind="click:toggleHeader" class="btn">{#if _user.preferences.hideHeader}Show Header{else}Hide Header{/}</button>
+            <h4>{{t("misc")}}</h4>
+            <button x-bind="click:toggleHeader" class="btn">{#if _user.preferences.hideHeader}{{t("showHeader")}} {else} {{t("hideHeader")}}{/}</button>
 
             {{#if _user.auth.local}}
             <hr/>
-            <h4>Change Password</h4>
+            <h4>{{t("changePass")}}</h4>
             <derby-auth:changePassword />
             {{/}}
 
             <hr/>
-            <h4>Danger Zone</h4>
-            <a class='btn btn-danger' data-target="#reset-modal" data-toggle="modal" rel=tooltip title="Resets your entire account (dangerous).">Reset</a>
-            &nbsp;<a class='btn btn-danger' data-target="#restore-modal" data-toggle="modal" rel=tooltip title="Restores attributes to your character.">Restore</a>
-            &nbsp;<a class='btn btn-danger' data-target="#delete-modal" data-toggle="modal" rel=tooltip title="Delete your account.">Delete</a>
+            <h4>{{t("dangerZone")}}</h4>
+            <a class='btn btn-danger' data-target="#reset-modal" data-toggle="modal" rel=tooltip title={{t("resetAltTest")}}>{{t("reset")}}</a>
+            &nbsp;<a class='btn btn-danger' data-target="#restore-modal" data-toggle="modal" rel=tooltip title={{t("restoreAltText")}}>{{t("restore")}}</a>
+            &nbsp;<a class='btn btn-danger' data-target="#delete-modal" data-toggle="modal" rel=tooltip title={{t("deleteAltText")}}>{{t("delete")}}</a>
         </div>
         <div class='span6'>
             <h2>API</h2>
-            <small>Copy these for use in third party applications.</small>
-            <h6>User ID</h6>
+            <small>{{t("APIText")}}</small>
+            <h6>{{t("userId")}}</h6>
             <pre class=prettyprint>{_user.id}</pre>
 
-            <h6>API Token</h6>
+            <h6>{{t("APIToken")}}</h6>
             <pre class=prettyprint>{_user.apiToken}</pre>
         </div>
     </div>
 
 <modals:>
     {{#if _loggedIn}}
-        <app:modals:modal modalId="reset-modal" header="Reset">
-            <p>This resets your entire account - your tasks will be deleted and your character will start over.</p>
-            <p>This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.</p>
+        <app:modals:modal modalId="reset-modal" header={{t("reset")}}>
+            <p>{{t("resetText1")}}</p>
+            <p>{{t("resetText2")}}</p>
             <@footer>
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger">Reset</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">{{t("close")}}</button>
+                <button data-dismiss="modal" x-bind=click:reset class="btn btn-danger">{{t("reset")}}</button>
             </@footer>
         </app:modals:modal>
 
-        <app:modals:modal modalId="restore-modal" header="Restore">
-            <p>HabitRPG is quite Beta-quality at present, and many find they need to restore character attributes as a result. Enter your numbers here and it will be applied automatically to your character. This will be removed once Habit is more stable.</p>
+        <app:modals:modal modalId="restore-modal" header={{t("restore")}}>
+            <p>{{t("restoreText1")}}</p>
 
             {#with _user}
             <form id='restore-form' class="form-horizontal restore-options">
-                <h3>Stats</h3>
+                <h3>{{t("stats")}}</h3>
                 <div class="option-group option-medium">
                     <input class="option-content" type="number" data-for='stats.hp' value="{{.stats.hp}}">
                     <span class="input-suffix">HP</span>
@@ -69,52 +69,52 @@
                 </div>
                 <div class="option-group option-medium">
                     <input class="option-content" type="number" data-for='stats.lvl' value="{{.stats.lvl}}">
-                    <span class="input-suffix">Level</span>
+                    <span class="input-suffix">{{t("level")}}</span>
                 </div>
 
-                <h3>Items</h3>
+                <h3>{{t("items")}}</h3>
                 <div class="option-group option-medium">
                     <input class="option-content" type="number" data-for='items.weapon' value="{{.items.weapon}}">
-                    <span class="input-suffix">Weapon</span>
+                    <span class="input-suffix">{{t("weapon")}}</span>
                 </div>
                 <div class="option-group option-medium">
                     <input class="option-content" type="number" data-for='items.armor' value="{{.items.armor}}">
-                    <span class="input-suffix">Armor</span>
+                    <span class="input-suffix">{{t("armor")}}</span>
                 </div>
                 <div class="option-group option-medium">
                     <input class="option-content" type="number" data-for='items.head' value="{{.items.head}}">
-                    <span class="input-suffix">Helm</span>
+                    <span class="input-suffix">{{t("helm")}}</span>
                 </div>
                 <div class="option-group option-medium">
                     <input class="option-content" type="number" data-for='items.shield' value="{{.items.shield}}">
-                    <span class="input-suffix">Shield</span>
+                    <span class="input-suffix">{{t("shield")}}</span>
                 </div>
 
             </form>
             {/}
 
             <@footer>
-                <button class="btn" x-bind="click:restoreSave" data-dismiss="modal" aria-hidden="true">Save & Close</button>
+                <button class="btn" x-bind="click:restoreSave" data-dismiss="modal" aria-hidden="true">{{t("saveAndClose")}}</button>
             </@footer>
         </app:modals:modal>
 
-        <app:modals:modal modalId="delete-modal" header="Delete Account">
-            <p>Woa woa woa! Are you sure? This will seriously delete your account forever, and it can never be restored. If you're absolutely certain, type <strong>DELETE</strong> into the text-box below.</p>
+        <app:modals:modal modalId="delete-modal" header={{t("deleteHeader")}}>
+            <p>{{t("deleteText1")}}<strong>{{t("deleteText2")}}</strong> {{t("deleteText3")}}</p>
             <p><input type="text" value="{_deleteAccount}" /></p>
             <@footer>
                 <button class="btn btn-large" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                <button data-dismiss="modal" x-bind="click:deleteAccount" class="btn btn-danger btn-small {#unless equal(_deleteAccount,'DELETE')}disabled{/}">Delete Account</button>
+                <button data-dismiss="modal" x-bind="click:deleteAccount" class="btn btn-danger btn-small {#unless equal(_deleteAccount,'DELETE')}disabled{/}">{{t("deleteHeader")}}</button>
             </@footer>
         </app:modals:modal>
 
     {{else}}
-        <app:modals:modal modalId="login-modal" header="Login / Register">
-            <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt="Login / Register With Facebook"/></a>
-            <h3>Or</h3>
+        <app:modals:modal modalId="login-modal" header={{t("loginAndReg")}}>
+            <a href="/auth/facebook"><img src='/img/facebook-login-register.jpeg' alt={{t("loginFacebookAlt")}}/></a>
+            <h3>{{t("or")}}</h3>
 
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#" data-toggle="tab" data-target="#login">Login</a></li>
-                <li><a href="#" data-toggle="tab" data-target="#register">Register</a></li>
+                <li class="active"><a href="#" data-toggle="tab" data-target="#login">{{t("login")}}</a></li>
+                <li><a href="#" data-toggle="tab" data-target="#register">{{t("register")}}</a></li>
             </ul>
 
             <div class="tab-content">
@@ -127,7 +127,7 @@
 <menu:>
     <div class="user-menu">
         {{#unless _loggedIn}}
-            <button class="task-action-btn tile solid" style='cursor:pointer' data-target="#login-modal" data-toggle="modal">Login / Register</button>
+            <button class="task-action-btn tile solid" style='cursor:pointer' data-target="#login-modal" data-toggle="modal">{{t("loginAndRegister")}}</button>
         {{else}}
             <ul class="nav site-nav">
                 <li class="flyout">
@@ -138,7 +138,7 @@
                                 {#if _gamePane}Tasks{else}Options{/}
                             </a>
                         </li>
-                        <li><a class="task-action-btn tile solid" href="/logout">Logout</a></li>
+                        <li><a class="task-action-btn tile solid" href="/logout">{{t("logout")}}</a></li>
                     </ul>
                 </li>
             </ul>
@@ -151,7 +151,7 @@
 
         <!-- party chat notification -->
         {#if newChatMessages(_party.chat,_user.party.lastMessageSeen)}
-            <a style='cursor:pointer;' x-bind="click:gotoPartyChat"><i class='icon-comment' rel='tooltip' title='New Party Messages'></i></a>
+            <a style='cursor:pointer;' x-bind="click:gotoPartyChat"><i class='icon-heart' rel='tooltip' title={{t("")}}></i></a>
         {/}
 
     </div>

@@ -1,27 +1,27 @@
 <modals:>
 
-  <app:modals:modal modalId='drops-enabled-modal' header="Drops Enabled!">
-    <p><span class="Pet_Egg_{_user.items.eggs.0.name} item-drop-icon"></span> You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. And guess what, you just found a <strong>{_user.items.eggs.0.text} egg</strong>! {_user.items.eggs.0.notes}</p>
+  <app:modals:modal modalId='drops-enabled-modal' header={{t("dropsEnabled")}}>
+    <p><span class="Pet_Egg_{_user.items.eggs.0.name} item-drop-icon"></span> {{t("dropsEnabledText1")}} <strong>{_user.items.eggs.0.text} {{t("dropsEnabledText2")}}</strong>! {_user.items.eggs.0.notes}</p>
     <@footer>
-      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      <button class="btn" data-dismiss="modal" aria-hidden="true">{{t("close")}}</button>
     </@footer>
   </app:modals:modal>
 
-  <app:modals:modal modalId='item-dropped-modal' header="An item has dropped!">
+  <app:modals:modal modalId='item-dropped-modal' header="{{t("itemDropped")}}">
     <p><span class="Pet_{_drop.type}_{_drop.name} item-drop-icon"></span>{_drop.dialog}</p>
 
 
     <@footer>
-      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      <button class="btn" data-dismiss="modal" aria-hidden="true">{{t("close")}}</button>
     </@footer>
   </app:modals:modal>
 
-    <app:modals:modal modalId='beastmaster-achievement-modal' header="Achievement Unlocked!">
+    <app:modals:modal modalId='beastmaster-achievement-modal' header={{t("achievementUnlocked")}}>
         <p>
-            <div class='achievement achievement-rat'></div>You have earned the "Beast Master" Achievement for collecting all the pets!
+            <div class='achievement achievement-rat'></div>{{t("beastMastUnlocked")}}
         </p>
         <@footer>
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">{{t("close")}}</button>
         </@footer>
     </app:modals:modal>
 
@@ -33,13 +33,13 @@
 <hatchingPotion:>
     <td class="active-hatchingPotion" x-bind="click:buyHatchingPotion" data-hatchingPotion='{.name}'>
         <div class="Pet_HatchingPotion_{.name}"></div>
-        {.text}<br/><small>{.value} Gems<small>
+        {.text}<br/><small>{.value} {{t("gems")}}<small>
     </td>
 
 <egg:>
     <td class="active-egg" x-bind="click:buyEgg" data-egg='{.name}'>
         <div rel=tooltip class="Pet_Egg_{.name}"></div>
-        {.text}<br/><small>{.value} Gems<small>
+        {.text}<br/><small>{.value} {{t("gems")}}<small>
     </td>
 
 <inventory:>
@@ -47,9 +47,9 @@
         <div class='{#if _hatchEgg}span6{/}'>
             <menu type="list" class="inventory-list">
                 <li class="customize-menu">
-                    <menu label="Eggs" class='pets-menu'>
+                    <menu label={{t("eggs")}} class='pets-menu'>
                         {#if not(_user.items.eggs)}
-                            <p>You don't have any eggs yet.</p>
+                            <p>{{t("noEggs")}}</p>
                         {/if}
                         {#each _user.items.eggs as :egg}
                             <div>
@@ -60,9 +60,9 @@
                     </menu>
                 </li>
                 <li class="customize-menu">
-                    <menu label="Hatching Potions" class='hatchingPotion-menu'>
+                    <menu label={{t("hatchingPotions")}} class='hatchingPotion-menu'>
                         {#if not(_user.items.hatchingPotions)}
-                            <p>You don't have any hatching potions yet.</p>
+                            <p>{{t("noHatchingPotions")}}</p>
                         {/if}
                         {#each _user.items.hatchingPotions as :hatchingPotion}
                             <div>
@@ -76,18 +76,18 @@
         </div>
         {#if _hatchEgg}
         <div class='span6'>
-            <h3>Hatch Your Egg</h3>
+            <h3>{{t("hatchYourEgg")}}</h3>
             {#if not(_user.items.hatchingPotions)}
-            <p>You don't have any hatching potions yet.</p>
+            <p>{{t("noHatchingPotions")}}</p>
             {else}
-            <p>Which hatching potion will you pour on your {_hatchEgg.text} egg?</p>
+            <p>{{t("whichHatchingPotion1")}} {_hatchEgg.text} {{t("whichHatchingPotion2")}}</p>
             <form x-bind="submit:hatchEgg">
                 <select>
                     {#each _user.items.hatchingPotions as :hatchingPotion}
                         <option>{:hatchingPotion}</option>
                     {/each}
                 </select>
-                <button type=submit>Pour</button>
+                <button type=submit>{{t("pour")}}</button>
             </form>
             {/if}
         </div>
@@ -95,7 +95,7 @@
     </div>
 
 <stable:>
-    <div>{count(_user.items.pets)} / 90 Pets Found</div>
+    <div>{count(_user.items.pets)} / 90 {{t("petsFound")}}</div>
     <table>
         {{#each _items.pets as :pet}}
             <tr>
@@ -107,7 +107,7 @@
             </tr>
         {{/}}
     </table>
-    <h4>Rare Pets</h4>
+    <h4>{{t("rarePets")}}</h4>
     <table>
         <tr>
             <td><app:pets:stable-pet potion='Veteran Wolf' pet="Wolf-Veteran" /></td>

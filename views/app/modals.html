@@ -17,15 +17,15 @@
                     </figure>
                 </div>
                 <div class='span8'>
-                    <h2>You Died!</h2>
+                    <h2>{{t("deathTitle")}}</h2>
                 </div>
             </div>
             <div class='row-fluid'>
                 <div class='span4'>
-                    <p><a x-bind=click:revive class="btn btn-danger btn-large notification-action">Continue</a></p>
+                    <p><a x-bind=click:revive class="btn btn-danger btn-large notification-action">{{t("continue")}}</a></p>
                 </div>
                 <div class='span8'>
-                    <p>You've lost your GP, 1 level and 1 gear piece. Be sure to complete your dailies to prevent this from happening again!</p>
+                    <p>{{t("deathText")}}</p>
                 </div>
             </div>
 
@@ -33,36 +33,33 @@
     </div>
 
     <!-- Re-Roll modal -->
-    <app:modals:modal modalId='reroll-modal' header="Reset Your Tasks">
+    <app:modals:modal modalId='reroll-modal' header={{t("rerollModelHeader")}}>
         <app:rewards:user-gems />
-        <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
+        <p>{{t("rerollNotes")}}</p> <br />
+        <p> {{t("rerollModelText1")}} (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">{{t("rerollModelText2")}}</a>). {{t("rerollModelText3")}}</p>
         <@footer>   
             {#if lt(_user.balance,1)}
-            <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-success btn-large">Buy More Gems</a><span class='gem-cost'>Not enough Gems</span>
+            <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-success btn-large">{{t("buyMoreGems")}}</a><span class='gem-cost'>Not enough Gems</span>
             {else}
-            <a data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</a><span class='gem-cost'>4 Gems</span>
+            <a data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">{{t("rerollName")}}</a><span class='gem-cost'>4 {{t("gems")}}</span>
             {/}
         </@footer>
     </app:modals:modal>
 
     <!-- Buy more Gems modal -->
-    <app:modals:modal modalId='more-gems-modal' header="Out Of Gems">
+    <app:modals:modal modalId='more-gems-modal' header={{t("outOfGems")}}>
         <app:rewards:user-gems />
-        <p>Oops, out of Gems, which are used to buy special items! Habit is an open source project, and can use all the help it can get - buy more Gems to receive this pet, and consider it a donation to the contributors</p>
+        <p>{{t("petsOutOfGems")}}</p>
         <@footer>
-        <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-success btn-large">Buy More Gems</a><span class='gem-cost'>Not enough Gems</span>
+        <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-success btn-large">{{t("buyMoreGems")}}</a><span class='gem-cost'>{{t("notEnoughGems")}}</span>
     </@footer>
     </app:modals:modal>
 
-    <app:modals:modal modalId="why-ads-modal" header="Why Ads?">
-        <p>
-            Habit an open source project, and can use all the help it can get - consider this a donation to the contributors. You also get 20 Gems from the purchase, which you can use to buy special items.
-        </p>
-        <p>
-            "Hey, I backed the Kickstarter!" - follow <a target="_blank" href="http://community.habitrpg.com/node/22">these instructions</a>.
-        </p>
+    <app:modals:modal modalId="why-ads-modal" header={{t("whyAds")}}>
+        <p>{{t("whyAdsContent1")}}</p>
+        <p>{{t("whyAdsContent2")}} <a target="_blank" href="http://community.habitrpg.com/node/22">{{t("whyAdsContent3")}}</a>.</p>
         <@footer>
-            <button data-dismiss="modal" class="btn btn-success">Ok</button>
+            <button data-dismiss="modal" class="btn btn-success">{{t("ok")}}</button>
         </@footer>
     </app:modals:modal>
 
