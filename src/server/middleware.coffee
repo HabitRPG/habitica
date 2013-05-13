@@ -24,12 +24,4 @@ allowCrossDomain = (req, res, next) ->
   else
     next()
 
-translate = (req, res, next) ->
-  model = req.getModel()
-
-  # Set locale to bg on dev
-  #model.set '_i18n.locale', 'bg' if process.env.NODE_ENV is "development"
-
-  next()
-
-module.exports = { splash, view, allowCrossDomain, translate}
+module.exports = { splash, view, allowCrossDomain }
