@@ -2,6 +2,7 @@ _ = require 'underscore'
 request = require 'superagent'
 expect = require 'expect.js'
 require 'coffee-script'
+utils = require 'derby-auth/utils'
 
 conf = require("nconf")
 conf.argv().env().file({file: __dirname + '../config.json'}).defaults
@@ -39,6 +40,7 @@ describe 'API', ->
   model = null
   user = null
   uid = null
+  username = null
 
   before (done) ->
     server = require '../src/server'
@@ -51,6 +53,13 @@ describe 'API', ->
       user = character.newUserObject()
       user.apiToken = model.id()
       model.session = {userId:uid}
+      salt = utils.makeSalt()
+      username = 'jonfishman' + Math.random().toString().split('.')[1]
+      user.auth =
+        local:
+          username: username
+          hashed_password: utils.encryptPassword('icculus', salt)
+          salt: salt
       model.set "users.#{uid}", user
       delete model.session
       # Crappy hack to let server start before tests run
@@ -374,11 +383,11 @@ describe 'API', ->
           tasks = res.body.tasks
 
           expect(_.findWhere(tasks,{id:habitId})).to.eql {id: habitId,text: 'hello2',notes: 'note2'}
-        
+
           foundNewTask = _.findWhere(tasks,{text:'new task2'})
           expect(foundNewTask.text).to.be 'new task2'
           expect(foundNewTask.notes).to.be 'notes2'
-        
+
           found = _.findWhere(res.body.tasks, {id:dailyId})
           expect(found).to.not.be.ok()
 
@@ -390,4 +399,16 @@ describe 'API', ->
             done()
 
 
-
+    it 'POST /api/v1/user/auth', (done) ->
+      userAuth =
+        username: username
+        password: 'icculus'
+      request.post("#{baseURL}/user/auth")
+        .set('Accept', 'application/json')
+        .send(userAuth)
+        .end (res) ->
+          expect(res.body.err).to.be undefined
+          expect(res.statusCode).to.be 200
+          expect(res.body.id).to.be currentUser.id
+          expect(res.body.token).to.be currentUser.apiToken
+          done()
