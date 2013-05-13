@@ -12,7 +12,7 @@ app = derby.createApp module
 # Translations
 i18n = require './i18n'
 i18n.localize app,
-  availableLocales: ['en', 'he', 'bg']
+  availableLocales: ['en', 'he', 'bg', 'nl']
   defaultLocale: 'en'
   urlScheme: false
   checkHeader: true
