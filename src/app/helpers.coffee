@@ -18,9 +18,12 @@ shouldDo = (day, repeat, dayStart=0) ->
   return false unless repeat
   now = +new Date
   selected = repeat[dayMapping[sod(day, dayStart).day()]]
-  if moment(day).isSame(now,'d')
-    return selected and dayStart <= moment(now).hour()
-  return selected
+  return selected unless moment(day).isSame(now,'d')
+  if dayStart <= moment(now).hour() # we're past the dayStart mark, is it due today?
+    return selected
+  else # we're not past dayStart mark, check if it was due "yesterday"
+    yesterday = moment(now).subtract(1,'d').day()
+    return repeat[dayMapping[yesterday]]
 
 # http://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
 # obj: object
