@@ -151,7 +151,7 @@ viewHelpers = (view) ->
 
     # show as completed if completed (naturally) or not required for today
     if type in ['todo', 'daily']
-      if completed or !shouldDo(+new Date, task.repeat, dayStart)
+      if completed or (type is 'daily' and !shouldDo(+new Date, task.repeat, dayStart))
         classes += " completed"
       else
         classes += " uncompleted"
