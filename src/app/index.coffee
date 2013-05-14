@@ -118,10 +118,6 @@ ready (model) ->
   user = model.at('_user')
   model.setNull '_user.apiToken', derby.uuid()
 
-  #set cron immediately
-  lastCron = user.get('lastCron')
-  user.set('lastCron', +new Date) if (!lastCron? or lastCron == 'new')
-
   require('./scoring').cron(model)
 
   require('./character').app(exports, model)

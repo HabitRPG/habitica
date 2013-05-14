@@ -4,13 +4,22 @@ relative = require 'relative-date'
 algos = require './algos'
 items = require('./items').items
 
-# Absolute diff between two dates
-daysBetween = (yesterday, now, dayStart) ->
+sod = (timestamp, dayStart=0) ->
   #sanity-check reset-time (is it 24h time?)
-  dayStart = 0 unless (dayStart? and (dayStart = parseInt(dayStart)) and dayStart >= 0 and dayStart <= 24)
-  Math.abs moment(yesterday).startOf('day').add('h', dayStart).diff(moment(now), 'days')
+  dayStart = 0 unless (dayStart = parseInt(dayStart)) and (0 <= dayStart <= 24)
+  moment(timestamp).startOf('day').add('h', dayStart)
 
-dayMapping = dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
+# Absolute diff between two dates
+daysBetween = (yesterday, now, dayStart) -> Math.abs sod(yesterday, dayStart).diff(now, 'days')
+
+dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
+
+shouldDo = (day, repeat, dayStart=0) ->
+  now = +new Date
+  selected = repeat[dayMapping[sod(day, dayStart).day()]]
+  if moment(day).isSame(now,'d')
+    return selected and dayStart <= moment(now).hour()
+  return selected
 
 # http://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
 # obj: object
@@ -139,17 +148,9 @@ viewHelpers = (view) ->
 
     classes = type
 
-    now = moment().day()
-
-    # calculate the current contextual day (e.g. if it's 12 AM Fri and the user's custom day start is 4 AM, then we should still act like it's Thursday)
-    dayStart = 0 unless (dayStart? and (dayStart = parseInt(dayStart)) and dayStart >= 0 and dayStart <= 24)
-    hourDiff = Math.abs moment(lastCron).startOf('day').add('h', dayStart).diff(moment(now), 'hours')
-    dayStamp = moment(now).add('h', hourDiff)
-    day = dayStamp.day()
-
     # show as completed if completed (naturally) or not required for today
     if type in ['todo', 'daily']
-      if completed or (repeat and (repeat[dayMapping[day]] == false))
+      if completed or !shouldDo(+new Date, task.repeat, dayStart)
         classes += " completed"
       else
         classes += " uncompleted"
@@ -216,4 +217,4 @@ viewHelpers = (view) ->
 
 
 
-module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }
+module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, shouldDo, username }
