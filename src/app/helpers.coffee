@@ -15,6 +15,7 @@ daysBetween = (yesterday, now, dayStart) -> Math.abs sod(yesterday, dayStart).di
 dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
 
 shouldDo = (day, repeat, dayStart=0) ->
+  return false unless repeat
   now = +new Date
   selected = repeat[dayMapping[sod(day, dayStart).day()]]
   if moment(day).isSame(now,'d')
