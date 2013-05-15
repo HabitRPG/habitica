@@ -4,9 +4,15 @@ Shared resources useful for the multiple HabitRPG repositories, that way all the
  * Algorithms - level up algorithm, scoring functions, etc
  * Item definitions - weapons, armor, pets
 
+You only need to include algos.coffee
+It will include the rest as necessary.
+
+Note how to invoke scoring function:
+ * algos.score = function (user, task, direction) {}
+
 
 ##Installation
- * Node.js - just include files as usual.
+ * Node.js - just include as usual.
  * Browser - use requre.js with "cs" plugin to include files directly into your index.html see require.js-example folder. (run plain http-server from within equire.js-example folder and point your browser to index.html to see how it works)
 
 ##CSS

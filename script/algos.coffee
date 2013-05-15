@@ -7,6 +7,7 @@
 )}).define (require, exports, module)->
   helpers = require('./helpers')
   moment = require('./moment')
+  items = require('./items')
   XP = 15
   HP = 2
   obj = module.exports =
@@ -166,7 +167,7 @@
 
   #  {task} task you want to score
   #  {direction} 'up' or 'down'
-  obj.score = (user, task, direction, items) ->
+  obj.score = (user, task, direction) ->
     {gp, hp, exp, lvl} = user.stats
     {type, value, streak} = task
     priority = task.priority or '!'
