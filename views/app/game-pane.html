@@ -27,7 +27,7 @@
                         <app:avatar:customize />
                     </div>
                     <div class='span4  border-right'>
-                        <app:avatar:profile-stats />
+                        <app:avatar:profile-stats profile={_user} />
                     </div>
                     <div class='span4'>
                         <app:avatar:profile-edit />
@@ -78,7 +78,7 @@
         <div class='span4 border-right'>
             <div class='tavern-pane'>
                 <img src='/img/npcs/daniel.png' />
-                <div class="popover fade right in" style="top: 0px; left: 135px; display: block;">
+                <div class="popover static-popover fade right in" style="top: 0px; left: 135px;">
                     <div class="arrow"></div>
                     <h3 class="popover-title">Daniel Johansson</h3>
                     <div class="popover-content">
@@ -122,7 +122,7 @@
     <!-- pets pane -->
     <div class="tab-pane pet-grid" id="market-tab">
         <img src='/img/npcs/alex.png' />
-        <div class="popover fade right in" style="top: 0px; left: 170px; display: block;">
+        <div class="popover static-popover fade right in" style="top: 0px; left: 170px;">
             <div class="arrow"></div>
             <h3 class="popover-title">Alexander Augustin</h3>
             <div class="popover-content">Welcome to the Market! I'm the merchant, <a target="_blank" href="http://www.kickstarter.com/profile/523661924">Alexander</a>. Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!</div>

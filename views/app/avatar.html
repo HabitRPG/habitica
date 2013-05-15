@@ -10,7 +10,7 @@
 
 <avatar:>
     <figure class="herobox"
-                data-name="{username(@profile.auth, @profile.profile.name)} - lvl {@profile.stats.lvl}"
+                data-name="{username(@profile.auth, @profile.profile.name)}"
                 data-level="{@profile.stats.lvl}"
                 data-checkpet="{#if @profile.items.pet}hasPet{/}"
                 data-checkuser="{{#if @main}}isUser{{/}}"
@@ -46,26 +46,27 @@
                 <span class="Pet-{@profile.items.currentPet.name}-{@profile.items.currentPet.modifier} current-pet" ></span>
             {/}
         </div>
+        <div class='avatar-level'>Lvl {@profile.stats.lvl}</div>
     </figure>
 
 <profile-stats:>
-    <h3>Items</h3>
-    <p><strong>{itemText('weapon',_user.items.weapon)}</strong>: {itemStat('weapon',_user.items.weapon)}% Exp gain</p>
-    <p><strong>{itemText('armor',_user.items.armor)}</strong>: {itemStat('armor',_user.items.armor)}% Defense</p>
-    <p><strong>{itemText('head',_user.items.head)}</strong>: {itemStat('head',_user.items.head)}% Defense</p>
-    <p><strong>{itemText('shield',_user.items.shield)}</strong>: {itemStat('shield',_user.items.shield)}% Defense</p>
+    <h4>Items</h4>
+    <p><strong>{itemText('weapon',@profile.items.weapon)}</strong>: {itemStat('weapon',@profile.items.weapon)}% Exp gain</p>
+    <p><strong>{itemText('armor',@profile.items.armor)}</strong>: {itemStat('armor',@profile.items.armor)}% Defense</p>
+    <p><strong>{itemText('head',@profile.items.head)}</strong>: {itemStat('head',@profile.items.head)}% Defense</p>
+    <p><strong>{itemText('shield',@profile.items.shield)}</strong>: {itemStat('shield',@profile.items.shield)}% Defense</p>
 
-    <h3>Stats</h3>
-    <p><strong>HP</strong>: {floor(_user.stats.hp)} / 50</p>
-    <p><strong>GP</strong>: {floor(_user.stats.gp)}</p>
-    <p><strong>Lvl</strong>: {_user.stats.lvl}</p>
-    <p><strong>Exp</strong>: {floor(_user.stats.exp)} / {tnl(_user.stats.lvl)}</p>
-    <p><strong>Strength</strong>: {userStr(_user.stats.lvl)}</p>
-    <p><strong>Defense</strong>: {userDef(_user.stats.lvl)}</p>
-    <p><strong>Pets Found</strong>: {count(_user.items.pets)}</p>
+    <h4>Stats</h4>
+    <p><strong>HP</strong>: {floor(@profile.stats.hp)} / 50</p>
+    <p><strong>GP</strong>: {floor(@profile.stats.gp)}</p>
+    <p><strong>Lvl</strong>: {@profile.stats.lvl}</p>
+    <p><strong>Exp</strong>: {floor(@profile.stats.exp)} / {tnl(@profile.stats.lvl)}</p>
+    <p><strong>Strength</strong>: {userStr(@profile.stats.lvl)}</p>
+    <p><strong>Defense</strong>: {userDef(@profile.stats.lvl)}</p>
+    <p><strong>Pets Found</strong>: {count(@profile.items.pets)}</p>
     <hr/>
-    <p><strong>Total Strength</strong>: {totalStr(_user.stats.lvl, _user.items.weapon)} %</p>
-    <p><strong>Total Defense</strong>: {totalDef(_user.stats.lvl, _user.items.armor, _user.items.head, _user.items.shield)} %</p>
+    <p><strong>Total Strength</strong>: {totalStr(@profile.stats.lvl, @profile.items.weapon)} %</p>
+    <p><strong>Total Defense</strong>: {totalDef(@profile.stats.lvl, @profile.items.armor, @profile.items.head, @profile.items.shield)} %</p>
 
 
 <customize:>
@@ -161,9 +162,10 @@
     </div>
 
 <profile:>
+    <h2 class='profile-modal-header'>{{username(@profile.auth, @profile.profile.name)}}</h2>
+    <hr/>
     <div class='row-fluid'>
         <div class='span6'>
-            <h3>{{username(@profile.auth, @profile.profile.name)}}</h3>
             {{#if @profile.profile.imageUrl}}
                 <img src="{{@profile.profile.imageUrl}}" />
             {{/}}
@@ -177,10 +179,13 @@
                     {{/}}
                 </ul>
             {{/}}
+            <h3>Stats</h3>
+            <app:avatar:profile-stats profile={{@profile}} />
         </div>
         <div class='span6'>
             <h3>Achievements</h3>
             <app:avatar:achievements profile={{@profile}} />
+
         </div>
     </div>
 
