@@ -5,6 +5,8 @@
     (F)->
       F(require, exports, module)
 )}).define (require, exports, module)->
+  helpers = require('./helpers')
+  moment = require('./moment')
   XP = 15
   HP = 2
   obj = module.exports =

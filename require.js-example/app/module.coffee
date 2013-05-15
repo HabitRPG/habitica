@@ -6,10 +6,15 @@
     (F)->
       F(require, exports, module)
 )}).define (require, exports, module)->
-
   #Write your code here as usual
+
+  #I.e. require parent module
+  #NOTE: I did not figure out how to require coffee-script here. As this has to be both Node.js and require.js compatible syntax. And they disagree on how to do that. Anyway we can stick with .js parent modules for a while.
+  parent = require('./parentModule');
+
   module.exports =
   {
   foo: (message)->
-    alert message
+    #use parent module
+    alert parent.parentFoo message
   }
