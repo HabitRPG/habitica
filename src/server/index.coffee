@@ -14,7 +14,7 @@ middleware = require './middleware'
 
 ## RACER CONFIGURATION ##
 
-#racer.io.set('transports', ['xhr-polling'])
+racer.io.set('transports', ['xhr-polling'])
 racer.ioClient.set('reconnection limit', 300000) # max reconect timeout to 5 minutes
 racer.set('bundleTimeout', 40000)
 #unless process.env.NODE_ENV == 'production'
