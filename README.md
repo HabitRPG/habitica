@@ -7,9 +7,7 @@ Shared resources useful for the multiple HabitRPG repositories, that way all the
 
 ##Installation
  * Node.js - just include files as usual.
- * Browser - user requre.js with "cs" plugin to include files directly into your index.html
-
-#TODO add and example of require.js config.
+ * Browser - use requre.js with "cs" plugin to include files directly into your index.html see require.js-example folder. (run plain http-server from within equire.js-example folder and point your browser to index.html to see how it works)
 
 ##CSS
 Shared CSS between the website and the mobile app is a fuzzy area. For now we'll have the website define canonical CSS, and share that down the mobile app.
