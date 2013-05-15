@@ -1,6 +1,6 @@
 var dayMapping, moment;
 
-moment = require('moment');
+moment = require('./moment');
 
 exports.daysBetween = function(yesterday, now, dayStart) {
     if (!((dayStart != null) && (dayStart = parseInt(dayStart)) && dayStart >= 0 && dayStart <= 24)) {
