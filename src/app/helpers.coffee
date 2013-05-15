@@ -177,7 +177,7 @@ viewHelpers = (view) ->
       classes += ' color-best'
     return classes
 
-  view.fn 'ownsPet', (pet, userPets) -> !!userPets && userPets.indexOf(pet) != -1
+  view.fn 'ownsPet', (pet, userPets) -> _.isArray(userPets) and userPets.indexOf(pet) != -1
 
   view.fn 'friendlyTimestamp', (timestamp) -> moment(timestamp).format('MM/DD h:mm:ss a')
 
