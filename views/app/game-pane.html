@@ -77,15 +77,19 @@
     <div class='row-fluid'>
         <div class='span4 border-right'>
             <div class='tavern-pane'>
-                <img src='/img/npcs/daniel.png' />
-                <div class="popover static-popover fade right in" style="top: 0px; left: 135px;">
-                    <div class="arrow"></div>
-                    <h3 class="popover-title">Daniel Johansson</h3>
-                    <div class="popover-content">
-                        Welcome to the Tavern! I'm <a target="_blank" href="http://www.kickstarter.com/profile/2014640723">Daniel</a>, the bar keep. If you want to rest a while (going on vacation? sudden illness?), I'll set you up at the inn - dailies won't hurt you while you're resting. Stay a while & meet the locals.
-                        <div><button x-bind="click:toggleResting" class='btn btn-large btn-success {#if _user.flags.rest}active{/}'>{#if _user.flags.rest}Check Out of Inn{else}Rest In The Inn{/}</button></div>
-                    </div>
-                </div>
+                <table><tr>
+                    <td><div class='NPC-Daniel'></div></td>
+                    <td>
+                        <div class="popover static-popover fade right in">
+                            <div class="arrow"></div>
+                            <h3 class="popover-title">Daniel Johansson</h3>
+                            <div class="popover-content">
+                                Welcome to the Tavern! I'm <a target="_blank" href="http://www.kickstarter.com/profile/2014640723">Daniel</a>, the bar keep. If you want to rest a while (going on vacation? sudden illness?), I'll set you up at the inn - dailies won't hurt you while you're resting. Stay a while & meet the locals.
+                                <div><button x-bind="click:toggleResting" class='btn btn-large btn-success {#if _user.flags.rest}active{/}'>{#if _user.flags.rest}Check Out of Inn{else}Rest In The Inn{/}</button></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr></table>
             </div>
 
             <div class='alert alert-info {#unless _user.flags.rest}hidden{/}'>Whilst resting your dailies are saved and aren't effected by day turn-over. Whether you check out tomorrow or in a weeks time you'll continue in the same state as when you checked in.</div>
@@ -120,17 +124,21 @@
 <market:>
 
     <!-- pets pane -->
-    <div class="tab-pane pet-grid" id="market-tab">
-        <img src='/img/npcs/alex.png' />
-        <div class="popover static-popover fade right in" style="top: 0px; left: 170px;">
-            <div class="arrow"></div>
-            <h3 class="popover-title">Alexander Augustin</h3>
-            <div class="popover-content">Welcome to the Market! I'm the merchant, <a target="_blank" href="http://www.kickstarter.com/profile/523661924">Alexander</a>. Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!</div>
-        </div>
+    <div id="market-tab">
+        <table><tr>
+            <td><div class="NPC-Alex pull-left"></div></td>
+            <td>
+                <div class="popover static-popover fade right in">
+                    <div class="arrow"></div>
+                    <h3 class="popover-title">Alexander Augustin</h3>
+                    <div class="popover-content">Welcome to the Market! I'm the merchant, <a target="_blank" href="http://www.kickstarter.com/profile/523661924">Alexander</a>. Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!</div>
+                </div>
+            </td>
+        </tr></table>
 
         <h4>Eggs</h4>
         {#with _items.pets as :egg}
-        <table>
+        <table class="tab-pane pet-grid">
             <tr>
                 {#with :egg[0]}<app:pets:egg />{/}
                 {#with :egg[1]}<app:pets:egg />{/}

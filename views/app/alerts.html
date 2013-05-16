@@ -1,14 +1,15 @@
 <modals:>
     <app:modals:modal modalId='new-stuff-modal' header="New Stuff">
-        <p class='new-stuff-word-bubble-container'>
-            <img src="/img/npcs/bailey.png" />
-
-            <div class="popover fade right in" style="top: 0px; left: 100px; display: block;">
-                <div class="arrow"></div>
-                <h3 class="popover-title">Bailey</h3>
-                <div class="popover-content"><a target="_blank" href="http://www.kickstarter.com/profile/mihakuu">Bailey</a> the Crier here! Announcing new stuff!</div>
-            </div>
-        </p>
+        <table><tr>
+            <td><div class=NPC-Bailey></div></td>
+            <td>
+                <div class="popover static-popover fade right in">
+                    <div class="arrow"></div>
+                    <h3 class="popover-title">Bailey</h3>
+                    <div class="popover-content"><a target="_blank" href="http://www.kickstarter.com/profile/mihakuu">Bailey</a> the Crier here! Announcing new stuff!</div>
+                </div>
+            </td>
+        </tr></table>
 
         <hr/>
 
@@ -85,10 +86,10 @@
 
 <hiding-bailey:>
     {#if equal(_user.flags.newStuff,'show')}
-        <img class='hiding-bailey' src="/img/npcs/bailey-face.png"
+        <div class='NPC-Bailey-Head'
              rel=tooltip title=Psst data-placement=top
              data-toggle=modal data-target='#new-stuff-modal'
-             />
+             ></div>
     {/}
 
 <flash:>
