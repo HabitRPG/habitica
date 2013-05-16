@@ -1,0 +1,9 @@
+.NPC-Alex, .NPC-Bailey, .NPC-Bailey-Head, .NPC-Daniel, .NPC-Justin, .NPC-Justin-Head, .NPC-Matt {background: url("/img/npcs/NPC-SpriteSheet.png") no-repeat}
+
+.NPC-Alex {background-position: 0 0; width: 162px; 138: 99px}
+.NPC-Bailey {background-position: -162px 0; width: 60px; height: 72px}
+.NPC-Bailey-Head {background-position: -168px -42; width: 54px; height: 30px}
+.NPC-Daniel {background-position: -222px 0; width: 135px; height: 123px}
+.NPC-Justin {background-position: -357px 0; width: 84px; height: 119px}
+.NPC-Justin-Head {background-position: -396px 0; width: 36px; height: 96px}
+.NPC-Matt {background-position: -441px 0; width: 198px; height: 144px}
