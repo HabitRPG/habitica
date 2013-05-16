@@ -42,8 +42,18 @@
     <div id="exp-chart" style="display:none;"></div>
 
     <div id=main class="grid">
-        <div class='{#if _gamePane}hidden{/}'><app:tasks:taskLists /></div>
-        <div class='{#unless _gamePane}hidden{/}'><app:game-pane:main /></div>
+        <div class='{#if _gamePane}hidden{/}'>
+            <app:tasks:task-lists
+                    habits={_habitList}
+                    dailys={_dailyList}
+                    todos={_todoList}
+                    rewards={_rewardList}
+                    main=true
+                    editable=true />
+        </div>
+        <div class='{#unless _gamePane}hidden{/}'>
+            <app:game-pane:main />
+        </div>
     </div>
   </div>
   <app:footer:footer />

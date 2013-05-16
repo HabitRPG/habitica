@@ -12,7 +12,7 @@ app = derby.createApp module
 # Translations
 i18n = require './i18n'
 i18n.localize app,
-  availableLocales: ['en', 'he', 'bg']
+  availableLocales: ['en', 'he', 'bg', 'nl']
   defaultLocale: 'en'
   urlScheme: false
   checkHeader: true
@@ -94,8 +94,8 @@ setupSubscriptions = (page, model, params, next, cb) ->
       return next(err) if err
       model.ref '_partyMembers', members
 
-      # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
-      return finished([partyQ, selfQ, 'tavern'], ['_party', '_user', '_tavern'])
+    # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
+    return finished([partyQ, selfQ, 'tavern'], ['_party', '_user', '_tavern'])
 
 # ========== ROUTES ==========
 
@@ -117,10 +117,6 @@ get '/', (page, model, params, next) ->
 ready (model) ->
   user = model.at('_user')
   model.setNull '_user.apiToken', derby.uuid()
-
-  #set cron immediately
-  lastCron = user.get('lastCron')
-  user.set('lastCron', +new Date) if (!lastCron? or lastCron == 'new')
 
   require('./scoring').cron(model)
 

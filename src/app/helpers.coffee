@@ -4,13 +4,26 @@ relative = require 'relative-date'
 algos = require './algos'
 items = require('./items').items
 
-# Absolute diff between two dates
-daysBetween = (yesterday, now, dayStart) ->
+sod = (timestamp, dayStart=0) ->
   #sanity-check reset-time (is it 24h time?)
-  dayStart = 0 unless (dayStart? and (dayStart = parseInt(dayStart)) and dayStart >= 0 and dayStart <= 24)
-  Math.abs moment(yesterday).startOf('day').add('h', dayStart).diff(moment(now), 'days')
+  dayStart = 0 unless (dayStart = parseInt(dayStart)) and (0 <= dayStart <= 24)
+  moment(timestamp).startOf('day').add('h', dayStart)
 
-dayMapping = dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s',7:'su'}
+# Absolute diff between two dates
+daysBetween = (yesterday, now, dayStart) -> Math.abs sod(yesterday, dayStart).diff(now, 'days')
+
+dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
+
+shouldDo = (day, repeat, dayStart=0) ->
+  return false unless repeat
+  now = +new Date
+  selected = repeat[dayMapping[sod(day, dayStart).day()]]
+  return selected unless moment(day).isSame(now,'d')
+  if dayStart <= moment(now).hour() # we're past the dayStart mark, is it due today?
+    return selected
+  else # we're not past dayStart mark, check if it was due "yesterday"
+    yesterday = moment(now).subtract(1,'d').day()
+    return repeat[dayMapping[yesterday]]
 
 # http://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
 # obj: object
@@ -125,31 +138,28 @@ viewHelpers = (view) ->
   ###
     Tasks
   ###
-  view.fn 'taskClasses', (task, filters, dayStart, lastCron) ->
+  view.fn 'taskClasses', (task, filters, dayStart, lastCron, showCompleted=false) ->
     return unless task
     {type, completed, value, repeat} = task
+
+    # completed / remaining toggle
+    return 'hidden' if (type is 'todo') and (completed != showCompleted)
 
     for filter, enabled of filters
       if enabled and not task.tags?[filter]
         # All the other classes don't matter
-        return 'hide'
+        return 'hidden'
 
     classes = type
 
-    now = moment().day()
-
-    # calculate the current contextual day (e.g. if it's 12 AM Fri and the user's custom day start is 4 AM, then we should still act like it's Thursday)
-    dayStart = 0 unless (dayStart? and (dayStart = parseInt(dayStart)) and dayStart >= 0 and dayStart <= 24)
-    hourDiff = Math.abs moment(lastCron).startOf('day').add('h', dayStart).diff(moment(now), 'hours')
-    dayStamp = moment(now).add('h', hourDiff)
-    day = dayStamp.day()
-
     # show as completed if completed (naturally) or not required for today
     if type in ['todo', 'daily']
-      if completed or (repeat and (repeat[dayMapping[day]] == false))
+      if completed or (type is 'daily' and !shouldDo(+new Date, task.repeat, dayStart))
         classes += " completed"
       else
         classes += " uncompleted"
+    else if type is 'habit'
+      classes += ' habit-wide' if task.down and task.up
 
     if value < -20
       classes += ' color-worst'
@@ -167,7 +177,7 @@ viewHelpers = (view) ->
       classes += ' color-best'
     return classes
 
-  view.fn 'ownsPet', (pet, userPets) -> !!userPets && userPets.indexOf(pet) != -1
+  view.fn 'ownsPet', (pet, userPets) -> _.isArray(userPets) and userPets.indexOf(pet) != -1
 
   view.fn 'friendlyTimestamp', (timestamp) -> moment(timestamp).format('MM/DD h:mm:ss a')
 
@@ -211,4 +221,4 @@ viewHelpers = (view) ->
 
 
 
-module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, dayMapping, username }
+module.exports = { viewHelpers, removeWhitespace, randomVal, daysBetween, shouldDo, username }

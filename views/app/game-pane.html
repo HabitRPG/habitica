@@ -2,7 +2,7 @@
     <div class="module full-width">
 
         <span class='option-box pull-right wallet'>
-            <app:rewards:userGems />
+            <app:rewards:user-gems />
         </span>
 
         <ul class="nav nav-tabs game-tabs">
@@ -12,7 +12,7 @@
                 <li><a data-toggle='tab' data-target="#profileInventory"><i class='icon-gift'></i> Inventory</a></li>
                 <li><a data-toggle='tab' data-target="#profileStable"><i class='icon-leaf'></i> Stable</a></li>
             {/if}
-            <li><a data-toggle='tab' data-target="#profileTavern"><i class='icon-glass'></i> Tavern</a></li>
+            <li><a data-toggle='tab' data-target="#profileTavern"><i class='icon-eye-close'></i> Tavern</a></li>
             <li><a data-toggle='tab' data-target="#profileAchievements"><i class='icon-certificate'></i> Achievements</a></li>
             {{#if _loggedIn}}
                 <li><a data-toggle='tab' data-target="#profileSettings"><i class='icon-wrench'></i> Settings</a></li>
@@ -27,7 +27,7 @@
                         <app:avatar:customize />
                     </div>
                     <div class='span4  border-right'>
-                        <app:avatar:profile-stats />
+                        <app:avatar:profile-stats profile={_user} />
                     </div>
                     <div class='span4'>
                         <app:avatar:profile-edit />
@@ -78,7 +78,7 @@
         <div class='span4 border-right'>
             <div class='tavern-pane'>
                 <img src='/img/npcs/daniel.png' />
-                <div class="popover fade right in" style="top: 0px; left: 135px; display: block;">
+                <div class="popover static-popover fade right in" style="top: 0px; left: 135px;">
                     <div class="arrow"></div>
                     <h3 class="popover-title">Daniel Johansson</h3>
                     <div class="popover-content">
@@ -88,17 +88,17 @@
                 </div>
             </div>
 
-            <div class='alert alert-info {#unless _user.flags.rest}hidden{/}'>While you're resting, your dailies aren't calculated. <span class='label label-warning'>Warning:</span> this means that if you check in today, do some dailies, and check out tomorrow - they won't get un-checked until the day <strong>after</strong> tomorrow. You start where you left off before vacation / illness, and it prevents abusing the inn. See <a _target='blank' href='https://trello.com/card/rest-in-tavern/50e5d3684fe3a7266b0036d6/14'><strong>Trello</strong></a> for more information.</div>
+            <div class='alert alert-info {#unless _user.flags.rest}hidden{/}'>Whilst resting your dailies are saved and aren't effected by day turn-over. Whether you check out tomorrow or in a weeks time you'll continue in the same state as when you checked in.</div>
 
             <div class=well>
                 <h3>Resources</h3>
                 <ul class=unstyled>
-                    <li><h4><a _target=blank href="http://community.habitrpg.com/forums/lfg">LFG Posts</a></h4></li>
-                    <li><h4><a _target=blank href="http://www.youtube.com/watch?feature=player_embedded&v=cT5ghzZFfao">Tutorial</a></h4></li>
-                    <li><h4><a _target=blank href="http://community.habitrpg.com/faq-page">FAQ</a></h4></li>
-                    <li><h4><a _target=blank href="https://github.com/lefnire/habitrpg/issues?state=open">Submit a Bug</a></h4></li>
-                    <li><h4><a _target=blank href="https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6">Request a Feature</a></h4></li>
-                    <li><h4><a _target=blank href="http://community.habitrpg.com/forum">Community Forum</a></h4></li>
+                    <li><h4><a target="_blank" href="http://community.habitrpg.com/forums/lfg">LFG Posts</a></h4></li>
+                    <li><h4><a target="_blank" href="http://www.youtube.com/watch?feature=player_embedded&v=cT5ghzZFfao">Tutorial</a></h4></li>
+                    <li><h4><a target="_blank" href="http://community.habitrpg.com/faq-page">FAQ</a></h4></li>
+                    <li><h4><a target="_blank" href="https://github.com/lefnire/habitrpg/issues?state=open">Submit a Bug</a></h4></li>
+                    <li><h4><a target="_blank" href="https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6">Request a Feature</a></h4></li>
+                    <li><h4><a target="_blank" href="http://community.habitrpg.com/forum">Community Forum</a></h4></li>
                 </ul>
             </div>
 
@@ -122,7 +122,7 @@
     <!-- pets pane -->
     <div class="tab-pane pet-grid" id="market-tab">
         <img src='/img/npcs/alex.png' />
-        <div class="popover fade right in" style="top: 0px; left: 170px; display: block;">
+        <div class="popover static-popover fade right in" style="top: 0px; left: 170px;">
             <div class="arrow"></div>
             <h3 class="popover-title">Alexander Augustin</h3>
             <div class="popover-content">Welcome to the Market! I'm the merchant, <a target="_blank" href="http://www.kickstarter.com/profile/523661924">Alexander</a>. Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!</div>

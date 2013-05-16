@@ -19,14 +19,13 @@ randomDrop = (model, delta, priority, streak=0) ->
   user.setNull 'items.lastDrop',
     date: +moment().subtract('d',1) # trick - set it to yesterday on first run, that way they can get drops today
     count: 0
-  reachedDropLimit = (helpers.daysBetween(user.get('items.lastDrop.date'), +new Date) is 0) and user.get('items.lastDrop.count') >= 2
+  reachedDropLimit = (helpers.daysBetween(user.get('items.lastDrop.date'), +new Date, user.get('preferences.dayStart')) is 0) and user.get('items.lastDrop.count') >= 2
   return if reachedDropLimit
 
   # % chance of getting a pet or meat
   chanceMultiplier = Math.abs(delta)
   chanceMultiplier *= algos.priorityValue(priority) # multiply chance by reddness
   chanceMultiplier += streak # streak bonus
-  console.log chanceMultiplier
 
   if user.get('flags.dropsEnabled') and Math.random() < (.05 * chanceMultiplier)
     # current breakdown - 3% (adjustable) chance on drop
@@ -273,8 +272,15 @@ updateStats = (model, newStats, batch) ->
 cron = (model) ->
   user = model.at '_user'
   today = +new Date
-  daysPassed = helpers.daysBetween(user.get('lastCron'), today, user.get('preferences.dayStart'))
-  if daysPassed > 0
+
+  lastCron = user.get('lastCron')
+  # New user (!lastCron, lastCron==new) or it got busted somehow, maybe they went to a different timezone
+  if !lastCron? or lastCron is 'new' or moment(lastCron).isAfter(today)
+    user.set('lastCron', +new Date)
+    return
+
+  daysMissed = helpers.daysBetween(user.get('lastCron'), today, user.get('preferences.dayStart'))
+  if daysMissed > 0
 
     # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
     # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
@@ -292,20 +298,17 @@ cron = (model) ->
     _.each obj.tasks, (taskObj) ->
       {id, type, completed, repeat} = taskObj
       if type in ['todo', 'daily']
-        # Deduct experience for missed Daily tasks,
-        # but not for Todos (just increase todo's value)
+        # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
         unless completed
-          # for todos & typical dailies, these are equivalent
-          daysFailed = daysPassed
-          # however, for dailys which have repeat dates, need
-          # to calculate how many they've missed according to their own schedule
-          if type=='daily' && repeat
-            daysFailed = 0
-            _.times daysPassed, (n) ->
-              thatDay = moment().subtract('days', n+1)
-              if repeat[helpers.dayMapping[thatDay.day()]]==true
-                daysFailed++
-          score model, id, 'down', daysFailed, batch, true
+          scheduleMisses = daysMissed
+          # for dailys which have repeat dates, need to calculate how many they've missed according to their own schedule
+          if (type is 'daily') and repeat
+            scheduleMisses = 0
+            _.times daysMissed, (n) ->
+              thatDay = moment(today).subtract('days', n+1)
+              scheduleMisses++ if helpers.shouldDo(thatDay, repeat, obj.preferences?.dayStart) is true
+          score(model, id, 'down', scheduleMisses, batch, true) if scheduleMisses > 0
+
         if type == 'daily'
           if completed #set OHV for completed dailies
             newValue = taskObj.value + algos.taskDeltaFormula(taskObj.value,'up')

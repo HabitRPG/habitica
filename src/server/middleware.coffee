@@ -28,7 +28,7 @@ translate = (req, res, next) ->
   model = req.getModel()
 
   # Set locale to bg on dev
-  model.set '_i18n.locale', 'bg' if process.env.NODE_ENV is "development"
+  #model.set '_i18n.locale', 'bg' if process.env.NODE_ENV is "development"
 
   next()
 
