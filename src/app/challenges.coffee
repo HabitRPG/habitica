@@ -1,4 +1,5 @@
 _ = require 'underscore'
+lodash = require 'lodash'
 
 module.exports.app = (appExports, model) ->
   browser = require './browser'
@@ -30,15 +31,31 @@ module.exports.app = (appExports, model) ->
     model.set '_challenge.creating', false
 
   appExports.challengeSubscribe = (e) ->
-    userChallenges = user.get('challenges')
     chal = e.get()
+
+    # Add challenge name as a tag for user
+    tags = user.get('tags')
+    unless tags and _.findWhere(tags,{id: chal.id})
+      model.push('_user.tags', {id: chal.id, name: chal.name})
+
+    tags = {}; tags[chal.id] = true
+    # Add all challenge's tasks to user's tasks
+    userChallenges = user.get('challenges')
     user.unshift('challenges', chal.id) unless userChallenges and (userChallenges.indexOf(chal.id) != -1)
     _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
-      _.each chal["#{type}s"], (task) -> model.push("_#{type}List", task)
+      _.each chal["#{type}s"], (task) ->
+        task.tags = tags
+        task.challenge = chal.id
+        model.push("_#{type}List", task)
 
   appExports.challengeUnsubscribe = (e) ->
-    i = user.get('challenges')?.indexOf e.get('id')
+    chal = e.get()
+    i = user.get('challenges')?.indexOf chal.id
     user.remove("challenges.#{i}") if i? and i != -1
+    _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
+      _.each chal["#{type}s"], (task) ->
+        model.remove "_#{type}List", lodash.findIndex(model.get("_#{type}List",{id:task.id}))
+        model.del "_user.tasks.#{task.id}"
 
   appExports.challengeCollapse = (e, el) ->
     $(el).next().toggle()
