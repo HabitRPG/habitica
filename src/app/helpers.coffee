@@ -138,17 +138,19 @@ viewHelpers = (view) ->
   ###
     Tasks
   ###
-  view.fn 'taskClasses', (task, filters, dayStart, lastCron, showCompleted=false) ->
+  view.fn 'taskClasses', (task, filters, dayStart, lastCron, showCompleted=false, main) ->
     return unless task
     {type, completed, value, repeat} = task
 
     # completed / remaining toggle
     return 'hidden' if (type is 'todo') and (completed != showCompleted)
 
-    for filter, enabled of filters
-      if enabled and not task.tags?[filter]
-        # All the other classes don't matter
-        return 'hidden'
+    # Filters
+    if main # only show when on your own list
+      for filter, enabled of filters
+        if enabled and not task.tags?[filter]
+          # All the other classes don't matter
+          return 'hidden'
 
     classes = type
 

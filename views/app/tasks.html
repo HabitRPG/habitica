@@ -147,7 +147,7 @@
     <hr>
     {{/}}
     <ul class="{{@type}}s {#unless @list}hidden{/}">
-        {#each @list as :task}<app:tasks:task main="{@main}" />{/}
+        {#each @list as :task}<app:tasks:task main="{{@main}}" />{/}
     </ul>
     {{@extra}}
     <br/>
@@ -163,7 +163,7 @@
 
 <!-- all the parts of a single task -->
 <task:>
-    <li data-id={{:task.id}} class="task {taskClasses(:task, _user.filters, _user.preferences.dayStart, _user.lastCron, _showCompleted)}">
+    <li data-id={{:task.id}} class="task {taskClasses(:task, _user.filters, _user.preferences.dayStart, _user.lastCron, _showCompleted, @main)}">
 
         <!-- right-hand side control buttons -->
         <div class="task-meta-controls">
