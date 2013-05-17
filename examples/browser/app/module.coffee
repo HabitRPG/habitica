@@ -10,11 +10,11 @@
 
   #I.e. require parent module
   #NOTE: I did not figure out how to require coffee-script here. As this has to be both Node.js and require.js compatible syntax. And they disagree on how to do that. Anyway we can stick with .js parent modules for a while.
-  parent = require('./parentModule');
+  parent = require('cs!./parentModule');
 
   module.exports =
   {
   foo: (message)->
     #use parent module
-    alert parent.parentFoo message
+    console.log parent.parentFoo message
   }

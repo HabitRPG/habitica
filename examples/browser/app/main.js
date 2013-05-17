@@ -5,7 +5,6 @@ requirejs.config({
         cs: 'requirejs/cs',
         'coffee-script': 'requirejs/coffee-script'
     }
-
 });
 
 //Require files we need.
