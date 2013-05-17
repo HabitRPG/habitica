@@ -8,14 +8,16 @@ You only need to include algos.coffee
 It will include the rest as necessary.
 
 
-
-
 ##Installation
-* Reqire files
-    * Node.js - just include algos.coffee as usual.
-    * Browser - use requre.js with "cs" plugin to include algos.coffee directly into your index.html 
-        * See require.js-example folder.
-        * Run plain http-server from within "equire.js-example" folder and point your browser to index.html to see how it works. (it should alert message in CAPS)
+
+* Node.js
+    * "npm install coffee-script" to be able to require CS
+    * "npm install requirejs" to enable loading of AMD type modules within indicated subfolder
+    * Configure requirejs module as observerd in examples/node.js/server.js
+    * run "node server" from within "examples/node.js" folder (it should output message in CAPS to console.log)
+* Browser - use require.js with "cs" plugin to include algos.coffee directly into your index.html
+    * See examples/browser folder.
+    * Run plain http-server from within "examples/browser" folder and point your browser to index.html to see how it works. (it should output message in CAPS to console.log)
  
 * Note how to invoke scoring function:
  * algos.score = function (user, task, direction) {}
