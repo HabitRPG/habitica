@@ -1,7 +1,7 @@
 {
 
 "_commentfrontpage":"PAGE D'ACCUEIL DE HABITRPG",
-   "synopsis" : "Un programme pour gérer votre vie quotidienne à la manière d'un RPG. Gagnez des niveaux pour vos réussites, perdez de la vie pour vos échecs, gagnez de l'argent pour acheter des armes et des armures.",
+   "synopsis" : "Ce programme vous permet de gérer votre vie quotidienne à la manière d'un RPG. Gagnez des niveaux lorsque vous réussissez vos objectifs, perdez de la vie lorsque vous échouez, et gagnez de l'argent pour acheter des armes et des armures.",
   "playButton" : "Jouer",
 
 
@@ -11,7 +11,7 @@
   "nextButton" : "Suivant",
   "prevButton" : "Précédent",
   "tour1Title" : "Bienvenue sur HabitRPG",
-    "tour1Text" : "Bienvenue sur HabitRPG, un gestionnaire de bonnes habitudes qui gère vos objectifs à la manière d'un RPG.",
+    "tour1Text" : "Bienvenue sur HabitRPG, un programme qui vous aide à vous créer de bonnes habitudes à la manière d'un RPG.",
   "tour2Title" : "Routines",
     "tour2Text" : "Les routines sont des objectifs, bons ou mauvais, que vous prenez en compte constamment.",
   "tour3Title" : "Tâches quotidiennes",
@@ -50,7 +50,7 @@
   "afternoon" : "après-midi",
   "evening" : "soirée",
 
-"_commenthead": "BANDEROLLE",
+"_commenthead": "BANDEROLE",
   "health": "Santé",
   "experience": "Expérience",
     "history": "Historique",
@@ -69,7 +69,7 @@
 
 
 
-"_commenttaskview": "TASK VIEW",
+"_commenttaskview": "AFFICHAGE DES TACHES",
   "habits": "Routines",
     "newHabit": "Nouvelle routine",
     "edit": "Editer",
@@ -186,10 +186,10 @@
   "achievements":"Médailles",
     "achievementUnlocked" : "Nouvelle médaille !",
     "npcText" : "A financé le projet Kickstarter  au plus haut niveau !",
-    "contribName" : "Contributeu",
+    "contribName" : "Contributeur",
       "contribText" : "A contribué à HabitRPG (code, design, pixel art, avis juridiques, docs, etc). Vous voulez ce badge ? ",
-    "kickstartName1" : "Mécène Kickstarter - ",
-    "kickstartName2" : "Tier",
+    "kickstartName1" : "Mécène Kickstarter : Palier de financement",
+    "kickstartName2" : "",
       "kickstartText" : "A financé le projet Kickstarter",
     "streakName" : "Streak Achievement(s)",
       "streakText1" : "A effectué ses Tâches quotidiennes ",
@@ -200,7 +200,7 @@
       "ultimGearText" : "A obtenu le dernier lot d'armes et d'armures",
       "ultimGearUnlocked" : "Vous avez gagné la médaille 'Equipement ultime' pour avoir améliorer au maximum votre équipement !",
     "beastMastName" : "Maître dresseur",
-      "beastMastText" : "A trouvé tous les 90 familiers (horriblement difficile, félicitez cet utilisateur !)",
+      "beastMastText" : "A trouvé tous les 90 familiers (c'est horriblement difficile, félicitez cet utilisateur !)",
       "beastMastUnlocked" : "Vous avez gagné la médaille 'Maître dresseur' pour avoir trouvé tous les familiers !",
 
   "settings":"Paramètres",
@@ -208,8 +208,8 @@
       "24HrClock": " Horloge 24h",
       "clockInfo":"Par défaut, HabitRPG vérifie et initialise vos tâches quotidiennes à minuit. Vous pouvez personnaliser l'heure de début de journée ici (Entrer un nombre entre 0 et 24).",
     "misc":"Divers",
-      "hideHeader":"Cacher la banderolle",
-      "showHeader":"Montrer la banderolle",
+      "hideHeader":"Cacher la banderole",
+      "showHeader":"Montrer la banderole",
     "changePass":"Changer de mot de passe",
       "oldPass":"Ancien mot de passe",
       "newPass":"Nouveau mot de passe",
@@ -265,7 +265,7 @@
 
   "_commentitemshead" : "CASQUES",
     "head0Name" : "Nue-tête",
-    "head1Name" : "Gambison" ,
+    "head1Name" : "Casque en cuir" ,
       "head1Text": "Diminue la perte de vie de 2%",
     "head2Name" : "Coiffe de maille",
       "head2Text": "Diminue la perte de vie de 3%",
@@ -348,7 +348,7 @@
 
 "_commentdeathstuff" : "MORT",
   "deathTitle" : "Vou êtes mort !",
-  "deathText" : "Vous perdez votre or, un niveau et un équipement. Essayez de bien remplir vos tâches quotidiennes pour que cela n'arrive plus !",
+  "deathText" : "Vous perdez votre or, un niveau et un équipement au hasard. Essayez de bien remplir vos tâches quotidiennes pour que cela n'arrive plus !",
 
 "_commentgems" : "JOYAUX",
   "gems" : "Joyaux",
