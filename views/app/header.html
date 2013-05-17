@@ -1,6 +1,6 @@
 <header:>
-    {#unless equal(_user.preferences.hideHeader,true)}
-        <header class="site-header" role="banner" data-partySize="{#if gt(_partyMembers.length,1)}{truarr(_partyMembers.length)}{else}0{/}">
+    <header class="site-header" role="banner" data-partySize="{#if gt(_partyMembers.length,1)}{truarr(_partyMembers.length)}{else}0{/}">
+        <span class="{#if equal(_user.preferences.hideHeader,true)}hidden{/}">
             <!-- avatar -->
             <div class="herobox-wrap main-herobox">
                 <app:avatar:avatar profile={_user} main=true>
@@ -26,7 +26,7 @@
 
             <!-- party -->
             <!-- I have an idea to use this loop for the user's herobox/avatar as well
-                 NOTE TO SELF: Ask Tyler if some kind of inter-leaving is possible 
+                 NOTE TO SELF: Ask Tyler if some kind of inter-leaving is possible
                  where we can put ONE of the results of this loop BEFORE the progress bars, and the rest after-->
             {{#each _partyMembers as :member}}
                 <div class="herobox-wrap" style="{{#if equal(:member.id, _userId)}}display:none;{{/}}">
@@ -38,8 +38,7 @@
                     {{/}}
                 </div>
             {{/}}
+        </span>
 
-            <app:alerts:hiding-bailey />
-
-        </header>
-    {/}
+        <app:alerts:hiding-bailey />
+    </header>
