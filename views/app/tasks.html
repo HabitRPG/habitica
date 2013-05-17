@@ -147,7 +147,7 @@
     <hr>
     {{/}}
     <ul class="{{@type}}s {#unless @list}hidden{/}">
-        {#each @list as :task}<app:tasks:task />{/}
+        {#each @list as :task}<app:tasks:task main="{@main}" />{/}
     </ul>
     {{@extra}}
     <br/>
@@ -192,24 +192,41 @@
         <!-- left-hand side checkbox -->
         <div class="task-controls task-primary">
             <!-- Habits -->
-            {#if equal(:task.type, 'habit')}
-            {#if :task.up}<a class="task-action-btn" data-direction=up x-bind=click:score>＋</a>{/}
-            {#if :task.down}<a class="task-action-btn" data-direction=down x-bind=click:score>−</a>{/}
+            {{#if equal(:task.type,'habit')}}
+                {{#if @main}} <!-- only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges -->
+                    {#if :task.up}<a class="task-action-btn" data-direction=up x-bind=click:score>＋</a>{/}
+                    {#if :task.down}<a class="task-action-btn" data-direction=down x-bind=click:score>−</a>{/}
+                {{else}}
+                    {#if :task.up}<span class="task-action-btn">＋</span>{/}
+                    {#if :task.down}<span class="task-action-btn">−</span>{/}
+                {{/}}
 
             <!-- Rewards -->
-            {else if equal(:task.type, 'reward')}
-            <a class="money btn-buy" x-bind=click:score data-direction=down>
-                <span class="reward-cost">{:task.value}</span>
-                <span class='shop_gold'></span>
-            </a>
+            {{else if equal(:task.type,'reward')}}
+                {{#if @main}} <!-- only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges -->
+                    <a class="money btn-buy" x-bind=click:score data-direction=down>
+                        <span class="reward-cost">{:task.value}</span>
+                        <span class='shop_gold'></span>
+                    </a>
+                {{else}}
+                    <span class="money btn-buy">
+                        <span class="reward-cost">{:task.value}</span>
+                        <span class='shop_gold'></span>
+                    </span>
+                {{/}}
 
             <!-- Daily & Todos -->
-            {else}
-            <span class="task-checker action-yesno">
-                <input type=checkbox id="box-{{:task.id}}" class="visuallyhidden focusable" checked="{:task.completed}">
-                <label for="box-{{:task.id}}"></label>
-            </span>
-            {/}
+            {{else}}
+                <span class="task-checker action-yesno">
+                    {{#if @main}} <!-- only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges -->
+                        <input type=checkbox id="box-{{:task.id}}" class="visuallyhidden focusable" checked="{:task.completed}">
+                        <label for="box-{{:task.id}}"></label>
+                    {{else}}
+                        <input type=checkbox id="box-{{:task.id}}-static" class="visuallyhidden focusable" checked="false">
+                        <label for="box-{{:task.id}}-static"></label>
+                    {{/}}
+                </span>
+            {{/}}
         </div>
 
         <!-- main content -->
@@ -218,7 +235,7 @@
         </p>
 
         <!-- edit/options dialog -->
-        <app:tasks:taskMeta />
+        <app:tasks:taskMeta main={{@main}} />
     </li>
 
 <!-- task edit/options -->
@@ -279,7 +296,7 @@
             {/}
 
 
-            <app:filters:filter-fieldgroup />
+            {{#if @main}}<app:filters:filter-fieldgroup />{{/}}
 
 
             <!-- Advanced Options -->
