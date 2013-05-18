@@ -20,7 +20,7 @@ module.exports.app = (appExports, model, app) ->
 
   model.on 'set', '_user.party.invitation', (after, before) ->
     if !before? and after? # they just got invited
-      partyQ = model.query('parties').withId(after)
+      partyQ = model.query('groups').withId(after)
       partyQ.fetch (err, party) ->
         return next(err) if err
         model.ref '_party', party
@@ -28,15 +28,15 @@ module.exports.app = (appExports, model, app) ->
 
   appExports.partyCreate = ->
     newParty = model.get("_newParty")
-    id = model.add 'parties', { name: newParty, leader: user.get('id'), members: [user.get('id')], invites:[] }
-    user.set 'party', {current: id, invitation: null, leader: true}, ->
+    id = model.add 'groups', { name: newParty, leader: user.get('id'), members: [user.get('id')], invites:[] }
+    user.set 'party', {current: id, invitation: null}, ->
       window.location.reload true
 
   appExports.partyInvite = ->
     id = model.get('_newPartyMember').replace(/[\s"]/g, '')
     return if _.isEmpty(id)
 
-    model.query('users').party([id]).fetch (err, users) ->
+    model.query('users').publicInfo([id]).fetch (err, users) ->
       throw err if err
       u = users.at(0).get()
       if !u?
@@ -55,8 +55,8 @@ module.exports.app = (appExports, model, app) ->
     partyId = user.get('party.invitation')
     user.set 'party.invitation', null
     user.set 'party.current', partyId
-    model.at("parties.#{partyId}.members").push user.get('id'), -> window.location.reload()
-#    model.query('parties').withId(partyId).fetch (err, p) ->
+    model.at("groups.#{partyId}.members").push user.get('id'), -> window.location.reload()
+#    model.query('groups').withId(partyId).fetch (err, p) ->
 #      members = p.get('members')
 #      members.push user.get('id')
 #      p.set 'members', members, ->
@@ -77,7 +77,7 @@ module.exports.app = (appExports, model, app) ->
     index = members.indexOf(user.get('id'))
     party.remove 'members', index, 1, ->
       if members.length is 1 # # last member out, kill the party
-        model.del "parties.#{id}", (-> window.location.reload true)
+        model.del "groups.#{id}", (-> window.location.reload true)
       else
         window.location.reload true
 
