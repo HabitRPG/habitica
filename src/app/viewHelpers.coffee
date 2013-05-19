@@ -1,5 +1,5 @@
 _ = require 'underscore'
-algos = require './algos'
+algos = require 'habitrpg-shared/script/algos'
 items = require('habitrpg-shared/script/items').items
 helpers = require('habitrpg-shared/script/helpers')
 

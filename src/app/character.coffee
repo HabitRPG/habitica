@@ -1,6 +1,6 @@
 browser = require './browser'
 items = require './items'
-algos = require './algos'
+algos = require 'habitrpg-shared/script/algos'
 
 moment = require 'moment'
 _ = require 'underscore'
@@ -22,7 +22,6 @@ module.exports.app = (appExports, model) ->
     owned = user.get('items')
     # unless they're already at 0-everything
     if parseInt(owned.armor)>0 or parseInt(owned.head)>0 or parseInt(owned.shield)>0 or parseInt(owned.weapon)>0
-      console.log 'test'
       # find a random item to lose
       until loseThisItem
         #candidate = {0:'items.armor', 1:'items.head', 2:'items.shield', 3:'items.weapon', 4:'stats.gp'}[Math.random()*5|0]

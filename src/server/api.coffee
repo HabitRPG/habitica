@@ -1,9 +1,9 @@
 express = require 'express'
 router = new express.Router()
 
-scoring = require '../app/scoring'
 _ = require 'underscore'
-{ tnl } = require '../app/algos'
+algos = require 'habitrpg-shared/script/algos'
+{ tnl } = algos
 validator = require 'derby-auth/node_modules/validator'
 check = validator.check
 sanitize = validator.sanitize
@@ -255,7 +255,8 @@ scoreTask = (req, res, next) ->
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
     model.at("_#{type}List").push task
 
-  delta = scoring.score(model, taskId, direction)
+  #FIXME
+  delta = algos.score(user.get(), taskId, direction)
   result = model.get '_user.stats'
   result.delta = delta
   res.json result

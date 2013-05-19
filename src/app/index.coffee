@@ -117,7 +117,7 @@ ready (model) ->
   user = model.at('_user')
   model.setNull '_user.apiToken', derby.uuid()
 
-  require('./scoring').cron(model)
+  #FIXME require('habitrpg-shared/script/algos').cron(user)
 
   require('./character').app(exports, model)
   require('./tasks').app(exports, model)
