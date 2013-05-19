@@ -4,9 +4,10 @@ Shared resources useful for the multiple HabitRPG repositories, that way all the
  * Algorithms - level up algorithm, scoring functions, etc
  * Item definitions - weapons, armor, pets 
 
-You only need to include algos.coffee
-It will include the rest as necessary.
-
+##Browserify Usage (TODO fix up this documentation to use old browserify setup)
+The `Makefile` runs Browserify to compile `index-browser.js`, which you include in a `<script/>` tag in your index.html. This way, you get all the JS min/concat'd
+ * `npm install`
+ * `make`
 
 ##Installation
 

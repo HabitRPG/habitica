@@ -1,6 +1,9 @@
 {
-    "name": "habitrpg-shared",
-    "version": "0.0.0",
-    "dependencies": {
-    }
+  "name": "habitrpg-shared",
+  "version": "0.0.0",
+  "dependencies": {
+    "browserify": "~2.14.1",
+    "lodash": "~1.2.1",
+    "moment": "~2.0.0"
+  }
 }
