@@ -1,5 +1,5 @@
 scoring = require './scoring'
-helpers = require './helpers'
+helpers = require 'habitrpg-shared/script/helpers'
 _ = require 'underscore'
 moment = require 'moment'
 character = require './character'

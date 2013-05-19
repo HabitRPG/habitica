@@ -1,6 +1,6 @@
 moment = require 'moment'
 _ = require 'underscore'
-{ randomVal } = helpers = require './helpers'
+{ randomVal } = helpers = require 'habitrpg-shared/script/helpers'
 browser = require './browser'
 character = require './character'
 items = require 'habitrpg-shared/script/items'

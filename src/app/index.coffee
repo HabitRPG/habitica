@@ -17,8 +17,7 @@ i18n.localize app,
   urlScheme: false
   checkHeader: true
 
-helpers = require './helpers'
-helpers.viewHelpers view
+require('./viewHelpers').setup view
 
 _ = require('underscore')
 

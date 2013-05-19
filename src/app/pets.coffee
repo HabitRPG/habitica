@@ -1,5 +1,5 @@
 _ = require 'underscore'
-{ randomVal } = require './helpers'
+{ randomVal } = require 'habitrpg-shared/script/helpers'
 { pets, hatchingPotions } = require('habitrpg-shared/script/items').items
 
 ###

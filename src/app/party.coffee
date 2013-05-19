@@ -1,10 +1,9 @@
 _ = require('underscore')
-helpers = require './helpers'
+helpers = require('habitrpg-shared/script/helpers')
 
 module.exports.app = (appExports, model, app) ->
   character = require './character'
   browser = require './browser'
-  helpers = require './helpers'
 
   _currentTime = model.at '_currentTime'
 
