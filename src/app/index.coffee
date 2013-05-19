@@ -19,7 +19,9 @@ i18n.localize app,
 
 require('./viewHelpers').setup view
 
-_ = require('underscore')
+_ = require('lodash')
+algos = require 'habitrpg-shared/script/algos'
+helpers = require 'habitrpg-shared/script/helpers'
 
 ###
   Cleanup task-corruption (null tasks, rogue/invisible tasks, etc)
@@ -35,6 +37,7 @@ cleanupCorruptTasks = (model) ->
     unless task?.id? and task?.type?
       user.del("tasks.#{key}")
       delete tasks[key]
+      true
 
   batch = null
 
@@ -57,6 +60,7 @@ cleanupCorruptTasks = (model) ->
         batch.startTransaction()
       batch.set("#{type}Ids", preened)
       console.error user.get('id') + "'s #{type}s were corrupt."
+    true
 
   batch.commit() if batch?
 
@@ -75,7 +79,7 @@ setupSubscriptions = (page, model, params, next, cb) ->
       model.subscribe.apply model, descriptors.concat ->
         [err, refs] = [arguments[0], arguments]
         return next(err) if err
-        _.each paths, (path, idx) -> model.ref path, refs[idx+1]
+        _.each paths, (path, idx) -> model.ref path, refs[idx+1]; true
         unless model.get('_user')
           console.error "User not found - this shouldn't be happening!"
           return page.redirect('/logout') #delete model.session.userId
@@ -108,6 +112,7 @@ get '/', (page, model, params, next) ->
     #refLists
     _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
       model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+      true
     page.render()
 
 
@@ -116,8 +121,6 @@ get '/', (page, model, params, next) ->
 ready (model) ->
   user = model.at('_user')
   model.setNull '_user.apiToken', derby.uuid()
-
-  #FIXME require('habitrpg-shared/script/algos').cron(user)
 
   require('./character').app(exports, model)
   require('./tasks').app(exports, model)
@@ -130,3 +133,18 @@ ready (model) ->
   require('./browser').app(exports, model, app)
   require('./unlock').app(exports, model)
   require('./filters').app(exports, model)
+
+  ###
+    Cron
+  ###
+  #FIXME optimize this - don't deepClone first, check if need to run first
+  uObj = _.cloneDeep user.get() # need to clone, else derby won't catch model.set()'s after obj property sets
+  # Set it up so it's uObj.habits, uObj.dailys etc instead of uObj.tasks (it's what habitrpg-shared/algos requires)
+  _.each ['habit','daily','todo','reward'], (type) ->
+    uObj["#{type}s"] = _.where(uObj.tasks, {type:type}); true
+  paths = {}
+  algos.cron(uObj, paths)
+  delete paths['stats.hp'] # we'll set this manually so we can get a cool animation
+  _.each paths, (v,k) ->
+    user.pass({cron:true}).set(k,helpers.dotGet(k, uObj)); true
+  setTimeout (-> user.set('stats.hp', uObj.stats.hp)), 1000
