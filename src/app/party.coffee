@@ -134,7 +134,9 @@ module.exports.app = (appExports, model, app) ->
     return next() unless e.keyCode is 13
     appExports.tavernSendChat()
 
-  appExports.deleteChatMessage = (e) -> e.at().remove() #requires the {#with}
+  appExports.deleteChatMessage = (e) ->
+    if confirm("Delete chat message?") is true
+      e.at().remove() #requires the {#with}
 
   app.on 'render', (ctx) ->
     $('#party-tab-link').on 'shown', (e) ->
