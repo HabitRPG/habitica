@@ -37,13 +37,15 @@ module.exports =
     so that different consumers can implement setters their own way. Derby needs model.set(path, value) for example, where
     Angular sets object properties directly - in which case, this function will be used.
   ###
-  pathSet: (path, val, obj) ->
+  dotSet: (path, val, obj) ->
     arr = path.split('.')
-    arr.reduce (curr, next, index) ->
+    _.reduce arr, (curr, next, index) ->
       if (arr.length - 1) == index
         curr[next] = val
       curr[next]
     , obj
+
+  dotGet: (path, obj) -> _.reduce path.split('.'), ((curr, next) -> curr[next]), obj
 
   daysBetween: daysBetween
 
