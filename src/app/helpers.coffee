@@ -2,7 +2,7 @@ moment = require 'moment'
 _ = require 'underscore'
 relative = require 'relative-date'
 algos = require './algos'
-items = require('./items').items
+items = require('habitrpg-shared/script/items').items
 
 sod = (timestamp, dayStart=0) ->
   #sanity-check reset-time (is it 24h time?)

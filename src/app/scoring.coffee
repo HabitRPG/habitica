@@ -3,7 +3,7 @@ _ = require 'underscore'
 { randomVal } = helpers = require './helpers'
 browser = require './browser'
 character = require './character'
-items = require './items'
+items = require 'habitrpg-shared/script/items'
 { pets, hatchingPotions } = items.items
 algos = require './algos'
 
