@@ -293,6 +293,7 @@ updateStats = (user, newStats, paths) ->
 
 
     # Set flags when they unlock features
+    user.flags ?= {}
     if !user.flags.customizationsNotification and (user.stats.exp > 10 or user.stats.lvl > 1)
       user.flags.customizationsNotification = true; paths['flags.customizationsNotification']=true;
     if !user.flags.itemsEnabled and user.stats.lvl >= 2
@@ -313,18 +314,18 @@ updateStats = (user, newStats, paths) ->
   Make sure to run this function once in a while as server will not take care of overnight calculations.
   And you have to run it every time client connects.
 ###
-obj.cron = (user) ->
+obj.cron = (user, paths={}) ->
   today = +new Date
 
   lastCron = user.lastCron
   # New user (!lastCron, lastCron==new) or it got busted somehow, maybe they went to a different timezone
   if !lastCron? or lastCron is 'new' or moment(lastCron).isAfter(today)
-    user.lastCron = +new Date
+    user.lastCron = today; paths['lastCron'] = true
     return
 
-  daysPassed = helpers.daysBetween(user.lastCron, today, user.preferences?.dayStart)
-  if daysPassed > 0
-    user.lastCron = today
+  daysMissed = helpers.daysBetween(user.lastCron, today, user.preferences?.dayStart)
+  if daysMissed > 0
+    user.lastCron = today; paths['lastCron'] = true
 
     # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
     # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
@@ -340,18 +341,18 @@ obj.cron = (user) ->
         # for dailys which have repeat dates, need to calculate how many they've missed according to their own schedule
         if (type is 'daily') and repeat
           scheduleMisses = 0
-          _.times daysPassed, (n) ->
+          _.times daysMissed, (n) ->
             thatDay = moment(today).subtract('days', n + 1)
             scheduleMisses++ if helpers.shouldDo(thatDay, repeat, obj.preferences?.dayStart) is true
-        #FIXME with times & cron
-        score(user, task, 'down', {times:scheduleMisses, cron:true}) if scheduleMisses > 0
+        obj.score(user, task, 'down', {times:scheduleMisses, cron:true, paths:paths}) if scheduleMisses > 0
 
       switch type
         when 'daily'
           if completed #set OHV for completed dailies
-            task.value = task.value + taskDeltaFormula(task.value, 'up')
+            task.value = task.value + obj.taskDeltaFormula(task.value, 'up')
           (task.history ?= []).push { date: +new Date, value: task.value }
           task.completed = false
+          paths["tasks.#{task.id}.value"] = true;paths["tasks.#{task.id}.history"] = true;paths["tasks.#{task.id}.completed"] = true;
 
         when 'todo'
           #get updated value
@@ -363,10 +364,11 @@ obj.cron = (user) ->
           task.value = 0
         else
           task.value = task.value / 2
+        paths["tasks.#{task.id}.value"] = true
+
 
     # Finished tallying
     ((user.history ?= {}).todos ?= []).push { date: today, value: todoTally }
-    user.history.exp ?= []
     # tally experience
     expTally = user.stats.exp
     lvl = 0
@@ -374,7 +376,8 @@ obj.cron = (user) ->
     while lvl < (user.stats.lvl - 1)
       lvl++
       expTally += obj.tnl(lvl)
-    user.history.exp.push { date: today, value: expTally }
+    (user.history.exp ?= []).push { date: today, value: expTally }
+    paths["history"] = true
     user
 
 
