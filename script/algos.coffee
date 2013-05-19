@@ -87,13 +87,13 @@ obj.taskDeltaFormula = (currentValue, direction) ->
   Drop System
 ###
 
-randomDrop = (user, delta, priority, streak = 0) ->
+randomDrop = (user, delta, priority, streak = 0, paths) ->
   # limit drops to 2 / day
   user.items.lastDrop ?=
     date: +moment().subtract('d', 1) # trick - set it to yesterday on first run, that way they can get drops today
     count: 0
-  reachedDropLimit = (helpers.daysBetween(user.items.lastDrop.date, +new Date) is 0)
-                     and (user.items.lastDrop.count >= 2)
+  paths['items.lastDrop'] = true
+  reachedDropLimit = (helpers.daysBetween(user.items.lastDrop.date, +new Date) is 0) and (user.items.lastDrop.count >= 2)
   return if reachedDropLimit
 
   # % chance of getting a pet or meat
@@ -109,7 +109,7 @@ randomDrop = (user, delta, priority, streak = 0) ->
     # Egg, 40% chance
     if rarity > .6
       drop = randomVal(pets)
-      (user.items.eggs ?= []).push drop
+      (user.items.eggs ?= []).push drop; paths['items.eggs'] = true
       drop.type = 'Egg'
       drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
 
@@ -142,7 +142,7 @@ randomDrop = (user, delta, priority, streak = 0) ->
       acceptableDrops = hatchingPotions.filter (hatchingPotion) ->
         hatchingPotion.name in acceptableDrops
       drop = randomVal acceptableDrops
-      (user.items.hatchingPotions ?= []).push drop.name
+      (user.items.hatchingPotions ?= []).push drop.name; paths['items.hatchingPotions'] = true
       drop.type = 'HatchingPotion'
       drop.dialog = "You've found a #{drop.text} Hatching Potion! #{drop.notes}"
 
@@ -151,12 +151,14 @@ randomDrop = (user, delta, priority, streak = 0) ->
 
     user.items.lastDrop.date = +new Date
     user.items.lastDrop.count++
+    paths['items.lastDrop'] = true
 
 #  {task} task you want to score
 #  {direction} 'up' or 'down'
-obj.score = (user, task, direction, times=1, cron=false) ->
+obj.score = (user, task, direction, options={}) ->
   {gp, hp, exp, lvl} = user.stats
   {type, value, streak} = task
+  [paths, times, cron] = [options.paths || {}, options.times || 1, options.cron || false]
   priority = task.priority or '!'
 
   # If they're trying to purhcase a too-expensive reward, confirm they want to take a hit for it
@@ -198,10 +200,10 @@ obj.score = (user, task, direction, times=1, cron=false) ->
       # Add habit value to habit-history (if different)
       if (delta > 0) then addPoints() else subtractPoints()
       if task.value != value
-        (task.history ?= []).push { date: +new Date, value: value }
+        (task.history ?= []).push { date: +new Date, value: value }; paths["tasks.#{task.id}.history"] = true
 
     when 'daily'
-      if cron? # cron
+      if cron
         calculateDelta()
         subtractPoints()
         task.streak = 0
@@ -214,6 +216,7 @@ obj.score = (user, task, direction, times=1, cron=false) ->
           else
             streak = if streak then streak - 1 else 0
           task.streak = streak
+      paths["tasks.#{task.id}.streak"] = true
 
     when 'todo'
       if cron? #cron
@@ -235,11 +238,11 @@ obj.score = (user, task, direction, times=1, cron=false) ->
         # hp - gp difference
         gp = 0
 
-  task.value = value
-  updateStats user, { hp, exp, gp }
+  task.value = value; paths["tasks.#{task.id}.value"] = true
+  updateStats user, { hp, exp, gp }, paths
 
   # Drop system #FIXME
-  randomDrop(user, delta, priority, streak) if direction is 'up'
+  randomDrop(user, delta, priority, streak, paths) if direction is 'up'
 
   return delta
 
@@ -248,7 +251,7 @@ obj.score = (user, task, direction, times=1, cron=false) ->
   {stats} new stats
   {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
 ###
-updateStats = (user, newStats) ->
+updateStats = (user, newStats, paths) ->
   # if user is dead, dont do anything
   return if user.stats.hp <= 0
 
@@ -259,6 +262,7 @@ updateStats = (user, newStats) ->
       return
     else
       user.stats.hp = newStats.hp
+    paths['stats.hp'] = true
 
   if newStats.exp?
     tnl = obj.tnl(user.stats.lvl)
@@ -282,19 +286,21 @@ updateStats = (user, newStats) ->
         user.stats.hp = 50
 
     user.stats.exp = newStats.exp
+
+    paths["stats.exp"]=true; paths['stats.lvl']=true; paths['stats.gp']=true; paths['stats.hp']=true;
     #if silent
     #console.log("pushing silent :"  + obj.stats.exp)
 
 
     # Set flags when they unlock features
     if !user.flags.customizationsNotification and (user.stats.exp > 10 or user.stats.lvl > 1)
-      user.flags.customizationsNotification = true
+      user.flags.customizationsNotification = true; paths['flags.customizationsNotification']=true;
     if !user.flags.itemsEnabled and user.stats.lvl >= 2
-      user.flags.itemsEnabled = true
+      user.flags.itemsEnabled = true; paths['flags.itemsEnabled']=true;
     if !user.flags.partyEnabled and user.stats.lvl >= 3
-      user.flags.partyEnabled = true
+      user.flags.partyEnabled = true; paths['flags.partyEnabled']=true;
     if !user.flags.dropsEnabled and user.stats.lvl >= 4
-      user.flags.dropsEnabled = true
+      user.flags.dropsEnabled = true; paths['flags.dropsEnabled']=true;
 
   if newStats.gp?
     #FIXME what was I doing here? I can't remember, gp isn't defined
@@ -338,7 +344,7 @@ obj.cron = (user) ->
             thatDay = moment(today).subtract('days', n + 1)
             scheduleMisses++ if helpers.shouldDo(thatDay, repeat, obj.preferences?.dayStart) is true
         #FIXME with times & cron
-        score(user, task, 'down', scheduleMisses, true) if scheduleMisses > 0
+        score(user, task, 'down', {times:scheduleMisses, cron:true}) if scheduleMisses > 0
 
       switch type
         when 'daily'
