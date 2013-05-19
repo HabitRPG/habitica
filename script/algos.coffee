@@ -6,7 +6,7 @@
       F(require, exports, module)
 )}).define (require, exports, module)->
   helpers = require('./helpers')
-  moment = require('./moment')
+  moment = require('moment')
   items = require('./items')
   XP = 15
   HP = 2
