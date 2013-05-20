@@ -38,7 +38,7 @@ module.exports.app = (appExports, model) ->
     taskTypes = ['habit', 'daily', 'todo', 'reward']
     batch.set 'tasks', {}
     _.each taskTypes, (type) -> batch.set "#{type}Ids", []
-    batch.set 'balance', 1 if user.get('balance') < 1 #only if they haven't manually bought gems
+    #batch.set 'balance', 1 if user.get('balance') < 1 #only if they haven't manually bought gems
 
     # Reset stats
     batch.set 'stats.hp', 50
