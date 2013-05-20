@@ -121,6 +121,7 @@ get '/', (page, model, params, next) ->
 ready (model) ->
   user = model.at('_user')
   model.setNull '_user.apiToken', derby.uuid()
+  browser = require './browser'
 
   require('./character').app(exports, model)
   require('./tasks').app(exports, model)
@@ -130,21 +131,22 @@ ready (model) ->
   require('./pets').app(exports, model)
   require('../server/private').app(exports, model)
   require('./debug').app(exports, model) if model.flags.nodeEnv != 'production'
-  require('./browser').app(exports, model, app)
+  browser.app(exports, model, app)
   require('./unlock').app(exports, model)
   require('./filters').app(exports, model)
 
   ###
     Cron
   ###
-  #FIXME optimize this - don't deepClone first, check if need to run first
-  uObj = _.cloneDeep user.get() # need to clone, else derby won't catch model.set()'s after obj property sets
-  # Set it up so it's uObj.habits, uObj.dailys etc instead of uObj.tasks (it's what habitrpg-shared/algos requires)
-  _.each ['habit','daily','todo','reward'], (type) ->
-    uObj["#{type}s"] = _.where(uObj.tasks, {type:type}); true
-  paths = {}
-  algos.cron(uObj, paths)
-  delete paths['stats.hp'] # we'll set this manually so we can get a cool animation
-  _.each paths, (v,k) ->
-    user.pass({cron:true}).set(k,helpers.dotGet(k, uObj)); true
-  setTimeout (-> user.set('stats.hp', uObj.stats.hp)), 1000
+  if algos.shouldCron(user)
+    uObj = _.cloneDeep user.get() # need to clone, else derby won't catch model.set()'s after obj property sets
+    # habitrpg-shared/algos requires uObj.habits, uObj.dailys etc instead of uObj.tasks
+    _.each ['habit','daily','todo','reward'], (type) ->
+      uObj["#{type}s"] = _.where(uObj.tasks, {type:type}); true
+    paths = {}
+    algos.cron(uObj, paths)
+    lostHp = delete paths['stats.hp'] # we'll set this manually so we can get a cool animation
+    _.each paths, (v,k) -> user.pass({cron:true}).set(k,helpers.dotGet(k, uObj)); true
+    if lostHp
+      browser.resetDom(model)
+      setTimeout (-> user.set('stats.hp', uObj.stats.hp)), 750

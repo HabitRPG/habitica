@@ -17,7 +17,7 @@ module.exports.app = (appExports, model) ->
     clone our user object (if we don't do that, it screws with model.on() listeners, ping Tyler for an explaination),
     perform the updates while tracking paths, then all the values at those paths
   ###
-  score = (user, taskId, direction) ->
+  score = (taskId, direction) ->
     uObj = _.cloneDeep user.get() # need to clone, else derby won't catch model.set()'s after obj property sets
     tObj = uObj.tasks[taskId]
 
@@ -62,7 +62,7 @@ module.exports.app = (appExports, model) ->
       if task.get('value') < 0
         if confirm("Are you sure? Deleting this task will hurt you (to prevent deleting, then re-creating red tasks).") is true
           task.set('type','habit') # hack to make sure it hits HP, instead of performing "undo checkbox"
-          score(user, id, 'down')
+          score(id, 'down')
         else
           return # Cancel. Don't delete, don't hurt user
 
@@ -136,7 +136,7 @@ module.exports.app = (appExports, model) ->
   appExports.score = (e, el) ->
     task = model.at $(el).parents('li')[0]
     direction = $(el).attr('data-direction')
-    score(user, task.get('id'), direction)
+    score(task.get('id'), direction)
 
   ###
     This is how we handle appExports.score for todos & dailies. Due to Derby's special handling of `checked={:task.completd}`,
@@ -145,7 +145,7 @@ module.exports.app = (appExports, model) ->
   user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
     return if passed? && passed.cron # Don't do this stuff on cron
     direction = if completed then 'up' else 'down'
-    score(user, i, direction)
+    score(i, direction)
 
   ###
     Undo
