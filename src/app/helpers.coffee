@@ -70,6 +70,9 @@ viewHelpers = (view) ->
   view.fn "or", -> _.reduce arguments, (cumm, curr) -> cumm || curr
   view.fn "truarr", (num) -> num-1
   view.fn 'count', (arr) -> arr?.length or 0
+  view.fn 'int',
+    get: (num) -> num
+    set: (num) -> [parseInt(num)]
 
   view.fn "gems", (gp) -> return gp/0.25
 
