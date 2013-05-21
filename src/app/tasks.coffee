@@ -2,6 +2,7 @@ algos = require 'habitrpg-shared/script/algos'
 helpers = require 'habitrpg-shared/script/helpers'
 _ = require 'lodash'
 moment = require 'moment'
+misc = require './misc'
 
 
 ###
@@ -18,12 +19,14 @@ module.exports.app = (appExports, model) ->
     perform the updates while tracking paths, then all the values at those paths
   ###
   score = (taskId, direction) ->
-    uObj = _.cloneDeep user.get() # need to clone, else derby won't catch model.set()'s after obj property sets
+#    return setTimeout( (-> score(taskId, direction)), 500) if model._txnQueue.length > 0
+
+    uObj = _.cloneDeep misc.hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
     tObj = uObj.tasks[taskId]
 
     # Stuff for undo
     tObjBefore = _.cloneDeep tObj
-    tObjBefore.completed = !tObjBefore.completed if tObj.type in ['daily', 'todo']
+    tObjBefore.completed = !tObj.completed if tObj.type in ['daily', 'todo']
     setUndo uObj.stats, tObjBefore # set previous state for undo
 
     paths = {}
@@ -134,9 +137,9 @@ module.exports.app = (appExports, model) ->
     Call scoring functions for habits & rewards (todos & dailies handled below)
   ###
   appExports.score = (e, el) ->
-    task = model.at $(el).parents('li')[0]
+    id = $(el).parents('li').attr('data-id')
     direction = $(el).attr('data-direction')
-    score(task.get('id'), direction)
+    score(id, direction)
 
   ###
     This is how we handle appExports.score for todos & dailies. Due to Derby's special handling of `checked={:task.completd}`,

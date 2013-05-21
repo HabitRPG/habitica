@@ -1,9 +1,18 @@
-_ = require 'underscore'
+_ = require 'lodash'
 algos = require 'habitrpg-shared/script/algos'
 items = require('habitrpg-shared/script/items').items
 helpers = require('habitrpg-shared/script/helpers')
 
-module.exports.setup = (view) ->
+###
+  Make sure model.get() returns all properties, see https://github.com/codeparty/racer/issues/116
+###
+module.exports.hydrate = hydrate = (spec, hydrated={}) ->
+  if _.isPlainObject(spec)
+    hydrated[k] = hydrate(v, hydrated[k]) for k,v of spec
+    hydrated
+  else spec
+
+module.exports.viewHelpers = (view) ->
 
   #misc
   view.fn "percent", (x, y) ->
@@ -23,6 +32,9 @@ module.exports.setup = (view) ->
   view.fn "or", -> _.reduce arguments, (cumm, curr) -> cumm || curr
   view.fn "truarr", (num) -> num-1
   view.fn 'count', (arr) -> arr?.length or 0
+  view.fn 'int',
+    get: (num) -> num
+    set: (num) -> parseInt(num)
 
   #iCal
   view.fn "encodeiCalLink", helpers.encodeiCalLink

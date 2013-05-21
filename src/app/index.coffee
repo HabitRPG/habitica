@@ -17,7 +17,7 @@ i18n.localize app,
   urlScheme: false
   checkHeader: true
 
-require('./viewHelpers').setup view
+require('./misc').viewHelpers view
 
 _ = require('lodash')
 algos = require 'habitrpg-shared/script/algos'
@@ -135,11 +135,9 @@ ready (model) ->
   require('./unlock').app(exports, model)
   require('./filters').app(exports, model)
 
-  ###
-    Cron
-  ###
-  if algos.shouldCron(user)
-    uObj = _.cloneDeep user.get() # need to clone, else derby won't catch model.set()'s after obj property sets
+  cron = ->
+    #return setTimeout(cron, 1) if model._txnQueue.length > 0
+    uObj = _.cloneDeep misc.hydrate(user.get()) # need to clone, else derby won't catch model.set()'s after obj property sets
     # habitrpg-shared/algos requires uObj.habits, uObj.dailys etc instead of uObj.tasks
     _.each ['habit','daily','todo','reward'], (type) ->
       uObj["#{type}s"] = _.where(uObj.tasks, {type:type}); true
@@ -150,3 +148,4 @@ ready (model) ->
     if lostHp
       browser.resetDom(model)
       setTimeout (-> user.set('stats.hp', uObj.stats.hp)), 750
+  cron() if algos.shouldCron {lastCron: user.get('lastCron'), preferences: user.get('preferences')}
