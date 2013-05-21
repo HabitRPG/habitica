@@ -309,10 +309,7 @@ updateStats = (user, newStats, paths) ->
     user.stats.gp = newStats.gp
 
 obj.shouldCron = (user) ->
-  today = +new Date
-  lastCron = user.lastCron
-  return true if !lastCron? or lastCron is 'new' or moment(lastCron).isAfter(today)
-  return daysMissed = helpers.daysBetween(user.lastCron, today, user.preferences?.dayStart) > 0
+  true if !user.lastCron? or user.lastCron is 'new' or helpers.daysBetween(user.lastCron, +new Date, user.preferences?.dayStart) > 0
 
 ###
   At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
