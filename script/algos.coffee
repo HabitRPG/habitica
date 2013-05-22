@@ -1,10 +1,14 @@
 moment = require('moment')
 _ = require('lodash')
+
 helpers = require('./helpers')
 items = require('./items')
+{pets, hatchingPotions} = items.items
+
 XP = 15
 HP = 2
 obj = module.exports = {}
+
 
 obj.priorityValue = (priority = '!') ->
   switch priority
@@ -108,7 +112,7 @@ randomDrop = (user, delta, priority, streak = 0, paths) ->
 
     # Egg, 40% chance
     if rarity > .6
-      drop = randomVal(pets)
+      drop = helpers.randomVal(pets)
       (user.items.eggs ?= []).push drop; paths['items.eggs'] = true
       drop.type = 'Egg'
       drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
@@ -141,13 +145,14 @@ randomDrop = (user, delta, priority, streak = 0, paths) ->
 
       acceptableDrops = hatchingPotions.filter (hatchingPotion) ->
         hatchingPotion.name in acceptableDrops
-      drop = randomVal acceptableDrops
+      drop = helpers.randomVal acceptableDrops
       (user.items.hatchingPotions ?= []).push drop.name; paths['items.hatchingPotions'] = true
       drop.type = 'HatchingPotion'
       drop.dialog = "You've found a #{drop.text} Hatching Potion! #{drop.notes}"
 
+    # if they've dropped something, we want the consuming client to know so they can notify the user. See how the Derby
+    # app handles it for example. Would this be better handled as an emit() ?
     (user._tmp?={}).drop = drop
-    #FIXME $('#item-dropped-modal').modal 'show'
 
     user.items.lastDrop.date = +new Date
     user.items.lastDrop.count++
