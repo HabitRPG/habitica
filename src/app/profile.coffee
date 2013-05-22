@@ -1,6 +1,6 @@
 character = require './character'
 browser = require './browser'
-helpers = require './helpers'
+helpers = require 'habitrpg-shared/script/helpers'
 
 module.exports.app = (appExports, model) ->
   user = model.at('_user')

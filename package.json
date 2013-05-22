@@ -16,9 +16,7 @@
     "guid": "*",
     "moment": "*",
     "stripe": "*",
-    "lodash": "1.0.x",
     "coffee-script": "1.4.x",
-    "underscore": "*",
     "mongoskin": "*",
     "nconf": "*",
     "icalendar": "git://github.com/lefnire/node-icalendar#master",
@@ -26,7 +24,8 @@
     "resolve": "~0.2.3",
     "expect.js": "~0.2.0",
     "derby-i18n": "git://github.com/switz/derby-i18n#master",
-    "relative-date": "~1.1.1"
+    "relative-date": "~1.1.1",
+    "lodash": "~1.2.1"
   },
   "private": true,
   "subdomain": "habitrpg",

@@ -1,11 +1,37 @@
-scoring = require './scoring'
-helpers = require './helpers'
-_ = require 'underscore'
+algos = require 'habitrpg-shared/script/algos'
+helpers = require 'habitrpg-shared/script/helpers'
+_ = require 'lodash'
 moment = require 'moment'
-character = require './character'
+misc = require './misc'
 
+
+###
+  Make scoring functionality available to the app
+###
 module.exports.app = (appExports, model) ->
+  character = require './character'
   user = model.at('_user')
+
+  ###
+    algos.score wrapper for habitrpg-helpers to work in Derby. We need to do model.set() instead of simply setting the
+    object properties, and it's very difficult to diff the two objects and find dot-separated paths to set. So we to first
+    clone our user object (if we don't do that, it screws with model.on() listeners, ping Tyler for an explaination),
+    perform the updates while tracking paths, then all the values at those paths
+  ###
+  score = (taskId, direction) ->
+#    return setTimeout( (-> score(taskId, direction)), 500) if model._txnQueue.length > 0
+
+    uObj = misc.hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
+    tObj = uObj.tasks[taskId]
+
+    # Stuff for undo
+    tObjBefore = _.cloneDeep tObj
+    tObjBefore.completed = !tObjBefore.completed if tObjBefore.type in ['daily', 'todo']
+    setUndo _.cloneDeep(uObj.stats), tObjBefore # set previous state for undo
+
+    paths = {}
+    algos.score(uObj, tObj, direction, {paths:paths})
+    _.each paths, (v,k) -> user.set(k,helpers.dotGet(k, uObj))
 
   appExports.addTask = (e, el) ->
     type = $(el).attr('data-task-type')
@@ -28,26 +54,24 @@ module.exports.app = (appExports, model) ->
     model.unshift "_#{type}List", newTask
     newModel.set ''
 
-  appExports.del = (e, el) ->
+  appExports.del = (e) ->
     # Derby extends model.at to support creation from DOM nodes
     task = e.at()
     id = task.get('id')
 
     history = task.get('history')
-    if history and history.length>2
+    if history and history.length > 2
       # prevent delete-and-recreate hack on red tasks
       if task.get('value') < 0
-        result = confirm("Are you sure? Deleting this task will hurt you (to prevent deleting, then re-creating red tasks).")
-        if result != true
-          return # Cancel. Don't delete, don't hurt user
-        else
+        if confirm("Are you sure? Deleting this task will hurt you (to prevent deleting, then re-creating red tasks).") is true
           task.set('type','habit') # hack to make sure it hits HP, instead of performing "undo checkbox"
-          scoring.score(model, id, direction:'down')
+          score(id, 'down')
+        else
+          return # Cancel. Don't delete, don't hurt user
 
         # prevent accidently deleting long-standing tasks
       else
-        result = confirm("Are you sure you want to delete this task?")
-        return if result != true
+        return unless confirm("Are you sure you want to delete this task?") is true
 
     #TODO bug where I have to delete from _users.tasks AND _{type}List,
     # fix when query subscriptions implemented properly
@@ -113,14 +137,9 @@ module.exports.app = (appExports, model) ->
     Call scoring functions for habits & rewards (todos & dailies handled below)
   ###
   appExports.score = (e, el) ->
-    task= model.at $(el).parents('li')[0]
-    taskObj = task.get()
+    id = $(el).parents('li').attr('data-id')
     direction = $(el).attr('data-direction')
-
-    # set previous state for undo
-    setUndo _.clone(user.get('stats')), _.clone(taskObj)
-
-    scoring.score(model, taskObj.id, direction)
+    score(id, direction)
 
   ###
     This is how we handle appExports.score for todos & dailies. Due to Derby's special handling of `checked={:task.completd}`,
@@ -129,13 +148,7 @@ module.exports.app = (appExports, model) ->
   user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
     return if passed? && passed.cron # Don't do this stuff on cron
     direction = if completed then 'up' else 'down'
-
-    # set previous state for undo
-    taskObj = _.clone user.get("tasks.#{i}")
-    taskObj.completed = previous
-    setUndo _.clone(user.get('stats')), taskObj
-
-    scoring.score(model, i, direction)
+    score(i, direction)
 
   ###
     Undo

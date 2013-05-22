@@ -1,7 +1,6 @@
 express = require 'express'
 router = new express.Router()
 
-scoring = require '../app/scoring'
 _ = require 'underscore'
 icalendar = require('icalendar')
 api = require './api'
