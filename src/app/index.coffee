@@ -17,7 +17,8 @@ i18n.localize app,
   urlScheme: false
   checkHeader: true
 
-require('./misc').viewHelpers view
+misc = require('./misc')
+misc.viewHelpers view
 
 _ = require('lodash')
 algos = require 'habitrpg-shared/script/algos'
@@ -137,7 +138,7 @@ ready (model) ->
 
   cron = ->
     #return setTimeout(cron, 1) if model._txnQueue.length > 0
-    uObj = _.cloneDeep misc.hydrate(user.get()) # need to clone, else derby won't catch model.set()'s after obj property sets
+    uObj = misc.hydrate(user.get()) # need to clone, else derby won't catch model.set()'s after obj property sets
     # habitrpg-shared/algos requires uObj.habits, uObj.dailys etc instead of uObj.tasks
     _.each ['habit','daily','todo','reward'], (type) ->
       uObj["#{type}s"] = _.where(uObj.tasks, {type:type}); true

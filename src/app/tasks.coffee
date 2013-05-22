@@ -21,13 +21,13 @@ module.exports.app = (appExports, model) ->
   score = (taskId, direction) ->
 #    return setTimeout( (-> score(taskId, direction)), 500) if model._txnQueue.length > 0
 
-    uObj = _.cloneDeep misc.hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
+    uObj = misc.hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
     tObj = uObj.tasks[taskId]
 
     # Stuff for undo
     tObjBefore = _.cloneDeep tObj
-    tObjBefore.completed = !tObj.completed if tObj.type in ['daily', 'todo']
-    setUndo uObj.stats, tObjBefore # set previous state for undo
+    tObjBefore.completed = !tObjBefore.completed if tObjBefore.type in ['daily', 'todo']
+    setUndo _.cloneDeep(uObj.stats), tObjBefore # set previous state for undo
 
     paths = {}
     algos.score(uObj, tObj, direction, {paths:paths})
