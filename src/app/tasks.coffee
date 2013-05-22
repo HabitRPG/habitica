@@ -31,7 +31,7 @@ module.exports.app = (appExports, model) ->
 
     paths = {}
     algos.score(uObj, tObj, direction, {paths:paths})
-    _.each paths, (v,k) -> user.set(k,helpers.dotGet(k, uObj))
+    _.each paths, (v,k) -> user.set(k,helpers.dotGet(k, uObj)); true
 
   appExports.addTask = (e, el) ->
     type = $(el).attr('data-task-type')
@@ -85,7 +85,7 @@ module.exports.app = (appExports, model) ->
     completedIds =  _.pluck( _.where(model.get('_todoList'), {completed:true}), 'id')
     todoIds = user.get('todoIds')
 
-    _.each completedIds, (id) -> user.del "tasks.#{id}"
+    _.each completedIds, (id) -> user.del "tasks.#{id}"; true
     user.set 'todoIds', _.difference(todoIds, completedIds)
 
   appExports.toggleDay = (e, el) ->
@@ -159,14 +159,15 @@ module.exports.app = (appExports, model) ->
     batch = character.BatchUpdate(model)
     batch.startTransaction()
     model.del '_undo'
-    _.each undo.stats, (val, key) -> batch.set "stats.#{key}", val
+    _.each undo.stats, (val, key) -> batch.set "stats.#{key}", val; true
     taskPath = "tasks.#{undo.task.id}"
     _.each undo.task, (val, key) ->
-      return if key in ['id', 'type'] # strange bugs in this world: https://workflowy.com/shared/a53582ea-43d6-bcce-c719-e134f9bf71fd/
+      return true if key in ['id', 'type'] # strange bugs in this world: https://workflowy.com/shared/a53582ea-43d6-bcce-c719-e134f9bf71fd/
       if key is 'completed'
         user.pass({cron:true}).set("#{taskPath}.completed",val)
       else
         batch.set "#{taskPath}.#{key}", val
+      true
     batch.commit()
 
   appExports.tasksToggleAdvanced = (e, el) ->

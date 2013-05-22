@@ -1,5 +1,5 @@
 items = require 'habitrpg-shared/script/items'
-_ = require 'underscore'
+_ = require 'lodash'
 
 ###
   server exports
@@ -17,7 +17,7 @@ module.exports.app = (appExports, model) ->
   appExports.buyItem = (e, el) ->
     [type, value, index] = [ $(el).attr('data-type'), $(el).attr('data-value'), $(el).attr('data-index') ]
     if changes = items.buyItem(user.get(), type, value, index)
-      _.each changes, (v,k) -> user.set k,v
+      _.each changes, (v,k) -> user.set k,v; true
       updateStore(model)
 
   appExports.activateRewardsTab = ->
@@ -29,7 +29,7 @@ module.exports.app = (appExports, model) ->
 
 module.exports.updateStore = updateStore = (model) ->
   nextItems = items.updateStore(model.get('_user'))
-  _.each nextItems, (v,k) -> model.set("_items.next.#{k}",v)
+  _.each nextItems, (v,k) -> model.set("_items.next.#{k}",v); true
 
 
 

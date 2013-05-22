@@ -1,7 +1,7 @@
 express = require 'express'
 router = new express.Router()
 
-_ = require 'underscore'
+_ = require 'lodash'
 algos = require 'habitrpg-shared/script/algos'
 { tnl } = algos
 validator = require 'derby-auth/node_modules/validator'
@@ -83,7 +83,7 @@ router.put '/user', auth, (req, res) ->
   acceptableAttrs = ['flags', 'history', 'items', 'preferences', 'profile', 'stats']
   user.set 'lastCron', partialUser.lastCron if partialUser.lastCron?
   _.each acceptableAttrs, (attr) ->
-    _.each partialUser[attr], (val, key) -> user.set("#{attr}.#{key}", val)
+    _.each partialUser[attr], (val, key) -> user.set("#{attr}.#{key}", val);true
 
   updateTasks partialUser.tasks, req.user, req.getModel() if partialUser.tasks?
 

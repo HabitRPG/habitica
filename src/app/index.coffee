@@ -38,12 +38,12 @@ cleanupCorruptTasks = (model) ->
     unless task?.id? and task?.type?
       user.del("tasks.#{key}")
       delete tasks[key]
-      true
+    true
 
   batch = null
 
   ## Task List Cleanup
-  _.each ['habit','daily','todo','reward'], (type) ->
+  ['habit','daily','todo','reward'].forEach (type) ->
 
     # 1. remove duplicates
     # 2. restore missing zombie tasks back into list

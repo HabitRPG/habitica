@@ -1,4 +1,4 @@
-_ = require 'underscore'
+_ = require 'lodash'
 { randomVal } = require 'habitrpg-shared/script/helpers'
 { pets, hatchingPotions } = require('habitrpg-shared/script/items').items
 

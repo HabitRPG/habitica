@@ -1,4 +1,4 @@
-_ = require('underscore')
+_ = require('lodash')
 helpers = require('habitrpg-shared/script/helpers')
 
 module.exports.app = (appExports, model, app) ->

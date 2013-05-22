@@ -1,7 +1,7 @@
 express = require 'express'
 router = new express.Router()
 
-_ = require 'underscore'
+_ = require 'lodash'
 icalendar = require('icalendar')
 api = require './api'
 
@@ -44,6 +44,7 @@ router.get '/v1/users/:uid/calendar.ics', (req, res) ->
       d.date_only = true
       event.setDate d
       ical.addComponent event
+      true
     res.type('text/calendar')
     formattedIcal = ical.toString().replace(/DTSTART\:/g, 'DTSTART;VALUE=DATE:')
     res.send(200, formattedIcal)

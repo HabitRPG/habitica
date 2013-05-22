@@ -3,8 +3,7 @@ items = require './items'
 algos = require 'habitrpg-shared/script/algos'
 
 moment = require 'moment'
-_ = require 'underscore'
-lodash = require 'lodash'
+_ = require 'lodash'
 derby = require 'derby'
 
 module.exports.app = (appExports, model) ->
@@ -36,7 +35,7 @@ module.exports.app = (appExports, model) ->
     batch.startTransaction()
     taskTypes = ['habit', 'daily', 'todo', 'reward']
     batch.set 'tasks', {}
-    _.each taskTypes, (type) -> batch.set "#{type}Ids", []
+    taskTypes.forEach (type) -> batch.set "#{type}Ids", []
     #batch.set 'balance', 1 if user.get('balance') < 1 #only if they haven't manually bought gems
 
     # Reset stats
@@ -105,7 +104,7 @@ userSchema =
 
 module.exports.newUserObject = ->
   # deep clone, else further new users get duplicate objects
-  newUser = lodash.cloneDeep userSchema
+  newUser = _.cloneDeep userSchema
   newUser.apiToken = derby.uuid()
 
   repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
@@ -180,7 +179,7 @@ module.exports.BatchUpdate = BatchUpdate = (model) ->
   setStats: (stats) ->
     stats ?= obj.stats
     that = @
-    _.each Object.keys(stats), (key) -> that.set "stats.#{key}", stats[key]
+    _.each Object.keys(stats), (key) -> that.set "stats.#{key}", stats[key]; true
 
 #    queue: (path, val) ->
 #      # Special function for setting object properties by string dot-notation. See http://stackoverflow.com/a/6394168/362790
