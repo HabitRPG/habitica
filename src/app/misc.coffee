@@ -34,7 +34,7 @@ module.exports.viewHelpers = (view) ->
   view.fn 'count', (arr) -> arr?.length or 0
   view.fn 'int',
     get: (num) -> num
-    set: (num) -> parseInt(num)
+    set: (num) -> [parseInt(num)]
 
   #iCal
   view.fn "encodeiCalLink", helpers.encodeiCalLink
