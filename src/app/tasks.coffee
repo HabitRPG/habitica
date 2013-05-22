@@ -19,7 +19,7 @@ module.exports.app = (appExports, model) ->
     perform the updates while tracking paths, then all the values at those paths
   ###
   score = (taskId, direction) ->
-#    return setTimeout( (-> score(taskId, direction)), 500) if model._txnQueue.length > 0
+    #return setTimeout( (-> score(taskId, direction)), 500) if model._txnQueue.length > 0
 
     uObj = misc.hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
     tObj = uObj.tasks[taskId]

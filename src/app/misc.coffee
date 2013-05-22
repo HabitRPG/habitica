@@ -6,9 +6,11 @@ helpers = require('habitrpg-shared/script/helpers')
 ###
   Make sure model.get() returns all properties, see https://github.com/codeparty/racer/issues/116
 ###
-module.exports.hydrate = hydrate = (spec, hydrated={}) ->
-  if _.isPlainObject(spec)
-    hydrated[k] = hydrate(v, hydrated[k]) for k,v of spec
+module.exports.hydrate = hydrate = (spec) ->
+  if _.isObject(spec) and !_.isArray(spec)
+    hydrated = {}
+    keys = _.keys(spec).concat(_.keys(spec.__proto__))
+    keys.forEach (k) -> hydrated[k] = hydrate(spec[k])
     hydrated
   else spec
 
