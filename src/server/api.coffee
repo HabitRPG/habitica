@@ -7,6 +7,7 @@ algos = require 'habitrpg-shared/script/algos'
 validator = require 'derby-auth/node_modules/validator'
 check = validator.check
 sanitize = validator.sanitize
+misc = require '../app/misc'
 
 NO_TOKEN_OR_UID = err: "You must include a token and uid (user id) in your request"
 NO_USER_FOUND = err: "No user found."
