@@ -65,8 +65,7 @@ obj.hpModifier = (value, armorDef, helmDef, shieldDef, level, priority = '!') ->
 obj.gpModifier = (value, modifier, priority = '!', streak, user) ->
   val = value * modifier * obj.priorityValue(priority)
   if streak and user
-    streakBonus = streak / 100 + 1
-    # eg, 1-day streak is 1.1, 2-day is 1.2, etc
+    streakBonus = streak / 100 + 1 # eg, 1-day streak is 1.1, 2-day is 1.2, etc
     afterStreak = val * streakBonus
     (user._tmp?={}).streakBonus = afterStreak - val if (val > 0) # keep this on-hand for later, so we can notify streak-bonus
     return afterStreak
@@ -224,7 +223,7 @@ obj.score = (user, task, direction, options={}) ->
       paths["tasks.#{task.id}.streak"] = true
 
     when 'todo'
-      if cron? #cron
+      if cron
         calculateDelta()
         #don't touch stats on cron
       else
