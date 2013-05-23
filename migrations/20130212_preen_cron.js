@@ -31,7 +31,7 @@ var un_registered = {
 db.users.find(un_registered).forEach(function(user) {
     if (!user) return;
     if (!!user.lastCron) {
-        if (Math.abs(moment(today).diff(user.lastCron, 'd')) > 5) {
+        if (Math.abs(moment(today).diff(user.lastCron, 'days')) > 7) {
             return db.users.remove({_id:user._id});
         }
     } else {
