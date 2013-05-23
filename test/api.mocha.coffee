@@ -1,4 +1,4 @@
-_ = require 'underscore'
+_ = require 'lodash'
 request = require 'superagent'
 expect = require 'expect.js'
 require 'coffee-script'
@@ -373,7 +373,7 @@ describe 'API', ->
           expect(res.statusCode).to.be 201
           tasks = res.body.tasks
 
-          expect(_.findWhere(tasks,{id:habitId})).to.eql {id: habitId,text: 'hello2',notes: 'note2'}
+          expect(_.first(tasks,{id:habitId})).to.eql {id: habitId,text: 'hello2',notes: 'note2'}
         
           foundNewTask = _.findWhere(tasks,{text:'new task2'})
           expect(foundNewTask.text).to.be 'new task2'

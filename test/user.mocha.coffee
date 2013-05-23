@@ -1,8 +1,7 @@
 {expect} = require 'derby/node_modules/racer/test/util'
 {BrowserModel: Model} = require 'derby/node_modules/racer/test/util/model'
 derby = require 'derby'
-lodash = require 'lodash'
-_ = require 'underscore'
+_ = require 'lodash'
 moment = require 'moment'
 
 # Custom modules
@@ -20,8 +19,8 @@ taskPath = null
 # Otherwise, using model.get(path) will give the same object before as after
 pathSnapshots = (paths) ->
   if _.isString(paths)
-    return lodash.cloneDeep(model.get(paths))
-  _.map paths, (path) -> lodash.cloneDeep(model.get(path))
+    return _.cloneDeep(model.get(paths))
+  _.map paths, (path) -> _.cloneDeep(model.get(path))
 statsTask = -> pathSnapshots(['_user.stats', taskPath]) # quick snapshot of user.stats & task
 
 cleanUserObj = ->
