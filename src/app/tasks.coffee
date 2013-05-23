@@ -32,8 +32,8 @@ module.exports.app = (appExports, model) ->
     paths = {}
     algos.score(uObj, tObj, direction, {paths:paths})
     _.each paths, (v,k) -> user.set(k,helpers.dotGet(k, uObj)); true
+    model.set('_streakBonus', uObj._tmp.streakBonus) if uObj._tmp?.streakBonus
     if uObj._tmp?.drop and $?
-      debugger
       model.set '_drop', uObj._tmp.drop
       $('#item-dropped-modal').modal 'show'
 
