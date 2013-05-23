@@ -256,7 +256,7 @@ scoreTask = (req, res, next) ->
     model.at("_#{type}List").push task
 
   #FIXME
-  delta = algos.score(user.get(), taskId, direction)
+  delta = misc.score(model, taskId, direction)
   result = model.get '_user.stats'
   result.delta = delta
   res.json result

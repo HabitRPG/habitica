@@ -12,31 +12,6 @@ module.exports.app = (appExports, model) ->
   character = require './character'
   user = model.at('_user')
 
-  ###
-    algos.score wrapper for habitrpg-helpers to work in Derby. We need to do model.set() instead of simply setting the
-    object properties, and it's very difficult to diff the two objects and find dot-separated paths to set. So we to first
-    clone our user object (if we don't do that, it screws with model.on() listeners, ping Tyler for an explaination),
-    perform the updates while tracking paths, then all the values at those paths
-  ###
-  score = (taskId, direction) ->
-    #return setTimeout( (-> score(taskId, direction)), 500) if model._txnQueue.length > 0
-
-    uObj = misc.hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
-    tObj = uObj.tasks[taskId]
-
-    # Stuff for undo
-    tObjBefore = _.cloneDeep tObj
-    tObjBefore.completed = !tObjBefore.completed if tObjBefore.type in ['daily', 'todo']
-    setUndo _.cloneDeep(uObj.stats), tObjBefore # set previous state for undo
-
-    paths = {}
-    algos.score(uObj, tObj, direction, {paths:paths})
-    _.each paths, (v,k) -> user.set(k,helpers.dotGet(k, uObj)); true
-    model.set('_streakBonus', uObj._tmp.streakBonus) if uObj._tmp?.streakBonus
-    if uObj._tmp?.drop and $?
-      model.set '_drop', uObj._tmp.drop
-      $('#item-dropped-modal').modal 'show'
-
   appExports.addTask = (e, el) ->
     type = $(el).attr('data-task-type')
     newModel = model.at('_new' + type.charAt(0).toUpperCase() + type.slice(1))
@@ -69,7 +44,7 @@ module.exports.app = (appExports, model) ->
       if task.get('value') < 0
         if confirm("Are you sure? Deleting this task will hurt you (to prevent deleting, then re-creating red tasks).") is true
           task.set('type','habit') # hack to make sure it hits HP, instead of performing "undo checkbox"
-          score(id, 'down')
+          misc.score(model, id, 'down', true)
         else
           return # Cancel. Don't delete, don't hurt user
 
@@ -130,29 +105,22 @@ module.exports.app = (appExports, model) ->
   appExports.todosShowRemaining = -> model.set '_showCompleted', false
   appExports.todosShowCompleted = -> model.set '_showCompleted', true
 
-  setUndo = (stats, task) ->
-    previousUndo = model.get('_undo')
-    clearTimeout(previousUndo.timeoutId) if previousUndo?.timeoutId
-    timeoutId = setTimeout (-> model.del('_undo')), 10000
-    model.set '_undo', {stats:stats, task:task, timeoutId: timeoutId}
-
-
   ###
     Call scoring functions for habits & rewards (todos & dailies handled below)
   ###
   appExports.score = (e, el) ->
     id = $(el).parents('li').attr('data-id')
     direction = $(el).attr('data-direction')
-    score(id, direction)
+    misc.score(model, id, direction, true)
 
   ###
     This is how we handle appExports.score for todos & dailies. Due to Derby's special handling of `checked={:task.completd}`,
     the above function doesn't work so we need a listener here
   ###
   user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
-    return if passed? && passed.cron # Don't do this stuff on cron
+    return if passed?.cron # Don't do this stuff on cron
     direction = if completed then 'up' else 'down'
-    score(i, direction)
+    misc.score(model, i, direction, true)
 
   ###
     Undo

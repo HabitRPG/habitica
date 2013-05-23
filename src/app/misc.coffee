@@ -4,6 +4,37 @@ items = require('habitrpg-shared/script/items').items
 helpers = require('habitrpg-shared/script/helpers')
 
 ###
+  algos.score wrapper for habitrpg-helpers to work in Derby. We need to do model.set() instead of simply setting the
+  object properties, and it's very difficult to diff the two objects and find dot-separated paths to set. So we to first
+  clone our user object (if we don't do that, it screws with model.on() listeners, ping Tyler for an explaination),
+  perform the updates while tracking paths, then all the values at those paths
+###
+module.exports.score = (model, taskId, direction, allowUndo=false) ->
+  #return setTimeout( (-> score(taskId, direction)), 500) if model._txnQueue.length > 0
+  user = model.at("_user")
+
+  uObj = hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
+  tObj = uObj.tasks[taskId]
+
+  # Stuff for undo
+  if allowUndo
+    tObjBefore = _.cloneDeep tObj
+    tObjBefore.completed = !tObjBefore.completed if tObjBefore.type in ['daily', 'todo']
+    previousUndo = model.get('_undo')
+    clearTimeout(previousUndo.timeoutId) if previousUndo?.timeoutId
+    timeoutId = setTimeout (-> model.del('_undo')), 20000
+    model.set '_undo', {stats:_.cloneDeep(uObj.stats), task:tObjBefore, timeoutId: timeoutId}
+
+  paths = {}
+  delta = algos.score(uObj, tObj, direction, {paths:paths})
+  _.each paths, (v,k) -> user.set(k,helpers.dotGet(k, uObj)); true
+  model.set('_streakBonus', uObj._tmp.streakBonus) if uObj._tmp?.streakBonus
+  if uObj._tmp?.drop and $?
+    model.set '_drop', uObj._tmp.drop
+    $('#item-dropped-modal').modal 'show'
+  delta
+
+###
   Make sure model.get() returns all properties, see https://github.com/codeparty/racer/issues/116
 ###
 module.exports.hydrate = hydrate = (spec) ->
