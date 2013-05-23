@@ -100,9 +100,9 @@ module.exports.updateStore = (user) ->
     showNext = true
     if i is items[type].length - 1
       if (type in ['armor', 'shield', 'head'])
-        showNext = user.backer.tier >= 45 # backer armor
+        showNext = user.backer?.tier and user.backer.tier >= 45 # backer armor
       else
-        showNext = user.backer.tier >= 70 # backer weapon
+        showNext = user.backer?.tier and user.backer.tier >= 70 # backer weapon
     else if i is items[type].length
       showNext = false
     changes[type] = if showNext then items[type][i] else {hide:true}
