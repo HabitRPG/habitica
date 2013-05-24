@@ -8,5 +8,9 @@
     "lodash": "~1.2.1",
     "moment": "~2.0.0",
     "relative-date": "~1.1.1"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "expect.js": "*"
   }
 }
