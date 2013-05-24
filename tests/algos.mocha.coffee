@@ -13,9 +13,45 @@ describe 'Cron', ->
   user = undefined
   beforeEach -> user = helpers.newUser()
 
+  beforeAfter = (options={}) ->
+    [before, after] = [_.cloneDeep(user), _.cloneDeep(user)]
+    lastCron = +moment().subtract('days',options.daysAgo) if options.daysAgo
+    _.each [before,after], (obj) ->
+      obj.lastCron = lastCron if options.daysAgo
+
+    {before:before, after:after}
+
   it 'computes shouldCron', ->
+    expect(algos.shouldCron(user)).to.be true # handlomg lastCron='new'
+    user.lastCron = moment().subtract('days',1)
     expect(algos.shouldCron(user)).to.be true
 
+    user.lastCron = moment().add('days',1)
+    expect(algos.shouldCron(user)).to.be false
+
+  it 'only dailies & todos are effected', ->
+    {before,after} = beforeAfter({daysAgo:1})
+    before.dailys = before.todos = after.dailys = after.todos = []
+    algos.cron(after)
+    expect(after.lastCron).to.not.be before.lastCron # make sure cron was run
+    expect(before.stats).to.eql after.stats
+    beforeTasks = before.habits.concat(before.dailys).concat(before.todos).concat(before.rewards)
+    afterTasks = after.habits.concat(after.dailys).concat(after.todos).concat(after.rewards)
+    expect(beforeTasks).to.eql afterTasks
+
+  it 'todos: 1 day missed', ->
+    {before,after} = beforeAfter({daysAgo:1})
+    before.dailys = after.dailys = []
+    algos.cron(after)
+
+    # todos don't effect stats
+    expect(after.stats.hp).to.be 50
+    expect(after.stats.exp).to.be 0
+    expect(after.stats.gp).to.be 0
+
+    # but they devalue
+    expect(after.todos[0].value).to.be.lessThan before.todos[0].value
+    expect(_.size(after.history.todos)).to.be 1
 
   it 'calculates day differences with dayStart properly', ->
     dayStart = 4
