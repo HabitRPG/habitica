@@ -90,7 +90,8 @@ obj.taskDeltaFormula = (currentValue, direction) ->
   Drop System
 ###
 
-randomDrop = (user, delta, priority, streak = 0, paths) ->
+randomDrop = (user, delta, priority, streak = 0, options={}) ->
+  paths = options.paths || {}
   # limit drops to 2 / day
   user.items.lastDrop ?=
     date: +moment().subtract('d', 1) # trick - set it to yesterday on first run, that way they can get drops today
@@ -243,10 +244,10 @@ obj.score = (user, task, direction, options={}) ->
         gp = 0
 
   task.value = value; paths["tasks.#{task.id}.value"] = true
-  updateStats user, { hp, exp, gp }, paths
+  updateStats user, { hp, exp, gp }, {paths: paths}
 
   # Drop system #FIXME
-  randomDrop(user, delta, priority, streak, paths) if direction is 'up'
+  randomDrop(user, delta, priority, streak, {paths: paths}) if direction is 'up'
 
   return delta
 
@@ -255,7 +256,8 @@ obj.score = (user, task, direction, options={}) ->
   {stats} new stats
   {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
 ###
-updateStats = (user, newStats, paths) ->
+updateStats = (user, newStats, options={}) ->
+  paths = options.paths || {}
   # if user is dead, dont do anything
   return if user.stats.hp <= 0
 
@@ -312,27 +314,34 @@ updateStats = (user, newStats, paths) ->
     gp = 0.0 if (!gp? or gp < 0)
     user.stats.gp = newStats.gp
 
-obj.shouldCron = (user) ->
-  true if !user.lastCron? or user.lastCron is 'new' or helpers.daysBetween(user.lastCron, +new Date, user.preferences?.dayStart) > 0
+###
+  Test if we should run cron
+  {user} pass in the user object
+  {now} optional - we can decide which time is "now", which is especially helpful in tests
+###
+obj.shouldCron = (user, options={}) ->
+  now = options.now || +new Date
+  return true if !user.lastCron? or user.lastCron is 'new' or helpers.daysBetween(user.lastCron, now, user.preferences?.dayStart) > 0
+  return false
 
 ###
   At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
   For incomplete Dailys, deduct experience
   Make sure to run this function once in a while as server will not take care of overnight calculations.
   And you have to run it every time client connects.
+  {user}
 ###
-obj.cron = (user, paths={}) ->
-  today = +new Date
+obj.cron = (user, options={}) ->
+  [paths, now] = [options.paths || {}, options.now || +new Date]
 
-  lastCron = user.lastCron
   # New user (!lastCron, lastCron==new) or it got busted somehow, maybe they went to a different timezone
-  if !lastCron? or lastCron is 'new' or moment(lastCron).isAfter(today)
-    user.lastCron = today; paths['lastCron'] = true
+  if !user.lastCron? or user.lastCron is 'new' or moment(user.lastCron).isAfter(now)
+    user.lastCron = now; paths['lastCron'] = true
     return
 
-  daysMissed = helpers.daysBetween(user.lastCron, today, user.preferences?.dayStart)
+  daysMissed = helpers.daysBetween(user.lastCron, now, user.preferences?.dayStart)
   if daysMissed > 0
-    user.lastCron = today; paths['lastCron'] = true
+    user.lastCron = now; paths['lastCron'] = true
 
     # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
     # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
@@ -349,7 +358,7 @@ obj.cron = (user, paths={}) ->
         if (type is 'daily') and repeat
           scheduleMisses = 0
           _.times daysMissed, (n) ->
-            thatDay = moment(today).subtract('days', n + 1)
+            thatDay = moment(now).subtract('days', n + 1)
             scheduleMisses++ if helpers.shouldDo(thatDay, repeat, obj.preferences?.dayStart) is true
         obj.score(user, task, 'down', {times:scheduleMisses, cron:true, paths:paths}) if scheduleMisses > 0
 
@@ -375,7 +384,7 @@ obj.cron = (user, paths={}) ->
 
 
     # Finished tallying
-    ((user.history ?= {}).todos ?= []).push { date: today, value: todoTally }
+    ((user.history ?= {}).todos ?= []).push { date: now, value: todoTally }
     # tally experience
     expTally = user.stats.exp
     lvl = 0
@@ -383,7 +392,7 @@ obj.cron = (user, paths={}) ->
     while lvl < (user.stats.lvl - 1)
       lvl++
       expTally += obj.tnl(lvl)
-    (user.history.exp ?= []).push { date: today, value: expTally }
+    (user.history.exp ?= []).push { date: now, value: expTally }
     paths["history"] = true
     user
 
