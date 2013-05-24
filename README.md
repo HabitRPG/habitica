@@ -4,22 +4,17 @@ Shared resources useful for the multiple HabitRPG repositories, that way all the
  * Algorithms - level up algorithm, scoring functions, etc
  * Item definitions - weapons, armor, pets 
 
-##Browserify Usage (TODO fix up this documentation to use old browserify setup)
-The `Makefile` runs Browserify to compile `index-browser.js`, which you include in a `<script/>` tag in your index.html. This way, you get all the JS min/concat'd
- * `npm install`
- * `make`
-
 ##Installation
+`npm install`
+`make`
 
 * Node.js
-    * "npm install coffee-script" to be able to require CS
-    * "npm install requirejs" to enable loading of AMD type modules within indicated subfolder
-    * Configure requirejs module as observerd in examples/node.js/server.js
-    * run "node server" from within "examples/node.js" folder (it should output message in CAPS to console.log)
-* Browser - use require.js with "cs" plugin to include algos.coffee directly into your index.html
-    * See examples/browser folder.
-    * Run plain http-server from within "examples/browser" folder and point your browser to index.html to see how it works. (it should output message in CAPS to console.log)
- 
+    * `require ('coffee-script')`
+    * `var shared = require('./index.js')` or `require('./script/algos.coffee')` if you only need one file.
+* Browser
+    * Use `<script/>` tag to include ./browser/browser.js it will export `window.habitrpgShared` object.
+
+
 * Note how to invoke scoring function:
  * algos.score = function (user, task, direction) {}
 

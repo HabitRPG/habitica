@@ -1,8 +1,8 @@
 moment = require('moment')
 _ = require('lodash')
 
-helpers = require('./helpers')
-items = require('./items')
+helpers = require('./helpers.coffee')
+items = require('./items.coffee')
 {pets, hatchingPotions} = items.items
 
 XP = 15
