@@ -264,11 +264,10 @@ updateStats = (user, newStats, options={}) ->
   if newStats.hp?
     # Game Over
     if newStats.hp <= 0
-      user.stats.hp = 0 # signifies dead
+      user.stats.hp = 0; paths['stats.hp'] = true # signifies dead
       return
     else
-      user.stats.hp = newStats.hp
-    paths['stats.hp'] = true
+      user.stats.hp = newStats.hp; paths['stats.hp'] = true
 
   if newStats.exp?
     tnl = obj.tnl(user.stats.lvl)
