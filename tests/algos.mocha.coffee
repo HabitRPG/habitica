@@ -39,19 +39,42 @@ describe 'Cron', ->
     afterTasks = after.habits.concat(after.dailys).concat(after.todos).concat(after.rewards)
     expect(beforeTasks).to.eql afterTasks
 
-  it 'todos: 1 day missed', ->
-    {before,after} = beforeAfter({daysAgo:1})
-    before.dailys = after.dailys = []
-    algos.cron(after)
+  describe 'Todos', ->
+    it '1 day missed', ->
+      {before,after} = beforeAfter({daysAgo:1})
+      before.dailys = after.dailys = []
+      algos.cron(after)
 
-    # todos don't effect stats
-    expect(after.stats.hp).to.be 50
-    expect(after.stats.exp).to.be 0
-    expect(after.stats.gp).to.be 0
+      # todos don't effect stats
+      expect(after.stats.hp).to.be 50
+      expect(after.stats.exp).to.be 0
+      expect(after.stats.gp).to.be 0
 
-    # but they devalue
-    expect(after.todos[0].value).to.be.lessThan before.todos[0].value
-    expect(_.size(after.history.todos)).to.be 1
+      # but they devalue
+      expect(after.todos[0].value).to.be.lessThan before.todos[0].value
+      expect(_.size(after.history.todos)).to.be 1
+
+  describe 'Dailies', ->
+
+    it '1 day missed', ->
+      {before,after} = beforeAfter({daysAgo:1})
+      [before.dailys, after.dailys] = [ [before.dailys[0]], [after.dailys[0]] ]
+      algos.cron(after)
+
+      # todos don't effect stats
+      expect(after.stats.hp).to.be.within(47,49)
+      expect(after.stats.exp).to.be 0
+      expect(after.stats.gp).to.be 0
+
+      # but they devalue
+      expect(after.dailys[0].value).to.be.lessThan before.dailys[0].value
+      expect(_.size(after.dailys[0].history)).to.be 1
+
+    it '1 day missed, not due'
+    it '1 day missed, not day start yet'
+    it '3 day missed, only 1 due'
+    it '3 day missed, only 1 due, not day start yet'
+
 
   it 'calculates day differences with dayStart properly', ->
     dayStart = 4
@@ -109,94 +132,3 @@ describe 'User', ->
         expect(after.stats.exp).to.be.greaterThan before.stats.exp
         expect(after.stats.gp).to.be.greaterThan before.stats.gp
         expect(after.habits[0].value).to.be.greaterThan before.habits[0].value
-
-
-      it.skip 'made proper modifications when down-scored', ->
-        ## Trial 1
-
-        shouldBe = modificationsLookup('down')
-        scoring.score(uuid,'down')
-        [stats, task] = statsTask()
-        expect(stats.hp).to.be.eql shouldBe.user.stats.hp
-        expect(task.value).to.eql  shouldBe.value
-
-        ## Trial 2
-        freshTask {type: 'habit', text: 'Habit', completed: false}
-        shouldBe = modificationsLookup('down', {times:10})
-        scoring.score(uuid,'down', {times:10})
-        [stats, task] = statsTask()
-        expect(stats.hp).to.be.eql shouldBe.user.stats.hp
-        expect(task.value).to.eql  shouldBe.value
-
-      it.skip 'made proper modifications when up-scored', ->
-        # Up-score the habit
-        [statsBefore, taskBefore] = statsTask()
-        scoring.score(uuid, 'up')
-        [statsAfter, taskAfter] = statsTask()
-
-        # User should have gained Exp, GP
-        expect(statsAfter.exp).to.be.greaterThan statsBefore.exp
-        expect(statsAfter.money).to.be.greaterThan statsBefore.money
-        # HP should not change
-        expect(statsAfter.hp).to.eql statsBefore.hp
-        # Task should have lost value
-        expect(taskBefore.value).to.eql 0
-        expect(taskAfter.value).to.be.greaterThan taskBefore.value
-
-        ## Trial 2
-        taskBefore = pathSnapshots(taskPath)
-        scoring.score(uuid, 'up')
-        taskAfter = pathSnapshots(taskPath)
-        # Should have lost in value
-        expect(taskAfter.value).to.be > taskBefore.value
-        # And lost more than trial 1
-        diff = Math.abs(taskAfter.value) - Math.abs(taskBefore.value)
-        expect(diff).to.be.lessThan 1
-
-      describe.skip 'Lvl & Items', ->
-
-        beforeEach ->
-          freshTask {type: 'habit', text: 'Habit', up: true, down: true}
-
-        it 'modified damage based on lvl & armor'
-        it 'modified exp/gp based on lvl & weapon'
-        it 'always decreases hp with damage, regardless of stats/items'
-        it 'always increases exp/gp with gain, regardless of stats/items'
-
-    describe.skip 'Dailies', ->
-
-      beforeEach ->
-        freshTask {type: 'daily', text: 'Daily', completed: false}
-
-      it 'created the daily', ->
-        task = model.get(taskPath)
-        expect(task.text).to.eql 'Daily'
-        expect(task.value).to.eql 0
-
-      it 'does proper calculations when daily is complete'
-      it 'calculates dailys properly when they have repeat dates'
-
-      runCron = (times, pass=1) ->
-        # Set lastCron to days ago
-        today = new moment()
-        ago = new moment().subtract('days',times)
-        model.set '_user.lastCron', ago.toDate()
-        # Run run
-        scoring.cron()
-        [stats, task] = statsTask()
-
-        # Should have updated cron to today
-        lastCron = moment(model.get('_user.lastCron'))
-        expect(today.diff(lastCron, 'days')).to.eql 0
-
-        shouldBe = modificationsLookup('down', {times:times*pass})
-        # Should have updated points properly
-        expect(Math.round(stats.hp)).to.be.eql Math.round(shouldBe.user.stats.hp)
-        expect(Math.round(task.value)).to.eql  Math.round(shouldBe.value)
-
-      it 'calculates user.stats & task.value properly on cron', ->
-        runCron(10)
-
-      it 'runs cron multiple times properly', ->
-        runCron(5)
-        runCron(5, 2)
