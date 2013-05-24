@@ -22,7 +22,7 @@ expect.Assertion::be = expect.Assertion::equal = (obj) ->
   origBe.call this, obj
 
 # Custom modules
-character = require '../src/app/character'
+helpers = require 'habitrpg-shared/script/helpers'
 
 ###### Helpers & Variables ######
 
@@ -48,7 +48,7 @@ describe 'API', ->
       #store.flush()
       model = store.createModel()
       model.set '_userId', uid = model.id()
-      user = character.newUserObject()
+      user = helpers.newUser(true)
       user.apiToken = model.id()
       model.session = {userId:uid}
       model.set "users.#{uid}", user

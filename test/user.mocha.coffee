@@ -7,7 +7,7 @@ moment = require 'moment'
 # Custom modules
 scoring = require '../src/app/scoring'
 schema = require '../src/app/character'
-helpers = require '../src/app/helpers'
+helpers = require 'habitrpg-shared/script/helpers'
 
 ###### Helpers & Variables ######
 
@@ -24,7 +24,7 @@ pathSnapshots = (paths) ->
 statsTask = -> pathSnapshots(['_user.stats', taskPath]) # quick snapshot of user.stats & task
 
 cleanUserObj = ->
-  userObj = schema.newUserObject()
+  userObj = helpers.newUser()
   userObj.tasks = {}
   userObj.habitIds = []
   userObj.dailyIds = []
@@ -84,7 +84,7 @@ describe 'User', ->
 
   before ->
     model = new Model
-    model.set '_user', schema.newUserObject()
+    model.set '_user', helpers.newUser()
     scoring.setModel model
 
   it 'sets correct user defaults', ->

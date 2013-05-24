@@ -121,7 +121,6 @@ get '/', (page, model, params, next) ->
 
 ready (model) ->
   user = model.at('_user')
-  model.setNull '_user.apiToken', derby.uuid()
   browser = require './browser'
 
   require('./character').app(exports, model)
