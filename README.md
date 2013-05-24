@@ -13,6 +13,7 @@ Shared resources useful for the multiple HabitRPG repositories, that way all the
     * `var shared = require('./index.js')` or `require('./script/algos.coffee')` if you only need one file.
 * Browser
     * Use `<script/>` tag to include ./browser/browser.js it will export `window.habitrpgShared` object.
+    * Use `browser.debug.js' if you want to have sourcemaps.
 
 
 * Note how to invoke scoring function:

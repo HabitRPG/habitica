@@ -7,7 +7,7 @@ try {
     window;
     window.habitrpgShared = exports;
 } catch(e) {}
-},{"./algos.coffee":2,"./helpers.coffee":3,"./items.coffee":4}],2:[function(require,module,exports){
+},{"./algos.coffee":2,"./items.coffee":3,"./helpers.coffee":4}],2:[function(require,module,exports){
 (function() {
   var HP, XP, hatchingPotions, helpers, items, moment, obj, pets, randomDrop, updateStats, _, _ref,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
@@ -515,7 +515,7 @@ try {
 }).call(this);
 
 
-},{"./helpers.coffee":3,"./items.coffee":4,"moment":5,"lodash":6}],4:[function(require,module,exports){
+},{"./helpers.coffee":4,"./items.coffee":3,"moment":5,"lodash":6}],3:[function(require,module,exports){
 (function() {
   var items, _;
 
@@ -978,7 +978,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 (function(process){(function() {
   var algos, dayMapping, daysBetween, items, moment, shouldDo, sod, _;
 
@@ -1401,7 +1401,7 @@ process.chdir = function (dir) {
 
 
 })(require("__browserify_process"))
-},{"./algos.coffee":2,"./items.coffee":4,"moment":5,"lodash":6,"relative-date":8,"__browserify_process":7}],5:[function(require,module,exports){
+},{"./items.coffee":3,"./algos.coffee":2,"moment":5,"lodash":6,"relative-date":8,"__browserify_process":7}],5:[function(require,module,exports){
 (function(){// moment.js
 // version : 2.0.0
 // author : Tim Wood
