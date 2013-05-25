@@ -1,9 +1,11 @@
 moment = require('moment')
 _ = require('lodash')
-
 helpers = require('./helpers.coffee')
 items = require('./items.coffee')
 {pets, hatchingPotions} = items.items
+
+# Very strange bug where `require(./script/helpers.coffee)` is returning a blank object under certain circumsntances I haven't yet figured out
+helpers = require('habitrpg-shared/script/helpers') if _.isEmpty(helpers)
 
 XP = 15
 HP = 2
