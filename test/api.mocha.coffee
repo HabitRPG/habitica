@@ -373,13 +373,13 @@ describe 'API', ->
           expect(res.statusCode).to.be 201
           tasks = res.body.tasks
 
-          expect(_.first(tasks,{id:habitId})).to.eql {id: habitId,text: 'hello2',notes: 'note2'}
+          expect(_.find(tasks,{id:habitId})).to.eql {id: habitId,text: 'hello2',notes: 'note2'}
         
-          foundNewTask = _.findWhere(tasks,{text:'new task2'})
+          foundNewTask = _.find(tasks,{text:'new task2'})
           expect(foundNewTask.text).to.be 'new task2'
           expect(foundNewTask.notes).to.be 'notes2'
         
-          found = _.findWhere(res.body.tasks, {id:dailyId})
+          found = _.find(res.body.tasks, {id:dailyId})
           expect(found).to.not.be.ok()
 
           query.fetch (err, user) ->

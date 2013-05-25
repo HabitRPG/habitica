@@ -26,7 +26,7 @@ module.exports.score = (model, taskId, direction, allowUndo=false) ->
     model.set '_undo', {stats:_.cloneDeep(uObj.stats), task:tObjBefore, timeoutId: timeoutId}
 
   paths = {}
-  delta = algos.score(uObj, tObj, direction, {paths:paths})
+  delta = algos.score(uObj, tObj, direction, {paths})
   _.each paths, (v,k) -> user.set(k,helpers.dotGet(k, uObj)); true
   model.set('_streakBonus', uObj._tmp.streakBonus) if uObj._tmp?.streakBonus
   if uObj._tmp?.drop and $?

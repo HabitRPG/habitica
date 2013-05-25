@@ -3,7 +3,7 @@ router = new express.Router()
 
 _ = require 'lodash'
 algos = require 'habitrpg-shared/script/algos'
-{ tnl } = algos
+helpers = require 'habitrpg-shared/script/helpers'
 validator = require 'derby-auth/node_modules/validator'
 check = validator.check
 sanitize = validator.sanitize
@@ -52,7 +52,7 @@ auth = (req, res, next) ->
 router.get '/user', auth, (req, res) ->
   user = req.userObj
 
-  user.stats.toNextLevel = tnl user.stats.lvl
+  user.stats.toNextLevel = algos.tnl user.stats.lvl
   user.stats.maxHealth = 50
 
   delete user.apiToken
