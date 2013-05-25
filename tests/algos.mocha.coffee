@@ -35,9 +35,8 @@ expectGainedPoints = (before, after, taskType) ->
   expect(after.stats.exp).to.be.greaterThan before.stats.exp
   expect(after.stats.gp).to.be.greaterThan before.stats.gp
   expect(after["#{taskType}s"][0].value).to.be.greaterThan before["#{taskType}s"][0].value
-  if taskType in ['daily','habit']
-    expect(_.size(after["#{taskType}s"][0].history)).to.be(1)
-  # expect(after["#{taskType}s"].completed).to.be true if taskType in ['daily','todo']
+  expect(_.size(after["#{taskType}s"][0].history)).to.be(1) if taskType is 'habit'
+  # daily & todo histories handled on cron
 
 ###### Specs ######
 

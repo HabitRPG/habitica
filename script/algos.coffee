@@ -184,8 +184,7 @@ obj.score = (user, task, direction, options={}) ->
   addPoints = ->
     level = user.stats.lvl
     weaponStrength = items.items.weapon[user.items.weapon].strength
-    exp += obj.expModifier(delta, weaponStrength, level, priority) / 2
-    # / 2 hack for now bcause people leveling too fast
+    exp += obj.expModifier(delta, weaponStrength, level, priority) / 2 # /2 hack for now, people leveling too fast
     if streak
       gp += obj.gpModifier(delta, 1, priority, streak, user)
     else
@@ -213,14 +212,13 @@ obj.score = (user, task, direction, options={}) ->
         subtractPoints()
         task.streak = 0
       else
-        calculateDelta(false)
-        if delta != 0
-          addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
-          if direction is 'up'
-            streak = if streak then streak + 1 else 1
-          else
-            streak = if streak then streak - 1 else 0
-          task.streak = streak
+        calculateDelta()
+        addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
+        if direction is 'up'
+          streak = if streak then streak + 1 else 1
+        else
+          streak = if streak then streak - 1 else 0
+        task.streak = streak
       paths["tasks.#{task.id}.streak"] = true
 
     when 'todo'
@@ -363,16 +361,13 @@ obj.cron = (user, options={}) ->
 
       switch type
         when 'daily'
-          if completed #set OHV for completed dailies
-            task.value = task.value + obj.taskDeltaFormula(task.value, 'up')
-          (task.history ?= []).push { date: +new Date, value: task.value }
-          task.completed = false
-          paths["tasks.#{task.id}.value"] = true;paths["tasks.#{task.id}.history"] = true;paths["tasks.#{task.id}.completed"] = true;
-
+          (task.history ?= []).push({ date: +new Date, value: task.value }); paths["tasks.#{task.id}.history"] = true
+          task.completed = false; paths["tasks.#{task.id}.completed"] = true;
         when 'todo'
           #get updated value
           absVal = if (completed) then Math.abs(task.value) else task.value
           todoTally += absVal
+
     user.habits.forEach (task) -> # slowly reset 'onlies' value to 0
       if task.up is false or task.down is false
         if Math.abs(task.value) < 0.1
