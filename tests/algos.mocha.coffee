@@ -152,6 +152,7 @@ describe 'Cron', ->
         {before,after} = beforeAfter({now, daysAgo:1, dayStart:options.dayStart||0, limitOne:'daily'})
         before.dailys[0].repeat = after.dailys[0].repeat = options.repeat if options.repeat
         before.dailys[0].streak = after.dailys[0].streak = 10
+        before.dailys[0].completed = after.dailys[0].completed = true if options.checked
         expect(helpers.shouldDo(now, options.repeat, options.dayStart)).to.be options.shouldDo.before if options.shouldDo
         algos.cron(after,{now})
         expect(helpers.shouldDo(now, options.repeat, options.dayStart)).to.be options.shouldDo.after if options.shouldDo
@@ -170,8 +171,16 @@ describe 'Cron', ->
                 defaults: {repeat:{su:true,m:1,t:1,w:1,th:1,f:1,s:true}}
                 steps:
                   #TODO checked
-                  'pre-dayStart': {currentHour:3, dayStart:4, shouldDo:{before:true,after:true}, expect:'noChange'}
-                  'post-dayStart': {currentHour:5, dayStart:4, shouldDo:{before:true,after:true}, expect:'losePoints'}
+                  'pre-dayStart':
+                    defaults: {currentHour:3, dayStart:4, shouldDo:{before:true,after:true}}
+                    steps:
+                      'checked': {checked: true, expect:'noChange'}
+                      'un-checked': {checked: false, expect:'noChange'}
+                  'post-dayStart':
+                    defaults: {currentHour:5, dayStart:4, shouldDo:{before:true,after:true}}
+                    steps:
+                      'checked': {checked:true, expect:'noDamage'}
+                      'unchecked': {checked:false, expect: 'losePoints'}
           'not due yesterday':
             defaults: {repeat:{su:1,m:1,t:1,w:1,th:1,f:1,s:false}}
             steps:
@@ -186,7 +195,6 @@ describe 'Cron', ->
             o.text ?= ''; o.text += " #{text} "
             recurseCronMatrix step, _.defaults(o,obj.defaults)
         else
-          console.log {options}
           it "#{options.text}", -> runCron(_.defaults(obj,options))
       recurseCronMatrix(cronMatrix)
 
