@@ -90,16 +90,16 @@ setupSubscriptions = (page, model, params, next, cb) ->
     return finished([selfQ, 'tavern'], ['_user', '_tavern']) unless party.get()
 
     ## (2) Party has members, subscribe to those users too
-    membersQ = model.query('users').party(party.get('members'))
-
-    # Fetch instead of subscribe. There's nothing dynamic we need from members just yet, they'll update _party instead.
-    # This may change in the future.
-    membersQ.fetch (err, members) ->
-      return next(err) if err
-      model.ref '_partyMembers', members
-
-    # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
-    return finished([partyQ, selfQ, 'tavern'], ['_party', '_user', '_tavern'])
+    if m = party.get('members')
+      # Fetch instead of subscribe. There's nothing dynamic we need from members just yet, they'll update _party instead.
+      # This may change in the future.
+      model.query('users').party(m).fetch (err, members) ->
+        return next(err) if err
+        model.ref '_partyMembers', members
+        return finished([partyQ, selfQ, 'tavern'], ['_party', '_user', '_tavern'])
+    else
+      # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
+      return finished([partyQ, selfQ, 'tavern'], ['_party', '_user', '_tavern'])
 
 # ========== ROUTES ==========
 
