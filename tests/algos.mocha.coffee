@@ -153,9 +153,8 @@ describe 'Cron', ->
         before.dailys[0].repeat = after.dailys[0].repeat = options.repeat if options.repeat
         before.dailys[0].streak = after.dailys[0].streak = 10
         before.dailys[0].completed = after.dailys[0].completed = true if options.checked
-        expect(helpers.shouldDo(now, options.repeat, options.dayStart)).to.be options.shouldDo.before if options.shouldDo
+        expect(helpers.shouldDo(now, options.repeat, {dayStart:options.dayStart,now})).to.be.ok() if options.shouldDo
         algos.cron(after,{now})
-        expect(helpers.shouldDo(now, options.repeat, options.dayStart)).to.be options.shouldDo.after if options.shouldDo
         switch options.expect
           when 'losePoints' then expectLostPoints(before,after,'daily')
           when 'noChange' then expectNoChange(before,after)
@@ -164,23 +163,41 @@ describe 'Cron', ->
 
       cronMatrix =
         steps:
+
           'due yesterday':
+            defaults: {daysAgo:1, limitOne: 'daily'}
             steps:
-              '(simple)': {daysAgo:1, limitOne: 'daily', expect:'losePoints'}
+
+              '(simple)': {expect:'losePoints'}
+
               'due today':
                 defaults: {repeat:{su:true,m:1,t:1,w:1,th:1,f:1,s:true}}
                 steps:
-                  #TODO checked
                   'pre-dayStart':
-                    defaults: {currentHour:3, dayStart:4, shouldDo:{before:true,after:true}}
+                    defaults: {currentHour:3, dayStart:4, shouldDo:true}
                     steps:
                       'checked': {checked: true, expect:'noChange'}
                       'un-checked': {checked: false, expect:'noChange'}
                   'post-dayStart':
-                    defaults: {currentHour:5, dayStart:4, shouldDo:{before:true,after:true}}
+                    defaults: {currentHour:5, dayStart:4, shouldDo:true}
                     steps:
                       'checked': {checked:true, expect:'noDamage'}
                       'unchecked': {checked:false, expect: 'losePoints'}
+
+              'NOT due today':
+                defaults: {repeat:{su:false,m:1,t:1,w:1,th:1,f:1,s:1}}
+                steps:
+                  'pre-dayStart':
+                    defaults: {currentHour:3, dayStart:4, shouldDo:true}
+                    steps:
+                      'checked': {checked: true, expect:'noChange'}
+                      'un-checked': {checked: false, expect:'noChange'}
+                  'post-dayStart':
+                    defaults: {currentHour:5, dayStart:4, shouldDo:false}
+                    steps:
+                      'checked': {checked:true, expect:'noDamage'}
+                      'unchecked': {checked:false, expect: 'losePoints'}
+
           'not due yesterday':
             defaults: {repeat:{su:1,m:1,t:1,w:1,th:1,f:1,s:false}}
             steps:

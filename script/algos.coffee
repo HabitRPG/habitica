@@ -356,7 +356,7 @@ obj.cron = (user, options={}) ->
           scheduleMisses = 0
           _.times daysMissed, (n) ->
             thatDay = moment(now).subtract('days', n + 1)
-            scheduleMisses++ if helpers.shouldDo(thatDay, repeat, obj.preferences?.dayStart) is true
+            scheduleMisses++ if helpers.shouldDo(thatDay, repeat, {dayStart:obj.preferences?.dayStart})
         obj.score(user, task, 'down', {times:scheduleMisses, cron:true, paths:paths}) if scheduleMisses > 0
 
       switch type

@@ -18,9 +18,9 @@ daysBetween = (yesterday, now, dayStart) -> Math.abs sod(yesterday, dayStart).di
 ###
   Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
 ###
-shouldDo = (day, repeat, dayStart=0) ->
+shouldDo = (day, repeat, options={}) ->
   return false unless repeat
-  now = +new Date
+  [dayStart,now] = [options.dayStart||0, options.now||+new Date]
   selected = repeat[dayMapping[sod(day, dayStart).day()]]
   return selected unless moment(day).isSame(now,'d')
   if dayStart <= moment(now).hour() # we're past the dayStart mark, is it due today?
@@ -245,7 +245,7 @@ module.exports =
 
     # show as completed if completed (naturally) or not required for today
     if type in ['todo', 'daily']
-      if completed or (type is 'daily' and !shouldDo(+new Date, task.repeat, dayStart))
+      if completed or (type is 'daily' and !shouldDo(+new Date, task.repeat, {dayStart}))
         classes += " completed"
       else
         classes += " uncompleted"
