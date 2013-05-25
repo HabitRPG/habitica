@@ -15,7 +15,11 @@ expectStrings = (obj, paths) ->
 beforeAfter = (options={}) ->
   user = helpers.newUser()
   [before, after] = [_.cloneDeep(user), _.cloneDeep(user)]
-  lastCron = +moment(options.now || +new Date).subtract('days', options.daysAgo) if options.daysAgo
+  before.preferences.dayStart = after.preferences.dayStart = options.dayStart if options.dayStart
+  if options.limitOne
+    before["#{options.limitOne}s"] = [before["#{options.limitOne}s"][0]]
+    after["#{options.limitOne}s"] = [after["#{options.limitOne}s"][0]]
+  lastCron = +(moment(options.now || +new Date).subtract('days', options.daysAgo)) if options.daysAgo
   _.each [before,after], (obj) ->
     obj.lastCron = lastCron if options.daysAgo
   {before:before, after:after}
@@ -37,6 +41,27 @@ expectGainedPoints = (before, after, taskType) ->
   expect(after["#{taskType}s"][0].value).to.be.greaterThan before["#{taskType}s"][0].value
   expect(_.size(after["#{taskType}s"][0].history)).to.be(1) if taskType is 'habit'
   # daily & todo histories handled on cron
+
+expectNoChange = (before,after) -> expect(before).to.eql after
+
+expectDayResetNoDamage = (b,a) ->
+  [before,after] = [_.cloneDeep(b); _.cloneDeep(a)]
+  _.each after.dailys, (task,i) ->
+    expect(task.completed).to.be false
+    expect(before.dailys[i].value).to.be task.value
+    expect(before.dailys[i].streak).to.be task.streak
+    expect(_.size(task.history)).to.be(1)
+  _.each after.todos, (task,i) ->
+    expect(task.completed).to.be false
+    expect(before.todos[i].value).to.be.greaterThan task.value
+  expect(_.size(after.history.todos)).to.be(1)
+  # hack so we can compare user before/after obj equality sans effected paths
+  _.each ['dailys','todos','history','lastCron'], (path) ->
+    _.each [before,after], (obj) -> delete obj[path]
+  expect(after).to.eql before
+
+
+
 
 ###### Specs ######
 
@@ -86,10 +111,10 @@ describe 'Cron', ->
   it 'computes shouldCron', ->
     user = helpers.newUser()
     expect(algos.shouldCron(user)).to.be true # handlomg lastCron='new'
-    user.lastCron = moment().subtract('days',1)
+    user.lastCron = +moment().subtract('days',1)
     expect(algos.shouldCron(user)).to.be true
 
-    user.lastCron = moment().add('days',1)
+    user.lastCron = +moment().add('days',1)
     expect(algos.shouldCron(user)).to.be false
 
   it 'only dailies & todos are effected', ->
@@ -117,28 +142,46 @@ describe 'Cron', ->
       expect(after.todos[0].value).to.be.lessThan before.todos[0].value
       expect(_.size(after.history.todos)).to.be 1
 
-  describe 'Dailies', ->
+  describe 'dailies', ->
 
-    it '1 day missed', ->
-      {before,after} = beforeAfter({daysAgo:1})
-      [before.dailys, after.dailys] = [ [before.dailys[0]], [after.dailys[0]] ]
-      algos.cron(after)
-      expectLostPoints(before,after,'daily')
+    describe 'new day', ->
+      #TODO check helpers.isDue()
 
+      runCron = (options) ->
+        now = moment().startOf('week').add('hours',options.currentHour || 0)
+        {before,after} = beforeAfter({now, daysAgo:1, dayStart:options.dayStart||0, limitOne:'daily'})
+        before.dailys[0].repeat = after.dailys[0].repeat = options.repeat if options.repeat
+        before.dailys[0].streak = after.dailys[0].streak = 10
+        algos.cron(after,{now})
+        {before,after}
 
-    it 'due yesterday, custom day not started', ->
-      now = moment().startOf('week')
-      [before.dailys, after.dailys] = [ [before.dailys[0]], [after.dailys[0]] ]
+      it 'due yesterday', ->
+        {before,after} = beforeAfter({daysAgo:1, limitOne: 'daily'})
+        algos.cron(after)
+        expectLostPoints(before,after,'daily')
 
-      # due yesterday, but not today
-      before.dailys[0].repeat = after.dailys[0].repeat = {su:0,m:1,t:1,w:1,th:1,f:1,s:1}
-      {before,after} = beforeAfter({now, daysAgo:1})
+      it 'due yesterday, custom day started', ->
+        repeat = {su:1,m:1,t:1,w:1,th:1,f:1,s:true}
+        expect(helpers.shouldDo())
+        {before,after} = runCron({currentHour:5, dayStart:4, repeat})
 
-      expectLostPoints(before,after,'daily') # todos don't effect stats
+        expectLostPoints(before,after,'daily')
 
-      # but they devalue
-      expect(after.dailys[0].value).to.be.lessThan before.dailys[0].value
-      expect(_.size(after.dailys[0].history)).to.be 1
+      it 'due yesterday, custom day NOT started', ->
+        {before,after} = runCron({currentHour:3, dayStart:4, repeat:{su:1,m:1,t:1,w:1,th:1,f:1,s:true}})
+        expectNoChange(before,after)
+
+      it 'not due yesterday', ->
+        {before,after} = runCron({repeat:{su:1,m:1,t:1,w:1,th:1,f:1,s:false}})
+        expectDayResetNoDamage(before,after)
+
+      it 'not due yesterday, custom day started', ->
+        {before,after} = runCron({currentHour:5,dayStart:4,repeat:{su:1,m:1,t:1,w:1,th:1,f:1,s:false}})
+        expectDayResetNoDamage(before,after)
+
+      it 'not due yesterday, custom day NOT started', ->
+        {before,after} = runCron({currentHour:3,dayStart:4,repeat:{su:1,m:1,t:1,w:1,th:1,f:1,s:false}})
+        expectNoChange(before,after)
 
     it 'due today, custom day not started'
     it 'checked yesterday, custom day not started'

@@ -329,7 +329,7 @@ obj.shouldCron = (user, options={}) ->
   {user}
 ###
 obj.cron = (user, options={}) ->
-  [paths, now] = [options.paths || {}, options.now || +new Date]
+  [paths, now] = [options.paths || {}, +options.now || +new Date]
 
   # New user (!lastCron, lastCron==new) or it got busted somehow, maybe they went to a different timezone
   if !user.lastCron? or user.lastCron is 'new' or moment(user.lastCron).isAfter(now)
