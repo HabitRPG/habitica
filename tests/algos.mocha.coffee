@@ -152,46 +152,47 @@ describe 'Cron', ->
         {before,after} = beforeAfter({now, daysAgo:1, dayStart:options.dayStart||0, limitOne:'daily'})
         before.dailys[0].repeat = after.dailys[0].repeat = options.repeat if options.repeat
         before.dailys[0].streak = after.dailys[0].streak = 10
+        expect(helpers.shouldDo(now, options.repeat, options.dayStart)).to.be options.shouldDo.before if options.shouldDo
         algos.cron(after,{now})
+        expect(helpers.shouldDo(now, options.repeat, options.dayStart)).to.be options.shouldDo.after if options.shouldDo
+        switch options.expect
+          when 'losePoints' then expectLostPoints(before,after,'daily')
+          when 'noChange' then expectNoChange(before,after)
+          when 'noDamage' then expectDayResetNoDamage(before,after)
         {before,after}
 
-      it 'due yesterday', ->
-        {before,after} = beforeAfter({daysAgo:1, limitOne: 'daily'})
-        algos.cron(after)
-        expectLostPoints(before,after,'daily')
+      cronMatrix =
+        steps:
+          'due yesterday':
+            steps:
+              '(simple)': {daysAgo:1, limitOne: 'daily', expect:'losePoints'}
+              'due today':
+                defaults: {repeat:{su:true,m:1,t:1,w:1,th:1,f:1,s:true}}
+                steps:
+                  #TODO checked
+                  'pre-dayStart': {currentHour:3, dayStart:4, shouldDo:{before:true,after:true}, expect:'noChange'}
+                  'post-dayStart': {currentHour:5, dayStart:4, shouldDo:{before:true,after:true}, expect:'losePoints'}
+          'not due yesterday':
+            defaults: {repeat:{su:1,m:1,t:1,w:1,th:1,f:1,s:false}}
+            steps:
+              '(simple)': {expect:'noDamage'}
+              'post-dayStart': {currentHour:5,dayStart:4, expect:'noDamage'}
+              'pre-dayStart': {currentHour:3, dayStart:4, expect:'noChange'}
 
-      it 'due yesterday, custom day started', ->
-        repeat = {su:1,m:1,t:1,w:1,th:1,f:1,s:true}
-        expect(helpers.shouldDo())
-        {before,after} = runCron({currentHour:5, dayStart:4, repeat})
+      recurseCronMatrix = (obj, options={}) ->
+        if obj.steps
+          _.each obj.steps, (step, text) ->
+            o = _.cloneDeep options
+            o.text ?= ''; o.text += " #{text} "
+            recurseCronMatrix step, _.defaults(o,obj.defaults)
+        else
+          console.log {options}
+          it "#{options.text}", -> runCron(_.defaults(obj,options))
+      recurseCronMatrix(cronMatrix)
 
-        expectLostPoints(before,after,'daily')
 
-      it 'due yesterday, custom day NOT started', ->
-        {before,after} = runCron({currentHour:3, dayStart:4, repeat:{su:1,m:1,t:1,w:1,th:1,f:1,s:true}})
-        expectNoChange(before,after)
-
-      it 'not due yesterday', ->
-        {before,after} = runCron({repeat:{su:1,m:1,t:1,w:1,th:1,f:1,s:false}})
-        expectDayResetNoDamage(before,after)
-
-      it 'not due yesterday, custom day started', ->
-        {before,after} = runCron({currentHour:5,dayStart:4,repeat:{su:1,m:1,t:1,w:1,th:1,f:1,s:false}})
-        expectDayResetNoDamage(before,after)
-
-      it 'not due yesterday, custom day NOT started', ->
-        {before,after} = runCron({currentHour:3,dayStart:4,repeat:{su:1,m:1,t:1,w:1,th:1,f:1,s:false}})
-        expectNoChange(before,after)
-
-    it 'due today, custom day not started'
-    it 'checked yesterday, custom day not started'
-    it 'checked yesterday, custom day started'
-
-    it '1 day missed, not due'
-    it '1 day missed, not day start yet'
     it '3 day missed, only 1 due'
     it '3 day missed, only 1 due, not day start yet'
-
 
   it 'calculates day differences with dayStart properly', ->
     dayStart = 4
