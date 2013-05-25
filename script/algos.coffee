@@ -386,8 +386,7 @@ obj.cron = (user, options={}) ->
     ((user.history ?= {}).todos ?= []).push { date: now, value: todoTally }
     # tally experience
     expTally = user.stats.exp
-    lvl = 0
-    #iterator
+    lvl = 0 #iterator
     while lvl < (user.stats.lvl - 1)
       lvl++
       expTally += obj.tnl(lvl)
