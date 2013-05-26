@@ -116,14 +116,14 @@ module.exports.app = (appExports, model, app) ->
         chat.remove(200)
 
   model.on 'unshift', '_party.chat', -> $('.chat-message').tooltip()
-  model.on 'unshift', '_tavern.chat.messages', -> $('.chat-message').tooltip()
+  model.on 'unshift', '_habitrpg.chat', -> $('.chat-message').tooltip()
 
   appExports.partySendChat = ->
     sendChat('_party.chat', '_chatMessage')
     model.set '_user.party.lastMessageSeen', model.get('_party.chat')[0].id
 
   appExports.tavernSendChat = ->
-    sendChat('_tavern.chat.messages', '_tavernMessage')
+    sendChat('_habitRPG.chat', '_tavernMessage')
 
   appExports.partyMessageKeyup = (e, el, next) ->
     return next() unless e.keyCode is 13

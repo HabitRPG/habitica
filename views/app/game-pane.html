@@ -131,7 +131,7 @@
             </div>
 
             <ul class='unstyled tavern-chat'>
-                {#each _tavern.chat.messages as :message}
+                {#each _habitRPG.chat as :message}
                     <app:groups:chat-message message={{:message}} />
                 {/}
             </ul>
