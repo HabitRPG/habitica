@@ -140,7 +140,7 @@ ready (model) ->
   require('./character').app(exports, model)
   require('./tasks').app(exports, model)
   require('./items').app(exports, model)
-  require('./party').app(exports, model, app)
+  require('./groups').app(exports, model, app)
   require('./profile').app(exports, model)
   require('./pets').app(exports, model)
   require('../server/private').app(exports, model)
