@@ -31,7 +31,7 @@
             <div class="herobox-wrap" style="{{#if equal(:memberId, _userId)}}display:none;{{/}}">
                 {{#unless equal(:memberId, _userId)}}
                     <app:avatar:avatar profile={{_members[:memberId]}} party="true" />
-                <!-- Would be way cleaner as a Derby template `data-content="<app:party:member-stats profile={{:member}} />"`, but it was just printing HTML as text -->
+                <!-- Would be way cleaner as a Derby template `data-content="<app:groups:member-stats profile={{:member}} />"`, but it was just printing HTML as text -->
                 <!-- I've re-implemented the rollover using the actual `herobox`/avatar template and data-attributes.
                     This Derby template idea would have been really handy but this is pretty versatile, and keeps it all in the avatar section -->
                 {{/}}

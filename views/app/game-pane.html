@@ -37,7 +37,7 @@
             </div>
 
             <div class="tab-pane" id="profileParty">
-                <app:party:party />
+                <app:groups:party />
             </div>
 
             <div class="tab-pane" id="profileAchievements">
@@ -132,7 +132,7 @@
 
             <ul class='unstyled tavern-chat'>
                 {#each _tavern.chat.messages as :message}
-                    <app:party:chat-message message={{:message}} />
+                    <app:groups:chat-message message={{:message}} />
                 {/}
             </ul>
         </div>
