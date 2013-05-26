@@ -113,6 +113,7 @@ groupSystem = (store) ->
     Fetch group info (ie, they just got invited)
   ###
   store.query.expose "groups", "withIds", (ids) ->
+    return unless ids #FIXME this is sometimes null when ids is array (guilds)
     if typeof ids is 'string'
       @where("id").equals(ids).findOne() # find a single group
     else
@@ -129,7 +130,7 @@ groupSystem = (store) ->
     Find group which has member by id
   ###
   store.query.expose "groups", "withMember", (id, type) ->
-    q = @where('members').contains([id]).only(['id','members'])
+    q = @where('members').contains([id]).only(['id','members','type'])
     q = q.where('type').equals(type) if type?
   store.queryAccess 'groups', 'withMember', publicAccess
 
