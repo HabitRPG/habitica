@@ -1,11 +1,87 @@
-<party:>
-    {#if _party.members}
-        <div class='row-fluid'>
-            <div class="span6 border-right">
-                <h3>{{_party.name}}</h3>
+<groups-pane:>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle='tab' data-target="#groups-party">Party</a></li>
+        <li><a data-toggle='tab' data-target="#groups-guilds">Guilds</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="groups-party">
+            {#if _party.id} <!-- user in a party? -->
+                <app:groups:group group={_party} />
+            {else if _user.party.invitation}
+                <!-- TODO show by whom -->
+                <h2>You're Invited To {_party.name}</h2>
+                <a class='btn btn-success' x-bind="click: partyAccept">Accept</a>
+                <a class='btn btn-danger' x-bind="click: partyReject">Reject</a>
+            {else}
+                <h2>Create A Party</h2>
+                <!-- Not in a party , no invites - create a new one -->
+                <p>You are not in a party. You can either create one and invite friends, or if you want to join an existing party, have them enter:</p>
+                <pre class=prettyprint>{_user.id}</pre>
+                <form class=form-inline x-bind="submit: partyCreate">
+                    {#if _partyError}
+                    <div class='alert alert-danger'>{_partyError}</div>
+                    {/}
+                    <div class=control-group>
+                        <input type="text" class="input-medium" placeholder="Party Name" value="{_newParty}" />
+                        <input type="submit" class="btn" value="Create" />
+                    </div>
+                </form>
+            {/}
+        </div>
+    
+        <div class='tab-pane' id="groups-guilds">
+            <ul class="nav nav-pills">
+            {#each _guilds as :guild}
+                <li class="active"><a data-toggle='tab' data-target="#groups-party-{:guild.id}">{:guild.name}</a></li>
+            {/}
+            </ul>            
+          
+            {#each _guilds as :guild}
+                <div class="tab-pane" id="groups-guild-{:guild.id}">
+                    <app:groups:group group={:guild} />
+                </div>
+            {/}
+        </div>
+    </div>
+
+<group:>
+    <div class='row-fluid'>
+        <div class='span4 border-right'>
+            {{#if equal(@group.id,'habitrpg')}}
+                <div class='tavern-pane'>
+                    <table><tr>
+                        <td><div class='NPC-Daniel'></div></td>
+                        <td>
+                            <div class="popover static-popover fade right in">
+                                <div class="arrow"></div>
+                                <h3 class="popover-title">Daniel Johansson</h3>
+                                <div class="popover-content">
+                                    Welcome to the Tavern! I'm <a target="_blank" href="http://www.kickstarter.com/profile/2014640723">Daniel</a>, the bar keep. If you want to rest a while (going on vacation? sudden illness?), I'll set you up at the inn - dailies won't hurt you while you're resting. Stay a while & meet the locals.
+                                    <div><button x-bind="click:toggleResting" class='btn btn-large btn-success {#if _user.flags.rest}active{/}'>{#if _user.flags.rest}Check Out of Inn{else}Rest In The Inn{/}</button></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr></table>
+                </div>
+                <div class='alert alert-info {#unless _user.flags.rest}hidden{/}'>Whilst resting your dailies are saved and aren't effected by day turn-over. Whether you check out tomorrow or in a weeks time you'll continue in the same state as when you checked in.</div>
+
+                <div class=well>
+                    <h3>Resources</h3>
+                    <ul class=unstyled>
+                        <li><h4><a target="_blank" href="http://community.habitrpg.com/forums/lfg">LFG Posts</a></h4></li>
+                        <li><h4><a target="_blank" href="http://www.youtube.com/watch?feature=player_embedded&v=cT5ghzZFfao">Tutorial</a></h4></li>
+                        <li><h4><a target="_blank" href="http://community.habitrpg.com/faq-page">FAQ</a></h4></li>
+                        <li><h4><a target="_blank" href="https://github.com/lefnire/habitrpg/issues?state=open">Report a Problem</a></h4></li>
+                        <li><h4><a target="_blank" href="https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6">Request a Feature</a></h4></li>
+                        <li><h4><a target="_blank" href="http://community.habitrpg.com/forum">Community Forum</a></h4></li>
+                    </ul>
+                </div>
+            {{else}}
+                <h3>{{@group.name}}</h3>
                 <table class="table table-striped">
-                    {{#each _party.members as :memberId}}
-                    <tr><td>{{username(_party[:memberId].auth, _party[:memberId].profile.name)}}</td><td>({{:memberId}})</td></tr>
+                    {{#each @group.members as :memberId}}
+                    <tr><td>{{username(_members[:memberId].auth, _members[:memberId].profile.name)}}</td><td>({{:memberId}})</td></tr>
                     {{/}}
                 </table>
                 <form class=form-inline x-bind="submit: partyInvite">
@@ -18,44 +94,45 @@
                     </div>
                 </form>
                 <a class='btn btn-danger' x-bind="click: partyLeave">Leave</a>
-            </div>
-            <div class="span6">
-               <h3>Chat</h3>
-                <form x-bind='submit:partySendChat'>
-                    <textarea class="span6" rows="3" x-bind='keyup:partyMessageKeyup'>{_chatMessage}</textarea><br/>
-                    <input class=btn type=submit value=Submit />
-                </form>
-               <ul class='party-chat unstyled'>
-               {#each _party.chat as :message}
-                   <app:groups:chat-message message={{:message}} />
-               {/}
-               </ul>
-            </div>
+            {{/}}
+
         </div>
+        <div class='span8'>
 
-    {else if _user.party.invitation}
-        <!-- TODO show by whom -->
-        <h2>You're Invited To {_party.name}</h2>
-        <a class='btn btn-success' x-bind="click: partyAccept">Accept</a>
-        <a class='btn btn-danger' x-bind="click: partyReject">Reject</a>
+            {{#if equal(@group.id,'habitrpg')}}
+                <h3>Tavern Talk & LFG</h3>
+                <div class='row-fluid'>
+                    <div class='span3'>
+                        <ul class='unstyled buttonList'>
+                            <li><a class='btn btn-info' style='width:100%' target="_blank" href="http://community.habitrpg.com/faq-page">FAQ</a></li>
+                            <li><a class='btn btn-info' style='width:100%' target="_blank" href="https://github.com/lefnire/habitrpg/issues?state=open">Report a Problem</a></li>
+                            <li><a class='btn btn-info' style='width:100%' target="_blank" href="https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6">Request a Feature</a></li>
+                        </ul>
+                    </div>
+                    <div class=span9>
+                        <app:groups:chat-box group={@group} />
+                    </div>
+                </div>
+            {{else}}
+                <h3>Chat</h3>
+                <app:groups:chat-box group={@group} />
+            {{/}}
 
-    {else}
-        <h2>Create A Party</h2>
-        <!-- Not in a party , no invites - create a new one -->
-        <p>You are not in a party. You can either create one and invite friends, or if you want to join an existing party, have them enter:</p>
-        <pre class=prettyprint>{_user.id}</pre>
-        <form class=form-inline x-bind="submit: partyCreate">
-            {#if _partyError}
-            <div class='alert alert-danger'>{_partyError}</div>
-            {/}
-            <div class=control-group>
-                <input type="text" class="input-medium" placeholder="Party Name" value="{_newParty}" />
-                <input type="submit" class="btn" value="Create" />
-            </div>
-        </form>
+            <ul class='unstyled tavern-chat'>
+                {#each @group.chat as :message}
+                <app:groups:chat-message message={{:message}} />
+                {/}
+            </ul>
+        </div>
+    </div>
 
-    {/}
-
+<chat-box:>
+    {{#with @group as :group}}
+    <form x-bind='submit:sendChat'>
+        <textarea class="span6" rows="3" x-bind='keyup:chatKeyup'>{_chatMessage}</textarea><br/>
+        <input class=btn type=submit value="Send Chat" />
+    </form>
+    {{/}}
 
 <chat-message:>
     <li class="{{#if indexOf(:message.text, username(_user.auth, _user.profile.name))}}highlight{{/if}}">

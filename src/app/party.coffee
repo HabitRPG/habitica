@@ -84,12 +84,17 @@ module.exports.app = (appExports, model, app) ->
     Chat Functionality
   ###
 
-  sendChat = (path, input) ->
-    chat = model.at path
-    text = model.get input
+  model.on 'unshift', '_party.chat', -> $('.chat-message').tooltip()
+  model.on 'unshift', '_habitrpg.chat', -> $('.chat-message').tooltip()
+
+  appExports.sendChat = (e,el) ->
+    text = model.get '_chatMessage'
     # Check for non-whitespace characters
     return unless /\S/.test text
-    model.set(input, '')
+
+    group = e.at()
+    chat = group.at('chat')
+    model.set('_chatMessage', '')
 
     message =
       id: model.id()
@@ -114,24 +119,12 @@ module.exports.app = (appExports, model, app) ->
         chat.set messages
       else
         chat.remove(200)
+    type = $(el).attr('data-type')
+    model.set '_user.party.lastMessageSeen', chat.get()[0].id  if group.get('type') is 'party'
 
-  model.on 'unshift', '_party.chat', -> $('.chat-message').tooltip()
-  model.on 'unshift', '_habitrpg.chat', -> $('.chat-message').tooltip()
-
-  appExports.partySendChat = ->
-    sendChat('_party.chat', '_chatMessage')
-    model.set '_user.party.lastMessageSeen', model.get('_party.chat')[0].id
-
-  appExports.tavernSendChat = ->
-    sendChat('_habitRPG.chat', '_tavernMessage')
-
-  appExports.partyMessageKeyup = (e, el, next) ->
+  appExports.chatKeyup = (e, el, next) ->
     return next() unless e.keyCode is 13
-    appExports.partySendChat()
-
-  appExports.tavernMessageKeyup = (e, el, next) ->
-    return next() unless e.keyCode is 13
-    appExports.tavernSendChat()
+    appExports.sendChat(e, el)
 
   appExports.deleteChatMessage = (e) ->
     if confirm("Delete chat message?") is true
