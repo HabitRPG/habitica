@@ -17,10 +17,12 @@ i18n.localize app,
   urlScheme: false
   checkHeader: true
 
-helpers = require './helpers'
-helpers.viewHelpers view
+misc = require('./misc')
+misc.viewHelpers view
 
-_ = require('underscore')
+_ = require('lodash')
+algos = require 'habitrpg-shared/script/algos'
+helpers = require 'habitrpg-shared/script/helpers'
 
 ###
   Cleanup task-corruption (null tasks, rogue/invisible tasks, etc)
@@ -36,11 +38,12 @@ cleanupCorruptTasks = (model) ->
     unless task?.id? and task?.type?
       user.del("tasks.#{key}")
       delete tasks[key]
+    true
 
   batch = null
 
   ## Task List Cleanup
-  _.each ['habit','daily','todo','reward'], (type) ->
+  ['habit','daily','todo','reward'].forEach (type) ->
 
     # 1. remove duplicates
     # 2. restore missing zombie tasks back into list
@@ -58,6 +61,7 @@ cleanupCorruptTasks = (model) ->
         batch.startTransaction()
       batch.set("#{type}Ids", preened)
       console.error user.get('id') + "'s #{type}s were corrupt."
+    true
 
   batch.commit() if batch?
 
@@ -69,17 +73,16 @@ setupSubscriptions = (page, model, params, next, cb) ->
   selfQ = model.query('users').withId(uuid) #keep this for later
   groupsQ = model.query('groups').withMember(uuid)
 
-  groupsQ.fetch (err, groups, extra) ->
+  groupsQ.fetch (err, groups) ->
     return next(err) if err
     finished = (descriptors, paths) ->
       model.subscribe.apply model, descriptors.concat ->
         [err, refs] = [arguments[0], arguments]
         return next(err) if err
-        _.each paths, (path, idx) -> model.ref path, refs[idx+1]
+        _.each paths, (path, idx) -> model.ref path, refs[idx+1]; true
         unless model.get('_user')
           console.error "User not found - this shouldn't be happening!"
           return page.redirect('/logout') #delete model.session.userId
-        extra(arguments) if extra
         return cb()
 
     groupsObj = groups.get()
@@ -88,6 +91,7 @@ setupSubscriptions = (page, model, params, next, cb) ->
     return finished([selfQ, "groups.habitrpg"], ['_user', '_habitRPG']) if _.isEmpty(groupsObj)
 
     ## (2) Party or Guild has members, fetch those users too
+    # Subscribe to the groups themselves. We separate them by _party, _guilds, and _habitRPG (the "global" guild).
     groupsInfo = _.reduce groupsObj, ((m,g)->
       if g.type is 'guild' then m.guildIds.push(g.id) else m.partyId = g.id
       m.members = m.members.concat(g.members)
@@ -101,7 +105,6 @@ setupSubscriptions = (page, model, params, next, cb) ->
       mObj = members.get()
       model.set "_members", _.object(_.pluck(mObj,'id'), mObj)
 
-    ## Then subscribe to the groups themselves. We separate them by _party, _guilds, and _habitRPG (the "global" guild).
     # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
     partyQ = model.query('groups').withIds(groupsInfo.partyId)
     if _.isEmpty(groupsInfo.guildIds)
@@ -124,6 +127,7 @@ get '/', (page, model, params, next) ->
     #refLists
     _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
       model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+      true
     page.render()
 
 
@@ -131,9 +135,7 @@ get '/', (page, model, params, next) ->
 
 ready (model) ->
   user = model.at('_user')
-  model.setNull '_user.apiToken', derby.uuid()
-
-  require('./scoring').cron(model)
+  browser = require './browser'
 
   require('./character').app(exports, model)
   require('./tasks').app(exports, model)
@@ -143,7 +145,22 @@ ready (model) ->
   require('./pets').app(exports, model)
   require('../server/private').app(exports, model)
   require('./debug').app(exports, model) if model.flags.nodeEnv != 'production'
-  require('./browser').app(exports, model, app)
+  browser.app(exports, model, app)
   require('./unlock').app(exports, model)
   require('./filters').app(exports, model)
   require('./challenges').app(exports, model)
+
+  uObj = misc.hydrate(user.get())
+  cron = ->
+    #return setTimeout(cron, 1) if model._txnQueue.length > 0
+    # habitrpg-shared/algos requires uObj.habits, uObj.dailys etc instead of uObj.tasks
+    _.each ['habit','daily','todo','reward'], (type) ->
+      uObj["#{type}s"] = _.where(uObj.tasks, {type:type}); true
+    paths = {}
+    algos.cron(uObj, {paths:paths})
+    lostHp = delete paths['stats.hp'] # we'll set this manually so we can get a cool animation
+    _.each paths, (v,k) -> user.pass({cron:true}).set(k,helpers.dotGet(k, uObj)); true
+    if lostHp
+      browser.resetDom(model)
+      setTimeout (-> user.set('stats.hp', uObj.stats.hp)), 750
+  cron() if algos.shouldCron(uObj)

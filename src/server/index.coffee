@@ -12,6 +12,8 @@ priv = require './private'
 habitrpgStore = require './store'
 middleware = require './middleware'
 
+helpers = require("habitrpg-shared/script/helpers")
+
 ## RACER CONFIGURATION ##
 
 #racer.io.set('transports', ['xhr-polling'])
@@ -50,7 +52,7 @@ strategies =
 options =
   domain: process.env.BASE_URL || 'http://localhost:3000'
   allowPurl: true
-  schema: require('../app/character').newUserObject()
+  schema: helpers.newUser(true)
 
 # This has to happen before our middleware stuff
 auth.store(store, habitrpgStore.customAccessControl)

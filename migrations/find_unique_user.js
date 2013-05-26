@@ -1,4 +1,4 @@
-// mongo habitrpg ./node_modules/underscore/underscore.js ./migrations/find_unique_user.js
+// mongo habitrpg ./node_modules/lodash/index.js ./migrations/find_unique_user.js
 
 /**
  * There are some rare instances of lost user accounts, due to a corrupt user auth variable (see https://github.com/lefnire/habitrpg/wiki/User-ID)
@@ -6,6 +6,6 @@
  */
 
 db.users.find().forEach(function(user){
-    var found = _.findWhere(user.tasks, {text: "Replace Me"})
+    var found = _.any(user.tasks, {text: "Replace Me"})
     if (found) printjson({id:user._id, auth:user.auth});
 })

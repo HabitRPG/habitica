@@ -1,10 +1,9 @@
 _ = require 'underscore'
 lodash = require 'lodash'
+helpers = require 'habitrpg-shared/script/helpers'
 
 module.exports.app = (appExports, model) ->
   browser = require './browser'
-  helpers = require './helpers'
-
   user = model.at '_user'
 
   appExports.challengeCreate = ->

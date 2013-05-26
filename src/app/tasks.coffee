@@ -1,10 +1,15 @@
-scoring = require './scoring'
-helpers = require './helpers'
-_ = require 'underscore'
+algos = require 'habitrpg-shared/script/algos'
+helpers = require 'habitrpg-shared/script/helpers'
+_ = require 'lodash'
 moment = require 'moment'
-character = require './character'
+misc = require './misc'
 
+
+###
+  Make scoring functionality available to the app
+###
 module.exports.app = (appExports, model) ->
+  character = require './character'
   user = model.at('_user')
 
   appExports.addTask = (e, el) ->
@@ -30,26 +35,24 @@ module.exports.app = (appExports, model) ->
     e.at().unshift newTask # e.at() in this case is the list, which was scoped here using {#with @list}...{/}
     newModel.set ''
 
-  appExports.del = (e, el) ->
+  appExports.del = (e) ->
     # Derby extends model.at to support creation from DOM nodes
     task = e.at()
     id = task.get('id')
 
     history = task.get('history')
-    if history and history.length>2
+    if history and history.length > 2
       # prevent delete-and-recreate hack on red tasks
       if task.get('value') < 0
-        result = confirm("Are you sure? Deleting this task will hurt you (to prevent deleting, then re-creating red tasks).")
-        if result != true
-          return # Cancel. Don't delete, don't hurt user
-        else
+        if confirm("Are you sure? Deleting this task will hurt you (to prevent deleting, then re-creating red tasks).") is true
           task.set('type','habit') # hack to make sure it hits HP, instead of performing "undo checkbox"
-          scoring.score(model, id, direction:'down')
+          misc.score(model, id, 'down', true)
+        else
+          return # Cancel. Don't delete, don't hurt user
 
         # prevent accidently deleting long-standing tasks
       else
-        result = confirm("Are you sure you want to delete this task?")
-        return if result != true
+        return unless confirm("Are you sure you want to delete this task?") is true
 
     #TODO bug where I have to delete from _users.tasks AND _{type}List,
     # fix when query subscriptions implemented properly
@@ -63,7 +66,7 @@ module.exports.app = (appExports, model) ->
     completedIds =  _.pluck( _.where(model.get('_todoList'), {completed:true}), 'id')
     todoIds = user.get('todoIds')
 
-    _.each completedIds, (id) -> user.del "tasks.#{id}"
+    _.each completedIds, (id) -> user.del "tasks.#{id}"; true
     user.set 'todoIds', _.difference(todoIds, completedIds)
 
   appExports.toggleDay = (e, el) ->
@@ -104,40 +107,22 @@ module.exports.app = (appExports, model) ->
   appExports.todosShowRemaining = -> model.set '_showCompleted', false
   appExports.todosShowCompleted = -> model.set '_showCompleted', true
 
-  setUndo = (stats, task) ->
-    previousUndo = model.get('_undo')
-    clearTimeout(previousUndo.timeoutId) if previousUndo?.timeoutId
-    timeoutId = setTimeout (-> model.del('_undo')), 10000
-    model.set '_undo', {stats:stats, task:task, timeoutId: timeoutId}
-
-
   ###
     Call scoring functions for habits & rewards (todos & dailies handled below)
   ###
   appExports.score = (e, el) ->
-    task= model.at $(el).parents('li')[0]
-    taskObj = task.get()
+    id = $(el).parents('li').attr('data-id')
     direction = $(el).attr('data-direction')
-
-    # set previous state for undo
-    setUndo _.clone(user.get('stats')), _.clone(taskObj)
-
-    scoring.score(model, taskObj.id, direction)
+    misc.score(model, id, direction, true)
 
   ###
     This is how we handle appExports.score for todos & dailies. Due to Derby's special handling of `checked={:task.completd}`,
     the above function doesn't work so we need a listener here
   ###
   user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
-    return if passed? && passed.cron # Don't do this stuff on cron
+    return if passed?.cron # Don't do this stuff on cron
     direction = if completed then 'up' else 'down'
-
-    # set previous state for undo
-    taskObj = _.clone user.get("tasks.#{i}")
-    taskObj.completed = previous
-    setUndo _.clone(user.get('stats')), taskObj
-
-    scoring.score(model, i, direction)
+    misc.score(model, i, direction, true)
 
   ###
     Undo
@@ -148,14 +133,15 @@ module.exports.app = (appExports, model) ->
     batch = character.BatchUpdate(model)
     batch.startTransaction()
     model.del '_undo'
-    _.each undo.stats, (val, key) -> batch.set "stats.#{key}", val
+    _.each undo.stats, (val, key) -> batch.set "stats.#{key}", val; true
     taskPath = "tasks.#{undo.task.id}"
     _.each undo.task, (val, key) ->
-      return if key in ['id', 'type'] # strange bugs in this world: https://workflowy.com/shared/a53582ea-43d6-bcce-c719-e134f9bf71fd/
+      return true if key in ['id', 'type'] # strange bugs in this world: https://workflowy.com/shared/a53582ea-43d6-bcce-c719-e134f9bf71fd/
       if key is 'completed'
         user.pass({cron:true}).set("#{taskPath}.completed",val)
       else
         batch.set "#{taskPath}.#{key}", val
+      true
     batch.commit()
 
   appExports.tasksToggleAdvanced = (e, el) ->

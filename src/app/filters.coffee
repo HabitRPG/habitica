@@ -1,4 +1,4 @@
-_ = require 'underscore'
+_ = require 'lodash'
 browser = require './browser'
 
 module.exports.app = (appExports, model) ->
@@ -37,5 +37,5 @@ module.exports.app = (appExports, model) ->
     tag.remove()
 
     # remove tag from all tasks
-    _.each user.get("tasks"), (task) -> user.del "tasks.#{task.id}.tags.#{tagId}"
+    _.each user.get("tasks"), (task) -> user.del "tasks.#{task.id}.tags.#{tagId}"; true
 

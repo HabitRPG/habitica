@@ -1,4 +1,4 @@
-_ = require 'underscore'
+_ = require 'lodash'
 character = require "../app/character"
 
 module.exports.middleware = (req, res, next) ->
@@ -37,7 +37,7 @@ module.exports.app = (appExports, model) ->
     batch = new character.BatchUpdate(model)
     obj = model.get('_user')
     batch.set 'balance', obj.balance-1
-    _.each obj.tasks, (task) -> batch.set("tasks.#{task.id}.value", 0) unless task.type == 'reward'
+    _.each obj.tasks, (task) -> batch.set("tasks.#{task.id}.value", 0) unless task.type is 'reward';true
     batch.commit()
 
 module.exports.routes = (expressApp) ->

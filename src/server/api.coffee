@@ -1,12 +1,13 @@
 express = require 'express'
 router = new express.Router()
 
-scoring = require '../app/scoring'
-_ = require 'underscore'
-{ tnl } = require '../app/algos'
+_ = require 'lodash'
+algos = require 'habitrpg-shared/script/algos'
+helpers = require 'habitrpg-shared/script/helpers'
 validator = require 'derby-auth/node_modules/validator'
 check = validator.check
 sanitize = validator.sanitize
+misc = require '../app/misc'
 
 NO_TOKEN_OR_UID = err: "You must include a token and uid (user id) in your request"
 NO_USER_FOUND = err: "No user found."
@@ -51,7 +52,7 @@ auth = (req, res, next) ->
 router.get '/user', auth, (req, res) ->
   user = req.userObj
 
-  user.stats.toNextLevel = tnl user.stats.lvl
+  user.stats.toNextLevel = algos.tnl user.stats.lvl
   user.stats.maxHealth = 50
 
   delete user.apiToken
@@ -83,7 +84,7 @@ router.put '/user', auth, (req, res) ->
   acceptableAttrs = ['flags', 'history', 'items', 'preferences', 'profile', 'stats']
   user.set 'lastCron', partialUser.lastCron if partialUser.lastCron?
   _.each acceptableAttrs, (attr) ->
-    _.each partialUser[attr], (val, key) -> user.set("#{attr}.#{key}", val)
+    _.each partialUser[attr], (val, key) -> user.set("#{attr}.#{key}", val);true
 
   updateTasks partialUser.tasks, req.user, req.getModel() if partialUser.tasks?
 
@@ -255,7 +256,8 @@ scoreTask = (req, res, next) ->
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
     model.at("_#{type}List").push task
 
-  delta = scoring.score(model, taskId, direction)
+  #FIXME
+  delta = misc.score(model, taskId, direction)
   result = model.get '_user.stats'
   result.delta = delta
   res.json result

@@ -309,6 +309,11 @@
                         <button type="button" class="task-action-btn tile {#if equal(:task.priority,'!!')}active{/}" data-priority='!!' x-bind=click:tasksSetPriority>Medium</button>
                         <button type="button" class="task-action-btn tile {#if equal(:task.priority,'!!!')}active{/}" data-priority='!!!' x-bind=click:tasksSetPriority>Hard</button>
                     </div>
+
+                    {{#if equal(:task.type,'daily')}}
+                        <legend class="option-title">Restore Streak</legend>
+                        <input class='option-content' type=number value="{int(:task.streak)}" />
+                    {{/}}
                 </fieldset>
             {/}
 
