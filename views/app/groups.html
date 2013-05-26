@@ -89,7 +89,11 @@
                 <h3>{{@group.name}}</h3>
                 <table class="table table-striped">
                     {{#each @group.members as :memberId}}
-                    <tr><td>{{username(_members[:memberId].auth, _members[:memberId].profile.name)}}</td><td>({{:memberId}})</td></tr>
+                    <tr><td>
+                        <a data-toggle='modal' data-target="#avatar-modal-{{:memberId}}">
+                          {{username(_members[:memberId].auth, _members[:memberId].profile.name)}}</td><td>({{:memberId}})
+                        </a>
+                    </td></tr>
                     {{/}}
                 </table>
                 {#with @group as :group}

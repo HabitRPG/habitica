@@ -104,6 +104,7 @@ setupSubscriptions = (page, model, params, next, cb) ->
       # we need _members as an object in the view, so we can iterate over _party.members as :id, and access _members[:id] for the info
       mObj = members.get()
       model.set "_members", _.object(_.pluck(mObj,'id'), mObj)
+      model.set "_membersArray", mObj
 
     # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
     partyQ = model.query('groups').withIds(groupsInfo.partyId)
