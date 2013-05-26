@@ -1,11 +1,11 @@
 <party:>
-    {#if _partyMembers}
+    {#if _party.members}
         <div class='row-fluid'>
             <div class="span6 border-right">
                 <h3>{{_party.name}}</h3>
                 <table class="table table-striped">
-                    {{#each _partyMembers as :member}}
-                    <tr><td>{{username(:member.auth, :member.profile.name)}}</td><td>({{:member.id}})</td></tr>
+                    {{#each _party.members as :memberId}}
+                    <tr><td>{{username(_party[:memberId].auth, _party[:memberId].profile.name)}}</td><td>({{:memberId}})</td></tr>
                     {{/}}
                 </table>
                 <form class=form-inline x-bind="submit: partyInvite">

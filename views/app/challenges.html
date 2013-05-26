@@ -102,8 +102,8 @@
                                     <div><input type='radio' name='challenge-party-selection' checked={not(_challenge.new.partyAssignees)} >Individual Members</input></div>
                                     <div>
                                         <select multiple="multiple">
-                                        {{#each _partyMembers as :member}}
-                                            <option>{{username(:member.auth,:member.profile.name)}}</option>
+                                        {{#each _party.members as :memberId}}
+                                            <option>{{username(_members[:memberId].auth,_members[:memberId].profile.name)}}</option>
                                         {{/}}
                                         </select>
                                     </div>
