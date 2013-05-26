@@ -18,9 +18,9 @@
                 <!-- Not in a party , no invites - create a new one -->
                 <p>You are not in a party. You can either create one and invite friends, or if you want to join an existing party, have them enter:</p>
                 <pre class=prettyprint>{_user.id}</pre>
-                <form class=form-inline x-bind="submit: partyCreate">
-                    {#if _partyError}
-                    <div class='alert alert-danger'>{_partyError}</div>
+                <form class=form-inline x-bind="submit:groupCreate" data-type="party">
+                    {#if _groupError}
+                    <div class='alert alert-danger'>{_groupError}</div>
                     {/}
                     <div class=control-group>
                         <input type="text" class="input-medium" placeholder="Party Name" value="{_newParty}" />
@@ -84,16 +84,18 @@
                     <tr><td>{{username(_members[:memberId].auth, _members[:memberId].profile.name)}}</td><td>({{:memberId}})</td></tr>
                     {{/}}
                 </table>
-                <form class=form-inline x-bind="submit: partyInvite">
-                    {#if _partyError}
-                    <div class='alert alert-danger'>{_partyError}</div>
+                {#with @group as :group}
+                <form class="form-inline" x-bind="submit:groupInvite" data-type="{@group.type}" >
+                    {#if _groupError}
+                    <div class='alert alert-danger'>{_groupError}</div>
                     {/}
                     <div class='control-group'>
-                        <input type="text" class="input-medium" placeholder="User Id" value="{_newPartyMember}">
+                        <input type="text" class="input-medium" placeholder="User Id" value="{_groupInvitee}">
                         <input type="submit" class="btn" value="Invite" />
                     </div>
                 </form>
-                <a class='btn btn-danger' x-bind="click: partyLeave">Leave</a>
+                <a class='btn btn-danger' x-bind="click:groupLeave">Leave</a>
+                {/}
             {{/}}
 
         </div>

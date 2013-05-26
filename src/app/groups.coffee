@@ -6,14 +6,9 @@ module.exports.app = (appExports, model, app) ->
   browser = require './browser'
 
   _currentTime = model.at '_currentTime'
-
-  _currentTime.setNull +new Date()
-
-  # Every 60 seconds, reset the current time so that the chat
-  # can update relative times
-  setInterval ->
-    _currentTime.set +new Date()
-  , 60000
+  _currentTime.setNull +new Date
+  # Every 60 seconds, reset the current time so that the chat can update relative times
+  setInterval (->_currentTime.set +new Date), 60000
 
   user = model.at('_user')
 
@@ -25,60 +20,51 @@ module.exports.app = (appExports, model, app) ->
         model.ref '_party', party
         browser.resetDom(model)
 
-  appExports.partyCreate = ->
-    newParty = model.get("_newParty")
-    id = model.add 'groups', { name: newParty, leader: user.get('id'), members: [user.get('id')], invites:[] }
-    user.set 'party', {current: id, invitation: null}, ->
-      window.location.reload true
+  appExports.groupCreate = (e,el) ->
+    model.add('groups',
+      name: model.get("_newGroup")
+      leader: user.get('id')
+      members: [user.get('id')]
+      type: $(el).attr('data-type')
+    , ->location.reload())
 
-  appExports.partyInvite = ->
-    id = model.get('_newPartyMember').replace(/[\s"]/g, '')
+  appExports.groupInvite = (e,el) ->
+    id = model.get('_groupInvitee').replace(/[\s"]/g, '')
+    model.set '_groupInvitee', ''
     return if _.isEmpty(id)
 
-    model.query('users').publicInfo([id]).fetch (err, users) ->
+    model.query('users').publicInfo([id]).fetch (err, profiles) ->
       throw err if err
-      u = users.at(0).get()
-      if !u?
-        model.set "_partyError", "User with id #{id} not found."
-        return
-      else if u.party.current? or u.party.invitation?
-        model.set "_partyError", "User already in a party or pending invitation."
-        return
-      else
+      profile = profiles.at(0)
+      return model.set("_groupError", "User with id #{id} not found.") unless profile.get()
+
+      invite = ->
         $.bootstrapGrowl "Invitation Sent."
-        model.set "users.#{id}.party.invitation", model.get('_party.id'), -> window.location.reload()
-        #model.set '_newPartyMember', ''
-        #partySubscribe model
+        model.set("users.#{id}.party.invitation", e.get('id'), ->location.reload())
+      if e.get('type') is 'party'
+        model.query('groups').withMember(id).fetch (err,groups) ->
+          if profile.get('party.invitation') or !_.isEmpty(groups.get())
+            return model.set("_groupError", "User already in a party or pending invitation.")
+          else invite()
+      else invite()
 
   appExports.partyAccept = ->
     partyId = user.get('party.invitation')
-    user.set 'party.invitation', null
-    user.set 'party.current', partyId
-    model.at("groups.#{partyId}.members").push user.get('id'), -> window.location.reload()
-#    model.query('groups').withId(partyId).fetch (err, p) ->
-#      members = p.get('members')
-#      members.push user.get('id')
-#      p.set 'members', members, ->
-#        window.location.reload true
-
-#    partySubscribe model, ->
-#      p = model.at('_party')
-#      p.push 'members', user.get('id')
+    user.set 'party.invitation', null, ->
+      model.push("groups.#{partyId}.members", user.get('id'), ->location.reload())
 
   appExports.partyReject = ->
     user.set 'party.invitation', null
     browser.resetDom(model)
 
-  appExports.partyLeave = ->
-    id = user.set 'party.current', null
-    party = model.at '_party'
-    members = party.get('members')
+  appExports.groupLeave = (e,el) ->
+    members = e.get('members')
     index = members.indexOf(user.get('id'))
-    party.remove 'members', index, 1, ->
+    e.at().remove 'members', index, 1, ->
       if members.length is 1 # # last member out, kill the party
-        model.del "groups.#{id}", (-> window.location.reload true)
+        model.del("groups.#{id}", ->location.reload())
       else
-        window.location.reload true
+        location.reload()
 
   ###
     Chat Functionality
