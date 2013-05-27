@@ -3,7 +3,7 @@
  * into one collection: groups, with group.type either 'party' or 'guild'. We are also creating the 'habitrpg' guild,
  * which everyone is auto-subscribed to, and moving tavern chat into that guild
  *
- * mongo habitrpg ./node_modules/underscore/underscore.js ./migrations/20130518_setup_groups.js
+ * mongo habitrpg ./node_modules/lodash/lodash.js ./migrations/20130518_setup_groups.js
  */
 
 /**
@@ -15,7 +15,7 @@
  * 5) subscribe everyone to habitrpg (be sure to set that for default user too!)
  */
 
-db.parties.renameCollection('groups');
+db.parties.renameCollection('groups',true);
 //db.parties.dropCollection(); // doesn't seem to do this step during rename...
 //db.parties.ensureIndex( { 'members': 1,  'background': 1} );
 
