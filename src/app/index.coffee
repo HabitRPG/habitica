@@ -88,7 +88,7 @@ setupSubscriptions = (page, model, params, next, cb) ->
     groupsObj = groups.get()
 
     # (1) Solo player
-    return finished([selfQ, "groups.habitrpg"], ['_user', '_habitRPG']) if _.isEmpty(groupsObj)
+    return finished(["groups.habitrpg", selfQ], ['_habitRPG', '_user']) if _.isEmpty(groupsObj)
 
     ## (2) Party or Guild has members, fetch those users too
     # Subscribe to the groups themselves. We separate them by _party, _guilds, and _habitRPG (the "global" guild).

@@ -12,14 +12,6 @@ module.exports.app = (appExports, model, app) ->
 
   user = model.at('_user')
 
-  model.on 'set', '_user.party.invitation', (after, before) ->
-    if !before? and after? # they just got invited
-      partyQ = model.query('groups').withId(after)
-      partyQ.fetch (err, party) ->
-        return next(err) if err
-        model.ref '_party', party
-        browser.resetDom(model)
-
   appExports.groupCreate = (e,el) ->
     model.add('groups',
       name: model.get("_newGroup")
@@ -29,33 +21,56 @@ module.exports.app = (appExports, model, app) ->
     , ->location.reload())
 
   appExports.groupInvite = (e,el) ->
-    id = model.get('_groupInvitee').replace(/[\s"]/g, '')
+    uid = model.get('_groupInvitee').replace(/[\s"]/g, '')
     model.set '_groupInvitee', ''
-    return if _.isEmpty(id)
+    return if _.isEmpty(uid)
 
-    model.query('users').publicInfo([id]).fetch (err, profiles) ->
+    model.query('users').publicInfo([uid]).fetch (err, profiles) ->
       throw err if err
-      profile = profiles.at(0)
-      return model.set("_groupError", "User with id #{id} not found.") unless profile.get()
+      profile = profiles.at(0).get()
+      return model.set("_groupError", "User with id #{uid} not found.") unless profile
+      model.query('groups').withMember(uid).fetch (err, g) ->
+        throw err if err
 
-      invite = ->
-        $.bootstrapGrowl "Invitation Sent."
-        model.set("users.#{id}.party.invitation", e.get('id'), ->location.reload())
-      if e.get('type') is 'party'
-        model.query('groups').withMember(id).fetch (err,groups) ->
-          if profile.get('party.invitation') or !_.isEmpty(groups.get())
-            return model.set("_groupError", "User already in a party or pending invitation.")
+        {type, name} = e.get()
+        gid = e.get('id')
+        groups = g.get()
+        groupError =(msg) -> model.set("_groupError", msg)
+        invite = ->
+          debugger
+          $.bootstrapGrowl "Invitation Sent."
+          if type is 'guild'
+            model.push("users.#{uid}.invitations.guilds", {id:gid, name}, ->location.reload())
+          else model.set "users.#{uid}.invitations.party", {id:gid, name}, ->
+            debugger
+            location.reload()
+
+        if type is 'guild'
+          if _.find(profile.invitations.guilds, {id:gid})
+            return groupError("User already invited to that group")
+          else if _.find groups, ((group)-> uid in group.members)
+            return groupError("User already in that group")
           else invite()
-      else invite()
+        if type is 'party'
+            if profile.invitations.party
+              return groupError("User already pending invitation.")
+            else if _.find(groups, {type:'party'})
+              return groupError("User already in a party.")
+            else invite()
 
-  appExports.partyAccept = ->
-    partyId = user.get('party.invitation')
-    user.set 'party.invitation', null, ->
-      model.push("groups.#{partyId}.members", user.get('id'), ->location.reload())
+  appExports.acceptInvitation = (e,el) ->
+    group = e.at().get()
+    pushMember = -> model.push("groups.#{group.id}.members", user.get('id'), ->location.reload())
+    if $(el).attr('data-type') is 'party'
+      user.set 'invitations.party', null, pushMember
+    else
+      e.at().remove pushMember
 
-  appExports.partyReject = ->
-    user.set 'party.invitation', null
-    browser.resetDom(model)
+  appExports.rejectInvitation = (e, el) ->
+    clear = -> browser.resetDom(model)
+    if e.at().path().indexOf('party') != -1
+      model.del e.at().path(), clear
+    else e.at().remove clear
 
   appExports.groupLeave = (e,el) ->
     members = e.get('members')

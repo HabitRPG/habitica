@@ -8,11 +8,13 @@
         <div class="tab-pane active" id="groups-party">
             {#if _party.id} <!-- user in a party? -->
                 <app:groups:group group={_party} />
-            {else if _user.party.invitation}
+            {else if _user.invitations.party}
                 <!-- TODO show by whom -->
-                <h2>You're Invited To {_party.name}</h2>
-                <a class='btn btn-success' x-bind="click: partyAccept">Accept</a>
-                <a class='btn btn-danger' x-bind="click: partyReject">Reject</a>
+                <h2>You're Invited To {_user.invitations.party.name}</h2>
+                {#with _user.invitations.party}
+                <a class='btn btn-success' data-type='party' x-bind="click:acceptInvitation">Accept</a>
+                <a class='btn btn-danger' x-bind="click:rejectInvitation">Reject</a>
+                {/}
             {else}
                 <h2>Create A Party</h2>
                 <!-- Not in a party , no invites - create a new one -->
@@ -30,9 +32,16 @@
                 {/}
             </ul>            
             <div class="tab-content">
+
                 <div class='tab-pane active' id='groups-guild-create'>
+                    {#each _user.invitations.guilds as :invitation}
+                        <h3>You're Invited To {:invitation.name}</h3>
+                        <a class='btn btn-success' data-type='guild' x-bind="click:acceptInvitation">Accept</a>
+                        <a class='btn btn-danger' x-bind="click:rejectInvitation">Reject</a>
+                    {/}
                     <app:groups:create-group type='guild' />
                 </div>
+
                 {#each _guilds as :guild}
                     <div class="tab-pane" id="groups-guild-{:guild.id}">
                         <app:groups:group group={:guild} />

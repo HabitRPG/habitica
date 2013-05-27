@@ -21,6 +21,16 @@ db.parties.renameCollection('groups',true);
 
 db.groups.update({}, {$set:{type:'party'}}, {multi:true});
 
+//migrate invitation mechanisms
+db.users.update(
+    {},
+    {
+        $remove:{party:1},
+        $set:{invitations:{party:null,guilds:[]}}
+    },
+    {multi:1}
+);
+
 tavern = db.tavern.findOne();
 db.tavern.drop();
 

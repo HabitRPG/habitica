@@ -48,7 +48,7 @@ userAccess = (store) ->
       return accept(false) # we can only manually set this stuff in the database
 
     # public access to users.*.party.invitation (TODO, lock down a bit more)
-    if attrPath is 'party.invitation'
+    if attrPath.indexOf('invitations.') is 0
       return accept(true)
 
     # Same session (user.id = this.session.userId)
@@ -100,7 +100,7 @@ groupSystem = (store) ->
     @where("id").within(ids)
       .only('stats',
             'items',
-            'party',
+            'invitations',
             'profile',
             'achievements',
             'backer',
