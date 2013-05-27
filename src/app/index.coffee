@@ -135,17 +135,21 @@ ready (model) ->
   require('./unlock').app(exports, model)
   require('./filters').app(exports, model)
 
+  ###
+    Cron
+  ###
   uObj = misc.hydrate(user.get())
-  cron = ->
-    #return setTimeout(cron, 1) if model._txnQueue.length > 0
-    # habitrpg-shared/algos requires uObj.habits, uObj.dailys etc instead of uObj.tasks
-    _.each ['habit','daily','todo','reward'], (type) ->
-      uObj["#{type}s"] = _.where(uObj.tasks, {type:type}); true
-    paths = {}
-    algos.cron(uObj, {paths:paths})
-    lostHp = delete paths['stats.hp'] # we'll set this manually so we can get a cool animation
-    _.each paths, (v,k) -> user.pass({cron:true}).set(k,helpers.dotGet(k, uObj)); true
-    if lostHp
-      browser.resetDom(model)
-      setTimeout (-> user.set('stats.hp', uObj.stats.hp)), 750
-  cron() if algos.shouldCron(uObj)
+  # habitrpg-shared/algos requires uObj.habits, uObj.dailys etc instead of uObj.tasks
+  _.each ['habit','daily','todo','reward'], (type) ->
+    uObj["#{type}s"] = _.where(uObj.tasks, {type:type}); true
+  paths = {}
+  algos.cron(uObj, {paths:paths})
+  if !_.isEmpty(paths)
+    if paths['lastCron'] and _.size(paths) is 1
+      user.set "lastCron", uObj.lastCron
+    else
+      lostHp = delete paths['stats.hp'] # we'll set this manually so we can get a cool animation
+      _.each paths, (v,k) -> user.pass({cron:true}).set(k,helpers.dotGet(k, uObj)); true
+      if lostHp
+        browser.resetDom(model)
+        setTimeout (-> user.set('stats.hp', uObj.stats.hp)), 750
