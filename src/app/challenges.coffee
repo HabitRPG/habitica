@@ -1,5 +1,4 @@
-_ = require 'underscore'
-lodash = require 'lodash'
+_ = require 'lodash'
 helpers = require 'habitrpg-shared/script/helpers'
 
 module.exports.app = (appExports, model) ->
@@ -34,7 +33,7 @@ module.exports.app = (appExports, model) ->
 
     # Add challenge name as a tag for user
     tags = user.get('tags')
-    unless tags and _.findWhere(tags,{id: chal.id})
+    unless tags and _.find(tags,{id: chal.id})
       model.push('_user.tags', {id: chal.id, name: chal.name})
 
     tags = {}; tags[chal.id] = true
@@ -46,6 +45,7 @@ module.exports.app = (appExports, model) ->
         task.tags = tags
         task.challenge = chal.id
         model.push("_#{type}List", task)
+        true
 
   appExports.challengeUnsubscribe = (e) ->
     chal = e.get()
@@ -53,8 +53,9 @@ module.exports.app = (appExports, model) ->
     user.remove("challenges.#{i}") if i? and i != -1
     _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
       _.each chal["#{type}s"], (task) ->
-        model.remove "_#{type}List", lodash.findIndex(model.get("_#{type}List",{id:task.id}))
+        model.remove "_#{type}List", _.findIndex(model.get("_#{type}List",{id:task.id}))
         model.del "_user.tasks.#{task.id}"
+        true
 
   appExports.challengeCollapse = (e, el) ->
     $(el).next().toggle()
