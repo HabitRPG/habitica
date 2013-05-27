@@ -1,6 +1,6 @@
-_ = require 'underscore'
-{ randomVal } = require './helpers'
-{ pets, hatchingPotions } = require('./items').items
+_ = require 'lodash'
+{ randomVal } = require 'habitrpg-shared/script/helpers'
+{ pets, hatchingPotions } = require('habitrpg-shared/script/items').items
 
 ###
   app exports
@@ -46,14 +46,14 @@ module.exports.app = (appExports, model) ->
     return user.set 'items.currentPet', {} if user.get('items.currentPet.str') is petStr
 
     [name, modifier] = petStr.split('-')
-    pet = _.findWhere pets, name: name
+    pet = _.find pets, {name: name}
     pet.modifier = modifier
     pet.str = petStr
     user.set 'items.currentPet', pet
 
   appExports.buyHatchingPotion = (e, el) ->
     name = $(el).attr 'data-hatchingPotion'
-    newHatchingPotion = _.findWhere hatchingPotions, name: name
+    newHatchingPotion = _.find hatchingPotions, {name: name}
     gems = user.get('balance') * 4
     if gems >= newHatchingPotion.value
       if confirm "Buy this hatching potion with #{newHatchingPotion.value} of your #{gems} Gems?"
@@ -64,7 +64,7 @@ module.exports.app = (appExports, model) ->
 
   appExports.buyEgg = (e, el) ->
     name = $(el).attr 'data-egg'
-    newEgg = _.findWhere pets, name: name
+    newEgg = _.find pets, {name: name}
     gems = user.get('balance') * 4
     if gems >= newEgg.value
       if confirm "Buy this egg with #{newEgg.value} of your #{gems} Gems?"

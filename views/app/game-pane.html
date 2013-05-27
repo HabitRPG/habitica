@@ -100,7 +100,7 @@
                     <li><h4><a target="_blank" href="http://community.habitrpg.com/forums/lfg">LFG Posts</a></h4></li>
                     <li><h4><a target="_blank" href="http://www.youtube.com/watch?feature=player_embedded&v=cT5ghzZFfao">Tutorial</a></h4></li>
                     <li><h4><a target="_blank" href="http://community.habitrpg.com/faq-page">FAQ</a></h4></li>
-                    <li><h4><a target="_blank" href="https://github.com/lefnire/habitrpg/issues?state=open">Submit a Bug</a></h4></li>
+                    <li><h4><a target="_blank" href="https://github.com/lefnire/habitrpg/issues?state=open">Report a Problem</a></h4></li>
                     <li><h4><a target="_blank" href="https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6">Request a Feature</a></h4></li>
                     <li><h4><a target="_blank" href="http://community.habitrpg.com/forum">Community Forum</a></h4></li>
                 </ul>
@@ -109,10 +109,22 @@
         </div>
         <div class='span8'>
             <h3>Tavern Talk & LFG</h3>
-            <form x-bind='submit:tavernSendChat'>
-                <textarea class="span6" rows="3"x-bind='keyup:tavernMessageKeyup'>{_tavernMessage}</textarea><br/>
-                <input class=btn type=submit value=Submit />
-            </form>
+            <div class='row-fluid'>
+                <div class='span3'>
+                    <ul class='unstyled buttonList'>
+                        <li><a class='btn btn-info' style='width:100%' target="_blank" href="http://community.habitrpg.com/faq-page">FAQ</a></li>
+                        <li><a class='btn btn-info' style='width:100%' target="_blank" href="https://github.com/lefnire/habitrpg/issues?state=open">Report a Problem</a></li>
+                        <li><a class='btn btn-info' style='width:100%' target="_blank" href="https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6">Request a Feature</a></li>
+                    </ul>
+                </div>
+                <div class=span9>
+                    <form x-bind='submit:tavernSendChat'>
+                        <textarea class="span6" rows="3" x-bind='keyup:tavernMessageKeyup'>{_tavernMessage}</textarea><br/>
+                        <input class=btn type=submit value="Send Chat" />
+                    </form>
+                </div>
+            </div>
+
             <ul class='unstyled tavern-chat'>
                 {#each _tavern.chat.messages as :message}
                     <app:party:chat-message message={{:message}} />

@@ -1,4 +1,4 @@
-_ = require 'underscore'
+_ = require 'lodash'
 request = require 'superagent'
 expect = require 'expect.js'
 require 'coffee-script'
@@ -22,7 +22,7 @@ expect.Assertion::be = expect.Assertion::equal = (obj) ->
   origBe.call this, obj
 
 # Custom modules
-character = require '../src/app/character'
+helpers = require 'habitrpg-shared/script/helpers'
 
 ###### Helpers & Variables ######
 
@@ -48,7 +48,7 @@ describe 'API', ->
       #store.flush()
       model = store.createModel()
       model.set '_userId', uid = model.id()
-      user = character.newUserObject()
+      user = helpers.newUser(true)
       user.apiToken = model.id()
       model.session = {userId:uid}
       model.set "users.#{uid}", user
@@ -373,13 +373,13 @@ describe 'API', ->
           expect(res.statusCode).to.be 201
           tasks = res.body.tasks
 
-          expect(_.findWhere(tasks,{id:habitId})).to.eql {id: habitId,text: 'hello2',notes: 'note2'}
+          expect(_.find(tasks,{id:habitId})).to.eql {id: habitId,text: 'hello2',notes: 'note2'}
         
-          foundNewTask = _.findWhere(tasks,{text:'new task2'})
+          foundNewTask = _.find(tasks,{text:'new task2'})
           expect(foundNewTask.text).to.be 'new task2'
           expect(foundNewTask.notes).to.be 'notes2'
         
-          found = _.findWhere(res.body.tasks, {id:dailyId})
+          found = _.find(res.body.tasks, {id:dailyId})
           expect(found).to.not.be.ok()
 
           query.fetch (err, user) ->

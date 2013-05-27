@@ -1,6 +1,6 @@
-_ = require 'underscore'
-{ randomVal } = require './helpers'
-{ pets, hatchingPotions } = require('./items').items
+_ = require 'lodash'
+{ randomVal } = require 'habitrpg-shared/script/helpers'
+{ pets, hatchingPotions } = require('habitrpg-shared/script/items').items
 
 ###
   Listeners to enabled flags, set notifications to the user when they've unlocked features

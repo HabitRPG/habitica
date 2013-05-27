@@ -1,4 +1,4 @@
-_ = require 'underscore'
+_ = require 'lodash'
 moment = require 'moment'
 
 ###
@@ -35,7 +35,7 @@ loadJavaScripts = (model) ->
 ###
 setupSortable = (model) ->
   unless (model.get('_mobileDevice') is true) #don't do sortable on mobile
-    _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
+    ['habit', 'daily', 'todo', 'reward'].forEach (type) ->
       $("ul.#{type}s").sortable
         dropOnEmpty: false
         cursor: "move"
@@ -109,8 +109,7 @@ setupTour = (model) ->
 
   $('.main-herobox').popover('destroy') #remove previous popovers
   tour = new Tour()
-  _.each tourSteps, (step) ->
-    tour.addStep _.defaults step, {html:true}
+  tourSteps.forEach (step) -> tour.addStep _.defaults step, {html:true}
   tour._current = 0 if isNaN(tour._current) #bootstrap-tour bug
   tour.start()
 

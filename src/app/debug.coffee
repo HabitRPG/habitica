@@ -1,5 +1,5 @@
 moment = require 'moment'
-algos = require './algos'
+algos = require 'habitrpg-shared/script/algos'
 
 module.exports.app = (appExports, model) ->
   user = model.at('_user')
