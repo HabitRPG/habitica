@@ -314,16 +314,6 @@ updateStats = (user, newStats, options={}) ->
     user.stats.gp = newStats.gp
 
 ###
-  Test if we should run cron
-  {user} pass in the user object
-  {now} optional - we can decide which time is "now", which is especially helpful in tests
-###
-obj.shouldCron = (user, options={}) ->
-  now = options.now || +new Date
-  return true if !user.lastCron? or user.lastCron is 'new' or helpers.daysBetween(user.lastCron, now, user.preferences?.dayStart) > 0
-  return false
-
-###
   At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
   For incomplete Dailys, deduct experience
   Make sure to run this function once in a while as server will not take care of overnight calculations.
@@ -339,56 +329,57 @@ obj.cron = (user, options={}) ->
     return
 
   daysMissed = helpers.daysBetween(user.lastCron, now, user.preferences?.dayStart)
-  if daysMissed > 0
-    user.lastCron = now; paths['lastCron'] = true
+  return unless daysMissed > 0
 
-    # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
-    # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
-    return if user.flags.rest is true
+  user.lastCron = now; paths['lastCron'] = true
 
-    # Tally each task
-    todoTally = 0
-    user.todos.concat(user.dailys).forEach (task) ->
-      {id, type, completed, repeat} = task
-      # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
-      unless completed
-        scheduleMisses = daysMissed
-        # for dailys which have repeat dates, need to calculate how many they've missed according to their own schedule
-        if (type is 'daily') and repeat
-          scheduleMisses = 0
-          _.times daysMissed, (n) ->
-            thatDay = moment(now).subtract('days', n + 1)
-            scheduleMisses++ if helpers.shouldDo(thatDay, repeat, {dayStart:obj.preferences?.dayStart})
-        obj.score(user, task, 'down', {times:scheduleMisses, cron:true, paths:paths}) if scheduleMisses > 0
+  # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
+  # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
+  return if user.flags.rest is true
 
-      switch type
-        when 'daily'
-          (task.history ?= []).push({ date: +new Date, value: task.value }); paths["tasks.#{task.id}.history"] = true
-          task.completed = false; paths["tasks.#{task.id}.completed"] = true;
-        when 'todo'
-          #get updated value
-          absVal = if (completed) then Math.abs(task.value) else task.value
-          todoTally += absVal
+  # Tally each task
+  todoTally = 0
+  user.todos.concat(user.dailys).forEach (task) ->
+    {id, type, completed, repeat} = task
+    # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
+    unless completed
+      scheduleMisses = daysMissed
+      # for dailys which have repeat dates, need to calculate how many they've missed according to their own schedule
+      if (type is 'daily') and repeat
+        scheduleMisses = 0
+        _.times daysMissed, (n) ->
+          thatDay = moment(now).subtract('days', n + 1)
+          scheduleMisses++ if helpers.shouldDo(thatDay, repeat, {dayStart:obj.preferences?.dayStart})
+      obj.score(user, task, 'down', {times:scheduleMisses, cron:true, paths:paths}) if scheduleMisses > 0
 
-    user.habits.forEach (task) -> # slowly reset 'onlies' value to 0
-      if task.up is false or task.down is false
-        if Math.abs(task.value) < 0.1
-          task.value = 0
-        else
-          task.value = task.value / 2
-        paths["tasks.#{task.id}.value"] = true
+    switch type
+      when 'daily'
+        (task.history ?= []).push({ date: +new Date, value: task.value }); paths["tasks.#{task.id}.history"] = true
+        task.completed = false; paths["tasks.#{task.id}.completed"] = true;
+      when 'todo'
+        #get updated value
+        absVal = if (completed) then Math.abs(task.value) else task.value
+        todoTally += absVal
+
+  user.habits.forEach (task) -> # slowly reset 'onlies' value to 0
+    if task.up is false or task.down is false
+      if Math.abs(task.value) < 0.1
+        task.value = 0
+      else
+        task.value = task.value / 2
+      paths["tasks.#{task.id}.value"] = true
 
 
-    # Finished tallying
-    ((user.history ?= {}).todos ?= []).push { date: now, value: todoTally }
-    # tally experience
-    expTally = user.stats.exp
-    lvl = 0 #iterator
-    while lvl < (user.stats.lvl - 1)
-      lvl++
-      expTally += obj.tnl(lvl)
-    (user.history.exp ?= []).push { date: now, value: expTally }
-    paths["history"] = true
-    user
+  # Finished tallying
+  ((user.history ?= {}).todos ?= []).push { date: now, value: todoTally }
+  # tally experience
+  expTally = user.stats.exp
+  lvl = 0 #iterator
+  while lvl < (user.stats.lvl - 1)
+    lvl++
+    expTally += obj.tnl(lvl)
+  (user.history.exp ?= []).push { date: now, value: expTally }
+  paths["history"] = true
+  user
 
 
