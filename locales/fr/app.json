@@ -115,7 +115,7 @@
 "_commentdrops" : "SYSTEME DE TRESORS",
   "dropsEnabled" : "Système de trésors débloqués !",
     "dropsEnabledText1" : "Vous venez de débloquer les trésors ! Désormais, quand vous complétez des tâches, vous trouverez peut-être un objet. Et devinez quoi, vous venez de trouver un ",
-    "dropsEnabledText2" : "oeuf",
+    "dropsEnabledText2" : "œuf",
   "itemDropped" : "Un objet est tombé au sol",
 
 
@@ -159,13 +159,13 @@
     "chat": "Tchat",
 
   "inventory": "Inventaire",
-    "eggs": "Oeufs",
-      "noEggs": "Vous n'avez pas d'oeuf pour le moment.",
+    "eggs": "Œufs",
+      "noEggs": "Vous n'avez pas d'œuf pour le moment.",
     "hatchingPotions": "Potions d'éclosion",
       "noHatchingPotions": "Vous n'avez pas de potion d'éclosion pour le moment.",
-    "hatchYourEgg" : "Faites éclore votre oeuf",
+    "hatchYourEgg" : "Faites éclore votre œuf",
       "whichHatchingPotion1" : "Quelle potion voulez-vous utiliser pour faire éclore votre",
-      "whichHatchingPotion2" : "oeuf ?",
+      "whichHatchingPotion2" : "œuf ?",
       "pour" : "verser",
     "rarePets" : "Familier rares",
     "market": "Marché",
