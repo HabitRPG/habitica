@@ -53,7 +53,7 @@
             <!-- todo export/graph options -->
             <span class='option-box pull-right'>
                 {#if _user.history.todos}
-                  <a class="option-action" x-bind=click:toggleChart data-toggle-id="todos-chart" data-history-path="_user.history.todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
+                  <a class="option-action" x-bind=click:toggleChart data-id="todos" rel=tooltip title="Progress"><i class=icon-signal></i></a>
                 {/}
                 <a class="option-action" href="/v1/users/{{_user.id}}/calendar.ics?apiToken={{_user.apiToken}}" rel=tooltip title="iCal"><i class=icon-calendar></i></a>
                 <!-- <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a> -->
@@ -132,7 +132,7 @@
 <task-list: nonvoid>
     <h2 class="task-column_title">{{t(@header)}}</h2>
 
-    {{#if equal(@type,'todo')}}<div id="todos-chart" class="hidden"></div>{{/}}
+    {{#if equal(@type,'todo')}}<div class="todos-chart" style='display:none;'></div>{{/}}
 
     {{#if @editable}}
 
@@ -173,7 +173,7 @@
             </span>
             <app:filters:applied-filters />
             <!-- edit -->
-            <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
+            <a x-bind=click:toggleTaskEdit rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
             <!-- challenges -->
             {{#if :task.challenge}}
                 <i class='icon-bullhorn' rel=tooltip title="Challenge Task"></i>
@@ -183,7 +183,7 @@
             {{/}}
             <!-- chart -->
             {#if :task.history}
-              <a x-bind=click:toggleChart data-toggle-id="{{:task.id}}-chart" data-hide-id="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history" rel="tooltip" title="Progress"><i class="icon-signal"></i></a>
+              <a x-bind=click:toggleChart data-id="{{:task.id}}" rel="tooltip" title="Progress"><i class="icon-signal"></i></a>
             {/}
             <!-- notes -->
             {#if :task.notes}
@@ -246,8 +246,8 @@
 
 <!-- task edit/options -->
 <taskMeta:>
-    <div id="{{:task.id}}-edit" class="task-options visuallyhidden">
-        <form x-bind=submit:toggleTaskEdit data-toggle-id="{{:task.id}}-edit">
+    <div class="{#unless _tasks.editing[:task.id]}visuallyhidden{/} task-options">
+        <form x-bind="submit:toggleTaskEdit" >
             <!-- text & notes -->
             <fieldset class="option-group">
                 {{#unless :task.challenge}}
@@ -342,4 +342,4 @@
         </form>
     </div>
 
-    <div style="display:none;" id={{:task.id}}-chart></div>
+    <div style="display:none;" class={{:task.id}}-chart></div>

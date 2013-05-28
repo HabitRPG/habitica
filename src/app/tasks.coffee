@@ -76,31 +76,36 @@ module.exports.app = (appExports, model) ->
       task.set('repeat.' + $(el).attr('data-day'), true)
 
   appExports.toggleTaskEdit = (e, el) ->
-    hideId = $(el).attr('data-hide-id')
-    toggleId = $(el).attr('data-toggle-id')
-    $(document.getElementById(hideId)).addClass('visuallyhidden')
-    $(document.getElementById(toggleId)).toggleClass('visuallyhidden')
+    id = e.get('id')
+    path = "_tasks.editing.#{id}"
+    model.set path, !model.get(path)
+    $(".#{id}-chart").hide()
 
   appExports.toggleChart = (e, el) ->
-    hideSelector = $(el).attr('data-hide-id')
-    chartSelector = $(el).attr('data-toggle-id')
-    historyPath = $(el).attr('data-history-path')
-    $(document.getElementById(hideSelector)).hide()
-    $(document.getElementById(chartSelector)).toggle()
+    id = $(el).attr('data-id')
+    history = []
+
+    if id is 'todos'
+      model.set "_tasks.charts.todos", !model.get("_tasks.charts.todos")
+      history = model.get("_user.history.todos")
+      $(".#{id}-chart").toggle()
+    else
+      [id, path] = [$(el).attr('data-id'), "_tasks.charts.#{id}"]
+      model.set path, !model.get(path)
+      model.set "_tasks.editing.#{id}", false
+      $(".#{id}-chart").toggle()
+      history = model.get("_user.tasks.#{id}.history")
 
     matrix = [['Date', 'Score']]
-    for obj in model.get(historyPath)
+    for obj in history
       date = +new Date(obj.date)
       readableDate = moment(date).format('MM/DD')
       matrix.push [ readableDate, obj.value ]
     data = google.visualization.arrayToDataTable matrix
-
-    options = {
+    options =
       title: 'History'
       backgroundColor: { fill:'transparent' }
-    }
-
-    chart = new google.visualization.LineChart(document.getElementById( chartSelector ))
+    chart = new google.visualization.LineChart $(".#{id}-chart")[0]
     chart.draw(data, options)
 
   appExports.todosShowRemaining = -> model.set '_showCompleted', false
