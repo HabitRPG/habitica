@@ -20,18 +20,26 @@
             </div>
 
             <div class="tab-pane" id="challengesViewGuild">
-                {{#each _guilds as :guild}}
-                    <h3>{:guild.name}</h3>
-                    {#if _challenge.new}
-                        <app:challenges:create-form />
-                    {else}
-                        <app:challenges:create-button type='guild' gid={{:guild.id}} text='Guild' />
-                        {#each :guild.challenges as :challenge}
-                            <app:challenges:listing challenge={:challenge} />
-                        {/}
-                        <hr/>
+                <ul class="nav nav-pills">
+                    {{#each _guilds as :guild}}
+                        <li class="{{#if equal($index,0)}}active{{/}}"><a data-toggle='tab' data-target="#challenges-guild-{:guild.id}">{{:guild.name}}</a></li>
+                    {{/}}
+                </ul>
+                <div class="tab-content">
+                    {{#each _guilds as :guild}}
+                        <div class="tab-pane {{#if equal($index,0)}}active{{/}}" id="challenges-guild-{:guild.id}">
+                            {#if _challenge.new}
+                                <app:challenges:create-form />
+                            {else}
+                                <app:challenges:create-button type='guild' gid={{:guild.id}} text='Guild' />
+                                {#each :guild.challenges as :challenge}
+                                    <app:challenges:listing challenge={:challenge} />
+                                {/}
+                                <hr/>
+                            {/}
+                        </div>
                     {/}
-                {{/}}
+                </div>
             </div>
 
             <div class="tab-pane" id="challengesViewPublic">
