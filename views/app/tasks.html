@@ -175,11 +175,13 @@
             <!-- edit -->
             <a x-bind=click:toggleTaskEdit data-hide-id="{{:task.id}}-chart" data-toggle-id="{{:task.id}}-edit" rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
             <!-- challenges -->
-            {{#if :task.challenge}}<i class='icon-bullhorn' rel=tooltip title="Challenge Task"></i>{{/}}
-            <!-- delete -->
-            <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
+            {{#if :task.challenge}}
+                <i class='icon-bullhorn' rel=tooltip title="Challenge Task"></i>
+            {{else}}
+                <!-- delete -->
+                <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
+            {{/}}
             <!-- chart -->
-            <!-- removing for now cuz it's broken -->
             {#if :task.history}
               <a x-bind=click:toggleChart data-toggle-id="{{:task.id}}-chart" data-hide-id="{{:task.id}}-edit" data-history-path="_user.tasks.{{:task.id}}.history" rel="tooltip" title="Progress"><i class="icon-signal"></i></a>
             {/}
@@ -231,7 +233,11 @@
 
         <!-- main content -->
         <p class="task-text">
-            {:task.text}
+            {{#if :task.challenge}}
+                {{taskAttrFromChallenge(:task,'text')}}
+            {{else}}
+                {:task.text}
+            {{/}}
         </p>
 
         <!-- edit/options dialog -->
@@ -244,12 +250,19 @@
         <form x-bind=submit:toggleTaskEdit data-toggle-id="{{:task.id}}-edit">
             <!-- text & notes -->
             <fieldset class="option-group">
-                <label class="option-title">Text</label><input class="option-content" type=text value={:task.text}>
-                <label class="option-title">Extra Notes</label><textarea class="option-content" rows=3>{:task.notes}</textarea>
+                {{#unless :task.challenge}}
+                    <label class="option-title">Text</label><input class="option-content" type=text value={:task.text}>
+                {{/}}
+                <label class="option-title">Extra Notes</label>
+                {{#if :task.challenge}}
+                    <textarea class="option-content" rows=3 disabled>{{taskAttrFromChallenge(:task,'notes')}}</textarea>
+                {{else}}
+                    <textarea class="option-content" rows=3>{:task.notes}</textarea>
+                {{/}}
             </fieldset>
 
             <!-- if Habit, plus/minus command options -->
-            {#if equal(:task.type, 'habit')}
+            {#if and(equal(:task.type, 'habit'),not(:task.challenge))}
                 <fieldset class="option-group">
                     <legend class="option-title">Direction/Actions</legend>
                     <span class="task-checker action-plusminus select-toggle">
@@ -304,11 +317,18 @@
                 <p x-bind="click:tasksToggleAdvanced" class="option-title mega">Advanced Options</p>
                 <fieldset class="option-group advanced-option visuallyhidden">
                     <legend class="option-title"><a class='priority-multiplier-help' href="https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17" target="_blank"><i class='icon-question-sign'></i></a> Difficulty</legend>
-                    <div class="task-controls tile-group priority-multiplier" data-id="{{:task.id}}">
-                        <button type="button" class="task-action-btn tile {#if equal(:task.priority,'!')}active{/}{#unless :task.priority}active{/}" data-priority='!' x-bind=click:tasksSetPriority>Easy</button>
-                        <button type="button" class="task-action-btn tile {#if equal(:task.priority,'!!')}active{/}" data-priority='!!' x-bind=click:tasksSetPriority>Medium</button>
-                        <button type="button" class="task-action-btn tile {#if equal(:task.priority,'!!!')}active{/}" data-priority='!!!' x-bind=click:tasksSetPriority>Hard</button>
-                    </div>
+
+                    {{#if :task.challenge}}
+                        <button disabled type="button" class="task-action-btn tile active">
+                            {{taskAttrFromChallenge(:task,'priority')}}
+                        </button>
+                    {{else}}
+                        <div class="task-controls tile-group priority-multiplier" data-id="{{:task.id}}">
+                            <button type="button" class="task-action-btn tile {#if or(equal(:task.priority,'!'),not(:task.priority))}active{/}" data-priority='!' x-bind=click:tasksSetPriority>Easy</button>
+                            <button type="button" class="task-action-btn tile {#if equal(:task.priority,'!!')}active{/}" data-priority='!!' x-bind=click:tasksSetPriority>Medium</button>
+                            <button type="button" class="task-action-btn tile {#if equal(:task.priority,'!!!')}active{/}" data-priority='!!!' x-bind=click:tasksSetPriority>Hard</button>
+                        </div>
+                    {{/}}
 
                     {{#if equal(:task.type,'daily')}}
                         <legend class="option-title">Restore Streak</legend>

@@ -9,7 +9,7 @@
       </li>
       {#each _user.tags as :tag}
         <li class="{#if _user.filters[:tag.id]}active{/}" style='position:relative;'>
-            {#if _editingTags}
+            {#if and(_editingTags,not(:tag.challenge))}
                 <div class="input-append option-group tag-editing" >
                     <input class="input input-small option-content tag-editing-pill" type="text" value='{:tag.name}' />
                     <span class="add-on tag-editing-pill"><a class='pull-right' x-bind=click:filtersDeleteTag data-index="{$index}"><i class='icon-trash'></i></a></span>

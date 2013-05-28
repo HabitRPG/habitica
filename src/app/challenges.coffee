@@ -40,7 +40,7 @@ module.exports.app = (appExports, model) ->
     # Add challenge name as a tag for user
     tags = user.get('tags')
     unless tags and _.find(tags,{id: chal.id})
-      model.push('_user.tags', {id: chal.id, name: chal.name})
+      model.push '_user.tags', {id: chal.id, name: chal.name, challenge: true}
 
     tags = {}; tags[chal.id] = true
     # Add all challenge's tasks to user's tasks
@@ -50,6 +50,7 @@ module.exports.app = (appExports, model) ->
       _.each chal["#{type}s"], (task) ->
         task.tags = tags
         task.challenge = chal.id
+        task.group = {id: chal.group.id, type: chal.group.type}
         model.push("_#{type}List", task)
         true
 

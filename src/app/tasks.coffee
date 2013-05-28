@@ -19,9 +19,8 @@ module.exports.app = (appExports, model) ->
     # Don't add a blank task; 20/02/13 Added a check for undefined value, more at issue #463 -lancemanfv
     return if /^(\s)*$/.test(text) || text == undefined
 
-    newTask = {id: model.id(), type: type, text: text, notes: '', value: 0, tags:{}}
-    isChallenge = e.at().path().indexOf('_challenge.new') != -1
-    newTask.tags = if isChallenge then {} else _.reduce user.get('filters'), ((memo,v,k) -> memo[k]=v if v;memo), {}
+    newTask = {id: model.id(), type, text, notes: '', value: 0}
+    newTask.tags = _.reduce user.get('filters'), ((memo,v,k) -> memo[k]=v if v; memo), {}
 
     switch type
       when 'habit'

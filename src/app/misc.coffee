@@ -102,3 +102,20 @@ module.exports.viewHelpers = (view) ->
   #Tags
   view.fn 'noTags', helpers.noTags
   view.fn 'appliedTags', helpers.appliedTags
+
+  #Challenges
+  view.fn 'taskAttrFromChallenge', (task, attr) ->
+    [tid, gid, cid, tType, gType] = [task.id, task.group.id, task.challenge, task.type, task.group.type]
+    findAttr = (challenges) ->
+      challenge = _.find(challenges,{id:cid})
+      val = _.find(challenge["#{tType}s"],{id:tid})[attr]
+      if attr is 'priority'
+        val = switch val
+          when '!!!' then 'Hard'
+          when '!!' then 'Medium'
+          else 'Easy'
+      return val
+    if gType is 'party'
+      findAttr @model.get("_party.challenges")
+    else if gType is 'guild'
+      findAttr _.find(@model.get("_guilds"),{id:gid}).challenges
