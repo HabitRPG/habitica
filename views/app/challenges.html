@@ -19,19 +19,14 @@
 <view:>
     <div>
         <ul class="nav nav-pills">
-            <li class="active"><a data-toggle='tab' data-target="#challengesViewMine">Mine</a></li>
-            <li><a data-toggle='tab' data-target="#challengesViewParty">Party</a></li>
+            <li class="active"><a data-toggle='tab' data-target="#challengesViewParty">Party</a></li>
             <li><a data-toggle='tab' data-target="#challengesViewGuild">Guild</a></li>
             <li><a data-toggle='tab' data-target="#challengesViewPublic">Public</a></li>
         </ul>
 
         <div class="tab-content">
 
-            <div class="tab-pane active" id="challengesViewMine">
-                Mine
-            </div>
-
-            <div class="tab-pane" id="challengesViewParty">
+            <div class="tab-pane active" id="challengesViewParty">
                 {#each _party.challenges as :challenge}
                     <app:challenges:listing challenge={:challenge} />
                 {/}
