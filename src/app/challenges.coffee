@@ -5,7 +5,8 @@ module.exports.app = (appExports, model) ->
   browser = require './browser'
   user = model.at '_user'
 
-  appExports.challengeCreate = ->
+  appExports.challengeCreate = (e,el) ->
+    [type, gid] = [$(el).attr('data-type'), $(el).attr('data-gid')]
     model.set '_challenge.new',
       name: ''
       habits: []
@@ -15,23 +16,17 @@ module.exports.app = (appExports, model) ->
       id: model.id()
       uid: user.get('id')
       user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
-      # FIXME group is a stop-gap since derby's not picking up the initial select option `selected={}` until it's changed
-      group: type:'party', id:model.get('_guilds.0.id')
+      group: {type, id:gid}
       timestamp: +new Date
 
-    model.set '_challenge.creating', true
-
   appExports.challengeSave = ->
-    gid = switch model.get('_challenge.new.group.type')
-      when 'party' then model.get('_party.id')
-      when 'guild' then model.get('_challenge.new.group.id')
-      when 'public' then 'habitrpg'
-    model.unshift "groups.#{gid}.challenges", model.get('_challenge.new'), challengeDiscard
-    browser.growlNotification('Challenge Created','success')
+    gid = model.get('_challenge.new.group.id')
+    debugger
+    model.unshift "groups.#{gid}.challenges", model.get('_challenge.new'), ->
+      browser.growlNotification('Challenge Created','success')
+      challengeDiscard()
 
-  appExports.challengeDiscard = challengeDiscard = ->
-    model.set '_challenge.new', {}
-    model.set '_challenge.creating', false
+  appExports.challengeDiscard = challengeDiscard = -> model.del '_challenge.new'
 
   appExports.challengeSubscribe = (e) ->
     chal = e.get()
@@ -65,4 +60,4 @@ module.exports.app = (appExports, model) ->
 
   appExports.challengeCollapse = (e, el) ->
     $(el).next().toggle()
-    i = $(el).find('i').toggleClass 'icon-chevron-down'
+    i = $(el).find('i').toggleClass('icon-chevron-right icon-chevron-down')

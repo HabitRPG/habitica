@@ -1,24 +1,6 @@
 <main:>
-
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle='tab' data-target="#challengesView">Challenges</a></li>
-        <li ><a data-toggle='tab' data-target="#challengesCreate">Create Challenge</a></li>
-    </ul>
-
-    <div class="tab-content">
-
-        <div class="tab-pane active" id="challengesView">
-            <app:challenges:view />
-        </div>
-
-        <div class="tab-pane" id="challengesCreate">
-            <app:challenges:create />
-        </div>
-    </div>
-
-<view:>
     <div>
-        <ul class="nav nav-pills">
+        <ul class="nav nav-tabs">
             <li class="active"><a data-toggle='tab' data-target="#challengesViewParty">Party</a></li>
             <li><a data-toggle='tab' data-target="#challengesViewGuild">Guild</a></li>
             <li><a data-toggle='tab' data-target="#challengesViewPublic">Public</a></li>
@@ -27,24 +9,39 @@
         <div class="tab-content">
 
             <div class="tab-pane active" id="challengesViewParty">
-                {#each _party.challenges as :challenge}
-                    <app:challenges:listing challenge={:challenge} />
+                {#if _challenge.new}
+                    <app:challenges:create-form />
+                {else}
+                    <app:challenges:create-button type='party' gid={{_party.id}} text='Party'/>
+                    {#each _party.challenges as :challenge}
+                        <app:challenges:listing challenge={:challenge} />
+                    {/}
                 {/}
             </div>
 
             <div class="tab-pane" id="challengesViewGuild">
-                {#each _guilds as :guild}
+                {{#each _guilds as :guild}}
                     <h3>{:guild.name}</h3>
-                    {#each :guild.challenges as :challenge}
-                <app:challenges:listing challenge={:challenge} />
+                    {#if _challenge.new}
+                        <app:challenges:create-form />
+                    {else}
+                        <app:challenges:create-button type='guild' gid={{:guild.id}} text='Guild' />
+                        {#each :guild.challenges as :challenge}
+                            <app:challenges:listing challenge={:challenge} />
+                        {/}
+                        <hr/>
                     {/}
-                    <hr/>
-                {/}
+                {{/}}
             </div>
 
             <div class="tab-pane" id="challengesViewPublic">
-                {#each _habitRPG.challenges as :challenge}
-                    <app:challenges:listing challenge={:challenge} />
+                {#if _challenge.new}
+                    <app:challenges:create-form />
+                {else}
+                    <app:challenges:create-button type='public' gid='habitrpg' text='Public' />
+                    {#each _habitRPG.challenges as :challenge}
+                        <app:challenges:listing challenge={:challenge} />
+                    {/}
                 {/}
             </div>
 
@@ -57,9 +54,9 @@
             <a x-bind="click:challengeUnsubscribe" class='btn btn-medium btn-danger {#unless indexOf(_user.challenges,@challenge.id)}hidden{/}'><i class='icon-ban-circle'></i> Unsubscribe</a>
             <a x-bind="click:challengeSubscribe" class='btn btn-medium btn-success {#if indexOf(_user.challenges,@challenge.id)}hidden{/}'><i class='icon-ok'></i> Subscribe</a>
         </div>
-        <h4 x-bind="click:challengeCollapse"><i class='icon-chevron-down icon-chevron-right'></i> {@challenge.name} (by {@challenge.user})</h4>
+        <h4 x-bind="click:challengeCollapse"><i class='icon-chevron-right'></i> {@challenge.name} (by {@challenge.user})</h4>
 
-        <div class="grid">
+        <div class="grid" style='display:none;'>
             <app:tasks:task-lists
                     habits={@challenge.habits}
                     dailys={@challenge.dailys}
@@ -68,70 +65,70 @@
         </div>
     </div>
 
-<create:>
-    <div>
-        {#unless _challenge.creating}
-            <a x-bind='click:challengeCreate' class='btn btn-large btn-success'>Create New Challenge</a>
-        {else}
+<create-button:>
+    <a x-bind='click:challengeCreate' class='btn btn-large btn-success' data-type={{@type}} data-gid={{@gid}} >Create {{@text}} Challenge</a>
 
-            <div class="grid">
-                <app:tasks:task-lists
-                        habits={_challenge.new.habits}
-                        dailys={_challenge.new.dailys}
-                        todos={_challenge.new.todos}
-                        rewards={_challenge.new.rewards}
-                        editable=true />
+<create-form:>
+    <form x-bind="submit:challengeSave">
+        <div>
+            <input type='submit' class='btn btn-success' value='Save' />
+            <input type='button' x-bind='click:challengeDiscard' class='btn btn-danger' value=Discard />
+        </div>
+
+        <div class='challenge-options'>
+            <input type='text' class='option-content' value={_challenge.new.name} placeholder="Challenge Title" required />
+        </div>
+
+
+
+        <!--<fieldset>
+            <div>
+                <select>
+                    <option selected="{equal('party',_challenge.new.group.type)}" >Party</option>
+                    <option selected="{equal('guild',_challenge.new.group.type)}" >Guild</option>
+                    <option selected="{equal('public',_challenge.new.group.type)}" >Public</option>
+                </select>
             </div>
-
-            <form x-bind="submit:challengeSave">
-
-                <input id='newChallengeName' type='text' value={_challenge.new.name} placeholder="Challenge Title" required />
-
-                <fieldset>
-                    <div>
-                        <select>
-                            <option selected="{equal('party',_challenge.new.group.type)}" >Party</option>
-                            <option selected="{equal('guild',_challenge.new.group.type)}" >Guild</option>
-                            <option selected="{equal('public',_challenge.new.group.type)}" >Public</option>
-                        </select>
+            <div>
+                {#if equal(_challenge.new.assignTo,'Party')}
+                    <div class='row-fluid'>
+                        <div class='span4 well'>
+                            <div><input type='radio' name='challenge-party-selection' checked={_challenge.new.partyAssignees} >All Party</input></div>
+                            <small>No individual privacy on the challenge, all party members can see progress even if they decline the challenge. Any new party members can subscribe to this challenge.</small>
+                        </div>
+                        <div class='span8 well'>
+                            <div><input type='radio' name='challenge-party-selection' checked={not(_challenge.new.partyAssignees)} >Individual Members</input></div>
+                            <div>
+                                <select multiple="multiple">
+                                {{#each _party.members as :memberId}}
+                                    <option>{{username(_members[:memberId].auth,_members[:memberId].profile.name)}}</option>
+                                {{/}}
+                                </select>
+                            </div>
+                            <div><small>Only the invited party members can subscribe to this challenge. New party joins won't see this challenge.</small></div>
+                        </div>
                     </div>
-                    <div>
-                        <!--{#if equal(_challenge.new.assignTo,'Party')}-->
-                            <!--<div class='row-fluid'>-->
-                                <!--<div class='span4 well'>-->
-                                    <!--<div><input type='radio' name='challenge-party-selection' checked={_challenge.new.partyAssignees} >All Party</input></div>-->
-                                    <!--<small>No individual privacy on the challenge, all party members can see progress even if they decline the challenge. Any new party members can subscribe to this challenge.</small>-->
-                                <!--</div>-->
-                                <!--<div class='span8 well'>-->
-                                    <!--<div><input type='radio' name='challenge-party-selection' checked={not(_challenge.new.partyAssignees)} >Individual Members</input></div>-->
-                                    <!--<div>-->
-                                        <!--<select multiple="multiple">-->
-                                        <!--{{#each _party.members as :memberId}}-->
-                                            <!--<option>{{username(_members[:memberId].auth,_members[:memberId].profile.name)}}</option>-->
-                                        <!--{{/}}-->
-                                        <!--</select>-->
-                                    <!--</div>-->
-                                    <!--<div><small>Only the invited party members can subscribe to this challenge. New party joins won't see this challenge.</small></div>-->
-                                <!--</div>-->
-                            <!--</div>-->
 
-                        <!--{/}-->
-                        {#if equal(_challenge.new.group.type,'guild')}
-                            <select>
-                            {{#each _guilds as :guild}}
-                                <option selected="{equal(:guild.id,_challenge.new.group.id)}" >{:guild.name}</option>
-                            {{/}}
-                            </select>
-                        {/}
-                    </div>
-                </fieldset>
+                {/}
+                {#if equal(_challenge.new.group.type,'guild')}
+                    <select>
+                    {{#each _guilds as :guild}}
+                        <option selected="{equal(:guild.id,_challenge.new.group.id)}" >{:guild.name}</option>
+                    {{/}}
+                    </select>
+                {/}
+            </div>
+        </fieldset>-->
 
-                <input type='submit' class='btn btn-large btn-success' value='Save' />
-                <input type='button' x-bind='click:challengeDiscard' class='btn btn-large btn-danger' value=Discard />
-            </form>
+    </form>
 
-
-        {/}
-
+    <div class="grid">
+        <app:tasks:task-lists
+                habits={_challenge.new.habits}
+                dailys={_challenge.new.dailys}
+                todos={_challenge.new.todos}
+                rewards={_challenge.new.rewards}
+                editable=true />
     </div>
+
 
