@@ -12,9 +12,8 @@ module.exports.app = (appExports, model) ->
       dailys: []
       todos: []
       rewards: []
-      assignTo: 'Party'
       id: model.id()
-      uuid: user.get('id')
+      uid: user.get('id')
       user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
       # FIXME group is a stop-gap since derby's not picking up the initial select option `selected={}` until it's changed
       group: type:'party', id:model.get('_guilds.0.id')
@@ -23,10 +22,10 @@ module.exports.app = (appExports, model) ->
     model.set '_challenge.creating', true
 
   appExports.challengeSave = ->
-    gid =
-      if model.get('_challenge.new.group.type') is 'party' then model.get('_party.id')
-      else model.get('_challenge.new.group.id')
-    debugger
+    gid = switch model.get('_challenge.new.group.type')
+      when 'party' then model.get('_party.id')
+      when 'guild' then model.get('_challenge.new.group.id')
+      when 'public' then 'habitrpg'
     model.unshift "groups.#{gid}.challenges", model.get('_challenge.new'), challengeDiscard
     browser.growlNotification('Challenge Created','success')
 
