@@ -195,8 +195,8 @@ setupGrowlNotifications = (model) ->
       statsNotification '<i class="icon-chevron-up"></i> Level Up!', 'lvl'
 
 module.exports.resetDom = (model) ->
-  DERBY.app.dom.clear()
-  DERBY.app.view.render(model, DERBY.app.view._lastRender.ns, DERBY.app.view._lastRender.context);
+  window.DERBY.app.dom.clear()
+  window.DERBY.app.view.render(model, window.DERBY.app.view._lastRender.ns, window.DERBY.app.view._lastRender.context);
 
 # Note, Google Analyatics giving beef if in this file. Moved back to index.html. It's ok, it's async - really the
 # syncronous requires up top are what benefit the most from this file.
