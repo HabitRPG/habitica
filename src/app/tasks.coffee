@@ -134,19 +134,16 @@ module.exports.app = (appExports, model) ->
   appExports.undo = () ->
     undo = model.get '_undo'
     clearTimeout(undo.timeoutId) if undo?.timeoutId
-    batch = character.BatchUpdate(model)
-    batch.startTransaction()
     model.del '_undo'
-    _.each undo.stats, (val, key) -> batch.set "stats.#{key}", val; true
+    _.each undo.stats, (val, key) -> user.set "stats.#{key}", val; true
     taskPath = "tasks.#{undo.task.id}"
     _.each undo.task, (val, key) ->
       return true if key in ['id', 'type'] # strange bugs in this world: https://workflowy.com/shared/a53582ea-43d6-bcce-c719-e134f9bf71fd/
       if key is 'completed'
         user.pass({cron:true}).set("#{taskPath}.completed",val)
       else
-        batch.set "#{taskPath}.#{key}", val
+        user.set "#{taskPath}.#{key}", val
       true
-    batch.commit()
 
   appExports.tasksToggleAdvanced = (e, el) ->
     $(el).next('.advanced-option').toggleClass('visuallyhidden')
