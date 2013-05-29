@@ -57,19 +57,26 @@
     </div>
 
 <listing:>
-    <div>
-        <div class='pull-right'>
-            <a x-bind="click:challengeUnsubscribe" class='btn btn-medium btn-danger {#unless indexOf(_user.challenges,@challenge.id)}hidden{/}'><i class='icon-ban-circle'></i> Unsubscribe</a>
-            <a x-bind="click:challengeSubscribe" class='btn btn-medium btn-success {#if indexOf(_user.challenges,@challenge.id)}hidden{/}'><i class='icon-ok'></i> Subscribe</a>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <span class=pull-right>
+                    <a x-bind="click:challengeUnsubscribe" class='btn btn-small btn-danger {#unless indexOf(_user.challenges,@challenge.id)}hidden{/}'><i class='icon-ban-circle'></i> Unsubscribe</a>
+                    <a x-bind="click:challengeSubscribe" class='btn btn-small btn-success {#if indexOf(_user.challenges,@challenge.id)}hidden{/}'><i class='icon-ok'></i> Subscribe</a>
+                </span>
+            <a class="accordion-toggle" data-toggle="collapse" href="#accordion-challenge-{{@challenge.id}}">{@challenge.name} (by {@challenge.user})</a>
         </div>
-        <h4 x-bind="click:challengeCollapse"><i class='icon-chevron-right'></i> {@challenge.name} (by {@challenge.user})</h4>
+        <div id="accordion-challenge-{{@challenge.id}}" class="accordion-body collapse in">
+            <div class="accordion-inner">
 
-        <div class="grid" style='display:none;'>
-            <app:tasks:task-lists
-                    habits={@challenge.habits}
-                    dailys={@challenge.dailys}
-                    todos={@challenge.todos}
-                    rewards={@challenge.rewards} />
+
+                <div class="grid">
+                    <app:tasks:task-lists
+                            habits={@challenge.habits}
+                            dailys={@challenge.dailys}
+                            todos={@challenge.todos}
+                            rewards={@challenge.rewards} />
+                </div>
+            </div>
         </div>
     </div>
 
