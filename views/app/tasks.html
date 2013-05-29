@@ -176,7 +176,9 @@
             <a x-bind=click:toggleTaskEdit rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
             <!-- challenges -->
             {{#if :task.challenge}}
-                <i class='icon-bullhorn' rel=tooltip title="Challenge Task"></i>
+                {{#if brokenChallengeLink(:task)}}
+                    <i class='icon-bullhorn' style='background-color:red;' x-bind=click:toggleTaskEdit rel=tooltip title="Broken Challenge Link"></i>
+                {{/}}
             {{else}}
                 <!-- delete -->
                 <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
@@ -233,7 +235,7 @@
 
         <!-- main content -->
         <p class="task-text">
-            {{#if :task.challenge}}
+            {{#if taskInChallenge(:task)}}
                 {{taskAttrFromChallenge(:task,'text')}}
             {{else}}
                 {:task.text}
@@ -247,14 +249,20 @@
 <!-- task edit/options -->
 <taskMeta:>
     <div class="{#unless _tasks.editing[:task.id]}visuallyhidden{/} task-options">
+        {{#if brokenChallengeLink(:task)}}
+            <div class='well'>
+                <p>Broken Challenge Link: this task was part of a challenge, but (a) challenge (or containing group) has been deleted, or (b) the task was deleted from the challenge.</p>
+                <p><a>Keep</a> | <a>Keep all from challenge</a> | <a>Delete</a> | <a>Delete all from challenge</a></p>
+            </div>
+        {{/}}
         <form x-bind="submit:toggleTaskEdit" >
             <!-- text & notes -->
             <fieldset class="option-group">
-                {{#unless :task.challenge}}
+                {{#unless taskInChallenge(:task)}}
                     <label class="option-title">Text</label><input class="option-content" type=text value={:task.text}>
                 {{/}}
                 <label class="option-title">Extra Notes</label>
-                {{#if :task.challenge}}
+                {{#if taskInChallenge(:task)}}
                     <textarea class="option-content" rows=3 disabled>{{taskAttrFromChallenge(:task,'notes')}}</textarea>
                 {{else}}
                     <textarea class="option-content" rows=3>{:task.notes}</textarea>
@@ -262,7 +270,7 @@
             </fieldset>
 
             <!-- if Habit, plus/minus command options -->
-            {#if and(equal(:task.type, 'habit'),not(:task.challenge))}
+            {#if and(equal(:task.type, 'habit'),not(taskInChallenge(:task)))}
                 <fieldset class="option-group">
                     <legend class="option-title">Direction/Actions</legend>
                     <span class="task-checker action-plusminus select-toggle">
@@ -318,7 +326,7 @@
                 <fieldset class="option-group advanced-option visuallyhidden">
                     <legend class="option-title"><a class='priority-multiplier-help' href="https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17" target="_blank"><i class='icon-question-sign'></i></a> Difficulty</legend>
 
-                    {{#if :task.challenge}}
+                    {{#if taskInChallenge(:task)}}
                         <button disabled type="button" class="task-action-btn tile active">
                             {{taskAttrFromChallenge(:task,'priority')}}
                         </button>

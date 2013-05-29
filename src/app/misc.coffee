@@ -116,19 +116,24 @@ module.exports.viewHelpers = (view) ->
   view.fn 'noTags', helpers.noTags
   view.fn 'appliedTags', helpers.appliedTags
 
-  #Challenges
-  view.fn 'taskAttrFromChallenge', (task, attr) ->
-    [tid, gid, cid, tType, gType] = [task.id, task.group.id, task.challenge, task.type, task.group.type]
-    findAttr = (challenges) ->
+  #TODO put this in habitrpg-shared
+  taskInChallenge = (task) ->
+    return false unless task?.challenge
+    [gid, cid, gType] = [task.group.id, task.challenge, task.group.type]
+    getTask = (challenges) ->
       challenge = _.find(challenges,{id:cid})
-      val = _.find(challenge["#{tType}s"],{id:tid})[attr]
-      if attr is 'priority'
-        val = switch val
-          when '!!!' then 'Hard'
-          when '!!' then 'Medium'
-          else 'Easy'
-      return val
-    if gType is 'party'
-      findAttr @model.get("_party.challenges")
-    else if gType is 'guild'
-      findAttr _.find(@model.get("_guilds"),{id:gid}).challenges
+      challenge and _.find(challenge["#{task.type}s"],{id:task.id})
+    switch gType
+      when 'party'
+        party = @model.get('_party')
+        return party?.challenges and getTask(party.challenges)
+      when 'guild'
+        guilds = @model.get("_guilds")
+        return guilds and getTask(_.find(guilds,{id:gid}).challenges)
+
+  #Challenges
+  view.fn 'taskInChallenge', taskInChallenge
+  view.fn 'taskAttrFromChallenge', (task, attr) ->
+    t = taskInChallenge(task)
+    t and t[attr]
+  view.fn 'brokenChallengeLink', (task) -> task?.challenge and !taskInChallenge.call(@,task)
