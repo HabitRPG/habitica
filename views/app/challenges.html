@@ -68,6 +68,16 @@
         <div id="accordion-challenge-{{@challenge.id}}" class="accordion-body collapse in">
             <div class="accordion-inner">
 
+                {#if _editing.challenges[@challenge.id]}
+                    <a class=btn x-bind='click:toggleChallengeEdit' data-id={{@challenge.id}} >Done</a>
+                    <div class='-options'>
+                        <input type=text class='option-content' value={@challenge.name} />
+                        <textarea cols=3 class='option-content' placeholder='Description'>{@challenge.description}</textarea>
+                    </div>
+                {else if equal(@challenge.uid,_user.id)}
+                    <a class=btn x-bind='click:toggleChallengeEdit' data-id={{@challenge.id}} >Edit</a>
+                {/}
+                {#if @challenge.description}<div class=well>{@challenge.description}</div>{/}
 
                 <div class="grid">
                     <app:tasks:task-lists

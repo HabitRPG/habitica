@@ -26,6 +26,10 @@ module.exports.app = (appExports, model) ->
       browser.growlNotification('Challenge Created','success')
       challengeDiscard()
 
+  appExports.toggleChallengeEdit = (e, el) ->
+    path = "_editing.challenges.#{$(el).attr('data-id')}"
+    model.set path, !model.get(path)
+
   appExports.challengeDiscard = challengeDiscard = -> model.del '_challenge.new'
 
   appExports.challengeSubscribe = (e) ->
@@ -57,7 +61,3 @@ module.exports.app = (appExports, model) ->
         model.remove "_#{type}List", _.findIndex(model.get("_#{type}List",{id:task.id}))
         model.del "_user.tasks.#{task.id}"
         true
-
-  appExports.challengeCollapse = (e, el) ->
-    $(el).next().toggle()
-    i = $(el).find('i').toggleClass('icon-chevron-right icon-chevron-down')
