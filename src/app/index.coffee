@@ -40,7 +40,7 @@ cleanupCorruptTasks = (model) ->
       delete tasks[key]
     true
 
-  misc.batchTxn model, (uObj, paths) ->
+  misc.batchTxn model, (uObj, paths, batch) ->
     ## Task List Cleanup
     ['habit','daily','todo','reward'].forEach (type) ->
 
@@ -55,7 +55,7 @@ cleanupCorruptTasks = (model) ->
 
       # There were indeed issues found, set the new list
       if !_.isEqual(idList, preened)
-        uObj["#{type}Ids"] = preened; paths["#{type}Ids"] = true
+        batch.set("#{type}Ids", preened)
         console.error uObj.id + "'s #{type}s were corrupt."
       true
 

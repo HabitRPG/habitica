@@ -34,12 +34,10 @@ module.exports.app = (appExports, model) ->
     Buy Reroll Button
   ###
   appExports.buyReroll = ->
-    misc.batchTxn model, (uObj, paths) ->
+    misc.batchTxn model, (uObj, paths, batch) ->
       uObj.balance -= 1; paths['balance'] =1
       _.each uObj.tasks, (task) ->
-        unless task.type is 'reward'
-          uObj.tasks[task.id].value = 0
-          paths["tasks.#{task.id}.value"] = 1
+        batch.set("tasks.#{task.id}.value", 0) unless task.type is 'reward'
         true
     $('#reroll-modal').modal('hide')
 

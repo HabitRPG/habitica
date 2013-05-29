@@ -33,16 +33,11 @@ module.exports.app = (appExports, model) ->
     items.updateStore(model)
 
   appExports.reset = (e, el) ->
-    misc.batchTxn model, (uObj, paths) ->
-      taskTypes = ['habit', 'daily', 'todo', 'reward']
-      uObj.tasks = {}; paths['tasks'] = true
-      taskTypes.forEach (type) -> uObj["#{type}Ids"] = []; paths["#{type}Ids"] = true
-      # Reset stats
-      [uObj.stats.hp, uObj.stats.lvl, uObj.stats.gp, uObj.stats.exp] = [50, 1, 0, 0]
-      # Reset items
-      [uObj.items.armor, uObj.items.weapon, uObj.items.head, uObj.items.shield] = [0, 0, 0, 0]
-      ['stats.hp', 'stats.lvl', 'stats.gp', 'stats.exp', 'items.armor', 'items.weapon', 'items.head', 'items.shield'].forEach (path) ->
-        paths[path] = true
+    misc.batchTxn model, (uObj, paths, batch) ->
+      batch.set 'tasks', {}
+      ['habit', 'daily', 'todo', 'reward'].forEach (type) -> batch.set("#{type}Ids", [])
+      _.each {hp:50, lvl:1, gp:0, exp:0}, (v,k) -> batch.set("stats.#{k}",v)
+      _.each {armor:0, weapon:0, head:0, shield:0}, (v,k) -> batch.set("items.#{k}",v)
     items.updateStore(model)
     browser.resetDom(model)
 
@@ -61,12 +56,11 @@ module.exports.app = (appExports, model) ->
   appExports.customizeArmorSet = (e, el) ->
     user.set 'preferences.armorSet', $(el).attr('data-value')
 
-  appExports.restoreSave = (e, el) ->
-    misc.batchTxn model, (uObj, paths) ->
+  appExports.restoreSave = ->
+    misc.batchTxn model, (uObj, paths, batch) ->
       $('#restore-form input').each ->
         [path, val] = [$(this).attr('data-for'), parseInt($(this).val() || 1)]
-        helpers.dotSet(path, val, uObj); paths[path] = true
-      debugger
+        batch.set(path,val)
 
   appExports.toggleHeader = (e, el) ->
     user.set 'preferences.hideHeader', !user.get('preferences.hideHeader')

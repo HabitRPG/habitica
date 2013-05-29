@@ -7,9 +7,12 @@ character = require('./character')
 module.exports.batchTxn = batchTxn = (model, cb, options) ->
   user = model.at("_user")
   uObj = hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
+  batch =
+    set: (k,v) -> helpers.dotSet(k,v,uObj); paths[k] = true
+    get: (k) -> helpers.dotGet(k,uObj)
   paths = {}
   model._dontPersist = true
-  cb uObj, paths
+  cb uObj, paths, batch
   _.each paths, (v,k) -> user.pass({cron:options?.cron}).set(k,helpers.dotGet(k, uObj));true
   model._dontPersist = false
   # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
