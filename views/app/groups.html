@@ -56,8 +56,8 @@
         {#if _groupError}
         <div class='alert alert-danger'>{_groupError}</div>
         {/}
-        <div class=control-group>
-            <input type="text" class="input-medium" placeholder="{{#if equal(@type,'party')}}Party{{else}}Guild{{/}} Name" value="{_newGroup}" />
+        <div class="control-group whatever-options">
+            <input type="text" class="input-medium option-content" placeholder="{{#if equal(@type,'party')}}Party{{else}}Guild{{/}} Name" value="{_newGroup}" />
             <input type="submit" class="btn" value="Create" />
         </div>
     </form>
