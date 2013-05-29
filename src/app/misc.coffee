@@ -2,7 +2,6 @@ _ = require 'lodash'
 algos = require 'habitrpg-shared/script/algos'
 items = require('habitrpg-shared/script/items').items
 helpers = require('habitrpg-shared/script/helpers')
-character = require('./character')
 
 module.exports.batchTxn = batchTxn = (model, cb, options) ->
   user = model.at("_user")
