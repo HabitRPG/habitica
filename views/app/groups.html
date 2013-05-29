@@ -117,14 +117,14 @@
                                         <input type=url placeholder='Website' class='option-content' value={_newGroupWebsite} />
                                         <input type=submit value="Add" />
                                     </form>
-                                    {#if @group.websites}
-                                    <h4>Resources</h4>
-                                    <ul class=unstyled>
-                                        {#each @group.websites as :website}
-                                        <li><a x-bind='click:removeAt'><i class='icon-trash'></i></a> <a target="_blank" href="{:website}">{:website}</a></li>
-                                        {/}
-                                    </ul>
                                     {/}
+                                    {#if @group.websites}
+                                        <h4>Resources</h4>
+                                        <ul class=unstyled>
+                                            {#each @group.websites as :website}
+                                            <li><a x-bind='click:removeAt'><i class='icon-trash'></i></a> <a target="_blank" href="{:website}">{:website}</a></li>
+                                            {/}
+                                        </ul>
                                     {/}
                                 {else}
                                     {#if @group.logo}<img class=pull-right style='max-width:150px' src={@group.logo} />{/}
@@ -133,14 +133,14 @@
                                     {{/}}
                                     <h3>{@group.name}</h3>
                                     <div>{@group.description}</div>
-                                {/}
-                                {#if @group.websites}
-                                <h4>Resources</h4>
-                                <ul class=unstyled>
-                                    {#each @group.websites as :website}
-                                    <li><a target="_blank" href="{:website}">{:website}</a></li>
+                                    {#if @group.websites}
+                                        <h4>Resources</h4>
+                                        <ul class=unstyled>
+                                            {#each @group.websites as :website}
+                                            <li><a target="_blank" href="{:website}">{:website}</a></li>
+                                            {/}
+                                        </ul>
                                     {/}
-                                </ul>
                                 {/}
                             </div>
                         </div>
