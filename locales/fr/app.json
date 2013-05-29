@@ -7,7 +7,7 @@
 
 
 "_commenttut": "TUTORIAL",
-  "endTourButton": "Terminer tutoriel",
+  "endTourButton": "Terminer le tutoriel",
   "nextButton" : "Suivant",
   "prevButton" : "Précédent",
   "tour1Title" : "Bienvenue sur HabitRPG",
@@ -25,21 +25,21 @@
 
 
 
-"_commentdefaulttasks":"TACHES PAR DEFAUT",
+"_commentdefaulttasks":"TÂCHES PAR DEFAUT",
   "habit1" : "1h de travail productif",
     "habit1comment": "-- Routines : Prise en compte systématique -- Pour certaines habitudes (comme celle-ci), il est logique que l'on puisse uniquement *gagner* des points",
   "habit2" : "Manger des sucreries",
     "habit2comment" : "Pour d'autres, il est logique que l'on ne puisse que *perdre* des points",
   "habit3" : "Prendre les escaliers",
-    "habit3comment" : "Pour certaines, le + comme le - sont évidents (escalier = gain, ascenseur = perte)",
+    "habit3comment" : "Pour certaines, le + comme le - sont évidents (escaliers = gain, ascenseur = perte)",
   "daily1" : "1h de projet personnel",
-    "daily1comment" : "-- Tâches quotidiennes: A compléter chaque jour -- A la fin de la journée, les tâches quotidiennes non complétées feront perdre de la vie.",
+    "daily1comment" : "-- Tâches quotidiennes: À compléter chaque jour -- A la fin de la journée, les tâches quotidiennes non complétées feront perdre de la vie.",
   "daily2" : "Exercice physique",
     "daily2comment" : "Si vous vous débrouillez bien, les tâches deviennent vertes. Dans ce cas, elles rapportent moins (en expérience comme en argent) et sont moins dommageables (en points de vie). Cela afin que vous puissiez vous reposer un peu sur vos points forts.",
   "daily3" : "45 minutes de lecture",
     "daily3comment" : "Mais, si vous vous débrouillez mal, elles deviennent rouges. Moins vous les effectuez régulièrement, plus elles vous rapportent (en expérience comme en argent) et deviennent dommageables (en points de vie). Cela, afin de vous encourager à vous concentrer sur vos faiblesses, les tâches rouges.",
   "todo1" : "Appeler Maman",
-    "todo1comment" : "-- Choses à faire : A compléter un jour ou l'autre -- Les choses à faire non complétées ne vous blesseront pas, mais elles gagneront en valeur au fil du temps. Cela devrait vous encourager à vous concentrer sur les tâches qui vous font traîner les pieds.",
+    "todo1comment" : "-- Choses à faire : À compléter un jour ou l'autre -- Les choses à faire non complétées ne vous blesseront pas, mais elles gagneront en valeur au fil du temps. Cela devrait vous encourager à vous concentrer sur les tâches qui vous font traîner les pieds.",
   "reward1" : "1 Episode de Game of Thrones",
     "reward1comment": "-- Récompenses : Faites-vous plaisir ! -- Lorsque vous complétez des objectifs, vous gagnez de l'or qui vous permet d'acheter des récompenses. Dépensez sans compter : les récompenses sont importantes pour aider à la formation de bonnes habitudes.",
   "reward2" : "1 part de gâteau",
@@ -69,7 +69,7 @@
 
 
 
-"_commenttaskview": "AFFICHAGE DES TACHES",
+"_commenttaskview": "AFFICHAGE DES TÂCHES",
   "habits": "Routines",
     "newHabit": "Nouvelle routine",
     "edit": "Editer",
@@ -167,7 +167,7 @@
       "whichHatchingPotion1" : "Quelle potion voulez-vous utiliser pour faire éclore votre",
       "whichHatchingPotion2" : "œuf ?",
       "pour" : "verser",
-    "rarePets" : "Familier rares",
+    "rarePets" : "Familiers rares",
     "market": "Marché",
 
   "stable": "Ranch",
