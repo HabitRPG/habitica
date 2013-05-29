@@ -132,6 +132,6 @@ module.exports.viewHelpers = (view) ->
   #Challenges
   view.fn 'taskInChallenge', taskInChallenge
   view.fn 'taskAttrFromChallenge', (task, attr) ->
-    t = taskInChallenge(task)
+    t = taskInChallenge.call(@,task)
     t and t[attr]
   view.fn 'brokenChallengeLink', (task) -> task?.challenge and !taskInChallenge.call(@,task)
