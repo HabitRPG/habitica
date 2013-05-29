@@ -133,6 +133,8 @@ ready (model) ->
   user = model.at('_user')
   browser = require './browser'
 
+  exports.removeAt = (e) -> e.at().remove() # used for things like remove website, chat, etc
+
   require('./tasks').app(exports, model)
   require('./items').app(exports, model)
   require('./groups').app(exports, model, app)

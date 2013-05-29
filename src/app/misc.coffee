@@ -119,17 +119,15 @@ module.exports.viewHelpers = (view) ->
   #TODO put this in habitrpg-shared
   taskInChallenge = (task) ->
     return false unless task?.challenge
-    [gid, cid, gType] = [task.group.id, task.challenge, task.group.type]
+    [tid, gid, cid, gType] = [task.id, task.group.id, task.challenge, task.group.type]
     getTask = (challenges) ->
       challenge = _.find(challenges,{id:cid})
-      challenge and _.find(challenge["#{task.type}s"],{id:task.id})
+      challenge and _.find(challenge["#{task.type}s"],{id:tid})
     switch gType
       when 'party'
-        party = @model.get('_party')
-        return party?.challenges and getTask(party.challenges)
+        (party = @model.get '_party') and party and (getTask party.challenges)
       when 'guild'
-        guilds = @model.get("_guilds")
-        return guilds and getTask(_.find(guilds,{id:gid}).challenges)
+        (guilds = @model.get "_guilds") and (guild = _.find guilds,{id:gid}) and guild and (getTask guild.challenges)
 
   #Challenges
   view.fn 'taskInChallenge', taskInChallenge

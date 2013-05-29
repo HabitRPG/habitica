@@ -19,6 +19,15 @@ module.exports.app = (appExports, model, app) ->
       type: $(el).attr('data-type')
     , ->location.reload())
 
+  appExports.toggleGroupEdit = (e, el) ->
+    path = "_editing.groups.#{$(el).attr('data-gid')}"
+    model.set path, !model.get(path)
+
+  appExports.groupAddWebsite = (e, el) ->
+    test = e.get()
+    e.at().unshift 'websites', model.get('_newGroupWebsite')
+    model.del '_newGroupWebsite'
+
   appExports.groupInvite = (e,el) ->
     uid = model.get('_groupInvitee').replace(/[\s"]/g, '')
     model.set '_groupInvitee', ''
