@@ -9,7 +9,6 @@ misc = require './misc'
   Make scoring functionality available to the app
 ###
 module.exports.app = (appExports, model) ->
-  character = require './character'
   user = model.at('_user')
 
   appExports.addTask = (e, el) ->

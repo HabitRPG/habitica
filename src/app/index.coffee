@@ -117,9 +117,7 @@ get '/', (page, model, params, next) ->
 ready (model) ->
   user = model.at('_user')
   browser = require './browser'
-  character = require './character'
 
-  require('./character').app(exports, model)
   require('./tasks').app(exports, model)
   require('./items').app(exports, model)
   require('./party').app(exports, model, app)

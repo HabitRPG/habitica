@@ -1,5 +1,4 @@
 _ = require 'lodash'
-browser = require './browser'
 
 module.exports.app = (appExports, model) ->
   user = model.at('_user')

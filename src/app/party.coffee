@@ -2,7 +2,6 @@ _ = require('lodash')
 helpers = require('habitrpg-shared/script/helpers')
 
 module.exports.app = (appExports, model, app) ->
-  character = require './character'
   browser = require './browser'
 
   _currentTime = model.at '_currentTime'
