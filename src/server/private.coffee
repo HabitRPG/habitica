@@ -1,5 +1,5 @@
 _ = require 'lodash'
-character = require "../app/character"
+misc = require "../app/misc"
 
 module.exports.middleware = (req, res, next) ->
   model = req.getModel()
@@ -33,12 +33,15 @@ module.exports.app = (appExports, model) ->
   ###
     Buy Reroll Button
   ###
-  appExports.buyReroll = (e, el, next) ->
-    batch = new character.BatchUpdate(model)
-    obj = model.get('_user')
-    batch.set 'balance', obj.balance-1
-    _.each obj.tasks, (task) -> batch.set("tasks.#{task.id}.value", 0) unless task.type is 'reward';true
-    batch.commit()
+  appExports.buyReroll = ->
+    misc.batchTxn model, (uObj, paths) ->
+      uObj.balance -= 1; paths['balance'] =1
+      _.each uObj.tasks, (task) ->
+        unless task.type is 'reward'
+          uObj.tasks[task.id].value = 0
+          paths["tasks.#{task.id}.value"] = 1
+        true
+    $('#reroll-modal').modal('hide')
 
 module.exports.routes = (expressApp) ->
   ###

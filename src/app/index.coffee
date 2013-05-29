@@ -40,30 +40,25 @@ cleanupCorruptTasks = (model) ->
       delete tasks[key]
     true
 
-  batch = null
+  misc.batchTxn model, (uObj, paths) ->
+    ## Task List Cleanup
+    ['habit','daily','todo','reward'].forEach (type) ->
 
-  ## Task List Cleanup
-  ['habit','daily','todo','reward'].forEach (type) ->
+      # 1. remove duplicates
+      # 2. restore missing zombie tasks back into list
+      idList = uObj["#{type}Ids"]
+      taskIds =  _.pluck( _.where(tasks, {type:type}), 'id')
+      union = _.union idList, taskIds
 
-    # 1. remove duplicates
-    # 2. restore missing zombie tasks back into list
-    idList = user.get("#{type}Ids")
-    taskIds =  _.pluck( _.where(tasks, {type:type}), 'id')
-    union = _.union idList, taskIds
+      # 2. remove empty (grey) tasks
+      preened = _.filter union, (id) -> id and _.contains(taskIds, id)
 
-    # 2. remove empty (grey) tasks
-    preened = _.filter union, (id) -> id and _.contains(taskIds, id)
+      # There were indeed issues found, set the new list
+      if !_.isEqual(idList, preened)
+        uObj["#{type}Ids"] = preened; paths["#{type}Ids"] = true
+        console.error uObj.id + "'s #{type}s were corrupt."
+      true
 
-    # There were indeed issues found, set the new list
-    if !_.isEqual(idList, preened)
-      unless batch?
-        batch = new require('./character').BatchUpdate(model)
-        batch.startTransaction()
-      batch.set("#{type}Ids", preened)
-      console.error user.get('id') + "'s #{type}s were corrupt."
-    true
-
-  batch.commit() if batch?
 
 ###
   Subscribe to the user, the users's party (meta info like party name, member ids, etc), and the party's members. 3 subscriptions.
@@ -122,6 +117,7 @@ get '/', (page, model, params, next) ->
 ready (model) ->
   user = model.at('_user')
   browser = require './browser'
+  character = require './character'
 
   require('./character').app(exports, model)
   require('./tasks').app(exports, model)
@@ -138,18 +134,14 @@ ready (model) ->
   ###
     Cron
   ###
-  uObj = misc.hydrate(user.get())
-  # habitrpg-shared/algos requires uObj.habits, uObj.dailys etc instead of uObj.tasks
-  _.each ['habit','daily','todo','reward'], (type) ->
-    uObj["#{type}s"] = _.where(uObj.tasks, {type:type}); true
-  paths = {}
-  algos.cron(uObj, {paths:paths})
-  if !_.isEmpty(paths)
-    if paths['lastCron'] and _.size(paths) is 1
-      user.set "lastCron", uObj.lastCron
-    else
-      lostHp = delete paths['stats.hp'] # we'll set this manually so we can get a cool animation
-      _.each paths, (v,k) -> user.pass({cron:true}).set(k,helpers.dotGet(k, uObj)); true
-      if lostHp
+  misc.batchTxn model, (uObj, paths) ->
+    # habitrpg-shared/algos requires uObj.habits, uObj.dailys etc instead of uObj.tasks
+    _.each ['habit','daily','todo','reward'], (type) -> uObj["#{type}s"] = _.where(uObj.tasks, {type}); true
+    algos.cron uObj, {paths}
+    return if _.isEmpty(paths) or (paths['lastCron'] and _.size(paths) is 1)
+    if lostHp = delete paths['stats.hp'] # we'll set this manually so we can get a cool animation
+      setTimeout ->
         browser.resetDom(model)
-        setTimeout (-> user.set('stats.hp', uObj.stats.hp)), 750
+        user.set 'stats.hp', uObj.stats.hp
+      , 750
+  ,{cron:true}

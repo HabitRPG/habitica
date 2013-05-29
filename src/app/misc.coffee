@@ -2,6 +2,21 @@ _ = require 'lodash'
 algos = require 'habitrpg-shared/script/algos'
 items = require('habitrpg-shared/script/items').items
 helpers = require('habitrpg-shared/script/helpers')
+character = require('./character')
+
+module.exports.batchTxn = batchTxn = (model, cb, options) ->
+  user = model.at("_user")
+  uObj = hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
+  paths = {}
+  model._dontPersist = true
+  cb uObj, paths
+  _.each paths, (v,k) -> user.pass({cron:options?.cron}).set(k,helpers.dotGet(k, uObj));true
+  model._dontPersist = false
+  # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
+  # pass true if we have levelled to supress xp notification
+  unless _.isEmpty paths
+    setOps = _.reduce paths, ((m,v,k)-> m[k] = helpers.dotGet(k,uObj);m), {}
+    user.set "update__", setOps
 
 ###
   algos.score wrapper for habitrpg-helpers to work in Derby. We need to do model.set() instead of simply setting the
@@ -11,28 +26,24 @@ helpers = require('habitrpg-shared/script/helpers')
 ###
 module.exports.score = (model, taskId, direction, allowUndo=false) ->
   #return setTimeout( (-> score(taskId, direction)), 500) if model._txnQueue.length > 0
-  user = model.at("_user")
+  batchTxn model, (uObj, paths) ->
+    tObj = uObj.tasks[taskId]
 
-  uObj = hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
-  tObj = uObj.tasks[taskId]
+    # Stuff for undo
+    if allowUndo
+      tObjBefore = _.cloneDeep tObj
+      tObjBefore.completed = !tObjBefore.completed if tObjBefore.type in ['daily', 'todo']
+      previousUndo = model.get('_undo')
+      clearTimeout(previousUndo.timeoutId) if previousUndo?.timeoutId
+      timeoutId = setTimeout (-> model.del('_undo')), 20000
+      model.set '_undo', {stats:_.cloneDeep(uObj.stats), task:tObjBefore, timeoutId: timeoutId}
 
-  # Stuff for undo
-  if allowUndo
-    tObjBefore = _.cloneDeep tObj
-    tObjBefore.completed = !tObjBefore.completed if tObjBefore.type in ['daily', 'todo']
-    previousUndo = model.get('_undo')
-    clearTimeout(previousUndo.timeoutId) if previousUndo?.timeoutId
-    timeoutId = setTimeout (-> model.del('_undo')), 20000
-    model.set '_undo', {stats:_.cloneDeep(uObj.stats), task:tObjBefore, timeoutId: timeoutId}
-
-  paths = {}
-  delta = algos.score(uObj, tObj, direction, {paths})
-  _.each paths, (v,k) -> user.set(k,helpers.dotGet(k, uObj)); true
-  model.set('_streakBonus', uObj._tmp.streakBonus) if uObj._tmp?.streakBonus
-  if uObj._tmp?.drop and $?
-    model.set '_drop', uObj._tmp.drop
-    $('#item-dropped-modal').modal 'show'
-  delta
+    delta = algos.score(uObj, tObj, direction, {paths})
+    model.set('_streakBonus', uObj._tmp.streakBonus) if uObj._tmp?.streakBonus
+    if uObj._tmp?.drop and $?
+      model.set '_drop', uObj._tmp.drop
+      $('#item-dropped-modal').modal 'show'
+    delta
 
 ###
   Make sure model.get() returns all properties, see https://github.com/codeparty/racer/issues/116
