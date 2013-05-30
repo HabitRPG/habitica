@@ -81,11 +81,12 @@ module.exports.app = (appExports, model, app) ->
     else e.at().remove clear
 
   appExports.groupLeave = (e,el) ->
-    members = e.get('members')
+    group = model.at "groups.#{$(el).attr('data-id')}"
+    members = group.get('members')
     index = members.indexOf(user.get('id'))
-    e.at().remove 'members', index, 1, ->
+    group.remove 'members', index, 1, ->
       if members.length is 1 # # last member out, kill the party
-        model.del("groups.#{id}", ->location.reload())
+        group.del ->location.reload()
       else
         location.reload()
 
