@@ -178,6 +178,8 @@
             {{#if :task.challenge}}
                 {{#if brokenChallengeLink(:task)}}
                     <i class='icon-bullhorn' style='background-color:red;' x-bind=click:toggleTaskEdit rel=tooltip title="Broken Challenge Link"></i>
+                {{else}}
+                    <i class='icon-bullhorn' rel=tooltip title="Challenge Task"></i>
                 {{/}}
             {{else}}
                 <!-- delete -->
