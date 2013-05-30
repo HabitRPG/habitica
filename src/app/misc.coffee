@@ -21,6 +21,21 @@ module.exports.batchTxn = batchTxn = (model, cb, options) ->
     user.set "update__", setOps
   ret
 
+#TODO put this in habitrpg-shared
+###
+  We can't always use refLists, but we often still need to get a positional path by id: eg, users.1234.tasks.5678.value
+  For arrays (which use indexes, not id-paths), here's a helper function so we can run indexedPath('users',:user.id,'tasks',:task.id,'value)
+###
+indexedPath = ->
+  _.reduce arguments, (m,v) =>
+    return v if !m #first iteration
+    return "#{m}.#{v}" if _.isString v #string paths
+    return "#{m}." + _.findIndex(@model.get(m),v)
+  , ''
+
+taskInChallenge = (task) ->
+  return undefined unless task?.challenge
+  @model.at indexedPath.call(@, "groups.#{task.group.id}.challenges", {id:task.challenge}, "#{task.type}s", {id:task.id})
 
 ###
   algos.score wrapper for habitrpg-helpers to work in Derby. We need to do model.set() instead of simply setting the
@@ -124,6 +139,8 @@ module.exports.viewHelpers = (view) ->
   view.fn 'int',
     get: (num) -> num
     set: (num) -> [parseInt(num)]
+  view.fn 'indexedPath', indexedPath
+
 
   #iCal
   view.fn "encodeiCalLink", helpers.encodeiCalLink
@@ -159,22 +176,10 @@ module.exports.viewHelpers = (view) ->
   view.fn 'noTags', helpers.noTags
   view.fn 'appliedTags', helpers.appliedTags
 
-  #TODO put this in habitrpg-shared
-  taskInChallenge = (task) ->
-    return false unless task?.challenge
-    [tid, gid, cid, gType] = [task.id, task.group.id, task.challenge, task.group.type]
-    getTask = (challenges) ->
-      challenge = _.find(challenges,{id:cid})
-      challenge and _.find(challenge["#{task.type}s"],{id:tid})
-    switch gType
-      when 'party'
-        (party = @model.get '_party') and party and (getTask party.challenges)
-      when 'guild'
-        (guilds = @model.get "_guilds") and (guild = _.find guilds,{id:gid}) and guild and (getTask guild.challenges)
-
   #Challenges
-  view.fn 'taskInChallenge', taskInChallenge
+  view.fn 'taskInChallenge', (task) ->
+    taskInChallenge.call(@,task)?.get()
   view.fn 'taskAttrFromChallenge', (task, attr) ->
-    t = taskInChallenge.call(@,task)
-    t and t[attr]
-  view.fn 'brokenChallengeLink', (task) -> task?.challenge and !taskInChallenge.call(@,task)
+    taskInChallenge.call(@,task)?.get(attr)
+  view.fn 'brokenChallengeLink', (task) ->
+    task?.challenge and !(taskInChallenge.call(@,task)?.get())
