@@ -82,7 +82,6 @@ module.exports.fixCorruptUser = (model) ->
     ## fix https://github.com/lefnire/habitrpg/issues/1086
     uniqPets = _.uniq(uObj.items.pets)
     batch.set('items.pets', uniqPets) if !_.isEqual(uniqPets, uObj.items.pets)
-    console.log {uniqPets, count:_.size(uniqPets)}
 
     ## Task List Cleanup
     ['habit','daily','todo','reward'].forEach (type) ->
