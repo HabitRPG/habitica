@@ -78,11 +78,8 @@ setupSubscriptions = (page, model, params, next, cb) ->
 get '/', (page, model, params, next) ->
   return page.redirect '/' if page.params?.query?.play?
 
-  model.set '_gamePane', true
-
   # removed force-ssl (handled in nginx), see git for code
   setupSubscriptions page, model, params, next, ->
-    misc.fixCorruptUser(model) # https://github.com/lefnire/habitrpg/issues/634
     require('./items').server(model)
     #refLists
     _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
@@ -94,11 +91,12 @@ get '/', (page, model, params, next) ->
 # ========== CONTROLLER FUNCTIONS ==========
 
 ready (model) ->
-  user = model.at('_user')
-  browser = require './browser'
-
   exports.removeAt = (e) -> e.at().remove() # used for things like remove website, chat, etc
 
+  user = model.at('_user')
+  misc.fixCorruptUser(model) # https://github.com/lefnire/habitrpg/issues/634
+
+  browser = require './browser'
   require('./tasks').app(exports, model)
   require('./items').app(exports, model)
   require('./groups').app(exports, model, app)
