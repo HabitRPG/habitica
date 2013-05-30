@@ -11,7 +11,7 @@ module.exports.batchTxn = batchTxn = (model, cb, options) ->
     get: (k) -> helpers.dotGet(k,uObj)
   paths = {}
   model._dontPersist = true
-  cb uObj, paths, batch
+  ret = cb uObj, paths, batch
   _.each paths, (v,k) -> user.pass({cron:options?.cron}).set(k,helpers.dotGet(k, uObj));true
   model._dontPersist = false
   # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
@@ -19,6 +19,8 @@ module.exports.batchTxn = batchTxn = (model, cb, options) ->
   unless _.isEmpty paths
     setOps = _.reduce paths, ((m,v,k)-> m[k] = helpers.dotGet(k,uObj);m), {}
     user.set "update__", setOps
+  ret
+
 
 ###
   algos.score wrapper for habitrpg-helpers to work in Derby. We need to do model.set() instead of simply setting the
