@@ -22,42 +22,6 @@ misc.viewHelpers view
 
 _ = require('lodash')
 algos = require 'habitrpg-shared/script/algos'
-helpers = require 'habitrpg-shared/script/helpers'
-
-###
-  Cleanup task-corruption (null tasks, rogue/invisible tasks, etc)
-  Obviously none of this should be happening, but we'll stop-gap until we can find & fix
-  Gotta love refLists! see https://github.com/lefnire/habitrpg/issues/803 & https://github.com/lefnire/habitrpg/issues/6343
-###
-cleanupCorruptTasks = (model) ->
-  user = model.at('_user')
-  tasks = user.get('tasks')
-
-  ## Remove corrupted tasks
-  _.each tasks, (task, key) ->
-    unless task?.id? and task?.type?
-      user.del("tasks.#{key}")
-      delete tasks[key]
-    true
-
-  misc.batchTxn model, (uObj, paths, batch) ->
-    ## Task List Cleanup
-    ['habit','daily','todo','reward'].forEach (type) ->
-
-      # 1. remove duplicates
-      # 2. restore missing zombie tasks back into list
-      idList = uObj["#{type}Ids"]
-      taskIds =  _.pluck( _.where(tasks, {type:type}), 'id')
-      union = _.union idList, taskIds
-
-      # 2. remove empty (grey) tasks
-      preened = _.filter union, (id) -> id and _.contains(taskIds, id)
-
-      # There were indeed issues found, set the new list
-      if !_.isEqual(idList, preened)
-        batch.set("#{type}Ids", preened)
-        console.error uObj.id + "'s #{type}s were corrupt."
-      true
 
 
 ###
@@ -103,7 +67,7 @@ get '/', (page, model, params, next) ->
 
   # removed force-ssl (handled in nginx), see git for code
   setupSubscriptions page, model, params, next, ->
-    cleanupCorruptTasks(model) # https://github.com/lefnire/habitrpg/issues/634
+    misc.fixCorruptUser(model) # https://github.com/lefnire/habitrpg/issues/634
     require('./items').server(model)
     #refLists
     _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
