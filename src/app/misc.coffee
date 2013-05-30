@@ -77,6 +77,7 @@ module.exports.fixCorruptUser = (model) ->
       delete tasks[key]
     true
 
+  resetDom = false
   batchTxn model, (uObj, paths, batch) ->
 
     ## fix https://github.com/lefnire/habitrpg/issues/1086
@@ -101,6 +102,8 @@ module.exports.fixCorruptUser = (model) ->
         batch.set("#{type}Ids", preened)
         console.error uObj.id + "'s #{type}s were corrupt."
       true
+    resetDom = !_.isEmpty(paths)
+  require('./browser').resetDom(model) if resetDom
 
 module.exports.viewHelpers = (view) ->
 
