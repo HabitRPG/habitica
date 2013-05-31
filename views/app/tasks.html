@@ -21,7 +21,7 @@
                     placeHolder="New Habit"
                     list={@habits}
                     main={{@main}}
-                    editable={{@editable}}
+                    editable={@editable}
                     >
                 <@ads><a href="http://www.amazon.com/gp/product/1400069289/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1400069289&linkCode=as2&tag=ha0d2-20">The Power of Habit: Why We Do What We Do in Life and Business</a><img src="//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=1400069289" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></@ads>
             </app:tasks:task-list>
@@ -38,7 +38,7 @@
                     placeHolder="New Daily"
                     list={@dailys}
                     main={{@main}}
-                    editable={{@editable}}
+                    editable={@editable}
                     >
                 <@ads><a href="http://www.amazon.com/gp/product/0142000280/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0142000280&linkCode=as2&tag=ha0d2-20">Getting Things Done: The Art of Stress-Free Productivity</a><img src="//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=0142000280" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></@ads>
             </app:tasks:task-list>
@@ -68,7 +68,7 @@
                     placeHolder="New Todo"
                     list={@todos}
                     main={{@main}}
-                    editable={{@editable}}
+                    editable={@editable}
                     >
                 <@ads><a href="http://www.amazon.com/gp/product/0312430000/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0312430000&linkCode=as2&tag=ha0d2-20">The Checklist Manifesto: How to Get Things Right</a><img src="//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=0312430000" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></@ads>
             </app:tasks:task-list>
@@ -108,7 +108,7 @@
                     placeHolder="New Reward"
                     list={@rewards}
                     main={{@main}}
-                    editable={{@editable}}
+                    editable={@editable}
                     >
                 <@extra>
                 {{#if @main}}
@@ -134,7 +134,7 @@
 
     {{#if equal(@type,'todo')}}<div class="todos-chart" style='display:none;'></div>{{/}}
 
-    {{#if @editable}}
+    {#if @editable}
 
         <!-- need {#with} so we can reference model.at() in the submit handler -->
         <!-- NOTE: static binding {{}} seems to be required, otherwise things get weird - e.at() is _habitList first time, _habitList.0 second time, etc -->
@@ -145,9 +145,9 @@
         </form>
         {{/}}
     <hr>
-    {{/}}
+    {/}
     <ul class="{{@type}}s {#unless @list}hidden{/}">
-        {#each @list as :task}<app:tasks:task main="{{@main}}" />{/}
+        {#each @list as :task}<app:tasks:task main={{@main}} />{/}
     </ul>
     {{@extra}}
     <br/>
