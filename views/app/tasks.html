@@ -158,7 +158,7 @@
 
 <!-- all the parts of a single task -->
 <task:>
-    <li data-id={{:task.id}} class="task {taskClasses(:task, _user.filters, _user.preferences.dayStart, _user.lastCron, _showCompleted)}">
+    <li data-id={{:task.id}} class="task {taskClasses(:task, users[_userId].filters, _user.preferences.dayStart, _user.lastCron, _showCompleted)}">
 
         <!-- right-hand side control buttons -->
         <div class="task-meta-controls">
