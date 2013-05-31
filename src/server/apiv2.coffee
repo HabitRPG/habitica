@@ -45,7 +45,15 @@ auth = (req, res, next) ->
 POST new actions
 ###
 router.post '/', auth, (req, res) ->
-  if _.isArray req.body
+  actions = req.body
+  if _.isArray actions
+    actions.forEach (action)->
+      switch action.op
+        when score then
+          {}
+        when newTask then
+          req.user.set "tasks.#{req.task.id}", action.task
+
     console.log util.inspect req.body
 
   res.json 200, req.userObj
