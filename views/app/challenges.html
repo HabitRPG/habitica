@@ -95,9 +95,34 @@
                             todos={@challenge.todos}
                             rewards={@challenge.rewards} />
                 </div>
+
+                <h3>Statistics</h3>
+                {#each @challenge.users as :member}
+                    <h4>{:member.name}</h4>
+                    <div class="grid">
+                        <div class="module">
+                            <app:challenges:stats header=Habits challenge={@challenge} member={:member} taskType=habit />
+                        </div>
+                        <div class="module">
+                            <app:challenges:stats header=Dailies challenge={@challenge} member={:member} taskType=daily />
+                        </div>
+                        <div class="module">
+                            <app:challenges:stats header=Todos challenge={@challenge} member={:member} taskType=todos />
+                        </div>
+                    </div>
+                {/}
             </div>
         </div>
     </div>
+
+<stats:>
+    <h5>{@header}</h5>
+    {#each @challenge[@taskType]s as :task}
+        <div>
+            <strong>{:task.text}</strong>: {round(@member[@taskType]s[:task.id].value)}
+            <div style='height:75px' class="challenge-{{@challenge.id}}-member-{{@member.id}}-history-{{:task.id}}"></div>
+        </div>
+    {/}
 
 <create-button:>
     <a x-bind='click:challengeCreate' class='btn btn-large btn-success' data-type={{@type}} data-gid={{@gid}} >Create {{@text}} Challenge</a>

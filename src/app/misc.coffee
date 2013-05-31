@@ -44,8 +44,7 @@ taskInChallenge = (task) ->
   perform the updates while tracking paths, then all the values at those paths
 ###
 module.exports.score = (model, taskId, direction, allowUndo=false) ->
-  #return setTimeout( (-> score(taskId, direction)), 500) if model._txnQueue.length > 0
-  batchTxn model, (uObj, paths) ->
+  delta = batchTxn model, (uObj, paths) ->
     tObj = uObj.tasks[taskId]
 
     # Stuff for undo
@@ -62,7 +61,27 @@ module.exports.score = (model, taskId, direction, allowUndo=false) ->
     if uObj._tmp?.drop and $?
       model.set '_drop', uObj._tmp.drop
       $('#item-dropped-modal').modal 'show'
-    delta
+
+    # Update challenge statistics
+    # FIXME put this in it's own batchTxn, make batchTxn model.at() ref aware (not just _user)
+    # FIXME use reflists for users & challenges
+    if (chalTask = taskInChallenge.call({model}, tObj)) and chalTask?.get()
+      model._dontPersist = false
+      chalTask.incr "value", delta
+      chal = model.at indexedPath.call({model}, "groups.#{tObj.group.id}.challenges", {id:tObj.challenge})
+      chalUser = -> indexedPath.call({model}, chal.path(), 'users', {id:uObj.id})
+      cu = model.at chalUser()
+      unless cu?.get()
+        chal.push "users", {id: uObj.id, name: helpers.username(uObj.auth, uObj.profile?.name)}
+        cu = model.at chalUser()
+      else
+        cu.set 'name', helpers.username(uObj.auth, uObj.profile?.name) # update their name incase it changed
+      cu.set "#{tObj.type}s.#{tObj.id}",
+        value: tObj.value
+        history: tObj.history
+      model._dontPersist = true
+
+  delta
 
 ###
   Make sure model.get() returns all properties, see https://github.com/codeparty/racer/issues/116
@@ -105,7 +124,7 @@ module.exports.fixCorruptUser = (model) ->
       # 1. remove duplicates
       # 2. restore missing zombie tasks back into list
       idList = uObj["#{type}Ids"]
-      taskIds =  _.pluck( _.where(tasks, {type:type}), 'id')
+      taskIds =  _.pluck( _.where(tasks, {type}), 'id')
       union = _.union idList, taskIds
 
       # 2. remove empty (grey) tasks
