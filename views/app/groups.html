@@ -104,12 +104,10 @@
                         <div id="accordion-{{@group.id}}-information" class="accordion-body collapse in">
                             <div class="accordion-inner blah-options">
                                 {#if _editing.groups[@group.id]}
-                                    <div>
-                                        <input class=btn x-bind="click:toggleGroupEdit" data-gid={{@group.id}} value="Done" />
+                                    <div style="height:10px">
+                                        <a class=pull-right x-bind=click:toggleGroupEdit data-gid={{@group.id}} ><i class=icon-ok></i></a>
                                     </div>
-                                    <div class='whatever-options'>
-                                        <input type=text value={@group.name} class='option-content' placeholder='Group Name' />
-                                    </div>
+                                    <input type=text value={@group.name} class='option-content' placeholder='Group Name' />
                                     <textarea cols=3 placeholder='Description'>{@group.description}</textarea>
                                     <input type=url class=option-content placeholder="Logo Url" value={@group.logo} />
                                     {#with @group}
@@ -129,7 +127,7 @@
                                 {else}
                                     {#if @group.logo}<img class=pull-right style='max-width:150px' src={@group.logo} />{/}
                                     {{#if equal(@group.leader,_user.id)}}
-                                        <input class=btn x-bind="click:toggleGroupEdit" data-gid={{@group.id}} value='Edit' />
+                                        <a class=pull-right x-bind=click:toggleGroupEdit data-gid={{@group.id}} ><i class=icon-pencil></i></a>
                                     {{/}}
                                     <h3>{@group.name}</h3>
                                     <div>{@group.description}</div>
