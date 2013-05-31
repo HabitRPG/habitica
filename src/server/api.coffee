@@ -170,7 +170,10 @@ updateTasks = (tasks, user, model) ->
       else
         user.set "tasks.#{task.id}", task
     else
-        task = addTask(model,task)
+      type = task.type || 'habit'
+      model.ref '_user', user
+      model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+      model.at("_#{type}List").push task
     tasks[idx] = task
   return tasks
 
@@ -178,19 +181,19 @@ router.post '/user/tasks', auth, (req, res) ->
   tasks = updateTasks req.body, req.user, req.getModel()
   res.json 201, tasks
 
-addTask = module.exports.addTask = (model, task) ->
-  type = task.type || 'habit'
-  model.ref '_user', req.user
-  model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-  model.at("_#{type}List").push task
-  task
 
 ###
   POST /user/task/
 ###
 router.post '/user/task', auth, validateTask, (req, res) ->
+  task = req.task
+  type = task.type
+
   model = req.getModel()
-  task = addTask(model, req.task)  
+  model.ref '_user', req.user
+  model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+  model.at("_#{type}List").push task
+
   res.json 201, task
 
 ###
