@@ -9,12 +9,16 @@
         <div class="tab-content">
 
             <div class="tab-pane active" id="challengesViewParty">
-                {#if _challenge.new}
-                    <app:challenges:create-form />
+                {#unless _party.id}
+                    Join a party first
                 {else}
-                    <app:challenges:create-button type='party' gid={{_party.id}} text='Party'/>
-                    {#each _party.challenges as :challenge}
-                        <app:challenges:listing challenge={:challenge} />
+                    {#if _challenge.new}
+                        <app:challenges:create-form />
+                    {else}
+                        <app:challenges:create-button type='party' gid={{_party.id}} text='Party'/>
+                        {#each _party.challenges as :challenge}
+                            <app:challenges:listing challenge={:challenge} />
+                        {/}
                     {/}
                 {/}
             </div>
