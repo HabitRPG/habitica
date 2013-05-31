@@ -9,18 +9,19 @@
         <div class="tab-content">
 
             <div class="tab-pane active" id="challengesViewParty">
-                {#unless _party.id}
-                    Join a party first
-                {else}
+                {{#unless _party.id}}
+                    Join a party first.
+                {{else}}
                     {#if _challenge.new}
                         <app:challenges:create-form />
                     {else}
+                        <!-- FIXME https://github.com/codeparty/derby/issues/267, see _guilds.challenges below -->
                         <app:challenges:create-button type='party' gid={{_party.id}} text='Party'/>
                         {#each _party.challenges as :challenge}
                             <app:challenges:listing challenge={:challenge} />
                         {/}
                     {/}
-                {/}
+                {{/}}
             </div>
 
             <div class="tab-pane" id="challengesViewGuild">
@@ -37,7 +38,7 @@
                             {else}
                                 <app:challenges:create-button type='guild' gid={{:guild.id}} text='Guild' />
                                 {#each :guild.challenges as :challenge}
-                                    <app:challenges:listing challenge={:challenge} />
+                                    <app:challenges:listing challenge={groups[:guild.id].challenges[$index]} />
                                 {/}
                                 <hr/>
                             {/}
@@ -52,7 +53,7 @@
                 {else}
                     <app:challenges:create-button type='public' gid='habitrpg' text='Public' />
                     {#each _habitRPG.challenges as :challenge}
-                        <app:challenges:listing challenge={:challenge} />
+                        <app:challenges:listing challenge={groups.habitrpg.challenges[$index]} />
                     {/}
                 {/}
             </div>
