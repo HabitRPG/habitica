@@ -6,19 +6,24 @@ module.exports.app = (appExports, model) ->
   user = model.at '_user'
 
   appExports.renderChallengeGraphs = ->
-    challenges = model.get('_party.challenges')
-    _.each model.get('_guilds'), (g) -> challenges.concat(g.challenges)
-    _.each challenges, (chal) ->
-      _.each ['habit','daily','todo'], (type) ->
-        _.each chal["#{type}s"], (task) ->
-          _.each chal.users, (member) ->
-            if (history = member["#{type}s"][task.id].history) and !!history
-              data = google.visualization.arrayToDataTable _.map(history, (h)-> [h.date,h.value])
-              options =
-                backgroundColor: { fill:'transparent' }
-                axisTitlesPosition: 'none'
-              chart = new google.visualization.LineChart $(".challenge-#{chal.id}-member-#{member.id}-history-#{task.id}")[0]
-              chart.draw(data, options)
+    _.each model.get('groups'), (g) ->
+      _.each g.challenges, (chal) ->
+        _.each ['habit','daily','todo'], (type) ->
+          _.each chal["#{type}s"], (task) ->
+            _.each chal.users, (member) ->
+              if (history = member["#{type}s"][task.id].history) and !!history
+                data = google.visualization.arrayToDataTable _.map(history, (h)-> [h.date,h.value])
+                options =
+                  backgroundColor: { fill:'transparent' }
+                  width: 150
+                  height: 50
+                  chartArea: width: '80%', height: '80%'
+                  axisTitlePosition: 'none'
+                  legend: position: 'bottom'
+                  hAxis: gridlines: color: 'transparent' # since you can't seem to *remove* gridlines...
+                  vAxis: gridlines: color: 'transparent'
+                chart = new google.visualization.LineChart $(".challenge-#{chal.id}-member-#{member.id}-history-#{task.id}")[0]
+                chart.draw(data, options)
 
   appExports.challengeCreate = (e,el) ->
     [type, gid] = [$(el).attr('data-type'), $(el).attr('data-gid')]
@@ -36,7 +41,6 @@ module.exports.app = (appExports, model) ->
 
   appExports.challengeSave = ->
     gid = model.get('_challenge.new.group.id')
-    debugger
     model.unshift "groups.#{gid}.challenges", model.get('_challenge.new'), ->
       browser.growlNotification('Challenge Created','success')
       challengeDiscard()

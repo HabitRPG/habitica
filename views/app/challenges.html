@@ -122,12 +122,18 @@
 
 <stats:>
     <h5>{@header}</h5>
+    <div>
     {#each @challenge[@taskType]s as :task}
-        <div>
-            <strong>{:task.text}</strong>: {round(@member[@taskType]s[:task.id].value)}
-            <div style='height:75px' class="challenge-{{@challenge.id}}-member-{{@member.id}}-history-{{:task.id}}"></div>
-        </div>
+        <table><tr>
+            <td>
+                <strong>{:task.text}</strong>: {round(@member[@taskType]s[:task.id].value)}
+            </td>
+            <td>
+                <div style='margin-left: 10px' class="challenge-{{@challenge.id}}-member-{{@member.id}}-history-{{:task.id}}"></div>
+            </td>
+        </tr></table>
     {/}
+    </div>
 
 <create-button:>
     <a x-bind='click:challengeCreate' class='btn btn-large btn-success' data-type={{@type}} data-gid={{@gid}} >Create {{@text}} Challenge</a>
