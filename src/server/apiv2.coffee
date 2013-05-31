@@ -49,9 +49,9 @@ router.post '/', auth, (req, res) ->
   if _.isArray actions
     actions.forEach (action)->
       switch action.op
-        when score then
+        when score
           {}
-        when newTask then
+        when newTask
           req.user.set "tasks.#{req.task.id}", action.task
 
     console.log util.inspect req.body
