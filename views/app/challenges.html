@@ -64,22 +64,31 @@
 <listing:>
     <div class="accordion-group">
         <div class="accordion-heading">
+            <ul class='pull-right challenge-accordion-header-specs'>
+                <li>
+                    {count(@challenge.users)} Subscribers
+                </li>
+                <li>
+                    <!-- prize -->
+                    {#if @challenge.prize}
+                        <table><tr><td>{@challenge.prize}</td><td><span class="Pet_Currency_Gem1x"></span></td><td> Prize</td></tr></table>
+                    {/}
+                </li>
+                <li>
+                    <!-- subscribe / unsubscribe -->
+                    <a x-bind="click:challengeUnsubscribe" class='btn btn-small btn-danger {#unless indexOf(_user.challenges,@challenge.id)}hidden{/}'><i class='icon-ban-circle'></i> Unsubscribe</a>
+                    <a x-bind="click:challengeSubscribe" class='btn btn-small btn-success {#if indexOf(_user.challenges,@challenge.id)}hidden{/}'><i class='icon-ok'></i> Subscribe</a>
+                </li>
+            </ul>
             <a class="accordion-toggle" data-toggle="collapse" href="#accordion-challenge-{{@challenge.id}}">{@challenge.name} (by {@challenge.user})</a>
+
+
         </div>
         <div id="accordion-challenge-{{@challenge.id}}" class="accordion-body collapse">
             <div class="accordion-inner">
 
-                <div>
-                    <a x-bind="click:challengeUnsubscribe" class='btn btn-small btn-danger {#unless indexOf(_user.challenges,@challenge.id)}hidden{/}'><i class='icon-ban-circle'></i> Unsubscribe</a>
-                    <a x-bind="click:challengeSubscribe" class='btn btn-small btn-success {#if indexOf(_user.challenges,@challenge.id)}hidden{/}'><i class='icon-ok'></i> Subscribe</a>
-                </div>
 
-                <!-- prize -->
-                {#if @challenge.prize}
-                    <a class="gem-wallet">
-                        <span class="task-action-btn tile flush neutral"><div class="Gems"></div> {@challenge.prize} Gem Prize</span>
-                    </a>
-                {/}
+
 
                 <!-- Edit button -->
                 <span style='position:absolute; right:0;'>
