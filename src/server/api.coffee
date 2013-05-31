@@ -179,7 +179,7 @@ router.post '/user/tasks', auth, (req, res) ->
   res.json 201, tasks
 
 addTask = module.exports.addTask = (model, task) ->
-  type = task.type || 'habit'{
+  type = task.type || 'habit'
   model.ref '_user', req.user
   model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
   model.at("_#{type}List").push task
