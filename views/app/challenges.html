@@ -85,6 +85,9 @@
                         <textarea cols=3 class='option-content' placeholder='Description'>{@challenge.description}</textarea>
                         <input type=number class='option-content' placeholder='Gems Prize' value={@challenge.prize} />
                     </div>
+                    {{#with @challenge}}
+                    <a class='btn btn-small btn-danger' x-bind=click:removeAt >Delete</a>
+                    {{/}}
                 {/}
                 <!-- elseif breaks here, have to start a new if --->
                 {#if and(not(_editing.challenges[@challenge.id]),equal(@challenge.uid,_user.id))}
