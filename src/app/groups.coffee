@@ -13,7 +13,9 @@ module.exports.app = (appExports, model, app) ->
 
   appExports.groupCreate = (e,el) ->
     model.add('groups',
-      name: model.get("_newGroup")
+      name: model.get("_new.group.name")
+      description: model.get("_new.group.description")
+      privacy: model.get("_new.group.privacy") || 'public'
       leader: user.get('id')
       members: [user.get('id')]
       type: $(el).attr('data-type')
@@ -66,13 +68,17 @@ module.exports.app = (appExports, model, app) ->
               return groupError("User already in a party.")
             else invite()
 
+  joinGroup = (gid) ->
+    model.push("groups.#{gid}.members", user.get('id'), ->location.reload())
+
+  appExports.joingGroup = (e, el) -> joinGroup e.get('id')
+
   appExports.acceptInvitation = (e,el) ->
-    group = e.at().get()
-    pushMember = -> model.push("groups.#{group.id}.members", user.get('id'), ->location.reload())
+    gid = e.get('id')
     if $(el).attr('data-type') is 'party'
-      user.set 'invitations.party', null, pushMember
+      user.set 'invitations.party', null, ->joinGroup(gid)
     else
-      e.at().remove pushMember
+      e.at().remove ->joinGroup(gid)
 
   appExports.rejectInvitation = (e, el) ->
     clear = -> browser.resetDom(model)

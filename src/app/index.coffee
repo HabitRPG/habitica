@@ -35,6 +35,10 @@ setupSubscriptions = (page, model, params, next, cb) ->
   groupsQ.fetch (err, groups) ->
     return next(err) if err
     finished = (descriptors, paths) ->
+      # Add public "Tavern" guild in
+      descriptors.push('groups.habitrpg'); paths.push('_habitRPG')
+
+      # Subscribe to each descriptor
       model.subscribe.apply model, descriptors.concat ->
         [err, refs] = [arguments[0], arguments]
         return next(err) if err
@@ -42,12 +46,18 @@ setupSubscriptions = (page, model, params, next, cb) ->
         unless model.get('_user')
           console.error "User not found - this shouldn't be happening!"
           return page.redirect('/logout') #delete model.session.userId
+
+        # Fetch public groups as _publicGroups - not it has to come at very end due to racer bug
+        model.query('groups').publicGroups().fetch (err, pg) ->
+          return next(err) if err
+          model.set '_publicGroups', _.sortBy pg.get(), (g) -> -_.size(g.members)
+
         return cb()
 
     groupsObj = groups.get()
 
     # (1) Solo player
-    return finished(["groups.habitrpg", selfQ], ['_habitRPG', '_user']) if _.isEmpty(groupsObj)
+    return finished([selfQ], ['_user']) if _.isEmpty(groupsObj)
 
     ## (2) Party or Guild has members, fetch those users too
     # Subscribe to the groups themselves. We separate them by _party, _guilds, and _habitRPG (the "global" guild).
@@ -68,10 +78,10 @@ setupSubscriptions = (page, model, params, next, cb) ->
     # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
     partyQ = model.query('groups').withIds(groupsInfo.partyId)
     if _.isEmpty(groupsInfo.guildIds)
-      finished [partyQ, 'groups.habitrpg', selfQ], ['_party', '_habitRPG', '_user']
+      finished [partyQ, selfQ], ['_party', '_user']
     else
       guildsQ = model.query('groups').withIds(groupsInfo.guildIds)
-      finished [partyQ, guildsQ, 'groups.habitrpg', selfQ], ['_party', '_guilds', '_habitRPG', '_user']
+      finished [partyQ, guildsQ, selfQ], ['_party', '_guilds', '_user']
 
 # ========== ROUTES ==========
 

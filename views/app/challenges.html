@@ -159,7 +159,7 @@
     </div>
 
 <create-button:>
-    <a x-bind='click:challengeCreate' class='btn btn-large btn-success' data-type={{@type}} data-gid={{@gid}} >Create {{@text}} Challenge</a>
+    <a x-bind='click:challengeCreate' class='btn btn-success' data-type={{@type}} data-gid={{@gid}} >Create {{@text}} Challenge</a>
 
 <create-form:>
     <form x-bind="submit:challengeSave">
@@ -171,8 +171,6 @@
         <div class='challenge-options'>
             <input type='text' class='option-content' value={_challenge.new.name} placeholder="Challenge Title" required />
         </div>
-
-
 
         <!--<fieldset>
             <div>

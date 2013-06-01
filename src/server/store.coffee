@@ -135,6 +135,20 @@ groupSystem = (store) ->
   store.queryAccess 'groups', 'withMember', publicAccess
 
   ###
+  Public Groups Info
+  ###
+  store.query.expose "groups", "publicGroups", ->
+    @where("privacy").equals('public')
+        .only [
+          'name'
+          'description'
+          'users'
+          'members'
+          'privacy'
+        ]
+  store.queryAccess "groups", "publicGroups", publicAccess
+
+  ###
     Public HabitRPG Guild
   ###
 

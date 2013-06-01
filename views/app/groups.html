@@ -26,20 +26,21 @@
     
         <div class='tab-pane' id="groups-guilds">
             <ul class="nav nav-pills">
-                <li class="active"><a data-toggle='tab' data-target="#groups-guild-create">Create</a></li>
+                <li class=active><a data-toggle='tab' data-target="#groups-guilds-public">Public Guilds</a></li>
                 {#each _guilds as :guild}
                     <li><a data-toggle='tab' data-target="#groups-guild-{:guild.id}">{:guild.name}</a></li>
                 {/}
-            </ul>            
+                <li><a data-toggle='tab' data-target="#groups-guild-create">Create Guild</a></li>
+            </ul>
             <div class="tab-content">
 
-                <div class='tab-pane active' id='groups-guild-create'>
+                <div class='tab-pane active' id='groups-guilds-public'>
                     {#each _user.invitations.guilds as :invitation}
                         <h3>You're Invited To {:invitation.name}</h3>
                         <a class='btn btn-success' data-type='guild' x-bind="click:acceptInvitation">Accept</a>
                         <a class='btn btn-danger' x-bind="click:rejectInvitation">Reject</a>
                     {/}
-                    <app:groups:create-group type='guild' />
+                    <app:groups:public-groups />
                 </div>
 
                 {#each _guilds as :guild}
@@ -47,8 +48,40 @@
                         <app:groups:group group={:guild} />
                     </div>
                 {/}
+
+                <div class='tab-pane' id='groups-guild-create'>
+                    <app:groups:create-group type='guild' />
+                </div>
+
             </div>
         </div>
+    </div>
+
+<public-groups:>
+
+    <div class="accordion" id="public-guilds-accordion">
+        {#each _publicGroups as :group}
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <ul class="pull-right challenge-accordion-header-specs">
+                    <li>{count(:group.members)} member(s)</li>
+                    <li>
+                        <!-- join / leave -->
+                        <a x-bind="click:groupLeave" data-id={{:group.id}} class='btn btn-small btn-danger {#if indexOf(:group.members,@user.id)}hidden{/}'><i class='icon-ban-circle'></i> Leave</a>
+                        <a x-bind="click:joinGroup" class='btn btn-small btn-success {#unless indexOf(:group.members,@user.id)}hidden{/}'><i class='icon-ok'></i> Join</a>
+                    </li>
+                </ul>
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#public-guilds-accordion" href="#public-guilds-accordion-{{:group.id}}">
+                    {:group.name}
+                </a>
+            </div>
+            <div id="public-guilds-accordion-{{:group.id}}" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <div class=well>{{:group.description}}</div>
+                </div>
+            </div>
+        </div>
+        {/}
     </div>
 
 <create-group:>
@@ -57,7 +90,13 @@
         <div class='alert alert-danger'>{_groupError}</div>
         {/}
         <div class="control-group whatever-options">
-            <input type="text" class="input-medium option-content" placeholder="{{#if equal(@type,'party')}}Party{{else}}Guild{{/}} Name" value="{_newGroup}" />
+            <input type="text" class="input-medium option-content" placeholder="{{#if equal(@type,'party')}}Party{{else}}Guild{{/}} Name" value="{_new.group.name}" />
+            <textarea cols=3 class='option-content'>{_new.group.description}</textarea>
+
+            <div>
+                <input type='radio' name='new-challenge-privacy' checked="{equal('public',_new.group.privacy)}" >Public</input>
+                <input type='radio' name='new-challenge-privacy' checked="{equal('private',_new.group.privacy)}" >Invite Only</input>
+            </div>
             <input type="submit" class="btn" value="Create" />
         </div>
     </form>
