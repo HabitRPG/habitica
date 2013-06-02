@@ -58,30 +58,29 @@
     </div>
 
 <public-groups:>
-
     <div class="accordion" id="public-guilds-accordion">
-        {#each _publicGroups as :group}
+        {{#each _publicGroups as :public}}
         <div class="accordion-group">
             <div class="accordion-heading">
                 <ul class="pull-right challenge-accordion-header-specs">
-                    <li>{count(:group.members)} member(s)</li>
+                    <li>{{count(:public.members)}} member(s)</li>
                     <li>
                         <!-- join / leave -->
-                        <a x-bind="click:groupLeave" data-id={{:group.id}} class='btn btn-small btn-danger {#if indexOf(:group.members,@user.id)}hidden{/}'><i class='icon-ban-circle'></i> Leave</a>
-                        <a x-bind="click:joinGroup" class='btn btn-small btn-success {#unless indexOf(:group.members,@user.id)}hidden{/}'><i class='icon-ok'></i> Join</a>
+                        <a x-bind="click:publicLeave" data-id={{:public.id}} class='btn btn-small btn-danger {#if indexOf(:public.members,@user.id)}hidden{/}'><i class='icon-ban-circle'></i> Leave</a>
+                        <a x-bind="click:joinGroup" class='btn btn-small btn-success {#unless indexOf(:public.members,@user.id)}hidden{/}'><i class='icon-ok'></i> Join</a>
                     </li>
                 </ul>
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#public-guilds-accordion" href="#public-guilds-accordion-{{:group.id}}">
-                    {:group.name}
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#public-guilds-accordion" href="#public-guilds-accordion-{{:public.id}}">
+                    {{:public.name}}
                 </a>
             </div>
-            <div id="public-guilds-accordion-{{:group.id}}" class="accordion-body collapse">
+            <div id="public-guilds-accordion-{{:public.id}}" class="accordion-body collapse">
                 <div class="accordion-inner">
-                    <div class=well>{{:group.description}}</div>
+                    <div class=well>{{:public.description}}</div>
                 </div>
             </div>
         </div>
-        {/}
+        {{/}}
     </div>
 
 <create-group:>
