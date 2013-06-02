@@ -35,10 +35,14 @@
             <div class="tab-content">
 
                 <div class='tab-pane active' id='groups-guilds-public'>
-                    {#each _user.invitations.guilds as :invitation}
-                        <h3>You're Invited To {:invitation.name}</h3>
-                        <a class='btn btn-success' data-type='guild' x-bind="click:acceptInvitation">Accept</a>
-                        <a class='btn btn-danger' x-bind="click:rejectInvitation">Reject</a>
+                    {#if _user.invitations.guilds}
+                        {#each _user.invitations.guilds as :invitation}
+                            <div>
+                                <h3>You're Invited To {:invitation.name}</h3>
+                                <a class='btn btn-success' data-type='guild' x-bind="click:acceptInvitation">Accept</a>
+                                <a class='btn btn-danger' x-bind="click:rejectInvitation">Reject</a>
+                            </div>
+                        {/}
                     {/}
                     <app:groups:public-groups />
                 </div>
