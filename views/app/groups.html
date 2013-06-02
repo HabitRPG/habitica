@@ -27,9 +27,9 @@
         <div class='tab-pane' id="groups-guilds">
             <ul class="nav nav-pills">
                 <li class=active><a data-toggle='tab' data-target="#groups-guilds-public">Public Guilds</a></li>
-                {#each _guilds as :guild}
-                    <li><a data-toggle='tab' data-target="#groups-guild-{:guild.id}">{:guild.name}</a></li>
-                {/}
+                {{#each _guilds as :guild}}
+                    <li><a data-toggle='tab' data-target="#groups-guild-{:guild.id}">{{:guild.name}}</a></li>
+                {{/}}
                 <li><a data-toggle='tab' data-target="#groups-guild-create">Create Guild</a></li>
             </ul>
             <div class="tab-content">
@@ -47,11 +47,11 @@
                     <app:groups:public-groups />
                 </div>
 
-                {#each _guilds as :guild}
-                    <div class="tab-pane" id="groups-guild-{:guild.id}">
-                        <app:groups:group group={:guild} />
+                {{#each _guilds as :guild}}
+                    <div class="tab-pane" id="groups-guild-{{:guild.id}}" >
+                        <app:groups:group group={{:guild}} />
                     </div>
-                {/}
+                {{/}}
 
                 <div class='tab-pane' id='groups-guild-create'>
                     <app:groups:create-group type='guild' />
