@@ -12,14 +12,15 @@ module.exports.app = (appExports, model, app) ->
   user = model.at('_user')
 
   appExports.groupCreate = (e,el) ->
-    model.add('groups',
+    type = $(el).attr('data-type')
+    newGroup =
       name: model.get("_new.group.name")
       description: model.get("_new.group.description")
-      privacy: model.get("_new.group.privacy") || 'public'
       leader: user.get('id')
       members: [user.get('id')]
-      type: $(el).attr('data-type')
-    , ->location.reload())
+      type: type
+    newGroup.privacy = (model.get("_new.group.privacy") || 'public') if type is 'guild'
+    model.add 'groups', newGroup, ->location.reload()
 
   appExports.toggleGroupEdit = (e, el) ->
     path = "_editing.groups.#{$(el).attr('data-gid')}"

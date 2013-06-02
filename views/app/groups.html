@@ -91,12 +91,14 @@
         {/}
         <div class="control-group whatever-options">
             <input type="text" class="input-medium option-content" placeholder="{{#if equal(@type,'party')}}Party{{else}}Guild{{/}} Name" value="{_new.group.name}" />
-            <textarea cols=3 class='option-content'>{_new.group.description}</textarea>
+            <textarea cols=3 class='option-content' placeholder='Description'>{_new.group.description}</textarea>
 
+            {{#if equal(@type,'guild')}}
             <div>
                 <input type='radio' name='new-challenge-privacy' checked="{equal('public',_new.group.privacy)}" >Public</input>
                 <input type='radio' name='new-challenge-privacy' checked="{equal('private',_new.group.privacy)}" >Invite Only</input>
             </div>
+            {{/}}
             <input type="submit" class="btn" value="Create" />
         </div>
     </form>
