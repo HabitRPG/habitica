@@ -30,60 +30,59 @@ algos = require 'habitrpg-shared/script/algos'
 setupSubscriptions = (page, model, params, next, cb) ->
   uuid = model.get('_userId') or model.session.userId # see http://goo.gl/TPYIt
   selfQ = model.query('users').withId(uuid) #keep this for later
-  groupsQ = model.query('groups').withMember(uuid)
 
-  # Fetch public groups as _publicGroups - not it has to come at very end due to racer bug
+  # Fetch public groups as _publicGroups
+  # Note: due to https://github.com/codeparty/racer/issues/57, this has to come at the very beginning. The more limited
+  # the returned fields in motifs, the sooner they must come in fetch / subscribes.
   model.query('groups').publicGroups().fetch (err, pg) ->
     return next(err) if err
     model.set '_publicGroups', _.sortBy(pg.get(), (g) -> -_.size(g.members))
 
-  groupsQ.fetch (err, groups) ->
-    return next(err) if err
-    finished = (descriptors, paths) ->
-      # Add public "Tavern" guild in
-      descriptors.push('groups.habitrpg'); paths.push('_habitRPG')
-#      descriptors.unshift model.query('groups').publicGroups()
-#      paths.unshift('_publicGroups')
-
-      # Subscribe to each descriptor
-      model.subscribe.apply model, descriptors.concat ->
-        [err, refs] = [arguments[0], arguments]
-        return next(err) if err
-        _.each paths, (path, idx) -> model.ref path, refs[idx+1]; true
-        unless model.get('_user')
-          console.error "User not found - this shouldn't be happening!"
-          return page.redirect('/logout') #delete model.session.userId
-
-        return cb()
-
-    groupsObj = groups.get()
-
-    # (1) Solo player
-    return finished([selfQ], ['_user']) if _.isEmpty(groupsObj)
-
-    ## (2) Party or Guild has members, fetch those users too
-    # Subscribe to the groups themselves. We separate them by _party, _guilds, and _habitRPG (the "global" guild).
-    groupsInfo = _.reduce groupsObj, ((m,g)->
-      if g.type is 'guild' then m.guildIds.push(g.id) else m.partyId = g.id
-      m.members = m.members.concat(g.members)
-      m
-    ), {guildIds:[], partyId:null, members:[]}
-
-    # Fetch, not subscribe. There's nothing dynamic we need from members, just the the Group (below) which includes chat, challenges, etc
-    model.query('users').publicInfo(groupsInfo.members).fetch (err, members) ->
+    model.query('groups').withMember(uuid).fetch (err, groups) ->
       return next(err) if err
-      # we need _members as an object in the view, so we can iterate over _party.members as :id, and access _members[:id] for the info
-      mObj = members.get()
-      model.set "_members", _.object(_.pluck(mObj,'id'), mObj)
-      model.set "_membersArray", mObj
+      finished = (descriptors, paths) ->
+        # Add public "Tavern" guild in
+        descriptors.push('groups.habitrpg'); paths.push('_habitRPG')
 
-    # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
-    partyQ = model.query('groups').withIds(groupsInfo.partyId)
-    if _.isEmpty(groupsInfo.guildIds)
-      finished [partyQ, selfQ], ['_party', '_user']
-    else
-      guildsQ = model.query('groups').withIds(groupsInfo.guildIds)
-      finished [partyQ, guildsQ, selfQ], ['_party', '_guilds', '_user']
+        # Subscribe to each descriptor
+        model.subscribe.apply model, descriptors.concat ->
+          [err, refs] = [arguments[0], arguments]
+          return next(err) if err
+          _.each paths, (path, idx) -> model.ref path, refs[idx+1]; true
+          unless model.get('_user')
+            console.error "User not found - this shouldn't be happening!"
+            return page.redirect('/logout') #delete model.session.userId
+
+          return cb()
+
+      groupsObj = groups.get()
+
+      # (1) Solo player
+      return finished([selfQ], ['_user']) if _.isEmpty(groupsObj)
+
+      ## (2) Party or Guild has members, fetch those users too
+      # Subscribe to the groups themselves. We separate them by _party, _guilds, and _habitRPG (the "global" guild).
+      groupsInfo = _.reduce groupsObj, ((m,g)->
+        if g.type is 'guild' then m.guildIds.push(g.id) else m.partyId = g.id
+        m.members = m.members.concat(g.members)
+        m
+      ), {guildIds:[], partyId:null, members:[]}
+
+      # Fetch, not subscribe. There's nothing dynamic we need from members, just the the Group (below) which includes chat, challenges, etc
+      model.query('users').publicInfo(groupsInfo.members).fetch (err, members) ->
+        return next(err) if err
+        # we need _members as an object in the view, so we can iterate over _party.members as :id, and access _members[:id] for the info
+        mObj = members.get()
+        model.set "_members", _.object(_.pluck(mObj,'id'), mObj)
+        model.set "_membersArray", mObj
+
+      # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
+      partyQ = model.query('groups').withIds(groupsInfo.partyId)
+      if _.isEmpty(groupsInfo.guildIds)
+        finished [partyQ, selfQ], ['_party', '_user']
+      else
+        guildsQ = model.query('groups').withIds(groupsInfo.guildIds)
+        finished [partyQ, guildsQ, selfQ], ['_party', '_guilds', '_user']
 
 # ========== ROUTES ==========
 

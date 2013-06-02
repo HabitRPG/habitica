@@ -130,7 +130,7 @@ groupSystem = (store) ->
     Find group which has member by id
   ###
   store.query.expose "groups", "withMember", (id, type) ->
-    q = @where('members').contains([id])#.only(['id','members','type'])
+    q = @where('members').contains([id]).only(['id', 'type', 'name', 'description', 'members' , 'privacy'])
     q = q.where('type').equals(type) if type?
   store.queryAccess 'groups', 'withMember', publicAccess
 
@@ -140,13 +140,7 @@ groupSystem = (store) ->
   store.query.expose "groups", "publicGroups", ->
     @where('privacy').equals('public')
       .where('type').equals('guild')
-#      .only [
-#        'name'
-#        'description'
-#        'users'
-#        'members'
-#        'privacy'
-#      ]
+      .only(['id', 'type', 'name', 'description', 'members' , 'privacy'])
   store.queryAccess "groups", "publicGroups", publicAccess
 
   ###
