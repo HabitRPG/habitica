@@ -7,7 +7,7 @@
     <div class="tab-content">
         <div class="tab-pane active" id="groups-party">
             {#if _party.id} <!-- user in a party? -->
-                <app:groups:group group={_party} />
+                <app:groups:group group={groups[_party.id]} />
             {else if _user.invitations.party}
                 <!-- TODO show by whom -->
                 <h2>You're Invited To {_user.invitations.party.name}</h2>
@@ -28,7 +28,7 @@
             <ul class="nav nav-pills">
                 <li class=active><a data-toggle='tab' data-target="#groups-guilds-public">Public Guilds</a></li>
                 {{#each _guilds as :guild}}
-                    <li><a data-toggle='tab' data-target="#groups-guild-{:guild.id}">{{:guild.name}}</a></li>
+                    <li><a data-toggle='tab' data-target="#groups-guild-{{:guild.id}}">{:guild.name}</a></li>
                 {{/}}
                 <li><a data-toggle='tab' data-target="#groups-guild-create">Create Guild</a></li>
             </ul>
@@ -143,6 +143,7 @@
                     </ul>
                 </div>
             {{else}}
+                <h3>{@group.name}</h3>
                 <div class="accordion" id="accordion-{{@group.id}}-parent">
                     <div class="accordion-group">
                         <div class="accordion-heading">
@@ -167,7 +168,7 @@
                                         <h4>Resources</h4>
                                         <ul class=unstyled>
                                             {#each @group.websites as :website}
-                                            <li><a x-bind='click:removeAt'><i class='icon-trash'></i></a> <a target="_blank" href="{:website}">{:website}</a></li>
+                                            <li><a x-bind='click:removeAt'><i class='icon-trash'></i></a> <a target="_blank" href="{:website}" >{:website}</a></li>
                                             {/}
                                         </ul>
                                     {/}
@@ -176,7 +177,6 @@
                                     {{#if equal(@group.leader,_user.id)}}
                                         <a class=pull-right x-bind=click:toggleGroupEdit data-gid={{@group.id}} ><i class=icon-pencil></i></a>
                                     {{/}}
-                                    <h3>{@group.name}</h3>
                                     <div>{@group.description}</div>
                                     {#if @group.websites}
                                         <h4>Resources</h4>
