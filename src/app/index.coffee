@@ -32,11 +32,18 @@ setupSubscriptions = (page, model, params, next, cb) ->
   selfQ = model.query('users').withId(uuid) #keep this for later
   groupsQ = model.query('groups').withMember(uuid)
 
+  # Fetch public groups as _publicGroups - not it has to come at very end due to racer bug
+  model.query('groups').publicGroups().fetch (err, pg) ->
+    return next(err) if err
+    model.set '_publicGroups', _.sortBy(pg.get(), (g) -> -_.size(g.members))
+
   groupsQ.fetch (err, groups) ->
     return next(err) if err
     finished = (descriptors, paths) ->
       # Add public "Tavern" guild in
       descriptors.push('groups.habitrpg'); paths.push('_habitRPG')
+#      descriptors.unshift model.query('groups').publicGroups()
+#      paths.unshift('_publicGroups')
 
       # Subscribe to each descriptor
       model.subscribe.apply model, descriptors.concat ->
@@ -46,11 +53,6 @@ setupSubscriptions = (page, model, params, next, cb) ->
         unless model.get('_user')
           console.error "User not found - this shouldn't be happening!"
           return page.redirect('/logout') #delete model.session.userId
-
-        # Fetch public groups as _publicGroups - not it has to come at very end due to racer bug
-        model.query('groups').publicGroups().fetch (err, pg) ->
-          return next(err) if err
-          model.set '_publicGroups', _.sortBy pg.get(), (g) -> -_.size(g.members)
 
         return cb()
 
