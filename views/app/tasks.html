@@ -272,7 +272,8 @@
             </fieldset>
 
             <!-- if Habit, plus/minus command options -->
-            {#if and(equal(:task.type, 'habit'),not(taskInChallenge(:task)))}
+            {#if equal(:task.type, 'habit')}
+                {#unless taskInChallenge(:task)}
                 <fieldset class="option-group">
                     <legend class="option-title">Direction/Actions</legend>
                     <span class="task-checker action-plusminus select-toggle">
@@ -284,6 +285,7 @@
                         <label for="{{:task.id}}-option-minus"></label>
                     </span>
                 </fieldset>
+                {/}
 
             <!-- if Daily, calendar -->
             {else if equal(:task.type, 'daily')}
