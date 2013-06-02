@@ -42,27 +42,23 @@ module.exports.app = (appExports, model, app) ->
       return model.set("_groupError", "User with id #{uid} not found.") unless profile
       model.query('groups').withMember(uid).fetch (err, g) ->
         throw err if err
-
-        {type, name} = e.get()
-        gid = e.get('id')
-        groups = g.get()
-        groupError =(msg) -> model.set("_groupError", msg)
+        group = e.get(); groups = g.get()
+        {type, name} = group; gid = group.id
+        groupError = (msg) -> model.set("_groupError", msg)
         invite = ->
-          debugger
           $.bootstrapGrowl "Invitation Sent."
-          if type is 'guild'
-            model.push("users.#{uid}.invitations.guilds", {id:gid, name}, ->location.reload())
-          else model.set "users.#{uid}.invitations.party", {id:gid, name}, ->
-            debugger
-            location.reload()
+          switch type
+            when 'guild' then model.push "users.#{uid}.invitations.guilds", {id:gid, name}, ->location.reload()
+            when 'party' then model.set "users.#{uid}.invitations.party", {id:gid, name}, ->location.reload()
 
-        if type is 'guild'
-          if _.find(profile.invitations.guilds, {id:gid})
-            return groupError("User already invited to that group")
-          else if _.find groups, ((group)-> uid in group.members)
-            return groupError("User already in that group")
-          else invite()
-        if type is 'party'
+        switch type
+          when 'guild'
+            if _.find(profile.invitations.guilds, {id:gid})
+              return groupError("User already invited to that group")
+            else if uid in group.members
+              return groupError("User already in that group")
+            else invite()
+          when 'party'
             if profile.invitations.party
               return groupError("User already pending invitation.")
             else if _.find(groups, {type:'party'})
