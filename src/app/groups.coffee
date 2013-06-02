@@ -72,7 +72,7 @@ module.exports.app = (appExports, model, app) ->
   joinGroup = (gid) ->
     model.push("groups.#{gid}.members", user.get('id'), ->location.reload())
 
-  appExports.joingGroup = (e, el) -> joinGroup e.get('id')
+  appExports.joinGroup = (e, el) -> joinGroup e.get('id')
 
   appExports.acceptInvitation = (e,el) ->
     gid = e.get('id')
@@ -89,13 +89,12 @@ module.exports.app = (appExports, model, app) ->
 
   appExports.groupLeave = (e,el) ->
     group = model.at "groups.#{$(el).attr('data-id')}"
-    members = group.get('members')
-    index = members.indexOf(user.get('id'))
-    group.remove 'members', index, 1, ->
-      if members.length is 1 # # last member out, kill the party
-        group.del ->location.reload()
-      else
-        location.reload()
+    index = group.get('members').indexOf(user.get('id'))
+    if index != -1
+      group.remove 'members', index, 1, ->
+        if _.isEmpty group.get('members') # last member out, delete the party
+          group.del ->location.reload()
+        else location.reload()
 
   ###
     Chat Functionality
