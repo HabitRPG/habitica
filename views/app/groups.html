@@ -62,33 +62,25 @@
     </div>
 
 <public-groups:>
-    <div class="accordion" id="public-guilds-accordion">
-        {{#each _publicGroups as :public}}
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                <ul class="pull-right challenge-accordion-header-specs">
-                    <li>{{count(:public.members)}} member(s)</li>
-                    <li>
-                        <!-- join / leave -->
-                        {{#if indexOf(:public.members,_user.id)}}
-                            <a x-bind="click:groupLeave" data-id={{:public.id}} class='btn btn-small btn-danger'><i class='icon-ban-circle'></i> Leave</a>
-                        {{else}}
-                            <a x-bind="click:joinGroup" class='btn btn-small btn-success'><i class='icon-ok'></i> Join</a>
-                        {{/}}
-                    </li>
-                </ul>
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#public-guilds-accordion" href="#public-guilds-accordion-{{:public.id}}">
-                    {{:public.name}}
-                </a>
-            </div>
-            <div id="public-guilds-accordion-{{:public.id}}" class="accordion-body collapse">
-                <div class="accordion-inner">
-                    <div class=well>{{:public.description}}</div>
-                </div>
-            </div>
-        </div>
-        {{/}}
-    </div>
+    <table class="table table-striped">
+        {#each _publicGroups as :public}
+        <tr><td>
+            <ul class="pull-right challenge-accordion-header-specs">
+                <li>{count(:public.members)} member(s)</li>
+                <li>
+                    <!-- join / leave -->
+                    {#if indexOf(:public.members,_user.id)}
+                        <a x-bind="click:groupLeave" data-id={{:public.id}} class='btn btn-small btn-danger'><i class='icon-ban-circle'></i> Leave</a>
+                    {else}
+                        <a x-bind="click:joinGroup" class='btn btn-small btn-success'><i class='icon-ok'></i> Join</a>
+                    {/}
+                </li>
+            </ul>
+            <h4>{:public.name}</h4>
+            <p>{:public.description}</p>
+        </td></tr>
+        {/}
+    </table>
 
 <create-group:>
     <form class=form-inline x-bind="submit:groupCreate" data-type={{@type}} >
