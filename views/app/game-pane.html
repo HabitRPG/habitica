@@ -6,22 +6,21 @@
         </span>
 
         <ul class="nav nav-tabs game-tabs">
-            <li class="active"><a data-toggle='tab' data-target="#profileCustomize"><i class='icon-user'></i> Profile</a></li>
-            <li><a data-toggle='tab' data-target="#profileParty" id='party-tab-link'><i class='icon-heart'></i> Party</a></li>
+            <li class="active"><a data-toggle='tab' data-target="#profile-customize"><i class='icon-user'></i> Profile</a></li>
+            <li><a data-toggle='tab' data-target="#profile-groups" id='party-tab-link'><i class='icon-heart'></i> Groups</a></li>
             {#if _user.flags.dropsEnabled}
-                <li><a data-toggle='tab' data-target="#profileInventory"><i class='icon-gift'></i> Inventory</a></li>
-                <li><a data-toggle='tab' data-target="#profileStable"><i class='icon-leaf'></i> Stable</a></li>
+                <li><a data-toggle='tab' data-target="#profile-inventory"><i class='icon-gift'></i> Inventory</a></li>
+                <li><a data-toggle='tab' data-target="#profile-stable"><i class='icon-leaf'></i> Stable</a></li>
             {/if}
-            <li><a data-toggle='tab' data-target="#profileTavern"><i class='icon-eye-close'></i> Tavern</a></li>
-            <li><a data-toggle='tab' data-target="#profileAchievements"><i class='icon-certificate'></i> Achievements</a></li>
-            {{#if _loggedIn}}
-                <li><a data-toggle='tab' data-target="#profileSettings"><i class='icon-wrench'></i> Settings</a></li>
-            {{/}}
+            <li><a data-toggle='tab' data-target="#profile-tavern"><i class='icon-eye-close'></i> Tavern</a></li>
+            <li><a data-toggle='tab' data-target="#profile-achievements"><i class='icon-certificate'></i> Achievements</a></li>
+            <!--<li><a data-toggle='tab' data-target="#profile-challenges" id='profile-challenges-tab-link' ><i class='icon-bullhorn'></i> Challenges</a></li>-->
+            <li><a data-toggle='tab' data-target="#profile-settings"><i class='icon-wrench'></i> Settings</a></li>
         </ul>
 
         <div class="tab-content">
 
-            <div class="tab-pane active" id="profileCustomize">
+            <div class="tab-pane active" id="profile-customize">
                 <div class='row-fluid'>
                     <div class='span4 border-right'>
                         <app:avatar:customize />
@@ -35,15 +34,15 @@
                 </div>
             </div>
 
-            <div class="tab-pane" id="profileParty">
-                <app:party:party />
+            <div class="tab-pane" id="profile-groups">
+                <app:groups:groups-pane />
             </div>
 
-            <div class="tab-pane" id="profileAchievements">
+            <div class="tab-pane" id="profile-achievements">
                 <app:avatar:achievements profile="{{_user}}" />
             </div>
 
-            <div class="tab-pane" id="profileInventory">
+            <div class="tab-pane" id="profile-inventory">
                 <div class='row-fluid'>
                     <div class='span6 border-right'>
                         <h2>Inventory</h2>
@@ -56,81 +55,23 @@
                 </div>
             </div>
 
-            <div class="tab-pane" id="profileStable">
+            <div class="tab-pane" id="profile-stable">
                 <app:pets:stable />
             </div>
 
-            <div class="tab-pane" id="profileTavern">
-                <app:game-pane:tavern />
+            <div class="tab-pane" id="profile-tavern">
+                <app:groups:group group={_habitRPG} />
             </div>
 
-            <div class="tab-pane" id="profileSettings">
-                {{#if _loggedIn}}
-                    <app:settings:settings-pane />
-                {{/}}
+            <div class="tab-pane" id="profile-challenges">
+                <app:challenges:main />
+            </div>
+
+            <div class="tab-pane" id="profile-settings">
+                <app:settings:settings-pane />
             </div>
         </div>
 
-    </div>
-
-<tavern:>
-    <div class='row-fluid'>
-        <div class='span4 border-right'>
-            <div class='tavern-pane'>
-                <table><tr>
-                    <td><div class='NPC-Daniel'></div></td>
-                    <td>
-                        <div class="popover static-popover fade right in">
-                            <div class="arrow"></div>
-                            <h3 class="popover-title">Daniel Johansson</h3>
-                            <div class="popover-content">
-                                Welcome to the Tavern! I'm <a target="_blank" href="http://www.kickstarter.com/profile/2014640723">Daniel</a>, the bar keep. If you want to rest a while (going on vacation? sudden illness?), I'll set you up at the inn - dailies won't hurt you while you're resting. Stay a while & meet the locals.
-                                <div><button x-bind="click:toggleResting" class='btn btn-large btn-success {#if _user.flags.rest}active{/}'>{#if _user.flags.rest}Check Out of Inn{else}Rest In The Inn{/}</button></div>
-                            </div>
-                        </div>
-                    </td>
-                </tr></table>
-            </div>
-
-            <div class='alert alert-info {#unless _user.flags.rest}hidden{/}'>Whilst resting your dailies are saved and aren't effected by day turn-over. Whether you check out tomorrow or in a weeks time you'll continue in the same state as when you checked in.</div>
-
-            <div class=well>
-                <h3>Resources</h3>
-                <ul class=unstyled>
-                    <li><h4><a target="_blank" href="http://community.habitrpg.com/forums/lfg">LFG Posts</a></h4></li>
-                    <li><h4><a target="_blank" href="http://www.youtube.com/watch?feature=player_embedded&v=cT5ghzZFfao">Tutorial</a></h4></li>
-                    <li><h4><a target="_blank" href="http://community.habitrpg.com/faq-page">FAQ</a></h4></li>
-                    <li><h4><a target="_blank" href="https://github.com/lefnire/habitrpg/issues?state=open">Report a Problem</a></h4></li>
-                    <li><h4><a target="_blank" href="https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6">Request a Feature</a></h4></li>
-                    <li><h4><a target="_blank" href="http://community.habitrpg.com/forum">Community Forum</a></h4></li>
-                </ul>
-            </div>
-
-        </div>
-        <div class='span8'>
-            <h3>Tavern Talk & LFG</h3>
-            <div class='row-fluid'>
-                <div class='span3'>
-                    <ul class='unstyled buttonList'>
-                        <li><a class='btn btn-info' style='width:100%' target="_blank" href="http://community.habitrpg.com/faq-page">FAQ</a></li>
-                        <li><a class='btn btn-info' style='width:100%' target="_blank" href="https://github.com/lefnire/habitrpg/issues?state=open">Report a Problem</a></li>
-                        <li><a class='btn btn-info' style='width:100%' target="_blank" href="https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6">Request a Feature</a></li>
-                    </ul>
-                </div>
-                <div class=span9>
-                    <form x-bind='submit:tavernSendChat'>
-                        <textarea class="span6" rows="3" x-bind='keyup:tavernMessageKeyup'>{_tavernMessage}</textarea><br/>
-                        <input class=btn type=submit value="Send Chat" />
-                    </form>
-                </div>
-            </div>
-
-            <ul class='unstyled tavern-chat'>
-                {#each _tavern.chat.messages as :message}
-                    <app:party:chat-message message={{:message}} />
-                {/}
-            </ul>
-        </div>
     </div>
 
 <market:>
