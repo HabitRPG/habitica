@@ -31,17 +31,15 @@ setupSubscriptions = (page, model, params, next, cb) ->
   uuid = model.get('_userId') or model.session.userId # see http://goo.gl/TPYIt
   selfQ = model.query('users').withId(uuid) #keep this for later
 
-  # Fetch public groups as _publicGroups
   # Note: due to https://github.com/codeparty/racer/issues/57, this has to come at the very beginning. The more limited
   # the returned fields in motifs, the sooner they must come in fetch / subscribes.
   publicGroupsQuery = model.query('groups').publicGroups()
   myGroupsQuery = model.query('groups').withMember(uuid)
   model.fetch publicGroupsQuery, myGroupsQuery, (err, publicGroups, groups) ->
     return next(err) if err
-    model.set '_publicGroups', _.sortBy(publicGroups.get(), (g) -> -_.size(g.members))
     finished = (descriptors, paths) ->
       # Add public "Tavern" guild in
-      descriptors.push('groups.habitrpg'); paths.push('_habitRPG')
+      descriptors.unshift('groups.habitrpg'); paths.unshift('_habitRPG')
 
       # Subscribe to each descriptor
       model.subscribe.apply model, descriptors.concat ->
@@ -51,8 +49,10 @@ setupSubscriptions = (page, model, params, next, cb) ->
         unless model.get('_user')
           console.error "User not found - this shouldn't be happening!"
           return page.redirect('/logout') #delete model.session.userId
-
         return cb()
+
+    # Get public groups first, order most-to-least # subscribers
+    model.set '_publicGroups', _.sortBy(publicGroups.get(), (g) -> -_.size(g.members))
 
     groupsObj = groups.get()
 
@@ -76,12 +76,15 @@ setupSubscriptions = (page, model, params, next, cb) ->
       model.set "_membersArray", mObj
 
     # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
-    partyQ = model.query('groups').withIds(groupsInfo.partyId)
-    if _.isEmpty(groupsInfo.guildIds)
-      finished [partyQ, selfQ], ['_party', '_user']
-    else
-      guildsQ = model.query('groups').withIds(groupsInfo.guildIds)
-      finished [partyQ, guildsQ, selfQ], ['_party', '_guilds', '_user']
+    descriptors = [selfQ]; paths = ['_user']
+    if groupsInfo.partyId
+      descriptors.unshift model.query('groups').withIds(groupsInfo.partyId)
+      paths.unshift '_party'
+    unless _.isEmpty(groupsInfo.guildIds)
+      descriptors.unshift model.query('groups').withIds(groupsInfo.guildIds)
+      paths.unshift '_guilds'
+    finished descriptors, paths
+
 
 # ========== ROUTES ==========
 

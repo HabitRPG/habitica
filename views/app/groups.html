@@ -6,22 +6,22 @@
 
     <div class="tab-content">
         <div class="tab-pane active" id="groups-party">
-            {{#if _party.id}} <!-- user in a party? -->
+            {#if _party.id} <!-- user in a party? -->
                 <app:groups:group group={groups[_party.id]} />
-            {{else if _user.invitations.party}}
+            {else if _user.invitations.party}
                 <!-- TODO show by whom -->
                 <h2>You're Invited To {_user.invitations.party.name}</h2>
                 {#with _user.invitations.party}
                 <a class='btn btn-success' data-type='party' x-bind="click:acceptInvitation">Accept</a>
                 <a class='btn btn-danger' x-bind="click:rejectInvitation">Reject</a>
                 {/}
-            {{else}}
+            {else}
                 <h2>Create A Party</h2>
                 <!-- Not in a party , no invites - create a new one -->
                 <p>You are not in a party. You can either create one and invite friends, or if you want to join an existing party, have them enter:</p>
                 <pre class=prettyprint>{_user.id}</pre>
                 <app:groups:create-group type='party' />
-            {{/}}
+            {/}
         </div>
     
         <div class='tab-pane' id="groups-guilds">

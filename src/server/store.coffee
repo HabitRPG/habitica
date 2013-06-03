@@ -110,21 +110,17 @@ groupSystem = (store) ->
   store.queryAccess "users", "publicInfo", publicAccess
 
   ###
-    Fetch group info (ie, they just got invited)
-  ###
-  store.query.expose "groups", "withIds", (ids) ->
-    return unless ids #FIXME this is sometimes null when ids is array (guilds)
-    if typeof ids is 'string'
-      @where("id").equals(ids).findOne() # find a single group
-    else
-      @where("id").within(ids) # find multiple groups
-  store.queryAccess "groups", "withIds", publicAccess
-
-  ###
     Read / Write groups, so they can create new groups
   ###
   store.readPathAccess "groups.*", publicAccess
   store.writeAccess "*", "groups.*", publicAccess
+
+  ###
+    Public HabitRPG Guild
+  ###
+  store.readPathAccess 'groups.habitrpg', publicAccess
+  store.writeAccess "*", "groups.habitrpg.chat.*", publicAccess
+  store.writeAccess "*", "groups.habitrpg.challenges.*", publicAccess
 
   ###
     Find group which has member by id
@@ -144,11 +140,12 @@ groupSystem = (store) ->
   store.queryAccess "groups", "publicGroups", publicAccess
 
   ###
-    Public HabitRPG Guild
+    Fetch group info (ie, they just got invited)
   ###
-
-  store.readPathAccess 'groups.habitrpg', publicAccess
-  store.writeAccess "*", "groups.habitrpg.chat.*", publicAccess
-  store.writeAccess "*", "groups.habitrpg.challenges.*", publicAccess
-
-
+  store.query.expose "groups", "withIds", (ids) ->
+    return unless ids #FIXME this is sometimes null when ids is array (guilds)
+    if typeof ids is 'string'
+      @where("id").equals(ids).findOne() # find a single group
+    else
+      @where("id").within(ids) # find multiple groups
+  store.queryAccess "groups", "withIds", publicAccess
