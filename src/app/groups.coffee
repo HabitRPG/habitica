@@ -57,13 +57,13 @@ module.exports.app = (appExports, model, app) ->
 
         switch type
           when 'guild'
-            if _.find(profile.invitations.guilds, {id:gid})
+            if profile.invitations?.guilds and _.find(profile.invitations.guilds, {id:gid})
               return groupError("User already invited to that group")
             else if uid in group.members
               return groupError("User already in that group")
             else invite()
           when 'party'
-            if profile.invitations.party
+            if profile.invitations?.party
               return groupError("User already pending invitation.")
             else if _.find(groups, {type:'party'})
               return groupError("User already in a party.")
