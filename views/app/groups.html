@@ -262,6 +262,26 @@
                     </div>
                 </div>
             {{else}}
+                {{#if equal(@group.leader,_user.id)}}
+                    {#if _editing.leaderMessage[@group.id]}
+                        <a x-bind=click:toggleLeaderMessageEdit data-gid={{@group.id}} class=pull-right><i class=icon-ok></i></a>
+                        <textarea cols=3 placeholder='Message from group leader'>{@group.leaderMessage}</textarea>
+                    {else}
+                        <a x-bind=click:toggleLeaderMessageEdit data-gid={{@group.id}} class='btn pull-right'>Edit leader message</a>
+                    {/}
+                {{/}}
+                {#if @group.leaderMessage}
+                    <table><tr>
+                        <td><app:avatar:avatar profile="{{_members[@group.leader]}}" /></td>
+                        <td>
+                            <div class="popover static-popover fade right in">
+                                <div class="arrow"></div>
+                                <h3 class="popover-title">{{username(_members[@group.leader].auth,_members[@group.leader].profile.name)}}</h3>
+                                <div class="popover-content">{@group.leaderMessage}</div>
+                            </div>
+                        </td>
+                    </tr></table>
+                {/}
                 <h3>Chat</h3>
                 <app:groups:chat-box group={@group} />
             {{/}}
