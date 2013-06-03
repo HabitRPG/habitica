@@ -19,8 +19,21 @@ module.exports.app = (appExports, model, app) ->
       leader: user.get('id')
       members: [user.get('id')]
       type: type
-    newGroup.privacy = (model.get("_new.group.privacy") || 'public') if type is 'guild'
-    model.add 'groups', newGroup, ->location.reload()
+
+    # parties - free
+    if type is 'party'
+      return model.add 'groups', newGroup, ->location.reload()
+
+    # guilds - 4G
+    balance = user.get('balance')
+    unless balance >= 1
+      return $('#more-gems-modal').modal 'show'
+    if confirm "Create Guild for 4 Gems?"
+      newGroup.privacy = (model.get("_new.group.privacy") || 'public') if type is 'guild'
+      newGroup.balance = 1 # they spent $ to open the guild, it goes into their guild bank
+      model.add 'groups', newGroup, ->
+        user.set 'balance', (balance - 1)
+        location.reload()
 
   appExports.toggleGroupEdit = (e, el) ->
     path = "_editing.groups.#{$(el).attr('data-gid')}"

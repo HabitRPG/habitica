@@ -83,21 +83,44 @@
     </table>
 
 <create-group:>
-    <form class=form-inline x-bind="submit:groupCreate" data-type={{@type}} >
+    <form class=form-horizontal x-bind="submit:groupCreate" data-type={{@type}} >
         {#if _groupError}
         <div class='alert alert-danger'>{_groupError}</div>
         {/}
         <div class="control-group whatever-options">
-            <input type="text" class="input-medium option-content" placeholder="{{#if equal(@type,'party')}}Party{{else}}Guild{{/}} Name" value="{_new.group.name}" />
-            <textarea cols=3 class='option-content' placeholder='Description'>{_new.group.description}</textarea>
+            <div class=control-group>
+                <label class="control-label" for="new-group-name">{{#if equal(@type,'party')}}Party{{else}}Guild{{/}} Name</label>
+                <div class="controls">
+                    <input required id=new-group-name type=text class="input-medium option-content" placeholder="{{#if equal(@type,'party')}}Party{{else}}Guild{{/}} Name" value="{_new.group.name}" />
+                </div>
+            </div>
+            <div class=control-group>
+                <label class="control-label" for="new-group-description">Description</label>
+                <div class="controls">
+                    <textarea id=new-group-description cols=3 class='option-content' placeholder='Description'>{_new.group.description}</textarea>
+                </div>
+            </div>
 
             {{#if equal(@type,'guild')}}
-            <div>
-                <input type='radio' name='new-group-privacy' checked="{equal('public',_new.group.privacy)}" >Public</input>
-                <input type='radio' name='new-group-privacy' checked="{equal('private',_new.group.privacy)}" >Invite Only</input>
-            </div>
+                <div class=control-group>
+                    <div class=controls>
+                        <label class="radio">
+                            <input type='radio' name='new-group-privacy' checked="{equal('public',_new.group.privacy)}" > Public
+                        </label>
+                        <label class="radio">
+                            <input type='radio' name='new-group-privacy' checked="{equal('private',_new.group.privacy)}" > Invite Only
+                        </label>
+                        <input type="submit" class="btn {#unless and(_new.group.privacy,_new.group.name)}disabled{/}" value="Create" /><span class='gem-cost'>4 Gems</span>
+                    </div>
+                </div>
+            {{else}}
+                <div class=control-group>
+                    <div class=controls>
+                        <input type="submit" class="btn " value="Create" />
+                    </div>
+                </div>
             {{/}}
-            <input type="submit" class="btn" value="Create" />
+
         </div>
     </form>
 
