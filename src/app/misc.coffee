@@ -205,3 +205,7 @@ module.exports.viewHelpers = (view) ->
     taskInChallenge.call(@,task)?.get(attr)
   view.fn 'brokenChallengeLink', (task) ->
     task?.challenge and !(taskInChallenge.call(@,task)?.get())
+
+  view.fn 'challengeMemberScore', (member, tType, tid) ->
+    Math.round(member["#{tType}s"]?[tid]?.value)
+

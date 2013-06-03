@@ -149,7 +149,8 @@
     {#each @challenge[@taskType]s as :task}
         <table><tr>
             <td>
-                <strong>{:task.text}</strong>: {round(@member[@taskType]s[:task.id].value)}
+                <!-- FIXME commented section below isn't getting updated dynamically, temp solution is less efficient -->
+                <strong>{:task.text}</strong>: {challengeMemberScore(@member,@taskType,:task.id)} <!--{round(@member[@taskType]s[:task.id].value)}-->
             </td>
             <td>
                 <div style='margin-left: 10px' class="challenge-{{@challenge.id}}-member-{{@member.id}}-history-{{:task.id}}"></div>
