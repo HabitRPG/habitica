@@ -5,13 +5,13 @@ module.exports.app = (appExports, model) ->
   browser = require './browser'
   user = model.at '_user'
 
-  appExports.renderChallengeGraphs = ->
+  $('#profile-challenges-tab-link').on 'show', (e) ->
     _.each model.get('groups'), (g) ->
       _.each g.challenges, (chal) ->
         _.each ['habit','daily','todo'], (type) ->
           _.each chal["#{type}s"], (task) ->
             _.each chal.users, (member) ->
-              if (history = member["#{type}s"][task.id].history) and !!history
+              if (history = member?["#{type}s"]?[task.id]?.history) and !!history
                 data = google.visualization.arrayToDataTable _.map(history, (h)-> [h.date,h.value])
                 options =
                   backgroundColor: { fill:'transparent' }
@@ -24,6 +24,7 @@ module.exports.app = (appExports, model) ->
                   vAxis: gridlines: color: 'transparent'
                 chart = new google.visualization.LineChart $(".challenge-#{chal.id}-member-#{member.id}-history-#{task.id}")[0]
                 chart.draw(data, options)
+
 
   appExports.challengeCreate = (e,el) ->
     [type, gid] = [$(el).attr('data-type'), $(el).attr('data-gid')]
