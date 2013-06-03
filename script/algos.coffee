@@ -112,14 +112,14 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
     # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
     rarity = Math.random()
 
-    # Egg, 40% chance
-    if rarity > .6
+    # Egg, 50% chance
+    if rarity > .5
       drop = helpers.randomVal(pets)
       (user.items.eggs ?= []).push drop; paths['items.eggs'] = true
       drop.type = 'Egg'
       drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
 
-      # Hatching Potion, 60% chance - break down by rarity even more. FIXME this may not be the best method, so revisit
+      # Hatching Potion, 50% chance - break down by rarity even more. FIXME this may not be the best method, so revisit
     else
       acceptableDrops = []
 
@@ -137,13 +137,15 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
         # Tier 3 (Rare)
       else if rarity < .3
         acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton']
-
+      
+      # Commented out for testing with increased egg drop, delete if successful
         # Tier 2 (Scarce)
-      else if rarity < .4
-        acceptableDrops = ['Base', 'White', 'Desert']
+      # else if rarity < .4
+      #   acceptableDrops = ['Base', 'White', 'Desert']
+      
         # Tier 1 (Common)
       else
-        acceptableDrops = ['Base']
+        acceptableDrops = ['Base', 'White', 'Desert']
 
       acceptableDrops = hatchingPotions.filter (hatchingPotion) ->
         hatchingPotion.name in acceptableDrops
