@@ -1,6 +1,7 @@
 moment = require 'moment'
 _ = require 'lodash'
-{algos, items} = require('./index.js')
+algos = require './algos.coffee'
+items = require('./items.coffee').items
 
 sod = (timestamp, dayStart=0) ->
   #sanity-check reset-time (is it 24h time?)
@@ -313,10 +314,10 @@ module.exports =
   userStr: (level) -> str = (level-1) / 2
   totalStr: (level, weapon=0) ->
     str = (level-1) / 2
-    totalStr = (str + items.items.weapon[weapon].strength)
+    totalStr = (str + items.weapon[weapon].strength)
   userDef: (level) -> def = (level-1) / 2
   totalDef: (level, armor=0, helm=0, shield=0) ->
     def = (level-1) / 2
-    totalDef = (def + items.items.armor[armor].defense + items.items.head[helm].defense + items.items.shield[shield].defense)
-  itemText: (type, item=0) -> items.items[type][parseInt(item)].text
-  itemStat: (type, item=0) -> if type is 'weapon' then items.items[type][parseInt(item)].strength else items.items[type][parseInt(item)].defense
+    totalDef = (def + items.armor[armor].defense + items.head[helm].defense + items.shield[shield].defense)
+  itemText: (type, item=0) -> items[type][parseInt(item)].text
+  itemStat: (type, item=0) -> if type is 'weapon' then items[type][parseInt(item)].strength else items[type][parseInt(item)].defense
