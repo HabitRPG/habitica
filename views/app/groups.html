@@ -127,7 +127,7 @@
 
 
 <group:>
-    {{#if equal(@group.type,'guild')}}
+    {{#if and(equal(@group.type,'guild'),not(equal(@group.id,'habitrpg')))}}
         <a class="pull-right gem-wallet" rel="popover" data-trigger="hover" data-title="Guild Bank" data-content="Gems which your Guild leader can use for prizes in the upcoming <a target=_blank href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58'>Challenges</a> feature." data-placement="bottom" data-html=true>
             <!--<span class="task-action-btn tile flush bright add-gems-btn">＋</span>-->
             <span class="task-action-btn tile flush neutral"><div class="Gems"></div>{{@group.balance}} Guild Gems</span>
