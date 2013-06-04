@@ -169,7 +169,7 @@ module.exports.viewHelpers = (view) ->
   view.fn "encodeiCalLink", helpers.encodeiCalLink
 
   #User
-  view.fn "gems", (balance) -> return balance/0.25
+  view.fn "gems", (balance) -> balance * 4
   view.fn "username", helpers.username
   view.fn "tnl", algos.tnl
   view.fn 'equipped', helpers.equipped
