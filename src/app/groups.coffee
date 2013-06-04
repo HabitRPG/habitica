@@ -128,6 +128,11 @@ module.exports.app = (appExports, model, app) ->
     return unless /\S/.test text
 
     group = e.at()
+
+    # get rid of duplicate member ids - this is a weird place to put it, but works for now
+    members = group.get('members'); uniqMembers = _.uniq(members)
+    group.set('members', uniqMembers) if !_.isEqual(uniqMembers, members)
+
     chat = group.at('chat')
     model.set('_chatMessage', '')
 
