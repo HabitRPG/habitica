@@ -116,8 +116,9 @@ module.exports.fixCorruptUser = (model) ->
     uniqPets = _.uniq(uObj.items.pets)
     batch.set('items.pets', uniqPets) if !_.isEqual(uniqPets, uObj.items.pets)
 
-    uniqInvites = _.uniq(uObj.invitations?.guilds)
-    batch.set('invitations.guilds', uniqInvites) if !_.isEqual(uniqInvites, uObj.invitations?.guilds)
+    if uObj.invitations?.guilds
+      uniqInvites = _.uniq(uObj.invitations.guilds)
+      batch.set('invitations.guilds', uniqInvites) if !_.isEqual(uniqInvites, uObj.invitations.guilds)
 
     ## Task List Cleanup
     ['habit','daily','todo','reward'].forEach (type) ->
