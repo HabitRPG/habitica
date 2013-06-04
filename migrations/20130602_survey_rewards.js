@@ -16,5 +16,5 @@ db.users.update({
 },
 {
     $set: { 'achievements.helpedHabit': true },
-    $inc: { balance: (2.5) }
+    $inc: { balance: 2.5 }
 })
