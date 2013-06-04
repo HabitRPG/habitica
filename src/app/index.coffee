@@ -75,15 +75,15 @@ setupSubscriptions = (page, model, params, next, cb) ->
       model.set "_members", _.object(_.pluck(mObj,'id'), mObj)
       model.set "_membersArray", mObj
 
-    # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
-    descriptors = [selfQ]; paths = ['_user']
-    if groupsInfo.partyId
-      descriptors.unshift model.query('groups').withIds(groupsInfo.partyId)
-      paths.unshift '_party'
-    unless _.isEmpty(groupsInfo.guildIds)
-      descriptors.unshift model.query('groups').withIds(groupsInfo.guildIds)
-      paths.unshift '_guilds'
-    finished descriptors, paths
+      # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
+      descriptors = [selfQ]; paths = ['_user']
+      if groupsInfo.partyId
+        descriptors.unshift model.query('groups').withIds(groupsInfo.partyId)
+        paths.unshift '_party'
+      unless _.isEmpty(groupsInfo.guildIds)
+        descriptors.unshift model.query('groups').withIds(groupsInfo.guildIds)
+        paths.unshift '_guilds'
+      finished descriptors, paths
 
 
 # ========== ROUTES ==========
