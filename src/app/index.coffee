@@ -104,7 +104,12 @@ get '/', (page, model, params, next) ->
 # ========== CONTROLLER FUNCTIONS ==========
 
 ready (model) ->
-  exports.removeAt = (e) -> e.at().remove() # used for things like remove website, chat, etc
+  # used for things like remove website, chat, etc
+  exports.removeAt = (e, el) ->
+    if (confirmMessage = $(el).attr 'data-confirm')?
+      return unless confirm(confirmMessage) is true
+    debugger
+    e.at().remove()
 
   user = model.at('_user')
   misc.fixCorruptUser(model) # https://github.com/lefnire/habitrpg/issues/634
