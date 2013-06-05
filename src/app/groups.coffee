@@ -178,3 +178,8 @@ module.exports.app = (appExports, model, app) ->
   appExports.gotoPartyChat = ->
     model.set '_gamePane', true, ->
       $('#party-tab-link').tab('show')
+
+  appExports.assignGroupLeader = (e, el) ->
+    newLeader = model.get('_new.groupLeader')
+    if newLeader and (confirm("Assign new leader, you sure?") is true)
+      e.at().set('leader', newLeader, ->browser.resetDom(model)) if newLeader

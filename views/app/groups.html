@@ -185,6 +185,14 @@
                                         <input type=url placeholder='Website' class='option-content' value={_newGroupWebsite} />
                                         <input type=submit value="Add" />
                                     </form>
+                                    <h4>Assign Group Leader</h4>
+                                    <select id=group-leader-selection>
+                                        {#each @group.members as :memberId}
+                                            <option selected="{equal(:memberId,_new.groupLeader)}">{{username(_members[:memberId].auth,_members[:memberId].profile.name)}}</option>
+                                        {/}
+                                    </select>
+                                    <button x-bind=click:assignGroupLeader >Assign</button>
+
                                     {/}
                                     {#if @group.websites}
                                         <h4>Resources</h4>
