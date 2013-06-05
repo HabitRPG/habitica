@@ -25,12 +25,11 @@ module.exports.app = (appExports, model) ->
     return alert "You don't own that egg yet, complete more tasks!" if eggIdx is -1
     return alert "You already have that pet, hatch a different combo." if myPets and myPets.indexOf("#{egg.name}-#{hatchingPotionName}") != -1
 
-    user.push 'items.pets', egg.name + '-' + hatchingPotionName
-
-    eggs.splice eggIdx, 1
-    myHatchingPotion.splice hatchingPotionIdx, 1
-    user.set 'items.eggs', eggs
-    user.set 'items.hatchingPotions', myHatchingPotion
+    user.push 'items.pets', egg.name + '-' + hatchingPotionName, ->
+      eggs.splice eggIdx, 1
+      myHatchingPotion.splice hatchingPotionIdx, 1
+      user.set 'items.eggs', eggs
+      user.set 'items.hatchingPotions', myHatchingPotion
 
     alert 'Your egg hatched! Visit your stable to equip your pet.'
 
