@@ -104,13 +104,6 @@ get '/', (page, model, params, next) ->
 # ========== CONTROLLER FUNCTIONS ==========
 
 ready (model) ->
-  # used for things like remove website, chat, etc
-  exports.removeAt = (e, el) ->
-    if (confirmMessage = $(el).attr 'data-confirm')?
-      return unless confirm(confirmMessage) is true
-    debugger
-    e.at().remove()
-
   user = model.at('_user')
   misc.fixCorruptUser(model) # https://github.com/lefnire/habitrpg/issues/634
 
@@ -126,6 +119,13 @@ ready (model) ->
   require('./unlock').app(exports, model)
   require('./filters').app(exports, model)
   require('./challenges').app(exports, model)
+
+  # used for things like remove website, chat, etc
+  exports.removeAt = (e, el) ->
+    if (confirmMessage = $(el).attr 'data-confirm')?
+      return unless confirm(confirmMessage) is true
+    e.at().remove()
+    browser.resetDom(model) if $(el).attr('data-refresh')
 
   ###
     Cron

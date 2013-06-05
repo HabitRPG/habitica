@@ -49,7 +49,7 @@
 
                 {{#each _guilds as :guild}}
                     <div class="tab-pane" id="groups-guild-{{:guild.id}}" >
-                        <app:groups:group group={{:guild}} />
+                        <app:groups:group group={:guild} />
                     </div>
                 {{/}}
 
@@ -220,9 +220,18 @@
                         <div id="accordion-{{@group.id}}-members" class="accordion-body collapse">
                             <div class="accordion-inner">
                                 <table class="table table-striped">
-                                    {{#each @group.members as :memberId}}
+                                    {#each @group.members as :memberId}
                                     <tr><td>
                                         <a data-toggle='modal' data-target="#avatar-modal-{{:memberId}}">
+                                            <!-- allow leaders to ban members -->
+                                            {{#if equal(@group.leader,_user.id)}}
+                                                {{#with @group.members[$index]}}
+                                                    <a x-bind=click:removeAt data-refresh=true data-confirm='Ban this member?'>
+                                                        <i class=icon-ban-circle rel=tooltip title="Ban Member"></i>
+                                                    </a>
+                                                {{/}}
+                                                &nbsp;
+                                            {{/}}
                                             {{username(_members[:memberId].auth, _members[:memberId].profile.name)}}
                                         </a>
                                     </td>
@@ -230,7 +239,7 @@
                                             ({{:memberId}})
                                         </td>
                                     </tr>
-                                    {{/}}
+                                    {/}
                                 </table>
                                 {#with @group as :group}
                                 <form class="form-inline" x-bind="submit:groupInvite" data-type="{@group.type}" >
