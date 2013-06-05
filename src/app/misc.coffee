@@ -18,7 +18,7 @@ module.exports.batchTxn = batchTxn = (model, cb, options) ->
   # pass true if we have levelled to supress xp notification
   unless _.isEmpty paths
     setOps = _.reduce paths, ((m,v,k)-> m[k] = helpers.dotGet(k,uObj);m), {}
-    user.set "update__", setOps
+    user.set "update__", setOps, options?.done
   ret
 
 #TODO put this in habitrpg-shared
@@ -44,6 +44,7 @@ taskInChallenge = (task) ->
   perform the updates while tracking paths, then all the values at those paths
 ###
 module.exports.score = (model, taskId, direction, allowUndo=false) ->
+  drop = undefined
   delta = batchTxn model, (uObj, paths) ->
     tObj = uObj.tasks[taskId]
 
@@ -58,9 +59,7 @@ module.exports.score = (model, taskId, direction, allowUndo=false) ->
 
     delta = algos.score(uObj, tObj, direction, {paths})
     model.set('_streakBonus', uObj._tmp.streakBonus) if uObj._tmp?.streakBonus
-    if uObj._tmp?.drop and $?
-      model.set '_drop', uObj._tmp.drop
-      $('#item-dropped-modal').modal 'show'
+    drop = uObj._tmp?.drop
 
     # Update challenge statistics
     # FIXME put this in it's own batchTxn, make batchTxn model.at() ref aware (not just _user)
@@ -80,6 +79,10 @@ module.exports.score = (model, taskId, direction, allowUndo=false) ->
         value: tObj.value
         history: tObj.history
       model._dontPersist = true
+  , done:->
+    if drop and $?
+      model.set '_drop', drop
+      $('#item-dropped-modal').modal 'show'
 
   delta
 
