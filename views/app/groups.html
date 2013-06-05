@@ -222,16 +222,16 @@
                                 <table class="table table-striped">
                                     {#each @group.members as :memberId}
                                     <tr><td>
-                                        <a data-toggle='modal' data-target="#avatar-modal-{{:memberId}}">
-                                            <!-- allow leaders to ban members -->
-                                            {{#if equal(@group.leader,_user.id)}}
-                                                {{#with @group.members[$index]}}
-                                                    <a x-bind=click:removeAt data-refresh=true data-confirm='Ban this member?'>
-                                                        <i class=icon-ban-circle rel=tooltip title="Ban Member"></i>
-                                                    </a>
-                                                {{/}}
-                                                &nbsp;
+                                        <!-- allow leaders to ban members -->
+                                        {{#if and(equal(@group.leader,_user.id),not(equal(_user.id,:memberId)))}}
+                                            {{#with @group.members[$index]}}
+                                                <a x-bind=click:removeAt data-refresh=true data-confirm='Boot this member?'>
+                                                    <i class=icon-ban-circle rel=tooltip title="Boot Member"></i>
+                                                </a>
                                             {{/}}
+                                            &nbsp;
+                                        {{/}}
+                                        <a data-toggle='modal' data-target="#avatar-modal-{{:memberId}}">
                                             {{username(_members[:memberId].auth, _members[:memberId].profile.name)}}
                                         </a>
                                     </td>
