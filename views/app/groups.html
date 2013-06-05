@@ -232,7 +232,9 @@
                                             &nbsp;
                                         {{/}}
                                         <a data-toggle='modal' data-target="#avatar-modal-{{:memberId}}">
-                                            {{username(_members[:memberId].auth, _members[:memberId].profile.name)}}
+                                            <span class="{{#if equal(@group.leader,:memberId)}}badge badge-info{{/}}">
+                                                {{username(_members[:memberId].auth, _members[:memberId].profile.name)}}
+                                            </span>
                                         </a>
                                     </td>
                                         <td>
