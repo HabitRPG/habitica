@@ -101,19 +101,20 @@ module.exports.app = (appExports, model, app) ->
     else e.at().remove clear
 
   appExports.groupLeave = (e,el) ->
-    uid = user.get('id')
-    group = model.at "groups.#{$(el).attr('data-id')}"
-    index = group.get('members').indexOf(uid)
-    if index != -1
-      group.remove 'members', index, 1, ->
-        updated = group.get()
-        # last member out, delete the party
-        if _.isEmpty(updated.members)
-          group.del ->location.reload()
-        # assign new leader, so the party is editable #TODO allow old leader to assign new leader, this is just random
-        else if (updated.leader is uid)
-          group.set "leader", updated.members[0], ->location.reload()
-        else location.reload()
+    if confirm("Leave this group, are you sure?") is true
+      uid = user.get('id')
+      group = model.at "groups.#{$(el).attr('data-id')}"
+      index = group.get('members').indexOf(uid)
+      if index != -1
+        group.remove 'members', index, 1, ->
+          updated = group.get()
+          # last member out, delete the party
+          if _.isEmpty(updated.members) and (updated.type is 'party')
+            group.del ->location.reload()
+          # assign new leader, so the party is editable #TODO allow old leader to assign new leader, this is just random
+          else if (updated.leader is uid)
+            group.set "leader", updated.members[0], ->location.reload()
+          else location.reload()
 
   ###
     Chat Functionality
