@@ -1,0 +1,363 @@
+<groups-pane:>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle='tab' data-target="#groups-party">Party</a></li>
+        <li><a data-toggle='tab' data-target="#groups-guilds">Guilds</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="groups-party">
+            {#if _party.id}
+                <app:groups:group group={groups[_party.id]} />
+            {else if _user.invitations.party}
+                <!-- #with required for the accept/reject buttons -->
+                {#with _user.invitations.party as :party}
+                    <h2>You're Invited To {:party.name}</h2>
+                    <a class='btn btn-success' data-type='party' x-bind="click:acceptInvitation">Accept</a>
+                    <a class='btn btn-danger' x-bind="click:rejectInvitation">Reject</a>
+                {/}
+            {else}
+                <h2>Create A Party</h2>
+                <p>You are not in a party. You can either create one and invite friends, or if you want to join an existing party, have them enter:</p>
+                <pre class=prettyprint>{_user.id}</pre>
+                <app:groups:create-group type='party' />
+            {/}
+        </div>
+    
+        <div class='tab-pane' id="groups-guilds">
+            <ul class="nav nav-pills">
+                <li class=active><a data-toggle='tab' data-target="#groups-guilds-public">Public Guilds</a></li>
+                {{#each _guilds as :guild}}
+                    <li><a data-toggle='tab' data-target="#groups-guild-{{:guild.id}}">{:guild.name}</a></li>
+                {{/}}
+                <li><a data-toggle='tab' data-target="#groups-guild-create">Create Guild</a></li>
+            </ul>
+            <div class="tab-content">
+
+                <div class='tab-pane active' id='groups-guilds-public'>
+                    <!-- strange bug here - derby paths supposed to work like _user?.invitations?.guilds, wtf? -->
+                    {#if and(_user.invitations,_user.invitations.guilds)}
+                        {#each _user.invitations.guilds as :invitation}
+                            <div>
+                                <h3>You're Invited To {:invitation.name}</h3>
+                                <a class='btn btn-success' data-type='guild' x-bind="click:acceptInvitation">Accept</a>
+                                <a class='btn btn-danger' x-bind="click:rejectInvitation">Reject</a>
+                            </div>
+                        {/}
+                    {/}
+                    <app:groups:public-groups />
+                </div>
+
+                {{#each _guilds as :guild}}
+                    <div class="tab-pane" id="groups-guild-{{:guild.id}}" >
+                        <app:groups:group group={:guild} />
+                    </div>
+                {{/}}
+
+                <div class='tab-pane' id='groups-guild-create'>
+                    <app:groups:create-group type='guild' />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<public-groups:>
+    <table class="table table-striped">
+        {#each _publicGroups as :public}
+        <tr><td>
+            <ul class="pull-right challenge-accordion-header-specs">
+                <li>{count(:public.members)} member(s)</li>
+                <li>
+                    <!-- join / leave -->
+                    {#if indexOf(:public.members,_user.id)}
+                        <a x-bind="click:groupLeave" data-id={{:public.id}} class='btn btn-small btn-danger'><i class='icon-ban-circle'></i> Leave</a>
+                    {else}
+                        <a x-bind="click:joinGroup" class='btn btn-small btn-success'><i class='icon-ok'></i> Join</a>
+                    {/}
+                </li>
+            </ul>
+            <h4>{:public.name}</h4>
+            <p>{:public.description}</p>
+        </td></tr>
+        {/}
+    </table>
+
+<create-group:>
+    <form class=form-horizontal x-bind="submit:groupCreate" data-type={{@type}} >
+        {#if _groupError}
+        <div class='alert alert-danger'>{_groupError}</div>
+        {/}
+        <div class="control-group whatever-options">
+            <div class=control-group>
+                <label class="control-label" for="new-group-name">{{#if equal(@type,'party')}}Party{{else}}Guild{{/}} Name</label>
+                <div class="controls">
+                    <input required id=new-group-name type=text class="input-medium option-content" placeholder="{{#if equal(@type,'party')}}Party{{else}}Guild{{/}} Name" value="{_new.group.name}" />
+                </div>
+            </div>
+            <div class=control-group>
+                <label class="control-label" for="new-group-description">Description</label>
+                <div class="controls">
+                    <textarea id=new-group-description cols=3 class='option-content' placeholder='Description'>{_new.group.description}</textarea>
+                </div>
+            </div>
+
+            {{#if equal(@type,'guild')}}
+                <div class=control-group>
+                    <div class=controls>
+                        <label class="radio">
+                            <input type='radio' name='new-group-privacy' checked="{equal('public',_new.group.privacy)}" > Public
+                        </label>
+                        <label class="radio">
+                            <input type='radio' name='new-group-privacy' checked="{equal('private',_new.group.privacy)}" > Invite Only
+                        </label>
+                        <input type="submit" class="btn {#unless and(_new.group.privacy,_new.group.name)}disabled{/}" value="Create" /><span class='gem-cost'>4 Gems</span>
+                        <p><small>The Gem cost promotes high quality guilds and is transferred into your guild's bank so you can use as rewards in the upcoming challenges feature!</small></p>
+                    </div>
+                </div>
+            {{else}}
+                <div class=control-group>
+                    <div class=controls>
+                        <input type="submit" class="btn " value="Create" />
+                    </div>
+                </div>
+            {{/}}
+
+        </div>
+    </form>
+
+
+<group:>
+    {{#if and(equal(@group.type,'guild'),not(equal(@group.id,'habitrpg')))}}
+        <a class="pull-right gem-wallet" rel="popover" data-trigger="hover" data-title="Guild Bank" data-content="Gems which your Guild leader can use for prizes in the upcoming <a target=_blank href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58'>Challenges</a> feature." data-placement="bottom" data-html=true>
+            <!--<span class="task-action-btn tile flush bright add-gems-btn">＋</span>-->
+            <span class="task-action-btn tile flush neutral"><div class="Gems"></div>{{gems(@group.balance)}} Guild Gems</span>
+        </a>
+    {{/}}
+    <div class='row-fluid'>
+        <div class='span4'>
+            {{#if equal(@group.id,'habitrpg')}}
+                <div class='tavern-pane'>
+                    <table><tr>
+                        <td><div class='NPC-Daniel'></div></td>
+                        <td>
+                            <div class="popover static-popover fade right in">
+                                <div class="arrow"></div>
+                                <h3 class="popover-title">Daniel Johansson</h3>
+                                <div class="popover-content">
+                                    Welcome to the Tavern! I'm <a target="_blank" href="http://www.kickstarter.com/profile/2014640723">Daniel</a>, the bar keep. If you want to rest a while (going on vacation? sudden illness?), I'll set you up at the inn - dailies won't hurt you while you're resting. Stay a while & meet the locals.
+                                    <div><button x-bind="click:toggleResting" class='btn btn-large btn-success {#if _user.flags.rest}active{/}'>{#if _user.flags.rest}Check Out of Inn{else}Rest In The Inn{/}</button></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr></table>
+                </div>
+                <div class='alert alert-info {#unless _user.flags.rest}hidden{/}'>Whilst resting your dailies are saved and aren't affected by day turn-over. Whether you check out tomorrow or in a weeks time you'll continue in the same state as when you checked in.</div>
+
+                <div class=well>
+                    <h3>Resources</h3>
+                    <ul class=unstyled>
+                        <li><h4><a target="_blank" href="http://community.habitrpg.com/forums/lfg">LFG Posts</a></h4></li>
+                        <li><h4><a target="_blank" href="http://www.youtube.com/watch?feature=player_embedded&v=cT5ghzZFfao">Tutorial</a></h4></li>
+                        <li><h4><a target="_blank" href="http://community.habitrpg.com/faq-page">FAQ</a></h4></li>
+                        <li><h4><a target="_blank" href="http://community.habitrpg.com/node/280">Report a Problem</a></h4></li>
+                        <li><h4><a target="_blank" href="https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6">Request a Feature</a></h4></li>
+                        <li><h4><a target="_blank" href="http://community.habitrpg.com/forum">Community Forum</a></h4></li>
+                    </ul>
+                </div>
+            {{else}}
+                <h3>{@group.name}</h3>
+                <div class="accordion" id="accordion-{{@group.id}}-parent">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-{{@group.id}}-parent" href="#accordion-{{@group.id}}-information">Information</a>
+                        </div>
+                        <div id="accordion-{{@group.id}}-information" class="accordion-body collapse in">
+                            <div class="accordion-inner blah-options">
+                                {#if _editing.groups[@group.id]}
+                                    <div style="height:10px">
+                                        <a class=pull-right x-bind=click:toggleGroupEdit data-gid={{@group.id}} ><i class=icon-ok></i></a>
+                                    </div>
+                                    <input type=text value={@group.name} class='option-content' placeholder='Group Name' />
+                                    <textarea cols=3 placeholder='Description'>{@group.description}</textarea>
+                                    <input type=url class=option-content placeholder="Logo Url" value={@group.logo} />
+                                    {#with @group}
+                                    <form class='form-inline' x-bind="submit:groupAddWebsite" >
+                                        <input type=url placeholder='Website' class='option-content' value={_newGroupWebsite} />
+                                        <input type=submit value="Add" />
+                                    </form>
+                                    <h4>Assign Group Leader</h4>
+                                    <select id=group-leader-selection>
+                                        {#each @group.members as :memberId}
+                                            <option selected="{equal(:memberId,_new.groupLeader)}">{{username(_members[:memberId].auth,_members[:memberId].profile.name)}}</option>
+                                        {/}
+                                    </select>
+                                    <button x-bind=click:assignGroupLeader >Assign</button>
+
+                                    {/}
+                                    {#if @group.websites}
+                                        <h4>Resources</h4>
+                                        <ul class=unstyled>
+                                            {#each @group.websites as :website}
+                                            <li><a x-bind='click:removeAt'><i class='icon-trash'></i></a> <a target="_blank" href="{:website}" >{:website}</a></li>
+                                            {/}
+                                        </ul>
+                                    {/}
+                                {else}
+                                    {#if @group.logo}<img class=pull-right style='max-width:150px' src={@group.logo} />{/}
+                                    {{#if equal(@group.leader,_user.id)}}
+                                        <a class=pull-right x-bind=click:toggleGroupEdit data-gid={{@group.id}} ><i class=icon-pencil></i></a>
+                                    {{/}}
+                                    <div>{@group.description}</div>
+                                    {#if @group.websites}
+                                        <h4>Resources</h4>
+                                        <ul class=unstyled>
+                                            {#each @group.websites as :website}
+                                            <li><a target="_blank" href="{:website}">{:website}</a></li>
+                                            {/}
+                                        </ul>
+                                    {/}
+                                {/}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-{{@group.id}}-parent" href="#accordion-{{@group.id}}-members">Members</a>
+                        </div>
+                        <div id="accordion-{{@group.id}}-members" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <table class="table table-striped">
+                                    {#each @group.members as :memberId}
+                                    <tr><td>
+                                        <!-- allow leaders to ban members -->
+                                        {{#if and(equal(@group.leader,_user.id),not(equal(_user.id,:memberId)))}}
+                                            {{#with @group.members[$index]}}
+                                                <a x-bind=click:removeAt data-refresh=true data-confirm='Boot this member?'>
+                                                    <i class=icon-ban-circle rel=tooltip title="Boot Member"></i>
+                                                </a>
+                                            {{/}}
+                                            &nbsp;
+                                        {{/}}
+                                        <a data-toggle='modal' data-target="#avatar-modal-{{:memberId}}">
+                                            <span class="{{#if equal(@group.leader,:memberId)}}badge badge-info{{/}}">
+                                                {{username(_members[:memberId].auth, _members[:memberId].profile.name)}}
+                                            </span>
+                                        </a>
+                                    </td>
+                                        <td>
+                                            ({{:memberId}})
+                                        </td>
+                                    </tr>
+                                    {/}
+                                </table>
+                                {#with @group as :group}
+                                <form class="form-inline" x-bind="submit:groupInvite" data-type="{@group.type}" >
+                                    {#if _groupError}
+                                    <div class='alert alert-danger'>{_groupError}</div>
+                                    {/}
+                                    <div class='control-group'>
+                                        <input type="text" class="input-medium" placeholder="User Id" value="{_groupInvitee}">
+                                        <input type="submit" class="btn" value="Invite" />
+                                    </div>
+                                </form>
+                                {/}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-{{@group.id}}-parent" href="#accordion-{{@group.id}}-challenges">Challenges</a>
+                        </div>
+                        <div id="accordion-{{@group.id}}-challenges" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <span class=label><i class=icon-bullhorn></i> Challenges</span> coming soon! <a target="_blank" href="https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58">Details</a>
+                                <!--{#if @group.challenges}
+                                    <table class="table table-striped">
+                                        {#each @group.challenges as :challenge}
+                                        <tr><td>
+                                            {:challenge.name}
+                                        </td></tr>
+                                        {/}
+                                    </table>
+                                    Visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> for more information.
+                                {else}
+                                    No challenges yet, visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> tab to create one.
+                                {/}-->
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <a class='btn btn-danger' data-id="{{@group.id}}" x-bind="click:groupLeave">Leave</a>
+            {{/}}
+
+        </div>
+        <div class='span8'>
+
+            {{#if equal(@group.id,'habitrpg')}}
+                <h3>Tavern Talk & LFG</h3>
+                <div class='row-fluid'>
+                    <div class='span3'>
+                        <ul class='unstyled buttonList'>
+                            <li><a class='btn btn-info' style='width:100%' target="_blank" href="http://community.habitrpg.com/faq-page">FAQ</a></li>
+                            <li><a class='btn btn-info' style='width:100%' target="_blank" href="http://community.habitrpg.com/node/280">Report a Problem</a></li>
+                            <li><a class='btn btn-info' style='width:100%' target="_blank" href="https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6">Request a Feature</a></li>
+                        </ul>
+                    </div>
+                    <div class=span9>
+                        <app:groups:chat-box group={@group} />
+                    </div>
+                </div>
+            {{else}}
+                {{#if equal(@group.leader,_user.id)}}
+                    {#if _editing.leaderMessage[@group.id]}
+                        <a x-bind=click:toggleLeaderMessageEdit data-gid={{@group.id}} class=pull-right><i class=icon-ok></i></a>
+                        <textarea cols=3 placeholder='Message from group leader'>{@group.leaderMessage}</textarea>
+                    {else}
+                        <a x-bind=click:toggleLeaderMessageEdit data-gid={{@group.id}} class='btn pull-right'>Edit leader message</a>
+                    {/}
+                {{/}}
+                {#if @group.leaderMessage}
+                    <table><tr>
+                        <td><app:avatar:avatar profile="{{_members[@group.leader]}}" /></td>
+                        <td>
+                            <div class="popover static-popover fade right in">
+                                <div class="arrow"></div>
+                                <h3 class="popover-title">{{username(_members[@group.leader].auth,_members[@group.leader].profile.name)}}</h3>
+                                <div class="popover-content">{@group.leaderMessage}</div>
+                            </div>
+                        </td>
+                    </tr></table>
+                {/}
+                <h3>Chat</h3>
+                <app:groups:chat-box group={@group} />
+            {{/}}
+
+            <ul class='unstyled tavern-chat'>
+                {#each @group.chat as :message}
+                <app:groups:chat-message message={{:message}} />
+                {/}
+            </ul>
+        </div>
+    </div>
+
+<chat-box:>
+    {{#with @group as :group}}
+    <form x-bind='submit:sendChat'>
+        <textarea class="span6" rows="3" x-bind='keyup:chatKeyup'>{_chatMessage}</textarea><br/>
+        <input class=btn type=submit value="Send Chat" />
+    </form>
+    {{/}}
+
+<chat-message:>
+    <li class="{{#if indexOf(:message.text, username(_user.auth, _user.profile.name))}}highlight{{/if}}">
+        <span
+            class="label {{#if @message.npc}}label-success{{else if @message.contributor}}label-inverse{{else if equal(@message.uuid,_user.id)}}label-info{{/}} chat-message"
+            rel='tooltip' title="{{@message.contributor}}{{@message.npc}}">
+            {{@message.user}}</span> {{@message.text}} - <span class='muted time'>{relativeDate(@message.timestamp, _currentTime)}
+            {{#if or(_user.backer.admin,equal(@message.uuid,_user.id))}}{{#with @message}}<a x-bind="click:deleteChatMessage"><i rel=tooltip title=Delete class=icon-remove></i></a>{{/}}{{/}}
+        </span>
+    </li>

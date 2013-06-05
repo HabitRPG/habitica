@@ -18,8 +18,9 @@ module.exports.app = (appExports, model) ->
     # Don't add a blank task; 20/02/13 Added a check for undefined value, more at issue #463 -lancemanfv
     return if /^(\s)*$/.test(text) || text == undefined
 
-    activeFilters = _.reduce user.get('filters'), ((memo,v,k) -> memo[k]=v if v;memo), {}
-    newTask = {id: model.id(), type: type, text: text, notes: '', value: 0, tags: activeFilters}
+    newTask = {id: model.id(), type, text, notes: '', value: 0}
+    newTask.tags = _.reduce user.get('filters'), ((memo,v,k) -> memo[k]=v if v; memo), {}
+
     switch type
       when 'habit'
         newTask = _.defaults {up: true, down: true}, newTask
@@ -29,7 +30,7 @@ module.exports.app = (appExports, model) ->
         newTask = _.defaults {repeat:{su:true,m:true,t:true,w:true,th:true,f:true,s:true}, completed: false }, newTask
       when 'todo'
         newTask = _.defaults {completed: false }, newTask
-    model.unshift "_#{type}List", newTask
+    e.at().unshift newTask # e.at() in this case is the list, which was scoped here using {#with @list}...{/}
     newModel.set ''
 
   appExports.del = (e) ->
@@ -74,31 +75,36 @@ module.exports.app = (appExports, model) ->
       task.set('repeat.' + $(el).attr('data-day'), true)
 
   appExports.toggleTaskEdit = (e, el) ->
-    hideId = $(el).attr('data-hide-id')
-    toggleId = $(el).attr('data-toggle-id')
-    $(document.getElementById(hideId)).addClass('visuallyhidden')
-    $(document.getElementById(toggleId)).toggleClass('visuallyhidden')
+    id = e.get('id')
+    path = "_tasks.editing.#{id}"
+    model.set path, !model.get(path)
+    $(".#{id}-chart").hide()
 
   appExports.toggleChart = (e, el) ->
-    hideSelector = $(el).attr('data-hide-id')
-    chartSelector = $(el).attr('data-toggle-id')
-    historyPath = $(el).attr('data-history-path')
-    $(document.getElementById(hideSelector)).hide()
-    $(document.getElementById(chartSelector)).toggle()
+    id = $(el).attr('data-id')
+    history = []
+
+    if id is 'todos'
+      model.set "_tasks.charts.todos", !model.get("_tasks.charts.todos")
+      history = model.get("_user.history.todos")
+      $(".#{id}-chart").toggle()
+    else
+      [id, path] = [$(el).attr('data-id'), "_tasks.charts.#{id}"]
+      model.set path, !model.get(path)
+      model.set "_tasks.editing.#{id}", false
+      $(".#{id}-chart").toggle()
+      history = model.get("_user.tasks.#{id}.history")
 
     matrix = [['Date', 'Score']]
-    for obj in model.get(historyPath)
+    for obj in history
       date = +new Date(obj.date)
       readableDate = moment(date).format('MM/DD')
       matrix.push [ readableDate, obj.value ]
     data = google.visualization.arrayToDataTable matrix
-
-    options = {
+    options =
       title: 'History'
       backgroundColor: { fill:'transparent' }
-    }
-
-    chart = new google.visualization.LineChart(document.getElementById( chartSelector ))
+    chart = new google.visualization.LineChart $(".#{id}-chart")[0]
     chart.draw(data, options)
 
   appExports.todosShowRemaining = -> model.set '_showCompleted', false

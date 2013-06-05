@@ -1,5 +1,5 @@
 <header:>
-    <header class="site-header {#if _user.preferences.hideHeader}hidden{/}" role="banner" data-partySize="{#if gt(_partyMembers.length,1)}{truarr(_partyMembers.length)}{else}0{/}">
+    <header class="site-header {#if _user.preferences.hideHeader}hidden{/}" role="banner" data-partySize="{#if gt(_party.memebers.length,1)}{truarr(_party.members.length)}{else}0{/}">
         <!-- avatar -->
         <div class="herobox-wrap main-herobox">
             <app:avatar:avatar profile={_user} main=true>
@@ -27,11 +27,11 @@
         <!-- I have an idea to use this loop for the user's herobox/avatar as well
              NOTE TO SELF: Ask Tyler if some kind of inter-leaving is possible
              where we can put ONE of the results of this loop BEFORE the progress bars, and the rest after-->
-        {{#each _partyMembers as :member}}
-            <div class="herobox-wrap" style="{{#if equal(:member.id, _userId)}}display:none;{{/}}">
-                {{#unless equal(:member.id, _userId)}}
-                    <app:avatar:avatar profile={{:member}} party="true" />
-                <!-- Would be way cleaner as a Derby template `data-content="<app:party:member-stats profile={{:member}} />"`, but it was just printing HTML as text -->
+        {{#each _party.members as :memberId}}
+            <div class="herobox-wrap" style="{{#if equal(:memberId, _userId)}}display:none;{{/}}">
+                {{#unless equal(:memberId, _userId)}}
+                    <app:avatar:avatar profile={{_members[:memberId]}} party="true" />
+                <!-- Would be way cleaner as a Derby template `data-content="<app:groups:member-stats profile={{:member}} />"`, but it was just printing HTML as text -->
                 <!-- I've re-implemented the rollover using the actual `herobox`/avatar template and data-attributes.
                     This Derby template idea would have been really handy but this is pretty versatile, and keeps it all in the avatar section -->
                 {{/}}
