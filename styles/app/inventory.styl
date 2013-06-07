@@ -20,13 +20,20 @@
     width: 100%
   td
     padding: 0.5em
-    width: 25%
+    //width: 25%
     &.active-pet
       background-color: $bad
       outline: 1px solid rgba(0,0,0,0.1)
       outline-offset: -1px
     &:hover, &:focus
       background-color: darken($better, 10%)
+    > div
+      margin:auto
+      margin-bottom:.5em
+  p
+    text-align:center
+    width:6.5em
+    height:2.5em
 
 .current-pet
     left: 0px
@@ -54,8 +61,14 @@
     clear:both
 .pets-menu > div
     float:left
-.hatchingPotions-menu > div
+    padding:.3em
+    p
+      text-align:center
+.hatchingPotion-menu > div
     float:left
+    padding:.3em
+    p
+      text-align:center
 
 .pet-button
     border: none
