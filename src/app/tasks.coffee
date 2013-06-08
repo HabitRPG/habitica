@@ -34,30 +34,10 @@ module.exports.app = (appExports, model) ->
     newModel.set ''
 
   appExports.del = (e) ->
-    # Derby extends model.at to support creation from DOM nodes
-    task = e.at()
-    id = task.get('id')
-
-    history = task.get('history')
-    if history and history.length > 2
-      # prevent delete-and-recreate hack on red tasks
-      if task.get('value') < 0
-        if confirm("Are you sure? Deleting this task will hurt you (to prevent deleting, then re-creating red tasks).") is true
-          task.set('type','habit') # hack to make sure it hits HP, instead of performing "undo checkbox"
-          misc.score(model, id, 'down', true)
-        else
-          return # Cancel. Don't delete, don't hurt user
-
-        # prevent accidently deleting long-standing tasks
-      else
-        return unless confirm("Are you sure you want to delete this task?") is true
-
-    #TODO bug where I have to delete from _users.tasks AND _{type}List,
-    # fix when query subscriptions implemented properly
+    return unless confirm("Are you sure you want to delete this task?") is true
     $('[rel=tooltip]').tooltip('hide')
-
-    user.del('tasks.'+id)
-    task.remove()
+    user.del "tasks.#{e.get('id')}"
+    e.at().remove()
 
 
   appExports.clearCompleted = (e, el) ->
