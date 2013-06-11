@@ -1,4 +1,4 @@
-{
+﻿{
 
 "_commentfrontpage":"HABITRPG FRONT PAGE",
    "synopsis" : "Un programma per trattare le proprie abitudini come in un Gioco di Ruolo. Sali di livello se ci riesci, perdi HP se fallisci, guadagna soldi per comprare armi ed armature.",
@@ -161,10 +161,10 @@
   "inventory": "Inventario",
     "eggs": "Uova",
       "noEggs": "Non hai ancora nessun uovo.",
-    "hatchingPotions": "Pozioni di cova",
-      "noHatchingPotions": "Non hai ancora nessuna pozione di cova.",
-    "hatchYourEgg" : "Cova il tuo uovo",
-      "whichHatchingPotion1" : "Quale pozione di cova verserai sul tuo",
+    "hatchingPotions": "Pozioni di schiusa",
+      "noHatchingPotions": "Non hai ancora nessuna pozione di schiusa.",
+    "hatchYourEgg" : "Schiudi il tuo uovo",
+      "whichHatchingPotion1" : "Con quale pozione schiuderai il tuo",
       "whichHatchingPotion2" : "uovo?",
       "pour" : "versa",
     "rarePets" : "Animali Rari",
@@ -356,7 +356,7 @@
   "buyMoreGems" : "Compra più Gemme",
   "notEnoughGems" : "Non hai abbastanza Gemme",
   "petsOutOfGems" : "Oops, Gemme esaurite, sono utili per comprare oggetti speciali! Habit è un progetto open source, e può usare tutto l'aiuto che può ottenere - compra più Gemme per ricevere questo animale, e considerala una donazione ai collaboratori",
-  "gemsWhatFor" : "Usato per comprare oggetti speciali (reroll, uova, pozioni di cova, etc). Devi sbloccare queste funzionalità prima di essere in grado di usare le Gemme.",
+  "gemsWhatFor" : "Usato per comprare oggetti speciali (reroll, uova, pozioni di schiusa, etc). Devi sbloccare queste funzionalità prima di essere in grado di usare le Gemme.",
 
 "_commentfooter": "FOOTER",
   "footerCompany" : "Compagnia",
