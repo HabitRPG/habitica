@@ -33,13 +33,13 @@
 <hatchingPotion:>
     <td class="active-hatchingPotion" x-bind="click:buyHatchingPotion" data-hatchingPotion='{.name}'>
         <div class="Pet_HatchingPotion_{.name}"></div>
-        {.text}<br/><small>{.value} Gems<small>
+        <p>{.text}<br/><small>{.value} Gems<small></p>
     </td>
 
 <egg:>
     <td class="active-egg" x-bind="click:buyEgg" data-egg='{.name}'>
         <div rel=tooltip class="Pet_Egg_{.name}"></div>
-        {.text}<br/><small>{.value} Gems<small>
+        <p>{.text}<br/><small>{.value} Gems<small></p>
     </td>
 
 <inventory:>

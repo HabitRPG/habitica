@@ -111,7 +111,7 @@
         {/}
         <h4>Hatching Potions</h4>
         {#with _items.hatchingPotions as :hatchingPotion}
-        <table>
+        <table class="tab-pane pet-grid">
             <tr>
                 {#with :hatchingPotion[0]}<app:pets:hatchingPotion />{/}
                 {#with :hatchingPotion[1]}<app:pets:hatchingPotion />{/}
