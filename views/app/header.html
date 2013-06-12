@@ -9,7 +9,7 @@
         <div class="hero-stats">
             <div class="meter health" title="Health">
                 <div class="bar" style="width: {percent(_user.stats.hp, 50)}%;"></div>
-                <span class="meter-text"><i class=icon-heart></i> {ceil(_user.stats.hp)} / 50</span>
+                <span class="meter-text"><i class=icon-heart></i> {floor(_user.stats.hp)} / 50</span>
             </div>
 
             <div class="meter experience" title="Experience">
