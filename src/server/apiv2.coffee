@@ -31,14 +31,14 @@ auth = (req, res, next) ->
   return res.json 401, NO_TOKEN_OR_UID unless uid || token
 
   model = req.getModel()
-  query = model.query('users').withIdAndToken(uid, token)
 
-  query.fetch (err, user) ->
+  model.query('users').withIdAndToken(uid, token).fetch (err, user) ->
     return res.json err: err if err
     req.user = user
     req.userObj = user.get()
     return res.json 401, NO_USER_FOUND if !req.userObj || _.isEmpty(req.userObj)
     req._isServer = true
+    model.ref('_user', user)
     next()
 
 ###
