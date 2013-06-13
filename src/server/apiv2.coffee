@@ -45,14 +45,26 @@ auth = (req, res, next) ->
 POST new actions
 ###
 router.post '/', auth, (req, res) ->
+  model = req.getModel()
   actions = req.body
   if _.isArray actions
     actions.forEach (action)->
-      switch action.op
-        when score then
-          {}
-        when newTask then
+
+        if action.op=="score"
+          misc.score(model, action.task, action.dir, true)
+
+        if action.op=="newTask"
           req.user.set "tasks.#{req.task.id}", action.task
+
+        if action.op=="delTask"
+          model.del ("tasks."+action.task)
+
+#        this API is only working with string or number variables. It should return error if object given or object is at the path.
+        if action.op=="set"
+          oldValue = model.get(action.path);
+          if (typeof action.value=="number"||typeof action.value=="string")
+            if (typeof oldValue=="number"||typeof oldValue=="string")
+              model.get(action.path,action.value)
 
     console.log util.inspect req.body
 
