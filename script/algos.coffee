@@ -172,7 +172,9 @@ obj.score = (user, task, direction, options={}) ->
 
   # If they're trying to purhcase a too-expensive reward, confirm they want to take a hit for it
   if task.value > user.stats.gp and task.type is 'reward'
-    return unless confirm "Not enough GP to purchase this reward, buy anyway and lose HP? (Punishment for taking a reward you didn't earn)."
+#    check if we can show user the confirmation window. If yes, show it. If no, just shut up and do what is requested (for API).
+    if confirm?
+      return unless confirm "Not enough GP to purchase this reward, buy anyway and lose HP? (Punishment for taking a reward you didn't earn)."
 
   delta = 0
   calculateDelta = (adjustvalue = true) ->
