@@ -15,12 +15,6 @@ var un_registered = {
         "auth.local": {$exists: false},
         "auth.facebook": {$exists: false}
     },
-    registered = {
-        $or: [
-            { 'auth.local': { $exists: true }},
-            { 'auth.facebook': { $exists: true }}
-        ]
-    },
     today = +new Date;
 
 db.users.find(un_registered).forEach(function(user) {
