@@ -23,19 +23,15 @@ var un_registered = {
     },
     today = +new Date;
 
-//  isValidDate = (d) ->
-//    return false  if Object::toString.call(d) isnt "[object Date]"
-//    not isNaN(d.getTime())
-
-
 db.users.find(un_registered).forEach(function(user) {
-    if (!user) return;
-    if (!!user.lastCron) {
-        if (Math.abs(moment(today).diff(user.lastCron, 'days')) > 7) {
-            return db.users.remove({_id:user._id});
+    //if (!user) return;
+    var lastCron = user.lastCron;
+    if (lastCron && moment(lastCron).isValid()) {
+        if (Math.abs(moment(today).diff(lastCron, 'days')) > 5) {
+            return db.users.remove({_id: user._id});
         }
     } else {
-        return db.users.update({_id: user._id}, {$set: {lastCron: today}});
+        return db.users.update({_id: user._id}, {$set: {'lastCron': today}});
     }
 });
 
