@@ -56,7 +56,7 @@ router.post '/', auth, (req, res) ->
         if action.task.type=="daily" || action.task.type=="todo"
 #          flip completed state. Since checkbox is not binded to model unlike when you click through Derby website.
           completed = model.get "tasks[#{action.task.id}].completed"
-          model.set("tasks[#{action.task.id}].completed", !completed)
+          req.user.set("tasks.#{action.task.id}.completed", !completed)
         misc.score(model, action.task.id, action.dir, true)
 
       if action.op == "newTask"
