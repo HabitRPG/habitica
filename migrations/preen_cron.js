@@ -1,9 +1,10 @@
 /**
  * Set this up as a midnight cron script
  *
- * mongo habitrpg node_modules/moment/moment.js migrations/20130212_preen_cron.js
+ * mongo habitrpg migrations/preen_cron.js
  */
 
+load('./node_modules/moment/moment.js');
 
 /*
  Users are allowed to experiment with the site before registering. Every time a new browser visits habitrpg, a new
@@ -11,11 +12,19 @@
  This function removes all staged accounts that have been abandoned - either older than a month, or corrupted in some way (lastCron==undefined)
  */
 
-var un_registered = {
+var
+    today = +new Date,
+
+    un_registered = {
         "auth.local": {$exists: false},
         "auth.facebook": {$exists: false}
     },
-    today = +new Date;
+
+    emptyParties = {
+        $where: function(){
+            return this.type === 'party' && this.members.length === 0;
+        }
+    };
 
 db.users.find(un_registered).forEach(function(user) {
     //if (!user) return;
@@ -28,6 +37,8 @@ db.users.find(un_registered).forEach(function(user) {
         return db.users.update({_id: user._id}, {$set: {'lastCron': today}});
     }
 });
+
+db.users.groups.remove(emptyParties);
 
 
 /**
