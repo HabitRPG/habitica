@@ -1,10 +1,8 @@
 /**
  * Set this up as a midnight cron script
  *
- * mongo habitrpg migrations/preen_cron.js
+ * mongo habitrpg ./node_modules/moment/moment.js migrations/preen_cron.js
  */
-
-load('./node_modules/moment/moment.js');
 
 /*
  Users are allowed to experiment with the site before registering. Every time a new browser visits habitrpg, a new
