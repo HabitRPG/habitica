@@ -1,7 +1,7 @@
 /**
  * Set this up as a midnight cron script
  *
- * mongo habitrpg node_modules/moment/moment.js migrations/json.js migrations/20130212_preen_cron.js
+ * mongo habitrpg node_modules/moment/moment.js migrations/20130212_preen_cron.js
  */
 
 
