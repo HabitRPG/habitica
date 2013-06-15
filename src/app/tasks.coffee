@@ -56,30 +56,28 @@ module.exports.app = (appExports, model) ->
 
   appExports.toggleTaskEdit = (e, el) ->
     id = e.get('id')
-    path = "_tasks.editing.#{id}"
-    model.set path, !model.get(path)
-    $(".#{id}-chart").hide()
+    [editPath, chartPath] = ["_tasks.editing.#{id}", "_page.charts.#{id}"]
+    model.set editPath, !(model.get editPath)
+    model.set chartPath, false
 
   appExports.toggleChart = (e, el) ->
     id = $(el).attr('data-id')
-    history = []
+    [historyPath, togglePath] = ['','']
 
-    if id is 'todos'
-      model.set "_tasks.charts.todos", !model.get("_tasks.charts.todos")
-      history = model.get("_user.history.todos")
-      $(".#{id}-chart").toggle()
-    else
-      [id, path] = [$(el).attr('data-id'), "_tasks.charts.#{id}"]
-      model.set path, !model.get(path)
-      model.set "_tasks.editing.#{id}", false
-      $(".#{id}-chart").toggle()
-      history = model.get("_user.tasks.#{id}.history")
+    switch id
+      when 'exp'
+        [togglePath, historyPath] = ['_page.charts.exp', '_user.history.exp']
+      when 'todos'
+        [togglePath, historyPath] = ['_page.charts.todos', '_user.history.todos']
+      else
+        [togglePath, historyPath] = ["_page.charts.#{id}", "_user.tasks.#{id}.history"]
+        model.set "_tasks.editing.#{id}", false
+
+    history = model.get(historyPath)
+    model.set togglePath, !(model.get togglePath)
 
     matrix = [['Date', 'Score']]
-    for obj in history
-      date = +new Date(obj.date)
-      readableDate = moment(date).format('MM/DD')
-      matrix.push [ readableDate, obj.value ]
+    _.each history, (obj) -> matrix.push([ moment(obj.date).format('MM/DD/YY'), obj.value ])
     data = google.visualization.arrayToDataTable matrix
     options =
       title: 'History'
