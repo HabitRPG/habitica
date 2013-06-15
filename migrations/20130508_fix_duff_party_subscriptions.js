@@ -8,7 +8,7 @@
 
 
 // since our primary subscription will first hit parties now, we *definitely* need an index there
-db.parties.ensureIndex( { 'members': 1,  'background': 1} );
+db.parties.ensureIndex( { 'members': 1}, {background: true} );
 
 db.parties.find().forEach(function(party){
 
