@@ -30,9 +30,9 @@ var
             { 'auth.local': { $exists: true }},
             { 'auth.facebook': { $exists: true }}
         ],
-        $where: function(){
-            return this.history && this.history.exp && this.history.exp.length > 14;
-        },
+//        $where: function(){
+//            return this.history && this.history.exp && this.history.exp.length > 7;
+//        },
         'lastCron': {$gt: twoWeeksAgo}
     };
 
