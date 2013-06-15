@@ -26,7 +26,9 @@
     "expect.js": "~0.2.0",
     "derby-i18n": "git://github.com/switz/derby-i18n#master",
     "relative-date": "~1.1.1",
-    "lodash": "~1.2.1"
+    "lodash": "~1.2.1",
+    "async": "~0.2.9",
+    "optimist": "~0.5.2"
   },
   "private": true,
   "subdomain": "habitrpg",
