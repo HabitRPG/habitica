@@ -37,7 +37,6 @@ db.users.find({
  * Remove empty parties
  */
 db.users.groups.remove({
-    // Empty Parties
     $where: function(){ return this.type === 'party' && this.members.length === 0; }
 });
 
@@ -48,12 +47,12 @@ db.users.groups.remove({
  * 4 weeks; 12 entries for last 12 months; 1 entry per year before that: [day*7 week*4 month*12 year*infinite]
  */
 function preenHistory(history) {
+    history = _.filter(history, function(h) {return !!h}); // discard nulls (corrupted somehow)
     var newHistory = [];
     function preen(amount, groupBy) {
         var groups, avg, start;
         groups = _(history)
-            .filter(function(h){return !!h}) // discard nulls (corrupted somehow)
-            .groupBy(function(h){ return moment(h.date).format(groupBy) }) // get date groupings to average against
+            .groupBy(function(h) { return moment(h.date).format(groupBy) }) // get date groupings to average against
             .sortBy(function(h,k) {return k;}) // sort by date
             .value(); // turn into an array
         amount++; // if we want the last 4 weeks, we're going 4 weeks back excluding this week. so +1 to account for exclusion
@@ -72,29 +71,30 @@ function preenHistory(history) {
     return newHistory;
 }
 
+var minHistLen = 7;
 db.users.find({
 
-    // Registered users with > 7 history entries
+    // Registered users with some history
     $or: [
         { 'auth.local': { $exists: true }},
         { 'auth.facebook': { $exists: true }}
     ],
-    $where: function(){ return this.history && this.history.exp && this.history.exp.length > 7; }
+    'history': {$exists: true}
 
 }).forEach(function(user) {
   var update = {$set:{}};
 
   _.each(user.tasks, function(task) {
-      if ( task.history && task.history.length > 7 )
+      if ( task.history && task.history.length > minHistLen )
         update['$set']['tasks.' + task.id + '.history'] = preenHistory(task.history);
   })
 
-  if (user.history.exp && user.history.exp.length > 7)
+  if (user.history.exp && user.history.exp.length > minHistLen)
     update['$set']['history.exp'] = preenHistory(user.history.exp);
-  if (user.history.todos && user.history.todos.length > 7)
+  if (user.history.todos && user.history.todos.length > minHistLen)
     update['$set']['history.todos'] = preenHistory(user.history.todos);
 
-  db.users.update({_id: user._id}, update);
+  if (!_.isEmpty(update['$set'])) db.users.update({_id: user._id}, update);
 });
 
 /**
