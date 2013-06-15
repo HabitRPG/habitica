@@ -40,7 +40,7 @@
   <div id="wrap">
     <app:alerts:flash />
     {#if _user.preferences.hideHeader}<app:settings:menu />{/} <!-- if they hide the header, we still need user-menu visible -->
-    <div id="exp-chart" style="display:none;"></div>
+    <div class="exp-chart {#unless _page.charts.exp}hidden{/}"></div>
 
     <div id=main class="grid">
         <div class='{#if _gamePane}hidden{/}'>

@@ -132,7 +132,7 @@
 <task-list: nonvoid>
     <h2 class="task-column_title">{{t(@header)}}</h2>
 
-    {{#if equal(@type,'todo')}}<div class="todos-chart" style='display:none;'></div>{{/}}
+    {{#if equal(@type,'todo')}}<div class='todos-chart {#unless _page.charts.todos}hidden{/}'></div>{{/}}
 
     {#if @editable}
 
@@ -354,4 +354,4 @@
         </form>
     </div>
 
-    <div style="display:none;" class={{:task.id}}-chart></div>
+    <div class="{#unless _page.charts[:task.id]}hidden{/} {{:task.id}}-chart"></div>
