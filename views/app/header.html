@@ -15,10 +15,11 @@
             <div class="meter experience" title="Experience">
                 <div class="bar" style="width: {percent(_user.stats.exp,tnl(_user.stats.lvl))}%;"></div>
                 <span class="meter-text">
-                   {#if _user.history.exp}
-                     <a x-bind=click:toggleChart data-id="exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>&nbsp;
-                   {/}
                   <i class=icon-star></i> {floor(_user.stats.exp)} / {tnl(_user.stats.lvl)}
+                  <!-- FIXME doesn't look great here, but the "Experience" CSS title rollover covers it where it was before -->
+                  {{#if _user.history.exp}}
+                    &nbsp;<a x-bind=click:toggleChart data-id="exp" rel=tooltip title="Progress"><i class=icon-signal></i></a>
+                  {{/}}
                 </span>
             </div>
         </div>
