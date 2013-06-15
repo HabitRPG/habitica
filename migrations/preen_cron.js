@@ -11,8 +11,9 @@ var today = +new Date;
 
 /**
  * Users are allowed to experiment with the site before registering. Every time a new browser visits habitrpg, a new
- * "staged" account is created - and if the user later registeres, that staged account is considered a "production" account.
- * This function removes all staged accounts that have been abandoned - either older than a month, or corrupted in some way (lastCron==undefined)
+ * "staged" account is created - and if the user later registers, that staged account is considered a "production" account.
+ * This function removes all staged accounts that have been abandoned - either older than a month, or corrupted in
+ * some way (lastCron==undefined)
  */
 db.users.find({
 
@@ -42,15 +43,20 @@ db.users.groups.remove({
 
 /**
  * Preen history for users with > 7 history entries
+ * This takes an infinite array of single day entries [day day day day day...], and turns it into a condensed array
+ * of averages, condensing more the further back in time we go. Eg, 7 entries each for last 7 days; 4 entries for last
+ * 4 weeks; 12 entries for last 12 months; 1 entry per year before that: [day*7 week*4 month*12 year*infinite]
  */
 function preenHistory(history) {
     var newHistory = [];
-    function preen(amount, format) {
+    function preen(amount, groupBy) {
         var groups, avg, start;
         groups = _(history)
-            .groupBy(function(h){ return moment(h.date).format(format) })
-            .sortBy(function(h,k) {return k;}) // TODO make sure this is the right order
-            .value()
+            .filter(function(h){return !!h}) // discard nulls (corrupted somehow)
+            .groupBy(function(h){ return moment(h.date).format(groupBy) }) // get date groupings to average against
+            .sortBy(function(h,k) {return k;}) // sort by date
+            .value(); // turn into an array
+        amount++; // if we want the last 4 weeks, we're going 4 weeks back excluding this week. so +1 to account for exclusion
         start = (groups.length - amount > 0) ? groups.length - amount : 0;
         groups = groups.slice(start, groups.length - 1)
         _.each(groups, function(group){
@@ -59,9 +65,9 @@ function preenHistory(history) {
         })
     }
 
-    preen(50, 'YYYY', 'YYYY'); // last 50 years
-    preen(12, 'YYYYMM', 'MMM YYYY'); // last 12 months
-    preen(4, 'YYYYww', 'WW YYYY'); // last 4 weeks
+    preen(50, 'YYYY'); // last 50 years
+    preen(12, 'YYYYMM'); // last 12 months
+    preen(4, 'YYYYww'); // last 4 weeks
     newHistory = newHistory.concat(history.slice(-7)); // last 7 days
     return newHistory;
 }
@@ -79,12 +85,14 @@ db.users.find({
   var update = {$set:{}};
 
   _.each(user.tasks, function(task) {
-      if (task.type === 'habit' || task.type === 'daily')
+      if ( task.history && task.history.length > 7 )
         update['$set']['tasks.' + task.id + '.history'] = preenHistory(task.history);
   })
 
-  update['$set']['history.exp'] = preenHistory(user.history.exp);
-  update['$set']['history.todos'] = preenHistory(user.history.todos);
+  if (user.history.exp && user.history.exp.length > 7)
+    update['$set']['history.exp'] = preenHistory(user.history.exp);
+  if (user.history.todos && user.history.todos.length > 7)
+    update['$set']['history.todos'] = preenHistory(user.history.todos);
 
   db.users.update({_id: user._id}, update);
 });
