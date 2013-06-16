@@ -75,9 +75,9 @@ module.exports.app = (appExports, model) ->
   user.on 'set', 'items.*', (after, before) ->
     return if user.get('achievements.ultimateGear')
     items = user.get('items')
-    if parseInt(items.weapon) == 6 and parseInt(items.armor) == 5 and parseInt(items.head) == 5 and parseInt(items.shield) == 5
-      dontPersist =  model._dontPersist; model._dontPersist = false
-      user.set 'achievements.ultimateGear', true, (-> model._dontPersist = dontPersist)
+    if parseInt(items.weapon) >= 6 and parseInt(items.armor) >= 5 and parseInt(items.head) >= 5 and parseInt(items.shield) >= 5
+      [dontPersist, model._dontPersist] =  [model._dontPersist; false]
+      user.set 'achievements.ultimateGear', true, ->model._dontPersist = dontPersist
       $('#max-gear-achievement-modal').modal('show')
 
   user.on 'set', 'tasks.*.streak', (id, after, before) ->
