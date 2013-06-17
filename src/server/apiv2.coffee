@@ -11,9 +11,9 @@ sanitize = validator.sanitize
 misc = require '../app/misc'
 
 NO_TOKEN_OR_UID =
-err: "You must include a token and uid (user id) in your request"
+  err: "You must include a token and uid (user id) in your request"
 NO_USER_FOUND =
-err: "No user found."
+  err: "No user found."
 
 # ---------- /api/v1 API ------------
 # Every url added beneath router is prefaced by /api/v2
@@ -57,21 +57,25 @@ router.post '/', auth, (req, res) ->
 
   if _.isArray actions
     actions.forEach (action)->
+      task = {}
+      if action.task? then task = action.task
+      
       if action.op == "score"
-        if action.task.type=="daily" || action.task.type=="todo"
+        if task.type == "daily" || task.type == "todo"
 #          switch completed state. Since checkbox is not binded to model unlike when you click through Derby website.
-          completed = if action.dir=="up" then true else false
-          user.set("tasks.#{action.task.id}.completed", completed)
-        misc.score(model, action.task.id, action.dir, true)
+          completed = if action.dir == "up" then true else false
+          user.set("tasks.#{task.id}.completed", completed)
+        misc.score(model, task.id, action.dir, true)
 
       if action.op == "addTask"
-        model.unshift "_#{action.task.type}List", action.task
+        model.unshift "_#{task.type}List", task
 
-      if action.op=="delTask"
-        ids = user.get('habitIds')
-        ids.splice(ids.indexOf(action.task.id),1);
-        user.set('habitIds',ids)
-        user.del ("tasks."+action.task.id)
+      if action.op == "delTask"
+        ids = user.get(task.type + 'Ids')
+        console.log util.inspect ids
+        ids.splice(ids.indexOf(task.id), 1);
+        user.set(task.type + 'Ids', ids)
+        user.del ("tasks." + task.id)
 
 
       #        this API is only working with string or number variables. It should return error if object given or object is at the path.
@@ -82,10 +86,19 @@ router.post '/', auth, (req, res) ->
             user.set(action.path, action.value)
 
 
-#emulate slow\buggy API, TODO, REMOVE THIS PIECE OF CODE!
+  #emulate slow\buggy API, TODO, REMOVE THIS PIECE OF CODE!
   setTimeout (->
-    res.json 200, misc.hydrate(user.get())
+    user = misc.hydrate user.get()
+
+    #transform user structure FROM user.tasks{} + user.habitIds[] TO user.habits[] + user.todos[] etc.
+    ["habit", "daily", "todo", "reward"].forEach (type) ->
+      user[type + 's'] = []
+      user[type + 'Ids'].forEach (id)->
+        user[type + 's'].push(user.tasks[id])
+      delete user[type + 'Ids']
+    delete user.tasks
+    res.json 200, user
     console.log "Reply sent")
-             , 3000
+             , 1000
 
 module.exports = router
