@@ -48,35 +48,44 @@ POST new actions
 ###
 router.post '/', auth, (req, res) ->
   model = req.getModel()
+  user = req.user
   actions = req.body
   console.log util.inspect req.body
+
+  _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
+    model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+
   if _.isArray actions
     actions.forEach (action)->
       if action.op == "score"
         if action.task.type=="daily" || action.task.type=="todo"
-#          flip completed state. Since checkbox is not binded to model unlike when you click through Derby website.
-          completed = req.user.get "tasks.#{action.task.id}.completed"
-          req.user.set("tasks.#{action.task.id}.completed", !completed)
+#          switch completed state. Since checkbox is not binded to model unlike when you click through Derby website.
+          completed = if action.dir=="up" then true else false
+          user.set("tasks.#{action.task.id}.completed", completed)
         misc.score(model, action.task.id, action.dir, true)
 
-      if action.op == "newTask"
-        req.user.set "tasks.#{req.task.id}", action.task
+      if action.op == "addTask"
+        model.unshift "_#{action.task.type}List", action.task
 
       if action.op=="delTask"
-        model.del ("tasks."+action.task)
+        ids = user.get('habitIds')
+        ids.splice(ids.indexOf(action.task.id),1);
+        user.set('habitIds',ids)
+        user.del ("tasks."+action.task.id)
+
 
       #        this API is only working with string or number variables. It should return error if object given or object is at the path.
       if action.op == "set"
-        oldValue = model.get(action.path);
+        oldValue = user.get(action.path);
         if (typeof action.value == "number" || typeof action.value == "string")
           if (typeof oldValue == "number" || typeof oldValue == "string")
-            model.get(action.path, action.value)
+            user.set(action.path, action.value)
 
 
 #emulate slow\buggy API, TODO, REMOVE THIS PIECE OF CODE!
   setTimeout (->
-    res.json 200, req.userObj
+    res.json 200, misc.hydrate(user.get())
     console.log "Reply sent")
-             , 1000
+             , 3000
 
 module.exports = router
