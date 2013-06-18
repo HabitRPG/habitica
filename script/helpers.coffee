@@ -1,7 +1,7 @@
 moment = require 'moment'
 _ = require 'lodash'
-algos = require './algos.coffee'
-items = require('./items.coffee').items
+{algos, items} = require '../index'
+{items} = items
 
 sod = (timestamp, dayStart=0) ->
   #sanity-check reset-time (is it 24h time?)
