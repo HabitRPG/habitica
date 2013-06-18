@@ -25,7 +25,7 @@ db.users.find({
     //if (!user) return;
     var lastCron = user.lastCron;
     if (lastCron && moment(lastCron).isValid()) {
-        if (Math.abs(moment(today).diff(lastCron, 'days')) > 5) {
+        if (Math.abs(moment(today).diff(lastCron, 'days')) > 3) {
             return db.users.remove({_id: user._id});
         }
     } else {
