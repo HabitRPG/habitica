@@ -145,19 +145,12 @@ module.exports.app = (appExports, model, app) ->
       timestamp: +new Date
 
     # FIXME - sometimes racer will send many duplicates via chat.unshift. I think because it can't make connection, keeps
-    # trying, but all attempts go through. Unfortunately we can't do chat.set without potentially clobbering other chatters,
-    # and we can't make chat an object without using refLists. hack solution for now is to unshift, and if there are dupes
-    # after we set to unique
-    chat.unshift message, ->
-      messages = chat.get() || []
-      count = messages.length
-      messages =_.uniq messages, true, ((m) -> m?.id) # get rid of dupes
-      #There were a bunch of duplicates, let's clean it up
-      if messages.length != count
-        messages.splice(200)
-        chat.set messages
-      else
-        chat.remove(200)
+    # trying, but all attempts go through. Unfortunately we can't do chat.set without potentially clobbering other chatters
+    messages = chat.get() or []
+    messages.unshift(message)
+    messages.splice(200)
+    chat.set messages
+
     type = $(el).attr('data-type')
     model.set '_user.party.lastMessageSeen', chat.get()[0].id  if group.get('type') is 'party'
 
