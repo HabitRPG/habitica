@@ -222,10 +222,12 @@ module.exports.app = (appExports, model, app) ->
 
   app.on 'render', (ctx) ->
     #restoreRefs(model)
-    setupSortable(model)
-    setupTooltips(model)
-    setupTour(model)
-    initStickyHeader(model) unless model.get('_mobileDevice')
+    unless model.get('_mobileDevice')
+      setupTooltips(model)
+      initStickyHeader(model)
+      setupSortable(model)
+      setupTour(model)
+
     $('.datepicker').datepicker({autoclose:true, todayBtn:true})
       .on 'changeDate', (ev) ->
         #for some reason selecting a date doesn't fire a change event on the field, meaning our changes aren't saved
