@@ -69,9 +69,10 @@ router.post '/', auth, (req, res) ->
         misc.score(model, task.id, action.dir, true)
 
       if action.op == "sortTask"
-        a=user.get("tasks." + action.type + "Ids")
+        path = action.task.type + "Ids"
+        a=user.get(path)
         a.splice(action.to, 0, a.splice(action.from, 1)[0])
-        user.set("tasks." + action.type + "Ids", a)
+        user.set(path, a)
 
       if action.op == "addTask"
         model.unshift "_#{task.type}List", task
