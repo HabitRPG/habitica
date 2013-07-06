@@ -52,6 +52,7 @@ router.post '/', auth, (req, res) ->
   actions = req.body
   console.log util.inspect req.body
 
+
   _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
 
@@ -59,7 +60,7 @@ router.post '/', auth, (req, res) ->
     actions.forEach (action)->
       task = {}
       if action.task? then task = action.task
-      
+
       if action.op == "score"
         if task.type == "daily" || task.type == "todo"
 #          switch completed state. Since checkbox is not binded to model unlike when you click through Derby website.
@@ -67,14 +68,21 @@ router.post '/', auth, (req, res) ->
           user.set("tasks.#{task.id}.completed", completed)
         misc.score(model, task.id, action.dir, true)
 
+      if action.op == "sortTask"
+        a=user.get("tasks." + action.type + "Ids")
+        a.splice(action.to, 0, a.splice(action.from, 1)[0])
+        user.set("tasks." + action.type + "Ids", a)
+
       if action.op == "addTask"
         model.unshift "_#{task.type}List", task
 
       if action.op == "delTask"
+#        to make sure we update DOM on Derby client
         ids = user.get(task.type + 'Ids')
-        console.log util.inspect ids
         ids.splice(ids.indexOf(task.id), 1);
         user.set(task.type + 'Ids', ids)
+
+        #        Actually delete the task
         user.del ("tasks." + task.id)
 
 
@@ -86,19 +94,16 @@ router.post '/', auth, (req, res) ->
             user.set(action.path, action.value)
 
 
-  #emulate slow\buggy API, TODO, REMOVE THIS PIECE OF CODE!
-  setTimeout (->
-    user = misc.hydrate user.get()
+  user = misc.hydrate user.get()
 
-    #transform user structure FROM user.tasks{} + user.habitIds[] TO user.habits[] + user.todos[] etc.
-    ["habit", "daily", "todo", "reward"].forEach (type) ->
-      user[type + 's'] = []
-      user[type + 'Ids'].forEach (id)->
-        user[type + 's'].push(user.tasks[id])
-      delete user[type + 'Ids']
-    delete user.tasks
-    res.json 200, user
-    console.log "Reply sent")
-             , 1000
+  #transform user structure FROM user.tasks{} + user.habitIds[] TO user.habits[] + user.todos[] etc.
+  ["habit", "daily", "todo", "reward"].forEach (type) ->
+    user[type + 's'] = []
+    user[type + 'Ids'].forEach (id)->
+      user[type + 's'].push(user.tasks[id])
+    delete user[type + 'Ids']
+  delete user.tasks
+  res.json 200, user
+  console.log "Reply sent"
 
 module.exports = router
