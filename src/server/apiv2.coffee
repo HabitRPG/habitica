@@ -53,6 +53,13 @@ router.post '/', auth, (req, res) ->
   console.log util.inspect req.body
 
 
+  misc.batchTxn model, (uObj, paths) ->
+      # habitrpg-shared/algos requires uObj.habits, uObj.dailys etc instead of uObj.tasks
+    _.each ['habit','daily','todo','reward'], (type) -> uObj["#{type}s"] = _.where(uObj.tasks, {type}); true
+    algos.cron uObj, {paths}
+  ,{cron:true}
+
+
   _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
     model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
 
