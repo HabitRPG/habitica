@@ -8,6 +8,7 @@ validator = require 'derby-auth/node_modules/validator'
 check = validator.check
 sanitize = validator.sanitize
 misc = require '../app/misc'
+utils = require 'derby-auth/utils'
 
 NO_TOKEN_OR_UID = err: "You must include a token and uid (user id) in your request"
 NO_USER_FOUND = err: "No user found."
@@ -91,6 +92,35 @@ router.put '/user', auth, (req, res) ->
   userObj = user.get()
   userObj.tasks = _.toArray(userObj.tasks) # FIXME figure out how we're going to consistently handle this. should always be array
   res.json 201, userObj
+
+###
+  POST /user/auth
+###
+router.post '/user/auth', (req, res) ->
+  username = req.body.username
+  password = req.body.password
+  return res.json 401, err: 'No username or password' unless username and password
+
+  model = req.getModel()
+
+  q = model.query("users").withUsername(username)
+  q.fetch (err, result1) ->
+    return res.json 401, { err } if err
+    u1 = result1.get()
+    return res.json 401, err: 'Username not found' unless u1 # user not found
+
+    # We needed the whole user object first so we can get his salt to encrypt password comparison
+    q = model.query("users").withLogin(username, utils.encryptPassword(password, u1.auth.local.salt))
+    q.fetch (err, result2) ->
+      return res.json 401, { err } if err
+
+      # joshua tree?
+      u2 = result2.get()
+      return res.json 401, err: 'Incorrect password' unless u2
+
+      res.json
+        id: u2.id
+        token: u2.apiToken
 
 ###
   GET /user/task/:id

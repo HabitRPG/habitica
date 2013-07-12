@@ -33,6 +33,8 @@ if (process.env.NODE_ENV === 'development') {
         "\n\t(2) open http://c4milo.github.com/node-webkit-agent/21.0.1180.57/inspector.html?host=localhost:1337&page=0");
 }*/
 
+if (process.env.NODE_ENV === 'development') Error.stackTraceLimit = Infinity;
+
 process.on('uncaughtException', function (error) {
 
     function sendEmail(mailData) {
