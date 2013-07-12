@@ -94,9 +94,9 @@ router.put '/user', auth, (req, res) ->
   res.json 201, userObj
 
 ###
-  POST /user/auth
+  POST /user/auth/local
 ###
-router.post '/user/auth', (req, res) ->
+router.post '/user/auth/local', (req, res) ->
   username = req.body.username
   password = req.body.password
   return res.json 401, err: 'No username or password' unless username and password
@@ -121,6 +121,27 @@ router.post '/user/auth', (req, res) ->
       res.json
         id: u2.id
         token: u2.apiToken
+
+###
+  POST /user/auth/facebook
+###
+router.post '/user/auth/facebook', (req, res) ->
+  {facebook_id, email, name} = req.body
+  return res.json 401, err: 'No facebook id provided' unless facebook_id
+  model = req.getModel()
+  q = model.query("users").withProvider('facebook', facebook_id)
+  q.fetch (err, result) ->
+    return res.json 401, { err } if err
+    u = result.get()
+    console.log {facebook_id, u}
+    if u
+      return res.json
+        id: u.id
+        token: u.apiToken
+    else
+      # FIXME: create a new user instead
+      return res.json 403, err: "Please register with Facebook on https://habitrpg.com, then come back here and log in."
+
 
 ###
   GET /user/task/:id

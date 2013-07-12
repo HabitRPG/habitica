@@ -399,7 +399,7 @@ describe 'API', ->
             done()
 
 
-    it 'POST /api/v1/user/auth', (done) ->
+    it 'POST /api/v1/user/auth/local', (done) ->
       userAuth =
         username: username
         password: 'icculus'
@@ -412,3 +412,25 @@ describe 'API', ->
           expect(res.body.id).to.be currentUser.id
           expect(res.body.token).to.be currentUser.apiToken
           done()
+
+    it 'POST /api/v1/user/auth/facebook', (done) ->
+      id = model.id()
+      userAuth = facebook_id: 12345, name: 'Tyler Renelle', email: 'x@y.com'
+      newUser = helpers.newUser(true)
+      newUser.id = id
+      newUser.auth = facebook:
+        id: userAuth.facebook_id
+        name: userAuth.name
+        email: userAuth.email
+      console.log {newUser}
+      model.set "users.#{id}", newUser, ->
+
+        request.post("#{baseURL}/user/auth/facebook")
+        .set('Accept', 'application/json')
+        .send(userAuth)
+        .end (res) ->
+            expect(res.body.err).to.be undefined
+            expect(res.statusCode).to.be 200
+            expect(res.body.id).to.be newUser.id
+            #expect(res.body.token).to.be newUser.apiToken
+            done()
