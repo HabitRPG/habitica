@@ -1,6 +1,7 @@
 moment = require('moment')
 _ = require('lodash')
-{helpers, items} = require('../index')
+helpers = require('./helpers.coffee')
+items = require('./items.coffee')
 {pets, hatchingPotions} = items.items
 
 XP = 15
@@ -95,6 +96,7 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
     date: +moment().subtract('d', 1) # trick - set it to yesterday on first run, that way they can get drops today
     count: 0
   paths['items.lastDrop'] = true
+
   reachedDropLimit = (helpers.daysBetween(user.items.lastDrop.date, +new Date) is 0) and (user.items.lastDrop.count >= 2)
   return if reachedDropLimit
 
