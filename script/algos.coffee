@@ -168,11 +168,9 @@ obj.score = (user, task, direction, options={}) ->
   [paths, times, cron] = [options.paths || {}, options.times || 1, options.cron || false]
   priority = task.priority or '!'
 
-  # If they're trying to purhcase a too-expensive reward, confirm they want to take a hit for it
+  # If they're trying to purhcase a too-expensive reward, don't allow them to do that.
   if task.value > user.stats.gp and task.type is 'reward'
-#    check if we can show user the confirmation window. If yes, show it. If no, just shut up and do what is requested (for API).
-    if confirm?
-      return unless confirm "Not enough GP to purchase this reward, buy anyway and lose HP? (Punishment for taking a reward you didn't earn)."
+    return
 
   delta = 0
   calculateDelta = (adjustvalue = true) ->
