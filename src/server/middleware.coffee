@@ -1,4 +1,8 @@
 splash = (req, res, next) ->
+
+  return res.redirect("https://habitrpg.com")
+
+
   isStatic = req.url.split('/')[1] is 'static'
   unless req.query?.play? or req.getModel().get('_userId') or isStatic
     res.redirect('/static/front')
