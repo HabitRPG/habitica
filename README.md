@@ -1,17 +1,16 @@
-#[HabitRPG](http://habitrpg.com/)
+HabitRPG Mobile
+===============
 
-HabitRPG is a habit building program which treats your life like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
+HabitRPG mobile application under development. Built using Angular + PhoneGap.
 
-[Read more](https://habitrpg.com/static/about)
-
-![Screenshot](https://raw.github.com/lefnire/habitrpg/master/public/img/screenshot.jpeg "Screenshot")
-
-##License
-Code is licensed under GNU GPL v3. Content is licensed under CC-BY-SA 3.0.
-See the LICENSE file for details.
-
-##Credits
-Content comes from Mozilla's [BrowserQuest](http://browserquest.mozilla.org/) 
-
- * [Mozilla](http://mozilla.org)
- * [Little Workshop](http://www.littleworkshop.fr)
+#Installation
+ * Install and run https://github.com/lefnire/habitrpg `apiv2` branch at port 3000
+ * Install Node
+  * `npm install -g yo grunt-cli bower`
+  * `npm install && bower install`
+  * `git submodule init`
+  * `git submodule update --recursive`
+  * `node server.js`
+ * Run the Ripple Emulator in your browser open browser at http://localhost:3003
+   * turn tooltips off
+   * disable cross domain proxy

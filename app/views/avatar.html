@@ -1,0 +1,35 @@
+<div ng-controller="CharacterCtrl">
+
+    <figure class="herobox"
+            data-name="{{username(user.auth)}}"
+            data-level="{{user.stats.lvl}}"
+            data-checkuser="isUser"
+            >
+        <div class='character-sprites'>
+            <span class='{{user.preferences.gender}}_skin_{{user.preferences.skin}}'></span>
+            <span class='{{user.preferences.gender}}_hair_{{user.preferences.hair}}'></span>
+            <span class="{{equipped(user, 'armor')}}"></span>
+            <span class="{{equipped(user, 'head')}}"></span>
+            <span class="{{user.preferences.gender}}_head_0"></span>
+            <span class='{{user.preferences.gender}}_shield_{{user.items.shield}}'></span>
+            <span class='{{user.preferences.gender}}_weapon_{{user.items.weapon}}'></span>
+        </div>
+    </figure>
+
+
+    <div class="user">
+        {{user.auth.username}}<br>
+        level {{user.stats.lvl}}
+    </div>
+    <div style="clear:both"></div>
+
+    <div class="meter animate">
+        <span style="width: {{hpPercent(user.stats.hp)}}%"><span></span></span>
+    </div>
+
+    <div class="meter animate orange">
+        <span style="width: {{expPercent(user.stats.exp, user.stats.lvl)}}%"><span></span></span>
+    </div>
+</div>
+
+<div ng-controller="userAvatarCtrl"></div>

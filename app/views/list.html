@@ -1,0 +1,126 @@
+<div ng-controller="NotificationCtrl">
+<div id="notification"><div ng-bind-html-unsafe="data.message">aaaa</div></div>
+</div>
+
+<div id="wrap">
+    <div ng-controller="TasksCtrl">
+        <div id="main" class="grid">
+            <div class="module">
+                <div class="task-column habits">
+                    <h2 class="task-column_title">Habits</h2>
+                    <form id="new-habit" class="addtask-form form-inline new-task-form " ng-submit="addTask('habit')">
+                        <span class="addtask-field">
+                            <input value="" type="text" placeholder="New Habit" ng-model="newTaskHabit">
+                        </span>
+                        <input class="addtask-btn" type="submit" value="＋">
+                    </form>
+                    <hr>
+                    <ul class="habits ui-sortable">
+                        <li ng-repeat="task in tasks() | filter:'habit'" class="task habit {{getClass(task.value)}}">
+                            <div class="task-meta-controls">
+                                <a rel="toolitp"><i class="icon-pencil"></i></a>
+                                <a rel="toolitp"><i class="icon-trash"></i></a>
+                                <a rel="toolitp"><i class="icon-signal"></i></a>
+                                <a rel="toolitp"><i class="icon-comment"></i></a>
+                            </div>
+                            <div class="task-controls task-primary">
+                                <a class="task-action-btn" ng-click="score(task, 'up')">+</a>
+                            </div>
+                            <p class="task-text">{{task.text}}</p>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="module">
+                <div class="task-column dailies">
+                    <h2 class="task-column_title">Dailies</h2>
+                    <form id="new-habit" class="addtask-form form-inline new-task-form " data-task-type="habit" ng-submit="addTask('daily')">
+                        <span class="addtask-field">
+                            <input value="" type="text" placeholder="New Daily" ng-model="newTaskDailies"></span>
+                        <input class="addtask-btn" type="submit" value="＋">
+                    </form>
+                    <hr>
+                    <ul class="habits ui-sortable">
+                        <li ng-repeat="task in tasks() | filter:'daily'" class="task habit {{getClass(task.value)}}">
+                            <div class="task-meta-controls">
+                                <a rel="toolitp"><i class="icon-pencil"></i></a>
+                                <a rel="toolitp"><i class="icon-trash"></i></a>
+                                <a rel="toolitp"><i class="icon-signal"></i></a>
+                                <a rel="toolitp"><i class="icon-comment"></i></a>
+                            </div>
+                            <div class="task-controls task-primary">
+                                <span class="task-checker action-yesno">
+                                    <input id="{{task.id}}" type="checkbox" class="visuallyhidden focusable" autocomplete="off" ng-model="task.completed" ng-change="changeCheck(task)">
+                                    <label for="{{task.id}}"></label>
+                                </span>
+                            </div>
+                            <p class="task-text">{{task.text}}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="module">
+                <div class="task-column todos">
+                    <h2 class="task-column_title">Todos</h2>
+                    <form id="new-habit" class="addtask-form form-inline new-task-form " data-task-type="habit" ng-submit="addTask('todo')">
+                        <span class="addtask-field">
+                            <input value="" type="text" placeholder="New Todo" ng-model="newTaskTodo">
+                        </span>
+                        <input class="addtask-btn" type="submit" value="＋">
+                    </form>
+                    <hr>
+                    <ul class="habits ui-sortable">
+                        <li ng-repeat="task in tasks() | filter:'todo'" class="task habit {{getClass(task.value)}}">
+                            <div class="task-meta-controls">
+                                <a rel="toolitp"><i class="icon-pencil"></i></a>
+                                <a rel="toolitp"><i class="icon-trash"></i></a>
+                                <a rel="toolitp"><i class="icon-comment"></i></a>
+                            </div>
+                            <div class="task-controls task-primary">
+                                <span class="task-checker action-yesno">
+                                    <input type="checkbox" class="visuallyhidden focusable" autocomplete="off" ng-model="task.completed" ng-model="task.completed" ng-change="changeCheck(task)" id="{{task.id}}">
+                                    <label for="{{task.id}}"></label>
+                                </span>
+                            </div>
+                            <p class="task-text">{{task.text}}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="module rewards-module">
+                <div class="task-column rewards">
+                    <span class="option-box pull-right wallet">
+                        <div class="money">
+                            {{money_gold}}
+                            <span class="shop_gold" rel="tooltip" data-original-title="Gold"></span>
+                        </div>
+                        <div class="money">
+                            {{money_silver}}
+                            <span class="shop_silver" rel="tooltip" data-original-title="Silver"></span>
+                        </div>
+                    </span>
+                    <h2 class="task-column_title">Rewards</h2>
+                    <form id="new-habit" class="addtask-form form-inline new-task-form " data-task-type="habit" onsubmit="return false"><span class="addtask-field"><input id="$2y" value="" type="text" placeholder="New Habit"></span><input class="addtask-btn" type="submit" value="＋"></form>
+                    <hr>
+                    <ul class="habits ui-sortable">
+                        <li ng-repeat="task in tasks() | filter:'reward'" class="task reward">
+                            <div class="task-meta-controls">
+                                <a rel="toolitp"><i class="icon-pencil"></i></a>
+                                <a rel="toolitp"><i class="icon-trash"></i></a>
+                                <a rel="toolitp"><i class="icon-comment"></i></a>
+                            </div>
+                            <div class="task-controls task-primary">
+                                <a class="money btn-buy" ng-click="score(task, 'down')">
+                                    <span class="reward-cost">{{task.value}}</span>
+                                    <span class="shop_gold"></span>
+                                </a>
+                            </div>
+                            <p class="task-text">{{task.text}}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
