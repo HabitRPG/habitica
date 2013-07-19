@@ -316,3 +316,5 @@ router.post '/user/tasks/:taskId/:direction', auth, scoreTask
 module.exports = router
 module.exports.auth = auth
 module.exports.scoreTask = scoreTask # export so deprecated can call it
+module.exports.NO_TOKEN_OR_UID = NO_TOKEN_OR_UID
+module.exports.NO_USER_FOUND = NO_USER_FOUND

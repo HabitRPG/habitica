@@ -9,13 +9,9 @@ validator = require 'derby-auth/node_modules/validator'
 check = validator.check
 sanitize = validator.sanitize
 misc = require '../app/misc'
+api = require './api'
 
-NO_TOKEN_OR_UID =
-  err: "You must include a token and uid (user id) in your request"
-NO_USER_FOUND =
-  err: "No user found."
-
-# ---------- /api/v1 API ------------
+# ---------- /api/v2 API ------------
 # Every url added beneath router is prefaced by /api/v2
 
 ###
@@ -25,28 +21,9 @@ router.get '/status', (req, res) ->
   res.json status: 'up'
 
 ###
-  beforeEach auth interceptor
-###
-auth = (req, res, next) ->
-  uid = req.headers['x-api-user']
-  token = req.headers['x-api-key']
-  return res.json 401, NO_TOKEN_OR_UID unless uid || token
-
-  model = req.getModel()
-
-  model.query('users').withIdAndToken(uid, token).fetch (err, user) ->
-    return res.json err: err if err
-    req.user = user
-    req.userObj = user.get()
-    return res.json 401, NO_USER_FOUND if !req.userObj || _.isEmpty(req.userObj)
-    req._isServer = true
-    model.ref('_user', user)
-    next()
-
-###
 POST new actions
 ###
-router.post '/', auth, (req, res) ->
+router.post '/', api.auth, (req, res) ->
   model = req.getModel()
   user = req.user
   actions = req.body
