@@ -51,12 +51,12 @@
   "evening" : "ערב
 
 "_commenthead": "HEADER",
-  "health": "בריאות
-  "experience": "נסיון
-    "history": "היסטוריה
+  "health": "בריאות",
+  "experience": "נסיון",
+    "history": "היסטוריה",
   "anonymous": "אלמוני",
-  "level": "דרגה
-  "tasks": "משימות
+  "level": "דרגה",
+  "tasks": "משימות",
   "loginAndReg" : "כניסה / הרשמה",
     "loginFacebookAlt" : "כניסה / הרשמה דרך פייסבוק",
     "login" : "כביסה",
