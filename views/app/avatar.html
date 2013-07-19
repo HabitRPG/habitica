@@ -1,7 +1,7 @@
 <modals:>
-    {{#each _partyMembers as :profile}}
-        <app:modals:modal modalId="avatar-modal-{{:profile.id}}">
-            <app:avatar:profile profile={{:profile}} />
+    {{#each _membersArray as :member}}
+        <app:modals:modal modalId="avatar-modal-{{:member.id}}">
+            <app:avatar:profile profile={{_members[:member.id]}} />
             <@footer>
                 <button data-dismiss="modal" class="btn btn-success">Ok</button>
             </@footer>

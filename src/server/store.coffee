@@ -5,10 +5,15 @@ Setup read / write access
 @param store
 ###
 
+publicAccess = ->
+  accept = arguments[arguments.length-2]
+  #return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
+  return accept(false) if derbyAuth.bustedSession(@)
+  accept(true)
+
 module.exports.customAccessControl = (store) ->
   userAccess(store)
-  partySystem(store)
-  tavernSystem(store)
+  groupSystem(store)
   REST(store)
 
 ###
@@ -43,7 +48,7 @@ userAccess = (store) ->
       return accept(false) # we can only manually set this stuff in the database
 
     # public access to users.*.party.invitation (TODO, lock down a bit more)
-    if attrPath is 'party.invitation'
+    if attrPath.indexOf('invitations.') is 0
       return accept(true)
 
     # Same session (user.id = this.session.userId)
@@ -84,63 +89,63 @@ REST = (store) ->
 
 
 ###
-  Party permissions
+  Party & Guild Permissions
 ###
-partySystem = (store) ->
-  store.query.expose "users", "party", (ids) ->
+groupSystem = (store) ->
+
+  ###
+    Public User Info
+  ###
+  store.query.expose "users", "publicInfo", (ids) ->
     @where("id").within(ids)
       .only('stats',
             'items',
-            'party',
+            'invitations',
             'profile',
             'achievements',
             'backer',
             'preferences',
             'auth.local.username',
             'auth.facebook.displayName')
+  store.queryAccess "users", "publicInfo", publicAccess
 
-  store.queryAccess "users", "party", (ids, accept, err) ->
-#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
-    return accept(false) if derbyAuth.bustedSession(@)
-    accept(true) # no harm in public user stats
+  ###
+    Read / Write groups, so they can create new groups
+  ###
+  store.readPathAccess "groups.*", publicAccess
+  store.writeAccess "*", "groups.*", publicAccess
 
-  store.query.expose "parties", "withId", (id) ->
-    @where("id").equals(id).findOne()
+  ###
+    Public HabitRPG Guild
+  ###
+  store.readPathAccess 'groups.habitrpg', publicAccess
+  store.writeAccess "*", "groups.habitrpg.chat.*", publicAccess
+  store.writeAccess "*", "groups.habitrpg.challenges.*", publicAccess
 
-  store.queryAccess "parties", "withId", (id, accept, err) ->
-#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
-    return accept(false) if derbyAuth.bustedSession(@)
-    accept(true)
+  ###
+    Find group which has member by id
+  ###
+  store.query.expose "groups", "withMember", (id, type) ->
+    q = @where('members').contains([id]).only(['id', 'type', 'name', 'description', 'members' , 'privacy'])
+    q = q.where('type').equals(type) if type?
+  store.queryAccess 'groups', 'withMember', publicAccess
 
-  store.readPathAccess "parties.*", ->
-    accept = arguments[arguments.length-2]
-    accept(true)
+  ###
+    Public Groups Info
+  ###
+  store.query.expose "groups", "publicGroups", ->
+    @where('privacy').equals('public')
+      .where('type').equals('guild')
+      .only(['id', 'type', 'name', 'description', 'members' , 'privacy'])
+  store.queryAccess "groups", "publicGroups", publicAccess
 
-  store.writeAccess "*", "parties.*", ->
-    accept = arguments[arguments.length-2]
-    err = arguments[arguments.length - 1]
-#    return err(derbyAuth.SESSION_INVALIDATED_ERROR) if derbyAuth.bustedSession(@)
-    return accept(false) if derbyAuth.bustedSession(@)
-    accept(true)
-
-  store.query.expose "parties", "withMember", (id) ->
-    @where('members').contains([id]).findOne()
-
-  store.queryAccess 'parties', 'withMember', (id, accept, err) ->
-    return accept(false) if derbyAuth.bustedSession(@)
-    accept(true)
-
-###
-  LFG / tavern system
-###
-tavernSystem = (store) ->
-  store.readPathAccess 'tavern', ->
-    accept = arguments[arguments.length-2]
-    return accept(false) if derbyAuth.bustedSession(@)
-    accept(true)
-
-  store.writeAccess "*", "tavern.*", ->
-    accept = arguments[arguments.length-2]
-    return accept(false) if derbyAuth.bustedSession(@)
-    accept(true)
-
+  ###
+    Fetch group info (ie, they just got invited)
+  ###
+  store.query.expose "groups", "withIds", (ids) ->
+    return unless ids #FIXME this is sometimes null when ids is array (guilds)
+    if typeof ids is 'string'
+      @where("id").equals(ids).findOne() # find a single group
+    else
+      @where("id").within(ids) # find multiple groups
+  store.queryAccess "groups", "withIds", publicAccess

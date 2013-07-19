@@ -1,10 +1,10 @@
 import csv
 
-data = csv.reader(open('/home/slappybag/backrs/800dollar.csv', 'rb'), delimiter=",", quotechar='|')
-column = []
+with open(r"/home/slappybag/Documents/SurveyScrape.csv") as f:
+     reader = csv.reader(f, delimiter=',', quotechar='"')
+     column = []
+     for row in reader:
+        if row:
+            column.append(row[4])
 
-for row in data:
-    column.append(row[9])
-
-print "one:"
 print column

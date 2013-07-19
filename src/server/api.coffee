@@ -7,10 +7,15 @@ helpers = require 'habitrpg-shared/script/helpers'
 validator = require 'derby-auth/node_modules/validator'
 check = validator.check
 sanitize = validator.sanitize
-misc = require '../app/misc'
+utils = require 'derby-auth/utils'
 
 NO_TOKEN_OR_UID = err: "You must include a token and uid (user id) in your request"
 NO_USER_FOUND = err: "No user found."
+
+addTask = (user, task) ->
+  task.type ?= 'habit'
+  tid = user.add "tasks", task
+  user.push "#{task.type}Ids", tid
 
 # ---------- /api/v1 API ------------
 # Every url added beneath router is prefaced by /api/v1
@@ -42,7 +47,7 @@ auth = (req, res, next) ->
     return res.json err: err if err
     req.user = user
     req.userObj = user.get()
-    return res.json 401, NO_USER_FOUND if !req.userObj || _.isEmpty(req.userObj)
+    return res.json 401, NO_USER_FOUND if _.isEmpty(req.userObj)
     req._isServer = true
     next()
 
@@ -91,6 +96,56 @@ router.put '/user', auth, (req, res) ->
   userObj = user.get()
   userObj.tasks = _.toArray(userObj.tasks) # FIXME figure out how we're going to consistently handle this. should always be array
   res.json 201, userObj
+
+###
+  POST /user/auth/local
+###
+router.post '/user/auth/local', (req, res) ->
+  username = req.body.username
+  password = req.body.password
+  return res.json 401, err: 'No username or password' unless username and password
+
+  model = req.getModel()
+
+  q = model.query("users").withUsername(username)
+  q.fetch (err, result1) ->
+    return res.json 401, { err } if err
+    u1 = result1.get()
+    return res.json 401, err: 'Username not found' unless u1 # user not found
+
+    # We needed the whole user object first so we can get his salt to encrypt password comparison
+    q = model.query("users").withLogin(username, utils.encryptPassword(password, u1.auth.local.salt))
+    q.fetch (err, result2) ->
+      return res.json 401, { err } if err
+
+      # joshua tree?
+      u2 = result2.get()
+      return res.json 401, err: 'Incorrect password' unless u2
+
+      res.json
+        id: u2.id
+        token: u2.apiToken
+
+###
+  POST /user/auth/facebook
+###
+router.post '/user/auth/facebook', (req, res) ->
+  {facebook_id, email, name} = req.body
+  return res.json 401, err: 'No facebook id provided' unless facebook_id
+  model = req.getModel()
+  q = model.query("users").withProvider('facebook', facebook_id)
+  q.fetch (err, result) ->
+    return res.json 401, { err } if err
+    u = result.get()
+    console.log {facebook_id, u}
+    if u
+      return res.json
+        id: u.id
+        token: u.apiToken
+    else
+      # FIXME: create a new user instead
+      return res.json 403, err: "Please register with Facebook on https://habitrpg.com, then come back here and log in."
+
 
 ###
   GET /user/task/:id
@@ -163,17 +218,17 @@ updateTasks = (tasks, user, model) ->
     if task.id
       if task.del
         user.del "tasks.#{task.id}"
-        if task.type # TODO we should enforce they pass in type, so we can properly remove from idList
-          i = model.get("_#{task.type}List").indexOf(task.id)
-          model.remove("_#{task.type}List", i, 1) # doens't work when task.type isn't passed up
+
+        # Delete from id list, only if type is passed up
+        # TODO we should enforce they pass in type, so we can properly remove from idList
+        if task.type and ~(i = user.get("#{task.type}Ids").indexOf task.id)
+          user.remove("#{task.type}Ids", i, 1)
+
         task = deleted: true
       else
         user.set "tasks.#{task.id}", task
     else
-      type = task.type || 'habit'
-      model.ref '_user', user
-      model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-      model.at("_#{type}List").push task
+      addTask(user, task)
     tasks[idx] = task
   return tasks
 
@@ -187,31 +242,19 @@ router.post '/user/tasks', auth, (req, res) ->
 ###
 router.post '/user/task', auth, validateTask, (req, res) ->
   task = req.task
-  type = task.type
-
-  model = req.getModel()
-  model.ref '_user', req.user
-  model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-  model.at("_#{type}List").push task
-
+  addTask req.user, task
   res.json 201, task
 
 ###
   GET /user/tasks
 ###
 router.get '/user/tasks', auth, (req, res) ->
-  user = req.userObj
-  return res.json 400, NO_USER_FOUND if !user || _.isEmpty(user)
+  return res.json 400, NO_USER_FOUND if _.isEmpty(req.userObj)
 
-  model = req.getModel()
-  model.ref '_user', req.user
-  tasks = []
-  types = ['habit','todo','daily','reward']
-  if /^(habit|todo|daily|reward)$/.test req.query.type
-    types = [req.query.type]
-  for type in types
-    model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-    tasks = tasks.concat model.get("_#{type}List")
+  types =
+    if /^(habit|todo|daily|reward)$/.test(req.query.type) then [req.query.type]
+    else ['habit','todo','daily','reward']
+  tasks = _.toArray (_.filter req.user.get('tasks'), (t)-> t.type in types)
 
   res.json 200, tasks
 
@@ -230,9 +273,7 @@ scoreTask = (req, res, next) ->
   model = req.getModel()
   {user, userObj} = req
 
-  model.ref('_user', user)
-
-  existingTask = model.at "_user.tasks.#{taskId}"
+  existingTask = user.at "tasks.#{taskId}"
   # TODO add service & icon to task
   # If task exists, set it's compltion
   if existingTask.get()
@@ -253,12 +294,16 @@ scoreTask = (req, res, next) ->
       when 'daily', 'todo'
         task.completed = direction is 'up'
 
-    model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-    model.at("_#{type}List").push task
+    addTask user, task
 
-  #FIXME
-  delta = misc.score(model, taskId, direction)
-  result = model.get '_user.stats'
+  # TODO - could modify batchTxn to conform to this better
+  uObj = req.user.get()
+  tObj = uObj.tasks[taskId]
+  paths = {}
+  delta = algos.score(uObj, tObj, direction, {paths})
+  _.each paths, (v,k) -> user.set(k,helpers.dotGet(k, uObj));true
+
+  result = uObj.stats
   result.delta = delta
   res.json result
 

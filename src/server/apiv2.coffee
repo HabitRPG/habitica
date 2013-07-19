@@ -101,7 +101,6 @@ router.post '/', auth, (req, res) ->
           if (typeof oldValue == "number" || typeof oldValue == "string")
             user.set(action.path, action.value)
 
-
   user = misc.hydrate user.get()
 
   #transform user structure FROM user.tasks{} + user.habitIds[] TO user.habits[] + user.todos[] etc.

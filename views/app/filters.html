@@ -8,8 +8,8 @@
           <a rel=tooltip title='Edit Tags' x-bind="click:toggleEditingTags"><i class='{#if _editingTags}icon-ok{else}icon-pencil{/}'></i></a>
       </li>
       {#each _user.tags as :tag}
-        <li class="{#if _user.filters[:tag.id]}active{/}" style='position:relative;'>
-            {#if _editingTags}
+        <li class="{#if users[_userId].filters[:tag.id]}active{/}" style='position:relative;'>
+            {#if and(_editingTags,not(:tag.challenge))}
                 <div class="input-append option-group tag-editing" >
                     <input class="input input-small option-content tag-editing-pill" type="text" value='{:tag.name}' />
                     <span class="add-on tag-editing-pill"><a class='pull-right' x-bind=click:filtersDeleteTag data-index="{$index}"><i class='icon-trash'></i></a></span>
@@ -29,7 +29,7 @@
               </form>
           {/}
       </li>
-      <!--<li class="{#unless activeFilters(_user.filters)}hidden{/}">-->
+      <!--<li class="{#unless activeFilters(users[_userId].filters)}hidden{/}">-->
       <li>
           <a rel=tooltip title='Clear Filters' x-bind="click:clearFilters"><i class='icon-remove-sign'></i></a>
       </li>
@@ -37,15 +37,15 @@
   </div>
 
 <applied-filters:>
-    <i rel=tooltip title="{appliedTags(_user.tags, :task.tags)}" class='{#if noTags(:task.tags)}hidden{/} icon-tags'></i>
+    <i rel=tooltip title="{appliedTags(users[_userId].tags, :task.tags)}" class='{#if noTags(:task.tags)}hidden{/} icon-tags'></i>
 
     <!-- At first we showed all applied tags, but it gets really cluttered: http://gyazo.com/fce50f91fd0f1d64cab9774f755e95c1 -->
     <!-- There's a very strange bug where live-bound #each here loses model.at reference on _{type}List alter -->
     <!--&nbsp;
-    {{#each _user.tags as :tag}}
+    {{#each users[_userId].tags as :tag}}
         <small>
             {#if :task.tags[:tag.id]}
-                <small data-tag-id="{{:tag.id}}" x-bind="click:toggleFilterByTag" class="label tag-label {#if _user.filters[:tag.id]}label-info{/}">{:tag.name}</small>
+                <small data-tag-id="{{:tag.id}}" x-bind="click:toggleFilterByTag" class="label tag-label {#if users[_userId].filters[:tag.id]}label-info{/}">{:tag.name}</small>
             {/}
         </small>
     {{/}}-->
@@ -53,9 +53,9 @@
 <filter-fieldgroup:>
     <fieldset class='option-group'>
         <legend class="option-title">Tags</legend>
-        {{#each _user.tags as :tag}}
+        {#each users[_userId].tags as :tag}
             <label class="checkbox">
                 <input type="checkbox" checked="{:task.tags[:tag.id]}"> {:tag.name}
             </label>
-        {{/}}
+        {/}
     </fieldset>

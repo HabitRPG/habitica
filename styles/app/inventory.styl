@@ -20,13 +20,20 @@
     width: 100%
   td
     padding: 0.5em
-    width: 25%
+    //width: 25%
     &.active-pet
       background-color: $bad
       outline: 1px solid rgba(0,0,0,0.1)
       outline-offset: -1px
     &:hover, &:focus
       background-color: darken($better, 10%)
+    > div
+      margin:auto
+      margin-bottom:.5em
+  p
+    text-align:center
+    width:6.5em
+    height:2.5em
 
 .current-pet
     left: 0px
@@ -42,12 +49,28 @@
     width:34px
     height:34px
 
+.Pet_Currency_Gem, .Pet_Currency_Gem2x, .Pet_Currency_Gem1x
+    background: url("/img/sprites/Egg_Sprite_Sheet.png") no-repeat
+    display:block
+
+.Pet_Currency_Gem {background-position: 0px -510px; width: 51px; height: 45px} /* Not an egg or potion so has a different size */
+.Pet_Currency_Gem2x {background-position: -55px -513px; width: 34px; height: 30px}
+.Pet_Currency_Gem1x {background-position: -63px -542px; width: 19px; height: 17px}
+
 .inventory-list li
     clear:both
 .pets-menu > div
     float:left
-.hatchingPotions-menu > div
+    padding:.3em
+    p
+      text-align:center
+      width:3em
+.hatchingPotion-menu > div
     float:left
+    padding:.3em
+    p
+      text-align:center
+      width:3em
 
 .pet-button
     border: none
