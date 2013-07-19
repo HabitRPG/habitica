@@ -12,10 +12,23 @@ utils = require 'derby-auth/utils'
 NO_TOKEN_OR_UID = err: "You must include a token and uid (user id) in your request"
 NO_USER_FOUND = err: "No user found."
 
-addTask = (user, task) ->
+addTask = (user, task, cb) ->
   task.type ?= 'habit'
-  tid = user.add "tasks", task
-  user.push "#{task.type}Ids", tid
+  tid = user.add "tasks", task, ->
+    user.push "#{task.type}Ids", tid, cb
+
+deleteTask = (user, task, cb) ->
+  user.del "tasks.#{task.id}", ->
+    taskIds = user.get "#{task.type}Ids"
+    user.remove "#{task.type}Ids", taskIds.indexOf(task.id), 1, cb
+
+score = (model, user, taskId, direction, cb) ->
+  delta = 0
+  misc.batchTxn model, (uObj, paths) ->
+    tObj = uObj.tasks[taskId]
+    delta = algos.score(uObj, tObj, direction, {paths})
+  , {user, cb}
+  delta
 
 # ---------- /api/v1 API ------------
 # Every url added beneath router is prefaced by /api/v1
@@ -202,12 +215,7 @@ router.put '/user/task/:id', auth, validateTask, (req, res) ->
   DELETE /user/task/:id
 ###
 router.delete '/user/task/:id', auth, validateTask, (req, res) ->
-  taskIds = req.user.get "#{req.task.type}Ids"
-
-  req.user.del "tasks.#{req.task.id}"
-  # Remove one id from array of typeIds
-  req.user.remove "#{req.task.type}Ids", taskIds.indexOf(req.task.id), 1
-
+  deleteTask user, req.task.type, req.task.id
   res.send 204
 
 ###
@@ -297,15 +305,10 @@ scoreTask = (req, res, next) ->
     addTask user, task
 
   # TODO - could modify batchTxn to conform to this better
-  uObj = req.user.get()
-  tObj = uObj.tasks[taskId]
-  paths = {}
-  delta = algos.score(uObj, tObj, direction, {paths})
-  _.each paths, (v,k) -> user.set(k,helpers.dotGet(k, uObj));true
-
-  result = uObj.stats
-  result.delta = delta
-  res.json result
+  delta = score model, req.user, taskId, direction, ->
+    result = user.get('stats')
+    result.delta = delta
+    res.json result
 
 ###
   POST /user/tasks/:taskId/:direction
@@ -318,3 +321,6 @@ module.exports.auth = auth
 module.exports.scoreTask = scoreTask # export so deprecated can call it
 module.exports.NO_TOKEN_OR_UID = NO_TOKEN_OR_UID
 module.exports.NO_USER_FOUND = NO_USER_FOUND
+module.exports.addTask = addTask
+module.exports.score = score
+module.exports.deleteTask = deleteTask
