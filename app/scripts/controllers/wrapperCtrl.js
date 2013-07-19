@@ -8,31 +8,14 @@
 
 habitrpg.controller( 'WrapperCtrl', function WrapperCtrl( $scope, $location, filterFilter, Facebook ) {
 
-$scope.toggleMenu = function() {
+$scope.showMenu = function() {
 
-	if ($scope.menuopen) {
+  if ($location.path() == '/options') {
+    $location.path('/')
+  }else{
+    $location.path('/options')
+  }
 
-		$scope.menuclose = true;
-  		$scope.menuopen  = false;
-
-	}else{
-
-		$scope.menuclose = false;
-  		$scope.menuopen  = true;
-
-	}
-
-
-}
-
-$scope.openMenu = function() {
-    $scope.menuclose = false;
-    $scope.menuopen = true;
-}
-
-$scope.closeMenu = function() {
-    $scope.menuclose = true;
-    $scope.menuopen = false;
 }
 
 });

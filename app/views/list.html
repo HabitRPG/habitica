@@ -16,17 +16,53 @@
                     </form>
                     <hr>
                     <ul class="habits ui-sortable">
-                        <li ng-repeat="task in tasks() | filter:'habit'" class="task habit {{getClass(task.value)}}">
+                        <li ng-repeat="task in tasks() | filter:'habit'" class="task habit {{getClass(task.value)}}" ng-class="{'habit-wide':task.up && task.down}">
+                            <div class="task-controls task-primary">
+                                <a class="task-action-btn" ng-click="score(task, 'up')" ng-show="task.up == true">+</a>
+                                <a class="task-action-btn" ng-click="score(task, 'down')" ng-show="task.down == true">-</a>
+                            </div>
+                            <div ng-show="!task.editing">
                             <div class="task-meta-controls">
-                                <a rel="toolitp"><i class="icon-pencil"></i></a>
+                                <a rel="toolitp" ng-click="editTask(task)"><i class="icon-pencil"></i></a>
                                 <a rel="toolitp"><i class="icon-trash"></i></a>
                                 <a rel="toolitp"><i class="icon-signal"></i></a>
                                 <a rel="toolitp"><i class="icon-comment"></i></a>
                             </div>
-                            <div class="task-controls task-primary">
-                                <a class="task-action-btn" ng-click="score(task, 'up')">+</a>
-                            </div>
                             <p class="task-text">{{task.text}}</p>
+                            </div>
+                            <div ng-show="task.editing == true">
+                                <br>
+                                <br>
+                                <div class="task-options">
+                                <fieldset class="option-group">
+                                <label class="option-title">Text</label>
+                                <input class="option-content" type="text" value="{{task.text}}" ng-model="task.text">
+                                <label class="option-title">Extra notes</label>
+                                <textarea class="option-content" rows="3" ng-model="task.notes">{{task.notes}}</textarea>
+                                </fieldset>
+                                <fieldset class="option-group">
+
+                                    <legend class="option-title">Direction/Actions</legend>
+                                    <span class="task-checker action-plusminus select-toggle">
+                                        <input id="{{task.id}}-option-plus" class="visuallyhidden focusable" type="checkbox" checked="" autocomplete="off" ng-model="task.up">
+                                        <label for="{{task.id}}-option-plus"></label>
+                                    </span>
+                                    <span class="task-checker action-plusminus select-toggle">
+                                        <input id="{{task.id}}-option-minus" class="visuallyhidden focusable" type="checkbox" checked="" autocomplete="off" ng-model="task.down">
+                                        <label for="{{task.id}}-option-minus"></label>
+                                    </span>
+                                </fieldset>
+                                <fieldset class="option-group">
+                                    <legend class="option-title">Tags</legend>
+                                    <label class="checkbox" ng-repeat="tag in user.tags">
+                                        <input type="checkbox" autocomplete="off" ng-model="_.contains(tag.id, task.tags)">
+                                        {{tag.name}}
+                                </fieldset>
+                                <fieldset class="option-group">
+                                    <button type="submit" class="task-action-btn tile spacious" ng-click="save(task)">Save & Close</button>
+                                </fieldset>
+                            </div>
+                            </div>
                         </li>
                     </ul>
                 </div>

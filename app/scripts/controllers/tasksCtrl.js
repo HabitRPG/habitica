@@ -166,7 +166,26 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
         }
     }
 
-    console.log(User.user)
+    $scope.editTask = function(task) {
+        if (!task.editing) {
+            task.editing = true
+        }else{
+            task.editing = false
+        }
+    }
+
+    $scope.save = function(task) {
+        
+        User.log([
+            {op: 'set', path: "tasks." + task.id + ".text", value: task.text},
+            {op: 'set', path: "tasks." + task.id + ".notes", value: task.notes},
+            {op: 'set', path: "tasks." + task.id + ".up", value: task.up},
+            {op: 'set', path: "tasks." + task.id + ".down", value: task.down}
+        ]);
+       
+       task.editing = false
+
+    }
 
 
 });
