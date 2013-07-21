@@ -1,27 +1,27 @@
 {
 
 "_commentfrontpage":"HABITRPG FRONT PAGE",
-   "synopsis" : "A habit building program which treats your life like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.",
-  "playButton" : "Play",
+   "synopsis" : "תוכנית שמהפך את ההיים שלך למשחק תפקידים. ההצלחה מעלה את המדרגה, הכשלון מונע את נקודות החיים, תרוויחו כסף לאסף נשקת שריון ופריטים.",
+  "playButton" : "שחק",
 
 
 
 "_commenttut": "TUTORIAL/TOUR",
-  "endTourButton": "End Tour",
-  "nextButton" : "Next",
-  "prevButton" : "Prev",
-  "tour1Title" : "Welcome to HabitRPG",
-    "tour1Text" : "Welcome to HabitRPG, a habit-tracker which treats your goals like a Role Playing Game.",
-  "tour2Title" : "Habits",
-    "tour2Text" : "Habits are good or bad goals that you constantly track.",
-  "tour3Title" : "Dailies",
-    "tour3Text" : "Dailies are goals that you want to complete once a day.",
-  "tour4Title" : "Todos",
-    "tour4Text" : "Todos are one-off goals which need to be completed eventually. ",
-  "tour5Title" : "Rewards",
-    "tour5Text" : "As you complete goals, you earn gold to buy rewards. Buy them liberally - rewards are integrals in forming good habits. ",
-  "tour6Title" : "Hover over comments",
-    "tour6Text" : "Different task-types have special properties. Hover over each task's comment for more information. When you're ready to get started, delete the existing tasks and add your own.",
+  "endTourButton": "גמר הסיור",
+  "nextButton" : "הבא",
+  "prevButton" : "אחרון",
+  "tour1Title" : "ברוכים הבאים ל-HabitRPG",
+    "tour1Text" : "ברוכים הבאים ל-HabitRPG, גשש הרגלים שמטפל בך כאילו היית פרצוף במשחק תפקידים.",
+  "tour2Title" : "הרגלים",
+    "tour2Text" : "הרגלים הם מידות או מטרות לטוב או לרע שאתם גוששים.",
+  "tour3Title" : "יומיומיות",
+    "tour3Text" : "יומיומיות הן מטלות שרוצים למלאות בקצב יומיומי.",
+  "tour4Title" : "מטלות",
+    "tour4Text" : "מטלות הם משימות חד-פעמיות שצריכים למלאות באיזה זמן. ",
+  "tour5Title" : "פרסים",
+    "tour5Text" : "כשתמלאו המטרות, תרוויחו זהב לקנות פרסים. קנו אותם חופשי - חייבים פרסים כדי לבנות הרגלים טובים ומידות טובות. ",
+  "tour6Title" : "העבר את העכבר על הערות",
+    "tour6Text" : "יש לסוגי המטרות השונות מאפיינים שונים. העבר את העכבר על הערה של כל מטרה לצפייה במידע מושלמת. כשאתם מוכניםת מחקו את המטרות המחדלים וקדימה!.",
 
 
 
