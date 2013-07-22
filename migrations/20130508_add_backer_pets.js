@@ -1,1 +1,0 @@
-db.users.update({'backer.tier':{$gte:80}}, {$push:{'items.pets':'Wolf-Cerberus'}}, {multi:true});
