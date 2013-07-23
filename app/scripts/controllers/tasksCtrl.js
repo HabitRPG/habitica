@@ -147,6 +147,10 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
 
     };
 
+		$scope.delTask = function(taskObj) {
+			User.log({op:'delTask', task:taskObj})
+    }
+
     $scope.clearDoneTodos = function () {
         //We can't alter $scope.user.tasks here. We have to invoke API call.
         //To be implemented

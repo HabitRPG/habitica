@@ -19,7 +19,7 @@
                         <li ng-repeat="task in tasks() | filter:'habit'" class="task habit {{getClass(task.value)}}" ng-class="{'habit-wide':task.up && task.down}">
                             <div class="task-meta-controls">
                                 <a rel="toolitp" ng-click="editTask(task)"><i class="icon-pencil"></i></a>
-                                <a rel="toolitp"><i class="icon-trash"></i></a>
+                                <a rel="toolitp"><i class="icon-trash" ng-click="delTask(task)"></i></a>
                                 <a rel="toolitp"><i class="icon-signal"></i></a>
                                 <a rel="toolitp" ng-show="task.notes"><i class="icon-comment"></i></a>
                             </div>
@@ -89,7 +89,7 @@
                         <li ng-repeat="task in tasks() | filter:'daily'" class="task habit {{getClass(task.value)}}">
                             <div class="task-meta-controls">
                                 <a rel="toolitp"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
-                                <a rel="toolitp"><i class="icon-trash"></i></a>
+                                <a rel="toolitp"><i class="icon-trash" ng-click="delTask(task)"></i></a>
                                 <a rel="toolitp"><i class="icon-signal"></i></a>
                                 <a rel="toolitp"><i class="icon-comment" ng-show="task.notes"></i></a>
                             </div>
@@ -161,7 +161,7 @@
                         <li ng-repeat="task in tasks() | filter:'todo'" class="task habit {{getClass(task.value)}}">
                             <div class="task-meta-controls">
                                 <a rel="toolitp"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
-                                <a rel="toolitp"><i class="icon-trash"></i></a>
+                                <a rel="toolitp"><i class="icon-trash" ng-click="delTask(task)"></i></a>
                                 <a rel="toolitp"><i class="icon-comment"></i></a>
                             </div>
                             <div class="task-controls task-primary">
@@ -231,7 +231,7 @@
                         <li ng-repeat="task in tasks() | filter:'reward'" class="task reward">
                             <div class="task-meta-controls">
                                 <a rel="toolitp"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
-                                <a rel="toolitp"><i class="icon-trash"></i></a>
+                                <a rel="toolitp"><i class="icon-trash" ng-click="delTask(task)"></i></a>
                                 <a rel="toolitp"><i class="icon-comment"></i></a>
                             </div>
                             <div class="task-controls task-primary">
