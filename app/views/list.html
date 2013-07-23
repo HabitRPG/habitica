@@ -158,7 +158,7 @@
                     </form>
                     <hr>
                     <ul class="habits ui-sortable">
-                        <li ng-repeat="task in tasks() | filter:'todo'" class="task habit {{getClass(task.value)}}">
+											<li ng-repeat="task in tasks() | filter:{'type': 'todo', 'completed':false }" class="task habit {{getClass(task.value)}}">
                             <div class="task-meta-controls">
                                 <a rel="toolitp"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
                                 <a rel="toolitp"><i class="icon-trash" ng-click="delTask(task)"></i></a>
