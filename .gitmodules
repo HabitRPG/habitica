@@ -7,3 +7,6 @@
 [submodule "public/vendor/bootstrap-tour"]
 	path = public/vendor/bootstrap-tour
 	url = git://github.com/sorich87/bootstrap-tour.git
+[submodule "app/habitrpg-shared"]
+	path = app/habitrpg-shared
+	url = git://github.com/HabitRPG/habitrpg-shared.git

@@ -103,6 +103,28 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
         return out
     }
 
+    $scope.getColor = function(task) {
+        var out = ''
+				if (task.type == 'daily' && task.completed)
+            out += ' completed'
+        else if (task.value < -20)
+            out += ' color-worst'
+        else if (task.value < -10)
+            out += ' color-worse'
+        else if (task.value < -1)
+            out += ' color-bad'
+        else if (task.value < 1)
+            out += ' color-neutral'
+        else if (task.value < 5)
+            out += ' color-good'
+        else if (task.value < 10)
+            out += ' color-better'
+        else
+            out += ' color-best'
+        return out
+    }
+
+ 
     $scope.addTask = function (type) {
         var task = null
 
@@ -146,6 +168,10 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
         //Add the new task to the actions log
 
     };
+
+		$scope.delTask = function(taskObj) {
+			User.log({op:'delTask', task:taskObj})
+    }
 
     $scope.clearDoneTodos = function () {
         //We can't alter $scope.user.tasks here. We have to invoke API call.
