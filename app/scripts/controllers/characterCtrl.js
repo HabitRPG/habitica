@@ -19,7 +19,7 @@ habitrpg.controller( 'CharacterCtrl', function CharacterCtrl( $scope, $location,
             }
 
             $scope.expPercent = function(exp, level) {
-                return (exp / window.habitrpgShared.algos.tnl(level)) * 100;
+                return Math.round((exp / window.habitrpgShared.algos.tnl(level)) * 100);
             }
         })
 

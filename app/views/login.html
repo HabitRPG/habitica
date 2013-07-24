@@ -1,34 +1,11 @@
 <div class='login-page' ng-controller='AuthCtrl'>
-
-    <h2>Existing User</h2>
-    <div>
-        <!-- Facebook -->
-        <button ng-click="Facebook.login()">Connect with Facebook</button>
-        <div ng-show="Facebook.getAuth()">
-            <h4>Access Token:</h4>
-
-            <p ng-bind="Facebook.getAuth().accessToken"></p>
-            <button class='btn btn-small' ng-click="Facebook.logout()">Logout</button>
-        </div>
-        <div id='fb-root'></div>
-
-        <button ng-click="showLocalLogin = !showLocalLogin;">Username / Password</button>
-        <form>
-            <label for="username">Username</label><input type='text' id="username" required />
-            <label for="password">Password</label><input type='password' id="password" required />
-            <input type='submit' value="Submit" ng-click="auth()" />
-        </form>
-
-        <button ng-click="showAPILogin = !showAPILogin;">ID / API Token</button>
+<div style="width:200px; margin:0 auto">
         <form ng-submit="apiLogin()" id="apiLoginForm">
-            <label for="uuid">UUID</label><input type='text' id="uuid" required />
-            <label for="apiToken">API Token</label><input type='text' id="apiToken" required />
+            <label for="uuid">UUID</label><input type='text' id="uuid1" ng-model="uuid" required/>
+            <label for="apiToken">API Token</label><input type='text' id="apiToken1" ng-model="apiToken" required/><br />
             <input type='submit' value="Submit" />
         </form>
 
     </div>
-
-    <h2>New User</h2>
-    <button ng-click="newGame()">Start New Game</button>
-
+</div>
 </div>

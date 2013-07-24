@@ -162,7 +162,7 @@
                             <div class="task-meta-controls">
                                 <a rel="toolitp"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
                                 <a rel="toolitp"><i class="icon-trash"></i></a>
-                                <a rel="toolitp"><i class="icon-comment"></i></a>
+                                <a rel="toolitp"><i class="icon-comment" ng-show="task.notes"></i></a>
                             </div>
                             <div class="task-controls task-primary">
                                 <span class="task-checker action-yesno">
@@ -232,7 +232,7 @@
                             <div class="task-meta-controls">
                                 <a rel="toolitp"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
                                 <a rel="toolitp"><i class="icon-trash"></i></a>
-                                <a rel="toolitp"><i class="icon-comment"></i></a>
+                                <a rel="toolitp"><i class="icon-comment" ng-show="task.notes"></i></a>
                             </div>
                             <div class="task-controls task-primary">
                                 <a class="money btn-buy" ng-click="score(task, 'down')">
