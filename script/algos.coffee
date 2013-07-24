@@ -184,9 +184,8 @@ obj.score = (user, task, direction, options={}) ->
       delta += nextDelta
 
   addPoints = ->
-    level = user.stats.lvl
-    weaponStrength = items.items.weapon[user.items.weapon].strength
-    exp += obj.expModifier(delta, weaponStrength, level, priority) / 2 # /2 hack for now, people leveling too fast
+    weaponStr = items.getItem('weapon', user.items.weapon).strength
+    exp += obj.expModifier(delta, weaponStr, user.stats.lvl, priority) / 2 # /2 hack for now, people leveling too fast
     if streak
       gp += obj.gpModifier(delta, 1, priority, streak, user)
     else
@@ -194,11 +193,10 @@ obj.score = (user, task, direction, options={}) ->
 
 
   subtractPoints = ->
-    level = user.stats.lvl
-    armorDefense = items.items.armor[user.items.armor].defense
-    helmDefense = items.items.head[user.items.head].defense
-    shieldDefense = items.items.shield[user.items.shield].defense
-    hp += obj.hpModifier(delta, armorDefense, helmDefense, shieldDefense, level, priority)
+    armorDef = items.getItem('armor', user.items.armor).defense
+    headDef = items.getItem('head', user.items.head).defense
+    shieldDef = items.getItem('shield', user.items.shield).defense
+    hp += obj.hpModifier(delta, armorDef, headDef, shieldDef, user.stats.lvl, priority)
 
   switch type
     when 'habit'

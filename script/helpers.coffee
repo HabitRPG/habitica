@@ -4,7 +4,7 @@ items = require('./items.coffee')
 
 sod = (timestamp, dayStart=0) ->
   #sanity-check reset-time (is it 24h time?)
-  dayStart = 0 unless (dayStart = parseInt(dayStart)) and (0 <= dayStart <= 24)
+  dayStart = 0 unless (dayStart = +dayStart) and (0 <= dayStart <= 24)
   moment(timestamp).startOf('day').add('h', dayStart)
 
 dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
@@ -173,8 +173,8 @@ module.exports =
   ###
   equipped: (type, item=0, preferences={gender:'m', armorSet:'v1'}, backerTier=0) ->
     {gender, armorSet} = preferences
-    item = parseInt(item)
-    backerTier = parseInt(backerTier)
+    item = ~~item
+    backerTier = ~~backerTier
 
     switch type
       when'armor'
@@ -310,13 +310,27 @@ module.exports =
     User stats
   ###
 
-  userStr: (level) -> str = (level-1) / 2
+  userStr: (level) ->
+    (level-1) / 2
+
   totalStr: (level, weapon=0) ->
     str = (level-1) / 2
-    totalStr = (str + items.items.weapon[weapon].strength)
-  userDef: (level) -> def = (level-1) / 2
-  totalDef: (level, armor=0, helm=0, shield=0) ->
-    def = (level-1) / 2
-    totalDef = (def + items.items.armor[armor].defense + items.items.head[helm].defense + items.items.shield[shield].defense)
-  itemText: (type, item=0) -> items.items[type][parseInt(item)].text
-  itemStat: (type, item=0) -> if type is 'weapon' then items.items[type][parseInt(item)].strength else items.items[type][parseInt(item)].defense
+    (str + items.getItem('weapon', weapon).strength)
+
+  userDef: (level) ->
+    (level-1) / 2
+
+  totalDef: (level, armor=0, head=0, shield=0) ->
+    totalDef =
+      (level - 1) / 2 + # defense
+      items.getItem('armor', armor).defense +
+      items.getItem('head', head).defense +
+      items.getItem('shield', shield).defense
+    return totalDef
+
+  itemText: (type, item=0) ->
+    items.getItem(type, item).text
+
+  itemStat: (type, item=0) ->
+    i = items.getItem(type, item)
+    if type is 'weapon' then i.strength else i.defense

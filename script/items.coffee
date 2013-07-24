@@ -107,3 +107,10 @@ module.exports.updateStore = (user) ->
       showNext = false
     changes[type] = if showNext then items[type][i] else {hide:true}
   return changes
+
+###
+  Gets an itme, and caps max to the last item in its array
+###
+module.exports.getItem = (type, index=0) ->
+  i = if (~~index > items[type].length - 1) then items[type].length - 1 else ~~index
+  items[type][i]
