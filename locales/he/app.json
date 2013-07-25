@@ -152,15 +152,15 @@
 
 
   "party": "Party",
-	"createAParty":"Create A Party",
-	"noPartyText": "You are not in a party. You can either create one and invite friends, or if you want to join an existing party, have them enter:",
-	"partyName": "Party Name",
-	"create":"Create",
-	"userId":"User Id",
-	"invite":"Invite",
-	"leave": "Leave",
-	"invitedTo" : "You're Invited To",
-	"chat": "Chat",
+	"createAParty":"יצר מפלגה",
+	"noPartyText": "אתה לא במפלגה. או שאתה יכול ליצור אותו ולהזמין את החברים, או אם אתה רוצה להצטרף למפלגה קיימת, יש להם להכניס:",
+	"partyName": "שם מפלגה",
+	"create":"יצר",
+	"userId":"מספר משתמש",
+	"invite":"הזמין",
+	"leave": "יצא",
+	"invitedTo" : "אתם מוזמנים ל-",
+	"chat": "שיחה",
 
   "inventory": "מלאי",
 	"eggs": "ביצים",
@@ -351,8 +351,8 @@
 	"NPCBochText1" : "",
 
 "_commentdeathstuff" : "DEATH",
-  "deathTitle" : "You Died!",
-  "deathText" : "You've lost your GP, 1 level and 1 gear piece. Be sure to complete your dailies to prevent this from happening again!",
+  "deathTitle" : "אתה מת!",
+  "deathText" : "הפסדת כל הכסף, מדרגה אחד וכלי אחת. הקפד להשלים את היומונים שלך כדי למנוע את זה מלקרות שוב!",
 
 "_commentgems" : "GEMS",
   "gems" : "Gems",
