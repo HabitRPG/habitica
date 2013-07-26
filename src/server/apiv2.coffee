@@ -48,7 +48,6 @@ auth = (req, res, next) ->
 POST new actions
 ###
 router.post '/', auth, (req, res) ->
-  console.log 'prisel sem notri'
   model = req.getModel()
   user = req.user
   actions = req.body
