@@ -15,7 +15,7 @@
                         <input class="addtask-btn" type="submit" value="＋">
                     </form>
                     <hr>
-                    <ul class="habits ui-sortable">
+                    <ul class="habits ui-sortable" sort>
                         <li ng-repeat="task in tasks() | filter:'habit'" class="task habit {{getClass(task.value)}}" ng-class="{'habit-wide':task.up && task.down}">
                             <div class="task-meta-controls">
                                 <a rel="toolitp" ng-click="editTask(task)"><i class="icon-pencil"></i></a>
@@ -85,7 +85,7 @@
                         <input class="addtask-btn" type="submit" value="＋">
                     </form>
                     <hr>
-                    <ul class="habits ui-sortable">
+                    <ul class="habits ui-sortable" sort>
                         <li ng-repeat="task in tasks() | filter:'daily'" class="task habit {{getClass(task.value)}}">
                             <div class="task-meta-controls">
                                 <a rel="toolitp"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
