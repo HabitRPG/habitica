@@ -138,7 +138,8 @@ ready (model) ->
     # remember that the properties are set from uObj & paths AFTER the return of this callback
     return if _.isEmpty(paths) or (paths['lastCron'] and _.size(paths) is 1)
     # for everyone else, we need to reset dom - too many changes have been made and won't it breaks dom listeners.
-    if lostHp = delete paths['stats.hp'] # we'll set this manually so we can get a cool animation
+    if paths['stats.hp']
+      delete paths['stats.hp'] # we'll set this manually so we can get a cool animation
       setTimeout ->
         browser.resetDom(model)
         user.set 'stats.hp', uObj.stats.hp
