@@ -64,7 +64,7 @@ habitrpg.directive('sort', function (User) {
                 ui.item.data('startIndex', ui.item.index());
             },
             stop: function (event, ui) {
-                var taskType = $scope.taskTypeTitle().toLowerCase();
+                var taskType = angular.element(ui.item[0]).scope().task.type + 's'
                 var startIndex = ui.item.data('startIndex');
                 var task = User.user[taskType][startIndex];
                 User.log({op: 'sortTask', task: task, from: startIndex, to: ui.item.index()});
