@@ -27,9 +27,9 @@ router.post '/', api.auth, (req, res, next) ->
   model = req.getModel()
   {user} = req
   actions = req.body
-  #console.log util.inspect req.body
 
-  doneCount = 0
+  doneCount = 1 + # cron
+    actions.length # standard operations
   done = (err) ->
     return next(err) if err
     if --doneCount is 0
@@ -43,7 +43,6 @@ router.post '/', api.auth, (req, res, next) ->
       console.log "Reply sent"
 
   misc.batchTxn model, (uObj, paths) ->
-    doneCount++
     # habitrpg-shared/algos requires uObj.habits, uObj.dailys etc instead of uObj.tasks
     _.each ['habit','daily','todo','reward'], (type) -> uObj["#{type}s"] = _.where(uObj.tasks, {type}); true
     algos.cron uObj, {paths}
@@ -51,24 +50,23 @@ router.post '/', api.auth, (req, res, next) ->
 
   if _.isArray actions
     actions.forEach (action)->
-      doneCount++
 
       task = action.task ? {}
 
       switch action.op
         when "score"
+          sendScore = -> api.score(model, user, task.id, action.dir, done)
           if task.type in ["daily","todo"]
             # switch completed state. Since checkbox is not binded to model unlike when you click through Derby website.
             completed = if action.dir is "up" then true else false
-            user.set "tasks.#{task.id}.completed", completed, done
-          doneCount++
-          api.score model, user, task.id, action.dir, done
+            user.set "tasks.#{task.id}.completed", completed, sendScore
+          else sendScore()
 
         when "sortTask"
           path = action.task.type + "Ids"
           a = user.get(path)
           a.splice(action.to, 0, a.splice(action.from, 1)[0])
-          user.set(path, a)
+          user.set path, a, done
 
         when "addTask"
           api.addTask user, task, done
@@ -83,5 +81,7 @@ router.post '/', api.auth, (req, res, next) ->
             console.error "action.value was an object, which isn't currently supported. Tyler - double check this"
           else
             user.set action.path, action.value, done
+
+        else done()
 
 module.exports = router
