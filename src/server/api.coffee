@@ -28,7 +28,7 @@ score = (model, user, taskId, direction, cb) ->
   misc.batchTxn model, (uObj, paths) ->
     tObj = uObj.tasks[taskId]
     delta = algos.score(uObj, tObj, direction, {paths})
-  , {user, cb}
+  , {user, done:cb}
   delta
 
 # ---------- /api/v1 API ------------
@@ -216,7 +216,7 @@ router.put '/user/task/:id', auth, validateTask, (req, res) ->
   DELETE /user/task/:id
 ###
 router.delete '/user/task/:id', auth, validateTask, (req, res) ->
-  deleteTask user, req.task.type, req.task.id
+  deleteTask req.user, req.task.type, req.task.id
   res.send 204
 
 ###
@@ -306,7 +306,7 @@ scoreTask = (req, res, next) ->
     addTask user, task
 
   # TODO - could modify batchTxn to conform to this better
-  delta = score model, req.user, taskId, direction, ->
+  delta = score model, user, taskId, direction, ->
     result = user.get('stats')
     result.delta = delta
     res.json result

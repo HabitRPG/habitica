@@ -1,6 +1,6 @@
 express = require 'express'
 router = new express.Router()
-util = require('util')
+util = require 'util'
 
 _ = require 'lodash'
 algos = require 'habitrpg-shared/script/algos'
@@ -9,13 +9,9 @@ validator = require 'derby-auth/node_modules/validator'
 check = validator.check
 sanitize = validator.sanitize
 misc = require '../app/misc'
+api = require './api'
 
-NO_TOKEN_OR_UID =
-  err: "You must include a token and uid (user id) in your request"
-NO_USER_FOUND =
-  err: "No user found."
-
-# ---------- /api/v1 API ------------
+# ---------- /api/v2 API ------------
 # Every url added beneath router is prefaced by /api/v2
 
 ###
@@ -25,93 +21,67 @@ router.get '/status', (req, res) ->
   res.json status: 'up'
 
 ###
-  beforeEach auth interceptor
-###
-auth = (req, res, next) ->
-  uid = req.headers['x-api-user']
-  token = req.headers['x-api-key']
-  console.log uid, token
-  return res.json 401, NO_TOKEN_OR_UID unless uid || token
-
-  model = req.getModel()
-
-  model.query('users').withIdAndToken(uid, token).fetch (err, user) ->
-    return res.json err: err if err
-    req.user = user
-    req.userObj = user.get()
-    return res.json 401, NO_USER_FOUND if !req.userObj || _.isEmpty(req.userObj)
-    req._isServer = true
-    model.ref('_user', user)
-    next()
-
-###
 POST new actions
 ###
-router.post '/', auth, (req, res) ->
+router.post '/', api.auth, (req, res, next) ->
   model = req.getModel()
-  user = req.user
+  {user} = req
   actions = req.body
-  console.log util.inspect req.body
+  #console.log util.inspect req.body
 
+  doneCount = 0
+  done = (err) ->
+    return next(err) if err
+    if --doneCount is 0
+      uObj = misc.hydrate user.get()
+      #transform user structure FROM user.tasks{} + user.habitIds[] TO user.habits[] + user.todos[] etc.
+      _.each ['habit','daily','todo','reward'], (type) ->
+        uObj["#{type}s"] = _.where(uObj.tasks, {type}); true
+        delete uObj["#{type}Ids"]
+      delete uObj.tasks
+      res.json 200, uObj
+      console.log "Reply sent"
 
   misc.batchTxn model, (uObj, paths) ->
-      # habitrpg-shared/algos requires uObj.habits, uObj.dailys etc instead of uObj.tasks
+    doneCount++
+    # habitrpg-shared/algos requires uObj.habits, uObj.dailys etc instead of uObj.tasks
     _.each ['habit','daily','todo','reward'], (type) -> uObj["#{type}s"] = _.where(uObj.tasks, {type}); true
     algos.cron uObj, {paths}
-  ,{cron:true}
-
-
-  _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
-    model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+  , {user, done, cron:true}
 
   if _.isArray actions
     actions.forEach (action)->
-      task = {}
-      if action.task? then task = action.task
+      doneCount++
 
-      if action.op == "score"
-        if task.type == "daily" || task.type == "todo"
-#          switch completed state. Since checkbox is not binded to model unlike when you click through Derby website.
-          completed = if action.dir == "up" then true else false
-          user.set("tasks.#{task.id}.completed", completed)
-        misc.score(model, task.id, action.dir, true)
+      task = action.task ? {}
 
-      if action.op == "sortTask"
-        path = action.task.type + "Ids"
-        a=user.get(path)
-        a.splice(action.to, 0, a.splice(action.from, 1)[0])
-        user.set(path, a)
+      switch action.op
+        when "score"
+          if task.type in ["daily","todo"]
+            # switch completed state. Since checkbox is not binded to model unlike when you click through Derby website.
+            completed = if action.dir is "up" then true else false
+            user.set "tasks.#{task.id}.completed", completed, done
+          doneCount++
+          api.score model, user, task.id, action.dir, done
 
-      if action.op == "addTask"
-        model.unshift "_#{task.type}List", task
+        when "sortTask"
+          path = action.task.type + "Ids"
+          a = user.get(path)
+          a.splice(action.to, 0, a.splice(action.from, 1)[0])
+          user.set(path, a)
 
-      if action.op == "delTask"
-#        to make sure we update DOM on Derby client
-        ids = user.get(task.type + 'Ids')
-        ids.splice(ids.indexOf(task.id), 1);
-        user.set(task.type + 'Ids', ids)
+        when "addTask"
+          api.addTask user, task, done
 
-        #        Actually delete the task
-        user.del ("tasks." + task.id)
+        when "delTask"
+          api.deleteTask user, task, done
 
-
-      #        this API is only working with string or number variables. It should return error if object given or object is at the path.
-      if action.op == "set"
-        oldValue = user.get(action.path);
-        if typeof action.value != 'object'
-          user.set(action.path, action.value)
-
-
-  user = misc.hydrate user.get()
-
-  #transform user structure FROM user.tasks{} + user.habitIds[] TO user.habits[] + user.todos[] etc.
-  ["habit", "daily", "todo", "reward"].forEach (type) ->
-    user[type + 's'] = []
-    user[type + 'Ids'].forEach (id)->
-      user[type + 's'].push(user.tasks[id])
-    delete user[type + 'Ids']
-  delete user.tasks
-  res.json 200, user
-  console.log "Reply sent"
+        # this API is only working with string or number variables. It should return error if object given or object is at the path.
+        when "set"
+          oldValue = user.get(action.path)
+          if _.isObject(action.value) or _.isObject(oldValue)
+            console.error "action.value was an object, which isn't currently supported. Tyler - double check this"
+          else
+            user.set action.path, action.value, done
 
 module.exports = router
