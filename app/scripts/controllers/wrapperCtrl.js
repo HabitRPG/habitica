@@ -8,6 +8,7 @@
 
 habitrpg.controller( 'WrapperCtrl', function WrapperCtrl( $scope, $location, filterFilter, Facebook ) {
 
+
 $scope.showMenu = function() {
 
   if ($location.path() == '/options') {
@@ -16,6 +17,12 @@ $scope.showMenu = function() {
     $location.path('/options')
   }
 
+}
+
+$scope.logout = function() {
+	localStorage.clear()
+	$location.path('login')
+	location.reload()
 }
 
 });

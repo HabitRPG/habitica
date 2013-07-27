@@ -140,7 +140,7 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
 
         var newTask = _.defaults(extra, defaults);
         newTask.id = Helpers.uuid();
-        $scope.tasks().unshift(newTask);
+        User.user[newTask.type + 's'].unshift(newTask)
         $scope.newTask = '';
         User.log({op: 'addTask', task: newTask});
 
