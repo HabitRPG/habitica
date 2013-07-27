@@ -157,7 +157,7 @@
                         <input class="addtask-btn" type="submit" value="＋">
                     </form>
                     <hr>
-                    <ul class="habits ui-sortable">
+                    <ul class="habits ui-sortable" sort>
                         <li ng-repeat="task in tasks() | filter:'todo'" class="task habit {{getClass(task.value)}}">
                             <div class="task-meta-controls">
                                 <a rel="toolitp"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
@@ -227,7 +227,7 @@
                     <h2 class="task-column_title">Rewards</h2>
                     <form id="new-habit" class="addtask-form form-inline new-task-form " data-task-type="habit" onsubmit="return false"><span class="addtask-field"><input id="$2y" value="" type="text" placeholder="New Habit"></span><input class="addtask-btn" type="submit" value="＋"></form>
                     <hr>
-                    <ul class="habits ui-sortable">
+                    <ul class="habits ui-sortable" sort>
                         <li ng-repeat="task in tasks() | filter:'reward'" class="task reward">
                             <div class="task-meta-controls">
                                 <a rel="toolitp"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
