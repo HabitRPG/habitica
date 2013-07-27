@@ -16,7 +16,7 @@
                     </form>
                     <hr>
                     <ul class="habits ui-sortable" sort>
-                        <li ng-repeat="task in tasks()   | filter:'habit'" class="task habit {{getClass(task.value)}}" ng-class="{'habit-wide':task.up && task.down}">
+											<li ng-repeat="task in tasks()   | filter:{type:'habit'}" class="task habit {{getClass(task.value)}}" ng-class="{'habit-wide':task.up && task.down}">
                             <div class="task-meta-controls">
                                 <a rel="toolitp" ng-click="editTask(task)"><i class="icon-pencil"></i></a>
                                 <a rel="toolitp"><i class="icon-trash"></i></a>
@@ -86,7 +86,7 @@
                     </form>
                     <hr>
                     <ul class="habits ui-sortable" sort>
-                        <li ng-repeat="task in tasks() | filter:'daily'" class="task habit {{getClass(task.value)}}">
+                        <li ng-repeat="task in tasks() | filter:{type:'daily'}" class="task habit {{getClass(task.value)}}">
                             <div class="task-meta-controls">
                                 <a rel="toolitp"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
                                 <a rel="toolitp"><i class="icon-trash"></i></a>
@@ -158,7 +158,7 @@
                     </form>
                     <hr>
                     <ul class="habits ui-sortable">
-                        <li ng-repeat="task in tasks() | filter:'todo'" class="task habit {{getClass(task.value)}}">
+                        <li ng-repeat="task in tasks() | filter:{type:'todo'}" class="task habit {{getClass(task.value)}}">
                             <div class="task-meta-controls">
                                 <a rel="toolitp"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
                                 <a rel="toolitp"><i class="icon-trash"></i></a>
@@ -228,7 +228,7 @@
                     <form id="new-habit" class="addtask-form form-inline new-task-form " data-task-type="habit" onsubmit="return false"><span class="addtask-field"><input id="$2y" value="" type="text" placeholder="New Habit"></span><input class="addtask-btn" type="submit" value="＋"></form>
                     <hr>
                     <ul class="habits ui-sortable">
-                        <li ng-repeat="task in tasks() | filter:'reward'" class="task reward">
+                        <li ng-repeat="task in tasks() | filter:{type:'reward'}" class="task reward">
                             <div class="task-meta-controls">
                                 <a rel="toolitp"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
                                 <a rel="toolitp"><i class="icon-trash"></i></a>
