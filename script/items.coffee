@@ -71,7 +71,7 @@ items = module.exports.items =
 _.each ['weapon', 'armor', 'head', 'shield'], (key) ->
   _.each items[key], (item) -> item.type = key
 
-_.each items.pets, (pet) -> pet.notes = 'Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.'
+_.each items.pets, (pet) -> pet.notes = 'Find a hatching potion to pour on this egg, and it will hatch into a loyal pet.'
 _.each items.hatchingPotions, (hatchingPotion) -> hatchingPotion.notes = "Pour this on an egg, and it will hatch as a #{hatchingPotion.text} pet."
 
 module.exports.buyItem = (user, type, value, index) ->
