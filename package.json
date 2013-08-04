@@ -8,7 +8,7 @@
     "derby": "git://github.com/lefnire/derby#habitrpg",
     "racer": "git://github.com/lefnire/racer#habitrpg",
     "racer-db-mongo": "git://github.com/lefnire/racer-db-mongo#habitrpg",
-    "derby-ui-boot": "git://github.com/codeparty/derby-ui-boot#f04ba2c7e7b3a8f1462a6e70fe4f81055d74c4b2",
+    "derby-ui-boot": "git://github.com/HabitRPG/derby-ui-boot#habit0.3",
     "derby-auth": "git://github.com/lefnire/derby-auth#master",
     "connect-mongo": "*",
     "passport-facebook": "*",
