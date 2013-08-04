@@ -28,7 +28,6 @@ router.post '/', api.auth, (req, res, next) ->
   {user} = req
   actions = req.body
 
-
   doneCount = 1 + # cron
     _.size(actions) # standard operations
   done = (err) ->
@@ -43,7 +42,11 @@ router.post '/', api.auth, (req, res, next) ->
       res.json 200, uObj
       console.log "Reply sent"
 
-  if _.isObject(actions) and _.isEmpty(actions) then done() # first request, empty object
+  notEmpty = _.find actions, ((action) -> !_.isEmpty(action))
+  unless notEmpty
+    # yan's strange User.log({}) thing
+    doneCount = 1
+    return done()
 
   misc.batchTxn model, (uObj, paths) ->
     # habitrpg-shared/algos requires uObj.habits, uObj.dailys etc instead of uObj.tasks
