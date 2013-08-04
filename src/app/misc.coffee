@@ -4,7 +4,7 @@ items = require('habitrpg-shared/script/items').items
 helpers = require('habitrpg-shared/script/helpers')
 
 module.exports.batchTxn = batchTxn = (model, cb, options) ->
-  user = model.at("_user")
+  user = options?.user or model.at("_user")
   uObj = hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
   batch =
     set: (k,v) -> helpers.dotSet(k,v,uObj); paths[k] = true
@@ -19,6 +19,7 @@ module.exports.batchTxn = batchTxn = (model, cb, options) ->
   unless _.isEmpty paths
     setOps = _.reduce paths, ((m,v,k)-> m[k] = helpers.dotGet(k,uObj);m), {}
     user.set "update__", setOps, options?.done
+  else options?.done?()
   ret
 
 #TODO put this in habitrpg-shared
