@@ -36,7 +36,7 @@ router.post '/', api.auth, (req, res, next) ->
       uObj = misc.hydrate user.get()
       #transform user structure FROM user.tasks{} + user.habitIds[] TO user.habits[] + user.todos[] etc.
       _.each ['habit','daily','todo','reward'], (type) ->
-        uObj["#{type}s"] = _.where(uObj.tasks, {type}); true
+        uObj["#{type}s"] = _.transform uObj["#{type}Ids"], (result, tid) -> uObj.tasks[tid]
         delete uObj["#{type}Ids"]
       delete uObj.tasks
       res.json 200, uObj
