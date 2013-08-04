@@ -16,7 +16,7 @@ NO_USER_FOUND = err: "No user found."
 addTask = (user, task, cb) ->
   task.type ?= 'habit'
   tid = user.add "tasks", task, ->
-    user.push "#{task.type}Ids", tid, cb
+    user.unshift "#{task.type}Ids", tid, cb
 
 deleteTask = (user, task, cb) ->
   user.del "tasks.#{task.id}", ->
