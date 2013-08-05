@@ -8,6 +8,29 @@ XP = 15
 HP = 2
 obj = module.exports = {}
 
+obj.revive = (user, options={})->
+  paths = options.paths || {}
+
+  # Reset stats
+  user.stats.hp = 50
+  user.stats.exp = 0
+  user.stats.gp = 0
+  user.stats.lvl-- if user.stats.lvl > 1
+
+  ## Lose a random item
+  loseThisItem = false
+  owned = user.items
+  # unless they're already at 0-everything
+  if ~~owned.armor > 0 or ~~owned.head > 0 or ~~owned.shield > 0 or ~~owned.weapon > 0
+    # find a random item to lose
+    until loseThisItem
+      #candidate = {0:'items.armor', 1:'items.head', 2:'items.shield', 3:'items.weapon', 4:'stats.gp'}[Math.random()*5|0]
+      candidate = {0:'armor', 1:'head', 2:'shield', 3:'weapon'}[Math.random()*4|0]
+      loseThisItem = candidate if owned[candidate] > 0
+    user.items[loseThisItem] = 0
+  "stats.hp stats.exp stats.gp stats.lvl items.#{loseThisItem}".split(' ').forEach (path) ->
+    paths[path] = 1
+
 
 obj.priorityValue = (priority = '!') ->
   switch priority
