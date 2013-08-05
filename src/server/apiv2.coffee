@@ -88,6 +88,13 @@ router.post '/', api.auth, (req, res, next) ->
           else
             user.set action.path, action.value, done
 
+        when "revive"
+          [uObj, paths] = [user.get(), {}]
+          algos.revive uObj, {paths}
+          doneCount += (_.size(paths) - 1) # once for each path, but +1 is already accounted for at top of this function (whole 'revive' counted as 1)
+          _.each paths, (v,k) ->
+            user.set k, helpers.dotGet(k,uObj), done
+
         else done()
 
 module.exports = router

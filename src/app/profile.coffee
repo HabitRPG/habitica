@@ -9,24 +9,9 @@ module.exports.app = (appExports, model) ->
   user = model.at('_user')
 
   appExports.revive = ->
-    # Reset stats
-    user.set 'stats.hp', 50
-    user.set 'stats.exp', 0
-    user.set 'stats.gp', 0
-    user.incr 'stats.lvl', -1 if user.get('stats.lvl') > 1
-
-    ## Lose a random item
-    loseThisItem = false
-    owned = user.get('items')
-    # unless they're already at 0-everything
-    if parseInt(owned.armor)>0 or parseInt(owned.head)>0 or parseInt(owned.shield)>0 or parseInt(owned.weapon)>0
-      # find a random item to lose
-      until loseThisItem
-        #candidate = {0:'items.armor', 1:'items.head', 2:'items.shield', 3:'items.weapon', 4:'stats.gp'}[Math.random()*5|0]
-        candidate = {0:'armor', 1:'head', 2:'shield', 3:'weapon'}[Math.random()*4|0]
-        loseThisItem = candidate if owned[candidate] > 0
-      user.set "items.#{loseThisItem}", 0
-
+    [uObj, paths] = [user.get(), {}]
+    algos.revive(uObj, {paths})
+    _.each paths, ((v,k) -> user.set k, helpers.dotGet(k, uObj))
     items.updateStore(model)
 
   appExports.reset = (e, el) ->
@@ -96,4 +81,3 @@ module.exports.app = (appExports, model) ->
 
   appExports.toggleResting = ->
     model.set '_user.flags.rest', !model.get('_user.flags.rest')
-
