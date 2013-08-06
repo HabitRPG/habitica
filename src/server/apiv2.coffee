@@ -59,6 +59,8 @@ router.post '/', api.auth, (req, res, next) ->
 
       task = action.task ? {}
 
+      return done() if _.isEmpty(action)
+
       switch action.op
         when "score"
           sendScore = -> api.score(model, user, task.id, action.dir, done)
