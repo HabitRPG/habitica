@@ -63,6 +63,7 @@ router.post '/', api.auth, (req, res, next) ->
 
       switch action.op
         when "score"
+          return done() unless user.get "tasks.#{task.id}"
           sendScore = -> api.score(model, user, task.id, action.dir, done)
           if task.type in ["daily","todo"]
             # switch completed state. Since checkbox is not binded to model unlike when you click through Derby website.
