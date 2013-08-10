@@ -80,12 +80,10 @@ router.post '/', api.auth, (req, res, next) ->
         cb()
 
   # Setup the array of functions we're going to call in parallel with async
-  req.body = [] if _.isEmpty req.body
-  actions = _.transform (req.body or []), (result, action) ->
-    unless _.isEmpty(action)
-      result.push (cb) -> performAction(action, cb)
-  # always run cron check
-  req.body.unshift({op: 'cron'}) unless _.isEmpty actions
+  # Start with cron
+  (req.body or= []).unshift({op: 'cron'})
+  actions = _.transform (req.body), (result, action) ->
+    result.push (cb) -> performAction(action, cb) unless _.isEmpty(action)
 
   # call all the operations, then return the user object to the requester
   async.series actions, (err) ->
