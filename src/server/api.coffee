@@ -49,7 +49,9 @@ api.auth = (req, res, next) ->
 addTask = (user, task, cb) ->
   task.type ?= 'habit'
   tid = user.add "tasks", task, ->
-    user.unshift "#{task.type}Ids", tid, cb
+    ids = user.get "#{task.type}Ids"
+    ids.unshift tid
+    user.set "#{task.type}Ids", ids, cb
 
 deleteTask = (user, task, cb) ->
   user.del "tasks.#{task.id}", ->
