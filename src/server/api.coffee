@@ -215,9 +215,9 @@ api.updateTasks = (req, res, next) ->
 
 api.createTask =  (req, res, next) ->
   task = req.habit.task
-  addTask req.habit.user, task
-  req.habit.result = code: 201, data: task
-  next()
+  addTask req.habit.user, task, ->
+    req.habit.result = code: 201, data: task
+    next()
 
 api.sortTask = (req, res, next) ->
   {id} = req.params
