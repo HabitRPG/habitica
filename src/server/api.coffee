@@ -58,12 +58,12 @@ deleteTask = (user, task, cb) ->
     taskIds = user.get "#{task.type}Ids"
     user.remove "#{task.type}Ids", taskIds.indexOf(task.id), 1, cb
 
-score = (model, user, taskId, direction, cb) ->
+score = (model, user, taskId, direction, done) ->
   delta = 0
   misc.batchTxn model, (uObj, paths) ->
     tObj = uObj.tasks[taskId]
     delta = algos.score(uObj, tObj, direction, {paths})
-  , {user, done:cb}
+  , {user, done, hydrate: false}
   delta
 
 ###

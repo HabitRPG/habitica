@@ -3,23 +3,26 @@ algos = require 'habitrpg-shared/script/algos'
 items = require('habitrpg-shared/script/items').items
 helpers = require('habitrpg-shared/script/helpers')
 
-module.exports.batchTxn = batchTxn = (model, cb, options) ->
-  user = options?.user or model.at("_user")
-  uObj = helpers.hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
+module.exports.batchTxn = batchTxn = (model, cb, options={}) ->
+  _.defaults options, {user: model.at("_user"), hydrate: true, cron: false, done: ->}
+  {user} = options
+  # see https://github.com/codeparty/racer/issues/116
+  # But sometimes we get the exact opposite effect if we hydrate. I don't understand it, and I can't wait to start using Mongoose instead.
+  uObj = if options.hydrate then helpers.hydrate(user.get()) else user.get()
   batch =
     set: (k,v) -> helpers.dotSet(k,v,uObj); paths[k] = true
     get: (k) -> helpers.dotGet(k,uObj)
   paths = {}
   model._dontPersist = true
   ret = cb uObj, paths, batch
-  _.each paths, (v,k) -> user.pass({cron:options?.cron}).set(k,batch.get(k));true
+  _.each paths, (v,k) -> user.pass({cron:options.cron}).set(k,batch.get(k));true
   model._dontPersist = false
   # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
   # pass true if we have levelled to supress xp notification
   unless _.isEmpty paths
     setOps = _.reduce paths, ((m,v,k)-> m[k] = batch.get(k);m), {}
-    user.set "update__", setOps, options?.done
-  else options?.done?()
+    user.set "update__", setOps, options.done
+  else options.done()
   ret
 
 #TODO put this in habitrpg-shared
