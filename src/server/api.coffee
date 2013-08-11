@@ -31,6 +31,50 @@ score = (model, user, taskId, direction, cb) ->
   , {user, done:cb}
   delta
 
+###
+  This is called form deprecated.coffee's score function, and the req.headers are setup properly to handle the login
+###
+scoreTask = (req, res, next) ->
+  {taskId, direction} = req.params
+  {title, service, icon, type} = req.body
+  type ||= 'habit'
+
+  # Send error responses for improper API call
+  return res.send(500, ':taskId required') unless taskId
+  return res.send(500, ":direction must be 'up' or 'down'") unless direction in ['up','down']
+
+  model = req.getModel()
+  {user, userObj} = req
+
+  existingTask = user.at "tasks.#{taskId}"
+  # TODO add service & icon to task
+  # If task exists, set it's compltion
+  if existingTask.get()
+    # Set completed if type is daily or todo
+    existingTask.set 'completed', (direction is 'up') if /^(daily|todo)$/.test existingTask.get('type')
+  else
+    task =
+      id: taskId
+      type: type
+      text: (title || taskId)
+      value: 0
+      notes: "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
+
+    switch type
+      when 'habit'
+        task.up = true
+        task.down = true
+      when 'daily', 'todo'
+        task.completed = direction is 'up'
+
+    addTask user, task
+
+  # TODO - could modify batchTxn to conform to this better
+  delta = score model, user, taskId, direction, ->
+    result = user.get('stats')
+    result.delta = delta
+    res.json result
+
 # ---------- /api/v1 API ------------
 # Every url added beneath router is prefaced by /api/v1
 
@@ -80,36 +124,6 @@ router.get '/user', auth, (req, res) ->
     delete user.auth.salt
 
   res.json user
-
-###
-  TODO POST /user
-  when a put attempt didn't work, create a new one with POST
-###
-
-###
-  PUT /user
-###
-router.put '/user', auth, (req, res) ->
-  user = req.user
-  partialUser = req.body.user
-
-  # REVISIT is this the best way of handling protected v acceptable attr mass-setting? Possible pitfalls: (1) we have to remember
-  # to update here when we add new schema attrs in the future, (2) developers can't assign random variables (which
-  # is currently beneficial for Kevin & Paul). Pros: protects accidental or malicious user data corruption
-
-  # TODO - this accounts for single-nested items (stats.hp, stats.exp) but will clobber any other depth.
-  # See http://stackoverflow.com/a/6394168/362790 for when we need to cross that road
-
-  acceptableAttrs = ['flags', 'history', 'items', 'preferences', 'profile', 'stats']
-  user.set 'lastCron', partialUser.lastCron if partialUser.lastCron?
-  _.each acceptableAttrs, (attr) ->
-    _.each partialUser[attr], (val, key) -> user.set("#{attr}.#{key}", val);true
-
-  updateTasks partialUser.tasks, req.user, req.getModel() if partialUser.tasks?
-
-  userObj = user.get()
-  userObj.tasks = _.toArray(userObj.tasks) # FIXME figure out how we're going to consistently handle this. should always be array
-  res.json 201, userObj
 
 ###
   POST /user/auth/local
@@ -167,7 +181,6 @@ router.post '/user/auth/facebook', (req, res) ->
 router.get '/user/task/:id', auth, (req, res) ->
   task = req.userObj.tasks[req.params.id]
   return res.json 400, err: "No task found." if !task || _.isEmpty(task)
-
   res.json 200, task
 
 ###
@@ -209,7 +222,6 @@ validateTask = (req, res, next) ->
 ###
 router.put '/user/task/:id', auth, validateTask, (req, res) ->
   req.user.set "tasks.#{req.task.id}", req.task
-
   res.json 200, req.task
 
 ###
@@ -268,48 +280,93 @@ router.get '/user/tasks', auth, (req, res) ->
   res.json 200, tasks
 
 ###
-  This is called form deprecated.coffee's score function, and the req.headers are setup properly to handle the login
+  PUT /user
 ###
-scoreTask = (req, res, next) ->
-  {taskId, direction} = req.params
-  {title, service, icon, type} = req.body
-  type ||= 'habit'
+router.put '/user', auth, (req, res, next) ->
 
-  # Send error responses for improper API call
-  return res.send(500, ':taskId required') unless taskId
-  return res.send(500, ":direction must be 'up' or 'down'") unless direction in ['up','down']
+  # FIXME we need to do some crazy sanitiazation if they're using the old `PUT /user {data}` method.
+  # The new `PUT /user {'stats.hp':50}
 
+  # FIXME - one-by-one we want to widdle down this list, instead replacing each needed set path with API operations
+  # Note: custom is for 3rd party apps
+  acceptableAttrs = 'achievements filters flags invitations items lastCron party preferences profile stats tags custom'.join(' ')
+  series = []
+  _.each req.body, (v, k) ->
+    if (_.find acceptableAttrs, (attr)-> k.indexOf(attr) is 0)?
+      series.push (cb) -> req.user.set(k, v, cb)
+  async.series series, (err) ->
+    return next(err) if err
+    res.json 201, helpers.derbyUserToAPI(user)
+
+###
+POST new actions
+###
+router.post '/batch-update', auth, (req, res, next) ->
   model = req.getModel()
-  {user, userObj} = req
+  {user} = req
 
-  existingTask = user.at "tasks.#{taskId}"
-  # TODO add service & icon to task
-  # If task exists, set it's compltion
-  if existingTask.get()
-    # Set completed if type is daily or todo
-    existingTask.set 'completed', (direction is 'up') if /^(daily|todo)$/.test existingTask.get('type')
-  else
-    task =
-      id: taskId
-      type: type
-      text: (title || taskId)
-      value: 0
-      notes: "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
+  performAction = (action, cb) ->
+    task = action.task ? {}
+    switch action.op
+      when "cron"
+        misc.batchTxn model, (uObj, paths) ->
+          uObj = helpers.derbyUserToAPI(user)
+          algos.cron uObj, {paths}
+        , {user, done:cb, cron:true}
 
-    switch type
-      when 'habit'
-        task.up = true
-        task.down = true
-      when 'daily', 'todo'
-        task.completed = direction is 'up'
+      when "score"
+        return cb() unless user.get "tasks.#{task.id}"
+        sendScore = -> score(model, user, task.id, action.dir, cb)
+        if task.type in ["daily","todo"]
+          # switch completed state. Since checkbox is not binded to model unlike when you click through Derby website.
+          completed = if action.dir is "up" then true else false
+          user.set "tasks.#{task.id}.completed", completed, sendScore
+        else sendScore()
 
-    addTask user, task
+      when "sortTask"
+        path = action.task.type + "Ids"
+        a = user.get(path)
+        a.splice(action.to, 0, a.splice(action.from, 1)[0])
+        user.set path, a, cb
 
-  # TODO - could modify batchTxn to conform to this better
-  delta = score model, user, taskId, direction, ->
-    result = user.get('stats')
-    result.delta = delta
-    res.json result
+      when "addTask"
+        addTask user, task, cb
+
+      when "delTask"
+        deleteTask user, task, cb
+
+      # this API is only working with string or number variables. It should return error if object given or object is at the path.
+      when "set"
+        oldValue = user.get(action.path)
+        if _.isObject(action.value) or _.isObject(oldValue)
+          console.error "action.value was an object, which isn't currently supported. Tyler - double check this"
+          cb()
+        else
+          user.set action.path, action.value, cb
+
+      when "revive"
+        [uObj, paths] = [user.get(), {}]
+        algos.revive uObj, {paths}
+        setOps = _.map paths, (v,k) ->
+          (reviveCb) -> user.set k, helpers.dotGet(k,uObj), reviveCb
+        console.log setOps
+        async.serial setOps, cb
+
+      else
+        cb()
+
+  # Setup the array of functions we're going to call in parallel with async
+  # Start with cron
+  (req.body or= []).unshift({op: 'cron'})
+  actions = _.transform (req.body), (result, action) ->
+    result.push (cb) -> performAction(action, cb) unless _.isEmpty(action)
+
+  # call all the operations, then return the user object to the requester
+  async.series actions, (err) ->
+    return next(err) if err
+    res.json 200, helpers.derbyUserToAPI(user)
+    console.log "Reply sent"
+
 
 ###
   POST /user/tasks/:taskId/:direction
@@ -320,8 +377,3 @@ router.post '/user/tasks/:taskId/:direction', auth, scoreTask
 module.exports = router
 module.exports.auth = auth
 module.exports.scoreTask = scoreTask # export so deprecated can call it
-module.exports.NO_TOKEN_OR_UID = NO_TOKEN_OR_UID
-module.exports.NO_USER_FOUND = NO_USER_FOUND
-module.exports.addTask = addTask
-module.exports.score = score
-module.exports.deleteTask = deleteTask
