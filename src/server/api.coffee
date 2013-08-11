@@ -72,44 +72,39 @@ score = (model, user, taskId, direction, cb) ->
 ###
 api.scoreTask = (req, res, next) ->
   {id, direction} = req.params
-  {title, service, icon, type} = req.body
+  {title, service, type} = req.body
   type ||= 'habit'
 
   # Send error responses for improper API call
   return res.json 500, {err: ':id required'} unless id
   return res.json 500, {err: ":direction must be 'up' or 'down'"} unless direction in ['up','down']
 
-  model = req.getModel()
-  {user, userObj} = req.habit
+  {user} = req.habit
 
-  existingTask = user.at "tasks.#{id}"
-  # TODO add service & icon to task
-  # If task exists, set it's compltion
-  if existingTask.get()
-    # Set completed if type is daily or todo
-    existingTask.set 'completed', (direction is 'up') if /^(daily|todo)$/.test existingTask.get('type')
+  done = ->
+    # TODO - could modify batchTxn to conform to this better
+    delta = score req.getModel(), user, id, direction, ->
+      result = user.get('stats')
+      req.habit.result = data: _.extend(result, delta: delta)
+      next()
+
+  # Set completed if type is daily or todo and task exists
+  if (existing = user.at "tasks.#{id}").get()
+    if existing.get('type') in ['daily', 'todo']
+      existing.set 'completed', (direction is 'up'), done
+    else done()
+
+  # If it doesn't exist, this is likely a 3rd party up/down - create a new one
   else
-    task =
-      id: id
-      type: type
-      text: (title || id)
-      value: 0
-      notes: "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
-
-    switch type
-      when 'habit'
-        task.up = true
-        task.down = true
-      when 'daily', 'todo'
-        task.completed = direction is 'up'
-
-    addTask user, task
-
-  # TODO - could modify batchTxn to conform to this better
-  delta = score model, user, id, direction, ->
-    result = user.get('stats')
-    req.habit.result = data: _.extend(result, delta: delta)
-    next()
+    task = {id, type, value: 0}
+    task.text = title or id
+    task.notes = "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
+    if type is 'habit'
+      task.up = true
+      task.down = true
+    if type in ['daily', 'todo']
+      task.completed = direction is 'up'
+    addTask user, task, done
 
 ###
   Get all tasks
@@ -383,6 +378,6 @@ api.batchUpdate = (req, res, next) ->
   # call all the operations, then return the user object to the requester
   async.series actions, (err) ->
     return res.json 500, {err} if err
-    return res.json helpers.derbyUserToAPI(user)
+    res.json helpers.derbyUserToAPI(user)
     console.log "Reply sent"
 
