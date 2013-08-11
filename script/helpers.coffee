@@ -112,6 +112,7 @@ module.exports =
     Angular sets object properties directly - in which case, this function will be used.
   ###
   dotSet: (path, val, obj) ->
+    return if ~path.indexOf('undefined')
     arr = path.split('.')
     _.reduce arr, (curr, next, index) ->
       if (arr.length - 1) == index
@@ -119,7 +120,9 @@ module.exports =
       curr[next]
     , obj
 
-  dotGet: (path, obj) -> _.reduce path.split('.'), ((curr, next) -> curr[next]), obj
+  dotGet: (path, obj) ->
+    return undefined if ~path.indexOf('undefined')
+    _.reduce path.split('.'), ((curr, next) -> curr[next]), obj
 
   daysBetween: daysBetween
 
@@ -361,7 +364,7 @@ module.exports =
       local ops, because the var-by-reference lets us edit the original tasks
   ###
   derbyUserToAPI: (userScope, keepTasks=true) ->
-    uObj = @hydrate userScope.get()
+    uObj = userScope.get()
     _.each ['habit','daily','todo','reward'], (type) ->
       # we use _.transform instead of a simple _.where in order to maintain sort-order
       uObj["#{type}s"] = _.transform uObj["#{type}Ids"], (result, tid) -> result.push(uObj.tasks[tid])
