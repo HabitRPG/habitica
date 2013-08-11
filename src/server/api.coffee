@@ -366,7 +366,8 @@ api.batchUpdate = (req, res, next) ->
         api.validateTask req, res, ->
           api.createTask(req, res, cb)
       when "delTask"
-        api.deleteTask(req, res, cb)
+        api.validateTask req, res, ->
+          api.deleteTask(req, res, cb)
       when "set"
         api.updateUser(req, res, cb)
       when "revive"
