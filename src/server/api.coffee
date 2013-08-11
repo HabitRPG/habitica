@@ -315,7 +315,7 @@ api.updateUser = (req, res, next) ->
 
   # FIXME - one-by-one we want to widdle down this list, instead replacing each needed set path with API operations
   # Note: custom is for 3rd party apps
-  acceptableAttrs = 'achievements filters flags invitations items lastCron party preferences profile stats tags custom'.split(' ')
+  acceptableAttrs = 'tasks achievements filters flags invitations items lastCron party preferences profile stats tags custom'.split(' ')
   series = []
   _.each req.body, (v, k) ->
     if (_.find acceptableAttrs, (attr)-> k.indexOf(attr) is 0)?
