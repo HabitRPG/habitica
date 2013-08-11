@@ -334,3 +334,37 @@ module.exports =
   itemStat: (type, item=0) ->
     i = items.getItem(type, item)
     if type is 'weapon' then i.strength else i.defense
+
+
+  ###
+  ----------------------------------------------------------------------
+  Derby-specific helpers. Will remove after the rewrite, need them here for now
+  ----------------------------------------------------------------------
+  ###
+
+  ###
+  Make sure model.get() returns all properties, see https://github.com/codeparty/racer/issues/116
+  ###
+  hydrate: (spec) ->
+    if _.isObject(spec) and !_.isArray(spec)
+      hydrated = {}
+      keys = _.keys(spec).concat(_.keys(spec.__proto__))
+      _.each keys, (k) => hydrated[k] = @hydrate(spec[k])
+      hydrated
+    else spec
+  ###
+    Derby stores the user schema a bit different than other apps prefer. The biggest difference is it stores
+    tasks as "refLists" - user[taskType + "Ids"] & user.tasks - where 3rd party apps prefer user[taskType + "s"] (array)
+    This function transforms the derby-stored data into 3rd-party consumable data
+    {userScope} the user racer-model scope, NOT an object
+    {withoutTasks} true if you don't want to return the user.tasks obj & id-lists. We keep them around when doing
+      local ops, because the var-by-reference lets us edit the original tasks
+  ###
+  derbyUserToAPI: (userScope, keepTasks=true) ->
+    uObj = @hydrate userScope.get()
+    _.each ['habit','daily','todo','reward'], (type) ->
+      # we use _.transform instead of a simple _.where in order to maintain sort-order
+      uObj["#{type}s"] = _.transform uObj["#{type}Ids"], (result, tid) -> result.push(uObj.tasks[tid])
+      delete uObj["#{type}Ids"] unless keepTasks
+    delete uObj.tasks unless keepTasks
+    uObj
