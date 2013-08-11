@@ -12,12 +12,12 @@ module.exports.batchTxn = batchTxn = (model, cb, options) ->
   paths = {}
   model._dontPersist = true
   ret = cb uObj, paths, batch
-  _.each paths, (v,k) -> user.pass({cron:options?.cron}).set(k,helpers.dotGet(k, uObj));true
+  _.each paths, (v,k) -> user.pass({cron:options?.cron}).set(k,batch.get(k));true
   model._dontPersist = false
   # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
   # pass true if we have levelled to supress xp notification
   unless _.isEmpty paths
-    setOps = _.reduce paths, ((m,v,k)-> m[k] = helpers.dotGet(k,uObj);m), {}
+    setOps = _.reduce paths, ((m,v,k)-> m[k] = batch.get(k);m), {}
     user.set "update__", setOps, options?.done
   else options?.done?()
   ret
