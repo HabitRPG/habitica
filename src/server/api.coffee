@@ -382,6 +382,6 @@ api.batchUpdate = (req, res, next) ->
 
   # call all the operations, then return the user object to the requester
   async.series actions, (err) ->
-    return res.send 500, {err} if err
+    return res.json 500, {err} if err
     res.json 200, helpers.derbyUserToAPI(user)
     console.log "Reply sent"
