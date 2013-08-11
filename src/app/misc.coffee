@@ -5,7 +5,7 @@ helpers = require('habitrpg-shared/script/helpers')
 
 module.exports.batchTxn = batchTxn = (model, cb, options) ->
   user = options?.user or model.at("_user")
-  uObj = hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
+  uObj = helpers.hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
   batch =
     set: (k,v) -> helpers.dotSet(k,v,uObj); paths[k] = true
     get: (k) -> helpers.dotGet(k,uObj)
@@ -86,18 +86,6 @@ module.exports.score = (model, taskId, direction, allowUndo=false) ->
       $('#item-dropped-modal').modal 'show'
 
   delta
-
-###
-  Make sure model.get() returns all properties, see https://github.com/codeparty/racer/issues/116
-###
-module.exports.hydrate = hydrate = (spec) ->
-  if _.isObject(spec) and !_.isArray(spec)
-    hydrated = {}
-    keys = _.keys(spec).concat(_.keys(spec.__proto__))
-    keys.forEach (k) -> hydrated[k] = hydrate(spec[k])
-    hydrated
-  else spec
-
 
 ###
   Cleanup task-corruption (null tasks, rogue/invisible tasks, etc)
