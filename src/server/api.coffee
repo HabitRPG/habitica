@@ -63,8 +63,8 @@ score = (model, user, taskId, direction, done) ->
   misc.batchTxn model, (uObj, paths) ->
     tObj = uObj.tasks[taskId]
     delta = algos.score(uObj, tObj, direction, {paths})
-  , {user, done}
-  #, {user, done, hydrate: false}
+  #, {user, done}
+  , {user, done, hydrate: false}
   delta
 
 ###
@@ -326,7 +326,7 @@ api.cron = (req, res, next) ->
   misc.batchTxn req.getModel(), (uObj, paths) ->
     uObj = helpers.derbyUserToAPI(user)
     algos.cron uObj, {paths}
-  , {user, done:next, cron:true}
+  , {user, done:next, cron:true, hydrate: false}
 
 api.revive = (req, res, next) ->
   {user} = req.habit
