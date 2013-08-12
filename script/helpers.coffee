@@ -352,7 +352,7 @@ module.exports =
     if _.isObject(spec) and !_.isArray(spec)
       hydrated = {}
       keys = _.keys(spec).concat(_.keys(spec.__proto__))
-      _.each keys, (k) => hydrated[k] = @hydrate(spec[k])
+      keys.forEach (k) => hydrated[k] = @hydrate(spec[k])
       hydrated
     else spec
   ###
