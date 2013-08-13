@@ -353,8 +353,6 @@ api.batchUpdate = (req, res, next) ->
     req.body = action.data
 
     switch action.op
-      when "cron"
-        api.cron(req, res, cb)
       when "score"
         api.scoreTask(req, res, cb)
       when "sortTask"
@@ -372,8 +370,7 @@ api.batchUpdate = (req, res, next) ->
       else cb()
 
   # Setup the array of functions we're going to call in parallel with async
-  actions = [{op: 'cron'}].concat(_.cloneDeep(req.body) ? []) # Start with cron
-  actions = _.transform (actions), (result, action) ->
+  actions = _.transform (req.body ? []), (result, action) ->
     unless _.isEmpty(action)
       result.push (cb) -> performAction(action, cb)
 

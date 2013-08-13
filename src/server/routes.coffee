@@ -12,7 +12,7 @@ api = require './api'
   $ mocha test/api.mocha.coffee
 ###
 
-{auth, validateTask} = api
+{auth, validateTask, cron} = api
 
 ###
   We don't want the api functions to actually res.send results (unless there was an error)
@@ -29,23 +29,24 @@ v1Send = (req, res, next) ->
 router.get '/status', (req, res) -> res.json status: 'up'
 
 # Scoring
-router.post '/user/task/:id/:direction', auth, api.scoreTask, v1Send
-router.post '/user/tasks/:id/:direction', auth, api.scoreTask, v1Send
+router.post '/user/task/:id/:direction',  auth, cron, api.scoreTask, v1Send
+router.post '/user/tasks/:id/:direction', auth, cron, api.scoreTask, v1Send
 
 # Tasks
-router.get '/user/tasks', auth, api.getTasks, v1Send # plural
-router.get '/user/task/:id', auth, api.getTask, v1Send
-router.put '/user/task/:id', auth, validateTask, api.updateTask, v1Send
-router.post '/user/tasks', auth, api.updateTasks, v1Send # plural
-router.delete '/user/task/:id', auth, validateTask, api.deleteTask, v1Send
-router.post '/user/task', auth, validateTask, api.createTask, v1Send
-router.put '/user/task/:id/sort', auth, validateTask, api.sortTask, v1Send
+router.get '/user/tasks',                 auth, cron, api.getTasks, v1Send # plural
+router.get '/user/task/:id',              auth, cron, api.getTask, v1Send
+router.put '/user/task/:id',              auth, cron, validateTask, api.updateTask, v1Send
+router.post '/user/tasks',                auth, cron, api.updateTasks, v1Send # plural
+router.delete '/user/task/:id',           auth, cron, validateTask, api.deleteTask, v1Send
+router.post '/user/task',                 auth, cron, validateTask, api.createTask, v1Send
+router.put '/user/task/:id/sort',         auth, cron, validateTask, api.sortTask, v1Send
 
 # User
-router.get '/user', auth, api.getUser, v1Send
-router.post '/user/auth/local', api.loginLocal, v1Send
-router.post '/user/auth/facebook', api.loginFacebook, v1Send
-router.put '/user', auth, api.updateUser, v1Send
-router.post '/user/batch-update', auth, api.batchUpdate # this one we're handling specially
+router.get '/user',                       auth, cron, api.getUser, v1Send
+router.post '/user/auth/local',           api.loginLocal, v1Send
+router.post '/user/auth/facebook',        api.loginFacebook, v1Send
+router.put '/user',                       auth, cron, api.updateUser, v1Send
+router.post '/user/revive',               auth, cron, api.revive, v1Send
+router.post '/user/batch-update',         auth, cron, api.batchUpdate # this one we're handling specially
 
 module.exports = router
