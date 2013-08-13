@@ -74,21 +74,26 @@ _.each ['weapon', 'armor', 'head', 'shield'], (key) ->
 _.each items.pets, (pet) -> pet.notes = 'Find a hatching potion to pour on this egg, and it will hatch into a loyal pet.'
 _.each items.hatchingPotions, (hatchingPotion) -> hatchingPotion.notes = "Pour this on an egg, and it will hatch as a #{hatchingPotion.text} pet."
 
-module.exports.buyItem = (user, type, value, index) ->
-  return false if user.stats.gp < value
-  changes = {}
-  switch type
-    when 'weapon' then changes['items.weapon'] = index
-    when 'armor' then changes['items.armor'] = index
-    when 'head' then changes['items.head'] = index
-    when 'shield' then changes['items.shield'] = index
-    when 'potion'
-      hp = user.stats.hp
-      hp += 15; hp = 50 if hp > 50
-      changes['stats.hp'] = hp
-  changes['stats.gp'] = user.stats.gp - value
-  #_.each changes, (v,k) -> helpers.pathSet(k,v,user) # @yangit uncomment this i
-  return changes
+module.exports.buyItem = (user, type, options={}) ->
+  _.defaults options, {paths: {}}
+
+  nextItem =
+    if type is 'potion' then items.potion
+    else
+      i = (user.items[type] or 0) + 1
+      module.exports.getItem type, i
+
+  return false if user.stats.gp < nextItem.value
+  if nextItem.type is 'potion'
+    user.stats.hp += 15;
+    user.stats.hp = 50 if user.stats.hp > 50
+    options.paths['stats.hp'] = true
+  else
+    user.items[type] = nextItem.index
+    options.paths["items.#{type}"] = true
+  user.stats.gp -= nextItem.value
+  options.paths['stats.gp'] = true
+  true
 
 ###
   update store
