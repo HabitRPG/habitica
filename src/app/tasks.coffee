@@ -101,7 +101,7 @@ module.exports.app = (appExports, model) ->
     the above function doesn't work so we need a listener here
   ###
   user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
-    return if passed?.cron # Don't do this stuff on cron
+    return if !isLocal or passed?.cron # Don't do this stuff on cron
     direction = if completed then 'up' else 'down'
     misc.score(model, i, direction, true)
 
