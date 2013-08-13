@@ -73,8 +73,6 @@ score = (model, user, taskId, direction, done) ->
 ###
 api.scoreTask = (req, res, next) ->
   {id, direction} = req.params
-  {title, service, type} = req.body
-  type ||= 'habit'
 
   # Send error responses for improper API call
   return res.json 500, {err: ':id required'} unless id
@@ -97,12 +95,14 @@ api.scoreTask = (req, res, next) ->
 
   # If it doesn't exist, this is likely a 3rd party up/down - create a new one
   else
-    task = {id, type, value: 0}
-    task.text = title or id
-    task.notes = "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
+    task =
+      id: id
+      value: 0
+      type: req.body?.type or 'habit'
+      text: req.body?.title or id
+      notes: "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
     if type is 'habit'
-      task.up = true
-      task.down = true
+      task.up = task.down = true
     if type in ['daily', 'todo']
       task.completed = direction is 'up'
     addTask user, task, done
