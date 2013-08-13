@@ -423,7 +423,1217 @@ try {
 }).call(this);
 
 
-},{"lodash":5}],5:[function(require,module,exports){
+},{"lodash":5}],6:[function(require,module,exports){
+// shim for using process in browser
+
+var process = module.exports = {};
+
+process.nextTick = (function () {
+    var canSetImmediate = typeof window !== 'undefined'
+    && window.setImmediate;
+    var canPost = typeof window !== 'undefined'
+    && window.postMessage && window.addEventListener
+    ;
+
+    if (canSetImmediate) {
+        return function (f) { return window.setImmediate(f) };
+    }
+
+    if (canPost) {
+        var queue = [];
+        window.addEventListener('message', function (ev) {
+            if (ev.source === window && ev.data === 'process-tick') {
+                ev.stopPropagation();
+                if (queue.length > 0) {
+                    var fn = queue.shift();
+                    fn();
+                }
+            }
+        }, true);
+
+        return function nextTick(fn) {
+            queue.push(fn);
+            window.postMessage('process-tick', '*');
+        };
+    }
+
+    return function nextTick(fn) {
+        setTimeout(fn, 0);
+    };
+})();
+
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+}
+
+// TODO(shtylman)
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+
+},{}],4:[function(require,module,exports){
+(function(process){(function() {
+  var dayMapping, daysBetween, items, moment, shouldDo, sod, uuid, _;
+
+  moment = require('moment');
+
+  _ = require('lodash');
+
+  items = require('./items.coffee');
+
+  sod = function(timestamp, dayStart) {
+    if (dayStart == null) {
+      dayStart = 0;
+    }
+    if (!((dayStart = +dayStart) && ((0 <= dayStart && dayStart <= 24)))) {
+      dayStart = 0;
+    }
+    return moment(timestamp).startOf('day').add('h', dayStart);
+  };
+
+  dayMapping = {
+    0: 'su',
+    1: 'm',
+    2: 't',
+    3: 'w',
+    4: 'th',
+    5: 'f',
+    6: 's'
+  };
+
+  /*
+    Absolute diff between two dates
+  */
+
+
+  daysBetween = function(yesterday, now, dayStart) {
+    return Math.abs(sod(yesterday, dayStart).diff(now, 'days'));
+  };
+
+  /*
+    Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
+  */
+
+
+  shouldDo = function(day, repeat, options) {
+    var dayStart, now, selected, yesterday, _ref;
+    if (options == null) {
+      options = {};
+    }
+    if (!repeat) {
+      return false;
+    }
+    _ref = [options.dayStart || 0, options.now || +(new Date)], dayStart = _ref[0], now = _ref[1];
+    selected = repeat[dayMapping[sod(day, dayStart).day()]];
+    if (!moment(day).isSame(now, 'd')) {
+      return selected;
+    }
+    if (dayStart <= moment(now).hour()) {
+      return selected;
+    } else {
+      yesterday = moment(now).subtract(1, 'd').day();
+      return repeat[dayMapping[yesterday]];
+    }
+  };
+
+  uuid = function() {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+      var r, v;
+      r = Math.random() * 16 | 0;
+      v = (c === "x" ? r : r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  };
+
+  module.exports = {
+    uuid: uuid,
+    newUser: function(isDerby) {
+      var defaultTags, defaultTasks, guid, newUser, repeat, tag, task, userSchema, _i, _j, _len, _len1;
+      if (isDerby == null) {
+        isDerby = false;
+      }
+      userSchema = {
+        stats: {
+          gp: 0,
+          exp: 0,
+          lvl: 1,
+          hp: 50
+        },
+        invitations: {
+          party: null,
+          guilds: []
+        },
+        items: {
+          weapon: 0,
+          armor: 0,
+          head: 0,
+          shield: 0
+        },
+        preferences: {
+          gender: 'm',
+          skin: 'white',
+          hair: 'blond',
+          armorSet: 'v1',
+          dayStart: 0,
+          showHelm: true
+        },
+        apiToken: uuid(),
+        lastCron: 'new',
+        balance: 0,
+        flags: {
+          partyEnabled: false,
+          itemsEnabled: false,
+          ads: 'show'
+        },
+        tags: []
+      };
+      if (isDerby) {
+        userSchema.habitIds = [];
+        userSchema.dailyIds = [];
+        userSchema.todoIds = [];
+        userSchema.rewardIds = [];
+        userSchema.tasks = {};
+      } else {
+        userSchema.habits = [];
+        userSchema.dailys = [];
+        userSchema.todos = [];
+        userSchema.rewards = [];
+      }
+      newUser = _.cloneDeep(userSchema);
+      repeat = {
+        m: true,
+        t: true,
+        w: true,
+        th: true,
+        f: true,
+        s: true,
+        su: true
+      };
+      defaultTasks = [
+        {
+          type: 'habit',
+          text: '1h Productive Work',
+          notes: '-- Habits: Constantly Track --\nFor some habits, it only makes sense to *gain* points (like this one).',
+          value: 0,
+          up: true,
+          down: false
+        }, {
+          type: 'habit',
+          text: 'Eat Junk Food',
+          notes: 'For others, it only makes sense to *lose* points',
+          value: 0,
+          up: false,
+          down: true
+        }, {
+          type: 'habit',
+          text: 'Take The Stairs',
+          notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose)',
+          value: 0,
+          up: true,
+          down: true
+        }, {
+          type: 'daily',
+          text: '1h Personal Project',
+          notes: '-- Dailies: Complete Once a Day --\nAt the end of each day, non-completed Dailies dock you points.',
+          value: 0,
+          completed: false,
+          repeat: repeat
+        }, {
+          type: 'daily',
+          text: 'Exercise',
+          notes: "If you are doing well, they turn green and are less valuable (experience, gold) and less damaging (HP). This means you can ease up on them for a bit.",
+          value: 3,
+          completed: false,
+          repeat: repeat
+        }, {
+          type: 'daily',
+          text: '45m Reading',
+          notes: 'But if you are doing poorly, they turn red. The worse you do, the more valuable (exp, gold) and more damaging (HP) these goals become. This encourages you to focus on your shortcomings, the reds.',
+          value: -10,
+          completed: false,
+          repeat: repeat
+        }, {
+          type: 'todo',
+          text: 'Call Mom',
+          notes: "-- Todos: Complete Eventually --\nNon-completed Todos won't hurt you, but they will become more valuable over time. This will encourage you to wrap up stale Todos.",
+          value: -3,
+          completed: false
+        }, {
+          type: 'reward',
+          text: '1 Episode of Game of Thrones',
+          notes: '-- Rewards: Treat Yourself! --\nAs you complete goals, you earn gold to buy rewards. Buy them liberally - rewards are integral in forming good habits.',
+          value: 20
+        }, {
+          type: 'reward',
+          text: 'Cake',
+          notes: 'But only buy if you have enough gold - you lose HP otherwise.',
+          value: 10
+        }
+      ];
+      defaultTags = [
+        {
+          name: 'morning'
+        }, {
+          name: 'afternoon'
+        }, {
+          name: 'evening'
+        }
+      ];
+      for (_i = 0, _len = defaultTasks.length; _i < _len; _i++) {
+        task = defaultTasks[_i];
+        guid = task.id = uuid();
+        if (isDerby) {
+          newUser.tasks[guid] = task;
+          newUser["" + task.type + "Ids"].push(guid);
+        } else {
+          newUser["" + task.type + "s"].push(task);
+        }
+      }
+      for (_j = 0, _len1 = defaultTags.length; _j < _len1; _j++) {
+        tag = defaultTags[_j];
+        tag.id = uuid();
+        newUser.tags.push(tag);
+      }
+      return newUser;
+    },
+    /*
+      This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
+      user.stats.hp = 50. This is useful because in our habitrpg-shared functions we're returning changesets as {path:value},
+      so that different consumers can implement setters their own way. Derby needs model.set(path, value) for example, where
+      Angular sets object properties directly - in which case, this function will be used.
+    */
+
+    dotSet: function(path, val, obj) {
+      var arr;
+      if (~path.indexOf('undefined')) {
+        return;
+      }
+      arr = path.split('.');
+      return _.reduce(arr, function(curr, next, index) {
+        if ((arr.length - 1) === index) {
+          curr[next] = val;
+        }
+        return curr[next];
+      }, obj);
+    },
+    dotGet: function(path, obj) {
+      if (~path.indexOf('undefined')) {
+        return void 0;
+      }
+      return _.reduce(path.split('.'), (function(curr, next) {
+        return curr[next];
+      }), obj);
+    },
+    daysBetween: daysBetween,
+    shouldDo: shouldDo,
+    /*
+      Get a random property from an object
+      http://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
+      returns random property (the value)
+    */
+
+    randomVal: function(obj) {
+      var count, key, result, val;
+      result = void 0;
+      count = 0;
+      for (key in obj) {
+        val = obj[key];
+        if (Math.random() < (1 / ++count)) {
+          result = val;
+        }
+      }
+      return result;
+    },
+    /*
+      Remove whitespace #FIXME are we using this anywwhere? Should we be?
+    */
+
+    removeWhitespace: function(str) {
+      if (!str) {
+        return '';
+      }
+      return str.replace(/\s/g, '');
+    },
+    /*
+      Generate the username, since it can be one of many things: their username, their facebook fullname, their manually-set profile name
+    */
+
+    username: function(auth, override) {
+      var fb, _ref;
+      if (override) {
+        return override;
+      }
+      if ((auth != null ? (_ref = auth.facebook) != null ? _ref.displayName : void 0 : void 0) != null) {
+        return auth.facebook.displayName;
+      } else if ((auth != null ? auth.facebook : void 0) != null) {
+        fb = auth.facebook;
+        if (fb._raw) {
+          return "" + fb.name.givenName + " " + fb.name.familyName;
+        } else {
+          return fb.name;
+        }
+      } else if ((auth != null ? auth.local : void 0) != null) {
+        return auth.local.username;
+      } else {
+        return 'Anonymous';
+      }
+    },
+    /*
+      Encode the download link for .ics iCal file
+    */
+
+    encodeiCalLink: function(uid, apiToken) {
+      var loc, _ref;
+      loc = (typeof window !== "undefined" && window !== null ? window.location.host : void 0) || (typeof process !== "undefined" && process !== null ? (_ref = process.env) != null ? _ref.BASE_URL : void 0 : void 0) || '';
+      return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
+    },
+    /*
+      User's currently equiped item
+    */
+
+    equipped: function(type, item, preferences, backerTier) {
+      var armorSet, gender;
+      if (item == null) {
+        item = 0;
+      }
+      if (preferences == null) {
+        preferences = {
+          gender: 'm',
+          armorSet: 'v1'
+        };
+      }
+      if (backerTier == null) {
+        backerTier = 0;
+      }
+      gender = preferences.gender, armorSet = preferences.armorSet;
+      item = ~~item;
+      backerTier = ~~backerTier;
+      switch (type) {
+        case 'armor':
+          if (item > 5) {
+            if (backerTier >= 45) {
+              return 'armor_6';
+            }
+            item = 5;
+          }
+          if (gender === 'f') {
+            if (item === 0) {
+              return "f_armor_" + item + "_" + armorSet;
+            } else {
+              return "f_armor_" + item;
+            }
+          } else {
+            return "m_armor_" + item;
+          }
+          break;
+        case 'head':
+          if (item > 5) {
+            if (backerTier >= 45) {
+              return 'head_6';
+            }
+            item = 5;
+          }
+          if (gender === 'f') {
+            if (item > 1) {
+              return "f_head_" + item + "_" + armorSet;
+            } else {
+              return "f_head_" + item;
+            }
+          } else {
+            return "m_head_" + item;
+          }
+          break;
+        case 'shield':
+          if (item > 5) {
+            if (backerTier >= 45) {
+              return 'shield_6';
+            }
+            item = 5;
+          }
+          return "" + preferences.gender + "_shield_" + item;
+        case 'weapon':
+          if (item > 6) {
+            if (backerTier >= 70) {
+              return 'weapon_7';
+            }
+            item = 6;
+          }
+          return "" + preferences.gender + "_weapon_" + item;
+      }
+    },
+    /*
+      Gold amount from their money
+    */
+
+    gold: function(num) {
+      if (num) {
+        return num.toFixed(1).split('.')[0];
+      } else {
+        return "0";
+      }
+    },
+    /*
+      Silver amount from their money
+    */
+
+    silver: function(num) {
+      if (num) {
+        return num.toFixed(2).split('.')[1];
+      } else {
+        return "00";
+      }
+    },
+    /*
+      Task classes given everything about the class
+    */
+
+    taskClasses: function(task, filters, dayStart, lastCron, showCompleted, main) {
+      var classes, completed, enabled, filter, repeat, type, value, _ref;
+      if (showCompleted == null) {
+        showCompleted = false;
+      }
+      if (!task) {
+        return;
+      }
+      type = task.type, completed = task.completed, value = task.value, repeat = task.repeat;
+      if ((type === 'todo') && (completed !== showCompleted)) {
+        return 'hidden';
+      }
+      if (main) {
+        for (filter in filters) {
+          enabled = filters[filter];
+          if (enabled && !((_ref = task.tags) != null ? _ref[filter] : void 0)) {
+            return 'hidden';
+          }
+        }
+      }
+      classes = type;
+      if (type === 'todo' || type === 'daily') {
+        if (completed || (type === 'daily' && !shouldDo(+(new Date), task.repeat, {
+          dayStart: dayStart
+        }))) {
+          classes += " completed";
+        } else {
+          classes += " uncompleted";
+        }
+      } else if (type === 'habit') {
+        if (task.down && task.up) {
+          classes += ' habit-wide';
+        }
+      }
+      if (value < -20) {
+        classes += ' color-worst';
+      } else if (value < -10) {
+        classes += ' color-worse';
+      } else if (value < -1) {
+        classes += ' color-bad';
+      } else if (value < 1) {
+        classes += ' color-neutral';
+      } else if (value < 5) {
+        classes += ' color-good';
+      } else if (value < 10) {
+        classes += ' color-better';
+      } else {
+        classes += ' color-best';
+      }
+      return classes;
+    },
+    /*
+      Does the user own this pet?
+    */
+
+    ownsPet: function(pet, userPets) {
+      return _.isArray(userPets) && userPets.indexOf(pet) !== -1;
+    },
+    /*
+      Friendly timestamp
+    */
+
+    friendlyTimestamp: function(timestamp) {
+      return moment(timestamp).format('MM/DD h:mm:ss a');
+    },
+    /*
+      Does user have new chat messages?
+    */
+
+    newChatMessages: function(messages, lastMessageSeen) {
+      if (!((messages != null ? messages.length : void 0) > 0)) {
+        return false;
+      }
+      return (messages != null ? messages[0] : void 0) && (messages[0].id !== lastMessageSeen);
+    },
+    /*
+      Relative Date
+    */
+
+    relativeDate: require('relative-date'),
+    /*
+      are any tags active?
+    */
+
+    noTags: function(tags) {
+      return _.isEmpty(tags) || _.isEmpty(_.filter(tags, function(t) {
+        return t;
+      }));
+    },
+    /*
+      Are there tags applied?
+    */
+
+    appliedTags: function(userTags, taskTags) {
+      var arr;
+      arr = [];
+      _.each(userTags, function(t) {
+        if (t == null) {
+          return;
+        }
+        if (taskTags != null ? taskTags[t.id] : void 0) {
+          return arr.push(t.name);
+        }
+      });
+      return arr.join(', ');
+    },
+    /*
+      User stats
+    */
+
+    userStr: function(level) {
+      return (level - 1) / 2;
+    },
+    totalStr: function(level, weapon) {
+      var str;
+      if (weapon == null) {
+        weapon = 0;
+      }
+      str = (level - 1) / 2;
+      return str + items.getItem('weapon', weapon).strength;
+    },
+    userDef: function(level) {
+      return (level - 1) / 2;
+    },
+    totalDef: function(level, armor, head, shield) {
+      var totalDef;
+      if (armor == null) {
+        armor = 0;
+      }
+      if (head == null) {
+        head = 0;
+      }
+      if (shield == null) {
+        shield = 0;
+      }
+      totalDef = (level - 1) / 2 + items.getItem('armor', armor).defense + items.getItem('head', head).defense + items.getItem('shield', shield).defense;
+      return totalDef;
+    },
+    itemText: function(type, item) {
+      if (item == null) {
+        item = 0;
+      }
+      return items.getItem(type, item).text;
+    },
+    itemStat: function(type, item) {
+      var i;
+      if (item == null) {
+        item = 0;
+      }
+      i = items.getItem(type, item);
+      if (type === 'weapon') {
+        return i.strength;
+      } else {
+        return i.defense;
+      }
+    },
+    /*
+    ----------------------------------------------------------------------
+    Derby-specific helpers. Will remove after the rewrite, need them here for now
+    ----------------------------------------------------------------------
+    */
+
+    /*
+    Make sure model.get() returns all properties, see https://github.com/codeparty/racer/issues/116
+    */
+
+    hydrate: function(spec) {
+      var hydrated, keys,
+        _this = this;
+      if (_.isObject(spec) && !_.isArray(spec)) {
+        hydrated = {};
+        keys = _.keys(spec).concat(_.keys(spec.__proto__));
+        keys.forEach(function(k) {
+          return hydrated[k] = _this.hydrate(spec[k]);
+        });
+        return hydrated;
+      } else {
+        return spec;
+      }
+    },
+    /*
+      Derby stores the user schema a bit different than other apps prefer. The biggest difference is it stores
+      tasks as "refLists" - user[taskType + "Ids"] & user.tasks - where 3rd party apps prefer user[taskType + "s"] (array)
+      This function transforms the derby-stored data into 3rd-party consumable data
+      {userScope} the user racer-model scope, NOT an object
+      {withoutTasks} true if you don't want to return the user.tasks obj & id-lists. We keep them around when doing
+        local ops, because the var-by-reference lets us edit the original tasks
+    */
+
+    derbyUserToAPI: function(user, options) {
+      var uObj;
+      if (options == null) {
+        options = {};
+      }
+      _.defaults(options, {
+        keepTasks: true,
+        asScope: true
+      });
+      uObj = options.asScope ? user.get() : user;
+      _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
+        uObj["" + type + "s"] = _.transform(uObj["" + type + "Ids"], function(result, tid) {
+          return result.push(uObj.tasks[tid]);
+        });
+        if (!options.keepTasks) {
+          return delete uObj["" + type + "Ids"];
+        }
+      });
+      if (!options.keepTasks) {
+        delete uObj.tasks;
+      }
+      return uObj;
+    }
+  };
+
+}).call(this);
+
+
+})(require("__browserify_process"))
+},{"./items.coffee":3,"lodash":5,"relative-date":7,"moment":8,"__browserify_process":6}],2:[function(require,module,exports){
+(function() {
+  var HP, XP, hatchingPotions, helpers, items, moment, obj, pets, randomDrop, updateStats, _, _ref,
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  moment = require('moment');
+
+  _ = require('lodash');
+
+  helpers = require('./helpers.coffee');
+
+  items = require('./items.coffee');
+
+  _ref = items.items, pets = _ref.pets, hatchingPotions = _ref.hatchingPotions;
+
+  XP = 15;
+
+  HP = 2;
+
+  obj = module.exports = {};
+
+  obj.revive = function(user, options) {
+    var candidate, loseThisItem, owned, paths;
+    if (options == null) {
+      options = {};
+    }
+    paths = options.paths || {};
+    user.stats.hp = 50;
+    user.stats.exp = 0;
+    user.stats.gp = 0;
+    if (user.stats.lvl > 1) {
+      user.stats.lvl--;
+    }
+    loseThisItem = false;
+    owned = user.items;
+    if (~~owned.armor > 0 || ~~owned.head > 0 || ~~owned.shield > 0 || ~~owned.weapon > 0) {
+      while (!loseThisItem) {
+        candidate = {
+          0: 'armor',
+          1: 'head',
+          2: 'shield',
+          3: 'weapon'
+        }[Math.random() * 4 | 0];
+        if (owned[candidate] > 0) {
+          loseThisItem = candidate;
+        }
+      }
+      user.items[loseThisItem] = 0;
+    }
+    return ("stats.hp stats.exp stats.gp stats.lvl items." + loseThisItem).split(' ').forEach(function(path) {
+      return paths[path] = 1;
+    });
+  };
+
+  obj.priorityValue = function(priority) {
+    if (priority == null) {
+      priority = '!';
+    }
+    switch (priority) {
+      case '!':
+        return 1;
+      case '!!':
+        return 1.5;
+      case '!!!':
+        return 2;
+      default:
+        return 1;
+    }
+  };
+
+  obj.tnl = function(level) {
+    var value;
+    if (level >= 100) {
+      value = 0;
+    } else {
+      value = Math.round(((Math.pow(level, 2) * 0.25) + (10 * level) + 139.75) / 10) * 10;
+    }
+    return value;
+  };
+
+  /*
+    Calculates Exp modificaiton based on level and weapon strength
+    {value} task.value for exp gain
+    {weaponStrength) weapon strength
+    {level} current user level
+    {priority} user-defined priority multiplier
+  */
+
+
+  obj.expModifier = function(value, weaponStr, level, priority) {
+    var exp, str, strMod, totalStr;
+    if (priority == null) {
+      priority = '!';
+    }
+    str = (level - 1) / 2;
+    totalStr = (str + weaponStr) / 100;
+    strMod = 1 + totalStr;
+    exp = value * XP * strMod * obj.priorityValue(priority);
+    return Math.round(exp);
+  };
+
+  /*
+    Calculates HP modification based on level and armor defence
+    {value} task.value for hp loss
+    {armorDefense} defense from armor
+    {helmDefense} defense from helm
+    {level} current user level
+    {priority} user-defined priority multiplier
+  */
+
+
+  obj.hpModifier = function(value, armorDef, helmDef, shieldDef, level, priority) {
+    var def, defMod, hp, totalDef;
+    if (priority == null) {
+      priority = '!';
+    }
+    def = (level - 1) / 2;
+    totalDef = (def + armorDef + helmDef + shieldDef) / 100;
+    defMod = 1 - totalDef;
+    hp = value * HP * defMod * obj.priorityValue(priority);
+    return Math.round(hp * 10) / 10;
+  };
+
+  /*
+    Future use
+    {priority} user-defined priority multiplier
+  */
+
+
+  obj.gpModifier = function(value, modifier, priority, streak, user) {
+    var afterStreak, streakBonus, val;
+    if (priority == null) {
+      priority = '!';
+    }
+    val = value * modifier * obj.priorityValue(priority);
+    if (streak && user) {
+      streakBonus = streak / 100 + 1;
+      afterStreak = val * streakBonus;
+      if (val > 0) {
+        (user._tmp != null ? user._tmp : user._tmp = {}).streakBonus = afterStreak - val;
+      }
+      return afterStreak;
+    } else {
+      return val;
+    }
+  };
+
+  /*
+    Calculates the next task.value based on direction
+    Uses a capped inverse log y=.95^x, y>= -5
+    {currentValue} the current value of the task
+    {direction} up or down
+  */
+
+
+  obj.taskDeltaFormula = function(currentValue, direction) {
+    var delta;
+    if (currentValue < -47.27) {
+      currentValue = -47.27;
+    } else if (currentValue > 21.27) {
+      currentValue = 21.27;
+    }
+    delta = Math.pow(0.9747, currentValue);
+    if (direction === 'up') {
+      return delta;
+    }
+    return -delta;
+  };
+
+  /*
+    Drop System
+  */
+
+
+  randomDrop = function(user, delta, priority, streak, options) {
+    var acceptableDrops, chanceMultiplier, drop, paths, rarity, reachedDropLimit, _base, _base1, _base2, _ref1;
+    if (streak == null) {
+      streak = 0;
+    }
+    if (options == null) {
+      options = {};
+    }
+    paths = options.paths || {};
+    if ((_base = user.items).lastDrop == null) {
+      _base.lastDrop = {
+        date: +moment().subtract('d', 1),
+        count: 0
+      };
+    }
+    paths['items.lastDrop'] = true;
+    reachedDropLimit = (helpers.daysBetween(user.items.lastDrop.date, +(new Date)) === 0) && (user.items.lastDrop.count >= 2);
+    if (reachedDropLimit) {
+      return;
+    }
+    chanceMultiplier = Math.abs(delta);
+    chanceMultiplier *= obj.priorityValue(priority);
+    chanceMultiplier += streak;
+    if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && Math.random() < (.05 * chanceMultiplier)) {
+      rarity = Math.random();
+      if (rarity > .5) {
+        drop = helpers.randomVal(pets);
+        ((_base1 = user.items).eggs != null ? (_base1 = user.items).eggs : _base1.eggs = []).push(drop);
+        paths['items.eggs'] = true;
+        drop.type = 'Egg';
+        drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
+      } else {
+        acceptableDrops = [];
+        if (rarity < .1) {
+          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue', 'Golden'];
+        } else if (rarity < .2) {
+          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue'];
+        } else if (rarity < .3) {
+          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton'];
+        } else {
+          acceptableDrops = ['Base', 'White', 'Desert'];
+        }
+        acceptableDrops = hatchingPotions.filter(function(hatchingPotion) {
+          var _ref2;
+          return _ref2 = hatchingPotion.name, __indexOf.call(acceptableDrops, _ref2) >= 0;
+        });
+        drop = helpers.randomVal(acceptableDrops);
+        ((_base2 = user.items).hatchingPotions != null ? (_base2 = user.items).hatchingPotions : _base2.hatchingPotions = []).push(drop.name);
+        paths['items.hatchingPotions'] = true;
+        drop.type = 'HatchingPotion';
+        drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
+      }
+      (user._tmp != null ? user._tmp : user._tmp = {}).drop = drop;
+      user.items.lastDrop.date = +(new Date);
+      user.items.lastDrop.count++;
+      return paths['items.lastDrop'] = true;
+    }
+  };
+
+  obj.score = function(user, task, direction, options) {
+    var addPoints, calculateDelta, cron, delta, exp, gp, hp, lvl, num, paths, priority, streak, subtractPoints, times, type, value, _ref1, _ref2;
+    if (options == null) {
+      options = {};
+    }
+    _ref1 = user.stats, gp = _ref1.gp, hp = _ref1.hp, exp = _ref1.exp, lvl = _ref1.lvl;
+    type = task.type, value = task.value, streak = task.streak;
+    _ref2 = [options.paths || {}, options.times || 1, options.cron || false], paths = _ref2[0], times = _ref2[1], cron = _ref2[2];
+    priority = task.priority || '!';
+    if (task.value > user.stats.gp && task.type === 'reward') {
+      return;
+    }
+    delta = 0;
+    calculateDelta = function(adjustvalue) {
+      if (adjustvalue == null) {
+        adjustvalue = true;
+      }
+      return _.times(times, function() {
+        var nextDelta;
+        nextDelta = obj.taskDeltaFormula(value, direction);
+        if (adjustvalue) {
+          value += nextDelta;
+        }
+        return delta += nextDelta;
+      });
+    };
+    addPoints = function() {
+      var weaponStr;
+      weaponStr = items.getItem('weapon', user.items.weapon).strength;
+      exp += obj.expModifier(delta, weaponStr, user.stats.lvl, priority) / 2;
+      if (streak) {
+        return gp += obj.gpModifier(delta, 1, priority, streak, user);
+      } else {
+        return gp += obj.gpModifier(delta, 1, priority);
+      }
+    };
+    subtractPoints = function() {
+      var armorDef, headDef, shieldDef;
+      armorDef = items.getItem('armor', user.items.armor).defense;
+      headDef = items.getItem('head', user.items.head).defense;
+      shieldDef = items.getItem('shield', user.items.shield).defense;
+      return hp += obj.hpModifier(delta, armorDef, headDef, shieldDef, user.stats.lvl, priority);
+    };
+    switch (type) {
+      case 'habit':
+        calculateDelta();
+        if (delta > 0) {
+          addPoints();
+        } else {
+          subtractPoints();
+        }
+        if (task.value !== value) {
+          (task.history != null ? task.history : task.history = []).push({
+            date: +(new Date),
+            value: value
+          });
+          paths["tasks." + task.id + ".history"] = true;
+        }
+        break;
+      case 'daily':
+        if (cron) {
+          calculateDelta();
+          subtractPoints();
+          task.streak = 0;
+        } else {
+          calculateDelta();
+          addPoints();
+          if (direction === 'up') {
+            streak = streak ? streak + 1 : 1;
+          } else {
+            streak = streak ? streak - 1 : 0;
+          }
+          task.streak = streak;
+        }
+        paths["tasks." + task.id + ".streak"] = true;
+        break;
+      case 'todo':
+        if (cron) {
+          calculateDelta();
+        } else {
+          calculateDelta();
+          addPoints();
+        }
+        break;
+      case 'reward':
+        calculateDelta(false);
+        gp -= Math.abs(task.value);
+        num = parseFloat(task.value).toFixed(2);
+        if (gp < 0) {
+          hp += gp;
+          gp = 0;
+        }
+    }
+    task.value = value;
+    paths["tasks." + task.id + ".value"] = true;
+    updateStats(user, {
+      hp: hp,
+      exp: exp,
+      gp: gp
+    }, {
+      paths: paths
+    });
+    if (direction === 'up') {
+      randomDrop(user, delta, priority, streak, {
+        paths: paths
+      });
+    }
+    return delta;
+  };
+
+  /*
+    Updates user stats with new stats. Handles death, leveling up, etc
+    {stats} new stats
+    {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
+  */
+
+
+  updateStats = function(user, newStats, options) {
+    var gp, paths, tnl;
+    if (options == null) {
+      options = {};
+    }
+    paths = options.paths || {};
+    if (user.stats.hp <= 0) {
+      return;
+    }
+    if (newStats.hp != null) {
+      if (newStats.hp <= 0) {
+        user.stats.hp = 0;
+        paths['stats.hp'] = true;
+        return;
+      } else {
+        user.stats.hp = newStats.hp;
+        paths['stats.hp'] = true;
+      }
+    }
+    if (newStats.exp != null) {
+      tnl = obj.tnl(user.stats.lvl);
+      if (user.stats.lvl >= 100) {
+        newStats.gp += newStats.exp / 15;
+        newStats.exp = 0;
+        user.stats.lvl = 100;
+      } else {
+        if (newStats.exp >= tnl) {
+          user.stats.exp = newStats.exp;
+          while (newStats.exp >= tnl && user.stats.lvl < 100) {
+            newStats.exp -= tnl;
+            user.stats.lvl++;
+            tnl = obj.tnl(user.stats.lvl);
+          }
+          if (user.stats.lvl === 100) {
+            newStats.exp = 0;
+          }
+          user.stats.hp = 50;
+        }
+      }
+      user.stats.exp = newStats.exp;
+      paths["stats.exp"] = true;
+      paths['stats.lvl'] = true;
+      paths['stats.gp'] = true;
+      paths['stats.hp'] = true;
+      if (user.flags == null) {
+        user.flags = {};
+      }
+      if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
+        user.flags.customizationsNotification = true;
+        paths['flags.customizationsNotification'] = true;
+      }
+      if (!user.flags.itemsEnabled && user.stats.lvl >= 2) {
+        user.flags.itemsEnabled = true;
+        paths['flags.itemsEnabled'] = true;
+      }
+      if (!user.flags.partyEnabled && user.stats.lvl >= 3) {
+        user.flags.partyEnabled = true;
+        paths['flags.partyEnabled'] = true;
+      }
+      if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
+        user.flags.dropsEnabled = true;
+        paths['flags.dropsEnabled'] = true;
+      }
+    }
+    if (newStats.gp != null) {
+      if ((typeof gp === "undefined" || gp === null) || gp < 0) {
+        gp = 0.0;
+      }
+      return user.stats.gp = newStats.gp;
+    }
+  };
+
+  /*
+    At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
+    For incomplete Dailys, deduct experience
+    Make sure to run this function once in a while as server will not take care of overnight calculations.
+    And you have to run it every time client connects.
+    {user}
+  */
+
+
+  obj.cron = function(user, options) {
+    var daysMissed, expTally, lvl, now, paths, todoTally, _base, _base1, _ref1, _ref2;
+    if (options == null) {
+      options = {};
+    }
+    _ref1 = [options.paths || {}, +options.now || +(new Date)], paths = _ref1[0], now = _ref1[1];
+    if ((user.lastCron == null) || user.lastCron === 'new' || moment(user.lastCron).isAfter(now)) {
+      user.lastCron = now;
+      paths['lastCron'] = true;
+      return;
+    }
+    daysMissed = helpers.daysBetween(user.lastCron, now, (_ref2 = user.preferences) != null ? _ref2.dayStart : void 0);
+    if (!(daysMissed > 0)) {
+      return;
+    }
+    user.lastCron = now;
+    paths['lastCron'] = true;
+    if (user.flags.rest === true) {
+      return;
+    }
+    todoTally = 0;
+    user.todos.concat(user.dailys).forEach(function(task) {
+      var absVal, completed, id, repeat, scheduleMisses, type;
+      id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;
+      if (!completed) {
+        scheduleMisses = daysMissed;
+        if ((type === 'daily') && repeat) {
+          scheduleMisses = 0;
+          _.times(daysMissed, function(n) {
+            var thatDay, _ref3;
+            thatDay = moment(now).subtract('days', n + 1);
+            if (helpers.shouldDo(thatDay, repeat, {
+              dayStart: (_ref3 = obj.preferences) != null ? _ref3.dayStart : void 0
+            })) {
+              return scheduleMisses++;
+            }
+          });
+        }
+        if (scheduleMisses > 0) {
+          obj.score(user, task, 'down', {
+            times: scheduleMisses,
+            cron: true,
+            paths: paths
+          });
+        }
+      }
+      switch (type) {
+        case 'daily':
+          (task.history != null ? task.history : task.history = []).push({
+            date: +(new Date),
+            value: task.value
+          });
+          paths["tasks." + task.id + ".history"] = true;
+          task.completed = false;
+          return paths["tasks." + task.id + ".completed"] = true;
+        case 'todo':
+          absVal = completed ? Math.abs(task.value) : task.value;
+          return todoTally += absVal;
+      }
+    });
+    user.habits.forEach(function(task) {
+      if (task.up === false || task.down === false) {
+        if (Math.abs(task.value) < 0.1) {
+          task.value = 0;
+        } else {
+          task.value = task.value / 2;
+        }
+        return paths["tasks." + task.id + ".value"] = true;
+      }
+    });
+    ((_base = (user.history != null ? user.history : user.history = {})).todos != null ? (_base = (user.history != null ? user.history : user.history = {})).todos : _base.todos = []).push({
+      date: now,
+      value: todoTally
+    });
+    expTally = user.stats.exp;
+    lvl = 0;
+    while (lvl < (user.stats.lvl - 1)) {
+      lvl++;
+      expTally += obj.tnl(lvl);
+    }
+    ((_base1 = user.history).exp != null ? (_base1 = user.history).exp : _base1.exp = []).push({
+      date: now,
+      value: expTally
+    });
+    paths["history"] = true;
+    return user;
+  };
+
+}).call(this);
+
+
+},{"./items.coffee":3,"./helpers.coffee":4,"lodash":5,"moment":8}],5:[function(require,module,exports){
 (function(global){/**
  * @license
  * Lo-Dash 1.3.1 (Custom Build) <http://lodash.com/>
@@ -5981,1217 +7191,7 @@ try {
 }(this));
 
 })(window)
-},{}],2:[function(require,module,exports){
-(function() {
-  var HP, XP, hatchingPotions, helpers, items, moment, obj, pets, randomDrop, updateStats, _, _ref,
-    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-  moment = require('moment');
-
-  _ = require('lodash');
-
-  helpers = require('./helpers.coffee');
-
-  items = require('./items.coffee');
-
-  _ref = items.items, pets = _ref.pets, hatchingPotions = _ref.hatchingPotions;
-
-  XP = 15;
-
-  HP = 2;
-
-  obj = module.exports = {};
-
-  obj.revive = function(user, options) {
-    var candidate, loseThisItem, owned, paths;
-    if (options == null) {
-      options = {};
-    }
-    paths = options.paths || {};
-    user.stats.hp = 50;
-    user.stats.exp = 0;
-    user.stats.gp = 0;
-    if (user.stats.lvl > 1) {
-      user.stats.lvl--;
-    }
-    loseThisItem = false;
-    owned = user.items;
-    if (~~owned.armor > 0 || ~~owned.head > 0 || ~~owned.shield > 0 || ~~owned.weapon > 0) {
-      while (!loseThisItem) {
-        candidate = {
-          0: 'armor',
-          1: 'head',
-          2: 'shield',
-          3: 'weapon'
-        }[Math.random() * 4 | 0];
-        if (owned[candidate] > 0) {
-          loseThisItem = candidate;
-        }
-      }
-      user.items[loseThisItem] = 0;
-    }
-    return ("stats.hp stats.exp stats.gp stats.lvl items." + loseThisItem).split(' ').forEach(function(path) {
-      return paths[path] = 1;
-    });
-  };
-
-  obj.priorityValue = function(priority) {
-    if (priority == null) {
-      priority = '!';
-    }
-    switch (priority) {
-      case '!':
-        return 1;
-      case '!!':
-        return 1.5;
-      case '!!!':
-        return 2;
-      default:
-        return 1;
-    }
-  };
-
-  obj.tnl = function(level) {
-    var value;
-    if (level >= 100) {
-      value = 0;
-    } else {
-      value = Math.round(((Math.pow(level, 2) * 0.25) + (10 * level) + 139.75) / 10) * 10;
-    }
-    return value;
-  };
-
-  /*
-    Calculates Exp modificaiton based on level and weapon strength
-    {value} task.value for exp gain
-    {weaponStrength) weapon strength
-    {level} current user level
-    {priority} user-defined priority multiplier
-  */
-
-
-  obj.expModifier = function(value, weaponStr, level, priority) {
-    var exp, str, strMod, totalStr;
-    if (priority == null) {
-      priority = '!';
-    }
-    str = (level - 1) / 2;
-    totalStr = (str + weaponStr) / 100;
-    strMod = 1 + totalStr;
-    exp = value * XP * strMod * obj.priorityValue(priority);
-    return Math.round(exp);
-  };
-
-  /*
-    Calculates HP modification based on level and armor defence
-    {value} task.value for hp loss
-    {armorDefense} defense from armor
-    {helmDefense} defense from helm
-    {level} current user level
-    {priority} user-defined priority multiplier
-  */
-
-
-  obj.hpModifier = function(value, armorDef, helmDef, shieldDef, level, priority) {
-    var def, defMod, hp, totalDef;
-    if (priority == null) {
-      priority = '!';
-    }
-    def = (level - 1) / 2;
-    totalDef = (def + armorDef + helmDef + shieldDef) / 100;
-    defMod = 1 - totalDef;
-    hp = value * HP * defMod * obj.priorityValue(priority);
-    return Math.round(hp * 10) / 10;
-  };
-
-  /*
-    Future use
-    {priority} user-defined priority multiplier
-  */
-
-
-  obj.gpModifier = function(value, modifier, priority, streak, user) {
-    var afterStreak, streakBonus, val;
-    if (priority == null) {
-      priority = '!';
-    }
-    val = value * modifier * obj.priorityValue(priority);
-    if (streak && user) {
-      streakBonus = streak / 100 + 1;
-      afterStreak = val * streakBonus;
-      if (val > 0) {
-        (user._tmp != null ? user._tmp : user._tmp = {}).streakBonus = afterStreak - val;
-      }
-      return afterStreak;
-    } else {
-      return val;
-    }
-  };
-
-  /*
-    Calculates the next task.value based on direction
-    Uses a capped inverse log y=.95^x, y>= -5
-    {currentValue} the current value of the task
-    {direction} up or down
-  */
-
-
-  obj.taskDeltaFormula = function(currentValue, direction) {
-    var delta;
-    if (currentValue < -47.27) {
-      currentValue = -47.27;
-    } else if (currentValue > 21.27) {
-      currentValue = 21.27;
-    }
-    delta = Math.pow(0.9747, currentValue);
-    if (direction === 'up') {
-      return delta;
-    }
-    return -delta;
-  };
-
-  /*
-    Drop System
-  */
-
-
-  randomDrop = function(user, delta, priority, streak, options) {
-    var acceptableDrops, chanceMultiplier, drop, paths, rarity, reachedDropLimit, _base, _base1, _base2, _ref1;
-    if (streak == null) {
-      streak = 0;
-    }
-    if (options == null) {
-      options = {};
-    }
-    paths = options.paths || {};
-    if ((_base = user.items).lastDrop == null) {
-      _base.lastDrop = {
-        date: +moment().subtract('d', 1),
-        count: 0
-      };
-    }
-    paths['items.lastDrop'] = true;
-    reachedDropLimit = (helpers.daysBetween(user.items.lastDrop.date, +(new Date)) === 0) && (user.items.lastDrop.count >= 2);
-    if (reachedDropLimit) {
-      return;
-    }
-    chanceMultiplier = Math.abs(delta);
-    chanceMultiplier *= obj.priorityValue(priority);
-    chanceMultiplier += streak;
-    if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && Math.random() < (.05 * chanceMultiplier)) {
-      rarity = Math.random();
-      if (rarity > .5) {
-        drop = helpers.randomVal(pets);
-        ((_base1 = user.items).eggs != null ? (_base1 = user.items).eggs : _base1.eggs = []).push(drop);
-        paths['items.eggs'] = true;
-        drop.type = 'Egg';
-        drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
-      } else {
-        acceptableDrops = [];
-        if (rarity < .1) {
-          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue', 'Golden'];
-        } else if (rarity < .2) {
-          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue'];
-        } else if (rarity < .3) {
-          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton'];
-        } else {
-          acceptableDrops = ['Base', 'White', 'Desert'];
-        }
-        acceptableDrops = hatchingPotions.filter(function(hatchingPotion) {
-          var _ref2;
-          return _ref2 = hatchingPotion.name, __indexOf.call(acceptableDrops, _ref2) >= 0;
-        });
-        drop = helpers.randomVal(acceptableDrops);
-        ((_base2 = user.items).hatchingPotions != null ? (_base2 = user.items).hatchingPotions : _base2.hatchingPotions = []).push(drop.name);
-        paths['items.hatchingPotions'] = true;
-        drop.type = 'HatchingPotion';
-        drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
-      }
-      (user._tmp != null ? user._tmp : user._tmp = {}).drop = drop;
-      user.items.lastDrop.date = +(new Date);
-      user.items.lastDrop.count++;
-      return paths['items.lastDrop'] = true;
-    }
-  };
-
-  obj.score = function(user, task, direction, options) {
-    var addPoints, calculateDelta, cron, delta, exp, gp, hp, lvl, num, paths, priority, streak, subtractPoints, times, type, value, _ref1, _ref2;
-    if (options == null) {
-      options = {};
-    }
-    _ref1 = user.stats, gp = _ref1.gp, hp = _ref1.hp, exp = _ref1.exp, lvl = _ref1.lvl;
-    type = task.type, value = task.value, streak = task.streak;
-    _ref2 = [options.paths || {}, options.times || 1, options.cron || false], paths = _ref2[0], times = _ref2[1], cron = _ref2[2];
-    priority = task.priority || '!';
-    if (task.value > user.stats.gp && task.type === 'reward') {
-      return;
-    }
-    delta = 0;
-    calculateDelta = function(adjustvalue) {
-      if (adjustvalue == null) {
-        adjustvalue = true;
-      }
-      return _.times(times, function() {
-        var nextDelta;
-        nextDelta = obj.taskDeltaFormula(value, direction);
-        if (adjustvalue) {
-          value += nextDelta;
-        }
-        return delta += nextDelta;
-      });
-    };
-    addPoints = function() {
-      var weaponStr;
-      weaponStr = items.getItem('weapon', user.items.weapon).strength;
-      exp += obj.expModifier(delta, weaponStr, user.stats.lvl, priority) / 2;
-      if (streak) {
-        return gp += obj.gpModifier(delta, 1, priority, streak, user);
-      } else {
-        return gp += obj.gpModifier(delta, 1, priority);
-      }
-    };
-    subtractPoints = function() {
-      var armorDef, headDef, shieldDef;
-      armorDef = items.getItem('armor', user.items.armor).defense;
-      headDef = items.getItem('head', user.items.head).defense;
-      shieldDef = items.getItem('shield', user.items.shield).defense;
-      return hp += obj.hpModifier(delta, armorDef, headDef, shieldDef, user.stats.lvl, priority);
-    };
-    switch (type) {
-      case 'habit':
-        calculateDelta();
-        if (delta > 0) {
-          addPoints();
-        } else {
-          subtractPoints();
-        }
-        if (task.value !== value) {
-          (task.history != null ? task.history : task.history = []).push({
-            date: +(new Date),
-            value: value
-          });
-          paths["tasks." + task.id + ".history"] = true;
-        }
-        break;
-      case 'daily':
-        if (cron) {
-          calculateDelta();
-          subtractPoints();
-          task.streak = 0;
-        } else {
-          calculateDelta();
-          addPoints();
-          if (direction === 'up') {
-            streak = streak ? streak + 1 : 1;
-          } else {
-            streak = streak ? streak - 1 : 0;
-          }
-          task.streak = streak;
-        }
-        paths["tasks." + task.id + ".streak"] = true;
-        break;
-      case 'todo':
-        if (cron) {
-          calculateDelta();
-        } else {
-          calculateDelta();
-          addPoints();
-        }
-        break;
-      case 'reward':
-        calculateDelta(false);
-        gp -= Math.abs(task.value);
-        num = parseFloat(task.value).toFixed(2);
-        if (gp < 0) {
-          hp += gp;
-          gp = 0;
-        }
-    }
-    task.value = value;
-    paths["tasks." + task.id + ".value"] = true;
-    updateStats(user, {
-      hp: hp,
-      exp: exp,
-      gp: gp
-    }, {
-      paths: paths
-    });
-    if (direction === 'up') {
-      randomDrop(user, delta, priority, streak, {
-        paths: paths
-      });
-    }
-    return delta;
-  };
-
-  /*
-    Updates user stats with new stats. Handles death, leveling up, etc
-    {stats} new stats
-    {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
-  */
-
-
-  updateStats = function(user, newStats, options) {
-    var gp, paths, tnl;
-    if (options == null) {
-      options = {};
-    }
-    paths = options.paths || {};
-    if (user.stats.hp <= 0) {
-      return;
-    }
-    if (newStats.hp != null) {
-      if (newStats.hp <= 0) {
-        user.stats.hp = 0;
-        paths['stats.hp'] = true;
-        return;
-      } else {
-        user.stats.hp = newStats.hp;
-        paths['stats.hp'] = true;
-      }
-    }
-    if (newStats.exp != null) {
-      tnl = obj.tnl(user.stats.lvl);
-      if (user.stats.lvl >= 100) {
-        newStats.gp += newStats.exp / 15;
-        newStats.exp = 0;
-        user.stats.lvl = 100;
-      } else {
-        if (newStats.exp >= tnl) {
-          user.stats.exp = newStats.exp;
-          while (newStats.exp >= tnl && user.stats.lvl < 100) {
-            newStats.exp -= tnl;
-            user.stats.lvl++;
-            tnl = obj.tnl(user.stats.lvl);
-          }
-          if (user.stats.lvl === 100) {
-            newStats.exp = 0;
-          }
-          user.stats.hp = 50;
-        }
-      }
-      user.stats.exp = newStats.exp;
-      paths["stats.exp"] = true;
-      paths['stats.lvl'] = true;
-      paths['stats.gp'] = true;
-      paths['stats.hp'] = true;
-      if (user.flags == null) {
-        user.flags = {};
-      }
-      if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
-        user.flags.customizationsNotification = true;
-        paths['flags.customizationsNotification'] = true;
-      }
-      if (!user.flags.itemsEnabled && user.stats.lvl >= 2) {
-        user.flags.itemsEnabled = true;
-        paths['flags.itemsEnabled'] = true;
-      }
-      if (!user.flags.partyEnabled && user.stats.lvl >= 3) {
-        user.flags.partyEnabled = true;
-        paths['flags.partyEnabled'] = true;
-      }
-      if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
-        user.flags.dropsEnabled = true;
-        paths['flags.dropsEnabled'] = true;
-      }
-    }
-    if (newStats.gp != null) {
-      if ((typeof gp === "undefined" || gp === null) || gp < 0) {
-        gp = 0.0;
-      }
-      return user.stats.gp = newStats.gp;
-    }
-  };
-
-  /*
-    At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-    For incomplete Dailys, deduct experience
-    Make sure to run this function once in a while as server will not take care of overnight calculations.
-    And you have to run it every time client connects.
-    {user}
-  */
-
-
-  obj.cron = function(user, options) {
-    var daysMissed, expTally, lvl, now, paths, todoTally, _base, _base1, _ref1, _ref2;
-    if (options == null) {
-      options = {};
-    }
-    _ref1 = [options.paths || {}, +options.now || +(new Date)], paths = _ref1[0], now = _ref1[1];
-    if ((user.lastCron == null) || user.lastCron === 'new' || moment(user.lastCron).isAfter(now)) {
-      user.lastCron = now;
-      paths['lastCron'] = true;
-      return;
-    }
-    daysMissed = helpers.daysBetween(user.lastCron, now, (_ref2 = user.preferences) != null ? _ref2.dayStart : void 0);
-    if (!(daysMissed > 0)) {
-      return;
-    }
-    user.lastCron = now;
-    paths['lastCron'] = true;
-    if (user.flags.rest === true) {
-      return;
-    }
-    todoTally = 0;
-    user.todos.concat(user.dailys).forEach(function(task) {
-      var absVal, completed, id, repeat, scheduleMisses, type;
-      id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;
-      if (!completed) {
-        scheduleMisses = daysMissed;
-        if ((type === 'daily') && repeat) {
-          scheduleMisses = 0;
-          _.times(daysMissed, function(n) {
-            var thatDay, _ref3;
-            thatDay = moment(now).subtract('days', n + 1);
-            if (helpers.shouldDo(thatDay, repeat, {
-              dayStart: (_ref3 = obj.preferences) != null ? _ref3.dayStart : void 0
-            })) {
-              return scheduleMisses++;
-            }
-          });
-        }
-        if (scheduleMisses > 0) {
-          obj.score(user, task, 'down', {
-            times: scheduleMisses,
-            cron: true,
-            paths: paths
-          });
-        }
-      }
-      switch (type) {
-        case 'daily':
-          (task.history != null ? task.history : task.history = []).push({
-            date: +(new Date),
-            value: task.value
-          });
-          paths["tasks." + task.id + ".history"] = true;
-          task.completed = false;
-          return paths["tasks." + task.id + ".completed"] = true;
-        case 'todo':
-          absVal = completed ? Math.abs(task.value) : task.value;
-          return todoTally += absVal;
-      }
-    });
-    user.habits.forEach(function(task) {
-      if (task.up === false || task.down === false) {
-        if (Math.abs(task.value) < 0.1) {
-          task.value = 0;
-        } else {
-          task.value = task.value / 2;
-        }
-        return paths["tasks." + task.id + ".value"] = true;
-      }
-    });
-    ((_base = (user.history != null ? user.history : user.history = {})).todos != null ? (_base = (user.history != null ? user.history : user.history = {})).todos : _base.todos = []).push({
-      date: now,
-      value: todoTally
-    });
-    expTally = user.stats.exp;
-    lvl = 0;
-    while (lvl < (user.stats.lvl - 1)) {
-      lvl++;
-      expTally += obj.tnl(lvl);
-    }
-    ((_base1 = user.history).exp != null ? (_base1 = user.history).exp : _base1.exp = []).push({
-      date: now,
-      value: expTally
-    });
-    paths["history"] = true;
-    return user;
-  };
-
-}).call(this);
-
-
-},{"./helpers.coffee":4,"./items.coffee":3,"lodash":5,"moment":6}],7:[function(require,module,exports){
-// shim for using process in browser
-
-var process = module.exports = {};
-
-process.nextTick = (function () {
-    var canSetImmediate = typeof window !== 'undefined'
-    && window.setImmediate;
-    var canPost = typeof window !== 'undefined'
-    && window.postMessage && window.addEventListener
-    ;
-
-    if (canSetImmediate) {
-        return function (f) { return window.setImmediate(f) };
-    }
-
-    if (canPost) {
-        var queue = [];
-        window.addEventListener('message', function (ev) {
-            if (ev.source === window && ev.data === 'process-tick') {
-                ev.stopPropagation();
-                if (queue.length > 0) {
-                    var fn = queue.shift();
-                    fn();
-                }
-            }
-        }, true);
-
-        return function nextTick(fn) {
-            queue.push(fn);
-            window.postMessage('process-tick', '*');
-        };
-    }
-
-    return function nextTick(fn) {
-        setTimeout(fn, 0);
-    };
-})();
-
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-}
-
-// TODO(shtylman)
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-
-},{}],4:[function(require,module,exports){
-(function(process){(function() {
-  var dayMapping, daysBetween, items, moment, shouldDo, sod, uuid, _;
-
-  moment = require('moment');
-
-  _ = require('lodash');
-
-  items = require('./items.coffee');
-
-  sod = function(timestamp, dayStart) {
-    if (dayStart == null) {
-      dayStart = 0;
-    }
-    if (!((dayStart = +dayStart) && ((0 <= dayStart && dayStart <= 24)))) {
-      dayStart = 0;
-    }
-    return moment(timestamp).startOf('day').add('h', dayStart);
-  };
-
-  dayMapping = {
-    0: 'su',
-    1: 'm',
-    2: 't',
-    3: 'w',
-    4: 'th',
-    5: 'f',
-    6: 's'
-  };
-
-  /*
-    Absolute diff between two dates
-  */
-
-
-  daysBetween = function(yesterday, now, dayStart) {
-    return Math.abs(sod(yesterday, dayStart).diff(now, 'days'));
-  };
-
-  /*
-    Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
-  */
-
-
-  shouldDo = function(day, repeat, options) {
-    var dayStart, now, selected, yesterday, _ref;
-    if (options == null) {
-      options = {};
-    }
-    if (!repeat) {
-      return false;
-    }
-    _ref = [options.dayStart || 0, options.now || +(new Date)], dayStart = _ref[0], now = _ref[1];
-    selected = repeat[dayMapping[sod(day, dayStart).day()]];
-    if (!moment(day).isSame(now, 'd')) {
-      return selected;
-    }
-    if (dayStart <= moment(now).hour()) {
-      return selected;
-    } else {
-      yesterday = moment(now).subtract(1, 'd').day();
-      return repeat[dayMapping[yesterday]];
-    }
-  };
-
-  uuid = function() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
-      var r, v;
-      r = Math.random() * 16 | 0;
-      v = (c === "x" ? r : r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  };
-
-  module.exports = {
-    uuid: uuid,
-    newUser: function(isDerby) {
-      var defaultTags, defaultTasks, guid, newUser, repeat, tag, task, userSchema, _i, _j, _len, _len1;
-      if (isDerby == null) {
-        isDerby = false;
-      }
-      userSchema = {
-        stats: {
-          gp: 0,
-          exp: 0,
-          lvl: 1,
-          hp: 50
-        },
-        invitations: {
-          party: null,
-          guilds: []
-        },
-        items: {
-          weapon: 0,
-          armor: 0,
-          head: 0,
-          shield: 0
-        },
-        preferences: {
-          gender: 'm',
-          skin: 'white',
-          hair: 'blond',
-          armorSet: 'v1',
-          dayStart: 0,
-          showHelm: true
-        },
-        apiToken: uuid(),
-        lastCron: 'new',
-        balance: 0,
-        flags: {
-          partyEnabled: false,
-          itemsEnabled: false,
-          ads: 'show'
-        },
-        tags: []
-      };
-      if (isDerby) {
-        userSchema.habitIds = [];
-        userSchema.dailyIds = [];
-        userSchema.todoIds = [];
-        userSchema.rewardIds = [];
-        userSchema.tasks = {};
-      } else {
-        userSchema.habits = [];
-        userSchema.dailys = [];
-        userSchema.todos = [];
-        userSchema.rewards = [];
-      }
-      newUser = _.cloneDeep(userSchema);
-      repeat = {
-        m: true,
-        t: true,
-        w: true,
-        th: true,
-        f: true,
-        s: true,
-        su: true
-      };
-      defaultTasks = [
-        {
-          type: 'habit',
-          text: '1h Productive Work',
-          notes: '-- Habits: Constantly Track --\nFor some habits, it only makes sense to *gain* points (like this one).',
-          value: 0,
-          up: true,
-          down: false
-        }, {
-          type: 'habit',
-          text: 'Eat Junk Food',
-          notes: 'For others, it only makes sense to *lose* points',
-          value: 0,
-          up: false,
-          down: true
-        }, {
-          type: 'habit',
-          text: 'Take The Stairs',
-          notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose)',
-          value: 0,
-          up: true,
-          down: true
-        }, {
-          type: 'daily',
-          text: '1h Personal Project',
-          notes: '-- Dailies: Complete Once a Day --\nAt the end of each day, non-completed Dailies dock you points.',
-          value: 0,
-          completed: false,
-          repeat: repeat
-        }, {
-          type: 'daily',
-          text: 'Exercise',
-          notes: "If you are doing well, they turn green and are less valuable (experience, gold) and less damaging (HP). This means you can ease up on them for a bit.",
-          value: 3,
-          completed: false,
-          repeat: repeat
-        }, {
-          type: 'daily',
-          text: '45m Reading',
-          notes: 'But if you are doing poorly, they turn red. The worse you do, the more valuable (exp, gold) and more damaging (HP) these goals become. This encourages you to focus on your shortcomings, the reds.',
-          value: -10,
-          completed: false,
-          repeat: repeat
-        }, {
-          type: 'todo',
-          text: 'Call Mom',
-          notes: "-- Todos: Complete Eventually --\nNon-completed Todos won't hurt you, but they will become more valuable over time. This will encourage you to wrap up stale Todos.",
-          value: -3,
-          completed: false
-        }, {
-          type: 'reward',
-          text: '1 Episode of Game of Thrones',
-          notes: '-- Rewards: Treat Yourself! --\nAs you complete goals, you earn gold to buy rewards. Buy them liberally - rewards are integral in forming good habits.',
-          value: 20
-        }, {
-          type: 'reward',
-          text: 'Cake',
-          notes: 'But only buy if you have enough gold - you lose HP otherwise.',
-          value: 10
-        }
-      ];
-      defaultTags = [
-        {
-          name: 'morning'
-        }, {
-          name: 'afternoon'
-        }, {
-          name: 'evening'
-        }
-      ];
-      for (_i = 0, _len = defaultTasks.length; _i < _len; _i++) {
-        task = defaultTasks[_i];
-        guid = task.id = uuid();
-        if (isDerby) {
-          newUser.tasks[guid] = task;
-          newUser["" + task.type + "Ids"].push(guid);
-        } else {
-          newUser["" + task.type + "s"].push(task);
-        }
-      }
-      for (_j = 0, _len1 = defaultTags.length; _j < _len1; _j++) {
-        tag = defaultTags[_j];
-        tag.id = uuid();
-        newUser.tags.push(tag);
-      }
-      return newUser;
-    },
-    /*
-      This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
-      user.stats.hp = 50. This is useful because in our habitrpg-shared functions we're returning changesets as {path:value},
-      so that different consumers can implement setters their own way. Derby needs model.set(path, value) for example, where
-      Angular sets object properties directly - in which case, this function will be used.
-    */
-
-    dotSet: function(path, val, obj) {
-      var arr;
-      if (~path.indexOf('undefined')) {
-        return;
-      }
-      arr = path.split('.');
-      return _.reduce(arr, function(curr, next, index) {
-        if ((arr.length - 1) === index) {
-          curr[next] = val;
-        }
-        return curr[next];
-      }, obj);
-    },
-    dotGet: function(path, obj) {
-      if (~path.indexOf('undefined')) {
-        return void 0;
-      }
-      return _.reduce(path.split('.'), (function(curr, next) {
-        return curr[next];
-      }), obj);
-    },
-    daysBetween: daysBetween,
-    shouldDo: shouldDo,
-    /*
-      Get a random property from an object
-      http://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
-      returns random property (the value)
-    */
-
-    randomVal: function(obj) {
-      var count, key, result, val;
-      result = void 0;
-      count = 0;
-      for (key in obj) {
-        val = obj[key];
-        if (Math.random() < (1 / ++count)) {
-          result = val;
-        }
-      }
-      return result;
-    },
-    /*
-      Remove whitespace #FIXME are we using this anywwhere? Should we be?
-    */
-
-    removeWhitespace: function(str) {
-      if (!str) {
-        return '';
-      }
-      return str.replace(/\s/g, '');
-    },
-    /*
-      Generate the username, since it can be one of many things: their username, their facebook fullname, their manually-set profile name
-    */
-
-    username: function(auth, override) {
-      var fb, _ref;
-      if (override) {
-        return override;
-      }
-      if ((auth != null ? (_ref = auth.facebook) != null ? _ref.displayName : void 0 : void 0) != null) {
-        return auth.facebook.displayName;
-      } else if ((auth != null ? auth.facebook : void 0) != null) {
-        fb = auth.facebook;
-        if (fb._raw) {
-          return "" + fb.name.givenName + " " + fb.name.familyName;
-        } else {
-          return fb.name;
-        }
-      } else if ((auth != null ? auth.local : void 0) != null) {
-        return auth.local.username;
-      } else {
-        return 'Anonymous';
-      }
-    },
-    /*
-      Encode the download link for .ics iCal file
-    */
-
-    encodeiCalLink: function(uid, apiToken) {
-      var loc, _ref;
-      loc = (typeof window !== "undefined" && window !== null ? window.location.host : void 0) || (typeof process !== "undefined" && process !== null ? (_ref = process.env) != null ? _ref.BASE_URL : void 0 : void 0) || '';
-      return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
-    },
-    /*
-      User's currently equiped item
-    */
-
-    equipped: function(type, item, preferences, backerTier) {
-      var armorSet, gender;
-      if (item == null) {
-        item = 0;
-      }
-      if (preferences == null) {
-        preferences = {
-          gender: 'm',
-          armorSet: 'v1'
-        };
-      }
-      if (backerTier == null) {
-        backerTier = 0;
-      }
-      gender = preferences.gender, armorSet = preferences.armorSet;
-      item = ~~item;
-      backerTier = ~~backerTier;
-      switch (type) {
-        case 'armor':
-          if (item > 5) {
-            if (backerTier >= 45) {
-              return 'armor_6';
-            }
-            item = 5;
-          }
-          if (gender === 'f') {
-            if (item === 0) {
-              return "f_armor_" + item + "_" + armorSet;
-            } else {
-              return "f_armor_" + item;
-            }
-          } else {
-            return "m_armor_" + item;
-          }
-          break;
-        case 'head':
-          if (item > 5) {
-            if (backerTier >= 45) {
-              return 'head_6';
-            }
-            item = 5;
-          }
-          if (gender === 'f') {
-            if (item > 1) {
-              return "f_head_" + item + "_" + armorSet;
-            } else {
-              return "f_head_" + item;
-            }
-          } else {
-            return "m_head_" + item;
-          }
-          break;
-        case 'shield':
-          if (item > 5) {
-            if (backerTier >= 45) {
-              return 'shield_6';
-            }
-            item = 5;
-          }
-          return "" + preferences.gender + "_shield_" + item;
-        case 'weapon':
-          if (item > 6) {
-            if (backerTier >= 70) {
-              return 'weapon_7';
-            }
-            item = 6;
-          }
-          return "" + preferences.gender + "_weapon_" + item;
-      }
-    },
-    /*
-      Gold amount from their money
-    */
-
-    gold: function(num) {
-      if (num) {
-        return num.toFixed(1).split('.')[0];
-      } else {
-        return "0";
-      }
-    },
-    /*
-      Silver amount from their money
-    */
-
-    silver: function(num) {
-      if (num) {
-        return num.toFixed(2).split('.')[1];
-      } else {
-        return "00";
-      }
-    },
-    /*
-      Task classes given everything about the class
-    */
-
-    taskClasses: function(task, filters, dayStart, lastCron, showCompleted, main) {
-      var classes, completed, enabled, filter, repeat, type, value, _ref;
-      if (showCompleted == null) {
-        showCompleted = false;
-      }
-      if (!task) {
-        return;
-      }
-      type = task.type, completed = task.completed, value = task.value, repeat = task.repeat;
-      if ((type === 'todo') && (completed !== showCompleted)) {
-        return 'hidden';
-      }
-      if (main) {
-        for (filter in filters) {
-          enabled = filters[filter];
-          if (enabled && !((_ref = task.tags) != null ? _ref[filter] : void 0)) {
-            return 'hidden';
-          }
-        }
-      }
-      classes = type;
-      if (type === 'todo' || type === 'daily') {
-        if (completed || (type === 'daily' && !shouldDo(+(new Date), task.repeat, {
-          dayStart: dayStart
-        }))) {
-          classes += " completed";
-        } else {
-          classes += " uncompleted";
-        }
-      } else if (type === 'habit') {
-        if (task.down && task.up) {
-          classes += ' habit-wide';
-        }
-      }
-      if (value < -20) {
-        classes += ' color-worst';
-      } else if (value < -10) {
-        classes += ' color-worse';
-      } else if (value < -1) {
-        classes += ' color-bad';
-      } else if (value < 1) {
-        classes += ' color-neutral';
-      } else if (value < 5) {
-        classes += ' color-good';
-      } else if (value < 10) {
-        classes += ' color-better';
-      } else {
-        classes += ' color-best';
-      }
-      return classes;
-    },
-    /*
-      Does the user own this pet?
-    */
-
-    ownsPet: function(pet, userPets) {
-      return _.isArray(userPets) && userPets.indexOf(pet) !== -1;
-    },
-    /*
-      Friendly timestamp
-    */
-
-    friendlyTimestamp: function(timestamp) {
-      return moment(timestamp).format('MM/DD h:mm:ss a');
-    },
-    /*
-      Does user have new chat messages?
-    */
-
-    newChatMessages: function(messages, lastMessageSeen) {
-      if (!((messages != null ? messages.length : void 0) > 0)) {
-        return false;
-      }
-      return (messages != null ? messages[0] : void 0) && (messages[0].id !== lastMessageSeen);
-    },
-    /*
-      Relative Date
-    */
-
-    relativeDate: require('relative-date'),
-    /*
-      are any tags active?
-    */
-
-    noTags: function(tags) {
-      return _.isEmpty(tags) || _.isEmpty(_.filter(tags, function(t) {
-        return t;
-      }));
-    },
-    /*
-      Are there tags applied?
-    */
-
-    appliedTags: function(userTags, taskTags) {
-      var arr;
-      arr = [];
-      _.each(userTags, function(t) {
-        if (t == null) {
-          return;
-        }
-        if (taskTags != null ? taskTags[t.id] : void 0) {
-          return arr.push(t.name);
-        }
-      });
-      return arr.join(', ');
-    },
-    /*
-      User stats
-    */
-
-    userStr: function(level) {
-      return (level - 1) / 2;
-    },
-    totalStr: function(level, weapon) {
-      var str;
-      if (weapon == null) {
-        weapon = 0;
-      }
-      str = (level - 1) / 2;
-      return str + items.getItem('weapon', weapon).strength;
-    },
-    userDef: function(level) {
-      return (level - 1) / 2;
-    },
-    totalDef: function(level, armor, head, shield) {
-      var totalDef;
-      if (armor == null) {
-        armor = 0;
-      }
-      if (head == null) {
-        head = 0;
-      }
-      if (shield == null) {
-        shield = 0;
-      }
-      totalDef = (level - 1) / 2 + items.getItem('armor', armor).defense + items.getItem('head', head).defense + items.getItem('shield', shield).defense;
-      return totalDef;
-    },
-    itemText: function(type, item) {
-      if (item == null) {
-        item = 0;
-      }
-      return items.getItem(type, item).text;
-    },
-    itemStat: function(type, item) {
-      var i;
-      if (item == null) {
-        item = 0;
-      }
-      i = items.getItem(type, item);
-      if (type === 'weapon') {
-        return i.strength;
-      } else {
-        return i.defense;
-      }
-    },
-    /*
-    ----------------------------------------------------------------------
-    Derby-specific helpers. Will remove after the rewrite, need them here for now
-    ----------------------------------------------------------------------
-    */
-
-    /*
-    Make sure model.get() returns all properties, see https://github.com/codeparty/racer/issues/116
-    */
-
-    hydrate: function(spec) {
-      var hydrated, keys,
-        _this = this;
-      if (_.isObject(spec) && !_.isArray(spec)) {
-        hydrated = {};
-        keys = _.keys(spec).concat(_.keys(spec.__proto__));
-        keys.forEach(function(k) {
-          return hydrated[k] = _this.hydrate(spec[k]);
-        });
-        return hydrated;
-      } else {
-        return spec;
-      }
-    },
-    /*
-      Derby stores the user schema a bit different than other apps prefer. The biggest difference is it stores
-      tasks as "refLists" - user[taskType + "Ids"] & user.tasks - where 3rd party apps prefer user[taskType + "s"] (array)
-      This function transforms the derby-stored data into 3rd-party consumable data
-      {userScope} the user racer-model scope, NOT an object
-      {withoutTasks} true if you don't want to return the user.tasks obj & id-lists. We keep them around when doing
-        local ops, because the var-by-reference lets us edit the original tasks
-    */
-
-    derbyUserToAPI: function(user, options) {
-      var uObj;
-      if (options == null) {
-        options = {};
-      }
-      _.defaults(options, {
-        keepTasks: true,
-        asScope: true
-      });
-      uObj = options.asScope ? user.get() : user;
-      _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
-        uObj["" + type + "s"] = _.transform(uObj["" + type + "Ids"], function(result, tid) {
-          return result.push(uObj.tasks[tid]);
-        });
-        if (!options.keepTasks) {
-          return delete uObj["" + type + "Ids"];
-        }
-      });
-      if (!options.keepTasks) {
-        delete uObj.tasks;
-      }
-      return uObj;
-    }
-  };
-
-}).call(this);
-
-
-})(require("__browserify_process"))
-},{"./items.coffee":3,"lodash":5,"relative-date":8,"moment":6,"__browserify_process":7}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 var relativeDate = (function(undefined){
 
   var SECOND = 1000,
@@ -7242,7 +7242,7 @@ if(typeof module != 'undefined' && module.exports){
   module.exports = relativeDate;
 }
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 (function(){// moment.js
 // version : 2.0.0
 // author : Tim Wood
