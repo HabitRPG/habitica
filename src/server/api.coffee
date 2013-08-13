@@ -110,7 +110,6 @@ api.scoreTask = (req, res, next) ->
   Get all tasks
 ###
 api.getTasks = (req, res, next) ->
-  return res.json 400, NO_USER_FOUND if _.isEmpty(req.habit.userObj)
   types =
     if /^(habit|todo|daily|reward)$/.test(req.query.type) then [req.query.type]
     else ['habit','todo','daily','reward']
