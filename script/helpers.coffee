@@ -363,11 +363,12 @@ module.exports =
     {withoutTasks} true if you don't want to return the user.tasks obj & id-lists. We keep them around when doing
       local ops, because the var-by-reference lets us edit the original tasks
   ###
-  derbyUserToAPI: (userScope, keepTasks=true) ->
-    uObj = userScope.get()
+  derbyUserToAPI: (user, options={}) ->
+    _.defaults options, {keepTasks:true, asScope:true}
+    uObj = if options.asScope then user.get() else user
     _.each ['habit','daily','todo','reward'], (type) ->
       # we use _.transform instead of a simple _.where in order to maintain sort-order
       uObj["#{type}s"] = _.transform uObj["#{type}Ids"], (result, tid) -> result.push(uObj.tasks[tid])
-      delete uObj["#{type}Ids"] unless keepTasks
-    delete uObj.tasks unless keepTasks
+      delete uObj["#{type}Ids"] unless options.keepTasks
+    delete uObj.tasks unless options.keepTasks
     uObj
