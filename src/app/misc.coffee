@@ -3,22 +3,26 @@ algos = require 'habitrpg-shared/script/algos'
 items = require('habitrpg-shared/script/items').items
 helpers = require('habitrpg-shared/script/helpers')
 
-module.exports.batchTxn = batchTxn = (model, cb, options) ->
-  user = model.at("_user")
-  uObj = hydrate(user.get()) # see https://github.com/codeparty/racer/issues/116
+module.exports.batchTxn = batchTxn = (model, cb, options={}) ->
+  _.defaults options, {user: model.at("_user"), cron: false, done: ->}
+  {user} = options
+  # see https://github.com/codeparty/racer/issues/116
+  uObj = helpers.hydrate user.get()
   batch =
     set: (k,v) -> helpers.dotSet(k,v,uObj); paths[k] = true
     get: (k) -> helpers.dotGet(k,uObj)
   paths = {}
   model._dontPersist = true
   ret = cb uObj, paths, batch
-  _.each paths, (v,k) -> user.pass({cron:options?.cron}).set(k,helpers.dotGet(k, uObj));true
+  console.log {cron: options.cron}
+  _.each paths, (v,k) -> user.pass({cron:options.cron}).set(k,batch.get(k));true
   model._dontPersist = false
   # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
   # pass true if we have levelled to supress xp notification
   unless _.isEmpty paths
-    setOps = _.reduce paths, ((m,v,k)-> m[k] = helpers.dotGet(k,uObj);m), {}
-    user.set "update__", setOps, options?.done
+    setOps = _.reduce paths, ((m,v,k)-> m[k] = batch.get(k);m), {}
+    user.set "update__", setOps, options.done
+  else options.done()
   ret
 
 #TODO put this in habitrpg-shared
@@ -85,18 +89,6 @@ module.exports.score = (model, taskId, direction, allowUndo=false) ->
       $('#item-dropped-modal').modal 'show'
 
   delta
-
-###
-  Make sure model.get() returns all properties, see https://github.com/codeparty/racer/issues/116
-###
-module.exports.hydrate = hydrate = (spec) ->
-  if _.isObject(spec) and !_.isArray(spec)
-    hydrated = {}
-    keys = _.keys(spec).concat(_.keys(spec.__proto__))
-    keys.forEach (k) -> hydrated[k] = hydrate(spec[k])
-    hydrated
-  else spec
-
 
 ###
   Cleanup task-corruption (null tasks, rogue/invisible tasks, etc)
