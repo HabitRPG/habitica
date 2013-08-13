@@ -4,6 +4,7 @@ _ = require 'lodash'
 async = require 'async'
 algos = require 'habitrpg-shared/script/algos'
 helpers = require 'habitrpg-shared/script/helpers'
+items = require 'habitrpg-shared/script/items'
 validator = require 'derby-auth/node_modules/validator'
 check = validator.check
 sanitize = validator.sanitize
@@ -224,6 +225,24 @@ api.sortTask = (req, res, next) ->
 
 ###
   ------------------------------------------------------------------------
+  Items
+  ------------------------------------------------------------------------
+###
+api.buy = (req, res, next) ->
+  type = req.params.type
+  unless type in ['weapon', 'armor', 'head', 'shield']
+    return res.json 400, err: ":type must be in one of: 'weapon', 'armor', 'head', 'shield'"
+  hasEnough = true
+  done = ->
+    return res.json 400, err: "Not enough GP" unless hasEnough
+    req.habit.result = data: req.habit.user.get("items")
+    next()
+  misc.batchTxn req.getModel(), (uObj, paths) ->
+    hasEnough = items.buyItem(uObj, type, {paths})
+  ,{user:req.habit.user, done}
+
+###
+  ------------------------------------------------------------------------
   User
   ------------------------------------------------------------------------
 ###
@@ -346,13 +365,19 @@ api.batchUpdate = (req, res, next) ->
   {user} = req.habit
 
   performAction = (action, cb) ->
+    # TODO come up with a more consistent approach here. like:
+    # req.body=action.data; delete action.data; _.defaults(req.params, action)
+    # Would require changing action.dir on mobile app
     req.params.id = action.data?.id
     req.params.direction = action.dir
+    req.params.type = action.type
     req.body = action.data
 
     switch action.op
       when "score"
         api.scoreTask(req, res, cb)
+      when "buy"
+        api.buy(req, res, cb)
       when "sortTask"
         api.sortTask(req, res, cb)
       when "addTask"

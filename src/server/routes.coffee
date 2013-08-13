@@ -41,6 +41,9 @@ router.delete '/user/task/:id',           auth, cron, validateTask, api.deleteTa
 router.post '/user/task',                 auth, cron, validateTask, api.createTask, v1Send
 router.put '/user/task/:id/sort',         auth, cron, validateTask, api.sortTask, v1Send
 
+# Items
+router.post '/user/buy/:type',            auth, cron, api.buy, v1Send
+
 # User
 router.get '/user',                       auth, cron, api.getUser, v1Send
 router.post '/user/auth/local',           api.loginLocal, v1Send

@@ -12,7 +12,6 @@ module.exports.app = (appExports, model) ->
     [uObj, paths] = [user.get(), {}]
     algos.revive(uObj, {paths})
     _.each paths, ((v,k) -> user.set k, helpers.dotGet(k, uObj))
-    items.updateStore(model)
 
   appExports.reset = (e, el) ->
     misc.batchTxn model, (uObj, paths, batch) ->
@@ -20,7 +19,6 @@ module.exports.app = (appExports, model) ->
       ['habit', 'daily', 'todo', 'reward'].forEach (type) -> batch.set("#{type}Ids", [])
       _.each {hp:50, lvl:1, gp:0, exp:0}, (v,k) -> batch.set("stats.#{k}",v)
       _.each {armor:0, weapon:0, head:0, shield:0}, (v,k) -> batch.set("items.#{k}",v)
-    items.updateStore(model)
     browser.resetDom(model)
 
   appExports.closeNewStuff = (e, el) ->
