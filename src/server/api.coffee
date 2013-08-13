@@ -322,7 +322,7 @@ api.updateUser = (req, res, next) ->
 api.cron = (req, res, next) ->
   {user} = req.habit
   misc.batchTxn req.getModel(), (uObj, paths) ->
-    uObj = helpers.derbyUserToAPI(user)
+    uObj = helpers.derbyUserToAPI(uObj, {asScope:false})
     algos.cron uObj, {paths}
   , {user, done:next, cron:true}
 
