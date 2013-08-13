@@ -234,8 +234,9 @@ api.buy = (req, res, next) ->
     return res.json 400, err: ":type must be in one of: 'weapon', 'armor', 'head', 'shield'"
   hasEnough = true
   done = ->
-    return res.json 400, err: "Not enough GP" unless hasEnough
-    req.habit.result = data: req.habit.user.get("items")
+    req.habit.result = if hasEnough
+      data: req.habit.user.get("items")
+    else {data: {err: "Not enough GP"}}
     next()
   misc.batchTxn req.getModel(), (uObj, paths) ->
     hasEnough = items.buyItem(uObj, type, {paths})
