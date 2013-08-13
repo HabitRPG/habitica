@@ -64,7 +64,7 @@ score = (model, user, taskId, direction, done) ->
     tObj = uObj.tasks[taskId]
     delta = algos.score(uObj, tObj, direction, {paths})
   #, {user, done}
-  , {user, done, hydrate: false}
+  , {user, done}
   delta
 
 ###
@@ -326,16 +326,17 @@ api.cron = (req, res, next) ->
   misc.batchTxn req.getModel(), (uObj, paths) ->
     uObj = helpers.derbyUserToAPI(user)
     algos.cron uObj, {paths}
-  , {user, done:next, cron:true, hydrate: false}
+  , {user, done:next, cron:true}
 
 api.revive = (req, res, next) ->
   {user} = req.habit
-  [uObj, paths] = [user.get(), {}]
-  algos.revive uObj, {paths}
-  setOps = []
-  _.each paths, (v,k) ->
-    setOps.push ((reviveCb) -> user.set k, helpers.dotGet(k,uObj), reviveCb)
-  async.series setOps, next
+  done = ->
+    req.habit.result = data: helpers.derbyUserToAPI(user)
+    next()
+  misc.batchTxn req.getModel(), (uObj, paths) ->
+    algos.revive uObj, {paths}
+  , {user, done}
+
 
 ###
   ------------------------------------------------------------------------
