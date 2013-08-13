@@ -27,7 +27,7 @@ NO_USER_FOUND = err: "No user found."
 api.auth = (req, res, next) ->
   uid = req.headers['x-api-user']
   token = req.headers['x-api-key']
-  return res.json 401, NO_TOKEN_OR_UID unless uid || token
+  return res.json 401, NO_TOKEN_OR_UID unless uid and token
 
   model = req.getModel()
   query = model.query('users').withIdAndToken(uid, token)
@@ -35,8 +35,7 @@ api.auth = (req, res, next) ->
   query.fetch (err, user) ->
     return res.json err: err if err
     (req.habit ?= {}).user = user
-    req.habit.userObj = user.get()
-    return res.json 401, NO_USER_FOUND if _.isEmpty(req.habit.userObj)
+    return res.json 401, NO_USER_FOUND if _.isEmpty(user.get())
     req._isServer = true
     next()
 
@@ -123,7 +122,7 @@ api.getTasks = (req, res, next) ->
   Get Task
 ###
 api.getTask = (req, res, next) ->
-  task = req.habit.userObj.tasks[req.params.id]
+  task = req.habit.user.get "tasks.#{req.params.id}"
   return res.json 400, err: "No task found." if !task || _.isEmpty(task)
   req.habit.result = data: task
   next()
@@ -137,7 +136,7 @@ api.validateTask = (req, res, next) ->
 
   # If we're updating, get the task from the user
   if req.method is 'PUT' or req.method is 'DELETE'
-    task = req.habit.userObj?.tasks[req.params.id]
+    task = req.habit.user.get "tasks.#{req.params.id}"
     return res.json 400, err: "No task found." if !task || _.isEmpty(task)
     # Strip for now
     type = undefined
@@ -234,7 +233,7 @@ api.sortTask = (req, res, next) ->
   Get User
 ###
 api.getUser = (req, res, next) ->
-  uObj = req.habit.userObj
+  uObj = req.habit.user.get()
 
   uObj.stats.toNextLevel = algos.tnl uObj.stats.lvl
   uObj.stats.maxHealth = 50
