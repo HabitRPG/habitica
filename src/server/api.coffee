@@ -169,27 +169,6 @@ api.deleteTask = (req, res, next) ->
     req.habit.result = code: 204
     next()
 
-###
-  Helper function for updating multiple tasks
-###
-updateTasks = (tasks, user, model) ->
-  for idx, task of tasks
-    if task.id
-      if task.del
-        user.del "tasks.#{task.id}"
-
-        # Delete from id list, only if type is passed up
-        # TODO we should enforce they pass in type, so we can properly remove from idList
-        if task.type and ~(i = user.get("#{task.type}Ids").indexOf task.id)
-          user.remove("#{task.type}Ids", i, 1)
-
-        task = deleted: true
-      else
-        user.set "tasks.#{task.id}", task
-    else
-      addTask(user, task)
-    tasks[idx] = task
-  return tasks
 
 ###
   Update Task
@@ -204,9 +183,31 @@ api.updateTask = (req, res, next) ->
   Should we keep this?
 ###
 api.updateTasks = (req, res, next) ->
-  tasks = updateTasks req.body, req.habit.user, req.getModel()
-  req.habit.result = code: 201, data: tasks
-  next()
+  {user} = req.habit
+  tasks = req.body
+  series = []
+  _.each tasks, (task, idx) ->
+    if task.id
+      if task.del
+        series.push (cb) ->
+          user.del "tasks.#{task.id}", ->
+            # Delete from id list, only if type is passed up
+            # TODO we should enforce they pass in type, so we can properly remove from idList
+            if task.type and ~(i = user.get("#{task.type}Ids").indexOf task.id)
+              user.at("#{task.type}Ids").remove(i, 1, cb)
+            else cb()
+            tasks[idx] = deleted: true
+      else
+        series.push (cb) ->
+          user.set "tasks.#{task.id}", task, cb
+    else
+      series.push (cb) -> addTask(user, task, cb)
+    #tasks[idx] = task
+    true
+
+  async.series series, ->
+    req.habit.result = code: 201, data: tasks
+    next()
 
 api.createTask =  (req, res, next) ->
   task = req.habit.task
