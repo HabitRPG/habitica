@@ -191,6 +191,12 @@ obj.score = (user, task, direction, options={}) ->
   [paths, times, cron] = [options.paths || {}, options.times || 1, options.cron || false]
   priority = task.priority or '!'
 
+  # Handle corrupt tasks
+  return 0 unless task.id
+  if !_.isNumber(value) or _.isNaN(value)
+    task.value = value = 0;
+    paths["task.#{task.id}.value"] = true
+
   # If they're trying to purhcase a too-expensive reward, don't allow them to do that.
   if task.value > user.stats.gp and task.type is 'reward'
     return
