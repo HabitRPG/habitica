@@ -19,7 +19,7 @@ api = require './api'
   because we'll be re-using the same functions when apiv2 rolls around, but returning different results.
   So handle sending results for apiv1 here
 ###
-v1Send = (req, res, next) ->
+v1Send = (req, res) ->
   {result} = req.habit
   if (result.code and result.data) then res.json result.code, result.data
   else if result.code then res.send result.code
@@ -27,6 +27,9 @@ v1Send = (req, res, next) ->
   else res.send 200
 
 router.get '/status', (req, res) -> res.json status: 'up'
+
+# Auth
+router.post '/register',                  api.registerUser, v1Send
 
 # Scoring
 router.post '/user/task/:id/:direction',  auth, cron, api.scoreTask, v1Send

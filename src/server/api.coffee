@@ -10,6 +10,7 @@ check = validator.check
 sanitize = validator.sanitize
 utils = require 'derby-auth/utils'
 misc = require '../app/misc'
+derbyAuthUtil = require('derby-auth/utils')
 
 api = module.exports
 
@@ -18,6 +19,11 @@ api = module.exports
   Misc
   ------------------------------------------------------------------------
 ####
+
+sendResult = (req, next, code, data) ->
+  req.habit ?= {}
+  req.habit.result = if data then {code, data} else {code}
+  next()
 
 NO_TOKEN_OR_UID = err: "You must include a token and uid (user id) in your request"
 NO_USER_FOUND = err: "No user found."
@@ -84,8 +90,7 @@ api.scoreTask = (req, res, next) ->
     # TODO - could modify batchTxn to conform to this better
     delta = score req.getModel(), user, id, direction, ->
       result = user.get('stats')
-      req.habit.result = data: _.extend(result, delta: delta)
-      next()
+      sendResult req, next, 200, _.extend(result, delta: delta)
 
   # Set completed if type is daily or todo and task exists
   if (existing = user.at "tasks.#{id}").get()
@@ -115,8 +120,7 @@ api.getTasks = (req, res, next) ->
     if /^(habit|todo|daily|reward)$/.test(req.query.type) then [req.query.type]
     else ['habit','todo','daily','reward']
   tasks = _.toArray (_.filter req.habit.user.get('tasks'), (t)-> t.type in types)
-  req.habit.result = data: tasks
-  next()
+  sendResult req, next, 200, tasks
 
 ###
   Get Task
@@ -124,8 +128,7 @@ api.getTasks = (req, res, next) ->
 api.getTask = (req, res, next) ->
   task = req.habit.user.get "tasks.#{req.params.id}"
   return res.json 400, err: "No task found." if !task || _.isEmpty(task)
-  req.habit.result = data: task
-  next()
+  sendResult req, next, 200, task
 
 ###
   Validate task
@@ -166,17 +169,14 @@ api.validateTask = (req, res, next) ->
 ###
 api.deleteTask = (req, res, next) ->
   deleteTask req.habit.user, req.habit.task, ->
-    req.habit.result = code: 204
-    next()
-
+    sendResult req, next, 204
 
 ###
   Update Task
 ###
 api.updateTask = (req, res, next) ->
-  req.habit.user.set "tasks.#{req.habit.task.id}", req.habit.task
-  req.habit.result = data: req.habit.task
-  next()
+  req.habit.user.set "tasks.#{req.habit.task.id}", req.habit.task, ->
+    sendResult req, next, 200, req.habit.task
 
 ###
   Update tasks (plural). This will update, add new, delete, etc all at once.
@@ -206,14 +206,12 @@ api.updateTasks = (req, res, next) ->
     true
 
   async.series series, ->
-    req.habit.result = code: 201, data: tasks
-    next()
+    sendResult req, next, 201, tasks
 
 api.createTask =  (req, res, next) ->
   task = req.habit.task
   addTask req.habit.user, task, ->
-    req.habit.result = code: 201, data: task
-    next()
+    sendResult req, next, 201, task
 
 api.sortTask = (req, res, next) ->
   {id} = req.params
@@ -235,10 +233,10 @@ api.buy = (req, res, next) ->
     return res.json 400, err: ":type must be in one of: 'weapon', 'armor', 'head', 'shield'"
   hasEnough = true
   done = ->
-    req.habit.result = if hasEnough
-      data: req.habit.user.get("items")
-    else {data: {err: "Not enough GP"}}
-    next()
+    if hasEnough
+      sendResult req, res, 200, req.habit.user.get("items")
+    else
+      sendResult req, next, 200, {err: "Not enough GP"}
   misc.batchTxn req.getModel(), (uObj, paths) ->
     hasEnough = items.buyItem(uObj, type, {paths})
   ,{user:req.habit.user, done}
@@ -248,6 +246,43 @@ api.buy = (req, res, next) ->
   User
   ------------------------------------------------------------------------
 ###
+
+
+###
+  Registers a new user. Only accepting username/password registrations, no Facebook
+###
+api.registerUser = (req, res, next) ->
+  {email, username, password, confirmPassword} = req.body
+
+  unless username and password and email
+    return sendResult req, next, 401, err: ":username, :email, :password, :confirmPassword required"
+  if password isnt confirmPassword
+    return sendResult req, next, 401, err: ":password and :confirmPassword don't match"
+  try
+    validator.check(email).isEmail()
+  catch e
+    return sendResult req, next, 401, err: e.message
+
+  model = req.getModel()
+  async.waterfall [
+      (cb) -> model.query('users').withEmail(email).fetch cb
+
+    , (user, cb) ->
+      return cb("Email already taken") if user.get()
+      model.query('users').withUsername(username).fetch cb
+
+    , (user, cb) ->
+      return cb("Username already taken") if user.get()
+      newUser = helpers.newUser(true)
+      salt = utils.makeSalt()
+      newUser.auth = local: {username, email, salt}
+      newUser.auth.local.hashed_password = derbyAuthUtil.encryptPassword(password, salt)
+      newUser.auth.timestamps = {created: +new Date}
+      req._isServer = true
+      id = model.add "users", newUser, (err) -> cb(err, id)
+    ], (err, id) ->
+      return sendResult req, next, 401, {err} if err
+      sendResult req, next, 200, model.get("users.#{id}")
 
 ###
   Get User
@@ -263,8 +298,7 @@ api.getUser = (req, res, next) ->
     delete uObj.auth.hashed_password
     delete uObj.auth.salt
 
-  req.habit.result = data: uObj
-  next()
+  sendResult req, next, 200, uObj
 
 ###
   Register new user with uname / password
@@ -291,11 +325,9 @@ api.loginLocal = (req, res, next) ->
       u2 = result2.get()
       return res.json 401, err: 'Incorrect password' unless u2
 
-      req.habit ?= {}
-      req.habit.result = data:
+      sendResult req, next, 200,
         id: u2.id
         token: u2.apiToken
-      next()
 
 ###
   POST /user/auth/facebook
@@ -309,11 +341,9 @@ api.loginFacebook = (req, res, next) ->
     return res.json 401, { err } if err
     u = result.get()
     if u
-      req.habit ?= {}
-      req.habit.result = data:
+      sendResult req, next, 200,
         id: u.id
         token: u.apiToken
-      next()
     else
       # FIXME: create a new user instead
       return res.json 403, err: "Please register with Facebook on https://habitrpg.com, then come back here and log in."
@@ -337,8 +367,7 @@ api.updateUser = (req, res, next) ->
       series.push (cb) -> req.habit.user.set(k, v, cb)
   async.series series, (err) ->
     return next(err) if err
-    req.habit.result = data: helpers.derbyUserToAPI(user)
-    next()
+    sendResult req, next, 200, helpers.derbyUserToAPI(user)
 
 api.cron = (req, res, next) ->
   {user} = req.habit
@@ -350,8 +379,7 @@ api.cron = (req, res, next) ->
 api.revive = (req, res, next) ->
   {user} = req.habit
   done = ->
-    req.habit.result = data: helpers.derbyUserToAPI(user)
-    next()
+    sendResult req, res, 200, helpers.derbyUserToAPI(user)
   misc.batchTxn req.getModel(), (uObj, paths) ->
     algos.revive uObj, {paths}
   , {user, done}

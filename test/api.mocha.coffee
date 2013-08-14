@@ -3,6 +3,7 @@ request = require 'superagent'
 expect = require 'expect.js'
 require 'coffee-script'
 utils = require 'derby-auth/utils'
+async = require 'async'
 
 conf = require("nconf")
 conf.argv().env().file({file: __dirname + '../config.json'}).defaults
@@ -32,6 +33,11 @@ uuid = null
 taskPath = null
 baseURL = 'http://localhost:1337/api/v1'
 
+expectUserEqual = (u1, u2) ->
+  'lastCron update__'.split(' ').forEach (path) ->
+    delete u1[path]; delete u2[path]
+  expect(u1).to.eql(u2)
+
 ###### Specs ######
 
 describe 'API', ->
@@ -44,26 +50,35 @@ describe 'API', ->
 
   before (done) ->
     server = require '../src/server'
-    server.listen '1337', '0.0.0.0'
-    server.on 'listening', (data) ->
+    server.listen '1337', '0.0.0.0', ->
       store = server.habitStore
       #store.flush()
       model = store.createModel()
-      model.set '_userId', uid = model.id()
-      user = helpers.newUser(true)
-      user.apiToken = model.id()
-      model.session = {userId:uid}
-      salt = utils.makeSalt()
-      username = 'jonfishman' + Math.random().toString().split('.')[1]
-      user.auth =
-        local:
-          username: username
-          hashed_password: utils.encryptPassword('icculus', salt)
-          salt: salt
-      model.set "users.#{uid}", user
-      delete model.session
-      # Crappy hack to let server start before tests run
-      setTimeout done, 2000
+
+      randomID = model.id()
+      params =
+        username: randomID
+        password: randomID
+        confirmPassword: randomID
+        email: "#{randomID}@gmail.com"
+
+      register = ->
+        request.post("#{baseURL}/register")
+          .set('Accept', 'application/json')
+          .send(params)
+          .end (res) ->
+            user = res.body
+            uid = user.id
+            username = user.auth.local.username
+
+            #TODO fix me , we shouldn't need session & _userID in API function testing
+            model.set '_userId', uid
+            model.session = {userId:uid}
+
+            done()
+
+      # nasty hack, why isn't server.listen callback fired when server is completely up?
+      setTimeout register, 2000
 
   describe 'Without token or user id', ->
 
@@ -87,13 +102,14 @@ describe 'API', ->
     params = null
     currentUser = null
 
-    before ->
-      user = model.at("users.#{uid}")
-      currentUser = user.get()
-      params =
-        title: 'Title'
-        text: 'Text'
-        type: 'habit'
+    before (done) ->
+      model.fetch "users.#{uid}", (err, _user) ->
+        user = _user
+        params =
+          title: 'Title'
+          text: 'Text'
+          type: 'habit'
+        done()
 
     beforeEach ->
       currentUser = user.get()
@@ -112,7 +128,7 @@ describe 'API', ->
           self.stats.toNextLevel = 150
           self.stats.maxHealth = 50
 
-          expect(res.body).to.eql self
+          expectUserEqual(res.body, self)
           done()
 
     it 'GET /api/v1/user/task/:id', (done) ->
