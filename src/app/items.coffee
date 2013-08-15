@@ -22,7 +22,8 @@ module.exports.app = (appExports, model) ->
 
   appExports.buyItem = (e, el) ->
     misc.batchTxn model, (uObj, paths) ->
-      items.buyItem uObj, $(el).attr('data-type'), {paths}
+      ret = items.buyItem uObj, $(el).attr('data-type'), {paths}
+      alert("Not enough GP") if ret is false
 
   appExports.activateRewardsTab = ->
     model.set '_activeTabRewards', true
