@@ -158,12 +158,12 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
         # Tier 3 (Rare)
       else if rarity < .3
         acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton']
-      
+
       # Commented out for testing with increased egg drop, delete if successful
         # Tier 2 (Scarce)
       # else if rarity < .4
       #   acceptableDrops = ['Base', 'White', 'Desert']
-      
+
         # Tier 1 (Common)
       else
         acceptableDrops = ['Base', 'White', 'Desert']
@@ -195,7 +195,7 @@ obj.score = (user, task, direction, options={}) ->
   return 0 unless task.id
   if !_.isNumber(value) or _.isNaN(value)
     task.value = value = 0;
-    paths["task.#{task.id}.value"] = true
+    paths["tasks.#{task.id}.value"] = true
 
   # If they're trying to purhcase a too-expensive reward, don't allow them to do that.
   if task.value > user.stats.gp and task.type is 'reward'
@@ -408,5 +408,3 @@ obj.cron = (user, options={}) ->
   (user.history.exp ?= []).push { date: now, value: expTally }
   paths["history"] = true
   user
-
-
