@@ -83,15 +83,17 @@ module.exports.buyItem = (user, type, options={}) ->
       i = (user.items[type] or 0) + 1
       module.exports.getItem type, i
 
-  return false if user.stats.gp < nextItem.value
+  if user.stats.gp < +nextItem.value
+    alert("Not enough GP")
+    return false
   if nextItem.type is 'potion'
     user.stats.hp += 15;
     user.stats.hp = 50 if user.stats.hp > 50
     options.paths['stats.hp'] = true
   else
-    user.items[type] = nextItem.index
+    user.items[type] = ~~nextItem.index
     options.paths["items.#{type}"] = true
-  user.stats.gp -= nextItem.value
+  user.stats.gp -= +nextItem.value
   options.paths['stats.gp'] = true
   true
 
