@@ -450,25 +450,37 @@ describe 'API', ->
             #expect(res.body.token).to.be newUser.apiToken
             done()
 
-    it 'PUT /api/v1/batch-update', (done) ->
-      userBefore = {}
-#      user.set "lastCron", +new Date #FIXME this shouldn't be handled here
-      query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
-      query.fetch (err, user) -> userBefore = user.get()
-      #console.log {userBefore}
+    it 'POST /api/v1/batch-update', (done) ->
+      userBefore = _.cloneDeep(currentUser)
 
-      jsonRaw =
-        [{"op":"score","task":{"completed":true,"date":null,"down":null,"id":"049ee706-7992-408f-8bdd-a0f87b6cddee","notes":null,"price":null,"priority":null,"streak":1,"text":"asdasd","type":"daily","up":null,"value":-15.159032750819472},"dir":"down"},{"op":"score","task":{"completed":true,"date":null,"down":null,"id":"049ee706-7992-408f-8bdd-a0f87b6cddee","notes":null,"price":null,"priority":null,"streak":1,"text":"asdasd","type":"daily","up":null,"value":-15.159032750819472},"dir":"up"},{},{},{},{},{"op":"score","task":{"completed":true,"date":null,"down":null,"id":"049ee706-7992-408f-8bdd-a0f87b6cddee","notes":null,"price":null,"priority":null,"streak":1,"text":"asdasd","type":"daily","up":null,"value":-16.63136866553572},"dir":"down"},{"op":"score","task":{"completed":true,"date":null,"down":null,"id":"049ee706-7992-408f-8bdd-a0f87b6cddee","notes":null,"price":null,"priority":null,"streak":1,"text":"asdasd","type":"daily","up":null,"value":-16.63136866553572},"dir":"up"},{},{},{"op":"score","task":{"completed":true,"date":null,"down":null,"history":[{"date":1370796966979,"value":-1.9263318037820194},{"date":1371394179245,"value":-9.632667221983818},{"date":1371987764419,"value":-8.899142684639843},{"date":1371901709065,"value":-8.697714139260505},{"date":1371987764419,"value":-9.947389352351902},{"date":1372072605105,"value":-8.65704735207246},{"date":1372185464158,"value":-9.905420946093672},{"date":1372348155721,"value":-8.616465915449927},{"date":1372404365115,"value":-7.369389857231249},{"date":1372619315210,"value":-6.16153655829917},{"date":1372797766170,"value":-4.990495966065229},{"date":1373266931264,"value":-12.356300657493207},{"date":1373322727209,"value":-10.983796434663102},{"date":1373407801484,"value":-9.658725758132753},{"date":1373639117325,"value":-8.377893411957398},{"date":1373719671601,"value":-7.138418159258412},{"date":1373826521297,"value":-5.902428899644443},{"date":1373839445467,"value":-8.264210410818091},{"date":1373929050162,"value":-8.224444248693572},{"date":1374058202835,"value":-9.459055183497052},{"date":1374102966396,"value":-8.184759693251706},{"date":1374187619046,"value":-6.951403643619735},{"date":1374342649005,"value":-5.72148344218024},{"date":1374434356841,"value":-8.072174632205511},{"date":1374562742400,"value":-10.571154014907808},{"date":1374886027789,"value":-16.097395454285916},{"date":1375011848715,"value":-17.607991906162557},{"date":1375436884647,"value":-16.037773949824242},{"date":1375563074478,"value":-17.546064223707074},{"date":1375568230260,"value":-19.11379232897715},{"date":1375734631073,"value":-20.745784396408645},{"date":1375785010434,"value":-18.767794224069412},{"date":1375826853480,"value":-18.636651213045212}],"id":"fe4b9061-eb58-468c-9b25-10c72be772e6","notes":"","price":null,"priority":null,"repeat":{"su":true,"m":true,"t":true,"w":true,"th":true,"f":true,"s":true},"streak":1,"tags":{"40492758-1202-4d85-8cb3-d40e45f4dd1d":false},"text":"Read 50 pages","type":"daily","up":null,"value":-17.024492021142215},"dir":"up"},{},{},{}]
+      habits = _.where currentUser.tasks, {type: 'habit'}
+      dailys = _.where currentUser.tasks, {type: 'dailys'}
+      todos = _.where currentUser.tasks, {type: 'todos'}
+      rewards = _.where currentUser.tasks, {type: 'rewards'}
 
-      request.put("http://localhost:1337/api/v1/batch-update")
-      .set('Accept', 'application/json')
-      .set('X-API-User', currentUser.id)
-      .set('X-API-Key', currentUser.apiToken)
-      .send(jsonRaw)
-      .end (res) ->
-          expect(res.body.err).to.be undefined
-          expect(res.statusCode).to.be 200
-          tasks = res.body.tasks
+      jsonRaw = [
 
-          done()
+        # Good scores
+        op: 'score', task: habits[0], dir: 'up'
+        op: 'score', task: habits[1], dir: 'down'
+        op: 'score', task: dailys[1], dir: 'up'
+        op: 'score', task: todos[1], dir: 'up'
+
+        # Bad scores, should handle gracefully
+        op: 'score', task: todos[2], dir: 'down'
+        op: 'score', task: {}, dir: 'up'
+        op: 'score', task: {id:null, value: NaN}, dir: 'up'
+      ]
+
+      request.post("#{baseURL}/user/batch-update")
+        .set('Accept', 'application/json')
+        .set('X-API-User', currentUser.id)
+        .set('X-API-Key', currentUser.apiToken)
+        .send(jsonRaw)
+        .end (res) ->
+            expect(res.body.err).to.be undefined
+            expect(res.statusCode).to.be 200
+            console.log {stats:res.body.stats, tasks:res.body.tasks}
+            expectUserEqual(userBefore, res.body)
+            done()
 

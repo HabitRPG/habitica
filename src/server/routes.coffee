@@ -14,45 +14,33 @@ api = require './api'
 
 {auth, validateTask, cron} = api
 
-###
-  We don't want the api functions to actually res.send results (unless there was an error)
-  because we'll be re-using the same functions when apiv2 rolls around, but returning different results.
-  So handle sending results for apiv1 here
-###
-v1Send = (req, res) ->
-  {result} = req.habit
-  if (result.code and result.data) then res.json result.code, result.data
-  else if result.code then res.send result.code
-  else if result.data then res.json result.data
-  else res.send 200
-
 router.get '/status', (req, res) -> res.json status: 'up'
 
 # Auth
-router.post '/register',                  api.registerUser, v1Send
+router.post '/register',                  api.registerUser
 
 # Scoring
-router.post '/user/task/:id/:direction',  auth, cron, api.scoreTask, v1Send
-router.post '/user/tasks/:id/:direction', auth, cron, api.scoreTask, v1Send
+router.post '/user/task/:id/:direction',  auth, cron, api.scoreTask
+router.post '/user/tasks/:id/:direction', auth, cron, api.scoreTask
 
 # Tasks
-router.get '/user/tasks',                 auth, cron, api.getTasks, v1Send # plural
-router.get '/user/task/:id',              auth, cron, api.getTask, v1Send
-router.put '/user/task/:id',              auth, cron, validateTask, api.updateTask, v1Send
-router.post '/user/tasks',                auth, cron, api.updateTasks, v1Send # plural
-router.delete '/user/task/:id',           auth, cron, validateTask, api.deleteTask, v1Send
-router.post '/user/task',                 auth, cron, validateTask, api.createTask, v1Send
-router.put '/user/task/:id/sort',         auth, cron, validateTask, api.sortTask, v1Send
+router.get '/user/tasks',                 auth, cron, api.getTasks
+router.get '/user/task/:id',              auth, cron, api.getTask
+router.put '/user/task/:id',              auth, cron, validateTask, api.updateTask
+router.post '/user/tasks',                auth, cron, api.updateTasks
+router.delete '/user/task/:id',           auth, cron, validateTask, api.deleteTask
+router.post '/user/task',                 auth, cron, validateTask, api.createTask
+router.put '/user/task/:id/sort',         auth, cron, validateTask, api.sortTask
 
 # Items
-router.post '/user/buy/:type',            auth, cron, api.buy, v1Send
+router.post '/user/buy/:type',            auth, cron, api.buy
 
 # User
-router.get '/user',                       auth, cron, api.getUser, v1Send
-router.post '/user/auth/local',           api.loginLocal, v1Send
-router.post '/user/auth/facebook',        api.loginFacebook, v1Send
-router.put '/user',                       auth, cron, api.updateUser, v1Send
-router.post '/user/revive',               auth, cron, api.revive, v1Send
-router.post '/user/batch-update',         auth, cron, api.batchUpdate # this one we're handling specially
+router.get '/user',                       auth, cron, api.getUser
+router.post '/user/auth/local',           api.loginLocal
+router.post '/user/auth/facebook',        api.loginFacebook
+router.put '/user',                       auth, cron, api.updateUser
+router.post '/user/revive',               auth, cron, api.revive
+router.post '/user/batch-update',         auth, cron, api.batchUpdate
 
 module.exports = router

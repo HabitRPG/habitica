@@ -76,6 +76,7 @@ mongo_store = new MongoStore {url: process.env.NODE_DB_URI}, ->
     .use(store.modelMiddleware())
     .use(middleware.translate)
     # API should be hit before all other routes
+    .use(middleware.apiv1Middleware)
     .use('/api/v1', require('./routes').middleware)
     .use(require('./deprecated').middleware)
     # Show splash page for newcomers

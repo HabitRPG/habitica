@@ -34,15 +34,12 @@ NO_USER_FOUND = err: "No user found."
 api.auth = (req, res, next) ->
   uid = req.headers['x-api-user']
   token = req.headers['x-api-key']
-  return res.json 401, NO_TOKEN_OR_UID unless uid and token
+  return res.json(401, NO_TOKEN_OR_UID) unless uid and token
 
-  model = req.getModel()
-  query = model.query('users').withIdAndToken(uid, token)
-
-  query.fetch (err, user) ->
-    return res.json err: err if err
+  req.getModel().query('users').withIdAndToken(uid, token).fetch (err, user) ->
+    return res.json(500, {err}) if err
     (req.habit ?= {}).user = user
-    return res.json 401, NO_USER_FOUND if _.isEmpty(user.get())
+    return res.json(401, NO_USER_FOUND) if _.isEmpty(user.get())
     req._isServer = true
     next()
 
@@ -81,8 +78,8 @@ api.scoreTask = (req, res, next) ->
   {id, direction} = req.params
 
   # Send error responses for improper API call
-  return res.json 500, {err: ':id required'} unless id
-  return res.json 500, {err: ":direction must be 'up' or 'down'"} unless direction in ['up','down']
+  return res.json(500, {err: ':id required'}) unless id
+  return res.json(500, {err: ":direction must be 'up' or 'down'"}) unless direction in ['up','down']
 
   {user} = req.habit
 
@@ -90,7 +87,7 @@ api.scoreTask = (req, res, next) ->
     # TODO - could modify batchTxn to conform to this better
     delta = score req.getModel(), user, id, direction, ->
       result = user.get('stats')
-      sendResult req, next, 200, _.extend(result, delta: delta)
+      res.json 200, _.extend(result, delta: delta)
 
   # Set completed if type is daily or todo and task exists
   if (existing = user.at "tasks.#{id}").get()
@@ -120,15 +117,15 @@ api.getTasks = (req, res, next) ->
     if /^(habit|todo|daily|reward)$/.test(req.query.type) then [req.query.type]
     else ['habit','todo','daily','reward']
   tasks = _.toArray (_.filter req.habit.user.get('tasks'), (t)-> t.type in types)
-  sendResult req, next, 200, tasks
+  res.json 200, tasks
 
 ###
   Get Task
 ###
 api.getTask = (req, res, next) ->
   task = req.habit.user.get "tasks.#{req.params.id}"
-  return res.json 400, err: "No task found." if !task || _.isEmpty(task)
-  sendResult req, next, 200, task
+  return res.json(400, err: "No task found.") if !task || _.isEmpty(task)
+  res.json 200, task
 
 ###
   Validate task
@@ -140,7 +137,7 @@ api.validateTask = (req, res, next) ->
   # If we're updating, get the task from the user
   if req.method is 'PUT' or req.method is 'DELETE'
     task = req.habit.user.get "tasks.#{req.params.id}"
-    return res.json 400, err: "No task found." if !task || _.isEmpty(task)
+    return res.json(400, err: "No task found.") if !task || _.isEmpty(task)
     # Strip for now
     type = undefined
     delete newTask.type
@@ -148,7 +145,7 @@ api.validateTask = (req, res, next) ->
     newTask.value = sanitize(value).toInt()
     newTask.value = 0 if isNaN newTask.value
     unless /^(habit|todo|daily|reward)$/.test type
-      return res.json 400, err: 'type must be habit, todo, daily, or reward'
+      return res.json(400, err: 'type must be habit, todo, daily, or reward')
 
   newTask.text = sanitize(text).xss() if typeof text is "string"
   newTask.notes = sanitize(notes).xss() if typeof notes is "string"
@@ -169,14 +166,14 @@ api.validateTask = (req, res, next) ->
 ###
 api.deleteTask = (req, res, next) ->
   deleteTask req.habit.user, req.habit.task, ->
-    sendResult req, next, 204
+    res.send 204
 
 ###
   Update Task
 ###
 api.updateTask = (req, res, next) ->
   req.habit.user.set "tasks.#{req.habit.task.id}", req.habit.task, ->
-    sendResult req, next, 200, req.habit.task
+    res.json 200, req.habit.task
 
 ###
   Update tasks (plural). This will update, add new, delete, etc all at once.
@@ -206,12 +203,12 @@ api.updateTasks = (req, res, next) ->
     true
 
   async.series series, ->
-    sendResult req, next, 201, tasks
+    res.json 201, tasks
 
 api.createTask =  (req, res, next) ->
   task = req.habit.task
   addTask req.habit.user, task, ->
-    sendResult req, next, 201, task
+    res.json 201, task
 
 api.sortTask = (req, res, next) ->
   {id} = req.params
@@ -230,13 +227,13 @@ api.sortTask = (req, res, next) ->
 api.buy = (req, res, next) ->
   type = req.params.type
   unless type in ['weapon', 'armor', 'head', 'shield']
-    return res.json 400, err: ":type must be in one of: 'weapon', 'armor', 'head', 'shield'"
+    return res.json(400, err: ":type must be in one of: 'weapon', 'armor', 'head', 'shield'")
   hasEnough = true
   done = ->
     if hasEnough
-      sendResult req, res, 200, req.habit.user.get("items")
+      res.json 200, req.habit.user.get("items")
     else
-      sendResult req, next, 200, {err: "Not enough GP"}
+      res.json 200, {err: "Not enough GP"}
   misc.batchTxn req.getModel(), (uObj, paths) ->
     hasEnough = items.buyItem(uObj, type, {paths})
   ,{user:req.habit.user, done}
@@ -255,17 +252,18 @@ api.registerUser = (req, res, next) ->
   {email, username, password, confirmPassword} = req.body
 
   unless username and password and email
-    return sendResult req, next, 401, err: ":username, :email, :password, :confirmPassword required"
+    return res.json 401, err: ":username, :email, :password, :confirmPassword required"
   if password isnt confirmPassword
-    return sendResult req, next, 401, err: ":password and :confirmPassword don't match"
+    return res.json 401, err: ":password and :confirmPassword don't match"
   try
     validator.check(email).isEmail()
   catch e
-    return sendResult req, next, 401, err: e.message
+    return res.json 401, err: e.message
 
   model = req.getModel()
   async.waterfall [
-      (cb) -> model.query('users').withEmail(email).fetch cb
+    (cb) ->
+        model.query('users').withEmail(email).fetch(cb)
 
     , (user, cb) ->
       return cb("Email already taken") if user.get()
@@ -280,9 +278,10 @@ api.registerUser = (req, res, next) ->
       newUser.auth.timestamps = {created: +new Date}
       req._isServer = true
       id = model.add "users", newUser, (err) -> cb(err, id)
-    ], (err, id) ->
-      return sendResult req, next, 401, {err} if err
-      sendResult req, next, 200, model.get("users.#{id}")
+    ]
+  , (err, id) ->
+    return res.json(401, {err}) if err
+    res.json 200, model.get("users.#{id}")
 
 ###
   Get User
@@ -298,34 +297,33 @@ api.getUser = (req, res, next) ->
     delete uObj.auth.hashed_password
     delete uObj.auth.salt
 
-  sendResult req, next, 200, uObj
+  res.json(200, uObj)
 
 ###
   Register new user with uname / password
 ###
 api.loginLocal = (req, res, next) ->
-  username = req.body.username
-  password = req.body.password
-  return res.json 401, err: 'No username or password' unless username and password
+  {username, password} = req.body
+  return res.json(401, err: 'No username or password') unless username and password
 
   model = req.getModel()
 
   q = model.query("users").withUsername(username)
   q.fetch (err, result1) ->
-    return res.json 401, { err } if err
+    return res.json(401, {err}) if err
     u1 = result1.get()
-    return res.json 401, err: 'Username not found' unless u1 # user not found
+    return res.json(401, err: 'Username not found') unless u1 # user not found
 
     # We needed the whole user object first so we can get his salt to encrypt password comparison
     q = model.query("users").withLogin(username, utils.encryptPassword(password, u1.auth.local.salt))
     q.fetch (err, result2) ->
-      return res.json 401, { err } if err
+      return res.json(401, {err}) if err
 
       # joshua tree?
       u2 = result2.get()
-      return res.json 401, err: 'Incorrect password' unless u2
+      return res.json(401, err: 'Incorrect password') unless u2
 
-      sendResult req, next, 200,
+      res.json 200,
         id: u2.id
         token: u2.apiToken
 
@@ -334,19 +332,19 @@ api.loginLocal = (req, res, next) ->
 ###
 api.loginFacebook = (req, res, next) ->
   {facebook_id, email, name} = req.body
-  return res.json 401, err: 'No facebook id provided' unless facebook_id
+  return res.json(401, err: 'No facebook id provided') unless facebook_id
   model = req.getModel()
   q = model.query("users").withProvider('facebook', facebook_id)
   q.fetch (err, result) ->
-    return res.json 401, { err } if err
+    return res.json(401, {err}) if err
     u = result.get()
     if u
-      sendResult req, next, 200,
+      res.json 200,
         id: u.id
         token: u.apiToken
     else
       # FIXME: create a new user instead
-      return res.json 403, err: "Please register with Facebook on https://habitrpg.com, then come back here and log in."
+      return res.json(403, err: "Please register with Facebook on https://habitrpg.com, then come back here and log in.")
 
 ###
   Update user
@@ -367,7 +365,7 @@ api.updateUser = (req, res, next) ->
       series.push (cb) -> req.habit.user.set(k, v, cb)
   async.series series, (err) ->
     return next(err) if err
-    sendResult req, next, 200, helpers.derbyUserToAPI(user)
+    res.json 200, helpers.derbyUserToAPI(user)
 
 api.cron = (req, res, next) ->
   {user} = req.habit
@@ -379,7 +377,7 @@ api.cron = (req, res, next) ->
 api.revive = (req, res, next) ->
   {user} = req.habit
   done = ->
-    sendResult req, res, 200, helpers.derbyUserToAPI(user)
+    res.json 200, helpers.derbyUserToAPI(user)
   misc.batchTxn req.getModel(), (uObj, paths) ->
     algos.revive uObj, {paths}
   , {user, done}
@@ -394,6 +392,9 @@ api.revive = (req, res, next) ->
 api.batchUpdate = (req, res, next) ->
   {user} = req.habit
 
+  oldSend = res.send
+  oldJson = res.json
+
   performAction = (action, cb) ->
     # TODO come up with a more consistent approach here. like:
     # req.body=action.data; delete action.data; _.defaults(req.params, action)
@@ -403,23 +404,28 @@ api.batchUpdate = (req, res, next) ->
     req.params.type = action.type
     req.body = action.data
 
+    res.send = res.json = (code, data) ->
+      console.error({code, data}) if _.isNumber(code) and code >= 400
+      #FIXME send error messages down
+      cb()
+
     switch action.op
       when "score"
-        api.scoreTask(req, res, cb)
+        api.scoreTask(req, res)
       when "buy"
-        api.buy(req, res, cb)
+        api.buy(req, res)
       when "sortTask"
-        api.sortTask(req, res, cb)
+        api.sortTask(req, res)
       when "addTask"
         api.validateTask req, res, ->
-          api.createTask(req, res, cb)
+          api.createTask(req, res)
       when "delTask"
         api.validateTask req, res, ->
-          api.deleteTask(req, res, cb)
+          api.deleteTask(req, res)
       when "set"
-        api.updateUser(req, res, cb)
+        api.updateUser(req, res)
       when "revive"
-        api.revive(req, res, cb)
+        api.revive(req, res)
       else cb()
 
   # Setup the array of functions we're going to call in parallel with async
@@ -429,7 +435,8 @@ api.batchUpdate = (req, res, next) ->
 
   # call all the operations, then return the user object to the requester
   async.series actions, (err) ->
-    return res.json 500, {err} if err
-    res.json helpers.derbyUserToAPI(user)
+    res.json = oldJson; res.send = oldSend
+    return res.json(500, {err}) if err
+    res.json 200, helpers.derbyUserToAPI(user)
     console.log "Reply sent"
 

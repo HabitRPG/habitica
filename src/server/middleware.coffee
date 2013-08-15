@@ -32,4 +32,8 @@ translate = (req, res, next) ->
 
   next()
 
-module.exports = { splash, view, allowCrossDomain, translate}
+apiv1Middleware = (req, res, next) ->
+  req.habit ?= {}
+  next()
+
+module.exports = { splash, view, allowCrossDomain, translate, apiv1Middleware}
