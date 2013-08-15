@@ -183,13 +183,13 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
     user.items.lastDrop.count++
     paths['items.lastDrop'] = true
 
+
 #  {task} task you want to score
 #  {direction} 'up' or 'down'
 obj.score = (user, task, direction, options={}) ->
-  {gp, hp, exp, lvl} = user.stats
-  {type, value, streak} = task
+  [gp, hp, exp, lvl] = [+user.stats.gp, +user.stats.hp, +user.stats.exp, ~~user.stats.lvl]
+  [type, value, streak, priority] = [task.type, +task.value, ~~task.streak, task.priority or '!']
   [paths, times, cron] = [options.paths || {}, options.times || 1, options.cron || false]
-  priority = task.priority or '!'
 
   # Handle corrupt tasks
   # This type of cleanup-code shouldn't be necessary, revisit once we're off Derby
