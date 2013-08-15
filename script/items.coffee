@@ -83,9 +83,7 @@ module.exports.buyItem = (user, type, options={}) ->
       i = (user.items[type] or 0) + 1
       module.exports.getItem type, i
 
-  if user.stats.gp < +nextItem.value
-    alert("Not enough GP")
-    return false
+  return false if user.stats.gp < +nextItem.value
   if nextItem.type is 'potion'
     user.stats.hp += 15;
     user.stats.hp = 50 if user.stats.hp > 50
