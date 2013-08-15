@@ -265,6 +265,12 @@ try {
       task.value = value = 0;
       paths["tasks." + task.id + ".value"] = true;
     }
+    _.each(user.stats, function(v, k) {
+      if (!_.isNumber(v) || _.isNaN(v)) {
+        user.stats[k] = 0;
+        return paths["stats." + k] = true;
+      }
+    });
     if (task.value > user.stats.gp && task.type === 'reward') {
       return;
     }
@@ -1675,7 +1681,7 @@ process.chdir = function (dir) {
 
 
 })(require("__browserify_process"))
-},{"./items.coffee":3,"lodash":6,"moment":5,"relative-date":8,"__browserify_process":7}],5:[function(require,module,exports){
+},{"./items.coffee":3,"moment":5,"lodash":6,"relative-date":8,"__browserify_process":7}],5:[function(require,module,exports){
 (function(){// moment.js
 // version : 2.0.0
 // author : Tim Wood

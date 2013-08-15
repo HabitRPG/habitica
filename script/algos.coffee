@@ -192,10 +192,14 @@ obj.score = (user, task, direction, options={}) ->
   priority = task.priority or '!'
 
   # Handle corrupt tasks
+  # This type of cleanup-code shouldn't be necessary, revisit once we're off Derby
   return 0 unless task.id
   if !_.isNumber(value) or _.isNaN(value)
     task.value = value = 0;
     paths["tasks.#{task.id}.value"] = true
+  _.each user.stats, (v,k) ->
+    if !_.isNumber(v) or _.isNaN(v)
+      user.stats[k] = 0; paths["stats.#{k}"] = true
 
   # If they're trying to purhcase a too-expensive reward, don't allow them to do that.
   if task.value > user.stats.gp and task.type is 'reward'
