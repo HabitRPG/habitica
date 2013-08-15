@@ -46,7 +46,25 @@ describe 'API', ->
   model = null
   user = null
   uid = null
+  token = null
   username = null
+
+  ###
+    Function for registring new users, so we can futz with data
+  ###
+  registerNewUser = (cb) ->
+    randomID = model.id()
+    params =
+      username: randomID
+      password: randomID
+      confirmPassword: randomID
+      email: "#{randomID}@gmail.com"
+
+    request.post("#{baseURL}/register")
+      .set('Accept', 'application/json')
+      .send(params)
+      .end (res) ->
+        cb(res.body)
 
   before (done) ->
     server = require '../src/server'
@@ -55,30 +73,8 @@ describe 'API', ->
       #store.flush()
       model = store.createModel()
 
-      randomID = model.id()
-      params =
-        username: randomID
-        password: randomID
-        confirmPassword: randomID
-        email: "#{randomID}@gmail.com"
-
-      register = ->
-        request.post("#{baseURL}/register")
-          .set('Accept', 'application/json')
-          .send(params)
-          .end (res) ->
-            user = res.body
-            uid = user.id
-            username = user.auth.local.username
-
-            #TODO fix me , we shouldn't need session & _userID in API function testing
-            model.set '_userId', uid
-            model.session = {userId:uid}
-
-            done()
-
       # nasty hack, why isn't server.listen callback fired when server is completely up?
-      setTimeout register, 2000
+      setTimeout done, 2000
 
   describe 'Without token or user id', ->
 
@@ -103,13 +99,16 @@ describe 'API', ->
     currentUser = null
 
     before (done) ->
-      model.fetch "users.#{uid}", (err, _user) ->
-        user = _user
-        params =
-          title: 'Title'
-          text: 'Text'
-          type: 'habit'
-        done()
+      registerNewUser (_res) ->
+        [uid, token, username] = [_res.id, _res.apiToken, _res.auth.local.username]
+        model.query('users').withIdAndToken(uid, token).fetch (err, _user) ->
+          console.error {err} if err
+          user = _user
+          params =
+            title: 'Title'
+            text: 'Text'
+            type: 'habit'
+          done()
 
     beforeEach ->
       currentUser = user.get()
@@ -437,7 +436,6 @@ describe 'API', ->
         id: userAuth.facebook_id
         name: userAuth.name
         email: userAuth.email
-      #console.log {newUser}
       model.set "users.#{id}", newUser, ->
 
         request.post("#{baseURL}/user/auth/facebook")
@@ -449,6 +447,34 @@ describe 'API', ->
             expect(res.body.id).to.be newUser.id
             #expect(res.body.token).to.be newUser.apiToken
             done()
+
+    it 'POST /api/v1/batch-update (handles corrupt values)', (done) ->
+      registerNewUser (_res) ->
+        model.set '_userId', _res.id
+        model.session = {userId:_res.id}
+
+        # corrupt the tasks, and let's see how the server handles this
+        ids = _res.dailyIds
+        _res.tasks[ids[0]].value = NaN
+        _res.tasks[ids[1]].value = undefined
+        _res.tasks[ids[2]] = {}
+        _res.tasks["undefined"] = {}
+
+        _res.stats.hp = _res.stats.gp = NaN
+
+        _res.lastCron = +new Date('08/13/2013')
+
+        model.set "users.#{_res.id}", _res, ->
+          ops = [{'cron'}]
+          request.post("#{baseURL}/user/batch-update")
+            .set('Accept', 'application/json')
+            .set('X-API-User', _res.id)
+            .set('X-API-Key', _res.apiToken)
+            .send(ops)
+            .end (res) ->
+                expect(res.statusCode).to.be 200
+                console.log {stats:res.body.stats, tasks:res.body.tasks}
+                done()
 
     it 'POST /api/v1/batch-update', (done) ->
       userBefore = _.cloneDeep(currentUser)
@@ -480,7 +506,6 @@ describe 'API', ->
         .end (res) ->
             expect(res.body.err).to.be undefined
             expect(res.statusCode).to.be 200
-            console.log {stats:res.body.stats, tasks:res.body.tasks}
             expectUserEqual(userBefore, res.body)
             done()
 
