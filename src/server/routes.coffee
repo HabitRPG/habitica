@@ -20,27 +20,27 @@ router.get '/status', (req, res) -> res.json status: 'up'
 router.post '/register',                  api.registerUser
 
 # Scoring
-router.post '/user/task/:id/:direction',  auth, cron, api.scoreTask
-router.post '/user/tasks/:id/:direction', auth, cron, api.scoreTask
+router.post '/user/task/:id/:direction',  auth, api.scoreTask
+router.post '/user/tasks/:id/:direction', auth, api.scoreTask
 
 # Tasks
-router.get '/user/tasks',                 auth, cron, api.getTasks
-router.get '/user/task/:id',              auth, cron, api.getTask
-router.put '/user/task/:id',              auth, cron, validateTask, api.updateTask
-router.post '/user/tasks',                auth, cron, api.updateTasks
-router.delete '/user/task/:id',           auth, cron, validateTask, api.deleteTask
-router.post '/user/task',                 auth, cron, validateTask, api.createTask
-router.put '/user/task/:id/sort',         auth, cron, validateTask, api.sortTask
+router.get '/user/tasks',                 auth, api.getTasks
+router.get '/user/task/:id',              auth, api.getTask
+router.put '/user/task/:id',              auth, validateTask, api.updateTask
+router.post '/user/tasks',                auth, api.updateTasks
+router.delete '/user/task/:id',           auth, validateTask, api.deleteTask
+router.post '/user/task',                 auth, validateTask, api.createTask
+router.put '/user/task/:id/sort',         auth, validateTask, api.sortTask
 
 # Items
-router.post '/user/buy/:type',            auth, cron, api.buy
+router.post '/user/buy/:type',            auth, api.buy
 
 # User
-router.get '/user',                       auth, cron, api.getUser
+router.get '/user',                       auth, api.getUser
 router.post '/user/auth/local',           api.loginLocal
 router.post '/user/auth/facebook',        api.loginFacebook
-router.put '/user',                       auth, cron, api.updateUser
-router.post '/user/revive',               auth, cron, api.revive
-router.post '/user/batch-update',         auth, cron, api.batchUpdate
+router.put '/user',                       auth, api.updateUser
+router.post '/user/revive',               auth, api.revive
+router.post '/user/batch-update',         auth, api.batchUpdate
 
 module.exports = router
