@@ -78,12 +78,10 @@ module.exports.buyItem = (user, type, options={}) ->
   _.defaults options, {paths: {}}
 
   nextItem =
-    if type is 'potion' then items.potion
-    else
-      i = (user.items[type] or 0) + 1
-      module.exports.getItem type, i
+      if type is 'potion' then items.potion
+      else module.exports.getItem type, ((user.items[type] or 0) + 1)
 
-  return false if user.stats.gp < +nextItem.value
+  return false if +user.stats.gp < +nextItem.value
   if nextItem.type is 'potion'
     user.stats.hp += 15;
     user.stats.hp = 50 if user.stats.hp > 50
@@ -101,7 +99,7 @@ module.exports.buyItem = (user, type, options={}) ->
 module.exports.updateStore = (user) ->
   changes = {}
   _.each ['weapon', 'armor', 'shield', 'head'], (type) ->
-    i = parseInt(user.items?[type] || 0) + 1
+    i = ~~(user.items?[type] or 0) + 1
     showNext = true
     if i is items[type].length - 1
       if (type in ['armor', 'shield', 'head'])
