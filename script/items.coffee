@@ -79,7 +79,7 @@ module.exports.buyItem = (user, type, options={}) ->
 
   nextItem =
       if type is 'potion' then items.potion
-      else module.exports.getItem type, ((user.items[type] or 0) + 1)
+      else module.exports.getItem type, ((~~user.items[type] or 0) + 1)
 
   return false if +user.stats.gp < +nextItem.value
   if nextItem.type is 'potion'
