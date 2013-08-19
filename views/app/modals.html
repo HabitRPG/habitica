@@ -25,7 +25,7 @@
                     <p><a x-bind=click:revive class="btn btn-danger btn-large notification-action">Continue</a></p>
                 </div>
                 <div class='span8'>
-                    <p>You've lost your GP, 1 level and 1 gear piece. Be sure to complete your dailies to prevent this from happening again!</p>
+                    <p>You've lost a level, all your gold, and a random piece of equipment. Arise, Habiteer, and try again! Curb those negative Habits, be vigilant in completion of Dailies, and hold death at arm's length with a Potion if you falter!</p>
                 </div>
             </div>
 
@@ -35,7 +35,7 @@
     <!-- Re-Roll modal -->
     <app:modals:modal modalId='reroll-modal' header="Reset Your Tasks">
         <app:rewards:user-gems />
-        <p>Highly discouraged because red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). However, this becomes necessary after long bouts of bad habits.</p>
+        <p>Purchasing a Re-Roll will reset all your tasks to a neutral (yellow) state, as if you'd just added them. Consider this an option of last resort! Red tasks provide good incentive to improve (<a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">read more</a>). But if all that red fills you with despair, and the beginning of each new day proves lethal, spend the Gems and catch a reprieve!</p>
         <@footer>   
             {#if lt(_user.balance,1)}
             <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-success btn-large">Buy More Gems</a><span class='gem-cost'>Not enough Gems</span>
@@ -48,7 +48,7 @@
     <!-- Buy more Gems modal -->
     <app:modals:modal modalId='more-gems-modal' header="Out Of Gems">
         <app:rewards:user-gems />
-        <p>Oops, out of Gems, which are used to buy special items! Habit is an open source project, and can use all the help it can get - buy more Gems to receive this pet, and consider it a donation to the contributors</p>
+        <p>Oops, out of Gems, which are used to buy special items! Habit is an open source project, and can use all the help it can get - buy more Gems to receive this pet, and consider it a donation to the contributors.</p>
         <@footer>
         <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-success btn-large">Buy More Gems</a><span class='gem-cost'>Not enough Gems</span>
     </@footer>
