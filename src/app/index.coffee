@@ -17,8 +17,9 @@ i18n.localize app,
   urlScheme: false
   checkHeader: true
 
-misc = require('./misc')
+misc = require './misc'
 misc.viewHelpers view
+items = require './items'
 
 _ = require('lodash')
 algos = require 'habitrpg-shared/script/algos'
@@ -36,16 +37,10 @@ get '/', (page, model, params, next) ->
   Subscribe to the user, the users's party (meta info like party name, member ids, etc), and the party's members. 3 subscriptions.
   ###
   uuid = model.get('_userId') or model.session.userId # see http://goo.gl/TPYIt
-  selfQ = model.query('users').withId(uuid) #keep this for later
-  # Note: due to https://github.com/codeparty/racer/issues/57, this has to come at the very beginning. The more limited
-  # the returned fields in motifs, the sooner they must come in fetch / subscribes.
-  publicGroupsQuery = model.query('groups').publicGroups()
-  myGroupsQuery = model.query('groups').withMember(uuid)
-
-  # Note - selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
-  descriptors = [selfQ]; paths = ['_user']
   async.waterfall [
     (cb) ->
+      publicGroupsQuery = model.query('groups').publicGroups()
+      myGroupsQuery = model.query('groups').withMember(uuid)
       model.fetch publicGroupsQuery, myGroupsQuery, cb
 
     (publicGroups, groups, cb) ->
@@ -65,47 +60,54 @@ get '/', (page, model, params, next) ->
         m
       ), {guildIds:[], partyId:null, members:[]}
 
-      # Fetch, not subscribe. There's nothing dynamic we need from members, just the the Group (below) which includes chat, challenges, etc
-      model.query('users').publicInfo(groupsInfo.members).fetch (err, members) -> cb(err, members, groupsInfo)
+      cb(null, groupsInfo)
 
-    (members, groupsInfo, cb) ->
-      # we need _members as an object in the view, so we can iterate over _party.members as :id, and access _members[:id] for the info
-      mObj = members.get()
-      model.set "_members", _.object(_.pluck(mObj,'id'), mObj)
-      model.set "_membersArray", mObj
+    (groupsInfo, cb) ->
 
-
-      if groupsInfo.partyId
-        descriptors.unshift model.query('groups').withIds(groupsInfo.partyId)
-        paths.unshift '_party'
-      unless _.isEmpty(groupsInfo.guildIds)
-        descriptors.unshift model.query('groups').withIds(groupsInfo.guildIds)
-        paths.unshift '_guilds'
-      cb()
+      # Parallel fetch of members, party, & guilds, not subscribe - cut back on some data
+      async.parallel {
+        membersFetch: (cb2) ->
+          model.query('users').publicInfo(groupsInfo.members).fetch cb2
+        partyFetch: (cb2) ->
+          if groupsInfo.partyId
+            model.query('groups').withIds(groupsInfo.partyId).fetch cb2
+          else cb2()
+        guildFetch: (cb2) ->
+          unless _.isEmpty(groupsInfo.guildIds)
+            model.query('groups').withIds(groupsInfo.guildIds).fetch cb2
+          else cb2()
+      }, (err, results) ->
+        return cb(err) if err
+        # we need _members as an object in the view, so we can iterate over _party.members as :id, and access _members[:id] for the info
+        mObj = results.membersFetch.get()
+        model.set "_members", _.object(_.pluck(mObj,'id'), mObj)
+        model.set "_membersArray", mObj
+        model.ref '_party', results.partyFetch
+        model.ref '_guilds', results.guildFetch
+        cb()
 
   ], (err) ->
     return next(err) if (err and err isnt true) #FIXME page.render err somehow?
 
-    # Add public "Tavern" guild in
-    descriptors.unshift('groups.habitrpg'); paths.unshift('_habitRPG')
+    # Note: due to https://github.com/codeparty/racer/issues/57, this has to come at the very beginning. The more limited
+    # the returned fields in motifs, the sooner they must come in fetch / subscribes.
+    # selfQ *must* come after membersQ in subscribe, otherwise _user will only get the fields restricted by party-members in store.coffee. Strang bug, but easy to get around
 
-    # Subscribe to each descriptor
-    model.subscribe.apply model, descriptors.concat ->
-      [err, refs] = [arguments[0], arguments]
+    model.subscribe "users.#{uuid}", 'groups.habitrpg', (err, user, tavern) ->
       return next(err) if err
-      _.each paths, (path, idx) -> model.ref path, refs[idx+1]; true
-      unless model.get('_user')
+      model.ref '_user', user
+      model.ref '_habitRPG', tavern
+      unless user.get()
         console.error "User not found - this shouldn't be happening!"
         return page.redirect('/logout') #delete model.session.userId
 
+      items.server(model)
 
-      require('./items').server(model)
       #refLists
       _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
         model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
         true
       page.render()
-
 
 
 # ========== CONTROLLER FUNCTIONS ==========
@@ -116,7 +118,7 @@ ready (model) ->
 
   browser = require './browser'
   require('./tasks').app(exports, model)
-  require('./items').app(exports, model)
+  items.app(exports, model)
   require('./groups').app(exports, model, app)
   require('./profile').app(exports, model)
   require('./pets').app(exports, model)
