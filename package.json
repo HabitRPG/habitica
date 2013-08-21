@@ -6,7 +6,6 @@
     "coffeeify": "0.4.0",
     "coffee-script": "1.6.2",
     "relative-date": "~1.1.1",
-    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared#master",
     "lodash": "~1.3.1",
     "moment": "~2.1.0"
   },
