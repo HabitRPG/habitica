@@ -3,9 +3,9 @@ expect = require 'expect.js'
 moment = require 'moment'
 
 # Custom modules
-algos = require '../script/algos'
-helpers = require '../script/helpers'
-items = require '../script/items'
+algos = require '../script/algos.coffee'
+helpers = require '../script/helpers.coffee'
+items = require '../script/items.coffee'
 
 ### Helper Functions ####
 
@@ -16,6 +16,7 @@ beforeAfter = (options={}) ->
   user = helpers.newUser()
   [before, after] = [_.cloneDeep(user), _.cloneDeep(user)]
   before.preferences.dayStart = after.preferences.dayStart = options.dayStart if options.dayStart
+  before.preferences.timezoneOffset = after.preferences.timezoneOffset = (options.timezoneOffset or moment().zone())
   if options.limitOne
     before["#{options.limitOne}s"] = [before["#{options.limitOne}s"][0]]
     after["#{options.limitOne}s"] = [after["#{options.limitOne}s"][0]]
@@ -61,15 +62,12 @@ expectDayResetNoDamage = (b,a) ->
   expect(after).to.eql before
 
 
-
-
 ###### Specs ######
 
 describe 'User', ->
   it 'sets correct user defaults', ->
     user = helpers.newUser()
     expect(user.stats).to.eql { gp: 0, exp: 0, lvl: 1, hp: 50 }
-    expect(user.party).to.eql { invitation: null }
     expect(user.items).to.eql { weapon: 0, armor: 0, head: 0, shield: 0 }
     expect(user.preferences).to.eql { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0, showHelm: true }
     expect(user.balance).to.eql 0
@@ -152,21 +150,28 @@ describe 'Cron', ->
   describe 'dailies', ->
 
     describe 'new day', ->
-      #TODO check helpers.isDue()
+
+      ###
+      This section runs through a "cron matrix" of all permutations (that I can easily account for). It sets
+      task due days, user custom day start, timezoneOffset, etc - then runs cron, jumps to tomorrow and runs cron,
+      and so on - testing each possible outcome along the way
+      ###
 
       runCron = (options) ->
-        now = moment().startOf('week').add('hours',options.currentHour || 0)
-        {before,after} = beforeAfter({now, daysAgo:1, dayStart:options.dayStart||0, limitOne:'daily'})
-        before.dailys[0].repeat = after.dailys[0].repeat = options.repeat if options.repeat
-        before.dailys[0].streak = after.dailys[0].streak = 10
-        before.dailys[0].completed = after.dailys[0].completed = true if options.checked
-        expect(helpers.shouldDo(now, options.repeat, {dayStart:options.dayStart,now})).to.be.ok() if options.shouldDo
-        algos.cron(after,{now})
-        switch options.expect
-          when 'losePoints' then expectLostPoints(before,after,'daily')
-          when 'noChange' then expectNoChange(before,after)
-          when 'noDamage' then expectDayResetNoDamage(before,after)
-        {before,after}
+        _.each [480, 240, 0, -120], (timezoneOffset) -> # test different timezones
+          now = helpers.startOfWeek({timezoneOffset}).add('hours', options.currentHour||0)
+          {before,after} = beforeAfter({now, timezoneOffset, daysAgo:1, dayStart:options.dayStart||0, limitOne:'daily'})
+          before.dailys[0].repeat = after.dailys[0].repeat = options.repeat if options.repeat
+          before.dailys[0].streak = after.dailys[0].streak = 10
+          before.dailys[0].completed = after.dailys[0].completed = true if options.checked
+          if options.shouldDo
+            expect(helpers.shouldDo(now, options.repeat, {timezoneOffset, dayStart:options.dayStart, now})).to.be.ok()
+          algos.cron(after,{now})
+          switch options.expect
+            when 'losePoints' then expectLostPoints(before,after,'daily')
+            when 'noChange' then expectNoChange(before,after)
+            when 'noDamage' then expectDayResetNoDamage(before,after)
+          {before,after}
 
       cronMatrix =
         steps:
@@ -178,7 +183,8 @@ describe 'Cron', ->
               '(simple)': {expect:'losePoints'}
 
               'due today':
-                defaults: {repeat:{su:true,m:1,t:1,w:1,th:1,f:1,s:true}}
+                # NOTE: a strange thing here, moment().startOf('week') is Sunday, but moment.zone(myTimeZone).startOf('week') is Monday.
+                defaults: {repeat:{su:1,m:true,t:1,w:1,th:1,f:1,s:1}}
                 steps:
                   'pre-dayStart':
                     defaults: {currentHour:3, dayStart:4, shouldDo:true}
@@ -192,7 +198,7 @@ describe 'Cron', ->
                       'unchecked': {checked:false, expect: 'losePoints'}
 
               'NOT due today':
-                defaults: {repeat:{su:false,m:1,t:1,w:1,th:1,f:1,s:1}}
+                defaults: {repeat:{su:1,m:false,t:1,w:1,th:1,f:1,s:1}}
                 steps:
                   'pre-dayStart':
                     defaults: {currentHour:3, dayStart:4, shouldDo:true}
@@ -206,7 +212,7 @@ describe 'Cron', ->
                       'unchecked': {checked:false, expect: 'losePoints'}
 
           'not due yesterday':
-            defaults: {repeat:{su:1,m:1,t:1,w:1,th:1,f:1,s:false}}
+            defaults: {repeat:{su:false,m:1,t:1,w:1,th:1,f:1,s:1}}
             steps:
               '(simple)': {expect:'noDamage'}
               'post-dayStart': {currentHour:5,dayStart:4, expect:'noDamage'}
@@ -226,13 +232,11 @@ describe 'Cron', ->
     it '3 day missed, only 1 due'
     it '3 day missed, only 1 due, not day start yet'
 
-  it 'calculates day differences with dayStart properly', ->
-    dayStart = 4
-    yesterday = moment().subtract('d', 1).add('h', dayStart)
-    now = moment().startOf('day').add('h', dayStart-1) #today
-    console.log {yesterday: yesterday.format('MM/DD HH:00'), now: now.format('MM/DD HH:00')}
-    console.log {diff: Math.abs(moment(yesterday).diff(moment(now), 'days'))}
-    expect(helpers.daysBetween(yesterday, now, dayStart)).to.eql 0
-    now = moment().startOf('day').add('h', dayStart)
-    console.log {now: now.format('MM/DD HH:00')}
-    expect(helpers.daysBetween(yesterday, now, dayStart)).to.eql 1
+    it 'calculates day differences with dayStart properly', ->
+      dayStart = 4
+      yesterday = helpers.startOfDay {now: moment().subtract('d', 1), dayStart}
+      now = helpers.startOfDay {dayStart: dayStart-1}
+      expect(helpers.daysSince(yesterday, {now, dayStart})).to.eql 0
+      now = moment().startOf('day').add('h', dayStart).add('m', 1)
+      console.log {yesterday,now}
+      expect(helpers.daysSince(yesterday, {now, dayStart})).to.eql 1

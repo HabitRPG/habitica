@@ -120,7 +120,7 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
     count: 0
   paths['items.lastDrop'] = true
 
-  reachedDropLimit = (helpers.daysBetween(user.items.lastDrop.date, +new Date) is 0) and (user.items.lastDrop.count >= 2)
+  reachedDropLimit = (helpers.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 2)
   return if reachedDropLimit
 
   # % chance of getting a pet or meat
@@ -359,7 +359,7 @@ obj.cron = (user, options={}) ->
     user.lastCron = now; paths['lastCron'] = true
     return
 
-  daysMissed = helpers.daysBetween(user.lastCron, now, user.preferences?.dayStart)
+  daysMissed = helpers.daysSince user.lastCron, _.defaults({now}, user.preferences)
   return unless daysMissed > 0
 
   user.lastCron = now; paths['lastCron'] = true
@@ -380,7 +380,7 @@ obj.cron = (user, options={}) ->
         scheduleMisses = 0
         _.times daysMissed, (n) ->
           thatDay = moment(now).subtract('days', n + 1)
-          scheduleMisses++ if helpers.shouldDo(thatDay, repeat, {dayStart:obj.preferences?.dayStart})
+          scheduleMisses++ if helpers.shouldDo(thatDay, repeat, user.preferences)
       obj.score(user, task, 'down', {times:scheduleMisses, cron:true, paths:paths}) if scheduleMisses > 0
 
     switch type

@@ -2,31 +2,48 @@ moment = require 'moment'
 _ = require 'lodash'
 items = require('./items.coffee')
 
-sod = (timestamp, dayStart=0) ->
-  #sanity-check reset-time (is it 24h time?)
-  dayStart = 0 unless (dayStart = +dayStart) and (0 <= dayStart <= 24)
-  moment(timestamp).startOf('day').add('h', dayStart)
+###
+  Each time we're performing date math (cron, task-due-days, etc), we need to take user preferences into consideration.
+  Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
+  {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times
+###
+sanitizeOptions = (o) ->
+  dayStart = if (o.dayStart and 0 <= +o.dayStart <= 24) then +o.dayStart else 0
+  timezoneOffset = if o.timezoneOffset then +(o.timezoneOffset) else +moment().zone()
+  now = if o.now then moment(o.now).zone(timezoneOffset) else moment(+new Date).zone(timezoneOffset)
+  # return a new object, we don't want to add "now" to user object
+  {dayStart, timezoneOffset, now}
+
+startOfWeek = (options={}) ->
+  o = sanitizeOptions(options)
+  moment(o.now).startOf('week')
+
+startOfDay = (options={}) ->
+  o = sanitizeOptions(options)
+  moment(o.now).startOf('day').add('h', options.dayStart)
 
 dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
 
 ###
-  Absolute diff between two dates
+  Absolute diff from "yesterday" till now
 ###
-daysBetween = (yesterday, now, dayStart) -> Math.abs sod(yesterday, dayStart).diff(now, 'days')
+daysSince = (yesterday, options = {}) ->
+  o = sanitizeOptions options
+  Math.abs startOfDay(_.defaults {now:yesterday}, o).diff(o.now, 'days')
 
 ###
   Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
 ###
 shouldDo = (day, repeat, options={}) ->
   return false unless repeat
-  [dayStart,now] = [options.dayStart||0, options.now||+new Date]
-  selected = repeat[dayMapping[sod(day, dayStart).day()]]
-  return selected unless moment(day).isSame(now,'d')
-  if dayStart <= moment(now).hour() # we're past the dayStart mark, is it due today?
+  o = sanitizeOptions options
+  selected = repeat[dayMapping[startOfDay(_.defaults {now:day}, o).day()]]
+  return selected unless moment(day).zone(o.timezoneOffset).isSame(o.now,'d')
+  if options.dayStart <= o.now.hour() # we're past the dayStart mark, is it due today?
     return selected
   else # we're not past dayStart mark, check if it was due "yesterday"
-    yesterday = moment(now).subtract(1,'d').day()
-    return repeat[dayMapping[yesterday]]
+    yesterday = moment(o.now).subtract(1,'d').day() # have to wrap o.now so as not to modify original
+    return repeat[dayMapping[yesterday]] # FIXME is this correct?? Do I need to do any timezone calcaulation here?
 
 uuid = ->
   "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace /[xy]/g, (c) ->
@@ -124,7 +141,9 @@ module.exports =
     return undefined if ~path.indexOf('undefined')
     _.reduce path.split('.'), ((curr, next) -> curr[next]), obj
 
-  daysBetween: daysBetween
+  daysSince: daysSince
+  startOfWeek: startOfWeek
+  startOfDay: startOfDay
 
   shouldDo: shouldDo
 
