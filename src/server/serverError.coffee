@@ -17,5 +17,4 @@ module.exports = (root) ->
     else if status >= 400 and status < 600
       res.send status
     else
-      #TODO send error to email
-      res.redirect('/500.html')
+      staticPages.render 'error', res, {message, status}, status
