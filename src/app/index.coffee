@@ -60,34 +60,22 @@ get '/', (page, model, params, next) ->
         m
       ), {guildIds:[], partyId:null, members:[]}
 
-      cb(null, groupsInfo)
-
-    (groupsInfo, cb) ->
-
       # Parallel fetch of members, party, & guilds, not subscribe - cut back on some data
-      async.parallel {
-        membersFetch: (cb2) ->
-          model.query('users').publicInfo(groupsInfo.members).fetch cb2
-        partyFetch: (cb2) ->
-          if groupsInfo.partyId
-            model.query('groups').withIds(groupsInfo.partyId).fetch cb2
-          else cb2()
-        guildFetch: (cb2) ->
-          unless _.isEmpty(groupsInfo.guildIds)
-            model.query('groups').withIds(groupsInfo.guildIds).fetch cb2
-          else cb2()
-      }, (err, results) ->
-        return cb(err) if err
-        # we need _members as an object in the view, so we can iterate over _party.members as :id, and access _members[:id] for the info
-        mObj = results.membersFetch.get()
-        model.set "_members", _.object(_.pluck(mObj,'id'), mObj)
-        model.set "_membersArray", mObj
-        model.ref '_party', results.partyFetch
-        model.ref '_guilds', results.guildFetch
-        cb()
+      membersQ = model.query('users').publicInfo(groupsInfo.members)
+      partyQ = model.query('groups').withIds(groupsInfo.partyId)
+      guildsQ = model.query('groups').withIds(groupsInfo.guildIds)
+      model.fetch membersQ, partyQ, guildsQ, cb
 
-  ], (err) ->
+  ], (err, members, party, guilds) ->
     return next(err) if (err and err isnt true) #FIXME page.render err somehow?
+
+    # we need _members as an object in the view, so we can iterate over _party.members as :id, and access _members[:id] for the info
+    if members
+      mObj = members.get()
+      model.set "_members", _.object(_.pluck(mObj,'id'), mObj)
+      model.set "_membersArray", mObj
+    model.ref '_party', party if party
+    model.ref '_guilds', guilds if guilds
 
     # Note: due to https://github.com/codeparty/racer/issues/57, this has to come at the very beginning. The more limited
     # the returned fields in motifs, the sooner they must come in fetch / subscribes.
