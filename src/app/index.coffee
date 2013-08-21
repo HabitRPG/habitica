@@ -127,6 +127,10 @@ ready (model) ->
     e.at().remove()
     browser.resetDom(model) if $(el).attr('data-refresh')
 
+  tz = user.get("preferences.timezoneOffset")
+  unless tz and tz is (new Date()).getTimezoneOffset()
+    user.set 'preferences.timezoneOffset', (new Date()).getTimezoneOffset()
+
   ###
     Cron
   ###
