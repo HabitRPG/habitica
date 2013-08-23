@@ -19,7 +19,6 @@ i18n.localize app,
 
 misc = require './misc'
 misc.viewHelpers view
-items = require './items'
 
 _ = require('lodash')
 algos = require 'habitrpg-shared/script/algos'
@@ -89,7 +88,7 @@ get '/', (page, model, params, next) ->
         console.error "User not found - this shouldn't be happening!"
         return page.redirect('/logout') #delete model.session.userId
 
-      items.server(model)
+      require('./items').server(model)
 
       #refLists
       _.each ['habit', 'daily', 'todo', 'reward'], (type) ->
@@ -106,7 +105,7 @@ ready (model) ->
 
   browser = require './browser'
   require('./tasks').app(exports, model)
-  items.app(exports, model)
+  require('./items').app(exports, model)
   require('./groups').app(exports, model, app)
   require('./profile').app(exports, model)
   require('./pets').app(exports, model)

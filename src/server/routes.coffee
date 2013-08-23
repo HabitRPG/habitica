@@ -12,7 +12,7 @@ api = require './api'
   $ mocha test/api.mocha.coffee
 ###
 
-{auth, validateTask, cron} = api
+{auth, verifyTaskExists, cron} = api
 
 router.get '/status', (req, res) -> res.json status: 'up'
 
@@ -26,11 +26,11 @@ router.post '/user/tasks/:id/:direction', auth, cron, api.scoreTask
 # Tasks
 router.get '/user/tasks',                 auth, cron, api.getTasks
 router.get '/user/task/:id',              auth, cron, api.getTask
-router.put '/user/task/:id',              auth, cron, validateTask, api.updateTask
+router.put '/user/task/:id',              auth, cron, verifyTaskExists, api.updateTask
 router.post '/user/tasks',                auth, cron, api.updateTasks
-router.delete '/user/task/:id',           auth, cron, validateTask, api.deleteTask
-router.post '/user/task',                 auth, cron, validateTask, api.createTask
-router.put '/user/task/:id/sort',         auth, cron, validateTask, api.sortTask
+router.delete '/user/task/:id',           auth, cron, verifyTaskExists, api.deleteTask
+router.post '/user/task',                 auth, cron, api.createTask
+router.put '/user/task/:id/sort',         auth, cron, verifyTaskExists, api.sortTask
 
 # Items
 router.post '/user/buy/:type',            auth, cron, api.buy

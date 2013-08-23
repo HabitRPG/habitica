@@ -11,8 +11,11 @@ MongoStore = require('connect-mongo')(express)
 priv = require './private'
 habitrpgStore = require './store'
 middleware = require './middleware'
-
 helpers = require("habitrpg-shared/script/helpers")
+
+# The first-fruits of our derby-expulsion, API-only for now
+mongoose = require('mongoose')
+require('./models/user') # load up the user schema - TODO is this necessary?
 
 ## RACER CONFIGURATION ##
 
@@ -33,6 +36,11 @@ derby.use require('racer-db-mongo')
 module.exports.habitStore = store = derby.createStore
   db: {type: 'Mongo', uri: process.env.NODE_DB_URI, safe:true, autoreconnect: true}
   listen: server
+
+# Connect using Mongoose too for API purposes, we'll eventually phase out Derby and only use mongoose
+mongoose.connect process.env.NODE_DB_URI, (err) ->
+  throw err if (err)
+  console.info('Connected with Mongoose')
 
 ONE_YEAR = 1000 * 60 * 60 * 24 * 365
 TWO_WEEKS = 1000 * 60 * 60 * 24 * 14

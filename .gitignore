@@ -7,3 +7,10 @@ node_modules
 config.json
 npm-debug.log
 lib
+
+src/*/*.js
+src/*/*.map
+src/*/*/*.js
+src/*/*/*.map
+test/*.js
+test/*.map
