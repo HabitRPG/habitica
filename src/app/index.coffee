@@ -85,7 +85,6 @@ setupSubscriptions = (page, model, params, next, cb) ->
         paths.unshift '_guilds'
       finished descriptors, paths
 
-
 # ========== ROUTES ==========
 
 get '/', (page, model, params, next) ->
