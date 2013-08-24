@@ -355,6 +355,7 @@ obj.cron = (user, options={}) ->
   [paths, now] = [options.paths || {}, +options.now || +new Date]
 
   # New user (!lastCron, lastCron==new) or it got busted somehow, maybe they went to a different timezone
+  # FIXME move this to pre-save in mongoose
   if !user.lastCron? or user.lastCron is 'new' or moment(user.lastCron).isAfter(now)
     user.lastCron = now; paths['lastCron'] = true
     return
@@ -371,6 +372,7 @@ obj.cron = (user, options={}) ->
   # Tally each task
   todoTally = 0
   user.todos.concat(user.dailys).forEach (task) ->
+    return unless task
     {id, type, completed, repeat} = task
     # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
     unless completed

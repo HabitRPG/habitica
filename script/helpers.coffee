@@ -63,7 +63,7 @@ module.exports =
       items: { weapon: 0, armor: 0, head: 0, shield: 0 }
       preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0, showHelm: true }
       apiToken: uuid() # set in newUserObject below
-      lastCron: 'new' #this will be replaced with `+new Date` on first run
+      lastCron: +new Date #this will be replaced with `+new Date` on first run
       balance: 0
       flags:
         partyEnabled: false
@@ -374,20 +374,3 @@ module.exports =
       keys.forEach (k) => hydrated[k] = @hydrate(spec[k])
       hydrated
     else spec
-  ###
-    Derby stores the user schema a bit different than other apps prefer. The biggest difference is it stores
-    tasks as "refLists" - user[taskType + "Ids"] & user.tasks - where 3rd party apps prefer user[taskType + "s"] (array)
-    This function transforms the derby-stored data into 3rd-party consumable data
-    {userScope} the user racer-model scope, NOT an object
-    {withoutTasks} true if you don't want to return the user.tasks obj & id-lists. We keep them around when doing
-      local ops, because the var-by-reference lets us edit the original tasks
-  ###
-  derbyUserToAPI: (user, options={}) ->
-    _.defaults options, {keepTasks:true, asScope:true}
-    uObj = if options.asScope then user.get() else user
-    _.each ['habit','daily','todo','reward'], (type) ->
-      # we use _.transform instead of a simple _.where in order to maintain sort-order
-      uObj["#{type}s"] = _.transform uObj["#{type}Ids"], (result, tid) -> result.push(uObj.tasks[tid])
-      delete uObj["#{type}Ids"] unless options.keepTasks
-    delete uObj.tasks unless options.keepTasks
-    uObj
