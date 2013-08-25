@@ -1,0 +1,193 @@
+<task:>
+    <li data-id={{:task.id}} class="task {taskClasses(:task, users[_userId].filters, _user.preferences.dayStart, _user.lastCron, _showCompleted, @main)}">
+
+        <!-- right-hand side control buttons -->
+        <div class="task-meta-controls">
+            <!-- Streak -->
+            <span class='{#unless :task.streak}hide{/}'>
+                {:task.streak}<span rel='tooltip' title='Streak Counter'><i class='icon-forward'></i></span>
+            </span>
+            <app:filters:applied-filters />
+            <!-- edit -->
+            <a x-bind=click:toggleTaskEdit rel=tooltip title="Edit"><i class="icon-pencil"></i></a>
+            <!-- challenges -->
+            {{#if :task.challenge}}
+            {{#if brokenChallengeLink(:task)}}
+            <i class='icon-bullhorn' style='background-color:red;' x-bind=click:toggleTaskEdit rel=tooltip title="Broken Challenge Link"></i>
+            {{else}}
+            <i class='icon-bullhorn' rel=tooltip title="Challenge Task"></i>
+            {{/}}
+            {{else}}
+            <!-- delete -->
+            <a x-bind=click:del rel=tooltip title="Delete"><i class="icon-trash"></i></a>
+            {{/}}
+            <!-- chart -->
+            {#if :task.history}
+            <a x-bind=click:toggleChart data-id="{{:task.id}}" rel="tooltip" title="Progress"><i class="icon-signal"></i></a>
+            {/}
+            <!-- notes -->
+            {#if :task.notes}
+            <span rel="popover" data-trigger="hover" data-placement="left" data-content="{:task.notes}" data-original-title="{:task.text}" class='task-notes'><i class="icon-comment"></i></span>
+            {/}
+        </div>
+
+        <!-- left-hand side checkbox -->
+        <div class="task-controls task-primary">
+            <!-- Habits -->
+            {{#if equal(:task.type,'habit')}}
+            {{#if @main}} <!-- only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges -->
+            {#if :task.up}<a class="task-action-btn" data-direction=up x-bind=click:score>＋</a>{/}
+            {#if :task.down}<a class="task-action-btn" data-direction=down x-bind=click:score>−</a>{/}
+            {{else}}
+            {#if :task.up}<span class="task-action-btn">＋</span>{/}
+            {#if :task.down}<span class="task-action-btn">−</span>{/}
+            {{/}}
+
+            <!-- Rewards -->
+            {{else if equal(:task.type,'reward')}}
+            {{#if @main}} <!-- only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges -->
+            <a class="money btn-buy" x-bind=click:score data-direction=down>
+                <span class="reward-cost">{:task.value}</span>
+                <span class='shop_gold'></span>
+            </a>
+            {{else}}
+                    <span class="money btn-buy">
+                        <span class="reward-cost">{:task.value}</span>
+                        <span class='shop_gold'></span>
+                    </span>
+            {{/}}
+
+            <!-- Daily & Todos -->
+            {{else}}
+                <span class="task-checker action-yesno">
+                    {{#if @main}} <!-- only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges -->
+                        <input type=checkbox id="box-{{:task.id}}" class="visuallyhidden focusable" checked="{:task.completed}">
+                        <label for="box-{{:task.id}}"></label>
+                    {{else}}
+                        <input type=checkbox id="box-{{:task.id}}-static" class="visuallyhidden focusable" checked="false">
+                        <label for="box-{{:task.id}}-static"></label>
+                    {{/}}
+                </span>
+            {{/}}
+        </div>
+
+        <!-- main content -->
+        <p class="task-text">
+            {{#if taskInChallenge(:task)}}
+            {{taskAttrFromChallenge(:task,'text')}}
+            {{else}}
+            {:task.text}
+            {{/}}
+        </p>
+
+        <!-- edit/options dialog -->
+        <app:tasks:taskMeta main={{@main}} />
+    </li>
+
+    <!-- task edit/options -->
+    <taskMeta:>
+        <div class="{#unless _tasks.editing[:task.id]}visuallyhidden{/} task-options">
+            {{#if brokenChallengeLink(:task)}}
+            <div class='well'>
+                <p>Broken Challenge Link: this task was part of a challenge, but (a) challenge (or containing group) has been deleted, or (b) the task was deleted from the challenge.</p>
+                <p><a>Keep</a> | <a>Keep all from challenge</a> | <a>Delete</a> | <a>Delete all from challenge</a></p>
+            </div>
+            {{/}}
+            <form x-bind="submit:toggleTaskEdit" >
+                <!-- text & notes -->
+                <fieldset class="option-group">
+                    {{#unless taskInChallenge(:task)}}
+                    <label class="option-title">Text</label><input class="option-content" type=text value={:task.text}>
+                    {{/}}
+                    <label class="option-title">Extra Notes</label>
+                    {{#if taskInChallenge(:task)}}
+                    <textarea class="option-content" rows=3 disabled>{{taskAttrFromChallenge(:task,'notes')}}</textarea>
+                    {{else}}
+                    <textarea class="option-content" rows=3>{:task.notes}</textarea>
+                    {{/}}
+                </fieldset>
+
+                <!-- if Habit, plus/minus command options -->
+                {#if equal(:task.type, 'habit')}
+                {#unless taskInChallenge(:task)}
+                <fieldset class="option-group">
+                    <legend class="option-title">Direction/Actions</legend>
+                    <span class="task-checker action-plusminus select-toggle">
+                        <input class="visuallyhidden focusable" type=checkbox id="{{:task.id}}-option-plus" checked={:task.up}>
+                        <label for="{{:task.id}}-option-plus"></label>
+                    </span>
+                    <span class="task-checker action-plusminus select-toggle">
+                        <input class="visuallyhidden focusable" type=checkbox id="{{:task.id}}-option-minus" checked={:task.down}>
+                        <label for="{{:task.id}}-option-minus"></label>
+                    </span>
+                </fieldset>
+                {/}
+
+                <!-- if Daily, calendar -->
+                {else if equal(:task.type, 'daily')}
+                <fieldset class="option-group">
+                    <legend class="option-title">Repeat</legend>
+                    <div class="task-controls tile-group repeat-days">
+                        <!-- note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding -->
+                        <button type="button" class="task-action-btn tile {#if :task.repeat.su}active{/}" data-day='su' x-bind=click:toggleDay>Su</button>
+                        <button type="button" class="task-action-btn tile {#if :task.repeat.m}active{/}" data-day='m' x-bind=click:toggleDay>M</button>
+                        <button type="button" class="task-action-btn tile {#if :task.repeat.t}active{/}" data-day='t' x-bind=click:toggleDay>T</button>
+                        <button type="button" class="task-action-btn tile {#if :task.repeat.w}active{/}" data-day='w' x-bind=click:toggleDay>W</button>
+                        <button type="button" class="task-action-btn tile {#if :task.repeat.th}active{/}" data-day='th' x-bind=click:toggleDay>Th</button>
+                        <button type="button" class="task-action-btn tile {#if :task.repeat.f}active{/}" data-day='f' x-bind=click:toggleDay>F</button>
+                        <button type="button" class="task-action-btn tile {#if :task.repeat.s}active{/}" data-day='s' x-bind=click:toggleDay>S</button>
+                    </div>
+                </fieldset>
+
+                <!-- if Reward, pricing -->
+                {else if equal(:task.type, 'reward')}
+                <fieldset class="option-group option-short">
+                    <legend class="option-title">Price</legend>
+                    <input class="option-content" size="16" type="number" min="0" value={:task.value}>
+                    <div class="money input-suffix"><span class='shop_gold'></span></div>
+                </fieldset>
+
+
+                <!-- if Todo, the due date -->
+                {else if equal(:task.type, 'todo')}
+                <fieldset class="option-group">
+                    <legend class="option-title">Due Date</legend>
+                    <input class="option-content datepicker" type="text" value="{:task.date}" data-date-format="mm/dd/yyyy">
+                </fieldset>
+                {/}
+
+
+                {{#if @main}}<app:filters:filter-fieldgroup />{{/}}
+
+
+                <!-- Advanced Options -->
+                {#unless equal(:task.type, 'reward')}
+                <p x-bind="click:tasksToggleAdvanced" class="option-title mega">Advanced Options</p>
+                <fieldset class="option-group advanced-option visuallyhidden">
+                    <legend class="option-title"><a class='priority-multiplier-help' href="https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17" target="_blank"><i class='icon-question-sign'></i></a> Difficulty</legend>
+
+                    {{#if taskInChallenge(:task)}}
+                    <button disabled type="button" class="task-action-btn tile active">
+                        {{taskAttrFromChallenge(:task,'priority')}}
+                    </button>
+                    {{else}}
+                    <div class="task-controls tile-group priority-multiplier" data-id="{{:task.id}}">
+                        <button type="button" class="task-action-btn tile {#if or(equal(:task.priority,'!'),not(:task.priority))}active{/}" data-priority='!' x-bind=click:tasksSetPriority>Easy</button>
+                        <button type="button" class="task-action-btn tile {#if equal(:task.priority,'!!')}active{/}" data-priority='!!' x-bind=click:tasksSetPriority>Medium</button>
+                        <button type="button" class="task-action-btn tile {#if equal(:task.priority,'!!!')}active{/}" data-priority='!!!' x-bind=click:tasksSetPriority>Hard</button>
+                    </div>
+                    {{/}}
+
+                    {{#if equal(:task.type,'daily')}}
+                    <legend class="option-title">Restore Streak</legend>
+                    <input class='option-content' type=number value="{int(:task.streak)}" />
+                    {{/}}
+                </fieldset>
+                {/}
+
+
+                <button type=submit class="task-action-btn tile spacious" x-bind="click:tasksSaveAndClose">Save & Close</button>
+            </form>
+        </div>
+
+        <div class="{#unless _page.charts[:task.id]}hidden{/} {{:task.id}}-chart"></div>

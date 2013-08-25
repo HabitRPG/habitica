@@ -4,26 +4,25 @@ html
     title HabitRPG | Your Life The Role Playing Game
 
     // CSS
-    != css('app/index')
-    != css('/bower_components/bootstrap/docs/assets/css/bootstrap')
-    != css('/bower_components/bootstrap/docs/assets/css/bootstrap-responsive')
-    != css('/bower_components/angular-ui/build/angular-ui')
+    link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap.css')
+    link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap-responsive.css')
+    link(rel='stylesheet', href='/bower_components/angular-ui/build/angular-ui.css')
     != css('app/index')
 
     // JS
-    != js('/bower_components/jquery/jquery.min')
-    != js('/bower_components/lodash/lodash')
-    != js('/bower_components/moment/moment')
-    != js('/bower_components/angular/angular')
-    != js('/bower_components/angular-resource/angular-resource')
-    != js('/bower_components/angular-ui/build/angular-ui')
-    != js('/bower_components/angular-bootstrap/ui-bootstrap')
-    != js('/bower_components/angular-bootstrap/ui-bootstrap-tpls')
+    script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')
+    script(type='text/javascript', src='/bower_components/lodash/lodash.js')
+    script(type='text/javascript', src='/bower_components/moment/moment.js')
+    script(type='text/javascript', src='/bower_components/angular/angular.js')
+    script(type='text/javascript', src='/bower_components/angular-resource/angular-resource.js')
+    script(type='text/javascript', src='/bower_components/angular-ui/build/angular-ui.js')
+    script(type='text/javascript', src='/bower_components/angular-bootstrap/ui-bootstrap.js')
+    script(type='text/javascript', src='/bower_components/angular-bootstrap/ui-bootstrap-tpls.js')
 
     // Bootstrap
 
     // HabitRPG
-    != js('/bower_components/habitrpg-shared/browser/browser.debug')
+    script(type='text/javascript', src='/bower_components/habitrpg-shared/browser/browser.debug.js')
 
     != js('app')
 

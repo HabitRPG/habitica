@@ -1,0 +1,149 @@
+li(ng-repeat='task in list.list', class='task {{taskClasses(task,user.filters,user.preferences.dayStart,user.lastCron,_showCompleted,list.main)}}', data-id='{{task.id}}')
+  // right-hand side control buttons
+  .task-meta-controls
+    // Streak
+    span(ng-show='task.streak') {{task.streak}}
+      span(rel='tooltip', title='Streak Counter')
+        i.icon-forward
+    app:filters:applied-filters
+    // edit
+    a(ng-click='task._editing = !task._editing', rel='tooltip', title='Edit')
+      i.icon-pencil
+    //- challenges
+    //  {{#if task.challenge}}
+    //      {{#if brokenChallengeLink(task)}}
+    //          <i class='icon-bullhorn' style='background-color:red;' x-bind=click:toggleTaskEdit rel=tooltip title="Broken Challenge Link"></i>
+    //      {{else}}
+    //          <i class='icon-bullhorn' rel=tooltip title="Challenge Task"></i>
+    //      {{/}}
+    //  {{else}}
+
+    // delete
+    a(x-bind='click:del', rel='tooltip', title='Delete')
+      i.icon-trash
+    // chart
+    a(ng-show='task.history', x-bind='click:toggleChart', data-id='{{task.id}}', rel='tooltip', title='Progress')
+      i.icon-signal
+    // notes
+    span.task-notes(ng-show='task.notes', rel='popover', data-trigger='hover', data-placement='left', data-content='{{task.notes}}', data-original-title='{{task.text}}')
+      i.icon-comment
+
+  // left-hand side checkbox
+  .task-controls.task-primary
+
+    // Habits
+    span(ng-if='list.main && task.type=="habit"')
+      // only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges
+      a.task-action-btn(ng-show='task.up', data-direction='up', x-bind='click:score') +
+      a.task-action-btn(ng-show='task.down', data-direction='down', x-bind='click:score') -
+    //span(ng-if='!list.main')
+    //  span.task-action-btn(ng-show='task.up') +
+    //  span.task-action-btn(ng-show='task.down') =
+
+    // Rewards
+    span(ng-if='list.main && type=="reward"')
+      // only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges
+      a.money.btn-buy(x-bind='click:score', data-direction='down')
+        span.reward-cost {{task.value}}
+        span.shop_gold
+      //span(ng-if='!list.main')
+      //  span.money.btn-buy
+      //    span.reward-cost {{task.value}}
+      //    span.shop_gold
+
+    // Daily & Todos
+    span.task-checker.action-yesno(ng-if='task.type=="daily" || task.type=="todo"')
+      // only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges
+      //span(ng-if='list.main')
+      input.visuallyhidden.focusable(id='box-{{task.id}}', type='checkbox', ng-model='task.completed')
+      label(for='box-{{task.id}}')
+      //span(ng-if='!list.main')
+      //  input.visuallyhidden.focusable(id='box-{{task.id}}-static',type='checkbox', checked='false')
+      //  label(for='box-{{task.id}}-static')
+  // main content
+  p.task-text
+    // {{#if taskInChallenge(task)}}
+    // {{taskAttrFromChallenge(task,'text')}}
+    // {{else}}
+    | {{task.text}}
+    // {{/}}
+
+  // edit/options dialog
+  .task-options(ng-show='task._editing')
+    // {{#if brokenChallengeLink(task)}}
+    // <div class='well'>
+    // <p>Broken Challenge Link: this task was part of a challenge, but (a) challenge (or containing group) has been deleted, or (b) the task was deleted from the challenge.</p>
+    // <p><a>Keep</a> | <a>Keep all from challenge</a> | <a>Delete</a> | <a>Delete all from challenge</a></p>
+    // </div>
+    // {{/}}
+    form(x-bind='submit:toggleTaskEdit')
+      // text & notes
+      fieldset.option-group
+        // {{#unless taskInChallenge(task)}}
+        label.option-title Text
+        input.option-content(type='text', ng-model='task.text')
+        // {{/}}
+        label.option-title Extra Notes
+        // {{#if taskInChallenge(task)}}
+        // <textarea class="option-content" rows=3 disabled>{{taskAttrFromChallenge(task,'notes')}}</textarea>
+        // {{else}}
+        textarea.option-content(rows='3', ng-model='task.notes')
+        // {{/}}
+      // if Habit, plus/minus command options
+      // {{#unless taskInChallenge(task)}}
+      fieldset.option-group(ng-if='task.type=="habit"')
+        legend.option-title Direction/Actions
+        span.task-checker.action-plusminus.select-toggle
+          input.visuallyhidden.focusable(id='{{task.id}}-option-plus', type='checkbox', checked='{{task.up}}')
+          label(for='{{task.id}}-option-plus')
+        span.task-checker.action-plusminus.select-toggle
+          input.visuallyhidden.focusable(id='{{task.id}}-option-minus', type='checkbox', checked='{{task.down}}')
+          label(for='{{task.id}}-option-minus')
+      // {{/}}
+      // if Daily, calendar
+      fieldset(ng-if='task.type=="daily"', class="option-group")
+        legend.option-title Repeat
+        .task-controls.tile-group.repeat-days
+          // note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding
+          button.task-action-btn.tile(ng-class='{active: task.repeat.su}', type='button', data-day='su', x-bind='click:toggleDay') Su
+          button.task-action-btn.tile(ng-class='{active: task.repeat.m}', type='button', data-day='m', x-bind='click:toggleDay') M
+          button.task-action-btn.tile(ng-class='{active: task.repeat.t}', type='button', data-day='t', x-bind='click:toggleDay') T
+          button.task-action-btn.tile(ng-class='{active: task.repeat.w}', type='button', data-day='w', x-bind='click:toggleDay') W
+          button.task-action-btn.tile(ng-class='{active: task.repeat.th}', type='button', data-day='th', x-bind='click:toggleDay') Th
+          button.task-action-btn.tile(ng-class='{active: task.repeat.f}', type='button', data-day='f', x-bind='click:toggleDay') F
+          button.task-action-btn.tile(ng-class='{active: task.repeat.s}', type='button', data-day='s', x-bind='click:toggleDay') S
+      // if Reward, pricing
+      fieldset.option-group.option-short(ng-if='task.type=="reward"')
+        legend.option-title Price
+        input.option-content(type='number', size='16', min='0', value='{{task.value}}')
+        .money.input-suffix
+          span.shop_gold
+      // if Todos, the due date
+      fieldset.option-group(ng-if='task.type=="todo"')
+        legend.option-title Due Date
+        input.option-content.datepicker(type='text', value='{{task.date}}', data-date-format='mm/dd/yyyy')
+      app:filters:filter-fieldgroup(ng-if='list.main')
+      // Advanced Options
+      span(ng-if='task.type=="reward"')
+        p.option-title.mega(x-bind='clicktasksToggleAdvanced') Advanced Options
+        fieldset.option-group.advanced-option.visuallyhidden
+          legend.option-title
+            a.priority-multiplier-help(href='https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17', target='_blank')
+              i.icon-question-sign
+            | Difficulty
+          // {{#if taskInChallenge(task)}}
+          // <button disabled type="button" class="task-action-btn tile active">
+          // {{taskAttrFromChallenge(task,'priority')}}
+          // </button>
+          // {{else}}
+          .task-controls.tile-group.priority-multiplier(data-id='{{task.id}}')
+            button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!" || !task.priority}', data-priority='!', x-bind='clicktasksSetPriority') Easy
+            button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!!"}', data-priority='!!', x-bind='clicktasksSetPriority') Medium
+            button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!!!"}', data-priority='!!!', x-bind='clicktasksSetPriority') Hard
+          // {{/}}
+          span(ng-if='task.type=="daily"')
+            legend.option-title Restore Streak
+            input.option-content(type='number', ng-model='task.streak')
+      button.task-action-btn.tile.spacious(type='submit', x-bind='clicktasksSaveAndClose') Save & Close
+
+  div(class='{{task.id}}-chart', ng-show='_page.charts[task.id]')

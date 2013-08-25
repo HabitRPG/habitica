@@ -34,7 +34,7 @@ div(ng-controller='TasksCtrl')
 
       // Actual List
       ul(class='{{list.type}}s', ng-show='list.list')
-        app:tasks:task(ng-repeat='task in list.list')
+        include ./task
 
       // Static Rewards
       ul.items(ng-show='list.main && list.type=="reward"', ng-show='user.flags.itemsEnabled')
