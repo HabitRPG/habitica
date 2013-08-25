@@ -122,6 +122,10 @@ module.exports =
 
     newUser
 
+  percent: (x,y) ->
+    x=1 if x==0
+    Math.round(x/y*100)
+
   ###
     This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
     user.stats.hp = 50. This is useful because in our habitrpg-shared functions we're returning changesets as {path:value},
