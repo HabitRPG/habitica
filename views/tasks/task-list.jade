@@ -1,6 +1,6 @@
 div(ng-controller='TasksCtrl')
   .module(ng-controller='TasksCtrl', ng-repeat='list in taskLists', ng-class='{"rewards-module": list.type==="reward"}')
-    .task-column(class='{{list.type}}s', ng-class='{"tabbable tabs-below": list.type=="todo"}')
+    .task-column(class='{{list.type}}s')
 
       // Todos export/graph options
       span.option-box.pull-right(ng-if='list.main && list.type=="todo"')
@@ -26,7 +26,7 @@ div(ng-controller='TasksCtrl')
       .todos-chart(ng-if='list.type == "todo"', ng-show='_page.charts.todos')
 
       // Add New
-      form.addtask-form.form-inline.new-task-form(name='new{{list.type}}form', ng-show='list.editable', ng-hide='_showCompleted && list.type=="todo"', data-task-type='{{list.type}}', ng-submit='addTask(list.newTask)')
+      form.addtask-form.form-inline.new-task-form(name='new{{list.type}}form', ng-show='list.editable', ng-hide='list.showCompleted && list.type=="todo"', data-task-type='{{list.type}}', ng-submit='addTask(list.newTask)')
         span.addtask-field
           input(type='text', ng-model='list.newTask', placeholder='{{list.placeHolder}}', required)
         input.addtask-btn(type='submit', value='＋', ng-disabled='new{{list.type}}form.$invalid')
@@ -74,7 +74,7 @@ div(ng-controller='TasksCtrl')
         img(src='//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=1594484805', width='1', height='1', border='0', alt='', style='border:none !important; margin:0px !important;')
 
       // Todo Tabs
-      div(ng-if='list.type=="todo"')
+      div(ng-if='list.type=="todo"', ng-class='{"tabbable tabs-below": list.type=="todo"}')
         button.task-action-btn.tile.spacious.bright(ng-show='_showCompleted', x-bind='click:clearCompleted') Clear Completed
         // remaining/completed tabs
         ul.nav.nav-tabs
