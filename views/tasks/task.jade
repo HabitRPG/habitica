@@ -34,16 +34,16 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     // Habits
     span(ng-if='list.main && task.type=="habit"')
       // only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges
-      a.task-action-btn(ng-show='task.up', data-direction='up', x-bind='click:score') +
-      a.task-action-btn(ng-show='task.down', data-direction='down', x-bind='click:score') -
+      a.task-action-btn(ng-show='task.up', ng-click='score(task,"up")') +
+      a.task-action-btn(ng-show='task.down', ng-click='score(task,"down")') -
     //span(ng-if='!list.main')
     //  span.task-action-btn(ng-show='task.up') +
     //  span.task-action-btn(ng-show='task.down') =
 
     // Rewards
-    span(ng-if='list.main && type=="reward"')
+    span(ng-show='list.main && task.type=="reward"')
       // only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges
-      a.money.btn-buy(x-bind='click:score', data-direction='down')
+      a.money.btn-buy(ng-click='score(task, "down")')
         span.reward-cost {{task.value}}
         span.shop_gold
       //span(ng-if='!list.main')
@@ -55,7 +55,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     span.task-checker.action-yesno(ng-if='task.type=="daily" || task.type=="todo"')
       // only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges
       //span(ng-if='list.main')
-      input.visuallyhidden.focusable(id='box-{{task.id}}', type='checkbox', ng-model='task.completed')
+      input.visuallyhidden.focusable(id='box-{{task.id}}', type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
       label(for='box-{{task.id}}')
       //span(ng-if='!list.main')
       //  input.visuallyhidden.focusable(id='box-{{task.id}}-static',type='checkbox', checked='false')

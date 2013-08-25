@@ -1,6 +1,6 @@
 
-// Streak Achievement
-div(modal='modals.streakAchievement', header='Achievement!')
+// Streak
+div(modal='modals.achievements.streak', header='Achievement!')
   .modal-header
     h3 Achievement!
   .modal-body
@@ -8,4 +8,16 @@ div(modal='modals.streakAchievement', header='Achievement!')
     | You have stacked your "Streaker" Achievement! Every 21 days of streak, you gain 1 achievement point here.
   .modal-footer
     button.btn.btn-default.cancel(ng-click='modals.modals.streakAchievement = false') Cancel
+
+// Max Gear
+div(modal='modals.achievements.maxGear', header='Achievement!')
+  .modal-header
+    h3 Achievement!
+  .modal-body
+    .achievement.achievement-armor
+    | You have earned the "Ultimate Gear" Achievement for upgrading to the maximum gear set!
+  .modal-footer
+    button.btn.btn-default.cancel(ng-click='modals.modals.streakAchievement = false') Cancel
+
+
 

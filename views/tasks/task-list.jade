@@ -13,7 +13,7 @@ div(ng-controller='TasksCtrl')
       // Gold & Gems
       span.option-box.pull-right.wallet(ng-if='list.main && list.type=="reward"')
         .money
-          | {{gold(floor(user.stats.gp))}}
+          | {{gold(user.stats.gp)}}
           span.shop_gold(rel='tooltip', title='Gold')
         .money
           | {{silver(user.stats.gp)}}
@@ -37,13 +37,22 @@ div(ng-controller='TasksCtrl')
         include ./task
 
       // Static Rewards
-      ul.items(ng-show='list.main && list.type=="reward"', ng-show='user.flags.itemsEnabled')
-        app:reward:item(item='{{_items.next.weapon}}')
-        app:reward:item(item='{{_items.next.armor}}')
-        app:reward:item(item='{{_items.next.head}}')
-        app:reward:item(item='{{_items.next.shield}}')
-        app:reward:item(item='{{_items.potion}}')
-        app:reward:item(item='{{_items.reroll}}')
+      ul.items(ng-show='list.main && list.type=="reward" && user.flags.itemsEnabled')
+        li.task.reward-item(ng-hide='item.hide', ng-repeat='item in itemStore')
+          // right-hand side control buttons
+          .task-meta-controls
+            span.task-notes(rel='popover', data-trigger='hover', data-placement='left', data-content='{{item.notes}}', data-original-title='{{item.text}}')
+              i.icon-comment
+          //left-hand size commands
+          .task-controls
+            a.task-action-btn.btn-reroll(ng-if='item.type=="reroll"', data-toggle='modal', data-target='#reroll-modal')
+              i.icon-repeat
+            a.money.btn-buy.item-btn(ng-if='item.type!="reroll"', ng-click='buy(item.type)')
+              span.reward-cost {{item.value}}
+              span.shop_gold
+          // main content
+          span.shop-sprite.item-img(class='shop_{{item.classes}}')
+          p.task-text {{item.text}}
 
       br
 

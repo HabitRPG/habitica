@@ -57,49 +57,56 @@ habitrpg.controller "TasksCtrl", ($scope, $rootScope, $location, filterFilter, U
   #Add the new task to the actions log
   $scope.clearDoneTodos = ->
 
-    #We can't alter $scope.user.tasks here. We have to invoke API call.
-    #To be implemented
-    $scope.selectTask = (task) ->
-      $rootScope.selectedTask = task
-      $location.path "/tasks/" + task.id
+  #We can't alter $scope.user.tasks here. We have to invoke API call.
+  #To be implemented
+  $scope.selectTask = (task) ->
+    $rootScope.selectedTask = task
+    $location.path "/tasks/" + task.id
 
-    $scope.changeCheck = (task) ->
+  $scope.changeCheck = (task) ->
+    # This is calculated post-change, so task.completed=true if they just checked it
+    if task.completed
+      $scope.score task, "up"
+    else
+      $scope.score task, "down"
 
-      # This is calculated post-change, so task.completed=true if they just checked it
-      if task.completed
-        $scope.score task, "up"
-      else
-        $scope.score task, "down"
+  # TODO this should be somewhere else, but fits the html location better here
+  $rootScope.revive = ->
+    window.habitrpgShared.algos.revive User.user
+    User.log op: "revive"
 
-    $(".taskWell").css "height", $(window).height() - 61
+  counter = 0
 
-    # TODO this should be somewhere else, but fits the html location better here
-    $rootScope.revive = ->
-      window.habitrpgShared.algos.revive User.user
-      User.log op: "revive"
+  ###
+  ------------------------
+  Items
+  ------------------------
+  ###
+  $scope.$watch "user.items", ->
+    updated = window.habitrpgShared.items.updateStore(User.user)
+    # Figure out whether we wanna put this in habitrpg-shared
+    sorted = [
+      updated.weapon
+      updated.armor
+      updated.head
+      updated.shield
+      updated.potion
+      updated.reroll
+    ]
+    $scope.itemStore = sorted
 
-    counter = 0
+  $scope.buy = (type) ->
+    hasEnough = window.habitrpgShared.items.buyItem($scope.user, type)
+    if hasEnough
+      User.log
+        op: "buy"
+        type: type
 
-    ###
-    ------------------------
-    Items
-    ------------------------
-    ###
-    $scope.$watch "user.items", ->
-      $scope.itemStore = window.habitrpgShared.items.updateStore($scope.user)
+      Notification.push
+        type: "text"
+        text: "Item bought!"
 
-    $scope.buy = (type) ->
-      hasEnough = window.habitrpgShared.items.buyItem($scope.user, type)
-      if hasEnough
-        User.log
-          op: "buy"
-          type: type
-
-        Notification.push
-          type: "text"
-          text: "Item bought!"
-
-      else
-        Notification.push
-          type: "text"
-          text: "Not enough GP."
+    else
+      Notification.push
+        type: "text"
+        text: "Not enough GP."
