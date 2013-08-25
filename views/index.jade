@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  div(ng-app="habitrpg", ng-controller="RootCtrl")
+    // -------- Header --------
+    ui:connectionAlert
+    include ./shared/login
+    .header-wrap
+      a.label.undo-button(x-bind='click:undo', ng-show='_undo') Undo
+      | app:settings:menu
+      include ./shared/header
+    span(ng-class='{hidden: _gamePane}')
+      | app:filters:filters
+
+    br
+    #notification-area
+    #wrap
+      app:alerts:flash
+      //if they hide the header, we still need user-menu visible
+      app:settings:menu(ng-show='_user.preferences.hideHeader')
+      .exp-chart(ng-class='{hidden: _page.charts.exp}')
+      #main.grid
+        div(ng-class='{hidden: _gamePane}')
+          app:tasks:task-lists(habits='{{_habitList}}', dailys='{{_dailyList}}', todos='{{_todoList}}', rewards='{{_rewardList}}', main='true', editable='true')
+        div(ng-class='{hidden: _gamePane}')
+          app:game-pane:main
+    app:footer:footer
+

@@ -1,12 +1,12 @@
 .DS_Store
 public/gen
 node_modules
-#lib/
 *.swp
 .idea*
 config.json
 npm-debug.log
 lib
+assets/bower_components
 
 src/*/*.js
 src/*/*.map

@@ -5,10 +5,6 @@
   "main": "./server.js",
   "dependencies": {
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared#master",
-    "derby": "git://github.com/lefnire/derby#habitrpg",
-    "racer": "git://github.com/lefnire/racer#habitrpg",
-    "racer-db-mongo": "git://github.com/lefnire/racer-db-mongo#habitrpg",
-    "derby-ui-boot": "git://github.com/HabitRPG/derby-ui-boot#habit0.3",
     "derby-auth": "git://github.com/lefnire/derby-auth#master",
     "connect-mongo": "*",
     "passport-facebook": "*",
@@ -17,19 +13,20 @@
     "guid": "*",
     "moment": "*",
     "stripe": "*",
-    "coffee-script": "1.4.x",
-    "mongoskin": "*",
+    "coffee-script": "*",
     "nconf": "*",
     "icalendar": "git://github.com/lefnire/node-icalendar#master",
     "superagent": "~0.12.4",
     "resolve": "~0.2.3",
     "expect.js": "~0.2.0",
-    "derby-i18n": "git://github.com/switz/derby-i18n#master",
     "relative-date": "~1.1.1",
     "lodash": "~1.3.1",
     "async": "~0.2.9",
     "optimist": "~0.5.2",
-    "mongoose": "~3.6.18"
+    "mongoose": "~3.6.18",
+    "stylus": "~0.37.0",
+    "connect-assets": "~2.5.2",
+    "bower": "~1.2.4"
   },
   "private": true,
   "subdomain": "habitrpg",
@@ -42,7 +39,7 @@
     "npm": "1.1.x"
   },
   "scripts": {
-    "start": "server.js",
+    "start": "nodemon src/server.coffee",
     "test": "mocha test/api.mocha.coffee"
   }
 }

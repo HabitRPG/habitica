@@ -1,0 +1,55 @@
+doctype 5
+html
+  head
+    title HabitRPG | Your Life The Role Playing Game
+
+    // CSS
+    != css('app/index')
+    != css('/bower_components/bootstrap/docs/assets/css/bootstrap')
+    != css('/bower_components/bootstrap/docs/assets/css/bootstrap-responsive')
+    != css('/bower_components/angular-ui/build/angular-ui')
+    != css('app/index')
+
+    // JS
+    != js('/bower_components/jquery/jquery.min')
+    != js('/bower_components/lodash/lodash')
+    != js('/bower_components/moment/moment')
+    != js('/bower_components/angular/angular')
+    != js('/bower_components/angular-resource/angular-resource')
+    != js('/bower_components/angular-ui/build/angular-ui')
+    != js('/bower_components/angular-bootstrap/ui-bootstrap')
+    != js('/bower_components/angular-bootstrap/ui-bootstrap-tpls')
+
+    // Bootstrap
+
+    // HabitRPG
+    != js('/bower_components/habitrpg-shared/browser/browser.debug')
+
+    != js('app')
+
+    != js('services/authServices')
+    != js('services/notificationServices')
+    != js('services/sharedServices')
+    != js('services/userServices')
+
+    != js('filters/filters')
+
+    != js('directives/directives')
+
+    != js('controllers/authCtrl')
+    != js('controllers/characterCtrl')
+    != js('controllers/menuCtrl')
+    != js('controllers/notificationCtrl')
+    != js('controllers/RootCtrl')
+    != js('controllers/settingsCtrl')
+    != js('controllers/statsCtrl')
+    != js('controllers/tasksCtrl')
+    != js('controllers/userAvatarCtrl')
+
+    //webfonts
+    link(href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic', rel='stylesheet', type='text/css')
+    meta(name='viewport', content='width=device-width')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+
+  body
+    block content
