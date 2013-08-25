@@ -5,34 +5,6 @@ moment = require 'moment'
 misc = require './misc'
 
 
-###
-  Make scoring functionality available to the app
-###
-module.exports.app = (appExports, model) ->
-  user = model.at('_user')
-
-  appExports.addTask = (e, el) ->
-    type = $(el).attr('data-task-type')
-    newModel = model.at('_new' + type.charAt(0).toUpperCase() + type.slice(1))
-    text = newModel.get()
-    # Don't add a blank task; 20/02/13 Added a check for undefined value, more at issue #463 -lancemanfv
-    return if /^(\s)*$/.test(text) || text == undefined
-
-    newTask = {id: model.id(), type, text, notes: '', value: 0}
-    newTask.tags = _.reduce user.get('filters'), ((memo,v,k) -> memo[k]=v if v; memo), {}
-
-    switch type
-      when 'habit'
-        newTask = _.defaults {up: true, down: true}, newTask
-      when 'reward'
-        newTask = _.defaults {value: 20}, newTask
-      when 'daily'
-        newTask = _.defaults {repeat:{su:true,m:true,t:true,w:true,th:true,f:true,s:true}, completed: false }, newTask
-      when 'todo'
-        newTask = _.defaults {completed: false }, newTask
-    e.at().unshift newTask # e.at() in this case is the list, which was scoped here using {#with @list}...{/}
-    newModel.set ''
-
   appExports.del = (e) ->
     return unless confirm("Are you sure you want to delete this task?") is true
     $('[rel=tooltip]').tooltip('hide')
@@ -121,9 +93,6 @@ module.exports.app = (appExports, model) ->
       else
         user.set "#{taskPath}.#{key}", val
       true
-
-  appExports.tasksToggleAdvanced = (e, el) ->
-    $(el).next('.advanced-option').toggleClass('visuallyhidden')
 
   appExports.tasksSaveAndClose = ->
     # When they update their notes, re-establish tooltip & popover

@@ -1,4 +1,4 @@
-li(ng-repeat='task in list.list', class='task {{taskClasses(task,user.filters,user.preferences.dayStart,user.lastCron,_showCompleted,list.main)}}', data-id='{{task.id}}')
+li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,user.filters,user.preferences.dayStart,user.lastCron,_showCompleted,list.main)}}', data-id='{{task.id}}')
   // right-hand side control buttons
   .task-meta-controls
     // Streak
@@ -76,7 +76,7 @@ li(ng-repeat='task in list.list', class='task {{taskClasses(task,user.filters,us
     // <p><a>Keep</a> | <a>Keep all from challenge</a> | <a>Delete</a> | <a>Delete all from challenge</a></p>
     // </div>
     // {{/}}
-    form(x-bind='submit:toggleTaskEdit')
+    form(ng-controller="TaskDetailsCtrl", ng-submit='save(task)')
       // text & notes
       fieldset.option-group
         // {{#unless taskInChallenge(task)}}
@@ -105,13 +105,13 @@ li(ng-repeat='task in list.list', class='task {{taskClasses(task,user.filters,us
         legend.option-title Repeat
         .task-controls.tile-group.repeat-days
           // note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding
-          button.task-action-btn.tile(ng-class='{active: task.repeat.su}', type='button', data-day='su', x-bind='click:toggleDay') Su
-          button.task-action-btn.tile(ng-class='{active: task.repeat.m}', type='button', data-day='m', x-bind='click:toggleDay') M
-          button.task-action-btn.tile(ng-class='{active: task.repeat.t}', type='button', data-day='t', x-bind='click:toggleDay') T
-          button.task-action-btn.tile(ng-class='{active: task.repeat.w}', type='button', data-day='w', x-bind='click:toggleDay') W
-          button.task-action-btn.tile(ng-class='{active: task.repeat.th}', type='button', data-day='th', x-bind='click:toggleDay') Th
-          button.task-action-btn.tile(ng-class='{active: task.repeat.f}', type='button', data-day='f', x-bind='click:toggleDay') F
-          button.task-action-btn.tile(ng-class='{active: task.repeat.s}', type='button', data-day='s', x-bind='click:toggleDay') S
+          button.task-action-btn.tile(ng-class='{active: task.repeat.su}', type='button', data-day='su', ng-click='task.repeat.su = !task.repeat.su') Su
+          button.task-action-btn.tile(ng-class='{active: task.repeat.m}', type='button', data-day='m', ng-click='task.repeat.m = !task.repeat.m') M
+          button.task-action-btn.tile(ng-class='{active: task.repeat.t}', type='button', data-day='t', ng-click='task.repeat.t = !task.repeat.t') T
+          button.task-action-btn.tile(ng-class='{active: task.repeat.w}', type='button', data-day='w', ng-click='task.repeat.w = !task.repeat.w') W
+          button.task-action-btn.tile(ng-class='{active: task.repeat.th}', type='button', data-day='th', ng-click='task.repeat.th = !task.repeat.th') Th
+          button.task-action-btn.tile(ng-class='{active: task.repeat.f}', type='button', data-day='f', ng-click='task.repeat.f = !task.repeat.f') F
+          button.task-action-btn.tile(ng-class='{active: task.repeat.s}', type='button', data-day='s', ng-click='task.repeat.s = !task.repeat.s') S
       // if Reward, pricing
       fieldset.option-group.option-short(ng-if='task.type=="reward"')
         legend.option-title Price
@@ -124,9 +124,9 @@ li(ng-repeat='task in list.list', class='task {{taskClasses(task,user.filters,us
         input.option-content.datepicker(type='text', value='{{task.date}}', data-date-format='mm/dd/yyyy')
       app:filters:filter-fieldgroup(ng-if='list.main')
       // Advanced Options
-      span(ng-if='task.type=="reward"')
-        p.option-title.mega(x-bind='clicktasksToggleAdvanced') Advanced Options
-        fieldset.option-group.advanced-option.visuallyhidden
+      span(ng-if='task.type!="reward"')
+        p.option-title.mega(ng-click='task._advanced = !task._advanced') Advanced Options
+        fieldset.option-group.advanced-option(ng-class="{visuallyhidden: !task._advanced}")
           legend.option-title
             a.priority-multiplier-help(href='https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17', target='_blank')
               i.icon-question-sign
@@ -144,6 +144,6 @@ li(ng-repeat='task in list.list', class='task {{taskClasses(task,user.filters,us
           span(ng-if='task.type=="daily"')
             legend.option-title Restore Streak
             input.option-content(type='number', ng-model='task.streak')
-      button.task-action-btn.tile.spacious(type='submit', x-bind='clicktasksSaveAndClose') Save & Close
+      button.task-action-btn.tile.spacious(type='submit') Save & Close
 
   div(class='{{task.id}}-chart', ng-show='_page.charts[task.id]')

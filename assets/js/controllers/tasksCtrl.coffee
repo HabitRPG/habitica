@@ -1,11 +1,12 @@
 "use strict"
 habitrpg.controller "TasksCtrl", ($scope, $rootScope, $location, filterFilter, User, Algos, Helpers, Notification) ->
 
+  #FIXME
   $scope.taskLists = [
-    {header: 'Habits', type: 'habit', inputValue:'_newHabit', placeHolder: 'New Habit', list: User.user.habits, main:true, editable:true}
-    {header: 'Dailies', type: 'daily', inputValue:'_newDaily', placeHolder: 'New Daily', list: User.user.dailys, main:true, editable:true}
-    {header: 'Todos', type: 'todo', inputValue:'_newTodo', placeHolder: 'New Todo', list: User.user.todos, main:true, editable:true}
-    {header: 'Reward', type: 'reward', inputValue:'_newReward', placeHolder: 'New Reward', list: User.user.rewards, main:true, editable:true}
+    {header: 'Habits', type: 'habit', placeHolder: 'New Habit', main:true, editable:true}
+    {header: 'Dailies', type: 'daily', placeHolder: 'New Daily', main:true, editable:true}
+    {header: 'Todos', type: 'todo', placeHolder: 'New Todo', main:true, editable:true}
+    {header: 'Reward', type: 'reward', placeHolder: 'New Reward', main:true, editable:true}
   ]
 
   $scope.score = (task, direction) ->
@@ -37,60 +38,24 @@ habitrpg.controller "TasksCtrl", ($scope, $rootScope, $location, filterFilter, U
       data: task
       dir: direction
 
+  $scope.saveTask = (task) ->
+    sets = {}
+    sets["user."]
+    User.log [
+      op: 'set', {}
+    ]
 
-  $scope.notDue = (task) ->
-    if task.type is "daily"
-      not window.habitrpgShared.helpers.shouldDo(moment(), task.repeat)
-    else
-      false
-
-  $scope.getClass = (value) ->
-    out = ""
-    if value < -20
-      out += " color-worst"
-    else if value < -10
-      out += " color-worse"
-    else if value < -1
-      out += " color-bad"
-    else if value < 1
-      out += " color-neutral"
-    else if value < 5
-      out += " color-good"
-    else if value < 10
-      out += " color-better"
-    else
-      out += " color-best"
-    out
-
-  $scope.addTask = ->
-    return  unless $scope.newTask.length
-    defaults =
-      text: $scope.newTask
-      type: $scope.taskType()
-      value: (if $scope.taskType() is "reward" then 20 else 0)
-
-    extra = {}
-    switch $scope.taskType()
-      when "habit"
-        extra =
-          up: true
-          down: true
-      when "daily", "todo"
-        extra = completed: false
-    newTask = _.defaults(extra, defaults)
-    newTask.id = Helpers.uuid()
+  $scope.addTask = (text) ->
+    newTask = window.habitrpgShared.helpers.taskDefaults({text})
     User.user[newTask.type + "s"].unshift newTask
-    $scope.showedTasks.unshift newTask
+    # $scope.showedTasks.unshift newTask # FIXME what's thiss?
     User.log
       op: "addTask"
       data: newTask
-
-    $scope.newTask = ""
-
+    delete $scope.list.newTask
 
   #Add the new task to the actions log
   $scope.clearDoneTodos = ->
-
 
     #We can't alter $scope.user.tasks here. We have to invoke API call.
     #To be implemented
