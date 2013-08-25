@@ -33,10 +33,3 @@ habitrpg.controller "TaskDetailsCtrl", ($scope, $rootScope, $location, User) ->
     $scope.originalTask = null
     $scope.editedTask = null
     $scope.editing = false
-
-  $scope.remove = (task) ->
-    confirmed = window.confirm("Delete this task?")
-    return  if confirmed isnt true
-    tasks = User.user[task.type + "s"]
-    User.log {op: "delTask", data: task}
-    delete tasks.splice(tasks.indexOf(task), 1)

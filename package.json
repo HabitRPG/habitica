@@ -26,7 +26,8 @@
     "mongoose": "~3.6.18",
     "stylus": "~0.37.0",
     "connect-assets": "~2.5.2",
-    "bower": "~1.2.4"
+    "bower": "~1.2.4",
+    "nib": "~1.0.1"
   },
   "private": true,
   "subdomain": "habitrpg",

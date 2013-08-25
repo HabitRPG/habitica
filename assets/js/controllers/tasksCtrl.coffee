@@ -77,6 +77,13 @@ habitrpg.controller "TasksCtrl", ($scope, $rootScope, $location, filterFilter, U
 
   counter = 0
 
+
+  $scope.remove = (task) ->
+    if window.confirm("Delete this task?") is true
+      tasks = User.user[task.type + "s"]
+      User.log {op: "delTask", data: task}
+      tasks.splice(tasks.indexOf(task), 1)
+
   ###
   ------------------------
   Items

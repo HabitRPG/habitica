@@ -51,7 +51,7 @@ div(ng-controller='TasksCtrl')
               span.reward-cost {{item.value}}
               span.shop_gold
           // main content
-          span.shop-sprite.item-img(class='shop_{{item.classes}}')
+          span(ng-class='{"shop_{{item.classes}} shop-sprite item-img": true}')
           p.task-text {{item.text}}
 
       br
@@ -78,7 +78,7 @@ div(ng-controller='TasksCtrl')
         button.task-action-btn.tile.spacious.bright(ng-show='_showCompleted', x-bind='click:clearCompleted') Clear Completed
         // remaining/completed tabs
         ul.nav.nav-tabs
-          li(ng-class='{active: !_showCompleted}')
-            a(x-bind='click: todosShowRemaining') Remaining
-          li(ng-class='{active: _showCompleted}')
-            a(x-bind='click: todosShowCompleted') Complete
+          li(ng-class='{active: !list.showCompleted}')
+            a(ng-click='list.showCompleted = false') Remaining
+          li(ng-class='{active: list.showCompleted}')
+            a(ng-click='list.showCompleted= true') Complete
