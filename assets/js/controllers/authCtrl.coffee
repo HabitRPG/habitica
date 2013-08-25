@@ -5,7 +5,6 @@ The authentication controller (login & facebook)
 ###
 habitrpg.controller "AuthCtrl", ($scope, $rootScope, Facebook, LocalAuth, User, $http, $location, API_URL) ->
   $scope.useUUID = false
-  debugger
   $scope.toggleUUID = ->
     if showedFacebookMessage is false
       alert "Until we add Facebook, use your UUID and API Token to log in (found at https://habitrpg.com > Options > Settings)."
@@ -45,7 +44,7 @@ habitrpg.controller "AuthCtrl", ($scope, $rootScope, Facebook, LocalAuth, User, 
       $http.post(API_URL + "/api/v1/user/auth/local", data)
         .success((data, status, headers, config) ->
           runAuth data.id, data.token
-          $scope.showing = false
+          $rootScope.modals.login = false
         ).error (data, status, headers, config) ->
           if status is 0
             alert "Server not currently reachable, try again later"

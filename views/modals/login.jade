@@ -1,6 +1,5 @@
 div(ng-controller='AuthCtrl')
-  button.btn(ng-click='showing = true') Login / Register
-  div(modal='showing', close='')
+  div(modal='modals.login', close='')
     .modal-header
       h3 Login / Register
     .modal-body
@@ -25,6 +24,6 @@ div(ng-controller='AuthCtrl')
             | derby-auth:register
 
     .modal-footer
-      button.btn.btn-warning.cancel(ng-click='showing = false') Cancel
+      button.btn.btn-warning.cancel(ng-click='modals.login = false') Cancel
 
 

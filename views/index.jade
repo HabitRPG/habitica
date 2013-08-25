@@ -2,13 +2,9 @@ extends layout
 
 block content
   div(ng-app="habitrpg", ng-controller="RootCtrl")
-    // -------- Header --------
-    ui:connectionAlert
-    include ./shared/login
-    .header-wrap
-      a.label.undo-button(x-bind='click:undo', ng-show='_undo') Undo
-      | app:settings:menu
-      include ./shared/header
+    include ./modals/login
+    include ./header/header
+
     span(ng-class='{hidden: _gamePane}')
       | app:filters:filters
 

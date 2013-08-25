@@ -112,35 +112,3 @@
             </@footer>
         </app:modals:modal>
     {{/}}
-
-<menu:>
-    <div class="user-menu">
-        {{#unless _loggedIn}}
-            <button class="task-action-btn tile solid" style='cursor:pointer' data-target="#login-modal" data-toggle="modal">Login / Register</button>
-        {{else}}
-            <ul class="nav site-nav">
-                <li class="flyout">
-                    <h1 class="task-action-btn tile solid user-reporter">{{username(_user.auth, _user.profile.name)}}</h1>
-                    <ul class="flyout-content nav stacked">
-                        <li>
-                            <a class="task-action-btn tile solid" x-bind='click:toggleGamePane'>
-                                {#if _gamePane}Tasks{else}Options{/}
-                            </a>
-                        </li>
-                        <li><a class="task-action-btn tile solid" href="/logout">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        {{/}}
-
-        <!-- party invitation notification -->
-        {#if _user.party.invitation}
-            <a style='cursor:pointer;' x-bind="click:gotoPartyChat"><i class='icon-user'></i></a>
-        {/}
-
-        <!-- party chat notification -->
-        {#if newChatMessages(_party.chat,_user.party.lastMessageSeen)}
-            <a style='cursor:pointer;' x-bind="click:gotoPartyChat"><i class='icon-comment' rel='tooltip' title='New Party Messages'></i></a>
-        {/}
-
-    </div>

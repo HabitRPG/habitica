@@ -1,0 +1,18 @@
+.user-menu
+  button.task-action-btn.tile.solid(ng-hide='authenticated()', style='cursor: pointer;', ng-click="modals.login = true") Login / Register
+  ul.nav.site-nav(ng-show='authenticated()')
+    li.flyout
+      h1.task-action-btn.tile.solid.user-reporter {{username(user.auth, user.profile.name)}}
+      ul.flyout-content.nav.stacked
+        li
+          a.task-action-btn.tile.solid(x-bind='click:toggleGamePane')
+            span(ng-show='_gamePane') Tasks
+            span(ng-hide='_gamePane') Options
+        li
+          a.task-action-btn.tile.solid(href='/logout') Logout
+    // party invitation notification
+    a(ng-show='user.party.invitation', style='cursor: pointer;', x-bind='click:gotoPartyChat')
+      i.icon-user
+    // party chat notification
+    a(ng-show='newChatMessages(_party.chat,user.party.lastMessageSeen)', style='cursor: pointer;', x-bind='click:gotoPartyChat')
+      i.icon-comment(rel='tooltip', title='New Party Messages')
