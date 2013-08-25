@@ -109,7 +109,9 @@ module.exports.updateStore = (user) ->
     else if i is items[type].length
       showNext = false
     changes[type] = if showNext then items[type][i] else {hide:true}
-  return changes
+  changes.potion = items.potion
+  changes.reroll =  items.reroll
+  changes
 
 ###
   Gets an itme, and caps max to the last item in its array

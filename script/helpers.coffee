@@ -55,6 +55,22 @@ module.exports =
 
   uuid: uuid
 
+  taskDefaults: (task, filters={}) ->
+    self = @
+    defaults =
+      id: self.uuid()
+      text: ''
+      up: true
+      down: true
+      type: 'habit'
+      completed: false
+      repeat: {su:true,m:true,t:true,w:true,th:true,f:true,s:true}
+      notes: ''
+      tags: _.transform(filters, (m,v,k) -> m[k]=v if v)
+    _.defaults task, defaults
+    task.value ?= if task.type is 'reward' then 10 else 0
+    task
+
   newUser: (isDerby=false) ->
     userSchema =
     # _id / id handled by Racer
