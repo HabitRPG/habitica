@@ -1,0 +1,75 @@
+div(ng-controller='TasksCtrl')
+  .module(ng-controller='TasksCtrl', ng-repeat='list in taskLists', ng-class='{"rewards-module": list.type==="reward"}')
+    .task-column(class='{{list.type}}s', ng-class='{"tabbable tabs-below": list.type=="todo"}')
+
+      // Todos export/graph options
+      span.option-box.pull-right(ng-if='list.main && list.type=="todo"')
+        a.option-action(ng-show='user.history.todos', x-bind='click:toggleChart', data-id='todos', rel='tooltip', title='Progress')
+          i.icon-signal
+        a.option-action(ng-href='/v1/users/{{user.id}}/calendar.ics?apiToken={{user.apiToken}}', rel='tooltip', title='iCal')
+          i.icon-calendar
+        // <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a>
+
+      // Gold & Gems
+      span.option-box.pull-right.wallet(ng-if='list.main && list.type=="reward"')
+        .money
+          | {{gold(floor(user.stats.gp))}}
+          span.shop_gold(rel='tooltip', title='Gold')
+        .money
+          | {{silver(user.stats.gp)}}
+          span.shop_silver(rel='tooltip', title='Silver')
+
+      // Header
+      h2.task-column_title {{list.header}}
+
+      // Todo Chart
+      .todos-chart(ng-if='list.type == "todo"', ng-show='_page.charts.todos')
+
+      // Add New
+      form.addtask-form.form-inline.new-task-form(ng-show='editable', ng-hide='_showCompleted && list.type=="todo"', data-task-type='{{list.type}}', x-bind='submit:addTask')
+        span.addtask-field
+          input(type='text', value='{{list.inputValue}}', placeholder='{{list.placeHolder}}')
+        input.addtask-btn(type='submit', value='＋')
+      hr
+
+      // Actual List
+      ul(class='{{list.type}}s', ng-show='list.list')
+        app:tasks:task(ng-repeat='task in list.list')
+
+      // Static Rewards
+      ul.items(ng-show='list.main && list.type=="reward"', ng-show='user.flags.itemsEnabled')
+        app:reward:item(item='{{_items.next.weapon}}')
+        app:reward:item(item='{{_items.next.armor}}')
+        app:reward:item(item='{{_items.next.head}}')
+        app:reward:item(item='{{_items.next.shield}}')
+        app:reward:item(item='{{_items.potion}}')
+        app:reward:item(item='{{_items.reroll}}')
+
+      br
+
+      // Ads
+      div(ng-if='authenticated() && user.flags.ads != "hide" && list.main')
+        span.pull-right
+          a(x-bind='click:showStripe', rel='tooltip', title='Remove Ads')
+            i.icon-remove
+          br
+          a(href='#', data-target='#why-ads-modal', data-toggle='modal', rel='tooltip', title='Why Ads?')
+            i.icon-question-sign
+        a(ng-if='list.type=="habit"', href='http://www.amazon.com/gp/product/1400069289/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1400069289&linkCode=as2&tag=ha0d2-20') The Power of Habit&colon; Why We Do What We Do in Life and Business
+        img(src='//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=1400069289', width='1', height='1', border='0', alt='', style='border:none !important; margin:0px !important;')
+        a(ng-if='list.type=="daily"', href='http://www.amazon.com/gp/product/0142000280/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0142000280&linkCode=as2&tag=ha0d2-20') Getting Things Done&colon; The Art of Stress-Free Productivity
+        img(src='//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=0142000280', width='1', height='1', border='0', alt='', style='border:none !important; margin:0px !important;')
+        a(ng-if='list.type=="todo"', href='http://www.amazon.com/gp/product/0312430000/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0312430000&linkCode=as2&tag=ha0d2-20') The Checklist Manifesto&colon; How to Get Things Right
+        img(src='//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=0312430000', width='1', height='1', border='0', alt='', style='border:none !important; margin:0px !important;')
+        a(ng-if='list.type=="reward"', href='http://www.amazon.com/gp/product/1594484805/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1594484805&linkCode=as2&tag=ha0d2-20') Drive&colon; The Surprising Truth About What Motivates Us
+        img(src='//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=1594484805', width='1', height='1', border='0', alt='', style='border:none !important; margin:0px !important;')
+
+      // Todo Tabs
+      div(ng-if='list.type=="todo"')
+        button.task-action-btn.tile.spacious.bright(ng-show='_showCompleted', x-bind='click:clearCompleted') Clear Completed
+        // remaining/completed tabs
+        ul.nav.nav-tabs
+          li(ng-class='{active: !_showCompleted}')
+            a(x-bind='click: todosShowRemaining') Remaining
+          li(ng-class='{active: _showCompleted}')
+            a(x-bind='click: todosShowCompleted') Complete

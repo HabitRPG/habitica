@@ -5,8 +5,8 @@ block content
     include ./modals/login
     include ./header/header
 
-    span(ng-class='{hidden: _gamePane}')
-      | app:filters:filters
+    span(ng-hide='_gamePane')
+      app:filters:filters
 
     br
     #notification-area
@@ -14,11 +14,11 @@ block content
       app:alerts:flash
       //if they hide the header, we still need user-menu visible
       app:settings:menu(ng-show='_user.preferences.hideHeader')
-      .exp-chart(ng-class='{hidden: _page.charts.exp}')
+      .exp-chart(ng-show='_page.charts.exp')
       #main.grid
-        div(ng-class='{hidden: _gamePane}')
-          app:tasks:task-lists(habits='{{_habitList}}', dailys='{{_dailyList}}', todos='{{_todoList}}', rewards='{{_rewardList}}', main='true', editable='true')
-        div(ng-class='{hidden: _gamePane}')
+        div(ng-hide='_gamePane')
+          include ./tasks/task-list
+        div(ng-show='_gamePane')
           app:game-pane:main
     app:footer:footer
 

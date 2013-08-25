@@ -6,8 +6,10 @@
   header.site-header(ng-class='{hidden: user.preferences.hideHeader}', role='banner', data-partysize='{{party.members.length>1 ? truarr(party.members.length) : 0}}')
     // avatar
     .herobox-wrap.main-herobox(ng-controller='UserAvatarCtrl')
+
       include ./avatar
       //app:avatar:avatar(profile='{{user}}', main='true')
+
     // stat bars
     .hero-stats
       .meter.health(title='Health')
