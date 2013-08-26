@@ -11,6 +11,10 @@ habitrpg.controller "AuthCtrl", ($scope, $rootScope, Facebook, LocalAuth, User, 
       showedFacebookMessage = true
     $scope.useUUID = not $scope.useUUID
 
+  $scope.logout = ->
+    localStorage.clear()
+    location.reload()
+
   $scope.register = ->
     #TODO highlight invalid inputs
     # we have this as a workaround for https://github.com/HabitRPG/habitrpg-mobile/issues/64

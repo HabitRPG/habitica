@@ -1,5 +1,5 @@
 "use strict"
-habitrpg.controller "TasksCtrl", ($scope, $rootScope, $location, filterFilter, User, Algos, Helpers, Notification) ->
+habitrpg.controller "TasksCtrl", ($scope, $rootScope, $location, User, Algos, Helpers, Notification) ->
 
   #FIXME
   $scope.taskLists = [
@@ -20,7 +20,6 @@ habitrpg.controller "TasksCtrl", ($scope, $rootScope, $location, filterFilter, U
     _.each oldStats, (value, key) ->
       newValue = User.user.stats[key]
       statsDiff[key] = newValue - value  if newValue isnt value
-
 
     #notify user if there are changes in stats.
     if Object.keys(statsDiff).length > 0
