@@ -220,8 +220,8 @@ api.sortTask = (req, res, next) ->
 api.buy = (req, res, next) ->
   {user} = res.locals
   type = req.params.type
-  unless type in ['weapon', 'armor', 'head', 'shield']
-    return res.json(400, err: ":type must be in one of: 'weapon', 'armor', 'head', 'shield'")
+  unless type in ['weapon', 'armor', 'head', 'shield', 'potion']
+    return res.json(400, err: ":type must be in one of: 'weapon', 'armor', 'head', 'shield', 'potion'")
   hasEnough = items.buyItem(user, type)
   if hasEnough
     user.save (err, saved) ->
