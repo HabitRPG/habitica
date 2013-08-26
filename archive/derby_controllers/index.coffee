@@ -2,7 +2,7 @@ derby = require 'derby'
 
 # Include library components
 derby.use require('derby-ui-boot'), {styles: []}
-derby.use require '../'
+derby.use require '../.'
 derby.use require 'derby-auth/components'
 
 # Init app & reference its functions
@@ -113,7 +113,7 @@ ready (model) ->
   require('./debug').app(exports, model) if model.flags.nodeEnv != 'production'
   browser.app(exports, model, app)
   require('./unlock').app(exports, model)
-  require('./filters').app(exports, model)
+  require('./../.').app(exports, model)
   require('./challenges').app(exports, model)
 
   # used for things like remove website, chat, etc

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://habitrpg.com"
+        xmlns:gap = "http://phonegap.com/ns/2.2.0"
+        id        = "com.phonegap.habitrpg"
+        version   = "1.0.0">
+
+  <name>HabitRPG</name>
+
+    <description>
+        Habit tracking which treats your goals like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
+    </description>
+
+	 <gap:plugin name="FacebookConnect">
+	   <param name="APP_ID" value="149438691882945" />
+	 </gap:plugin>
+</widget>

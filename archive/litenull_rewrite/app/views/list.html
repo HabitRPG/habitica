@@ -1,0 +1,272 @@
+<div ng-controller="NotificationCtrl">
+<div id="notification"><div ng-bind-html-unsafe="data.message">aaaa</div></div>
+</div>
+
+<div id="wrap">
+    <div ng-controller="TasksCtrl">
+        <div id="main" class="grid">
+            <div class="module">
+                <div class="task-column habits">
+                    <h2 class="task-column_title">Habits</h2>
+                    <form id="new-habit" class="addtask-form form-inline new-task-form " ng-submit="addTask('habit')">
+                        <span class="addtask-field">
+                            <input value="" type="text" placeholder="New Habit" ng-model="newTaskHabit">
+                        </span>
+                        <input class="addtask-btn" type="submit" value="＋">
+                    </form>
+                    <hr>
+                    <ul class="habits ui-sortable" sort>
+											<li ng-repeat="task in tasks()   | filter:{type:'habit'}" class="task habit {{getClass(task)}}" ng-class="{'habit-wide':task.up && task.down}">
+                            <div class="task-meta-controls">
+                                <a rel="toolitp" ng-click="editTask(task)"><i class="icon-pencil"></i></a>
+                                <a rel="toolitp"><i class="icon-trash" ng-click="deleteTask(task)"></i></a>
+                                <a rel="toolitp"><i class="icon-signal"></i></a>
+                                <a rel="toolitp" ng-show="task.notes"><i class="icon-comment"></i></a>
+                            </div>
+                            <div class="task-controls task-primary">
+                                <a class="task-action-btn" ng-click="score(task, 'up')" ng-show="task.up == true">＋</a>
+                                <a class="task-action-btn" ng-click="score(task, 'down')" ng-show="task.down == true" style="margin-left:-3px">−</a>
+                            </div>
+                            <p class="task-text">{{task.text}}</p>
+                            <div ng-show="task.editing == true">
+                                <div class="task-options">
+                                <fieldset class="option-group">
+                                <label class="option-title">Text</label>
+                                <input class="option-content" type="text" value="{{task.text}}" ng-model="task.text">
+                                <label class="option-title">Extra notes</label>
+                                <textarea class="option-content" rows="3" ng-model="task.notes">{{task.notes}}</textarea>
+                                </fieldset>
+                                <fieldset class="option-group">
+
+                                    <legend class="option-title">Direction/Actions</legend>
+                                    <span class="task-checker action-plusminus select-toggle">
+                                        <input id="{{task.id}}-option-plus" class="visuallyhidden focusable" type="checkbox" checked="" autocomplete="off" ng-model="task.up">
+                                        <label for="{{task.id}}-option-plus"></label>
+                                    </span>
+                                    <span class="task-checker action-plusminus select-toggle">
+                                        <input id="{{task.id}}-option-minus" class="visuallyhidden focusable" type="checkbox" checked="" autocomplete="off" ng-model="task.down">
+                                        <label for="{{task.id}}-option-minus"></label>
+                                    </span>
+                                </fieldset>
+                                <fieldset class="option-group">
+                                    <legend class="option-title">Tags</legend>
+                                    <label class="checkbox" ng-repeat="tag in user.tags">
+                                        <input type="checkbox" autocomplete="off" ng-model="task['tags'][tag.id]">
+                                        {{tag.name}}
+                                </fieldset>
+                                <p class="option-title mega"><a href="" ng-click="showAdvancedOptions(task)">Advanced options</a></p>
+                                <fieldset class="option-group advanced-option" ng-show="task.advanced">
+                                    <legend class="option-title">
+                                        <i class="icon-question-sign"></i>
+                                        Difficulty
+                                    </legend>
+                                    <div class="task-controls tile-group priority-multiplier">
+                                        <button type="button" class="task-action-btn tile" data-priority="!" ng-class="{active:getPriority(task, '!')}" ng-click="setPriority(task, '!')">Easy</button>
+                                        <button type="button" class="task-action-btn tile " data-priority="!!" ng-class="{active: getPriority(task, '!!')}" ng-click="setPriority(task, '!!')">Medium</button>
+                                        <button type="button" class="task-action-btn tile " data-priority="!!!" ng-class="{active: getPriority(task, '!!!')}" ng-click="setPriority(task, '!!!')">Hard</button>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="option-group">
+                                    <button type="submit" class="task-action-btn tile spacious" ng-click="save(task)">Save & Close</button>
+                                </fieldset>
+                            </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="module">
+                <div class="task-column dailies">
+                    <h2 class="task-column_title">Dailies</h2>
+                    <form id="new-habit" class="addtask-form form-inline new-task-form " data-task-type="habit" ng-submit="addTask('daily')">
+                        <span class="addtask-field">
+                            <input value="" type="text" placeholder="New Daily" ng-model="newTaskDailies"></span>
+                        <input class="addtask-btn" type="submit" value="＋">
+                    </form>
+                    <hr>
+                    <ul class="habits ui-sortable" sort>
+                        <li ng-repeat="task in tasks() | filter:{type:'daily'}" class="task habit {{getClass(task)}}">
+                            <div class="task-meta-controls">
+                                <a rel="toolitp"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
+                                <a rel="toolitp"><i class="icon-trash" ng-click="deleteTask(task)"></i></a>
+                                <a rel="toolitp"><i class="icon-signal"></i></a>
+                                <a rel="toolitp"><i class="icon-comment" ng-show="task.notes"></i></a>
+                            </div>
+                            <div class="task-controls task-primary">
+                                <span class="task-checker action-yesno">
+                                    <input id="{{task.id}}" type="checkbox" class="visuallyhidden focusable" autocomplete="off" ng-model="task.completed" ng-change="changeCheck(task)">
+                                    <label for="{{task.id}}"></label>
+                                </span>
+                            </div>
+                            <p class="task-text">{{task.text}}</p>
+                            <div ng-show="task.editing == true">
+                                <div class="task-options">
+                                <fieldset class="option-group">
+                                <label class="option-title">Text</label>
+                                <input class="option-content" type="text" value="{{task.text}}" ng-model="task.text">
+                                <label class="option-title">Extra notes</label>
+                                <textarea class="option-content" rows="3" ng-model="task.notes">{{task.notes}}</textarea>
+                                </fieldset>
+                                <fieldset class="option-group">
+                                    <legend class="option-title">Repeat</legend>
+                                    <div class="task-controls tile-group repeat-days">
+                                        <button type="button" class="task-action-btn tile" ng-class="{active:getRepeat(task, 'su')}" ng-click="setRepeat(task, 'su')">Su</button>
+                                        <button type="button" class="task-action-btn tile" ng-class="{active:getRepeat(task, 'm')}" ng-click="setRepeat(task, 'm')">M</button>
+                                        <button type="button" class="task-action-btn tile" ng-class="{active:getRepeat(task, 't')}" ng-click="setRepeat(task, 't')">T</button>
+                                        <button type="button" class="task-action-btn tile" ng-class="{active:getRepeat(task, 'w')}" ng-click="setRepeat(task, 'w')">W</button>
+                                        <button type="button" class="task-action-btn tile" ng-class="{active:getRepeat(task, 'th')}" ng-click="setRepeat(task, 'th')">Th</button>
+                                        <button type="button" class="task-action-btn tile" ng-class="{active:getRepeat(task, 'f')}" ng-click="setRepeat(task, 'f')">F</button>
+                                        <button type="button" class="task-action-btn tile" ng-class="{active:getRepeat(task, 's')}" ng-click="setRepeat(task, 's')">S</button>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="option-group">
+                                    <legend class="option-title">Tags</legend>
+                                    <label class="checkbox" ng-repeat="tag in user.tags">
+                                        <input type="checkbox" autocomplete="off" ng-model="task.tags[tag.id]">
+                                        {{tag.name}}
+                                </fieldset>
+                                <p class="option-title mega"><a href="" ng-click="showAdvancedOptions(task)">Advanced options</a></p>
+                                <fieldset class="option-group advanced-option" ng-show="task.advanced">
+                                    <legend class="option-title">
+                                        <i class="icon-question-sign"></i>
+                                        Difficulty
+                                    </legend>
+                                    <div class="task-controls tile-group priority-multiplier">
+                                        <button type="button" class="task-action-btn tile" data-priority="!" ng-class="{active:getPriority(task, '!')}" ng-click="setPriority(task, '!')">Easy</button>
+                                        <button type="button" class="task-action-btn tile " data-priority="!!" ng-class="{active: getPriority(task, '!!')}" ng-click="setPriority(task, '!!')">Medium</button>
+                                        <button type="button" class="task-action-btn tile " data-priority="!!!" ng-class="{active: getPriority(task, '!!!')}" ng-click="setPriority(task, '!!!')">Hard</button>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="option-group">
+                                    <button type="submit" class="task-action-btn tile spacious" ng-click="save(task)">Save & Close</button>
+                                </fieldset>
+                            </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="module">
+                <div class="task-column todos">
+                    <h2 class="task-column_title">Todos</h2>
+                    <form id="new-habit" class="addtask-form form-inline new-task-form " data-task-type="habit" ng-submit="addTask('todo')">
+                        <span class="addtask-field">
+                            <input value="" type="text" placeholder="New Todo" ng-model="newTaskTodo">
+                        </span>
+                        <input class="addtask-btn" type="submit" value="＋">
+                    </form>
+                    <hr>
+                    <ul class="habits ui-sortable" sort>
+                        <li ng-repeat="task in tasks() | filter:{type:'todo'}" class="task habit {{getClass(task)}}">
+                            <div class="task-meta-controls">
+                                <a rel="toolitp"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
+                                <a rel="toolitp"><i class="icon-trash" ng-click="deleteTask(task)"></i></a>
+                                <a rel="toolitp"><i class="icon-comment" ng-show="task.notes"></i></a>
+                            </div>
+                            <div class="task-controls task-primary">
+                                <span class="task-checker action-yesno">
+                                    <input type="checkbox" class="visuallyhidden focusable" autocomplete="off" ng-model="task.completed" ng-model="task.completed" ng-change="changeCheck(task)" id="{{task.id}}">
+                                    <label for="{{task.id}}"></label>
+                                </span>
+                            </div>
+                            <p class="task-text">{{task.text}}</p>
+                              <div ng-show="task.editing == true">
+                                <div class="task-options">
+                                <fieldset class="option-group">
+                                <label class="option-title">Text</label>
+                                <input class="option-content" type="text" value="{{task.text}}" ng-model="task.text">
+                                <label class="option-title">Extra notes</label>
+                                <textarea class="option-content" rows="3" ng-model="task.notes">{{task.notes}}</textarea>
+                                </fieldset>
+                                <fieldset>
+                                    <legend class="option-title">Due date</legend>
+                                    <input class="option-content" type="date" ng-model="task.date">
+                                    <div class="money input-suffix">
+                                        <span class="shop-gold"></span>
+                                    </div>
+                                <fieldset class="option-group">
+                                    <legend class="option-title">Tags</legend>
+                                    <label class="checkbox" ng-repeat="tag in user.tags">
+                                        <input type="checkbox" autocomplete="off" ng-model="task.tags[tag.id]">
+                                        {{tag.name}}
+                                </fieldset>
+                                <p class="option-title mega"><a href="" ng-click="showAdvancedOptions(task)">Advanced options</a></p>
+                                <fieldset class="option-group advanced-option" ng-show="task.advanced">
+                                    <legend class="option-title">
+                                        <i class="icon-question-sign"></i>
+                                        Difficulty
+                                    </legend>
+                                    <div class="task-controls tile-group priority-multiplier">
+                                        <button type="button" class="task-action-btn tile" data-priority="!" ng-class="{active:getPriority(task, '!')}" ng-click="setPriority(task, '!')">Easy</button>
+                                        <button type="button" class="task-action-btn tile " data-priority="!!" ng-class="{active: getPriority(task, '!!')}" ng-click="setPriority(task, '!!')">Medium</button>
+                                        <button type="button" class="task-action-btn tile " data-priority="!!!" ng-class="{active: getPriority(task, '!!!')}" ng-click="setPriority(task, '!!!')">Hard</button>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="option-group">
+                                    <button type="submit" class="task-action-btn tile spacious" ng-click="save(task)">Save & Close</button>
+                                </fieldset>
+                            </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="module rewards-module">
+                <div class="task-column rewards">
+                    <span class="option-box pull-right wallet">
+                        <div class="money">
+                            {{money_gold}}
+                            <span class="shop_gold" rel="tooltip" data-original-title="Gold"></span>
+                        </div>
+                        <div class="money">
+                            {{money_silver}}
+                            <span class="shop_silver" rel="tooltip" data-original-title="Silver"></span>
+                        </div>
+                    </span>
+                    <h2 class="task-column_title">Rewards</h2>
+                    <form id="new-habit" class="addtask-form form-inline new-task-form " data-task-type="habit" onsubmit="return false"><span class="addtask-field"><input id="$2y" value="" type="text" placeholder="New Habit"></span><input class="addtask-btn" type="submit" value="＋"></form>
+                    <hr>
+                    <ul class="habits ui-sortable" sort>
+                        <li ng-repeat="task in tasks() | filter:{type:'reward'}" class="task reward">
+                            <div class="task-meta-controls">
+                                <a rel="toolitp" data-original-title="Edit"><i class="icon-pencil" ng-click="editTask(task)"></i></a>
+                                <a rel="toolitp" data-original-title="Delete"><i class="icon-trash" ng-click="deleteTask(task)"></i></a>
+                                <a rel="toolitp"><i class="icon-comment" ng-show="task.notes"></i></a>
+                            </div>
+                            <div class="task-controls task-primary">
+                                <a class="money btn-buy" ng-click="score(task, 'down')">
+                                    <span class="reward-cost">{{task.value}}</span>
+                                    <span class="shop_gold"></span>
+                                </a>
+                            </div>
+                            <p class="task-text">{{task.text}}</p>
+                                <div ng-show="task.editing == true">
+                                <div class="task-options">
+                                <fieldset class="option-group">
+                                <label class="option-title">Text</label>
+                                <input class="option-content" type="text" value="{{task.text}}" ng-model="task.text">
+                                <label class="option-title">Extra notes</label>
+                                <textarea class="option-content" rows="3" ng-model="task.notes">{{task.notes}}</textarea>
+                                </fieldset>
+                                <fieldset>
+                                    <legend class="option-title">Price:</legend>
+                                    <input class="option-content" type="number" ng-model="task.price">
+                                <fieldset class="option-group">
+                                    <legend class="option-title">Tags</legend>
+                                    <label class="checkbox" ng-repeat="tag in user.tags">
+                                        <input type="checkbox" autocomplete="off" ng-model="task.tags[tag.id]">
+                                        {{tag.name}}
+                                </fieldset>
+                                <fieldset class="option-group">
+                                    <button type="submit" class="task-action-btn tile spacious" ng-click="save(task)">Save & Close</button>
+                                </fieldset>
+                            </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<div style="margin:10px">
+    <ul class="nav nav-tabs game-tabs">
+        <li class="active">
+            <a data-toggle="tab" data-target="#profile-customize"><i class="icon-user"></i> Profile</a>
+        </li>
+        <li>
+            <a id="party-tab-link" data-toggle="tab" data-target="#profile-groups"><i class="icon-heart"></i> Groups</a>
+        </li>
+        <!--$1bv-->
+        <li>
+            <a data-toggle="tab" data-target="#profile-inventory"><i class="icon-gift"></i> Inventory</a>
+        </li>
+        <li>
+            <a data-toggle="tab" data-target="#profile-stable"><i class="icon-leaf"></i> Stable</a>
+        </li>
+        <!--$$1bv-->
+        <li>
+            <a data-toggle="tab" data-target="#profile-tavern"><i class="icon-eye-close"></i> Tavern</a>
+        </li>
+        <li>
+            <a data-toggle="tab" data-target="#profile-achievements"><i class="icon-certificate"></i> Achievements</a>
+        </li>
+        <li>
+            <a data-toggle="tab" data-target="#profile-settings"><i class="icon-wrench"></i> Settings</a>
+        </li>
+    </ul>
+</div>
+
+<div class="tab-content" style="margin:10px">
+	<div class="row-fluid">
+		<div class="span4 border-right">
+	<div ng-controller="userAvatarCtrl" class="userAvatar">
+    <div>
+    <menu type="list">
+    <li class="customize-menu">
+        <menu label="Head">
+            <button type="button" class="m_head_0 customize-option" data-value="m" ng-click="changeSex('m')"></button>
+            <button type="button" class="f_head_0 customize-option" data-value="f" ng-click="changeSex('f')"></button>
+        </menu>
+    </li>
+
+    <li class="customize-menu">
+        <menu label="Hair">
+            <button type="button" class="{{user.preferences.gender}}_hair_blond customize-option" data-value="blond" ng-click="changeHair('blond')"></button>
+            <button type="button" class="{{user.preferences.gender}}_hair_black customize-option" data-value="black" ng-click="changeHair('black')"></button>
+            <button type="button" class="{{user.preferences.gender}}_hair_brown customize-option" data-value="brown" ng-click="changeHair('brown')"></button>
+            <button type="button" class="{{user.preferences.gender}}_hair_white customize-option" data-value="white" ng-click="changeHair('white')"></button>
+        </menu>
+    </li>
+
+    <li class="customize-menu">
+        <menu label="Skin">
+            <button type="button" class="{{user.preferences.gender}}_skin_dead customize-option" data-value="dead"   ng-click="changeSkin('dead')"></button>
+            <button type="button" class="{{user.preferences.gender}}_skin_orc customize-option" data-value="orc"     ng-click="changeSkin('orc')"></button>
+            <button type="button" class="{{user.preferences.gender}}_skin_asian customize-option" data-value="asian" ng-click="changeSkin('asian')"></button>
+            <button type="button" class="{{user.preferences.gender}}_skin_black customize-option" data-value="black" ng-click="changeSkin('black')"></button>
+            <button type="button" class="{{user.preferences.gender}}_skin_white customize-option" data-value="white" ng-click="changeSkin('white')"></button>
+        </menu>
+    </li>
+
+     <li class="customize-menu">
+        <menu label="Clothing" ng-show="user.preferences.gender == 'f'">
+            <button type="button" class="f_armor_0_v1 customize-option" data-value="v1" ng-click="changeArmor('v1')"></button>
+            <button type="button" class="f_armor_0_v2 customize-option" data-value="v2" ng-click="changeArmor('v2')"></button>
+        </menu>
+    </li>
+    </menu>
+    </div>
+</div>
+		</div>
+	</div>
+</div>
