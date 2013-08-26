@@ -21,7 +21,18 @@ div(ng-controller='AuthCtrl')
               input.btn.btn-primary(type='submit', value='Login')
 
         tab(heading='Register')
-            | derby-auth:register
+          form(ng-submit='register()', name='registrationForm')
+            .control-group
+              input(type='text', ng-model='registerVals.username', placeholder='Username', required)
+            .control-group
+              input(type='email', ng-model='registerVals.email', placeholder='Email', required)
+            .control-group
+              input(type='password', ng-model='registerVals.password', placeholder='Password', required)
+            .control-group
+              input(type='password', ng-model='registerVals.confirmPassword', placeholder='Password Confirm', required)
+            .control-group
+              input.btn.btn-primary(type='submit', value='Register')
+
 
     .modal-footer
       button.btn.btn-warning.cancel(ng-click='modals.login = false') Cancel

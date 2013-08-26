@@ -15,14 +15,16 @@ habitrpg.controller "AuthCtrl", ($scope, $rootScope, Facebook, LocalAuth, User, 
     localStorage.clear()
     location.reload()
 
+  runAuth = (id, token) ->
+    User.authenticate id, token, (err) ->
+      $rootScope.modals.login = false
+
   $scope.register = ->
     #TODO highlight invalid inputs
     # we have this as a workaround for https://github.com/HabitRPG/habitrpg-mobile/issues/64
     return  if $scope.registrationForm.$invalid
     $http.post(API_URL + "/api/v1/register", $scope.registerVals).success((data, status, headers, config) ->
-      User.authenticate data.id, data.apiToken, (err) ->
-        $location.path "/habit"
-
+      runAuth data.id, data.apiToken
     ).error (data, status, headers, config) ->
       if status is 0
         alert "Server not currently reachable, try again later"
@@ -31,16 +33,10 @@ habitrpg.controller "AuthCtrl", ($scope, $rootScope, Facebook, LocalAuth, User, 
       else
         alert "ERROR: " + status
 
-
   $scope.auth = ->
     data =
       username: $scope.loginUsername
       password: $scope.loginPassword
-
-    runAuth = (id, token) ->
-      User.authenticate id, token, (err) ->
-        $rootScope.modals.login = false
-
 
     if $scope.useUUID
       runAuth $scope.loginUsername, $scope.loginPassword
@@ -48,7 +44,6 @@ habitrpg.controller "AuthCtrl", ($scope, $rootScope, Facebook, LocalAuth, User, 
       $http.post(API_URL + "/api/v1/user/auth/local", data)
         .success((data, status, headers, config) ->
           runAuth data.id, data.token
-          $rootScope.modals.login = false
         ).error (data, status, headers, config) ->
           if status is 0
             alert "Server not currently reachable, try again later"
