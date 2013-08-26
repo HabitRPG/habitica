@@ -4,14 +4,6 @@ _ = require 'lodash'
 moment = require 'moment'
 misc = require './misc'
 
-
-  appExports.del = (e) ->
-    return unless confirm("Are you sure you want to delete this task?") is true
-    $('[rel=tooltip]').tooltip('hide')
-    user.del "tasks.#{e.get('id')}"
-    e.at().remove()
-
-
   appExports.clearCompleted = (e, el) ->
     completedIds =  _.pluck( _.where(model.get('_todoList'), {completed:true}), 'id')
     todoIds = user.get('todoIds')
@@ -19,12 +11,6 @@ misc = require './misc'
     _.each completedIds, (id) -> user.del "tasks.#{id}"; true
     user.set 'todoIds', _.difference(todoIds, completedIds)
 
-  appExports.toggleDay = (e, el) ->
-    task = model.at(e.target)
-    if /active/.test($(el).attr('class')) # previous state, not current
-      task.set('repeat.' + $(el).attr('data-day'), false)
-    else
-      task.set('repeat.' + $(el).attr('data-day'), true)
 
   appExports.toggleTaskEdit = (e, el) ->
     id = e.get('id')
@@ -60,22 +46,6 @@ misc = require './misc'
   appExports.todosShowRemaining = -> model.set '_showCompleted', false
   appExports.todosShowCompleted = -> model.set '_showCompleted', true
 
-  ###
-    Call scoring functions for habits & rewards (todos & dailies handled below)
-  ###
-  appExports.score = (e, el) ->
-    id = $(el).parents('li').attr('data-id')
-    direction = $(el).attr('data-direction')
-    misc.score(model, id, direction, true)
-
-  ###
-    This is how we handle appExports.score for todos & dailies. Due to Derby's special handling of `checked={:task.completd}`,
-    the above function doesn't work so we need a listener here
-  ###
-  user.on 'set', 'tasks.*.completed', (i, completed, previous, isLocal, passed) ->
-    return if !isLocal or passed?.cron # Don't do this stuff on cron
-    direction = if completed then 'up' else 'down'
-    misc.score(model, i, direction, true)
 
   ###
     Undo
@@ -93,13 +63,3 @@ misc = require './misc'
       else
         user.set "#{taskPath}.#{key}", val
       true
-
-  appExports.tasksSaveAndClose = ->
-    # When they update their notes, re-establish tooltip & popover
-    $('[rel=tooltip]').tooltip()
-    $('[rel=popover]').popover()
-
-  appExports.tasksSetPriority = (e, el) ->
-    dataId = $(el).parent('[data-id]').attr('data-id')
-    #"_user.tasks.#{dataId}"
-    model.at(e.target).set 'priority', $(el).attr('data-priority')

@@ -25,7 +25,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     a(ng-show='task.history', x-bind='click:toggleChart', data-id='{{task.id}}', tooltip='Progress')
       i.icon-signal
     // notes
-    span.task-notes(ng-show='task.notes', rel='popover', data-trigger='hover', data-placement='left', data-content='{{task.notes}}', data-original-title='{{task.text}}')
+    span.task-notes(ng-show='task.notes', popover-trigger='mouseenter', popover-placement='left', popover='{{task.notes}}', popover-title='{{task.text}}')
       i.icon-comment
 
   // left-hand side checkbox
@@ -94,10 +94,10 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
       fieldset.option-group(ng-if='task.type=="habit"')
         legend.option-title Direction/Actions
         span.task-checker.action-plusminus.select-toggle
-          input.visuallyhidden.focusable(id='{{task.id}}-option-plus', type='checkbox', checked='{{task.up}}')
+          input.visuallyhidden.focusable(id='{{task.id}}-option-plus', type='checkbox', ng-model='task.up')
           label(for='{{task.id}}-option-plus')
         span.task-checker.action-plusminus.select-toggle
-          input.visuallyhidden.focusable(id='{{task.id}}-option-minus', type='checkbox', checked='{{task.down}}')
+          input.visuallyhidden.focusable(id='{{task.id}}-option-minus', type='checkbox', ng-model='task.down')
           label(for='{{task.id}}-option-minus')
       // {{/}}
       // if Daily, calendar
@@ -115,7 +115,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
       // if Reward, pricing
       fieldset.option-group.option-short(ng-if='task.type=="reward"')
         legend.option-title Price
-        input.option-content(type='number', size='16', min='0', value='{{task.value}}')
+        input.option-content(type='number', size='16', min='0', ng-model='task.value')
         .money.input-suffix
           span.shop_gold
       // if Todos, the due date
@@ -137,9 +137,9 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
           // </button>
           // {{else}}
           .task-controls.tile-group.priority-multiplier(data-id='{{task.id}}')
-            button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!" || !task.priority}', data-priority='!', x-bind='clicktasksSetPriority') Easy
-            button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!!"}', data-priority='!!', x-bind='clicktasksSetPriority') Medium
-            button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!!!"}', data-priority='!!!', x-bind='clicktasksSetPriority') Hard
+            button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!" || !task.priority}', ng-click='task.priority="!"') Easy
+            button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!!"}', ng-click='task.priority="!!"') Medium
+            button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!!!"}', ng-click='task.priority="!!!"') Hard
           // {{/}}
           span(ng-if='task.type=="daily"')
             legend.option-title Restore Streak

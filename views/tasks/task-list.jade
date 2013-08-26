@@ -41,7 +41,7 @@ div(ng-controller='TasksCtrl')
         li.task.reward-item(ng-hide='item.hide', ng-repeat='item in itemStore')
           // right-hand side control buttons
           .task-meta-controls
-            span.task-notes(rel='popover', data-trigger='hover', data-placement='left', data-content='{{item.notes}}', data-original-title='{{item.text}}')
+            span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{item.notes}}', popover-title='{{item.text}}')
               i.icon-comment
           //left-hand size commands
           .task-controls

@@ -16,10 +16,10 @@ habitrpg.controller "TaskDetailsCtrl", ($scope, $rootScope, $location, User) ->
       setVal "down", task.down
     else if task.type is "daily"
       setVal "repeat", task.repeat
-
-      #          _.each(task.repeat, function(v, k) {
-      #              setVal("repeat." + k, v);
-      #          })
+      setVal "streak", task.streak # TODO we'll remove this once rewrite's running for a while. This was a patch for derby issues
+      # _.each(task.repeat, function(v, k) {
+      #   setVal("repeat." + k, v);
+      # })
     else if task.type is "todo"
       setVal "date", task.date
     else setVal "value", task.value  if task.type is "reward"
