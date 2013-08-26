@@ -1,36 +1,5 @@
 <modals:>
 
-    <app:avatar:modals />
-    <app:settings:modals />
-    <app:pets:modals />
-    <app:alerts:modals />
-    <app:rewards:modals />
-    <app:tasks:modals />
-
-    <!-- Game Over Modal -->
-    <div style="{#unless lt(_user.stats.hp,1)}display:none;{/}">
-        <app:modals:modal noDismiss=true modalId='dead-modal'>
-            <div class='row-fluid'>
-                <div class='span4'>
-                    <figure class="notification-character">
-                        <img src="/img/sprites/dead.png">
-                    </figure>
-                </div>
-                <div class='span8'>
-                    <h2>You Died!</h2>
-                </div>
-            </div>
-            <div class='row-fluid'>
-                <div class='span4'>
-                    <p><a x-bind=click:revive class="btn btn-danger btn-large notification-action">Continue</a></p>
-                </div>
-                <div class='span8'>
-                    <p>You've lost a level, all your gold, and a random piece of equipment. Arise, Habiteer, and try again! Curb those negative Habits, be vigilant in completion of Dailies, and hold death at arm's length with a Potion if you falter!</p>
-                </div>
-            </div>
-
-        </app:modals:modal>
-    </div>
 
     <!-- Buy more Gems modal -->
     <app:modals:modal modalId='more-gems-modal' header="Out Of Gems">
