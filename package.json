@@ -27,7 +27,8 @@
     "stylus": "~0.37.0",
     "connect-assets": "~2.5.2",
     "bower": "~1.2.4",
-    "nib": "~1.0.1"
+    "nib": "~1.0.1",
+    "jade": "~0.35.0"
   },
   "private": true,
   "subdomain": "habitrpg",
@@ -41,6 +42,7 @@
   },
   "scripts": {
     "start": "nodemon src/server.coffee",
-    "test": "mocha test/api.mocha.coffee"
+    "test": "mocha test/api.mocha.coffee",
+    "postinstall": "./node_modules/bower/bin/bower install"
   }
 }

@@ -9,4 +9,4 @@ The main HabitRPG app module.
 #    .constant('API_URL', 'https://beta.habitrpg.com')
 # userServices handles redirect to /login if not authenticated
 window.habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'authServices', 'notificationServices', 'ui.bootstrap'])
-  .constant("API_URL", "http://localhost:3000")
+  .constant("API_URL", "")
