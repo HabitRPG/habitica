@@ -37,13 +37,6 @@ habitrpg.controller "TasksCtrl", ($scope, $rootScope, $location, User, Algos, He
       data: task
       dir: direction
 
-  $scope.saveTask = (task) ->
-    sets = {}
-    sets["user."]
-    User.log [
-      op: 'set', {}
-    ]
-
   $scope.addTask = (text) ->
     newTask = window.habitrpgShared.helpers.taskDefaults({text})
     User.user[newTask.type + "s"].unshift newTask
@@ -56,12 +49,6 @@ habitrpg.controller "TasksCtrl", ($scope, $rootScope, $location, User, Algos, He
   #Add the new task to the actions log
   $scope.clearDoneTodos = ->
 
-  #We can't alter $scope.user.tasks here. We have to invoke API call.
-  #To be implemented
-  $scope.selectTask = (task) ->
-    $rootScope.selectedTask = task
-    $location.path "/tasks/" + task.id
-
   $scope.changeCheck = (task) ->
     # This is calculated post-change, so task.completed=true if they just checked it
     if task.completed
@@ -73,9 +60,6 @@ habitrpg.controller "TasksCtrl", ($scope, $rootScope, $location, User, Algos, He
   $rootScope.revive = ->
     window.habitrpgShared.algos.revive User.user
     User.log op: "revive"
-
-  counter = 0
-
 
   $scope.remove = (task) ->
     return unless confirm("Are you sure you want to delete this task?") is true

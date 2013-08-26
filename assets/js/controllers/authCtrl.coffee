@@ -39,7 +39,7 @@ habitrpg.controller "AuthCtrl", ($scope, $rootScope, Facebook, LocalAuth, User, 
 
     runAuth = (id, token) ->
       User.authenticate id, token, (err) ->
-        $location.path "/habit"
+        $rootScope.modals.login = false
 
 
     if $scope.useUUID
