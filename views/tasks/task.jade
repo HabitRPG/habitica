@@ -3,26 +3,26 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
   .task-meta-controls
     // Streak
     span(ng-show='task.streak') {{task.streak}}
-      span(rel='tooltip', title='Streak Counter')
+      span(tooltip='Streak Counter')
         i.icon-forward
     app:filters:applied-filters
     // edit
-    a(ng-click='task._editing = !task._editing', rel='tooltip', title='Edit')
+    a(ng-click='task._editing = !task._editing', tooltip='Edit')
       i.icon-pencil
     //- challenges
     //  {{#if task.challenge}}
     //      {{#if brokenChallengeLink(task)}}
-    //          <i class='icon-bullhorn' style='background-color:red;' x-bind=click:toggleTaskEdit rel=tooltip title="Broken Challenge Link"></i>
+    //          <i class='icon-bullhorn' style='background-color:red;' x-bind=click:toggleTaskEdit tooltip="Broken Challenge Link"></i>
     //      {{else}}
-    //          <i class='icon-bullhorn' rel=tooltip title="Challenge Task"></i>
+    //          <i class='icon-bullhorn' tooltip="Challenge Task"></i>
     //      {{/}}
     //  {{else}}
 
     // delete
-    a(ng-click='remove(task)', rel='tooltip', title='Delete')
+    a(ng-click='remove(task)', tooltip='Delete')
       i.icon-trash
     // chart
-    a(ng-show='task.history', x-bind='click:toggleChart', data-id='{{task.id}}', rel='tooltip', title='Progress')
+    a(ng-show='task.history', x-bind='click:toggleChart', data-id='{{task.id}}', tooltip='Progress')
       i.icon-signal
     // notes
     span.task-notes(ng-show='task.notes', rel='popover', data-trigger='hover', data-placement='left', data-content='{{task.notes}}', data-original-title='{{task.text}}')

@@ -40,7 +40,7 @@ future re: pets and whatnot, this is just temporary.
 // always visible on the user's own avatar
 .herobox:after
 	opacity: 0
-.herobox[data-checkuser="isUser"]:after
+.herobox.isUser:after
 	opacity: 1
 	// make it a bit special
 	background darken($better, 15%)
@@ -54,18 +54,18 @@ future re: pets and whatnot, this is just temporary.
 
 // vertically center avatar sprite
 // depending on if they have a pet
-.herobox[data-checkpet="hasPet"]
+.herobox.hasPet
 	padding-top: 2em
-.herobox:not([data-checkpet="hasPet"])
+.herobox:not(.hasPet)
 	padding-top: 1.75em
 
 // if it is the user's avatar, check if
 // they have a pet and pad accordingly
-.herobox[data-checkpet="hasPet"][data-checkuser="isUser"]
+.herobox.hasPet.isUser
 	padding-top: 3.25em
 
 // if not user's avatar, remove lines for party unity
-.herobox:not([data-checkuser="isUser"])
+.herobox:not(.isUser)
 	outline: 0
 
 // expose hero info on hover, taking
@@ -74,10 +74,10 @@ future re: pets and whatnot, this is just temporary.
 	background: desaturate(lighten($better, 30%), 10%)
 	&:after
 		opacity: 1
-.herobox[data-checkpet="hasPet"]
+.herobox[class="hasPet"]
 	&:hover, &:focus
 		padding-top: 3.25em
-.herobox:not([data-checkpet="hasPet"])
+.herobox:not([class="hasPet"])
 	&:hover, &:focus
 		padding-top: 2.5em
 

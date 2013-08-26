@@ -1,0 +1,5 @@
+a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Gems', popover="Used for buying special items (reroll, eggs, hatching potions, etc). You'll need to unlock those features before being able to use Gems.", popover-placement='bottom')
+  span.task-action-btn.tile.flush.bright.add-gems-btn(x-bind='click:showStripe') ＋
+  span.task-action-btn.tile.flush.neutral
+    .Gems
+    | {{gems(_user.balance)}} Gems

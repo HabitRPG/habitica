@@ -103,7 +103,7 @@ habitrpg.controller "TasksCtrl", ($scope, $rootScope, $location, filterFilter, U
     $scope.itemStore = sorted
 
   $scope.buy = (type) ->
-    hasEnough = window.habitrpgShared.items.buyItem($scope.user, type)
+    hasEnough = window.habitrpgShared.items.buyItem(User.user, type)
     if hasEnough
       User.log
         op: "buy"

@@ -32,19 +32,6 @@
         </app:modals:modal>
     </div>
 
-    <!-- Re-Roll modal -->
-    <app:modals:modal modalId='reroll-modal' header="Reset Your Tasks">
-        <app:rewards:user-gems />
-        <p>Purchasing a Re-Roll will reset all your tasks to a neutral (yellow) state, as if you'd just added them. Consider this an option of last resort! <a target="_blank" href="https://github.com/lefnire/habitrpg#all-my-tasks-are-red-im-dying-too-fast">Red tasks provide good incentive to improve</a>. But if all that red fills you with despair, and the beginning of each new day proves lethal, spend the Gems and catch a reprieve!</p>
-        <@footer>   
-            {#if lt(_user.balance,1)}
-            <a data-dismiss="modal" x-bind="click:showStripe" class="btn btn-success btn-large">Buy More Gems</a><span class='gem-cost'>Not enough Gems</span>
-            {else}
-            <a data-dismiss="modal" x-bind=click:buyReroll class="btn btn-danger btn-large">Re-Roll</a><span class='gem-cost'>4 Gems</span>
-            {/}
-        </@footer>
-    </app:modals:modal>
-
     <!-- Buy more Gems modal -->
     <app:modals:modal modalId='more-gems-modal' header="Out Of Gems">
         <app:rewards:user-gems />

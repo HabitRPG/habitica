@@ -22,7 +22,7 @@
           i.icon-star {{user.stats.exp | number:0}} / {{tnl(user.stats.lvl)}}
           // FIXME doesn't look great here, but the "Experience" CSS title rollover covers it where it was before
           span(ng-show='user.history.exp')
-            a(x-bind='click:toggleChart', data-id='exp', rel='tooltip', title='Progress')
+            a(x-bind='click:toggleChart', data-id='exp', tooltip='Progress')
               i.icon-signal
     // party
     // I have an idea to use this loop for the user's herobox/avatar as well
