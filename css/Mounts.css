@@ -1,4 +1,4 @@
-.Mount_Head_Lion, .Mount_Body_Lion, .Mount_Head_PolarBear, .Mount_Body_PolarBear, .Mount_Head_Panda, .Mount_Body_Panda, .Mount_Head_Tiger, .Mount_Body_Tiger, .Mount_Head_Bear, .Mount_Body_Bear, .Mount_Head_EtherealLion, .Mount_Body_EtherealLion {background: url(Mount-SpriteSheet.png) no-repeat}
+.Mount_Head_Lion, .Mount_Body_Lion, .Mount_Head_PolarBear, .Mount_Body_PolarBear, .Mount_Head_Panda, .Mount_Body_Panda, .Mount_Head_Tiger, .Mount_Body_Tiger, .Mount_Head_Bear, .Mount_Body_Bear, .Mount_Head_EtherealLion, .Mount_Body_EtherealLion {background: url('../img/sprites/Mount-SpriteSheet.png') no-repeat; }
 .Mount_Head_Lion {background-position: 0 0; width: 105px; height: 123px}
 .Mount_Body_Lion {background-position: -105 0; width: 105px; height: 123px}
 .Mount_Head_PolarBear {background-position: -210 0; width: 105px; height: 123px}

@@ -1,4 +1,4 @@
-weapon_6, weapon_5, weapon_4, weapon_3, weapon_2, weapon_1, shield_5, shield_4, shield_3, shield_2, shield_1, head_5, head_4, head_3, head_2, head_1, armor_5, armor_4, armor_3, armor_2, armor_1, reroll, potion, copper, silver, gold {background: url(shop_sprites.css) no-repeat}
+weapon_6, weapon_5, weapon_4, weapon_3, weapon_2, weapon_1, shield_5, shield_4, shield_3, shield_2, shield_1, head_5, head_4, head_3, head_2, head_1, armor_5, armor_4, armor_3, armor_2, armor_1, reroll, potion, copper, silver, gold {background: url("../img/sprites/shope_sprites.png") no-repeat}
 weapon_6 {background-position: 0 0; width: 40px; height: 40px}
 weapon_5 {background-position: -40px 0; width: 40px; height: 40px}
 weapon_4 {background-position: -80px 0; width: 40px; height: 40px}
