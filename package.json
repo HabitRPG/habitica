@@ -13,7 +13,8 @@
     "mocha": "*",
     "expect.js": "*",
     "grunt-concat-css": "~0.1.0",
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.1",
+    "grunt-browserify": "~1.2.4"
   },
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script tests/algos.mocha.coffee"
