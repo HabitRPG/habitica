@@ -1,0 +1,97 @@
+.gem-wallet
+  cursor: pointer
+  .tile
+    background-color: darken($neutral, 10%)
+  .add-gems-btn
+    opacity: 0
+  &:hover, &:focus
+    .add-gems-btn
+      opacity: 1
+      background-color: $good
+    .tile
+      opacity: 1
+
+
+// pets (this will all change when pet system is overhauled)
+.pet-grid
+  padding-top: 1.5em
+  border-top: rgba(0,0,0,0.1)
+  table
+    width: 100%
+  td
+    padding: 0.5em
+    //width: 25%
+    &.active-pet
+      background-color: $bad
+      outline: 1px solid rgba(0,0,0,0.1)
+      outline-offset: -1px
+    &:hover, &:focus
+      background-color: darken($better, 10%)
+    > div
+      margin:auto
+      margin-bottom:.5em
+  p
+    text-align:center
+    width:6.5em
+    height:2.5em
+
+.current-pet
+    left: 0px
+    bottom: 0px
+
+.item-drop-icon
+    float:left
+    padding-right:20px
+    padding-bottom:20px
+
+.Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Veteran, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_SugarCube, .Pet_Food_Strawberry, .Pet_Food_Rotten, .Pet_Food_Licorice, .Pet_Food_Golden, .Pet_Food_Cream, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Chocolate, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base
+    background: url("/bower_components/habitrpg-shared/img/hatching_powder.png") no-repeat
+    width:34px
+    height:34px
+
+.Pet_Currency_Gem, .Pet_Currency_Gem2x, .Pet_Currency_Gem1x
+    background: url("/bower_components/habitrpg-shared/img/sprites/Egg_Sprite_Sheet.png") no-repeat
+    display:block
+
+.Pet_Currency_Gem {background-position: 0px -510px; width: 51px; height: 45px} /* Not an egg or potion so has a different size */
+.Pet_Currency_Gem2x {background-position: -55px -513px; width: 34px; height: 30px}
+.Pet_Currency_Gem1x {background-position: -63px -542px; width: 19px; height: 17px}
+
+.inventory-list p
+    display: none
+.inventory-list li
+    clear:both
+.pets-menu > div
+    display:inline-block
+    vertical-align:top
+    padding:.3em
+    width:6em
+    margin-top:1em
+    p
+      text-align:center
+      width:6em
+      margin-top:-.5em
+.hatchingPotion-menu > div
+    display:inline-block
+    vertical-align:top
+    padding:.3em
+    width:6em
+    margin-top:1em
+    p
+      text-align:center
+      width:6em
+      margin-top:-.5em
+
+.pet-button
+    border: none
+    background: none white
+.pet-not-owned
+    width: 81px;
+    height: 99px;
+    /* Would use css3 filters and just display the original pet image with a black hue,
+       but doesn't seem to work in Firefox or Opera */
+    /*filter: brightness(0%)
+    -webkit-filter: brightness(0%)
+    -moz-filter: brightness(0%)
+    -o-filter: brightness(0%)
+    -ms-filter: brightness(0%)*/

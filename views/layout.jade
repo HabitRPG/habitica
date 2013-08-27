@@ -4,10 +4,13 @@ html
     title HabitRPG | Your Life The Role Playing Game
 
     // CSS
-    link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap.css')
-    link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap-responsive.css')
+    link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap.css')
+    link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css')
     link(rel='stylesheet', href='/bower_components/angular-ui/build/angular-ui.css')
-    != css('app/index')
+    != css('index')
+
+    // Spritesheets
+    link(rel='stylesheet', href='/bower_components/habitrpg-shared/spritesheets.css')
 
     // JS
     script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')

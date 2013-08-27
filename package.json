@@ -4,7 +4,7 @@
   "version": "0.0.0-151",
   "main": "./server.js",
   "dependencies": {
-    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared#master",
+    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared#rewrite",
     "derby-auth": "git://github.com/lefnire/derby-auth#master",
     "connect-mongo": "*",
     "passport-facebook": "*",

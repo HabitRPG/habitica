@@ -1,0 +1,125 @@
+// $customizations-modal layout
+
+.avatar-window
+  float: right;
+  margin: 0 1em 0 0    
+
+menu
+  padding: 0;
+  margin: 0;
+
+.customize-menu
+  padding: 0;
+  width: 70%;
+  list-style: none;
+  padding-bottom: 10px
+  
+  menu:before
+    content: attr(label);
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 2
+
+.customize-option
+  border: 1px solid grey;
+  background-color: hsl(0, 0%, 93%);
+  margin-bottom: 10px
+  
+  cursor: pointer;
+  -webkit-transition: background-color 0.5s ease-out
+  -moz-transition: background-color 0.5s ease-out
+  transition: background-color 0.5s ease-out
+
+.customize-option:active
+  background-color: rgb(255, 242, 204);
+  -webkit-transition: none
+  -moz-transition: none
+  transition: none
+  
+.customize-option:not(:last-of-type)
+  margin-right: 10px
+  
+
+@media (max-width: 480px) {
+  .avatar-window {
+    float: none;
+    margin-bottom: 1em
+  }
+
+  .customize-menu {
+    width: 100%;
+  }
+}
+
+// narrower spriting for customize modal
+.customize-menu
+  // shared option-box styles
+  [class^="m_hair"], [class^="m_skin"], .m_head_0
+    width: 60px;
+    height: 60px;
+
+  // head
+  .m_head_0
+    background-position: -1557px -9px;
+
+  // hair
+  .m_hair_blond
+    background-position: -1647px -4px;
+  .m_hair_black
+    background-position: -1737px -4px;
+  .m_hair_brown
+    background-position: -1827px -4px;
+  .m_hair_white
+    background-position: -1917px -4px;
+
+  // skin
+  .m_skin_dead
+    background-position: -2547px -20px;
+  .m_skin_orc
+    background-position: -2637px -20px;
+  .m_skin_asian
+    background-position: -2727px -20px;
+  .m_skin_black
+    background-position: -2817px -20px;
+  .m_skin_white
+    background-position: -2907px -20px;
+
+// narrower spriting for customize modal
+.customize-menu
+  // shared option-box styles
+  [class^="f_hair"], [class^="f_skin"], [class^="f_armor"], .f_head_0
+    width: 60px;
+    height: 60px;
+
+  // head
+  .f_head_0
+    background-position: -1917px -9px;
+
+  // hair
+  .f_hair_white
+    background-position: -2009px -8px;
+  .f_hair_brown
+    background-position: -2099px -8px;
+  .f_hair_black
+    background-position: -2189px -8px;
+  .f_hair_blond
+    background-position: -2279px -8px;
+
+  // skin
+  .f_skin_dead
+    background-position: -2997px -20px;
+  .f_skin_orc
+    background-position: -3087px -20px;
+  .f_skin_asian
+    background-position: -3177px -20px;
+  .f_skin_black
+    background-position: -3267px -20px;
+  .f_skin_white
+    background-position: -3357px -20px;
+
+  // starting armor
+  .f_armor_0_v2
+    background-position: -2819px -38px;
+  .f_armor_0_v1
+    background-position: -2909px -38px;
