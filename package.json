@@ -1,7 +1,7 @@
 {
   "name": "habitrpg",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "0.0.0-151",
+  "version": "0.0.0-152",
   "main": "./server.js",
   "dependencies": {
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared#rewrite",
@@ -43,6 +43,6 @@
   "scripts": {
     "start": "nodemon src/server.coffee",
     "test": "mocha test/api.mocha.coffee",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "postinstall": "./node_modules/bower/bin/bower install -f"
   }
 }
