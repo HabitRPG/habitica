@@ -4,7 +4,8 @@
  The authentication controller (login & facebook)
  */
 
-habitrpg.controller("AuthCtrl", function($scope, $rootScope, Facebook, LocalAuth, User, $http, $location, API_URL) {
+habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'Facebook', 'LocalAuth', 'User', '$http', '$location', 'API_URL',
+  function($scope, $rootScope, Facebook, LocalAuth, User, $http, $location, API_URL) {
   var runAuth;
   var showedFacebookMessage;
   $scope.useUUID = false;
@@ -65,4 +66,4 @@ habitrpg.controller("AuthCtrl", function($scope, $rootScope, Facebook, LocalAuth
         });
     }
   };
-});
+}]);

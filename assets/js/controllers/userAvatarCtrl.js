@@ -1,17 +1,16 @@
 "use strict";
 
-habitrpg.controller("UserAvatarCtrl", function($scope, $location, filterFilter, User) {
-  debugger
+habitrpg.controller("UserAvatarCtrl", ['$scope', '$location', 'User',
+  function($scope, $location, User) {
   $scope.profile = User.user;
   $scope.hideUserAvatar = function() {
     $(".userAvatar").hide();
   };
 
   $scope.clickAvatar = function(profile) {
-    debugger
     if (User.user.id == profile.id) {
       if ($location.path() == '/tasks') {
-        $location.path('/options')
+        $location.path('/options');
       } else {
         $location.path('/tasks');
       }
@@ -20,4 +19,4 @@ habitrpg.controller("UserAvatarCtrl", function($scope, $location, filterFilter, 
       //$("#avatar-modal-#{uid}").modal('show')
     }
   }
-});
+}]);

@@ -1,6 +1,7 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", function($scope, $rootScope, $location, User, Algos, Helpers, Notification) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', 'Algos', 'Helpers', 'Notification',
+  function($scope, $rootScope, $location, User, Algos, Helpers, Notification) {
   /*FIXME
    */
   $scope.taskLists = [
@@ -152,4 +153,4 @@ habitrpg.controller("TasksCtrl", function($scope, $rootScope, $location, User, A
       });
     }
   };
-});
+}]);

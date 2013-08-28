@@ -7,6 +7,7 @@ config.json
 npm-debug.log
 lib
 public/bower_components
+builtAssets/
 
 src/*/*.js
 src/*/*.map

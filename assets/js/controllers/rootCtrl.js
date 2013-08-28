@@ -3,7 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", function($scope, $rootScope, $location, User) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User',
+  function($scope, $rootScope, $location, User) {
   $rootScope.modals = {};
   $rootScope.User = User;
   $rootScope.user = User.user;
@@ -35,4 +36,4 @@ habitrpg.controller("RootCtrl", function($scope, $rootScope, $location, User) {
     $rootScope.set('flags.newStuff',false);
   }
 
-});
+}]);

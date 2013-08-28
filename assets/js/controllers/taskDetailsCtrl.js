@@ -1,6 +1,7 @@
 "use strict";
 
-habitrpg.controller("TaskDetailsCtrl", function($scope, $rootScope, $location, User) {
+habitrpg.controller("TaskDetailsCtrl", ['$scope', '$rootScope', '$location', 'User',
+  function($scope, $rootScope, $location, User) {
   $scope.save = function(task) {
     var log, setVal;
     setVal = function(k, v) {
@@ -54,4 +55,4 @@ habitrpg.controller("TaskDetailsCtrl", function($scope, $rootScope, $location, U
     $scope.editedTask = null;
     $scope.editing = false;
   };
-});
+}]);
