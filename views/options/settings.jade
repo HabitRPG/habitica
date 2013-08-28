@@ -1,11 +1,10 @@
-.row-fluid
+.row-fluid(ng-controller='SettingsCtrl')
   .personal-options.span6.border-right
     h2 Settings
     h4 Custom Day Start
     .option-group.option-short
-      input.option-content.option-time(type='number', min='0', max='24', value='{{user.preferences.dayStart}}')
+      input.option-content.option-time(type='number', min='0', max='24', ng-model='user.preferences.dayStart', ng-change='saveDayStart()')
       span.input-suffix :00 (24h clock)
-      span(class='alert alert-warning') Doesn't save yet
     div
       small
         | Habit defaults to check and reset your dailies at midnight in your time zone each day. You can customize the hour here (enter a number between 0 and 24).
@@ -19,9 +18,9 @@
       derby-auth:changepassword
     hr
     h4 Danger Zone
-    a.btn.btn-danger(data-target='#reset-modal', data-toggle='modal', rel='tooltip', title='Resets your entire account (dangerous).') Reset
-    a.btn.btn-danger(data-target='#restore-modal', data-toggle='modal', rel='tooltip', title='Restores attributes to your character.') Restore
-    a.btn.btn-danger(data-target='#delete-modal', data-toggle='modal', rel='tooltip', title='Delete your account.') Delete
+    a.btn.btn-danger(ng-click='notPorted()', data-target='#reset-modal', data-toggle='modal', tooltip='Resets your entire account (dangerous).') Reset
+    a.btn.btn-danger(ng-click='notPorted()', data-target='#restore-modal', data-toggle='modal', tooltip='Restores attributes to your character.') Restore
+    a.btn.btn-danger(ng-click='notPorted()', data-target='#delete-modal', data-toggle='modal', tooltip='Delete your account.') Delete
   .span6
     h2 API
     small Copy these for use in third party applications.
