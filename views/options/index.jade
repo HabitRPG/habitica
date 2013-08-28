@@ -1,56 +1,57 @@
-.module.full-width
-  span.option-box.pull-right.wallet
-    app:rewards:user-gems
+.grid
+  .module.full-width
+    span.option-box.pull-right.wallet
+      app:rewards:user-gems
 
-  tabset
-    tab
-      tab-heading
-        i.icon-user
-        | Profile
-      include ./profile
+    tabset
+      tab
+        tab-heading
+          i.icon-user
+          | Profile
+        include ./profile
 
-    tab
-      tab-heading
-        i.icon-heart
-        | Groups
-        app:groups:groups-pane
+      tab
+        tab-heading
+          i.icon-heart
+          | Groups
+          app:groups:groups-pane
 
-    tab(ng-show='user.flags.dropsEnabled')
-      tab-heading
-        i.icon-gift
-        | Inventory
-      .row-fluid
-        .span6.border-right
-          h2 Inventory
-          app:avatar:inventory
-        .span6
-          h2 Market
-          app:game-pane:market
+      tab(ng-show='user.flags.dropsEnabled')
+        tab-heading
+          i.icon-gift
+          | Inventory
+        .row-fluid
+          .span6.border-right
+            h2 Inventory
+            app:avatar:inventory
+          .span6
+            h2 Market
+            app:game-pane:market
 
-    tab(ng-show='user.flags.dropsEnabled')
-      tab-heading
-        i.icon-leaf
-        | Stable
-      app:pets:stable
+      tab(ng-show='user.flags.dropsEnabled')
+        tab-heading
+          i.icon-leaf
+          | Stable
+        app:pets:stable
 
-    tab
-      tab-heading
-        i.icon-eye-close
-        | Tavern
-      app:groups:group(group='{_habitRPG}')
+      tab
+        tab-heading
+          i.icon-eye-close
+          | Tavern
+        app:groups:group(group='{_habitRPG}')
 
-    tab
-      tab-heading
-        i.icon-certificate
-        | Achievements
-      div(ng-controller='UserAvatarCtrl')
-        include ../shared/profiles/achievements
+      tab
+        tab-heading
+          i.icon-certificate
+          | Achievements
+        div(ng-controller='UserAvatarCtrl')
+          include ../shared/profiles/achievements
 
-    // <li><a data-toggle='tab' data-target="#profile-challenges" id='profile-challenges-tab-link' ><i class='icon-bullhorn'></i> Challenges</a></li>
-    // app:challenges:main
+      // <li><a data-toggle='tab' data-target="#profile-challenges" id='profile-challenges-tab-link' ><i class='icon-bullhorn'></i> Challenges</a></li>
+      // app:challenges:main
 
-    tab
-      tab-heading
-        i.icon-wrench
-        | Settings
-      include ./settings
+      tab
+        tab-heading
+          i.icon-wrench
+          | Settings
+        include ./settings

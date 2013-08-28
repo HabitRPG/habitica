@@ -5,7 +5,9 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     span(ng-show='task.streak') {{task.streak}}
       span(tooltip='Streak Counter')
         i.icon-forward
-    app:filters:applied-filters
+
+    i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='notTags(task.tags)')
+
     // edit
     a(ng-click='task._editing = !task._editing', tooltip='Edit')
       i.icon-pencil
@@ -122,7 +124,13 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
       fieldset.option-group(ng-if='task.type=="todo"')
         legend.option-title Due Date
         input.option-content.datepicker(type='text', value='{{task.date}}', data-date-format='mm/dd/yyyy')
-      app:filters:filter-fieldgroup(ng-if='list.main')
+
+      fieldset.option-group(ng-if='list.main')
+        legend.option-title Tags
+          label.checkbox(ng-repeat='tag in user.tags')
+            input(type='checkbox', ng-model='task.tags[tag.id]')
+            | {{tag.name}}
+
       // Advanced Options
       span(ng-if='task.type!="reward"')
         p.option-title.mega(ng-click='task._advanced = !task._advanced') Advanced Options

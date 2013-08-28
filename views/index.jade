@@ -73,9 +73,6 @@ html
     include ./shared/modals/index
     include ./shared/header/header
 
-    app:filters:filters(ng-hide='_gamePane')
-
-    br
     #notification-area(ng-controller='NotificationCtrl')
     #wrap
 
@@ -86,8 +83,8 @@ html
       //if they hide the header, we still need user-menu visible
       app:settings:menu(ng-show='user.preferences.hideHeader')
       .exp-chart(ng-show='page.charts.exp')
-      #main.grid
-        div(ng-view)
+
+      #main(ng-view)
 
     .container
       h3
