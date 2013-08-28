@@ -43,7 +43,8 @@
       tab-heading
         i.icon-certificate
         | Achievements
-      app:avatar:achievements(profile='{{_user}}')
+      div(ng-controller='UserAvatarCtrl')
+        include ../shared/profiles/achievements
 
     // <li><a data-toggle='tab' data-target="#profile-challenges" id='profile-challenges-tab-link' ><i class='icon-bullhorn'></i> Challenges</a></li>
     // app:challenges:main
