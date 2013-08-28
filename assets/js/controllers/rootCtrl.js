@@ -20,9 +20,9 @@ habitrpg.controller("RootCtrl", function($scope, $rootScope, $location, User) {
    Very simple path-set. `set('preferences.gender','m')` for example. We'll deprecate this once we have a complete API
    */
   $rootScope.set = function(k, v) {
-    var log = { op: 'set' };
-    window.helpers.dotSet(k, v, User.user);
-    log[k] = v;
+    var log = { op: 'set', data: {} };
+    window.habitrpgShared.helpers.dotSet(k, v, User.user);
+    log.data[k] = v;
     User.log(log);
   };
 

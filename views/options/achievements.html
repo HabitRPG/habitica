@@ -1,0 +1,77 @@
+<achievements:>
+    <div class='achievements-container'>
+        <!--<div class='achievement achievement-sword'></div>-->
+        <!--<div class='achievement achievement-tree'></div>-->
+        <!--<div class='achievement achievement-comment'></div>-->
+        <!--<div class='achievement achievement-cave'></div>-->
+        <!--<div class='achievement achievement-sun'></div>-->
+        <!--<div class='achievement achievement-boot'></div>-->
+        <!--<div class='achievement achievement-coffin'></div>-->
+        <!--<div class='achievement achievement-alien'></div>-->
+        <!--<div class='achievement achievement-ninja'></div>-->
+        <!--<div class='achievement achievement-cactus'></div>-->
+        <!--<div class='achievement achievement-bow'></div>-->
+        <!--<div class='achievement achievement-shield'></div>-->
+        <!--<div class='achievement achievement-karaoke'></div>-->
+
+        <app:avatar:achievement unlocked={{@profile.backer.npc}} classes='achievement-helm' unlockable=false profile={{@profile}}>
+            <h5><span class='label label-success'>{{@profile.backer.npc}} NPC</span></h5>
+            <small>Backed the Kickstarter project at the maximum level!</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={{@profile.backer.contributor}} classes='achievement-firefox' unlockable=true profile={{@profile}}>
+            <h5>
+                {{#if @profile.backer.contributor}}
+                <span class='label label-inverse'>{{@profile.backer.contributor}}</span>
+                {{else}}
+                <span class='label'>Contributor</span>
+                {{/}}
+            </h5>
+            <small>Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge? Fix a bug :)</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={{@profile.backer.tier}} classes='achievement-heart' unlockable=false profile={{@profile}}>
+            <h5>Kickstarter Backer - ${{@profile.backer.tier}} Tier</h5>
+            <small>Backed the Kickstarter Project</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={@profile.achievements.streak} classes='achievement-thermometer' unlockable=true profile={@profile}>
+            <h5>{#if @profile.achievements.streak}{@profile.achievements.streak}{else}0{/} Streak Achievement(s)</h5>
+            <small>Has performed {#if @profile.achievements.streak}{@profile.achievements.streak}{else}0{/} 21-day streaks on Dailies</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={@profile.achievements.originalUser} classes='achievement-cake' unlockable=false profile={@profile}>
+            <h5>Original User</h5>
+            <small>Goes way back to the Habit's days of yore (bless them for soldiering through bugs!)</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={@profile.achievements.ultimateGear} classes='achievement-armor' unlockable=true profile={@profile}>
+            <h5>Ultimate Gear</h5>
+            <small>Has upgraded to the maximum weapon and armor set</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={@profile.achievements.beastMaster} classes='achievement-rat' unlockable=true profile={@profile}>
+            <h5>Beast Master</h5>
+            <small>Has found all 90 pets (insanely difficult, give this user props!)</small>
+        </app:avatar:achievement>
+
+        <app:avatar:achievement unlocked={@profile.achievements.helpedHabit} classes='achievement-tree' unlockable=true profile={@profile}>
+            <h5>Helped Habit Grow</h5>
+            <small>Has helped HabitRPG grow by filling out <a href="http://community.habitrpg.com/node/290" target="_blank">this survey.</a></small>
+        </app:avatar:achievement>
+
+    </div>
+
+    <achievement: nonvoid>
+        {#if @unlocked}
+        <div class='achievement {{@classes}}'></div>{@content}
+        <hr/>
+        {else if @unlockable} <!-- only show silhouettes on own tab -->
+        {{#if equal(_user.id,@profile.id)}}
+            <span class='muted'>
+            {@content}
+            </span>
+        <hr/>
+        {{/}}
+        {/}
+

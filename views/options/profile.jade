@@ -1,0 +1,110 @@
+.row-fluid
+
+  // ---- Customize -----
+  .span4.border-right
+    menu(type='list')
+      // gender
+      li.customize-menu
+        menu(label='Head')
+          button.m_head_0.customize-option(type='button', ng-click='set("preferences.gender","m")')
+          button.f_head_0.customize-option(type='button', ng-click='set("preferences.gender","f")')
+        label.checkbox
+          input(type='checkbox', checked='{{user.preferences.showHelm}}')
+          | Show Helm
+      // hair
+      li.customize-menu
+        menu(label='Hair')
+          button(class='{{user.preferences.gender}}_hair_blond customize-option', type='button', ng-click='set("preferences.hair","blond")')
+          button(class='{{user.preferences.gender}}_hair_black customize-option', type='button', ng-click='set("preferences.hair","black")')
+          button(class='{{user.preferences.gender}}_hair_brown customize-option', type='button', ng-click='set("preferences.hair","brown")')
+          button(class='{{user.preferences.gender}}_hair_white customize-option', type='button', ng-click='set("preferences.hair","white")')
+      // skin
+      li.customize-menu
+        menu(label='Skin')
+          button.customize-option(class='{{user.preferences.gender}}_skin_dead',  type='button', ng-click='set("preferences.skin","dead")')
+          button.customize-option(class='{{user.preferences.gender}}_skin_orc',   type='button', ng-click='set("preferences.skin","orc")')
+          button.customize-option(class='{{user.preferences.gender}}_skin_asian', type='button', ng-click='set("preferences.skin","asian")')
+          button.customize-option(class='{{user.preferences.gender}}_skin_black', type='button', ng-click='set("preferences.skin","black")')
+          button.customize-option(class='{{user.preferences.gender}}_skin_white', type='button', ng-click='set("preferences.skin","white")')
+      menu(ng-show='user.preferences.gender=="f"', type='list')
+        li.customize-menu
+          menu(label='Clothing')
+            button.f_armor_0_v1.customize-option(type='button', ng-click='set("preferences.armorSet","v1")')
+            button.f_armor_0_v2.customize-option(type='button', ng-click='set("preferences.armorSet","v2")')
+
+  // ------ Stats ------
+  .span4.border-right
+    // <profile-stats:>
+    h4 Items
+    p
+      strong {{itemText('weapon',profile.items.weapon)}}
+      | : {{itemStat('weapon',profile.items.weapon)}}% Exp gain
+    p
+      strong {{itemText('armor',profile.items.armor)}}
+      | : {{itemStat('armor',profile.items.armor)}}% Defense
+    p
+      strong {{itemText('head',profile.items.head)}}
+      | : {{itemStat('head',profile.items.head)}}% Defense
+    p
+      strong {{itemText('shield',profile.items.shield)}}
+      | : {{itemStat('shield',profile.items.shield)}}% Defense
+    h4 Stats
+    p
+      strong HP
+      | : {{floor(profile.stats.hp)}} / 50
+    p
+      strong GP
+      | : {{floor(profile.stats.gp)}}
+    p
+      strong Lvl
+      | : {{profile.stats.lvl}}
+    p
+      strong Exp
+      | : {{floor(profile.stats.exp)}} / {{tnl(profile.stats.lvl)}}
+    p
+      strong Strength
+      | : {{userStr(profile.stats.lvl)}}
+    p
+      strong Defense
+      | : {{userDef(profile.stats.lvl)}}
+    p
+      strong Pets Found
+      | : {{count(profile.items.pets)}}
+    hr
+    p
+      strong Total Strength
+      | : {{totalStr(profile.stats.lvl, profile.items.weapon)}} %
+    p
+      strong Total Defense
+      | : {{totalDef(profile.stats.lvl, profile.items.armor, profile.items.head, profile.items.shield)}} %
+
+
+  // ------- Edit -------
+  .span4
+    // <profile-edit:>
+    // <a class='btn btn-success' x-bind="click:profileSave">Save</a>
+    // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
+    img.pull-right(ng-src='{{user.profile.imageUrl}}')
+    .control-group
+      label.control-label(for='profileImageUrl') Photo Url
+      .controls
+        input#profileImageUrl(type='url', value='{{user.profile.imageUrl}}', placeholder='Image Url')
+    .control-group
+      label.control-label(for='profileFullName') Full Name
+      .controls
+        input#profileFullName(type='text', placeholder='Full Name', value='{{user.profile.name}}')
+    .control-group
+      label.control-label(for='profileBlurb') Blurb
+      .controls
+        textarea#profileBlurb(placeholder='Blurb') {{user.profile.blurb}}
+    .control-group
+      label.control-label(for='profileWebsite') Websites
+      .controls
+        form(x-bind='submit:profileAddWebsite')
+          input#profileWebsite(type='url', value='{{_newProfileWebsite}}', placeholder='Add Website')
+      ul
+        // would prefer if there were and index in #each, instead using data-website to search with indexOf
+        li(ng-repeat='website in user.profile.websites')
+          | {{website}}
+          a(data-website='{{website}}', x-bind='click:profileRemoveWebsite')
+            i.icon-remove
