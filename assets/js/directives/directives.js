@@ -18,6 +18,16 @@ habitrpg.directive('taskFocus',
   }
 ]);
 
+habitrpg.directive('habitrpgAdsense', function() {
+  return {
+    restrict: 'A',
+    transclude: true,
+    replace: true,
+    template: '<div ng-transclude></div>',
+    link: function ($scope, element, attrs) {}
+  }
+})
+
 /**
  * Directive that executes an expression when the element it is applied to loses focus.
  */

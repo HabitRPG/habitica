@@ -56,22 +56,7 @@ div(ng-controller='TasksCtrl')
 
       br
 
-      // Ads
-      div(ng-if='authenticated() && user.flags.ads != "hide" && list.main')
-        span.pull-right
-          a(x-bind='click:showStripe', tooltip='Remove Ads')
-            i.icon-remove
-          br
-          a(href='#', data-target='#why-ads-modal', data-toggle='modal', tooltip='Why Ads?')
-            i.icon-question-sign
-        a(ng-if='list.type=="habit"', href='http://www.amazon.com/gp/product/1400069289/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1400069289&linkCode=as2&tag=ha0d2-20') The Power of Habit&colon; Why We Do What We Do in Life and Business
-        img(src='//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=1400069289', width='1', height='1', border='0', alt='', style='border:none !important; margin:0px !important;')
-        a(ng-if='list.type=="daily"', href='http://www.amazon.com/gp/product/0142000280/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0142000280&linkCode=as2&tag=ha0d2-20') Getting Things Done&colon; The Art of Stress-Free Productivity
-        img(src='//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=0142000280', width='1', height='1', border='0', alt='', style='border:none !important; margin:0px !important;')
-        a(ng-if='list.type=="todo"', href='http://www.amazon.com/gp/product/0312430000/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0312430000&linkCode=as2&tag=ha0d2-20') The Checklist Manifesto&colon; How to Get Things Right
-        img(src='//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=0312430000', width='1', height='1', border='0', alt='', style='border:none !important; margin:0px !important;')
-        a(ng-if='list.type=="reward"', href='http://www.amazon.com/gp/product/1594484805/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1594484805&linkCode=as2&tag=ha0d2-20') Drive&colon; The Surprising Truth About What Motivates Us
-        img(src='//www.assoc-amazon.com/e/ir?t=ha0d2-20&l=as2&o=1&a=1594484805', width='1', height='1', border='0', alt='', style='border:none !important; margin:0px !important;')
+      include ./ads
 
       // Todo Tabs
       div(ng-if='list.type=="todo"', ng-class='{"tabbable tabs-below": list.type=="todo"}')

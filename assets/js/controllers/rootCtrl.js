@@ -28,7 +28,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User',
   };
 
   $rootScope.authenticated = function() {
-    User.settings.auth.apiId !== "";
+    return User.settings.auth.apiId !== "";
   };
 
   $rootScope.dismissAlert = function() {

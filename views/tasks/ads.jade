@@ -1,0 +1,28 @@
+div(ng-if='authenticated() && user.flags.ads!="hide"')
+  span.pull-right
+    a(x-bind='click:showStripe', tooltip='Remove Ads')
+      i.icon-remove
+    br
+    a(href='#', data-target='#why-ads-modal', data-toggle='modal', tooltip='Why Ads?')
+      i.icon-question-sign
+
+  div(ng-if='list.type=="habit"', habitrpg-adsense)
+    script(async='async', src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
+    // Habit3
+    ins.adsbygoogle(style='display: inline-block; width: 234px; height: 60px;', data-ad-client='ca-pub-3242350243827794', data-ad-slot='9529624576')
+    script.
+      (adsbygoogle = window.adsbygoogle || []).push({});
+
+  div(ng-if='list.type=="daily"', habitrpg-adsense)
+    script(async='async', src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
+    // Habit3
+    ins.adsbygoogle(style='display: inline-block; width: 234px; height: 60px;', data-ad-client='ca-pub-3242350243827794', data-ad-slot='9529624576')
+    script.
+      (adsbygoogle = window.adsbygoogle || []).push({});
+
+  div(ng-if='list.type=="todo"', habitrpg-adsense)
+    script(async='async', src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
+    // Habit3
+    ins.adsbygoogle(style='display: inline-block; width: 234px; height: 60px;', data-ad-client='ca-pub-3242350243827794', data-ad-slot='9529624576')
+    script.
+      (adsbygoogle = window.adsbygoogle || []).push({});
