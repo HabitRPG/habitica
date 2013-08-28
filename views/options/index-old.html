@@ -8,10 +8,8 @@
         <ul class="nav nav-tabs game-tabs">
             <li class="active"><a data-toggle='tab' data-target="#profile-customize"><i class='icon-user'></i> Profile</a></li>
             <li><a data-toggle='tab' data-target="#profile-groups" id='party-tab-link'><i class='icon-heart'></i> Groups</a></li>
-            {#if _user.flags.dropsEnabled}
-                <li><a data-toggle='tab' data-target="#profile-inventory"><i class='icon-gift'></i> Inventory</a></li>
-                <li><a data-toggle='tab' data-target="#profile-stable"><i class='icon-leaf'></i> Stable</a></li>
-            {/if}
+            <li ng-show="user.flags.dropsEnabled"><a data-toggle='tab' data-target="#profile-inventory"><i class='icon-gift'></i> Inventory</a></li>
+            <li ng-show="user.flags.dropsEnabled"><a data-toggle='tab' data-target="#profile-stable"><i class='icon-leaf'></i> Stable</a></li>
             <li><a data-toggle='tab' data-target="#profile-tavern"><i class='icon-eye-close'></i> Tavern</a></li>
             <li><a data-toggle='tab' data-target="#profile-achievements"><i class='icon-certificate'></i> Achievements</a></li>
             <!--<li><a data-toggle='tab' data-target="#profile-challenges" id='profile-challenges-tab-link' ><i class='icon-bullhorn'></i> Challenges</a></li>-->

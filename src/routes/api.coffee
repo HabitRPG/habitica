@@ -1,6 +1,6 @@
 express = require 'express'
 router = new express.Router()
-api = require './controllers/api'
+api = require '../controllers/api'
 
 ###
   ---------- /api/v1 API ------------

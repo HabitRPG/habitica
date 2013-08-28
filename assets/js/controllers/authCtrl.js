@@ -13,15 +13,15 @@ habitrpg.controller("AuthCtrl", function($scope, $rootScope, Facebook, LocalAuth
       alert("Until we add Facebook, use your UUID and API Token to log in (found at https://habitrpg.com > Options > Settings).");
       showedFacebookMessage = true;
     }
-    return $scope.useUUID = !$scope.useUUID;
+    $scope.useUUID = !$scope.useUUID;
   };
   $scope.logout = function() {
     localStorage.clear();
-    return location.reload();
+    location.reload();
   };
   runAuth = function(id, token) {
-    return User.authenticate(id, token, function(err) {
-      return $rootScope.modals.login = false;
+    User.authenticate(id, token, function(err) {
+      $rootScope.modals.login = false;
     });
   };
   $scope.register = function() {
@@ -31,36 +31,36 @@ habitrpg.controller("AuthCtrl", function($scope, $rootScope, Facebook, LocalAuth
     if ($scope.registrationForm.$invalid) {
       return;
     }
-    return $http.post(API_URL + "/api/v1/register", $scope.registerVals).success(function(data, status, headers, config) {
-      return runAuth(data.id, data.apiToken);
+    $http.post(API_URL + "/api/v1/register", $scope.registerVals).success(function(data, status, headers, config) {
+      runAuth(data.id, data.apiToken);
     }).error(function(data, status, headers, config) {
         if (status === 0) {
-          return alert("Server not currently reachable, try again later");
+          alert("Server not currently reachable, try again later");
         } else if (!!data && !!data.err) {
-          return alert(data.err);
+          alert(data.err);
         } else {
-          return alert("ERROR: " + status);
+          alert("ERROR: " + status);
         }
       });
   };
-  return $scope.auth = function() {
+  $scope.auth = function() {
     var data;
     data = {
       username: $scope.loginUsername,
       password: $scope.loginPassword
     };
     if ($scope.useUUID) {
-      return runAuth($scope.loginUsername, $scope.loginPassword);
+      runAuth($scope.loginUsername, $scope.loginPassword);
     } else {
-      return $http.post(API_URL + "/api/v1/user/auth/local", data).success(function(data, status, headers, config) {
-        return runAuth(data.id, data.token);
+      $http.post(API_URL + "/api/v1/user/auth/local", data).success(function(data, status, headers, config) {
+        runAuth(data.id, data.token);
       }).error(function(data, status, headers, config) {
           if (status === 0) {
-            return alert("Server not currently reachable, try again later");
+            alert("Server not currently reachable, try again later");
           } else if (!!data && !!data.err) {
-            return alert(data.err);
+            alert(data.err);
           } else {
-            return alert("ERROR: " + status);
+            alert("ERROR: " + status);
           }
         });
     }

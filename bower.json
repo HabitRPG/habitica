@@ -30,7 +30,8 @@
     "jquery.cookie": "~1.3.1",
     "sticky": "*",
     "bootstrap-datepicker": "~1.2.0",
-    "bootstrap": "v2.3.2"
+    "bootstrap": "v2.3.2",
+    "angular-route": "1.2.0-rc.1"
   },
   "resolutions": {
     "jquery": "~2.0.3",

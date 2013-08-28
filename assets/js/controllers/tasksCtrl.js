@@ -45,7 +45,7 @@ habitrpg.controller("TasksCtrl", function($scope, $rootScope, $location, User, A
       var newValue;
       newValue = User.user.stats[key];
       if (newValue !== value) {
-        return statsDiff[key] = newValue - value;
+        statsDiff[key] = newValue - value;
       }
     });
     /*notify user if there are changes in stats.
@@ -63,7 +63,7 @@ habitrpg.controller("TasksCtrl", function($scope, $rootScope, $location, User, A
         text: "Not enough GP."
       });
     }
-    return User.log({
+    User.log({
       op: "score",
       data: task,
       dir: direction
@@ -82,7 +82,7 @@ habitrpg.controller("TasksCtrl", function($scope, $rootScope, $location, User, A
       op: "addTask",
       data: newTask
     });
-    return delete $scope.list.newTask;
+    delete $scope.list.newTask;
   };
   /*Add the new task to the actions log
    */
@@ -92,9 +92,9 @@ habitrpg.controller("TasksCtrl", function($scope, $rootScope, $location, User, A
     /* This is calculated post-change, so task.completed=true if they just checked it
      */
     if (task.completed) {
-      return $scope.score(task, "up");
+      $scope.score(task, "up");
     } else {
-      return $scope.score(task, "down");
+      $scope.score(task, "down");
     }
   };
   /* TODO this should be somewhere else, but fits the html location better here
@@ -102,7 +102,7 @@ habitrpg.controller("TasksCtrl", function($scope, $rootScope, $location, User, A
 
   $rootScope.revive = function() {
     window.habitrpgShared.algos.revive(User.user);
-    return User.log({
+    User.log({
       op: "revive"
     });
   };
@@ -116,7 +116,7 @@ habitrpg.controller("TasksCtrl", function($scope, $rootScope, $location, User, A
       op: "delTask",
       data: task
     });
-    return tasks.splice(tasks.indexOf(task), 1);
+    tasks.splice(tasks.indexOf(task), 1);
   };
   /*
    ------------------------
@@ -131,9 +131,9 @@ habitrpg.controller("TasksCtrl", function($scope, $rootScope, $location, User, A
      */
 
     sorted = [updated.weapon, updated.armor, updated.head, updated.shield, updated.potion, updated.reroll];
-    return $scope.itemStore = sorted;
+    $scope.itemStore = sorted;
   });
-  return $scope.buy = function(type) {
+  $scope.buy = function(type) {
     var hasEnough;
     hasEnough = window.habitrpgShared.items.buyItem(User.user, type);
     if (hasEnough) {
@@ -141,12 +141,12 @@ habitrpg.controller("TasksCtrl", function($scope, $rootScope, $location, User, A
         op: "buy",
         type: type
       });
-      return Notification.push({
+      Notification.push({
         type: "text",
         text: "Item bought!"
       });
     } else {
-      return Notification.push({
+      Notification.push({
         type: "text",
         text: "Not enough GP."
       });

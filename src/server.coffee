@@ -40,9 +40,8 @@ app.use express['static'](path.join(__dirname, "/../public"))
 app.use express.errorHandler()  if "development" is app.get("env")
 
 # Custom Directives
-app.get '/', (req, res) ->
-  res.render 'index', {'HabitRPG | Your Life, The Role Playing Game'}
-app.use('/api/v1', require('./routes').middleware)
+app.use(require('./routes/pages').middleware)
+app.use('/api/v1', require('./routes/api').middleware)
 app.use(require('./controllers/deprecated').middleware)
 
 server = http.createServer(app).listen app.get("port"), ->

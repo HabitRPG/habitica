@@ -11,13 +11,13 @@ habitrpg.controller('MenuCtrl',
   function($scope, $rootScope, $location, User) {
 
     //FIXME where to implement this in rewrite?
-    
+
     $scope.refreshing = function () {
-      return User.settings.fetching ? "spin" : ""
+      User.settings.fetching ? "spin" : ""
     };
 
     $scope.queueLength = function () {
-      return User.settings.sync.queue.length || User.settings.sync.sent.length
+      User.settings.sync.queue.length || User.settings.sync.sent.length
     };
 
   }

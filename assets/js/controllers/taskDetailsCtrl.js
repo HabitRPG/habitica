@@ -40,9 +40,9 @@ habitrpg.controller("TaskDetailsCtrl", function($scope, $rootScope, $location, U
       }
     }
     User.log(log);
-    return task._editing = false;
+    task._editing = false;
   };
-  return $scope.cancel = function() {
+  $scope.cancel = function() {
     /* reset $scope.task to $scope.originalTask
      */
 
@@ -52,6 +52,6 @@ habitrpg.controller("TaskDetailsCtrl", function($scope, $rootScope, $location, U
     }
     $scope.originalTask = null;
     $scope.editedTask = null;
-    return $scope.editing = false;
+    $scope.editing = false;
   };
 });

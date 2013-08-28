@@ -20,12 +20,12 @@ angular.module("notificationServices", []).factory("Notification", function() {
         $("#notification").css("webkit-transform", "none");
         $("#notification").css("top", "-63px");
         $("#notification").css("left", "0px");
-        return setTimeout((function() {
-          return $("#notification").show();
+        setTimeout((function() {
+          $("#notification").show();
         }), 190);
       });
       active = false;
-      return timer = null;
+      timer = null;
     },
     animate: function() {
       if (timer) {
@@ -38,7 +38,7 @@ angular.module("notificationServices", []).factory("Notification", function() {
           y: 63,
           x: 0
         });
-        return timer = setTimeout(this.hide, 2000);
+        timer = setTimeout(this.hide, 2000);
       }
     },
     push: function(message) {
@@ -58,7 +58,7 @@ angular.module("notificationServices", []).factory("Notification", function() {
         case "text":
           data.message = message.text;
       }
-      return this.animate();
+      this.animate();
     },
     get: function() {
       return data;
@@ -66,10 +66,10 @@ angular.module("notificationServices", []).factory("Notification", function() {
     clearTimer: function() {
       clearTimeout(timer);
       timer = null;
-      return active = false;
+      active = false;
     },
     init: function() {
-      return timer = setTimeout(this.hide, 2000);
+      timer = setTimeout(this.hide, 2000);
     }
   };
 });

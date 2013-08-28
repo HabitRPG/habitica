@@ -1,29 +1,76 @@
-extends layout
+doctype 5
+html
+  head
+    title HabitRPG | Your Life The Role Playing Game
 
-block content
-  div(ng-app="habitrpg", ng-controller="RootCtrl")
-    include ./modals/index
-    include ./header/header
+    // CSS
+    link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap.css')
+    link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css')
+    link(rel='stylesheet', href='/bower_components/angular-ui/build/angular-ui.css')
+    != css('index')
 
-    span(ng-hide='_gamePane')
-      app:filters:filters
+    // HabitRPG Shared
+    link(rel='stylesheet', href='/bower_components/habitrpg-shared/spritesheets.css')
+
+    // JS
+    script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')
+    script(type='text/javascript', src='/bower_components/lodash/lodash.js')
+    script(type='text/javascript', src='/bower_components/moment/moment.js')
+    script(type='text/javascript', src='/bower_components/angular/angular.js')
+    script(type='text/javascript', src='/bower_components/angular-route/angular-route.js')
+    script(type='text/javascript', src='/bower_components/angular-resource/angular-resource.js')
+    script(type='text/javascript', src='/bower_components/angular-ui/build/angular-ui.js')
+    script(type='text/javascript', src='/bower_components/angular-bootstrap/ui-bootstrap.js')
+    script(type='text/javascript', src='/bower_components/angular-bootstrap/ui-bootstrap-tpls.js')
+
+    script(type='text/javascript', src='/bower_components/habitrpg-shared/dist/habitrpg-shared.js')
+
+    != js('app')
+
+    != js('services/authServices')
+    != js('services/notificationServices')
+    != js('services/sharedServices')
+    != js('services/userServices')
+
+    != js('filters/filters')
+
+    != js('directives/directives')
+
+    != js('controllers/authCtrl')
+    != js('controllers/characterCtrl')
+    != js('controllers/menuCtrl')
+    != js('controllers/notificationCtrl')
+    != js('controllers/RootCtrl')
+    != js('controllers/settingsCtrl')
+    != js('controllers/statsCtrl')
+    != js('controllers/tasksCtrl')
+    != js('controllers/taskDetailsCtrl')
+    != js('controllers/userAvatarCtrl')
+
+    //webfonts
+    link(href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic', rel='stylesheet', type='text/css')
+    meta(name='viewport', content='width=device-width')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+
+  body(ng-app="habitrpg", ng-controller="RootCtrl")
+    include ./shared/modals/index
+    include ./shared/header/header
+
+    app:filters:filters(ng-hide='_gamePane')
 
     br
     #notification-area
     #wrap
       app:alerts:flash
       //if they hide the header, we still need user-menu visible
-      app:settings:menu(ng-show='_user.preferences.hideHeader')
-      .exp-chart(ng-show='_page.charts.exp')
+      app:settings:menu(ng-show='user.preferences.hideHeader')
+      .exp-chart(ng-show='page.charts.exp')
       #main.grid
-        div(ng-hide='_gamePane')
-          include ./tasks/task-list
-        div(ng-show='_gamePane')
-          app:game-pane:main
-    app:footer:footer
+        div(ng-view)
 
-
+    //-app:footer:footer
     footer.footer
       .container
 
         a(target='_blank',href='https://workflowy.com/shared/9c77c53d-a174-d181-73a4-dc611508a936/') Roadmap
+
