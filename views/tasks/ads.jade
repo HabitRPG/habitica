@@ -1,9 +1,9 @@
 div(ng-if='authenticated() && user.flags.ads!="hide"')
-  span.pull-right
+  span.pull-right(ng-if='list.type!="reward"')
     a(x-bind='click:showStripe', tooltip='Remove Ads')
       i.icon-remove
     br
-    a(href='#', data-target='#why-ads-modal', data-toggle='modal', tooltip='Why Ads?')
+    a(ng-click='modals.whyAds=true', tooltip='Why Ads?')
       i.icon-question-sign
 
   div(ng-if='list.type=="habit"', habitrpg-adsense)
