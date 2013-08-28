@@ -70,20 +70,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
       dir: direction
     });
   };
-  $scope.addTask = function(text) {
-    var newTask;
-    newTask = window.habitrpgShared.helpers.taskDefaults({
-      text: text
-    });
-    User.user[newTask.type + "s"].unshift(newTask);
-    /* $scope.showedTasks.unshift newTask # FIXME what's thiss?
-     */
 
-    User.log({
-      op: "addTask",
-      data: newTask
-    });
-    delete $scope.list.newTask;
+  $scope.addTask = function(list) {
+    var task = window.habitrpgShared.helpers.taskDefaults({text: list.newTask, type: list.type});
+    User.user[list.type + "s"].unshift(task);
+    // $scope.showedTasks.unshift newTask # FIXME what's thiss?
+    User.log({op: "addTask", data: task});
+    delete list.newTask;
   };
   /*Add the new task to the actions log
    */

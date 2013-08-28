@@ -26,7 +26,7 @@ div(ng-controller='TasksCtrl')
       .todos-chart(ng-if='list.type == "todo"', ng-show='_page.charts.todos')
 
       // Add New
-      form.addtask-form.form-inline.new-task-form(name='new{{list.type}}form', ng-show='list.editable', ng-hide='list.showCompleted && list.type=="todo"', data-task-type='{{list.type}}', ng-submit='addTask(list.newTask)')
+      form.addtask-form.form-inline.new-task-form(name='new{{list.type}}form', ng-show='list.editable', ng-hide='list.showCompleted && list.type=="todo"', data-task-type='{{list.type}}', ng-submit='addTask(list)')
         span.addtask-field
           input(type='text', ng-model='list.newTask', placeholder='{{list.placeHolder}}', required)
         input.addtask-btn(type='submit', value='＋', ng-disabled='new{{list.type}}form.$invalid')
