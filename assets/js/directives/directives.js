@@ -55,19 +55,18 @@ habitrpg.directive('whenScrolled', function() {
  * Add sortable
  */
 habitrpg.directive('sort', function (User) {
-  return ['$scope', '$rootScope', 'element', 'attrs', 'ngModel',
-    function($scope, $rootScope, element, attrs, ngModel) {
-      $(element).sortable({
-        axis: "y",
-        start: function (event, ui) {
-          ui.item.data('startIndex', ui.item.index());
-        },
-        stop: function (event, ui) {
-          var taskType = $rootScope.taskContext.type;
-          var startIndex = ui.item.data('startIndex');
-          var task = User.user[taskType][startIndex];
-          User.log({op: 'sortTask', data: task, from: startIndex, to: ui.item.index()});
-        }
-      });
+  return ['$scope', 'element', 'attrs', 'ngModel', function($scope, element, attrs, ngModel) {
+    $(element).sortable({
+      axis: "y",
+      start: function (event, ui) {
+        ui.item.data('startIndex', ui.item.index());
+      },
+      stop: function (event, ui) {
+        var taskType = angular.element(ui.item[0]).scope().task.type + 's'
+        var startIndex = ui.item.data('startIndex');
+        var task = User.user[taskType][startIndex];
+        User.log({op: 'sortTask', data: task, from: startIndex, to: ui.item.index()});
+      }
+    });
   }]
 });

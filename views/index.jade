@@ -6,6 +6,11 @@ html
     script(type='text/javascript').
       window.env = !{JSON.stringify(env)};
 
+    style.
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none;
+      }
+
     // CSS
     link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap.css')
     link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css')
@@ -56,7 +61,7 @@ html
     meta(name='viewport', content='width=device-width')
     meta(name='apple-mobile-web-app-capable', content='yes')
 
-  body(ng-app="habitrpg", ng-controller="RootCtrl")
+  body(ng-app="habitrpg", ng-controller="RootCtrl", ng-cloak)
     include ./shared/modals/index
     include ./shared/header/header
 
