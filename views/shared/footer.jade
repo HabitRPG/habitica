@@ -1,4 +1,4 @@
-footer.footer
+footer.footer(ng-controller='FooterCtrl')
   .container
     .row
       .span3
@@ -41,7 +41,7 @@ footer.footer
           li
             a(target='_blank', href='http://www.reddit.com/r/habitrpg/') Reddit
       .span3
-        if (NODE_ENV=='production')
+        if (env.NODE_ENV=='production')
           h4 Social
           .addthis_toolbox.addthis_default_style(addthis:url='https://habitrpg.com', addthis:title='HabitRPG - Gamify Your Life')
             table
@@ -68,3 +68,5 @@ footer.footer
               button.btn(x-bind='click:cheat') Insta Level
             li
               button.btn(x-bind='click:reset') Reset Level
+
+  div(ng-init='deferredScripts()')

@@ -3,7 +3,6 @@ http = require("http")
 path = require("path")
 app = express()
 nconf = require('nconf')
-middleware = require("./middleware")
 require('./config') # Setup configurations
 require('./errors')
 
@@ -40,6 +39,7 @@ app.use express['static'](path.join(__dirname, "/../public"))
 app.use express.errorHandler()  if "development" is app.get("env")
 
 # Custom Directives
+app.use(require('./middleware'))
 app.use(require('./routes/pages').middleware)
 app.use('/api/v1', require('./routes/api').middleware)
 app.use(require('./controllers/deprecated').middleware)

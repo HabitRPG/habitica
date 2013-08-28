@@ -1,35 +1,33 @@
-splash = (req, res, next) ->
-  isStatic = req.url.split('/')[1] is 'static'
-  unless req.query?.play? or req.getModel().get('_userId') or isStatic
-    res.redirect('/static/front')
-  else
-    next()
+nconf = require('nconf')
+_ = require('lodash')
 
-view = (req, res, next) ->
-  model = req.getModel()
+module.exports = (req, res, next) ->
+
+#  splash = (req, res, next) ->
+#    isStatic = req.url.split('/')[1] is 'static'
+#    unless req.query?.play? or req.getModel().get('_userId') or isStatic
+#      res.redirect('/static/front')
+#    else
+#      next()
+
   ## Set _mobileDevice to true or false so view can exclude portions from mobile device
-  model.set '_mobileDevice', /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
-  model.set '_nodeEnv', model.flags.nodeEnv
-  next()
+  _.defaults (res.locals.habitrpg ?= {}),
+    NODE_ENV: nconf.get('NODE_ENV')
+    IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header 'User-Agent')
 
-#CORS middleware
-allowCrossDomain = (req, res, next) ->
+  #CORS middleware
   res.header "Access-Control-Allow-Origin", (req.headers.origin || "*")
   res.header "Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,HEAD,DELETE"
   res.header "Access-Control-Allow-Headers", "Content-Type,Accept,Content-Encoding,X-Requested-With,x-api-user,x-api-key"
 
   # wtf is this for?
   if req.method is 'OPTIONS'
-    res.send(200);
-  else
-    next()
+    return res.send(200);
 
-translate = (req, res, next) ->
-  model = req.getModel()
-
-  # Set locale to bg on dev
-  #model.set '_i18n.locale', 'bg' if process.env.NODE_ENV is "development"
+#  translate = (req, res, next) ->
+#    model = req.getModel()
+#    # Set locale to bg on dev
+#    #model.set '_i18n.locale', 'bg' if process.env.NODE_ENV is "development"
+#    next()
 
   next()
-
-module.exports = { splash, view, allowCrossDomain, translate}

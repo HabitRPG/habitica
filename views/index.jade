@@ -3,6 +3,9 @@ html
   head
     title HabitRPG | Your Life The Role Playing Game
 
+    script(type='text/javascript').
+      window.env = !{JSON.stringify(env)};
+
     // CSS
     link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap.css')
     link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css')
@@ -46,6 +49,7 @@ html
     != js('controllers/tasksCtrl')
     != js('controllers/taskDetailsCtrl')
     != js('controllers/userAvatarCtrl')
+    != js('controllers/footerCtrl')
 
     //webfonts
     link(href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic', rel='stylesheet', type='text/css')
