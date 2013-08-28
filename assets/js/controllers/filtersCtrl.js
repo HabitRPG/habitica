@@ -4,6 +4,7 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User',
   function($scope, $rootScope, User) {
     var user = User.user;
     $scope._editing = false;
+    user.filters = {}; // FIXME run a migration instead
 
     $scope.saveOrEdit = function(){
       if ($scope._editing) {

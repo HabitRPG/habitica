@@ -184,7 +184,6 @@ UserSchema.methods.toJSON = () ->
 # Custom setter/getter virtuals?
 UserSchema.pre 'save', (next) ->
   @markModified('tasks')
-  delete @filters if @filters
   @._v++ #our own version incrementer
   next()
 
