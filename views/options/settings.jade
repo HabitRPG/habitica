@@ -11,8 +11,8 @@
         | Habit defaults to check and reset your dailies at midnight in your time zone each day. You can customize the hour here (enter a number between 0 and 24).
     hr
     h4 Misc
-    button.btn(ng-hide='user.preferences.hideHeader', ng-click='set("user.preferences.hideHeader",true)') Show Header
-    button.btn(ng-show='user.preferences.hideHeader', ng-click='set("user.preferences.hideHeader",false)') Hide Header
+    button.btn(ng-hide='user.preferences.hideHeader', ng-click='set("preferences.hideHeader",true)') Hide Header
+    button.btn(ng-show='user.preferences.hideHeader', ng-click='set("preferences.hideHeader",false)') Show Header
     div(ng-show='user.auth.local')
       hr
       h4 Change Password

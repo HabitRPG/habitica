@@ -82,7 +82,9 @@ html
         li(ng-repeat='error in _flash.error') {{error}}
 
       //if they hide the header, we still need user-menu visible
-      app:settings:menu(ng-show='user.preferences.hideHeader')
+      div(ng-if='user.preferences.hideHeader')
+        include ./shared/header/menu
+
       .exp-chart(ng-show='page.charts.exp')
 
       #main(ng-view)

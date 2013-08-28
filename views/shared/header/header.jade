@@ -1,9 +1,10 @@
 // @TODO ui:connectionAlert
 .header-wrap
   a.label.undo-button(x-bind='click:undo', ng-show='_undo') Undo
-  include menu
+  div(ng-if='!user.preferences.hideHeader')
+    include menu
 
-  header.site-header(ng-class='{hidden: user.preferences.hideHeader}', role='banner', data-partysize='{{party.members.length>1 ? truarr(party.members.length) : 0}}')
+  header.site-header(ng-hide='user.preferences.hideHeader', role='banner', data-partysize='{{party.members.length>1 ? truarr(party.members.length) : 0}}')
     // avatar
     .herobox-wrap.main-herobox(ng-controller='UserAvatarCtrl')
       include avatar
