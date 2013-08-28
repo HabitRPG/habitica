@@ -24,6 +24,7 @@ html
     script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')
     script(type='text/javascript', src='/bower_components/lodash/lodash.js')
     script(type='text/javascript', src='/bower_components/moment/moment.js')
+    script(type='text/javascript', src='/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js')
     script(type='text/javascript', src='/bower_components/angular/angular.js')
     script(type='text/javascript', src='/bower_components/angular-route/angular-route.js')
     script(type='text/javascript', src='/bower_components/angular-resource/angular-resource.js')
@@ -75,7 +76,7 @@ html
     app:filters:filters(ng-hide='_gamePane')
 
     br
-    #notification-area
+    #notification-area(ng-controller='NotificationCtrl')
     #wrap
 
       // Errors
