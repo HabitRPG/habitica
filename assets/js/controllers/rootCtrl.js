@@ -30,4 +30,9 @@ habitrpg.controller("RootCtrl", function($scope, $rootScope, $location, User) {
     User.settings.auth.apiId !== "";
   };
 
+  $rootScope.dismissAlert = function() {
+    $rootScope.modals.newStuff = false;
+    $rootScope.set('flags.newStuff',false);
+  }
+
 });

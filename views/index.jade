@@ -61,7 +61,11 @@ html
     br
     #notification-area
     #wrap
-      app:alerts:flash
+
+      // Errors
+      ul.unstyled.alert.alert-error(ng-show='_flash.error')
+        li(ng-repeat='error in _flash.error') {{error}}
+
       //if they hide the header, we still need user-menu visible
       app:settings:menu(ng-show='user.preferences.hideHeader')
       .exp-chart(ng-show='page.charts.exp')

@@ -1,0 +1,147 @@
+div(modal='modals.newStuff')
+  .modal-header
+    h3 New Stuff
+  .modal-body
+    table
+      tr
+        td
+          .NPC-Bailey
+        td
+          .popover.static-popover.fade.right.in
+            .arrow
+            h3.popover-title Bailey
+            .popover-content
+              a(target='_blank', href='http://www.kickstarter.com/profile/mihakuu') Bailey the Crier here! Announcing new stuff!
+    hr
+    p
+      h4 8/20/2013
+      ul
+        li
+          | Timezone + custom day start issues fixed, your dailies should now reset properly and in your own timezone. (This was vexing
+          strong Android
+          | users particularly). If you're still experiencing issues,
+          a(target='_blank', href='https://github.com/HabitRPG/habitrpg-mobile/issues/73#issuecomment-22960877') chime in here.
+        li
+          | API developers, the above means that
+          strong cron
+          | is automatically run for your users! Weee, they no longer have to log into the website to reset their dailies!
+      h4 8/18/2013
+      ul
+        li
+          a(target='_blank', href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg') Android Mobile App is out!
+          | There's a bug with Android 2.3, but we're working to fix it now :) The iPhone App has been submitted, so we're just waiting on Apple to approve it, which could take a week or two. We'll let you know as soon as they release it! For more details,
+          a(target='_blank', href='http://habitrpg.tumblr.com/post/58449057415/android-mobile-app-released-iphone-app-coming-soon') see our Tumblr post
+        li
+          | Hey guys! Long time no see :) We want to make sure you guys have a better idea of what's going on behind the scenes, so we're going to be releasing
+          b weekly status reports
+          | of what we're currently working on! This weekend, we are working hard to fix the "Not Enough GP" bug, a cruel and greedy monster that has wrapped itself around the rewards box and is refusing to let anyone purchase anything. Rest assured that our heroic Tyler will slay this beast soon! Then it wiil be full steam ahead on the new site upgrade process.
+          a(target='_blank', href='http://habitrpg.tumblr.com/post/57627483715/news-about-upgrade-and-app') Read more about how that will work in this post here
+      h4 6/03/2013
+      ul
+        li
+          a(target='_blank', href='https://trello.com/card/groups-guilds/50e5d3684fe3a7266b0036d6/84') Guilds!
+          | You can now belong to multiple groups, not just your party. There are public and private guilds, think "Subreddits" v "multiple friend groups".
+      h4 5/27/2013
+      ul
+        li
+          | Get the "Helped Habit Grow" badge by
+          a(href='http://community.habitrpg.com/node/290', target='_blank') filling out this survey.
+        li
+          a(href='http://habitrpg.tumblr.com/post/51476277225/upcoming-features-bugs-update-user-survey', target='_blank') New blog post
+          | about upcoming Guilds & Challenges features, & huge bug-fixes on the horizon.
+      h4 5/25/2013
+      ul
+        li
+          | Code logic migrated to
+          a(target='_blank', href='https://github.com/habitrpg/habitrpg-shared') habitrpg-shared
+          | . See
+          a(target='_blank', href='https://github.com/lefnire/habitrpg/issues/1039') details here
+          | , but two takeaways: (1) keep an eye out and
+          a(href='http://community.habitrpg.com/content/submitting-bugs', target='_blank') report a problem
+          | if you experience any issues, (2) this is going to allow for much less buggy code (read previous link for reasoning).
+      h4 5/12/2013
+      ul
+        li Renamed "Tokens" to "Gems". Tokens caused confusion.
+      h4 5/10/2013
+      ul
+        li
+          | Less harsh death: Used to be you lose everything, now you lose GP & one random gear piece, 1 level. We're working on a
+          a(_target='blank', href='https://trello.com/card/death-mechanic/50e5d3684fe3a7266b0036d6/204') really cool death mechanic here.
+          | , but this is a stop-gap so people don't lose heart presently.
+        li Chat messages: can delete your own message, fix the duplicate messages issue.
+      h4 5/9/2013
+      ul
+        li
+          a(_target='blank', href='https://trello.com/card/backer-gear/50e5d3684fe3a7266b0036d6/213') Backer Gear
+          | : There's a new top-tier gear set for Kickstarter Backers. $45+ gets new Shield, Helm, Armor. $70+ that plus Weapon. $80+ that plus Pet. Keep leveling my friends, get that gear! Discuss gear-unlocking mechanic
+          a(href='https://trello.com/card/backer-items-availability-mechanic/50e5d3684fe3a7266b0036d6/188', target='_blank') here
+          | , and if you're top-gear but not seeing backer stuff, message me from your KS profile.
+      h4 5/7/2013
+      ul
+        li
+          a(_target='blank', href='https://trello.com/card/tags-categories/50e5d3684fe3a7266b0036d6/43') Tags
+          | . You can now categorize your tasks, eg "Work", "Home", "Morning", "Taxes", etc.
+      h4 5/4/2013
+      ul
+        li
+          a(_target='blank', href='https://trello.com/card/streaks-consecutive-bonus/50e5d3684fe3a7266b0036d6/182') Streaks
+          | . You get a GP & drop-% increase the longer you hold daily streaks (they stack). You also get a stacking badge for each 21-day streak.
+      h4 5/3/2013
+      ul
+        li
+          | Two new achievements: Beast Master & Ultimate Gear. Got ideas for more achievements?
+          a(target='_blank', href='https://trello.com/card/awards-badges/50e5d3684fe3a7266b0036d6/19') chime in here
+      h4 5/2/2013
+      ul
+        li
+          a(target='_blank', href='https://trello.com/card/party-chat/50e5d3684fe3a7266b0036d6/267') Party Chat!
+          | also, Tavern Chat (LFG)
+        li
+          a(target='_blank', href='https://trello.com/card/rest-in-tavern/50e5d3684fe3a7266b0036d6/14') Rest in Tavern
+          | (basic implementation, more to come)
+        li
+          | NPCs!
+          a(target='_blank', href='http://www.kickstarter.com/profile/mihakuu') Bailey
+          | the Town Crier,
+          a(target='_blank', href='http://www.kickstarter.com/profile/523661924') Alexander
+          | the
+          a(target='_blank', href='https://trello.com/card/marketplace/50e5d3684fe3a7266b0036d6/167') Merchant
+          | ,
+          a(target='_blank', href='http://www.kickstarter.com/profile/2014640723') Daniel
+          | the
+          a(target='_blank', href='http://goo.gl/FkSib') Tavern Keep
+        li
+          a(href='https://github.com/lefnire/habitrpg/issues/828') New "Game Options" layout
+          | (click your avatar to see)
+      h4 3/27/2013
+      ul
+        li
+          | Drop system + pets overhaul (
+          a(href='http://www.kickstarter.com/projects/lefnire/habitrpg-mobile/posts/439433') Blog Post
+          | |
+          a(href='https://trello.com/card/pets/50e5d3684fe3a7266b0036d6/166') Trello Card
+          | )
+      h4 3/21/2013
+      ul
+        li
+          a(href='https://github.com/lefnire/habitrpg/issues/585') More design tweaks to header & avatars
+      h4 3/20/2013
+      ul
+        li
+          a(href='https://github.com/lefnire/habitrpg/issues/585') New Design
+        li
+          a(href='https://trello.com/card/toggle-helm-visible/50e5d3684fe3a7266b0036d6/153') Toggle helm visible
+        li
+          a(href='https://trello.com/card/toggle-header/50e5d3684fe3a7266b0036d6/241') Toggle Header
+        li
+          a(href='https://trello.com/card/deletable-accounts/50e5d3684fe3a7266b0036d6/69') Deletable Accounts
+        li
+          a(href='https://trello.com/card/undo-button/50e5d3684fe3a7266b0036d6/20') Undo Button
+      h4 3/3/2013
+      ul
+        li
+          a(href='https://trello.com/card/custom-day-start/50e5d3684fe3a7266b0036d6/15') Add custom day start
+
+  .modal-footer
+    button.btn.btn-default.cancel(ng-click='modals.newStuff = false') Cool
+    button.btn.btn-warning.cancel(ng-click='dismissAlert()') Dismiss This Alert
