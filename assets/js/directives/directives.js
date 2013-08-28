@@ -54,7 +54,7 @@ habitrpg.directive('whenScrolled', function() {
 /**
  * Add sortable
  */
-habitrpg.directive('habitrpgSortable', function (User) {
+habitrpg.directive('habitrpgSortable', ['User', function(User) {
   return function($scope, element, attrs, ngModel) {
     $(element).sortable({
       axis: "y",
@@ -70,4 +70,4 @@ habitrpg.directive('habitrpgSortable', function (User) {
       }
     });
   }
-});
+}]);
