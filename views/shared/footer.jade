@@ -1,0 +1,70 @@
+footer.footer
+  .container
+    .row
+      .span3
+        h4 Company
+        ul.unstyled
+          li
+            a(href='/static/about') About
+          li
+            a(target='_blank', href='http://habitrpg.tumblr.com/') Blog
+          li
+            a(href='/static/team') Team
+          li
+            a(href='/static/extensions') Extensions
+          li
+            a(href='/static/faq') FAQ
+      .span3
+        h4 Legal
+        ul.unstyled
+          li
+            a(href='/static/privacy') Privacy
+          li
+            a(href='/static/terms') Terms
+      .span3
+        h4 Community
+        ul.unstyled
+          li
+            a(target='_blank', href='https://github.com/lefnire/habitrpg/issues?state=open') Submit Bug
+          li
+            a(target='_blank', href='https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6') Request Feature
+          li
+            a(target='_blank', href='https://github.com/lefnire/habitrpg/wiki/API') API
+          li
+            a(href='/static/extensions') Add-ons &sol; Extensions
+          li
+            a(target='_blank', href='http://community.habitrpg.com/forum') Forum
+          li
+            a(target='_blank', href='http://www.kickstarter.com/projects/lefnire/habitrpg-mobile') Kickstarter
+          li
+            a(target='_blank', href='https://www.facebook.com/Habitrpg') Facebook Page
+          li
+            a(target='_blank', href='http://www.reddit.com/r/habitrpg/') Reddit
+      .span3
+        if (NODE_ENV=='production')
+          h4 Social
+          .addthis_toolbox.addthis_default_style(addthis:url='https://habitrpg.com', addthis:title='HabitRPG - Gamify Your Life')
+            table
+              tr
+                td
+                  a.addthis_button_facebook_like(fb:like:layout='button_count')
+              tr
+                td
+                  a.addthis_button_tweet(tw:via='habitrpg')
+              tr
+                td(align='left')
+                  iframe(src='/vendor/github-buttons/github-btn.html?user=lefnire&repo=habitrpg&type=watch&count=true', allowtransparency='true', frameborder='0', scrolling='0', width='85px', height='20px')
+              tr
+                td
+                  a.addthis_button_google_plusone(g:plusone:size='medium')
+        else
+          h4 Cheat
+          ul.unstyled
+            li
+              button.btn(x-bind='click:emulateNextDay') Emulate Next Day
+            li
+              button.btn(x-bind='click:emulateTenDays') Emulate 10 Days
+            li
+              button.btn(x-bind='click:cheat') Insta Level
+            li
+              button.btn(x-bind='click:reset') Reset Level
