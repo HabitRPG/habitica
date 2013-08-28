@@ -54,19 +54,20 @@ habitrpg.directive('whenScrolled', function() {
 /**
  * Add sortable
  */
-habitrpg.directive('sort', function (User) {
-  return ['$scope', 'element', 'attrs', 'ngModel', function($scope, element, attrs, ngModel) {
+habitrpg.directive('habitrpgSortable', function (User) {
+  return function($scope, element, attrs, ngModel) {
     $(element).sortable({
       axis: "y",
       start: function (event, ui) {
         ui.item.data('startIndex', ui.item.index());
       },
       stop: function (event, ui) {
-        var taskType = angular.element(ui.item[0]).scope().task.type + 's'
+        var taskType = angular.element(ui.item[0]).scope().task.type + 's';
         var startIndex = ui.item.data('startIndex');
         var task = User.user[taskType][startIndex];
-        User.log({op: 'sortTask', data: task, from: startIndex, to: ui.item.index()});
+        // FIXME - this is a really inconsistent way of API handling. we need to fix the batch-update route
+        User.log({op: 'sortTask', data: _.defaults({from: startIndex, to: ui.item.index()}, task)});
       }
     });
-  }]
+  }
 });

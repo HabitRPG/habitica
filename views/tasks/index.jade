@@ -33,7 +33,7 @@ div(ng-controller='TasksCtrl')
       hr
 
       // Actual List
-      ul(class='{{list.type}}s', ng-show='user[list.type + "s"]')
+      ul(class='{{list.type}}s', ng-show='user[list.type + "s"]', habitrpg-sortable)
         include ./task
 
       // Static Rewards

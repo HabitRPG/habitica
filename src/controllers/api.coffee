@@ -204,13 +204,13 @@ api.createTask =  (req, res, next) ->
 
 api.sortTask = (req, res, next) ->
   {id} = req.params
-  {to, from, type} = res.locals.task
+  {to, from, type} = req.body
   {user} = res.locals
   path = "#{type}Ids"
   user[path].splice(to, 0, user[path].splice(from, 1)[0])
-  user.save (err) ->
+  user.save (err, saved) ->
     return res.json(500,{err}) if err
-    res.json 200, user[path]
+    res.json 200, saved.toJSON()[path]
 
 ###
   ------------------------------------------------------------------------
@@ -377,7 +377,6 @@ api.revive = (req, res, next) ->
 ###
 api.batchUpdate = (req, res, next) ->
   {user} = res.locals
-  #console.log {user}
 
   oldSend = res.send
   oldJson = res.json
@@ -402,7 +401,7 @@ api.batchUpdate = (req, res, next) ->
       when "buy"
         api.buy(req, res)
       when "sortTask"
-        api.verifyTaskExists (req, res) ->
+        api.verifyTaskExists req, res, ->
           api.sortTask(req, res)
       when "addTask"
         api.createTask(req, res)
