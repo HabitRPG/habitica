@@ -1,0 +1,33 @@
+.row-fluid
+  .personal-options.span6.border-right
+    h2 Settings
+    h4 Custom Day Start
+    .option-group.option-short
+      input.option-content.option-time(type='number', min='0', max='24', value='{{user.preferences.dayStart}}')
+      span.input-suffix :00 (24h clock)
+      span(class='alert alert-warning') Doesn't save yet
+    div
+      small
+        | Habit defaults to check and reset your dailies at midnight in your time zone each day. You can customize the hour here (enter a number between 0 and 24).
+    hr
+    h4 Misc
+    button.btn(ng-hide='user.preferences.hideHeader', ng-click='set("user.preferences.hideHeader",true)') Show Header
+    button.btn(ng-show='user.preferences.hideHeader', ng-click='set("user.preferences.hideHeader",false)') Hide Header
+    div(ng-show='user.auth.local')
+      hr
+      h4 Change Password
+      derby-auth:changepassword
+    hr
+    h4 Danger Zone
+    a.btn.btn-danger(data-target='#reset-modal', data-toggle='modal', rel='tooltip', title='Resets your entire account (dangerous).') Reset
+    a.btn.btn-danger(data-target='#restore-modal', data-toggle='modal', rel='tooltip', title='Restores attributes to your character.') Restore
+    a.btn.btn-danger(data-target='#delete-modal', data-toggle='modal', rel='tooltip', title='Delete your account.') Delete
+  .span6
+    h2 API
+    small Copy these for use in third party applications.
+    h6 User ID
+    pre.prettyprint {{user.id}}
+    h6 API Token
+    pre.prettyprint {{user.apiToken}}
+    h6 QR Code
+    img(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7Baddress%3A%22https%3A%2F%2Fhabitrpg.com%22%2Cuser%3A%22{{user.id}}%22%2Ckey%3A%22{{user.apiToken}}%22%7D,&choe=UTF-8&chld=L', alt='qrcode')
