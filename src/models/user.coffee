@@ -44,7 +44,7 @@ UserSchema = new Schema(
   todoIds: Array
   rewardIds: Array
 
-  filters: Schema.Types.Mixed #TODO
+  # Removed `filters`, no longer persisting to the database
 
   flags:
     ads: String #FIXME to boolean (currently show/hide)
@@ -184,6 +184,7 @@ UserSchema.methods.toJSON = () ->
 # Custom setter/getter virtuals?
 UserSchema.pre 'save', (next) ->
   @markModified('tasks')
+  delete @filters if @filters
   @._v++ #our own version incrementer
   next()
 

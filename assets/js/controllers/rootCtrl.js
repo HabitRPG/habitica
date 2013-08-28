@@ -9,6 +9,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User',
   $rootScope.User = User;
   $rootScope.user = User.user;
   $rootScope.settings = User.settings;
+  $rootScope.notPorted = function(){
+    alert("This feature is not yet ported from the original site.");
+  }
 
   /*
    FIXME this is dangerous, organize helpers.coffee better, so we can group them by which controller needs them,
@@ -26,6 +29,10 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User',
     log.data[k] = v;
     User.log(log);
   };
+
+  $rootScope.setMultiple = function(){
+
+  }
 
   $rootScope.authenticated = function() {
     return User.settings.auth.apiId !== "";

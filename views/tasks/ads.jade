@@ -1,6 +1,6 @@
 div(ng-if='authenticated() && user.flags.ads!="hide"')
   span.pull-right(ng-if='list.type!="reward"')
-    a(x-bind='click:showStripe', tooltip='Remove Ads')
+    a(x-bind='click:showStripe', tooltip='Remove Ads', ng-click='notPorted()')
       i.icon-remove
     br
     a(ng-click='modals.whyAds=true', tooltip='Why Ads?')
