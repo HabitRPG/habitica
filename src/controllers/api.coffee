@@ -34,6 +34,7 @@ api.auth = (req, res, next) ->
   User.findOne {_id: uid, apiToken: token}, (err, user) ->
     return res.json(500, {err}) if err
     return res.json(401, NO_USER_FOUND) if _.isEmpty(user)
+    res.locals.wasModified = +user._v isnt +req.query._v
     res.locals.user = user
     next()
 
@@ -423,6 +424,8 @@ api.batchUpdate = (req, res, next) ->
   async.series actions, (err) ->
     res.json = oldJson; res.send = oldSend
     return res.json(500, {err}) if err
-    res.json 200, user
+    response = user.toJSON()
+    response.wasModified = res.locals.wasModified
+    res.json 200, response
     console.log "Reply sent"
 

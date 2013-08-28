@@ -6,8 +6,11 @@ _ = require('lodash')
 UserSchema = new Schema(
 
   _id: {type: String, 'default': helpers.uuid}
-
   apiToken: {type: String, 'default': helpers.uuid}
+
+  # We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
+  # have been updated (http://goo.gl/gQLz41), but we want *every* update
+  _v: {type: Number, 'default': 0}
 
   achievements:
     originalUser: Boolean
@@ -181,6 +184,7 @@ UserSchema.methods.toJSON = () ->
 # Custom setter/getter virtuals?
 UserSchema.pre 'save', (next) ->
   @markModified('tasks')
+  @._v++ #our own version incrementer
   next()
 
 module.exports.schema = UserSchema

@@ -59,17 +59,19 @@ angular.module('userServices', []).
                 sent.push(queue.shift());
             });
 
-            $http.post(API_URL + '/api/v1/user/batch-update' + '?date=' + new Date().getTime(), sent)
+            $http.post(API_URL + '/api/v1/user/batch-update', sent, {params: {data:+new Date, _v:user._v}})
                 .success(function (data, status, heacreatingders, config) {
                     data.tasks = _.toArray(data.tasks);
                     //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
                     if (!queue.length) {
                         //we can't do user=data as it will not update user references in all other angular controllers.
 
-                        // FIXME - this is the one of the biggest issues in Habit rewrite right now, this function
-                        // kills CPU and makes it things un-responsive. We need to only update the user when it's been
-                        // modified, not every time. Commenting this out makes it out-of-sync with the API though
-                        //_.extend(user, data);
+                        // the user has been modified from another application, sync up
+                        if(data.wasModified) {
+                          delete data.wasModified;
+                          _.extend(user, data);
+                        }
+                        user._v = data._v;
 
                         // FIXME handle this somewhere else, we don't need to check every single time
                         var offset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
