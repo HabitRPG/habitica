@@ -41,7 +41,7 @@
     "npm": "1.2.x"
   },
   "scripts": {
-    "start": "nodemon src/server.coffee",
+    "start": "nodemon src/server.js",
     "test": "mocha test/api.mocha.coffee",
     "postinstall": "./node_modules/bower/bin/bower install -f"
   }
