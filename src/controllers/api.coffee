@@ -21,8 +21,8 @@ api = module.exports
   ------------------------------------------------------------------------
 ####
 
-NO_TOKEN_OR_UID = err: "You must include a token and uid (user id) in your request"
-NO_USER_FOUND = err: "No user found."
+NO_TOKEN_OR_UID = {err: "You must include a token and uid (user id) in your request"}
+NO_USER_FOUND = {err: "No user found."}
 
 ###
   beforeEach auth interceptor
@@ -379,6 +379,19 @@ api.revive = (req, res, next) ->
     return res.json(500,{err}) if err
     res.json 200, saved
 
+api.reroll = (req, res, next) ->
+  {user} = res.locals
+  if user.balance < 1
+    return res.json 401, {err: "Not enough tokens."}
+  user.balance -= 1
+  _.each user.tasks, (task) ->
+    user.tasks[task.id].value = 0 unless task.type is 'reward'
+    true
+  user.stats.hp = 50
+  user.save (err, saved) ->
+    return res.json(500, {err}) if err
+    res.json 200, saved
+
 ###
   ------------------------------------------------------------------------
   Party
@@ -460,6 +473,8 @@ api.batchUpdate = (req, res, next) ->
         api.revive(req, res)
       when "clear-completed"
         api.clearCompleted(req, res)
+      when "reroll"
+        api.reroll(req, res)
       else cb()
 
   # Setup the array of functions we're going to call in parallel with async

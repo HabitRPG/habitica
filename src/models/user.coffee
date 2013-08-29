@@ -178,6 +178,7 @@ UserSchema.methods.toJSON = () ->
     doc["#{type}s"] = _.transform doc["#{type}Ids"], (result, tid) -> result.push(doc.tasks[tid])
     #delete doc["#{type}Ids"]
   #delete doc.tasks
+  doc.filters = {}
   doc
 
 # FIXME - since we're using special @post('init') above, we need to flag when the original path was modified.

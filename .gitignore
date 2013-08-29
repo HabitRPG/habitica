@@ -9,9 +9,7 @@ lib
 public/bower_components
 builtAssets/
 
-src/*/*.js
 src/*/*.map
-src/*/*/*.js
 src/*/*/*.map
 test/*.js
 test/*.map

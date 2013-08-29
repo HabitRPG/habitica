@@ -30,17 +30,6 @@ module.exports.app = (appExports, model) ->
       panelLabel: "Checkout"
       token: token
 
-  ###
-    Buy Reroll Button
-  ###
-  appExports.buyReroll = ->
-    misc.batchTxn model, (uObj, paths, batch) ->
-      uObj.balance -= 1; paths['balance'] =1
-      _.each uObj.tasks, (task) ->
-        batch.set("tasks.#{task.id}.value", 0) unless task.type is 'reward'
-        true
-    $('#reroll-modal').modal('hide')
-
 module.exports.routes = (expressApp) ->
   ###
     Setup Stripe response when posting payment
