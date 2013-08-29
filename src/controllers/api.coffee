@@ -377,16 +377,17 @@ api.revive = (req, res, next) ->
 ###
 api.getGroups = (req, res, next) ->
   {user} = res.locals
+  #TODO should we support non-authenticated users? just for viewing public groups?
   async.parallel
     party: (cb) ->
       async.waterfall [
         (cb2) ->
-          Group.findOne {type:'party', members: {'$in': [user?._id]}}, cb2
+          Group.findOne {type:'party', members: {'$in': [user._id]}}, cb2
         (party, cb2) ->
           party = party.toJSON()
-          query = _id: '$in': party.members
+          query = _id: {'$in': party.members, '$nin': [user._id]}
           fields = 'profile preferences items stats achievements party backer auth.local.username auth.facebook.first_name auth.facebook.last_name auth.facebook.name auth.facebook.username'.split(' ')
-          fields = _.reduce fields, ((m,k,v) -> m[k] = 1;m),{}
+          fields = _.reduce fields, ((m,k,v) -> m[k]=1;m), {}
           User.find query, fields, (err, members) ->
             party.members = members
             cb2(err, party)
@@ -394,7 +395,7 @@ api.getGroups = (req, res, next) ->
 
     guilds: (cb) ->
       return cb(null, {})
-      Group.findOne {type:'guild', members: {'$in': [user?._id]}}, cb
+      Group.findOne {type:'guild', members: {'$in': [user._id]}}, cb
 
     public: (cb) ->
       return cb(null, {})

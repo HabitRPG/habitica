@@ -8,7 +8,6 @@
     // avatar
     .herobox-wrap.main-herobox(ng-controller='UserAvatarCtrl')
       include avatar
-      //app:avatar:avatar(profile='{{user}}', main='true')
 
     // stat bars
     .hero-stats
@@ -27,15 +26,9 @@
             a(x-bind='click:toggleChart', data-id='exp', tooltip='Progress')
               i.icon-signal
     // party
-    // I have an idea to use this loop for the user's herobox/avatar as well
-       NOTE TO SELF: Ask Tyler if some kind of inter-leaving is possible
-       where we can put ONE of the results of this loop BEFORE the progress bars, and the rest after
-    .herobox-wrap(ng-repeat='memberId in _party.members', ng-class='{hidden: memberId == userId}')
-      app:avatar:avatar(ng-hide='memberId == userId', profile='{{_members[memberId]}}', party='true')
-      // Would be way cleaner as a Derby template `data-content="<app:groups:member-stats profile={{:member}} />"`, but it was just printing HTML as text
-      //
-         I've re-implemented the rollover using the actual `herobox`/avatar template and data-attributes.
-                        This Derby template idea would have been really handy but this is pretty versatile, and keeps it all in the avatar section
+    span(ng-controller='GroupsCtrl')
+      .herobox-wrap(ng-repeat='profile in groups.party.members')
+        include avatar
 
     .NPC-Bailey-Head(ng-show='user.flags.newStuff', tooltip='Psst', tooltip-placement='top', ng-click='modals.newStuff=true')
 

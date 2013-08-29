@@ -5,11 +5,9 @@
  */
 
 angular.module('userServices', []).
-    factory('User', ['$http', '$location', 'Notification', 'API_URL',
-      function($http, $location, Notification, API_URL) {
-        var STORAGE_ID = 'habitrpg-user',
-            HABIT_MOBILE_SETTINGS = 'habit-mobile-settings',
-            authenticated = false,
+    factory('User', ['$http', '$location', 'Notification', 'API_URL', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID',
+      function($http, $location, Notification, API_URL, STORAGE_USER_ID, STORAGE_SETTINGS_ID) {
+        var authenticated = false,
             defaultSettings = {
                 auth: { apiId: '', apiToken: ''},
                 sync: {
@@ -28,8 +26,8 @@ angular.module('userServices', []).
 
               //than we try to load localStorage
             
-            if (localStorage.getItem(STORAGE_ID)) {
-                _.extend(user, JSON.parse(localStorage.getItem(STORAGE_ID)));
+            if (localStorage.getItem(STORAGE_USER_ID)) {
+                _.extend(user, JSON.parse(localStorage.getItem(STORAGE_USER_ID)));
             }
 
         var syncQueue = function (cb) {
@@ -102,8 +100,8 @@ angular.module('userServices', []).
 
 
         var save = function () {
-            localStorage.setItem(STORAGE_ID, JSON.stringify(user));
-            localStorage.setItem(HABIT_MOBILE_SETTINGS, JSON.stringify(settings));
+            localStorage.setItem(STORAGE_USER_ID, JSON.stringify(user));
+            localStorage.setItem(STORAGE_SETTINGS_ID, JSON.stringify(settings));
         };
         var userServices = {
             user: user,
@@ -118,7 +116,6 @@ angular.module('userServices', []).
 
             authenticate: function (uuid, token, cb) {
                 if (!!uuid && !!token) {
-                    $http.defaults.headers.common = {'Content-Type': "application/json;charset=utf-8"};
                     $http.defaults.headers.common['x-api-user'] = uuid;
                     $http.defaults.headers.common['x-api-key'] = token;
                     authenticated = true;
@@ -149,15 +146,15 @@ angular.module('userServices', []).
 
 
         //load settings if we have them
-        if (localStorage.getItem(HABIT_MOBILE_SETTINGS)) {
+        if (localStorage.getItem(STORAGE_SETTINGS_ID)) {
             //use extend here to make sure we keep object reference in other angular controllers
-            _.extend(settings, JSON.parse(localStorage.getItem(HABIT_MOBILE_SETTINGS)));
+            _.extend(settings, JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID)));
 
             //if settings were saved while fetch was in process reset the flag.
             settings.fetching = false;
             //create and load if not
         } else {
-            localStorage.setItem(HABIT_MOBILE_SETTINGS, JSON.stringify(defaultSettings));
+            localStorage.setItem(STORAGE_SETTINGS_ID, JSON.stringify(defaultSettings));
             _.extend(settings, defaultSettings);
         }
 
