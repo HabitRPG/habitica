@@ -11,6 +11,7 @@ sanitize = validator.sanitize
 utils = require 'derby-auth/utils'
 derbyAuthUtil = require('derby-auth/utils')
 User = require('./../models/user').model
+Group = require('./../models/group').model
 
 api = module.exports
 
@@ -369,6 +370,40 @@ api.revive = (req, res, next) ->
     return res.json(500,{err}) if err
     res.json 200, saved
 
+###
+  ------------------------------------------------------------------------
+  Party
+  ------------------------------------------------------------------------
+###
+api.getGroups = (req, res, next) ->
+  {user} = res.locals
+  async.parallel
+    party: (cb) ->
+      async.waterfall [
+        (cb2) ->
+          Group.findOne {type:'party', members: {'$in': [user?._id]}}, cb2
+        (party, cb2) ->
+          party = party.toJSON()
+          query = _id: '$in': party.members
+          fields = 'profile preferences items stats achievements party backer auth.local.username auth.facebook.first_name auth.facebook.last_name auth.facebook.name auth.facebook.username'.split(' ')
+          fields = _.reduce fields, ((m,k,v) -> m[k] = 1;m),{}
+          User.find query, fields, (err, members) ->
+            party.members = members
+            cb2(err, party)
+      ], (err, members) -> cb(err, members)
+
+    guilds: (cb) ->
+      return cb(null, {})
+      Group.findOne {type:'guild', members: {'$in': [user?._id]}}, cb
+
+    public: (cb) ->
+      return cb(null, {})
+      Group.find {privacy: 'public'}, {name:1, description:1, members:1}, cb
+
+  , (err, results) ->
+#      console.log {arguments}
+      return res.json 500,{err} if err
+      res.json results
 
 ###
   ------------------------------------------------------------------------

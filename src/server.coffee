@@ -12,6 +12,7 @@ require('./errors')
 
 mongoose = require('mongoose')
 require('./models/user') # load up the user schema - TODO is this necessary?
+require('./models/group')
 module.exports = server
 
 # Connect using Mongoose too for API purposes, we'll eventually phase out Derby and only use mongoose

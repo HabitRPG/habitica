@@ -43,4 +43,7 @@ router.put '/user',                       auth, cron, api.updateUser
 router.post '/user/revive',               auth, cron, api.revive
 router.post '/user/batch-update',         auth, cron, api.batchUpdate
 
+# Groups
+router.get '/groups',                     auth, api.getGroups
+
 module.exports = router
