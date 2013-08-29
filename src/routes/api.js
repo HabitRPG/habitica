@@ -49,6 +49,7 @@ router.put('/user', auth, cron, api.updateUser);
 router.post('/user/revive', auth, cron, api.revive);
 router.post('/user/batch-update', auth, cron, api.batchUpdate);
 router.post('/user/reroll', auth, cron, api.reroll);
+router.post('/user/buy-gems', auth, api.buyGems);
 
 /* Groups*/
 router.get('/groups', auth, api.getGroups);

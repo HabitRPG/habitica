@@ -129,7 +129,7 @@ angular.module('userServices', []).
             },
 
             authenticated: function(){
-              this.settings.auth.apiId !== "";
+              return this.settings.auth.apiId !== "";
             },
 
             /*

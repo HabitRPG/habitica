@@ -16,7 +16,8 @@ module.exports = function(req, res, next) {
   var _base;
   _.defaults(((_base = res.locals).habitrpg != null ? (_base = res.locals).habitrpg : _base.habitrpg = {}), {
     NODE_ENV: nconf.get('NODE_ENV'),
-    IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent'))
+    IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
+    STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY')
   });
   /*CORS middleware*/
 

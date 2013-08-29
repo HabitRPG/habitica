@@ -6,7 +6,7 @@ var path = require("path");
 
 conf.argv()
   .env()
-  .file('defaults', path.join(path.resolve(__dirname, '../config.json.example')))
+  //.file('defaults', path.join(path.resolve(__dirname, '../config.json.example')))
   .file('user', path.join(path.resolve(__dirname, '../config.json')));
 
 /*

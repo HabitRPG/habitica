@@ -18,7 +18,9 @@ window.habitrpg = angular.module('habitrpg',
         .otherwise({redirectTo: '/tasks'});
 
       var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
-      $httpProvider.defaults.headers.common['Content-Type'] = 'application/json;charset=utf-8';
-      $httpProvider.defaults.headers.common['x-api-user'] = settings.auth.apiId;
-      $httpProvider.defaults.headers.common['x-api-key'] = settings.auth.apiId;
+      if (settings && settings.auth) {
+        $httpProvider.defaults.headers.common['Content-Type'] = 'application/json;charset=utf-8';
+        $httpProvider.defaults.headers.common['x-api-user'] = settings.auth.apiId;
+        $httpProvider.defaults.headers.common['x-api-key'] = settings.auth.apiId;
+      }
   }])

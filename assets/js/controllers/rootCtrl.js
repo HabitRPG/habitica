@@ -3,8 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User',
-  function($scope, $rootScope, $location, User) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http',
+  function($scope, $rootScope, $location, User, $http) {
   $rootScope.modals = {};
   $rootScope.User = User;
   $rootScope.user = User.user;
@@ -29,4 +29,25 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User',
     alert("This feature is not yet ported from the original site.");
   }
 
+  $rootScope.showStripe = function() {
+      var disableAds = User.user.flags.ads == 'hide' ? '' : 'Disable Ads, ';
+      StripeCheckout.open({
+        key: window.env.STRIPE_PUB_KEY,
+        address: false,
+        amount: 500,
+        name: "Checkout",
+        description: "Buy 20 Gems, " + disableAds + "Support the Developers",
+        panelLabel: "Checkout",
+        token: function(data) {
+          $scope.$apply(function(){
+            $http.post("/api/v1/user/buy-gems", data)
+              .success(function() {
+                window.location.href = "/";
+              }).error(function(err) {
+                alert(err);
+              });
+          })
+        }
+      });
+  }
 }]);
