@@ -653,9 +653,10 @@ api.cron = function(req, res, next) {
   var user;
   user = res.locals.user;
   algos.cron(user);
-  /*FIXME make sure the variable references got handled properly*/
-
-  return user.save(next);
+  if (user.isModified()) {
+    res.locals.wasModified = true;
+  }
+  user.save(next);
 };
 
 api.revive = function(req, res, next) {
