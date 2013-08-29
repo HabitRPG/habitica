@@ -1,29 +1,3 @@
-<modals:>
-
-  <app:modals:modal modalId='drops-enabled-modal' header="Drops Enabled!">
-    <p><span class="Pet_Egg_{_user.items.eggs.0.name} item-drop-icon"></span> You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. And guess what, you just found a <strong>{_user.items.eggs.0.text} egg</strong>! {_user.items.eggs.0.notes}</p>
-    <@footer>
-      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    </@footer>
-  </app:modals:modal>
-
-  <app:modals:modal modalId='item-dropped-modal' header="An item has dropped!">
-    <p><span class="Pet_{_drop.type}_{_drop.name} item-drop-icon"></span>{_drop.dialog}</p>
-
-
-    <@footer>
-      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    </@footer>
-  </app:modals:modal>
-
-    <app:modals:modal modalId='beastmaster-achievement-modal' header="Achievement Unlocked!">
-        <p>
-            <div class='achievement achievement-rat'></div>You have earned the "Beast Master" Achievement for collecting all the pets!
-        </p>
-        <@footer>
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-        </@footer>
-    </app:modals:modal>
 
 <pet:>
     <td class="{#if _user.items.pets[.name]}active-pet{/}">
