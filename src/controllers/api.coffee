@@ -92,7 +92,6 @@ deleteTask = (user, task) ->
   if (ids = user["#{task.type}Ids"]) and ~(i = ids.indexOf task.id)
     ids.splice(i,1)
 
-
 ###
   API Routes
   ---------------
@@ -213,6 +212,16 @@ api.sortTask = (req, res, next) ->
   user.save (err, saved) ->
     return res.json(500,{err}) if err
     res.json 200, saved.toJSON()[path]
+
+api.clearCompleted = (req, res, next) ->
+  {user} = res.locals
+  completedIds =  _.pluck( _.where(user.tasks, {type:'todo', completed:true}), 'id')
+  todoIds = user.todoIds
+  _.each completedIds, (id) -> delete user.tasks[id]; true
+  user.todoIds = _.difference(todoIds, completedIds)
+  user.save (err, saved) ->
+    return res.json(500, {err}) if err
+    res.json saved
 
 ###
   ------------------------------------------------------------------------
@@ -449,6 +458,8 @@ api.batchUpdate = (req, res, next) ->
         api.updateUser(req, res)
       when "revive"
         api.revive(req, res)
+      when "clear-completed"
+        api.clearCompleted(req, res)
       else cb()
 
   # Setup the array of functions we're going to call in parallel with async

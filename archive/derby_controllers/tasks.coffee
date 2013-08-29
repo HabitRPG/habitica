@@ -7,16 +7,8 @@ misc = require './misc'
   appExports.clearCompleted = (e, el) ->
     completedIds =  _.pluck( _.where(model.get('_todoList'), {completed:true}), 'id')
     todoIds = user.get('todoIds')
-
     _.each completedIds, (id) -> user.del "tasks.#{id}"; true
     user.set 'todoIds', _.difference(todoIds, completedIds)
-
-
-  appExports.toggleTaskEdit = (e, el) ->
-    id = e.get('id')
-    [editPath, chartPath] = ["_tasks.editing.#{id}", "_page.charts.#{id}"]
-    model.set editPath, !(model.get editPath)
-    model.set chartPath, false
 
   appExports.toggleChart = (e, el) ->
     id = $(el).attr('data-id')
@@ -42,9 +34,6 @@ misc = require './misc'
       backgroundColor: { fill:'transparent' }
     chart = new google.visualization.LineChart $(".#{id}-chart")[0]
     chart.draw(data, options)
-
-  appExports.todosShowRemaining = -> model.set '_showCompleted', false
-  appExports.todosShowCompleted = -> model.set '_showCompleted', true
 
 
   ###

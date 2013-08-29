@@ -9,9 +9,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User',
   $rootScope.User = User;
   $rootScope.user = User.user;
   $rootScope.settings = User.settings;
-  $rootScope.notPorted = function(){
-    alert("This feature is not yet ported from the original site.");
-  }
 
   /*
    FIXME this is dangerous, organize helpers.coffee better, so we can group them by which controller needs them,
@@ -20,27 +17,16 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User',
   _.defaults($rootScope, window.habitrpgShared.algos);
   _.defaults($rootScope, window.habitrpgShared.helpers);
 
-  /*
-   Very simple path-set. `set('preferences.gender','m')` for example. We'll deprecate this once we have a complete API
-   */
-  $rootScope.set = function(k, v) {
-    var log = { op: 'set', data: {} };
-    window.habitrpgShared.helpers.dotSet(k, v, User.user);
-    log.data[k] = v;
-    User.log(log);
-  };
-
-  $rootScope.setMultiple = function(){
-
-  }
-
-  $rootScope.authenticated = function() {
-    return User.settings.auth.apiId !== "";
-  };
+  $rootScope.set = User.set;
+  $rootScope.authenticated = User.authenticated;
 
   $rootScope.dismissAlert = function() {
     $rootScope.modals.newStuff = false;
     $rootScope.set('flags.newStuff',false);
+  }
+
+  $rootScope.notPorted = function(){
+    alert("This feature is not yet ported from the original site.");
   }
 
 }]);

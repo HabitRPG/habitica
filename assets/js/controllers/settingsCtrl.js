@@ -23,5 +23,8 @@ habitrpg.controller('SettingsCtrl',
       User.log({'op':'set', data:{'preferences.dayStart': dayStart}});
     }
 
+    $scope.reroll = function(){
+    }
+
   }
 ]);

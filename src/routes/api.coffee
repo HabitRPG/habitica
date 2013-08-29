@@ -31,6 +31,7 @@ router.post '/user/tasks',                auth, cron, api.updateTasks
 router.delete '/user/task/:id',           auth, cron, verifyTaskExists, api.deleteTask
 router.post '/user/task',                 auth, cron, api.createTask
 router.put '/user/task/:id/sort',         auth, cron, verifyTaskExists, api.sortTask
+router.post '/user/clear-completed',    auth, cron, api.clearCompleted
 
 # Items
 router.post '/user/buy/:type',            auth, cron, api.buy

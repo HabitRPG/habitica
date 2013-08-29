@@ -24,7 +24,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     a(ng-click='remove(task)', tooltip='Delete')
       i.icon-trash
     // chart
-    a(ng-show='task.history', x-bind='click:toggleChart', data-id='{{task.id}}', tooltip='Progress')
+    a(ng-show='task.history', x-bind='click:toggleChart', ng-click='notPorted()', data-id='{{task.id}}', tooltip='Progress')
       i.icon-signal
     // notes
     span.task-notes(ng-show='task.notes', popover-trigger='mouseenter', popover-placement='left', popover='{{task.notes}}', popover-title='{{task.text}}')
