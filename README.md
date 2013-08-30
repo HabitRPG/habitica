@@ -14,7 +14,7 @@ The general steps are:
 Or, expressed in commands on the command line:
 
 1. `git clone --recursive -b angular_rewrite https://github.com/lefnire/habitrpg.git`
-1. `cd habirpg && npm install`
+1. `cd habitrpg && npm install`
 1. `npm start`
 
 To access the site, open http://localhost:3000 in your browser.
