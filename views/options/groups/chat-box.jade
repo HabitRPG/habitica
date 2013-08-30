@@ -1,0 +1,4 @@
+form(x-bind='submit:sendChat')
+  textarea.span6(rows='3', x-bind='keyup:chatKeyup') {{_chatMessage}}
+  br
+  input.btn(type='submit', value='Send Chat')

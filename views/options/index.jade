@@ -10,13 +10,13 @@
           | Profile
         include ./profile
 
-      //-tab
+      tab
         tab-heading
           i.icon-heart
           | Groups
-          app:groups:groups-pane
+        include ./groups/index
 
-      tab(ng-show='user.flags.dropsEnabled')
+      //-tab(ng-show='user.flags.dropsEnabled')
         tab-heading
           i.icon-gift
           | Inventory
@@ -28,17 +28,17 @@
             h2 Market
             app:game-pane:market
 
-      tab(ng-show='user.flags.dropsEnabled')
+      //-tab(ng-show='user.flags.dropsEnabled')
         tab-heading
           i.icon-leaf
           | Stable
         app:pets:stable
 
-      //-tab
+      tab
         tab-heading
           i.icon-eye-close
           | Tavern
-        app:groups:group(group='{_habitRPG}')
+        include ./groups/tavern
 
       tab
         tab-heading

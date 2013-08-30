@@ -1,19 +1,21 @@
 var express = require('express');
 var router = new express.Router();
-var api = require('../controllers/api');
+var user = require('../controllers/user');
+var groups = require('../controllers/groups');
 
 /*
   ---------- /api/v1 API ------------
   Every url added to router is prefaced by /api/v1
   See ./routes/coffee for routes
 
-  v1 API. Requires x-api-user (user id) and x-api-key (api key) headers, Test with:
+  v1 user. Requires x-api-user (user id) and x-api-key (api key) headers, Test with:
   $ cd node_modules/racer && npm install && cd ../..
-  $ mocha test/api.mocha.coffee
+  $ mocha test/user.mocha.coffee
 */
 
-var auth, cron, verifyTaskExists;
-auth = api.auth, verifyTaskExists = api.verifyTaskExists, cron = api.cron;
+var auth = user.auth
+var verifyTaskExists = user.verifyTaskExists
+var cron = user.cron;
 
 router.get('/status', function(req, res) {
   return res.json({
@@ -22,37 +24,48 @@ router.get('/status', function(req, res) {
 });
 
 /* Auth*/
-router.post('/register', api.registerUser);
+router.post('/register', user.registerUser);
 
 /* Scoring*/
-router.post('/user/task/:id/:direction', auth, cron, api.scoreTask);
-router.post('/user/tasks/:id/:direction', auth, cron, api.scoreTask);
+router.post('/user/task/:id/:direction', auth, cron, user.scoreTask);
+router.post('/user/tasks/:id/:direction', auth, cron, user.scoreTask);
 
 /* Tasks*/
-router.get('/user/tasks', auth, cron, api.getTasks);
-router.get('/user/task/:id', auth, cron, api.getTask);
-router.put('/user/task/:id', auth, cron, verifyTaskExists, api.updateTask);
-router.post('/user/tasks', auth, cron, api.updateTasks);
-router["delete"]('/user/task/:id', auth, cron, verifyTaskExists, api.deleteTask);
-router.post('/user/task', auth, cron, api.createTask);
-router.put('/user/task/:id/sort', auth, cron, verifyTaskExists, api.sortTask);
-router.post('/user/clear-completed', auth, cron, api.clearCompleted);
+router.get('/user/tasks', auth, cron, user.getTasks);
+router.get('/user/task/:id', auth, cron, user.getTask);
+router.put('/user/task/:id', auth, cron, verifyTaskExists, user.updateTask);
+router.post('/user/tasks', auth, cron, user.updateTasks);
+router["delete"]('/user/task/:id', auth, cron, verifyTaskExists, user.deleteTask);
+router.post('/user/task', auth, cron, user.createTask);
+router.put('/user/task/:id/sort', auth, cron, verifyTaskExists, user.sortTask);
+router.post('/user/clear-completed', auth, cron, user.clearCompleted);
 
 /* Items*/
-router.post('/user/buy/:type', auth, cron, api.buy);
+router.post('/user/buy/:type', auth, cron, user.buy);
 
 /* User*/
-router.get('/user', auth, cron, api.getUser);
-router.post('/user/auth/local', api.loginLocal);
-router.post('/user/auth/facebook', api.loginFacebook);
-router.put('/user', auth, cron, api.updateUser);
-router.post('/user/revive', auth, cron, api.revive);
-router.post('/user/batch-update', auth, cron, api.batchUpdate);
-router.post('/user/reroll', auth, cron, api.reroll);
-router.post('/user/buy-gems', auth, api.buyGems);
+router.get('/user', auth, cron, user.getUser);
+router.post('/user/auth/local', user.loginLocal);
+router.post('/user/auth/facebook', user.loginFacebook);
+router.put('/user', auth, cron, user.updateUser);
+router.post('/user/revive', auth, cron, user.revive);
+router.post('/user/batch-update', auth, cron, user.batchUpdate);
+router.post('/user/reroll', auth, cron, user.reroll);
+router.post('/user/buy-gems', auth, user.buyGems);
 
 /* Groups*/
-router.get('/groups', auth, api.getGroups);
+router.get('/groups', auth, groups.getGroups);
+//TODO:
+//GET /groups/:gid (get group)
+//POST /groups/:gid (create group)
+//PUT /groups/:gid (edit group)
+//DELETE /groups/:gid
+
+//GET  /groups/:gid/chat
+//POST  /groups/:gid/chat
+//PUT  /groups/:gid/chat/:messageId
+//DELETE  /groups/:gid/chat/:messageId
+
 
 
 module.exports = router;

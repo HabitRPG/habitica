@@ -8,7 +8,7 @@ _ = require('lodash');
 
 icalendar = require('icalendar');
 
-api = require('./api');
+api = require('./user');
 
 /* ---------- Deprecated Paths ------------*/
 

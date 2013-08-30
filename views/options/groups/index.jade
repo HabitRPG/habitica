@@ -1,0 +1,52 @@
+div(ng-controller='GroupsCtrl')
+  h4.alert.alert-warning Coming Soon! (Presently Incomplete & Read-Only)
+  tabset
+    tab(heading='Party')
+      div(ng-show='groups.party.id', ng-controller='PartyCtrl')
+        app:groups:group(group='{groups[_party.id]}')
+      div(ng-hide='groups.party.id')
+        div(ng-show='user.invitations.party')
+          // #with required for the accept/reject buttons
+          // {#with _user.invitations.party as :party}
+          h2 You're Invited To {{party.name}}
+          a.btn.btn-success(data-type='party', x-bind='click:acceptInvitation') Accept
+          a.btn.btn-danger(x-bind='click:rejectInvitation') Reject
+          // {/}
+        div(ng-hide='user.invitations.party', ng-controller='PartyCtrl')
+          h2 Create A Party
+          p
+            | You are not in a party. You can either create one and invite friends, or if you want to join an existing party, have them enter:
+          pre.prettyprint.
+            {{user.id}}
+          include ./create-group
+
+    tab(heading='Guilds')
+      tabset
+        tab(heading='Public Guilds')
+          div(ng-repeat='invitation in user.invitations.guilds')
+            h3 You're Invited To {{invitation.name}}
+            a.btn.btn-success(data-type='guild', x-bind='click:acceptInvitation') Accept
+            a.btn.btn-danger(x-bind='click:rejectInvitation') Reject
+          // Public Groups
+          table.table.table-striped
+            tr(ng-repeat='group in groups.public')
+              td
+                ul.pull-right.challenge-accordion-header-specs
+                  li {{count(group.members)}} member(s)
+                  li
+                    // join / leave
+                    a.btn.btn-small.btn-danger(ng-show='indexOf(group.members,user.id)', x-bind='click:groupLeave', data-id='{{group.id}}')
+                      i.icon-ban-circle
+                      | Leave
+                    a.btn.btn-small.btn-success(ng-hide='indexOf(group.members,user.id)', x-bind='click:joinGroup')
+                      i.icon-ok
+                      | Join
+                h4 {{group.name}}
+                p {{group.description}}
+
+        tab(ng-repeat='group in groups.guilds', heading='{{group.name}}')
+          include ./group
+
+        tab(heading='Create Guild')
+          div(ng-controller='GuildCtrl')
+            include ./group

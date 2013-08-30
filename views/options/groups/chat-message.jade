@@ -1,0 +1,8 @@
+li(ng-repeat='message in group.chat', ng-class='{highlight: indexOf(message.text,username(user.auth,user.profile.name))}')
+  span.label.chat-message(ng-class='{"label-success": message.npc, "label-inverse": message.contributor, "label-info": message.uuid == user.id}', tooltip='{{message.contributor}}{{message.npc}}')
+    | {{message.user}}
+  | {{message.text}} -
+  span.muted.time
+    | {{relativeDate(message.timestamp, _currentTime)}}
+  a(ng-show='user.backer.admin || message.uuid == user.id', x-bind='click:deleteChatMessage')
+    i.icon-remove(tooltip='Delete')

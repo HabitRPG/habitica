@@ -1,0 +1,108 @@
+a.pull-right.gem-wallet(ng-show='group.type=="guild" && group.id!="habitrpg"', rel='popover', data-trigger='hover', data-title='Guild Bank', data-content='Gems which your Guild leader can use for prizes in the upcoming <a target=_blank href="https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58">Challenges</a> feature.', data-placement='bottom', data-html='true')
+  // <span class="task-action-btn tile flush bright add-gems-btn">＋</span>
+  span.task-action-btn.tile.flush.neutral
+    .Gems
+    | {{gems(group.balance)}} Guild Gems
+.row-fluid
+  .span4
+    h3 {{group.name}}
+    accordion
+      accordion-group(heading='Information')
+        .blah-options
+          div(ng-show='_editing.groups[group.id]')
+            div(style='height:10px')
+              a.pull-right(x-bind='click:toggleGroupEdit', data-gid='{{group.id}}')
+                i.icon-ok
+            input.option-content(type='text', value='{group.name}', placeholder='Group Name')
+            textarea(cols='3', placeholder='Description') {{group.description}}
+            input.option-content(type='url', placeholder='Logo Url', value='{group.logo}')
+            form.form-inline(x-bind='submit:groupAddWebsite')
+              input.option-content(type='url', placeholder='Website', value='{_newGroupWebsite}')
+              input(type='submit', value='Add')
+            h4 Assign Group Leader
+            select#group-leader-selection
+              option(ng-repeat='memberId in group.members', selected='{equal(memberId,_new.groupLeader)}') {{username(_members[memberId].auth,_members[memberId].profile.name)}}
+            button(x-bind='click:assignGroupLeader') Assign
+            div(ng-show='group.websites')
+              h4 Resources
+              ul.unstyled
+                li
+                  a(ng-repeat='website in group.websites', x-bind='click:removeAt')
+                    i.icon-trash
+                  a(target='_blank', href='{website}') {{website}}
+          div(ng-show='!_editing.groups[group.id]')
+            img.pull-right(ng-show='group.logo', style='max-width:150px', src='{group.logo}')
+            a.pull-right(ng-if='group.leader==user.id', x-bind='click:toggleGroupEdit', data-gid='{{group.id}}')
+              i.icon-pencil
+            div {{group.description}}
+            div(ng-show='group.websites')
+              h4 Resources
+              ul.unstyled
+                li(ng-repeat='website in group.websites')
+                  a(target='_blank', ng-href='{{website}}') {{website}}
+
+      accordion-group(heading='Members')
+        table.table.table-striped
+          tr(ng-repeat='memberId in group.members')
+            td
+              // allow leaders to ban members
+              div(ng-show='and(equal(group.leader,_user.id),not(equal(_user.id,memberId)))')
+                // {{#with group.members[$index]}}
+                a(x-bind='click:removeAt', data-refresh='true', data-confirm='Boot this member?')
+                  i.icon-ban-circle(rel='tooltip', title='Boot Member')
+                // {{/}}
+              a(data-toggle='modal', data-target='#avatar-modal-{{memberId}}')
+                span(ng-class='{"badge badge-info": group.leader==memberId}')
+                  | {{username(_members[memberId].auth, _members[memberId].profile.name)}}
+            td
+              | ({{memberId}})
+        // {#with group as :group}
+        form.form-inline(x-bind='submit:groupInvite', data-type='{group.type}')
+          .alert.alert-danger(ng-show='_groupError') {_groupError}
+          .control-group
+            input.input-medium(type='text', placeholder='User Id', value='{_groupInvitee}')
+            input.btn(type='submit', value='Invite')
+        // {/}
+
+      //-accordion-group(heading='Challenges')
+        span.label
+          i.icon-bullhorn
+          | Challenges
+        | coming soon!
+        a(target='_blank', href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58') Details
+        //-{#if group.challenges}
+        //-    <table class="table table-striped">
+        //-        {#each group.challenges as :challenge}
+        //-        <tr><td>
+        //-            {:challenge.name}
+        //-        </td></tr>
+        //-        {/}
+        //-    </table>
+        //-    Visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> for more information.
+        //-{else}
+        //-    No challenges yet, visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> tab to create one.
+        //-{/}
+    a.btn.btn-danger(data-id='{{group.id}}', x-bind='click:groupLeave') Leave
+
+  .span8
+    div(ng-if='group.leader==user.id')
+      div(ng-show='_editing.leaderMessage[group.id]')
+        a.pull-right(x-bind='click:toggleLeaderMessageEdit', data-gid='{{group.id}}')
+          i.icon-ok
+        textarea(cols='3', placeholder='Message from group leader') {group.leaderMessage}
+      div(ng-hide='_editing.leaderMessage[group.id]')
+        a.btn.pull-right(x-bind='click:toggleLeaderMessageEdit', data-gid='{{group.id}}') Edit leader message
+    table(ng-show='group.leaderMessage')
+      tr
+        td
+          app:avatar:avatar(profile='{{_members[group.leader]}}')
+        td
+          .popover.static-popover.fade.right.in
+            .arrow
+            h3.popover-title {{username(_members[group.leader].auth,_members[group.leader].profile.name)}}
+            .popover-content {group.leaderMessage}
+    h3 Chat
+    include ./chat-box
+
+    ul.unstyled.tavern-chat
+      include ./chat-message
