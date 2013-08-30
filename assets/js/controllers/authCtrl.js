@@ -53,9 +53,10 @@ habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'Facebook', 'LocalAuth'
     if ($scope.useUUID) {
       runAuth($scope.loginUsername, $scope.loginPassword);
     } else {
-      $http.post(API_URL + "/api/v1/user/auth/local", data).success(function(data, status, headers, config) {
-        runAuth(data.id, data.token);
-      }).error(function(data, status, headers, config) {
+      $http.post(API_URL + "/api/v1/user/auth/local", data)
+        .success(function(data, status, headers, config) {
+          runAuth(data.id, data.token);
+        }).error(function(data, status, headers, config) {
           if (status === 0) {
             alert("Server not currently reachable, try again later");
           } else if (!!data && !!data.err) {

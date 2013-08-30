@@ -524,37 +524,24 @@ api.getUser = function(req, res, next) {
 
 
 api.loginLocal = function(req, res, next) {
-  var password, username, _ref;
-  _ref = req.body, username = _ref.username, password = _ref.password;
-  return async.waterfall([
+  var username = req.body.username;
+  var password = req.body.password;
+  async.waterfall([
     function(cb) {
-      if (!(username && password)) {
-        return cb('No username or password');
-      }
-      return User.findOne({
-        'auth.local.username': username
-      }, cb);
+      if (!(username && password)) return cb('No username or password');
+      User.findOne({'auth.local.username': username}, cb);
     }, function(user, cb) {
-      if (!user) {
-        return cb('Username not found');
-      }
-      /* We needed the whole user object first so we can get his salt to encrypt password comparison*/
-
-      return User.findOne({
+      if (!user) return cb('Username not found');
+      // We needed the whole user object first so we can get his salt to encrypt password comparison
+      User.findOne({
         'auth.local.username': username,
         'auth.local.hashed_password': utils.encryptPassword(password, user.auth.local.salt)
       }, cb);
     }
   ], function(err, user) {
-    if (!user) {
-      err = 'Incorrect password';
-    }
-    if (err) {
-      return res.json(401, {
-        err: err
-      });
-    }
-    return res.json(200, {
+    if (!user) err = 'Incorrect password';
+    if (err) return res.json(401, {err: err});
+    res.json(200, {
       id: user._id,
       token: user.apiToken
     });
