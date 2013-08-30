@@ -426,11 +426,11 @@
 .armor_0_v2 {background-position: -6570px 0; width: 90px; height: 90px}
 .armor_0_v1 {background-position: -6660px 0; width: 90px; height: 90px}
 .armor_0_v0 {background-position: -6750px 0; width: 90px; height: 90px}
-[class^="shop_"] {
+[class^="shop_"], [class^="zzz"] {
     background: url('img/sprites/shop_sprites.png') no-repeat;
 }
 
-[class^="shop_weapon_"], [class^="shop_shield_"], [class^="shop_head_"], [class^="shop_armor_"] {
+[class^="shop_weapon_"], [class^="shop_shield_"], [class^="shop_head_"], [class^="shop_armor_"], [class^="zzz"] {
     width: 40px;
     height: 40px;
 }
@@ -461,3 +461,5 @@
 .shop_copper {background-position: -923px -8px; width: 32px; height: 22px}
 .shop_silver {background-position: -963px -8px; width: 32px; height: 22px}
 .shop_gold {background-position: -1003px -8px; width: 32px; height: 22px}
+.zzz{background-position: -1200px 0}
+.zzz-light{background-position: -1280px 0}
