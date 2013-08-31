@@ -1,25 +1,47 @@
 .grid
   .module.full-width
     span.option-box.pull-right.wallet
-      app:rewards:user-gems
+      include ../shared/gems
 
-    tabset
-      tab
-        tab-heading
+    ul.nav.nav-tabs
+      li.active
+        a(data-toggle='tab', data-target='#profile-tab')
           i.icon-user
           | Profile
-        include ./profile
-
-      tab
-        tab-heading
+      li
+        a(data-toggle='tab',data-target='#groups-tab')
           i.icon-heart
           | Groups
-        include ./groups/index
-
-      //-tab(ng-show='user.flags.dropsEnabled')
-        tab-heading
+      li(ng-show='user.flags.dropsEnabled')
+        a(data-toggle='tab',data-target='#inventory-tab')
           i.icon-gift
           | Inventory
+      li(ng-show='user.flags.dropsEnabled')
+        a(data-toggle='tab',data-target='#stable-tab')
+          i.icon-leaf
+          | Stable
+      li
+        a(data-toggle='tab',data-target='tavern-tab')
+          i.icon-eye-close
+          | Tavern
+      li
+        a(data-toggle='tab',data-target='#achievements-tab')
+          i.icon-certificate
+          | Achievements
+
+      li
+        a(data-toggle='tab',data-target='#settings-tab')
+          i.icon-wrench
+          | Settings
+
+    .tab-content
+      .tab-pane.active#profile-tab
+        include ./profile
+
+      .tab-pane#groups-tab
+        include ./groups/index
+
+      .tab-pane#inventory-tab
         .row-fluid
           .span6.border-right
             h2 Inventory
@@ -28,30 +50,18 @@
             h2 Market
             app:game-pane:market
 
-      //-tab(ng-show='user.flags.dropsEnabled')
-        tab-heading
-          i.icon-leaf
-          | Stable
+      .tab-pane#stable-tab
         app:pets:stable
 
-      tab
-        tab-heading
-          i.icon-eye-close
-          | Tavern
+      .tab-pane#tavern-tab
         include ./groups/tavern
 
-      tab
-        tab-heading
-          i.icon-certificate
-          | Achievements
+      .tab-pane#achievements-tab
         div(ng-controller='UserAvatarCtrl')
           include ../shared/profiles/achievements
 
       // <li><a data-toggle='tab' data-target="#profile-challenges" id='profile-challenges-tab-link' ><i class='icon-bullhorn'></i> Challenges</a></li>
       // app:challenges:main
 
-      tab
-        tab-heading
-          i.icon-wrench
-          | Settings
+      .tab-pane#settings-tab
         include ./settings

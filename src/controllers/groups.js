@@ -18,7 +18,7 @@ var api = module.exports;
 
 api.getGroups = function(req, res, next) {
   var user = res.locals.user;
-  var usernameFields = 'auth.local.username auth.facebook.first_name auth.facebook.last_name auth.facebook.name auth.facebook.username';
+  var usernameFields = 'auth.local.username auth.facebook.displayName auth.facebook.givenName auth.facebook.familyName auth.facebook.name';
 
   // First get all groups
   async.parallel({
