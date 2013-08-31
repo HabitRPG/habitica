@@ -12,9 +12,9 @@ div(ng-controller='GroupsCtrl')
 
   .tab-content
     #groups-party.tab-pane.active Party
-      div(ng-show='groups.party.id', ng-controller='PartyCtrl')
-        app:groups:group(group='{groups[_party.id]}')
-      div(ng-hide='groups.party.id')
+      div(ng-show='group._id', ng-controller='PartyCtrl')
+        include ./group
+      div(ng-hide='group._id')
         div(ng-show='user.invitations.party')
           // #with required for the accept/reject buttons
           // {#with _user.invitations.party as :party}

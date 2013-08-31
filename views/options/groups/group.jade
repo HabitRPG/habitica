@@ -1,8 +1,8 @@
-a.pull-right.gem-wallet(ng-show='group.type=="guild" && group.id!="habitrpg"', rel='popover', data-trigger='hover', data-title='Guild Bank', data-content='Gems which your Guild leader can use for prizes in the upcoming <a target=_blank href="https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58">Challenges</a> feature.', data-placement='bottom', data-html='true')
+a.pull-right.gem-wallet(rel='popover', data-trigger='hover', data-title='Guild Bank', data-content='Gems which your Guild leader can use for prizes in the upcoming <a target=_blank href="https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58">Challenges</a> feature.', data-placement='bottom', data-html='true')
   // <span class="task-action-btn tile flush bright add-gems-btn">＋</span>
   span.task-action-btn.tile.flush.neutral
     .Gems
-    | {{gems(group.balance)}} Guild Gems
+    | {{group.balance / 4 | number:0 }} Guild Gems
 .row-fluid
   .span4
     h3 {{group.name}}
@@ -43,24 +43,24 @@ a.pull-right.gem-wallet(ng-show='group.type=="guild" && group.id!="habitrpg"', r
 
       accordion-group(heading='Members')
         table.table.table-striped
-          tr(ng-repeat='memberId in group.members')
+          tr(ng-repeat='member in group.members')
             td
               // allow leaders to ban members
-              div(ng-show='and(equal(group.leader,_user.id),not(equal(_user.id,memberId)))')
+              div(ng-show='group.leader == user.id && user.id!=member._id')
                 // {{#with group.members[$index]}}
                 a(x-bind='click:removeAt', data-refresh='true', data-confirm='Boot this member?')
-                  i.icon-ban-circle(rel='tooltip', title='Boot Member')
+                  i.icon-ban-circle(tooltip='Boot Member')
                 // {{/}}
-              a(data-toggle='modal', data-target='#avatar-modal-{{memberId}}')
-                span(ng-class='{"badge badge-info": group.leader==memberId}')
-                  | {{username(_members[memberId].auth, _members[memberId].profile.name)}}
+              a(data-toggle='modal', data-target='#avatar-modal-{{member._id}}')
+                span(ng-class='{"badge badge-info": group.leader==member._id}')
+                  | {{username(member.auth, member.profile.name)}}
             td
-              | ({{memberId}})
+              | ({{member._id}})
         // {#with group as :group}
-        form.form-inline(x-bind='submit:groupInvite', data-type='{group.type}')
-          .alert.alert-danger(ng-show='_groupError') {_groupError}
+        form.form-inline(x-bind='submit:groupInvite', data-type='{{group.type}}')
+          .alert.alert-danger(ng-show='_groupError') {{_groupError}}
           .control-group
-            input.input-medium(type='text', placeholder='User Id', value='{_groupInvitee}')
+            input.input-medium(type='text', placeholder='User Id', value='{{_groupInvitee}}')
             input.btn(type='submit', value='Invite')
         // {/}
 
@@ -89,7 +89,7 @@ a.pull-right.gem-wallet(ng-show='group.type=="guild" && group.id!="habitrpg"', r
       div(ng-show='_editing.leaderMessage[group.id]')
         a.pull-right(x-bind='click:toggleLeaderMessageEdit', data-gid='{{group.id}}')
           i.icon-ok
-        textarea(cols='3', placeholder='Message from group leader') {group.leaderMessage}
+        textarea(cols='3', placeholder='Message from group leader') {{group.leaderMessage}}
       div(ng-hide='_editing.leaderMessage[group.id]')
         a.btn.pull-right(x-bind='click:toggleLeaderMessageEdit', data-gid='{{group.id}}') Edit leader message
     table(ng-show='group.leaderMessage')
@@ -100,7 +100,7 @@ a.pull-right.gem-wallet(ng-show='group.type=="guild" && group.id!="habitrpg"', r
           .popover.static-popover.fade.right.in
             .arrow
             h3.popover-title {{username(_members[group.leader].auth,_members[group.leader].profile.name)}}
-            .popover-content {group.leaderMessage}
+            .popover-content {{group.leaderMessage}}
     h3 Chat
     include ./chat-box
 

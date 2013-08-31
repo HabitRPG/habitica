@@ -18,34 +18,23 @@ var api = module.exports;
 
 api.getGroups = function(req, res, next) {
   var user = res.locals.user;
-  /*TODO should we support non-authenticated users? just for viewing public groups?*/
+  var usernameFields = 'auth.local.username auth.facebook.first_name auth.facebook.last_name auth.facebook.name auth.facebook.username';
 
-  return async.parallel({
+  // First get all groups
+  async.parallel({
     party: function(cb) {
-      async.waterfall([
-        function(cb2) {
-          Group.findOne({type: 'party', members: {'$in': [user._id]}}, cb2);
-        }, function(party, cb2) {
-          var fields, query;
-          party = party.toJSON();
-          query = {_id: {
-              '$in': party.members,
-              '$nin': [user._id]
-            }
-          };
-          fields = 'profile preferences items stats achievements party backer auth.local.username auth.facebook.first_name auth.facebook.last_name auth.facebook.name auth.facebook.username'.split(' ');
-          fields = _.reduce(fields, (function(m, k, v) {m[k] = 1;return m;}), {});
-          User.find(query, fields, function(err, members) {
-            party.members = members;
-            cb2(err, party);
-          });
-        }
-      ], function(err, members) {
-        cb(err, members);
-      });
+      Group
+        .findOne({type: 'party', members: {'$in': [user._id]}})
+        .populate({
+          path: 'members',
+          //match: {_id: {$ne: user._id}}, //fixme this causes it to hang??
+          select: 'profile preferences items stats achievements party backer ' + usernameFields
+        })
+        .exec(cb);
     },
     guilds: function(cb) {
-      Group.find({type: 'guild', members: {'$in': [user._id]}}, cb);
+      Group.find({type: 'guild', members: {'$in': [user._id]}}).populate('members', usernameFields).exec(cb);
+//      Group.find({type: 'guild', members: {'$in': [user._id]}}, cb);
     },
     tavern: function(cb) {
       Group.findOne({_id: 'habitrpg'}, cb);
@@ -59,8 +48,13 @@ api.getGroups = function(req, res, next) {
         members: 1
       }, cb);
     }
-  }, function(err, results) {
+  }, function(err, results){
     if (err) return res.json(500, {err: err});
+
+    // Remove self from party (see above failing `match` directive in `populate`
+    var i = _.findIndex(results.party.members, {_id:user._id});
+    if (~i) results.party.members.splice(i,1);
+
     res.json(results);
-  });
+  })
 };

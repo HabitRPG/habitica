@@ -1,18 +1,10 @@
-var GroupSchema, Schema, helpers, mongoose, _;
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
+var helpers = require('habitrpg-shared/script/helpers');
+var _ = require('lodash');
 
-mongoose = require("mongoose");
-
-Schema = mongoose.Schema;
-
-helpers = require('habitrpg-shared/script/helpers');
-
-_ = require('lodash');
-
-GroupSchema = new Schema({
-  _id: {
-    type: String,
-    'default': helpers.uuid
-  },
+var GroupSchema = new Schema({
+  _id: {type: String, 'default': helpers.uuid},
   name: String,
   description: String,
   leader: {
@@ -43,7 +35,9 @@ GroupSchema = new Schema({
     Number: Number,
     'default': 0
   },
+  websites: Array,
   chat: Array,
+
   /*
   #    [{
   #      timestamp: Date
@@ -58,10 +52,41 @@ GroupSchema = new Schema({
   balance: Number,
   logo: String,
   leaderMessage: String
-}, {
-  strict: 'throw'
-});
+}, {strict: 'throw'});
+
+
+/**
+ * Derby duplicated stuff. This is a temporary solution, once we're completely off derby we'll run an mongo migration
+ * to remove duplicates, then take these fucntions out
+ */
+function removeDuplicates(doc){
+  // Remove duplicate members
+  if (doc.members) {
+    var uniqMembers = _.uniq(doc.members);
+    if (uniqMembers.length != doc.members.length) {
+      doc.members = uniqMembers;
+    }
+  }
+
+  if (doc.websites) {
+    var uniqWebsites = _.uniq(doc.websites);
+    if (uniqWebsites.length != doc.websites.length) {
+      doc.websites = uniqWebsites;
+    }
+    console.log(doc.websites);
+  }
+}
+
+GroupSchema.pre('save', function(next){
+  removeDuplicates(this);
+  next();
+})
+
+GroupSchema.methods.toJSON = function(){
+  var doc = this.toObject();
+  removeDuplicates(doc);
+  return doc;
+}
 
 module.exports.schema = GroupSchema;
-
 module.exports.model = mongoose.model("Group", GroupSchema);

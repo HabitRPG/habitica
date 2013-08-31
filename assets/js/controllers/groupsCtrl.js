@@ -4,7 +4,9 @@ habitrpg
 
   .controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', '$location',
     function($scope, $rootScope, Groups) {
-      $scope.groups = Groups.query();
+      $scope.groups = Groups.query(function(groups){
+        $scope.members = groups.members;
+      });
       $scope.party = true;
     }
   ])

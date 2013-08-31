@@ -1,14 +1,9 @@
-var Schema, UserSchema, helpers, mongoose, _;
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
+var helpers = require('habitrpg-shared/script/helpers');
+var _ = require('lodash');
 
-mongoose = require("mongoose");
-
-Schema = mongoose.Schema;
-
-helpers = require('habitrpg-shared/script/helpers');
-
-_ = require('lodash');
-
-UserSchema = new Schema({
+var UserSchema = new Schema({
   _id: {
     type: String,
     'default': helpers.uuid
@@ -274,20 +269,16 @@ UserSchema.post('init', function(doc) {
 
 
 UserSchema.methods.toJSON = function() {
-  var doc;
-  doc = this.toObject();
+  var doc = this.toObject();
   doc.id = doc._id;
   _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
-    /* we use _.transform instead of a simple _.where in order to maintain sort-order*/
-
-    return doc["" + type + "s"] = _.transform(doc["" + type + "Ids"], function(result, tid) {
-      return result.push(doc.tasks[tid]);
+    // we use _.transform instead of a simple _.where in order to maintain sort-order
+    doc["" + type + "s"] = _.transform(doc["" + type + "Ids"], function(result, tid) {
+      result.push(doc.tasks[tid]);
     });
-    /*delete doc["#{type}Ids"]*/
-
+    //delete doc["#{type}Ids"]
   });
-  /*delete doc.tasks*/
-
+  //delete doc.tasks
   doc.filters = {};
   return doc;
 };
@@ -296,16 +287,12 @@ UserSchema.methods.toJSON = function() {
 # FIXME - since we're using special @post('init') above, we need to flag when the original path was modified.
 # Custom setter/getter virtuals?
 */
-
-
 UserSchema.pre('save', function(next) {
   this.markModified('tasks');
-  /*our own version incrementer*/
-
+  //our own version incrementer
   this._v++;
-  return next();
+  next();
 });
 
 module.exports.schema = UserSchema;
-
 module.exports.model = mongoose.model("User", UserSchema);
