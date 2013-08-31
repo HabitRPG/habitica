@@ -2,11 +2,22 @@
 
 habitrpg
 
-  .controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', '$location',
-    function($scope, $rootScope, Groups) {
+  .controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', '$location', '$http', 'API_URL',
+    function($scope, $rootScope, Groups, $http, API_URL) {
+      $scope._chatMessage = '';
       $scope.groups = Groups.query(function(groups){
         $scope.members = groups.members;
       });
+      $scope.postChat = function(group, message){
+        if (_.isEmpty(message)) return
+        $('.chat-btn').addClass('disabled');
+        $http.post('/api/v1/groups/'+group._id+'/chat', {message:message})
+          .success(function(data){
+            $scope._chatMessage = '';
+            group.chat = data;
+            $('.chat-btn').removeClass('disabled');
+          });
+      }
       $scope.party = true;
     }
   ])

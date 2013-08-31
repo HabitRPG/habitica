@@ -49,7 +49,7 @@ div(ng-controller='GroupsCtrl')
             tr(ng-repeat='group in groups.public')
               td
                 ul.pull-right.challenge-accordion-header-specs
-                  li {{count(group.members)}} member(s)
+                  li {{group.members.length}} member(s)
                   li
                     // join / leave
                     a.btn.btn-small.btn-danger(ng-show='indexOf(group.members,user.id)', x-bind='click:groupLeave', data-id='{{group.id}}')

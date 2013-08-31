@@ -9,7 +9,11 @@ angular.module('groupServices', ['ngResource']).
       function(API_URL, $resource, User) {
         var Group = $resource(API_URL + '/api/v1/groups/:gid',
           {gid:'@_id'},
-          {'query': {method: "GET", isArray:false}});
+          {
+            'query': {method: "GET", isArray:false}
+            //postChat: {method: "POST"}
+          });
+
         return Group;
       }
 ]);

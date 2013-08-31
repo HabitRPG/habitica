@@ -121,39 +121,6 @@ module.exports.app = (appExports, model, app) ->
   model.on 'unshift', '_party.chat', -> $('.chat-message').tooltip()
   model.on 'unshift', '_habitrpg.chat', -> $('.chat-message').tooltip()
 
-  appExports.sendChat = (e,el) ->
-    text = model.get '_chatMessage'
-    # Check for non-whitespace characters
-    return unless /\S/.test text
-
-    group = e.at()
-
-    # get rid of duplicate member ids - this is a weird place to put it, but works for now
-    members = group.get('members'); uniqMembers = _.uniq(members)
-    group.set('members', uniqMembers) if !_.isEqual(uniqMembers, members)
-
-    chat = group.at('chat')
-    model.set('_chatMessage', '')
-
-    message =
-      id: model.id()
-      uuid: user.get('id')
-      contributor: user.get('backer.contributor')
-      npc: user.get('backer.npc')
-      text: text
-      user: helpers.username(model.get('_user.auth'), model.get('_user.profile.name'))
-      timestamp: +new Date
-
-    # FIXME - sometimes racer will send many duplicates via chat.unshift. I think because it can't make connection, keeps
-    # trying, but all attempts go through. Unfortunately we can't do chat.set without potentially clobbering other chatters
-    messages = chat.get() or []
-    messages.unshift(message)
-    messages.splice(200)
-    chat.set messages
-
-    type = $(el).attr('data-type')
-    model.set '_user.party.lastMessageSeen', chat.get()[0].id  if group.get('type') is 'party'
-
   appExports.chatKeyup = (e, el, next) ->
     return next() unless e.keyCode is 13
     appExports.sendChat(e, el)

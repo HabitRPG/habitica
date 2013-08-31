@@ -12,7 +12,7 @@ var api = module.exports;
 
 /*
   ------------------------------------------------------------------------
-  Party
+  Groups
   ------------------------------------------------------------------------
 */
 
@@ -40,13 +40,7 @@ api.getGroups = function(req, res, next) {
       Group.findOne({_id: 'habitrpg'}, cb);
     },
     "public": function(cb) {
-      Group.find({
-        privacy: 'public'
-      }, {
-        name: 1,
-        description: 1,
-        members: 1
-      }, cb);
+      Group.find({privacy: 'public'}, {name:1, description:1, members:1}, cb);
     }
   }, function(err, results){
     if (err) return res.json(500, {err: err});
@@ -55,6 +49,46 @@ api.getGroups = function(req, res, next) {
     var i = _.findIndex(results.party.members, {_id:user._id});
     if (~i) results.party.members.splice(i,1);
 
+    // Sort public groups by members length (not easily doable in mongoose)
+    results.public = _.sortBy(results.public, function(group){
+      return -group.members.length;
+    })
+
     res.json(results);
   })
 };
+
+api.attachGroup = function(req, res, next) {
+  Group.findById(req.params.gid, function(err, group){
+    if(err) return res.json(500, {err:err});
+    res.locals.group = group;
+    next();
+  })
+}
+
+api.postChat = function(req, res, next) {
+  var user = res.locals.user
+  var group = res.locals.group;
+  var message = {
+    id: helpers.uuid(),
+    uuid: user._id,
+    contributor: user.backer && user.backer.contributor,
+    npc: user.backer && user.backer.npc,
+    text: req.body.message,
+    user: helpers.username(user.auth, user.profile.name),
+    timestamp: +(new Date)
+  };
+
+  group.chat.unshift(message);
+  group.chat.splice(200);
+
+  if (group.type === 'party') {
+    user.party.lastMessageSeen = message.id;
+    user.save();
+  }
+
+  group.save(function(err, group){
+    if (err) return res.json(500, {err:err});
+    res.json(group.chat);
+  })
+}

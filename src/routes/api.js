@@ -62,7 +62,7 @@ router.get('/groups', auth, groups.getGroups);
 //DELETE /groups/:gid
 
 //GET  /groups/:gid/chat
-//POST  /groups/:gid/chat
+router.post('/groups/:gid/chat', auth, groups.attachGroup, groups.postChat);
 //PUT  /groups/:gid/chat/:messageId
 //DELETE  /groups/:gid/chat/:messageId
 
