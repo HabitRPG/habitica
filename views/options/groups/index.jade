@@ -1,7 +1,17 @@
 div(ng-controller='GroupsCtrl')
   h4.alert.alert-warning Coming Soon! (Presently Incomplete & Read-Only)
-  tabset
-    tab(heading='Party')
+
+  // FIXME note, due to https://github.com/angular-ui/bootstrap/issues/783 we can't use nested angular-bootstrap tabs
+  // Subscribe to that ticket & change this when they fix
+
+  ul.nav.nav-tabs
+    li.active
+      a(data-target='#groups-party', data-toggle='tab') Party
+    li
+      a(data-target='#groups-guilds', data-toggle='tab') Guilds
+
+  .tab-content
+    #groups-party.tab-pane.active Party
       div(ng-show='groups.party.id', ng-controller='PartyCtrl')
         app:groups:group(group='{groups[_party.id]}')
       div(ng-hide='groups.party.id')
@@ -20,9 +30,16 @@ div(ng-controller='GroupsCtrl')
             {{user.id}}
           include ./create-group
 
-    tab(heading='Guilds')
-      tabset
-        tab(heading='Public Guilds')
+    #groups-guilds.tab-pane Guilds
+      ul.nav.nav-tabs
+        li.active
+          a(data-target='#groups-public-guilds', data-toggle='tab') Public Guilds
+        li(ng-repeat='group in groups.guilds')
+          a(data-target='#groups-guild-{{group._id}}', data-toggle='tab') {{group.name}}
+        li
+          a(data-target='#groups-create-guild', data-toggle='tab') Create Guild
+      .tab-content
+        .tab-pane.active#groups-public-guilds
           div(ng-repeat='invitation in user.invitations.guilds')
             h3 You're Invited To {{invitation.name}}
             a.btn.btn-success(data-type='guild', x-bind='click:acceptInvitation') Accept
@@ -43,10 +60,9 @@ div(ng-controller='GroupsCtrl')
                       | Join
                 h4 {{group.name}}
                 p {{group.description}}
-
-        tab(ng-repeat='group in groups.guilds', heading='{{group.name}}')
+        .tab-pane(id='groups-guild-{{group._id}}', ng-repeat='group in groups.guilds')
           include ./group
 
-        tab(heading='Create Guild')
-          div(ng-controller='GuildCtrl')
+        .tab-pane#groups-create-guild
+          div(ng-controller='GuildsCtrl')
             include ./group
