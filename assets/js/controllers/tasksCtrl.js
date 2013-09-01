@@ -24,7 +24,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
         main: true,
         editable: true
       }, {
-        header: 'Reward',
+        header: 'Rewards',
         type: 'reward',
         placeHolder: 'New Reward',
         main: true,
@@ -72,7 +72,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
     };
 
     $scope.addTask = function(list) {
-      var task = window.habitrpgShared.helpers.taskDefaults({text: list.newTask, type: list.type});
+      var task = window.habitrpgShared.helpers.taskDefaults({text: list.newTask, type: list.type}, User.user.filters);
       User.user[list.type + "s"].unshift(task);
       // $scope.showedTasks.unshift newTask # FIXME what's thiss?
       User.log({op: "addTask", data: task});

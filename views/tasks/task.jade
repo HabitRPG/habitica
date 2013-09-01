@@ -6,7 +6,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
       span(tooltip='Streak Counter')
         i.icon-forward
 
-    i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='notTags(task.tags)')
+    i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='noTags(task.tags)')
 
     // edit
     a(ng-click='task._editing = !task._editing', tooltip='Edit')
