@@ -34,50 +34,7 @@
 
   // ------ Stats ------
   .span4.border-right
-    // <profile-stats:>
-    h4 Items
-    p
-      strong {{itemText('weapon',profile.items.weapon)}}
-      | : {{itemStat('weapon',profile.items.weapon)}}% Exp gain
-    p
-      strong {{itemText('armor',profile.items.armor)}}
-      | : {{itemStat('armor',profile.items.armor)}}% Defense
-    p
-      strong {{itemText('head',profile.items.head)}}
-      | : {{itemStat('head',profile.items.head)}}% Defense
-    p
-      strong {{itemText('shield',profile.items.shield)}}
-      | : {{itemStat('shield',profile.items.shield)}}% Defense
-    h4 Stats
-    p
-      strong HP
-      | : {{floor(profile.stats.hp)}} / 50
-    p
-      strong GP
-      | : {{floor(profile.stats.gp)}}
-    p
-      strong Lvl
-      | : {{profile.stats.lvl}}
-    p
-      strong Exp
-      | : {{floor(profile.stats.exp)}} / {{tnl(profile.stats.lvl)}}
-    p
-      strong Strength
-      | : {{userStr(profile.stats.lvl)}}
-    p
-      strong Defense
-      | : {{userDef(profile.stats.lvl)}}
-    p
-      strong Pets Found
-      | : {{count(profile.items.pets)}}
-    hr
-    p
-      strong Total Strength
-      | : {{totalStr(profile.stats.lvl, profile.items.weapon)}} %
-    p
-      strong Total Defense
-      | : {{totalDef(profile.stats.lvl, profile.items.armor, profile.items.head, profile.items.shield)}} %
-
+    include ../shared/profiles/stats
 
   // ------- Edit -------
   .span4

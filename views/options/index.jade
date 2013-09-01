@@ -1,4 +1,4 @@
-.grid
+.grid(ng-controller='UserAvatarCtrl')
   .module.full-width
     span.option-box.pull-right.wallet
       include ../shared/gems
@@ -57,8 +57,7 @@
         include ./groups/tavern
 
       .tab-pane#achievements-tab
-        div(ng-controller='UserAvatarCtrl')
-          include ../shared/profiles/achievements
+        include ../shared/profiles/achievements
 
       // <li><a data-toggle='tab' data-target="#profile-challenges" id='profile-challenges-tab-link' ><i class='icon-bullhorn'></i> Challenges</a></li>
       // app:challenges:main
