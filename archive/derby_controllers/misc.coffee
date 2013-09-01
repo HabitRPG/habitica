@@ -3,27 +3,6 @@ algos = require 'habitrpg-shared/script/algos'
 items = require('habitrpg-shared/script/items').items
 helpers = require('habitrpg-shared/script/helpers')
 
-module.exports.batchTxn = batchTxn = (model, cb, options={}) ->
-  _.defaults options, {user: model.at("_user"), cron: false, done: ->}
-  {user} = options
-  # see https://github.com/codeparty/racer/issues/116
-  uObj = helpers.hydrate user.get()
-  batch =
-    set: (k,v) -> helpers.dotSet(k,v,uObj); paths[k] = true
-    get: (k) -> helpers.dotGet(k,uObj)
-  paths = {}
-  model._dontPersist = true
-  ret = cb uObj, paths, batch
-  _.each paths, (v,k) -> user.pass({cron:options.cron}).set(k,batch.get(k));true
-  model._dontPersist = false
-  # some hackery in our own branched racer-db-mongo, see findAndModify of lefnire/racer-db-mongo#habitrpg index.js
-  # pass true if we have levelled to supress xp notification
-  unless _.isEmpty paths
-    setOps = _.reduce paths, ((m,v,k)-> m[k] = batch.get(k);m), {}
-    user.set "update__", setOps, options.done
-  else options.done()
-  ret
-
 #TODO put this in habitrpg-shared
 ###
   We can't always use refLists, but we often still need to get a positional path by id: eg, users.1234.tasks.5678.value
@@ -146,12 +125,6 @@ module.exports.viewHelpers = (view) ->
   view.fn "round", Math.round
   view.fn "floor", Math.floor
   view.fn "ceil", Math.ceil
-  view.fn "lt", (a, b) -> a < b
-  view.fn 'gt', (a, b) -> a > b
-  view.fn "mod", (a, b) -> parseInt(a) % parseInt(b) == 0
-  view.fn "notEqual", (a, b) -> (a != b)
-  view.fn "and", -> _.reduce arguments, (cumm, curr) -> cumm && curr
-  view.fn "or", -> _.reduce arguments, (cumm, curr) -> cumm || curr
   view.fn "truarr", (num) -> num-1
   view.fn 'count', (arr) -> arr?.length or 0
   view.fn 'int',
@@ -165,34 +138,6 @@ module.exports.viewHelpers = (view) ->
 
   #User
   view.fn "gems", (balance) -> balance * 4
-  view.fn "username", helpers.username
-  view.fn "tnl", algos.tnl
-  view.fn 'equipped', helpers.equipped
-  view.fn "gold", helpers.gold
-  view.fn "silver", helpers.silver
-
-  #Stats
-  view.fn 'userStr', helpers.userStr
-  view.fn 'totalStr', helpers.totalStr
-  view.fn 'userDef', helpers.userDef
-  view.fn 'totalDef', helpers.totalDef
-  view.fn 'itemText', helpers.itemText
-  view.fn 'itemStat', helpers.itemStat
-
-  #Pets
-  view.fn 'ownsPet', helpers.ownsPet
-
-  #Tasks
-  view.fn 'taskClasses', helpers.taskClasses
-
-  #Chat
-  view.fn 'friendlyTimestamp',helpers.friendlyTimestamp
-  view.fn 'newChatMessages', helpers.newChatMessages
-  view.fn 'relativeDate', helpers.relativeDate
-
-  #Tags
-  view.fn 'noTags', helpers.noTags
-  view.fn 'appliedTags', helpers.appliedTags
 
   #Challenges
   view.fn 'taskInChallenge', (task) ->
