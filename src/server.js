@@ -34,6 +34,7 @@ app.use(express.logger("dev"));
 app.use(express.bodyParser());
 app.use(require('connect-assets')());
 app.use(express.methodOverride());
+app.use(require('./middleware'));
 app.use(app.router);
 app.use(express['static'](path.join(__dirname, "/../public")));
 
@@ -43,7 +44,6 @@ if ("development" === app.get("env")) {
 }
 
 // Custom Directives
-app.use(require('./middleware'));
 app.use(require('./routes/pages').middleware);
 app.use('/api/v1', require('./routes/api').middleware);
 app.use(require('./controllers/deprecated').middleware);
