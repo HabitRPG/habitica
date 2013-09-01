@@ -9,11 +9,14 @@ habitrpg
         $scope.members = groups.members;
       });
       $scope.postChat = function(group, message){
+        //FIXME ng-model makes this painfully slow! using jquery for now, which is really non-angular-like
+        message = $('.chat-textarea').val();
         if (_.isEmpty(message)) return
         $('.chat-btn').addClass('disabled');
         $http.post('/api/v1/groups/'+group._id+'/chat', {message:message})
           .success(function(data){
-            $scope._chatMessage = '';
+            //$scope._chatMessage = '';
+            $('.chat-textarea').val('');
             group.chat = data;
             $('.chat-btn').removeClass('disabled');
           });

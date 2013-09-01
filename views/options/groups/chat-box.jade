@@ -1,4 +1,6 @@
 form(ng-submit='postChat(group,_chatMessage)')
-  textarea.span6(rows='3', x-bind='keyup:chatKeyup', ng-model='_chatMessage')
+  //FIXME ng-model makes this painfully slow! using jquery for now, which is really non-angular-like
+  //textarea.span6(rows='3', ui-keypress='{13:"postChat(group,_chatMessage)"}', ng-model='_chatMessage')
+  textarea.span6.chat-textarea(rows='3', ui-keypress='{13:"postChat(group,_chatMessage)"}')
   br
   input.btn.chat-btn(type='submit', value='Send Chat')
