@@ -13,7 +13,8 @@ angular.module('groupServices', ['ngResource']).
             //'query': {method: "GET", isArray:false}
             postChat: {method: "POST", url: API_URL + '/api/v1/groups/:gid/chat'},
             join: {method: "POST", url: API_URL + '/api/v1/groups/:gid/join'},
-            leave: {method: "POST", url: API_URL + '/api/v1/groups/:gid/leave'}
+            leave: {method: "POST", url: API_URL + '/api/v1/groups/:gid/leave'},
+            invite: {method: "POST", url: API_URL + '/api/v1/groups/:gid/invite'}
           });
 
         return Group;

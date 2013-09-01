@@ -9,8 +9,6 @@ module.exports.app = (appExports, model, app) ->
   # Every 60 seconds, reset the current time so that the chat can update relative times
   setInterval (->_currentTime.set +new Date), 60000
 
-  user = model.at('_user')
-
   appExports.groupCreate = (e,el) ->
     type = $(el).attr('data-type')
     newGroup =

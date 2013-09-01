@@ -122,6 +122,16 @@ api.join = function(req, res, next) {
     if (err) return res.json(500,{err:err});
     res.json(saved);
   });
+
+  if (group.type == 'party' && group._id == (user.invitations && user.invitations.party && user.invitations.party.id)) {
+    user.invitations.party = undefined;
+    user.save();
+  }
+  else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
+    var i = _.findIndex(user.invitations.guilds, {id:group._id});
+    if (~i) user.invitations.guilds.splice(i,1);
+    user.save();
+  }
 }
 
 api.leave = function(req, res, next) {
@@ -132,4 +142,38 @@ api.leave = function(req, res, next) {
     if (err) return res.json(500,{err:err});
     res.send(200, saved);
   })
+}
+
+api.invite = function(req, res, next) {
+  var group = res.locals.group;
+  var uuid = req.query.uuid;
+
+  User.findById(uuid, function(err,invite){
+    if (err) return res.json(500,{err:err});
+    if (!invite)
+       return res.json(400,{err:'User with id '+req.query.uid+' not found'});
+    if (group.type == 'guild') {
+      if (_.contains(group.members,uuid))
+        return res.json(400,{err: "User already in that group"});
+      if (invite.invitations && invite.invitations.guilds && _.find(invite.invitations.guilds, {id:group._id}))
+        return res.json(400, {err:"User already invited to that group"});
+      sendInvite();
+    } else if (group.type == 'party') {
+      if (invite.invitations && invite.invitations.party)
+        return res.json(400,{err:"User already pending invitation."});
+      Group.find({type:'party', members:{$in:[uuid]}}, function(err, groups){
+        if (err) return res.json(500,{err:err});
+        if (!_.isEmpty(groups))
+          return res.json(400,{err:"User already in a party."})
+        sendInvite();
+      })
+    }
+
+    function sendInvite (){
+      //req.body.type in 'guild', 'party'
+      invite.invitations.party = {id:group._id, name: group.name}
+      invite.save();
+      res.json(group);
+    }
+  });
 }

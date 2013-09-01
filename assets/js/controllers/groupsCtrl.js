@@ -61,6 +61,14 @@ habitrpg
           $('.chat-btn').removeClass('disabled');
         });
       }
+
+      $scope.invitee = '';
+      $scope.invite = function(group, uuid){
+        debugger
+        group.$invite({uuid:uuid}, function(){
+          $scope.invitee = '';
+        });
+      }
     }
   ])
 
@@ -90,6 +98,12 @@ habitrpg
       $scope.type = 'party';
       $scope.text = 'Party';
       $scope.group = $scope.groups.party;
+      $scope.join = function(party){
+        // workaround since group isn't currently a resource, this won't get saved to the server
+        var group = new Groups({_id: party.id, name: party.name});
+        debugger
+        group.$join();
+      }
     }
   ])
 

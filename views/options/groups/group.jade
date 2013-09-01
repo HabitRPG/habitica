@@ -42,6 +42,11 @@ a.pull-right.gem-wallet(rel='popover', data-trigger='hover', data-title='Guild B
                   a(target='_blank', ng-href='{{website}}') {{website}}
 
       accordion-group(heading='Members')
+        form.form-inline(ng-submit='invite(group, invitee)')
+          .alert.alert-danger(ng-show='_groupError') {{_groupError}}
+          .control-group
+            input.input-medium(type='text', placeholder='User Id', ng-model='invitee')
+            input.btn(type='submit', value='Invite')
         table.table.table-striped
           tr(ng-repeat='member in group.members')
             td
@@ -56,13 +61,6 @@ a.pull-right.gem-wallet(rel='popover', data-trigger='hover', data-title='Guild B
                   | {{username(member.auth, member.profile.name)}}
             td
               | ({{member._id}})
-        // {#with group as :group}
-        form.form-inline(x-bind='submit:groupInvite', data-type='{{group.type}}')
-          .alert.alert-danger(ng-show='_groupError') {{_groupError}}
-          .control-group
-            input.input-medium(type='text', placeholder='User Id', value='{{_groupInvitee}}')
-            input.btn(type='submit', value='Invite')
-        // {/}
 
       //-accordion-group(heading='Challenges')
         span.label

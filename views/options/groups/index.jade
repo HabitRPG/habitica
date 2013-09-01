@@ -1,5 +1,4 @@
 div(ng-controller='GroupsCtrl')
-  h4.alert.alert-warning Coming Soon! (Presently Incomplete & Read-Only)
 
   // FIXME note, due to https://github.com/angular-ui/bootstrap/issues/783 we can't use nested angular-bootstrap tabs
   // Subscribe to that ticket & change this when they fix
@@ -10,16 +9,16 @@ div(ng-controller='GroupsCtrl')
     li
       a(data-target='#groups-guilds', data-toggle='tab', ng-click='fetchGuilds()') Guilds
 
-  .tab-content
+  .tab-content(ng-controller='PartyCtrl')
     #groups-party.tab-pane.active Party
-      div(ng-show='group._id', ng-controller='PartyCtrl')
+      div(ng-show='group._id')
         include ./group
       div(ng-hide='group._id')
         div(ng-show='user.invitations.party')
           // #with required for the accept/reject buttons
           // {#with _user.invitations.party as :party}
-          h2 You're Invited To {{party.name}}
-          a.btn.btn-success(data-type='party', x-bind='click:acceptInvitation') Accept
+          h2 You're Invited To {{user.invitations.party.name}}
+          a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)') Accept
           a.btn.btn-danger(x-bind='click:rejectInvitation') Reject
           // {/}
         div(ng-hide='user.invitations.party', ng-controller='PartyCtrl')
@@ -42,7 +41,7 @@ div(ng-controller='GroupsCtrl')
         .tab-pane.active#groups-public-guilds
           div(ng-repeat='invitation in user.invitations.guilds')
             h3 You're Invited To {{invitation.name}}
-            a.btn.btn-success(data-type='guild', x-bind='click:acceptInvitation') Accept
+            a.btn.btn-success(data-type='guild', ng-click='join(group)') Accept
             a.btn.btn-danger(x-bind='click:rejectInvitation') Reject
           // Public Groups
           table.table.table-striped
