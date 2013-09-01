@@ -1,12 +1,10 @@
 "use strict";
 
-habitrpg
-
-  .controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q',
-    function($scope, $rootScope, Groups, $http, API_URL, $q) {
+habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q',
+  function($scope, $rootScope, Groups, $http, API_URL, $q) {
 
       $scope.isMember = function(user, group){
-        return ~group.members.indexOf(user._id);
+        return ~(group.members.indexOf(user._id));
       }
 
       // The user may not visit the public guilds, personal guilds, and tavern pages. So
@@ -48,29 +46,28 @@ habitrpg
         })
       });
 
-      //$scope._chatMessage = '';
-      $scope.postChat = function(group, $event){
-        //FIXME ng-model makes this painfully slow! using jquery for now, which is really non-angular-like
-        var message = $($event.target).val();
-        if (_.isEmpty(message)) return
-        $('.chat-btn').addClass('disabled');
-        group.$postChat({message:message}, function(data){
-          //$scope._chatMessage = '';
-          $($event.target).val('');
-          group.chat = data.chat;
-          $('.chat-btn').removeClass('disabled');
-        });
-      }
-
       $scope.invitee = '';
       $scope.invite = function(group, uuid){
-        debugger
         group.$invite({uuid:uuid}, function(){
           $scope.invitee = '';
         });
       }
     }
   ])
+
+  .controller('ChatCtrl', ['$scope', 'Groups', function($scope, Groups){
+    $scope._chatMessage = '';
+    $scope.postChat = function(group, message){
+      if (_.isEmpty(message)) return
+      $('.chat-btn').addClass('disabled');
+      group.$postChat({message:message}, function(data){
+        $scope._chatMessage = '';
+        group.chat = data.chat;
+        $('.chat-btn').removeClass('disabled');
+      });
+    }
+
+  }])
 
   .controller("GuildsCtrl", ['$scope', 'Groups',
     function($scope, Groups) {
