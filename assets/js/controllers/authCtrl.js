@@ -22,7 +22,8 @@ habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'Facebook', 'LocalAuth'
   };
   runAuth = function(id, token) {
     User.authenticate(id, token, function(err) {
-      $rootScope.modals.login = false;
+      window.location.href = '/';
+      //$rootScope.modals.login = false;
     });
   };
   $scope.register = function() {
