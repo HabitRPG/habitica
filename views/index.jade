@@ -76,27 +76,32 @@ html
     meta(name='apple-mobile-web-app-capable', content='yes')
 
   body(ng-app="habitrpg", ng-controller="RootCtrl", ng-cloak)
-    include ./shared/modals/index
-    include ./shared/header/header
+    div(ng-controller='GroupsCtrl')
+      include ./shared/modals/index
+      include ./shared/header/header
 
-    #notification-area(ng-controller='NotificationCtrl')
-    #wrap
+      #notification-area(ng-controller='NotificationCtrl')
+      #wrap
 
-      // Errors
-      ul.unstyled.alert.alert-error(ng-show='_flash.error')
-        li(ng-repeat='error in _flash.error') {{error}}
+        // Errors
+        ul.unstyled.alert.alert-error(ng-show='_flash.error')
+          li(ng-repeat='error in _flash.error') {{error}}
 
-      //if they hide the header, we still need user-menu visible
-      div(ng-if='user.preferences.hideHeader')
-        include ./shared/header/menu
+        //if they hide the header, we still need user-menu visible
+        div(ng-if='user.preferences.hideHeader')
+          include ./shared/header/menu
 
-      .exp-chart(ng-show='page.charts.exp')
+        .exp-chart(ng-show='page.charts.exp')
 
-      #main(ng-view)
+        #main(ng-view)
 
-    .container
-      h3
-        a(target='_blank',href='https://workflowy.com/shared/9c77c53d-a174-d181-73a4-dc611508a936/') Roadmap
-    include ./shared/footer
+      .container
+        h3
+          a(target='_blank',href='https://workflowy.com/shared/9c77c53d-a174-d181-73a4-dc611508a936/') Roadmap
+      include ./shared/footer
 
+    // Modal backdrop for when loading big stuff
+    #loading-indicator(style='display:none;')
+      .modal-backdrop
+      h1(style='position:absolute;top:50%;left:45%;color:white;z-index:9000') Loading...
 

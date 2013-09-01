@@ -16,13 +16,22 @@ var api = module.exports;
   ------------------------------------------------------------------------
 */
 
+/**
+ * Get groups. If req.query.type privided, returned as an array (so ngResource can use). If not, returned as
+ * object {guilds, public, party, tavern}. req.query.type can be comma-separated `type=guilds,party`
+ * @param req
+ * @param res
+ * @param next
+ */
 api.getGroups = function(req, res, next) {
   var user = res.locals.user;
   var usernameFields = 'auth.local.username auth.facebook.displayName auth.facebook.givenName auth.facebook.familyName auth.facebook.name';
+  var type = req.query.type && req.query.type.split(',');
 
   // First get all groups
   async.parallel({
     party: function(cb) {
+      if (type && !~type.indexOf('party')) return cb(null, {});
       Group
         .findOne({type: 'party', members: {'$in': [user._id]}})
         .populate({
@@ -33,13 +42,16 @@ api.getGroups = function(req, res, next) {
         .exec(cb);
     },
     guilds: function(cb) {
+      if (type && !~type.indexOf('guilds')) return cb(null, []);
       Group.find({type: 'guild', members: {'$in': [user._id]}}).populate('members', usernameFields).exec(cb);
 //      Group.find({type: 'guild', members: {'$in': [user._id]}}, cb);
     },
     tavern: function(cb) {
+      if (type && !~type.indexOf('tavern')) return cb(null, {});
       Group.findOne({_id: 'habitrpg'}, cb);
     },
     "public": function(cb) {
+      if (type && !~type.indexOf('public')) return cb(null, []);
       Group.find({privacy: 'public'}, {name:1, description:1, members:1}, cb);
     }
   }, function(err, results){
@@ -52,7 +64,15 @@ api.getGroups = function(req, res, next) {
     // Sort public groups by members length (not easily doable in mongoose)
     results.public = _.sortBy(results.public, function(group){
       return -group.members.length;
-    })
+    });
+
+    // If they're requesting a specific type, let's return it as an array so that $ngResource
+    // can utilize it properly
+    if (type) {
+      results = _.reduce(type, function(m,t){
+        return m.concat(_.isArray(results[t]) ? results[t] : [results[t]]);
+      }, []);
+    }
 
     res.json(results);
   })
@@ -74,7 +94,7 @@ api.postChat = function(req, res, next) {
     uuid: user._id,
     contributor: user.backer && user.backer.contributor,
     npc: user.backer && user.backer.npc,
-    text: req.body.message,
+    text: req.query.message, // FIXME this should be body, but ngResource is funky
     user: helpers.username(user.auth, user.profile.name),
     timestamp: +(new Date)
   };
@@ -87,8 +107,29 @@ api.postChat = function(req, res, next) {
     user.save();
   }
 
-  group.save(function(err, group){
+  group.save(function(err, saved){
     if (err) return res.json(500, {err:err});
-    res.json(group.chat);
+    res.json(saved);
+  })
+}
+
+api.join = function(req, res, next) {
+  var user = res.locals.user,
+    group = res.locals.group;
+
+  group.members.push(user._id);
+  group.save(function(err, saved){
+    if (err) return res.json(500,{err:err});
+    res.json(saved);
+  });
+}
+
+api.leave = function(req, res, next) {
+  var user = res.locals.user,
+    group = res.locals.group;
+
+  Group.update({_id:group._id},{$pull:{members:user._id}}, function(err){
+    if (err) return res.json(500,{err:err});
+    res.send(200);
   })
 }

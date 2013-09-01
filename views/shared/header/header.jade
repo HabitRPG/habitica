@@ -26,7 +26,7 @@
             a(x-bind='click:toggleChart', ng-click='notPorted()', data-id='exp', tooltip='Progress')
               i.icon-signal
     // party
-    span(ng-controller='GroupsCtrl')
+    span(ng-controller='PartyCtrl')
       .herobox-wrap(ng-repeat='profile in groups.party.members')
         include avatar
 

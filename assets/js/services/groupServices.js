@@ -10,8 +10,10 @@ angular.module('groupServices', ['ngResource']).
         var Group = $resource(API_URL + '/api/v1/groups/:gid',
           {gid:'@_id'},
           {
-            'query': {method: "GET", isArray:false}
-            //postChat: {method: "POST"}
+            //'query': {method: "GET", isArray:false}
+            postChat: {method: "POST", url: API_URL + '/api/v1/groups/:gid/chat'},
+            join: {method: "POST", url: API_URL + '/api/v1/groups/:gid/join'},
+            leave: {method: "POST", url: API_URL + '/api/v1/groups/:gid/leave'}
           });
 
         return Group;

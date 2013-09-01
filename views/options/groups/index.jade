@@ -8,7 +8,7 @@ div(ng-controller='GroupsCtrl')
     li.active
       a(data-target='#groups-party', data-toggle='tab') Party
     li
-      a(data-target='#groups-guilds', data-toggle='tab') Guilds
+      a(data-target='#groups-guilds', data-toggle='tab', ng-click='fetchGuilds()') Guilds
 
   .tab-content
     #groups-party.tab-pane.active Party

@@ -2,26 +2,61 @@
 
 habitrpg
 
-  .controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', '$location', '$http', 'API_URL',
-    function($scope, $rootScope, Groups, $http, API_URL) {
-      $scope._chatMessage = '';
-      $scope.groups = Groups.query(function(groups){
-        $scope.members = groups.members;
+  .controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q',
+    function($scope, $rootScope, Groups, $http, API_URL, $q) {
+
+      // The user may not visit the public guilds, personal guilds, and tavern pages. So
+      // we defer loading them to the html until they've clicked the tabs
+      var partyQ = $q.defer(),
+          guildsQ = $q.defer(),
+          publicQ = $q.defer(),
+          tavernQ = $q.defer();
+
+      $scope.groups = {
+        party: partyQ.promise,
+        guilds: guildsQ.promise,
+        public: publicQ.promise,
+        tavern: tavernQ.promise
+      };
+
+      // But we don't defer triggering Party, since we always need it for the header if nothing else
+      Groups.query({type:'party'}, function(_groups){
+        partyQ.resolve(_groups[0]);
+      })
+
+      // Note the _.once() to make sure it can never be called again
+      $scope.fetchGuilds = _.once(function(){
+        $('#loading-indicator').show();
+        Groups.query({type:'guilds'}, function(_groups){
+          guildsQ.resolve(_groups);
+          $('#loading-indicator').hide();
+        })
+        Groups.query({type:'public'}, function(_groups){
+          publicQ.resolve(_groups);
+        })
       });
+
+      $scope.fetchTavern = _.once(function(){
+        $('#loading-indicator').show();
+        Groups.query({type:'tavern'}, function(_groups){
+          $('#loading-indicator').hide();
+          tavernQ.resolve(_groups[0]);
+        })
+      });
+
+      //$scope._chatMessage = '';
       $scope.postChat = function(group, message){
         //FIXME ng-model makes this painfully slow! using jquery for now, which is really non-angular-like
         message = $('.chat-textarea').val();
         if (_.isEmpty(message)) return
         $('.chat-btn').addClass('disabled');
-        $http.post('/api/v1/groups/'+group._id+'/chat', {message:message})
-          .success(function(data){
-            //$scope._chatMessage = '';
-            $('.chat-textarea').val('');
-            group.chat = data;
-            $('.chat-btn').removeClass('disabled');
-          });
+        group.$postChat({message:message}, function(data){
+          //$scope._chatMessage = '';
+          $('.chat-textarea').val('');
+          group.chat = data.chat;
+          $('.chat-btn').removeClass('disabled');
+        });
       }
-      $scope.party = true;
     }
   ])
 
@@ -29,6 +64,9 @@ habitrpg
     function($scope, Groups) {
       $scope.type = 'guild';
       $scope.text = 'Guild';
+      $scope.join = function(group){
+
+      }
     }
   ])
 
@@ -36,17 +74,12 @@ habitrpg
     function($scope, Groups) {
       $scope.type = 'party';
       $scope.text = 'Party';
-      Groups.query(function(groups){
-        $scope.group = groups.party;
-      })
+      $scope.group = $scope.groups.party;
     }
   ])
 
   .controller("TavernCtrl", ['$scope', 'Groups',
     function($scope, Groups) {
-      //FIXME make sure this query is only called once for all these controllers! If not, let's memoize groups at groupServices level
-      Groups.query(function(groups){
-        $scope.group = groups.tavern;
-      });
+      $scope.group = $scope.groups.tavern;
     }
   ])

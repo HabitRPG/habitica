@@ -9,7 +9,7 @@
           i.icon-user
           | Profile
       li
-        a(data-toggle='tab',data-target='#groups-tab')
+        a(data-toggle='tab',data-target='#groups-tab', ng-click='fetchParty()')
           i.icon-heart
           | Groups
       li(ng-show='user.flags.dropsEnabled')
@@ -21,7 +21,7 @@
           i.icon-leaf
           | Stable
       li
-        a(data-toggle='tab',data-target='tavern-tab')
+        a(data-toggle='tab',data-target='#tavern-tab',ng-click='fetchTavern()')
           i.icon-eye-close
           | Tavern
       li
