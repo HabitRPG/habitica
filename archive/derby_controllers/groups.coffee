@@ -80,10 +80,6 @@ module.exports.app = (appExports, model, app) ->
               return groupError("User already in a party.")
             else invite()
 
-  joinGroup = (gid) ->
-    model.push("groups.#{gid}.members", user.get('id'), ->location.reload())
-
-  appExports.joinGroup = (e, el) -> joinGroup e.get('id')
 
   appExports.acceptInvitation = (e,el) ->
     gid = e.get('id')

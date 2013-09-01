@@ -128,8 +128,8 @@ api.leave = function(req, res, next) {
   var user = res.locals.user,
     group = res.locals.group;
 
-  Group.update({_id:group._id},{$pull:{members:user._id}}, function(err){
+  Group.update({_id:group._id},{$pull:{members:user._id}}, function(err, saved){
     if (err) return res.json(500,{err:err});
-    res.send(200);
+    res.send(200, saved);
   })
 }

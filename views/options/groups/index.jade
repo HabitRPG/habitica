@@ -30,7 +30,7 @@ div(ng-controller='GroupsCtrl')
             {{user.id}}
           include ./create-group
 
-    #groups-guilds.tab-pane Guilds
+    #groups-guilds.tab-pane(ng-controller='GuildsCtrl') Guilds
       ul.nav.nav-tabs
         li.active
           a(data-target='#groups-public-guilds', data-toggle='tab') Public Guilds
@@ -52,10 +52,10 @@ div(ng-controller='GroupsCtrl')
                   li {{group.members.length}} member(s)
                   li
                     // join / leave
-                    a.btn.btn-small.btn-danger(ng-show='indexOf(group.members,user.id)', x-bind='click:groupLeave', data-id='{{group.id}}')
+                    a.btn.btn-small.btn-danger(ng-show='isMember(user, group)', ng-click='leave(group)')
                       i.icon-ban-circle
                       | Leave
-                    a.btn.btn-small.btn-success(ng-hide='indexOf(group.members,user.id)', x-bind='click:joinGroup')
+                    a.btn.btn-small.btn-success(ng-hide='isMember(user, group)', ng-click='join(group)')
                       i.icon-ok
                       | Join
                 h4 {{group.name}}
@@ -64,5 +64,4 @@ div(ng-controller='GroupsCtrl')
           include ./group
 
         .tab-pane#groups-create-guild
-          div(ng-controller='GuildsCtrl')
-            include ./group
+          include ./group
