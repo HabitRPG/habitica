@@ -23,4 +23,24 @@ window.habitrpg = angular.module('habitrpg',
         $httpProvider.defaults.headers.common['x-api-user'] = settings.auth.apiId;
         $httpProvider.defaults.headers.common['x-api-key'] = settings.auth.apiId;
       }
+
+      // Handle errors
+      var interceptor = ['$rootScope', '$q', function ($rootScope, $q) {
+        function success(response) {
+          return response;
+        }
+        function error(response) {
+          //var status = response.status;
+          response.data = (response.data.err) ? response.data.err : response.data;
+          if (response.status == 0) response.data = 'Server currently unreachable';
+          if (response.status == 500) response.data += '(see Chrome console for more details).';
+          $rootScope.flash.errors.push(response.status + ': ' + response.data);
+          console.log(arguments);
+          return $q.reject(response);
+        }
+        return function (promise) {
+          return promise.then(success, error);
+        }
+      }];
+      $httpProvider.responseInterceptors.push(interceptor);
   }])

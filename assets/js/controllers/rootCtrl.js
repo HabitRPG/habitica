@@ -9,6 +9,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
   $rootScope.User = User;
   $rootScope.user = User.user;
   $rootScope.settings = User.settings;
+  $rootScope.flash = {errors: [], warnings: []};
 
   /*
    FIXME this is dangerous, organize helpers.coffee better, so we can group them by which controller needs them,

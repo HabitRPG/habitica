@@ -84,8 +84,8 @@ html
       #wrap
 
         // Errors
-        ul.unstyled.alert.alert-error(ng-show='_flash.error')
-          li(ng-repeat='error in _flash.error') {{error}}
+        .unstyled.alert.alert-error(ng-repeat='error in flash.errors') {{error}}
+        .unstyled.alert.alert-error(ng-repeat='error in flash.warnings') {{error}}
 
         //if they hide the header, we still need user-menu visible
         div(ng-if='user.preferences.hideHeader')
