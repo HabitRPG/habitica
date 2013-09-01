@@ -10,6 +10,22 @@ habitrpg.controller('MenuCtrl',
   ['$scope', '$rootScope', '$location', 'User',
   function($scope, $rootScope, $location, User) {
 
+    $scope.sync = function(){
+      User.user._v--;
+      User.log({})
+    }
+
+    $scope.gotoOptions = function(){
+      $scope.viewingOptions = true;
+      $location.path('/options');
+    }
+
+    $scope.gotoTasks = function(){
+      $scope.viewingOptions = false;
+      $location.path('/tasks')
+    }
+
+
     //FIXME where to implement this in rewrite?
 
     $scope.refreshing = function () {

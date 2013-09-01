@@ -1,15 +1,25 @@
 .user-menu(ng-controller='AuthCtrl')
   button.task-action-btn.tile.solid(ng-hide='authenticated()', style='cursor: pointer;', ng-click="modals.login = true") Login / Register
   ul.nav.site-nav(ng-show='authenticated()')
-    li.flyout
+    li.flyout(ng-controller='MenuCtrl')
       h1.task-action-btn.tile.solid.user-reporter {{username(user.auth, user.profile.name)}}
       ul.flyout-content.nav.stacked
         li
           a.task-action-btn.tile.solid(x-bind='click:toggleGamePane')
-            span(ng-show='_gamePane') Tasks
-            span(ng-hide='_gamePane') Options
+            span(ng-show='viewingOptions', ng-click='gotoTasks()')
+              i.icon-ok
+              | Tasks
+            span(ng-hide='viewingOptions', ng-click='gotoOptions()')
+              i.icon.icon-wrench
+              |  Options
         li
-          a.task-action-btn.tile.solid(ng-click='logout()') Logout
+          a.task-action-btn.tile.solid(ng-click='sync()')
+            i.icon.icon-refresh
+            |  Sync
+        li
+          a.task-action-btn.tile.solid(ng-click='logout()')
+            i.icon-share-alt
+            |  Logout
     // party invitation notification
     a(ng-show='user.party.invitation', style='cursor: pointer;', x-bind='click:gotoPartyChat')
       i.icon-user
