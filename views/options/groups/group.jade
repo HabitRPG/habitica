@@ -82,7 +82,7 @@ a.pull-right.gem-wallet(rel='popover', data-trigger='hover', data-title='Guild B
         //-{else}
         //-    No challenges yet, visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> tab to create one.
         //-{/}
-    a.btn.btn-danger(data-id='{{group.id}}', x-bind='click:groupLeave') Leave
+    a.btn.btn-danger(data-id='{{group.id}}', ng-click='leave(group)') Leave
 
   .span8
     div(ng-if='group.leader==user.id')

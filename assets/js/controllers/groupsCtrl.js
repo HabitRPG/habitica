@@ -49,14 +49,14 @@ habitrpg
       });
 
       //$scope._chatMessage = '';
-      $scope.postChat = function(group, message){
+      $scope.postChat = function(group, $event){
         //FIXME ng-model makes this painfully slow! using jquery for now, which is really non-angular-like
-        message = $('.chat-textarea').val();
+        var message = $($event.target).val();
         if (_.isEmpty(message)) return
         $('.chat-btn').addClass('disabled');
         group.$postChat({message:message}, function(data){
           //$scope._chatMessage = '';
-          $('.chat-textarea').val('');
+          $($event.target).val('');
           group.chat = data.chat;
           $('.chat-btn').removeClass('disabled');
         });
