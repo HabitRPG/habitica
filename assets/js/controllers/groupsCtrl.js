@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q',
-  function($scope, $rootScope, Groups, $http, API_URL, $q) {
+habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q', 'User',
+  function($scope, $rootScope, Groups, $http, API_URL, $q, User) {
 
       $scope.isMember = function(user, group){
         return ~(group.members.indexOf(user._id));
@@ -53,6 +53,36 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           alert("User invited to group");
         });
       }
+
+      $scope.create = function(group){
+        group.leader = User.user._id;
+        group.members = [User.user._id];
+
+        if (group.type === 'party') {
+          group.$save(function(){
+            location.reload();
+          });
+        }
+
+        if (User.user.balance >= 1) {
+          $rootScope.modals.moreGems = true;
+//          $('#more-gems-modal').modal('show');
+        }
+
+        if (confirm("Create Guild for 4 Gems?")) {
+          if (group.type === 'guild') {
+            group.privacy = group.privacy || 'public';
+          }
+          group.balance = 1;
+          group.$save(function(){
+            User.user.balance--;
+            User.log({op:'set', data:{'balance':user.balance}});
+            window.setTimeout(function(){window.location.href='/';}, 500)
+          })
+        }
+
+
+      }
     }
   ])
 
@@ -74,6 +104,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     function($scope, Groups) {
       $scope.type = 'guild';
       $scope.text = 'Guild';
+      $scope.newGroup = new Groups({type:'guild', privacy:'private'});
 
       $scope.join = function(group){
         group.$join(function(saved){
@@ -95,6 +126,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     function($scope, Groups, User) {
       $scope.type = 'party';
       $scope.text = 'Party';
+      $scope.newGroup = new Groups({type:'party'});
       $scope.group = $scope.groups.party;
       $scope.join = function(party){
         // workaround since group isn't currently a resource, this won't get saved to the server

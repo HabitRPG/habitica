@@ -83,6 +83,14 @@ api.getGroups = function(req, res, next) {
   })
 };
 
+api.createGroup = function(req, res, next) {
+  var group = new Group(req.body);
+  group.save(function(err, saved){
+    if (err) return res.json(500,{err:err});
+    res.json(saved);
+  })
+}
+
 api.attachGroup = function(req, res, next) {
   Group.findById(req.params.gid, function(err, group){
     if(err) return res.json(500, {err:err});
