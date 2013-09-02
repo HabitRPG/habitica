@@ -122,6 +122,7 @@ angular.module('userServices', []).
                     settings.auth.apiId = uuid;
                     settings.auth.apiToken = token;
                     settings.online = true;
+                    if (user && user._v) user._v--; // shortcut to always fetch new updates on page reload
                     this.log({}, cb);
                 } else {
                     alert('Please enter your ID and Token in settings.')
