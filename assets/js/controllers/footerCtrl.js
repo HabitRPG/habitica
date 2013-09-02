@@ -14,11 +14,11 @@ habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http',
       $.getScript('//checkout.stripe.com/v2/checkout.js');
 
       // Amazon Affiliate
-      if ($rootScope.authenticated() && User.user.flags.ads !== 'hide') {
-        $.getScript('//wms.assoc-amazon.com/20070822/US/js/link-enhancer-common.js?tag=ha0d2-20').fail(function() {
-          $('body').append('<img src="//wms.assoc-amazon.com/20070822/US/img/noscript.gif?tag=ha0d2-20" alt="" />');
-        });
-      }
+//      if ($rootScope.authenticated() && User.user.flags.ads !== 'hide') {
+//        $.getScript('//wms.assoc-amazon.com/20070822/US/js/link-enhancer-common.js?tag=ha0d2-20').fail(function() {
+//          $('body').append('<img src="//wms.assoc-amazon.com/20070822/US/img/noscript.gif?tag=ha0d2-20" alt="" />');
+//        });
+//      }
 
       // Google Analytics, only in production
       if (window.env.NODE_ENV === 'production') {
