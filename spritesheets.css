@@ -427,7 +427,7 @@
 .armor_0_v1 {background-position: -6660px 0; width: 90px; height: 90px}
 .armor_0_v0 {background-position: -6750px 0; width: 90px; height: 90px}
 [class^="shop_"] {
-    background: url('img/sprites/shop_sprites.png') no-repeat;
+    background: url('./img/sprites/shop_sprites.png') no-repeat;
 }
 
 [class^="shop_weapon_"], [class^="shop_shield_"], [class^="shop_head_"], [class^="shop_armor_"] {

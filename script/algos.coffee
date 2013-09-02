@@ -89,7 +89,7 @@ obj.gpModifier = (value, modifier, priority = '!', streak, user) ->
   if streak and user
     streakBonus = streak / 100 + 1 # eg, 1-day streak is 1.1, 2-day is 1.2, etc
     afterStreak = val * streakBonus
-    (user._tmp?={}).streakBonus = afterStreak - val if (val > 0) # keep this on-hand for later, so we can notify streak-bonus
+    user._tmp.streakBonus = afterStreak - val if (val > 0) # keep this on-hand for later, so we can notify streak-bonus
     return afterStreak
   else
     return val
@@ -177,7 +177,7 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
 
     # if they've dropped something, we want the consuming client to know so they can notify the user. See how the Derby
     # app handles it for example. Would this be better handled as an emit() ?
-    (user._tmp?={}).drop = drop
+    user._tmp.drop = drop
 
     user.items.lastDrop.date = +new Date
     user.items.lastDrop.count++
@@ -187,6 +187,11 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
 #  {task} task you want to score
 #  {direction} 'up' or 'down'
 obj.score = (user, task, direction, options={}) ->
+
+  # This is for setting one-time temporary flags, such as streakBonus or itemDropped. Useful for notifying
+  # the API consumer, then cleared afterwards
+  user._tmp = {}
+
   [gp, hp, exp, lvl] = [+user.stats.gp, +user.stats.hp, +user.stats.exp, ~~user.stats.lvl]
   [type, value, streak, priority] = [task.type, +task.value, ~~task.streak, task.priority or '!']
   [paths, times, cron] = [options.paths || {}, options.times || 1, options.cron || false]
