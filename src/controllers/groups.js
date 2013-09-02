@@ -130,12 +130,6 @@ api.join = function(req, res, next) {
   var user = res.locals.user,
     group = res.locals.group;
 
-  group.members.push(user._id);
-  group.save(function(err, saved){
-    if (err) return res.json(500,{err:err});
-    res.json(saved);
-  });
-
   if (group.type == 'party' && group._id == (user.invitations && user.invitations.party && user.invitations.party.id)) {
     user.invitations.party = undefined;
     user.save();
@@ -145,6 +139,19 @@ api.join = function(req, res, next) {
     if (~i) user.invitations.guilds.splice(i,1);
     user.save();
   }
+
+  group.members.push(user._id);
+  async.series([
+    function(cb){
+      group.save(cb);
+    },
+    function(cb){
+      Group.findById(group._id).populate('members', partyFields).exec(cb);
+    }
+  ], function(err, results){
+    if (err) return res.json(500,{err:err});
+    res.json(results[1]);
+  });
 }
 
 api.leave = function(req, res, next) {

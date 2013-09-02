@@ -7,44 +7,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         return ~(group.members.indexOf(user._id));
       }
 
-      // The user may not visit the public guilds, personal guilds, and tavern pages. So
-      // we defer loading them to the html until they've clicked the tabs
-      var partyQ = $q.defer(),
-          guildsQ = $q.defer(),
-          publicQ = $q.defer(),
-          tavernQ = $q.defer();
+      $scope.groups = Groups.groups;
 
-      $scope.groups = {
-        party: partyQ.promise,
-        guilds: guildsQ.promise,
-        public: publicQ.promise,
-        tavern: tavernQ.promise
-      };
-
-      // But we don't defer triggering Party, since we always need it for the header if nothing else
-      Groups.query({type:'party'}, function(_groups){
-        partyQ.resolve(_groups[0]);
-      })
-
-      // Note the _.once() to make sure it can never be called again
-      $scope.fetchGuilds = _.once(function(){
-        $('#loading-indicator').show();
-        Groups.query({type:'guilds'}, function(_groups){
-          guildsQ.resolve(_groups);
-          $('#loading-indicator').hide();
-        })
-        Groups.query({type:'public'}, function(_groups){
-          publicQ.resolve(_groups);
-        })
-      });
-
-      $scope.fetchTavern = _.once(function(){
-        $('#loading-indicator').show();
-        Groups.query({type:'tavern'}, function(_groups){
-          $('#loading-indicator').hide();
-          tavernQ.resolve(_groups[0]);
-        })
-      });
+      $scope.fetchGuilds = Groups.fetchGuilds;
+      $scope.fetchTavern = Groups.fetchTavern;
 
       $scope.invitee = '';
       $scope.invite = function(group, uuid){
@@ -74,7 +40,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     function($scope, Groups, User, $rootScope) {
       $scope.type = 'guild';
       $scope.text = 'Guild';
-      $scope.newGroup = new Groups({type:'guild', privacy:'private', leader: User.user._id, members: [User.user._id]});
+      $scope.newGroup = new Groups.Group({type:'guild', privacy:'private', leader: User.user._id, members: [User.user._id]});
 
       $scope.create = function(group){
         if (User.user.balance < 1) {
@@ -112,31 +78,24 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     function($scope, Groups, User) {
       $scope.type = 'party';
       $scope.text = 'Party';
-      $scope.newGroup = new Groups({type:'party', leader: User.user._id, members: [User.user._id]});
+      $scope.group = Groups.groups.party;
+      $scope.newGroup = new Groups.Group({type:'party', leader: User.user._id, members: [User.user._id]});
       $scope.create = function(group){
         group.$save(function(){
           location.reload();
         });
       }
 
-
-      // TODO Figure out a better way to set variables on GroupsCtrl scope
-      var groupsCtrl = angular.element($('#groups-controller')).scope();
-      $scope.group = $scope.groups.party;
       $scope.join = function(party){
-        var group = new Groups({_id: party.id, name: party.name});
+        var group = new Groups.Group({_id: party.id, name: party.name});
         // there a better way to access GroupsCtrl.groups.party?
-        groupsCtrl.groups.party = group.$join(function(){
-          groupsCtrl.safeApply(function(){
-            User.user.invitations.party = undefined;
-          })
+        Groups.groups.party = group.$join(function(){
+          User.user.invitations.party = undefined;
         });
       }
       $scope.leave = function(group){
         group.$leave(function(){
-          groupsCtrl.safeApply(function(){
-            groupsCtrl.groups.party = {};
-          })
+          Groups.groups.party = new Groups.Group();
         });
       }
       $scope.reject = function(){
@@ -148,6 +107,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
   .controller("TavernCtrl", ['$scope', 'Groups',
     function($scope, Groups) {
-      $scope.group = $scope.groups.tavern;
+      $scope.group = Groups.groups.tavern;
     }
   ])
