@@ -121,16 +121,19 @@ var UserSchema = new Schema({
 
       str: String
     },
-    eggs: [
-      {
-        text: String, // Wolf
-        name: String, // Wolf
-        value: Number, //3
-        notes: String, //Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.
-        //type: String, //Egg // FIXME this is forcing mongoose to return object as "[object Object]", but I don't think this is needed anyway?
-        dialog: String //You've found a Wolf Egg! Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet
-      }
-    ],
+
+    // FIXME revert this back to definition once we've replaced Derby and can run a migration to remove all corrupt eggs
+    eggs: Schema.Types.Mixed,
+//      [
+//        {
+//          text: String, // Wolf
+//          name: String, // Wolf
+//          value: Number, //3
+//          notes: String, //Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.
+//          //type: String, //Egg // this is forcing mongoose to return object as "[object Object]", but I don't think this is needed anyway?
+//          dialog: String //You've found a Wolf Egg! Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet
+//        }
+//      ],
     hatchingPotions: Array, //["Base", "Skeleton",...]
     lastDrop: {
       date: Date,
@@ -228,6 +231,10 @@ var UserSchema = new Schema({
 
 UserSchema.post('init', function(doc) {
   /* Fix corrupt values, FIXME we can remove this after off Derby*/
+
+  doc.items.eggs = _.filter(doc.items.eggs,function(egg){
+    return !_.isString(egg);
+  })
 
   _.each(doc.tasks, function(task, k) {
     if ((task != null ? task.id : void 0) == null) {
