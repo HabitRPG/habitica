@@ -4,10 +4,11 @@
  The authentication controller (login & facebook)
  */
 
-habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'Facebook', 'LocalAuth', 'User', '$http', '$location', 'API_URL',
-  function($scope, $rootScope, Facebook, LocalAuth, User, $http, $location, API_URL) {
+habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', 'API_URL',
+  function($scope, $rootScope, User, $http, $location, API_URL) {
   var runAuth;
   var showedFacebookMessage;
+
   $scope.useUUID = false;
   $scope.toggleUUID = function() {
     if (showedFacebookMessage === false) {
@@ -16,16 +17,19 @@ habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'Facebook', 'LocalAuth'
     }
     $scope.useUUID = !$scope.useUUID;
   };
+
   $scope.logout = function() {
     localStorage.clear();
-    location.reload();
+    window.location.href = '/logout';
   };
+
   runAuth = function(id, token) {
     User.authenticate(id, token, function(err) {
       window.location.href = '/';
       //$rootScope.modals.login = false;
     });
   };
+
   $scope.register = function() {
     /*TODO highlight invalid inputs
      we have this as a workaround for https://github.com/HabitRPG/habitrpg-mobile/issues/64
@@ -45,6 +49,7 @@ habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'Facebook', 'LocalAuth'
         }
       });
   };
+
   $scope.auth = function() {
     var data;
     data = {
@@ -68,4 +73,12 @@ habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'Facebook', 'LocalAuth'
         });
     }
   };
+
+  $scope.playButtonClick = function(){
+    if (User.authenticated()) {
+      window.location.href = '/';
+    } else {
+      $('#login-modal').modal('show');
+    }
+  }
 }]);

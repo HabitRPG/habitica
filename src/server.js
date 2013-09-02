@@ -34,6 +34,8 @@ app.use(express.logger("dev"));
 app.use(express.bodyParser());
 app.use(require('connect-assets')());
 app.use(express.methodOverride());
+app.use(express.cookieParser(nconf.get('SESSION_SECRET')));
+app.use(express.session());
 app.use(require('./middleware'));
 app.use(app.router);
 app.use(express['static'](path.join(__dirname, "/../public")));
@@ -71,7 +73,6 @@ module.exports = server;
  #  .use(express.methodOverride())
  #  # Uncomment and supply secret to add Derby session handling
  #  # Derby session middleware creates req.session and socket.io sessions
- #  .use(express.cookieParser())
  #  .use(store.sessionMiddleware
  #    secret: process.env.SESSION_SECRET || 'YOUR SECRET HERE'
  #    cookie: { maxAge: TWO_WEEKS } # defaults to 2 weeks? aka, can delete this line?

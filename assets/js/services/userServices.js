@@ -5,8 +5,8 @@
  */
 
 angular.module('userServices', []).
-    factory('User', ['$http', '$location', 'Notification', 'API_URL', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID',
-      function($http, $location, Notification, API_URL, STORAGE_USER_ID, STORAGE_SETTINGS_ID) {
+    factory('User', ['$http', '$location', 'API_URL', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID',
+      function($http, $location, API_URL, STORAGE_USER_ID, STORAGE_SETTINGS_ID) {
         var authenticated = false,
             defaultSettings = {
                 auth: { apiId: '', apiToken: ''},
@@ -92,7 +92,7 @@ angular.module('userServices', []).
                         queue.push(sent.shift())
                     });
                     settings.fetching = false;
-                    Notification.push({type:'text', text:"We're offline"})
+                    //Notification.push({type:'text', text:"We're offline"})
 
                 });
 
@@ -174,7 +174,7 @@ angular.module('userServices', []).
 
         //If user does not have ApiID that forward him to settings.
         if (!settings.auth.apiId || !settings.auth.apiToken) {
-            $location.path("/login");
+            //$location.path("/login");
         } else {
             userServices.authenticate(settings.auth.apiId, settings.auth.apiToken)
         }

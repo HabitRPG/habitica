@@ -2,6 +2,7 @@
 
 /**
  * Services that persists and retrieves user from localStorage.
+ * FIXME is this file ever used?
  */
 
 var facebook = {}

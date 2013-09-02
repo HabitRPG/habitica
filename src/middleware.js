@@ -5,8 +5,8 @@ module.exports = function(req, res, next) {
 
   // show them the splash page if they're not logged in
   var isStatic = req.url.split('/')[1] == 'static';
-//  if (!isStatic && !req.headers['x-api-user'] && !req.headers['x-api-key'] && req.headers.accept != 'application/json')
-//    return res.redirect('/static/front')
+  if (req.url == '/' && !req.headers['x-api-user'] && !req.headers['x-api-key'] && !(req.session && req.session.userId))
+    return res.redirect('/static/front')
 
   res.locals.habitrpg  = res.locals.habitrpg || {}
   _.defaults(res.locals.habitrpg, {
@@ -20,7 +20,6 @@ module.exports = function(req, res, next) {
   res.header("Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,HEAD,DELETE");
   res.header("Access-Control-Allow-Headers", "Content-Type,Accept,Content-Encoding,X-Requested-With,x-api-user,x-api-key");
 
-  //wtf is this for?
   if (req.method === 'OPTIONS') {
     return res.send(200);
   }

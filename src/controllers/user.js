@@ -31,7 +31,6 @@ var NO_USER_FOUND = {err: "No user found."};
   beforeEach auth interceptor
 */
 
-
 api.auth = function(req, res, next) {
   var token, uid;
   uid = req.headers['x-api-user'];
@@ -53,6 +52,7 @@ api.auth = function(req, res, next) {
     }
     res.locals.wasModified = +user._v !== +req.query._v;
     res.locals.user = user;
+    req.session.userId = user._id;
     return next();
   });
 };

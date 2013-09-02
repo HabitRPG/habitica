@@ -7,16 +7,31 @@ html
 
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    // CDN
-    link(href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css', rel='stylesheet')
-    link(href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css', rel='stylesheet')
-    link(href='/css/docs.css', rel='stylesheet')
+
+    // CSS
+    link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap.css')
+    link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css')
+    link(href='/bower_components/bootstrap/docs/assets/css/docs.css', rel='stylesheet')
     link(href='/css/static-pages.css', rel='stylesheet')
     link(href='/css/footer.css', rel='stylesheet')
-    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js')
-    script(src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
+
+    // FIXME we gotta get rid of all these requirements in userServices. we don't need habitrpg-shared, lodash, moment, etc here
+    // and habitrpg-shared alone is ~700kb
+
+    // JS
+    script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')
+    script(type='text/javascript', src='/bower_components/lodash/dist/lodash.min.js')
+    script(type='text/javascript', src='/bower_components/habitrpg-shared/dist/habitrpg-shared.js')
+    script(type='text/javascript', src='/bower_components/moment/min/moment.min.js')
+    script(type='text/javascript', src='/bower_components/angular/angular.min.js')
+    script(type='text/javascript', src='/bower_components/bootstrap/docs/assets/js/bootstrap.min.js')
     script(type='text/javascript').
       $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
+
+    != js('static')
+    != js('services/userServices')
+    != js('controllers/authCtrl')
+
   body
     block content
 
