@@ -15,3 +15,7 @@
 body {
     padding-top:0px;
 }
+
+a {
+  cursor: pointer;
+}

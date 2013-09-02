@@ -35,7 +35,7 @@ block content
                   a(data-toggle='tab',data-target='#register-tab') Register
 
               .tab-content
-                .tab-pane.active
+                .tab-pane.active#login-tab
                   form(ng-submit='auth()')
                     .control-group
                       input(type='text', ng-model='loginUsername', placeholder='{{useUUID ? "UUID" : "Username"}}')
@@ -48,7 +48,7 @@ block content
                     .control-group
                       input.btn.btn-primary(type='submit', value='Login')
 
-                .tab-pane
+                .tab-pane#register-tab
                   form(ng-submit='register()', name='registrationForm')
                     .control-group
                       input(type='text', ng-model='registerVals.username', placeholder='Username', required)
@@ -60,6 +60,3 @@ block content
                       input(type='password', ng-model='registerVals.confirmPassword', placeholder='Password Confirm', required)
                     .control-group
                       input.btn.btn-primary(type='submit', value='Register')
-
-            .modal-footer
-              button.btn.btn-default(type='button', data-dismiss='modal') Close
