@@ -86,7 +86,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           group.balance = 1;
           group.$save(function(){
             User.user.balance--;
-            User.log({op:'set', data:{'balance':user.balance}});
+            User.log({op:'set', data:{'balance':User.user.balance}});
             window.setTimeout(function(){window.location.href='/';}, 500)
           })
         }
