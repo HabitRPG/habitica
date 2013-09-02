@@ -19,7 +19,7 @@ div(ng-controller='GroupsCtrl')
           // {#with _user.invitations.party as :party}
           h2 You're Invited To {{user.invitations.party.name}}
           a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)') Accept
-          a.btn.btn-danger(x-bind='click:rejectInvitation') Reject
+          a.btn.btn-danger(ng-click='reject(group)') Reject
           // {/}
         div(ng-hide='user.invitations.party', ng-controller='PartyCtrl')
           h2 Create A Party

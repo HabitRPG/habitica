@@ -16,6 +16,9 @@ var api = module.exports;
   ------------------------------------------------------------------------
 */
 
+var usernameFields = 'auth.local.username auth.facebook.displayName auth.facebook.givenName auth.facebook.familyName auth.facebook.name';
+var partyFields = 'profile preferences items stats achievements party backer ' + usernameFields;
+
 /**
  * Get groups. If req.query.type privided, returned as an array (so ngResource can use). If not, returned as
  * object {guilds, public, party, tavern}. req.query.type can be comma-separated `type=guilds,party`
@@ -25,7 +28,7 @@ var api = module.exports;
  */
 api.getGroups = function(req, res, next) {
   var user = res.locals.user;
-  var usernameFields = 'auth.local.username auth.facebook.displayName auth.facebook.givenName auth.facebook.familyName auth.facebook.name';
+
   var type = req.query.type && req.query.type.split(',');
 
   // First get all groups
@@ -37,7 +40,7 @@ api.getGroups = function(req, res, next) {
         .populate({
           path: 'members',
           //match: {_id: {$ne: user._id}}, //fixme this causes it to hang??
-          select: 'profile preferences items stats achievements party backer ' + usernameFields
+          select: partyFields
         })
         .exec(cb);
     },
@@ -58,8 +61,10 @@ api.getGroups = function(req, res, next) {
     if (err) return res.json(500, {err: err});
 
     // Remove self from party (see above failing `match` directive in `populate`
-    var i = _.findIndex(results.party.members, {_id:user._id});
-    if (~i) results.party.members.splice(i,1);
+    if (results.party) {
+      var i = _.findIndex(results.party.members, {_id:user._id});
+      if (~i) results.party.members.splice(i,1);
+    }
 
     // Sort public groups by members length (not easily doable in mongoose)
     results.public = _.sortBy(results.public, function(group){
@@ -173,7 +178,11 @@ api.invite = function(req, res, next) {
       //req.body.type in 'guild', 'party'
       invite.invitations.party = {id:group._id, name: group.name}
       invite.save();
-      res.json(group);
+      Group.findById(group._id)
+        .populate('members', partyFields).exec(function(err, saved){
+          res.json(group);
+        });
+
     }
   });
 }

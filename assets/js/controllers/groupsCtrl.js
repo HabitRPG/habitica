@@ -50,6 +50,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.invite = function(group, uuid){
         group.$invite({uuid:uuid}, function(){
           $scope.invitee = '';
+          alert("User invited to group");
         });
       }
     }
@@ -90,16 +91,24 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
   ])
 
-  .controller("PartyCtrl", ['$scope', 'Groups',
-    function($scope, Groups) {
+  .controller("PartyCtrl", ['$scope', 'Groups', 'User',
+    function($scope, Groups, User) {
       $scope.type = 'party';
       $scope.text = 'Party';
       $scope.group = $scope.groups.party;
       $scope.join = function(party){
         // workaround since group isn't currently a resource, this won't get saved to the server
         var group = new Groups({_id: party.id, name: party.name});
-        debugger
         group.$join();
+      }
+      $scope.leave = function(group){
+        group.$leave(function(){
+          $parent.groups.party = {}
+        });
+      }
+      $scope.reject = function(){
+        User.user.invitations.party = undefined;
+        User.log({op:'set',data:{'invitations.party':{}}});
       }
     }
   ])
