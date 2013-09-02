@@ -77,8 +77,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.newGroup = new Groups({type:'guild', privacy:'private', leader: User.user._id, members: [User.user._id]});
 
       $scope.create = function(group){
-        if (User.user.balance >= 1) {
-          $rootScope.modals.moreGems = true;
+        if (User.user.balance < 1) {
+          return $rootScope.modals.moreGems = true;
 //          $('#more-gems-modal').modal('show');
         }
 
