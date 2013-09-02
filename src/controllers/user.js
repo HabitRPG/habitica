@@ -267,13 +267,9 @@ api.getTask = function(req, res, next) {
 
 api.deleteTask = function(req, res, next) {
   deleteTask(res.locals.user, res.locals.task);
-  return res.locals.user.save(function(err) {
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    return res.send(204);
+  res.locals.user.save(function(err) {
+    if (err) return res.json(500, {err: err});
+    res.send(204);
   });
 };
 
@@ -820,35 +816,44 @@ api.batchUpdate = function(req, res, next) {
           data: data
         });
       }
-      /*FIXME send error messages down*/
-
+      //FIXME send error messages down
       return cb();
     };
     switch (action.op) {
       case "score":
         api.scoreTask(req, res);
+        break;
       case "buy":
         api.buy(req, res);
+        break;
       case "sortTask":
         api.verifyTaskExists(req, res, function() {
           api.sortTask(req, res);
         });
+        break;
       case "addTask":
         api.createTask(req, res);
+        break;
       case "delTask":
         api.verifyTaskExists(req, res, function() {
           api.deleteTask(req, res);
         });
+        break;
       case "set":
         api.updateUser(req, res);
+        break;
       case "revive":
         api.revive(req, res);
+        break;
       case "clear-completed":
         api.clearCompleted(req, res);
+        break;
       case "reroll":
         api.reroll(req, res);
+        break;
       default:
         cb();
+        break;
     }
   };
   /* Setup the array of functions we're going to call in parallel with async*/

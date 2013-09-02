@@ -248,11 +248,11 @@ UserSchema.post('init', function(doc) {
       return doc.stats[k] = 0;
     }
   });
-  return _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
-    /* we use _.transform instead of a simple _.where in order to maintain sort-order*/
 
-    return doc["" + type + "s"] = _.transform(doc["" + type + "Ids"], function(result, tid) {
-      return result.push(doc.tasks[tid]);
+  _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
+    // we use _.transform instead of a simple _.where in order to maintain sort-order
+    doc[type + "s"] = _.transform(doc[type + "Ids"], function(result, tid) {
+      result.push(doc.tasks[tid]);
     });
   });
 });
