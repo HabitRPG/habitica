@@ -153,7 +153,7 @@ api.leave = function(req, res, next) {
 
   Group.update({_id:group._id},{$pull:{members:user._id}}, function(err, saved){
     if (err) return res.json(500,{err:err});
-    res.send(200, saved);
+    res.send(200, {_id: saved._id});
   })
 }
 

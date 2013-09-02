@@ -53,36 +53,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           alert("User invited to group");
         });
       }
-
-      $scope.create = function(group){
-        group.leader = User.user._id;
-        group.members = [User.user._id];
-
-        if (group.type === 'party') {
-          group.$save(function(){
-            location.reload();
-          });
-        }
-
-        if (User.user.balance >= 1) {
-          $rootScope.modals.moreGems = true;
-//          $('#more-gems-modal').modal('show');
-        }
-
-        if (confirm("Create Guild for 4 Gems?")) {
-          if (group.type === 'guild') {
-            group.privacy = group.privacy || 'public';
-          }
-          group.balance = 1;
-          group.$save(function(){
-            User.user.balance--;
-            User.log({op:'set', data:{'balance':user.balance}});
-            window.setTimeout(function(){window.location.href='/';}, 500)
-          })
-        }
-
-
-      }
     }
   ])
 
@@ -100,11 +70,27 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
   }])
 
-  .controller("GuildsCtrl", ['$scope', 'Groups',
-    function($scope, Groups) {
+  .controller("GuildsCtrl", ['$scope', 'Groups', 'User', '$rootScope',
+    function($scope, Groups, User, $rootScope) {
       $scope.type = 'guild';
       $scope.text = 'Guild';
-      $scope.newGroup = new Groups({type:'guild', privacy:'private'});
+      $scope.newGroup = new Groups({type:'guild', privacy:'private', leader: User.user._id, members: [User.user._id]});
+
+      $scope.create = function(group){
+        if (User.user.balance >= 1) {
+          $rootScope.modals.moreGems = true;
+//          $('#more-gems-modal').modal('show');
+        }
+
+        if (confirm("Create Guild for 4 Gems?")) {
+          group.balance = 1;
+          group.$save(function(){
+            User.user.balance--;
+            User.log({op:'set', data:{'balance':user.balance}});
+            window.setTimeout(function(){window.location.href='/';}, 500)
+          })
+        }
+      }
 
       $scope.join = function(group){
         group.$join(function(saved){
@@ -126,7 +112,13 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     function($scope, Groups, User) {
       $scope.type = 'party';
       $scope.text = 'Party';
-      $scope.newGroup = new Groups({type:'party'});
+      $scope.newGroup = new Groups({type:'party', leader: User.user._id, members: [User.user._id]});
+      $scope.create = function(group){
+        group.$save(function(){
+          location.reload();
+        });
+      }
+
       $scope.group = $scope.groups.party;
       $scope.join = function(party){
         // workaround since group isn't currently a resource, this won't get saved to the server
@@ -134,9 +126,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         group.$join();
       }
       $scope.leave = function(group){
-        group.$leave(function(){
-          $parent.groups.party = {}
-        });
+        group.$leave();
       }
       $scope.reject = function(){
         User.user.invitations.party = undefined;
