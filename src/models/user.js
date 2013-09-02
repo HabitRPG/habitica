@@ -232,9 +232,11 @@ var UserSchema = new Schema({
 UserSchema.post('init', function(doc) {
   /* Fix corrupt values, FIXME we can remove this after off Derby*/
 
-  doc.items.eggs = _.filter(doc.items.eggs,function(egg){
-    return !_.isString(egg);
-  })
+  if (doc.items && doc.items.eggs) {
+    doc.items.eggs = _.filter(doc.items.eggs,function(egg){
+      return !_.isString(egg);
+    })
+  }
 
   _.each(doc.tasks, function(task, k) {
     if ((task != null ? task.id : void 0) == null) {
