@@ -179,7 +179,7 @@ api.invite = function(req, res, next) {
         return res.json(400, {err:"User already invited to that group"});
       sendInvite();
     } else if (group.type == 'party') {
-      if (invite.invitations && invite.invitations.party)
+      if (invite.invitations && !_.isEmpty(invite.invitations.party))
         return res.json(400,{err:"User already pending invitation."});
       Group.find({type:'party', members:{$in:[uuid]}}, function(err, groups){
         if (err) return res.json(500,{err:err});
