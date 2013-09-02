@@ -123,29 +123,15 @@ var UserSchema = new Schema({
     },
     eggs: [
       {
-        /*"Wolf",*/
-
-        text: String,
-        /*"Wolf",*/
-
-        name: String,
-        /*3*/
-
-        value: Number,
-        /*"Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.",*/
-
-        notes: String,
-        /*"Egg",*/
-
-        type: String,
-        /*"You've found a Wolf Egg! Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet." },*/
-
-        dialog: String
+        text: String, // Wolf
+        name: String, // Wolf
+        value: Number, //3
+        notes: String, //Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.
+        //type: String, //Egg // FIXME this is forcing mongoose to return object as "[object Object]", but I don't think this is needed anyway?
+        dialog: String //You've found a Wolf Egg! Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet
       }
     ],
-    /* ["Base", "Skeleton",...]*/
-
-    hatchingPotions: Array,
+    hatchingPotions: Array, //["Base", "Skeleton",...]
     lastDrop: {
       date: Date,
       count: Number

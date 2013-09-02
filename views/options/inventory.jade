@@ -1,0 +1,24 @@
+.row-fluid
+  div(ng-class='{span6: _hatchEgg}')
+    menu.inventory-list(type='list')
+      li.customize-menu
+        menu.pets-menu(label='Eggs')
+          p(ng-show='!user.items.eggs') You don't have any eggs yet.
+          div(ng-repeat='egg in user.items.eggs track by $index')
+            button.customize-option(tooltip='{{egg.text}}', x-bind='click: chooseEgg', class='Pet_Egg_{{egg.name}}')
+            p {{egg.text}}
+      li.customize-menu
+        menu.hatchingPotion-menu(label='Hatching Potions')
+          p(ng-show='!user.items.hatchingPotions') You don't have any hatching potions yet.
+          div(ng-repeat='hatchingPotion in user.items.hatchingPotions track by $index')
+            button.customize-option(tooltip='{{hatchingPotion}}', x-bind='click: chooseHatching Potion', class='Pet_HatchingPotion_{{hatchingPotion}}')
+            p {{hatchingPotion}}
+  .span6(ng-show='_hatchEgg')
+    h3 Hatch Your Egg
+    p(ng-show='!user.items.hatchingPotions') You don't have any hatching potions yet.
+    div(ng-show='user.items.hatchingPotions')
+      p Which hatching potion will you pour on your {{_hatchEgg.text}} egg?
+      form(x-bind='submit:hatchEgg')
+        select
+          option(ng-repeat='hatchingPotion in user.items.hatchingPotions track by $index') {{hatchingPotion}}
+        button(type='submit') Pour

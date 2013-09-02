@@ -7,66 +7,14 @@
 <hatchingPotion:>
     <td class="active-hatchingPotion" x-bind="click:buyHatchingPotion" data-hatchingPotion='{.name}'>
         <div class="Pet_HatchingPotion_{.name}"></div>
-        <p>{.text}<br/><small>{.value} Gems<small></p>
+        <p>{.text}<br/><small>{.value} Gems</small></p>
     </td>
 
 <egg:>
     <td class="active-egg" x-bind="click:buyEgg" data-egg='{.name}'>
         <div rel=tooltip class="Pet_Egg_{.name}"></div>
-        <p>{.text}<br/><small>{.value} Gems<small></p>
+        <p>{.text}<br/><small>{.value} Gems</small></p>
     </td>
-
-<inventory:>
-    <div class='row-fluid'>
-        <div class='{#if _hatchEgg}span6{/}'>
-            <menu type="list" class="inventory-list">
-                <li class="customize-menu">
-                    <menu label="Eggs" class='pets-menu'>
-                        {#if not(_user.items.eggs)}
-                            <p>You don't have any eggs yet.</p>
-                        {/if}
-                        {#each _user.items.eggs as :egg}
-                            <div>
-                                <button rel=tooltip title="{:egg.text}" class="customize-option Pet_Egg_{{:egg.name}}" x-bind="click: chooseEgg"></button>
-                                <p>{:egg.text}</p>
-                            </div>
-                        {/each}
-                    </menu>
-                </li>
-                <li class="customize-menu">
-                    <menu label="Hatching Potions" class='hatchingPotion-menu'>
-                        {#if not(_user.items.hatchingPotions)}
-                            <p>You don't have any hatching potions yet.</p>
-                        {/if}
-                        {#each _user.items.hatchingPotions as :hatchingPotion}
-                            <div>
-                                <button rel=tooltip title="{:hatchingPotion}" class="customize-option Pet_HatchingPotion_{{:hatchingPotion}}" x-bind="click: chooseHatching Potion"></button>
-                                <p>{:hatchingPotion}</p>
-                            </div>
-                        {/each}
-                    </menu>
-                </li>
-            </menu>
-        </div>
-        {#if _hatchEgg}
-        <div class='span6'>
-            <h3>Hatch Your Egg</h3>
-            {#if not(_user.items.hatchingPotions)}
-            <p>You don't have any hatching potions yet.</p>
-            {else}
-            <p>Which hatching potion will you pour on your {_hatchEgg.text} egg?</p>
-            <form x-bind="submit:hatchEgg">
-                <select>
-                    {#each _user.items.hatchingPotions as :hatchingPotion}
-                        <option>{:hatchingPotion}</option>
-                    {/each}
-                </select>
-                <button type=submit>Pour</button>
-            </form>
-            {/if}
-        </div>
-        {/if}
-    </div>
 
 <stable:>
     <!-- tables, I know - I spent a good 1h here with divs & row-fluid and can't get it working, so screw it -->
