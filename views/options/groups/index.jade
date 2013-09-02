@@ -44,8 +44,10 @@ div#groups-controller(ng-controller='GroupsCtrl')
             a.btn.btn-success(data-type='guild', ng-click='join(group)') Accept
             a.btn.btn-danger(x-bind='click:rejectInvitation') Reject
           // Public Groups
+          .options-group.option-large.whatever-options
+            input.option-content(type='text',ng-model='guildSearch', placeholder='Search')
           table.table.table-striped
-            tr(ng-repeat='group in groups.public')
+            tr(ng-repeat='group in groups.public | filter:guildSearch')
               td
                 ul.pull-right.challenge-accordion-header-specs
                   li {{group.members.length}} member(s)
