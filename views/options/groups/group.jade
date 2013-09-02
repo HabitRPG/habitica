@@ -13,15 +13,15 @@ a.pull-right.gem-wallet(rel='popover', data-trigger='hover', data-title='Guild B
             div(style='height:10px')
               a.pull-right(x-bind='click:toggleGroupEdit', data-gid='{{group.id}}')
                 i.icon-ok
-            input.option-content(type='text', value='{group.name}', placeholder='Group Name')
+            input.option-content(type='text', value='{{group.name}}', placeholder='Group Name')
             textarea(cols='3', placeholder='Description') {{group.description}}
-            input.option-content(type='url', placeholder='Logo Url', value='{group.logo}')
+            input.option-content(type='url', placeholder='Logo Url', value='{{group.logo}}')
             form.form-inline(x-bind='submit:groupAddWebsite')
-              input.option-content(type='url', placeholder='Website', value='{_newGroupWebsite}')
+              input.option-content(type='url', placeholder='Website', value='{{_newGroupWebsite}}')
               input(type='submit', value='Add')
             h4 Assign Group Leader
             select#group-leader-selection
-              option(ng-repeat='memberId in group.members', selected='{equal(memberId,_new.groupLeader)}') {{username(_members[memberId].auth,_members[memberId].profile.name)}}
+              option(ng-repeat='memberId in group.members', selected='memberId == _new.groupLeader') {{username(_members[memberId].auth,_members[memberId].profile.name)}}
             button(x-bind='click:assignGroupLeader') Assign
             div(ng-show='group.websites')
               h4 Resources
@@ -29,9 +29,9 @@ a.pull-right.gem-wallet(rel='popover', data-trigger='hover', data-title='Guild B
                 li
                   a(ng-repeat='website in group.websites', x-bind='click:removeAt')
                     i.icon-trash
-                  a(target='_blank', href='{website}') {{website}}
+                  a(target='_blank', href='{{website}}') {{website}}
           div(ng-show='!_editing.groups[group.id]')
-            img.pull-right(ng-show='group.logo', style='max-width:150px', src='{group.logo}')
+            img.pull-right(ng-show='group.logo', style='max-width:150px', ng-src='{{group.logo}}')
             a.pull-right(ng-if='group.leader==user.id', x-bind='click:toggleGroupEdit', data-gid='{{group.id}}')
               i.icon-pencil
             div {{group.description}}

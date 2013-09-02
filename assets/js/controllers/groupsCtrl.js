@@ -119,14 +119,25 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         });
       }
 
+
+      // TODO Figure out a better way to set variables on GroupsCtrl scope
+      var groupsCtrl = angular.element($('#groups-controller')).scope();
       $scope.group = $scope.groups.party;
       $scope.join = function(party){
-        // workaround since group isn't currently a resource, this won't get saved to the server
         var group = new Groups({_id: party.id, name: party.name});
-        group.$join();
+        // there a better way to access GroupsCtrl.groups.party?
+        groupsCtrl.groups.party = group.$join(function(){
+          groupsCtrl.safeApply(function(){
+            User.user.invitations.party = undefined;
+          })
+        });
       }
       $scope.leave = function(group){
-        group.$leave();
+        group.$leave(function(){
+          groupsCtrl.safeApply(function(){
+            groupsCtrl.groups.party = {};
+          })
+        });
       }
       $scope.reject = function(){
         User.user.invitations.party = undefined;

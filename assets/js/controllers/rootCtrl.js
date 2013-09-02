@@ -11,6 +11,17 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
   $rootScope.settings = User.settings;
   $rootScope.flash = {errors: [], warnings: []};
 
+  $scope.safeApply = function(fn) {
+    var phase = this.$root.$$phase;
+    if(phase == '$apply' || phase == '$digest') {
+      if(fn && (typeof(fn) === 'function')) {
+        fn();
+      }
+    } else {
+      this.$apply(fn);
+    }
+  };
+
   /*
    FIXME this is dangerous, organize helpers.coffee better, so we can group them by which controller needs them,
    and then simply _.defaults($scope, Helpers.user) kinda thing

@@ -188,7 +188,7 @@ api.invite = function(req, res, next) {
       invite.save();
       Group.findById(group._id)
         .populate('members', partyFields).exec(function(err, saved){
-          res.json(group);
+          res.json(saved);
         });
 
     }
