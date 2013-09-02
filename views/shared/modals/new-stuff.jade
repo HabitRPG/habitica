@@ -1,3 +1,48 @@
+div(modal='user.flags.rewrite !== false')
+  .modal-header
+    h3 Mega Ultra Update!
+  .modal-body
+    table
+      tr
+        td
+          .NPC-Bailey
+        td
+          .popover.static-popover.fade.right.in(style='max-width:400px')
+            .arrow
+            h3.popover-title
+              a(target='_blank', href='http://www.kickstarter.com/profile/mihakuu') Bailey
+            .popover-content
+              p.
+                Hello my Habiteers! I have some amazing news to share with you, it's huge!
+                Has Habit ever crashed for you? (Joke). Well we <a target='_blank' href="http://habitrpg.tumblr.com/post/59104876969/website-issues-what-were-doing">re-wrote the website from the ground up</a>
+                so we could conquor all the bugs once and for all (more from Tyler in a bit). If you haven't seen me for a while (due to a bug in the old site), be sure to catch up with me on the right side of the screen for any missed news. Importantly, the following happened:
+              h4.
+                <a target='_blank' href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg'>Android</a> & <a target='_blank' href='https://itunes.apple.com/us/app/habitrpg/id689569235?mt=8'>iOS</a> Apps are out!
+              p They're open source, so help us make them awesome.
+
+    table(style='clear:both;')
+      tr
+        td
+          .popover.static-popover.fade.left.in(style='max-width:400px')
+            .arrow
+            h3.popover-title
+              a(target='_blank', href='https://twitter.com/lefnire') Tyler
+            .popover-content
+              p.
+                JavaScript developers! To me! We must finish vanquising the old site, as not all features have been ported.
+                We rewrote Habit on <a target='_blank' href='http://angularjs.org/'>AngularJS</a> + <a target='_blank' href='http://expressjs.com/'>Express</a>.
+                We desparately need your help porting the rest of the features, and polishing off the bugs. <a target='_blank' href='https://github.com/lefnire/habitrpg/wiki/Contributing#website'>Read this guide</a> to getting started.
+                Each of your pull requests shall grant you a special <a href='https://github.com/lefnire/habitrpg/issues/946#issuecomment-18654292' target='_blank'>Contributor Gear piece</a>. Thanks
+                everyone for all your support and patience!
+
+        td
+          img.pull-right(src='/bower_components/habitrpg-shared/img/unprocessed/efbd21c4-82a1-11e2-8190-fbc609b5c58b.png', style='height:72px')
+
+  .modal-footer
+    button.btn.btn-default.cancel(ng-click='user.flags.rewrite = false') Read Later
+    button.btn.btn-warning.cancel(ng-click='set("flags.rewrite", false)') Dismiss
+
+
 div(modal='modals.newStuff')
   .modal-header
     h3 New Stuff

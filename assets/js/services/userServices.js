@@ -132,16 +132,6 @@ angular.module('userServices', []).
               return this.settings.auth.apiId !== "";
             },
 
-            /*
-             Very simple path-set. `set('preferences.gender','m')` for example. We'll deprecate this once we have a complete API
-             */
-            set: function(k, v) {
-              var log = { op: 'set', data: {} };
-              window.habitrpgShared.helpers.dotSet(k, v, this.user);
-              log.data[k] = v;
-              this.log(log);
-            },
-
             log: function (action, cb) {
                 //push by one buy one if an array passed in.
                 if (_.isArray(action)) {
@@ -155,6 +145,18 @@ angular.module('userServices', []).
                 save();
                 syncQueue(cb);
             },
+
+            /*
+             Very simple path-set. `set('preferences.gender','m')` for example. We'll deprecate this once we have a complete API
+             */
+            set: function(k, v) {
+              var self = userServices;
+              var log = { op: 'set', data: {} };
+              window.habitrpgShared.helpers.dotSet(k, v, userServices.user);
+              log.data[k] = v;
+              userServices.log(log);
+            },
+
             settings: settings
         };
 

@@ -826,29 +826,29 @@ api.batchUpdate = function(req, res, next) {
     };
     switch (action.op) {
       case "score":
-        return api.scoreTask(req, res);
+        api.scoreTask(req, res);
       case "buy":
-        return api.buy(req, res);
+        api.buy(req, res);
       case "sortTask":
-        return api.verifyTaskExists(req, res, function() {
-          return api.sortTask(req, res);
+        api.verifyTaskExists(req, res, function() {
+          api.sortTask(req, res);
         });
       case "addTask":
-        return api.createTask(req, res);
+        api.createTask(req, res);
       case "delTask":
-        return api.verifyTaskExists(req, res, function() {
-          return api.deleteTask(req, res);
+        api.verifyTaskExists(req, res, function() {
+          api.deleteTask(req, res);
         });
       case "set":
-        return api.updateUser(req, res);
+        api.updateUser(req, res);
       case "revive":
-        return api.revive(req, res);
+        api.revive(req, res);
       case "clear-completed":
-        return api.clearCompleted(req, res);
+        api.clearCompleted(req, res);
       case "reroll":
-        return api.reroll(req, res);
+        api.reroll(req, res);
       default:
-        return cb();
+        cb();
     }
   };
   /* Setup the array of functions we're going to call in parallel with async*/

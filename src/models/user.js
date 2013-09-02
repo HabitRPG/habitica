@@ -65,14 +65,11 @@ var UserSchema = new Schema({
     ads: String,
     dropsEnabled: Boolean,
     itemsEnabled: Boolean,
-    /*FIXME to boolean (currently show/hide)*/
-
-    newStuff: String,
+    newStuff: String, //FIXME to boolean (currently show/hide)
+    rewrite: Boolean,
     partyEnabled: Boolean,
     petsEnabled: Boolean,
-    /* FIXME remove?*/
-
-    rest: Boolean
+    rest: Boolean // fixme - change to preferences.resting once we're off derby
   },
   history: {
     exp: [
