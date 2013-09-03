@@ -5,6 +5,7 @@ var http = require("http");
 var path = require("path");
 var app = express();
 var nconf = require('nconf');
+var middleware = require('./middleware');
 var server;
 
 // Setup configurations
@@ -31,12 +32,16 @@ app.set("views", __dirname + "/../views");
 app.set("view engine", "jade");
 app.use(express.favicon());
 app.use(express.logger("dev"));
+app.use(middleware.cors);
 app.use(express.bodyParser());
 app.use(require('connect-assets')());
 app.use(express.methodOverride());
-app.use(express.cookieParser(nconf.get('SESSION_SECRET')));
-app.use(express.session());
-app.use(require('./middleware'));
+//app.use(express.cookieParser(nconf.get('SESSION_SECRET')));
+app.use(express.cookieParser());
+app.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: 60 * 60 * 1000 }}));
+//app.use(express.session());
+app.use(middleware.splash);
+app.use(middleware.locals);
 app.use(app.router);
 app.use(express['static'](path.join(__dirname, "/../public")));
 
