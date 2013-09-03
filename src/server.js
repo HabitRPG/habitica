@@ -7,6 +7,7 @@ var app = express();
 var nconf = require('nconf');
 var middleware = require('./middleware');
 var server;
+var TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 
 // Setup configurations
 require('./config');
@@ -21,7 +22,7 @@ mongoose.connect(nconf.get('NODE_DB_URI'), function(err) {
   console.info('Connected with Mongoose');
 });
 
-/*
+/**
  Server Configuration
  */
 
@@ -38,7 +39,7 @@ app.use(require('connect-assets')());
 app.use(express.methodOverride());
 //app.use(express.cookieParser(nconf.get('SESSION_SECRET')));
 app.use(express.cookieParser());
-app.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: 60 * 60 * 1000 }}));
+app.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: TWO_WEEKS }}));
 //app.use(express.session());
 app.use(middleware.splash);
 app.use(middleware.locals);
@@ -62,7 +63,6 @@ module.exports = server;
 
 /*
  #ONE_YEAR = 1000 * 60 * 60 * 24 * 365
- #TWO_WEEKS = 1000 * 60 * 60 * 24 * 14
  #root = path.dirname path.dirname __dirname
  #publicPath = path.join root, 'public'
  #
@@ -74,23 +74,7 @@ module.exports = server;
  #  .use(gzippo.staticGzip(publicPath, maxAge: ONE_YEAR))
  #  # Gzip dynamically rendered content
  #  .use(express.compress())
- #  .use(express.bodyParser())
- #  .use(express.methodOverride())
- #  # Uncomment and supply secret to add Derby session handling
- #  # Derby session middleware creates req.session and socket.io sessions
- #  .use(store.sessionMiddleware
- #    secret: process.env.SESSION_SECRET || 'YOUR SECRET HERE'
- #    cookie: { maxAge: TWO_WEEKS } # defaults to 2 weeks? aka, can delete this line?
- #    store: mongo_store
- #  )
- #  # Adds req.getModel method
- #  .use(store.modelMiddleware())
  #  .use(middleware.translate)
- #  # API should be hit before all other routes
-
- #  # Show splash page for newcomers
- #  .use(middleware.splash)
- #  .use(priv.middleware)
  #  .use(middleware.view)
  #  .use(auth.middleware(strategies, options))
  #  # Creates an express middleware from the app's routes
