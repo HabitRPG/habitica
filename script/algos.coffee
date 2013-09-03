@@ -282,8 +282,9 @@ obj.score = (user, task, direction, options={}) ->
   task.value = value; paths["tasks.#{task.id}.value"] = true
   updateStats user, { hp, exp, gp }, {paths: paths}
 
-  # Drop system #FIXME
-  randomDrop(user, delta, priority, streak, {paths: paths}) if direction is 'up'
+  # Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
+  if typeof window is 'undefined'
+    randomDrop(user, delta, priority, streak, {paths: paths}) if direction is 'up'
 
   return delta
 
