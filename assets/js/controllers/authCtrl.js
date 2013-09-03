@@ -76,7 +76,7 @@ habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$loca
 
   $scope.playButtonClick = function(){
     if (User.authenticated()) {
-      window.location.href = '/';
+      window.location.href = '/#/tasks';
     } else {
       $('#login-modal').modal('show');
     }
