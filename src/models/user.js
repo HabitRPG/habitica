@@ -236,7 +236,7 @@ UserSchema.post('init', function(doc) {
   }
 
   _.each(doc.tasks, function(task, k) {
-    if ((task != null ? task.id : void 0) == null) {
+    if (!task || !task.id) {
       return delete doc.tasks[k];
     }
     if (isNaN(+task.value)) {
