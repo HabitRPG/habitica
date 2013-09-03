@@ -19,7 +19,7 @@ module.exports = function(grunt) {
       },
       options: {
         transform: ['coffeeify'],
-        //debug: true ENORMEOUS DATA URI SOURCE MAP
+        //debug: true Huge data uri source map (400kb!)
       }
     }
 
