@@ -1,0 +1,31 @@
+.stable(ng-controller='PetsCtrl')
+  .NPC-Matt
+    .popover.static-popover.fade.right.in(style='max-width: 550px; margin-left: 10px;')
+      .arrow
+      h3.popover-title Matt Boch
+      .popover-content
+        p
+          | Welcome to the Stable! I'm
+          a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')  Matt
+          | , the beast master. Choose a pet here to adventure at your side - they aren't much help yet, but I forsee a time when they're able to
+          a(href='https://trello.com/card/mounts/50e5d3684fe3a7266b0036d6/221')  grow into powerful steeds
+          | ! Until that day, 
+          a(target='_blank', href='https://f.cloud.github.com/assets/2374703/164631/3ed5fa6c-78cd-11e2-8743-f65ac477b55e.png') have a look-see
+          |  at all the pets you can collect.
+        h4 {{userPets.length}} / 90 Pets Found
+
+  table.pets(ng-repeat='pet in pets')
+    tbody
+      tr
+        td(ng-repeat='potion in hatchingPotions')
+          button(class="pet-button Pet-{{pet.name}}-{{potion.name}}", ng-show='hasPet(pet.name, potion.name)', ng-class="{active: isCurrentPet(pet.name, potion.name)}", ng-click='choosePet(pet.name, potion.name)', tooltip='{{potion.name}} {{pet.name}}')
+          button(class="pet-button pet-not-owned", ng-hide='hasPet(pet.name, potion.name)')
+            img(src='/bower_components/habitrpg-shared/img/PixelPaw.png', tooltip='{{potion.name}} {{pet.name}}')
+
+  h4 Rare Pets
+  table
+    tr
+      td
+        button(class="pet-button Pet-Wolf-Veteran", ng-show='hasPet("Wolf", "Veteran")', ng-class='{active: isCurrentPet("Wolf", "Veteran")}', ng-click='choosePet("Wolf", "Veteran")', tooltip='Veteran Wolf')
+        button(class="pet-button pet-not-owned", ng-hide='hasPet("Wolf", "Veteran")')
+          img(src='/bower_components/habitrpg-shared/img/PixelPaw.png', tooltip='Veteran Wolf')
