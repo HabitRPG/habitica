@@ -8,11 +8,10 @@
           td
             .popover.static-popover.fade.right.in
               .arrow
-              h3.popover-title Daniel Johansson
-              .popover-content
-                | Welcome to the Tavern! I'm
+              h3.popover-title
                 a(target='_blank', href='http://www.kickstarter.com/profile/2014640723') Daniel
-                | , the bar keep. If you want to rest a while (going on vacation? sudden illness?), I'll set you up at the inn - dailies won't hurt you while you're resting. Stay a while & meet the locals.
+              .popover-content
+                | Welcome to the Tavern! If you want to rest a while (going on vacation? sudden illness?), I'll set you up at the inn - dailies won't hurt you while you're resting. Stay a while & meet the locals.
                 div
                   button.btn.btn-large.btn-success(ng-class='{active: user.flags.rest}', ng-click='rest()')
                     span(ng-show='user.flags.rest') Check Out of Inn
