@@ -19,19 +19,14 @@ habitrpg.controller("TaskDetailsCtrl", ['$scope', '$rootScope', '$location', 'Us
     setVal("text", task.text);
     setVal("notes", task.notes);
     setVal("priority", task.priority);
+    setVal("tags", task.tags);
     if (task.type === "habit") {
       setVal("up", task.up);
       setVal("down", task.down);
     } else if (task.type === "daily") {
       setVal("repeat", task.repeat);
-      /* TODO we'll remove this once rewrite's running for a while. This was a patch for derby issues
-       */
-
+      // TODO we'll remove this once rewrite's running for a while. This was a patch for derby issues
       setVal("streak", task.streak);
-      /* _.each(task.repeat, function(v, k) {
-       setVal("repeat." + k, v);
-       })
-       */
 
     } else if (task.type === "todo") {
       setVal("date", task.date);
