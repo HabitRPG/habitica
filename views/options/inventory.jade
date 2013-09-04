@@ -11,14 +11,13 @@
         menu.hatchingPotion-menu(label='Hatching Potions')
           p(ng-show='userHatchingPotions.length < 1') You don't have any hatching potions yet.
           div(ng-repeat='hatchingPotion in userHatchingPotions track by $index')
-            button.customize-option(tooltip='{{hatchingPotion}}', ng-click='chooseHatching(hatchingPotion)', class='Pet_HatchingPotion_{{hatchingPotion}}')
+            button.customize-option(tooltip='{{hatchingPotion}}', class='Pet_HatchingPotion_{{hatchingPotion}}')
             p {{hatchingPotion}}
   .span6(ng-show='hatching')
     h3 Hatch Your Egg
     p(ng-show='userHatchingPotions.length < 1') You don't have any hatching potions yet.
     div(ng-show='userHatchingPotions')
       p Which hatching potion will you pour on your {{_hatchEgg.text}} egg?
-      form(x-bind='submit:hatchEgg')
-        select
-          option(ng-repeat='hatchingPotion in user.items.hatchingPotions track by $index') {{hatchingPotion}}
-        button(type='submit') Pour
+      form
+        select(ng-options='hatchingPotion for hatchingPotion in userHatchingPotions', ng-model="selectedPotion")
+        button(ng-click="pour()") Pour
