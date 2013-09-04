@@ -396,8 +396,7 @@ api.buy = function(req, res, next) {
 
 
 api.getUser = function(req, res, next) {
-  var user;
-  user = res.locals.user;
+  var user = res.locals.user.toJSON();
   user.stats.toNextLevel = algos.tnl(user.stats.lvl);
   user.stats.maxHealth = 50;
   delete user.apiToken;
