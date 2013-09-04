@@ -20,17 +20,13 @@ html
 
     // JS
     script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')
-    script(type='text/javascript', src='/bower_components/lodash/dist/lodash.min.js')
     script(type='text/javascript', src='/bower_components/habitrpg-shared/dist/habitrpg-shared.js')
-    script(type='text/javascript', src='/bower_components/moment/min/moment.min.js')
     script(type='text/javascript', src='/bower_components/angular/angular.min.js')
     script(type='text/javascript', src='/bower_components/bootstrap/docs/assets/js/bootstrap.min.js')
     script(type='text/javascript').
       $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
 
-    != js('static')
-    != js('services/userServices')
-    != js('controllers/authCtrl')
+    != js('staticMain')
 
   body
     block content
