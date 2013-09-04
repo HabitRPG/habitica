@@ -23,13 +23,6 @@ router.get('/status', function(req, res) {
   });
 });
 
-/* auth.auth*/
-auth.setupPassport(router); //FIXME make this consistent with the others
-router.post('/register', auth.registerUser);
-router.post('/user/auth/local', auth.loginLocal);
-router.post('/user/auth/facebook', auth.loginFacebook);
-
-
 /* Scoring*/
 router.post('/user/task/:id/:direction', auth.auth, cron, user.scoreTask);
 router.post('/user/tasks/:id/:direction', auth.auth, cron, user.scoreTask);

@@ -29,7 +29,8 @@
     "bower": "~1.2.4",
     "nib": "~1.0.1",
     "jade": "~0.35.0",
-    "passport": "~0.1.17"
+    "passport": "~0.1.17",
+    "validator": "~1.5.1"
   },
   "private": true,
   "subdomain": "habitrpg",
