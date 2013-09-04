@@ -84,6 +84,7 @@ habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$loca
 
   if ($location.path() == '/facebook-callback') {
     var search = $location.search();
+    if (search.err) return alert(search.err);
     runAuth(search._id, search.apiToken);
   }
 
