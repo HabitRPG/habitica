@@ -120,8 +120,17 @@ api.postChat = function(req, res, next) {
     user.save();
   }
 
-  group.save(function(err, saved){
+  async.series([
+    function(cb){
+      group.save(cb)
+    },
+    function(cb){
+      Group.findById(group._id).populate('members', partyFields).exec(cb);
+    }
+  ], function(err, results){
     if (err) return res.json(500, {err:err});
+    var saved = results[1];
+    saved.members = _.filter(saved.members, function(m){return m._id != user._id});
     res.json(saved);
   })
 }
