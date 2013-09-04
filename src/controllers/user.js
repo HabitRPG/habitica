@@ -167,17 +167,18 @@ function deleteTask(user, task) {
 */
 
 
-/*
+/**
   This is called form deprecated.coffee's score function, and the req.headers are setup properly to handle the login
   Export it also so we can call it from deprecated.coffee
 */
-
-
 api.scoreTask = function(req, res, next) {
+
+  // FIXME this is all uglified from coffeescript compile, clean this up
+
   var delta, direction, existing, id, task, user, _ref, _ref1, _ref2, _ref3, _ref4;
   _ref = req.params, id = _ref.id, direction = _ref.direction;
-  /* Send error responses for improper API call*/
 
+  // Send error responses for improper API call
   if (!id) {
     return res.json(500, {
       err: ':id required'
