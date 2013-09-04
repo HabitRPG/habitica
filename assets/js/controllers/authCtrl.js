@@ -50,9 +50,18 @@ habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$loca
       });
   };
 
+  function errorAlert(data, status, headers, config) {
+    if (status === 0) {
+      alert("Server not currently reachable, try again later");
+    } else if (!!data && !!data.err) {
+      alert(data.err);
+    } else {
+      alert("ERROR: " + status);
+    }
+  }
+
   $scope.auth = function() {
-    var data;
-    data = {
+    var data = {
       username: $scope.loginUsername,
       password: $scope.loginPassword
     };
@@ -62,17 +71,16 @@ habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$loca
       $http.post(API_URL + "/api/v1/user/auth/local", data)
         .success(function(data, status, headers, config) {
           runAuth(data.id, data.token);
-        }).error(function(data, status, headers, config) {
-          if (status === 0) {
-            alert("Server not currently reachable, try again later");
-          } else if (!!data && !!data.err) {
-            alert(data.err);
-          } else {
-            alert("ERROR: " + status);
-          }
-        });
+        }).error(errorAlert);
     }
   };
+
+  $scope.facebookAuth = function(){
+    $http.get('/auth/facebook')
+      .success(function(data){
+        runAuth(data.id, data.token);
+      }).error(errorAlert);
+  }
 
   $scope.playButtonClick = function(){
     if (User.authenticated()) {

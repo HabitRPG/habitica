@@ -7,7 +7,7 @@
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared#rewrite",
     "derby-auth": "git://github.com/lefnire/derby-auth#master",
     "connect-mongo": "*",
-    "passport-facebook": "*",
+    "passport-facebook": "~1.0.0",
     "express": "*",
     "gzippo": "*",
     "guid": "*",
@@ -28,7 +28,8 @@
     "connect-assets": "~2.5.2",
     "bower": "~1.2.4",
     "nib": "~1.0.1",
-    "jade": "~0.35.0"
+    "jade": "~0.35.0",
+    "passport": "~0.1.17"
   },
   "private": true,
   "subdomain": "habitrpg",

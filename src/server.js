@@ -9,11 +9,11 @@ var middleware = require('./middleware');
 var server;
 var TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 
-// Setup configurations
+// ------------ Setup configurations ------------
 require('./config');
 require('./errors');
 
-// MongoDB Configuration
+// ------------  MongoDB Configuration ------------
 mongoose = require('mongoose');
 require('./models/user'); //load up the user schema - TODO is this necessary?
 require('./models/group');
@@ -22,12 +22,50 @@ mongoose.connect(nconf.get('NODE_DB_URI'), function(err) {
   console.info('Connected with Mongoose');
 });
 
-/**
- Server Configuration
- */
+
+// ------------  Passport Configuration ------------
+var passport = require('passport')
+var util = require('util')
+var FacebookStrategy = require('passport-facebook').Strategy;
+// Passport session setup.
+//   To support persistent login sessions, Passport needs to be able to
+//   serialize users into and deserialize users out of the session.  Typically,
+//   this will be as simple as storing the user ID when serializing, and finding
+//   the user by ID when deserializing.  However, since this example does not
+//   have a database of user records, the complete Facebook profile is serialized
+//   and deserialized.
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
 
 
-// all environments
+// Use the FacebookStrategy within Passport.
+//   Strategies in Passport require a `verify` function, which accept
+//   credentials (in this case, an accessToken, refreshToken, and Facebook
+//   profile), and invoke a callback with a user object.
+passport.use(new FacebookStrategy({
+    clientID: nconf.get("FACEBOOK_KEY"),
+    clientSecret: nconf.get("FACEBOOK_SECRET"),
+    callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    // asynchronous verification, for effect...
+    //process.nextTick(function () {
+
+      // To keep the example simple, the user's Facebook profile is returned to
+      // represent the logged-in user.  In a typical application, you would want
+      // to associate the Facebook account with a user record in your database,
+      // and return that user instead.
+      return done(null, profile);
+    //});
+  }
+));
+
+// ------------  Server Configuration ------------
 app.set("port", nconf.get('PORT'));
 app.set("views", __dirname + "/../views");
 app.set("view engine", "jade");
@@ -43,6 +81,12 @@ app.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: f
 //app.use(express.session());
 app.use(middleware.splash);
 app.use(middleware.locals);
+
+// Initialize Passport!  Also use passport.session() middleware, to support
+// persistent login sessions (recommended).
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(app.router);
 app.use(express['static'](path.join(__dirname, "/../public")));
 
@@ -53,6 +97,7 @@ if ("development" === app.get("env")) {
 
 // Custom Directives
 app.use(require('./routes/pages').middleware);
+app.use(require('./routes/auth').middleware);
 app.use('/api/v1', require('./routes/api').middleware);
 app.use(require('./controllers/deprecated').middleware);
 server = http.createServer(app).listen(app.get("port"), function() {
@@ -68,19 +113,13 @@ module.exports = server;
  #
  #
  #expressApp
- #  .use(middleware.allowCrossDomain)
  #  .use(express.favicon("#{publicPath}/favicon.ico"))
  #  # Gzip static files and serve from memory
  #  .use(gzippo.staticGzip(publicPath, maxAge: ONE_YEAR))
  #  # Gzip dynamically rendered content
  #  .use(express.compress())
  #  .use(middleware.translate)
- #  .use(middleware.view)
  #  .use(auth.middleware(strategies, options))
- #  # Creates an express middleware from the app's routes
- #  .use(app.router())
- #  .use(require('./static').middleware)
- #  .use(expressApp.router)
  #  .use(serverError(root))
  #
  #
@@ -88,4 +127,3 @@ module.exports = server;
  #expressApp.all '*', (req) ->
  #  throw "404: #{req.url}"
  */
-

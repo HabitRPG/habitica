@@ -19,11 +19,6 @@ router.get('/partials/options', function(req, res) {
   res.render('options');
 });
 
-router.get('/logout', function(req, res) {
-  delete req.session.userId;
-  res.redirect('/');
-})
-
 // -------- Marketing --------
 
 router.get('/splash.html', function(req, res) {

@@ -1,19 +1,14 @@
-var api, deprecatedMessage, express, icalendar, initDeprecated, router, _;
-
-express = require('express');
-
-router = new express.Router();
-
-_ = require('lodash');
-
-icalendar = require('icalendar');
-
-api = require('./user');
+var express = require('express');
+var router = new express.Router();
+var _ = require('lodash');
+var icalendar = require('icalendar');
+var api = require('./user');
+var auth = require('./auth');
 
 /* ---------- Deprecated Paths ------------*/
 
 
-deprecatedMessage = 'This API is no longer supported, see https://github.com/lefnire/habitrpg/wiki/API for new protocol';
+var deprecatedMessage = 'This API is no longer supported, see https://github.com/lefnire/habitrpg/wiki/API for new protocol';
 
 router.get('/:uid/up/:score?', function(req, res) {
   return res.send(500, deprecatedMessage);
@@ -30,13 +25,13 @@ router.post('/users/:uid/tasks/:taskId/:direction', function(req, res) {
 /* Redirect to new API*/
 
 
-initDeprecated = function(req, res, next) {
+var initDeprecated = function(req, res, next) {
   req.headers['x-api-user'] = req.params.uid;
   req.headers['x-api-key'] = req.body.apiToken;
   return next();
 };
 
-router.post('/v1/users/:uid/tasks/:taskId/:direction', initDeprecated, api.auth, api.scoreTask);
+router.post('/v1/users/:uid/tasks/:taskId/:direction', initDeprecated, auth.auth, api.scoreTask);
 
 router.get('/v1/users/:uid/calendar.ics', function(req, res) {
   /*return next() #disable for now*/
