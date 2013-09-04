@@ -21,7 +21,7 @@ window.habitrpg = angular.module('habitrpg',
       if (settings && settings.auth) {
         $httpProvider.defaults.headers.common['Content-Type'] = 'application/json;charset=utf-8';
         $httpProvider.defaults.headers.common['x-api-user'] = settings.auth.apiId;
-        $httpProvider.defaults.headers.common['x-api-key'] = settings.auth.apiId;
+        $httpProvider.defaults.headers.common['x-api-key'] = settings.auth.apiToken;
       }
 
       // Handle errors

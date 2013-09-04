@@ -1,5 +1,7 @@
 var passport = require('passport');
 var _ = require('lodash');
+var async = require('async');
+var derbyAuthUtil = require('derby-auth/utils');
 var User = require('../models/user').model;
 
 var api = module.exports;
@@ -77,7 +79,7 @@ api.registerUser = function(req, res, next) {
         return cb("Username already taken");
       }
       newUser = helpers.newUser(true);
-      salt = utils.makeSalt();
+      salt = derbyAuthUtil.makeSalt();
       newUser.auth = {
         local: {
           username: username,
@@ -116,7 +118,7 @@ api.loginLocal = function(req, res, next) {
       // We needed the whole user object first so we can get his salt to encrypt password comparison
       User.findOne({
         'auth.local.username': username,
-        'auth.local.hashed_password': utils.encryptPassword(password, user.auth.local.salt)
+        'auth.local.hashed_password': derbyAuthUtil.encryptPassword(password, user.auth.local.salt)
       }, cb);
     }
   ], function(err, user) {
@@ -200,9 +202,11 @@ api.setupPassport = function(router) {
       //res.redirect('/');
 
       User.findOne({'auth.facebook.id':req.user.id}, function(err, user){
-        if (err) return res.json(500, {err:err});
-        if (!user) return res.json(401, {err: "New Facebook registrations aren't yet supported, only existing Facebook users. Help us code this!"});
-        res.json({id: user._id, token: user.apiToken});
+        if (err || !user) {
+          if (!err) err = "New Facebook registrations aren't yet supported, only existing Facebook users. Help us code this!";
+          return res.redirect('/#/facebook-callback?err=' + err);
+        }
+        res.redirect('/#/facebook-callback?_id='+user._id+'&apiToken='+user.apiToken);
       })
 
     });

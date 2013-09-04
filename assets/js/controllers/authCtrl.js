@@ -82,6 +82,11 @@ habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$loca
       }).error(errorAlert);
   }
 
+  if ($location.path() == '/facebook-callback') {
+    var search = $location.search();
+    runAuth(search._id, search.apiToken);
+  }
+
   $scope.playButtonClick = function(){
     if (User.authenticated()) {
       window.location.href = '/#/tasks';
