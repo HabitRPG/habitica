@@ -94,7 +94,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
     /* TODO this should be somewhere else, but fits the html location better here
      */
 
-    $rootScope.revive = function() {
+    // uhoh! our first name conflict with habitrpg-shared/helpers, we gotta resovle that soon.
+    $rootScope.clickRevive = function() {
       window.habitrpgShared.algos.revive(User.user);
       User.log({
         op: "revive"
