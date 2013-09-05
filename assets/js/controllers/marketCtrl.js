@@ -1,8 +1,6 @@
 habitrpg.controller("MarketCtrl", ['$rootScope', '$scope', 'User',
   function($rootScope, $scope, User) {
 
-  	User.set('balance', 4);
-
   	$scope.eggs = window.habitrpgShared.items.items.pets;
   	$scope.hatchingPotions = window.habitrpgShared.items.items.hatchingPotions;
     $scope.userEggs = User.user.items.eggs;
@@ -29,10 +27,11 @@ habitrpg.controller("MarketCtrl", ['$rootScope', '$scope', 'User',
   			};
 
   			dataStore.data[storePath] = store;
+  			User.user.balance = (gems - item.value) / 4;
 
   			User.log([
   				dataStore,
-        	{ op: 'set', data: {'balance': (gems - item.value) / 4} }
+        	{ op: 'set', data: {'balance': User.user.balance} }
   			]);
   		}
   	}
