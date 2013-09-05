@@ -29,3 +29,5 @@
         button(class="pet-button Pet-Wolf-Veteran", ng-show='hasPet("Wolf", "Veteran")', ng-class='{active: isCurrentPet("Wolf", "Veteran")}', ng-click='choosePet("Wolf", "Veteran")', tooltip='Veteran Wolf')
         button(class="pet-button pet-not-owned", ng-hide='hasPet("Wolf", "Veteran")')
           img(src='/bower_components/habitrpg-shared/img/PixelPaw.png')
+      td(ng-if='hasPet("Wolf", "Cerberus")')
+        button(class="pet-button Pet-Wolf-Cerberus", ng-class='{active: isCurrentPet("Wolf", "Cerberus")}', ng-click='choosePet("Wolf", "Cerberus")', tooltip='Cerberus Pup')
