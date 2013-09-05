@@ -67,10 +67,11 @@ passport.use(new FacebookStrategy({
 
 // ------------  Server Configuration ------------
 app.set("port", nconf.get('PORT'));
+app.use(express.logger("dev"));
+app.use(express.compress());
 app.set("views", __dirname + "/../views");
 app.set("view engine", "jade");
 app.use(express.favicon());
-app.use(express.logger("dev"));
 app.use(middleware.cors);
 app.use(express.bodyParser());
 app.use(require('connect-assets')());
