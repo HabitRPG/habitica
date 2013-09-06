@@ -17,7 +17,7 @@ var api = module.exports;
 */
 
 var usernameFields = 'auth.local.username auth.facebook.displayName auth.facebook.givenName auth.facebook.familyName auth.facebook.name';
-var partyFields = 'profile preferences items stats achievements party backer ' + usernameFields;
+var partyFields = 'profile preferences items stats achievements party backer flags.rest' + usernameFields;
 
 /**
  * Get groups. If req.query.type privided, returned as an array (so ngResource can use). If not, returned as
