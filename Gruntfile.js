@@ -99,6 +99,18 @@ module.exports = function(grunt) {
           'public/build/static.css': ['public/build/static.css']
         }
       }
+    },
+
+    exec: {
+      start: {
+        cmd: function(mode){
+          if(mode && mode == 'production'){
+            return 'nodemon --exec "./start.sh" production'
+          }else{
+            return 'nodemon --exec "./start.sh"'
+          }
+        }
+      }
     }
 
     /*hashres: {
@@ -117,8 +129,10 @@ module.exports = function(grunt) {
   });
 
   // Register tasks.
-  grunt.registerTask('build', ['clean:build', 'uglify', 'stylus', 'cssmin']);
-  grunt.registerTask('run', ['clean:build', 'stylus', 'cssmin']);
+  grunt.registerTask('production', ['clean:build', 'uglify', 'stylus', 'cssmin']);
+  grunt.registerTask('development', ['clean:build', 'stylus', 'cssmin']);
+  grunt.registerTask('start:production', ['exec:start:production']);
+  grunt.registerTask('start', ['exec:start']);
 
   // Load tasks
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -126,5 +140,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-exec');
 
 };
