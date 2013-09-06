@@ -75,7 +75,6 @@ app.use(express.favicon());
 app.use(middleware.cors);
 app.use(middleware.forceSSL);
 app.use(express.bodyParser());
-app.use(require('connect-assets')({src: 'public'}));
 app.use(express.methodOverride());
 //app.use(express.cookieParser(nconf.get('SESSION_SECRET')));
 app.use(express.cookieParser());

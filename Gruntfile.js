@@ -78,7 +78,30 @@ module.exports = function(grunt) {
       }
     },
 
-    hashres: {
+    stylus: {
+      build: {
+        options: {
+          compress: false, // AFTER
+          'include css': true,
+          paths: ['public']
+        },
+        files: {
+          'public/build/app.css': ['public/css/index.styl'],
+          'public/build/static.css': ['public/css/static.styl']
+        }
+      }
+    },
+
+    cssmin: {
+      build: {
+        files: {
+          'public/build/app.css': ['public/build/app.css'],
+          'public/build/static.css': ['public/build/static.css']
+        }
+      }
+    }
+
+    /*hashres: {
       options: {
         fileNameFormat: '${name}-${hash}.${ext}',
       },
@@ -89,16 +112,19 @@ module.exports = function(grunt) {
         ],
         dest: 'views/i-do-not-exist.jade' // Non existing file!
       }
-    }
+    }*/
 
   });
 
   // Register tasks.
-  grunt.registerTask('build', ['clean:build', 'uglify', 'hashres']);
+  grunt.registerTask('build', ['clean:build', 'uglify', 'stylus', 'cssmin']);
+  grunt.registerTask('run', ['clean:build', 'stylus', 'cssmin']);
 
   // Load tasks
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-hashres');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-stylus');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
 };

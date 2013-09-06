@@ -1,7 +1,10 @@
 @import "nib/vendor"
 
 // Vendor Includes - include first so we can override
-@import "../../../public/bower_components/bootstrap-datepicker/css/datepicker.css"
+// Import only styles that do not have urls to images! Include them directly in the page!
+@import "../bower_components/bootstrap-datepicker/css/datepicker.css"
+@import "../bower_components/angular-ui/build/angular-ui.min.css"
+@import "../bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css"
 
 // Custom includes
 @import "./tasks.styl"
