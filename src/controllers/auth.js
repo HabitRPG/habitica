@@ -5,7 +5,8 @@ var sanitize = validator.sanitize;
 var passport = require('passport');
 var helpers = require('habitrpg-shared/script/helpers');
 var async = require('async');
-var derbyAuthUtil = require('derby-auth/utils');
+var utils = require('../utils');
+var nconf = require('nconf');
 var User = require('../models/user').model;
 
 var api = module.exports;
@@ -73,7 +74,7 @@ api.registerUser = function(req, res, next) {
         return cb("Username already taken");
       }
       newUser = helpers.newUser(true);
-      salt = derbyAuthUtil.makeSalt();
+      salt = utils.makeSalt();
       newUser.auth = {
         local: {
           username: username,
@@ -82,7 +83,7 @@ api.registerUser = function(req, res, next) {
         },
         timestamps: {created: +new Date(), loggedIn: +new Date()}
       };
-      newUser.auth.local.hashed_password = derbyAuthUtil.encryptPassword(password, salt);
+      newUser.auth.local.hashed_password = utils.encryptPassword(password, salt);
       user = new User(newUser);
       user.save(cb);
     }
@@ -111,7 +112,7 @@ api.loginLocal = function(req, res, next) {
       // We needed the whole user object first so we can get his salt to encrypt password comparison
       User.findOne({
         'auth.local.username': username,
-        'auth.local.hashed_password': derbyAuthUtil.encryptPassword(password, user.auth.local.salt)
+        'auth.local.hashed_password': utils.encryptPassword(password, user.auth.local.salt)
       }, cb);
     }
   ], function(err, user) {
@@ -157,6 +158,29 @@ api.loginFacebook = function(req, res, next) {
         err: "Please register with Facebook on https://habitrpg.com, then come back here and log in."
       });
     }
+  });
+};
+
+api.resetPassword = function(req, res, next){
+  var email = req.body.email,
+    salt = utils.makeSalt(),
+    newPassword =  utils.makeSalt(), // use a salt as the new password too (they'll change it later)
+    hashed_password = utils.encryptPassword(newPassword, salt);
+
+  User.findOne({'auth.local.email':email}, function(err, user){
+    if (err) return res.json(500,{err:err});
+    if (!user) return res.send(500, {err:"Couldn't find a user registered for email " + email});
+    user.auth.local.salt = salt;
+    user.auth.local.hashed_password = hashed_password;
+    utils.sendEmail({
+      from: "HabitRPG <admin@habitrpg.com>",
+      to: email,
+      subject: "Password Reset for HabitRPG",
+      text: "Password for " + user.auth.local.username + " has been reset to " + newPassword + ". Log in at " + nconf.get('BASE_URL'),
+      html: "Password for <strong>" + user.auth.local.username + "</strong> has been reset to <strong>" + newPassword + "</strong>. Log in at" + nconf.get('BASE_URL')
+    });
+    user.save();
+    return res.send('New password sent to '+ email);
   });
 };
 

@@ -41,14 +41,34 @@ block content
                       input(type='text', ng-model='loginUsername', placeholder='{{useUUID ? "UUID" : "Username"}}')
                     .control-group
                       input(type='{{useUUID ? "text" : "password"}}', ng-model='loginPassword', placeholder='{{useUUID ? "API Token" : "Password"}}')
-                    .control-group
+                    //-.control-group
                       label.checkbox
                         input(type='checkbox', ng-click='useUUID = !useUUID')
                         | Use UUID / API Token (For Facebook Users)
                     .control-group
                       input.btn.btn-primary(type='submit', value='Login')
 
-                .tab-pane#register-tab
+                  // good god accordions have html ceremony
+                  #forgot-password-accordion.accordion
+                    .accordion-group
+                      .accordion-heading
+                        a.accordion-toggle(data-toggle='collapse', data-parent='#forgot-password-accordion', href='#forgot-password-group')
+                          | Forgot Password
+                      #forgot-password-group.accordion-body.collapse
+                        .accordion-inner
+                          form#derby-auth-password-reset(ng-submit='passwordReset(passwordResetEmail)')
+                            h3 Email New Password
+                            //.alert.alert-success {.success.passwordReset}
+                            //.control-group.{#if..errors.passwordReset}error{/}
+                            .control-group
+                              input(type='text', name='email', placeholder='Email', ng-model='passwordResetEmail')
+                              //span.help-inline {.errors.passwordReset}
+                            input.btn(type='submit', value='Submit')
+
+
+
+
+  .tab-pane#register-tab
                   form(ng-submit='register()', name='registrationForm')
                     .control-group
                       input(type='text', ng-model='registerVals.username', placeholder='Username', required)

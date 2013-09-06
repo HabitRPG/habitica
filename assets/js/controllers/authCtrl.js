@@ -82,5 +82,15 @@ habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$loca
         $('#login-modal').modal('show');
       }
     }
+
+    $scope.passwordReset = function(email){
+      $http.post(API_URL + '/api/v1/user/reset-password', {email:email})
+        .success(function(){
+          alert('New password sent.');
+        })
+        .error(function(data){
+          alert(data.err);
+        });
+    }
   }
 ]);
