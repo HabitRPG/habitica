@@ -1,6 +1,17 @@
 var nconf = require('nconf');
 var _ = require('lodash');
 
+module.exports.forceSSL = function(req, res, next){
+  var baseUrl = nconf.get("BASE_URL");
+  // Note x-forwarded-proto is used by Heroku & nginx, you'll have to do something different if you're not using those
+  if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] !== 'https'
+    && nconf.get('NODE_ENV') === 'production'
+    && baseUrl.indexOf('https') === 0) {
+    return res.redirect(baseUrl + req.url);
+  }
+  next()
+}
+
 module.exports.splash = function(req, res, next) {
   if (req.url == '/' && !req.headers['x-api-user'] && !req.headers['x-api-key'] && !(req.session && req.session.userId))
     return res.redirect('/static/front')

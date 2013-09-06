@@ -72,6 +72,7 @@ app.set("view engine", "jade");
 app.use(express.favicon());
 app.use(express.logger("dev"));
 app.use(middleware.cors);
+app.use(middleware.forceSSL);
 app.use(express.bodyParser());
 app.use(require('connect-assets')());
 app.use(express.methodOverride());
