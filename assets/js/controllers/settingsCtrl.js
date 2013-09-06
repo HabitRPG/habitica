@@ -35,5 +35,19 @@ habitrpg.controller('SettingsCtrl',
         })
     }
 
+    $scope.changePassword = function(changePass){
+      if (!changePass.oldPassword || !changePass.newPassword || !changePass.confirmNewPassword) {
+        return alert("Please fill out all fields");
+      }
+      $http.post(API_URL + '/api/v1/user/change-password', changePass)
+        .success(function(){
+          alert("Password successfully changed");
+          $scope.changePass = {};
+        })
+        .error(function(data){
+          alert(data);
+        });
+    }
+
   }
 ]);

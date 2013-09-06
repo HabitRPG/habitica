@@ -15,8 +15,16 @@
     div(ng-show='user.auth.local')
       hr
       h4 Change Password
-      derby-auth:changepassword
-    hr
+      form(ng-submit='changePassword(changePass)', ng-show='user.auth.local')
+        .control-group
+          input(type='password', placeholder='Old Password', ng-model='changePass.oldPassword', required)
+        .control-group
+          input(type='password', placeholder='New Password', ng-model='changePass.newPassword', required)
+        .control-group
+          input(type='password', placeholder='Confirm New Password', ng-model='changePass.confirmNewPassword', required)
+        input.btn(type='submit', value='Submit')
+
+  hr
     h4 Danger Zone
     a.btn.btn-danger(ng-click='notPorted()', data-target='#reset-modal', data-toggle='modal', tooltip='Resets your entire account (dangerous).') Reset
     a.btn.btn-danger(ng-click='notPorted()', data-target='#restore-modal', data-toggle='modal', tooltip='Restores attributes to your character.') Restore

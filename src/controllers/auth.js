@@ -184,6 +184,29 @@ api.resetPassword = function(req, res, next){
   });
 };
 
+api.changePassword = function(req, res, next) {
+  var user = res.locals.user,
+    oldPassword = req.body.oldPassword,
+    newPassword = req.body.newPassword,
+    confirmNewPassword = req.body.confirmNewPassword;
+
+  if (newPassword != confirmNewPassword)
+    return res.json(500, {err: "Password & Confirm don't match"});
+
+  var salt = user.auth.local.salt,
+    hashed_old_password = utils.encryptPassword(oldPassword, salt),
+    hashed_new_password = utils.encryptPassword(newPassword, salt);
+
+  if (hashed_old_password !== user.auth.local.hashed_password)
+    return res.json(500, {err:"Old password doesn't match"});
+
+  user.auth.local.hashed_password = hashed_new_password;
+  user.save(function(err, saved){
+    if (err) res.json(500,{err:err});
+    res.send(200);
+  })
+}
+
 /*
  Registers a new user. Only accepting username/password registrations, no Facebook
  */
