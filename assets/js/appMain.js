@@ -23,4 +23,5 @@
 //= require controllers/groupsCtrl
 //= require controllers/petsCtrl
 //= require controllers/inventoryCtrl
+//= require controllers/marketCtrl
 //= require controllers/footerCtrl
