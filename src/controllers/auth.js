@@ -48,35 +48,25 @@ api.registerUser = function(req, res, next) {
   var confirmPassword, e, email, password, username, _ref;
   _ref = req.body, email = _ref.email, username = _ref.username, password = _ref.password, confirmPassword = _ref.confirmPassword;
   if (!(username && password && email)) {
-    return res.json(401, {
-      err: ":username, :email, :password, :confirmPassword required"
-    });
+    return res.json(401, {err: ":username, :email, :password, :confirmPassword required"});
   }
   if (password !== confirmPassword) {
-    return res.json(401, {
-      err: ":password and :confirmPassword don't match"
-    });
+    return res.json(401, {err: ":password and :confirmPassword don't match"});
   }
   try {
     validator.check(email).isEmail();
-  } catch (_error) {
-    e = _error;
-    return res.json(401, {
-      err: e.message
-    });
+  } catch (err) {
+    return res.json(401, {err: err.message});
   }
-  return async.waterfall([
+  async.waterfall([
     function(cb) {
-      return User.findOne({
-        'auth.local.email': email
-      }, cb);
-    }, function(found, cb) {
+      User.findOne({'auth.local.email': email}, cb);
+    },
+    function(found, cb) {
       if (found) {
         return cb("Email already taken");
       }
-      return User.findOne({
-        'auth.local.username': username
-      }, cb);
+      User.findOne({'auth.local.username': username}, cb);
     }, function(found, cb) {
       var newUser, salt, user;
       if (found) {
@@ -89,19 +79,18 @@ api.registerUser = function(req, res, next) {
           username: username,
           email: email,
           salt: salt
-        }
+        },
+        timestamps: {created: +new Date(), loggedIn: +new Date()}
       };
       newUser.auth.local.hashed_password = derbyAuthUtil.encryptPassword(password, salt);
       user = new User(newUser);
-      return user.save(cb);
+      user.save(cb);
     }
   ], function(err, saved) {
     if (err) {
-      return res.json(401, {
-        err: err
-      });
+      return res.json(401, {err: err});
     }
-    return res.json(200, saved);
+    res.json(200, saved);
   });
 };
 
@@ -205,15 +194,27 @@ api.setupPassport = function(router) {
     function(req, res) {
       //res.redirect('/');
 
-      User.findOne({'auth.facebook.id':req.user.id}, function(err, user){
-        if (err || !user) {
-          if (!err) err = "New Facebook registrations aren't yet supported, only existing Facebook users. Help us code this!";
-          return res.redirect('/static/front?err=' + err);
-        }
-        req.session.userId = user._id;
-        res.redirect('/static/front?_id='+user._id+'&apiToken='+user.apiToken);
-      })
+      async.waterfall([
+        function(cb){
+          User.findOne({'auth.facebook.id':req.user.id}, cb)
+        },
+        function(user, cb){
+          if (user) return cb(null, user);
+          var newUser = helpers.newUser(true);
+          newUser.auth = {
+            facebook: req.user,
+            timestamps: {created: +new Date(), loggedIn: +new Date()}
+          };
+          user = new User(newUser);
+          user.save(cb);
 
+
+        }
+      ], function(err, saved){
+        if (err) return res.redirect('/static/front?err=' + err);
+        req.session.userId = saved._id;
+        res.redirect('/static/front?_id='+saved._id+'&apiToken='+saved.apiToken);
+      })
     });
 
   // Simple route middleware to ensure user is authenticated.
