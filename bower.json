@@ -30,10 +30,12 @@
     "bootstrap-datepicker": "~1.2.0",
     "bootstrap": "v2.3.2",
     "angular-route": "1.2.0-rc.1",
-    "angular-ui-utils": "~0.0.4"
+    "angular-ui-utils": "~0.0.4",
+    "angular-sanitize": "1.2.0-rc.1"
   },
   "resolutions": {
     "jquery": "~2.0.3",
-    "bootstrap": "v2.3.2"
+    "bootstrap": "v2.3.2",
+    "angular-sanitize": "1.2.0-rc.1"
   }
 }
