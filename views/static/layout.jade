@@ -19,14 +19,22 @@ html
     // and habitrpg-shared alone is ~700kb
 
     // JS
-    script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')
-    script(type='text/javascript', src='/bower_components/habitrpg-shared/dist/habitrpg-shared.js')
-    script(type='text/javascript', src='/bower_components/angular/angular.min.js')
-    script(type='text/javascript', src='/bower_components/bootstrap/docs/assets/js/bootstrap.min.js')
+    - if(env.NODE_ENV == 'production'){
+      script(type='text/javascript', src='build/static.js')
+    - }else{
+      // Remember to update the file list in Gruntfile.js!
+      script(type='text/javascript', src='bower_components/jquery/jquery.min.js')
+      script(type='text/javascript', src='bower_components/habitrpg-shared/dist/habitrpg-shared.js')
+      script(type='text/javascript', src='bower_components/angular/angular.min.js')
+      script(type='text/javascript', src='bower_components/bootstrap/docs/assets/js/bootstrap.min.js')
+
+      script(type='text/javascript', src='js/static.js')
+      script(type='text/javascript', src='js/services/userServices.js')
+      script(type='text/javascript', src='js/controllers/authCtrl.js')
+    -}
+
     script(type='text/javascript').
       $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
-
-    != js('staticMain')
 
   body
     block content
