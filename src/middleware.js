@@ -29,7 +29,7 @@ module.exports.cors = function(req, res, next) {
 module.exports.locals = function(req, res, next) {
   res.locals.habitrpg  = res.locals.habitrpg || {}
   _.defaults(res.locals.habitrpg, {
-    NODE_ENV: req.url.split('/')[1] == 'static' ? 'production' : nconf.get('NODE_ENV'), // Don't show debugging options on static pages
+    NODE_ENV: nconf.get('NODE_ENV'), // Don't show debugging options on static pages
     IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
     STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY')
   });

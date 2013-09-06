@@ -1,4 +1,7 @@
 extends ./layout
+//Trick needed to pass 'env' to ./layout
+block vars
+  - var layoutEnv = env
 
 block title
   title HabitRPG &VerticalLine; Privacy
