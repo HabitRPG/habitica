@@ -16,6 +16,30 @@ var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var api = module.exports;
 
+// FIXME put this in a proper location
+api.marketBuy = function(req, res, next){
+  var user = res.locals.user,
+    type = req.query.type,
+    item = req.body;
+
+  if (!_.contains(['hatchingPotion', 'egg'], req.query.type))
+    return res.json(400, {err: "Type must be in 'hatchingPotion' or 'egg'"});
+  var item;
+  if (type == 'egg'){
+    if (!user.items && !user.items.eggs) user.items.eggs = [];
+    user.items.eggs.push(item);
+  } else {
+    if (!user.items && !user.items.hatchingPotions) user.items.hatchingPotions = [];
+    user.items.hatchingPotions.push(item.name);
+  }
+  user.markModified('items'); // I still don't get when this is necessary and when not..
+  user.balance -= (item.value/4);
+  user.save(function(err, saved){
+    if (err) return res.json(500, {err:err});
+    res.json(saved);
+  })
+}
+
 
 /*
   ------------------------------------------------------------------------

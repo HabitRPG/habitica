@@ -1,5 +1,5 @@
-habitrpg.controller("MarketCtrl", ['$rootScope', '$scope', 'User',
-  function($rootScope, $scope, User) {
+habitrpg.controller("MarketCtrl", ['$rootScope', '$scope', 'User', 'API_URL', '$http',
+  function($rootScope, $scope, User, API_URL, $http) {
 
   	$scope.eggs = window.habitrpgShared.items.items.pets;
   	$scope.hatchingPotions = window.habitrpgShared.items.items.hatchingPotions;
@@ -8,7 +8,7 @@ habitrpg.controller("MarketCtrl", ['$rootScope', '$scope', 'User',
 
   	$scope.buy = function(type, item){
   		var gems = User.user.balance * 4,
-  				store = type === 'egg' ? $scope.userEggs : $scope.userHatchingPotions;
+  				store = type === 'egg' ? $scope.userEggs : $scope.userHatchingPotions,
   				storePath = type === 'egg' ? 'items.eggs' : 'items.hatchingPotions'
 
   		if(gems < item.value){
@@ -19,20 +19,15 @@ habitrpg.controller("MarketCtrl", ['$rootScope', '$scope', 'User',
   		
   		if(confirm(message)){
   			var toPush = type === 'egg' ? item : item.name;
-  			store.push(toPush);
-
-  			var dataStore = {
-  				op: 'set',
-  				data: {}
-  			};
-
-  			dataStore.data[storePath] = store;
-  			User.user.balance = (gems - item.value) / 4;
-
-  			User.log([
-  				dataStore,
-        	{ op: 'set', data: {'balance': User.user.balance} }
-  			]);
+        $http.post(API_URL + '/api/v1/market/buy?type=' + type, toPush)
+          .success(function(data){
+            User.user.balance = data.balance;
+            store.push(toPush);
+            //$sc¡ope.items = data.items.eggs; // FIXME this isn't updating the UI
+          }).error(function(data){
+            alert(data);
+            console.error(data);
+          });
   		}
   	}
 

@@ -65,6 +65,7 @@ router.post('/groups/:gid/chat', auth.auth, groups.attachGroup, groups.postChat)
 //PUT  /groups/:gid/chat/:messageId
 //DELETE  /groups/:gid/chat/:messageId
 
-
+// Market
+router.post('/market/buy', auth.auth, user.marketBuy);
 
 module.exports = router;
