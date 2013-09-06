@@ -208,9 +208,10 @@ api.setupPassport = function(router) {
       User.findOne({'auth.facebook.id':req.user.id}, function(err, user){
         if (err || !user) {
           if (!err) err = "New Facebook registrations aren't yet supported, only existing Facebook users. Help us code this!";
-          return res.redirect('/#/facebook-callback?err=' + err);
+          return res.redirect('/static/front?err=' + err);
         }
-        res.redirect('/#/facebook-callback?_id='+user._id+'&apiToken='+user.apiToken);
+        req.session.userId = user._id;
+        res.redirect('/static/front?_id='+user._id+'&apiToken='+user.apiToken);
       })
 
     });

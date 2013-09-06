@@ -169,7 +169,7 @@ angular.module('userServices', []).
 
             //if settings were saved while fetch was in process reset the flag.
             settings.fetching = false;
-            //create and load if not
+        //create and load if not
         } else {
             localStorage.setItem(STORAGE_SETTINGS_ID, JSON.stringify(defaultSettings));
             _.extend(settings, defaultSettings);
@@ -177,7 +177,19 @@ angular.module('userServices', []).
 
         //If user does not have ApiID that forward him to settings.
         if (!settings.auth.apiId || !settings.auth.apiToken) {
-            //$location.path("/login");
+          //var search = $location.search(); // FIXME this should be working, but it's returning an empty object when at a root url /?_id=...
+          var search = $location.search(window.location.search.substring(1)).$$search; // so we use this fugly hack instead
+          if (search.err) return alert(search.err);
+          if (search._id && search.apiToken) {
+            userServices.authenticate(search._id, search.apiToken, function(){
+              window.location.href='/';
+            });
+          } else {
+            if (window.location.pathname.indexOf('/static') !== 0){
+              localStorage.clear();
+              window.location.href = '/logout';
+            }
+          }
         } else {
             userServices.authenticate(settings.auth.apiId, settings.auth.apiToken)
         }
