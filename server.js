@@ -4,6 +4,7 @@ conf.argv().env().file({ file: __dirname + "/config.json" }).defaults({
    'PORT': 3000,
    'IP': '0.0.0.0',
    'BASE_URL': 'http://localhost',
+   'ADMIN_EMAIL': '',
    'NODE_ENV': 'development'
 });
 
@@ -21,6 +22,7 @@ process.env.SMTP_PASS = conf.get("SMTP_PASS");
 process.env.SMTP_SERVICE = conf.get("SMTP_SERVICE");
 process.env.STRIPE_API_KEY = conf.get("STRIPE_API_KEY");
 process.env.STRIPE_PUB_KEY = conf.get("STRIPE_PUB_KEY");
+process.env.ADMIN_EMAIL = conf.get("ADMIN_EMAIL");
 
 /*var agent;
 if (process.env.NODE_ENV === 'development') {
@@ -62,12 +64,14 @@ process.on('uncaughtException', function (error) {
         });
     }
 
-    sendEmail({
-        from: "HabitRPG <admin@habitrpg.com>",
-        to: "tylerrenelle@gmail.com",
-        subject: "HabitRPG Error",
-        text: error.stack
-    });
+    if(process.env.ADMIN_EMAIL){
+        sendEmail({
+            from: "HabitRPG <admin@habitrpg.com>",
+            to: process.env.ADMIN_EMAIL,
+            subject: "HabitRPG Error",
+            text: error.stack
+        });
+    }
     console.log(error.stack);
 });
 
