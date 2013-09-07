@@ -18,12 +18,15 @@ habitrpg.controller("MarketCtrl", ['$rootScope', '$scope', 'User', 'API_URL', '$
   		var message = "Buy this " + (type == 'egg' ? 'egg' : 'hatching potion') + " with " + item.value + " of your " + gems + " Gems?"
   		
   		if(confirm(message)){
-  			var toPush = type === 'egg' ? item : item.name;
-        $http.post(API_URL + '/api/v1/market/buy?type=' + type, toPush)
+        $http.post(API_URL + '/api/v1/market/buy?type=' + type, item)
           .success(function(data){
-            User.user.balance = data.balance;
-            store.push(toPush);
-            //$sc¡ope.items = data.items.eggs; // FIXME this isn't updating the UI
+            // don't know what's going on, but trying to work with the returned data (a) isn't updating the ui, (b) isnt'
+            // stickign between refreshes until a force-refresh is called (user._v--).
+            User.user._v--;
+            User.log({});
+            //User.user.balance = data.balance;
+            store.push(type === 'egg' ? item : item.name);
+            //$scope.items = data.items.eggs; // FIXME this isn't updating the UI
           }).error(function(data){
             alert(data);
             console.error(data);
