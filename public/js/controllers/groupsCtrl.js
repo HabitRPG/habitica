@@ -25,7 +25,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         } else {
           // We need the member information up top here, but then we pass it down to the modal controller
           // down below. Better way of handling this?
-          debugger
           Members.selectMember(uid);
           $rootScope.modals.member = true;
         }
