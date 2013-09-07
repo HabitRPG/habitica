@@ -33,8 +33,8 @@ var initDeprecated = function(req, res, next) {
 
 router.post('/v1/users/:uid/tasks/:taskId/:direction', initDeprecated, auth.auth, api.scoreTask);
 
-router.get('/v1/users/:uid/calendar.ics', function(req, res) {
-  /*return next() #disable for now*/
+router.get('/v1/users/:uid/calendar.ics', function(req, res, next) {
+  return next() //disable for now
 
   var apiToken, model, query, uid;
   uid = req.params.uid;
