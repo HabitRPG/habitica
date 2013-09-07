@@ -24,7 +24,7 @@
     .achievement.achievement-firefox(ng-show='profile.backer.contributor')
     div(ng-class='{muted: !profile.backer.contributor}')
       h5
-        span.label(ng-if='profile.backer.contributor', ng-class='nameTagClasses(profile.backer.contributor)') {{profile.backer.contributor}}
+        span.label.label-inverse(ng-if='profile.backer.contributor') {{profile.backer.contributor}}
         span.label(ng-if='!profile.backer.contributor') Contributor
       small.
         Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge? Fix a bug :)

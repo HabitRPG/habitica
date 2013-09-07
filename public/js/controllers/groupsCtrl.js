@@ -15,8 +15,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
       // ------ Modals ------
 
-      $scope.clickMember = function(uid) {
-        if (User.user._id == uid) {
+      $scope.clickMember = function(uid, forceShow) {
+        if (User.user._id == uid && !forceShow) {
           if ($location.path() == '/tasks') {
             $location.path('/options');
           } else {
