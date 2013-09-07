@@ -83,6 +83,28 @@ api.getGroups = function(req, res, next) {
   })
 };
 
+/**
+ * Get group
+ */
+api.getGroup = function(req, res, next) {
+  var user = res.locals.user;
+  var gid = req.params.gid;
+
+  Group.findById(gid).populate('members', partyFields).exec(function(err, group){
+    if ( (group.type == 'guild' && group.privacy == 'private') || group.type == 'party') {
+      return res.json(401, {err: "You don't have access to this group"});
+    }
+    // Remove self from party (see above failing `match` directive in `populate`
+    if (group.type == 'party') {
+      var i = _.findIndex(group.members, {_id:user._id});
+      if (~i) group.members.splice(i,1);
+    }
+    res.json(group);
+
+  })
+};
+
+
 api.createGroup = function(req, res, next) {
   var group = new Group(req.body);
   group.save(function(err, saved){

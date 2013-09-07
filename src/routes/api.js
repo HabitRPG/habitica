@@ -51,8 +51,7 @@ router.post('/user/buy-gems', auth.auth, user.buyGems);
 /* Groups*/
 router.get('/groups', auth.auth, groups.getGroups);
 router.post('/groups', auth.auth, groups.createGroup);
-//TODO:
-//GET /groups/:gid (get group)
+router.get('/groups/:gid', auth.auth, groups.getGroup);
 //PUT /groups/:gid (edit group)
 //DELETE /groups/:gid
 

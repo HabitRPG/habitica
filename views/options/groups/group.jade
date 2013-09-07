@@ -99,8 +99,9 @@ a.pull-right.gem-wallet(rel='popover', data-trigger='hover', data-title='Guild B
             .arrow
             h3.popover-title {{username(_members[group.leader].auth,_members[group.leader].profile.name)}}
             .popover-content {{group.leaderMessage}}
-    h3 Chat
-    include ./chat-box
+    div(ng-controller='ChatCtrl')
+      h3 Chat
+      include ./chat-box
 
-    ul.unstyled.tavern-chat
-      include ./chat-message
+      ul.unstyled.tavern-chat
+        include ./chat-message

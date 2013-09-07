@@ -22,7 +22,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
   ])
 
-  .controller('ChatCtrl', ['$scope', 'Groups', function($scope, Groups){
+  .controller('ChatCtrl', ['$scope', 'Groups', 'User', function($scope, Groups, User){
     $scope._chatMessage = '';
     $scope.postChat = function(group, message){
       if (_.isEmpty(message)) return
@@ -32,6 +32,23 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         group.chat = data.chat;
         $('.chat-btn').removeClass('disabled');
       });
+    }
+    $scope.sync = function(group){
+      group.$get();
+    }
+    $scope.nameTagClasses = function(message){
+      if (message.contributor) {
+        if (message.contributor.match(/npc/i) || message.contributor.match(/master/i)) {
+          return 'label-master'; // master
+        } else if (message.contributor.match(/champion/i)) {
+          return 'label-champion'; // champion
+        } else if (message.contributor.match(/elite/i)) {
+          return 'label-success'; //elite
+        }
+      }
+      if (message.uuid == User.user.id) {
+        return 'label-inverse'; //self
+      }
     }
 
   }])
