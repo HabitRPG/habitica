@@ -1,11 +1,11 @@
 div(ng-controller='MemberModalCtrl')
   div(modal='modals.member')
-    //-.modal-header
-      h3 username
+    .modal-header
+      h3
+        span {{username(profile.auth, profile.profile.name)}}
+        span(ng-show='profile.backer.contributor')  - {{profile.backer.contributor}}
     .modal-body
-      h2.profile-modal-header {{username(profile.auth, profile.profile.name)}}
       app:avatar:profile
-      hr
       .row-fluid
         .span6
           img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
@@ -13,9 +13,10 @@ div(ng-controller='MemberModalCtrl')
           ul(ng-show='profile.profile.websites')
             li(ng-repeat='website in profile.profile.websites') {{website}}
           h3 Stats
-          app:avatar:profile-stats
+            include ../profiles/stats
         .span6
+          include ../header/avatar
           h3 Achievements
-          app:avatar:achievements
+            include ../profiles/achievements
     .modal-footer
       button.btn.btn-default(ng-click='modals.member = false') Ok
