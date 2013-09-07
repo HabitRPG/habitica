@@ -1,2 +1,3 @@
-/views/*
-/public/build/*
+public/*
+views/*
+Gruntfile.js

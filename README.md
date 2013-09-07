@@ -5,19 +5,29 @@ HabitRPG Rewrite under development. Built using Angular, Express, Mongoose, Jade
 
 **Note: This branch is under development, and these instructions may fall out of date. They were accurate as of August 5, 2013.** Should you encounter this, join #habitrpg on IRC (Freenode) and talk to litenull.
 
+Before starting install [MongoDB](http://www.mongodb.org/) and [NodeJS](http://nodejs.org/)
+
 The general steps are:
 
 1. Clone the repo
+1. Install the global dependencies
 1. Install all dependencies
 1. Run the client
 
 Or, expressed in commands on the command line:
 
 1. `git clone --recursive -b angular_rewrite https://github.com/lefnire/habitrpg.git`
+1. 'npm install -g grunt-cli' (you may need to add `sudo` in front of it)
 1. `cd habitrpg && npm install`
-1. `grunt start` (`grunt start:production` to concat & minify js)
+1. `grunt run:dev`
 
 To access the site, open http://localhost:3000 in your browser.
+
+There are a few other Grunt task avalaible:
+
+- `grunt build:dev` - Compile, concat and minify Stylus files
+- `grunt build:prod` - Same as `grunt build:dev` but concat and minify Javascript files.
+- `grunt nodemon` - Start the server with **nodemon**, restart when a file change but without compiling Stylus files
 
 # Technologies
 
@@ -72,11 +82,11 @@ npm ERR! not ok code 0
 
 Ignore this error and proceed with the following:
 
-1.  Run 'npm install -g nodemon'
+1.  Run 'npm install -g grunt-cli'
 1.  Run 'npm install -g bower'
 1.  Run 'bower install -f'
 1.  Run 'copy config.json.example config.json'
-1. `grunt start` (`grunt start:production` to concat & minify js)
+1. `grunt run:dev`
 
 Open a browser to URL http://localhost:3000 to test the application.
 
