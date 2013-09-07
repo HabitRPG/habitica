@@ -1,16 +1,37 @@
 "use strict";
 
-habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q', 'User',
-  function($scope, $rootScope, Groups, $http, API_URL, $q, User) {
+habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q', 'User', 'Members', '$location',
+  function($scope, $rootScope, Groups, $http, API_URL, $q, User, Members, $location) {
 
       $scope.isMember = function(user, group){
         return ~(group.members.indexOf(user._id));
       }
 
-      $scope.groups = Groups.groups;
+      // ------ Loading ------
 
+      $scope.groups = Groups.groups;
       $scope.fetchGuilds = Groups.fetchGuilds;
       $scope.fetchTavern = Groups.fetchTavern;
+
+      // ------ Modals ------
+
+      $scope.clickMember = function(uid) {
+        if (User.user._id == uid) {
+          if ($location.path() == '/tasks') {
+            $location.path('/options');
+          } else {
+            $location.path('/tasks');
+          }
+        } else {
+          // We need the member information up top here, but then we pass it down to the modal controller
+          // down below. Better way of handling this?
+          debugger
+          Members.selectMember(uid);
+          $rootScope.modals.member = true;
+        }
+      }
+
+    // ------ Invites ------
 
       $scope.invitee = '';
       $scope.invite = function(group, uuid){
@@ -19,6 +40,15 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           alert("User invited to group");
         });
       }
+    }
+  ])
+
+  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members',
+    function($scope, $rootScope, Members) {
+      // We watch Members.selectedMember because it's asynchronously set, so would be a hassle to handle updates here
+      $scope.$watch( function() { return Members.selectedMember; }, function (member) {
+        $scope.profile = member;
+      });
     }
   ])
 

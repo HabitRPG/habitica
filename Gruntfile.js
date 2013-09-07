@@ -38,13 +38,13 @@ module.exports = function(grunt) {
             'public/js/services/sharedServices.js',
             'public/js/services/userServices.js',
             'public/js/services/groupServices.js',
+            'public/js/services/memberServices.js',
 
             'public/js/filters/filters.js',
 
             'public/js/directives/directives.js',
 
             'public/js/controllers/authCtrl.js',
-            'public/js/controllers/characterCtrl.js',
             'public/js/controllers/menuCtrl.js',
             'public/js/controllers/notificationCtrl.js',
             'public/js/controllers/rootCtrl.js',

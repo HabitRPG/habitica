@@ -1,40 +1,27 @@
-{{#each _membersArray as :member}}
-<app:modals:modal modalId="avatar-modal-{{:member.id}}">
-    <app:avatar:profile profile={{_members[:member.id]}} />
+<div ng-controller="MemberModalCtrl">
+    <div modal="modals.member">
+        <app:avatar:profile />
 
-    <!-- see above -->
-    <profile:>
-        <h2 class='profile-modal-header'>{{username(@profile.auth, @profile.profile.name)}}</h2>
+        <!-- see above -->
+        <h2 class='profile-modal-header'>{{username(profile.auth, profile.profile.name)}}</h2>
         <hr/>
         <div class='row-fluid'>
             <div class='span6'>
-                {{#if @profile.profile.imageUrl}}
-                <img src="{{@profile.profile.imageUrl}}" />
-                {{/}}
-                {{#if @profile.profile.blurb}}
-                <p>{{@profile.profile.blurb}}</p>
-                {{/}}
-                {{#if @profile.profile.websites}}
-                <ul>
-                    {{#each @profile.profile.websites as :website}}
-                    <li>{{:website}}</li>
-                    {{/}}
+                <img ng-show='profile.profile.imageUrl' ng-src="{{profile.profile.imageUrl}}" />
+                <p ng-show="profile.profile.blurb">{{profile.profile.blurb}}</p>
+                <ul ng-show="profile.profile.websites">
+                    <li ng-repeat="website in profile.profile.websites">{{website}}</li>
                 </ul>
-                {{/}}
                 <h3>Stats</h3>
-                <app:avatar:profile-stats profile={{@profile}} />
+                <app:avatar:profile-stats profile={{profile}} />
             </div>
             <div class='span6'>
                 <h3>Achievements</h3>
-                <app:avatar:achievements profile={{@profile}} />
-
+                <app:avatar:achievements profile={{profile}} />
             </div>
         </div>
-
-
-
-    <@footer>
-    <button data-dismiss="modal" class="btn btn-success">Ok</button>
-</@footer>
-</app:modals:modal>
-{{/}}
+        <footer>
+            <button data-dismiss="modal" class="btn btn-success">Ok</button>
+        </footer>
+    </div>
+</div>
