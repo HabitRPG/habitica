@@ -37,7 +37,8 @@
     "jade": "~0.35.0",
     "passport": "~0.1.17",
     "validator": "~1.5.1",
-    "nodemailer": "~0.5.2"
+    "nodemailer": "~0.5.2",
+    "grunt-cli": "~0.1.9"
   },
   "private": true,
   "subdomain": "habitrpg",
