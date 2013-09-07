@@ -19,6 +19,14 @@ var api = module.exports;
 var usernameFields = 'auth.local.username auth.facebook.displayName auth.facebook.givenName auth.facebook.familyName auth.facebook.name';
 var partyFields = 'profile preferences items stats achievements party backer flags.rest ' + usernameFields;
 
+api.getMember = function(req, res) {
+  User.findById(req.params.uid).select(partyFields).exec(function(err, user){
+    if (err) return res.json(500,{err:err});
+    if (!user) return res.json(400,{err:'User not found'});
+    res.json(user);
+  })
+}
+
 /**
  * Get groups. If req.query.type privided, returned as an array (so ngResource can use). If not, returned as
  * object {guilds, public, party, tavern}. req.query.type can be comma-separated `type=guilds,party`

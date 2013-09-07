@@ -38,13 +38,13 @@ module.exports = function(grunt) {
             'public/js/services/sharedServices.js',
             'public/js/services/userServices.js',
             'public/js/services/groupServices.js',
+            'public/js/services/memberServices.js',
 
             'public/js/filters/filters.js',
 
             'public/js/directives/directives.js',
 
             'public/js/controllers/authCtrl.js',
-            'public/js/controllers/characterCtrl.js',
             'public/js/controllers/menuCtrl.js',
             'public/js/controllers/notificationCtrl.js',
             'public/js/controllers/rootCtrl.js',
@@ -101,45 +101,44 @@ module.exports = function(grunt) {
       }
     },
 
-    exec: {
-      start: {
-        cmd: function(mode){
-          if(mode && mode == 'production'){
-            return 'nodemon --exec "./start.sh" production'
-          }else{
-            return 'nodemon --exec "./start.sh"'
-          }
+    nodemon: {
+      dev: {
+        ignoredFiles: ['public/*', 'Gruntfile.js', 'views/*'] // Do not work!
+      }
+    },
+
+    watch: {
+      dev: {
+        files: ['public/**/*.css'], // 'public/**/*.js' Not needed because not in production
+        tasks:  [ 'build:dev' ],
+        options: {
+          nospawn: true
         }
       }
-    }
+    },
 
-    /*hashres: {
+    concurrent: {
+      dev: ['nodemon', 'watch'],
       options: {
-        fileNameFormat: '${name}-${hash}.${ext}',
-      },
-      build: {
-        src: [
-          'public/build/app.js',
-          'public/build/static.js'
-        ],
-        dest: 'views/i-do-not-exist.jade' // Non existing file!
+        logConcurrentOutput: true
       }
-    }*/
+    }
 
   });
 
   // Register tasks.
-  grunt.registerTask('production', ['clean:build', 'uglify', 'stylus', 'cssmin']);
-  grunt.registerTask('development', ['clean:build', 'stylus', 'cssmin']);
-  grunt.registerTask('start:production', ['exec:start:production']);
-  grunt.registerTask('start', ['exec:start']);
+  grunt.registerTask('build:prod', ['clean:build', 'uglify', 'stylus', 'cssmin']);
+  grunt.registerTask('build:dev', ['clean:build', 'stylus', 'cssmin']);
+
+  grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
 
   // Load tasks
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-hashres');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-exec');
+  grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
 };

@@ -3,6 +3,9 @@ html
   head
     title HabitRPG | Your Life The Role Playing Game
 
+    // ?v=1 needed to force refresh
+    link(rel='shortcut icon' href='/favicon.ico?v=1') 
+
     script(type='text/javascript').
       window.env = !{JSON.stringify(env)};
 
@@ -49,13 +52,13 @@ html
       script(type='text/javascript', src='/js/services/sharedServices.js')
       script(type='text/javascript', src='/js/services/userServices.js')
       script(type='text/javascript', src='/js/services/groupServices.js')
+      script(type='text/javascript', src='/js/services/memberServices.js')
 
       script(type='text/javascript', src='/js/filters/filters.js')
 
       script(type='text/javascript', src='/js/directives/directives.js')
 
       script(type='text/javascript', src='/js/controllers/authCtrl.js')
-      script(type='text/javascript', src='/js/controllers/characterCtrl.js')
       script(type='text/javascript', src='/js/controllers/menuCtrl.js')
       script(type='text/javascript', src='/js/controllers/notificationCtrl.js')
       script(type='text/javascript', src='/js/controllers/rootCtrl.js')
