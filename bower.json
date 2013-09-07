@@ -35,7 +35,6 @@
   },
   "resolutions": {
     "jquery": "~2.0.3",
-    "bootstrap": "v2.3.2",
-    "angular-sanitize": "1.2.0-rc.1"
+    "bootstrap": "v2.3.2"
   }
 }

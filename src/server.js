@@ -67,14 +67,14 @@ passport.use(new FacebookStrategy({
 
 // ------------  Server Configuration ------------
 app.set("port", nconf.get('PORT'));
+app.use(express.logger("dev"));
+app.use(express.compress());
 app.set("views", __dirname + "/../views");
 app.set("view engine", "jade");
 app.use(express.favicon());
-app.use(express.logger("dev"));
 app.use(middleware.cors);
 app.use(middleware.forceSSL);
 app.use(express.bodyParser());
-app.use(require('connect-assets')());
 app.use(express.methodOverride());
 //app.use(express.cookieParser(nconf.get('SESSION_SECRET')));
 app.use(express.cookieParser());

@@ -1,3 +1,5 @@
+//Trick needed to pass 'env' to ./layout
+block vars
 doctype 5
 html
 
@@ -10,23 +12,29 @@ html
 
     // CSS
     link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap.css')
+    // Keep this out of build because the one after has some images and would like not to override it
     link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css')
     link(href='/bower_components/bootstrap/docs/assets/css/docs.css', rel='stylesheet')
-    link(href='/css/static-pages.css', rel='stylesheet')
-    link(href='/css/footer.css', rel='stylesheet')
-
-    // FIXME we gotta get rid of all these requirements in userServices. we don't need habitrpg-shared, lodash, moment, etc here
-    // and habitrpg-shared alone is ~700kb
+    
+    link(rel='stylesheet', href='/build/static.css')
 
     // JS
-    script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')
-    script(type='text/javascript', src='/bower_components/habitrpg-shared/dist/habitrpg-shared.js')
-    script(type='text/javascript', src='/bower_components/angular/angular.min.js')
-    script(type='text/javascript', src='/bower_components/bootstrap/docs/assets/js/bootstrap.min.js')
+    - if(layoutEnv.NODE_ENV == 'production'){
+      script(type='text/javascript', src='/build/static.js')
+    - }else{
+      // Remember to update the file list in Gruntfile.js!
+      script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')
+      script(type='text/javascript', src='/bower_components/habitrpg-shared/dist/habitrpg-shared.js')
+      script(type='text/javascript', src='/bower_components/angular/angular.min.js')
+      script(type='text/javascript', src='/bower_components/bootstrap/docs/assets/js/bootstrap.min.js')
+
+      script(type='text/javascript', src='/js/static.js')
+      script(type='text/javascript', src='/js/services/userServices.js')
+      script(type='text/javascript', src='/js/controllers/authCtrl.js')
+    -}
+
     script(type='text/javascript').
       $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
-
-    != js('staticMain')
 
   body
     block content

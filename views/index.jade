@@ -13,36 +13,64 @@ html
 
     // CSS
     link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap.css')
-    link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css')
-    link(rel='stylesheet', href='/bower_components/angular-ui/build/angular-ui.min.css')
-    != css('index')
+    
+    link(rel='stylesheet', href='/build/app.css')
 
     // HabitRPG Shared
     link(rel='stylesheet', href='/bower_components/habitrpg-shared/dist/spritesheets.css')
 
-    // JS
-    script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')
-    script(type='text/javascript', src='/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js')
-    script(type='text/javascript', src='/bower_components/angular/angular.min.js')
-    script(type='text/javascript', src='/bower_components/angular-sanitize/angular-sanitize.min.js')
-    script(type='text/javascript', src='/bower_components/angular-route/angular-route.min.js')
-    script(type='text/javascript', src='/bower_components/angular-resource/angular-resource.min.js')
-    script(type='text/javascript', src='/bower_components/angular-ui/build/angular-ui.min.js')
-    script(type='text/javascript', src='/bower_components/angular-ui-utils/modules/keypress/keypress.js')
-    // we'll remove this once angular-bootstrap is fixed
-    script(type='text/javascript', src='/bower_components/bootstrap/docs/assets/js/bootstrap.min.js')
-    script(type='text/javascript', src='/bower_components/angular-bootstrap/ui-bootstrap.min.js')
-    script(type='text/javascript', src='/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js')
+    - if(env.NODE_ENV == 'production'){
+      script(type='text/javascript', src='build/app.js')
+    - }else{
+      // Remember to update the file list in Gruntfile.js!
+      script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')
+      script(type='text/javascript', src='/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js')
+      script(type='text/javascript', src='/bower_components/angular/angular.min.js')
+      script(type='text/javascript', src='/bower_components/angular-sanitize/angular-sanitize.min.js')
+      script(type='text/javascript', src='/bower_components/angular-route/angular-route.min.js')
+      script(type='text/javascript', src='/bower_components/angular-resource/angular-resource.min.js')
+      script(type='text/javascript', src='/bower_components/angular-ui/build/angular-ui.min.js')
+      script(type='text/javascript', src='/bower_components/angular-ui-utils/modules/keypress/keypress.js')
+      // we'll remove this once angular-bootstrap is fixed
+      script(type='text/javascript', src='/bower_components/bootstrap/docs/assets/js/bootstrap.min.js')
+      script(type='text/javascript', src='/bower_components/angular-bootstrap/ui-bootstrap.min.js')
+      script(type='text/javascript', src='/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js')
+      // Sortable
+      script(type='text/javascript', src='/bower_components/jquery-ui/ui/minified/jquery.ui.core.min.js')
+      script(type='text/javascript', src='/bower_components/jquery-ui/ui/minified/jquery.ui.widget.min.js')
+      script(type='text/javascript', src='/bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js')
+      script(type='text/javascript', src='/bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js')
+      // habitrpg-shared
+      script(type='text/javascript', src='/bower_components/habitrpg-shared/dist/habitrpg-shared.js')
+      // app
+      script(type='text/javascript', src='/js/app.js')
+      script(type='text/javascript', src='/js/services/authServices.js')
+      script(type='text/javascript', src='/js/services/notificationServices.js')
+      script(type='text/javascript', src='/js/services/sharedServices.js')
+      script(type='text/javascript', src='/js/services/userServices.js')
+      script(type='text/javascript', src='/js/services/groupServices.js')
 
-    // Sortable
-    script(type='text/javascript', src='/bower_components/jquery-ui/ui/minified/jquery.ui.core.min.js')
-    script(type='text/javascript', src='/bower_components/jquery-ui/ui/minified/jquery.ui.widget.min.js')
-    script(type='text/javascript', src='/bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js')
-    script(type='text/javascript', src='/bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js')
+      script(type='text/javascript', src='/js/filters/filters.js')
 
-    script(type='text/javascript', src='/bower_components/habitrpg-shared/dist/habitrpg-shared.js')
+      script(type='text/javascript', src='/js/directives/directives.js')
 
-    != js('appMain')
+      script(type='text/javascript', src='/js/controllers/authCtrl.js')
+      script(type='text/javascript', src='/js/controllers/characterCtrl.js')
+      script(type='text/javascript', src='/js/controllers/menuCtrl.js')
+      script(type='text/javascript', src='/js/controllers/notificationCtrl.js')
+      script(type='text/javascript', src='/js/controllers/rootCtrl.js')
+      script(type='text/javascript', src='/js/controllers/settingsCtrl.js')
+      script(type='text/javascript', src='/js/controllers/statsCtrl.js')
+      script(type='text/javascript', src='/js/controllers/tasksCtrl.js')
+      script(type='text/javascript', src='/js/controllers/taskDetailsCtrl.js')
+      script(type='text/javascript', src='/js/controllers/filtersCtrl.js')
+      script(type='text/javascript', src='/js/controllers/userAvatarCtrl.js')
+      script(type='text/javascript', src='/js/controllers/groupsCtrl.js')
+      script(type='text/javascript', src='/js/controllers/petsCtrl.js')
+      script(type='text/javascript', src='/js/controllers/inventoryCtrl.js')
+      script(type='text/javascript', src='/js/controllers/marketCtrl.js')
+      script(type='text/javascript', src='/js/controllers/footerCtrl.js')
+    -}
 
     //webfonts
     link(href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic', rel='stylesheet', type='text/css')

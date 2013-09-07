@@ -15,7 +15,7 @@ Or, expressed in commands on the command line:
 
 1. `git clone --recursive -b angular_rewrite https://github.com/lefnire/habitrpg.git`
 1. `cd habitrpg && npm install`
-1. `npm start`
+1. `grunt start` (`grunt start:production` to concat & minify js)
 
 To access the site, open http://localhost:3000 in your browser.
 
@@ -76,7 +76,7 @@ Ignore this error and proceed with the following:
 1.  Run 'npm install -g bower'
 1.  Run 'bower install -f'
 1.  Run 'copy config.json.example config.json'
-1.  Run 'npm start'
+1. `grunt start` (`grunt start:production` to concat & minify js)
 
 Open a browser to URL http://localhost:3000 to test the application.
 
