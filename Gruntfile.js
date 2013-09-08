@@ -53,7 +53,7 @@ module.exports = function(grunt) {
             'public/js/controllers/tasksCtrl.js',
             'public/js/controllers/taskDetailsCtrl.js',
             'public/js/controllers/filtersCtrl.js',
-            'public/js/controllers/userAvatarCtrl.js',
+            'public/js/controllers/userCtrl.js',
             'public/js/controllers/groupsCtrl.js',
             'public/js/controllers/petsCtrl.js',
             'public/js/controllers/inventoryCtrl.js',

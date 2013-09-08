@@ -6,7 +6,7 @@
 
   header.site-header(ng-hide='user.preferences.hideHeader', role='banner', data-partysize='{{party.members.length>1 ? truarr(party.members.length) : 0}}')
     // avatar
-    .herobox-wrap.main-herobox(ng-controller='UserAvatarCtrl')
+    .herobox-wrap.main-herobox(ng-controller='UserCtrl')
       include avatar
 
     // stat bars

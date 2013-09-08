@@ -158,6 +158,16 @@ angular.module('userServices', []).
               userServices.log(log);
             },
 
+            setMultiple: function(obj){
+              var self = this;
+              var log = { op: 'set', data: {} };
+              _.each(obj, function(v,k){
+                window.habitrpgShared.helpers.dotSet(k, v, userServices.user);
+                log.data[k] = v;
+              })
+              userServices.log(log);
+            },
+
             settings: settings
         };
 
