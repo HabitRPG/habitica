@@ -8,10 +8,11 @@ angular.module('groupServices', ['ngResource']).
     factory('Groups', ['API_URL', '$resource', 'User', '$q', 'Members',
       function(API_URL, $resource, User, $q, Members) {
         var Group = $resource(API_URL + '/api/v1/groups/:gid',
-          {gid:'@_id'},
+          {gid:'@_id', messageId: '@_messageId'},
           {
             //'query': {method: "GET", isArray:false}
             postChat: {method: "POST", url: API_URL + '/api/v1/groups/:gid/chat'},
+            deleteChatMessage: {method: "DELETE", url: API_URL + '/api/v1/groups/:gid/chat/:messageId'},
             join: {method: "POST", url: API_URL + '/api/v1/groups/:gid/join'},
             leave: {method: "POST", url: API_URL + '/api/v1/groups/:gid/leave'},
             invite: {method: "POST", url: API_URL + '/api/v1/groups/:gid/invite'}

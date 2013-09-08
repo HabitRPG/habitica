@@ -61,8 +61,8 @@ router.post('/groups/:gid/invite', auth.auth, groups.attachGroup, groups.invite)
 
 //GET  /groups/:gid/chat
 router.post('/groups/:gid/chat', auth.auth, groups.attachGroup, groups.postChat);
+router["delete"]('/groups/:gid/chat/:messageId', auth.auth, groups.attachGroup, groups.deleteChatMessage);
 //PUT  /groups/:gid/chat/:messageId
-//DELETE  /groups/:gid/chat/:messageId
 
 /* Members */
 router.get('/members/:uid', groups.getMember);
