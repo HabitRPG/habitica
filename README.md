@@ -16,7 +16,7 @@ The general steps are:
 
 Or, expressed in commands on the command line:
 
-1. `git clone --recursive -b angular_rewrite https://github.com/lefnire/habitrpg.git`
+1. `git clone --recursive -b develop https://github.com/lefnire/habitrpg.git`
 1. 'npm install -g grunt-cli' (you may need to add `sudo` in front of it)
 1. `cd habitrpg && npm install`
 1. `grunt run:dev`
@@ -47,7 +47,7 @@ There are a few other Grunt task avalaible:
 1. Set up MongoDB.  Steps:
   1.  Download the latest production release of MongoDB from: http://www.mongodb.org/downloads
   1.  Extract the zip file to the desired application directory.  Example:  c:\apps\mongodb-win32-x86_64-2.4.6
-  1.  Rename the folder from mongodb-win32-x86_64-2.4.6 to mongodo
+  1.  Rename the folder from mongodb-win32-x86_64-2.4.6 to mongodb
   1.  Create a data\db directory under the application directory.  Example:  c:\apps\mongodb\data\db
   1.  Start up MongoDB using the following command:
 	'c:\apps\mongodb\bin\mongod.exe --dbpath c:\apps\mongodb\data'
@@ -65,7 +65,7 @@ rt 28017
     1.  Make sure to select "Run Git from the Windows Command Prompt" during the installation process
   1.  Open a command window.  Navigate to the location where you would like the project files to live.  Example:  c:\projects
   1.  Run git command to download angular_rewrite branch.
-        'git clone --recursive -b angular_rewrite https://github.com/ezinaz/habitrpg.git'  (where 'ezinaz' is your account name)
+        'git clone --recursive -b develop https://github.com/ezinaz/habitrpg.git'  (where 'ezinaz' is your account name)
   1.  Run 'cd habitrpg'
   1.  Create upstream remote:
   	'git remote add upstream https://github.com/lefnire/habitrpg.git'
