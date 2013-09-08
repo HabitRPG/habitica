@@ -5,13 +5,23 @@ var http = require("http");
 var path = require("path");
 var app = express();
 var nconf = require('nconf');
+var utils = require('./utils');
 var middleware = require('./middleware');
 var server;
 var TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 
 // ------------ Setup configurations ------------
 require('./config');
-require('./errors');
+process.on("uncaughtException", function(error) {
+  // when we hit an error, send it to admin as an email. If no ADMIN_EMAIL is present, just send it to yourself (SMTP_USER)
+  utils.sendEmail({
+    from: "HabitRPG <" + nconf.get('SMTP_USER') + ">",
+    to: nconf.get('ADMIN_EMAIL') || nconf.get('SMTP_USER'),
+    subject: "HabitRPG Error",
+    text: error.stack
+  });
+  console.error(error.stack);
+});
 
 // ------------  MongoDB Configuration ------------
 mongoose = require('mongoose');

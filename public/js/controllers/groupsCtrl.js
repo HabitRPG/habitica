@@ -67,10 +67,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
     $scope.nameTagClasses = function(message){
       if (message.contributor) {
-        if (message.contributor.match(/npc/i) || message.contributor.match(/master/i)) {
-          return 'label-master'; // master
+        if (message.contributor.match(/npc/i) || message.contributor.match(/royal/i)) {
+          return 'label-royal';
         } else if (message.contributor.match(/champion/i)) {
-          return 'label-champion'; // champion
+          return 'label-champion';
         } else if (message.contributor.match(/elite/i)) {
           return 'label-success'; //elite
         }
