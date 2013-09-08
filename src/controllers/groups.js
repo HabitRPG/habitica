@@ -171,10 +171,12 @@ api.deleteChatMessage = function(req, res, next){
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.messageId, uuid: user.id});
 
-  if(message === undefined) return res.json(500, {err: "Message not found!"});
+  if(message === undefined) return res.json(404, {err: "Message not found!"});
 
-  if(user.id !== message.uuid || (user.backer && !user.backer.admin)){
-    return res.json(500, {err: "Not authorized to delete this message!"});
+  if(user.id !== message.uuid){
+    if(!user.backer || (user.backer && !user.backer.admin)){
+      return res.json(401, {err: "Not authorized to delete this message!"})
+    }
   }
 
   group.chat = _.without(group.chat, message);
