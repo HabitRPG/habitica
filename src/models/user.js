@@ -143,8 +143,8 @@ var UserSchema = new Schema({
   /*FIXME store as Date?*/
 
   lastCron: {
-    type: Number,
-    'default': +(new Date)
+    type: Date,
+    'default': new Date
   },
   /* FIXME remove?*/
 
