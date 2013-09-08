@@ -555,7 +555,13 @@ api.reset = function(req, res){
     if (err) return res.json(500,{err:err});
     res.json(saved);
   })
+}
 
+api['delete'] = function(req, res) {
+  res.locals.user.remove(function(err){
+    if (err) return res.json(500,{err:err});
+    res.send(200);
+  })
 }
 
 

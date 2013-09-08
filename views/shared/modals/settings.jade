@@ -55,4 +55,4 @@ div(ng-controller='SettingsCtrl')
         input(type='text', ng-model='_deleteAccount')
     footer
       button.btn.btn-default(ng-click='modals.delete = false') Cancel
-      button.btn.btn-danger.btn-small(ng-disabled='_deleteAccount != "DELETE"', data-dismiss='modal', ng-click='notPorted()') Delete Account
+      button.btn.btn-danger.btn-small(ng-disabled='_deleteAccount != "DELETE"', ng-click='delete()') Delete Account

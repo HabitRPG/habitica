@@ -75,5 +75,15 @@ habitrpg.controller('SettingsCtrl',
           alert(data);
         });
     }
+    $scope['delete'] = function(){
+      $http['delete'](API_URL + '/api/v1/user')
+        .success(function(){
+          localStorage.clear();
+          window.location.href = '/logout';
+        })
+        .error(function(data){
+          alert(data);
+        });
+    }
   }
 ]);
