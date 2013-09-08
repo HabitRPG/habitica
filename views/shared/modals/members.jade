@@ -1,17 +1,17 @@
 div(ng-controller='MemberModalCtrl')
-  div(modal='modals.member')
+  #memberModal(modal='modals.member')
     .modal-header
       h3
         span {{username(profile.auth, profile.profile.name)}}
         span(ng-show='profile.backer.contributor')  - {{profile.backer.contributor}}
     .modal-body
-      app:avatar:profile
       .row-fluid
         .span6
           img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
-          p(ng-show='profile.profile.blurb') {{profile.profile.blurb}}
+          p(ng-show='profile.profile.blurb') {{profile.profile.blurb | linky:'_blank'}}
           ul(ng-show='profile.profile.websites')
-            li(ng-repeat='website in profile.profile.websites') {{website}}
+            li(ng-repeat='website in profile.profile.websites') 
+              a(href="{{website}}") {{website}}
           h3 Stats
             include ../profiles/stats
         .span6
