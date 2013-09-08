@@ -1,4 +1,4 @@
-.row-fluid
+.row-fluid(ng-controller='UserCtrl')
 
   // ---- Customize -----
   .span4.border-right
@@ -9,7 +9,7 @@
           button.m_head_0.customize-option(type='button', ng-click='set("preferences.gender","m")')
           button.f_head_0.customize-option(type='button', ng-click='set("preferences.gender","f")')
         label.checkbox
-          input(type='checkbox', checked='{{user.preferences.showHelm}}')
+          input(type='checkbox', ng-model='user.preferences.showHelm', ng-change='toggleHelm(user.preferences.showHelm)')
           | Show Helm
       // hair
       li.customize-menu
@@ -38,30 +38,28 @@
 
   // ------- Edit -------
   .span4
-    // <profile-edit:>
-    // <a class='btn btn-success' x-bind="click:profileSave">Save</a>
     // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
     img.pull-right(ng-src='{{user.profile.imageUrl}}')
     .control-group
       label.control-label(for='profileImageUrl') Photo Url
       .controls
-        input#profileImageUrl(type='url', value='{{user.profile.imageUrl}}', placeholder='Image Url')
+        input#profileImageUrl(type='url', ng-model='user.profile.imageUrl', placeholder='Image Url', ng-blur='set("profile.imageUrl", user.profile.imageUrl)')
     .control-group
       label.control-label(for='profileFullName') Full Name
       .controls
-        input#profileFullName(type='text', placeholder='Full Name', value='{{user.profile.name}}')
+        input#profileFullName(type='text', placeholder='Full Name', ng-model='user.profile.name', ng-blur='set("profile.name", user.profile.name)', )
     .control-group
       label.control-label(for='profileBlurb') Blurb
       .controls
-        textarea#profileBlurb(placeholder='Blurb') {{user.profile.blurb}}
+        textarea#profileBlurb(placeholder='Blurb', ng-model='user.profile.blurb', ng-blur='set("profile.blurb", user.profile.blurb)')
     .control-group
       label.control-label(for='profileWebsite') Websites
       .controls
-        form(x-bind='submit:profileAddWebsite')
-          input#profileWebsite(type='url', value='{{_newProfileWebsite}}', placeholder='Add Website')
+        form(ng-submit='addWebsite()')
+          input#profileWebsite(type='url', ng-model='_newWebsite', placeholder='Add Website')
       ul
         // would prefer if there were and index in #each, instead using data-website to search with indexOf
         li(ng-repeat='website in user.profile.websites')
           | {{website}}
-          a(data-website='{{website}}', x-bind='click:profileRemoveWebsite')
+          a(data-website='{{website}}', ng-click='removeWebsite($index)')
             i.icon-remove

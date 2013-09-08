@@ -5,6 +5,6 @@ li(ng-repeat='message in group.chat', ng-class='{highlight: message.text.indexOf
   span(ng-bind-html="message.text | linky:'_blank'") -
   span 
   span.muted.time
-    | {{relativeDate(message.timestamp, _currentTime)}}
-  a(ng-show='user.backer.admin || message.uuid == user.id', x-bind='click:deleteChatMessage')
+    | {{relativeDate(message.timestamp, _currentTime) + ' '}}
+  a(ng-show='user.backer.admin || message.uuid == user.id', ng-click='deleteChatMessage(group, message)')
     i.icon-remove(tooltip='Delete')

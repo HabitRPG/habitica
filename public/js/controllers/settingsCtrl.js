@@ -49,5 +49,41 @@ habitrpg.controller('SettingsCtrl',
         });
     }
 
+    $scope.restore = function(){
+      var stats = User.user.stats,
+        items = User.user.items;
+      User.setMultiple({
+        "stats.hp": stats.hp,
+        "stats.exp": stats.exp,
+        "stats.gp": stats.gp,
+        "stats.lvl": stats.lvl,
+        "items.weapon": items.weapon,
+        "items.armor": items.armor,
+        "items.head": items.head,
+        "items.shield": items.shield
+      });
+      $rootScope.modals.restore = false;
+    }
+    $scope.reset = function(){
+      $http.post(API_URL + '/api/v1/user/reset')
+        .success(function(){
+          User.user._v--;
+          User.log({});
+          $rootScope.modals.reset = false;
+        })
+        .error(function(data){
+          alert(data);
+        });
+    }
+    $scope['delete'] = function(){
+      $http['delete'](API_URL + '/api/v1/user')
+        .success(function(){
+          localStorage.clear();
+          window.location.href = '/logout';
+        })
+        .error(function(data){
+          alert(data);
+        });
+    }
   }
 ]);

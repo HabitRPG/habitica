@@ -4,7 +4,7 @@ block vars
   - var layoutEnv = env
 
 block title
-  title HabitRPG &VerticalLine; Gamify Your Life
+  title HabitRPG | Gamify Your Life
 
 block content
   div(ng-app='habitrpg')
@@ -71,7 +71,7 @@ block content
 
 
 
-  .tab-pane#register-tab
+                .tab-pane#register-tab
                   form(ng-submit='register()', name='registrationForm')
                     .control-group
                       input(type='text', ng-model='registerVals.username', placeholder='Username', required)

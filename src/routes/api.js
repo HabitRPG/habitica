@@ -47,6 +47,8 @@ router.post('/user/revive', auth.auth, cron, user.revive);
 router.post('/user/batch-update', auth.auth, cron, user.batchUpdate);
 router.post('/user/reroll', auth.auth, cron, user.reroll);
 router.post('/user/buy-gems', auth.auth, user.buyGems);
+router.post('/user/reset', auth.auth, user.reset);
+router['delete']('/user', auth.auth, user['delete']);
 
 /* Groups*/
 router.get('/groups', auth.auth, groups.getGroups);
@@ -61,8 +63,8 @@ router.post('/groups/:gid/invite', auth.auth, groups.attachGroup, groups.invite)
 
 //GET  /groups/:gid/chat
 router.post('/groups/:gid/chat', auth.auth, groups.attachGroup, groups.postChat);
+router["delete"]('/groups/:gid/chat/:messageId', auth.auth, groups.attachGroup, groups.deleteChatMessage);
 //PUT  /groups/:gid/chat/:messageId
-//DELETE  /groups/:gid/chat/:messageId
 
 /* Members */
 router.get('/members/:uid', groups.getMember);
