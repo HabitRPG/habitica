@@ -7,7 +7,7 @@ div(ng-controller='SettingsCtrl')
       p This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.
     .modal-footer
       button.btn.btn-default.cancel(ng-click='modals.reset = false') Close
-      button.btn.btn-danger(data-dismiss='modal', ng-click='notPorted()') Reset
+      button.btn.btn-danger(data-dismiss='modal', ng-click='reset()') Reset
 
   div(modal='modals.restore')
     .modal-header

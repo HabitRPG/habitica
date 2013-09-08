@@ -64,6 +64,16 @@ habitrpg.controller('SettingsCtrl',
       });
       $rootScope.modals.restore = false;
     }
-
+    $scope.reset = function(){
+      $http.post(API_URL + '/api/v1/user/reset')
+        .success(function(){
+          User.user._v--;
+          User.log({});
+          $rootScope.modals.reset = false;
+        })
+        .error(function(data){
+          alert(data);
+        });
+    }
   }
 ]);

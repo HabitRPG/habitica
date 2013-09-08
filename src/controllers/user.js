@@ -533,6 +533,31 @@ api.reroll = function(req, res, next) {
   });
 };
 
+api.reset = function(req, res){
+  var user = res.locals.user;
+  user.tasks = {};
+
+  _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
+    user[type + "Ids"] = [];
+  });
+
+  user.stats.hp = 50;
+  user.stats.lvl = 1;
+  user.stats.gp = 0;
+  user.stats.exp = 0;
+
+  user.items.armor = 0;
+  user.items.weapon = 0;
+  user.items.head = 0;
+  user.items.shield = 0;
+
+  user.save(function(err, saved){
+    if (err) return res.json(500,{err:err});
+    res.json(saved);
+  })
+
+}
+
 
 /*
  Setup Stripe response when posting payment
@@ -559,79 +584,6 @@ api.buyGems = function(req, res) {
   ], function(err, saved){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
     res.send(200, saved);
-  });
-};
-
-/*
-  ------------------------------------------------------------------------
-  Party
-  ------------------------------------------------------------------------
-*/
-
-
-api.getGroups = function(req, res, next) {
-  var user = res.locals.user;
-  /*TODO should we support non-authenticated users? just for viewing public groups?*/
-
-  return async.parallel({
-    party: function(cb) {
-      return async.waterfall([
-        function(cb2) {
-          return Group.findOne({
-            type: 'party',
-            members: {
-              '$in': [user._id]
-            }
-          }, cb2);
-        }, function(party, cb2) {
-          var fields, query;
-          party = party.toJSON();
-          query = {
-            _id: {
-              '$in': party.members,
-              '$nin': [user._id]
-            }
-          };
-          fields = 'profile preferences items stats achievements party backer auth.local.username auth.facebook.first_name auth.facebook.last_name auth.facebook.name auth.facebook.username'.split(' ');
-          fields = _.reduce(fields, (function(m, k, v) {
-            m[k] = 1;
-            return m;
-          }), {});
-          return User.find(query, fields, function(err, members) {
-            party.members = members;
-            return cb2(err, party);
-          });
-        }
-      ], function(err, members) {
-        return cb(err, members);
-      });
-    },
-    guilds: function(cb) {
-      return cb(null, {});
-      return Group.findOne({
-        type: 'guild',
-        members: {
-          '$in': [user._id]
-        }
-      }, cb);
-    },
-    "public": function(cb) {
-      return cb(null, {});
-      return Group.find({
-        privacy: 'public'
-      }, {
-        name: 1,
-        description: 1,
-        members: 1
-      }, cb);
-    }
-  }, function(err, results) {
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    return res.json(results);
   });
 };
 
