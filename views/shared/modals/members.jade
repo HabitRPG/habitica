@@ -11,7 +11,7 @@ div(ng-controller='MemberModalCtrl')
           p(ng-show='profile.profile.blurb') {{profile.profile.blurb | linky:'_blank'}}
           ul(ng-show='profile.profile.websites')
             li(ng-repeat='website in profile.profile.websites') 
-              a(href="{{website}}") {{website}}
+              a(href='{{website}') {{website}}
           h3 Stats
             include ../profiles/stats
         .span6
