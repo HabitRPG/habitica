@@ -6,4 +6,7 @@ habitrpg.controller("UserAvatarCtrl", ['$scope', '$location', 'User',
   $scope.hideUserAvatar = function() {
     $(".userAvatar").hide();
   };
+  $scope.toggleHelm = function(val){
+    User.log({op:'set', data:{'preferences.showHelm':val}});
+  }
 }]);
