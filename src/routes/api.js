@@ -64,6 +64,9 @@ router.post('/groups/:gid/chat', auth.auth, groups.attachGroup, groups.postChat)
 //PUT  /groups/:gid/chat/:messageId
 //DELETE  /groups/:gid/chat/:messageId
 
+/* Members */
+router.get('/members/:uid', groups.getMember);
+
 // Market
 router.post('/market/buy', auth.auth, user.marketBuy);
 

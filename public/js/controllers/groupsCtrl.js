@@ -1,16 +1,36 @@
 "use strict";
 
-habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q', 'User',
-  function($scope, $rootScope, Groups, $http, API_URL, $q, User) {
+habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q', 'User', 'Members', '$location',
+  function($scope, $rootScope, Groups, $http, API_URL, $q, User, Members, $location) {
 
       $scope.isMember = function(user, group){
         return ~(group.members.indexOf(user._id));
       }
 
-      $scope.groups = Groups.groups;
+      // ------ Loading ------
 
+      $scope.groups = Groups.groups;
       $scope.fetchGuilds = Groups.fetchGuilds;
       $scope.fetchTavern = Groups.fetchTavern;
+
+      // ------ Modals ------
+
+      $scope.clickMember = function(uid, forceShow) {
+        if (User.user._id == uid && !forceShow) {
+          if ($location.path() == '/tasks') {
+            $location.path('/options');
+          } else {
+            $location.path('/tasks');
+          }
+        } else {
+          // We need the member information up top here, but then we pass it down to the modal controller
+          // down below. Better way of handling this?
+          Members.selectMember(uid);
+          $rootScope.modals.member = true;
+        }
+      }
+
+    // ------ Invites ------
 
       $scope.invitee = '';
       $scope.invite = function(group, uuid){
@@ -19,6 +39,15 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           alert("User invited to group");
         });
       }
+    }
+  ])
+
+  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members',
+    function($scope, $rootScope, Members) {
+      // We watch Members.selectedMember because it's asynchronously set, so would be a hassle to handle updates here
+      $scope.$watch( function() { return Members.selectedMember; }, function (member) {
+        $scope.profile = member;
+      });
     }
   ])
 
@@ -38,10 +67,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
     $scope.nameTagClasses = function(message){
       if (message.contributor) {
-        if (message.contributor.match(/npc/i) || message.contributor.match(/master/i)) {
-          return 'label-master'; // master
+        if (message.contributor.match(/npc/i) || message.contributor.match(/royal/i)) {
+          return 'label-royal';
         } else if (message.contributor.match(/champion/i)) {
-          return 'label-champion'; // champion
+          return 'label-champion';
         } else if (message.contributor.match(/elite/i)) {
           return 'label-success'; //elite
         }

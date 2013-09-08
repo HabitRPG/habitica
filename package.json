@@ -53,6 +53,7 @@
   },
   "scripts": {
     "test": "mocha test/api.mocha.coffee",
+    "start": "grunt run:dev",
     "postinstall": "./node_modules/bower/bin/bower install -f"
   }
 }

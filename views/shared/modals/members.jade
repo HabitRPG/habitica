@@ -1,0 +1,22 @@
+div(ng-controller='MemberModalCtrl')
+  div(modal='modals.member')
+    .modal-header
+      h3
+        span {{username(profile.auth, profile.profile.name)}}
+        span(ng-show='profile.backer.contributor')  - {{profile.backer.contributor}}
+    .modal-body
+      app:avatar:profile
+      .row-fluid
+        .span6
+          img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
+          p(ng-show='profile.profile.blurb') {{profile.profile.blurb}}
+          ul(ng-show='profile.profile.websites')
+            li(ng-repeat='website in profile.profile.websites') {{website}}
+          h3 Stats
+            include ../profiles/stats
+        .span6
+          include ../header/avatar
+          h3 Achievements
+          include ../profiles/achievements
+    .modal-footer
+      button.btn.btn-default(ng-click='modals.member = false') Ok
