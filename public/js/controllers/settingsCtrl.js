@@ -49,5 +49,21 @@ habitrpg.controller('SettingsCtrl',
         });
     }
 
+    $scope.restore = function(){
+      var stats = User.user.stats,
+        items = User.user.items;
+      User.setMultiple({
+        "stats.hp": stats.hp,
+        "stats.exp": stats.exp,
+        "stats.gp": stats.gp,
+        "stats.lvl": stats.lvl,
+        "items.weapon": items.weapon,
+        "items.armor": items.armor,
+        "items.head": items.head,
+        "items.shield": items.shield
+      });
+      $rootScope.modals.restore = false;
+    }
+
   }
 ]);

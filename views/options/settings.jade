@@ -24,11 +24,11 @@
           input(type='password', placeholder='Confirm New Password', ng-model='changePass.confirmNewPassword', required)
         input.btn(type='submit', value='Submit')
 
-  hr
+    hr
     h4 Danger Zone
-    a.btn.btn-danger(ng-click='notPorted()', data-target='#reset-modal', data-toggle='modal', tooltip='Resets your entire account (dangerous).') Reset
-    a.btn.btn-danger(ng-click='notPorted()', data-target='#restore-modal', data-toggle='modal', tooltip='Restores attributes to your character.') Restore
-    a.btn.btn-danger(ng-click='notPorted()', data-target='#delete-modal', data-toggle='modal', tooltip='Delete your account.') Delete
+    a.btn.btn-danger(ng-click='modals.reset = true', tooltip='Resets your entire account (dangerous).') Reset
+    a.btn.btn-danger(ng-click='modals.restore = true', tooltip='Restores attributes to your character.') Restore
+    a.btn.btn-danger(ng-click='modals.delete = true', tooltip='Delete your account.') Delete
   .span6
     h2 API
     small Copy these for use in third party applications.

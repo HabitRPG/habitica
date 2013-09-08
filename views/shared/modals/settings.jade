@@ -1,0 +1,58 @@
+div(ng-controller='SettingsCtrl')
+  div(modal='modals.reset')
+    .modal-header
+      h3 Reset
+    .modal-body
+      p This resets your entire account - your tasks will be deleted and your character will start over.
+      p This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.
+    .modal-footer
+      button.btn.btn-default.cancel(ng-click='modals.reset = false') Close
+      button.btn.btn-danger(data-dismiss='modal', ng-click='notPorted()') Reset
+
+  div(modal='modals.restore')
+    .modal-header
+      h3 Restore
+    .modal-body
+      p HabitRPG is quite Beta-quality at present, and many find they need to restore character attributes as a result. Enter your numbers here and it will be applied automatically to your character. This will be removed once Habit is more stable.
+      div.restore-options
+        form#restore-form.form-horizontal
+          h3 Stats
+          .option-group.option-medium
+            input.option-content(type='number', data-for='stats.hp', ng-model='user.stats.hp')
+            span.input-suffix HP
+          .option-group.option-medium
+            input.option-content(type='number', data-for='stats.exp', ng-model='user.stats.exp')
+            span.input-suffix Exp
+          .option-group.option-medium
+            input.option-content(type='number', data-for='stats.gp', ng-model='user.stats.gp')
+            span.input-suffix GP
+          .option-group.option-medium
+            input.option-content(type='number', data-for='stats.lvl', ng-model='user.stats.lvl')
+            span.input-suffix Level
+          h3 Items
+          .option-group.option-medium
+            input.option-content(type='number', data-for='items.weapon', ng-model='user.items.weapon')
+            span.input-suffix Weapon
+          .option-group.option-medium
+            input.option-content(type='number', data-for='items.armor', ng-model='user.items.armor')
+            span.input-suffix Armor
+          .option-group.option-medium
+            input.option-content(type='number', data-for='items.head', ng-model='user.items.head')
+            span.input-suffix Helm
+          .option-group.option-medium
+            input.option-content(type='number', data-for='items.shield', ng-model='user.items.shield')
+            span.input-suffix Shield
+    .modal-footer
+      button.btn.btn-primary(ng-click='restore()') Save & Close
+
+  div(modal='modals.delete')
+    .modal-header
+      h3 Delete Account
+    .modal-body
+      p.
+        Woa woa woa! Are you sure? This will seriously delete your account forever, and it can never be restored. If you're absolutely certain, type <strong>DELETE</strong> into the text-box below.
+      p
+        input(type='text', ng-model='_deleteAccount')
+    footer
+      button.btn.btn-default(ng-click='modals.delete = false') Cancel
+      button.btn.btn-danger.btn-small(ng-disabled='_deleteAccount != "DELETE"', data-dismiss='modal', ng-click='notPorted()') Delete Account
