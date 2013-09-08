@@ -53,6 +53,6 @@ div(ng-controller='SettingsCtrl')
         Woa woa woa! Are you sure? This will seriously delete your account forever, and it can never be restored. If you're absolutely certain, type <strong>DELETE</strong> into the text-box below.
       p
         input(type='text', ng-model='_deleteAccount')
-    footer
+    .modal-footer
       button.btn.btn-default(ng-click='modals.delete = false') Cancel
       button.btn.btn-danger.btn-small(ng-disabled='_deleteAccount != "DELETE"', ng-click='delete()') Delete Account
