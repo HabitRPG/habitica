@@ -9,7 +9,7 @@
           button.m_head_0.customize-option(type='button', ng-click='set("preferences.gender","m")')
           button.f_head_0.customize-option(type='button', ng-click='set("preferences.gender","f")')
         label.checkbox
-          input(type='checkbox', checked='{{user.preferences.showHelm}}')
+          input(type='checkbox', ng-model='user.preferences.showHelm', ng-change='toggleHelm(user.preferences.showHelm)')
           | Show Helm
       // hair
       li.customize-menu
