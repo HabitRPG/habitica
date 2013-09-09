@@ -39,11 +39,11 @@ block content
 
               .tab-content
                 .tab-pane.active#login-tab
-                  form(ng-submit='auth()')
+                  form(ng-submit='auth()', method='POST')
                     .control-group
-                      input(type='text', ng-model='loginUsername', placeholder='{{useUUID ? "UUID" : "Username"}}')
+                      input(type='text', ng-model='loginUsername', placeholder='Username')
                     .control-group
-                      input(type='{{useUUID ? "text" : "password"}}', ng-model='loginPassword', placeholder='{{useUUID ? "API Token" : "Password"}}')
+                      input(type='password', ng-model='loginPassword', placeholder='Password')
                     //-.control-group
                       label.checkbox
                         input(type='checkbox', ng-click='useUUID = !useUUID')
