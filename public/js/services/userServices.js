@@ -5,8 +5,8 @@
  */
 
 angular.module('userServices', []).
-    factory('User', ['$http', '$location', 'API_URL', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID',
-      function($http, $location, API_URL, STORAGE_USER_ID, STORAGE_SETTINGS_ID) {
+    factory('User', ['$http', '$location', 'API_URL', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Members',
+      function($http, $location, API_URL, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Members) {
         var authenticated = false,
             defaultSettings = {
                 auth: { apiId: '', apiToken: ''},
@@ -70,6 +70,7 @@ angular.module('userServices', []).
                           _.extend(user, data);
                         }
                         user._v = data._v;
+                        Members.populate(user);
 
                         // FIXME handle this somewhere else, we don't need to check every single time
                         var offset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
