@@ -18,27 +18,29 @@
                     span(ng-hide='user.flags.rest') Rest In The Inn
     .alert.alert-info(ng-show='user.flags.rest')
       | Whilst resting, your dailies are saved and aren't affected by day turn-over. Whether you check out tomorrow or in a week's time, you'll continue in the same state as when you checked in.
-    .well
-      h3 Resources
-      ul.unstyled
-        li
-          h4
-            a(target='_blank', href='http://community.habitrpg.com/forums/lfg') LFG Posts
-        li
-          h4
-            a(target='_blank', href='http://www.youtube.com/watch?feature=player_embedded&v=cT5ghzZFfao') Tutorial
-        li
-          h4
-            a(target='_blank', href='http://community.habitrpg.com/faq-page') FAQ
-        li
-          h4
-            a(target='_blank', href='http://community.habitrpg.com/node/280') Report a Problem
-        li
-          h4
-            a(target='_blank', href='https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6') Request a Feature
-        li
-          h4
-            a(target='_blank', href='http://community.habitrpg.com/forum') Community Forum
+    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
+      .modal-header
+        h3 Resources
+      .modal-body
+        ul.unstyled
+          li
+            h4
+              a(target='_blank', href='http://community.habitrpg.com/forums/lfg') LFG Posts
+          li
+            h4
+              a(target='_blank', href='http://www.youtube.com/watch?feature=player_embedded&v=cT5ghzZFfao') Tutorial
+          li
+            h4
+              a(target='_blank', href='http://community.habitrpg.com/faq-page') FAQ
+          li
+            h4
+              a(target='_blank', href='http://community.habitrpg.com/node/280') Report a Problem
+          li
+            h4
+              a(target='_blank', href='https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6') Request a Feature
+          li
+            h4
+              a(target='_blank', href='http://community.habitrpg.com/forum') Community Forum
   .span8(ng-controller='ChatCtrl')
     h3 Tavern Talk & LFG
     .row-fluid
