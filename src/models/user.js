@@ -236,10 +236,10 @@ UserSchema.methods.toJSON = function() {
   transformTaskLists(doc); // we need to also transform for our server-side routes
 
   // Remove some unecessary data as far as client consumers are concerned
-  _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
-    delete doc["#{type}Ids"]
-  });
-  delete doc.tasks
+  //_.each(['habit', 'daily', 'todo', 'reward'], function(type) {
+  //  delete doc["#{type}Ids"]
+  //});
+  //delete doc.tasks
   doc.filters = {};
 
   return doc;
