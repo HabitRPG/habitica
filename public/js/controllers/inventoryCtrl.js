@@ -16,17 +16,17 @@ habitrpg.controller("InventoryCtrl", ['$scope', 'User',
     }
 
     $scope.pour = function(){
+      var pet = $scope.selectedEgg.name + '-' + $scope.selectedPotion;
+
+      if(User.user.items.pets && ~User.user.items.pets.indexOf(pet)) {
+        return alert("You already have that pet, hatch a different combo.")
+      }
+
       var i = _.indexOf($scope.userEggs, $scope.selectedEgg);
       $scope.userEggs.splice(i, 1);
 
       i = _.indexOf($scope.userHatchingPotions, $scope.selectedPotion);
       $scope.userHatchingPotions.splice(i, 1);
-
-      var pet = $scope.selectedEgg.name + '-' + $scope.selectedPotion;
-
-      if(User.user.items.pets && User.user.items.pets.indexOf(pet) != -1) {
-        return alert("You already have that pet, hatch a different combo.")
-      }
 
       if(!User.user.items.pets) User.user.items.pets = [];
       User.user.items.pets.push(pet);
