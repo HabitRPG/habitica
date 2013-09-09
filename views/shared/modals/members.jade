@@ -8,10 +8,10 @@ div(ng-controller='MemberModalCtrl')
       .row-fluid
         .span6
           img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
-          p(ng-show='profile.profile.blurb') {{profile.profile.blurb | linky:'_blank'}}
+          p(ng-show='profile.profile.blurb', btf-markdown='profile.profile.blurb')
           ul(ng-show='profile.profile.websites')
-            li(ng-repeat='website in profile.profile.websites') 
-              a(href='{{website}}') {{website}}
+            li(ng-repeat='website in profile.profile.websites')
+              a(href='{{website}}', target='_blank') {{website}}
           h3 Stats
             include ../profiles/stats
         .span6

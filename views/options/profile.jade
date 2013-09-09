@@ -38,28 +38,49 @@
 
   // ------- Edit -------
   .span4
-    // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
-    img.pull-right(ng-src='{{user.profile.imageUrl}}')
-    .control-group
-      label.control-label(for='profileImageUrl') Photo Url
-      .controls
-        input#profileImageUrl(type='url', ng-model='user.profile.imageUrl', placeholder='Image Url', ng-blur='set("profile.imageUrl", user.profile.imageUrl)')
-    .control-group
-      label.control-label(for='profileFullName') Full Name
-      .controls
-        input#profileFullName(type='text', placeholder='Full Name', ng-model='user.profile.name', ng-blur='set("profile.name", user.profile.name)', )
-    .control-group
-      label.control-label(for='profileBlurb') Blurb
-      .controls
-        textarea#profileBlurb(placeholder='Blurb', ng-model='user.profile.blurb', ng-blur='set("profile.blurb", user.profile.blurb)')
-    .control-group
-      label.control-label(for='profileWebsite') Websites
-      .controls
+    button.btn.btn-default(ng-click='_editing.profile = true', ng-show='!_editing.profile') Edit
+    button.btn.btn-primary(ng-click='_editing.profile = false', ng-show='_editing.profile') Save
+    div(ng-show='!_editing.profile')
+      h4 Display Name
+      span(ng-show='profile.profile.name') {{profile.profile.name}}
+      span.muted(ng-hide='profile.profile.name') - None -
+
+      h4 Photo
+      img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
+      span.muted(ng-hide='profile.profile.imageUrl') - None -
+
+      h4 Blurb
+      p(ng-show='profile.profile.blurb', btf-markdown='profile.profile.blurb')
+      span.muted(ng-hide='profile.profile.blurb') - None -
+      //{{profile.profile.blurb | linky:'_blank'}}
+
+      h4 Websites
+      ul(ng-show='profile.profile.websites')
+        // TODO let's remove links eventually, since we can do markdown on profiles
+        li(ng-repeat='website in profile.profile.websites')
+          a(target='_blank', ng-href='{{website}}') {{website}}
+      span.muted(ng-hide='profile.profile.websites') - None -
+
+    div.whatever-options(ng-show='_editing.profile')
+      // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
+      .control-group.option-large
+        label.control-label Display Name
+        input.option-content(type='text', placeholder='Full Name', ng-model='user.profile.name', ng-blur='set("profile.name", user.profile.name)', )
+      .control-group.option-large
+        label.control-label Photo Url
+        input.option-content(type='url', ng-model='user.profile.imageUrl', placeholder='Image Url', ng-blur='set("profile.imageUrl", user.profile.imageUrl)')
+      .control-group.option-large
+        label.control-label Blurb
+        textarea.option-content(style='height:15em;', placeholder='Blurb', ng-model='user.profile.blurb', ng-blur='set("profile.blurb", user.profile.blurb)')
+        small
+          a(target='_blank', href='http://daringfireball.net/projects/markdown/') Use Markdown form formatting
+      .control-group.option-large
+        label.control-label Websites
         form(ng-submit='addWebsite()')
-          input#profileWebsite(type='url', ng-model='_newWebsite', placeholder='Add Website')
-      ul
-        // would prefer if there were and index in #each, instead using data-website to search with indexOf
-        li(ng-repeat='website in user.profile.websites')
-          | {{website}}
-          a(data-website='{{website}}', ng-click='removeWebsite($index)')
-            i.icon-remove
+          input.option-content(type='url', ng-model='_newWebsite', placeholder='Add Website')
+        ul
+          // would prefer if there were and index in #each, instead using data-website to search with indexOf
+          li(ng-repeat='website in user.profile.websites')
+            | {{website}}
+            a(ng-click='removeWebsite($index)')
+              i.icon-remove

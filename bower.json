@@ -31,9 +31,12 @@
     "bootstrap": "v2.3.2",
     "angular-route": "1.2.0-rc.1",
     "angular-ui-utils": "~0.0.4",
-    "angular-sanitize": "1.2.0-rc.1"
+    "angular-sanitize": "1.2.0-rc.1",
+    "angular-markdown-directive": "~0.1.0"
   },
   "resolutions": {
-    "jquery": "~2.0.3"
+    "jquery": "~2.0.3",
+    "angular": "1.2.0-rc.1",
+    "bootstrap": "v2.3.2"
   }
 }
