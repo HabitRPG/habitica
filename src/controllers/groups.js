@@ -17,7 +17,7 @@ var api = module.exports;
 */
 
 var usernameFields = 'auth.local.username auth.facebook.displayName auth.facebook.givenName auth.facebook.familyName auth.facebook.name';
-var partyFields = 'profile preferences items stats achievements party backer flags.rest auth.timestamps.created ' + usernameFields;
+var partyFields = 'profile preferences items stats achievements party backer flags.rest auth.timestamps ' + usernameFields;
 
 function removeSelf(group, user){
   group.members = _.filter(group.members, function(m){return m._id != user._id});
