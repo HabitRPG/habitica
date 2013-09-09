@@ -5,96 +5,93 @@ a.pull-right.gem-wallet(rel='popover', data-trigger='hover', data-title='Guild B
     | {{group.balance * 4 | number:0 }} Guild Gems
 .row-fluid
   .span4
-    h3 {{group.name}}
-    // FIXME remove angular-ui-bootstrap here and use standard bootstrap accordion. Eventually, remove ui-bootstrap altogether (too buggy)
-    .accordion(id='accordion-groups-{{group._id}}')
 
-      // ------ Information -------
-      .accordion-group
-        .accordion-heading
-          a.accordion-toggle(data-toggle='accordion', data-target='#accordion-groups-{{group._id}}-information', data-parent='#accordion-groups-{{group._id}}') Information
-        .accordion-body.collapse.in(id='accordion-groups-{{group._id}}-information')
-          .accordion-inner
-            div.whatever-options(ng-show='_editing.group')
-              .control-group.option-large
-                label.control-label Group Name
-                input.option-content(type='text', ng-model='group.name', placeholder='Group Name')
-              .control-group.option-large
-                label.control-label Description
-                textarea.option-content(style='height:15em;', placeholder='Description', ng-model='group.description')
-              .control-group.option-large
-                label.control-label Logo URL
-                input.option-content(type='url', placeholder='Logo URL', ng-model='group.logo')
-              .control-group.option-large
-                form.form-inline(x-bind='submit:groupAddWebsite', ng-submit='notPorted()')
-                  input.option-content(type='url', placeholder='Website', value='{{_newGroupWebsite}}')
-                  input.btn(type='submit', value='Add')
+    // ------ Information -------
+    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
+      .modal-header
+        h3 {{group.name}}
+      .modal-body
+        div.whatever-options(ng-show='_editing.group')
+          .control-group.option-large
+            label.control-label Group Name
+            input.option-content(type='text', ng-model='group.name', placeholder='Group Name')
+          .control-group.option-large
+            label.control-label Description
+            textarea.option-content(style='height:15em;', placeholder='Description', ng-model='group.description')
+          .control-group.option-large
+            label.control-label Logo URL
+            input.option-content(type='url', placeholder='Logo URL', ng-model='group.logo')
+          .control-group.option-large
+            form.form-inline(x-bind='submit:groupAddWebsite', ng-submit='notPorted()')
+              input.option-content(type='url', placeholder='Website', value='{{_newGroupWebsite}}')
+              input.btn(type='submit', value='Add')
 
-              h4 Assign Group Leader
-              select#group-leader-selection
-                option(ng-repeat='member in group.members', selected='member._id == _new.groupLeader') {{username(member.auth,member.profile.name)}}
-              button(x-bind='click:assignGroupLeader', ng-click='notPorted()') Assign
+          h4 Assign Group Leader
+          select#group-leader-selection
+            option(ng-repeat='member in group.members', selected='member._id == _new.groupLeader') {{username(member.auth,member.profile.name)}}
+          button(x-bind='click:assignGroupLeader', ng-click='notPorted()') Assign
 
-              div(ng-show='group.websites')
-                h4 Resources
-                ul.unstyled
-                  li
-                    a(ng-repeat='website in group.websites', x-bind='click:removeAt', ng-click='notPorted()')
-                      i.icon-trash
-                    a(target='_blank', href='{{website}}') {{website}}
+          div(ng-show='group.websites')
+            h4 Resources
+            ul.unstyled
+              li
+                a(ng-repeat='website in group.websites', x-bind='click:removeAt', ng-click='notPorted()')
+                  i.icon-trash
+                a(target='_blank', href='{{website}}') {{website}}
 
-          div(ng-show='!_editing.group')
-            img.pull-right(ng-show='group.logo', style='max-width:150px', ng-src='{{group.logo}}')
-            markdown(ng-model='group.description')
-            div(ng-show='group.websites')
-              h4 Websites
-              ul.unstyled
-                li(ng-repeat='website in group.websites')
-                  a(target='_blank', ng-href='{{website}}') {{website}}
+        div(ng-show='!_editing.group')
+          img.pull-right(ng-show='group.logo', style='max-width:150px', ng-src='{{group.logo}}')
+          markdown(ng-model='group.description')
+          div(ng-show='group.websites')
+            h4 Websites
+            ul.unstyled
+              li(ng-repeat='website in group.websites')
+                a(target='_blank', ng-href='{{website}}') {{website}}
 
-      .accordion-group
-        .accordion-heading
-          a.accordion-toggle(data-toggle='accordion', data-target='#accordion-groups-{{group._id}}-members', data-parent='#accordion-groups-{{group._id}}') Members
-        .accordion-body.collapse(id='accordion-groups-{{group._id}}-members')
-          .accordion-inner
-            form.form-inline(ng-submit='invite(group, invitee)')
-              .alert.alert-danger(ng-show='_groupError') {{_groupError}}
-              .control-group
-                input.input-medium(type='text', placeholder='User Id', ng-model='invitee')
-                input.btn(type='submit', value='Invite')
-            table.table.table-striped
-              tr(ng-repeat='member in group.members')
-                td
-                  // allow leaders to ban members
-                  div(ng-show='group.leader == user.id && user.id!=member._id')
-                    // {{#with group.members[$index]}}
-                    a(x-bind='click:removeAt', data-refresh='true', data-confirm='Boot this member?')
-                      i.icon-ban-circle(tooltip='Boot Member')
-                    // {{/}}
-                  a(data-toggle='modal', data-target='#avatar-modal-{{member._id}}')
-                    span(ng-class='{"badge badge-info": group.leader==member._id}')
-                      | {{username(member.auth, member.profile.name)}}
-                td
-                  | ({{member._id}})
+    // ------ Information -------
+    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
+      .modal-header
+        h3 Members
+      .modal-body
+        table.table.table-striped
+          tr(ng-repeat='member in group.members')
+            td
+              // allow leaders to ban members
+              div(ng-show='group.leader == user.id && user.id!=member._id')
+                // {{#with group.members[$index]}}
+                a(x-bind='click:removeAt', data-refresh='true', data-confirm='Boot this member?')
+                  i.icon-ban-circle(tooltip='Boot Member')
+                // {{/}}
+              a(data-toggle='modal', data-target='#avatar-modal-{{member._id}}')
+                span(ng-class='{"badge badge-info": group.leader==member._id}')
+                  | {{username(member.auth, member.profile.name)}}
+            td ({{member._id}})
+      .modal-footer.whatever-options
+        form.form-inline(ng-submit='invite(group, invitee)')
+          //.alert.alert-danger(ng-show='_groupError') {{_groupError}}
+          .control-group.option-large
+            input.option-content(type='text', placeholder='User Id', ng-model='invitee')
+            input.btn(type='submit', value='Invite')
 
-      //-accordion-group(heading='Challenges')
-        span.label
-          i.icon-bullhorn
-          | Challenges
-        | coming soon!
-        a(target='_blank', href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58') Details
-        //-{#if group.challenges}
-        //-    <table class="table table-striped">
-        //-        {#each group.challenges as :challenge}
-        //-        <tr><td>
-        //-            {:challenge.name}
-        //-        </td></tr>
-        //-        {/}
-        //-    </table>
-        //-    Visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> for more information.
-        //-{else}
-        //-    No challenges yet, visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> tab to create one.
-        //-{/}
+
+    //-accordion-group(heading='Challenges')
+      span.label
+        i.icon-bullhorn
+        | Challenges
+      | coming soon!
+      a(target='_blank', href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58') Details
+      //-{#if group.challenges}
+      //-    <table class="table table-striped">
+      //-        {#each group.challenges as :challenge}
+      //-        <tr><td>
+      //-            {:challenge.name}
+      //-        </td></tr>
+      //-        {/}
+      //-    </table>
+      //-    Visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> for more information.
+      //-{else}
+      //-    No challenges yet, visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> tab to create one.
+      //-{/}
     a.btn.btn-danger(data-id='{{group.id}}', ng-click='leave(group)') Leave
 
   .span8
