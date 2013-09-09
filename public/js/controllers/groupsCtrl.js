@@ -7,6 +7,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         return ~(group.members.indexOf(user._id));
       }
 
+      $scope.Members = Members;
+      $scope._editing = {group:false};
+
       // ------ Loading ------
 
       $scope.groups = Groups.groups;

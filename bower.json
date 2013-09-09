@@ -35,8 +35,6 @@
     "marked": "~0.2.9"
   },
   "resolutions": {
-    "jquery": "~2.0.3",
-    "angular": "1.2.0-rc.1",
-    "bootstrap": "v2.3.2"
+    "jquery": "~2.0.3"
   }
 }
