@@ -50,7 +50,7 @@
       span.muted(ng-hide='profile.profile.imageUrl') - None -
 
       h4 Blurb
-      p(ng-show='profile.profile.blurb', btf-markdown='profile.profile.blurb')
+      markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
       span.muted(ng-hide='profile.profile.blurb') - None -
       //{{profile.profile.blurb | linky:'_blank'}}
 

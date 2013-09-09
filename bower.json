@@ -32,7 +32,7 @@
     "angular-route": "1.2.0-rc.1",
     "angular-ui-utils": "~0.0.4",
     "angular-sanitize": "1.2.0-rc.1",
-    "angular-markdown-directive": "~0.1.0"
+    "marked": "~0.2.9"
   },
   "resolutions": {
     "jquery": "~2.0.3",

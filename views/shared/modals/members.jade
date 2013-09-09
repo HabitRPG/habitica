@@ -8,7 +8,7 @@ div(ng-controller='MemberModalCtrl')
       .row-fluid
         .span6
           img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
-          p(ng-show='profile.profile.blurb', btf-markdown='profile.profile.blurb')
+          markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
           ul(ng-show='profile.profile.websites')
             li(ng-repeat='website in profile.profile.websites')
               a(href='{{website}}', target='_blank') {{website}}

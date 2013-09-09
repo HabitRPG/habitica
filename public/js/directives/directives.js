@@ -60,3 +60,51 @@ habitrpg.directive('habitrpgSortable', ['User', function(User) {
     });
   }
 }]);
+
+/**
+ * Markdown
+ * See http://www.heikura.me/#!/angularjs-markdown-directive
+ */
+(function(){
+  var md = function () {
+    marked.setOptions({
+      gfm:true,
+      pedantic:false,
+      sanitize:true
+      // callback for code highlighter
+      // Uncomment this (and htljs.tabReplace below) if we add in highlight.js (http://www.heikura.me/#!/angularjs-markdown-directive)
+//      highlight:function (code, lang) {
+//        if (lang != undefined)
+//          return hljs.highlight(lang, code).value;
+//
+//        return hljs.highlightAuto(code).value;
+//      }
+    });
+
+    var toHtml = function (markdown) {
+      if (markdown == undefined)
+        return '';
+
+      return marked(markdown);
+    };
+
+    //hljs.tabReplace = '    ';
+
+    return {
+      toHtml:toHtml
+    };
+  }();
+
+  habitrpg.directive('markdown', function() {
+    return {
+      restrict: 'E',
+      link: function(scope, element, attrs) {
+        scope.$watch(attrs.ngModel, function(value, oldValue) {
+          var markdown = value;
+          var html = md.toHtml(markdown);
+          element.html(html);
+        });
+      }
+    };
+  });
+})()
