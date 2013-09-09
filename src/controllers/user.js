@@ -604,7 +604,7 @@ api.deleteTag = function(req, res){
   var i = _.findIndex(user.tags, {id:req.params.tid});
   if (~i) {
     var tag = user.tags[i];
-    delete user.filters[tid];
+    delete user.filters[tag.id];
     user.tags.splice(i,1);
     // remove tag from all tasks
     _.each(user.tasks, function(task) {

@@ -239,7 +239,7 @@ UserSchema.methods.toJSON = function() {
     delete doc["#{type}Ids"]
   });
   delete doc.tasks
-  //doc.filters = {};
+  doc.filters = {};
 
   return doc;
 };
