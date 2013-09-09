@@ -218,6 +218,7 @@ function transformTaskLists(doc) {
   _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
     // we use _.transform instead of a simple _.where in order to maintain sort-order
     doc[type + "s"] = _.reduce(doc[type + "Ids"], function(m, tid) {
+      if (!doc.tasks[tid]) return m; // FIXME tmp hotfix, people still have null tasks?
       if (!doc.tasks[tid].tags) doc.tasks[tid].tags = {}; // FIXME remove this when we switch tasks to subdocs and can define tags default in schema
       m.push(doc.tasks[tid]);
       return m;
