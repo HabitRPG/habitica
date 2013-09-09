@@ -595,6 +595,30 @@ api.buyGems = function(req, res) {
 };
 
 /*
+ ------------------------------------------------------------------------
+ Tags
+ ------------------------------------------------------------------------
+ */
+api.deleteTag = function(req, res){
+  var user = res.locals.user;
+  var i = _.findIndex(user.tags, {id:req.params.tid});
+  if (~i) {
+    var tag = user.tags[i];
+    delete user.filters[tid];
+    user.tags.splice(i,1);
+    // remove tag from all tasks
+    _.each(user.tasks, function(task) {
+      delete user.tasks[task.id].tags[tag.id];
+    });
+    user.save(function(err,saved){
+      res.send(200);
+    })
+  } else {
+    res.json(400, {err:'Tag not found'});
+  }
+}
+
+/*
   ------------------------------------------------------------------------
   Batch Update
   Run a bunch of updates all at once

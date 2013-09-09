@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User',
-  function($scope, $rootScope, User) {
+habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'API_URL', '$http',
+  function($scope, $rootScope, User, API_URL, $http) {
     var user = User.user;
     $scope._editing = false;
 
@@ -30,29 +30,17 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User',
     };
 
 
-//    $scope.remove = function(tag, $index){
-//
-//      /*
-//      something got corrupted, let's clear the corrupt tags
-//      FIXME we can remove this once Angular has been live for a while
-//       */
-//      if (!tag.id) {
-//        user.tags = _.filter(user.tags, (function(t) {
-//          return t != null ? t.id : false;
-//        }));
-//        user.filters = {};
-//        return;
-//      }
-//
-//      delete user.filters[tag.id];
-//
-//      splice(user.tags,$index,1);
-//
-//      // remove tag from all tasks
-//      _.each(user.tasks, function(task) {
-//        delete user.tasks[task.id].tags[tag.id];
-//      });
-//
-//    }
+    $scope['delete'] = function(tag, $index){
+      delete user.filters[tag.id];
+      user.tags.splice($index,1);
+      // remove tag from all tasks
+      _.each(user.tasks, function(task) {
+        delete user.tasks[task.id].tags[tag.id];
+      });
+      $http['delete'](API_URL + '/api/v1/user/tags/' + tag.id)
+        .error(function(data){
+          alert(data);
+        })
+    }
 
 }]);

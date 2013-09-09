@@ -50,6 +50,9 @@ router.post('/user/buy-gems', auth.auth, user.buyGems);
 router.post('/user/reset', auth.auth, user.reset);
 router['delete']('/user', auth.auth, user['delete']);
 
+/* Tags */
+router['delete']('/user/tags/:tid', auth.auth, user.deleteTag);
+
 /* Groups*/
 router.get('/groups', auth.auth, groups.getGroups);
 router.post('/groups', auth.auth, groups.createGroup);
