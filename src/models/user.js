@@ -12,11 +12,9 @@ var UserSchema = new Schema({
     type: String,
     'default': helpers.uuid
   },
-  /*
-  # We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
-  # have been updated (http://goo.gl/gQLz41), but we want *every* update
-  */
 
+  //We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
+  // have been updated (http://goo.gl/gQLz41), but we want *every* update
   _v: {
     type: Number,
     'default': 0
@@ -149,14 +147,9 @@ var UserSchema = new Schema({
   /* FIXME remove?*/
 
   party: {
-    /*party._id FIXME make these populate docs?*/
-
-    current: String,
-    /*party._id*/
-
-    invitation: String,
-    /*party._id*/
-
+    //party._id //FIXME make these populate docs?
+    current: String, // party._id
+    invitation: String, // party._id
     lastMessageSeen: String,
     leader: Boolean
   },
@@ -174,9 +167,7 @@ var UserSchema = new Schema({
     blurb: String,
     imageUrl: String,
     name: String,
-    /*["http://ocdevel.com" ]*/
-
-    websites: Array
+    websites: Array //["http://ocdevel.com" ]
   },
   stats: {
     hp: Number,
@@ -187,7 +178,6 @@ var UserSchema = new Schema({
   tags: [
     {
       /* FIXME use refs?*/
-
       id: String,
       name: String
     }
@@ -243,7 +233,7 @@ UserSchema.methods.toJSON = function() {
   doc.id = doc._id;
   transformTaskLists(doc); // we need to also transform for our server-side routes
 
-  // Remove some unecessary data
+  // Remove some unecessary data as far as client consumers are concerned
   _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
     delete doc["#{type}Ids"]
   });

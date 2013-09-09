@@ -29,9 +29,6 @@ db.users.find().forEach(function(user){
     });
     if (!_.isEqual(idList, preened)) {
       user[type + "Ids"] = preened;
-      if (!!user.markModified) {
-        user.markModified(type+'Ids');
-      }
     }
   });
 
