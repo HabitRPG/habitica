@@ -52,6 +52,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
   .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members',
     function($scope, $rootScope, Members) {
+      $scope.timestamp = function(timestamp){
+        return moment(timestamp).format('MM/DD/YYYY');
+      }
       // We watch Members.selectedMember because it's asynchronously set, so would be a hassle to handle updates here
       $scope.$watch( function() { return Members.selectedMember; }, function (member) {
         $scope.profile = member;

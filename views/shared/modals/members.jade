@@ -12,6 +12,7 @@ div(ng-controller='MemberModalCtrl')
           ul(ng-show='profile.profile.websites')
             li(ng-repeat='website in profile.profile.websites')
               a(href='{{website}}', target='_blank') {{website}}
+          p.text-success Member since {{timestamp(profile.auth.timestamps.created)}}
           h3 Stats
             include ../profiles/stats
         .span6
