@@ -10,6 +10,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.Members = Members;
       $scope._editing = {group:false};
 
+      $scope.save = function(group){
+        group.$save();
+        group._editing = false;
+      }
+
       // ------ Loading ------
 
       $scope.groups = Groups.groups;

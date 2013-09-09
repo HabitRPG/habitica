@@ -57,7 +57,7 @@ router['delete']('/user/tags/:tid', auth.auth, user.deleteTag);
 router.get('/groups', auth.auth, groups.getGroups);
 router.post('/groups', auth.auth, groups.createGroup);
 router.get('/groups/:gid', auth.auth, groups.getGroup);
-//PUT /groups/:gid (edit group)
+router.post('/groups/:gid', auth.auth, groups.attachGroup, groups.updateGroup);
 //DELETE /groups/:gid
 
 router.post('/groups/:gid/join', auth.auth, groups.attachGroup, groups.join);

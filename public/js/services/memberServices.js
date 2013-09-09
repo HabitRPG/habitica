@@ -26,7 +26,7 @@ angular.module('memberServices', ['ngResource']).
                 if (_.isString(member)) return;
 
                 // lazy-load
-                if (!members[member._id]) members[member._id] = member;
+                members[member._id] = member;
               })
             }
 
@@ -44,9 +44,7 @@ angular.module('memberServices', ['ngResource']).
 
             // individual Member
             if (obj._id) {
-              if (!members[obj._id]) {
-                members[obj._id] = obj;
-              }
+              members[obj._id] = obj;
             }
           },
 
@@ -59,7 +57,9 @@ angular.module('memberServices', ['ngResource']).
            */
           selectMember: function(uid) {
             var self = this;
-            if (members[uid]) {
+            // Fetch from cache if we can. For guild members, only their uname will have been fetched on initial load,
+            // check if they have full fields (eg, check profile.items) and if not, fetch them
+            if (members[uid] && members[uid].items) {
               self.selectedMember = members[uid];
             } else {
               Member.get({uid: uid}, function(member){
