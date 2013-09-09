@@ -1,6 +1,2 @@
 node_modules
 .idea
-script/*.js
-script/*.map
-tests/*.js
-tests/*.map
