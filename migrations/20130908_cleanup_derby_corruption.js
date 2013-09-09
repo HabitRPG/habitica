@@ -6,41 +6,42 @@
 db.users.find().forEach(function(user){
 
   // remove corrupt tasks, which will either be null-value or no id
-  _.reduce(user.tasks, function(m,task,k) {
-    if (!task || !task.id) return;
+  user.tasks = _.reduce(user.tasks, function(m,task,k) {
+    if (!task || !task.id) return m;
     if (isNaN(+task.value)) task.value = 0;
     m[k] = task;
+    return m;
   }, {});
 
   // fix NaN stats
-  _.each(doc.stats, function(v, k) {
-    if (isNaN(+v)) doc.stats[k] = 0;
+  _.each(user.stats, function(v,k) {
+    if (!v || isNaN(+v)) user.stats[k] = 0;
     return true;
   });
 
   // remove duplicates, restore ghost tasks
   ['habit', 'daily', 'todo', 'reward'].forEach(function(type) {
-    var idList = doc[type + "Ids"];
-    var taskIds = _.pluck(_.where(tasks, {type: type}), 'id');
+    var idList = user[type + "Ids"];
+    var taskIds = _.pluck(_.where(user.tasks, {type: type}), 'id');
     var union = _.union(idList, taskIds);
     var preened = _.filter(union, function(id) {
       return id && _.contains(taskIds, id);
     });
     if (!_.isEqual(idList, preened)) {
-      doc[type + "Ids"] = preened;
-      if (!!doc.markModified) {
-        doc.markModified(type+'Ids');
+      user[type + "Ids"] = preened;
+      if (!!user.markModified) {
+        user.markModified(type+'Ids');
       }
     }
   });
 
   // temporarily remove broken eggs. we'll need to write a migration script to grant gems for and remove these instead
-  if (doc.items && doc.items.eggs) {
-    doc.items.eggs = _.filter(doc.items.eggs,function(egg){
+  if (user.items && user.items.eggs) {
+    user.items.eggs = _.filter(user.items.eggs,function(egg){
       if (_.isString(egg)) {
         user.balance += 0.75; // give them 3 gems for each broken egg
       } else {
-        return true
+        return true;
       }
     })
   }

@@ -218,60 +218,38 @@ var UserSchema = new Schema({
   strict: true
 });
 
-/*
+/**
   Derby requires a strange storage format for somethign called "refLists". Here we hook into loading the data, so we
   can provide a more "expected" storage format for our various helper methods. Since the attributes are passed by reference,
   the underlying data will be modified too - so when we save back to the database, it saves it in the way Derby likes.
   This will go away after the rewrite is complete
 */
-
-
-UserSchema.post('init', function(doc) {
-  /* Fix corrupt values, FIXME we can remove this after off Derby*/
-
-  if (doc.items && doc.items.eggs) {
-    doc.items.eggs = _.filter(doc.items.eggs,function(egg){
-      return !_.isString(egg);
-    })
-  }
-
-  _.each(doc.tasks, function(task, k) {
-    if (!task || !task.id) {
-      return delete doc.tasks[k];
-    }
-    if (isNaN(+task.value)) {
-      return task.value = 0;
-    }
-  });
-  _.each(doc.stats, function(v, k) {
-    if (isNaN(+v)) {
-      return doc.stats[k] = 0;
-    }
-  });
-
+function transformTaskLists(doc) {
   _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
     // we use _.transform instead of a simple _.where in order to maintain sort-order
-    doc[type + "s"] = _.transform(doc[type + "Ids"], function(result, tid) {
-      result.push(doc.tasks[tid]);
-    });
+    doc[type + "s"] = _.reduce(doc[type + "Ids"], function(m, tid) {
+      m.push(doc.tasks[tid]);
+      return m;
+    }, []);
   });
+}
+
+UserSchema.post('init', function(doc) {
+  transformTaskLists(doc);
 });
-
-/*UserSchema.virtual('id').get () -> @_id*/
-
 
 UserSchema.methods.toJSON = function() {
   var doc = this.toObject();
   doc.id = doc._id;
+  transformTaskLists(doc); // we need to also transform for our server-side routes
+
+  // Remove some unecessary data
   _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
-    // we use _.transform instead of a simple _.where in order to maintain sort-order
-    doc["" + type + "s"] = _.transform(doc["" + type + "Ids"], function(result, tid) {
-      result.push(doc.tasks[tid]);
-    });
-    //delete doc["#{type}Ids"]
+    delete doc["#{type}Ids"]
   });
-  //delete doc.tasks
+  delete doc.tasks
   doc.filters = {};
+
   return doc;
 };
 
