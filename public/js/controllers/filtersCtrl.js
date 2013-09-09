@@ -4,7 +4,6 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User',
   function($scope, $rootScope, User) {
     var user = User.user;
     $scope._editing = false;
-    user.filters = {}; // FIXME run a migration instead
 
     $scope.saveOrEdit = function(){
       if ($scope._editing) {
@@ -13,11 +12,11 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User',
       $scope._editing = !$scope._editing;
     }
 
-
     $scope.toggleFilter = function(tag) {
-      // no longer persisting this, it was causing a lot of confusion - users thought they'd permanently lost tasks
-      user.filters = user.filters ? user.filters : {};
       user.filters[tag.id] = !user.filters[tag.id];
+      // no longer persisting this, it was causing a lot of confusion - users thought they'd permanently lost tasks
+      // Note: if we want to persist for just this computer, easy method is:
+      // User.save();
     };
 
     $scope.createTag = function(name) {

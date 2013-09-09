@@ -454,7 +454,7 @@ api.updateUser = function(req, res, next) {
   # Note: custom is for 3rd party apps
   */
 
-  acceptableAttrs = 'tasks. achievements. filters. flags. invitations. items. lastCron party. preferences. profile. stats. tags. custom.'.split(' ');
+  acceptableAttrs = 'tasks. achievements. filters. flags. invitations. items. lastCron party. preferences. profile. stats. tags custom.'.split(' ');
   _.each(req.body, function(v, k) {
     if ((_.find(acceptableAttrs, function(attr) {
       return k.indexOf(attr) === 0;

@@ -168,6 +168,8 @@ angular.module('userServices', []).
               userServices.log(log);
             },
 
+            save: save,
+
             settings: settings
         };
 
