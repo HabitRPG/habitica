@@ -20,7 +20,7 @@
     "angular-ui": "~0.4.0",
     "angular-bootstrap": "~0.5.0",
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#rewrite",
-    "bootstrap-tour": "~0.5.1",
+    "bootstrap-tour": "0.5.0",
     "BrowserQuest": "https://github.com/mozilla/BrowserQuest.git",
     "github-buttons": "git://github.com/mdo/github-buttons.git",
     "jquery-ui": "~1.10.3",
@@ -34,7 +34,6 @@
     "angular-sanitize": "1.2.0-rc.1"
   },
   "resolutions": {
-    "jquery": "~2.0.3",
-    "bootstrap": "v2.3.2"
+    "jquery": "~2.0.3"
   }
 }
