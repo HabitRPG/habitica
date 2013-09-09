@@ -34,7 +34,6 @@
     "angular-sanitize": "1.2.0-rc.1"
   },
   "resolutions": {
-    "jquery": "~2.0.3",
-    "bootstrap": "v2.3.2"
+    "jquery": "~2.0.3"
   }
 }
