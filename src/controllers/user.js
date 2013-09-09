@@ -489,6 +489,7 @@ api.cron = function(req, res, next) {
   algos.cron(user);
   if (user.isModified()) {
     res.locals.wasModified = true;
+    user.auth.timestamps.loggedin = new Date();
   }
   user.save(next);
 };
