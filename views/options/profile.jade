@@ -72,8 +72,7 @@
       .control-group.option-large
         label.control-label Blurb
         textarea.option-content(style='height:15em;', placeholder='Blurb', ng-model='user.profile.blurb', ng-blur='set("profile.blurb", user.profile.blurb)')
-        small
-          a(target='_blank', href='http://daringfireball.net/projects/markdown/') Use Markdown form formatting
+        include ../shared/formatting-help
       .control-group.option-large
         label.control-label Websites
         form(ng-submit='addWebsite()')

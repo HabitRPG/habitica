@@ -9,15 +9,19 @@ a.pull-right.gem-wallet(rel='popover', data-trigger='hover', data-title='Guild B
     // ------ Information -------
     .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
       .modal-header
+        span(ng-if='group.leader == user.id')
+          button.btn.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing') Save
+          button.btn.btn-default.pull-right(ng-click='group._editing = true', ng-hide='group._editing') Edit Group
         h3 {{group.name}}
       .modal-body
-        div.whatever-options(ng-show='_editing.group')
+        div.whatever-options(ng-show='group._editing')
           .control-group.option-large
             label.control-label Group Name
             input.option-content(type='text', ng-model='group.name', placeholder='Group Name')
           .control-group.option-large
             label.control-label Description
             textarea.option-content(style='height:15em;', placeholder='Description', ng-model='group.description')
+            include ../../shared/formatting-help
           .control-group.option-large
             label.control-label Logo URL
             input.option-content(type='url', placeholder='Logo URL', ng-model='group.logo')
@@ -39,7 +43,7 @@ a.pull-right.gem-wallet(rel='popover', data-trigger='hover', data-title='Guild B
                   i.icon-trash
                 a(target='_blank', href='{{website}}') {{website}}
 
-        div(ng-show='!_editing.group')
+        div(ng-show='!group._editing')
           img.pull-right(ng-show='group.logo', style='max-width:150px', ng-src='{{group.logo}}')
           markdown(ng-model='group.description')
           div(ng-show='group.websites')
@@ -95,20 +99,16 @@ a.pull-right.gem-wallet(rel='popover', data-trigger='hover', data-title='Guild B
     a.btn.btn-danger(data-id='{{group.id}}', ng-click='leave(group)') Leave
 
   .span8
-    div(ng-if='group.leader == user.id')
-      div.blah-options(ng-show='_editing.group')
-        button.btn.btn-primary.pull-right(ng-click='_editing.group = false') Save
-          i.icon-ok
-        .option-large
-          textarea.option-content(style='height:15em;', placeholder='Message from group leader', ng-model='group.leaderMessage')
-      div(ng-hide='_editing.group')
-        button.btn.btn-default.pull-right(ng-click='_editing.group = true') Edit Group
+    div.blah-options(ng-show='group._editing')
+      .option-large
+        textarea.option-content(style='height:15em;', placeholder='Message from group leader', ng-model='group.leaderMessage')
+        include ../../shared/formatting-help
     table(ng-show='group.leaderMessage')
       tr
         td
           app:avatar:avatar(profile='{{Members.members[group.leader]}}')
         td
-          .popover.static-popover.fade.right.in
+          .popover.static-popover.fade.right.in.wide-popover
             .arrow
             h3.popover-title {{username(Members.members[group.leader].auth, Members.members[group.leader].profile.name)}}
             .popover-content

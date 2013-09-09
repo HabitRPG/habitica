@@ -19,6 +19,10 @@ var api = module.exports;
 var usernameFields = 'auth.local.username auth.facebook.displayName auth.facebook.givenName auth.facebook.familyName auth.facebook.name';
 var partyFields = 'profile preferences items stats achievements party backer flags.rest ' + usernameFields;
 
+function removeSelf(group, user){
+  group.members = _.filter(group.members, function(m){return m._id != user._id});
+}
+
 api.getMember = function(req, res) {
   User.findById(req.params.uid).select(partyFields).exec(function(err, user){
     if (err) return res.json(500,{err:err});
@@ -70,8 +74,7 @@ api.getGroups = function(req, res, next) {
 
     // Remove self from party (see above failing `match` directive in `populate`
     if (results.party) {
-      var i = _.findIndex(results.party.members, {_id:user._id});
-      if (~i) results.party.members.splice(i,1);
+      removeSelf(results.party, user);
     }
 
     // Sort public groups by members length (not easily doable in mongoose)
@@ -104,8 +107,7 @@ api.getGroup = function(req, res, next) {
     }
     // Remove self from party (see above failing `match` directive in `populate`
     if (group.type == 'party') {
-      var i = _.findIndex(group.members, {_id:user._id});
-      if (~i) group.members.splice(i,1);
+      removeSelf(group, user);
     }
     res.json(group);
 
@@ -118,6 +120,24 @@ api.createGroup = function(req, res, next) {
   group.save(function(err, saved){
     if (err) return res.json(500,{err:err});
     res.json(saved);
+  })
+}
+
+api.updateGroup = function(req, res, next) {
+  var group = res.locals.group;
+  'name description logo websites logo leaderMessage'.split(' ').forEach(function(attr){
+    group[attr] = req.body[attr];
+  });
+  async.series([
+    function(cb){group.save(cb);},
+    function(cb){
+      var fields = group.type == 'party' ? partyFields : usernameFields;
+      Group.findById(group._id).populate('members', fields).exec(cb);
+    }
+  ], function(err, results){
+    if (err) return res.json(500,{err:err});
+    removeSelf(results[1], res.locals.user);
+    res.json(results[1]);
   })
 }
 
@@ -160,7 +180,7 @@ api.postChat = function(req, res, next) {
 
     // TODO This is less efficient, but see https://github.com/lefnire/habitrpg/commit/41255dc#commitcomment-4014583
     var saved = results[1];
-    saved.members = _.filter(saved.members, function(m){return m._id != user._id});
+    removeSelf(saved, user);
 
     res.json(saved);
   })
