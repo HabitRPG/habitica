@@ -114,7 +114,7 @@ module.exports = function(grunt) {
       }
     },
 
-    // UPDATE IT!
+    // UPDATE IT WHEN YOU ADD SOME FILES NOT ALREADY MATCHED!
     hashres: {
       build: {
         options: {
@@ -131,7 +131,7 @@ module.exports = function(grunt) {
 
     nodemon: {
       dev: {
-        ignoredFiles: ['public/*', 'Gruntfile.js', 'views/*', 'build/*'] // Do not work!
+        ignoredFiles: ['public/*', 'Gruntfile.js', 'views/*', 'build/*']
       }
     },
 
