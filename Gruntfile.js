@@ -69,9 +69,11 @@ module.exports = function(grunt) {
             'public/bower_components/jquery/jquery.min.js',
             'public/bower_components/habitrpg-shared/dist/habitrpg-shared.js',
             'public/bower_components/angular/angular.min.js',
+            'public/bower_components/angular-resource/angular-resource.min.js',
             'public/bower_components/bootstrap/docs/assets/js/bootstrap.min.js',
 
             'public/js/static.js',
+            'public/js/services/memberServices.js',
             'public/js/services/userServices.js',
             'public/js/controllers/authCtrl.js'
           ]
