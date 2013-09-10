@@ -5,7 +5,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     clean: {
-      build: ['public/build']
+      build: ['build']
     },
 
     uglify: {
@@ -108,6 +108,21 @@ module.exports = function(grunt) {
       }
     },
 
+    // UPDATE IT!
+    hashres: {
+      build: {
+        options: {
+          fileNameFormat: '${name}-${hash}.${ext}'
+        },
+        src: [
+          'build/*.js', 'build/*.css', 
+          'build/bower_components/bootstrap/docs/assets/css/*.css',
+          'build/bower_components/habitrpg-shared/dist/*.css'
+        ],
+        dest: 'make-sure-i-do-not-exist'
+      }
+    },
+
     nodemon: {
       dev: {
         ignoredFiles: ['public/*', 'Gruntfile.js', 'views/*', 'build/*'] // Do not work!
@@ -134,8 +149,8 @@ module.exports = function(grunt) {
   });
 
   // Register tasks.
-  grunt.registerTask('build:prod', ['clean:build', 'uglify', 'stylus', 'cssmin']);
-  grunt.registerTask('build:dev', ['clean:build', 'stylus', 'cssmin']);
+  grunt.registerTask('build:prod', ['clean:build', 'uglify', 'stylus', 'cssmin', 'hashres']);
+  grunt.registerTask('build:dev', ['clean:build', 'stylus', 'cssmin', 'hashres']);
 
   grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
 
@@ -147,5 +162,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-hashres');
 
 };
