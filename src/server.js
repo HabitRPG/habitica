@@ -99,6 +99,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(app.router);
+
+var oneYear = 31536000000;
+app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: oneYear }));
 app.use(express['static'](path.join(__dirname, "/../public")));
 
 // development only
