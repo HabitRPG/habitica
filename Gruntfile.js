@@ -14,6 +14,7 @@ module.exports = function(grunt) {
           'build/app.js': [
             'public/bower_components/jquery/jquery.min.js',
             'public/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js',
+            'public/bower_components/bootstrap-tour/buid/js/bootstrap-tour.min.js',
             'public/bower_components/angular/angular.min.js',
             'public/bower_components/angular-sanitize/angular-sanitize.min.js',
             'public/bower_components/marked/lib/marked.js',
@@ -104,7 +105,6 @@ module.exports = function(grunt) {
           'build/bower_components/habitrpg-shared/dist/spritesheets.css': ['public/bower_components/habitrpg-shared/dist/spritesheets.css'],
           'build/bower_components/bootstrap/docs/assets/css/bootstrap.css': ['public/bower_components/bootstrap/docs/assets/css/bootstrap.css'],
           'build/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css': ['public/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css'],
-          'build/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css': ['public/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css'],
           'build/bower_components/bootstrap/docs/assets/css/docs.css': ['public/bower_components/bootstrap/docs/assets/css/docs.css']
         }
       }
