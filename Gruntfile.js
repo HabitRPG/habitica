@@ -14,7 +14,7 @@ module.exports = function(grunt) {
           'build/app.js': [
             'public/bower_components/jquery/jquery.min.js',
             'public/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js',
-            'public/bower_components/bootstrap-tour/buid/js/bootstrap-tour.min.js',
+            'public/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js',
             'public/bower_components/angular/angular.min.js',
             'public/bower_components/angular-sanitize/angular-sanitize.min.js',
             'public/bower_components/marked/lib/marked.js',
