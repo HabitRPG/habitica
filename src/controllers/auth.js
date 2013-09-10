@@ -103,24 +103,18 @@ api.registerUser = function(req, res, next) {
 api.loginLocal = function(req, res, next) {
   var username = req.body.username;
   var password = req.body.password;
-  async.waterfall([
-    function(cb) {
-      if (!(username && password)) return cb('No username or password');
-      User.findOne({'auth.local.username': username}, cb);
-    }, function(user, cb) {
-      if (!user) return cb('Username not found');
-      // We needed the whole user object first so we can get his salt to encrypt password comparison
-      User.findOne({
-        'auth.local.username': username,
-        'auth.local.hashed_password': utils.encryptPassword(password, user.auth.local.salt)
-      }, cb);
-    }
-  ], function(err, user) {
-    if (!user) err = 'Incorrect password';
-    if (err) return res.json(401, {err: err});
-    res.json(200, {
-      id: user._id,
-      token: user.apiToken
+  if (!(username && password)) return res.json(401, {err:'Missing :username or :password in request body, please provide both'});
+  User.findOne({'auth.local.username': username}, function(err, user){
+    if (err) return res.json(500,{err:err});
+    if (!user) return res.json(401, {err:"Username '" + username + "' not found. Usernames are case-sensitive, click 'Forgot Password' if you can't remember the capitalization."});
+    // We needed the whole user object first so we can get his salt to encrypt password comparison
+    User.findOne({
+      'auth.local.username': username,
+      'auth.local.hashed_password': utils.encryptPassword(password, user.auth.local.salt)
+    }, function(err, user){
+      if (err) return res.json(500,{err:err});
+      if (!user) return res.json(401,{err:'Incorrect password'});
+      res.json({id: user._id,token: user.apiToken});
     });
   });
 };

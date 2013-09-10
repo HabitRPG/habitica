@@ -12,11 +12,9 @@ var UserSchema = new Schema({
     type: String,
     'default': helpers.uuid
   },
-  /*
-  # We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
-  # have been updated (http://goo.gl/gQLz41), but we want *every* update
-  */
 
+  //We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
+  // have been updated (http://goo.gl/gQLz41), but we want *every* update
   _v: {
     type: Number,
     'default': 0
@@ -59,7 +57,7 @@ var UserSchema = new Schema({
   dailyIds: Array,
   todoIds: Array,
   rewardIds: Array,
-  /* Removed `filters`, no longer persisting to the database*/
+  filters: {type: Schema.Types.Mixed, 'default': {}},
 
   flags: {
     ads: String,
@@ -149,14 +147,9 @@ var UserSchema = new Schema({
   /* FIXME remove?*/
 
   party: {
-    /*party._id FIXME make these populate docs?*/
-
-    current: String,
-    /*party._id*/
-
-    invitation: String,
-    /*party._id*/
-
+    //party._id //FIXME make these populate docs?
+    current: String, // party._id
+    invitation: String, // party._id
     lastMessageSeen: String,
     leader: Boolean
   },
@@ -174,9 +167,7 @@ var UserSchema = new Schema({
     blurb: String,
     imageUrl: String,
     name: String,
-    /*["http://ocdevel.com" ]*/
-
-    websites: Array
+    websites: Array //["http://ocdevel.com" ]
   },
   stats: {
     hp: Number,
@@ -187,7 +178,6 @@ var UserSchema = new Schema({
   tags: [
     {
       /* FIXME use refs?*/
-
       id: String,
       name: String
     }
@@ -218,60 +208,40 @@ var UserSchema = new Schema({
   strict: true
 });
 
-/*
+/**
   Derby requires a strange storage format for somethign called "refLists". Here we hook into loading the data, so we
   can provide a more "expected" storage format for our various helper methods. Since the attributes are passed by reference,
   the underlying data will be modified too - so when we save back to the database, it saves it in the way Derby likes.
   This will go away after the rewrite is complete
 */
-
-
-UserSchema.post('init', function(doc) {
-  /* Fix corrupt values, FIXME we can remove this after off Derby*/
-
-  if (doc.items && doc.items.eggs) {
-    doc.items.eggs = _.filter(doc.items.eggs,function(egg){
-      return !_.isString(egg);
-    })
-  }
-
-  _.each(doc.tasks, function(task, k) {
-    if (!task || !task.id) {
-      return delete doc.tasks[k];
-    }
-    if (isNaN(+task.value)) {
-      return task.value = 0;
-    }
-  });
-  _.each(doc.stats, function(v, k) {
-    if (isNaN(+v)) {
-      return doc.stats[k] = 0;
-    }
-  });
-
+function transformTaskLists(doc) {
   _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
     // we use _.transform instead of a simple _.where in order to maintain sort-order
-    doc[type + "s"] = _.transform(doc[type + "Ids"], function(result, tid) {
-      result.push(doc.tasks[tid]);
-    });
+    doc[type + "s"] = _.reduce(doc[type + "Ids"], function(m, tid) {
+      if (!doc.tasks[tid]) return m; // FIXME tmp hotfix, people still have null tasks?
+      if (!doc.tasks[tid].tags) doc.tasks[tid].tags = {}; // FIXME remove this when we switch tasks to subdocs and can define tags default in schema
+      m.push(doc.tasks[tid]);
+      return m;
+    }, []);
   });
+}
+
+UserSchema.post('init', function(doc) {
+  transformTaskLists(doc);
 });
-
-/*UserSchema.virtual('id').get () -> @_id*/
-
 
 UserSchema.methods.toJSON = function() {
   var doc = this.toObject();
   doc.id = doc._id;
-  _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
-    // we use _.transform instead of a simple _.where in order to maintain sort-order
-    doc["" + type + "s"] = _.transform(doc["" + type + "Ids"], function(result, tid) {
-      result.push(doc.tasks[tid]);
-    });
-    //delete doc["#{type}Ids"]
-  });
+  transformTaskLists(doc); // we need to also transform for our server-side routes
+
+  // Remove some unecessary data as far as client consumers are concerned
+  //_.each(['habit', 'daily', 'todo', 'reward'], function(type) {
+  //  delete doc["#{type}Ids"]
+  //});
   //delete doc.tasks
   doc.filters = {};
+
   return doc;
 };
 

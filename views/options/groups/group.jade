@@ -5,48 +5,58 @@ a.pull-right.gem-wallet(rel='popover', data-trigger='hover', data-title='Guild B
     | {{group.balance * 4 | number:0 }} Guild Gems
 .row-fluid
   .span4
-    h3 {{group.name}}
-    accordion
-      accordion-group(heading='Information')
-        .blah-options
-          div(ng-show='_editing.groups[group.id]')
-            div(style='height:10px')
-              a.pull-right(x-bind='click:toggleGroupEdit', data-gid='{{group.id}}')
-                i.icon-ok
-            input.option-content(type='text', value='{{group.name}}', placeholder='Group Name')
-            textarea(cols='3', placeholder='Description') {{group.description}}
-            input.option-content(type='url', placeholder='Logo Url', value='{{group.logo}}')
-            form.form-inline(x-bind='submit:groupAddWebsite')
-              input.option-content(type='url', placeholder='Website', value='{{_newGroupWebsite}}')
-              input(type='submit', value='Add')
-            h4 Assign Group Leader
-            select#group-leader-selection
-              option(ng-repeat='memberId in group.members', selected='memberId == _new.groupLeader') {{username(_members[memberId].auth,_members[memberId].profile.name)}}
-            button(x-bind='click:assignGroupLeader') Assign
-            div(ng-show='group.websites')
-              h4 Resources
-              ul.unstyled
-                li
-                  a(ng-repeat='website in group.websites', x-bind='click:removeAt')
-                    i.icon-trash
-                  a(target='_blank', href='{{website}}') {{website}}
-          div(ng-show='!_editing.groups[group.id]')
-            img.pull-right(ng-show='group.logo', style='max-width:150px', ng-src='{{group.logo}}')
-            a.pull-right(ng-if='group.leader==user.id', x-bind='click:toggleGroupEdit', data-gid='{{group.id}}')
-              i.icon-pencil
-            div {{group.description}}
-            div(ng-show='group.websites')
-              h4 Resources
-              ul.unstyled
-                li(ng-repeat='website in group.websites')
-                  a(target='_blank', ng-href='{{website}}') {{website}}
 
-      accordion-group(heading='Members')
-        form.form-inline(ng-submit='invite(group, invitee)')
-          .alert.alert-danger(ng-show='_groupError') {{_groupError}}
-          .control-group
-            input.input-medium(type='text', placeholder='User Id', ng-model='invitee')
-            input.btn(type='submit', value='Invite')
+    // ------ Information -------
+    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
+      .modal-header
+        span(ng-if='group.leader == user.id')
+          button.btn.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing') Save
+          button.btn.btn-default.pull-right(ng-click='group._editing = true', ng-hide='group._editing') Edit Group
+        h3 {{group.name}}
+      .modal-body
+        div.whatever-options(ng-show='group._editing')
+          .control-group.option-large
+            label.control-label Group Name
+            input.option-content(type='text', ng-model='group.name', placeholder='Group Name')
+          .control-group.option-large
+            label.control-label Description
+            textarea.option-content(style='height:15em;', placeholder='Description', ng-model='group.description')
+            include ../../shared/formatting-help
+          .control-group.option-large
+            label.control-label Logo URL
+            input.option-content(type='url', placeholder='Logo URL', ng-model='group.logo')
+          .control-group.option-large
+            form.form-inline(x-bind='submit:groupAddWebsite', ng-submit='notPorted()')
+              input.option-content(type='url', placeholder='Website', value='{{_newGroupWebsite}}')
+              input.btn(type='submit', value='Add')
+
+          h4 Assign Group Leader
+          select#group-leader-selection
+            option(ng-repeat='member in group.members', selected='member._id == _new.groupLeader') {{username(member.auth,member.profile.name)}}
+          button(x-bind='click:assignGroupLeader', ng-click='notPorted()') Assign
+
+          div(ng-show='group.websites')
+            h4 Resources
+            ul.unstyled
+              li
+                a(ng-repeat='website in group.websites', x-bind='click:removeAt', ng-click='notPorted()')
+                  i.icon-trash
+                a(target='_blank', href='{{website}}') {{website}}
+
+        div(ng-show='!group._editing')
+          img.pull-right(ng-show='group.logo', style='max-width:150px', ng-src='{{group.logo}}')
+          markdown(ng-model='group.description')
+          div(ng-show='group.websites')
+            h4 Websites
+            ul.unstyled
+              li(ng-repeat='website in group.websites')
+                a(target='_blank', ng-href='{{website}}') {{website}}
+
+    // ------ Information -------
+    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
+      .modal-header
+        h3 Members
+      .modal-body
         table.table.table-striped
           tr(ng-repeat='member in group.members')
             td
@@ -59,46 +69,50 @@ a.pull-right.gem-wallet(rel='popover', data-trigger='hover', data-title='Guild B
               a(data-toggle='modal', data-target='#avatar-modal-{{member._id}}')
                 span(ng-class='{"badge badge-info": group.leader==member._id}')
                   | {{username(member.auth, member.profile.name)}}
-            td
-              | ({{member._id}})
+            td ({{member._id}})
+      .modal-footer.whatever-options
+        form.form-inline(ng-submit='invite(group, invitee)')
+          //.alert.alert-danger(ng-show='_groupError') {{_groupError}}
+          .control-group.option-large
+            input.option-content(type='text', placeholder='User Id', ng-model='invitee')
+            input.btn(type='submit', value='Invite')
 
-      //-accordion-group(heading='Challenges')
-        span.label
-          i.icon-bullhorn
-          | Challenges
-        | coming soon!
-        a(target='_blank', href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58') Details
-        //-{#if group.challenges}
-        //-    <table class="table table-striped">
-        //-        {#each group.challenges as :challenge}
-        //-        <tr><td>
-        //-            {:challenge.name}
-        //-        </td></tr>
-        //-        {/}
-        //-    </table>
-        //-    Visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> for more information.
-        //-{else}
-        //-    No challenges yet, visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> tab to create one.
-        //-{/}
+
+    //-accordion-group(heading='Challenges')
+      span.label
+        i.icon-bullhorn
+        | Challenges
+      | coming soon!
+      a(target='_blank', href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58') Details
+      //-{#if group.challenges}
+      //-    <table class="table table-striped">
+      //-        {#each group.challenges as :challenge}
+      //-        <tr><td>
+      //-            {:challenge.name}
+      //-        </td></tr>
+      //-        {/}
+      //-    </table>
+      //-    Visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> for more information.
+      //-{else}
+      //-    No challenges yet, visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> tab to create one.
+      //-{/}
     a.btn.btn-danger(data-id='{{group.id}}', ng-click='leave(group)') Leave
 
   .span8
-    div(ng-if='group.leader==user.id')
-      div(ng-show='_editing.leaderMessage[group.id]')
-        a.pull-right(x-bind='click:toggleLeaderMessageEdit', data-gid='{{group.id}}')
-          i.icon-ok
-        textarea(cols='3', placeholder='Message from group leader') {{group.leaderMessage}}
-      div(ng-hide='_editing.leaderMessage[group.id]')
-        a.btn.pull-right(x-bind='click:toggleLeaderMessageEdit', data-gid='{{group.id}}') Edit leader message
+    div.blah-options(ng-show='group._editing')
+      .option-large
+        textarea.option-content(style='height:15em;', placeholder='Message from group leader', ng-model='group.leaderMessage')
+        include ../../shared/formatting-help
     table(ng-show='group.leaderMessage')
       tr
         td
-          app:avatar:avatar(profile='{{_members[group.leader]}}')
+          app:avatar:avatar(profile='{{Members.members[group.leader]}}')
         td
-          .popover.static-popover.fade.right.in
+          .popover.static-popover.fade.right.in.wide-popover
             .arrow
-            h3.popover-title {{username(_members[group.leader].auth,_members[group.leader].profile.name)}}
-            .popover-content {{group.leaderMessage}}
+            h3.popover-title {{username(Members.members[group.leader].auth, Members.members[group.leader].profile.name)}}
+            .popover-content
+              markdown(ng-model='group.leaderMessage')
     div(ng-controller='ChatCtrl')
       h3 Chat
       include ./chat-box

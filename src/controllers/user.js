@@ -454,7 +454,7 @@ api.updateUser = function(req, res, next) {
   # Note: custom is for 3rd party apps
   */
 
-  acceptableAttrs = 'tasks. achievements. filters. flags. invitations. items. lastCron party. preferences. profile. stats. tags. custom.'.split(' ');
+  acceptableAttrs = 'tasks. achievements. filters. flags. invitations. items. lastCron party. preferences. profile. stats. tags custom.'.split(' ');
   _.each(req.body, function(v, k) {
     if ((_.find(acceptableAttrs, function(attr) {
       return k.indexOf(attr) === 0;
@@ -489,6 +489,7 @@ api.cron = function(req, res, next) {
   algos.cron(user);
   if (user.isModified()) {
     res.locals.wasModified = true;
+    user.auth.timestamps.loggedin = new Date();
   }
   user.save(next);
 };
@@ -592,6 +593,30 @@ api.buyGems = function(req, res) {
     res.send(200, saved);
   });
 };
+
+/*
+ ------------------------------------------------------------------------
+ Tags
+ ------------------------------------------------------------------------
+ */
+api.deleteTag = function(req, res){
+  var user = res.locals.user;
+  var i = _.findIndex(user.tags, {id:req.params.tid});
+  if (~i) {
+    var tag = user.tags[i];
+    delete user.filters[tag.id];
+    user.tags.splice(i,1);
+    // remove tag from all tasks
+    _.each(user.tasks, function(task) {
+      delete user.tasks[task.id].tags[tag.id];
+    });
+    user.save(function(err,saved){
+      res.send(200);
+    })
+  } else {
+    res.json(400, {err:'Tag not found'});
+  }
+}
 
 /*
   ------------------------------------------------------------------------

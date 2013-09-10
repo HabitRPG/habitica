@@ -7,6 +7,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         return ~(group.members.indexOf(user._id));
       }
 
+      $scope.Members = Members;
+      $scope._editing = {group:false};
+
+      $scope.save = function(group){
+        group.$save();
+        group._editing = false;
+      }
+
       // ------ Loading ------
 
       $scope.groups = Groups.groups;
@@ -44,6 +52,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
   .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members',
     function($scope, $rootScope, Members) {
+      $scope.timestamp = function(timestamp){
+        return moment(timestamp).format('MM/DD/YYYY');
+      }
       // We watch Members.selectedMember because it's asynchronously set, so would be a hassle to handle updates here
       $scope.$watch( function() { return Members.selectedMember; }, function (member) {
         $scope.profile = member;

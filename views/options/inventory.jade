@@ -17,10 +17,7 @@
     h3 Hatch Your Egg
     p(ng-show='userHatchingPotions.length < 1') You don't have any hatching potions yet.
     div(ng-show='userHatchingPotions')
-      p 
-      | Which hatching potion will you pour on your 
-      | <b> {{selectedEgg.text}} </b> 
-      | egg?
-      form
-        select(ng-options='hatchingPotion for hatchingPotion in userHatchingPotions', ng-model="selectedPotion")
-        button(ng-click="pour()") Pour
+      p.
+        Which hatching potion will you pour on your <b>{{selectedEgg.text}}</b> egg?
+      select(ng-options='hatchingPotion for hatchingPotion in userHatchingPotions', ng-model="selectedPotion")
+      button(ng-click="pour()") Pour
