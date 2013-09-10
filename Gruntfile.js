@@ -108,6 +108,12 @@ module.exports = function(grunt) {
       }
     },
 
+    copy: {
+      build: {
+        files: [{expand: true, cwd: 'public/', src: 'favicon.ico', dest: 'build/'}]
+      }
+    },
+
     // UPDATE IT!
     hashres: {
       build: {
@@ -115,7 +121,7 @@ module.exports = function(grunt) {
           fileNameFormat: '${name}-${hash}.${ext}'
         },
         src: [
-          'build/*.js', 'build/*.css', 
+          'build/*.js', 'build/*.css', 'build/favicon.ico',
           'build/bower_components/bootstrap/docs/assets/css/*.css',
           'build/bower_components/habitrpg-shared/dist/*.css'
         ],
@@ -149,8 +155,8 @@ module.exports = function(grunt) {
   });
 
   // Register tasks.
-  grunt.registerTask('build:prod', ['clean:build', 'uglify', 'stylus', 'cssmin', 'hashres']);
-  grunt.registerTask('build:dev', ['clean:build', 'stylus', 'cssmin', 'hashres']);
+  grunt.registerTask('build:prod', ['clean:build', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
+  grunt.registerTask('build:dev', ['clean:build', 'stylus', 'cssmin', 'copy:build', 'hashres']);
 
   grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
 
@@ -159,6 +165,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-watch');
