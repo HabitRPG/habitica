@@ -4,7 +4,7 @@ html
     title HabitRPG | Your Life The Role Playing Game
 
     // ?v=1 needed to force refresh
-    link(rel='shortcut icon' href='/favicon.ico?v=1') 
+    link(rel='shortcut icon' href='/#{env.getBuildUrl("favicon.ico")}?v=2') 
 
     script(type='text/javascript').
       window.env = !{JSON.stringify(env)};
@@ -14,16 +14,16 @@ html
         display: none;
       }
 
-    // CSS
-    link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap.css')
+    // CSS Remember to update also in Grunfile.js cssmin task!
+    link(rel='stylesheet', href='/#{env.getBuildUrl("bower_components/bootstrap/docs/assets/css/bootstrap.css")}')
     
-    link(rel='stylesheet', href='/build/app.css')
+    link(rel='stylesheet', href='/#{env.getBuildUrl("app.css")}')
 
     // HabitRPG Shared
-    link(rel='stylesheet', href='/bower_components/habitrpg-shared/dist/spritesheets.css')
+    link(rel='stylesheet', href='/#{env.getBuildUrl("bower_components/habitrpg-shared/dist/spritesheets.css")}')
 
     - if(env.NODE_ENV == 'production'){
-      script(type='text/javascript', src='build/app.js')
+      script(type='text/javascript', src='/#{env.getBuildUrl("app.js")}')
     - }else{
       // Remember to update the file list in Gruntfile.js!
       script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')

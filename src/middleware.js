@@ -1,5 +1,7 @@
 var nconf = require('nconf');
 var _ = require('lodash');
+var fs = require('fs');
+var path = require('path');
 
 module.exports.forceSSL = function(req, res, next){
   var baseUrl = nconf.get("BASE_URL");
@@ -26,12 +28,45 @@ module.exports.cors = function(req, res, next) {
   return next();
 };
 
+var buildFiles = [];
+
+var walk = function(folder){
+  var res = fs.readdirSync(folder);
+
+  res.forEach(function(fileName){
+    file = folder + '/' + fileName;
+    if(fs.statSync(file).isDirectory()){
+      walk(file);
+    }else{
+      var relFolder = path.relative(path.join(__dirname, "/../build"), folder);
+      var old = fileName.replace(/-.{8}(\.[\d\w]+)$/, '$1');
+
+      if(relFolder){
+        old = relFolder + '/' + old;
+        fileName = relFolder + '/' + fileName;
+      }
+
+      buildFiles[old] = fileName
+    }
+  });
+}
+
+walk(path.join(__dirname, "/../build"));
+
+var getBuildUrl = function(url){
+  console.log("CALLED ", url)
+  if(buildFiles[url]) return buildFiles[url];
+
+  return filename;
+}
+
 module.exports.locals = function(req, res, next) {
   res.locals.habitrpg  = res.locals.habitrpg || {}
   _.defaults(res.locals.habitrpg, {
     NODE_ENV: nconf.get('NODE_ENV'),
     IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
-    STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY')
+    STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
+    getBuildUrl: getBuildUrl
   });
   next()
 }
