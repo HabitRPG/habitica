@@ -112,7 +112,7 @@ module.exports = function(grunt) {
 
     watch: {
       dev: {
-        files: ['public/**/*.css'], // 'public/**/*.js' Not needed because not in production
+        files: ['public/**/*.styl'], // 'public/**/*.js' Not needed because not in production
         tasks:  [ 'build:dev' ],
         options: {
           nospawn: true
