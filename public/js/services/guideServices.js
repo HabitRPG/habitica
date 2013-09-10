@@ -13,7 +13,7 @@ angular.module('guideServices', []).
         {
           element: ".main-herobox",
           title: "Welcome to HabitRPG",
-          content: "Welcome to HabitRPG, a habit-tracker which treats your goals like a Role Playing Game."
+          content: "Welcome to HabitRPG, a habit-tracker which treats your goals like a Role Playing Game. I'm <a href='http://www.kickstarter.com/profile/1823740484' target='_blank'>Justin</a>, your guide! "
         }, {
           element: "#bars",
           title: "Achieve goals and level up",
@@ -45,6 +45,9 @@ angular.module('guideServices', []).
           placement: "right"
         }
       ];
+      _.each(tourSteps, function(step){
+        step.content = "<div><div class='NPC-Justin'></div>" + step.content + "</div>"; // add Justin NPC img
+      });
       $('.main-herobox').popover('destroy');
       var tour = new Tour({
         onEnd: function(){
