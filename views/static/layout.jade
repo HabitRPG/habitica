@@ -22,7 +22,7 @@ html
 
     // JS
     - if(layoutEnv.NODE_ENV == 'production'){
-      script(type='text/javascript', src='/#{env.getBuildUrl("static.js")')
+      script(type='text/javascript', src='/#{env.getBuildUrl("static.js")}')
     - }else{
       // Remember to update the file list in Gruntfile.js!
       script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')
