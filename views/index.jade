@@ -14,16 +14,16 @@ html
         display: none;
       }
 
-    // CSS
+    // CSS Remember to update also in Grunfile.js cssmin task!
     link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap.css')
     
-    link(rel='stylesheet', href='/build/app.css')
+    link(rel='stylesheet', href='/app.css')
 
     // HabitRPG Shared
     link(rel='stylesheet', href='/bower_components/habitrpg-shared/dist/spritesheets.css')
 
     - if(env.NODE_ENV == 'production'){
-      script(type='text/javascript', src='build/app.js')
+      script(type='text/javascript', src='/app.js')
     - }else{
       // Remember to update the file list in Gruntfile.js!
       script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')

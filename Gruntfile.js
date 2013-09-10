@@ -11,7 +11,7 @@ module.exports = function(grunt) {
     uglify: {
       buildApp: {
         files: {
-          'public/build/app.js': [
+          'build/app.js': [
             'public/bower_components/jquery/jquery.min.js',
             'public/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js',
             'public/bower_components/angular/angular.min.js',
@@ -65,7 +65,7 @@ module.exports = function(grunt) {
       },
       buildStatic: {
         files: {
-          'public/build/static.js': [
+          'build/static.js': [
             'public/bower_components/jquery/jquery.min.js',
             'public/bower_components/habitrpg-shared/dist/habitrpg-shared.js',
             'public/bower_components/angular/angular.min.js',
@@ -89,8 +89,8 @@ module.exports = function(grunt) {
           paths: ['public']
         },
         files: {
-          'public/build/app.css': ['public/css/index.styl'],
-          'public/build/static.css': ['public/css/static.styl']
+          'build/app.css': ['public/css/index.styl'],
+          'build/static.css': ['public/css/static.styl']
         }
       }
     },
@@ -98,15 +98,19 @@ module.exports = function(grunt) {
     cssmin: {
       build: {
         files: {
-          'public/build/app.css': ['public/build/app.css'],
-          'public/build/static.css': ['public/build/static.css']
+          'build/app.css': ['build/app.css'],
+          'build/static.css': ['build/static.css'],
+          'build/bower_components/habitrpg-shared/dist/spritesheets.css': ['public/bower_components/habitrpg-shared/dist/spritesheets.css'],
+          'build/bower_components/bootstrap/docs/assets/css/bootstrap.css': ['public/bower_components/bootstrap/docs/assets/css/bootstrap.css'],
+          'build/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css': ['public/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css'],
+          'build/bower_components/bootstrap/docs/assets/css/docs.css': ['public/bower_components/bootstrap/docs/assets/css/docs.css']
         }
       }
     },
 
     nodemon: {
       dev: {
-        ignoredFiles: ['public/*', 'Gruntfile.js', 'views/*'] // Do not work!
+        ignoredFiles: ['public/*', 'Gruntfile.js', 'views/*', 'build/*'] // Do not work!
       }
     },
 
