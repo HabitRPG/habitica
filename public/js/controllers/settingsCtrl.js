@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'API_URL',
-  function($scope, User, $rootScope, $http, API_URL) {
+  ['$scope', 'User', '$rootScope', '$http', 'API_URL', 'Guide', '$location',
+  function($scope, User, $rootScope, $http, API_URL, Guide, $location) {
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest
 //    $scope.auth = function (id, token) {
@@ -14,6 +14,16 @@ habitrpg.controller('SettingsCtrl',
 //            }
 //        });
 //    }
+
+    $scope.showTour = function(){
+      User.set('flags.showTour',true);
+      Guide.initTour();
+      $location.path('/tasks');
+    }
+
+    $scope.showBailey = function(){
+      User.set('flags.newStuff',true);
+    }
 
     $scope.saveDayStart = function(){
       var dayStart = +User.user.preferences.dayStart;
