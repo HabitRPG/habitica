@@ -40,6 +40,7 @@ module.exports = function(grunt) {
             'public/js/services/userServices.js',
             'public/js/services/groupServices.js',
             'public/js/services/memberServices.js',
+            'public/js/services/guideServices.js',
 
             'public/js/filters/filters.js',
 
@@ -103,6 +104,7 @@ module.exports = function(grunt) {
           'build/bower_components/habitrpg-shared/dist/spritesheets.css': ['public/bower_components/habitrpg-shared/dist/spritesheets.css'],
           'build/bower_components/bootstrap/docs/assets/css/bootstrap.css': ['public/bower_components/bootstrap/docs/assets/css/bootstrap.css'],
           'build/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css': ['public/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css'],
+          'build/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css': ['public/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css'],
           'build/bower_components/bootstrap/docs/assets/css/docs.css': ['public/bower_components/bootstrap/docs/assets/css/docs.css']
         }
       }

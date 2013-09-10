@@ -1,7 +1,9 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'User', function ($scope, $rootScope, User) {
+  ['$scope', '$rootScope', 'User', 'Guide', function ($scope, $rootScope, User, Guide) {
+
+    Guide.initTour();
 
     function growlNotification(html, type) {
       $.bootstrapGrowl(html, {

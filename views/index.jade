@@ -16,7 +16,7 @@ html
 
     // CSS Remember to update also in Grunfile.js cssmin task!
     link(rel='stylesheet', href='/#{env.getBuildUrl("bower_components/bootstrap/docs/assets/css/bootstrap.css")}')
-    
+
     link(rel='stylesheet', href='/#{env.getBuildUrl("app.css")}')
 
     // HabitRPG Shared
@@ -28,6 +28,7 @@ html
       // Remember to update the file list in Gruntfile.js!
       script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')
       script(type='text/javascript', src='/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js')
+      script(type='text/javascript', src='/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js')
       script(type='text/javascript', src='/bower_components/angular/angular.min.js')
 
       script(type='text/javascript', src='/bower_components/angular-sanitize/angular-sanitize.min.js')
@@ -56,6 +57,7 @@ html
       script(type='text/javascript', src='/js/services/userServices.js')
       script(type='text/javascript', src='/js/services/groupServices.js')
       script(type='text/javascript', src='/js/services/memberServices.js')
+      script(type='text/javascript', src='/js/services/guideServices.js')
 
       script(type='text/javascript', src='/js/filters/filters.js')
 
