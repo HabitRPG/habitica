@@ -128,6 +128,13 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       }
 
       $scope.join = function(group){
+        // If we're accepting an invitation, we don't have the actual group object, but a faux group object (for performance
+        // purposes) {id, name}. Let's trick ngResource into thinking we have a group, so we can call the same $join
+        // function (server calls .attachGroup(), which finds group by _id and handles this properly)
+        if (group.id && !group._id) {
+          group = new Groups.Group({_id:group.id});
+        }
+
         group.$join(function(saved){
           //$scope.groups.guilds.push(saved);
           alert('Joined guild, refresh page to see changes')
@@ -139,6 +146,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 //        var i = _.find($scope.groups.guilds, {_id:group._id});
 //        if (~i) $scope.groups.guilds.splice(i, 1);
         alert('Left guild, refresh page to see changes')
+      }
+
+      $scope.reject = function(guild){
+        var i = _.findIndex(User.user.invitations.guilds, {id:guild.id});
+        if (~i){
+          User.user.invitations.guilds.splice(i, 1);
+          User.set('invitations.guilds', User.user.invitations.guilds);
+        }
       }
     }
   ])
