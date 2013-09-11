@@ -87,7 +87,7 @@ var UserSchema = new Schema({
   /* FIXME remove?*/
 
   invitations: {
-    guilds: Array,
+    guilds: {type: Array, 'default': []},
     party: Schema.Types.Mixed
   },
   items: {

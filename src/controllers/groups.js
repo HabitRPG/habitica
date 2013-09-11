@@ -218,7 +218,7 @@ api.join = function(req, res, next) {
   }
   else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
     var i = _.findIndex(user.invitations.guilds, {id:group._id});
-    if (~i) user.invitations.guilds.slice(i,1);
+    if (~i) user.invitations.guilds.splice(i,1);
     user.save();
   }
 
@@ -273,7 +273,6 @@ api.invite = function(req, res, next) {
 
     function sendInvite (){
       if(group.type === 'guild'){
-        if(!invite.invitations.guilds) invite.invitations.guilds = [] //necessary
         invite.invitations.guilds.push({id: group._id, name: group.name});
       }else{
         //req.body.type in 'guild', 'party'
