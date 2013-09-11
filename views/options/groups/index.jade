@@ -39,7 +39,7 @@ ul.nav.nav-tabs
       .tab-pane.active#groups-public-guilds
         div(ng-repeat='invitation in user.invitations.guilds')
           h3 You're Invited To {{invitation.name}}
-          a.btn.btn-success(data-type='guild', ng-click='join(group)') Accept
+          a.btn.btn-success(data-type='guild', ng-click='join(invitation)') Accept
           a.btn.btn-danger(ng-click='reject(invitation)') Reject
         // Public Groups
         .options-group.option-large.whatever-options
