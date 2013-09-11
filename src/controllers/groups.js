@@ -272,10 +272,16 @@ api.invite = function(req, res, next) {
     }
 
     function sendInvite (){
-      //req.body.type in 'guild', 'party'
-      invite.invitations.party = {id:group._id, name: group.name}
+      if(group.type = 'guild'){
+        if(!invite.invitations.guilds) invite.invitations.guilds = [] //necessary
+        invite.invitations.guilds.push({id: group._id, name: group.name});
+      }else{
+        //req.body.type in 'guild', 'party'
+        invite.invitations.party = {id: group._id, name: group.name}
+      }
+
       invite.save();
-      Group.findById(group._id)
+      group
         .populate('members', partyFields).exec(function(err, saved){
           res.json(saved);
         });

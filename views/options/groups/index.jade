@@ -17,7 +17,7 @@ ul.nav.nav-tabs
         // {#with _user.invitations.party as :party}
         h2 You're Invited To {{user.invitations.party.name}}
         a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)') Accept
-        a.btn.btn-danger(ng-click='reject(group)') Reject
+        a.btn.btn-danger(ng-click='reject()') Reject
         // {/}
       div(ng-hide='user.invitations.party', ng-controller='PartyCtrl')
         h2 Create A Party
@@ -40,7 +40,7 @@ ul.nav.nav-tabs
         div(ng-repeat='invitation in user.invitations.guilds')
           h3 You're Invited To {{invitation.name}}
           a.btn.btn-success(data-type='guild', ng-click='join(group)') Accept
-          a.btn.btn-danger(x-bind='click:rejectInvitation') Reject
+          a.btn.btn-danger(ng-click='reject(invitation)') Reject
         // Public Groups
         .options-group.option-large.whatever-options
           input.option-content(type='text',ng-model='guildSearch', placeholder='Search')

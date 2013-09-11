@@ -140,6 +140,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 //        if (~i) $scope.groups.guilds.splice(i, 1);
         alert('Left guild, refresh page to see changes')
       }
+
+      $scope.reject = function(guild){
+        var i = _.findIndex(User.user.invitations.guilds, {id:guild._id});
+        if (~i) User.set('invitations.guilds', User.user.invitations.guilds.splice(i,1));
+      }
     }
   ])
 
