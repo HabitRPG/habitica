@@ -7,23 +7,22 @@ html
     block title
       title HabitRPG | Your Life the Role Playing Game
 
-    // ?v=1 needed to force refresh
-    link(rel='shortcut icon' href='/favicon.ico?v=1')
+    link(rel='shortcut icon', href='/#{env.getBuildUrl("favicon.ico")}?v=2')
 
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
 
-    // CSS
-    link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap.css')
+    // CSS Remember to update also in Grunfile.js cssmin task!
+    link(rel='stylesheet', href='/#{env.getBuildUrl("bower_components/bootstrap/docs/assets/css/bootstrap.css")}')
     // Keep this out of build because the one after has some images and would like not to override it
-    link(rel='stylesheet', href='/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css')
-    link(href='/bower_components/bootstrap/docs/assets/css/docs.css', rel='stylesheet')
+    link(rel='stylesheet', href='/#{env.getBuildUrl("bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css")}')
+    link(rel='stylesheet', href='/#{env.getBuildUrl("bower_components/bootstrap/docs/assets/css/docs.css")}')
     
-    link(rel='stylesheet', href='/build/static.css')
+    link(rel='stylesheet', href='/#{env.getBuildUrl("static.css")}')
 
     // JS
     - if(layoutEnv.NODE_ENV == 'production'){
-      script(type='text/javascript', src='/build/static.js')
+      script(type='text/javascript', src='/#{env.getBuildUrl("static.js")}')
     - }else{
       // Remember to update the file list in Gruntfile.js!
       script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')

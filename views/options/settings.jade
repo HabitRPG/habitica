@@ -12,6 +12,9 @@
     h4 Misc
     button.btn(ng-hide='user.preferences.hideHeader', ng-click='set("preferences.hideHeader",true)') Hide Header
     button.btn(ng-show='user.preferences.hideHeader', ng-click='set("preferences.hideHeader",false)') Show Header
+    button.btn(ng-click='showTour()') Show Tour
+    button.btn(ng-click='showBailey()') Show Bailey
+
     div(ng-show='user.auth.local')
       hr
       h4 Change Password
