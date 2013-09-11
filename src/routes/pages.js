@@ -22,7 +22,7 @@ router.get('/partials/options', function(req, res) {
 // -------- Marketing --------
 
 router.get('/splash.html', function(req, res) {
-  res.redirect('/static/front', {env: res.locals.habitrpg});
+  res.redirect('/static/front');
 });
 
 router.get('/static/front', function(req, res) {
