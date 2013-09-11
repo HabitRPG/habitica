@@ -142,7 +142,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       }
 
       $scope.reject = function(guild){
-        var i = _.findIndex(User.user.invitations.guilds, {id:guild._id});
+        var i = _.findIndex(User.user.invitations.guilds, {id:guild.id});
         if (~i){
           User.user.invitations.guilds.splice(i, 1);
           User.set('invitations.guilds', User.user.invitations.guilds);

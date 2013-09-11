@@ -272,7 +272,7 @@ api.invite = function(req, res, next) {
     }
 
     function sendInvite (){
-      if(group.type = 'guild'){
+      if(group.type === 'guild'){
         if(!invite.invitations.guilds) invite.invitations.guilds = [] //necessary
         invite.invitations.guilds.push({id: group._id, name: group.name});
       }else{
