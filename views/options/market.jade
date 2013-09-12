@@ -15,13 +15,13 @@
     li.customize-menu
       menu.pets-menu(label='Eggs')
         div(ng-repeat='egg in eggs track by $index')
-          button.customize-option(tooltip='{{egg.text}}', ng-click='buy("egg", egg)', class='Pet_Egg_{{egg.name}}')
+          button.customize-option(tooltip='{{egg.text}} - {{egg.value}} Gem(s)', ng-click='buy("egg", egg)', class='Pet_Egg_{{egg.name}}')
           p {{egg.text}}
 
     li.customize-menu
       menu.pets-menu(label='Hatching Potions')
         div(ng-repeat='hatchingPotion in hatchingPotions track by $index')
-          button.customize-option(tooltip='{{hatchingPotion.text}}', ng-click='buy("hatchingPotion", hatchingPotion)', class='Pet_HatchingPotion_{{hatchingPotion.name}}')
+          button.customize-option(tooltip='{{hatchingPotion.text}} - {{hatchingPotion.value}} Gem(s)', ng-click='buy("hatchingPotion", hatchingPotion)', class='Pet_HatchingPotion_{{hatchingPotion.name}}')
           p {{hatchingPotion.text}}
 
 
