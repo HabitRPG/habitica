@@ -67,7 +67,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     // {{#if taskInChallenge(task)}}
     // {{taskAttrFromChallenge(task,'text')}}
     // {{else}}
-    | {{task.text}}
+    | {{task.text}} {{task.date}}
     // {{/}}
 
   // edit/options dialog
@@ -123,7 +123,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
       // if Todos, the due date
       fieldset.option-group(ng-if='task.type=="todo"')
         legend.option-title Due Date
-        input.option-content.datepicker(type='text', value='{{task.date}}', data-date-format='mm/dd/yyyy')
+        input.option-content.datepicker(type='text', data-date-format='mm/dd/yyyy', ng-model='task.date')
 
       fieldset.option-group(ng-if='list.main')
         legend.option-title Tags
