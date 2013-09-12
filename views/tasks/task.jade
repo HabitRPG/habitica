@@ -1,6 +1,9 @@
 li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,user.filters,user.preferences.dayStart,user.lastCron,list.showCompleted,list.main)}}', data-id='{{task.id}}')
   // right-hand side control buttons
   .task-meta-controls
+    // Due Date
+    span.task-date(ng-if='task.type=="todo" && task.date')
+      | {{task.date}}
     // Streak
     span(ng-show='task.streak') {{task.streak}}
       span(tooltip='Streak Counter')
@@ -67,7 +70,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     // {{#if taskInChallenge(task)}}
     // {{taskAttrFromChallenge(task,'text')}}
     // {{else}}
-    | {{task.text}} {{task.date}}
+    | {{task.text}}
     // {{/}}
 
   // edit/options dialog
