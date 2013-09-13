@@ -42,15 +42,14 @@ var UserSchema = new Schema({
       loggedin: Date
     }
   },
-  /* TODO*/
 
-  backer: Schema.Types.Mixed,
-  /*
-  #    tier: Number
-  #    admin: Boolean
-  #    contributor: Boolean
-  #    tokensApplieds: Boolean
-  */
+  backer: {
+    tier: Number,
+    admin: Boolean,
+    npc: String,
+    contributor: String,
+    tokensApplied: Boolean
+  },
 
   balance: Number,
   habitIds: Array,
@@ -155,12 +154,12 @@ var UserSchema = new Schema({
   },
   preferences: {
     armorSet: String,
-    dayStart: Number,
-    gender: String,
-    hair: String,
-    hideHeader: Boolean,
-    showHelm: Boolean,
-    skin: String,
+    dayStart: {type:Number, 'default': 0},
+    gender: {type:String, 'default': 'm'},
+    hair: {type:String, 'default':'blond'},
+    hideHeader: {type:Boolean, 'default':false},
+    showHelm: {type:Boolean, 'default':true},
+    skin: {type:String, 'default':'white'},
     timezoneOffset: Number
   },
   profile: {

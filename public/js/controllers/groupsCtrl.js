@@ -89,6 +89,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
 
     $scope.nameTagClasses = function(message){
+      if (!message) return; // fixme what's triggering this?
       if (message.contributor) {
         if (message.contributor.match(/npc/i) || message.contributor.match(/royal/i)) {
           return 'label-royal';

@@ -124,7 +124,7 @@ angular.module('userServices', []).
                     settings.auth.apiToken = token;
                     settings.online = true;
                     if (user && user._v) user._v--; // shortcut to always fetch new updates on page reload
-                    this.log({}, cb);
+                    userServices.log({}, cb);
                 } else {
                     alert('Please enter your ID and Token in settings.')
                 }
@@ -155,17 +155,16 @@ angular.module('userServices', []).
               var log = { op: 'set', data: {} };
               window.habitrpgShared.helpers.dotSet(k, v, this.user);
               log.data[k] = v;
-              this.log(log);
+              userServices.log(log);
             },
 
             setMultiple: function(obj){
-              var self = this;
               var log = { op: 'set', data: {} };
               _.each(obj, function(v,k){
-                window.habitrpgShared.helpers.dotSet(k, v, self.user);
+                window.habitrpgShared.helpers.dotSet(k, v, userServices.user);
                 log.data[k] = v;
               });
-              self.log(log);
+              userServices.log(log);
             },
 
             save: save,
