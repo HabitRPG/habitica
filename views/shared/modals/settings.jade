@@ -18,13 +18,13 @@ div(ng-controller='SettingsCtrl')
         form#restore-form.form-horizontal
           h3 Stats
           .option-group.option-medium
-            input.option-content(type='number', data-for='stats.hp', ng-model='user.stats.hp')
+            input.option-content(type='number', step="any", data-for='stats.hp', ng-model='user.stats.hp')
             span.input-suffix HP
           .option-group.option-medium
-            input.option-content(type='number', data-for='stats.exp', ng-model='user.stats.exp')
+            input.option-content(type='number', step="any", data-for='stats.exp', ng-model='user.stats.exp')
             span.input-suffix Exp
           .option-group.option-medium
-            input.option-content(type='number', data-for='stats.gp', ng-model='user.stats.gp')
+            input.option-content(type='number', step="any", data-for='stats.gp', ng-model='user.stats.gp')
             span.input-suffix GP
           .option-group.option-medium
             input.option-content(type='number', data-for='stats.lvl', ng-model='user.stats.lvl')
