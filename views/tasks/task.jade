@@ -36,8 +36,8 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     // Habits
     span(ng-if='list.main && task.type=="habit"')
       // only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges
-      a.task-action-btn(ng-show='task.up', ng-click='score(task,"up")') +
-      a.task-action-btn(ng-show='task.down', ng-click='score(task,"down")') -
+      a.task-action-btn(ng-if='task.up', ng-click='score(task,"up")') +
+      a.task-action-btn(ng-if='task.down', ng-click='score(task,"down")') -
     //span(ng-if='!list.main')
     //  span.task-action-btn(ng-show='task.up') +
     //  span.task-action-btn(ng-show='task.down') =
