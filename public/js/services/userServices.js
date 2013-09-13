@@ -135,38 +135,37 @@ angular.module('userServices', []).
             },
 
             log: function (action, cb) {
-                //push by one buy one if an array passed in.
-                if (_.isArray(action)) {
-                    action.forEach(function (a) {
-                        settings.sync.queue.push(a);
-                    });
-                } else {
-                    settings.sync.queue.push(action);
-                }
+              //push by one buy one if an array passed in.
+              if (_.isArray(action)) {
+                action.forEach(function (a) {
+                  settings.sync.queue.push(a);
+                });
+              } else {
+                settings.sync.queue.push(action);
+              }
 
-                save();
-                syncQueue(cb);
+              save();
+              syncQueue(cb);
             },
 
             /*
              Very simple path-set. `set('preferences.gender','m')` for example. We'll deprecate this once we have a complete API
              */
             set: function(k, v) {
-              var self = userServices;
               var log = { op: 'set', data: {} };
-              window.habitrpgShared.helpers.dotSet(k, v, userServices.user);
+              window.habitrpgShared.helpers.dotSet(k, v, this.user);
               log.data[k] = v;
-              userServices.log(log);
+              this.log(log);
             },
 
             setMultiple: function(obj){
               var self = this;
               var log = { op: 'set', data: {} };
               _.each(obj, function(v,k){
-                window.habitrpgShared.helpers.dotSet(k, v, userServices.user);
+                window.habitrpgShared.helpers.dotSet(k, v, self.user);
                 log.data[k] = v;
-              })
-              userServices.log(log);
+              });
+              self.log(log);
             },
 
             save: save,

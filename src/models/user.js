@@ -87,7 +87,7 @@ var UserSchema = new Schema({
   /* FIXME remove?*/
 
   invitations: {
-    guilds: Array,
+    guilds: {type: Array, 'default': []},
     party: Schema.Types.Mixed
   },
   items: {
@@ -95,6 +95,7 @@ var UserSchema = new Schema({
     weapon: Number,
     head: Number,
     shield: Number,
+
     /*FIXME - tidy this up, not the best way to store current pet*/
 
     currentPet: {
@@ -118,22 +119,20 @@ var UserSchema = new Schema({
       str: String
     },
 
-    // FIXME revert this back to definition once we've replaced Derby and can run a migration to remove all corrupt eggs
-    eggs: Schema.Types.Mixed,
-//      [
-//        {
-//          text: String, // Wolf
-//          name: String, // Wolf
-//          value: Number, //3
-//          notes: String, //Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.
-//          //type: String, //Egg // this is forcing mongoose to return object as "[object Object]", but I don't think this is needed anyway?
-//          dialog: String //You've found a Wolf Egg! Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet
-//        }
-//      ],
+    eggs: [
+      {
+        dialog: String, //You've found a Wolf Egg! Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet
+        name: String, // Wolf
+        notes: String, //Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.
+        text: String, // Wolf
+        //type: String, //Egg // this is forcing mongoose to return object as "[object Object]", but I don't think this is needed anyway?
+        value: Number //3
+      }
+    ],
     hatchingPotions: Array, //["Base", "Skeleton",...]
     lastDrop: {
-      date: Date,
-      count: Number
+      date: {type: Date, 'default': Date.now},
+      count: {type: Number, 'default': 0}
     },
     /* ["BearCub-Base", "Cactus-Base", ...]*/
 

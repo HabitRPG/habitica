@@ -51,7 +51,7 @@ angular.module('guideServices', []).
       $('.main-herobox').popover('destroy');
       var tour = new Tour({
         onEnd: function(){
-          User.log({op:'set',data:{'flags.showTour':false}});
+          User.set('flags.showTour', false);
         }
       });
       tourSteps.forEach(function(step) {
