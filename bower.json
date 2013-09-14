@@ -35,6 +35,11 @@
     "marked": "~0.2.9"
   },
   "resolutions": {
-    "jquery": "~2.0.3"
+    "jquery": "~2.0.3",
+    "angular": "1.2.0-rc.2",
+    "angular-mocks": "1.2.0-rc.2"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.2.0-rc.2"
   }
 }

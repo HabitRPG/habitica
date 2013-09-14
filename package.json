@@ -70,6 +70,8 @@
     "karma-requirejs": "~0.1.0",
     "karma-phantomjs-launcher": "~0.1.0",
     "karma": "~0.10.2",
-    "karma-ng-html2js-preprocessor": "~0.1.0"
+    "karma-ng-html2js-preprocessor": "~0.1.0",
+    "mocha": "~1.12.1",
+    "karma-mocha": "~0.1.0"
   }
 }

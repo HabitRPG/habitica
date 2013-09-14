@@ -4,6 +4,12 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
 
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js'
+      }
+    },
+
     clean: {
       build: ['build']
     },
@@ -172,5 +178,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-hashres');
+  grunt.loadNpmTasks('grunt-karma');
 
 };
