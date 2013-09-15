@@ -16,7 +16,7 @@
   .span6(ng-show='hatching')
     h3 Hatch Your Egg
     p(ng-show='userHatchingPotions.length < 1') You don't have any hatching potions yet.
-    div(ng-show='userHatchingPotions')
+    div(ng-show='userHatchingPotions.length >= 1')
       p.
         Which hatching potion will you pour on your <b>{{selectedEgg.text}}</b> egg?
       select(ng-options='hatchingPotion for hatchingPotion in userHatchingPotions', ng-model="selectedPotion")
