@@ -83,7 +83,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
       fieldset.option-group
         // {{#unless taskInChallenge(task)}}
         label.option-title Text
-        input.option-content(type='text', ng-model='task.text')
+        input.option-content(type='text', ng-model='task.text', required)
         // {{/}}
         label.option-title Extra Notes
         // {{#if taskInChallenge(task)}}
