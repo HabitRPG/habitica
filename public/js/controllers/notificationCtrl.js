@@ -3,8 +3,6 @@
 habitrpg.controller('NotificationCtrl',
   ['$scope', '$rootScope', 'User', 'Guide', 'Notification', function ($scope, $rootScope, User, Guide, Notification) {
 
-    Guide.initTour();
-
     $rootScope.$watch('user.stats.hp', function(after, before) {
       if (after == before) return;
       Notification.hp(after - before, 'hp');

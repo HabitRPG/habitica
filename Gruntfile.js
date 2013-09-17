@@ -81,7 +81,6 @@ module.exports = function(grunt) {
             'public/bower_components/bootstrap/docs/assets/js/bootstrap.min.js',
 
             'public/js/static.js',
-            'public/js/services/memberServices.js',
             'public/js/services/userServices.js',
             'public/js/controllers/authCtrl.js'
           ]

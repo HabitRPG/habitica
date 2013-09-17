@@ -5,11 +5,11 @@
  */
 
 angular.module('memberServices', ['ngResource']).
-    factory('Members', ['API_URL', '$resource',
-      function(API_URL, $resource) {
+    factory('Members', ['$rootScope', 'API_URL', '$resource',
+      function($rootScope, API_URL, $resource) {
         var members = {};
         var Member = $resource(API_URL + '/api/v1/members/:uid', {uid:'@_id'});
-        return {
+        var memberServices = {
 
           members: members,
 
@@ -69,5 +69,11 @@ angular.module('memberServices', ['ngResource']).
             }
           }
         }
+
+        $rootScope.$on('userUpdated', function(event, user){
+          memberServices.populate(user);
+        })
+
+        return memberServices;
       }
 ]);
