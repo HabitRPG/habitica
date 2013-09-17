@@ -17,19 +17,15 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.stats.gp', function(after, before) {
       if (after == before) return;
-      var bonus, money;
       var money = after - before;
       Notification.gp(money);
 
       //Append Bonus
-      bonus = User.user._tmp.streakBonus;
+      var bonus = User.user._tmp.streakBonus;
 
       if ((money > 0) && !!bonus) {
-        if (bonus < 0.01) {
-          bonus = 0.01;
-        }
+        if (bonus < 0.01) bonus = 0.01;
         Notification.text("+ " + Notification.coins(bonus) + "  Streak Bonus!");
-        delete User.user._tmp.streakBonus;
       }
     });
 
