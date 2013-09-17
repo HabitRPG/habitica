@@ -155,7 +155,7 @@ module.exports =
       _.reduce arr, (curr, next, index) ->
         if (arr.length - 1) == index
           curr[next] = val
-        curr[next]
+        (curr[next] ?= {})
       , obj
     catch err
       console.error {err, path, val, _id:obj._id}
@@ -163,7 +163,7 @@ module.exports =
   dotGet: (path, obj) ->
     return undefined if ~path.indexOf('undefined')
     try
-      _.reduce path.split('.'), ((curr, next) -> curr[next]), obj
+      _.reduce path.split('.'), ((curr, next) -> curr?[next]), obj
     catch err
       console.error {err, path, val, _id:obj._id}
 
