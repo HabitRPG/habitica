@@ -51,7 +51,7 @@ angular.module('guideServices', []).
         }
       ];
       _.each(tourSteps, function(step){
-        step.content = "<div><div class='NPC-Justin'></div>" + step.content + "</div>"; // add Justin NPC img
+        step.content = "<div><div class='NPC-Justin float-left'></div>" + step.content + "</div>"; // add Justin NPC img
       });
       $('.main-herobox').popover('destroy');
       var tour = new Tour({
@@ -73,7 +73,7 @@ angular.module('guideServices', []).
     var showPopover = function(selector, title, html, placement) {
       if (!placement) placement = 'bottom';
       $(selector).popover('destroy');
-      html = "<div><div class='NPC-Justin'></div>" + html + "<a class='btn btn-default' href='#' onClick=\"$('" + selector + "').popover('hide');return false;\">[Close]</a></div>";
+      html = "<div><div class='NPC-Justin float-left'></div>" + html + "<br/><a class='btn btn-sm btn-default' href='#' onClick=\"$('" + selector + "').popover('hide');return false;\">Close</a></div>";
       $(selector).popover({
         title: title,
         placement: placement,
