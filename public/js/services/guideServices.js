@@ -86,8 +86,7 @@ angular.module('guideServices', []).
     };
 
     $rootScope.$watch('user.flags.customizationsNotification', function(after, before) {
-      if (alreadyShown(before, after)) return
-      $('.main-herobox').popover('destroy');
+      if (alreadyShown(before, after)) return;
       showPopover('.main-herobox', 'Customize Your Avatar', "Click your avatar to customize your appearance.", 'bottom');
     });
 
