@@ -5,14 +5,15 @@
  */
 
 angular.module('guideServices', []).
-  factory('Guide', ['$rootScope', 'User', function($rootScope, User) {
+  factory('Guide', ['$rootScope', 'User', 'Items', 'Helpers', function($rootScope, User, Items, Helpers) {
 
     /**
      * Init and show the welcome tour. Note we do it listening to a $rootScope broadcasted 'userLoaded' message,
      * this because we need to determine whether to show the tour *after* the user has been pulled from the server,
      * otherwise it's always start off as true, and then get set to false later
      */
-    $rootScope.$on('userUpdated', function(){
+    $rootScope.$on('userUpdated', initTour);
+    function initTour(){
       if (User.user.flags.showTour === false) return;
       var tourSteps = [
         {
@@ -64,7 +65,7 @@ angular.module('guideServices', []).
       });
       tour.restart(); // Tour doesn't quite mesh with our handling of flags.showTour, just restart it on page load
       //tour.start(true);
-    })
+    };
 
     var alreadyShown = function(before, after) {
       return !(!before && after === true);
@@ -73,7 +74,8 @@ angular.module('guideServices', []).
     var showPopover = function(selector, title, html, placement) {
       if (!placement) placement = 'bottom';
       $(selector).popover('destroy');
-      html = "<div><div class='NPC-Justin float-left'></div>" + html + "<br/><a class='btn btn-sm btn-default' href='#' onClick=\"$('" + selector + "').popover('hide');return false;\">Close</a></div>";
+      var button = "<button class='btn btn-sm btn-default' onClick=\"$('" + selector + "').popover('hide');return false;\">Close</button>";
+      html = "<div><div class='NPC-Justin float-left'></div>" + html + '<br/>' + button + '</div>';
       $(selector).popover({
         title: title,
         placement: placement,
@@ -109,7 +111,7 @@ angular.module('guideServices', []).
 
     $rootScope.$watch('user.flags.dropsEnabled', function(after, before) {
       if (alreadyShown(before, after)) return;
-      var drop = window.helpers.randomVal(window.items.items.pets);
+      var drop = Helpers.randomVal(Items.items.pets);
       var eggs = User.user.items.eggs = [];
       eggs.push(drop); // FIXME put this on server instead
       User.set('items.eggs', eggs);
@@ -145,6 +147,10 @@ angular.module('guideServices', []).
         }
       }
     });*/
+
+    return {
+      initTour:initTour
+    };
 
   }
 ]);
