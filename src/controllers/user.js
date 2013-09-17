@@ -712,6 +712,7 @@ api.batchUpdate = function(req, res, next) {
     }
     response = user.toJSON();
     response.wasModified = res.locals.wasModified;
+    if (response._tmp && response._tmp.drop) response.wasModified = true;
     res.json(200, response);
     return console.log("Reply sent");
   });

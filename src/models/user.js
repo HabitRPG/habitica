@@ -240,6 +240,7 @@ UserSchema.methods.toJSON = function() {
   //});
   //delete doc.tasks
   doc.filters = {};
+  doc._tmp = this._tmp; // be sure to send down drop notifs
 
   return doc;
 };

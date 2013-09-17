@@ -33,6 +33,11 @@ habitrpg.controller('NotificationCtrl',
       }
     });
 
+    $rootScope.$watch('user._tmp.drop', function(after, before){
+      if (after == before || !after) return;
+      $rootScope.modals.drop = true;
+    });
+
     // FIXME: this isn't working for some reason
     /*_.each(['weapon', 'head', 'chest', 'shield'], function(watched){
       $rootScope.$watch('user.items.' + watched, function(before, after){
