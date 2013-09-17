@@ -55,11 +55,11 @@
       //{{profile.profile.blurb | linky:'_blank'}}
 
       h4 Websites
-      ul(ng-show='profile.profile.websites')
+      ul(ng-show='profile.profile.websites.length > 0')
         // TODO let's remove links eventually, since we can do markdown on profiles
         li(ng-repeat='website in profile.profile.websites')
           a(target='_blank', ng-href='{{website}}') {{website}}
-      span.muted(ng-hide='profile.profile.websites') - None -
+      span.muted(ng-hide='profile.profile.websites.length > 0') - None -
 
     div.whatever-options(ng-show='_editing.profile')
       // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
