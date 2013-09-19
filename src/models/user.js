@@ -23,7 +23,7 @@ var UserSchema = new Schema({
     'default': helpers.uuid
   },
 
-  // ### Mongoode Update Object
+  // ### Mongoose Update Object
   // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
   // have been updated (http://goo.gl/gQLz41), but we want *every* update
   _v: {
