@@ -252,11 +252,14 @@ UserSchema.methods.toJSON = function() {
   doc.id = doc._id;
   transformTaskLists(doc); // we need to also transform for our server-side routes
 
+  // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
+  /*
   // Remove some unecessary data as far as client consumers are concerned
   //_.each(['habit', 'daily', 'todo', 'reward'], function(type) {
   //  delete doc["#{type}Ids"]
   //});
   //delete doc.tasks
+  */
   doc.filters = {};
   doc._tmp = this._tmp; // be sure to send down drop notifs
 
