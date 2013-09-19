@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>groups.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="auth.html">
+                auth.js
+              </a>
+            
+              
+              <a class="source" href="deprecated.html">
+                deprecated.js
+              </a>
+            
+              
+              <a class="source" href="groups.html">
+                groups.js
+              </a>
+            
+              
+              <a class="source" href="user.html">
+                user.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>groups.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>@see ../routes for routing</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> _ = require(<span class="string">'lodash'</span>);
+<span class="keyword">var</span> nconf = require(<span class="string">'nconf'</span>);
+<span class="keyword">var</span> async = require(<span class="string">'async'</span>);
+<span class="keyword">var</span> algos = require(<span class="string">'habitrpg-shared/script/algos'</span>);
+<span class="keyword">var</span> helpers = require(<span class="string">'habitrpg-shared/script/helpers'</span>);
+<span class="keyword">var</span> items = require(<span class="string">'habitrpg-shared/script/items'</span>);
+<span class="keyword">var</span> User = require(<span class="string">'./../models/user'</span>).model;
+<span class="keyword">var</span> Group = require(<span class="string">'./../models/group'</span>).model;
+<span class="keyword">var</span> api = module.exports;
+
+<span class="comment">/*
+  ------------------------------------------------------------------------
+  Groups
+  ------------------------------------------------------------------------
+*/</span>
+
+<span class="keyword">var</span> usernameFields = <span class="string">'auth.local.username auth.facebook.displayName auth.facebook.givenName auth.facebook.familyName auth.facebook.name'</span>;
+<span class="keyword">var</span> partyFields = <span class="string">'profile preferences items stats achievements party backer flags.rest auth.timestamps '</span> + usernameFields;
+
+<span class="function"><span class="keyword">function</span> <span class="title">removeSelf</span><span class="params">(group, user)</span>{</span>
+  group.members = _.filter(group.members, <span class="keyword">function</span>(m){<span class="keyword">return</span> m._id != user._id});
+}
+
+api.getMember = <span class="keyword">function</span>(req, res) {
+  User.findById(req.params.uid).select(partyFields).exec(<span class="keyword">function</span>(err, user){
+    <span class="keyword">if</span> (err) <span class="keyword">return</span> res.json(<span class="number">500</span>,{err:err});
+    <span class="keyword">if</span> (!user) <span class="keyword">return</span> res.json(<span class="number">400</span>,{err:<span class="string">'User not found'</span>});
+    res.json(user);
+  })
+}
+
+<span class="comment">/**
+ * Get groups. If req.query.type privided, returned as an array (so ngResource can use). If not, returned as
+ * object {guilds, public, party, tavern}. req.query.type can be comma-separated `type=guilds,party`
+ * @param req
+ * @param res
+ * @param next
+ */</span>
+api.getGroups = <span class="keyword">function</span>(req, res, next) {
+  <span class="keyword">var</span> user = res.locals.user;
+
+  <span class="keyword">var</span> type = req.query.type &amp;&amp; req.query.type.split(<span class="string">','</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>First get all groups</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  async.parallel({
+    party: <span class="keyword">function</span>(cb) {
+      <span class="keyword">if</span> (type &amp;&amp; !~type.indexOf(<span class="string">'party'</span>)) <span class="keyword">return</span> cb(<span class="literal">null</span>, {});
+      Group
+        .findOne({type: <span class="string">'party'</span>, members: {<span class="string">'$in'</span>: [user._id]}})
+        .populate({
+          path: <span class="string">'members'</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>match: {_id: {$ne: user._id}}, //fixme this causes it to hang??</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          select: partyFields
+        })
+        .exec(cb);
+    },
+    guilds: <span class="keyword">function</span>(cb) {
+      <span class="keyword">if</span> (type &amp;&amp; !~type.indexOf(<span class="string">'guilds'</span>)) <span class="keyword">return</span> cb(<span class="literal">null</span>, []);
+      Group.find({type: <span class="string">'guild'</span>, members: {<span class="string">'$in'</span>: [user._id]}}).populate(<span class="string">'members'</span>, usernameFields).exec(cb);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <pre><code> Group.find({type: &#39;guild&#39;, members: {&#39;$in&#39;: [user._id]}}, cb);</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    },
+    tavern: <span class="keyword">function</span>(cb) {
+      <span class="keyword">if</span> (type &amp;&amp; !~type.indexOf(<span class="string">'tavern'</span>)) <span class="keyword">return</span> cb(<span class="literal">null</span>, {});
+      Group.findOne({_id: <span class="string">'habitrpg'</span>}, cb);
+    },
+    <span class="string">"public"</span>: <span class="keyword">function</span>(cb) {
+      <span class="keyword">if</span> (type &amp;&amp; !~type.indexOf(<span class="string">'public'</span>)) <span class="keyword">return</span> cb(<span class="literal">null</span>, []);
+      Group.find({privacy: <span class="string">'public'</span>}, {name:<span class="number">1</span>, description:<span class="number">1</span>, members:<span class="number">1</span>}, cb);
+    }
+  }, <span class="keyword">function</span>(err, results){
+    <span class="keyword">if</span> (err) <span class="keyword">return</span> res.json(<span class="number">500</span>, {err: err});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Remove self from party (see above failing <code>match</code> directive in <code>populate</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">if</span> (results.party) {
+      removeSelf(results.party, user);
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Sort public groups by members length (not easily doable in mongoose)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    results.public = _.sortBy(results.public, <span class="keyword">function</span>(group){
+      <span class="keyword">return</span> -group.members.length;
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>If they&#39;re requesting a specific type, let&#39;s return it as an array so that $ngResource
+can utilize it properly</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">if</span> (type) {
+      results = _.reduce(type, <span class="keyword">function</span>(m,t){
+        <span class="keyword">return</span> m.concat(_.isArray(results[t]) ? results[t] : [results[t]]);
+      }, []);
+    }
+
+    res.json(results);
+  })
+};
+
+<span class="comment">/**
+ * Get group
+ */</span>
+api.getGroup = <span class="keyword">function</span>(req, res, next) {
+  <span class="keyword">var</span> user = res.locals.user;
+  <span class="keyword">var</span> gid = req.params.gid;
+
+  Group.findById(gid).populate(<span class="string">'members'</span>, partyFields).exec(<span class="keyword">function</span>(err, group){
+    <span class="keyword">if</span> ( (group.type == <span class="string">'guild'</span> &amp;&amp; group.privacy == <span class="string">'private'</span>) || group.type == <span class="string">'party'</span>) {
+      <span class="keyword">return</span> res.json(<span class="number">401</span>, {err: <span class="string">"You don't have access to this group"</span>});
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Remove self from party (see above failing <code>match</code> directive in <code>populate</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">if</span> (group.type == <span class="string">'party'</span>) {
+      removeSelf(group, user);
+    }
+    res.json(group);
+
+  })
+};
+
+
+api.createGroup = <span class="keyword">function</span>(req, res, next) {
+  <span class="keyword">var</span> group = <span class="keyword">new</span> Group(req.body);
+  group.save(<span class="keyword">function</span>(err, saved){
+    <span class="keyword">if</span> (err) <span class="keyword">return</span> res.json(<span class="number">500</span>,{err:err});
+    res.json(saved);
+  })
+}
+
+api.updateGroup = <span class="keyword">function</span>(req, res, next) {
+  <span class="keyword">var</span> group = res.locals.group;
+  <span class="string">'name description logo websites logo leaderMessage'</span>.split(<span class="string">' '</span>).forEach(<span class="keyword">function</span>(attr){
+    group[attr] = req.body[attr];
+  });
+  async.series([
+    <span class="keyword">function</span>(cb){group.save(cb);},
+    <span class="keyword">function</span>(cb){
+      <span class="keyword">var</span> fields = group.type == <span class="string">'party'</span> ? partyFields : usernameFields;
+      Group.findById(group._id).populate(<span class="string">'members'</span>, fields).exec(cb);
+    }
+  ], <span class="keyword">function</span>(err, results){
+    <span class="keyword">if</span> (err) <span class="keyword">return</span> res.json(<span class="number">500</span>,{err:err});
+    removeSelf(results[<span class="number">1</span>], res.locals.user);
+    res.json(results[<span class="number">1</span>]);
+  })
+}
+
+api.attachGroup = <span class="keyword">function</span>(req, res, next) {
+  Group.findById(req.params.gid, <span class="keyword">function</span>(err, group){
+    <span class="keyword">if</span>(err) <span class="keyword">return</span> res.json(<span class="number">500</span>, {err:err});
+    res.locals.group = group;
+    next();
+  })
+}
+
+api.postChat = <span class="keyword">function</span>(req, res, next) {
+  <span class="keyword">var</span> user = res.locals.user
+  <span class="keyword">var</span> group = res.locals.group;
+  <span class="keyword">var</span> message = {
+    id: helpers.uuid(),
+    uuid: user._id,
+    contributor: user.backer &amp;&amp; user.backer.contributor,
+    npc: user.backer &amp;&amp; user.backer.npc,
+    text: req.query.message, <span class="comment">// FIXME this should be body, but ngResource is funky</span>
+    user: helpers.username(user.auth, user.profile.name),
+    timestamp: +(<span class="keyword">new</span> Date)
+  };
+
+  group.chat.unshift(message);
+  group.chat.splice(<span class="number">200</span>);
+
+  <span class="keyword">if</span> (group.type === <span class="string">'party'</span>) {
+    user.party.lastMessageSeen = message.id;
+    user.save();
+  }
+
+  async.series([
+    <span class="keyword">function</span>(cb){group.save(cb)},
+    <span class="keyword">function</span>(cb){
+      Group.findById(group._id).populate(<span class="string">'members'</span>, partyFields).exec(cb);
+    }
+  ], <span class="keyword">function</span>(err, results){
+    <span class="keyword">if</span> (err) <span class="keyword">return</span> res.json(<span class="number">500</span>, {err:err});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>TODO This is less efficient, but see <a href="https://github.com/lefnire/habitrpg/commit/41255dc#commitcomment-4014583">https://github.com/lefnire/habitrpg/commit/41255dc#commitcomment-4014583</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> saved = results[<span class="number">1</span>];
+    removeSelf(saved, user);
+
+    res.json(saved);
+  })
+}
+
+api.deleteChatMessage = <span class="keyword">function</span>(req, res, next){
+  <span class="keyword">var</span> user = res.locals.user
+  <span class="keyword">var</span> group = res.locals.group;
+  <span class="keyword">var</span> message = _.find(group.chat, {id: req.params.messageId, uuid: user.id});
+
+  <span class="keyword">if</span>(message === <span class="literal">undefined</span>) <span class="keyword">return</span> res.json(<span class="number">404</span>, {err: <span class="string">"Message not found!"</span>});
+
+  <span class="keyword">if</span>(user.id !== message.uuid){
+    <span class="keyword">if</span>(!user.backer || (user.backer &amp;&amp; !user.backer.admin)){
+      <span class="keyword">return</span> res.json(<span class="number">401</span>, {err: <span class="string">"Not authorized to delete this message!"</span>})
+    }
+  }
+
+  group.chat = _.without(group.chat, message);
+  
+  group.save(<span class="keyword">function</span>(err, data){
+    <span class="keyword">if</span>(err) <span class="keyword">return</span> res.json(<span class="number">500</span>, {err: err});
+
+    res.send(<span class="number">204</span>);
+  });
+}
+
+api.join = <span class="keyword">function</span>(req, res, next) {
+  <span class="keyword">var</span> user = res.locals.user,
+    group = res.locals.group;
+
+  <span class="keyword">if</span> (group.type == <span class="string">'party'</span> &amp;&amp; group._id == (user.invitations &amp;&amp; user.invitations.party &amp;&amp; user.invitations.party.id)) {
+    user.invitations.party = <span class="literal">undefined</span>;
+    user.save();
+  }
+  <span class="keyword">else</span> <span class="keyword">if</span> (group.type == <span class="string">'guild'</span> &amp;&amp; user.invitations &amp;&amp; user.invitations.guilds) {
+    <span class="keyword">var</span> i = _.findIndex(user.invitations.guilds, {id:group._id});
+    <span class="keyword">if</span> (~i) user.invitations.guilds.splice(i,<span class="number">1</span>);
+    user.save();
+  }
+
+  group.members.push(user._id);
+  async.series([
+    <span class="keyword">function</span>(cb){
+      group.save(cb);
+    },
+    <span class="keyword">function</span>(cb){
+      Group.findById(group._id).populate(<span class="string">'members'</span>, partyFields).exec(cb);
+    }
+  ], <span class="keyword">function</span>(err, results){
+    <span class="keyword">if</span> (err) <span class="keyword">return</span> res.json(<span class="number">500</span>,{err:err});
+    res.json(results[<span class="number">1</span>]);
+  });
+}
+
+api.leave = <span class="keyword">function</span>(req, res, next) {
+  <span class="keyword">var</span> user = res.locals.user,
+    group = res.locals.group;
+
+  Group.update({_id:group._id},{$pull:{members:user._id}}, <span class="keyword">function</span>(err, saved){
+    <span class="keyword">if</span> (err) <span class="keyword">return</span> res.json(<span class="number">500</span>,{err:err});
+    res.send(<span class="number">200</span>, {_id: saved._id});
+  })
+}
+
+api.invite = <span class="keyword">function</span>(req, res, next) {
+  <span class="keyword">var</span> group = res.locals.group;
+  <span class="keyword">var</span> uuid = req.query.uuid;
+
+  User.findById(uuid, <span class="keyword">function</span>(err,invite){
+    <span class="keyword">if</span> (err) <span class="keyword">return</span> res.json(<span class="number">500</span>,{err:err});
+    <span class="keyword">if</span> (!invite)
+       <span class="keyword">return</span> res.json(<span class="number">400</span>,{err:<span class="string">'User with id '</span>+req.query.uid+<span class="string">' not found'</span>});
+    <span class="keyword">if</span> (group.type == <span class="string">'guild'</span>) {
+      <span class="keyword">if</span> (_.contains(group.members,uuid))
+        <span class="keyword">return</span> res.json(<span class="number">400</span>,{err: <span class="string">"User already in that group"</span>});
+      <span class="keyword">if</span> (invite.invitations &amp;&amp; invite.invitations.guilds &amp;&amp; _.find(invite.invitations.guilds, {id:group._id}))
+        <span class="keyword">return</span> res.json(<span class="number">400</span>, {err:<span class="string">"User already invited to that group"</span>});
+      sendInvite();
+    } <span class="keyword">else</span> <span class="keyword">if</span> (group.type == <span class="string">'party'</span>) {
+      <span class="keyword">if</span> (invite.invitations &amp;&amp; !_.isEmpty(invite.invitations.party))
+        <span class="keyword">return</span> res.json(<span class="number">400</span>,{err:<span class="string">"User already pending invitation."</span>});
+      Group.find({type:<span class="string">'party'</span>, members:{$<span class="keyword">in</span>:[uuid]}}, <span class="keyword">function</span>(err, groups){
+        <span class="keyword">if</span> (err) <span class="keyword">return</span> res.json(<span class="number">500</span>,{err:err});
+        <span class="keyword">if</span> (!_.isEmpty(groups))
+          <span class="keyword">return</span> res.json(<span class="number">400</span>,{err:<span class="string">"User already in a party."</span>})
+        sendInvite();
+      })
+    }
+
+    <span class="function"><span class="keyword">function</span> <span class="title">sendInvite</span> <span class="params">()</span>{</span>
+      <span class="keyword">if</span>(group.type === <span class="string">'guild'</span>){
+        invite.invitations.guilds.push({id: group._id, name: group.name});
+      }<span class="keyword">else</span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>req.body.type in &#39;guild&#39;, &#39;party&#39;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        invite.invitations.party = {id: group._id, name: group.name}
+      }
+
+      invite.save();
+      Group.findById(group._id)
+        .populate(<span class="string">'members'</span>, partyFields).exec(<span class="keyword">function</span>(err, saved){
+          res.json(saved);
+        });
+
+    }
+  });
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
