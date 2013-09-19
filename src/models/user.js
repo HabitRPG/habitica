@@ -1,9 +1,19 @@
+// User.js
+// =======
+// Defines the user data model (schema) for use via the API.
+
+// Dependencies
+// ------------
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var helpers = require('habitrpg-shared/script/helpers');
 var _ = require('lodash');
 
+// User Schema
+// -----------
+
 var UserSchema = new Schema({
+  // ### UUID and API Token
   _id: {
     type: String,
     'default': helpers.uuid
@@ -13,7 +23,8 @@ var UserSchema = new Schema({
     'default': helpers.uuid
   },
 
-  //We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
+  // ### Mongoode Update Object
+  // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
   // have been updated (http://goo.gl/gQLz41), but we want *every* update
   _v: {
     type: Number,
@@ -121,33 +132,38 @@ var UserSchema = new Schema({
 
     eggs: [
       {
-        dialog: String, //You've found a Wolf Egg! Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet
-        name: String, // Wolf
-        notes: String, //Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.
-        text: String, // Wolf
-        //type: String, //Egg // this is forcing mongoose to return object as "[object Object]", but I don't think this is needed anyway?
-        value: Number //3
+        // example: You've found a Wolf Egg! Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet
+        dialog: String,
+        // example: Wolf
+        name: String, 
+        // example: Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.
+        notes: String,
+        // example: Wolf 
+        text: String, 
+        /* type: String, //Egg // this is forcing mongoose to return object as "[object Object]", but I don't think this is needed anyway? */
+        // example: 3
+        value: Number 
       }
     ],
-    hatchingPotions: Array, //["Base", "Skeleton",...]
+    hatchingPotions: Array, // ["Base", "Skeleton",...]
     lastDrop: {
       date: {type: Date, 'default': Date.now},
       count: {type: Number, 'default': 0}
     },
-    /* ["BearCub-Base", "Cactus-Base", ...]*/
+    // ["BearCub-Base", "Cactus-Base", ...]
 
     pets: Array
   },
-  /*FIXME store as Date?*/
+  // FIXME store as Date?
 
   lastCron: {
     type: Date,
     'default': Date.now
   },
-  /* FIXME remove?*/
+  // FIXME remove?
 
   party: {
-    //party._id //FIXME make these populate docs?
+    //party._id // FIXME make these populate docs?
     current: String, // party._id
     invitation: String, // party._id
     lastMessageSeen: String,
@@ -167,7 +183,7 @@ var UserSchema = new Schema({
     blurb: String,
     imageUrl: String,
     name: String,
-    websites: Array //["http://ocdevel.com" ]
+    websites: Array // styled like --> ["http://ocdevel.com" ]
   },
   stats: {
     hp: Number,
@@ -177,15 +193,15 @@ var UserSchema = new Schema({
   },
   tags: [
     {
-      /* FIXME use refs?*/
+      // FIXME use refs?
       id: String,
       name: String
     }
   ],
-  /*
-  # We can't define `tasks` until we move off Derby, since Derby requires dictionary of objects. When we're off, migrate
-  # to array of subdocs
-  */
+
+  // ### Tasks Definition
+  // We can't define `tasks` until we move off Derby, since Derby requires dictionary of objects. When we're off, migrate
+  // to array of subdocs
 
   tasks: Schema.Types.Mixed
   /*
@@ -208,12 +224,13 @@ var UserSchema = new Schema({
   strict: true
 });
 
-/**
-  Derby requires a strange storage format for somethign called "refLists". Here we hook into loading the data, so we
-  can provide a more "expected" storage format for our various helper methods. Since the attributes are passed by reference,
-  the underlying data will be modified too - so when we save back to the database, it saves it in the way Derby likes.
-  This will go away after the rewrite is complete
-*/
+// Legacy Derby Function?
+// ----------------------
+// Derby requires a strange storage format for somethign called "refLists". Here we hook into loading the data, so we
+// can provide a more "expected" storage format for our various helper methods. Since the attributes are passed by reference,
+// the underlying data will be modified too - so when we save back to the database, it saves it in the way Derby likes.
+// This will go away after the rewrite is complete
+
 function transformTaskLists(doc) {
   _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
     // we use _.transform instead of a simple _.where in order to maintain sort-order
@@ -246,10 +263,9 @@ UserSchema.methods.toJSON = function() {
   return doc;
 };
 
-/*
-# FIXME - since we're using special @post('init') above, we need to flag when the original path was modified.
-# Custom setter/getter virtuals?
-*/
+ // FIXME - since we're using special @post('init') above, we need to flag when the original path was modified.
+ // Custom setter/getter virtuals?
+
 UserSchema.pre('save', function(next) {
   this.markModified('tasks');
   //our own version incrementer
