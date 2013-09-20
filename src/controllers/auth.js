@@ -38,7 +38,7 @@ api.auth = function(req, res, next) {
       return res.json(401, NO_USER_FOUND);
     }
 
-    res.locals.wasModified = (req.query._v ? +user._v !== +req.query._v : true);
+    res.locals.wasModified = req.query._v ? +user._v !== +req.query._v : true;
     res.locals.user = user;
     req.session.userId = user._id;
     return next();
