@@ -87,7 +87,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
      ------------------------
      */
 
-    $scope.$watch("user.items", function() {
+    var updateStore = function(){
       var sorted, updated;
       updated = window.habitrpgShared.items.updateStore(User.user);
       /* Figure out whether we wanna put this in habitrpg-shared
@@ -95,12 +95,16 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
 
       sorted = [updated.weapon, updated.armor, updated.head, updated.shield, updated.potion, updated.reroll];
       $scope.itemStore = sorted;
-    });
+    }
+
+    updateStore()
+
     $scope.buy = function(type) {
       var hasEnough = window.habitrpgShared.items.buyItem(User.user, type);
       if (hasEnough) {
         User.log({op: "buy",type: type});
         Notification.text("Item purchased.");
+        updateStore();
       } else {
         Notification.text("Not enough GP.");
       }
