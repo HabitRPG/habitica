@@ -715,7 +715,7 @@ api.batchUpdate = function(req, res, next) {
     if(response.wasModified){
       res.json(200, response);
     }else{
-      res.json(204);
+      res.json(200, {_v: response._v});
     }
 
     return console.log("Reply sent");
