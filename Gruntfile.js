@@ -4,6 +4,12 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
 
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js'
+      }
+    },
+
     clean: {
       build: ['build']
     },
@@ -13,6 +19,7 @@ module.exports = function(grunt) {
         files: {
           'build/app.js': [
             'public/bower_components/jquery/jquery.min.js',
+            'public/bower_components/jquery.cookie/jquery.cookie.js',
             'public/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js',
             'public/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js',
             'public/bower_components/angular/angular.min.js',
@@ -75,7 +82,6 @@ module.exports = function(grunt) {
             'public/bower_components/bootstrap/docs/assets/js/bootstrap.min.js',
 
             'public/js/static.js',
-            'public/js/services/memberServices.js',
             'public/js/services/userServices.js',
             'public/js/controllers/authCtrl.js'
           ]
@@ -172,5 +178,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-hashres');
+  grunt.loadNpmTasks('grunt-karma');
 
 };

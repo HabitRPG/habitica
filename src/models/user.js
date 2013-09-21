@@ -42,15 +42,14 @@ var UserSchema = new Schema({
       loggedin: Date
     }
   },
-  /* TODO*/
 
-  backer: Schema.Types.Mixed,
-  /*
-  #    tier: Number
-  #    admin: Boolean
-  #    contributor: Boolean
-  #    tokensApplieds: Boolean
-  */
+  backer: {
+    tier: Number,
+    admin: Boolean,
+    npc: String,
+    contributor: String,
+    tokensApplied: Boolean
+  },
 
   balance: Number,
   habitIds: Array,
@@ -60,6 +59,7 @@ var UserSchema = new Schema({
   filters: {type: Schema.Types.Mixed, 'default': {}},
 
   flags: {
+    customizationsNotification: {type: Boolean, 'default': false},
     showTour: {type: Boolean, 'default': true},
     ads: {type: String, 'default': 'show'}, // FIXME make this a boolean, run migration
     dropsEnabled: {type: Boolean, 'default': false},
@@ -155,12 +155,12 @@ var UserSchema = new Schema({
   },
   preferences: {
     armorSet: String,
-    dayStart: Number,
-    gender: String,
-    hair: String,
-    hideHeader: Boolean,
-    showHelm: Boolean,
-    skin: String,
+    dayStart: {type:Number, 'default': 0},
+    gender: {type:String, 'default': 'm'},
+    hair: {type:String, 'default':'blond'},
+    hideHeader: {type:Boolean, 'default':false},
+    showHelm: {type:Boolean, 'default':true},
+    skin: {type:String, 'default':'white'},
     timezoneOffset: Number
   },
   profile: {
@@ -241,6 +241,7 @@ UserSchema.methods.toJSON = function() {
   //});
   //delete doc.tasks
   doc.filters = {};
+  doc._tmp = this._tmp; // be sure to send down drop notifs
 
   return doc;
 };
