@@ -56,7 +56,7 @@
   "scripts": {
     "test": "mocha test/api.mocha.coffee",
     "start": "grunt run:dev",
-    "postinstall": "./node_modules/bower/bin/bower install -f"
+    "postinstall": "bower install -f"
   },
   "devDependencies": {
     "karma-ng-scenario": "~0.1.0",
