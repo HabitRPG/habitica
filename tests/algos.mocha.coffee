@@ -59,6 +59,7 @@ expectDayResetNoDamage = (b,a) ->
   # hack so we can compare user before/after obj equality sans effected paths
   _.each ['dailys','todos','history','lastCron'], (path) ->
     _.each [before,after], (obj) -> delete obj[path]
+  delete after._tmp
   expect(after).to.eql before
 
 
@@ -71,7 +72,7 @@ describe 'User', ->
     expect(user.items).to.eql { weapon: 0, armor: 0, head: 0, shield: 0 }
     expect(user.preferences).to.eql { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0, showHelm: true }
     expect(user.balance).to.eql 0
-    expect(user.lastCron).to.eql 'new'
+    expect(user.lastCron).to.be.greaterThan 0
     expect(user.flags).to.eql {partyEnabled: false, itemsEnabled: false, ads: 'show'}
     expectStrings(user, ['apiToken'])
     expectStrings(user.habits[0], ['text','id'])
@@ -109,7 +110,7 @@ describe 'Cron', ->
   it 'computes shouldCron', ->
     user = helpers.newUser()
     paths = {};algos.cron user, {paths}
-    expect(paths.lastCron).to.be true # handlomg lastCron='new'
+    expect(paths.lastCron).to.be undefined # handlomg lastCron='new'
 
     paths = {};algos.cron user, {paths}
     expect(paths.lastCron).to.not.be.ok # it setup the cron property now
