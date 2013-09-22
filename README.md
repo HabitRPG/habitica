@@ -13,16 +13,12 @@ Before starting make sure to have [MongoDB](http://www.mongodb.org/), [NodeJS an
 
 1. [Fork the repository](https://help.github.com/articles/fork-a-repo) on your computer.
 1. Checkout the **develop** branch where all the development happens:
-
 `git checkout -b develop origin/develop`
 1. Install **grunt-cli** npm package globally (on some systems you may need to add `sudo` in front of the command below):
-
 `npm install -g grunt-cli bower`
 1. Install the **npm** and **bower** packages:
-
 `npm install`
 1. Create a config file from the example one:
-
 `cp config.json.example config.json`
 
 ##  Windows Environment Install
