@@ -143,7 +143,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       }
 
       $scope.leave = function(group){
-        if (confirm("Are you sure you want to delete this guild?") !== true) {
+        if (confirm("Are you sure you want to leave this guild?") !== true) {
           return;
         }
         group.$leave();

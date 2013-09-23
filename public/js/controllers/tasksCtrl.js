@@ -32,8 +32,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
       }
     ];
     $scope.score = function(task, direction) {
-      if (task.type === "reward" && User.user.stats.gp < task.value)
+      if (task.type === "reward" && User.user.stats.gp < task.value){
         return Notification.text('Not enough GP.');
+      }
       Algos.score(User.user, task, direction);
       User.log({op: "score",data: task, dir: direction});
 
