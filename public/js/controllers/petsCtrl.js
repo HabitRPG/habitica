@@ -5,7 +5,6 @@ habitrpg.controller("PetsCtrl", ['$scope', 'User',
     $scope.userCurrentPet = User.user.items.currentPet;
     $scope.pets = window.habitrpgShared.items.items.pets;
     $scope.hatchingPotions = window.habitrpgShared.items.items.hatchingPotions;
-    $scope.totalPets = $scope.pets.length * $scope.hatchingPotions.length;
 
     $scope.hasPet = function(name, potion){
       if (!$scope.userPets) return false;

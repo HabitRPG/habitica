@@ -11,15 +11,15 @@
           | ! Until that day, 
           a(target='_blank', href='https://f.cloud.github.com/assets/2374703/164631/3ed5fa6c-78cd-11e2-8743-f65ac477b55e.png') have a look-see
           |  at all the pets you can collect.
-        h4 {{userPets.length}} / {{totalPets}} Pets Found
+        h4 {{userPets.length}} / 90 Pets Found
 
   table.pets(ng-repeat='pet in pets')
     tbody
       tr
-        td(ng-repeat='potion in hatchingPotions', tooltip='{{potion.name}} {{pet.name}}')
-          button(class="pet-button Pet-{{pet.name}}-{{potion.name}}", ng-show='hasPet(pet.name, potion.name)', ng-class="{active: isCurrentPet(pet.name, potion.name)}", ng-click='choosePet(pet.name, potion.name)')
+        td(ng-repeat='potion in hatchingPotions')
+          button(class="pet-button Pet-{{pet.name}}-{{potion.name}}", ng-show='hasPet(pet.name, potion.name)', ng-class="{active: isCurrentPet(pet.name, potion.name)}", ng-click='choosePet(pet.name, potion.name)', tooltip='{{potion.name}} {{pet.name}}')
           button(class="pet-button pet-not-owned", ng-hide='hasPet(pet.name, potion.name)')
-            img(src='/bower_components/habitrpg-shared/img/PixelPaw.png')
+            img(src='/bower_components/habitrpg-shared/img/PixelPaw.png', tooltip='{{potion.name}} {{pet.name}}')
 
   h4 Rare Pets
   table
