@@ -13,3 +13,4 @@ src/*/*.map
 src/*/*/*.map
 test/*.js
 test/*.map
+public/docs

@@ -72,6 +72,8 @@
     "karma": "~0.10.2",
     "karma-ng-html2js-preprocessor": "~0.1.0",
     "mocha": "~1.12.1",
-    "karma-mocha": "~0.1.0"
+    "karma-mocha": "~0.1.0",
+    "docker": "~0.2.8",
+    "grunt-docker": "0.0.5"
   }
 }
