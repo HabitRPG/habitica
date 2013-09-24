@@ -1,21 +1,21 @@
-div(modal='modals.dropsEnabled')
+div(modal='modals.pets.dropsEnabled')
   .modal-header
     h3 Drops Enabled!
   .modal-body
     p
-      span.item-drop-icon(class='Pet_Egg_{{user.items.eggs.0.name}}')
+      span.item-drop-icon(ng-class='Pet_Egg_{{user.items.eggs.0.name}}')
       | You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. And guess what, you just found a
-      strong  {{user.items.eggs.0.text}} egg
+      strong {{user.items.eggs.0.text}} egg
       | ! {{user.items.eggs.0.notes}}
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.dropsEnabled = false') Close
+    button.btn.btn-default.cancel(ng-click='modals.pets.dropsEnabled=false') Close
 
-div(modal='modals.drop')
+div(modal='modals.pets.itemDropped')
   .modal-header
     h3 An item has dropped!
   .modal-body
     p
-      span.item-drop-icon(class='Pet_{{user._tmp.drop.type}}_{{user._tmp.drop.name}}')
-      | {{user._tmp.drop.dialog}}
+      span.item-drop-icon(ng-class='Pet_{{_drop.type}}_{{_drop.name}}')
+      | {{_drop.dialog}}
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.drop = false') Close
+    button.btn.btn-default.cancel(ng-click='modals.pets.itemDropped=false') Close
