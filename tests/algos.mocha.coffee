@@ -251,4 +251,5 @@ describe 'Helper', ->
   it 'calculates silver coins', ->
     expect(helpers.silver(10)).to.eql 0
     expect(helpers.silver(1.957)).to.eql 95
-    expect(helpers.silver()).to.eql 0
+    expect(helpers.silver(0.01)).to.eql "01"
+    expect(helpers.silver()).to.eql "00"

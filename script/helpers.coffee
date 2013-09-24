@@ -269,7 +269,7 @@ module.exports =
   ###
   silver: (num) ->
     if num
-      Math.floor (num - Math.floor(num))*100
+      ("0" + Math.floor (num - Math.floor(num))*100).slice -2
     else
       return "00"
 
