@@ -17,6 +17,5 @@ habitrpg.controller("UserCtrl", ['$scope', '$location', 'User',
   }
   $scope.removeWebsite = function($index){
     User.user.profile.websites.splice($index,1);
-    User.set('profile.websites', User.user.profile.websites);
   }
 }]);
