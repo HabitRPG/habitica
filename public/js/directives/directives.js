@@ -47,6 +47,7 @@ habitrpg.directive('habitrpgSortable', ['User', function(User) {
   return function($scope, element, attrs, ngModel) {
     $(element).sortable({
       axis: "y",
+      distance: 5,
       start: function (event, ui) {
         ui.item.data('startIndex', ui.item.index());
       },
