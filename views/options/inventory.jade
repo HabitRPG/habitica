@@ -2,13 +2,13 @@
   div(ng-class='{span6: hatching}')
     menu.inventory-list(type='list')
       li.customize-menu
-        menu.pets-menu(label='Eggs')
+        menu.pets-menu(label='Eggs ({{userEggs.length}})')
           p(ng-show='userEggs.length < 1') You don't have any eggs yet.
           div(ng-repeat='egg in userEggs track by $index')
             button.customize-option(tooltip='{{egg.text}}', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg.name}}')
             p {{egg.text}}
       li.customize-menu
-        menu.hatchingPotion-menu(label='Hatching Potions')
+        menu.hatchingPotion-menu(label='Hatching Potions ({{userHatchingPotions.length}})')
           p(ng-show='userHatchingPotions.length < 1') You don't have any hatching potions yet.
           div(ng-repeat='hatchingPotion in userHatchingPotions track by $index')
             button.customize-option(tooltip='{{hatchingPotion}}', class='Pet_HatchingPotion_{{hatchingPotion}}')
