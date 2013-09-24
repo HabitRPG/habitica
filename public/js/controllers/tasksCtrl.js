@@ -32,43 +32,12 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
       }
     ];
     $scope.score = function(task, direction) {
-      /*save current stats to compute the difference after scoring.
-       */
-
-      var oldStats, statsDiff;
-      statsDiff = {};
-      oldStats = _.clone(User.user.stats);
+      if (task.type === "reward" && User.user.stats.gp < task.value){
+        return Notification.text('Not enough GP.');
+      }
       Algos.score(User.user, task, direction);
-      /*compute the stats change.
-       */
+      User.log({op: "score",data: task, dir: direction});
 
-      _.each(oldStats, function(value, key) {
-        var newValue;
-        newValue = User.user.stats[key];
-        if (newValue !== value) {
-          statsDiff[key] = newValue - value;
-        }
-      });
-      /*notify user if there are changes in stats.
-       */
-
-      if (Object.keys(statsDiff).length > 0) {
-        Notification.push({
-          type: "stats",
-          stats: statsDiff
-        });
-      }
-      if (task.type === "reward" && _.isEmpty(statsDiff)) {
-        Notification.push({
-          type: "text",
-          text: "Not enough GP."
-        });
-      }
-      User.log({
-        op: "score",
-        data: task,
-        dir: direction
-      });
     };
 
     $scope.addTask = function(list) {
@@ -119,7 +88,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
      ------------------------
      */
 
-    $scope.$watch("user.items", function() {
+    var updateStore = function(){
       var sorted, updated;
       updated = window.habitrpgShared.items.updateStore(User.user);
       /* Figure out whether we wanna put this in habitrpg-shared
@@ -127,27 +96,20 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
 
       sorted = [updated.weapon, updated.armor, updated.head, updated.shield, updated.potion, updated.reroll];
       $scope.itemStore = sorted;
-    });
+    }
+
+    updateStore();
+
     $scope.buy = function(type) {
-      var hasEnough;
-      hasEnough = window.habitrpgShared.items.buyItem(User.user, type);
+      var hasEnough = window.habitrpgShared.items.buyItem(User.user, type);
       if (hasEnough) {
-        User.log({
-          op: "buy",
-          type: type
-        });
-        Notification.push({
-          type: "text",
-          text: "Item bought!"
-        });
+        User.log({op: "buy",type: type});
+        Notification.text("Item purchased.");
+        updateStore();
       } else {
-        Notification.push({
-          type: "text",
-          text: "Not enough GP."
-        });
+        Notification.text("Not enough GP.");
       }
     };
-
 
     $scope.clearCompleted = function() {
       User.user.todos = _.reject(User.user.todos, {completed:true});

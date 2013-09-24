@@ -54,10 +54,9 @@ var walk = function(folder){
 walk(path.join(__dirname, "/../build"));
 
 var getBuildUrl = function(url){
-  console.log("CALLED ", url)
   if(buildFiles[url]) return buildFiles[url];
 
-  return filename;
+  return url;
 }
 
 module.exports.locals = function(req, res, next) {

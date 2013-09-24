@@ -70,6 +70,7 @@ var UserSchema = new Schema({
   filters: {type: Schema.Types.Mixed, 'default': {}},
 
   flags: {
+    customizationsNotification: {type: Boolean, 'default': false},
     showTour: {type: Boolean, 'default': true},
     ads: {type: String, 'default': 'show'}, // FIXME make this a boolean, run migration
     dropsEnabled: {type: Boolean, 'default': false},
@@ -260,6 +261,7 @@ UserSchema.methods.toJSON = function() {
   //delete doc.tasks
   */
   doc.filters = {};
+  doc._tmp = this._tmp; // be sure to send down drop notifs
 
   return doc;
 };

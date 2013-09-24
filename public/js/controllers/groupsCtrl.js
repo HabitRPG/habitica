@@ -76,7 +76,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
 
     $scope.deleteChatMessage = function(group, message){
-      if(message.uuid === User.user.id){
+      if(message.uuid === User.user.id || (User.user.backer && User.user.backer.admin)){
         group.$deleteChatMessage({messageId: message.id}, function(){
           var i = _.indexOf(group.chat, message);
           if(i !== -1) group.chat.splice(i, 1);
@@ -143,6 +143,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       }
 
       $scope.leave = function(group){
+        if (confirm("Are you sure you want to leave this guild?") !== true) {
+          return;
+        }
         group.$leave();
 //        var i = _.find($scope.groups.guilds, {_id:group._id});
 //        if (~i) $scope.groups.guilds.splice(i, 1);
@@ -179,6 +182,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         });
       }
       $scope.leave = function(group){
+        if (confirm("Are you sure you want to leave this party?") !== true) {
+          return;
+        }
         group.$leave(function(){
           Groups.groups.party = new Groups.Group();
         });
