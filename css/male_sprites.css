@@ -30,7 +30,10 @@
 .m_skin_orc,
 .m_skin_asian,
 .m_skin_black,
-.m_skin_white {
+.m_skin_white, 
+.m_skin_ea8349,
+.m_skin_c06534,
+.m_skin_98461a {
     background: url("../img/sprites/male_sprites.png") no-repeat;
 }
 
@@ -67,3 +70,6 @@
 .m_skin_asian {background-position: -2700px 0; width: 90px; height: 90px}
 .m_skin_black {background-position: -2790px 0; width: 90px; height: 90px}
 .m_skin_white {background-position: -2880px 0; width: 90px; height: 90px}
+.m_skin_ea8349 {background-position: -2970px 0; width: 90px; height: 90px}
+.m_skin_c06534 {background-position: -3060px 0; width: 90px; height: 90px}
+.m_skin_98461a {background-position: -3150px 0; width: 90px; height: 90px}
