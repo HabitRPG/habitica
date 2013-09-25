@@ -21,11 +21,14 @@
       // skin
       li.customize-menu
         menu(label='Skin')
+          button.customize-option(class='{{user.preferences.gender}}_skin_white', type='button', ng-click='set("preferences.skin","white")')
+          button.customize-option(class='{{user.preferences.gender}}_skin_asian', type='button', ng-click='set("preferences.skin","asian")')
+          button.customize-option(class='{{user.preferences.gender}}_skin_ea8349', type='button', ng-click='set("preferences.skin","ea8349")')
+          button.customize-option(class='{{user.preferences.gender}}_skin_c06534', type='button', ng-click='set("preferences.skin","c06534")')
+          button.customize-option(class='{{user.preferences.gender}}_skin_98461a', type='button', ng-click='set("preferences.skin","98461a")')
+          button.customize-option(class='{{user.preferences.gender}}_skin_black', type='button', ng-click='set("preferences.skin","black")')
           button.customize-option(class='{{user.preferences.gender}}_skin_dead',  type='button', ng-click='set("preferences.skin","dead")')
           button.customize-option(class='{{user.preferences.gender}}_skin_orc',   type='button', ng-click='set("preferences.skin","orc")')
-          button.customize-option(class='{{user.preferences.gender}}_skin_asian', type='button', ng-click='set("preferences.skin","asian")')
-          button.customize-option(class='{{user.preferences.gender}}_skin_black', type='button', ng-click='set("preferences.skin","black")')
-          button.customize-option(class='{{user.preferences.gender}}_skin_white', type='button', ng-click='set("preferences.skin","white")')
       menu(ng-show='user.preferences.gender=="f"', type='list')
         li.customize-menu
           menu(label='Clothing')
