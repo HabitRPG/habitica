@@ -35,7 +35,10 @@
 .f_skin_orc,
 .f_skin_asian,
 .f_skin_black,
-.f_skin_white {
+.f_skin_white,
+.f_skin_ea8349,
+.f_skin_c06534,
+.f_skin_98461a {
     background: url("../img/sprites/female_sprites.png") no-repeat;
 }
 
@@ -77,3 +80,6 @@
 .f_skin_asian {background-position: -3150px 0; width: 90px; height: 90px}
 .f_skin_black {background-position: -3240px 0; width: 90px; height: 90px}
 .f_skin_white {background-position: -3330px 0; width: 90px; height: 90px}
+.f_skin_ea8349 {background-position: -3420px 0; width: 90px; height: 90px}
+.f_skin_c06534 {background-position: -3510px 0; width: 90px; height: 90px}
+.f_skin_98461a {background-position: -3600px 0; width: 90px; height: 90px}
