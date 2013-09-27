@@ -260,7 +260,7 @@ module.exports =
   ###
   gold: (num) ->
     if num
-      return (num).toFixed(1).split('.')[0]
+      return Math.floor num
     else
       return "0"
 
@@ -269,7 +269,7 @@ module.exports =
   ###
   silver: (num) ->
     if num
-      (num).toFixed(2).split('.')[1]
+      ("0" + Math.floor (num - Math.floor(num))*100).slice -2
     else
       return "00"
 

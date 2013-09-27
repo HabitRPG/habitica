@@ -241,3 +241,15 @@ describe 'Cron', ->
       now = moment().startOf('day').add('h', dayStart).add('m', 1)
       console.log {yesterday,now}
       expect(helpers.daysSince(yesterday, {now, dayStart})).to.eql 1
+
+describe 'Helper', ->
+  it 'calculates gold coins', ->
+    expect(helpers.gold(10)).to.eql 10
+    expect(helpers.gold(1.957)).to.eql 1
+    expect(helpers.gold()).to.eql 0
+
+  it 'calculates silver coins', ->
+    expect(helpers.silver(10)).to.eql 0
+    expect(helpers.silver(1.957)).to.eql 95
+    expect(helpers.silver(0.01)).to.eql "01"
+    expect(helpers.silver()).to.eql "00"
