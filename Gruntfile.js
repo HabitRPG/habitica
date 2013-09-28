@@ -9,7 +9,7 @@ module.exports = function(grunt) {
     docker: {
       app: {
         expand: true,
-        src: ['src/*', 'views/*.jade', 'views/**/*.jade', 'public/css/*.styl', 'docs-home.md'],
+        src: ['src/*', 'views/*.jade', 'views/**/*.jade', 'public/css/*.styl', 'DOCS-README.md'],
         dest: './public/docs',
         options: {
           onlyUpdated: true,
