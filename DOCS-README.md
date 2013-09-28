@@ -4,75 +4,74 @@ Generated documentation for all of HabitRPG's source files will be kept in the f
 
 ## Viewing Docs
 
-All documentation is generated into HTML files in the `docs/` folder. After you have cloned the HabitRPG repo locally, make sure it is readable by your webserver and navigate to documentation directory
+You're looking at it! 
 
-Example using MAMP:
-````
-http://localhost:8888/habitrpg/documentation/docs/
-````
+Unless you are viewing this file directly from GitHub, you should see a list of files and folders to the left of this readme. 
 
-Then click on the file you want to view. Done.
+If you are working locally, you can goto `localhost:3000/docs/` and view the Docs. 
+
+All documentation is generated from comments in the code, into HTML files in the `public/docs/` folder. After you have cloned the HabitRPG repo locally, and done all the `npm install` goodness, the Docs should generate automagickly when you run `grunt run:dev`
 
 ## What I do now?
 
 Well if you know Markdown, simply add detailed comments in the code using Markdown syntax. 
 
 ````
-// ### Mongoose Update Object
-  // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
-  // have been updated (http://goo.gl/gQLz41), but we want *every* update
-  _v: {
-    type: Number,
-    'default': 0
-  }, ....
+/* 
+User.js
+=======
+
+Defines the user data model (schema) for use via the API.
+*/
+
+// Dependencies
+// ------------
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
+var helpers = require('habitrpg-shared/script/helpers');
+var _ = require('lodash');....
 ````
 
-All comments need to be on their own line. Thus this won't work:
+As you can see, you can use both multiline style comments `/* fancy stuff */` and inline comments `// Ooooh my`. 
 
+The exception being end of line comments  
 `text: String, // example: Wolf `
 
-This will:
-
-````
-// example: Wolf
-text: String,
-````
+The above will not be on the "pretty print" side of the Docs, but will stay in the code. An example use case for end of line comments would be for FIXME notes.
 
 Add anything that would be helpful to a developer regarding how to use the functions, variables, and objects associated with HabitRPG.
 
-**All documentation should be committed as pull request to the `docs project` branch of HabitRPG.** Since we are adding comments directly to the code, I don't want to be editing files used for beta or master. We can merge in the docs after we're sure we didn't break anything. 
+**All documentation should be committed as pull request to the `docs-project` branch of HabitRPG.** Since we are adding comments directly to the code, I don't want to be editing files used for beta or master. We can merge in the docs after we're sure we didn't break anything. 
+
+### jsDoc Syntax
+
+Yes, the generator also supports jsDoc-style comments such as  
+````
+@param {Array} files Array of file paths relative to the `inDir` to generate documentation for.
+````
+
+**Important Note:** If you use the `@param` syntax, you must use multiline comment blocks (ie `/* stuff */`), otherwise they won't be parsed like parameters.
+
+This may or may not be useful for HabitRPG. Example use cases:  
+- Documenting the API  
+- Javascript Models
 
 ## Okay, I added great comments. Now what?
 
-Now the source files need to be run through [Docco](http://jashkenas.github.io/docco/).
+If you're running locally, just re-run `grunt run:dev`. Any changed docs will be automagickly updated.
 
-This is the Generator we are using for now. It's pretty basic, but it gets the job done. Most of the documentation generators out there use Markdown, so it wouldn't be hard to switch to another one, should we choose to down the road.
+Once you're satisfied with the output, push your changes to your fork of HabitRPG and issue a Pull Request on the `docs-project` branch. 
 
-### Requirements
+It's that easy!
 
-Install Docco: `sudo npm install -g docco`
+## Tech Info
 
-### Generating
+The generator we are using is [Docker](https://github.com/jbt/docker), which is a fork of [Docco](http://jashkenas.github.io/docco/). Docker supports the same wide-range of filetypes, including being able to generate documentation for a whole project, including an index.
 
-Docco needs to be ran on each source file. For now we are focusing on .js, although we may do the same thing with .css/scss in the future. 
-
-Currently, Docco needs to be ran manually. [As of Sept 19th, 2013] There are only 4 commands that need to be run to generate documentation for every source file.
-
-All commands need to be ran from the `documentation/` directory. 
-````
-docco -c docco.css ../src/*.js
-docco -c docco.css ../src/models/*.js
-docco -c docco.css ../src/controllers/*.js
-docco -c docco.css ../src/routes/*.js
-````
-This will place the generated html files into the `docs/` directory.
-
-Of course, you only need to run docco on the files you have changed.
-
-**Make sure to include the `-c docco.css` bit!** I tweaked the default css a bit so that the lines and heading match up better. Without this docco will overwrite it with it's own. 
+We also use the [Grunt-Docker](https://github.com/Prevole/grunt-docker) node module for automatic processing.
 
 ## Road Map
 
-- Generate documentation automagickly using grunt task
-- Change default css, so `-c docco.css` attribute isn't needed
-- Add support for CSS documentation
+- Customize CSS with HabitRPG specific Styling  
+- Explore possibilities of importing Wiki content  
+- Specify style guide for consistency of comments  
