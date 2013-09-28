@@ -239,7 +239,6 @@ describe 'Cron', ->
       now = helpers.startOfDay {dayStart: dayStart-1}
       expect(helpers.daysSince(yesterday, {now, dayStart})).to.eql 0
       now = moment().startOf('day').add('h', dayStart).add('m', 1)
-      console.log {yesterday,now}
       expect(helpers.daysSince(yesterday, {now, dayStart})).to.eql 1
 
 describe 'Helper', ->
