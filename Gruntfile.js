@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         options: {
           onlyUpdated: true,
           colourScheme: 'manni',
-          ignoreHidden: false,
+          ignoreHidden: true,
           sidebarState: true,
           exclude: true,
           lineNums: false,
