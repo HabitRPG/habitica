@@ -1,75 +1,71 @@
-
-angular.module("notificationServices", []).factory("Notification", function() {
-  var active, data, fixMe, timer;
-  fixMe = {
-    push: function() {},
-    get: function() {},
-    animate: function() {},
-    clearTimer: function() {},
-    init: function() {}
-  };
-  return fixMe;
-  data = {
-    message: ""
-  };
-  active = false;
-  timer = null;
-  return {
-    hide: function() {
-      $("#notification").fadeOut(function() {
-        $("#notification").css("webkit-transform", "none");
-        $("#notification").css("top", "-63px");
-        $("#notification").css("left", "0px");
-        setTimeout((function() {
-          $("#notification").show();
-        }), 190);
+/**
+ Set up "+1 Exp", "Level Up", etc notifications
+ */
+angular.module("notificationServices", [])
+  .factory("Notification", ['User', function(User) {
+    function growl(html, type) {
+      $.bootstrapGrowl(html, {
+        ele: '#notification-area',
+        type: type, //(null, 'info', 'error', 'success', 'gp', 'xp', 'hp', 'lvl','death')
+        top_offset: 20,
+        align: 'right', //('left', 'right', or 'center')
+        width: 250, //(integer, or 'auto')
+        delay: 3000,
+        allow_dismiss: true,
+        stackup_spacing: 10 // spacing between consecutive stacecked growls.
       });
-      active = false;
-      timer = null;
-    },
-    animate: function() {
-      if (timer) {
-        clearTimeout(timer);
-        timer = setTimeout(this.hide, 2000);
+    };
+
+    /**
+     Show "+ 5 {gold_coin} 3 {silver_coin}"
+     */
+    function coins(money) {
+      var absolute, gold, silver;
+      absolute = Math.abs(money);
+      gold = Math.floor(absolute);
+      silver = Math.floor((absolute - gold) * 100);
+      if (gold && silver > 0) {
+        return "" + gold + " <i class='icon-gold'></i> " + silver + " <i class='icon-silver'></i>";
+      } else if (gold > 0) {
+        return "" + gold + " <i class='icon-gold'></i>";
+      } else if (silver > 0) {
+        return "" + silver + " <i class='icon-silver'></i>";
       }
-      if (active === false) {
-        active = true;
-        $("#notification").transition({
-          y: 63,
-          x: 0
-        });
-        timer = setTimeout(this.hide, 2000);
-      }
-    },
-    push: function(message) {
-      data.message = "";
-      switch (message.type) {
-        case "stats":
-          if ((message.stats.exp != null) && (message.stats.gp != null)) {
-            data.message = "Experience: " + message.stats.exp + "<br />GP: " + message.stats.gp.toFixed(2);
-          }
-          if (message.stats.hp) {
-            data.message = "HP: " + message.stats.hp.toFixed(2);
-          }
-          if (message.stats.gp && !(message.stats.exp != null)) {
-            data.message = "<br />GP: " + message.stats.gp.toFixed(2);
-          }
-          break;
-        case "text":
-          data.message = message.text;
-      }
-      this.animate();
-    },
-    get: function() {
-      return data;
-    },
-    clearTimer: function() {
-      clearTimeout(timer);
-      timer = null;
-      active = false;
-    },
-    init: function() {
-      timer = setTimeout(this.hide, 2000);
+    };
+
+    var sign = function(number){
+      return number?number<0?'-':'+':'+';
     }
-  };
-});
+
+    var round = function(number){
+      return Math.abs(number.toFixed(1));
+    }
+
+    return {
+      coins: coins,
+      hp: function(val) {
+        // don't show notifications if user dead
+        if (User.user.stats.lvl == 0) return;
+        growl("<i class='icon-heart'></i> " + sign(val) + " " + round(val) + " HP", 'hp');
+      },
+      exp: function(val) {
+        if (User.user.stats.lvl == 0) return;
+        if (val < -50) return; // don't show when they level up (resetting their exp)
+        growl("<i class='icon-star'></i> " + sign(val) + " " + round(val) + " XP", 'xp');
+      },
+      gp: function(val) {
+        if (User.user.stats.lvl == 0) return;
+        growl(sign(val) + " " + coins(val), 'gp');
+      },
+      text: function(val){
+        growl(val);
+      },
+      lvl: function(){
+        growl('<i class="icon-chevron-up"></i> Level Up!', 'lvl');
+      },
+      death: function(){
+        growl("<i class='icon-death'></i> Respawn!", "death");
+      }
+    };
+  }
+]);

@@ -5,9 +5,15 @@
  */
 
 angular.module('guideServices', []).
-  factory('Guide', ['User', function(User) {
+  factory('Guide', ['$rootScope', 'User', 'Items', 'Helpers', function($rootScope, User, Items, Helpers) {
 
-    var initTour = function() {
+    /**
+     * Init and show the welcome tour. Note we do it listening to a $rootScope broadcasted 'userLoaded' message,
+     * this because we need to determine whether to show the tour *after* the user has been pulled from the server,
+     * otherwise it's always start off as true, and then get set to false later
+     */
+    $rootScope.$on('userUpdated', initTour);
+    function initTour(){
       if (User.user.flags.showTour === false) return;
       var tourSteps = [
         {
@@ -46,12 +52,12 @@ angular.module('guideServices', []).
         }
       ];
       _.each(tourSteps, function(step){
-        step.content = "<div><div class='NPC-Justin'></div>" + step.content + "</div>"; // add Justin NPC img
+        step.content = "<div><div class='NPC-Justin float-left'></div>" + step.content + "</div>"; // add Justin NPC img
       });
       $('.main-herobox').popover('destroy');
       var tour = new Tour({
         onEnd: function(){
-          User.log({op:'set',data:{'flags.showTour':false}});
+          User.set('flags.showTour', false);
         }
       });
       tourSteps.forEach(function(step) {
@@ -61,9 +67,89 @@ angular.module('guideServices', []).
       //tour.start(true);
     };
 
+    var alreadyShown = function(before, after) {
+      return !(!before && after === true);
+    };
+
+    var showPopover = function(selector, title, html, placement) {
+      if (!placement) placement = 'bottom';
+      $(selector).popover('destroy');
+      var button = "<button class='btn btn-sm btn-default' onClick=\"$('" + selector + "').popover('hide');return false;\">Close</button>";
+      html = "<div><div class='NPC-Justin float-left'></div>" + html + '<br/>' + button + '</div>';
+      $(selector).popover({
+        title: title,
+        placement: placement,
+        trigger: 'manual',
+        html: true,
+        content: html
+      }).popover('show');
+    };
+
+    $rootScope.$watch('user.flags.customizationsNotification', function(after, before) {
+      if (alreadyShown(before, after)) return;
+      showPopover('.main-herobox', 'Customize Your Avatar', "Click your avatar to customize your appearance.", 'bottom');
+    });
+
+    $rootScope.$watch('user.flags.itemsEnabled', function(after, before) {
+      if (alreadyShown(before, after)) return;
+      var html = "Congratulations, you have unlocked the Item Store! You can now buy weapons, armor, potions, etc. Read each item's comment for more information.";
+      showPopover('div.rewards', 'Item Store Unlocked', html, 'left');
+    });
+
+    $rootScope.$watch('user.flags.petsEnabled', function(after, before) {
+      if (alreadyShown(before, after)) return;
+      var html = "You have unlocked Pets! You can now buy pets with Gems (note, you replenish Gems with real-life money - so chose your pets wisely!)";
+      showPopover('#rewardsTabs', 'Pets Unlocked', html, 'left');
+    });
+
+    $rootScope.$watch('user.flags.partyEnabled', function(after, before) {
+      if (alreadyShown(before, after)) return;
+      var html = "Be social, join a party and play Habit with your friends! You'll be better at your habits with accountability partners. Click User -> Options -> Party, and follow the instructions. LFG anyone?";
+      showPopover('.user-menu', 'Party System', html, 'bottom');
+    });
+
+    $rootScope.$watch('user.flags.dropsEnabled', function(after, before) {
+      if (alreadyShown(before, after)) return;
+      var drop = Helpers.randomVal(Items.items.pets);
+      var eggs = User.user.items.eggs = [];
+      eggs.push(drop); // FIXME put this on server instead
+      User.set('items.eggs', eggs);
+      $rootScope.modals.dropsEnabled = true;
+    });
+
+    $rootScope.$watch('user.items.pets', function(after, before) {
+      if (User.user.achievements && User.user.achievements.beastMaster) return;
+      if (before >= 90) {
+        User.set('achievements.beastMaster', true);
+        $('#beastmaster-achievement-modal').modal('show'); // FIXME
+      }
+    });
+
+    $rootScope.$watch('user.items', function(after, before) {
+      if (User.user.achievements && User.user.achievements.ultimateGear) return;
+      var items = User.user.items;
+      if (+items.weapon >= 6 && +items.armor >= 5 && +items.head >= 5 && +items.shield >= 5) {
+        User.set('achievements.ultimateGear', true); // FIXME
+        $('#max-gear-achievement-modal').modal('show'); // FIXME
+      }
+    });
+
+    // FIXME how to handle tasks.*.streak?
+    // FIXME move to tasksCtrl
+    /*$rootScope.$watch('user.tasks.*.streak', function(id, after, before) {
+      if (after > 0) {
+        if ((after % 21) === 0) {
+          user.incr('achievements.streak', 1)
+          return $('#streak-achievement-modal').modal('show');
+        } else if ((before - after === 1) && (before % 21 === 0)) {
+          return user.incr('achievements.streak', -1);
+        }
+      }
+    });*/
+
     return {
-      initTour: initTour
-    }
+      initTour:initTour
+    };
 
   }
 ]);

@@ -57,5 +57,23 @@
     "test": "mocha test/api.mocha.coffee",
     "start": "grunt run:dev",
     "postinstall": "./node_modules/bower/bin/bower install -f"
+  },
+  "devDependencies": {
+    "karma-ng-scenario": "~0.1.0",
+    "grunt-karma": "~0.6.2",
+    "karma-script-launcher": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.0",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-coffee-preprocessor": "~0.1.0",
+    "karma-jasmine": "~0.1.3",
+    "karma-requirejs": "~0.1.0",
+    "karma-phantomjs-launcher": "~0.1.0",
+    "karma": "~0.10.2",
+    "karma-ng-html2js-preprocessor": "~0.1.0",
+    "mocha": "~1.12.1",
+    "karma-mocha": "~0.1.0",
+    "docker": "~0.2.8",
+    "grunt-docker": "0.0.5"
   }
 }

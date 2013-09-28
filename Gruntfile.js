@@ -4,6 +4,33 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
 
+    // Documentation Generator
+    // See -> https://github.com/jbt/docker & https://npmjs.org/package/grunt-docker
+    docker: {
+      app: {
+        expand: true,
+        src: ['src/*', 'views/*.jade', 'views/**/*.jade', 'public/css/*.styl', 'docs-home.md'],
+        dest: './public/docs',
+        options: {
+          onlyUpdated: true,
+          colourScheme: 'manni',
+          ignoreHidden: false,
+          sidebarState: true,
+          exclude: true,
+          lineNums: false,
+          js: [],
+          css: [],
+          extras: []
+        }
+      }
+    },
+
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js'
+      }
+    },
+
     clean: {
       build: ['build']
     },
@@ -13,6 +40,7 @@ module.exports = function(grunt) {
         files: {
           'build/app.js': [
             'public/bower_components/jquery/jquery.min.js',
+            'public/bower_components/jquery.cookie/jquery.cookie.js',
             'public/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js',
             'public/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js',
             'public/bower_components/angular/angular.min.js',
@@ -75,7 +103,6 @@ module.exports = function(grunt) {
             'public/bower_components/bootstrap/docs/assets/js/bootstrap.min.js',
 
             'public/js/static.js',
-            'public/js/services/memberServices.js',
             'public/js/services/userServices.js',
             'public/js/controllers/authCtrl.js'
           ]
@@ -158,7 +185,7 @@ module.exports = function(grunt) {
 
   // Register tasks.
   grunt.registerTask('build:prod', ['clean:build', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
-  grunt.registerTask('build:dev', ['clean:build', 'stylus', 'cssmin', 'copy:build', 'hashres']);
+  grunt.registerTask('build:dev', ['clean:build', 'stylus', 'cssmin', 'copy:build', 'hashres', 'docker']);
 
   grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
 
@@ -172,5 +199,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-hashres');
+  grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-docker');
 
 };

@@ -202,13 +202,10 @@ api.scoreTask = function(req, res, next) {
   }
   task = user.tasks[id];
   delta = algos.score(user, task, direction);
-  return user.save(function(err, saved) {
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    return res.json(200, _.extend({
+  //user.markModified('flags'); 
+  user.save(function(err, saved) {
+    if (err) return res.json(500, {err: err});
+    res.json(200, _.extend({
       delta: delta
     }, saved.toJSON().stats));
   });
@@ -712,7 +709,15 @@ api.batchUpdate = function(req, res, next) {
     }
     response = user.toJSON();
     response.wasModified = res.locals.wasModified;
-    res.json(200, response);
+    if (response._tmp && response._tmp.drop) response.wasModified = true;
+
+    // Send the response to the server
+    if(response.wasModified){
+      res.json(200, response);
+    }else{
+      res.json(200, {_v: response._v});
+    }
+
     return console.log("Reply sent");
   });
 };
