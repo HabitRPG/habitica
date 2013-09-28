@@ -287,3 +287,10 @@ describe 'Helper', ->
     expect(helpers.silver(1.957)).to.eql 95
     expect(helpers.silver(0.01)).to.eql "01"
     expect(helpers.silver()).to.eql "00"
+
+  it 'calculates experience to next level', ->
+    expect(algos.tnl 1).to.eql 150
+    expect(algos.tnl 2).to.eql 160
+    expect(algos.tnl 10).to.eql 260
+    expect(algos.tnl 99).to.eql 3580
+    expect(algos.tnl 100).to.eql 0
