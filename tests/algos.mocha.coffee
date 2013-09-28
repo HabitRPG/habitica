@@ -83,6 +83,33 @@ describe 'User', ->
     expectStrings(user.tags[1], ['name','id'])
     expectStrings(user.tags[2], ['name','id'])
 
+  describe 'store', ->
+    it 'recovers hp buying potions', ->
+      user = helpers.newUser()
+      user.stats.hp = 30
+      user.stats.gp = 50
+      expect(items.buyItem user, 'potion').to.be true
+      expect(user.stats.hp).to.eql 45
+      expect(user.stats.gp).to.eql 25
+
+      expect(items.buyItem user, 'potion').to.be true
+      expect(user.stats.hp).to.eql 50 # don't exceed max hp
+      expect(user.stats.gp).to.eql 0
+
+    it 'buys equipment', ->
+      user = helpers.newUser()
+      user.stats.gp = 31
+      expect(items.buyItem user, 'armor').to.be true
+      expect(user.items.armor).to.eql 1
+      expect(user.stats.gp).to.eql 1
+
+    it 'do not buy equipment without enough money', ->
+      user = helpers.newUser()
+      user.stats.gp = 1
+      expect(items.buyItem user, 'armor').to.be false
+      expect(user.items.armor).to.eql 0
+      expect(user.stats.gp).to.eql 1
+
 describe 'Simple Scoring', ->
 
   it 'Habits : Up', ->
