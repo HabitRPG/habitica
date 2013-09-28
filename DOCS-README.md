@@ -50,6 +50,8 @@ Yes, the generator also supports jsDoc-style comments such as
 @param {Array} files Array of file paths relative to the `inDir` to generate documentation for.
 ````
 
+**Important Note:** If you use the `@param` syntax, you must use multiline comment blocks (ie `/* stuff */`), otherwise they won't be parsed like parameters.
+
 This may or may not be useful for HabitRPG. Example use cases:  
 - Documenting the API  
 - Javascript Models
