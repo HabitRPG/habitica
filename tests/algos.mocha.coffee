@@ -83,6 +83,14 @@ describe 'User', ->
     expectStrings(user.tags[1], ['name','id'])
     expectStrings(user.tags[2], ['name','id'])
 
+  it 'revives correctly', ->
+    user = helpers.newUser()
+    user.stats = { gp: 10, exp: 100, lvl: 2, hp: 1 }
+    user.weapon = 1
+    algos.revive user
+    expect(user.stats).to.eql { gp: 0, exp: 0, lvl: 1, hp: 50 }
+    expect(user.items).to.eql { weapon: 0, armor: 0, head: 0, shield: 0 }
+
   describe 'store', ->
     it 'recovers hp buying potions', ->
       user = helpers.newUser()
