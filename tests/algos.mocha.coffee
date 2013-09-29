@@ -83,6 +83,41 @@ describe 'User', ->
     expectStrings(user.tags[1], ['name','id'])
     expectStrings(user.tags[2], ['name','id'])
 
+  it 'revives correctly', ->
+    user = helpers.newUser()
+    user.stats = { gp: 10, exp: 100, lvl: 2, hp: 1 }
+    user.weapon = 1
+    algos.revive user
+    expect(user.stats).to.eql { gp: 0, exp: 0, lvl: 1, hp: 50 }
+    expect(user.items).to.eql { weapon: 0, armor: 0, head: 0, shield: 0 }
+
+  describe 'store', ->
+    it 'recovers hp buying potions', ->
+      user = helpers.newUser()
+      user.stats.hp = 30
+      user.stats.gp = 50
+      expect(items.buyItem user, 'potion').to.be true
+      expect(user.stats.hp).to.eql 45
+      expect(user.stats.gp).to.eql 25
+
+      expect(items.buyItem user, 'potion').to.be true
+      expect(user.stats.hp).to.eql 50 # don't exceed max hp
+      expect(user.stats.gp).to.eql 0
+
+    it 'buys equipment', ->
+      user = helpers.newUser()
+      user.stats.gp = 31
+      expect(items.buyItem user, 'armor').to.be true
+      expect(user.items.armor).to.eql 1
+      expect(user.stats.gp).to.eql 1
+
+    it 'do not buy equipment without enough money', ->
+      user = helpers.newUser()
+      user.stats.gp = 1
+      expect(items.buyItem user, 'armor').to.be false
+      expect(user.items.armor).to.eql 0
+      expect(user.stats.gp).to.eql 1
+
 describe 'Simple Scoring', ->
 
   it 'Habits : Up', ->
@@ -239,7 +274,6 @@ describe 'Cron', ->
       now = helpers.startOfDay {dayStart: dayStart-1}
       expect(helpers.daysSince(yesterday, {now, dayStart})).to.eql 0
       now = moment().startOf('day').add('h', dayStart).add('m', 1)
-      console.log {yesterday,now}
       expect(helpers.daysSince(yesterday, {now, dayStart})).to.eql 1
 
 describe 'Helper', ->
@@ -253,3 +287,10 @@ describe 'Helper', ->
     expect(helpers.silver(1.957)).to.eql 95
     expect(helpers.silver(0.01)).to.eql "01"
     expect(helpers.silver()).to.eql "00"
+
+  it 'calculates experience to next level', ->
+    expect(algos.tnl 1).to.eql 150
+    expect(algos.tnl 2).to.eql 160
+    expect(algos.tnl 10).to.eql 260
+    expect(algos.tnl 99).to.eql 3580
+    expect(algos.tnl 100).to.eql 0
