@@ -50,4 +50,10 @@ habitrpg.controller("TaskDetailsCtrl", ['$scope', '$rootScope', '$location', 'Us
     $scope.editedTask = null;
     $scope.editing = false;
   };
+
+  $scope.open = function() {
+      $timeout(function() {
+          $scope.opened = true;
+      });
+  };
 }]);

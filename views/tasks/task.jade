@@ -126,7 +126,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
       // if Todos, the due date
       fieldset.option-group(ng-if='task.type=="todo"')
         legend.option-title Due Date
-        input.option-content.datepicker(type='text', data-date-format='mm/dd/yyyy', ng-model='task.date')
+        input.option-content.datepicker(type='text', datepicker-popup='mm/dd/yyyy', ng-model='task.date', is-open="opened", datepicker-options="dateOptions" ng-required="true")
 
       fieldset.option-group(ng-if='list.main')
         legend.option-title Tags
