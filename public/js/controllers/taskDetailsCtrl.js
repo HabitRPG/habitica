@@ -57,3 +57,4 @@ habitrpg.controller("TaskDetailsCtrl", ['$scope', '$rootScope', '$location', 'Us
       });
   };
 }]);
+

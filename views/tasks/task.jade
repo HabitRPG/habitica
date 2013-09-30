@@ -3,7 +3,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
   .task-meta-controls
     // Due Date
     span.task-date(ng-if='task.type=="todo" && task.date')
-      | {{task.date}}
+      | {{task.date | date:'shortDate'}}
     // Streak
     span(ng-show='task.streak') {{task.streak}}
       span(tooltip='Streak Counter')
@@ -126,7 +126,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
       // if Todos, the due date
       fieldset.option-group(ng-if='task.type=="todo"')
         legend.option-title Due Date
-        input.option-content.datepicker(type='text', datepicker-popup='mm/dd/yyyy', ng-model='task.date', is-open="opened", datepicker-options="dateOptions" ng-required="true")
+        input.option-content.datepicker(type='text', datepicker-popup='MM/dd/yyyy', ng-model='task.date', is-open="opened", datepicker-options="dateOptions", ng-required="true")
 
       fieldset.option-group(ng-if='list.main')
         legend.option-title Tags
