@@ -7,15 +7,18 @@ module.exports = function(config) {
     basePath: '',
 
     // testing framework to use (jasmine/mocha/qunit/...)
-    frameworks: ['mocha'],
+    frameworks: ['mocha', 'chai', 'chai-as-promised', 'sinon-chai'],
 
     // list of files / patterns to load in the browser
     files: [
       'public/bower_components/angular/angular.js',
       'public/bower_components/angular-mocks/angular-mocks.js',
+      'public/bower_components/marked/lib/marked.js',
+      'public/bower_components/habitrpg-shared/dist/habitrpg-shared.js',
       'public/js/*.js',
       'public/js/**/*.js',
       'test/mock/**/*.js',
+      'test/spec/*.js',
       'test/spec/**/*.js'
     ],
 
