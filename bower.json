@@ -32,12 +32,12 @@
     "angular-route": "1.2.0-rc.2",
     "angular-ui-utils": "~0.0.4",
     "angular-sanitize": "1.2.0-rc.2",
-    "marked": "~0.2.9"
+    "marked": "~0.2.9",
+    "JavaScriptButtons": "git://github.com/paypal/JavaScriptButtons.git#master"
   },
   "resolutions": {
     "jquery": "~2.0.3",
-    "angular": "1.2.0-rc.2",
-    "angular-mocks": "1.2.0-rc.2"
+    "angular": "1.2.0-rc.2"
   },
   "devDependencies": {
     "angular-mocks": "1.2.0-rc.2"

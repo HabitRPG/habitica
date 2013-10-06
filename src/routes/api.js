@@ -47,6 +47,7 @@ router.post('/user/revive', auth.auth, cron, user.revive);
 router.post('/user/batch-update', auth.auth, cron, user.batchUpdate);
 router.post('/user/reroll', auth.auth, cron, user.reroll);
 router.post('/user/buy-gems', auth.auth, user.buyGems);
+router.post('/user/buy-gems/paypal-ipn', user.buyGemsPaypalIPN);
 router.post('/user/reset', auth.auth, user.reset);
 router['delete']('/user', auth.auth, user['delete']);
 

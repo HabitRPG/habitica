@@ -4,8 +4,9 @@ div(modal='modals.whyAds')
   .modal-body
     p.
       Habit is an open source project, and can use all the help it can get - consider this a donation to the contributors. You also get 20 Gems from the purchase, which you can use to buy special items.
-    p
-      | "Hey, I backed the Kickstarter!" - follow 
-      a(target='_blank', href='http://community.habitrpg.com/node/22') these instructions.
+    p.
+      "Hey, I backed the Kickstarter!" - follow <a target='_blank' href='http://community.habitrpg.com/node/22'> these instructions.</a>
+    script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=tylerrenelle-facilitator@gmail.com', data-button='buynow', data-name='20 Gems, Disable Ads, Donation to the Developers', data-quantity='1', data-amount='.1', data-currency='USD', data-shipping='0', data-tax='0', data-callback='#{env.BASE_URL}/api/v1/user/buy-gems/paypal-ipn', data-env='sandbox', data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}')
+
   .modal-footer
     button.btn.btn-default.cancel(ng-click='modals.whyAds = false') Ok
