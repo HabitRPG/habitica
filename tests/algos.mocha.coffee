@@ -1,5 +1,6 @@
 _ = require 'lodash'
 expect = require 'expect.js'
+sinon = require 'sinon'
 moment = require 'moment'
 
 # Custom modules
@@ -62,6 +63,11 @@ expectDayResetNoDamage = (b,a) ->
   delete after._tmp
   expect(after).to.eql before
 
+cycle = (array)->
+  n = -1
+  ->
+    n++
+    return array[n % array.length]
 
 ###### Specs ######
 
@@ -117,6 +123,38 @@ describe 'User', ->
       expect(items.buyItem user, 'armor').to.be false
       expect(user.items.armor).to.eql 0
       expect(user.stats.gp).to.eql 1
+
+  describe 'drop system', ->
+    user = null
+
+    beforeEach ->
+      user = helpers.newUser()
+      user.flags.dropsEnabled = true
+      # too many Math.random calls to stub, let's return the last element
+      sinon.stub(helpers, 'randomVal', (x)->x[x.length-1])
+
+    it 'gets a golden potion', ->
+      sinon.stub(Math, 'random').returns 0
+      algos.score(user, user.dailys[0], 'up')
+      expect(user.items.eggs).to.eql undefined
+      expect(user.items.hatchingPotions).to.eql ['Golden']
+
+    it 'gets a bear cub egg', ->
+      sinon.stub(Math, 'random', cycle [0, 0.6])
+      algos.score(user, user.dailys[0], 'up')
+      expect(user.items.eggs.length).to.eql 1
+      expect(user.items.eggs[0].name).to.eql 'BearCub'
+      expect(user.items.hatchingPotions).to.eql undefined
+
+    it 'does not get a drop', ->
+      sinon.stub(Math, 'random').returns 0.5
+      algos.score(user, user.dailys[0], 'up')
+      expect(user.items.eggs).to.eql undefined
+      expect(user.items.hatchingPotions).to.eql undefined
+
+    afterEach ->
+      Math.random.restore()
+      helpers.randomVal.restore()
 
 describe 'Simple Scoring', ->
 

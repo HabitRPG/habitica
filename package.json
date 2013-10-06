@@ -12,6 +12,7 @@
   "devDependencies": {
     "mocha": "*",
     "expect.js": "*",
+    "sinon": "~1.7.3",
     "grunt-contrib-cssmin": "~0.6.0",
     "grunt": "~0.4.1",
     "grunt-browserify": "~1.2.4"
