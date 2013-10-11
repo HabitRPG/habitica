@@ -9,8 +9,11 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='noTags(task.tags)')
 
     // edit
-    a(ng-click='task._editing = !task._editing', tooltip='Edit')
-      i.icon-pencil
+    a(ng-hide='task._editing', ng-click='task._editing = !task._editing', tooltip='Edit')
+      i.icon-pencil(ng-hide='task._editing')
+    // cancel
+    a(ng-hide='!task._editing', ng-click='task._editing = !task._editing', tooltip='Cancel')
+      i.icon-remove(ng-hide='!task._editing')
     //- challenges
     //  {{#if task.challenge}}
     //      {{#if brokenChallengeLink(task)}}
@@ -27,7 +30,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     a(ng-show='task.history', x-bind='click:toggleChart', ng-click='notPorted()', data-id='{{task.id}}', tooltip='Progress')
       i.icon-signal
     // notes
-    span.task-notes(ng-show='task.notes', popover-trigger='mouseenter', popover-placement='left', popover='{{task.notes}}', popover-title='{{task.text}}')
+    span.task-notes(ng-hide='task._editing', ng-show='task.notes', popover-trigger='mouseenter', popover-placement='left', popover='{{task.notes}}', popover-title='{{task.text}}')
       i.icon-comment
 
   // left-hand side checkbox
