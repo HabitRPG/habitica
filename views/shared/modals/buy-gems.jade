@@ -1,0 +1,21 @@
+div(modal='modals.buyGems')
+  .modal-header
+    h3 Buy Gems / Donate
+
+  .modal-body
+    include ../gems
+    p <span class='label label-info'>$5 USD</span> will:
+    ul.buy-gems-list
+      li Add 20 gems to your account, which are used to buy special items.
+      li Disable ads.
+      li Donate to the developers (as an open source project, we can us all the help we can get).
+    .row-fluid
+      .span6.well
+        h3 Pay with Card
+        .btn.btn-primary(ng-click='showStripe()') Pay with Card
+      .span6.well
+        h3 Pay with PayPal
+        script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=tylerrenelle-facilitator@gmail.com', data-button='buynow', data-name='20 Gems, Disable Ads, Donation to the Developers', data-quantity='1', data-amount='.1', data-currency='USD', data-shipping='0', data-tax='0', data-callback='#{env.BASE_URL}/api/v1/user/buy-gems/paypal-ipn', data-env='sandbox', data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}')
+
+  .modal-footer
+    button.btn.btn-default.cancel(ng-click='modals.buyGems = false') Cancel

@@ -12,7 +12,7 @@ habitrpg.controller("MarketCtrl", ['$rootScope', '$scope', 'User', 'API_URL', '$
   				storePath = type === 'egg' ? 'items.eggs' : 'items.hatchingPotions'
 
   		if(gems < item.value){
-  			return $rootScope.modals.moreGems = true;
+  			return $rootScope.modals.buyGems = true;
   		}
 
   		var message = "Buy this " + (type == 'egg' ? 'egg' : 'hatching potion') + " with " + item.value + " of your " + gems + " Gems?"
