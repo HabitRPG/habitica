@@ -1,21 +1,32 @@
 div(modal='modals.buyGems')
   .modal-header
+    include ../gems
     h3 Buy Gems / Donate
 
   .modal-body
-    include ../gems
-    p <span class='label label-info'>$5 USD</span> will:
-    ul.buy-gems-list
-      li Add 20 gems to your account, which are used to buy special items.
-      li Disable ads.
-      li Donate to the developers (as an open source project, we can us all the help we can get).
+    table
+      tr
+        td
+          .NPC-Justin
+        td
+          .popover.static-popover.fade.right.in.wide-popover
+            .arrow
+            h3.popover-title
+              a(target='_blank', href='https://twitter.com/bowenNstuff') Justin
+            .popover-content
+              p <span class='label label-info'>$5 USD</span> will:
+              ul.buy-gems-list
+                li Add 20 gems to your account, which are used to buy special items.
+                li Disable ads.
+                li Donate to the developers (as an open source project, we can us all the help we can get).
+    br
     .row-fluid
       .span6.well
         h3 Pay with Card
         .btn.btn-primary(ng-click='showStripe()') Pay with Card
       .span6.well
         h3 Pay with PayPal
-        script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name='20 Gems, Disable Ads, Donation to the Developers', data-quantity='1', data-amount='5', data-currency='USD', data-shipping='0', data-tax='0', data-callback='#{env.BASE_URL}/api/v1/user/buy-gems/paypal-ipn', data-env="#{env.NODE_ENV == 'production' ? '' : 'sandbox'}", data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-no_shipping='1')
+        script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name='20 Gems, Disable Ads, Donation to the Developers', data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v1/user/buy-gems/paypal-ipn', data-env="#{env.NODE_ENV == 'production' ? '' : 'sandbox'}", data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-no_shipping='1')
 
   .modal-footer
     button.btn.btn-default.cancel(ng-click='modals.buyGems = false') Cancel
