@@ -47,7 +47,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         address: false,
         amount: 500,
         name: "Checkout",
-        //description: "Buy 20 Gems, Disable Ads, Support the Developers",
+        description: "Buy 20 Gems, Disable Ads, Support the Developers",
         panelLabel: "Checkout",
         token: function(data) {
           $scope.$apply(function(){
