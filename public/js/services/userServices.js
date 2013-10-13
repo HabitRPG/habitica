@@ -31,7 +31,7 @@ angular.module('userServices', []).
 
       var syncQueue = function (cb) {
         if (!authenticated) {
-          alert("Not authenticated, can't sync, go to settings first.");
+          $window.alert("Not authenticated, can't sync, go to settings first.");
           return;
         }
 
