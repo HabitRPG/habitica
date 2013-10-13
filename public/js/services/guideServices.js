@@ -97,6 +97,7 @@ angular.module('guideServices', []).
     });
 
     $rootScope.$watch('user.flags.petsEnabled', function(after, before) {
+      //TODO is this ever used? I think dropsEnabled is the one that's used
       if (alreadyShown(before, after)) return;
       var html = "You have unlocked Pets! You can now buy pets with Gems (note, you replenish Gems with real-life money - so chose your pets wisely!)";
       showPopover('#rewardsTabs', 'Pets Unlocked', html, 'left');
