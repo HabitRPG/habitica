@@ -26,7 +26,7 @@ div(modal='modals.buyGems')
         .btn.btn-primary(ng-click='showStripe()') Pay with Card
       .span6.well
         h3 Pay with PayPal
-        script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name='20 Gems, Disable Ads, Donation to the Developers', data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v1/user/buy-gems/paypal-ipn', data-env="#{env.NODE_ENV == 'production' ? '' : 'sandbox'}", data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-no_shipping='1')
+        script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name='20 Gems, Disable Ads, Donation to the Developers', data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v1/user/buy-gems/paypal-ipn', data-env="#{env.NODE_ENV == 'production' ? '' : 'sandbox'}", data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-rm='1', data-no_shipping='1')
 
   .modal-footer
     button.btn.btn-default.cancel(ng-click='modals.buyGems = false') Cancel
