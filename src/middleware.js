@@ -63,6 +63,8 @@ module.exports.locals = function(req, res, next) {
   res.locals.habitrpg  = res.locals.habitrpg || {}
   _.defaults(res.locals.habitrpg, {
     NODE_ENV: nconf.get('NODE_ENV'),
+    BASE_URL: nconf.get('BASE_URL'),
+    PAYPAL_MERCHANT: nconf.get('PAYPAL_MERCHANT'),
     IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
     STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
     getBuildUrl: getBuildUrl

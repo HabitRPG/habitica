@@ -114,7 +114,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
       $scope.create = function(group){
         if (User.user.balance < 1) {
-          return $rootScope.modals.moreGems = true;
+          return $rootScope.modals.buyGems = true;
 //          $('#more-gems-modal').modal('show');
         }
 

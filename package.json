@@ -41,7 +41,8 @@
     "passport": "~0.1.17",
     "validator": "~1.5.1",
     "nodemailer": "~0.5.2",
-    "grunt-cli": "~0.1.9"
+    "grunt-cli": "~0.1.9",
+    "paypal-ipn": "~1.0.1"
   },
   "private": true,
   "subdomain": "habitrpg",

@@ -3,6 +3,7 @@
 // fixme remove this junk, was coffeescript compiled (probably for IE8 compat)
 var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
+var url = require('url');
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
@@ -590,6 +591,31 @@ api.buyGems = function(req, res) {
     res.send(200, saved);
   });
 };
+
+api.buyGemsPaypalIPN = function(req, res) {
+  var ipn = require('paypal-ipn');
+
+  ipn.verify(req.body, function callback(err, msg) {
+    if (err) {
+      console.error(msg);
+      res.send(500, msg);
+    } else {
+      if (req.body.payment_status == 'Completed') {
+        //Payment has been confirmed as completed
+        var parts = url.parse(req.body.custom, true);
+        var uid = parts.query.uid; //, apiToken = query.apiToken;
+        if (!uid) throw new Error("uuid or apiToken not found when completing paypal transaction");
+        User.findById(uid, function(err, user) {
+          if (err) throw err;
+          if (_.isEmpty(user)) throw "user not found with uuid " + uuid + " when completing paypal transaction"
+          user.balance += 5;
+          user.flags.ads = 'hide';
+          user.save();
+        });
+      }
+    }
+  });
+}
 
 /*
  ------------------------------------------------------------------------

@@ -42,25 +42,24 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $rootScope.showStripe = function() {
-        var disableAds = User.user.flags.ads == 'hide' ? '' : 'Disable Ads, ';
-        StripeCheckout.open({
-          key: window.env.STRIPE_PUB_KEY,
-          address: false,
-          amount: 500,
-          name: "Checkout",
-          description: "Buy 20 Gems, " + disableAds + "Support the Developers",
-          panelLabel: "Checkout",
-          token: function(data) {
-            $scope.$apply(function(){
-              $http.post("/api/v1/user/buy-gems", data)
-                .success(function() {
-                  window.location.href = "/";
-                }).error(function(err) {
-                  alert(err);
-                });
-            })
-          }
-        });
+      StripeCheckout.open({
+        key: window.env.STRIPE_PUB_KEY,
+        address: false,
+        amount: 500,
+        name: "Checkout",
+        description: "Buy 20 Gems, Disable Ads, Support the Developers",
+        panelLabel: "Checkout",
+        token: function(data) {
+          $scope.$apply(function(){
+            $http.post("/api/v1/user/buy-gems", data)
+              .success(function() {
+                window.location.href = "/";
+              }).error(function(err) {
+                alert(err);
+              });
+          })
+        }
+      });
     }
   }
 ]);
