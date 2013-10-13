@@ -18,13 +18,16 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     a(ng-hide='!task._editing', ng-click='toggleEdit(task)', tooltip='Cancel')
       i.icon-remove(ng-hide='!task._editing')
     //- challenges
-    //  {{#if task.challenge}}
-    //      {{#if brokenChallengeLink(task)}}
-    //          <i class='icon-bullhorn' style='background-color:red;' x-bind=click:toggleTaskEdit tooltip="Broken Challenge Link"></i>
-    //      {{else}}
-    //          <i class='icon-bullhorn' tooltip="Challenge Task"></i>
-    //      {{/}}
+    //  {{#if :task.challenge}}
+    //    {{#if brokenChallengeLink(:task)}}
+    //      <i class='icon-bullhorn' style='background-color:red;' x-bind=click:tasks.toggleTaskEdit rel=tooltip title="Broken Challenge Link"></i>
+    //    {{else}}
+    //      <i class='icon-bullhorn' rel=tooltip title="Challenge Task"></i>
+    //    {{/}}
     //  {{else}}
+    //    <!-- delete -->
+    //    <a x-bind="click:tasks.del" rel=tooltip title="Delete"><i class="icon-trash"></i></a>
+    //  {{/}}
 
     // delete
     a(ng-click='remove(task)', tooltip='Delete')
@@ -78,12 +81,24 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
 
   // edit/options dialog
   .task-options(ng-show='task._editing')
-    // {{#if brokenChallengeLink(task)}}
-    // <div class='well'>
-    // <p>Broken Challenge Link: this task was part of a challenge, but (a) challenge (or containing group) has been deleted, or (b) the task was deleted from the challenge.</p>
-    // <p><a>Keep</a> | <a>Keep all from challenge</a> | <a>Delete</a> | <a>Delete all from challenge</a></p>
-    // </div>
-    // {{/}}
+    //
+    //  {#if brokenChallengeLink(:task)}
+    //    <div class='well'>
+    //      {{#if groups[:task.group.id].challenges[:task.challenge]}}
+    //        <p>Broken Challenge Link: this task was part of a challenge, but has been removed from it. What would you like to do?</p>
+    //        <p>
+    //          <a x-bind="click:challenges.taskUnsubscribe" data-action="keep" data-tid="{{:task.id}}">Keep It</a>&nbsp;|&nbsp;
+    //          <a x-bind="click:challenges.taskUnsubscribe" data-action="remove" data-tid="{{:task.id}}">Remove It</a>
+    //        </p>
+    //      {{else}}
+    //        <p>Broken Challenge Link: this task was part of a challenge, but the challenge (or group) has been deleted. What would you like to do with these poor lil' orphans?</p>
+    //        <p>
+    //          <a x-bind="click:challenges.taskUnsubscribe" data-action="keep-all" data-tid="{{:task.id}}">Keep Them</a>&nbsp;|&nbsp;
+    //          <a x-bind="click:challenges.taskUnsubscribe" data-action="remove-all" data-tid="{{:task.id}}">Remove Them</a>
+    //        </p>
+    //      {{/}}
+    //    </div>
+    //  {/}
     form(ng-controller="TaskDetailsCtrl", ng-submit='save(task)')
       // text & notes
       fieldset.option-group

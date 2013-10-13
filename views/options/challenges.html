@@ -1,72 +1,58 @@
 <main:>
-    <div>
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle='tab' data-target="#challengesViewParty">Party</a></li>
-            <li><a data-toggle='tab' data-target="#challengesViewGuild">Guild</a></li>
-            <li><a data-toggle='tab' data-target="#challengesViewPublic">Public</a></li>
-        </ul>
+    <app:widgets:tabs>
+        <@headers>
+            <app:widgets:tab-header group="challenges" tab="party" title="Party" default="true" />
+            <app:widgets:tab-header group="challenges" tab="guild" title="Guild" />
+            <app:widgets:tab-header group="challenges" tab="public" title="Public" />
+        </@headers>
 
-        <div class="tab-content">
+        <app:widgets:tab-content group="challenges" tab="party" default="true">
+            {{#unless _page.party.id}}
+                Join a party first.
+            {{else}}
+                <app:challenges:list type="party" gid="{{_page.party.id}}" text="Party" list="{_page.lists.challenges[_page.party.id]}" />
+            {{/}}
+        </app:widgets:tab-content>
 
-            <div class="tab-pane active" id="challengesViewParty">
-                {{#unless _party.id}}
-                    Join a party first.
-                {{else}}
-                    {#if _challenge.new}
-                        <app:challenges:create-form />
-                    {else}
-                        <!-- FIXME https://github.com/codeparty/derby/issues/267, see _guilds.challenges below -->
-                        <app:challenges:create-button type='party' gid={{_party.id}} text='Party'/>
-                        {#each _party.challenges as :challenge}
-                            <app:challenges:listing challenge={:challenge} />
-                        {/}
-                    {/}
+        <app:widgets:tab-content group="challenges" tab="guild">
+            <ul class="nav nav-pills">
+                {{#each _page.guilds as :guild}}
+                    <li class="{{#if equal($index,0)}}active{{/}}"><a data-toggle='tab' data-target="#challenges-guild-{:guild.id}">{{:guild.name}}</a></li>
+                {{/}}
+            </ul>
+            <div class="tab-content">
+                {{#each _page.guilds as :guild}}
+                    <div class="tab-pane {{#if equal($index,0)}}active{{/}}" id="challenges-guild-{{:guild.id}}">
+                        <app:challenges:list type="guild" gid="{{:guild.id}}" text="Guild" list="{_page.lists.challenges[:guild.id]}" />
+                    </div>
                 {{/}}
             </div>
+        </app:widgets:tab-content>
 
-            <div class="tab-pane" id="challengesViewGuild">
-                <ul class="nav nav-pills">
-                    {{#each _guilds as :guild}}
-                        <li class="{{#if equal($index,0)}}active{{/}}"><a data-toggle='tab' data-target="#challenges-guild-{:guild.id}">{{:guild.name}}</a></li>
-                    {{/}}
-                </ul>
-                <div class="tab-content">
-                    {{#each _guilds as :guild}}
-                        <div class="tab-pane {{#if equal($index,0)}}active{{/}}" id="challenges-guild-{:guild.id}">
-                            {#if _challenge.new}
-                                <app:challenges:create-form />
-                            {else}
-                                <app:challenges:create-button type='guild' gid={{:guild.id}} text='Guild' />
-                                {#each :guild.challenges as :challenge}
-                                    <app:challenges:listing challenge={groups[:guild.id].challenges[$index]} />
-                                {/}
-                                <hr/>
-                            {/}
-                        </div>
-                    {{/}}
-                </div>
-            </div>
+        <app:widgets:tab-content group="challenges" tab="public">
+            <app:challenges:list type="public" gid="habitrpg" text="Public" list="{_page.lists.challenges.habitrpg}" />
+        </app:widgets:tab-content>
 
-            <div class="tab-pane" id="challengesViewPublic">
-                {#if _challenge.new}
-                    <app:challenges:create-form />
-                {else}
-                    <app:challenges:create-button type='public' gid='habitrpg' text='Public' />
-                    {#each _habitRPG.challenges as :challenge}
-                        <app:challenges:listing challenge={groups.habitrpg.challenges[$index]} />
-                    {/}
-                {/}
-            </div>
+    </app:widgets:tabs>
 
-        </div>
+<list:>
+    <div class="{#unless _page.new.challenge}hidden{/}">
+        <app:challenges:create-form />
+    </div>
+    <div class="{#if _page.new.challenge}hidden{/}">
+        <app:challenges:create-button type='{{@type}}' gid={{@gid}} text={{@text}} />
+        {#each @list as :challenge}
+            <app:challenges:list-entry challenge={:challenge} />
+        {/}
+        <hr/>
     </div>
 
-<listing:>
+<list-entry:>
     <div class="accordion-group">
         <div class="accordion-heading">
             <ul class='pull-right challenge-accordion-header-specs'>
                 <li>
-                    {count(@challenge.users)} Subscribers
+                    {count(@challenge.members)} Subscribers
                 </li>
                 <li>
                     <!-- prize -->
@@ -76,66 +62,66 @@
                 </li>
                 <li>
                     <!-- subscribe / unsubscribe -->
-                    <a x-bind="click:challengeUnsubscribe" class='btn btn-small btn-danger {#unless indexOf(_user.challenges,@challenge.id)}hidden{/}'><i class='icon-ban-circle'></i> Unsubscribe</a>
-                    <a x-bind="click:challengeSubscribe" class='btn btn-small btn-success {#if indexOf(_user.challenges,@challenge.id)}hidden{/}'><i class='icon-ok'></i> Subscribe</a>
+                    {#with @challenge}
+                    <a x-bind="click:challenges.challengeUnsubscribe" class='btn btn-small btn-danger {#unless indexOf(_page.user.pub.challenges,@challenge.id)}hidden{/}'><i class='icon-ban-circle'></i> Unsubscribe</a>
+                    <a x-bind="click:challenges.subscribe" class='btn btn-small btn-success {#if indexOf(_page.user.pub.challenges,@challenge.id)}hidden{/}'><i class='icon-ok'></i> Subscribe</a>
+                    {/}
                 </li>
             </ul>
-            <a class="accordion-toggle" data-toggle="collapse" href="#accordion-challenge-{{@challenge.id}}">{@challenge.name} (by {@challenge.user})</a>
+            <a class="accordion-toggle" data-toggle="collapse" href="#accordion-challenge-{{@challenge.id}}">{@challenge.name} (by {@challenge.user.name})</a>
 
 
         </div>
         <div id="accordion-challenge-{{@challenge.id}}" class="accordion-body collapse">
             <div class="accordion-inner">
 
-
-
-
                 <!-- Edit button -->
                 <span style='position:absolute; right:0;'>
-                {#if and(not(_editing.challenges[@challenge.id]),equal(@challenge.uid,_user.id))}
+                {#if and(not(_page.editing.challenges[@challenge.id]),equal(@challenge.user.uid,_session.userId))}
                     <ul class='nav nav-pills'><li>
-                        <a x-bind='click:toggleChallengeEdit' data-id={{@challenge.id}} ><i class=icon-pencil></i></a>
+                        <a x-bind='click:challenges.toggleEdit' data-id={{@challenge.id}} ><i class=icon-pencil></i></a>
                     </li></ul>
                 {else}
                     <ul class='nav nav-pills'><li>
-                        <a x-bind='click:toggleChallengeEdit' data-id={{@challenge.id}} ><i class=icon-ok></i></a>
+                        <a x-bind='click:challenges.toggleEdit' data-id={{@challenge.id}} ><i class=icon-ok></i></a>
                     </li></ul>
                 {/}
                 </span>
 
-                {#if _editing.challenges[@challenge.id]}
+                {#if _page.editing.challenges[@challenge.id]}
                     <div class='-options'>
                         <input type=text class='option-content' value={@challenge.name} />
                         <textarea cols=3 class='option-content' placeholder='Description'>{@challenge.description}</textarea>
-                        <input type=number class='option-content' placeholder='Gems Prize' value={@challenge.prize} />
+                        <!--<input type=number class='option-content' placeholder='Gems Prize' value={@challenge.prize} />-->
                     </div>
                     {{#with @challenge}}
-                        <a class='btn btn-small btn-danger' x-bind=click:removeAt >Delete</a>
+                        <a class='btn btn-small btn-danger' x-bind=click:challenges.delete >Delete</a>
                     {{/}}
                 {/}
                 {#if @challenge.description}<div>{@challenge.description}</div>{/}
 
                 <div class="grid">
                     <app:tasks:task-lists
-                            editable={_editing.challenges[@challenge.id]}
+                            editable={_page.editing.challenges[@challenge.id]}
                             habits={@challenge.habits}
                             dailys={@challenge.dailys}
                             todos={@challenge.todos}
-                            rewards={@challenge.rewards} />
+                            rewards={@challenge.rewards}
+                            />
                 </div>
 
                 <h3>Statistics</h3>
-                {#each @challenge.users as :member}
+                {#each @challenge.members as :member}
                     <h4>{:member.name}</h4>
                     <div class="grid">
                         <div class="module">
-                            <app:challenges:stats header=Habits challenge={@challenge} member={:member} taskType=habit />
+                            <app:challenges:stats header=Habits challenge={@challenge} member={:member} list={@challenge.habits} />
                         </div>
                         <div class="module">
-                            <app:challenges:stats header=Dailies challenge={@challenge} member={:member} taskType=daily />
+                            <app:challenges:stats header=Dailies challenge={@challenge} member={:member} list={@challenge.dailys}  />
                         </div>
                         <div class="module">
-                            <app:challenges:stats header=Todos challenge={@challenge} member={:member} taskType=todos />
+                            <app:challenges:stats header=Todos challenge={@challenge} member={:member} list={@challenge.todos}  />
                         </div>
                     </div>
                 {/}
@@ -146,11 +132,11 @@
 <stats:>
     <h5>{@header}</h5>
     <div>
-    {#each @challenge[@taskType]s as :task}
+    {#each @list as :task}
         <table><tr>
             <td>
                 <!-- FIXME commented section below isn't getting updated dynamically, temp solution is less efficient -->
-                <strong>{:task.text}</strong>: {challengeMemberScore(@member,@taskType,:task.id)} <!--{round(@member[@taskType]s[:task.id].value)}-->
+                <strong>{:task.text}</strong>: {challengeMemberScore(@member,:task)} <!--{round(@member[@taskType]s[:task.id].value)}-->
             </td>
             <td>
                 <div style='margin-left: 10px' class="challenge-{{@challenge.id}}-member-{{@member.id}}-history-{{:task.id}}"></div>
@@ -160,67 +146,25 @@
     </div>
 
 <create-button:>
-    <a x-bind='click:challengeCreate' class='btn btn-success' data-type={{@type}} data-gid={{@gid}} >Create {{@text}} Challenge</a>
+    <a x-bind='click:challenges.create' class='btn btn-success' data-type={{@type}} data-gid={{@gid}} >Create {{@text}} Challenge</a>
 
 <create-form:>
-    <form x-bind="submit:challengeSave">
+    <form x-bind="submit:challenges.save">
         <div>
             <input type='submit' class='btn btn-success' value='Save' />
-            <input type='button' x-bind='click:challengeDiscard' class='btn btn-danger' value=Discard />
+            <input type='button' x-bind='click:challenges.discard' class='btn btn-danger' value=Discard />
         </div>
 
         <div class='challenge-options'>
-            <input type='text' class='option-content' value={_challenge.new.name} placeholder="Challenge Title" required />
+            <input type='text' class='option-content' value={_page.new.challenge.name} placeholder="Challenge Title" required />
         </div>
-
-        <!--<fieldset>
-            <div>
-                <select>
-                    <option selected="{equal('party',_challenge.new.group.type)}" >Party</option>
-                    <option selected="{equal('guild',_challenge.new.group.type)}" >Guild</option>
-                    <option selected="{equal('public',_challenge.new.group.type)}" >Public</option>
-                </select>
-            </div>
-            <div>
-                {#if equal(_challenge.new.assignTo,'Party')}
-                    <div class='row-fluid'>
-                        <div class='span4 well'>
-                            <div><input type='radio' name='challenge-party-selection' checked={_challenge.new.partyAssignees} >All Party</input></div>
-                            <small>No individual privacy on the challenge, all party members can see progress even if they decline the challenge. Any new party members can subscribe to this challenge.</small>
-                        </div>
-                        <div class='span8 well'>
-                            <div><input type='radio' name='challenge-party-selection' checked={not(_challenge.new.partyAssignees)} >Individual Members</input></div>
-                            <div>
-                                <select multiple="multiple">
-                                {{#each _party.members as :memberId}}
-                                    <option>{{username(_members[:memberId].auth,_members[:memberId].profile.name)}}</option>
-                                {{/}}
-                                </select>
-                            </div>
-                            <div><small>Only the invited party members can subscribe to this challenge. New party joins won't see this challenge.</small></div>
-                        </div>
-                    </div>
-
-                {/}
-                {#if equal(_challenge.new.group.type,'guild')}
-                    <select>
-                    {{#each _guilds as :guild}}
-                        <option selected="{equal(:guild.id,_challenge.new.group.id)}" >{:guild.name}</option>
-                    {{/}}
-                    </select>
-                {/}
-            </div>
-        </fieldset>-->
-
     </form>
 
     <div class="grid">
         <app:tasks:task-lists
-                habits={_challenge.new.habits}
-                dailys={_challenge.new.dailys}
-                todos={_challenge.new.todos}
-                rewards={_challenge.new.rewards}
+                habits={_page.new.challenge.habits}
+                dailys={_page.new.challenge.dailys}
+                todos={_page.new.challenge.todos}
+                rewards={_page.new.challenge.rewards}
                 editable=true />
     </div>
-
-

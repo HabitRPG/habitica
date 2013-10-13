@@ -78,24 +78,30 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
             input.btn(type='submit', value='Invite')
 
 
-    //-accordion-group(heading='Challenges')
-      span.label
-        i.icon-bullhorn
-        | Challenges
-      | coming soon!
-      a(target='_blank', href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58') Details
-      //-{#if group.challenges}
-      //-    <table class="table table-striped">
-      //-        {#each group.challenges as :challenge}
-      //-        <tr><td>
-      //-            {:challenge.name}
-      //-        </td></tr>
-      //-        {/}
-      //-    </table>
-      //-    Visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> for more information.
-      //-{else}
-      //-    No challenges yet, visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> tab to create one.
-      //-{/}
+    //.accordion-group
+      .accordion-heading
+        a.accordion-toggle(data-toggle='collapse', data-parent='#accordion-{{@group.id}}-parent', href='#accordion-{{@group.id}}-challenges') Challenges
+      #accordion-{{@group.id}}-challenges.accordion-body.collapse
+        .accordion-inner
+          span.label
+            i.icon-bullhorn
+            | Challenges
+          | coming soon!
+          a(target='_blank', href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58') Details
+          //
+          //  {#if @group.challenges}
+          //      <table class="table table-striped">
+          //          {#each @group.challenges as :challenge}
+          //          <tr><td>
+          //              {:challenge.name}
+          //          </td></tr>
+          //          {/}
+          //      </table>
+          //      Visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> for more information.
+          //  {else}
+          //      No challenges yet, visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> tab to create one.
+          //  {/}
+
     a.btn.btn-danger(data-id='{{group.id}}', ng-click='leave(group)') Leave
 
   .span8
