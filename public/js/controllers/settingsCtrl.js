@@ -59,9 +59,17 @@ habitrpg.controller('SettingsCtrl',
         });
     }
 
+    $scope.restoreValues = {};
+    $rootScope.$watch('modals.restore', function(value){
+      if(value === true){
+        $scope.restoreValues.stats = angular.copy(User.user.stats);
+        $scope.restoreValues.items = angular.copy(User.user.items);
+      }
+    })
+
     $scope.restore = function(){
-      var stats = User.user.stats,
-        items = User.user.items;
+      var stats = $scope.restoreValues.stats,
+        items = $scope.restoreValues.items;
       User.setMultiple({
         "stats.hp": stats.hp,
         "stats.exp": stats.exp,
