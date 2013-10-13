@@ -4,6 +4,7 @@
 var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 var url = require('url');
+var ipn = require('paypal-ipn');
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
@@ -593,8 +594,7 @@ api.buyGems = function(req, res) {
 };
 
 api.buyGemsPaypalIPN = function(req, res) {
-  var ipn = require('paypal-ipn');
-
+  res.send(200);
   ipn.verify(req.body, function callback(err, msg) {
     if (err) {
       console.error(msg);
@@ -611,6 +611,7 @@ api.buyGemsPaypalIPN = function(req, res) {
           user.balance += 5;
           user.flags.ads = 'hide';
           user.save();
+          console.log('PayPal transaction completed and user updated');
         });
       }
     }
