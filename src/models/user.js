@@ -1,6 +1,9 @@
-// User.js
-// =======
-// Defines the user data model (schema) for use via the API.
+/* 
+User.js
+=======
+
+Defines the user data model (schema) for use via the API.
+*/
 
 // Dependencies
 // ------------
@@ -9,11 +12,15 @@ var Schema = mongoose.Schema;
 var helpers = require('habitrpg-shared/script/helpers');
 var _ = require('lodash');
 
-// User Schema
-// -----------
+/*
+User Schema
+-----------
+*/
 
 var UserSchema = new Schema({
-  // ### UUID and API Token
+/*
+### UUID and API Token
+*/
   _id: {
     type: String,
     'default': helpers.uuid
@@ -23,13 +30,16 @@ var UserSchema = new Schema({
     'default': helpers.uuid
   },
 
-  // ### Mongoose Update Object
-  // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
-  // have been updated (http://goo.gl/gQLz41), but we want *every* update
+  /*
+  ### Mongoose Update Object
+  We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
+  have been updated (http://goo.gl/gQLz41), but we want *every* update
+  */
   _v: {
     type: Number,
     'default': 0
   },
+  // ### Achievements Object
   achievements: {
     originalUser: Boolean,
     helpedHabit: Boolean,
@@ -37,6 +47,7 @@ var UserSchema = new Schema({
     beastMaster: Boolean,
     streak: Number
   },
+
   auth: {
     facebook: Schema.Types.Mixed,
     local: {
@@ -81,6 +92,7 @@ var UserSchema = new Schema({
     petsEnabled: {type: Boolean, 'default': false},
     rest: {type: Boolean, 'default': false} // fixme - change to preferences.resting once we're off derby
   },
+
   history: {
     exp: [
       {
@@ -95,80 +107,110 @@ var UserSchema = new Schema({
       }
     ]
   },
-  /* FIXME remove?*/
 
-  invitations: {
+  invitations: { // FIXME remove?
     guilds: {type: Array, 'default': []},
     party: Schema.Types.Mixed
   },
+
   items: {
     armor: Number,
     weapon: Number,
     head: Number,
     shield: Number,
 
-    /*FIXME - tidy this up, not the best way to store current pet*/
+    /*
+    ### Current Pet
+    
+    Describes model for storing Current Pet information.
+    
+    @param {String} text Name of Pet. example: Cactus ?? Label shown to User ??
+    @param {String} name Name of Pet. example: Cactus
+    @param {Number} value Example: 3. ?? Not sure what this references.
+    @param {String} notes String describing egg. example: "Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet."
+    @param {String} modifier Version of Pet. Example: Skeleton
+    @param {String} str Example: Cactus-Skeleton. ?? Not Sure what this is used for ??
+    */
 
-    currentPet: {
-      /*Cactus*/
+    currentPet: { // FIXME - tidy this up, not the best way to store current pet
 
       text: String,
-      /*Cactus*/
-
       name: String,
-      /*3*/
-
       value: Number,
-      /*"Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.",*/
-
       notes: String,
-      /*Skeleton*/
-
       modifier: String,
-      /*Cactus-Skeleton*/
-
       str: String
     },
 
+    /*
+    ### Eggs
+    
+    Describes model for storing Egg information.
+    
+    @param {String} dialog ex: "You've found a Wolf Egg! Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet"
+    @param {String} name ex: Wolf
+    @param {String} notes ex: "Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet." 
+    @param {String} text ex: Wolf
+    @param {Number} value ex: 3
+    */
+
     eggs: [
       {
-        // example: You've found a Wolf Egg! Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet
         dialog: String,
-        // example: Wolf
         name: String, 
-        // example: Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.
         notes: String,
-        // example: Wolf 
         text: String, 
-        /* type: String, //Egg // this is forcing mongoose to return object as "[object Object]", but I don't think this is needed anyway? */
-        // example: 3
+        /* type: String, //Egg // FIXME this is forcing mongoose to return object as "[object Object]", but I don't think this is needed anyway? */
         value: Number 
       }
     ],
+
+    /*
+    ### Hatching Potions
+    */
+
     hatchingPotions: Array, // ["Base", "Skeleton",...]
+
+    /* 
+    ### Last Drop
+    */
     lastDrop: {
       date: {type: Date, 'default': Date.now},
       count: {type: Number, 'default': 0}
     },
-    // ["BearCub-Base", "Cactus-Base", ...]
+    /* 
+    ### Pets
 
-    pets: Array
+    Lists all aquired pets, for use in stable?
+    */
+
+    pets: Array // ["BearCub-Base", "Cactus-Base", ...]
   },
-  // FIXME store as Date?
 
-  lastCron: {
+  /*
+  ### Last Cron
+  */
+  lastCron: { // FIXME store as Date?
     type: Date,
     'default': Date.now
   },
-  // FIXME remove?
 
-  party: {
+  /*
+  ### Party
+
+  */
+  party: { // FIXME remove?
     //party._id // FIXME make these populate docs?
     current: String, // party._id
     invitation: String, // party._id
     lastMessageSeen: String,
     leader: Boolean
   },
+
+  /* 
+  ### User Preferences
+
+  */
   preferences: {
     armorSet: String,
     dayStart: {type:Number, 'default': 0},
@@ -179,18 +221,32 @@ var UserSchema = new Schema({
     skin: {type:String, 'default':'white'},
     timezoneOffset: Number
   },
+  /*
+  ### User Profile Info
+
+  */
   profile: {
     blurb: String,
     imageUrl: String,
     name: String,
     websites: Array // styled like --> ["http://ocdevel.com" ]
   },
+
+  /*
+  ### User Stats
+
+  */
   stats: {
     hp: Number,
     exp: Number,
     gp: Number,
     lvl: Number
   },
+
+  /*
+  ### Tags
+
+  */
   tags: [
     {
       // FIXME use refs?
@@ -199,9 +255,11 @@ var UserSchema = new Schema({
     }
   ],
 
-  // ### Tasks Definition
-  // We can't define `tasks` until we move off Derby, since Derby requires dictionary of objects. When we're off, migrate
-  // to array of subdocs
+  /*
+  ### Tasks Definition
+  We can't define `tasks` until we move off Derby, since Derby requires dictionary of objects. When we're off, migrate
+  to array of subdocs
+  */
 
   tasks: Schema.Types.Mixed
   /*
@@ -224,12 +282,14 @@ var UserSchema = new Schema({
   strict: true
 });
 
-// Legacy Derby Function?
-// ----------------------
-// Derby requires a strange storage format for somethign called "refLists". Here we hook into loading the data, so we
-// can provide a more "expected" storage format for our various helper methods. Since the attributes are passed by reference,
-// the underlying data will be modified too - so when we save back to the database, it saves it in the way Derby likes.
-// This will go away after the rewrite is complete
+/*
+Legacy Derby Function?
+----------------------
+Derby requires a strange storage format for somethign called "refLists". Here we hook into loading the data, so we
+can provide a more "expected" storage format for our various helper methods. Since the attributes are passed by reference,
+the underlying data will be modified too - so when we save back to the database, it saves it in the way Derby likes.
+This will go away after the rewrite is complete
+*/
 
 function transformTaskLists(doc) {
   _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
