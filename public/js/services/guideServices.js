@@ -112,7 +112,7 @@ angular.module('guideServices', []).
     $rootScope.$watch('user.flags.dropsEnabled', function(after, before) {
       if (alreadyShown(before, after)) return;
       var drop = Helpers.randomVal(Items.items.pets);
-      var eggs = User.user.items.eggs || (User.user.items.eggs = []);
+      var eggs = User.user.items.eggs || [];
       eggs.push(drop); // FIXME put this on server instead
       User.set('items.eggs', eggs);
       $rootScope.modals.dropsEnabled = true;
