@@ -38,15 +38,15 @@ angular.module('userServices', []).
         var queue = settings.sync.queue;
         var sent = settings.sync.sent;
         if (queue.length === 0) {
-          console.log('Sync: Queue is empty');
+          // Sync: Queue is empty
           return;
         }
         if (settings.fetching) {
-          console.log('Sync: Already fetching');
+          // Sync: Already fetching
           return;
         }
         if (settings.online!==true) {
-          console.log('Sync: Not online');
+          // Sync: Not online
           return;
         }
 
