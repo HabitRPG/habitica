@@ -2,38 +2,36 @@
 
 describe('Auth Controller', function() {
 
-  // do we need this, or has it since been added to Karma proper?
-  /*beforeEach(function(){
-    this.addMatchers({
-      toEqualData: function(expected) {
-        return angular.equals(this.actual, expected);
-      }
-    });
-  });*/
-
-
-  //beforeEach(module('phonecatServices'));
-
+  beforeEach(module('habitrpg'));
 
   describe('AuthCtrl', function(){
-    var scope, ctrl, $httpBackend;
+    var scope, ctrl, user, $httpBackend, $window;
 
     beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
       $httpBackend = _$httpBackend_;
-      $httpBackend.expectGET('api/v1/users/auth/local').
-        respond({id: 'abc', apiToken: 'abc'});
-
       scope = $rootScope.$new();
-      ctrl = $controller(AuthCtrl, {$scope: scope});
+      scope.loginUsername = 'user'
+      scope.loginPassword = 'pass'
+      $window = { location: { href: ""}, alert: sinon.spy() };
+      user = { user: {}, authenticate: sinon.spy() };
+
+      ctrl = $controller('AuthCtrl', {$scope: scope, $window: $window, User: user});
     }));
 
-
     it('should log in users with correct uname / pass', function() {
-//      expect(scope.phones).toEqual([]);
-//      $httpBackend.flush();
-//
-//      expect(scope.phones).toEqualData(
-//        [{name: 'Nexus S'}, {name: 'Motorola DROID'}]);
+      $httpBackend.expectPOST('/api/v1/user/auth/local').respond({id: 'abc', token: 'abc'});
+      scope.auth();
+      $httpBackend.flush();
+      expect(user.authenticate).to.have.been.calledOnce;
+      expect($window.alert).to.not.have.been.called;
+    });
+
+    it('should not log in users with incorrect uname / pass', function() {
+      $httpBackend.expectPOST('/api/v1/user/auth/local').respond(404, '');
+      scope.auth();
+      $httpBackend.flush();
+      expect(user.authenticate).to.not.have.been.called;
+      expect($window.alert).to.have.been.calledOnce;
     });
   });
 
