@@ -5,8 +5,8 @@
  */
 
 angular.module('userServices', []).
-  factory('User', ['$rootScope', '$http', '$location', 'API_URL', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID',
-    function($rootScope, $http, $location, API_URL, STORAGE_USER_ID, STORAGE_SETTINGS_ID) {
+  factory('User', ['$rootScope', '$http', '$location', '$window', 'API_URL', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID',
+    function($rootScope, $http, $location, $window, API_URL, STORAGE_USER_ID, STORAGE_SETTINGS_ID) {
       var authenticated = false,
         defaultSettings = {
           auth: { apiId: '', apiToken: ''},
@@ -31,7 +31,7 @@ angular.module('userServices', []).
 
       var syncQueue = function (cb) {
         if (!authenticated) {
-          alert("Not authenticated, can't sync, go to settings first.");
+          $window.alert("Not authenticated, can't sync, go to settings first.");
           return;
         }
 
@@ -150,7 +150,7 @@ angular.module('userServices', []).
          */
         set: function(k, v) {
           var log = { op: 'set', data: {} };
-          window.habitrpgShared.helpers.dotSet(k, v, this.user);
+          $window.habitrpgShared.helpers.dotSet(k, v, this.user);
           log.data[k] = v;
           userServices.log(log);
         },
@@ -158,7 +158,7 @@ angular.module('userServices', []).
         setMultiple: function(obj){
           var log = { op: 'set', data: {} };
           _.each(obj, function(v,k){
-            window.habitrpgShared.helpers.dotSet(k, v, userServices.user);
+            $window.habitrpgShared.helpers.dotSet(k, v, userServices.user);
             log.data[k] = v;
           });
           userServices.log(log);
@@ -186,16 +186,16 @@ angular.module('userServices', []).
       //If user does not have ApiID that forward him to settings.
       if (!settings.auth.apiId || !settings.auth.apiToken) {
         //var search = $location.search(); // FIXME this should be working, but it's returning an empty object when at a root url /?_id=...
-        var search = $location.search(window.location.search.substring(1)).$$search; // so we use this fugly hack instead
+        var search = $location.search($window.location.search.substring(1)).$$search; // so we use this fugly hack instead
         if (search.err) return alert(search.err);
         if (search._id && search.apiToken) {
           userServices.authenticate(search._id, search.apiToken, function(){
-            window.location.href='/';
+            $window.location.href='/';
           });
         } else {
-          if (window.location.pathname.indexOf('/static') !== 0){
+          if ($window.location.pathname.indexOf('/static') !== 0){
             localStorage.clear();
-            window.location.href = '/logout';
+            $window.location.href = '/logout';
           }
         }
       } else {
