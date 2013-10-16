@@ -8,7 +8,7 @@ form(ng-submit='postChat(group,_chatMessage)')
         td
           input.btn.chat-btn(type='submit', value='Send Chat')
         td
-          button.btn
-            i(class='pull-right icon-refresh', ng-click='sync(group)', tooltip='Fetch Recent Messages')
+          button.btn(ng-click='sync(group)', tooltip='Fetch Recent Messages')
+            i(class='pull-right icon-refresh')
 
 
