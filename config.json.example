@@ -12,6 +12,6 @@
     "SMTP_PASS":"password",
     "SMTP_SERVICE":"Gmail",
     "STRIPE_API_KEY":"aaaabbbbccccddddeeeeffff00001111",
-    "STRIPE_PUB_KEY":"22223333444455556666777788889999"
+    "STRIPE_PUB_KEY":"22223333444455556666777788889999",
     "PAYPAL_MERCHANT":"paypal-merchant@gmail.com"
 }
