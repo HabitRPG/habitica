@@ -116,4 +116,4 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
       User.log({op: 'clear-completed'});
     }
 
-}]);
+  }]);

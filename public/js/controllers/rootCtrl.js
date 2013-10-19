@@ -61,5 +61,37 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         }
       });
     }
+
+    $rootScope.charts = {};
+    $rootScope.toggleChart = function(id, task) {
+      var history = [], matrix, data, chart, options;
+      switch (id) {
+        case 'exp':
+          $rootScope.charts.exp = !$rootScope.charts.exp;
+          history = User.user.history.exp;
+          break;
+        case 'todos':
+          $rootScope.charts.todos = !$rootScope.charts.todos;
+          history = User.user.history.todos;
+          break;
+        default:
+          $rootScope.charts[id] = !$rootScope.charts[id];
+          history = task.history;
+          if (task) task._editing = false;
+      }
+      matrix = [['Date', 'Score']];
+      _.each(history, function(obj) {
+        matrix.push([moment(obj.date).format('MM/DD/YY'), obj.value]);
+      });
+      data = google.visualization.arrayToDataTable(matrix);
+      options = {
+        title: 'History',
+        backgroundColor: {
+          fill: 'transparent'
+        }
+      };
+      chart = new google.visualization.LineChart($("." + id + "-chart")[0]);
+      chart.draw(data, options);
+    };
   }
 ]);

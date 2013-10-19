@@ -27,10 +27,10 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     a(ng-click='remove(task)', tooltip='Delete')
       i.icon-trash
     // chart
-    a(ng-show='task.history', x-bind='click:toggleChart', ng-click='notPorted()', data-id='{{task.id}}', tooltip='Progress')
+    a(ng-show='task.history', ng-click='toggleChart(task.id, task)', tooltip='Progress')
       i.icon-signal
     // notes
-    span.task-notes(ng-hide='task._editing', ng-show='task.notes', popover-trigger='mouseenter', popover-placement='left', popover='{{task.notes}}', popover-title='{{task.text}}')
+    span.task-notes(ng-show='task.notes && !task._editing', popover-trigger='mouseenter', popover-placement='left', popover='{{task.notes}}', popover-title='{{task.text}}')
       i.icon-comment
 
   // left-hand side checkbox
@@ -157,4 +157,4 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
             input.option-content(type='number', ng-model='task.streak')
       button.task-action-btn.tile.spacious(type='submit') Save & Close
 
-  div(class='{{task.id}}-chart', ng-show='_page.charts[task.id]')
+  div(class='{{task.id}}-chart', ng-show='charts[task.id]')
