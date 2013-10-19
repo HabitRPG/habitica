@@ -88,7 +88,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         title: 'History',
         backgroundColor: {
           fill: 'transparent'
-        }
+        },
+        width:300
       };
       chart = new google.visualization.LineChart($("." + id + "-chart")[0]);
       chart.draw(data, options);
