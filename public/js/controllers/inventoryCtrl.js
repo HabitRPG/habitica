@@ -9,6 +9,9 @@ habitrpg.controller("InventoryCtrl", ['$scope', 'User',
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
 
     $scope.chooseEgg = function(egg, $index){
+      if ($scope.selectedEgg && $scope.selectedEgg.index == $index) {
+        return $scope.selectedEgg = null; // clicked same egg, unselect
+      }
       var eggData = _.defaults({index:$index}, egg);
       if (!$scope.selectedPotion) {
         $scope.selectedEgg = eggData;
@@ -18,6 +21,9 @@ habitrpg.controller("InventoryCtrl", ['$scope', 'User',
     }
 
     $scope.choosePotion = function(potion, $index){
+      if ($scope.selectedPotion && $scope.selectedPotion.index == $index) {
+        return $scope.selectedPotion = null; // clicked same egg, unselect
+      }
       // we really didn't think through the way these things are stored and getting passed around...
       var potionData = _.findWhere(window.habitrpgShared.items.items.hatchingPotions, {name:potion});
       potionData = _.defaults({index:$index}, potionData);
@@ -52,8 +58,11 @@ habitrpg.controller("InventoryCtrl", ['$scope', 'User',
       return User.user.items.pets && ~User.user.items.pets.indexOf(pet)
     }
 
-    $scope.selectableInventory = function(egg, potion) {
+    $scope.selectableInventory = function(egg, potion, $index) {
       if (!egg || !potion) return;
+      // FIXME this isn't updating the view for some reason
+      //if ($scope.selectedEgg && $scope.selectedEgg.index == $index) return 'selectableInventory';
+      //if ($scope.selectedPotion && $scope.selectedPotion.index == $index) return 'selectableInventory';
       if (!$scope.ownsPet(egg, potion)) return 'selectableInventory';
     }
 
