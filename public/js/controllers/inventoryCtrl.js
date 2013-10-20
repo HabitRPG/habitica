@@ -1,27 +1,42 @@
 habitrpg.controller("InventoryCtrl", ['$scope', 'User',
   function($scope, User) {
 
-    $scope.hatching = false;
+    // convenience vars since these are accessed frequently
     $scope.userEggs = User.user.items.eggs;
     $scope.userHatchingPotions = User.user.items.hatchingPotions;
 
     $scope.chooseEgg = function(egg){
-      if($scope.userHatchingPotions && $scope.userHatchingPotions.length < 1) {
-        return alert("You have no hatching potion!");
+      if (!$scope.selectedPotion) {
+        $scope.selectedEgg = egg.name;
+      } else {
+        $scope.hatch(egg, $scope.selectedPotion);
       }
-
-      $scope.selectedEgg = egg;
-      $scope.selectedPotion = $scope.userHatchingPotions[0];
-      $scope.hatching = true;
     }
 
-    $scope.pour = function(){
-      var pet = $scope.selectedEgg.name + '-' + $scope.selectedPotion;
+    $scope.choosePotion = function(potion){
+      if (!$scope.selectedEgg) {
+        $scope.selectedPotion = potion;
+      } else {
+        $scope.hatch($scope.selectedEgg, potion);
+      }
+    }
 
-      if(User.user.items.pets && ~User.user.items.pets.indexOf(pet)) {
+    $scope.ownsPet = function(egg, potion){
+      if (!egg || !potion) return;
+      var pet = egg + '-' + potion;
+      return User.user.items.pets && ~User.user.items.pets.indexOf(pet)
+    }
+
+    $scope.selectableInventory = function(egg, potion) {
+      if (!egg || !potion) return;
+      if (!$scope.ownsPet(egg, potion)) return 'selectableInventory';
+    }
+
+    $scope.hatch = function(egg, potion){
+      var pet = $scope.selectedEgg + '-' + $scope.selectedPotion;
+      if ($scope.ownsPet(egg, potion)){
         return alert("You already have that pet, hatch a different combo.")
       }
-
       var i = _.indexOf($scope.userEggs, $scope.selectedEgg);
       $scope.userEggs.splice(i, 1);
 
@@ -40,7 +55,7 @@ habitrpg.controller("InventoryCtrl", ['$scope', 'User',
       alert("Your egg hatched! Visit your stable to equip your pet.");
 
       $scope.selectedEgg = null;
-      $scope.hatching = false;
+      $scope.selectedPotion = null;
     }
 
   }]);
