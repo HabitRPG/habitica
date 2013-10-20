@@ -21,9 +21,9 @@
       table.NPC-Alex-container
         tr
           td
-            button.customize-option.sell-inventory(ng-show='selectedEgg')
+            button.customize-option.sell-inventory(ng-show='selectedEgg', ng-click='sellInventory()')
               | Sell {{selectedEgg.name}} for {{selectedEgg.value}} GP
-            button.customize-option.sell-inventory(ng-show='selectedPotion')
+            button.customize-option.sell-inventory(ng-show='selectedPotion', ng-click='sellInventory()')
               | Sell {{selectedPotion.name}} for {{selectedPotion.value}} GP
             .NPC-Alex.pull-left(ng-show='!selectedEgg && !selectedPotion')
           td

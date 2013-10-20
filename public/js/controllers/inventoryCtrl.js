@@ -28,6 +28,24 @@ habitrpg.controller("InventoryCtrl", ['$scope', 'User',
       }
     }
 
+    $scope.sellInventory = function() {
+      if ($scope.selectedEgg) {
+        User.user.stats.gp += $scope.selectedEgg.value;
+        $scope.userEggs.splice($scope.selectedEgg.index, 1);
+        User.log([
+          { op: 'set', data: {'items.eggs': $scope.userEggs} }
+        ]);
+        $scope.selectedEgg = null;
+      } else if ($scope.selectedPotion) {
+        User.user.stats.gp += $scope.selectedPotion.value;
+        $scope.userHatchingPotions.splice($scope.selectedPotion.index, 1);
+        User.log([
+          { op: 'set', data: {'items.hatchingPotions': $scope.selectedPotion} }
+        ]);
+        $scope.selectedPotion = null;
+      }
+    }
+
     $scope.ownsPet = function(egg, potion){
       if (!egg || !potion) return;
       var pet = egg.name + '-' + potion;
