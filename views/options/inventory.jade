@@ -6,13 +6,13 @@
         menu.pets-menu(label='Eggs ({{userEggs.length}})')
           p(ng-show='userEggs.length < 1') You don't have any eggs yet.
           div(ng-repeat='egg in userEggs track by $index')
-            button.customize-option(tooltip='{{egg.text}}', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg.name}}', ng-class='selectableInventory(egg.name, selectedPotion)')
+            button.customize-option(tooltip='{{egg.text}}', ng-click='chooseEgg(egg, $index)', class='Pet_Egg_{{egg.name}}', ng-class='selectableInventory(egg, selectedPotion.name)')
             p {{egg.text}}
       li.customize-menu
         menu.hatchingPotion-menu(label='Hatching Potions ({{userHatchingPotions.length}})')
           p(ng-show='userHatchingPotions.length < 1') You don't have any hatching potions yet.
           div(ng-repeat='hatchingPotion in userHatchingPotions track by $index')
-            button.customize-option(tooltip='{{hatchingPotion}}', ng-click='choosePotion(hatchingPotion)', class='Pet_HatchingPotion_{{hatchingPotion}}', ng-class='selectableInventory(selectedEgg, hatchingPotion)')
+            button.customize-option(tooltip='{{hatchingPotion}}', ng-click='choosePotion(hatchingPotion, $index)', class='Pet_HatchingPotion_{{hatchingPotion}}', ng-class='selectableInventory(selectedEgg, hatchingPotion)')
             p {{hatchingPotion}}
 
   .span6
@@ -20,11 +20,11 @@
     .row-fluid(ng-controller='MarketCtrl')
       table.NPC-Alex-container
         tr
-          td(ng-controller='InventoryCtrl')
+          td
             button.customize-option.sell-inventory(ng-show='selectedEgg')
-              | Sell {{selectedEgg}} for 5gp
+              | Sell {{selectedEgg.name}} for {{selectedEgg.value}} GP
             button.customize-option.sell-inventory(ng-show='selectedPotion')
-              | Sell {{selectedPotion}} for 5gp
+              | Sell {{selectedPotion.name}} for {{selectedPotion.value}} GP
             .NPC-Alex.pull-left(ng-show='!selectedEgg && !selectedPotion')
           td
             .popover.static-popover.fade.right.in

@@ -5,25 +5,32 @@ habitrpg.controller("InventoryCtrl", ['$scope', 'User',
     $scope.userEggs = User.user.items.eggs;
     $scope.userHatchingPotions = User.user.items.hatchingPotions;
 
-    $scope.chooseEgg = function(egg){
+    $scope.selectedEgg = null; // {index: 1, name: "Tiger", value: 5}
+    $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
+
+    $scope.chooseEgg = function(egg, $index){
+      var eggData = _.defaults({index:$index}, egg);
       if (!$scope.selectedPotion) {
-        $scope.selectedEgg = egg.name;
+        $scope.selectedEgg = eggData;
       } else {
-        $scope.hatch(egg, $scope.selectedPotion);
+        $scope.hatch(eggData, $scope.selectedPotion);
       }
     }
 
-    $scope.choosePotion = function(potion){
+    $scope.choosePotion = function(potion, $index){
+      // we really didn't think through the way these things are stored and getting passed around...
+      var potionData = _.findWhere(window.habitrpgShared.items.items.hatchingPotions, {name:potion});
+      potionData = _.defaults({index:$index}, potionData);
       if (!$scope.selectedEgg) {
-        $scope.selectedPotion = potion;
+        $scope.selectedPotion = potionData;
       } else {
-        $scope.hatch($scope.selectedEgg, potion);
+        $scope.hatch($scope.selectedEgg, potionData);
       }
     }
 
     $scope.ownsPet = function(egg, potion){
       if (!egg || !potion) return;
-      var pet = egg + '-' + potion;
+      var pet = egg.name + '-' + potion;
       return User.user.items.pets && ~User.user.items.pets.indexOf(pet)
     }
 
@@ -33,15 +40,12 @@ habitrpg.controller("InventoryCtrl", ['$scope', 'User',
     }
 
     $scope.hatch = function(egg, potion){
-      var pet = $scope.selectedEgg + '-' + $scope.selectedPotion;
-      if ($scope.ownsPet(egg, potion)){
+      if ($scope.ownsPet(egg.name, potion.name)){
         return alert("You already have that pet, hatch a different combo.")
       }
-      var i = _.indexOf($scope.userEggs, $scope.selectedEgg);
-      $scope.userEggs.splice(i, 1);
-
-      i = _.indexOf($scope.userHatchingPotions, $scope.selectedPotion);
-      $scope.userHatchingPotions.splice(i, 1);
+      var pet = egg.name + '-' + potion.name;
+      $scope.userEggs.splice(egg.index, 1);
+      $scope.userHatchingPotions.splice(potion.index, 1);
 
       if(!User.user.items.pets) User.user.items.pets = [];
       User.user.items.pets.push(pet);
