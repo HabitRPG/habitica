@@ -30,18 +30,18 @@ habitrpg.controller("InventoryCtrl", ['$scope', 'User',
 
     $scope.sellInventory = function() {
       if ($scope.selectedEgg) {
-        User.user.stats.gp += $scope.selectedEgg.value;
         $scope.userEggs.splice($scope.selectedEgg.index, 1);
-        User.log([
-          { op: 'set', data: {'items.eggs': $scope.userEggs} }
-        ]);
+        User.setMultiple({
+          'items.eggs': $scope.userEggs,
+          'stats.gp': User.user.stats.gp + $scope.selectedEgg.value
+        });
         $scope.selectedEgg = null;
       } else if ($scope.selectedPotion) {
-        User.user.stats.gp += $scope.selectedPotion.value;
         $scope.userHatchingPotions.splice($scope.selectedPotion.index, 1);
-        User.log([
-          { op: 'set', data: {'items.hatchingPotions': $scope.selectedPotion} }
-        ]);
+        User.setMultiple({
+          'items.hatchingPotions': $scope.userHatchingPotions,
+          'stats.gp': User.user.stats.gp + $scope.selectedPotion.value
+        });
         $scope.selectedPotion = null;
       }
     }
@@ -58,7 +58,7 @@ habitrpg.controller("InventoryCtrl", ['$scope', 'User',
     }
 
     $scope.hatch = function(egg, potion){
-      if ($scope.ownsPet(egg.name, potion.name)){
+      if ($scope.ownsPet(egg, potion.name)){
         return alert("You already have that pet, hatch a different combo.")
       }
       var pet = egg.name + '-' + potion.name;
