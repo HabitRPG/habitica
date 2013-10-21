@@ -70,6 +70,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
         op: "revive"
       });
     };
+
+    $scope.toggleEdit = function(task){
+      console.log(task)
+      task._editing = !task._editing;
+      if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
+    };
+
     $scope.remove = function(task) {
       var tasks;
       if (confirm("Are you sure you want to delete this task?") !== true) {
@@ -82,6 +89,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
       });
       tasks.splice(tasks.indexOf(task), 1);
     };
+
     /*
      ------------------------
      Items

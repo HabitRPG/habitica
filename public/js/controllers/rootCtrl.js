@@ -77,7 +77,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         default:
           $rootScope.charts[id] = !$rootScope.charts[id];
           history = task.history;
-          if (task) task._editing = false;
+          if (task && task._editing) task._editing = false;
       }
       matrix = [['Date', 'Score']];
       _.each(history, function(obj) {

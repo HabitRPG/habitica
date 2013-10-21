@@ -9,10 +9,10 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='noTags(task.tags)')
 
     // edit
-    a(ng-hide='task._editing', ng-click='task._editing = !task._editing', tooltip='Edit')
+    a(ng-hide='task._editing', ng-click='toggleEdit(task)', tooltip='Edit')
       i.icon-pencil(ng-hide='task._editing')
     // cancel
-    a(ng-hide='!task._editing', ng-click='task._editing = !task._editing', tooltip='Cancel')
+    a(ng-hide='!task._editing', ng-click='toggleEdit(task)', tooltip='Cancel')
       i.icon-remove(ng-hide='!task._editing')
     //- challenges
     //  {{#if task.challenge}}
