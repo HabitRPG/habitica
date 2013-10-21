@@ -7,6 +7,65 @@
     height: 40px;
 }
 
+/*Selector matching isn't working in mobile*/
+.shop_weapon_6,
+.shop_weapon_5,
+.shop_weapon_4,
+.shop_weapon_3,
+.shop_weapon_2,
+.shop_weapon_1,
+.shop_shield_5,
+.shop_shield_4,
+.shop_shield_3,
+.shop_shield_2,
+.shop_shield_1,
+.shop_head_5,
+.shop_head_4,
+.shop_head_3,
+.shop_head_2,
+.shop_head_1,
+.shop_armor_5,
+.shop_armor_4,
+.shop_armor_3,
+.shop_armor_2,
+.shop_armor_1,
+.shop_reroll,
+.shop_potion,
+.shop_copper,
+.shop_silver,
+.shop_gold,
+.zzz,
+.zzz_light {
+	background: url("../img/sprites/shop_sprites.png") no-repeat;	
+}
+
+.shop_weapon_6,
+.shop_weapon_5,
+.shop_weapon_4,
+.shop_weapon_3,
+.shop_weapon_2,
+.shop_weapon_1,
+.shop_shield_5,
+.shop_shield_4,
+.shop_shield_3,
+.shop_shield_2,
+.shop_shield_1,
+.shop_head_5,
+.shop_head_4,
+.shop_head_3,
+.shop_head_2,
+.shop_head_1,
+.shop_armor_5,
+.shop_armor_4,
+.shop_armor_3,
+.shop_armor_2,
+.shop_armor_1,
+.zzz,
+.zzz_light {
+    width: 40px;
+    height: 40px;
+}
+
 .shop_weapon_6 {background-position: 0 0}
 .shop_weapon_5 {background-position: -40px 0}
 .shop_weapon_4 {background-position: -80px 0}
