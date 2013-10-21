@@ -745,6 +745,6 @@ api.batchUpdate = function(req, res, next) {
       res.json(200, {_v: response._v});
     }
 
-    return console.log("Reply sent");
+    return;
   });
 };
