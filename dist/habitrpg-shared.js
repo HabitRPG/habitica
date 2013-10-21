@@ -8360,7 +8360,7 @@ var process=require("__browserify_process");(function() {
 
     gold: function(num) {
       if (num) {
-        return num.toFixed(1).split('.')[0];
+        return Math.floor(num);
       } else {
         return "0";
       }
@@ -8371,7 +8371,7 @@ var process=require("__browserify_process");(function() {
 
     silver: function(num) {
       if (num) {
-        return num.toFixed(2).split('.')[1];
+        return ("0" + Math.floor((num - Math.floor(num)) * 100)).slice(-2);
       } else {
         return "00";
       }
