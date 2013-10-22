@@ -33,7 +33,22 @@
 .m_skin_white, 
 .m_skin_ea8349,
 .m_skin_c06534,
-.m_skin_98461a {
+.m_skin_98461a,
+.m_skin_eb052b,
+.m_skin_f69922,
+.m_skin_f5d70f,
+.m_skin_0ff591,
+.m_skin_2b43f6,
+.m_skin_d7a9f7,
+.m_skin_800ed0,
+.m_skin_rainbow,
+.m_skin_monster,
+.m_skin_pumpkin,
+.m_skin_skeleton,
+.m_skin_zombie,
+.m_skin_ghost,
+.m_skin_shadow
+{
     background: url("../img/sprites/male_sprites.png") no-repeat;
 }
 
@@ -65,6 +80,8 @@
 .m_armor_2 {background-position: -2250px 0; width: 90px; height: 90px}
 .m_armor_1 {background-position: -2340px 0; width: 90px; height: 90px}
 .m_armor_0 {background-position: -2430px 0; width: 90px; height: 90px}
+
+/* Basic Skins */
 .m_skin_dead {background-position: -2520px 0; width: 90px; height: 90px}
 .m_skin_orc {background-position: -2610px 0; width: 90px; height: 90px}
 .m_skin_asian {background-position: -2700px 0; width: 90px; height: 90px}
@@ -73,3 +90,21 @@
 .m_skin_ea8349 {background-position: -2970px 0; width: 90px; height: 90px}
 .m_skin_c06534 {background-position: -3060px 0; width: 90px; height: 90px}
 .m_skin_98461a {background-position: -3150px 0; width: 90px; height: 90px}
+
+/* Crazy Skins */
+.m_skin_eb052b {background-position: -3240px 0; width: 90px; height: 90px}
+.m_skin_f69922 {background-position: -3330px 0; width: 90px; height: 90px}
+.m_skin_f5d70f {background-position: -3420px 0; width: 90px; height: 90px}
+.m_skin_0ff591 {background-position: -3510px 0; width: 90px; height: 90px}
+.m_skin_2b43f6 {background-position: -3600px 0; width: 90px; height: 90px}
+.m_skin_d7a9f7 {background-position: -3690px 0; width: 90px; height: 90px}
+.m_skin_800ed0 {background-position: -3780px 0; width: 90px; height: 90px}
+.m_skin_rainbow {background-position: -3870px 0; width: 90px; height: 90px}
+
+/* Halloween Skins */
+.m_skin_monster   {background-position: -3960px 0; width: 90px; height: 90px}
+.m_skin_pumpkin   {background-position: -4050px 0; width: 90px; height: 90px}
+.m_skin_skeleton  {background-position: -4140px 0; width: 90px; height: 90px}
+.m_skin_zombie    {background-position: -4230px 0; width: 90px; height: 90px}
+.m_skin_ghost     {background-position: -4320px 0; width: 90px; height: 90px}
+.m_skin_shadow    {background-position: -4410px 0; width: 90px; height: 90px}
