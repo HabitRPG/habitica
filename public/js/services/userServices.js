@@ -164,8 +164,29 @@ angular.module('userServices', []).
           userServices.log(log);
         },
 
+        /**
+         * For gem-unlockable preferences, (a) if owned, select preference (b) else, purchase
+         * @param path: User.preferences <-> User.purchased maps like User.preferences.skin=abc <-> User.purchased.skin.abc.
+         *  Pass in this paramater as "skin.abc". Alternatively, pass as an array ["skin.abc", "skin.xyz"] to unlock sets
+         */
         unlock: function(path){
-          var self = this;
+          var self = userServices; //this; // why isn't this working?
+
+          if (_.isArray(path)) {
+            if (confirm("Purchase for 5 Gems?") !== true) return;
+            if (user.balance < 1.25) return $rootScope.modals.buyGems = true;
+            path = path.join(',');
+          } else {
+            if (window.habitrpgShared.helpers.dotGet('purchased.' + path, user)) {
+              var pref = path.split('.')[0],
+                val = path.split('.')[1];
+              window.habitrpgShared.helpers.dotSet('preferences.' + pref, val, user);
+            } else {
+              if (confirm("Purchase for 2 Gems?") !== true) return;
+              if (user.balance < 0.5) return $rootScope.modals.buyGems = true;
+            }
+          }
+
           $http.post(API_URL + '/api/v1/user/unlock?path=' + path)
             .success(function(data, status, headers, config){
               self.log({}); // sync new unlocked & preferences

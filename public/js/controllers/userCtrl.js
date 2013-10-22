@@ -33,20 +33,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       $scope.editingProfile.websites.splice($index,1);
     }
 
-    /**
-     * For gem-unlockable preferences, (a) if owned, select preference (b) else, purchase
-     * @param path: User.preferences <-> User.purchased maps like User.preferences.skin=abc <-> User.purchased.skin.abc. Pass in this paramater as "skin.abc"
-     */
-    $scope.unlock = function(path){
-      if (window.habitrpgShared.helpers.dotGet('purchased.' + path, User.user)) {
-        var pref = path.split('.')[0],
-          val = path.split('.')[1];
-        window.habitrpgShared.helpers.dotSet('preferences.' + pref, val, User.user);
-      } else {
-        if (confirm("Purchase for 2 Gems?") !== true) return;
-        if (User.user.balance < 0.5) return $rootScope.modals.buyGems = true;
-        User.unlock(path);
-      }
-    }
+    $scope.unlock = User.unlock;
+
   }
 ]);

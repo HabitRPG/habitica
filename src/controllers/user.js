@@ -572,14 +572,27 @@ api['delete'] = function(req, res) {
 
 api.unlock = function(req, res) {
   var user = res.locals.user;
-  if (user.balance < 0.5)
+  var path = req.query.path;
+  var fullSet = ~path.indexOf(',');
+
+  // 5G per set, 2G per individual
+  cost = fullSet ? 1.25 : 0.5;
+
+  if (user.balance < cost)
     return res.json(401, {err: 'Not enough gems'});
 
-  var path = req.query.path;
-  if (helpers.dotGet('purchased.' + path, user) === true)
-    return res.json(401, {err: 'User already purchased that'});
-  user.balance -= 2;
-  helpers.dotSet('purchased.' + path, true, user);
+  if (fullSet) {
+    var paths = path.split(',');
+    _.each(paths, function(p){
+      helpers.dotSet('purchased.' + p, true, user);
+    });
+  } else {
+    if (helpers.dotGet('purchased.' + path, user) === true)
+      return res.json(401, {err: 'User already purchased that'});
+    helpers.dotSet('purchased.' + path, true, user);
+  }
+
+  user.balance -= cost;
   user.__v++;
   user.markModified('purchased');
   user.save(function(err, saved){
