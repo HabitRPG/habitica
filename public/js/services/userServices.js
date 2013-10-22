@@ -164,6 +164,17 @@ angular.module('userServices', []).
           userServices.log(log);
         },
 
+        unlock: function(path){
+          var self = this;
+          $http.post(API_URL + '/api/v1/user/unlock?path=' + path)
+            .success(function(data, status, headers, config){
+              self.log({}); // sync new unlocked & preferences
+            }).error(function(data, status, headers, config){
+              alert(status + ': ' + data);
+              //FIXME use method used elsewhere for handling this error, this is temp while developing
+            })
+        },
+
         save: save,
 
         settings: settings

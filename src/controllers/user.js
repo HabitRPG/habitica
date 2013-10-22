@@ -564,6 +564,39 @@ api['delete'] = function(req, res) {
   })
 }
 
+/*
+ ------------------------------------------------------------------------
+ Unlock Preferences
+ ------------------------------------------------------------------------
+ */
+
+api.unlock = function(req, res) {
+  var user = res.locals.user;
+  if (user.balance < 0.5)
+    return res.json(401, {err: 'Not enough gems'});
+
+  // Provide deafult values if !user.purchased
+  _.defaults(user, {purchased:{}});
+  _.defaults(user.purchased, {skin:{}, hair:{}, ads: false});
+
+  var path = req.query.path;
+  if (helpers.dotGet('purchased.' + path, user) === true)
+    return res.json(401, {err: 'User already purchased that'});
+  user.balance -= 2;
+  helpers.dotSet('purchased.' + path, true, user);
+  user.__v++;
+  user.save(function(err, saved){
+    if (err) res.json(500, {err:err});
+    res.send(200);
+  })
+}
+
+/*
+ ------------------------------------------------------------------------
+ Buy Gems
+ ------------------------------------------------------------------------
+ */
+
 
 /*
  Setup Stripe response when posting payment

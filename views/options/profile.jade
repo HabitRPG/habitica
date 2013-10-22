@@ -6,11 +6,14 @@
       // gender
       li.customize-menu
         menu(label='Head')
+        menu
           button.m_head_0.customize-option(type='button', ng-click='set("preferences.gender","m")')
           button.f_head_0.customize-option(type='button', ng-click='set("preferences.gender","f")')
         label.checkbox
           input(type='checkbox', ng-model='user.preferences.showHelm', ng-change='toggleHelm(user.preferences.showHelm)')
           | Show Helm
+      hr
+
       // hair
       li.customize-menu
         menu(label='Hair')
@@ -18,17 +21,40 @@
           button(class='{{user.preferences.gender}}_hair_black customize-option', type='button', ng-click='set("preferences.hair","black")')
           button(class='{{user.preferences.gender}}_hair_brown customize-option', type='button', ng-click='set("preferences.hair","brown")')
           button(class='{{user.preferences.gender}}_hair_white customize-option', type='button', ng-click='set("preferences.hair","white")')
+      hr
+
       // skin
       li.customize-menu
-        menu(label='Skin')
-          button.customize-option(class='{{user.preferences.gender}}_skin_asian', type='button', ng-click='set("preferences.skin","asian")')
-          button.customize-option(class='{{user.preferences.gender}}_skin_white', type='button', ng-click='set("preferences.skin","white")')
-          button.customize-option(class='{{user.preferences.gender}}_skin_ea8349', type='button', ng-click='set("preferences.skin","ea8349")')
-          button.customize-option(class='{{user.preferences.gender}}_skin_c06534', type='button', ng-click='set("preferences.skin","c06534")')
-          button.customize-option(class='{{user.preferences.gender}}_skin_98461a', type='button', ng-click='set("preferences.skin","98461a")')
-          button.customize-option(class='{{user.preferences.gender}}_skin_black', type='button', ng-click='set("preferences.skin","black")')
-          button.customize-option(class='{{user.preferences.gender}}_skin_dead',  type='button', ng-click='set("preferences.skin","dead")')
-          button.customize-option(class='{{user.preferences.gender}}_skin_orc',   type='button', ng-click='set("preferences.skin","orc")')
+        menu(label='Basic Skin')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_asian',  ng-click='set("preferences.skin","asian")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_white',  ng-click='set("preferences.skin","white")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_ea8349', ng-click='set("preferences.skin","ea8349")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_c06534', ng-click='set("preferences.skin","c06534")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_98461a', ng-click='set("preferences.skin","98461a")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_black',  ng-click='set("preferences.skin","black")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_dead',   ng-click='set("preferences.skin","dead")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc',    ng-click='set("preferences.skin","orc")')
+
+        // Special Events
+        menu(label='Crazy Skin')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc', ng-class='{locked: !user.purchased.skin.eb052b}', ng-click='unlock("skin.eb052b")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc', ng-class='{locked: !user.purchased.skin.f69922}', ng-click='unlock("skin.f69922")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc', ng-class='{locked: !user.purchased.skin.f5d70f}', ng-click='unlock("skin.f5d70f")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc', ng-class='{locked: !user.purchased.skin.0ff591}', ng-click='unlock("skin.0ff591")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc', ng-class='{locked: !user.purchased.skin.2b43f6}', ng-click='unlock("skin.2b43f6")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc', ng-class='{locked: !user.purchased.skin.d7a9f7}', ng-click='unlock("skin.d7a9f7")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc', ng-class='{locked: !user.purchased.skin.800ed0}', ng-click='unlock("skin.800ed0")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc', ng-class='{locked: !user.purchased.skin.rainbow}', ng-click='unlock("skin.rainbow")')
+
+        // Special Events
+        menu(label='Monster Skin (Happy Halloween!)')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc', ng-class='{locked: !user.purchased.skin.monster}', ng-click='unlock("skin.monster")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc', ng-class='{locked: !user.purchased.skin.pumpkin}', ng-click='unlock("skin.pumpkin")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc', ng-class='{locked: !user.purchased.skin.skeleton}', ng-click='unlock("skin.skeleton")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc', ng-class='{locked: !user.purchased.skin.zombie}', ng-click='unlock("skin.zombie")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc', ng-class='{locked: !user.purchased.skin.ghost}', ng-click='unlock("skin.ghost")')
+          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc', ng-class='{locked: !user.purchased.skin.shadow}', ng-click='unlock("skin.shadow")')
+
       menu(ng-show='user.preferences.gender=="f"', type='list')
         li.customize-menu
           menu(label='Clothing')
