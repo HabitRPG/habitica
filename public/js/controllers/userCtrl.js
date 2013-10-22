@@ -44,7 +44,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
         window.habitrpgShared.helpers.dotSet('preferences.' + pref, val, User.user);
       } else {
         if (confirm("Purchase for 2 Gems?") !== true) return;
-        if (User.user.balance < 0.5) return $rootScope.modals.moreGems = true;
+        if (User.user.balance < 0.5) return $rootScope.modals.buyGems = true;
         User.unlock(path);
       }
     }
