@@ -16,8 +16,9 @@ module.exports = function(grunt) {
             "css/shop_sprites.css",
             "css/pet_sprites.css",
             "css/achievements.css",
-            "css/backer.css"
-          ],
+            "css/backer.css",
+            "css/customizer.css"
+          ]
         }
       }
     },
@@ -28,7 +29,7 @@ module.exports = function(grunt) {
         dest: "dist/habitrpg-shared.js"
       },
       options: {
-        transform: ['coffeeify'],
+        transform: ['coffeeify']
         //debug: true Huge data uri source map (400kb!)
       }
     }
