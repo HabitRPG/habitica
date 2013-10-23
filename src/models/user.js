@@ -69,6 +69,12 @@ var UserSchema = new Schema({
   rewardIds: Array,
   filters: {type: Schema.Types.Mixed, 'default': {}},
 
+  purchased: {
+    ads: {type: Boolean, 'default': false},
+    skin: {type: Schema.Types.Mixed, 'default': {}}, // eg, {skeleton: true, pumpkin: true, eb052b: true}
+    hair: {type: Schema.Types.Mixed, 'default': {}}
+  },
+
   flags: {
     customizationsNotification: {type: Boolean, 'default': false},
     showTour: {type: Boolean, 'default': true},
