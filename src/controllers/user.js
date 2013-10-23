@@ -564,6 +564,49 @@ api['delete'] = function(req, res) {
   })
 }
 
+/*
+ ------------------------------------------------------------------------
+ Unlock Preferences
+ ------------------------------------------------------------------------
+ */
+
+api.unlock = function(req, res) {
+  var user = res.locals.user;
+  var path = req.query.path;
+  var fullSet = ~path.indexOf(',');
+
+  // 5G per set, 2G per individual
+  cost = fullSet ? 1.25 : 0.5;
+
+  if (user.balance < cost)
+    return res.json(401, {err: 'Not enough gems'});
+
+  if (fullSet) {
+    var paths = path.split(',');
+    _.each(paths, function(p){
+      helpers.dotSet('purchased.' + p, true, user);
+    });
+  } else {
+    if (helpers.dotGet('purchased.' + path, user) === true)
+      return res.json(401, {err: 'User already purchased that'});
+    helpers.dotSet('purchased.' + path, true, user);
+  }
+
+  user.balance -= cost;
+  user.__v++;
+  user.markModified('purchased');
+  user.save(function(err, saved){
+    if (err) res.json(500, {err:err});
+    res.send(200);
+  })
+}
+
+/*
+ ------------------------------------------------------------------------
+ Buy Gems
+ ------------------------------------------------------------------------
+ */
+
 
 /*
  Setup Stripe response when posting payment
@@ -584,7 +627,7 @@ api.buyGems = function(req, res) {
     },
     function(response, cb) {
       res.locals.user.balance += 5;
-      res.locals.user.flags.ads = 'hide';
+      res.locals.user.purchased.ads = true;
       res.locals.user.save(cb);
     }
   ], function(err, saved){
@@ -609,7 +652,7 @@ api.buyGemsPaypalIPN = function(req, res) {
           if (err) throw err;
           if (_.isEmpty(user)) throw "user not found with uuid " + uuid + " when completing paypal transaction"
           user.balance += 5;
-          user.flags.ads = 'hide';
+          user.purchased.ads = true;
           user.save();
           console.log('PayPal transaction completed and user updated');
         });
