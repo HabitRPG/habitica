@@ -180,7 +180,7 @@ angular.module('userServices', []).
             if (window.habitrpgShared.helpers.dotGet('purchased.' + path, user)) {
               var pref = path.split('.')[0],
                 val = path.split('.')[1];
-              return window.habitrpgShared.helpers.dotSet('preferences.' + pref, val, user);
+              return self.set('preferences.' + pref, val);
             } else {
               if (confirm("Purchase for 2 Gems?") !== true) return;
               if (user.balance < 0.5) return $rootScope.modals.buyGems = true;
