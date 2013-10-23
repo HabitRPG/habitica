@@ -18,7 +18,9 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       var values = {};
       _.each($scope.editingProfile, function(value, key){
         // Using toString because we need to compare two arrays (websites)
-        if($scope.editingProfile[key].toString() !== $scope.profile.profile[key].toString()) values['profile.' + key] = value;
+        var curVal = $scope.profile.profile[key];
+        if(!curVal || $scope.editingProfile[key].toString() !== curVal.toString())
+          values['profile.' + key] = value;
       });
       User.setMultiple(values);
       $scope._editing.profile = false;
