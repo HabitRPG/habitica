@@ -18,29 +18,29 @@ div(ng-controller='SettingsCtrl')
         form#restore-form.form-horizontal
           h3 Stats
           .option-group.option-medium
-            input.option-content(type='number', data-for='stats.hp', ng-model='user.stats.hp')
+            input.option-content(type='number', step="any", data-for='stats.hp', ng-model='restoreValues.stats.hp')
             span.input-suffix HP
           .option-group.option-medium
-            input.option-content(type='number', data-for='stats.exp', ng-model='user.stats.exp')
+            input.option-content(type='number', step="any", data-for='stats.exp', ng-model='restoreValues.stats.exp')
             span.input-suffix Exp
           .option-group.option-medium
-            input.option-content(type='number', data-for='stats.gp', ng-model='user.stats.gp')
+            input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp')
             span.input-suffix GP
           .option-group.option-medium
-            input.option-content(type='number', data-for='stats.lvl', ng-model='user.stats.lvl')
+            input.option-content(type='number', data-for='stats.lvl', ng-model='restoreValues.stats.lvl')
             span.input-suffix Level
           h3 Items
           .option-group.option-medium
-            input.option-content(type='number', data-for='items.weapon', ng-model='user.items.weapon')
+            input.option-content(type='number', data-for='items.weapon', ng-model='restoreValues.items.weapon')
             span.input-suffix Weapon
           .option-group.option-medium
-            input.option-content(type='number', data-for='items.armor', ng-model='user.items.armor')
+            input.option-content(type='number', data-for='items.armor', ng-model='restoreValues.items.armor')
             span.input-suffix Armor
           .option-group.option-medium
-            input.option-content(type='number', data-for='items.head', ng-model='user.items.head')
+            input.option-content(type='number', data-for='items.head', ng-model='restoreValues.items.head')
             span.input-suffix Helm
           .option-group.option-medium
-            input.option-content(type='number', data-for='items.shield', ng-model='user.items.shield')
+            input.option-content(type='number', data-for='items.shield', ng-model='restoreValues.items.shield')
             span.input-suffix Shield
     .modal-footer
       button.btn.btn-primary(ng-click='restore()') Save & Close

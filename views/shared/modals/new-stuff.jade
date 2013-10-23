@@ -1,49 +1,3 @@
-div(modal='user.flags.rewrite !== false')
-  .modal-header
-    h3 Mega Ultra Update!
-  .modal-body
-    table
-      tr
-        td
-          .NPC-Bailey
-        td
-          .popover.static-popover.fade.right.in.wide-popover
-            .arrow
-            h3.popover-title
-              a(target='_blank', href='http://www.kickstarter.com/profile/mihakuu') Bailey
-            .popover-content
-              p.
-                Hello my Habiteers! I have some amazing news to share with you, it's huge!
-                 Has Habit ever crashed for you? (Joke). Well we <u><a target='_blank' href="http://habitrpg.tumblr.com/post/59104876969/website-issues-what-were-doing">re-wrote the website</a></u> from the ground up
-                 to conquor those critical bugs once and for all (more from Tyler in a bit). If you haven't seen me for a while (due to a bug in the old site), be sure to catch up with me on the right side of the screen for any missed news. Importantly:
-              .alert.alert-success(style='margin-bottom:5px').
-                <a target='_blank' href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg'>Android</a> & <a target='_blank' href='https://itunes.apple.com/us/app/habitrpg/id689569235?mt=8'>iOS</a> Apps are out!</u>
-              p.
-                They're open source, so help us make them awesome. As for the rewrite: not all features are yet ported, but don't worry - you're still getting drops and streak-bonuses in the background, even if you can't see them yet.
-                 We'll be working hard to bring in all the missing features. And if you're not already, be sure to follow our updates on <a href="http://habitrpg.tumblr.com/" target="_blank">Tumblr</a> (there are some fun member highlights recently). One more thing: if you are a Veteran of the old site, I have granted you a Veteran Wolf! Check your inventory :)
-
-    table(style='clear:both;')
-      tr
-        td
-          .popover.static-popover.fade.left.in
-            .arrow
-            h3.popover-title
-              a(target='_blank', href='https://twitter.com/lefnire') Tyler
-            .popover-content
-              p.
-                JavaScript developers! To me! We must finish vanquishing the old site, as not all features have been ported.
-                 We rewrote Habit on <a target='_blank' href='http://angularjs.org/'>AngularJS</a> + <a target='_blank' href='http://expressjs.com/'>Express</a>.
-                 We desparately need your help porting <a href='http://goo.gl/jYWTwl' target='_blank'>the rest of the features</a>, and polishing off the bugs. <a target='_blank' href='https://github.com/lefnire/habitrpg/wiki/Contributing#website'>Read this guide</a> to getting started.
-                 Thanks everyone for all your support and patience!
-
-        td
-          img.pull-right(src='/bower_components/habitrpg-shared/img/unprocessed/efbd21c4-82a1-11e2-8190-fbc609b5c58b.png', style='height:72px')
-
-  .modal-footer
-    button.btn.btn-default.cancel(ng-click='user.flags.rewrite = false') Read Later
-    button.btn.btn-warning.cancel(ng-click='set("flags.rewrite", false)') Dismiss
-
-
 div(modal='modals.newStuff')
   .modal-header
     h3 New Stuff!
@@ -56,34 +10,61 @@ div(modal='modals.newStuff')
           .popover.static-popover.fade.right.in.wide-popover
             .arrow
             h3.popover-title
-              a(target='_blank', href='http://www.kickstarter.com/profile/mihakuu') Bailey
+              a(target='_blank', href='https://twitter.com/Mihakuu') Bailey
             .popover-content
-              strong 09/01/2013
-              p.
-                We <a target='_blank' href="http://habitrpg.tumblr.com/post/59104876969/website-issues-what-were-doing">re-wrote the website from the ground up</a>
-                And in case you missed it, <a target='_blank' href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg'>Android</a> & <a target='_blank' href='https://itunes.apple.com/us/app/habitrpg/id689569235?mt=8'>iOS</a> Apps are out!
-                Both apps and the website are open source, and we desparately need your help porting the rest of the features, and polishing off the bugs. <a target='_blank' href='https://github.com/lefnire/habitrpg/wiki/Contributing#website'>Read this guide</a> to getting started.
-                Each of your pull requests shall grant you a special <a href='https://github.com/lefnire/habitrpg/issues/946#issuecomment-18654292' target='_blank'>Contributor Gear piece</a>.
+              strong 10/22/2013
+              p
+                ul.modal-indented-list
+                  li TRICK OR TREAT! It's Habit Halloween! Some of the NPCs have decorated for the occasion. Can you spot us?
+                  li Two gem-purchasable skin tones are now available! The Rainbow Skin Set is here to stay, but in honor of Halloween, we also have the LIMITED EDITION SPOOKY SKIN SET. You will only be able to purchase the Spooky Skin Set until November 10th, so if you want a monstrous avatar, now's the time to act!
+                  li Do note, skins won't work on mobile until the app is updated. We'll update Android ASAP, iPhone usually takes ~1wk to approve.
+
     hr
     h3 Archive
     p
+      h4 10/19/2013
+      ul
+        li.
+          New custom skin colors are now available! Go check them out in the Profile section. Also, the new mobile update, 0.0.10, is now available to download! It includes the new skin tones and the ability to hide or show your helm, among other things.
+        li.
+          You can now sell un-wanted drops to Alex the Merchant. Trade those troves of eggs for gold!
+      h4 09/01/2013
+      ul
+        li.
+          We <a target='_blank' href="http://habitrpg.tumblr.com/post/59104876969/website-issues-what-were-doing">re-wrote the website from the ground up</a>
+          And in case you missed it, <a target='_blank' href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg'>Android</a> & <a target='_blank' href='https://itunes.apple.com/us/app/habitrpg/id689569235?mt=8'>iOS</a> Apps are out!
+          Both apps and the website are open source, and we desparately need your help porting the rest of the features, and polishing off the bugs. <a target='_blank' href='https://github.com/lefnire/habitrpg/wiki/Contributing#website'>Read this guide</a> to getting started.
+          We're working on a system of Contributor Gear to reward the awesome people who help out, so stay tuned!
+
+      h4 The Rewrite! (Mid August)
+      ul
+        li.
+          Hello my Habiteers! I have some amazing news to share with you, it's huge!
+           Has Habit ever crashed for you? (Joke). Well we <u><a target='_blank' href="http://habitrpg.tumblr.com/post/59104876969/website-issues-what-were-doing">re-wrote the website</a></u> from the ground up
+           to conquor those critical bugs once and for all (more from Tyler in a bit). If you haven't seen me for a while (due to a bug in the old site), be sure to catch up with me on the right side of the screen for any missed news. Importantly:
+        .alert.alert-success(style='margin-bottom:5px').
+          <a target='_blank' href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg'>Android</a> & <a target='_blank' href='https://itunes.apple.com/us/app/habitrpg/id689569235?mt=8'>iOS</a> Apps are out!</u>
+        li.
+          They're open source, so help us make them awesome. As for the rewrite: not all features are yet ported, but don't worry - you're still getting drops and streak-bonuses in the background, even if you can't see them yet.
+           We'll be working hard to bring in all the missing features. And if you're not already, be sure to follow our updates on <a href="http://habitrpg.tumblr.com/" target="_blank">Tumblr</a> (there are some fun member highlights recently). One more thing: if you are a Veteran of the old site, I have granted you a Veteran Wolf! Check your inventory :)
+        li.
+          JavaScript developers! To me! We must finish vanquishing the old site, as not all features have been ported.
+           We rewrote Habit on <a target='_blank' href='http://angularjs.org/'>AngularJS</a> + <a target='_blank' href='http://expressjs.com/'>Express</a>.
+           We desparately need your help porting <a href='http://goo.gl/jYWTwl' target='_blank'>the rest of the features</a>, and polishing off the bugs. <a target='_blank' href='https://github.com/lefnire/habitrpg/wiki/Contributing#website'>Read this guide</a> to getting started.
+           Thanks everyone for all your support and patience!
+
       h4 8/20/2013
       ul
-        li
-          | Timezone + custom day start issues fixed, your dailies should now reset properly and in your own timezone. (This was vexing
-          strong Android
-          | users particularly). If you're still experiencing issues,
-          a(target='_blank', href='https://github.com/HabitRPG/habitrpg-mobile/issues/73#issuecomment-22960877') chime in here.
+        li.
+          Timezone + custom day start issues fixed, your dailies should now reset properly and in your own timezone. (This was vexing <strong>Android</strong> users particularly). If you're still experiencing issues, <a target='_blank' href='https://github.com/HabitRPG/habitrpg-mobile/issues/73#issuecomment-22960877'>chime in here</a>.
         li
           | API developers, the above means that
           strong cron
           | is automatically run for your users! Weee, they no longer have to log into the website to reset their dailies!
       h4 8/18/2013
       ul
-        li
-          a(target='_blank', href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg') Android Mobile App is out!
-          | There's a bug with Android 2.3, but we're working to fix it now :) The iPhone App has been submitted, so we're just waiting on Apple to approve it, which could take a week or two. We'll let you know as soon as they release it! For more details,
-          a(target='_blank', href='http://habitrpg.tumblr.com/post/58449057415/android-mobile-app-released-iphone-app-coming-soon') see our Tumblr post
+        li.
+          The Mobile Apps are out! <a target='_blank' href="https://itunes.apple.com/us/app/habitrpg/id689569235">iOS app</a> and <a target='_blank' href="https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg">Android</a>. There's a bug with Android 2.3, <a target='_blank' href='https://github.com/HabitRPG/habitrpg-mobile/issues/85'>follow the progress here</a>.  For more details, see our <a target=_blank href="http://habitrpg.tumblr.com/post/58449057415/android-mobile-app-released-iphone-app-coming-soon">Tumblr post</a>
         li
           | Hey guys! Long time no see :) We want to make sure you guys have a better idea of what's going on behind the scenes, so we're going to be releasing
           b weekly status reports
@@ -154,7 +135,7 @@ div(modal='modals.newStuff')
           | (basic implementation, more to come)
         li
           | NPCs!
-          a(target='_blank', href='http://www.kickstarter.com/profile/mihakuu') Bailey
+          a(target='_blank', href='https://twitter.com/Mihakuu') Bailey
           | the Town Crier,
           a(target='_blank', href='http://www.kickstarter.com/profile/523661924') Alexander
           | the

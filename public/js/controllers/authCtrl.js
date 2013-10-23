@@ -4,8 +4,8 @@
  The authentication controller (login & facebook)
  */
 
-habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', 'API_URL',
-  function($scope, $rootScope, User, $http, $location, API_URL) {
+habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','API_URL',
+  function($scope, $rootScope, User, $http, $location, $window, API_URL) {
     var runAuth;
     var showedFacebookMessage;
 
@@ -25,7 +25,7 @@ habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$loca
 
     runAuth = function(id, token) {
       User.authenticate(id, token, function(err) {
-        window.location.href = '/';
+        $window.location.href = '/';
         //$rootScope.modals.login = false;
       });
     };
@@ -41,22 +41,22 @@ habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$loca
         runAuth(data.id, data.apiToken);
       }).error(function(data, status, headers, config) {
           if (status === 0) {
-            alert("Server not currently reachable, try again later");
+            $window.alert("Server not currently reachable, try again later");
           } else if (!!data && !!data.err) {
-            alert(data.err);
+            $window.alert(data.err);
           } else {
-            alert("ERROR: " + status);
+            $window.alert("ERROR: " + status);
           }
         });
     };
 
     function errorAlert(data, status, headers, config) {
       if (status === 0) {
-        alert("Server not currently reachable, try again later");
+        $window.alert("Server not currently reachable, try again later");
       } else if (!!data && !!data.err) {
-        alert(data.err);
+        $window.alert(data.err);
       } else {
-        alert("ERROR: " + status);
+        $window.alert("ERROR: " + status);
       }
     }
 

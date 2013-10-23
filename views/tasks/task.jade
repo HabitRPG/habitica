@@ -12,8 +12,11 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='noTags(task.tags)')
 
     // edit
-    a(ng-click='task._editing = !task._editing', tooltip='Edit')
-      i.icon-pencil
+    a(ng-hide='task._editing', ng-click='toggleEdit(task)', tooltip='Edit')
+      i.icon-pencil(ng-hide='task._editing')
+    // cancel
+    a(ng-hide='!task._editing', ng-click='toggleEdit(task)', tooltip='Cancel')
+      i.icon-remove(ng-hide='!task._editing')
     //- challenges
     //  {{#if task.challenge}}
     //      {{#if brokenChallengeLink(task)}}
@@ -27,10 +30,10 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     a(ng-click='remove(task)', tooltip='Delete')
       i.icon-trash
     // chart
-    a(ng-show='task.history', x-bind='click:toggleChart', ng-click='notPorted()', data-id='{{task.id}}', tooltip='Progress')
+    a(ng-show='task.history', ng-click='toggleChart(task.id, task)', tooltip='Progress')
       i.icon-signal
     // notes
-    span.task-notes(ng-show='task.notes', popover-trigger='mouseenter', popover-placement='left', popover='{{task.notes}}', popover-title='{{task.text}}')
+    span.task-notes(ng-show='task.notes && !task._editing', popover-trigger='mouseenter', popover-placement='left', popover='{{task.notes}}', popover-title='{{task.text}}')
       i.icon-comment
 
   // left-hand side checkbox
@@ -39,8 +42,8 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     // Habits
     span(ng-if='list.main && task.type=="habit"')
       // only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges
-      a.task-action-btn(ng-show='task.up', ng-click='score(task,"up")') +
-      a.task-action-btn(ng-show='task.down', ng-click='score(task,"down")') -
+      a.task-action-btn(ng-if='task.up', ng-click='score(task,"up")') +
+      a.task-action-btn(ng-if='task.down', ng-click='score(task,"down")') -
     //span(ng-if='!list.main')
     //  span.task-action-btn(ng-show='task.up') +
     //  span.task-action-btn(ng-show='task.down') =
@@ -86,7 +89,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
       fieldset.option-group
         // {{#unless taskInChallenge(task)}}
         label.option-title Text
-        input.option-content(type='text', ng-model='task.text')
+        input.option-content(type='text', ng-model='task.text', required)
         // {{/}}
         label.option-title Extra Notes
         // {{#if taskInChallenge(task)}}
@@ -120,7 +123,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
       // if Reward, pricing
       fieldset.option-group.option-short(ng-if='task.type=="reward"')
         legend.option-title Price
-        input.option-content(type='number', size='16', min='0', ng-model='task.value')
+        input.option-content(type='number', size='16', min='0', step="any", ng-model='task.value')
         .money.input-suffix
           span.shop_gold
       // if Todos, the due date
@@ -157,4 +160,4 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
             input.option-content(type='number', ng-model='task.streak')
       button.task-action-btn.tile.spacious(type='submit') Save & Close
 
-  div(class='{{task.id}}-chart', ng-show='_page.charts[task.id]')
+  div(class='{{task.id}}-chart', ng-show='charts[task.id]')

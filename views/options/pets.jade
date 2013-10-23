@@ -11,22 +11,19 @@
           | ! Until that day, 
           a(target='_blank', href='https://f.cloud.github.com/assets/2374703/164631/3ed5fa6c-78cd-11e2-8743-f65ac477b55e.png') have a look-see
           |  at all the pets you can collect.
-        h4 {{userPets.length}} / 90 Pets Found
+        h4 {{userPets.length}} / {{totalPets}} Pets Found
 
-  table.pets(ng-repeat='pet in pets')
-    tbody
-      tr
-        td(ng-repeat='potion in hatchingPotions')
-          button(class="pet-button Pet-{{pet.name}}-{{potion.name}}", ng-show='hasPet(pet.name, potion.name)', ng-class="{active: isCurrentPet(pet.name, potion.name)}", ng-click='choosePet(pet.name, potion.name)', tooltip='{{potion.name}} {{pet.name}}')
+  menu.pets(type='list')
+    li.customize-menu(ng-repeat='pet in pets')
+      menu
+        div(ng-repeat='potion in hatchingPotions', tooltip='{{potion.name}} {{pet.name}}')
+          button(class="pet-button Pet-{{pet.name}}-{{potion.name}}", ng-show='hasPet(pet.name, potion.name)', ng-class="{active: isCurrentPet(pet.name, potion.name)}", ng-click='choosePet(pet.name, potion.name)')
           button(class="pet-button pet-not-owned", ng-hide='hasPet(pet.name, potion.name)')
-            img(src='/bower_components/habitrpg-shared/img/PixelPaw.png', tooltip='{{potion.name}} {{pet.name}}')
+            img(src='/bower_components/habitrpg-shared/img/PixelPaw.png')
 
   h4 Rare Pets
-  table
-    tr
-      td
-        button(class="pet-button Pet-Wolf-Veteran", ng-show='hasPet("Wolf", "Veteran")', ng-class='{active: isCurrentPet("Wolf", "Veteran")}', ng-click='choosePet("Wolf", "Veteran")', tooltip='Veteran Wolf')
-        button(class="pet-button pet-not-owned", ng-hide='hasPet("Wolf", "Veteran")')
-          img(src='/bower_components/habitrpg-shared/img/PixelPaw.png')
-      td(ng-if='hasPet("Wolf", "Cerberus")')
+    menu
+      div(ng-if='hasPet("Wolf", "Veteran")')
+        button(class="pet-button Pet-Wolf-Veteran", ng-class='{active: isCurrentPet("Wolf", "Veteran")}', ng-click='choosePet("Wolf", "Veteran")', tooltip='Veteran Wolf')
+      div(ng-if='hasPet("Wolf", "Cerberus")')
         button(class="pet-button Pet-Wolf-Cerberus", ng-class='{active: isCurrentPet("Wolf", "Cerberus")}', ng-click='choosePet("Wolf", "Cerberus")', tooltip='Cerberus Pup')

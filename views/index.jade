@@ -27,6 +27,7 @@ html
     - }else{
       // Remember to update the file list in Gruntfile.js!
       script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')
+      script(type='text/javascript', src='/bower_components/jquery.cookie/jquery.cookie.js')
       script(type='text/javascript', src='/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js')
       script(type='text/javascript', src='/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js')
       script(type='text/javascript', src='/bower_components/angular/angular.min.js')
@@ -101,7 +102,7 @@ html
         div(ng-if='user.preferences.hideHeader')
           include ./shared/header/menu
 
-        .exp-chart(ng-show='page.charts.exp')
+        .exp-chart(ng-show='charts.exp')
 
         #main(ng-view)
 

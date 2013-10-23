@@ -10,31 +10,6 @@ misc = require './misc'
     _.each completedIds, (id) -> user.del "tasks.#{id}"; true
     user.set 'todoIds', _.difference(todoIds, completedIds)
 
-  appExports.toggleChart = (e, el) ->
-    id = $(el).attr('data-id')
-    [historyPath, togglePath] = ['','']
-
-    switch id
-      when 'exp'
-        [togglePath, historyPath] = ['_page.charts.exp', '_user.history.exp']
-      when 'todos'
-        [togglePath, historyPath] = ['_page.charts.todos', '_user.history.todos']
-      else
-        [togglePath, historyPath] = ["_page.charts.#{id}", "_user.tasks.#{id}.history"]
-        model.set "_tasks.editing.#{id}", false
-
-    history = model.get(historyPath)
-    model.set togglePath, !(model.get togglePath)
-
-    matrix = [['Date', 'Score']]
-    _.each history, (obj) -> matrix.push([ moment(obj.date).format('MM/DD/YY'), obj.value ])
-    data = google.visualization.arrayToDataTable matrix
-    options =
-      title: 'History'
-      backgroundColor: { fill:'transparent' }
-    chart = new google.visualization.LineChart $(".#{id}-chart")[0]
-    chart.draw(data, options)
-
 
   ###
     Undo

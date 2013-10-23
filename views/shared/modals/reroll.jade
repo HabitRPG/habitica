@@ -11,7 +11,7 @@ div(modal='modals.reroll')
 
   .modal-footer
     span(ng-if='user.balance < 1')
-      a.btn.btn-success.btn-large(ng-click="showStripe()") Buy More Gems
+      a.btn.btn-success.btn-large(ng-click="modals.buyGems = true") Buy More Gems
       span.gem-cost Not enough Gems
     span(ng-if='user.balance >= 1', ng-controller='SettingsCtrl')
       a.btn.btn-danger.btn-large(ng-click='reroll()') Re-Roll

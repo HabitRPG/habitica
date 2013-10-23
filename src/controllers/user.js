@@ -3,6 +3,8 @@
 // fixme remove this junk, was coffeescript compiled (probably for IE8 compat)
 var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
+var url = require('url');
+var ipn = require('paypal-ipn');
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
@@ -202,13 +204,10 @@ api.scoreTask = function(req, res, next) {
   }
   task = user.tasks[id];
   delta = algos.score(user, task, direction);
-  return user.save(function(err, saved) {
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    return res.json(200, _.extend({
+  //user.markModified('flags'); 
+  user.save(function(err, saved) {
+    if (err) return res.json(500, {err: err});
+    res.json(200, _.extend({
       delta: delta
     }, saved.toJSON().stats));
   });
@@ -565,6 +564,49 @@ api['delete'] = function(req, res) {
   })
 }
 
+/*
+ ------------------------------------------------------------------------
+ Unlock Preferences
+ ------------------------------------------------------------------------
+ */
+
+api.unlock = function(req, res) {
+  var user = res.locals.user;
+  var path = req.query.path;
+  var fullSet = ~path.indexOf(',');
+
+  // 5G per set, 2G per individual
+  cost = fullSet ? 1.25 : 0.5;
+
+  if (user.balance < cost)
+    return res.json(401, {err: 'Not enough gems'});
+
+  if (fullSet) {
+    var paths = path.split(',');
+    _.each(paths, function(p){
+      helpers.dotSet('purchased.' + p, true, user);
+    });
+  } else {
+    if (helpers.dotGet('purchased.' + path, user) === true)
+      return res.json(401, {err: 'User already purchased that'});
+    helpers.dotSet('purchased.' + path, true, user);
+  }
+
+  user.balance -= cost;
+  user.__v++;
+  user.markModified('purchased');
+  user.save(function(err, saved){
+    if (err) res.json(500, {err:err});
+    res.send(200);
+  })
+}
+
+/*
+ ------------------------------------------------------------------------
+ Buy Gems
+ ------------------------------------------------------------------------
+ */
+
 
 /*
  Setup Stripe response when posting payment
@@ -585,7 +627,7 @@ api.buyGems = function(req, res) {
     },
     function(response, cb) {
       res.locals.user.balance += 5;
-      res.locals.user.flags.ads = 'hide';
+      res.locals.user.purchased.ads = true;
       res.locals.user.save(cb);
     }
   ], function(err, saved){
@@ -593,6 +635,31 @@ api.buyGems = function(req, res) {
     res.send(200, saved);
   });
 };
+
+api.buyGemsPaypalIPN = function(req, res) {
+  res.send(200);
+  ipn.verify(req.body, function callback(err, msg) {
+    if (err) {
+      console.error(msg);
+      res.send(500, msg);
+    } else {
+      if (req.body.payment_status == 'Completed') {
+        //Payment has been confirmed as completed
+        var parts = url.parse(req.body.custom, true);
+        var uid = parts.query.uid; //, apiToken = query.apiToken;
+        if (!uid) throw new Error("uuid or apiToken not found when completing paypal transaction");
+        User.findById(uid, function(err, user) {
+          if (err) throw err;
+          if (_.isEmpty(user)) throw "user not found with uuid " + uuid + " when completing paypal transaction"
+          user.balance += 5;
+          user.purchased.ads = true;
+          user.save();
+          console.log('PayPal transaction completed and user updated');
+        });
+      }
+    }
+  });
+}
 
 /*
  ------------------------------------------------------------------------
@@ -712,7 +779,15 @@ api.batchUpdate = function(req, res, next) {
     }
     response = user.toJSON();
     response.wasModified = res.locals.wasModified;
-    res.json(200, response);
-    return console.log("Reply sent");
+    if (response._tmp && response._tmp.drop) response.wasModified = true;
+
+    // Send the response to the server
+    if(response.wasModified){
+      res.json(200, response);
+    }else{
+      res.json(200, {_v: response._v});
+    }
+
+    return;
   });
 };

@@ -1,23 +1,54 @@
 .row-fluid(ng-controller='InventoryCtrl')
-  div(ng-class='{span6: hatching}')
+  .span6.border-right
+    h2 Inventory
+    p.well Combine eggs with hatching potions to make pets by clicking an egg and then a potion. Sell unwanted drops to Alexander the Merchant.
     menu.inventory-list(type='list')
       li.customize-menu
-        menu.pets-menu(label='Eggs')
+        menu.pets-menu(label='Eggs ({{userEggs.length}})')
           p(ng-show='userEggs.length < 1') You don't have any eggs yet.
           div(ng-repeat='egg in userEggs track by $index')
-            button.customize-option(tooltip='{{egg.text}}', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg.name}}')
+            button.customize-option(tooltip='{{egg.text}}', ng-click='chooseEgg(egg, $index)', class='Pet_Egg_{{egg.name}}', ng-class='selectableInventory(egg, selectedPotion.name, $index)')
             p {{egg.text}}
       li.customize-menu
-        menu.hatchingPotion-menu(label='Hatching Potions')
+        menu.hatchingPotion-menu(label='Hatching Potions ({{userHatchingPotions.length}})')
           p(ng-show='userHatchingPotions.length < 1') You don't have any hatching potions yet.
           div(ng-repeat='hatchingPotion in userHatchingPotions track by $index')
-            button.customize-option(tooltip='{{hatchingPotion}}', class='Pet_HatchingPotion_{{hatchingPotion}}')
+            button.customize-option(tooltip='{{hatchingPotion}}', ng-click='choosePotion(hatchingPotion, $index)', class='Pet_HatchingPotion_{{hatchingPotion}}', ng-class='selectableInventory(selectedEgg, hatchingPotion, $index)')
             p {{hatchingPotion}}
-  .span6(ng-show='hatching')
-    h3 Hatch Your Egg
-    p(ng-show='userHatchingPotions.length < 1') You don't have any hatching potions yet.
-    div(ng-show='userHatchingPotions')
-      p.
-        Which hatching potion will you pour on your <b>{{selectedEgg.text}}</b> egg?
-      select(ng-options='hatchingPotion for hatchingPotion in userHatchingPotions', ng-model="selectedPotion")
-      button(ng-click="pour()") Pour
+
+  .span6
+    h2 Market
+    .row-fluid(ng-controller='MarketCtrl')
+      table.NPC-Alex-container
+        tr
+          td
+            .NPC-Alex.pull-left
+          td
+            .popover.static-popover.fade.right.in
+              .arrow
+              h3.popover-title
+                a(target='_blank', href='http://www.kickstarter.com/profile/523661924') Alexander the Merchant
+              .popover-content
+                p
+                  | Welcome to the Market. Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here! If you have unwanted drops, sell them to me.
+                p
+                  button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')
+                    | Sell {{selectedEgg.name}} for {{selectedEgg.value}} GP
+                  button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')
+                    | Sell {{selectedPotion.name}} for {{selectedPotion.value}} GP
+
+      menu.inventory-list(type='list')
+        li.customize-menu
+          menu.pets-menu(label='Eggs')
+            div(ng-repeat='egg in eggs track by $index')
+              button.customize-option(tooltip='{{egg.text}} - {{egg.value}} Gem(s)', ng-click='buy("egg", egg)', class='Pet_Egg_{{egg.name}}')
+              p {{egg.text}}
+
+        li.customize-menu
+          menu.pets-menu(label='Hatching Potions')
+            div(ng-repeat='hatchingPotion in hatchingPotions track by $index')
+              button.customize-option(tooltip='{{hatchingPotion.text}} - {{hatchingPotion.value}} Gem(s)', ng-click='buy("hatchingPotion", hatchingPotion)', class='Pet_HatchingPotion_{{hatchingPotion.name}}')
+              p {{hatchingPotion.text}}
+
+
+

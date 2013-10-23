@@ -1,10 +1,7 @@
-div(ng-if='authenticated() && user.flags.ads!="hide"')
+div(ng-if='authenticated() && !user.purchased.ads')
   span.pull-right(ng-if='list.type!="reward"')
-    a(ng-click='showStripe()', tooltip='Remove Ads')
+    a(ng-click='modals.buyGems=true', tooltip='Remove Ads')
       i.icon-remove
-    br
-    a(ng-click='modals.whyAds=true', tooltip='Why Ads?')
-      i.icon-question-sign
 
   div(ng-if='list.type=="habit"', habitrpg-adsense)
     script(async='async', src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')

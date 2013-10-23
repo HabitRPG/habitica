@@ -6,10 +6,10 @@ div(ng-controller='TasksCtrl')
 
         // Todos export/graph options
         span.option-box.pull-right(ng-if='list.main && list.type=="todo"')
-          a.option-action(ng-show='user.history.todos', x-bind='click:toggleChart', ng-click='notPorted()', data-id='todos', tooltip='Progress')
+          a.option-action(ng-show='user.history.todos', ng-click='toggleChart("todos")', tooltip='Progress')
             i.icon-signal
           //-a.option-action(ng-href='/v1/users/{{user.id}}/calendar.ics?apiToken={{user.apiToken}}', tooltip='iCal')
-          a.option-action(ng-click='notPorted()', tooltip='iCal')
+          a.option-action(ng-click='notPorted()', tooltip='iCal', ng-show='false')
             i.icon-calendar
           // <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a>
 
@@ -26,7 +26,7 @@ div(ng-controller='TasksCtrl')
         h2.task-column_title {{list.header}}
 
         // Todo Chart
-        .todos-chart(ng-if='list.type == "todo"', ng-show='_page.charts.todos')
+        .todos-chart(ng-if='list.type == "todo"', ng-show='charts.todos')
 
         // Add New
         form.addtask-form.form-inline.new-task-form(name='new{{list.type}}form', ng-show='list.editable', ng-hide='list.showCompleted && list.type=="todo"', data-task-type='{{list.type}}', ng-submit='addTask(list)')

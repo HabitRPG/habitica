@@ -12,9 +12,13 @@ footer.footer(ng-controller='FooterCtrl')
         h4 Company
         ul.unstyled
           li
+            .btn.btn-small.btn-success(ng-click='modals.buyGems = true')
+              i.icon-heart.icon-white
+              |  Donate
+          li
             a(href='/static/about') About
           li
-            a(target='_blank', href='http://habitrpg.tumblr.com/') Blog
+            a(target='_blank', href='http://blog.habitrpg.com/') Blog
           li
             a(href='/static/extensions') Extensions
           li
