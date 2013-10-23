@@ -254,9 +254,21 @@ obj.score = (user, task, direction, options={}) ->
         addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
         if direction is 'up'
           streak = if streak then streak + 1 else 1
+
+          # Give a streak achievement when the streak is a multiple of 21
+          if (streak % 21) is 0
+            user.achievements.streak = if user.achievements.streak then user.achievements.streak + 1 else 1
+            paths["achievements.streak"] = true
+
         else
+          # Remove a streak achievement if streak was a multiple of 21 and the daily was undone
+          if (streak % 21) is 0
+            user.achievements.streak = if user.achievements.streak then user.achievements.streak - 1 else 0
+            paths["achievements.streak"] = true
+
           streak = if streak then streak - 1 else 0
         task.streak = streak
+
       paths["tasks.#{task.id}.streak"] = true
 
     when 'todo'
