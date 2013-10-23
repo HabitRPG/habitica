@@ -24,6 +24,7 @@ habitrpg.controller('MenuCtrl',
     }
 
     $scope.$on('$routeChangeSuccess', function(ev, current) {
+      if(!current.$$route) return;
       if(current.$$route.originalPath === "/tasks"){
         $scope.viewingOptions = false;
       }else if(current.$$route.originalPath === "/options"){
