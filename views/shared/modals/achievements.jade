@@ -7,7 +7,7 @@ div(modal='modals.achievements.streak')
     .achievement.achievement-thermometer
     | You have stacked your "Streaker" Achievement! Every 21 days of streak, you gain 1 achievement point here.
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.modals.streakAchievement = false') Cancel
+    button.btn.btn-default.cancel(ng-click='modals.achievements.streak = false') Cancel
 
 // Max Gear
 div(modal='modals.achievements.maxGear')
@@ -17,7 +17,7 @@ div(modal='modals.achievements.maxGear')
     .achievement.achievement-armor
     | You have earned the "Ultimate Gear" Achievement for upgrading to the maximum gear set!
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.modals.streakAchievement = false') Cancel
+    button.btn.btn-default.cancel(ng-click='modals.achievements.maxGear = false') Cancel
 
 // Beast Master
 div(modal='modals.achievements.beastmaster')
@@ -28,6 +28,6 @@ div(modal='modals.achievements.beastmaster')
       .achievement.achievement-rat
       | You have earned the "Beast Master" Achievement for collecting all the pets!
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.modals.beastMaster = false') Cancel
+    button.btn.btn-default.cancel(ng-click='modals.achievements.beastmaster = false') Cancel
 
 

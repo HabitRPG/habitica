@@ -6,6 +6,7 @@
 habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http',
   function($scope, $rootScope, $location, User, $http) {
     $rootScope.modals = {};
+    $rootScope.modals.achievements = {};
     $rootScope.User = User;
     $rootScope.user = User.user;
     $rootScope.settings = User.settings;
