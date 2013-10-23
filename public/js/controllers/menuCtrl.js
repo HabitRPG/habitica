@@ -16,14 +16,20 @@ habitrpg.controller('MenuCtrl',
     }
 
     $scope.gotoOptions = function(){
-      $scope.viewingOptions = true;
       $location.path('/options');
     }
 
     $scope.gotoTasks = function(){
-      $scope.viewingOptions = false;
       $location.path('/tasks')
     }
+
+    $scope.$on('$routeChangeSuccess', function(ev, current) {
+      if(current.$$route.originalPath === "/tasks"){
+        $scope.viewingOptions = false;
+      }else if(current.$$route.originalPath === "/options"){
+        $scope.viewingOptions = true;
+      }
+    });
 
 
     //FIXME where to implement this in rewrite?

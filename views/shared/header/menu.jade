@@ -5,7 +5,7 @@
       h1.task-action-btn.tile.solid.user-reporter {{username(user.auth, user.profile.name)}}
       ul.flyout-content.nav.stacked
         li
-          a.task-action-btn.tile.solid(x-bind='click:toggleGamePane')
+          a.task-action-btn.tile.solid
             span(ng-show='viewingOptions', ng-click='gotoTasks()')
               i.icon-ok
               | Tasks
