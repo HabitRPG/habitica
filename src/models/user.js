@@ -78,10 +78,9 @@ var UserSchema = new Schema({
   flags: {
     customizationsNotification: {type: Boolean, 'default': false},
     showTour: {type: Boolean, 'default': true},
-    ads: {type: String, 'default': 'show'}, // FIXME make this a boolean, run migration
     dropsEnabled: {type: Boolean, 'default': false},
     itemsEnabled: {type: Boolean, 'default': false},
-    newStuff: {type: String, 'default': 'hide'}, //FIXME to boolean (currently show/hide)
+    newStuff: {type: Boolean, 'default': false},
     rewrite: {type: Boolean, 'default': true},
     partyEnabled: Boolean, // FIXME do we need this?
     petsEnabled: {type: Boolean, 'default': false},

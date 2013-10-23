@@ -1,4 +1,4 @@
-div(ng-if='authenticated() && user.flags.ads!="hide"')
+div(ng-if='authenticated() && !user.purchased.ads')
   span.pull-right(ng-if='list.type!="reward"')
     a(ng-click='modals.buyGems=true', tooltip='Remove Ads')
       i.icon-remove

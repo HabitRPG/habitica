@@ -627,7 +627,7 @@ api.buyGems = function(req, res) {
     },
     function(response, cb) {
       res.locals.user.balance += 5;
-      res.locals.user.flags.ads = 'hide';
+      res.locals.user.purchased.ads = true;
       res.locals.user.save(cb);
     }
   ], function(err, saved){
@@ -652,7 +652,7 @@ api.buyGemsPaypalIPN = function(req, res) {
           if (err) throw err;
           if (_.isEmpty(user)) throw "user not found with uuid " + uuid + " when completing paypal transaction"
           user.balance += 5;
-          user.flags.ads = 'hide';
+          user.purchased.ads = true;
           user.save();
           console.log('PayPal transaction completed and user updated');
         });
