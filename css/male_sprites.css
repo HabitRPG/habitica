@@ -47,7 +47,8 @@
 .m_skin_skeleton,
 .m_skin_zombie,
 .m_skin_ghost,
-.m_skin_shadow
+.m_skin_shadow,
+.m_hair_red
 {
     background: url("../img/sprites/male_sprites.png") no-repeat;
 }
@@ -108,3 +109,6 @@
 .m_skin_zombie    {background-position: -4230px 0; width: 90px; height: 90px}
 .m_skin_ghost     {background-position: -4320px 0; width: 90px; height: 90px}
 .m_skin_shadow    {background-position: -4410px 0; width: 90px; height: 90px}
+
+/* Red Hair */
+.m_hair_red {background-position: -4500px 0; width: 90px; height: 90px}
