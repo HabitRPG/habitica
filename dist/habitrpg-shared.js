@@ -7797,6 +7797,10 @@ if(typeof module != 'undefined' && module.exports){
     }
     user.lastCron = now;
     paths['lastCron'] = true;
+    if (user.items.lastDrop.count > 0) {
+      user.items.lastDrop.count = 0;
+      paths['items.lastDrop'] = true;
+    }
     if (user.flags.rest === true) {
       return;
     }
