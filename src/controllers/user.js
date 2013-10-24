@@ -668,7 +668,8 @@ api.buyGemsPaypalIPN = function(req, res) {
  */
 api.deleteTag = function(req, res){
   var user = res.locals.user;
-  var i = _.findIndex(user.tags, {id:req.params.tid});
+  var tid = req.params.tid || req.body.tag;
+  var i = _.findIndex(user.tags, {id:tid});
   if (~i) {
     var tag = user.tags[i];
     delete user.filters[tag.id];
@@ -678,8 +679,11 @@ api.deleteTag = function(req, res){
       delete user.tasks[task.id].tags[tag.id];
     });
     user.save(function(err,saved){
+      if (err) return res.json(500, {err: err});
+      // Need to use this until we found a way to update the ui for tasks when a tag is deleted
+      res.locals.wasModified = true; 
       res.send(200);
-    })
+    });
   } else {
     res.json(400, {err:'Tag not found'});
   }
@@ -742,6 +746,9 @@ api.batchUpdate = function(req, res, next) {
         break;
       case "set":
         api.updateUser(req, res);
+        break;
+      case "delTag":
+        api.deleteTag(req, res);
         break;
       case "revive":
         api.revive(req, res);

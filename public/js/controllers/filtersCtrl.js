@@ -37,10 +37,7 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'API_URL', '
       _.each(user.tasks, function(task) {
         delete task.tags[tag.id];
       });
-      $http['delete'](API_URL + '/api/v1/user/tags/' + tag.id)
-        .error(function(data){
-          alert(data);
-        })
+      User.log({op:'delTag',data:{'tag':tag.id}})
     }
 
 }]);
