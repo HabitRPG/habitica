@@ -64,12 +64,14 @@ habitrpg.controller('SettingsCtrl',
       if(value === true){
         $scope.restoreValues.stats = angular.copy(User.user.stats);
         $scope.restoreValues.items = angular.copy(User.user.items);
+        $scope.restoreValues.achievements = {streak: User.user.achievements.streak};
       }
     })
 
     $scope.restore = function(){
       var stats = $scope.restoreValues.stats,
-        items = $scope.restoreValues.items;
+        items = $scope.restoreValues.items,
+        achievements = $scope.restoreValues.achievements;
       User.setMultiple({
         "stats.hp": stats.hp,
         "stats.exp": stats.exp,
@@ -78,7 +80,8 @@ habitrpg.controller('SettingsCtrl',
         "items.weapon": items.weapon,
         "items.armor": items.armor,
         "items.head": items.head,
-        "items.shield": items.shield
+        "items.shield": items.shield,
+        "achievements.streak": achievements.streak
       });
       $rootScope.modals.restore = false;
     }

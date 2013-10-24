@@ -42,6 +42,10 @@ div(ng-controller='SettingsCtrl')
           .option-group.option-medium
             input.option-content(type='number', data-for='items.shield', ng-model='restoreValues.items.shield')
             span.input-suffix Shield
+          h3 Streak Achievements
+          .option-group.option-medium
+            input.option-content(type='number', data-for='achievements.streak', ng-model='restoreValues.achievements.streak')
+            span.input-suffix 21-Day Streak
     .modal-footer
       button.btn.btn-primary(ng-click='restore()') Save & Close
 
