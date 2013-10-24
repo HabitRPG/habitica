@@ -103,7 +103,8 @@ api.getGroup = function(req, res, next) {
 
   Group.findById(gid).populate('members', partyFields).exec(function(err, group){
     if ( (group.type == 'guild' && group.privacy == 'private') || group.type == 'party') {
-      return res.json(401, {err: "You don't have access to this group"});
+    	if(!_.find(group.members, {_id: user._id}))
+    		return res.json(401, {err: "You don't have access to this group"});
     }
     // Remove self from party (see above failing `match` directive in `populate`
     if (group.type == 'party') {
