@@ -72,7 +72,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
     };
 
     $scope.toggleEdit = function(task){
-      console.log(task)
       task._editing = !task._editing;
       if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
     };
