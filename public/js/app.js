@@ -8,14 +8,16 @@ window.habitrpg = angular.module('habitrpg',
   .constant("STORAGE_SETTINGS_ID", 'habit-mobile-settings')
   //.constant("STORAGE_GROUPS_ID", "") // if we decide to take groups offline
 
-  .config(['$routeProvider', '$httpProvider', 'STORAGE_SETTINGS_ID',
-    function($routeProvider, $httpProvider, STORAGE_SETTINGS_ID) {
+  .config(['$routeProvider', '$httpProvider', 'STORAGE_SETTINGS_ID', '$locationProvider',
+    function($routeProvider, $httpProvider, STORAGE_SETTINGS_ID, $locationProvider) {
       $routeProvider
         //.when('/login', {templateUrl: 'views/login.html'})
         .when('/tasks',   {templateUrl: 'partials/tasks'})
         .when('/options', {templateUrl: 'partials/options'})
 
         .otherwise({redirectTo: '/tasks'});
+
+      $locationProvider.html5Mode(true);
 
       var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
       if (settings && settings.auth) {
@@ -43,4 +45,4 @@ window.habitrpg = angular.module('habitrpg',
         }
       }];
       $httpProvider.responseInterceptors.push(interceptor);
-  }])
+  }]);
