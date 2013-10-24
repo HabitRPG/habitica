@@ -30,8 +30,8 @@ beforeAfter = (options={}) ->
 expectLostPoints = (before, after, taskType) ->
   if taskType in ['daily','habit']
     expect(after.stats.hp).to.be.lessThan before.stats.hp
-    expect(_.size(after["#{taskType}s"][0].history)).to.be(1)
-  else expect(_.size(after.history.todos)).to.be(1)
+    expect(after["#{taskType}s"][0].history).to.have.length(1)
+  else expect(after.history.todos).to.have.length(1)
   expect(after.stats.exp).to.be 0
   expect(after.stats.gp).to.be 0
   expect(after["#{taskType}s"][0].value).to.be.lessThan before["#{taskType}s"][0].value
@@ -41,7 +41,7 @@ expectGainedPoints = (before, after, taskType) ->
   expect(after.stats.exp).to.be.greaterThan before.stats.exp
   expect(after.stats.gp).to.be.greaterThan before.stats.gp
   expect(after["#{taskType}s"][0].value).to.be.greaterThan before["#{taskType}s"][0].value
-  expect(_.size(after["#{taskType}s"][0].history)).to.be(1) if taskType is 'habit'
+  expect(after["#{taskType}s"][0].history).to.have.length(1) if taskType is 'habit'
   # daily & todo histories handled on cron
 
 expectNoChange = (before,after) -> expect(before).to.eql after
@@ -52,11 +52,11 @@ expectDayResetNoDamage = (b,a) ->
     expect(task.completed).to.be false
     expect(before.dailys[i].value).to.be task.value
     expect(before.dailys[i].streak).to.be task.streak
-    expect(_.size(task.history)).to.be(1)
+    expect(task.history).to.have.length(1)
   _.each after.todos, (task,i) ->
     expect(task.completed).to.be false
     expect(before.todos[i].value).to.be.greaterThan task.value
-  expect(_.size(after.history.todos)).to.be(1)
+  expect(after.history.todos).to.have.length(1)
   # hack so we can compare user before/after obj equality sans effected paths
   _.each ['dailys','todos','history','lastCron'], (path) ->
     _.each [before,after], (obj) -> delete obj[path]
@@ -219,7 +219,7 @@ describe 'Cron', ->
 
       # but they devalue
       expect(after.todos[0].value).to.be.lessThan before.todos[0].value
-      expect(_.size(after.history.todos)).to.be 1
+      expect(after.history.todos).to.have.length 1
 
   describe 'dailies', ->
 
