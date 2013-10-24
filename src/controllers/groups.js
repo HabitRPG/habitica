@@ -280,6 +280,7 @@ api.invite = function(req, res, next) {
       invite.save();
       Group.findById(group._id)
         .populate('members', partyFields).exec(function(err, saved){
+          removeSelf(saved, res.locals.user);
           res.json(saved);
         });
 
