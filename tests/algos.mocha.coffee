@@ -332,3 +332,10 @@ describe 'Helper', ->
     expect(algos.tnl 10).to.eql 260
     expect(algos.tnl 99).to.eql 3580
     expect(algos.tnl 100).to.eql 0
+
+  it 'calculates priority values', ->
+    expect(algos.priorityValue()).to.eql 1
+    expect(algos.priorityValue '!').to.eql 1
+    expect(algos.priorityValue '!!').to.eql 1.5
+    expect(algos.priorityValue '!!!').to.eql 2
+    expect(algos.priorityValue '!!!!').to.eql 1
