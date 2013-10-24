@@ -53,7 +53,8 @@
 .f_skin_skeleton,
 .f_skin_zombie,
 .f_skin_ghost,
-.f_skin_shadow
+.f_skin_shadow,
+.f_hair_red
 {
     background: url("../img/sprites/female_sprites.png") no-repeat;
 }
@@ -119,3 +120,6 @@
 .f_skin_zombie    {background-position: -4680px 0; width: 90px; height: 90px}
 .f_skin_ghost     {background-position: -4770px 0; width: 90px; height: 90px}
 .f_skin_shadow    {background-position: -4860px 0; width: 90px; height: 90px}
+
+/* Red Hair */
+.f_hair_red {background-position: -4950px 0; width: 90px; height: 90px}
