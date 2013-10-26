@@ -1,6 +1,9 @@
 li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,user.filters,user.preferences.dayStart,user.lastCron,list.showCompleted,list.main)}}', data-id='{{task.id}}')
   // right-hand side control buttons
   .task-meta-controls
+    // Due Date
+    span.task-date(ng-if='task.type=="todo" && task.date')
+      | {{task.date}}
     // Streak
     span(ng-show='task.streak') {{task.streak}}
       span(tooltip='Streak Counter')
@@ -126,7 +129,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
       // if Todos, the due date
       fieldset.option-group(ng-if='task.type=="todo"')
         legend.option-title Due Date
-        input.option-content.datepicker(type='text', value='{{task.date}}', data-date-format='mm/dd/yyyy')
+        input.option-content.datepicker(type='text', data-date-format='mm/dd/yyyy', ng-model='task.date')
 
       fieldset.option-group(ng-if='list.main')
         legend.option-title Tags
