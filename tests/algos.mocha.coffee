@@ -75,7 +75,11 @@ describe 'User', ->
   it 'sets correct user defaults', ->
     user = helpers.newUser()
     expect(user.stats).to.eql { gp: 0, exp: 0, lvl: 1, hp: 50 }
-    expect(user.items).to.eql { weapon: 0, armor: 0, head: 0, shield: 0 }
+    expect(user.items.weapon).to.eql 0
+    expect(user.items.armor).to.eql 0
+    expect(user.items.head).to.eql 0
+    expect(user.items.shield).to.eql 0
+    expect(user.items.lastDrop.count).to.eql 0
     expect(user.preferences).to.eql { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0, showHelm: true }
     expect(user.balance).to.eql 0
     expect(user.lastCron).to.be.greaterThan 0
@@ -95,7 +99,10 @@ describe 'User', ->
     user.weapon = 1
     algos.revive user
     expect(user.stats).to.eql { gp: 0, exp: 0, lvl: 1, hp: 50 }
-    expect(user.items).to.eql { weapon: 0, armor: 0, head: 0, shield: 0 }
+    expect(user.items.weapon).to.eql 0
+    expect(user.items.armor).to.eql 0
+    expect(user.items.head).to.eql 0
+    expect(user.items.shield).to.eql 0
 
   describe 'store', ->
     it 'recovers hp buying potions', ->

@@ -76,7 +76,7 @@ module.exports =
     # _id / id handled by Racer
       stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
       invitations: {party:null, guilds: []}
-      items: { weapon: 0, armor: 0, head: 0, shield: 0 }
+      items: { weapon: 0, armor: 0, head: 0, shield: 0, lastDrop: { date: +new Date, count: 0 } }
       preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0, showHelm: true }
       apiToken: uuid() # set in newUserObject below
       lastCron: +new Date #this will be replaced with `+new Date` on first run
