@@ -71,7 +71,9 @@ module.exports =
     task.value ?= if task.type is 'reward' then 10 else 0
     task
 
-  newUser: (isDerby=false) ->
+  # FIXME - should we remove this completely, since all defaults are accounted for in mongoose?
+  # Or should we keep it so mobile can create an offline new user in the future?
+  newUser: () ->
     userSchema =
     # _id / id handled by Racer
       stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
@@ -87,17 +89,10 @@ module.exports =
         ads: 'show'
       tags: []
 
-    if isDerby
-      userSchema.habitIds = []
-      userSchema.dailyIds = []
-      userSchema.todoIds = []
-      userSchema.rewardIds = []
-      userSchema.tasks = {}
-    else
-      userSchema.habits = []
-      userSchema.dailys = []
-      userSchema.todos = []
-      userSchema.rewards = []
+    userSchema.habits = []
+    userSchema.dailys = []
+    userSchema.todos = []
+    userSchema.rewards = []
 
     # deep clone, else further new users get duplicate objects
     newUser = _.cloneDeep userSchema
@@ -126,11 +121,7 @@ module.exports =
 
     for task in defaultTasks
       guid = task.id = uuid()
-      if isDerby
-        newUser.tasks[guid] = task
-        newUser["#{task.type}Ids"].push guid
-      else
-        newUser["#{task.type}s"].push task
+      newUser["#{task.type}s"].push task
 
     for tag in defaultTags
       tag.id = uuid()
@@ -276,7 +267,7 @@ module.exports =
   ###
     Task classes given everything about the class
   ###
-  taskClasses: (task, filters, dayStart, lastCron, showCompleted=false, main) ->
+  taskClasses: (task, filters=[], dayStart=0, lastCron=+new Date, showCompleted=false, main=false) ->
     return unless task
     {type, completed, value, repeat} = task
 

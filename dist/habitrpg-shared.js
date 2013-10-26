@@ -8023,11 +8023,8 @@ var process=require("__browserify_process");(function() {
       }
       return task;
     },
-    newUser: function(isDerby) {
+    newUser: function() {
       var defaultTags, defaultTasks, guid, newUser, repeat, tag, task, userSchema, _i, _j, _len, _len1;
-      if (isDerby == null) {
-        isDerby = false;
-      }
       userSchema = {
         stats: {
           gp: 0,
@@ -8063,18 +8060,10 @@ var process=require("__browserify_process");(function() {
         },
         tags: []
       };
-      if (isDerby) {
-        userSchema.habitIds = [];
-        userSchema.dailyIds = [];
-        userSchema.todoIds = [];
-        userSchema.rewardIds = [];
-        userSchema.tasks = {};
-      } else {
-        userSchema.habits = [];
-        userSchema.dailys = [];
-        userSchema.todos = [];
-        userSchema.rewards = [];
-      }
+      userSchema.habits = [];
+      userSchema.dailys = [];
+      userSchema.todos = [];
+      userSchema.rewards = [];
       newUser = _.cloneDeep(userSchema);
       repeat = {
         m: true,
@@ -8158,12 +8147,7 @@ var process=require("__browserify_process");(function() {
       for (_i = 0, _len = defaultTasks.length; _i < _len; _i++) {
         task = defaultTasks[_i];
         guid = task.id = uuid();
-        if (isDerby) {
-          newUser.tasks[guid] = task;
-          newUser["" + task.type + "Ids"].push(guid);
-        } else {
-          newUser["" + task.type + "s"].push(task);
-        }
+        newUser["" + task.type + "s"].push(task);
       }
       for (_j = 0, _len1 = defaultTags.length; _j < _len1; _j++) {
         tag = defaultTags[_j];
@@ -8394,8 +8378,20 @@ var process=require("__browserify_process");(function() {
 
     taskClasses: function(task, filters, dayStart, lastCron, showCompleted, main) {
       var classes, completed, enabled, filter, repeat, type, value, _ref;
+      if (filters == null) {
+        filters = [];
+      }
+      if (dayStart == null) {
+        dayStart = 0;
+      }
+      if (lastCron == null) {
+        lastCron = +(new Date);
+      }
       if (showCompleted == null) {
         showCompleted = false;
+      }
+      if (main == null) {
+        main = false;
       }
       if (!task) {
         return;
