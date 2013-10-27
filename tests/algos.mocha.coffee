@@ -9,10 +9,10 @@ helpers = require '../script/helpers.coffee'
 items = require '../script/items.coffee'
 
 ### Helper Functions ####
-
 expectStrings = (obj, paths) ->
   _.each paths, (path) -> expect(obj[path]).to.be.ok()
 
+# options.daysAgo: days ago when the last cron was executed
 beforeAfter = (options={}) ->
   user = helpers.newUser()
   [before, after] = [_.cloneDeep(user), _.cloneDeep(user)]
@@ -68,6 +68,14 @@ cycle = (array)->
   ->
     n++
     return array[n % array.length]
+
+repeatWithoutLastWeekday = ()->
+  repeat = {su:1,m:1,t:1,w:1,th:1,f:1,s:1}
+  if helpers.startOfWeek(moment().zone(0)).isoWeekday() == 1 # Monday
+    repeat.su = false
+  else
+    repeat.s = false
+  {repeat: repeat}
 
 ###### Specs ######
 
@@ -293,7 +301,7 @@ describe 'Cron', ->
                       'unchecked': {checked:false, expect: 'losePoints'}
 
           'not due yesterday':
-            defaults: {repeat:{su:false,m:1,t:1,w:1,th:1,f:1,s:1}}
+            defaults: repeatWithoutLastWeekday()
             steps:
               '(simple)': {expect:'noDamage'}
               'post-dayStart': {currentHour:5,dayStart:4, expect:'noDamage'}
@@ -346,3 +354,8 @@ describe 'Helper', ->
     expect(algos.priorityValue '!!').to.eql 1.5
     expect(algos.priorityValue '!!!').to.eql 2
     expect(algos.priorityValue '!!!!').to.eql 1
+
+  it 'calculates the start of the day', ->
+    expect(helpers.startOfDay({now: new Date(2013, 0, 1, 0)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
+    expect(helpers.startOfDay({now: new Date(2013, 0, 1, 5)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
+    expect(helpers.startOfDay({now: new Date(2013, 0, 1, 23, 59, 59)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
