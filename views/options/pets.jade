@@ -27,3 +27,6 @@
         button(class="pet-button Pet-Wolf-Veteran", ng-class='{active: isCurrentPet("Wolf", "Veteran")}', ng-click='choosePet("Wolf", "Veteran")', tooltip='Veteran Wolf')
       div(ng-if='hasPet("Wolf", "Cerberus")')
         button(class="pet-button Pet-Wolf-Cerberus", ng-class='{active: isCurrentPet("Wolf", "Cerberus")}', ng-click='choosePet("Wolf", "Cerberus")', tooltip='Cerberus Pup')
+      div(ng-if='hasPet("Hydra")')
+        button(class="pet-button Pet-Hydra", ng-class='{active: isCurrentPet("Hydra")}', ng-click='choosePet("Hydra")', tooltip='Hydra Pet')
+      
