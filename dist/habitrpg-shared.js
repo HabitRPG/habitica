@@ -8990,6 +8990,9 @@ try {
       options.paths['stats.hp'] = true;
     } else {
       user.items[type] = ~~nextItem.index;
+      if (user.items.weapon >= 6 && user.items.armor >= 5 && user.items.head >= 5 && user.items.shield >= 5) {
+        user.achievements.ultimateGear = true;
+      }
       options.paths["items." + type] = true;
     }
     user.stats.gp -= +nextItem.value;

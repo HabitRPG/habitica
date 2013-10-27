@@ -88,6 +88,8 @@ module.exports.buyItem = (user, type, options={}) ->
     options.paths['stats.hp'] = true
   else
     user.items[type] = ~~nextItem.index
+    if user.items.weapon >= 6 and user.items.armor >= 5 and user.items.head >= 5 and user.items.shield >= 5
+      user.achievements.ultimateGear = true;
     options.paths["items.#{type}"] = true
   user.stats.gp -= +nextItem.value
   options.paths['stats.gp'] = true
