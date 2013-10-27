@@ -43,7 +43,9 @@ habitrpg.controller("ChallengesCtrl", ['$scope', '$rootScope', 'User', 'Challeng
           $scope.discard();
           Challenges.Challenge.query();
         } else {
-          challenge._editing = false;
+          // TODO figure out a more elegant way about this
+          //challenge._editing = false;
+          $scope.locked = true;
         }
       });
     };
@@ -61,7 +63,7 @@ habitrpg.controller("ChallengesCtrl", ['$scope', '$rootScope', 'User', 'Challeng
      */
     $scope["delete"] = function(challenge) {
       if (confirm("Delete challenge, are you sure?") !== true) return;
-      challenge.delete();
+      challenge.$delete();
     };
 
     //------------------------------------------------------------

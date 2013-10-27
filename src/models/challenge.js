@@ -28,6 +28,5 @@ ChallengeSchema.virtual('tasks').get(function () {
   return tasks;
 });
 
-
 module.exports.schema = ChallengeSchema;
 module.exports.model = mongoose.model("Challenge", ChallengeSchema);

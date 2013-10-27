@@ -130,7 +130,6 @@ habitrpg
         scope.obj = scope[attrs.obj];
         scope.main = attrs.main;
 
-
         scope.lists = [
           {
             header: 'Habits',
@@ -154,7 +153,6 @@ habitrpg
             tasks: scope.obj.rewards
           }
         ];
-        scope.editable = true;
       }
     }
   }]);

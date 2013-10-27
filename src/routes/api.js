@@ -86,6 +86,8 @@ router.post('/market/buy', auth.auth, user.marketBuy);
 // without knowing which group they belong to. So to prevent unecessary lookups, we have them as a top-level resource
 router.get('/challenges', auth.auth, challenges.get)
 router.post('/challenges', auth.auth, challenges.create)
+router.post('/challenges/:cid', auth.auth, challenges.update)
+router['delete']('/challenges/:cid', auth.auth, challenges['delete'])
 router.post('/challenges/:cid/join', auth.auth, challenges.join)
 router.post('/challenges/:cid/leave', auth.auth, challenges.leave)
 

@@ -39,19 +39,74 @@ api.create = function(req, res){
   });
 }
 
+function keepAttrs(task) {
+  // only sync/compare important attrs
+  var keepAttrs = 'text notes up down priority repeat'.split(' ');
+  if (task.type=='reward') keepAttrs.push('value');
+  return _.pick(task, keepAttrs);
+}
+
 // UPDATE
 api.update = function(req, res){
   //FIXME sanitize
-  Challenge.findByIdAndUpdate(req.params.cid, {$set:req.body}, function(err, saved){
+  var cid = req.params.cid;
+  async.waterfall([
+    function(cb){
+      // We first need the original challenge data, since we're going to compare against new & decide to sync users
+      Challenge.findById(cid, cb);
+    },
+    function(chal, cb) {
+
+      // Update the challenge, and then just res.json success (note we're passing `cb` here).
+      // The syncing stuff is really heavy, and the client doesn't care - so we kick it off in the background
+      delete req.body._id;
+      Challenge.findByIdAndUpdate(cid, {$set:req.body}, cb);
+
+      // Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
+      function comparableData(obj) {
+        return (
+          _.chain(obj.habits.concat(obj.dailys).concat(obj.todos).concat(obj.rewards))
+          .sortBy('id') // we don't want to update if they're sort-order is different
+          .transform(function(result, task){
+            result.push(keepAttrs(task));
+          }))
+          .toString(); // for comparing arrays easily
+      }
+      if (comparableData(chal) !== comparableData(req.body)) {
+        User.find({_id: {$in: chal.members}}, function(err, users){
+          console.log('Challenge updated, sync to subscribers');
+          if (err) throw err;
+          _.each(users, function(user){
+            syncChalToUser(chal, user);
+            user.save();
+          })
+        })
+      }
+
+    }
+  ], function(err, saved){
     if(err) res.json(500, {err:err});
     res.json(saved);
-    // TODO update subscribed users' tasks, each user.__v++
   })
 }
 
 // DELETE
-// 1. update challenge
-// 2. update sub'd users' tasks
+api['delete'] = function(req, res){
+  Challenge.findOneAndRemove({_id:req.params.cid}, function(err, removed){
+    if (err) return res.json(500, {err: err});
+    User.find({_id:{$in: removed.members}}, function(err, users){
+      if (err) throw err;
+      _.each(users, function(user){
+        _.each(user.tasks, function(task){
+          if (task.challenge && task.challenge.id == removed._id) {
+            task.challenge.broken = 'CHALLENGE_DELETED';
+          }
+        })
+        user.save();
+      })
+    })
+  })
+}
 
 /**
  * Syncs all new tasks, deleted tasks, etc to the user object
@@ -79,18 +134,23 @@ var syncChalToUser = function(chal, user) {
   }
   tags = {};
   tags[chal._id] = true;
-  _.each(['habits','dailys','todos','rewards'], function(type){
-    _.each(chal[type], function(task){
-      _.defaults(task, {tags: tags, challenge:{}});
-      _.defaults(task.challenge, {id:chal._id, broken:false});
-      if (~(i = _.findIndex(user[type], {id:task.id}))) {
-        _.defaults(user[type][i], task);
-      } else {
-        user[type].push(task);
-      }
-    })
+
+  // Sync new tasks and updated tasks
+  _.each(chal.tasks, function(task){
+    var type = task.type;
+    _.defaults(task, {tags: tags, challenge:{}});
+    _.defaults(task.challenge, {id:chal._id, broken:false});
+    if (user.tasks[task.id]) {
+      _.merge(user.tasks[task.id], keepAttrs(task));
+    } else {
+      user[type+'s'].push(task);
+    }
   })
-  //FIXME account for deleted tasks (each users.tasks.broken = true)
+
+  // Flag deleted tasks as "broken"
+  _.each(user.tasks, function(task){
+    if (!chal.tasks[task.id]) task.challenge.broken = 'TASK_DELETED';
+  })
 };
 
 api.join = function(req, res){
