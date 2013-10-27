@@ -35,7 +35,7 @@ var UserSchema = new Schema({
     helpedHabit: Boolean,
     ultimateGear: Boolean,
     beastMaster: Boolean,
-    streak: {type: Number, 'default': 0}
+    streak: Number
   },
   auth: {
     facebook: Schema.Types.Mixed,
@@ -226,7 +226,8 @@ var UserSchema = new Schema({
   */
 
 }, {
-  strict: true
+  strict: true,
+  minimize: false
 });
 
 // Legacy Derby Function?
