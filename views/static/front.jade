@@ -44,12 +44,15 @@ block content
                       input(type='text', ng-model='loginUsername', placeholder='Username')
                     .control-group
                       input(type='password', ng-model='loginPassword', placeholder='Password')
-                    //-.control-group
-                      label.checkbox
-                        input(type='checkbox', ng-click='useUUID = !useUUID')
-                        | Use UUID / API Token (For Facebook Users)
+                      //-.control-group
+                        label.checkbox
+                          input(type='checkbox', ng-click='useUUID = !useUUID')
+                          |  Use UUID / API Token (For Facebook Users)
                     .control-group
                       input.btn.btn-primary(type='submit', value='Login')
+
+                    small In case you are using a password manager (like 1Password) 
+                      | and have problems logging in, try typing username and password manually.
 
                   // good god accordions have html ceremony
                   #forgot-password-accordion.accordion
