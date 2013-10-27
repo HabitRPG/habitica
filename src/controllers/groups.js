@@ -118,10 +118,27 @@ api.getGroup = function(req, res, next) {
 
 api.createGroup = function(req, res, next) {
   var group = new Group(req.body);
-  group.save(function(err, saved){
-    if (err) return res.json(500,{err:err});
-    res.json(saved);
-  })
+  var user = res.locals.user;
+
+  if(group.type === 'guild'){
+    if(user.balance < 1) return res.json(401, {err: 'Not enough gems!'});
+
+    group.balance = 1;
+    user.balance--;
+
+    user.save(function(err){
+      if(err) return res.json(500,{err:err});
+      group.save(function(err, saved){
+        if (err) return res.json(500,{err:err});
+        return res.json(saved);
+      });
+    });    
+  }else{
+    group.save(function(err, saved){
+      if (err) return res.json(500,{err:err});
+      return res.json(saved);
+    });
+  }
 }
 
 api.updateGroup = function(req, res, next) {

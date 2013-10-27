@@ -113,18 +113,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.newGroup = new Groups.Group({type:'guild', privacy:'private', leader: User.user._id, members: [User.user._id]});
 
       $scope.create = function(group){
-        if (User.user.balance < 1) {
-          return $rootScope.modals.buyGems = true;
-//          $('#more-gems-modal').modal('show');
-        }
+        if (User.user.balance < 1) return $rootScope.modals.buyGems = true;
 
         if (confirm("Create Guild for 4 Gems?")) {
-          group.balance = 1;
           group.$save(function(){
-            User.user.balance--;
-            User.log({op:'set', data:{'balance':User.user.balance}});
-            window.setTimeout(function(){window.location.href='/';}, 500)
-          })
+            location.reload();
+          }, function(error){
+            alert(error.data);
+          });
         }
       }
 
