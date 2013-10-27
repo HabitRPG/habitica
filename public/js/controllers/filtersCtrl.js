@@ -34,7 +34,7 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'API_URL', '
       delete user.filters[tag.id];
       user.tags.splice($index,1);
       // remove tag from all tasks
-      _.each(user.tasks, function(task) {
+      _.each(user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards), function(task) {
         delete task.tags[tag.id];
       });
       User.log({op:'delTag',data:{'tag':tag.id}})

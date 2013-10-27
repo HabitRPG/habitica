@@ -1,7 +1,7 @@
 "use strict";
 
 window.habitrpg = angular.module('habitrpg',
-    ['ngRoute', 'ngResource', 'ngSanitize', 'userServices', 'groupServices', 'memberServices', 'sharedServices', 'authServices', 'notificationServices', 'guideServices', 'ui.bootstrap', 'ui.keypress'])
+    ['ngRoute', 'ngResource', 'ngSanitize', 'userServices', 'groupServices', 'memberServices', 'challengeServices', 'sharedServices', 'authServices', 'notificationServices', 'guideServices', 'ui.bootstrap', 'ui.keypress'])
 
   .constant("API_URL", "")
   .constant("STORAGE_USER_ID", 'habitrpg-user')
@@ -12,8 +12,8 @@ window.habitrpg = angular.module('habitrpg',
     function($routeProvider, $httpProvider, STORAGE_SETTINGS_ID) {
       $routeProvider
         //.when('/login', {templateUrl: 'views/login.html'})
-        .when('/tasks',   {templateUrl: 'partials/tasks'})
-        .when('/options', {templateUrl: 'partials/options'})
+        .when('/tasks',   {templateUrl: 'templates/habitrpg-main.html'})
+        .when('/options', {templateUrl: 'templates/habitrpg-options.html'})
 
         .otherwise({redirectTo: '/tasks'});
 

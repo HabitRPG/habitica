@@ -71,7 +71,6 @@ html
       script(type='text/javascript', src='/js/controllers/settingsCtrl.js')
       script(type='text/javascript', src='/js/controllers/statsCtrl.js')
       script(type='text/javascript', src='/js/controllers/tasksCtrl.js')
-      script(type='text/javascript', src='/js/controllers/taskDetailsCtrl.js')
       script(type='text/javascript', src='/js/controllers/filtersCtrl.js')
       script(type='text/javascript', src='/js/controllers/userCtrl.js')
       script(type='text/javascript', src='/js/controllers/groupsCtrl.js')
@@ -90,6 +89,10 @@ html
     div(ng-controller='GroupsCtrl')
       include ./shared/modals/index
       include ./shared/header/header
+
+      include ./shared/tasks/lists
+      include ./main/index
+      include ./options/index
 
       #notification-area(ng-controller='NotificationCtrl')
       #wrap

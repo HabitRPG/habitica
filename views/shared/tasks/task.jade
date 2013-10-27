@@ -1,4 +1,4 @@
-li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,user.filters,user.preferences.dayStart,user.lastCron,list.showCompleted,list.main)}}', data-id='{{task.id}}')
+li(ng-repeat='task in list.tasks', class='task {{taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', data-id='{{task.id}}')
   // right-hand side control buttons
   .task-meta-controls
     // Due Date
@@ -12,25 +12,25 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='noTags(task.tags)')
 
     // edit
-    a(ng-hide='task._editing', ng-click='toggleEdit(task)', tooltip='Edit')
+    a(ng-hide='task._editing', ng-click='editTask(task)', tooltip='Edit')
       i.icon-pencil(ng-hide='task._editing')
     // cancel
-    a(ng-hide='!task._editing', ng-click='toggleEdit(task)', tooltip='Cancel')
+    a(ng-hide='!task._editing', ng-click='editTask(task)', tooltip='Cancel')
       i.icon-remove(ng-hide='!task._editing')
     //- challenges
-    //  {{#if :task.challenge}}
-    //    {{#if brokenChallengeLink(:task)}}
-    //      <i class='icon-bullhorn' style='background-color:red;' x-bind=click:tasks.toggleTaskEdit rel=tooltip title="Broken Challenge Link"></i>
-    //    {{else}}
-    //      <i class='icon-bullhorn' rel=tooltip title="Challenge Task"></i>
-    //    {{/}}
-    //  {{else}}
-    //    <!-- delete -->
-    //    <a x-bind="click:tasks.del" rel=tooltip title="Delete"><i class="icon-trash"></i></a>
-    //  {{/}}
+    //-  {{#if :task.challenge}}
+    //-    {{#if brokenChallengeLink(:task)}}
+    //-      <i class='icon-bullhorn' style='background-color:red;' x-bind=click:tasks.toggleTaskEdit rel=tooltip title="Broken Challenge Link"></i>
+    //-    {{else}}
+    //-      <i class='icon-bullhorn' rel=tooltip title="Challenge Task"></i>
+    //-    {{/}}
+    //-  {{else}}
+    //-    <!-- delete -->
+    //-    <a x-bind="click:tasks.del" rel=tooltip title="Delete"><i class="icon-trash"></i></a>
+    //-  {{/}}
 
     // delete
-    a(ng-click='remove(task)', tooltip='Delete')
+    a(ng-click='removeTask(list.tasks, $index)', tooltip='Delete')
       i.icon-trash
     // chart
     a(ng-show='task.history', ng-click='toggleChart(task.id, task)', tooltip='Progress')
@@ -43,34 +43,20 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
   .task-controls.task-primary
 
     // Habits
-    span(ng-if='list.main && task.type=="habit"')
-      // only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges
+    span(ng-if='task.type=="habit"')
       a.task-action-btn(ng-if='task.up', ng-click='score(task,"up")') +
       a.task-action-btn(ng-if='task.down', ng-click='score(task,"down")') -
-    //span(ng-if='!list.main')
-    //  span.task-action-btn(ng-show='task.up') +
-    //  span.task-action-btn(ng-show='task.down') =
 
     // Rewards
-    span(ng-show='list.main && task.type=="reward"')
-      // only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges
+    span(ng-show='task.type=="reward"')
       a.money.btn-buy(ng-click='score(task, "down")')
         span.reward-cost {{task.value}}
         span.shop_gold
-      //span(ng-if='!list.main')
-      //  span.money.btn-buy
-      //    span.reward-cost {{task.value}}
-      //    span.shop_gold
 
     // Daily & Todos
     span.task-checker.action-yesno(ng-if='task.type=="daily" || task.type=="todo"')
-      // only allow scoring on main tasks, not when viewing others' public tasks or when creating challenges
-      //span(ng-if='list.main')
       input.visuallyhidden.focusable(id='box-{{task.id}}', type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
       label(for='box-{{task.id}}')
-      //span(ng-if='!list.main')
-      //  input.visuallyhidden.focusable(id='box-{{task.id}}-static',type='checkbox', checked='false')
-      //  label(for='box-{{task.id}}-static')
   // main content
   p.task-text
     // {{#if taskInChallenge(task)}}
@@ -99,7 +85,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
     //      {{/}}
     //    </div>
     //  {/}
-    form(ng-controller="TaskDetailsCtrl", ng-submit='save(task)')
+    form(ng-submit='saveTask(task)')
       // text & notes
       fieldset.option-group
         // {{#unless taskInChallenge(task)}}
@@ -146,7 +132,7 @@ li(ng-repeat='task in user[list.type + "s"]', class='task {{taskClasses(task,use
         legend.option-title Due Date
         input.option-content.datepicker(type='text', data-date-format='mm/dd/yyyy', ng-model='task.date')
 
-      fieldset.option-group(ng-if='list.main')
+      fieldset.option-group
         legend.option-title Tags
           label.checkbox(ng-repeat='tag in user.tags')
             input(type='checkbox', ng-model='task.tags[tag.id]')

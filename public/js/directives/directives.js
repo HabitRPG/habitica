@@ -109,3 +109,53 @@ habitrpg.directive('habitrpgSortable', ['User', function(User) {
     };
   });
 })()
+
+habitrpg
+  .directive('habitrpgTasks', ['$rootScope', 'User', function($rootScope, User) {
+    return {
+      restrict: 'EA',
+      templateUrl: 'templates/habitrpg-tasks.html',
+      //transclude: true,
+      //scope: {
+      //  main: '@', // true if it's the user's main list
+      //  obj: '='
+      //},
+      controller: function($scope, $rootScope){
+        $scope.editTask = function(task){
+          task._editing = !task._editing;
+          if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
+        };
+      },
+      link: function(scope, element, attrs) {
+        scope.obj = scope[attrs.obj];
+        scope.main = attrs.main;
+
+
+        scope.lists = [
+          {
+            header: 'Habits',
+            type: 'habit',
+            placeHolder: 'New Habit',
+            tasks: scope.obj.habits
+          }, {
+            header: 'Dailies',
+            type: 'daily',
+            placeHolder: 'New Daily',
+            tasks: scope.obj.dailys
+          }, {
+            header: 'Todos',
+            type: 'todo',
+            placeHolder: 'New Todo',
+            tasks: scope.obj.todos
+          }, {
+            header: 'Rewards',
+            type: 'reward',
+            placeHolder: 'New Reward',
+            tasks: scope.obj.rewards
+          }
+        ];
+        scope.editable = true;
+      }
+    }
+  }]);
+

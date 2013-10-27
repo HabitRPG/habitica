@@ -12,6 +12,11 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.settings = User.settings;
     $rootScope.flash = {errors: [], warnings: []};
 
+    // indexOf helper
+    $scope.indexOf = function(haystack, needle){
+      return ~haystack.indexOf(needle);
+    }
+
     $scope.safeApply = function(fn) {
       var phase = this.$root.$$phase;
       if(phase == '$apply' || phase == '$digest') {
