@@ -37,6 +37,7 @@ router["delete"]('/user/task/:id', auth.auth, cron, verifyTaskExists, user.delet
 router.post('/user/task', auth.auth, cron, user.createTask);
 router.put('/user/task/:id/sort', auth.auth, cron, verifyTaskExists, user.sortTask);
 router.post('/user/clear-completed', auth.auth, cron, user.clearCompleted);
+router.post('/user/task/:id/unlink', auth.auth, challenges.unlink); // removing cron since they may want to remove task first
 
 /* Items*/
 router.post('/user/buy/:type', auth.auth, cron, user.buy);

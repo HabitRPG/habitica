@@ -25,7 +25,12 @@ var TaskSchema = new Schema({
   completed: {type: Boolean, 'default': false},
   priority: {type: String, 'default': '!'}, //'!!' // FIXME this should be a number or something
   repeat: {type: Schema.Types.Mixed, 'default': {m:1, t:1, w:1, th:1, f:1, s:1, su:1} },
-  streak: {type: Number, 'default': 0}
+  streak: {type: Number, 'default': 0},
+  challenge: {
+    id: {type: 'String', ref:'Challenge'},
+    broken: {type: Boolean, 'default': false}
+    // group: {type: 'Strign', redf: 'Group'} // if we restore this, rename `id` above to `challenge`
+  }
 });
 
 TaskSchema.methods.toJSON = function() {

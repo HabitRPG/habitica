@@ -29,7 +29,7 @@ script(id='templates/habitrpg-options.html', type="text/ng-template")
           a(data-toggle='tab',data-target='#achievements-tab')
             i.icon-certificate
             | Achievements
-        //-li
+        li
           a(data-toggle='tab',data-target='#challenges-tab')
             i.icon-bullhorn
             | Challenges
@@ -58,7 +58,7 @@ script(id='templates/habitrpg-options.html', type="text/ng-template")
           include ../shared/profiles/achievements
 
         .tab-pane#challenges-tab
-          include ./challenges/index
+          include ./challenges
 
         .tab-pane#settings-tab
           include ./settings

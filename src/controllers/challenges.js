@@ -81,12 +81,8 @@ var syncChalToUser = function(chal, user) {
   tags[chal._id] = true;
   _.each(['habits','dailys','todos','rewards'], function(type){
     _.each(chal[type], function(task){
-      _.defaults(task, {
-        tags: tags,
-        challenge: chal._id,
-        group: chal.group
-      });
-
+      _.defaults(task, {tags: tags, challenge:{}});
+      _.defaults(task.challenge, {id:chal._id, broken:false});
       if (~(i = _.findIndex(user[type], {id:task.id}))) {
         _.defaults(user[type][i], task);
       } else {
@@ -121,11 +117,36 @@ api.join = function(req, res){
   });
 }
 
-api.leave = function(req, res, next){
+function unlink(user, cid, keep, tid) {
+  switch (keep) {
+    case 'keep':
+      delete user.tasks[tid].challenge;
+      break;
+    case 'remove':
+      user[user.tasks[tid].type+'s'].id(tid).remove();
+      break;
+    case 'keep-all':
+      _.each(user.tasks, function(t){
+        if (t.challenge && t.challenge.id == cid) {
+          delete t.challenge;
+        }
+      });
+      break;
+    case 'remove-all':
+      _.each(user.tasks, function(t){
+        if (t.challenge && t.challenge.id == cid) {
+          user[t.type+'s'].id(t.id).remove();
+        }
+      })
+      break;
+  }
+}
+
+api.leave = function(req, res){
   var user = res.locals.user;
   var cid = req.params.cid;
-  // whether or not to keep challenge's tasks. strictly default to true if "false" isn't provided
-  var keep = !(/^false$/i).test(req.query.keep);
+  // whether or not to keep challenge's tasks. strictly default to true if "keep-all" isn't provided
+  var keep = (/^remove-all/i).test(req.query.keep) ? 'remove-all' : 'keep-all';
 
   async.waterfall([
     function(cb){
@@ -136,16 +157,7 @@ api.leave = function(req, res, next){
       //User.findByIdAndUpdate(user._id, {$pull:{challenges:cid}}, cb);
       var i = user.challenges.indexOf(cid)
       if (~i) user.challenges.splice(i,1);
-
-      // Remove tasks from user
-      _.each(chal.tasks, function(task) {
-        if (keep) {
-          delete user[task.type+'s'].id(task.id).challenge;
-          delete user[task.type+'s'].id(task.id).group;
-        } else {
-          user[task.type+'s'].id(task.id).remove();
-        }
-      });
+      unlink(user, chal._id, keep)
       user.save(function(err){
         if (err) return cb(err);
         cb(null, chal);
@@ -154,5 +166,18 @@ api.leave = function(req, res, next){
   ], function(err, result){
     if(err) return res.json(500,{err:err});
     res.json(result);
+  });
+}
+
+api.unlink = function(req, res) {
+  var user = res.locals.user;
+  var tid = req.params.id;
+  var cid = user.tasks[tid].challenge.id;
+  if (!req.query.keep)
+    return res.json(400, {err: 'Provide unlink method as ?keep=keep-all (keep, keep-all, remove, remove-all)'});
+  unlink(user, cid, req.query.keep, tid);
+  user.save(function(err, saved){
+    if (err) return res.json(500,{err:err});
+    res.send(200);
   });
 }

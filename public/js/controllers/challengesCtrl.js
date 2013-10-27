@@ -168,52 +168,13 @@ habitrpg.controller("ChallengesCtrl", ['$scope', '$rootScope', 'User', 'Challeng
       --------------------------
       */
 
-      $scope.taskUnsubscribe = function(e, el) {
-        /*
-          since the challenge was deleted, we don't have its data to unsubscribe from - but we have the vestiges on the task
-          FIXME this is a really dumb way of doing this
-        */
-
-        var deletedChal, i, path, tasks, tobj;
-        tasks = this.priv.get('tasks');
-        tobj = tasks[$(el).attr("data-tid")];
-        deletedChal = {
-          id: tobj.challenge,
-          members: [this.uid],
-          habits: _.where(tasks, {
-            type: 'habit',
-            challenge: tobj.challenge
-          }),
-          dailys: _.where(tasks, {
-            type: 'daily',
-            challenge: tobj.challenge
-          }),
-          todos: _.where(tasks, {
-            type: 'todo',
-            challenge: tobj.challenge
-          }),
-          rewards: _.where(tasks, {
-            type: 'reward',
-            challenge: tobj.challenge
-          })
-        };
-        switch ($(el).attr('data-action')) {
-          case 'keep':
-            this.priv.del("tasks." + tobj.id + ".challenge");
-            return this.priv.del("tasks." + tobj.id + ".group");
-          case 'keep-all':
-            return app.challenges.unsubscribe.call(this, deletedChal, true);
-          case 'remove':
-            path = "_page.lists.tasks." + this.uid + "." + tobj.type + "s";
-            if (~(i = _.findIndex(this.model.get(path), {
-              id: tobj.id
-            }))) {
-              return this.model.remove(path, i);
-            }
-            break;
-          case 'remove-all':
-            return app.challenges.unsubscribe.call(this, deletedChal, false);
-        }
+      $scope.unlink = function(task, keep) {
+        // TODO move this to userServices, turn userSerivces.user into ng-resource
+        $http.post(API_URL + '/api/v1/user/task/' + task.id + '/unlink', {keep:keep})
+          .success(function(){
+            debugger
+            User.log({});
+          });
       };
 
       $scope.unsubscribe = function(keep) {
@@ -228,7 +189,7 @@ habitrpg.controller("ChallengesCtrl", ['$scope', '$rootScope', 'User', 'Challeng
         $scope.selectedChal = chal;
         $scope.popoverEl = $($event.target);
         var html = $compile(
-          '<a ng-controller="ChallengesCtrl" ng-click="unsubscribe(false)">Remove Tasks</a><br/>\n<a ng-click="unsubscribe(true)">Keep Tasks</a><br/>\n<a ng-click="unsubscribe(\'cancel\')">Cancel</a><br/>'
+          '<a ng-controller="ChallengesCtrl" ng-click="unsubscribe(\'remove-all\')">Remove Tasks</a><br/>\n<a ng-click="unsubscribe(\'keep-all\')">Keep Tasks</a><br/>\n<a ng-click="unsubscribe(\'cancel\')">Cancel</a><br/>'
         )($scope);
         $scope.popoverEl.popover('destroy').popover({
           html: true,
