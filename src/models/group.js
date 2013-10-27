@@ -51,12 +51,12 @@ var GroupSchema = new Schema({
 
   balance: Number,
   logo: String,
-  leaderMessage: String
+  leaderMessage: String,
+  challenges: [{type:'String', ref:'Challenge'}]
 }, {
-  strict: 'throw', 
+  strict: 'throw',
   minimize: false // So empty objects are returned
 });
-
 
 /**
  * Derby duplicated stuff. This is a temporary solution, once we're completely off derby we'll run an mongo migration

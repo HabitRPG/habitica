@@ -41,6 +41,14 @@ api.getMember = function(req, res) {
 api.getGroups = function(req, res, next) {
   var user = res.locals.user;
 
+  // if ?minimal=true, just send down names
+  if (req.query.minimal) {
+    return Group.find({members: {'$in': [user._id]}}).select('name _id').exec(function(err, groups){
+      if (err) return res.json(500, {err:err});
+      res.json(groups);
+    });
+  }
+
   var type = req.query.type && req.query.type.split(',');
 
   // First get all groups

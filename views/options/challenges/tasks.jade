@@ -1,0 +1,21 @@
+.grid
+  .module(ng-repeat='list in taskLists', ng-class='{"rewards-module": list.type==="reward"}')
+    .task-column(class='{{list.type}}s')
+
+      // Removed graph icon. Restore here from tasks/index.jade if needed
+
+      // Header
+      h2.task-column_title {{list.header}}
+
+      // Removed graph. Restore here from tasks/index.jade if needed
+
+      // Add New
+      form.addtask-form.form-inline.new-task-form(name='new{{list.type}}form', ng-if='challenge.leader == user._id', ng-submit='addTask(list)')
+        span.addtask-field
+          input(type='text', ng-model='list.newTask', placeholder='{{list.placeHolder}}', required)
+        input.addtask-btn(type='submit', value='＋', ng-disabled='new{{list.type}}form.$invalid')
+      hr
+
+      // Actual List
+      ul(class='{{list.type}}s', ng-show='list.tasks.length > 0', habitrpg-sortable)
+        include ./task

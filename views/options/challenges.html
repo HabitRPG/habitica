@@ -1,10 +1,10 @@
-<main:>
+<main>
     <app:widgets:tabs>
-        <@headers>
+        <!--<@headers>-->
             <app:widgets:tab-header group="challenges" tab="party" title="Party" default="true" />
             <app:widgets:tab-header group="challenges" tab="guild" title="Guild" />
             <app:widgets:tab-header group="challenges" tab="public" title="Public" />
-        </@headers>
+        <!--</@headers>-->
 
         <app:widgets:tab-content group="challenges" tab="party" default="true">
             {{#unless _page.party.id}}
@@ -34,8 +34,9 @@
         </app:widgets:tab-content>
 
     </app:widgets:tabs>
+</main>
 
-<list:>
+<list>
     <div class="{#unless _page.new.challenge}hidden{/}">
         <app:challenges:create-form />
     </div>
@@ -46,8 +47,9 @@
         {/}
         <hr/>
     </div>
+</list>
 
-<list-entry:>
+<list-entry>
     <div class="accordion-group">
         <div class="accordion-heading">
             <ul class='pull-right challenge-accordion-header-specs'>
@@ -128,8 +130,9 @@
             </div>
         </div>
     </div>
+</list-entry>
 
-<stats:>
+<stats>
     <h5>{@header}</h5>
     <div>
     {#each @list as :task}
@@ -144,11 +147,13 @@
         </tr></table>
     {/}
     </div>
+</stats>
 
-<create-button:>
+<create-button>
     <a x-bind='click:challenges.create' class='btn btn-success' data-type={{@type}} data-gid={{@gid}} >Create {{@text}} Challenge</a>
+</create-button>
 
-<create-form:>
+<create-form>
     <form x-bind="submit:challenges.save">
         <div>
             <input type='submit' class='btn btn-success' value='Save' />
@@ -168,3 +173,4 @@
                 rewards={_page.new.challenge.rewards}
                 editable=true />
     </div>
+</create-form>

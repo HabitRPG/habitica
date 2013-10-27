@@ -3,6 +3,7 @@ var router = new express.Router();
 var user = require('../controllers/user');
 var groups = require('../controllers/groups');
 var auth = require('../controllers/auth');
+var challenges = require('../controllers/challenges');
 
 /*
  ---------- /api/v1 API ------------
@@ -77,5 +78,14 @@ router.get('/members/:uid', groups.getMember);
 
 // Market
 router.post('/market/buy', auth.auth, user.marketBuy);
+
+/* Challenges */
+// Note: while challenges belong to groups, and would therefore make sense as a nested resource
+// (eg /groups/:gid/challenges/:cid), they will also be referenced by users from the "challenges" tab
+// without knowing which group they belong to. So to prevent unecessary lookups, we have them as a top-level resource
+router.get('/challenges', auth.auth, challenges.get)
+router.post('/challenges', auth.auth, challenges.create)
+router.post('/challenges/:cid/join', auth.auth, challenges.join)
+router.post('/challenges/:cid/leave', auth.auth, challenges.leave)
 
 module.exports = router;

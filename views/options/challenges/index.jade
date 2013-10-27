@@ -1,0 +1,102 @@
+.row-fluid(ng-controller='ChallengesCtrl')
+  .span2.well
+    h4 Filters
+    ul
+      li
+        input(type='checkbox', checked='checked')
+        .label.label-warning todo
+        | Party
+      li
+        input(type='checkbox', checked='checked')
+        .label.label-warning todo
+        | (list groups)
+      li
+        input(type='checkbox', checked='checked')
+        .label.label-warning todo
+        | Subscribed
+      li
+        input(type='checkbox', checked='checked')
+        .label.label-warning todo
+        | Available
+  .span10
+    // Creation form
+    a.btn.btn-success(ng-click='create()') Create Challenge
+    .create-challenge-from(ng-if='newChallenge')
+      form(ng-submit='save(newChallenge)')
+        div
+          input.btn.btn-success(type='submit', value='Save')
+          input.btn.btn-danger(type='button', ng-click='discard()', value='Discard')
+          select(ng-model='newChallenge.group', ng-required='required', name='Group', ng-options='g._id as g.name for g in groups')
+        .challenge-options
+          input.option-content(type='text', ng-model='newChallenge.name', placeholder='Challenge Title', required='required')
+
+      habitrpg-tasks(main=false, obj='newChallenge')
+
+    // Challenges list
+    .accordion-group(ng-repeat='challenge in challenges')
+      .accordion-heading
+        ul.pull-right.challenge-accordion-header-specs
+          li {{challenge.members.length}} Subscribers
+          li(ng-show='challenge.prize')
+            // prize
+            table(ng-show='challenge.prize')
+              tr
+                td {{challenge.prize}}
+                td
+                  span.Pet_Currency_Gem1x
+                td  Prize
+          li
+            // subscribe / unsubscribe
+            a.btn.btn-small.btn-danger(ng-show='indexOf(challenge.members, user._id)', ng-click='clickUnsubscribe(challenge, $event)')
+              i.icon-ban-circle
+              | Unsubscribe
+            a.btn.btn-small.btn-success(ng-hide='indexOf(challenge.members, user._id)', ng-click='challenge.$join()')
+              i.icon-ok
+              | Subscribe
+        a.accordion-toggle(data-toggle='collapse', data-target='#accordion-challenge-{{challenge._id}}') {{challenge.name}} (by {{challenge.leader.name}})
+      .accordion-body.collapse(id='accordion-challenge-{{challenge._id}}')
+        .accordion-inner
+          // Edit button
+          span(style='position: absolute; right: 0;')
+            ul.nav.nav-pills(ng-show='challenge.leader==user._id && !challenge._editing')
+              li
+                a(ng-click='challenge._editing = true')
+                  i.icon-pencil
+            ul.nav.nav-pills(ng-show='challenge._editing')
+              li
+                a(ng-click='save(challenge)')
+                  i.icon-ok
+          div(ng-show='challenge._editing')
+            .-options
+              input.option-content(type='text', ng-model='challenge.name')
+              textarea.option-content(cols='3', placeholder='Description', ng-model='challenge.description')
+              // <input type=number class='option-content' placeholder='Gems Prize' value={@challenge.prize} />
+            a.btn.btn-small.btn-danger(ng-click='delete(challenge)') Delete
+          div(ng-if='challenge.description') {{challenge.description}}
+          habitrpg-tasks(obj='challenge', main=false)
+          h3 Statistics
+          div(ng-repeat='member in challenge.members')
+            h4 {{member.name}}
+            .grid
+              .module
+                app:challenges:stats(header='Habits', challenge='{{challenge}}', member='{{member}}', list='{{challenge.habits}}')
+              .module
+                app:challenges:stats(header='Dailies', challenge='{{challenge}}', member='{{member}}', list='{{challenge.dailys}}')
+              .module
+                app:challenges:stats(header='Todos', challenge='{{challenge}}', member='{{member}}', list='{{challenge.todos}}')
+
+////  .stats
+//    h5 {@header}
+//    div
+//      | {#each @list as :task}
+//      table
+//        tr
+//          td
+//            //
+//               FIXME commented section below isn't getting updated dynamically, temp solution is less efficient
+//            strong {:task.text}
+//            | : {challengeMemberScore(@member,:task)}
+//            // {round(@member[@taskType]s[:task.id].value)}
+//          td
+//            .challenge-{{@challenge.id}}-member-{{@member.id}}-history-{{:task.id}}(style='margin-left: 10px;')
+//      | {/}
