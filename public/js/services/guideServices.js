@@ -126,28 +126,6 @@ angular.module('guideServices', []).
       }
     });
 
-    $rootScope.$watch('user.items', function(after, before) {
-      if (User.user.achievements && User.user.achievements.ultimateGear) return;
-      var items = User.user.items;
-      if (+items.weapon >= 6 && +items.armor >= 5 && +items.head >= 5 && +items.shield >= 5) {
-        User.set('achievements.ultimateGear', true); // FIXME
-        $('#max-gear-achievement-modal').modal('show'); // FIXME
-      }
-    });
-
-    // FIXME how to handle tasks.*.streak?
-    // FIXME move to tasksCtrl
-    /*$rootScope.$watch('user.tasks.*.streak', function(id, after, before) {
-      if (after > 0) {
-        if ((after % 21) === 0) {
-          user.incr('achievements.streak', 1)
-          return $('#streak-achievement-modal').modal('show');
-        } else if ((before - after === 1) && (before % 21 === 0)) {
-          return user.incr('achievements.streak', -1);
-        }
-      }
-    });*/
-
     return {
       initTour:initTour
     };

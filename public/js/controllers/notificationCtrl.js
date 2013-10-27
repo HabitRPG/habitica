@@ -37,7 +37,11 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.modals.achievements.streak = true;
     });
 
-    // FIXME: this isn't working for some reason
+    $rootScope.$watch('user.achievements.ultimateGear', function(after, before) {
+      if (after === before || after !== true) return;
+      $rootScope.modals.achievements.ultimateGear = true;
+    });
+
     /*_.each(['weapon', 'head', 'chest', 'shield'], function(watched){
       $rootScope.$watch('user.items.' + watched, function(before, after){
         if (after == before) return;
