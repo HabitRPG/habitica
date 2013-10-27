@@ -2,22 +2,15 @@
   .span2.well
     h4 Filters
     ul
+      li(ng-repeat='group in groups')
+        input(type='checkbox', ng-model='search.group')
+        | {{group.name}}
       li
-        input(type='checkbox', checked='checked')
-        .label.label-warning todo
-        | Party
+        input(type='checkbox', ng-model='search.members')
+        | Subscribed (TODO)
       li
-        input(type='checkbox', checked='checked')
-        .label.label-warning todo
-        | (list groups)
-      li
-        input(type='checkbox', checked='checked')
-        .label.label-warning todo
-        | Subscribed
-      li
-        input(type='checkbox', checked='checked')
-        .label.label-warning todo
-        | Available
+        input(type='checkbox', ng-model='search.members')
+        | Available (TODO)
   .span10
     // Creation form
     a.btn.btn-success(ng-click='create()') Create Challenge
@@ -33,7 +26,7 @@
       habitrpg-tasks(main=false, obj='newChallenge')
 
     // Challenges list
-    .accordion-group(ng-repeat='challenge in challenges', ng-init='locked=true')
+    .accordion-group(ng-repeat='challenge in challenges | filter:search', ng-init='locked=true')
       .accordion-heading
         ul.pull-right.challenge-accordion-header-specs
           li {{challenge.members.length}} Subscribers

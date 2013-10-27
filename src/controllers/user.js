@@ -1,8 +1,5 @@
 /* @see ./routes.coffee for routing*/
 
-// fixme remove this junk, was coffeescript compiled (probably for IE8 compat)
-var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
 var url = require('url');
 var ipn = require('paypal-ipn');
 var _ = require('lodash');
@@ -16,6 +13,7 @@ var check = validator.check;
 var sanitize = validator.sanitize;
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
+var Challenge = require('./../models/challenge').model;
 var api = module.exports;
 
 // FIXME put this in a proper location
@@ -82,6 +80,16 @@ function addTask(user, task) {
   ---------------
 */
 
+var syncScoreToChallenge = function(task, delta){
+  if (!task.challenge || !task.challenge.id) return;
+  Challenge.findById(task.challenge.id, function(err, chal){
+    if (err) throw err;
+    var t = chal.tasks[task.id]
+    t.value += delta;
+    t.history.push({value: t.value, date: +new Date});
+    chal.save();
+  });
+}
 
 /**
   This is called form deprecated.coffee's score function, and the req.headers are setup properly to handle the login
@@ -96,6 +104,7 @@ api.scoreTask = function(req, res, next) {
   // Send error responses for improper API call
   if (!id) return res.json(500, {err: ':id required'});
   if (direction !== 'up' && direction !== 'down') {
+    if (direction == 'unlink') return next();
     return res.json(500, {err: ":direction must be 'up' or 'down'"});
   }
   // If exists already, score it
@@ -124,13 +133,16 @@ api.scoreTask = function(req, res, next) {
   }
   task = user.tasks[id];
   var delta = algos.score(user, task, direction);
-  //user.markModified('flags'); 
+  //user.markModified('flags');
   user.save(function(err, saved) {
     if (err) return res.json(500, {err: err});
     res.json(200, _.extend({
       delta: delta
     }, saved.toJSON().stats));
   });
+
+  // if it's a challenge task, sync the score
+  syncScoreToChallenge(task, delta);
 };
 
 /**

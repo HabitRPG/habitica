@@ -64,15 +64,15 @@ li(ng-repeat='task in list.tasks', class='task {{taskClasses(task, user.filters,
       div(ng-if='task.challenge.broken=="TASK_DELETED"')
         p Broken Challenge Link: this task was part of a challenge, but has been removed from it. What would you like to do?
         p
-          a(ng-click="unlink(task, 'keep')") Keep It
+          a(ng-click='unlink(task, "keep")') Keep It
           | &nbsp;|&nbsp;
           a(ng-click="remove(list, $index)") Remove It
       div(ng-if='task.challenge.broken=="CHALLENGE_DELETED"')
         p Broken Challenge Link: this task was part of a challenge, but the challenge (or group) has been deleted. What to do with the orphan tasks?
         p
-          a(ng-click="unlink(task 'keep-all')") Keep Them
+          a(ng-click='unlink(task, "keep-all")') Keep Them
           | &nbsp;|&nbsp;
-          a(ng-click="unlink(task, 'remove-all')") Remove Them
+          a(ng-click='unlink(task, "remove-all")') Remove Them
       //-div(ng-if='task.challenge.broken=="UNSUBSCRIBED"')
         p Broken Challenge Link: this task was part of a challenge, but you have unsubscribed from the challenge. What to do with the orphan tasks?
         p

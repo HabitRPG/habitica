@@ -28,8 +28,8 @@ var TaskSchema = new Schema({
   streak: {type: Number, 'default': 0},
   challenge: {
     id: {type: 'String', ref:'Challenge'},
-    broken: {type: Boolean, 'default': false}
-    // group: {type: 'Strign', redf: 'Group'} // if we restore this, rename `id` above to `challenge`
+    broken: String // CHALLENGE_DELETED, TASK_DELETED, UNSUBSCRIBED, etc
+    // group: {type: 'Strign', ref: 'Group'} // if we restore this, rename `id` above to `challenge`
   }
 });
 

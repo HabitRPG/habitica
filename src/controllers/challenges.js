@@ -139,7 +139,7 @@ var syncChalToUser = function(chal, user) {
   _.each(chal.tasks, function(task){
     var type = task.type;
     _.defaults(task, {tags: tags, challenge:{}});
-    _.defaults(task.challenge, {id:chal._id, broken:false});
+    _.defaults(task.challenge, {id:chal._id});
     if (user.tasks[task.id]) {
       _.merge(user.tasks[task.id], keepAttrs(task));
     } else {
@@ -213,8 +213,6 @@ api.leave = function(req, res){
       Challenge.findByIdAndUpdate(cid, {$pull:{members:user._id}}, cb);
     },
     function(chal, cb){
-      // Remove challenge from user
-      //User.findByIdAndUpdate(user._id, {$pull:{challenges:cid}}, cb);
       var i = user.challenges.indexOf(cid)
       if (~i) user.challenges.splice(i,1);
       unlink(user, chal._id, keep)
@@ -229,7 +227,11 @@ api.leave = function(req, res){
   });
 }
 
-api.unlink = function(req, res) {
+api.unlink = function(req, res, next) {
+  // they're scoring the task - commented out, we probably don't need it due to route ordering in api.js
+  //var urlParts = req.originalUrl.split('/');
+  //if (_.contains(['up','down'], urlParts[urlParts.length -1])) return next();
+
   var user = res.locals.user;
   var tid = req.params.id;
   var cid = user.tasks[tid].challenge.id;

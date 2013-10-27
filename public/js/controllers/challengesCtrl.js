@@ -119,65 +119,12 @@ habitrpg.controller("ChallengesCtrl", ['$scope', '$rootScope', 'User', 'Challeng
 //                chart = new google.visualization.LineChart $(".challenge-#{chal.id}-member-#{member.id}-history-#{task.id}")[0]
 //                chart.draw(data, options)
 
-    /**
-     * Sync user to challenge (when they score, add to statistics)
-     */
-    // TODO this needs to be moved to the server. Either:
-    // 1. Calculate on load (simplest, but bad performance)
-    // 2. Updated from user score API
-//    app.model.on("change", "_page.user.priv.tasks.*.value", function(id, value, previous, passed) {
-//      /* Sync to challenge, but do it later*/
-//
-//      var _this = this;
-//      return async.nextTick(function() {
-//        var chal, chalTask, chalUser, ctx, cu, model, pub, task, tobj;
-//        model = app.model;
-//        ctx = {
-//          model: model
-//        };
-//        task = model.at("_page.user.priv.tasks." + id);
-//        tobj = task.get();
-//        pub = model.get("_page.user.pub");
-//        if (((chalTask = helpers.taskInChallenge.call(ctx, tobj)) != null) && chalTask.get()) {
-//          chalTask.increment("value", value - previous);
-//          chal = model.at("groups." + tobj.group.id + ".challenges." + tobj.challenge);
-//          chalUser = function() {
-//            return helpers.indexedAt.call(ctx, chal.path(), 'members', {
-//              id: pub.id
-//            });
-//          };
-//          cu = chalUser();
-//          if (!(cu != null ? cu.get() : void 0)) {
-//            chal.push("members", {
-//              id: pub.id,
-//              name: model.get(pub.profile.name)
-//            });
-//            cu = model.at(chalUser());
-//          } else {
-//            cu.set('name', pub.profile.name);
-//          }
-//          return cu.set("" + tobj.type + "s." + tobj.id, {
-//            value: tobj.value,
-//            history: tobj.history
-//          });
-//        }
-//      });
-//    });
 
       /*
       --------------------------
        Unsubscribe functions
       --------------------------
       */
-
-      $scope.unlink = function(task, keep) {
-        // TODO move this to userServices, turn userSerivces.user into ng-resource
-        $http.post(API_URL + '/api/v1/user/task/' + task.id + '/unlink', {keep:keep})
-          .success(function(){
-            debugger
-            User.log({});
-          });
-      };
 
       $scope.unsubscribe = function(keep) {
         if (keep == 'cancel') {

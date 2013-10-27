@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', 'Algos', 'Helpers', 'Notification',
-  function($scope, $rootScope, $location, User, Algos, Helpers, Notification) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', 'Algos', 'Helpers', 'Notification', '$http', 'API_URL',
+  function($scope, $rootScope, $location, User, Algos, Helpers, Notification, $http, API_URL) {
     $scope.score = function(task, direction) {
       if (task.type === "reward" && User.user.stats.gp < task.value){
         return Notification.text('Not enough GP.');
@@ -92,6 +92,14 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
       $scope.originalTask = null;
       $scope.editedTask = null;
       $scope.editing = false;
+    };
+
+    $scope.unlink = function(task, keep) {
+      // TODO move this to userServices, turn userSerivces.user into ng-resource
+      $http.post(API_URL + '/api/v1/user/task/' + task.id + '/unlink?keep=' + keep)
+        .success(function(){
+          User.log({});
+        });
     };
 
     /*
