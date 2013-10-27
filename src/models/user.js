@@ -226,7 +226,8 @@ var UserSchema = new Schema({
   */
 
 }, {
-  strict: true
+  strict: true,
+  minimize: false // So empty objects are returned
 });
 
 // Legacy Derby Function?

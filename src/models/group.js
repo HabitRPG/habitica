@@ -52,7 +52,10 @@ var GroupSchema = new Schema({
   balance: Number,
   logo: String,
   leaderMessage: String
-}, {strict: 'throw'});
+}, {
+  strict: 'throw', 
+  minimize: false // So empty objects are returned
+});
 
 
 /**
