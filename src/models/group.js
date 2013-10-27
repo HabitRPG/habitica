@@ -54,7 +54,7 @@ var GroupSchema = new Schema({
   leaderMessage: String
 }, {
   strict: 'throw', 
-  minimize: false
+  minimize: false // So empty objects are returned
 });
 
 
