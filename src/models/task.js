@@ -17,7 +17,7 @@ var TaskSchema = new Schema({
   _id:{type: String,'default': helpers.uuid},
   text: String,
   notes: {type: String, 'default': ''},
-  tags: Schema.Types.Mixed, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
+  tags: {type: Schema.Types.Mixed, 'default': {}}, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
   type: {type:String, 'default': 'habit'}, // habit, daily
   up: {type: Boolean, 'default': true},
   down: {type: Boolean, 'default': true},

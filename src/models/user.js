@@ -64,10 +64,6 @@ var UserSchema = new Schema({
   },
 
   balance: Number,
-  habitIds: Array,
-  dailyIds: Array,
-  todoIds: Array,
-  rewardIds: Array,
   filters: {type: Schema.Types.Mixed, 'default': {}},
 
   purchased: {
@@ -216,26 +212,6 @@ var UserSchema = new Schema({
   strict: true,
   minimize: false // So empty objects are returned
 });
-
-// Legacy Derby Function?
-// ----------------------
-// Derby requires a strange storage format for somethign called "refLists". Here we hook into loading the data, so we
-// can provide a more "expected" storage format for our various helper methods. Since the attributes are passed by reference,
-// the underlying data will be modified too - so when we save back to the database, it saves it in the way Derby likes.
-// This will go away after the rewrite is complete
-
-//FIXME use this in migration
-/*function transformTaskLists(doc) {
-  _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
-    // we use _.transform instead of a simple _.where in order to maintain sort-order
-    doc[type + "s"] = _.reduce(doc[type + "Ids"], function(m, tid) {
-      if (!doc.tasks[tid]) return m; // FIXME tmp hotfix, people still have null tasks?
-      if (!doc.tasks[tid].tags) doc.tasks[tid].tags = {}; // FIXME remove this when we switch tasks to subdocs and can define tags default in schema
-      m.push(doc.tasks[tid]);
-      return m;
-    }, []);
-  });
-}*/
 
 UserSchema.methods.toJSON = function() {
   var doc = this.toObject();
