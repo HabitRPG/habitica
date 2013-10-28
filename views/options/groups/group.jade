@@ -26,9 +26,14 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
             label.control-label Logo URL
             input.option-content(type='url', placeholder='Logo URL', ng-model='group.logo')
           .control-group.option-large
-            form.form-inline(x-bind='submit:groupAddWebsite', ng-submit='notPorted()')
-              input.option-content(type='url', placeholder='Website', value='{{_newGroupWebsite}}')
-              input.btn(type='submit', value='Add')
+            label.control-label Websites
+            form(ng-submit='addWebsite(group)')
+              input.option-content(type='url', ng-model='group._newWebsite', placeholder='Add Website')
+            ul
+              li(ng-repeat='website in group.websites')
+                | {{website}}
+                a(ng-click='removeWebsite(group, $index)')
+                  i.icon-remove
 
           h4 Assign Group Leader
           select#group-leader-selection
@@ -48,7 +53,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
           markdown(ng-model='group.description')
           div(ng-show='group.websites')
             h4 Websites
-            ul.unstyled
+            ul
               li(ng-repeat='website in group.websites')
                 a(target='_blank', ng-href='{{website}}') {{website}}
 

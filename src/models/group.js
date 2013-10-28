@@ -76,7 +76,6 @@ function removeDuplicates(doc){
     if (uniqWebsites.length != doc.websites.length) {
       doc.websites = uniqWebsites;
     }
-    console.log(doc.websites);
   }
 }
 
