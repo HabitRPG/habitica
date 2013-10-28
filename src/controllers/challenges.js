@@ -19,12 +19,25 @@ var api = module.exports;
 
 // GET
 api.get = function(req, res) {
-  // TODO only find in user's groups (+ public)
-  // TODO populate (group, leader, members)
-  Challenge.find({},function(err, challenges){
-    if(err) return res.json(500, {err:err});
-    res.json(challenges);
-  })
+  var user = res.locals.user;
+  Challenge.find({$or:[{leader: user._id}, {members:{$in:[user._id]}}]})
+    .populate('members', 'profile.name habits dailys rewards todos')
+    .exec(function(err, challenges){
+      if(err) return res.json(500, {err:err});
+
+      // slim down the return members' tasks to only the ones in the challenge
+      _.each(challenges, function(challenge){
+        _.each(challenge.members, function(member){
+          _.each(['habits', 'dailys', 'todos', 'rewards'], function(type){
+            member[type] = _.where(member[type], function(task){
+              return task.challenge && task.challenge.id == challenge._id;
+            })
+          })
+        })
+      });
+
+      res.json(challenges);
+    })
 }
 
 // CREATE

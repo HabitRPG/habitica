@@ -69,27 +69,5 @@
           habitrpg-tasks(obj='challenge', main=false)
           h3 Statistics
           div(ng-repeat='member in challenge.members')
-            h4 {{member.name}}
-            .grid
-              .module
-                app:challenges:stats(header='Habits', challenge='{{challenge}}', member='{{member}}', list='{{challenge.habits}}')
-              .module
-                app:challenges:stats(header='Dailies', challenge='{{challenge}}', member='{{member}}', list='{{challenge.dailys}}')
-              .module
-                app:challenges:stats(header='Todos', challenge='{{challenge}}', member='{{member}}', list='{{challenge.todos}}')
-
-////  .stats
-//    h5 {@header}
-//    div
-//      | {#each @list as :task}
-//      table
-//        tr
-//          td
-//            //
-//               FIXME commented section below isn't getting updated dynamically, temp solution is less efficient
-//            strong {:task.text}
-//            | : {challengeMemberScore(@member,:task)}
-//            // {round(@member[@taskType]s[:task.id].value)}
-//          td
-//            .challenge-{{@challenge.id}}-member-{{@member.id}}-history-{{:task.id}}(style='margin-left: 10px;')
-//      | {/}
+            h4 {{member.profile.name}}
+            habitrpg-tasks(main=false, obj='member')
