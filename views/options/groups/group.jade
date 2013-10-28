@@ -63,7 +63,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
               // allow leaders to ban members
               div(ng-show='group.leader == user.id && user.id!=member._id')
                 // {{#with group.members[$index]}}
-                a(x-bind='click:removeAt', data-refresh='true', data-confirm='Boot this member?')
+                a(ng-click='removeMember(group, member)')
                   i.icon-ban-circle(tooltip='Boot Member')
                 // {{/}}
               a(data-toggle='modal', data-target='#avatar-modal-{{member._id}}')

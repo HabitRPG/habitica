@@ -15,7 +15,8 @@ angular.module('groupServices', ['ngResource']).
             deleteChatMessage: {method: "DELETE", url: API_URL + '/api/v1/groups/:gid/chat/:messageId'},
             join: {method: "POST", url: API_URL + '/api/v1/groups/:gid/join'},
             leave: {method: "POST", url: API_URL + '/api/v1/groups/:gid/leave'},
-            invite: {method: "POST", url: API_URL + '/api/v1/groups/:gid/invite'}
+            invite: {method: "POST", url: API_URL + '/api/v1/groups/:gid/invite'},
+            removeMember: {method: "POST", url: API_URL + '/api/v1/groups/:gid/removeMember'}
           });
 
         // The user may not visit the public guilds, personal guilds, and tavern pages. So

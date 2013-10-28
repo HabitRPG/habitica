@@ -261,8 +261,8 @@ api.leave = function(req, res, next) {
 
   Group.update({_id:group._id},{$pull:{members:user._id}}, function(err, saved){
     if (err) return res.json(500,{err:err});
-    res.send(200, {_id: saved._id});
-  })
+    return res.send(200, {_id: saved._id});
+  });
 }
 
 api.invite = function(req, res, next) {
@@ -307,4 +307,24 @@ api.invite = function(req, res, next) {
 
     }
   });
+}
+
+api.removeMember = function(req, res, next){
+  var group = res.locals.group;
+  var uuid = req.query.uuid;
+  var user = res.locals.user;
+  
+  if(group.leader !== user._id){
+    return res.json(401, {err: "Only group leader can remove a member!"});
+  }
+
+  if(_.contains(group.members, uuid)){
+    Group.update({_id:group._id},{$pull:{members:uuid}}, function(err, saved){
+      if (err) return res.json(500,{err:err});
+      return res.send(204);
+    });
+  }else{
+    return res.json(400, {err: "User not found among group's members!"});
+  }
+
 }

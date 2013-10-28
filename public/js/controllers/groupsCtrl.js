@@ -38,6 +38,15 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         }
       }
 
+      $scope.removeMember = function(group, member){
+        var yes = confirm("Do you really want to remove this member from the party?")
+        if(yes){
+          group.$removeMember({uuid: member._id}, function(){
+            location.reload();
+          });
+        }
+      }
+
     // ------ Invites ------
 
       $scope.invitee = '';
@@ -118,8 +127,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         if (confirm("Create Guild for 4 Gems?")) {
           group.$save(function(){
             location.reload();
-          }, function(error){
-            alert(error.data);
           });
         }
       }
