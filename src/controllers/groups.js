@@ -154,7 +154,7 @@ api.updateGroup = function(req, res, next) {
     }
   ], function(err, results){
     if (err) return res.json(500,{err:err});
-    removeSelf(results[1], res.locals.user);
+    if (group.type === 'party') removeSelf(results[1], res.locals.user);
     res.json(results[1]);
   })
 }
@@ -198,7 +198,7 @@ api.postChat = function(req, res, next) {
 
     // TODO This is less efficient, but see https://github.com/lefnire/habitrpg/commit/41255dc#commitcomment-4014583
     var saved = results[1];
-    removeSelf(saved, user);
+    if (group.type === 'party') removeSelf(saved, user);
 
     res.json(saved);
   })
@@ -301,7 +301,7 @@ api.invite = function(req, res, next) {
       invite.save();
       Group.findById(group._id)
         .populate('members', partyFields).exec(function(err, saved){
-          removeSelf(saved, res.locals.user);
+          if (group.type === 'party') removeSelf(saved, res.locals.user);
           res.json(saved);
         });
 
