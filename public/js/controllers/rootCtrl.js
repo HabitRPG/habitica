@@ -42,6 +42,10 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       alert("This feature is not yet ported from the original site.");
     }
 
+    $rootScope.dismissErrorOrWarning = function(type, $index){
+      $rootScope.flash[type].splice($index, 1);
+    }
+
     $rootScope.showStripe = function() {
       StripeCheckout.open({
         key: window.env.STRIPE_PUB_KEY,

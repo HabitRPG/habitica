@@ -95,8 +95,12 @@ html
       #wrap
 
         // Errors
-        .unstyled.alert.alert-error(ng-repeat='error in flash.errors track by $index') {{error}}
-        .unstyled.alert.alert-error(ng-repeat='error in flash.warnings track by $index') {{error}}
+        .unstyled.alert.alert-error(ng-repeat='error in flash.errors track by $index') 
+          | {{error}}
+          button.close(type='button', ng-click='dismissErrorOrWarning("errors", $index)') &times;
+        .unstyled.alert.alert-error(ng-repeat='error in flash.warnings track by $index') 
+          | {{error}}
+          button.close(type='button', ng-click='dismissErrorOrWarning("warnings", $index)') &times;
 
         //if they hide the header, we still need user-menu visible
         div(ng-if='user.preferences.hideHeader')
