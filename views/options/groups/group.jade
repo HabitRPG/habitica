@@ -36,18 +36,8 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
                   i.icon-remove
 
           h4 Assign Group Leader
-          select#group-leader-selection
-            option(ng-repeat='member in group.members', selected='member._id == _new.groupLeader') {{username(member.auth,member.profile.name)}}
-          button(x-bind='click:assignGroupLeader', ng-click='notPorted()') Assign
-
-          div(ng-show='group.websites')
-            h4 Resources
-            ul.unstyled
-              li
-                a(ng-repeat='website in group.websites', x-bind='click:removeAt', ng-click='notPorted()')
-                  i.icon-trash
-                a(target='_blank', href='{{website}}') {{website}}
-
+          select#group-leader-selection(ng-model='group._newLeader', ng-options='username(member.auth, member.profile.name) for member in group.members')
+          
         div(ng-show='!group._editing')
           img.pull-right(ng-show='group.logo', style='max-width:150px', ng-src='{{group.logo}}')
           markdown(ng-model='group.description')
@@ -110,8 +100,6 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
         include ../../shared/formatting-help
     table(ng-show='group.leaderMessage')
       tr
-        td
-          app:avatar:avatar(profile='{{Members.members[group.leader]}}')
         td
           .popover.static-popover.fade.right.in.wide-popover
             .arrow

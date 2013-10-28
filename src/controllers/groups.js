@@ -143,9 +143,15 @@ api.createGroup = function(req, res, next) {
 
 api.updateGroup = function(req, res, next) {
   var group = res.locals.group;
-  'name description logo websites logo leaderMessage'.split(' ').forEach(function(attr){
+  var user = res.locals.user;
+
+  if(group.leader !== user._id)
+    return res.json(401, {err: "Only the group leader can update the group!"});
+
+  'name description logo websites logo leaderMessage leader'.split(' ').forEach(function(attr){
     group[attr] = req.body[attr];
   });
+
   async.series([
     function(cb){group.save(cb);},
     function(cb){
@@ -156,7 +162,7 @@ api.updateGroup = function(req, res, next) {
     if (err) return res.json(500,{err:err});
     if (group.type === 'party') removeSelf(results[1], res.locals.user);
     res.json(results[1]);
-  })
+  });
 }
 
 api.attachGroup = function(req, res, next) {
