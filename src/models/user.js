@@ -265,7 +265,16 @@ UserSchema.virtual('tasks').get(function () {
  // Custom setter/getter virtuals?
 
 UserSchema.pre('save', function(next) {
-  //this.markModified('tasks'); //FIXME
+  //this.markModified('tasks');
+
+  if (!this.profile.name) {
+    var fb = this.auth.facebook;
+    this.profile.name =
+      (this.auth.local && this.auth.local.username) ||
+      (fb && (fb.displayName || fb.name || fb.username || (fb.first_name && fb.first_name + ' ' + fb.last_name))) ||
+      'Anonymous';
+  }
+
   //our own version incrementer
   this._v++;
   next();
