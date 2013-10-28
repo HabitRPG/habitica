@@ -58,8 +58,11 @@ angular.module('memberServices', ['ngResource']).
           selectMember: function(uid) {
             var self = this;
             // Fetch from cache if we can. For guild members, only their uname will have been fetched on initial load,
-            // check if they have full fields (eg, check profile.items) and if not, fetch them
-            if (members[uid] && members[uid].items) {
+            // check if they have full fields (eg, check profile.items and an item inside
+            // because sometimes profile.items exists but it's empty like when user is fetched for party
+            // and then for guild)
+            // and if not, fetch them
+            if (members[uid] && members[uid].items && members[uid].items.weapon) {
               self.selectedMember = members[uid];
             } else {
               Member.get({uid: uid}, function(member){
