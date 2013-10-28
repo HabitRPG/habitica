@@ -173,7 +173,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.join = function(party){
         var group = new Groups.Group({_id: party.id, name: party.name});
         // there a better way to access GroupsCtrl.groups.party?
-        Groups.groups.party = group.$join(function(){
+        group.$join(function(party){
+          $scope.group = party;
           User.user.invitations.party = undefined;
         });
       }

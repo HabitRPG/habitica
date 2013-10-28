@@ -247,6 +247,10 @@ api.join = function(req, res, next) {
     }
   ], function(err, results){
     if (err) return res.json(500,{err:err});
+
+    // Remove self from party (see above failing `match` directive in `populate`
+    if(results[1].type == 'party') removeSelf(results[1], user);
+
     res.json(results[1]);
   });
 }
