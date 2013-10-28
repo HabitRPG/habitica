@@ -101,6 +101,8 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
     table(ng-show='group.leaderMessage')
       tr
         td
+          app:avatar:avatar(profile='{{Members.members[group.leader]}}')
+        td
           .popover.static-popover.fade.right.in.wide-popover
             .arrow
             h3.popover-title {{username(Members.members[group.leader].auth, Members.members[group.leader].profile.name)}}
