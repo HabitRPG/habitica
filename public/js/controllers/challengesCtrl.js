@@ -1,13 +1,11 @@
 "use strict";
 
-habitrpg.controller("ChallengesCtrl", ['$scope', '$rootScope', 'User', 'Challenges', 'Notification', '$http', 'API_URL', '$compile',
-  function($scope, $rootScope, User, Challenges, Notification, $http, API_URL, $compile) {
+habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'groups', 'challenges',
+  function($scope, User, Challenges, Notification, $compile, groups, challenges) {
 
-    $http.get(API_URL + '/api/v1/groups?minimal=true').success(function(groups){
-      $scope.groups = groups;
-    });
-
-    $scope.challenges = Challenges.Challenge.query();
+    // groups & challenges are loaded as `resolve` via ui-router (see app.js)
+    $scope.groups = groups;
+    $scope.challenges = challenges;
 
     //------------------------------------------------------------
     // Challenge
@@ -92,61 +90,33 @@ habitrpg.controller("ChallengesCtrl", ['$scope', '$rootScope', 'User', 'Challeng
       // TODO persist
     }
 
-    /**
-     * Render graphs for user scores when the "Challenges" tab is clicked
-     */
-    //TODO
-    // 1. on main tab click or party
-    //    * sort & render graphs for party
-    // 2. guild -> all guilds
-    // 3. public -> all public
-//    $('#profile-challenges-tab-link').on 'shown', ->
-//      async.each _.toArray(model.get('groups')), (g) ->
-//        async.each _.toArray(g.challenges), (chal) ->
-//          async.each _.toArray(chal.tasks), (task) ->
-//            async.each _.toArray(chal.members), (member) ->
-//              if (history = member?["#{task.type}s"]?[task.id]?.history) and !!history
-//                data = google.visualization.arrayToDataTable _.map(history, (h)-> [h.date,h.value])
-//                options =
-//                  backgroundColor: { fill:'transparent' }
-//                  width: 150
-//                  height: 50
-//                  chartArea: width: '80%', height: '80%'
-//                  axisTitlePosition: 'none'
-//                  legend: position: 'bottom'
-//                  hAxis: gridlines: color: 'transparent' # since you can't seem to *remove* gridlines...
-//                  vAxis: gridlines: color: 'transparent'
-//                chart = new google.visualization.LineChart $(".challenge-#{chal.id}-member-#{member.id}-history-#{task.id}")[0]
-//                chart.draw(data, options)
+    /*
+    --------------------------
+     Unsubscribe functions
+    --------------------------
+    */
 
-
-      /*
-      --------------------------
-       Unsubscribe functions
-      --------------------------
-      */
-
-      $scope.unsubscribe = function(keep) {
-        if (keep == 'cancel') {
-          $scope.selectedChal = undefined;
-        } else {
-          $scope.selectedChal.$leave({keep:keep});
-        }
-        $scope.popoverEl.popover('destroy');
+    $scope.unsubscribe = function(keep) {
+      if (keep == 'cancel') {
+        $scope.selectedChal = undefined;
+      } else {
+        $scope.selectedChal.$leave({keep:keep});
       }
-      $scope.clickUnsubscribe = function(chal, $event) {
-        $scope.selectedChal = chal;
-        $scope.popoverEl = $($event.target);
-        var html = $compile(
-          '<a ng-controller="ChallengesCtrl" ng-click="unsubscribe(\'remove-all\')">Remove Tasks</a><br/>\n<a ng-click="unsubscribe(\'keep-all\')">Keep Tasks</a><br/>\n<a ng-click="unsubscribe(\'cancel\')">Cancel</a><br/>'
-        )($scope);
-        $scope.popoverEl.popover('destroy').popover({
-          html: true,
-          placement: 'top',
-          trigger: 'manual',
-          title: 'Unsubscribe From Challenge And:',
-          content: html
-        }).popover('show');
-      }
+      $scope.popoverEl.popover('destroy');
+    }
+    $scope.clickUnsubscribe = function(chal, $event) {
+      $scope.selectedChal = chal;
+      $scope.popoverEl = $($event.target);
+      var html = $compile(
+        '<a ng-controller="ChallengesCtrl" ng-click="unsubscribe(\'remove-all\')">Remove Tasks</a><br/>\n<a ng-click="unsubscribe(\'keep-all\')">Keep Tasks</a><br/>\n<a ng-click="unsubscribe(\'cancel\')">Cancel</a><br/>'
+      )($scope);
+      $scope.popoverEl.popover('destroy').popover({
+        html: true,
+        placement: 'top',
+        trigger: 'manual',
+        title: 'Unsubscribe From Challenge And:',
+        content: html
+      }).popover('show');
+    }
 
 }]);

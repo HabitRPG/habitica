@@ -31,6 +31,7 @@ html
       script(type='text/javascript', src='/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js')
       script(type='text/javascript', src='/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js')
       script(type='text/javascript', src='/bower_components/angular/angular.js')
+      script(type='text/javascript', src='/bower_components/angular-ui-router/release/angular-ui-router.js')
 
       script(type='text/javascript', src='/bower_components/angular-sanitize/angular-sanitize.min.js')
       script(type='text/javascript', src='/bower_components/marked/lib/marked.js')
@@ -109,7 +110,7 @@ html
 
         .exp-chart(ng-show='charts.exp')
 
-        #main(ng-view)
+        #main(ui-view)
 
       include ./shared/footer
 

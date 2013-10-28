@@ -31,6 +31,8 @@ var TaskSchema = new Schema({
     broken: String // CHALLENGE_DELETED, TASK_DELETED, UNSUBSCRIBED, etc
     // group: {type: 'Strign', ref: 'Group'} // if we restore this, rename `id` above to `challenge`
   }
+}, {
+  minimize: 'false'
 });
 
 TaskSchema.methods.toJSON = function() {

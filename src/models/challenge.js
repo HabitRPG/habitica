@@ -20,6 +20,8 @@ var ChallengeSchema = new Schema({
   //},
   timestamp: {type: Date, 'default': Date.now},
   members: [{type: String, ref: 'User'}]
+}, {
+  minimize: 'false'
 });
 
 ChallengeSchema.virtual('tasks').get(function () {

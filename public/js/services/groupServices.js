@@ -44,9 +44,9 @@ angular.module('groupServices', ['ngResource']).
           fetchGuilds: _.once(function(){
             $('#loading-indicator').show();
             Group.query({type:'guilds'}, function(_groups){
+              $('#loading-indicator').hide();
               guildsQ.resolve(_groups);
               Members.populate(_groups);
-              $('#loading-indicator').hide();
             })
             Group.query({type:'public'}, function(_groups){
               publicQ.resolve(_groups);
@@ -58,8 +58,8 @@ angular.module('groupServices', ['ngResource']).
             $('#loading-indicator').show();
             Group.query({type:'tavern'}, function(_groups){
               $('#loading-indicator').hide();
-              tavernQ.resolve(_groups[0]);
               Members.populate(_groups[0]);
+              tavernQ.resolve(_groups[0]);
             })
           }),
 

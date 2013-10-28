@@ -1,73 +1,74 @@
-.row-fluid(ng-controller='ChallengesCtrl')
-  .span2.well
-    h4 Filters
-    ul
-      li(ng-repeat='group in groups')
-        input(type='checkbox', ng-model='search.group')
-        | {{group.name}}
-      li
-        input(type='checkbox', ng-model='search.members')
-        | Subscribed (TODO)
-      li
-        input(type='checkbox', ng-model='search.members')
-        | Available (TODO)
-  .span10
-    // Creation form
-    a.btn.btn-success(ng-click='create()') Create Challenge
-    .create-challenge-from(ng-if='newChallenge')
-      form(ng-submit='save(newChallenge)')
-        div
-          input.btn.btn-success(type='submit', value='Save')
-          input.btn.btn-danger(type='button', ng-click='discard()', value='Discard')
-          select(ng-model='newChallenge.group', ng-required='required', name='Group', ng-options='g._id as g.name for g in groups')
-        .challenge-options
-          input.option-content(type='text', ng-model='newChallenge.name', placeholder='Challenge Title', required='required')
+script(type='text/ng-template', id='partials/options.challenges.html')
+  .row-fluid
+    .span2.well
+      h4 Filters
+      ul
+        li(ng-repeat='group in groups')
+          input(type='checkbox', ng-model='search.group')
+          | {{group.name}}
+        li
+          input(type='checkbox', ng-model='search.members')
+          | Subscribed (TODO)
+        li
+          input(type='checkbox', ng-model='search.members')
+          | Available (TODO)
+    .span10
+      // Creation form
+      a.btn.btn-success(ng-click='create()') Create Challenge
+      .create-challenge-from(ng-if='newChallenge')
+        form(ng-submit='save(newChallenge)')
+          div
+            input.btn.btn-success(type='submit', value='Save')
+            input.btn.btn-danger(type='button', ng-click='discard()', value='Discard')
+            select(ng-model='newChallenge.group', ng-required='required', name='Group', ng-options='g._id as g.name for g in groups')
+          .challenge-options
+            input.option-content(type='text', ng-model='newChallenge.name', placeholder='Challenge Title', required='required')
 
-      habitrpg-tasks(main=false, obj='newChallenge')
+        habitrpg-tasks(main=false, obj='newChallenge')
 
-    // Challenges list
-    .accordion-group(ng-repeat='challenge in challenges | filter:search', ng-init='challenge._locked=true')
-      .accordion-heading
-        ul.pull-right.challenge-accordion-header-specs
-          li {{challenge.members.length}} Subscribers
-          li(ng-show='challenge.prize')
-            // prize
-            table(ng-show='challenge.prize')
-              tr
-                td {{challenge.prize}}
-                td
-                  span.Pet_Currency_Gem1x
-                td  Prize
-          li
-            // subscribe / unsubscribe
-            a.btn.btn-small.btn-danger(ng-show='indexOf(challenge.members, user._id)', ng-click='clickUnsubscribe(challenge, $event)')
-              i.icon-ban-circle
-              | Unsubscribe
-            a.btn.btn-small.btn-success(ng-hide='indexOf(challenge.members, user._id)', ng-click='challenge.$join()')
-              i.icon-ok
-              | Subscribe
-        a.accordion-toggle(data-toggle='collapse', data-target='#accordion-challenge-{{challenge._id}}') {{challenge.name}} (by {{challenge.leader.name}})
-      .accordion-body.collapse(id='accordion-challenge-{{challenge._id}}')
-        .accordion-inner
-          // Edit button
-          ul.unstyled()
-            li(ng-show='challenge.leader==user._id && challenge._locked')
-              button.btn.btn-default(ng-click='challenge._locked = false') Edit
-            li(ng-hide='challenge._locked')
-              button.btn.btn-primary(ng-click='save(challenge)') Save
-              button.btn.btn-danger(ng-click='delete(challenge)') Delete
-              button.btn.btn-default(ng-click='challenge._locked=true') Cancel
+      // Challenges list
+      .accordion-group(ng-repeat='challenge in challenges | filter:search', ng-init='challenge._locked=true')
+        .accordion-heading
+          ul.pull-right.challenge-accordion-header-specs
+            li {{challenge.members.length}} Subscribers
+            li(ng-show='challenge.prize')
+              // prize
+              table(ng-show='challenge.prize')
+                tr
+                  td {{challenge.prize}}
+                  td
+                    span.Pet_Currency_Gem1x
+                  td  Prize
+            li
+              // subscribe / unsubscribe
+              a.btn.btn-small.btn-danger(ng-show='indexOf(challenge.members, user._id)', ng-click='clickUnsubscribe(challenge, $event)')
+                i.icon-ban-circle
+                | Unsubscribe
+              a.btn.btn-small.btn-success(ng-hide='indexOf(challenge.members, user._id)', ng-click='challenge.$join()')
+                i.icon-ok
+                | Subscribe
+          a.accordion-toggle(data-toggle='collapse', data-target='#accordion-challenge-{{challenge._id}}') {{challenge.name}} (by {{challenge.leader.name}})
+        .accordion-body.collapse(id='accordion-challenge-{{challenge._id}}')
+          .accordion-inner
+            // Edit button
+            ul.unstyled()
+              li(ng-show='challenge.leader==user._id && challenge._locked')
+                button.btn.btn-default(ng-click='challenge._locked = false') Edit
+              li(ng-hide='challenge._locked')
+                button.btn.btn-primary(ng-click='save(challenge)') Save
+                button.btn.btn-danger(ng-click='delete(challenge)') Delete
+                button.btn.btn-default(ng-click='challenge._locked=true') Cancel
 
-          div(ng-hide='challenge._locked')
-            .-options
-              input.option-content(type='text', ng-model='challenge.name')
-              textarea.option-content(cols='3', placeholder='Description', ng-model='challenge.description')
-              // <input type=number class='option-content' placeholder='Gems Prize' value={@challenge.prize} />
-          hr
+            div(ng-hide='challenge._locked')
+              .-options
+                input.option-content(type='text', ng-model='challenge.name')
+                textarea.option-content(cols='3', placeholder='Description', ng-model='challenge.description')
+                // <input type=number class='option-content' placeholder='Gems Prize' value={@challenge.prize} />
+            hr
 
-          div(ng-if='challenge.description') {{challenge.description}}
-          habitrpg-tasks(obj='challenge', main=false)
-          h3 Statistics
-          div(ng-repeat='member in challenge.members', ng-init='member._locked = true')
-            h4 {{member.profile.name}}
-            habitrpg-tasks(main=false, obj='member')
+            div(ng-if='challenge.description') {{challenge.description}}
+            habitrpg-tasks(obj='challenge', main=false)
+            h3 Statistics
+            div(ng-repeat='member in challenge.members', ng-init='member._locked = true')
+              h4 {{member.profile.name}}
+              habitrpg-tasks(main=false, obj='member')

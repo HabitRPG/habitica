@@ -1,0 +1,15 @@
+include ./inventory
+include ./stable
+
+script(type='text/ng-template', id='partials/options.inventory.html')
+  ul.nav.nav-tabs
+    li(ng-class="{ active: $state.includes('options.inventory.inventory') }")
+      a(ui-sref='options.inventory.inventory')
+        | Inventory
+    li(ng-class="{ active: $state.includes('options.inventory.stable') }")
+      a(ui-sref='options.inventory.stable')
+        | Stable
+
+  .tab-content
+    .tab-pane.active
+      div(ui-view)

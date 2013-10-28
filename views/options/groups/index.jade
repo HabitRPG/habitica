@@ -1,66 +1,79 @@
 // FIXME note, due to https://github.com/angular-ui/bootstrap/issues/783 we can't use nested angular-bootstrap tabs
 // Subscribe to that ticket & change this when they fix
 
-ul.nav.nav-tabs
-  li.active
-    a(data-target='#groups-party', data-toggle='tab') Party
-  li
-    a(data-target='#groups-guilds', data-toggle='tab', ng-click='fetchGuilds()') Guilds
+script(type='text/ng-template', id='partials/options.groups.tavern.html')
+  include ./tavern
 
-.tab-content(ng-controller='PartyCtrl')
-  #groups-party.tab-pane.active
-    div(ng-show='group._id')
+script(type='text/ng-template', id='partials/options.groups.party.html')
+  div(ng-show='group._id')
+    include ./group
+  div(ng-hide='group._id')
+    div(ng-show='user.invitations.party')
+      // #with required for the accept/reject buttons
+      // {#with _user.invitations.party as :party}
+      h2 You're Invited To {{user.invitations.party.name}}
+      a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)') Accept
+      a.btn.btn-danger(ng-click='reject()') Reject
+      // {/}
+    div(ng-hide='user.invitations.party', ng-controller='PartyCtrl')
+      h2 Create A Party
+      p
+        | You are not in a party. You can either create one and invite friends, or if you want to join an existing party, have them enter:
+      pre.prettyprint.
+        {{user.id}}
+      include ./create-group
+
+script(type='text/ng-template', id='partials/options.groups.guilds.html')
+  ul.nav.nav-tabs
+    li.active
+      a(data-target='#groups-public-guilds', data-toggle='tab') Public Guilds
+    li(ng-repeat='group in groups.guilds')
+      a(data-target='#groups-guild-{{group._id}}', data-toggle='tab') {{group.name}}
+    li
+      a(data-target='#groups-create-guild', data-toggle='tab') Create Guild
+  .tab-content
+    .tab-pane.active#groups-public-guilds
+      div(ng-repeat='invitation in user.invitations.guilds')
+        h3 You're Invited To {{invitation.name}}
+        a.btn.btn-success(data-type='guild', ng-click='join(invitation)') Accept
+        a.btn.btn-danger(ng-click='reject(invitation)') Reject
+      // Public Groups
+      .options-group.option-large.whatever-options
+        input.option-content(type='text',ng-model='guildSearch', placeholder='Search')
+      table.table.table-striped
+        tr(ng-repeat='group in groups.public | filter:guildSearch')
+          td
+            ul.pull-right.challenge-accordion-header-specs
+              li {{group.members.length}} member(s)
+              li
+                // join / leave
+                a.btn.btn-small.btn-danger(ng-show='isMember(user, group)', ng-click='leave(group)')
+                  i.icon-ban-circle
+                  | Leave
+                a.btn.btn-small.btn-success(ng-hide='isMember(user, group)', ng-click='join(group)')
+                  i.icon-ok
+                  | Join
+            h4 {{group.name}}
+            p {{group.description}}
+    .tab-pane(id='groups-guild-{{group._id}}', ng-repeat='group in groups.guilds')
       include ./group
-    div(ng-hide='group._id')
-      div(ng-show='user.invitations.party')
-        // #with required for the accept/reject buttons
-        // {#with _user.invitations.party as :party}
-        h2 You're Invited To {{user.invitations.party.name}}
-        a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)') Accept
-        a.btn.btn-danger(ng-click='reject()') Reject
-        // {/}
-      div(ng-hide='user.invitations.party', ng-controller='PartyCtrl')
-        h2 Create A Party
-        p
-          | You are not in a party. You can either create one and invite friends, or if you want to join an existing party, have them enter:
-        pre.prettyprint.
-          {{user.id}}
-        include ./create-group
 
-  #groups-guilds.tab-pane(ng-controller='GuildsCtrl')
-    ul.nav.nav-tabs
-      li.active
-        a(data-target='#groups-public-guilds', data-toggle='tab') Public Guilds
-      li(ng-repeat='group in groups.guilds')
-        a(data-target='#groups-guild-{{group._id}}', data-toggle='tab') {{group.name}}
-      li
-        a(data-target='#groups-create-guild', data-toggle='tab') Create Guild
-    .tab-content
-      .tab-pane.active#groups-public-guilds
-        div(ng-repeat='invitation in user.invitations.guilds')
-          h3 You're Invited To {{invitation.name}}
-          a.btn.btn-success(data-type='guild', ng-click='join(invitation)') Accept
-          a.btn.btn-danger(ng-click='reject(invitation)') Reject
-        // Public Groups
-        .options-group.option-large.whatever-options
-          input.option-content(type='text',ng-model='guildSearch', placeholder='Search')
-        table.table.table-striped
-          tr(ng-repeat='group in groups.public | filter:guildSearch')
-            td
-              ul.pull-right.challenge-accordion-header-specs
-                li {{group.members.length}} member(s)
-                li
-                  // join / leave
-                  a.btn.btn-small.btn-danger(ng-show='isMember(user, group)', ng-click='leave(group)')
-                    i.icon-ban-circle
-                    | Leave
-                  a.btn.btn-small.btn-success(ng-hide='isMember(user, group)', ng-click='join(group)')
-                    i.icon-ok
-                    | Join
-              h4 {{group.name}}
-              p {{group.description}}
-      .tab-pane(id='groups-guild-{{group._id}}', ng-repeat='group in groups.guilds')
-        include ./group
+    .tab-pane#groups-create-guild
+      include ./create-group
 
-      .tab-pane#groups-create-guild
-        include ./create-group
+script(type='text/ng-template', id='partials/options.groups.html')
+  ul.nav.nav-tabs
+    li(ng-class="{ active: $state.includes('options.groups.tavern') }")
+      a(ui-sref='options.groups.tavern')
+        i.icon-eye-close
+        | Tavern
+    li(ng-class="{ active: $state.includes('options.groups.party') }")
+      a(ui-sref='options.groups.party')
+        | Party
+    li(ng-class="{ active: $state.includes('options.groups.guilds') }")
+      a(ui-sref='options.groups.guilds')
+        | Guilds
+
+  .tab-content
+    .tab-pane.active
+      div(ui-view)

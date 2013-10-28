@@ -7,37 +7,14 @@ var GroupSchema = new Schema({
   _id: {type: String, 'default': helpers.uuid},
   name: String,
   description: String,
-  leader: {
-    type: String,
-    ref: 'User'
-  },
-  members: [
-    {
-      type: String,
-      ref: 'User'
-    }
-  ],
-  invites: [
-    {
-      type: String,
-      ref: 'User'
-    }
-  ],
-  type: {
-    type: String,
-    "enum": ['guild', 'party']
-  },
-  privacy: {
-    type: String,
-    "enum": ['private', 'public']
-  },
-  _v: {
-    Number: Number,
-    'default': 0
-  },
+  leader: {type: String, ref: 'User'},
+  members: [{type: String, ref: 'User'}],
+  invites: [{type: String, ref: 'User'}],
+  type: {type: String, "enum": ['guild', 'party']},
+  privacy: {type: String, "enum": ['private', 'public']},
+  _v: {Number: Number,'default': 0},
   websites: Array,
   chat: Array,
-
   /*
   #    [{
   #      timestamp: Date
