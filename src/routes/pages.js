@@ -26,7 +26,7 @@ router.get('/splash.html', function(req, res) {
 });
 
 router.get('/static/front', function(req, res) {
-  res.render('static/front', {env: res.locals.habitrpg});
+  res.render('static/front', {env: res.locals.habitrpg, isFrontPage: true});
 });
 
 router.get('/static/about', function(req, res) {
