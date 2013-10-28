@@ -321,7 +321,7 @@ api.removeMember = function(req, res, next){
   if(_.contains(group.members, uuid)){
     Group.update({_id:group._id},{$pull:{members:uuid}}, function(err, saved){
       if (err) return res.json(500,{err:err});
-      return res.send(204);
+      return res.json(saved);
     });
   }else{
     return res.json(400, {err: "User not found among group's members!"});
