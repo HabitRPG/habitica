@@ -16,10 +16,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         group._editing = false;
       }
 
-      $scope.assignGroupLeader = function(group){
-        if(group._newLeader && group._newLeader._id) group.leader
-      }
-
       $scope.addWebsite = function(group){
         group.websites.push(group._newWebsite);
         group._newWebsite = '';
