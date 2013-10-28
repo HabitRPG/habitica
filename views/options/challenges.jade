@@ -26,7 +26,7 @@
       habitrpg-tasks(main=false, obj='newChallenge')
 
     // Challenges list
-    .accordion-group(ng-repeat='challenge in challenges | filter:search', ng-init='locked=true')
+    .accordion-group(ng-repeat='challenge in challenges | filter:search', ng-init='challenge._locked=true')
       .accordion-heading
         ul.pull-right.challenge-accordion-header-specs
           li {{challenge.members.length}} Subscribers
@@ -51,14 +51,14 @@
         .accordion-inner
           // Edit button
           ul.unstyled()
-            li(ng-show='challenge.leader==user._id && locked')
-              button.btn.btn-default(ng-click='locked = false') Edit
-            li(ng-hide='locked')
+            li(ng-show='challenge.leader==user._id && challenge._locked')
+              button.btn.btn-default(ng-click='challenge._locked = false') Edit
+            li(ng-hide='challenge._locked')
               button.btn.btn-primary(ng-click='save(challenge)') Save
               button.btn.btn-danger(ng-click='delete(challenge)') Delete
-              button.btn.btn-default(ng-click='locked=true') Cancel
+              button.btn.btn-default(ng-click='challenge._locked=true') Cancel
 
-          div(ng-hide='locked')
+          div(ng-hide='challenge._locked')
             .-options
               input.option-content(type='text', ng-model='challenge.name')
               textarea.option-content(cols='3', placeholder='Description', ng-model='challenge.description')
@@ -68,6 +68,6 @@
           div(ng-if='challenge.description') {{challenge.description}}
           habitrpg-tasks(obj='challenge', main=false)
           h3 Statistics
-          div(ng-repeat='member in challenge.members')
+          div(ng-repeat='member in challenge.members', ng-init='member._locked = true')
             h4 {{member.profile.name}}
             habitrpg-tasks(main=false, obj='member')

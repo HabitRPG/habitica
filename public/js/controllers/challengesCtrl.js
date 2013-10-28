@@ -45,7 +45,7 @@ habitrpg.controller("ChallengesCtrl", ['$scope', '$rootScope', 'User', 'Challeng
         } else {
           // TODO figure out a more elegant way about this
           //challenge._editing = false;
-          $scope.locked = true;
+          challenge._locked = true;
         }
       });
     };

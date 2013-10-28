@@ -1,6 +1,7 @@
 li(ng-repeat='task in list.tasks', class='task {{taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', data-id='{{task.id}}')
   // right-hand side control buttons
   .task-meta-controls
+
     // Due Date
     span.task-date(ng-if='task.type=="todo" && task.date')
       | {{task.date}}
@@ -9,26 +10,27 @@ li(ng-repeat='task in list.tasks', class='task {{taskClasses(task, user.filters,
       span(tooltip='Streak Counter')
         i.icon-forward
 
-    i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='noTags(task.tags)')
+    // Icons only available if you own the tasks (aka, hidden from challenge stats)
+    span(ng-if='!obj._locked')
+      i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='noTags(task.tags)')
+      // edit
+      a(ng-hide='task._editing', ng-click='editTask(task)', tooltip='Edit')
+        i.icon-pencil(ng-hide='task._editing')
+      // cancel
+      a(ng-hide='!task._editing', ng-click='editTask(task)', tooltip='Cancel')
+        i.icon-remove(ng-hide='!task._editing')
+      //challenges
+      span(ng-if='task.challenge.id')
+        span(ng-if='task.challenge.broken')
+          i.icon-bullhorn(style='background-color:red;', ng-click='task._edit=true', tooltip="Broken Challenge Link")
+        span(ng-if='!task.challenge.broken')
+          i.icon-bullhorn(tooltip="Challenge Task")
+      // delete
+      a(ng-if='!task.challenge.id', ng-click='removeTask(list.tasks, $index)', tooltip='Delete')
+        i.icon-trash
 
-    // edit
-    a(ng-hide='task._editing', ng-click='editTask(task)', tooltip='Edit')
-      i.icon-pencil(ng-hide='task._editing')
-    // cancel
-    a(ng-hide='!task._editing', ng-click='editTask(task)', tooltip='Cancel')
-      i.icon-remove(ng-hide='!task._editing')
-    //challenges
-    span(ng-if='task.challenge.id')
-      span(ng-if='task.challenge.broken')
-        i.icon-bullhorn(style='background-color:red;', ng-click='task._edit=true', tooltip="Broken Challenge Link")
-      span(ng-if='!task.challenge.broken')
-        i.icon-bullhorn(tooltip="Challenge Task")
-
-    // delete
-    a(ng-if='!task.challenge.id', ng-click='removeTask(list.tasks, $index)', tooltip='Delete')
-      i.icon-trash
     // chart
-    a(ng-show='task.history', ng-click='toggleChart(task.id, task)', tooltip='Progress')
+    a(ng-show='task.history', ng-click='toggleChart(obj._id+task.id, task)', tooltip='Progress')
       i.icon-signal
     // notes
     span.task-notes(ng-show='task.notes && !task._editing', popover-trigger='mouseenter', popover-placement='left', popover='{{task.notes}}', popover-title='{{task.text}}')
@@ -148,4 +150,4 @@ li(ng-repeat='task in list.tasks', class='task {{taskClasses(task, user.filters,
             input.option-content(type='number', ng-model='task.streak')
       button.task-action-btn.tile.spacious(type='submit') Save & Close
 
-  div(class='{{task.id}}-chart', ng-show='charts[task.id]')
+  div(class='{{obj._id}}{{task.id}}-chart', ng-show='charts[obj._id+task.id]')

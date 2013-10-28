@@ -31,7 +31,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
         .todos-chart(ng-if='list.type == "todo"', ng-show='charts.todos')
 
         // Add New
-        form.addtask-form.form-inline.new-task-form(name='new{{list.type}}form', ng-hide='locked || (list.showCompleted && list.type=="todo")', ng-submit='addTask(list)')
+        form.addtask-form.form-inline.new-task-form(name='new{{list.type}}form', ng-hide='obj._locked || (list.showCompleted && list.type=="todo")', ng-submit='addTask(list)')
           span.addtask-field
             input(type='text', ng-model='list.newTask', placeholder='{{list.placeHolder}}', required)
           input.addtask-btn(type='submit', value='＋', ng-disabled='new{{list.type}}form.$invalid')
