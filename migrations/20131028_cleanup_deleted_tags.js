@@ -1,4 +1,4 @@
-_.each(db.users.find(), function(user){
+db.users.find().forEach(function(user){
   var tags = user.tags;
 
   _.each(user.tasks, function(task){
@@ -6,7 +6,7 @@ _.each(db.users.find(), function(user){
       _.each(tags, function(tag){
         if(key == tag.id) delete task.tags[key];
       });
-    };
+    });
   });
 
   try {
