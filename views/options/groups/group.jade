@@ -57,14 +57,24 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
             td
               // allow leaders to ban members
               div(ng-show='group.leader == user.id && user.id!=member._id')
-                // {{#with group.members[$index]}}
                 a(ng-click='removeMember(group, member)')
                   i.icon-ban-circle(tooltip='Boot Member')
-                // {{/}}
-              a(data-toggle='modal', data-target='#avatar-modal-{{member._id}}')
+              a
                 span(ng-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
                   | {{username(member.auth, member.profile.name)}}
             td ({{member._id}})
+        h4(ng-show='group.invites.length > 0') Invited
+        table.table.table-striped
+          tr(ng-repeat='invite in group.invites')
+            td
+              // allow leaders to ban members
+              div(ng-show='group.leader == user.id')
+                a(ng-click='removeMember(group, invite)')
+                  i.icon-ban-circle(tooltip='Boot Member')
+              a
+                span(ng-click='clickMember(invite._id, true)')
+                  | {{username(invite.auth, invite.profile.name)}}
+            td ({{invite._id}})
       .modal-footer.whatever-options
         form.form-inline(ng-submit='invite(group)')
           //.alert.alert-danger(ng-show='_groupError') {{_groupError}}

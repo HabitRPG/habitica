@@ -49,16 +49,12 @@ api.getGroups = function(req, res, next) {
       if (type && !~type.indexOf('party')) return cb(null, {});
       Group
         .findOne({type: 'party', members: {'$in': [user._id]}})
-        .populate({
-          path: 'members',
-          //match: {_id: {$ne: user._id}}, //fixme this causes it to hang??
-          select: partyFields
-        })
+        .populate('members invites', partyFields)
         .exec(cb);
     },
     guilds: function(cb) {
       if (type && !~type.indexOf('guilds')) return cb(null, []);
-      Group.find({type: 'guild', members: {'$in': [user._id]}}).populate('members', usernameFields).exec(cb);
+      Group.find({type: 'guild', members: {'$in': [user._id]}}).populate('members invites', usernameFields).exec(cb);
 //      Group.find({type: 'guild', members: {'$in': [user._id]}}, cb);
     },
     tavern: function(cb) {
@@ -101,7 +97,7 @@ api.getGroup = function(req, res, next) {
   var user = res.locals.user;
   var gid = req.params.gid;
 
-  Group.findById(gid).populate('members', partyFields).exec(function(err, group){
+  Group.findById(gid).populate('members invites', partyFields).exec(function(err, group){
     if ( (group.type == 'guild' && group.privacy == 'private') || group.type == 'party') {
     	if(!_.find(group.members, {_id: user._id}))
     		return res.json(401, {err: "You don't have access to this group"});
@@ -156,7 +152,7 @@ api.updateGroup = function(req, res, next) {
     function(cb){group.save(cb);},
     function(cb){
       var fields = group.type == 'party' ? partyFields : usernameFields;
-      Group.findById(group._id).populate('members', fields).exec(cb);
+      Group.findById(group._id).populate('members invites', fields).exec(cb);
     }
   ], function(err, results){
     if (err) return res.json(500,{err:err});
@@ -197,7 +193,7 @@ api.postChat = function(req, res, next) {
   async.series([
     function(cb){group.save(cb)},
     function(cb){
-      Group.findById(group._id).populate('members', partyFields).exec(cb);
+      Group.findById(group._id).populate('members invites', partyFields).exec(cb);
     }
   ], function(err, results){
     if (err) return res.json(500, {err:err});
@@ -244,12 +240,13 @@ api.join = function(req, res, next) {
   }
 
   group.members.push(user._id);
+  group.invites.splice(_.indexOf(group.invites, user._id), 1);
   async.series([
     function(cb){
       group.save(cb);
     },
     function(cb){
-      Group.findById(group._id).populate('members', partyFields).exec(cb);
+      Group.findById(group._id).populate('members invites', partyFields).exec(cb);
     }
   ], function(err, results){
     if (err) return res.json(500,{err:err});
@@ -274,6 +271,7 @@ api.leave = function(req, res, next) {
 api.invite = function(req, res, next) {
   var group = res.locals.group;
   var uuid = req.query.uuid;
+  var user = res.locals.user;
 
   User.findById(uuid, function(err,invite){
     if (err) return res.json(500,{err:err});
@@ -293,7 +291,7 @@ api.invite = function(req, res, next) {
         if (!_.isEmpty(groups))
           return res.json(400,{err:"User already in a party."})
         sendInvite();
-      })
+      });
     }
 
     function sendInvite (){
@@ -304,13 +302,26 @@ api.invite = function(req, res, next) {
         invite.invitations.party = {id: group._id, name: group.name}
       }
 
-      invite.save();
-      Group.findById(group._id)
-        .populate('members', partyFields).exec(function(err, saved){
-          if (group.type === 'party') removeSelf(saved, res.locals.user);
-          res.json(saved);
-        });
+      group.invites.push(invite._id);
 
+      async.series([
+        function(cb){
+          invite.save(cb);
+        },
+        function(cb){
+          group.save(cb);
+        },
+        function(cb){
+          Group.findById(group._id).populate('members invites', partyFields).exec(cb);
+        }
+      ], function(err, results){
+        if (err) return res.json(500,{err:err});
+
+        // Remove self from party (see above failing `match` directive in `populate`
+        if(results[2].type == 'party') removeSelf(results[2], user);
+
+        res.json(results[2]);
+      });
     }
   });
 }
@@ -327,7 +338,35 @@ api.removeMember = function(req, res, next){
   if(_.contains(group.members, uuid)){
     Group.update({_id:group._id},{$pull:{members:uuid}}, function(err, saved){
       if (err) return res.json(500,{err:err});
-      return res.json(saved);
+      
+      // Sending an empty 204 because Group.update doesn't return the group
+      // see http://mongoosejs.com/docs/api.html#model_Model.update
+      res.send(204);
+    });
+  }else if(_.contains(group.invites, uuid)){
+    User.findById(uuid, function(err,invited){
+      var invitations = invited.invitations;
+      if(group.type === 'guild'){
+        invitations.guilds.splice(_.indexOf(invitations.guilds, group._id), 1);
+      }else{
+        invitations.party = undefined;
+      }
+
+      async.series([
+        function(cb){
+          invited.save(cb);
+        },
+        function(cb){
+          Group.update({_id:group._id},{$pull:{invites:uuid}}, cb);
+        }
+      ], function(err, results){
+        if (err) return res.json(500,{err:err});
+
+        // Sending an empty 204 because Group.update doesn't return the group
+        // see http://mongoosejs.com/docs/api.html#model_Model.update
+        res.send(204);
+      });
+
     });
   }else{
     return res.json(400, {err: "User not found among group's members!"});
