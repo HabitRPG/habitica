@@ -341,7 +341,7 @@ api.removeMember = function(req, res, next){
       
       // Sending an empty 204 because Group.update doesn't return the group
       // see http://mongoosejs.com/docs/api.html#model_Model.update
-      res.send(204);
+      return res.send(204);
     });
   }else if(_.contains(group.invites, uuid)){
     User.findById(uuid, function(err,invited){
@@ -364,7 +364,7 @@ api.removeMember = function(req, res, next){
 
         // Sending an empty 204 because Group.update doesn't return the group
         // see http://mongoosejs.com/docs/api.html#model_Model.update
-        res.send(204);
+        return res.send(204);
       });
 
     });
