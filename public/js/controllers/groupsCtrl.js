@@ -59,11 +59,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
     // ------ Invites ------
 
-      $scope.invitee = '';
-      $scope.invite = function(group, uuid){
-        group.$invite({uuid:uuid}, function(){
-          $scope.invitee = '';
+      $scope.invite = function(group){
+        group.$invite({uuid:group.invitee}, function(){
+          group.invitee = '';
           alert("User invited to group");
+        }, function(){
+          group.invitee = '';
         });
       }
     }

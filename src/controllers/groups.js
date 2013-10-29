@@ -278,7 +278,7 @@ api.invite = function(req, res, next) {
   User.findById(uuid, function(err,invite){
     if (err) return res.json(500,{err:err});
     if (!invite)
-       return res.json(400,{err:'User with id '+req.query.uid+' not found'});
+       return res.json(400,{err:'User with id "' + uuid + '" not found'});
     if (group.type == 'guild') {
       if (_.contains(group.members,uuid))
         return res.json(400,{err: "User already in that group"});

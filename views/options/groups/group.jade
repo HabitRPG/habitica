@@ -66,10 +66,10 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
                   | {{username(member.auth, member.profile.name)}}
             td ({{member._id}})
       .modal-footer.whatever-options
-        form.form-inline(ng-submit='invite(group, invitee)')
+        form.form-inline(ng-submit='invite(group)')
           //.alert.alert-danger(ng-show='_groupError') {{_groupError}}
           .control-group.option-large
-            input.option-content(type='text', placeholder='User Id', ng-model='invitee')
+            input.option-content(type='text', placeholder='User Id', ng-model='group.invitee')
             input.btn(type='submit', value='Invite')
 
 
