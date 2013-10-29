@@ -19,7 +19,7 @@
     "angular-resource": "1.2.0-rc.2",
     "angular-ui": "~0.4.0",
     "angular-bootstrap": "~0.5.0",
-    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#rewrite",
+    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#challenges",
     "bootstrap-tour": "0.5.0",
     "BrowserQuest": "https://github.com/mozilla/BrowserQuest.git",
     "github-buttons": "git://github.com/mdo/github-buttons.git",
@@ -29,11 +29,11 @@
     "sticky": "*",
     "bootstrap-datepicker": "~1.2.0",
     "bootstrap": "v2.3.2",
-    "angular-route": "1.2.0-rc.2",
     "angular-ui-utils": "~0.0.4",
     "angular-sanitize": "1.2.0-rc.2",
     "marked": "~0.2.9",
-    "JavaScriptButtons": "git://github.com/paypal/JavaScriptButtons.git#master"
+    "JavaScriptButtons": "git://github.com/paypal/JavaScriptButtons.git#master",
+    "angular-ui-router": "eda67d2da08cbe2aa1aa39ef154a87c7afe480ec"
   },
   "resolutions": {
     "jquery": "~2.0.3",

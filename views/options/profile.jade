@@ -1,127 +1,143 @@
-.row-fluid(ng-controller='UserCtrl')
-
-  // ---- Customize -----
-  .span4.border-right
-    menu(type='list')
-      // gender
-      li.customize-menu
-        menu(label='Head')
-        menu
-          button.m_head_0.customize-option(type='button', ng-click='set("preferences.gender","m")')
-          button.f_head_0.customize-option(type='button', ng-click='set("preferences.gender","f")')
-        label.checkbox
-          input(type='checkbox', ng-model='user.preferences.showHelm', ng-change='toggleHelm(user.preferences.showHelm)')
-          | Show Helm
-      hr
-
-      // hair
-      li.customize-menu
-        menu(label='Hair')
-          button(class='{{user.preferences.gender}}_hair_blond customize-option', type='button', ng-click='set("preferences.hair","blond")')
-          button(class='{{user.preferences.gender}}_hair_black customize-option', type='button', ng-click='set("preferences.hair","black")')
-          button(class='{{user.preferences.gender}}_hair_brown customize-option', type='button', ng-click='set("preferences.hair","brown")')
-          button(class='{{user.preferences.gender}}_hair_white customize-option', type='button', ng-click='set("preferences.hair","white")')
-          button(class='{{user.preferences.gender}}_hair_red customize-option', type='button', ng-click='set("preferences.hair","red")')
-      hr
-
-      // skin
-      li.customize-menu
-        menu(label='Basic Skins')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_asian',  ng-click='set("preferences.skin","asian")')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_white',  ng-click='set("preferences.skin","white")')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_ea8349', ng-click='set("preferences.skin","ea8349")')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_c06534', ng-click='set("preferences.skin","c06534")')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_98461a', ng-click='set("preferences.skin","98461a")')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_black',  ng-click='set("preferences.skin","black")')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_dead',   ng-click='set("preferences.skin","dead")')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc',    ng-click='set("preferences.skin","orc")')
-
-        // Rainbow Skin
-        h5.
-          Rainbow Skins - 2<span class="Pet_Currency_Gem1x inline-gems"/>/skin
-        //menu(label='Rainbow Skins (2G / skin)')
-        menu
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_eb052b', ng-class='{locked: !user.purchased.skin.eb052b}', ng-click='unlock("skin.eb052b")')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_f69922', ng-class='{locked: !user.purchased.skin.f69922}', ng-click='unlock("skin.f69922")')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_f5d70f', ng-class='{locked: !user.purchased.skin.f5d70f}', ng-click='unlock("skin.f5d70f")')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_0ff591', ng-class='{locked: !user.purchased.skin.0ff591}', ng-click='unlock("skin.0ff591")')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_2b43f6', ng-class='{locked: !user.purchased.skin.2b43f6}', ng-click='unlock("skin.2b43f6")')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_d7a9f7', ng-class='{locked: !user.purchased.skin.d7a9f7}', ng-click='unlock("skin.d7a9f7")')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_800ed0', ng-class='{locked: !user.purchased.skin.800ed0}', ng-click='unlock("skin.800ed0")')
-          button.customize-option(type='button', class='{{user.preferences.gender}}_skin_rainbow', ng-class='{locked: !user.purchased.skin.rainbow}', ng-click='unlock("skin.rainbow")')
-        button.btn.btn-small.btn-primary(ng-hide='user.purchased.skin.eb052b && user.purchased.skin.f69922 && user.purchased.skin.f5d70f && user.purchased.skin.0ff591 && user.purchased.skin.2b43f6 && user.purchased.skin.d7a9f7 && user.purchased.skin.800ed0 && user.purchased.skin.rainbow', ng-click='unlock(["skin.eb052b", "skin.f69922", "skin.f5d70f", "skin.0ff591", "skin.2b43f6", "skin.d7a9f7", "skin.800ed0", "skin.rainbow"])') Unlock Set - 5<span class="Pet_Currency_Gem1x inline-gems"/>
-
-        // Special Events
-        div.well.limited-edition
-          .label.label-info.pull-right(popover='Available for purchase until November 10th (but permanently in your options if purchased).', popover-title='Limited Edition', popover-placement='right', popover-trigger='mouseenter')
-            | Limited Edition&nbsp;
-            i.icon.icon-question-sign
-          h5.
-            Spooky Skins - 2<span class="Pet_Currency_Gem1x inline-gems"/>/skin
-          //menu(label='Spooky Skins (2 Gems / skin)')
-          menu
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_monster', ng-class='{locked: !user.purchased.skin.monster}', ng-click='unlock("skin.monster")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_pumpkin', ng-class='{locked: !user.purchased.skin.pumpkin}', ng-click='unlock("skin.pumpkin")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_skeleton', ng-class='{locked: !user.purchased.skin.skeleton}', ng-click='unlock("skin.skeleton")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_zombie', ng-class='{locked: !user.purchased.skin.zombie}', ng-click='unlock("skin.zombie")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_ghost', ng-class='{locked: !user.purchased.skin.ghost}', ng-click='unlock("skin.ghost")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_shadow', ng-class='{locked: !user.purchased.skin.shadow}', ng-click='unlock("skin.shadow")')
-          button.btn.btn-small.btn-primary(ng-hide='user.purchased.skin.monster && user.purchased.skin.pumpkin && user.purchased.skin.skeleton && user.purchased.skin.zombie && user.purchased.skin.ghost && user.purchased.skin.shadow', ng-click='unlock(["skin.monster", "skin.pumpkin", "skin.skeleton", "skin.zombie", "skin.ghost", "skin.shadow"])') Unlock Set - 5<span class="Pet_Currency_Gem1x inline-gems"/>
-
-
-      menu(ng-show='user.preferences.gender=="f"', type='list')
+script(id='partials/options.profile.avatar.html', type='text/ng-template')
+  .row-fluid
+    .span4
+      menu(type='list')
+        // body-type
         li.customize-menu
-          menu(label='Clothing')
-            button.f_armor_0_v1.customize-option(type='button', ng-click='set("preferences.armorSet","v1")')
-            button.f_armor_0_v2.customize-option(type='button', ng-click='set("preferences.armorSet","v2")')
+          menu(label='Head')
+          menu
+            button.m_head_0.customize-option(type='button', ng-click='set("preferences.gender","m")')
+            button.f_head_0.customize-option(type='button', ng-click='set("preferences.gender","f")')
+          label.checkbox
+            input(type='checkbox', ng-model='user.preferences.showHelm', ng-change='toggleHelm(user.preferences.showHelm)')
+            | Show Helm
 
-  // ------ Stats ------
-  .span4.border-right
-    include ../shared/profiles/stats
+        menu(ng-show='user.preferences.gender=="f"', type='list')
+          li.customize-menu
+            menu(label='Clothing')
+              button.f_armor_0_v1.customize-option(type='button', ng-click='set("preferences.armorSet","v1")')
+              button.f_armor_0_v2.customize-option(type='button', ng-click='set("preferences.armorSet","v2")')
 
-  // ------- Edit -------
-  .span4
-    button.btn.btn-default(ng-click='_editing.profile = true', ng-show='!_editing.profile') Edit
-    button.btn.btn-primary(ng-click='save()', ng-show='_editing.profile') Save
-    div(ng-show='!_editing.profile')
-      h4 Display Name
-      span(ng-show='profile.profile.name') {{profile.profile.name}}
-      span.muted(ng-hide='profile.profile.name') - None -
+    .span4
+        // hair
+        li.customize-menu
+          menu(label='Hair')
+            button(class='{{user.preferences.gender}}_hair_blond customize-option', type='button', ng-click='set("preferences.hair","blond")')
+            button(class='{{user.preferences.gender}}_hair_black customize-option', type='button', ng-click='set("preferences.hair","black")')
+            button(class='{{user.preferences.gender}}_hair_brown customize-option', type='button', ng-click='set("preferences.hair","brown")')
+            button(class='{{user.preferences.gender}}_hair_white customize-option', type='button', ng-click='set("preferences.hair","white")')
+            button(class='{{user.preferences.gender}}_hair_red customize-option', type='button', ng-click='set("preferences.hair","red")')
 
-      h4 Photo
-      img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
-      span.muted(ng-hide='profile.profile.imageUrl') - None -
+    .span4
+        // skin
+        li.customize-menu
+          menu(label='Basic Skins')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_asian',  ng-click='set("preferences.skin","asian")')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_white',  ng-click='set("preferences.skin","white")')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_ea8349', ng-click='set("preferences.skin","ea8349")')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_c06534', ng-click='set("preferences.skin","c06534")')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_98461a', ng-click='set("preferences.skin","98461a")')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_black',  ng-click='set("preferences.skin","black")')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_dead',   ng-click='set("preferences.skin","dead")')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc',    ng-click='set("preferences.skin","orc")')
 
-      h4 Blurb
-      markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
-      span.muted(ng-hide='profile.profile.blurb') - None -
-      //{{profile.profile.blurb | linky:'_blank'}}
+          // Rainbow Skin
+          h5.
+            Rainbow Skins - 2<span class="Pet_Currency_Gem1x inline-gems"/>/skin
+          //menu(label='Rainbow Skins (2G / skin)')
+          menu
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_eb052b', ng-class='{locked: !user.purchased.skin.eb052b}', ng-click='unlock("skin.eb052b")')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_f69922', ng-class='{locked: !user.purchased.skin.f69922}', ng-click='unlock("skin.f69922")')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_f5d70f', ng-class='{locked: !user.purchased.skin.f5d70f}', ng-click='unlock("skin.f5d70f")')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_0ff591', ng-class='{locked: !user.purchased.skin.0ff591}', ng-click='unlock("skin.0ff591")')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_2b43f6', ng-class='{locked: !user.purchased.skin.2b43f6}', ng-click='unlock("skin.2b43f6")')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_d7a9f7', ng-class='{locked: !user.purchased.skin.d7a9f7}', ng-click='unlock("skin.d7a9f7")')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_800ed0', ng-class='{locked: !user.purchased.skin.800ed0}', ng-click='unlock("skin.800ed0")')
+            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_rainbow', ng-class='{locked: !user.purchased.skin.rainbow}', ng-click='unlock("skin.rainbow")')
+          button.btn.btn-small.btn-primary(ng-hide='user.purchased.skin.eb052b && user.purchased.skin.f69922 && user.purchased.skin.f5d70f && user.purchased.skin.0ff591 && user.purchased.skin.2b43f6 && user.purchased.skin.d7a9f7 && user.purchased.skin.800ed0 && user.purchased.skin.rainbow', ng-click='unlock(["skin.eb052b", "skin.f69922", "skin.f5d70f", "skin.0ff591", "skin.2b43f6", "skin.d7a9f7", "skin.800ed0", "skin.rainbow"])') Unlock Set - 5<span class="Pet_Currency_Gem1x inline-gems"/>
 
-      h4 Websites
-      ul(ng-show='profile.profile.websites.length > 0')
-        // TODO let's remove links eventually, since we can do markdown on profiles
-        li(ng-repeat='website in profile.profile.websites')
-          a(target='_blank', ng-href='{{website}}') {{website}}
-      span.muted(ng-hide='profile.profile.websites.length > 0') - None -
+          // Special Events
+          div.well.limited-edition
+            .label.label-info.pull-right(popover='Available for purchase until November 10th (but permanently in your options if purchased).', popover-title='Limited Edition', popover-placement='right', popover-trigger='mouseenter')
+              | Limited Edition&nbsp;
+              i.icon.icon-question-sign
+            h5.
+              Spooky Skins - 2<span class="Pet_Currency_Gem1x inline-gems"/>/skin
+            //menu(label='Spooky Skins (2 Gems / skin)')
+            menu
+              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_monster', ng-class='{locked: !user.purchased.skin.monster}', ng-click='unlock("skin.monster")')
+              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_pumpkin', ng-class='{locked: !user.purchased.skin.pumpkin}', ng-click='unlock("skin.pumpkin")')
+              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_skeleton', ng-class='{locked: !user.purchased.skin.skeleton}', ng-click='unlock("skin.skeleton")')
+              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_zombie', ng-class='{locked: !user.purchased.skin.zombie}', ng-click='unlock("skin.zombie")')
+              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_ghost', ng-class='{locked: !user.purchased.skin.ghost}', ng-click='unlock("skin.ghost")')
+              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_shadow', ng-class='{locked: !user.purchased.skin.shadow}', ng-click='unlock("skin.shadow")')
+            button.btn.btn-small.btn-primary(ng-hide='user.purchased.skin.monster && user.purchased.skin.pumpkin && user.purchased.skin.skeleton && user.purchased.skin.zombie && user.purchased.skin.ghost && user.purchased.skin.shadow', ng-click='unlock(["skin.monster", "skin.pumpkin", "skin.skeleton", "skin.zombie", "skin.ghost", "skin.shadow"])') Unlock Set - 5<span class="Pet_Currency_Gem1x inline-gems"/>
 
-    div.whatever-options(ng-show='_editing.profile')
-      // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
-      .control-group.option-large
-        label.control-label Display Name
-        input.option-content(type='text', placeholder='Full Name', ng-model='editingProfile.name')
-      .control-group.option-large
-        label.control-label Photo Url
-        input.option-content(type='url', ng-model='editingProfile.imageUrl', placeholder='Image Url')
-      .control-group.option-large
-        label.control-label Blurb
-        textarea.option-content(style='height:15em;', placeholder='Blurb', ng-model='editingProfile.blurb')
-        include ../shared/formatting-help
-      .control-group.option-large
-        label.control-label Websites
-        form(ng-submit='addWebsite()')
-          input.option-content(type='url', ng-model='_newWebsite', placeholder='Add Website')
-        ul
-          li(ng-repeat='website in editingProfile.websites')
-            | {{website}}
-            a(ng-click='removeWebsite($index)')
-              i.icon-remove
+script(id='partials/options.profile.stats.html', type='text/ng-template')
+  .row-fluid
+    .span6.border-right
+      include ../shared/profiles/stats
+    .span6.border-right
+      include ../shared/profiles/achievements
+
+script(id='partials/options.profile.profile.html', type='text/ng-template')
+  button.btn.btn-default(ng-click='_editing.profile = true', ng-show='!_editing.profile') Edit
+  button.btn.btn-primary(ng-click='save()', ng-show='_editing.profile') Save
+  div(ng-show='!_editing.profile')
+    h4 Display Name
+    span(ng-show='profile.profile.name') {{profile.profile.name}}
+    span.muted(ng-hide='profile.profile.name') - None -
+
+    h4 Photo
+    img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
+    span.muted(ng-hide='profile.profile.imageUrl') - None -
+
+    h4 Blurb
+    markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
+    span.muted(ng-hide='profile.profile.blurb') - None -
+    //{{profile.profile.blurb | linky:'_blank'}}
+
+    h4 Websites
+    ul(ng-show='profile.profile.websites.length > 0')
+      // TODO let's remove links eventually, since we can do markdown on profiles
+      li(ng-repeat='website in profile.profile.websites')
+        a(target='_blank', ng-href='{{website}}') {{website}}
+    span.muted(ng-hide='profile.profile.websites.length > 0') - None -
+
+  div.whatever-options(ng-show='_editing.profile')
+    // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
+    .control-group.option-large
+      label.control-label Display Name
+      input.option-content(type='text', placeholder='Full Name', ng-model='editingProfile.name')
+    .control-group.option-large
+      label.control-label Photo Url
+      input.option-content(type='url', ng-model='editingProfile.imageUrl', placeholder='Image Url')
+    .control-group.option-large
+      label.control-label Blurb
+      textarea.option-content(style='height:15em;', placeholder='Blurb', ng-model='editingProfile.blurb')
+      include ../shared/formatting-help
+    .control-group.option-large
+      label.control-label Websites
+      form(ng-submit='addWebsite()')
+        input.option-content(type='url', ng-model='_newWebsite', placeholder='Add Website')
+      ul
+        li(ng-repeat='website in editingProfile.websites')
+          | {{website}}
+          a(ng-click='removeWebsite($index)')
+            i.icon-remove
+
+script(id='partials/options.profile.html', type="text/ng-template")
+  ul.nav.nav-tabs
+    li(ng-class="{ active: $state.includes('options.profile.avatar') }")
+      a(ui-sref='options.profile.avatar')
+        | Avatar
+    li(ng-class="{ active: $state.includes('options.profile.stats') }")
+      a(ui-sref='options.profile.stats')
+        | Stats & Achievements
+    li(ng-class="{ active: $state.includes('options.profile.profile') }")
+      a(ui-sref='options.profile.profile')
+        | Profile
+
+  .tab-content
+    .tab-pane.active
+      div(ui-view)

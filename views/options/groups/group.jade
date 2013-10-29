@@ -36,7 +36,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
                   i.icon-remove
 
           h4 Assign Group Leader
-          select#group-leader-selection(ng-model='group._newLeader', ng-options='username(member.auth, member.profile.name) for member in group.members')
+          select#group-leader-selection(ng-model='group._newLeader', ng-options='member.profile.name for member in group.members')
           
         div(ng-show='!group._editing')
           img.pull-right(ng-show='group.logo', style='max-width:150px', ng-src='{{group.logo}}')
@@ -61,7 +61,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
                   i.icon-ban-circle(tooltip='Boot Member')
               a
                 span(ng-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
-                  | {{username(member.auth, member.profile.name)}}
+                  | {{member.profile.name}}
             td ({{member._id}})
         h4(ng-show='group.invites.length > 0') Invited
         table.table.table-striped
@@ -82,25 +82,22 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
             input.option-content(type='text', placeholder='User Id', ng-model='group.invitee')
             input.btn(type='submit', value='Invite')
 
+    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
+      .modal-header
+        h3 Challenges
+      .modal-body
+        a(target='_blank', href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58') Details
+        div(ng-show='group.challenges')
+          table.table.table-striped
+            tr(ng-repeat='challenge in group.challenges')
+              td
+                | {{challenge.name}}
+          p.
+            Visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> for more information.
+        div(ng-hid='group.challenges')
+          p.
+            No challenges yet, visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> tab to create one.
 
-    //-accordion-group(heading='Challenges')
-      span.label
-        i.icon-bullhorn
-        | Challenges
-      | coming soon!
-      a(target='_blank', href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58') Details
-      //-{#if group.challenges}
-      //-    <table class="table table-striped">
-      //-        {#each group.challenges as :challenge}
-      //-        <tr><td>
-      //-            {:challenge.name}
-      //-        </td></tr>
-      //-        {/}
-      //-    </table>
-      //-    Visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> for more information.
-      //-{else}
-      //-    No challenges yet, visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> tab to create one.
-      //-{/}
     a.btn.btn-danger(data-id='{{group.id}}', ng-click='leave(group)') Leave
 
   .span8
@@ -115,7 +112,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
         td
           .popover.static-popover.fade.right.in.wide-popover
             .arrow
-            h3.popover-title {{username(Members.members[group.leader].auth, Members.members[group.leader].profile.name)}}
+            h3.popover-title {{Members.members[group.leader].profile.name}}
             .popover-content
               markdown(ng-model='group.leaderMessage')
     div(ng-controller='ChatCtrl')

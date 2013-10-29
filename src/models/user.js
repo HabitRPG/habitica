@@ -8,6 +8,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var helpers = require('habitrpg-shared/script/helpers');
 var _ = require('lodash');
+var TaskSchema = require('./task').schema;
 
 // User Schema
 // -----------
@@ -63,10 +64,6 @@ var UserSchema = new Schema({
   },
 
   balance: Number,
-  habitIds: Array,
-  dailyIds: Array,
-  todoIds: Array,
-  rewardIds: Array,
   filters: {type: Schema.Types.Mixed, 'default': {}},
 
   purchased: {
@@ -204,79 +201,56 @@ var UserSchema = new Schema({
     }
   ],
 
-  // ### Tasks Definition
-  // We can't define `tasks` until we move off Derby, since Derby requires dictionary of objects. When we're off, migrate
-  // to array of subdocs
+  challenges: [{type: 'String', ref:'Challenge'}],
 
-  tasks: Schema.Types.Mixed
-  /*
-  # history: {date, value}
-  # id
-  # notes
-  # tags { "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
-  # text
-  # type
-  # up
-  # down
-  # value
-  # completed
-  # priority: '!!'
-  # repeat {m: true, t: true}
-  # streak
-  */
+  habits: [TaskSchema],
+  dailys: [TaskSchema],
+  todos: [TaskSchema],
+  rewards: [TaskSchema],
 
 }, {
   strict: true,
   minimize: false // So empty objects are returned
 });
 
-// Legacy Derby Function?
-// ----------------------
-// Derby requires a strange storage format for somethign called "refLists". Here we hook into loading the data, so we
-// can provide a more "expected" storage format for our various helper methods. Since the attributes are passed by reference,
-// the underlying data will be modified too - so when we save back to the database, it saves it in the way Derby likes.
-// This will go away after the rewrite is complete
-
-function transformTaskLists(doc) {
-  _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
-    // we use _.transform instead of a simple _.where in order to maintain sort-order
-    doc[type + "s"] = _.reduce(doc[type + "Ids"], function(m, tid) {
-      if (!doc.tasks[tid]) return m; // FIXME tmp hotfix, people still have null tasks?
-      if (!doc.tasks[tid].tags) doc.tasks[tid].tags = {}; // FIXME remove this when we switch tasks to subdocs and can define tags default in schema
-      m.push(doc.tasks[tid]);
-      return m;
-    }, []);
-  });
-}
-
-UserSchema.post('init', function(doc) {
-  transformTaskLists(doc);
-});
-
 UserSchema.methods.toJSON = function() {
   var doc = this.toObject();
   doc.id = doc._id;
-  transformTaskLists(doc); // we need to also transform for our server-side routes
 
   // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
-  /*
-  // Remove some unecessary data as far as client consumers are concerned
-  //_.each(['habit', 'daily', 'todo', 'reward'], function(type) {
-  //  delete doc["#{type}Ids"]
-  //});
-  //delete doc.tasks
-  */
   doc.filters = {};
   doc._tmp = this._tmp; // be sure to send down drop notifs
 
+  // TODO why isnt' this happening automatically given the TaskSchema.methods.toJSON above?
+  _.each(['habits','dailys','todos','rewards'], function(type){
+    _.each(doc[type],function(task){
+      task.id = task._id;
+    })
+  })
+
   return doc;
 };
+
+UserSchema.virtual('tasks').get(function () {
+  var tasks = this.habits.concat(this.dailys).concat(this.todos).concat(this.rewards);
+  var tasks = _.object(_.pluck(tasks,'id'), tasks);
+  return tasks;
+});
 
  // FIXME - since we're using special @post('init') above, we need to flag when the original path was modified.
  // Custom setter/getter virtuals?
 
 UserSchema.pre('save', function(next) {
-  this.markModified('tasks');
+  //this.markModified('tasks');
+
+  if (!this.profile.name) {
+    var fb = this.auth.facebook;
+    this.profile.name =
+      (this.auth.local && this.auth.local.username) ||
+      (fb && (fb.displayName || fb.name || fb.username || (fb.first_name && fb.first_name + ' ' + fb.last_name))) ||
+      'Anonymous';
+  }
+
   //our own version incrementer
   this._v++;
   next();

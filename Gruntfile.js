@@ -49,6 +49,7 @@ module.exports = function(grunt) {
             'public/js/services/groupServices.js',
             'public/js/services/memberServices.js',
             'public/js/services/guideServices.js',
+            'public/js/services/challengeServices.js',
 
             'public/js/filters/filters.js',
 
@@ -61,14 +62,14 @@ module.exports = function(grunt) {
             'public/js/controllers/settingsCtrl.js',
             'public/js/controllers/statsCtrl.js',
             'public/js/controllers/tasksCtrl.js',
-            'public/js/controllers/taskDetailsCtrl.js',
             'public/js/controllers/filtersCtrl.js',
             'public/js/controllers/userCtrl.js',
             'public/js/controllers/groupsCtrl.js',
             'public/js/controllers/petsCtrl.js',
             'public/js/controllers/inventoryCtrl.js',
             'public/js/controllers/marketCtrl.js',
-            'public/js/controllers/footerCtrl.js'
+            'public/js/controllers/footerCtrl.js',
+            'public/js/controllers/challengesCtrl.js'
           ]
         }
       },

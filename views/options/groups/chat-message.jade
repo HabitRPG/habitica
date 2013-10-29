@@ -1,4 +1,4 @@
-li(ng-repeat='message in group.chat', ng-class='{highlight: message.text.indexOf(username(user.auth,user.profile.name)) != -1}')
+li(ng-repeat='message in group.chat', ng-class='{highlight: indexOf(message.text, user.profile.name)}')
   a.label.chat-message(class='{{nameTagClasses(message)}}', tooltip='{{message.contributor}}', ng-click='clickMember(message.uuid, true)')
     | {{message.user}}
   span 

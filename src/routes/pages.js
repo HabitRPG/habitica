@@ -11,14 +11,6 @@ router.get('/', function(req, res) {
   });
 });
 
-router.get('/partials/tasks', function(req, res) {
-  res.render('tasks/index', {env: res.locals.habitrpg});
-});
-
-router.get('/partials/options', function(req, res) {
-  res.render('options', {env: res.locals.habitrpg});
-});
-
 // -------- Marketing --------
 
 router.get('/splash.html', function(req, res) {

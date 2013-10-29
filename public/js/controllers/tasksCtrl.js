@@ -1,36 +1,7 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', 'Algos', 'Helpers', 'Notification',
-  function($scope, $rootScope, $location, User, Algos, Helpers, Notification) {
-    /*FIXME
-     */
-    $scope.taskLists = [
-      {
-        header: 'Habits',
-        type: 'habit',
-        placeHolder: 'New Habit',
-        main: true,
-        editable: true
-      }, {
-        header: 'Dailies',
-        type: 'daily',
-        placeHolder: 'New Daily',
-        main: true,
-        editable: true
-      }, {
-        header: 'Todos',
-        type: 'todo',
-        placeHolder: 'New Todo',
-        main: true,
-        editable: true
-      }, {
-        header: 'Rewards',
-        type: 'reward',
-        placeHolder: 'New Reward',
-        main: true,
-        editable: true
-      }
-    ];
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', 'Algos', 'Helpers', 'Notification', '$http', 'API_URL',
+  function($scope, $rootScope, $location, User, Algos, Helpers, Notification, $http, API_URL) {
     $scope.score = function(task, direction) {
       if (task.type === "reward" && User.user.stats.gp < task.value){
         return Notification.text('Not enough GP.');
@@ -42,18 +13,20 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
 
     $scope.addTask = function(list) {
       var task = window.habitrpgShared.helpers.taskDefaults({text: list.newTask, type: list.type}, User.user.filters);
-      User.user[list.type + "s"].unshift(task);
-      // $scope.showedTasks.unshift newTask # FIXME what's thiss?
+      list.tasks.unshift(task);
       User.log({op: "addTask", data: task});
       delete list.newTask;
     };
-    /*Add the new task to the actions log
-     */
 
+    /**
+     * Add the new task to the actions log
+     */
     $scope.clearDoneTodos = function() {};
+
+    /**
+     * This is calculated post-change, so task.completed=true if they just checked it
+     */
     $scope.changeCheck = function(task) {
-      /* This is calculated post-change, so task.completed=true if they just checked it
-       */
       if (task.completed) {
         $scope.score(task, "up");
       } else {
@@ -66,27 +39,67 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
     // uhoh! our first name conflict with habitrpg-shared/helpers, we gotta resovle that soon.
     $rootScope.clickRevive = function() {
       window.habitrpgShared.algos.revive(User.user);
-      User.log({
-        op: "revive"
-      });
+      User.log({ op: "revive" });
     };
 
-    $scope.toggleEdit = function(task){
-      task._editing = !task._editing;
-      if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
+    $scope.removeTask = function(list, $index) {
+      if (!confirm("Are you sure you want to delete this task?")) return;
+      User.log({ op: "delTask", data: list[$index] });
+      list.splice($index, 1);
     };
 
-    $scope.remove = function(task) {
-      var tasks;
-      if (confirm("Are you sure you want to delete this task?") !== true) {
-        return;
+    $scope.saveTask = function(task) {
+      var setVal = function(k, v) {
+        var op;
+        if (typeof v !== "undefined") {
+          op = { op: "set", data: {} };
+          op.data["tasks." + task.id + "." + k] = v;
+          return log.push(op);
+        }
+      };
+      var log = [];
+      setVal("text", task.text);
+      setVal("notes", task.notes);
+      setVal("priority", task.priority);
+      setVal("tags", task.tags);
+      if (task.type === "habit") {
+        setVal("up", task.up);
+        setVal("down", task.down);
+      } else if (task.type === "daily") {
+        setVal("repeat", task.repeat);
+        // TODO we'll remove this once rewrite's running for a while. This was a patch for derby issues
+        setVal("streak", task.streak);
+
+      } else if (task.type === "todo") {
+        setVal("date", task.date);
+      } else {
+        if (task.type === "reward") {
+          setVal("value", task.value);
+        }
       }
-      tasks = User.user[task.type + "s"];
-      User.log({
-        op: "delTask",
-        data: task
-      });
-      tasks.splice(tasks.indexOf(task), 1);
+      User.log(log);
+      task._editing = false;
+    };
+
+    /**
+     * Reset $scope.task to $scope.originalTask
+     */
+    $scope.cancel = function() {
+      var key;
+      for (key in $scope.task) {
+        $scope.task[key] = $scope.originalTask[key];
+      }
+      $scope.originalTask = null;
+      $scope.editedTask = null;
+      $scope.editing = false;
+    };
+
+    $scope.unlink = function(task, keep) {
+      // TODO move this to userServices, turn userSerivces.user into ng-resource
+      $http.post(API_URL + '/api/v1/user/task/' + task.id + '/unlink?keep=' + keep)
+        .success(function(){
+          User.log({});
+        });
     };
 
     /*
@@ -121,6 +134,17 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
     $scope.clearCompleted = function() {
       User.user.todos = _.reject(User.user.todos, {completed:true});
       User.log({op: 'clear-completed'});
+    }
+
+    /**
+     * See conversation on http://productforums.google.com/forum/#!topic/adsense/WYkC_VzKwbA,
+     * Adsense is very sensitive. It must be called once-and-only-once for every <ins>, else things break.
+     * Additionally, angular won't run javascript embedded into a script template, so we can't copy/paste
+     * the html provided by adsense - we need to run this function post-link
+     */
+    $scope.initAds = function(){
+      $.getScript('//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js');
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
     }
 
   }]);

@@ -16,8 +16,9 @@ var api = module.exports;
   ------------------------------------------------------------------------
 */
 
-var usernameFields = 'auth.local.username auth.facebook.displayName auth.facebook.givenName auth.facebook.familyName auth.facebook.name';
-var partyFields = 'profile preferences items stats achievements party backer flags.rest auth.timestamps ' + usernameFields;
+var itemFields = 'items.armor items.head items.shield items.weapon items.currentPet';
+var partyFields = 'profile preferences stats achievements party backer flags.rest auth.timestamps ' + itemFields;
+var nameFields = 'profile.name';
 
 function removeSelf(group, user){
   group.members = _.filter(group.members, function(m){return m._id != user._id});
@@ -32,83 +33,81 @@ api.getMember = function(req, res) {
 }
 
 /**
- * Get groups. If req.query.type privided, returned as an array (so ngResource can use). If not, returned as
- * object {guilds, public, party, tavern}. req.query.type can be comma-separated `type=guilds,party`
- * @param req
- * @param res
- * @param next
+ * Fetch groups list. This no longer returns party or tavern, as those can be requested indivdually
+ * as /groups/party or /groups/tavern
  */
-api.getGroups = function(req, res, next) {
+api.getGroups = function(req, res) {
   var user = res.locals.user;
+  var groupFields = 'name description memberCount';
+  var sort = '-memberCount';
 
-  var type = req.query.type && req.query.type.split(',');
-
-  // First get all groups
   async.parallel({
-    party: function(cb) {
-      if (type && !~type.indexOf('party')) return cb(null, {});
-      Group
-        .findOne({type: 'party', members: {'$in': [user._id]}})
-        .populate('members invites', partyFields)
-        .exec(cb);
+
+    // unecessary given our ui-router setup
+    party: function(cb){
+      return cb(null, [{}]);
     },
+
     guilds: function(cb) {
-      if (type && !~type.indexOf('guilds')) return cb(null, []);
-      Group.find({type: 'guild', members: {'$in': [user._id]}}).populate('members invites', usernameFields).exec(cb);
-//      Group.find({type: 'guild', members: {'$in': [user._id]}}, cb);
+      Group.find({members: {'$in': [user._id]}, type:'guild'})
+        .select(groupFields).sort(sort).exec(cb);
     },
+
+    'public': function(cb) {
+      Group.find({privacy: 'public'})
+        .select(groupFields + ' members')
+        .sort(sort)
+        .exec(function(err, groups){
+          if (err) return cb(err);
+          _.each(groups, function(g){
+            // To save some client-side performance, don't send down the full members arr, just send down temp var _isMember
+            if (~g.members.indexOf(user._id)) g._isMember = true;
+            g.members = undefined;
+          });
+          cb(null, groups);
+        });
+    },
+
+    // unecessary given our ui-router setup
     tavern: function(cb) {
-      if (type && !~type.indexOf('tavern')) return cb(null, {});
-      Group.findOne({_id: 'habitrpg'}, cb);
-    },
-    "public": function(cb) {
-      if (type && !~type.indexOf('public')) return cb(null, []);
-      Group.find({privacy: 'public'}, {name:1, description:1, members:1}, cb);
+      return cb(null, [{}]);
     }
+
   }, function(err, results){
     if (err) return res.json(500, {err: err});
-
-    // Remove self from party (see above failing `match` directive in `populate`
-    if (results.party) {
-      removeSelf(results.party, user);
-    }
-
-    // Sort public groups by members length (not easily doable in mongoose)
-    results.public = _.sortBy(results.public, function(group){
-      return -group.members.length;
-    });
-
-    // If they're requesting a specific type, let's return it as an array so that $ngResource
-    // can utilize it properly
-    if (type) {
-      results = _.reduce(type, function(m,t){
-        return m.concat(_.isArray(results[t]) ? results[t] : [results[t]]);
-      }, []);
-    }
-
     res.json(results);
   })
 };
 
 /**
  * Get group
+ * TODO: implement requesting fields ?fields=chat,members
  */
-api.getGroup = function(req, res, next) {
+api.getGroup = function(req, res) {
   var user = res.locals.user;
   var gid = req.params.gid;
 
-  Group.findById(gid).populate('members invites', partyFields).exec(function(err, group){
-    if ( (group.type == 'guild' && group.privacy == 'private') || group.type == 'party') {
-    	if(!_.find(group.members, {_id: user._id}))
-    		return res.json(401, {err: "You don't have access to this group"});
-    }
-    // Remove self from party (see above failing `match` directive in `populate`
-    if (group.type == 'party') {
-      removeSelf(group, user);
-    }
-    res.json(group);
-
-  })
+  // This will be called for the header, we need extra members' details than usuals
+  if (gid == 'party') {
+    Group.findOne({type: 'party', members: {'$in': [user._id]}})
+      .populate('members invites', partyFields).exec(function(err, group){
+        if (err) return res.json(500,{err:err});
+        removeSelf(group, user);
+        res.json(group);
+      });
+  } else {
+    Group.findById(gid).populate('members invites', nameFields).exec(function(err, group){
+      if ( (group.type == 'guild' && group.privacy == 'private') || group.type == 'party') {
+        if(!_.find(group.members, {_id: user._id}))
+          return res.json(401, {err: "You don't have access to this group"});
+      }
+      // Remove self from party (see above failing `match` directive in `populate`
+      if (group.type == 'party') {
+        removeSelf(group, user);
+      }
+      res.json(group);
+    })
+  }
 };
 
 
@@ -151,7 +150,7 @@ api.updateGroup = function(req, res, next) {
   async.series([
     function(cb){group.save(cb);},
     function(cb){
-      var fields = group.type == 'party' ? partyFields : usernameFields;
+      var fields = group.type == 'party' ? partyFields : nameFields;
       Group.findById(group._id).populate('members invites', fields).exec(cb);
     }
   ], function(err, results){
@@ -178,7 +177,7 @@ api.postChat = function(req, res, next) {
     contributor: user.backer && user.backer.contributor,
     npc: user.backer && user.backer.npc,
     text: req.query.message, // FIXME this should be body, but ngResource is funky
-    user: helpers.username(user.auth, user.profile.name),
+    user: user.profile.name,
     timestamp: +(new Date)
   };
 

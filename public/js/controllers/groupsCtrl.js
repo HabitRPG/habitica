@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q', 'User', 'Members', '$location',
-  function($scope, $rootScope, Groups, $http, API_URL, $q, User, Members, $location) {
+habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q', 'User', 'Members', '$location', '$state',
+  function($scope, $rootScope, Groups, $http, API_URL, $q, User, Members, $location, $state) {
 
       $scope.isMember = function(user, group){
         return ~(group.members.indexOf(user._id));
@@ -35,10 +35,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
       $scope.clickMember = function(uid, forceShow) {
         if (User.user._id == uid && !forceShow) {
-          if ($location.path() == '/tasks') {
-            $location.path('/options');
+          if ($state.is('tasks')) {
+            $state.go('options');
           } else {
-            $location.path('/tasks');
+            $state.go('tasks');
           }
         } else {
           // We need the member information up top here, but then we pass it down to the modal controller
@@ -128,6 +128,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
   .controller("GuildsCtrl", ['$scope', 'Groups', 'User', '$rootScope',
     function($scope, Groups, User, $rootScope) {
+      Groups.fetchGuilds();
       $scope.type = 'guild';
       $scope.text = 'Guild';
       $scope.newGroup = new Groups.Group({type:'guild', privacy:'private', leader: User.user._id, members: [User.user._id]});
@@ -212,8 +213,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
   .controller("TavernCtrl", ['$scope', 'Groups', 'User',
     function($scope, Groups, User) {
+      Groups.fetchTavern();
       $scope.group = Groups.groups.tavern;
-
       $scope.rest = function(){
         User.user.flags.rest = !User.user.flags.rest;
         User.log({op:'set',data:{'flags.rest':User.user.flags.rest}});

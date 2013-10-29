@@ -7,37 +7,14 @@ var GroupSchema = new Schema({
   _id: {type: String, 'default': helpers.uuid},
   name: String,
   description: String,
-  leader: {
-    type: String,
-    ref: 'User'
-  },
-  members: [
-    {
-      type: String,
-      ref: 'User'
-    }
-  ],
-  invites: [
-    {
-      type: String,
-      ref: 'User'
-    }
-  ],
-  type: {
-    type: String,
-    "enum": ['guild', 'party']
-  },
-  privacy: {
-    type: String,
-    "enum": ['private', 'public']
-  },
-  _v: {
-    Number: Number,
-    'default': 0
-  },
+  leader: {type: String, ref: 'User'},
+  members: [{type: String, ref: 'User'}],
+  invites: [{type: String, ref: 'User'}],
+  type: {type: String, "enum": ['guild', 'party']},
+  privacy: {type: String, "enum": ['private', 'public']},
+  _v: {Number: Number,'default': 0},
   websites: Array,
   chat: Array,
-
   /*
   #    [{
   #      timestamp: Date
@@ -49,14 +26,16 @@ var GroupSchema = new Schema({
   #    }]
   */
 
+  memberCount: {type: Number, 'default': 0},
+  challengeCount: {type: Number, 'default': 0},
   balance: Number,
   logo: String,
-  leaderMessage: String
+  leaderMessage: String,
+  challenges: [{type:'String', ref:'Challenge'}]
 }, {
-  strict: 'throw', 
+  strict: 'throw',
   minimize: false // So empty objects are returned
 });
-
 
 /**
  * Derby duplicated stuff. This is a temporary solution, once we're completely off derby we'll run an mongo migration
@@ -81,12 +60,15 @@ function removeDuplicates(doc){
 
 GroupSchema.pre('save', function(next){
   removeDuplicates(this);
+  this.memberCount = _.size(this.members);
+  this.challengeCount = _.size(this.challenges);
   next();
 })
 
 GroupSchema.methods.toJSON = function(){
   var doc = this.toObject();
   removeDuplicates(doc);
+  doc._isMember = this._isMember;
   return doc;
 }
 

@@ -1,60 +1,37 @@
-.grid
-  .module.full-width
-    span.option-box.pull-right.wallet
-      include ../shared/gems
+include ./profile
+include ./groups/index
+include ./challenges
+include ./inventory/index
+include ./settings
 
-    ul.nav.nav-tabs
-      li.active
-        a(data-toggle='tab', data-target='#profile-tab')
-          i.icon-user
-          | Profile
-      li
-        a(data-toggle='tab',data-target='#groups-tab', ng-click='fetchParty()')
-          i.icon-heart
-          | Groups
-      li(ng-show='user.flags.dropsEnabled')
-        a(data-toggle='tab',data-target='#inventory-tab')
-          i.icon-gift
-          | Inventory
-      li(ng-show='user.flags.dropsEnabled')
-        a(data-toggle='tab',data-target='#stable-tab')
-          i.icon-leaf
-          | Stable
-      li
-        a(data-toggle='tab',data-target='#tavern-tab',ng-click='fetchTavern()')
-          i.icon-eye-close
-          | Tavern
-      li
-        a(data-toggle='tab',data-target='#achievements-tab')
-          i.icon-certificate
-          | Achievements
+script(id='partials/options.html', type="text/ng-template")
+  .grid
+    .module.full-width
+      span.option-box.pull-right.wallet
+        include ../shared/gems
 
-      li
-        a(data-toggle='tab',data-target='#settings-tab')
-          i.icon-wrench
-          | Settings
+      ul.nav.nav-tabs
+        li(ng-class="{ active: $state.includes('options.profile') }")
+          a(ui-sref='options.profile')
+            i.icon-user
+            | Profile
+        li(ng-class="{ active: $state.includes('options.groups') }")
+          a(ui-sref='options.groups')
+            i.icon-heart
+            | Groups
+        li(ng-class="{ active: $state.includes('options.inventory') }", ng-if='user.flags.dropsEnabled')
+          a(ui-sref='options.inventory')
+            i.icon-gift
+            | Inventory
+        li(ng-class="{ active: $state.includes('options.challenges') }")
+          a(ui-sref='options.challenges')
+            i.icon-bullhorn
+            | Challenges
+        li(ng-class="{ active: $state.includes('options.settings') }")
+          a(ui-sref='options.settings')
+            i.icon-wrench
+            | Settings
 
-    .tab-content
-      .tab-pane.active#profile-tab
-        include ./profile
-
-      .tab-pane#groups-tab
-        include ./groups/index
-
-      .tab-pane#inventory-tab
-        include ./inventory
-
-      .tab-pane#stable-tab
-        include ./pets
-
-      .tab-pane#tavern-tab
-        include ./groups/tavern
-
-      .tab-pane#achievements-tab(ng-controller='UserCtrl')
-        include ../shared/profiles/achievements
-
-      // <li><a data-toggle='tab' data-target="#profile-challenges" id='profile-challenges-tab-link' ><i class='icon-bullhorn'></i> Challenges</a></li>
-      // app:challenges:main
-
-      .tab-pane#settings-tab
-        include ./settings
+      .tab-content
+        .tab-pane.active
+          div(ui-view)

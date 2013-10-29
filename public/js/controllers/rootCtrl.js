@@ -3,14 +3,23 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http',
-  function($scope, $rootScope, $location, User, $http) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams',
+  function($scope, $rootScope, $location, User, $http, $state, $stateParams) {
     $rootScope.modals = {};
     $rootScope.modals.achievements = {};
     $rootScope.User = User;
     $rootScope.user = User.user;
     $rootScope.settings = User.settings;
     $rootScope.flash = {errors: [], warnings: []};
+
+    // Angular UI Router
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+
+    // indexOf helper
+    $scope.indexOf = function(haystack, needle){
+      return haystack && ~haystack.indexOf(needle);
+    }
 
     $scope.safeApply = function(fn) {
       var phase = this.$root.$$phase;
