@@ -1,6 +1,6 @@
 script(id='partials/options.profile.avatar.html', type='text/ng-template')
   .row-fluid
-    .span4.border-right
+    .span4
       menu(type='list')
         // body-type
         li.customize-menu
@@ -18,7 +18,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
               button.f_armor_0_v1.customize-option(type='button', ng-click='set("preferences.armorSet","v1")')
               button.f_armor_0_v2.customize-option(type='button', ng-click='set("preferences.armorSet","v2")')
 
-    .span4.border-right
+    .span4
         // hair
         li.customize-menu
           menu(label='Hair')
@@ -28,7 +28,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
             button(class='{{user.preferences.gender}}_hair_white customize-option', type='button', ng-click='set("preferences.hair","white")')
             button(class='{{user.preferences.gender}}_hair_red customize-option', type='button', ng-click='set("preferences.hair","red")')
 
-    .span4.border-right
+    .span4
         // skin
         li.customize-menu
           menu(label='Basic Skins')

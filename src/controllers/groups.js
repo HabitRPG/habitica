@@ -16,8 +16,8 @@ var api = module.exports;
   ------------------------------------------------------------------------
 */
 
-var usernameFields = 'auth.local.username auth.facebook.displayName auth.facebook.givenName auth.facebook.familyName auth.facebook.name';
-var partyFields = 'profile preferences items stats achievements party backer flags.rest auth.timestamps ' + usernameFields;
+var itemFields = 'items.armor items.head items.shield items.weapon items.currentPet';
+var partyFields = 'profile preferences stats achievements party backer flags.rest auth.timestamps ' + itemFields;
 
 function removeSelf(group, user){
   group.members = _.filter(group.members, function(m){return m._id != user._id});
@@ -31,64 +31,82 @@ api.getMember = function(req, res) {
   })
 }
 
+function sanitizeMemberFields(fields, fallback) {
+  if (!fields) return fallback;
+  if (~fields.indexOf(',')) fields = fields.replace(/\,/g, ' ');
+  var intersection = _.intersection( (partyFields + ' items').split(' '), (fields).split(' ') );
+  return _.isEmpty(_.filter(intersection, function(f){return f!=''})) ? fallback : intersection;
+}
+
 /**
- * Get groups. If req.query.type privided, returned as an array (so ngResource can use). If not, returned as
+ * Get groups. If req.query.type provided, returned as an array (so ngResource can use). If not, returned as
  * object {guilds, public, party, tavern}. req.query.type can be comma-separated `type=guilds,party`
- * @param req
- * @param res
- * @param next
+ *
+ * We can request specific fields to keep things slim. Not specified gives you full detail. Request them as:
+ * - simple:      ?fields=title,description,chat,challenges,memberCount
+ * - sub-fields:  ?fields=title,description,members&fields.members=profile.name
  */
 api.getGroups = function(req, res, next) {
   var user = res.locals.user;
-
-  // if ?minimal=true, just send down names
-  if (req.query.minimal) {
-    return Group.find({members: {'$in': [user._id]}}).select('name _id').exec(function(err, groups){
-      if (err) return res.json(500, {err:err});
-      res.json(groups);
-    });
-  }
-
   var type = req.query.type && req.query.type.split(',');
+  var fields = req.query.fields && req.query.fields.replace(/\,/g, ' ')
+  var challengeFields = 'name description'; // public challenge fields, request specific challenge for more details
 
   // First get all groups
   async.parallel({
+
     party: function(cb) {
       if (type && !~type.indexOf('party')) return cb(null, {});
-      Group
-        .findOne({type: 'party', members: {'$in': [user._id]}})
-        .populate({
-          path: 'members',
-          //match: {_id: {$ne: user._id}}, //fixme this causes it to hang??
-          select: partyFields
-        })
-        .exec(cb);
+      var query = Group.findOne({type: 'party', members: {'$in': [user._id]}});
+      if (fields) {
+        query.select(fields);
+        if (~fields.indexOf('members'))
+          query.populate('members', sanitizeMemberFields(req.query['fields.members'], partyFields));
+        if (~fields.indexOf('challenges'))
+          query.populate('challenges', challengeFields);
+      }
+      query.exec(function(err, group){
+        if (err) return cb(err);
+        // Remove self from party (match in `populate()` hangs - mongoose bug)
+        removeSelf(group, user);
+        cb(null, group);
+      });
     },
+
     guilds: function(cb) {
-      if (type && !~type.indexOf('guilds')) return cb(null, []);
-      Group.find({type: 'guild', members: {'$in': [user._id]}}).populate('members', usernameFields).exec(cb);
-//      Group.find({type: 'guild', members: {'$in': [user._id]}}, cb);
+      if (type && !~type.indexOf('guilds')) return cb(null, {});
+      var query = Group.find({type: 'guild', members: {'$in': [user._id]}});
+      if (fields) {
+        query.select(fields);
+        if (~fields.indexOf('members'))
+          query.populate('members', sanitizeMemberFields(req.query['fields.members'], 'profile.name'));
+        if (~fields.indexOf('challenges'))
+          query.populate('challenges', challengeFields);
+      }
+      query.exec(cb);
     },
+
     tavern: function(cb) {
       if (type && !~type.indexOf('tavern')) return cb(null, {});
-      Group.findOne({_id: 'habitrpg'}, cb);
+      var query = Group.findById('habitrpg');
+      if (fields) {
+        query.select(fields);
+        if (~fields.indexOf('challenges'))
+          query.populate('challenges', challengeFields);
+      }
+      query.exec(cb);
     },
+
     "public": function(cb) {
       if (type && !~type.indexOf('public')) return cb(null, []);
-      Group.find({privacy: 'public'}, {name:1, description:1, members:1}, cb);
+      Group.find({privacy: 'public'})
+        .select('name description memberCount')
+        .sort('-memberCount')
+        .exec(cb);
     }
+
   }, function(err, results){
     if (err) return res.json(500, {err: err});
-
-    // Remove self from party (see above failing `match` directive in `populate`
-    if (results.party) {
-      removeSelf(results.party, user);
-    }
-
-    // Sort public groups by members length (not easily doable in mongoose)
-    results.public = _.sortBy(results.public, function(group){
-      return -group.members.length;
-    });
 
     // If they're requesting a specific type, let's return it as an array so that $ngResource
     // can utilize it properly
@@ -97,7 +115,6 @@ api.getGroups = function(req, res, next) {
         return m.concat(_.isArray(results[t]) ? results[t] : [results[t]]);
       }, []);
     }
-
     res.json(results);
   })
 };
@@ -157,7 +174,7 @@ api.updateGroup = function(req, res, next) {
   async.series([
     function(cb){group.save(cb);},
     function(cb){
-      var fields = group.type == 'party' ? partyFields : usernameFields;
+      var fields = group.type == 'party' ? partyFields : 'profile.name';
       Group.findById(group._id).populate('members', fields).exec(cb);
     }
   ], function(err, results){

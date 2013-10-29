@@ -26,6 +26,8 @@ var GroupSchema = new Schema({
   #    }]
   */
 
+  memberCount: {type: Number, 'default': 0},
+  challengeCount: {type: Number, 'default': 0},
   balance: Number,
   logo: String,
   leaderMessage: String,
@@ -59,6 +61,8 @@ function removeDuplicates(doc){
 
 GroupSchema.pre('save', function(next){
   removeDuplicates(this);
+  this.memberCount = _.size(this.members);
+  this.challengeCount = _.size(this.challenges);
   next();
 })
 

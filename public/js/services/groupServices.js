@@ -34,7 +34,7 @@ angular.module('groupServices', ['ngResource']).
         };
 
         // But we don't defer triggering Party, since we always need it for the header if nothing else
-        Group.query({type:'party'}, function(_groups){
+        Group.query({type:'party', fields:'members'}, function(_groups){
           partyQ.resolve(_groups[0]);
           Members.populate(_groups[0]);
         })

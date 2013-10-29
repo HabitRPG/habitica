@@ -38,3 +38,8 @@ db.users.find().forEach(function(user){
 
 // Remove old groups.*.challenges, they're not compatible with the new system
 db.groups.update({},{$pull:{challenges:1}},{multi:true});
+db.groups.find().forEach(function(group){
+  db.groups.update({_id:group._id}, {
+    $set:{memberCount: _.size(group.members)}
+  })
+});
