@@ -18,6 +18,7 @@ var api = module.exports;
 
 var itemFields = 'items.armor items.head items.shield items.weapon items.currentPet';
 var partyFields = 'profile preferences stats achievements party backer flags.rest auth.timestamps ' + itemFields;
+var nameFields = 'profile.name';
 
 function removeSelf(group, user){
   group.members = _.filter(group.members, function(m){return m._id != user._id});
@@ -31,80 +32,31 @@ api.getMember = function(req, res) {
   })
 }
 
-function sanitizeMemberFields(fields, fallback) {
-  if (!fields) return fallback;
-  if (~fields.indexOf(',')) fields = fields.replace(/\,/g, ' ');
-  var intersection = _.intersection( (partyFields + ' items').split(' '), (fields).split(' ') );
-  return _.isEmpty(_.filter(intersection, function(f){return f!=''})) ? fallback : intersection;
-}
-
 /**
- * Get groups. If req.query.type provided, returned as an array (so ngResource can use). If not, returned as
- * object {guilds, public, party, tavern}. req.query.type can be comma-separated `type=guilds,party`
- *
- * We can request specific fields to keep things slim. Not specified gives you full detail. Request them as:
- * - simple:      ?fields=title,description,chat,challenges,memberCount
- * - sub-fields:  ?fields=title,description,members&fields.members=profile.name
+ * Fetch groups list. This no longer returns party or tavern, as those can be requested indivdually
+ * as /groups/party or /groups/tavern
  */
-api.getGroups = function(req, res, next) {
+api.getGroups = function(req, res) {
   var user = res.locals.user;
-  var type = req.query.type && req.query.type.split(',');
-  var fields = req.query.fields && req.query.fields.replace(/\,/g, ' ')
-  var challengeFields = 'name description'; // public challenge fields, request specific challenge for more details
+  var groupFields = 'name description memberCount';
+  var sort = '-memberCount';
 
   async.parallel({
 
-    party: function(cb) {
-      if (type && !~type.indexOf('party')) return cb(null, {});
-      var query = Group.findOne({type: 'party', members: {'$in': [user._id]}});
-      if (fields) {
-        query.select(fields);
-        if (~fields.indexOf('members'))
-          query.populate('members', sanitizeMemberFields(req.query['fields.members'], partyFields));
-        if (~fields.indexOf('challenges'))
-          query.populate('challenges', challengeFields);
-      } else {
-        query.populate('members', partyFields);
-      }
-      query.exec(function(err, group){
-        if (err) return cb(err);
-        // Remove self from party (match in `populate()` hangs - mongoose bug)
-        removeSelf(group, user);
-        cb(null, group);
-      });
+    // unecessary given our ui-router setup
+    party: function(cb){
+      return cb(null, [{}]);
     },
 
     guilds: function(cb) {
-      if (type && !~type.indexOf('guilds')) return cb(null, {});
-      var query = Group.find({type: 'guild', members: {'$in': [user._id]}});
-      if (fields) {
-        query.select(fields);
-        if (~fields.indexOf('members'))
-          query.populate('members', sanitizeMemberFields(req.query['fields.members'], 'profile.name'));
-        if (~fields.indexOf('challenges'))
-          query.populate('challenges', challengeFields);
-      } else {
-        query.populate('members', 'profile.name');
-      }
-      query.exec(cb);
+      Group.find({members: {'$in': [user._id]}, type:'guild'})
+        .select(groupFields).sort(sort).exec(cb);
     },
 
-    tavern: function(cb) {
-      if (type && !~type.indexOf('tavern')) return cb(null, {});
-      var query = Group.findById('habitrpg');
-      if (fields) {
-        query.select(fields);
-        if (~fields.indexOf('challenges'))
-          query.populate('challenges', challengeFields);
-      }
-      query.exec(cb);
-    },
-
-    "public": function(cb) {
-      if (type && !~type.indexOf('public')) return cb(null, []);
+    'public': function(cb) {
       Group.find({privacy: 'public'})
-        .select('name description memberCount members')
-        .sort('-memberCount')
+        .select(groupFields + ' members')
+        .sort(sort)
         .exec(function(err, groups){
           if (err) return cb(err);
           _.each(groups, function(g){
@@ -114,41 +66,49 @@ api.getGroups = function(req, res, next) {
           });
           cb(null, groups);
         });
+    },
+
+    // unecessary given our ui-router setup
+    tavern: function(cb) {
+      return cb(null, [{}]);
     }
 
   }, function(err, results){
     if (err) return res.json(500, {err: err});
-
-    // If they're requesting a specific type, let's return it as an array so that $ngResource
-    // can utilize it properly
-    if (type) {
-      results = _.reduce(type, function(m,t){
-        return m.concat(_.isArray(results[t]) ? results[t] : [results[t]]);
-      }, []);
-    }
     res.json(results);
   })
 };
 
 /**
  * Get group
+ * TODO: implement requesting fields ?fields=chat,members
  */
-api.getGroup = function(req, res, next) {
+api.getGroup = function(req, res) {
   var user = res.locals.user;
   var gid = req.params.gid;
 
-  Group.findById(gid).populate('members', partyFields).exec(function(err, group){
-    if ( (group.type == 'guild' && group.privacy == 'private') || group.type == 'party') {
-    	if(!_.find(group.members, {_id: user._id}))
-    		return res.json(401, {err: "You don't have access to this group"});
-    }
-    // Remove self from party (see above failing `match` directive in `populate`
-    if (group.type == 'party') {
-      removeSelf(group, user);
-    }
-    res.json(group);
+  // This will be called for the header, we need extra members' details than usuals
+  if (gid == 'party') {
+    Group.findOne({type: 'party', members: {'$in': [user._id]}})
+      .populate('members', partyFields).exec(function(err, group){
+        if (err) return res.json(500,{err:err});
+        removeSelf(group, user);
+        res.json(group);
+      });
+  } else {
+    Group.findById(gid).populate('members', nameFields).exec(function(err, group){
+      if ( (group.type == 'guild' && group.privacy == 'private') || group.type == 'party') {
+        if(!_.find(group.members, {_id: user._id}))
+          return res.json(401, {err: "You don't have access to this group"});
+      }
+      // Remove self from party (see above failing `match` directive in `populate`
+      if (group.type == 'party') {
+        removeSelf(group, user);
+      }
+      res.json(group);
+    })
+  }
 
-  })
 };
 
 

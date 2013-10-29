@@ -10,7 +10,7 @@ angular.module('groupServices', ['ngResource']).
         var Group = $resource(API_URL + '/api/v1/groups/:gid',
           {gid:'@_id', messageId: '@_messageId'},
           {
-            //'query': {method: "GET", isArray:false}
+            query: {method: "GET", isArray:false},
             postChat: {method: "POST", url: API_URL + '/api/v1/groups/:gid/chat'},
             deleteChatMessage: {method: "DELETE", url: API_URL + '/api/v1/groups/:gid/chat/:messageId'},
             join: {method: "POST", url: API_URL + '/api/v1/groups/:gid/join'},
@@ -34,32 +34,24 @@ angular.module('groupServices', ['ngResource']).
         };
 
         // But we don't defer triggering Party, since we always need it for the header if nothing else
-        Group.query({type:'party', fields:'members'}, function(_groups){
-          partyQ.resolve(_groups[0]);
-          Members.populate(_groups[0]);
+        Group.get({gid:'party'}, function(party){
+          partyQ.resolve(party);
         })
 
         return {
           // Note the _.once() to make sure it can never be called again
           fetchGuilds: _.once(function(){
-            $('#loading-indicator').show();
-            Group.query({type:'guilds'}, function(_groups){
-              $('#loading-indicator').hide();
-              guildsQ.resolve(_groups);
-              Members.populate(_groups);
-            })
-            Group.query({type:'public'}, function(_groups){
-              publicQ.resolve(_groups);
-              Members.populate(_groups);
+            Group.query(function(_groups){
+              guildsQ.resolve(_groups.guilds);
+              Members.populate(_groups.guilds);
+              publicQ.resolve(_groups['public']);
+              Members.populate(_groups['public']);
             })
           }),
 
           fetchTavern: _.once(function(){
-            $('#loading-indicator').show();
-            Group.query({type:'tavern'}, function(_groups){
-              $('#loading-indicator').hide();
-              Members.populate(_groups[0]);
-              tavernQ.resolve(_groups[0]);
+            Group.get({gid:'habitrpg'}, function(tavern){
+              tavernQ.resolve(tavern);
             })
           }),
 

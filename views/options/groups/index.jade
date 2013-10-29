@@ -23,43 +23,51 @@ script(type='text/ng-template', id='partials/options.groups.party.html')
         {{user.id}}
       include ./create-group
 
+script(type='text/ng-template', id='partials/options.groups.guilds.public.html')
+  div(ng-repeat='invitation in user.invitations.guilds')
+    h3 You're Invited To {{invitation.name}}
+    a.btn.btn-success(data-type='guild', ng-click='join(invitation)') Accept
+    a.btn.btn-danger(ng-click='reject(invitation)') Reject
+  // Public Groups
+  .options-group.option-large.whatever-options
+    input.option-content(type='text',ng-model='guildSearch', placeholder='Search')
+  table.table.table-striped
+    tr(ng-repeat='group in groups.public | filter:guildSearch')
+      td
+        ul.pull-right.challenge-accordion-header-specs
+          li {{group.memberCount}} member(s)
+          li
+            // join / leave
+            a.btn.btn-small.btn-danger(ng-show='group_.isMember', ng-click='leave(group)')
+              i.icon-ban-circle
+              | Leave
+            a.btn.btn-small.btn-success(ng-hide='group._isMember', ng-click='join(group)')
+              i.icon-ok
+              | Join
+        h4 {{group.name}}
+        p {{group.description}}
+
+script(type='text/ng-template', id='partials/options.groups.guilds.detail.html')
+  include ./group
+
+script(type='text/ng-template', id='partials/options.groups.guilds.create.html')
+  include ./create-group
+
 script(type='text/ng-template', id='partials/options.groups.guilds.html')
   ul.nav.nav-tabs
-    li.active
-      a(data-target='#groups-public-guilds', data-toggle='tab') Public Guilds
-    li(ng-repeat='group in groups.guilds')
-      a(data-target='#groups-guild-{{group._id}}', data-toggle='tab') {{group.name}}
-    li
-      a(data-target='#groups-create-guild', data-toggle='tab') Create Guild
-  .tab-content
-    .tab-pane.active#groups-public-guilds
-      div(ng-repeat='invitation in user.invitations.guilds')
-        h3 You're Invited To {{invitation.name}}
-        a.btn.btn-success(data-type='guild', ng-click='join(invitation)') Accept
-        a.btn.btn-danger(ng-click='reject(invitation)') Reject
-      // Public Groups
-      .options-group.option-large.whatever-options
-        input.option-content(type='text',ng-model='guildSearch', placeholder='Search')
-      table.table.table-striped
-        tr(ng-repeat='group in groups.public | filter:guildSearch')
-          td
-            ul.pull-right.challenge-accordion-header-specs
-              li {{group.memberCount}} member(s)
-              li
-                // join / leave
-                a.btn.btn-small.btn-danger(ng-show='group_.isMember', ng-click='leave(group)')
-                  i.icon-ban-circle
-                  | Leave
-                a.btn.btn-small.btn-success(ng-hide='group._isMember', ng-click='join(group)')
-                  i.icon-ok
-                  | Join
-            h4 {{group.name}}
-            p {{group.description}}
-    .tab-pane(id='groups-guild-{{group._id}}', ng-repeat='group in groups.guilds')
-      include ./group
+    li(ng-class="{ active: $state.includes('options.groups.guilds.public') }")
+      a(ui-sref='options.groups.guilds.public')
+        | Public Guilds
+    li(ng-class="{ active: $stateParams.gid == group._id }", ng-repeat='group in groups.guilds')
+      a(ui-sref="options.groups.guilds.detail({gid:group._id})")
+        | {{group.name}}
+    li(ng-class="{ active: $state.includes('options.groups.guilds.create') }")
+      a(ui-sref='options.groups.guilds.create')
+        | Create Guild
 
-    .tab-pane#groups-create-guild
-      include ./create-group
+  .tab-content
+    .tab-pane.active
+      div(ui-view)
 
 script(type='text/ng-template', id='partials/options.groups.html')
   ul.nav.nav-tabs

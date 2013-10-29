@@ -16,6 +16,7 @@ window.habitrpg = angular.module('habitrpg',
         .when('/options', '/options/profile/avatar')
         .when('/options/profile', '/options/profile/avatar')
         .when('/options/groups', '/options/groups/tavern')
+        .when('/options/groups/guilds', '/options/groups/guilds/public')
         .when('/options/inventory', '/options/inventory/inventory')
 
         // redirect states that don't match
@@ -64,12 +65,6 @@ window.habitrpg = angular.module('habitrpg',
           url: "/tavern",
           templateUrl: "partials/options.groups.tavern.html",
           controller: 'TavernCtrl'
-          // TODO this doesn't work, seems ngResource doesn't get the .then() function
-//          resolve: {
-//            group: ['Groups', function(Groups){
-//              //return Groups.fetchTavern();
-//            }]
-//          }
         })
         .state('options.groups.party', {
           url: '/party',
@@ -80,6 +75,21 @@ window.habitrpg = angular.module('habitrpg',
           url: '/guilds',
           templateUrl: "partials/options.groups.guilds.html",
           controller: 'GuildsCtrl'
+        })
+        .state('options.groups.guilds.public', {
+          url: '/public',
+          templateUrl: "partials/options.groups.guilds.public.html"
+        })
+        .state('options.groups.guilds.create', {
+          url: '/create',
+          templateUrl: "partials/options.groups.guilds.create.html"
+        })
+        .state('options.groups.guilds.detail', {
+          url: '/:gid',
+          templateUrl: 'partials/options.groups.guilds.detail.html',
+          controller: ['$scope', 'Groups', '$stateParams', function($scope, Groups, $stateParams){
+            $scope.group = Groups.Group.get({gid:$stateParams.gid});
+          }]
         })
 
         // Options > Inventory
