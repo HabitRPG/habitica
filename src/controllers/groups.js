@@ -201,7 +201,7 @@ api.postChat = function(req, res, next) {
     contributor: user.backer && user.backer.contributor,
     npc: user.backer && user.backer.npc,
     text: req.query.message, // FIXME this should be body, but ngResource is funky
-    user: helpers.username(user.auth, user.profile.name),
+    user: user.profile.name,
     timestamp: +(new Date)
   };
 

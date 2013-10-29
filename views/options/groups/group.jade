@@ -32,7 +32,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
 
           h4 Assign Group Leader
           select#group-leader-selection
-            option(ng-repeat='member in group.members', selected='member._id == _new.groupLeader') {{username(member.auth,member.profile.name)}}
+            option(ng-repeat='member in group.members', selected='member._id == _new.groupLeader') {{member.profile.name}}
           button(x-bind='click:assignGroupLeader', ng-click='notPorted()') Assign
 
           div(ng-show='group.websites')
@@ -68,7 +68,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
                 // {{/}}
               a(data-toggle='modal', data-target='#avatar-modal-{{member._id}}')
                 span(ng-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
-                  | {{username(member.auth, member.profile.name)}}
+                  | {{member.profile.name}}
             td ({{member._id}})
       .modal-footer.whatever-options
         form.form-inline(ng-submit='invite(group, invitee)')
@@ -107,7 +107,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
         td
           .popover.static-popover.fade.right.in.wide-popover
             .arrow
-            h3.popover-title {{username(Members.members[group.leader].auth, Members.members[group.leader].profile.name)}}
+            h3.popover-title {{Members.members[group.leader].profile.name}}
             .popover-content
               markdown(ng-model='group.leaderMessage')
     div(ng-controller='ChatCtrl')
