@@ -44,13 +44,13 @@ script(type='text/ng-template', id='partials/options.groups.guilds.html')
         tr(ng-repeat='group in groups.public | filter:guildSearch')
           td
             ul.pull-right.challenge-accordion-header-specs
-              li {{group.members.length}} member(s)
+              li {{group.memberCount}} member(s)
               li
                 // join / leave
-                a.btn.btn-small.btn-danger(ng-show='isMember(user, group)', ng-click='leave(group)')
+                a.btn.btn-small.btn-danger(ng-show='group_.isMember', ng-click='leave(group)')
                   i.icon-ban-circle
                   | Leave
-                a.btn.btn-small.btn-success(ng-hide='isMember(user, group)', ng-click='join(group)')
+                a.btn.btn-small.btn-success(ng-hide='group._isMember', ng-click='join(group)')
                   i.icon-ok
                   | Join
             h4 {{group.name}}

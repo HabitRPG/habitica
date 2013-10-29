@@ -52,7 +52,6 @@ api.getGroups = function(req, res, next) {
   var fields = req.query.fields && req.query.fields.replace(/\,/g, ' ')
   var challengeFields = 'name description'; // public challenge fields, request specific challenge for more details
 
-  // First get all groups
   async.parallel({
 
     party: function(cb) {
@@ -64,6 +63,8 @@ api.getGroups = function(req, res, next) {
           query.populate('members', sanitizeMemberFields(req.query['fields.members'], partyFields));
         if (~fields.indexOf('challenges'))
           query.populate('challenges', challengeFields);
+      } else {
+        query.populate('members', partyFields);
       }
       query.exec(function(err, group){
         if (err) return cb(err);
@@ -82,6 +83,8 @@ api.getGroups = function(req, res, next) {
           query.populate('members', sanitizeMemberFields(req.query['fields.members'], 'profile.name'));
         if (~fields.indexOf('challenges'))
           query.populate('challenges', challengeFields);
+      } else {
+        query.populate('members', 'profile.name');
       }
       query.exec(cb);
     },
@@ -100,9 +103,17 @@ api.getGroups = function(req, res, next) {
     "public": function(cb) {
       if (type && !~type.indexOf('public')) return cb(null, []);
       Group.find({privacy: 'public'})
-        .select('name description memberCount')
+        .select('name description memberCount members')
         .sort('-memberCount')
-        .exec(cb);
+        .exec(function(err, groups){
+          if (err) return cb(err);
+          _.each(groups, function(g){
+            // To save some client-side performance, don't send down the full members arr, just send down temp var _isMember
+            if (~g.members.indexOf(user._id)) g._isMember = true;
+            g.members = undefined;
+          });
+          cb(null, groups);
+        });
     }
 
   }, function(err, results){

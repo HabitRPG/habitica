@@ -18,7 +18,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     // indexOf helper
     $scope.indexOf = function(haystack, needle){
-      return ~haystack.indexOf(needle);
+      return haystack && ~haystack.indexOf(needle);
     }
 
     $scope.safeApply = function(fn) {

@@ -77,7 +77,7 @@ window.habitrpg = angular.module('habitrpg',
           controller: 'PartyCtrl'
         })
         .state('options.groups.guilds', {
-          url: '/party',
+          url: '/guilds',
           templateUrl: "partials/options.groups.guilds.html",
           controller: 'GuildsCtrl'
         })

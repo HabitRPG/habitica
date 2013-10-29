@@ -69,6 +69,7 @@ GroupSchema.pre('save', function(next){
 GroupSchema.methods.toJSON = function(){
   var doc = this.toObject();
   removeDuplicates(doc);
+  doc._isMember = this._isMember;
   return doc;
 }
 
