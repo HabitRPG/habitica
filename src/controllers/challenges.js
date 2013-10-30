@@ -26,13 +26,12 @@ api.list = function(req, res) {
         {group: 'habitrpg'}
       ]
     })
-    .select('name description memberCount groups members')
-    .populate('groups', '_id name')
+    .select('name description memberCount group members')
+    .populate('group', '_id name')
     .exec(function(err, challenges){
       if (err) return res.json(500,{err:err});
       _.each(challenges, function(c){
-        if (~c.members.indexOf(user._id))
-          c._isMember = true;
+        c._isMember = !!~c.members.indexOf(user._id);
         c.members = [];
       })
       res.json(challenges);

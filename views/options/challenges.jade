@@ -25,17 +25,20 @@ script(type='text/ng-template', id='partials/options.challenges.detail.html')
 script(type='text/ng-template', id='partials/options.challenges.html')
   .row-fluid
     .span2.well
-      h4 Filters
-      ul
-        li(ng-repeat='group in groups')
-          input(type='checkbox', ng-model='search.group')
-          | {{group.name}}
-        li
-          input(type='checkbox', ng-model='search.members')
-          | Particiapting in(TODO)
-        li
-          input(type='checkbox', ng-model='search.members')
-          | Not participating in (TODO)
+      h4 Groups
+      label.checkbox(ng-repeat='group in groups')
+        input(type='checkbox', ng-model='search.group[group._id]')
+        | {{group.name}}
+      h4 Membership
+      label.radio
+        input(type='radio', name='search-participation-radio', ng-click='search._isMember = true')
+        | Participating
+      label.radio
+        input(type='radio', name='search-participation-radio', ng-click='search._isMember = false')
+        | Not Participating
+      label.radio
+        input(type='radio', name='search-participation-radio', ng-click='search._isMember = undefined', checked='checked')
+        | Either
     .span10
       // Creation form
       div(ng-hide='newChallenge')
@@ -52,7 +55,7 @@ script(type='text/ng-template', id='partials/options.challenges.html')
         habitrpg-tasks(main=false, obj='newChallenge')
 
       // Challenges list
-      .accordion-group(ng-repeat='challenge in challenges | filter:search', ng-init='challenge._locked=true')
+      .accordion-group(ng-repeat='challenge in challenges|filter:filterChallenges', ng-init='challenge._locked=true')
         .accordion-heading
           ul.pull-right.challenge-accordion-header-specs
             li {{challenge.memberCount}} Participants
@@ -72,7 +75,7 @@ script(type='text/ng-template', id='partials/options.challenges.html')
               a.btn.btn-small.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
                 i.icon-ok
                 | Join
-          a.accordion-toggle(ui-sref='options.challenges.detail({cid:challenge._id})') {{challenge.name}} (by {{challenge.leader.name}})
+          a.accordion-toggle(ui-sref='options.challenges.detail({cid:challenge._id})') {{challenge.name}}
         .accordion-body(ng-class='{collapse: !$stateParams.cid == challenge._id}')
           .accordion-inner(ng-if='$stateParams.cid == challenge._id')
             div(ui-view)

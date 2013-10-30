@@ -1,16 +1,34 @@
 "use strict";
 
-habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state',
-  function($scope, User, Challenges, Notification, $compile, Groups, $state) {
+habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$filter',
+  function($scope, User, Challenges, Notification, $compile, Groups, $state, $filter) {
 
     // FIXME get this from cache
     Groups.Group.query(function(groups){
       groups.tavern[0].name = 'Tavern';
       $scope.groups = groups.party.concat(groups.guilds).concat(groups.tavern);
+      $scope.search = {
+        group: _.reduce($scope.groups, function(m,g){m[g._id]=true;return m;}, {})
+      };
     });
     // FIXME $scope.challenges needs to be resolved first (see app.js)
     $scope.challenges = Challenges.Challenge.query();
     // we should fix this, that's pretty brittle
+
+//    $scope.$watch('search', function(search){
+//      if (!search) $scope.filteredChallenges = $scope.challenges;
+//      $scope.filteredChallenges = $filter('filter')($scope.challenges, function(chal) {
+//        return (search.group[chal.group._id] &&
+//          (typeof search._isMember == 'undefined' || search._isMember == chal._isMember));
+//      })
+//    })
+    // TODO probably better to use $watch above, to avoid this being calculated on every digest cycle
+    $scope.filterChallenges = function(chal){
+      return (!$scope.search) ? true :
+        ($scope.search.group[chal.group._id] &&
+        (typeof $scope.search._isMember == 'undefined' || $scope.search._isMember == chal._isMember));
+    }
+
 
     //------------------------------------------------------------
     // Challenge

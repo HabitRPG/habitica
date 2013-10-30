@@ -15,10 +15,6 @@ var ChallengeSchema = new Schema({
   rewards: [TaskSchema],
   leader: {type: String, ref: 'User'},
   group: {type: String, ref: 'Group'},
-    // FIXME remove below, we don't need it since every time we load a challenge, we'll load it with the group ref. we don't need to look up challenges by type
-    //type: group.type, //type: {type: String,"enum": ['guild', 'party']},
-    //id: group._id
-  //},
   timestamp: {type: Date, 'default': Date.now},
   members: [{type: String, ref: 'User'}],
   memberCount: {type: Number, 'default': 0}
