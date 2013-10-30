@@ -30,6 +30,12 @@
     background: url("../img/sprites/backer-only/BackerOnly-Pet-CerberusPup.gif") no-repeat;
 }
 
+.Pet-Dragon-Hydra {
+    width: 106px;
+    height: 89px;
+    background: url("../img/sprites/backer-only/ContributorOnly-Pet-Hydra.png") no-repeat;
+}
+
 .shop_shield_6 {background-position: -1040px 0}
 .shop_weapon_7 {background-position: -1080px 0}
 .shop_armor_6 {background-position: -1160px 0}
