@@ -65,6 +65,9 @@ angular.module("notificationServices", [])
       },
       death: function(){
         growl("<i class='icon-death'></i> Respawn!", "death");
+      },
+      error: function(error){
+        growl("<i class='icon-exclamation-sign'></i> " + error, "error");
       }
     };
   }

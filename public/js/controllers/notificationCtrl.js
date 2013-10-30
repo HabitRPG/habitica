@@ -61,5 +61,9 @@ habitrpg.controller('NotificationCtrl',
         Notification.lvl();
       }
     });
+
+    $rootScope.$on('responseError', function(ev, error){
+      Notification.error(error);
+    });
   }
 ]);

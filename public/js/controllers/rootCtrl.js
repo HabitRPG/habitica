@@ -10,7 +10,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.User = User;
     $rootScope.user = User.user;
     $rootScope.settings = User.settings;
-    $rootScope.flash = {errors: [], warnings: []};
 
     // Angular UI Router
     $rootScope.$state = $state;
