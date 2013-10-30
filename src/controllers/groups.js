@@ -36,7 +36,7 @@ api.getMember = function(req, res) {
  * Fetch groups list. This no longer returns party or tavern, as those can be requested indivdually
  * as /groups/party or /groups/tavern
  */
-api.getGroups = function(req, res) {
+api.list = function(req, res) {
   var user = res.locals.user;
   var groupFields = 'name description memberCount';
   var sort = '-memberCount';
@@ -45,7 +45,11 @@ api.getGroups = function(req, res) {
 
     // unecessary given our ui-router setup
     party: function(cb){
-      return cb(null, [{}]);
+      Group.findOne({type: 'party', members: {'$in': [user._id]}})
+        .select(groupFields).exec(function(err, party){
+          if (err) return cb(err);
+          cb(null, [party]); // return as an array for consistent ngResource use
+        });
     },
 
     guilds: function(cb) {
@@ -70,7 +74,10 @@ api.getGroups = function(req, res) {
 
     // unecessary given our ui-router setup
     tavern: function(cb) {
-      return cb(null, [{}]);
+      Group.findById('habitrpg').select(groupFields).exec(function(err, tavern){
+        if (err) return cb(err);
+        cb(null, [tavern]); // return as an array for consistent ngResource use
+      });
     }
 
   }, function(err, results){
@@ -83,7 +90,7 @@ api.getGroups = function(req, res) {
  * Get group
  * TODO: implement requesting fields ?fields=chat,members
  */
-api.getGroup = function(req, res) {
+api.get = function(req, res) {
   var user = res.locals.user;
   var gid = req.params.gid;
 
@@ -111,7 +118,7 @@ api.getGroup = function(req, res) {
 };
 
 
-api.createGroup = function(req, res, next) {
+api.create = function(req, res, next) {
   var group = new Group(req.body);
   var user = res.locals.user;
 
@@ -136,7 +143,7 @@ api.createGroup = function(req, res, next) {
   }
 }
 
-api.updateGroup = function(req, res, next) {
+api.update = function(req, res, next) {
   var group = res.locals.group;
   var user = res.locals.user;
 

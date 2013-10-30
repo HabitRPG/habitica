@@ -17,15 +17,9 @@ db.users.find().forEach(function(user){
 });
 
 _.each(groups, function(usersInvited, groupId){
-  var group = db.groups.findOne({_id: groupId});
-
-  if(group){
-    group.invites = usersInvited;
-
-    try {
-      db.groups.update({_id: groupId}, group);
-    } catch(e) {
-      print(e);
-    }
-  };
+  try {
+    db.groups.update({_id: groupId}, {$set: {'group.invites': usersInvited} });
+  } catch(e) {
+    print(e);
+  }
 });

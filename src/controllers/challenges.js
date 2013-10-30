@@ -17,26 +17,39 @@ var api = module.exports;
   ------------------------------------------------------------------------
 */
 
+api.list = function(req, res) {
+  var user = res.locals.user;
+  Challenge.find({
+      $or:[
+        {leader: user._id},
+        {members:{$in:[user._id]}},
+        {group: 'habitrpg'}
+      ]
+    })
+    .select('name description memberCount groups')
+    .populate('groups', '_id name')
+    .exec(function(err, challenges){
+      if (err) return res.json(500,{err:err});
+      res.json(challenges);
+    });
+}
+
 // GET
 api.get = function(req, res) {
   var user = res.locals.user;
-  Challenge.find({$or:[{leader: user._id}, {members:{$in:[user._id]}}]})
+  Challenge.findById(req.params.cid)
     .populate('members', 'profile.name habits dailys rewards todos')
-    .exec(function(err, challenges){
+    .exec(function(err, challenge){
       if(err) return res.json(500, {err:err});
-
       // slim down the return members' tasks to only the ones in the challenge
-      _.each(challenges, function(challenge){
-        _.each(challenge.members, function(member){
-          _.each(['habits', 'dailys', 'todos', 'rewards'], function(type){
-            member[type] = _.where(member[type], function(task){
-              return task.challenge && task.challenge.id == challenge._id;
-            })
+      _.each(challenge.members, function(member){
+        _.each(['habits', 'dailys', 'todos', 'rewards'], function(type){
+          member[type] = _.where(member[type], function(task){
+            return task.challenge && task.challenge.id == challenge._id;
           })
         })
       });
-
-      res.json(challenges);
+      res.json(challenge);
     })
 }
 

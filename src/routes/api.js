@@ -58,10 +58,10 @@ router['delete']('/user', auth.auth, user['delete']);
 router['delete']('/user/tags/:tid', auth.auth, user.deleteTag);
 
 /* Groups*/
-router.get('/groups', auth.auth, groups.getGroups);
-router.post('/groups', auth.auth, groups.createGroup);
-router.get('/groups/:gid', auth.auth, groups.getGroup);
-router.post('/groups/:gid', auth.auth, groups.attachGroup, groups.updateGroup);
+router.get('/groups', auth.auth, groups.list);
+router.post('/groups', auth.auth, groups.create);
+router.get('/groups/:gid', auth.auth, groups.get);
+router.post('/groups/:gid', auth.auth, groups.attachGroup, groups.update);
 //DELETE /groups/:gid
 
 router.post('/groups/:gid/join', auth.auth, groups.attachGroup, groups.join);
@@ -84,8 +84,9 @@ router.post('/market/buy', auth.auth, user.marketBuy);
 // Note: while challenges belong to groups, and would therefore make sense as a nested resource
 // (eg /groups/:gid/challenges/:cid), they will also be referenced by users from the "challenges" tab
 // without knowing which group they belong to. So to prevent unecessary lookups, we have them as a top-level resource
-router.get('/challenges', auth.auth, challenges.get)
+router.get('/challenges', auth.auth, challenges.list)
 router.post('/challenges', auth.auth, challenges.create)
+router.get('/challenges/:cid', auth.auth, challenges.get)
 router.post('/challenges/:cid', auth.auth, challenges.update)
 router['delete']('/challenges/:cid', auth.auth, challenges['delete'])
 router.post('/challenges/:cid/join', auth.auth, challenges.join)

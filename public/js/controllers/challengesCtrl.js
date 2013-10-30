@@ -1,11 +1,16 @@
 "use strict";
 
-habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'groups', 'challenges',
-  function($scope, User, Challenges, Notification, $compile, groups, challenges) {
+habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups',
+  function($scope, User, Challenges, Notification, $compile, Groups) {
 
-    // groups & challenges are loaded as `resolve` via ui-router (see app.js)
-    $scope.groups = groups;
-    $scope.challenges = challenges;
+    // FIXME get this from cache
+    Groups.Group.query(function(groups){
+      groups.tavern[0].name = 'Tavern';
+      $scope.groups = groups.party.concat(groups.guilds).concat(groups.tavern);
+    });
+    // FIXME $scope.challenges needs to be resolved first (see app.js)
+    $scope.challenges = Challenges.Challenge.query();
+    // we should fix this, that's pretty brittle
 
     //------------------------------------------------------------
     // Challenge

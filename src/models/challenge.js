@@ -19,9 +19,8 @@ var ChallengeSchema = new Schema({
     //id: group._id
   //},
   timestamp: {type: Date, 'default': Date.now},
-  members: [{type: String, ref: 'User'}]
-}, {
-  minimize: 'false'
+  members: [{type: String, ref: 'User'}],
+  memberCount: [{type: Number, 'default': 0}]
 });
 
 ChallengeSchema.virtual('tasks').get(function () {
@@ -29,6 +28,11 @@ ChallengeSchema.virtual('tasks').get(function () {
   var tasks = _.object(_.pluck(tasks,'id'), tasks);
   return tasks;
 });
+
+ChallengeSchema.pre('save', function(next){
+  this.memberCount = _.size(this.members);
+  next();
+})
 
 module.exports.schema = ChallengeSchema;
 module.exports.model = mongoose.model("Challenge", ChallengeSchema);
