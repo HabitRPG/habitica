@@ -38,7 +38,7 @@ script(type='text/ng-template', id='partials/options.groups.guilds.public.html')
           li {{group.memberCount}} member(s)
           li
             // join / leave
-            a.btn.btn-small.btn-danger(ng-show='group_.isMember', ng-click='leave(group)')
+            a.btn.btn-small.btn-danger(ng-show='group._isMember', ng-click='leave(group)')
               i.icon-ban-circle
               | Leave
             a.btn.btn-small.btn-success(ng-hide='group._isMember', ng-click='join(group)')

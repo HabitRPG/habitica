@@ -41,11 +41,13 @@ api.list = function(req, res) {
   var user = res.locals.user;
   var groupFields = 'name description memberCount';
   var sort = '-memberCount';
+  var type = (req.query.type || 'party,guilds,public,tavern').split(',');
 
   async.parallel({
 
     // unecessary given our ui-router setup
     party: function(cb){
+      if (!~type.indexOf('party')) return cb(null, {});
       Group.findOne({type: 'party', members: {'$in': [user._id]}})
         .select(groupFields).exec(function(err, party){
           if (err) return cb(err);
@@ -54,11 +56,13 @@ api.list = function(req, res) {
     },
 
     guilds: function(cb) {
+      if (!~type.indexOf('guilds')) return cb(null, []);
       Group.find({members: {'$in': [user._id]}, type:'guild'})
         .select(groupFields).sort(sort).exec(cb);
     },
 
     'public': function(cb) {
+      if (!~type.indexOf('public')) return cb(null, []);
       Group.find({privacy: 'public'})
         .select(groupFields + ' members')
         .sort(sort)
@@ -75,6 +79,7 @@ api.list = function(req, res) {
 
     // unecessary given our ui-router setup
     tavern: function(cb) {
+      if (!~type.indexOf('tavern')) return cb(null, {});
       Group.findById('habitrpg').select(groupFields).exec(function(err, tavern){
         if (err) return cb(err);
         cb(null, [tavern]); // return as an array for consistent ngResource use
@@ -83,6 +88,14 @@ api.list = function(req, res) {
 
   }, function(err, results){
     if (err) return res.json(500, {err: err});
+
+   // If they're requesting a specific type, let's return it as an array so that $ngResource
+   // can utilize it properly
+   if (req.query.type) {
+     results = _.reduce(type, function(m,t){
+       return m.concat(_.isArray(results[t]) ? results[t] : [results[t]]);
+     }, []);
+   }
     res.json(results);
   })
 };

@@ -10,7 +10,7 @@ angular.module('groupServices', ['ngResource']).
         var Group = $resource(API_URL + '/api/v1/groups/:gid',
           {gid:'@_id', messageId: '@_messageId'},
           {
-            query: {method: "GET", isArray:false},
+            //query: {method: "GET", isArray:false},
             postChat: {method: "POST", url: API_URL + '/api/v1/groups/:gid/chat'},
             deleteChatMessage: {method: "DELETE", url: API_URL + '/api/v1/groups/:gid/chat/:messageId'},
             join: {method: "POST", url: API_URL + '/api/v1/groups/:gid/join'},
@@ -39,14 +39,17 @@ angular.module('groupServices', ['ngResource']).
         })
 
         return {
+
           // Note the _.once() to make sure it can never be called again
           fetchGuilds: _.once(function(){
-            Group.query(function(_groups){
-              guildsQ.resolve(_groups.guilds);
-              Members.populate(_groups.guilds);
-              publicQ.resolve(_groups['public']);
-              Members.populate(_groups['public']);
-            })
+            Group.query({type:'guilds'}, function(_groups){
+              guildsQ.resolve(_groups);
+              Members.populate(_groups);
+            });
+            Group.query({type:'public'}, function(_groups){
+              publicQ.resolve(_groups);
+              Members.populate(_groups);
+            });
           }),
 
           fetchTavern: _.once(function(){

@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q', 'User', 'Members', '$location', '$state',
-  function($scope, $rootScope, Groups, $http, API_URL, $q, User, Members, $location, $state) {
+habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q', 'User', 'Members', '$state',
+  function($scope, $rootScope, Groups, $http, API_URL, $q, User, Members, $state) {
 
       $scope.isMember = function(user, group){
         return ~(group.members.indexOf(user._id));
@@ -126,8 +126,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
   }])
 
-  .controller("GuildsCtrl", ['$scope', 'Groups', 'User', '$rootScope',
-    function($scope, Groups, User, $rootScope) {
+  .controller("GuildsCtrl", ['$scope', 'Groups', 'User', '$rootScope', '$state', '$location',
+    function($scope, Groups, User, $rootScope, $state, $location) {
       Groups.fetchGuilds();
       $scope.type = 'guild';
       $scope.text = 'Guild';
@@ -137,8 +137,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         if (User.user.balance < 1) return $rootScope.modals.buyGems = true;
 
         if (confirm("Create Guild for 4 Gems?")) {
-          group.$save(function(){
-            location.reload();
+          group.$save(function(saved){
+            location.href =  '/#/options/groups/guilds/' + saved._id;
           });
         }
       }
@@ -151,9 +151,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           group = new Groups.Group({_id:group.id});
         }
 
-        group.$join(function(saved){
-          //$scope.groups.guilds.push(saved);
-          alert('Joined guild, refresh page to see changes')
+        group.$join(function(){
+          // use https://github.com/angular-ui/ui-router/issues/76 when it's available
+          location.reload();
         })
       }
 
@@ -161,10 +161,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         if (confirm("Are you sure you want to leave this guild?") !== true) {
           return;
         }
-        group.$leave();
-//        var i = _.find($scope.groups.guilds, {_id:group._id});
-//        if (~i) $scope.groups.guilds.splice(i, 1);
-        alert('Left guild, refresh page to see changes')
+        group.$leave(function(){
+          // use https://github.com/angular-ui/ui-router/issues/76 when it's available
+          location.reload();
+        });
       }
 
       $scope.reject = function(guild){
@@ -201,7 +201,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           return;
         }
         group.$leave(function(){
-          Groups.groups.party = new Groups.Group();
+          //Groups.groups.party = new Groups.Group();
+          location.reload();
         });
       }
       $scope.reject = function(){
