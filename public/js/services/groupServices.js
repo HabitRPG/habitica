@@ -42,19 +42,20 @@ angular.module('groupServices', ['ngResource']).
 
           // Note the _.once() to make sure it can never be called again
           fetchGuilds: _.once(function(){
+            //TODO combine these as {type:'guilds,public'} and create a $filter() to separate them
             Group.query({type:'guilds'}, function(_groups){
               guildsQ.resolve(_groups);
-              Members.populate(_groups);
+              //Members.populate(_groups);
             });
             Group.query({type:'public'}, function(_groups){
               publicQ.resolve(_groups);
-              Members.populate(_groups);
+              //Members.populate(_groups);
             });
           }),
 
           fetchTavern: _.once(function(){
-            Group.get({gid:'habitrpg'}, function(tavern){
-              tavernQ.resolve(tavern);
+            Group.get({gid:'habitrpg'}, function(_groups){
+              tavernQ.resolve(_groups[0]);
             })
           }),
 

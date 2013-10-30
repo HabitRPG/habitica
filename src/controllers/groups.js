@@ -41,7 +41,7 @@ api.list = function(req, res) {
   var user = res.locals.user;
   var groupFields = 'name description memberCount';
   var sort = '-memberCount';
-  var type = (req.query.type || 'party,guilds,public,tavern').split(',');
+  var type = req.query.type || 'party,guilds,public,tavern';
 
   async.parallel({
 
@@ -88,15 +88,15 @@ api.list = function(req, res) {
 
   }, function(err, results){
     if (err) return res.json(500, {err: err});
-
-   // If they're requesting a specific type, let's return it as an array so that $ngResource
-   // can utilize it properly
-   if (req.query.type) {
-     results = _.reduce(type, function(m,t){
-       return m.concat(_.isArray(results[t]) ? results[t] : [results[t]]);
-     }, []);
-   }
-    res.json(results);
+    // ngResource expects everything as arrays. We used to send it down as a structured object: {public:[], party:{}, guilds:[], tavern:{}}
+    // but unfortunately ngResource top-level attrs are considered the ngModels in the list, so we had to do weird stuff and multiple
+    // requests to get it to work properly. Instead, we're not depending on the client to do filtering / organization, and we're
+    // just sending down a merged array. Revisit
+    var arr = _.reduce(results, function(m,v){
+      if (_.isEmpty(v)) return m;
+      return m.concat(_.isArray(v) ? v : [v]);
+    }, [])
+    res.json(arr);
   })
 };
 

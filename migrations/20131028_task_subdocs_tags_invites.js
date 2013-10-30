@@ -68,3 +68,6 @@ db.groups.find().forEach(function(group){
     $pull:{challenges:1}
   })
 });
+
+// HabitRPG => Tavern
+db.groups.update({_id:'habitrpg'}, {$set:{name:'Tavern'}});

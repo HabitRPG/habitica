@@ -1,14 +1,13 @@
 "use strict";
 
-habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state',
-  function($scope, User, Challenges, Notification, $compile, Groups, $state) {
+habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', 'API_URL', '$http',
+  function($scope, User, Challenges, Notification, $compile, Groups, $state, API_URL, $http) {
 
     // FIXME get this from cache
-    Groups.Group.query(function(groups){
-      groups.tavern[0].name = 'Tavern';
-      $scope.groups = groups.party.concat(groups.guilds).concat(groups.tavern);
+    Groups.Group.query({type:'party,guilds,tavern'}, function(groups){
+      $scope.groups = groups;
       $scope.search = {
-        group: _.reduce($scope.groups, function(m,g){m[g._id]=true;return m;}, {})
+        group: _.reduce(groups, function(m,g){m[g._id]=true;return m;}, {})
       };
     });
     // FIXME $scope.challenges needs to be resolved first (see app.js)
