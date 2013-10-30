@@ -1,7 +1,7 @@
 "use strict";
 
 window.habitrpg = angular.module('habitrpg',
-    ['ngRoute', 'ngResource', 'ngSanitize', 'userServices', 'groupServices', 'memberServices', 'challengeServices', 'sharedServices', 'authServices', 'notificationServices', 'guideServices', 'ui.bootstrap', 'ui.keypress', 'ui.router'])
+    ['ngResource', 'ngSanitize', 'userServices', 'groupServices', 'memberServices', 'challengeServices', 'sharedServices', 'authServices', 'notificationServices', 'guideServices', 'ui.bootstrap', 'ui.keypress', 'ui.router'])
 
   .constant("API_URL", "")
   .constant("STORAGE_USER_ID", 'habitrpg-user')

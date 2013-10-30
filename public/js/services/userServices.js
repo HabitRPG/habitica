@@ -144,6 +144,11 @@ angular.module('userServices', []).
           syncQueue(cb);
         },
 
+        sync: function(){
+          user._v--;
+          userServices.log({});
+        },
+
         /*
          Very simple path-set. `set('preferences.gender','m')` for example. We'll deprecate this once we have a complete API
          */

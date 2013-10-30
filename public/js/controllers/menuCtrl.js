@@ -7,33 +7,10 @@
  */
 
 habitrpg.controller('MenuCtrl',
-  ['$scope', '$rootScope', '$location', 'User',
-  function($scope, $rootScope, $location, User) {
+  ['$scope', '$rootScope', 'User',
+  function($scope, $rootScope, User) {
 
-    $scope.sync = function(){
-      User.user._v--;
-      User.log({})
-    }
-
-    $scope.gotoOptions = function(){
-      $location.path('/options');
-    }
-
-    $scope.gotoTasks = function(){
-      $location.path('/tasks')
-    }
-
-    $scope.$on('$routeChangeSuccess', function(ev, current) {
-      if(!current.$$route) return;
-      if(current.$$route.originalPath === "/tasks"){
-        $scope.viewingOptions = false;
-      }else if(current.$$route.originalPath === "/options"){
-        $scope.viewingOptions = true;
-      }
-    });
-
-
-    //FIXME where to implement this in rewrite?
+    //FIXME are these used anywhere? can we get rid of this file?
 
     $scope.refreshing = function () {
       User.settings.fetching ? "spin" : ""

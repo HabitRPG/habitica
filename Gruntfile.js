@@ -25,7 +25,7 @@ module.exports = function(grunt) {
             'public/bower_components/angular/angular.min.js',
             'public/bower_components/angular-sanitize/angular-sanitize.min.js',
             'public/bower_components/marked/lib/marked.js',
-            'public/bower_components/angular-ui-router/angular-ui-router.min.js',
+            'public/bower_components/angular-ui-router/release/angular-ui-router.js',
             'public/bower_components/angular-resource/angular-resource.min.js',
             'public/bower_components/angular-ui/build/angular-ui.min.js',
             'public/bower_components/angular-ui-utils/modules/keypress/keypress.js',

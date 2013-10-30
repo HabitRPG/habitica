@@ -6,14 +6,14 @@
       ul.flyout-content.nav.stacked
         li
           a.task-action-btn.tile.solid
-            span(ng-show='viewingOptions', ng-click='gotoTasks()')
+            span(ng-show='$state.includes("options")', ui-sref='tasks')
               i.icon-ok
               | Tasks
-            span(ng-hide='viewingOptions', ng-click='gotoOptions()')
+            span(ng-show='$state.includes("tasks")', ui-sref='options')
               i.icon.icon-wrench
               |  Options
         li
-          a.task-action-btn.tile.solid(ng-click='sync()')
+          a.task-action-btn.tile.solid(ng-click='User.sync()')
             i.icon.icon-refresh
             |  Sync
         li
