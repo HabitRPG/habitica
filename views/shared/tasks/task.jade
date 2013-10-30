@@ -1,4 +1,4 @@
-li(ng-repeat='task in list.tasks', class='task {{taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', data-id='{{task.id}}')
+li(ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', data-id='{{task.id}}')
   // right-hand side control buttons
   .task-meta-controls
 
@@ -26,7 +26,7 @@ li(ng-repeat='task in list.tasks', class='task {{taskClasses(task, user.filters,
         span(ng-if='!task.challenge.broken')
           i.icon-bullhorn(tooltip="Challenge Task")
       // delete
-      a(ng-if='!task.challenge.id', ng-click='removeTask(list.tasks, $index)', tooltip='Delete')
+      a(ng-if='!task.challenge.id', ng-click='removeTask(obj[list.type+"s"], $index)', tooltip='Delete')
         i.icon-trash
 
     // chart

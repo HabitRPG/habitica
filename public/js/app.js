@@ -115,18 +115,12 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.challenges.detail', {
           url: '/:cid',
           templateUrl: 'partials/options.challenges.detail.html',
-//          resolve: {
-//            challenge: ['$scope', 'Challenges', '$stateParams', '$q',
-//              function($scope, Challenges, $stateParams, $q){
-//                // FIXME does ui-router not work with ng-resource by default?
-//                var challenge = $q.defer();
-//                Challenges.Challenge.get({cid:$stateParams.cid}, function(_challenge){
-//                  challenge._locked = true;
-//                  challenge.resolve(_challenge);
-//                });
-//                return challenge.promise;
-//              }]
-//          }
+          controller: ['$scope', 'Challenges', '$stateParams',
+            function($scope, Challenges, $stateParams){
+              $scope.obj = $scope.challenge = Challenges.Challenge.get({cid:$stateParams.cid}, function(){
+                $scope.challenge._locked = true;
+              });
+            }]
         })
 
         // Options > Settings

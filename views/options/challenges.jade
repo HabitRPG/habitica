@@ -18,9 +18,9 @@ script(type='text/ng-template', id='partials/options.challenges.detail.html')
   div(ng-if='challenge.description') {{challenge.description}}
   habitrpg-tasks(obj='challenge', main=false)
   h3 Statistics
-  div(ng-repeat='member in challenge.members', ng-init='member._locked = true')
+  div(ng-repeat='member in challenge.members', ng-init='member._locked = true; obj=member')
     h4 {{member.profile.name}}
-    habitrpg-tasks(main=false, obj='member')
+    habitrpg-tasks(main=false)
 
 script(type='text/ng-template', id='partials/options.challenges.html')
   .row-fluid

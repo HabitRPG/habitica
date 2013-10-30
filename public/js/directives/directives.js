@@ -29,15 +29,15 @@ habitrpg.directive('habitrpgAdsense', function() {
 })
 
 habitrpg.directive('whenScrolled', function() {
-    return function(scope, elm, attr) {
-        var raw = elm[0];
-        
-        elm.bind('scroll', function() {
-            if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
-                scope.$apply(attr.whenScrolled);
-            }
-        });
-    };
+  return function(scope, elm, attr) {
+    var raw = elm[0];
+
+    elm.bind('scroll', function() {
+      if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+        scope.$apply(attr.whenScrolled);
+      }
+    });
+  };
 });
 
 /**
@@ -127,32 +127,28 @@ habitrpg
         };
       },
       link: function(scope, element, attrs) {
-        scope.obj = scope[attrs.obj];
+        // $scope.obj needs to come from controllers, so we can pass by ref
         scope.main = attrs.main;
-
-        scope.lists = [
+        $rootScope.lists = [
           {
             header: 'Habits',
             type: 'habit',
-            placeHolder: 'New Habit',
-            tasks: scope.obj.habits
+            placeHolder: 'New Habit'
           }, {
             header: 'Dailies',
             type: 'daily',
-            placeHolder: 'New Daily',
-            tasks: scope.obj.dailys
+            placeHolder: 'New Daily'
           }, {
             header: 'Todos',
             type: 'todo',
-            placeHolder: 'New Todo',
-            tasks: scope.obj.todos
+            placeHolder: 'New Todo'
           }, {
             header: 'Rewards',
             type: 'reward',
-            placeHolder: 'New Reward',
-            tasks: scope.obj.rewards
+            placeHolder: 'New Reward'
           }
         ];
+
       }
     }
   }]);

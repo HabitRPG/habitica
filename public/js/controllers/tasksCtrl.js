@@ -2,6 +2,8 @@
 
 habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', 'Algos', 'Helpers', 'Notification', '$http', 'API_URL',
   function($scope, $rootScope, $location, User, Algos, Helpers, Notification, $http, API_URL) {
+    $scope.obj = User.user; // used for task-lists
+
     $scope.score = function(task, direction) {
       if (task.type === "reward" && User.user.stats.gp < task.value){
         return Notification.text('Not enough GP.');
@@ -11,11 +13,11 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
 
     };
 
-    $scope.addTask = function(list) {
-      var task = window.habitrpgShared.helpers.taskDefaults({text: list.newTask, type: list.type}, User.user.filters);
-      list.tasks.unshift(task);
+    $scope.addTask = function(addTo, listDef) {
+      var task = window.habitrpgShared.helpers.taskDefaults({text: listDef.newTask, type: listDef.type}, User.user.filters);
+      addTo.unshift(task);
       User.log({op: "addTask", data: task});
-      delete list.newTask;
+      delete listDef.newTask;
     };
 
     /**
