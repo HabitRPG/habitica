@@ -19,7 +19,7 @@
     "angular-resource": "1.2.0-rc.2",
     "angular-ui": "~0.4.0",
     "angular-bootstrap": "~0.5.0",
-    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#challenges",
+    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#master",
     "bootstrap-tour": "0.5.0",
     "BrowserQuest": "https://github.com/mozilla/BrowserQuest.git",
     "github-buttons": "git://github.com/mdo/github-buttons.git",
