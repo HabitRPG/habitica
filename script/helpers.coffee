@@ -71,7 +71,9 @@ module.exports =
     task.value ?= if task.type is 'reward' then 10 else 0
     task
 
-  newUser: (isDerby=false) ->
+  # FIXME - should we remove this completely, since all defaults are accounted for in mongoose?
+  # Or should we keep it so mobile can create an offline new user in the future?
+  newUser: () ->
     userSchema =
     # _id / id handled by Racer
       stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
@@ -87,17 +89,10 @@ module.exports =
         ads: 'show'
       tags: []
 
-    if isDerby
-      userSchema.habitIds = []
-      userSchema.dailyIds = []
-      userSchema.todoIds = []
-      userSchema.rewardIds = []
-      userSchema.tasks = {}
-    else
-      userSchema.habits = []
-      userSchema.dailys = []
-      userSchema.todos = []
-      userSchema.rewards = []
+    userSchema.habits = []
+    userSchema.dailys = []
+    userSchema.todos = []
+    userSchema.rewards = []
 
     # deep clone, else further new users get duplicate objects
     newUser = _.cloneDeep userSchema
@@ -126,11 +121,7 @@ module.exports =
 
     for task in defaultTasks
       guid = task.id = uuid()
-      if isDerby
-        newUser.tasks[guid] = task
-        newUser["#{task.type}Ids"].push guid
-      else
-        newUser["#{task.type}s"].push task
+      newUser["#{task.type}s"].push task
 
     for tag in defaultTags
       tag.id = uuid()
@@ -150,16 +141,22 @@ module.exports =
   ###
   dotSet: (path, val, obj) ->
     return if ~path.indexOf('undefined')
-    arr = path.split('.')
-    _.reduce arr, (curr, next, index) ->
-      if (arr.length - 1) == index
-        curr[next] = val
-      curr[next]
-    , obj
+    try
+      arr = path.split('.')
+      _.reduce arr, (curr, next, index) ->
+        if (arr.length - 1) == index
+          curr[next] = val
+        (curr[next] ?= {})
+      , obj
+    catch err
+      console.error {err, path, val, _id:obj._id}
 
   dotGet: (path, obj) ->
     return undefined if ~path.indexOf('undefined')
-    _.reduce path.split('.'), ((curr, next) -> curr[next]), obj
+    try
+      _.reduce path.split('.'), ((curr, next) -> curr?[next]), obj
+    catch err
+      console.error {err, path, val, _id:obj._id}
 
   daysSince: daysSince
   startOfWeek: startOfWeek
@@ -254,7 +251,7 @@ module.exports =
   ###
   gold: (num) ->
     if num
-      return (num).toFixed(1).split('.')[0]
+      return Math.floor num
     else
       return "0"
 
@@ -263,14 +260,14 @@ module.exports =
   ###
   silver: (num) ->
     if num
-      (num).toFixed(2).split('.')[1]
+      ("0" + Math.floor (num - Math.floor(num))*100).slice -2
     else
       return "00"
 
   ###
     Task classes given everything about the class
   ###
-  taskClasses: (task, filters, dayStart, lastCron, showCompleted=false, main) ->
+  taskClasses: (task, filters=[], dayStart=0, lastCron=+new Date, showCompleted=false, main=false) ->
     return unless task
     {type, completed, value, repeat} = task
 

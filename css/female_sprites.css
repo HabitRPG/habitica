@@ -35,8 +35,29 @@
 .f_skin_orc,
 .f_skin_asian,
 .f_skin_black,
-.f_skin_white
-    background: url("../img/sprites/female_sprites.png") no-repeat
+.f_skin_white,
+.f_skin_ea8349,
+.f_skin_c06534,
+.f_skin_98461a,
+.f_skin_eb052b,
+.f_skin_eb052b,
+.f_skin_f69922,
+.f_skin_f5d70f,
+.f_skin_0ff591,
+.f_skin_2b43f6,
+.f_skin_d7a9f7,
+.f_skin_800ed0,
+.f_skin_rainbow,
+.f_skin_monster,
+.f_skin_pumpkin,
+.f_skin_skeleton,
+.f_skin_zombie,
+.f_skin_ghost,
+.f_skin_shadow,
+.f_hair_red
+{
+    background: url("../img/sprites/female_sprites.png") no-repeat;
+}
 
 .f_weapon_6 {background-position: 0 0; width: 90px; height: 90px}
 .f_weapon_5 {background-position: -90px 0; width: 90px; height: 90px}
@@ -71,49 +92,34 @@
 .f_armor_1 {background-position: -2700px 0; width: 90px; height: 90px}
 .f_armor_0_v2 {background-position: -2790px 0; width: 90px; height: 90px}
 .f_armor_0_v1 {background-position: -2880px 0; width: 90px; height: 90px}
+
+/* Basic Skin */
 .f_skin_dead {background-position: -2970px 0; width: 90px; height: 90px}
 .f_skin_orc {background-position: -3060px 0; width: 90px; height: 90px}
 .f_skin_asian {background-position: -3150px 0; width: 90px; height: 90px}
 .f_skin_black {background-position: -3240px 0; width: 90px; height: 90px}
 .f_skin_white {background-position: -3330px 0; width: 90px; height: 90px}
+.f_skin_ea8349 {background-position: -3420px 0; width: 90px; height: 90px}
+.f_skin_c06534 {background-position: -3510px 0; width: 90px; height: 90px}
+.f_skin_98461a {background-position: -3600px 0; width: 90px; height: 90px}
 
+/* Crazy Skin */
+.f_skin_eb052b {background-position: -3690px 0; width: 90px; height: 90px}
+.f_skin_f69922 {background-position: -3780px 0; width: 90px; height: 90px}
+.f_skin_f5d70f {background-position: -3870px 0; width: 90px; height: 90px}
+.f_skin_0ff591 {background-position: -3960px 0; width: 90px; height: 90px}
+.f_skin_2b43f6 {background-position: -4050px 0; width: 90px; height: 90px}
+.f_skin_d7a9f7 {background-position: -4140px 0; width: 90px; height: 90px}
+.f_skin_800ed0 {background-position: -4230px 0; width: 90px; height: 90px}
+.f_skin_rainbow {background-position: -4320px 0; width: 90px; height: 90px}
 
+/* Halloween Skin */
+.f_skin_monster   {background-position: -4410px 0; width: 90px; height: 90px}
+.f_skin_pumpkin   {background-position: -4500px 0; width: 90px; height: 90px}
+.f_skin_skeleton  {background-position: -4590px 0; width: 90px; height: 90px}
+.f_skin_zombie    {background-position: -4680px 0; width: 90px; height: 90px}
+.f_skin_ghost     {background-position: -4770px 0; width: 90px; height: 90px}
+.f_skin_shadow    {background-position: -4860px 0; width: 90px; height: 90px}
 
-// narrower spriting for customize modal
-.customize-menu
-	// shared option-box styles
-	[class^="f_hair"], [class^="f_skin"], [class^="f_armor"], .f_head_0
-		width: 60px;
-		height: 60px;
-
-	// head
-	.f_head_0
-		background-position: -1917px -9px; 
-	
-	// hair
-	.f_hair_white
-		background-position: -2009px -8px;
-	.f_hair_brown
-		background-position: -2099px -8px;
-	.f_hair_black
-		background-position: -2189px -8px;
-	.f_hair_blond
-		background-position: -2279px -8px;
-		
-	// skin
-	.f_skin_dead
-		background-position: -2997px -20px;
-	.f_skin_orc
-		background-position: -3087px -20px;
-	.f_skin_asian
-		background-position: -3177px -20px;
-	.f_skin_black
-		background-position: -3267px -20px;
-	.f_skin_white
-		background-position: -3357px -20px;
-		
-	// starting armor
-	.f_armor_0_v2
-		background-position: -2819px -38px;
-	.f_armor_0_v1
-		background-position: -2909px -38px;
+/* Red Hair */
+.f_hair_red {background-position: -4950px 0; width: 90px; height: 90px}

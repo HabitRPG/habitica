@@ -1,0 +1,33 @@
+.achievements-container {
+    margin: 20px;
+}
+
+.achievement {
+    background: url('../img/sprites/achievements.png') no-repeat;
+    width: 24px;
+    height: 26px;
+    float:left;
+    clear:right;
+    margin-right: 10px;
+}
+
+.achievement-sword {background-position:0px 0px}
+.achievement-tree {background-position:-24px 0px}
+.achievement-rat {background-position:-48px 0px}
+.achievement-comment {background-position:-72px 0px}
+.achievement-armor {background-position:-96px 0px}
+.achievement-cave {background-position:-120px 0px}
+.achievement-sun {background-position:-144px 0px}
+.achievement-boot {background-position:-168px 0px}
+.achievement-coffin {background-position:-192px 0px}
+.achievement-alien {background-position:-216px 0px}
+.achievement-ninja {background-position:-240px 0px}
+.achievement-cactus {background-position:-264px 0px}
+.achievement-bow {background-position:-288px 0px}
+.achievement-heart {background-position:-312px 0px}
+.achievement-shield {background-position:-336px 0px}
+.achievement-thermometer {background-position:-360px 0px}
+.achievement-helm {background-position:-384px 0px}
+.achievement-firefox {background-position:0px -26px}
+.achievement-cake {background-position:-24px -26px}
+.achievement-karaoke {background-position:-48px -26px}

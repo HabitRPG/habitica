@@ -1,30 +1,30 @@
-Shared resources useful for the multiple HabitRPG repositories, that way all the repositories remain in-sync with common charactaristics. Includes things like:
+Shared resources useful for the multiple HabitRPG repositories, that way all the repositories remain in-sync with common characteristics. Includes things like:
  * Assets - sprites, images, etc
  * CSS - especially, esp. sprite-sheet mapping
  * Algorithms - level up algorithm, scoring functions, etc
+ * View helper functions that may come in handy for multiple client MVCs
  * Item definitions - weapons, armor, pets 
 
 ##Installation
-`npm install`
-`make`
+* `npm install`
+* `grunt` - after you've made modifications and want to compile the dist files for browser
 
 * Node.js
     * `require ('coffee-script')`
-    * `var shared = require('./index.js')` or `require('./script/algos.coffee')` if you only need one file.
+    * `require('./script/algos.coffee')`, `require('./script/helpers.coffee')`, etc.
 * Browser
-    * Use `<script/>` tag to include ./browser/browser.js it will export `window.habitrpgShared` object.
-    * Use `browser.debug.js' if you want to have sourcemaps.
-
+    * Use `<script/>` tag to include ./dist/habitrpg-shared.js it will export `window.habitrpgShared` object.
+    * // Use `browser.debug.js' if you want to have sourcemaps. - EDIT: Only one file now, and it has sourcemaps. Fix this
 
 * Note how to invoke scoring function:
- * algos.score = function (user, task, direction) {}
+  * `algos.score(user, task, direction)`, etc
+  * TODO document all the functions
 
 ##CSS
-Shared CSS between the website and the mobile app is a fuzzy area. For now we'll have the website define canonical CSS, and share that down the mobile app.
+Shared CSS between the website and the mobile app is a fuzzy area. Spritesheets definitely go in habitrpg-shared (since mobile
+uses them too). Other things, like customizer buttons, *may* want to go here? As you find sharable components, (1) move them
+from the website into habitrpg-shared, (2) remove from website & make sure all html/css references are updated.
 
-To do so,
- * go to the website repo
- * remove the first line `@import nib/vendor` from index.styl
- * `stylus styles/app/index.styl`
- * copy the output index.css into this shared/css directory
- * remove bootstrap @improrts, find/replace "img/" with "../img/"
+Currently, all or most spritesheets are available. They're in css/*.css, but that's not what you want. You want `/spritesheets.css`
+which is the concat'd file (using `grunt`) which includes all the spritesheets. I'd prefer this be in /dist/spritesheets.css
+for consistency, but it's having image referencing weirdness

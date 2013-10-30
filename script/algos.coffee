@@ -89,7 +89,7 @@ obj.gpModifier = (value, modifier, priority = '!', streak, user) ->
   if streak and user
     streakBonus = streak / 100 + 1 # eg, 1-day streak is 1.1, 2-day is 1.2, etc
     afterStreak = val * streakBonus
-    (user._tmp?={}).streakBonus = afterStreak - val if (val > 0) # keep this on-hand for later, so we can notify streak-bonus
+    user._tmp.streakBonus = afterStreak - val if (val > 0) # keep this on-hand for later, so we can notify streak-bonus
     return afterStreak
   else
     return val
@@ -177,7 +177,7 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
 
     # if they've dropped something, we want the consuming client to know so they can notify the user. See how the Derby
     # app handles it for example. Would this be better handled as an emit() ?
-    (user._tmp?={}).drop = drop
+    user._tmp.drop = drop
 
     user.items.lastDrop.date = +new Date
     user.items.lastDrop.count++
@@ -187,6 +187,11 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
 #  {task} task you want to score
 #  {direction} 'up' or 'down'
 obj.score = (user, task, direction, options={}) ->
+
+  # This is for setting one-time temporary flags, such as streakBonus or itemDropped. Useful for notifying
+  # the API consumer, then cleared afterwards
+  user._tmp = {}
+
   [gp, hp, exp, lvl] = [+user.stats.gp, +user.stats.hp, +user.stats.exp, ~~user.stats.lvl]
   [type, value, streak, priority] = [task.type, +task.value, ~~task.streak, task.priority or '!']
   [paths, times, cron] = [options.paths || {}, options.times || 1, options.cron || false]
@@ -249,9 +254,21 @@ obj.score = (user, task, direction, options={}) ->
         addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
         if direction is 'up'
           streak = if streak then streak + 1 else 1
+
+          # Give a streak achievement when the streak is a multiple of 21
+          if (streak % 21) is 0
+            user.achievements.streak = if user.achievements.streak then user.achievements.streak + 1 else 1
+            paths["achievements.streak"] = true
+
         else
+          # Remove a streak achievement if streak was a multiple of 21 and the daily was undone
+          if (streak % 21) is 0
+            user.achievements.streak = if user.achievements.streak then user.achievements.streak - 1 else 0
+            paths["achievements.streak"] = true
+
           streak = if streak then streak - 1 else 0
         task.streak = streak
+
       paths["tasks.#{task.id}.streak"] = true
 
     when 'todo'
@@ -277,8 +294,9 @@ obj.score = (user, task, direction, options={}) ->
   task.value = value; paths["tasks.#{task.id}.value"] = true
   updateStats user, { hp, exp, gp }, {paths: paths}
 
-  # Drop system #FIXME
-  randomDrop(user, delta, priority, streak, {paths: paths}) if direction is 'up'
+  # Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
+  if typeof window is 'undefined'
+    randomDrop(user, delta, priority, streak, {paths: paths}) if direction is 'up'
 
   return delta
 
@@ -364,6 +382,11 @@ obj.cron = (user, options={}) ->
   return unless daysMissed > 0
 
   user.lastCron = now; paths['lastCron'] = true
+
+  # Reset the lastDrop count to zero
+  if user.items.lastDrop.count > 0
+    user.items.lastDrop.count = 0
+    paths['items.lastDrop'] = true
 
   # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
   # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today

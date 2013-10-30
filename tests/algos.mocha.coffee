@@ -1,5 +1,6 @@
 _ = require 'lodash'
 expect = require 'expect.js'
+sinon = require 'sinon'
 moment = require 'moment'
 
 # Custom modules
@@ -59,8 +60,14 @@ expectDayResetNoDamage = (b,a) ->
   # hack so we can compare user before/after obj equality sans effected paths
   _.each ['dailys','todos','history','lastCron'], (path) ->
     _.each [before,after], (obj) -> delete obj[path]
+  delete after._tmp
   expect(after).to.eql before
 
+cycle = (array)->
+  n = -1
+  ->
+    n++
+    return array[n % array.length]
 
 ###### Specs ######
 
@@ -71,7 +78,7 @@ describe 'User', ->
     expect(user.items).to.eql { weapon: 0, armor: 0, head: 0, shield: 0 }
     expect(user.preferences).to.eql { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0, showHelm: true }
     expect(user.balance).to.eql 0
-    expect(user.lastCron).to.eql 'new'
+    expect(user.lastCron).to.be.greaterThan 0
     expect(user.flags).to.eql {partyEnabled: false, itemsEnabled: false, ads: 'show'}
     expectStrings(user, ['apiToken'])
     expectStrings(user.habits[0], ['text','id'])
@@ -81,6 +88,73 @@ describe 'User', ->
     expectStrings(user.tags[0], ['name','id'])
     expectStrings(user.tags[1], ['name','id'])
     expectStrings(user.tags[2], ['name','id'])
+
+  it 'revives correctly', ->
+    user = helpers.newUser()
+    user.stats = { gp: 10, exp: 100, lvl: 2, hp: 1 }
+    user.weapon = 1
+    algos.revive user
+    expect(user.stats).to.eql { gp: 0, exp: 0, lvl: 1, hp: 50 }
+    expect(user.items).to.eql { weapon: 0, armor: 0, head: 0, shield: 0 }
+
+  describe 'store', ->
+    it 'recovers hp buying potions', ->
+      user = helpers.newUser()
+      user.stats.hp = 30
+      user.stats.gp = 50
+      expect(items.buyItem user, 'potion').to.be true
+      expect(user.stats.hp).to.eql 45
+      expect(user.stats.gp).to.eql 25
+
+      expect(items.buyItem user, 'potion').to.be true
+      expect(user.stats.hp).to.eql 50 # don't exceed max hp
+      expect(user.stats.gp).to.eql 0
+
+    it 'buys equipment', ->
+      user = helpers.newUser()
+      user.stats.gp = 31
+      expect(items.buyItem user, 'armor').to.be true
+      expect(user.items.armor).to.eql 1
+      expect(user.stats.gp).to.eql 1
+
+    it 'do not buy equipment without enough money', ->
+      user = helpers.newUser()
+      user.stats.gp = 1
+      expect(items.buyItem user, 'armor').to.be false
+      expect(user.items.armor).to.eql 0
+      expect(user.stats.gp).to.eql 1
+
+  describe 'drop system', ->
+    user = null
+
+    beforeEach ->
+      user = helpers.newUser()
+      user.flags.dropsEnabled = true
+      # too many Math.random calls to stub, let's return the last element
+      sinon.stub(helpers, 'randomVal', (x)->x[x.length-1])
+
+    it 'gets a golden potion', ->
+      sinon.stub(Math, 'random').returns 0
+      algos.score(user, user.dailys[0], 'up')
+      expect(user.items.eggs).to.eql undefined
+      expect(user.items.hatchingPotions).to.eql ['Golden']
+
+    it 'gets a bear cub egg', ->
+      sinon.stub(Math, 'random', cycle [0, 0.6])
+      algos.score(user, user.dailys[0], 'up')
+      expect(user.items.eggs.length).to.eql 1
+      expect(user.items.eggs[0].name).to.eql 'BearCub'
+      expect(user.items.hatchingPotions).to.eql undefined
+
+    it 'does not get a drop', ->
+      sinon.stub(Math, 'random').returns 0.5
+      algos.score(user, user.dailys[0], 'up')
+      expect(user.items.eggs).to.eql undefined
+      expect(user.items.hatchingPotions).to.eql undefined
+
+    afterEach ->
+      Math.random.restore()
+      helpers.randomVal.restore()
 
 describe 'Simple Scoring', ->
 
@@ -109,7 +183,7 @@ describe 'Cron', ->
   it 'computes shouldCron', ->
     user = helpers.newUser()
     paths = {};algos.cron user, {paths}
-    expect(paths.lastCron).to.be true # handlomg lastCron='new'
+    expect(paths.lastCron).to.be undefined # handlomg lastCron='new'
 
     paths = {};algos.cron user, {paths}
     expect(paths.lastCron).to.not.be.ok # it setup the cron property now
@@ -238,5 +312,23 @@ describe 'Cron', ->
       now = helpers.startOfDay {dayStart: dayStart-1}
       expect(helpers.daysSince(yesterday, {now, dayStart})).to.eql 0
       now = moment().startOf('day').add('h', dayStart).add('m', 1)
-      console.log {yesterday,now}
       expect(helpers.daysSince(yesterday, {now, dayStart})).to.eql 1
+
+describe 'Helper', ->
+  it 'calculates gold coins', ->
+    expect(helpers.gold(10)).to.eql 10
+    expect(helpers.gold(1.957)).to.eql 1
+    expect(helpers.gold()).to.eql 0
+
+  it 'calculates silver coins', ->
+    expect(helpers.silver(10)).to.eql 0
+    expect(helpers.silver(1.957)).to.eql 95
+    expect(helpers.silver(0.01)).to.eql "01"
+    expect(helpers.silver()).to.eql "00"
+
+  it 'calculates experience to next level', ->
+    expect(algos.tnl 1).to.eql 150
+    expect(algos.tnl 2).to.eql 160
+    expect(algos.tnl 10).to.eql 260
+    expect(algos.tnl 99).to.eql 3580
+    expect(algos.tnl 100).to.eql 0

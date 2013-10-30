@@ -1,4 +1,4 @@
-weapon_6, weapon_5, weapon_4, weapon_3, weapon_2, weapon_1, weapon_0, shield_5, shield_4, shield_3, shield_2, shield_1, head_5_v2, head_5_v1, head_4_v2, head_4_v1, head_3_v2, head_3_v1, head_2_v2, head_2_v1, head_1, head_0, hair_white, hair_brown, hair_black, hair_blond, armor_5, armor_4, armor_3, armor_2, armor_1, armor_0_v2, armor_0_v1, skin_dead, skin_orc, skin_asian, skin_black, skin_white {background: url(female_sprites.png) no-repeat}
+weapon_6, weapon_5, weapon_4, weapon_3, weapon_2, weapon_1, weapon_0, shield_5, shield_4, shield_3, shield_2, shield_1, head_5_v2, head_5_v1, head_4_v2, head_4_v1, head_3_v2, head_3_v1, head_2_v2, head_2_v1, head_1, head_0, hair_white, hair_brown, hair_black, hair_blond, armor_5, armor_4, armor_3, armor_2, armor_1, armor_0_v2, armor_0_v1, skin_dead, skin_orc, skin_asian, skin_black, skin_white { background: url('../../img/sprites/female_sprites.png') no-repeat; }
 weapon_6 {background-position: 0 0; width: 90px; height: 90px}
 weapon_5 {background-position: -90px 0; width: 90px; height: 90px}
 weapon_4 {background-position: -180px 0; width: 90px; height: 90px}
