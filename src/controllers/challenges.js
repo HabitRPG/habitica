@@ -26,10 +26,15 @@ api.list = function(req, res) {
         {group: 'habitrpg'}
       ]
     })
-    .select('name description memberCount groups')
+    .select('name description memberCount groups members')
     .populate('groups', '_id name')
     .exec(function(err, challenges){
       if (err) return res.json(500,{err:err});
+      _.each(challenges, function(c){
+        if (~c.members.indexOf(user._id))
+          c._isMember = true;
+        c.members = [];
+      })
       res.json(challenges);
     });
 }
@@ -43,6 +48,8 @@ api.get = function(req, res) {
       if(err) return res.json(500, {err:err});
       // slim down the return members' tasks to only the ones in the challenge
       _.each(challenge.members, function(member){
+        if (member._id == user._id)
+          challenge._isMember = true;
         _.each(['habits', 'dailys', 'todos', 'rewards'], function(type){
           member[type] = _.where(member[type], function(task){
             return task.challenge && task.challenge.id == challenge._id;
@@ -58,9 +65,8 @@ api.create = function(req, res){
   // FIXME sanitize
   var challenge = new Challenge(req.body);
   challenge.save(function(err, saved){
-    // Need to create challenge with refs (group, leader)? Or is this taken care of automatically?
-    // @see http://mongoosejs.com/docs/populate.html
     if (err) return res.json(500, {err:err});
+    Group.findByIdAndUpdate(saved.group, {$addToSet:{challenges:saved._id}}) // fixme error-check
     res.json(saved);
   });
 }
@@ -118,19 +124,32 @@ api.update = function(req, res){
 
 // DELETE
 api['delete'] = function(req, res){
-  Challenge.findOneAndRemove({_id:req.params.cid}, function(err, removed){
-    if (err) return res.json(500, {err: err});
-    User.find({_id:{$in: removed.members}}, function(err, users){
-      if (err) throw err;
+  var removed;
+  async.waterfall([
+    function(cb){
+      Challenge.findOneAndRemove({_id:req.params.cid}, cb)
+    },
+    function(_removed, cb) {
+      removed = _removed;
+      User.find({_id:{$in: removed.members}}, cb);
+    },
+    function(users, cb) {
+      var parallel = [];
       _.each(users, function(user){
         _.each(user.tasks, function(task){
           if (task.challenge && task.challenge.id == removed._id) {
             task.challenge.broken = 'CHALLENGE_DELETED';
           }
         })
-        user.save();
+        parallel.push(function(cb2){
+          user.save(cb2);
+        })
       })
-    })
+      async.parallel(parallel, cb);
+    }
+  ], function(err){
+    if (err) return res.json(500, {err: err});
+    res.send(200);
   })
 }
 
@@ -199,6 +218,7 @@ api.join = function(req, res){
     }
   ], function(err, result){
     if(err) return res.json(500,{err:err});
+    result._isMember = true;
     res.json(result);
   });
 }
@@ -206,7 +226,7 @@ api.join = function(req, res){
 function unlink(user, cid, keep, tid) {
   switch (keep) {
     case 'keep':
-      delete user.tasks[tid].challenge;
+      user.tasks[tid].challenge = {};
       break;
     case 'remove':
       user[user.tasks[tid].type+'s'].id(tid).remove();
@@ -214,7 +234,7 @@ function unlink(user, cid, keep, tid) {
     case 'keep-all':
       _.each(user.tasks, function(t){
         if (t.challenge && t.challenge.id == cid) {
-          delete t.challenge;
+          t.challenge = {};
         }
       });
       break;
@@ -249,6 +269,7 @@ api.leave = function(req, res){
     }
   ], function(err, result){
     if(err) return res.json(500,{err:err});
+    result._isMember = false;
     res.json(result);
   });
 }
@@ -264,6 +285,10 @@ api.unlink = function(req, res, next) {
   if (!req.query.keep)
     return res.json(400, {err: 'Provide unlink method as ?keep=keep-all (keep, keep-all, remove, remove-all)'});
   unlink(user, cid, req.query.keep, tid);
+  user.markModified('habits');
+  user.markModified('dailys');
+  user.markModified('todos');
+  user.markModified('rewards');
   user.save(function(err, saved){
     if (err) return res.json(500,{err:err});
     res.send(200);

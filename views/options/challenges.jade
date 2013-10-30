@@ -5,7 +5,7 @@ script(type='text/ng-template', id='partials/options.challenges.detail.html')
       button.btn.btn-default(ng-click='challenge._locked = false') Edit
     li(ng-hide='challenge._locked')
       button.btn.btn-primary(ng-click='save(challenge)') Save
-      button.btn.btn-danger(ng-click='delete(challenge)') Delete
+      button.btn.btn-danger(ng-click='delete(challenge, $index)') Delete
       button.btn.btn-default(ng-click='challenge._locked=true') Cancel
 
   div(ng-hide='challenge._locked')
@@ -32,13 +32,14 @@ script(type='text/ng-template', id='partials/options.challenges.html')
           | {{group.name}}
         li
           input(type='checkbox', ng-model='search.members')
-          | Subscribed (TODO)
+          | Particiapting in(TODO)
         li
           input(type='checkbox', ng-model='search.members')
-          | Available (TODO)
+          | Not participating in (TODO)
     .span10
       // Creation form
-      a.btn.btn-success(ng-click='create()') Create Challenge
+      div(ng-hide='newChallenge')
+        button.btn.btn-success(ng-click='create()') Create Challenge
       .create-challenge-from(ng-if='newChallenge')
         form(ng-submit='save(newChallenge)')
           div
@@ -54,7 +55,7 @@ script(type='text/ng-template', id='partials/options.challenges.html')
       .accordion-group(ng-repeat='challenge in challenges | filter:search', ng-init='challenge._locked=true')
         .accordion-heading
           ul.pull-right.challenge-accordion-header-specs
-            li {{challenge.members.length}} Subscribers
+            li {{challenge.memberCount}} Participants
             li(ng-show='challenge.prize')
               // prize
               table(ng-show='challenge.prize')
@@ -64,13 +65,13 @@ script(type='text/ng-template', id='partials/options.challenges.html')
                     span.Pet_Currency_Gem1x
                   td  Prize
             li
-              // subscribe / unsubscribe
-              a.btn.btn-small.btn-danger(ng-show='indexOf(challenge.members, user._id)', ng-click='clickUnsubscribe(challenge, $event)')
+              // leave / join
+              a.btn.btn-small.btn-danger(ng-show='challenge._isMember', ng-click='clickLeave(challenge, $event)')
                 i.icon-ban-circle
-                | Unsubscribe
-              a.btn.btn-small.btn-success(ng-hide='indexOf(challenge.members, user._id)', ng-click='challenge.$join()')
+                | Leave
+              a.btn.btn-small.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
                 i.icon-ok
-                | Subscribe
+                | Join
           a.accordion-toggle(ui-sref='options.challenges.detail({cid:challenge._id})') {{challenge.name}} (by {{challenge.leader.name}})
         .accordion-body(ng-class='{collapse: !$stateParams.cid == challenge._id}')
           .accordion-inner(ng-if='$stateParams.cid == challenge._id')

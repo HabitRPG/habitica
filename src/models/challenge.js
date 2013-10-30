@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 var helpers = require('habitrpg-shared/script/helpers');
 var _ = require('lodash');
 var TaskSchema = require('./task').schema;
+var Group = require('./group').model;
 
 var ChallengeSchema = new Schema({
   _id: {type: String, 'default': helpers.uuid},
@@ -20,7 +21,7 @@ var ChallengeSchema = new Schema({
   //},
   timestamp: {type: Date, 'default': Date.now},
   members: [{type: String, ref: 'User'}],
-  memberCount: [{type: Number, 'default': 0}]
+  memberCount: {type: Number, 'default': 0}
 });
 
 ChallengeSchema.virtual('tasks').get(function () {
@@ -29,10 +30,19 @@ ChallengeSchema.virtual('tasks').get(function () {
   return tasks;
 });
 
+// FIXME this isn't always triggered, since we sometimes use update() or findByIdAndUpdate()
+// @see https://github.com/LearnBoost/mongoose/issues/964
 ChallengeSchema.pre('save', function(next){
   this.memberCount = _.size(this.members);
-  next();
+  next()
 })
+
+ChallengeSchema.methods.toJSON = function(){
+  var doc = this.toObject();
+  doc.memberCount = _.size(doc.members); // @see pre('save') comment above
+  doc._isMember = this._isMember;
+  return doc;
+}
 
 module.exports.schema = ChallengeSchema;
 module.exports.model = mongoose.model("Challenge", ChallengeSchema);

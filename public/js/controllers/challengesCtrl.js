@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups',
-  function($scope, User, Challenges, Notification, $compile, Groups) {
+habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state',
+  function($scope, User, Challenges, Notification, $compile, Groups, $state) {
 
     // FIXME get this from cache
     Groups.Group.query(function(groups){
@@ -20,7 +20,7 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
      * Create
      */
     $scope.create = function() {
-      $scope.newChallenge = new Challenges.Challenge({
+      $scope.obj = $scope.newChallenge = new Challenges.Challenge({
         name: '',
         description: '',
         habits: [],
@@ -40,11 +40,11 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
     $scope.save = function(challenge) {
       if (!challenge.group) return alert('Please select group');
       var isNew = !challenge._id;
-      challenge.$save(function(){
+      challenge.$save(function(_challenge){
         if (isNew) {
           Notification.text('Challenge Created');
           $scope.discard();
-          Challenges.Challenge.query();
+          $scope.challenges.unshift(_challenge);
         } else {
           // TODO figure out a more elegant way about this
           //challenge._editing = false;
@@ -64,9 +64,13 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
     /**
      * Delete
      */
-    $scope["delete"] = function(challenge) {
+    $scope["delete"] = function(challenge, $index) {
       if (confirm("Delete challenge, are you sure?") !== true) return;
-      challenge.$delete();
+      challenge.$delete(function(){
+        $state.go('options.challenges');
+        $scope.challenges = Challenges.Challenge.query();
+        User.log({});
+      });
     };
 
     //------------------------------------------------------------
@@ -97,29 +101,43 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
 
     /*
     --------------------------
-     Unsubscribe functions
+     Subscription
     --------------------------
     */
 
-    $scope.unsubscribe = function(keep) {
+    $scope.join = function(challenge){
+      challenge.$join(function(){
+        User.log({});
+      });
+
+    }
+
+    $scope.leave = function(keep) {
       if (keep == 'cancel') {
         $scope.selectedChal = undefined;
       } else {
-        $scope.selectedChal.$leave({keep:keep});
+        $scope.selectedChal.$leave({keep:keep}, function(){
+          User.log({});
+        });
       }
       $scope.popoverEl.popover('destroy');
     }
-    $scope.clickUnsubscribe = function(chal, $event) {
+
+    /**
+     * Named "clickLeave" to distinguish between "actual" leave above, since this triggers the
+     * "are you sure?" dialog.
+     */
+    $scope.clickLeave = function(chal, $event) {
       $scope.selectedChal = chal;
       $scope.popoverEl = $($event.target);
       var html = $compile(
-        '<a ng-controller="ChallengesCtrl" ng-click="unsubscribe(\'remove-all\')">Remove Tasks</a><br/>\n<a ng-click="unsubscribe(\'keep-all\')">Keep Tasks</a><br/>\n<a ng-click="unsubscribe(\'cancel\')">Cancel</a><br/>'
+        '<a ng-controller="ChallengesCtrl" ng-click="leave(\'remove-all\')">Remove Tasks</a><br/>\n<a ng-click="leave(\'keep-all\')">Keep Tasks</a><br/>\n<a ng-click="leave(\'cancel\')">Cancel</a><br/>'
       )($scope);
       $scope.popoverEl.popover('destroy').popover({
         html: true,
         placement: 'top',
         trigger: 'manual',
-        title: 'Unsubscribe From Challenge And:',
+        title: 'Leave challenge and...',
         content: html
       }).popover('show');
     }

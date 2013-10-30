@@ -58,6 +58,8 @@ function removeDuplicates(doc){
   }
 }
 
+// FIXME this isn't always triggered, since we sometimes use update() or findByIdAndUpdate()
+// @see https://github.com/LearnBoost/mongoose/issues/964
 GroupSchema.pre('save', function(next){
   removeDuplicates(this);
   this.memberCount = _.size(this.members);
@@ -69,6 +71,11 @@ GroupSchema.methods.toJSON = function(){
   var doc = this.toObject();
   removeDuplicates(doc);
   doc._isMember = this._isMember;
+
+  // @see pre('save') comment above
+  this.memberCount = _.size(this.members);
+  this.challengeCount = _.size(this.challenges);
+
   return doc;
 }
 

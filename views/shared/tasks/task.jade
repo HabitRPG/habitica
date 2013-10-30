@@ -22,9 +22,9 @@ li(ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.
       //challenges
       span(ng-if='task.challenge.id')
         span(ng-if='task.challenge.broken')
-          i.icon-bullhorn(style='background-color:red;', ng-click='task._edit=true', tooltip="Broken Challenge Link")
+          i.icon-bullhorn(style='background-color:red;', ng-click='task._editing = true', tooltip="Broken Challenge Link", tooltip-placement='right')
         span(ng-if='!task.challenge.broken')
-          i.icon-bullhorn(tooltip="Challenge Task")
+          i.icon-bullhorn(tooltip="Challenge")
       // delete
       a(ng-if='!task.challenge.id', ng-click='removeTask(obj[list.type+"s"], $index)', tooltip='Delete')
         i.icon-trash
@@ -68,7 +68,7 @@ li(ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.
         p
           a(ng-click='unlink(task, "keep")') Keep It
           | &nbsp;|&nbsp;
-          a(ng-click="remove(list, $index)") Remove It
+          a(ng-click="removeTask(obj[list.type+'s'], $index)") Remove It
       div(ng-if='task.challenge.broken=="CHALLENGE_DELETED"')
         p Broken Challenge Link: this task was part of a challenge, but the challenge (or group) has been deleted. What to do with the orphan tasks?
         p
