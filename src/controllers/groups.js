@@ -21,7 +21,8 @@ var partyFields = 'profile preferences stats achievements party backer flags.res
 var nameFields = 'profile.name';
 
 function removeSelf(group, user){
-  group.members = _.filter(group.members, function(m){return m._id != user._id});
+  if (group)
+    group.members = _.filter(group.members, function(m){return m._id != user._id});
 }
 
 api.getMember = function(req, res) {
