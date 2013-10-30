@@ -1,4 +1,19 @@
+var groups = {};
+
 db.users.find().forEach(function(user){
+
+  // add_invites_to_groups
+  if(user.invitations){
+    if(user.invitations.party){
+      db.groups.update({_id: user.invitations.party.id}, {$addToSet:{invites:user._id}});
+    }
+
+    if(user.invitations.guilds){
+      _.each(user.invitations.guilds, function(guild){
+        db.groups.update({_id: guild.id}, {$addToSet:{invites:user._id}});
+      });
+    }
+  }
 
   // Cleanup broken tags
   _.each(user.tasks, function(task){
@@ -11,8 +26,8 @@ db.users.find().forEach(function(user){
 
   // Migrate to TaskSchema subdocs!!
   if (!user.tasks) {
-    printjson(user.auth);
     // FIXME before deploying!
+    print(user._id);
   } else {
     _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
       // we use _.transform instead of a simple _.where in order to maintain sort-order
@@ -37,9 +52,10 @@ db.users.find().forEach(function(user){
 });
 
 // Remove old groups.*.challenges, they're not compatible with the new system
-db.groups.update({},{$pull:{challenges:1}},{multi:true});
+// set member counts
 db.groups.find().forEach(function(group){
   db.groups.update({_id:group._id}, {
-    $set:{memberCount: _.size(group.members)}
+    $set:{memberCount: _.size(group.members)},
+    $pull:{challenges:1}
   })
 });
