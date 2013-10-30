@@ -29,6 +29,7 @@ module.exports = function(grunt) {
             'public/bower_components/angular-resource/angular-resource.min.js',
             'public/bower_components/angular-ui/build/angular-ui.min.js',
             'public/bower_components/angular-ui-utils/modules/keypress/keypress.js',
+            'public/bower_components/angular-loading-bar/build/loading-bar.js',
             // we'll remove this once angular-bootstrap is fixed
             'public/bower_components/bootstrap/docs/assets/js/bootstrap.min.js',
             'public/bower_components/angular-bootstrap/ui-bootstrap.min.js',

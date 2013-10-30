@@ -33,7 +33,8 @@
     "angular-sanitize": "1.2.0-rc.2",
     "marked": "~0.2.9",
     "JavaScriptButtons": "git://github.com/paypal/JavaScriptButtons.git#master",
-    "angular-ui-router": "eda67d2da08cbe2aa1aa39ef154a87c7afe480ec"
+    "angular-ui-router": "eda67d2da08cbe2aa1aa39ef154a87c7afe480ec",
+    "angular-loading-bar": "~0.0.5"
   },
   "resolutions": {
     "jquery": "~2.0.3",
