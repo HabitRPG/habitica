@@ -24,6 +24,15 @@ db.users.find().forEach(function(user){
     });
   });
 
+  // Add username
+  if (_.isEmpty(user.profile.name)) {
+    var fb = user.auth.facebook;
+    user.profile.name =
+      (user.auth.local && user.auth.local.username) ||
+        (fb && (fb.displayName || fb.name || fb.username || (fb.first_name && fb.first_name + ' ' + fb.last_name))) ||
+        'Anonymous';
+  }
+
   // Migrate to TaskSchema subdocs!!
   if (!user.tasks) {
     // FIXME before deploying!
