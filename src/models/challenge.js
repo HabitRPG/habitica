@@ -35,7 +35,7 @@ ChallengeSchema.pre('save', function(next){
 
 ChallengeSchema.methods.toJSON = function(){
   var doc = this.toObject();
-  doc.memberCount = _.size(doc.members); // @see pre('save') comment above
+  doc.memberCount = doc.members ? _.size(doc.members) : doc.memberCount; // @see pre('save') comment above
   doc._isMember = this._isMember;
   return doc;
 }
