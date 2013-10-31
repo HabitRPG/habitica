@@ -118,7 +118,7 @@ api.create = function(req, res){
         Group.findById(req.body.group).select('balance leader').exec(cb);
       },
       function(group, cb){
-        if (!group) return cb("Group."+req.body.group+" not found");
+        if (!group) return cb("Group." + req.body.group + " not found");
         var groupBalance = ((group.balance && group.leader==user._id) ? group.balance : 0);
         if (req.body.prize > (user.balance*4 + groupBalance*4))
           return cb("Challenge.prize > (your gems + group balance). Purchase more gems or lower prize amount.s")
@@ -161,8 +161,8 @@ function keepAttrs(task) {
 
 // UPDATE
 api.update = function(req, res){
-  //FIXME sanitize
   var cid = req.params.cid;
+  var user = res.locals.user;
   var before;
   async.waterfall([
     function(cb){
@@ -170,11 +170,13 @@ api.update = function(req, res){
       Challenge.findById(cid, cb);
     },
     function(_before, cb) {
+      if (!_before) return cb('Challenge ' + cid + ' not found');
+      if (_before.leader != user._id) return cb("You don't have permissions to edit this challenge");
       // Update the challenge, since syncing will need the updated challenge. But store `before` we're going to do some
       // before-save / after-save comparison to determine if we need to sync to users
       before = _before;
       delete req.body._id;
-      Challenge.findByIdAndUpdate(cid, {$set:req.body}, cb);
+      Challenge.findByIdAndUpdate(cid, {$set:req.body}, cb); //FIXME sanitize
     },
     function(saved, cb) {
       // after saving, we're done as far as the client's concerned. We kick of syncing (heavy task) in the background
@@ -246,10 +248,21 @@ function closeChal(cid, broken, cb) {
  * Delete & close
  */
 api['delete'] = function(req, res){
-  closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, function(err){
+  var user = res.locals.user;
+  var cid = req.params.cid;
+  async.waterfall([
+    function(cb){
+      Challenge.findById(cid, cb);
+    },
+    function(chal, cb){
+      if (!chal) return cb('Challenge ' + cid + ' not found');
+      if (chal.leader != user._id) return cb("You don't have permissions to edit this challenge");
+      closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, cb);
+    }
+  ], function(err){
     if (err) return res.json(500, {err: err});
     res.send(200);
-  })
+  });
 }
 
 /**
@@ -257,14 +270,17 @@ api['delete'] = function(req, res){
  */
 api.selectWinner = function(req, res) {
   if (!req.query.uid) return res.json(401, {err: 'Must select a winner'});
+  var user = res.locals.user;
+  var cid = req.params.cid;
   var chal;
   async.waterfall([
     function(cb){
-      Challenge.findById(req.params.cid, cb);
+      Challenge.findById(cid, cb);
     },
     function(_chal, cb){
-      if (!_chal) return cb('Challenge ' + req.params.cid + ' not found.');
       chal = _chal;
+      if (!chal) return cb('Challenge ' + cid + ' not found');
+      if (chal.leader != user._id) return cb("You don't have permissions to edit this challenge");
       User.findById(req.query.uid, cb)
     },
     function(winner, cb){
@@ -275,7 +291,7 @@ api.selectWinner = function(req, res) {
       winner.save(cb);
     },
     function(saved, num, cb) {
-      closeChal(req.params.cid, {broken: 'CHALLENGE_CLOSED', winner: saved.profile.name}, cb);
+      closeChal(cid, {broken: 'CHALLENGE_CLOSED', winner: saved.profile.name}, cb);
     }
   ], function(err){
     if (err) return res.json(500, {err: err});

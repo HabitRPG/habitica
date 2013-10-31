@@ -8,19 +8,20 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.cl
 
 script(type='text/ng-template', id='partials/options.social.challenges.detail.html')
   // Edit button
-  ul.unstyled
-    li(ng-show='challenge.leader==user._id', ng-hide='challenge._locked==false')
-      button.btn.btn-small.btn-default(ng-click='challenge._locked = false') Edit
-    li(ng-show='challenge._locked==false')
-      button.btn.btn-small.btn-primary(ng-click='save(challenge)') Save
-      button.btn.btn-small.btn-default(ng-click='challenge._locked=true') Cancel
-      button.btn.btn-small.btn-default(ng-click='close(challenge, $event)', tooltip='Delete or select winner') Close
+  div(ng-if='challenge.leader==user._id')
+    ul.unstyled
+      li(ng-hide='challenge._locked==false')
+        button.btn.btn-small.btn-default(ng-click='challenge._locked = false') Edit
+      li(ng-show='challenge._locked==false')
+        button.btn.btn-small.btn-primary(ng-click='save(challenge)') Save
+        button.btn.btn-small.btn-default(ng-click='challenge._locked=true') Cancel
+        button.btn.btn-small.btn-default(ng-click='close(challenge, $event)', tooltip='Delete or select winner') Close
 
-  div(ng-show='challenge._locked==false')
-    .-options
-      input.option-content(type='text', ng-model='challenge.name')
-      textarea.option-content(cols='3', placeholder='Description', ng-model='challenge.description')
-  hr
+    div(ng-show='challenge._locked==false')
+      .-options
+        input.option-content(type='text', ng-model='challenge.name')
+        textarea.option-content(cols='3', placeholder='Description', ng-model='challenge.description')
+    hr
 
   .well(ng-if='challenge.description') {{challenge.description}}
   habitrpg-tasks(obj='challenge', main=false)
