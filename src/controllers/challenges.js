@@ -154,6 +154,7 @@ api.create = function(req, res){
   async.waterfall(waterfall, function(err){
     if (err) return res.json(401, {err:err});
     var challenge = new Challenge(req.body); // FIXME sanitize
+    challenge.members.push(user._id);
     challenge.save(function(err, saved){
       if (err) return res.json(500, {err:err});
       Group.update({_id:saved.group}, {$addToSet:{challenges:saved._id}}) // fixme error-check, and also better to do in middleware?
