@@ -22,19 +22,20 @@ db.collection('users').find(query, fields).toArray(function(err, items) {
     var hasBeenActive = item.auth.timestamps && item.auth.timestamps.created &&
       (Math.abs(moment(item.lastCron).diff(item.auth.timestamps.created, 'd')) > 14);
 
-    if (hasBeenActive && moment(item.lastCron).isBefore(angularRewrite))
+    if (/*hasBeenActive && */moment(item.lastCron).isBefore(angularRewrite)) {
       stats.lostToDerby++;
-    if (hasBeenActive && moment(item.lastCron).isAfter(twoWeeksAgo))
-      stats.isActive++;
-
-    if (item.auth.local) {
-      emails.push([item.auth.local.email]);
+      if (item.auth.local)
+        emails.push([item.auth.local.email]);
       // Facebook emails. Kinda dirty, and there's only ~30 available fb emails anyway.
 //    } else if (item.auth.facebook && item.auth.facebook.email) {
 //      emails.push([item.auth.facebook.email])
 //    } else if (item.auth.facebook && item.auth.facebook.emails && item.auth.facebook.emails[0] && !!item.auth.facebook.emails[0].value) {
 //      emails.push([item.auth.facebook.emails[0].value])
     }
+    if (hasBeenActive && moment(item.lastCron).isAfter(twoWeeksAgo)) {
+      stats.isActive++;
+    }
+
   })
   stats.emails = _.size(emails);
   console.log(stats);
