@@ -8,7 +8,7 @@ script(type='text/ng-template', id='partials/options.challenges.detail.html')
       button.btn.btn-danger(ng-click='delete(challenge, $index)') Delete
       button.btn.btn-default(ng-click='challenge._locked=true') Cancel
 
-  div(ng-hide='challenge._locked==false')
+  div(ng-show='challenge._locked==false')
     .-options
       input.option-content(type='text', ng-model='challenge.name')
       textarea.option-content(cols='3', placeholder='Description', ng-model='challenge.description')
