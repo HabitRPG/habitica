@@ -21,7 +21,7 @@ angular.module('userServices', []).
         user = {}; // this is stored as a reference accessible to all controllers, that way updates propagate
 
       //first we populate user with schema
-      _.extend(user, window.habitrpgShared.helpers.newUser());
+      _.extend(user, $window.habitrpgShared.helpers.newUser());
       user.apiToken = user._id = ''; // we use id / apitoken to determine if registered
 
       //than we try to load localStorage
@@ -168,6 +168,11 @@ angular.module('userServices', []).
           userServices.log(log);
         },
 
+        revive: function(){
+          $window.habitrpgShared.algos.revive(user);
+          userServices.log({ op: "revive" });
+        },
+
         /**
          * For gem-unlockable preferences, (a) if owned, select preference (b) else, purchase
          * @param path: User.preferences <-> User.purchased maps like User.preferences.skin=abc <-> User.purchased.skin.abc.
@@ -181,7 +186,7 @@ angular.module('userServices', []).
             if (user.balance < 1.25) return $rootScope.modals.buyGems = true;
             path = path.join(',');
           } else {
-            if (window.habitrpgShared.helpers.dotGet('purchased.' + path, user)) {
+            if ($window.habitrpgShared.helpers.dotGet('purchased.' + path, user)) {
               var pref = path.split('.')[0],
                 val = path.split('.')[1];
               return self.set('preferences.' + pref, val);

@@ -38,12 +38,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
     /* TODO this should be somewhere else, but fits the html location better here
      */
 
-    // uhoh! our first name conflict with habitrpg-shared/helpers, we gotta resovle that soon.
-    $rootScope.clickRevive = function() {
-      window.habitrpgShared.algos.revive(User.user);
-      User.log({ op: "revive" });
-    };
-
     $scope.removeTask = function(list, $index) {
       if (!confirm("Are you sure you want to delete this task?")) return;
       User.log({ op: "delTask", data: list[$index] });
