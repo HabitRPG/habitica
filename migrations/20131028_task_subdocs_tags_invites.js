@@ -40,6 +40,11 @@ db.users.find().forEach(function(user){
     _.defaults(user.auth.timestamps, {created: new Date(user.lastCron), loggedin: new Date(user.lastCron)});
   }
 
+  // Fix missing history
+  // -------------------------
+  _.defaults(user, {history:{}});
+  _.defaults(user.history,{exp:[], todos:[]});
+
   // Add username
   // -------------------------
   if (!user.profile) user.profile = {name:undefined};

@@ -74,6 +74,7 @@
     "karma-ng-html2js-preprocessor": "~0.1.0",
     "karma-chai-plugins": "~0.1.0",
     "mocha": "~1.12.1",
-    "karma-mocha": "~0.1.0"
+    "karma-mocha": "~0.1.0",
+    "csv": "~0.3.6"
   }
 }

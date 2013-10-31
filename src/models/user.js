@@ -81,21 +81,11 @@ var UserSchema = new Schema({
     rest: {type: Boolean, 'default': false} // fixme - change to preferences.resting once we're off derby
   },
   history: {
-    exp: [
-      {
-        date: Date,
-        value: Number
-      }
-    ],
-    todos: [
-      {
-        data: Date,
-        value: Number
-      }
-    ]
+    exp: [{date: Date, value: Number}],
+    todos: [{data: Date, value: Number}]
   },
-  /* FIXME remove?*/
 
+  /* FIXME remove?*/
   invitations: {
     guilds: {type: Array, 'default': []},
     party: Schema.Types.Mixed
@@ -153,14 +143,13 @@ var UserSchema = new Schema({
 
     pets: Array
   },
-  // FIXME store as Date?
 
   lastCron: {
     type: Date,
     'default': Date.now
   },
-  // FIXME remove?
 
+  // FIXME remove?
   party: {
     //party._id // FIXME make these populate docs?
     current: String, // party._id
