@@ -1,6 +1,5 @@
 include ./profile
-include ./groups/index
-include ./challenges
+include ./social/index
 include ./inventory/index
 include ./settings
 
@@ -15,18 +14,14 @@ script(id='partials/options.html', type="text/ng-template")
           a(ui-sref='options.profile')
             i.icon-user
             | Profile
-        li(ng-class="{ active: $state.includes('options.groups') }")
-          a(ui-sref='options.groups')
+        li(ng-class="{ active: $state.includes('options.social') }")
+          a(ui-sref='options.social')
             i.icon-heart
-            | Groups
+            | Social
         li(ng-class="{ active: $state.includes('options.inventory') }", ng-if='user.flags.dropsEnabled')
           a(ui-sref='options.inventory')
             i.icon-gift
             | Inventory
-        li(ng-class="{ active: $state.includes('options.challenges') }")
-          a(ui-sref='options.challenges')
-            i.icon-bullhorn
-            | Challenges
         li(ng-class="{ active: $state.includes('options.settings') }")
           a(ui-sref='options.settings')
             i.icon-wrench

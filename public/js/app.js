@@ -59,36 +59,36 @@ window.habitrpg = angular.module('habitrpg',
         })
 
         // Options > Groups
-        .state('options.groups', {
+        .state('options.social', {
           url: "/groups",
-          templateUrl: "partials/options.groups.html"
+          templateUrl: "partials/options.social.html"
         })
-        .state('options.groups.tavern', {
+        .state('options.social.tavern', {
           url: "/tavern",
-          templateUrl: "partials/options.groups.tavern.html",
+          templateUrl: "partials/options.social.tavern.html",
           controller: 'TavernCtrl'
         })
-        .state('options.groups.party', {
+        .state('options.social.party', {
           url: '/party',
-          templateUrl: "partials/options.groups.party.html",
+          templateUrl: "partials/options.social.party.html",
           controller: 'PartyCtrl'
         })
-        .state('options.groups.guilds', {
+        .state('options.social.guilds', {
           url: '/guilds',
-          templateUrl: "partials/options.groups.guilds.html",
+          templateUrl: "partials/options.social.guilds.html",
           controller: 'GuildsCtrl'
         })
-        .state('options.groups.guilds.public', {
+        .state('options.social.guilds.public', {
           url: '/public',
-          templateUrl: "partials/options.groups.guilds.public.html"
+          templateUrl: "partials/options.social.guilds.public.html"
         })
-        .state('options.groups.guilds.create', {
+        .state('options.social.guilds.create', {
           url: '/create',
-          templateUrl: "partials/options.groups.guilds.create.html"
+          templateUrl: "partials/options.social.guilds.create.html"
         })
-        .state('options.groups.guilds.detail', {
+        .state('options.social.guilds.detail', {
           url: '/:gid',
-          templateUrl: 'partials/options.groups.guilds.detail.html',
+          templateUrl: 'partials/options.social.guilds.detail.html',
           controller: ['$scope', 'Groups', '$stateParams', function($scope, Groups, $stateParams){
             $scope.group = Groups.Group.get({gid:$stateParams.gid});
           }]
@@ -109,14 +109,14 @@ window.habitrpg = angular.module('habitrpg',
         })
 
         // Options > Challenges
-        .state('options.challenges', {
+        .state('options.social.challenges', {
           url: "/challenges",
           controller: 'ChallengesCtrl',
-          templateUrl: "partials/options.challenges.html"
+          templateUrl: "partials/options.social.challenges.html"
         })
-        .state('options.challenges.detail', {
+        .state('options.social.challenges.detail', {
           url: '/:cid',
-          templateUrl: 'partials/options.challenges.detail.html',
+          templateUrl: 'partials/options.social.challenges.detail.html',
           controller: ['$scope', 'Challenges', '$stateParams',
             function($scope, Challenges, $stateParams){
               $scope.obj = $scope.challenge = Challenges.Challenge.get({cid:$stateParams.cid}, function(){

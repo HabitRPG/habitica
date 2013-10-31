@@ -1,10 +1,12 @@
 // FIXME note, due to https://github.com/angular-ui/bootstrap/issues/783 we can't use nested angular-bootstrap tabs
 // Subscribe to that ticket & change this when they fix
 
-script(type='text/ng-template', id='partials/options.groups.tavern.html')
+include ./challenges.jade
+
+script(type='text/ng-template', id='partials/options.social.tavern.html')
   include ./tavern
 
-script(type='text/ng-template', id='partials/options.groups.party.html')
+script(type='text/ng-template', id='partials/options.social.party.html')
   div(ng-show='group._id')
     include ./group
   div(ng-hide='group._id')
@@ -23,7 +25,7 @@ script(type='text/ng-template', id='partials/options.groups.party.html')
         {{user.id}}
       include ./create-group
 
-script(type='text/ng-template', id='partials/options.groups.guilds.public.html')
+script(type='text/ng-template', id='partials/options.social.guilds.public.html')
   div(ng-repeat='invitation in user.invitations.guilds')
     h3 You're Invited To {{invitation.name}}
     a.btn.btn-success(data-type='guild', ng-click='join(invitation)') Accept
@@ -47,40 +49,44 @@ script(type='text/ng-template', id='partials/options.groups.guilds.public.html')
         h4 {{group.name}}
         p {{group.description}}
 
-script(type='text/ng-template', id='partials/options.groups.guilds.detail.html')
+script(type='text/ng-template', id='partials/options.social.guilds.detail.html')
   include ./group
 
-script(type='text/ng-template', id='partials/options.groups.guilds.create.html')
+script(type='text/ng-template', id='partials/options.social.guilds.create.html')
   include ./create-group
 
-script(type='text/ng-template', id='partials/options.groups.guilds.html')
+script(type='text/ng-template', id='partials/options.social.guilds.html')
   ul.nav.nav-tabs
-    li(ng-class="{ active: $state.includes('options.groups.guilds.public') }")
-      a(ui-sref='options.groups.guilds.public')
+    li(ng-class="{ active: $state.includes('options.social.guilds.public') }")
+      a(ui-sref='options.social.guilds.public')
         | Public Guilds
     li(ng-class="{ active: $stateParams.gid == group._id }", ng-repeat='group in groups.guilds')
-      a(ui-sref="options.groups.guilds.detail({gid:group._id})")
+      a(ui-sref="options.social.guilds.detail({gid:group._id})")
         | {{group.name}}
-    li(ng-class="{ active: $state.includes('options.groups.guilds.create') }")
-      a(ui-sref='options.groups.guilds.create')
+    li(ng-class="{ active: $state.includes('options.social.guilds.create') }")
+      a(ui-sref='options.social.guilds.create')
         | Create Guild
 
   .tab-content
     .tab-pane.active
       div(ui-view)
 
-script(type='text/ng-template', id='partials/options.groups.html')
+script(type='text/ng-template', id='partials/options.social.html')
   ul.nav.nav-tabs
-    li(ng-class="{ active: $state.includes('options.groups.tavern') }")
-      a(ui-sref='options.groups.tavern')
+    li(ng-class="{ active: $state.includes('options.social.tavern') }")
+      a(ui-sref='options.social.tavern')
         i.icon-eye-close
         | Tavern
-    li(ng-class="{ active: $state.includes('options.groups.party') }")
-      a(ui-sref='options.groups.party')
+    li(ng-class="{ active: $state.includes('options.social.party') }")
+      a(ui-sref='options.social.party')
         | Party
-    li(ng-class="{ active: $state.includes('options.groups.guilds') }")
-      a(ui-sref='options.groups.guilds')
+    li(ng-class="{ active: $state.includes('options.social.guilds') }")
+      a(ui-sref='options.social.guilds')
         | Guilds
+    li(ng-class="{ active: $state.includes('options.social.challenges') }")
+      a(ui-sref='options.social.challenges')
+        i.icon-bullhorn
+        | Challenges
 
   .tab-content
     .tab-pane.active

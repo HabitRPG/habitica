@@ -90,7 +90,7 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
      */
     function backToChallenges(){
       $scope.popoverEl.popover('destroy');
-      $state.go('options.challenges');
+      $state.go('options.social.challenges');
       $scope.challenges = Challenges.Challenge.query();
       User.log({});
     }
@@ -116,7 +116,7 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
     $scope.close = function(challenge, $event) {
       $scope.closingChal = challenge;
       $scope.popoverEl = $($event.target);
-      var html = $compile('<div><div ng-include="\'partials/options.challenges.detail.close.html\'" /></div></div>')($scope);
+      var html = $compile('<div><div ng-include="\'partials/options.social.challenges.detail.close.html\'" /></div></div>')($scope);
       $scope.popoverEl.popover('destroy').popover({
         html: true,
         placement: 'right',

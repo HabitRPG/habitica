@@ -1,4 +1,4 @@
-script(type='text/ng-template', id='partials/options.challenges.detail.close.html')
+script(type='text/ng-template', id='partials/options.social.challenges.detail.close.html')
   a.btn.btn-small.btn-danger(ng-click="delete(closingChal)") Delete
   h5 - Or -
   small Select a winner and close the challenge:
@@ -6,7 +6,7 @@ script(type='text/ng-template', id='partials/options.challenges.detail.close.htm
   small.pull-right
     a(ng-click='cancelClosing(closingChal)') cancel
 
-script(type='text/ng-template', id='partials/options.challenges.detail.html')
+script(type='text/ng-template', id='partials/options.social.challenges.detail.html')
   // Edit button
   ul.unstyled
     li(ng-show='challenge.leader==user._id', ng-hide='challenge._locked==false')
@@ -35,7 +35,7 @@ script(type='text/ng-template', id='partials/options.challenges.detail.html')
             h4 {{member.profile.name}}
             habitrpg-tasks(main=false)
 
-script(type='text/ng-template', id='partials/options.challenges.html')
+script(type='text/ng-template', id='partials/options.social.challenges.html')
   .row-fluid
     .span2.well
       h4 Groups
@@ -95,7 +95,7 @@ script(type='text/ng-template', id='partials/options.challenges.html')
               a.btn.btn-small.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
                 i.icon-ok
                 | Join
-          a.accordion-toggle(ui-sref='options.challenges.detail({cid:challenge._id})') {{challenge.name}}
+          a.accordion-toggle(ui-sref='options.social.challenges.detail({cid:challenge._id})') {{challenge.name}}
         .accordion-body(ng-class='{collapse: !$stateParams.cid == challenge._id}')
           .accordion-inner(ng-if='$stateParams.cid == challenge._id')
             div(ui-view)
