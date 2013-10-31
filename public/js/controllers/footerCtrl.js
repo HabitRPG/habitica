@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http',
-  function($scope, $rootScope, User, $http) {
+habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http', 'Notification', 'API_URL',
+  function($scope, $rootScope, User, $http, Notification, API_URL) {
 
     /**
      External Scripts
@@ -39,6 +39,26 @@ habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http',
           });
         });
       }
+    }
 
+    /**
+     * Debug functions. Note that the server route for gems is only available if process.env.DEBUG=true
+     */
+    $scope.addMissedDay = function(){
+      var dayBefore = moment(User.user.lastCron).subtract('days', 1).toDate();
+      User.set({lastCron: dayBefore});
+      Notification.text('-1 day, remember to refresh');
+    }
+    $scope.addTenGems = function(){
+      console.log(API_URL);
+      $http.post(API_URL + '/api/v1/user/addTenGems').success(function(){
+        User.log({});
+      })
+    }
+    $scope.addLevelsAndGold = function(){
+      User.setMultiple({
+        'stats.exp': User.user.stats.exp + 10000,
+        'stats.gp': User.user.stats.gp + 10000
+      });
     }
   }])

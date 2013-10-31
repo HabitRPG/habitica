@@ -452,6 +452,14 @@ api.unlock = function(req, res) {
  ------------------------------------------------------------------------
  */
 
+api.addTenGems = function(req, res) {
+  var user = res.locals.user;
+  user.balance += 2.5;
+  user.save(function(err){
+    if (err) return res.json(500,{err:err});
+    res.send(204);
+  })
+}
 
 /*
  Setup Stripe response when posting payment
