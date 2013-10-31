@@ -54,8 +54,8 @@ angular.module('groupServices', ['ngResource']).
           }),
 
           fetchTavern: _.once(function(){
-            Group.get({gid:'habitrpg'}, function(_groups){
-              tavernQ.resolve(_groups[0]);
+            Group.get({gid:'habitrpg'}, function(_group){
+              tavernQ.resolve(_group);
             })
           }),
 
