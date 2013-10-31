@@ -71,7 +71,7 @@ api.list = function(req, res) {
         {group: 'habitrpg'}
       ]
     })
-    .select('name description group members')
+    .select('name description group members prize')
     .populate('group', '_id name')
     .exec(function(err, challenges){
       if (err) return res.json(500,{err:err});

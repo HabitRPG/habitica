@@ -34,7 +34,7 @@ api.getMember = function(req, res) {
  */
 api.list = function(req, res) {
   var user = res.locals.user;
-  var groupFields = 'name description memberCount';
+  var groupFields = 'name description memberCount balance leader';
   var sort = '-memberCount';
   var type = req.query.type || 'party,guilds,public,tavern';
 

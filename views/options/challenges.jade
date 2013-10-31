@@ -41,9 +41,8 @@ script(type='text/ng-template', id='partials/options.challenges.html')
         | Either
     .span10
       // Creation form
-      div(ng-hide='newChallenge')
-        button.btn.btn-success(ng-click='create()') Create Challenge
-      .create-challenge-from(ng-if='newChallenge')
+      button.btn.btn-success(ng-click='create()', ng-hide='newChallenge') Create Challenge
+      .create-challenge-from.well(ng-if='newChallenge')
         form(ng-submit='save(newChallenge)')
           div
             input.btn.btn-success(type='submit', value='Save')
@@ -51,7 +50,15 @@ script(type='text/ng-template', id='partials/options.challenges.html')
             select(ng-model='newChallenge.group', ng-required='required', name='Group', ng-options='g._id as g.name for g in groups')
           .challenge-options
             input.option-content(type='text', ng-model='newChallenge.name', placeholder='Challenge Title', required='required')
+          .challenge-options
             textarea.option-content(cols='3', placeholder='Description', ng-model='newChallenge.description')
+
+          .challenge-options
+            .option-group.option-medium
+              input.option-content(type='number', min="0", max="{{maxPrize}}", ng-model='newChallenge.prize', placeholder='Prize')
+              span.input-suffix.Pet_Currency_Gem1x.inline-gems
+              i.icon-question-sign(popover="If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Min = 0, Max = the number of gems you own. If you created the guild for this challenge, Max += Guild.balance", popover-trigger='mouseenter', popover-placement='right')
+
 
         habitrpg-tasks(main=false, obj='newChallenge')
 

@@ -17,7 +17,8 @@ var ChallengeSchema = new Schema({
   group: {type: String, ref: 'Group'},
   timestamp: {type: Date, 'default': Date.now},
   members: [{type: String, ref: 'User'}],
-  memberCount: {type: Number, 'default': 0}
+  memberCount: {type: Number, 'default': 0},
+  prize: {type: Number, 'default': 0}
 });
 
 ChallengeSchema.virtual('tasks').get(function () {
