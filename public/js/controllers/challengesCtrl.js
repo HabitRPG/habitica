@@ -67,7 +67,7 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
         if (isNew) {
           Notification.text('Challenge Created');
           $scope.discard();
-          $scope.challenges.unshift(_challenge);
+          $scope.challenges = Challenges.Challenge.query();
         } else {
           // TODO figure out a more elegant way about this
           //challenge._editing = false;
@@ -158,6 +158,7 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
 
     $scope.join = function(challenge){
       challenge.$join(function(){
+        $scope.challenges = Challenges.Challenge.query();
         User.log({});
       });
 
@@ -168,6 +169,7 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
         $scope.selectedChal = undefined;
       } else {
         $scope.selectedChal.$leave({keep:keep}, function(){
+          $scope.challenges = Challenges.Challenge.query();
           User.log({});
         });
       }
