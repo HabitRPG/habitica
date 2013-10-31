@@ -1,12 +1,20 @@
+script(type='text/ng-template', id='partials/options.challenges.detail.close.html')
+  a.btn.btn-small.btn-danger(ng-click="delete(closingChal)") Delete
+  h5 - Or -
+  small Select a winner and close the challenge:
+  select(ng-model='challenge.winner', name='Winner', ng-options='u._id as u.profile.name for u in closingChal.members', ng-change='selectWinner(closingChal)')
+  small.pull-right
+    a(ng-click='cancelClosing(closingChal)') cancel
+
 script(type='text/ng-template', id='partials/options.challenges.detail.html')
   // Edit button
   ul.unstyled
     li(ng-show='challenge.leader==user._id', ng-hide='challenge._locked==false')
-      button.btn.btn-default(ng-click='challenge._locked = false') Edit
+      button.btn.btn-small.btn-default(ng-click='challenge._locked = false') Edit
     li(ng-show='challenge._locked==false')
-      button.btn.btn-primary(ng-click='save(challenge)') Save
-      button.btn.btn-danger(ng-click='delete(challenge, $index)') Delete
-      button.btn.btn-default(ng-click='challenge._locked=true') Cancel
+      button.btn.btn-small.btn-primary(ng-click='save(challenge)') Save
+      button.btn.btn-small.btn-default(ng-click='challenge._locked=true') Cancel
+      button.btn.btn-small.btn-default(ng-click='close(challenge, $event)', tooltip='Delete or select winner') Close
 
   div(ng-show='challenge._locked==false')
     .-options

@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', 'API_URL', '$http',
-  function($scope, User, Challenges, Notification, $compile, Groups, $state, API_URL, $http) {
+habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$rootScope',
+  function($scope, User, Challenges, Notification, $compile, Groups, $state, $rootScope) {
 
     // FIXME get this from cache
     Groups.Group.query({type:'party,guilds,tavern'}, function(groups){
@@ -85,16 +85,47 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
 
 
     /**
-     * Delete
+     * Close Challenge
+     * ------------------
      */
-    $scope["delete"] = function(challenge, $index) {
-      if (confirm("Delete challenge, are you sure?") !== true) return;
+    function backToChallenges(){
+      $scope.popoverEl.popover('destroy');
+      $state.go('options.challenges');
+      $scope.challenges = Challenges.Challenge.query();
+      User.log({});
+    }
+    $scope.cancelClosing = function() {
+      $scope.popoverEl.popover('destroy');
+      $scope.popoverEl = undefined;
+      $scope.closingChal = undefined;
+    }
+    $scope["delete"] = function(challenge) {
+      if (!confirm("Delete challenge, are you sure?")) return;
       challenge.$delete(function(){
-        $state.go('options.challenges');
-        $scope.challenges = Challenges.Challenge.query();
-        User.log({});
+        $scope.popoverEl.popover('destroy');
+        backToChallenges();
       });
     };
+    $scope.selectWinner = function(challenge) {
+      if (!confirm("Are you sure?")) return;
+      challenge.$selectWinner({uid:challenge.winner}, function(){
+        $scope.popoverEl.popover('destroy');
+        backToChallenges();
+      })
+    }
+    $scope.close = function(challenge, $event) {
+      $scope.closingChal = challenge;
+      $scope.popoverEl = $($event.target);
+      var html = $compile('<div><div ng-include="\'partials/options.challenges.detail.close.html\'" /></div></div>')($scope);
+      $scope.popoverEl.popover('destroy').popover({
+        html: true,
+        placement: 'right',
+        trigger: 'manual',
+        title: 'Close challenge and...',
+        content: html
+      }).popover('show');
+
+    }
 
     //------------------------------------------------------------
     // Tasks
