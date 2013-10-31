@@ -2,7 +2,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
   .row-fluid(ng-controller='InventoryCtrl')
     .span6.border-right
       h2 Inventory
-      p.well Combine eggs with hatching potions to make pets by clicking an egg and then a potion. Sell unwanted drops to Alexander the Merchant.
+      p.well Hatch pets by first clicking the hatching potion you want to use. This will highlight all eligible eggs in green. Just click one of those eggs, and, presto, your new pet is born. You can also sell unwanted drops to Alexander the Merchant.
       menu.inventory-list(type='list')
         li.customize-menu
           menu.pets-menu(label='Eggs ({{userEggs.length}})')
