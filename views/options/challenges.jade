@@ -51,6 +51,7 @@ script(type='text/ng-template', id='partials/options.challenges.html')
             select(ng-model='newChallenge.group', ng-required='required', name='Group', ng-options='g._id as g.name for g in groups')
           .challenge-options
             input.option-content(type='text', ng-model='newChallenge.name', placeholder='Challenge Title', required='required')
+            textarea.option-content(cols='3', placeholder='Description', ng-model='newChallenge.description')
 
         habitrpg-tasks(main=false, obj='newChallenge')
 
