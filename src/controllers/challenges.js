@@ -11,6 +11,51 @@ var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var api = module.exports;
 
+/**
+ * Syncs all new tasks, deleted tasks, etc to the user object
+ * @param chal
+ * @param user
+ * @return nothing, user is modified directly. REMEMBER to save the user!
+ */
+var syncChalToUser = function(chal, user) {
+  if (!chal || !user) return;
+
+  // Sync tags
+  var tags = user.tags || [];
+  var i = _.findIndex(tags, {id: chal._id})
+  if (~i) {
+    if (tags[i].name !== chal.name) {
+      // update the name - it's been changed since
+      user.tags[i].name = chal.name;
+    }
+  } else {
+    user.tags.push({
+      id: chal._id,
+      name: chal.name,
+      challenge: true
+    });
+  }
+  tags = {};
+  tags[chal._id] = true;
+
+  // Sync new tasks and updated tasks
+  _.each(chal.tasks, function(task){
+    var type = task.type;
+    _.defaults(task, {tags: tags, challenge:{}});
+    _.defaults(task.challenge, {id:chal._id});
+    if (user.tasks[task.id]) {
+      _.merge(user.tasks[task.id], keepAttrs(task));
+    } else {
+      user[type+'s'].push(task);
+    }
+  })
+
+  // Flag deleted tasks as "broken"
+  _.each(user.tasks, function(task){
+    if (!chal.tasks[task.id]) task.challenge.broken = 'TASK_DELETED';
+  })
+};
+
 /*
   ------------------------------------------------------------------------
   Challenges
@@ -81,17 +126,22 @@ function keepAttrs(task) {
 api.update = function(req, res){
   //FIXME sanitize
   var cid = req.params.cid;
+  var before;
   async.waterfall([
     function(cb){
       // We first need the original challenge data, since we're going to compare against new & decide to sync users
       Challenge.findById(cid, cb);
     },
-    function(chal, cb) {
-
-      // Update the challenge, and then just res.json success (note we're passing `cb` here).
-      // The syncing stuff is really heavy, and the client doesn't care - so we kick it off in the background
+    function(_before, cb) {
+      // Update the challenge, since syncing will need the updated challenge. But store `before` we're going to do some
+      // before-save / after-save comparison to determine if we need to sync to users
+      before = _before;
       delete req.body._id;
       Challenge.findByIdAndUpdate(cid, {$set:req.body}, cb);
+    },
+    function(saved, cb) {
+      // after saving, we're done as far as the client's concerned. We kick of syncing (heavy task) in the background
+      cb(null, saved);
 
       // Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
       function comparableData(obj) {
@@ -103,12 +153,12 @@ api.update = function(req, res){
           }))
           .toString(); // for comparing arrays easily
       }
-      if (comparableData(chal) !== comparableData(req.body)) {
-        User.find({_id: {$in: chal.members}}, function(err, users){
+      if (comparableData(before) !== comparableData(req.body)) {
+        User.find({_id: {$in: saved.members}}, function(err, users){
           console.log('Challenge updated, sync to subscribers');
           if (err) throw err;
           _.each(users, function(user){
-            syncChalToUser(chal, user);
+            syncChalToUser(saved, user);
             user.save();
           })
         })
@@ -151,51 +201,6 @@ api['delete'] = function(req, res){
     res.send(200);
   })
 }
-
-/**
- * Syncs all new tasks, deleted tasks, etc to the user object
- * @param chal
- * @param user
- * @return nothing, user is modified directly. REMEMBER to save the user!
- */
-var syncChalToUser = function(chal, user) {
-  if (!chal || !user) return;
-
-  // Sync tags
-  var tags = user.tags || [];
-  var i = _.findIndex(tags, {id: chal._id})
-  if (~i) {
-    if (tags[i].name !== chal.name) {
-      // update the name - it's been changed since
-      user.tags[i].name = chal.name;
-    }
-  } else {
-    user.tags.push({
-      id: chal._id,
-      name: chal.name,
-      challenge: true
-    });
-  }
-  tags = {};
-  tags[chal._id] = true;
-
-  // Sync new tasks and updated tasks
-  _.each(chal.tasks, function(task){
-    var type = task.type;
-    _.defaults(task, {tags: tags, challenge:{}});
-    _.defaults(task.challenge, {id:chal._id});
-    if (user.tasks[task.id]) {
-      _.merge(user.tasks[task.id], keepAttrs(task));
-    } else {
-      user[type+'s'].push(task);
-    }
-  })
-
-  // Flag deleted tasks as "broken"
-  _.each(user.tasks, function(task){
-    if (!chal.tasks[task.id]) task.challenge.broken = 'TASK_DELETED';
-  })
-};
 
 api.join = function(req, res){
   var user = res.locals.user;
