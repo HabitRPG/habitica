@@ -245,11 +245,11 @@ api.join = function(req, res, next) {
     user.save();
   }
 
-  if (!_.contains(group.members,uuid))
+  if (!_.contains(group.members,uuid)){
     group.members.push(user._id);
     group.invites.splice(_.indexOf(group.invites, user._id), 1);
   }
-  
+
   async.series([
     function(cb){
       group.save(cb);
