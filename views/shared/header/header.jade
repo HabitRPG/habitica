@@ -27,7 +27,7 @@
               i.icon-signal
     // party
     span(ng-controller='PartyCtrl')
-      .herobox-wrap(ng-repeat='profile in groups.party.members')
+      .herobox-wrap(ng-repeat='profile in groups.party.members | filter:removeSelf')
         include avatar
 
     .NPC-Bailey-Head(ng-show='user.flags.newStuff', tooltip='Psst', tooltip-placement='top', ng-click='modals.newStuff=true')

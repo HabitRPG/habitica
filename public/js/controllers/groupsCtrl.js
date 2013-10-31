@@ -209,6 +209,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         User.user.invitations.party = undefined;
         User.log({op:'set',data:{'invitations.party':{}}});
       }
+
+      $scope.removeSelf = function(member){
+        return member._id !== User.user._id;
+      }
     }
   ])
 

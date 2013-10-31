@@ -20,11 +20,6 @@ var itemFields = 'items.armor items.head items.shield items.weapon items.current
 var partyFields = 'profile preferences stats achievements party backer flags.rest auth.timestamps ' + itemFields;
 var nameFields = 'profile.name';
 
-function removeSelf(group, user){
-  if (group)
-    group.members = _.filter(group.members, function(m){return m._id != user._id});
-}
-
 api.getMember = function(req, res) {
   User.findById(req.params.uid).select(partyFields).exec(function(err, user){
     if (err) return res.json(500,{err:err});
@@ -113,7 +108,6 @@ api.get = function(req, res) {
     Group.findOne({type: 'party', members: {'$in': [user._id]}})
       .populate('members invites', partyFields).exec(function(err, group){
         if (err) return res.json(500,{err:err});
-        removeSelf(group, user);
         res.json(group);
       });
   } else {
@@ -121,10 +115,6 @@ api.get = function(req, res) {
       if ( (group.type == 'guild' && group.privacy == 'private') || group.type == 'party') {
         if(!_.find(group.members, {_id: user._id}))
           return res.json(401, {err: "You don't have access to this group"});
-      }
-      // Remove self from party (see above failing `match` directive in `populate`
-      if (group.type == 'party') {
-        removeSelf(group, user);
       }
       res.json(group);
     })
@@ -176,7 +166,6 @@ api.update = function(req, res, next) {
     }
   ], function(err, results){
     if (err) return res.json(500,{err:err});
-    if (group.type === 'party') removeSelf(results[1], res.locals.user);
     res.json(results[1]);
   });
 }
@@ -219,10 +208,7 @@ api.postChat = function(req, res, next) {
     if (err) return res.json(500, {err:err});
 
     // TODO This is less efficient, but see https://github.com/lefnire/habitrpg/commit/41255dc#commitcomment-4014583
-    var saved = results[1];
-    if (group.type === 'party') removeSelf(saved, user);
-
-    res.json(saved);
+    res.json(results[1]);
   })
 }
 
@@ -270,9 +256,6 @@ api.join = function(req, res, next) {
     }
   ], function(err, results){
     if (err) return res.json(500,{err:err});
-
-    // Remove self from party (see above failing `match` directive in `populate`
-    if(results[1].type == 'party') removeSelf(results[1], user);
 
     res.json(results[1]);
   });
@@ -336,9 +319,6 @@ api.invite = function(req, res, next) {
         }
       ], function(err, results){
         if (err) return res.json(500,{err:err});
-
-        // Remove self from party (see above failing `match` directive in `populate`
-        if(results[2].type == 'party') removeSelf(results[2], user);
 
         res.json(results[2]);
       });
