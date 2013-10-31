@@ -102,12 +102,9 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
     };
 
     $scope.removeTask = function(list, $index) {
-      if (confirm("Are you sure you want to delete this task?")) return;
+      if (!confirm("Are you sure you want to delete this task?")) return;
       //TODO persist
-      // User.log({
-      //  op: "delTask",
-      //  data: task
-      //});
+      // User.log({op: "delTask", data: task});
       list.splice($index, 1);
     };
 
