@@ -48,12 +48,15 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         }
       }
 
-      $scope.removeMember = function(group, member){
+      $scope.removeMember = function(group, member, isMember){
         var yes = confirm("Do you really want to remove this member from the party?")
         if(yes){
-          group.$removeMember({uuid: member._id}, function(){
-            location.reload();
-          });
+          group.$removeMember({uuid: member._id});
+          if(isMember){
+            group.members = _.without(group.members, member);
+          }else{
+            group.invites = _.without(group.invites, member);
+          }
         }
       }
 
@@ -62,7 +65,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.invite = function(group){
         group.$invite({uuid:group.invitee}, function(){
           group.invitee = '';
-          alert("User invited to group");
         }, function(){
           group.invitee = '';
         });
@@ -184,7 +186,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.group = Groups.groups.party;
       $scope.newGroup = new Groups.Group({type:'party', leader: User.user._id, members: [User.user._id]});
       $scope.create = function(group){
-        group.$save(function(){
+        group.$save(function(newGroup){
+          // Can't get this to work, group is correctly returned, scope updated but not view....
+          //Groups.groups.party = newGroup;
+          //$scope.group = Groups.groups.party;
           location.reload();
         });
       }
@@ -192,19 +197,23 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.join = function(party){
         var group = new Groups.Group({_id: party.id, name: party.name});
         // there a better way to access GroupsCtrl.groups.party?
-        group.$join(function(){
+        group.$join(function(groupJoined){
+          // Can't get this to work, group is correctly returned, scope updated but not view....
+          //Groups.groups.party = groupJoined;
+          //$scope.group = Groups.groups.party;
           location.reload();
         });
       }
+
       $scope.leave = function(group){
         if (confirm("Are you sure you want to leave this party?") !== true) {
           return;
         }
         group.$leave(function(){
-          //Groups.groups.party = new Groups.Group();
-          location.reload();
+          Groups.groups.party = undefined;
         });
       }
+
       $scope.reject = function(){
         User.user.invitations.party = undefined;
         User.log({op:'set',data:{'invitations.party':{}}});

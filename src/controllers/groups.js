@@ -245,8 +245,11 @@ api.join = function(req, res, next) {
     user.save();
   }
 
-  group.members.push(user._id);
-  group.invites.splice(_.indexOf(group.invites, user._id), 1);
+  if (!_.contains(group.members,uuid))
+    group.members.push(user._id);
+    group.invites.splice(_.indexOf(group.invites, user._id), 1);
+  }
+  
   async.series([
     function(cb){
       group.save(cb);
@@ -257,6 +260,7 @@ api.join = function(req, res, next) {
   ], function(err, results){
     if (err) return res.json(500,{err:err});
 
+    // Return the group? Or not?
     res.json(results[1]);
   });
 }
@@ -267,7 +271,7 @@ api.leave = function(req, res, next) {
 
   Group.update({_id:group._id},{$pull:{members:user._id}}, function(err, saved){
     if (err) return res.json(500,{err:err});
-    return res.send(200, {_id: saved._id});
+    return res.send(204);
   });
 }
 
@@ -320,6 +324,7 @@ api.invite = function(req, res, next) {
       ], function(err, results){
         if (err) return res.json(500,{err:err});
 
+        // Have to return whole group and its members for angular to show the invited user
         res.json(results[2]);
       });
     }
