@@ -82,6 +82,7 @@ function addTask(user, task) {
 
 var syncScoreToChallenge = function(task, delta){
   if (!task.challenge || !task.challenge.id) return;
+  if (task.type == 'reward') return; // we don't want to update the reward GP cost
   Challenge.findById(task.challenge.id, function(err, chal){
     if (err) throw err;
     var t = chal.tasks[task.id]
