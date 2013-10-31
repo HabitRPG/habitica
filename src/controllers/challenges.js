@@ -107,12 +107,46 @@ api.get = function(req, res) {
 
 // CREATE
 api.create = function(req, res){
-  // FIXME sanitize
-  var challenge = new Challenge(req.body);
-  challenge.save(function(err, saved){
-    if (err) return res.json(500, {err:err});
-    Group.findByIdAndUpdate(saved.group, {$addToSet:{challenges:saved._id}}) // fixme error-check
-    res.json(saved);
+  var user = res.locals.user;
+  var waterfall = [];
+  if (+req.body.prize > 0) {
+    var net = 0;
+    waterfall = [
+      function(cb){
+        Group.findById(req.body.group).select('balance leader').exec(cb);
+      },
+      function(group, cb){
+        if (!group) return cb("Group."+req.body.group+" not found");
+        var groupBalance = ((group.balance && group.leader==user._id) ? group.balance : 0);
+        if (req.body.prize > (user.balance*4 + groupBalance*4))
+          return cb("Challenge.prize > (your gems + group balance). Purchase more gems or lower prize amount.s")
+
+        net = req.body.prize/4; // I really should have stored user.balance as gems rather than dollars... stupid...
+
+        // user is group leader, and group has balance. Subtract from that first, then take the rest from user
+        if (groupBalance > 0) {
+          group.balance -= net;
+          if (group.balance < 0) {
+            net = Math.abs(group.balance);
+            group.balance = 0;
+          }
+        }
+        group.save(cb)
+      },
+      function(group, numRows, cb) {
+        user.balance -= net;
+        user.save(cb);
+      }
+    ];
+  }
+  async.waterfall(waterfall, function(err){
+    if (err) return res.json(401, {err:err});
+    var challenge = new Challenge(req.body); // FIXME sanitize
+    challenge.save(function(err, saved){
+      if (err) return res.json(500, {err:err});
+      Group.findByIdAndUpdate(saved.group, {$addToSet:{challenges:saved._id}}) // fixme error-check
+      res.json(saved);
+    });
   });
 }
 
