@@ -109,6 +109,7 @@ api.get = function(req, res) {
 api.create = function(req, res){
   var user = res.locals.user;
   var waterfall = [];
+  if (+req.body.prize < 0) return res.json(401, {err: 'Challenge prize must be >= 0'});
   if (+req.body.prize > 0) {
     var net = 0;
     waterfall = [
