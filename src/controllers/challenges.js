@@ -52,7 +52,8 @@ var syncChalToUser = function(chal, user) {
 
   // Flag deleted tasks as "broken"
   _.each(user.tasks, function(task){
-    if (!chal.tasks[task.id]) task.challenge.broken = 'TASK_DELETED';
+    if (task.challenge && task.challenge.id==chal._id && !chal.tasks[task.id])
+      task.challenge.broken = 'TASK_DELETED';
   })
 };
 
