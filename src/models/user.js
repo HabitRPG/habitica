@@ -36,7 +36,9 @@ var UserSchema = new Schema({
     helpedHabit: Boolean,
     ultimateGear: Boolean,
     beastMaster: Boolean,
-    streak: Number
+    veteran: Boolean,
+    streak: Number,
+    challenges: Array
   },
   auth: {
     facebook: Schema.Types.Mixed,

@@ -75,3 +75,13 @@
       small
         | One of the <em>very</em> original early adopters, Talk about alpha tester!
     hr
+
+  div(ng-if='profile.achievements.challenges || user._id == profile._id')
+    // This is a very strange icon to use. revisit
+    .achievement.achievement-karaoke(ng-show='profile.achievements.challenges')
+    div(ng-class='{muted: !profile.achievements.challenges}')
+      h5 Was the winner in the following challenges
+      ul
+        li(ng-repeat='chal in profile.achievements.challenges') {{chal}}
+    hr
+

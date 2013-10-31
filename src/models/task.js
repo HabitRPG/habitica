@@ -28,7 +28,8 @@ var TaskSchema = new Schema({
   streak: {type: Number, 'default': 0},
   challenge: {
     id: {type: 'String', ref:'Challenge'},
-    broken: String // CHALLENGE_DELETED, TASK_DELETED, UNSUBSCRIBED, etc
+    broken: String, // CHALLENGE_DELETED, TASK_DELETED, UNSUBSCRIBED, CHALLENGE_CLOSED
+    winner: String // user.profile.name
     // group: {type: 'Strign', ref: 'Group'} // if we restore this, rename `id` above to `challenge`
   }
 }, {

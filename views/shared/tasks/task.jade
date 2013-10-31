@@ -75,6 +75,12 @@ li(ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.
           a(ng-click='unlink(task, "keep-all")') Keep Them
           | &nbsp;|&nbsp;
           a(ng-click='unlink(task, "remove-all")') Remove Them
+      div(ng-if='task.challenge.broken=="CHALLENGE_CLOSED"')
+        p. This challenge has been completed, and the winner was <span class='badge'>{{task.challenge.winner}}</span>!. What to do with the orphan tasks?
+        p
+          a(ng-click='unlink(task, "keep-all")') Keep Them
+          | &nbsp;|&nbsp;
+          a(ng-click='unlink(task, "remove-all")') Remove Them
       //-div(ng-if='task.challenge.broken=="UNSUBSCRIBED"')
         p Broken Challenge Link: this task was part of a challenge, but you have unsubscribed from the challenge. What to do with the orphan tasks?
         p

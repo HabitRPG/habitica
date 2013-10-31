@@ -206,32 +206,71 @@ api.update = function(req, res){
   })
 }
 
-// DELETE
-api['delete'] = function(req, res){
+/**
+ * Called by either delete() or selectWinner(). Will delete the challenge and set the "broken" property on all users' subscribed tasks
+ * @param {cid} the challenge id
+ * @param {broken} the object representing the broken status of the challenge. Eg:
+ *  {broken: 'CHALLENGE_DELETED', id: CHALLENGE_ID}
+ *  {broken: 'CHALLENGE_CLOSED', id: CHALLENGE_ID, winner: USER_NAME}
+ */
+function closeChal(cid, broken, cb) {
   var removed;
   async.waterfall([
-    function(cb){
-      Challenge.findOneAndRemove({_id:req.params.cid}, cb)
+    function(cb2){
+      Challenge.findOneAndRemove({_id:cid}, cb2)
     },
-    function(_removed, cb) {
+    function(_removed, cb2) {
       removed = _removed;
-      User.find({_id:{$in: removed.members}}, cb);
+      User.find({_id:{$in: removed.members}}, cb2);
     },
-    function(users, cb) {
+    function(users, cb2) {
       var parallel = [];
       _.each(users, function(user){
         _.each(user.tasks, function(task){
           if (task.challenge && task.challenge.id == removed._id) {
-            task.challenge.broken = 'CHALLENGE_DELETED';
+            _.mege(task.challenge, broken);
           }
         })
-        parallel.push(function(cb2){
-          user.save(cb2);
+        parallel.push(function(cb3){
+          user.save(cb3);
         })
       })
-      async.parallel(parallel, cb);
+      async.parallel(parallel, cb2);
     }
-  ], function(err){
+  ], cb);
+}
+
+// DELETE
+api['delete'] = function(req, res){
+  closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, function(err){
+    if (err) return res.json(500, {err: err});
+    res.send(200);
+  })
+}
+
+api.selectWinner = function(req, res) {
+  if (!req.query.uid) return res.json(401, {err: 'Must select a winner'});
+  var chal;
+  async.waterfall([
+    function(cb){
+      Challenge.findById(req.params.cid, cb);
+    },
+    function(_chal, cb){
+      if (!_chal) return cb('Challenge ' + req.params.cid + ' not found.');
+      chal = _chal;
+      User.findById(req.query.uid, cb)
+    },
+    function(winner, cb){
+      if (!winner) return cb('Winner ' + req.query.uid + ' not found.');
+      _.defaults(winner.achievements, {challenges: []});
+      winner.achievements.challenges.push(chal.name);
+      winner.balance += chal.prize/4;
+      winner.save(cb);
+    },
+    function(saved, num, cb) {
+      closeChal(req.params.cid, {broken: 'CHALLENGE_CLOSED', winner: saved.profile.name}, cb);
+    }
+  ], function(){
     if (err) return res.json(500, {err: err});
     res.send(200);
   })
