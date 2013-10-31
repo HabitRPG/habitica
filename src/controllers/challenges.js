@@ -228,7 +228,7 @@ function closeChal(cid, broken, cb) {
       _.each(users, function(user){
         _.each(user.tasks, function(task){
           if (task.challenge && task.challenge.id == removed._id) {
-            _.mege(task.challenge, broken);
+            _.merge(task.challenge, broken);
           }
         })
         parallel.push(function(cb3){
@@ -240,7 +240,9 @@ function closeChal(cid, broken, cb) {
   ], cb);
 }
 
-// DELETE
+/**
+ * Delete & close
+ */
 api['delete'] = function(req, res){
   closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, function(err){
     if (err) return res.json(500, {err: err});
@@ -248,6 +250,9 @@ api['delete'] = function(req, res){
   })
 }
 
+/**
+ * Select Winner & Close
+ */
 api.selectWinner = function(req, res) {
   if (!req.query.uid) return res.json(401, {err: 'Must select a winner'});
   var chal;

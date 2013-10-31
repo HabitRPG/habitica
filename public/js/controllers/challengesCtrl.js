@@ -108,7 +108,7 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
     };
     $scope.selectWinner = function(challenge) {
       if (!confirm("Are you sure?")) return;
-      challenge.$selectWinner({uid:challenge.winner}, function(){
+      challenge.$close({uid:challenge.winner}, function(){
         $scope.popoverEl.popover('destroy');
         backToChallenges();
       })
