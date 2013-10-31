@@ -275,7 +275,7 @@ api.selectWinner = function(req, res) {
     function(saved, num, cb) {
       closeChal(req.params.cid, {broken: 'CHALLENGE_CLOSED', winner: saved.profile.name}, cb);
     }
-  ], function(){
+  ], function(err){
     if (err) return res.json(500, {err: err});
     res.send(200);
   })

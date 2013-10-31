@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$rootScope',
-  function($scope, User, Challenges, Notification, $compile, Groups, $state, $rootScope) {
+habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state',
+  function($scope, User, Challenges, Notification, $compile, Groups, $state) {
 
     // FIXME get this from cache
     Groups.Group.query({type:'party,guilds,tavern'}, function(groups){
