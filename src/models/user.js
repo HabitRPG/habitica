@@ -47,11 +47,8 @@ var UserSchema = new Schema({
       username: String
     },
     timestamps: {
-      created: {
-        type: Date,
-        'default': Date.now
-      },
-      loggedin: Date
+      created: {type: Date,'default': Date.now},
+      loggedin: {type: Date,'default': Date.now}
     }
   },
 
