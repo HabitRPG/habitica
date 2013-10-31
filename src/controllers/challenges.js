@@ -65,24 +65,34 @@ var syncChalToUser = function(chal, user) {
 
 api.list = function(req, res) {
   var user = res.locals.user;
-  Challenge.find({
-      $or:[
-        {leader: user._id},
-        {members:{$in:[user._id]}},
-        {group: 'habitrpg'}
-      ]
+  async.waterfall([
+    function(cb){
+      // Get all available groups I belong to
+      Group.find({members: {$in: [user._id]}}).select('_id').exec(cb);
+    },
+    function(gids, cb){
+      // and their challenges
+      Challenge.find({
+          $or:[
+            {leader: user._id},
+            {members:{$in:[user._id]}}, // all challenges I belong to (is this necessary? thought is a left a group, but not its challenge)
+            {group:{$in:gids}}, // all challenges in my groups
+            {group: 'habitrpg'} // public group
+          ]
+        })
+        .select('name description group members prize')
+        .populate('group', '_id name')
+        .exec(cb);
+    }
+  ], function(err, challenges){
+    if (err) return res.json(500,{err:err});
+    _.each(challenges, function(c){
+      c._isMember = !!~c.members.indexOf(user._id);
+      c.memberCount = _.size(c.members);
+      c.members = undefined;
     })
-    .select('name description group members prize')
-    .populate('group', '_id name')
-    .exec(function(err, challenges){
-      if (err) return res.json(500,{err:err});
-      _.each(challenges, function(c){
-        c._isMember = !!~c.members.indexOf(user._id);
-        c.memberCount = _.size(c.members);
-        c.members = undefined;
-      })
-      res.json(challenges);
-    });
+    res.json(challenges);
+  });
 }
 
 // GET
@@ -146,7 +156,7 @@ api.create = function(req, res){
     var challenge = new Challenge(req.body); // FIXME sanitize
     challenge.save(function(err, saved){
       if (err) return res.json(500, {err:err});
-      Group.findByIdAndUpdate(saved.group, {$addToSet:{challenges:saved._id}}) // fixme error-check
+      Group.findByIdAndUpdate(saved.group, {$addToSet:{challenges:saved._id}}) // fixme error-check, and also better to do in middleware?
       res.json(saved);
     });
   });
@@ -225,6 +235,8 @@ function closeChal(cid, broken, cb) {
     },
     function(_removed, cb2) {
       removed = _removed;
+      var pull = {'$pull':{}}; pull['$pull'][_removed._id] = 1;
+      Group.findByIdAndUpdate(_removed.group, pull);
       User.find({_id:{$in: removed.members}}, cb2);
     },
     function(users, cb2) {

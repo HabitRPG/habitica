@@ -231,7 +231,7 @@ api.deleteChatMessage = function(req, res, next){
   });
 }
 
-api.join = function(req, res, next) {
+api.join = function(req, res) {
   var user = res.locals.user,
     group = res.locals.group;
 
@@ -245,7 +245,7 @@ api.join = function(req, res, next) {
     user.save();
   }
 
-  if (!_.contains(group.members,uuid)){
+  if (!_.contains(group.members, user._id)){
     group.members.push(user._id);
     group.invites.splice(_.indexOf(group.invites, user._id), 1);
   }
