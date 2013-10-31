@@ -19,6 +19,7 @@ var api = module.exports;
 var itemFields = 'items.armor items.head items.shield items.weapon items.currentPet';
 var partyFields = 'profile preferences stats achievements party backer flags.rest auth.timestamps ' + itemFields;
 var nameFields = 'profile.name';
+var challengeFields = '_id name';
 
 api.getMember = function(req, res) {
   User.findById(req.params.uid).select(partyFields).exec(function(err, user){
@@ -106,18 +107,25 @@ api.get = function(req, res) {
   // This will be called for the header, we need extra members' details than usuals
   if (gid == 'party') {
     Group.findOne({type: 'party', members: {'$in': [user._id]}})
-      .populate('members invites', partyFields).exec(function(err, group){
+      .populate('members', partyFields)
+      .populate('invites', nameFields)
+      .populate('challenges', challengeFields)
+      .exec(function(err, group){
         if (err) return res.json(500,{err:err});
         res.json(group);
       });
   } else {
-    Group.findById(gid).populate('members invites', nameFields).exec(function(err, group){
-      if ( (group.type == 'guild' && group.privacy == 'private') || group.type == 'party') {
-        if(!_.find(group.members, {_id: user._id}))
-          return res.json(401, {err: "You don't have access to this group"});
-      }
-      res.json(group);
-    })
+    Group.findById(gid)
+      .populate('members', partyFields)
+      .populate('invites', nameFields)
+      .populate('challenges', challengeFields)
+      .exec(function(err, group){
+        if ( (group.type == 'guild' && group.privacy == 'private') || group.type == 'party') {
+          if(!_.find(group.members, {_id: user._id}))
+            return res.json(401, {err: "You don't have access to this group"});
+        }
+        res.json(group);
+      });
   }
 };
 

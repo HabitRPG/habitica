@@ -156,7 +156,7 @@ api.create = function(req, res){
     var challenge = new Challenge(req.body); // FIXME sanitize
     challenge.save(function(err, saved){
       if (err) return res.json(500, {err:err});
-      Group.findByIdAndUpdate(saved.group, {$addToSet:{challenges:saved._id}}) // fixme error-check, and also better to do in middleware?
+      Group.update({_id:saved.group}, {$addToSet:{challenges:saved._id}}) // fixme error-check, and also better to do in middleware?
       res.json(saved);
     });
   });

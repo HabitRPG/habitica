@@ -31,7 +31,7 @@ var GroupSchema = new Schema({
   balance: Number,
   logo: String,
   leaderMessage: String,
-  challenges: [{type:'String', ref:'Challenge'}]
+  challenges: [{type:'String', ref:'Challenge'}] // do we need this? could depend on back-ref instead (Challenge.find({group:GID}))
 }, {
   strict: 'throw',
   minimize: false // So empty objects are returned
