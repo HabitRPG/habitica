@@ -72,7 +72,7 @@ db.users.find().forEach(function(user){
           newTask = {};
         if (!task) return m; // remove null tasks
 
-        // Transform to proper schema
+        // Cleanup tasks for TaskSchema
         newTask._id = newTask.id = task.id;
         newTask.text = (_.isString(task.text)) ? task.text : '';
         if (_.isString(task.notes)) newTask.notes = task.notes;

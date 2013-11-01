@@ -26,6 +26,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
     hr
 
   .well(ng-if='challenge.description') {{challenge.description}}
+  i.icon-question-sign(popover="These are the challenge's tasks. As users participate, they will change color and gain graphs to show you the overall progress of the group.", popover-trigger='mouseenter', popover-placement='right')
   habitrpg-tasks(obj='challenge', main=false)
   .accordion(ng-if='challenge.members')
     .accordion-group
