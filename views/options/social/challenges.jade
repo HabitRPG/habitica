@@ -40,7 +40,8 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
 
 script(type='text/ng-template', id='partials/options.social.challenges.html')
   .row-fluid
-    .span2.well
+    .span2.well#challenges-filters
+      h3 Filter:
       h4 Groups
       label.checkbox(ng-repeat='group in groups')
         input(type='checkbox', ng-model='search.group[group._id]')
@@ -57,7 +58,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
         | Either
     .span10
       // Creation form
-      button.btn.btn-success(ng-click='create()', ng-hide='newChallenge') Create Challenge
+      button.btn.btn-success#create-challenge-btn(ng-click='create()', ng-hide='newChallenge') Create Challenge
       .create-challenge-from.well(ng-if='newChallenge')
         form(ng-submit='save(newChallenge)')
           div
@@ -107,7 +108,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
               a.btn.btn-small.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
                 i.icon-ok
                 | Join
-          a.accordion-toggle(ui-sref='options.social.challenges.detail({cid:challenge._id})') {{challenge.name}}
+          a.accordion-toggle(ng-click='toggle(challenge._id)') {{challenge.name}}
         .accordion-body(ng-class='{collapse: !$stateParams.cid == challenge._id}')
           .accordion-inner(ng-if='$stateParams.cid == challenge._id')
             div(ui-view)

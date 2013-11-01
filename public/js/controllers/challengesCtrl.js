@@ -67,6 +67,7 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
       challenge.$save(function(_challenge){
         if (isNew) {
           Notification.text('Challenge Created');
+          $state.go('options.social.challenges.detail', {cid: _challenge._id});
           $scope.discard();
           $scope.challenges = Challenges.Challenge.query();
           User.sync();
@@ -127,6 +128,14 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
         content: html
       }).popover('show');
 
+    }
+
+    $scope.toggle = function(id){
+      if($state.includes('options.social.challenges.detail', {cid: id})){
+        $state.go('options.social.challenges')
+      }else{
+        $state.go('options.social.challenges.detail', {cid: id});
+      }
     }
 
     //------------------------------------------------------------
