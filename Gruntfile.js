@@ -82,7 +82,7 @@ module.exports = function(grunt) {
             'public/bower_components/angular/angular.min.js',
             'public/bower_components/angular-resource/angular-resource.min.js',
             'public/bower_components/bootstrap/docs/assets/js/bootstrap.min.js',
-
+            'public/bower_components/angular-loading-bar/build/loading-bar.js',
             'public/js/static.js',
             'public/js/services/userServices.js',
             'public/js/controllers/authCtrl.js'
