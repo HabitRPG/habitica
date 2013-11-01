@@ -183,9 +183,9 @@ var UserSchema = new Schema({
   },
   tags: [
     {
-      // FIXME use refs?
       id: String,
-      name: String
+      name: String,
+      challenge: String
     }
   ],
 

@@ -35,19 +35,14 @@ var syncChalToUser = function(chal, user) {
       challenge: true
     });
   }
-  tags = {};
-  tags[chal._id] = true;
 
   // Sync new tasks and updated tasks
   _.each(chal.tasks, function(task){
-    var type = task.type;
-    _.defaults(task, {tags: tags, challenge:{}});
-    _.defaults(task.challenge, {id:chal._id});
-    if (user.tasks[task.id]) {
-      _.merge(user.tasks[task.id], keepAttrs(task));
-    } else {
-      user[type+'s'].push(task);
-    }
+    var userTask = user.tasks[task.id] || (user[task.type+'s'].push(task), user.tasks[task.id]); //user[task.type+'s'][user[task.type+'s'].length-1]
+    userTask.challenge = {id:chal._id};
+    userTask.tags = userTask.tags || {};
+    userTask.tags[chal._id] = true;
+    _.merge(userTask, keepAttrs(task));
   })
 
   // Flag deleted tasks as "broken"
@@ -122,7 +117,6 @@ api.create = function(req, res){
   var waterfall = [];
   if (+req.body.prize < 0) return res.json(401, {err: 'Challenge prize must be >= 0'});
   if (+req.body.prize > 0) {
-    var net = 0;
     waterfall = [
       function(cb){
         Group.findById(req.body.group).select('balance leader').exec(cb);
@@ -133,7 +127,7 @@ api.create = function(req, res){
         if (req.body.prize > (user.balance*4 + groupBalance*4))
           return cb("Challenge.prize > (your gems + group balance). Purchase more gems or lower prize amount.s")
 
-        net = req.body.prize/4; // I really should have stored user.balance as gems rather than dollars... stupid...
+        var net = req.body.prize/4; // I really should have stored user.balance as gems rather than dollars... stupid...
 
         // user is group leader, and group has balance. Subtract from that first, then take the rest from user
         if (groupBalance > 0) {
@@ -143,23 +137,31 @@ api.create = function(req, res){
             group.balance = 0;
           }
         }
-        group.save(cb)
-      },
-      function(group, numRows, cb) {
         user.balance -= net;
-        user.save(cb);
+        group.save(cb)
       }
     ];
   }
-  async.waterfall(waterfall, function(err){
-    if (err) return res.json(401, {err:err});
-    var challenge = new Challenge(req.body); // FIXME sanitize
-    challenge.members.push(user._id);
-    challenge.save(function(err, saved){
-      if (err) return res.json(500, {err:err});
-      Group.update({_id:saved.group}, {$addToSet:{challenges:saved._id}}) // fixme error-check, and also better to do in middleware?
-      res.json(saved);
-    });
+  waterfall = waterfall.concat([
+    function() { // if we're dealing with prize above, arguemnts will be `group, numRows, cb` - else `cb`
+      var cb = arguments[arguments.length-1];
+      var challenge = new Challenge(req.body); // FIXME sanitize
+      challenge.members.push(user._id);
+      challenge.save(cb);
+    },
+    function(chal, num, cb) {
+      // Auto-join creator to challenge (see members.push above)
+      syncChalToUser(chal, user);
+      user.save(function(err){
+        if (err) return cb(err);
+        cb(null, chal);
+      });
+    }
+  ]);
+  async.waterfall(waterfall, function(err, chal){
+    if (err) return res.json(500, {err:err});
+    Group.update({_id:chal.group}, {$addToSet:{challenges:chal._id}}) // fixme error-check, and also better to do in middleware?
+    res.json(chal);
   });
 }
 
@@ -243,6 +245,7 @@ function closeChal(cid, broken, cb) {
     function(users, cb2) {
       var parallel = [];
       _.each(users, function(user){
+        _.find(user.tags, {id:cid}).challenge = undefined;
         _.each(user.tasks, function(task){
           if (task.challenge && task.challenge.id == removed._id) {
             _.merge(task.challenge, broken);

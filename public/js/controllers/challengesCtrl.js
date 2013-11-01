@@ -68,6 +68,7 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
           Notification.text('Challenge Created');
           $scope.discard();
           $scope.challenges = Challenges.Challenge.query();
+          User.sync();
         } else {
           // TODO figure out a more elegant way about this
           //challenge._editing = false;

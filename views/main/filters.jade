@@ -11,7 +11,9 @@
         span.add-on.tag-editing-pill
           a.pull-right(ng-click='delete(tag,$index)')
             i.icon-trash
-      a(ng-hide='_editing && !tag.challenge', data-tag-id='{{tag.id}}', ng-click='toggleFilter(tag)') {{tag.name}}
+      a(ng-hide='_editing', ng-click='toggleFilter(tag)')
+        i.icon-bullhorn(ng-if="tag.challenge")
+        | {{tag.name}}
     li
       form.form-inline(ng-show='_editing', ng-submit='createTag(_newTag)')
         .input-append.tag-editing
