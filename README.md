@@ -20,6 +20,9 @@ Shared resources useful for the multiple HabitRPG repositories, that way all the
   * `algos.score(user, task, direction)`, etc
   * TODO document all the functions
 
+##Tests
+* `npm install`
+
 ##CSS
 Shared CSS between the website and the mobile app is a fuzzy area. Spritesheets definitely go in habitrpg-shared (since mobile
 uses them too). Other things, like customizer buttons, *may* want to go here? As you find sharable components, (1) move them
