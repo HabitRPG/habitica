@@ -7989,13 +7989,15 @@ var process=require("__browserify_process");(function() {
   module.exports = {
     uuid: uuid,
     taskDefaults: function(task, filters) {
-      var defaults, self;
+      var defaults, self, _uuid;
       if (filters == null) {
         filters = {};
       }
       self = this;
+      _uuid = self.uuid();
       defaults = {
-        id: self.uuid(),
+        id: _uuid,
+        _id: _uuid,
         text: '',
         up: true,
         down: true,
