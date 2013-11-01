@@ -147,6 +147,7 @@ api.scoreTask = function(req, res, next) {
  * Get all tasks
  */
 api.getTasks = function(req, res, next) {
+  var user = res.locals.user;
   if (req.query.type) {
     return res.json(user[req.query.type+'s']);
   } else {
