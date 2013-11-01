@@ -117,6 +117,7 @@ api.create = function(req, res){
   var user = res.locals.user;
   var waterfall = [];
   if (+req.body.prize < 0) return res.json(401, {err: 'Challenge prize must be >= 0'});
+  if (req.body.group=='habitrpg' && +req.body.prize < 1) return res.json(401, {err: 'Prize must be at least 1 Gem for public challenges.'});
   if (+req.body.prize > 0) {
     waterfall = [
       function(cb){

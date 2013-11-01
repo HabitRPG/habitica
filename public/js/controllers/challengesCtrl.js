@@ -32,6 +32,7 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
       if (!gid) return;
       var group = _.find($scope.groups, {_id:gid});
       $scope.maxPrize = User.user.balance*4 + ((group && group.balance && group.leader==User.user._id) ? group.balance*4 : 0);
+      if (gid == 'habitrpg') $scope.newChallenge.prize = 1;
     })
 
 

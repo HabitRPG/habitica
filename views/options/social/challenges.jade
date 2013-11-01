@@ -78,9 +78,11 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
             br
 
             .option-medium
-              input.option-content(type='number', min="0", max="{{maxPrize}}", ng-model='newChallenge.prize', placeholder='Prize')
+              input.option-content(type='number', min="{{newChallenge.group=='habitrpg' ? 1 : 0}}", max="{{maxPrize}}", ng-model='newChallenge.prize', placeholder='Prize')
               span.input-suffix.Pet_Currency_Gem1x.inline-gems
               i.icon-question-sign(popover="If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.", popover-trigger='mouseenter', popover-placement='right')
+              span(ng-show='newChallenge.group=="habitrpg"').
+                &nbsp;Minimum 1 Gem for <strong>public challenges</strong> (helps prevent spam, it really does).
 
         habitrpg-tasks(main=false, obj='newChallenge')
 
