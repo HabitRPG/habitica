@@ -41,6 +41,7 @@ li(ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.
 
     // Habits
     span(ng-if='task.type=="habit"')
+      // score() is overridden in challengesCtrl to do nothing
       a.task-action-btn(ng-if='task.up', ng-click='score(task,"up")') +
       a.task-action-btn(ng-if='task.down', ng-click='score(task,"down")') -
 
@@ -52,7 +53,8 @@ li(ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.
 
     // Daily & Todos
     span.task-checker.action-yesno(ng-if='task.type=="daily" || task.type=="todo"')
-      input.visuallyhidden.focusable(id='box-{{obj._id}}_{{task.id}}', type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
+      input.visuallyhidden.focusable(ng-if='$state.includes("tasks")',  id='box-{{obj._id}}_{{task.id}}', type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
+      input.visuallyhidden.focusable(ng-if='!$state.includes("tasks")', id='box-{{obj._id}}_{{task.id}}', type='checkbox')
       label(for='box-{{obj._id}}_{{task.id}}')
   // main content
   p.task-text
