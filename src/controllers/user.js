@@ -70,6 +70,7 @@ function deleteTask(user, task) {
 
 function addTask(user, task) {
   task = helpers.taskDefaults(task);
+  task._id = task.id;
   user[task.type+'s'].unshift(task);
   return task;
 }
