@@ -8,6 +8,7 @@ var Group = require('./group').model;
 var ChallengeSchema = new Schema({
   _id: {type: String, 'default': helpers.uuid},
   name: String,
+  shortName: String,
   description: String,
   habits: [TaskSchema],
   dailys: [TaskSchema],

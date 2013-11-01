@@ -19,19 +19,20 @@ var api = module.exports;
  */
 var syncChalToUser = function(chal, user) {
   if (!chal || !user) return;
+  chal.shortName = chal.shortName || chal.name;
 
   // Sync tags
   var tags = user.tags || [];
   var i = _.findIndex(tags, {id: chal._id})
   if (~i) {
-    if (tags[i].name !== chal.name) {
+    if (tags[i].name !== chal.shortName) {
       // update the name - it's been changed since
-      user.tags[i].name = chal.name;
+      user.tags[i].name = chal.shortName;
     }
   } else {
     user.tags.push({
       id: chal._id,
-      name: chal.name,
+      name: chal.shortName,
       challenge: true
     });
   }
