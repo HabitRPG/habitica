@@ -69,10 +69,9 @@ function deleteTask(user, task) {
 };
 
 function addTask(user, task) {
-  var type = task.type || 'habit'
-  user[type+'s'].unshift(task);
-  // FIXME will likely have to use taskSchema instead, so we can populate the defaults, add the _id, and return the added task
-  return user[task.type+'s'][0];
+  task = helpers.taskDefaults(task);
+  user[task.type+'s'].unshift(task);
+  return task;
 }
 
 /*
@@ -109,11 +108,10 @@ api.scoreTask = function(req, res, next) {
     return res.json(500, {err: ":direction must be 'up' or 'down'"});
   }
   // If exists already, score it
-  var existing;
-  if (existing = user.tasks[id]) {
+  if (task = user.tasks[id]) {
     // Set completed if type is daily or todo and task exists
-    if (existing.type === 'daily' || existing.type === 'todo') {
-      existing.completed = direction === 'up';
+    if (task.type === 'daily' || task.type === 'todo') {
+      task.completed = direction === 'up';
     }
   } else {
     // If it doesn't exist, this is likely a 3rd party up/down - create a new one, then score it
@@ -130,9 +128,8 @@ api.scoreTask = function(req, res, next) {
     if (task.type === 'daily' || task.type === 'todo') {
       task.completed = direction === 'up';
     }
-    addTask(user, task);
+    task = addTask(user, task);
   }
-  task = user.tasks[id];
   var delta = algos.score(user, task, direction);
   //user.markModified('flags');
   user.save(function(err, saved) {

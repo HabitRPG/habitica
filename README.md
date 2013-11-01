@@ -4,8 +4,8 @@ HabitRPG
 [HabitRPG](https://habitrpg.com) is an open source habit building program which treats your life like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
 
 Built using Angular, Express, Mongoose, Jade, Stylus, Grunt and Bower.
-     
-# Set up HabitRPG locally 
+
+# Set up HabitRPG locally
 
 **Windows** users should skip this section and read the one below with Windows-specific steps.
 
@@ -35,7 +35,7 @@ If MongoDB starts up successfully, you should see the following at the end of th
 ```Sun Sep 01 18:10:21.233 [initandlisten] waiting for connections on port 27017
 Sun Sep 01 18:10:21.233 [websvr] admin web console waiting for connections on po
 rt 28017```
-  
+
 1.  Install  Node.js (includes npm).  Steps:
   1.  Download and run the latest Node.js msi installation file from  http://nodejs.org/download/
 1. Install [Git](https://help.github.com/articles/set-up-git).
@@ -45,7 +45,7 @@ rt 28017```
 1. Install the **npm** packages:
 `npm install`
 Read below for possible error message.
-  
+
 You might receive the following error during the 'npm install' command:
 > habitrpg@0.0.0-152 postinstall C:\Users\022498\Projects\habitrpg
 > ./node_modules/bower/bin/bower install -f
