@@ -55,7 +55,7 @@
     "npm": "1.2.x"
   },
   "scripts": {
-    "test": "grunt karma",
+    "test": "grunt karma:continuous",
     "start": "grunt run:dev",
     "postinstall": "./node_modules/bower/bin/bower install -f"
   },
