@@ -187,7 +187,6 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
 #  {task} task you want to score
 #  {direction} 'up' or 'down'
 obj.score = (user, task, direction, options={}) ->
-  return unless task
 
   # This is for setting one-time temporary flags, such as streakBonus or itemDropped. Useful for notifying
   # the API consumer, then cleared afterwards
