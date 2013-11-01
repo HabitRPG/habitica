@@ -21,22 +21,16 @@ angular.module('groupServices', ['ngResource']).
 
         // The user may not visit the public guilds, personal guilds, and tavern pages. So
         // we defer loading them to the html until they've clicked the tabs
-        var partyQ = $q.defer(),
-          guildsQ = $q.defer(),
-          publicQ = $q.defer(),
-          tavernQ = $q.defer();
+        var partyQ = $q.defer();
 
         var groups = {
-          party: partyQ.promise,
-          guilds: guildsQ.promise,
-          public: publicQ.promise,
-          tavern: tavernQ.promise
+          party: partyQ.promise
         };
 
         // But we don't defer triggering Party, since we always need it for the header if nothing else
         Group.get({gid:'party'}, function(party){
           partyQ.resolve(party);
-        })
+        });
 
         return {
 
@@ -44,18 +38,18 @@ angular.module('groupServices', ['ngResource']).
           fetchGuilds: _.once(function(){
             //TODO combine these as {type:'guilds,public'} and create a $filter() to separate them
             Group.query({type:'guilds'}, function(_groups){
-              guildsQ.resolve(_groups);
+              groups.guilds = _groups;
               //Members.populate(_groups);
             });
             Group.query({type:'public'}, function(_groups){
-              publicQ.resolve(_groups);
+              groups.public = _groups;
               //Members.populate(_groups);
             });
           }),
 
           fetchTavern: _.once(function(){
             Group.get({gid:'habitrpg'}, function(_group){
-              tavernQ.resolve(_group);
+              groups.tavern = _group;
             })
           }),
 

@@ -144,13 +144,19 @@ api.create = function(req, res, next) {
       if(err) return res.json(500,{err:err});
       group.save(function(err, saved){
         if (err) return res.json(500,{err:err});
-        return res.json(saved);
+        saved.populate('members', partyFields, function(err, populated){
+          if (err) return res.json(500,{err:err});
+          return res.json(populated);
+        });
       });
     });    
   }else{
     group.save(function(err, saved){
       if (err) return res.json(500,{err:err});
-      return res.json(saved);
+      saved.populate('members', partyFields, function(err, populated){
+        if (err) return res.json(500,{err:err});
+        return res.json(populated);
+      });
     });
   }
 }
