@@ -98,6 +98,7 @@ api.get = function(req, res) {
     .populate('members', 'profile.name habits dailys rewards todos')
     .exec(function(err, challenge){
       if(err) return res.json(500, {err:err});
+      if (!challenge) return res.json(404, {err: 'Challenge ' + req.params.cid + ' not found'});
       // slim down the return members' tasks to only the ones in the challenge
       _.each(challenge.members, function(member){
         if (member._id == user._id)
