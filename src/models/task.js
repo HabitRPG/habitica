@@ -36,6 +36,9 @@ var TaskSchema = new Schema({
   minimize: 'false'
 });
 
+/**
+ * FIXME why is this function is never called? Instead we're doing a _.each(obj.tasks) in challenges & user
+ */
 TaskSchema.methods.toJSON = function() {
   var doc = this.toObject();
   doc.id = doc._id;

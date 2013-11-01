@@ -35,6 +35,8 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
       if (gid == 'habitrpg') $scope.newChallenge.prize = 1;
     })
 
+    // override score() for tasks listed in challenges-editing pages, so that nothing happens
+    $scope.score = function(){}
 
     //------------------------------------------------------------
     // Challenge
