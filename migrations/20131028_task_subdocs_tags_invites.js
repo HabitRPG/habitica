@@ -68,11 +68,36 @@ db.users.find().forEach(function(user){
     _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
       // we use _.transform instead of a simple _.where in order to maintain sort-order
       user[type + "s"] = _.reduce(user[type + "Ids"], function(m, tid) {
-        var task = user.tasks[tid];
+        var task = user.tasks[tid],
+          newTask = {};
         if (!task) return m; // remove null tasks
-        //if (!user.tasks[tid].tags) user.tasks[tid].tags = {}; // shouldn't be necessary, since TaskSchema.tags has default {}
-        task._id = task.id;
-        m.push(task);
+
+        // Transform to proper schema
+        newTask._id = newTask.id = task.id;
+        newTask.text = (_.isString(task.text)) ? task.text : '';
+        if (_.isString(task.notes)) newTask.notes = task.notes;
+        newTask.tags = (_.isObject(task.tags)) ? task.tags : {};
+        newTask.type = (_.isString(task.type)) ? task.type : 'habit';
+        newTask.value = (_.isNumber(task.value)) ? task.value : 0;
+        newTask.priority = (_.isString(task.priority)) ? task.priority : '!';
+        switch (newTask.type) {
+          case 'habit':
+            newTask.up = (_.isBoolean(task.up)) ? task.up : true;
+            newTask.down = (_.isBoolean(task.down)) ? task.down : true;
+            newTask.history = (_.isArray(task.history)) ? task.history : [];
+            break;
+          case 'daily':
+            newTask.repeat = (_.isObject(task.repeat)) ? task.repeat : {m:1, t:1, w:1, th:1, f:1, s:1, su:1};
+            newTask.streak = (_.isNumber(task.streak)) ? task.streak : 0;
+            newTask.completed = (_.isBoolean(task.completed)) ? task.completed : false;
+            newTask.history = (_.isArray(task.history)) ? task.history : [];
+            break;
+          case 'todo':
+            newTask.completed = (_.isBoolean(task.completed)) ? task.completed : false;
+            break;
+        }
+
+        m.push(newTask);
         return m;
       }, []);
       delete user[type + 'Ids'];

@@ -13,8 +13,8 @@ var _ = require('lodash');
 // -----------
 
 var TaskSchema = new Schema({
-  history: [{date:Date, value:Number}],
   _id:{type: String,'default': helpers.uuid},
+  history: [{date:Date, value:Number}],
   text: String,
   notes: {type: String, 'default': ''},
   tags: {type: Schema.Types.Mixed, 'default': {}}, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
