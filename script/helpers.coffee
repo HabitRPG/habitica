@@ -57,8 +57,10 @@ module.exports =
 
   taskDefaults: (task, filters={}) ->
     self = @
+    _uuid = self.uuid()
     defaults =
-      id: self.uuid()
+      id: _uuid
+      _id: _uuid
       text: ''
       up: true
       down: true
