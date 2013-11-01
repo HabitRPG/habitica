@@ -52,8 +52,8 @@ li(ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.
 
     // Daily & Todos
     span.task-checker.action-yesno(ng-if='task.type=="daily" || task.type=="todo"')
-      input.visuallyhidden.focusable(id='box-{{task.id}}', type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
-      label(for='box-{{task.id}}')
+      input.visuallyhidden.focusable(id='box-{{obj._id}}_{{task.id}}', type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
+      label(for='box-{{obj._id}}_{{task.id}}')
   // main content
   p.task-text
     | {{task.text}}
@@ -102,11 +102,11 @@ li(ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.
       fieldset.option-group(ng-if='task.type=="habit" && !task.challenge.id')
         legend.option-title Direction/Actions
         span.task-checker.action-plusminus.select-toggle
-          input.visuallyhidden.focusable(id='{{task.id}}-option-plus', type='checkbox', ng-model='task.up')
-          label(for='{{task.id}}-option-plus')
+          input.visuallyhidden.focusable(id='{{obj._id}}_{{task.id}}-option-plus', type='checkbox', ng-model='task.up')
+          label(for='{{obj._id}}_{{task.id}}-option-plus')
         span.task-checker.action-plusminus.select-toggle
-          input.visuallyhidden.focusable(id='{{task.id}}-option-minus', type='checkbox', ng-model='task.down')
-          label(for='{{task.id}}-option-minus')
+          input.visuallyhidden.focusable(id='{{obj._id}}_{{task.id}}-option-minus', type='checkbox', ng-model='task.down')
+          label(for='{{obj._id}}_{{task.id}}-option-minus')
 
       // if Daily, calendar
       // FIXME display, but disable for challenge tasks
@@ -148,7 +148,7 @@ li(ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.
             a.priority-multiplier-help(href='https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17', target='_blank', popover-title='How difficult is this task?', popover-trigger='mouseenter', popover="This multiplies its point value. Use sparingly, rely instead on our organic value-adjustment algorithms. But some tasks are grossly more valuable (Write Thesis vs Floss Teeth). Click for more info.")
               i.icon-question-sign
             | Difficulty
-          .task-controls.tile-group.priority-multiplier(data-id='{{task.id}}')
+          .task-controls.tile-group.priority-multiplier
             button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!" || !task.priority}', ng-click='task.priority="!"') Easy
             button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!!"}', ng-click='task.priority="!!"') Medium
             button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!!!"}', ng-click='task.priority="!!!"') Hard
