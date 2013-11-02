@@ -7,8 +7,14 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.cl
     a(ng-click='cancelClosing(closingChal)') cancel
 
 script(type='text/ng-template', id='partials/options.social.challenges.detail.member.html')
-  h4 {{member.profile.name}}
-  habitrpg-tasks(main=false)
+  .modal.wide-modal
+    .modal-header
+        button.close(type='button', ng-click='$state.go("^")', aria-hidden='true') ×
+        h3 {{obj.profile.name}}
+      .modal-body
+        habitrpg-tasks(main=false)
+      .modal-footer
+        a.btn(ng-click='$state.go("^")') Close
 
 script(type='text/ng-template', id='partials/options.social.challenges.detail.html')
   // Edit button
@@ -35,22 +41,20 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
 
   // Member List
   div(ng-if='challenge.members.length > 0')
-    h3 Participants
-    small.
-      (stats coming soon, see <a href='https://github.com/HabitRPG/habitrpg/issues/1716' target='_blank'>this issue</a>.)
-    table.table
-      tr(ng-repeat='member in challenge.members')
-        td {{member.profile.name}}
+    h3 How's Everyone Doing?
+    menu
+      button.customize-option(ng-repeat='member in challenge.members', ng-click='toggleMember(challenge._id, member._id)') {{member.profile.name}}
+  div(ui-view)
 
-  // FIXME, get this working - see https://github.com/HabitRPG/habitrpg/issues/1716
-  //-div(ng-if='challenge.members')
+  // Accordion version if we choose that instead
+  //- div(ng-if='challenge.members')
     h4 How's Everyone Doing?
     .accordion-group(ng-repeat='member in challenge.members')
       .accordion-heading
         a.accordion-toggle(ng-click='toggleMember(challenge._id, member._id)') {{member.profile.name}}
       .accordion-body(ng-class='{collapse: $stateParams.uid != member._id}')
         .accordion-inner(ng-if='$stateParams.uid == member._id')
-          div(ng-view)
+          div(ui-view)
 
 script(type='text/ng-template', id='partials/options.social.challenges.html')
   .row-fluid

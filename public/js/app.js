@@ -5,6 +5,10 @@ window.habitrpg = angular.module('habitrpg',
      'sharedServices', 'authServices', 'notificationServices', 'guideServices',
      'ui.bootstrap', 'ui.keypress', 'ui.router', 'chieffancypants.loadingBar'])
 
+  // @see https://github.com/angular-ui/ui-router/issues/110 and https://github.com/HabitRPG/habitrpg/issues/1705
+  // temporary hack until they have a better solution
+  .value('$anchorScroll', angular.noop)
+
   .constant("API_URL", "")
   .constant("STORAGE_USER_ID", 'habitrpg-user')
   .constant("STORAGE_SETTINGS_ID", 'habit-mobile-settings')
@@ -115,7 +119,6 @@ window.habitrpg = angular.module('habitrpg',
           templateUrl: 'partials/options.social.challenges.detail.member.html',
           controller: ['$scope', 'Challenges', '$stateParams',
             function($scope, Challenges, $stateParams){
-              alert("Why is this controller not being instantiated?");
               $scope.obj = Challenges.Challenge.getMember({cid:$stateParams.cid, uid:$stateParams.uid}, function(){
                 $scope.obj._locked = true;
               });
