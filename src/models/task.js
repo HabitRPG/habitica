@@ -12,9 +12,9 @@ var _ = require('lodash');
 // Task Schema
 // -----------
 
-var TaskSchema = new Schema({
+var TaskSchema = {
   _id:{type: String,'default': helpers.uuid},
-  history: [{date:Date, value:Number}],
+  history: Array, // [{date:Date, value:Number}], // this causes major performance problems
   text: String,
   notes: {type: String, 'default': ''},
   tags: {type: Schema.Types.Mixed, 'default': {}}, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
@@ -32,21 +32,6 @@ var TaskSchema = new Schema({
     winner: String // user.profile.name
     // group: {type: 'Strign', ref: 'Group'} // if we restore this, rename `id` above to `challenge`
   }
-}, {
-  minimize: 'false'
-});
-
-/**
- * FIXME why is this function is never called? Instead we're doing a _.each(obj.tasks) in challenges & user
- */
-TaskSchema.methods.toJSON = function() {
-  var doc = this.toObject();
-  doc.id = doc._id;
-  return doc;
-}
-TaskSchema.virtual('id').get(function(){
-  return this._id;
-})
+};
 
 module.exports.schema = TaskSchema;
-module.exports.model = mongoose.model("Task", TaskSchema);

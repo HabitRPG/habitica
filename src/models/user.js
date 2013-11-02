@@ -83,8 +83,8 @@ var UserSchema = new Schema({
     rest: {type: Boolean, 'default': false} // fixme - change to preferences.resting once we're off derby
   },
   history: {
-    exp: [{date: Date, value: Number}],
-    todos: [{data: Date, value: Number}]
+    exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
+    todos: Array //[{data: Date, value: Number}] // big peformance issues if these are defined
   },
 
   /* FIXME remove?*/
@@ -209,10 +209,9 @@ UserSchema.methods.toJSON = function() {
   doc.filters = {};
   doc._tmp = this._tmp; // be sure to send down drop notifs
 
-  // TODO why isnt' this happening automatically given the TaskSchema.methods.toJSON above?
   _.each(['habits','dailys','todos','rewards'], function(type){
     _.each(doc[type],function(task){
-      task.id = task._id;
+      task.id = task.id || task._id;
     })
   })
 

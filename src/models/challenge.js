@@ -41,7 +41,7 @@ ChallengeSchema.methods.toJSON = function(){
   doc._isMember = this._isMember;
   _.each(['habits','dailys','todos','rewards'], function(type){
     _.each(doc[type],function(task){
-      task.id = task._id;
+      task.id = task.id || task._id;
     })
   })
   return doc;
