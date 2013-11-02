@@ -243,7 +243,7 @@ api.deleteChatMessage = function(req, res, next){
     return res.json(401, {err: "Not authorized to delete this message!"})
   }
 
-  group.chat = _.without(group.chat, message);
+  _.pull(group.chat, message);
   
   group.save(function(err, data){
     if(err) return res.json(500, {err: err});

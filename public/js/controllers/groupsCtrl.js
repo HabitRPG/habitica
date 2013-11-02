@@ -47,9 +47,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         if(yes){
           group.$removeMember({uuid: member._id});
           if(isMember){
-            group.members = _.without(group.members, member);
+            _.pull(group.members, member);
           }else{
-            group.invites = _.without(group.invites, member);
+            _.pull(group.invites, member);
           }
         }
       }
@@ -169,7 +169,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           // remove user from group members if guild is public so that he can re-join it immediately
           if(group.privacy == 'public'){
             // slow when a lot of members...? probably yes
-            group.members = _.without(group.members, User.user._id);
+            _.remove(group.members, {_id: User.user._id});
             group.memberCount--;
           }
           $state.go('options.social.guilds');
