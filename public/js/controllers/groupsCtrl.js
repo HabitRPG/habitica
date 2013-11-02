@@ -137,6 +137,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
         if (confirm("Create Guild for 4 Gems?")) {
           group.$save(function(saved){
+            User.user.balance--;
             $scope.groups.guilds.push(saved);
             if(saved.privacy === 'public') $scope.groups.public.push(saved);
             $state.go('options.social.guilds.detail', {gid: saved._id});
