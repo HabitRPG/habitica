@@ -17,7 +17,7 @@ script(type='text/ng-template', id='partials/options.social.party.html')
       a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)') Accept
       a.btn.btn-danger(ng-click='reject()') Reject
       // {/}
-    div(ng-hide='user.invitations.party', ng-controller='PartyCtrl')
+    div(ng-hide='user.invitations.party')
       h2 Create A Party
       p
         | You are not in a party. You can either create one and invite friends, or if you want to join an existing party, have them enter:

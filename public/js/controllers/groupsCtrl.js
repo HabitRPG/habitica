@@ -140,7 +140,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
         if (confirm("Create Guild for 4 Gems?")) {
           group.$save(function(saved){
-            location.href =  '/#/options/groups/guilds/' + saved._id;
+            $scope.groups.guilds.push(saved);
+            if(saved.privacy === 'public') $scope.groups.public.push(saved);
+            $state.go('options.social.guilds.detail', {gid: saved._id});
           });
         }
       }
@@ -153,9 +155,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           group = new Groups.Group({_id:group.id});
         }
 
-        group.$join(function(){
-          // use https://github.com/angular-ui/ui-router/issues/76 when it's available
-          location.reload();
+        group.$join(function(joined){
+          var i = _.findIndex(User.user.invitations.guilds, {id:joined._id});
+          if (~i) User.user.invitations.guilds.splice(i,1);
+          $scope.groups.guilds.push(joined);
+          $state.go('options.social.guilds.detail', {gid: joined._id});
         })
       }
 
@@ -163,9 +167,15 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         if (confirm("Are you sure you want to leave this guild?") !== true) {
           return;
         }
-        group.$leave(function(){
-          // use https://github.com/angular-ui/ui-router/issues/76 when it's available
-          location.reload();
+        group.$leave(function(group){
+          $scope.groups.guilds.splice(_.indexOf($scope.groups.guilds, group), 1);
+          // remove user from group members if guild is public so that he can re-join it immediately
+          if(group.privacy == 'public'){
+            // slow when a lot of members...? probably yes
+            group.members = _.without(group.members, member);
+            group.memberCount--;
+          }
+          $state.go('options.social.guilds');
         });
       }
 
@@ -179,18 +189,15 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
   ])
 
-  .controller("PartyCtrl", ['$scope', 'Groups', 'User',
-    function($scope, Groups, User) {
+  .controller("PartyCtrl", ['$scope', 'Groups', 'User', '$state',
+    function($scope, Groups, User, $state) {
       $scope.type = 'party';
       $scope.text = 'Party';
       $scope.group = Groups.groups.party;
       $scope.newGroup = new Groups.Group({type:'party', leader: User.user._id, members: [User.user._id]});
       $scope.create = function(group){
         group.$save(function(newGroup){
-          // Can't get this to work, group is correctly returned, scope updated but not view....
-          //Groups.groups.party = newGroup;
-          //$scope.group = Groups.groups.party;
-          location.reload();
+          $scope.group = newGroup;
         });
       }
 
@@ -198,10 +205,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         var group = new Groups.Group({_id: party.id, name: party.name});
         // there a better way to access GroupsCtrl.groups.party?
         group.$join(function(groupJoined){
-          // Can't get this to work, group is correctly returned, scope updated but not view....
-          //Groups.groups.party = groupJoined;
-          //$scope.group = Groups.groups.party;
-          location.reload();
+          $scope.group = groupJoined;
         });
       }
 
@@ -210,7 +214,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           return;
         }
         group.$leave(function(){
-          Groups.groups.party = undefined;
+          $scope.group = undefined;
         });
       }
 
