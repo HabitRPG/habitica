@@ -40,6 +40,7 @@ api.marketBuy = function(req, res, next){
   })
 }
 
+
 /*
   ------------------------------------------------------------------------
   Tasks
@@ -64,15 +65,12 @@ api.verifyTaskExists = function(req, res, next) {
 };
 
 function deleteTask(user, task) {
-  var i = _.findIndex(user[task.type+'s'], {id:task.id});
-  if (~i) {
-    user[task.type+'s'].splice(i, 1)
-    //user.markModified(task.type+'s')
-  }
+  user[task.type+'s'].id(task.id).remove();
 };
 
 function addTask(user, task) {
   task = helpers.taskDefaults(task);
+  task._id = task.id;
   user[task.type+'s'].unshift(task);
   return task;
 }
