@@ -105,28 +105,19 @@ api.get = function(req, res) {
   var gid = req.params.gid;
 
   // This will be called for the header, we need extra members' details than usuals
-  if (gid == 'party') {
-    Group.findOne({type: 'party', members: {'$in': [user._id]}})
-      .populate('members', partyFields)
-      .populate('invites', nameFields)
-      .populate('challenges', challengeFields)
-      .exec(function(err, group){
-        if (err) return res.json(500,{err:err});
-        res.json(group);
-      });
-  } else {
-    Group.findById(gid)
-      .populate('members', partyFields)
-      .populate('invites', nameFields)
-      .populate('challenges', challengeFields)
-      .exec(function(err, group){
-        if ( (group.type == 'guild' && group.privacy == 'private') || group.type == 'party') {
-          if(!_.find(group.members, {_id: user._id}))
-            return res.json(401, {err: "You don't have access to this group"});
-        }
-        res.json(group);
-      });
-  }
+  var q = (gid == 'party') ?
+    Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members', partyFields) :
+    Group.findById(gid).populate({path: 'members', select: nameFields, options: {limit: 15} });
+
+  q.populate('invites', nameFields)
+    .populate('challenges', challengeFields)
+    .exec(function(err, group){
+      if ( (group.type == 'guild' && group.privacy == 'private') || (group.type == 'party' && gid != 'party')) {
+        if(!_.find(group.members, {_id: user._id}))
+          return res.json(401, {err: "You don't have access to this group"});
+      }
+      res.json(group);
+    });
 };
 
 
