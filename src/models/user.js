@@ -8,7 +8,6 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var helpers = require('habitrpg-shared/script/helpers');
 var _ = require('lodash');
-var TaskSchema = require('./task').schema;
 
 // User Schema
 // -----------
@@ -191,10 +190,10 @@ var UserSchema = new Schema({
 
   challenges: [{type: 'String', ref:'Challenge'}],
 
-  habits: [TaskSchema],
-  dailys: [TaskSchema],
-  todos: [TaskSchema],
-  rewards: [TaskSchema],
+  habits: [Schema.Types.Mixed],
+  dailys: [Schema.Types.Mixed],
+  todos: [Schema.Types.Mixed],
+  rewards: [Schema.Types.Mixed],
 
 }, {
   strict: true,
@@ -209,12 +208,11 @@ UserSchema.methods.toJSON = function() {
   doc.filters = {};
   doc._tmp = this._tmp; // be sure to send down drop notifs
 
-  // TODO why isnt' this happening automatically given the TaskSchema.methods.toJSON above?
-  _.each(['habits','dailys','todos','rewards'], function(type){
-    _.each(doc[type],function(task){
-      task.id = task._id;
-    })
-  })
+//  _.each(['habits','dailys','todos','rewards'], function(type){
+//    _.each(doc[type],function(task){
+//      task.id = task._id || task.id;
+//    })
+//  })
 
   return doc;
 };
@@ -229,7 +227,16 @@ UserSchema.virtual('tasks').get(function () {
  // Custom setter/getter virtuals?
 
 UserSchema.pre('save', function(next) {
-  //this.markModified('tasks');
+  // I finally figured out when markModified() is required - when using Schema.Type.Mixed or Array. Let's say you
+  // have `tasks: [{text:String, notes:String}]`. Because it's a defined schema, Mongoose can track attribute changes.
+  // But if you have `tasks: [Schema.Types.Mixed]`, Mongoose can't track underlying attr changes - only top-level changes
+  // (via splice(), push/unshift(), etc). Adding a workaround here, which is very inefficient - we'll want to find
+  // each location where a task attr is modified and use `user.markModified(task.type+'s')`
+  // (@see https://github.com/HabitRPG/habitrpg/issues/1711#issuecomment-27626467)
+  this.markModified('habits');
+  this.markModified('dailys');
+  this.markModified('todos');
+  this.markModified('rewards');
 
   if (!this.profile.name) {
     var fb = this.auth.facebook;
