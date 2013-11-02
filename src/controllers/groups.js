@@ -21,7 +21,21 @@ var partyFields = 'profile preferences stats achievements party backer flags.res
 var nameFields = 'profile.name';
 var challengeFields = '_id name';
 var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} };
-
+/**
+ * For parties, we want a lot of member details so we can show their avatars in the header. For guilds, we want very
+ * limited fields - and only a sampling of the members, beacuse they can be in the thousands
+ * @param type: 'party' or otherwise
+ * @param q: the Mongoose query we're building up
+ */
+var populateQuery = function(type, q){
+  if (type == 'party')
+    q.populate('members', partyFields);
+  else
+    q.populate(guildPopulate);
+  q.populate('invites', nameFields);
+  q.populate('challenges', challengeFields);
+  return q;
+}
 
 
 api.getMember = function(req, res) {
@@ -107,14 +121,9 @@ api.get = function(req, res) {
   var user = res.locals.user;
   var gid = req.params.gid;
 
-  // This will be called for the header, we need extra members' details than usuals
-  var q = (gid == 'party') ?
-    Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members', partyFields) :
-    Group.findById(gid).populate(guildPopulate);
-
-  q.populate('invites', nameFields)
-    .populate('challenges', challengeFields)
-    .exec(function(err, group){
+  var q = (gid == 'party') ? Group.findOne({type: 'party', members: {'$in': [user._id]}}) : Group.findById(gid);
+  populateQuery(gid, q);
+  q.exec(function(err, group){
       if (!group) return res.json(404, {err: 'Group not found'});
       if ( (group.type == 'guild' && group.privacy == 'private') || (group.type == 'party' && gid != 'party')) {
         if(!_.find(group.members, {_id: user._id}))
@@ -170,8 +179,7 @@ api.update = function(req, res, next) {
   async.series([
     function(cb){group.save(cb);},
     function(cb){
-      var fields = group.type == 'party' ? partyFields : nameFields;
-      Group.findById(group._id).populate('members invites', fields).exec(cb);
+      populateQuery(group.type, Group.findById(group._id)).exec(cb);
     }
   ], function(err, results){
     if (err) return res.json(500,{err:err});
@@ -212,12 +220,11 @@ api.postChat = function(req, res, next) {
   }
 
   async.series([
-    function(cb){group.save(cb)},
     function(cb){
-      Group.findById(group._id)
-        .populate(guildPopulate)
-        .populate('invites', nameFields)
-        .exec(cb);
+      group.save(cb)
+    },
+    function(cb){
+      populateQuery(group.type, Group.findById(group._id)).exec(cb);
     }
   ], function(err, results){
     if (err) return res.json(500, {err:err});
@@ -268,12 +275,7 @@ api.join = function(req, res) {
       group.save(cb);
     },
     function(cb){
-      var q = Group.findById(group._id);
-      if (group.type == 'party')
-        q.populate('members', partyFields);
-      else
-        q.populate(guildPopulate);
-      q.populate('invites', nameFields).exec(cb);
+      populateQuery(group.type, Group.findById(group._id)).exec(cb);
     }
   ], function(err, results){
     if (err) return res.json(500,{err:err});
@@ -337,12 +339,7 @@ api.invite = function(req, res, next) {
           group.save(cb);
         },
         function(cb){
-          var q = Group.findById(group._id);
-          if (group.type == 'party')
-            q.populate('members', partyFields);
-          else
-            q.populate(guildPopulate);
-          q.populate('invites', nameFields).exec(cb);
+          populateQuery(group.type, Group.findById(group._id)).exec(cb);
         }
       ], function(err, results){
         if (err) return res.json(500,{err:err});
