@@ -20,6 +20,9 @@ var itemFields = 'items.armor items.head items.shield items.weapon items.current
 var partyFields = 'profile preferences stats achievements party backer flags.rest auth.timestamps ' + itemFields;
 var nameFields = 'profile.name';
 var challengeFields = '_id name';
+var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} };
+
+
 
 api.getMember = function(req, res) {
   User.findById(req.params.uid).select(partyFields).exec(function(err, user){
@@ -107,11 +110,12 @@ api.get = function(req, res) {
   // This will be called for the header, we need extra members' details than usuals
   var q = (gid == 'party') ?
     Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members', partyFields) :
-    Group.findById(gid).populate({path: 'members', select: nameFields, options: {limit: 15} });
+    Group.findById(gid).populate(guildPopulate);
 
   q.populate('invites', nameFields)
     .populate('challenges', challengeFields)
     .exec(function(err, group){
+      if (!group) return res.json(404, {err: 'Group not found'});
       if ( (group.type == 'guild' && group.privacy == 'private') || (group.type == 'party' && gid != 'party')) {
         if(!_.find(group.members, {_id: user._id}))
           return res.json(401, {err: "You don't have access to this group"});
@@ -135,7 +139,7 @@ api.create = function(req, res, next) {
       if(err) return res.json(500,{err:err});
       group.save(function(err, saved){
         if (err) return res.json(500,{err:err});
-        saved.populate('members', partyFields, function(err, populated){
+        saved.populate('members', nameFields, function(err, populated){
           if (err) return res.json(500,{err:err});
           return res.json(populated);
         });
@@ -144,7 +148,7 @@ api.create = function(req, res, next) {
   }else{
     group.save(function(err, saved){
       if (err) return res.json(500,{err:err});
-      saved.populate('members', partyFields, function(err, populated){
+      saved.populate('members', nameFields, function(err, populated){
         if (err) return res.json(500,{err:err});
         return res.json(populated);
       });
@@ -183,6 +187,9 @@ api.attachGroup = function(req, res, next) {
   })
 }
 
+/**
+ * TODO make this it's own ngResource so we don't have to send down group data with each chat post
+ */
 api.postChat = function(req, res, next) {
   var user = res.locals.user
   var group = res.locals.group;
@@ -207,12 +214,13 @@ api.postChat = function(req, res, next) {
   async.series([
     function(cb){group.save(cb)},
     function(cb){
-      Group.findById(group._id).populate('members invites', partyFields).exec(cb);
+      Group.findById(group._id)
+        .populate(guildPopulate)
+        .populate('invites', nameFields)
+        .exec(cb);
     }
   ], function(err, results){
     if (err) return res.json(500, {err:err});
-
-    // TODO This is less efficient, but see https://github.com/lefnire/habitrpg/commit/41255dc#commitcomment-4014583
     res.json(results[1]);
   })
 }
@@ -260,7 +268,12 @@ api.join = function(req, res) {
       group.save(cb);
     },
     function(cb){
-      Group.findById(group._id).populate('members invites', partyFields).exec(cb);
+      var q = Group.findById(group._id);
+      if (group.type == 'party')
+        q.populate('members', partyFields);
+      else
+        q.populate(guildPopulate);
+      q.populate('invites', nameFields).exec(cb);
     }
   ], function(err, results){
     if (err) return res.json(500,{err:err});
@@ -324,7 +337,12 @@ api.invite = function(req, res, next) {
           group.save(cb);
         },
         function(cb){
-          Group.findById(group._id).populate('members invites', partyFields).exec(cb);
+          var q = Group.findById(group._id);
+          if (group.type == 'party')
+            q.populate('members', partyFields);
+          else
+            q.populate(guildPopulate);
+          q.populate('invites', nameFields).exec(cb);
         }
       ], function(err, results){
         if (err) return res.json(500,{err:err});
