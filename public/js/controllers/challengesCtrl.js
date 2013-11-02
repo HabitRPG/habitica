@@ -140,6 +140,14 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
       }
     }
 
+    $scope.toggleMember = function(cid, uid){
+      if($state.includes('options.social.challenges.detail.member', {cid: cid, uid: uid})){
+        $state.go('options.social.challenges.detail')
+      }else{
+        $state.go('options.social.challenges.detail.member', {cid: cid, uid: uid});
+      }
+    }
+
     //------------------------------------------------------------
     // Tasks
     //------------------------------------------------------------

@@ -94,21 +94,7 @@ window.habitrpg = angular.module('habitrpg',
           }]
         })
 
-        // Options > Inventory
-        .state('options.inventory', {
-          url: '/inventory',
-          templateUrl: "partials/options.inventory.html"
-        })
-        .state('options.inventory.inventory', {
-          url: '/inventory',
-          templateUrl: "partials/options.inventory.inventory.html"
-        })
-        .state('options.inventory.stable', {
-          url: '/stable',
-          templateUrl: "partials/options.inventory.stable.html"
-        })
-
-        // Options > Challenges
+        // Options > Social > Challenges
         .state('options.social.challenges', {
           url: "/challenges",
           controller: 'ChallengesCtrl',
@@ -123,6 +109,31 @@ window.habitrpg = angular.module('habitrpg',
                 $scope.challenge._locked = true;
               });
             }]
+        })
+        .state('options.social.challenges.detail.member', {
+          url: '/:uid',
+          templateUrl: 'partials/options.social.challenges.detail.member.html',
+          controller: ['$scope', 'Challenges', '$stateParams',
+            function($scope, Challenges, $stateParams){
+              alert("Why is this controller not being instantiated?");
+              $scope.obj = Challenges.Challenge.getMember({cid:$stateParams.cid, uid:$stateParams.uid}, function(){
+                $scope.obj._locked = true;
+              });
+            }]
+        })
+
+        // Options > Inventory
+        .state('options.inventory', {
+          url: '/inventory',
+          templateUrl: "partials/options.inventory.html"
+        })
+        .state('options.inventory.inventory', {
+          url: '/inventory',
+          templateUrl: "partials/options.inventory.inventory.html"
+        })
+        .state('options.inventory.stable', {
+          url: '/stable',
+          templateUrl: "partials/options.inventory.stable.html"
         })
 
         // Options > Settings

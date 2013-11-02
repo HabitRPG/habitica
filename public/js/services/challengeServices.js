@@ -13,7 +13,8 @@ angular.module('challengeServices', ['ngResource']).
             //'query': {method: "GET", isArray:false}
             join: {method: "POST", url: API_URL + '/api/v1/challenges/:cid/join'},
             leave: {method: "POST", url: API_URL + '/api/v1/challenges/:cid/leave'},
-            close: {method: "POST", params: {uid:''}, url: API_URL + '/api/v1/challenges/:cid/close'}
+            close: {method: "POST", params: {uid:''}, url: API_URL + '/api/v1/challenges/:cid/close'},
+            getMember: {method: "GET", url: API_URL + '/api/v1/challenges/:cid/member/:uid'}
           });
 
         //var challenges = [];

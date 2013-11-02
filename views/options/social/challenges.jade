@@ -6,6 +6,10 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.cl
   small.pull-right
     a(ng-click='cancelClosing(closingChal)') cancel
 
+script(type='text/ng-template', id='partials/options.social.challenges.detail.member.html')
+  h4 {{member.profile.name}}
+  habitrpg-tasks(main=false)
+
 script(type='text/ng-template', id='partials/options.social.challenges.detail.html')
   // Edit button
   div(ng-if='challenge.leader==user._id')
@@ -28,16 +32,25 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
   .well(ng-if='challenge.description') {{challenge.description}}
   i.icon-question-sign(popover="These are the challenge's tasks. As users participate, they will change color and gain graphs to show you the overall progress of the group.", popover-trigger='mouseenter', popover-placement='right')
   habitrpg-tasks(obj='challenge', main=false)
-  .accordion(ng-if='challenge.members')
-    .accordion-group
+
+  // Member List
+  div(ng-if='challenge.members.length > 0')
+    h3 Participants
+    small.
+      (stats coming soon, see <a href='https://github.com/HabitRPG/habitrpg/issues/1716' target='_blank'>this issue</a>.)
+    table.table
+      tr(ng-repeat='member in challenge.members')
+        td {{member.profile.name}}
+
+  // FIXME, get this working - see https://github.com/HabitRPG/habitrpg/issues/1716
+  //-div(ng-if='challenge.members')
+    h4 How's Everyone Doing?
+    .accordion-group(ng-repeat='member in challenge.members')
       .accordion-heading
-        a.accordion-toggle(data-toggle='collapse', data-target='#collapse-members-{{challenge._id}}')
-          h4 How's everyone doing?
-      .accordion-body.collapse(id='collapse-members-{{challenge._id}}')
-        .accordion-inner
-          div(ng-repeat='member in challenge.members', ng-init='member._locked = true; obj=member')
-            h4 {{member.profile.name}}
-            habitrpg-tasks(main=false)
+        a.accordion-toggle(ng-click='toggleMember(challenge._id, member._id)') {{member.profile.name}}
+      .accordion-body(ng-class='{collapse: $stateParams.uid != member._id}')
+        .accordion-inner(ng-if='$stateParams.uid == member._id')
+          div(ng-view)
 
 script(type='text/ng-template', id='partials/options.social.challenges.html')
   .row-fluid

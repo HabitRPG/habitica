@@ -95,21 +95,27 @@ api.list = function(req, res) {
 api.get = function(req, res) {
   var user = res.locals.user;
   Challenge.findById(req.params.cid)
-    .populate('members', 'profile.name habits dailys rewards todos')
+    .populate('members', 'profile.name _id')
     .exec(function(err, challenge){
       if(err) return res.json(500, {err:err});
       if (!challenge) return res.json(404, {err: 'Challenge ' + req.params.cid + ' not found'});
+      res.json(challenge);
+    })
+}
+
+api.getMember = function(req, res) {
+  var cid = req.params.cid, uid = req.params.uid;
+  User.findById(uid).select('profile.name habits dailys rewards todos')
+    .exec(function(err, member){
+      if(err) return res.json(500, {err:err});
+      if (!member) return res.json(404, {err: 'Member '+uid+' for challenge '+cid+' not found'});
       // slim down the return members' tasks to only the ones in the challenge
-      _.each(challenge.members, function(member){
-        if (member._id == user._id)
-          challenge._isMember = true;
-        _.each(['habits', 'dailys', 'todos', 'rewards'], function(type){
-          member[type] = _.where(member[type], function(task){
-            return task.challenge && task.challenge.id == challenge._id;
-          })
+      _.each(['habits', 'dailys', 'todos', 'rewards'], function(type){
+        member[type] = _.where(member[type], function(task){
+          return task.challenge && task.challenge.id == cid;
         })
       });
-      res.json(challenge);
+      res.json(member);
     })
 }
 

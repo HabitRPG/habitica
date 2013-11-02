@@ -95,5 +95,6 @@ router['delete']('/challenges/:cid', auth.auth, challenges['delete'])
 router.post('/challenges/:cid/close', auth.auth, challenges.selectWinner)
 router.post('/challenges/:cid/join', auth.auth, challenges.join)
 router.post('/challenges/:cid/leave', auth.auth, challenges.leave)
+router.get('/challenges/:cid/member/:uid', auth.auth, challenges.getMember)
 
 module.exports = router;
