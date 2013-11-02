@@ -16,7 +16,7 @@ var api = module.exports;
   ------------------------------------------------------------------------
 */
 
-var itemFields = 'items.armor items.head items.shield items.weapon items.currentPet';
+var itemFields = 'items.armor items.head items.shield items.weapon items.currentPet items.pets'; // TODO just send down count(items.pets) for better performance
 var partyFields = 'profile preferences stats achievements party backer flags.rest auth.timestamps ' + itemFields;
 var nameFields = 'profile.name';
 var challengeFields = '_id name';
