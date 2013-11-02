@@ -124,13 +124,12 @@ api.get = function(req, res) {
   var q = (gid == 'party') ? Group.findOne({type: 'party', members: {'$in': [user._id]}}) : Group.findById(gid);
   populateQuery(gid, q);
   q.exec(function(err, group){
-      if (!group) return res.json(404, {err: 'Group not found'});
-      if ( (group.type == 'guild' && group.privacy == 'private') || (group.type == 'party' && gid != 'party')) {
-        if(!_.find(group.members, {_id: user._id}))
-          return res.json(401, {err: "You don't have access to this group"});
-      }
-      res.json(group);
-    });
+    if ( group && (group.type == 'guild' && group.privacy == 'private') || (group.type == 'party')) {
+      if(!_.find(group.members, {_id: user._id}))
+        return res.json(401, {err: "You don't have access to this group"});
+    }
+    res.json(group);
+  });
 };
 
 
