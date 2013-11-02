@@ -22,12 +22,10 @@ angular.module('groupServices', ['ngResource']).
         // Defer loading everything until they're requested
         var party, myGuilds, publicGuilds, tavern;
 
-        // But we don't defer triggering Party, since we always need it for the header if nothing else
-        party = Group.get({gid: 'party'});
-
         return {
-          party: function(){
-            return party;
+          party: function(cb){
+            if (!party) return (party = Group.get({gid: 'party'}, cb));
+            return (cb) ? cb(party) : party;
           },
           publicGuilds: function(){
             //TODO combine these as {type:'guilds,public'} and create a $filter() to separate them
