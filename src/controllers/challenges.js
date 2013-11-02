@@ -39,7 +39,8 @@ var syncChalToUser = function(chal, user) {
 
   // Sync new tasks and updated tasks
   _.each(chal.tasks, function(task){
-    var userTask = user.tasks[task.id] || (user[task.type+'s'].push(task), user.tasks[task.id]); //user[task.type+'s'][user[task.type+'s'].length-1]
+    var list = user[task.type+'s'];
+    var userTask = user.tasks[task.id] || (list.push(task), list[list.length-1]);
     userTask.challenge = {id:chal._id};
     userTask.tags = userTask.tags || {};
     userTask.tags[chal._id] = true;
