@@ -1,5 +1,5 @@
 // @TODO ui:connectionAlert
-.header-wrap
+.header-wrap(ng-controller='HeaderCtrl')
   a.label.undo-button(x-bind='click:undo', ng-show='_undo') Undo
   div(ng-if='!user.preferences.hideHeader')
     include menu
@@ -27,7 +27,7 @@
               i.icon-signal
     // party
     span(ng-controller='PartyCtrl')
-      .herobox-wrap(ng-repeat='profile in groups.party.members | filter:removeSelf')
+      .herobox-wrap(ng-repeat='profile in party.members | filter:removeSelf')
         include avatar
 
     .NPC-Bailey-Head(ng-show='user.flags.newStuff', tooltip='Psst', tooltip-placement='top', ng-click='modals.newStuff=true')

@@ -57,11 +57,10 @@ module.exports = function(grunt) {
             'public/js/directives/directives.js',
 
             'public/js/controllers/authCtrl.js',
-            'public/js/controllers/menuCtrl.js',
             'public/js/controllers/notificationCtrl.js',
             'public/js/controllers/rootCtrl.js',
             'public/js/controllers/settingsCtrl.js',
-            'public/js/controllers/statsCtrl.js',
+            'public/js/controllers/headerCtrl.js',
             'public/js/controllers/tasksCtrl.js',
             'public/js/controllers/filtersCtrl.js',
             'public/js/controllers/userCtrl.js',

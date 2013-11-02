@@ -5,8 +5,8 @@
  */
 
 angular.module('groupServices', ['ngResource']).
-    factory('Groups', ['API_URL', '$resource', 'User', '$q', 'Members',
-      function(API_URL, $resource, User, $q, Members) {
+    factory('Groups', ['API_URL', '$resource', '$q',
+      function(API_URL, $resource, $q) {
         var Group = $resource(API_URL + '/api/v1/groups/:gid',
           {gid:'@_id', messageId: '@_messageId'},
           {
@@ -19,44 +19,31 @@ angular.module('groupServices', ['ngResource']).
             removeMember: {method: "POST", url: API_URL + '/api/v1/groups/:gid/removeMember'}
           });
 
-        // The user may not visit the public guilds, personal guilds, and tavern pages. So
-        // we defer loading them to the html until they've clicked the tabs
-        var partyQ = $q.defer();
-
-        var groups = {
-          party: partyQ.promise
-        };
+        // Defer loading everything until they're requested
+        var party, myGuilds, publicGuilds, tavern;
 
         // But we don't defer triggering Party, since we always need it for the header if nothing else
-        Group.get({gid:'party'}, function(party){
-          partyQ.resolve(party);
-        });
+        party = Group.get({gid: 'party'});
 
         return {
-
-          // Note the _.once() to make sure it can never be called again
-          fetchGuilds: _.once(function(){
+          party: function(){
+            return party;
+          },
+          publicGuilds: function(){
             //TODO combine these as {type:'guilds,public'} and create a $filter() to separate them
-            Group.query({type:'guilds'}, function(_groups){
-              groups.guilds = _groups;
-              //Members.populate(_groups);
-            });
-            Group.query({type:'public'}, function(_groups){
-              groups.public = _groups;
-              //Members.populate(_groups);
-            });
-          }),
+            if (!publicGuilds) publicGuilds = Group.query({type:'public'});
+            return publicGuilds;
+          },
+          myGuilds: function(){
+            if (!myGuilds) myGuilds = Group.query({type:'guilds'});
+            return myGuilds;
+          },
+          tavern: function(){
+            if (!tavern) tavern = Group.get({gid:'habitrpg'});
+            return tavern;
+          },
 
-          fetchTavern: _.once(function(){
-            Group.get({gid:'habitrpg'}, function(_group){
-              groups.tavern = _group;
-            })
-          }),
-
-          Group: Group,
-
-          groups: groups
-
+          Group: Group
         }
       }
 ]);

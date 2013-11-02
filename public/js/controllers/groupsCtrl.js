@@ -25,12 +25,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         group.websites.splice($index,1);
       }
 
-      // ------ Loading ------
-
-      $scope.groups = Groups.groups;
-      $scope.fetchGuilds = Groups.fetchGuilds;
-      $scope.fetchTavern = Groups.fetchTavern;
-
       // ------ Modals ------
 
       $scope.clickMember = function(uid, forceShow) {
@@ -130,7 +124,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
   .controller("GuildsCtrl", ['$scope', 'Groups', 'User', '$rootScope', '$state', '$location',
     function($scope, Groups, User, $rootScope, $state, $location) {
-      Groups.fetchGuilds();
+      $scope.groups = {
+        guilds: Groups.myGuilds(),
+        "public": Groups.publicGuilds()
+      }
       $scope.type = 'guild';
       $scope.text = 'Guild';
       $scope.newGroup = new Groups.Group({type:'guild', privacy:'private', leader: User.user._id, members: [User.user._id]});
@@ -193,7 +190,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     function($scope, Groups, User, $state) {
       $scope.type = 'party';
       $scope.text = 'Party';
-      $scope.group = Groups.groups.party;
+      $scope.group = Groups.party();
       $scope.newGroup = new Groups.Group({type:'party', leader: User.user._id, members: [User.user._id]});
       $scope.create = function(group){
         group.$save(function(newGroup){
@@ -222,17 +219,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         User.user.invitations.party = undefined;
         User.log({op:'set',data:{'invitations.party':{}}});
       }
-
-      $scope.removeSelf = function(member){
-        return member._id !== User.user._id;
-      }
     }
   ])
 
   .controller("TavernCtrl", ['$scope', 'Groups', 'User',
     function($scope, Groups, User) {
-      Groups.fetchTavern();
-      $scope.group = Groups.groups.tavern;
+      $scope.group = Groups.tavern();
       $scope.rest = function(){
         User.user.flags.rest = !User.user.flags.rest;
         User.log({op:'set',data:{'flags.rest':User.user.flags.rest}});
