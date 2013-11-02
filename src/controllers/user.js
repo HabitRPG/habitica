@@ -178,8 +178,6 @@ api.deleteTask = function(req, res, next) {
 /*
   Update Task
 */
-
-
 api.updateTask = function(req, res, next) {
   var user = res.locals.user;
   var task = user.tasks[req.params.id];
@@ -366,7 +364,7 @@ api.reroll = function(req, res, next) {
   if (user.balance < 1) return res.json(401, {err: "Not enough tokens."});
   user.balance -= 1;
   _.each(['habits','dailys','todos'], function(type){
-    _.each([user[type+'s']], function(task){
+    _.each(user[type], function(task){
       task.value = 0;
     })
   })
