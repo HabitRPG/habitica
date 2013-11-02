@@ -53,7 +53,7 @@ process.chdir = function (dir) {
 };
 
 },{}],2:[function(require,module,exports){
-var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
+var global=self;/**
  * @license
  * Lo-Dash 2.2.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -8152,7 +8152,6 @@ if(typeof module != 'undefined' && module.exports){
 
   obj.revive = function(user, options) {
     var candidate, loseThisItem, owned, paths;
-
     if (options == null) {
       options = {};
     }
@@ -8202,7 +8201,6 @@ if(typeof module != 'undefined' && module.exports){
 
   obj.tnl = function(level) {
     var value;
-
     if (level >= 100) {
       value = 0;
     } else {
@@ -8222,7 +8220,6 @@ if(typeof module != 'undefined' && module.exports){
 
   obj.expModifier = function(value, weaponStr, level, priority) {
     var exp, str, strMod, totalStr;
-
     if (priority == null) {
       priority = '!';
     }
@@ -8245,7 +8242,6 @@ if(typeof module != 'undefined' && module.exports){
 
   obj.hpModifier = function(value, armorDef, helmDef, shieldDef, level, priority) {
     var def, defMod, hp, totalDef;
-
     if (priority == null) {
       priority = '!';
     }
@@ -8264,7 +8260,6 @@ if(typeof module != 'undefined' && module.exports){
 
   obj.gpModifier = function(value, modifier, priority, streak, user) {
     var afterStreak, streakBonus, val;
-
     if (priority == null) {
       priority = '!';
     }
@@ -8291,7 +8286,6 @@ if(typeof module != 'undefined' && module.exports){
 
   obj.taskDeltaFormula = function(currentValue, direction) {
     var delta;
-
     if (currentValue < -47.27) {
       currentValue = -47.27;
     } else if (currentValue > 21.27) {
@@ -8310,8 +8304,7 @@ if(typeof module != 'undefined' && module.exports){
 
 
   randomDrop = function(user, delta, priority, streak, options) {
-    var acceptableDrops, chanceMultiplier, drop, paths, rarity, reachedDropLimit, _base, _base1, _base2, _ref1, _ref2, _ref3, _ref4;
-
+    var acceptableDrops, chanceMultiplier, drop, paths, rarity, reachedDropLimit, _base, _base1, _base2, _ref1;
     if (streak == null) {
       streak = 0;
     }
@@ -8319,7 +8312,7 @@ if(typeof module != 'undefined' && module.exports){
       options = {};
     }
     paths = options.paths || {};
-    if ((_ref1 = (_base = user.items).lastDrop) == null) {
+    if ((_base = user.items).lastDrop == null) {
       _base.lastDrop = {
         date: +moment().subtract('d', 1),
         count: 0
@@ -8333,11 +8326,11 @@ if(typeof module != 'undefined' && module.exports){
     chanceMultiplier = Math.abs(delta);
     chanceMultiplier *= obj.priorityValue(priority);
     chanceMultiplier += streak;
-    if (((_ref2 = user.flags) != null ? _ref2.dropsEnabled : void 0) && Math.random() < (.05 * chanceMultiplier)) {
+    if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && Math.random() < (.05 * chanceMultiplier)) {
       rarity = Math.random();
       if (rarity > .5) {
         drop = helpers.randomVal(pets);
-        ((_ref3 = (_base1 = user.items).eggs) != null ? _ref3 : _base1.eggs = []).push(drop);
+        ((_base1 = user.items).eggs != null ? (_base1 = user.items).eggs : _base1.eggs = []).push(drop);
         paths['items.eggs'] = true;
         drop.type = 'Egg';
         drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
@@ -8353,12 +8346,11 @@ if(typeof module != 'undefined' && module.exports){
           acceptableDrops = ['Base', 'White', 'Desert'];
         }
         acceptableDrops = hatchingPotions.filter(function(hatchingPotion) {
-          var _ref4;
-
-          return _ref4 = hatchingPotion.name, __indexOf.call(acceptableDrops, _ref4) >= 0;
+          var _ref2;
+          return _ref2 = hatchingPotion.name, __indexOf.call(acceptableDrops, _ref2) >= 0;
         });
         drop = helpers.randomVal(acceptableDrops);
-        ((_ref4 = (_base2 = user.items).hatchingPotions) != null ? _ref4 : _base2.hatchingPotions = []).push(drop.name);
+        ((_base2 = user.items).hatchingPotions != null ? (_base2 = user.items).hatchingPotions : _base2.hatchingPotions = []).push(drop.name);
         paths['items.hatchingPotions'] = true;
         drop.type = 'HatchingPotion';
         drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
@@ -8371,8 +8363,7 @@ if(typeof module != 'undefined' && module.exports){
   };
 
   obj.score = function(user, task, direction, options) {
-    var addPoints, calculateDelta, cron, delta, exp, gp, hp, lvl, num, paths, priority, streak, subtractPoints, times, type, value, _ref1, _ref2, _ref3, _ref4;
-
+    var addPoints, calculateDelta, cron, delta, exp, gp, hp, lvl, num, paths, priority, streak, subtractPoints, times, type, value, _ref1, _ref2, _ref3;
     if (options == null) {
       options = {};
     }
@@ -8403,7 +8394,6 @@ if(typeof module != 'undefined' && module.exports){
       }
       return _.times(times, function() {
         var nextDelta;
-
         nextDelta = obj.taskDeltaFormula(value, direction);
         if (adjustvalue) {
           value += nextDelta;
@@ -8413,7 +8403,6 @@ if(typeof module != 'undefined' && module.exports){
     };
     addPoints = function() {
       var weaponStr;
-
       weaponStr = items.getItem('weapon', user.items.weapon).strength;
       exp += obj.expModifier(delta, weaponStr, user.stats.lvl, priority) / 2;
       if (streak) {
@@ -8424,7 +8413,6 @@ if(typeof module != 'undefined' && module.exports){
     };
     subtractPoints = function() {
       var armorDef, headDef, shieldDef;
-
       armorDef = items.getItem('armor', user.items.armor).defense;
       headDef = items.getItem('head', user.items.head).defense;
       shieldDef = items.getItem('shield', user.items.shield).defense;
@@ -8439,7 +8427,7 @@ if(typeof module != 'undefined' && module.exports){
           subtractPoints();
         }
         if (task.value !== value) {
-          ((_ref4 = task.history) != null ? _ref4 : task.history = []).push({
+          (task.history != null ? task.history : task.history = []).push({
             date: +(new Date),
             value: value
           });
@@ -8515,8 +8503,7 @@ if(typeof module != 'undefined' && module.exports){
 
 
   updateStats = function(user, newStats, options) {
-    var gp, paths, tnl, _ref1;
-
+    var gp, paths, tnl;
     if (options == null) {
       options = {};
     }
@@ -8559,7 +8546,7 @@ if(typeof module != 'undefined' && module.exports){
       paths['stats.lvl'] = true;
       paths['stats.gp'] = true;
       paths['stats.hp'] = true;
-      if ((_ref1 = user.flags) == null) {
+      if (user.flags == null) {
         user.flags = {};
       }
       if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
@@ -8597,8 +8584,7 @@ if(typeof module != 'undefined' && module.exports){
 
 
   obj.cron = function(user, options) {
-    var daysMissed, expTally, lvl, now, paths, todoTally, _base, _base1, _ref1, _ref2, _ref3, _ref4;
-
+    var daysMissed, expTally, lvl, now, paths, todoTally, _base, _base1, _ref1;
     if (options == null) {
       options = {};
     }
@@ -8625,8 +8611,7 @@ if(typeof module != 'undefined' && module.exports){
     }
     todoTally = 0;
     user.todos.concat(user.dailys).forEach(function(task) {
-      var absVal, completed, id, repeat, scheduleMisses, type, _ref2;
-
+      var absVal, completed, id, repeat, scheduleMisses, type;
       if (!task) {
         return;
       }
@@ -8637,7 +8622,6 @@ if(typeof module != 'undefined' && module.exports){
           scheduleMisses = 0;
           _.times(daysMissed, function(n) {
             var thatDay;
-
             thatDay = moment(now).subtract('days', n + 1);
             if (helpers.shouldDo(thatDay, repeat, user.preferences)) {
               return scheduleMisses++;
@@ -8654,7 +8638,7 @@ if(typeof module != 'undefined' && module.exports){
       }
       switch (type) {
         case 'daily':
-          ((_ref2 = task.history) != null ? _ref2 : task.history = []).push({
+          (task.history != null ? task.history : task.history = []).push({
             date: +(new Date),
             value: task.value
           });
@@ -8676,7 +8660,7 @@ if(typeof module != 'undefined' && module.exports){
         return paths["tasks." + task.id + ".value"] = true;
       }
     });
-    ((_ref2 = (_base = ((_ref3 = user.history) != null ? _ref3 : user.history = {})).todos) != null ? _ref2 : _base.todos = []).push({
+    ((_base = (user.history != null ? user.history : user.history = {})).todos != null ? (_base = (user.history != null ? user.history : user.history = {})).todos : _base.todos = []).push({
       date: now,
       value: todoTally
     });
@@ -8686,7 +8670,7 @@ if(typeof module != 'undefined' && module.exports){
       lvl++;
       expTally += obj.tnl(lvl);
     }
-    ((_ref4 = (_base1 = user.history).exp) != null ? _ref4 : _base1.exp = []).push({
+    ((_base1 = user.history).exp != null ? (_base1 = user.history).exp : _base1.exp = []).push({
       date: now,
       value: expTally
     });
@@ -8716,7 +8700,6 @@ var process=require("__browserify_process");(function() {
 
   sanitizeOptions = function(o) {
     var dayStart, now, timezoneOffset, _ref;
-
     dayStart = o.dayStart && (0 <= (_ref = +o.dayStart) && _ref <= 24) ? +o.dayStart : 0;
     timezoneOffset = o.timezoneOffset ? +o.timezoneOffset : +moment().zone();
     now = o.now ? moment(o.now).zone(timezoneOffset) : moment(+(new Date)).zone(timezoneOffset);
@@ -8729,7 +8712,6 @@ var process=require("__browserify_process");(function() {
 
   startOfWeek = function(options) {
     var o;
-
     if (options == null) {
       options = {};
     }
@@ -8739,7 +8721,6 @@ var process=require("__browserify_process");(function() {
 
   startOfDay = function(options) {
     var o;
-
     if (options == null) {
       options = {};
     }
@@ -8764,7 +8745,6 @@ var process=require("__browserify_process");(function() {
 
   daysSince = function(yesterday, options) {
     var o;
-
     if (options == null) {
       options = {};
     }
@@ -8781,7 +8761,6 @@ var process=require("__browserify_process");(function() {
 
   shouldDo = function(day, repeat, options) {
     var o, selected, yesterday;
-
     if (options == null) {
       options = {};
     }
@@ -8806,7 +8785,6 @@ var process=require("__browserify_process");(function() {
   uuid = function() {
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
       var r, v;
-
       r = Math.random() * 16 | 0;
       v = (c === "x" ? r : r & 0x3 | 0x8);
       return v.toString(16);
@@ -8816,31 +8794,18 @@ var process=require("__browserify_process");(function() {
   module.exports = {
     uuid: uuid,
     taskDefaults: function(task, filters) {
-      var defaults, self, _ref, _uuid;
-
+      var defaults, self, _ref, _ref1;
       if (filters == null) {
         filters = {};
       }
       self = this;
-      _uuid = self.uuid();
       defaults = {
-        id: _uuid,
-        _id: _uuid,
-        text: '',
-        up: true,
-        down: true,
+        id: self.uuid(),
         type: 'habit',
-        completed: false,
-        repeat: {
-          su: true,
-          m: true,
-          t: true,
-          w: true,
-          th: true,
-          f: true,
-          s: true
-        },
+        text: '',
         notes: '',
+        priority: '!',
+        challenge: {},
         tags: _.transform(filters, function(m, v, k) {
           if (v) {
             return m[k] = v;
@@ -8848,14 +8813,44 @@ var process=require("__browserify_process");(function() {
         })
       };
       _.defaults(task, defaults);
-      if ((_ref = task.value) == null) {
+      if (task.type === 'habit') {
+        _.defaults(task, {
+          up: true,
+          down: true
+        });
+      }
+      if ((_ref = task.type) === 'habit' || _ref === 'daily') {
+        _.defaults(task, {
+          history: []
+        });
+      }
+      if ((_ref1 = task.type) === 'daily' || _ref1 === 'todo') {
+        _.defaults(task, {
+          completed: false
+        });
+      }
+      if (task.type === 'daily') {
+        _.defaults(task, {
+          streak: 0,
+          repeat: {
+            su: 1,
+            m: 1,
+            t: 1,
+            w: 1,
+            th: 1,
+            f: 1,
+            s: 1
+          }
+        });
+      }
+      task._id = task.id;
+      if (task.value == null) {
         task.value = task.type === 'reward' ? 10 : 0;
       }
       return task;
     },
     newUser: function() {
       var defaultTags, defaultTasks, guid, newUser, repeat, tag, task, userSchema, _i, _j, _len, _len1;
-
       userSchema = {
         stats: {
           gp: 0,
@@ -9002,19 +8997,16 @@ var process=require("__browserify_process");(function() {
 
     dotSet: function(path, val, obj) {
       var arr, err;
-
       if (~path.indexOf('undefined')) {
         return;
       }
       try {
         arr = path.split('.');
         return _.reduce(arr, function(curr, next, index) {
-          var _ref;
-
           if ((arr.length - 1) === index) {
             curr[next] = val;
           }
-          return (_ref = curr[next]) != null ? _ref : curr[next] = {};
+          return curr[next] != null ? curr[next] : curr[next] = {};
         }, obj);
       } catch (_error) {
         err = _error;
@@ -9028,7 +9020,6 @@ var process=require("__browserify_process");(function() {
     },
     dotGet: function(path, obj) {
       var err;
-
       if (~path.indexOf('undefined')) {
         return void 0;
       }
@@ -9058,7 +9049,6 @@ var process=require("__browserify_process");(function() {
 
     randomVal: function(obj) {
       var count, key, result, val;
-
       result = void 0;
       count = 0;
       for (key in obj) {
@@ -9085,7 +9075,6 @@ var process=require("__browserify_process");(function() {
 
     username: function(auth, override) {
       var fb, _ref;
-
       if (override) {
         return override;
       }
@@ -9110,7 +9099,6 @@ var process=require("__browserify_process");(function() {
 
     encodeiCalLink: function(uid, apiToken) {
       var loc, _ref;
-
       loc = (typeof window !== "undefined" && window !== null ? window.location.host : void 0) || (typeof process !== "undefined" && process !== null ? (_ref = process.env) != null ? _ref.BASE_URL : void 0 : void 0) || '';
       return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
     },
@@ -9120,7 +9108,6 @@ var process=require("__browserify_process");(function() {
 
     equipped: function(type, item, preferences, backerTier) {
       var armorSet, gender;
-
       if (item == null) {
         item = 0;
       }
@@ -9217,7 +9204,6 @@ var process=require("__browserify_process");(function() {
 
     taskClasses: function(task, filters, dayStart, lastCron, showCompleted, main) {
       var classes, completed, enabled, filter, repeat, type, value, _ref;
-
       if (filters == null) {
         filters = [];
       }
@@ -9323,7 +9309,6 @@ var process=require("__browserify_process");(function() {
 
     appliedTags: function(userTags, taskTags) {
       var arr;
-
       arr = [];
       _.each(userTags, function(t) {
         if (t == null) {
@@ -9344,7 +9329,6 @@ var process=require("__browserify_process");(function() {
     },
     totalStr: function(level, weapon) {
       var str;
-
       if (weapon == null) {
         weapon = 0;
       }
@@ -9356,7 +9340,6 @@ var process=require("__browserify_process");(function() {
     },
     totalDef: function(level, armor, head, shield) {
       var totalDef;
-
       if (armor == null) {
         armor = 0;
       }
@@ -9377,7 +9360,6 @@ var process=require("__browserify_process");(function() {
     },
     itemStat: function(type, item) {
       var i;
-
       if (item == null) {
         item = 0;
       }
@@ -9401,7 +9383,6 @@ var process=require("__browserify_process");(function() {
     hydrate: function(spec) {
       var hydrated, keys,
         _this = this;
-
       if (_.isObject(spec) && !_.isArray(spec)) {
         hydrated = {};
         keys = _.keys(spec).concat(_.keys(spec.__proto__));
@@ -9778,7 +9759,6 @@ try {
 
   module.exports.buyItem = function(user, type, options) {
     var nextItem;
-
     if (options == null) {
       options = {};
     }
@@ -9814,11 +9794,9 @@ try {
 
   module.exports.updateStore = function(user) {
     var changes;
-
     changes = {};
     _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
       var i, showNext, _ref, _ref1, _ref2;
-
       i = ~~(((_ref = user.items) != null ? _ref[type] : void 0) || 0) + 1;
       showNext = true;
       if (i === items[type].length - 1) {
@@ -9846,7 +9824,6 @@ try {
 
   module.exports.getItem = function(type, index) {
     var i;
-
     if (index == null) {
       index = 0;
     }

@@ -57,19 +57,20 @@ module.exports =
 
   taskDefaults: (task, filters={}) ->
     self = @
-    _uuid = self.uuid()
     defaults =
-      id: _uuid
-      _id: _uuid
-      text: ''
-      up: true
-      down: true
+      id: self.uuid()
       type: 'habit'
-      completed: false
-      repeat: {su:true,m:true,t:true,w:true,th:true,f:true,s:true}
+      text: ''
       notes: ''
+      priority: '!'
+      challenge: {}
       tags: _.transform(filters, (m,v,k) -> m[k]=v if v)
     _.defaults task, defaults
+    _.defaults(task, {up:true,down:true}) if task.type is 'habit'
+    _.defaults(task, {history: []}) if task.type in ['habit', 'daily']
+    _.defaults(task, {completed:false}) if task.type in ['daily', 'todo']
+    _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}) if task.type is 'daily'
+    task._id = task.id # may need this for TaskSchema if we go back to using it, see http://goo.gl/a5irq4
     task.value ?= if task.type is 'reward' then 10 else 0
     task
 
