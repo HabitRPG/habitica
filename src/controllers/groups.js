@@ -64,7 +64,6 @@ api.list = function(req, res) {
       Group.findOne({type: 'party', members: {'$in': [user._id]}})
         .select(groupFields).exec(function(err, party){
           if (err) return cb(err);
-
           cb(null, (party === null ? [] : [party])); // return as an array for consistent ngResource use
         });
     },
