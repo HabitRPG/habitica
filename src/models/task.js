@@ -14,6 +14,7 @@ var _ = require('lodash');
 
 var TaskSchema = {
   _id:{type: String,'default': helpers.uuid},
+  id: String,
   history: Array, // [{date:Date, value:Number}], // this causes major performance problems
   text: String,
   notes: {type: String, 'default': ''},
