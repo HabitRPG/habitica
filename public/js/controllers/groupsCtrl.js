@@ -169,12 +169,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         if (confirm("Are you sure you want to leave this guild?") !== true) {
           return;
         }
-        group.$leave(function(group){
+        group.$leave(function(){
           $scope.groups.guilds.splice(_.indexOf($scope.groups.guilds, group), 1);
           // remove user from group members if guild is public so that he can re-join it immediately
-          if(group.privacy == 'public'){
-            // slow when a lot of members...? probably yes
-            //_.remove(group.members, {_id: User.user._id}); Not necessary client side
+          if(group.privacy == 'public' || !group.privacy){ //public guilds with only some fields fetched
             var i = _.findIndex($scope.groups.public, {_id: group._id});
             if(~i){
               var guild = $scope.groups.public[i];
