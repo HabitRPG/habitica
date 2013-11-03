@@ -65,7 +65,8 @@ api.verifyTaskExists = function(req, res, next) {
 };
 
 function deleteTask(user, task) {
-  user[task.type+'s'].id(task.id).remove();
+  var t = user[task.type+'s'].id(task.id);
+  if (t) t.remove();
 };
 
 function addTask(user, task) {
