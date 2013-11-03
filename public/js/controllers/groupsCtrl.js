@@ -159,6 +159,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           $scope.groups.guilds.push(joined);
           if(joined.privacy == 'public'){
             joined._isMember = true;
+            joined.memberCount++;
           }
           $state.go('options.social.guilds.detail', {gid: joined._id});
         })
