@@ -12,7 +12,7 @@ var _ = require('lodash');
 // Task Schema
 // -----------
 
-var TaskSchema = {
+var TaskSchema = new Schema({
   _id:{type: String,'default': helpers.uuid},
   id: String,
   history: Array, // [{date:Date, value:Number}], // this causes major performance problems
@@ -33,6 +33,11 @@ var TaskSchema = {
     winner: String // user.profile.name
     // group: {type: 'Strign', ref: 'Group'} // if we restore this, rename `id` above to `challenge`
   }
-};
+});
+
+TaskSchema.pre('save', function(next){
+  this.id = this.id || this._id;
+  next()
+})
 
 module.exports.schema = TaskSchema;
