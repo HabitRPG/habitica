@@ -47,24 +47,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
               li(ng-repeat='website in group.websites')
                 a(target='_blank', ng-href='{{website}}') {{website}}
 
-    // ------ Challenges -------
-    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
-      .modal-header
-        h3
-          | Challenges
-          a.pull-right(target='_blank', href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58')
-            i.icon-question-sign
-      .modal-body
-        div(ng-if='group.challenges.length > 0')
-          table.table.table-striped
-            tr(ng-repeat='challenge in group.challenges')
-              td
-                a(ui-sref='options.social.challenges.detail({cid:challenge._id})') {{challenge.name}}
-          p.
-            Visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> for more information.
-        div(ng-if='group.challenges.length == 0')
-          p.
-            No challenges yet, visit the <span class=label><i class=icon-bullhorn></i> Challenges</span> tab to create one.
+    include ./challenge-box
 
     // ------ Members -------
     .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')

@@ -123,54 +123,63 @@ api.getMember = function(req, res) {
 // CREATE
 api.create = function(req, res){
   var user = res.locals.user;
-  var waterfall = [];
+  var group, chal;
+
+  // First, make sure they've selected a legit group, and store it for later
+  var waterfall = [
+    function(cb){
+      Group.findById(req.body.group).exec(cb);
+    },
+    function(_group, cb){
+      if (!_group) return cb("Group." + req.body.group + " not found");
+      group = _group;
+      cb(null);
+    }
+  ];
+
+  // If they're adding a prize, do some validation
   if (+req.body.prize < 0) return res.json(401, {err: 'Challenge prize must be >= 0'});
   if (req.body.group=='habitrpg' && +req.body.prize < 1) return res.json(401, {err: 'Prize must be at least 1 Gem for public challenges.'});
   if (+req.body.prize > 0) {
-    waterfall = [
-      function(cb){
-        Group.findById(req.body.group).select('balance leader').exec(cb);
-      },
-      function(group, cb){
-        if (!group) return cb("Group." + req.body.group + " not found");
-        var groupBalance = ((group.balance && group.leader==user._id) ? group.balance : 0);
-        if (req.body.prize > (user.balance*4 + groupBalance*4))
-          return cb("Challenge.prize > (your gems + group balance). Purchase more gems or lower prize amount.s")
+    waterfall.push(function(cb){
+      var groupBalance = ((group.balance && group.leader==user._id) ? group.balance : 0);
+      if (req.body.prize > (user.balance*4 + groupBalance*4))
+        return cb("Challenge.prize > (your gems + group balance). Purchase more gems or lower prize amount.s")
 
-        var net = req.body.prize/4; // I really should have stored user.balance as gems rather than dollars... stupid...
+      var net = req.body.prize/4; // I really should have stored user.balance as gems rather than dollars... stupid...
 
-        // user is group leader, and group has balance. Subtract from that first, then take the rest from user
-        if (groupBalance > 0) {
-          group.balance -= net;
-          if (group.balance < 0) {
-            net = Math.abs(group.balance);
-            group.balance = 0;
-          }
+      // user is group leader, and group has balance. Subtract from that first, then take the rest from user
+      if (groupBalance > 0) {
+        group.balance -= net;
+        if (group.balance < 0) {
+          net = Math.abs(group.balance);
+          group.balance = 0;
         }
-        user.balance -= net;
-        group.save(cb)
       }
-    ];
+      user.balance -= net;
+      cb(null)
+    });
   }
+
   waterfall = waterfall.concat([
-    function() { // if we're dealing with prize above, arguemnts will be `group, numRows, cb` - else `cb`
-      var cb = arguments[arguments.length-1];
-      var challenge = new Challenge(req.body); // FIXME sanitize
-      challenge.members.push(user._id);
-      challenge.save(cb);
+    function(cb) { // if we're dealing with prize above, arguemnts will be `group, numRows, cb` - else `cb`
+      var chal = new Challenge(req.body); // FIXME sanitize
+      chal.members.push(user._id);
+      chal.save(cb)
     },
-    function(chal, num, cb) {
+    function(_chal, num, cb){
+      chal = _chal;
+      group.challenges.push(chal._id);
+      group.save(cb);
+    },
+    function(_group, num, cb) {
       // Auto-join creator to challenge (see members.push above)
       syncChalToUser(chal, user);
-      user.save(function(err){
-        if (err) return cb(err);
-        cb(null, chal);
-      });
+      user.save(cb);
     }
   ]);
-  async.waterfall(waterfall, function(err, chal){
+  async.waterfall(waterfall, function(err){
     if (err) return res.json(500, {err:err});
-    Group.update({_id:chal.group}, {$addToSet:{challenges:chal._id}}) // fixme error-check, and also better to do in middleware?
     res.json(chal);
   });
 }
@@ -255,7 +264,8 @@ function closeChal(cid, broken, cb) {
     function(users, cb2) {
       var parallel = [];
       _.each(users, function(user){
-        _.find(user.tags, {id:cid}).challenge = undefined;
+        var tag = _.find(user.tags, {id:cid});
+        if (tag) tag.challenge = undefined;
         _.each(user.tasks, function(task){
           if (task.challenge && task.challenge.id == removed._id) {
             _.merge(task.challenge, broken);
