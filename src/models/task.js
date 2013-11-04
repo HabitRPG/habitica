@@ -17,6 +17,7 @@ var TaskSchema = new Schema({
   id: String,
   history: Array, // [{date:Date, value:Number}], // this causes major performance problems
   text: String,
+  date: Date, // due date for todos
   notes: {type: String, 'default': ''},
   tags: {type: Schema.Types.Mixed, 'default': {}}, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
   type: {type:String, 'default': 'habit'}, // habit, daily
