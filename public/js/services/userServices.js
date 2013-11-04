@@ -73,7 +73,7 @@ angular.module('userServices', []).
               // FIXME handle this somewhere else, we don't need to check every single time
               var offset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
               if (!user.preferences.timezoneOffset || user.preferences.timezoneOffset !== offset) {
-                userServices.set({'preferences.timezoneOffset': offset});
+                userServices.set('preferences.timezoneOffset', offset);
               }
             }
             sent.length = 0;
