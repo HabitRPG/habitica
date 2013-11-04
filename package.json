@@ -55,7 +55,7 @@
     "npm": "1.2.x"
   },
   "scripts": {
-    "test": "mocha test/api.mocha.coffee",
+    "test": "grunt karma:continuous",
     "start": "grunt run:dev",
     "postinstall": "./node_modules/bower/bin/bower install -f"
   },
