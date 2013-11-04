@@ -17,7 +17,7 @@ var TaskSchema = new Schema({
   id: {type: String,'default': helpers.uuid},
   history: Array, // [{date:Date, value:Number}], // this causes major performance problems
   text: String,
-  date: Date, // due date for todos
+  date: String, // due date for todos // FIXME we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
   notes: {type: String, 'default': ''},
   tags: {type: Schema.Types.Mixed, 'default': {}}, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
   type: {type:String, 'default': 'habit'}, // habit, daily
