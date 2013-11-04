@@ -28,10 +28,7 @@ var UserSchema = new Schema({
   // ### Mongoose Update Object
   // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
   // have been updated (http://goo.gl/gQLz41), but we want *every* update
-  _v: {
-    type: Number,
-    'default': 0
-  },
+  _v: { type: Number, 'default': 0 },
   achievements: {
     originalUser: Boolean,
     helpedHabit: Boolean,

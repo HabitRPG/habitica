@@ -419,7 +419,7 @@ api.unlock = function(req, res) {
   }
 
   user.balance -= cost;
-  user.__v++;
+  user._v++;
   user.markModified('purchased');
   user.save(function(err, saved){
     if (err) res.json(500, {err:err});
