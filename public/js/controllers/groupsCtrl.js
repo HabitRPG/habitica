@@ -83,12 +83,13 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     $scope._sending = false;
 
     $scope.postChat = function(group, message){
-      console.log($scope._sending)
       if (_.isEmpty(message) || $scope._sending) return;
       $scope._sending = true;
       group.$postChat({message:message}, function(data){
         group.chat = data.chat;
         $scope._chatMessage = '';
+        $scope._sending = false;
+      }, function(err){
         $scope._sending = false;
       });
     }
