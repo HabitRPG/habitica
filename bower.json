@@ -31,14 +31,12 @@
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#master",
     "BrowserQuest": "https://github.com/mozilla/BrowserQuest.git",
     "github-buttons": "git://github.com/mdo/github-buttons.git",
-    "sticky": "*",
     "marked": "~0.2.9",
     "JavaScriptButtons": "git://github.com/paypal/JavaScriptButtons.git#master"
   },
   "resolutions": {
     "jquery": "~2.0.3",
-    "bootstrap": "v2.3.2",
-    "angular": "1.2.0-rc.3"
+    "bootstrap": "v2.3.2"
   },
   "devDependencies": {
     "angular-mocks": "1.2.0-rc.3"
