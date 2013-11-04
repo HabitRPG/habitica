@@ -156,8 +156,8 @@ api.update = function(req, res){
       // Update the challenge, since syncing will need the updated challenge. But store `before` we're going to do some
       // before-save / after-save comparison to determine if we need to sync to users
       before = _before;
-      delete req.body._id;
-      Challenge.findByIdAndUpdate(cid, {$set:req.body}, cb); //FIXME sanitize
+      var attrs = _.pick(req.body, 'name shortName description habits dailys todos rewards date'.split(' '));
+      Challenge.findByIdAndUpdate(cid, {$set:attrs}, cb);
     },
     function(saved, cb) {
       // after saving, we're done as far as the client's concerned. We kick of syncing (heavy task) in the background
