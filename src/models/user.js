@@ -201,6 +201,13 @@ var UserSchema = new Schema({
   minimize: false // So empty objects are returned
 });
 
+UserSchema.methods.deleteTask = function(tid) {
+  //user[t.type+'s'].id(t.id).remove();
+  var task = this.tasks[tid];
+  var i = this[task.type+'s'].indexOf(task);
+  if (~i) this[task.type+'s'].splice(i,1);
+}
+
 UserSchema.methods.toJSON = function() {
   var doc = this.toObject();
   doc.id = doc._id;
@@ -208,12 +215,6 @@ UserSchema.methods.toJSON = function() {
   // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
   doc.filters = {};
   doc._tmp = this._tmp; // be sure to send down drop notifs
-
-  _.each(['habits','dailys','todos','rewards'], function(type){
-    _.each(doc[type],function(task){
-      task.id = task.id || task._id;
-    })
-  })
 
   return doc;
 };

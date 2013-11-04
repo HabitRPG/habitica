@@ -64,11 +64,6 @@ api.verifyTaskExists = function(req, res, next) {
   return next();
 };
 
-function deleteTask(user, task) {
-  var t = user[task.type+'s'].id(task.id);
-  if (t) t.remove();
-};
-
 function addTask(user, task) {
   task = helpers.taskDefaults(task);
   user[task.type+'s'].unshift(task);
@@ -169,8 +164,9 @@ api.getTask = function(req, res, next) {
  * Delete Task
  */
 api.deleteTask = function(req, res, next) {
-  deleteTask(res.locals.user, res.locals.task);
-  res.locals.user.save(function(err) {
+  var user = res.locals.user;
+  user.deleteTask(res.locals.task.id);
+  user.save(function(err) {
     if (err) return res.json(500, {err: err});
     res.send(204);
   });
@@ -200,7 +196,7 @@ api.updateTasks = function(req, res, next) {
     if (task.id) {
       // delete
       if (task.del) {
-        deleteTask(user, task);
+        user.deleteTask(task.id);
         task = {deleted: true};
       } else {
         // Update

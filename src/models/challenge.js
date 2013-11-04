@@ -39,11 +39,6 @@ ChallengeSchema.methods.toJSON = function(){
   var doc = this.toObject();
   doc.memberCount = doc.members ? _.size(doc.members) : doc.memberCount; // @see pre('save') comment above
   doc._isMember = this._isMember;
-  _.each(['habits','dailys','todos','rewards'], function(type){
-    _.each(doc[type],function(task){
-      task.id = task.id || task._id;
-    })
-  })
   return doc;
 }
 

@@ -366,7 +366,7 @@ function unlink(user, cid, keep, tid) {
       user.tasks[tid].challenge = {};
       break;
     case 'remove':
-      user[user.tasks[tid].type+'s'].id(tid).remove();
+      user.deleteTask(tid);
       break;
     case 'keep-all':
       _.each(user.tasks, function(t){
@@ -378,7 +378,7 @@ function unlink(user, cid, keep, tid) {
     case 'remove-all':
       _.each(user.tasks, function(t){
         if (t.challenge && t.challenge.id == cid) {
-          user[t.type+'s'].id(t.id).remove();
+          user.deleteTask(t.id);
         }
       })
       break;
