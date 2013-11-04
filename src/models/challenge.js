@@ -47,7 +47,7 @@ ChallengeSchema.methods.toJSON = function(){
 // --------------
 
 function syncableAttrs(task) {
-  var t = task.toObject(); // lodash doesn't seem to like _.omit on EmbeddedDocument
+  var t = (task.toObject) ? task.toObject() : task; // lodash doesn't seem to like _.omit on EmbeddedDocument
   // only sync/compare important attrs
   var omitAttrs = 'history tags completed streak'.split(' ');
   if (t.type != 'reward') omitAttrs.push('value');
@@ -67,7 +67,7 @@ function comparableData(obj) {
     .toString(); // for comparing arrays easily
 }
 
-ChallengeSchema.isOutdated = function(newData) {
+ChallengeSchema.methods.isOutdated = function(newData) {
   return comparableData(this) !== comparableData(newData);
 }
 
