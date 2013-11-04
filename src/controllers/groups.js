@@ -210,6 +210,9 @@ api.postChat = function(req, res, next) {
     timestamp: +(new Date)
   };
 
+  // workaround for preventing duplicate chat messages. Real solution is to prevent <ENTER> between sends on the client
+  if (group.chat[0].uuid == message.uuid && group.chat[0].text == message.text) return res.json(group);
+
   group.chat.unshift(message);
   group.chat.splice(200);
 
