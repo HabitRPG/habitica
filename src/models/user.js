@@ -248,10 +248,11 @@ UserSchema.pre('save', function(next) {
 UserSchema.methods.syncScoreToChallenge = function(task, delta){
   if (!task.challenge || !task.challenge.id || task.challenge.broken) return;
   if (task.type == 'reward') return; // we don't want to update the reward GP cost
+  var self = this;
   Challenge.findById(task.challenge.id, function(err, chal){
     if (err) throw err;
     var t = chal.tasks[task.id];
-    if (!t) return Challenge.syncToUser(this); // this task was removed from the challenge, notify user
+    if (!t) return chal.syncToUser(self); // this task was removed from the challenge, notify user
     t.value += delta;
     t.history.push({value: t.value, date: +new Date});
     chal.save();
