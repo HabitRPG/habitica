@@ -80,14 +80,16 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
   .controller('ChatCtrl', ['$scope', 'Groups', 'User', function($scope, Groups, User){
     $scope._chatMessage = '';
+    $scope._sending = false;
 
     $scope.postChat = function(group, message){
-      if (_.isEmpty(message)) return
-      $('.chat-btn').addClass('disabled');
+      console.log($scope._sending)
+      if (_.isEmpty(message) || $scope._sending) return;
+      $scope._sending = true;
       group.$postChat({message:message}, function(data){
-        $scope._chatMessage = '';
         group.chat = data.chat;
-        $('.chat-btn').removeClass('disabled');
+        $scope._chatMessage = '';
+        $scope._sending = false;
       });
     }
 
