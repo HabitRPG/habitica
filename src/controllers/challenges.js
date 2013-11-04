@@ -52,7 +52,10 @@ api.list = function(req, res) {
 
 // GET
 api.get = function(req, res) {
-  var user = res.locals.user;
+  // TODO use mapReduce() or aggregate() here to
+  // 1) Find the sum of users.tasks.values within the challnege (eg, {'profile.name':'tyler', 'sum': 100})
+  // 2) Sort by the sum
+  // 3) Limit 30 (only show the 30 users currently in the lead)
   Challenge.findById(req.params.cid)
     .populate('members', 'profile.name _id')
     .exec(function(err, challenge){
@@ -64,16 +67,12 @@ api.get = function(req, res) {
 
 api.getMember = function(req, res) {
   var cid = req.params.cid, uid = req.params.uid;
-  User.findById(uid).select('profile.name habits dailys rewards todos')
+  var elMatch = {$elemMatch:{'challenge.id':cid}};
+  User.findById(uid)
+    .select({'profile.name':1, habits:elMatch, dailys:elMatch, rewards:elMatch, todos:elMatch})
     .exec(function(err, member){
       if(err) return res.json(500, {err:err});
       if (!member) return res.json(404, {err: 'Member '+uid+' for challenge '+cid+' not found'});
-      // slim down the return members' tasks to only the ones in the challenge
-      _.each(['habits', 'dailys', 'todos', 'rewards'], function(type){
-        member[type] = _.where(member[type], function(task){
-          return task.challenge && task.challenge.id == cid;
-        })
-      });
       res.json(member);
     })
 }
