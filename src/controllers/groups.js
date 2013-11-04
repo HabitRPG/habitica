@@ -231,20 +231,17 @@ api.postChat = function(req, res, next) {
   })
 }
 
-api.deleteChatMessage = function(req, res, next){
+api.deleteChatMessage = function(req, res){
   var user = res.locals.user
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.messageId});
 
-  if(message === undefined) return res.json(404, {err: "Message not found!"});
+  if(!message) return res.json(404, {err: "Message not found!"});
 
-  if(user.id !== message.uuid && !(user.backer && user.backer.admin)){
+  if(user._id !== message.uuid && !(user.backer && user.backer.admin))
     return res.json(401, {err: "Not authorized to delete this message!"})
-  }
 
-  _.pull(group.chat, message);
-  
-  group.save(function(err, data){
+  Group.update({_id:group._id}, {$pull:{chat:{id: req.params.messageId}}}, function(err){
     if(err) return res.json(500, {err: err});
     res.send(204);
   });
