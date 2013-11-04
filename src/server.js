@@ -101,8 +101,8 @@ app.use(passport.session());
 
 app.use(app.router);
 
-var oneYear = 31536000000;
-app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: oneYear }));
+var maxAge = (nconf.get('NODE_ENV') === 'production') ? 31536000000 : 0;
+app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
 app.use(express['static'](path.join(__dirname, "/../public")));
 
 // development only

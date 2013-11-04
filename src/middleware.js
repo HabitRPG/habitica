@@ -54,10 +54,36 @@ var walk = function(folder){
 walk(path.join(__dirname, "/../build"));
 
 var getBuildUrl = function(url){
-  if(buildFiles[url]) return buildFiles[url];
+  console.log(url, buildFiles[url])
+  if(buildFiles[url]) return '/' + buildFiles[url];
 
-  return url;
+  return '/' + url;
 }
+
+var manifestFiles = require("../public/manifest.json");
+
+var getManifestFiles = function(page){
+  var files = manifestFiles[page];
+
+  if(!files) throw new Error("Page not found!");
+
+  var css = '';
+
+  _.each(files.css, function(file){
+    css += '<link rel="stylesheet" type="text/css" href="' + getBuildUrl(file) + '">'; 
+  });
+
+  if(nconf.get('NODE_ENV') === 'production'){
+    return css + '<script type="text/javascript" src="' + getBuildUrl(page + '.js') + '"></script>'; 
+  }else{
+    var results = css;
+    _.each(files.js, function(file){
+      results += '<script type="text/javascript" src="' + getBuildUrl(file) + '"></script>'; 
+    });
+    return results;
+  }
+
+} 
 
 module.exports.locals = function(req, res, next) {
   res.locals.habitrpg  = res.locals.habitrpg || {}
@@ -67,6 +93,7 @@ module.exports.locals = function(req, res, next) {
     PAYPAL_MERCHANT: nconf.get('PAYPAL_MERCHANT'),
     IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
     STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
+    getManifestFiles: getManifestFiles,
     getBuildUrl: getBuildUrl
   });
   next()
