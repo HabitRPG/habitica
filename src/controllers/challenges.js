@@ -11,48 +11,6 @@ var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var api = module.exports;
 
-/**
- * Syncs all new tasks, deleted tasks, etc to the user object
- * @param chal
- * @param user
- * @return nothing, user is modified directly. REMEMBER to save the user!
- */
-var syncChalToUser = function(chal, user) {
-  if (!chal || !user) return;
-  chal.shortName = chal.shortName || chal.name;
-
-  // Sync tags
-  var tags = user.tags || [];
-  var i = _.findIndex(tags, {id: chal._id})
-  if (~i) {
-    if (tags[i].name !== chal.shortName) {
-      // update the name - it's been changed since
-      user.tags[i].name = chal.shortName;
-    }
-  } else {
-    user.tags.push({
-      id: chal._id,
-      name: chal.shortName,
-      challenge: true
-    });
-  }
-
-  // Sync new tasks and updated tasks
-  _.each(chal.tasks, function(task){
-    var list = user[task.type+'s'];
-    var userTask = user.tasks[task.id] || (list.push(task), list[list.length-1]);
-    userTask.challenge = {id:chal._id};
-    userTask.tags = userTask.tags || {};
-    userTask.tags[chal._id] = true;
-    _.merge(userTask, keepAttrs(task));
-  })
-
-  // Flag deleted tasks as "broken"
-  _.each(user.tasks, function(task){
-    if (task.challenge && task.challenge.id==chal._id && !chal.tasks[task.id])
-      task.challenge.broken = 'TASK_DELETED';
-  })
-};
 
 /*
   ------------------------------------------------------------------------
@@ -174,21 +132,13 @@ api.create = function(req, res){
     },
     function(_group, num, cb) {
       // Auto-join creator to challenge (see members.push above)
-      syncChalToUser(chal, user);
-      user.save(cb);
+      chal.syncToUser(user, cb);
     }
   ]);
   async.waterfall(waterfall, function(err){
     if (err) return res.json(500, {err:err});
     res.json(chal);
   });
-}
-
-function keepAttrs(task) {
-  // only sync/compare important attrs
-  var keepAttrs = 'text notes up down priority repeat'.split(' ');
-  if (task.type=='reward') keepAttrs.push('value');
-  return _.pick(task, keepAttrs);
 }
 
 // UPDATE
@@ -215,22 +165,12 @@ api.update = function(req, res){
       cb(null, saved);
 
       // Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
-      function comparableData(obj) {
-        return (
-          _.chain(obj.habits.concat(obj.dailys).concat(obj.todos).concat(obj.rewards))
-          .sortBy('id') // we don't want to update if they're sort-order is different
-          .transform(function(result, task){
-            result.push(keepAttrs(task));
-          }))
-          .toString(); // for comparing arrays easily
-      }
-      if (comparableData(before) !== comparableData(req.body)) {
+      if (before.isOutdated(req.body)) {
         User.find({_id: {$in: saved.members}}, function(err, users){
           console.log('Challenge updated, sync to subscribers');
           if (err) throw err;
           _.each(users, function(user){
-            syncChalToUser(saved, user);
-            user.save();
+            saved.syncToUser(user);
           })
         })
       }
@@ -347,8 +287,7 @@ api.join = function(req, res){
       if (!~user.challenges.indexOf(cid))
         user.challenges.unshift(cid);
       // Add all challenge's tasks to user's tasks
-      syncChalToUser(challenge, user);
-      user.save(function(err){
+      challenge.syncToUser(user, function(err){
         if (err) return cb(err);
         cb(null, challenge); // we want the saved challenge in the return results, due to ng-resource
       });
@@ -360,30 +299,6 @@ api.join = function(req, res){
   });
 }
 
-function unlink(user, cid, keep, tid) {
-  switch (keep) {
-    case 'keep':
-      user.tasks[tid].challenge = {};
-      break;
-    case 'remove':
-      user.deleteTask(tid);
-      break;
-    case 'keep-all':
-      _.each(user.tasks, function(t){
-        if (t.challenge && t.challenge.id == cid) {
-          t.challenge = {};
-        }
-      });
-      break;
-    case 'remove-all':
-      _.each(user.tasks, function(t){
-        if (t.challenge && t.challenge.id == cid) {
-          user.deleteTask(t.id);
-        }
-      })
-      break;
-  }
-}
 
 api.leave = function(req, res){
   var user = res.locals.user;
@@ -398,8 +313,7 @@ api.leave = function(req, res){
     function(chal, cb){
       var i = user.challenges.indexOf(cid)
       if (~i) user.challenges.splice(i,1);
-      unlink(user, chal._id, keep)
-      user.save(function(err){
+      user.unlink({cid:chal._id, keep:keep}, function(err){
         if (err) return cb(err);
         cb(null, chal);
       })
@@ -421,12 +335,7 @@ api.unlink = function(req, res, next) {
   var cid = user.tasks[tid].challenge.id;
   if (!req.query.keep)
     return res.json(400, {err: 'Provide unlink method as ?keep=keep-all (keep, keep-all, remove, remove-all)'});
-  unlink(user, cid, req.query.keep, tid);
-  user.markModified('habits');
-  user.markModified('dailys');
-  user.markModified('todos');
-  user.markModified('rewards');
-  user.save(function(err, saved){
+  user.unlink({cid:cid, keep:req.query.keep, tid:tid}, function(err, saved){
     if (err) return res.json(500,{err:err});
     res.send(200);
   });

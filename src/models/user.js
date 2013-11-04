@@ -9,6 +9,7 @@ var Schema = mongoose.Schema;
 var helpers = require('habitrpg-shared/script/helpers');
 var _ = require('lodash');
 var TaskSchema = require('./task').schema;
+var Challenge = require('./challenge').model;
 
 // User Schema
 // -----------
@@ -243,6 +244,51 @@ UserSchema.pre('save', function(next) {
   this._v++;
   next();
 });
+
+UserSchema.methods.syncScoreToChallenge = function(task, delta){
+  if (!task.challenge || !task.challenge.id || task.challenge.broken) return;
+  if (task.type == 'reward') return; // we don't want to update the reward GP cost
+  Challenge.findById(task.challenge.id, function(err, chal){
+    if (err) throw err;
+    var t = chal.tasks[task.id];
+    if (!t) return Challenge.syncToUser(this); // this task was removed from the challenge, notify user
+    t.value += delta;
+    t.history.push({value: t.value, date: +new Date});
+    chal.save();
+  });
+}
+
+UserSchema.methods.unlink = function(options, cb) {
+  var cid = options.cid, keep = options.keep, tid = options.tid;
+  var self = this;
+  switch (keep) {
+    case 'keep':
+      self.tasks[tid].challenge = {};
+      break;
+    case 'remove':
+      self.deleteTask(tid);
+      break;
+    case 'keep-all':
+      _.each(self.tasks, function(t){
+        if (t.challenge && t.challenge.id == cid) {
+          t.challenge = {};
+        }
+      });
+      break;
+    case 'remove-all':
+      _.each(self.tasks, function(t){
+        if (t.challenge && t.challenge.id == cid) {
+          self.deleteTask(t.id);
+        }
+      })
+      break;
+  }
+  self.markModified('habits');
+  self.markModified('dailys');
+  self.markModified('todos');
+  self.markModified('rewards');
+  self.save(cb);
+}
 
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);

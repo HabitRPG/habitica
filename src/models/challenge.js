@@ -42,5 +42,81 @@ ChallengeSchema.methods.toJSON = function(){
   return doc;
 }
 
+// --------------
+// Syncing logic
+// --------------
+
+function syncableAttrs(task) {
+  var t = task.toObject(); // lodash doesn't seem to like _.omit on EmbeddedDocument
+  // only sync/compare important attrs
+  var omitAttrs = 'history tags completed streak'.split(' ');
+  if (t.type != 'reward') omitAttrs.push('value');
+  return _.omit(t, omitAttrs);
+}
+
+/**
+ * Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
+ */
+function comparableData(obj) {
+  return (
+    _.chain(obj.habits.concat(obj.dailys).concat(obj.todos).concat(obj.rewards))
+      .sortBy('id') // we don't want to update if they're sort-order is different
+      .transform(function(result, task){
+        result.push(syncableAttrs(task));
+      }))
+    .toString(); // for comparing arrays easily
+}
+
+ChallengeSchema.isOutdated = function(newData) {
+  return comparableData(this) !== comparableData(newData);
+}
+
+/**
+ * Syncs all new tasks, deleted tasks, etc to the user object
+ * @param user
+ * @return nothing, user is modified directly. REMEMBER to save the user!
+ */
+ChallengeSchema.methods.syncToUser = function(user, cb) {
+  if (!user) return;
+  var self = this;
+  self.shortName = self.shortName || self.name;
+
+  // Sync tags
+  var tags = user.tags || [];
+  var i = _.findIndex(tags, {id: self._id})
+  if (~i) {
+    if (tags[i].name !== self.shortName) {
+      // update the name - it's been changed since
+      user.tags[i].name = self.shortName;
+    }
+  } else {
+    user.tags.push({
+      id: self._id,
+      name: self.shortName,
+      challenge: true
+    });
+  }
+
+  // Sync new tasks and updated tasks
+  _.each(self.tasks, function(task){
+    var list = user[task.type+'s'];
+    var userTask = user.tasks[task.id] || (list.push(syncableAttrs(task)), list[list.length-1]);
+    userTask.challenge = {id:self._id};
+    userTask.tags = userTask.tags || {};
+    userTask.tags[self._id] = true;
+    _.merge(userTask, syncableAttrs(task));
+  })
+
+  // Flag deleted tasks as "broken"
+  _.each(user.tasks, function(task){
+    if (task.challenge && task.challenge.id==self._id && !self.tasks[task.id]) {
+      task.challenge.broken = 'TASK_DELETED';
+    }
+  })
+
+  user.save(cb);
+};
+
+
 module.exports.schema = ChallengeSchema;
 module.exports.model = mongoose.model("Challenge", ChallengeSchema);

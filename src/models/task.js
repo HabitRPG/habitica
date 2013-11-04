@@ -38,4 +38,11 @@ var TaskSchema = new Schema({
   _id: false
 });
 
+/**
+ * Workaround for bug when _id & id were out of sync, we can remove this after challenges has been running for a while
+ */
+TaskSchema.post('init', function(doc){
+  if (!doc.id && doc._id) doc.id = doc._id;
+})
+
 module.exports.schema = TaskSchema;

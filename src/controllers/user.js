@@ -75,18 +75,6 @@ function addTask(user, task) {
   ---------------
 */
 
-var syncScoreToChallenge = function(task, delta){
-  if (!task.challenge || !task.challenge.id || task.challenge.broken) return;
-  if (task.type == 'reward') return; // we don't want to update the reward GP cost
-  Challenge.findById(task.challenge.id, function(err, chal){
-    if (err) throw err;
-    var t = chal.tasks[task.id]
-    t.value += delta;
-    t.history.push({value: t.value, date: +new Date});
-    chal.save();
-  });
-}
-
 /**
   This is called form deprecated.coffee's score function, and the req.headers are setup properly to handle the login
   Export it also so we can call it from deprecated.coffee
@@ -136,7 +124,7 @@ api.scoreTask = function(req, res, next) {
   });
 
   // if it's a challenge task, sync the score
-  syncScoreToChallenge(task, delta);
+  user.syncScoreToChallenge(task, delta);
 };
 
 /**
