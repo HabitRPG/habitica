@@ -1,0 +1,83 @@
+{
+    "app": {
+        "js": [
+            "bower_components/jquery/jquery.js",
+            "bower_components/bootstrap-growl/jquery.bootstrap-growl.js",
+            "bower_components/bootstrap-tour/build/js/bootstrap-tour.js",
+            "bower_components/angular/angular.js",
+            "bower_components/angular-sanitize/angular-sanitize.js",
+            "bower_components/marked/lib/marked.js",
+            "bower_components/angular-ui-router/release/angular-ui-router.js",
+            "bower_components/angular-resource/angular-resource.min.js",
+            "bower_components/angular-ui/build/angular-ui.js",
+            "bower_components/angular-ui-utils/modules/keypress/keypress.js",
+            "bower_components/angular-loading-bar/build/loading-bar.js",
+
+            "bower_components/bootstrap/docs/assets/js/bootstrap.js",
+            "bower_components/angular-bootstrap/ui-bootstrap.js",
+            "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
+
+            "bower_components/jquery-ui/ui/minified/jquery.ui.core.min.js",
+            "bower_components/jquery-ui/ui/minified/jquery.ui.widget.min.js",
+            "bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js",
+            "bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js",
+
+            "bower_components/habitrpg-shared/dist/habitrpg-shared.js",
+
+            "js/app.js",
+            "js/services/authServices.js",
+            "js/services/notificationServices.js",
+            "js/services/sharedServices.js",
+            "js/services/userServices.js",
+            "js/services/groupServices.js",
+            "js/services/memberServices.js",
+            "js/services/guideServices.js",
+            "js/services/challengeServices.js",
+
+            "js/filters/filters.js",
+
+            "js/directives/directives.js",
+
+            "js/controllers/authCtrl.js",
+            "js/controllers/notificationCtrl.js",
+            "js/controllers/rootCtrl.js",
+            "js/controllers/settingsCtrl.js",
+            "js/controllers/headerCtrl.js",
+            "js/controllers/tasksCtrl.js",
+            "js/controllers/filtersCtrl.js",
+            "js/controllers/userCtrl.js",
+            "js/controllers/groupsCtrl.js",
+            "js/controllers/petsCtrl.js",
+            "js/controllers/inventoryCtrl.js",
+            "js/controllers/marketCtrl.js",
+            "js/controllers/footerCtrl.js",
+            "js/controllers/challengesCtrl.js"
+        ],
+        "css": [
+            "bower_components/bootstrap/docs/assets/css/bootstrap.css",
+            "app.css",
+            "bower_components/habitrpg-shared/dist/spritesheets.css"
+        ]
+    },
+    "static": {
+        "js": [
+            "bower_components/jquery/jquery.js",
+            "bower_components/habitrpg-shared/dist/habitrpg-shared.js",
+            "bower_components/angular/angular.js",
+
+            "bower_components/bootstrap/docs/assets/js/bootstrap.js",
+
+            "bower_components/angular-loading-bar/build/loading-bar.js",
+            "js/static.js",
+            "js/services/userServices.js",
+            "js/controllers/authCtrl.js"
+        ],
+        "css": [
+            "bower_components/bootstrap/docs/assets/css/bootstrap.css",
+            "bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css",
+            "bower_components/bootstrap/docs/assets/css/docs.css",
+    
+            "static.css"
+        ]
+    }
+}

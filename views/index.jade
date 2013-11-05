@@ -4,7 +4,7 @@ html
     title HabitRPG | Your Life The Role Playing Game
 
     // ?v=1 needed to force refresh
-    link(rel='shortcut icon' href='/#{env.getBuildUrl("favicon.ico")}?v=2') 
+    link(rel='shortcut icon' href='#{env.getBuildUrl("favicon.ico")}?v=2') 
 
     script(type='text/javascript').
       window.env = !{JSON.stringify(env)};
@@ -14,74 +14,7 @@ html
         display: none;
       }
 
-    // CSS Remember to update also in Grunfile.js cssmin task!
-    link(rel='stylesheet', href='/#{env.getBuildUrl("bower_components/bootstrap/docs/assets/css/bootstrap.css")}')
-
-    link(rel='stylesheet', href='/#{env.getBuildUrl("app.css")}')
-
-    // HabitRPG Shared
-    link(rel='stylesheet', href='/#{env.getBuildUrl("bower_components/habitrpg-shared/dist/spritesheets.css")}')
-
-    - if(env.NODE_ENV == 'production'){
-      script(type='text/javascript', src='/#{env.getBuildUrl("app.js")}')
-    - }else{
-      // Remember to update the file list in Gruntfile.js!
-      script(type='text/javascript', src='/bower_components/jquery/jquery.min.js')
-      script(type='text/javascript', src='/bower_components/jquery.cookie/jquery.cookie.js')
-      script(type='text/javascript', src='/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js')
-      script(type='text/javascript', src='/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js')
-      script(type='text/javascript', src='/bower_components/angular/angular.js')
-      script(type='text/javascript', src='/bower_components/angular-ui-router/release/angular-ui-router.js')
-
-      script(type='text/javascript', src='/bower_components/angular-sanitize/angular-sanitize.min.js')
-      script(type='text/javascript', src='/bower_components/marked/lib/marked.js')
-
-      script(type='text/javascript', src='/bower_components/angular-resource/angular-resource.js')
-      script(type='text/javascript', src='/bower_components/angular-ui/build/angular-ui.js')
-      script(type='text/javascript', src='/bower_components/angular-ui-utils/modules/keypress/keypress.js')
-
-      script(type='text/javascript', src='/bower_components/angular-loading-bar/build/loading-bar.js')
-      // we'll remove this once angular-bootstrap is fixed
-      script(type='text/javascript', src='/bower_components/bootstrap/docs/assets/js/bootstrap.min.js')
-      script(type='text/javascript', src='/bower_components/angular-bootstrap/ui-bootstrap.min.js')
-      script(type='text/javascript', src='/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js')
-      // Sortable
-      script(type='text/javascript', src='/bower_components/jquery-ui/ui/minified/jquery.ui.core.min.js')
-      script(type='text/javascript', src='/bower_components/jquery-ui/ui/minified/jquery.ui.widget.min.js')
-      script(type='text/javascript', src='/bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js')
-      script(type='text/javascript', src='/bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js')
-      // habitrpg-shared
-      script(type='text/javascript', src='/bower_components/habitrpg-shared/dist/habitrpg-shared.js')
-      // app
-      script(type='text/javascript', src='/js/app.js')
-      script(type='text/javascript', src='/js/services/authServices.js')
-      script(type='text/javascript', src='/js/services/notificationServices.js')
-      script(type='text/javascript', src='/js/services/sharedServices.js')
-      script(type='text/javascript', src='/js/services/userServices.js')
-      script(type='text/javascript', src='/js/services/groupServices.js')
-      script(type='text/javascript', src='/js/services/memberServices.js')
-      script(type='text/javascript', src='/js/services/guideServices.js')
-      script(type='text/javascript', src='/js/services/challengeServices.js')
-
-      script(type='text/javascript', src='/js/filters/filters.js')
-
-      script(type='text/javascript', src='/js/directives/directives.js')
-
-      script(type='text/javascript', src='/js/controllers/authCtrl.js')
-      script(type='text/javascript', src='/js/controllers/notificationCtrl.js')
-      script(type='text/javascript', src='/js/controllers/rootCtrl.js')
-      script(type='text/javascript', src='/js/controllers/settingsCtrl.js')
-      script(type='text/javascript', src='/js/controllers/headerCtrl.js')
-      script(type='text/javascript', src='/js/controllers/tasksCtrl.js')
-      script(type='text/javascript', src='/js/controllers/filtersCtrl.js')
-      script(type='text/javascript', src='/js/controllers/userCtrl.js')
-      script(type='text/javascript', src='/js/controllers/groupsCtrl.js')
-      script(type='text/javascript', src='/js/controllers/petsCtrl.js')
-      script(type='text/javascript', src='/js/controllers/inventoryCtrl.js')
-      script(type='text/javascript', src='/js/controllers/marketCtrl.js')
-      script(type='text/javascript', src='/js/controllers/footerCtrl.js')
-      script(type='text/javascript', src='/js/controllers/challengesCtrl.js')
-    -}
+    != env.getManifestFiles("app")
 
     //webfonts
     link(href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic', rel='stylesheet', type='text/css')

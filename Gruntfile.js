@@ -1,4 +1,5 @@
 /*global module:false*/
+var _ = require('lodash');
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -19,82 +20,6 @@ module.exports = function(grunt) {
       build: ['build']
     },
 
-    uglify: {
-      buildApp: {
-        files: {
-          'build/app.js': [
-            'public/bower_components/jquery/jquery.min.js',
-            'public/bower_components/jquery.cookie/jquery.cookie.js',
-            'public/bower_components/bootstrap-growl/jquery.bootstrap-growl.min.js',
-            'public/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js',
-            'public/bower_components/angular/angular.min.js',
-            'public/bower_components/angular-sanitize/angular-sanitize.min.js',
-            'public/bower_components/marked/lib/marked.js',
-            'public/bower_components/angular-ui-router/release/angular-ui-router.js',
-            'public/bower_components/angular-resource/angular-resource.min.js',
-            'public/bower_components/angular-ui/build/angular-ui.min.js',
-            'public/bower_components/angular-ui-utils/modules/keypress/keypress.js',
-            'public/bower_components/angular-loading-bar/build/loading-bar.js',
-            // we'll remove this once angular-bootstrap is fixed
-            'public/bower_components/bootstrap/docs/assets/js/bootstrap.min.js',
-            'public/bower_components/angular-bootstrap/ui-bootstrap.min.js',
-            'public/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-            // Sortable
-            'public/bower_components/jquery-ui/ui/minified/jquery.ui.core.min.js',
-            'public/bower_components/jquery-ui/ui/minified/jquery.ui.widget.min.js',
-            'public/bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js',
-            'public/bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js',
-            // habitrpg-shared
-            'public/bower_components/habitrpg-shared/dist/habitrpg-shared.js',
-            // app
-            'public/js/app.js',
-            'public/js/services/authServices.js',
-            'public/js/services/notificationServices.js',
-            'public/js/services/sharedServices.js',
-            'public/js/services/userServices.js',
-            'public/js/services/groupServices.js',
-            'public/js/services/memberServices.js',
-            'public/js/services/guideServices.js',
-            'public/js/services/challengeServices.js',
-
-            'public/js/filters/filters.js',
-
-            'public/js/directives/directives.js',
-
-            'public/js/controllers/authCtrl.js',
-            'public/js/controllers/notificationCtrl.js',
-            'public/js/controllers/rootCtrl.js',
-            'public/js/controllers/settingsCtrl.js',
-            'public/js/controllers/headerCtrl.js',
-            'public/js/controllers/tasksCtrl.js',
-            'public/js/controllers/filtersCtrl.js',
-            'public/js/controllers/userCtrl.js',
-            'public/js/controllers/groupsCtrl.js',
-            'public/js/controllers/petsCtrl.js',
-            'public/js/controllers/inventoryCtrl.js',
-            'public/js/controllers/marketCtrl.js',
-            'public/js/controllers/footerCtrl.js',
-            'public/js/controllers/challengesCtrl.js'
-          ]
-        }
-      },
-      buildStatic: {
-        files: {
-          'build/static.js': [
-            'public/bower_components/jquery/jquery.min.js',
-            'public/bower_components/habitrpg-shared/dist/habitrpg-shared.js',
-            'public/bower_components/angular/angular.min.js',
-            'public/bower_components/angular-resource/angular-resource.min.js',
-            'public/bower_components/bootstrap/docs/assets/js/bootstrap.min.js',
-            'public/bower_components/angular-loading-bar/build/loading-bar.js',
-            'public/js/static.js',
-            'public/js/services/userServices.js',
-            'public/js/controllers/authCtrl.js'
-          ]
-        }
-      }
-    },
-
     stylus: {
       build: {
         options: {
@@ -105,19 +30,6 @@ module.exports = function(grunt) {
         files: {
           'build/app.css': ['public/css/index.styl'],
           'build/static.css': ['public/css/static.styl']
-        }
-      }
-    },
-
-    cssmin: {
-      build: {
-        files: {
-          'build/app.css': ['build/app.css'],
-          'build/static.css': ['build/static.css'],
-          'build/bower_components/habitrpg-shared/dist/spritesheets.css': ['public/bower_components/habitrpg-shared/dist/spritesheets.css'],
-          'build/bower_components/bootstrap/docs/assets/css/bootstrap.css': ['public/bower_components/bootstrap/docs/assets/css/bootstrap.css'],
-          'build/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css': ['public/bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css'],
-          'build/bower_components/bootstrap/docs/assets/css/docs.css': ['public/bower_components/bootstrap/docs/assets/css/docs.css']
         }
       }
     },
@@ -168,9 +80,31 @@ module.exports = function(grunt) {
 
   });
 
+  //Load build files from public/manifest.json
+  grunt.registerTask('loadManifestFiles', 'Load all build files from public/manifest.json', function(){
+    var files = grunt.file.readJSON('./public/manifest.json');
+    var uglify = {};
+    var cssmin = {};
+    _.each(files, function(val, key){
+      var js = uglify['build/' + key + '.js'] = [];
+      _.each(files[key]['js'], function(val){
+        js.push('public/' + val);
+      });
+      _.each(files[key]['css'], function(val){
+        if(val == 'app.css' || val == 'static.css'){
+          cssmin['build/' + val] = ['build/' + val]
+        }else{
+          cssmin['build/' + val] = ['public/' + val]
+        }
+      });
+    });
+    grunt.config.set('uglify.build.files', uglify);
+    grunt.config.set('cssmin.build.files', cssmin);
+  });
+
   // Register tasks.
-  grunt.registerTask('build:prod', ['clean:build', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
-  grunt.registerTask('build:dev', ['clean:build', 'stylus', 'cssmin', 'copy:build', 'hashres']);
+  grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
+  grunt.registerTask('build:dev', ['loadManifestFiles', 'clean:build', 'stylus', 'cssmin', 'copy:build']);
 
   grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
 
