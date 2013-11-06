@@ -11,6 +11,8 @@ angular.module('memberServices', ['ngResource']).
         var Member = $resource(API_URL + '/api/v1/members/:uid', {uid:'@_id'});
         var memberServices = {
 
+          Member: Member,
+
           members: members,
 
           /**

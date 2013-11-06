@@ -2,6 +2,7 @@ include ./profile
 include ./social/index
 include ./inventory/index
 include ./settings
+include ./admin
 
 script(id='partials/options.html', type="text/ng-template")
   .grid
@@ -26,6 +27,10 @@ script(id='partials/options.html', type="text/ng-template")
           a(ui-sref='options.settings')
             i.icon-wrench
             | Settings
+        li(ng-class="{ active: $state.includes('options.admin') }", ng-if='user.contributor.admin')
+          a(ui-sref='options.admin')
+            i.icon-cog
+            | Admin
 
       .tab-content
         .tab-pane.active

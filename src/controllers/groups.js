@@ -17,7 +17,7 @@ var api = module.exports;
 */
 
 var itemFields = 'items.armor items.head items.shield items.weapon items.currentPet items.pets'; // TODO just send down count(items.pets) for better performance
-var partyFields = 'profile preferences stats achievements party backer flags.rest auth.timestamps ' + itemFields;
+var partyFields = 'profile preferences stats achievements party backer contributor balance flags.rest auth.timestamps ' + itemFields;
 var nameFields = 'profile.name';
 var challengeFields = '_id name';
 var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} };
@@ -43,6 +43,24 @@ api.getMember = function(req, res) {
     if (err) return res.json(500,{err:err});
     if (!user) return res.json(400,{err:'User not found'});
     res.json(user);
+  })
+}
+
+api.updateMember = function(req, res) {
+  var user = res.locals.user;
+  if (!(user.contributor && user.contributor.admin)) return res.json(401, {err:"You don't have access to save this user"});
+  async.waterfall([
+    function(cb){
+      User.findById(req.params.uid, cb);
+    },
+    function(member, cb){
+      if (!member) return res.json(404, {err: "User not found"});
+      _.merge(member, _.pick(req.body, ['contributor', 'balance']));
+      member.save(cb);
+    }
+  ], function(err, saved){
+    if (err) return res.json(500,{err:err});
+    res.json(204);
   })
 }
 
