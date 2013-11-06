@@ -45,19 +45,20 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.removeMember = function(group, member, isMember){
         var yes = confirm("Do you really want to remove this member from the party?")
         if(yes){
-          group.$removeMember({uuid: member._id});
-          if(isMember){
-            _.pull(group.members, member);
-          }else{
-            _.pull(group.invites, member);
-          }
+          Groups.Group.removeMember({gid: group._id, uuid: member._id }, undefined, function(){
+            if(isMember){
+              _.pull(group.members, member);
+            }else{
+              _.pull(group.invites, member);
+            }
+          });
         }
       }
 
     // ------ Invites ------
 
       $scope.invite = function(group){
-        group.$invite({uuid:group.invitee}, function(){
+        Groups.Group.invite({gid: group._id, uuid: group.invitee}, undefined, function(){
           group.invitee = '';
         }, function(){
           group.invitee = '';
@@ -85,8 +86,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     $scope.postChat = function(group, message){
       if (_.isEmpty(message) || $scope._sending) return;
       $scope._sending = true;
-      group.$postChat({message:message}, function(data){
-        group.chat = data.chat;
+      Groups.Group.postChat({gid: group._id, message:message}, undefined, function(data){
+        group.chat.unshift(data.message);
         $scope._chatMessage = '';
         $scope._sending = false;
       }, function(err){
@@ -96,7 +97,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
     $scope.deleteChatMessage = function(group, message){
       if(message.uuid === User.user.id || (User.user.backer && User.user.backer.admin)){
-        group.$deleteChatMessage({messageId: message.id}, function(){
+        Groups.Group.deleteChatMessage({gid: group._id, messageId: message.id}, undefined, function(){
           var i = _.indexOf(group.chat, message);
           if(i !== -1) group.chat.splice(i, 1);
         });
@@ -172,7 +173,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         if (confirm("Are you sure you want to leave this guild?") !== true) {
           return;
         }
-        group.$leave(function(){
+        Groups.Group.leave({gid: group._id}, undefined, function(){
           $scope.groups.guilds.splice(_.indexOf($scope.groups.guilds, group), 1);
           // remove user from group members if guild is public so that he can re-join it immediately
           if(group.privacy == 'public' || !group.privacy){ //public guilds with only some fields fetched
@@ -221,7 +222,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         if (confirm("Are you sure you want to leave this party?") !== true) {
           return;
         }
-        group.$leave(function(){
+        Groups.Group.leave({gid: group._id}, undefined, function(){
           $scope.group = undefined;
         });
       }
