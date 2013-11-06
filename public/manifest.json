@@ -2,6 +2,7 @@
     "app": {
         "js": [
             "bower_components/jquery/jquery.js",
+            "bower_components/jquery.cookie/jquery.cookie.js",
             "bower_components/bootstrap-growl/jquery.bootstrap-growl.js",
             "bower_components/bootstrap-tour/build/js/bootstrap-tour.js",
             "bower_components/angular/angular.js",

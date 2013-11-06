@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "jquery": "~2.0.3",
+    "jquery.cookie": "~1.4.0",
     "jquery-ui": "~1.10.3",
     "angular": "1.2.0-rc.3",
     "angular-sanitize": "1.2.0-rc.3",
