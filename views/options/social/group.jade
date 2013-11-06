@@ -79,7 +79,6 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
               a
                 span(ng-click='clickMember(invite._id, true)')
                   | {{invite.profile.name}}
-            td ({{invite._id}})
       .modal-footer.whatever-options
         form.form-inline(ng-submit='invite(group)')
           //.alert.alert-danger(ng-show='_groupError') {{_groupError}}
