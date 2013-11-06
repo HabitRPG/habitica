@@ -65,6 +65,7 @@ router.get('/groups', auth.auth, groups.list);
 router.post('/groups', auth.auth, groups.create);
 router.get('/groups/:gid', auth.auth, groups.get);
 router.post('/groups/:gid', auth.auth, groups.attachGroup, groups.update);
+router.put('/groups/:gid', auth.auth, groups.attachGroup, groups.update);
 //DELETE /groups/:gid
 
 router.post('/groups/:gid/join', auth.auth, groups.attachGroup, groups.join);
