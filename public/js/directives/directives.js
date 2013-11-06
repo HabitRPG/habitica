@@ -139,9 +139,9 @@ habitrpg
             type: 'daily',
             placeHolder: 'New Daily'
           }, {
-            header: 'Todos',
+            header: 'To-Dos',
             type: 'todo',
-            placeHolder: 'New Todo'
+            placeHolder: 'New To-Do'
           }, {
             header: 'Rewards',
             type: 'reward',
