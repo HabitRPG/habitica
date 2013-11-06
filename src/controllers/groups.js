@@ -175,14 +175,10 @@ api.update = function(req, res, next) {
     group[attr] = req.body[attr];
   });
 
-  async.series([
-    function(cb){group.save(cb);},
-    function(cb){
-      populateQuery(group.type, Group.findById(group._id)).exec(cb);
-    }
-  ], function(err, results){
+  group.save(function(err, saved){
     if (err) return res.json(500,{err:err});
-    res.json(results[1]);
+
+    res.send(204);
   });
 }
 
