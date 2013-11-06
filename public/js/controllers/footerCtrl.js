@@ -46,7 +46,7 @@ habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http', 'Not
      */
     $scope.addMissedDay = function(){
       var dayBefore = moment(User.user.lastCron).subtract('days', 1).toDate();
-      User.set({lastCron: dayBefore});
+      User.set('lastCron', dayBefore);
       Notification.text('-1 day, remember to refresh');
     }
     $scope.addTenGems = function(){
