@@ -165,11 +165,12 @@ api.deleteTask = function(req, res, next) {
 */
 api.updateTask = function(req, res, next) {
   var user = res.locals.user;
+  var tid = req.params.id;
   var task = user.tasks[req.params.id];
-  user[task.type+'s'][_.findIndex(user[task.type+'s'],{id:task.id})] = req.body;
+  _.merge(task, req.body);
   user.save(function(err, saved) {
     if (err) return res.json(500, {err: err})
-    return res.json(200, saved.tasks[id]);
+    return res.json(200, task);
   });
 };
 
