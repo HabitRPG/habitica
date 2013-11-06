@@ -217,7 +217,7 @@ api.postChat = function(req, res, next) {
   group.save(function(err, saved){
     if (err) return res.json(500, {err:err});
 
-    res.json({message: saved.chat[0]});
+    res.json({chat: saved.chat});
   });
 }
 
