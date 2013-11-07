@@ -1,43 +1,64 @@
+/* FIXME - what's going on with these negative margin requirements? */
 .weapon_7, .armor_6, .head_6, .shield_6 {
-    /*background: url("../img/sprites/backer-only/BackerOnly-SpriteSheet.png") no-repeat*/
-    width: 105px;
-    height: 105px;
-
-    /*FIXME - not he best way of handling the alignment issues*/
-    margin-left: -3px;
-    margin-top: -18px;
+  /*background: url("../img/sprites/backer-only/BackerOnly-SpriteSheet.png") no-repeat*/
+  width: 105px;
+  height: 105px;
+  margin-left: -3px;
+  margin-top: -18px;
+}
+.weapon_8, .armor_7, .head_7, .shield_7 {
+  width: 105px;
+  height: 105px;
+  margin-left: -9px;
+  margin-top: -15px;
 }
 
 .head_6 {
-    background: url("../img/sprites/backer-only/BackerOnly-Equip-ShadeHelmet.gif") no-repeat;
+  background: url("../img/sprites/backer-only/BackerOnly-Equip-ShadeHelmet.gif") no-repeat;
+}
+.head_7 {
+  background: url("../img/sprites/backer-only/ContributorOnly-Equip-CrystalHelmet.gif") no-repeat;
 }
 
 .armor_6 {
-    background: url("../img/sprites/backer-only/BackerOnly-Equip-ShadeArmor.gif") no-repeat;
+  background: url("../img/sprites/backer-only/BackerOnly-Equip-ShadeArmor.gif") no-repeat;
+}
+.armor_7 {
+  background: url("../img/sprites/backer-only/ContributorOnly-Equip-CrystalArmor.gif") no-repeat;
 }
 
 .shield_6 {
-    background: url("../img/sprites/backer-only/BackerOnly-Shield-TormentedSkull.gif") no-repeat;
+  background: url("../img/sprites/backer-only/BackerOnly-Shield-TormentedSkull.gif") no-repeat;
+}
+.shield_7 {
+  background: url("../img/sprites/backer-only/ContributorOnly-Shield-Crystal.png") no-repeat;
 }
 
 .weapon_7 {
-    background: url("../img/sprites/backer-only/BackerOnly-Weapon-DarkSoulsBlade.gif") no-repeat;
+  background: url("../img/sprites/backer-only/BackerOnly-Weapon-DarkSoulsBlade.gif") no-repeat;
+}
+.weapon_8 {
+  background: url("../img/sprites/backer-only/ContributorOnly-Weapon-CrystalBlade.png") no-repeat;
 }
 
 .Pet-Wolf-Cerberus {
-    width: 105px;
-    height: 72px;
-    background: url("../img/sprites/backer-only/BackerOnly-Pet-CerberusPup.gif") no-repeat;
+  width: 105px;
+  height: 72px;
+  background: url("../img/sprites/backer-only/BackerOnly-Pet-CerberusPup.gif") no-repeat;
 }
-
 .Pet-Dragon-Hydra {
-    width: 106px;
-    height: 89px;
-    background: url("../img/sprites/backer-only/ContributorOnly-Pet-Hydra.png") no-repeat;
+  width: 106px;
+  height: 89px;
+  background: url("../img/sprites/backer-only/ContributorOnly-Pet-Hydra.png") no-repeat;
 }
 
 .shop_shield_6 {background-position: -1040px 0}
 .shop_weapon_7 {background-position: -1080px 0}
-.shop_armor_6 {background-position: -1160px 0}
 .shop_head_6 {background-position: -1120px 0}
+.shop_armor_6 {background-position: -1160px 0}
+
+.shop_shield_7 {background-position: -1318px 0; width: 35px;} /* something got busted here, @Shaners can you take a peak? */
+.shop_weapon_8 {background-position: -1352px 0; width: 45px;}
+.shop_head_7 {background-position: -1398px 0}
+.shop_armor_7 {background-position: -1438px 0}
 
