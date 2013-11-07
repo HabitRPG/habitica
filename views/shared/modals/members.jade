@@ -13,6 +13,7 @@ div(ng-controller='MemberModalCtrl')
             li(ng-repeat='website in profile.profile.websites')
               a(href='{{website}}', target='_blank') {{website}}
           ul.muted.unstyled(ng-if='profile.auth.timestamps', style='margin-top:10px;')
+            li {{profile._id}}
             li(ng-show='profile.auth.timestamps.created') - Member since {{timestamp(profile.auth.timestamps.created)}} -
             li(ng-show='profile.auth.timestamps.loggedin') - Last logged in {{timestamp(profile.auth.timestamps.loggedin)}} -
           h3 Stats
