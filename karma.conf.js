@@ -12,6 +12,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'public/bower_components/angular/angular.js',
+      'public/bower_components/angular-loading-bar/build/loading-bar.min.js',
       'public/bower_components/angular-resource/angular-resource.min.js',
       'public/bower_components/angular-mocks/angular-mocks.js',
       'public/bower_components/marked/lib/marked.js',
