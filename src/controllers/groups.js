@@ -55,11 +55,11 @@ api.updateMember = function(req, res) {
     },
     function(member, cb){
       if (!member) return res.json(404, {err: "User not found"});
+      if (req.body.contributor.level > (member.contributor && member.contributor.level || 0)) member.flags.contributor = true;
       _.merge(member, _.pick(req.body, ['contributor', 'balance']));
       if (!member.items.pets) member.items.pets = [];
       var i = member.items.pets.indexOf('Dragon-Hydra');
       if (!~i && member.contributor.level >= 6) member.items.pets.push('Dragon-Hydra');
-      if (member.contributor.level >= 1) member.flags.contributor = true;
       member.save(cb);
     }
   ], function(err, saved){
