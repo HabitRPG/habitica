@@ -75,6 +75,16 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       });
     }
 
+    $scope.contribText = function(contrib, backer){
+      if (!contrib && !backer) return;
+      if (backer && backer.npc) return backer.npc;
+      var l = contrib && contrib.level;
+      if (l && l > 0) {
+        var level = (l < 3) ? 'Friend' : (l < 5) ? 'Elite' : (l < 7) ? 'Champion' : (l < 8) ? 'Legendary' : 'Heroic';
+        return level + ' ' + contrib.text;
+      }
+    }
+
     $rootScope.charts = {};
     $rootScope.toggleChart = function(id, task) {
       var history = [], matrix, data, chart, options;

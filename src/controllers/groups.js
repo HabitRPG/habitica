@@ -220,8 +220,8 @@ api.postChat = function(req, res, next) {
   var message = {
     id: helpers.uuid(),
     uuid: user._id,
-    contributor: user.backer && user.backer.contributor,
-    npc: user.backer && user.backer.npc,
+    contributor: user.contributor && user.contributor.toObject(),
+    backer: user.backer && user.backer.toObject(),
     text: req.query.message, // FIXME this should be body, but ngResource is funky
     user: user.profile.name,
     timestamp: +(new Date)
@@ -237,7 +237,6 @@ api.postChat = function(req, res, next) {
 
   group.save(function(err, saved){
     if (err) return res.json(500, {err:err});
-
     res.json({chat: saved.chat});
   });
 }
@@ -249,7 +248,7 @@ api.deleteChatMessage = function(req, res){
 
   if(!message) return res.json(404, {err: "Message not found!"});
 
-  if(user._id !== message.uuid && !(user.backer && user.backer.admin))
+  if(user._id !== message.uuid && !(user.backer && user.contributor.admin))
     return res.json(401, {err: "Not authorized to delete this message!"})
 
   Group.update({_id:group._id}, {$pull:{chat:{id: req.params.messageId}}}, function(err){

@@ -3,7 +3,7 @@ div(ng-controller='MemberModalCtrl')
     .modal-header
       h3
         span {{profile.profile.name}}
-        span(ng-show='profile.backer.contributor')  - {{profile.backer.contributor}}
+        span(ng-if='profile.contributor.level')  - {{contribText(profile.contributor, profile.backer)}}
     .modal-body
       .row-fluid
         .span6
