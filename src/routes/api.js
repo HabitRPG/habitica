@@ -80,6 +80,7 @@ router["delete"]('/groups/:gid/chat/:messageId', auth.auth, groups.attachGroup, 
 
 /* Members */
 router.get('/members/:uid', groups.getMember);
+router.post('/members/:uid', auth.auth, groups.updateMember); // only for admins
 
 // Market
 router.post('/market/buy', auth.auth, user.marketBuy);

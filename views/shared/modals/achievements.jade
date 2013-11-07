@@ -30,4 +30,17 @@ div(modal='modals.achievements.beastmaster')
   .modal-footer
     button.btn.btn-default.cancel(ng-click='modals.achievements.beastmaster = false') Ok
 
+// Contributor
+div(modal='user.flags.contributor')
+ .modal-header
+   h3 Contributor Achievement!
+ .modal-body
+   .NPC-Justin.float-left
+   p.
+     {{user.profile.name}}, you awesome person! You're now a level {{user.contributor.level}} contributor for pitching in to Habit. See <a href='https://trello.com/c/wkFzONhE/277-contributor-gear' target='_blank'>Trello</a> for what prizes you've earned for your contribution level.
+
+ .modal-footer
+   button.btn.btn-default.cancel(ng-click='set("flags.contributor",false)') Ok
+
+
 
