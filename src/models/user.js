@@ -84,7 +84,8 @@ var UserSchema = new Schema({
     rewrite: {type: Boolean, 'default': true},
     partyEnabled: Boolean, // FIXME do we need this?
     petsEnabled: {type: Boolean, 'default': false},
-    rest: {type: Boolean, 'default': false} // fixme - change to preferences.resting once we're off derby
+    rest: {type: Boolean, 'default': false}, // fixme - change to preferences.resting once we're off derby
+    contributor: Boolean
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined

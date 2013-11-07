@@ -59,6 +59,7 @@ api.updateMember = function(req, res) {
       if (!member.items.pets) member.items.pets = [];
       var i = member.items.pets.indexOf('Dragon-Hydra');
       if (!~i && member.contributor.level >= 6) member.items.pets.push('Dragon-Hydra');
+      if (member.contributor.level >= 1) member.flags.contributor = true;
       member.save(cb);
     }
   ], function(err, saved){
