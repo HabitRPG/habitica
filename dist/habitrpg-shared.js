@@ -9171,80 +9171,7 @@ var process=require("__browserify_process");(function() {
       loc = (typeof window !== "undefined" && window !== null ? window.location.host : void 0) || (typeof process !== "undefined" && process !== null ? (_ref = process.env) != null ? _ref.BASE_URL : void 0 : void 0) || '';
       return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
     },
-    /*
-      User's currently equiped item
-    */
-
-    equipped: function(type, item, preferences, backerTier) {
-      var armorSet, gender;
-      if (item == null) {
-        item = 0;
-      }
-      if (preferences == null) {
-        preferences = {
-          gender: 'm',
-          armorSet: 'v1'
-        };
-      }
-      if (backerTier == null) {
-        backerTier = 0;
-      }
-      gender = preferences.gender, armorSet = preferences.armorSet;
-      item = ~~item;
-      backerTier = ~~backerTier;
-      switch (type) {
-        case 'armor':
-          if (item > 5) {
-            if (backerTier >= 45) {
-              return 'armor_6';
-            }
-            item = 5;
-          }
-          if (gender === 'f') {
-            if (item === 0) {
-              return "f_armor_" + item + "_" + armorSet;
-            } else {
-              return "f_armor_" + item;
-            }
-          } else {
-            return "m_armor_" + item;
-          }
-          break;
-        case 'head':
-          if (item > 5) {
-            if (backerTier >= 45) {
-              return 'head_6';
-            }
-            item = 5;
-          }
-          if (gender === 'f') {
-            if (item > 1) {
-              return "f_head_" + item + "_" + armorSet;
-            } else {
-              return "f_head_" + item;
-            }
-          } else {
-            return "m_head_" + item;
-          }
-          break;
-        case 'shield':
-          if (item > 5) {
-            if (backerTier >= 45) {
-              return 'shield_6';
-            }
-            item = 5;
-          }
-          return "" + preferences.gender + "_shield_" + item;
-        case 'weapon':
-          if (item > 6) {
-            if (backerTier >= 70) {
-              return 'weapon_7';
-            }
-            item = 6;
-          }
-          return "" + preferences.gender + "_weapon_" + item;
-      }
-    },
+    equipped: items.equipped,
     /*
       Gold amount from their money
     */
@@ -9484,7 +9411,7 @@ try {
 } catch(e) {}
 },{"./algos.coffee":5,"./helpers.coffee":6,"./items.coffee":8,"lodash":2,"moment":3}],8:[function(require,module,exports){
 (function() {
-  var items, _;
+  var items, reversed, _;
 
   _ = require('lodash');
 
@@ -9545,7 +9472,22 @@ try {
         classes: 'weapon_7',
         notes: 'Increases experience gain by 21%.',
         strength: 21,
-        value: 150
+        value: 150,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 70;
+        })
+      }, {
+        index: 8,
+        text: "Crystal Blade",
+        classes: 'weapon_8',
+        notes: 'Increases experience gain by 24%.',
+        strength: 24,
+        value: 170,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 4;
+        })
       }
     ],
     armor: [
@@ -9597,7 +9539,22 @@ try {
         classes: 'armor_6',
         notes: 'Decreases HP loss by 12%.',
         defense: 12,
-        value: 150
+        value: 150,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+        })
+      }, {
+        index: 7,
+        text: "Crystal Armor",
+        classes: 'armor_7',
+        notes: 'Decreases HP loss by 14%.',
+        defense: 14,
+        value: 170,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 2;
+        })
       }
     ],
     head: [
@@ -9649,7 +9606,22 @@ try {
         classes: 'head_6',
         notes: 'Decreases HP loss by 7%.',
         defense: 7,
-        value: 100
+        value: 100,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+        })
+      }, {
+        index: 7,
+        text: "Crystal Helm",
+        classes: 'head_7',
+        notes: 'Decreases HP loss by 8%.',
+        defense: 8,
+        value: 120,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 3;
+        })
       }
     ],
     shield: [
@@ -9701,7 +9673,22 @@ try {
         classes: 'shield_6',
         notes: 'Decreases HP loss by 9%.',
         defense: 9,
-        value: 120
+        value: 120,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+        })
+      }, {
+        index: 7,
+        text: "Crystal Shield",
+        classes: 'shield_7',
+        notes: 'Decreases HP loss by 10%.',
+        defense: 10,
+        value: 150,
+        canOwn: (function(u) {
+          var _ref;
+          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 5;
+        })
       }
     ],
     potion: {
@@ -9812,9 +9799,17 @@ try {
     ]
   };
 
-  _.each(['weapon', 'armor', 'head', 'shield'], function(key) {
-    return _.each(items[key], function(item) {
-      return item.type = key;
+  reversed = {};
+
+  _.each(['weapon', 'armor', 'head', 'shield'], function(type) {
+    reversed[type] = items[type].slice().reverse();
+    return _.each(items[type], function(item) {
+      return _.defaults(item, {
+        type: type,
+        canOwn: function() {
+          return true;
+        }
+      });
     });
   });
 
@@ -9826,15 +9821,11 @@ try {
     return hatchingPotion.notes = "Pour this on an egg, and it will hatch as a " + hatchingPotion.text + " pet.";
   });
 
-  module.exports.buyItem = function(user, type, options) {
+  module.exports.buyItem = function(user, type) {
     var nextItem;
-    if (options == null) {
-      options = {};
-    }
-    _.defaults(options, {
-      paths: {}
-    });
-    nextItem = type === 'potion' ? items.potion : module.exports.getItem(type, (~~user.items[type] || 0) + 1);
+    nextItem = type === 'potion' ? items.potion : _.find(items[type].slice(~~user.items[type] + 1), (function(i) {
+      return i.canOwn(user);
+    }));
     if (+user.stats.gp < +nextItem.value) {
       return false;
     }
@@ -9843,16 +9834,13 @@ try {
       if (user.stats.hp > 50) {
         user.stats.hp = 50;
       }
-      options.paths['stats.hp'] = true;
     } else {
       user.items[type] = ~~nextItem.index;
-      if (user.items.weapon >= 6 && user.items.armor >= 5 && user.items.head >= 5 && user.items.shield >= 5) {
+      if (+user.items.weapon >= 6 && +user.items.armor >= 5 && +user.items.head >= 5 && +user.items.shield >= 5) {
         user.achievements.ultimateGear = true;
       }
-      options.paths["items." + type] = true;
     }
     user.stats.gp -= +nextItem.value;
-    options.paths['stats.gp'] = true;
     return true;
   };
 
@@ -9865,19 +9853,11 @@ try {
     var changes;
     changes = {};
     _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
-      var i, showNext, _ref, _ref1, _ref2;
-      i = ~~(((_ref = user.items) != null ? _ref[type] : void 0) || 0) + 1;
-      showNext = true;
-      if (i === items[type].length - 1) {
-        if ((type === 'armor' || type === 'shield' || type === 'head')) {
-          showNext = ((_ref1 = user.backer) != null ? _ref1.tier : void 0) && user.backer.tier >= 45;
-        } else {
-          showNext = ((_ref2 = user.backer) != null ? _ref2.tier : void 0) && user.backer.tier >= 70;
-        }
-      } else if (i === items[type].length) {
-        showNext = false;
-      }
-      return changes[type] = showNext ? items[type][i] : {
+      var curr, _ref;
+      curr = ((_ref = user.items) != null ? _ref[type] : void 0) || 0;
+      return changes[type] = _.find(items[type].slice(curr + 1), (function(item) {
+        return item.canOwn(user);
+      })) || {
         hide: true
       };
     });
@@ -9887,7 +9867,7 @@ try {
   };
 
   /*
-    Gets an itme, and caps max to the last item in its array
+    Gets an item, and caps max to the last item in its array
   */
 
 
@@ -9896,8 +9876,57 @@ try {
     if (index == null) {
       index = 0;
     }
-    i = ~~index > items[type].length - 1 ? items[type].length - 1 : ~~index;
+    i = ~~index > items[type].length - 1 ? 0 : ~~index;
     return items[type][i];
+  };
+
+  /*
+    User's currently equiped item
+    TODO this function is ugly, find a more elegant solution
+  */
+
+
+  module.exports.equipped = function(type, item, pref, backer, contributor) {
+    var lastStandardItem, _ref;
+    if (item == null) {
+      item = 0;
+    }
+    if (pref == null) {
+      pref = {
+        gender: 'm',
+        armorSet: 'v1'
+      };
+    }
+    if (backer == null) {
+      backer = {};
+    }
+    if (contributor == null) {
+      contributor = {};
+    }
+    lastStandardItem = items[type].length - 3;
+    if ((item > lastStandardItem) && !((_ref = items[type][item]) != null ? _ref.canOwn({
+      backer: backer,
+      contributor: contributor
+    }) : void 0)) {
+      item = _.find(reversed[type], (function(i) {
+        return i.canOwn({
+          backer: backer,
+          contributor: contributor
+        });
+      })).index;
+    }
+    if (item > lastStandardItem) {
+      return "" + type + "_" + item;
+    }
+    if ((type === 'armor' || type === 'head') && pref.gender === 'f') {
+      if (item === 0 && type === 'armor') {
+        return "f_armor_" + item + "_" + pref.armorSet;
+      }
+      if (item > 1 && type === 'head') {
+        return "f_head_" + item + "_" + pref.armorSet;
+      }
+    }
+    return "" + pref.gender + "_" + type + "_" + item;
   };
 
 }).call(this);

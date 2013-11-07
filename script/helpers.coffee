@@ -210,44 +210,7 @@ module.exports =
     loc = window?.location.host or process?.env?.BASE_URL or ''
     encodeURIComponent "http://#{loc}/v1/users/#{uid}/calendar.ics?apiToken=#{apiToken}"
 
-  ###
-    User's currently equiped item
-  ###
-  equipped: (type, item=0, preferences={gender:'m', armorSet:'v1'}, backerTier=0) ->
-    {gender, armorSet} = preferences
-    item = ~~item
-    backerTier = ~~backerTier
-
-    switch type
-      when'armor'
-        if item > 5
-          return 'armor_6' if backerTier >= 45
-          item = 5 # set them back if they're trying to cheat
-        if gender is 'f'
-          return if (item is 0) then "f_armor_#{item}_#{armorSet}" else "f_armor_#{item}"
-        else
-          return "m_armor_#{item}"
-
-      when 'head'
-        if item > 5
-          return 'head_6' if backerTier >= 45
-          item = 5
-        if gender is 'f'
-          return if (item > 1) then "f_head_#{item}_#{armorSet}" else "f_head_#{item}"
-        else
-          return "m_head_#{item}"
-
-      when 'shield'
-        if item > 5
-          return 'shield_6' if backerTier >= 45
-          item = 5
-        return "#{preferences.gender}_shield_#{item}"
-
-      when 'weapon'
-        if item > 6
-          return 'weapon_7' if backerTier >= 70
-          item = 6
-        return "#{preferences.gender}_weapon_#{item}"
+  equipped: items.equipped
 
   ###
     Gold amount from their money
