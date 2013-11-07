@@ -56,6 +56,9 @@ api.updateMember = function(req, res) {
     function(member, cb){
       if (!member) return res.json(404, {err: "User not found"});
       _.merge(member, _.pick(req.body, ['contributor', 'balance']));
+      if (!member.items.pets) member.items.pets = [];
+      var i = member.items.pets.indexOf('Dragon-Hydra');
+      if (!~i && member.contributor.level >= 6) member.items.pets.push('Dragon-Hydra');
       member.save(cb);
     }
   ], function(err, saved){
