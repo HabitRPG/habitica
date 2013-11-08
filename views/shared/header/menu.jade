@@ -12,6 +12,35 @@
             span(ng-show='$state.includes("tasks")', ui-sref='options')
               i.icon.icon-wrench
               |  Options
+
+/ These are suggested new selections (that need to be completed )
+        li
+          a.task-action-btn.tile.solid(ng-click='valueNeeded()')
+            i.icon.valueNeeded
+            |  Tavern
+        li
+          a.task-action-btn.tile.solid(ng-click='valueNeeded()')
+            i.icon.valueNeeded
+            |  Challenges
+        li
+          a.task-action-btn.tile.solid(ng-click='valueNeeded()')
+            i.icon.valueNeeded
+            |  Guilds
+        li
+          a.task-action-btn.tile.solid(ng-click='valueNeeded()')
+            i.icon.valueNeeded
+            |  Inventory
+        li
+          a.task-action-btn.tile.solid(ng-click='valueNeeded()')
+            i.icon.valueNeeded
+            |  Stable
+        li
+          a.task-action-btn.tile.solid(ng-click='valueNeeded()')
+            i.icon.valueNeeded
+            |  Settings
+
+-# These are the original selections
+
         li
           a.task-action-btn.tile.solid(ng-click='User.sync()')
             i.icon.icon-refresh
