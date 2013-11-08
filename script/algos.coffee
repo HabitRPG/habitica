@@ -476,8 +476,7 @@ preenHistory = (history) ->
   newHistory
 
 # Registered users with some history
-obj.preenUserHistory = (user) ->
-  minHistLen = 7
+obj.preenUserHistory = (user, minHistLen = 7) ->
   _.each user.habits.concat(user.dailys), (task) ->
     task.history = preenHistory(task.history) if task.history?.length > minHistLen
     true

@@ -8721,9 +8721,10 @@ if(typeof module != 'undefined' && module.exports){
     return newHistory;
   };
 
-  obj.preenUserHistory = function(user) {
-    var minHistLen;
-    minHistLen = 7;
+  obj.preenUserHistory = function(user, minHistLen) {
+    if (minHistLen == null) {
+      minHistLen = 7;
+    }
     _.each(user.habits.concat(user.dailys), function(task) {
       var _ref1;
       if (((_ref1 = task.history) != null ? _ref1.length : void 0) > minHistLen) {
