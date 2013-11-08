@@ -111,7 +111,6 @@ li(ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.
           label(for='{{obj._id}}_{{task.id}}-option-minus')
 
       // if Daily, calendar
-      // FIXME display, but disable for challenge tasks
       fieldset(ng-if='task.type=="daily"', class="option-group")
         legend.option-title Repeat
         .task-controls.tile-group.repeat-days
