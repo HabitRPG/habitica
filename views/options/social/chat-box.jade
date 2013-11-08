@@ -1,5 +1,5 @@
 form(ng-submit='postChat(group,_chatMessage)')
-  .whatever-options
+  .-options
     //FIXME ng-model makes this painfully slow! using jquery for now, which is really non-angular-like
     .control-group.option-large
       textarea.chat-textarea.option-content(style='height:6em;', ui-keypress='{13:"postChat(group,_chatMessage)"}', ng-model='_chatMessage')

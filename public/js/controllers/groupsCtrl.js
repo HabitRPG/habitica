@@ -101,7 +101,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
 
     $scope.deleteChatMessage = function(group, message){
-      if(message.uuid === User.user.id || (User.user.backer && User.user.backer.admin)){
+      if(message.uuid === User.user.id || (User.user.backer && User.user.contributor.admin)){
         var previousMsg = (group.chat && group.chat[0]) ? group.chat[0].id : false;
         Groups.Group.deleteChatMessage({gid:group._id, messageId:message.id, previousMsg:previousMsg}, undefined, function(data){
           if(data.chat) group.chat = data.chat;
@@ -114,22 +114,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
     $scope.sync = function(group){
       group.$get();
-    }
-
-    $scope.nameTagClasses = function(message){
-      if (!message) return; // fixme what's triggering this?
-      if (message.contributor) {
-        if (message.contributor.match(/npc/i) || message.contributor.match(/royal/i)) {
-          return 'label-royal';
-        } else if (message.contributor.match(/champion/i)) {
-          return 'label-champion';
-        } else if (message.contributor.match(/elite/i)) {
-          return 'label-success'; //elite
-        }
-      }
-      if (message.uuid == User.user.id) {
-        return 'label-inverse'; //self
-      }
     }
 
   }])
@@ -248,6 +232,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.rest = function(){
         User.user.flags.rest = !User.user.flags.rest;
         User.log({op:'set',data:{'flags.rest':User.user.flags.rest}});
+      }
+      $scope.toggleUserTier = function($event) {
+        $($event.target).next().toggle();
       }
     }
   ])

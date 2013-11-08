@@ -3,7 +3,7 @@ div(ng-controller='MemberModalCtrl')
     .modal-header
       h3
         span {{profile.profile.name}}
-        span(ng-show='profile.backer.contributor')  - {{profile.backer.contributor}}
+        span(ng-if='profile.contributor.level')  - {{contribText(profile.contributor, profile.backer)}}
     .modal-body
       .row-fluid
         .span6
@@ -13,6 +13,7 @@ div(ng-controller='MemberModalCtrl')
             li(ng-repeat='website in profile.profile.websites')
               a(href='{{website}}', target='_blank') {{website}}
           ul.muted.unstyled(ng-if='profile.auth.timestamps', style='margin-top:10px;')
+            li {{profile._id}}
             li(ng-show='profile.auth.timestamps.created') - Member since {{timestamp(profile.auth.timestamps.created)}} -
             li(ng-show='profile.auth.timestamps.loggedin') - Last logged in {{timestamp(profile.auth.timestamps.loggedin)}} -
           h3 Stats

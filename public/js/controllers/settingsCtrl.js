@@ -64,7 +64,7 @@ habitrpg.controller('SettingsCtrl',
       if(value === true){
         $scope.restoreValues.stats = angular.copy(User.user.stats);
         $scope.restoreValues.items = angular.copy(User.user.items);
-        $scope.restoreValues.achievements = {streak: User.user.achievements.streak};
+        $scope.restoreValues.achievements = {streak: User.user.achievements.streak || 0};
       }
     })
 

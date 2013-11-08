@@ -146,6 +146,13 @@ window.habitrpg = angular.module('habitrpg',
           templateUrl: "partials/options.settings.html"
         })
 
+        // Options > Settings
+        .state('options.admin', {
+          url: "/admin",
+          controller: 'AdminCtrl',
+          templateUrl: "partials/options.admin.html"
+        })
+
       var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
       if (settings && settings.auth) {
         $httpProvider.defaults.headers.common['Content-Type'] = 'application/json;charset=utf-8';

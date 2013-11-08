@@ -16,16 +16,16 @@
   div(ng-if='profile.backer.npc')
     .achievement.achievement-helm
     h5
-      span.label.label-master {{profile.backer.npc}} NPC
+      span.label.label-npc {{profile.backer.npc}} NPC
     small Backed the Kickstarter project at the maximum level!
     hr
 
-  div(ng-if='profile.backer.contributor || user._id == profile._id')
-    .achievement.achievement-firefox(ng-show='profile.backer.contributor')
-    div(ng-class='{muted: !profile.backer.contributor}')
+  div(ng-if='profile.contributor.level || user._id == profile._id')
+    .achievement.achievement-firefox(ng-if='profile.contributor.level')
+    div(ng-class='{muted: !profile.contributor.level}')
       h5
-        span.label.label-inverse(ng-if='profile.backer.contributor') {{profile.backer.contributor}}
-        span.label(ng-if='!profile.backer.contributor') Contributor
+        span.label(ng-if='profile.contributor.level', class='label-contributor-{{profile.contributor.level}}') {{contribText(profile.contributor, profile.backer)}}
+        span.label(ng-if='!profile.contributor.level') Contributor
       small.
         Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge? Fix a bug :)
     hr

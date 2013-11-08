@@ -17,7 +17,7 @@ var api = module.exports;
 */
 
 var itemFields = 'items.armor items.head items.shield items.weapon items.currentPet items.pets'; // TODO just send down count(items.pets) for better performance
-var partyFields = 'profile preferences stats achievements party backer flags.rest auth.timestamps ' + itemFields;
+var partyFields = 'profile preferences stats achievements party backer contributor balance flags.rest auth.timestamps ' + itemFields;
 var nameFields = 'profile.name';
 var challengeFields = '_id name';
 var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} };
@@ -43,6 +43,28 @@ api.getMember = function(req, res) {
     if (err) return res.json(500,{err:err});
     if (!user) return res.json(400,{err:'User not found'});
     res.json(user);
+  })
+}
+
+api.updateMember = function(req, res) {
+  var user = res.locals.user;
+  if (!(user.contributor && user.contributor.admin)) return res.json(401, {err:"You don't have access to save this user"});
+  async.waterfall([
+    function(cb){
+      User.findById(req.params.uid, cb);
+    },
+    function(member, cb){
+      if (!member) return res.json(404, {err: "User not found"});
+      if (req.body.contributor.level > (member.contributor && member.contributor.level || 0)) member.flags.contributor = true;
+      _.merge(member, _.pick(req.body, ['contributor', 'balance']));
+      if (!member.items.pets) member.items.pets = [];
+      var i = member.items.pets.indexOf('Dragon-Hydra');
+      if (!~i && member.contributor.level >= 6) member.items.pets.push('Dragon-Hydra');
+      member.save(cb);
+    }
+  ], function(err, saved){
+    if (err) return res.json(500,{err:err});
+    res.json(204);
   })
 }
 
@@ -199,8 +221,8 @@ api.postChat = function(req, res, next) {
   var message = {
     id: helpers.uuid(),
     uuid: user._id,
-    contributor: user.backer && user.backer.contributor,
-    npc: user.backer && user.backer.npc,
+    contributor: user.contributor && user.contributor.toObject(),
+    backer: user.backer && user.backer.toObject(),
     text: req.query.message, // FIXME this should be body, but ngResource is funky
     user: user.profile.name,
     timestamp: +(new Date)
@@ -219,9 +241,12 @@ api.postChat = function(req, res, next) {
 
   group.save(function(err, saved){
     if (err) return res.json(500, {err:err});
+<<<<<<< HEAD
 
     if(!chatUpdated) return res.json({message: saved.chat[0]});
 
+=======
+>>>>>>> 06d1f77ce584840f8a0c3b9222709d8ca467af64
     res.json({chat: saved.chat});
   });
 }
@@ -233,7 +258,7 @@ api.deleteChatMessage = function(req, res){
 
   if(!message) return res.json(404, {err: "Message not found!"});
 
-  if(user._id !== message.uuid && !(user.backer && user.backer.admin))
+  if(user._id !== message.uuid && !(user.backer && user.contributor.admin))
     return res.json(401, {err: "Not authorized to delete this message!"})
 
   var lastClientMsg = req.query.previousMsg;
