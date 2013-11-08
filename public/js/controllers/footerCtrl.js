@@ -45,6 +45,7 @@ habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http', 'Not
      * Debug functions. Note that the server route for gems is only available if process.env.DEBUG=true
      */
     $scope.addMissedDay = function(){
+      if (!confirm("Are you sure you want to reset the day?")) return;
       var dayBefore = moment(User.user.lastCron).subtract('days', 1).toDate();
       User.set('lastCron', dayBefore);
       Notification.text('-1 day, remember to refresh');
