@@ -225,5 +225,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         User.user.flags.rest = !User.user.flags.rest;
         User.log({op:'set',data:{'flags.rest':User.user.flags.rest}});
       }
+      $scope.toggleUserTier = function($event) {
+        $($event.target).next().toggle();
+      }
     }
   ])

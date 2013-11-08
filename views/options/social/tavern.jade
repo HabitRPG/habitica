@@ -18,44 +18,90 @@
                     span(ng-hide='user.flags.rest') Rest In The Inn
     .alert.alert-info(ng-show='user.flags.rest')
       | Whilst resting, your dailies are saved and aren't affected by day turn-over. Whether you check out tomorrow or in a week's time, you'll continue in the same state as when you checked in.
+
+    // Resources
     .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
       .modal-header
         h3 Resources
       .modal-body
-        ul.unstyled
-          li
-            h4
+        table.table.table-striped
+          tr
+            td
               a(target='_blank', href='http://community.habitrpg.com/forums/lfg') LFG Posts
-          li
-            h4
+          tr
+            td
               a(target='_blank', href='http://www.youtube.com/watch?feature=player_embedded&v=cT5ghzZFfao') Tutorial
-          li
-            h4
+          tr
+            td
               a(target='_blank', href='http://community.habitrpg.com/faq-page') FAQ
-          li
-            h4
+          tr
+            td
               a(target='_blank', href='http://community.habitrpg.com/node/280') Report a Problem
-          li
-            h4
+          tr
+            td
               a(target='_blank', href='https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6') Request a Feature
-          li
-            h4
+          tr
+            td
               a(target='_blank', href='http://community.habitrpg.com/forum') Community Forum
+
+    // Player Tiers
+    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
+      .modal-header
+        h3 Player Tier Legend
+      .modal-body
+        small (click each for details)
+        table.table.table-striped
+          tr
+            td
+              a.label.label-contributor-1(ng-click='toggleUserTier($event)') Friend (1-2)
+              div(style='display:none;')
+                p.
+                  <span class='achievement achievement-firefox'></span> When your <strong>first</strong> submission is deployed, you will receive the HabitRPG Contributor's badge. Your name in tavern chat will proudly display that you are a contributor.
+                hr
+                p.
+                  <span class='shop_armor_7 shop-sprite item-img'></span> When your <strong>second</strong> submission is deployed, you will receive the <strong>Crystal Armor</strong>. As a bounty for your great work, you will also receive <strong>2 Gems</strong>.
+          tr
+            td
+              a.label.label-contributor-3(ng-click='toggleUserTier($event)') Elite (3-4)
+              div(style='display:none;')
+                p.
+                 <span class='shop_head_7 shop-sprite item-img'></span> When your <strong>third</strong> submission is deployed, you will receive the <strong>Crystal Helmet</strong>. As a bounty for your great work, you will also receive <strong>2 Gems</strong>.
+                hr
+                p.
+                  <span class='shop_weapon_8 shop-sprite item-img'></span> When your <strong>fourth</strong> submission is deployed, you will receive the <strong>Crystal Sword</strong>. As a bounty for your great work, you will also receive <strong>2 Gems</strong>.
+
+          tr
+            td
+              a.label.label-contributor-5(ng-click='toggleUserTier($event)') Champion (5-6)
+              div(style='display:none;')
+                p.
+                  <span class='shop_shield_7 shop-sprite item-img'></span> When your <em>fifth</em> submission is deployed, you will receive the <strong>Crystal Shield</strong>! As a bounty for your great work, you will also receive <strong>2 Gems</strong>.
+                hr
+                p.
+                 <div class='Pet-Dragon-Hydra pull-left'></div> When your <em>sixth</em> submission is deployed, you will receive a <strong>Hydra Pet</strong>. As a bounty for your great work, you will also receive <strong>2 Gems</strong>.
+          tr
+            td
+              a.label.label-contributor-7(ng-click='toggleUserTier($event)') Legendary (7)
+              div(style='display:none;')
+                p.
+                  When your <em>seventh</em> submission is deployed, you will receive <strong>2 Gems</strong> and become a member of the honored Contributor's Guild and be privy to the behind-the-scenes details of HabitRPG!
+          tr
+            td
+              a.label.label-contributor-8(ng-click='toggleUserTier($event)') Heroic
+              div(style='display:none;')
+                p This is HabitRPG staff or Staff-level Contributors
+          tr
+            td
+              a.label.label-npc(ng-click='toggleUserTier($event)') NPC
+              div(style='display:none;')
+                 p Was a backer at the highest Kickstarter tier.
 
     include ./challenge-box
 
   .span8(ng-controller='ChatCtrl')
     h3 Tavern Talk
-    .row-fluid
-      .span3
-        ul.unstyled.buttonList
-          li
-            a.btn.btn-info(style='width:100%', target='_blank', href='http://community.habitrpg.com/faq-page') FAQ
-          li
-            a.btn.btn-info(style='width:100%', target='_blank', href='http://community.habitrpg.com/node/280') Report a Problem
-          li
-            a.btn.btn-info(style='width:100%', target='_blank', href='https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6') Request a Feature
-      .span9
-        include ./chat-box
+      include ./chat-box
+      small.alert.alert-info.
+        Note: if you're reporting a bug, the developers won't see it here. <a href='http://community.habitrpg.com/node/280' target='_blank'>Follow these instructions</a> instead.
     ul.unstyled.tavern-chat
       include ./chat-message
