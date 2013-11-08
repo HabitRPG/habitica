@@ -59,24 +59,29 @@ module.exports =
     self = @
     defaults =
       id: self.uuid()
-      text: ''
-      up: true
-      down: true
       type: 'habit'
-      completed: false
-      repeat: {su:true,m:true,t:true,w:true,th:true,f:true,s:true}
+      text: ''
       notes: ''
+      priority: '!'
+      challenge: {}
       tags: _.transform(filters, (m,v,k) -> m[k]=v if v)
     _.defaults task, defaults
+    _.defaults(task, {up:true,down:true}) if task.type is 'habit'
+    _.defaults(task, {history: []}) if task.type in ['habit', 'daily']
+    _.defaults(task, {completed:false}) if task.type in ['daily', 'todo']
+    _.defaults(task, {streak:0, repeat: {su:1,m:1,t:1,w:1,th:1,f:1,s:1}}) if task.type is 'daily'
+    task._id = task.id # may need this for TaskSchema if we go back to using it, see http://goo.gl/a5irq4
     task.value ?= if task.type is 'reward' then 10 else 0
     task
 
-  newUser: (isDerby=false) ->
+  # FIXME - should we remove this completely, since all defaults are accounted for in mongoose?
+  # Or should we keep it so mobile can create an offline new user in the future?
+  newUser: () ->
     userSchema =
     # _id / id handled by Racer
       stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
       invitations: {party:null, guilds: []}
-      items: { weapon: 0, armor: 0, head: 0, shield: 0 }
+      items: { weapon: 0, armor: 0, head: 0, shield: 0, lastDrop: { date: +new Date, count: 0 } }
       preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0, showHelm: true }
       apiToken: uuid() # set in newUserObject below
       lastCron: +new Date #this will be replaced with `+new Date` on first run
@@ -87,17 +92,10 @@ module.exports =
         ads: 'show'
       tags: []
 
-    if isDerby
-      userSchema.habitIds = []
-      userSchema.dailyIds = []
-      userSchema.todoIds = []
-      userSchema.rewardIds = []
-      userSchema.tasks = {}
-    else
-      userSchema.habits = []
-      userSchema.dailys = []
-      userSchema.todos = []
-      userSchema.rewards = []
+    userSchema.habits = []
+    userSchema.dailys = []
+    userSchema.todos = []
+    userSchema.rewards = []
 
     # deep clone, else further new users get duplicate objects
     newUser = _.cloneDeep userSchema
@@ -126,11 +124,7 @@ module.exports =
 
     for task in defaultTasks
       guid = task.id = uuid()
-      if isDerby
-        newUser.tasks[guid] = task
-        newUser["#{task.type}Ids"].push guid
-      else
-        newUser["#{task.type}s"].push task
+      newUser["#{task.type}s"].push task
 
     for tag in defaultTags
       tag.id = uuid()
@@ -216,44 +210,7 @@ module.exports =
     loc = window?.location.host or process?.env?.BASE_URL or ''
     encodeURIComponent "http://#{loc}/v1/users/#{uid}/calendar.ics?apiToken=#{apiToken}"
 
-  ###
-    User's currently equiped item
-  ###
-  equipped: (type, item=0, preferences={gender:'m', armorSet:'v1'}, backerTier=0) ->
-    {gender, armorSet} = preferences
-    item = ~~item
-    backerTier = ~~backerTier
-
-    switch type
-      when'armor'
-        if item > 5
-          return 'armor_6' if backerTier >= 45
-          item = 5 # set them back if they're trying to cheat
-        if gender is 'f'
-          return if (item is 0) then "f_armor_#{item}_#{armorSet}" else "f_armor_#{item}"
-        else
-          return "m_armor_#{item}"
-
-      when 'head'
-        if item > 5
-          return 'head_6' if backerTier >= 45
-          item = 5
-        if gender is 'f'
-          return if (item > 1) then "f_head_#{item}_#{armorSet}" else "f_head_#{item}"
-        else
-          return "m_head_#{item}"
-
-      when 'shield'
-        if item > 5
-          return 'shield_6' if backerTier >= 45
-          item = 5
-        return "#{preferences.gender}_shield_#{item}"
-
-      when 'weapon'
-        if item > 6
-          return 'weapon_7' if backerTier >= 70
-          item = 6
-        return "#{preferences.gender}_weapon_#{item}"
+  equipped: items.equipped
 
   ###
     Gold amount from their money
@@ -276,7 +233,7 @@ module.exports =
   ###
     Task classes given everything about the class
   ###
-  taskClasses: (task, filters, dayStart, lastCron, showCompleted=false, main) ->
+  taskClasses: (task, filters=[], dayStart=0, lastCron=+new Date, showCompleted=false, main=false) ->
     return unless task
     {type, completed, value, repeat} = task
 

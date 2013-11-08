@@ -9,10 +9,10 @@ helpers = require '../script/helpers.coffee'
 items = require '../script/items.coffee'
 
 ### Helper Functions ####
-
 expectStrings = (obj, paths) ->
   _.each paths, (path) -> expect(obj[path]).to.be.ok()
 
+# options.daysAgo: days ago when the last cron was executed
 beforeAfter = (options={}) ->
   user = helpers.newUser()
   [before, after] = [_.cloneDeep(user), _.cloneDeep(user)]
@@ -30,8 +30,8 @@ beforeAfter = (options={}) ->
 expectLostPoints = (before, after, taskType) ->
   if taskType in ['daily','habit']
     expect(after.stats.hp).to.be.lessThan before.stats.hp
-    expect(_.size(after["#{taskType}s"][0].history)).to.be(1)
-  else expect(_.size(after.history.todos)).to.be(1)
+    expect(after["#{taskType}s"][0].history).to.have.length(1)
+  else expect(after.history.todos).to.have.length(1)
   expect(after.stats.exp).to.be 0
   expect(after.stats.gp).to.be 0
   expect(after["#{taskType}s"][0].value).to.be.lessThan before["#{taskType}s"][0].value
@@ -41,7 +41,7 @@ expectGainedPoints = (before, after, taskType) ->
   expect(after.stats.exp).to.be.greaterThan before.stats.exp
   expect(after.stats.gp).to.be.greaterThan before.stats.gp
   expect(after["#{taskType}s"][0].value).to.be.greaterThan before["#{taskType}s"][0].value
-  expect(_.size(after["#{taskType}s"][0].history)).to.be(1) if taskType is 'habit'
+  expect(after["#{taskType}s"][0].history).to.have.length(1) if taskType is 'habit'
   # daily & todo histories handled on cron
 
 expectNoChange = (before,after) -> expect(before).to.eql after
@@ -52,11 +52,11 @@ expectDayResetNoDamage = (b,a) ->
     expect(task.completed).to.be false
     expect(before.dailys[i].value).to.be task.value
     expect(before.dailys[i].streak).to.be task.streak
-    expect(_.size(task.history)).to.be(1)
+    expect(task.history).to.have.length(1)
   _.each after.todos, (task,i) ->
     expect(task.completed).to.be false
     expect(before.todos[i].value).to.be.greaterThan task.value
-  expect(_.size(after.history.todos)).to.be(1)
+  expect(after.history.todos).to.have.length(1)
   # hack so we can compare user before/after obj equality sans effected paths
   _.each ['dailys','todos','history','lastCron'], (path) ->
     _.each [before,after], (obj) -> delete obj[path]
@@ -69,13 +69,25 @@ cycle = (array)->
     n++
     return array[n % array.length]
 
+repeatWithoutLastWeekday = ()->
+  repeat = {su:1,m:1,t:1,w:1,th:1,f:1,s:1}
+  if helpers.startOfWeek(moment().zone(0)).isoWeekday() == 1 # Monday
+    repeat.su = false
+  else
+    repeat.s = false
+  {repeat: repeat}
+
 ###### Specs ######
 
 describe 'User', ->
   it 'sets correct user defaults', ->
     user = helpers.newUser()
     expect(user.stats).to.eql { gp: 0, exp: 0, lvl: 1, hp: 50 }
-    expect(user.items).to.eql { weapon: 0, armor: 0, head: 0, shield: 0 }
+    expect(user.items.weapon).to.eql 0
+    expect(user.items.armor).to.eql 0
+    expect(user.items.head).to.eql 0
+    expect(user.items.shield).to.eql 0
+    expect(user.items.lastDrop.count).to.eql 0
     expect(user.preferences).to.eql { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0, showHelm: true }
     expect(user.balance).to.eql 0
     expect(user.lastCron).to.be.greaterThan 0
@@ -95,7 +107,10 @@ describe 'User', ->
     user.weapon = 1
     algos.revive user
     expect(user.stats).to.eql { gp: 0, exp: 0, lvl: 1, hp: 50 }
-    expect(user.items).to.eql { weapon: 0, armor: 0, head: 0, shield: 0 }
+    expect(user.items.weapon).to.eql 0
+    expect(user.items.armor).to.eql 0
+    expect(user.items.head).to.eql 0
+    expect(user.items.shield).to.eql 0
 
   describe 'store', ->
     it 'recovers hp buying potions', ->
@@ -206,6 +221,60 @@ describe 'Cron', ->
     afterTasks = after.habits.concat(after.dailys).concat(after.todos).concat(after.rewards)
     expect(beforeTasks).to.eql afterTasks
 
+  it.only 'should preen user history', ->
+    {before,after} = beforeAfter({daysAgo:1})
+    history = [
+      # Last year should be condensed to one entry, avg: 1
+      {date:'09/01/2012', value: 0}
+      {date:'10/01/2012', value: 0}
+      {date:'11/01/2012', value: 2}
+      {date:'12/01/2012', value: 2}
+
+      # Each month of this year should be condensed to 1/mo, averages follow
+      {date:'01/01/2013', value: 1} #2
+      {date:'01/15/2013', value: 3}
+
+      {date:'02/01/2013', value: 2} #3
+      {date:'02/15/2013', value: 4}
+
+      {date:'03/01/2013', value: 3} #4
+      {date:'03/15/2013', value: 5}
+
+      {date:'04/01/2013', value: 4} #5
+      {date:'04/15/2013', value: 6}
+
+      {date:'05/01/2013', value: 5} #6
+      {date:'05/15/2013', value: 7}
+
+      {date:'06/01/2013', value: 6} #7
+      {date:'06/15/2013', value: 8}
+
+      {date:'07/01/2013', value: 7} #8
+      {date:'07/15/2013', value: 9}
+
+      {date:'08/01/2013', value: 8} #9
+      {date:'08/15/2013', value: 10}
+
+      {date:'09/01/2013', value: 9} #10
+      {date:'09/15/2013', value: 11}
+
+      {date:'010/01/2013', value: 10} #11
+      {date:'010/15/2013', value: 12}
+
+      # This month should condense each week
+      {date:'011/01/2013', value: 12}
+      {date:'011/02/2013', value: 13}
+      {date:'011/03/2013', value: 14}
+      {date:'011/04/2013', value: 15}
+    ]
+    after.history = {exp: _.cloneDeep(history), todos: _.cloneDeep(history)}
+    after.habits[0].history = _.cloneDeep(history)
+    algos.cron(after)
+    console.log after.habits[0].history
+#    _.each [after.history.exp, after.history.todos, after.habits[0].history], (arr) ->
+#      expect(arr.length).to.be 15
+#      expect(arr).to.eql [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
   describe 'Todos', ->
     it '1 day missed', ->
       {before,after} = beforeAfter({daysAgo:1})
@@ -219,7 +288,7 @@ describe 'Cron', ->
 
       # but they devalue
       expect(after.todos[0].value).to.be.lessThan before.todos[0].value
-      expect(_.size(after.history.todos)).to.be 1
+      expect(after.history.todos).to.have.length 1
 
   describe 'dailies', ->
 
@@ -286,7 +355,7 @@ describe 'Cron', ->
                       'unchecked': {checked:false, expect: 'losePoints'}
 
           'not due yesterday':
-            defaults: {repeat:{su:false,m:1,t:1,w:1,th:1,f:1,s:1}}
+            defaults: repeatWithoutLastWeekday()
             steps:
               '(simple)': {expect:'noDamage'}
               'post-dayStart': {currentHour:5,dayStart:4, expect:'noDamage'}
@@ -332,3 +401,15 @@ describe 'Helper', ->
     expect(algos.tnl 10).to.eql 260
     expect(algos.tnl 99).to.eql 3580
     expect(algos.tnl 100).to.eql 0
+
+  it 'calculates priority values', ->
+    expect(algos.priorityValue()).to.eql 1
+    expect(algos.priorityValue '!').to.eql 1
+    expect(algos.priorityValue '!!').to.eql 1.5
+    expect(algos.priorityValue '!!!').to.eql 2
+    expect(algos.priorityValue '!!!!').to.eql 1
+
+  it 'calculates the start of the day', ->
+    expect(helpers.startOfDay({now: new Date(2013, 0, 1, 0)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
+    expect(helpers.startOfDay({now: new Date(2013, 0, 1, 5)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
+    expect(helpers.startOfDay({now: new Date(2013, 0, 1, 23, 59, 59)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'

@@ -383,6 +383,11 @@ obj.cron = (user, options={}) ->
 
   user.lastCron = now; paths['lastCron'] = true
 
+  # Reset the lastDrop count to zero
+  if user.items.lastDrop.count > 0
+    user.items.lastDrop.count = 0
+    paths['items.lastDrop'] = true
+
   # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
   # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
   return if user.flags.rest is true
@@ -431,4 +436,56 @@ obj.cron = (user, options={}) ->
     expTally += obj.tnl(lvl)
   (user.history.exp ?= []).push { date: now, value: expTally }
   paths["history"] = true
+  obj.preenUserHistory(user) # we can probably start removing paths[...] stuff, no longer used by our app
   user
+
+###
+Preen history for users with > 7 history entries
+This takes an infinite array of single day entries [day day day day day...], and turns it into a condensed array
+of averages, condensing more the further back in time we go. Eg, 7 entries each for last 7 days; 1 entry each week
+of this month; 1 entry for each month of this year; 1 entry per previous year: [day*7 week*4 month*12 year*infinite]
+###
+preenHistory = (history) ->
+  history = _.filter(history, (h) -> !!h) # discard nulls (corrupted somehow)
+  newHistory = []
+  preen = (amount, groupBy) ->
+    groups = _.chain(history)
+      .groupBy((h) -> moment(h.date).format groupBy) # get date groupings to average against
+      .sortBy((h, k) -> k) # sort by date
+      .value() # turn into an array
+    groups = groups.slice(-amount)
+    groups.pop() # get rid of "this week", "this month", etc (except for case of days)
+    _.each groups, (group) ->
+      newHistory.push
+        date: moment(group[0].date).toDate()
+        #date: moment(group[0].date).format('MM/DD/YYYY') # Use this one when testing
+        value: _.reduce(group, ((m, obj) -> m + obj.value), 0) / group.length # average
+      true
+
+  # Keep the last:
+  preen 50, "YYYY" # 50 years (habit will toootally be around that long!)
+  preen moment().format('MM'), "YYYYMM" # last MM months (eg, if today is 05, keep the last 5 months)
+
+  # Then keep all days of this month. Note, the extra logic is to account for Habits, which can be counted multiple times per day
+  # FIXME I'd rather keep 1-entry/week of this month, then last 'd' days in this week. However, I'm having issues where the 1st starts mid week
+  thisMonth = moment().format('YYYYMM')
+  newHistory = newHistory.concat _.filter(history, (h)-> moment(h.date).format('YYYYMM') is thisMonth)
+  #preen Math.ceil(moment().format('D')/7), "YYYYww" # last __ weeks (# weeks so far this month)
+  #newHistory = newHistory.concat(history.slice -moment().format('D')) # each day of this week
+
+  newHistory
+
+# Registered users with some history
+obj.preenUserHistory = (user) ->
+  minHistLen = 7
+  _.each user.habits.concat(user.dailys), (task) ->
+    task.history = preenHistory(task.history) if task.history?.length > minHistLen
+    true
+
+  _.defaults user.history, {todos:[], exp: []}
+  user.history.exp = preenHistory(user.history.exp) if user.history.exp.length > minHistLen
+  user.history.todos = preenHistory(user.history.todos) if user.history.todos.length > minHistLen
+  #user.markModified('history')
+  #user.markModified('habits')
+  #user.markModified('dailys')
+

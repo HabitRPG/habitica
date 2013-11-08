@@ -2,11 +2,11 @@
   "name": "habitrpg-shared",
   "version": "0.0.0",
   "dependencies": {
-    "browserify": "~2.34.3",
+    "browserify": "~2.35",
     "coffeeify": "0.4.0",
     "coffee-script": "1.6.2",
     "relative-date": "~1.1.1",
-    "lodash": "~1.3.1",
+    "lodash": "~2.2.1",
     "moment": "~2.1.0"
   },
   "devDependencies": {
