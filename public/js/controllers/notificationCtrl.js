@@ -38,10 +38,17 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.modals.achievements.streak = true;
     });
 
-    $rootScope.$watch('user.achievements.ultimateGear', function(after, before) {
+    $rootScope.$watch('user.achievements.ultimateGear', function(after, before){
       if (after === before || after !== true) return;
       $rootScope.modals.achievements.ultimateGear = true;
     });
+
+    $rootScope.$watch('user.items.pets.length', function(after, before){
+      if(after === before || after < 90) return;
+      console.log("found!")
+      User.user.achievements.beastMaster = true;
+      $rootScope.modals.achievements.beastMaster = true;
+    })
 
     /*_.each(['weapon', 'head', 'chest', 'shield'], function(watched){
       $rootScope.$watch('user.items.' + watched, function(before, after){

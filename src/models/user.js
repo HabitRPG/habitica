@@ -244,6 +244,10 @@ UserSchema.pre('save', function(next) {
       'Anonymous';
   }
 
+  if(!this.achievements.beastMaster && this.items.pets.length >= 90){
+    this.achievements.beastMaster = true;
+  }
+
   //our own version incrementer
   this._v++;
   next();
