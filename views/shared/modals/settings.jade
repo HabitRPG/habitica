@@ -46,6 +46,7 @@ div(ng-controller='SettingsCtrl')
           .option-group.option-medium
             input.option-content(type='number', data-for='achievements.streak', ng-model='restoreValues.achievements.streak')
             span.input-suffix 21-Day Streak
+        //- This is causing too many problems for users
           h3 Other
           a.btn.btn-small.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()') Trigger New Day
     .modal-footer
