@@ -38,7 +38,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
         hr
         .alert.alert-warning(ng-if='list.type=="todo" && obj[list.type+"s"].length > 100')
           | Clear completed To-Dos&nbsp;
-          i.icon-question-sign(popover="You have a lot of To-Dos, which can cause performance issues. Be sure ot clear them periodically (see \"Completed\" tab at the bottom).", popover-trigger='mouseenter', popover-placement='left')
+          i.icon-question-sign(popover="You have a lot of To-Dos, which can cause performance issues. Be sure to clear them periodically (see \"Completed\" tab at the bottom).", popover-trigger='mouseenter', popover-placement='left')
 
         // Actual List
         ul(class='{{list.type}}s', ng-show='obj[list.type + "s"].length > 0', habitrpg-sortable)
