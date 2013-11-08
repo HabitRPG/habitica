@@ -112,17 +112,17 @@ li(ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.
 
       // if Daily, calendar
       // FIXME display, but disable for challenge tasks
-      fieldset(ng-if='task.type=="daily" && !task.challenge.id', class="option-group")
+      fieldset(ng-if='task.type=="daily"', class="option-group")
         legend.option-title Repeat
         .task-controls.tile-group.repeat-days
           // note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding
-          button.task-action-btn.tile(ng-class='{active: task.repeat.su}',  type='button', data-day='su', ng-click='task.repeat.su = !task.repeat.su') Su
-          button.task-action-btn.tile(ng-class='{active: task.repeat.m}',   type='button', data-day='m',  ng-click='task.repeat.m = !task.repeat.m') M
-          button.task-action-btn.tile(ng-class='{active: task.repeat.t}',   type='button', data-day='t',  ng-click='task.repeat.t = !task.repeat.t') T
-          button.task-action-btn.tile(ng-class='{active: task.repeat.w}',   type='button', data-day='w',  ng-click='task.repeat.w = !task.repeat.w') W
-          button.task-action-btn.tile(ng-class='{active: task.repeat.th}',  type='button', data-day='th', ng-click='task.repeat.th = !task.repeat.th') Th
-          button.task-action-btn.tile(ng-class='{active: task.repeat.f}',   type='button', data-day='f',  ng-click='task.repeat.f = !task.repeat.f') F
-          button.task-action-btn.tile(ng-class='{active: task.repeat.s}',   type='button', data-day='s',  ng-click='task.repeat.s = !task.repeat.s') S
+          button.task-action-btn.tile(ng-class='{active: task.repeat.su}',  type='button', data-day='su', ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)') Su
+          button.task-action-btn.tile(ng-class='{active: task.repeat.m}',   type='button', data-day='m',  ng-click='task.challenge.id || (task.repeat.m = !task.repeat.m)') M
+          button.task-action-btn.tile(ng-class='{active: task.repeat.t}',   type='button', data-day='t',  ng-click='task.challenge.id || (task.repeat.t = !task.repeat.t)') T
+          button.task-action-btn.tile(ng-class='{active: task.repeat.w}',   type='button', data-day='w',  ng-click='task.challenge.id || (task.repeat.w = !task.repeat.w)') W
+          button.task-action-btn.tile(ng-class='{active: task.repeat.th}',  type='button', data-day='th', ng-click='task.challenge.id || (task.repeat.th = !task.repeat.th)') Th
+          button.task-action-btn.tile(ng-class='{active: task.repeat.f}',   type='button', data-day='f',  ng-click='task.challenge.id || (task.repeat.f= !task.repeat.f)') F
+          button.task-action-btn.tile(ng-class='{active: task.repeat.s}',   type='button', data-day='s',  ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)') S
 
       // if Reward, pricing
       fieldset.option-group.option-short(ng-if='task.type=="reward" && !task.challenge.id')
