@@ -241,13 +241,8 @@ api.postChat = function(req, res, next) {
 
   group.save(function(err, saved){
     if (err) return res.json(500, {err:err});
-<<<<<<< HEAD
 
-    if(!chatUpdated) return res.json({message: saved.chat[0]});
-
-=======
->>>>>>> 06d1f77ce584840f8a0c3b9222709d8ca467af64
-    res.json({chat: saved.chat});
+    return chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
   });
 }
 
@@ -266,7 +261,7 @@ api.deleteChatMessage = function(req, res){
 
   Group.update({_id:group._id}, {$pull:{chat:{id: req.params.messageId}}}, function(err){
     if(err) return res.json(500, {err: err});
-    return chatUpdated ? res.json({chat: group.chat}) : res.send(204) 
+    
   });
 }
 
