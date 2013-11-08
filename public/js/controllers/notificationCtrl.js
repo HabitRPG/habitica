@@ -45,7 +45,6 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.items.pets.length', function(after, before){
       if(after === before || after < 90) return;
-      console.log("found!")
       User.user.achievements.beastMaster = true;
       $rootScope.modals.achievements.beastMaster = true;
     })
