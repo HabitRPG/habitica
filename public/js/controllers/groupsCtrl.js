@@ -86,8 +86,13 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     $scope.postChat = function(group, message){
       if (_.isEmpty(message) || $scope._sending) return;
       $scope._sending = true;
-      Groups.Group.postChat({gid: group._id, message:message}, undefined, function(data){
-        group.chat = data.chat;
+      var previousMsg = (group.chat && group.chat[0]) ? group.chat[0].id : false;
+      Groups.Group.postChat({gid: group._id, message:message, previousMsg: previousMsg}, undefined, function(data){
+        if(data.chat){
+          group.chat = data.chat;
+        }else if(data.message){
+          group.chat.unshift(data.message);
+        }
         $scope._chatMessage = '';
         $scope._sending = false;
       }, function(err){
@@ -97,9 +102,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
     $scope.deleteChatMessage = function(group, message){
       if(message.uuid === User.user.id || (User.user.backer && User.user.backer.admin)){
-        Groups.Group.deleteChatMessage({gid: group._id, messageId: message.id}, undefined, function(){
-          var i = _.indexOf(group.chat, message);
-          if(i !== -1) group.chat.splice(i, 1);
+        var previousMsg = (group.chat && group.chat[0]) ? group.chat[0].id : false;
+        Groups.Group.deleteChatMessage({gid:group._id, messageId:message.id, previousMsg:previousMsg}, undefined, function(data){
+          if(data.chat) group.chat = data.chat;
+
+          var i = _.findIndex(group.chat, {id: message.id});
+          if(i !== -1) group.chat.splice(i, 1);          
         });
       }
     }

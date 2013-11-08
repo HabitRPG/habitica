@@ -206,6 +206,9 @@ api.postChat = function(req, res, next) {
     timestamp: +(new Date)
   };
 
+  var lastClientMsg = req.query.previousMsg;
+  var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
+
   group.chat.unshift(message);
   group.chat.splice(200);
 
@@ -216,6 +219,8 @@ api.postChat = function(req, res, next) {
 
   group.save(function(err, saved){
     if (err) return res.json(500, {err:err});
+
+    if(!chatUpdated) return res.json({message: saved.chat[0]});
 
     res.json({chat: saved.chat});
   });
@@ -231,9 +236,12 @@ api.deleteChatMessage = function(req, res){
   if(user._id !== message.uuid && !(user.backer && user.backer.admin))
     return res.json(401, {err: "Not authorized to delete this message!"})
 
+  var lastClientMsg = req.query.previousMsg;
+  var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
+
   Group.update({_id:group._id}, {$pull:{chat:{id: req.params.messageId}}}, function(err){
     if(err) return res.json(500, {err: err});
-    res.send(204);
+    return chatUpdated ? res.json({chat: group.chat}) : res.send(204) 
   });
 }
 
