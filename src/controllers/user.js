@@ -174,35 +174,6 @@ api.updateTask = function(req, res, next) {
   });
 };
 
-/**
- * Update tasks (plural). This will update, add new, delete, etc all at once.
- * TODO Should we keep this?
- */
-api.updateTasks = function(req, res, next) {
-  var user = res.locals.user;
-  var tasks = req.body;
-  _.each(tasks, function(task, idx) {
-    if (task.id) {
-      // delete
-      if (task.del) {
-        user.deleteTask(task.id);
-        task = {deleted: true};
-      } else {
-        // Update
-        // updateTask(user, task.id, task); //FIXME
-      }
-    } else {
-      // Create
-      task = addTask(user, task);
-    }
-    tasks[idx] = task;
-  });
-  user.save(function(err, saved) {
-    if (err) return res.json(500, {err: err});
-    return res.json(201, tasks);
-  });
-};
-
 api.createTask = function(req, res, next) {
   var user = res.locals.user;
   var task = addTask(user, req.body);
