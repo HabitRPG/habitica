@@ -371,10 +371,6 @@ describe 'Cron', ->
           it "#{options.text}", -> runCron(_.defaults(obj,options))
       recurseCronMatrix(cronMatrix)
 
-
-    it '3 day missed, only 1 due'
-    it '3 day missed, only 1 due, not day start yet'
-
     it 'calculates day differences with dayStart properly', ->
       dayStart = 4
       yesterday = helpers.startOfDay {now: moment().subtract('d', 1), dayStart}
