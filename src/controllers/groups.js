@@ -57,7 +57,7 @@ api.updateMember = function(req, res) {
       if (!member) return res.json(404, {err: "User not found"});
       if (req.body.contributor.level > (member.contributor && member.contributor.level || 0)) {
         member.flags.contributor = true;
-        member.balance += (req.body.contributor.level - member.contributor.level)*.5 // +2 gems per tier
+        member.balance += (req.body.contributor.level - (member.contributor.level || 0))*.5 // +2 gems per tier
       }
       _.merge(member, _.pick(req.body, 'contributor'));
       if (!member.items.pets) member.items.pets = [];
