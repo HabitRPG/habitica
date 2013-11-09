@@ -33,7 +33,6 @@ router.post('/user/tasks/:id/:direction', auth.auth, cron, user.scoreTask);
 router.get('/user/tasks', auth.auth, cron, user.getTasks);
 router.get('/user/task/:id', auth.auth, cron, user.getTask);
 router.put('/user/task/:id', auth.auth, cron, verifyTaskExists, user.updateTask);
-router.post('/user/tasks', auth.auth, cron, user.updateTasks);
 router["delete"]('/user/task/:id', auth.auth, cron, verifyTaskExists, user.deleteTask);
 router.post('/user/task', auth.auth, cron, user.createTask);
 router.put('/user/task/:id/sort', auth.auth, cron, verifyTaskExists, user.sortTask);
