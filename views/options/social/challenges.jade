@@ -22,10 +22,10 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
     ul.unstyled
       li(ng-hide='challenge._locked==false')
         button.btn.btn-small.btn-default(ng-click='challenge._locked = false') Edit
+        button.btn.btn-small.btn-warning(ng-click='close(challenge, $event)', tooltip='Delete or select winner') End Challenge
       li(ng-show='challenge._locked==false')
         button.btn.btn-small.btn-primary(ng-click='save(challenge)') Save
         button.btn.btn-small.btn-default(ng-click='challenge._locked=true') Cancel
-        button.btn.btn-small.btn-default(ng-click='close(challenge, $event)', tooltip='Delete or select winner') Close
 
     div(ng-show='challenge._locked==false')
       .-options
