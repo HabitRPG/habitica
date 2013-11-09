@@ -20,6 +20,8 @@ Before starting make sure to have [MongoDB](http://www.mongodb.org/), [NodeJS an
 `npm install`
 1. Create a config file from the example one:
 `cp config.json.example config.json`
+1. Ensure that Mongo is running and seed the database with initial settings by running: 
+`node .\src\seed.js`.
 
 ##  Windows Environment Install
 
@@ -62,6 +64,9 @@ Ignore this error and proceed with the following:
 'bower install -f'
 1. Create a config file from the example one:
 `copy config.json.example config.json`
+1. Ensure that Mongo is running and seed the database with initial settings by r
+unning:
+`node ./src/seed.js`.
 
 # Run HabitRPG
 

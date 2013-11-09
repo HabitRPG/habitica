@@ -30,5 +30,5 @@ async.waterfall([
   }
 ],function(err){
   if (err) throw err;
-  console.log("Dont initializing database");
+  console.log("Done initializing database");
 })
