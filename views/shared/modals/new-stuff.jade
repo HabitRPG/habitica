@@ -12,11 +12,22 @@ div(modal='modals.newStuff')
             h3.popover-title
               a(target='_blank', href='https://twitter.com/Mihakuu') Bailey
             .popover-content
-              strong 11/08/2013
-              p
-                ul.modal-indented-list
-                  li.
-                    <strong>Contrib Gear</strong>. You can now unlock a new top-tier gear set and pet by contributing to HabitRPG. <a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'>Read more</a>.
+              table
+                tr
+                  td
+                    //ul.modal-indented-list
+                    h4 Contrib Gear
+                    p.
+                      You can now unlock new top-tier gear and pet by contributing to HabitRPG. <a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'>Read more</a>
+                    small.muted 11/08/2013
+                  td
+                    .herobox(style='background-color:transparent;')
+                      .character-sprites
+                        span.armor_7
+                        span.head_7
+                        span.shield_7
+                        span.weapon_8
+                        span.current-pet.Pet-Dragon-Hydra
 
     hr
     h3 Archive
