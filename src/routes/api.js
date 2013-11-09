@@ -4,6 +4,7 @@ var user = require('../controllers/user');
 var groups = require('../controllers/groups');
 var auth = require('../controllers/auth');
 var challenges = require('../controllers/challenges');
+var nconf = require('nconf');
 
 /*
  ---------- /api/v1 API ------------
@@ -38,7 +39,8 @@ router.post('/user/task', auth.auth, cron, user.createTask);
 router.put('/user/task/:id/sort', auth.auth, cron, verifyTaskExists, user.sortTask);
 router.post('/user/clear-completed', auth.auth, cron, user.clearCompleted);
 router.post('/user/task/:id/unlink', auth.auth, challenges.unlink); // removing cron since they may want to remove task first
-if (process.env.NODE_ENV == 'development') {
+if (nconf.get('NODE_ENV') == 'development') {
+	console.log("env")
   router.post('/user/addTenGems', auth.auth, user.addTenGems);
 }
 
