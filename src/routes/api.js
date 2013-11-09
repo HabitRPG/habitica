@@ -39,7 +39,6 @@ router.put('/user/task/:id/sort', auth.auth, cron, verifyTaskExists, user.sortTa
 router.post('/user/clear-completed', auth.auth, cron, user.clearCompleted);
 router.post('/user/task/:id/unlink', auth.auth, challenges.unlink); // removing cron since they may want to remove task first
 if (nconf.get('NODE_ENV') == 'development') {
-	console.log("env")
   router.post('/user/addTenGems', auth.auth, user.addTenGems);
 }
 
