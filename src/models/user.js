@@ -15,6 +15,12 @@ var Challenge = require('./challenge').model;
 // User Schema
 // -----------
 
+var eggPotionMapping = _.transform(items.items.eggs, function(m, egg){
+  _.defaults(m, _.transform(items.items.hatchingPotions, function(m2, pot){
+    m2[egg.name + '-' + pot.name] = true;
+  }));
+})
+
 var UserSchema = new Schema({
   // ### UUID and API Token
   _id: {
@@ -111,11 +117,17 @@ var UserSchema = new Schema({
     //   'PandaCub-Red': 10, // Number represents "Growth Points"
     //   etc...
     // }
-    pets: _.transform(items.items.eggs, function(m, egg){
-     _.defaults(m, _.transform(items.items.hatchingPotions, function(m2, pot){
-        m2[egg.name + '-' + pot.name] = Number;
-      }));
-    }),
+    pets:
+    _.defaults(
+      // First transform to a 1D eggs/potions mapping
+      _.transform(eggPotionMapping, function(m,v,k){ m[k] = Number; }),
+      // Then add additional pets (backer, contributor)
+      {
+        'Wolf-Veteran': Number,
+        'Wolf-Cerberus': Number,
+        'Dragon-Hydra': Number
+      }
+    ),
     currentPet: String, // Cactus-Desert
 
     // eggs: {
@@ -141,11 +153,15 @@ var UserSchema = new Schema({
     //  'PandaCub-Red': false,
     //  etc...
     // }
-    mounts: _.transform(items.items.eggs, function(m, egg){
-      _.defaults(m, _.transform(items.items.hatchingPotions, function(m2, pot){
-        m2[egg.name + '-' + pot.name] = Boolean;
-      }));
-    }),
+    mounts: _.defaults(
+      // First transform to a 1D eggs/potions mapping
+      _.transform(eggPotionMapping, function(m,v,k){ m[k] = Boolean; }),
+      // Then add additional pets (backer, contributor)
+      {
+        'LionCub-Ethereal': Boolean,
+        'BearCub-Polar': Boolean
+      }
+    ),
     currentMount: String,
 
     lastDrop: {

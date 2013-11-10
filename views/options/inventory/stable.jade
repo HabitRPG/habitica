@@ -25,9 +25,18 @@ script(type='text/ng-template', id='partials/options.inventory.stable.mounts.htm
       li.customize-menu(ng-repeat='egg in Items.eggs')
         menu
           div(ng-repeat='potion in Items.hatchingPotions', tooltip='{{potion.name}} {{egg.name}}', ng-init='mount = egg.name+"-"+potion.name')
-            button(class="pet-button Pet-{{mount}}", ng-show='user.items.mounts[mount]', ng-class='{active: user.items.currentMount == mount}', ng-click='chooseMount(egg.name, potion.name)')
+            button(class="pet-button Mount_Body_{{mount}}", ng-show='user.items.mounts[mount]', ng-class='{active: user.items.currentMount == mount}', ng-click='chooseMount(egg.name, potion.name)')
+              div(class='Mount_Head_{{mount}}')
             button(class="pet-button pet-not-owned", ng-hide='user.items.mounts[mount]')
               img(src='/bower_components/habitrpg-shared/img/PixelPaw.png')
+
+    h4 Rare Mounts
+    menu
+      div
+        button(ng-if='user.items.mounts["BearCub-Polar"]', class="pet-button Mount_Body_BearCub-Polar", ng-class='{active: user.items.currentMount == "BearCub-Polar")}', ng-click='chooseMount("BearCub", "Polar")', tooltip='Polar Bear')
+          .Mount_Head_BearCub-Polar
+        button(ng-if='user.items.mounts["LionCub-Ethereal"]', class="pet-button Mount_Body_LionCub-Ethereal", ng-class='{active: user.items.currentMount == "LionCub-Ethereal")}', ng-click='chooseMount("LionCub", "Ethereal")', tooltip='Ethereal Lion')
+          .Mount_Head_LionCub-Ethereal
 
 script(type='text/ng-template', id='partials/options.inventory.stable.pets.html')
   .stable
