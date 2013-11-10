@@ -1,17 +1,17 @@
-.Mount_Head_LionCub-Base, .Mount_Body_LionCub-Base, .Mount_Head_PolarBearCub-Base, .Mount_Body_PolarBearCub-Base, .Mount_Head_PandaCub-Base, .Mount_Body_PandaCub-Base, .Mount_Head_TigerCub-Base, .Mount_Body_TigerCub-Base, .Mount_Head_BearCub-Base, .Mount_Body_BearCub-Base, .Mount_Head_EtherealLion, .Mount_Body_EtherealLion {
+.Mount_Head_LionCub-Base, .Mount_Body_LionCub-Base, .Mount_Head_BearCub-Polar, .Mount_Body_BearCub-Polar, .Mount_Head_PandaCub-Base, .Mount_Body_PandaCub-Base, .Mount_Head_TigerCub-Base, .Mount_Body_TigerCub-Base, .Mount_Head_BearCub-Base, .Mount_Body_BearCub-Base, .Mount_Head_LionCub-Ethereal, .Mount_Body_LionCub-Ethereal {
   background: url('../img/sprites/Mount-SpriteSheet.png') no-repeat;
   width: 105px;
   height: 123px;
 }
 .Mount_Head_LionCub-Base {background-position: 0px 0px;}
 .Mount_Body_LionCub-Base {background-position: -105px 0px;}
-.Mount_Head_PolarBear {background-position: -210px 0px;}
-.Mount_Body_PolarBear {background-position: -315px 0px;}
+.Mount_Head_BearCub-Polar {background-position: -210px 0px;}
+.Mount_Body_BearCub-Polar {background-position: -315px 0px;}
 .Mount_Head_PandaCub-Base {background-position: -420px 0px;}
 .Mount_Body_PandaCub-Base {background-position: -525px 0px;}
 .Mount_Head_TigerCub-Base {background-position: -630px 0px;}
 .Mount_Body_TigerCub-Base {background-position: -735px 0px;}
 .Mount_Head_BearCub-Base {background-position: -840px 0px;}
 .Mount_Body_BearCub-Base {background-position: -945px 0px;}
-.Mount_Head_EtherealLion {background-position: -1050px 0px;}
-.Mount_Body_EtherealLion {background-position: -1155px 0px;}
+.Mount_Head_LionCub-Ethereal {background-position: -1050px 0px;}
+.Mount_Body_LionCub-Ethereal {background-position: -1155px 0px;}
