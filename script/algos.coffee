@@ -2,7 +2,7 @@ moment = require('moment')
 _ = require('lodash')
 helpers = require('./helpers.coffee')
 items = require('./items.coffee')
-{pets, hatchingPotions} = items.items
+{eggs, hatchingPotions} = items.items
 
 XP = 15
 HP = 2
@@ -313,10 +313,10 @@ updateStats = (user, newStats, options={}) ->
   if newStats.hp?
     # Game Over
     if newStats.hp <= 0
-      user.stats.hp = 0; paths['stats.hp'] = true # signifies dead
+      user.stats.hp = 0
       return
     else
-      user.stats.hp = newStats.hp; paths['stats.hp'] = true
+      user.stats.hp = newStats.hp
 
   if newStats.exp?
     tnl = obj.tnl(user.stats.lvl)
@@ -341,21 +341,17 @@ updateStats = (user, newStats, options={}) ->
 
     user.stats.exp = newStats.exp
 
-    paths["stats.exp"]=true; paths['stats.lvl']=true; paths['stats.gp']=true; paths['stats.hp']=true;
-    #if silent
-    #console.log("pushing silent :"  + obj.stats.exp)
-
-
     # Set flags when they unlock features
     user.flags ?= {}
     if !user.flags.customizationsNotification and (user.stats.exp > 10 or user.stats.lvl > 1)
-      user.flags.customizationsNotification = true; paths['flags.customizationsNotification']=true;
+      user.flags.customizationsNotification = true
     if !user.flags.itemsEnabled and user.stats.lvl >= 2
-      user.flags.itemsEnabled = true; paths['flags.itemsEnabled']=true;
+      user.flags.itemsEnabled = true
     if !user.flags.partyEnabled and user.stats.lvl >= 3
-      user.flags.partyEnabled = true; paths['flags.partyEnabled']=true;
+      user.flags.partyEnabled = true
     if !user.flags.dropsEnabled and user.stats.lvl >= 4
-      user.flags.dropsEnabled = true; paths['flags.dropsEnabled']=true;
+      user.flags.dropsEnabled = true
+      user.items.eggs["Wolf"] = 1
 
   if newStats.gp?
     #FIXME what was I doing here? I can't remember, gp isn't defined
