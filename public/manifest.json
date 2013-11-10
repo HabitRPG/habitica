@@ -48,9 +48,7 @@
             "js/controllers/filtersCtrl.js",
             "js/controllers/userCtrl.js",
             "js/controllers/groupsCtrl.js",
-            "js/controllers/petsCtrl.js",
             "js/controllers/inventoryCtrl.js",
-            "js/controllers/marketCtrl.js",
             "js/controllers/footerCtrl.js",
             "js/controllers/challengesCtrl.js",
             "js/controllers/adminCtrl.js"

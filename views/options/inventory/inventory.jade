@@ -1,25 +1,38 @@
 script(type='text/ng-template', id='partials/options.inventory.inventory.html')
-  .row-fluid(ng-controller='InventoryCtrl')
+  .row-fluid
     .span6.border-right
       h2 Inventory
       p.well Click an egg to see usable potions highlighted in green and then click one of the highlighted potions to hatch your pet. If no potions are highlighted, click that egg again to deselect it, and instead click a potion first to have the usable eggs highlighted. You can also sell unwanted drops to Alexander the Merchant.
       menu.inventory-list(type='list')
+
         li.customize-menu
-          menu.pets-menu(label='Eggs ({{userEggs.length}})')
-            p(ng-show='userEggs.length < 1') You don't have any eggs yet.
-            div(ng-repeat='egg in userEggs track by $index')
-              button.customize-option(tooltip='{{egg.text}}', ng-click='chooseEgg(egg, $index)', class='Pet_Egg_{{egg.name}}', ng-class='selectableInventory(egg, selectedPotion.name, $index)')
-              p {{egg.text}}
+          menu.pets-menu(label='Eggs ({{eggCount}})')
+            p(ng-show='user.items.eggs.length < 1') You don't have any eggs yet.
+            div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
+              //TODO move positioning this styling to css
+              button.customize-option(tooltip='{{Items.eggs[egg].text}}', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !user.items.pets[egg+"-"+selectedPotion.name]}')
+                .badge.badge-info.stack-count {{points}}
+              p {{Items.eggs[egg].text}}
+
         li.customize-menu
-          menu.hatchingPotion-menu(label='Hatching Potions ({{userHatchingPotions.length}})')
-            p(ng-show='userHatchingPotions.length < 1') You don't have any hatching potions yet.
-            div(ng-repeat='hatchingPotion in userHatchingPotions track by $index')
-              button.customize-option(tooltip='{{hatchingPotion}}', ng-click='choosePotion(hatchingPotion, $index)', class='Pet_HatchingPotion_{{hatchingPotion}}', ng-class='selectableInventory(selectedEgg, hatchingPotion, $index)')
-              p {{hatchingPotion}}
+          menu.hatchingPotion-menu(label='Hatching Potions ({{potCount}})')
+            p(ng-show='potCount < 1') You don't have any hatching potions yet.
+            div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
+              button.customize-option(tooltip='{{pot}}', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !user.items.pets[selectedEgg.name+"-"+pot]}')
+                .badge.badge-info.stack-count {{points}}
+              p {{pot}}
+
+        li.customize-menu
+          menu.food-menu(label='Food ({{foodCount}})')
+            p(ng-show='foodCount < 1') You don't have any food yet.
+            div(ng-repeat='(food,points) in ownedItems(user.items.food)')
+              button.customize-option(tooltip='{{food}}', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
+                .badge.badge-info.stack-count {{points}}
+              p {{food}}
 
     .span6
       h2 Market
-      .row-fluid(ng-controller='MarketCtrl')
+      .row-fluid
         table.NPC-Alex-container
           tr
             td
@@ -37,19 +50,27 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
                       | Sell {{selectedEgg.name}} for {{selectedEgg.value}} GP
                     button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')
                       | Sell {{selectedPotion.name}} for {{selectedPotion.value}} GP
+                    button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')
+                      | Sell {{selectedFood.name}} for {{selectedFood.value}} GP
 
         menu.inventory-list(type='list')
           li.customize-menu
             menu.pets-menu(label='Eggs')
-              div(ng-repeat='egg in eggs track by $index')
+              div(ng-repeat='egg in Items.eggs')
                 button.customize-option(tooltip='{{egg.text}} - {{egg.value}} Gem(s)', ng-click='buy("egg", egg)', class='Pet_Egg_{{egg.name}}')
                 p {{egg.text}}
 
           li.customize-menu
             menu.pets-menu(label='Hatching Potions')
-              div(ng-repeat='hatchingPotion in hatchingPotions track by $index')
-                button.customize-option(tooltip='{{hatchingPotion.text}} - {{hatchingPotion.value}} Gem(s)', ng-click='buy("hatchingPotion", hatchingPotion)', class='Pet_HatchingPotion_{{hatchingPotion.name}}')
-                p {{hatchingPotion.text}}
+              div(ng-repeat='pot in Items.hatchingPotions')
+                button.customize-option(tooltip='{{pot.text}} - {{pot.value}} Gem(s)', ng-click='buy("hatchingPotion", pot)', class='Pet_HatchingPotion_{{pot.name}}')
+                p {{pot.text}}
+
+          li.customize-menu
+            menu.pets-menu(label='Food')
+              div(ng-repeat='food in Items.food')
+                button.customize-option(tooltip='{{food.text}} - {{food.value}} Gem(s)', ng-click='buy("food", food)', class='Pet_Food_{{food.name}}')
+                p {{food.text}}
 
 
 

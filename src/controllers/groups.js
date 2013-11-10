@@ -60,9 +60,7 @@ api.updateMember = function(req, res) {
         member.balance += (req.body.contributor.level - (member.contributor.level || 0))*.5 // +2 gems per tier
       }
       _.merge(member, _.pick(req.body, 'contributor'));
-      if (!member.items.pets) member.items.pets = [];
-      var i = member.items.pets.indexOf('Dragon-Hydra');
-      if (!~i && member.contributor.level >= 6) member.items.pets.push('Dragon-Hydra');
+      if (member.contributor.level >= 6 && !member.items.pets['Dragon-Hydra']) member.items.pets['Dragon-Hydra'] = 5;
       member.save(cb);
     }
   ], function(err, saved){

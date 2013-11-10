@@ -96,13 +96,6 @@ angular.module('guideServices', []).
       showPopover('div.rewards', 'Item Store Unlocked', html, 'left');
     });
 
-    $rootScope.$watch('user.flags.petsEnabled', function(after, before) {
-      //TODO is this ever used? I think dropsEnabled is the one that's used
-      if (alreadyShown(before, after)) return;
-      var html = "You have unlocked Pets! You can now buy pets with Gems (note, you replenish Gems with real-life money - so chose your pets wisely!)";
-      showPopover('#rewardsTabs', 'Pets Unlocked', html, 'left');
-    });
-
     $rootScope.$watch('user.flags.partyEnabled', function(after, before) {
       if (alreadyShown(before, after)) return;
       var html = "Be social, join a party and play Habit with your friends! You'll be better at your habits with accountability partners. Click User -> Options -> Party, and follow the instructions. LFG anyone?";
@@ -111,10 +104,8 @@ angular.module('guideServices', []).
 
     $rootScope.$watch('user.flags.dropsEnabled', function(after, before) {
       if (alreadyShown(before, after)) return;
-      var drop = Helpers.randomVal(Items.items.pets);
-      var eggs = User.user.items.eggs || [];
-      eggs.push(drop); // FIXME put this on server instead
-      User.set('items.eggs', eggs);
+      var eggs = User.user.items.eggs || {};
+      eggs['Wolf-Base'] = 5; // This is also set on the server
       $rootScope.modals.dropsEnabled = true;
     });
 

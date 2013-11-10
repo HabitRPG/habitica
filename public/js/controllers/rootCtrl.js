@@ -10,6 +10,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.User = User;
     $rootScope.user = User.user;
     $rootScope.settings = User.settings;
+    $rootScope.Items = window.habitrpgShared.items.items;
 
     // Angular UI Router
     $rootScope.$state = $state;

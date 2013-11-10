@@ -1,6 +1,9 @@
-figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: profile.id==user.id, hasPet: profile.items.pet}', data-level='{{profile.stats.lvl}}', data-uid='{{profile.id}}', rel='popover', data-placement='bottom', data-trigger='hover', data-html='true', data-content="<div ng-hide='profile.id == user.id'> <div class='progress progress-danger' style='height:5px;'> <div class='bar' style='height: 5px; width: {{percent(profile.stats.hp, 50)}}%;'></div> </div> <div class='progress progress-warning' style='height:5px;'> <div class='bar' style='height: 5px; width: {{percent(profile.stats.exp, tnl(profile.stats.lvl))}}%;'></div> </div> <div>Level: {{profile.stats.lvl}}</div> <div>GP: {{profile.stats.gp | number:0}}</div> <div>{{count(profile.items.pets)}} / 90 Pets Found</div> </div>")
+figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: profile.id==user.id, hasPet: profile.items.currentPet}', data-level='{{profile.stats.lvl}}', data-uid='{{profile.id}}', rel='popover', data-placement='bottom', data-trigger='hover', data-html='true', data-content="<div ng-hide='profile.id == user.id'> <div class='progress progress-danger' style='height:5px;'> <div class='bar' style='height: 5px; width: {{percent(profile.stats.hp, 50)}}%;'></div> </div> <div class='progress progress-warning' style='height:5px;'> <div class='bar' style='height: 5px; width: {{percent(profile.stats.exp, tnl(profile.stats.lvl))}}%;'></div> </div> <div>Level: {{profile.stats.lvl}}</div> <div>GP: {{profile.stats.gp | number:0}}</div> <div>{{count(profile.items.pets)}} / 90 Pets Found</div> </div>")
   .character-sprites
-    span(ng-class='{zzz:profile.flags.rest}')
+    // Mount Body
+    span(class='Mount_Body_{{profile.items.currentMount}}')
+
+    // Avatar
     span(class='{{profile.preferences.gender}}_skin_{{profile.preferences.skin}}')
     span(class='{{profile.preferences.gender}}_hair_{{profile.preferences.hair}}')
     span(class='{{equipped("armor", profile.items.armor, profile.preferences, profile.backer, profile.contributor)}}')
@@ -8,6 +11,14 @@ figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile
     span(class='{{equipped("head", profile.items.head, profile.preferences, profile.backer, profile.contributor)}}', ng-show='profile.preferences.showHelm')
     span(class='{{equipped("shield",profile.items.shield,profile.preferences, profile.backer, profile.contributor)}}')
     span(class='{{equipped("weapon",profile.items.weapon,profile.preferences, profile.backer, profile.contributor)}}')
+
+    // Mount Head
+    span(class='Mount_Head_{{profile.items.currentMount}}')
+
+    // Resting
+    span(ng-class='{zzz:profile.flags.rest}')
+
+    // Pet
     // FIXME handle @minimal, this might have to be a directive
-    span.current-pet(class='Pet-{{profile.items.currentPet.name}}-{{profile.items.currentPet.modifier}}', ng-show='profile.items.currentPet && !minimal')
+    span.current-pet(class='Pet-{{profile.items.currentPet}}', ng-show='profile.items.currentPet && !minimal')
   .avatar-level Lvl {{profile.stats.lvl}}

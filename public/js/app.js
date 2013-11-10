@@ -128,7 +128,8 @@ window.habitrpg = angular.module('habitrpg',
         // Options > Inventory
         .state('options.inventory', {
           url: '/inventory',
-          templateUrl: "partials/options.inventory.html"
+          templateUrl: "partials/options.inventory.html",
+          controller: 'InventoryCtrl'
         })
         .state('options.inventory.inventory', {
           url: '/inventory',
