@@ -118,9 +118,8 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
   user.items.lastDrop ?=
     date: +moment().subtract('d', 1) # trick - set it to yesterday on first run, that way they can get drops today
     count: 0
-  paths['items.lastDrop'] = true
 
-  reachedDropLimit = (helpers.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 2)
+  reachedDropLimit = (helpers.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5)
   return if reachedDropLimit
 
   # % chance of getting a pet or meat
@@ -133,47 +132,54 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
     # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
     rarity = Math.random()
 
-    # Egg, 50% chance
-    if rarity > .5
-      drop = helpers.randomVal(pets)
-      (user.items.eggs ?= []).push drop; paths['items.eggs'] = true
-      drop.type = 'Egg'
-      drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
+    # Food: 40% chance
+    if rarity > .6
+      drop = helpers.randomVal(items.items.food)
+      user.items.food[drop.name] ?= 0
+      user.items.food[drop.name]+= 1
+      drop.type = 'Food'
+      drop.dialog = "You've found a #{drop.text} Food! #{drop.notes}"
 
-      # Hatching Potion, 50% chance - break down by rarity even more. FIXME this may not be the best method, so revisit
+    # Eggs & hatchingPotions: 60% chance
     else
-      acceptableDrops = []
+      if rarity > .3
+        drop = helpers.randomVal(eggs)
+        user.items.eggs[drop.name] ?= 0
+        user.items.eggs[drop.name]++
+        drop.type = 'Egg'
+        drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
 
-      # Tier 5 (Blue Moon Rare)
-      if rarity < .1
-        acceptableDrops =
-          ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue',
-           'Golden']
-
-        # Tier 4 (Very Rare)
-      else if rarity < .2
-        acceptableDrops =
-          ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue']
-
-        # Tier 3 (Rare)
-      else if rarity < .3
-        acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton']
-
-      # Commented out for testing with increased egg drop, delete if successful
-        # Tier 2 (Scarce)
-      # else if rarity < .4
-      #   acceptableDrops = ['Base', 'White', 'Desert']
-
-        # Tier 1 (Common)
+        # Hatching Potion, 30% chance - break down by rarity even more.
       else
-        acceptableDrops = ['Base', 'White', 'Desert']
+        acceptableDrops = []
 
-      acceptableDrops = hatchingPotions.filter (hatchingPotion) ->
-        hatchingPotion.name in acceptableDrops
-      drop = helpers.randomVal acceptableDrops
-      (user.items.hatchingPotions ?= []).push drop.name; paths['items.hatchingPotions'] = true
-      drop.type = 'HatchingPotion'
-      drop.dialog = "You've found a #{drop.text} Hatching Potion! #{drop.notes}"
+        # Tier 5 (Blue Moon Rare)
+        if rarity < .15
+          acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue Golden'.split(' ')
+
+          # Tier 4 (Very Rare)
+        else if rarity < .2
+          acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue'.split(' ')
+
+          # Tier 3 (Rare)
+        else if rarity < .25
+          acceptableDrops = 'Base White Desert Red Shade Skeleton'.split(' ')
+
+        # Commented out for testing with increased egg drop, delete if successful
+          # Tier 2 (Scarce)
+        # else if rarity < .4
+        #   acceptableDrops = ['Base', 'White', 'Desert']
+
+          # Tier 1 (Common)
+        else
+          acceptableDrops = ['Base', 'White', 'Desert']
+
+        acceptableDrops = _.pick hatchingPotions, ((v,k) -> k in acceptableDrops)
+        drop = helpers.randomVal acceptableDrops
+        user.items.hatchingPotions[drop.name] ?= 0
+        user.items.hatchingPotions[drop.name]++
+        drop.type = 'HatchingPotion'
+        drop.dialog = "You've found a #{drop.text} Hatching Potion! #{drop.notes}"
 
     # if they've dropped something, we want the consuming client to know so they can notify the user. See how the Derby
     # app handles it for example. Would this be better handled as an emit() ?
@@ -181,7 +187,6 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
 
     user.items.lastDrop.date = +new Date
     user.items.lastDrop.count++
-    paths['items.lastDrop'] = true
 
 
 #  {task} task you want to score

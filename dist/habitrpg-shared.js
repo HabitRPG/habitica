@@ -8131,7 +8131,7 @@ if(typeof module != 'undefined' && module.exports){
 
 },{}],5:[function(require,module,exports){
 (function() {
-  var HP, XP, hatchingPotions, helpers, items, moment, obj, pets, preenHistory, randomDrop, updateStats, _, _ref,
+  var HP, XP, eggs, hatchingPotions, helpers, items, moment, obj, preenHistory, randomDrop, updateStats, _, _ref,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   moment = require('moment');
@@ -8142,7 +8142,7 @@ if(typeof module != 'undefined' && module.exports){
 
   items = require('./items.coffee');
 
-  _ref = items.items, pets = _ref.pets, hatchingPotions = _ref.hatchingPotions;
+  _ref = items.items, eggs = _ref.eggs, hatchingPotions = _ref.hatchingPotions;
 
   XP = 15;
 
@@ -8304,7 +8304,7 @@ if(typeof module != 'undefined' && module.exports){
 
 
   randomDrop = function(user, delta, priority, streak, options) {
-    var acceptableDrops, chanceMultiplier, drop, paths, rarity, reachedDropLimit, _base, _base1, _base2, _ref1;
+    var acceptableDrops, chanceMultiplier, drop, paths, rarity, reachedDropLimit, _base, _base1, _base2, _base3, _name, _name1, _name2, _ref1;
     if (streak == null) {
       streak = 0;
     }
@@ -8318,8 +8318,7 @@ if(typeof module != 'undefined' && module.exports){
         count: 0
       };
     }
-    paths['items.lastDrop'] = true;
-    reachedDropLimit = (helpers.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 2);
+    reachedDropLimit = (helpers.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5);
     if (reachedDropLimit) {
       return;
     }
@@ -8328,37 +8327,49 @@ if(typeof module != 'undefined' && module.exports){
     chanceMultiplier += streak;
     if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && Math.random() < (.05 * chanceMultiplier)) {
       rarity = Math.random();
-      if (rarity > .5) {
-        drop = helpers.randomVal(pets);
-        ((_base1 = user.items).eggs != null ? (_base1 = user.items).eggs : _base1.eggs = []).push(drop);
-        paths['items.eggs'] = true;
-        drop.type = 'Egg';
-        drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
-      } else {
-        acceptableDrops = [];
-        if (rarity < .1) {
-          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue', 'Golden'];
-        } else if (rarity < .2) {
-          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue'];
-        } else if (rarity < .3) {
-          acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton'];
-        } else {
-          acceptableDrops = ['Base', 'White', 'Desert'];
+      if (rarity > .6) {
+        drop = helpers.randomVal(items.items.food);
+        if ((_base1 = user.items.food)[_name = drop.name] == null) {
+          _base1[_name] = 0;
         }
-        acceptableDrops = hatchingPotions.filter(function(hatchingPotion) {
-          var _ref2;
-          return _ref2 = hatchingPotion.name, __indexOf.call(acceptableDrops, _ref2) >= 0;
-        });
-        drop = helpers.randomVal(acceptableDrops);
-        ((_base2 = user.items).hatchingPotions != null ? (_base2 = user.items).hatchingPotions : _base2.hatchingPotions = []).push(drop.name);
-        paths['items.hatchingPotions'] = true;
-        drop.type = 'HatchingPotion';
-        drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
+        user.items.food[drop.name] += 1;
+        drop.type = 'Food';
+        drop.dialog = "You've found a " + drop.text + " Food! " + drop.notes;
+      } else {
+        if (rarity > .3) {
+          drop = helpers.randomVal(eggs);
+          if ((_base2 = user.items.eggs)[_name1 = drop.name] == null) {
+            _base2[_name1] = 0;
+          }
+          user.items.eggs[drop.name]++;
+          drop.type = 'Egg';
+          drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
+        } else {
+          acceptableDrops = [];
+          if (rarity < .15) {
+            acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue Golden'.split(' ');
+          } else if (rarity < .2) {
+            acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue'.split(' ');
+          } else if (rarity < .25) {
+            acceptableDrops = 'Base White Desert Red Shade Skeleton'.split(' ');
+          } else {
+            acceptableDrops = ['Base', 'White', 'Desert'];
+          }
+          acceptableDrops = _.pick(hatchingPotions, (function(v, k) {
+            return __indexOf.call(acceptableDrops, k) >= 0;
+          }));
+          drop = helpers.randomVal(acceptableDrops);
+          if ((_base3 = user.items.hatchingPotions)[_name2 = drop.name] == null) {
+            _base3[_name2] = 0;
+          }
+          user.items.hatchingPotions[drop.name]++;
+          drop.type = 'HatchingPotion';
+          drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
+        }
       }
       user._tmp.drop = drop;
       user.items.lastDrop.date = +(new Date);
-      user.items.lastDrop.count++;
-      return paths['items.lastDrop'] = true;
+      return user.items.lastDrop.count++;
     }
   };
 
@@ -8514,11 +8525,9 @@ if(typeof module != 'undefined' && module.exports){
     if (newStats.hp != null) {
       if (newStats.hp <= 0) {
         user.stats.hp = 0;
-        paths['stats.hp'] = true;
         return;
       } else {
         user.stats.hp = newStats.hp;
-        paths['stats.hp'] = true;
       }
     }
     if (newStats.exp != null) {
@@ -8542,28 +8551,21 @@ if(typeof module != 'undefined' && module.exports){
         }
       }
       user.stats.exp = newStats.exp;
-      paths["stats.exp"] = true;
-      paths['stats.lvl'] = true;
-      paths['stats.gp'] = true;
-      paths['stats.hp'] = true;
       if (user.flags == null) {
         user.flags = {};
       }
       if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
         user.flags.customizationsNotification = true;
-        paths['flags.customizationsNotification'] = true;
       }
       if (!user.flags.itemsEnabled && user.stats.lvl >= 2) {
         user.flags.itemsEnabled = true;
-        paths['flags.itemsEnabled'] = true;
       }
       if (!user.flags.partyEnabled && user.stats.lvl >= 3) {
         user.flags.partyEnabled = true;
-        paths['flags.partyEnabled'] = true;
       }
       if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
         user.flags.dropsEnabled = true;
-        paths['flags.dropsEnabled'] = true;
+        user.items.eggs["Wolf"] = 1;
       }
     }
     if (newStats.gp != null) {
@@ -8936,7 +8938,12 @@ var process=require("__browserify_process");(function() {
           lastDrop: {
             date: +(new Date),
             count: 0
-          }
+          },
+          eggs: {},
+          food: {},
+          hatchingPotions: {},
+          pets: {},
+          mounts: {}
         },
         preferences: {
           gender: 'm',
@@ -9261,13 +9268,6 @@ var process=require("__browserify_process");(function() {
         classes += ' color-best';
       }
       return classes;
-    },
-    /*
-      Does the user own this pet?
-    */
-
-    ownsPet: function(pet, userPets) {
-      return _.isArray(userPets) && userPets.indexOf(pet) !== -1;
     },
     /*
       Friendly timestamp
@@ -9706,98 +9706,182 @@ try {
       notes: "Resets your task values back to 0 (yellow). Useful when everything's red and it's hard to stay alive.",
       value: 0
     },
-    pets: [
-      {
+    eggs: {
+      Wolf: {
         text: 'Wolf',
         name: 'Wolf',
         value: 3
-      }, {
+      },
+      TigerCub: {
         text: 'Tiger Cub',
         name: 'TigerCub',
         value: 3
-      }, {
+      },
+      PandaCub: {
         text: 'Panda Cub',
         name: 'PandaCub',
         value: 3
-      }, {
+      },
+      LionCub: {
         text: 'Lion Cub',
         name: 'LionCub',
         value: 3
-      }, {
+      },
+      Fox: {
         text: 'Fox',
         name: 'Fox',
         value: 3
-      }, {
+      },
+      FlyingPig: {
         text: 'Flying Pig',
         name: 'FlyingPig',
         value: 3
-      }, {
+      },
+      Dragon: {
         text: 'Dragon',
         name: 'Dragon',
         value: 3
-      }, {
+      },
+      Cactus: {
         text: 'Cactus',
         name: 'Cactus',
         value: 3
-      }, {
+      },
+      BearCub: {
         text: 'Bear Cub',
         name: 'BearCub',
         value: 3
       }
-    ],
-    hatchingPotions: [
-      {
+    },
+    hatchingPotions: {
+      Base: {
         text: 'Base',
         name: 'Base',
         notes: "Hatches your pet in it's base form.",
         value: 1
-      }, {
+      },
+      White: {
         text: 'White',
         name: 'White',
         notes: 'Turns your animal into a White pet.',
         value: 2
-      }, {
+      },
+      Desert: {
         text: 'Desert',
         name: 'Desert',
         notes: 'Turns your animal into a Desert pet.',
         value: 2
-      }, {
+      },
+      Red: {
         text: 'Red',
         name: 'Red',
         notes: 'Turns your animal into a Red pet.',
         value: 3
-      }, {
+      },
+      Shade: {
         text: 'Shade',
         name: 'Shade',
         notes: 'Turns your animal into a Shade pet.',
         value: 3
-      }, {
+      },
+      Skeleton: {
         text: 'Skeleton',
         name: 'Skeleton',
         notes: 'Turns your animal into a Skeleton.',
         value: 3
-      }, {
+      },
+      Zombie: {
         text: 'Zombie',
         name: 'Zombie',
         notes: 'Turns your animal into a Zombie.',
         value: 4
-      }, {
+      },
+      CottonCandyPink: {
         text: 'Cotton Candy Pink',
         name: 'CottonCandyPink',
         notes: 'Turns your animal into a Cotton Candy Pink pet.',
         value: 4
-      }, {
+      },
+      CottonCandyBlue: {
         text: 'Cotton Candy Blue',
         name: 'CottonCandyBlue',
         notes: 'Turns your animal into a Cotton Candy Blue pet.',
         value: 4
-      }, {
+      },
+      Golden: {
         text: 'Golden',
         name: 'Golden',
         notes: 'Turns your animal into a Golden pet.',
         value: 5
       }
-    ]
+    },
+    food: {
+      Meat: {
+        text: 'Meat',
+        name: 'Meat',
+        value: 1,
+        target: 'Base'
+      },
+      Milk: {
+        text: 'Milk',
+        name: 'Milk',
+        value: 1,
+        target: 'White'
+      },
+      Potatoe: {
+        text: 'Potatoe',
+        name: 'Potatoe',
+        value: 1,
+        target: 'Desert'
+      },
+      Strawberry: {
+        text: 'Strawberry',
+        name: 'Strawberry',
+        value: 1,
+        target: 'Red'
+      },
+      Chocolate: {
+        text: 'Chocolate',
+        name: 'Chocolate',
+        value: 1,
+        target: 'Shade'
+      },
+      Fish: {
+        text: 'Fish',
+        name: 'Fish',
+        value: 1,
+        target: 'Skeleton'
+      },
+      RottenMeat: {
+        text: 'Rotten Meat',
+        name: 'RottenMeat',
+        value: 1,
+        target: 'Zombie'
+      },
+      CottonCandyPink: {
+        text: 'Pink Cotton Candy',
+        name: 'CottonCandyPink',
+        value: 1,
+        target: 'CottonCandyPink'
+      },
+      CottonCandyBlue: {
+        text: 'Blue Cotton Candy',
+        name: 'CottonCandyBlue',
+        value: 1,
+        target: 'CottonCandyBlue'
+      },
+      Honey: {
+        text: 'Honey',
+        name: 'Honey',
+        value: 1,
+        target: 'Golden'
+      },
+      Saddle: {
+        text: 'Saddle',
+        name: 'Saddle',
+        value: 10
+      }
+    }
   };
 
   reversed = {};
@@ -9814,12 +9898,16 @@ try {
     });
   });
 
-  _.each(items.pets, function(pet) {
+  _.each(items.eggs, function(pet) {
     return pet.notes = 'Find a hatching potion to pour on this egg, and it will hatch into a loyal pet.';
   });
 
   _.each(items.hatchingPotions, function(hatchingPotion) {
     return hatchingPotion.notes = "Pour this on an egg, and it will hatch as a " + hatchingPotion.text + " pet.";
+  });
+
+  _.each(items.food, function(food) {
+    return food.notes = "Feed this to a pet and it may grown into a sturdy steed.";
   });
 
   module.exports.buyItem = function(user, type) {
