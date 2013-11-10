@@ -1,13 +1,17 @@
-.Mount_Head_Lion, .Mount_Body_Lion, .Mount_Head_PolarBear, .Mount_Body_PolarBear, .Mount_Head_Panda, .Mount_Body_Panda, .Mount_Head_Tiger, .Mount_Body_Tiger, .Mount_Head_Bear, .Mount_Body_Bear, .Mount_Head_EtherealLion, .Mount_Body_EtherealLion {background: url('../img/sprites/Mount-SpriteSheet.png') no-repeat; }
-.Mount_Head_Lion {background-position: 0 0; width: 105px; height: 123px}
-.Mount_Body_Lion {background-position: -105 0; width: 105px; height: 123px}
-.Mount_Head_PolarBear {background-position: -210 0; width: 105px; height: 123px}
-.Mount_Body_PolarBear {background-position: -315 0; width: 105px; height: 123px}
-.Mount_Head_Panda {background-position: -420 0; width: 105px; height: 123px}
-.Mount_Body_Panda {background-position: -525 0; width: 105px; height: 123px}
-.Mount_Head_Tiger {background-position: -630 0; width: 105px; height: 123px}
-.Mount_Body_Tiger {background-position: -735 0; width: 105px; height: 123px}
-.Mount_Head_Bear {background-position: -840 0; width: 105px; height: 123px}
-.Mount_Body_Bear {background-position: -945 0; width: 105px; height: 123px}
-.Mount_Head_EtherealLion {background-position: -1050 0; width: 105px; height: 123px}
-.Mount_Body_EtherealLion {background-position: -1155 0; width: 105px; height: 123px}
+.Mount_Head_LionCub-Base, .Mount_Body_LionCub-Base, .Mount_Head_PolarBearCub-Base, .Mount_Body_PolarBearCub-Base, .Mount_Head_PandaCub-Base, .Mount_Body_PandaCub-Base, .Mount_Head_TigerCub-Base, .Mount_Body_TigerCub-Base, .Mount_Head_BearCub-Base, .Mount_Body_BearCub-Base, .Mount_Head_EtherealLion, .Mount_Body_EtherealLion {
+  background: url('../img/sprites/Mount-SpriteSheet.png') no-repeat;
+  width: 105px;
+  height: 123px;
+}
+.Mount_Head_LionCub-Base {background-position: 0px 0px;}
+.Mount_Body_LionCub-Base {background-position: -105px 0px;}
+.Mount_Head_PolarBear {background-position: -210px 0px;}
+.Mount_Body_PolarBear {background-position: -315px 0px;}
+.Mount_Head_PandaCub-Base {background-position: -420px 0px;}
+.Mount_Body_PandaCub-Base {background-position: -525px 0px;}
+.Mount_Head_TigerCub-Base {background-position: -630px 0px;}
+.Mount_Body_TigerCub-Base {background-position: -735px 0px;}
+.Mount_Head_BearCub-Base {background-position: -840px 0px;}
+.Mount_Body_BearCub-Base {background-position: -945px 0px;}
+.Mount_Head_EtherealLion {background-position: -1050px 0px;}
+.Mount_Body_EtherealLion {background-position: -1155px 0px;}
