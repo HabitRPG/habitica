@@ -10,12 +10,16 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     $scope.petCount = _.size(User.user.items.pets);
     $scope.totalPets = _.size($scope.Items.eggs) * _.size($scope.Items.hatchingPotions);
 
-    var countItems = function(items) {
-      return _.reduce(items,function(m,v){return m+v;},0);
-    }
-    $scope.$watch('user.items.pets', function(pets){ $scope.petCount = countItems(pets); });
-    $scope.$watch('user.items.eggs', function(eggs){ $scope.eggCount = countItems(eggs); });
-    $scope.$watch('user.items.hatchingPotions', function(pots){ $scope.potCount = countItems(pots); });
+    // count egg, food, hatchingPotion stack totals
+    var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}
+    // count pets, mounts collected totals
+    var countExists = function(items) { return _.reduce(items,function(m,v){return m+(v ? 1 : 0);},0);}
+
+    $scope.$watch('user.items.pets', function(pets){ $scope.petCount = countExists(pets); });
+    $scope.$watch('user.items.mounts', function(mounts){ $scope.mountCount = countExists(mounts); });
+    $scope.$watch('user.items.eggs', function(eggs){ $scope.eggCount = countStacks(eggs); });
+    $scope.$watch('user.items.hatchingPotions', function(pots){ $scope.potCount = countStacks(pots); });
+    $scope.$watch('user.items.food', function(food){ $scope.foodCount = countStacks(food); });
 
     $scope.chooseEgg = function(egg){
       if ($scope.selectedEgg && $scope.selectedEgg.name == egg) {
