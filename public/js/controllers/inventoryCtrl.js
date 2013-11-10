@@ -122,8 +122,8 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
         // Saddling a pet
         if ($scope.selectedFood.name == 'Saddle') {
-          if (userPets[pet] < 150)
-            return Notification.text(egg+" is not strong enough yet to saddle.");
+          if (userPets[pet] < 150) return Notification.text(egg+" is not strong enough yet to saddle.");
+          if (user.items.mounts[pet]) return Notification.text("You already have that mount");
           if (!confirm('Saddle ' + pet + '?')) return;
           userPets[pet] = 0;
           setObj['items.mounts.' + pet] = true;
