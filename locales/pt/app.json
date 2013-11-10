@@ -1,19 +1,19 @@
 {
 
 "_commentfrontpage":"HABITRPG FRONT PAGE",
-   "synopsis" : "Um programa para construção de hábitos que trata sua vida como um Role-Playing Game. Suba de nível conforme você tenha sucesso, perca Pontos de Vida conforme você falhe, ganhe dinheiro para comprar armas e armaduras.",
+   "synopsis" : "Um programa para construção de hábitos que trata sua vida como um Role-Playing Game. Sobe de nível enquanto você sucede, perde HP enquanto você falha, ganha dinheiro para comprar armas e armaduras.",
   "playButton" : "Jogar",
 
 
 
 "_commenttut": "TUTORIAL/TOUR",
-  "endTourButton": "Finalizar Tutorial",
+  "endTourButton": "Termina Tutorial",
   "nextButton" : "Próximo",
   "prevButton" : "Anterior",
-  "tour1Title" : "Bem Vindo ao HabitRPG",
-    "tour1Text" : "Bem vindo ao HabitRPG, um monitorador de hábitos que trata seus objetivos como um RPG.",
+  "tour1Title" : "Boas-vindas para HabitRPG",
+    "tour1Text" : "Boas-vindas para HabitRPG, um monitorador de hábitos que trata seus objetivos como um RPG.",
   "tour2Title" : "Hábitos",
-    "tour2Text" : "Hábitos são objetivos bons ou ruins que você monitora constantemente.",
+    "tour2Text" : "Hábitos são bons ou maus objetivos que você monitora constantemente.",
   "tour3Title" : "Diárias",
     "tour3Text" : "Diárias são objetivos que você deseja completar uma vez por dia.",
   "tour4Title" : "Tarefas",
