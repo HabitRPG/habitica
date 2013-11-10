@@ -105,7 +105,7 @@ angular.module('guideServices', []).
     $rootScope.$watch('user.flags.dropsEnabled', function(after, before) {
       if (alreadyShown(before, after)) return;
       var eggs = User.user.items.eggs || {};
-      eggs['Wolf-Base'] = 5; // This is also set on the server
+      eggs['Wolf'] = 1; // This is also set on the server
       $rootScope.modals.dropsEnabled = true;
     });
 

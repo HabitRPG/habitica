@@ -127,6 +127,8 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
           if (!confirm('Saddle ' + pet + '?')) return;
           userPets[pet] = 0;
           setObj['items.mounts.' + pet] = true;
+          if (pet == user.items.currentPet)
+            setObj['items.currentPet'] = '';
           Notification.text('You have tamed '+egg+", let's go for a ride!");
         } else {
           if (userPets[pet] >= 150)
@@ -149,7 +151,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
       } else {
         var userCurrentPet = User.user.items.currentPet;
         if(userCurrentPet && userCurrentPet == pet){
-          User.user.items.currentPet = null;
+          User.user.items.currentPet = '';
         }else{
           User.user.items.currentPet = pet;
         }
@@ -159,7 +161,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
     $scope.chooseMount = function(egg, potion) {
       var mount = egg + '-' + potion;
-      User.set('items.currentMount', (user.items.currentMount == mount) ? null : mount);
+      User.set('items.currentMount', (user.items.currentMount == mount) ? '' : mount);
     }
 
   }
