@@ -1,0 +1,77 @@
+footer.footer(ng-controller='FooterCtrl')
+  .container
+    .row
+      .span3
+        h4 Mobile
+        ul.unstyled
+          li
+            a(href='https://itunes.apple.com/us/app/habitrpg/id689569235?mt=8', target='_blank') iOS
+          li
+            a(href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg', target='_blank') Android
+      .span3
+        h4 Company
+        ul.unstyled
+          if (!isFrontPage)
+            li
+              .btn.btn-small.btn-success(ng-click='modals.buyGems = true')
+                i.icon-heart.icon-white
+                |  Donate
+          li
+            a(href='/static/about') About
+          li
+            a(target='_blank', href='http://blog.habitrpg.com/') Blog
+          li
+            a(href='/static/extensions') Extensions
+          li
+            a(href='/static/faq') FAQ
+          li
+            a(href='/static/privacy') Privacy
+          li
+            a(href='/static/terms') Terms
+      .span3
+        h4 Community
+        ul.unstyled
+          li
+            a(target='_blank', href='https://github.com/lefnire/habitrpg/issues?state=open') Submit Bug
+          li
+            a(target='_blank', href='https://trello.com/board/habitrpg/50e5d3684fe3a7266b0036d6') Request Feature
+          li
+            a(target='_blank', href='https://github.com/lefnire/habitrpg/wiki/API') API
+          li
+            a(href='/static/extensions') Add-ons & Extensions
+          li
+            a(target='_blank', href='http://community.habitrpg.com/forum') Forum
+          li
+            a(target='_blank', href='http://www.kickstarter.com/projects/lefnire/habitrpg-mobile') Kickstarter
+          li
+            a(target='_blank', href='https://www.facebook.com/Habitrpg') Facebook
+          li
+            a(target='_blank', href='http://www.reddit.com/r/habitrpg/') Reddit
+      .span3
+        if (env.NODE_ENV=='production')
+          h4 Social
+          .addthis_toolbox.addthis_default_style(addthis:url='https://habitrpg.com', addthis:title='HabitRPG - Gamify Your Life')
+            table
+              tr
+                td
+                  a.addthis_button_facebook_like(fb:like:layout='button_count')
+              tr
+                td
+                  a.addthis_button_tweet(tw:via='habitrpg')
+              tr
+                td(align='left')
+                  iframe(src='/bower_components/github-buttons/github-btn.html?user=lefnire&repo=habitrpg&type=watch&count=true', allowtransparency='true', frameborder='0', scrolling='0', width='85px', height='20px')
+              tr
+                td
+                  a.addthis_button_google_plusone(g:plusone:size='medium')
+        else
+          h4 Debug
+          ul.unstyled
+            li
+              a.btn(ng-click='addMissedDay()') +1 Missed Day
+            li
+              a.btn(ng-click='addTenGems()') +10 Gems
+            li
+              a.btn(ng-click='addLevelsAndGold()') +Exp +GP
+
+  div(ng-init='deferredScripts()')

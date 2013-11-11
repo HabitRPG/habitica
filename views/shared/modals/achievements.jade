@@ -1,0 +1,46 @@
+
+// Streak
+div(modal='modals.achievements.streak')
+  .modal-header
+    h3 Achievement!
+  .modal-body
+    .achievement.achievement-thermometer
+    | You have stacked your "Streaker" Achievement! Every 21 days of streak, you gain 1 achievement point here.
+  .modal-footer
+    button.btn.btn-default.cancel(ng-click='modals.achievements.streak = false') Ok
+
+// Max Gear
+div(modal='modals.achievements.ultimateGear')
+  .modal-header
+    h3 Achievement!
+  .modal-body
+    .achievement.achievement-armor
+    | You have earned the "Ultimate Gear" Achievement for upgrading to the maximum gear set!
+  .modal-footer
+    button.btn.btn-default.cancel(ng-click='modals.achievements.ultimateGear = false') Ok
+
+// Beast Master
+div(modal='modals.achievements.beastMaster')
+  .modal-header
+    h3 Achievement!
+  .modal-body
+    p
+      .achievement.achievement-rat
+      | You have earned the "Beast Master" Achievement for collecting all the pets!
+  .modal-footer
+    button.btn.btn-default.cancel(ng-click='modals.achievements.beastMaster = false') Ok
+
+// Contributor
+div(modal='user.flags.contributor')
+ .modal-header
+   h3 Contributor Achievement!
+ .modal-body
+   .NPC-Justin.float-left
+   p.
+     {{user.profile.name}}, you awesome person! You're now a level {{user.contributor.level}} contributor for helping HabitRPG. See <a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'>what prizes you've earned for your contribution!</a>
+
+ .modal-footer
+   button.btn.btn-default.cancel(ng-click='set("flags.contributor",false)') Ok
+
+
+

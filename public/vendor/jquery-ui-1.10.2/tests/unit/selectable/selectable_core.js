@@ -1,3 +1,0 @@
-/*
- * selectable_core.js
- */

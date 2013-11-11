@@ -1,0 +1,132 @@
+script(type='text/ng-template', id='partials/options.social.challenges.detail.close.html')
+  a.btn.btn-small.btn-danger(ng-click="delete(closingChal)") Delete
+  h5 - Or -
+  small Select a winner and close the challenge:
+  select(ng-model='closingChal.winner', name='Winner', ng-options='u._id as u.profile.name for u in closingChal.members', ng-change='selectWinner(closingChal)')
+  small.pull-right
+    a(ng-click='cancelClosing(closingChal)') cancel
+
+script(type='text/ng-template', id='partials/options.social.challenges.detail.member.html')
+  .modal.wide-modal
+    .modal-header
+        button.close(type='button', ng-click='$state.go("^")', aria-hidden='true') ×
+        h3 {{obj.profile.name}}
+      .modal-body
+        habitrpg-tasks(main=false)
+      .modal-footer
+        a.btn(ng-click='$state.go("^")') Close
+
+script(type='text/ng-template', id='partials/options.social.challenges.detail.html')
+  // Edit button
+  div(ng-if='challenge.leader==user._id')
+    ul.unstyled
+      li(ng-hide='challenge._locked==false')
+        button.btn.btn-small.btn-default(ng-click='challenge._locked = false') Edit
+        button.btn.btn-small.btn-warning(ng-click='close(challenge, $event)', tooltip='Delete or select winner') End Challenge
+      li(ng-show='challenge._locked==false')
+        button.btn.btn-small.btn-primary(ng-click='save(challenge)') Save
+        button.btn.btn-small.btn-default(ng-click='challenge._locked=true') Cancel
+
+    div(ng-show='challenge._locked==false')
+      .-options
+        input.option-content(type='text', ng-model='challenge.name')
+        .option-medium
+          input.option-content(type='text', minlength="3", maxlength="16", ng-model='challenge.shortName', placeholder='Tag Name', required)
+        textarea.option-content(cols='3', placeholder='Description', ng-model='challenge.description')
+    hr
+
+  .well(ng-if='challenge.description') {{challenge.description}}
+  i.icon-question-sign(popover="These are the challenge's tasks. As users participate, they will change color and gain graphs to show you the overall progress of the group.", popover-trigger='mouseenter', popover-placement='right')
+  habitrpg-tasks(obj='challenge', main=false)
+
+  // Member List
+  div(ng-if='challenge.members.length > 0')
+    h3 How's Everyone Doing?
+    menu
+      button.customize-option(ng-repeat='member in challenge.members', ng-click='toggleMember(challenge._id, member._id)') {{member.profile.name}}
+  div(ui-view)
+
+  // Accordion version if we choose that instead
+  //- div(ng-if='challenge.members')
+    h4 How's Everyone Doing?
+    .accordion-group(ng-repeat='member in challenge.members')
+      .accordion-heading
+        a.accordion-toggle(ng-click='toggleMember(challenge._id, member._id)') {{member.profile.name}}
+      .accordion-body(ng-class='{collapse: $stateParams.uid != member._id}')
+        .accordion-inner(ng-if='$stateParams.uid == member._id')
+          div(ui-view)
+
+script(type='text/ng-template', id='partials/options.social.challenges.html')
+  .row-fluid
+    .span2.well#challenges-filters
+      h3 Filter:
+      h4 Groups
+      label.checkbox(ng-repeat='group in groups')
+        input(type='checkbox', ng-model='search.group[group._id]')
+        | {{group.name}}
+      h4 Membership
+      label.radio
+        input(type='radio', name='search-participation-radio', ng-click='search._isMember = true')
+        | Participating
+      label.radio
+        input(type='radio', name='search-participation-radio', ng-click='search._isMember = false')
+        | Not Participating
+      label.radio
+        input(type='radio', name='search-participation-radio', ng-click='search._isMember = undefined', checked='checked')
+        | Either
+    .span10
+      // Creation form
+      button.btn.btn-success#create-challenge-btn(ng-click='create()', ng-hide='newChallenge') Create Challenge
+      .create-challenge-from.well(ng-if='newChallenge')
+        form(ng-submit='save(newChallenge)')
+          div
+            input.btn.btn-success(type='submit', value='Save')
+            input.btn.btn-danger(type='button', ng-click='discard()', value='Discard')
+            select(ng-model='newChallenge.group', ng-required='required', name='Group', ng-options='g._id as g.name for g in groups')
+          .challenge-options
+            input.option-content(type='text', ng-model='newChallenge.name', placeholder='Challenge Title', required='required')
+
+            .option-medium
+              input.option-content(type='text', minlength="3", maxlength="16", ng-model='newChallenge.shortName', placeholder='Tag Name', required)
+              i.icon-question-sign(popover="Challenges appear on tag-lists & task-tooltips. So while you'll want a descriptive title above, you'll also need a 'short name'. Eg, 'Lose 10 pounds in 3 months' might become '-10lb'", popover-trigger='mouseenter', popover-placement='right')
+
+            textarea.option-content(cols='3', placeholder='Description', ng-model='newChallenge.description')
+
+            //- what's going on here?
+            br
+            br
+
+            .option-medium
+              input.option-content(type='number', min="{{newChallenge.group=='habitrpg' ? 1 : 0}}", max="{{maxPrize}}", ng-model='newChallenge.prize', placeholder='Prize')
+              span.input-suffix.Pet_Currency_Gem1x.inline-gems
+              i.icon-question-sign(popover="If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.", popover-trigger='mouseenter', popover-placement='right')
+              span(ng-show='newChallenge.group=="habitrpg"').
+                &nbsp;Minimum 1 Gem for <strong>public challenges</strong> (helps prevent spam, it really does).
+
+        habitrpg-tasks(main=false, obj='newChallenge')
+
+      // Challenges list
+      .accordion-group(ng-repeat='challenge in challenges|filter:filterChallenges')
+        .accordion-heading
+          ul.pull-right.challenge-accordion-header-specs
+            li {{challenge.memberCount}} Participants
+            li(ng-show='challenge.prize')
+              // prize
+              table(ng-show='challenge.prize')
+                tr
+                  td {{challenge.prize}}
+                  td
+                    span.Pet_Currency_Gem1x
+                  td  Prize
+            li
+              // leave / join
+              a.btn.btn-small.btn-danger(ng-show='challenge._isMember', ng-click='clickLeave(challenge, $event)')
+                i.icon-ban-circle
+                | Leave
+              a.btn.btn-small.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
+                i.icon-ok
+                | Join
+          a.accordion-toggle(ng-click='toggle(challenge._id)') {{challenge.name}}
+        .accordion-body(ng-class='{collapse: !$stateParams.cid == challenge._id}')
+          .accordion-inner(ng-if='$stateParams.cid == challenge._id')
+            div(ui-view)

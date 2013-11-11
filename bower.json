@@ -1,0 +1,45 @@
+{
+  "name": "HabitRPG",
+  "version": "0.1.1",
+  "homepage": "https://github.com/lefnire/habitrpg",
+  "authors": [
+    "Tyler Renelle <tylerrenelle@gmail.com>"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "jquery.cookie": "~1.4.0",
+    "jquery-ui": "~1.10.3",
+    "angular": "1.2.0-rc.3",
+    "angular-sanitize": "1.2.0-rc.3",
+    "angular-resource": "1.2.0-rc.3",
+    "angular-ui": "~0.4.0",
+    "angular-ui-utils": "~0.0.4",
+    "angular-bootstrap": "~0.5.0",
+    "angular-ui-router": "ca3b4777a603df8f86cfd653c8f6c38b2ae05d89",
+    "angular-loading-bar": "~0.0.5",
+    "bootstrap": "v2.3.2",
+    "bootstrap-datepicker": "~1.2.0",
+    "bootstrap-tour": "0.5.0",
+    "bootstrap-growl": "~1.1.0",
+    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#master",
+    "BrowserQuest": "https://github.com/mozilla/BrowserQuest.git",
+    "github-buttons": "git://github.com/mdo/github-buttons.git",
+    "marked": "~0.2.9",
+    "JavaScriptButtons": "git://github.com/paypal/JavaScriptButtons.git#master"
+  },
+  "resolutions": {
+    "jquery": "~2.0.3",
+    "bootstrap": "v2.3.2"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.2.0-rc.3"
+  }
+}

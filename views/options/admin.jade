@@ -1,0 +1,25 @@
+script(id='partials/options.admin.html', type="text/ng-template")
+  form.form-horizontal(ng-submit='loadUser(_uuid)')
+    .-options
+      .option-group.option-large
+        input.option-content(type='text', ng-model='_uuid', placeholder='UUID')
+        button.btn(type='submit') Load User
+  form.form-horizontal(ng-show='profile', ng-submit='save(profile)')
+    h3 {{profile.profile.name}}
+    h4 Contributor Status
+    .-options
+      .control-group.option-large
+        input.option-content(type='text', ng-model='profile.contributor.text', placeholder='Contributor Title (eg, "Blacksmith")')
+      .control-group.option-medium
+        input.option-content(type='number', step="any", ng-model='profile.contributor.level')
+        span.input-suffix Contrib Level
+        br
+        small [1-7] this determines which items, pets, and mounts are available. Also determines name-tag coloring.&nbsp;
+        a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear') More details.
+      .control-group.option-medium
+        label.checkbox
+          input(type='checkbox', ng-model='profile.contributor.admin')
+          | Admin
+    // h4 Backer Status
+    // Add backer stuff like tier, disable adds, etcs
+    button.btn-primary(type='submit') Save

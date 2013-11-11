@@ -1,0 +1,93 @@
+// FIXME note, due to https://github.com/angular-ui/bootstrap/issues/783 we can't use nested angular-bootstrap tabs
+// Subscribe to that ticket & change this when they fix
+
+include ./challenges.jade
+
+script(type='text/ng-template', id='partials/options.social.tavern.html')
+  include ./tavern
+
+script(type='text/ng-template', id='partials/options.social.party.html')
+  div(ng-show='group._id')
+    include ./group
+  div(ng-hide='group._id')
+    div(ng-show='user.invitations.party')
+      // #with required for the accept/reject buttons
+      // {#with _user.invitations.party as :party}
+      h2 You're Invited To {{user.invitations.party.name}}
+      a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)') Accept
+      a.btn.btn-danger(ng-click='reject()') Reject
+      // {/}
+    div(ng-hide='user.invitations.party')
+      h2 Create A Party
+      p
+        | You are not in a party. You can either create one and invite friends, or if you want to join an existing party, have them enter:
+      pre.prettyprint.
+        {{user.id}}
+      include ./create-group
+
+script(type='text/ng-template', id='partials/options.social.guilds.public.html')
+  div(ng-repeat='invitation in user.invitations.guilds')
+    h3 You're Invited To {{invitation.name}}
+    a.btn.btn-success(data-type='guild', ng-click='join(invitation)') Accept
+    a.btn.btn-danger(ng-click='reject(invitation)') Reject
+  // Public Groups
+  .options-group.option-large.whatever-options
+    input.option-content(type='text',ng-model='guildSearch', placeholder='Search')
+  table.table.table-striped
+    tr(ng-repeat='group in groups.public | filter:guildSearch')
+      td
+        ul.pull-right.challenge-accordion-header-specs
+          li {{group.memberCount}} member(s)
+          li
+            // join / leave
+            a.btn.btn-small.btn-danger(ng-show='group._isMember', ng-click='leave(group)')
+              i.icon-ban-circle
+              | Leave
+            a.btn.btn-small.btn-success(ng-hide='group._isMember', ng-click='join(group)')
+              i.icon-ok
+              | Join
+        h4 {{group.name}}
+        p {{group.description}}
+
+script(type='text/ng-template', id='partials/options.social.guilds.detail.html')
+  include ./group
+
+script(type='text/ng-template', id='partials/options.social.guilds.create.html')
+  include ./create-group
+
+script(type='text/ng-template', id='partials/options.social.guilds.html')
+  ul.nav.nav-tabs
+    li(ng-class="{ active: $state.includes('options.social.guilds.public') }")
+      a(ui-sref='options.social.guilds.public')
+        | Public Guilds
+    li(ng-class="{ active: $stateParams.gid == group._id }", ng-repeat='group in groups.guilds')
+      a(ui-sref="options.social.guilds.detail({gid:group._id})")
+        | {{group.name}}
+    li(ng-class="{ active: $state.includes('options.social.guilds.create') }")
+      a(ui-sref='options.social.guilds.create')
+        | Create Guild
+
+  .tab-content
+    .tab-pane.active
+      div(ui-view)
+
+script(type='text/ng-template', id='partials/options.social.html')
+  ul.nav.nav-tabs
+    li(ng-class="{ active: $state.includes('options.social.tavern') }")
+      a(ui-sref='options.social.tavern')
+        i.icon-eye-close
+        | Tavern
+    li(ng-class="{ active: $state.includes('options.social.party') }")
+      a(ui-sref='options.social.party')
+        | Party
+    li(ng-class="{ active: $state.includes('options.social.guilds') }")
+      a(ui-sref='options.social.guilds')
+        | Guilds
+    li(ng-class="{ active: $state.includes('options.social.challenges') }")
+      a(ui-sref='options.social.challenges')
+        i.icon-bullhorn
+        | Challenges
+
+  .tab-content
+    .tab-pane.active
+      div(ui-view)

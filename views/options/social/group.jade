@@ -1,0 +1,110 @@
+a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank', popover='Gems which your guild leader can use for challenge prizes.', popover-placement='left', popover-html='true')
+  // <span class="task-action-btn tile flush bright add-gems-btn">＋</span>
+  span.task-action-btn.tile.flush.neutral
+    .Gems
+    | {{group.balance * 4 | number:0 }} Guild Gems
+.row-fluid
+  .span4
+
+    // ------ Information -------
+    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
+      .modal-header
+        span(ng-if='group.leader == user.id')
+          button.btn.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing') Save
+          button.btn.btn-default.pull-right(ng-click='group._editing = true', ng-hide='group._editing') Edit Group
+        h3 {{group.name}}
+      .modal-body
+        div.whatever-options(ng-show='group._editing')
+          .control-group.option-large
+            label.control-label Group Name
+            input.option-content(type='text', ng-model='group.name', placeholder='Group Name')
+          .control-group.option-large
+            label.control-label Description
+            textarea.option-content(style='height:15em;', placeholder='Description', ng-model='group.description')
+            include ../../shared/formatting-help
+          .control-group.option-large
+            label.control-label Logo URL
+            input.option-content(type='url', placeholder='Logo URL', ng-model='group.logo')
+          .control-group.option-large
+            label.control-label Websites
+            form(ng-submit='addWebsite(group)')
+              input.option-content(type='url', ng-model='group._newWebsite', placeholder='Add Website')
+            ul
+              li(ng-repeat='website in group.websites')
+                | {{website}}
+                a(ng-click='removeWebsite(group, $index)')
+                  i.icon-remove
+
+          h4 Assign Group Leader
+          select#group-leader-selection(ng-model='group._newLeader', ng-options='member.profile.name for member in group.members')
+          
+        div(ng-show='!group._editing')
+          img.pull-right(ng-show='group.logo', style='max-width:150px', ng-src='{{group.logo}}')
+          markdown(ng-model='group.description')
+          div(ng-show='group.websites')
+            h4 Websites
+            ul
+              li(ng-repeat='website in group.websites')
+                a(target='_blank', ng-href='{{website}}') {{website}}
+
+    include ./challenge-box
+
+    // ------ Members -------
+    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
+      .modal-header
+        h3 Members
+      .modal-body
+        table.table.table-striped
+          tr(ng-repeat='member in group.members')
+            td
+              // allow leaders to ban members
+              div(ng-show='group.leader == user.id && user.id!=member._id')
+                a(ng-click='removeMember(group, member, true)')
+                  i.icon-ban-circle(tooltip='Boot Member')
+              a
+                span(ng-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
+                  | {{member.profile.name}}
+          tr(ng-if='group.memberCount > group.members.length')
+            td.
+             <span class='badge'>{{group.memberCount - group.members.length}} more members</span>
+
+        h4(ng-show='group.invites.length > 0') Invited
+        table.table.table-striped
+          tr(ng-repeat='invite in group.invites')
+            td
+              // allow leaders to ban members
+              div(ng-show='group.leader == user.id')
+                a(ng-click='removeMember(group, invite, false)')
+                  i.icon-ban-circle(tooltip='Boot Member')
+              a
+                span(ng-click='clickMember(invite._id, true)')
+                  | {{invite.profile.name}}
+      .modal-footer.whatever-options
+        form.form-inline(ng-submit='invite(group)')
+          //.alert.alert-danger(ng-show='_groupError') {{_groupError}}
+          .control-group.option-large
+            input.option-content(type='text', placeholder='User Id', ng-model='group.invitee')
+            input.btn(type='submit', value='Invite')
+
+
+    a.btn.btn-danger(data-id='{{group.id}}', ng-click='leave(group)') Leave
+
+  .span8
+    div.blah-options(ng-show='group._editing')
+      .option-large
+        textarea.option-content(style='height:15em;', placeholder='Message from group leader', ng-model='group.leaderMessage')
+        include ../../shared/formatting-help
+    table(ng-show='group.leaderMessage')
+      tr
+        td
+          .popover.static-popover.fade.right.in.wide-popover
+            .arrow
+            h3.popover-title {{Members.members[group.leader].profile.name}}
+            .popover-content
+              markdown(ng-model='group.leaderMessage')
+    div(ng-controller='ChatCtrl')
+      h3 Chat
+      include ./chat-box
+
+      ul.unstyled.tavern-chat
+        include ./chat-message

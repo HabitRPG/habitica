@@ -1,8 +1,16 @@
 .DS_Store
 public/gen
 node_modules
-#lib/
 *.swp
 .idea*
 config.json
 npm-debug.log
+lib
+public/bower_components
+build
+
+src/*/*.map
+src/*/*/*.map
+test/*.js
+test/*.map
+public/docs

@@ -1,0 +1,89 @@
+extends ./layout
+//Trick needed to pass 'env' to ./layout
+block vars
+  - var layoutEnv = env
+
+block title
+  title HabitRPG | Gamify Your Life
+
+block content
+  div(ng-app='habitrpg')
+    #wrap(ng-controller='AuthCtrl')
+      //-include ./header
+      .jumbotron.masthead
+        .container
+          h1
+            img(src='/bower_components/habitrpg-shared/img/logo/habitrpg_pixel.png', alt='HabitRPG')
+          p
+            | A habit building program which treats your life like a Role Playing Game&period; Level up as you succeed&comma; lose HP as you fail&comma; earn money to buy weapons and armor&period;
+          a.btn.btn-primary.btn-small(ng-click='playButtonClick()') Play
+      .container
+        p(style='height:600;')
+          iframe(src='//player.vimeo.com/video/76557040', width='100%', height='539', frameborder='0', webkitallowfullscreen='', mozallowfullscreen='', allowfullscreen='')
+
+      .modal.fade#login-modal(style='display:none')
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+              h4.modal-title Login / Register
+            .modal-body
+              a(href='/auth/facebook')
+                    img(src='/bower_components/habitrpg-shared/img/facebook-login-register.jpeg', alt='Login / Register With Facebook')
+              h3 Or
+              ul.nav.nav-tabs
+                li.active
+                  a(data-toggle='tab',data-target='#login-tab') Login
+                li
+                  a(data-toggle='tab',data-target='#register-tab') Register
+
+              .tab-content
+                .tab-pane.active#login-tab
+                  form(ng-submit='auth()', method='POST')
+                    .control-group
+                      input(type='text', ng-model='loginUsername', placeholder='Username')
+                    .control-group
+                      input(type='password', ng-model='loginPassword', placeholder='Password')
+                      //-.control-group
+                        label.checkbox
+                          input(type='checkbox', ng-click='useUUID = !useUUID')
+                          |  Use UUID / API Token (For Facebook Users)
+                    .control-group
+                      input.btn.btn-primary(type='submit', value='Login')
+
+                    small In case you are using a password manager (like 1Password) 
+                      | and have problems logging in, try typing username and password manually.
+
+                  // good god accordions have html ceremony
+                  #forgot-password-accordion.accordion
+                    .accordion-group
+                      .accordion-heading
+                        a.accordion-toggle(data-toggle='collapse', data-parent='#forgot-password-accordion', href='#forgot-password-group')
+                          | Forgot Password
+                      #forgot-password-group.accordion-body.collapse
+                        .accordion-inner
+                          form#derby-auth-password-reset(ng-submit='passwordReset(passwordResetEmail)')
+                            h3 Email New Password
+                            //.alert.alert-success {.success.passwordReset}
+                            //.control-group.{#if..errors.passwordReset}error{/}
+                            .control-group
+                              input(type='text', name='email', placeholder='Email', ng-model='passwordResetEmail')
+                              //span.help-inline {.errors.passwordReset}
+                            input.btn(type='submit', value='Submit')
+
+
+
+
+                .tab-pane#register-tab
+                  form(ng-submit='register()', name='registrationForm')
+                    .control-group
+                      input(type='text', ng-model='registerVals.username', placeholder='Username', required)
+                    .control-group
+                      input(type='email', ng-model='registerVals.email', placeholder='Email', required)
+                    .control-group
+                      input(type='password', ng-model='registerVals.password', placeholder='Password', required)
+                    .control-group
+                      input(type='password', ng-model='registerVals.confirmPassword', placeholder='Password Confirm', required)
+                    .control-group
+                      small. By clicking the button below, I agree to the <a href='/static/terms' target='_blank'>Terms and Conditions</a> and the <a href='/static/privacy' target='_blank'>Privacy Policy</a>.
+                      input.btn.btn-primary(type='submit', value='Register')

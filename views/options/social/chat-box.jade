@@ -1,0 +1,14 @@
+form(ng-submit='postChat(group,_chatMessage)')
+  .-options
+    //FIXME ng-model makes this painfully slow! using jquery for now, which is really non-angular-like
+    .control-group.option-large
+      textarea.chat-textarea.option-content(style='height:6em;', ui-keypress='{13:"postChat(group,_chatMessage)"}', ng-model='_chatMessage')
+    table.pull-right
+      tr
+        td
+          input.btn.chat-btn(type='submit', value='Send Chat', ng-class='{disabled: _sending == true}')
+        td
+          button.btn(type="button", ng-click='sync(group)', tooltip='Fetch Recent Messages')
+            i(class='pull-right icon-refresh')
+
+

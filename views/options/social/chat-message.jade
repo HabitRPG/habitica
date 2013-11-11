@@ -1,0 +1,10 @@
+li(ng-repeat='message in group.chat', ng-class='{highlight: indexOf(message.text, user.profile.name), "own-message": user._id == message.uuid}')
+  a.label.chat-message(class='label-contributor-{{message.contributor.level}}', ng-class='{"label-npc": message.backer.npc}', ng-click='clickMember(message.uuid, true)')
+    span(tooltip='{{contribText(message.contributor, message.backer)}}') {{message.user}}&nbsp;
+  | &nbsp;
+  span(ng-bind-html="message.text | linky:'_blank'")
+  | &nbsp;-&nbsp;
+  span.muted.time
+    | {{relativeDate(message.timestamp, _currentTime) + ' '}}
+  a(ng-show='user.contributor.admin || message.uuid == user.id', ng-click='deleteChatMessage(group, message)')
+    i.icon-remove(tooltip='Delete')

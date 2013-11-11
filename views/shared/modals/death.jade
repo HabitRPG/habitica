@@ -1,0 +1,15 @@
+div(modal='user.stats.hp <= 0', options='{backdrop:true, keyboard:false, backdropClick:false}')
+  .modal-body
+    .row-fluid
+      .span4
+        figure.notification-character
+          img(src='/bower_components/habitrpg-shared/img/sprites/dead.png')
+      .span8
+        h2 You Died!
+    .row-fluid
+      .span4
+        p
+          a.btn.btn-danger.btn-large.notification-action(ng-click='User.revive()') Continue
+      .span8
+        p
+          | You've lost a level, all your gold, and a random piece of equipment. Arise, Habiteer, and try again! Curb those negative Habits, be vigilant in completion of Dailies, and hold death at arm's length with a Potion if you falter!

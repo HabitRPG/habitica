@@ -1,1 +1,1 @@
-web: node server.js
+web: ./node_modules/.bin/grunt build:prod;./node_modules/.bin/grunt nodemon;
