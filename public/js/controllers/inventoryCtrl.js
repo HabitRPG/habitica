@@ -119,20 +119,20 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
       if ($scope.selectedFood) {
         var setObj = {};
         var userPets = user.items.pets;
+        if (user.items.mounts[pet] && (userPets[pet] >= 50 || $scope.selectedFood.name == 'Saddle'))
+          return Notification.text("You already have that mount");
 
-        // Saddling a pet
-        if ($scope.selectedFood.name == 'Saddle') {
-          if (userPets[pet] < 50) return Notification.text(egg+" is not strong enough yet to saddle.");
-          if (user.items.mounts[pet]) return Notification.text("You already have that mount");
-          if (!confirm('Saddle ' + pet + '?')) return;
+        var evolve = function(){
           userPets[pet] = 0;
           setObj['items.mounts.' + pet] = true;
-          if (pet == user.items.currentPet)
-            setObj['items.currentPet'] = '';
+          if (pet == user.items.currentPet) setObj['items.currentPet'] = '';
           Notification.text('You have tamed '+egg+", let's go for a ride!");
+        }
+        // Saddling a pet
+        if ($scope.selectedFood.name == 'Saddle') {
+          if (!confirm('Saddle ' + pet + '?')) return;
+          evolve();
         } else {
-          if (userPets[pet] >= 50)
-            return Notification.text(egg+" has become very strong and wild, try using a saddle and something might happen.");
           if (!confirm('Feed ' + pet + ' a ' + $scope.selectedFood.name + '?')) return;
           if ($scope.selectedFood.target == potion) {
             userPets[pet] += 5;
@@ -141,6 +141,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
             userPets[pet] += 2;
             Notification.text(egg+' eats the '+$scope.selectedFood.name+" but doesn't seem to enjoy it.");
           }
+          if (userPets[pet] >= 50 && !user.items.mounts[pet]) evolve();
         }
         setObj['items.pets.' + pet] = userPets[pet];
         setObj['items.food.' + $scope.selectedFood.name] = user.items.food[$scope.selectedFood.name] - 1;
