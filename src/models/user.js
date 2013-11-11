@@ -172,7 +172,8 @@ var UserSchema = new Schema({
     hideHeader: {type:Boolean, 'default':false},
     showHelm: {type:Boolean, 'default':true},
     skin: {type:String, 'default':'white'},
-    timezoneOffset: Number
+    timezoneOffset: Number,
+    sound: Boolean
   },
   profile: {
     blurb: String,

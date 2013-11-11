@@ -15,6 +15,11 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 
+    $rootScope.playSound = function(id){
+      if (!User.user.preferences.sound) return;
+      document.getElementById('sound-' + id).play();
+    }
+
     // indexOf helper
     $scope.indexOf = function(haystack, needle){
       return haystack && ~haystack.indexOf(needle);

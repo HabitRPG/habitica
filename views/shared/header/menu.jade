@@ -26,3 +26,7 @@
     // party chat notification
     a(ng-show='newChatMessages(_party.chat,user.party.lastMessageSeen)', style='cursor: pointer;', x-bind='click:gotoPartyChat')
       i.icon-comment(tooltip='New Party Messages')
+    a(ng-if='user.preferences.sound', ng-click='set("preferences.sound",false)')
+      i.icon-volume-up(tooltip='Turn Sound Off')
+    a(ng-if='!user.preferences.sound', ng-click='set("preferences.sound",true)')
+      i.icon-volume-off(tooltip='Turn Sound On')

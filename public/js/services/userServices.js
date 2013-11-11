@@ -169,6 +169,7 @@ angular.module('userServices', []).
         },
 
         revive: function(){
+          $rootScope.playSound('revive');
           $window.habitrpgShared.algos.revive(user);
           userServices.log({ op: "revive" });
         },

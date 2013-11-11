@@ -6,6 +6,7 @@ habitrpg.controller('NotificationCtrl',
     $rootScope.$watch('user.stats.hp', function(after, before) {
       if (after == before) return;
       Notification.hp(after - before, 'hp');
+      if (after < 0) $rootScope.playSound('death');
     });
 
     $rootScope.$watch('user.stats.exp', function(after, before) {
@@ -28,9 +29,14 @@ habitrpg.controller('NotificationCtrl',
       }
     });
 
+    $rootScope.$watch('user.achievements', function(){
+      $rootScope.playSound('achievement');
+    }, true)
+
     $rootScope.$watch('user._tmp.drop', function(after, before){
       if (after == before || !after) return;
       $rootScope.modals.drop = true;
+      $rootScope.playSound('achievement');
     });
 
     $rootScope.$watch('user.achievements.streak', function(after, before){
@@ -65,6 +71,7 @@ habitrpg.controller('NotificationCtrl',
       if (after == before) return;
       if (after > before) {
         Notification.lvl();
+        $rootScope.playSound('heal');
       }
     });
 

@@ -5,12 +5,14 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
     $scope.obj = User.user; // used for task-lists
 
     $scope.score = function(task, direction) {
+      if (direction === 'down') $rootScope.playSound('downscore');
+      if (direction === 'up') $rootScope.playSound('upscore');
+
       if (task.type === "reward" && User.user.stats.gp < task.value){
         return Notification.text('Not enough GP.');
       }
       Algos.score(User.user, task, direction);
       User.log({op: "score",data: task, dir: direction});
-
     };
 
     $scope.addTask = function(addTo, listDef) {
@@ -121,6 +123,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
       if (hasEnough) {
         User.log({op: "buy",type: type});
         Notification.text("Item purchased.");
+        if (type == 'potion')
+          $rootScope.playSound('loot');
+        else
+          $rootScope.playSound('chest');
         updateStore();
       } else {
         Notification.text("Not enough GP.");

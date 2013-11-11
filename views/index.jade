@@ -42,3 +42,13 @@ html
         #main(ui-view)
 
       include ./shared/footer
+
+      // Load audio last
+      audio#sound-upscore(src="bower_components/BrowserQuest/client/audio%2Fsounds/chat.ogg", preload="auto")
+      audio#sound-downscore(src="bower_components/BrowserQuest/client/audio%2Fsounds/hurt.ogg", preload="auto")
+      audio#sound-revive(src="bower_components/BrowserQuest/client/audio%2Fsounds/revive.ogg", preload="auto")
+      audio#sound-achievement(src="bower_components/BrowserQuest/client/audio%2Fsounds/achievement.ogg", preload="auto")
+      audio#sound-kill1(src="bower_components/BrowserQuest/client/audio%2Fsounds/death.ogg", preload="auto")
+      audio#sound-heal(src="bower_components/BrowserQuest/client/audio%2Fsounds/heal.ogg", preload="auto")
+      audio#sound-loot(src="bower_components/BrowserQuest/client/audio%2Fsounds/loot.ogg", preload="auto")
+      audio#sound-chest(src="bower_components/BrowserQuest/client/audio%2Fsounds/chest.ogg", preload="auto")
