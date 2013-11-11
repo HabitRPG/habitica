@@ -1,3 +1,13 @@
+# Translations - WIP
+
+Some files has been overwriteen after merging with develop, will revisit later:
+
+- locales/nl/app.json
+- locales/bg/app.json
+
+-----------------
+
+
 HabitRPG
 ===============
 
