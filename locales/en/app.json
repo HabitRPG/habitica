@@ -341,15 +341,9 @@
 "_commentnpcsandchars": "NPCS & CHARACTERS",
   "_commentNPCS" : "NPCS",
     "NPCBaileyText1" : "the Town Crier here! Announcing new stuff!",
-<<<<<<< HEAD
-    "NPCAugustinText1" : "Welcome to the Market! I'm the merchant;", 
-    "NPCAugustinText2" : "Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!",
-    "NPCJohanssonText1" : "Welcome to the Tavern! I'm", 
-=======
     "NPCAugustinText1" : "Welcome to the Market! I'm the merchant;",
     "NPCAugustinText2" : "Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!",
     "NPCJohanssonText1" : "Welcome to the Tavern! I'm",
->>>>>>> develop
     "NPCJohanssonText2": "the bar keep. If you want to rest a while (going on vacation? sudden illness?), I'll set you up at the inn - dailies won't hurt you while you're resting. Stay a while & meet the locals.",
     "NPCMelchiorText1" : "",
     "NPCBowenText1" : "",
@@ -389,11 +383,8 @@
 "_commentmisc": "MISC & GLOBAL",
   "removeAds": "Remove Ads",
   "whyAds": "Why Ads?",
-<<<<<<< HEAD
-    "whyAdsContent1": "Habit an open source project, and can use all the help it can get - consider this a donation to the contributors. You also get 20 Gems from the purchase, which you can use to buy special items.",
-=======
     "whyAdsContent1": "Habit is an open source project, and can use all the help it can get - consider this a donation to the contributors. You also get 20 Gems from the purchase, which you can use to buy special items.",
->>>>>>> develop
+
     "whyAdsContent2": "'Hey, I backed the Kickstarter!' - follow",
     "whyAdsContent3": "these instructions",
   "_commentbuttons": "BUTTONS",
