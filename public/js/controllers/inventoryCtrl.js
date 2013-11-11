@@ -47,6 +47,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     }
 
     $scope.chooseFood = function(food){
+      if ($scope.selectedFood && $scope.selectedFood.name == food) return $scope.selectedFood = null;
       $scope.selectedFood = $scope.Items.food[food];
     }
 

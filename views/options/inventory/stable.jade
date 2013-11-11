@@ -54,7 +54,7 @@ script(type='text/ng-template', id='partials/options.inventory.stable.pets.html'
       li.customize-menu(ng-repeat='egg in Items.eggs')
         menu
           div(ng-repeat='potion in Items.hatchingPotions', tooltip='{{potion.name}} {{egg.name}}', ng-init='pet = egg.name+"-"+potion.name')
-            button(class="pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]>0', ng-class='{active: user.items.currentPet == pet}', ng-click='choosePet(egg.name, potion.name)')
+            button(class="pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]>0', ng-class='{active: user.items.currentPet == pet, selectableInventory: selectedFood}', ng-click='choosePet(egg.name, potion.name)')
               .progress(ng-class='{"progress-success": user.items.pets[pet]<50}')
                 .bar(style="width: {{user.items.pets[pet]/.5}}%;")
             button(class="pet-button pet-not-owned", ng-if='!user.items.pets[pet]')
@@ -63,9 +63,9 @@ script(type='text/ng-template', id='partials/options.inventory.stable.pets.html'
     h4 Rare Pets
     menu
       div
-        button(ng-if='user.items.pets["Wolf-Veteran"]', class="pet-button Pet-Wolf-Veteran", ng-class='{active: user.items.currentPet == "Wolf-Veteran")}', ng-click='choosePet("Wolf", "Veteran")', tooltip='Veteran Wolf')
-        button(ng-if='user.items.pets["Wolf-Cerberus"]', class="pet-button Pet-Wolf-Cerberus", ng-class='{active: user.items.currentPet == "Wolf-Cerberus")}', ng-click='choosePet("Wolf", "Cerberus")', tooltip='Cerberus Pup')
-        button(ng-if='user.items.pets["Dragon-Hydra"]', class="pet-button Pet-Dragon-Hydra", ng-class='{active: user.items.currentPet == "Dragon-Hydra")}', ng-click='choosePet("Dragon", "Hydra")', tooltip='Hydra Pet')
+        button(ng-if='user.items.pets["Wolf-Veteran"]', class="pet-button Pet-Wolf-Veteran", ng-class='{active: user.items.currentPet == "Wolf-Veteran"}', ng-click='choosePet("Wolf", "Veteran")', tooltip='Veteran Wolf')
+        button(ng-if='user.items.pets["Wolf-Cerberus"]', class="pet-button Pet-Wolf-Cerberus", ng-class='{active: user.items.currentPet == "Wolf-Cerberus"}', ng-click='choosePet("Wolf", "Cerberus")', tooltip='Cerberus Pup')
+        button(ng-if='user.items.pets["Dragon-Hydra"]', class="pet-button Pet-Dragon-Hydra", ng-class='{active: user.items.currentPet == "Dragon-Hydra"}', ng-click='choosePet("Dragon", "Hydra")', tooltip='Hydra Pet')
         a(target='_blank', href='https://github.com/HabitRPG/habitrpg/wiki/Contributing')
           button(ng-if='!user.items.pets["Dragon-Hydra"]', class="pet-button pet-not-owned", popover-trigger='mouseenter', popover-placement='right', popover="Click the gold paw to learn more about how you can obtain this rare pet through contributing to HabitRPG!", popover-title='How to Get this Pet!')
             img(src='/bower_components/habitrpg-shared/img/PixelPaw-Gold.png')
