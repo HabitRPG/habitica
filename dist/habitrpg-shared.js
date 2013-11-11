@@ -8328,7 +8328,7 @@ if(typeof module != 'undefined' && module.exports){
     if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && Math.random() < (.05 * chanceMultiplier)) {
       rarity = Math.random();
       if (rarity > .6) {
-        drop = helpers.randomVal(items.items.food);
+        drop = helpers.randomVal(_.omit(items.items.food, 'Saddle'));
         if ((_base1 = user.items.food)[_name = drop.name] == null) {
           _base1[_name] = 0;
         }
@@ -9708,178 +9708,130 @@ try {
     },
     eggs: {
       Wolf: {
-        text: 'Wolf',
-        name: 'Wolf',
-        value: 3
+        text: 'Wolf'
       },
       TigerCub: {
-        text: 'Tiger Cub',
-        name: 'TigerCub',
-        value: 3
+        text: 'Tiger Cub'
       },
       PandaCub: {
-        text: 'Panda Cub',
-        name: 'PandaCub',
-        value: 3
+        text: 'Panda Cub'
       },
       LionCub: {
-        text: 'Lion Cub',
-        name: 'LionCub',
-        value: 3
+        text: 'Lion Cub'
       },
       Fox: {
-        text: 'Fox',
-        name: 'Fox',
-        value: 3
+        text: 'Fox'
       },
       FlyingPig: {
-        text: 'Flying Pig',
-        name: 'FlyingPig',
-        value: 3
+        text: 'Flying Pig'
       },
       Dragon: {
-        text: 'Dragon',
-        name: 'Dragon',
-        value: 3
+        text: 'Dragon'
       },
       Cactus: {
-        text: 'Cactus',
-        name: 'Cactus',
-        value: 3
+        text: 'Cactus'
       },
       BearCub: {
-        text: 'Bear Cub',
-        name: 'BearCub',
-        value: 3
+        text: 'Bear Cub'
       }
     },
     hatchingPotions: {
       Base: {
+        value: 1,
         text: 'Base',
-        name: 'Base',
-        notes: "Hatches your pet in it's base form.",
-        value: 1
+        notes: "Hatches your pet in it's base form."
       },
       White: {
+        value: 2,
         text: 'White',
-        name: 'White',
-        notes: 'Turns your animal into a White pet.',
-        value: 2
+        notes: 'Turns your animal into a White pet.'
       },
       Desert: {
+        value: 2,
         text: 'Desert',
-        name: 'Desert',
-        notes: 'Turns your animal into a Desert pet.',
-        value: 2
+        notes: 'Turns your animal into a Desert pet.'
       },
       Red: {
+        value: 3,
         text: 'Red',
-        name: 'Red',
-        notes: 'Turns your animal into a Red pet.',
-        value: 3
+        notes: 'Turns your animal into a Red pet.'
       },
       Shade: {
+        value: 3,
         text: 'Shade',
-        name: 'Shade',
-        notes: 'Turns your animal into a Shade pet.',
-        value: 3
+        notes: 'Turns your animal into a Shade pet.'
       },
       Skeleton: {
+        value: 3,
         text: 'Skeleton',
-        name: 'Skeleton',
-        notes: 'Turns your animal into a Skeleton.',
-        value: 3
+        notes: 'Turns your animal into a Skeleton.'
       },
       Zombie: {
+        value: 4,
         text: 'Zombie',
-        name: 'Zombie',
-        notes: 'Turns your animal into a Zombie.',
-        value: 4
+        notes: 'Turns your animal into a Zombie.'
       },
       CottonCandyPink: {
+        value: 4,
         text: 'Cotton Candy Pink',
-        name: 'CottonCandyPink',
-        notes: 'Turns your animal into a Cotton Candy Pink pet.',
-        value: 4
+        notes: 'Turns your animal into a Cotton Candy Pink pet.'
       },
       CottonCandyBlue: {
+        value: 4,
         text: 'Cotton Candy Blue',
-        name: 'CottonCandyBlue',
-        notes: 'Turns your animal into a Cotton Candy Blue pet.',
-        value: 4
+        notes: 'Turns your animal into a Cotton Candy Blue pet.'
       },
       Golden: {
+        value: 5,
         text: 'Golden',
-        name: 'Golden',
-        notes: 'Turns your animal into a Golden pet.',
-        value: 5
+        notes: 'Turns your animal into a Golden pet.'
       }
     },
     food: {
       Meat: {
         text: 'Meat',
-        name: 'Meat',
-        value: 1,
         target: 'Base'
       },
       Milk: {
         text: 'Milk',
-        name: 'Milk',
-        value: 1,
         target: 'White'
       },
       Potatoe: {
         text: 'Potatoe',
-        name: 'Potatoe',
-        value: 1,
         target: 'Desert'
       },
       Strawberry: {
         text: 'Strawberry',
-        name: 'Strawberry',
-        value: 1,
         target: 'Red'
       },
       Chocolate: {
         text: 'Chocolate',
-        name: 'Chocolate',
-        value: 1,
         target: 'Shade'
       },
       Fish: {
         text: 'Fish',
-        name: 'Fish',
-        value: 1,
         target: 'Skeleton'
       },
       RottenMeat: {
         text: 'Rotten Meat',
-        name: 'RottenMeat',
-        value: 1,
         target: 'Zombie'
       },
       CottonCandyPink: {
         text: 'Pink Cotton Candy',
-        name: 'CottonCandyPink',
-        value: 1,
         target: 'CottonCandyPink'
       },
       CottonCandyBlue: {
         text: 'Blue Cotton Candy',
-        name: 'CottonCandyBlue',
-        value: 1,
         target: 'CottonCandyBlue'
       },
       Honey: {
         text: 'Honey',
-        name: 'Honey',
-        value: 1,
         target: 'Golden'
       },
       Saddle: {
         text: 'Saddle',
-        name: 'Saddle',
-        value: 10
+        value: 5,
+        notes: 'Instantly raises your pet into a mount.'
       }
     }
   };
@@ -9898,16 +9850,27 @@ try {
     });
   });
 
-  _.each(items.eggs, function(pet) {
-    return pet.notes = 'Find a hatching potion to pour on this egg, and it will hatch into a loyal pet.';
+  _.each(items.eggs, function(egg, k) {
+    return _.defaults(egg, {
+      value: 3,
+      name: k,
+      notes: 'Find a hatching potion to pour on this egg, and it will hatch into a loyal pet.'
+    });
   });
 
-  _.each(items.hatchingPotions, function(hatchingPotion) {
-    return hatchingPotion.notes = "Pour this on an egg, and it will hatch as a " + hatchingPotion.text + " pet.";
+  _.each(items.hatchingPotions, function(pot, k) {
+    return _.defaults(pot, {
+      name: k,
+      notes: "Pour this on an egg, and it will hatch as a " + pot.text + " pet."
+    });
   });
 
-  _.each(items.food, function(food) {
-    return food.notes = "Feed this to a pet and it may grown into a sturdy steed.";
+  _.each(items.food, function(food, k) {
+    return _.defaults(food, {
+      value: 1,
+      name: k,
+      notes: "Feed this to a pet and it may grown into a sturdy steed."
+    });
   });
 
   module.exports.buyItem = function(user, type) {

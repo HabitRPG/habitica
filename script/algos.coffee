@@ -134,7 +134,8 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
 
     # Food: 40% chance
     if rarity > .6
-      drop = helpers.randomVal(items.items.food)
+
+      drop = helpers.randomVal _.omit(items.items.food, 'Saddle')
       user.items.food[drop.name] ?= 0
       user.items.food[drop.name]+= 1
       drop.type = 'Food'
