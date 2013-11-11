@@ -57,21 +57,16 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
           button.btn.btn-small.btn-primary(ng-hide='user.purchased.skin.eb052b && user.purchased.skin.f69922 && user.purchased.skin.f5d70f && user.purchased.skin.0ff591 && user.purchased.skin.2b43f6 && user.purchased.skin.d7a9f7 && user.purchased.skin.800ed0 && user.purchased.skin.rainbow', ng-click='unlock(["skin.eb052b", "skin.f69922", "skin.f5d70f", "skin.0ff591", "skin.2b43f6", "skin.d7a9f7", "skin.800ed0", "skin.rainbow"])') Unlock Set - 5<span class="Pet_Currency_Gem1x inline-gems"/>
 
           // Special Events
-          //-div.well.limited-edition
-            .label.label-info.pull-right(popover='Available for purchase until November 10th (but permanently in your options if purchased).', popover-title='Limited Edition', popover-placement='right', popover-trigger='mouseenter')
-              | Limited Edition&nbsp;
-              i.icon.icon-question-sign
-            h5.
-              Spooky Skins - 2<span class="Pet_Currency_Gem1x inline-gems"/>/skin
-            //menu(label='Spooky Skins (2 Gems / skin)')
+          // restore to d4df481 to see purchasing + "limited edition" code
+          div(ng-if='user.purchased.skin.monster || user.purchased.skin.pumpkin || user.purchased.skin.skeleton || user.purchased.skin.zombie || user.purchased.skin.ghost || user.purchased.skin.shadow')
+            h5 Spooky Skins
             menu
-              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_monster', ng-class='{locked: !user.purchased.skin.monster}', ng-click='unlock("skin.monster")')
-              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_pumpkin', ng-class='{locked: !user.purchased.skin.pumpkin}', ng-click='unlock("skin.pumpkin")')
-              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_skeleton', ng-class='{locked: !user.purchased.skin.skeleton}', ng-click='unlock("skin.skeleton")')
-              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_zombie', ng-class='{locked: !user.purchased.skin.zombie}', ng-click='unlock("skin.zombie")')
-              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_ghost', ng-class='{locked: !user.purchased.skin.ghost}', ng-click='unlock("skin.ghost")')
-              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_shadow', ng-class='{locked: !user.purchased.skin.shadow}', ng-click='unlock("skin.shadow")')
-            button.btn.btn-small.btn-primary(ng-hide='user.purchased.skin.monster && user.purchased.skin.pumpkin && user.purchased.skin.skeleton && user.purchased.skin.zombie && user.purchased.skin.ghost && user.purchased.skin.shadow', ng-click='unlock(["skin.monster", "skin.pumpkin", "skin.skeleton", "skin.zombie", "skin.ghost", "skin.shadow"])') Unlock Set - 5<span class="Pet_Currency_Gem1x inline-gems"/>
+              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_monster',  ng-if='user.purchased.skin.monster', ng-click='unlock("skin.monster")')
+              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_pumpkin',  ng-if='user.purchased.skin.pumpkin', ng-click='unlock("skin.pumpkin")')
+              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_skeleton', ng-if='user.purchased.skin.skeleton', ng-click='unlock("skin.skeleton")')
+              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_zombie',   ng-if='user.purchased.skin.zombie', ng-click='unlock("skin.zombie")')
+              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_ghost',    ng-if='user.purchased.skin.ghost', ng-click='unlock("skin.ghost")')
+              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_shadow',   ng-if='user.purchased.skin.shadow', ng-click='unlock("skin.shadow")')
 
 script(id='partials/options.profile.stats.html', type='text/ng-template')
   .row-fluid
