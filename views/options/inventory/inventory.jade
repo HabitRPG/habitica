@@ -23,7 +23,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
               p {{pot}}
 
         li.customize-menu
-          menu.food-menu(label='Food ({{foodCount}})')
+          menu.pets-menu(label='Food ({{foodCount}})')
             p(ng-show='foodCount < 1') You don't have any food yet.
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
               button.customize-option(tooltip='{{food}}', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')

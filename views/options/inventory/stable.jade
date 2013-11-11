@@ -70,11 +70,11 @@ script(type='text/ng-template', id='partials/options.inventory.stable.pets.html'
           button(ng-if='!user.items.pets["Dragon-Hydra"]', class="pet-button pet-not-owned", popover-trigger='mouseenter', popover-placement='right', popover="Click the gold paw to learn more about how you can obtain this rare pet through contributing to HabitRPG!", popover-title='How to Get this Pet!')
             img(src='/bower_components/habitrpg-shared/img/PixelPaw-Gold.png')
 
-  .well(style='position:fixed;right:0px;top:50%;width:200px')
-    menu.inventory-list(type='list')
+  .well.food-tray
+    p(ng-show='foodCount < 1') You don't have any food yet.
+    menu.inventory-list(type='list', ng-if='foodCount > 0')
       li.customize-menu
-        menu.food-menu(label='Food')
-          p(ng-show='foodCount < 1') You don't have any food yet.
+        menu.pets-menu(label='Food')
           div(ng-repeat='(food,points) in ownedItems(user.items.food)')
             button.customize-option(tooltip='{{food}}', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
               .badge.badge-info.stack-count {{points}}
