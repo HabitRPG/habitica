@@ -6,7 +6,7 @@
 figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: user._id==profile._id && !(user.items.currentMount && user.items.currentPet), hasPet: profile.items.currentPet && profile.items.currentMount}')
   .character-sprites
     // Mount Body
-    span(class='Mount_Body_{{profile.items.currentMount}}')
+    span(ng-if='profile.items.currentMount', class='Mount_Body_{{profile.items.currentMount}}')
 
     // Avatar
     span(class='{{profile.preferences.gender}}_skin_{{profile.preferences.skin}}')
@@ -18,7 +18,7 @@ figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile
     span(class='{{equipped("weapon",profile.items.weapon,profile.preferences, profile.backer, profile.contributor)}}')
 
     // Mount Head
-    span(class='Mount_Head_{{profile.items.currentMount}}')
+    span(ng-if='profile.items.currentMount', class='Mount_Head_{{profile.items.currentMount}}')
 
     // Resting
     span(ng-class='{zzz:profile.flags.rest}')
