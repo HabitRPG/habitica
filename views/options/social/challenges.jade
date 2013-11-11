@@ -9,12 +9,12 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.cl
 script(type='text/ng-template', id='partials/options.social.challenges.detail.member.html')
   .modal.wide-modal
     .modal-header
-        button.close(type='button', ng-click='$state.go("^")', aria-hidden='true') ×
-        h3 {{obj.profile.name}}
-      .modal-body
-        habitrpg-tasks(main=false)
-      .modal-footer
-        a.btn(ng-click='$state.go("^")') Close
+      button.close(type='button', ng-click='$state.go("^")', aria-hidden='true') ×
+      h3 {{obj.profile.name}}
+    .modal-body
+      habitrpg-tasks(main=false)
+    .modal-footer
+      a.btn(ng-click='$state.go("^")') Close
 
 script(type='text/ng-template', id='partials/options.social.challenges.detail.html')
   // Edit button
