@@ -122,7 +122,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
         // Saddling a pet
         if ($scope.selectedFood.name == 'Saddle') {
-          if (userPets[pet] < 150) return Notification.text(egg+" is not strong enough yet to saddle.");
+          if (userPets[pet] < 50) return Notification.text(egg+" is not strong enough yet to saddle.");
           if (user.items.mounts[pet]) return Notification.text("You already have that mount");
           if (!confirm('Saddle ' + pet + '?')) return;
           userPets[pet] = 0;
@@ -131,11 +131,11 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
             setObj['items.currentPet'] = '';
           Notification.text('You have tamed '+egg+", let's go for a ride!");
         } else {
-          if (userPets[pet] >= 150)
+          if (userPets[pet] >= 50)
             return Notification.text(egg+" has become very strong and wild, try using a saddle and something might happen.");
           if (!confirm('Feed ' + pet + ' a ' + $scope.selectedFood.name + '?')) return;
           if ($scope.selectedFood.target == potion) {
-            userPets[pet] += 50; // FIXME change this to 5 before we're live
+            userPets[pet] += 5;
             Notification.text(egg+' really likes the '+$scope.selectedFood.name+'!');
           } else {
             userPets[pet] += 2;
