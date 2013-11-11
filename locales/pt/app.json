@@ -1,7 +1,7 @@
 {
 
 "_commentfrontpage":"HABITRPG FRONT PAGE",
-   "synopsis" : "Um programa para construção de hábitos que trata sua vida como um Role-Playing Game. Sobe de nível enquanto você sucede, perde HP enquanto você falha, ganha dinheiro para comprar armas e armaduras.",
+   "synopsis" : "Um programa para construção de hábitos que trata sua vida como um Role-Playing Game. Sobe de nível quando você sucede, perde pontos de vida quando você falha, ganha dinheiro para comprar armas e armaduras.",
   "playButton" : "Jogar",
 
 
@@ -53,19 +53,19 @@
 "_commenthead": "HEADER",
   "health": "Pontos de Vida",
   "experience": "Experiência",
-    "history": "Histórico",
+    "history": "História",
   "anonymous": "Anônimo",
   "level": "Nível",
   "tasks": "Tarefas",
-  "loginAndReg" : "Logar-se / Increver-se",
-    "loginFacebookAlt" : "Logar-se / Inscrever-se com o Facebook",
-    "login" : "Logar-se",
-    "register" : "Inscrever-se",
+  "loginAndReg" : "Iniciar sessão / Regista-se",
+    "loginFacebookAlt" : "Iniciar sessão / Regista-se no Facebook",
+    "login" : "Iniciar sessão",
+    "register" : "Regista-se",
   "options": "Opções",
   "logout": "Sair",
 
 "_commentnotifcations" : "NOTIFICATIONS",
-  "partyNotification" : "Novas Mensagens do Grupo",
+  "partyNotification" : "Novas Mensagens do Partido",
 
 
 
@@ -83,11 +83,11 @@
           "easy": "Fácil",
           "medium": "Médio",
           "hard": "Difícil",
-    "delete": "Deletar",
+    "delete": "Eliminar",
     "progress": "Progresso",
       "score": "Pontuação",
-  "dailies": "Diárias",
-    "newDaily": "Nova Tarefa Diária",
+  "dailies": "Diários",
+    "newDaily": "Nova Tarefa Diário",
     "repeat": "Repetir",
       "Su": "Dom",
       "M": "Seg",
@@ -109,7 +109,7 @@
   "tags" : "Rótulos",
     "editTags" : "Editar Rótulos",
     "newTag" : "Novo Rótulo",
-    "clearFilters" : "Limpar Filtros",
+    "clearFilters" : "Eliminar Filtros",
 
 
 "_commentdrops" : "DROP SYSTEM",
