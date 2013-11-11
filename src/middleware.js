@@ -82,7 +82,25 @@ var getManifestFiles = function(page){
     return results;
   }
 
-} 
+}
+
+// Translations
+
+var translations = {};
+
+fs.readdirSync(path.join(__dirname, "/../locales")).forEach(function(file) {
+  translations[file] = require(path.join(__dirname, "/../locales/", file, 'app.json'))
+});
+
+var getTranslatedString = function(locale, string){
+  if(!locale || !string) throw new Error("Missing locale and/or string argument.");
+  if(!translations[locale]) throw new Error("Missing locale '" + locale + "'");
+
+  // TODO support nested dot-separated strings
+  if(translations[locale][string]) return translations[locale][string];
+  if(translations['en'][string]) return translations['en'][string];
+  return 'String not found!';
+}
 
 module.exports.locals = function(req, res, next) {
   res.locals.habitrpg  = res.locals.habitrpg || {}
@@ -93,7 +111,8 @@ module.exports.locals = function(req, res, next) {
     IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
     STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
     getManifestFiles: getManifestFiles,
-    getBuildUrl: getBuildUrl
+    getBuildUrl: getBuildUrl,
+    getTranslatedString: getTranslatedString
   });
   next()
 }
