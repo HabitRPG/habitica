@@ -76,6 +76,7 @@ script(type='text/ng-template', id='partials/options.inventory.stable.pets.html'
       li.customize-menu
         menu.pets-menu(label='Food')
           div(ng-repeat='(food,points) in ownedItems(user.items.food)')
-            button.customize-option(tooltip='{{food}}', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
+            button.customize-option(popover-append-to-body='true', popover='{{Items.food[food].notes}}', popover-title='{{Items.food[food].text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
               .badge.badge-info.stack-count {{points}}
-            p {{food}}
+            // Remove this once we have images in
+            p {{Items.food[food].text}}

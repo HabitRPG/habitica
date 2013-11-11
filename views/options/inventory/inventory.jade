@@ -10,25 +10,25 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
             p(ng-show='user.items.eggs.length < 1') You don't have any eggs yet.
             div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
               //TODO move positioning this styling to css
-              button.customize-option(tooltip='{{Items.eggs[egg].text}}', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !user.items.pets[egg+"-"+selectedPotion.name]}')
+              button.customize-option(popover='{{Items.eggs[egg].notes}}', popover-title='{{Items.eggs[egg].text}} Egg', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !user.items.pets[egg+"-"+selectedPotion.name]}')
                 .badge.badge-info.stack-count {{points}}
-              p {{Items.eggs[egg].text}}
+              //-p {{Items.eggs[egg].text}}
 
         li.customize-menu
           menu.hatchingPotion-menu(label='Hatching Potions ({{potCount}})')
             p(ng-show='potCount < 1') You don't have any hatching potions yet.
             div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
-              button.customize-option(tooltip='{{pot}}', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !user.items.pets[selectedEgg.name+"-"+pot]}')
+              button.customize-option(popover='{{Items.hatchingPotions[pot].notes}}', popover-title='{{Items.hatchingPotions[pot].text}} Potion', popover-trigger='mouseenter', popover-placement='right', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !user.items.pets[selectedEgg.name+"-"+pot]}')
                 .badge.badge-info.stack-count {{points}}
-              p {{pot}}
+              //-p {{pot}}
 
         li.customize-menu
           menu.pets-menu(label='Food ({{foodCount}})')
             p(ng-show='foodCount < 1') You don't have any food yet.
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
-              button.customize-option(tooltip='{{food}}', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
+              button.customize-option(popover='{{Items.food[food].notes}}', popover-title='{{Items.food[food].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
                 .badge.badge-info.stack-count {{points}}
-              p {{food}}
+              //-p {{food}}
 
     .span6
       h2 Market
@@ -57,20 +57,26 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
           li.customize-menu
             menu.pets-menu(label='Eggs')
               div(ng-repeat='egg in Items.eggs')
-                button.customize-option(tooltip='{{egg.text}} - {{egg.value}} Gem(s)', ng-click='buy("egg", egg)', class='Pet_Egg_{{egg.name}}')
-                p {{egg.text}}
+                button.customize-option(popover='{{egg.notes}}', popover-title='{{egg.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='buy("egg", egg)', class='Pet_Egg_{{egg.name}}')
+                p
+                  |  {{egg.value}}
+                  span.Pet_Currency_Gem1x.inline-gems
 
           li.customize-menu
             menu.pets-menu(label='Hatching Potions')
               div(ng-repeat='pot in Items.hatchingPotions')
-                button.customize-option(tooltip='{{pot.text}} - {{pot.value}} Gem(s)', ng-click='buy("hatchingPotion", pot)', class='Pet_HatchingPotion_{{pot.name}}')
-                p {{pot.text}}
+                button.customize-option(popover='{{pot.notes}}', popover-title='{{pot.text}} Potion', popover-trigger='mouseenter', popover-placement='left', ng-click='buy("hatchingPotion", pot)', class='Pet_HatchingPotion_{{pot.name}}')
+                p
+                  |  {{pot.value}}
+                  span.Pet_Currency_Gem1x.inline-gems
 
           li.customize-menu
             menu.pets-menu(label='Food')
               div(ng-repeat='food in Items.food')
-                button.customize-option(tooltip='{{food.text}} - {{food.value}} Gem(s)', ng-click='buy("food", food)', class='Pet_Food_{{food.name}}')
-                p {{food.text}}
+                button.customize-option(popover='{{food.notes}}', popover-title='{{food.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='buy("food", food)', class='Pet_Food_{{food.name}}')
+                p
+                  |  {{food.value}}
+                  span.Pet_Currency_Gem1x.inline-gems
 
 
 
