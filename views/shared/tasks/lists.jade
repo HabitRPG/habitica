@@ -67,7 +67,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
         // Ads
         div(ng-if='main && !user.purchased.ads && list.type!="reward"')
           span.pull-right
-            a(ng-click='modals.buyGems=true', tooltip='Remove Ads')
+            a(ng-click='modals.buyGems=true', tooltip=env.getTranslatedString('it', 'removeAds'))
               i.icon-remove
           // Habit3
           ins.adsbygoogle(ng-init='initAds()', style='display: inline-block; width: 234px; height: 60px;', data-ad-client='ca-pub-3242350243827794', data-ad-slot='9529624576')
