@@ -69,7 +69,7 @@ angular.module('userServices', []).
                 $rootScope.$emit('userUpdated', user);
               }
 
-              // Emit event when user syncing ended
+              // Emit event when user is synced
               $rootScope.$emit('userSynced');
               user._v = data._v;
 
