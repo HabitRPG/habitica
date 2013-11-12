@@ -61,6 +61,10 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
     .span2.well#challenges-filters
       h3 Filter:
       h4 Groups
+      ul.unstyled
+        a.btn.btn-mini.pull-left(ng-click='selectAll()') All
+        a.btn.btn-mini(ng-click='selectNone()') None
+      br
       label.checkbox(ng-repeat='group in groups')
         input(type='checkbox', ng-model='search.group[group._id]')
         | {{group.name}}
