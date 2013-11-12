@@ -37,11 +37,10 @@ habitrpg.controller('SettingsCtrl',
     $scope.avalaibleLanguages = window.env.avalaibleLanguages;
 
     $scope.changeLanguage = function(){
-      User.set('preferences.language', $scope.language);
-      // FIXME we wait 1sec hoping that in the meantime the server has responded to the `set`
-      setTimeout(function(){
+      $rootScope.$on('userSynced', function(){
         location.reload();
-      }, 1000);
+      });
+      User.set('preferences.language', $scope.language);
     }
 
     $scope.reroll = function(){
