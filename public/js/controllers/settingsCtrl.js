@@ -33,6 +33,17 @@ habitrpg.controller('SettingsCtrl',
       User.log({'op':'set', data:{'preferences.dayStart': dayStart}});
     }
 
+    $scope.language = window.env.language;
+    $scope.avalaibleLanguages = window.env.avalaibleLanguages;
+
+    $scope.changeLanguage = function(){
+      User.set('preferences.language', $scope.language);
+      // FIXME we wait 1sec hoping that in the meantime the server has responded to the `set`
+      setTimeout(function(){
+        location.reload();
+      }, 1000);
+    }
+
     $scope.reroll = function(){
 
       $http.post(API_URL + '/api/v1/user/reroll')

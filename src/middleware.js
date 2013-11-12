@@ -127,6 +127,8 @@ module.exports.locals = function(req, res, next) {
       getManifestFiles: getManifestFiles,
       getBuildUrl: getBuildUrl,
       avalaibleLanguages: Object.keys(translations),
+      // should send something like {en: "English"} instead of [en, it, ...]
+      language: language,
       t: function(string){
         return getTranslatedString(language, string);
       }
