@@ -1,8 +1,12 @@
 form(ng-submit='postChat(group,_chatMessage)')
   .-options
     //FIXME ng-model makes this painfully slow! using jquery for now, which is really non-angular-like
-    .control-group.option-large
-      textarea.chat-textarea.option-content(style='height:6em;', ui-keypress='{13:"postChat(group,_chatMessage)"}', ng-model='_chatMessage')
+    .control-group.option-large(ng-controller='AutocompleteCtrl')
+      textarea.chat-textarea.option-content(style='height:6em;', ui-keypress='{13:"postChat(group,_chatMessage)"}', ng-model='_chatMessage', flag='@', at-user, auto-complete)
+      span.user-list(ng-show='!isAtListHidden', auto-follow='true')
+        ul.list-at-user
+          li(ng-repeat='user in users | filter:query.text | limitTo: 5', ng-click='autoComplete(user)')
+            span.username.label(class='label-contributor-{{user.contributor.level}}') {{user.user}}
     table.pull-right
       tr
         td
