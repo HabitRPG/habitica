@@ -102,9 +102,14 @@ var getTranslatedString = function(locale, string){
   return 'String not found!';
 }
 
-module.exports.locals = function(req, res, next) {
-  res.locals.habitrpg  = res.locals.habitrpg || {}
-  _.defaults(res.locals.habitrpg, {
+var getUserLanguage = function(langs){
+  return _(langs).map(function(lang){
+    return lang.slice(0, 2);
+  }).uniq().value()[0];
+}
+
+module.exports.locals = function(req) {
+  return {
     NODE_ENV: nconf.get('NODE_ENV'),
     BASE_URL: nconf.get('BASE_URL'),
     PAYPAL_MERCHANT: nconf.get('PAYPAL_MERCHANT'),
@@ -112,14 +117,8 @@ module.exports.locals = function(req, res, next) {
     STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
     getManifestFiles: getManifestFiles,
     getBuildUrl: getBuildUrl,
-    getTranslatedString: getTranslatedString
-  });
-  next()
+    t: function(string){
+      return getTranslatedString(getUserLanguage(req.acceptedLanguages), string);
+    }
+  }
 }
-/*
- //  translate = (req, res, next) ->
- //    model = req.getModel()
- //    # Set locale to bg on dev
- //    #model.set '_i18n.locale', 'bg' if process.env.NODE_ENV is "development"
- //    next()
- */
