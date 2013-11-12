@@ -7,6 +7,20 @@ Some files has been overwriteen after merging with develop, will revisit later:
 
 -----------------
 
+## How to add a new language
+- All the old files in `/locales` has been moved to `/locales_old`. 
+- New files must have a `languageName` property (translated or not in english? Italian or Italiano?) and strings that have to be accessed in a `.js` file must be placed inside the `clientSideStrings` of `app.json`.
+- The language folder under `/locales` must be named with a two letters code (en, es... not en_US or similar) and the code must match the one passed by the browser (we should find a table for that...)
+
+## How to translate a string
+
+- If the string is in a `.jade` file it can be accessed with `env.t('string name here')`
+- Strings under `clientSideStrings` can be accessed in `.jade` files with their property name (ie. `env.t('myString')` not `env.t('clientSideStrings.myString')`)
+- If the string is in a `.js` file it can be accessed with `window.translations['string name here']` and the string must be placed under the `clientSideStrings` part of app.json
+
+## TODO
+- new users, the front page will be shown in the first avalaible language that match the languages list sent by the browser to the server, when they signup they should have their preferences.language already set?
+- add a "String not found." string for every language?
 
 HabitRPG
 ===============
