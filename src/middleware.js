@@ -2,6 +2,7 @@ var nconf = require('nconf');
 var _ = require('lodash');
 var fs = require('fs');
 var path = require('path');
+var User = require('./models/user').model
 
 module.exports.forceSSL = function(req, res, next){
   var baseUrl = nconf.get("BASE_URL");
@@ -96,23 +97,41 @@ var getTranslatedString = function(locale, string){
   return 'String not found!';
 }
 
-var getUserLanguage = function(langs){
-  return _(langs).map(function(lang){
-    return lang.slice(0, 2);
-  }).uniq().value()[0];
+var getUserLanguage = function(req, callback){
+  var getFromBrowser = function(){
+    return _(req.acceptedLanguages).map(function(lang){
+      return lang.slice(0, 2);
+    }).uniq().value()[0];
+  };
+
+  if(req.session && req.session.userId){
+    User.findOne({_id: req.session.userId}, function(err, user){
+      if(err) return callback(err);
+      return callback(null, user.preferences.language || getFromBrowser());
+    });
+  }else{
+    return callback(null, getFromBrowser());    
+  }
 }
 
-module.exports.locals = function(req) {
-  return {
-    NODE_ENV: nconf.get('NODE_ENV'),
-    BASE_URL: nconf.get('BASE_URL'),
-    PAYPAL_MERCHANT: nconf.get('PAYPAL_MERCHANT'),
-    IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
-    STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
-    getManifestFiles: getManifestFiles,
-    getBuildUrl: getBuildUrl,
-    t: function(string){
-      return getTranslatedString(getUserLanguage(req.acceptedLanguages), string);
+module.exports.locals = function(req, res, next) {
+  getUserLanguage(req, function(err, language){
+    if(err) return res.json(500, {err: err});
+
+    res.locals.habitrpg = {
+      NODE_ENV: nconf.get('NODE_ENV'),
+      BASE_URL: nconf.get('BASE_URL'),
+      PAYPAL_MERCHANT: nconf.get('PAYPAL_MERCHANT'),
+      IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
+      STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
+      getManifestFiles: getManifestFiles,
+      getBuildUrl: getBuildUrl,
+      avalaibleLanguages: Object.keys(translations),
+      t: function(string){
+        return getTranslatedString(language, string);
+      }
     }
-  }
+
+    next(); 
+  });
 }
