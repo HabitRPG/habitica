@@ -16,15 +16,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         group._editing = false;
       }
 
-      $scope.addWebsite = function(group){
-        group.websites.push(group._newWebsite);
-        group._newWebsite = '';
-      }
-
-      $scope.removeWebsite = function(group, $index){
-        group.websites.splice($index,1);
-      }
-
       // ------ Modals ------
 
       $scope.clickMember = function(uid, forceShow) {

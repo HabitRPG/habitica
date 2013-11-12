@@ -25,27 +25,13 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
           .control-group.option-large
             label.control-label Logo URL
             input.option-content(type='url', placeholder='Logo URL', ng-model='group.logo')
-          .control-group.option-large
-            label.control-label Websites
-            form(ng-submit='addWebsite(group)')
-              input.option-content(type='url', ng-model='group._newWebsite', placeholder='Add Website')
-            ul
-              li(ng-repeat='website in group.websites')
-                | {{website}}
-                a(ng-click='removeWebsite(group, $index)')
-                  i.icon-remove
 
           h4 Assign Group Leader
           select#group-leader-selection(ng-model='group._newLeader', ng-options='member.profile.name for member in group.members')
-          
+
         div(ng-show='!group._editing')
           img.pull-right(ng-show='group.logo', style='max-width:150px', ng-src='{{group.logo}}')
           markdown(ng-model='group.description')
-          div(ng-show='group.websites')
-            h4 Websites
-            ul
-              li(ng-repeat='website in group.websites')
-                a(target='_blank', ng-href='{{website}}') {{website}}
 
     include ./challenge-box
 
