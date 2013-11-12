@@ -1,7 +1,7 @@
 {
 	"languageName": "English",
-	"1": "server",
+	"removeAds": "Remove Ads",
 	"clientSideStrings": {
-		"1": "client"
+		"removeAds": "Remove Ads Client Side"
 	}
 }

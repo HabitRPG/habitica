@@ -95,9 +95,12 @@ var getTranslatedString = function(locale, string){
   //if(!translations[locale]) throw new Error("Missing locale '" + locale + "'");
 
   // TODO support nested dot-separated strings
-  if(translations[locale][string]) return translations[locale][string];
-  if(translations['en'][string]) return translations['en'][string];
-  return 'String not found.';
+  return (
+    translations[locale][string] ||
+    translations[locale]['clientSideStrings'][string] ||
+    translations['en'][string] ||
+    translations['en']['clientSideStrings'][string] ||
+    'String not found.')
 }
 
 var avalaibleLanguages = _.map(langCodes, function(langCode){
