@@ -79,6 +79,32 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
   ])
 
+  .controller('AutocompleteCtrl', ['$scope', 'Groups', 'User', function ($scope,Groups,User) {
+    $scope.clearUserlist = function() {
+      $scope.response = [];
+      $scope.usernames = [];
+    }
+    
+    $scope.addNewUser = function(user) {
+      if($.inArray(user.user,$scope.usernames) == -1) {
+        $scope.usernames.push(user.user);
+        $scope.response.push(user);
+      }
+    }
+    
+    $scope.clearUserlist();
+    
+    $scope.chatChanged = function(newvalue,oldvalue){
+      if($scope.group.chat && $scope.group.chat.length > 0){
+        for(var i = 0; i < $scope.group.chat.length; i++) {
+          $scope.addNewUser($scope.group.chat[i]);
+        }
+      }
+    }
+    
+    $scope.$watch('group.chat',$scope.chatChanged);
+  }])
+  
   .controller('ChatCtrl', ['$scope', 'Groups', 'User', function($scope, Groups, User){
     $scope._chatMessage = '';
     $scope._sending = false;
