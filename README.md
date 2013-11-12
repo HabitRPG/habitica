@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/HabitRPG/habitrpg-shared.png?branch=master)](https://travis-ci.org/HabitRPG/habitrpg-shared)
+
 Shared resources useful for the multiple HabitRPG repositories, that way all the repositories remain in-sync with common characteristics. Includes things like:
  * Assets - sprites, images, etc
  * CSS - especially, esp. sprite-sheet mapping
