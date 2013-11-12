@@ -14,12 +14,6 @@ module.exports.forceSSL = function(req, res, next){
   next()
 }
 
-module.exports.splash = function(req, res, next) {
-  if (req.url == '/' && !req.headers['x-api-user'] && !req.headers['x-api-key'] && !(req.session && req.session.userId))
-    return res.redirect('/static/front')
-  next()
-};
-
 module.exports.cors = function(req, res, next) {
   res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
   res.header("Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,HEAD,DELETE");

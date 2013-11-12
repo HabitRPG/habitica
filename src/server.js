@@ -93,7 +93,6 @@ app.use(express.methodOverride());
 app.use(express.cookieParser());
 app.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: TWO_WEEKS }}));
 //app.use(express.session());
-app.use(middleware.splash);
 
 // Initialize Passport!  Also use passport.session() middleware, to support
 // persistent login sessions (recommended).
