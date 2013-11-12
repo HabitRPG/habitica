@@ -79,7 +79,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
   ])
 
-  .controller('AutocompleteCtrl', ['$scope', 'Groups', 'User', function ($scope,Groups,User) {
+  .controller('AutocompleteCtrl', ['$scope', 'Groups', 'User', 'InputCaret', function ($scope,Groups,User,InputCaret) {
     $scope.clearUserlist = function() {
       $scope.response = [];
       $scope.usernames = [];
@@ -102,7 +102,25 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       }
     }
     
+    $scope.caretChanged = function(newCaretPos) {
+      var relativeelement = $('.-options');
+      var textarea = $('.chat-textarea');
+      var userlist = $('.list-at-user');
+      var offset = {
+        x: textarea.offset().left - relativeelement.offset().left,
+        y: textarea.offset().top - relativeelement.offset().top,
+      };
+      if(relativeelement) {
+        var caretOffset = InputCaret.getPosition(textarea);
+        userlist.css({
+                  left: caretOffset.left + offset.x,
+                  top: caretOffset.top + offset.y + 16
+                });
+      }
+    }
+    
     $scope.$watch('group.chat',$scope.chatChanged);
+    $scope.$watch(function () { return $scope.caretPos; },$scope.caretChanged);
   }])
   
   .controller('ChatCtrl', ['$scope', 'Groups', 'User', function($scope, Groups, User){
