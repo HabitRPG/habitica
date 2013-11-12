@@ -7,33 +7,12 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
     Groups.Group.query({type:'party,guilds,tavern'}, function(groups){
       $scope.groups = groups;
       $scope.search = {
-        group: _.reduce(groups, function(m,g){m[g._id]=true;return m;}, {})
+        group: _.transform(groups, function(m,g){m[g._id]=true;})
       };
     });
     // FIXME $scope.challenges needs to be resolved first (see app.js)
     $scope.challenges = Challenges.Challenge.query();
     // we should fix this, that's pretty brittle
-
-//    $scope.$watch('search', function(search){
-//      if (!search) $scope.filteredChallenges = $scope.challenges;
-//      $scope.filteredChallenges = $filter('filter')($scope.challenges, function(chal) {
-//        return (search.group[chal.group._id] &&
-//          (typeof search._isMember == 'undefined' || search._isMember == chal._isMember));
-//      })
-//    })
-    // TODO probably better to use $watch above, to avoid this being calculated on every digest cycle
-    $scope.filterChallenges = function(chal){
-      return (!$scope.search) ? true :
-        ($scope.search.group[chal.group._id] &&
-        (typeof $scope.search._isMember == 'undefined' || $scope.search._isMember == chal._isMember));
-    }
-
-    $scope.$watch('newChallenge.group', function(gid){
-      if (!gid) return;
-      var group = _.find($scope.groups, {_id:gid});
-      $scope.maxPrize = User.user.balance*4 + ((group && group.balance && group.leader==User.user._id) ? group.balance*4 : 0);
-      if (gid == 'habitrpg') $scope.newChallenge.prize = 1;
-    })
 
     // override score() for tasks listed in challenges-editing pages, so that nothing happens
     $scope.score = function(){}
@@ -214,6 +193,39 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
         title: 'Leave challenge and...',
         content: html
       }).popover('show');
+    }
+
+    //------------------------------------------------------------
+    // Filtering
+    //------------------------------------------------------------
+
+//    $scope.$watch('search', function(search){
+//      if (!search) $scope.filteredChallenges = $scope.challenges;
+//      $scope.filteredChallenges = $filter('filter')($scope.challenges, function(chal) {
+//        return (search.group[chal.group._id] &&
+//          (typeof search._isMember == 'undefined' || search._isMember == chal._isMember));
+//      })
+//    })
+    // TODO probably better to use $watch above, to avoid this being calculated on every digest cycle
+    $scope.filterChallenges = function(chal){
+      return (!$scope.search) ? true :
+        ($scope.search.group[chal.group._id] &&
+          (typeof $scope.search._isMember == 'undefined' || $scope.search._isMember == chal._isMember));
+    }
+
+    $scope.$watch('newChallenge.group', function(gid){
+      if (!gid) return;
+      var group = _.find($scope.groups, {_id:gid});
+      $scope.maxPrize = User.user.balance*4 + ((group && group.balance && group.leader==User.user._id) ? group.balance*4 : 0);
+      if (gid == 'habitrpg') $scope.newChallenge.prize = 1;
+    })
+
+    $scope.selectAll = function(){
+      $scope.search.group = _.transform($scope.groups, function(m,g){m[g._id] = true});
+    }
+
+    $scope.selectNone = function(){
+      $scope.search.group = _.transform($scope.groups, function(m,g){m[g._id] = false});
     }
 
 }]);

@@ -67,12 +67,18 @@ api.get = function(req, res) {
 
 api.getMember = function(req, res) {
   var cid = req.params.cid, uid = req.params.uid;
-  var elMatch = {$elemMatch:{'challenge.id':cid}};
+  // TMK we can't use $elemMatch (which would make things much cleaner) @see http://goo.gl/MxmWdQ & http://goo.gl/Iku44w
+  // Revert back to 9fbb45c to see the $elemMatch solution
   User.findById(uid)
-    .select({'profile.name':1, habits:elMatch, dailys:elMatch, rewards:elMatch, todos:elMatch})
+    .select('profile.name habits dailys rewards todos')
     .exec(function(err, member){
       if(err) return res.json(500, {err:err});
       if (!member) return res.json(404, {err: 'Member '+uid+' for challenge '+cid+' not found'});
+      _.each(['habits','dailys','todos', 'rewards'], function(type){
+        member[type] = _.filter(member[type], function(task){
+          return task.challenge && task.challenge.id && task.challenge.id == cid;
+        });
+      });
       res.json(member);
     })
 }
