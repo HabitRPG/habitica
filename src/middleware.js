@@ -87,30 +87,47 @@ fs.readdirSync(path.join(__dirname, "/../locales")).forEach(function(file) {
   translations[file] = require(path.join(__dirname, "/../locales/", file, 'app.json'))
 });
 
+var langCodes = Object.keys(translations);
+
 var getTranslatedString = function(locale, string){
   if(!locale || !string) throw new Error("Missing locale and/or string argument.");
-  if(!translations[locale]) throw new Error("Missing locale '" + locale + "'");
+  // Should never be called
+  //if(!translations[locale]) throw new Error("Missing locale '" + locale + "'");
 
   // TODO support nested dot-separated strings
   if(translations[locale][string]) return translations[locale][string];
   if(translations['en'][string]) return translations['en'][string];
-  return 'String not found!';
+  return 'String not found.';
 }
+
+var avalaibleLanguages = _.map(langCodes, function(langCode){
+  return {
+    code: langCode,
+    name: translations[langCode].languageName
+  }
+});
 
 var getUserLanguage = function(req, callback){
   var getFromBrowser = function(){
-    return _(req.acceptedLanguages).map(function(lang){
+    var acceptable = _(req.acceptedLanguages).map(function(lang){
       return lang.slice(0, 2);
-    }).uniq().value()[0];
+    }).uniq().value();
+
+    var matches = _.intersection(acceptable, langCodes);
+    return matches.length > 0 ? matches[0] : 'en';
   };
 
   if(req.session && req.session.userId){
     User.findOne({_id: req.session.userId}, function(err, user){
       if(err) return callback(err);
-      return callback(null, user.preferences.language || getFromBrowser());
+      if(user && user.preferences.language && translations[user.preferences.language]){
+        return callback(null, _.find(avalaibleLanguages, {code: user.preferences.language}));
+      }else{
+        return callback(null, _.find(avalaibleLanguages, {code: getFromBrowser()}))
+      }
     });
   }else{
-    return callback(null, getFromBrowser());    
+    return callback(null, _.find(avalaibleLanguages, {code: getFromBrowser()}));    
   }
 }
 
@@ -126,11 +143,11 @@ module.exports.locals = function(req, res, next) {
       STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
       getManifestFiles: getManifestFiles,
       getBuildUrl: getBuildUrl,
-      avalaibleLanguages: Object.keys(translations),
-      // should send something like {en: "English"} instead of [en, it, ...]
+      avalaibleLanguages: avalaibleLanguages,
       language: language,
+      translations: translations[language.code].clientSideStrings,
       t: function(string){
-        return getTranslatedString(language, string);
+        return getTranslatedString(language.code, string);
       }
     }
 
