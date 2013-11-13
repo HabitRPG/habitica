@@ -129,7 +129,7 @@ var getUserLanguage = function(req, callback){
         return callback(null, _.find(avalaibleLanguages, {code: user.preferences.language}));
       }else{
         var langCode = getFromBrowser();
-        if(user){
+        if(user && translations[langCode]){
           user.preferences.language = langCode;
           user.save(); //callback?
         }
