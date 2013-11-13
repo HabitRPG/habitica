@@ -98,8 +98,8 @@ fs.readdirSync(path.join(__dirname, "/../locales")).forEach(function(file) {
   if(file === 'en') return;
   setUpTranslations(file);
   // Merge missing strings from english
-  translations[file].server = _.merge(translations.en.server, translations[file].server);
-  translations[file].client = _.merge(translations.en.client, translations[file].client);
+  _.defaults(translations[file].server, translations.en.server);
+  _.defaults(translations[file].client, translations.en.client);
 });
 
 var langCodes = Object.keys(translations);
