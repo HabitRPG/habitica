@@ -270,10 +270,13 @@ describe 'Cron', ->
     after.history = {exp: _.cloneDeep(history), todos: _.cloneDeep(history)}
     after.habits[0].history = _.cloneDeep(history)
     algos.cron(after)
-    # console.log after.habits[0].history
-#    _.each [after.history.exp, after.history.todos, after.habits[0].history], (arr) ->
-#      expect(arr.length).to.be 15
-#      expect(arr).to.eql [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
+    # remove history entries created by cron
+    after.history.exp.pop()
+    after.history.todos.pop()
+
+    _.each [after.history.exp, after.history.todos, after.habits[0].history], (arr) ->
+      expect(_.map(arr, (x)->x.value)).to.eql [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
   describe 'Todos', ->
     it '1 day missed', ->
