@@ -81,7 +81,7 @@
           "difficultyHelpTitle": "How difficult is this task?",
           "difficultyHelpContent": "This multiplies its point value. Use sparingly, rely instead on our organic value-adjustment algorithms. But some tasks are grossly more valuable (Write Thesis vs Floss Teeth). Click for more info.",
           "easy": "簡単",
-          "medium": "Medium",
+          "medium": "平均以上",
           "hard": "難しい",
     "delete": "消去",
     "progress": "進捗",
@@ -122,7 +122,7 @@
 
 "_commentoptionsview": "OPTIONS VIEW",
   "profile": "Profile",
-    "avatar": "Avatar",
+    "avatar": "アヴァター",
 
       "head": "Head",
         "showHelm": "Show Helm",
@@ -132,7 +132,7 @@
       "photoUrl": "Photo Url",
       "fullName": "Full Name",
       "blurb": "Blurb",
-      "websites": "Websites",
+      "websites": "ウェブサイト",
       "addWebsites": "Add Websites",
     "items" : "Items",
       "weapon" : "Weapon",
