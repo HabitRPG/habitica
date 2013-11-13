@@ -79,7 +79,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
   ])
 
-  .controller('AutocompleteCtrl', ['$scope', 'Groups', 'User', function ($scope,Groups,User) {
+  .controller('AutocompleteCtrl', ['$scope', '$timeout', 'Groups', 'User', 'InputCaret', function ($scope,$timeout,Groups,User,InputCaret) {
     $scope.clearUserlist = function() {
       $scope.response = [];
       $scope.usernames = [];
@@ -87,6 +87,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     
     $scope.addNewUser = function(user) {
       if($.inArray(user.user,$scope.usernames) == -1) {
+        user.username = user.user;
         $scope.usernames.push(user.user);
         $scope.response.push(user);
       }
@@ -103,10 +104,38 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
     
     $scope.$watch('group.chat',$scope.chatChanged);
+    
+    $scope.caretChanged = function(newCaretPos) {
+      var relativeelement = $('.-options');
+      var textarea = $('.chat-textarea');
+      var userlist = $('.list-at-user');
+      var offset = {
+        x: textarea.offset().left - relativeelement.offset().left,
+        y: textarea.offset().top - relativeelement.offset().top,
+      };
+      if(relativeelement) {
+        var caretOffset = InputCaret.getPosition(textarea);
+        userlist.css({
+                  left: caretOffset.left + offset.x,
+                  top: caretOffset.top + offset.y + 16
+                });
+      }
+    }
+    
+    $scope.updateTimer = false;
+    
+    $scope.$watch(function () { return $scope.caretPos; },function(newCaretPos) {
+      if($scope.updateTimer){
+        $timeout.cancel($scope.updateTimer)
+      }  
+      $scope.updateTimer = $timeout(function(){
+        $scope.caretChanged(newCaretPos);
+      },$scope.watchDelay)
+    });
   }])
   
   .controller('ChatCtrl', ['$scope', 'Groups', 'User', function($scope, Groups, User){
-    $scope._chatMessage = '';
+    $scope.message = {content:''};
     $scope._sending = false;
 
     $scope.postChat = function(group, message){
@@ -119,7 +148,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         }else if(data.message){
           group.chat.unshift(data.message);
         }
-        $scope._chatMessage = '';
+        $scope.message.content = '';
         $scope._sending = false;
       }, function(err){
         $scope._sending = false;
