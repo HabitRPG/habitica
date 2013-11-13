@@ -83,12 +83,23 @@ var getManifestFiles = function(page){
 
 var translations = {};
 
-fs.readdirSync(path.join(__dirname, "/../locales")).forEach(function(file) {
-  var t = translations[file] = {};
-  t.server = require(path.join(__dirname, "/../locales/", file, 'app.json'));
+var setUpTranslations = function(locale){
+  var t = translations[locale] = {};
+  t.server = require(path.join(__dirname, "/../locales/", locale, 'app.json'));
   t.client = t.server.clientSideStrings;
   delete t.server.clientSideStrings;
   _.merge(t.server, t.client);
+}
+
+// First fetch english so we can merge with missing strings in other languages
+setUpTranslations('en');
+
+fs.readdirSync(path.join(__dirname, "/../locales")).forEach(function(file) {
+  if(file === 'en') return;
+  setUpTranslations(file);
+  // Merge missing strings from english
+  translations[file].server = _.merge(translations.en.server, translations[file].server);
+  translations[file].client = _.merge(translations.en.client, translations[file].client);
 });
 
 var langCodes = Object.keys(translations);
@@ -106,10 +117,7 @@ var getTranslatedString = function(locale, string){
   //if(!translations[locale]) throw new Error("Missing locale '" + locale + "'");
 
   // TODO support nested, dot-separated, strings
-  return (
-    translations[locale].server[string] ||
-    translations.en.server[string] ||
-    'String not found.')
+  return (translations[locale].server[string] || 'String not found.');
 }
 
 var getUserLanguage = function(req, callback){
