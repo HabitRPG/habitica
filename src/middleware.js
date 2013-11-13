@@ -84,31 +84,33 @@ var getManifestFiles = function(page){
 var translations = {};
 
 fs.readdirSync(path.join(__dirname, "/../locales")).forEach(function(file) {
-  translations[file] = require(path.join(__dirname, "/../locales/", file, 'app.json'))
+  var t = translations[file] = {};
+  t.server = require(path.join(__dirname, "/../locales/", file, 'app.json'));
+  t.client = t.server.clientSideStrings;
+  delete t.server.clientSideStrings;
+  _.merge(t.server, t.client);
 });
 
 var langCodes = Object.keys(translations);
+
+var avalaibleLanguages = _.map(langCodes, function(langCode){
+  return {
+    code: langCode,
+    name: translations[langCode].server.languageName
+  }
+});
 
 var getTranslatedString = function(locale, string){
   if(!locale || !string) throw new Error("Missing locale and/or string argument.");
   // Should never be called
   //if(!translations[locale]) throw new Error("Missing locale '" + locale + "'");
 
-  // TODO support nested dot-separated strings
+  // TODO support nested, dot-separated, strings
   return (
-    translations[locale][string] ||
-    translations[locale]['clientSideStrings'][string] ||
-    translations['en'][string] ||
-    translations['en']['clientSideStrings'][string] ||
+    translations[locale].server[string] ||
+    translations.en.server[string] ||
     'String not found.')
 }
-
-var avalaibleLanguages = _.map(langCodes, function(langCode){
-  return {
-    code: langCode,
-    name: translations[langCode].languageName
-  }
-});
 
 var getUserLanguage = function(req, callback){
   var getFromBrowser = function(){
@@ -126,7 +128,12 @@ var getUserLanguage = function(req, callback){
       if(user && user.preferences.language && translations[user.preferences.language]){
         return callback(null, _.find(avalaibleLanguages, {code: user.preferences.language}));
       }else{
-        return callback(null, _.find(avalaibleLanguages, {code: getFromBrowser()}))
+        var langCode = getFromBrowser();
+        if(user){
+          user.preferences.language = langCode;
+          user.save(); //callback?
+        }
+        return callback(null, _.find(avalaibleLanguages, {code: langCode}))
       }
     });
   }else{
@@ -148,7 +155,7 @@ module.exports.locals = function(req, res, next) {
       getBuildUrl: getBuildUrl,
       avalaibleLanguages: avalaibleLanguages,
       language: language,
-      translations: translations[language.code].clientSideStrings,
+      translations: translations[language.code].client,
       t: function(string){
         return getTranslatedString(language.code, string);
       }
