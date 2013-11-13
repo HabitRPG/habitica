@@ -1,4 +1,4 @@
-li(ng-repeat='message in group.chat', ng-class='{highlight: indexOf(message.text, user.profile.name), "own-message": user._id == message.uuid}')
+li(ng-repeat='message in group.chat', ng-class='{highlight: indexOf(message.text.toLowerCase(), user.profile.name.toLowerCase()), "own-message": user._id == message.uuid}')
   a.label.chat-message(class='label-contributor-{{message.contributor.level}}', ng-class='{"label-npc": message.backer.npc}', ng-click='clickMember(message.uuid, true)')
     span(tooltip='{{contribText(message.contributor, message.backer)}}') {{message.user}}&nbsp;
   | &nbsp;
