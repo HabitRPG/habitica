@@ -6,7 +6,7 @@ form(ng-submit='postChat(group,message.content)')
       span.user-list(ng-show='!isAtListHidden')
         ul.list-at-user
           li(ng-repeat='user in users | filter:query.text | limitTo: 5', ng-click='autoComplete(user)')
-            span.username.label(class='label-contributor-{{user.contributor.level}}') {{user.user}}
+            span.username.label(class='label-contributor-{{user.contributor.level}}', ng-class='{"label-npc": user.backer.npc}') {{user.user}}
     table.pull-right
       tr
         td
