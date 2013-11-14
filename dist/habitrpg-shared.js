@@ -9688,35 +9688,44 @@ try {
     },
     eggs: {
       Wolf: {
-        text: 'Wolf'
+        text: 'Wolf',
+        adjective: 'loyal'
       },
       TigerCub: {
         text: 'Tiger Cub',
-        mountText: 'Tiger'
+        mountText: 'Tiger',
+        adjective: 'fierce'
       },
       PandaCub: {
         text: 'Panda Cub',
-        mountText: 'Panda'
+        mountText: 'Panda',
+        adjective: 'gentle'
       },
       LionCub: {
         text: 'Lion Cub',
-        mountText: 'Lion'
+        mountText: 'Lion',
+        adjective: 'regal'
       },
       Fox: {
-        text: 'Fox'
+        text: 'Fox',
+        adjective: 'wily'
       },
       FlyingPig: {
-        text: 'Flying Pig'
+        text: 'Flying Pig',
+        adjective: 'whimsical'
       },
       Dragon: {
-        text: 'Dragon'
+        text: 'Dragon',
+        adjective: 'mighty'
       },
       Cactus: {
-        text: 'Cactus'
+        text: 'Cactus',
+        adjective: 'prickly'
       },
       BearCub: {
         text: 'Bear Cub',
-        mountText: 'Bear'
+        mountText: 'Bear',
+        adjective: 'cuddly'
       }
     },
     hatchingPotions: {
@@ -9828,7 +9837,7 @@ try {
     return _.defaults(egg, {
       value: 3,
       name: k,
-      notes: 'Find a hatching potion to pour on this egg, and it will hatch into a loyal pet.',
+      notes: "Find a hatching potion to pour on this egg, and it will hatch into a " + egg.adjective + " " + egg.text + ".",
       mountText: egg.text
     });
   });

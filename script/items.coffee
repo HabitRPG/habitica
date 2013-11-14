@@ -47,15 +47,15 @@ items = module.exports.items =
 
   eggs:
     # value & other defaults set below
-    Wolf:             text: 'Wolf'
-    TigerCub:         text: 'Tiger Cub', mountText: 'Tiger'
-    PandaCub:         text: 'Panda Cub', mountText: 'Panda'
-    LionCub:          text: 'Lion Cub',  mountText: 'Lion'
-    Fox:              text: 'Fox'
-    FlyingPig:        text: 'Flying Pig'
-    Dragon:           text: 'Dragon'
-    Cactus:           text: 'Cactus'
-    BearCub:          text: 'Bear Cub',  mountText: 'Bear'
+    Wolf:             text: 'Wolf', adjective: 'loyal'
+    TigerCub:         text: 'Tiger Cub', mountText: 'Tiger', adjective: 'fierce'
+    PandaCub:         text: 'Panda Cub', mountText: 'Panda', adjective: 'gentle'
+    LionCub:          text: 'Lion Cub',  mountText: 'Lion', adjective: 'regal'
+    Fox:              text: 'Fox', adjective: 'wily'
+    FlyingPig:        text: 'Flying Pig', adjective: 'whimsical'
+    Dragon:           text: 'Dragon', adjective: 'mighty'
+    Cactus:           text: 'Cactus', adjective: 'prickly'
+    BearCub:          text: 'Bear Cub',  mountText: 'Bear', adjective: 'cuddly'
     #{text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3}
 
   hatchingPotions:
@@ -101,7 +101,7 @@ _.each items.eggs, (egg,k) ->
   _.defaults egg,
     value: 3
     name: k
-    notes: 'Find a hatching potion to pour on this egg, and it will hatch into a loyal pet.'
+    notes: "Find a hatching potion to pour on this egg, and it will hatch into a #{egg.adjective} #{egg.text}."
     mountText: egg.text
 
 _.each items.hatchingPotions, (pot,k) ->
