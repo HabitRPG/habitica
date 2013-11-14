@@ -263,9 +263,8 @@ UserSchema.pre('save', function(next) {
       'Anonymous';
   }
 
-  if(!this.achievements.beastMaster && _.size(this.items.pets) >= 90){
-    this.achievements.beastMaster = true;
-  }
+  var petCount = _.reduce(this.items.pets,function(m,v){return m+(v ? 1 : 0);},0);
+  this.achievements.beastMaster = petCount >= 90;
 
   //our own version incrementer
   this._v++;
