@@ -43,8 +43,8 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.modals.achievements.ultimateGear = true;
     });
 
-    $rootScope.$watch('user.items.pets.length', function(after, before){
-      if(after === before || after < 90) return;
+    $rootScope.$watch('user.items.pets', function(after, before){
+      if(_.size(after) === _.size(before) || _.size(after) < 90) return;
       User.user.achievements.beastMaster = true;
       $rootScope.modals.achievements.beastMaster = true;
     })

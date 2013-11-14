@@ -1,18 +1,31 @@
-habitrpg.controller("InventoryCtrl", ['$scope', 'User',
-  function($scope, User) {
+habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL', '$http', 'Notification',
+  function($rootScope, $scope, User, API_URL, $http, Notification) {
+
+    var user = User.user;
 
     // convenience vars since these are accessed frequently
-    $scope.userEggs = User.user.items.eggs;
-    $scope.userHatchingPotions = User.user.items.hatchingPotions;
 
     $scope.selectedEgg = null; // {index: 1, name: "Tiger", value: 5}
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
+    $scope.petCount = _.size(User.user.items.pets);
+    $scope.totalPets = _.size($scope.Items.eggs) * _.size($scope.Items.hatchingPotions);
 
-    $scope.chooseEgg = function(egg, $index){
-      if ($scope.selectedEgg && $scope.selectedEgg.index == $index) {
+    // count egg, food, hatchingPotion stack totals
+    var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}
+    // count pets, mounts collected totals
+    var countExists = function(items) { return _.reduce(items,function(m,v){return m+(v ? 1 : 0);},0);}
+
+    $scope.$watch('user.items.pets', function(pets){ $scope.petCount = countExists(pets); });
+    $scope.$watch('user.items.mounts', function(mounts){ $scope.mountCount = countExists(mounts); });
+    $scope.$watch('user.items.eggs', function(eggs){ $scope.eggCount = countStacks(eggs); });
+    $scope.$watch('user.items.hatchingPotions', function(pots){ $scope.potCount = countStacks(pots); });
+    $scope.$watch('user.items.food', function(food){ $scope.foodCount = countStacks(food); });
+
+    $scope.chooseEgg = function(egg){
+      if ($scope.selectedEgg && $scope.selectedEgg.name == egg) {
         return $scope.selectedEgg = null; // clicked same egg, unselect
       }
-      var eggData = _.defaults({index:$index}, egg);
+      var eggData = _.findWhere(window.habitrpgShared.items.items.eggs, {name:egg});
       if (!$scope.selectedPotion) {
         $scope.selectedEgg = eggData;
       } else {
@@ -20,13 +33,12 @@ habitrpg.controller("InventoryCtrl", ['$scope', 'User',
       }
     }
 
-    $scope.choosePotion = function(potion, $index){
-      if ($scope.selectedPotion && $scope.selectedPotion.index == $index) {
+    $scope.choosePotion = function(potion){
+      if ($scope.selectedPotion && $scope.selectedPotion.name == potion) {
         return $scope.selectedPotion = null; // clicked same egg, unselect
       }
       // we really didn't think through the way these things are stored and getting passed around...
       var potionData = _.findWhere(window.habitrpgShared.items.items.hatchingPotions, {name:potion});
-      potionData = _.defaults({index:$index}, potionData);
       if (!$scope.selectedEgg) {
         $scope.selectedPotion = potionData;
       } else {
@@ -34,54 +46,53 @@ habitrpg.controller("InventoryCtrl", ['$scope', 'User',
       }
     }
 
+    $scope.chooseFood = function(food){
+      if ($scope.selectedFood && $scope.selectedFood.name == food) return $scope.selectedFood = null;
+      $scope.selectedFood = $scope.Items.food[food];
+    }
+
     $scope.sellInventory = function() {
+      // TODO DRY this
       if ($scope.selectedEgg) {
-        $scope.userEggs.splice($scope.selectedEgg.index, 1);
+        user.items.eggs[$scope.selectedEgg.name]--;
         User.setMultiple({
-          'items.eggs': $scope.userEggs,
+          'items.eggs': user.items.eggs,
           'stats.gp': User.user.stats.gp + $scope.selectedEgg.value
         });
         $scope.selectedEgg = null;
       } else if ($scope.selectedPotion) {
-        $scope.userHatchingPotions.splice($scope.selectedPotion.index, 1);
+        user.items.hatchingPotions[$scope.selectedPotion.name]--;
         User.setMultiple({
-          'items.hatchingPotions': $scope.userHatchingPotions,
+          'items.hatchingPotions': user.items.hatchingPotions,
           'stats.gp': User.user.stats.gp + $scope.selectedPotion.value
         });
         $scope.selectedPotion = null;
+      } else if ($scope.selectedFood) {
+        user.items.food[$scope.selectedFood.name]--;
+        User.setMultiple({
+          'items.food': user.items.food,
+          'stats.gp': User.user.stats.gp + $scope.selectedFood.value
+        });
+        $scope.selectedFood = null;
       }
+
     }
 
-    $scope.ownsPet = function(egg, potion){
-      if (!egg || !potion) return;
-      var pet = egg.name + '-' + potion;
-      return User.user.items.pets && ~User.user.items.pets.indexOf(pet)
-    }
-
-    $scope.selectableInventory = function(egg, potion, $index) {
-      if (!egg || !potion) return;
-      // FIXME this isn't updating the view for some reason
-      //if ($scope.selectedEgg && $scope.selectedEgg.index == $index) return 'selectableInventory';
-      //if ($scope.selectedPotion && $scope.selectedPotion.index == $index) return 'selectableInventory';
-      if (!$scope.ownsPet(egg, potion)) return 'selectableInventory';
+    $scope.ownedItems = function(inventory){
+      return _.pick(inventory, function(v,k){return v>0;});
     }
 
     $scope.hatch = function(egg, potion){
-      if ($scope.ownsPet(egg, potion.name)){
-        return alert("You already have that pet, hatch a different combo.")
-      }
-      var pet = egg.name + '-' + potion.name;
-      $scope.userEggs.splice(egg.index, 1);
-      $scope.userHatchingPotions.splice(potion.index, 1);
+      var pet = egg.name+"-"+potion.name;
+      if (user.items.pets[pet])
+        return alert("You already have that pet, hatch a different combo.");
 
-      if(!User.user.items.pets) User.user.items.pets = [];
-      User.user.items.pets.push(pet);
+      var setObj = {};
+      setObj['items.pets.' + pet] = 5;
+      setObj['items.eggs.' + egg.name] = user.items.eggs[egg.name] - 1;
+      setObj['items.hatchingPotions.' + potion.name] = user.items.hatchingPotions[potion.name] - 1;
 
-      User.log([
-        { op: 'set', data: {'items.pets': User.user.items.pets} },
-        { op: 'set', data: {'items.eggs': $scope.userEggs} },
-        { op: 'set', data: {'items.hatchingPotions': $scope.userHatchingPotions} }
-      ]);
+      User.setMultiple(setObj);
 
       alert("Your egg hatched! Visit your stable to equip your pet.");
 
@@ -89,4 +100,71 @@ habitrpg.controller("InventoryCtrl", ['$scope', 'User',
       $scope.selectedPotion = null;
     }
 
-  }]);
+    $scope.buy = function(type, item){
+      var gems = User.user.balance * 4;
+      if(gems < item.value) return $rootScope.modals.buyGems = true;
+      var string = (type == 'hatchingPotion') ? 'hatching potion' : type; // give hatchingPotion a space
+      var message = "Buy this " + string + " with " + item.value + " of your " + gems + " Gems?"
+      if(confirm(message)){
+        $http.post(API_URL + '/api/v1/market/buy?type=' + type, item)
+          .success(function(data){
+            User.user.items = data.items;
+          });
+      }
+    }
+
+    $scope.choosePet = function(egg, potion){
+      var pet = egg + '-' + potion;
+
+      // Feeding Pet
+      if ($scope.selectedFood) {
+        var setObj = {};
+        var userPets = user.items.pets;
+        if (user.items.mounts[pet] && (userPets[pet] >= 50 || $scope.selectedFood.name == 'Saddle'))
+          return Notification.text("You already have that mount");
+
+        var evolve = function(){
+          userPets[pet] = 0;
+          setObj['items.mounts.' + pet] = true;
+          if (pet == user.items.currentPet) setObj['items.currentPet'] = '';
+          Notification.text('You have tamed '+egg+", let's go for a ride!");
+        }
+        // Saddling a pet
+        if ($scope.selectedFood.name == 'Saddle') {
+          if (!confirm('Saddle ' + pet + '?')) return;
+          evolve();
+        } else {
+          if (!confirm('Feed ' + pet + ' a ' + $scope.selectedFood.name + '?')) return;
+          if ($scope.selectedFood.target == potion) {
+            userPets[pet] += 5;
+            Notification.text(egg+' really likes the '+$scope.selectedFood.name+'!');
+          } else {
+            userPets[pet] += 2;
+            Notification.text(egg+' eats the '+$scope.selectedFood.name+" but doesn't seem to enjoy it.");
+          }
+          if (userPets[pet] >= 50 && !user.items.mounts[pet]) evolve();
+        }
+        setObj['items.pets.' + pet] = userPets[pet];
+        setObj['items.food.' + $scope.selectedFood.name] = user.items.food[$scope.selectedFood.name] - 1;
+        User.setMultiple(setObj);
+        $scope.selectedFood = null;
+
+      // Selecting Pet
+      } else {
+        var userCurrentPet = User.user.items.currentPet;
+        if(userCurrentPet && userCurrentPet == pet){
+          User.user.items.currentPet = '';
+        }else{
+          User.user.items.currentPet = pet;
+        }
+        User.set('items.currentPet', User.user.items.currentPet);
+      }
+    }
+
+    $scope.chooseMount = function(egg, potion) {
+      var mount = egg + '-' + potion;
+      User.set('items.currentMount', (user.items.currentMount == mount) ? '' : mount);
+    }
+
+  }
+]);

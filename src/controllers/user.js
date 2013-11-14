@@ -22,17 +22,11 @@ api.marketBuy = function(req, res, next){
     type = req.query.type,
     item = req.body;
 
-  if (!_.contains(['hatchingPotion', 'egg'], req.query.type))
-    return res.json(400, {err: "Type must be in 'hatchingPotion' or 'egg'"});
-  var item;
-  if (type == 'egg'){
-    if (!user.items && !user.items.eggs) user.items.eggs = [];
-    user.items.eggs.push(item);
-  } else {
-    if (!user.items && !user.items.hatchingPotions) user.items.hatchingPotions = [];
-    user.items.hatchingPotions.push(item.name);
-  }
-  user.markModified('items'); // I still don't get when this is necessary and when not..
+  if (!_.contains(['hatchingPotion', 'egg', 'food'], type))
+    return res.json(400, {err: "Type must be 'hatchingPotion', 'egg', or 'food'"});
+  type = (type == 'food' ? type : type + 's'); // I'm stupid, we're passing up 'hatchingPotion' but we need 'hatchingPotions'
+  if (!user.items[type][item.name]) user.items[type][item.name] = 0;
+  user.items[type][item.name]++;
   user.balance -= (item.value/4);
   user.save(function(err, saved){
     if (err) return res.json(500, {err:err});
@@ -270,30 +264,21 @@ api.updateUser = function(req, res, next) {
 
   acceptableAttrs = 'tasks. achievements. filters. flags. invitations. items. lastCron party. preferences. profile. stats. tags custom.'.split(' ');
   _.each(req.body, function(v, k) {
-    if ((_.find(acceptableAttrs, function(attr) {
-      return k.indexOf(attr) === 0;
-    })) != null) {
-      if (_.isObject(v)) {
-        errors.push("Value for " + k + " was an object. Be careful here, you could clobber stuff.");
-      }
+    var found = _.find(acceptableAttrs, function(attr) { return k.indexOf(attr) == 0; })
+    if (found) {
+//      if (_.isObject(v)) {
+//        errors.push("Value for " + k + " was an object. Be careful here, you could clobber stuff.");
+//      }
       helpers.dotSet(k, v, user);
     } else {
       errors.push("path `" + k + "` was not saved, as it's a protected path. Make sure to send `PUT /api/v1/user` request bodies as `{'set.this.path':value}` instead of `{set:{this:{path:value}}}`");
     }
     return true;
   });
-  return user.save(function(err) {
-    if (!_.isEmpty(errors)) {
-      return res.json(500, {
-        err: errors
-      });
-    }
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    return res.json(200, user);
+  user.save(function(err) {
+    if (!_.isEmpty(errors)) return res.json(500, {err: errors});
+    if (err) {return res.json(500, {err: err})}
+    res.json(200, user);
   });
 };
 
