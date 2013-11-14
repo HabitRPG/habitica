@@ -1,5 +1,7 @@
 "use strict";
 
+window.env = window.env || {}; //FIX tests
+
 window.env.t = function(string){
   return (window.env.translations[string] || window.env.translations.stringNotFound);
 }
