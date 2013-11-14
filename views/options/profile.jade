@@ -11,6 +11,15 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
           label.checkbox
             input(type='checkbox', ng-model='user.preferences.showHelm', ng-change='toggleHelm(user.preferences.showHelm)')
             | Show Helm
+          label.checkbox
+            input(type='checkbox', ng-model='user.preferences.showWeapon', ng-change='toggleHelm(user.preferences.showWeapon)')
+            | Show Weapon
+          label.checkbox
+            input(type='checkbox', ng-model='user.preferences.showShield', ng-change='toggleHelm(user.preferences.showShield)')
+            | Show Shield
+          label.checkbox
+            input(type='checkbox', ng-model='user.preferences.showArmor', ng-change='toggleHelm(user.preferences.showArmor)')
+            | Show Armor
 
         menu(ng-show='user.preferences.gender=="f"', type='list')
           li.customize-menu
