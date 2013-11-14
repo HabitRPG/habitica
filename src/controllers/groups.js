@@ -196,7 +196,7 @@ api.update = function(req, res, next) {
   if(group.leader !== user._id)
     return res.json(401, {err: "Only the group leader can update the group!"});
 
-  'name description logo websites logo leaderMessage leader'.split(' ').forEach(function(attr){
+  'name description logo logo leaderMessage leader'.split(' ').forEach(function(attr){
     group[attr] = req.body[attr];
   });
 
