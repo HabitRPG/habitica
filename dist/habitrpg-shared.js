@@ -8344,20 +8344,10 @@ if(typeof module != 'undefined' && module.exports){
         drop.type = 'Egg';
         drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
       } else {
-        acceptableDrops = [];
-        if (rarity < .15) {
-          acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue Golden'.split(' ');
-        } else if (rarity < .2) {
-          acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue'.split(' ');
-        } else if (rarity < .25) {
-          acceptableDrops = 'Base White Desert Red Shade Skeleton'.split(' ');
-        } else {
-          acceptableDrops = ['Base', 'White', 'Desert'];
-        }
-        acceptableDrops = _.pick(hatchingPotions, (function(v, k) {
+        acceptableDrops = rarity < .03 ? ['Golden'] : rarity < .06 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .09 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
+        drop = helpers.randomVal(_.pick(hatchingPotions, (function(v, k) {
           return __indexOf.call(acceptableDrops, k) >= 0;
-        }));
-        drop = helpers.randomVal(acceptableDrops);
+        })));
         if ((_base3 = user.items.hatchingPotions)[_name2 = drop.name] == null) {
           _base3[_name2] = 0;
         }
@@ -9739,7 +9729,7 @@ try {
     },
     hatchingPotions: {
       Base: {
-        value: 1,
+        value: 2,
         text: 'Base'
       },
       White: {

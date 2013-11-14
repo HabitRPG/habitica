@@ -140,7 +140,7 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
       drop.type = 'Food'
       drop.dialog = "You've found a #{drop.text} Food! #{drop.notes}"
 
-    # Eggs & hatchingPotions: 60% chance
+    # Eggs: 30% chance
     else if rarity > .3
       drop = helpers.randomVal eggs
       user.items.eggs[drop.name] ?= 0
@@ -148,33 +148,22 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
       drop.type = 'Egg'
       drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
 
-      # Hatching Potion, 30% chance - break down by rarity even more.
+    # Hatching Potion, 30% chance - break down by rarity.
     else
-      acceptableDrops = []
+      acceptableDrops =
+        # Very Rare: 10% (of 30%)
+        if rarity < .03 then ['Golden']
+        # Rare: 20% (of 30%)
+        else if rarity < .06 then ['Zombie', 'CottonCandyPink', 'CottonCandyBlue']
+        # Uncommon: 30% (of 30%)
+        else if rarity < .09 then ['Red', 'Shade', 'Skeleton']
+        # Common: 40% (of 30%)
+        else ['Base', 'White', 'Desert']
 
-      # Tier 5 (Blue Moon Rare)
-      if rarity < .15
-        acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue Golden'.split(' ')
+      # No Rarity (@see https://github.com/HabitRPG/habitrpg/issues/1048, we may want to remove rareness when we add mounts)
+      #drop = helpers.randomVal hatchingPotions
+      drop = helpers.randomVal _.pick(hatchingPotions, ((v,k) -> k in acceptableDrops))
 
-        # Tier 4 (Very Rare)
-      else if rarity < .2
-        acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue'.split(' ')
-
-        # Tier 3 (Rare)
-      else if rarity < .25
-        acceptableDrops = 'Base White Desert Red Shade Skeleton'.split(' ')
-
-      # Commented out for testing with increased egg drop, delete if successful
-        # Tier 2 (Scarce)
-      # else if rarity < .4
-      #   acceptableDrops = ['Base', 'White', 'Desert']
-
-        # Tier 1 (Common)
-      else
-        acceptableDrops = ['Base', 'White', 'Desert']
-
-      acceptableDrops = _.pick hatchingPotions, ((v,k) -> k in acceptableDrops)
-      drop = helpers.randomVal acceptableDrops
       user.items.hatchingPotions[drop.name] ?= 0
       user.items.hatchingPotions[drop.name]++
       drop.type = 'HatchingPotion'

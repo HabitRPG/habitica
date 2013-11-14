@@ -59,7 +59,7 @@ items = module.exports.items =
     #{text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3}
 
   hatchingPotions:
-    Base:             value: 1, text: 'Base'
+    Base:             value: 2, text: 'Base'
     White:            value: 2, text: 'White'
     Desert:           value: 2, text: 'Desert'
     Red:              value: 3, text: 'Red'
