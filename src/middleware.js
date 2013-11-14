@@ -83,23 +83,18 @@ var getManifestFiles = function(page){
 
 var translations = {};
 
-var setUpTranslations = function(locale){
-  var t = translations[locale] = {};
-  t.server = require(path.join(__dirname, "/../locales/", locale, 'app.json'));
-  t.client = t.server.clientSideStrings;
-  delete t.server.clientSideStrings;
-  _.merge(t.server, t.client);
+var loadTranslations = function(locale){
+  translations[locale] = require(path.join(__dirname, "/../locales/", locale, 'app.json'));
 }
 
 // First fetch english so we can merge with missing strings in other languages
-setUpTranslations('en');
+loadTranslations('en');
 
 fs.readdirSync(path.join(__dirname, "/../locales")).forEach(function(file) {
   if(file === 'en') return;
-  setUpTranslations(file);
+  loadTranslations(file);
   // Merge missing strings from english
-  _.defaults(translations[file].server, translations.en.server);
-  _.defaults(translations[file].client, translations.en.client);
+  _.defaults(translations[file], translations.en);
 });
 
 var langCodes = Object.keys(translations);
@@ -107,18 +102,9 @@ var langCodes = Object.keys(translations);
 var avalaibleLanguages = _.map(langCodes, function(langCode){
   return {
     code: langCode,
-    name: translations[langCode].server.languageName
+    name: translations[langCode].languageName
   }
 });
-
-var getTranslatedString = function(locale, string){
-  if(!locale || !string) throw new Error("Missing locale and/or string argument.");
-  // Should never be called
-  //if(!translations[locale]) throw new Error("Missing locale '" + locale + "'");
-
-  // TODO support nested, dot-separated, strings
-  return (translations[locale].server[string] || 'String not found.');
-}
 
 var getUserLanguage = function(req, callback){
   var getFromBrowser = function(){
@@ -163,9 +149,9 @@ module.exports.locals = function(req, res, next) {
       getBuildUrl: getBuildUrl,
       avalaibleLanguages: avalaibleLanguages,
       language: language,
-      translations: translations[language.code].client,
+      translations: translations[language.code],
       t: function(string){
-        return getTranslatedString(language.code, string);
+        return (translations[language.code][string] || translations[language.code].stringNotFound);
       }
     }
 

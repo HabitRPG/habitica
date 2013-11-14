@@ -1,9 +1,7 @@
 {
 
   "languageName": "French",
-  "clientSideStrings": {
-    "removeAds": "Remove Ads"
-  },
+  
 
 "_commentfrontpage":"PAGE D'ACCUEIL DE HABITRPG",
    "synopsis" : "Ce programme vous permet de gérer votre vie quotidienne à la manière d'un jeu de rôle (RPG). Gagnez des niveaux lorsque vous réussissez vos objectifs, perdez des points de vie lorsque vous échouez et gagnez de l'argent pour acheter des armes et des armures.",

@@ -1,5 +1,9 @@
 "use strict";
 
+window.env.t = function(string){
+  return (window.env.translations[string] || window.env.translations.stringNotFound);
+}
+
 window.habitrpg = angular.module('habitrpg',
     ['ngResource', 'ngSanitize', 'userServices', 'groupServices', 'memberServices', 'challengeServices',
      'sharedServices', 'authServices', 'notificationServices', 'guideServices',
