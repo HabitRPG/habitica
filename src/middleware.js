@@ -85,7 +85,7 @@ var translations = {};
 
 var setUpTranslations = function(locale){
   var t = translations[locale] = {};
-  t.server = require(path.join(__dirname, "/../locales/", locale, 'app.json'));
+  t.server = require(path.join(__dirname, "/../locales_new/", locale, 'app.json'));
   t.client = t.server.clientSideStrings;
   delete t.server.clientSideStrings;
   _.merge(t.server, t.client);
@@ -94,7 +94,7 @@ var setUpTranslations = function(locale){
 // First fetch english so we can merge with missing strings in other languages
 setUpTranslations('en');
 
-fs.readdirSync(path.join(__dirname, "/../locales")).forEach(function(file) {
+fs.readdirSync(path.join(__dirname, "/../locales_new")).forEach(function(file) {
   if(file === 'en') return;
   setUpTranslations(file);
   // Merge missing strings from english
