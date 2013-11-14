@@ -121,13 +121,13 @@
 
 
 "_commentoptionsview": "OPTIONS VIEW",
-  "profile": "Profile",
+  "profile": "プロフィール",
     "avatar": "アヴァター",
 
-      "head": "Head",
-        "showHelm": "Show Helm",
+      "head": "頭",
+        "showHelm": "Show 兜",
       "hair": "Hair",
-      "skin": "Skin",
+      "skin": "皮膚",
       "clothing" : "Clothing",
       "photoUrl": "Photo Url",
       "fullName": "Full Name",
@@ -135,7 +135,7 @@
       "websites": "ウェブサイト",
       "addWebsites": "Add Websites",
     "items" : "Items",
-      "weapon" : "Weapon",
+      "weapon" : "武器",
       "armor" : "armor",
       "helm" : "Helm",
       "shield" : "shield",
