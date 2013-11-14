@@ -8,7 +8,7 @@
 ## How to translate a string
 
 - If the string is in a `.jade` file it can be accessed with `env.t('string name here')`
-- If the string is in a `.js` file it can be accessed with `window.env.t['string name here']`
+- If the string is in a `.js` file it can be accessed with `window.env.t('string name here')`
 
 HabitRPG
 ===============
