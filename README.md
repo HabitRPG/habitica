@@ -1,12 +1,5 @@
 # Translations - WIP
 
-Some files has been overwriteen after merging with develop, will revisit later:
-
-- locales/nl/app.json
-- locales/bg/app.json
-
------------------
-
 ## How to add a new language
 - All the old files in `/locales` has been moved to `/locales_old`. 
 - New files must have a `languageName` property (translated or not in english? Italian or Italiano?) and strings that have to be accessed in a `.js` file must be placed inside the `clientSideStrings` of `app.json`.
