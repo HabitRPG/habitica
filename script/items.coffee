@@ -46,15 +46,16 @@ items = module.exports.items =
   reroll: {type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your task values back to 0 (yellow). Useful when everything's red and it's hard to stay alive.", value:0 }
 
   eggs:
-    Wolf:             text: 'Wolf' # values set below
-    TigerCub:         text: 'Tiger Cub'
-    PandaCub:         text: 'Panda Cub'
-    LionCub:          text: 'Lion Cub'
+    # value & other defaults set below
+    Wolf:             text: 'Wolf'
+    TigerCub:         text: 'Tiger Cub', mountText: 'Tiger'
+    PandaCub:         text: 'Panda Cub', mountText: 'Panda'
+    LionCub:          text: 'Lion Cub',  mountText: 'Lion'
     Fox:              text: 'Fox'
     FlyingPig:        text: 'Flying Pig'
     Dragon:           text: 'Dragon'
     Cactus:           text: 'Cactus'
-    BearCub:          text: 'Bear Cub'
+    BearCub:          text: 'Bear Cub',  mountText: 'Bear'
     #{text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3}
 
   hatchingPotions:
@@ -97,7 +98,11 @@ _.each ['weapon', 'armor', 'head', 'shield'], (type) ->
   _.each items[type], (item) -> _.defaults(item, {type, canOwn: ->true})
 
 _.each items.eggs, (egg,k) ->
-  _.defaults egg, {value: 3, name: k, notes: 'Find a hatching potion to pour on this egg, and it will hatch into a loyal pet.'}
+  _.defaults egg,
+    value: 3
+    name: k
+    notes: 'Find a hatching potion to pour on this egg, and it will hatch into a loyal pet.'
+    mountText: egg.text
 
 _.each items.hatchingPotions, (pot,k) ->
   _.defaults pot, {name: k, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}

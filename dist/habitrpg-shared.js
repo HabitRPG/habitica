@@ -9711,13 +9711,16 @@ try {
         text: 'Wolf'
       },
       TigerCub: {
-        text: 'Tiger Cub'
+        text: 'Tiger Cub',
+        mountText: 'Tiger'
       },
       PandaCub: {
-        text: 'Panda Cub'
+        text: 'Panda Cub',
+        mountText: 'Panda'
       },
       LionCub: {
-        text: 'Lion Cub'
+        text: 'Lion Cub',
+        mountText: 'Lion'
       },
       Fox: {
         text: 'Fox'
@@ -9732,7 +9735,8 @@ try {
         text: 'Cactus'
       },
       BearCub: {
-        text: 'Bear Cub'
+        text: 'Bear Cub',
+        mountText: 'Bear'
       }
     },
     hatchingPotions: {
@@ -9854,7 +9858,8 @@ try {
     return _.defaults(egg, {
       value: 3,
       name: k,
-      notes: 'Find a hatching potion to pour on this egg, and it will hatch into a loyal pet.'
+      notes: 'Find a hatching potion to pour on this egg, and it will hatch into a loyal pet.',
+      mountText: egg.text
     });
   });
 
