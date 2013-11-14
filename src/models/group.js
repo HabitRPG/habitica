@@ -13,7 +13,6 @@ var GroupSchema = new Schema({
   type: {type: String, "enum": ['guild', 'party']},
   privacy: {type: String, "enum": ['private', 'public']},
   _v: {type: Number,'default': 0},
-  websites: Array,
   chat: Array,
   /*
   #    [{
@@ -47,13 +46,6 @@ function removeDuplicates(doc){
     var uniqMembers = _.uniq(doc.members);
     if (uniqMembers.length != doc.members.length) {
       doc.members = uniqMembers;
-    }
-  }
-
-  if (doc.websites) {
-    var uniqWebsites = _.uniq(doc.websites);
-    if (uniqWebsites.length != doc.websites.length) {
-      doc.websites = uniqWebsites;
     }
   }
 }

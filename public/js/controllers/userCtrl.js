@@ -26,15 +26,6 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       $scope._editing.profile = false;
     }
 
-    $scope.addWebsite = function(){
-      if (!$scope.editingProfile.websites) $scope.editingProfile.websites = [];
-      $scope.editingProfile.websites.push($scope._newWebsite);
-      $scope._newWebsite = '';
-    }
-    $scope.removeWebsite = function($index){
-      $scope.editingProfile.websites.splice($index,1);
-    }
-
     $scope.unlock = User.unlock;
 
   }

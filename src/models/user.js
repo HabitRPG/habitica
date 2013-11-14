@@ -178,7 +178,6 @@ var UserSchema = new Schema({
     blurb: String,
     imageUrl: String,
     name: String,
-    websites: Array // styled like --> ["http://ocdevel.com" ]
   },
   stats: {
     hp: Number,

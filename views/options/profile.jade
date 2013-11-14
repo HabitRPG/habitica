@@ -92,13 +92,6 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
     span.muted(ng-hide='profile.profile.blurb') - None -
     //{{profile.profile.blurb | linky:'_blank'}}
 
-    h4 Websites
-    ul(ng-show='profile.profile.websites.length > 0')
-      // TODO let's remove links eventually, since we can do markdown on profiles
-      li(ng-repeat='website in profile.profile.websites')
-        a(target='_blank', ng-href='{{website}}') {{website}}
-    span.muted(ng-hide='profile.profile.websites.length > 0') - None -
-
   div.whatever-options(ng-show='_editing.profile')
     // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
     .control-group.option-large
@@ -111,15 +104,6 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
       label.control-label Blurb
       textarea.option-content(style='height:15em;', placeholder='Blurb', ng-model='editingProfile.blurb')
       include ../shared/formatting-help
-    .control-group.option-large
-      label.control-label Websites
-      form(ng-submit='addWebsite()')
-        input.option-content(type='url', ng-model='_newWebsite', placeholder='Add Website')
-      ul
-        li(ng-repeat='website in editingProfile.websites')
-          | {{website}}
-          a(ng-click='removeWebsite($index)')
-            i.icon-remove
 
 script(id='partials/options.profile.html', type="text/ng-template")
   ul.nav.nav-tabs
