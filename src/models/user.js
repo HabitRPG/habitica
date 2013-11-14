@@ -263,7 +263,7 @@ UserSchema.pre('save', function(next) {
       'Anonymous';
   }
 
-  if(!this.achievements.beastMaster && this.items.pets.length >= 90){
+  if(!this.achievements.beastMaster && _.size(this.items.pets) >= 90){
     this.achievements.beastMaster = true;
   }
 
