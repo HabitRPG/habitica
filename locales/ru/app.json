@@ -1,5 +1,10 @@
 {
 
+  "languageName": "Russian",
+  "clientSideStrings": {
+    "removeAds": "Remove Ads"
+  },
+
 "_commentfrontpage":"HABITRPG FRONT PAGE",
    "synopsis" : "Программа, которая вырабатывает привычки, превращая вашу жизнь в ролевую игру. Получайте уровни за достижения, теряйте очки здоровья за неслеланные дела, зарабатывайте золото и покупайте оружие и броню.",
   "playButton" : "Играть",

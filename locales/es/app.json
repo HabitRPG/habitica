@@ -1,4 +1,8 @@
 {
+  "languageName": "Espanol",
+  "clientSideStrings": {
+    "removeAds": "Remove Ads"
+  },
 
 "_commentfrontpage":"HABITRPG PORTADA",
    "synopsis" : "Un programa para construir hábitos que convierte tu vida en un Juego de Rol. Aumenta de nivel a medida que triunfas, pierde HP al fracasar, gana dinero para comprar armas y armaduras.",

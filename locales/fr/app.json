@@ -1,5 +1,10 @@
 {
 
+  "languageName": "French",
+  "clientSideStrings": {
+    "removeAds": "Remove Ads"
+  },
+
 "_commentfrontpage":"PAGE D'ACCUEIL DE HABITRPG",
    "synopsis" : "Ce programme vous permet de gérer votre vie quotidienne à la manière d'un jeu de rôle (RPG). Gagnez des niveaux lorsque vous réussissez vos objectifs, perdez des points de vie lorsque vous échouez et gagnez de l'argent pour acheter des armes et des armures.",
   "playButton" : "Jouer",
@@ -219,7 +224,7 @@
         "resetAltText" : "Réinitialiser entièrement votre compte (à faire avec précaution)",
         "resetText1" : "Cette action va réinitialiser entièrement votre compte : vos tâches seront supprimées et votre personnage repartira à zéro.",
         "resetText2" : "Cette action est vivement déconseillée puisqu'elle va effacer tout votre historique, qui est utile pour quantifier vos progrès dans la durée. Néanmoins, certains trouvent cette option pratique au début pour commencer à utiliser réellement HabitRPG, après s'être amusé en testant l'application.",
-      "restore" : "Restaurer"
+      "restore" : "Restaurer",
         "restoreAltText" : "Restaure les caractéristiques de votre personnage",
         "restoreText1" : "HabitRPG est plus ou moins en version bêta actuellement, et pas mal de personnes ont besoin de rajouter des points de caractéristiques injustement disparus. Entrez ici les nombres qui seront appliqués aux caractéristiques de votre personnage. Cette option sera supprimée lorsque HabitRPG sera plus stable.",
       "delete" : "Supprimer",

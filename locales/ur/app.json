@@ -1,4 +1,8 @@
 {
+  "languageName": "Urdu",
+  "clientSideStrings": {
+    "removeAds": "Remove Ads"
+  },
 
 "_commentfrontpage":"HABITRPG FRONT PAGE",
    "synopsis" : "A habit building program which treats your life like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.",

@@ -1,5 +1,10 @@
 {
 
+  "languageName": "Norwegian",
+  "clientSideStrings": {
+    "removeAds": "Remove Ads"
+  },
+
 "_commentfrontpage":"HABITRPG FRONT PAGE",
    "synopsis" : "Et vanebyggende program som viser livet ditt som et rollespill. Vær produktiv for å nå neste nivå, mist liv dersom du sluntrer unna, og tjen penger til å kjøpe våpen og annet utstyr.",
   "playButton" : "Spill",
@@ -202,10 +207,10 @@
       "origUserText" : "Stammer fra Habits fordums dager (velsigne dem for å kjempe seg gjennom bugs!)",
     "ultimGearName" : "Perfekt utstyrt",
       "ultimGearText" : "Har anskaffet det beste våpenet og den beste rustningen",
-      "ultimGearUnlocked" : "Du har oppnådd "Perfekt utstyrt" for maksimal oppgradering av utstyret ditt!",
+      "ultimGearUnlocked" : "Du har oppnådd \"Perfekt utstyrt\" for maksimal oppgradering av utstyret ditt!",
     "beastMastName" : "Beastmaster",
       "beastMastText" : "Har funnet alle 90 kjæledyr (vanvittig vanskelig, gi honnør til denne brukeren!)",
-      "beastMastUnlocked" : "Du har oppnådd "Beastmaster" for å ha funnet alle kjæledyrene!",
+      "beastMastUnlocked" : "Du har oppnådd \"Beastmaster\" for å ha funnet alle kjæledyrene!",
 
   "settings":"Innstillinger",
     "customDayStart":"Når starter dagen?",

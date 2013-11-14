@@ -1,4 +1,10 @@
 {
+
+  "languageName": "Dutch",
+  "clientSideStrings": {
+    "removeAds": "Remove Ads"
+  },
+
 "_commentfrontpage":"HABITRPG VOORPAGINA",
    "synopsis" : "Een programma om gewoontes mee op te bouwen dat je leven behandelt als een Role Playing Game. Stijg in level als je het goed doet, verlies HP als je het slecht doet, verdien geld om wapens en armor te kopen",
   "playButton" : "Speel",
@@ -380,7 +386,7 @@
   "WhyAds": "Waarom Reclame?",
     "WhyAdsContent1": "Habit is een open source project en kan alle hulp gebruiken die het kan krijgen - beschouw dit als een donatie aan de ontwikkelaars. Je krijgt ook 20 tokens van de aankoop, welke je kunt gebruiken voor speciale voorwerpen",
     "WhyAdsContent2": "'Hey, ik heb de Kickstarter gebacked' - volg ",
-    "WhyAdsContent3": "deze instructies"
+    "WhyAdsContent3": "deze instructies",
   "_commentbuttons": "KNOPPEN",
     "submit":"Verzend",
     "close":"Sluit",

@@ -1,5 +1,10 @@
 {
 
+  "languageName": "Polish",
+  "clientSideStrings": {
+    "removeAds": "Remove Ads"
+  },
+
 "_commentfrontpage":"HABITRPG FRONT PAGE",
    "synopsis" : "Program wspomagający tworzenie nawyków, który traktuje Twoje życie jak grę RPG. Zdobywaj doświadczenie, gdy coś Ci się uda, trać zdrowie, gdy coś nie wyjdzie, zarabiaj złoto na zakup zbroi i broni.",
   "playButton" : "Graj",
