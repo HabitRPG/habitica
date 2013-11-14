@@ -191,6 +191,9 @@ var UserSchema = new Schema({
     hair: {type:String, 'default':'blond'},
     hideHeader: {type:Boolean, 'default':false},
     showHelm: {type:Boolean, 'default':true},
+    showWeapon: {type:Boolean, 'default':true},
+    showShield: {type:Boolean, 'default':true},
+    showArmor: {type:Boolean, 'default':true},
     skin: {type:String, 'default':'white'},
     timezoneOffset: Number,
     language: String

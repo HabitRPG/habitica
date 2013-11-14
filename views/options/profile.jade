@@ -9,16 +9,16 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
             button.m_head_0.customize-option(type='button', ng-click='set("preferences.gender","m")')
             button.f_head_0.customize-option(type='button', ng-click='set("preferences.gender","f")')
           label.checkbox
-            input(type='checkbox', ng-model='user.preferences.showHelm', ng-change='toggleHelm(user.preferences.showHelm)')
+            input(type='checkbox', ng-model='user.preferences.showHelm', ng-change='set("preferences.showHelm", user.preferences.showHelm?true: false)')
             | Show Helm
           label.checkbox
-            input(type='checkbox', ng-model='user.preferences.showWeapon', ng-change='toggleHelm(user.preferences.showWeapon)')
+            input(type='checkbox', ng-model='user.preferences.showWeapon', ng-change='set("preferences.showWeapon", user.preferences.showWeapon?true: false)')
             | Show Weapon
           label.checkbox
-            input(type='checkbox', ng-model='user.preferences.showShield', ng-change='toggleHelm(user.preferences.showShield)')
+            input(type='checkbox', ng-model='user.preferences.showShield', ng-change='set("preferences.showShield", user.preferences.showShield?true: false)')
             | Show Shield
           label.checkbox
-            input(type='checkbox', ng-model='user.preferences.showArmor', ng-change='toggleHelm(user.preferences.showArmor)')
+            input(type='checkbox', ng-model='user.preferences.showArmor', ng-change='set("preferences.showArmor", user.preferences.showArmor?true: false)')
             | Show Armor
 
         menu(ng-show='user.preferences.gender=="f"', type='list')
