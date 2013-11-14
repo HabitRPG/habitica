@@ -8304,7 +8304,7 @@ if(typeof module != 'undefined' && module.exports){
 
 
   randomDrop = function(user, delta, priority, streak, options) {
-    var acceptableDrops, chanceMultiplier, drop, paths, rarity, reachedDropLimit, _base, _base1, _base2, _base3, _name, _name1, _name2, _ref1;
+    var acceptableDrops, chanceMultiplier, drop, paths, rarity, reachedDropLimit, _base, _base1, _base2, _name, _name1, _ref1;
     if (streak == null) {
       streak = 0;
     }
@@ -8318,7 +8318,7 @@ if(typeof module != 'undefined' && module.exports){
         count: 0
       };
     }
-    reachedDropLimit = (helpers.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5);
+    reachedDropLimit = (helpers.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 2);
     if (reachedDropLimit) {
       return;
     }
@@ -8327,29 +8327,21 @@ if(typeof module != 'undefined' && module.exports){
     chanceMultiplier += streak;
     if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && Math.random() < (.05 * chanceMultiplier)) {
       rarity = Math.random();
-      if (rarity > .6) {
-        drop = helpers.randomVal(_.omit(items.items.food, 'Saddle'));
-        if ((_base1 = user.items.food)[_name = drop.name] == null) {
-          _base1[_name] = 0;
-        }
-        user.items.food[drop.name] += 1;
-        drop.type = 'Food';
-        drop.dialog = "You've found a " + drop.text + " Food! " + drop.notes;
-      } else if (rarity > .3) {
+      if (rarity > .5) {
         drop = helpers.randomVal(eggs);
-        if ((_base2 = user.items.eggs)[_name1 = drop.name] == null) {
-          _base2[_name1] = 0;
+        if ((_base1 = user.items.eggs)[_name = drop.name] == null) {
+          _base1[_name] = 0;
         }
         user.items.eggs[drop.name]++;
         drop.type = 'Egg';
         drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
       } else {
-        acceptableDrops = rarity < .03 ? ['Golden'] : rarity < .06 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .09 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
+        acceptableDrops = rarity < .05 ? ['Golden'] : rarity < .1 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .15 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
         drop = helpers.randomVal(_.pick(hatchingPotions, (function(v, k) {
           return __indexOf.call(acceptableDrops, k) >= 0;
         })));
-        if ((_base3 = user.items.hatchingPotions)[_name2 = drop.name] == null) {
-          _base3[_name2] = 0;
+        if ((_base2 = user.items.hatchingPotions)[_name1 = drop.name] == null) {
+          _base2[_name1] = 0;
         }
         user.items.hatchingPotions[drop.name]++;
         drop.type = 'HatchingPotion';
