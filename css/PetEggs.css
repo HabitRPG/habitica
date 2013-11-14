@@ -21,7 +21,25 @@
 .Pet_HatchingPotion_CottonCandyBlue {background-position: -48px -408px; width: 48px; height: 53px; margin-left: 1.25em;}
 .Pet_HatchingPotion_Golden {background-position: -48px -459px; width: 48px; height: 53px; margin-left: 1.25em;}
 
-.Pet_Currency_Gem {background-position: 0px -510px; width: 51px; height: 45px} /* Not an egg or potion so has a different size */
+[class*='Pet_Food_'] {
+  background: url("../img/sprites/Egg_Sprite_Sheet.png") no-repeat;
+  width: 48px;
+  height: 53px;
+  margin-left: 1.25em;
+}
+.Pet_Food_Meat            {background-position: -96px -0px;}
+.Pet_Food_Milk            {background-position: -96px -51px;}
+.Pet_Food_Potatoe         {background-position: -96px -102px;}
+.Pet_Food_Strawberry      {background-position: -96px -153px;}
+.Pet_Food_Chocolate       {background-position: -96px -204px;}
+.Pet_Food_Fish            {background-position: -96px -255px;}
+.Pet_Food_RottenMeat      {background-position: -96px -306px;}
+.Pet_Food_CottonCandyPink {background-position: -96px -357px;}
+.Pet_Food_CottonCandyBlue {background-position: -96px -408px;}
+.Pet_Food_Honey           {background-position: -96px -459px;}
+.Pet_Food_Saddle          {background-position: -96px -510px;}
+
+.Pet_Currency_Gem   {background-position: 0px -510px; width: 51px; height: 45px} /* Not an egg or potion so has a different size */
 .Pet_Currency_Gem2x {background-position: -55px -513px; width: 34px; height: 30px}
 .Pet_Currency_Gem1x {background-position: -63px -542px; width: 19px; height: 17px}
 
