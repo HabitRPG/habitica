@@ -129,6 +129,9 @@
 
       "head": "Cabeça",
         "showHelm": "Mostrar Elmo",
+        "showWeapon": "Show Weapon",
+        "showShield": "Show Shield",
+        "showArmor": "Show Armor",
       "hair": "Cabelo",
       "skin": "Pele",
       "clothing" : "Vestimentas",

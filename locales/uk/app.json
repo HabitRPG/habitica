@@ -129,6 +129,9 @@
 
       "head": "Голова",
         "showHelm": "Показывать шолом",
+        "showWeapon": "Show Weapon",
+        "showShield": "Show Shield",
+        "showArmor": "Show Armor",
       "hair": "Волосся",
       "skin": "Кожа",
       "clothing" : "Одяг",

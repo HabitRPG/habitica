@@ -129,6 +129,9 @@
 
       "head": "頭",
         "showHelm": "Show 兜",
+        "showWeapon": "Show Weapon",
+        "showShield": "Show Shield",
+        "showArmor": "Show Armor",
       "hair": "Hair",
       "skin": "皮膚",
       "clothing" : "衣料",

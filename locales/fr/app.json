@@ -128,7 +128,10 @@
     "avatar": "Avatar",
 
       "head": "Tête",
-        "showHelm": "Afficher le casque",
+        "showHelm": "Montrer le casque",
+        "showWeapon": "Montrer l'arme",
+        "showShield": "Montrer le bouclier",
+        "showArmor": "Montrer l'armure",
       "hair": "Cheveux",
       "skin": "Peau",
       "clothing" : "Vêtements",

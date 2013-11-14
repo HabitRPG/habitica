@@ -128,6 +128,9 @@
 
       "head": "سر",
         "showHelm": "Show Helm",
+        "showWeapon": "Show Weapon",
+        "showShield": "Show Shield",
+        "showArmor": "Show Armor",
       "hair": "بال",
       "skin": "Skin",
       "clothing" : "Clothing",

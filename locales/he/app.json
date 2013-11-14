@@ -133,6 +133,9 @@
 
 	  "head": "ראש",
 		"showHelm": "הראה קסדה",
+        "showWeapon": "Show Weapon",
+        "showShield": "Show Shield",
+        "showArmor": "Show Armor",
 	  "hair": "שיער",
 	  "skin": "עור",
 	  "clothing" : "לבוש",

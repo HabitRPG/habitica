@@ -129,6 +129,9 @@
 
       "head": "Głowa",
         "showHelm": "Pokazuj hełm",
+        "showWeapon": "Show Weapon",
+        "showShield": "Show Shield",
+        "showArmor": "Show Armor",
       "hair": "Włosy",
       "skin": "Karnacja",
       "clothing" : "Ubranie",

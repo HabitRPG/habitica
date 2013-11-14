@@ -129,6 +129,9 @@
 	
       "head": "Hoofd",
         "showHelm": "Toon Helm",
+        "showWeapon": "Show Weapon",
+        "showShield": "Show Shield",
+        "showArmor": "Show Armor",
       "hair": "Haar",
       "skin": "Huid",
       "clothing" : "Kleding",
