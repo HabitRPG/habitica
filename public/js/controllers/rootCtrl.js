@@ -11,6 +11,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.user = User.user;
     $rootScope.settings = User.settings;
 
+    $rootScope.translations = window.env.translations;
+
     // Angular UI Router
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;

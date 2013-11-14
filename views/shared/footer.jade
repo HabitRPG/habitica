@@ -11,7 +11,7 @@ footer.footer(ng-controller='FooterCtrl')
       .span3
         h4 Company
         ul.unstyled
-          if (!isFrontPage)
+          if (!env.isFrontPage)
             li
               .btn.btn-small.btn-success(ng-click='modals.buyGems = true')
                 i.icon-heart.icon-white

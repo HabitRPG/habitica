@@ -68,6 +68,9 @@ angular.module('userServices', []).
                 _.extend(user, data);
                 $rootScope.$emit('userUpdated', user);
               }
+
+              // Emit event when user is synced
+              $rootScope.$emit('userSynced');
               user._v = data._v;
 
               // FIXME handle this somewhere else, we don't need to check every single time
