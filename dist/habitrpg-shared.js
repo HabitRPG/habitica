@@ -8335,37 +8335,35 @@ if(typeof module != 'undefined' && module.exports){
         user.items.food[drop.name] += 1;
         drop.type = 'Food';
         drop.dialog = "You've found a " + drop.text + " Food! " + drop.notes;
-      } else {
-        if (rarity > .3) {
-          drop = helpers.randomVal(eggs);
-          if ((_base2 = user.items.eggs)[_name1 = drop.name] == null) {
-            _base2[_name1] = 0;
-          }
-          user.items.eggs[drop.name]++;
-          drop.type = 'Egg';
-          drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
-        } else {
-          acceptableDrops = [];
-          if (rarity < .15) {
-            acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue Golden'.split(' ');
-          } else if (rarity < .2) {
-            acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue'.split(' ');
-          } else if (rarity < .25) {
-            acceptableDrops = 'Base White Desert Red Shade Skeleton'.split(' ');
-          } else {
-            acceptableDrops = ['Base', 'White', 'Desert'];
-          }
-          acceptableDrops = _.pick(hatchingPotions, (function(v, k) {
-            return __indexOf.call(acceptableDrops, k) >= 0;
-          }));
-          drop = helpers.randomVal(acceptableDrops);
-          if ((_base3 = user.items.hatchingPotions)[_name2 = drop.name] == null) {
-            _base3[_name2] = 0;
-          }
-          user.items.hatchingPotions[drop.name]++;
-          drop.type = 'HatchingPotion';
-          drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
+      } else if (rarity > .3) {
+        drop = helpers.randomVal(eggs);
+        if ((_base2 = user.items.eggs)[_name1 = drop.name] == null) {
+          _base2[_name1] = 0;
         }
+        user.items.eggs[drop.name]++;
+        drop.type = 'Egg';
+        drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
+      } else {
+        acceptableDrops = [];
+        if (rarity < .15) {
+          acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue Golden'.split(' ');
+        } else if (rarity < .2) {
+          acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue'.split(' ');
+        } else if (rarity < .25) {
+          acceptableDrops = 'Base White Desert Red Shade Skeleton'.split(' ');
+        } else {
+          acceptableDrops = ['Base', 'White', 'Desert'];
+        }
+        acceptableDrops = _.pick(hatchingPotions, (function(v, k) {
+          return __indexOf.call(acceptableDrops, k) >= 0;
+        }));
+        drop = helpers.randomVal(acceptableDrops);
+        if ((_base3 = user.items.hatchingPotions)[_name2 = drop.name] == null) {
+          _base3[_name2] = 0;
+        }
+        user.items.hatchingPotions[drop.name]++;
+        drop.type = 'HatchingPotion';
+        drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
       }
       user._tmp.drop = drop;
       user.items.lastDrop.date = +(new Date);
@@ -9742,53 +9740,43 @@ try {
     hatchingPotions: {
       Base: {
         value: 1,
-        text: 'Base',
-        notes: "Hatches your pet in it's base form."
+        text: 'Base'
       },
       White: {
         value: 2,
-        text: 'White',
-        notes: 'Turns your animal into a White pet.'
+        text: 'White'
       },
       Desert: {
         value: 2,
-        text: 'Desert',
-        notes: 'Turns your animal into a Desert pet.'
+        text: 'Desert'
       },
       Red: {
         value: 3,
-        text: 'Red',
-        notes: 'Turns your animal into a Red pet.'
+        text: 'Red'
       },
       Shade: {
         value: 3,
-        text: 'Shade',
-        notes: 'Turns your animal into a Shade pet.'
+        text: 'Shade'
       },
       Skeleton: {
         value: 3,
-        text: 'Skeleton',
-        notes: 'Turns your animal into a Skeleton.'
+        text: 'Skeleton'
       },
       Zombie: {
         value: 4,
-        text: 'Zombie',
-        notes: 'Turns your animal into a Zombie.'
+        text: 'Zombie'
       },
       CottonCandyPink: {
         value: 4,
-        text: 'Cotton Candy Pink',
-        notes: 'Turns your animal into a Cotton Candy Pink pet.'
+        text: 'Cotton Candy Pink'
       },
       CottonCandyBlue: {
         value: 4,
-        text: 'Cotton Candy Blue',
-        notes: 'Turns your animal into a Cotton Candy Blue pet.'
+        text: 'Cotton Candy Blue'
       },
       Golden: {
         value: 5,
-        text: 'Golden',
-        notes: 'Turns your animal into a Golden pet.'
+        text: 'Golden'
       }
     },
     food: {
@@ -9866,6 +9854,7 @@ try {
   _.each(items.hatchingPotions, function(pot, k) {
     return _.defaults(pot, {
       name: k,
+      value: 2,
       notes: "Pour this on an egg, and it will hatch as a " + pot.text + " pet."
     });
   });

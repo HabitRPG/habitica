@@ -59,16 +59,16 @@ items = module.exports.items =
     #{text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3}
 
   hatchingPotions:
-    Base:             value: 1, text: 'Base', notes: "Hatches your pet in it's base form."
-    White:            value: 2, text: 'White', notes: 'Turns your animal into a White pet.'
-    Desert:           value: 2, text: 'Desert', notes: 'Turns your animal into a Desert pet.'
-    Red:              value: 3, text: 'Red', notes: 'Turns your animal into a Red pet.'
-    Shade:            value: 3, text: 'Shade', notes: 'Turns your animal into a Shade pet.'
-    Skeleton:         value: 3, text: 'Skeleton', notes: 'Turns your animal into a Skeleton.'
-    Zombie:           value: 4, text: 'Zombie', notes: 'Turns your animal into a Zombie.'
-    CottonCandyPink:  value: 4, text: 'Cotton Candy Pink', notes: 'Turns your animal into a Cotton Candy Pink pet.'
-    CottonCandyBlue:  value: 4, text: 'Cotton Candy Blue', notes: 'Turns your animal into a Cotton Candy Blue pet.'
-    Golden:           value: 5, text: 'Golden', notes: 'Turns your animal into a Golden pet.'
+    Base:             value: 1, text: 'Base'
+    White:            value: 2, text: 'White'
+    Desert:           value: 2, text: 'Desert'
+    Red:              value: 3, text: 'Red'
+    Shade:            value: 3, text: 'Shade'
+    Skeleton:         value: 3, text: 'Skeleton'
+    Zombie:           value: 4, text: 'Zombie'
+    CottonCandyPink:  value: 4, text: 'Cotton Candy Pink'
+    CottonCandyBlue:  value: 4, text: 'Cotton Candy Blue'
+    Golden:           value: 5, text: 'Golden'
 
   food:
     Meat:             text: 'Meat', target: 'Base'
@@ -105,7 +105,7 @@ _.each items.eggs, (egg,k) ->
     mountText: egg.text
 
 _.each items.hatchingPotions, (pot,k) ->
-  _.defaults pot, {name: k, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
+  _.defaults pot, {name: k, value: 2, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
 
 _.each items.food, (food,k) ->
   _.defaults food, {value: 1, name: k, notes: "Feed this to a pet and it may grown into a sturdy steed."}

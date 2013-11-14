@@ -134,7 +134,6 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
 
     # Food: 40% chance
     if rarity > .6
-
       drop = helpers.randomVal _.omit(items.items.food, 'Saddle')
       user.items.food[drop.name] ?= 0
       user.items.food[drop.name]+= 1
@@ -142,45 +141,44 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
       drop.dialog = "You've found a #{drop.text} Food! #{drop.notes}"
 
     # Eggs & hatchingPotions: 60% chance
+    else if rarity > .3
+      drop = helpers.randomVal eggs
+      user.items.eggs[drop.name] ?= 0
+      user.items.eggs[drop.name]++
+      drop.type = 'Egg'
+      drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
+
+      # Hatching Potion, 30% chance - break down by rarity even more.
     else
-      if rarity > .3
-        drop = helpers.randomVal(eggs)
-        user.items.eggs[drop.name] ?= 0
-        user.items.eggs[drop.name]++
-        drop.type = 'Egg'
-        drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
+      acceptableDrops = []
 
-        # Hatching Potion, 30% chance - break down by rarity even more.
+      # Tier 5 (Blue Moon Rare)
+      if rarity < .15
+        acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue Golden'.split(' ')
+
+        # Tier 4 (Very Rare)
+      else if rarity < .2
+        acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue'.split(' ')
+
+        # Tier 3 (Rare)
+      else if rarity < .25
+        acceptableDrops = 'Base White Desert Red Shade Skeleton'.split(' ')
+
+      # Commented out for testing with increased egg drop, delete if successful
+        # Tier 2 (Scarce)
+      # else if rarity < .4
+      #   acceptableDrops = ['Base', 'White', 'Desert']
+
+        # Tier 1 (Common)
       else
-        acceptableDrops = []
+        acceptableDrops = ['Base', 'White', 'Desert']
 
-        # Tier 5 (Blue Moon Rare)
-        if rarity < .15
-          acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue Golden'.split(' ')
-
-          # Tier 4 (Very Rare)
-        else if rarity < .2
-          acceptableDrops = 'Base White Desert Red Shade Skeleton Zombie CottonCandyPink CottonCandyBlue'.split(' ')
-
-          # Tier 3 (Rare)
-        else if rarity < .25
-          acceptableDrops = 'Base White Desert Red Shade Skeleton'.split(' ')
-
-        # Commented out for testing with increased egg drop, delete if successful
-          # Tier 2 (Scarce)
-        # else if rarity < .4
-        #   acceptableDrops = ['Base', 'White', 'Desert']
-
-          # Tier 1 (Common)
-        else
-          acceptableDrops = ['Base', 'White', 'Desert']
-
-        acceptableDrops = _.pick hatchingPotions, ((v,k) -> k in acceptableDrops)
-        drop = helpers.randomVal acceptableDrops
-        user.items.hatchingPotions[drop.name] ?= 0
-        user.items.hatchingPotions[drop.name]++
-        drop.type = 'HatchingPotion'
-        drop.dialog = "You've found a #{drop.text} Hatching Potion! #{drop.notes}"
+      acceptableDrops = _.pick hatchingPotions, ((v,k) -> k in acceptableDrops)
+      drop = helpers.randomVal acceptableDrops
+      user.items.hatchingPotions[drop.name] ?= 0
+      user.items.hatchingPotions[drop.name]++
+      drop.type = 'HatchingPotion'
+      drop.dialog = "You've found a #{drop.text} Hatching Potion! #{drop.notes}"
 
     # if they've dropped something, we want the consuming client to know so they can notify the user. See how the Derby
     # app handles it for example. Would this be better handled as an emit() ?
