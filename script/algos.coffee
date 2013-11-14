@@ -2,7 +2,7 @@ moment = require('moment')
 _ = require('lodash')
 helpers = require('./helpers.coffee')
 items = require('./items.coffee')
-{pets, hatchingPotions} = items.items
+{eggs, hatchingPotions} = items.items
 
 XP = 15
 HP = 2
@@ -118,7 +118,6 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
   user.items.lastDrop ?=
     date: +moment().subtract('d', 1) # trick - set it to yesterday on first run, that way they can get drops today
     count: 0
-  paths['items.lastDrop'] = true
 
   reachedDropLimit = (helpers.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 2)
   return if reachedDropLimit
@@ -133,45 +132,40 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
     # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
     rarity = Math.random()
 
-    # Egg, 50% chance
+#    # Food: 40% chance
+#    if rarity > .6
+#      drop = helpers.randomVal _.omit(items.items.food, 'Saddle')
+#      user.items.food[drop.name] ?= 0
+#      user.items.food[drop.name]+= 1
+#      drop.type = 'Food'
+#      drop.dialog = "You've found a #{drop.text} Food! #{drop.notes}"
+
+    # Eggs: 30% chance
     if rarity > .5
-      drop = helpers.randomVal(pets)
-      (user.items.eggs ?= []).push drop; paths['items.eggs'] = true
+      drop = helpers.randomVal eggs
+      user.items.eggs[drop.name] ?= 0
+      user.items.eggs[drop.name]++
       drop.type = 'Egg'
       drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
 
-      # Hatching Potion, 50% chance - break down by rarity even more. FIXME this may not be the best method, so revisit
+    # Hatching Potion, 30% chance - break down by rarity.
     else
-      acceptableDrops = []
+      acceptableDrops =
+        # Very Rare: 10% (of 30%)
+        if rarity < .05 then ['Golden']
+        # Rare: 20% (of 30%)
+        else if rarity < .1 then ['Zombie', 'CottonCandyPink', 'CottonCandyBlue']
+        # Uncommon: 30% (of 30%)
+        else if rarity < .15 then ['Red', 'Shade', 'Skeleton']
+        # Common: 40% (of 30%)
+        else ['Base', 'White', 'Desert']
 
-      # Tier 5 (Blue Moon Rare)
-      if rarity < .1
-        acceptableDrops =
-          ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue',
-           'Golden']
+      # No Rarity (@see https://github.com/HabitRPG/habitrpg/issues/1048, we may want to remove rareness when we add mounts)
+      #drop = helpers.randomVal hatchingPotions
+      drop = helpers.randomVal _.pick(hatchingPotions, ((v,k) -> k in acceptableDrops))
 
-        # Tier 4 (Very Rare)
-      else if rarity < .2
-        acceptableDrops =
-          ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton', 'Zombie', 'CottonCandyPink', 'CottonCandyBlue']
-
-        # Tier 3 (Rare)
-      else if rarity < .3
-        acceptableDrops = ['Base', 'White', 'Desert', 'Red', 'Shade', 'Skeleton']
-
-      # Commented out for testing with increased egg drop, delete if successful
-        # Tier 2 (Scarce)
-      # else if rarity < .4
-      #   acceptableDrops = ['Base', 'White', 'Desert']
-
-        # Tier 1 (Common)
-      else
-        acceptableDrops = ['Base', 'White', 'Desert']
-
-      acceptableDrops = hatchingPotions.filter (hatchingPotion) ->
-        hatchingPotion.name in acceptableDrops
-      drop = helpers.randomVal acceptableDrops
-      (user.items.hatchingPotions ?= []).push drop.name; paths['items.hatchingPotions'] = true
+      user.items.hatchingPotions[drop.name] ?= 0
+      user.items.hatchingPotions[drop.name]++
       drop.type = 'HatchingPotion'
       drop.dialog = "You've found a #{drop.text} Hatching Potion! #{drop.notes}"
 
@@ -181,7 +175,6 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
 
     user.items.lastDrop.date = +new Date
     user.items.lastDrop.count++
-    paths['items.lastDrop'] = true
 
 
 #  {task} task you want to score
@@ -313,10 +306,10 @@ updateStats = (user, newStats, options={}) ->
   if newStats.hp?
     # Game Over
     if newStats.hp <= 0
-      user.stats.hp = 0; paths['stats.hp'] = true # signifies dead
+      user.stats.hp = 0
       return
     else
-      user.stats.hp = newStats.hp; paths['stats.hp'] = true
+      user.stats.hp = newStats.hp
 
   if newStats.exp?
     tnl = obj.tnl(user.stats.lvl)
@@ -341,21 +334,17 @@ updateStats = (user, newStats, options={}) ->
 
     user.stats.exp = newStats.exp
 
-    paths["stats.exp"]=true; paths['stats.lvl']=true; paths['stats.gp']=true; paths['stats.hp']=true;
-    #if silent
-    #console.log("pushing silent :"  + obj.stats.exp)
-
-
     # Set flags when they unlock features
     user.flags ?= {}
     if !user.flags.customizationsNotification and (user.stats.exp > 10 or user.stats.lvl > 1)
-      user.flags.customizationsNotification = true; paths['flags.customizationsNotification']=true;
+      user.flags.customizationsNotification = true
     if !user.flags.itemsEnabled and user.stats.lvl >= 2
-      user.flags.itemsEnabled = true; paths['flags.itemsEnabled']=true;
+      user.flags.itemsEnabled = true
     if !user.flags.partyEnabled and user.stats.lvl >= 3
-      user.flags.partyEnabled = true; paths['flags.partyEnabled']=true;
+      user.flags.partyEnabled = true
     if !user.flags.dropsEnabled and user.stats.lvl >= 4
-      user.flags.dropsEnabled = true; paths['flags.dropsEnabled']=true;
+      user.flags.dropsEnabled = true
+      user.items.eggs["Wolf"] = 1
 
   if newStats.gp?
     #FIXME what was I doing here? I can't remember, gp isn't defined

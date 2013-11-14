@@ -45,31 +45,48 @@ items = module.exports.items =
   potion: {type: 'potion', text: "Potion", notes: "Recover 15 HP (Instant Use)", value: 25, classes: 'potion'}
   reroll: {type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your task values back to 0 (yellow). Useful when everything's red and it's hard to stay alive.", value:0 }
 
-  pets: [
-    {text: 'Wolf', name: 'Wolf', value: 3}
-    {text: 'Tiger Cub', name: 'TigerCub', value: 3}
-    #{text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3} #commented out because there are no polarbear modifiers yet, special drop?
-    {text: 'Panda Cub', name: 'PandaCub', value: 3}
-    {text: 'Lion Cub', name: 'LionCub', value: 3}
-    {text: 'Fox', name: 'Fox', value: 3}
-    {text: 'Flying Pig', name: 'FlyingPig', value: 3}
-    {text: 'Dragon', name: 'Dragon', value: 3}
-    {text: 'Cactus', name: 'Cactus', value: 3}
-    {text: 'Bear Cub', name: 'BearCub', value: 3}
-  ]
+  eggs:
+    # value & other defaults set below
+    Wolf:             text: 'Wolf'
+    TigerCub:         text: 'Tiger Cub', mountText: 'Tiger'
+    PandaCub:         text: 'Panda Cub', mountText: 'Panda'
+    LionCub:          text: 'Lion Cub',  mountText: 'Lion'
+    Fox:              text: 'Fox'
+    FlyingPig:        text: 'Flying Pig'
+    Dragon:           text: 'Dragon'
+    Cactus:           text: 'Cactus'
+    BearCub:          text: 'Bear Cub',  mountText: 'Bear'
+    #{text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3}
 
-  hatchingPotions: [
-    {text: 'Base', name: 'Base', notes: "Hatches your pet in it's base form.", value: 1}
-    {text: 'White', name: 'White', notes: 'Turns your animal into a White pet.', value: 2}
-    {text: 'Desert', name: 'Desert', notes: 'Turns your animal into a Desert pet.', value: 2}
-    {text: 'Red', name: 'Red', notes: 'Turns your animal into a Red pet.', value: 3}
-    {text: 'Shade', name: 'Shade', notes: 'Turns your animal into a Shade pet.', value: 3}
-    {text: 'Skeleton', name: 'Skeleton', notes: 'Turns your animal into a Skeleton.', value: 3}
-    {text: 'Zombie', name: 'Zombie', notes: 'Turns your animal into a Zombie.', value: 4}
-    {text: 'Cotton Candy Pink', name: 'CottonCandyPink', notes: 'Turns your animal into a Cotton Candy Pink pet.', value: 4}
-    {text: 'Cotton Candy Blue', name: 'CottonCandyBlue', notes: 'Turns your animal into a Cotton Candy Blue pet.', value: 4}
-    {text: 'Golden', name: 'Golden', notes: 'Turns your animal into a Golden pet.', value: 5}
-  ]
+  hatchingPotions:
+    Base:             value: 2, text: 'Base'
+    White:            value: 2, text: 'White'
+    Desert:           value: 2, text: 'Desert'
+    Red:              value: 3, text: 'Red'
+    Shade:            value: 3, text: 'Shade'
+    Skeleton:         value: 3, text: 'Skeleton'
+    Zombie:           value: 4, text: 'Zombie'
+    CottonCandyPink:  value: 4, text: 'Cotton Candy Pink'
+    CottonCandyBlue:  value: 4, text: 'Cotton Candy Blue'
+    Golden:           value: 5, text: 'Golden'
+
+  food:
+    Meat:             text: 'Meat', target: 'Base'
+    Milk:             text: 'Milk', target: 'White'
+    Potatoe:          text: 'Potatoe', target: 'Desert'
+    Strawberry:       text: 'Strawberry', target: 'Red'
+    Chocolate:        text: 'Chocolate', target: 'Shade'
+    Fish:             text: 'Fish', target: 'Skeleton'
+    RottenMeat:       text: 'Rotten Meat', target: 'Zombie'
+    CottonCandyPink:  text: 'Pink Cotton Candy', target: 'CottonCandyPink'
+    CottonCandyBlue:  text: 'Blue Cotton Candy', target: 'CottonCandyBlue'
+    Honey:            text: 'Honey', target: 'Golden'
+    # FIXME what to do with these extra items? Should we add "targets" (plural) for food instead of singular, so we don't have awkward extras?
+    #Cheese:           text: 'Cheese', target: 'Golden'
+    #Watermelon:       text: 'Watermelon', target: 'Golden'
+    #SeaWeed:          text: 'SeaWeed', target: 'Golden'
+
+    Saddle:           text: 'Saddle', value: 5, notes: 'Instantly raises your pet into a mount.'
 
 # we somtimes want item arrays above in reverse order, for backward lookups (you'll see later in the code)
 reversed = {}
@@ -80,8 +97,18 @@ _.each ['weapon', 'armor', 'head', 'shield'], (type) ->
   # Also add canOwn(), which we use when comparing if user is a backer or contributor - but defaulted to `return true`
   _.each items[type], (item) -> _.defaults(item, {type, canOwn: ->true})
 
-_.each items.pets, (pet) -> pet.notes = 'Find a hatching potion to pour on this egg, and it will hatch into a loyal pet.'
-_.each items.hatchingPotions, (hatchingPotion) -> hatchingPotion.notes = "Pour this on an egg, and it will hatch as a #{hatchingPotion.text} pet."
+_.each items.eggs, (egg,k) ->
+  _.defaults egg,
+    value: 3
+    name: k
+    notes: 'Find a hatching potion to pour on this egg, and it will hatch into a loyal pet.'
+    mountText: egg.text
+
+_.each items.hatchingPotions, (pot,k) ->
+  _.defaults pot, {name: k, value: 2, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
+
+_.each items.food, (food,k) ->
+  _.defaults food, {value: 1, name: k, notes: "Feed this to a pet and it may grown into a sturdy steed."}
 
 module.exports.buyItem = (user, type) ->
   nextItem =
