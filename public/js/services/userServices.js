@@ -72,18 +72,12 @@ angular.module('userServices', []).
               // Emit event when user is synced
               $rootScope.$emit('userSynced');
               user._v = data._v;
-
-              // FIXME handle this somewhere else, we don't need to check every single time
-              var offset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
-              if (!user.preferences.timezoneOffset || user.preferences.timezoneOffset !== offset) {
-                userServices.set('preferences.timezoneOffset', offset);
-              }
             }
             sent.length = 0;
             settings.fetching = false;
             save();
             if (cb) {
-                cb(false)
+              cb(false)
             }
 
             syncQueue(); // call syncQueue to check if anyone pushed more actions to the queue while we were talking to server.
@@ -123,7 +117,13 @@ angular.module('userServices', []).
             settings.auth.apiToken = token;
             settings.online = true;
             if (user && user._v) user._v--; // shortcut to always fetch new updates on page reload
-            userServices.log({}, cb);
+            userServices.log({}, function(){
+              // If they don't have timezone, set it
+              var offset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
+              if (user.preferences.timezoneOffset !== offset)
+                userServices.set('preferences.timezoneOffset', offset);
+              cb && cb();
+            });
           } else {
             alert('Please enter your ID and Token in settings.')
           }
