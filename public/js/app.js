@@ -61,6 +61,10 @@ window.habitrpg = angular.module('habitrpg',
           url: "/profile",
           templateUrl: "partials/options.profile.profile.html"
         })
+        .state('options.profile.data', {
+          url: "/profile/data",
+          templateUrl: "partials/options.profile.data.html"
+        })
 
         // Options > Groups
         .state('options.social', {

@@ -116,6 +116,7 @@ if ("development" === app.get("env")) {
 app.use(require('./routes/pages').middleware);
 app.use(require('./routes/auth').middleware);
 app.use('/api/v1', require('./routes/api').middleware);
+app.use('/export', require('./routes/dataexport').middleware);
 app.use(require('./controllers/deprecated').middleware);
 server = http.createServer(app).listen(app.get("port"), function() {
   return console.log("Express server listening on port " + app.get("port"));
