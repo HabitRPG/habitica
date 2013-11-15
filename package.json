@@ -44,7 +44,6 @@
     "grunt-cli": "~0.1.9",
     "paypal-ipn": "~1.0.1",
     "express-csv": "~0.6.0",
-    "moment": "2.4.0"
   },
   "private": true,
   "subdomain": "habitrpg",
