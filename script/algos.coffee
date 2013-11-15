@@ -151,13 +151,13 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
     # Hatching Potion, 30% chance - break down by rarity.
     else
       acceptableDrops =
-        # Very Rare: 10% (of 50%)
-        if rarity < .05 then ['Golden']
-        # Rare: 20% (of 50%)
-        else if rarity < .15 then ['Zombie', 'CottonCandyPink', 'CottonCandyBlue']
-        # Uncommon: 30% (of 50%)
-        else if rarity < .30 then ['Red', 'Shade', 'Skeleton']
-        # Common: 40% (of 50%)
+        # Very Rare: 4% of 50% (4% each)
+        if rarity < .02 then ['Golden']
+        # Rare: 22% of 50% (7.33% each)
+        else if rarity < .13 then ['Zombie', 'CottonCandyPink', 'CottonCandyBlue']
+        # Uncommon: 32% of 50% (10.66% each)
+        else if rarity < .29 then ['Red', 'Shade', 'Skeleton']
+        # Common: 42% of 50% (14% each)
         else ['Base', 'White', 'Desert']
 
       # No Rarity (@see https://github.com/HabitRPG/habitrpg/issues/1048, we may want to remove rareness when we add mounts)
