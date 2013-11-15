@@ -3,15 +3,14 @@
 habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state',
   function($scope, User, Challenges, Notification, $compile, Groups, $state) {
 
-    // FIXME get this from cache
-    Groups.Group.query({type:'party,guilds,tavern'}, function(groups){
-      $scope.groups = groups;
+    // FIXME $scope.challenges needs to be resolved first (see app.js)
+    Challenges.Challenge.query(function(challenges){
+      $scope.challenges = challenges;
+      $scope.groups = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
       $scope.search = {
-        group: _.transform(groups, function(m,g){m[g._id]=true;})
+        group: _.transform($scope.groups, function(m,g){m[g._id]=true;})
       };
     });
-    // FIXME $scope.challenges needs to be resolved first (see app.js)
-    $scope.challenges = Challenges.Challenge.query();
     // we should fix this, that's pretty brittle
 
     // override score() for tasks listed in challenges-editing pages, so that nothing happens
