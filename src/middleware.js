@@ -2,6 +2,7 @@ var nconf = require('nconf');
 var _ = require('lodash');
 var fs = require('fs');
 var path = require('path');
+var User = require('./models/user').model
 
 module.exports.forceSSL = function(req, res, next){
   var baseUrl = nconf.get("BASE_URL");
@@ -13,12 +14,6 @@ module.exports.forceSSL = function(req, res, next){
   }
   next()
 }
-
-module.exports.splash = function(req, res, next) {
-  if (req.url == '/' && !req.headers['x-api-user'] && !req.headers['x-api-key'] && !(req.session && req.session.userId))
-    return res.redirect('/static/front')
-  next()
-};
 
 module.exports.cors = function(req, res, next) {
   res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
@@ -82,25 +77,84 @@ var getManifestFiles = function(page){
     return results;
   }
 
-} 
+}
+
+// Translations
+
+var translations = {};
+
+var loadTranslations = function(locale){
+  translations[locale] = require(path.join(__dirname, "/../locales/", locale, 'app.json'));
+}
+
+// First fetch english so we can merge with missing strings in other languages
+loadTranslations('en');
+
+fs.readdirSync(path.join(__dirname, "/../locales")).forEach(function(file) {
+  if(file === 'en') return;
+  loadTranslations(file);
+  // Merge missing strings from english
+  _.defaults(translations[file], translations.en);
+});
+
+var langCodes = Object.keys(translations);
+
+var avalaibleLanguages = _.map(langCodes, function(langCode){
+  return {
+    code: langCode,
+    name: translations[langCode].languageName
+  }
+});
+
+var getUserLanguage = function(req, callback){
+  var getFromBrowser = function(){
+    var acceptable = _(req.acceptedLanguages).map(function(lang){
+      return lang.slice(0, 2);
+    }).uniq().value();
+
+    var matches = _.intersection(acceptable, langCodes);
+    return matches.length > 0 ? matches[0] : 'en';
+  };
+
+  if(req.session && req.session.userId){
+    User.findOne({_id: req.session.userId}, function(err, user){
+      if(err) return callback(err);
+      if(user && user.preferences.language && translations[user.preferences.language]){
+        return callback(null, _.find(avalaibleLanguages, {code: user.preferences.language}));
+      }else{
+        var langCode = getFromBrowser();
+        if(user && translations[langCode]){
+          user.preferences.language = langCode;
+          user.save(); //callback?
+        }
+        return callback(null, _.find(avalaibleLanguages, {code: langCode}))
+      }
+    });
+  }else{
+    return callback(null, _.find(avalaibleLanguages, {code: getFromBrowser()}));    
+  }
+}
 
 module.exports.locals = function(req, res, next) {
-  res.locals.habitrpg  = res.locals.habitrpg || {}
-  _.defaults(res.locals.habitrpg, {
-    NODE_ENV: nconf.get('NODE_ENV'),
-    BASE_URL: nconf.get('BASE_URL'),
-    PAYPAL_MERCHANT: nconf.get('PAYPAL_MERCHANT'),
-    IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
-    STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
-    getManifestFiles: getManifestFiles,
-    getBuildUrl: getBuildUrl
+  getUserLanguage(req, function(err, language){
+    if(err) return res.json(500, {err: err});
+
+    res.locals.habitrpg = {
+      NODE_ENV: nconf.get('NODE_ENV'),
+      BASE_URL: nconf.get('BASE_URL'),
+      PAYPAL_MERCHANT: nconf.get('PAYPAL_MERCHANT'),
+      IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
+      STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
+      getManifestFiles: getManifestFiles,
+      getBuildUrl: getBuildUrl,
+      avalaibleLanguages: avalaibleLanguages,
+      language: language,
+      translations: translations[language.code],
+      t: function(string){
+        return (translations[language.code][string] || translations[language.code].stringNotFound);
+      }
+    }
+
+    next(); 
   });
-  next()
 }
-/*
- //  translate = (req, res, next) ->
- //    model = req.getModel()
- //    # Set locale to bg on dev
- //    #model.set '_i18n.locale', 'bg' if process.env.NODE_ENV is "development"
- //    next()
- */

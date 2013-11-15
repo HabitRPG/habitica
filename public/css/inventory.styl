@@ -52,23 +52,40 @@ menu.pets div
     padding-right:20px
     padding-bottom:20px
 
-.Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Veteran, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_SugarCube, .Pet_Food_Strawberry, .Pet_Food_Rotten, .Pet_Food_Licorice, .Pet_Food_Golden, .Pet_Food_Cream, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Chocolate, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base
-    background: url("/bower_components/habitrpg-shared/img/hatching_powder.png") no-repeat
-    width:34px
-    height:34px
+// we'll remove this and place it into habitrpg-shared when we have art to work with
+menu button[class*="Pet_Food_"]
+    width:48px
+    height:53px
+    margin-left: 1.25em
 
 .Pet_Currency_Gem, .Pet_Currency_Gem2x, .Pet_Currency_Gem1x
     background: url("/bower_components/habitrpg-shared/img/sprites/Egg_Sprite_Sheet.png") no-repeat
     display:block
 
+.food-tray
+  position:fixed
+  right:0px
+  bottom:0px
+  width:30%
+  height: 50%
+  overflow-y: scroll
+
 .Pet_Currency_Gem {background-position: 0px -510px; width: 51px; height: 45px} /* Not an egg or potion so has a different size */
 .Pet_Currency_Gem2x {background-position: -55px -513px; width: 34px; height: 30px}
 .Pet_Currency_Gem1x {background-position: -63px -542px; width: 19px; height: 17px}
 
-.inventory-list p
+.inventory-list
+  p
     //display: none
-.inventory-list li
+  li
     clear:both
+  button.customize-option
+    position:relative
+  .stack-count
+    position:absolute
+    bottom:-6px
+    right:-9px
+
 .pets-menu > div
     display:inline-block
     vertical-align:top
@@ -90,6 +107,17 @@ menu.pets div
       width:6em
       margin-top:-.5em
 
+// This adds feeding progress bars to pets. If we have any issues with `menu.pets > button`, revisit
+menu.pets .customize-menu
+  button
+    position: relative
+  .progress
+    width: 60%
+    position: absolute
+    bottom: -25px
+    left: 20%
+    height: 5px
+
 .pet-button
     border: none
     background: none white
@@ -106,6 +134,7 @@ menu.pets div
 
 .selectableInventory
   background-color: lightgreen !important
+  border-radius: 50%
 
 .sell-inventory
   width: 162px

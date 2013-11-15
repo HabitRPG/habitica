@@ -1,5 +1,11 @@
 "use strict";
 
+window.env = window.env || {}; //FIX tests
+
+window.env.t = function(string){
+  return (window.env.translations[string] || window.env.translations.stringNotFound);
+}
+
 window.habitrpg = angular.module('habitrpg',
     ['ngResource', 'ngSanitize', 'userServices', 'groupServices', 'memberServices', 'challengeServices',
      'sharedServices', 'authServices', 'notificationServices', 'guideServices',
@@ -24,6 +30,7 @@ window.habitrpg = angular.module('habitrpg',
         .when('/options/groups', '/options/groups/tavern')
         .when('/options/groups/guilds', '/options/groups/guilds/public')
         .when('/options/inventory', '/options/inventory/inventory')
+        .when('/options/inventory/stable', '/options/inventory/stable/pets')
 
         // redirect states that don't match
         .otherwise("/tasks");
@@ -132,7 +139,8 @@ window.habitrpg = angular.module('habitrpg',
         // Options > Inventory
         .state('options.inventory', {
           url: '/inventory',
-          templateUrl: "partials/options.inventory.html"
+          templateUrl: "partials/options.inventory.html",
+          controller: 'InventoryCtrl'
         })
         .state('options.inventory.inventory', {
           url: '/inventory',
@@ -141,6 +149,14 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.inventory.stable', {
           url: '/stable',
           templateUrl: "partials/options.inventory.stable.html"
+        })
+        .state('options.inventory.stable.pets', {
+          url: '/pets',
+          templateUrl: "partials/options.inventory.stable.pets.html"
+        })
+        .state('options.inventory.stable.mounts', {
+          url: '/mounts',
+          templateUrl: "partials/options.inventory.stable.mounts.html"
         })
 
         // Options > Settings

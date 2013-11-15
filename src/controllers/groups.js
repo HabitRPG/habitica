@@ -60,9 +60,7 @@ api.updateMember = function(req, res) {
         member.balance += (req.body.contributor.level - (member.contributor.level || 0))*.5 // +2 gems per tier
       }
       _.merge(member, _.pick(req.body, 'contributor'));
-      if (!member.items.pets) member.items.pets = [];
-      var i = member.items.pets.indexOf('Dragon-Hydra');
-      if (!~i && member.contributor.level >= 6) member.items.pets.push('Dragon-Hydra');
+      if (member.contributor.level >= 6) member.items.pets['Dragon-Hydra'] = 5;
       member.save(cb);
     }
   ], function(err, saved){
@@ -196,7 +194,7 @@ api.update = function(req, res, next) {
   if(group.leader !== user._id)
     return res.json(401, {err: "Only the group leader can update the group!"});
 
-  'name description logo websites logo leaderMessage leader'.split(' ').forEach(function(attr){
+  'name description logo logo leaderMessage leader'.split(' ').forEach(function(attr){
     group[attr] = req.body[attr];
   });
 

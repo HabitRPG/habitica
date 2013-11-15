@@ -7,12 +7,19 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var helpers = require('habitrpg-shared/script/helpers');
+var items = require('habitrpg-shared/script/items');
 var _ = require('lodash');
 var TaskSchema = require('./task').schema;
 var Challenge = require('./challenge').model;
 
 // User Schema
 // -----------
+
+var eggPotionMapping = _.transform(items.items.eggs, function(m, egg){
+  _.defaults(m, _.transform(items.items.hatchingPotions, function(m2, pot){
+    m2[egg.name + '-' + pot.name] = true;
+  }));
+})
 
 var UserSchema = new Schema({
   // ### UUID and API Token
@@ -83,7 +90,6 @@ var UserSchema = new Schema({
     newStuff: {type: Boolean, 'default': false},
     rewrite: {type: Boolean, 'default': true},
     partyEnabled: Boolean, // FIXME do we need this?
-    petsEnabled: {type: Boolean, 'default': false},
     rest: {type: Boolean, 'default': false}, // fixme - change to preferences.resting once we're off derby
     contributor: Boolean
   },
@@ -92,7 +98,7 @@ var UserSchema = new Schema({
     todos: Array //[{data: Date, value: Number}] // big peformance issues if these are defined
   },
 
-  /* FIXME remove?*/
+  // FIXME remove?
   invitations: {
     guilds: {type: Array, 'default': []},
     party: Schema.Types.Mixed
@@ -103,52 +109,65 @@ var UserSchema = new Schema({
     head: Number,
     shield: Number,
 
-    /*FIXME - tidy this up, not the best way to store current pet*/
+    // -------------- Animals -------------------
 
-    currentPet: {
-      /*Cactus*/
-
-      text: String,
-      /*Cactus*/
-
-      name: String,
-      /*3*/
-
-      value: Number,
-      /*"Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.",*/
-
-      notes: String,
-      /*Skeleton*/
-
-      modifier: String,
-      /*Cactus-Skeleton*/
-
-      str: String
-    },
-
-    eggs: [
+    // Complex bit here. The result looks like:
+    // pets: {
+    //   'Wolf-Desert': 0, // 0 means does not own
+    //   'PandaCub-Red': 10, // Number represents "Growth Points"
+    //   etc...
+    // }
+    pets:
+    _.defaults(
+      // First transform to a 1D eggs/potions mapping
+      _.transform(eggPotionMapping, function(m,v,k){ m[k] = Number; }),
+      // Then add additional pets (backer, contributor)
       {
-        // example: You've found a Wolf Egg! Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet
-        dialog: String,
-        // example: Wolf
-        name: String, 
-        // example: Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.
-        notes: String,
-        // example: Wolf 
-        text: String, 
-        /* type: String, //Egg // this is forcing mongoose to return object as "[object Object]", but I don't think this is needed anyway? */
-        // example: 3
-        value: Number 
+        'Wolf-Veteran': Number,
+        'Wolf-Cerberus': Number,
+        'Dragon-Hydra': Number
       }
-    ],
-    hatchingPotions: Array, // ["Base", "Skeleton",...]
+    ),
+    currentPet: String, // Cactus-Desert
+
+    // eggs: {
+    //  'PandaCub': 0, // 0 indicates "doesn't own"
+    //  'Wolf': 5 // Number indicates "stacking"
+    // }
+    eggs: _.transform(items.items.eggs, function(m,v,k){ m[k] = Number; }),
+
+    // hatchingPotions: {
+    //  'Desert': 0, // 0 indicates "doesn't own"
+    //  'CottonCandyBlue': 5 // Number indicates "stacking"
+    // }
+    hatchingPotions: _.transform(items.items.hatchingPotions, function(m,v,k){ m[k] = Number; }),
+
+    // Food: {
+    //  'Watermelon': 0, // 0 indicates "doesn't own"
+    //  'RottenMeat': 5 // Number indicates "stacking"
+    // }
+    food: _.transform(items.items.food, function(m,v,k){ m[k] = Number; }),
+
+    // mounts: {
+    //  'Wolf-Desert': true,
+    //  'PandaCub-Red': false,
+    //  etc...
+    // }
+    mounts: _.defaults(
+      // First transform to a 1D eggs/potions mapping
+      _.transform(eggPotionMapping, function(m,v,k){ m[k] = Boolean; }),
+      // Then add additional pets (backer, contributor)
+      {
+        'LionCub-Ethereal': Boolean,
+        'BearCub-Polar': Boolean
+      }
+    ),
+    currentMount: String,
+
     lastDrop: {
       date: {type: Date, 'default': Date.now},
       count: {type: Number, 'default': 0}
-    },
-    // ["BearCub-Base", "Cactus-Base", ...]
-
-    pets: Array
+    }
   },
 
   lastCron: {
@@ -172,13 +191,13 @@ var UserSchema = new Schema({
     hideHeader: {type:Boolean, 'default':false},
     showHelm: {type:Boolean, 'default':true},
     skin: {type:String, 'default':'white'},
-    timezoneOffset: Number
+    timezoneOffset: Number,
+    language: String
   },
   profile: {
     blurb: String,
     imageUrl: String,
     name: String,
-    websites: Array // styled like --> ["http://ocdevel.com" ]
   },
   stats: {
     hp: Number,
@@ -244,9 +263,8 @@ UserSchema.pre('save', function(next) {
       'Anonymous';
   }
 
-  if(!this.achievements.beastMaster && this.items.pets.length >= 90){
-    this.achievements.beastMaster = true;
-  }
+  var petCount = _.reduce(this.items.pets,function(m,v){return m+(v ? 1 : 0);},0);
+  this.achievements.beastMaster = petCount >= 90;
 
   //our own version incrementer
   this._v++;

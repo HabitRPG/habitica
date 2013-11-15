@@ -19,6 +19,9 @@ li(ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.
       // cancel
       a(ng-hide='!task._editing', ng-click='editTask(task)', tooltip='Cancel')
         i.icon-remove(ng-hide='!task._editing')
+      // save
+      a(ng-hide='!task._editing', ng-click='editTask(task);saveTask(task)', tooltip='Save')
+        i.icon-ok(ng-hide='!task._editing')
       //challenges
       span(ng-if='task.challenge.id')
         span(ng-if='task.challenge.broken')

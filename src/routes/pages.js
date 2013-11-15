@@ -2,9 +2,13 @@ var nconf = require('nconf');
 var express = require('express');
 var router = new express.Router();
 var _ = require('lodash');
+var middleware = require('../middleware')
 
 // -------- App --------
-router.get('/', function(req, res) {
+router.get('/', middleware.locals, function(req, res) {
+  if (!req.headers['x-api-user'] && !req.headers['x-api-key'] && !(req.session && req.session.userId))
+    return res.redirect('/static/front')
+
   return res.render('index', {
     title: 'HabitRPG | Your Life, The Role Playing Game',
     env: res.locals.habitrpg
@@ -13,12 +17,24 @@ router.get('/', function(req, res) {
 
 // -------- Marketing --------
 
-router.get('/splash.html', function(req, res) {
-  res.redirect('/static/front');
+router.get('/static/front', middleware.locals, function(req, res) {
+  var env = res.locals.habitrpg;
+  env.isFrontPage = true;
+  res.render('static/front', {env: env});
 });
 
-router.get('/static/front', function(req, res) {
-  res.render('static/front', {env: res.locals.habitrpg, isFrontPage: true});
+router.get('/static/privacy', middleware.locals, function(req, res) {
+  res.render('static/privacy', {env: res.locals.habitrpg});
+});
+
+router.get('/static/terms', middleware.locals, function(req, res) {
+  res.render('static/terms', {env: res.locals.habitrpg});
+});
+
+// --------- Redirects --------
+
+router.get('/splash.html', function(req, res) {
+  res.redirect('/static/front');
 });
 
 router.get('/static/about', function(req, res) {
@@ -36,14 +52,5 @@ router.get('/static/extensions', function(req, res) {
 router.get('/static/faq', function(req, res) {
   res.redirect('http://community.habitrpg.com/faq-page');
 });
-
-router.get('/static/privacy', function(req, res) {
-  res.render('static/privacy', {env: res.locals.habitrpg});
-});
-
-router.get('/static/terms', function(req, res) {
-  res.render('static/terms', {env: res.locals.habitrpg});
-});
-
 
 module.exports = router;

@@ -1,3 +1,15 @@
+# Translations - WIP
+
+## How to add a new language
+- All the old files in `/locales` has been moved to `/locales_old`. 
+- New files must have a `languageName` property (translated or not in english? Italian or Italiano?) and might have a `stringNotFound` property.
+- The language folder under `/locales` must be named with a two letters code (en, es... not en_US or similar) and the code must match the one passed by the browser (we should find a table for that...)
+
+## How to translate a string
+
+- If the string is in a `.jade` file it can be accessed with `env.t('string name here')`
+- If the string is in a `.js` file it can be accessed with `window.env.t('string name here')`
+
 HabitRPG
 ===============
 
