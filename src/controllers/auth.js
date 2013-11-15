@@ -22,20 +22,15 @@ api.auth = function(req, res, next) {
   var token, uid;
   uid = req.headers['x-api-user'];
   token = req.headers['x-api-key'];
-  if (!(uid && token)) {
-    return res.json(401, NO_TOKEN_OR_UID);
-  }
-  return User.findOne({
-    _id: uid,
-    apiToken: token
-  }, function(err, user) {
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    if (_.isEmpty(user)) {
-      return res.json(401, NO_USER_FOUND);
+  if (!(uid && token)) return res.json(401, NO_TOKEN_OR_UID);
+  User.findOne({_id: uid,apiToken: token}, function(err, user) {
+    if (err) return res.json(500, {err: err});
+    if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
+
+    // Remove this after a few days. Users aren't refreshing after the pets roll out, which is required
+    if (_.find(req.body, function(v){return v.data && _.isArray(v.data['items.pets'])})) {
+      // simply discard the update. Unfortunately, sending an error will keep their set ops in the sync queue.
+      return res.json(200, {_v: user._v-1});
     }
 
     res.locals.wasModified = req.query._v ? +user._v !== +req.query._v : true;
