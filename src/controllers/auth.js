@@ -29,7 +29,7 @@ api.auth = function(req, res, next) {
     if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
 
     // Remove this after a few days. Users aren't refreshing after the pets roll out, which is required
-    if (_.find(req.body, function(v){return v.data && _.isArray(v.data['items.pets'])})) {
+    if (_.find(req.body, function(v){return v && v.data && _.isArray(v.data['items.pets'])})) {
       // simply discard the update. Unfortunately, sending an error will keep their set ops in the sync queue.
       return res.json(200, {_v: user._v-1});
     }
