@@ -1,10 +1,12 @@
 "use strict";
 
-habitrpg.controller("AdminCtrl", ['$scope', '$rootScope', 'User', 'Members', 'Notification',
-  function($scope, $rootScope, User, Members, Notification) {
+habitrpg.controller("AdminCtrl", ['$scope', '$rootScope', 'User', 'Notification', 'API_URL', '$resource',
+  function($scope, $rootScope, User, Notification, API_URL, $resource) {
+    var Contributor = $resource(API_URL + '/api/v1/admin/members/:uid', {uid:'@_id'});
+
     $scope.profile = undefined;
     $scope.loadUser = function(uuid){
-      $scope.profile = Members.Member.get({uid:uuid});
+      $scope.profile = Contributor.get({uid:uuid});
     }
     $scope.save = function(profile) {
       profile.$save(function(){
@@ -13,4 +15,5 @@ habitrpg.controller("AdminCtrl", ['$scope', '$rootScope', 'User', 'Members', 'No
         $scope._uuid = undefined;
       })
     }
+    $scope.contributors = Contributor.query();
   }])

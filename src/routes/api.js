@@ -3,6 +3,7 @@ var router = new express.Router();
 var user = require('../controllers/user');
 var groups = require('../controllers/groups');
 var auth = require('../controllers/auth');
+var admin = require('../controllers/admin');
 var challenges = require('../controllers/challenges');
 var dataexport = require('../controllers/dataexport');
 var nconf = require('nconf');
@@ -84,7 +85,11 @@ router["delete"]('/groups/:gid/chat/:messageId', auth.auth, groups.attachGroup, 
 
 /* Members */
 router.get('/members/:uid', groups.getMember);
-router.post('/members/:uid', auth.auth, groups.updateMember); // only for admins
+
+/* Admin */
+router.get('/admin/members', auth.auth, admin.ensureAdmin, admin.listMembers);
+router.get('/admin/members/:uid', auth.auth, admin.ensureAdmin, admin.getMember);
+router.post('/admin/members/:uid', auth.auth, admin.ensureAdmin, admin.updateMember);
 
 // Market
 router.post('/market/buy', auth.auth, user.marketBuy);

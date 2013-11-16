@@ -1,4 +1,5 @@
 script(id='partials/options.admin.html', type="text/ng-template")
+  h2 Reward User
   form.form-horizontal(ng-submit='loadUser(_uuid)')
     .-options
       .option-group.option-large
@@ -6,7 +7,6 @@ script(id='partials/options.admin.html', type="text/ng-template")
         button.btn(type='submit') Load User
   form.form-horizontal(ng-show='profile', ng-submit='save(profile)')
     h3 {{profile.profile.name}}
-    h4 Contributor Status
     .-options
       .control-group.option-large
         input.option-content(type='text', ng-model='profile.contributor.text', placeholder='Contributor Title (eg, "Blacksmith")')
@@ -16,6 +16,9 @@ script(id='partials/options.admin.html', type="text/ng-template")
         br
         small [1-7] this determines which items, pets, and mounts are available. Also determines name-tag coloring.&nbsp;
         a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear') More details.
+      .control-group.option-large
+        textarea.option-content(style='height:15em;', placeholder='Contributions', ng-model='profile.contributor.contributions')
+        include ../shared/formatting-help
       .control-group.option-medium
         label.checkbox
           input(type='checkbox', ng-model='profile.contributor.admin')
@@ -23,3 +26,26 @@ script(id='partials/options.admin.html', type="text/ng-template")
     // h4 Backer Status
     // Add backer stuff like tier, disable adds, etcs
     button.btn-primary(type='submit') Save
+
+  br
+  br
+  br
+  h2 Current Contributors
+  table.table.table-striped
+    tr
+      thead
+        tr
+          th Name
+          th UUID
+          th Contrib Level
+          th Title
+          th Admin
+          th Contributions
+    tr(ng-repeat='contrib in contributors')
+      td
+        a.label(class='label-contributor-{{contrib.contributor.level}}', ng-click='clickMember(contrib._id, true)') {{contrib.profile.name}}
+      td {{contrib._id}}
+      td {{contrib.contributor.level}}
+      td {{contrib.contributor.text}}
+      td {{contrib.contributor.admin}}
+      td {{contrib.contributor.contributions}}
