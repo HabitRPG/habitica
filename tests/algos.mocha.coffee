@@ -162,7 +162,7 @@ describe 'User', ->
     it 'gets a bear cub egg', ->
       sinon.stub(Math, 'random', cycle [0, 0.55])
       algos.score(user, user.dailys[0], 'up')
-      expect(user.items.eggs).to.eql {'Bear Cub': 1}
+      expect(user.items.eggs).to.eql {'BearCub': 1}
       expect(user.items.hatchingPotions).to.eql {}
 
     it 'does not get a drop', ->
