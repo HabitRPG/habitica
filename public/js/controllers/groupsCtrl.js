@@ -128,6 +128,24 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
   .controller('ChatCtrl', ['$scope', 'Groups', 'User', function($scope, Groups, User){
     $scope.message = {content:''};
     $scope._sending = false;
+    
+    $scope.isUserMentioned = function(user, message) {
+      if(message.hasOwnProperty("highlight"))
+        return message.highlight;
+      message.highlight = false;
+      var messagetext = message.text.toLowerCase();
+      var username = user.profile.name;
+      var mentioned = messagetext.indexOf(username.toLowerCase());
+      var pattern = "(\s|@|^){1}"+username+"([^\w]|$){1}";
+      if(mentioned > -1) {
+        var preceedingchar = messagetext.substring(mentioned-1,mentioned);
+        if(mentioned == 0 || preceedingchar.trim() == '' || preceedingchar == '@'){
+          var regex = new RegExp(pattern,'i');
+          message.highlight = regex.test(messagetext);
+        }
+      }
+      return message.highlight;
+    }
 
     $scope.postChat = function(group, message){
       if (_.isEmpty(message) || $scope._sending) return;
