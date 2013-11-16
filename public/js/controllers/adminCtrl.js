@@ -13,6 +13,7 @@ habitrpg.controller("AdminCtrl", ['$scope', '$rootScope', 'User', 'Notification'
         Notification.text("User updated");
         $scope.profile = undefined;
         $scope._uuid = undefined;
+        $scope.contributors = Contributor.query();
       })
     }
     $scope.contributors = Contributor.query();
