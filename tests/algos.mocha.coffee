@@ -146,26 +146,30 @@ describe 'User', ->
       user = helpers.newUser()
       user.flags.dropsEnabled = true
       # too many Math.random calls to stub, let's return the last element
-      sinon.stub(helpers, 'randomVal', (x)->x[x.length-1])
+      sinon.stub(helpers, 'randomVal', (obj)->
+        result = undefined
+        for key, val of obj
+          result = val
+        result
+      )
 
     it 'gets a golden potion', ->
       sinon.stub(Math, 'random').returns 0
       algos.score(user, user.dailys[0], 'up')
-      expect(user.items.eggs).to.eql undefined
-      expect(user.items.hatchingPotions).to.eql ['Golden']
+      expect(user.items.eggs).to.eql {}
+      expect(user.items.hatchingPotions).to.eql {'Golden': 1}
 
     it 'gets a bear cub egg', ->
-      sinon.stub(Math, 'random', cycle [0, 0.6])
+      sinon.stub(Math, 'random', cycle [0, 0.55])
       algos.score(user, user.dailys[0], 'up')
-      expect(user.items.eggs.length).to.eql 1
-      expect(user.items.eggs[0].name).to.eql 'BearCub'
-      expect(user.items.hatchingPotions).to.eql undefined
+      expect(user.items.eggs).to.eql {'Bear Cub': 1}
+      expect(user.items.hatchingPotions).to.eql {}
 
     it 'does not get a drop', ->
       sinon.stub(Math, 'random').returns 0.5
       algos.score(user, user.dailys[0], 'up')
-      expect(user.items.eggs).to.eql undefined
-      expect(user.items.hatchingPotions).to.eql undefined
+      expect(user.items.eggs).to.eql {}
+      expect(user.items.hatchingPotions).to.eql {}
 
     afterEach ->
       Math.random.restore()

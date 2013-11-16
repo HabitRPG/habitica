@@ -143,8 +143,8 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
     # Eggs: 30% chance
     if rarity > .5
       drop = helpers.randomVal eggs
-      user.items.eggs[drop.name] ?= 0
-      user.items.eggs[drop.name]++
+      user.items.eggs[drop.text] ?= 0
+      user.items.eggs[drop.text]++
       drop.type = 'Egg'
       drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
 
