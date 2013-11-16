@@ -42,7 +42,8 @@
     "validator": "~1.5.1",
     "nodemailer": "~0.5.2",
     "grunt-cli": "~0.1.9",
-    "paypal-ipn": "~1.0.1"
+    "paypal-ipn": "~1.0.1",
+    "express-csv": "~0.6.0"
   },
   "private": true,
   "subdomain": "habitrpg",

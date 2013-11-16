@@ -4,6 +4,7 @@ var user = require('../controllers/user');
 var groups = require('../controllers/groups');
 var auth = require('../controllers/auth');
 var challenges = require('../controllers/challenges');
+var dataexport = require('../controllers/dataexport');
 var nconf = require('nconf');
 
 /*
@@ -24,6 +25,9 @@ router.get('/status', function(req, res) {
     status: 'up'
   });
 });
+
+/* Data export */
+router.get('/export/history',auth.auth,dataexport.history); //[todo] encode data output options in the data controller and use these to build routes
 
 /* Scoring*/
 router.post('/user/task/:id/:direction', auth.auth, cron, user.scoreTask);

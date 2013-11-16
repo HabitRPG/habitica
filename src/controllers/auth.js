@@ -13,6 +13,7 @@ var api = module.exports;
 
 var NO_TOKEN_OR_UID = { err: "You must include a token and uid (user id) in your request"};
 var NO_USER_FOUND = {err: "No user found."};
+var NO_SESSION_FOUND = { err: "You must be logged in." };
 
 /*
  beforeEach auth interceptor
@@ -40,6 +41,19 @@ api.auth = function(req, res, next) {
   });
 };
 
+api.authWithSession = function(req, res, next) { //[todo] there is probably a more elegant way of doing this...
+  var uid;
+  uid = req.session.userId;
+  if (!(req.session && req.session.userId)) {
+    return res.json(401, NO_SESSION_FOUND);
+  }
+  return User.findOne({_id: uid,}, function(err, user) {
+    if (err) return res.json(500, {err: err});
+    if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
+    res.locals.user = user;
+    return next();
+  });
+};
 
 api.registerUser = function(req, res, next) {
   var confirmPassword, e, email, password, username, _ref;
