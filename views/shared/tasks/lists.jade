@@ -45,7 +45,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           include ./task
 
         // Static Rewards
-        ul.items(ng-show='main && list.type=="reward" && user.flags.itemsEnabled')
+        ul.items.rewards(ng-if='main && list.type=="reward" && user.flags.itemsEnabled')
           li.task.reward-item(ng-hide='item.hide', ng-repeat='item in itemStore')
             // right-hand side control buttons
             .task-meta-controls
@@ -61,6 +61,22 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
             // main content
             span(ng-class='{"shop_{{item.classes}} shop-sprite item-img": true}')
             p.task-text {{item.text}}
+
+        // Spells
+        ul.items(ng-if='main && list.type=="reward" && user.stats.class')
+          li.task.reward-item(ng-repeat='(k,spell) in Items.spells[user.stats.class]')
+            .task-meta-controls
+              span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{spell.notes}}', popover-title='{{spell.text}}')
+                i.icon-comment
+            //left-hand size commands
+            .task-controls
+              a.money.btn-buy.item-btn(ng-click='castStart(spell)')
+                span.reward-cost
+                  strong {{spell.mana}}
+                  | &nbsp;MP
+            // main content
+            span(ng-class='{"shop_{{spell.classes}} shop-sprite item-img": true}')
+            p.task-text {{spell.text}}
 
         br
 

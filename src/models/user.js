@@ -188,12 +188,17 @@ var UserSchema = new Schema({
     armorSet: String,
     dayStart: {type:Number, 'default': 0},
     gender: {type:String, 'default': 'm'},
-    hair: {type:String, 'default':'blond'},
+    hair: {
+      color: {type: String, 'default': 'blonde'},
+      base: {type: Number, 'default': 0},
+      bangs: {type: Number, 'default': 0}
+    },
     hideHeader: {type:Boolean, 'default':false},
     showHelm: {type:Boolean, 'default':true},
     skin: {type:String, 'default':'white'},
     timezoneOffset: Number,
-    language: String
+    language: String,
+    automaticAllocation: Boolean
   },
   profile: {
     blurb: String,
@@ -202,9 +207,24 @@ var UserSchema = new Schema({
   },
   stats: {
     hp: Number,
+    mp: Number,
     exp: Number,
     gp: Number,
-    lvl: Number
+    lvl: Number,
+
+    // Class System
+    'class': String,
+    points: {type: Number, 'default': 0},
+    str: {type: Number, 'default': 0},
+    def: {type: Number, 'default': 0},
+    int: {type: Number, 'default': 0},
+    per: {type: Number, 'default': 0},
+    buffs: {
+      str: Number,
+      def: Number,
+      per: Number,
+      stealth: Number
+    }
   },
   tags: [
     {
@@ -263,6 +283,10 @@ UserSchema.pre('save', function(next) {
       (fb && (fb.displayName || fb.name || fb.username || (fb.first_name && fb.first_name + ' ' + fb.last_name))) ||
       'Anonymous';
   }
+
+  // FIXME handle this on level-up instead, and come up with how we're going to handle retroactively
+  // Actually, can this be used as an attr default? (schema {type: ..., 'default': function(){}})
+  this.stats.points = this.stats.lvl - (this.stats.def + this.stats.str + this.stats.per + this.stats.int);
 
   var petCount = _.reduce(this.items.pets,function(m,v){return m+(v ? 1 : 0);},0);
   this.achievements.beastMaster = petCount >= 90;

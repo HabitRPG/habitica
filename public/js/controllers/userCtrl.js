@@ -14,6 +14,27 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       if(value === true) $scope.editingProfile = angular.copy(User.user.profile);
     });
 
+    $scope.allocate = function(stat){
+      var setObj = {}
+      setObj['stats.' + stat] = User.user.stats[stat] + 1;
+      setObj['stats.points'] = User.user.stats.points - 1;
+      User.setMultiple(setObj);
+    }
+
+    $scope.rerollClass = function(){
+      if (!confirm("Are you sure you want to re-roll? This will reset your character's class and allocated points (you'll get them all back to re-allocate)"))
+        return;
+      User.setMultiple({
+        'stats.class': '',
+        //'stats.points': this is handled on the server
+        'stats.str': 0,
+        'stats.def': 0,
+        'stats.per': 0,
+        'stats.int': 0
+      })
+
+    }
+
     $scope.save = function(){
       var values = {};
       _.each($scope.editingProfile, function(value, key){

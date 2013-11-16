@@ -132,6 +132,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
       User.log({op: 'clear-completed'});
     }
 
+
+    /*
+     ------------------------
+     Ads
+     ------------------------
+     */
+
     /**
      * See conversation on http://productforums.google.com/forum/#!topic/adsense/WYkC_VzKwbA,
      * Adsense is very sensitive. It must be called once-and-only-once for every <ins>, else things break.

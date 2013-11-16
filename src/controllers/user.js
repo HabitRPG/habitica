@@ -483,6 +483,67 @@ api.deleteTag = function(req, res){
 }
 
 /*
+ ------------------------------------------------------------------------
+ Spells
+ ------------------------------------------------------------------------
+ */
+api.cast = function(req, res) {
+  var user = res.locals.user;
+  var type = req.body.type, target = req.body.target;
+  var spell = items.items.spells[user.stats.class][req.params.spell];
+
+  var done = function(){
+    var err = arguments[0];
+    var saved = _.size(arguments == 3) ? arguments[2] : arguments[1];
+    if (err) return res.json(500, {err:err});
+    res.json(saved);
+  }
+
+  switch (type) {
+    case 'task':
+      spell.cast(user, user.tasks[target.id]);
+      user.save(done);
+      break;
+
+    case 'self':
+      spell.cast(user);
+      user.save(done);
+      break;
+
+    case 'party':
+      async.waterfall([
+        function(cb){
+          Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members').exec(cb);
+        },
+        function(group, cb) {
+          spell.cast(user, group.members);
+          var series = _.reduce(group.members, function(m,v){
+            m.push(function(cb2){v.save(cb2);})
+            return m;
+          }, []);
+          async.series(series, cb);
+        }
+      ], done);
+      break;
+
+    case 'user':
+      async.waterfall([
+        function(cb) {
+          User.findById(target._id, cb);
+        },
+        function(member, cb) {
+          spell.cast(user, member);
+          member.save(cb); // not parallel because target could be user, which causes race condition when saving
+        },
+        function(saved, num, cb) {
+          user.save(cb);
+        }
+      ], done);
+      break;
+  }
+}
+
+/*
   ------------------------------------------------------------------------
   Batch Update
   Run a bunch of updates all at once
