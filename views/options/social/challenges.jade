@@ -113,8 +113,10 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
       .accordion-group(ng-repeat='challenge in challenges|filter:filterChallenges')
         .accordion-heading
           ul.pull-right.challenge-accordion-header-specs
-            li.
-             {{challenge.group.name}} (by <span class='badge'>{{challenge.leader.profile.name}}</span>)
+            li {{challenge.group.name}}
+            li
+              | by&nbsp;
+              strong {{challenge.leader.profile.name}}
             li {{challenge.memberCount}} Participants
             li(ng-show='challenge.prize')
               // prize
