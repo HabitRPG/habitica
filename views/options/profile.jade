@@ -105,9 +105,6 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
       textarea.option-content(style='height:15em;', placeholder='Blurb', ng-model='editingProfile.blurb')
       include ../shared/formatting-help
 
-script(id='partials/options.profile.data.html', type="text/ng-template")
-  a(href="/export/history.csv") Export History (CSV)
-
 script(id='partials/options.profile.html', type="text/ng-template")
   ul.nav.nav-tabs
     li(ng-class="{ active: $state.includes('options.profile.avatar') }")
@@ -119,9 +116,6 @@ script(id='partials/options.profile.html', type="text/ng-template")
     li(ng-class="{ active: $state.includes('options.profile.profile') }")
       a(ui-sref='options.profile.profile')
         | Profile
-    li(ng-class="{ active: $state.includes('options.profile.data') }")
-      a(ui-sref='options.profile.data')
-        | My Data
 
   .tab-content
     .tab-pane.active

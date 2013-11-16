@@ -1,6 +1,22 @@
-script(type='text/ng-template', id='partials/options.settings.html')
+script(id='partials/options.settings.html', type="text/ng-template")
+  ul.nav.nav-tabs
+    li(ng-class="{ active: $state.includes('options.settings.settings') }")
+      a(ui-sref='options.settings.settings')
+        | Settings
+    li(ng-class="{ active: $state.includes('options.settings.api') }")
+      a(ui-sref='options.settings.api')
+        | API
+    li(ng-class="{ active: $state.includes('options.settings.export') }")
+      a(ui-sref='options.settings.export')
+        | Data Export
+
+  .tab-content
+    .tab-pane.active
+      div(ui-view)
+
+script(type='text/ng-template', id='partials/options.settings.settings.html')
   .row-fluid
-    .personal-options.span6.border-right
+    .personal-options.span6
       h2 Settings
       h4 Custom Day Start
       .option-group.option-short
@@ -36,6 +52,9 @@ script(type='text/ng-template', id='partials/options.settings.html')
       a.btn.btn-danger(ng-click='modals.reset = true', tooltip='Resets your entire account (dangerous).') Reset
       a.btn.btn-danger(ng-click='modals.restore = true', tooltip='Restores attributes to your character.') Restore
       a.btn.btn-danger(ng-click='modals.delete = true', tooltip='Delete your account.') Delete
+
+script(type='text/ng-template', id='partials/options.settings.api.html')
+  .row.fluid
     .span6
       h2 API
       small Copy these for use in third party applications.
@@ -45,3 +64,11 @@ script(type='text/ng-template', id='partials/options.settings.html')
       pre.prettyprint {{user.apiToken}}
       h6 QR Code
       img(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7Baddress%3A%22https%3A%2F%2Fhabitrpg.com%22%2Cuser%3A%22{{user.id}}%22%2Ckey%3A%22{{user.apiToken}}%22%7D,&choe=UTF-8&chld=L', alt='qrcode')
+
+script(id='partials/options.settings.export.html', type="text/ng-template")
+  .row.fluid
+    .span6
+      h2 Data Export
+      small Here are a few options for saving your Habit data.
+      h4 Habit History
+      a(href="/export/history.csv") Export History (CSV)

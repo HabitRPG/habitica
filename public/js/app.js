@@ -31,6 +31,7 @@ window.habitrpg = angular.module('habitrpg',
         .when('/options/groups/guilds', '/options/groups/guilds/public')
         .when('/options/inventory', '/options/inventory/inventory')
         .when('/options/inventory/stable', '/options/inventory/stable/pets')
+        .when('/options/settings', '/options/settings/settings')
 
         // redirect states that don't match
         .otherwise("/tasks");
@@ -67,10 +68,6 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.profile.profile', {
           url: "/profile",
           templateUrl: "partials/options.profile.profile.html"
-        })
-        .state('options.profile.data', {
-          url: "/profile/data",
-          templateUrl: "partials/options.profile.data.html"
         })
 
         // Options > Groups
@@ -164,6 +161,18 @@ window.habitrpg = angular.module('habitrpg',
           url: "/settings",
           controller: 'SettingsCtrl',
           templateUrl: "partials/options.settings.html"
+        })
+        .state('options.settings.settings', {
+          url: "/settings",
+          templateUrl: "partials/options.settings.settings.html"
+        })
+        .state('options.settings.api', {
+          url: "/api",
+          templateUrl: "partials/options.settings.api.html"
+        })
+        .state('options.settings.export', {
+          url: "/export",
+          templateUrl: "partials/options.settings.export.html"
         })
 
         // Options > Settings
