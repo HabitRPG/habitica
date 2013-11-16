@@ -4,9 +4,10 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
   function($scope, User, Challenges, Notification, $compile, Groups, $state) {
 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
+    $scope.groups = Groups.Group.query({type:'party,guilds,tavern'});
     Challenges.Challenge.query(function(challenges){
       $scope.challenges = challenges;
-      $scope.groups = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
+      $scope.groupsFilter = _.uniq(_.pluck(challenges, 'group'), function(g){return g._id});
       $scope.search = {
         group: _.transform($scope.groups, function(m,g){m[g._id]=true;})
       };
