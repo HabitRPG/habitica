@@ -35,8 +35,10 @@ api.list = function(req, res) {
             {group: 'habitrpg'} // public group
           ]
         })
-        .select('name description group members prize')
+        .select('name leader description group members prize')
         .populate('group', '_id name')
+        .populate('leader', 'profile.name')
+        .sort('-timestamp')
         .exec(cb);
     }
   ], function(err, challenges){
