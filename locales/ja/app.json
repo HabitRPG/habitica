@@ -9,7 +9,7 @@
 
 
 
-"_commenttut": "TUTORIAL/TOUR",
+"_commenttut": "学習/ツアー",
   "endTourButton": "ツアーを終了",
   "nextButton" : "次",
   "prevButton" : "先",
@@ -133,8 +133,8 @@
       "skin": "皮膚",
       "clothing" : "衣料",
       "photoUrl": "写真 URL",
-      "fullName": "Full Name",
-      "blurb": "Blurb",
+      "fullName": "名前",
+      "blurb": "自己紹介",
       "websites": "ウェブサイト",
       "addWebsites": "Add ウェブサイト",
     "items" : "Items",
@@ -144,10 +144,10 @@
       "shield" : "盾",
 
     "stats" : "Stats",
-      "strength" : "Strength",
-      "defense" : "Defense",
-      "totalStrength" : "Total Strength",
-      "totalDefense" : "Total Defense",
+      "strength" : "強さ",
+      "defense" : "ディフェンス",
+      "totalStrength" : "Total 強さ",
+      "totalDefense" : "Total ディフェンス",
 
 
   "party": "パーティー",
