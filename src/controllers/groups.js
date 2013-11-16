@@ -177,13 +177,21 @@ api.create = function(req, res, next) {
       });
     });    
   }else{
-    group.save(function(err, saved){
+    async.waterfall([
+      function(cb){
+        Group.findOne({type:'party',members:{$in:[user._id]}},cb);
+      },
+      function(found, cb){
+        if (found) return cb('Already in a party, try refreshing.');
+        group.save(cb);
+      },
+      function(saved, count, cb){
+        saved.populate('members', nameFields, cb);
+      }
+    ], function(err, populated){
       if (err) return res.json(500,{err:err});
-      saved.populate('members', nameFields, function(err, populated){
-        if (err) return res.json(500,{err:err});
-        return res.json(populated);
-      });
-    });
+      return res.json(populated);
+    })
   }
 }
 
