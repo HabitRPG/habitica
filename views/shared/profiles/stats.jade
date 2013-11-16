@@ -32,7 +32,7 @@ p
   | : {{userDef(profile.stats.lvl)}}
 p
   strong Pets Found
-  | : {{profile.items.pets.length || 0}}
+  | : {{countExists(profile.items.pets)}}
 hr
 p
   strong Total Strength

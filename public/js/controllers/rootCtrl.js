@@ -21,6 +21,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       return haystack && ~haystack.indexOf(needle);
     }
 
+    // count pets, mounts collected totals, etc
+    $rootScope.countExists = function(items) {return _.reduce(items,function(m,v){return m+(v?1:0)},0)}
+
     $scope.safeApply = function(fn) {
       var phase = this.$root.$$phase;
       if(phase == '$apply' || phase == '$digest') {

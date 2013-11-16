@@ -7,7 +7,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
 
         li.customize-menu
           menu.pets-menu(label='Eggs ({{eggCount}})')
-            p(ng-show='user.items.eggs.length < 1') You don't have any eggs yet.
+            p(ng-show='eggCount < 1') You don't have any eggs yet.
             div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
               //TODO move positioning this styling to css
               button.customize-option(popover='{{Items.eggs[egg].notes}}', popover-title='{{Items.eggs[egg].text}} Egg', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !user.items.pets[egg+"-"+selectedPotion.name]}')
