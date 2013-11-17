@@ -4,7 +4,7 @@ li(ng-repeat='message in group.chat', ng-class='{highlight: isUserMentioned(user
   | &nbsp;
   span(ng-bind-html="message.text | linky:'_blank'")
   | &nbsp;-&nbsp;
-  span.muted.time
-    | {{moment(message.timestamp).fromNow() + ' '}}
+  span.muted.time(from-now='message.timestamp')
   a(ng-show='user.contributor.admin || message.uuid == user.id', ng-click='deleteChatMessage(group, message)')
+    | 
     i.icon-remove(tooltip='Delete')
