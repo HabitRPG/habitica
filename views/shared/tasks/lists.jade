@@ -45,7 +45,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           include ./task
 
         // Static Rewards
-        ul.items(ng-show='main && list.type=="reward" && user.flags.itemsEnabled')
+        ul.items(ng-if='main && list.type=="reward" && user.flags.itemsEnabled')
           li.task.reward-item(ng-hide='item.hide', ng-repeat='item in itemStore')
             // right-hand side control buttons
             .task-meta-controls
