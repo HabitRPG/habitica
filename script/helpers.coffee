@@ -53,6 +53,16 @@ uuid = ->
 
 module.exports =
 
+  ###
+    Moment
+  ###
+  moment: moment
+
+  ###
+    Lodash
+  ###
+  _: _
+
   uuid: uuid
 
   taskDefaults: (task, filters={}) ->
@@ -297,10 +307,7 @@ module.exports =
     return false unless messages?.length > 0
     messages?[0] and (messages[0].id != lastMessageSeen)
 
-  ###
-    MomentJS
-  ###
-  moment: moment
+
 
   ###
     are any tags active?
