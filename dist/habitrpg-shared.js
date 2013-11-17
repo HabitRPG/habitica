@@ -10130,42 +10130,42 @@ try {
         index: 1,
         text: "Leather Armor",
         classes: 'armor_1',
-        notes: 'Decreases HP loss by 4%.',
+        notes: 'Decreases Health loss by 4%.',
         defense: 4,
         value: 30
       }, {
         index: 2,
         text: "Chain Mail",
         classes: 'armor_2',
-        notes: 'Decreases HP loss by 6%.',
+        notes: 'Decreases Health loss by 6%.',
         defense: 6,
         value: 45
       }, {
         index: 3,
         text: "Plate Mail",
         classes: 'armor_3',
-        notes: 'Decreases HP loss by 7%.',
+        notes: 'Decreases Health loss by 7%.',
         defense: 7,
         value: 65
       }, {
         index: 4,
         text: "Red Armor",
         classes: 'armor_4',
-        notes: 'Decreases HP loss by 8%.',
+        notes: 'Decreases Health loss by 8%.',
         defense: 8,
         value: 90
       }, {
         index: 5,
         text: "Golden Armor",
         classes: 'armor_5',
-        notes: 'Decreases HP loss by 10%.',
+        notes: 'Decreases Health loss by 10%.',
         defense: 10,
         value: 120
       }, {
         index: 6,
         text: "Shade Armor",
         classes: 'armor_6',
-        notes: 'Decreases HP loss by 12%.',
+        notes: 'Decreases Health loss by 12%.',
         defense: 12,
         value: 150,
         canOwn: (function(u) {
@@ -10177,7 +10177,7 @@ try {
         index: 7,
         text: "Crystal Armor",
         classes: 'armor_7',
-        notes: 'Decreases HP loss by 14%.',
+        notes: 'Decreases Health loss by 14%.',
         defense: 14,
         value: 170,
         canOwn: (function(u) {
@@ -10199,42 +10199,42 @@ try {
         index: 1,
         text: "Leather Helm",
         classes: 'head_1',
-        notes: 'Decreases HP loss by 2%.',
+        notes: 'Decreases Health loss by 2%.',
         defense: 2,
         value: 15
       }, {
         index: 2,
         text: "Chain Coif",
         classes: 'head_2',
-        notes: 'Decreases HP loss by 3%.',
+        notes: 'Decreases Health loss by 3%.',
         defense: 3,
         value: 25
       }, {
         index: 3,
         text: "Plate Helm",
         classes: 'head_3',
-        notes: 'Decreases HP loss by 4%.',
+        notes: 'Decreases Health loss by 4%.',
         defense: 4,
         value: 45
       }, {
         index: 4,
         text: "Red Helm",
         classes: 'head_4',
-        notes: 'Decreases HP loss by 5%.',
+        notes: 'Decreases Health loss by 5%.',
         defense: 5,
         value: 60
       }, {
         index: 5,
         text: "Golden Helm",
         classes: 'head_5',
-        notes: 'Decreases HP loss by 6%.',
+        notes: 'Decreases Health loss by 6%.',
         defense: 6,
         value: 80
       }, {
         index: 6,
         text: "Shade Helm",
         classes: 'head_6',
-        notes: 'Decreases HP loss by 7%.',
+        notes: 'Decreases Health loss by 7%.',
         defense: 7,
         value: 100,
         canOwn: (function(u) {
@@ -10246,7 +10246,7 @@ try {
         index: 7,
         text: "Crystal Helm",
         classes: 'head_7',
-        notes: 'Decreases HP loss by 8%.',
+        notes: 'Decreases Health loss by 8%.',
         defense: 8,
         value: 120,
         canOwn: (function(u) {
@@ -10268,42 +10268,42 @@ try {
         index: 1,
         text: "Wooden Shield",
         classes: 'shield_1',
-        notes: 'Decreases HP loss by 3%',
+        notes: 'Decreases Health loss by 3%',
         defense: 3,
         value: 20
       }, {
         index: 2,
         text: "Buckler",
         classes: 'shield_2',
-        notes: 'Decreases HP loss by 4%.',
+        notes: 'Decreases Health loss by 4%.',
         defense: 4,
         value: 35
       }, {
         index: 3,
         text: "Reinforced Shield",
         classes: 'shield_3',
-        notes: 'Decreases HP loss by 5%.',
+        notes: 'Decreases Health loss by 5%.',
         defense: 5,
         value: 55
       }, {
         index: 4,
         text: "Red Shield",
         classes: 'shield_4',
-        notes: 'Decreases HP loss by 7%.',
+        notes: 'Decreases Health loss by 7%.',
         defense: 7,
         value: 70
       }, {
         index: 5,
         text: "Golden Shield",
         classes: 'shield_5',
-        notes: 'Decreases HP loss by 8%.',
+        notes: 'Decreases Health loss by 8%.',
         defense: 8,
         value: 90
       }, {
         index: 6,
         text: "Tormented Skull",
         classes: 'shield_6',
-        notes: 'Decreases HP loss by 9%.',
+        notes: 'Decreases Health loss by 9%.',
         defense: 9,
         value: 120,
         canOwn: (function(u) {
@@ -10315,7 +10315,7 @@ try {
         index: 7,
         text: "Crystal Shield",
         classes: 'shield_7',
-        notes: 'Decreases HP loss by 10%.',
+        notes: 'Decreases Health loss by 10%.',
         defense: 10,
         value: 150,
         canOwn: (function(u) {
@@ -10327,8 +10327,8 @@ try {
     ],
     potion: {
       type: 'potion',
-      text: "Potion",
-      notes: "Recover 15 HP (Instant Use)",
+      text: "Health Potion",
+      notes: "Recover 15 Health (Instant Use)",
       value: 25,
       classes: 'potion'
     },
@@ -10433,7 +10433,7 @@ try {
         target: 'White'
       },
       Potatoe: {
-        text: 'Potatoe',
+        text: 'Potato',
         target: 'Desert'
       },
       Strawberry: {
@@ -10507,7 +10507,7 @@ try {
     return _.defaults(food, {
       value: 1,
       name: k,
-      notes: "Feed this to a pet and it may grown into a sturdy steed."
+      notes: "Feed this to a pet and it may grow into a sturdy steed."
     });
   });
 
