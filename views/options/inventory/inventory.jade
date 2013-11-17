@@ -47,11 +47,11 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
                     | Welcome to the Market. Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here! If you have unwanted drops, sell them to me.
                   p
                     button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')
-                      | Sell {{selectedEgg.name}} for {{selectedEgg.value}} GP
+                      | Sell {{selectedEgg.name}} for {{selectedEgg.value}} Gold
                     button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')
-                      | Sell {{selectedPotion.name}} for {{selectedPotion.value}} GP
+                      | Sell {{selectedPotion.name}} for {{selectedPotion.value}} Gold
                     button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')
-                      | Sell {{selectedFood.name}} for {{selectedFood.value}} GP
+                      | Sell {{selectedFood.name}} for {{selectedFood.value}} Gold
 
         menu.inventory-list(type='list')
           li.customize-menu

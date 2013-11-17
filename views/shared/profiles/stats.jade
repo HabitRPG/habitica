@@ -1,42 +1,42 @@
-h4 Items
+h4 Equipment
 p
   strong {{itemText('weapon',profile.items.weapon)}}
-  | : {{itemStat('weapon',profile.items.weapon)}}% Exp gain
+  | : {{itemStat('weapon',profile.items.weapon)}} Attack
 p
   strong {{itemText('armor',profile.items.armor)}}
-  | : {{itemStat('armor',profile.items.armor)}}% Defense
+  | : {{itemStat('armor',profile.items.armor)}} Protection
 p
   strong {{itemText('head',profile.items.head)}}
-  | : {{itemStat('head',profile.items.head)}}% Defense
+  | : {{itemStat('head',profile.items.head)}} Protection
 p
   strong {{itemText('shield',profile.items.shield)}}
-  | : {{itemStat('shield',profile.items.shield)}}% Defense
+  | : {{itemStat('shield',profile.items.shield)}} Protection
 h4 Stats
 p
-  strong HP
+  strong Health
   | : {{profile.stats.hp | number:0}} / 50
 p
-  strong GP
+  strong Gold
   | : {{profile.stats.gp | number:0}}
 p
-  strong Lvl
+  strong Level
   | : {{profile.stats.lvl}}
 p
-  strong Exp
+  strong Experience
   | : {{profile.stats.exp | number:0}} / {{tnl(profile.stats.lvl)}}
 p
   strong Strength
-  | : {{userStr(profile.stats.lvl)}}
+  | (Level-1)/2: {{userStr(profile.stats.lvl)}}
 p
   strong Defense
-  | : {{userDef(profile.stats.lvl)}}
+  | (Level-1)/2: {{userDef(profile.stats.lvl)}}
 p
   strong Pets Found
   | : {{countExists(profile.items.pets)}}
 hr
 p
-  strong Total Strength
-  | : {{totalStr(profile.stats.lvl, profile.items.weapon)}} %
+  strong Total Experience Boost
+  | (Attack + Strength): {{totalStr(profile.stats.lvl, profile.items.weapon)}} %
 p
-  strong Total Defense
-  | : {{totalDef(profile.stats.lvl, profile.items.armor, profile.items.head, profile.items.shield)}} %
+  strong Total Damage Reduction
+  | (Defense + Protection): {{totalDef(profile.stats.lvl, profile.items.armor, profile.items.head, profile.items.shield)}} %
