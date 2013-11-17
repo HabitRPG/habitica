@@ -11,7 +11,7 @@
     "express": "*",
     "gzippo": "*",
     "guid": "*",
-    "moment": "*",
+    "moment": "~2.4.0",
     "stripe": "*",
     "coffee-script": "*",
     "nconf": "*",
