@@ -353,7 +353,7 @@
 
 "_commentdeathstuff" : "DEATH",
   "deathTitle" : "You Died!",
-  "deathText" : "You've lost your GP, 1 level and 1 gear piece. Be sure to complete your dailies to prevent this from happening again!",
+  "deathText" : "You've lost your Gold, 1 level and 1 gear piece. Be sure to complete your dailies to prevent this from happening again!",
 
 "_commentgems" : "GEMS",
   "gems" : "Gems",
