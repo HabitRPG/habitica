@@ -19,7 +19,6 @@
     "superagent": "~0.12.4",
     "resolve": "~0.2.3",
     "expect.js": "~0.2.0",
-    "relative-date": "~1.1.1",
     "lodash": "~2.2.1",
     "async": "~0.2.9",
     "optimist": "~0.5.2",
