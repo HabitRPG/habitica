@@ -298,9 +298,9 @@ module.exports =
     messages?[0] and (messages[0].id != lastMessageSeen)
 
   ###
-    Relative Date
+    MomentJS
   ###
-  relativeDate: require('relative-date')
+  moment: moment
 
   ###
     are any tags active?

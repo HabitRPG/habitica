@@ -5,9 +5,8 @@
     "browserify": "~2.35",
     "coffeeify": "0.4.0",
     "coffee-script": "1.6.2",
-    "relative-date": "~1.1.1",
     "lodash": "~2.2.1",
-    "moment": "~2.1.0"
+    "moment": "~2.4.0"
   },
   "devDependencies": {
     "mocha": "*",
