@@ -9991,6 +9991,21 @@ var process=require("__browserify_process");(function() {
         return i.defense;
       }
     },
+    countPets: function(originalCount, pets) {
+      var count;
+
+      count = originalCount || _.size(pets);
+      if (pets["Wolf-Veteran"]) {
+        count--;
+      }
+      if (pets["Wolf-Cerberus"]) {
+        count--;
+      }
+      if (pets["Dragon-Hydra"]) {
+        count--;
+      }
+      return count;
+    },
     /*
     ----------------------------------------------------------------------
     Derby-specific helpers. Will remove after the rewrite, need them here for now

@@ -307,8 +307,6 @@ module.exports =
     return false unless messages?.length > 0
     messages?[0] and (messages[0].id != lastMessageSeen)
 
-
-
   ###
     are any tags active?
   ###
@@ -353,6 +351,12 @@ module.exports =
     i = items.getItem(type, item)
     if type is 'weapon' then i.strength else i.defense
 
+  countPets: (originalCount, pets) ->
+    count = originalCount or _.size(pets);
+    count-- if pets["Wolf-Veteran"]
+    count-- if pets["Wolf-Cerberus"]
+    count-- if pets["Dragon-Hydra"]
+    count
 
   ###
   ----------------------------------------------------------------------
