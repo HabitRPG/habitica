@@ -473,9 +473,7 @@ api.deleteTag = function(req, res){
     })
     user.save(function(err,saved){
       if (err) return res.json(500, {err: err});
-      // Need to use this until we found a way to update the ui for tasks when a tag is deleted
-      res.locals.wasModified = true; 
-      res.send(200);
+      res.send(204);
     });
   } else {
     res.json(400, {err:'Tag not found'});
