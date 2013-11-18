@@ -171,13 +171,13 @@
       "whichHatchingPotion2" : "卵?",
       "pour" : "pour",
     "rarePets" : "Rare Pets",
-    "market": "Market",
+    "market": "マーケット",
 
   "stable": "Stable",
     "petsFound":"Pets Found",
     "rarePets": "Rare Pets",
 
-  "tavern": "Tavern",
+  "tavern": "居酒屋",
     "restButton":"Rest In The Inn",
     "checkoutButton": "Check Out Of Inn",
     "tavernTalkTitle":"Tavern Talk & LFG",
@@ -186,7 +186,7 @@
       "LFGPosts" : "LGF Posts",
       "tutorials" : "チュートリアル",
 
-  "achievements":"Achievements",
+  "achievements":"功績",
     "achievementUnlocked" : "Achievement Unlocked!",
     "npcText" : "Backed the Kickstarter project at the maximum level!",
     "contribName" : "Contributor",
