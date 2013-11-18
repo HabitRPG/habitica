@@ -4,7 +4,7 @@
   
 
 "_commentfrontpage":"HABITRPG FRONT PAGE",
-   "synopsis" : "Un programma per trattare le proprie abitudini come in un Gioco di Ruolo. Sali di livello se ci riesci, perdi HP se fallisci, guadagna soldi per comprare armi ed armature.",
+   "synopsis" : "Un programma per gestire le proprie abitudini come in un Gioco di Ruolo. Sali di livello se ci riesci, perdi HP se fallisci, guadagna soldi per comprare armi ed armature.",
   "playButton" : "Gioca",
 
 
@@ -20,11 +20,11 @@
   "tour3Title" : "Dailies",
     "tour3Text" : "Le Dailies sono le attività che vuoi completare una volta al giorno.",
   "tour4Title" : "Todos",
-    "tour4Text" : "I Todos sono obiettivi unici che devono essere completati alla fine.",
+    "tour4Text" : "I Todos sono gli obiettivi personali che vuoi completare.",
   "tour5Title" : "Ricompense",
     "tour5Text" : "Quando completi i tuoi obiettivi, guadagni oro per comprare ricompense. Comprale liberamente - le ricompense sono fondamentali per formare buone abitudini.",            
   "tour6Title" : "Passa il mouse sopra i commenti",
-    "tour6Text" : "Diversi tipi di attività hanno proprietà sperciali. Passa il mouse sopra i commenti per maggiori informazioni. Quando sei pronto per cominciare, cancella le attività esistenti ed aggiungine di nuove.",
+    "tour6Text" : "Diversi tipi di attività hanno proprietà speciali. Passa il mouse sopra i commenti per maggiori informazioni. Quando sei pronto per cominciare, cancella le attività esistenti ed aggiungine di nuove.",
 
 
 
@@ -183,7 +183,7 @@
     "tavernTalkTitle":"Chiacchiera nella Taverna & LFG",
     "tavernRestingInfo" : "Mentre riposi le tue dailies sono salvate e non verranno modificate dal cambio di giorno. Puoi tornare domani o in una settimana, troverai tutto come l'hai lasciato.",
     "resources" : "Risorse",
-      "LFGPosts" : "Messaggi LGF",
+      "LFGPosts" : "Messaggi LFG",
       "tutorials" : "Tutorials",
 
   "achievements":"Obiettivi",
@@ -280,7 +280,7 @@
       "head5Text": "Riduce gli HP persi del 6%",
 
   "_commentitemsshield" : "SHIELDS",
-    "sheild0Name" : "Nessuno Scuso",
+    "sheild0Name" : "Nessuno Scudo",
     "sheild1Name" : "Scudo di Legno",
       "sheild1Text": "Riduce gli HP persi del 3%",
     "sheild2Name" : "Brocchiero",
@@ -344,7 +344,7 @@
     "NPCAugustinText1" : "Benvenuti al mercato! Io sono il mercante;", 
     "NPCAugustinText2" : "Morite dalla voglia di avere quel particolare animale, ma non volete aspettare di trovarlo ? Compratelo qui!",
     "NPCJohanssonText1" : "Benvenuti alla Locanda! Io sono", 
-    "NPCJohanssonText2": "l'oste. Se vuoi riposare per un po' (vai in vacanca? malattia improvvisa?), ti sistemo in locanda - le dailies non ti faranno male mentre riposi. Rimani un po' & incontra la gente del posto.",
+    "NPCJohanssonText2": "l'oste. Se vuoi riposare per un po' (vai in vacanca? malattia improvvisa?), ti sistemo in locanda - le dailies non ti faranno male mentre riposi. Rimani un po' e incontra la gente del posto.",
     "NPCMelchiorText1" : "",
     "NPCBowenText1" : "",
     "NPCBochText1" : "",
@@ -384,7 +384,7 @@
   "removeAds": "Rimuovi gli Ads",
   "whyAds": "Perché gli Ads?",
     "whyAdsContent1": "Habit è un progetto open source, e può usare tutto l'aiuto che può ottenere - considerala una donazione ai collaboratori. Riceverai anche 20 Gemme dall'acquisto, con le quali puoi comprare oggetti speciali.",
-    "whyAdsContent2": "'Hey, Ho sostenuto il progetto su Kickstarter!' - segui",
+    "whyAdsContent2": "'Hey, ho sostenuto il progetto su Kickstarter!' - segui",
     "whyAdsContent3": "queste istruzioni",
   "_commentbuttons": "BUTTONS",
     "submit":"Invia",
