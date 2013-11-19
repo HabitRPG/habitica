@@ -89,7 +89,7 @@ module.exports =
   newUser: () ->
     userSchema =
     # _id / id handled by Racer
-      stats: { gp: 0, exp: 0, lvl: 1, hp: 50 }
+      stats:  gp: 0, exp: 0, lvl: 1, hp: 50
       invitations: {party:null, guilds: []}
       items:
         weapon: 0
@@ -102,8 +102,16 @@ module.exports =
         hatchingPotions: {}
         pets: {}
         mounts: {}
-
-      preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0, showHelm: true }
+      preferences:
+        gender: 'm'
+        skin: 'white'
+        hair: color: 'blond', base: 0, bangs: 1
+        #armorSet: 'v1'
+        dayStart:0
+        showHelm: true
+        showArmor: true
+        showWeapon: true
+        showShield: true
       apiToken: uuid() # set in newUserObject below
       lastCron: +new Date #this will be replaced with `+new Date` on first run
       balance: 0

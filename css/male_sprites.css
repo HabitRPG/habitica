@@ -1,114 +1,231 @@
-.m_weapon_6,
-.m_weapon_5,
-.m_weapon_4,
-.m_weapon_3,
-.m_weapon_2,
-.m_weapon_1,
-.m_weapon_0,
-.m_shield_5,
-.m_shield_4,
-.m_shield_3,
-.m_shield_2,
-.m_shield_1,
-.m_head_5,
-.m_head_4,
-.m_head_3,
-.m_head_2,
-.m_head_1,
-.m_head_0,
-.m_hair_blond,
-.m_hair_black,
-.m_hair_brown,
-.m_hair_white,
-.m_armor_5,
-.m_armor_4,
-.m_armor_3,
-.m_armor_2,
-.m_armor_1,
-.m_armor_0,
-.m_skin_dead,
-.m_skin_orc,
-.m_skin_asian,
-.m_skin_black,
-.m_skin_white, 
-.m_skin_ea8349,
-.m_skin_c06534,
-.m_skin_98461a,
-.m_skin_eb052b,
-.m_skin_f69922,
-.m_skin_f5d70f,
-.m_skin_0ff591,
-.m_skin_2b43f6,
-.m_skin_d7a9f7,
-.m_skin_800ed0,
-.m_skin_rainbow,
-.m_skin_monster,
-.m_skin_pumpkin,
-.m_skin_skeleton,
-.m_skin_zombie,
-.m_skin_ghost,
-.m_skin_shadow,
-.m_hair_red
-{
-    background: url("../img/sprites/male_sprites.png") no-repeat;
+[class*='m_weapon_'],[class*='m_shield_'],[class*='m_head_'],[class*='m_hair_'],[class*='m_armor_'],[class*='m_skin_']{
+  background: url("../img/sprites/male_sprites.png") no-repeat;
+  width: 90px;
+  height: 90px;
 }
+[class*='m_shield_0'], [class*='m_armor_0'] { background: none; }
+.m_head_0 {background-position: -1980px -90px;}
 
-.m_weapon_6 {background-position: 0 0; width: 90px; height: 90px}
-.m_weapon_5 {background-position: -90px 0; width: 90px; height: 90px}
-.m_weapon_4 {background-position: -180px 0; width: 90px; height: 90px}
-.m_weapon_3 {background-position: -270px 0; width: 90px; height: 90px}
-.m_weapon_2 {background-position: -360px 0; width: 90px; height: 90px}
-.m_weapon_1 {background-position: -450px 0; width: 90px; height: 90px}
-.m_weapon_0 {background-position: -540px 0; width: 90px; height: 90px}
-.m_shield_5 {background-position: -630px 0; width: 90px; height: 90px}
-.m_shield_4 {background-position: -720px 0; width: 90px; height: 90px}
-.m_shield_3 {background-position: -810px 0; width: 90px; height: 90px}
-.m_shield_2 {background-position: -900px 0; width: 90px; height: 90px}
-.m_shield_1 {background-position: -990px 0; width: 90px; height: 90px}
-.m_head_5 {background-position: -1080px 0; width: 90px; height: 90px}
-.m_head_4 {background-position: -1170px 0; width: 90px; height: 90px}
-.m_head_3 {background-position: -1260px 0; width: 90px; height: 90px}
-.m_head_2 {background-position: -1350px 0; width: 90px; height: 90px}
-.m_head_1 {background-position: -1440px 0; width: 90px; height: 90px}
-.m_head_0 {background-position: -1530px 0; width: 90px; height: 90px}
-.m_hair_blond {background-position: -1620px 0; width: 90px; height: 90px}
-.m_hair_black {background-position: -1710px 0; width: 90px; height: 90px}
-.m_hair_brown {background-position: -1800px 0; width: 90px; height: 90px}
-.m_hair_white {background-position: -1890px 0; width: 90px; height: 90px}
-.m_armor_5 {background-position: -1980px 0; width: 90px; height: 90px}
-.m_armor_4 {background-position: -2070px 0; width: 90px; height: 90px}
-.m_armor_3 {background-position: -2160px 0; width: 90px; height: 90px}
-.m_armor_2 {background-position: -2250px 0; width: 90px; height: 90px}
-.m_armor_1 {background-position: -2340px 0; width: 90px; height: 90px}
-.m_armor_0 {background-position: -2430px 0; width: 90px; height: 90px}
+/* ---------------- Weapons --------------- */
+.m_weapon_6-,.m_weapon_6-warrior {background-position: 0px 0px; }
+.m_weapon_5-,.m_weapon_5-warrior {background-position: -90px 0px; }
+.m_weapon_4-,.m_weapon_4-warrior {background-position: -180px 0px;}
+.m_weapon_3-,.m_weapon_3-warrior {background-position: -270px 0px;}
+.m_weapon_2-,.m_weapon_2-warrior {background-position: -360px 0px;}
+.m_weapon_1-,.m_weapon_1-warrior {background-position: -450px 0px;}
+.m_weapon_0-,.m_weapon_0-warrior {background-position: -540px 0px;}
 
+.m_weapon_6-wizard {background-position: 0px    -90px;}
+.m_weapon_5-wizard {background-position: -90px  -90px;}
+.m_weapon_4-wizard {background-position: -180px -90px;}
+.m_weapon_3-wizard {background-position: -270px -90px;}
+.m_weapon_2-wizard {background-position: -360px -90px;}
+.m_weapon_1-wizard {background-position: -450px -90px;}
+.m_weapon_0-wizard {background-position: -540px -90px;}
+
+.m_weapon_6-healer {background-position: 0px    -180px;}
+.m_weapon_5-healer {background-position: -90px  -180px;}
+.m_weapon_4-healer {background-position: -180px -180px;}
+.m_weapon_3-healer {background-position: -270px -180px;}
+.m_weapon_2-healer {background-position: -360px -180px;}
+.m_weapon_1-healer {background-position: -450px -180px;}
+.m_weapon_0-healer {background-position: -540px -180px;}
+
+.m_weapon_6-rogue {background-position: 0px    -270px;}
+.m_weapon_5-rogue {background-position: -90px  -270px;}
+.m_weapon_4-rogue {background-position: -180px -270px;}
+.m_weapon_3-rogue {background-position: -270px -270px;}
+.m_weapon_2-rogue {background-position: -360px -270px;}
+.m_weapon_1-rogue {background-position: -450px -270px;}
+.m_weapon_0-rogue {background-position: -540px -270px;}
+
+
+/* ---------------- Shields --------------- */
+
+.m_shield_5-, .m_shield_5-warrior {background-position: -630px 0px;}
+.m_shield_4-, .m_shield_4-warrior {background-position: -720px 0px;}
+.m_shield_3-, .m_shield_3-warrior {background-position: -810px 0px;}
+.m_shield_2-, .m_shield_2-warrior {background-position: -900px 0px;}
+.m_shield_1-, .m_shield_1-warrior {background-position: -990px 0px;}
+
+.m_shield_5-wizard {background:none;}
+.m_shield_4-wizard {background:none;}
+.m_shield_3-wizard {background:none;}
+.m_shield_2-wizard {background:none;}
+.m_shield_1-wizard {background:none;}
+
+.m_shield_5-healer {background-position: -630px -180px;}
+.m_shield_4-healer {background-position: -720px -180px;}
+.m_shield_3-healer {background-position: -810px -180px;}
+.m_shield_2-healer {background-position: -900px -180px;}
+.m_shield_1-healer {background-position: -990px -180px;}
+
+.m_shield_5-rogue {background: none;}
+.m_shield_4-rogue {background: none;}
+.m_shield_3-rogue {background: none;}
+.m_shield_2-rogue {background: none;}
+.m_shield_1-rogue {background: none;}
+
+/* ---------------- Helm --------------- */
+.m_head_5-,.m_head_5-warrior {background-position: -1080px 0px; }
+.m_head_4-,.m_head_4-warrior {background-position: -1170px 0px; }
+.m_head_3-,.m_head_3-warrior {background-position: -1260px 0px; }
+.m_head_2-,.m_head_2-warrior {background-position: -1350px 0px; }
+.m_head_1-,.m_head_1-warrior {background-position: -1440px 0px; }
+.m_head_0-,.m_head_0-warrior {background-position: -1980px -90px;}
+
+.m_head_5-wizard {background-position: -1080px -90px; }
+.m_head_4-wizard {background-position: -1170px -90px; }
+.m_head_3-wizard {background-position: -1260px -90px; }
+.m_head_2-wizard {background-position: -1350px -90px; }
+.m_head_1-wizard {background-position: -1440px -90px; }
+.m_head_0-wizard {background-position: -1980px -90px;}
+
+.m_head_5-healer {background-position: -1080px -180px; }
+.m_head_4-healer {background-position: -1170px -180px; }
+.m_head_3-healer {background-position: -1260px -180px; }
+.m_head_2-healer {background-position: -1350px -180px; }
+.m_head_1-healer {background-position: -1440px -180px; }
+.m_head_0-healer {background-position: -1980px -90px;}
+
+.m_head_5-rogue {background-position: -1080px -270px; }
+.m_head_4-rogue {background-position: -1170px -270px; }
+.m_head_3-rogue {background-position: -1260px -270px; }
+.m_head_2-rogue {background-position: -1350px -270px; }
+.m_head_1-rogue {background-position: -1440px -270px; }
+.m_head_0-rogue {background-position: -1980px -90px;}
+
+/* ---------------- Chest --------------- */
+.m_armor_5-,.m_armor_5-warrior {background-position: -1530px 0px;}
+.m_armor_4-,.m_armor_4-warrior {background-position: -1620px 0px;}
+.m_armor_3-,.m_armor_3-warrior {background-position: -1710px 0px;}
+.m_armor_2-,.m_armor_2-warrior {background-position: -1800px 0px;}
+.m_armor_1-,.m_armor_1-warrior {background-position: -1890px 0px;}
+.m_armor_0-,.m_armor_0-warrior {background-position: -1980px 0px;}
+
+.m_armor_5-wizard {background-position: -1530px -90px;}
+.m_armor_4-wizard {background-position: -1620px -90px;}
+.m_armor_3-wizard {background-position: -1710px -90px;}
+.m_armor_2-wizard {background-position: -1800px -90px;}
+.m_armor_1-wizard {background-position: -1890px -90px;}
+.m_armor_0-wizard {background-position: -1980px -90px;}
+
+.m_armor_5-healer {background-position: -1530px -180px;}
+.m_armor_4-healer {background-position: -1620px -180px;}
+.m_armor_3-healer {background-position: -1710px -180px;}
+.m_armor_2-healer {background-position: -1800px -180px;}
+.m_armor_1-healer {background-position: -1890px -180px;}
+.m_armor_0-healer {background-position: -1980px -180px;}
+
+.m_armor_5-rogue {background-position: -1530px -270px;}
+.m_armor_4-rogue {background-position: -1620px -270px;}
+.m_armor_3-rogue {background-position: -1710px -270px;}
+.m_armor_2-rogue {background-position: -1800px -270px;}
+.m_armor_1-rogue {background-position: -1890px -270px;}
+.m_armor_0-rogue {background-position: -1980px -270px;}
+
+/* ---------------- Skins --------------- */
 /* Basic Skins */
-.m_skin_dead {background-position: -2520px 0; width: 90px; height: 90px}
-.m_skin_orc {background-position: -2610px 0; width: 90px; height: 90px}
-.m_skin_asian {background-position: -2700px 0; width: 90px; height: 90px}
-.m_skin_black {background-position: -2790px 0; width: 90px; height: 90px}
-.m_skin_white {background-position: -2880px 0; width: 90px; height: 90px}
-.m_skin_ea8349 {background-position: -2970px 0; width: 90px; height: 90px}
-.m_skin_c06534 {background-position: -3060px 0; width: 90px; height: 90px}
-.m_skin_98461a {background-position: -3150px 0; width: 90px; height: 90px}
+.m_skin_dead    {background-position:  -2070px 0px;}
+.m_skin_orc     {background-position:  -2160px 0px;}
+.m_skin_asian   {background-position:  -2250px 0px;}
+.m_skin_black   {background-position:  -2340px 0px;}
+.m_skin_white   {background-position:  -2070px -90px;}
+.m_skin_ea8349  {background-position:  -2160px -90px;}
+.m_skin_c06534  {background-position:  -2250px -90px;}
+.m_skin_98461a  {background-position:  -2340px -90px;}
 
 /* Crazy Skins */
-.m_skin_eb052b  {background-position: -3240px 0; width: 90px; height: 90px}
-.m_skin_f69922  {background-position: -3330px 0; width: 90px; height: 90px}
-.m_skin_f5d70f  {background-position: -3420px 0; width: 90px; height: 90px}
-.m_skin_0ff591  {background-position: -3510px 0; width: 90px; height: 90px}
-.m_skin_2b43f6  {background-position: -3600px 0; width: 90px; height: 90px}
-.m_skin_d7a9f7  {background-position: -3690px 0; width: 90px; height: 90px}
-.m_skin_800ed0  {background-position: -3780px 0; width: 90px; height: 90px}
-.m_skin_rainbow {background-position: -3870px 0; width: 90px; height: 90px}
+.m_skin_eb052b  {background-position: -2430px -90px;}
+.m_skin_f69922  {background-position: -2520px -90px;}
+.m_skin_f5d70f  {background-position: -2610px -90px;}
+.m_skin_0ff591  {background-position: -2700px -90px;}
+.m_skin_2b43f6  {background-position: -2070px -180px;}
+.m_skin_d7a9f7  {background-position: -2160px -180px;}
+.m_skin_800ed0  {background-position: -2250px -180px;}
+.m_skin_rainbow {background-position: -2340px -180px;}
 
 /* Halloween Skins */
-.m_skin_monster   {background-position: -3960px 0; width: 90px; height: 90px}
-.m_skin_pumpkin   {background-position: -4050px 0; width: 90px; height: 90px}
-.m_skin_skeleton  {background-position: -4140px 0; width: 90px; height: 90px}
-.m_skin_zombie    {background-position: -4230px 0; width: 90px; height: 90px}
-.m_skin_ghost     {background-position: -4320px 0; width: 90px; height: 90px}
-.m_skin_shadow    {background-position: -4410px 0; width: 90px; height: 90px}
+.m_skin_monster   {background-position: -2430px -270px;}
+.m_skin_pumpkin   {background-position: -2520px -270px;}
+.m_skin_skeleton  {background-position: -2610px -270px;}
+.m_skin_zombie    {background-position: -2700px -270px;}
+.m_skin_ghost     {background-position: -2790px -270px;}
+.m_skin_shadow    {background-position: -2880px -270px;}
 
-/* Red Hair */
-.m_hair_red {background-position: -4500px 0; width: 90px; height: 90px}
+/* ---------------- Hair --------------- */
+[class*='m_hair_base_0'] {background:none;}
+[class*='m_hair_bangs_0'] {background-position: -1980px -90px;}
+
+/* White */
+.m_hair_bangs_1_white {background-position: -2610px 0px;}
+.m_hair_bangs_2_white {background-position: -2700px 0px;}
+.m_hair_bangs_3_white {background-position: -2790px 0px;}
+
+.m_hair_base_1_white {background-position: -2880px 0px;}
+.m_hair_base_2_white {background-position: -2970px 0px;}
+.m_hair_base_3_white {background-position: -3060px 0px;}
+.m_hair_base_4_white {background-position: -3150px 0px;}
+.m_hair_base_5_white {background-position: -3240px 0px;}
+.m_hair_base_6_white {background-position: -3330px 0px;}
+.m_hair_base_7_white {background-position: -3420px 0px;}
+.m_hair_base_8_white {background-position: -3510px 0px;}
+
+/* Brown */
+.m_hair_bangs_1_brown {background-position: -2610px -90px;}
+.m_hair_bangs_2_brown {background-position: -2700px -90px;}
+.m_hair_bangs_3_brown {background-position: -2790px -90px;}
+
+.m_hair_base_1_brown {background-position: -2880px -90px;}
+.m_hair_base_2_brown {background-position: -2970px -90px;}
+.m_hair_base_3_brown {background-position: -3060px -90px;}
+.m_hair_base_4_brown {background-position: -3150px -90px;}
+.m_hair_base_5_brown {background-position: -3240px -90px;}
+.m_hair_base_6_brown {background-position: -3330px -90px;}
+.m_hair_base_7_brown {background-position: -3420px -90px;}
+.m_hair_base_8_brown {background-position: -3510px -90px;}
+
+/* Blond */
+.m_hair_bangs_1_blond {background-position: -2610px -180px;}
+.m_hair_bangs_2_blond {background-position: -2700px -180px;}
+.m_hair_bangs_3_blond {background-position: -2790px -180px;}
+
+.m_hair_base_1_blond {background-position: -2880px -180px;}
+.m_hair_base_2_blond {background-position: -2970px -180px;}
+.m_hair_base_3_blond {background-position: -3060px -180px;}
+.m_hair_base_4_blond {background-position: -3150px -180px;}
+.m_hair_base_5_blond {background-position: -3240px -180px;}
+.m_hair_base_6_blond {background-position: -3330px -180px;}
+.m_hair_base_7_blond {background-position: -3420px -180px;}
+.m_hair_base_8_blond {background-position: -3510px -180px;}
+
+/* Red */
+.m_hair_bangs_1_red {background-position: -2610px -270px;}
+.m_hair_bangs_2_red {background-position: -2700px -270px;}
+.m_hair_bangs_3_red {background-position: -2790px -270px;}
+
+.m_hair_base_1_red {background-position: -2880px -270px;}
+.m_hair_base_2_red {background-position: -2970px -270px;}
+.m_hair_base_3_red {background-position: -3060px -270px;}
+.m_hair_base_4_red {background-position: -3150px -270px;}
+.m_hair_base_5_red {background-position: -3240px -270px;}
+.m_hair_base_6_red {background-position: -3330px -270px;}
+.m_hair_base_7_red {background-position: -3420px -270px;}
+.m_hair_base_8_red {background-position: -3510px -270px;}
+
+/* Black */
+.m_hair_bangs_1_black {background-position: -2610px -360px;}
+.m_hair_bangs_2_black {background-position: -2700px -360px;}
+.m_hair_bangs_3_black {background-position: -2790px -360px;}
+
+.m_hair_base_1_black {background-position: -2880px -360px;}
+.m_hair_base_2_black {background-position: -2970px -360px;}
+.m_hair_base_3_black {background-position: -3060px -360px;}
+.m_hair_base_4_black {background-position: -3150px -360px;}
+.m_hair_base_5_black {background-position: -3240px -360px;}
+.m_hair_base_6_black {background-position: -3330px -360px;}
+.m_hair_base_7_black {background-position: -3420px -360px;}
+.m_hair_base_8_black {background-position: -3510px -360px;}
+
+.customize-menu [class*='m_hair_'] {width: 60px; height: 60px;}
+

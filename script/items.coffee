@@ -42,8 +42,133 @@ items = module.exports.items =
     {index: 6, text: "Tormented Skull", classes: 'shield_6', notes:'Decreases Health loss by 9%.', defense: 9, value:120, canOwn: ((u)-> +u.backer?.tier >= 45)}
     {index: 7, text: "Crystal Shield", classes: 'shield_7', notes:'Decreases Health loss by 10%.', defense: 10, value:150, canOwn: ((u)-> +u.contributor?.level >= 5)}
   ]
-  potion: {type: 'potion', text: "Health Potion", notes: "Recover 15 Health (Instant Use)", value: 25, classes: 'potion'}
-  reroll: {type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your task values back to 0 (yellow). Useful when everything's red and it's hard to stay alive.", value:0 }
+
+  potion:
+    type: 'potion', text: "Health Potion", notes: "Recover 15 Health (Instant Use)", value: 25, classes: 'potion'
+  reroll:
+    type: 'reroll', text: "Re-Roll", classes: 'reroll', notes: "Resets your task values back to 0 (yellow). Useful when everything's red and it's hard to stay alive.", value:0
+
+  ###
+  Spell definitions. Text, notes, and mana are obvious. The rest:
+
+  * {target}: one of [task, self, party, user]. This is very important, because if the cast() function is expecting one
+    thing and receives another, it will cause errors. `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
+    etc. Basically, use self for anything that's not [task, party, user] and is an instant-cast
+
+  * {cast}: the fucntion that's run to perform the ability's action. This is pretty slick - because this is exported to the
+    web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
+    own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
+    you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
+    spell is correct. Take a look at habitrpg/src/models/user.js and habitrpg/src/models/task.js for what attributes are
+    available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
+    so you'll want to iterate over them like: `_.each(target,function(member){...})`
+
+  Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
+  ###
+  spells:
+    wizard:
+      fireball:
+        text: 'Fireball'
+        mana: 10
+        target: 'task'
+        notes: 'Burns a task, granting additional exp & decreasing its redness.'
+        cast: (user, target) ->
+          target.value += user.stats.int * crit(user)
+      ice:
+        text: 'Ice Wall'
+        mana: 25
+        target: 'task'
+        notes: 'Freezes all tasks, slowing the damage they deal you for one day'
+        cast: (user, target) ->
+          _.each user.tasks, (task) ->
+            task.buffs.value ?= task.value
+            task.buffs.value += user.stats.int
+      meteorShower:
+        text: 'Meteor Shower'
+        mana: 40
+        target: 'self'
+        notes: "Causes damage to all tasks, reducing their redness",
+        cast: (user, target) ->
+          _.each user.tasks, ((task) ->task.value += user.stats.int)
+
+    warrior:
+      bash:
+        text: 'Bash'
+        mana: 10
+        target: 'task'
+        notes: 'Hit a single task hard'
+        cast: (user, target) ->
+          target.value += user.stats.str * crit(user)
+      intimidate:
+        text: 'Intimidate'
+        mana: 10
+        target: 'task'
+        notes: "Intimidate a task, making it flee"
+        cast: (user, target) ->
+          (target.buffs ?= {}).value = 9999
+      defensiveStance:
+        text: 'Defensive Stance'
+        target: 'self'
+        mana: 10
+        notes: 'Prepare yourself for the onslaught of tasks'
+        cast: (user, target) ->
+          user.stats.buffs.def = user.stats.def
+
+    rogue:
+      backStab:
+        text: 'Back Stab'
+        mana: 10
+        target: 'task'
+        notes: 'High crit chance, stab a habit from behind'
+        cast: (user, target) ->
+          _crit = crit(user)
+          target.value += _crit
+          user.stats.gp += _crit
+      pickPocket:
+        text: 'Pick Pocket'
+        target: 'task'
+        mana: 10
+        notes: 'High chance of getting a free drop from a task'
+        cast: (user, target) ->
+          user.stats.gp += target.value * user.stats.per
+      stealth:
+        text: 'Stealth'
+        target: 'self'
+        mana: 40
+        notes: 'Hide from as many tasks as you can for one day'
+        cast: (user, target) ->
+          user.stats.buffs.stealth = user.stats.per # number of tasks you'll evade
+    healer:
+      heal:
+        text: 'Heal'
+        mana: 10
+        target: 'user'
+        notes: 'Heals self (user.hp += user.def, INT decreases mana cost)'
+        cast: (user, target) ->
+          target.stats.hp += user.stats.def
+      healAll:
+        text: 'Heal All'
+        mana: 20
+        target: 'party'
+        notes: 'Heals party (user.hp += user.def, INT decreases mana cost)'
+        cast: (user, target) ->
+          _.each target, ((member) -> member.stats.hp += user.def)
+      empower:
+        text: 'Empower'
+        mana: 20
+        target: 'user'
+        notes: "Increases target's highest stat"
+        cast: (user, target) ->
+          # TODO find highst stat, not just str
+          highestStat = 'str'
+          (target.stats.buffs ?= {})[highestStat] += (user.def/2)
+      shield:
+        text: 'Shield'
+        mana: 20
+        target: 'user'
+        notes: "Increases target's defense for one day"
+        cast: (user, target) ->
+          (target.stats.buffs ?= {}).def += user.def
 
   eggs:
     # value & other defaults set below
@@ -88,9 +213,10 @@ items = module.exports.items =
 
     Saddle:           text: 'Saddle', value: 5, notes: 'Instantly raises your pet into a mount.'
 
-# we somtimes want item arrays above in reverse order, for backward lookups (you'll see later in the code)
-reversed = {}
+crit = (user) -> (Math.random() * user.stats.per + 1)
 
+# we sometimes want item arrays above in reverse order, for backward lookups (you'll see later in the code)
+reversed = {}
 _.each ['weapon', 'armor', 'head', 'shield'], (type) ->
   reversed[type] = items[type].slice().reverse()
   # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
@@ -109,6 +235,16 @@ _.each items.hatchingPotions, (pot,k) ->
 
 _.each items.food, (food,k) ->
   _.defaults food, {value: 1, name: k, notes: "Feed this to a pet and it may grow into a sturdy steed."}
+
+# Intercept all spells to reduce user.stats.mp after casting the spell
+_.each items.spells, (spellClass) ->
+  _.each spellClass, (spell, k) ->
+    spell.name = k
+    _cast = spell.cast
+    spell.cast = (user, target) ->
+      #return if spell.target and spell.target != (if target.type then 'task' else 'user')
+      _cast(user,target)
+      user.stats.mp = user.stats.mp - spell.mana
 
 module.exports.buyItem = (user, type) ->
   nextItem =
@@ -160,9 +296,10 @@ module.exports.equipped = (type, item=0, pref={gender:'m', armorSet:'v1'}, backe
   # backer / contrib (they don't have gender)
   return "#{type}_#{item}" if (item > lastStandardItem)
 
-  # Females have some special thing going on for their armor / helms
-  if (type in ['armor', 'head'] and pref.gender is 'f')
-    return "f_armor_#{item}_#{pref.armorSet}" if (item is 0 and type is 'armor')
-    return "f_head_#{item}_#{pref.armorSet}" if (item > 1 and type is 'head')
-
-  return "#{pref.gender}_#{type}_#{item}"
+#  # Females have some special thing going on for their armor / helms
+#  if (type in ['armor', 'head'] and pref.gender is 'f')
+#    return "f_armor_#{item}_#{pref.armorSet}" if (item is 0 and type is 'armor')
+#    return "f_head_#{item}_#{pref.armorSet}" if (item > 1 and type is 'head')
+#
+#  return "#{pref.gender}_#{type}_#{item}"
+  return "m_#{type}_#{item}"
