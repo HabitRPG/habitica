@@ -17,7 +17,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     $rootScope.playSound = function(id){
       if (!User.user.preferences.sound) return;
-      document.getElementById('sound-' + id).play();
+      document.getElementById('oggSource').src = 'audio/' + id + '.ogg';
+      document.getElementById('mp3Source').src = 'audio/' + id + '.mp3';
+      document.getElementById('sound').load();
     }
 
     // indexOf helper
