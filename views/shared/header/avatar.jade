@@ -11,11 +11,12 @@ figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile
     // Avatar
     span(class='{{profile.preferences.gender}}_skin_{{profile.preferences.skin}}')
     span(class='{{profile.preferences.gender}}_hair_{{profile.preferences.hair}}')
-    span(class='{{equipped("armor", profile.items.armor, profile.preferences, profile.backer, profile.contributor)}}')
+    span(class='{{equipped("armor", 0, profile.preferences, profile.backer, profile.contributor)}}')
+    span(class='{{equipped("armor", profile.items.armor, profile.preferences, profile.backer, profile.contributor)}}', ng-show='profile.preferences.showArmor')
     span(class='{{profile.preferences.gender}}_head_0', ng-hide='profile.preferences.showHelm')
     span(class='{{equipped("head", profile.items.head, profile.preferences, profile.backer, profile.contributor)}}', ng-show='profile.preferences.showHelm')
-    span(class='{{equipped("shield",profile.items.shield,profile.preferences, profile.backer, profile.contributor)}}')
-    span(class='{{equipped("weapon",profile.items.weapon,profile.preferences, profile.backer, profile.contributor)}}')
+    span(class='{{equipped("shield",profile.items.shield,profile.preferences, profile.backer, profile.contributor)}}', ng-show='profile.preferences.showShield')
+    span(class='{{equipped("weapon",profile.items.weapon,profile.preferences, profile.backer, profile.contributor)}}', ng-show='profile.preferences.showWeapon')
 
     // Mount Head
     span(ng-if='profile.items.currentMount', class='Mount_Head_{{profile.items.currentMount}}')

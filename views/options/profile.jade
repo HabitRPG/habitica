@@ -9,14 +9,26 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
             button.m_head_0.customize-option(type='button', ng-click='set("preferences.gender","m")')
             button.f_head_0.customize-option(type='button', ng-click='set("preferences.gender","f")')
           label.checkbox
-            input(type='checkbox', ng-model='user.preferences.showHelm', ng-change='toggleHelm(user.preferences.showHelm)')
+            input(type='checkbox', ng-model='user.preferences.showHelm', ng-change='set("preferences.showHelm", user.preferences.showHelm?true: false)')
             | Show Helm
-
-        menu(ng-show='user.preferences.gender=="f"', type='list')
+        menu(type='list')
           li.customize-menu
             menu(label='Clothing')
-              button.f_armor_0_v1.customize-option(type='button', ng-click='set("preferences.armorSet","v1")')
-              button.f_armor_0_v2.customize-option(type='button', ng-click='set("preferences.armorSet","v2")')
+              button.f_armor_0_v1.customize-option(ng-show='user.preferences.gender=="f"', type='button', ng-click='set("preferences.armorSet","v1")')
+              button.f_armor_0_v2.customize-option(ng-show='user.preferences.gender=="f"', type='button', ng-click='set("preferences.armorSet","v2")')
+          label.checkbox
+            input(type='checkbox', ng-model='user.preferences.showArmor', ng-change='set("preferences.showArmor", user.preferences.showArmor?true: false)')
+            | Show Armor
+        menu(type='list')
+          li.customize-menu
+            menu(label='Other')
+          label.checkbox
+            input(type='checkbox', ng-model='user.preferences.showWeapon', ng-change='set("preferences.showWeapon", user.preferences.showWeapon?true: false)')
+            | Show Weapon
+          label.checkbox
+            input(type='checkbox', ng-model='user.preferences.showShield', ng-change='set("preferences.showShield", user.preferences.showShield?true: false)')
+            | Show Shield
+
 
     .span4
         // hair
