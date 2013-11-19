@@ -30,7 +30,7 @@
     "bootstrap-tour": "0.5.0",
     "bootstrap-growl": "~1.1.0",
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#master",
-    "BrowserQuest": "https://github.com/mozilla/BrowserQuest.git",
+    "BrowserQuest": "https://github.com/browserquest/BrowserQuest.git",
     "github-buttons": "git://github.com/mdo/github-buttons.git",
     "marked": "~0.2.9",
     "JavaScriptButtons": "git://github.com/paypal/JavaScriptButtons.git#master",
