@@ -136,7 +136,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       var messagetext = message.text.toLowerCase();
       var username = user.profile.name;
       var mentioned = messagetext.indexOf(username.toLowerCase());
-      var pattern = "(\s|@|^){1}"+username+"([^\w]|$){1}";
+      var pattern = username+"([^\w]|$){1}";
       if(mentioned > -1) {
         var preceedingchar = messagetext.substring(mentioned-1,mentioned);
         if(mentioned == 0 || preceedingchar.trim() == '' || preceedingchar == '@'){
