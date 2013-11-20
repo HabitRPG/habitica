@@ -352,7 +352,7 @@ module.exports =
     if type is 'weapon' then i.strength else i.defense
 
   countPets: (originalCount, pets) ->
-    count = originalCount or _.size(pets);
+    count = if originalCount? then originalCount else _.size(pets)
     count-- if pets["Wolf-Veteran"]
     count-- if pets["Wolf-Cerberus"]
     count-- if pets["Dragon-Hydra"]
