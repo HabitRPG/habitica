@@ -17,8 +17,11 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     $rootScope.playSound = function(id){
       if (!User.user.preferences.sound) return;
-      document.getElementById('oggSource').src = 'audio/' + id + '.ogg';
-      document.getElementById('mp3Source').src = 'audio/' + id + '.mp3';
+      var select = document.getElementById('audioTheme');
+      var theme = select.options[select.selectedIndex].value;
+      var file =  'audio/' + theme + '/' + id;
+      document.getElementById('oggSource').src = file + '.ogg';
+      document.getElementById('mp3Source').src = file + '.mp3';
       document.getElementById('sound').load();
     }
 
