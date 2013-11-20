@@ -566,10 +566,9 @@ api.batchUpdate = function(req, res, next) {
     if (err) return res.json(500, {err: err});
     var response = user.toJSON();
     response.wasModified = res.locals.wasModified;
-    if (response._tmp && response._tmp.drop) response.wasModified = true;
-
-    // Send the response to the server
-    if(response.wasModified){
+    if (response._tmp && response._tmp.drop){
+      res.json(200, {_tmp: {drop: response._tmp.drop}, _v: response._v});
+    }else if(response.wasModified){
       res.json(200, response);
     }else{
       res.json(200, {_v: response._v});
