@@ -14,7 +14,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}
 
     $scope.$watch('user.items.pets', function(pets){ 
-      window.habitrpgShared.helpers.countPets($rootScope.countExists(pets), User.user.items.pets); 
+      $scope.petCount = window.habitrpgShared.helpers.countPets($rootScope.countExists(pets), User.user.items.pets);
     }, true);
     $scope.$watch('user.items.mounts', function(mounts){ $scope.mountCount = $rootScope.countExists(mounts); }, true);
     $scope.$watch('user.items.eggs', function(eggs){ $scope.eggCount = countStacks(eggs); }, true);

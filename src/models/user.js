@@ -267,7 +267,7 @@ UserSchema.pre('save', function(next) {
       'Anonymous';
   }
 
-  var petCount = _.reduce(this.items.pets,function(m,v){return m+(v ? 1 : 0);},0);
+  var petCount = helpers.countPets(_.reduce(this.items.pets,function(m,v){return m+(v?1:0)},0), this.items.pets);
   this.achievements.beastMaster = petCount >= 90;
 
   //our own version incrementer
