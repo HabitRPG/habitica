@@ -39,7 +39,6 @@ habitrpg.controller('NotificationCtrl',
     });
 
     $rootScope.$watch('user.achievements.ultimateGear', function(after, before){
-      console.log(after, before)
       if (after === before || after !== true) return;
       $rootScope.modals.achievements.ultimateGear = true;
     });
