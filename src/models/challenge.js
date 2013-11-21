@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var helpers = require('habitrpg-shared/script/helpers');
 var _ = require('lodash');
-var TaskSchema = require('./task').schema;
+var TaskSchemas = require('./task');
 var Group = require('./group').model;
 
 var ChallengeSchema = new Schema({
@@ -10,10 +10,10 @@ var ChallengeSchema = new Schema({
   name: String,
   shortName: String,
   description: String,
-  habits: [TaskSchema],
-  dailys: [TaskSchema],
-  todos: [TaskSchema],
-  rewards: [TaskSchema],
+  habits:   [TaskSchemas.HabitSchema],
+  dailys:   [TaskSchemas.DailySchema],
+  todos:    [TaskSchemas.TodoSchema],
+  rewards:  [TaskSchemas.RewardSchema],
   leader: {type: String, ref: 'User'},
   group: {type: String, ref: 'Group'},
   timestamp: {type: Date, 'default': Date.now},
