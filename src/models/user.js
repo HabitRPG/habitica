@@ -9,7 +9,7 @@ var Schema = mongoose.Schema;
 var helpers = require('habitrpg-shared/script/helpers');
 var items = require('habitrpg-shared/script/items');
 var _ = require('lodash');
-var TaskSchema = require('./task').schema;
+var TaskSchemas = require('./task');
 var Challenge = require('./challenge').model;
 
 // User Schema
@@ -219,10 +219,10 @@ var UserSchema = new Schema({
 
   challenges: [{type: 'String', ref:'Challenge'}],
 
-  habits: [TaskSchema],
-  dailys: [TaskSchema],
-  todos: [TaskSchema],
-  rewards: [TaskSchema],
+  habits:   [TaskSchemas.HabitSchema],
+  dailys:   [TaskSchemas.DailySchema],
+  todos:    [TaskSchemas.TodoSchema],
+  rewards:  [TaskSchemas.RewardSchema],
 
 }, {
   strict: true,
