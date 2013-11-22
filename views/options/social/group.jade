@@ -8,8 +8,8 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
 
     // ------ Information -------
     .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
-      .modal-header
-        span(ng-if='group.leader == user.id')
+      .modal-header(bindonce='group')
+        span(bo-if='group.leader == user.id')
           button.btn.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing') Save
           button.btn.btn-default.pull-right(ng-click='group._editing = true', ng-hide='group._editing') Edit Group
         h3 {{group.name}}
@@ -40,7 +40,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
       .modal-header
         h3 Members
       .modal-body
-        table.table.table-striped
+        table.table.table-striped(bindonce='group')
           tr(ng-repeat='member in group.members')
             td
               // allow leaders to ban members
@@ -48,9 +48,9 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
                 a(ng-click='removeMember(group, member, true)')
                   i.icon-ban-circle(tooltip='Boot Member')
               a
-                span(bindonce='group', bo-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
+                span(bo-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
                   | {{member.profile.name}}
-          tr(ng-if='group.memberCount > group.members.length')
+          tr(bo-if='group.memberCount > group.members.length')
             td.
              <span class='badge'>{{group.memberCount - group.members.length}} more members</span>
 

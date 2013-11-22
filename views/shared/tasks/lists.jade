@@ -7,7 +7,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
       .task-column(class='{{list.type}}s')
 
         // Todos export/graph options
-        span.option-box.pull-right(ng-if='main && list.type=="todo"')
+        span.option-box.pull-right(bo-if='main && list.type=="todo"')
           a.option-action(ng-show='obj.history.todos', ng-click='toggleChart("todos")', tooltip='Progress')
             i.icon-signal
           //-a.option-action(ng-href='/v1/users/{{user.id}}/calendar.ics?apiToken={{user.apiToken}}', tooltip='iCal')
@@ -16,7 +16,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           // <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a>
 
         // Gold & Gems
-        span.option-box.pull-right.wallet(ng-if='main && list.type=="reward"')
+        span.option-box.pull-right.wallet(bo-if='main && list.type=="reward"')
           .money
             | {{gold(user.stats.gp)}}
             span.shop_gold(tooltip='Gold')
@@ -28,7 +28,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
         h2.task-column_title {{list.header}}
 
         // Todo Chart
-        .todos-chart(ng-if='list.type == "todo"', ng-show='charts.todos')
+        .todos-chart(bo-if='list.type == "todo"', ng-show='charts.todos')
 
         // Add New
         form.addtask-form.form-inline.new-task-form(name='new{{list.type}}form', ng-hide='obj._locked || (list.showCompleted && list.type=="todo")', ng-submit='addTask(obj[list.type+"s"],list)')
@@ -45,7 +45,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           include ./task
 
         // Static Rewards
-        ul.items(ng-if='main && list.type=="reward" && user.flags.itemsEnabled')
+        ul.items(bo-if='main && list.type=="reward" && user.flags.itemsEnabled')
           li.task.reward-item(ng-hide='item.hide', ng-repeat='item in itemStore')
             // right-hand side control buttons
             .task-meta-controls
@@ -53,9 +53,9 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 i.icon-comment
             //left-hand size commands
             .task-controls
-              a.task-action-btn.btn-reroll(ng-if='item.type=="reroll"', ng-click='modals.reroll = true')
+              a.task-action-btn.btn-reroll(bo-if='item.type=="reroll"', ng-click='modals.reroll = true')
                 i.icon-repeat
-              a.money.btn-buy.item-btn(ng-if='item.type!="reroll"', ng-click='buy(item.type)')
+              a.money.btn-buy.item-btn(bo-if='item.type!="reroll"', ng-click='buy(item.type)')
                 span.reward-cost {{item.value}}
                 span.shop_gold
             // main content
@@ -65,7 +65,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
         br
 
         // Ads
-        div(ng-if='main && !user.purchased.ads && list.type!="reward"')
+        div(bo-if='main && !user.purchased.ads && list.type!="reward"')
           span.pull-right
             a(ng-click='modals.buyGems=true', tooltip=env.t('removeAds'))
               i.icon-remove
