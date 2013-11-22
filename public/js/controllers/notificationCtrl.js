@@ -29,7 +29,12 @@ habitrpg.controller('NotificationCtrl',
     });
 
     $rootScope.$watch('user._tmp.drop', function(after, before){
-      if (after == before || !after) return;
+      if (!after) return;
+      var type = after.type === 'HatchingPotion' ? 'hatchingPotions' : (after.type.toLowerCase() + 's')
+      if(!User.user.items[type][after.name]){
+        User.user.items[type][after.name] = 0;
+      }
+      User.user.items[type][after.name]++;
       $rootScope.modals.drop = true;
     });
 
