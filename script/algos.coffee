@@ -112,8 +112,9 @@ obj.taskDeltaFormula = (currentValue, direction) ->
   Drop System
 ###
 
-randomDrop = (user, delta, priority, streak = 0, options={}) ->
-  paths = options.paths || {}
+randomDrop = (user, modifiers) ->
+  {delta, priority, streak} = modifiers
+  streak ?= 0
   # limit drops to 2 / day
   user.items.lastDrop ?=
     date: +moment().subtract('d', 1) # trick - set it to yesterday on first run, that way they can get drops today
@@ -184,6 +185,16 @@ obj.score = (user, task, direction, options={}) ->
   # This is for setting one-time temporary flags, such as streakBonus or itemDropped. Useful for notifying
   # the API consumer, then cleared afterwards
   user._tmp = {}
+
+  # Aggregate all intrinsic stats, buffs, weapon, & armor into computed stats
+  user.stats._computed = _.reduce(['per','con','str','int'], (m,stat) ->
+    m[stat] = _.reduce('stats stats.buffs items.weapon items.armor items.head items.shield'.split(' '), (m2,path) ->
+      m2 + (+helpers.dotGet("#{path}.#{stat}", user) or 0)
+    , 0)
+    #m[stat] = user.stats[stat] + user.stats.buffs?[stat] + user.items.weapon[stat] + user.items.armor[stat] + user.items.head[stat] + user.items.shield[stat]
+    m
+  , {})
+  console.log computed: user.stats._computed
 
   [gp, hp, exp, lvl] = [+user.stats.gp, +user.stats.hp, +user.stats.exp, ~~user.stats.lvl]
   [type, value, streak, priority] = [task.type, +task.value, ~~task.streak, task.priority or '!']
@@ -289,7 +300,7 @@ obj.score = (user, task, direction, options={}) ->
 
   # Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
   if typeof window is 'undefined'
-    randomDrop(user, delta, priority, streak, {paths: paths}) if direction is 'up'
+    randomDrop(user, {delta, priority, streak}) if direction is 'up'
 
   return delta
 

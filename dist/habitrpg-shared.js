@@ -6415,11 +6415,11 @@ var global=self;/**
 }.call(this));
 
 },{}],3:[function(require,module,exports){
-// moment.js
-// version : 2.1.0
-// author : Tim Wood
-// license : MIT
-// momentjs.com
+//! moment.js
+//! version : 2.4.0
+//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
+//! license : MIT
+//! momentjs.com
 
 (function (undefined) {
 
@@ -6428,8 +6428,18 @@ var global=self;/**
     ************************************/
 
     var moment,
-        VERSION = "2.1.0",
-        round = Math.round, i,
+        VERSION = "2.4.0",
+        round = Math.round,
+        i,
+
+        YEAR = 0,
+        MONTH = 1,
+        DATE = 2,
+        HOUR = 3,
+        MINUTE = 4,
+        SECOND = 5,
+        MILLISECOND = 6,
+
         // internal storage for language config files
         languages = {},
 
@@ -6438,10 +6448,14 @@ var global=self;/**
 
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
-        aspNetTimeSpanJsonRegex = /(\-)?(\d*)?\.?(\d+)\:(\d+)\:(\d+)\.?(\d{3})?/,
+        aspNetTimeSpanJsonRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/,
+
+        // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
+        // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
+        isoDurationRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|X|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,
 
         // parsing token regexes
@@ -6450,19 +6464,28 @@ var global=self;/**
         parseTokenThreeDigits = /\d{3}/, // 000 - 999
         parseTokenFourDigits = /\d{1,4}/, // 0 - 9999
         parseTokenSixDigits = /[+\-]?\d{1,6}/, // -999,999 - 999,999
+        parseTokenDigits = /\d+/, // nonzero number of digits
         parseTokenWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i, // any word (or two) characters or numbers including two/three word month in arabic.
         parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000 or Z
         parseTokenT = /T/i, // T (ISO seperator)
         parseTokenTimestampMs = /[\+\-]?\d+(\.\d{1,3})?/, // 123456789 123456789.123
 
         // preliminary iso regex
-        // 0000-00-00 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000
-        isoRegex = /^\s*\d{4}-\d\d-\d\d((T| )(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?/,
+        // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000)
+        isoRegex = /^\s*\d{4}-(?:(\d\d-\d\d)|(W\d\d$)|(W\d\d-\d)|(\d\d\d))((T| )(\d\d(:\d\d(:\d\d(\.\d+)?)?)?)?([\+\-]\d\d:?\d\d|Z)?)?$/,
+
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
+
+        isoDates = [
+            'YYYY-MM-DD',
+            'GGGG-[W]WW',
+            'GGGG-[W]WW-E',
+            'YYYY-DDD'
+        ],
 
         // iso time formats and regexes
         isoTimes = [
-            ['HH:mm:ss.S', /(T| )\d\d:\d\d:\d\d\.\d{1,3}/],
+            ['HH:mm:ss.SSSS', /(T| )\d\d:\d\d:\d\d\.\d{1,3}/],
             ['HH:mm:ss', /(T| )\d\d:\d\d:\d\d/],
             ['HH:mm', /(T| )\d\d:\d\d/],
             ['HH', /(T| )\d\d/]
@@ -6489,9 +6512,24 @@ var global=self;/**
             m : 'minute',
             h : 'hour',
             d : 'day',
+            D : 'date',
             w : 'week',
+            W : 'isoWeek',
             M : 'month',
-            y : 'year'
+            y : 'year',
+            DDD : 'dayOfYear',
+            e : 'weekday',
+            E : 'isoWeekday',
+            gg: 'weekYear',
+            GG: 'isoWeekYear'
+        },
+
+        camelFunctions = {
+            dayofyear : 'dayOfYear',
+            isoweekday : 'isoWeekday',
+            isoweek : 'isoWeek',
+            weekyear : 'weekYear',
+            isoweekyear : 'isoWeekYear'
         },
 
         // format function strings
@@ -6587,12 +6625,15 @@ var global=self;/**
                 return this.seconds();
             },
             S    : function () {
-                return ~~(this.milliseconds() / 100);
+                return toInt(this.milliseconds() / 100);
             },
             SS   : function () {
-                return leftZeroFill(~~(this.milliseconds() / 10), 2);
+                return leftZeroFill(toInt(this.milliseconds() / 10), 2);
             },
             SSS  : function () {
+                return leftZeroFill(this.milliseconds(), 3);
+            },
+            SSSS : function () {
                 return leftZeroFill(this.milliseconds(), 3);
             },
             Z    : function () {
@@ -6602,7 +6643,7 @@ var global=self;/**
                     a = -a;
                     b = "-";
                 }
-                return b + leftZeroFill(~~(a / 60), 2) + ":" + leftZeroFill(~~a % 60, 2);
+                return b + leftZeroFill(toInt(a / 60), 2) + ":" + leftZeroFill(toInt(a) % 60, 2);
             },
             ZZ   : function () {
                 var a = -this.zone(),
@@ -6611,7 +6652,7 @@ var global=self;/**
                     a = -a;
                     b = "-";
                 }
-                return b + leftZeroFill(~~(10 * a / 6), 4);
+                return b + leftZeroFill(toInt(10 * a / 6), 4);
             },
             z : function () {
                 return this.zoneAbbr();
@@ -6622,7 +6663,9 @@ var global=self;/**
             X    : function () {
                 return this.unix();
             }
-        };
+        },
+
+        lists = ['months', 'monthsShort', 'weekdays', 'weekdaysShort', 'weekdaysMin'];
 
     function padToken(func, count) {
         return function (a) {
@@ -6656,43 +6699,44 @@ var global=self;/**
 
     // Moment prototype object
     function Moment(config) {
+        checkOverflow(config);
         extend(this, config);
     }
 
     // Duration Constructor
     function Duration(duration) {
-        var years = duration.years || duration.year || duration.y || 0,
-            months = duration.months || duration.month || duration.M || 0,
-            weeks = duration.weeks || duration.week || duration.w || 0,
-            days = duration.days || duration.day || duration.d || 0,
-            hours = duration.hours || duration.hour || duration.h || 0,
-            minutes = duration.minutes || duration.minute || duration.m || 0,
-            seconds = duration.seconds || duration.second || duration.s || 0,
-            milliseconds = duration.milliseconds || duration.millisecond || duration.ms || 0;
+        var normalizedInput = normalizeObjectUnits(duration),
+            years = normalizedInput.year || 0,
+            months = normalizedInput.month || 0,
+            weeks = normalizedInput.week || 0,
+            days = normalizedInput.day || 0,
+            hours = normalizedInput.hour || 0,
+            minutes = normalizedInput.minute || 0,
+            seconds = normalizedInput.second || 0,
+            milliseconds = normalizedInput.millisecond || 0;
 
         // store reference to input for deterministic cloning
         this._input = duration;
 
         // representation for dateAddRemove
-        this._milliseconds = milliseconds +
+        this._milliseconds = +milliseconds +
             seconds * 1e3 + // 1000
             minutes * 6e4 + // 1000 * 60
             hours * 36e5; // 1000 * 60 * 60
         // Because of dateAddRemove treats 24 hours as different from a
         // day when working around DST, we need to store them separately
-        this._days = days +
+        this._days = +days +
             weeks * 7;
         // It is impossible translate months into days without knowing
         // which months you are are talking about, so we have to store
         // it separately.
-        this._months = months +
+        this._months = +months +
             years * 12;
 
         this._data = {};
 
         this._bubble();
     }
-
 
     /************************************
         Helpers
@@ -6705,6 +6749,15 @@ var global=self;/**
                 a[i] = b[i];
             }
         }
+
+        if (b.hasOwnProperty("toString")) {
+            a.toString = b.toString;
+        }
+
+        if (b.hasOwnProperty("valueOf")) {
+            a.valueOf = b.valueOf;
+        }
+
         return a;
     }
 
@@ -6732,8 +6785,7 @@ var global=self;/**
             days = duration._days,
             months = duration._months,
             minutes,
-            hours,
-            currentDate;
+            hours;
 
         if (milliseconds) {
             mom._d.setTime(+mom._d + milliseconds * isAdding);
@@ -6764,14 +6816,20 @@ var global=self;/**
         return Object.prototype.toString.call(input) === '[object Array]';
     }
 
+    function isDate(input) {
+        return  Object.prototype.toString.call(input) === '[object Date]' ||
+                input instanceof Date;
+    }
+
     // compare two arrays, return the number of differences
-    function compareArrays(array1, array2) {
+    function compareArrays(array1, array2, dontConvert) {
         var len = Math.min(array1.length, array2.length),
             lengthDiff = Math.abs(array1.length - array2.length),
             diffs = 0,
             i;
         for (i = 0; i < len; i++) {
-            if (~~array1[i] !== ~~array2[i]) {
+            if ((dontConvert && array1[i] !== array2[i]) ||
+                (!dontConvert && toInt(array1[i]) !== toInt(array2[i]))) {
                 diffs++;
             }
         }
@@ -6779,16 +6837,165 @@ var global=self;/**
     }
 
     function normalizeUnits(units) {
-        return units ? unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1') : units;
+        if (units) {
+            var lowered = units.toLowerCase().replace(/(.)s$/, '$1');
+            units = unitAliases[units] || camelFunctions[lowered] || lowered;
+        }
+        return units;
     }
 
+    function normalizeObjectUnits(inputObject) {
+        var normalizedInput = {},
+            normalizedProp,
+            prop,
+            index;
+
+        for (prop in inputObject) {
+            if (inputObject.hasOwnProperty(prop)) {
+                normalizedProp = normalizeUnits(prop);
+                if (normalizedProp) {
+                    normalizedInput[normalizedProp] = inputObject[prop];
+                }
+            }
+        }
+
+        return normalizedInput;
+    }
+
+    function makeList(field) {
+        var count, setter;
+
+        if (field.indexOf('week') === 0) {
+            count = 7;
+            setter = 'day';
+        }
+        else if (field.indexOf('month') === 0) {
+            count = 12;
+            setter = 'month';
+        }
+        else {
+            return;
+        }
+
+        moment[field] = function (format, index) {
+            var i, getter,
+                method = moment.fn._lang[field],
+                results = [];
+
+            if (typeof format === 'number') {
+                index = format;
+                format = undefined;
+            }
+
+            getter = function (i) {
+                var m = moment().utc().set(setter, i);
+                return method.call(moment.fn._lang, m, format || '');
+            };
+
+            if (index != null) {
+                return getter(index);
+            }
+            else {
+                for (i = 0; i < count; i++) {
+                    results.push(getter(i));
+                }
+                return results;
+            }
+        };
+    }
+
+    function toInt(argumentForCoercion) {
+        var coercedNumber = +argumentForCoercion,
+            value = 0;
+
+        if (coercedNumber !== 0 && isFinite(coercedNumber)) {
+            if (coercedNumber >= 0) {
+                value = Math.floor(coercedNumber);
+            } else {
+                value = Math.ceil(coercedNumber);
+            }
+        }
+
+        return value;
+    }
+
+    function daysInMonth(year, month) {
+        return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+    }
+
+    function daysInYear(year) {
+        return isLeapYear(year) ? 366 : 365;
+    }
+
+    function isLeapYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+    }
+
+    function checkOverflow(m) {
+        var overflow;
+        if (m._a && m._pf.overflow === -2) {
+            overflow =
+                m._a[MONTH] < 0 || m._a[MONTH] > 11 ? MONTH :
+                m._a[DATE] < 1 || m._a[DATE] > daysInMonth(m._a[YEAR], m._a[MONTH]) ? DATE :
+                m._a[HOUR] < 0 || m._a[HOUR] > 23 ? HOUR :
+                m._a[MINUTE] < 0 || m._a[MINUTE] > 59 ? MINUTE :
+                m._a[SECOND] < 0 || m._a[SECOND] > 59 ? SECOND :
+                m._a[MILLISECOND] < 0 || m._a[MILLISECOND] > 999 ? MILLISECOND :
+                -1;
+
+            if (m._pf._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
+                overflow = DATE;
+            }
+
+            m._pf.overflow = overflow;
+        }
+    }
+
+    function initializeParsingFlags(config) {
+        config._pf = {
+            empty : false,
+            unusedTokens : [],
+            unusedInput : [],
+            overflow : -2,
+            charsLeftOver : 0,
+            nullInput : false,
+            invalidMonth : null,
+            invalidFormat : false,
+            userInvalidated : false,
+            iso: false
+        };
+    }
+
+    function isValid(m) {
+        if (m._isValid == null) {
+            m._isValid = !isNaN(m._d.getTime()) &&
+                m._pf.overflow < 0 &&
+                !m._pf.empty &&
+                !m._pf.invalidMonth &&
+                !m._pf.nullInput &&
+                !m._pf.invalidFormat &&
+                !m._pf.userInvalidated;
+
+            if (m._strict) {
+                m._isValid = m._isValid &&
+                    m._pf.charsLeftOver === 0 &&
+                    m._pf.unusedTokens.length === 0;
+            }
+        }
+        return m._isValid;
+    }
+
+    function normalizeLanguage(key) {
+        return key ? key.toLowerCase().replace('_', '-') : key;
+    }
 
     /************************************
         Languages
     ************************************/
 
 
-    Language.prototype = {
+    extend(Language.prototype, {
+
         set : function (config) {
             var prop, i;
             for (i in config) {
@@ -6821,7 +7028,7 @@ var global=self;/**
             for (i = 0; i < 12; i++) {
                 // make the regex if we don't have it already
                 if (!this._monthsParse[i]) {
-                    mom = moment([2000, i]);
+                    mom = moment.utc([2000, i]);
                     regex = '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
                     this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
                 }
@@ -6887,7 +7094,9 @@ var global=self;/**
         },
 
         isPM : function (input) {
-            return ((input + '').toLowerCase()[0] === 'p');
+            // IE8 Quirks Mode & IE7 Standards Mode do not allow accessing strings like arrays
+            // Using charAt should be more compatible.
+            return ((input + '').toLowerCase().charAt(0) === 'p');
         },
 
         _meridiemParse : /[ap]\.?m?\.?/i,
@@ -6954,11 +7163,17 @@ var global=self;/**
         week : function (mom) {
             return weekOfYear(mom, this._week.dow, this._week.doy).week;
         },
+
         _week : {
             dow : 0, // Sunday is the first day of the week.
             doy : 6  // The week that contains Jan 1st is the first week of the year.
+        },
+
+        _invalidDate: 'Invalid date',
+        invalidDate: function () {
+            return this._invalidDate;
         }
-    };
+    });
 
     // Loads a language definition into the `languages` cache.  The function
     // takes a key and optionally values.  If not in the browser and no values
@@ -6973,6 +7188,11 @@ var global=self;/**
         return languages[key];
     }
 
+    // Remove a language from the `languages` cache. Mostly useful in tests.
+    function unloadLang(key) {
+        delete languages[key];
+    }
+
     // Determines which language definition to use and returns it.
     //
     // With no parameters, it will return the global language.  If you
@@ -6980,20 +7200,52 @@ var global=self;/**
     // definition for 'en', so long as 'en' has already been loaded using
     // moment.lang.
     function getLangDefinition(key) {
+        var i = 0, j, lang, next, split,
+            get = function (k) {
+                if (!languages[k] && hasModule) {
+                    try {
+                        require('./lang/' + k);
+                    } catch (e) { }
+                }
+                return languages[k];
+            };
+
         if (!key) {
             return moment.fn._lang;
         }
-        if (!languages[key] && hasModule) {
-            try {
-                require('./lang/' + key);
-            } catch (e) {
-                // call with no params to set to default
-                return moment.fn._lang;
-            }
-        }
-        return languages[key];
-    }
 
+        if (!isArray(key)) {
+            //short-circuit everything else
+            lang = get(key);
+            if (lang) {
+                return lang;
+            }
+            key = [key];
+        }
+
+        //pick the language from the array
+        //try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
+        //substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
+        while (i < key.length) {
+            split = normalizeLanguage(key[i]).split('-');
+            j = split.length;
+            next = normalizeLanguage(key[i + 1]);
+            next = next ? next.split('-') : null;
+            while (j > 0) {
+                lang = get(split.slice(0, j).join('-'));
+                if (lang) {
+                    return lang;
+                }
+                if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
+                    //the next array item is better than a shallower substring of this one
+                    break;
+                }
+                j--;
+            }
+            i++;
+        }
+        return moment.fn._lang;
+    }
 
     /************************************
         Formatting
@@ -7001,7 +7253,7 @@ var global=self;/**
 
 
     function removeFormattingTokens(input) {
-        if (input.match(/\[.*\]/)) {
+        if (input.match(/\[[\s\S]/)) {
             return input.replace(/^\[|\]$/g, "");
         }
         return input.replace(/\\/g, "");
@@ -7029,21 +7281,35 @@ var global=self;/**
 
     // format date using native date object
     function formatMoment(m, format) {
-        var i = 5;
 
-        function replaceLongDateFormatTokens(input) {
-            return m.lang().longDateFormat(input) || input;
+        if (!m.isValid()) {
+            return m.lang().invalidDate();
         }
 
-        while (i-- && localFormattingTokens.test(format)) {
-            format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
-        }
+        format = expandFormat(format, m.lang());
 
         if (!formatFunctions[format]) {
             formatFunctions[format] = makeFormatFunction(format);
         }
 
         return formatFunctions[format](m);
+    }
+
+    function expandFormat(format, lang) {
+        var i = 5;
+
+        function replaceLongDateFormatTokens(input) {
+            return lang.longDateFormat(input) || input;
+        }
+
+        localFormattingTokens.lastIndex = 0;
+        while (i >= 0 && localFormattingTokens.test(format)) {
+            format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
+            localFormattingTokens.lastIndex = 0;
+            i -= 1;
+        }
+
+        return format;
     }
 
 
@@ -7054,12 +7320,17 @@ var global=self;/**
 
     // get the regex to find the next token
     function getParseRegexForToken(token, config) {
+        var a;
         switch (token) {
         case 'DDDD':
             return parseTokenThreeDigits;
         case 'YYYY':
+        case 'GGGG':
+        case 'gggg':
             return parseTokenFourDigits;
         case 'YYYYY':
+        case 'GGGGG':
+        case 'ggggg':
             return parseTokenSixDigits;
         case 'S':
         case 'SS':
@@ -7082,9 +7353,13 @@ var global=self;/**
             return parseTokenTimezone;
         case 'T':
             return parseTokenT;
+        case 'SSSS':
+            return parseTokenDigits;
         case 'MM':
         case 'DD':
         case 'YY':
+        case 'GG':
+        case 'gg':
         case 'HH':
         case 'hh':
         case 'mm':
@@ -7096,16 +7371,23 @@ var global=self;/**
         case 'h':
         case 'm':
         case 's':
+        case 'w':
+        case 'ww':
+        case 'W':
+        case 'WW':
+        case 'e':
+        case 'E':
             return parseTokenOneOrTwoDigits;
         default :
-            return new RegExp(token.replace('\\', ''));
+            a = new RegExp(regexpEscape(unescapeFormat(token.replace('\\', '')), "i"));
+            return a;
         }
     }
 
     function timezoneMinutesFromString(string) {
         var tzchunk = (parseTokenTimezone.exec(string) || [])[0],
             parts = (tzchunk + '').match(parseTimezoneChunker) || ['-', 0, 0],
-            minutes = +(parts[1] * 60) + ~~parts[2];
+            minutes = +(parts[1] * 60) + toInt(parts[2]);
 
         return parts[0] === '+' ? -minutes : minutes;
     }
@@ -7118,34 +7400,42 @@ var global=self;/**
         // MONTH
         case 'M' : // fall through to MM
         case 'MM' :
-            datePartArray[1] = (input == null) ? 0 : ~~input - 1;
+            if (input != null) {
+                datePartArray[MONTH] = toInt(input) - 1;
+            }
             break;
         case 'MMM' : // fall through to MMMM
         case 'MMMM' :
             a = getLangDefinition(config._l).monthsParse(input);
             // if we didn't find a month name, mark the date as invalid.
             if (a != null) {
-                datePartArray[1] = a;
+                datePartArray[MONTH] = a;
             } else {
-                config._isValid = false;
+                config._pf.invalidMonth = input;
             }
             break;
         // DAY OF MONTH
-        case 'D' : // fall through to DDDD
-        case 'DD' : // fall through to DDDD
+        case 'D' : // fall through to DD
+        case 'DD' :
+            if (input != null) {
+                datePartArray[DATE] = toInt(input);
+            }
+            break;
+        // DAY OF YEAR
         case 'DDD' : // fall through to DDDD
         case 'DDDD' :
             if (input != null) {
-                datePartArray[2] = ~~input;
+                config._dayOfYear = toInt(input);
             }
+
             break;
         // YEAR
         case 'YY' :
-            datePartArray[0] = ~~input + (~~input > 68 ? 1900 : 2000);
+            datePartArray[YEAR] = toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
             break;
         case 'YYYY' :
         case 'YYYYY' :
-            datePartArray[0] = ~~input;
+            datePartArray[YEAR] = toInt(input);
             break;
         // AM / PM
         case 'a' : // fall through to A
@@ -7157,23 +7447,24 @@ var global=self;/**
         case 'HH' : // fall through to hh
         case 'h' : // fall through to hh
         case 'hh' :
-            datePartArray[3] = ~~input;
+            datePartArray[HOUR] = toInt(input);
             break;
         // MINUTE
         case 'm' : // fall through to mm
         case 'mm' :
-            datePartArray[4] = ~~input;
+            datePartArray[MINUTE] = toInt(input);
             break;
         // SECOND
         case 's' : // fall through to ss
         case 'ss' :
-            datePartArray[5] = ~~input;
+            datePartArray[SECOND] = toInt(input);
             break;
         // MILLISECOND
         case 'S' :
         case 'SS' :
         case 'SSS' :
-            datePartArray[6] = ~~ (('0.' + input) * 1000);
+        case 'SSSS' :
+            datePartArray[MILLISECOND] = toInt(('0.' + input) * 1000);
             break;
         // UNIX TIMESTAMP WITH MS
         case 'X':
@@ -7185,11 +7476,29 @@ var global=self;/**
             config._useUTC = true;
             config._tzm = timezoneMinutesFromString(input);
             break;
-        }
-
-        // if the input is null, the date is not valid
-        if (input == null) {
-            config._isValid = false;
+        case 'w':
+        case 'ww':
+        case 'W':
+        case 'WW':
+        case 'd':
+        case 'dd':
+        case 'ddd':
+        case 'dddd':
+        case 'e':
+        case 'E':
+            token = token.substr(0, 1);
+            /* falls through */
+        case 'gg':
+        case 'gggg':
+        case 'GG':
+        case 'GGGG':
+        case 'GGGGG':
+            token = token.substr(0, 2);
+            if (input) {
+                config._w = config._w || {};
+                config._w[token] = input;
+            }
+            break;
         }
     }
 
@@ -7197,102 +7506,227 @@ var global=self;/**
     // the array should mirror the parameters below
     // note: all values past the year are optional and will default to the lowest possible value.
     // [year, month, day , hour, minute, second, millisecond]
-    function dateFromArray(config) {
-        var i, date, input = [];
+    function dateFromConfig(config) {
+        var i, date, input = [], currentDate,
+            yearToUse, fixYear, w, temp, lang, weekday, week;
 
         if (config._d) {
             return;
         }
 
-        for (i = 0; i < 7; i++) {
+        currentDate = currentDateArray(config);
+
+        //compute day of the year from weeks and weekdays
+        if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
+            fixYear = function (val) {
+                return val ?
+                  (val.length < 3 ? (parseInt(val, 10) > 68 ? '19' + val : '20' + val) : val) :
+                  (config._a[YEAR] == null ? moment().weekYear() : config._a[YEAR]);
+            };
+
+            w = config._w;
+            if (w.GG != null || w.W != null || w.E != null) {
+                temp = dayOfYearFromWeeks(fixYear(w.GG), w.W || 1, w.E, 4, 1);
+            }
+            else {
+                lang = getLangDefinition(config._l);
+                weekday = w.d != null ?  parseWeekday(w.d, lang) :
+                  (w.e != null ?  parseInt(w.e, 10) + lang._week.dow : 0);
+
+                week = parseInt(w.w, 10) || 1;
+
+                //if we're parsing 'd', then the low day numbers may be next week
+                if (w.d != null && weekday < lang._week.dow) {
+                    week++;
+                }
+
+                temp = dayOfYearFromWeeks(fixYear(w.gg), week, weekday, lang._week.doy, lang._week.dow);
+            }
+
+            config._a[YEAR] = temp.year;
+            config._dayOfYear = temp.dayOfYear;
+        }
+
+        //if the day of the year is set, figure out what it is
+        if (config._dayOfYear) {
+            yearToUse = config._a[YEAR] == null ? currentDate[YEAR] : config._a[YEAR];
+
+            if (config._dayOfYear > daysInYear(yearToUse)) {
+                config._pf._overflowDayOfYear = true;
+            }
+
+            date = makeUTCDate(yearToUse, 0, config._dayOfYear);
+            config._a[MONTH] = date.getUTCMonth();
+            config._a[DATE] = date.getUTCDate();
+        }
+
+        // Default to current date.
+        // * if no year, month, day of month are given, default to today
+        // * if day of month is given, default month and year
+        // * if month is given, default only year
+        // * if year is given, don't default anything
+        for (i = 0; i < 3 && config._a[i] == null; ++i) {
+            config._a[i] = input[i] = currentDate[i];
+        }
+
+        // Zero out whatever was not defaulted, including time
+        for (; i < 7; i++) {
             config._a[i] = input[i] = (config._a[i] == null) ? (i === 2 ? 1 : 0) : config._a[i];
         }
 
         // add the offsets to the time to be parsed so that we can have a clean array for checking isValid
-        input[3] += ~~((config._tzm || 0) / 60);
-        input[4] += ~~((config._tzm || 0) % 60);
+        input[HOUR] += toInt((config._tzm || 0) / 60);
+        input[MINUTE] += toInt((config._tzm || 0) % 60);
 
-        date = new Date(0);
+        config._d = (config._useUTC ? makeUTCDate : makeDate).apply(null, input);
+    }
 
-        if (config._useUTC) {
-            date.setUTCFullYear(input[0], input[1], input[2]);
-            date.setUTCHours(input[3], input[4], input[5], input[6]);
-        } else {
-            date.setFullYear(input[0], input[1], input[2]);
-            date.setHours(input[3], input[4], input[5], input[6]);
+    function dateFromObject(config) {
+        var normalizedInput;
+
+        if (config._d) {
+            return;
         }
 
-        config._d = date;
+        normalizedInput = normalizeObjectUnits(config._i);
+        config._a = [
+            normalizedInput.year,
+            normalizedInput.month,
+            normalizedInput.day,
+            normalizedInput.hour,
+            normalizedInput.minute,
+            normalizedInput.second,
+            normalizedInput.millisecond
+        ];
+
+        dateFromConfig(config);
+    }
+
+    function currentDateArray(config) {
+        var now = new Date();
+        if (config._useUTC) {
+            return [
+                now.getUTCFullYear(),
+                now.getUTCMonth(),
+                now.getUTCDate()
+            ];
+        } else {
+            return [now.getFullYear(), now.getMonth(), now.getDate()];
+        }
     }
 
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
-        // This array is used to make a Date, either with `new Date` or `Date.UTC`
-        var tokens = config._f.match(formattingTokens),
-            string = config._i,
-            i, parsedInput;
 
         config._a = [];
+        config._pf.empty = true;
+
+        // This array is used to make a Date, either with `new Date` or `Date.UTC`
+        var lang = getLangDefinition(config._l),
+            string = '' + config._i,
+            i, parsedInput, tokens, token, skipped,
+            stringLength = string.length,
+            totalParsedInputLength = 0;
+
+        tokens = expandFormat(config._f, lang).match(formattingTokens) || [];
 
         for (i = 0; i < tokens.length; i++) {
-            parsedInput = (getParseRegexForToken(tokens[i], config).exec(string) || [])[0];
+            token = tokens[i];
+            parsedInput = (getParseRegexForToken(token, config).exec(string) || [])[0];
             if (parsedInput) {
+                skipped = string.substr(0, string.indexOf(parsedInput));
+                if (skipped.length > 0) {
+                    config._pf.unusedInput.push(skipped);
+                }
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
+                totalParsedInputLength += parsedInput.length;
             }
-            // don't parse if its not a known token
-            if (formatTokenFunctions[tokens[i]]) {
-                addTimeToArrayFromToken(tokens[i], parsedInput, config);
+            // don't parse if it's not a known token
+            if (formatTokenFunctions[token]) {
+                if (parsedInput) {
+                    config._pf.empty = false;
+                }
+                else {
+                    config._pf.unusedTokens.push(token);
+                }
+                addTimeToArrayFromToken(token, parsedInput, config);
+            }
+            else if (config._strict && !parsedInput) {
+                config._pf.unusedTokens.push(token);
             }
         }
 
-        // add remaining unparsed input to the string
-        if (string) {
-            config._il = string;
+        // add remaining unparsed input length to the string
+        config._pf.charsLeftOver = stringLength - totalParsedInputLength;
+        if (string.length > 0) {
+            config._pf.unusedInput.push(string);
         }
 
         // handle am pm
-        if (config._isPm && config._a[3] < 12) {
-            config._a[3] += 12;
+        if (config._isPm && config._a[HOUR] < 12) {
+            config._a[HOUR] += 12;
         }
         // if is 12 am, change hours to 0
-        if (config._isPm === false && config._a[3] === 12) {
-            config._a[3] = 0;
+        if (config._isPm === false && config._a[HOUR] === 12) {
+            config._a[HOUR] = 0;
         }
-        // return
-        dateFromArray(config);
+
+        dateFromConfig(config);
+        checkOverflow(config);
+    }
+
+    function unescapeFormat(s) {
+        return s.replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (matched, p1, p2, p3, p4) {
+            return p1 || p2 || p3 || p4;
+        });
+    }
+
+    // Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
+    function regexpEscape(s) {
+        return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
     // date from string and array of format strings
     function makeDateFromStringAndArray(config) {
         var tempConfig,
-            tempMoment,
             bestMoment,
 
-            scoreToBeat = 99,
+            scoreToBeat,
             i,
             currentScore;
 
+        if (config._f.length === 0) {
+            config._pf.invalidFormat = true;
+            config._d = new Date(NaN);
+            return;
+        }
+
         for (i = 0; i < config._f.length; i++) {
+            currentScore = 0;
             tempConfig = extend({}, config);
+            initializeParsingFlags(tempConfig);
             tempConfig._f = config._f[i];
             makeDateFromStringAndFormat(tempConfig);
-            tempMoment = new Moment(tempConfig);
 
-            currentScore = compareArrays(tempConfig._a, tempMoment.toArray());
-
-            // if there is any input that was not parsed
-            // add a penalty for that format
-            if (tempMoment._il) {
-                currentScore += tempMoment._il.length;
+            if (!isValid(tempConfig)) {
+                continue;
             }
 
-            if (currentScore < scoreToBeat) {
+            // if there is any input that was not parsed add a penalty for that format
+            currentScore += tempConfig._pf.charsLeftOver;
+
+            //or tokens
+            currentScore += tempConfig._pf.unusedTokens.length * 10;
+
+            tempConfig._pf.score = currentScore;
+
+            if (scoreToBeat == null || currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
-                bestMoment = tempMoment;
+                bestMoment = tempConfig;
             }
         }
 
-        extend(config, bestMoment);
+        extend(config, bestMoment || tempConfig);
     }
 
     // date from iso format
@@ -7302,8 +7736,14 @@ var global=self;/**
             match = isoRegex.exec(string);
 
         if (match) {
-            // match[2] should be "T" or undefined
-            config._f = 'YYYY-MM-DD' + (match[2] || " ");
+            config._pf.iso = true;
+            for (i = 4; i > 0; i--) {
+                if (match[i]) {
+                    // match[5] should be "T" or undefined
+                    config._f = isoDates[i - 1] + (match[6] || " ");
+                    break;
+                }
+            }
             for (i = 0; i < 4; i++) {
                 if (isoTimes[i][1].exec(string)) {
                     config._f += isoTimes[i][0];
@@ -7311,10 +7751,11 @@ var global=self;/**
                 }
             }
             if (parseTokenTimezone.exec(string)) {
-                config._f += " Z";
+                config._f += "Z";
             }
             makeDateFromStringAndFormat(config);
-        } else {
+        }
+        else {
             config._d = new Date(string);
         }
     }
@@ -7331,12 +7772,50 @@ var global=self;/**
             makeDateFromString(config);
         } else if (isArray(input)) {
             config._a = input.slice(0);
-            dateFromArray(config);
+            dateFromConfig(config);
+        } else if (isDate(input)) {
+            config._d = new Date(+input);
+        } else if (typeof(input) === 'object') {
+            dateFromObject(config);
         } else {
-            config._d = input instanceof Date ? new Date(+input) : new Date(input);
+            config._d = new Date(input);
         }
     }
 
+    function makeDate(y, m, d, h, M, s, ms) {
+        //can't just apply() to create a date:
+        //http://stackoverflow.com/questions/181348/instantiating-a-javascript-object-by-calling-prototype-constructor-apply
+        var date = new Date(y, m, d, h, M, s, ms);
+
+        //the date constructor doesn't accept years < 1970
+        if (y < 1970) {
+            date.setFullYear(y);
+        }
+        return date;
+    }
+
+    function makeUTCDate(y) {
+        var date = new Date(Date.UTC.apply(null, arguments));
+        if (y < 1970) {
+            date.setUTCFullYear(y);
+        }
+        return date;
+    }
+
+    function parseWeekday(input, language) {
+        if (typeof input === 'string') {
+            if (!isNaN(input)) {
+                input = parseInt(input, 10);
+            }
+            else {
+                input = language.weekdaysParse(input);
+                if (typeof input !== 'number') {
+                    return null;
+                }
+            }
+        }
+        return input;
+    }
 
     /************************************
         Relative Time
@@ -7404,6 +7883,20 @@ var global=self;/**
         };
     }
 
+    //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
+    function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
+        var d = new Date(Date.UTC(year, 0)).getUTCDay(),
+            daysToAdd, dayOfYear;
+
+        weekday = weekday != null ? weekday : firstDayOfWeek;
+        daysToAdd = firstDayOfWeek - d + (d > firstDayOfWeekOfYear ? 7 : 0);
+        dayOfYear = 7 * (week - 1) + (weekday - firstDayOfWeek) + daysToAdd + 1;
+
+        return {
+            year: dayOfYear > 0 ? year : year - 1,
+            dayOfYear: dayOfYear > 0 ?  dayOfYear : daysInYear(year - 1) + dayOfYear
+        };
+    }
 
     /************************************
         Top Level Functions
@@ -7413,8 +7906,12 @@ var global=self;/**
         var input = config._i,
             format = config._f;
 
-        if (input === null || input === '') {
-            return null;
+        if (typeof config._pf === 'undefined') {
+            initializeParsingFlags(config);
+        }
+
+        if (input === null) {
+            return moment.invalid({nullInput: true});
         }
 
         if (typeof input === 'string') {
@@ -7423,6 +7920,7 @@ var global=self;/**
 
         if (moment.isMoment(input)) {
             config = extend({}, input);
+
             config._d = new Date(+input._d);
         } else if (format) {
             if (isArray(format)) {
@@ -7437,24 +7935,38 @@ var global=self;/**
         return new Moment(config);
     }
 
-    moment = function (input, format, lang) {
+    moment = function (input, format, lang, strict) {
+        if (typeof(lang) === "boolean") {
+            strict = lang;
+            lang = undefined;
+        }
         return makeMoment({
             _i : input,
             _f : format,
             _l : lang,
+            _strict : strict,
             _isUTC : false
         });
     };
 
     // creating with utc
-    moment.utc = function (input, format, lang) {
-        return makeMoment({
+    moment.utc = function (input, format, lang, strict) {
+        var m;
+
+        if (typeof(lang) === "boolean") {
+            strict = lang;
+            lang = undefined;
+        }
+        m = makeMoment({
             _useUTC : true,
             _isUTC : true,
             _l : lang,
             _i : input,
-            _f : format
-        });
+            _f : format,
+            _strict : strict
+        }).utc();
+
+        return m;
     };
 
     // creating with unix timestamp (in seconds)
@@ -7467,9 +7979,13 @@ var global=self;/**
         var isDuration = moment.isDuration(input),
             isNumber = (typeof input === 'number'),
             duration = (isDuration ? input._input : (isNumber ? {} : input)),
-            matched = aspNetTimeSpanJsonRegex.exec(input),
+            // matching against regexp is expensive, do it on demand
+            match = null,
             sign,
-            ret;
+            ret,
+            parseIso,
+            timeEmpty,
+            dateTimeEmpty;
 
         if (isNumber) {
             if (key) {
@@ -7477,15 +7993,34 @@ var global=self;/**
             } else {
                 duration.milliseconds = input;
             }
-        } else if (matched) {
-            sign = (matched[1] === "-") ? -1 : 1;
+        } else if (!!(match = aspNetTimeSpanJsonRegex.exec(input))) {
+            sign = (match[1] === "-") ? -1 : 1;
             duration = {
                 y: 0,
-                d: ~~matched[2] * sign,
-                h: ~~matched[3] * sign,
-                m: ~~matched[4] * sign,
-                s: ~~matched[5] * sign,
-                ms: ~~matched[6] * sign
+                d: toInt(match[DATE]) * sign,
+                h: toInt(match[HOUR]) * sign,
+                m: toInt(match[MINUTE]) * sign,
+                s: toInt(match[SECOND]) * sign,
+                ms: toInt(match[MILLISECOND]) * sign
+            };
+        } else if (!!(match = isoDurationRegex.exec(input))) {
+            sign = (match[1] === "-") ? -1 : 1;
+            parseIso = function (inp) {
+                // We'd normally use ~~inp for this, but unfortunately it also
+                // converts floats to ints.
+                // inp may be undefined, so careful calling replace on it.
+                var res = inp && parseFloat(inp.replace(',', '.'));
+                // apply sign while we're at it
+                return (isNaN(res) ? 0 : res) * sign;
+            };
+            duration = {
+                y: parseIso(match[2]),
+                M: parseIso(match[3]),
+                d: parseIso(match[4]),
+                h: parseIso(match[5]),
+                m: parseIso(match[6]),
+                s: parseIso(match[7]),
+                w: parseIso(match[8])
             };
         }
 
@@ -7512,15 +8047,20 @@ var global=self;/**
     // no arguments are passed in, it will simply return the current global
     // language key.
     moment.lang = function (key, values) {
+        var r;
         if (!key) {
             return moment.fn._lang._abbr;
         }
         if (values) {
-            loadLang(key, values);
+            loadLang(normalizeLanguage(key), values);
+        } else if (values === null) {
+            unloadLang(key);
+            key = 'en';
         } else if (!languages[key]) {
             getLangDefinition(key);
         }
-        moment.duration.fn._lang = moment.fn._lang = getLangDefinition(key);
+        r = moment.duration.fn._lang = moment.fn._lang = getLangDefinition(key);
+        return r._abbr;
     };
 
     // returns language data
@@ -7541,13 +8081,36 @@ var global=self;/**
         return obj instanceof Duration;
     };
 
+    for (i = lists.length - 1; i >= 0; --i) {
+        makeList(lists[i]);
+    }
+
+    moment.normalizeUnits = function (units) {
+        return normalizeUnits(units);
+    };
+
+    moment.invalid = function (flags) {
+        var m = moment.utc(NaN);
+        if (flags != null) {
+            extend(m._pf, flags);
+        }
+        else {
+            m._pf.userInvalidated = true;
+        }
+
+        return m;
+    };
+
+    moment.parseZone = function (input) {
+        return moment(input).parseZone();
+    };
 
     /************************************
         Moment Prototype
     ************************************/
 
 
-    moment.fn = Moment.prototype = {
+    extend(moment.fn = Moment.prototype, {
 
         clone : function () {
             return moment(this);
@@ -7562,7 +8125,7 @@ var global=self;/**
         },
 
         toString : function () {
-            return this.format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
+            return this.clone().lang('en').format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
         },
 
         toDate : function () {
@@ -7587,14 +8150,24 @@ var global=self;/**
         },
 
         isValid : function () {
-            if (this._isValid == null) {
-                if (this._a) {
-                    this._isValid = !compareArrays(this._a, (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray());
-                } else {
-                    this._isValid = !isNaN(this._d.getTime());
-                }
+            return isValid(this);
+        },
+
+        isDSTShifted : function () {
+
+            if (this._a) {
+                return this.isValid() && compareArrays(this._a, (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray()) > 0;
             }
-            return !!this._isValid;
+
+            return false;
+        },
+
+        parsingFlags : function () {
+            return extend({}, this._pf);
+        },
+
+        invalidAt: function () {
+            return this._pf.overflow;
         },
 
         utc : function () {
@@ -7679,7 +8252,7 @@ var global=self;/**
         },
 
         calendar : function () {
-            var diff = this.diff(moment().startOf('day'), 'days', true),
+            var diff = this.diff(moment().zone(this.zone()).startOf('day'), 'days', true),
                 format = diff < -6 ? 'sameElse' :
                 diff < -1 ? 'lastWeek' :
                 diff < 0 ? 'lastDay' :
@@ -7690,8 +8263,7 @@ var global=self;/**
         },
 
         isLeapYear : function () {
-            var year = this.year();
-            return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+            return isLeapYear(this.year());
         },
 
         isDST : function () {
@@ -7702,12 +8274,7 @@ var global=self;/**
         day : function (input) {
             var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
             if (input != null) {
-                if (typeof input === 'string') {
-                    input = this.lang().weekdaysParse(input);
-                    if (typeof input !== 'number') {
-                        return this;
-                    }
-                }
+                input = parseWeekday(input, this.lang());
                 return this.add({ d : input - day });
             } else {
                 return day;
@@ -7716,8 +8283,7 @@ var global=self;/**
 
         month : function (input) {
             var utc = this._isUTC ? 'UTC' : '',
-                dayOfMonth,
-                daysInMonth;
+                dayOfMonth;
 
             if (input != null) {
                 if (typeof input === 'string') {
@@ -7751,6 +8317,7 @@ var global=self;/**
                 this.date(1);
                 /* falls through */
             case 'week':
+            case 'isoWeek':
             case 'day':
                 this.hours(0);
                 /* falls through */
@@ -7768,13 +8335,16 @@ var global=self;/**
             // weeks are a special case
             if (units === 'week') {
                 this.weekday(0);
+            } else if (units === 'isoWeek') {
+                this.isoWeekday(1);
             }
 
             return this;
         },
 
         endOf: function (units) {
-            return this.startOf(units).add(units, 1).subtract('ms', 1);
+            units = normalizeUnits(units);
+            return this.startOf(units).add((units === 'isoWeek' ? 'week' : units), 1).subtract('ms', 1);
         },
 
         isAfter: function (input, units) {
@@ -7830,8 +8400,26 @@ var global=self;/**
             return this._isUTC ? "Coordinated Universal Time" : "";
         },
 
+        parseZone : function () {
+            if (typeof this._i === 'string') {
+                this.zone(this._i);
+            }
+            return this;
+        },
+
+        hasAlignedHourOffset : function (input) {
+            if (!input) {
+                input = 0;
+            }
+            else {
+                input = moment(input).zone();
+            }
+
+            return (this.zone() - input) % 60 === 0;
+        },
+
         daysInMonth : function () {
-            return moment.utc([this.year(), this.month() + 1, 0]).date();
+            return daysInMonth(this.year(), this.month());
         },
 
         dayOfYear : function (input) {
@@ -7860,7 +8448,7 @@ var global=self;/**
         },
 
         weekday : function (input) {
-            var weekday = (this._d.getDay() + 7 - this.lang()._week.dow) % 7;
+            var weekday = (this.day() + 7 - this.lang()._week.dow) % 7;
             return input == null ? weekday : this.add("d", input - weekday);
         },
 
@@ -7869,6 +8457,19 @@ var global=self;/**
             // as a getter, returns 7 instead of 0 (1-7 range instead of 0-6)
             // as a setter, sunday should belong to the previous week.
             return input == null ? this.day() || 7 : this.day(this.day() % 7 ? input : input - 7);
+        },
+
+        get : function (units) {
+            units = normalizeUnits(units);
+            return this[units]();
+        },
+
+        set : function (units, value) {
+            units = normalizeUnits(units);
+            if (typeof this[units] === 'function') {
+                this[units](value);
+            }
+            return this;
         },
 
         // If passed a language key, it will set the language for this
@@ -7882,7 +8483,7 @@ var global=self;/**
                 return this;
             }
         }
-    };
+    });
 
     // helper for adding shortcuts
     function makeGetterAndSetter(name, key) {
@@ -7920,7 +8521,8 @@ var global=self;/**
     ************************************/
 
 
-    moment.duration.fn = Duration.prototype = {
+    extend(moment.duration.fn = Duration.prototype, {
+
         _bubble : function () {
             var milliseconds = this._milliseconds,
                 days = this._days,
@@ -7959,7 +8561,7 @@ var global=self;/**
             return this._milliseconds +
               this._days * 864e5 +
               (this._months % 12) * 2592e6 +
-              ~~(this._months / 12) * 31536e6;
+              toInt(this._months / 12) * 31536e6;
         },
 
         humanize : function (withSuffix) {
@@ -8008,8 +8610,34 @@ var global=self;/**
             return this['as' + units.charAt(0).toUpperCase() + units.slice(1) + 's']();
         },
 
-        lang : moment.fn.lang
-    };
+        lang : moment.fn.lang,
+
+        toIsoString : function () {
+            // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
+            var years = Math.abs(this.years()),
+                months = Math.abs(this.months()),
+                days = Math.abs(this.days()),
+                hours = Math.abs(this.hours()),
+                minutes = Math.abs(this.minutes()),
+                seconds = Math.abs(this.seconds() + this.milliseconds() / 1000);
+
+            if (!this.asSeconds()) {
+                // this is the same as C#'s (Noda) and python (isodate)...
+                // but not other JS (goog.date)
+                return 'P0D';
+            }
+
+            return (this.asSeconds() < 0 ? '-' : '') +
+                'P' +
+                (years ? years + 'Y' : '') +
+                (months ? months + 'M' : '') +
+                (days ? days + 'D' : '') +
+                ((hours || minutes || seconds) ? 'T' : '') +
+                (hours ? hours + 'H' : '') +
+                (minutes ? minutes + 'M' : '') +
+                (seconds ? seconds + 'S' : '');
+        }
+    });
 
     function makeDurationGetter(name) {
         moment.duration.fn[name] = function () {
@@ -8045,7 +8673,7 @@ var global=self;/**
     moment.lang('en', {
         ordinal : function (number) {
             var b = number % 10,
-                output = (~~ (number % 100 / 10) === 1) ? 'th' :
+                output = (toInt(number % 100 / 10) === 1) ? 'th' :
                 (b === 1) ? 'st' :
                 (b === 2) ? 'nd' :
                 (b === 3) ? 'rd' : 'th';
@@ -8053,28 +8681,52 @@ var global=self;/**
         }
     });
 
+    /* EMBED_LANGUAGES */
 
     /************************************
         Exposing Moment
     ************************************/
 
+    function makeGlobal(deprecate) {
+        var warned = false, local_moment = moment;
+        /*global ender:false */
+        if (typeof ender !== 'undefined') {
+            return;
+        }
+        // here, `this` means `window` in the browser, or `global` on the server
+        // add `moment` as a global object via a string identifier,
+        // for Closure Compiler "advanced" mode
+        if (deprecate) {
+            this.moment = function () {
+                if (!warned && console && console.warn) {
+                    warned = true;
+                    console.warn(
+                            "Accessing Moment through the global scope is " +
+                            "deprecated, and will be removed in an upcoming " +
+                            "release.");
+                }
+                return local_moment.apply(null, arguments);
+            };
+        } else {
+            this['moment'] = moment;
+        }
+    }
 
     // CommonJS module is defined
     if (hasModule) {
         module.exports = moment;
-    }
-    /*global ender:false */
-    if (typeof ender === 'undefined') {
-        // here, `this` means `window` in the browser, or `global` on the server
-        // add `moment` as a global object via a string identifier,
-        // for Closure Compiler "advanced" mode
-        this['moment'] = moment;
-    }
-    /*global define:false */
-    if (typeof define === "function" && define.amd) {
-        define("moment", [], function () {
+        makeGlobal(true);
+    } else if (typeof define === "function" && define.amd) {
+        define("moment", function (require, exports, module) {
+            if (module.config().noGlobal !== true) {
+                // If user provided noGlobal, he is aware of global
+                makeGlobal(module.config().noGlobal === undefined);
+            }
+
             return moment;
         });
+    } else {
+        makeGlobal();
     }
 }).call(this);
 
@@ -8252,15 +8904,12 @@ var global=self;/**
   */
 
 
-  randomDrop = function(user, delta, priority, streak, options) {
-    var acceptableDrops, chanceMultiplier, drop, paths, rarity, reachedDropLimit, _base, _base1, _base2, _name, _name1, _ref1;
+  randomDrop = function(user, modifiers) {
+    var acceptableDrops, chanceMultiplier, delta, drop, priority, rarity, reachedDropLimit, streak, _base, _base1, _base2, _name, _name1, _ref1;
+    delta = modifiers.delta, priority = modifiers.priority, streak = modifiers.streak;
     if (streak == null) {
       streak = 0;
     }
-    if (options == null) {
-      options = {};
-    }
-    paths = options.paths || {};
     if ((_base = user.items).lastDrop == null) {
       _base.lastDrop = {
         date: +moment().subtract('d', 1),
@@ -8308,6 +8957,15 @@ var global=self;/**
       options = {};
     }
     user._tmp = {};
+    user.stats._computed = _.reduce(['per', 'con', 'str', 'int'], function(m, stat) {
+      m[stat] = _.reduce('stats stats.buffs items.weapon items.armor items.head items.shield'.split(' '), function(m2, path) {
+        return m2 + (+helpers.dotGet("" + path + "." + stat, user) || 0);
+      }, 0);
+      return m;
+    }, {});
+    console.log({
+      computed: user.stats._computed
+    });
     _ref1 = [+user.stats.gp, +user.stats.hp, +user.stats.exp, ~~user.stats.lvl], gp = _ref1[0], hp = _ref1[1], exp = _ref1[2], lvl = _ref1[3];
     _ref2 = [task.type, +task.value, ~~task.streak, task.priority || '!'], type = _ref2[0], value = _ref2[1], streak = _ref2[2], priority = _ref2[3];
     _ref3 = [options.paths || {}, options.times || 1, options.cron || false], paths = _ref3[0], times = _ref3[1], cron = _ref3[2];
@@ -8427,8 +9085,10 @@ var global=self;/**
     });
     if (typeof window === 'undefined') {
       if (direction === 'up') {
-        randomDrop(user, delta, priority, streak, {
-          paths: paths
+        randomDrop(user, {
+          delta: delta,
+          priority: priority,
+          streak: streak
         });
       }
     }
@@ -9370,303 +10030,697 @@ try {
 
   _ = require('lodash');
 
-  items = module.exports.items = {
-    weapon: [
+  items = module.exports.items = {};
+
+  /*
+    ---------------------------------------------------------------
+    Gear (Weapons, Armor, Head, Shield)
+    Item definitions: {index, text, notes, value, str, def, int, per, classes, type}
+    ---------------------------------------------------------------
+  */
+
+
+  /*
+    FIXME
+    {index: 7, text: "Dark Souls Blade", classes:'weapon_7', notes:'Increases experience gain by 21%.', str: 21, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)}
+    {index: 8, text: "Crystal Blade", classes:'weapon_8', notes:'Increases experience gain by 24%.', str: 24, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)}
+  
+    {index: 6, text: "Shade Armor", notes:'Decreases Health loss by 12%.', defense: 12, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)}
+    {index: 7, text: "Crystal Armor", notes:'Decreases Health loss by 14%.', defense: 14, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)}
+  
+    {index: 6, text: "Shade Helm", notes:'Decreases Health loss by 7%.', defense: 7, value:100, canOwn: ((u)-> +u.backer?.tier >= 45)}
+    {index: 7, text: "Crystal Helm", notes:'Decreases Health loss by 8%.', defense: 8, value:120, canOwn: ((u)-> +u.contributor?.level >= 3)}
+  
+    {index: 6, text: "Tormented Skull", notes:'Decreases Health loss by 9%.', defense: 9, value:120, canOwn: ((u)-> +u.backer?.tier >= 45)}
+    {index: 7, text: "Crystal Shield", notes:'Decreases Health loss by 10%.', defense: 10, value:150, canOwn: ((u)-> +u.contributor?.level >= 5)}
+  */
+
+
+  items.weapon = {
+    warrior: [
       {
         index: 0,
         text: "Training Sword",
-        classes: "weapon_0",
         notes: 'Training weapon.',
-        strength: 0,
         value: 0
       }, {
         index: 1,
         text: "Sword",
-        classes: 'weapon_1',
         notes: 'Increases experience gain by 3%.',
-        strength: 3,
+        str: 3,
         value: 20
       }, {
         index: 2,
         text: "Axe",
-        classes: 'weapon_2',
         notes: 'Increases experience gain by 6%.',
-        strength: 6,
+        str: 6,
         value: 30
       }, {
         index: 3,
         text: "Morningstar",
-        classes: 'weapon_3',
         notes: 'Increases experience gain by 9%.',
-        strength: 9,
+        str: 9,
         value: 45
       }, {
         index: 4,
         text: "Blue Sword",
-        classes: 'weapon_4',
         notes: 'Increases experience gain by 12%.',
-        strength: 12,
+        str: 12,
         value: 65
       }, {
         index: 5,
         text: "Red Sword",
-        classes: 'weapon_5',
         notes: 'Increases experience gain by 15%.',
-        strength: 15,
+        str: 15,
         value: 90
       }, {
         index: 6,
         text: "Golden Sword",
-        classes: 'weapon_6',
         notes: 'Increases experience gain by 18%.',
-        strength: 18,
+        str: 18,
         value: 120
-      }, {
-        index: 7,
-        text: "Dark Souls Blade",
-        classes: 'weapon_7',
-        notes: 'Increases experience gain by 21%.',
-        strength: 21,
-        value: 150,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 70;
-        })
-      }, {
-        index: 8,
-        text: "Crystal Blade",
-        classes: 'weapon_8',
-        notes: 'Increases experience gain by 24%.',
-        strength: 24,
-        value: 170,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 4;
-        })
       }
     ],
-    armor: [
+    rogue: [
+      {
+        index: 0,
+        text: "Training Sword",
+        notes: 'Training weapon.',
+        value: 0
+      }, {
+        index: 1,
+        text: "Short Bow",
+        notes: 'Increases experience gain by 3%.',
+        str: 3,
+        per: 3,
+        value: 20
+      }, {
+        index: 2,
+        text: "Long Bow",
+        notes: 'Increases experience gain by 6%.',
+        str: 6,
+        per: 6,
+        value: 30
+      }, {
+        index: 3,
+        text: "Load Bow",
+        notes: 'Increases experience gain by 9%.',
+        str: 9,
+        per: 9,
+        value: 45
+      }, {
+        index: 4,
+        text: "Blue Boe",
+        notes: 'Increases experience gain by 12%.',
+        str: 12,
+        per: 12,
+        value: 65
+      }, {
+        index: 5,
+        text: "Red Bow",
+        notes: 'Increases experience gain by 15%.',
+        str: 15,
+        per: 15,
+        value: 90
+      }, {
+        index: 6,
+        text: "Golden Bow",
+        notes: 'Increases experience gain by 18%.',
+        str: 18,
+        per: 18,
+        value: 120
+      }
+    ],
+    wizard: [
+      {
+        index: 0,
+        text: "Training Sword",
+        notes: 'Training weapon.',
+        str: 0,
+        value: 0
+      }, {
+        index: 1,
+        text: "Wooden Staff",
+        notes: 'Increases experience gain by 3%.',
+        int: 3,
+        value: 20
+      }, {
+        index: 2,
+        text: "Gnarled Staff",
+        notes: 'Increases experience gain by 6%.',
+        int: 3,
+        value: 30
+      }, {
+        index: 3,
+        text: "Steel Wand",
+        notes: 'Increases experience gain by 9%.',
+        int: 9,
+        value: 45
+      }, {
+        index: 4,
+        text: "Awesome Staff",
+        notes: 'Increases experience gain by 12%.',
+        3: 3,
+        value: 65
+      }, {
+        index: 5,
+        text: "Red Staff",
+        notes: 'Increases experience gain by 15%.',
+        int: 3,
+        value: 90
+      }, {
+        index: 6,
+        text: "Golden Staff",
+        notes: 'Increases experience gain by 18%.',
+        int: 3,
+        value: 120
+      }
+    ],
+    healer: [
+      {
+        index: 0,
+        text: "Training Sword",
+        notes: 'Training weapon.',
+        str: 0,
+        value: 0
+      }, {
+        index: 1,
+        text: "Wooden Staff",
+        classes: 'weapon_1',
+        notes: 'Increases experience gain by 3%.',
+        int: 3,
+        value: 20
+      }, {
+        index: 2,
+        text: "Gnarled Staff",
+        classes: 'weapon_2',
+        notes: 'Increases experience gain by 6%.',
+        int: 3,
+        value: 30
+      }, {
+        index: 3,
+        text: "Steel Wand",
+        classes: 'weapon_3',
+        notes: 'Increases experience gain by 9%.',
+        int: 9,
+        value: 45
+      }, {
+        index: 4,
+        text: "Awesome Staff",
+        classes: 'weapon_4',
+        notes: 'Increases experience gain by 12%.',
+        3: 3,
+        value: 65
+      }, {
+        index: 5,
+        text: "Red Staff",
+        classes: 'weapon_5',
+        notes: 'Increases experience gain by 15%.',
+        int: 3,
+        value: 90
+      }, {
+        index: 6,
+        text: "Golden Staff",
+        classes: 'weapon_6',
+        notes: 'Increases experience gain by 18%.',
+        int: 3,
+        value: 120
+      }
+    ]
+  };
+
+  items.armor = {
+    warrior: [
       {
         index: 0,
         text: "Cloth Armor",
-        classes: 'armor_0',
         notes: 'Training armor.',
-        defense: 0,
+        def: 0,
         value: 0
       }, {
         index: 1,
         text: "Leather Armor",
-        classes: 'armor_1',
         notes: 'Decreases Health loss by 4%.',
-        defense: 4,
+        def: 4,
         value: 30
       }, {
         index: 2,
         text: "Chain Mail",
-        classes: 'armor_2',
         notes: 'Decreases Health loss by 6%.',
-        defense: 6,
+        def: 6,
         value: 45
       }, {
         index: 3,
         text: "Plate Mail",
-        classes: 'armor_3',
         notes: 'Decreases Health loss by 7%.',
-        defense: 7,
+        def: 7,
         value: 65
       }, {
         index: 4,
         text: "Red Armor",
-        classes: 'armor_4',
         notes: 'Decreases Health loss by 8%.',
-        defense: 8,
+        def: 8,
         value: 90
       }, {
         index: 5,
         text: "Golden Armor",
-        classes: 'armor_5',
         notes: 'Decreases Health loss by 10%.',
-        defense: 10,
+        def: 10,
         value: 120
-      }, {
-        index: 6,
-        text: "Shade Armor",
-        classes: 'armor_6',
-        notes: 'Decreases Health loss by 12%.',
-        defense: 12,
-        value: 150,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
-        })
-      }, {
-        index: 7,
-        text: "Crystal Armor",
-        classes: 'armor_7',
-        notes: 'Decreases Health loss by 14%.',
-        defense: 14,
-        value: 170,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 2;
-        })
       }
     ],
-    head: [
+    rogue: [
+      {
+        index: 0,
+        text: "Cloth Armor",
+        notes: 'Training armor.',
+        def: 0,
+        value: 0
+      }, {
+        index: 1,
+        text: "Leather1",
+        notes: 'Decreases Health loss by 4%.',
+        def: 4,
+        value: 30
+      }, {
+        index: 2,
+        text: "Leather2",
+        notes: 'Decreases Health loss by 6%.',
+        def: 6,
+        value: 45
+      }, {
+        index: 3,
+        text: "Leather3",
+        notes: 'Decreases Health loss by 7%.',
+        def: 7,
+        value: 65
+      }, {
+        index: 4,
+        text: "Leather4",
+        notes: 'Decreases Health loss by 8%.',
+        def: 8,
+        value: 90
+      }, {
+        index: 5,
+        text: "Leather5",
+        notes: 'Decreases Health loss by 10%.',
+        def: 10,
+        value: 120
+      }
+    ],
+    wizard: [
+      {
+        index: 0,
+        text: "Cloth Armor",
+        notes: 'Training armor.',
+        def: 0,
+        value: 0
+      }, {
+        index: 1,
+        text: "Robes1",
+        notes: 'Decreases Health loss by 4%.',
+        def: 4,
+        value: 30
+      }, {
+        index: 2,
+        text: "Robes2",
+        notes: 'Decreases Health loss by 6%.',
+        def: 6,
+        value: 45
+      }, {
+        index: 3,
+        text: "Robes3",
+        notes: 'Decreases Health loss by 7%.',
+        def: 7,
+        value: 65
+      }, {
+        index: 4,
+        text: "Robes4",
+        notes: 'Decreases Health loss by 8%.',
+        def: 8,
+        value: 90
+      }, {
+        index: 5,
+        text: "Robes5",
+        notes: 'Decreases Health loss by 10%.',
+        def: 10,
+        value: 120
+      }
+    ],
+    healer: [
+      {
+        index: 0,
+        text: "Cloth Armor",
+        notes: 'Training armor.',
+        def: 0,
+        value: 0
+      }, {
+        index: 1,
+        text: "Robes1",
+        notes: 'Decreases Health loss by 4%.',
+        def: 4,
+        value: 30
+      }, {
+        index: 2,
+        text: "Robes2",
+        notes: 'Decreases Health loss by 6%.',
+        def: 6,
+        value: 45
+      }, {
+        index: 3,
+        text: "Robes3",
+        notes: 'Decreases Health loss by 7%.',
+        def: 7,
+        value: 65
+      }, {
+        index: 4,
+        text: "Robes4",
+        notes: 'Decreases Health loss by 8%.',
+        def: 8,
+        value: 90
+      }, {
+        index: 5,
+        text: "Robes5",
+        notes: 'Decreases Health loss by 10%.',
+        def: 10,
+        value: 120
+      }
+    ]
+  };
+
+  items.head = {
+    warrior: [
       {
         index: 0,
         text: "No Helm",
-        classes: 'head_0',
+        notes: 'Training helm.',
+        def: 0,
+        value: 0
+      }, {
+        index: 1,
+        text: "Leather Helm",
+        notes: 'Decreases Health loss by 2%.',
+        def: 2,
+        value: 15
+      }, {
+        index: 2,
+        text: "Chain Coif",
+        notes: 'Decreases Health loss by 3%.',
+        def: 3,
+        value: 25
+      }, {
+        index: 3,
+        text: "Plate Helm",
+        notes: 'Decreases Health loss by 4%.',
+        def: 4,
+        value: 45
+      }, {
+        index: 4,
+        text: "Red Helm",
+        notes: 'Decreases Health loss by 5%.',
+        def: 5,
+        value: 60
+      }, {
+        index: 5,
+        text: "Golden Helm",
+        notes: 'Decreases Health loss by 6%.',
+        def: 6,
+        value: 80
+      }
+    ],
+    rogue: [
+      {
+        index: 0,
+        text: "No Helm",
+        notes: 'Training helm.',
+        def: 0,
+        value: 0
+      }, {
+        index: 1,
+        text: "Leather1",
+        notes: 'Decreases Health loss by 2%.',
+        def: 2,
+        value: 15
+      }, {
+        index: 2,
+        text: "Leather2",
+        notes: 'Decreases Health loss by 3%.',
+        def: 3,
+        value: 25
+      }, {
+        index: 3,
+        text: "Leather3",
+        notes: 'Decreases Health loss by 4%.',
+        def: 4,
+        value: 45
+      }, {
+        index: 4,
+        text: "Leather4",
+        notes: 'Decreases Health loss by 5%.',
+        def: 5,
+        value: 60
+      }, {
+        index: 5,
+        text: "Leather5",
+        notes: 'Decreases Health loss by 6%.',
+        def: 6,
+        value: 80
+      }
+    ],
+    wizard: [
+      {
+        index: 0,
+        text: "No Helm",
         notes: 'Training helm.',
         defense: 0,
         value: 0
       }, {
         index: 1,
-        text: "Leather Helm",
-        classes: 'head_1',
+        text: "Wizard Hat 1",
         notes: 'Decreases Health loss by 2%.',
-        defense: 2,
+        def: 2,
         value: 15
       }, {
         index: 2,
-        text: "Chain Coif",
-        classes: 'head_2',
+        text: "Wizard Hat 2",
         notes: 'Decreases Health loss by 3%.',
-        defense: 3,
+        def: 3,
         value: 25
       }, {
         index: 3,
-        text: "Plate Helm",
-        classes: 'head_3',
+        text: "Wizard Hat 3",
         notes: 'Decreases Health loss by 4%.',
-        defense: 4,
+        def: 4,
         value: 45
       }, {
         index: 4,
-        text: "Red Helm",
-        classes: 'head_4',
+        text: "Wizard Hat 4",
         notes: 'Decreases Health loss by 5%.',
-        defense: 5,
+        def: 5,
         value: 60
       }, {
         index: 5,
-        text: "Golden Helm",
-        classes: 'head_5',
+        text: "Wizard Hat 5",
         notes: 'Decreases Health loss by 6%.',
-        defense: 6,
+        def: 6,
         value: 80
-      }, {
-        index: 6,
-        text: "Shade Helm",
-        classes: 'head_6',
-        notes: 'Decreases Health loss by 7%.',
-        defense: 7,
-        value: 100,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
-        })
-      }, {
-        index: 7,
-        text: "Crystal Helm",
-        classes: 'head_7',
-        notes: 'Decreases Health loss by 8%.',
-        defense: 8,
-        value: 120,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 3;
-        })
       }
     ],
-    shield: [
+    healer: [
       {
         index: 0,
-        text: "No Shield",
-        classes: 'shield_0',
-        notes: 'No Shield.',
+        text: "No Helm",
+        notes: 'Training helm.',
         defense: 0,
         value: 0
       }, {
         index: 1,
+        text: "Healer Hat 1",
+        notes: 'Decreases Health loss by 2%.',
+        def: 2,
+        value: 15
+      }, {
+        index: 2,
+        text: "Healer Hat 2",
+        notes: 'Decreases Health loss by 3%.',
+        def: 3,
+        value: 25
+      }, {
+        index: 3,
+        text: "Healer Hat 3",
+        notes: 'Decreases Health loss by 4%.',
+        def: 4,
+        value: 45
+      }, {
+        index: 4,
+        text: "Healer Hat 4",
+        notes: 'Decreases Health loss by 5%.',
+        def: 5,
+        value: 60
+      }, {
+        index: 5,
+        text: "Healer Hat 5",
+        notes: 'Decreases Health loss by 6%.',
+        def: 6,
+        value: 80
+      }
+    ]
+  };
+
+  items.shield = {
+    warrior: [
+      {
+        index: 0,
+        text: "No Shield",
+        notes: 'No Shield.',
+        def: 0,
+        value: 0
+      }, {
+        index: 1,
         text: "Wooden Shield",
-        classes: 'shield_1',
         notes: 'Decreases Health loss by 3%',
-        defense: 3,
+        def: 3,
         value: 20
       }, {
         index: 2,
         text: "Buckler",
-        classes: 'shield_2',
         notes: 'Decreases Health loss by 4%.',
-        defense: 4,
+        def: 4,
         value: 35
       }, {
         index: 3,
         text: "Reinforced Shield",
-        classes: 'shield_3',
         notes: 'Decreases Health loss by 5%.',
-        defense: 5,
+        def: 5,
         value: 55
       }, {
         index: 4,
         text: "Red Shield",
-        classes: 'shield_4',
         notes: 'Decreases Health loss by 7%.',
-        defense: 7,
+        def: 7,
         value: 70
       }, {
         index: 5,
         text: "Golden Shield",
-        classes: 'shield_5',
         notes: 'Decreases Health loss by 8%.',
-        defense: 8,
+        def: 8,
         value: 90
-      }, {
-        index: 6,
-        text: "Tormented Skull",
-        classes: 'shield_6',
-        notes: 'Decreases Health loss by 9%.',
-        defense: 9,
-        value: 120,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
-        })
-      }, {
-        index: 7,
-        text: "Crystal Shield",
-        classes: 'shield_7',
-        notes: 'Decreases Health loss by 10%.',
-        defense: 10,
-        value: 150,
-        canOwn: (function(u) {
-          var _ref;
-          return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 5;
-        })
       }
     ],
-    potion: {
-      type: 'potion',
-      text: "Health Potion",
-      notes: "Recover 15 Health (Instant Use)",
-      value: 25,
-      classes: 'potion'
-    },
-    reroll: {
-      type: 'reroll',
-      text: "Re-Roll",
-      classes: 'reroll',
-      notes: "Resets your task values back to 0 (yellow). Useful when everything's red and it's hard to stay alive.",
-      value: 0
-    },
-    /*
-    Spell definitions. Text, notes, and mana are obvious. The rest:
-    
+    rogue: [
+      {
+        index: 0,
+        text: "No Shield",
+        notes: 'No Shield.',
+        def: 0,
+        value: 0
+      }
+    ],
+    wizard: [
+      {
+        index: 0,
+        text: "No Shield",
+        notes: 'No Shield.',
+        def: 0,
+        value: 0
+      }
+    ],
+    healer: [
+      {
+        index: 0,
+        text: "No Shield",
+        notes: 'No Shield.',
+        def: 0,
+        value: 0
+      }, {
+        index: 1,
+        text: "Healer Shield1",
+        notes: 'Decreases Health loss by 3%',
+        def: 3,
+        value: 20
+      }, {
+        index: 2,
+        text: "Healer Sheild2",
+        notes: 'Decreases Health loss by 4%.',
+        def: 4,
+        value: 35
+      }, {
+        index: 3,
+        text: "Healer Sheild3",
+        notes: 'Decreases Health loss by 5%.',
+        def: 5,
+        value: 55
+      }, {
+        index: 4,
+        text: "Healer Sheild4",
+        notes: 'Decreases Health loss by 7%.',
+        def: 7,
+        value: 70
+      }, {
+        index: 5,
+        text: "Healer Sheild5",
+        notes: 'Decreases Health loss by 8%.',
+        def: 8,
+        value: 90
+      }
+    ]
+  };
+
+  reversed = {};
+
+  _.each(['weapon', 'armor', 'head', 'shield'], function(type) {
+    reversed[type] = {};
+    return _.each(['warrior', 'rogue', 'healer', 'wizard'], function(_class) {
+      reversed[type][_class] = items[type][_class].slice().reverse();
+      return _.each(items[type][_class], function(item, i) {
+        return _.defaults(item, {
+          type: type,
+          canOwn: (function() {
+            return true;
+          }),
+          classes: "" + type + "_" + i + "-" + _class,
+          str: 0,
+          int: 0,
+          per: 0,
+          def: 0
+        });
+      });
+    });
+  });
+
+  /*
+    ---------------------------------------------------------------
+    Potion & Re-roll
+    TODO rename / remove re-roll?
+    ---------------------------------------------------------------
+  */
+
+
+  items.potion = {
+    type: 'potion',
+    text: "Health Potion",
+    notes: "Recover 15 Health (Instant Use)",
+    value: 25,
+    classes: 'potion'
+  };
+
+  items.reroll = {
+    type: 'reroll',
+    text: "Re-Roll",
+    notes: "Resets your task values back to 0 (yellow). Useful when everything's red and it's hard to stay alive.",
+    value: 0
+  };
+
+  /*
+    ---------------------------------------------------------------
+    Spells
+    ---------------------------------------------------------------
+    Text, notes, and mana are obvious. The rest:
+  
     * {target}: one of [task, self, party, user]. This is very important, because if the cast() function is expecting one
       thing and receives another, it will cause errors. `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
       etc. Basically, use self for anything that's not [task, party, user] and is an instant-cast
-    
+  
     * {cast}: the fucntion that's run to perform the ability's action. This is pretty slick - because this is exported to the
       web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
       own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
@@ -9674,282 +10728,179 @@ try {
       spell is correct. Take a look at habitrpg/src/models/user.js and habitrpg/src/models/task.js for what attributes are
       available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
       so you'll want to iterate over them like: `_.each(target,function(member){...})`
-    
+  
     Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
-    */
+  */
 
-    spells: {
-      wizard: {
-        fireball: {
-          text: 'Fireball',
-          mana: 10,
-          target: 'task',
-          notes: 'Burns a task, granting additional exp & decreasing its redness.',
-          cast: function(user, target) {
-            return target.value += user.stats.int * crit(user);
-          }
-        },
-        ice: {
-          text: 'Ice Wall',
-          mana: 25,
-          target: 'task',
-          notes: 'Freezes all tasks, slowing the damage they deal you for one day',
-          cast: function(user, target) {
-            return _.each(user.tasks, function(task) {
-              var _base;
-              if ((_base = task.buffs).value == null) {
-                _base.value = task.value;
-              }
-              return task.buffs.value += user.stats.int;
-            });
-          }
-        },
-        meteorShower: {
-          text: 'Meteor Shower',
-          mana: 40,
-          target: 'self',
-          notes: "Causes damage to all tasks, reducing their redness",
-          cast: function(user, target) {
-            return _.each(user.tasks, (function(task) {
-              return task.value += user.stats.int;
-            }));
-          }
+
+  items.spells = {
+    wizard: {
+      fireball: {
+        text: 'Burst of Flames',
+        mana: 10,
+        target: 'task',
+        notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional xp.',
+        cast: function(user, target) {
+          return target.value += user.stats.int + crit(user);
         }
       },
-      warrior: {
-        bash: {
-          text: 'Bash',
-          mana: 10,
-          target: 'task',
-          notes: 'Hit a single task hard',
-          cast: function(user, target) {
-            return target.value += user.stats.str * crit(user);
-          }
-        },
-        intimidate: {
-          text: 'Intimidate',
-          mana: 10,
-          target: 'task',
-          notes: "Intimidate a task, making it flee",
-          cast: function(user, target) {
-            return (target.buffs != null ? target.buffs : target.buffs = {}).value = 9999;
-          }
-        },
-        defensiveStance: {
-          text: 'Defensive Stance',
-          target: 'self',
-          mana: 10,
-          notes: 'Prepare yourself for the onslaught of tasks',
-          cast: function(user, target) {
-            return user.stats.buffs.def = user.stats.def;
-          }
+      lightning: {
+        text: 'Lightning Strike',
+        mana: 15,
+        target: 'task',
+        notes: 'A bolt a lightning pierces through a task. There is a high chance of a critical hit.',
+        cast: function(user, target) {
+          return target.value += user.stats.per * 2 + crit(user);
         }
       },
-      rogue: {
-        backStab: {
-          text: 'Back Stab',
-          mana: 10,
-          target: 'task',
-          notes: 'High crit chance, stab a habit from behind',
-          cast: function(user, target) {
-            var _crit;
-            _crit = crit(user);
-            target.value += _crit;
-            return user.stats.gp += _crit;
-          }
-        },
-        pickPocket: {
-          text: 'Pick Pocket',
-          target: 'task',
-          mana: 10,
-          notes: 'High chance of getting a free drop from a task',
-          cast: function(user, target) {
-            return user.stats.gp += target.value * user.stats.per;
-          }
-        },
-        stealth: {
-          text: 'Stealth',
-          target: 'self',
-          mana: 40,
-          notes: 'Hide from as many tasks as you can for one day',
-          cast: function(user, target) {
-            return user.stats.buffs.stealth = user.stats.per;
-          }
+      frost: {
+        text: 'Chilling Frost',
+        mana: 35,
+        target: 'party',
+        notes: "Ice forms of the party's tasks, slowing them down and opening them up to more attacks. Your party gains a buff to xp.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            return member.stats.buffs.exp = user.stats.int;
+          });
         }
       },
-      healer: {
-        heal: {
-          text: 'Heal',
-          mana: 10,
-          target: 'user',
-          notes: 'Heals self (user.hp += user.def, INT decreases mana cost)',
-          cast: function(user, target) {
-            return target.stats.hp += user.stats.def;
-          }
-        },
-        healAll: {
-          text: 'Heal All',
-          mana: 20,
-          target: 'party',
-          notes: 'Heals party (user.hp += user.def, INT decreases mana cost)',
-          cast: function(user, target) {
-            return _.each(target, (function(member) {
-              return member.stats.hp += user.def;
-            }));
-          }
-        },
-        empower: {
-          text: 'Empower',
-          mana: 20,
-          target: 'user',
-          notes: "Increases target's highest stat",
-          cast: function(user, target) {
-            var highestStat, _base;
-            highestStat = 'str';
-            return ((_base = target.stats).buffs != null ? (_base = target.stats).buffs : _base.buffs = {})[highestStat] += user.def / 2;
-          }
-        },
-        shield: {
-          text: 'Shield',
-          mana: 20,
-          target: 'user',
-          notes: "Increases target's defense for one day",
-          cast: function(user, target) {
-            var _base;
-            return ((_base = target.stats).buffs != null ? (_base = target.stats).buffs : _base.buffs = {}).def += user.def;
-          }
+      darkness: {
+        text: 'Shroud of Darkness',
+        mana: 30,
+        target: 'party',
+        notes: "Unearthly shadows form and wisp around your party, concealing their presence. Under the shroud, your party can sneak up on tasks, dealing more critical hits.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            return member.stats.buffs.crit = user.stats.per;
+          });
         }
       }
     },
-    eggs: {
-      Wolf: {
-        text: 'Wolf',
-        adjective: 'loyal'
+    warrior: {
+      smash: {
+        text: 'Brutal Smash',
+        mana: 10,
+        target: 'task',
+        notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
+        cast: function(user, target) {
+          return target.value -= user.stat.str;
+        }
       },
-      TigerCub: {
-        text: 'Tiger Cub',
-        mountText: 'Tiger',
-        adjective: 'fierce'
+      defensiveStance: {
+        text: 'Defensive Stance',
+        mana: 25,
+        target: 'self',
+        notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduced damage from dailies at the end of the day.",
+        cast: function(user, target) {
+          return user.stats.buffs.con = user.stats.con / 2;
+        }
       },
-      PandaCub: {
-        text: 'Panda Cub',
-        mountText: 'Panda',
-        adjective: 'gentle'
+      valorousPresence: {
+        text: 'Valorous Presence',
+        mana: 20,
+        target: 'party',
+        notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            return member.stats.buffs.str = user.stats.str / 2;
+          });
+        }
       },
-      LionCub: {
-        text: 'Lion Cub',
-        mountText: 'Lion',
-        adjective: 'regal'
-      },
-      Fox: {
-        text: 'Fox',
-        adjective: 'wily'
-      },
-      FlyingPig: {
-        text: 'Flying Pig',
-        adjective: 'whimsical'
-      },
-      Dragon: {
-        text: 'Dragon',
-        adjective: 'mighty'
-      },
-      Cactus: {
-        text: 'Cactus',
-        adjective: 'prickly'
-      },
-      BearCub: {
-        text: 'Bear Cub',
-        mountText: 'Bear',
-        adjective: 'cuddly'
+      intimidate: {
+        text: 'Intimidating Gaze',
+        mana: 15,
+        target: 'party',
+        notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            return member.stats.buffs.con = user.stats.con / 2;
+          });
+        }
       }
     },
-    hatchingPotions: {
-      Base: {
-        value: 2,
-        text: 'Base'
+    rogue: {
+      pickPocket: {
+        text: 'Pickpocket',
+        mana: 10,
+        target: 'task',
+        notes: "Your nimble fingers run through the task's pockets and 'find' some treasures for yourself. You gain an increased gold bonus on the task and a higher chance of an item drop.",
+        cast: function(user, target) {
+          return user.stats.gp += user.stats.per * target.value;
+        }
       },
-      White: {
-        value: 2,
-        text: 'White'
+      backStab: {
+        text: 'Backstab',
+        mana: 15,
+        target: 'task',
+        notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the stat, with a higher chance of a critical hit.",
+        cast: function(user, target) {
+          target.value -= user.stats.str;
+          return crit += user.stats.per * 2;
+        }
       },
-      Desert: {
-        value: 2,
-        text: 'Desert'
+      stealth: {
+        text: 'Tools of the Trade',
+        mana: 20,
+        target: 'party',
+        notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            return member.stats.buffs.gp = user.stats.per;
+          });
+        }
       },
-      Red: {
-        value: 3,
-        text: 'Red'
-      },
-      Shade: {
-        value: 3,
-        text: 'Shade'
-      },
-      Skeleton: {
-        value: 3,
-        text: 'Skeleton'
-      },
-      Zombie: {
-        value: 4,
-        text: 'Zombie'
-      },
-      CottonCandyPink: {
-        value: 4,
-        text: 'Cotton Candy Pink'
-      },
-      CottonCandyBlue: {
-        value: 4,
-        text: 'Cotton Candy Blue'
-      },
-      Golden: {
-        value: 5,
-        text: 'Golden'
+      speedburst: {
+        text: 'Burst of Speed',
+        mana: 25,
+        target: 'party',
+        notes: "You hurry your step and dance circles around your party's enemies. You assist your party, helping them do extra damage to a number of tasks equal to half your strength.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            return member.stats.buffs.str = user.stats.str / 2;
+          });
+        }
       }
     },
-    food: {
-      Meat: {
-        text: 'Meat',
-        target: 'Base'
+    healer: {
+      heal: {
+        text: 'Healing Light',
+        mana: 15,
+        target: 'self',
+        notes: 'Light covers your body, healing your wounds. You gain a boost to your health.',
+        cast: function(user, target) {
+          return target.stats.hp += user.stats.con;
+        }
       },
-      Milk: {
-        text: 'Milk',
-        target: 'White'
+      brightness: {
+        text: 'Searing Brightness',
+        mana: 15,
+        target: 'self',
+        notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced",
+        cast: function(user, target) {
+          return target.value -= user.stats.int;
+        }
       },
-      Potatoe: {
-        text: 'Potato',
-        target: 'Desert'
+      protectAura: {
+        text: 'Protective Aura',
+        mana: 30,
+        target: 'party',
+        notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            return member.stats.buffs.con = user.stats.con / 2;
+          });
+        }
       },
-      Strawberry: {
-        text: 'Strawberry',
-        target: 'Red'
-      },
-      Chocolate: {
-        text: 'Chocolate',
-        target: 'Shade'
-      },
-      Fish: {
-        text: 'Fish',
-        target: 'Skeleton'
-      },
-      RottenMeat: {
-        text: 'Rotten Meat',
-        target: 'Zombie'
-      },
-      CottonCandyPink: {
-        text: 'Pink Cotton Candy',
-        target: 'CottonCandyPink'
-      },
-      CottonCandyBlue: {
-        text: 'Blue Cotton Candy',
-        target: 'CottonCandyBlue'
-      },
-      Honey: {
-        text: 'Honey',
-        target: 'Golden'
-      },
-      Saddle: {
-        text: 'Saddle',
-        value: 5,
-        notes: 'Instantly raises your pet into a mount.'
+      heallAll: {
+        text: 'Blessing',
+        mana: 25,
+        target: 'party',
+        notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            return member.stats.hp += user.con / 2;
+          });
+        }
       }
     }
   };
@@ -9957,45 +10908,6 @@ try {
   crit = function(user) {
     return Math.random() * user.stats.per + 1;
   };
-
-  reversed = {};
-
-  _.each(['weapon', 'armor', 'head', 'shield'], function(type) {
-    reversed[type] = items[type].slice().reverse();
-    return _.each(items[type], function(item) {
-      return _.defaults(item, {
-        type: type,
-        canOwn: function() {
-          return true;
-        }
-      });
-    });
-  });
-
-  _.each(items.eggs, function(egg, k) {
-    return _.defaults(egg, {
-      value: 3,
-      name: k,
-      notes: "Find a hatching potion to pour on this egg, and it will hatch into a " + egg.adjective + " " + egg.text + ".",
-      mountText: egg.text
-    });
-  });
-
-  _.each(items.hatchingPotions, function(pot, k) {
-    return _.defaults(pot, {
-      name: k,
-      value: 2,
-      notes: "Pour this on an egg, and it will hatch as a " + pot.text + " pet."
-    });
-  });
-
-  _.each(items.food, function(food, k) {
-    return _.defaults(food, {
-      value: 1,
-      name: k,
-      notes: "Feed this to a pet and it may grow into a sturdy steed."
-    });
-  });
 
   _.each(items.spells, function(spellClass) {
     return _.each(spellClass, function(spell, k) {
@@ -10009,9 +10921,182 @@ try {
     });
   });
 
+  /*
+    ---------------------------------------------------------------
+    Drops
+    ---------------------------------------------------------------
+  */
+
+
+  items.eggs = {
+    Wolf: {
+      text: 'Wolf',
+      adjective: 'loyal'
+    },
+    TigerCub: {
+      text: 'Tiger Cub',
+      mountText: 'Tiger',
+      adjective: 'fierce'
+    },
+    PandaCub: {
+      text: 'Panda Cub',
+      mountText: 'Panda',
+      adjective: 'gentle'
+    },
+    LionCub: {
+      text: 'Lion Cub',
+      mountText: 'Lion',
+      adjective: 'regal'
+    },
+    Fox: {
+      text: 'Fox',
+      adjective: 'wily'
+    },
+    FlyingPig: {
+      text: 'Flying Pig',
+      adjective: 'whimsical'
+    },
+    Dragon: {
+      text: 'Dragon',
+      adjective: 'mighty'
+    },
+    Cactus: {
+      text: 'Cactus',
+      adjective: 'prickly'
+    },
+    BearCub: {
+      text: 'Bear Cub',
+      mountText: 'Bear',
+      adjective: 'cuddly'
+    }
+  };
+
+  _.each(items.eggs, function(egg, k) {
+    return _.defaults(egg, {
+      value: 3,
+      name: k,
+      notes: "Find a hatching potion to pour on this egg, and it will hatch into a " + egg.adjective + " " + egg.text + ".",
+      mountText: egg.text
+    });
+  });
+
+  items.hatchingPotions = {
+    Base: {
+      value: 2,
+      text: 'Base'
+    },
+    White: {
+      value: 2,
+      text: 'White'
+    },
+    Desert: {
+      value: 2,
+      text: 'Desert'
+    },
+    Red: {
+      value: 3,
+      text: 'Red'
+    },
+    Shade: {
+      value: 3,
+      text: 'Shade'
+    },
+    Skeleton: {
+      value: 3,
+      text: 'Skeleton'
+    },
+    Zombie: {
+      value: 4,
+      text: 'Zombie'
+    },
+    CottonCandyPink: {
+      value: 4,
+      text: 'Cotton Candy Pink'
+    },
+    CottonCandyBlue: {
+      value: 4,
+      text: 'Cotton Candy Blue'
+    },
+    Golden: {
+      value: 5,
+      text: 'Golden'
+    }
+  };
+
+  _.each(items.hatchingPotions, function(pot, k) {
+    return _.defaults(pot, {
+      name: k,
+      value: 2,
+      notes: "Pour this on an egg, and it will hatch as a " + pot.text + " pet."
+    });
+  });
+
+  items.food = {
+    Meat: {
+      text: 'Meat',
+      target: 'Base'
+    },
+    Milk: {
+      text: 'Milk',
+      target: 'White'
+    },
+    Potatoe: {
+      text: 'Potato',
+      target: 'Desert'
+    },
+    Strawberry: {
+      text: 'Strawberry',
+      target: 'Red'
+    },
+    Chocolate: {
+      text: 'Chocolate',
+      target: 'Shade'
+    },
+    Fish: {
+      text: 'Fish',
+      target: 'Skeleton'
+    },
+    RottenMeat: {
+      text: 'Rotten Meat',
+      target: 'Zombie'
+    },
+    CottonCandyPink: {
+      text: 'Pink Cotton Candy',
+      target: 'CottonCandyPink'
+    },
+    CottonCandyBlue: {
+      text: 'Blue Cotton Candy',
+      target: 'CottonCandyBlue'
+    },
+    Honey: {
+      text: 'Honey',
+      target: 'Golden'
+    },
+    Saddle: {
+      text: 'Saddle',
+      value: 5,
+      notes: 'Instantly raises your pet into a mount.'
+    }
+  };
+
+  _.each(items.food, function(food, k) {
+    return _.defaults(food, {
+      value: 1,
+      name: k,
+      notes: "Feed this to a pet and it may grow into a sturdy steed."
+    });
+  });
+
+  /*
+    ---------------------------------------------------------------
+    Helper Functions
+    ---------------------------------------------------------------
+  */
+
+
   module.exports.buyItem = function(user, type) {
     var nextItem;
-    nextItem = type === 'potion' ? items.potion : _.find(items[type].slice(~~user.items[type] + 1), (function(i) {
+    nextItem = type === 'potion' ? items.potion : _.find(items[type][user.stats["class"] || 'warrior'].slice(~~user.items[type] + 1), (function(i) {
       return i.canOwn(user);
     }));
     if (+user.stats.gp < +nextItem.value) {
@@ -10043,7 +11128,7 @@ try {
     _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
       var curr, _ref;
       curr = ((_ref = user.items) != null ? _ref[type] : void 0) || 0;
-      return changes[type] = _.find(items[type].slice(curr + 1), (function(item) {
+      return changes[type] = _.find(items[type][user.stats["class"] || 'warrior'].slice(curr + 1), (function(item) {
         return item.canOwn(user);
       })) || {
         hide: true
@@ -10064,8 +11149,9 @@ try {
     if (index == null) {
       index = 0;
     }
-    i = ~~index > items[type].length - 1 ? 0 : ~~index;
-    return items[type][i];
+    return items[type].warrior[1];
+    i = ~~index > items[type].warrior.length - 1 ? 0 : ~~index;
+    return items[type].warrior[i];
   };
 
   /*
@@ -10074,39 +11160,8 @@ try {
   */
 
 
-  module.exports.equipped = function(type, item, pref, backer, contributor) {
-    var lastStandardItem, _ref;
-    if (item == null) {
-      item = 0;
-    }
-    if (pref == null) {
-      pref = {
-        gender: 'm',
-        armorSet: 'v1'
-      };
-    }
-    if (backer == null) {
-      backer = {};
-    }
-    if (contributor == null) {
-      contributor = {};
-    }
-    lastStandardItem = items[type].length - 3;
-    if ((item > lastStandardItem) && !((_ref = items[type][item]) != null ? _ref.canOwn({
-      backer: backer,
-      contributor: contributor
-    }) : void 0)) {
-      item = _.find(reversed[type], (function(i) {
-        return i.canOwn({
-          backer: backer,
-          contributor: contributor
-        });
-      })).index;
-    }
-    if (item > lastStandardItem) {
-      return "" + type + "_" + item;
-    }
-    return "m_" + type + "_" + item;
+  module.exports.equipped = function(type, user) {
+    return "m_" + type + "_" + item.items[type] + "-" + user.stats["class"];
   };
 
 }).call(this);
