@@ -3,7 +3,7 @@
 // started to get unwieldy
 script(id='templates/habitrpg-tasks.html', type="text/ng-template")
   .grid
-    .module(ng-repeat='list in lists', ng-class='{"rewards-module": list.type==="reward"}')
+    .module(bindonce='lists', ng-repeat='list in lists', bo-class='{"rewards-module": list.type==="reward"}')
       .task-column(class='{{list.type}}s')
 
         // Todos export/graph options
@@ -59,7 +59,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 span.reward-cost {{item.value}}
                 span.shop_gold
             // main content
-            span(ng-class='{"shop_{{item.classes}} shop-sprite item-img": true}')
+            span(bo-class='{"shop_{{item.classes}} shop-sprite item-img": true}')
             p.task-text {{item.text}}
 
         br
@@ -73,7 +73,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           ins.adsbygoogle(ng-init='initAds()', style='display: inline-block; width: 234px; height: 60px;', data-ad-client='ca-pub-3242350243827794', data-ad-slot='9529624576')
 
         // Todo Tabs
-        div(ng-if='main && list.type=="todo"', ng-class='{"tabbable tabs-below": list.type=="todo"}')
+        div(bo-if='main && list.type=="todo"', bo-class='{"tabbable tabs-below": list.type=="todo"}')
           button.task-action-btn.tile.spacious.bright(ng-show='list.showCompleted', ng-click='clearCompleted()') Clear Completed
           // remaining/completed tabs
           ul.nav.nav-tabs

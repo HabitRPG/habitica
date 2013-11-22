@@ -48,7 +48,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
                 a(ng-click='removeMember(group, member, true)')
                   i.icon-ban-circle(tooltip='Boot Member')
               a
-                span(ng-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
+                span(bindonce='group', bo-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
                   | {{member.profile.name}}
           tr(ng-if='group.memberCount > group.members.length')
             td.
