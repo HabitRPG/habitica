@@ -26,17 +26,22 @@ p
   | : {{profile.stats.exp | number:0}} / {{tnl(profile.stats.lvl)}}
 p
   strong Strength
-  | (Level-1)/2: {{userStr(profile.stats.lvl)}}
+  | :
+  span(popover-trigger='mouseenter', popover='(Level-1)/2') {{userStr(profile.stats.lvl)}}
 p
   strong Defense
-  | (Level-1)/2: {{userDef(profile.stats.lvl)}}
+  | :
+  span(popover-trigger='mouseenter', popover='(Level-1)/2') {{userDef(profile.stats.lvl)}}
 p
   strong Pets Found
   | : {{countExists(profile.items.pets)}}
 hr
 p
   strong Total Experience Boost
-  | (Attack + Strength): {{totalStr(profile.stats.lvl, profile.items.weapon)}} %
+  | :
+  span(popover-trigger='mouseenter', popover='Attack + Strength') {{totalStr(profile.stats.lvl, profile.items.weapon)}} %
+
 p
   strong Total Damage Reduction
-  | (Defense + Protection): {{totalDef(profile.stats.lvl, profile.items.armor, profile.items.head, profile.items.shield)}} %
+  | :
+  span(popover-trigger='mouseenter', popover='Defense + Protection') {{totalDef(profile.stats.lvl, profile.items.armor, profile.items.head, profile.items.shield)}} %
