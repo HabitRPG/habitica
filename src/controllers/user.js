@@ -471,6 +471,10 @@ api.deleteTag = function(req, res){
         delete task.tags[tag.id];
       })
     })
+    user.markModified('habits');
+    user.markModified('dailys');
+    user.markModified('todos');
+    user.markModified('rewards');
     user.save(function(err,saved){
       if (err) return res.json(500, {err: err});
       res.send(204);
