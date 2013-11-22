@@ -173,7 +173,8 @@ var UserSchema = new Schema({
     showHelm: {type:Boolean, 'default':true},
     skin: {type:String, 'default':'white'},
     timezoneOffset: Number,
-    sound: Boolean
+    sound: Boolean,
+    soundTheme: {type:String, 'default':'browserquest'}
   },
   profile: {
     blurb: String,

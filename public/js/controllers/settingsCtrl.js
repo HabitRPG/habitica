@@ -106,5 +106,12 @@ habitrpg.controller('SettingsCtrl',
           alert(data);
         });
     }
+
+
+    // Audio list of themes
+    $scope.soundThemes = {
+      'browserquest': 'BrowserQuest',
+      'artisticdude': 'ArtisticDude',
+    };
   }
 ]);

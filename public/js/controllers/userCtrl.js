@@ -36,6 +36,5 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     }
 
     $scope.unlock = User.unlock;
-
   }
 ]);

@@ -30,9 +30,10 @@
       i.icon-volume-up(tooltip='Turn Sound Off')
     a(ng-if='!user.preferences.sound', ng-click='set("preferences.sound",true)')
       i.icon-volume-off(tooltip='Turn Sound On')
-    select#audioTheme(style='width:140px')
-      option(value='browserquest' selected='selected')
-        | BrowserQuest
-      option(value='artisticdude')
-        | artisticdude
-
+    select#audioTheme(
+        style='width:140px',
+        ng-controller='SettingsCtrl',
+        ng-model='user.preferences.soundTheme',
+        ng-options='k as v for (k , v) in soundThemes',
+        ng-change='set("preferences.soundTheme", user.preferences.soundTheme)'
+    )
