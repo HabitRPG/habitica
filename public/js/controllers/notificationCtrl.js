@@ -29,7 +29,8 @@ habitrpg.controller('NotificationCtrl',
     });
 
     $rootScope.$watch('user._tmp.drop', function(after, before){
-      if (!after) return;
+      // won't work when getting the same item twice?
+      if (after == before || !after) return;
       var type = after.type === 'HatchingPotion' ? 'hatchingPotions' : (after.type.toLowerCase() + 's')
       if(!User.user.items[type][after.name]){
         User.user.items[type][after.name] = 0;
