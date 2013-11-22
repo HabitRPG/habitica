@@ -2,7 +2,7 @@ li(ng-repeat='message in group.chat', ng-class='{highlight: isUserMentioned(user
   a.label.chat-message(class='label-contributor-{{message.contributor.level}}', ng-class='{"label-npc": message.backer.npc}', ng-click='clickMember(message.uuid, true)')
     span(tooltip='{{contribText(message.contributor, message.backer)}}') {{message.user}}&nbsp;
   | &nbsp;
-  span(ng-bind-html="message.text | linky:'_blank'")
+  markdown(ng-model='message.text')
   | &nbsp;-&nbsp;
   span.muted.time(from-now='message.timestamp')
   a(ng-show='user.contributor.admin || message.uuid == user.id', ng-click='deleteChatMessage(group, message)')
