@@ -3,6 +3,7 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
   .task-meta-controls
 
     // Due Date
+    // todo test
     span.task-date(bo-if='task.type=="todo" && task.date')
       | {{task.date}}
     // Streak
@@ -43,6 +44,7 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
   .task-controls.task-primary
 
     // Habits
+    // todo test
     span(bo-if='task.type=="habit"')
       // score() is overridden in challengesCtrl to do nothing
       a.task-action-btn(ng-if='task.up', ng-click='score(task,"up")') +
@@ -55,6 +57,7 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
         span.shop_gold
 
     // Daily & Todos
+    // todo test
     span.task-checker.action-yesno(bo-if='task.type=="daily" || task.type=="todo"')
       input.visuallyhidden.focusable(ng-if='$state.includes("tasks")',  id='box-{{obj._id}}_{{task.id}}', type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
       input.visuallyhidden.focusable(ng-if='!$state.includes("tasks")', id='box-{{obj._id}}_{{task.id}}', type='checkbox')
@@ -87,7 +90,7 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
           a(ng-click='unlink(task, "keep-all")') Keep Them
           | &nbsp;|&nbsp;
           a(ng-click='unlink(task, "remove-all")') Remove Them
-      //-div(ng-if='task.challenge.broken=="UNSUBSCRIBED"')
+      //div(ng-if='task.challenge.broken=="UNSUBSCRIBED"')
         p Broken Challenge Link: this task was part of a challenge, but you have unsubscribed from the challenge. What to do with the orphan tasks?
         p
           a(ng-click="unlink(task, 'keep-all')") Keep Them
@@ -114,6 +117,7 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
           label(for='{{obj._id}}_{{task.id}}-option-minus')
 
       // if Daily, calendar
+      // todo test
       fieldset(bo-if='task.type=="daily"', class="option-group")
         legend.option-title Repeat
         .task-controls.tile-group.repeat-days
@@ -145,6 +149,7 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
             | {{tag.name}}
 
       // Advanced Options
+      // todo test
       span(bo-if='task.type!="reward"')
         p.option-title.mega(ng-click='task._advanced = !task._advanced') Advanced Options
         fieldset.option-group.advanced-option(ng-class="{visuallyhidden: !task._advanced}")
@@ -156,7 +161,8 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
             button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!" || !task.priority}', ng-click='task.challenge.id || (task.priority="!")') Easy
             button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!!"}', ng-click='task.challenge.id || (task.priority="!!")') Medium
             button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!!!"}', ng-click='task.challenge.id || (task.priority="!!!")') Hard
-          //-span(bo-if='task.type=="daily" && !task.challenge.id')
+          //span(ng-if='task.type=="daily" && !task.challenge.id')
+          // todo test
           span(bo-if='task.type=="daily"')
             legend.option-title Restore Streak
             input.option-content(type='number', ng-model='task.streak')

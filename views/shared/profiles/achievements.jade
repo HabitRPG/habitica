@@ -37,21 +37,27 @@
     hr
 
   div(ng-if='profile.achievements.streak || user._id == profile._id')
+    // todo test
     .achievement.achievement-thermometer(bo-show='profile.achievements.streak')
+    // todo test
     div(bo-class='{muted: !profile.achievements.streak}')
       h5 {{profile.achievements.streak || 0 }} Streak Achievement(s)
       small Has performed {{profile.achievements.streak || 0 }} 21-day streaks on Dailies
     hr
 
   div(ng-if='profile.achievements.ultimateGear || user._id == profile._id')
+    // todo test
     .achievement.achievement-armor(bo-show='profile.achievements.ultimateGear')
+    // todo test
     div(bo-class='{muted: !profile.achievements.ultimateGear}')
       h5 Ultimate Gear
       small Has upgraded to the maximum weapon and armor set
     hr
 
   div(ng-if='profile.achievements.beastMaster || user._id == profile._id')
+    // todo test
     .achievement.achievement-rat(bo-show='profile.achievements.beastMaster')
+    // todo test
     div(bo-class='{muted: !profile.achievements.beastMaster}')
       h5 Beast Master
       small Has found all 90 pets (insanely difficult, give this user props!)
@@ -79,6 +85,7 @@
   div(ng-if='profile.achievements.challenges || user._id == profile._id')
     // This is a very strange icon to use. revisit
     .achievement.achievement-karaoke(ng-show='profile.achievements.challenges')
+    // todo test
     div(bo-class='{muted: !profile.achievements.challenges}')
       h5 Was the winner in the following challenges
       ul

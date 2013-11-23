@@ -3,15 +3,21 @@ div(ng-controller='MemberModalCtrl')
     .modal-header(bindonce='profile')
       h3
         span {{profile.profile.name}}
+        // todo test
         span(bo-if='profile.contributor.level')  - {{contribText(profile.contributor, profile.backer)}}
     .modal-body(bindonce='profile')
       .row-fluid
         .span6
+          // todo test
           img(bo-show='profile.profile.imageUrl', bo-src='{{profile.profile.imageUrl}}')
+          // todo test
           markdown(bo-show='profile.profile.blurb', ng-model='profile.profile.blurb')
+          // todo test
           ul.muted.unstyled(bo-if='profile.auth.timestamps', style='margin-top:10px;')
             li {{profile._id}}
+            // todo test
             li(bo-show='profile.auth.timestamps.created') - Member since {{timestamp(profile.auth.timestamps.created)}} -
+            // todo test
             li(bo-show='profile.auth.timestamps.loggedin') - Last logged in {{timestamp(profile.auth.timestamps.loggedin)}} -
           h3 Stats
             include ../profiles/stats

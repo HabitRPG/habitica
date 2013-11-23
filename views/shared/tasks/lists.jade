@@ -3,19 +3,22 @@
 // started to get unwieldy
 script(id='templates/habitrpg-tasks.html', type="text/ng-template")
   .grid
+    // todo test
     .module(bindonce='lists', ng-repeat='list in lists', bo-class='{"rewards-module": list.type==="reward"}')
       .task-column(class='{{list.type}}s')
 
         // Todos export/graph options
+        // todo test
         span.option-box.pull-right(bo-if='main && list.type=="todo"')
           a.option-action(ng-show='obj.history.todos', ng-click='toggleChart("todos")', tooltip='Progress')
             i.icon-signal
-          //-a.option-action(ng-href='/v1/users/{{user.id}}/calendar.ics?apiToken={{user.apiToken}}', tooltip='iCal')
+          //a.option-action(ng-href='/v1/users/{{user.id}}/calendar.ics?apiToken={{user.apiToken}}', tooltip='iCal')
           a.option-action(ng-click='notPorted()', tooltip='iCal', ng-show='false')
             i.icon-calendar
           // <a href="https://www.google.com/calendar/render?cid={{encodeiCalLink(_user.id, _user.apiToken)}}" rel=tooltip title="Google Calendar"><i class=icon-calendar></i></a>
 
         // Gold & Gems
+        // todo test
         span.option-box.pull-right.wallet(bo-if='main && list.type=="reward"')
           .money
             | {{gold(user.stats.gp)}}
@@ -28,6 +31,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
         h2.task-column_title {{list.header}}
 
         // Todo Chart
+        // todo test
         .todos-chart(bo-if='list.type == "todo"', ng-show='charts.todos')
 
         // Add New
@@ -45,6 +49,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           include ./task
 
         // Static Rewards
+        // todo test
         ul.items(bo-if='main && list.type=="reward" && user.flags.itemsEnabled')
           li.task.reward-item(ng-hide='item.hide', ng-repeat='item in itemStore')
             // right-hand side control buttons
@@ -53,18 +58,22 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 i.icon-comment
             //left-hand size commands
             .task-controls
+              // todo test
               a.task-action-btn.btn-reroll(bo-if='item.type=="reroll"', ng-click='modals.reroll = true')
                 i.icon-repeat
+              // todo test
               a.money.btn-buy.item-btn(bo-if='item.type!="reroll"', ng-click='buy(item.type)')
                 span.reward-cost {{item.value}}
                 span.shop_gold
             // main content
+            // todo test
             span(bo-class='{"shop_{{item.classes}} shop-sprite item-img": true}')
             p.task-text {{item.text}}
 
         br
 
         // Ads
+        // todo test
         div(bo-if='main && !user.purchased.ads && list.type!="reward"')
           span.pull-right
             a(ng-click='modals.buyGems=true', tooltip=env.t('removeAds'))
@@ -73,6 +82,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           ins.adsbygoogle(ng-init='initAds()', style='display: inline-block; width: 234px; height: 60px;', data-ad-client='ca-pub-3242350243827794', data-ad-slot='9529624576')
 
         // Todo Tabs
+        // todo test
         div(bo-if='main && list.type=="todo"', bo-class='{"tabbable tabs-below": list.type=="todo"}')
           button.task-action-btn.tile.spacious.bright(ng-show='list.showCompleted', ng-click='clearCompleted()') Clear Completed
           // remaining/completed tabs
