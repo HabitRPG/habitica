@@ -140,9 +140,9 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
 
       fieldset.option-group(ng-if='!$state.includes("options.social.challenges")')
         legend.option-title Tags
-          label.checkbox(ng-repeat='tag in user.tags')
-            input(type='checkbox', ng-model='task.tags[tag.id]')
-            | {{tag.name}}
+        label.checkbox(ng-repeat='tag in user.tags')
+          input(type='checkbox', ng-model='task.tags[tag.id]')
+          | {{tag.name}}
 
       // Advanced Options
       span(bo-if='task.type!="reward"')
