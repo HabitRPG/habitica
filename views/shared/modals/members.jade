@@ -3,21 +3,15 @@ div(ng-controller='MemberModalCtrl')
     .modal-header(bindonce='profile')
       h3
         span {{profile.profile.name}}
-        // tested - working, but needs to be dynamic
         span(ng-if='profile.contributor.level')  - {{contribText(profile.contributor, profile.backer)}}
     .modal-body(bindonce='profile')
       .row-fluid
         .span6
-          // tested - working, but needs to be dynamic
           img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
-          // tested - working, but needs to be dynamic
           markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
-          // tested - working, but needs to be dynamic
           ul.muted.unstyled(ng-if='profile.auth.timestamps', style='margin-top:10px;')
             li {{profile._id}}
-            // tested - working, but needs to be dynamic
             li(ng-show='profile.auth.timestamps.created') - Member since {{timestamp(profile.auth.timestamps.created)}} -
-            // tested - working, but needs to be dynamic
             li(ng-show='profile.auth.timestamps.loggedin') - Last logged in {{timestamp(profile.auth.timestamps.loggedin)}} -
           h3 Stats
             include ../profiles/stats

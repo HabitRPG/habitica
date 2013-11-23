@@ -12,7 +12,6 @@
           a.pull-right(ng-click='delete(tag,$index)')
             i.icon-trash
       a(ng-hide='_editing', ng-click='toggleFilter(tag)')
-        // tested - working
         i.icon-bullhorn(bo-if="tag.challenge")
         | {{tag.name}}
     li

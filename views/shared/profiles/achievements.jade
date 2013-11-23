@@ -30,7 +30,6 @@
         Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge? Fix a bug :)
     hr
   
-  // tested - working, but needs to be dynamic
   div(ng-if='profile.backer.tier')
     .achievement.achievement-heart
     h5 Kickstarter Backer - ${{profile.backer.tier}} Tier
@@ -38,27 +37,21 @@
     hr
 
   div(ng-if='profile.achievements.streak || user._id == profile._id')
-    // tested - working, but needs to be dynamic
     .achievement.achievement-thermometer(ng-show='profile.achievements.streak')
-    // tested - working, but needs to be dynamic
     div(ng-class='{muted: !profile.achievements.streak}')
       h5 {{profile.achievements.streak || 0 }} Streak Achievement(s)
       small Has performed {{profile.achievements.streak || 0 }} 21-day streaks on Dailies
     hr
 
   div(ng-if='profile.achievements.ultimateGear || user._id == profile._id')
-    // tested - working, but needs to be dynamic
     .achievement.achievement-armor(ng-show='profile.achievements.ultimateGear')
-    // tested - working, but needs to be dynamic
     div(ng-class='{muted: !profile.achievements.ultimateGear}')
       h5 Ultimate Gear
       small Has upgraded to the maximum weapon and armor set
     hr
 
   div(ng-if='profile.achievements.beastMaster || user._id == profile._id')
-    // tested - working, but needs to be dynamic
     .achievement.achievement-rat(ng-show='profile.achievements.beastMaster')
-    // tested - working, but needs to be dynamic
     div(ng-class='{muted: !profile.achievements.beastMaster}')
       h5 Beast Master
       small Has found all 90 pets (insanely difficult, give this user props!)
@@ -86,7 +79,6 @@
   div(ng-if='profile.achievements.challenges || user._id == profile._id')
     // This is a very strange icon to use. revisit
     .achievement.achievement-karaoke(ng-show='profile.achievements.challenges')
-    // tested - working, but needs to be dynamic
     div(ng-class='{muted: !profile.achievements.challenges}')
       h5 Was the winner in the following challenges
       ul
