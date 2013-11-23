@@ -11,7 +11,7 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
         i.icon-forward
 
     // Icons only available if you own the tasks (aka, hidden from challenge stats)
-    span(bo-if='!obj._locked')
+    span(ng-if='!obj._locked')
       i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='noTags(task.tags)')
       // edit
       a(ng-hide='task._editing', ng-click='editTask(task)', tooltip='Edit')
@@ -23,13 +23,13 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
       a(ng-hide='!task._editing', ng-click='editTask(task);saveTask(task)', tooltip='Save')
         i.icon-ok(ng-hide='!task._editing')
       //challenges
-      span(bo-if='task.challenge.id')
-        span(bo-if='task.challenge.broken')
+      span(ng-if='task.challenge.id')
+        span(ng-if='task.challenge.broken')
           i.icon-bullhorn(style='background-color:red;', ng-click='task._editing = true', tooltip="Broken Challenge Link", tooltip-placement='right')
-        span(bo-if='!task.challenge.broken')
+        span(ng-if='!task.challenge.broken')
           i.icon-bullhorn(tooltip="Challenge")
       // delete
-      a(bo-if='!task.challenge.id', ng-click='removeTask(obj[list.type+"s"], $index)', tooltip='Delete')
+      a(ng-if='!task.challenge.id', ng-click='removeTask(obj[list.type+"s"], $index)', tooltip='Delete')
         i.icon-trash
 
     // chart
@@ -67,27 +67,27 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
   .task-options(ng-show='task._editing')
 
     // Broken Challenge
-    .well(bo-if='task.challenge.broken')
-      div(bo-if='task.challenge.broken=="TASK_DELETED"')
+    .well(ng-if='task.challenge.broken')
+      div(ng-if='task.challenge.broken=="TASK_DELETED"')
         p Broken Challenge Link: this task was part of a challenge, but has been removed from it. What would you like to do?
         p
           a(ng-click='unlink(task, "keep")') Keep It
           | &nbsp;|&nbsp;
           a(ng-click="removeTask(obj[list.type+'s'], $index)") Remove It
-      div(bo-if='task.challenge.broken=="CHALLENGE_DELETED"')
+      div(ng-if='task.challenge.broken=="CHALLENGE_DELETED"')
         p Broken Challenge Link: this task was part of a challenge, but the challenge (or group) has been deleted. What to do with the orphan tasks?
         p
           a(ng-click='unlink(task, "keep-all")') Keep Them
           | &nbsp;|&nbsp;
           a(ng-click='unlink(task, "remove-all")') Remove Them
-      div(bo-if='task.challenge.broken=="CHALLENGE_CLOSED"')
+      div(ng-if='task.challenge.broken=="CHALLENGE_CLOSED"')
         p.
           This challenge has been completed, and the winner was <span class='badge'>{{task.challenge.winner}}</span>! What to do with the orphan tasks?
         p
           a(ng-click='unlink(task, "keep-all")') Keep Them
           | &nbsp;|&nbsp;
           a(ng-click='unlink(task, "remove-all")') Remove Them
-      //-div(bo-if='task.challenge.broken=="UNSUBSCRIBED"')
+      //-div(ng-if='task.challenge.broken=="UNSUBSCRIBED"')
         p Broken Challenge Link: this task was part of a challenge, but you have unsubscribed from the challenge. What to do with the orphan tasks?
         p
           a(ng-click="unlink(task, 'keep-all')") Keep Them
@@ -104,7 +104,7 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
         textarea.option-content(rows='3', ng-model='task.notes', ng-disabled='task.challenge.id')
 
       // if Habit, plus/minus command options
-      fieldset.option-group(bo-if='task.type=="habit" && !task.challenge.id')
+      fieldset.option-group(ng-if='task.type=="habit" && !task.challenge.id')
         legend.option-title Direction/Actions
         span.task-checker.action-plusminus.select-toggle
           input.visuallyhidden.focusable(id='{{obj._id}}_{{task.id}}-option-plus', type='checkbox', ng-model='task.up')
@@ -127,14 +127,14 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
           button.task-action-btn.tile(ng-class='{active: task.repeat.s}',   type='button', data-day='s',  ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)') S
 
       // if Reward, pricing
-      fieldset.option-group.option-short(bo-if='task.type=="reward" && !task.challenge.id')
+      fieldset.option-group.option-short(ngs-if='task.type=="reward" && !task.challenge.id')
         legend.option-title Price
         input.option-content(type='number', size='16', min='0', step="any", ng-model='task.value')
         .money.input-suffix
           span.shop_gold
 
       // if Todos, the due date
-      fieldset.option-group(bo-if='task.type=="todo" && !task.challenge.id')
+      fieldset.option-group(ng-if='task.type=="todo" && !task.challenge.id')
         legend.option-title Due Date
         input.option-content.datepicker(type='text', data-date-format='mm/dd/yyyy', ng-model='task.date')
 
