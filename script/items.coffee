@@ -68,107 +68,134 @@ items = module.exports.items =
   spells:
     wizard:
       fireball:
-        text: 'Fireball'
+        text: 'Burst of Flames'
         mana: 10
         target: 'task'
-        notes: 'Burns a task, granting additional exp & decreasing its redness.'
+        notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional xp.'
         cast: (user, target) ->
-          target.value += user.stats.int * crit(user)
-      ice:
-        text: 'Ice Wall'
-        mana: 25
+          target.value += user.stats.int + crit(user)
+      lightning:
+        text: 'Lightning Strike'
+        mana: 15
         target: 'task'
-        notes: 'Freezes all tasks, slowing the damage they deal you for one day'
+        notes: 'A bolt a lightning pierces through a task. There is a high chance of a critical hit.'
         cast: (user, target) ->
-          _.each user.tasks, (task) ->
-            task.buffs.value ?= task.value
-            task.buffs.value += user.stats.int
-      meteorShower:
-        text: 'Meteor Shower'
-        mana: 40
-        target: 'self'
-        notes: "Causes damage to all tasks, reducing their redness",
+          crit += user.stats.per*2
+      frost:
+        text: 'Chilling Frost'
+        mana: 35
+        target: 'party'
+        notes: "Ice forms of the party's tasks, slowing them down and opening them up to more attacks. Your party gains a buff to xp.",
         cast: (user, target) ->
-          _.each user.tasks, ((task) ->task.value += user.stats.int)
+          party.stats.buff.exp = user.stats.int
+          ## lasts for 24 hours ##
+      darkness:
+        text: 'Shroud of Darkness'
+        mana: 30
+        target: 'party'
+        notes: "Unearthly shadows form and wisp around your party, concealing their presence. Under the shroud, your party can sneak up on tasks, dealing more critical hits.",
+        cast: (user, target) ->
+          party.stats.buff.crit = user.stats.per
+          ## lasts for 24 hours ##
 
     warrior:
-      bash:
-        text: 'Bash'
+      smash:
+        text: 'Brutal Smash'
         mana: 10
         target: 'task'
-        notes: 'Hit a single task hard'
+        notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases."
         cast: (user, target) ->
-          target.value += user.stats.str * crit(user)
-      intimidate:
-        text: 'Intimidate'
-        mana: 10
-        target: 'task'
-        notes: "Intimidate a task, making it flee"
-        cast: (user, target) ->
-          (target.buffs ?= {}).value = 9999
+          target.redness -= user.stat.str
       defensiveStance:
         text: 'Defensive Stance'
+        mana: 25
         target: 'self'
-        mana: 10
-        notes: 'Prepare yourself for the onslaught of tasks'
+        notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduced damage from dailies at the end of the day."
         cast: (user, target) ->
-          user.stats.buffs.def = user.stats.def
-
-    rogue:
-      backStab:
-        text: 'Back Stab'
-        mana: 10
-        target: 'task'
-        notes: 'High crit chance, stab a habit from behind'
-        cast: (user, target) ->
-          _crit = crit(user)
-          target.value += _crit
-          user.stats.gp += _crit
-      pickPocket:
-        text: 'Pick Pocket'
-        target: 'task'
-        mana: 10
-        notes: 'High chance of getting a free drop from a task'
-        cast: (user, target) ->
-          user.stats.gp += target.value * user.stats.per
-      stealth:
-        text: 'Stealth'
-        target: 'self'
-        mana: 40
-        notes: 'Hide from as many tasks as you can for one day'
-        cast: (user, target) ->
-          user.stats.buffs.stealth = user.stats.per # number of tasks you'll evade
-    healer:
-      heal:
-        text: 'Heal'
-        mana: 10
-        target: 'user'
-        notes: 'Heals self (user.hp += user.def, INT decreases mana cost)'
-        cast: (user, target) ->
-          target.stats.hp += user.stats.def
-      healAll:
-        text: 'Heal All'
+          user.stats.buff.con = user.stats.con/2
+          ## Only affects health loss at cron from dailies ##
+      valorousPresence:
+        text: 'Valorous Presence'
         mana: 20
         target: 'party'
-        notes: 'Heals party (user.hp += user.def, INT decreases mana cost)'
+        notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR."
         cast: (user, target) ->
-          _.each target, ((member) -> member.stats.hp += user.def)
-      empower:
-        text: 'Empower'
+          party.stats.buff.str = user.stats.str/2
+          ## lasts 24 hours ##
+      intimidate
+        text: 'Intimidating Gaze'
+        mana: 15
+        target: 'party'
+        notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense."
+        cast: (user, target) ->
+          party.stats.buff.con = user.stats.con/2
+          ## lasts 24 hours ##
+
+    rogue:
+      pickPocket:
+        text: 'Pickpocket'
+        mana: 10
+        target: 'task'
+        notes: "Your nimble fingers run through the task's pockets and 'find' some treasures for yourself. You gain an increased gold bonus on the task and a higher chance of an item drop."
+        cast: (user, target) ->
+          task.gp += user.stats.per
+      backStab:
+        text: 'Backstab'
+        mana: 15
+        target: 'task'
+        notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the stat, with a higher chance of a critical hit."
+        cast: (user, target) ->
+          task.redness -= user.stats.str
+          crit += user.stats.per*2
+      stealth:
+        text: 'Tools of the Trade'
         mana: 20
-        target: 'user'
-        notes: "Increases target's highest stat"
+        target: 'party'
+        notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day."
         cast: (user, target) ->
-          # TODO find highst stat, not just str
-          highestStat = 'str'
-          (target.stats.buffs ?= {})[highestStat] += (user.def/2)
-      shield:
-        text: 'Shield'
-        mana: 20
-        target: 'user'
-        notes: "Increases target's defense for one day"
+          party.stats.buff.gp = user.stats.per
+          ## lasts 24 hours ##
+      speedburst
+        text: 'Burst of Speed'
+        mana: 25
+        target: 'party'
+        notes: "You hurry your step and dance circles around your party's enemies. You assist your party, helping them do extra damage to a number of tasks equal to half your strength."
         cast: (user, target) ->
-          (target.stats.buffs ?= {}).def += user.def
+          party.stats.buff.str = user.stats.str/2
+            ## each party member gets this bonus to a number tasks == user.stats.str/2 
+            ## the effect lasts 24 hours, or when until the party member has used the effected number of tasks. whichever occurs sooner.
+            ## the 24 hour limit is to help prevent it stacking on a player who has been absent for a long time.
+
+    healer:
+      heal:
+        text: 'Healing Light'
+        mana: 15
+        target: 'self'
+        notes: 'Light covers your body, healing your wounds. You gain a boost to your health.'
+        cast: (user, target) ->
+          target.stats.hp += user.stats.con
+      brightness:
+        text: 'Searing Brightness'
+        mana: 15
+        target: 'self'
+        notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced"
+        cast: (user, target) ->
+          target.redness -= user.stats.int
+      protectAura:
+        text: 'Protective Aura'
+        mana: 30
+        target: 'party'
+        notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense."
+        cast: (user, target) ->
+          party.stats.buff.con = user.stats.con/2
+          ## lasts 24 hours ##
+      heallAll:
+        text: 'Blessing'
+        mana: 25
+        target: 'party'
+        notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health."
+        cast: (user, target) ->
+          party.stats.hp += user.con/2)
 
   eggs:
     # value & other defaults set below
