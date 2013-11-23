@@ -3,7 +3,7 @@
     Removing it will remove the user's name, but will allow more room for mounts & helms. IMO this is the lesser of two evils, revisit
 //-figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: profile.id==user.id, hasPet: profile.items.currentPet}', data-level='{{profile.stats.lvl}}', data-uid='{{profile.id}}', rel='popover', data-placement='bottom', data-trigger='hover', data-html='true', data-content="<div ng-hide='profile.id == user.id'> <div class='progress progress-danger' style='height:5px;'> <div class='bar' style='height: 5px; width: {{percent(profile.stats.hp, 50)}}%;'></div> </div> <div class='progress progress-warning' style='height:5px;'> <div class='bar' style='height: 5px; width: {{percent(profile.stats.exp, tnl(profile.stats.lvl))}}%;'></div> </div> <div>Level: {{profile.stats.lvl}}</div> <div>GP: {{profile.stats.gp | number:0}}</div> <div>{{count(profile.items.pets)}} / 90 Pets Found</div> </div>")
 
-figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: user._id==profile._id && !(user.items.currentMount && user.items.currentPet), hasPet: profile.items.currentPet && profile.items.currentMount}')
+figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: user._id==profile._id && !(user.items.currentMount && user.items.currentPet), hasPet: profile.items.currentPet && profile.items.currentMount, isLeader: party.leader==profile._id}')
   .character-sprites
     // Mount Body
     span(ng-if='profile.items.currentMount', class='Mount_Body_{{profile.items.currentMount}}')
@@ -27,5 +27,5 @@ figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile
     // Pet
     // FIXME handle @minimal, this might have to be a directive
     span.current-pet(class='Pet-{{profile.items.currentPet}}', ng-show='profile.items.currentPet && !minimal')
-  .avatar-level(class='label label-contributor-{{profile.contributor.level}}' ng-class='{"badge badge-info": {{party.leader==profile._id}}}')
+  .avatar-level(ng-class='{label:profile, "label-contributor-{{profile.contributor.level}}": profile.contributor, "label-npc": profile.backer.npc}')
     | Lvl {{profile.stats.lvl}}
