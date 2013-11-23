@@ -83,11 +83,12 @@ items = module.exports.items =
           crit += user.stats.per*2
       frost:
         text: 'Chilling Frost'
-        mana: 40
+        mana: 35
         target: 'party'
         notes: "Ice forms of the party's tasks, slowing them down and opening them up to more attacks. Your party gains a buff to xp.",
         cast: (user, target) ->
           party.stats.buff.exp = user.stats.int
+          ## lasts for 24 hours ##
       darkness:
         text: 'Shroud of Darkness'
         mana: 30
@@ -95,6 +96,7 @@ items = module.exports.items =
         notes: "Unearthly shadows form and wisp around your party, concealing their presence. Under the shroud, your party can sneak up on tasks, dealing more critical hits.",
         cast: (user, target) ->
           party.stats.buff.crit = user.stats.per
+          ## lasts for 24 hours ##
 
     warrior:
       smash:
@@ -111,21 +113,23 @@ items = module.exports.items =
         notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduced damage from dailies at the end of the day."
         cast: (user, target) ->
           user.stats.buff.con = user.stats.con/2
+          ## Only affects health loss at cron from dailies ##
       valorousPresence:
         text: 'Valorous Presence'
         mana: 20
         target: 'party'
-        notes: 'Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR for 24 hours.'
+        notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR."
         cast: (user, target) ->
           party.stats.buff.str = user.stats.str/2
+          ## lasts 24 hours ##
       intimidate
         text: 'Intimidating Gaze'
         mana: 15
         target: 'party'
-        notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense for the day."
+        notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense."
         cast: (user, target) ->
           party.stats.buff.con = user.stats.con/2
-
+          ## lasts 24 hours ##
 
     rogue:
       pickPocket:
@@ -150,6 +154,7 @@ items = module.exports.items =
         notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day."
         cast: (user, target) ->
           party.stats.buff.gp = user.stats.per
+          ## lasts 24 hours ##
       speedburst
         text: 'Burst of Speed'
         mana: 25
@@ -157,7 +162,9 @@ items = module.exports.items =
         notes: "You hurry your step and dance circles around your party's enemies. You assist your party, helping them do extra damage to a number of tasks equal to half your strength."
         cast: (user, target) ->
           party.stats.buff.str = user.stats.str/2
-            ## also, the number of following tasks by each party member should = user.stats.str/2
+            ## each party member gets this bonus to a number tasks == user.stats.str/2 
+            ## the effect lasts 24 hours, or when until the party member has used the effected number of tasks. whichever occurs sooner.
+            ## the 24 hour limit is to help prevent it stacking on a player who has been absent for a long time.
 
     healer:
       heal:
@@ -181,9 +188,10 @@ items = module.exports.items =
         notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense."
         cast: (user, target) ->
           party.stats.buff.con = user.stats.con/2
+          ## lasts 24 hours ##
       heallAll:
         text: 'Blessing'
-        mana: 30
+        mana: 25
         target: 'party'
         notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health."
         cast: (user, target) ->
