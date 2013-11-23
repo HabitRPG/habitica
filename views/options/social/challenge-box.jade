@@ -6,11 +6,11 @@
       a.pull-right(target='_blank', href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58')
         i.icon-question-sign
   .modal-body(bindonce='group.challenges')
-    div(bo-if='group.challenges.length > 0')
+    div(ng-if='group.challenges.length > 0')
       table.table.table-striped
         tr(ng-repeat='challenge in group.challenges')
           td
             a(ui-sref='options.social.challenges.detail({cid:challenge._id})') {{challenge.name}}
-    div(bo-if='group.challenges.length == 0')
+    div(ng-if='group.challenges.length == 0')
       p.
         No challenges yet, visit <a class='label' ui-sref='options.social.challenges'><i class=icon-bullhorn></i> Challenges</a> to create one.
