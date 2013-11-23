@@ -1,4 +1,4 @@
-.achievements-container(bindonce)
+.achievements-container
   // <div class='achievement achievement-sword'></div>
   // <div class='achievement achievement-tree'></div>
   // <div class='achievement achievement-comment'></div>
@@ -13,70 +13,70 @@
   // <div class='achievement achievement-shield'></div>
   // <div class='achievement achievement-karaoke'></div>
 
-  div(bo-if='profile.backer.npc')
+  div(ng-if='profile.backer.npc')
     .achievement.achievement-helm
     h5
       span.label.label-npc {{profile.backer.npc}} NPC
     small Backed the Kickstarter project at the maximum level!
     hr
 
-  div(bo-if='profile.contributor.level || user._id == profile._id')
-    .achievement.achievement-firefox(bo-if='profile.contributor.level')
+  div(ng-if='profile.contributor.level || user._id == profile._id')
+    .achievement.achievement-firefox(ng-if='profile.contributor.level')
     div(ng-class='{muted: !profile.contributor.level}')
       h5
-        span.label(bo-if='profile.contributor.level', class='label-contributor-{{profile.contributor.level}}') {{contribText(profile.contributor, profile.backer)}}
-        span.label(bo-if='!profile.contributor.level') Contributor
+        span.label(ng-if='profile.contributor.level', class='label-contributor-{{profile.contributor.level}}') {{contribText(profile.contributor, profile.backer)}}
+        span.label(ng-if='!profile.contributor.level') Contributor
       small.
         Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge? Fix a bug :)
     hr
 
-  div(bo-if='profile.backer.tier')
+  div(ng-if='profile.backer.tier')
     .achievement.achievement-heart
     h5 Kickstarter Backer - ${{profile.backer.tier}} Tier
     small Backed the Kickstarter Project
     hr
 
-  div(bo-if='profile.achievements.streak || user._id == profile._id')
+  div(ng-if='profile.achievements.streak || user._id == profile._id')
     .achievement.achievement-thermometer(bo-show='profile.achievements.streak')
     div(bo-class='{muted: !profile.achievements.streak}')
       h5 {{profile.achievements.streak || 0 }} Streak Achievement(s)
       small Has performed {{profile.achievements.streak || 0 }} 21-day streaks on Dailies
     hr
 
-  div(bo-if='profile.achievements.ultimateGear || user._id == profile._id')
+  div(ng-if='profile.achievements.ultimateGear || user._id == profile._id')
     .achievement.achievement-armor(bo-show='profile.achievements.ultimateGear')
     div(bo-class='{muted: !profile.achievements.ultimateGear}')
       h5 Ultimate Gear
       small Has upgraded to the maximum weapon and armor set
     hr
 
-  div(bo-if='profile.achievements.beastMaster || user._id == profile._id')
+  div(ng-if='profile.achievements.beastMaster || user._id == profile._id')
     .achievement.achievement-rat(bo-show='profile.achievements.beastMaster')
     div(bo-class='{muted: !profile.achievements.beastMaster}')
       h5 Beast Master
       small Has found all 90 pets (insanely difficult, give this user props!)
     hr
 
-  div(bo-if='profile.achievements.helpedHabit')
+  div(ng-if='profile.achievements.helpedHabit')
     .achievement.achievement-tree
     h5 Helped Habit Grow
     small.
       Helped HabitRPG grow by filling out <a href='http://community.habitrpg.com/node/290' target='_blank'>this survey.</a>
     hr
 
-  div(bo-if='profile.achievements.originalUser || profile.achievements.veteran')
+  div(ng-if='profile.achievements.originalUser || profile.achievements.veteran')
     .achievement.achievement-cake
-    div(bo-if='profile.achievements.veteran')
+    div(ng-if='profile.achievements.veteran')
       h5 Veteran
       small
         | Has weathered Habit The Grey (our pre Angular website), and has gained many battle-scars from its bugs.
-    div(bo-if='profile.achievements.originalUser')
+    div(ng-if='profile.achievements.originalUser')
       h5 Original User!
       small
         | One of the <em>very</em> original early adopters, Talk about alpha tester!
     hr
 
-  div(bo-if='profile.achievements.challenges || user._id == profile._id')
+  div(ng-if='profile.achievements.challenges || user._id == profile._id')
     // This is a very strange icon to use. revisit
     .achievement.achievement-karaoke(ng-show='profile.achievements.challenges')
     div(bo-class='{muted: !profile.achievements.challenges}')
