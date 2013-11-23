@@ -185,6 +185,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       'level': 'Sort by Level',
       'random': 'Sort randomly',
       'pets': 'Sort by number of pets',
+      'party_date_joined': 'Sort by Party date joined',
     };
 
   }])
