@@ -18,7 +18,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.me
 
 script(type='text/ng-template', id='partials/options.social.challenges.detail.html')
   // Edit button
-  div(bindonce='challenge', bo-if='challenge.leader==user._id')
+  div(bindonce='challenge', ng-if='challenge.leader==user._id')
     ul.unstyled
       li(ng-hide='challenge._locked==false')
         button.btn.btn-small.btn-default(ng-click='challenge._locked = false') Edit
@@ -35,12 +35,12 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
         textarea.option-content(cols='3', placeholder='Description', ng-model='challenge.description')
     hr
 
-  .well(bindonce='challenge', bo-if='challenge.description') {{challenge.description}}
+  .well(bindonce='challenge', ng-if='challenge.description') {{challenge.description}}
   i.icon-question-sign(popover="These are the challenge's tasks. As users participate, they will change color and gain graphs to show you the overall progress of the group.", popover-trigger='mouseenter', popover-placement='right')
   habitrpg-tasks(obj='challenge', main=false)
 
   // Member List
-  div(bindonce='challenge', bo-if='challenge.members.length > 0')
+  div(bindonce='challenge', ng-if='challenge.members.length > 0')
     h3 How's Everyone Doing?
     menu
       button.customize-option(ng-repeat='member in challenge.members', ng-click='toggleMember(challenge._id, member._id)') {{member.profile.name}}
@@ -53,7 +53,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
       .accordion-heading
         a.accordion-toggle(ng-click='toggleMember(challenge._id, member._id)') {{member.profile.name}}
       .accordion-body(ng-class='{collapse: $stateParams.uid != member._id}')
-        .accordion-inner(bo-if='$stateParams.uid == member._id')
+        .accordion-inner(ng-if='$stateParams.uid == member._id')
           div(ui-view)
 
 script(type='text/ng-template', id='partials/options.social.challenges.html')
