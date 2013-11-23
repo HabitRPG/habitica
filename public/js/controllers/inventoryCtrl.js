@@ -7,15 +7,11 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
     $scope.selectedEgg = null; // {index: 1, name: "Tiger", value: 5}
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
-    $scope.petCount = window.habitrpgShared.helpers.countPets(null, User.user.items.pets);
     $scope.totalPets = _.size($scope.Items.eggs) * _.size($scope.Items.hatchingPotions);
 
     // count egg, food, hatchingPotion stack totals
     var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}
 
-    $scope.$watch('user.items.pets', function(pets){ 
-      $scope.petCount = window.habitrpgShared.helpers.countPets($rootScope.countExists(pets), User.user.items.pets);
-    }, true);
     $scope.$watch('user.items.mounts', function(mounts){ $scope.mountCount = $rootScope.countExists(mounts); }, true);
     $scope.$watch('user.items.eggs', function(eggs){ $scope.eggCount = countStacks(eggs); }, true);
     $scope.$watch('user.items.hatchingPotions', function(pots){ $scope.potCount = countStacks(pots); }, true);
