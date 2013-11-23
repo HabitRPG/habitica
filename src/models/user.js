@@ -110,8 +110,7 @@ var UserSchema = new Schema({
     head: Number,
     shield: Number,
 
-    // -------------- Animals -------------------
-
+    // -------------- Animals ------------------- 
     // Complex bit here. The result looks like:
     // pets: {
     //   'Wolf-Desert': 0, // 0 means does not own
@@ -182,7 +181,8 @@ var UserSchema = new Schema({
     current: String, // party._id
     invitation: String, // party._id
     lastMessageSeen: String,
-    leader: Boolean
+    leader: Boolean,
+    order: {type:String, 'default':'level'}
   },
   preferences: {
     armorSet: String,
