@@ -9,8 +9,8 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
     // ------ Information -------
     .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
       .modal-header(bindonce='group')
-        // todo test
-        span(bo-if='group.leader == user.id')
+        // tested - needs to be dynamic
+        span(ng-if='group.leader == user.id')
           button.btn.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing') Save
           button.btn.btn-default.pull-right(ng-click='group._editing = true', ng-hide='group._editing') Edit Group
         h3 {{group.name}}
@@ -49,11 +49,11 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
                 a(ng-click='removeMember(group, member, true)')
                   i.icon-ban-circle(tooltip='Boot Member')
               a
-                // todo test
-                span(bo-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
+                // tested - needs to be dynamic
+                span(ng-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
                   | {{member.profile.name}}
-          // todo test
-          tr(bo-if='group.memberCount > group.members.length')
+          // tested - needs to be dynamic
+          tr(ng-if='group.memberCount > group.members.length')
             td.
              <span class='badge'>{{group.memberCount - group.members.length}} more members</span>
 
