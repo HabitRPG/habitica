@@ -287,7 +287,9 @@ UserSchema.methods.syncScoreToChallenge = function(task, delta){
     var t = chal.tasks[task.id];
     if (!t) return chal.syncToUser(self); // this task was removed from the challenge, notify user
     t.value += delta;
-    t.history.push({value: t.value, date: +new Date});
+    if (t.type == 'habit' || t.type == 'daily') {
+      t.history.push({value: t.value, date: +new Date});
+    }
     chal.save();
   });
 }
