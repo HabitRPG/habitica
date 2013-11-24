@@ -1,4 +1,4 @@
-form(ng-submit='postChat(group,message.content)')
+form(ng-submit='postChat(group,message.content)', class='chat-form')
   .-options
     //FIXME ng-model makes this painfully slow! using jquery for now, which is really non-angular-like
     .control-group.option-large(ng-controller='AutocompleteCtrl')
