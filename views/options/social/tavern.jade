@@ -104,7 +104,9 @@
   .span8(ng-controller='ChatCtrl')
     h3 Tavern Talk
       include ./chat-box
-      small.alert.alert-info.
-        Note: if you're reporting a bug, the developers won't see it here. <a href='http://community.habitrpg.com/node/280' target='_blank'>Follow these instructions</a> instead.
+      small
+        include ../../shared/formatting-help
+        alert.alert-info.
+          Note: if you're reporting a bug, the developers won't see it here. <a href='http://community.habitrpg.com/node/280' target='_blank'>Follow these instructions</a> instead.
     ul.unstyled.tavern-chat
       include ./chat-message
