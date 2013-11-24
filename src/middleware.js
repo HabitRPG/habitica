@@ -106,6 +106,26 @@ var avalaibleLanguages = _.map(langCodes, function(langCode){
   }
 });
 
+// Load MomentJS localization files
+var momentLangs = {};
+
+// Handle different language codes from MomentJS and /locales
+var momentLangsMapping = {
+  'en': 'en-gb',
+  'no': 'nn'
+};
+
+_.each(langCodes, function(code){
+  var lang = _.find(avalaibleLanguages, {code: code});
+  lang.momentLangCode = (momentLangsMapping[code] || code);
+  try{
+    var momentLang = momentLangsMapping[code] ? momentLangsMapping[code] : code;
+    // MomentJS lang files are JS files that has to be executed in the browser so we load them as plain text files
+    var f = fs.readFileSync(path.join(__dirname, '/../node_modules/moment/lang/' + lang.momentLangCode + '.js'), 'utf8');
+    lang.momentLang = f;
+  }catch (e){}
+});
+
 var getUserLanguage = function(req, callback){
   var getFromBrowser = function(){
     var acceptable = _(req.acceptedLanguages).map(function(lang){
@@ -152,7 +172,7 @@ module.exports.locals = function(req, res, next) {
       translations: translations[language.code],
       t: function(string){
         return (translations[language.code][string] || translations[language.code].stringNotFound);
-      }
+      },
     }
 
     next(); 

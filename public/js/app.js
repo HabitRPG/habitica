@@ -2,6 +2,11 @@
 
 window.env = window.env || {}; //FIX tests
 
+if(window.env.language && window.env.language.momentLang && window.env.language.momentLangCode){
+  eval(window.env.language.momentLang);
+  moment.lang(window.env.language.momentLangCode);
+}
+
 window.env.t = function(string){
   return (window.env.translations[string] || window.env.translations.stringNotFound);
 }
