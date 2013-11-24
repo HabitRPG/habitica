@@ -88,6 +88,51 @@ habitrpg.directive('habitrpgSortable', ['User', function(User) {
 
       return marked(markdown);
     };
+    
+    // [nickgordon20131123] this hacky override wraps images with a link to the image in a new window, and also adds some classes in case we want to style
+    marked.InlineLexer.prototype.outputLink = function(cap, link) {
+      var escape = function(html, encode) {
+        return html
+          .replace(!encode ? /&(?!#?\w+;)/g : /&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      };
+      if (cap[0].charAt(0) !== '!') {
+        return '<a class="markdown-link" href="'
+          + escape(link.href)
+          + '"'
+          + (link.title
+          ? ' title="'
+          + escape(link.title)
+          + '"'
+          : '')
+          + '>'
+          + this.output(cap[1])
+          + '</a>';
+      } else {
+        return '<a class="markdown-img-link" href="'
+          + escape(link.href)
+          + '" target="_blank"'
+          + (link.title
+          ? ' title="'
+          + escape(link.title)
+          + '"'
+          : '')
+          + '><img class="markdown-img" src="'
+          + escape(link.href)
+          + '" alt="'
+          + escape(cap[1])
+          + '"'
+          + (link.title
+          ? ' title="'
+          + escape(link.title)
+          + '"'
+          : '')
+          + '></a>';
+      }
+    }
 
     //hljs.tabReplace = '    ';
 
