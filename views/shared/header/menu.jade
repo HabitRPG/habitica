@@ -1,4 +1,12 @@
 .user-menu(ng-controller='AuthCtrl')
+  select#partyOrder(
+    style='width:90px',
+    ng-model='user.party.order',
+    ng-controller='HeaderCtrl',
+    ng-options='k as v for (k , v) in partyOrderChoices',
+    ng-change='updatePartyOrder()'
+    )
+
   button.task-action-btn.tile.solid(ng-hide='authenticated()', style='cursor: pointer;', ng-click="modals.login = true") Login / Register
   ul.nav.site-nav(ng-show='authenticated()')
     li.flyout

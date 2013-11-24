@@ -75,7 +75,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.response = [];
       $scope.usernames = [];
     }
-    
+
     $scope.addNewUser = function(user) {
       if($.inArray(user.user,$scope.usernames) == -1) {
         user.username = user.user;
@@ -83,9 +83,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         $scope.response.push(user);
       }
     }
-    
+
     $scope.clearUserlist();
-    
+
     $scope.chatChanged = function(newvalue,oldvalue){
       if($scope.group.chat && $scope.group.chat.length > 0){
         for(var i = 0; i < $scope.group.chat.length; i++) {
@@ -93,9 +93,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         }
       }
     }
-    
+
     $scope.$watch('group.chat',$scope.chatChanged);
-    
+
     $scope.caretChanged = function(newCaretPos) {
       var relativeelement = $('.-options');
       var textarea = $('.chat-textarea');
@@ -112,23 +112,23 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
                 });
       }
     }
-    
+
     $scope.updateTimer = false;
-    
+
     $scope.$watch(function () { return $scope.caretPos; },function(newCaretPos) {
       if($scope.updateTimer){
         $timeout.cancel($scope.updateTimer)
-      }  
+      }
       $scope.updateTimer = $timeout(function(){
         $scope.caretChanged(newCaretPos);
       },$scope.watchDelay)
     });
   }])
-  
+
   .controller('ChatCtrl', ['$scope', 'Groups', 'User', function($scope, Groups, User){
     $scope.message = {content:''};
     $scope._sending = false;
-    
+
     $scope.isUserMentioned = function(user, message) {
       if(message.hasOwnProperty("highlight"))
         return message.highlight;
@@ -171,7 +171,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           if(data.chat) group.chat = data.chat;
 
           var i = _.findIndex(group.chat, {id: message.id});
-          if(i !== -1) group.chat.splice(i, 1);          
+          if(i !== -1) group.chat.splice(i, 1);
         });
       }
     }
@@ -179,15 +179,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     $scope.sync = function(group){
       group.$get();
     }
-
-    // List of Ordering options for the party members list
-    $scope.partyOrderChoices = {
-      'level': 'Sort by Level',
-      'random': 'Sort randomly',
-      'pets': 'Sort by number of pets',
-      'party_date_joined': 'Sort by Party date joined',
-    };
-
   }])
 
   .controller("GuildsCtrl", ['$scope', 'Groups', 'User', '$rootScope', '$state', '$location',
@@ -293,7 +284,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
       $scope.reject = function(){
         User.user.invitations.party = undefined;
-        User.log({op:'set',data:{'invitations.party':{}}});
+        User.log({op:'set',data:{'invitations.party':{ } }});
       }
     }
   ])
@@ -303,7 +294,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.group = Groups.tavern();
       $scope.rest = function(){
         User.user.flags.rest = !User.user.flags.rest;
-        User.log({op:'set',data:{'flags.rest':User.user.flags.rest}});
+        User.log({op:'set',data:{'flags.rest':User.user.flags.rest }});
       }
       $scope.toggleUserTier = function($event) {
         $($event.target).next().toggle();
