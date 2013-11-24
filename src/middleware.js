@@ -172,7 +172,7 @@ module.exports.locals = function(req, res, next) {
       translations: translations[language.code],
       t: function(string){
         return (translations[language.code][string] || translations[language.code].stringNotFound);
-      },
+      }
     }
 
     next(); 
