@@ -3,7 +3,7 @@ li(bindonce='group.chat', ng-repeat='message in group.chat', bo-class='{highligh
     a.label.chat-message(class='hidden-label')
       span {{message.user}}&nbsp;
     | &nbsp;
-    markdown(ng-model='message.text')
+    markdown(ng-model='message.text',target='_blank')
     | &nbsp;-&nbsp;
     span.muted.time(from-now='message.timestamp')
     a(bo-show='user.contributor.admin || message.uuid == user.id', ng-click='deleteChatMessage(group, message)')

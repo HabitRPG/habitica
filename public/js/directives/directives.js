@@ -100,7 +100,7 @@ habitrpg.directive('habitrpgSortable', ['User', function(User) {
           .replace(/'/g, '&#39;');
       };
       if (cap[0].charAt(0) !== '!') {
-        return '<a target="_blank" class="markdown-link" href="'
+        return '<a class="markdown-link" href="'
           + escape(link.href)
           + '"'
           + (link.title
@@ -114,7 +114,7 @@ habitrpg.directive('habitrpgSortable', ['User', function(User) {
       } else {
         return '<a class="markdown-img-link" href="'
           + escape(link.href)
-          + '" target="_blank"'
+          + '"'
           + (link.title
           ? ' title="'
           + escape(link.title)
@@ -147,7 +147,9 @@ habitrpg.directive('habitrpgSortable', ['User', function(User) {
       link: function(scope, element, attrs) {
         scope.$watch(attrs.ngModel, function(value, oldValue) {
           var markdown = value;
+          var linktarget = attrs.target || '_self';
           var html = md.toHtml(markdown);
+          html = html.replace(' href','target="'+linktarget+'" href');
           element.html(html);
         });
       }
