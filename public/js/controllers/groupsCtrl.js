@@ -180,6 +180,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       group.$get();
     }
 
+    // List of Ordering options for the party members list
+    $scope.partyOrderChoices = {
+      'level': 'Sort by Level',
+      'random': 'Sort randomly',
+      'pets': 'Sort by number of pets',
+      'party_date_joined': 'Sort by Party date joined',
+    };
+
   }])
 
   .controller("GuildsCtrl", ['$scope', 'Groups', 'User', '$rootScope', '$state', '$location',
