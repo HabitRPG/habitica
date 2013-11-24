@@ -416,3 +416,16 @@ describe 'Helper', ->
     expect(helpers.startOfDay({now: new Date(2013, 0, 1, 0)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
     expect(helpers.startOfDay({now: new Date(2013, 0, 1, 5)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
     expect(helpers.startOfDay({now: new Date(2013, 0, 1, 23, 59, 59)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
+
+  it 'counts pets', ->
+    pets = {}
+    expect(helpers.countPets(null, pets)).to.eql 0
+    expect(helpers.countPets(1, pets)).to.eql 1
+
+    pets = { "Dragon-Red": 1, "Wolf-Base": 2 }
+    expect(helpers.countPets(null, pets)).to.eql 2
+    expect(helpers.countPets(2, pets)).to.eql 2
+
+    pets = { "Wolf-Base": 2, "Wolf-Veteran": 1, "Wolf-Cerberus": 1, "Dragon-Hydra": 1}
+    expect(helpers.countPets(null, pets)).to.eql 1
+    expect(helpers.countPets(_.size(pets), pets)).to.eql 1
