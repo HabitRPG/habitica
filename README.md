@@ -23,7 +23,7 @@ Shared resources useful for the multiple HabitRPG repositories, that way all the
   * TODO document all the functions
 
 ##Tests
-* `npm install`
+* `npm test`
 
 ##CSS
 Shared CSS between the website and the mobile app is a fuzzy area. Spritesheets definitely go in habitrpg-shared (since mobile
