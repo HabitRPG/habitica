@@ -28,12 +28,15 @@ habitrpg.controller("HeaderCtrl", ['$scope', '$location', 'Groups', 'User',
       ).reverse()
     });
 
-      $scope.partyOrderChoices = {
-        'level': 'Sort by Level',
-        'random': 'Sort randomly',
-        'pets': 'Sort by number of pets',
-        'party_date_joined': 'Sort by Party date joined',
-      };
+    $scope.partyOrderChoices = {
+      'level': 'Sort by Level',
+      'contrib': 'Sort by Contributors level',
+      'created': 'Sort by Oldest members',
+      'lastseen': 'Sort by Last Seen',
+      'random': 'Sort randomly',
+      'pets': 'Sort by Number of pets',
+      'party_date_joined': 'Sort by Party date joined',
+    };
  
     $scope.updatePartyOrder = function () {
         User.set('party.order', $scope.user.party.order);
@@ -55,6 +58,15 @@ habitrpg.controller("HeaderCtrl", ['$scope', '$location', 'Groups', 'User',
                   case 'pets':
                     return member.items.pets.length;
                     break;
+                  case 'contrib':
+                    return member.contributor.level;
+                    break;
+                  case 'lastseen':
+                    return member.auth.timestamps.loggedin;
+                    break;
+                  case 'created':
+                    return member.auth.timestamps.created;
+                    break;
                   default:
                     // party date joined
                     return true;
@@ -62,8 +74,6 @@ habitrpg.controller("HeaderCtrl", ['$scope', '$location', 'Groups', 'User',
             }
           ).reverse()
         });
-
-
     }
   }
 ]);
