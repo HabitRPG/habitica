@@ -40,7 +40,7 @@ habitrpg.controller('SettingsCtrl',
       $rootScope.$on('userSynced', function(){
         location.reload();
       });
-      User.set('preferences.language', $scope.language);
+      User.set('preferences.language', $scope.language.code);
     }
 
     $scope.reroll = function(){
