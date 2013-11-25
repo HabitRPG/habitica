@@ -3,7 +3,11 @@
 window.env = window.env || {}; //FIX tests
 
 if(window.env.language && window.env.language.momentLang && window.env.language.momentLangCode){
-  eval(window.env.language.momentLang);
+  var head = document.getElementsByTagName('head')[0];
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.text = window.env.language.momentLang;
+  head.appendChild(script);
   moment.lang(window.env.language.momentLangCode);
 }
 
