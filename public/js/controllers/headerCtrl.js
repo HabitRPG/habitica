@@ -1,32 +1,34 @@
 "use strict";
 
-habitrpg.controller("HeaderCtrl", ['$scope', '$location', 'Groups', 'User',
-  function($scope, $location, Groups, User) {
-
-    $scope.party = Groups.party(function(){
-      $scope.partyMinusSelf = _.sortBy(
-        _.filter($scope.party.members, function(member){
-          return member._id !== User.user._id;
-        }),
-        function (member) {
-          switch(User.user.party.order)
-          {
-              case 'level':
-                return member.stats.lvl;
-                break;
-              case 'random':
-                return Math.random();
-                break;
-              case 'pets':
-                return member.items.pets.length;
-                break;
-              default:
-                // party date joined
-                return true;
+habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
+  function($scope, Groups, User) {
+    var getParty = function() {
+      return Groups.party(function() {
+        $scope.partyMinusSelf = _.sortBy(
+          _.filter($scope.party.members, function(member){
+            return member._id !== User.user._id;
+          }),
+          function (member) {
+            switch(User.user.party.order)
+            {
+                case 'level':
+                  return member.stats.lvl;
+                  break;
+                case 'random':
+                  return Math.random();
+                  break;
+                case 'pets':
+                  return member.items.pets.length;
+                  break;
+                default:
+                  // party date joined
+                  return true;
+            }
           }
-        }
-      ).reverse()
-    });
+        ).reverse()
+      });
+    }
+    $scope.party = getParty();
 
     $scope.partyOrderChoices = {
       'level': 'Sort by Level',
@@ -37,43 +39,9 @@ habitrpg.controller("HeaderCtrl", ['$scope', '$location', 'Groups', 'User',
       'pets': 'Sort by Number of pets',
       'party_date_joined': 'Sort by Party date joined',
     };
- 
     $scope.updatePartyOrder = function () {
-        User.set('party.order', $scope.user.party.order);
-
-        $scope.party = Groups.party(function(){
-          $scope.partyMinusSelf = _.sortBy(
-            _.filter($scope.party.members, function(member){
-              return member._id !== User.user._id;
-            }),
-            function (member) {
-              switch(User.user.party.order)
-              {
-                  case 'level':
-                    return member.stats.lvl;
-                    break;
-                  case 'random':
-                    return Math.random();
-                    break;
-                  case 'pets':
-                    return member.items.pets.length;
-                    break;
-                  case 'contrib':
-                    return member.contributor.level;
-                    break;
-                  case 'lastseen':
-                    return member.auth.timestamps.loggedin;
-                    break;
-                  case 'created':
-                    return member.auth.timestamps.created;
-                    break;
-                  default:
-                    // party date joined
-                    return true;
-              }
-            }
-          ).reverse()
-        });
+      User.set('party.order', $scope.user.party.order);
+      $scope.party = getParty();
     }
   }
 ]);
