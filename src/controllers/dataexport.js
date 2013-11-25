@@ -1,8 +1,12 @@
 var _ = require('lodash');
 var csv = require('express-csv');
+var express = require('express');
 var nconf = require('nconf');
 var moment = require('moment');
 var dataexport = module.exports;
+var js2xmlparser = require("js2xmlparser");
+var pd = require('pretty-data').pd;
+var User = require('../models/user').model;
 
 
 /*
@@ -25,3 +29,55 @@ dataexport.history = function(req, res) {
   });
   return res.csv(output);
 }
+
+var userdata = function(user) {
+  //may eventually need to do some parsing here to eliminate/add from/to the object, just return user for now
+  return user;
+}
+
+dataexport.leanuser = function(req, res, next) {
+  var user = res.locals.user;
+  User.findOne({_id: user._id,}).lean().exec(function(err, user) {
+    if (err) return res.json(500, {err: err});
+    if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
+    res.locals.user = user;
+    return next();
+  });
+};
+
+dataexport.userdata = {
+  xml: function(req, res) {
+      var user = userdata(res.locals.user);
+      return res.xml({data: JSON.stringify(user), rootname: 'user'});
+    },
+  json: function(req, res) {
+      var user = userdata(res.locals.user);
+      return res.jsonstring(user);
+    },
+}
+
+/*
+  ------------------------------------------------------------------------
+  Express Extensions (should be refactored into a module)
+  ------------------------------------------------------------------------
+*/
+
+var expressres = express.response || http.ServerResponse.prototype;
+
+expressres.xml = function(obj, headers, status) {
+  var body = '';
+  this.charset = this.charset || 'utf-8';
+  this.header('Content-Type', 'text/xml');
+  this.header('Content-Disposition', 'attachment');
+  body = pd.xml(js2xmlparser(obj.rootname,obj.data));
+  return this.send(body, headers, status);
+};
+
+expressres.jsonstring = function(obj, headers, status) {
+  var body = '';
+  this.charset = this.charset || 'utf-8';
+  this.header('Content-Type', 'application/json');
+  this.header('Content-Disposition', 'attachment');
+  body = pd.json(JSON.stringify(obj));
+  return this.send(body, headers, status);
+};

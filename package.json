@@ -42,7 +42,9 @@
     "nodemailer": "~0.5.2",
     "grunt-cli": "~0.1.9",
     "paypal-ipn": "~1.0.1",
-    "express-csv": "~0.6.0"
+    "express-csv": "~0.6.0",
+    "pretty-data": "git://github.com/vkiryukhin/pretty-data#master",
+    "js2xmlparser": "~0.1.2"
   },
   "private": true,
   "subdomain": "habitrpg",
