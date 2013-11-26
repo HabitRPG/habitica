@@ -31,7 +31,10 @@ dataexport.history = function(req, res) {
 }
 
 var userdata = function(user) {
-  //may eventually need to do some parsing here to eliminate/add from/to the object, just return user for now
+  if(user.auth && user.auth.local) {
+    delete user.auth.local.salt;
+    delete user.auth.local.hashed_password;
+  }
   return user;
 }
 
