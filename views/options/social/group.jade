@@ -20,8 +20,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
             input.option-content(type='text', ng-model='group.name', placeholder='Group Name')
           .control-group.option-large
             label.control-label Description
-            textarea.option-content(style='height:15em;', placeholder='Description', ng-model='group.description')
-            include ../../shared/formatting-help
+            textarea.option-content(style='height:15em;', placeholder='Description shown in public Guilds list (Markdown OK)', ng-model='group.description')
           .control-group.option-large
             label.control-label Logo URL
             input.option-content(type='url', placeholder='Logo URL', ng-model='group.logo')
@@ -87,8 +86,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
   .span8
     div.blah-options(ng-show='group._editing')
       .option-large
-        textarea.option-content(style='height:15em;', placeholder='Message from group leader', ng-model='group.leaderMessage')
-        include ../../shared/formatting-help
+        textarea.option-content(style='height:15em;', placeholder='Message from group leader (Markdown OK)', ng-model='group.leaderMessage')
     table(ng-show='group.leaderMessage')
       tr
         td
@@ -100,6 +98,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
     div(ng-controller='ChatCtrl')
       h3 Chat
       include ./chat-box
+      include ../../shared/formatting-help
 
       ul.unstyled.tavern-chat
         include ./chat-message
