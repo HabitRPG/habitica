@@ -3,9 +3,9 @@
 habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
   function($scope, Groups, User) {
     var getParty = function() {
-      return Groups.party(function() {
+      return Groups.party(function(party) {
         $scope.partyMinusSelf = _.sortBy(
-          _.filter($scope.party.members, function(member){
+          _.filter(party.members, function(member){
             return member._id !== User.user._id;
           }),
           function (member) {
@@ -28,7 +28,7 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
         ).reverse()
       });
     }
-    $scope.party = getParty();
+    getParty();
 
     $scope.partyOrderChoices = {
       'level': 'Sort by Level',
@@ -41,7 +41,7 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
     };
     $scope.updatePartyOrder = function () {
       User.set('party.order', $scope.user.party.order);
-      $scope.party = getParty();
+      getParty();
     }
   }
 ]);
