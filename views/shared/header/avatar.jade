@@ -27,5 +27,5 @@ figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile
     // Pet
     // FIXME handle @minimal, this might have to be a directive
     span.current-pet(class='Pet-{{profile.items.currentPet}}', ng-show='profile.items.currentPet && !minimal')
-  .avatar-level(ng-class='{label:profile, "label-contributor- + profile.contributor.level": profile.contributor, "label-npc": profile.backer.npc}')
+  .avatar-level(ng-class='userLevelStyle(profile,"label")')
     | Lvl {{profile.stats.lvl}}
