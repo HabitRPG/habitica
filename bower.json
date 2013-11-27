@@ -36,7 +36,7 @@
     "marked": "~0.2.9",
     "JavaScriptButtons": "git://github.com/paypal/JavaScriptButtons.git#master",
     "Angular-At-Directive": "git://github.com/snicker/Angular-At-Directive#master",
-    "js-emoji": "git://github.com/iamcal/js-emoji#master",
+    "js-emoji": "git://github.com/snicker/js-emoji#master",
     "gemoji": "git://github.com/github/gemoji"
   },
   "resolutions": {
