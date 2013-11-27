@@ -60,8 +60,7 @@
         "css": [
             "bower_components/bootstrap/docs/assets/css/bootstrap.css",
             "app.css",
-            "bower_components/habitrpg-shared/dist/spritesheets.css",
-            "bower_components/js-emoji/emoji.css"
+            "bower_components/habitrpg-shared/dist/spritesheets.css"
         ]
     },
     "static": {
