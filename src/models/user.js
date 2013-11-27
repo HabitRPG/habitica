@@ -258,8 +258,7 @@ UserSchema.virtual('tasks').get(function () {
 
 UserSchema.pre('save', function(next) {
   //this.markModified('tasks');
-
-  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 0) {
+  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 24) {
     this.preferences.dayStart = 0;
   }
 
