@@ -198,8 +198,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       }
       $scope.type = 'guild';
       $scope.text = 'Guild';
-      $scope.newGroup = new Groups.Group({type:'guild', privacy:'private', leader: User.user._id, members: [User.user._id]});
-
+      var newGroup = function(){
+        return new Groups.Group({type:'guild', privacy:'private', leader: User.user._id, members: [User.user._id]});
+      }
+      $scope.newGroup = newGroup()
       $scope.create = function(group){
         if (User.user.balance < 1) return $rootScope.modals.buyGems = true;
 
@@ -209,6 +211,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
             $scope.groups.guilds.push(saved);
             if(saved.privacy === 'public') $scope.groups.public.push(saved);
             $state.go('options.social.guilds.detail', {gid: saved._id});
+            $scope.newGroup = newGroup();
           });
         }
       }

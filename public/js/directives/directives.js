@@ -81,12 +81,18 @@ habitrpg.directive('habitrpgSortable', ['User', function(User) {
 //        return hljs.highlightAuto(code).value;
 //      }
     });
+    
+    emoji.img_path = 'bower_components/gemoji/images/emoji/unicode/';
 
     var toHtml = function (markdown) {
       if (markdown == undefined)
         return '';
-
-      return marked(markdown);
+      
+      markdown = marked(markdown);
+      markdown = emoji.replace_colons(markdown);
+      markdown = emoji.replace_unified(markdown);
+      
+      return markdown;
     };
     
     // [nickgordon20131123] this hacky override wraps images with a link to the image in a new window, and also adds some classes in case we want to style
@@ -133,7 +139,7 @@ habitrpg.directive('habitrpgSortable', ['User', function(User) {
           + '></a>';
       }
     }
-
+    
     //hljs.tabReplace = '    ';
 
     return {
