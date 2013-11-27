@@ -1,0 +1,1 @@
+db.users.update({},{$set:{'items.pets.Turkey-Base':5}}, {multi:true});
