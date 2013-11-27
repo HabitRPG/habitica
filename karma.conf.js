@@ -16,6 +16,7 @@ module.exports = function(config) {
       'public/bower_components/angular-resource/angular-resource.min.js',
       'public/bower_components/angular-mocks/angular-mocks.js',
       'public/bower_components/marked/lib/marked.js',
+      'public/bower_components/js-emoji/emoji.js',
       'public/bower_components/habitrpg-shared/dist/habitrpg-shared.js',
       'public/js/*.js',
       'public/js/**/*.js',
