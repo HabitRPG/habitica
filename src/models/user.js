@@ -259,6 +259,10 @@ UserSchema.virtual('tasks').get(function () {
 UserSchema.pre('save', function(next) {
   //this.markModified('tasks');
 
+  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 0) {
+    this.preferences.dayStart = 0;
+  }
+
   if (!this.profile.name) {
     var fb = this.auth.facebook;
     this.profile.name =

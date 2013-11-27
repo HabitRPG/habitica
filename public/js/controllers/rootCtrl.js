@@ -21,6 +21,16 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       return haystack && ~haystack.indexOf(needle);
     }
 
+    // styling helpers
+    $scope.userLevelStyle = function(user,style){
+      style = style || '';
+      if(user.backer.npc)
+        style += ' label-npc';
+      if(user.contributor.level)
+        style += ' label-contributor-'+user.contributor.level;
+      return style;
+    }
+
     // count pets, mounts collected totals, etc
     $rootScope.countExists = function(items) {return _.reduce(items,function(m,v){return m+(v?1:0)},0)}
 

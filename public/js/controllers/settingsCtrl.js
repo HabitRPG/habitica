@@ -27,10 +27,11 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.saveDayStart = function(){
       var dayStart = +User.user.preferences.dayStart;
-      if (dayStart < 0 || dayStart > 24) {
+      if (_.isNaN(dayStart) || dayStart < 0 || dayStart > 24) {
         dayStart = 0;
+        return alert('Please enter a number between 0 and 24');
       }
-      User.log({'op':'set', data:{'preferences.dayStart': dayStart}});
+      User.set('preferences.dayStart', dayStart);
     }
 
     $scope.language = window.env.language;
