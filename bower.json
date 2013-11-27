@@ -35,7 +35,9 @@
     "github-buttons": "git://github.com/mdo/github-buttons.git",
     "marked": "~0.2.9",
     "JavaScriptButtons": "git://github.com/paypal/JavaScriptButtons.git#master",
-    "Angular-At-Directive": "git://github.com/snicker/Angular-At-Directive#master"
+    "Angular-At-Directive": "git://github.com/snicker/Angular-At-Directive#master",
+    "js-emoji": "git://github.com/iamcal/js-emoji#master",
+    "gemoji": "git://github.com/github/gemoji"
   },
   "resolutions": {
     "jquery": "~2.0.3",
