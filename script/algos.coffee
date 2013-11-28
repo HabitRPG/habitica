@@ -127,7 +127,11 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
   chanceMultiplier *= obj.priorityValue(priority) # multiply chance by reddness
   chanceMultiplier += streak # streak bonus
 
-  if user.flags?.dropsEnabled and Math.random() < (.05 * chanceMultiplier)
+  max = 0.75 # Max probability of drop 
+  a = 0.1 # rate of increase
+  alpha = a*max*chanceMultiplier/(a*chanceMultiplier+max) # current probability of drop
+
+  if user.flags?.dropsEnabled and Math.random() < alpha
     # current breakdown - 1% (adjustable) chance on drop
     # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
     rarity = Math.random()
