@@ -125,7 +125,8 @@ var UserSchema = new Schema({
       {
         'Wolf-Veteran': Number,
         'Wolf-Cerberus': Number,
-        'Dragon-Hydra': Number
+        'Dragon-Hydra': Number,
+        'Turkey-Base': Number
       }
     ),
     currentPet: String, // Cactus-Desert
