@@ -65,6 +65,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       }
       // We watch Members.selectedMember because it's asynchronously set, so would be a hassle to handle updates here
       $scope.$watch( function() { return Members.selectedMember; }, function (member) {
+        if(member)
+          member.petCount = window.habitrpgShared.helpers.countPets(null, member.items.pets);
         $scope.profile = member;
       });
     }

@@ -82,7 +82,7 @@ habitrpg.directive('habitrpgSortable', ['User', function(User) {
 //      }
     });
     
-    emoji.img_path = 'bower_components/gemoji/images/emoji/unicode/';
+    emoji.img_path = 'bower_components/habitrpg-shared/img/emoji/unicode/';
 
     var toHtml = function (markdown) {
       if (markdown == undefined)
