@@ -353,7 +353,8 @@ module.exports =
 
   countPets: (originalCount, pets) ->
     count = if originalCount? then originalCount else _.size(pets)
-    count-- for pet,info in items.items.specialPets if pets[pet]
+    for pet of items.items.specialPets
+      count-- if pets[pet]
     count
 
   ###
