@@ -53,7 +53,7 @@ process.chdir = function (dir) {
 };
 
 },{}],2:[function(require,module,exports){
-var global=self;/**
+var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
  * @license
  * Lo-Dash 2.2.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -8753,6 +8753,7 @@ var global=self;/**
 
   obj.revive = function(user, options) {
     var candidate, loseThisItem, owned, paths;
+
     if (options == null) {
       options = {};
     }
@@ -8802,6 +8803,7 @@ var global=self;/**
 
   obj.tnl = function(level) {
     var value;
+
     if (level >= 100) {
       value = 0;
     } else {
@@ -8821,6 +8823,7 @@ var global=self;/**
 
   obj.expModifier = function(value, weaponStr, level, priority) {
     var exp, str, strMod, totalStr;
+
     if (priority == null) {
       priority = '!';
     }
@@ -8843,6 +8846,7 @@ var global=self;/**
 
   obj.hpModifier = function(value, armorDef, helmDef, shieldDef, level, priority) {
     var def, defMod, hp, totalDef;
+
     if (priority == null) {
       priority = '!';
     }
@@ -8861,6 +8865,7 @@ var global=self;/**
 
   obj.gpModifier = function(value, modifier, priority, streak, user) {
     var afterStreak, streakBonus, val;
+
     if (priority == null) {
       priority = '!';
     }
@@ -8887,6 +8892,7 @@ var global=self;/**
 
   obj.taskDeltaFormula = function(currentValue, direction) {
     var delta;
+
     if (currentValue < -47.27) {
       currentValue = -47.27;
     } else if (currentValue > 21.27) {
@@ -8905,7 +8911,8 @@ var global=self;/**
 
 
   randomDrop = function(user, delta, priority, streak, options) {
-    var acceptableDrops, chanceMultiplier, drop, paths, rarity, reachedDropLimit, _base, _base1, _base2, _name, _name1, _ref1;
+    var acceptableDrops, chanceMultiplier, drop, paths, rarity, reachedDropLimit, _base, _base1, _base2, _name, _name1, _ref1, _ref2, _ref3, _ref4;
+
     if (streak == null) {
       streak = 0;
     }
@@ -8913,7 +8920,7 @@ var global=self;/**
       options = {};
     }
     paths = options.paths || {};
-    if ((_base = user.items).lastDrop == null) {
+    if ((_ref1 = (_base = user.items).lastDrop) == null) {
       _base.lastDrop = {
         date: +moment().subtract('d', 1),
         count: 0
@@ -8926,11 +8933,11 @@ var global=self;/**
     chanceMultiplier = Math.abs(delta);
     chanceMultiplier *= obj.priorityValue(priority);
     chanceMultiplier += streak;
-    if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && Math.random() < (.05 * chanceMultiplier)) {
+    if (((_ref2 = user.flags) != null ? _ref2.dropsEnabled : void 0) && Math.random() < (.05 * chanceMultiplier)) {
       rarity = Math.random();
       if (rarity > .5) {
         drop = helpers.randomVal(eggs);
-        if ((_base1 = user.items.eggs)[_name = drop.name] == null) {
+        if ((_ref3 = (_base1 = user.items.eggs)[_name = drop.name]) == null) {
           _base1[_name] = 0;
         }
         user.items.eggs[drop.name]++;
@@ -8941,7 +8948,7 @@ var global=self;/**
         drop = helpers.randomVal(_.pick(hatchingPotions, (function(v, k) {
           return __indexOf.call(acceptableDrops, k) >= 0;
         })));
-        if ((_base2 = user.items.hatchingPotions)[_name1 = drop.name] == null) {
+        if ((_ref4 = (_base2 = user.items.hatchingPotions)[_name1 = drop.name]) == null) {
           _base2[_name1] = 0;
         }
         user.items.hatchingPotions[drop.name]++;
@@ -8955,7 +8962,8 @@ var global=self;/**
   };
 
   obj.score = function(user, task, direction, options) {
-    var addPoints, calculateDelta, cron, delta, exp, gp, hp, lvl, num, paths, priority, streak, subtractPoints, times, type, value, _ref1, _ref2, _ref3;
+    var addPoints, calculateDelta, cron, delta, exp, gp, hp, lvl, num, paths, priority, streak, subtractPoints, times, type, value, _ref1, _ref2, _ref3, _ref4;
+
     if (options == null) {
       options = {};
     }
@@ -8986,6 +8994,7 @@ var global=self;/**
       }
       return _.times(times, function() {
         var nextDelta;
+
         nextDelta = obj.taskDeltaFormula(value, direction);
         if (adjustvalue) {
           value += nextDelta;
@@ -8995,6 +9004,7 @@ var global=self;/**
     };
     addPoints = function() {
       var weaponStr;
+
       weaponStr = items.getItem('weapon', user.items.weapon).strength;
       exp += obj.expModifier(delta, weaponStr, user.stats.lvl, priority) / 2;
       if (streak) {
@@ -9005,6 +9015,7 @@ var global=self;/**
     };
     subtractPoints = function() {
       var armorDef, headDef, shieldDef;
+
       armorDef = items.getItem('armor', user.items.armor).defense;
       headDef = items.getItem('head', user.items.head).defense;
       shieldDef = items.getItem('shield', user.items.shield).defense;
@@ -9019,7 +9030,7 @@ var global=self;/**
           subtractPoints();
         }
         if (task.value !== value) {
-          (task.history != null ? task.history : task.history = []).push({
+          ((_ref4 = task.history) != null ? _ref4 : task.history = []).push({
             date: +(new Date),
             value: value
           });
@@ -9095,7 +9106,8 @@ var global=self;/**
 
 
   updateStats = function(user, newStats, options) {
-    var gp, paths, tnl;
+    var gp, paths, tnl, _ref1;
+
     if (options == null) {
       options = {};
     }
@@ -9132,7 +9144,7 @@ var global=self;/**
         }
       }
       user.stats.exp = newStats.exp;
-      if (user.flags == null) {
+      if ((_ref1 = user.flags) == null) {
         user.flags = {};
       }
       if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
@@ -9167,7 +9179,8 @@ var global=self;/**
 
 
   obj.cron = function(user, options) {
-    var daysMissed, expTally, lvl, now, paths, todoTally, _base, _base1, _ref1;
+    var daysMissed, expTally, lvl, now, paths, todoTally, _base, _base1, _ref1, _ref2, _ref3, _ref4;
+
     if (options == null) {
       options = {};
     }
@@ -9194,7 +9207,8 @@ var global=self;/**
     }
     todoTally = 0;
     user.todos.concat(user.dailys).forEach(function(task) {
-      var absVal, completed, id, repeat, scheduleMisses, type;
+      var absVal, completed, id, repeat, scheduleMisses, type, _ref2;
+
       if (!task) {
         return;
       }
@@ -9205,6 +9219,7 @@ var global=self;/**
           scheduleMisses = 0;
           _.times(daysMissed, function(n) {
             var thatDay;
+
             thatDay = moment(now).subtract('days', n + 1);
             if (helpers.shouldDo(thatDay, repeat, user.preferences)) {
               return scheduleMisses++;
@@ -9221,7 +9236,7 @@ var global=self;/**
       }
       switch (type) {
         case 'daily':
-          (task.history != null ? task.history : task.history = []).push({
+          ((_ref2 = task.history) != null ? _ref2 : task.history = []).push({
             date: +(new Date),
             value: task.value
           });
@@ -9243,7 +9258,7 @@ var global=self;/**
         return paths["tasks." + task.id + ".value"] = true;
       }
     });
-    ((_base = (user.history != null ? user.history : user.history = {})).todos != null ? (_base = (user.history != null ? user.history : user.history = {})).todos : _base.todos = []).push({
+    ((_ref2 = (_base = ((_ref3 = user.history) != null ? _ref3 : user.history = {})).todos) != null ? _ref2 : _base.todos = []).push({
       date: now,
       value: todoTally
     });
@@ -9253,7 +9268,7 @@ var global=self;/**
       lvl++;
       expTally += obj.tnl(lvl);
     }
-    ((_base1 = user.history).exp != null ? (_base1 = user.history).exp : _base1.exp = []).push({
+    ((_ref4 = (_base1 = user.history).exp) != null ? _ref4 : _base1.exp = []).push({
       date: now,
       value: expTally
     });
@@ -9272,12 +9287,14 @@ var global=self;/**
 
   preenHistory = function(history) {
     var newHistory, preen, thisMonth;
+
     history = _.filter(history, function(h) {
       return !!h;
     });
     newHistory = [];
     preen = function(amount, groupBy) {
       var groups;
+
       groups = _.chain(history).groupBy(function(h) {
         return moment(h.date).format(groupBy);
       }).sortBy(function(h, k) {
@@ -9310,6 +9327,7 @@ var global=self;/**
     }
     _.each(user.habits.concat(user.dailys), function(task) {
       var _ref1;
+
       if (((_ref1 = task.history) != null ? _ref1.length : void 0) > minHistLen) {
         task.history = preenHistory(task.history);
       }
@@ -9349,6 +9367,7 @@ var process=require("__browserify_process");(function() {
 
   sanitizeOptions = function(o) {
     var dayStart, now, timezoneOffset, _ref;
+
     dayStart = o.dayStart && (0 <= (_ref = +o.dayStart) && _ref <= 24) ? +o.dayStart : 0;
     timezoneOffset = o.timezoneOffset ? +o.timezoneOffset : +moment().zone();
     now = o.now ? moment(o.now).zone(timezoneOffset) : moment(+(new Date)).zone(timezoneOffset);
@@ -9361,6 +9380,7 @@ var process=require("__browserify_process");(function() {
 
   startOfWeek = function(options) {
     var o;
+
     if (options == null) {
       options = {};
     }
@@ -9370,6 +9390,7 @@ var process=require("__browserify_process");(function() {
 
   startOfDay = function(options) {
     var o;
+
     if (options == null) {
       options = {};
     }
@@ -9394,6 +9415,7 @@ var process=require("__browserify_process");(function() {
 
   daysSince = function(yesterday, options) {
     var o;
+
     if (options == null) {
       options = {};
     }
@@ -9410,6 +9432,7 @@ var process=require("__browserify_process");(function() {
 
   shouldDo = function(day, repeat, options) {
     var o, selected, yesterday;
+
     if (options == null) {
       options = {};
     }
@@ -9434,6 +9457,7 @@ var process=require("__browserify_process");(function() {
   uuid = function() {
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
       var r, v;
+
       r = Math.random() * 16 | 0;
       v = (c === "x" ? r : r & 0x3 | 0x8);
       return v.toString(16);
@@ -9453,7 +9477,8 @@ var process=require("__browserify_process");(function() {
     _: _,
     uuid: uuid,
     taskDefaults: function(task, filters) {
-      var defaults, self, _ref, _ref1;
+      var defaults, self, _ref, _ref1, _ref2;
+
       if (filters == null) {
         filters = {};
       }
@@ -9503,13 +9528,14 @@ var process=require("__browserify_process");(function() {
         });
       }
       task._id = task.id;
-      if (task.value == null) {
+      if ((_ref2 = task.value) == null) {
         task.value = task.type === 'reward' ? 10 : 0;
       }
       return task;
     },
     newUser: function() {
       var defaultTags, defaultTasks, guid, newUser, repeat, tag, task, userSchema, _i, _j, _len, _len1;
+
       userSchema = {
         stats: {
           gp: 0,
@@ -9665,16 +9691,19 @@ var process=require("__browserify_process");(function() {
 
     dotSet: function(path, val, obj) {
       var arr, err;
+
       if (~path.indexOf('undefined')) {
         return;
       }
       try {
         arr = path.split('.');
         return _.reduce(arr, function(curr, next, index) {
+          var _ref;
+
           if ((arr.length - 1) === index) {
             curr[next] = val;
           }
-          return curr[next] != null ? curr[next] : curr[next] = {};
+          return (_ref = curr[next]) != null ? _ref : curr[next] = {};
         }, obj);
       } catch (_error) {
         err = _error;
@@ -9688,6 +9717,7 @@ var process=require("__browserify_process");(function() {
     },
     dotGet: function(path, obj) {
       var err;
+
       if (~path.indexOf('undefined')) {
         return void 0;
       }
@@ -9717,6 +9747,7 @@ var process=require("__browserify_process");(function() {
 
     randomVal: function(obj) {
       var count, key, result, val;
+
       result = void 0;
       count = 0;
       for (key in obj) {
@@ -9743,6 +9774,7 @@ var process=require("__browserify_process");(function() {
 
     username: function(auth, override) {
       var fb, _ref;
+
       if (override) {
         return override;
       }
@@ -9767,6 +9799,7 @@ var process=require("__browserify_process");(function() {
 
     encodeiCalLink: function(uid, apiToken) {
       var loc, _ref;
+
       loc = (typeof window !== "undefined" && window !== null ? window.location.host : void 0) || (typeof process !== "undefined" && process !== null ? (_ref = process.env) != null ? _ref.BASE_URL : void 0 : void 0) || '';
       return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
     },
@@ -9799,6 +9832,7 @@ var process=require("__browserify_process");(function() {
 
     taskClasses: function(task, filters, dayStart, lastCron, showCompleted, main) {
       var classes, completed, enabled, filter, repeat, type, value, _ref;
+
       if (filters == null) {
         filters = [];
       }
@@ -9892,6 +9926,7 @@ var process=require("__browserify_process");(function() {
 
     appliedTags: function(userTags, taskTags) {
       var arr;
+
       arr = [];
       _.each(userTags, function(t) {
         if (t == null) {
@@ -9912,6 +9947,7 @@ var process=require("__browserify_process");(function() {
     },
     totalStr: function(level, weapon) {
       var str;
+
       if (weapon == null) {
         weapon = 0;
       }
@@ -9923,6 +9959,7 @@ var process=require("__browserify_process");(function() {
     },
     totalDef: function(level, armor, head, shield) {
       var totalDef;
+
       if (armor == null) {
         armor = 0;
       }
@@ -9943,6 +9980,7 @@ var process=require("__browserify_process");(function() {
     },
     itemStat: function(type, item) {
       var i;
+
       if (item == null) {
         item = 0;
       }
@@ -9954,16 +9992,13 @@ var process=require("__browserify_process");(function() {
       }
     },
     countPets: function(originalCount, pets) {
-      var count;
+      var count, pet;
+
       count = originalCount != null ? originalCount : _.size(pets);
-      if (pets["Wolf-Veteran"]) {
-        count--;
-      }
-      if (pets["Wolf-Cerberus"]) {
-        count--;
-      }
-      if (pets["Dragon-Hydra"]) {
-        count--;
+      for (pet in items.items.specialPets) {
+        if (pets[pet]) {
+          count--;
+        }
       }
       return count;
     },
@@ -9980,6 +10015,7 @@ var process=require("__browserify_process");(function() {
     hydrate: function(spec) {
       var hydrated, keys,
         _this = this;
+
       if (_.isObject(spec) && !_.isArray(spec)) {
         hydrated = {};
         keys = _.keys(spec).concat(_.keys(spec.__proto__));
@@ -10076,6 +10112,7 @@ try {
         value: 150,
         canOwn: (function(u) {
           var _ref;
+
           return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 70;
         })
       }, {
@@ -10087,6 +10124,7 @@ try {
         value: 170,
         canOwn: (function(u) {
           var _ref;
+
           return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 4;
         })
       }
@@ -10143,6 +10181,7 @@ try {
         value: 150,
         canOwn: (function(u) {
           var _ref;
+
           return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
         })
       }, {
@@ -10154,6 +10193,7 @@ try {
         value: 170,
         canOwn: (function(u) {
           var _ref;
+
           return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 2;
         })
       }
@@ -10210,6 +10250,7 @@ try {
         value: 100,
         canOwn: (function(u) {
           var _ref;
+
           return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
         })
       }, {
@@ -10221,6 +10262,7 @@ try {
         value: 120,
         canOwn: (function(u) {
           var _ref;
+
           return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 3;
         })
       }
@@ -10277,6 +10319,7 @@ try {
         value: 120,
         canOwn: (function(u) {
           var _ref;
+
           return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
         })
       }, {
@@ -10288,6 +10331,7 @@ try {
         value: 150,
         canOwn: (function(u) {
           var _ref;
+
           return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 5;
         })
       }
@@ -10390,6 +10434,12 @@ try {
         text: 'Golden'
       }
     },
+    specialPets: {
+      'Wolf-Veteran': true,
+      'Wolf-Cerberus': true,
+      'Dragon-Hydra': true,
+      'Turkey-Base': true
+    },
     food: {
       Meat: {
         text: 'Meat',
@@ -10480,6 +10530,7 @@ try {
 
   module.exports.buyItem = function(user, type) {
     var nextItem;
+
     nextItem = type === 'potion' ? items.potion : _.find(items[type].slice(~~user.items[type] + 1), (function(i) {
       return i.canOwn(user);
     }));
@@ -10508,9 +10559,11 @@ try {
 
   module.exports.updateStore = function(user) {
     var changes;
+
     changes = {};
     _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
       var curr, _ref;
+
       curr = ((_ref = user.items) != null ? _ref[type] : void 0) || 0;
       return changes[type] = _.find(items[type].slice(curr + 1), (function(item) {
         return item.canOwn(user);
@@ -10530,6 +10583,7 @@ try {
 
   module.exports.getItem = function(type, index) {
     var i;
+
     if (index == null) {
       index = 0;
     }
@@ -10545,6 +10599,7 @@ try {
 
   module.exports.equipped = function(type, item, pref, backer, contributor) {
     var lastStandardItem, _ref;
+
     if (item == null) {
       item = 0;
     }
