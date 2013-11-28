@@ -70,6 +70,12 @@ items = module.exports.items =
     CottonCandyBlue:  value: 4, text: 'Cotton Candy Blue'
     Golden:           value: 5, text: 'Golden'
 
+  specialPets:
+    'Wolf-Veteran':   true
+    'Wolf-Cerberus':  true
+    'Dragon-Hydra':   true
+    'Turkey-Base':    true
+
   food:
     Meat:             text: 'Meat', target: 'Base'
     Milk:             text: 'Milk', target: 'White'

@@ -353,9 +353,8 @@ module.exports =
 
   countPets: (originalCount, pets) ->
     count = if originalCount? then originalCount else _.size(pets)
-    count-- if pets["Wolf-Veteran"]
-    count-- if pets["Wolf-Cerberus"]
-    count-- if pets["Dragon-Hydra"]
+    for pet of items.items.specialPets
+      count-- if pets[pet]
     count
 
   ###
