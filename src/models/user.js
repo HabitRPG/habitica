@@ -21,6 +21,8 @@ var eggPotionMapping = _.transform(items.items.eggs, function(m, egg){
   }));
 })
 
+var specialPetsMapping = items.items.specialPets; // may need to revisit if we add additional information about the special pets
+
 var UserSchema = new Schema({
   // ### UUID and API Token
   _id: {
@@ -122,12 +124,7 @@ var UserSchema = new Schema({
       // First transform to a 1D eggs/potions mapping
       _.transform(eggPotionMapping, function(m,v,k){ m[k] = Number; }),
       // Then add additional pets (backer, contributor)
-      {
-        'Wolf-Veteran': Number,
-        'Wolf-Cerberus': Number,
-        'Dragon-Hydra': Number,
-        'Turkey-Base': Number
-      }
+      _.transform(specialPetsMapping, function(m,v,k){ m[k] = Number; })
     ),
     currentPet: String, // Cactus-Desert
 
