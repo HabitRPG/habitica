@@ -26,133 +26,133 @@ items = module.exports.items = {}
 
 items.weapon =
   warrior: [
-    {index: 0, text: "Training Sword", notes:'Training weapon.', value:0}
-    {index: 1, text: "Sword", notes:'Increases experience gain by 3%.', str: 3, value:20}
-    {index: 2, text: "Axe", notes:'Increases experience gain by 6%.', str: 6, value:30}
-    {index: 3, text: "Morningstar", notes:'Increases experience gain by 9%.', str: 9, value:45}
-    {index: 4, text: "Blue Sword", notes:'Increases experience gain by 12%.', str: 12, value:65}
-    {index: 5, text: "Red Sword", notes:'Increases experience gain by 15%.', str: 15, value:90}
-    {index: 6, text: "Golden Sword", notes:'Increases experience gain by 18%.', str: 18, value:120}
+    {index: 0, text: "Training Sword", notes:'Practice weapon. Confers no benefit.', value:0}
+    {index: 1, text: "Sword", notes:'Common soldier\'s blade. Increases STR by 3.', str: 3, value:20}
+    {index: 2, text: "Axe", notes:'Double-bitted battle-axe. Increases STR by 6.', str: 6, value:30}
+    {index: 3, text: "Morning Star", notes:'Heavy club with brutal spikes. Increases STR by 9.', str: 9, value:45}
+    {index: 4, text: "Sapphire Blade", notes:'Sword whose edge bites like the north wind. Increases STR by 12.', str: 12, value:65}
+    {index: 5, text: "Ruby Sword", notes:'Weapon whose forge-glow never fades. Increases STR by 15.', str: 15, value:90}
+    {index: 6, text: "Golden Sword", notes:'Bane of creatures of darkness. Increases STR by 18.', str: 18, value:120}
   ]
   rogue: [
-    {index: 0, text: "Training Sword", notes:'Training weapon.', value:0}
-    {index: 1, text: "Short Bow", notes:'Increases experience gain by 3%.', str: 3, per: 3, value:20}
-    {index: 2, text: "Long Bow", notes:'Increases experience gain by 6%.', str: 6, per: 6, value:30}
-    {index: 3, text: "Load Bow", notes:'Increases experience gain by 9%.', str: 9, per: 9, value:45}
-    {index: 4, text: "Blue Boe", notes:'Increases experience gain by 12%.', str: 12, per: 12, value:65}
-    {index: 5, text: "Red Bow", notes:'Increases experience gain by 15%.', str: 15, per: 15, value:90}
-    {index: 6, text: "Golden Bow", notes:'Increases experience gain by 18%.', str: 18, per: 18, value:120}
+    {index: 0, text: "Practice Bow", notes:'Training weapon. Confers no benefit.', value:0}
+    {index: 1, text: "Short Bow", notes:'Simple bow best at close ranges. Increases STR by 2.', str: 2, value:20}
+    {index: 2, text: "Long Bow", notes:'Bow with a strong draw for extra distance. Increases STR by 5.', str: 5, value:50}
+    {index: 3, text: "Recurve Bow", notes:'Built with advanced techniques. Increases STR by 8.', str: 8, value:80}
+    {index: 4, text: "Icicle Bow", notes:'Fires arrows of piercing cold. Increases STR by 12.', str: 12, value:120}
+    {index: 5, text: "Meteor Bow", notes:'Rains flame upon your foes. Increases STR by 16.', str: 16, value:160}
+    {index: 6, text: "Golden Bow", notes:'As swift as sunlight and as sharp as lightning. Increases STR by 20.', str: 20, value:200}
   ]
-  wizard: [
-    {index: 0, text: "Training Sword", notes:'Training weapon.', str: 0, value:0}
-    {index: 1, text: "Wooden Staff", notes:'Increases experience gain by 3%.', int: 3, value:20}
-    {index: 2, text: "Gnarled Staff", notes:'Increases experience gain by 6%.', int: 3, value:30}
-    {index: 3, text: "Steel Wand", notes:'Increases experience gain by 9%.', int: 9, value:45}
-    {index: 4, text: "Awesome Staff", notes:'Increases experience gain by 12%.', 3, value:65}
-    {index: 5, text: "Red Staff", notes:'Increases experience gain by 15%.', int: 3, value:90}
-    {index: 6, text: "Golden Staff", notes:'Increases experience gain by 18%.', int: 3, value:120}
+  mage: [
+    {index: 0, text: "Apprentice Staff", notes:'Practice staff. Confers no benefit.', value:0}
+    {index: 1, text: "Wooden Staff", notes:'Basic implement of carven wood. Increases INT by 3 and PER by 1.', int: 3, per: 1, value:30}
+    {index: 2, text: "Jeweled Staff", notes:'Focuses power through a precious stone. Increases INT by 6 and PER by 2.', int: 6, per: 2, value:50}
+    {index: 3, text: "Iron Staff", notes:'Plated in metal to channel heat, cold, and lightning. Increases INT by 9 and PER by 3.', int: 9, per: 3, value:80}
+    {index: 4, text: "Brass Staff", notes:'As powerful as it is heavy. Increases INT by 12 and PER by 5.', int:12, per: 5, value:120}
+    {index: 5, text: "Archmage Staff", notes:'Assists in weaving the most complex of spells. Increases INT by 15 and PER by 7.', int: 15, per: 7, value:160}
+    {index: 6, text: "Golden Staff", notes:'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 9.', int: 18, per: 9, value:200}
   ]
   healer: [
-    {index: 0, text: "Training Sword", notes:'Training weapon.', str: 0, value:0}
-    {index: 1, text: "Wooden Staff", classes:'weapon_1', notes:'Increases experience gain by 3%.', int: 3, value:20}
-    {index: 2, text: "Gnarled Staff", classes:'weapon_2', notes:'Increases experience gain by 6%.', int: 3, value:30}
-    {index: 3, text: "Steel Wand", classes:'weapon_3', notes:'Increases experience gain by 9%.', int: 9, value:45}
-    {index: 4, text: "Awesome Staff", classes:'weapon_4', notes:'Increases experience gain by 12%.', 3, value:65}
-    {index: 5, text: "Red Staff", classes:'weapon_5', notes:'Increases experience gain by 15%.', int: 3, value:90}
-    {index: 6, text: "Golden Staff", classes:'weapon_6', notes:'Increases experience gain by 18%.', int: 3, value:120}
+    {index: 0, text: "Novice Rod", notes:'For healers in training. Confers no benefit.', value:0}
+    {index: 1, text: "Acolyte Rod", notes:'Crafted during a healer\'s initiation. Increases INT by 2.', int: 2, value:20}
+    {index: 2, text: "Quartz Rod", notes:'Topped with a gem bearing curative properties. Increases INT by 3.', int: 3, value:30}
+    {index: 3, text: "Amethyst Rod", notes:'Purifies poison at a touch. Increases INT by 5.', int: 5, value:45}
+    {index: 4, text: "Priest Rod", notes:'As much a badge of office as a healing tool. Increases INT by 7.', int:7, value:65}
+    {index: 5, text: "Royal Crosier", notes:'Shines with the pure light of blessings. Increases INT by 9.', int: 9, value:90}
+    {index: 6, text: "Golden Crosier", notes:'Soothes the pain of all who look upon it. Increases INT by 11.', int: 11, value:120}
   ]
 
 items.armor =
   warrior: [
-    {index: 0, text: "Cloth Armor", notes:'Training armor.', def: 0, value:0}
-    {index: 1, text: "Leather Armor", notes:'Decreases Health loss by 4%.', def: 4, value:30}
-    {index: 2, text: "Chain Mail", notes:'Decreases Health loss by 6%.', def: 6, value:45}
-    {index: 3, text: "Plate Mail", notes:'Decreases Health loss by 7%.', def: 7, value:65}
-    {index: 4, text: "Red Armor", notes:'Decreases Health loss by 8%.', def: 8, value:90}
-    {index: 5, text: "Golden Armor", notes:'Decreases Health loss by 10%.', def: 10, value:120}
+    {index: 0, text: "Cloth Armor", notes:'Ordinary clothing. Confers no benefit.', value:0}
+    {index: 1, text: "Leather Armor", notes:'Jerkin of sturdy boiled hide. Increases CON by 3.', con: 3, value:30}
+    {index: 2, text: "Chain Mail", notes:'Armor of interlocked metal rings. Increases CON by 5.', con: 5, value:45}
+    {index: 3, text: "Plate Armor", notes:'Suit of all-encasing steel, the pride of knights. Increases CON by 7.', con: 7, value:65}
+    {index: 4, text: "Red Armor", notes:'Heavy plate glowing with defensive enchantments. Increases CON by 9.', con: 9, value:90}
+    {index: 5, text: "Golden Armor", notes:'Looks ceremonial, but no known blade can pierce it. Increases CON by 11.', con: 11, value:120}
   ]
   rogue: [
-    {index: 0, text: "Cloth Armor", notes:'Training armor.', def: 0, value:0}
-    {index: 1, text: "Leather1", notes:'Decreases Health loss by 4%.', def: 4, value:30}
-    {index: 2, text: "Leather2", notes:'Decreases Health loss by 6%.', def: 6, value:45}
-    {index: 3, text: "Leather3", notes:'Decreases Health loss by 7%.', def: 7, value:65}
-    {index: 4, text: "Leather4", notes:'Decreases Health loss by 8%.', def: 8, value:90}
-    {index: 5, text: "Leather5", notes:'Decreases Health loss by 10%.', def: 10, value:120}
+    {index: 0, text: "Cloth Armor", notes:'Ordinary clothing. Confers no benefit.', value:0}
+    {index: 1, text: "Oiled Leather", notes:'Leather armor treated to reduce noise. Increases PER by 6.', per: 6, value:30}
+    {index: 2, text: "Black Leather", notes:'Colored with dark dye to blend into shadows. Increases PER by 9', per: 9, value:45}
+    {index: 3, text: "Camouflage Vest", notes:'Equally discreet in dungeon or wilderness. Increases PER by 12.', per: 12, value:65}
+    {index: 4, text: "Penumbral Armor", notes:'Wraps the wearer in a veil of twilight. Increases PER by 15.', per: 15, value:90}
+    {index: 5, text: "Umbral Armor", notes:'Allows stealth in the open in broad daylight. Increases PER by 18.', per: 18, value:120}
   ]
-  wizard: [
-    {index: 0, text: "Cloth Armor", notes:'Training armor.', def: 0, value:0}
-    {index: 1, text: "Robes1", notes:'Decreases Health loss by 4%.', def: 4, value:30}
-    {index: 2, text: "Robes2", notes:'Decreases Health loss by 6%.', def: 6, value:45}
-    {index: 3, text: "Robes3", notes:'Decreases Health loss by 7%.', def: 7, value:65}
-    {index: 4, text: "Robes4", notes:'Decreases Health loss by 8%.', def: 8, value:90}
-    {index: 5, text: "Robes5", notes:'Decreases Health loss by 10%.', def: 10, value:120}
+  mage: [
+    {index: 0, text: "Apprentice Garb", notes:'For students of magic. Confers no benefit.', value:0}
+    {index: 1, text: "Magician Robe", notes:'Hedge-mage\'s outfit. Increases INT by 2.', int: 2, value:30}
+    {index: 2, text: "Wizard Robe", notes:'Clothes for a wandering wonder-worker. Increases INT by 4.', int: 4, value:45}
+    {index: 3, text: "Robe of Mysteries", notes:'Denotes initiation into elite secrets. Increases INT by 6.', int: 6, value:65}
+    {index: 4, text: "Archmage Robe", notes:'Spirits and elementals bow before it. Increases INT by 9.', int: 9, value:90}
+    {index: 5, text: "Royal Magus Robe", notes:'Symbol of the power behind the throne. Increases INT by 12.', int: 12, value:120}
   ]
   healer: [
-    {index: 0, text: "Cloth Armor", notes:'Training armor.', def: 0, value:0}
-    {index: 1, text: "Robes1", notes:'Decreases Health loss by 4%.', def: 4, value:30}
-    {index: 2, text: "Robes2", notes:'Decreases Health loss by 6%.', def: 6, value:45}
-    {index: 3, text: "Robes3", notes:'Decreases Health loss by 7%.', def: 7, value:65}
-    {index: 4, text: "Robes4", notes:'Decreases Health loss by 8%.', def: 8, value:90}
-    {index: 5, text: "Robes5", notes:'Decreases Health loss by 10%.', def: 10, value:120}
+    {index: 0, text: "Novice Robe", notes:'For healers in training. Confers no benefit.', value:0}
+    {index: 1, text: "Acolyte Robe", notes:'Garment showing humility and purpose. Increases CON by 6.', con: 6, value:30}
+    {index: 2, text: "Medic Robe", notes:'Worn by those dedicated to tending the wounded in battle. Increases CON by 9.', con: 9, value:45}
+    {index: 3, text: "Defender Vestment", notes:'Turns the healer\'s own magics inward to fend off harm. Increases CON by 12.', con: 12, value:65}
+    {index: 4, text: "Priest Vestment", notes:'Projects authority and dissipates curses. Increases CON by 15.', con: 15, value:90}
+    {index: 5, text: "Royal Vestment", notes:'Attire of those who have saved the lives of kings. Increases CON by 18.', con: 18, value:120}
   ]
 
 items.head =
   warrior: [
-    {index: 0, text: "No Helm", notes:'Training helm.', def: 0, value:0}
-    {index: 1, text: "Leather Helm", notes:'Decreases Health loss by 2%.', def: 2, value:15}
-    {index: 2, text: "Chain Coif", notes:'Decreases Health loss by 3%.', def: 3, value:25}
-    {index: 3, text: "Plate Helm", notes:'Decreases Health loss by 4%.', def: 4, value:45}
-    {index: 4, text: "Red Helm", notes:'Decreases Health loss by 5%.', def: 5, value:60}
-    {index: 5, text: "Golden Helm", notes:'Decreases Health loss by 6%.', def: 6, value:80}
+    {index: 0, text: "No Helm", notes:'No headgear.', value:0}
+    {index: 1, text: "Leather Helm", notes:'Cap of sturdy boiled hide. Increases STR by 2.', str: 2, value:15}
+    {index: 2, text: "Chain Coif", notes:'Hood of interlocked metal rings. Increases STR by 4.', str: 4, value:25}
+    {index: 3, text: "Plate Helm", notes:'Thick steel helmet, proof against any blow. Increases STR by 6.', str: 6, value:40}
+    {index: 4, text: "Red Helm", notes:'Set with rubies for power, and glows when the wearer is angered. Increases STR by 9.', str: 9, value:60}
+    {index: 5, text: "Golden Helm", notes:'Regal crown bound to shining armor. Increases STR by 12.', str: 12, value:80}
   ]
   rogue: [
-    {index: 0, text: "No Helm", notes:'Training helm.', def: 0, value:0}
-    {index: 1, text: "Leather1", notes:'Decreases Health loss by 2%.', def: 2, value:15}
-    {index: 2, text: "Leather2", notes:'Decreases Health loss by 3%.', def: 3, value:25}
-    {index: 3, text: "Leather3", notes:'Decreases Health loss by 4%.', def: 4, value:45}
-    {index: 4, text: "Leather4", notes:'Decreases Health loss by 5%.', def: 5, value:60}
-    {index: 5, text: "Leather5", notes:'Decreases Health loss by 6%.', def: 6, value:80}
+    {index: 0, text: "No Hood", notes:'No headgear.', value:0}
+    {index: 1, text: "Leather Hood", notes:'Basic protective cowl. Increases PER by 2.', per: 2, value:15}
+    {index: 2, text: "Black Leather Hood", notes:'Useful for both defense and disguise. Increases PER by 4.', per: 4, value:25}
+    {index: 3, text: "Camouflage Hood", notes:'Rugged, but doesn\'t impede hearing. Increases PER by 6.', per: 6, value:40}
+    {index: 4, text: "Penumbral Hood", notes:'Grants perfect vision in darkness. Increases PER by 9.', per: 9, value:60}
+    {index: 5, text: "Umbral Hood", notes:'Conceals even thoughts from those who would probe them. Increases PER by 12.', per: 12, value:80}
   ]
-  wizard: [
-    {index: 0, text: "No Helm", notes:'Training helm.', defense: 0, value:0}
-    {index: 1, text: "Wizard Hat 1", notes:'Decreases Health loss by 2%.', def: 2, value:15}
-    {index: 2, text: "Wizard Hat 2", notes:'Decreases Health loss by 3%.', def: 3, value:25}
-    {index: 3, text: "Wizard Hat 3", notes:'Decreases Health loss by 4%.', def: 4, value:45}
-    {index: 4, text: "Wizard Hat 4", notes:'Decreases Health loss by 5%.', def: 5, value:60}
-    {index: 5, text: "Wizard Hat 5", notes:'Decreases Health loss by 6%.', def: 6, value:80}
+  mage: [
+    {index: 0, text: "No Hat", notes:'No headgear.', value:0}
+    {index: 1, text: "Magician Hat", notes:'Simple, comfortable, and fashionable. Increases PER by 2.', per: 2, value:15}
+    {index: 2, text: "Cornuthaum", notes:'Traditional headgear of the itinerant wizard. Increases PER by 3.', per: 3, value:25}
+    {index: 3, text: "Astrologer Hat", notes:'Adorned with the rings of Saturn. Increases PER by 5.', per: 5, value:40}
+    {index: 4, text: "Archmage Hat", notes:'Focuses the mind for intensive spellcasting. Increases PER by 7.', per: 7, value:60}
+    {index: 5, text: "Royal Magus Hat", notes:'Shows authority over fortune, weather, and lesser mages. Increases PER by 9.', per: 9, value:80}
   ]
   healer: [
-    {index: 0, text: "No Helm", notes:'Training helm.', defense: 0, value:0}
-    {index: 1, text: "Healer Hat 1", notes:'Decreases Health loss by 2%.', def: 2, value:15}
-    {index: 2, text: "Healer Hat 2", notes:'Decreases Health loss by 3%.', def: 3, value:25}
-    {index: 3, text: "Healer Hat 3", notes:'Decreases Health loss by 4%.', def: 4, value:45}
-    {index: 4, text: "Healer Hat 4", notes:'Decreases Health loss by 5%.', def: 5, value:60}
-    {index: 5, text: "Healer Hat 5", notes:'Decreases Health loss by 6%.', def: 6, value:80}
+    {index: 0, text: "No Circlet", notes:'No headgear.', value:0}
+    {index: 1, text: "Quartz Circlet", notes:'Jeweled headpiece, for focus on the task at hand. Increases INT by 2.', int: 2, value:15}
+    {index: 2, text: "Amethyst Circlet", notes:'A taste of luxury for a humble profession. Increases INT by 3.', int: 3, value:25}
+    {index: 3, text: "Sapphire Circlet", notes:'Shines to let sufferers know their salvation is at hand. Increases INT by 5.', int: 5, value:40}
+    {index: 4, text: "Emerald Diadem", notes:'Emits an aura of life and growth. Increases INT by 7.', int: 7, value:60}
+    {index: 5, text: "Royal Diadem", notes:'For king, queen, or miracle-worker. Increases INT by 9.', int: 9, value:80}
   ]
 
 
 items.shield =
   warrior: [
-    {index: 0, text: "No Shield", notes:'No Shield.', def: 0, value:0}
-    {index: 1, text: "Wooden Shield", notes:'Decreases Health loss by 3%', def: 3, value:20}
-    {index: 2, text: "Buckler", notes:'Decreases Health loss by 4%.', def: 4, value:35}
-    {index: 3, text: "Reinforced Shield", notes:'Decreases Health loss by 5%.', def: 5, value:55}
-    {index: 4, text: "Red Shield", notes:'Decreases Health loss by 7%.', def: 7, value:70}
-    {index: 5, text: "Golden Shield", notes:'Decreases Health loss by 8%.', def: 8, value:90}
+    {index: 0, text: "No Shield", notes:'No shield.', value:0}
+    {index: 1, text: "Wooden Shield", notes:'Round shield of thick wood. Increases CON by 2.', con: 2, value:20}
+    {index: 2, text: "Buckler", notes:'Light and sturdy, quick to bring to the defense. Increases CON by 3.', con: 3, value:35}
+    {index: 3, text: "Reinforced Shield", notes:'Made of wood but bolstered with metal bands. Increases CON by 5.', con: 5, value:50}
+    {index: 4, text: "Red Shield", notes:'Rebukes blows with a burst of flame. Increases CON by 7.', con: 7, value:70}
+    {index: 5, text: "Golden Shield", notes:'Shining badge of the vanguard. Increases CON by 9.', con: 9, value:90}
   ]
   rogue: [
-    {index: 0, text: "No Shield", notes:'No Shield.', def: 0, value:0}
+    {index: 0, text: "No Shield", notes:'No shield.', value:0}
   ]
-  wizard: [
-    {index: 0, text: "No Shield", notes:'No Shield.', def: 0, value:0}
+  mage: [
+    {index: 0, text: "No Shield", notes:'No shield.', def: 0, value:0}
   ]
   healer: [
-    {index: 0, text: "No Shield", notes:'No Shield.', def: 0, value:0}
-    {index: 1, text: "Healer Shield1", notes:'Decreases Health loss by 3%', def: 3, value:20}
-    {index: 2, text: "Healer Sheild2", notes:'Decreases Health loss by 4%.', def: 4, value:35}
-    {index: 3, text: "Healer Sheild3", notes:'Decreases Health loss by 5%.', def: 5, value:55}
-    {index: 4, text: "Healer Sheild4", notes:'Decreases Health loss by 7%.', def: 7, value:70}
-    {index: 5, text: "Healer Sheild5", notes:'Decreases Health loss by 8%.', def: 8, value:90}
+    {index: 0, text: "No Shield", notes:'No shield.', def: 0, value:0}
+    {index: 1, text: "Medic Buckler", notes:'Easy to disengage, freeing a hand for bandaging. Increases CON by 2.', con: 2, value:20}
+    {index: 2, text: "Kite Shield", notes:'Tapered shield with the symbol of healing. Increases CON by 4.', con: 4, value:35}
+    {index: 3, text: "Hospitaler Shield", notes:'Traditional shield of defender knights. Increases CON by 6.', con: 6, value:50}
+    {index: 4, text: "Savior Shield", notes:'Turns blows from innocents as well as oneself. Increases CON by 9.', con: 9, value:70}
+    {index: 5, text: "Royal Shield", notes:'Bestowed upon those most dedicated to the kingdom\'s defense. Increases CON by 12.', con: 12, value:90}
   ]
 
 # we sometimes want item arrays above in reverse order, for backward lookups (you'll see later in the code)
