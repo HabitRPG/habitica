@@ -91,17 +91,17 @@ module.exports =
     # _id / id handled by Racer
       stats:  gp: 0, exp: 0, lvl: 1, hp: 50
       invitations: {party:null, guilds: []}
-      items:
-        weapon: 0
-        armor: 0
-        head: 0
-        shield: 0
-        lastDrop: { date: +new Date, count: 0 }
-        eggs: {}
-        food: {}
-        hatchingPotions: {}
-        pets: {}
-        mounts: {}
+#      items: #TODO removing while handling default items (esp. gear) via Mongoose. Revisit, we may be able to remove userSchema entirely and depend on mongoose
+#        weapon: 0
+#        armor: 0
+#        head: 0
+#        shield: 0
+#        lastDrop: { date: +new Date, count: 0 }
+#        eggs: {}
+#        food: {}
+#        hatchingPotions: {}
+#        pets: {}
+#        mounts: {}
       preferences:
         gender: 'm'
         skin: 'white'
@@ -239,8 +239,6 @@ module.exports =
     loc = window?.location.host or process?.env?.BASE_URL or ''
     encodeURIComponent "http://#{loc}/v1/users/#{uid}/calendar.ics?apiToken=#{apiToken}"
 
-  equipped: items.equipped
-
   ###
     Gold amount from their money
   ###
@@ -338,6 +336,7 @@ module.exports =
     (level-1) / 2
 
   totalStr: (level, weapon=0) ->
+    return 'FIXME'
     str = (level-1) / 2
     (str + items.getItem('weapon', weapon).strength)
 
@@ -345,6 +344,7 @@ module.exports =
     (level-1) / 2
 
   totalDef: (level, armor=0, head=0, shield=0) ->
+    return 'FIXME'
     totalDef =
       (level - 1) / 2 + # defense
       items.getItem('armor', armor).defense +
@@ -353,9 +353,11 @@ module.exports =
     return totalDef
 
   itemText: (type, item=0) ->
+    return 'FIXME'
     items.getItem(type, item).text
 
   itemStat: (type, item=0) ->
+    return 'FIXME'
     i = items.getItem(type, item)
     if type is 'weapon' then i.strength else i.defense
 

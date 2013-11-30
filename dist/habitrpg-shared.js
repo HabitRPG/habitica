@@ -9001,7 +9001,7 @@ var global=self;/**
     };
     addPoints = function() {
       var weaponStr;
-      weaponStr = items.getItem('weapon', user.items.weapon).strength;
+      weaponStr = items.getItem(user, 'weapon').str;
       exp += obj.expModifier(delta, weaponStr, user.stats.lvl, priority) / 2;
       if (streak) {
         return gp += obj.gpModifier(delta, 1, priority, streak, user);
@@ -9011,9 +9011,9 @@ var global=self;/**
     };
     subtractPoints = function() {
       var armorDef, headDef, shieldDef;
-      armorDef = items.getItem('armor', user.items.armor).defense;
-      headDef = items.getItem('head', user.items.head).defense;
-      shieldDef = items.getItem('shield', user.items.shield).defense;
+      armorDef = items.getItem(user, 'armor').con;
+      headDef = items.getItem(user, 'head').con;
+      shieldDef = items.getItem(user, 'shield').con;
       return hp += obj.hpModifier(delta, armorDef, headDef, shieldDef, user.stats.lvl, priority);
     };
     switch (type) {
@@ -9529,21 +9529,6 @@ var process=require("__browserify_process");(function() {
           party: null,
           guilds: []
         },
-        items: {
-          weapon: 0,
-          armor: 0,
-          head: 0,
-          shield: 0,
-          lastDrop: {
-            date: +(new Date),
-            count: 0
-          },
-          eggs: {},
-          food: {},
-          hatchingPotions: {},
-          pets: {},
-          mounts: {}
-        },
         preferences: {
           gender: 'm',
           skin: 'white',
@@ -9784,7 +9769,6 @@ var process=require("__browserify_process");(function() {
       loc = (typeof window !== "undefined" && window !== null ? window.location.host : void 0) || (typeof process !== "undefined" && process !== null ? (_ref = process.env) != null ? _ref.BASE_URL : void 0 : void 0) || '';
       return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
     },
-    equipped: items.equipped,
     /*
       Gold amount from their money
     */
@@ -9929,6 +9913,7 @@ var process=require("__browserify_process");(function() {
       if (weapon == null) {
         weapon = 0;
       }
+      return 'FIXME';
       str = (level - 1) / 2;
       return str + items.getItem('weapon', weapon).strength;
     },
@@ -9946,6 +9931,7 @@ var process=require("__browserify_process");(function() {
       if (shield == null) {
         shield = 0;
       }
+      return 'FIXME';
       totalDef = (level - 1) / 2 + items.getItem('armor', armor).defense + items.getItem('head', head).defense + items.getItem('shield', shield).defense;
       return totalDef;
     },
@@ -9953,6 +9939,7 @@ var process=require("__browserify_process");(function() {
       if (item == null) {
         item = 0;
       }
+      return 'FIXME';
       return items.getItem(type, item).text;
     },
     itemStat: function(type, item) {
@@ -9960,6 +9947,7 @@ var process=require("__browserify_process");(function() {
       if (item == null) {
         item = 0;
       }
+      return 'FIXME';
       i = items.getItem(type, item);
       if (type === 'weapon') {
         return i.strength;
@@ -10026,7 +10014,7 @@ try {
 } catch(e) {}
 },{"./algos.coffee":4,"./helpers.coffee":5,"./items.coffee":7,"lodash":2,"moment":3}],7:[function(require,module,exports){
 (function() {
-  var crit, items, reversed, _;
+  var crit, gear, getItem, items, _, _class;
 
   _ = require('lodash');
 
@@ -10040,650 +10028,711 @@ try {
   */
 
 
+  gear = {
+    weapon: {
+      warrior: {
+        0: {
+          text: "Training Sword",
+          notes: 'Practice weapon. Confers no benefit.',
+          value: 0
+        },
+        1: {
+          text: "Sword",
+          notes: 'Common soldier\'s blade. Increases STR by 3.',
+          str: 3,
+          value: 20
+        },
+        2: {
+          text: "Axe",
+          notes: 'Double-bitted battle-axe. Increases STR by 6.',
+          str: 6,
+          value: 30
+        },
+        3: {
+          text: "Morning Star",
+          notes: 'Heavy club with brutal spikes. Increases STR by 9.',
+          str: 9,
+          value: 45
+        },
+        4: {
+          text: "Sapphire Blade",
+          notes: 'Sword whose edge bites like the north wind. Increases STR by 12.',
+          str: 12,
+          value: 65
+        },
+        5: {
+          text: "Ruby Sword",
+          notes: 'Weapon whose forge-glow never fades. Increases STR by 15.',
+          str: 15,
+          value: 90
+        },
+        6: {
+          text: "Golden Sword",
+          notes: 'Bane of creatures of darkness. Increases STR by 18.',
+          str: 18,
+          value: 120,
+          last: true
+        }
+      },
+      rogue: {
+        0: {
+          text: "Practice Bow",
+          notes: 'Training weapon. Confers no benefit.',
+          value: 0
+        },
+        1: {
+          text: "Short Bow",
+          notes: 'Simple bow best at close ranges. Increases STR by 2.',
+          str: 2,
+          value: 20
+        },
+        2: {
+          text: "Long Bow",
+          notes: 'Bow with a strong draw for extra distance. Increases STR by 5.',
+          str: 5,
+          value: 50
+        },
+        3: {
+          text: "Recurve Bow",
+          notes: 'Built with advanced techniques. Increases STR by 8.',
+          str: 8,
+          value: 80
+        },
+        4: {
+          text: "Icicle Bow",
+          notes: 'Fires arrows of piercing cold. Increases STR by 12.',
+          str: 12,
+          value: 120
+        },
+        5: {
+          text: "Meteor Bow",
+          notes: 'Rains flame upon your foes. Increases STR by 16.',
+          str: 16,
+          value: 160
+        },
+        6: {
+          text: "Golden Bow",
+          notes: 'As swift as sunlight and as sharp as lightning. Increases STR by 20.',
+          str: 20,
+          value: 200,
+          last: true
+        }
+      },
+      mage: {
+        0: {
+          text: "Apprentice Staff",
+          notes: 'Practice staff. Confers no benefit.',
+          value: 0
+        },
+        1: {
+          text: "Wooden Staff",
+          notes: 'Basic implement of carven wood. Increases INT by 3 and PER by 1.',
+          int: 3,
+          per: 1,
+          value: 30
+        },
+        2: {
+          text: "Jeweled Staff",
+          notes: 'Focuses power through a precious stone. Increases INT by 6 and PER by 2.',
+          int: 6,
+          per: 2,
+          value: 50
+        },
+        3: {
+          text: "Iron Staff",
+          notes: 'Plated in metal to channel heat, cold, and lightning. Increases INT by 9 and PER by 3.',
+          int: 9,
+          per: 3,
+          value: 80
+        },
+        4: {
+          text: "Brass Staff",
+          notes: 'As powerful as it is heavy. Increases INT by 12 and PER by 5.',
+          int: 12,
+          per: 5,
+          value: 120
+        },
+        5: {
+          text: "Archmage Staff",
+          notes: 'Assists in weaving the most complex of spells. Increases INT by 15 and PER by 7.',
+          int: 15,
+          per: 7,
+          value: 160
+        },
+        6: {
+          text: "Golden Staff",
+          notes: 'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 9.',
+          int: 18,
+          per: 9,
+          value: 200,
+          last: true
+        }
+      },
+      healer: {
+        0: {
+          text: "Novice Rod",
+          notes: 'For healers in training. Confers no benefit.',
+          value: 0
+        },
+        1: {
+          text: "Acolyte Rod",
+          notes: 'Crafted during a healer\'s initiation. Increases INT by 2.',
+          int: 2,
+          value: 20
+        },
+        2: {
+          text: "Quartz Rod",
+          notes: 'Topped with a gem bearing curative properties. Increases INT by 3.',
+          int: 3,
+          value: 30
+        },
+        3: {
+          text: "Amethyst Rod",
+          notes: 'Purifies poison at a touch. Increases INT by 5.',
+          int: 5,
+          value: 45
+        },
+        4: {
+          text: "Priest Rod",
+          notes: 'As much a badge of office as a healing tool. Increases INT by 7.',
+          int: 7,
+          value: 65
+        },
+        5: {
+          text: "Royal Crosier",
+          notes: 'Shines with the pure light of blessings. Increases INT by 9.',
+          int: 9,
+          value: 90
+        },
+        6: {
+          text: "Golden Crosier",
+          notes: 'Soothes the pain of all who look upon it. Increases INT by 11.',
+          int: 11,
+          value: 120,
+          last: true
+        }
+      },
+      special: {
+        0: {
+          text: "Dark Souls Blade",
+          notes: 'Increases experience gain by 21%.',
+          str: 21,
+          value: 150,
+          canOwn: (function(u) {
+            var _ref;
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 70;
+          })
+        },
+        1: {
+          text: "Crystal Blade",
+          notes: 'Increases experience gain by 24%.',
+          str: 24,
+          value: 170,
+          canOwn: (function(u) {
+            var _ref;
+            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 4;
+          })
+        }
+      }
+    },
+    armor: {
+      warrior: {
+        0: {
+          text: "Cloth Armor",
+          notes: 'Ordinary clothing. Confers no benefit.',
+          value: 0
+        },
+        1: {
+          text: "Leather Armor",
+          notes: 'Jerkin of sturdy boiled hide. Increases CON by 3.',
+          con: 3,
+          value: 30
+        },
+        2: {
+          text: "Chain Mail",
+          notes: 'Armor of interlocked metal rings. Increases CON by 5.',
+          con: 5,
+          value: 45
+        },
+        3: {
+          text: "Plate Armor",
+          notes: 'Suit of all-encasing steel, the pride of knights. Increases CON by 7.',
+          con: 7,
+          value: 65
+        },
+        4: {
+          text: "Red Armor",
+          notes: 'Heavy plate glowing with defensive enchantments. Increases CON by 9.',
+          con: 9,
+          value: 90
+        },
+        5: {
+          text: "Golden Armor",
+          notes: 'Looks ceremonial, but no known blade can pierce it. Increases CON by 11.',
+          con: 11,
+          value: 120,
+          last: true
+        }
+      },
+      rogue: {
+        0: {
+          text: "Cloth Armor",
+          notes: 'Ordinary clothing. Confers no benefit.',
+          value: 0
+        },
+        1: {
+          text: "Oiled Leather",
+          notes: 'Leather armor treated to reduce noise. Increases PER by 6.',
+          per: 6,
+          value: 30
+        },
+        2: {
+          text: "Black Leather",
+          notes: 'Colored with dark dye to blend into shadows. Increases PER by 9',
+          per: 9,
+          value: 45
+        },
+        3: {
+          text: "Camouflage Vest",
+          notes: 'Equally discreet in dungeon or wilderness. Increases PER by 12.',
+          per: 12,
+          value: 65
+        },
+        4: {
+          text: "Penumbral Armor",
+          notes: 'Wraps the wearer in a veil of twilight. Increases PER by 15.',
+          per: 15,
+          value: 90
+        },
+        5: {
+          text: "Umbral Armor",
+          notes: 'Allows stealth in the open in broad daylight. Increases PER by 18.',
+          per: 18,
+          value: 120,
+          last: true
+        }
+      },
+      mage: {
+        0: {
+          text: "Apprentice Garb",
+          notes: 'For students of magic. Confers no benefit.',
+          value: 0
+        },
+        1: {
+          text: "Magician Robe",
+          notes: 'Hedge-mage\'s outfit. Increases INT by 2.',
+          int: 2,
+          value: 30
+        },
+        2: {
+          text: "Wizard Robe",
+          notes: 'Clothes for a wandering wonder-worker. Increases INT by 4.',
+          int: 4,
+          value: 45
+        },
+        3: {
+          text: "Robe of Mysteries",
+          notes: 'Denotes initiation into elite secrets. Increases INT by 6.',
+          int: 6,
+          value: 65
+        },
+        4: {
+          text: "Archmage Robe",
+          notes: 'Spirits and elementals bow before it. Increases INT by 9.',
+          int: 9,
+          value: 90
+        },
+        5: {
+          text: "Royal Magus Robe",
+          notes: 'Symbol of the power behind the throne. Increases INT by 12.',
+          int: 12,
+          value: 120,
+          last: true
+        }
+      },
+      healer: {
+        0: {
+          text: "Novice Robe",
+          notes: 'For healers in training. Confers no benefit.',
+          value: 0
+        },
+        1: {
+          text: "Acolyte Robe",
+          notes: 'Garment showing humility and purpose. Increases CON by 6.',
+          con: 6,
+          value: 30
+        },
+        2: {
+          text: "Medic Robe",
+          notes: 'Worn by those dedicated to tending the wounded in battle. Increases CON by 9.',
+          con: 9,
+          value: 45
+        },
+        3: {
+          text: "Defender Vestment",
+          notes: 'Turns the healer\'s own magics inward to fend off harm. Increases CON by 12.',
+          con: 12,
+          value: 65
+        },
+        4: {
+          text: "Priest Vestment",
+          notes: 'Projects authority and dissipates curses. Increases CON by 15.',
+          con: 15,
+          value: 90
+        },
+        5: {
+          text: "Royal Vestment",
+          notes: 'Attire of those who have saved the lives of kings. Increases CON by 18.',
+          con: 18,
+          value: 120,
+          last: true
+        }
+      },
+      special: {
+        0: {
+          text: "Shade Armor",
+          notes: 'Decreases Health loss by 12%.',
+          defense: 12,
+          value: 150,
+          canOwn: (function(u) {
+            var _ref;
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+          })
+        },
+        1: {
+          text: "Crystal Armor",
+          notes: 'Decreases Health loss by 14%.',
+          defense: 14,
+          value: 170,
+          canOwn: (function(u) {
+            var _ref;
+            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 2;
+          })
+        }
+      }
+    },
+    head: {
+      warrior: {
+        0: {
+          text: "No Helm",
+          notes: 'No headgear.',
+          value: 0
+        },
+        1: {
+          text: "Leather Helm",
+          notes: 'Cap of sturdy boiled hide. Increases STR by 2.',
+          str: 2,
+          value: 15
+        },
+        2: {
+          text: "Chain Coif",
+          notes: 'Hood of interlocked metal rings. Increases STR by 4.',
+          str: 4,
+          value: 25
+        },
+        3: {
+          text: "Plate Helm",
+          notes: 'Thick steel helmet, proof against any blow. Increases STR by 6.',
+          str: 6,
+          value: 40
+        },
+        4: {
+          text: "Red Helm",
+          notes: 'Set with rubies for power, and glows when the wearer is angered. Increases STR by 9.',
+          str: 9,
+          value: 60
+        },
+        5: {
+          text: "Golden Helm",
+          notes: 'Regal crown bound to shining armor. Increases STR by 12.',
+          str: 12,
+          value: 80,
+          last: true
+        }
+      },
+      rogue: {
+        0: {
+          text: "No Hood",
+          notes: 'No headgear.',
+          value: 0
+        },
+        1: {
+          text: "Leather Hood",
+          notes: 'Basic protective cowl. Increases PER by 2.',
+          per: 2,
+          value: 15
+        },
+        2: {
+          text: "Black Leather Hood",
+          notes: 'Useful for both defense and disguise. Increases PER by 4.',
+          per: 4,
+          value: 25
+        },
+        3: {
+          text: "Camouflage Hood",
+          notes: 'Rugged, but doesn\'t impede hearing. Increases PER by 6.',
+          per: 6,
+          value: 40
+        },
+        4: {
+          text: "Penumbral Hood",
+          notes: 'Grants perfect vision in darkness. Increases PER by 9.',
+          per: 9,
+          value: 60
+        },
+        5: {
+          text: "Umbral Hood",
+          notes: 'Conceals even thoughts from those who would probe them. Increases PER by 12.',
+          per: 12,
+          value: 80,
+          last: true
+        }
+      },
+      mage: {
+        0: {
+          text: "No Hat",
+          notes: 'No headgear.',
+          value: 0
+        },
+        1: {
+          text: "Magician Hat",
+          notes: 'Simple, comfortable, and fashionable. Increases PER by 2.',
+          per: 2,
+          value: 15
+        },
+        2: {
+          text: "Cornuthaum",
+          notes: 'Traditional headgear of the itinerant wizard. Increases PER by 3.',
+          per: 3,
+          value: 25
+        },
+        3: {
+          text: "Astrologer Hat",
+          notes: 'Adorned with the rings of Saturn. Increases PER by 5.',
+          per: 5,
+          value: 40
+        },
+        4: {
+          text: "Archmage Hat",
+          notes: 'Focuses the mind for intensive spellcasting. Increases PER by 7.',
+          per: 7,
+          value: 60
+        },
+        5: {
+          text: "Royal Magus Hat",
+          notes: 'Shows authority over fortune, weather, and lesser mages. Increases PER by 9.',
+          per: 9,
+          value: 80,
+          last: true
+        }
+      },
+      healer: {
+        0: {
+          text: "No Circlet",
+          notes: 'No headgear.',
+          value: 0
+        },
+        1: {
+          text: "Quartz Circlet",
+          notes: 'Jeweled headpiece, for focus on the task at hand. Increases INT by 2.',
+          int: 2,
+          value: 15
+        },
+        2: {
+          text: "Amethyst Circlet",
+          notes: 'A taste of luxury for a humble profession. Increases INT by 3.',
+          int: 3,
+          value: 25
+        },
+        3: {
+          text: "Sapphire Circlet",
+          notes: 'Shines to let sufferers know their salvation is at hand. Increases INT by 5.',
+          int: 5,
+          value: 40
+        },
+        4: {
+          text: "Emerald Diadem",
+          notes: 'Emits an aura of life and growth. Increases INT by 7.',
+          int: 7,
+          value: 60
+        },
+        5: {
+          text: "Royal Diadem",
+          notes: 'For king, queen, or miracle-worker. Increases INT by 9.',
+          int: 9,
+          value: 80,
+          last: true
+        }
+      },
+      special: {
+        0: {
+          text: "Shade Helm",
+          notes: 'Decreases Health loss by 7%.',
+          defense: 7,
+          value: 100,
+          canOwn: (function(u) {
+            var _ref;
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+          })
+        },
+        1: {
+          text: "Crystal Helm",
+          notes: 'Decreases Health loss by 8%.',
+          defense: 8,
+          value: 120,
+          canOwn: (function(u) {
+            var _ref;
+            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 3;
+          })
+        }
+      }
+    },
+    shield: {
+      warrior: {
+        0: {
+          text: "No Shield",
+          notes: 'No shield.',
+          value: 0
+        },
+        1: {
+          text: "Wooden Shield",
+          notes: 'Round shield of thick wood. Increases CON by 2.',
+          con: 2,
+          value: 20
+        },
+        2: {
+          text: "Buckler",
+          notes: 'Light and sturdy, quick to bring to the defense. Increases CON by 3.',
+          con: 3,
+          value: 35
+        },
+        3: {
+          text: "Reinforced Shield",
+          notes: 'Made of wood but bolstered with metal bands. Increases CON by 5.',
+          con: 5,
+          value: 50
+        },
+        4: {
+          text: "Red Shield",
+          notes: 'Rebukes blows with a burst of flame. Increases CON by 7.',
+          con: 7,
+          value: 70
+        },
+        5: {
+          text: "Golden Shield",
+          notes: 'Shining badge of the vanguard. Increases CON by 9.',
+          con: 9,
+          value: 90,
+          last: true
+        }
+      },
+      rogue: {
+        0: {
+          text: "No Shield",
+          notes: 'No shield.',
+          value: 0,
+          last: true
+        }
+      },
+      mage: {
+        0: {
+          text: "No Shield",
+          notes: 'No shield.',
+          def: 0,
+          value: 0,
+          last: true
+        }
+      },
+      healer: {
+        0: {
+          text: "No Shield",
+          notes: 'No shield.',
+          def: 0,
+          value: 0
+        },
+        1: {
+          text: "Medic Buckler",
+          notes: 'Easy to disengage, freeing a hand for bandaging. Increases CON by 2.',
+          con: 2,
+          value: 20
+        },
+        2: {
+          text: "Kite Shield",
+          notes: 'Tapered shield with the symbol of healing. Increases CON by 4.',
+          con: 4,
+          value: 35
+        },
+        3: {
+          text: "Hospitaler Shield",
+          notes: 'Traditional shield of defender knights. Increases CON by 6.',
+          con: 6,
+          value: 50
+        },
+        4: {
+          text: "Savior Shield",
+          notes: 'Turns blows from innocents as well as oneself. Increases CON by 9.',
+          con: 9,
+          value: 70
+        },
+        5: {
+          text: "Royal Shield",
+          notes: 'Bestowed upon those most dedicated to the kingdom\'s defense. Increases CON by 12.',
+          con: 12,
+          value: 90,
+          last: true
+        }
+      },
+      special: {
+        0: {
+          text: "Tormented Skull",
+          notes: 'Decreases Health loss by 9%.',
+          defense: 9,
+          value: 120,
+          canOwn: (function(u) {
+            var _ref;
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+          })
+        },
+        1: {
+          text: "Crystal Shield",
+          notes: 'Decreases Health loss by 10%.',
+          defense: 10,
+          value: 150,
+          canOwn: (function(u) {
+            var _ref;
+            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 5;
+          })
+        }
+      }
+    }
+  };
+
   /*
-    FIXME
-    {index: 7, text: "Dark Souls Blade", classes:'weapon_7', notes:'Increases experience gain by 21%.', str: 21, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)}
-    {index: 8, text: "Crystal Blade", classes:'weapon_8', notes:'Increases experience gain by 24%.', str: 24, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)}
-  
-    {index: 6, text: "Shade Armor", notes:'Decreases Health loss by 12%.', defense: 12, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)}
-    {index: 7, text: "Crystal Armor", notes:'Decreases Health loss by 14%.', defense: 14, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)}
-  
-    {index: 6, text: "Shade Helm", notes:'Decreases Health loss by 7%.', defense: 7, value:100, canOwn: ((u)-> +u.backer?.tier >= 45)}
-    {index: 7, text: "Crystal Helm", notes:'Decreases Health loss by 8%.', defense: 8, value:120, canOwn: ((u)-> +u.contributor?.level >= 3)}
-  
-    {index: 6, text: "Tormented Skull", notes:'Decreases Health loss by 9%.', defense: 9, value:120, canOwn: ((u)-> +u.backer?.tier >= 45)}
-    {index: 7, text: "Crystal Shield", notes:'Decreases Health loss by 10%.', defense: 10, value:150, canOwn: ((u)-> +u.contributor?.level >= 5)}
+    The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
+    they are needed in different froms at different points in the app
   */
 
 
-  items.weapon = {
-    warrior: [
-      {
-        index: 0,
-        text: "Training Sword",
-        notes: 'Training weapon.',
-        value: 0
-      }, {
-        index: 1,
-        text: "Sword",
-        notes: 'Increases experience gain by 3%.',
-        str: 3,
-        value: 20
-      }, {
-        index: 2,
-        text: "Axe",
-        notes: 'Increases experience gain by 6%.',
-        str: 6,
-        value: 30
-      }, {
-        index: 3,
-        text: "Morningstar",
-        notes: 'Increases experience gain by 9%.',
-        str: 9,
-        value: 45
-      }, {
-        index: 4,
-        text: "Blue Sword",
-        notes: 'Increases experience gain by 12%.',
-        str: 12,
-        value: 65
-      }, {
-        index: 5,
-        text: "Red Sword",
-        notes: 'Increases experience gain by 15%.',
-        str: 15,
-        value: 90
-      }, {
-        index: 6,
-        text: "Golden Sword",
-        notes: 'Increases experience gain by 18%.',
-        str: 18,
-        value: 120
-      }
-    ],
-    rogue: [
-      {
-        index: 0,
-        text: "Training Sword",
-        notes: 'Training weapon.',
-        value: 0
-      }, {
-        index: 1,
-        text: "Short Bow",
-        notes: 'Increases experience gain by 3%.',
-        str: 3,
-        per: 3,
-        value: 20
-      }, {
-        index: 2,
-        text: "Long Bow",
-        notes: 'Increases experience gain by 6%.',
-        str: 6,
-        per: 6,
-        value: 30
-      }, {
-        index: 3,
-        text: "Load Bow",
-        notes: 'Increases experience gain by 9%.',
-        str: 9,
-        per: 9,
-        value: 45
-      }, {
-        index: 4,
-        text: "Blue Boe",
-        notes: 'Increases experience gain by 12%.',
-        str: 12,
-        per: 12,
-        value: 65
-      }, {
-        index: 5,
-        text: "Red Bow",
-        notes: 'Increases experience gain by 15%.',
-        str: 15,
-        per: 15,
-        value: 90
-      }, {
-        index: 6,
-        text: "Golden Bow",
-        notes: 'Increases experience gain by 18%.',
-        str: 18,
-        per: 18,
-        value: 120
-      }
-    ],
-    wizard: [
-      {
-        index: 0,
-        text: "Training Sword",
-        notes: 'Training weapon.',
-        str: 0,
-        value: 0
-      }, {
-        index: 1,
-        text: "Wooden Staff",
-        notes: 'Increases experience gain by 3%.',
-        int: 3,
-        value: 20
-      }, {
-        index: 2,
-        text: "Gnarled Staff",
-        notes: 'Increases experience gain by 6%.',
-        int: 3,
-        value: 30
-      }, {
-        index: 3,
-        text: "Steel Wand",
-        notes: 'Increases experience gain by 9%.',
-        int: 9,
-        value: 45
-      }, {
-        index: 4,
-        text: "Awesome Staff",
-        notes: 'Increases experience gain by 12%.',
-        3: 3,
-        value: 65
-      }, {
-        index: 5,
-        text: "Red Staff",
-        notes: 'Increases experience gain by 15%.',
-        int: 3,
-        value: 90
-      }, {
-        index: 6,
-        text: "Golden Staff",
-        notes: 'Increases experience gain by 18%.',
-        int: 3,
-        value: 120
-      }
-    ],
-    healer: [
-      {
-        index: 0,
-        text: "Training Sword",
-        notes: 'Training weapon.',
-        str: 0,
-        value: 0
-      }, {
-        index: 1,
-        text: "Wooden Staff",
-        classes: 'weapon_1',
-        notes: 'Increases experience gain by 3%.',
-        int: 3,
-        value: 20
-      }, {
-        index: 2,
-        text: "Gnarled Staff",
-        classes: 'weapon_2',
-        notes: 'Increases experience gain by 6%.',
-        int: 3,
-        value: 30
-      }, {
-        index: 3,
-        text: "Steel Wand",
-        classes: 'weapon_3',
-        notes: 'Increases experience gain by 9%.',
-        int: 9,
-        value: 45
-      }, {
-        index: 4,
-        text: "Awesome Staff",
-        classes: 'weapon_4',
-        notes: 'Increases experience gain by 12%.',
-        3: 3,
-        value: 65
-      }, {
-        index: 5,
-        text: "Red Staff",
-        classes: 'weapon_5',
-        notes: 'Increases experience gain by 15%.',
-        int: 3,
-        value: 90
-      }, {
-        index: 6,
-        text: "Golden Staff",
-        classes: 'weapon_6',
-        notes: 'Increases experience gain by 18%.',
-        int: 3,
-        value: 120
-      }
-    ]
+  items.gear = {
+    tree: gear,
+    flat: {}
   };
-
-  items.armor = {
-    warrior: [
-      {
-        index: 0,
-        text: "Cloth Armor",
-        notes: 'Training armor.',
-        def: 0,
-        value: 0
-      }, {
-        index: 1,
-        text: "Leather Armor",
-        notes: 'Decreases Health loss by 4%.',
-        def: 4,
-        value: 30
-      }, {
-        index: 2,
-        text: "Chain Mail",
-        notes: 'Decreases Health loss by 6%.',
-        def: 6,
-        value: 45
-      }, {
-        index: 3,
-        text: "Plate Mail",
-        notes: 'Decreases Health loss by 7%.',
-        def: 7,
-        value: 65
-      }, {
-        index: 4,
-        text: "Red Armor",
-        notes: 'Decreases Health loss by 8%.',
-        def: 8,
-        value: 90
-      }, {
-        index: 5,
-        text: "Golden Armor",
-        notes: 'Decreases Health loss by 10%.',
-        def: 10,
-        value: 120
-      }
-    ],
-    rogue: [
-      {
-        index: 0,
-        text: "Cloth Armor",
-        notes: 'Training armor.',
-        def: 0,
-        value: 0
-      }, {
-        index: 1,
-        text: "Leather1",
-        notes: 'Decreases Health loss by 4%.',
-        def: 4,
-        value: 30
-      }, {
-        index: 2,
-        text: "Leather2",
-        notes: 'Decreases Health loss by 6%.',
-        def: 6,
-        value: 45
-      }, {
-        index: 3,
-        text: "Leather3",
-        notes: 'Decreases Health loss by 7%.',
-        def: 7,
-        value: 65
-      }, {
-        index: 4,
-        text: "Leather4",
-        notes: 'Decreases Health loss by 8%.',
-        def: 8,
-        value: 90
-      }, {
-        index: 5,
-        text: "Leather5",
-        notes: 'Decreases Health loss by 10%.',
-        def: 10,
-        value: 120
-      }
-    ],
-    wizard: [
-      {
-        index: 0,
-        text: "Cloth Armor",
-        notes: 'Training armor.',
-        def: 0,
-        value: 0
-      }, {
-        index: 1,
-        text: "Robes1",
-        notes: 'Decreases Health loss by 4%.',
-        def: 4,
-        value: 30
-      }, {
-        index: 2,
-        text: "Robes2",
-        notes: 'Decreases Health loss by 6%.',
-        def: 6,
-        value: 45
-      }, {
-        index: 3,
-        text: "Robes3",
-        notes: 'Decreases Health loss by 7%.',
-        def: 7,
-        value: 65
-      }, {
-        index: 4,
-        text: "Robes4",
-        notes: 'Decreases Health loss by 8%.',
-        def: 8,
-        value: 90
-      }, {
-        index: 5,
-        text: "Robes5",
-        notes: 'Decreases Health loss by 10%.',
-        def: 10,
-        value: 120
-      }
-    ],
-    healer: [
-      {
-        index: 0,
-        text: "Cloth Armor",
-        notes: 'Training armor.',
-        def: 0,
-        value: 0
-      }, {
-        index: 1,
-        text: "Robes1",
-        notes: 'Decreases Health loss by 4%.',
-        def: 4,
-        value: 30
-      }, {
-        index: 2,
-        text: "Robes2",
-        notes: 'Decreases Health loss by 6%.',
-        def: 6,
-        value: 45
-      }, {
-        index: 3,
-        text: "Robes3",
-        notes: 'Decreases Health loss by 7%.',
-        def: 7,
-        value: 65
-      }, {
-        index: 4,
-        text: "Robes4",
-        notes: 'Decreases Health loss by 8%.',
-        def: 8,
-        value: 90
-      }, {
-        index: 5,
-        text: "Robes5",
-        notes: 'Decreases Health loss by 10%.',
-        def: 10,
-        value: 120
-      }
-    ]
-  };
-
-  items.head = {
-    warrior: [
-      {
-        index: 0,
-        text: "No Helm",
-        notes: 'Training helm.',
-        def: 0,
-        value: 0
-      }, {
-        index: 1,
-        text: "Leather Helm",
-        notes: 'Decreases Health loss by 2%.',
-        def: 2,
-        value: 15
-      }, {
-        index: 2,
-        text: "Chain Coif",
-        notes: 'Decreases Health loss by 3%.',
-        def: 3,
-        value: 25
-      }, {
-        index: 3,
-        text: "Plate Helm",
-        notes: 'Decreases Health loss by 4%.',
-        def: 4,
-        value: 45
-      }, {
-        index: 4,
-        text: "Red Helm",
-        notes: 'Decreases Health loss by 5%.',
-        def: 5,
-        value: 60
-      }, {
-        index: 5,
-        text: "Golden Helm",
-        notes: 'Decreases Health loss by 6%.',
-        def: 6,
-        value: 80
-      }
-    ],
-    rogue: [
-      {
-        index: 0,
-        text: "No Helm",
-        notes: 'Training helm.',
-        def: 0,
-        value: 0
-      }, {
-        index: 1,
-        text: "Leather1",
-        notes: 'Decreases Health loss by 2%.',
-        def: 2,
-        value: 15
-      }, {
-        index: 2,
-        text: "Leather2",
-        notes: 'Decreases Health loss by 3%.',
-        def: 3,
-        value: 25
-      }, {
-        index: 3,
-        text: "Leather3",
-        notes: 'Decreases Health loss by 4%.',
-        def: 4,
-        value: 45
-      }, {
-        index: 4,
-        text: "Leather4",
-        notes: 'Decreases Health loss by 5%.',
-        def: 5,
-        value: 60
-      }, {
-        index: 5,
-        text: "Leather5",
-        notes: 'Decreases Health loss by 6%.',
-        def: 6,
-        value: 80
-      }
-    ],
-    wizard: [
-      {
-        index: 0,
-        text: "No Helm",
-        notes: 'Training helm.',
-        defense: 0,
-        value: 0
-      }, {
-        index: 1,
-        text: "Wizard Hat 1",
-        notes: 'Decreases Health loss by 2%.',
-        def: 2,
-        value: 15
-      }, {
-        index: 2,
-        text: "Wizard Hat 2",
-        notes: 'Decreases Health loss by 3%.',
-        def: 3,
-        value: 25
-      }, {
-        index: 3,
-        text: "Wizard Hat 3",
-        notes: 'Decreases Health loss by 4%.',
-        def: 4,
-        value: 45
-      }, {
-        index: 4,
-        text: "Wizard Hat 4",
-        notes: 'Decreases Health loss by 5%.',
-        def: 5,
-        value: 60
-      }, {
-        index: 5,
-        text: "Wizard Hat 5",
-        notes: 'Decreases Health loss by 6%.',
-        def: 6,
-        value: 80
-      }
-    ],
-    healer: [
-      {
-        index: 0,
-        text: "No Helm",
-        notes: 'Training helm.',
-        defense: 0,
-        value: 0
-      }, {
-        index: 1,
-        text: "Healer Hat 1",
-        notes: 'Decreases Health loss by 2%.',
-        def: 2,
-        value: 15
-      }, {
-        index: 2,
-        text: "Healer Hat 2",
-        notes: 'Decreases Health loss by 3%.',
-        def: 3,
-        value: 25
-      }, {
-        index: 3,
-        text: "Healer Hat 3",
-        notes: 'Decreases Health loss by 4%.',
-        def: 4,
-        value: 45
-      }, {
-        index: 4,
-        text: "Healer Hat 4",
-        notes: 'Decreases Health loss by 5%.',
-        def: 5,
-        value: 60
-      }, {
-        index: 5,
-        text: "Healer Hat 5",
-        notes: 'Decreases Health loss by 6%.',
-        def: 6,
-        value: 80
-      }
-    ]
-  };
-
-  items.shield = {
-    warrior: [
-      {
-        index: 0,
-        text: "No Shield",
-        notes: 'No Shield.',
-        def: 0,
-        value: 0
-      }, {
-        index: 1,
-        text: "Wooden Shield",
-        notes: 'Decreases Health loss by 3%',
-        def: 3,
-        value: 20
-      }, {
-        index: 2,
-        text: "Buckler",
-        notes: 'Decreases Health loss by 4%.',
-        def: 4,
-        value: 35
-      }, {
-        index: 3,
-        text: "Reinforced Shield",
-        notes: 'Decreases Health loss by 5%.',
-        def: 5,
-        value: 55
-      }, {
-        index: 4,
-        text: "Red Shield",
-        notes: 'Decreases Health loss by 7%.',
-        def: 7,
-        value: 70
-      }, {
-        index: 5,
-        text: "Golden Shield",
-        notes: 'Decreases Health loss by 8%.',
-        def: 8,
-        value: 90
-      }
-    ],
-    rogue: [
-      {
-        index: 0,
-        text: "No Shield",
-        notes: 'No Shield.',
-        def: 0,
-        value: 0
-      }
-    ],
-    wizard: [
-      {
-        index: 0,
-        text: "No Shield",
-        notes: 'No Shield.',
-        def: 0,
-        value: 0
-      }
-    ],
-    healer: [
-      {
-        index: 0,
-        text: "No Shield",
-        notes: 'No Shield.',
-        def: 0,
-        value: 0
-      }, {
-        index: 1,
-        text: "Healer Shield1",
-        notes: 'Decreases Health loss by 3%',
-        def: 3,
-        value: 20
-      }, {
-        index: 2,
-        text: "Healer Sheild2",
-        notes: 'Decreases Health loss by 4%.',
-        def: 4,
-        value: 35
-      }, {
-        index: 3,
-        text: "Healer Sheild3",
-        notes: 'Decreases Health loss by 5%.',
-        def: 5,
-        value: 55
-      }, {
-        index: 4,
-        text: "Healer Sheild4",
-        notes: 'Decreases Health loss by 7%.',
-        def: 7,
-        value: 70
-      }, {
-        index: 5,
-        text: "Healer Sheild5",
-        notes: 'Decreases Health loss by 8%.',
-        def: 8,
-        value: 90
-      }
-    ]
-  };
-
-  reversed = {};
 
   _.each(['weapon', 'armor', 'head', 'shield'], function(type) {
-    reversed[type] = {};
-    return _.each(['warrior', 'rogue', 'healer', 'wizard'], function(_class) {
-      reversed[type][_class] = items[type][_class].slice().reverse();
-      return _.each(items[type][_class], function(item, i) {
-        return _.defaults(item, {
+    return _.each(['warrior', 'rogue', 'healer', 'wizard', 'special'], function(_class_) {
+      return _.each(gear[type][_class_], function(item, i) {
+        var key;
+        key = "" + type + "_" + _class_ + "_" + i;
+        _.defaults(item, {
           type: type,
-          canOwn: (function() {
-            return true;
-          }),
-          classes: "" + type + "_" + i + "-" + _class,
+          key: key,
+          index: i,
           str: 0,
           int: 0,
           per: 0,
-          def: 0
+          con: 0
         });
+        return items.gear.flat[key] = item;
       });
     });
   });
@@ -10701,7 +10750,7 @@ try {
     text: "Health Potion",
     notes: "Recover 15 Health (Instant Use)",
     value: 25,
-    classes: 'potion'
+    key: 'potion'
   };
 
   items.reroll = {
@@ -11094,11 +11143,23 @@ try {
   */
 
 
+  _class = function(user) {
+    var _ref;
+    if (((_ref = user.stats["class"]) === 'warrior' || _ref === 'healer' || _ref === 'wizard' || _ref === 'rogue')) {
+      return user.stats["class"];
+    } else {
+      return 'warrior';
+    }
+  };
+
+  /*
+    FIXME
+  */
+
+
   module.exports.buyItem = function(user, type) {
-    var nextItem;
-    nextItem = type === 'potion' ? items.potion : _.find(items[type][user.stats["class"] || 'warrior'].slice(~~user.items[type] + 1), (function(i) {
-      return i.canOwn(user);
-    }));
+    var i, nextItem;
+    nextItem = type === 'potion' ? items.potion : (i = module.exports.getItem(user, type).index, items.gear.flat["" + type + "_" + (_class(user)) + "_" + (+i + 1)]);
     if (+user.stats.gp < +nextItem.value) {
       return false;
     }
@@ -11108,12 +11169,13 @@ try {
         user.stats.hp = 50;
       }
     } else {
-      user.items[type] = ~~nextItem.index;
-      if (+user.items.weapon >= 6 && +user.items.armor >= 5 && +user.items.head >= 5 && +user.items.shield >= 5) {
+      user.items.gear.current[type] = nextItem.key;
+      user.items.gear.owned[nextItem.key] = true;
+      if (getItem(user, 'weapon').last && getItem(user, 'armor').last && getItem(user, 'head').last && getItem(user, 'shield').last) {
         user.achievements.ultimateGear = true;
       }
     }
-    user.stats.gp -= +nextItem.value;
+    user.stats.gp -= nextItem.value;
     return true;
   };
 
@@ -11126,11 +11188,9 @@ try {
     var changes;
     changes = {};
     _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
-      var curr, _ref;
-      curr = ((_ref = user.items) != null ? _ref[type] : void 0) || 0;
-      return changes[type] = _.find(items[type][user.stats["class"] || 'warrior'].slice(curr + 1), (function(item) {
-        return item.canOwn(user);
-      })) || {
+      var i;
+      i = module.exports.getItem(user, type).index;
+      return changes[type] = items.gear.flat["" + type + "_" + (_class(user)) + "_" + (+i + 1)] || {
         hide: true
       };
     });
@@ -11144,24 +11204,13 @@ try {
   */
 
 
-  module.exports.getItem = function(type, index) {
-    var i;
-    if (index == null) {
-      index = 0;
+  module.exports.getItem = getItem = function(user, type) {
+    var item;
+    item = items.gear.flat[user.items.gear.current[type]];
+    if (!item) {
+      return items.gear.flat["" + type + "_" + (_class(user)) + "_0"];
     }
-    return items[type].warrior[1];
-    i = ~~index > items[type].warrior.length - 1 ? 0 : ~~index;
-    return items[type].warrior[i];
-  };
-
-  /*
-    User's currently equiped item
-    TODO this function is ugly, find a more elegant solution
-  */
-
-
-  module.exports.equipped = function(type, user) {
-    return "m_" + type + "_" + item.items[type] + "-" + user.stats["class"];
+    return item;
   };
 
 }).call(this);

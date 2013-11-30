@@ -226,7 +226,7 @@ obj.score = (user, task, direction, options={}) ->
       delta += nextDelta
 
   addPoints = ->
-    weaponStr = items.getItem('weapon', user.items.weapon).strength
+    weaponStr = items.getItem(user, 'weapon').str
     exp += obj.expModifier(delta, weaponStr, user.stats.lvl, priority) / 2 # /2 hack for now, people leveling too fast
     if streak
       gp += obj.gpModifier(delta, 1, priority, streak, user)
@@ -235,9 +235,9 @@ obj.score = (user, task, direction, options={}) ->
 
 
   subtractPoints = ->
-    armorDef = items.getItem('armor', user.items.armor).defense
-    headDef = items.getItem('head', user.items.head).defense
-    shieldDef = items.getItem('shield', user.items.shield).defense
+    armorDef = items.getItem(user, 'armor').con
+    headDef = items.getItem(user, 'head').con
+    shieldDef = items.getItem(user, 'shield').con
     hp += obj.hpModifier(delta, armorDef, headDef, shieldDef, user.stats.lvl, priority)
 
   switch type
