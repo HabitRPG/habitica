@@ -8,24 +8,24 @@ figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(
     // Mount Body
     span(ng-if='profile.items.currentMount', class='Mount_Body_{{profile.items.currentMount}}')
 
-    // Avatar
-    //span(class='{{profile.preferences.gender}}_skin_{{profile.preferences.skin}}')
-    //span(class='{{profile.preferences.gender}}_head_0')
-    //span(class='{{profile.preferences.gender}}_hair_base_{{profile.preferences.hair.base}}_{{profile.preferences.hair.color}}')
-    //span(class='{{profile.preferences.gender}}_hair_bangs_{{profile.preferences.hair.bangs}}_{{profile.preferences.hair.color}}')
-    //span(class='{{equipped("armor", profile.items.armor, profile.preferences, profile.backer, profile.contributor)}}-{{profile.stats.class}}')
-    //span(class='{{equipped("head", profile.items.head, profile.preferences, profile.backer, profile.contributor)}}-{{profile.stats.class}}', ng-show='profile.preferences.showHelm')
-    //span(class='{{equipped("shield",profile.items.shield,profile.preferences, profile.backer, profile.contributor)}}-{{profile.stats.class}}')
-    //span(class='{{equipped("weapon",profile.items.weapon,profile.preferences, profile.backer, profile.contributor)}}-{{profile.stats.class}}')
+    //- Avatar
+    //-span(class='{{profile.preferences.gender}}_skin_{{profile.preferences.skin}}')
+    //-span(class='{{profile.preferences.gender}}_head_0')
+    //-span(class='{{profile.preferences.gender}}_hair_base_{{profile.preferences.hair.base}}_{{profile.preferences.hair.color}}')
+    //-span(class='{{profile.preferences.gender}}_hair_bangs_{{profile.preferences.hair.bangs}}_{{profile.preferences.hair.color}}')
+    //-span(class='{{equipped("armor", profile.items.armor, profile.preferences, profile.backer, profile.contributor)}}-{{profile.stats.class}}')
+    //-span(class='{{equipped("head", profile.items.head, profile.preferences, profile.backer, profile.contributor)}}-{{profile.stats.class}}', ng-show='profile.preferences.showHelm')
+    //-span(class='{{equipped("shield",profile.items.shield,profile.preferences, profile.backer, profile.contributor)}}-{{profile.stats.class}}')
+    //-span(class='{{equipped("weapon",profile.items.weapon,profile.preferences, profile.backer, profile.contributor)}}-{{profile.stats.class}}')
 
     span(class='m_skin_{{profile.preferences.skin}}')
     span(class='m_head_0')
     span(class='m_hair_base_{{profile.preferences.hair.base}}_{{profile.preferences.hair.color}}')
     span(class='m_hair_bangs_{{profile.preferences.hair.bangs}}_{{profile.preferences.hair.color}}')
-    span(class='m_armor_{{profile.items.armor}}-{{profile.stats.class}}')
-    span(class='m_head_{{profile.items.head}}-{{profile.stats.class}}', ng-show='profile.preferences.showHelm')
-    span(class='m_shield_{{profile.items.shield}}-{{profile.stats.class}}')
-    span(class='m_weapon_{{profile.items.weapon}}-{{profile.stats.class}}')
+    span(class='m_{{profile.items.gear.current.armor}}')
+    span(class='m_{{profile.items.gear.current.head}}', ng-show='profile.preferences.showHelm')
+    span(class='m_{{profile.items.gear.current.shield}}')
+    span(class='m_{{profile.items.gear.current.weapon}}')
 
     // Mount Head
     span(ng-if='profile.items.currentMount', class='Mount_Head_{{profile.items.currentMount}}')

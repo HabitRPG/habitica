@@ -203,13 +203,12 @@ api.clearCompleted = function(req, res, next) {
   ------------------------------------------------------------------------
 */
 api.buy = function(req, res, next) {
-  var hasEnough, type, user;
-  user = res.locals.user;
-  type = req.params.type;
-  if (type !== 'weapon' && type !== 'armor' && type !== 'head' && type !== 'shield' && type !== 'potion') {
-    return res.json(400, {err: ":type must be in one of: 'weapon', 'armor', 'head', 'shield', 'potion'"});
+  var user = res.locals.user;
+  var item = req.params.item;
+  if (item !== 'potion' && !items.items.gear.flat[item]) {
+    return res.json(400, {err: ":item must be a supported key, see https://github.com/HabitRPG/habitrpg-shared/blob/master/script/items.coffee"});
   }
-  hasEnough = items.buyItem(user, type);
+  var hasEnough = items.buyItem(user, type);
   if (hasEnough) {
     return user.save(function(err, saved) {
       if (err) return res.json(500, {err: err});

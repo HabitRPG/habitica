@@ -105,10 +105,20 @@ var UserSchema = new Schema({
     party: Schema.Types.Mixed
   },
   items: {
-    armor: Number,
-    weapon: Number,
-    head: Number,
-    shield: Number,
+    gear: {
+      owned: _.transform(items.items.gear.flat, function(m,v,k){
+        m[v.key] = {type: Boolean};
+        if (v.key.match(/[weapon|armor|head|shield]_warrior_0/))
+          m[v.key]['default'] = true;
+      }),
+
+      current: {
+        weapon: {type: String, 'default': 'weapon_warrior_0'},
+        armor: {type: String, 'default': 'armor_warrior_0'},
+        head: {type: String, 'default': 'head_warrior_0'},
+        shield: {type: String, 'default': 'shield_warrior_0'}
+      }
+    },
 
     // -------------- Animals -------------------
 
@@ -213,7 +223,8 @@ var UserSchema = new Schema({
     lvl: Number,
 
     // Class System
-    'class': String,
+//    'class': {type: String, enum: ['warrior','rogue','wizard','rogue'], 'default': 'warrior'},
+    'class': {type: String, 'default': 'warrior'},
     points: {type: Number, 'default': 0},
     str: {type: Number, 'default': 0},
     def: {type: Number, 'default': 0},

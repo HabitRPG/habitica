@@ -59,7 +59,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 span.reward-cost {{item.value}}
                 span.shop_gold
             // main content
-            span(ng-class='{"shop_{{item.classes}} shop-sprite item-img": true}')
+            span(ng-class='{"shop_{{item.key}} shop-sprite item-img": true}')
             p.task-text {{item.text}}
 
         // Spells
@@ -75,7 +75,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                   strong {{spell.mana}}
                   | &nbsp;MP
             // main content
-            span(ng-class='{"shop_{{spell.classes}} shop-sprite item-img": true}')
+            span(ng-class='{"shop_{{spell.key}} shop-sprite item-img": true}')
             p.task-text {{spell.text}}
 
         br

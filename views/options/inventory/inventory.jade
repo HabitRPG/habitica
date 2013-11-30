@@ -6,6 +6,11 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
       menu.inventory-list(type='list')
 
         li.customize-menu
+          menu.pets-menu(label='Gear')
+            div(ng-repeat='(k,v) in user.items.gear.owned')
+              button.customize-option(popover='{{Items.gear.flat[k].notes}}', popover-title='{{Items.gear.flat[k].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='equip(v)', class='shop_{{v.key}}')
+
+        li.customize-menu
           menu.pets-menu(label='Eggs ({{eggCount}})')
             p(ng-show='eggCount < 1') You don't have any eggs yet.
             div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')

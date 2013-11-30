@@ -105,12 +105,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
      */
 
     var updateStore = function(){
-      var sorted, updated;
-      updated = window.habitrpgShared.items.updateStore(User.user);
-      /* Figure out whether we wanna put this in habitrpg-shared
-       */
-
-      sorted = [updated.weapon, updated.armor, updated.head, updated.shield, updated.potion, updated.reroll];
+      var updated = window.habitrpgShared.items.updateStore(User.user);
+      // Figure out whether we wanna put this in habitrpg-shared
+      var sorted = [updated.weapon, updated.armor, updated.head, updated.shield, updated.potion, updated.reroll];
       $scope.itemStore = sorted;
     }
 

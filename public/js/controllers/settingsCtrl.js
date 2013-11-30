@@ -73,24 +73,24 @@ habitrpg.controller('SettingsCtrl',
     $rootScope.$watch('modals.restore', function(value){
       if(value === true){
         $scope.restoreValues.stats = angular.copy(User.user.stats);
-        $scope.restoreValues.items = angular.copy(User.user.items);
+//        $scope.restoreValues.items = angular.copy(User.user.items);
         $scope.restoreValues.achievements = {streak: User.user.achievements.streak || 0};
       }
     })
 
     $scope.restore = function(){
       var stats = $scope.restoreValues.stats,
-        items = $scope.restoreValues.items,
+//        items = $scope.restoreValues.items,
         achievements = $scope.restoreValues.achievements;
       User.setMultiple({
         "stats.hp": stats.hp,
         "stats.exp": stats.exp,
         "stats.gp": stats.gp,
         "stats.lvl": stats.lvl,
-        "items.weapon": items.weapon,
-        "items.armor": items.armor,
-        "items.head": items.head,
-        "items.shield": items.shield,
+//        "items.weapon": items.weapon,
+//        "items.armor": items.armor,
+//        "items.head": items.head,
+//        "items.shield": items.shield,
         "achievements.streak": achievements.streak
       });
       $rootScope.modals.restore = false;
