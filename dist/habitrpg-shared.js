@@ -9172,11 +9172,6 @@ var global=self;/**
       options = {};
     }
     _ref1 = [options.paths || {}, +options.now || +(new Date)], paths = _ref1[0], now = _ref1[1];
-    if ((user.lastCron == null) || user.lastCron === 'new' || moment(user.lastCron).isAfter(now)) {
-      user.lastCron = now;
-      paths['lastCron'] = true;
-      return;
-    }
     daysMissed = helpers.daysSince(user.lastCron, _.defaults({
       now: now
     }, user.preferences));

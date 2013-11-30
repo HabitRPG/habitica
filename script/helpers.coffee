@@ -105,7 +105,7 @@ module.exports =
 
       preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0, showHelm: true }
       apiToken: uuid() # set in newUserObject below
-      lastCron: +new Date #this will be replaced with `+new Date` on first run
+      lastCron: +new Date
       balance: 0
       flags:
         partyEnabled: false
