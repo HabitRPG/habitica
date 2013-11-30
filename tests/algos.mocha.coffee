@@ -201,8 +201,6 @@ describe 'Cron', ->
 
   it 'computes shouldCron', ->
     user = helpers.newUser()
-    paths = {};algos.cron user, {paths}
-    expect(paths.lastCron).to.be undefined # handlomg lastCron='new'
 
     paths = {};algos.cron user, {paths}
     expect(paths.lastCron).to.not.be.ok # it setup the cron property now
@@ -211,9 +209,9 @@ describe 'Cron', ->
     paths = {};algos.cron user, {paths}
     expect(paths.lastCron).to.be true
 
-    user.lastCron = +moment().add('days',1)
-    paths = {};algos.cron user, {paths}
-    expect(paths.lastCron).to.be true # busted cron (was set to after today's date)
+#    user.lastCron = +moment().add('days',1)
+#    paths = {};algos.cron user, {paths}
+#    expect(paths.lastCron).to.be true # busted cron (was set to after today's date)
 
   it 'only dailies & todos are effected', ->
     {before,after} = beforeAfter({daysAgo:1})
