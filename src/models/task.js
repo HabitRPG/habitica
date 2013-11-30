@@ -68,7 +68,8 @@ var TodoSchema = new Schema(
 
 var RewardSchema = new Schema(
   _.defaults({
-    type: {type:String, 'default': 'reward'}
+    type: {type:String, 'default': 'reward'},
+    paid: {type: Number, 'default': 0} // Amount of this reward that has been already paid.
   }, TaskSchema)
   , { _id: false }
 );

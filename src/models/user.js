@@ -112,7 +112,14 @@ var UserSchema = new Schema({
     head: Number,
     shield: Number,
 
-    // -------------- Animals ------------------- 
+    paid: {
+      armor: Number,
+      weapon: Number,
+      head: Number,
+      shield: Number
+    },
+
+    // -------------- Animals -------------------
     // Complex bit here. The result looks like:
     // pets: {
     //   'Wolf-Desert': 0, // 0 means does not own
