@@ -55,21 +55,29 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
           'items.eggs': user.items.eggs,
           'stats.gp': User.user.stats.gp + $scope.selectedEgg.value
         });
-        $scope.selectedEgg = null;
+        if (user.items.eggs[$scope.selectedEgg.name] < 1) {
+            $scope.selectedEgg = null;
+        }
+
       } else if ($scope.selectedPotion) {
         user.items.hatchingPotions[$scope.selectedPotion.name]--;
         User.setMultiple({
           'items.hatchingPotions': user.items.hatchingPotions,
           'stats.gp': User.user.stats.gp + $scope.selectedPotion.value
         });
-        $scope.selectedPotion = null;
+        if (user.items.hatchingPotions[$scope.selectedPotion.name] < 1) {
+            $scope.selectedPotion = null;
+        }
+
       } else if ($scope.selectedFood) {
         user.items.food[$scope.selectedFood.name]--;
         User.setMultiple({
           'items.food': user.items.food,
           'stats.gp': User.user.stats.gp + $scope.selectedFood.value
         });
-        $scope.selectedFood = null;
+        if (user.items.food[$scope.selectedFood.name] < 1) {
+            $scope.selectedFood = null;
+        }
       }
 
     }
@@ -81,7 +89,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     $scope.hatch = function(egg, potion){
       var pet = egg.name+"-"+potion.name;
       if (user.items.pets[pet])
-        return alert("You already have that pet, hatch a different combo.");
+        return alert("You already have that pet. Try hatching a different combination!");
 
       var setObj = {};
       setObj['items.pets.' + pet] = 5;
