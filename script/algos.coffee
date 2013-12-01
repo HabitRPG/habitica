@@ -127,6 +127,10 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
   chanceMultiplier *= obj.priorityValue(priority) # multiply chance by reddness
   chanceMultiplier += streak # streak bonus
 
+  # Temporary solution to lower the maximum drop chance to 75 percent. More thorough
+  # overhaul of drop changes is needed. See HabitRPG/habitrpg#1922 for details.
+  # Old drop chance:
+  # if user.flags?.dropsEnabled and Math.random() < (.05 * chanceMultiplier)
   max = 0.75 # Max probability of drop 
   a = 0.1 # rate of increase
   alpha = a*max*chanceMultiplier/(a*chanceMultiplier+max) # current probability of drop
