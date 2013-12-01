@@ -302,7 +302,7 @@
   "_commentitemsother" : "OTHER ITEMS",
     "healthPotionName" : "Health Potion",
       "healthPotionNotes" : "Recover 15 HP Instantly",
-    "rerollName" : "Re-Roll",
+    "rerollName" : "Fortify",
       "rerollNotes" : "Resets your task values back to yellow. Useful when everything's red and it's hard to stay alive.",
       "rerollModelHeader" : "Reset Your Tasks",
       "rerollModelText1" : "Highly discouraged because red tasks provide good incentive to improve",

@@ -1,12 +1,12 @@
 // Re-Roll modal
 div(modal='modals.reroll')
   .modal-header
-    h3 Reset Your Tasks
+    h3 Fortify: Back to Yellow
   .modal-body
     include ../gems
     p.
-      Purchasing a Re-Roll will reset all your tasks to a neutral (yellow) state, as if you'd just added them. Consider
-      this an option of last resort, red tasks provide good incentive to improve. But if all that red fills you with
+      Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them. Consider
+      this an option of last resort! Red tasks provide good incentive to improve. But if all that red fills you with
       despair, and the beginning of each new day proves lethal, spend the Gems and catch a reprieve!
 
   .modal-footer
@@ -14,6 +14,6 @@ div(modal='modals.reroll')
       a.btn.btn-success.btn-large(ng-click="modals.buyGems = true") Buy More Gems
       span.gem-cost Not enough Gems
     span(ng-if='user.balance >= 1', ng-controller='SettingsCtrl')
-      a.btn.btn-danger.btn-large(ng-click='reroll()') Re-Roll
+      a.btn.btn-danger.btn-large(ng-click='reroll()') Fortify
       span.gem-cost 4 Gems
 
