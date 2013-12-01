@@ -104,6 +104,7 @@
   .span8(ng-controller='ChatCtrl')
     h3 Tavern Talk
 <<<<<<< HEAD
+<<<<<<< HEAD
         include ./chat-box
         small(style='position: relative; top: -20px; left: 25px;')
             include ../../shared/formatting-help
@@ -117,5 +118,13 @@
         alert.alert-info.
           Note: if you're reporting a bug, the developers won't see it here. Please <a href='https://github.com/HabitRPG/habitrpg/issues' target='_blank'>use Github instead</a>.
 >>>>>>> parent of 7fdda14... Reposition Markdown formatting link
+=======
+      include ./chat-box
+      small(style='position: relative; top: -130px; left: 26px; z-index: 10;')
+        include ../../shared/formatting-help
+      small
+          alert.alert-info.
+            Note: if you're reporting a bug, the developers won't see it here. Please <a href='https://github.com/HabitRPG/habitrpg/issues' target='_blank'>use Github instead</a>.
+>>>>>>> parent of db7e582... Re-modify position of markdown down formatting link
     ul.unstyled.tavern-chat
       include ./chat-message
