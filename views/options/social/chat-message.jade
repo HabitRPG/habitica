@@ -1,10 +1,13 @@
-li(ng-repeat='message in group.chat', ng-class='{highlight: indexOf(message.text.toLowerCase(), user.profile.name.toLowerCase()), "own-message": user._id == message.uuid}')
-  a.label.chat-message(class='label-contributor-{{message.contributor.level}}', ng-class='{"label-npc": message.backer.npc}', ng-click='clickMember(message.uuid, true)')
-    span(tooltip='{{contribText(message.contributor, message.backer)}}') {{message.user}}&nbsp;
-  | &nbsp;
-  span(ng-bind-html="message.text | linky:'_blank'")
-  | &nbsp;-&nbsp;
-  span.muted.time
-    | {{relativeDate(message.timestamp, _currentTime) + ' '}}
-  a(ng-show='user.contributor.admin || message.uuid == user.id', ng-click='deleteChatMessage(group, message)')
-    i.icon-remove(tooltip='Delete')
+li(bindonce='group.chat', ng-repeat='message in group.chat', bo-class='{highlight: isUserMentioned(user,message), "own-message": user._id == message.uuid}')
+  div(class='scrollable-message')
+    a.label.chat-message(class='hidden-label')
+      span {{message.user}}&nbsp;
+    | &nbsp;
+    markdown(ng-model='message.text',target='_blank')
+    | &nbsp;-&nbsp;
+    span.muted.time(from-now='message.timestamp')
+    a(bo-show='user.contributor.admin || message.uuid == user.id', ng-click='deleteChatMessage(group, message)')
+      | 
+      i.icon-remove(tooltip='Delete')
+  a.label.chat-message(class='float-label', bo-class='{"label-npc": message.backer.npc, "label-contributor-{{message.contributor.level}}":message.contributor.level}', ng-click='clickMember(message.uuid, true)')
+      span(tooltip='{{contribText(message.contributor, message.backer)}}') {{message.user}}&nbsp;

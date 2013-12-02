@@ -17,14 +17,15 @@
     "jquery": "~2.0.3",
     "jquery.cookie": "~1.4.0",
     "jquery-ui": "~1.10.3",
-    "angular": "1.2.0-rc.3",
-    "angular-sanitize": "1.2.0-rc.3",
-    "angular-resource": "1.2.0-rc.3",
+    "angular": "~1.2.1",
+    "angular-sanitize": "~1.2.1",
+    "angular-resource": "~1.2.1",
     "angular-ui": "~0.4.0",
     "angular-ui-utils": "~0.0.4",
     "angular-bootstrap": "~0.5.0",
     "angular-ui-router": "ca3b4777a603df8f86cfd653c8f6c38b2ae05d89",
     "angular-loading-bar": "~0.0.5",
+    "angular-bindonce": "~0.2.1",
     "bootstrap": "v2.3.2",
     "bootstrap-datepicker": "~1.2.0",
     "bootstrap-tour": "0.5.0",
@@ -34,14 +35,16 @@
     "github-buttons": "git://github.com/mdo/github-buttons.git",
     "marked": "~0.2.9",
     "JavaScriptButtons": "git://github.com/paypal/JavaScriptButtons.git#master",
-    "Angular-At-Directive": "git://github.com/snicker/Angular-At-Directive#master"
+    "Angular-At-Directive": "git://github.com/snicker/Angular-At-Directive#master",
+    "js-emoji": "git://github.com/snicker/js-emoji#master",
+    "gemoji": "git://github.com/github/gemoji"
   },
   "resolutions": {
     "jquery": "~2.0.3",
     "bootstrap": "v2.3.2",
-    "angular": "1.2.0-rc.3"
+    "angular": "~1.2.1"
   },
   "devDependencies": {
-    "angular-mocks": "1.2.0-rc.3"
+    "angular-mocks": "~1.2.1"
   }
 }

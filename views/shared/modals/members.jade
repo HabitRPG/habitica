@@ -1,10 +1,10 @@
 div(ng-controller='MemberModalCtrl')
   #memberModal(modal='modals.member')
-    .modal-header
+    .modal-header(bindonce='profile')
       h3
         span {{profile.profile.name}}
         span(ng-if='profile.contributor.level')  - {{contribText(profile.contributor, profile.backer)}}
-    .modal-body
+    .modal-body(bindonce='profile')
       .row-fluid
         .span6
           img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')

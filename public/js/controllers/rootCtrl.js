@@ -21,8 +21,24 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       return haystack && ~haystack.indexOf(needle);
     }
 
+    // styling helpers
+    $scope.userLevelStyle = function(user,style){
+      style = style || '';
+      if(user && user.backer && user.backer.npc)
+        style += ' label-npc';
+      if(user && user.contributor && user.contributor.level)
+        style += ' label-contributor-'+user.contributor.level;
+      return style;
+    }
+
     // count pets, mounts collected totals, etc
     $rootScope.countExists = function(items) {return _.reduce(items,function(m,v){return m+(v?1:0)},0)}
+
+    $rootScope.petCount = window.habitrpgShared.helpers.countPets(null, User.user.items.pets);
+
+    $rootScope.$watch('user.items.pets', function(pets){ 
+      $rootScope.petCount = window.habitrpgShared.helpers.countPets($rootScope.countExists(pets), User.user.items.pets);
+    }, true);
 
     $scope.safeApply = function(fn) {
       var phase = this.$root.$$phase;

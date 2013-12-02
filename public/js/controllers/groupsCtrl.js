@@ -65,6 +65,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       }
       // We watch Members.selectedMember because it's asynchronously set, so would be a hassle to handle updates here
       $scope.$watch( function() { return Members.selectedMember; }, function (member) {
+        if(member)
+          member.petCount = window.habitrpgShared.helpers.countPets(null, member.items.pets);
         $scope.profile = member;
       });
     }
@@ -128,6 +130,24 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
   .controller('ChatCtrl', ['$scope', 'Groups', 'User', function($scope, Groups, User){
     $scope.message = {content:''};
     $scope._sending = false;
+    
+    $scope.isUserMentioned = function(user, message) {
+      if(message.hasOwnProperty("highlight"))
+        return message.highlight;
+      message.highlight = false;
+      var messagetext = message.text.toLowerCase();
+      var username = user.profile.name;
+      var mentioned = messagetext.indexOf(username.toLowerCase());
+      var pattern = username+"([^\w]|$){1}";
+      if(mentioned > -1) {
+        var preceedingchar = messagetext.substring(mentioned-1,mentioned);
+        if(mentioned == 0 || preceedingchar.trim() == '' || preceedingchar == '@'){
+          var regex = new RegExp(pattern,'i');
+          message.highlight = regex.test(messagetext);
+        }
+      }
+      return message.highlight;
+    }
 
     $scope.postChat = function(group, message){
       if (_.isEmpty(message) || $scope._sending) return;
@@ -162,6 +182,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       group.$get();
     }
 
+    // List of Ordering options for the party members list
+    $scope.partyOrderChoices = {
+      'level': 'Sort by Level',
+      'random': 'Sort randomly',
+      'pets': 'Sort by number of pets',
+      'party_date_joined': 'Sort by Party date joined',
+    };
+
   }])
 
   .controller("GuildsCtrl", ['$scope', 'Groups', 'User', '$rootScope', '$state', '$location',
@@ -172,8 +200,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       }
       $scope.type = 'guild';
       $scope.text = 'Guild';
-      $scope.newGroup = new Groups.Group({type:'guild', privacy:'private', leader: User.user._id, members: [User.user._id]});
-
+      var newGroup = function(){
+        return new Groups.Group({type:'guild', privacy:'private', leader: User.user._id, members: [User.user._id]});
+      }
+      $scope.newGroup = newGroup()
       $scope.create = function(group){
         if (User.user.balance < 1) return $rootScope.modals.buyGems = true;
 
@@ -183,6 +213,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
             $scope.groups.guilds.push(saved);
             if(saved.privacy === 'public') $scope.groups.public.push(saved);
             $state.go('options.social.guilds.detail', {gid: saved._id});
+            $scope.newGroup = newGroup();
           });
         }
       }

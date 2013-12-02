@@ -5,7 +5,7 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
     title HabitRPG | Your Life The Role Playing Game
 
     // ?v=1 needed to force refresh
-    link(rel='shortcut icon' href='#{env.getBuildUrl("favicon.ico")}?v=2') 
+    link(rel='shortcut icon', href='#{env.getBuildUrl("favicon.ico")}?v=2')
 
     script(type='text/javascript').
       window.env = !{JSON.stringify(env)};

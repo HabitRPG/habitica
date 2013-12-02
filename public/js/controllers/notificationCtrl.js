@@ -29,7 +29,13 @@ habitrpg.controller('NotificationCtrl',
     });
 
     $rootScope.$watch('user._tmp.drop', function(after, before){
+      // won't work when getting the same item twice?
       if (after == before || !after) return;
+      var type = after.type === 'HatchingPotion' ? 'hatchingPotions' : (after.type.toLowerCase() + 's')
+      if(!User.user.items[type][after.name]){
+        User.user.items[type][after.name] = 0;
+      }
+      User.user.items[type][after.name]++;
       $rootScope.modals.drop = true;
     });
 
@@ -44,10 +50,11 @@ habitrpg.controller('NotificationCtrl',
     });
 
     $rootScope.$watch('user.items.pets', function(after, before){
-      if(_.size(after) === _.size(before) || _.size(after) < 90) return;
+      if(_.size(after) === _.size(before) || 
+        window.habitrpgShared.helpers.countPets(null, after) < 90) return;
       User.user.achievements.beastMaster = true;
       $rootScope.modals.achievements.beastMaster = true;
-    })
+    }, true);
 
     /*_.each(['weapon', 'head', 'chest', 'shield'], function(watched){
       $rootScope.$watch('user.items.' + watched, function(before, after){

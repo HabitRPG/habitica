@@ -6,9 +6,6 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     $scope.hideUserAvatar = function() {
       $(".userAvatar").hide();
     };
-    $scope.toggleHelm = function(val){
-      User.log({op:'set', data:{'preferences.showHelm':val}});
-    }
 
     $scope.$watch('_editing.profile', function(value){
       if(value === true) $scope.editingProfile = angular.copy(User.user.profile);

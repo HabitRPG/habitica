@@ -99,6 +99,7 @@ module.exports = function(grunt) {
       });
     });
     grunt.config.set('uglify.build.files', uglify);
+    grunt.config.set('uglify.build.options', {compress: false})
     grunt.config.set('cssmin.build.files', cssmin);
   });
 

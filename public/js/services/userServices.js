@@ -65,13 +65,14 @@ angular.module('userServices', []).
               // the user has been modified from another application, sync up
               if(data.wasModified) {
                 delete data.wasModified;
-                _.extend(user, data);
                 $rootScope.$emit('userUpdated', user);
               }
 
+              // Update user
+              _.extend(user, data);
+
               // Emit event when user is synced
               $rootScope.$emit('userSynced');
-              user._v = data._v;
             }
             sent.length = 0;
             settings.fetching = false;

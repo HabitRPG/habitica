@@ -2,6 +2,15 @@
 
 window.env = window.env || {}; //FIX tests
 
+if(window.env.language && window.env.language.momentLang && window.env.language.momentLangCode){
+  var head = document.getElementsByTagName('head')[0];
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.text = window.env.language.momentLang;
+  head.appendChild(script);
+  moment.lang(window.env.language.momentLangCode);
+}
+
 window.env.t = function(string){
   return (window.env.translations[string] || window.env.translations.stringNotFound);
 }
@@ -9,7 +18,7 @@ window.env.t = function(string){
 window.habitrpg = angular.module('habitrpg',
     ['ngResource', 'ngSanitize', 'userServices', 'groupServices', 'memberServices', 'challengeServices',
      'sharedServices', 'authServices', 'notificationServices', 'guideServices',
-     'ui.bootstrap', 'ui.keypress', 'ui.router', 'chieffancypants.loadingBar', 'At'])
+     'ui.bootstrap', 'ui.keypress', 'ui.router', 'chieffancypants.loadingBar', 'At', 'pasvaz.bindonce'])
 
   // @see https://github.com/angular-ui/ui-router/issues/110 and https://github.com/HabitRPG/habitrpg/issues/1705
   // temporary hack until they have a better solution

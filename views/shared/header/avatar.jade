@@ -3,7 +3,7 @@
     Removing it will remove the user's name, but will allow more room for mounts & helms. IMO this is the lesser of two evils, revisit
 //-figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: profile.id==user.id, hasPet: profile.items.currentPet}', data-level='{{profile.stats.lvl}}', data-uid='{{profile.id}}', rel='popover', data-placement='bottom', data-trigger='hover', data-html='true', data-content="<div ng-hide='profile.id == user.id'> <div class='progress progress-danger' style='height:5px;'> <div class='bar' style='height: 5px; width: {{percent(profile.stats.hp, 50)}}%;'></div> </div> <div class='progress progress-warning' style='height:5px;'> <div class='bar' style='height: 5px; width: {{percent(profile.stats.exp, tnl(profile.stats.lvl))}}%;'></div> </div> <div>Level: {{profile.stats.lvl}}</div> <div>GP: {{profile.stats.gp | number:0}}</div> <div>{{count(profile.items.pets)}} / 90 Pets Found</div> </div>")
 
-figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: user._id==profile._id && !(user.items.currentMount && user.items.currentPet), hasPet: profile.items.currentPet && profile.items.currentMount, "cast-target": applyingAction}')
+figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: user._id==profile._id && !(user.items.currentMount && user.items.currentPet), hasPet: profile.items.currentPet && profile.items.currentMount, "cast-target": applyingAction, isLeader: party.leader==profile._id}')
   .character-sprites
     // Mount Body
     span(ng-if='profile.items.currentMount', class='Mount_Body_{{profile.items.currentMount}}')
@@ -22,10 +22,10 @@ figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(
     span(class='m_head_0')
     span(class='m_hair_base_{{profile.preferences.hair.base}}_{{profile.preferences.hair.color}}')
     span(class='m_hair_bangs_{{profile.preferences.hair.bangs}}_{{profile.preferences.hair.color}}')
-    span(class='m_{{profile.items.gear.current.armor}}')
+    span(class='m_{{profile.items.gear.current.armor}}', ng-show='profile.preferences.showArmor')
     span(class='m_{{profile.items.gear.current.head}}', ng-show='profile.preferences.showHelm')
-    span(class='m_{{profile.items.gear.current.shield}}')
-    span(class='m_{{profile.items.gear.current.weapon}}')
+    span(class='m_{{profile.items.gear.current.shield}}', ng-show='profile.preferences.showShield')
+    span(class='m_{{profile.items.gear.current.weapon}}', ng-show='profile.preferences.showWeapon')
 
     // Mount Head
     span(ng-if='profile.items.currentMount', class='Mount_Head_{{profile.items.currentMount}}')
@@ -34,4 +34,5 @@ figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(
     span(ng-class='{zzz:profile.flags.rest}')
     // FIXME handle @minimal, this might have to be a directive
     span.current-pet(class='Pet-{{profile.items.currentPet}}', ng-show='profile.items.currentPet && !minimal')
-  .avatar-level Lvl {{profile.stats.lvl}}
+  .avatar-level(ng-class='userLevelStyle(profile,"label")')
+    | Lvl {{profile.stats.lvl}}

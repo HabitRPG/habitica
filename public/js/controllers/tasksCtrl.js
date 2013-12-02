@@ -6,7 +6,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
 
     $scope.score = function(task, direction) {
       if (task.type === "reward" && User.user.stats.gp < task.value){
-        return Notification.text('Not enough GP.');
+        return Notification.text('Not enough Gold!');
       }
       Algos.score(User.user, task, direction);
       User.log({op: "score",data: task, dir: direction});
@@ -120,7 +120,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
         Notification.text("Item purchased.");
         updateStore();
       } else {
-        Notification.text("Not enough GP.");
+        Notification.text("Not enough Gold!");
       }
     };
 

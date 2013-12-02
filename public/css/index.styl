@@ -7,6 +7,7 @@
 @import "../bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css"
 @import "../bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css"
 @import "../bower_components/angular-loading-bar/build/loading-bar.css"
+@import "../bower_components/js-emoji/emoji.css"
 
 // Custom includes
 @import "./tasks.styl"
@@ -64,6 +65,11 @@ hr
 .footer-links li {
   display: inline;
   margin-right: 10px;
+}
+
+/* Bootstrap overrides */
+div.tooltip-inner {
+    max-width: 300px;
 }
 
 /* Customizations to make footer sticky */
@@ -159,7 +165,6 @@ hr
     position absolute
     bottom 0px
     right 0px
-    background-color #dfe9ea
     padding 1px 3px 1px 3px
 
 a

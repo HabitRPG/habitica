@@ -21,6 +21,8 @@ var eggPotionMapping = _.transform(items.items.eggs, function(m, egg){
   }));
 })
 
+var specialPetsMapping = items.items.specialPets; // may need to revisit if we add additional information about the special pets
+
 var UserSchema = new Schema({
   // ### UUID and API Token
   _id: {
@@ -120,8 +122,7 @@ var UserSchema = new Schema({
       }
     },
 
-    // -------------- Animals -------------------
-
+    // -------------- Animals ------------------- 
     // Complex bit here. The result looks like:
     // pets: {
     //   'Wolf-Desert': 0, // 0 means does not own
@@ -133,11 +134,7 @@ var UserSchema = new Schema({
       // First transform to a 1D eggs/potions mapping
       _.transform(eggPotionMapping, function(m,v,k){ m[k] = Number; }),
       // Then add additional pets (backer, contributor)
-      {
-        'Wolf-Veteran': Number,
-        'Wolf-Cerberus': Number,
-        'Dragon-Hydra': Number
-      }
+      _.transform(specialPetsMapping, function(m,v,k){ m[k] = Number; })
     ),
     currentPet: String, // Cactus-Desert
 
@@ -192,7 +189,8 @@ var UserSchema = new Schema({
     current: String, // party._id
     invitation: String, // party._id
     lastMessageSeen: String,
-    leader: Boolean
+    leader: Boolean,
+    order: {type:String, 'default':'level'}
   },
   preferences: {
     armorSet: String,
@@ -205,6 +203,9 @@ var UserSchema = new Schema({
     },
     hideHeader: {type:Boolean, 'default':false},
     showHelm: {type:Boolean, 'default':true},
+    showWeapon: {type:Boolean, 'default':true},
+    showShield: {type:Boolean, 'default':true},
+    showArmor: {type:Boolean, 'default':true},
     skin: {type:String, 'default':'white'},
     timezoneOffset: Number,
     language: String,
@@ -286,6 +287,9 @@ UserSchema.virtual('tasks').get(function () {
 
 UserSchema.pre('save', function(next) {
   //this.markModified('tasks');
+  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 24) {
+    this.preferences.dayStart = 0;
+  }
 
   if (!this.profile.name) {
     var fb = this.auth.facebook;
@@ -299,7 +303,11 @@ UserSchema.pre('save', function(next) {
   // Actually, can this be used as an attr default? (schema {type: ..., 'default': function(){}})
   this.stats.points = this.stats.lvl - (this.stats.def + this.stats.str + this.stats.per + this.stats.int);
 
-  var petCount = _.reduce(this.items.pets,function(m,v){return m+(v ? 1 : 0);},0);
+  var petCount = helpers.countPets(_.reduce(this.items.pets,function(m,v){
+    //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
+    if(_.isFunction(v)) return m;
+    return m+(v?1:0)},0), this.items.pets);
+
   this.achievements.beastMaster = petCount >= 90;
 
   //our own version incrementer
@@ -316,7 +324,9 @@ UserSchema.methods.syncScoreToChallenge = function(task, delta){
     var t = chal.tasks[task.id];
     if (!t) return chal.syncToUser(self); // this task was removed from the challenge, notify user
     t.value += delta;
-    t.history.push({value: t.value, date: +new Date});
+    if (t.type == 'habit' || t.type == 'daily') {
+      t.history.push({value: t.value, date: +new Date});
+    }
     chal.save();
   });
 }

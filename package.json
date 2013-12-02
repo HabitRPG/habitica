@@ -11,7 +11,7 @@
     "express": "*",
     "gzippo": "*",
     "guid": "*",
-    "moment": "*",
+    "moment": "~2.4.0",
     "stripe": "*",
     "coffee-script": "*",
     "nconf": "*",
@@ -19,7 +19,6 @@
     "superagent": "~0.12.4",
     "resolve": "~0.2.3",
     "expect.js": "~0.2.0",
-    "relative-date": "~1.1.1",
     "lodash": "~2.2.1",
     "async": "~0.2.9",
     "optimist": "~0.5.2",
@@ -43,7 +42,9 @@
     "nodemailer": "~0.5.2",
     "grunt-cli": "~0.1.9",
     "paypal-ipn": "~1.0.1",
-    "express-csv": "~0.6.0"
+    "express-csv": "~0.6.0",
+    "pretty-data": "git://github.com/vkiryukhin/pretty-data#master",
+    "js2xmlparser": "~0.1.2"
   },
   "private": true,
   "subdomain": "habitrpg",
@@ -76,6 +77,7 @@
     "karma-chai-plugins": "~0.1.0",
     "mocha": "~1.12.1",
     "karma-mocha": "~0.1.0",
-    "csv": "~0.3.6"
+    "csv": "~0.3.6",
+    "mongoskin": "~0.6.1"
   }
 }

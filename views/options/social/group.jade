@@ -8,7 +8,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
 
     // ------ Information -------
     .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
-      .modal-header
+      .modal-header(bindonce='group')
         span(ng-if='group.leader == user.id')
           button.btn.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing') Save
           button.btn.btn-default.pull-right(ng-click='group._editing = true', ng-hide='group._editing') Edit Group
@@ -20,8 +20,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
             input.option-content(type='text', ng-model='group.name', placeholder='Group Name')
           .control-group.option-large
             label.control-label Description
-            textarea.option-content(style='height:15em;', placeholder='Description', ng-model='group.description')
-            include ../../shared/formatting-help
+            textarea.option-content(style='height:15em;', placeholder='Description shown in public Guilds list (Markdown OK)', ng-model='group.description')
           .control-group.option-large
             label.control-label Logo URL
             input.option-content(type='url', placeholder='Logo URL', ng-model='group.logo')
@@ -40,7 +39,16 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
       .modal-header
         h3 Members
       .modal-body
-        table.table.table-striped
+        span
+          | Party Members list ordering
+        select#partyOrder(
+          style='width:140px',
+          ng-model='user.party.order',
+          ng-controller='ChatCtrl',
+          ng-options='k as v for (k , v) in partyOrderChoices',
+          ng-change='set("party.order", user.party.order)'
+          )
+        table.table.table-striped(bindonce='group')
           tr(ng-repeat='member in group.members')
             td
               // allow leaders to ban members
@@ -78,8 +86,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
   .span8
     div.blah-options(ng-show='group._editing')
       .option-large
-        textarea.option-content(style='height:15em;', placeholder='Message from group leader', ng-model='group.leaderMessage')
-        include ../../shared/formatting-help
+        textarea.option-content(style='height:15em;', placeholder='Message from group leader (Markdown OK)', ng-model='group.leaderMessage')
     table(ng-show='group.leaderMessage')
       tr
         td
@@ -91,6 +98,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
     div(ng-controller='ChatCtrl')
       h3 Chat
       include ./chat-box
+      include ../../shared/formatting-help
 
       ul.unstyled.tavern-chat
         include ./chat-message

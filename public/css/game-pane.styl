@@ -11,6 +11,10 @@
 .tavern-pane
     position relative
     height 250px
+    
+.chat-form
+  position: relative
+  z-index: 10
 
 .tavern-chat, .party-chat
 
@@ -19,16 +23,50 @@
     padding-bottom:15px
     border-bottom 1px solid #ddd
     word-wrap:break-word
+    position:relative
 
     &.highlight
       background #EEE
       
     label
         margin-right:5px
+    
+    .float-label
+      float:left
+      position:absolute
+      top:17px;
+    
+    .hidden-label
+      visibility:hidden
+      
+    .scrollable-message
+      max-height:80px
+      overflow-y:auto
+    
+    .expander
+      float: right
+      position: absolute
+      bottom: 18px
+      right: 20px
+      background: white
+      max-width: 20px
+      max-height: 20px
+      width: 100%
+      height: 100%
+      text-align: center
 
   .own-message
     border-left: 4px solid #333
     padding-left: 2px
+    
+  markdown
+  
+    p:first-child
+      display:inline
+      
+    img
+      max-height:50px
+      vertical-align:top
 
 // Name tags
 .label-contributor-1, .label-contributor-2

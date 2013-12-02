@@ -12,7 +12,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
 
         li.customize-menu
           menu.pets-menu(label='Eggs ({{eggCount}})')
-            p(ng-show='eggCount < 1') You don't have any eggs yet.
+            p(ng-show='eggCount < 1') You don't have any eggs.
             div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
               //TODO move positioning this styling to css
               button.customize-option(popover='{{Items.eggs[egg].notes}}', popover-title='{{Items.eggs[egg].text}} Egg', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !user.items.pets[egg+"-"+selectedPotion.name]}')
@@ -21,7 +21,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
 
         li.customize-menu
           menu.hatchingPotion-menu(label='Hatching Potions ({{potCount}})')
-            p(ng-show='potCount < 1') You don't have any hatching potions yet.
+            p(ng-show='potCount < 1') You don't have any hatching potions.
             div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
               button.customize-option(popover='{{Items.hatchingPotions[pot].notes}}', popover-title='{{Items.hatchingPotions[pot].text}} Potion', popover-trigger='mouseenter', popover-placement='right', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !user.items.pets[selectedEgg.name+"-"+pot]}')
                 .badge.badge-info.stack-count {{points}}
@@ -29,7 +29,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
 
         //-li.customize-menu
           menu.pets-menu(label='Food ({{foodCount}})')
-            p(ng-show='foodCount < 1') You don't have any food yet.
+            p(ng-show='foodCount < 1') You don't have any food.
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
               button.customize-option(popover='{{Items.food[food].notes}}', popover-title='{{Items.food[food].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
                 .badge.badge-info.stack-count {{points}}
@@ -52,11 +52,11 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
                     | Welcome to the Market. Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here! If you have unwanted drops, sell them to me.
                   p
                     button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')
-                      | Sell {{selectedEgg.name}} for {{selectedEgg.value}} GP
+                      | Sell {{selectedEgg.name}} for {{selectedEgg.value}} Gold
                     button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')
-                      | Sell {{selectedPotion.name}} for {{selectedPotion.value}} GP
+                      | Sell {{selectedPotion.name}} for {{selectedPotion.value}} Gold
                     button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')
-                      | Sell {{selectedFood.name}} for {{selectedFood.value}} GP
+                      | Sell {{selectedFood.name}} for {{selectedFood.value}} Gold
 
         menu.inventory-list(type='list')
           li.customize-menu

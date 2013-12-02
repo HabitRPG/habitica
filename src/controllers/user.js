@@ -470,11 +470,13 @@ api.deleteTag = function(req, res){
         delete task.tags[tag.id];
       })
     })
+    user.markModified('habits');
+    user.markModified('dailys');
+    user.markModified('todos');
+    user.markModified('rewards');
     user.save(function(err,saved){
       if (err) return res.json(500, {err: err});
-      // Need to use this until we found a way to update the ui for tasks when a tag is deleted
-      res.locals.wasModified = true; 
-      res.send(200);
+      res.send(204);
     });
   } else {
     res.json(400, {err:'Tag not found'});
@@ -628,10 +630,9 @@ api.batchUpdate = function(req, res, next) {
     if (err) return res.json(500, {err: err});
     var response = user.toJSON();
     response.wasModified = res.locals.wasModified;
-    if (response._tmp && response._tmp.drop) response.wasModified = true;
-
-    // Send the response to the server
-    if(response.wasModified){
+    if (response._tmp && response._tmp.drop){
+      res.json(200, {_tmp: {drop: response._tmp.drop}, _v: response._v});
+    }else if(response.wasModified){
       res.json(200, response);
     }else{
       res.json(200, {_v: response._v});
