@@ -360,6 +360,12 @@ _.each items.eggs, (egg,k) ->
     notes: "Find a hatching potion to pour on this egg, and it will hatch into a #{egg.adjective} #{egg.text}."
     mountText: egg.text
 
+items.specialPets =
+  'Wolf-Veteran':   true
+  'Wolf-Cerberus':  true
+  'Dragon-Hydra':   true
+  'Turkey-Base':    true
+
 items.hatchingPotions =
   Base:             value: 2, text: 'Base'
   White:            value: 2, text: 'White'

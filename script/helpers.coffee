@@ -8,7 +8,7 @@ items = require('./items.coffee')
   {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times
 ###
 sanitizeOptions = (o) ->
-  dayStart = if (o.dayStart and 0 <= +o.dayStart <= 24) then +o.dayStart else 0
+  dayStart = if (!_.isNaN(+o.dayStart) and 0 <= +o.dayStart <= 24) then +o.dayStart else 0
   timezoneOffset = if o.timezoneOffset then +(o.timezoneOffset) else +moment().zone()
   now = if o.now then moment(o.now).zone(timezoneOffset) else moment(+new Date).zone(timezoneOffset)
   # return a new object, we don't want to add "now" to user object
@@ -20,7 +20,7 @@ startOfWeek = (options={}) ->
 
 startOfDay = (options={}) ->
   o = sanitizeOptions(options)
-  moment(o.now).startOf('day').add('h', options.dayStart)
+  moment(o.now).startOf('day').add('h', o.dayStart)
 
 dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
 
@@ -113,7 +113,7 @@ module.exports =
         showWeapon: true
         showShield: true
       apiToken: uuid() # set in newUserObject below
-      lastCron: +new Date #this will be replaced with `+new Date` on first run
+      lastCron: +new Date
       balance: 0
       flags:
         partyEnabled: false
@@ -363,9 +363,8 @@ module.exports =
 
   countPets: (originalCount, pets) ->
     count = if originalCount? then originalCount else _.size(pets)
-    count-- if pets["Wolf-Veteran"]
-    count-- if pets["Wolf-Cerberus"]
-    count-- if pets["Dragon-Hydra"]
+    for pet of items.items.specialPets
+      count-- if pets[pet]
     count
 
   ###

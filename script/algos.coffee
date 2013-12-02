@@ -372,11 +372,14 @@ updateStats = (user, newStats, options={}) ->
 obj.cron = (user, options={}) ->
   [paths, now] = [options.paths || {}, +options.now || +new Date]
 
-  # New user (!lastCron, lastCron==new) or it got busted somehow, maybe they went to a different timezone
-  # FIXME move this to pre-save in mongoose
-  if !user.lastCron? or user.lastCron is 'new' or moment(user.lastCron).isAfter(now)
-    user.lastCron = now; paths['lastCron'] = true
-    return
+  # They went to a different timezone
+  # FIXME:
+  # (1) This exit-early code isn't taking timezone into consideration!!
+  # (2) Won't switching timezones be handled automatically client-side anyway? (aka, can we just remove this code?)
+  # (3) And if not, is this the correct way to handle switching timezones
+#  if moment(user.lastCron).isAfter(now)
+#    user.lastCron = now
+#    return
 
   daysMissed = helpers.daysSince user.lastCron, _.defaults({now}, user.preferences)
   return unless daysMissed > 0

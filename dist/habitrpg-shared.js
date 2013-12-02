@@ -9180,11 +9180,6 @@ var global=self;/**
       options = {};
     }
     _ref1 = [options.paths || {}, +options.now || +(new Date)], paths = _ref1[0], now = _ref1[1];
-    if ((user.lastCron == null) || user.lastCron === 'new' || moment(user.lastCron).isAfter(now)) {
-      user.lastCron = now;
-      paths['lastCron'] = true;
-      return;
-    }
     daysMissed = helpers.daysSince(user.lastCron, _.defaults({
       now: now
     }, user.preferences));
@@ -9357,7 +9352,7 @@ var process=require("__browserify_process");(function() {
 
   sanitizeOptions = function(o) {
     var dayStart, now, timezoneOffset, _ref;
-    dayStart = o.dayStart && (0 <= (_ref = +o.dayStart) && _ref <= 24) ? +o.dayStart : 0;
+    dayStart = !_.isNaN(+o.dayStart) && (0 <= (_ref = +o.dayStart) && _ref <= 24) ? +o.dayStart : 0;
     timezoneOffset = o.timezoneOffset ? +o.timezoneOffset : +moment().zone();
     now = o.now ? moment(o.now).zone(timezoneOffset) : moment(+(new Date)).zone(timezoneOffset);
     return {
@@ -9382,7 +9377,7 @@ var process=require("__browserify_process");(function() {
       options = {};
     }
     o = sanitizeOptions(options);
-    return moment(o.now).startOf('day').add('h', options.dayStart);
+    return moment(o.now).startOf('day').add('h', o.dayStart);
   };
 
   dayMapping = {
@@ -9956,16 +9951,12 @@ var process=require("__browserify_process");(function() {
       }
     },
     countPets: function(originalCount, pets) {
-      var count;
+      var count, pet;
       count = originalCount != null ? originalCount : _.size(pets);
-      if (pets["Wolf-Veteran"]) {
-        count--;
-      }
-      if (pets["Wolf-Cerberus"]) {
-        count--;
-      }
-      if (pets["Dragon-Hydra"]) {
-        count--;
+      for (pet in items.items.specialPets) {
+        if (pets[pet]) {
+          count--;
+        }
       }
       return count;
     },
@@ -11028,6 +11019,13 @@ try {
       mountText: egg.text
     });
   });
+
+  items.specialPets = {
+    'Wolf-Veteran': true,
+    'Wolf-Cerberus': true,
+    'Dragon-Hydra': true,
+    'Turkey-Base': true
+  };
 
   items.hatchingPotions = {
     Base: {
