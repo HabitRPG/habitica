@@ -1,35 +1,37 @@
 div(ng-controller='SettingsCtrl')
   div(modal='modals.reset')
     .modal-header
-      h3 Reset
+      h3 Reset Account
     .modal-body
       p This resets your entire account - your tasks will be deleted and your character will start over.
-      p This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.
+      p.
+        This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.
     .modal-footer
-      button.btn.btn-default.cancel(ng-click='modals.reset = false') Close
-      button.btn.btn-danger(data-dismiss='modal', ng-click='reset()') Reset
+      button.btn.btn-default.cancel(ng-click='modals.reset = false') Never mind
+      button.btn.btn-danger(data-dismiss='modal', ng-click='reset()') Do it, reset my account!
 
   div(modal='modals.restore')
     .modal-header
-      h3 Restore
+      h3 Fix Values
     .modal-body
-      p HabitRPG is quite Beta-quality at present, and many find they need to restore character attributes as a result. Enter your numbers here and it will be applied automatically to your character. This will be removed once Habit is more stable.
+      p If you've encountered a bug or made a mistake that unfairly changed your character (damage you shouldn't have taken, Gold you didn't really earn, etc.), you can manually correct your numbers here. Yes, this makes it possible to cheat: use this feature wisely, or you'll sabotage your own habit-building!
+      p Note that you cannot restore Streaks on individual tasks here. To do that, edit the Daily and go to Advanced Options, where you will find a Restore Streak field.
       div.restore-options
         form#restore-form.form-horizontal
           h3 Stats
           .option-group.option-medium
             input.option-content(type='number', step="any", data-for='stats.hp', ng-model='restoreValues.stats.hp')
-            span.input-suffix HP
+            span.input-suffix Health
           .option-group.option-medium
             input.option-content(type='number', step="any", data-for='stats.exp', ng-model='restoreValues.stats.exp')
-            span.input-suffix Exp
+            span.input-suffix Experience
           .option-group.option-medium
             input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp')
-            span.input-suffix GP
+            span.input-suffix Gold
           .option-group.option-medium
             input.option-content(type='number', data-for='stats.lvl', ng-model='restoreValues.stats.lvl')
             span.input-suffix Level
-          h3 Items
+          h3 Equipment
           .option-group.option-medium
             input.option-content(type='number', data-for='items.weapon', ng-model='restoreValues.items.weapon')
             span.input-suffix Weapon
@@ -42,14 +44,15 @@ div(ng-controller='SettingsCtrl')
           .option-group.option-medium
             input.option-content(type='number', data-for='items.shield', ng-model='restoreValues.items.shield')
             span.input-suffix Shield
-          h3 Streak Achievements
+          h3 Achievements
           .option-group.option-medium
             input.option-content(type='number', data-for='achievements.streak', ng-model='restoreValues.achievements.streak')
-            span.input-suffix 21-Day Streak
+            span.input-suffix 21-Day Streaks
         //- This is causing too many problems for users
           h3 Other
           a.btn.btn-small.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()') Trigger New Day
     .modal-footer
+      button.btn.btn-default.cancel(ng-click='modals.restore = false') Discard Changes
       button.btn.btn-primary(ng-click='restore()') Save & Close
 
   div(modal='modals.delete')
@@ -57,9 +60,9 @@ div(ng-controller='SettingsCtrl')
       h3 Delete Account
     .modal-body
       p.
-        Woa woa woa! Are you sure? This will seriously delete your account forever, and it can never be restored. If you're absolutely certain, type <strong>DELETE</strong> into the text-box below.
+        Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use HabitRPG again. Banked or spent Gems will not be refunded. If you're absolutely certain, type <strong>DELETE</strong> into the text box below.
       p
         input(type='text', ng-model='_deleteAccount')
     .modal-footer
-      button.btn.btn-default(ng-click='modals.delete = false') Cancel
-      button.btn.btn-danger.btn-small(ng-disabled='_deleteAccount != "DELETE"', ng-click='delete()') Delete Account
+      button.btn.btn-default(ng-click='modals.delete = false') Never mind
+      button.btn.btn-danger.btn-small(ng-disabled='_deleteAccount != "DELETE"', ng-click='delete()') Do it, delete my account!
