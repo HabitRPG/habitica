@@ -8751,6 +8751,25 @@ var global=self;/**
 
   obj = module.exports = {};
 
+  obj.defineComputed = function(user) {
+    if (user._statsComputed != null) {
+      return;
+    }
+    return Object.defineProperty(user, '_statsComputed', {
+      get: function() {
+        var _this = this;
+        return _.reduce(['per', 'con', 'str', 'int'], function(m, stat) {
+          m[stat] = _.reduce('stats stats.buffs items.gear.current.weapon items.gear.current.armor items.gear.current.head items.gear.current.shield'.split(' '), function(m2, path) {
+            var val, _ref1;
+            val = helpers.dotGet(path, _this);
+            return m2 + (~path.indexOf('items.gear') ? (+((_ref1 = items.items.gear.flat[val]) != null ? _ref1[stat] : void 0) || 0) * (~(val != null ? val.indexOf(_this.stats["class"]) : void 0) ? 1.2 : 1) : +val[stat] || 0);
+          }, 0);
+          return m;
+        }, {});
+      }
+    });
+  };
+
   obj.revive = function(user, options) {
     var candidate, loseThisItem, owned, paths;
     if (options == null) {
@@ -8957,14 +8976,9 @@ var global=self;/**
       options = {};
     }
     user._tmp = {};
-    user.stats._computed = _.reduce(['per', 'con', 'str', 'int'], function(m, stat) {
-      m[stat] = _.reduce('stats stats.buffs items.weapon items.armor items.head items.shield'.split(' '), function(m2, path) {
-        return m2 + (+helpers.dotGet("" + path + "." + stat, user) || 0);
-      }, 0);
-      return m;
-    }, {});
+    obj.defineComputed(user);
     console.log({
-      computed: user.stats._computed
+      computed: user._statsComputed
     });
     _ref1 = [+user.stats.gp, +user.stats.hp, +user.stats.exp, ~~user.stats.lvl], gp = _ref1[0], hp = _ref1[1], exp = _ref1[2], lvl = _ref1[3];
     _ref2 = [task.type, +task.value, ~~task.streak, task.priority || '!'], type = _ref2[0], value = _ref2[1], streak = _ref2[2], priority = _ref2[3];
@@ -9197,8 +9211,11 @@ var global=self;/**
     }
     todoTally = 0;
     user.todos.concat(user.dailys).forEach(function(task) {
-      var absVal, completed, id, repeat, scheduleMisses, type;
+      var absVal, completed, id, repeat, scheduleMisses, type, _ref2;
       if (!task) {
+        return;
+      }
+      if ((_ref2 = user.stats.buffs) != null ? _ref2.stealth-- : void 0) {
         return;
       }
       id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;

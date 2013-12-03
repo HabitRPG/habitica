@@ -8,6 +8,26 @@ XP = 15
 HP = 2
 obj = module.exports = {}
 
+obj.defineComputed = (user) ->
+  #FIXME we should put this function in a sane place instead of this check, somewhere (both on client & server) where
+  # it will only define the property once on user initialization
+  return if user._statsComputed?
+
+  # Aggregate all intrinsic stats, buffs, weapon, & armor into computed stats
+  Object.defineProperty user, '_statsComputed',
+    get: ->
+      _.reduce(['per','con','str','int'], (m,stat) =>
+        m[stat] = _.reduce('stats stats.buffs items.gear.current.weapon items.gear.current.armor items.gear.current.head items.gear.current.shield'.split(' '), (m2,path) =>
+          val = helpers.dotGet(path, @)
+          m2 +
+            if ~path.indexOf('items.gear')
+              # get the gear stat, and multiply it by 1.2 if it's class-gear
+              (+items.items.gear.flat[val]?[stat] or 0) * (if ~val?.indexOf(@stats.class) then 1.2 else 1)
+            else
+              +val[stat] or 0
+        , 0); m
+      , {})
+
 obj.revive = (user, options={})->
   paths = options.paths || {}
 
@@ -186,15 +206,8 @@ obj.score = (user, task, direction, options={}) ->
   # the API consumer, then cleared afterwards
   user._tmp = {}
 
-  # Aggregate all intrinsic stats, buffs, weapon, & armor into computed stats
-  user.stats._computed = _.reduce(['per','con','str','int'], (m,stat) ->
-    m[stat] = _.reduce('stats stats.buffs items.weapon items.armor items.head items.shield'.split(' '), (m2,path) ->
-      m2 + (+helpers.dotGet("#{path}.#{stat}", user) or 0)
-    , 0)
-    #m[stat] = user.stats[stat] + user.stats.buffs?[stat] + user.items.weapon[stat] + user.items.armor[stat] + user.items.head[stat] + user.items.shield[stat]
-    m
-  , {})
-  console.log computed: user.stats._computed
+  obj.defineComputed user # put this somewhere else?
+  console.log computed: user._statsComputed
 
   [gp, hp, exp, lvl] = [+user.stats.gp, +user.stats.hp, +user.stats.exp, ~~user.stats.lvl]
   [type, value, streak, priority] = [task.type, +task.value, ~~task.streak, task.priority or '!']
@@ -399,6 +412,9 @@ obj.cron = (user, options={}) ->
   todoTally = 0
   user.todos.concat(user.dailys).forEach (task) ->
     return unless task
+
+    return if user.stats.buffs?.stealth-- # User "evades" a certain number of tasks
+
     {id, type, completed, repeat} = task
     # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
     unless completed
