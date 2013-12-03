@@ -1,6 +1,18 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
+    sprite:{
+      all: {
+        src: 'img/sprites/images/*.png',
+        destImg: 'img/sprites/spritesmith.png',
+        destCSS: 'css/spritesmith.css',
+        cssOpts: {
+          'cssClass': function (item) {
+            return '.sprite-' + item.name;
+          }
+        }
+      }
+    },
     cssmin: {
       dist: {
         options: {
@@ -17,7 +29,8 @@ module.exports = function(grunt) {
             "css/pet_sprites.css",
             "css/achievements.css",
             "css/backer.css",
-            "css/customizer.css"
+            "css/customizer.css",
+            "css/spritesmith.css"
           ]
         }
       }
@@ -36,11 +49,11 @@ module.exports = function(grunt) {
 
   });
 
-  // Load the plugin that provides the "uglify" task.
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-spritesmith');
+  grunt.loadNpmTasks('grunt-contrib-cssmin'); // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-browserify');
 
   // Default task(s).
-  grunt.registerTask('default', ['cssmin', 'browserify']);
+  grunt.registerTask('default', ['sprite', 'cssmin', 'browserify']);
 
 };
