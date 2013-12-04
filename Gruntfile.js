@@ -3,9 +3,10 @@ module.exports = function(grunt) {
   grunt.initConfig({
     sprite:{
       all: {
-        src: 'img/sprites/images/*.png',
-        destImg: 'img/sprites/spritesmith.png',
-        destCSS: 'css/spritesmith.css',
+        src: 'img/sprites/spritesmith/**/*.png',
+        destImg: 'dist/spritesmith.png',
+        destCSS: 'dist/spritesmith.css',
+        algorithm: 'binary-tree',
         cssOpts: {
           'cssClass': function (item) {
             return '.sprite-' + item.name;
@@ -30,7 +31,7 @@ module.exports = function(grunt) {
             "css/achievements.css",
             "css/backer.css",
             "css/customizer.css",
-            "css/spritesmith.css"
+            "dist/spritesmith.css"
           ]
         }
       }
