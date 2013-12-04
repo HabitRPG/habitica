@@ -195,9 +195,9 @@ var UserSchema = new Schema({
   preferences: {
     armorSet: String,
     dayStart: {type:Number, 'default': 0},
-    gender: {type:String, 'default': 'm'},
+    size: {type:String, enum: ['broad','slim'], 'default': 'broad'},
     hair: {
-      color: {type: String, 'default': 'blonde'},
+      color: {type: String, 'default': 'blond'},
       base: {type: Number, 'default': 0},
       bangs: {type: Number, 'default': 0}
     },
