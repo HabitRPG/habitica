@@ -22,16 +22,10 @@ module.exports = function(grunt) {
         },
         files: {
           "dist/spritesheets.css": [
-            "css/Mounts.css",
-            "css/PetEggs.css",
-            "css/player_sprites.css",
-            "css/male_sprites.css",
-            "css/female_sprites.css",
-            "css/shop_sprites.css",
-            "css/pet_sprites.css",
-            "css/achievements.css",
             "css/backer.css",
-            "css/customizer.css",
+            "css/Mounts.css",
+            "css/shop_sprites.css",
+            "css/index.css",
             "dist/spritesmith.css"
           ]
         }
