@@ -24,7 +24,6 @@ module.exports = function(grunt) {
           "dist/spritesheets.css": [
             "css/backer.css",
             "css/Mounts.css",
-            "css/shop_sprites.css",
             "css/index.css",
             "dist/spritesmith.css"
           ]
