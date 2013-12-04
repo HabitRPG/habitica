@@ -9,7 +9,8 @@ module.exports = function(grunt) {
         algorithm: 'binary-tree',
         cssOpts: {
           'cssClass': function (item) {
-            return '.sprite-' + item.name;
+//            return '.sprite-' + item.name;
+            return '.' + item.name;
           }
         }
       }
