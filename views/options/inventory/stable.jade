@@ -14,15 +14,18 @@ script(type='text/ng-template', id='partials/options.inventory.stable.html')
 
 script(type='text/ng-template', id='partials/options.inventory.stable.mounts.html')
   .stable
-    .NPC-Matt
-      .popover.static-popover.fade.right.in(style='max-width: 550px; margin-left: 10px;')
-        .arrow
-        h3.popover-title
-          a(target='_blank', href='http://www.kickstarter.com/profile/mattboch') Matt Boch
-        .popover-content
-          p.
-            Shall I bring you your steed, {{user.profile.name}}? Click a mount to saddle up.
-          h4 {{mountCount}} / {{totalPets}} Mounts Tamed
+    table(style='width:100%')
+      tr
+        td.npc_matt
+        td
+        .popover.static-popover.fade.right.in(style='max-width: 550px; margin-left: 10px;')
+          .arrow
+          h3.popover-title
+            a(target='_blank', href='http://www.kickstarter.com/profile/mattboch') Matt Boch
+          .popover-content
+            p.
+              Shall I bring you your steed, {{user.profile.name}}? Click a mount to saddle up.
+            h4 {{mountCount}} / {{totalPets}} Mounts Tamed
     menu.pets(type='list')
       li.customize-menu(ng-repeat='egg in Items.eggs')
         menu
@@ -42,15 +45,18 @@ script(type='text/ng-template', id='partials/options.inventory.stable.mounts.htm
 
 script(type='text/ng-template', id='partials/options.inventory.stable.pets.html')
   .stable
-    .NPC-Matt
-      .popover.static-popover.fade.right.in(style='max-width: 550px; margin-left: 10px;')
-        .arrow
-        h3.popover-title
-          a(target='_blank', href='http://www.kickstarter.com/profile/mattboch') Matt Boch
-        .popover-content
-          p.
-            Welcome to the Stable! I'm Matt, the beast master. Choose a pet here to venture at your side. <a target='_blank' href='https://f.cloud.github.com/assets/2374703/164631/3ed5fa6c-78cd-11e2-8743-f65ac477b55e.png'>Have a look-see</a> at all the pets you can collect.
-          h4 {{petCount}} / {{totalPets}} Pets Found
+    table(style='width:100%')
+      tr
+        td.npc_matt
+        td
+          .popover.static-popover.fade.right.in(style='max-width: 550px; margin-left: 10px;')
+            .arrow
+            h3.popover-title
+              a(target='_blank', href='http://www.kickstarter.com/profile/mattboch') Matt Boch
+            .popover-content
+              p.
+                Welcome to the Stable! I'm Matt, the beast master. Choose a pet here to venture at your side. <a target='_blank' href='https://f.cloud.github.com/assets/2374703/164631/3ed5fa6c-78cd-11e2-8743-f65ac477b55e.png'>Have a look-see</a> at all the pets you can collect.
+              h4 {{petCount}} / {{totalPets}} Pets Found
 
     menu.pets(type='list')
       li.customize-menu(ng-repeat='egg in Items.eggs')
