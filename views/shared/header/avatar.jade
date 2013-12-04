@@ -8,16 +8,6 @@ figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(
     // Mount Body
     span(ng-if='profile.items.currentMount', class='Mount_Body_{{profile.items.currentMount}}')
 
-    //- Avatar
-    //-span(class='{{profile.preferences.gender}}_skin_{{profile.preferences.skin}}')
-    //-span(class='{{profile.preferences.gender}}_head_0')
-    //-span(class='{{profile.preferences.gender}}_hair_base_{{profile.preferences.hair.base}}_{{profile.preferences.hair.color}}')
-    //-span(class='{{profile.preferences.gender}}_hair_bangs_{{profile.preferences.hair.bangs}}_{{profile.preferences.hair.color}}')
-    //-span(class='{{equipped("armor", profile.items.armor, profile.preferences, profile.backer, profile.contributor)}}-{{profile.stats.class}}')
-    //-span(class='{{equipped("head", profile.items.head, profile.preferences, profile.backer, profile.contributor)}}-{{profile.stats.class}}', ng-show='profile.preferences.showHelm')
-    //-span(class='{{equipped("shield",profile.items.shield,profile.preferences, profile.backer, profile.contributor)}}-{{profile.stats.class}}')
-    //-span(class='{{equipped("weapon",profile.items.weapon,profile.preferences, profile.backer, profile.contributor)}}-{{profile.stats.class}}')
-
     span(class='skin_{{profile.preferences.skin}}')
     span(class='{{profile.preferences.size}}_{{profile.items.gear.current.armor}}', ng-show='profile.preferences.showArmor')
     span(class='head_warrior_0')
