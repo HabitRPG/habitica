@@ -9541,20 +9541,6 @@ var process=require("__browserify_process");(function() {
           party: null,
           guilds: []
         },
-        preferences: {
-          gender: 'm',
-          skin: 'white',
-          hair: {
-            color: 'blond',
-            base: 0,
-            bangs: 1
-          },
-          dayStart: 0,
-          showHelm: true,
-          showArmor: true,
-          showWeapon: true,
-          showShield: true
-        },
         apiToken: uuid(),
         lastCron: +(new Date),
         balance: 0,

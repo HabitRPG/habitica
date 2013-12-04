@@ -102,16 +102,16 @@ module.exports =
 #        hatchingPotions: {}
 #        pets: {}
 #        mounts: {}
-      preferences:
-        gender: 'm'
-        skin: 'white'
-        hair: color: 'blond', base: 0, bangs: 1
-        #armorSet: 'v1'
-        dayStart:0
-        showHelm: true
-        showArmor: true
-        showWeapon: true
-        showShield: true
+#      preferences:
+#        gender: 'm'
+#        skin: 'white'
+#        hair: color: 'blond', base: 0, bangs: 1
+#        #armorSet: 'v1'
+#        dayStart:0
+#        showHelm: true
+#        showArmor: true
+#        showWeapon: true
+#        showShield: true
       apiToken: uuid() # set in newUserObject below
       lastCron: +new Date
       balance: 0
