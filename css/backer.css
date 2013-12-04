@@ -1,16 +1,26 @@
-/* FIXME - what's going on with these negative margin requirements? */
-.weapon_7, .armor_6, .head_6, .shield_6 {
-  /*background: url("../img/sprites/backer-only/BackerOnly-SpriteSheet.png") no-repeat*/
+/* These sprites are oversized until a move to 105 avatar box happens*/
+.weapon_7, .head_6 {
   width: 105px;
   height: 105px;
   margin-left: -3px;
   margin-top: -18px;
 }
-.weapon_8, .armor_7, .head_7, .shield_7 {
+
+.armor_6, .shield_6 {
+  width: 90px;
+  height: 90px;
+}
+
+/* This is oversized until a move to 105 avatar box happens*/
+.weapon_8 {
   width: 105px;
   height: 105px;
   margin-left: -9px;
   margin-top: -15px;
+}
+.armor_7, .head_7, .shield_7 {
+  width: 90px;
+  height: 90px;
 }
 
 .head_6 {
@@ -57,8 +67,8 @@
 .shop_head_6 {background-position: -1120px 0}
 .shop_armor_6 {background-position: -1160px 0}
 
-.shop_shield_7 {background-position: -1318px 0; width: 35px;} /* something got busted here, @Shaners can you take a peak? */
-.shop_weapon_8 {background-position: -1352px 0; width: 45px;}
-.shop_head_7 {background-position: -1398px 0}
-.shop_armor_7 {background-position: -1438px 0}
+.shop_shield_7 {background-position: -1320px 0}
+.shop_weapon_8 {background-position: -1360px 0}
+.shop_head_7 {background-position: -1400px 0}
+.shop_armor_7 {background-position: -1440px 0}
 
