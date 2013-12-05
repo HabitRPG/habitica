@@ -8983,19 +8983,6 @@ var global=self;/**
     _ref1 = [+user.stats.gp, +user.stats.hp, +user.stats.exp, ~~user.stats.lvl], gp = _ref1[0], hp = _ref1[1], exp = _ref1[2], lvl = _ref1[3];
     _ref2 = [task.type, +task.value, ~~task.streak, task.priority || '!'], type = _ref2[0], value = _ref2[1], streak = _ref2[2], priority = _ref2[3];
     _ref3 = [options.paths || {}, options.times || 1, options.cron || false], paths = _ref3[0], times = _ref3[1], cron = _ref3[2];
-    if (!task.id) {
-      return 0;
-    }
-    if (!_.isNumber(value) || _.isNaN(value)) {
-      task.value = value = 0;
-      paths["tasks." + task.id + ".value"] = true;
-    }
-    _.each(user.stats, function(v, k) {
-      if (!_.isNumber(v) || _.isNaN(v)) {
-        user.stats[k] = 0;
-        return paths["stats." + k] = true;
-      }
-    });
     if (task.value > user.stats.gp && task.type === 'reward') {
       return;
     }
@@ -9169,6 +9156,9 @@ var global=self;/**
       if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
         user.flags.dropsEnabled = true;
         user.items.eggs["Wolf"] = 1;
+      }
+      if (!user.flags.classSelected && user.stats.lvl >= 5) {
+        user.flags.classSelected;
       }
     }
     if (newStats.gp != null) {
@@ -10112,7 +10102,7 @@ try {
           last: true
         }
       },
-      mage: {
+      wizard: {
         0: {
           text: "Apprentice Staff",
           notes: 'Practice staff. Confers no benefit.',
@@ -10306,7 +10296,7 @@ try {
           last: true
         }
       },
-      mage: {
+      wizard: {
         0: {
           text: "Apprentice Garb",
           notes: 'For students of magic. Confers no benefit.',
@@ -10482,7 +10472,7 @@ try {
           last: true
         }
       },
-      mage: {
+      wizard: {
         0: {
           text: "No Hat",
           notes: 'No headgear.',
@@ -10628,7 +10618,7 @@ try {
           last: true
         }
       },
-      mage: {
+      wizard: {
         0: {
           text: "No Shield",
           notes: 'No shield.',
@@ -10781,6 +10771,7 @@ try {
       fireball: {
         text: 'Burst of Flames',
         mana: 10,
+        lvl: 6,
         target: 'task',
         notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional xp.',
         cast: function(user, target) {
@@ -10790,6 +10781,7 @@ try {
       lightning: {
         text: 'Lightning Strike',
         mana: 15,
+        lvl: 7,
         target: 'task',
         notes: 'A bolt a lightning pierces through a task. There is a high chance of a critical hit.',
         cast: function(user, target) {
@@ -10799,6 +10791,7 @@ try {
       frost: {
         text: 'Chilling Frost',
         mana: 35,
+        lvl: 8,
         target: 'party',
         notes: "Ice forms of the party's tasks, slowing them down and opening them up to more attacks. Your party gains a buff to xp.",
         cast: function(user, target) {
@@ -10810,6 +10803,7 @@ try {
       darkness: {
         text: 'Shroud of Darkness',
         mana: 30,
+        lvl: 9,
         target: 'party',
         notes: "Unearthly shadows form and wisp around your party, concealing their presence. Under the shroud, your party can sneak up on tasks, dealing more critical hits.",
         cast: function(user, target) {
@@ -10823,6 +10817,7 @@ try {
       smash: {
         text: 'Brutal Smash',
         mana: 10,
+        lvl: 6,
         target: 'task',
         notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
         cast: function(user, target) {
@@ -10832,6 +10827,7 @@ try {
       defensiveStance: {
         text: 'Defensive Stance',
         mana: 25,
+        lvl: 7,
         target: 'self',
         notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduced damage from dailies at the end of the day.",
         cast: function(user, target) {
@@ -10841,6 +10837,7 @@ try {
       valorousPresence: {
         text: 'Valorous Presence',
         mana: 20,
+        lvl: 8,
         target: 'party',
         notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR.",
         cast: function(user, target) {
@@ -10852,6 +10849,7 @@ try {
       intimidate: {
         text: 'Intimidating Gaze',
         mana: 15,
+        lvl: 9,
         target: 'party',
         notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense.",
         cast: function(user, target) {
@@ -10865,6 +10863,7 @@ try {
       pickPocket: {
         text: 'Pickpocket',
         mana: 10,
+        lvl: 6,
         target: 'task',
         notes: "Your nimble fingers run through the task's pockets and 'find' some treasures for yourself. You gain an increased gold bonus on the task and a higher chance of an item drop.",
         cast: function(user, target) {
@@ -10874,6 +10873,7 @@ try {
       backStab: {
         text: 'Backstab',
         mana: 15,
+        lvl: 7,
         target: 'task',
         notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the stat, with a higher chance of a critical hit.",
         cast: function(user, target) {
@@ -10884,6 +10884,7 @@ try {
       stealth: {
         text: 'Tools of the Trade',
         mana: 20,
+        lvl: 8,
         target: 'party',
         notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day.",
         cast: function(user, target) {
@@ -10895,6 +10896,7 @@ try {
       speedburst: {
         text: 'Burst of Speed',
         mana: 25,
+        lvl: 9,
         target: 'party',
         notes: "You hurry your step and dance circles around your party's enemies. You assist your party, helping them do extra damage to a number of tasks equal to half your strength.",
         cast: function(user, target) {
@@ -10908,6 +10910,7 @@ try {
       heal: {
         text: 'Healing Light',
         mana: 15,
+        lvl: 6,
         target: 'self',
         notes: 'Light covers your body, healing your wounds. You gain a boost to your health.',
         cast: function(user, target) {
@@ -10917,6 +10920,7 @@ try {
       brightness: {
         text: 'Searing Brightness',
         mana: 15,
+        lvl: 7,
         target: 'self',
         notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced",
         cast: function(user, target) {
@@ -10926,6 +10930,7 @@ try {
       protectAura: {
         text: 'Protective Aura',
         mana: 30,
+        lvl: 8,
         target: 'party',
         notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense.",
         cast: function(user, target) {
@@ -10937,6 +10942,7 @@ try {
       heallAll: {
         text: 'Blessing',
         mana: 25,
+        lvl: 9,
         target: 'party',
         notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health.",
         cast: function(user, target) {

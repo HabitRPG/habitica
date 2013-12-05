@@ -215,13 +215,12 @@ obj.score = (user, task, direction, options={}) ->
 
   # Handle corrupt tasks
   # This type of cleanup-code shouldn't be necessary, revisit once we're off Derby
-  return 0 unless task.id
-  if !_.isNumber(value) or _.isNaN(value)
-    task.value = value = 0;
-    paths["tasks.#{task.id}.value"] = true
-  _.each user.stats, (v,k) ->
-    if !_.isNumber(v) or _.isNaN(v)
-      user.stats[k] = 0; paths["stats.#{k}"] = true
+#  return 0 unless task.id
+#  if !_.isNumber(value) or _.isNaN(value)
+#    task.value = value = 0;
+#  _.each user.stats, (v,k) ->
+#    if !_.isNumber(v) or _.isNaN(v)
+#      user.stats[k] = 0; paths["stats.#{k}"] = true
 
   # If they're trying to purhcase a too-expensive reward, don't allow them to do that.
   if task.value > user.stats.gp and task.type is 'reward'
@@ -369,6 +368,8 @@ updateStats = (user, newStats, options={}) ->
     if !user.flags.dropsEnabled and user.stats.lvl >= 4
       user.flags.dropsEnabled = true
       user.items.eggs["Wolf"] = 1
+    if !user.flags.classSelected and user.stats.lvl >= 5
+      user.flags.classSelected
 
   if newStats.gp?
     #FIXME what was I doing here? I can't remember, gp isn't defined

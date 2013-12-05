@@ -27,7 +27,7 @@ gear =
       4: text: "Icicle Bow", notes:'Fires arrows of piercing cold. Increases STR by 12.', str: 12, value:120
       5: text: "Meteor Bow", notes:'Rains flame upon your foes. Increases STR by 16.', str: 16, value:160
       6: text: "Golden Bow", notes:'As swift as sunlight and as sharp as lightning. Increases STR by 20.', str: 20, value:200, last: true
-    mage:
+    wizard:
       0: text: "Apprentice Staff", notes:'Practice staff. Confers no benefit.', value:0
       1: text: "Wooden Staff", notes:'Basic implement of carven wood. Increases INT by 3 and PER by 1.', int: 3, per: 1, value:30
       2: text: "Jeweled Staff", notes:'Focuses power through a precious stone. Increases INT by 6 and PER by 2.', int: 6, per: 2, value:50
@@ -62,7 +62,7 @@ gear =
       3: text: "Camouflage Vest", notes:'Equally discreet in dungeon or wilderness. Increases PER by 12.', per: 12, value:65
       4: text: "Penumbral Armor", notes:'Wraps the wearer in a veil of twilight. Increases PER by 15.', per: 15, value:90
       5: text: "Umbral Armor", notes:'Allows stealth in the open in broad daylight. Increases PER by 18.', per: 18, value:120, last: true
-    mage:
+    wizard:
       0: text: "Apprentice Garb", notes:'For students of magic. Confers no benefit.', value:0
       1: text: "Magician Robe", notes:'Hedge-mage\'s outfit. Increases INT by 2.', int: 2, value:30
       2: text: "Wizard Robe", notes:'Clothes for a wandering wonder-worker. Increases INT by 4.', int: 4, value:45
@@ -95,7 +95,7 @@ gear =
       3: text: "Camouflage Hood", notes:'Rugged, but doesn\'t impede hearing. Increases PER by 6.', per: 6, value:40
       4: text: "Penumbral Hood", notes:'Grants perfect vision in darkness. Increases PER by 9.', per: 9, value:60
       5: text: "Umbral Hood", notes:'Conceals even thoughts from those who would probe them. Increases PER by 12.', per: 12, value:80, last: true
-    mage:
+    wizard:
       0: text: "No Hat", notes:'No headgear.', value:0
       1: text: "Magician Hat", notes:'Simple, comfortable, and fashionable. Increases PER by 2.', per: 2, value:15
       2: text: "Cornuthaum", notes:'Traditional headgear of the itinerant wizard. Increases PER by 3.', per: 3, value:25
@@ -123,7 +123,7 @@ gear =
       5: text: "Golden Shield", notes:'Shining badge of the vanguard. Increases CON by 9.', con: 9, value:90, last: true
     rogue:
       0: text: "No Shield", notes:'No shield.', value:0, last: true
-    mage:
+    wizard:
       0: text: "No Shield", notes:'No shield.', def: 0, value:0, last: true
     healer:
       0: text: "No Shield", notes:'No shield.', def: 0, value:0
@@ -188,6 +188,7 @@ items.spells =
     fireball:
       text: 'Burst of Flames'
       mana: 10
+      lvl: 6
       target: 'task'
       notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional xp.'
       cast: (user, target) ->
@@ -195,6 +196,7 @@ items.spells =
     lightning:
       text: 'Lightning Strike'
       mana: 15
+      lvl: 7
       target: 'task'
       notes: 'A bolt a lightning pierces through a task. There is a high chance of a critical hit.'
       cast: (user, target) ->
@@ -202,6 +204,7 @@ items.spells =
     frost:
       text: 'Chilling Frost'
       mana: 35
+      lvl: 8
       target: 'party'
       notes: "Ice forms of the party's tasks, slowing them down and opening them up to more attacks. Your party gains a buff to xp.",
       cast: (user, target) ->
@@ -211,6 +214,7 @@ items.spells =
     darkness:
       text: 'Shroud of Darkness'
       mana: 30
+      lvl: 9
       target: 'party'
       notes: "Unearthly shadows form and wisp around your party, concealing their presence. Under the shroud, your party can sneak up on tasks, dealing more critical hits.",
       cast: (user, target) ->
@@ -222,6 +226,7 @@ items.spells =
     smash:
       text: 'Brutal Smash'
       mana: 10
+      lvl: 6
       target: 'task'
       notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases."
       cast: (user, target) ->
@@ -229,6 +234,7 @@ items.spells =
     defensiveStance:
       text: 'Defensive Stance'
       mana: 25
+      lvl: 7
       target: 'self'
       notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduced damage from dailies at the end of the day."
       cast: (user, target) ->
@@ -237,6 +243,7 @@ items.spells =
     valorousPresence:
       text: 'Valorous Presence'
       mana: 20
+      lvl: 8
       target: 'party'
       notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR."
       cast: (user, target) ->
@@ -246,6 +253,7 @@ items.spells =
     intimidate:
       text: 'Intimidating Gaze'
       mana: 15
+      lvl: 9
       target: 'party'
       notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense."
       cast: (user, target) ->
@@ -257,6 +265,7 @@ items.spells =
     pickPocket:
       text: 'Pickpocket'
       mana: 10
+      lvl: 6
       target: 'task'
       notes: "Your nimble fingers run through the task's pockets and 'find' some treasures for yourself. You gain an increased gold bonus on the task and a higher chance of an item drop."
       cast: (user, target) ->
@@ -264,6 +273,7 @@ items.spells =
     backStab:
       text: 'Backstab'
       mana: 15
+      lvl: 7
       target: 'task'
       notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the stat, with a higher chance of a critical hit."
       cast: (user, target) ->
@@ -272,6 +282,7 @@ items.spells =
     stealth:
       text: 'Tools of the Trade'
       mana: 20
+      lvl: 8
       target: 'party'
       notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day."
       cast: (user, target) ->
@@ -281,6 +292,7 @@ items.spells =
     speedburst:
       text: 'Burst of Speed'
       mana: 25
+      lvl: 9
       target: 'party'
       notes: "You hurry your step and dance circles around your party's enemies. You assist your party, helping them do extra damage to a number of tasks equal to half your strength."
       cast: (user, target) ->
@@ -294,6 +306,7 @@ items.spells =
     heal:
       text: 'Healing Light'
       mana: 15
+      lvl: 6
       target: 'self'
       notes: 'Light covers your body, healing your wounds. You gain a boost to your health.'
       cast: (user, target) ->
@@ -301,6 +314,7 @@ items.spells =
     brightness:
       text: 'Searing Brightness'
       mana: 15
+      lvl: 7
       target: 'self'
       notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced"
       cast: (user, target) ->
@@ -308,6 +322,7 @@ items.spells =
     protectAura:
       text: 'Protective Aura'
       mana: 30
+      lvl: 8
       target: 'party'
       notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense."
       cast: (user, target) ->
@@ -317,6 +332,7 @@ items.spells =
     heallAll:
       text: 'Blessing'
       mana: 25
+      lvl: 9
       target: 'party'
       notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health."
       cast: (user, target) ->
