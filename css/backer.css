@@ -1,54 +1,49 @@
 /* These sprites are oversized until a move to 105 avatar box happens*/
-.weapon_7, .head_6 {
+
+/* Backer */
+.weapon_special_0, .head_special_0 {
   width: 105px;
   height: 105px;
   margin-left: -3px;
   margin-top: -18px;
 }
-
-.armor_6, .shield_6 {
+.slim_armor_special_0, .broad_armor_special_0, .shield_special_0 {
   width: 90px;
   height: 90px;
 }
 
 /* This is oversized until a move to 105 avatar box happens*/
-.weapon_8 {
-  width: 105px;
+.weapon_special_1 {
   height: 105px;
-  margin-left: -9px;
-  margin-top: -15px;
+  margin-left: -11px;
+  margin-top: 6px;
 }
-.armor_7, .head_7, .shield_7 {
+.broad_armor_special_1, .slim_armor_special_1, .head_special_1 {
   width: 90px;
   height: 90px;
 }
 
-.head_6 {
+.head_special_0 {
   background: url("../img/sprites/backer-only/BackerOnly-Equip-ShadeHelmet.gif") no-repeat;
 }
-.head_7 {
+.head_special_1 {
   background: url("../img/sprites/backer-only/ContributorOnly-Equip-CrystalHelmet.gif") no-repeat;
+  margin-top: 3px;
 }
 
-.armor_6 {
+.broad_armor_special_0,.slim_armor_special_0 {
   background: url("../img/sprites/backer-only/BackerOnly-Equip-ShadeArmor.gif") no-repeat;
 }
-.armor_7 {
+.broad_armor_special_1,.slim_armor_special_1 {
   background: url("../img/sprites/backer-only/ContributorOnly-Equip-CrystalArmor.gif") no-repeat;
 }
 
-.shield_6 {
+.shield_special_0 {
   background: url("../img/sprites/backer-only/BackerOnly-Shield-TormentedSkull.gif") no-repeat;
 }
-.shield_7 {
-  background: url("../img/sprites/backer-only/ContributorOnly-Shield-Crystal.png") no-repeat;
-}
 
-.weapon_7 {
+.weapon_special_0 {
   background: url("../img/sprites/backer-only/BackerOnly-Weapon-DarkSoulsBlade.gif") no-repeat;
-}
-.weapon_8 {
-  background: url("../img/sprites/backer-only/ContributorOnly-Weapon-CrystalBlade.png") no-repeat;
 }
 
 .Pet-Wolf-Cerberus {
