@@ -46,6 +46,8 @@ gear =
     special:
       0: text: "Dark Souls Blade", notes:'Increases experience gain by 21%.', str: 21, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
       1: text: "Crystal Blade", notes:'Increases experience gain by 24%.', str: 24, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
+      2: text: "Stephen Weber's Shaft of the Dragon", notes:"Stephen Weber's Shaft of the Dragon", str: 50, per: 50, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      3: text: "Mustaine's Milestone Mashing Morning Star", notes:"Mustaine's Milestone Mashing Morning Star", str: 50, int: 50, con: 50, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
 
   armor:
     warrior:
@@ -79,6 +81,7 @@ gear =
     special:
       0: text: "Shade Armor",   notes:'Decreases Health loss by 12%.', defense: 12, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: "Crystal Armor", notes:'Decreases Health loss by 14%.', defense: 14, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
+      2: text: "Tarutaru's Noble's Tunic", notes:'Makes you extra fluffy. Adds "Refresh" effect; Cure potency +n%.', int: 50, con: 50, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
 
   head:
     warrior:
@@ -112,6 +115,7 @@ gear =
     special:
       0: text: "Shade Helm",   notes:'Decreases Health loss by 7%.', defense: 7, value:100, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: "Crystal Helm", notes:'Decreases Health loss by 8%.', defense: 8, value:120, canOwn: ((u)-> +u.contributor?.level >= 3)
+      2: text: "??? 300-tier Helm", notes:'', value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
 
   shield:
     warrior:

@@ -10216,6 +10216,29 @@ try {
             var _ref;
             return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 4;
           })
+        },
+        2: {
+          text: "Stephen Weber's Shaft of the Dragon",
+          notes: "Stephen Weber's Shaft of the Dragon",
+          str: 50,
+          per: 50,
+          value: 200,
+          canOwn: (function(u) {
+            var _ref;
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+          })
+        },
+        3: {
+          text: "Mustaine's Milestone Mashing Morning Star",
+          notes: "Mustaine's Milestone Mashing Morning Star",
+          str: 50,
+          int: 50,
+          con: 50,
+          value: 200,
+          canOwn: (function(u) {
+            var _ref;
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+          })
         }
       }
     },
@@ -10392,6 +10415,17 @@ try {
             var _ref;
             return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 2;
           })
+        },
+        2: {
+          text: "Tarutaru's Noble's Tunic",
+          notes: 'Makes you extra fluffy. Adds "Refresh" effect; Cure potency +n%.',
+          int: 50,
+          con: 50,
+          value: 200,
+          canOwn: (function(u) {
+            var _ref;
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+          })
         }
       }
     },
@@ -10567,6 +10601,15 @@ try {
           canOwn: (function(u) {
             var _ref;
             return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 3;
+          })
+        },
+        2: {
+          text: "??? 300-tier Helm",
+          notes: '',
+          value: 200,
+          canOwn: (function(u) {
+            var _ref;
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
           })
         }
       }
