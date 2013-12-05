@@ -17,7 +17,7 @@ obj.defineComputed = (user) ->
   Object.defineProperty user, '_statsComputed',
     get: ->
       _.reduce(['per','con','str','int'], (m,stat) =>
-        m[stat] = _.reduce('stats stats.buffs items.gear.current.weapon items.gear.current.armor items.gear.current.head items.gear.current.shield'.split(' '), (m2,path) =>
+        m[stat] = _.reduce('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'.split(' '), (m2,path) =>
           val = helpers.dotGet(path, @)
           m2 +
             if ~path.indexOf('items.gear')

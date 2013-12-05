@@ -8759,7 +8759,7 @@ var global=self;/**
       get: function() {
         var _this = this;
         return _.reduce(['per', 'con', 'str', 'int'], function(m, stat) {
-          m[stat] = _.reduce('stats stats.buffs items.gear.current.weapon items.gear.current.armor items.gear.current.head items.gear.current.shield'.split(' '), function(m2, path) {
+          m[stat] = _.reduce('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'.split(' '), function(m2, path) {
             var val, _ref1;
             val = helpers.dotGet(path, _this);
             return m2 + (~path.indexOf('items.gear') ? (+((_ref1 = items.items.gear.flat[val]) != null ? _ref1[stat] : void 0) || 0) * (~(val != null ? val.indexOf(_this.stats["class"]) : void 0) ? 1.2 : 1) : +val[stat] || 0);
@@ -11170,7 +11170,7 @@ try {
         user.stats.hp = 50;
       }
     } else {
-      user.items.gear.current[type] = nextItem.key;
+      user.items.gear.equipped[type] = nextItem.key;
       user.items.gear.owned[nextItem.key] = true;
       if (getItem(user, 'weapon').last && getItem(user, 'armor').last && getItem(user, 'head').last && getItem(user, 'shield').last) {
         user.achievements.ultimateGear = true;
@@ -11207,7 +11207,7 @@ try {
 
   module.exports.getItem = getItem = function(user, type) {
     var item;
-    item = items.gear.flat[user.items.gear.current[type]];
+    item = items.gear.flat[user.items.gear.equipped[type]];
     if (!item) {
       return items.gear.flat["" + type + "_" + (_class(user)) + "_0"];
     }

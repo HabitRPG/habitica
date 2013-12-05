@@ -423,7 +423,7 @@ module.exports.buyItem = (user, type) ->
     user.stats.hp += 15;
     user.stats.hp = 50 if user.stats.hp > 50
   else
-    user.items.gear.current[type] = nextItem.key
+    user.items.gear.equipped[type] = nextItem.key
     user.items.gear.owned[nextItem.key] = true;
     if getItem(user,'weapon').last && getItem(user,'armor').last && getItem(user,'head').last && getItem(user,'shield').last
       user.achievements.ultimateGear = true;
@@ -446,6 +446,6 @@ module.exports.updateStore = (user) ->
   Gets an item, and caps max to the last item in its array
 ###
 module.exports.getItem = getItem = (user, type) ->
-  item = items.gear.flat[user.items.gear.current[type]]
+  item = items.gear.flat[user.items.gear.equipped[type]]
   return items.gear.flat["#{type}_#{_class(user)}_0"] unless item
   item
