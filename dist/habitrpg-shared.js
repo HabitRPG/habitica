@@ -10826,7 +10826,7 @@ try {
         notes: "Ice forms of the party's tasks, slowing them down and opening them up to more attacks. Your party gains a buff to xp.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            return member.stats.buffs.exp = user.stats.int;
+            return member.stats.buffs.int = user.stats.int;
           });
         }
       },
@@ -10838,7 +10838,7 @@ try {
         notes: "Unearthly shadows form and wisp around your party, concealing their presence. Under the shroud, your party can sneak up on tasks, dealing more critical hits.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            return member.stats.buffs.crit = user.stats.per;
+            return member.stats.buffs.per = user.stats.per;
           });
         }
       }
@@ -10907,8 +10907,11 @@ try {
         target: 'task',
         notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the stat, with a higher chance of a critical hit.",
         cast: function(user, target) {
+          var _crit;
+          _crit = crit(user);
           target.value -= user.stats.str;
-          return crit += user.stats.per * 2;
+          user.stats.exp += _crit;
+          return user.stats.gp += _crit;
         }
       },
       stealth: {
@@ -10919,7 +10922,7 @@ try {
         notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            return member.stats.buffs.gp = user.stats.per;
+            return member.stats.buffs.per = user.stats.per / 2;
           });
         }
       },
@@ -10944,7 +10947,7 @@ try {
         target: 'self',
         notes: 'Light covers your body, healing your wounds. You gain a boost to your health.',
         cast: function(user, target) {
-          return target.stats.hp += user.stats.con;
+          return user.stats.hp += user.stats.con + user.stats.int;
         }
       },
       brightness: {
@@ -10954,7 +10957,9 @@ try {
         target: 'self',
         notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced",
         cast: function(user, target) {
-          return target.value -= user.stats.int;
+          return _.each(user.tasks, function(target) {
+            return target.value -= user.stats.int;
+          });
         }
       },
       protectAura: {

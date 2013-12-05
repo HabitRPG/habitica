@@ -216,7 +216,7 @@ items.spells =
       cast: (user, target) ->
         ## lasts for 24 hours ##
         _.each target, (member) ->
-          member.stats.buffs.exp = user.stats.int
+          member.stats.buffs.int = user.stats.int
     darkness:
       text: 'Shroud of Darkness'
       mana: 30
@@ -226,7 +226,7 @@ items.spells =
       cast: (user, target) ->
         ## lasts for 24 hours ##
         _.each target, (member) ->
-          member.stats.buffs.crit = user.stats.per
+          member.stats.buffs.per = user.stats.per
 
   warrior:
     smash:
@@ -283,8 +283,10 @@ items.spells =
       target: 'task'
       notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the stat, with a higher chance of a critical hit."
       cast: (user, target) ->
+        _crit = crit(user)
         target.value -= user.stats.str
-        crit += user.stats.per*2
+        user.stats.exp += _crit
+        user.stats.gp += _crit
     stealth:
       text: 'Tools of the Trade'
       mana: 20
@@ -294,7 +296,7 @@ items.spells =
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
-          member.stats.buffs.gp = user.stats.per
+          member.stats.buffs.per = user.stats.per/2
     speedburst:
       text: 'Burst of Speed'
       mana: 25
@@ -316,7 +318,7 @@ items.spells =
       target: 'self'
       notes: 'Light covers your body, healing your wounds. You gain a boost to your health.'
       cast: (user, target) ->
-        target.stats.hp += user.stats.con
+        user.stats.hp += user.stats.con + user.stats.int
     brightness:
       text: 'Searing Brightness'
       mana: 15
@@ -324,7 +326,8 @@ items.spells =
       target: 'self'
       notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced"
       cast: (user, target) ->
-        target.value -= user.stats.int
+        _.each user.tasks, (target) ->
+          target.value -= user.stats.int
     protectAura:
       text: 'Protective Aura'
       mana: 30

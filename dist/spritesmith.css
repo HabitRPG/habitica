@@ -868,73 +868,73 @@
   width: 90px;
   height: 90px;
 }
-.head_healer_1 {
+.head_0 {
   background-image: url(spritesmith.png);
   background-position: -720px -1050px;
   width: 90px;
   height: 90px;
 }
-.head_healer_2 {
+.head_healer_1 {
   background-image: url(spritesmith.png);
   background-position: -810px -1050px;
   width: 90px;
   height: 90px;
 }
-.head_healer_3 {
+.head_healer_2 {
   background-image: url(spritesmith.png);
   background-position: -900px -1050px;
   width: 90px;
   height: 90px;
 }
-.head_healer_4 {
+.head_healer_3 {
   background-image: url(spritesmith.png);
   background-position: -990px -1050px;
   width: 90px;
   height: 90px;
 }
-.head_healer_5 {
+.head_healer_4 {
   background-image: url(spritesmith.png);
   background-position: -1080px -1050px;
   width: 90px;
   height: 90px;
 }
-.head_rogue_1 {
+.head_healer_5 {
   background-image: url(spritesmith.png);
   background-position: -1188px 0px;
   width: 90px;
   height: 90px;
 }
-.head_rogue_2 {
+.head_rogue_1 {
   background-image: url(spritesmith.png);
   background-position: -1188px -90px;
   width: 90px;
   height: 90px;
 }
-.head_rogue_3 {
+.head_rogue_2 {
   background-image: url(spritesmith.png);
   background-position: -1188px -180px;
   width: 90px;
   height: 90px;
 }
-.head_rogue_4 {
+.head_rogue_3 {
   background-image: url(spritesmith.png);
   background-position: -1188px -270px;
   width: 90px;
   height: 90px;
 }
-.head_rogue_5 {
+.head_rogue_4 {
   background-image: url(spritesmith.png);
   background-position: -1188px -360px;
   width: 90px;
   height: 90px;
 }
-.head_special_unknown {
+.head_rogue_5 {
   background-image: url(spritesmith.png);
   background-position: -1188px -450px;
   width: 90px;
   height: 90px;
 }
-.head_warrior_0 {
+.head_special_unknown {
   background-image: url(spritesmith.png);
   background-position: -1188px -540px;
   width: 90px;
