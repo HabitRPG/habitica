@@ -9998,7 +9998,7 @@ try {
 } catch(e) {}
 },{"./algos.coffee":4,"./helpers.coffee":5,"./items.coffee":7,"lodash":2,"moment":3}],7:[function(require,module,exports){
 (function() {
-  var crit, gear, getItem, items, _, _class;
+  var crit, gear, getItem, items, _;
 
   _ = require('lodash');
 
@@ -10733,13 +10733,14 @@ try {
   };
 
   _.each(['weapon', 'armor', 'head', 'shield'], function(type) {
-    return _.each(['warrior', 'rogue', 'healer', 'wizard', 'special'], function(_class_) {
-      return _.each(gear[type][_class_], function(item, i) {
+    return _.each(['warrior', 'rogue', 'healer', 'wizard', 'special'], function(klass) {
+      return _.each(gear[type][klass], function(item, i) {
         var key;
-        key = "" + type + "_" + _class_ + "_" + i;
+        key = "" + type + "_" + klass + "_" + i;
         _.defaults(item, {
           type: type,
           key: key,
+          klass: klass,
           index: i,
           str: 0,
           int: 0,
@@ -11185,39 +11186,26 @@ try {
   */
 
 
-  _class = function(user) {
+  module.exports.buyItem = function(user, item) {
     var _ref;
-    if (((_ref = user.stats["class"]) === 'warrior' || _ref === 'healer' || _ref === 'wizard' || _ref === 'rogue')) {
-      return user.stats["class"];
-    } else {
-      return 'warrior';
-    }
-  };
-
-  /*
-    FIXME
-  */
-
-
-  module.exports.buyItem = function(user, type) {
-    var i, nextItem;
-    nextItem = type === 'potion' ? items.potion : (i = module.exports.getItem(user, type).index, items.gear.flat["" + type + "_" + (_class(user)) + "_" + (+i + 1)]);
-    if (+user.stats.gp < +nextItem.value) {
+    if (+user.stats.gp < +item.value) {
       return false;
     }
-    if (nextItem.type === 'potion') {
+    if (item.key === 'potion') {
       user.stats.hp += 15;
       if (user.stats.hp > 50) {
         user.stats.hp = 50;
       }
     } else {
-      user.items.gear.equipped[type] = nextItem.key;
-      user.items.gear.owned[nextItem.key] = true;
-      if (getItem(user, 'weapon').last && getItem(user, 'armor').last && getItem(user, 'head').last && getItem(user, 'shield').last) {
-        user.achievements.ultimateGear = true;
+      user.items.gear.equipped[item.type] = item.key;
+      user.items.gear.owned[item.key] = true;
+      if ((_ref = item.klass) === 'warrior' || _ref === 'wizard' || _ref === 'healer' || _ref === 'rogue') {
+        if (getItem(user, 'weapon').last && getItem(user, 'armor').last && getItem(user, 'head').last && getItem(user, 'shield').last) {
+          user.achievements.ultimateGear = true;
+        }
       }
     }
-    user.stats.gp -= nextItem.value;
+    user.stats.gp -= item.value;
     return true;
   };
 
@@ -11232,10 +11220,18 @@ try {
     _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
       var i;
       i = module.exports.getItem(user, type).index;
-      return changes[type] = items.gear.flat["" + type + "_" + (_class(user)) + "_" + (+i + 1)] || {
+      return changes[type] = items.gear.flat["" + type + "_" + user.stats["class"] + "_" + (+i + 1)] || {
         hide: true
       };
     });
+    _.defaults(changes, _.reduce(_.where(items.gear.flat, {
+      klass: 'special'
+    }), function(m, v) {
+      if ((typeof v.canOwn === "function" ? v.canOwn(user) : void 0) && !user.items.gear.owned[v.key]) {
+        m[v.key] = v;
+      }
+      return m;
+    }, {}));
     changes.potion = items.potion;
     changes.reroll = items.reroll;
     return changes;
@@ -11250,7 +11246,7 @@ try {
     var item;
     item = items.gear.flat[user.items.gear.equipped[type]];
     if (!item) {
-      return items.gear.flat["" + type + "_" + (_class(user)) + "_0"];
+      return items.gear.flat["" + type + "_" + user.stats["class"] + "_0"];
     }
     return item;
   };

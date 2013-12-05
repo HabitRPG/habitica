@@ -151,11 +151,11 @@ items.gear =
   flat: {}
 
 _.each ['weapon', 'armor', 'head', 'shield'], (type) ->
-  _.each ['warrior', 'rogue', 'healer', 'wizard', 'special'], (_class_) ->
+  _.each ['warrior', 'rogue', 'healer', 'wizard', 'special'], (klass) ->
     # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
-    _.each gear[type][_class_], (item, i) ->
-      key = "#{type}_#{_class_}_#{i}"
-      _.defaults item, {type, key, index: i, str:0, int:0, per:0, con:0}
+    _.each gear[type][klass], (item, i) ->
+      key = "#{type}_#{klass}_#{i}"
+      _.defaults item, {type, key, klass, index: i, str:0, int:0, per:0, con:0}
       items.gear.flat[key] = item
 
 ###
@@ -430,29 +430,18 @@ _.each items.food, (food,k) ->
   ---------------------------------------------------------------
 ###
 
-# TODO remove once we have proper migrations and validation in place
-_class = (user) -> if (user.stats.class in ['warrior','healer','wizard','rogue']) then user.stats.class else 'warrior'
-
-###
-  FIXME
-###
-module.exports.buyItem = (user, type) ->
-  nextItem =
-    if type is 'potion' then items.potion
-    else
-      i = module.exports.getItem(user, type).index
-      items.gear.flat["#{type}_#{_class(user)}_#{+i + 1}"]
-
-  return false if +user.stats.gp < +nextItem.value
-  if nextItem.type is 'potion'
-    user.stats.hp += 15;
+module.exports.buyItem = (user, item) ->
+  return false if +user.stats.gp < +item.value
+  if item.key is 'potion'
+    user.stats.hp += 15
     user.stats.hp = 50 if user.stats.hp > 50
   else
-    user.items.gear.equipped[type] = nextItem.key
-    user.items.gear.owned[nextItem.key] = true;
-    if getItem(user,'weapon').last && getItem(user,'armor').last && getItem(user,'head').last && getItem(user,'shield').last
-      user.achievements.ultimateGear = true;
-  user.stats.gp -= nextItem.value
+    user.items.gear.equipped[item.type] = item.key
+    user.items.gear.owned[item.key] = true;
+    if item.klass in ['warrior','wizard','healer','rogue']
+      if getItem(user,'weapon').last && getItem(user,'armor').last && getItem(user,'head').last && getItem(user,'shield').last
+        user.achievements.ultimateGear = true
+  user.stats.gp -= item.value
   true
 
 ###
@@ -462,7 +451,14 @@ module.exports.updateStore = (user) ->
   changes = {}
   _.each ['weapon', 'armor', 'shield', 'head'], (type) ->
     i = module.exports.getItem(user, type).index
-    changes[type] = items.gear.flat["#{type}_#{_class(user)}_#{+i + 1}"] or {hide:true}
+    changes[type] = items.gear.flat["#{type}_#{user.stats.class}_#{+i + 1}"] or {hide:true}
+
+  # Add special items (contrib gear, backer gear, etc)
+  _.defaults changes, _.reduce(_.where(items.gear.flat, {klass:'special'}), (m,v) ->
+    m[v.key] = v if v.canOwn?(user) && !user.items.gear.owned[v.key]
+    m
+  , {})
+
   changes.potion = items.potion
   changes.reroll =  items.reroll
   changes
@@ -472,5 +468,5 @@ module.exports.updateStore = (user) ->
 ###
 module.exports.getItem = getItem = (user, type) ->
   item = items.gear.flat[user.items.gear.equipped[type]]
-  return items.gear.flat["#{type}_#{_class(user)}_0"] unless item
+  return items.gear.flat["#{type}_#{user.stats.class}_0"] unless item
   item
