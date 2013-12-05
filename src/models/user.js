@@ -223,11 +223,11 @@ var UserSchema = new Schema({
     name: String,
   },
   stats: {
-    hp: Number,
-    mp: Number,
-    exp: Number,
-    gp: Number,
-    lvl: Number,
+    hp: {type: Number, 'default': 50},
+    mp: {type: Number, 'default': 10},
+    exp: {type: Number, 'default': 0},
+    gp: {type: Number, 'default': 0},
+    lvl: {type: Number, 'default': 1},
 
     // Class System
     'class': {type: String, enum: ['warrior','rogue','wizard','rogue'], 'default': 'warrior'},

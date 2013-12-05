@@ -3,8 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification',
-  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups',
+  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups) {
     $rootScope.modals = {};
     $rootScope.modals.achievements = {};
     $rootScope.User = User;
@@ -150,12 +150,13 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $rootScope.applyingAction = true;
       $scope.spell = spell;
       if (spell.target == 'self') {
-        debugger
         var tasks = User.user.habits.concat(User.user.dailys).concat(User.user.todos);
         User.user.tasks = _.object(_.pluck(tasks,'id'), tasks);
         $scope.castEnd(null, 'self');
       } else if (spell.target == 'party') {
-        //TODO $scope.castEnd()
+        var party = Groups.party();
+        party = (_.isArray(party) ? party : []).concat(User.user);
+        $scope.castEnd(party, 'party');
       }
     }
 

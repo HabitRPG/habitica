@@ -517,12 +517,15 @@ api.cast = function(req, res) {
           Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members').exec(cb);
         },
         function(group, cb) {
+          if (!group) group = {members:[user]};
           spell.cast(user, group.members);
-          var series = _.reduce(group.members, function(m,v){
-            m.push(function(cb2){v.save(cb2);})
-            return m;
-          }, []);
+          var series = _.transform(group.members, function(m,v,k){
+            m[k] = function(cb2){v.save(cb2);}
+          });
           async.series(series, cb);
+        },
+        function(whatever, cb){
+          user.save(cb);
         }
       ], done);
       break;
