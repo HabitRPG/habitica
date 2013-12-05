@@ -162,5 +162,10 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
       User.set('items.currentMount', (user.items.currentMount == mount) ? '' : mount);
     }
 
+    $scope.equip = function(user, item, costume) {
+      var equipTo = costume ? 'costume' : 'equipped';
+      User.set('items.gear.' +  equipTo + '.' + item.type, item.key);
+    }
+
   }
 ]);

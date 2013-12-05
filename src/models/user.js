@@ -114,12 +114,18 @@ var UserSchema = new Schema({
           m[v.key]['default'] = true;
       }),
 
-      current: {
+      equipped: {
         weapon: {type: String, 'default': 'weapon_warrior_0'},
         armor: {type: String, 'default': 'armor_warrior_0'},
         head: {type: String, 'default': 'head_warrior_0'},
         shield: {type: String, 'default': 'shield_warrior_0'}
-      }
+      },
+      costume: {
+        weapon: {type: String, 'default': 'weapon_warrior_0'},
+        armor: {type: String, 'default': 'armor_warrior_0'},
+        head: {type: String, 'default': 'head_warrior_0'},
+        shield: {type: String, 'default': 'shield_warrior_0'}
+      },
     },
 
     // -------------- Animals ------------------- 
@@ -209,7 +215,8 @@ var UserSchema = new Schema({
     skin: {type:String, 'default':'white'},
     timezoneOffset: Number,
     language: String,
-    automaticAllocation: Boolean
+    automaticAllocation: Boolean,
+    useCostume: Boolean
   },
   profile: {
     blurb: String,
