@@ -10612,9 +10612,39 @@ try {
       },
       rogue: {
         0: {
-          text: "No Shield",
-          notes: 'No shield.',
-          value: 0,
+          text: "Knife 1",
+          notes: 'Knife 1',
+          value: 0
+        },
+        1: {
+          text: "Knife 2",
+          notes: 'Knife 2',
+          value: 1
+        },
+        2: {
+          text: "Knife 3",
+          notes: 'Knife 3',
+          value: 1
+        },
+        3: {
+          text: "Knife 4",
+          notes: 'Knife 4',
+          value: 1
+        },
+        4: {
+          text: "Knife 5",
+          notes: 'Knife 5',
+          value: 1
+        },
+        5: {
+          text: "Knife 6",
+          notes: 'Knife 6',
+          value: 1
+        },
+        6: {
+          text: "Knife 7",
+          notes: 'Knife 7',
+          value: 1,
           last: true
         }
       },
