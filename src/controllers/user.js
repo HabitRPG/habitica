@@ -204,11 +204,11 @@ api.clearCompleted = function(req, res, next) {
 */
 api.buy = function(req, res, next) {
   var user = res.locals.user;
-  var type = req.params.type;
-  if (!type.match(/potion|weapon|armor|head|shield/)) { // if (item !== 'potion' && !items.items.gear.flat[item])
+  var key = req.params.key;
+  if (key !== 'potion' && !items.items.gear.flat[key]) {
     return res.json(400, {err: ":item must be a supported key, see https://github.com/HabitRPG/habitrpg-shared/blob/master/script/items.coffee"});
   }
-  var hasEnough = items.buyItem(user, type);
+  var hasEnough = items.buyItem(user, items.items.gear.flat[key]);
   if (hasEnough) {
     return user.save(function(err, saved) {
       if (err) return res.json(500, {err: err});
@@ -565,6 +565,7 @@ api.batchUpdate = function(req, res, next) {
     req.params.id = action.data && action.data.id;
     req.params.direction = action.dir;
     req.params.type = action.type;
+    req.params.key = action.key;
     req.body = action.data;
     res.send = res.json = function(code, data) {
       if (_.isNumber(code) && code >= 400) {

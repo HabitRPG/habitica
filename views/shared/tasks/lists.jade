@@ -55,7 +55,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
             .task-controls
               a.task-action-btn.btn-reroll(bo-if='item.type=="reroll"', ng-click='modals.reroll = true')
                 i.icon-repeat
-              a.money.btn-buy.item-btn(bo-if='item.type!="reroll"', ng-click='buy(item.type)')
+              a.money.btn-buy.item-btn(bo-if='item.type!="reroll"', ng-click='buy(item)')
                 span.reward-cost {{item.value}}
                 span.shop_gold
             // main content
