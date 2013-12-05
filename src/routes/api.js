@@ -48,7 +48,7 @@ if (nconf.get('NODE_ENV') == 'development') {
 }
 
 /* Items*/
-router.post('/user/buy/:item', auth.auth, cron, user.buy);
+router.post('/user/buy/:type', auth.auth, cron, user.buy);
 
 /* User*/
 router.get('/user', auth.auth, cron, user.getUser);

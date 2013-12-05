@@ -116,7 +116,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
     $scope.buy = function(type) {
       var hasEnough = window.habitrpgShared.items.buyItem(User.user, type);
       if (hasEnough) {
-        User.log({op: "buy",type: type});
+        User.log({op: "buy", type: type});
         Notification.text("Item purchased.");
         updateStore();
       } else {
