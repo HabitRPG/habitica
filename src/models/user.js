@@ -94,7 +94,8 @@ var UserSchema = new Schema({
     rewrite: {type: Boolean, 'default': true},
     partyEnabled: Boolean, // FIXME do we need this?
     rest: {type: Boolean, 'default': false}, // fixme - change to preferences.resting once we're off derby
-    contributor: Boolean
+    contributor: Boolean,
+    classSelected: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
@@ -205,13 +206,11 @@ var UserSchema = new Schema({
     hair: {
       color: {type: String, 'default': 'blond'},
       base: {type: Number, 'default': 0},
-      bangs: {type: Number, 'default': 0}
+      bangs: {type: Number, 'default': 0},
+      beard: {type: Number, 'default': 0},
+      mustach: {type: Number, 'default': 0},
     },
     hideHeader: {type:Boolean, 'default':false},
-    showHelm: {type:Boolean, 'default':true},
-    showWeapon: {type:Boolean, 'default':true},
-    showShield: {type:Boolean, 'default':true},
-    showArmor: {type:Boolean, 'default':true},
     skin: {type:String, 'default':'white'},
     timezoneOffset: Number,
     language: String,
@@ -231,8 +230,7 @@ var UserSchema = new Schema({
     lvl: Number,
 
     // Class System
-//    'class': {type: String, enum: ['warrior','rogue','wizard','rogue'], 'default': 'warrior'},
-    'class': {type: String, 'default': 'warrior'},
+    'class': {type: String, enum: ['warrior','rogue','wizard','rogue'], 'default': 'warrior'},
     points: {type: Number, 'default': 0},
     str: {type: Number, 'default': 0},
     def: {type: Number, 'default': 0},

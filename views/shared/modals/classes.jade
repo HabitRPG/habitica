@@ -1,4 +1,4 @@
-.modal(ng-if='user.stats.lvl >= 10 && !user.stats.class', data-backdrop=true)
+.modal(ng-if='!user.flags.classSelected && user.stats.lvl >= 5', data-backdrop=true)
   .modal-header
     h3 Class System Unlocked!
   .modal-body
@@ -58,4 +58,4 @@
             span(class='weapon_healer_6')
 
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='set("stats.class", selectedClass)') Select
+    button.btn.btn-default.cancel(ng-click='User.setMultiple({"stats.class":selectedClass,"flags.classSelected":true});') Select

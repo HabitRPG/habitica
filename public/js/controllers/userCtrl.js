@@ -22,14 +22,13 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       if (!confirm("Are you sure you want to re-roll? This will reset your character's class and allocated points (you'll get them all back to re-allocate)"))
         return;
       User.setMultiple({
-        'stats.class': '',
+        'flags.classSelected': false,
         //'stats.points': this is handled on the server
         'stats.str': 0,
         'stats.def': 0,
         'stats.per': 0,
         'stats.int': 0
       })
-
     }
 
     $scope.save = function(){
