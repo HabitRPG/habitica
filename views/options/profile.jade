@@ -29,6 +29,21 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
               button(class='hair_bangs_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.bangs",2)')
               button(class='hair_bangs_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.bangs",3)')
 
+          // Beard
+          li.customize-menu
+            menu(label='Beard')
+              button(class='head_warrior_0 customize-option', type='button', ng-click='set("preferences.hair.beard",0)')
+              button(class='hair_beard_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.beard",1)')
+              button(class='hair_beard_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.beard",2)')
+              button(class='hair_beard_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.beard",3)')
+
+          // Mustache
+          li.customize-menu
+            menu(label='Mustache')
+              button(class='head_warrior_0 customize-option', type='button', ng-click='set("preferences.hair.mustache",0)')
+              button(class='hair_mustache_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.mustache",1)')
+              button(class='hair_mustache_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.mustache",2)')
+
           // Base
          li.customize-menu
            menu(label='Base')

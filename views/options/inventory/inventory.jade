@@ -11,7 +11,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
               button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='equip(user,item)', class='shop_{{item.key}}')
         label.checkbox.inline
           input(type="checkbox", ng-model="user.preferences.costume")
-          | Use Custume&nbsp;
+          | Use Costume&nbsp;
           i.icon-question-sign(popover="Show something different on your avatar than the gear you have equipped for battle", popover-trigger='mouseenter', popover-placement='right')
         li.customize-menu(ng-if='user.preferences.costume')
           menu.pets-menu(label='Gear')
