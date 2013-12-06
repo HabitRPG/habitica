@@ -7,6 +7,7 @@ var admin = require('../controllers/admin');
 var challenges = require('../controllers/challenges');
 var dataexport = require('../controllers/dataexport');
 var nconf = require('nconf');
+var middleware = require('../middleware');
 
 /*
  ---------- /api/v1 API ------------
@@ -54,7 +55,7 @@ router.post('/user/buy/:type', auth.auth, cron, user.buy);
 router.get('/user', auth.auth, cron, user.getUser);
 router.put('/user', auth.auth, cron, user.updateUser);
 router.post('/user/revive', auth.auth, cron, user.revive);
-router.post('/user/batch-update', auth.auth, cron, user.batchUpdate);
+router.post('/user/batch-update', middleware.forceRefresh, auth.auth, cron, user.batchUpdate);
 router.post('/user/reroll', auth.auth, cron, user.reroll);
 router.post('/user/buy-gems', auth.auth, user.buyGems);
 router.post('/user/buy-gems/paypal-ipn', user.buyGemsPaypalIPN);

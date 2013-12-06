@@ -23,6 +23,16 @@ module.exports.cors = function(req, res, next) {
   return next();
 };
 
+var siteVersion = 0;
+
+module.exports.forceRefresh = function(req, res, next){
+  if(req.query.siteVersion && req.query.siteVersion !== siteVersion){
+    return res.json(400, {needRefresh: true});
+  }
+
+  return next();
+};
+
 var buildFiles = [];
 
 var walk = function(folder){
@@ -172,7 +182,8 @@ module.exports.locals = function(req, res, next) {
       translations: translations[language.code],
       t: function(string){
         return (translations[language.code][string] || translations[language.code].stringNotFound);
-      }
+      },
+      siteVersion: siteVersion
     }
 
     next(); 
