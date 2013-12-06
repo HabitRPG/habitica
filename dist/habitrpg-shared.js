@@ -10104,11 +10104,13 @@ try {
       },
       wizard: {
         0: {
+          twoHanded: true,
           text: "Apprentice Staff",
           notes: 'Practice staff. Confers no benefit.',
           value: 0
         },
         1: {
+          twoHanded: true,
           text: "Wooden Staff",
           notes: 'Basic implement of carven wood. Increases INT by 3 and PER by 1.',
           int: 3,
@@ -10116,6 +10118,7 @@ try {
           value: 30
         },
         2: {
+          twoHanded: true,
           text: "Jeweled Staff",
           notes: 'Focuses power through a precious stone. Increases INT by 6 and PER by 2.',
           int: 6,
@@ -10123,6 +10126,7 @@ try {
           value: 50
         },
         3: {
+          twoHanded: true,
           text: "Iron Staff",
           notes: 'Plated in metal to channel heat, cold, and lightning. Increases INT by 9 and PER by 3.',
           int: 9,
@@ -10130,6 +10134,7 @@ try {
           value: 80
         },
         4: {
+          twoHanded: true,
           text: "Brass Staff",
           notes: 'As powerful as it is heavy. Increases INT by 12 and PER by 5.',
           int: 12,
@@ -10137,6 +10142,7 @@ try {
           value: 120
         },
         5: {
+          twoHanded: true,
           text: "Archmage Staff",
           notes: 'Assists in weaving the most complex of spells. Increases INT by 15 and PER by 7.',
           int: 15,
@@ -10144,6 +10150,7 @@ try {
           value: 160
         },
         6: {
+          twoHanded: true,
           text: "Golden Staff",
           notes: 'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 9.',
           int: 18,
@@ -11231,7 +11238,7 @@ try {
 
   module.exports.buyItem = function(user, item) {
     var _ref;
-    if (+user.stats.gp < +item.value) {
+    if (!item || +user.stats.gp < +item.value) {
       return false;
     }
     if (item.key === 'potion') {

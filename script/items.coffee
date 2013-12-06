@@ -28,13 +28,13 @@ gear =
       5: text: "Meteor Bow", notes:'Rains flame upon your foes. Increases STR by 16.', str: 16, value:160
       6: text: "Golden Bow", notes:'As swift as sunlight and as sharp as lightning. Increases STR by 20.', str: 20, value:200, last: true
     wizard:
-      0: text: "Apprentice Staff", notes:'Practice staff. Confers no benefit.', value:0
-      1: text: "Wooden Staff", notes:'Basic implement of carven wood. Increases INT by 3 and PER by 1.', int: 3, per: 1, value:30
-      2: text: "Jeweled Staff", notes:'Focuses power through a precious stone. Increases INT by 6 and PER by 2.', int: 6, per: 2, value:50
-      3: text: "Iron Staff", notes:'Plated in metal to channel heat, cold, and lightning. Increases INT by 9 and PER by 3.', int: 9, per: 3, value:80
-      4: text: "Brass Staff", notes:'As powerful as it is heavy. Increases INT by 12 and PER by 5.', int:12, per: 5, value:120
-      5: text: "Archmage Staff", notes:'Assists in weaving the most complex of spells. Increases INT by 15 and PER by 7.', int: 15, per: 7, value:160
-      6: text: "Golden Staff", notes:'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 9.', int: 18, per: 9, value:200, last: true
+      0: twoHanded: true, text: "Apprentice Staff", notes:'Practice staff. Confers no benefit.', value:0
+      1: twoHanded: true, text: "Wooden Staff", notes:'Basic implement of carven wood. Increases INT by 3 and PER by 1.', int: 3, per: 1, value:30
+      2: twoHanded: true, text: "Jeweled Staff", notes:'Focuses power through a precious stone. Increases INT by 6 and PER by 2.', int: 6, per: 2, value:50
+      3: twoHanded: true, text: "Iron Staff", notes:'Plated in metal to channel heat, cold, and lightning. Increases INT by 9 and PER by 3.', int: 9, per: 3, value:80
+      4: twoHanded: true, text: "Brass Staff", notes:'As powerful as it is heavy. Increases INT by 12 and PER by 5.', int:12, per: 5, value:120
+      5: twoHanded: true, text: "Archmage Staff", notes:'Assists in weaving the most complex of spells. Increases INT by 15 and PER by 7.', int: 15, per: 7, value:160
+      6: twoHanded: true, text: "Golden Staff", notes:'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 9.', int: 18, per: 9, value:200, last: true
     healer:
       0: text: "Novice Rod", notes:'For healers in training. Confers no benefit.', value:0
       1: text: "Acolyte Rod", notes:'Crafted during a healer\'s initiation. Increases INT by 2.', int: 2, value:20
@@ -435,7 +435,7 @@ _.each items.food, (food,k) ->
 ###
 
 module.exports.buyItem = (user, item) ->
-  return false if +user.stats.gp < +item.value
+  return false if !item or +user.stats.gp < +item.value
   if item.key is 'potion'
     user.stats.hp += 15
     user.stats.hp = 50 if user.stats.hp > 50
