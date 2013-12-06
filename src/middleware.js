@@ -26,7 +26,7 @@ module.exports.cors = function(req, res, next) {
 var siteVersion = 0;
 
 module.exports.forceRefresh = function(req, res, next){
-  if(req.query.siteVersion && req.query.siteVersion !== siteVersion){
+  if(req.query.siteVersion && req.query.siteVersion != siteVersion){
     return res.json(400, {needRefresh: true});
   }
 
