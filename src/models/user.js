@@ -117,15 +117,15 @@ var UserSchema = new Schema({
 
       equipped: {
         weapon: {type: String, 'default': 'weapon_warrior_0'},
-        armor: {type: String, 'default': 'armor_warrior_0'},
-        head: {type: String, 'default': 'head_warrior_0'},
-        shield: {type: String, 'default': 'shield_warrior_0'}
+        armor: {type: String, 'default': 'armor_base_0'},
+        head: {type: String, 'default': 'head_base_0'},
+        shield: {type: String, 'default': 'shield_base_0'}
       },
       costume: {
-        weapon: {type: String, 'default': 'weapon_warrior_0'},
-        armor: {type: String, 'default': 'armor_warrior_0'},
-        head: {type: String, 'default': 'head_warrior_0'},
-        shield: {type: String, 'default': 'shield_warrior_0'}
+        weapon: {type: String, 'default': 'weapon_base_0'},
+        armor: {type: String, 'default': 'armor_base_0'},
+        head: {type: String, 'default': 'head_base_0'},
+        shield: {type: String, 'default': 'shield_base_0'}
       },
     },
 

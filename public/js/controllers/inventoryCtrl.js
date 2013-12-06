@@ -20,16 +20,10 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
     $scope.$watch('user.items.gear', function(gear){
       $scope.gear = {
-        base: [
-          Items.items.gear.flat['head_warrior_0'],
-          Items.items.gear.flat['armor_warrior_0'],
-          //Items.items.gear.flat['weapon_warrior_0'],
-          Items.items.gear.flat['shield_warrior_0']
-        ]
+        base: _.where(Items.items.gear.flat, {klass: 'base'})
       };
       _.each(gear.owned, function(bool,key){
         var item = Items.items.gear.flat[key];
-        debugger;
         if (!$scope.gear[item.klass]) $scope.gear[item.klass] = [];
         $scope.gear[item.klass].push(item);
       })
