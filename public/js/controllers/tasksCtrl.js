@@ -104,34 +104,14 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
      ------------------------
      */
 
-    var updateStore = function(){
-      var updated = window.habitrpgShared.items.updateStore(User.user);
-      // Do we wanna put this in habitrpg-shared?
-      var sorted = _.chain(updated)
-        .toArray()
-        .sortBy(function(item){
-          switch (item.type) {
-            case 'weapon': return 1;
-            case 'armor': return 2;
-            case 'head': return 3;
-            case 'shield': return 4;
-            case 'potion': return 5;
-            case 'reroll': return 6;
-            default: return 7;
-          }
-        })
-        .value();
-      $scope.itemStore = sorted;
-    }
-
-    updateStore();
+    $scope.itemStore = window.habitrpgShared.items.updateStore(User.user);
 
     $scope.buy = function(item) {
       var hasEnough = window.habitrpgShared.items.buyItem(User.user, item);
       if (hasEnough) {
         User.log({op: "buy", key: item.key});
         Notification.text("Item purchased.");
-        updateStore();
+        $scope.itemStore = window.habitrpgShared.items.updateStore(User.user);
       } else {
         Notification.text("Not enough Gold!");
       }

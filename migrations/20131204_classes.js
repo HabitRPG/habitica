@@ -9,7 +9,7 @@ db.users.find().forEach(function(user){
 
   user.stats.class = 'warrior';
 
-  // grant backer/contrib gear, rather than using js logic
+  // grant backer/contrib gear, 300, rather than using js logic
 
   // migrate current owned items
 
