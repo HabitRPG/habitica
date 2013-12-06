@@ -11259,25 +11259,41 @@ try {
 
   module.exports.updateStore = function(user) {
     var changes;
-    changes = {};
+    changes = [];
     _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
       var i;
       i = module.exports.getItem(user, type).index;
-      return changes[type] = items.gear.flat["" + type + "_" + user.stats["class"] + "_" + (+i + 1)] || {
+      return changes.push(items.gear.flat["" + type + "_" + user.stats["class"] + "_" + (+i + 1)] || {
         hide: true
-      };
+      });
     });
-    _.defaults(changes, _.reduce(_.where(items.gear.flat, {
+    _.defaults(changes, _.transform(_.where(items.gear.flat, {
       klass: 'special'
     }), function(m, v) {
       if ((typeof v.canOwn === "function" ? v.canOwn(user) : void 0) && !user.items.gear.owned[v.key]) {
-        m[v.key] = v;
+        return m.push(v);
       }
-      return m;
-    }, {}));
-    changes.potion = items.potion;
-    changes.reroll = items.reroll;
-    return changes;
+    }));
+    changes.push(items.potion);
+    changes.push(items.reroll);
+    return _.sortBy(changes, function(item) {
+      switch (item.type) {
+        case 'weapon':
+          return 1;
+        case 'armor':
+          return 2;
+        case 'head':
+          return 3;
+        case 'shield':
+          return 4;
+        case 'potion':
+          return 5;
+        case 'reroll':
+          return 6;
+        default:
+          return 7;
+      }
+    });
   };
 
   /*

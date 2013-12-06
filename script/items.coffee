@@ -452,20 +452,28 @@ module.exports.buyItem = (user, item) ->
   update store
 ###
 module.exports.updateStore = (user) ->
-  changes = {}
+  changes = []
   _.each ['weapon', 'armor', 'shield', 'head'], (type) ->
     i = module.exports.getItem(user, type).index
-    changes[type] = items.gear.flat["#{type}_#{user.stats.class}_#{+i + 1}"] or {hide:true}
+    changes.push items.gear.flat["#{type}_#{user.stats.class}_#{+i + 1}"] or {hide:true}
 
   # Add special items (contrib gear, backer gear, etc)
-  _.defaults changes, _.reduce(_.where(items.gear.flat, {klass:'special'}), (m,v) ->
-    m[v.key] = v if v.canOwn?(user) && !user.items.gear.owned[v.key]
-    m
-  , {})
+  _.defaults changes, _.transform _.where(items.gear.flat, {klass:'special'}), (m,v) ->
+    m.push v if v.canOwn?(user) && !user.items.gear.owned[v.key]
 
-  changes.potion = items.potion
-  changes.reroll =  items.reroll
-  changes
+  changes.push items.potion
+  changes.push items.reroll
+
+  # Return sorted store (array)
+  _.sortBy changes, (item) ->
+    switch item.type
+      when 'weapon' then 1
+      when 'armor'  then 2
+      when 'head'   then 3
+      when 'shield' then 4
+      when 'potion' then 5
+      when 'reroll' then 6
+      else               7
 
 ###
   Gets an item, and caps max to the last item in its array
