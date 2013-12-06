@@ -23,19 +23,19 @@ angular.module('guideServices', []).
         }, {
           element: ".main-herobox",
           title: "Your Avatar",
-          content: "This is your avatar. He represents you in the world of Habitica. As you accomplish goals, this little guy will gain levels, earn gold, and equip himself for further challenges ahead.",
+          content: "This is your avatar. It represents you in the world of Habitica. As you accomplish goals, your avatar will gain levels, earn gold, and equip itself for further challenges ahead.",
         }, {
           element: ".main-herobox",
           title: "Avatar Customization",
-          content: "You can customize your avatar by clicking on him when the tour is complete. Change your sex, hair color, skin color, and more from this menu. You can also find a number of HabitRPG's exciting social features by clicking through tabs on the customization page.",
+          content: "You can customize your avatar by clicking anywhere in this box. Change your sex, hair color, skin color, and more from this menu. You can also find a number of HabitRPG's exciting social features by clicking through tabs on the customization page.",
         }, {
           element: "#bars",
           title: "Hit Points",
-          content: "The red bar tracks your avatar's hit points. Whenever you fail to meet a goal, you take damage and lose HP. If your HP bar reaches zero, you die. Dying results in the loss of one level, all your gold, and a piece of equipment.",
+          content: "The red bar tracks your avatar's health points. Whenever you fail to meet a goal, you take damage and lose health. If your health bar reaches zero, you die. Dying results in the loss of one level, all your gold, and a piece of equipment.",
         }, {
           element: "#bars",
           title: "Experience Points",
-          content: "The yellow bar tracks your avatar's experience points. Whenever you succeed in achieving a goal, you gain both gold and EXP. When your EXP bar maxes out, you gain a level. Gaining levels is how you unlock new and exciting features on HabitRPG.",
+          content: "The yellow bar tracks your avatar's experience points. Whenever you succeed in achieving a goal, you gain both gold and experience. When your experience bar maxes out, you gain a level. Gaining levels is how you unlock new and exciting features on HabitRPG.",
         }, {
           element: "ul.habits",
           title: "Types of Goals",
@@ -44,17 +44,17 @@ angular.module('guideServices', []).
         }, {
           element: "ul.habits",
           title: "Habits",
-          content: "Habits are goals that you constantly track. They can be given plus or minus values, allowing you to gain EXP and gold for good habits or lose HP for bad ones.",
+          content: "Habits are goals that you constantly track. They can be given plus or minus values, allowing you to gain experience and gold for good habits or lose health for bad ones.",
           placement: "bottom"
         }, {
           element: "ul.dailys",
           title: "Dailies",
-          content: "Dailies are goals that you want to complete once a day. Checking off a daily reaps EXP and gold. Failing to check off your daily by midnight results in a loss of HP.",
+          content: "Dailies are goals that you want to complete once a day. Checking off a daily reaps experience and gold. Failing to check off your daily before the day resets results in a loss of health. You can change your day start settings from the options menu.",
           placement: "bottom"
         }, {
           element: "ul.todos",
-          title: "Todos",
-          content: "Todos are one-off goals which have no set deadline. They make for a quick and easy way to gain experience.",
+          title: "To-Dos",
+          content: "To-Dos are one-off goals that you can get to eventually. While it is possible to set a deadline on a to-do, they are not required. To-Dos make for a quick and easy way to gain experience.",
           placement: "bottom"
         }, {
           element: "ul.rewards",
@@ -65,6 +65,11 @@ angular.module('guideServices', []).
           element: "ul.habits li:first-child",
           title: "Hover over comments",
           content: "You can add comments to your tasks by clicking the edit icon. Hover over each task's comment for more details about how HabitRPG works. When you're ready to get started, you can delete the existing tasks and add your own.",
+          placement: "right"
+        }, {
+          element: "ul.habits li:first-child",
+          title: "Unlock New Features",
+          content: "That's all you need to know for now, but I'll be back as you level up to let you know about new features you've unlocked. Each new feature will give you more incentives to accomplish your goals. Find out more at the HabitRPG Wiki or let yourself be surprised. Good luck!",
           placement: "right"
         }
       ];
