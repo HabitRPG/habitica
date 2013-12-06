@@ -125,14 +125,15 @@ var momentLangsMapping = {
   'no': 'nn'
 };
 
+var momentLangs = {};
+
 _.each(langCodes, function(code){
   var lang = _.find(avalaibleLanguages, {code: code});
   lang.momentLangCode = (momentLangsMapping[code] || code);
   try{
-    var momentLang = momentLangsMapping[code] ? momentLangsMapping[code] : code;
     // MomentJS lang files are JS files that has to be executed in the browser so we load them as plain text files
     var f = fs.readFileSync(path.join(__dirname, '/../node_modules/moment/lang/' + lang.momentLangCode + '.js'), 'utf8');
-    lang.momentLang = f;
+    momentLangs[code] = f;
   }catch (e){}
 });
 
@@ -169,6 +170,8 @@ module.exports.locals = function(req, res, next) {
   getUserLanguage(req, function(err, language){
     if(err) return res.json(500, {err: err});
 
+    language.momentLang = (momentLangs[language.code] || undefined);
+    
     res.locals.habitrpg = {
       NODE_ENV: nconf.get('NODE_ENV'),
       BASE_URL: nconf.get('BASE_URL'),
