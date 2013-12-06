@@ -9201,11 +9201,11 @@ var global=self;/**
     }
     todoTally = 0;
     user.todos.concat(user.dailys).forEach(function(task) {
-      var absVal, completed, id, repeat, scheduleMisses, type, _ref2;
+      var absVal, completed, id, repeat, scheduleMisses, type;
       if (!task) {
         return;
       }
-      if ((_ref2 = user.stats.buffs) != null ? _ref2.stealth-- : void 0) {
+      if (user.stats.buffs.stealth && user.stats.buffs.stealth--) {
         return;
       }
       id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;

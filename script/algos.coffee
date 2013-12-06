@@ -414,7 +414,7 @@ obj.cron = (user, options={}) ->
   user.todos.concat(user.dailys).forEach (task) ->
     return unless task
 
-    return if user.stats.buffs?.stealth-- # User "evades" a certain number of tasks
+    return if user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of tasks
 
     {id, type, completed, repeat} = task
     # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
