@@ -10014,6 +10014,13 @@ try {
 
   gear = {
     weapon: {
+      base: {
+        0: {
+          text: "No Weapon",
+          notes: 'No Weapon.',
+          value: 0
+        }
+      },
       warrior: {
         0: {
           text: "Training Sword",
@@ -10250,12 +10257,14 @@ try {
       }
     },
     armor: {
-      warrior: {
+      base: {
         0: {
           text: "Cloth Armor",
           notes: 'Ordinary clothing. Confers no benefit.',
           value: 0
-        },
+        }
+      },
+      warrior: {
         1: {
           text: "Leather Armor",
           notes: 'Jerkin of sturdy boiled hide. Increases CON by 3.',
@@ -10289,11 +10298,6 @@ try {
         }
       },
       rogue: {
-        0: {
-          text: "Cloth Armor",
-          notes: 'Ordinary clothing. Confers no benefit.',
-          value: 0
-        },
         1: {
           text: "Oiled Leather",
           notes: 'Leather armor treated to reduce noise. Increases PER by 6.',
@@ -10327,11 +10331,6 @@ try {
         }
       },
       wizard: {
-        0: {
-          text: "Apprentice Garb",
-          notes: 'For students of magic. Confers no benefit.',
-          value: 0
-        },
         1: {
           text: "Magician Robe",
           notes: 'Hedge-mage\'s outfit. Increases INT by 2.',
@@ -10365,11 +10364,6 @@ try {
         }
       },
       healer: {
-        0: {
-          text: "Novice Robe",
-          notes: 'For healers in training. Confers no benefit.',
-          value: 0
-        },
         1: {
           text: "Acolyte Robe",
           notes: 'Garment showing humility and purpose. Increases CON by 6.',
@@ -10437,12 +10431,14 @@ try {
       }
     },
     head: {
-      warrior: {
+      base: {
         0: {
           text: "No Helm",
           notes: 'No headgear.',
           value: 0
-        },
+        }
+      },
+      warrior: {
         1: {
           text: "Leather Helm",
           notes: 'Cap of sturdy boiled hide. Increases STR by 2.',
@@ -10476,11 +10472,6 @@ try {
         }
       },
       rogue: {
-        0: {
-          text: "No Hood",
-          notes: 'No headgear.',
-          value: 0
-        },
         1: {
           text: "Leather Hood",
           notes: 'Basic protective cowl. Increases PER by 2.',
@@ -10514,11 +10505,6 @@ try {
         }
       },
       wizard: {
-        0: {
-          text: "No Hat",
-          notes: 'No headgear.',
-          value: 0
-        },
         1: {
           text: "Magician Hat",
           notes: 'Simple, comfortable, and fashionable. Increases PER by 2.',
@@ -10552,11 +10538,6 @@ try {
         }
       },
       healer: {
-        0: {
-          text: "No Circlet",
-          notes: 'No headgear.',
-          value: 0
-        },
         1: {
           text: "Quartz Circlet",
           notes: 'Jeweled headpiece, for focus on the task at hand. Increases INT by 2.',
@@ -10622,12 +10603,14 @@ try {
       }
     },
     shield: {
-      warrior: {
+      base: {
         0: {
           text: "No Shield",
           notes: 'No shield.',
           value: 0
-        },
+        }
+      },
+      warrior: {
         1: {
           text: "Wooden Shield",
           notes: 'Round shield of thick wood. Increases CON by 2.',
@@ -10698,22 +10681,8 @@ try {
           last: true
         }
       },
-      wizard: {
-        0: {
-          text: "No Shield",
-          notes: 'No shield.',
-          def: 0,
-          value: 0,
-          last: true
-        }
-      },
+      wizard: {},
       healer: {
-        0: {
-          text: "No Shield",
-          notes: 'No shield.',
-          def: 0,
-          value: 0
-        },
         1: {
           text: "Medic Buckler",
           notes: 'Easy to disengage, freeing a hand for bandaging. Increases CON by 2.',
@@ -10783,7 +10752,7 @@ try {
   };
 
   _.each(['weapon', 'armor', 'head', 'shield'], function(type) {
-    return _.each(['warrior', 'rogue', 'healer', 'wizard', 'special'], function(klass) {
+    return _.each(['base', 'warrior', 'rogue', 'healer', 'wizard', 'special'], function(klass) {
       return _.each(gear[type][klass], function(item, i) {
         var key;
         key = "" + type + "_" + klass + "_" + i;
@@ -11268,11 +11237,13 @@ try {
     var changes;
     changes = [];
     _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
-      var i;
-      i = module.exports.getItem(user, type).index;
-      return changes.push(items.gear.flat["" + type + "_" + user.stats["class"] + "_" + (+i + 1)] || {
-        hide: true
+      var found;
+      found = _.find(items.gear.tree[type][user.stats["class"]], function(item) {
+        return !user.items.gear.owned[item.key];
       });
+      if (found) {
+        return changes.push(found);
+      }
     });
     _.defaults(changes, _.transform(_.where(items.gear.flat, {
       klass: 'special'

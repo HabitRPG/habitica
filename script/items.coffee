@@ -11,6 +11,8 @@ items = module.exports.items = {}
 
 gear =
   weapon:
+    base:
+      0: text: "No Weapon", notes:'No Weapon.', value:0
     warrior:
       0: text: "Training Sword", notes:'Practice weapon. Confers no benefit.', value:0
       1: text: "Sword", notes:'Common soldier\'s blade. Increases STR by 3.', str: 3, value:20
@@ -50,29 +52,31 @@ gear =
       3: text: "Mustaine's Milestone Mashing Morning Star", notes:"Mustaine's Milestone Mashing Morning Star", str: 50, int: 50, con: 50, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
 
   armor:
-    warrior:
+    base:
       0: text: "Cloth Armor", notes:'Ordinary clothing. Confers no benefit.', value:0
+    warrior:
+      #0: text: "Cloth Armor", notes:'Ordinary clothing. Confers no benefit.', value:0
       1: text: "Leather Armor", notes:'Jerkin of sturdy boiled hide. Increases CON by 3.', con: 3, value:30
       2: text: "Chain Mail", notes:'Armor of interlocked metal rings. Increases CON by 5.', con: 5, value:45
       3: text: "Plate Armor", notes:'Suit of all-encasing steel, the pride of knights. Increases CON by 7.', con: 7, value:65
       4: text: "Red Armor", notes:'Heavy plate glowing with defensive enchantments. Increases CON by 9.', con: 9, value:90
       5: text: "Golden Armor", notes:'Looks ceremonial, but no known blade can pierce it. Increases CON by 11.', con: 11, value:120, last: true
     rogue:
-      0: text: "Cloth Armor", notes:'Ordinary clothing. Confers no benefit.', value:0
+      #0: text: "Cloth Armor", notes:'Ordinary clothing. Confers no benefit.', value:0
       1: text: "Oiled Leather", notes:'Leather armor treated to reduce noise. Increases PER by 6.', per: 6, value:30
       2: text: "Black Leather", notes:'Colored with dark dye to blend into shadows. Increases PER by 9', per: 9, value:45
       3: text: "Camouflage Vest", notes:'Equally discreet in dungeon or wilderness. Increases PER by 12.', per: 12, value:65
       4: text: "Penumbral Armor", notes:'Wraps the wearer in a veil of twilight. Increases PER by 15.', per: 15, value:90
       5: text: "Umbral Armor", notes:'Allows stealth in the open in broad daylight. Increases PER by 18.', per: 18, value:120, last: true
     wizard:
-      0: text: "Apprentice Garb", notes:'For students of magic. Confers no benefit.', value:0
+      #0: text: "Apprentice Garb", notes:'For students of magic. Confers no benefit.', value:0
       1: text: "Magician Robe", notes:'Hedge-mage\'s outfit. Increases INT by 2.', int: 2, value:30
       2: text: "Wizard Robe", notes:'Clothes for a wandering wonder-worker. Increases INT by 4.', int: 4, value:45
       3: text: "Robe of Mysteries", notes:'Denotes initiation into elite secrets. Increases INT by 6.', int: 6, value:65
       4: text: "Archmage Robe", notes:'Spirits and elementals bow before it. Increases INT by 9.', int: 9, value:90
       5: text: "Royal Magus Robe", notes:'Symbol of the power behind the throne. Increases INT by 12.', int: 12, value:120, last: true
     healer:
-      0: text: "Novice Robe", notes:'For healers in training. Confers no benefit.', value:0
+      #0: text: "Novice Robe", notes:'For healers in training. Confers no benefit.', value:0
       1: text: "Acolyte Robe", notes:'Garment showing humility and purpose. Increases CON by 6.', con: 6, value:30
       2: text: "Medic Robe", notes:'Worn by those dedicated to tending the wounded in battle. Increases CON by 9.', con: 9, value:45
       3: text: "Defender Vestment", notes:'Turns the healer\'s own magics inward to fend off harm. Increases CON by 12.', con: 12, value:65
@@ -84,29 +88,31 @@ gear =
       2: text: "Tarutaru's Noble's Tunic", notes:'Makes you extra fluffy. Adds "Refresh" effect; Cure potency +n%.', int: 50, con: 50, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
 
   head:
-    warrior:
+    base:
       0: text: "No Helm", notes:'No headgear.', value:0
+    warrior:
+      #0: text: "No Helm", notes:'No headgear.', value:0
       1: text: "Leather Helm", notes:'Cap of sturdy boiled hide. Increases STR by 2.', str: 2, value:15
       2: text: "Chain Coif", notes:'Hood of interlocked metal rings. Increases STR by 4.', str: 4, value:25
       3: text: "Plate Helm", notes:'Thick steel helmet, proof against any blow. Increases STR by 6.', str: 6, value:40
       4: text: "Red Helm", notes:'Set with rubies for power, and glows when the wearer is angered. Increases STR by 9.', str: 9, value:60
       5: text: "Golden Helm", notes:'Regal crown bound to shining armor. Increases STR by 12.', str: 12, value:80, last: true
     rogue:
-      0: text: "No Hood", notes:'No headgear.', value:0
+      #0: text: "No Hood", notes:'No headgear.', value:0
       1: text: "Leather Hood", notes:'Basic protective cowl. Increases PER by 2.', per: 2, value:15
       2: text: "Black Leather Hood", notes:'Useful for both defense and disguise. Increases PER by 4.', per: 4, value:25
       3: text: "Camouflage Hood", notes:'Rugged, but doesn\'t impede hearing. Increases PER by 6.', per: 6, value:40
       4: text: "Penumbral Hood", notes:'Grants perfect vision in darkness. Increases PER by 9.', per: 9, value:60
       5: text: "Umbral Hood", notes:'Conceals even thoughts from those who would probe them. Increases PER by 12.', per: 12, value:80, last: true
     wizard:
-      0: text: "No Hat", notes:'No headgear.', value:0
+      #0: text: "No Hat", notes:'No headgear.', value:0
       1: text: "Magician Hat", notes:'Simple, comfortable, and fashionable. Increases PER by 2.', per: 2, value:15
       2: text: "Cornuthaum", notes:'Traditional headgear of the itinerant wizard. Increases PER by 3.', per: 3, value:25
       3: text: "Astrologer Hat", notes:'Adorned with the rings of Saturn. Increases PER by 5.', per: 5, value:40
       4: text: "Archmage Hat", notes:'Focuses the mind for intensive spellcasting. Increases PER by 7.', per: 7, value:60
       5: text: "Royal Magus Hat", notes:'Shows authority over fortune, weather, and lesser mages. Increases PER by 9.', per: 9, value:80, last: true
     healer:
-      0: text: "No Circlet", notes:'No headgear.', value:0
+      #0: text: "No Circlet", notes:'No headgear.', value:0
       1: text: "Quartz Circlet", notes:'Jeweled headpiece, for focus on the task at hand. Increases INT by 2.', int: 2, value:15
       2: text: "Amethyst Circlet", notes:'A taste of luxury for a humble profession. Increases INT by 3.', int: 3, value:25
       3: text: "Sapphire Circlet", notes:'Shines to let sufferers know their salvation is at hand. Increases INT by 5.', int: 5, value:40
@@ -118,8 +124,10 @@ gear =
       2: text: "??? 300-tier Helm", notes:'', value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
 
   shield:
-    warrior:
+    base:
       0: text: "No Shield", notes:'No shield.', value:0
+    warrior:
+      #0: text: "No Shield", notes:'No shield.', value:0
       1: text: "Wooden Shield", notes:'Round shield of thick wood. Increases CON by 2.', con: 2, value:20
       2: text: "Buckler", notes:'Light and sturdy, quick to bring to the defense. Increases CON by 3.', con: 3, value:35
       3: text: "Reinforced Shield", notes:'Made of wood but bolstered with metal bands. Increases CON by 5.', con: 5, value:50
@@ -133,10 +141,10 @@ gear =
       4: text: "Knife 5", notes:'Knife 5', value:1
       5: text: "Knife 6", notes:'Knife 6', value:1
       6: text: "Knife 7", notes:'Knife 7', value:1, last: true
-    wizard:
-      0: text: "No Shield", notes:'No shield.', def: 0, value:0, last: true
+    wizard: {}
+      #0: text: "No Shield", notes:'No shield.', def: 0, value:0, last: true
     healer:
-      0: text: "No Shield", notes:'No shield.', def: 0, value:0
+      #0: text: "No Shield", notes:'No shield.', def: 0, value:0
       1: text: "Medic Buckler", notes:'Easy to disengage, freeing a hand for bandaging. Increases CON by 2.', con: 2, value:20
       2: text: "Kite Shield", notes:'Tapered shield with the symbol of healing. Increases CON by 4.', con: 4, value:35
       3: text: "Hospitaler Shield", notes:'Traditional shield of defender knights. Increases CON by 6.', con: 6, value:50
@@ -155,7 +163,7 @@ items.gear =
   flat: {}
 
 _.each ['weapon', 'armor', 'head', 'shield'], (type) ->
-  _.each ['warrior', 'rogue', 'healer', 'wizard', 'special'], (klass) ->
+  _.each ['base', 'warrior', 'rogue', 'healer', 'wizard', 'special'], (klass) ->
     # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
     _.each gear[type][klass], (item, i) ->
       key = "#{type}_#{klass}_#{i}"
@@ -454,8 +462,9 @@ module.exports.buyItem = (user, item) ->
 module.exports.updateStore = (user) ->
   changes = []
   _.each ['weapon', 'armor', 'shield', 'head'], (type) ->
-    i = module.exports.getItem(user, type).index
-    changes.push items.gear.flat["#{type}_#{user.stats.class}_#{+i + 1}"] or {hide:true}
+    found = _.find items.gear.tree[type][user.stats.class], (item) ->
+      !user.items.gear.owned[item.key]
+    changes.push(found) if found
 
   # Add special items (contrib gear, backer gear, etc)
   _.defaults changes, _.transform _.where(items.gear.flat, {klass:'special'}), (m,v) ->
