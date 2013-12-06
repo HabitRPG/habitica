@@ -2,6 +2,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
   function($rootScope, $scope, User, API_URL, $http, Notification) {
 
     var user = User.user;
+    var Items = window.habitrpgShared.items;
 
     // convenience vars since these are accessed frequently
 
@@ -17,11 +18,28 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     $scope.$watch('user.items.hatchingPotions', function(pots){ $scope.potCount = countStacks(pots); }, true);
     $scope.$watch('user.items.food', function(food){ $scope.foodCount = countStacks(food); }, true);
 
+    $scope.$watch('user.items.gear', function(gear){
+      $scope.gear = {
+        base: [
+          Items.items.gear.flat['head_warrior_0'],
+          Items.items.gear.flat['armor_warrior_0'],
+          //Items.items.gear.flat['weapon_warrior_0'],
+          Items.items.gear.flat['shield_warrior_0']
+        ]
+      };
+      _.each(gear.owned, function(bool,key){
+        var item = Items.items.gear.flat[key];
+        debugger;
+        if (!$scope.gear[item.klass]) $scope.gear[item.klass] = [];
+        $scope.gear[item.klass].push(item);
+      })
+    }, true)
+
     $scope.chooseEgg = function(egg){
       if ($scope.selectedEgg && $scope.selectedEgg.name == egg) {
         return $scope.selectedEgg = null; // clicked same egg, unselect
       }
-      var eggData = _.findWhere(window.habitrpgShared.items.items.eggs, {name:egg});
+      var eggData = _.findWhere(Items.items.eggs, {name:egg});
       if (!$scope.selectedPotion) {
         $scope.selectedEgg = eggData;
       } else {
@@ -34,7 +52,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
         return $scope.selectedPotion = null; // clicked same egg, unselect
       }
       // we really didn't think through the way these things are stored and getting passed around...
-      var potionData = _.findWhere(window.habitrpgShared.items.items.hatchingPotions, {name:potion});
+      var potionData = _.findWhere(Items.items.hatchingPotions, {name:potion});
       if (!$scope.selectedEgg) {
         $scope.selectedPotion = potionData;
       } else {

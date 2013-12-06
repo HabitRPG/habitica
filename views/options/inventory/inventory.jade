@@ -5,18 +5,19 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
       p.well Click an egg to see usable potions highlighted in green and then click one of the highlighted potions to hatch your pet. If no potions are highlighted, click that egg again to deselect it, and instead click a potion first to have the usable eggs highlighted. You can also sell unwanted drops to Alexander the Merchant.
       menu.inventory-list(type='list')
 
+        h4 Gear
         li.customize-menu
-          menu.pets-menu(label='Gear')
-            div(ng-repeat='(k,v) in user.items.gear.owned', ng-init='item = Items.gear.flat[k]')
-              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='equip(user,item)', class='shop_{{item.key}}')
+          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", special:"Special"}', ng-show='gear[klass]')
+            div(ng-repeat='item in gear[klass]')
+              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='equip(user,item)', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
         label.checkbox.inline
           input(type="checkbox", ng-model="user.preferences.costume")
           | Use Costume&nbsp;
           i.icon-question-sign(popover="Show something different on your avatar than the gear you have equipped for battle", popover-trigger='mouseenter', popover-placement='right')
         li.customize-menu(ng-if='user.preferences.costume')
-          menu.pets-menu(label='Gear')
-            div(ng-repeat='(k,v) in user.items.gear.owned', ng-init='item = Items.gear.flat[k]')
-              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='equip(user,item,true)', class='shop_{{item.key}}')
+          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", special:"Special"}', ng-show='gear[klass]')
+            div(ng-repeat='item in gear[klass]')
+              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='equip(user,item, true)', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
 
         li.customize-menu
           menu.pets-menu(label='Eggs ({{eggCount}})')
