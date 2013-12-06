@@ -182,7 +182,13 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
     $scope.equip = function(user, item, costume) {
       var equipTo = costume ? 'costume' : 'equipped';
-      User.set('items.gear.' +  equipTo + '.' + item.type, item.key);
+      if (~user.items.gear[equipTo].weapon.indexOf('wizard') && item.type == 'shield')
+        return Notification.text('Staves are two-handed');
+      var setVars = {};
+      setVars['items.gear.' +  equipTo + '.' + item.type] = item.key;
+      if (item.klass == 'wizard')
+        setVars['items.gear.' + equipTo + '.shield'] = 'warrior_shield_0';
+      User.setMultiple(setVars);
     }
 
   }

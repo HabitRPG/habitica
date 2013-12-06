@@ -30,6 +30,23 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
         'stats.int': 0
       })
     }
+    $scope.rerollSubmit = function(){
+      var setVars = {
+        "stats.class": $scope.selectedClass,
+        "flags.classSelected": true
+      };
+      _.each(['weapon','armor','shield','head'], function(type){
+        setVars['items.gear.owned.' + type + '_' + $scope.selectedClass + '_0'] = true;
+        setVars['items.gear.equipped.' + type] = $scope.selectedClass + '_0';
+      });
+      if ($scope.selectedClass == 'wizard') {
+        delete setVars['items.gear.owned.shield_wizard_0'];
+        setVars['items.gear.equipped.shield'] = 'warrior_shield_0';
+      }
+
+      User.setMultiple(setVars);
+      $scope.selectedClass = undefined;
+    }
 
     $scope.save = function(){
       var values = {};
