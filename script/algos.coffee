@@ -37,13 +37,11 @@ obj.revive = (user)->
   user.stats.lvl-- if user.stats.lvl > 1
 
   # Lose a stat point
-  if (user.stats.str + user.stats.con + user.stats.per + user.stats.int) > 1
-    until lostStat
-      candidate = {0:'str', 1:'con', 2:'per', 3:'int'}[Math.random()*4|0]
-      lostStat = candidate if user.stats[candidate] > 0
-    user.stats[lostStat]--
+  lostStat = helpers.randomVal _.reduce ['str','con','per','int'], ((m,k)->(m[k]=k if user.stats[v];m)), {}
+  user.stats[lostStat]-- if lostStat
 
   # Lose a gear piece
+  # Can't use randomVal since we need k, not v
   count = 0
   for k,v of user.items.gear.owned
     lostItem = k if Math.random() < (1 / ++count)

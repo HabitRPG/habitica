@@ -8771,25 +8771,20 @@ var global=self;/**
   };
 
   obj.revive = function(user) {
-    var candidate, count, item, k, lostItem, lostStat, v, _ref1;
+    var count, item, k, lostItem, lostStat, v, _ref1;
     user.stats.hp = 50;
     user.stats.exp = 0;
     user.stats.gp = 0;
     if (user.stats.lvl > 1) {
       user.stats.lvl--;
     }
-    if ((user.stats.str + user.stats.con + user.stats.per + user.stats.int) > 1) {
-      while (!lostStat) {
-        candidate = {
-          0: 'str',
-          1: 'con',
-          2: 'per',
-          3: 'int'
-        }[Math.random() * 4 | 0];
-        if (user.stats[candidate] > 0) {
-          lostStat = candidate;
-        }
+    lostStat = helpers.randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
+      if (user.stats[v]) {
+        m[k] = k;
       }
+      return m;
+    }), {}));
+    if (lostStat) {
       user.stats[lostStat]--;
     }
     count = 0;
