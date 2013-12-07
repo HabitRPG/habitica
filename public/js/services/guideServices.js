@@ -27,7 +27,7 @@ angular.module('guideServices', []).
         }, {
           element: ".main-herobox",
           title: "Avatar Customization",
-          content: "You can customize your avatar by clicking anywhere in this box. Change your sex, hair color, skin color, and more from this menu. You can also find a number of HabitRPG's exciting social features by clicking through tabs on the customization page.",
+          content: "You can customize your avatar by clicking anywhere in this box. Change your body type, hair color, skin color, and more from this menu. You can also find a number of HabitRPG's exciting social features by clicking through tabs on the customization page.",
         }, {
           element: "#bars",
           title: "Hit Points",
