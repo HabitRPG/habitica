@@ -28,8 +28,7 @@ obj.defineComputed = (user) ->
         , 0); m
       , {})
 
-obj.revive = (user, options={})->
-  paths = options.paths || {}
+obj.revive = (user)->
 
   # Reset stats
   user.stats.hp = 50
@@ -37,20 +36,22 @@ obj.revive = (user, options={})->
   user.stats.gp = 0
   user.stats.lvl-- if user.stats.lvl > 1
 
-  ## Lose a random item
-  loseThisItem = false
-  owned = user.items
-  # unless they're already at 0-everything
-  if ~~owned.armor > 0 or ~~owned.head > 0 or ~~owned.shield > 0 or ~~owned.weapon > 0
-    # find a random item to lose
-    until loseThisItem
-      #candidate = {0:'items.armor', 1:'items.head', 2:'items.shield', 3:'items.weapon', 4:'stats.gp'}[Math.random()*5|0]
-      candidate = {0:'armor', 1:'head', 2:'shield', 3:'weapon'}[Math.random()*4|0]
-      loseThisItem = candidate if owned[candidate] > 0
-    user.items[loseThisItem] = 0
-  "stats.hp stats.exp stats.gp stats.lvl items.#{loseThisItem}".split(' ').forEach (path) ->
-    paths[path] = 1
+  # Lose a stat point
+  if (user.stats.str + user.stats.con + user.stats.per + user.stats.int) > 1
+    until lostStat
+      candidate = {0:'str', 1:'con', 2:'per', 3:'int'}[Math.random()*4|0]
+      lostStat = candidate if user.stats[candidate] > 0
+    user.stats[lostStat]--
 
+  # Lose a gear piece
+  count = 0
+  for k,v of user.items.gear.owned
+    lostItem = k if Math.random() < (1 / ++count)
+  if item = items.items.gear.flat[lostItem]
+    delete user.items.gear.owned[lostItem]
+    user.items.gear.equipped[item.type] = "#{item.type}_base_0"
+    user.items.gear.costume[item.type] = "#{item.type}_base_0"
+  user.markModified? 'items.gear'
 
 obj.priorityValue = (priority = '!') ->
   switch priority

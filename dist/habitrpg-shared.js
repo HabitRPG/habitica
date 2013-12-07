@@ -8770,37 +8770,42 @@ var global=self;/**
     });
   };
 
-  obj.revive = function(user, options) {
-    var candidate, loseThisItem, owned, paths;
-    if (options == null) {
-      options = {};
-    }
-    paths = options.paths || {};
+  obj.revive = function(user) {
+    var candidate, count, item, k, lostItem, lostStat, v, _ref1;
     user.stats.hp = 50;
     user.stats.exp = 0;
     user.stats.gp = 0;
     if (user.stats.lvl > 1) {
       user.stats.lvl--;
     }
-    loseThisItem = false;
-    owned = user.items;
-    if (~~owned.armor > 0 || ~~owned.head > 0 || ~~owned.shield > 0 || ~~owned.weapon > 0) {
-      while (!loseThisItem) {
+    if ((user.stats.str + user.stats.con + user.stats.per + user.stats.int) > 1) {
+      while (!lostStat) {
         candidate = {
-          0: 'armor',
-          1: 'head',
-          2: 'shield',
-          3: 'weapon'
+          0: 'str',
+          1: 'con',
+          2: 'per',
+          3: 'int'
         }[Math.random() * 4 | 0];
-        if (owned[candidate] > 0) {
-          loseThisItem = candidate;
+        if (user.stats[candidate] > 0) {
+          lostStat = candidate;
         }
       }
-      user.items[loseThisItem] = 0;
+      user.stats[lostStat]--;
     }
-    return ("stats.hp stats.exp stats.gp stats.lvl items." + loseThisItem).split(' ').forEach(function(path) {
-      return paths[path] = 1;
-    });
+    count = 0;
+    _ref1 = user.items.gear.owned;
+    for (k in _ref1) {
+      v = _ref1[k];
+      if (Math.random() < (1 / ++count)) {
+        lostItem = k;
+      }
+    }
+    if (item = items.items.gear.flat[lostItem]) {
+      delete user.items.gear.owned[lostItem];
+      user.items.gear.equipped[item.type] = "" + item.type + "_base_0";
+      user.items.gear.costume[item.type] = "" + item.type + "_base_0";
+    }
+    return typeof user.markModified === "function" ? user.markModified('items.gear') : void 0;
   };
 
   obj.priorityValue = function(priority) {
