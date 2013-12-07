@@ -123,7 +123,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
             i.icon-question-sign(popover-title='Defense', popover='Defense decreases damage inflicted by tasks, and increases the effectiveness of healing and buff spells', popover-trigger='mouseenter')
             | &nbsp;DEF: {{user.stats.def}}
           td
-            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("def")') +
+            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("con")') +
         tr
           td
             i.icon-question-sign(popover-title='Perception', popover='Perception increases the likelihood of drops, Gold bonuses, and critical hit chances', popover-trigger='mouseenter')
