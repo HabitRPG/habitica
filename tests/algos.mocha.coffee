@@ -223,62 +223,69 @@ describe 'Cron', ->
     afterTasks = after.habits.concat(after.dailys).concat(after.todos).concat(after.rewards)
     expect(beforeTasks).to.eql afterTasks
 
-  it 'should preen user history', ->
-    {before,after} = beforeAfter({daysAgo:1})
-    history = [
-      # Last year should be condensed to one entry, avg: 1
-      {date:'09/01/2012', value: 0}
-      {date:'10/01/2012', value: 0}
-      {date:'11/01/2012', value: 2}
-      {date:'12/01/2012', value: 2}
+  describe 'preening', ->
+    beforeEach ->
+      @clock = sinon.useFakeTimers(Date.parse("2013-11-20"), "Date");
 
-      # Each month of this year should be condensed to 1/mo, averages follow
-      {date:'01/01/2013', value: 1} #2
-      {date:'01/15/2013', value: 3}
+    afterEach ->
+      @clock.restore()
 
-      {date:'02/01/2013', value: 2} #3
-      {date:'02/15/2013', value: 4}
+    it 'should preen user history', ->
+      {before,after} = beforeAfter({daysAgo:1})
+      history = [
+        # Last year should be condensed to one entry, avg: 1
+        {date:'09/01/2012', value: 0}
+        {date:'10/01/2012', value: 0}
+        {date:'11/01/2012', value: 2}
+        {date:'12/01/2012', value: 2}
 
-      {date:'03/01/2013', value: 3} #4
-      {date:'03/15/2013', value: 5}
+        # Each month of this year should be condensed to 1/mo, averages follow
+        {date:'01/01/2013', value: 1} #2
+        {date:'01/15/2013', value: 3}
 
-      {date:'04/01/2013', value: 4} #5
-      {date:'04/15/2013', value: 6}
+        {date:'02/01/2013', value: 2} #3
+        {date:'02/15/2013', value: 4}
 
-      {date:'05/01/2013', value: 5} #6
-      {date:'05/15/2013', value: 7}
+        {date:'03/01/2013', value: 3} #4
+        {date:'03/15/2013', value: 5}
 
-      {date:'06/01/2013', value: 6} #7
-      {date:'06/15/2013', value: 8}
+        {date:'04/01/2013', value: 4} #5
+        {date:'04/15/2013', value: 6}
 
-      {date:'07/01/2013', value: 7} #8
-      {date:'07/15/2013', value: 9}
+        {date:'05/01/2013', value: 5} #6
+        {date:'05/15/2013', value: 7}
 
-      {date:'08/01/2013', value: 8} #9
-      {date:'08/15/2013', value: 10}
+        {date:'06/01/2013', value: 6} #7
+        {date:'06/15/2013', value: 8}
 
-      {date:'09/01/2013', value: 9} #10
-      {date:'09/15/2013', value: 11}
+        {date:'07/01/2013', value: 7} #8
+        {date:'07/15/2013', value: 9}
 
-      {date:'010/01/2013', value: 10} #11
-      {date:'010/15/2013', value: 12}
+        {date:'08/01/2013', value: 8} #9
+        {date:'08/15/2013', value: 10}
 
-      # This month should condense each week
-      {date:'011/01/2013', value: 12}
-      {date:'011/02/2013', value: 13}
-      {date:'011/03/2013', value: 14}
-      {date:'011/04/2013', value: 15}
-    ]
-    after.history = {exp: _.cloneDeep(history), todos: _.cloneDeep(history)}
-    after.habits[0].history = _.cloneDeep(history)
-    algos.cron(after)
+        {date:'09/01/2013', value: 9} #10
+        {date:'09/15/2013', value: 11}
 
-    # remove history entries created by cron
-    after.history.exp.pop()
-    after.history.todos.pop()
+        {date:'010/01/2013', value: 10} #11
+        {date:'010/15/2013', value: 12}
 
-    _.each [after.history.exp, after.history.todos, after.habits[0].history], (arr) ->
-      expect(_.map(arr, (x)->x.value)).to.eql [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+        # This month should condense each week
+        {date:'011/01/2013', value: 12}
+        {date:'011/02/2013', value: 13}
+        {date:'011/03/2013', value: 14}
+        {date:'011/04/2013', value: 15}
+      ]
+      after.history = {exp: _.cloneDeep(history), todos: _.cloneDeep(history)}
+      after.habits[0].history = _.cloneDeep(history)
+      algos.cron(after)
+
+      # remove history entries created by cron
+      after.history.exp.pop()
+      after.history.todos.pop()
+
+      _.each [after.history.exp, after.history.todos, after.habits[0].history], (arr) ->
+        expect(_.map(arr, (x)->x.value)).to.eql [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
   describe 'Todos', ->
     it '1 day missed', ->
