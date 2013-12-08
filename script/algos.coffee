@@ -154,9 +154,9 @@ randomDrop = (user, delta, priority, streak = 0, options={}) ->
         # Very Rare: 10% (of 30%)
         if rarity < .03 then ['Golden']
         # Rare: 20% (of 30%)
-        else if rarity < .06 then ['Zombie', 'CottonCandyPink', 'CottonCandyBlue']
+        else if rarity < .09 then ['Zombie', 'CottonCandyPink', 'CottonCandyBlue']
         # Uncommon: 30% (of 30%)
-        else if rarity < .09 then ['Red', 'Shade', 'Skeleton']
+        else if rarity < .18 then ['Red', 'Shade', 'Skeleton']
         # Common: 40% (of 30%)
         else ['Base', 'White', 'Desert']
 

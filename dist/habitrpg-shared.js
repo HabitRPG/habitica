@@ -8945,7 +8945,7 @@ var global=self;/**
         drop.type = 'Egg';
         drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
       } else {
-        acceptableDrops = rarity < .03 ? ['Golden'] : rarity < .06 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .09 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
+        acceptableDrops = rarity < .03 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
         drop = helpers.randomVal(_.pick(hatchingPotions, (function(v, k) {
           return __indexOf.call(acceptableDrops, k) >= 0;
         })));
