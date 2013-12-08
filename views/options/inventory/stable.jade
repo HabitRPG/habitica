@@ -14,16 +14,17 @@ script(type='text/ng-template', id='partials/options.inventory.stable.mounts.htm
   .stable
     table(style='width:100%')
       tr
-        td.npc_matt
+        td(style='width:144px')
+          .npc_matt
         td
-        .popover.static-popover.fade.right.in(style='max-width: 550px; margin-left: 10px;')
-          .arrow
-          h3.popover-title
-            a(target='_blank', href='http://www.kickstarter.com/profile/mattboch') Matt Boch
-          .popover-content
-            p.
-              Shall I bring you your steed, {{user.profile.name}}? Click a mount to saddle up.
-            h4 {{mountCount}} / {{totalPets}} Mounts Tamed
+          .popover.static-popover.fade.right.in(style='max-width: 550px; margin-left: 10px;')
+            .arrow
+            h3.popover-title
+              a(target='_blank', href='http://www.kickstarter.com/profile/mattboch') Matt Boch
+            .popover-content
+              p.
+                Shall I bring you your steed, {{user.profile.name}}? Click a mount to saddle up.
+              h4 {{mountCount}} / {{totalPets}} Mounts Tamed
     menu.pets(type='list')
       li.customize-menu(ng-repeat='egg in Items.eggs')
         menu
@@ -45,7 +46,8 @@ script(type='text/ng-template', id='partials/options.inventory.stable.pets.html'
   .stable
     table(style='width:100%')
       tr
-        td.npc_matt
+        td(style='width:144px')
+          .npc_matt
         td
           .popover.static-popover.fade.right.in(style='max-width: 550px; margin-left: 10px;')
             .arrow
