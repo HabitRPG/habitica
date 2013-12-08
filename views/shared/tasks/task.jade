@@ -157,10 +157,10 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
             button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!!"}', ng-click='task.challenge.id || (task.priority="!!")') Medium
             button.task-action-btn.tile(type='button', ng-class='{active: task.priority=="!!!"}', ng-click='task.challenge.id || (task.priority="!!!")') Hard
           //span(ng-if='task.type=="daily" && !task.challenge.id')
-          p
-            span(ng-if='task.type=="daily"')
-              legend.option-title Restore Streak
-              input.option-content(type='number', ng-model='task.streak')
+          br
+          span(ng-if='task.type=="daily"')
+            legend.option-title Restore Streak
+            input.option-content(type='number', ng-model='task.streak')
       button.task-action-btn.tile.spacious(type='submit') Save & Close
 
   div(class='{{obj._id}}{{task.id}}-chart', ng-show='charts[obj._id+task.id]')

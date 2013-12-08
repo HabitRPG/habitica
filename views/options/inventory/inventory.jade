@@ -80,7 +80,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
           li.customize-menu
             menu.pets-menu(label='Services')
               div
-                button.btn(popover='Return all tasks to neutral value (yellow color).', popover-title=env.t('rerollName'), popover-trigger='mouseenter', popover-placement='left', ng-click='modals.reroll = true') Fortify
-              div
-                | 4
-                span.Pet_Currency_Gem1x.inline-gems
+                // Once grunt-spritesmith is merged, let's use https://github.com/browserquest/BrowserQuest/blob/master/client/img/1/item-firepotion.png
+                button.btn(popover='Return all tasks to neutral value (yellow color).', popover-title=env.t('rerollName'), popover-trigger='mouseenter', popover-placement='left', ng-click='modals.reroll = true')
+                  | Fortify 4
+                  span.Pet_Currency_Gem1x.inline-gems
