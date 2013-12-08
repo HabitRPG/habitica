@@ -69,7 +69,7 @@ angular.module('guideServices', []).
         }, {
           element: "ul.habits li:first-child",
           title: "Unlock New Features",
-          content: "That's all you need to know for now, but I'll be back as you level up to let you know about new features you've unlocked. Each new feature will give you more incentives to accomplish your goals. Find out more at the <a href="http://habitrpg.wikia.com" target="_blank">HabitRPG Wiki</a> or let yourself be surprised. Good luck!",
+          content: "That's all you need to know for now, but I'll be back as you level up to let you know about new features you've unlocked. Each new feature will give you more incentives to accomplish your goals. Find out more at the <a href='http://habitrpg.wikia.com' target='_blank'>HabitRPG Wiki</a> or let yourself be surprised. Good luck!",
           placement: "right"
         }
       ];
