@@ -139,7 +139,7 @@ randomDrop = (user, modifiers) ->
     date: +moment().subtract('d', 1) # trick - set it to yesterday on first run, that way they can get drops today
     count: 0
 
-  reachedDropLimit = (helpers.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 2)
+  reachedDropLimit = (helpers.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5)
   return if reachedDropLimit
 
   # % chance of getting a pet or meat
@@ -152,16 +152,16 @@ randomDrop = (user, modifiers) ->
     # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
     rarity = Math.random()
 
-#    # Food: 40% chance
-#    if rarity > .6
-#      drop = helpers.randomVal _.omit(items.items.food, 'Saddle')
-#      user.items.food[drop.name] ?= 0
-#      user.items.food[drop.name]+= 1
-#      drop.type = 'Food'
-#      drop.dialog = "You've found a #{drop.text} Food! #{drop.notes}"
+    # Food: 40% chance
+    if rarity > .6
+      drop = helpers.randomVal _.omit(items.items.food, 'Saddle')
+      user.items.food[drop.name] ?= 0
+      user.items.food[drop.name]+= 1
+      drop.type = 'Food'
+      drop.dialog = "You've found a #{drop.text} Food! #{drop.notes}"
 
     # Eggs: 30% chance
-    if rarity > .5
+    else if rarity > .3
       drop = helpers.randomVal eggs
       user.items.eggs[drop.name] ?= 0
       user.items.eggs[drop.name]++
@@ -171,13 +171,13 @@ randomDrop = (user, modifiers) ->
     # Hatching Potion, 30% chance - break down by rarity.
     else
       acceptableDrops =
-        # Very Rare: 4% of 50% (4% each)
-        if rarity < .02 then ['Golden']
-        # Rare: 22% of 50% (7.33% each)
-        else if rarity < .13 then ['Zombie', 'CottonCandyPink', 'CottonCandyBlue']
-        # Uncommon: 32% of 50% (10.66% each)
-        else if rarity < .29 then ['Red', 'Shade', 'Skeleton']
-        # Common: 42% of 50% (14% each)
+        # Very Rare: 10% (of 30%)
+        if rarity < .03 then ['Golden']
+        # Rare: 20% (of 30%)
+        else if rarity < .06 then ['Zombie', 'CottonCandyPink', 'CottonCandyBlue']
+        # Uncommon: 30% (of 30%)
+        else if rarity < .09 then ['Red', 'Shade', 'Skeleton']
+        # Common: 40% (of 30%)
         else ['Base', 'White', 'Desert']
 
       # No Rarity (@see https://github.com/HabitRPG/habitrpg/issues/1048, we may want to remove rareness when we add mounts)
