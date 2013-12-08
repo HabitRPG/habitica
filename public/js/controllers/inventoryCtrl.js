@@ -126,6 +126,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
       // Feeding Pet
       if ($scope.selectedFood) {
+        if (window.habitrpgShared.items.items.specialPets[pet]) return Notification.text("Can't feed this pet.");
         var setObj = {};
         var userPets = user.items.pets;
         if (user.items.mounts[pet] && (userPets[pet] >= 50 || $scope.selectedFood.name == 'Saddle'))

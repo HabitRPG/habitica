@@ -57,7 +57,7 @@ angular.module('userServices', []).
           sent.push(queue.shift());
         });
 
-        $http.post(API_URL + '/api/v1/user/batch-update', sent, {params: {data:+new Date, _v:user._v}})
+        $http.post(API_URL + '/api/v1/user/batch-update', sent, {params: {data:+new Date, _v:user._v, siteVersion: $window.env && $window.env.siteVersion}})
           .success(function (data, status, heacreatingders, config) {
             //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
             if (!queue.length) {
@@ -85,6 +85,13 @@ angular.module('userServices', []).
             syncQueue(); // call syncQueue to check if anyone pushed more actions to the queue while we were talking to server.
           })
           .error(function (data, status, headers, config) {
+            if(status === 400 && data.needRefresh === true){
+              alert("The site has been updated and the page needs to refresh. " +
+                "The last action has not been recorded, please do it again once the page reloads."
+                );
+
+              return location.reload();
+            }
             //move sent actions back to queue
             _.times(sent.length, function () {
                 queue.push(sent.shift())

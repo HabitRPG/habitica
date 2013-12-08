@@ -36,7 +36,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
                 .badge.badge-info.stack-count {{points}}
               //-p {{pot}}
 
-        //-li.customize-menu
+        li.customize-menu
           menu.pets-menu(label='Food ({{foodCount}})')
             p(ng-show='foodCount < 1') You don't have any food.
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
@@ -84,7 +84,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
                   |  {{pot.value}}
                   span.Pet_Currency_Gem1x.inline-gems
 
-          //-li.customize-menu
+          li.customize-menu
             menu.pets-menu(label='Food')
               div(ng-repeat='food in Items.food')
                 button.customize-option(popover='{{food.notes}}', popover-title='{{food.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='buy("food", food)', class='Pet_Food_{{food.name}}')

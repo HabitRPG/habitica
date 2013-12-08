@@ -16,8 +16,7 @@ var api = module.exports;
   ------------------------------------------------------------------------
 */
 
-var itemFields = 'items.armor items.head items.shield items.weapon items.currentPet items.pets'; // TODO just send down count(items.pets) for better performance
-var partyFields = 'profile preferences stats achievements party backer contributor flags.rest auth.timestamps ' + itemFields;
+var partyFields = 'profile preferences stats achievements party backer contributor flags.rest auth.timestamps items';
 var nameFields = 'profile.name';
 var challengeFields = '_id name';
 var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} };

@@ -31,7 +31,9 @@ habitrpg.controller('NotificationCtrl',
     $rootScope.$watch('user._tmp.drop', function(after, before){
       // won't work when getting the same item twice?
       if (after == before || !after) return;
-      var type = after.type === 'HatchingPotion' ? 'hatchingPotions' : (after.type.toLowerCase() + 's')
+      var type = (after.type == 'Food') ? 'food' :
+        (after.type == 'HatchingPotion') ? 'hatchingPotions' : // can we use camelcase and remove this line?
+        (after.type.toLowerCase() + 's');
       if(!User.user.items[type][after.name]){
         User.user.items[type][after.name] = 0;
       }
