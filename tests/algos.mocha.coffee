@@ -158,18 +158,28 @@ describe 'User', ->
       algos.score(user, user.dailys[0], 'up')
       expect(user.items.eggs).to.eql {}
       expect(user.items.hatchingPotions).to.eql {'Golden': 1}
+      expect(user.items.food).to.eql {}
 
     it 'gets a bear cub egg', ->
       sinon.stub(Math, 'random', cycle [0, 0.55])
       algos.score(user, user.dailys[0], 'up')
       expect(user.items.eggs).to.eql {'BearCub': 1}
       expect(user.items.hatchingPotions).to.eql {}
+      expect(user.items.food).to.eql {}
+
+    it 'gets honey', ->
+      sinon.stub(Math, 'random', cycle [0, 0.9])
+      algos.score(user, user.dailys[0], 'up')
+      expect(user.items.eggs).to.eql {}
+      expect(user.items.hatchingPotions).to.eql {}
+      expect(user.items.food).to.eql {'Honey': 1}
 
     it 'does not get a drop', ->
       sinon.stub(Math, 'random').returns 0.5
       algos.score(user, user.dailys[0], 'up')
       expect(user.items.eggs).to.eql {}
       expect(user.items.hatchingPotions).to.eql {}
+      expect(user.items.food).to.eql {}
 
     afterEach ->
       Math.random.restore()
