@@ -110,7 +110,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
       /* Figure out whether we wanna put this in habitrpg-shared
        */
 
-      sorted = [updated.weapon, updated.armor, updated.head, updated.shield, updated.potion, updated.reroll];
+      sorted = [updated.weapon, updated.armor, updated.head, updated.shield, updated.potion];
       $scope.itemStore = sorted;
     }
 
