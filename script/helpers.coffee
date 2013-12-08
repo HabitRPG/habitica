@@ -123,7 +123,7 @@ module.exports =
 
     repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
     defaultTasks = [
-      {type: 'habit', text: '1h Productive Work', notes: 'When you create a new habit, you will be able to click whether you want it have positive or negative attributes. For some Habits, like this one, it only makes sense to *gain* points.', value: 0, up: true, down: false }
+      {type: 'habit', text: '1h Productive Work', notes: 'When you create a new Habit, you can click the Edit icon and choose for it to represent a positive habit, a negative habit, or both. For some Habits, like this one, it only makes sense to gain points.', value: 0, up: true, down: false }
       {type: 'habit', text: 'Eat Junk Food', notes: 'For others, it only makes sense to *lose* points.', value: 0, up: false, down: true}
       {type: 'habit', text: 'Take The Stairs', notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose).', value: 0, up: true, down: true}
 
