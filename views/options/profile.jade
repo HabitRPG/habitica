@@ -6,8 +6,21 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
         li.customize-menu
           menu(label='Head')
           menu
-            button.broad_armor_base_0.customize-option(type='button', ng-click='set("preferences.size","broad")')
-            button.slim_armor_base_0.customize-option(type='button', ng-click='set("preferences.size","slim")')
+            button.broad_armor_base_0_white.customize-option(type='button', ng-click='set("preferences.size","broad")')
+            button.slim_armor_base_0_pink.customize-option(type='button', ng-click='set("preferences.size","slim")')
+        li.customize-menu
+          menu(label='Clothing')
+            menu(ng-controller=UserCtrl')
+              each shirt in basic_shirts
+                button.customize-option(class='slim_armor_base_0_'+shirt, ng-show='user.preferences.size=="slim"', type='button', ng-click='set("preferences.armorSet", ' + shirt + ')')
+                button.customize-option(class='broad_armor_base_0_'+shirt, ng-show='user.preferences.size=="broad"', type='button', ng-click='set("preferences.armorSet", ' + shirt + ')')
+
+            // Special Shirts
+            h5.
+              Special Shirts- 2<span class="Pet_Currency_Gem1x inline-gems"/>/shirt
+            menu
+              each shirt in special_shirts
+                button.customize-option(type='button', class='slim_armor_base_0_'+shirt, ng-class='{locked: !user.purchased.shirt.'+shirt+'}', ng-click='unlock("shirt.'+shirt+'")')
 
     .span4
         h3 Hair

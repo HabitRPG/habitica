@@ -78,5 +78,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
 
     $scope.unlock = User.unlock;
 
+    $scope.basic_shirts = ['black', 'blue', 'green', 'pink', 'white', 'yellow'];
+    $scope.special_shirts = ['convict', 'cross', 'fire', 'horizon', 'ocean', 'purple', 'rainbow', 'redblue', 'thunder', 'tropical', 'zombie'];
   }
 ]);
