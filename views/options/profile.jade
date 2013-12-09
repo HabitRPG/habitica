@@ -6,10 +6,10 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
         li.customize-menu
           menu(label='Size')
           label.checkbox
-            input(type='checkbox', ng-model='user.preferences.size', ng-change='set("preferences.size","slim")')
+            input(type='checkbox', ng-model='user.preferences.size', ng-checked='user.preferences.size == "slim"', ng-change='set("preferences.size","slim")')
             | Slim
           label.checkbox
-            input(type='checkbox', ng-model='user.preferences.size', ng-change='set("preferences.size","broad")')
+            input(type='checkbox', ng-model='user.preferences.size', ng-checked='user.preferences.size == "broad"', ng-change='set("preferences.size","broad")')
             | Broad
         li.customize-menu
           menu(label='Clothing')
