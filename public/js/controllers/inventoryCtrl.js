@@ -2,6 +2,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
   function($rootScope, $scope, User, API_URL, $http, Notification) {
 
     var user = User.user;
+    var Items = window.habitrpgShared.items;
 
     // convenience vars since these are accessed frequently
 
@@ -17,11 +18,22 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     $scope.$watch('user.items.hatchingPotions', function(pots){ $scope.potCount = countStacks(pots); }, true);
     $scope.$watch('user.items.food', function(food){ $scope.foodCount = countStacks(food); }, true);
 
+    $scope.$watch('user.items.gear', function(gear){
+      $scope.gear = {
+        base: _.where(Items.items.gear.flat, {klass: 'base'})
+      };
+      _.each(gear.owned, function(bool,key){
+        var item = Items.items.gear.flat[key];
+        if (!$scope.gear[item.klass]) $scope.gear[item.klass] = [];
+        $scope.gear[item.klass].push(item);
+      })
+    }, true)
+
     $scope.chooseEgg = function(egg){
       if ($scope.selectedEgg && $scope.selectedEgg.name == egg) {
         return $scope.selectedEgg = null; // clicked same egg, unselect
       }
-      var eggData = _.findWhere(window.habitrpgShared.items.items.eggs, {name:egg});
+      var eggData = _.findWhere(Items.items.eggs, {name:egg});
       if (!$scope.selectedPotion) {
         $scope.selectedEgg = eggData;
       } else {
@@ -34,7 +46,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
         return $scope.selectedPotion = null; // clicked same egg, unselect
       }
       // we really didn't think through the way these things are stored and getting passed around...
-      var potionData = _.findWhere(window.habitrpgShared.items.items.hatchingPotions, {name:potion});
+      var potionData = _.findWhere(Items.items.hatchingPotions, {name:potion});
       if (!$scope.selectedEgg) {
         $scope.selectedPotion = potionData;
       } else {
@@ -169,6 +181,19 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     $scope.chooseMount = function(egg, potion) {
       var mount = egg + '-' + potion;
       User.set('items.currentMount', (user.items.currentMount == mount) ? '' : mount);
+    }
+
+    $scope.equip = function(user, item, costume) {
+      var equipTo = costume ? 'costume' : 'equipped';
+      if (item.type == 'shield') {
+        var weapon = Items.items.gear.flat[user.items.gear[equipTo].weapon];
+        if (weapon && weapon.twoHanded) return Notification.text(weapon.text + ' is two-handed');
+      }
+      var setVars = {};
+      setVars['items.gear.' +  equipTo + '.' + item.type] = item.key;
+      if (item.twoHanded)
+        setVars['items.gear.' + equipTo + '.shield'] = 'warrior_shield_0';
+      User.setMultiple(setVars);
     }
 
   }

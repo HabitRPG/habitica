@@ -1,4 +1,4 @@
-li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', data-id='{{task.id}}')
+li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}')
   // right-hand side control buttons
   .task-meta-controls
 
@@ -161,6 +161,14 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
           span(ng-if='task.type=="daily"')
             legend.option-title Restore Streak
             input.option-content(type='number', ng-model='task.streak')
+
+          legend.option-title Attributes
+          .task-controls.tile-group
+            button.task-action-btn.tile(type='button') Physical
+            button.task-action-btn.tile(type='button') Mental
+            button.task-action-btn.tile(type='button') Social
+            button.task-action-btn.tile(type='button') Other
+
       button.task-action-btn.tile.spacious(type='submit') Save & Close
 
   div(class='{{obj._id}}{{task.id}}-chart', ng-show='charts[obj._id+task.id]')

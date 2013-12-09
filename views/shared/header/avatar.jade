@@ -3,28 +3,40 @@
     Removing it will remove the user's name, but will allow more room for mounts & helms. IMO this is the lesser of two evils, revisit
 //-figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: profile.id==user.id, hasPet: profile.items.currentPet}', data-level='{{profile.stats.lvl}}', data-uid='{{profile.id}}', rel='popover', data-placement='bottom', data-trigger='hover', data-html='true', data-content="<div ng-hide='profile.id == user.id'> <div class='progress progress-danger' style='height:5px;'> <div class='bar' style='height: 5px; width: {{percent(profile.stats.hp, 50)}}%;'></div> </div> <div class='progress progress-warning' style='height:5px;'> <div class='bar' style='height: 5px; width: {{percent(profile.stats.exp, tnl(profile.stats.lvl))}}%;'></div> </div> <div>Level: {{profile.stats.lvl}}</div> <div>GP: {{profile.stats.gp | number:0}}</div> <div>{{count(profile.items.pets)}} / 90 Pets Found</div> </div>")
 
-figure.herobox(ng-click='clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: user._id==profile._id && !(user.items.currentMount && user.items.currentPet), hasPet: profile.items.currentPet && profile.items.currentMount, isLeader: party.leader==profile._id}')
+figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(profile._id)', data-name='{{profile.profile.name}}', ng-class='{isUser: user._id==profile._id && !(user.items.currentMount && user.items.currentPet), hasPet: profile.items.currentPet && profile.items.currentMount, "cast-target": applyingAction, isLeader: party.leader==profile._id}')
   .character-sprites
     // Mount Body
     span(ng-if='profile.items.currentMount', class='Mount_Body_{{profile.items.currentMount}}')
 
     // Avatar
-    span(class='{{profile.preferences.gender}}_skin_{{profile.preferences.skin}}')
-    span(class='{{profile.preferences.gender}}_hair_{{profile.preferences.hair}}')
-    span(class='{{equipped("armor", 0, profile.preferences, profile.backer, profile.contributor)}}')
-    span(class='{{equipped("armor", profile.items.armor, profile.preferences, profile.backer, profile.contributor)}}', ng-show='profile.preferences.showArmor')
-    span(class='{{profile.preferences.gender}}_head_0', ng-hide='profile.preferences.showHelm')
-    span(class='{{equipped("head", profile.items.head, profile.preferences, profile.backer, profile.contributor)}}', ng-show='profile.preferences.showHelm')
-    span(class='{{equipped("shield",profile.items.shield,profile.preferences, profile.backer, profile.contributor)}}', ng-show='profile.preferences.showShield')
-    span(class='{{equipped("weapon",profile.items.weapon,profile.preferences, profile.backer, profile.contributor)}}', ng-show='profile.preferences.showWeapon')
+    span(class='skin_{{profile.preferences.skin}}')
+
+    span(class='{{profile.preferences.size}}_{{profile.items.gear.equipped.armor}}', ng-if='!profile.preferences.costume')
+    span(class='{{profile.preferences.size}}_{{profile.items.gear.costume.armor}}', ng-if='profile.preferences.costume')
+
+    span(class='head_base_0')
+    span(class='hair_base_{{profile.preferences.hair.base}}_{{profile.preferences.hair.color}}')
+    span(class='hair_bangs_{{profile.preferences.hair.bangs}}_{{profile.preferences.hair.color}}')
+
+    span(class='hair_beard_{{profile.preferences.hair.beard}}_{{profile.preferences.hair.color}}')
+    span(class='hair_mustache_{{profile.preferences.hair.mustache}}_{{profile.preferences.hair.color}}')
+
+    span(class='{{profile.items.gear.equipped.head}}', ng-if='!profile.preferences.costume')
+    span(class='{{profile.items.gear.costume.head}}', ng-if='profile.preferences.costume')
+
+
+    span(class='{{profile.items.gear.equipped.shield}}', ng-if='!profile.preferences.costume')
+    span(class='{{profile.items.gear.costume.shield}}', ng-if='profile.preferences.costume')
+
+    span(class='{{profile.items.gear.equipped.weapon}}', ng-if='!profile.preferences.costume')
+    span(class='{{profile.items.gear.costume.weapon}}', ng-if='profile.preferences.costume')
+
 
     // Mount Head
     span(ng-if='profile.items.currentMount', class='Mount_Head_{{profile.items.currentMount}}')
 
     // Resting
     span(ng-class='{zzz:profile.flags.rest}')
-
-    // Pet
     // FIXME handle @minimal, this might have to be a directive
     span.current-pet(class='Pet-{{profile.items.currentPet}}', ng-show='profile.items.currentPet && !minimal')
   .avatar-level(ng-class='userLevelStyle(profile,"label")')

@@ -94,7 +94,8 @@ var UserSchema = new Schema({
     rewrite: {type: Boolean, 'default': true},
     partyEnabled: Boolean, // FIXME do we need this?
     rest: {type: Boolean, 'default': false}, // fixme - change to preferences.resting once we're off derby
-    contributor: Boolean
+    contributor: Boolean,
+    classSelected: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
@@ -107,10 +108,26 @@ var UserSchema = new Schema({
     party: Schema.Types.Mixed
   },
   items: {
-    armor: Number,
-    weapon: Number,
-    head: Number,
-    shield: Number,
+    gear: {
+      owned: _.transform(items.items.gear.flat, function(m,v,k){
+        m[v.key] = {type: Boolean};
+        if (v.key.match(/[weapon|armor|head|shield]_warrior_0/))
+          m[v.key]['default'] = true;
+      }),
+
+      equipped: {
+        weapon: {type: String, 'default': 'weapon_warrior_0'},
+        armor: {type: String, 'default': 'armor_base_0'},
+        head: {type: String, 'default': 'head_base_0'},
+        shield: {type: String, 'default': 'shield_base_0'}
+      },
+      costume: {
+        weapon: {type: String, 'default': 'weapon_base_0'},
+        armor: {type: String, 'default': 'armor_base_0'},
+        head: {type: String, 'default': 'head_base_0'},
+        shield: {type: String, 'default': 'shield_base_0'}
+      },
+    },
 
     // -------------- Animals ------------------- 
     // Complex bit here. The result looks like:
@@ -185,16 +202,20 @@ var UserSchema = new Schema({
   preferences: {
     armorSet: String,
     dayStart: {type:Number, 'default': 0},
-    gender: {type:String, 'default': 'm'},
-    hair: {type:String, 'default':'blond'},
+    size: {type:String, enum: ['broad','slim'], 'default': 'broad'},
+    hair: {
+      color: {type: String, 'default': 'blond'},
+      base: {type: Number, 'default': 0},
+      bangs: {type: Number, 'default': 0},
+      beard: {type: Number, 'default': 0},
+      mustach: {type: Number, 'default': 0},
+    },
     hideHeader: {type:Boolean, 'default':false},
-    showHelm: {type:Boolean, 'default':true},
-    showWeapon: {type:Boolean, 'default':true},
-    showShield: {type:Boolean, 'default':true},
-    showArmor: {type:Boolean, 'default':true},
     skin: {type:String, 'default':'white'},
     timezoneOffset: Number,
-    language: String
+    language: String,
+    automaticAllocation: Boolean,
+    useCostume: Boolean
   },
   profile: {
     blurb: String,
@@ -202,10 +223,25 @@ var UserSchema = new Schema({
     name: String,
   },
   stats: {
-    hp: Number,
-    exp: Number,
-    gp: Number,
-    lvl: Number
+    hp: {type: Number, 'default': 50},
+    mp: {type: Number, 'default': 10},
+    exp: {type: Number, 'default': 0},
+    gp: {type: Number, 'default': 0},
+    lvl: {type: Number, 'default': 1},
+
+    // Class System
+    'class': {type: String, enum: ['warrior','rogue','wizard','healer'], 'default': 'warrior'},
+    points: {type: Number, 'default': 0},
+    str: {type: Number, 'default': 0},
+    con: {type: Number, 'default': 0},
+    int: {type: Number, 'default': 0},
+    per: {type: Number, 'default': 0},
+    buffs: {
+      str: Number,
+      def: Number,
+      per: Number,
+      stealth: Number
+    }
   },
   tags: [
     {
@@ -268,10 +304,15 @@ UserSchema.pre('save', function(next) {
       'Anonymous';
   }
 
+  // FIXME handle this on level-up instead, and come up with how we're going to handle retroactively
+  // Actually, can this be used as an attr default? (schema {type: ..., 'default': function(){}})
+  this.stats.points = this.stats.lvl - (this.stats.con + this.stats.str + this.stats.per + this.stats.int);
+
   var petCount = helpers.countPets(_.reduce(this.items.pets,function(m,v){
     //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
     if(_.isFunction(v)) return m;
     return m+(v?1:0)},0), this.items.pets);
+
   this.achievements.beastMaster = petCount >= 90;
 
   //our own version incrementer

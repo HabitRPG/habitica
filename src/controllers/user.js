@@ -203,13 +203,12 @@ api.clearCompleted = function(req, res, next) {
   ------------------------------------------------------------------------
 */
 api.buy = function(req, res, next) {
-  var hasEnough, type, user;
-  user = res.locals.user;
-  type = req.params.type;
-  if (type !== 'weapon' && type !== 'armor' && type !== 'head' && type !== 'shield' && type !== 'potion') {
-    return res.json(400, {err: ":type must be in one of: 'weapon', 'armor', 'head', 'shield', 'potion'"});
+  var user = res.locals.user;
+  var key = req.params.key;
+  if (key !== 'potion' && !items.items.gear.flat[key]) {
+    return res.json(400, {err: ":item must be a supported key, see https://github.com/HabitRPG/habitrpg-shared/blob/master/script/items.coffee"});
   }
-  hasEnough = items.buyItem(user, type);
+  var hasEnough = items.buyItem(user, items.items.gear.flat[key]);
   if (hasEnough) {
     return user.save(function(err, saved) {
       if (err) return res.json(500, {err: err});
@@ -485,6 +484,70 @@ api.deleteTag = function(req, res){
 }
 
 /*
+ ------------------------------------------------------------------------
+ Spells
+ ------------------------------------------------------------------------
+ */
+api.cast = function(req, res) {
+  var user = res.locals.user;
+  var type = req.body.type, target = req.body.target;
+  var spell = items.items.spells[user.stats.class][req.params.spell];
+
+  var done = function(){
+    var err = arguments[0];
+    var saved = _.size(arguments == 3) ? arguments[2] : arguments[1];
+    if (err) return res.json(500, {err:err});
+    res.json(saved);
+  }
+
+  switch (type) {
+    case 'task':
+      spell.cast(user, user.tasks[target.id]);
+      user.save(done);
+      break;
+
+    case 'self':
+      spell.cast(user);
+      user.save(done);
+      break;
+
+    case 'party':
+      async.waterfall([
+        function(cb){
+          Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members').exec(cb);
+        },
+        function(group, cb) {
+          if (!group) group = {members:[user]};
+          spell.cast(user, group.members);
+          var series = _.transform(group.members, function(m,v,k){
+            m[k] = function(cb2){v.save(cb2);}
+          });
+          async.series(series, cb);
+        },
+        function(whatever, cb){
+          user.save(cb);
+        }
+      ], done);
+      break;
+
+    case 'user':
+      async.waterfall([
+        function(cb) {
+          User.findById(target._id, cb);
+        },
+        function(member, cb) {
+          spell.cast(user, member);
+          member.save(cb); // not parallel because target could be user, which causes race condition when saving
+        },
+        function(saved, num, cb) {
+          user.save(cb);
+        }
+      ], done);
+      break;
+  }
+}
+
+/*
   ------------------------------------------------------------------------
   Batch Update
   Run a bunch of updates all at once
@@ -502,6 +565,7 @@ api.batchUpdate = function(req, res, next) {
     req.params.id = action.data && action.data.id;
     req.params.direction = action.dir;
     req.params.type = action.type;
+    req.params.key = action.key;
     req.body = action.data;
     res.send = res.json = function(code, data) {
       if (_.isNumber(code) && code >= 400) {

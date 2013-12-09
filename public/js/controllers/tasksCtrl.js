@@ -104,24 +104,14 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
      ------------------------
      */
 
-    var updateStore = function(){
-      var sorted, updated;
-      updated = window.habitrpgShared.items.updateStore(User.user);
-      /* Figure out whether we wanna put this in habitrpg-shared
-       */
+    $scope.itemStore = window.habitrpgShared.items.updateStore(User.user);
 
-      sorted = [updated.weapon, updated.armor, updated.head, updated.shield, updated.potion];
-      $scope.itemStore = sorted;
-    }
-
-    updateStore();
-
-    $scope.buy = function(type) {
-      var hasEnough = window.habitrpgShared.items.buyItem(User.user, type);
+    $scope.buy = function(item) {
+      var hasEnough = window.habitrpgShared.items.buyItem(User.user, item);
       if (hasEnough) {
-        User.log({op: "buy",type: type});
+        User.log({op: "buy", key: item.key});
         Notification.text("Item purchased.");
-        updateStore();
+        $scope.itemStore = window.habitrpgShared.items.updateStore(User.user);
       } else {
         Notification.text("Not enough Gold!");
       }
@@ -131,6 +121,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
       User.user.todos = _.reject(User.user.todos, {completed:true});
       User.log({op: 'clear-completed'});
     }
+
+
+    /*
+     ------------------------
+     Ads
+     ------------------------
+     */
 
     /**
      * See conversation on http://productforums.google.com/forum/#!topic/adsense/WYkC_VzKwbA,

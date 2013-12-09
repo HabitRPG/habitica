@@ -12,15 +12,19 @@ script(type='text/ng-template', id='partials/options.inventory.stable.html')
 
 script(type='text/ng-template', id='partials/options.inventory.stable.mounts.html')
   .stable
-    .NPC-Matt
-      .popover.static-popover.fade.right.in(style='max-width: 550px; margin-left: 10px;')
-        .arrow
-        h3.popover-title
-          a(target='_blank', href='http://www.kickstarter.com/profile/mattboch') Matt Boch
-        .popover-content
-          p.
-            Shall I bring you your steed, {{user.profile.name}}? Click a mount to saddle up.
-          h4 {{mountCount}} / {{totalPets}} Mounts Tamed
+    table(style='width:100%')
+      tr
+        td(style='width:144px')
+          .npc_matt
+        td
+          .popover.static-popover.fade.right.in(style='max-width: 550px; margin-left: 10px;')
+            .arrow
+            h3.popover-title
+              a(target='_blank', href='http://www.kickstarter.com/profile/mattboch') Matt Boch
+            .popover-content
+              p.
+                Shall I bring you your steed, {{user.profile.name}}? Click a mount to saddle up.
+              h4 {{mountCount}} / {{totalPets}} Mounts Tamed
     menu.pets(type='list')
       li.customize-menu(ng-repeat='egg in Items.eggs')
         menu
@@ -28,7 +32,7 @@ script(type='text/ng-template', id='partials/options.inventory.stable.mounts.htm
             button(class="pet-button Mount_Head_{{mount}}", ng-show='user.items.mounts[mount]', ng-class='{active: user.items.currentMount == mount}', ng-click='chooseMount(egg.name, potion.name)')
               //div(class='Mount_Head_{{mount}}')
             button(class="pet-button pet-not-owned", ng-hide='user.items.mounts[mount]')
-              img(src='/bower_components/habitrpg-shared/img/PixelPaw.png')
+              .PixelPaw
 
     h4 Rare Mounts
     menu
@@ -40,15 +44,19 @@ script(type='text/ng-template', id='partials/options.inventory.stable.mounts.htm
 
 script(type='text/ng-template', id='partials/options.inventory.stable.pets.html')
   .stable
-    .NPC-Matt
-      .popover.static-popover.fade.right.in(style='max-width: 550px; margin-left: 10px;')
-        .arrow
-        h3.popover-title
-          a(target='_blank', href='http://www.kickstarter.com/profile/mattboch') Matt Boch
-        .popover-content
-          p.
-            Welcome to the Stable! I'm Matt, the beast master. Choose a pet here to venture at your side. Feed them and they'll grow into powerful steeds. <a target='_blank' href='https://f.cloud.github.com/assets/2374703/164631/3ed5fa6c-78cd-11e2-8743-f65ac477b55e.png'>Have a look-see</a> at all the pets you can collect.
-          h4 {{petCount}} / {{totalPets}} Pets Found
+    table(style='width:100%')
+      tr
+        td(style='width:144px')
+          .npc_matt
+        td
+          .popover.static-popover.fade.right.in(style='max-width: 550px; margin-left: 10px;')
+            .arrow
+            h3.popover-title
+              a(target='_blank', href='http://www.kickstarter.com/profile/mattboch') Matt Boch
+            .popover-content
+              p.
+                Welcome to the Stable! I'm Matt, the beast master. Choose a pet here to venture at your side. Feed them and they'll grow into powerful steeds. <a target='_blank' href='https://f.cloud.github.com/assets/2374703/164631/3ed5fa6c-78cd-11e2-8743-f65ac477b55e.png'>Have a look-see</a> at all the pets you can collect.
+              h4 {{petCount}} / {{totalPets}} Pets Found
 
     menu.pets(type='list')
       li.customize-menu(ng-repeat='egg in Items.eggs')
@@ -58,7 +66,7 @@ script(type='text/ng-template', id='partials/options.inventory.stable.pets.html'
               .progress(ng-class='{"progress-success": user.items.pets[pet]<50}')
                 .bar(style="width: {{user.items.pets[pet]/.5}}%;")
             button(class="pet-button pet-not-owned", ng-if='!user.items.pets[pet]')
-              img(src='/bower_components/habitrpg-shared/img/PixelPaw.png')
+              .PixelPaw
 
     h4 Rare Pets
     menu
@@ -69,7 +77,7 @@ script(type='text/ng-template', id='partials/options.inventory.stable.pets.html'
         button(ng-if='user.items.pets["Turkey-Base"]', class="pet-button Pet-Turkey-Base", ng-class='{active: user.items.currentPet == "Turkey-Base"}', ng-click='choosePet("Turkey", "Base")', popover='Turkey', popover-trigger='mouseenter', popover-placement='bottom')
         a(target='_blank', href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')
           button(ng-if='!user.items.pets["Dragon-Hydra"]', class="pet-button pet-not-owned", popover-trigger='mouseenter', popover-placement='right', popover="Click the gold paw to learn more about how you can obtain this rare pet through contributing to HabitRPG!", popover-title='How to Get this Pet!')
-            img(src='/bower_components/habitrpg-shared/img/PixelPaw-Gold.png')
+            .PixelPaw-Gold
 
   .well.food-tray
     p(ng-show='foodCount < 1') You don't have any food yet.

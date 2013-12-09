@@ -1,36 +1,27 @@
-.NPC-Alex, .NPC-Bailey, .NPC-Bailey-Head, .NPC-Daniel, .NPC-Justin, .NPC-Justin-Head, .NPC-Matt {background: url("/bower_components/habitrpg-shared/img/npcs/NPC-SpriteSheet.png") no-repeat}
+.npc_alex_container
+  margin-bottom: 20px
 
-.NPC-Alex {background-position: 0 0; width: 162px; height: 138px;}
-.NPC-Alex-container{margin-bottom: 20px;}
-.NPC-Daniel {background-position: -222px 0; width: 135px; height: 123px}
-.NPC-Justin {background-position: -357px 0; width: 84px; height: 119px}
-.NPC-Justin-Head {background-position: -396px 0; width: 36px; height: 96px}
-.NPC-Matt {background-position: -441px 0; width: 100%; padding-left: 208px; padding-bottom: 20px;}
+.npc_matt
+  margin-bottom: 20px
 
-// Bailey
-.NPC-Bailey
-    background-position: -162px -42px
-    width: 60px
-    height: 72px
-    float:left
-.NPC-Bailey-Head
-    background-position: -162px -42px
-    width: 60px
-    height: 30px
-    position: absolute
-    top: 117px // 147 (header-height) - 30 (bailey height)
-    right: 50px
-    cursor: pointer
-
-
-.static-popover
-    z-index 0
-    display block
-    position:relative
+.npc_bailey
+  float:left
+.npc_bailey_head
+  height: 30px !important
+  position: absolute
+  top: 117px // 147 (header-height) - 30 (bailey height)
+  right: 50px
+  cursor: pointer
 
 // Tour (Justin)
-.NPC-Justin.float-left
+.npc_justin.float-left
   float: left
   margin-right: 5px
   margin-bottom: 5px
+
+.static-popover
+  z-index 0
+  display block
+  position:relative
+
 .popover-navigation {clear:both;}

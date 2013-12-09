@@ -6,66 +6,83 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
         li.customize-menu
           menu(label='Head')
           menu
-            button.m_head_0.customize-option(type='button', ng-click='set("preferences.gender","m")')
-            button.f_head_0.customize-option(type='button', ng-click='set("preferences.gender","f")')
-          label.checkbox
-            input(type='checkbox', ng-model='user.preferences.showHelm', ng-change='set("preferences.showHelm", user.preferences.showHelm?true: false)')
-            | Show Helm
-        menu(type='list')
-          li.customize-menu
-            menu(label='Clothing')
-              button.f_armor_0_v1.customize-option(ng-show='user.preferences.gender=="f"', type='button', ng-click='set("preferences.armorSet","v1")')
-              button.f_armor_0_v2.customize-option(ng-show='user.preferences.gender=="f"', type='button', ng-click='set("preferences.armorSet","v2")')
-          label.checkbox
-            input(type='checkbox', ng-model='user.preferences.showArmor', ng-change='set("preferences.showArmor", user.preferences.showArmor?true: false)')
-            | Show Armor
-        menu(type='list')
-          li.customize-menu
-            menu(label='Other')
-          label.checkbox
-            input(type='checkbox', ng-model='user.preferences.showWeapon', ng-change='set("preferences.showWeapon", user.preferences.showWeapon?true: false)')
-            | Show Weapon
-          label.checkbox
-            input(type='checkbox', ng-model='user.preferences.showShield', ng-change='set("preferences.showShield", user.preferences.showShield?true: false)')
-            | Show Shield
-
+            button.broad_armor_base_0.customize-option(type='button', ng-click='set("preferences.size","broad")')
+            button.slim_armor_base_0.customize-option(type='button', ng-click='set("preferences.size","slim")')
 
     .span4
-        // hair
-        li.customize-menu
-          menu(label='Hair')
-            button(class='{{user.preferences.gender}}_hair_blond customize-option', type='button', ng-click='set("preferences.hair","blond")')
-            button(class='{{user.preferences.gender}}_hair_black customize-option', type='button', ng-click='set("preferences.hair","black")')
-            button(class='{{user.preferences.gender}}_hair_brown customize-option', type='button', ng-click='set("preferences.hair","brown")')
-            button(class='{{user.preferences.gender}}_hair_white customize-option', type='button', ng-click='set("preferences.hair","white")')
-            button(class='{{user.preferences.gender}}_hair_red customize-option', type='button', ng-click='set("preferences.hair","red")')
+        h3 Hair
+        menu(type='list')
+          // Color
+          li.customize-menu
+            menu(label='Color')
+              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#c8c8c8;', ng-click='set("preferences.hair.color", "white")')
+              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#903a00;', ng-click='set("preferences.hair.color", "brown")')
+              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#cfb853;', ng-click='set("preferences.hair.color", "blond")')
+              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#ec720f;', ng-click='set("preferences.hair.color", "red")')
+              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#2e2e2e;', ng-click='set("preferences.hair.color", "black")')
+
+          // Bangs
+          li.customize-menu
+            menu(label='Bangs')
+              button(class='head_base_0 customize-option', type='button', ng-click='set("preferences.hair.bangs",0)')
+              button(class='hair_bangs_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.bangs",1)')
+              button(class='hair_bangs_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.bangs",2)')
+              button(class='hair_bangs_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.bangs",3)')
+
+          // Beard
+          li.customize-menu
+            menu(label='Beard')
+              button(class='head_base_0 customize-option', type='button', ng-click='set("preferences.hair.beard",0)')
+              button(class='hair_beard_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.beard",1)')
+              button(class='hair_beard_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.beard",2)')
+              button(class='hair_beard_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.beard",3)')
+
+          // Mustache
+          li.customize-menu
+            menu(label='Mustache')
+              button(class='head_base_0 customize-option', type='button', ng-click='set("preferences.hair.mustache",0)')
+              button(class='hair_mustache_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.mustache",1)')
+              button(class='hair_mustache_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.mustache",2)')
+
+          // Base
+         li.customize-menu
+           menu(label='Base')
+             button(class='head_base_0 customize-option', type='button', ng-click='set("preferences.hair.base",0)')
+             button(class='hair_base_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",1)')
+             button(class='hair_base_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",2)')
+             button(class='hair_base_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",3)')
+             button(class='hair_base_4_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",4)')
+             button(class='hair_base_5_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",5)')
+             button(class='hair_base_6_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",6)')
+             button(class='hair_base_7_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",7)')
+             button(class='hair_base_8_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",8)')
 
     .span4
         // skin
         li.customize-menu
           menu(label='Basic Skins')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_asian',  ng-click='set("preferences.skin","asian")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_white',  ng-click='set("preferences.skin","white")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_ea8349', ng-click='set("preferences.skin","ea8349")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_c06534', ng-click='set("preferences.skin","c06534")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_98461a', ng-click='set("preferences.skin","98461a")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_black',  ng-click='set("preferences.skin","black")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_dead',   ng-click='set("preferences.skin","dead")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_orc',    ng-click='set("preferences.skin","orc")')
+            button.customize-option(type='button', class='skin_asian',  ng-click='set("preferences.skin","asian")')
+            button.customize-option(type='button', class='skin_white',  ng-click='set("preferences.skin","white")')
+            button.customize-option(type='button', class='skin_ea8349', ng-click='set("preferences.skin","ea8349")')
+            button.customize-option(type='button', class='skin_c06534', ng-click='set("preferences.skin","c06534")')
+            button.customize-option(type='button', class='skin_98461a', ng-click='set("preferences.skin","98461a")')
+            button.customize-option(type='button', class='skin_black',  ng-click='set("preferences.skin","black")')
+            button.customize-option(type='button', class='skin_dead',   ng-click='set("preferences.skin","dead")')
+            button.customize-option(type='button', class='skin_orc',    ng-click='set("preferences.skin","orc")')
 
           // Rainbow Skin
           h5.
             Rainbow Skins - 2<span class="Pet_Currency_Gem1x inline-gems"/>/skin
           //menu(label='Rainbow Skins (2G / skin)')
           menu
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_eb052b', ng-class='{locked: !user.purchased.skin.eb052b}', ng-click='unlock("skin.eb052b")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_f69922', ng-class='{locked: !user.purchased.skin.f69922}', ng-click='unlock("skin.f69922")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_f5d70f', ng-class='{locked: !user.purchased.skin.f5d70f}', ng-click='unlock("skin.f5d70f")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_0ff591', ng-class='{locked: !user.purchased.skin.0ff591}', ng-click='unlock("skin.0ff591")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_2b43f6', ng-class='{locked: !user.purchased.skin.2b43f6}', ng-click='unlock("skin.2b43f6")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_d7a9f7', ng-class='{locked: !user.purchased.skin.d7a9f7}', ng-click='unlock("skin.d7a9f7")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_800ed0', ng-class='{locked: !user.purchased.skin.800ed0}', ng-click='unlock("skin.800ed0")')
-            button.customize-option(type='button', class='{{user.preferences.gender}}_skin_rainbow', ng-class='{locked: !user.purchased.skin.rainbow}', ng-click='unlock("skin.rainbow")')
+            button.customize-option(type='button', class='skin_eb052b', ng-class='{locked: !user.purchased.skin.eb052b}', ng-click='unlock("skin.eb052b")')
+            button.customize-option(type='button', class='skin_f69922', ng-class='{locked: !user.purchased.skin.f69922}', ng-click='unlock("skin.f69922")')
+            button.customize-option(type='button', class='skin_f5d70f', ng-class='{locked: !user.purchased.skin.f5d70f}', ng-click='unlock("skin.f5d70f")')
+            button.customize-option(type='button', class='skin_0ff591', ng-class='{locked: !user.purchased.skin.0ff591}', ng-click='unlock("skin.0ff591")')
+            button.customize-option(type='button', class='skin_2b43f6', ng-class='{locked: !user.purchased.skin.2b43f6}', ng-click='unlock("skin.2b43f6")')
+            button.customize-option(type='button', class='skin_d7a9f7', ng-class='{locked: !user.purchased.skin.d7a9f7}', ng-click='unlock("skin.d7a9f7")')
+            button.customize-option(type='button', class='skin_800ed0', ng-class='{locked: !user.purchased.skin.800ed0}', ng-click='unlock("skin.800ed0")')
+            button.customize-option(type='button', class='skin_rainbow', ng-class='{locked: !user.purchased.skin.rainbow}', ng-click='unlock("skin.rainbow")')
           button.btn.btn-small.btn-primary(ng-hide='user.purchased.skin.eb052b && user.purchased.skin.f69922 && user.purchased.skin.f5d70f && user.purchased.skin.0ff591 && user.purchased.skin.2b43f6 && user.purchased.skin.d7a9f7 && user.purchased.skin.800ed0 && user.purchased.skin.rainbow', ng-click='unlock(["skin.eb052b", "skin.f69922", "skin.f5d70f", "skin.0ff591", "skin.2b43f6", "skin.d7a9f7", "skin.800ed0", "skin.rainbow"])') Unlock Set - 5<span class="Pet_Currency_Gem1x inline-gems"/>
 
           // Special Events
@@ -73,18 +90,53 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
           div(ng-if='user.purchased.skin.monster || user.purchased.skin.pumpkin || user.purchased.skin.skeleton || user.purchased.skin.zombie || user.purchased.skin.ghost || user.purchased.skin.shadow')
             h5 Spooky Skins
             menu
-              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_monster',  ng-if='user.purchased.skin.monster', ng-click='unlock("skin.monster")')
-              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_pumpkin',  ng-if='user.purchased.skin.pumpkin', ng-click='unlock("skin.pumpkin")')
-              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_skeleton', ng-if='user.purchased.skin.skeleton', ng-click='unlock("skin.skeleton")')
-              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_zombie',   ng-if='user.purchased.skin.zombie', ng-click='unlock("skin.zombie")')
-              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_ghost',    ng-if='user.purchased.skin.ghost', ng-click='unlock("skin.ghost")')
-              button.customize-option(type='button', class='{{user.preferences.gender}}_skin_shadow',   ng-if='user.purchased.skin.shadow', ng-click='unlock("skin.shadow")')
+              button.customize-option(type='button', class='skin_monster',  ng-if='user.purchased.skin.monster', ng-click='unlock("skin.monster")')
+              button.customize-option(type='button', class='skin_pumpkin',  ng-if='user.purchased.skin.pumpkin', ng-click='unlock("skin.pumpkin")')
+              button.customize-option(type='button', class='skin_skeleton', ng-if='user.purchased.skin.skeleton', ng-click='unlock("skin.skeleton")')
+              button.customize-option(type='button', class='skin_zombie',   ng-if='user.purchased.skin.zombie', ng-click='unlock("skin.zombie")')
+              button.customize-option(type='button', class='skin_ghost',    ng-if='user.purchased.skin.ghost', ng-click='unlock("skin.ghost")')
+              button.customize-option(type='button', class='skin_shadow',   ng-if='user.purchased.skin.shadow', ng-click='unlock("skin.shadow")')
 
 script(id='partials/options.profile.stats.html', type='text/ng-template')
   .row-fluid
-    .span6.border-right
+    .border-right(ng-class='user.stats.lvl <  5 ? "span6" : "span4"')
       include ../shared/profiles/stats
-    .span6.border-right
+    .span4.border-right(ng-show='user.stats.lvl >= 5')
+      h4
+        | {{user.stats.class}}&nbsp;
+        a.btn.btn-danger.btn-mini(ng-click='rerollClass()') Re-roll
+      h6 Points: {{user.stats.points}}
+      fieldset
+        label.checkbox
+          input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set("preferences.automaticAllocation", user.preferences.automaticAllocation?true: false)')
+          | Automatic Allocation
+          i.icon-question-sign(popover-trigger='mouseenter', popover-placement='bottom', popover="When 'automatic' is checked, your points will be allocated to the stat representing your task focus (see Task > Edit). When unchecked, you'll have one point to allocate each level. The system makes a suggestion, but you can ignore the suggestion.")
+      table.table.table-striped
+        tr
+          td
+            i.icon-question-sign(popover-title='Strength', popover='Strength increases damage you inflict to tasks, reducing their redness', popover-trigger='mouseenter')
+            | &nbsp;STR: {{user.stats.str}}
+          td
+            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("str")') +
+        tr
+          td
+            i.icon-question-sign(popover-title='Defense', popover='Defense decreases damage inflicted by tasks, and increases the effectiveness of healing and buff spells', popover-trigger='mouseenter')
+            | &nbsp;DEF: {{user.stats.def}}
+          td
+            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("con")') +
+        tr
+          td
+            i.icon-question-sign(popover-title='Perception', popover='Perception increases the likelihood of drops, Gold bonuses, and critical hit chances', popover-trigger='mouseenter')
+            | &nbsp;PER: {{user.stats.per}}
+          td
+            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("per")') +
+        tr
+          td
+            i.icon-question-sign(popover-title='Intelligence', popover='Intelligence increases your overall mana, allowing you to cast more spells', popover-trigger='mouseenter')
+            | &nbsp;INT: {{user.stats.int}}
+          td
+            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("int")') +
+    .border-right(ng-class='user.stats.lvl <  5 ? "span6" : "span4"')
       include ../shared/profiles/achievements
 
 script(id='partials/options.profile.profile.html', type='text/ng-template')

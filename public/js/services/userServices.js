@@ -23,6 +23,7 @@ angular.module('userServices', []).
       //first we populate user with schema
       _.extend(user, $window.habitrpgShared.helpers.newUser());
       user.apiToken = user._id = ''; // we use id / apitoken to determine if registered
+      $window.habitrpgShared.algos.defineComputed(user);
 
       //than we try to load localStorage
       if (localStorage.getItem(STORAGE_USER_ID)) {

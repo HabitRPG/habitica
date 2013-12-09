@@ -49,7 +49,7 @@ if (nconf.get('NODE_ENV') == 'development') {
 }
 
 /* Items*/
-router.post('/user/buy/:type', auth.auth, cron, user.buy);
+router.post('/user/buy/:key', auth.auth, cron, user.buy);
 
 /* User*/
 router.get('/user', auth.auth, cron, user.getUser);
@@ -61,6 +61,7 @@ router.post('/user/buy-gems', auth.auth, user.buyGems);
 router.post('/user/buy-gems/paypal-ipn', user.buyGemsPaypalIPN);
 router.post('/user/unlock', auth.auth, cron, user.unlock);
 router.post('/user/reset', auth.auth, user.reset);
+router.post('/user/cast/:spell', auth.auth, user.cast);
 router['delete']('/user', auth.auth, user['delete']);
 
 /* Tags */

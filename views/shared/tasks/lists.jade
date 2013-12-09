@@ -45,8 +45,8 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           include ./task
 
         // Static Rewards
-        ul.items(bo-if='main && list.type=="reward" && user.flags.itemsEnabled')
-          li.task.reward-item(ng-hide='item.hide', ng-repeat='item in itemStore')
+        ul.items.rewards(bo-if='main && list.type=="reward" && user.flags.itemsEnabled')
+          li.task.reward-item(ng-repeat='item in itemStore')
             // right-hand side control buttons
             .task-meta-controls
               span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{item.notes}}', popover-title='{{item.text}}')
@@ -55,12 +55,28 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
             .task-controls
               a.task-action-btn.btn-reroll(bo-if='item.type=="reroll"', ng-click='modals.reroll = true')
                 i.icon-repeat
-              a.money.btn-buy.item-btn(bo-if='item.type!="reroll"', ng-click='buy(item.type)')
+              a.money.btn-buy.item-btn(bo-if='item.type!="reroll"', ng-click='buy(item)')
                 span.reward-cost {{item.value}}
                 span.shop_gold
             // main content
-            span(bo-class='{"shop_{{item.classes}} shop-sprite item-img": true}')
+            span(bo-class='{"shop_{{item.key}} shop-sprite item-img": true}')
             p.task-text {{item.text}}
+
+        // Spells
+        ul.items(ng-if='main && list.type=="reward" && user.stats.class')
+          li.task.reward-item(ng-repeat='(k,spell) in Items.spells[user.stats.class]', ng-show='user.stats.lvl >= spell.lvl')
+            .task-meta-controls
+              span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{spell.notes}}', popover-title='{{spell.text}}')
+                i.icon-comment
+            //left-hand size commands
+            .task-controls
+              a.money.btn-buy.item-btn(ng-click='castStart(spell)')
+                span.reward-cost
+                  strong {{spell.mana}}
+                  | &nbsp;MP
+            // main content
+            span(ng-class='{"shop_{{spell.key}} shop-sprite item-img": true}')
+            p.task-text {{spell.text}}
 
         br
 

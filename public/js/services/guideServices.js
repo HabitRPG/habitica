@@ -74,7 +74,7 @@ angular.module('guideServices', []).
         }
       ];
       _.each(tourSteps, function(step){
-        step.content = "<div><div class='NPC-Justin float-left'></div>" + step.content + "</div>"; // add Justin NPC img
+        step.content = "<div><div class='npc_justin float-left'></div>" + step.content + "</div>"; // add Justin NPC img
       });
       $('.main-herobox').popover('destroy');
       var tour = new Tour({
@@ -97,7 +97,7 @@ angular.module('guideServices', []).
       if (!placement) placement = 'bottom';
       $(selector).popover('destroy');
       var button = "<button class='btn btn-sm btn-default' onClick=\"$('" + selector + "').popover('hide');return false;\">Close</button>";
-      html = "<div><div class='NPC-Justin float-left'></div>" + html + '<br/>' + button + '</div>';
+      html = "<div><div class='npc_justin float-left'></div>" + html + '<br/>' + button + '</div>';
       $(selector).popover({
         title: title,
         placement: placement,

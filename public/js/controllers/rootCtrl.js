@@ -3,8 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams',
-  function($scope, $rootScope, $location, User, $http, $state, $stateParams) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups',
+  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups) {
     $rootScope.modals = {};
     $rootScope.modals.achievements = {};
     $rootScope.User = User;
@@ -137,5 +137,51 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       chart = new google.visualization.LineChart($("." + id + "-chart")[0]);
       chart.draw(data, options);
     };
+
+
+
+    /*
+     ------------------------
+     Spells
+     ------------------------
+    */
+    $scope.castStart = function(spell) {
+      if (User.user.stats.mp < spell.mana) return Notification.text("Not enough mana.");
+      $rootScope.applyingAction = true;
+      $scope.spell = spell;
+      if (spell.target == 'self') {
+        var tasks = User.user.habits.concat(User.user.dailys).concat(User.user.todos);
+        User.user.tasks = _.object(_.pluck(tasks,'id'), tasks);
+        $scope.castEnd(null, 'self');
+      } else if (spell.target == 'party') {
+        var party = Groups.party();
+        party = (_.isArray(party) ? party : []).concat(User.user);
+        $scope.castEnd(party, 'party');
+      }
+    }
+
+    $scope.castEnd = function(target, type, $event){
+      if ($scope.spell.target != type) return Notification.text("Invalid target");
+      $scope.spell.cast(User.user, target);
+      $http.post('/api/v1/user/cast/' + $scope.spell.name, {target:target, type:type}).success(function(){
+        var msg = "You cast " + $scope.spell.text;
+        switch (type) {
+          case 'task': msg += ' on ' + target.text;break;
+          case 'user': msg += ' on ' + target.profile.name;break;
+          case 'party': msg += ' on the Party';break;
+        }
+        Notification.text(msg);
+        $rootScope.applyingAction = false;
+        $scope.spell = null;
+        //User.sync(); // FIXME push a lot of the server code to also in client, so we can run updates in browser without requiring sync
+      })
+      $event && $event.stopPropagation();
+    }
+
+//    $rootScope.castCancel = function(){
+//      debugger
+//      $rootScope.applyingAction = false;
+//      $scope.spell = null;
+//    }
   }
 ]);

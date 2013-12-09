@@ -31,19 +31,21 @@ div(ng-controller='SettingsCtrl')
           .option-group.option-medium
             input.option-content(type='number', data-for='stats.lvl', ng-model='restoreValues.stats.lvl')
             span.input-suffix Level
-          h3 Equipment
-          .option-group.option-medium
-            input.option-content(type='number', data-for='items.weapon', ng-model='restoreValues.items.weapon')
-            span.input-suffix Weapon
-          .option-group.option-medium
-            input.option-content(type='number', data-for='items.armor', ng-model='restoreValues.items.armor')
-            span.input-suffix Armor
-          .option-group.option-medium
-            input.option-content(type='number', data-for='items.head', ng-model='restoreValues.items.head')
-            span.input-suffix Helm
-          .option-group.option-medium
-            input.option-content(type='number', data-for='items.shield', ng-model='restoreValues.items.shield')
-            span.input-suffix Shield
+          //-
+            //- Commenting out since it doesn't make sense to restore equipment with Armory anymore. They can just restore GP & buy
+            h3 Equipment
+            .option-group.option-medium
+              input.option-content(type='number', data-for='items.weapon', ng-model='restoreValues.items.weapon')
+              span.input-suffix Weapon
+            .option-group.option-medium
+              input.option-content(type='number', data-for='items.armor', ng-model='restoreValues.items.armor')
+              span.input-suffix Armor
+            .option-group.option-medium
+              input.option-content(type='number', data-for='items.head', ng-model='restoreValues.items.head')
+              span.input-suffix Helm
+            .option-group.option-medium
+              input.option-content(type='number', data-for='items.shield', ng-model='restoreValues.items.shield')
+              span.input-suffix Shield
           h3 Achievements
           .option-group.option-medium
             input.option-content(type='number', data-for='achievements.streak', ng-model='restoreValues.achievements.streak')

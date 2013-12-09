@@ -1,10 +1,11 @@
 doctype 5
-html
+//html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keypress="{27:'castCancel()'}")
+html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keypress="{27:'castCancel()'}")
   head
     title HabitRPG | Your Life The Role Playing Game
 
     // ?v=1 needed to force refresh
-    link(rel='shortcut icon' href='#{env.getBuildUrl("favicon.ico")}?v=2') 
+    link(rel='shortcut icon', href='#{env.getBuildUrl("favicon.ico")}?v=2')
 
     script(type='text/javascript').
       window.env = !{JSON.stringify(env)};
@@ -21,7 +22,7 @@ html
     meta(name='viewport', content='width=device-width')
     meta(name='apple-mobile-web-app-capable', content='yes')
 
-  body(ng-app="habitrpg", ng-controller="RootCtrl", ng-cloak)
+  body(ng-cloak)
     div(ng-controller='GroupsCtrl')
       include ./shared/modals/index
       include ./shared/header/header
