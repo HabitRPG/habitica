@@ -147,7 +147,15 @@ randomDrop = (user, modifiers) ->
   chanceMultiplier *= obj.priorityValue(priority) # multiply chance by reddness
   chanceMultiplier += streak # streak bonus
 
-  if user.flags?.dropsEnabled and Math.random() < (.05 * chanceMultiplier)
+  # Temporary solution to lower the maximum drop chance to 75 percent. More thorough
+  # overhaul of drop changes is needed. See HabitRPG/habitrpg#1922 for details.
+  # Old drop chance:
+  # if user.flags?.dropsEnabled and Math.random() < (.05 * chanceMultiplier)
+  max = 0.75 # Max probability of drop 
+  a = 0.1 # rate of increase
+  alpha = a*max*chanceMultiplier/(a*chanceMultiplier+max) # current probability of drop
+
+  if user.flags?.dropsEnabled and Math.random() < alpha
     # current breakdown - 1% (adjustable) chance on drop
     # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
     rarity = Math.random()
@@ -174,9 +182,9 @@ randomDrop = (user, modifiers) ->
         # Very Rare: 10% (of 30%)
         if rarity < .03 then ['Golden']
         # Rare: 20% (of 30%)
-        else if rarity < .06 then ['Zombie', 'CottonCandyPink', 'CottonCandyBlue']
+        else if rarity < .09 then ['Zombie', 'CottonCandyPink', 'CottonCandyBlue']
         # Uncommon: 30% (of 30%)
-        else if rarity < .09 then ['Red', 'Shade', 'Skeleton']
+        else if rarity < .18 then ['Red', 'Shade', 'Skeleton']
         # Common: 40% (of 30%)
         else ['Base', 'White', 'Desert']
 
