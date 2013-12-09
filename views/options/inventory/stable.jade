@@ -80,7 +80,7 @@ script(type='text/ng-template', id='partials/options.inventory.stable.pets.html'
             .PixelPaw-Gold
 
   .well.food-tray
-    p(ng-show='foodCount < 1') You don't have any food yet.
+    p(ng-show='foodCount < 1') You don't have any food.
     menu.inventory-list(type='list', ng-if='foodCount > 0')
       li.customize-menu
         menu.pets-menu(label='Food')
