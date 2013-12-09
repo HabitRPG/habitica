@@ -10,8 +10,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
             button.slim_armor_base_0_pink.customize-option(type='button', ng-click='set("preferences.size","slim")')
         li.customize-menu
           menu(label='Clothing')
-            menu(ng-controller=UserCtrl')
-              each shirt in basic_shirts
+              each shirt in ['black', 'blue', 'green', 'pink', 'white', 'yellow']
                 button.customize-option(class='slim_armor_base_0_'+shirt, ng-show='user.preferences.size=="slim"', type='button', ng-click='set("preferences.armorSet", ' + shirt + ')')
                 button.customize-option(class='broad_armor_base_0_'+shirt, ng-show='user.preferences.size=="broad"', type='button', ng-click='set("preferences.armorSet", ' + shirt + ')')
 
@@ -19,7 +18,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
             h5.
               Special Shirts- 2<span class="Pet_Currency_Gem1x inline-gems"/>/shirt
             menu
-              each shirt in special_shirts
+              each shirt in ['convict', 'cross', 'fire', 'horizon', 'ocean', 'purple', 'rainbow', 'redblue', 'thunder', 'tropical', 'zombie']
                 button.customize-option(type='button', class='slim_armor_base_0_'+shirt, ng-class='{locked: !user.purchased.shirt.'+shirt+'}', ng-click='unlock("shirt.'+shirt+'")')
 
     .span4
