@@ -4,10 +4,29 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
       menu(type='list')
         // body-type
         li.customize-menu
-          menu(label='Head')
+          menu(label='Size')
+          label.checkbox
+            input(type='checkbox', ng-model='user.preferences.size', ng-checked='user.preferences.size == "slim"', ng-change='set("preferences.size","slim")')
+            | Slim
+          label.checkbox
+            input(type='checkbox', ng-model='user.preferences.size', ng-checked='user.preferences.size == "broad"', ng-change='set("preferences.size","broad")')
+            | Broad
+        li.customize-menu
+          menu(label='Clothing')
+              each shirt in ['black', 'blue', 'green', 'pink', 'white', 'yellow']
+                button.customize-option(class='slim_armor_base_0_'+shirt, ng-show='user.preferences.size=="slim"', type='button', ng-click='set_costume("'+shirt+'")')
+                button.customize-option(class='broad_armor_base_0_'+shirt, ng-show='user.preferences.size=="broad"', type='button', ng-click='set_costume("'+shirt+'")')
+
+            // Special Shirts
+          h5.
+            Special Shirts- 2<span class="Pet_Currency_Gem1x inline-gems"/>/shirt
           menu
-            button.broad_armor_base_0.customize-option(type='button', ng-click='set("preferences.size","broad")')
-            button.slim_armor_base_0.customize-option(type='button', ng-click='set("preferences.size","slim")')
+            each shirt in ['convict', 'cross', 'fire', 'horizon', 'ocean', 'purple', 'rainbow', 'redblue', 'thunder', 'tropical', 'zombie']
+              button.customize-option(type='button', class='slim_armor_base_0_'+shirt, ng-show='user.preferences.size=="slim"', ng-class='{locked: !user.purchased.shirts.'+shirt+'}', ng-click='set_costume("'+shirt+'"); unlock("shirts.'+shirt+'")')
+              button.customize-option(type='button', class='broad_armor_base_0_'+shirt, ng-show='user.preferences.size=="broad"', ng-class='{locked: !user.purchased.shirts.'+shirt+'}', ng-click='set_costume("'+shirt+'"); unlock("shirts.'+shirt+'")')
+          menu
+            button.btn.btn-small.btn-primary(ng-hide="user.purchased.shirts.convict && user.purchased.shirts.cross && user.purchased.shirts.fire && user.purchased.shirts.horizon && user.purchased.shirts.ocean && user.purchased.shirts.purple && user.purchased.shirts.rainbow && user.purchased.shirts.redblue && user.purchased.shirts.thunder && user.purchased.shirts.tropical && user.purchased.shirts.zombie", ng-click='unlock(["shirts.convict", "shirts.cross", "shirts.fire", "shirts.horizon", "shirts.ocean", "shirts.purple", "shirts.rainbow", "shirts.redblue", "shirts.thunder", "shirts.tropical", "shirts.zombie"])') Unlock Set - 5<span class="Pet_Currency_Gem1x inline-gems"/>
+
 
     .span4
         h3 Hair

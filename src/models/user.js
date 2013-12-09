@@ -82,7 +82,8 @@ var UserSchema = new Schema({
   purchased: {
     ads: {type: Boolean, 'default': false},
     skin: {type: Schema.Types.Mixed, 'default': {}}, // eg, {skeleton: true, pumpkin: true, eb052b: true}
-    hair: {type: Schema.Types.Mixed, 'default': {}}
+    hair: {type: Schema.Types.Mixed, 'default': {}},
+    shirts: {type: Schema.Types.Mixed, 'default': {}}
   },
 
   flags: {
