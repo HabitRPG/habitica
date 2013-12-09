@@ -10781,8 +10781,7 @@ try {
 
   /*
     ---------------------------------------------------------------
-    Potion & Re-roll
-    TODO rename / remove re-roll?
+    Potion
     ---------------------------------------------------------------
   */
 
@@ -10793,13 +10792,6 @@ try {
     notes: "Recover 15 Health (Instant Use)",
     value: 25,
     key: 'potion'
-  };
-
-  items.reroll = {
-    type: 'reroll',
-    text: "Re-Roll",
-    notes: "Resets your task values back to 0 (yellow). Useful when everything's red and it's hard to stay alive.",
-    value: 0
   };
 
   /*
@@ -11261,7 +11253,6 @@ try {
       }
     }));
     changes.push(items.potion);
-    changes.push(items.reroll);
     return _.sortBy(changes, function(item) {
       switch (item.type) {
         case 'weapon':
@@ -11274,10 +11265,8 @@ try {
           return 4;
         case 'potion':
           return 5;
-        case 'reroll':
-          return 6;
         default:
-          return 7;
+          return 6;
       }
     });
   };

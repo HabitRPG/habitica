@@ -172,13 +172,11 @@ _.each ['weapon', 'armor', 'head', 'shield'], (type) ->
 
 ###
   ---------------------------------------------------------------
-  Potion & Re-roll
-  TODO rename / remove re-roll?
+  Potion
   ---------------------------------------------------------------
 ###
 
 items.potion = type: 'potion', text: "Health Potion", notes: "Recover 15 Health (Instant Use)", value: 25, key: 'potion'
-items.reroll = type: 'reroll', text: "Re-Roll", notes: "Resets your task values back to 0 (yellow). Useful when everything's red and it's hard to stay alive.", value:0
 
 ###
   ---------------------------------------------------------------
@@ -471,7 +469,6 @@ module.exports.updateStore = (user) ->
     m.push v if v.canOwn?(user) && !user.items.gear.owned[v.key]
 
   changes.push items.potion
-  changes.push items.reroll
 
   # Return sorted store (array)
   _.sortBy changes, (item) ->
@@ -481,8 +478,7 @@ module.exports.updateStore = (user) ->
       when 'head'   then 3
       when 'shield' then 4
       when 'potion' then 5
-      when 'reroll' then 6
-      else               7
+      else               6
 
 ###
   Gets an item, and caps max to the last item in its array
