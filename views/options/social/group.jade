@@ -39,15 +39,6 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
       .modal-header
         h3 Members
       .modal-body
-        span
-          | Party Members list ordering
-        select#partyOrder(
-          style='width:140px',
-          ng-model='user.party.order',
-          ng-controller='ChatCtrl',
-          ng-options='k as v for (k , v) in partyOrderChoices',
-          ng-change='set("party.order", user.party.order)'
-          )
         table.table.table-striped(bindonce='group')
           tr(ng-repeat='member in group.members')
             td
