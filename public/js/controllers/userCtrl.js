@@ -77,5 +77,13 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     }
 
     $scope.unlock = User.unlock;
+
+    $scope.set_costume = function(shirt) {
+      User.setMultiple({
+        'preferences.useCostume': true,
+        'preferences.armorSet': shirt,
+        'items.gear.costume.armor': 'armor_base_0',
+      });
+    }
   }
 ]);

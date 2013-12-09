@@ -11,8 +11,10 @@ figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(
     // Avatar
     span(class='skin_{{profile.preferences.skin}}')
 
-    span(class='{{profile.preferences.size}}_{{profile.items.gear.equipped.armor}}', ng-if='!profile.preferences.costume')
-    span(class='{{profile.preferences.size}}_{{profile.items.gear.costume.armor}}', ng-if='profile.preferences.costume')
+    span(class='{{profile.preferences.size}}_{{profile.items.gear.equipped.armor}}', ng-if='!profile.preferences.useCostume')
+    span(class='{{profile.preferences.size}}_{{profile.items.gear.costume.armor}}', ng-if='profile.preferences.useCostume')
+    // if several choices of armor, add the preferred armorSet
+    span(class='{{profile.preferences.size}}_{{profile.items.gear.costume.armor}}_{{profile.preferences.armorSet}}', ng-if='profile.preferences.useCostume')
 
     span(class='head_base_0')
     span(class='hair_base_{{profile.preferences.hair.base}}_{{profile.preferences.hair.color}}')

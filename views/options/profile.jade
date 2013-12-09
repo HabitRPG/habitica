@@ -14,16 +14,16 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
         li.customize-menu
           menu(label='Clothing')
               each shirt in ['black', 'blue', 'green', 'pink', 'white', 'yellow']
-                button.customize-option(class='slim_armor_base_0_'+shirt, ng-show='user.preferences.size=="slim"', type='button', ng-click='set("preferences.armorSet", ' + shirt + ')')
-                button.customize-option(class='broad_armor_base_0_'+shirt, ng-show='user.preferences.size=="broad"', type='button', ng-click='set("preferences.armorSet", ' + shirt + ')')
+                button.customize-option(class='slim_armor_base_0_'+shirt, ng-show='user.preferences.size=="slim"', type='button', ng-click='set_costume("'+shirt+'")')
+                button.customize-option(class='broad_armor_base_0_'+shirt, ng-show='user.preferences.size=="broad"', type='button', ng-click='set_costume("'+shirt+'")')
 
             // Special Shirts
           h5.
             Special Shirts- 2<span class="Pet_Currency_Gem1x inline-gems"/>/shirt
           menu
             each shirt in ['convict', 'cross', 'fire', 'horizon', 'ocean', 'purple', 'rainbow', 'redblue', 'thunder', 'tropical', 'zombie']
-              button.customize-option(type='button', class='slim_armor_base_0_'+shirt, ng-show='user.preferences.size=="slim"', ng-class='{locked: !user.purchased.shirt.'+shirt+'}', ng-click='unlock("shirt.'+shirt+'")')
-              button.customize-option(type='button', class='broad_armor_base_0_'+shirt, ng-show='user.preferences.size=="broad"', ng-class='{locked: !user.purchased.shirt.'+shirt+'}', ng-click='unlock("shirt.'+shirt+'")')
+              button.customize-option(type='button', class='slim_armor_base_0_'+shirt, ng-show='user.preferences.size=="slim"', ng-class='{locked: !user.purchased.shirt.'+shirt+'}', ng-click='unlock("shirt.'+shirt+'"); set_costume("'+shirt+'")')
+              button.customize-option(type='button', class='broad_armor_base_0_'+shirt, ng-show='user.preferences.size=="broad"', ng-class='{locked: !user.purchased.shirt.'+shirt+'}', ng-click='unlock("shirt.'+shirt+'"); set_costume("'+shirt+'")')
 
     .span4
         h3 Hair
