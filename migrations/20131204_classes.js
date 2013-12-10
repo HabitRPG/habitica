@@ -9,6 +9,8 @@ db.users.find().forEach(function(user){
 
   user.stats.class = 'warrior';
 
+  // set default stats (inc mp)
+
   // grant backer/contrib gear, 300, rather than using js logic
 
   // customizations redo: https://trello.com/c/YKXmHNjY/306-customization-redo

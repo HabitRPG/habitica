@@ -22,7 +22,6 @@
     "lodash": "~2.2.1",
     "async": "~0.2.9",
     "optimist": "~0.5.2",
-    "mongoose": "~3.6.20",
     "stylus": "~0.37.0",
     "grunt": "~0.4.1",
     "grunt-contrib-uglify": "~0.2.4",
@@ -44,7 +43,8 @@
     "paypal-ipn": "~1.0.1",
     "express-csv": "~0.6.0",
     "pretty-data": "git://github.com/vkiryukhin/pretty-data#master",
-    "js2xmlparser": "~0.1.2"
+    "js2xmlparser": "~0.1.2",
+    "mongoose": "~3.8.1"
   },
   "private": true,
   "subdomain": "habitrpg",

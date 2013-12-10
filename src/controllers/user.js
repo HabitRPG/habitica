@@ -14,6 +14,7 @@ var sanitize = validator.sanitize;
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var acceptablePUTPaths;
 var api = module.exports;
 
 // FIXME put this in a proper location
@@ -33,7 +34,6 @@ api.marketBuy = function(req, res, next){
     res.json(saved);
   })
 }
-
 
 /*
   ------------------------------------------------------------------------
@@ -240,38 +240,39 @@ api.getUser = function(req, res, next) {
   return res.json(200, user);
 };
 
+
+/**
+ * This tells us for which paths users can call `PUT /user` (or batch-update equiv, which use `User.set()` on our client).
+ * The trick here is to only accept leaf paths, not root/intermediate paths (see http://goo.gl/OEzkAs)
+ * FIXME - one-by-one we want to widdle down this list, instead replacing each needed set path with API operations
+ *
+ * Note: custom is for 3rd party apps
+ */
+acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function(m,v,leaf){
+  if (_.find('tasks achievements filters flags invitations items lastCron party preferences profile stats tags custom'.split(' '), function(root){
+    return leaf.indexOf(root) == 0;
+  });
+  if (found) m[leaf]=true;
+  return m;
+}, {})
+acceptablePUTPaths['tasks']=true; // and for now, let them fully set tasks.* (for advanced editing, TODO lock down)
+
 /**
  * Update user
- * FIXME add documentation here
+ * Send up PUT /user as `req.body={path1:val, path2:val, etc}`. Example:
+ * PUT /user {'stats.hp':50, 'tasks.TASK_ID.repeat.m':false}
+ * See acceptablePUTPaths for which user paths are supported
 */
 api.updateUser = function(req, res, next) {
-  var acceptableAttrs, errors, user;
-  user = res.locals.user;
-  errors = [];
-  if (_.isEmpty(req.body)) {
-    return res.json(200, user);
-  }
-  /*
-  # FIXME we need to do some crazy sanitiazation if they're using the old `PUT /user {data}` method.
-  # The new `PUT /user {'stats.hp':50}
+  var user = res.locals.user;
+  var errors = [];
+  if (_.isEmpty(req.body)) return res.json(200, user);
 
-  # FIXME - one-by-one we want to widdle down this list, instead replacing each needed set path with API operations
-  # There's a trick here. In order to prevent prevent clobering top-level paths, we add `.` to make sure they're
-  # sending bodies as {"set.this.path":value} instead of {set:{this:{path:value}}}. Permit lastCron since it's top-level
-  # Note: custom is for 3rd party apps
-  */
-
-  acceptableAttrs = 'tasks. achievements. filters. flags. invitations. items. lastCron party. preferences. profile. stats. tags custom.'.split(' ');
   _.each(req.body, function(v, k) {
-    var found = _.find(acceptableAttrs, function(attr) { return k.indexOf(attr) == 0; })
-    if (found) {
-//      if (_.isObject(v)) {
-//        errors.push("Value for " + k + " was an object. Be careful here, you could clobber stuff.");
-//      }
+    if (acceptablePUTPaths[k])
       helpers.dotSet(k, v, user);
-    } else {
+    else
       errors.push("path `" + k + "` was not saved, as it's a protected path. Make sure to send `PUT /api/v1/user` request bodies as `{'set.this.path':value}` instead of `{set:{this:{path:value}}}`");
-    }
     return true;
   });
   user.save(function(err) {
