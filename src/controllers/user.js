@@ -249,7 +249,7 @@ api.getUser = function(req, res, next) {
  * Note: custom is for 3rd party apps
  */
 acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function(m,v,leaf){
-  if (_.find('tasks achievements filters flags invitations items lastCron party preferences profile stats tags custom'.split(' '), function(root){
+  var found= _.find('tasks achievements filters flags invitations items lastCron party preferences profile stats tags custom'.split(' '), function(root){
     return leaf.indexOf(root) == 0;
   });
   if (found) m[leaf]=true;
