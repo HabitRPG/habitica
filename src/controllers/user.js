@@ -5,9 +5,7 @@ var ipn = require('paypal-ipn');
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
-var algos = require('habitrpg-shared/script/algos');
-var helpers = require('habitrpg-shared/script/helpers');
-var items = require('habitrpg-shared/script/items');
+var shared = require('habitrpg-shared');
 var validator = require('validator');
 var check = validator.check;
 var sanitize = validator.sanitize;
@@ -58,12 +56,6 @@ api.verifyTaskExists = function(req, res, next) {
   return next();
 };
 
-function addTask(user, task) {
-  task = helpers.taskDefaults(task);
-  user[task.type+'s'].unshift(task);
-  return task;
-}
-
 /*
   API Routes
   ---------------
@@ -73,7 +65,7 @@ function addTask(user, task) {
   This is called form deprecated.coffee's score function, and the req.headers are setup properly to handle the login
   Export it also so we can call it from deprecated.coffee
 */
-api.scoreTask = function(req, res, next) {
+api.score = function(req, res, next) {
   var id = req.params.id,
     direction = req.params.direction,
     user = res.locals.user,
@@ -106,9 +98,9 @@ api.scoreTask = function(req, res, next) {
     if (task.type === 'daily' || task.type === 'todo') {
       task.completed = direction === 'up';
     }
-    task = addTask(user, task);
+    task = user.ops.addTask({body:task});
   }
-  var delta = algos.score(user, task, direction);
+  var delta = user.ops.score({params:{id:task.id, direction:direction}});
   //user.markModified('flags');
   user.save(function(err, saved) {
     if (err) return res.json(500, {err: err});
@@ -146,46 +138,35 @@ api.getTask = function(req, res, next) {
  * Delete Task
  */
 api.deleteTask = function(req, res, next) {
-  var user = res.locals.user;
-  user.deleteTask(res.locals.task.id);
-  user.save(function(err) {
-    if (err) return res.json(500, {err: err});
-    res.send(204);
-  });
+  api.verifyTaskExists(req, res, function(){
+    var user = res.locals.user;
+    user.deleteTask(res.locals.task.id);
+    user.save(function(err) {
+      if (err) return res.json(500, {err: err});
+      res.send(204);
+    });
+  })
 };
 
 /*
   Update Task
 */
-api.updateTask = function(req, res, next) {
-  var user = res.locals.user;
-  var tid = req.params.id;
-  var task = user.tasks[req.params.id];
-  _.merge(task, req.body);
-  user.save(function(err, saved) {
-    if (err) return res.json(500, {err: err})
-    return res.json(200, task);
-  });
-};
 
-api.createTask = function(req, res, next) {
-  var user = res.locals.user;
-  var task = addTask(user, req.body);
-  user.save(function(err, saved) {
-    if (err) return res.json(500, {err: err});
-    return res.json(201, task);
-  });
-};
+// api.updateTask // handled in Shared.ops
+
+// api.addTask // handled in Shared.ops
 
 api.sortTask = function(req, res, next) {
-  var id = req.params.id;
-  var to = req.body.to, from = req.body.from, type = req.body.type;
-  var user = res.locals.user;
-  user[type+'s'].splice(to, 0, user[type+'s'].splice(from, 1)[0]);
-  user.save(function(err, saved) {
-    if (err) return res.json(500, {err: err});
-    return res.json(200, saved.toJSON()[type+'s']);
-  });
+  api.verifyTaskExists(req, res, function(){
+    var id = req.params.id;
+    var to = req.body.to, from = req.body.from, type = req.body.type;
+    var user = res.locals.user;
+    user[type+'s'].splice(to, 0, user[type+'s'].splice(from, 1)[0]);
+    user.save(function(err, saved) {
+      if (err) return res.json(500, {err: err});
+      return res.json(200, saved.toJSON()[type+'s']);
+    });
+  })
 };
 
 api.clearCompleted = function(req, res, next) {
@@ -202,22 +183,7 @@ api.clearCompleted = function(req, res, next) {
   Items
   ------------------------------------------------------------------------
 */
-api.buy = function(req, res, next) {
-  var user = res.locals.user;
-  var key = req.params.key;
-  if (key !== 'potion' && !items.items.gear.flat[key]) {
-    return res.json(400, {err: ":item must be a supported key, see https://github.com/HabitRPG/habitrpg-shared/blob/master/script/items.coffee"});
-  }
-  var hasEnough = items.buyItem(user, items.items.gear.flat[key]);
-  if (hasEnough) {
-    return user.save(function(err, saved) {
-      if (err) return res.json(500, {err: err});
-      return res.json(200, saved.toJSON().items);
-    });
-  } else {
-    return res.json(200, {err: "Not enough GP"});
-  }
-};
+// api.buy // handled in Shard.ops
 
 /*
   ------------------------------------------------------------------------
@@ -230,7 +196,7 @@ api.buy = function(req, res, next) {
  */
 api.getUser = function(req, res, next) {
   var user = res.locals.user.toJSON();
-  user.stats.toNextLevel = algos.tnl(user.stats.lvl);
+  user.stats.toNextLevel = shared.tnl(user.stats.lvl);
   user.stats.maxHealth = 50;
   delete user.apiToken;
   if (user.auth) {
@@ -249,7 +215,7 @@ api.getUser = function(req, res, next) {
  * Note: custom is for 3rd party apps
  */
 acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function(m,v,leaf){
-  var found= _.find('tasks achievements filters flags invitations items lastCron party preferences profile stats tags custom'.split(' '), function(root){
+  var found= _.find('tasks achievements filters flags invitations lastCron party preferences profile stats tags'.split(' '), function(root){
     return leaf.indexOf(root) == 0;
   });
   if (found) m[leaf]=true;
@@ -263,14 +229,14 @@ acceptablePUTPaths['tasks']=true; // and for now, let them fully set tasks.* (fo
  * PUT /user {'stats.hp':50, 'tasks.TASK_ID.repeat.m':false}
  * See acceptablePUTPaths for which user paths are supported
 */
-api.updateUser = function(req, res, next) {
+api.update = function(req, res, next) {
   var user = res.locals.user;
   var errors = [];
   if (_.isEmpty(req.body)) return res.json(200, user);
 
   _.each(req.body, function(v, k) {
     if (acceptablePUTPaths[k])
-      helpers.dotSet(k, v, user);
+      user.fns.dotSet(k, v);
     else
       errors.push("path `" + k + "` was not saved, as it's a protected path. Make sure to send `PUT /api/v1/user` request bodies as `{'set.this.path':value}` instead of `{set:{this:{path:value}}}`");
     return true;
@@ -284,21 +250,12 @@ api.updateUser = function(req, res, next) {
 
 api.cron = function(req, res, next) {
   var user = res.locals.user;
-  algos.cron(user);
+  shared.cron(user);
   if (user.isModified()) {
     res.locals.wasModified = true;
     user.auth.timestamps.loggedin = new Date();
   }
   user.save(next);
-};
-
-api.revive = function(req, res, next) {
-  var user = res.locals.user;
-  algos.revive(user);
-  user.save(function(err, saved) {
-    if (err) return res.json(500, {err: err});
-    return res.json(200, saved);
-  });
 };
 
 api.reroll = function(req, res, next) {
@@ -353,36 +310,7 @@ api['delete'] = function(req, res) {
  ------------------------------------------------------------------------
  */
 
-api.unlock = function(req, res) {
-  var user = res.locals.user;
-  var path = req.query.path;
-  var fullSet = ~path.indexOf(',');
-
-  // 5G per set, 2G per individual
-  cost = fullSet ? 1.25 : 0.5;
-
-  if (user.balance < cost)
-    return res.json(401, {err: 'Not enough gems'});
-
-  if (fullSet) {
-    var paths = path.split(',');
-    _.each(paths, function(p){
-      helpers.dotSet('purchased.' + p, true, user);
-    });
-  } else {
-    if (helpers.dotGet('purchased.' + path, user) === true)
-      return res.json(401, {err: 'User already purchased that'});
-    helpers.dotSet('purchased.' + path, true, user);
-  }
-
-  user.balance -= cost;
-  user._v++;
-  user.markModified('purchased');
-  user.save(function(err, saved){
-    if (err) res.json(500, {err:err});
-    res.send(200);
-  })
-}
+// api.unlock // see Shared.ops
 
 /*
  ------------------------------------------------------------------------
@@ -492,7 +420,7 @@ api.deleteTag = function(req, res){
 api.cast = function(req, res) {
   var user = res.locals.user;
   var type = req.body.type, target = req.body.target;
-  var spell = items.items.spells[user.stats.class][req.params.spell];
+  var spell = shared.content.spells[user.stats.class][req.params.spell];
 
   var done = function(){
     var err = arguments[0];
@@ -548,6 +476,28 @@ api.cast = function(req, res) {
   }
 }
 
+/**
+ * All other user.ops which can easily be mapped to habitrpg-shared/index.coffee, not requiring custom API-wrapping
+ */
+_.each(shared.wrap({}).ops, function(op,k){
+  if (!api[k]) {
+    api[k] = function(req, res, next) {
+      var user = res.locals.user;
+      async.series([
+        function(cb){ user.ops[k](req, cb) },
+        function(cb){ user.save(cb) },
+      ], function(err){
+        if (err) {
+          // If we want to send something other than 500, pass err as {code: 200, message: "Not enough GP"}
+          if (err.code) return res.json(err.code, err.message);
+          return res.json(500,{err:err});
+        }
+        return res.send(200);
+      })
+    }
+  }
+})
+
 /*
   ------------------------------------------------------------------------
   Batch Update
@@ -558,78 +508,28 @@ api.batchUpdate = function(req, res, next) {
   var user = res.locals.user;
   var oldSend = res.send;
   var oldJson = res.json;
-  var performAction = function(action, cb) {
 
-    // TODO come up with a more consistent approach here. like:
-    // req.body=action.data; delete action.data; _.defaults(req.params, action)
-    // Would require changing action.dir on mobile app
-    req.params.id = action.data && action.data.id;
-    req.params.direction = action.dir;
-    req.params.type = action.type;
-    req.params.key = action.key;
-    req.body = action.data;
+  var callOp = function(_req, cb) {
     res.send = res.json = function(code, data) {
-      if (_.isNumber(code) && code >= 400) {
-        console.error({
-          code: code,
-          data: data
-        });
-      }
+      if (_.isNumber(code) && code >= 400)
+        console.error({code: code, data: data});
       //FIXME send error messages down
       return cb();
     };
-    switch (action.op) {
-      case "score":
-        api.scoreTask(req, res);
-        break;
-      case "buy":
-        api.buy(req, res);
-        break;
-      case "sortTask":
-        api.verifyTaskExists(req, res, function() {
-          api.sortTask(req, res);
-        });
-        break;
-      case "addTask":
-        api.createTask(req, res);
-        break;
-      case "delTask":
-        api.verifyTaskExists(req, res, function() {
-          api.deleteTask(req, res);
-        });
-        break;
-      case "set":
-        api.updateUser(req, res);
-        break;
-      case "delTag":
-        api.deleteTag(req, res);
-        break;
-      case "revive":
-        api.revive(req, res);
-        break;
-      case "clear-completed":
-        api.clearCompleted(req, res);
-        break;
-      case "reroll":
-        api.reroll(req, res);
-        break;
-      default:
-        cb();
-        break;
-    }
+    api[_req.op](_req, res);
   };
 
   // Setup the array of functions we're going to call in parallel with async
-  var actions = _.transform(req.body || [], function(result, action) {
-    if (!_.isEmpty(action)) {
+  var ops = _.transform(req.body || [], function(result, _req) {
+    if (!_.isEmpty(_req)) {
       result.push(function(cb) {
-        performAction(action, cb);
+        callOp(_req, cb);
       });
     }
   });
 
   // call all the operations, then return the user object to the requester
-  async.series(actions, function(err) {
+  async.series(ops, function(err) {
     res.json = oldJson;
     res.send = oldSend;
     if (err) return res.json(500, {err: err});

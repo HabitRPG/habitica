@@ -3,7 +3,7 @@ var validator = require('validator');
 var check = validator.check;
 var sanitize = validator.sanitize;
 var passport = require('passport');
-var helpers = require('habitrpg-shared/script/helpers');
+var shared = require('habitrpg-shared');
 var async = require('async');
 var utils = require('../utils');
 var nconf = require('nconf');
@@ -83,17 +83,18 @@ api.registerUser = function(req, res, next) {
       if (found) {
         return cb("Username already taken");
       }
-      newUser = helpers.newUser(true);
       salt = utils.makeSalt();
-      newUser.auth = {
-        local: {
-          username: username,
-          email: email,
-          salt: salt
-        },
-        timestamps: {created: +new Date(), loggedIn: +new Date()}
+      var newUser = {
+        auth: {
+          local: {
+            username: username,
+            email: email,
+            salt: salt,
+            hashed_password: utils.encryptPassword(password, salt)
+          },
+          timestamps: {created: +new Date(), loggedIn: +new Date()}
+        }
       };
-      newUser.auth.local.hashed_password = utils.encryptPassword(password, salt);
       user = new User(newUser);
       user.save(cb);
     }
@@ -251,12 +252,12 @@ api.setupPassport = function(router) {
         },
         function(user, cb){
           if (user) return cb(null, user);
-          var newUser = helpers.newUser(true);
-          newUser.auth = {
-            facebook: req.user,
-            timestamps: {created: +new Date(), loggedIn: +new Date()}
-          };
-          user = new User(newUser);
+          user = new User({
+            auth: {
+              facebook: req.user,
+              timestamps: {created: +new Date(), loggedIn: +new Date()}
+            }
+          });
           user.save(cb);
 
 

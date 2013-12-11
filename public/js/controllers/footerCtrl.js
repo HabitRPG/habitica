@@ -47,17 +47,16 @@ habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http', 'Not
     $scope.addMissedDay = function(){
       if (!confirm("Are you sure you want to reset the day?")) return;
       var dayBefore = moment(User.user.lastCron).subtract('days', 1).toDate();
-      User.set('lastCron', dayBefore);
+      User.set({'lastCron': dayBefore});
       Notification.text('-1 day, remember to refresh');
     }
     $scope.addTenGems = function(){
-      console.log(API_URL);
       $http.post(API_URL + '/api/v1/user/addTenGems').success(function(){
         User.log({});
       })
     }
     $scope.addLevelsAndGold = function(){
-      User.setMultiple({
+      User.set({
         'stats.exp': User.user.stats.exp + 10000,
         'stats.gp': User.user.stats.gp + 10000
       });

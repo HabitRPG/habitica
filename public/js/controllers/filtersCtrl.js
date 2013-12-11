@@ -22,7 +22,7 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'API_URL', '
     $scope.createTag = function(name) {
       user.tags = user.tags || [];
       user.tags.push({
-        id: window.habitrpgShared.helpers.uuid(),
+        id: $rootScope.Shared.uuid(),
         name: name
       });
       User.log({op:'set',data:{'tags':user.tags}});

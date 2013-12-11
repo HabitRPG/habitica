@@ -132,7 +132,7 @@ habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notifica
     //------------------------------------------------------------
 
     $scope.addTask = function(addTo, listDef) {
-      var task = window.habitrpgShared.helpers.taskDefaults({text: listDef.newTask, type: listDef.type});
+      var task = $rootScope.Shared.taskDefaults({text: listDef.newTask, type: listDef.type});
       addTo.unshift(task);
       //User.log({op: "addTask", data: task}); //TODO persist
       delete listDef.newTask;

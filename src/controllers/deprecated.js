@@ -31,7 +31,7 @@ var initDeprecated = function(req, res, next) {
   return next();
 };
 
-router.post('/v1/users/:uid/tasks/:taskId/:direction', initDeprecated, auth.auth, api.scoreTask);
+router.post('/v1/users/:uid/tasks/:taskId/:direction', initDeprecated, auth.auth, api.score);
 
 router.get('/v1/users/:uid/calendar.ics', function(req, res, next) {
   return next() //disable for now

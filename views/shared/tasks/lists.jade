@@ -18,10 +18,10 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
         // Gold & Gems
         span.option-box.pull-right.wallet(bo-if='main && list.type=="reward"')
           .money
-            | {{gold(user.stats.gp)}}
+            | {{Shared.gold(user.stats.gp)}}
             span.shop_gold(tooltip='Gold')
           .money
-            | {{silver(user.stats.gp)}}
+            | {{Shared.silver(user.stats.gp)}}
             span.shop_silver(tooltip='Silver')
 
         // Header
@@ -62,7 +62,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
         // Spells
         ul.items(ng-if='main && list.type=="reward" && user.stats.class')
-          li.task.reward-item(ng-repeat='(k,spell) in Items.spells[user.stats.class]', ng-show='user.stats.lvl >= spell.lvl')
+          li.task.reward-item(ng-repeat='(k,spell) in Content.spells[user.stats.class]', ng-show='user.stats.lvl >= spell.lvl')
             .task-meta-controls
               span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{spell.notes}}', popover-title='{{spell.text}}')
                 i.icon-comment

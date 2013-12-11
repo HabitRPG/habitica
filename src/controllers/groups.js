@@ -3,9 +3,7 @@
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
-var algos = require('habitrpg-shared/script/algos');
-var helpers = require('habitrpg-shared/script/helpers');
-var items = require('habitrpg-shared/script/items');
+var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var api = module.exports;
@@ -208,7 +206,7 @@ api.postChat = function(req, res, next) {
   var user = res.locals.user
   var group = res.locals.group;
   var message = {
-    id: helpers.uuid(),
+    id: shared.uuid(),
     uuid: user._id,
     contributor: user.contributor && user.contributor.toObject(),
     backer: user.backer && user.backer.toObject(),

@@ -30,8 +30,8 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
       select(ng-model='language.code', ng-options='lang.code as lang.name for lang in avalaibleLanguages', ng-change='changeLanguage()')
       hr
       h4 Misc
-      button.btn(ng-hide='user.preferences.hideHeader', ng-click='set("preferences.hideHeader",true)', popover-trigger='mouseenter', popover-placement='right', popover='Hide your avatar, Health/Experience bars, and party.') Hide Header
-      button.btn(ng-show='user.preferences.hideHeader', ng-click='set("preferences.hideHeader",false)', popover-trigger='mouseenter', popover='Display your avatar, Health/Experience bars, and party.') Show Header
+      button.btn(ng-hide='user.preferences.hideHeader', ng-click='set({"preferences.hideHeader":true})', popover-trigger='mouseenter', popover-placement='right', popover='Hide your avatar, Health/Experience bars, and party.') Hide Header
+      button.btn(ng-show='user.preferences.hideHeader', ng-click='set({"preferences.hideHeader":false})', popover-trigger='mouseenter', popover='Display your avatar, Health/Experience bars, and party.') Show Header
       button.btn(ng-click='showTour()', popover-trigger='mouseenter', popover='Restart the introductory tour from when you first joined HabitRPG.') Show Tour
       button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover='Bring Bailey the Town Crier out of hiding so you can review past news.') Show Bailey
       button.btn(ng-click='modals.restore = true', popover-trigger='mouseenter', popover='Manually change values like Health, Level, and Gold.') Fix Character Values

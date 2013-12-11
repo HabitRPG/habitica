@@ -6,8 +6,8 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
         li.customize-menu
           menu(label='Head')
           menu
-            button.broad_armor_base_0.customize-option(type='button', ng-click='set("preferences.size","broad")')
-            button.slim_armor_base_0.customize-option(type='button', ng-click='set("preferences.size","slim")')
+            button.broad_armor_base_0.customize-option(type='button', ng-click='set({"preferences.size":"broad"})')
+            button.slim_armor_base_0.customize-option(type='button', ng-click='set({"preferences.size":"slim"})')
 
     .span4
         h3 Hair
@@ -15,60 +15,60 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
           // Color
           li.customize-menu
             menu(label='Color')
-              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#c8c8c8;', ng-click='set("preferences.hair.color", "white")')
-              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#903a00;', ng-click='set("preferences.hair.color", "brown")')
-              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#cfb853;', ng-click='set("preferences.hair.color", "blond")')
-              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#ec720f;', ng-click='set("preferences.hair.color", "red")')
-              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#2e2e2e;', ng-click='set("preferences.hair.color", "black")')
+              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#c8c8c8;', ng-click='set({"preferences.hair.color": "white"})')
+              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#903a00;', ng-click='set({"preferences.hair.color": "brown"})')
+              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#cfb853;', ng-click='set({"preferences.hair.color": "blond"})')
+              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#ec720f;', ng-click='set({"preferences.hair.color": "red"  })')
+              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#2e2e2e;', ng-click='set({"preferences.hair.color": "black"})')
 
           // Bangs
           li.customize-menu
             menu(label='Bangs')
               button(class='head_base_0 customize-option', type='button', ng-click='set("preferences.hair.bangs",0)')
-              button(class='hair_bangs_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.bangs",1)')
-              button(class='hair_bangs_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.bangs",2)')
-              button(class='hair_bangs_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.bangs",3)')
+              button(class='hair_bangs_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.bangs":1})')
+              button(class='hair_bangs_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.bangs":2})')
+              button(class='hair_bangs_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.bangs":3})')
 
           // Beard
           li.customize-menu
             menu(label='Beard')
-              button(class='head_base_0 customize-option', type='button', ng-click='set("preferences.hair.beard",0)')
-              button(class='hair_beard_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.beard",1)')
-              button(class='hair_beard_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.beard",2)')
-              button(class='hair_beard_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.beard",3)')
+              button(class='head_base_0 customize-option', type='button', ng-click='set({"preferences.hair.beard":0})')
+              button(class='hair_beard_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.beard":1})')
+              button(class='hair_beard_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.beard":2})')
+              button(class='hair_beard_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.beard":3})')
 
           // Mustache
           li.customize-menu
             menu(label='Mustache')
-              button(class='head_base_0 customize-option', type='button', ng-click='set("preferences.hair.mustache",0)')
-              button(class='hair_mustache_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.mustache",1)')
-              button(class='hair_mustache_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.mustache",2)')
+              button(class='head_base_0 customize-option', type='button', ng-click='set({"preferences.hair.mustache":0})')
+              button(class='hair_mustache_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.mustache":1})')
+              button(class='hair_mustache_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.mustache":2})')
 
           // Base
          li.customize-menu
            menu(label='Base')
-             button(class='head_base_0 customize-option', type='button', ng-click='set("preferences.hair.base",0)')
-             button(class='hair_base_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",1)')
-             button(class='hair_base_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",2)')
-             button(class='hair_base_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",3)')
-             button(class='hair_base_4_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",4)')
-             button(class='hair_base_5_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",5)')
-             button(class='hair_base_6_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",6)')
-             button(class='hair_base_7_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",7)')
-             button(class='hair_base_8_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set("preferences.hair.base",8)')
+             button(class='head_base_0 customize-option', type='button', ng-click='set({"preferences.hair.base":0})')
+             button(class='hair_base_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":1})')
+             button(class='hair_base_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":2})')
+             button(class='hair_base_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":3})')
+             button(class='hair_base_4_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":4})')
+             button(class='hair_base_5_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":5})')
+             button(class='hair_base_6_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":6})')
+             button(class='hair_base_7_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":7})')
+             button(class='hair_base_8_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":8})')
 
     .span4
         // skin
         li.customize-menu
           menu(label='Basic Skins')
-            button.customize-option(type='button', class='skin_asian',  ng-click='set("preferences.skin","asian")')
-            button.customize-option(type='button', class='skin_white',  ng-click='set("preferences.skin","white")')
-            button.customize-option(type='button', class='skin_ea8349', ng-click='set("preferences.skin","ea8349")')
-            button.customize-option(type='button', class='skin_c06534', ng-click='set("preferences.skin","c06534")')
-            button.customize-option(type='button', class='skin_98461a', ng-click='set("preferences.skin","98461a")')
-            button.customize-option(type='button', class='skin_black',  ng-click='set("preferences.skin","black")')
-            button.customize-option(type='button', class='skin_dead',   ng-click='set("preferences.skin","dead")')
-            button.customize-option(type='button', class='skin_orc',    ng-click='set("preferences.skin","orc")')
+            button.customize-option(type='button', class='skin_asian',  ng-click='set({"preferences.skin":"asian" })')
+            button.customize-option(type='button', class='skin_white',  ng-click='set({"preferences.skin":"white" })')
+            button.customize-option(type='button', class='skin_ea8349', ng-click='set({"preferences.skin":"ea8349"})')
+            button.customize-option(type='button', class='skin_c06534', ng-click='set({"preferences.skin":"c06534"})')
+            button.customize-option(type='button', class='skin_98461a', ng-click='set({"preferences.skin":"98461a"})')
+            button.customize-option(type='button', class='skin_black',  ng-click='set({"preferences.skin":"black" })')
+            button.customize-option(type='button', class='skin_dead',   ng-click='set({"preferences.skin":"dead"  })')
+            button.customize-option(type='button', class='skin_orc',    ng-click='set({"preferences.skin":"orc"   })')
 
           // Rainbow Skin
           h5.
@@ -83,7 +83,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
             button.customize-option(type='button', class='skin_d7a9f7', ng-class='{locked: !user.purchased.skin.d7a9f7}', ng-click='unlock("skin.d7a9f7")')
             button.customize-option(type='button', class='skin_800ed0', ng-class='{locked: !user.purchased.skin.800ed0}', ng-click='unlock("skin.800ed0")')
             button.customize-option(type='button', class='skin_rainbow', ng-class='{locked: !user.purchased.skin.rainbow}', ng-click='unlock("skin.rainbow")')
-          button.btn.btn-small.btn-primary(ng-hide='user.purchased.skin.eb052b && user.purchased.skin.f69922 && user.purchased.skin.f5d70f && user.purchased.skin.0ff591 && user.purchased.skin.2b43f6 && user.purchased.skin.d7a9f7 && user.purchased.skin.800ed0 && user.purchased.skin.rainbow', ng-click='unlock(["skin.eb052b", "skin.f69922", "skin.f5d70f", "skin.0ff591", "skin.2b43f6", "skin.d7a9f7", "skin.800ed0", "skin.rainbow"])') Unlock Set - 5<span class="Pet_Currency_Gem1x inline-gems"/>
+          button.btn.btn-small.btn-primary(ng-hide='user.purchased.skin.eb052b && user.purchased.skin.f69922 && user.purchased.skin.f5d70f && user.purchased.skin.0ff591 && user.purchased.skin.2b43f6 && user.purchased.skin.d7a9f7 && user.purchased.skin.800ed0 && user.purchased.skin.rainbow', ng-click='unlock("skin.eb052b,skin.f69922,skin.f5d70f,skin.0ff591,skin.2b43f6,skin.d7a9f7,skin.800ed0,skin.rainbow")') Unlock Set - 5<span class="Pet_Currency_Gem1x inline-gems"/>
 
           // Special Events
           // restore to d4df481 to see purchasing + "limited edition" code
@@ -104,11 +104,11 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
     .span4.border-right(ng-show='user.stats.lvl >= 5')
       h4
         | {{user.stats.class}}&nbsp;
-        a.btn.btn-danger.btn-mini(ng-click='rerollClass()') Re-roll
+        a.btn.btn-danger.btn-mini(ng-click='changeClass(null)') Re-roll
       h6 Points: {{user.stats.points}}
       fieldset
         label.checkbox
-          input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set("preferences.automaticAllocation", user.preferences.automaticAllocation?true: false)')
+          input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})')
           | Automatic Allocation
           i.icon-question-sign(popover-trigger='mouseenter', popover-placement='bottom', popover="When 'automatic' is checked, your points will be allocated to the stat representing your task focus (see Task > Edit). When unchecked, you'll have one point to allocate each level. The system makes a suggestion, but you can ignore the suggestion.")
       table.table.table-striped

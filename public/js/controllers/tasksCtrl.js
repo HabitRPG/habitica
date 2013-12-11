@@ -1,22 +1,22 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', 'Algos', 'Helpers', 'Notification', '$http', 'API_URL',
-  function($scope, $rootScope, $location, User, Algos, Helpers, Notification, $http, API_URL) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'API_URL',
+  function($scope, $rootScope, $location, User, Notification, $http, API_URL) {
     $scope.obj = User.user; // used for task-lists
 
     $scope.score = function(task, direction) {
-      if (task.type === "reward" && User.user.stats.gp < task.value){
-        return Notification.text('Not enough Gold!');
-      }
-      Algos.score(User.user, task, direction);
-      User.log({op: "score",data: task, dir: direction});
-
+      User.user.ops.score({params:{id: task.id, direction:direction}})
     };
 
     $scope.addTask = function(addTo, listDef) {
-      var task = window.habitrpgShared.helpers.taskDefaults({text: listDef.newTask, type: listDef.type}, User.user.filters);
-      addTo.unshift(task);
-      User.log({op: "addTask", data: task});
+      var newTask = {
+        text: listDef.newTask,
+        type: listDef.type,
+        tags: _.transform(User.user.filters, function(m,v,k){
+          if (v) m[k]=v;
+        })
+      }
+      User.user.ops.addTask({body:newTask});
       delete listDef.newTask;
     };
 
@@ -40,40 +40,12 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
 
     $scope.removeTask = function(list, $index) {
       if (!confirm("Are you sure you want to delete this task?")) return;
-      User.log({ op: "delTask", data: list[$index] });
+      User.user.ops.deleteTask({params:{id:list[$index].id}})
       list.splice($index, 1);
     };
 
     $scope.saveTask = function(task) {
-      var setVal = function(k, v) {
-        var op;
-        if (typeof v !== "undefined") {
-          op = { op: "set", data: {} };
-          op.data["tasks." + task.id + "." + k] = v;
-          return log.push(op);
-        }
-      };
-      var log = [];
-      setVal("text", task.text);
-      setVal("notes", task.notes);
-      setVal("priority", task.priority);
-      setVal("tags", task.tags);
-      if (task.type === "habit") {
-        setVal("up", task.up);
-        setVal("down", task.down);
-      } else if (task.type === "daily") {
-        setVal("repeat", task.repeat);
-        // TODO we'll remove this once rewrite's running for a while. This was a patch for derby issues
-        setVal("streak", task.streak);
-
-      } else if (task.type === "todo") {
-        setVal("date", task.date);
-      } else {
-        if (task.type === "reward") {
-          setVal("value", task.value);
-        }
-      }
-      User.log(log);
+      User.user.ops.updateTask({params:{id:task.id},body:task});
       task._editing = false;
     };
 
@@ -104,16 +76,18 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User', '
      ------------------------
      */
 
-    $scope.itemStore = window.habitrpgShared.items.updateStore(User.user);
+    $rootScope.$on('userSynced', function(){
+      $scope.itemStore = User.user.fns.updateStore();
+    })
 
     $scope.buy = function(item) {
-      var hasEnough = window.habitrpgShared.items.buyItem(User.user, item);
+      var hasEnough = User.user.ops.buy({query:{key:item.key}});
       if (hasEnough) {
-        User.log({op: "buy", key: item.key});
         Notification.text("Item purchased.");
-        $scope.itemStore = window.habitrpgShared.items.updateStore(User.user);
+        $scope.itemStore = User.user.fns.updateStore();
       } else {
-        Notification.text("Not enough Gold!");
+//        Notification.text("Not enough Gold!");
+        // handled by userServices interceptor
       }
     };
 

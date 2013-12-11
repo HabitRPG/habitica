@@ -5,12 +5,15 @@
 
 habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups',
   function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups) {
+    var user = User.user;
+
     $rootScope.modals = {};
     $rootScope.modals.achievements = {};
     $rootScope.User = User;
-    $rootScope.user = User.user;
+    $rootScope.user = user;
     $rootScope.settings = User.settings;
-    $rootScope.Items = window.habitrpgShared.items.items;
+    $rootScope.Shared = window.habitrpgShared;
+    $rootScope.Content = window.habitrpgShared.content;
 
     // Angular UI Router
     $rootScope.$state = $state;
@@ -34,10 +37,10 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     // count pets, mounts collected totals, etc
     $rootScope.countExists = function(items) {return _.reduce(items,function(m,v){return m+(v?1:0)},0)}
 
-    $rootScope.petCount = window.habitrpgShared.helpers.countPets(null, User.user.items.pets);
+    $rootScope.petCount = $rootScope.Shared.countPets(null, User.user.items.pets);
 
     $rootScope.$watch('user.items.pets', function(pets){ 
-      $rootScope.petCount = window.habitrpgShared.helpers.countPets($rootScope.countExists(pets), User.user.items.pets);
+      $rootScope.petCount = $rootScope.Shared.countPets($rootScope.countExists(pets), User.user.items.pets);
     }, true);
 
     $scope.safeApply = function(fn) {
@@ -50,13 +53,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         this.$apply(fn);
       }
     };
-
-    /*
-     FIXME this is dangerous, organize helpers.coffee better, so we can group them by which controller needs them,
-     and then simply _.defaults($scope, Helpers.user) kinda thing
-     */
-    _.defaults($rootScope, window.habitrpgShared.algos);
-    _.defaults($rootScope, window.habitrpgShared.helpers);
 
     $rootScope.set = User.set;
     $rootScope.authenticated = User.authenticated;
@@ -150,8 +146,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $rootScope.applyingAction = true;
       $scope.spell = spell;
       if (spell.target == 'self') {
-        var tasks = User.user.habits.concat(User.user.dailys).concat(User.user.todos);
-        User.user.tasks = _.object(_.pluck(tasks,'id'), tasks);
         $scope.castEnd(null, 'self');
       } else if (spell.target == 'party') {
         var party = Groups.party();

@@ -5,7 +5,7 @@
  */
 
 angular.module('guideServices', []).
-  factory('Guide', ['$rootScope', 'User', 'Items', 'Helpers', function($rootScope, User, Items, Helpers) {
+  factory('Guide', ['$rootScope', 'User', function($rootScope, User) {
 
     /**
      * Init and show the welcome tour. Note we do it listening to a $rootScope broadcasted 'userLoaded' message,
@@ -79,7 +79,7 @@ angular.module('guideServices', []).
       $('.main-herobox').popover('destroy');
       var tour = new Tour({
         onEnd: function(){
-          User.set('flags.showTour', false);
+          User.set({'flags.showTour': false});
         }
       });
       tourSteps.forEach(function(step) {
@@ -134,7 +134,7 @@ angular.module('guideServices', []).
     $rootScope.$watch('user.items.pets', function(after, before) {
       if (User.user.achievements && User.user.achievements.beastMaster) return;
       if (before >= 90) {
-        User.set('achievements.beastMaster', true);
+        User.set({'achievements.beastMaster': true});
         $('#beastmaster-achievement-modal').modal('show'); // FIXME
       }
     });

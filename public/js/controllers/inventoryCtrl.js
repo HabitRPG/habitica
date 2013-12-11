@@ -2,13 +2,13 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
   function($rootScope, $scope, User, API_URL, $http, Notification) {
 
     var user = User.user;
-    var Items = window.habitrpgShared.items;
+    var Content = $rootScope.Shared.content;
 
     // convenience vars since these are accessed frequently
 
     $scope.selectedEgg = null; // {index: 1, name: "Tiger", value: 5}
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
-    $scope.totalPets = _.size($scope.Items.eggs) * _.size($scope.Items.hatchingPotions);
+    $scope.totalPets = _.size(Content.eggs) * _.size(Content.hatchingPotions);
 
     // count egg, food, hatchingPotion stack totals
     var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}
@@ -20,10 +20,10 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
     $scope.$watch('user.items.gear', function(gear){
       $scope.gear = {
-        base: _.where(Items.items.gear.flat, {klass: 'base'})
+        base: _.where(shared.content.gear.flat, {klass: 'base'})
       };
       _.each(gear.owned, function(bool,key){
-        var item = Items.items.gear.flat[key];
+        var item = shared.content.gear.flat[key];
         if (!$scope.gear[item.klass]) $scope.gear[item.klass] = [];
         $scope.gear[item.klass].push(item);
       })
@@ -33,7 +33,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
       if ($scope.selectedEgg && $scope.selectedEgg.name == egg) {
         return $scope.selectedEgg = null; // clicked same egg, unselect
       }
-      var eggData = _.findWhere(Items.items.eggs, {name:egg});
+      var eggData = _.findWhere(shared.content.eggs, {name:egg});
       if (!$scope.selectedPotion) {
         $scope.selectedEgg = eggData;
       } else {
@@ -46,7 +46,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
         return $scope.selectedPotion = null; // clicked same egg, unselect
       }
       // we really didn't think through the way these things are stored and getting passed around...
-      var potionData = _.findWhere(Items.items.hatchingPotions, {name:potion});
+      var potionData = _.findWhere(shared.content.hatchingPotions, {name:potion});
       if (!$scope.selectedEgg) {
         $scope.selectedPotion = potionData;
       } else {
@@ -56,42 +56,18 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
     $scope.chooseFood = function(food){
       if ($scope.selectedFood && $scope.selectedFood.name == food) return $scope.selectedFood = null;
-      $scope.selectedFood = $scope.Items.food[food];
+      $scope.selectedFood = Content.food[food];
     }
 
     $scope.sellInventory = function() {
-      // TODO DRY this
-      if ($scope.selectedEgg) {
-        user.items.eggs[$scope.selectedEgg.name]--;
-        User.setMultiple({
-          'items.eggs': user.items.eggs,
-          'stats.gp': User.user.stats.gp + $scope.selectedEgg.value
-        });
-        if (user.items.eggs[$scope.selectedEgg.name] < 1) {
-            $scope.selectedEgg = null;
-        }
-
-      } else if ($scope.selectedPotion) {
-        user.items.hatchingPotions[$scope.selectedPotion.name]--;
-        User.setMultiple({
-          'items.hatchingPotions': user.items.hatchingPotions,
-          'stats.gp': User.user.stats.gp + $scope.selectedPotion.value
-        });
-        if (user.items.hatchingPotions[$scope.selectedPotion.name] < 1) {
-            $scope.selectedPotion = null;
-        }
-
-      } else if ($scope.selectedFood) {
-        user.items.food[$scope.selectedFood.name]--;
-        User.setMultiple({
-          'items.food': user.items.food,
-          'stats.gp': User.user.stats.gp + $scope.selectedFood.value
-        });
-        if (user.items.food[$scope.selectedFood.name] < 1) {
-            $scope.selectedFood = null;
+      var selected = $scope.selectedEgg ? 'selectedEgg' : $scope.selectedPotion ? 'selectedPotion' : $scope.selectedFood ? 'selectedFood' : undefined;
+      if (selected) {
+        var type = $scope.selectedEgg ? 'eggs' : $scope.selectedPotion ? 'hatchingPotions' : $scope.selectedFood ? 'food' : undefined;
+        user.ops.sell({query:{type:type, key: $scope[selected].name}});
+        if (user.items[type][$scope[selected].name] < 1) {
+          $scope[selected] = null;
         }
       }
-
     }
 
     $scope.ownedItems = function(inventory){
@@ -99,21 +75,15 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     }
 
     $scope.hatch = function(egg, potion){
-      var pet = egg.name+"-"+potion.name;
-      if (user.items.pets[pet])
-        return alert("You already have that pet. Try hatching a different combination!");
-
-      var setObj = {};
-      setObj['items.pets.' + pet] = 5;
-      setObj['items.eggs.' + egg.name] = user.items.eggs[egg.name] - 1;
-      setObj['items.hatchingPotions.' + potion.name] = user.items.hatchingPotions[potion.name] - 1;
-
-      User.setMultiple(setObj);
-
-      alert("Your egg hatched! Visit your stable to equip your pet.");
-
-      $scope.selectedEgg = null;
-      $scope.selectedPotion = null;
+      user.ops.hatch({query:{egg:egg.name, hatchingPotion:potion.name}}, function(err, req){
+        // Bypassing the UserServices-injected callback so we can only show alert on success. It's safe, since this means
+        // UserServices callback will be 3rd param and never get called
+        if (err) return Notification.text(err);
+        User.log({op:'hatch', query:req.query});
+        Notification.text("Your egg hatched! Visit your stable to equip your pet.");
+        $scope.selectedEgg = null;
+        $scope.selectedPotion = null;
+      });
     }
 
     $scope.buy = function(type, item){
@@ -134,7 +104,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
       // Feeding Pet
       if ($scope.selectedFood) {
-        if (window.habitrpgShared.items.items.specialPets[pet]) return Notification.text("Can't feed this pet.");
+        if (window.habitrpgShared.shared.content.specialPets[pet]) return Notification.text("Can't feed this pet.");
         var setObj = {};
         var userPets = user.items.pets;
         if (user.items.mounts[pet] && (userPets[pet] >= 50 || $scope.selectedFood.name == 'Saddle'))
@@ -163,7 +133,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
         }
         setObj['items.pets.' + pet] = userPets[pet];
         setObj['items.food.' + $scope.selectedFood.name] = user.items.food[$scope.selectedFood.name] - 1;
-        User.setMultiple(setObj);
+        User.set(setObj);
         $scope.selectedFood = null;
 
       // Selecting Pet
@@ -182,19 +152,5 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
       var mount = egg + '-' + potion;
       User.set('items.currentMount', (user.items.currentMount == mount) ? '' : mount);
     }
-
-    $scope.equip = function(user, item, costume) {
-      var equipTo = costume ? 'costume' : 'equipped';
-      if (item.type == 'shield') {
-        var weapon = Items.items.gear.flat[user.items.gear[equipTo].weapon];
-        if (weapon && weapon.twoHanded) return Notification.text(weapon.text + ' is two-handed');
-      }
-      var setVars = {};
-      setVars['items.gear.' +  equipTo + '.' + item.type] = item.key;
-      if (item.twoHanded)
-        setVars['items.gear.' + equipTo + '.shield'] = 'warrior_shield_0';
-      User.setMultiple(setVars);
-    }
-
   }
 ]);

@@ -6,7 +6,7 @@
 // ------------
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var helpers = require('habitrpg-shared/script/helpers');
+var shared = require('habitrpg-shared');
 var _ = require('lodash');
 
 // Task Schema
@@ -14,7 +14,7 @@ var _ = require('lodash');
 
 var TaskSchema = {
   //_id:{type: String,'default': helpers.uuid},
-  id: {type: String,'default': helpers.uuid},
+  id: {type: String,'default': shared.uuid},
   text: String,
   notes: {type: String, 'default': ''},
   tags: {type: Schema.Types.Mixed, 'default': {}}, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },

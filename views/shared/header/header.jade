@@ -11,15 +11,15 @@
     // stat bars
     .hero-stats
       .meter.health(title='Health')
-        .bar(style='width: {{percent(user.stats.hp, 50)}}%;')
+        .bar(style='width: {{Shared.percent(user.stats.hp, 50)}}%;')
         span.meter-text
           i.icon-heart
           | {{user.stats.hp | number:0}} / 50
       .meter.experience(title='Experience')
-        .bar(style='width: {{percent(user.stats.exp,tnl(user.stats.lvl))}}%;')
+        .bar(style='width: {{Shared.percent(user.stats.exp,Shared.tnl(user.stats.lvl))}}%;')
         span.meter-text
           i.icon-star
-          | {{user.stats.exp | number:0}} / {{tnl(user.stats.lvl) | number:0}}
+          | {{user.stats.exp | number:0}} / {{Shared.tnl(user.stats.lvl) | number:0}}
           // FIXME doesn't look great here, but the "Experience" CSS title rollover covers it where it was before
           span(ng-show='user.history.exp')
             a(ng-click='toggleChart("exp")', tooltip='Progress')

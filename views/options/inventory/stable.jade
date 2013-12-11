@@ -26,9 +26,9 @@ script(type='text/ng-template', id='partials/options.inventory.stable.mounts.htm
                 Shall I bring you your steed, {{user.profile.name}}? Click a mount to saddle up.
               h4 {{mountCount}} / {{totalPets}} Mounts Tamed
     menu.pets(type='list')
-      li.customize-menu(ng-repeat='egg in Items.eggs')
+      li.customize-menu(ng-repeat='egg in Content.eggs')
         menu
-          div(ng-repeat='potion in Items.hatchingPotions', popover-trigger='mouseenter', popover='{{potion.text}} {{egg.mountText}}', popover-placement='bottom', ng-init='mount = egg.name+"-"+potion.name')
+          div(ng-repeat='potion in Content.hatchingPotions', popover-trigger='mouseenter', popover='{{potion.text}} {{egg.mountText}}', popover-placement='bottom', ng-init='mount = egg.name+"-"+potion.name')
             button(class="pet-button Mount_Head_{{mount}}", ng-show='user.items.mounts[mount]', ng-class='{active: user.items.currentMount == mount}', ng-click='chooseMount(egg.name, potion.name)')
               //div(class='Mount_Head_{{mount}}')
             button(class="pet-button pet-not-owned", ng-hide='user.items.mounts[mount]')
@@ -59,9 +59,9 @@ script(type='text/ng-template', id='partials/options.inventory.stable.pets.html'
               h4 {{petCount}} / {{totalPets}} Pets Found
 
     menu.pets(type='list')
-      li.customize-menu(ng-repeat='egg in Items.eggs')
+      li.customize-menu(ng-repeat='egg in Content.eggs')
         menu
-          div(ng-repeat='potion in Items.hatchingPotions', popover-trigger='mouseenter', popover='{{potion.text}} {{egg.text}}', popover-placement='bottom', ng-init='pet = egg.name+"-"+potion.name')
+          div(ng-repeat='potion in Content.hatchingPotions', popover-trigger='mouseenter', popover='{{potion.text}} {{egg.text}}', popover-placement='bottom', ng-init='pet = egg.name+"-"+potion.name')
             button(class="pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]>0', ng-class='{active: user.items.currentPet == pet, selectableInventory: selectedFood}', ng-click='choosePet(egg.name, potion.name)')
               .progress(ng-class='{"progress-success": user.items.pets[pet]<50}')
                 .bar(style="width: {{user.items.pets[pet]/.5}}%;")
@@ -85,7 +85,7 @@ script(type='text/ng-template', id='partials/options.inventory.stable.pets.html'
       li.customize-menu
         menu.pets-menu(label='Food')
           div(ng-repeat='(food,points) in ownedItems(user.items.food)')
-            button.customize-option(popover-append-to-body='true', popover='{{Items.food[food].notes}}', popover-title='{{Items.food[food].text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
+            button.customize-option(popover-append-to-body='true', popover='{{Content.food[food].notes}}', popover-title='{{Content.food[food].text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
               .badge.badge-info.stack-count {{points}}
             // Remove this once we have images in
-            p {{Items.food[food].text}}
+            p {{Content.food[food].text}}

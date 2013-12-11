@@ -6,8 +6,7 @@
 // ------------
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var helpers = require('habitrpg-shared/script/helpers');
-var items = require('habitrpg-shared/script/items');
+var shared = require('habitrpg-shared');
 var _ = require('lodash');
 var TaskSchemas = require('./task');
 var Challenge = require('./challenge').model;
@@ -15,23 +14,23 @@ var Challenge = require('./challenge').model;
 // User Schema
 // -----------
 
-var eggPotionMapping = _.transform(items.items.eggs, function(m, egg){
-  _.defaults(m, _.transform(items.items.hatchingPotions, function(m2, pot){
+var eggPotionMapping = _.transform(shared.content.eggs, function(m, egg){
+  _.defaults(m, _.transform(shared.content.hatchingPotions, function(m2, pot){
     m2[egg.name + '-' + pot.name] = true;
   }));
 })
 
-var specialPetsMapping = items.items.specialPets; // may need to revisit if we add additional information about the special pets
+var specialPetsMapping = shared.content.specialPets; // may need to revisit if we add additional information about the special pets
 
 var UserSchema = new Schema({
   // ### UUID and API Token
   _id: {
     type: String,
-    'default': helpers.uuid
+    'default': shared.uuid
   },
   apiToken: {
     type: String,
-    'default': helpers.uuid
+    'default': shared.uuid
   },
 
   // ### Mongoose Update Object
@@ -109,7 +108,7 @@ var UserSchema = new Schema({
   },
   items: {
     gear: {
-      owned: _.transform(items.items.gear.flat, function(m,v,k){
+      owned: _.transform(shared.content.gear.flat, function(m,v,k){
         m[v.key] = {type: Boolean};
         if (v.key.match(/[weapon|armor|head|shield]_warrior_0/))
           m[v.key]['default'] = true;
@@ -149,19 +148,19 @@ var UserSchema = new Schema({
     //  'PandaCub': 0, // 0 indicates "doesn't own"
     //  'Wolf': 5 // Number indicates "stacking"
     // }
-    eggs: _.transform(items.items.eggs, function(m,v,k){ m[k] = Number; }),
+    eggs: _.transform(shared.content.eggs, function(m,v,k){ m[k] = Number; }),
 
     // hatchingPotions: {
     //  'Desert': 0, // 0 indicates "doesn't own"
     //  'CottonCandyBlue': 5 // Number indicates "stacking"
     // }
-    hatchingPotions: _.transform(items.items.hatchingPotions, function(m,v,k){ m[k] = Number; }),
+    hatchingPotions: _.transform(shared.content.hatchingPotions, function(m,v,k){ m[k] = Number; }),
 
     // Food: {
     //  'Watermelon': 0, // 0 indicates "doesn't own"
     //  'RottenMeat': 5 // Number indicates "stacking"
     // }
-    food: _.transform(items.items.food, function(m,v,k){ m[k] = Number; }),
+    food: _.transform(shared.content.food, function(m,v,k){ m[k] = Number; }),
 
     // mounts: {
     //  'Wolf-Desert': true,
@@ -281,16 +280,30 @@ UserSchema.methods.toJSON = function() {
   return doc;
 };
 
-UserSchema.virtual('tasks').get(function () {
-  var tasks = this.habits.concat(this.dailys).concat(this.todos).concat(this.rewards);
-  var tasks = _.object(_.pluck(tasks,'id'), tasks);
-  return tasks;
-});
+//UserSchema.virtual('tasks').get(function () {
+//  var tasks = this.habits.concat(this.dailys).concat(this.todos).concat(this.rewards);
+//  var tasks = _.object(_.pluck(tasks,'id'), tasks);
+//  return tasks;
+//});
 
- // FIXME - since we're using special @post('init') above, we need to flag when the original path was modified.
- // Custom setter/getter virtuals?
+UserSchema.post('init', function(doc){
+  shared.wrap(doc);
+})
 
 UserSchema.pre('save', function(next) {
+
+  // Populate new users with default content
+  if (this.isNew){
+    //TODO for some reason this doesn't work here: `_.merge(this, shared.content.userDefaults);`
+    this.habits = shared.content.userDefaults.habits;
+    this.dailys = shared.content.userDefaults.dailys;
+    this.todos = shared.content.userDefaults.todos;
+    this.rewards = shared.content.userDefaults.rewards;
+    this.tags = shared.content.userDefaults.tags;
+    // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
+    _.each(this.tags, function(tag){tag.id = shared.uuid();})
+  }
+
   //this.markModified('tasks');
   if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 24) {
     this.preferences.dayStart = 0;
@@ -308,7 +321,7 @@ UserSchema.pre('save', function(next) {
   // Actually, can this be used as an attr default? (schema {type: ..., 'default': function(){}})
   this.stats.points = this.stats.lvl - (this.stats.con + this.stats.str + this.stats.per + this.stats.int);
 
-  var petCount = helpers.countPets(_.reduce(this.items.pets,function(m,v){
+  var petCount = shared.countPets(_.reduce(this.items.pets,function(m,v){
     //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
     if(_.isFunction(v)) return m;
     return m+(v?1:0)},0), this.items.pets);

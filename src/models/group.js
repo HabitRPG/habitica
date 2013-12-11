@@ -1,10 +1,10 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var helpers = require('habitrpg-shared/script/helpers');
+var shared = require('habitrpg-shared');
 var _ = require('lodash');
 
 var GroupSchema = new Schema({
-  _id: {type: String, 'default': helpers.uuid},
+  _id: {type: String, 'default': shared.uuid},
   name: String,
   description: String,
   leader: {type: String, ref: 'User'},

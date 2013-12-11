@@ -1,12 +1,12 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var helpers = require('habitrpg-shared/script/helpers');
+var shared = require('habitrpg-shared');
 var _ = require('lodash');
 var TaskSchemas = require('./task');
 var Group = require('./group').model;
 
 var ChallengeSchema = new Schema({
-  _id: {type: String, 'default': helpers.uuid},
+  _id: {type: String, 'default': shared.uuid},
   name: String,
   shortName: String,
   description: String,

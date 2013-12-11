@@ -19,7 +19,6 @@ var middleware = require('../middleware');
  $ mocha test/user.mocha.coffee
  */
 
-var verifyTaskExists = user.verifyTaskExists
 var cron = user.cron;
 
 router.get('/status', function(req, res) {
@@ -32,16 +31,16 @@ router.get('/status', function(req, res) {
 router.get('/export/history',auth.auth,dataexport.history); //[todo] encode data output options in the data controller and use these to build routes
 
 /* Scoring*/
-router.post('/user/task/:id/:direction', auth.auth, cron, user.scoreTask);
-router.post('/user/tasks/:id/:direction', auth.auth, cron, user.scoreTask);
+router.post('/user/task/:id/:direction', auth.auth, cron, user.score);
+router.post('/user/tasks/:id/:direction', auth.auth, cron, user.score);
 
 /* Tasks*/
 router.get('/user/tasks', auth.auth, cron, user.getTasks);
 router.get('/user/task/:id', auth.auth, cron, user.getTask);
-router.put('/user/task/:id', auth.auth, cron, verifyTaskExists, user.updateTask);
-router["delete"]('/user/task/:id', auth.auth, cron, verifyTaskExists, user.deleteTask);
-router.post('/user/task', auth.auth, cron, user.createTask);
-router.put('/user/task/:id/sort', auth.auth, cron, verifyTaskExists, user.sortTask);
+router.put('/user/task/:id', auth.auth, cron, user.updateTask);
+router["delete"]('/user/task/:id', auth.auth, cron, user.deleteTask);
+router.post('/user/task', auth.auth, cron, user.addTask);
+router.put('/user/task/:id/sort', auth.auth, cron, user.sortTask);
 router.post('/user/clear-completed', auth.auth, cron, user.clearCompleted);
 router.post('/user/task/:id/unlink', auth.auth, challenges.unlink); // removing cron since they may want to remove task first
 if (nconf.get('NODE_ENV') == 'development') {
@@ -53,7 +52,7 @@ router.post('/user/buy/:key', auth.auth, cron, user.buy);
 
 /* User*/
 router.get('/user', auth.auth, cron, user.getUser);
-router.put('/user', auth.auth, cron, user.updateUser);
+router.put('/user', auth.auth, cron, user.update);
 router.post('/user/revive', auth.auth, cron, user.revive);
 router.post('/user/batch-update', middleware.forceRefresh, auth.auth, cron, user.batchUpdate);
 router.post('/user/reroll', auth.auth, cron, user.reroll);

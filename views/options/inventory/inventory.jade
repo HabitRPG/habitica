@@ -9,7 +9,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
         li.customize-menu
           menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", special:"Special"}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
-              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='equip(user,item)', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
+              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({query:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
         label.checkbox.inline
           input(type="checkbox", ng-model="user.preferences.costume")
           | Use Costume&nbsp;
@@ -17,22 +17,22 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
         li.customize-menu(ng-if='user.preferences.costume')
           menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", special:"Special"}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
-              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='equip(user,item, true)', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
+              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({query:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
 
         li.customize-menu
           menu.pets-menu(label='Eggs ({{eggCount}})')
             p(ng-show='eggCount < 1') You don't have any eggs.
             div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
               //TODO move positioning this styling to css
-              button.customize-option(popover='{{Items.eggs[egg].notes}}', popover-title='{{Items.eggs[egg].text}} Egg', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !user.items.pets[egg+"-"+selectedPotion.name]}')
+              button.customize-option(popover='{{Content.eggs[egg].notes}}', popover-title='{{Content.eggs[egg].text}} Egg', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !user.items.pets[egg+"-"+selectedPotion.name]}')
                 .badge.badge-info.stack-count {{points}}
-              //-p {{Items.eggs[egg].text}}
+              //-p {{Content.eggs[egg].text}}
 
         li.customize-menu
           menu.hatchingPotion-menu(label='Hatching Potions ({{potCount}})')
             p(ng-show='potCount < 1') You don't have any hatching potions.
             div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
-              button.customize-option(popover='{{Items.hatchingPotions[pot].notes}}', popover-title='{{Items.hatchingPotions[pot].text}} Potion', popover-trigger='mouseenter', popover-placement='right', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !user.items.pets[selectedEgg.name+"-"+pot]}')
+              button.customize-option(popover='{{Content.hatchingPotions[pot].notes}}', popover-title='{{Content.hatchingPotions[pot].text}} Potion', popover-trigger='mouseenter', popover-placement='right', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !user.items.pets[selectedEgg.name+"-"+pot]}')
                 .badge.badge-info.stack-count {{points}}
               //-p {{pot}}
 
@@ -40,7 +40,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
           menu.pets-menu(label='Food ({{foodCount}})')
             p(ng-show='foodCount < 1') You don't have any food.
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
-              button.customize-option(popover='{{Items.food[food].notes}}', popover-title='{{Items.food[food].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
+              button.customize-option(popover='{{Content.food[food].notes}}', popover-title='{{Content.food[food].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
                 .badge.badge-info.stack-count {{points}}
               //-p {{food}}
 
@@ -70,7 +70,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
         menu.inventory-list(type='list')
           li.customize-menu
             menu.pets-menu(label='Eggs')
-              div(ng-repeat='egg in Items.eggs')
+              div(ng-repeat='egg in Content.eggs')
                 button.customize-option(popover='{{egg.notes}}', popover-title='{{egg.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='buy("egg", egg)', class='Pet_Egg_{{egg.name}}')
                 p
                   |  {{egg.value}}
@@ -78,7 +78,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
 
           li.customize-menu
             menu.pets-menu(label='Hatching Potions')
-              div(ng-repeat='pot in Items.hatchingPotions')
+              div(ng-repeat='pot in Content.hatchingPotions')
                 button.customize-option(popover='{{pot.notes}}', popover-title='{{pot.text}} Potion', popover-trigger='mouseenter', popover-placement='left', ng-click='buy("hatchingPotion", pot)', class='Pet_HatchingPotion_{{pot.name}}')
                 p
                   |  {{pot.value}}
@@ -86,7 +86,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
 
           li.customize-menu
             menu.pets-menu(label='Food')
-              div(ng-repeat='food in Items.food')
+              div(ng-repeat='food in Content.food')
                 button.customize-option(popover='{{food.notes}}', popover-title='{{food.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='buy("food", food)', class='Pet_Food_{{food.name}}')
                 p
                   |  {{food.value}}

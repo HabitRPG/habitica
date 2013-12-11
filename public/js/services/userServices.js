@@ -21,14 +21,13 @@ angular.module('userServices', []).
         user = {}; // this is stored as a reference accessible to all controllers, that way updates propagate
 
       //first we populate user with schema
-      _.extend(user, $window.habitrpgShared.helpers.newUser());
       user.apiToken = user._id = ''; // we use id / apitoken to determine if registered
-      $window.habitrpgShared.algos.defineComputed(user);
 
       //than we try to load localStorage
       if (localStorage.getItem(STORAGE_USER_ID)) {
           _.extend(user, JSON.parse(localStorage.getItem(STORAGE_USER_ID)));
       }
+      user._wrapped = false;
 
       var syncQueue = function (cb) {
         if (!authenticated) {
@@ -71,6 +70,16 @@ angular.module('userServices', []).
 
               // Update user
               _.extend(user, data);
+              if (!user._wrapped){
+                $rootScope.Shared.wrap(user);
+                _.each(user.ops, function(op,k){
+                  user.ops[k] = _.partialRight(op, function(err, req){
+                    //if (err) return Notification.text(err); // FIXME Circular dependency found: Notification <- User
+                    if (err) return alert(err);
+                    userServices.log({op:k, params: req.params, query:req.query, body:req.body});
+                  });
+                });
+              }
 
               // Emit event when user is synced
               $rootScope.$emit('userSynced');
@@ -108,6 +117,9 @@ angular.module('userServices', []).
       };
       var userServices = {
         user: user,
+        set: function(updates) {
+          user.ops.update({body:updates});
+        },
         online: function (status) {
           if (status===true) {
             settings.online = true;
@@ -130,7 +142,7 @@ angular.module('userServices', []).
               // If they don't have timezone, set it
               var offset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
               if (user.preferences.timezoneOffset !== offset)
-                userServices.set('preferences.timezoneOffset', offset);
+                userServices.set({'preferences.timezoneOffset': offset});
               cb && cb();
             });
           } else {
@@ -159,62 +171,6 @@ angular.module('userServices', []).
         sync: function(){
           user._v--;
           userServices.log({});
-        },
-
-        /*
-         Very simple path-set. `set('preferences.gender','m')` for example. We'll deprecate this once we have a complete API
-         */
-        set: function(k, v) {
-          var log = { op: 'set', data: {} };
-          $window.habitrpgShared.helpers.dotSet(k, v, this.user);
-          log.data[k] = v;
-          userServices.log(log);
-        },
-
-        setMultiple: function(obj){
-          var log = { op: 'set', data: {} };
-          _.each(obj, function(v,k){
-            $window.habitrpgShared.helpers.dotSet(k, v, userServices.user);
-            log.data[k] = v;
-          });
-          userServices.log(log);
-        },
-
-        revive: function(){
-          $window.habitrpgShared.algos.revive(user);
-          userServices.log({ op: "revive" });
-        },
-
-        /**
-         * For gem-unlockable preferences, (a) if owned, select preference (b) else, purchase
-         * @param path: User.preferences <-> User.purchased maps like User.preferences.skin=abc <-> User.purchased.skin.abc.
-         *  Pass in this paramater as "skin.abc". Alternatively, pass as an array ["skin.abc", "skin.xyz"] to unlock sets
-         */
-        unlock: function(path){
-          var self = userServices; //this; // why isn't this working?
-
-          if (_.isArray(path)) {
-            if (confirm("Purchase for 5 Gems?") !== true) return;
-            if (user.balance < 1.25) return $rootScope.modals.buyGems = true;
-            path = path.join(',');
-          } else {
-            if ($window.habitrpgShared.helpers.dotGet('purchased.' + path, user)) {
-              var pref = path.split('.')[0],
-                val = path.split('.')[1];
-              return self.set('preferences.' + pref, val);
-            } else {
-              if (confirm("Purchase for 2 Gems?") !== true) return;
-              if (user.balance < 0.5) return $rootScope.modals.buyGems = true;
-            }
-          }
-
-          $http.post(API_URL + '/api/v1/user/unlock?path=' + path)
-            .success(function(data, status, headers, config){
-              self.log({}); // sync new unlocked & preferences
-            }).error(function(data, status, headers, config){
-              alert(status + ': ' + data);
-              //FIXME use method used elsewhere for handling this error, this is temp while developing
-            })
         },
 
         save: save,

@@ -1,4 +1,4 @@
-li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}')
+li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}')
   // right-hand side control buttons
   .task-meta-controls
 
@@ -118,13 +118,13 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{taskCl
         legend.option-title Repeat
         .task-controls.tile-group.repeat-days(bindonce)
           // note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding
-          button.task-action-btn.tile(ng-class='{active: task.repeat.su}',  type='button', ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)' bo-text='moment.weekdaysMin(0)')
-          button.task-action-btn.tile(ng-class='{active: task.repeat.m}',   type='button', ng-click='task.challenge.id || (task.repeat.m = !task.repeat.m)' bo-text='moment.weekdaysMin(1)')
-          button.task-action-btn.tile(ng-class='{active: task.repeat.t}',   type='button', ng-click='task.challenge.id || (task.repeat.t = !task.repeat.t)' bo-text='moment.weekdaysMin(2)')
-          button.task-action-btn.tile(ng-class='{active: task.repeat.w}',   type='button', ng-click='task.challenge.id || (task.repeat.w = !task.repeat.w)' bo-text='moment.weekdaysMin(3)')
-          button.task-action-btn.tile(ng-class='{active: task.repeat.th}',  type='button', ng-click='task.challenge.id || (task.repeat.th = !task.repeat.th)' bo-text='moment.weekdaysMin(4)')
-          button.task-action-btn.tile(ng-class='{active: task.repeat.f}',   type='button', ng-click='task.challenge.id || (task.repeat.f= !task.repeat.f)' bo-text='moment.weekdaysMin(5)')
-          button.task-action-btn.tile(ng-class='{active: task.repeat.s}',   type='button', ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)' bo-text='moment.weekdaysMin(6)')
+          button.task-action-btn.tile(ng-class='{active: task.repeat.su}',  type='button', ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)', bo-text='moment.weekdaysMin(0)')
+          button.task-action-btn.tile(ng-class='{active: task.repeat.m}',   type='button', ng-click='task.challenge.id || (task.repeat.m = !task.repeat.m)', bo-text='moment.weekdaysMin(1)')
+          button.task-action-btn.tile(ng-class='{active: task.repeat.t}',   type='button', ng-click='task.challenge.id || (task.repeat.t = !task.repeat.t)', bo-text='moment.weekdaysMin(2)')
+          button.task-action-btn.tile(ng-class='{active: task.repeat.w}',   type='button', ng-click='task.challenge.id || (task.repeat.w = !task.repeat.w)', bo-text='moment.weekdaysMin(3)')
+          button.task-action-btn.tile(ng-class='{active: task.repeat.th}',  type='button', ng-click='task.challenge.id || (task.repeat.th = !task.repeat.th)', bo-text='moment.weekdaysMin(4)')
+          button.task-action-btn.tile(ng-class='{active: task.repeat.f}',   type='button', ng-click='task.challenge.id || (task.repeat.f= !task.repeat.f)', bo-text='moment.weekdaysMin(5)')
+          button.task-action-btn.tile(ng-class='{active: task.repeat.s}',   type='button', ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)', bo-text='moment.weekdaysMin(6)')
 
       // if Reward, pricing
       fieldset.option-group.option-short(ng-if='task.type=="reward" && !task.challenge.id')

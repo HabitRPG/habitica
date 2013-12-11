@@ -53,7 +53,7 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.items.pets', function(after, before){
       if(_.size(after) === _.size(before) || 
-        window.habitrpgShared.helpers.countPets(null, after) < 90) return;
+        $rootScope.Shared.countPets(null, after) < 90) return;
       User.user.achievements.beastMaster = true;
       $rootScope.modals.achievements.beastMaster = true;
     }, true);
