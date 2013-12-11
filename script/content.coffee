@@ -1,6 +1,5 @@
 _ = require 'lodash'
-
-items = module.exports.items = {}
+api = module.exports
 
 ###
   ---------------------------------------------------------------
@@ -8,6 +7,7 @@ items = module.exports.items = {}
   Item definitions: {index, text, notes, value, str, def, int, per, classes, type}
   ---------------------------------------------------------------
 ###
+
 
 gear =
   weapon:
@@ -158,7 +158,7 @@ gear =
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
   they are needed in different froms at different points in the app
 ###
-items.gear =
+api.gear =
   tree: gear
   flat: {}
 
@@ -168,7 +168,7 @@ _.each ['weapon', 'armor', 'head', 'shield'], (type) ->
     _.each gear[type][klass], (item, i) ->
       key = "#{type}_#{klass}_#{i}"
       _.defaults item, {type, key, klass, index: i, str:0, int:0, per:0, con:0}
-      items.gear.flat[key] = item
+      api.gear.flat[key] = item
 
 ###
   ---------------------------------------------------------------
@@ -176,7 +176,7 @@ _.each ['weapon', 'armor', 'head', 'shield'], (type) ->
   ---------------------------------------------------------------
 ###
 
-items.potion = type: 'potion', text: "Health Potion", notes: "Recover 15 Health (Instant Use)", value: 25, key: 'potion'
+api.potion = type: 'potion', text: "Health Potion", notes: "Recover 15 Health (Instant Use)", value: 25, key: 'potion'
 
 ###
   ---------------------------------------------------------------
@@ -199,7 +199,7 @@ items.potion = type: 'potion', text: "Health Potion", notes: "Recover 15 Health 
   Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
 ###
 
-items.spells =
+api.spells =
   wizard:
     fireball:
       text: 'Burst of Flames'
@@ -361,7 +361,7 @@ items.spells =
 crit = (user) -> (Math.random() * user.stats.per + 1)
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
-_.each items.spells, (spellClass) ->
+_.each api.spells, (spellClass) ->
   _.each spellClass, (spell, k) ->
     spell.name = k
     _cast = spell.cast
@@ -376,7 +376,7 @@ _.each items.spells, (spellClass) ->
   ---------------------------------------------------------------
 ###
 
-items.eggs =
+api.eggs =
   # value & other defaults set below
   Wolf:             text: 'Wolf', adjective: 'loyal'
   TigerCub:         text: 'Tiger Cub', mountText: 'Tiger', adjective: 'fierce'
@@ -388,20 +388,20 @@ items.eggs =
   Cactus:           text: 'Cactus', adjective: 'prickly'
   BearCub:          text: 'Bear Cub',  mountText: 'Bear', adjective: 'cuddly'
   #{text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3}
-_.each items.eggs, (egg,k) ->
+_.each api.eggs, (egg,k) ->
   _.defaults egg,
     value: 3
     name: k
     notes: "Find a hatching potion to pour on this egg, and it will hatch into a #{egg.adjective} #{egg.text}."
     mountText: egg.text
 
-items.specialPets =
+api.specialPets =
   'Wolf-Veteran':   true
   'Wolf-Cerberus':  true
   'Dragon-Hydra':   true
   'Turkey-Base':    true
 
-items.hatchingPotions =
+api.hatchingPotions =
   Base:             value: 2, text: 'Base'
   White:            value: 2, text: 'White'
   Desert:           value: 2, text: 'Desert'
@@ -412,10 +412,10 @@ items.hatchingPotions =
   CottonCandyPink:  value: 4, text: 'Cotton Candy Pink'
   CottonCandyBlue:  value: 4, text: 'Cotton Candy Blue'
   Golden:           value: 5, text: 'Golden'
-_.each items.hatchingPotions, (pot,k) ->
+_.each api.hatchingPotions, (pot,k) ->
   _.defaults pot, {name: k, value: 2, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
 
-items.food =
+api.food =
   Meat:             text: 'Meat', target: 'Base'
   Milk:             text: 'Milk', target: 'White'
   Potatoe:          text: 'Potato', target: 'Desert'
@@ -431,59 +431,34 @@ items.food =
   #Watermelon:       text: 'Watermelon', target: 'Golden'
   #SeaWeed:          text: 'SeaWeed', target: 'Golden'
   Saddle:           text: 'Saddle', value: 5, notes: 'Instantly raises your pet into a mount.'
-_.each items.food, (food,k) ->
+_.each api.food, (food,k) ->
   _.defaults food, {value: 1, name: k, notes: "Feed this to a pet and it may grow into a sturdy steed."}
 
-###
-  ---------------------------------------------------------------
-  Helper Functions
-  ---------------------------------------------------------------
-###
+repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
+api.userDefaults =
+  habits: [
+    {type: 'habit', text: '1h Productive Work', notes: 'When you create a new Habit, you can click the Edit icon and choose for it to represent a positive habit, a negative habit, or both. For some Habits, like this one, it only makes sense to gain points.', value: 0, up: true, down: false }
+    {type: 'habit', text: 'Eat Junk Food', notes: 'For others, it only makes sense to *lose* points.', value: 0, up: false, down: true}
+    {type: 'habit', text: 'Take The Stairs', notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose).', value: 0, up: true, down: true}
+  ]
 
-module.exports.buyItem = (user, item) ->
-  return false if !item or +user.stats.gp < +item.value
-  if item.key is 'potion'
-    user.stats.hp += 15
-    user.stats.hp = 50 if user.stats.hp > 50
-  else
-    user.items.gear.equipped[item.type] = item.key
-    user.items.gear.owned[item.key] = true;
-    if item.klass in ['warrior','wizard','healer','rogue']
-      if getItem(user,'weapon').last && getItem(user,'armor').last && getItem(user,'head').last && getItem(user,'shield').last
-        user.achievements.ultimateGear = true
-  user.stats.gp -= item.value
-  true
+  dailys: [
+    {type: 'daily', text: '1h Personal Project', notes: 'All tasks default to yellow when they are created. This means you will take only moderate damage when they are missed and will gain only a moderate reward when they are completed.', value: 0, completed: false, repeat: repeat }
+    {type: 'daily', text: 'Exercise', notes: 'Dailies you complete consistently will turn from yellow to green to blue, helping you track your progress. The higher you move up the ladder, the less damage you take for missing and less reward you receive for completing the goal.', value: 3, completed: false, repeat: repeat }
+    {type: 'daily', text: '45m Reading', notes: 'If you miss a daily frequently, it will turn darker shades of orange and red. The redder the task is, the more experience and gold it grants for success and the more damage you take for failure. This encourages you to focus on your shortcomings, the reds.', value: -10, completed: false, repeat: repeat }
+  ]
 
-###
-  update store
-###
-module.exports.updateStore = (user) ->
-  changes = []
-  _.each ['weapon', 'armor', 'shield', 'head'], (type) ->
-    found = _.find items.gear.tree[type][user.stats.class], (item) ->
-      !user.items.gear.owned[item.key]
-    changes.push(found) if found
+  todos: [
+    {type: 'todo', text: 'Call Mom', notes: 'While not completing a to-do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.', value: -3, completed: false }
+  ]
 
-  # Add special items (contrib gear, backer gear, etc)
-  _.defaults changes, _.transform _.where(items.gear.flat, {klass:'special'}), (m,v) ->
-    m.push v if v.canOwn?(user) && !user.items.gear.owned[v.key]
+  rewards: [
+    {type: 'reward', text: '1 Episode of Game of Thrones', notes: 'Custom rewards can come in many forms. Some people will hold off watching their favorite show unless they have the gold to pay for it.', value: 20 }
+    {type: 'reward', text: 'Cake', notes: 'Other people just want to enjoy a nice piece of cake. Try to create rewards that will motivate you best.', value: 10 }
+  ]
 
-  changes.push items.potion
-
-  # Return sorted store (array)
-  _.sortBy changes, (item) ->
-    switch item.type
-      when 'weapon' then 1
-      when 'armor'  then 2
-      when 'head'   then 3
-      when 'shield' then 4
-      when 'potion' then 5
-      else               6
-
-###
-  Gets an item, and caps max to the last item in its array
-###
-module.exports.getItem = getItem = (user, type) ->
-  item = items.gear.flat[user.items.gear.equipped[type]]
-  return items.gear.flat["#{type}_#{user.stats.class}_0"] unless item
-  item
+  tags: [
+    {name: 'morning'}
+    {name: 'afternoon'}
+    {name: 'evening'}
+  ]
