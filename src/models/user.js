@@ -75,7 +75,7 @@ var UserSchema = new Schema({
     contributions: String // a markdown textarea to list their contributions + links
   },
 
-  balance: Number,
+  balance: {type: Number, 'default':0},
   filters: {type: Schema.Types.Mixed, 'default': {}},
 
   purchased: {

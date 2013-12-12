@@ -2,7 +2,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
   function($rootScope, $scope, User, API_URL, $http, Notification) {
 
     var user = User.user;
-    var Content = $rootScope.Shared.content;
+    var Content = $rootScope.Content;
 
     // convenience vars since these are accessed frequently
 
@@ -20,10 +20,10 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
     $scope.$watch('user.items.gear', function(gear){
       $scope.gear = {
-        base: _.where(shared.content.gear.flat, {klass: 'base'})
+        base: _.where(Content.gear.flat, {klass: 'base'})
       };
       _.each(gear.owned, function(bool,key){
-        var item = shared.content.gear.flat[key];
+        var item = Content.gear.flat[key];
         if (!$scope.gear[item.klass]) $scope.gear[item.klass] = [];
         $scope.gear[item.klass].push(item);
       })
@@ -33,7 +33,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
       if ($scope.selectedEgg && $scope.selectedEgg.name == egg) {
         return $scope.selectedEgg = null; // clicked same egg, unselect
       }
-      var eggData = _.findWhere(shared.content.eggs, {name:egg});
+      var eggData = _.findWhere(Content.eggs, {name:egg});
       if (!$scope.selectedPotion) {
         $scope.selectedEgg = eggData;
       } else {
@@ -46,7 +46,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
         return $scope.selectedPotion = null; // clicked same egg, unselect
       }
       // we really didn't think through the way these things are stored and getting passed around...
-      var potionData = _.findWhere(shared.content.hatchingPotions, {name:potion});
+      var potionData = _.findWhere(Content.hatchingPotions, {name:potion});
       if (!$scope.selectedEgg) {
         $scope.selectedPotion = potionData;
       } else {
@@ -104,53 +104,20 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
       // Feeding Pet
       if ($scope.selectedFood) {
-        if (window.habitrpgShared.shared.content.specialPets[pet]) return Notification.text("Can't feed this pet.");
-        var setObj = {};
-        var userPets = user.items.pets;
-        if (user.items.mounts[pet] && (userPets[pet] >= 50 || $scope.selectedFood.name == 'Saddle'))
-          return Notification.text("You already have that mount");
-
-        var evolve = function(){
-          userPets[pet] = 0;
-          setObj['items.mounts.' + pet] = true;
-          if (pet == user.items.currentPet) setObj['items.currentPet'] = '';
-          Notification.text('You have tamed '+egg+", let's go for a ride!");
-        }
-        // Saddling a pet
-        if ($scope.selectedFood.name == 'Saddle') {
-          if (!confirm('Saddle ' + pet + '?')) return;
-          evolve();
-        } else {
-          if (!confirm('Feed ' + pet + ' a ' + $scope.selectedFood.name + '?')) return;
-          if ($scope.selectedFood.target == potion) {
-            userPets[pet] += 5;
-            Notification.text(egg+' really likes the '+$scope.selectedFood.name+'!');
-          } else {
-            userPets[pet] += 2;
-            Notification.text(egg+' eats the '+$scope.selectedFood.name+" but doesn't seem to enjoy it.");
-          }
-          if (userPets[pet] >= 50 && !user.items.mounts[pet]) evolve();
-        }
-        setObj['items.pets.' + pet] = userPets[pet];
-        setObj['items.food.' + $scope.selectedFood.name] = user.items.food[$scope.selectedFood.name] - 1;
-        User.set(setObj);
+        var food = $scope.selectedFood
+        if (food.name == 'Saddle' && !confirm('Saddle ' + pet + '?')) return;
+        if (!confirm('Feed ' + pet + ' a ' + food.name + '?')) return;
+        User.user.ops.feed({query:{pet: pet, food: food.name}});
         $scope.selectedFood = null;
 
       // Selecting Pet
       } else {
-        var userCurrentPet = User.user.items.currentPet;
-        if(userCurrentPet && userCurrentPet == pet){
-          User.user.items.currentPet = '';
-        }else{
-          User.user.items.currentPet = pet;
-        }
-        User.set('items.currentPet', User.user.items.currentPet);
+        User.user.ops.equip({query:{type: 'pet', key: pet}});
       }
     }
 
     $scope.chooseMount = function(egg, potion) {
-      var mount = egg + '-' + potion;
-      User.set('items.currentMount', (user.items.currentMount == mount) ? '' : mount);
+      User.user.ops.equip({query:{type: 'mount', key: egg + '-' + potion}});
     }
   }
 ]);

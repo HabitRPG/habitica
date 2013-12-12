@@ -75,7 +75,11 @@ angular.module('userServices', []).
                 _.each(user.ops, function(op,k){
                   user.ops[k] = _.partialRight(op, function(err, req){
                     //if (err) return Notification.text(err); // FIXME Circular dependency found: Notification <- User
-                    if (err) return alert(err);
+                    if (err) {
+                      alert(err.code ? err.message : err);
+                      // In the case of 200s, they're friendly alert messages like "You're pet has hatched!" - still send the op
+                      if ((err.code && err.code >= 400) || !err.code) return;
+                    }
                     userServices.log({op:k, params: req.params, query:req.query, body:req.body});
                   });
                 });
