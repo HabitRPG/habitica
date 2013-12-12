@@ -344,7 +344,8 @@ api.cron = (user, options={}) ->
         _.times daysMissed, (n) ->
           thatDay = moment(now).subtract('days', n + 1)
           scheduleMisses++ if api.shouldDo(thatDay, repeat, user.preferences)
-      api.score(user, task, 'down', {times:scheduleMisses, cron:true}) if scheduleMisses > 0
+      if scheduleMisses > 0
+        user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}})
 
     switch type
       when 'daily'
@@ -647,6 +648,35 @@ api.wrap = (user) ->
       cb? null, req
       task
 
+    feed: (req, cb) ->
+      [pet, food] = [req.query?.pet, content.food[req.query?.food]]
+      [egg, potion] = pet.split('-')
+
+      return cb("?food=__&pet=__ are both required in query, and must be valid") unless pet and food # TODO validation on pet string
+      return cb("Can't feed this pet.") if content.specialPets[pet]
+      return cb("You already have that mount") if user.items.mounts[pet] and (userPets[pet] >= 50 or food.name is 'Saddle')
+
+      userPets = user.items.pets
+      evolve = ->
+        userPets[pet] = 0
+        user.items.mounts[pet] = true
+        user.items.currentPet = "" if pet is user.items.currentPet
+        cb {code:200, message:"You have tamed #{egg}, let's go for a ride!"}, req
+
+      if food.name is 'Saddle'
+        evolve()
+      else
+        if food.target is potion
+          userPets[pet] += 5
+          cb {code:200, message: "#{egg} really likes the #{food.name}!"}, req
+        else
+          userPets[pet] += 2
+          cb {code:200, message: "#{egg} eats the #{food.name} but doesn't seem to enjoy it."}, req
+        evolve() if userPets[pet] >= 50 and not user.items.mounts[pet]
+      user.items.pets[pet] = userPets[pet]
+      user.items.food[food.name]--
+      cb? null, req
+
     buy: (req, cb) ->
       {key} = req.query
       item = if key is 'potion' then content.potion else content.gear.flat[key]
@@ -694,7 +724,7 @@ api.wrap = (user) ->
       user.stats.lvl-- if user.stats.lvl > 1
 
       # Lose a stat point
-      lostStat = randomVal _.reduce ['str','con','per','int'], ((m,k)->(m[k]=k if user.stats[v];m)), {}
+      lostStat = randomVal _.reduce(['str','con','per','int'], ((m,k)->(m[k]=k if user.stats[v];m)), {})
       user.stats[lostStat]-- if lostStat
 
       # Lose a gear piece
