@@ -88,7 +88,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
         // Todo Tabs
         div(bo-if='main && list.type=="todo"', bo-class='{"tabbable tabs-below": list.type=="todo"}')
-          button.task-action-btn.tile.spacious.bright(ng-show='list.showCompleted', ng-click='clearCompleted()') Clear Completed
+          button.task-action-btn.tile.spacious.bright(ng-show='list.showCompleted', ng-click='user.ops.clearCompleted({})') Clear Completed
           // remaining/completed tabs
           ul.nav.nav-tabs
             li(ng-class='{active: !list.showCompleted}')

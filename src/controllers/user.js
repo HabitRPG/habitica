@@ -169,15 +169,6 @@ api.sortTask = function(req, res, next) {
   })
 };
 
-api.clearCompleted = function(req, res, next) {
-  var user = res.locals.user;
-  user.todos = _.where(user.todos, {completed: false});
-  return user.save(function(err, saved) {
-    if (err) return res.json(500, {err: err});
-    return res.json(saved);
-  });
-};
-
 /*
   ------------------------------------------------------------------------
   Items

@@ -91,11 +91,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       }
     };
 
-    $scope.clearCompleted = function() {
-      User.user.todos = _.reject(User.user.todos, {completed:true});
-      User.log({op: 'clear-completed'});
-    }
-
 
     /*
      ------------------------
