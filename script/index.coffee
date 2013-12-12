@@ -587,13 +587,45 @@ User (prototype wrapper to give it ops, helper funcs, and virtuals
 ###
 
 ###
-  This wraps the user prototype, giving it functions
+User is now wrapped (both on client and server), adding a few new properties:
+  * getters (_statsComputed, tasks, etc)
+  * user.fns, which is a bunch of helper functions
+    These were originally up above, but they make more sense belonging to the user object so we don't have to pass
+    the user object all over the place. In fact, we should pull in more functions such as cron(), updateStats(), etc.
+  * user.ops, which is super important:
+
+If a function is inside user.ops, it has magical properties. If you call it on the client it updates the user object in
+the browser and when it's done it POSTs to the server, calling `src/controllers/user.js#OP_NAME` (the exact same name
+of the op function). The first argument `req` is `{query, body, params}`, it's what the express controller function
+expects. Because of this, we don't construct op functions in standard way (function(arg1,arg2,arg3){}), but instead
+the first arg is {query, body, params} and the second is a callback(err, results). `query` is the most commonly-used,
+but body is useful for updates/creates (eg, tasks), and params are used in those cases too (eg, {op:'updateTask',{params:{id:task.id}, body:task}}})
+This needs refinement: see http://stackoverflow.com/questions/4024271/rest-api-best-practices-where-to-put-parameters
+
+If `src/controllers/user.js#OP_NAME` doesn't exist, it's automatically added. It runs the code in user.ops.OP_NAME
+to update the user model server-side, then performs `user.save()`. You can see this in action for `user.ops.buy`. That
+function doesn't exist on the server - so the client calls it, it updates user in the browser, auto-POSTs to server, server
+handles it by calling `user.ops.buy` again (to update user on the server), and then saves. We can do this for
+everything that doesn't need any code different from what's in user.ops.OP_NAME for special-handling server-side. If we
+*do* need special handling, just add `src/controllers/user.js#OP_NAME` to override the user.ops.OP_NAME, and just be
+sure to call user.ops.OP_NAME at some point within the overridden function.
+
+TODO
+  * Allow different error handling - like "200 - not enough gold" (which shouldn't be treated as 500)
+  * Is this the best way to wrap the user object? I thought of using user.prototype, but user is an object not a Function.
+    user on the server is a Mongoose model, so we can use prototype - but to do it on the client, we'd probably have to
+    move to $resource for user
+  * Move to $resource!
+  * Migrate the remaining parts: Tags, feeding pets, etc
+
+BUGS
+  * User registration doesn't refresh, and you have to click "Play" again (and refresh *yet again* after getting in)
+  * Daily repeats don't have the days showing up (translations issue?)
 ###
 api.wrap = (user) ->
   return if user._wrapped
   user._wrapped = true
 
-  # TODO Document
   user.ops =
 
     update: (req, cb) ->
