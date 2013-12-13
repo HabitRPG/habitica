@@ -460,17 +460,17 @@ api.cast = function(req, res) {
 _.each(shared.wrap({}).ops, function(op,k){
   if (!api[k]) {
     api[k] = function(req, res, next) {
-      var user = res.locals.user;
-      async.series([
-        function(cb){ user.ops[k](req, cb) },
-        function(cb){ user.save(cb) },
-      ], function(err){
+      res.locals.user.ops[k](req,function(err){
+        // If we want to send something other than 500, pass err as {code: 200, message: "Not enough GP"}
         if (err) {
-          // If we want to send something other than 500, pass err as {code: 200, message: "Not enough GP"}
-          if (err.code) return res.json(err.code, err.message);
-          return res.json(500,{err:err});
+          if (!err.code) return res.json(500,{err:err});
+          if (err.code >= 400) return res.json(err.code,{err:err.message});
+          // In the case of 200s, they're friendly alert messages like "You're pet has hatched!" - still send the op
         }
-        return res.send(200);
+        res.locals.user.save(function(err){
+          if (err) return res.json(500,{err:err});
+          res.send(200);
+        })
       })
     }
   }

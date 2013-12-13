@@ -75,15 +75,9 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     }
 
     $scope.hatch = function(egg, potion){
-      user.ops.hatch({query:{egg:egg.name, hatchingPotion:potion.name}}, function(err, req){
-        // Bypassing the UserServices-injected callback so we can only show alert on success. It's safe, since this means
-        // UserServices callback will be 3rd param and never get called
-        if (err) return Notification.text(err);
-        User.log({op:'hatch', query:req.query});
-        Notification.text("Your egg hatched! Visit your stable to equip your pet.");
-        $scope.selectedEgg = null;
-        $scope.selectedPotion = null;
-      });
+      user.ops.hatch({query:{egg:egg.name, hatchingPotion:potion.name}});
+      $scope.selectedEgg = null;
+      $scope.selectedPotion = null;
     }
 
     $scope.buy = function(type, item){
