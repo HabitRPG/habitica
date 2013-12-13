@@ -19,7 +19,7 @@ var TaskSchema = {
   notes: {type: String, 'default': ''},
   tags: {type: Schema.Types.Mixed, 'default': {}}, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
   value: {type: Number, 'default': 0}, // redness
-  priority: {type: String, 'default': '!'}, //'!!' // FIXME this should be a number or something
+  priority: {type: Number, 'default': '1'},
   challenge: {
     id: {type: 'String', ref:'Challenge'},
     broken: String, // CHALLENGE_DELETED, TASK_DELETED, UNSUBSCRIBED, CHALLENGE_CLOSED

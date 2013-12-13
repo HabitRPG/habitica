@@ -27,5 +27,11 @@ db.users.find().forEach(function(user){
   user.preferences.sleep = user.flags.rest;
   delete user.flags.rest;
 
+  // migrate task.priority from !, !!, !!! => 1, 1.5, 2
+  _.each(user.tasks, function(task){
+    var p = task.priority;
+    task.priority = p == '!!!' ? 2 : p == '!!' ? 1.5 : 1;
+  })
+
   db.users.update({_id:user._id}, user);
 });
