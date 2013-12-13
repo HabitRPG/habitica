@@ -317,6 +317,8 @@ api.cron = (user, options={}) ->
   daysMissed = api.daysSince user.lastCron, _.defaults({now}, user.preferences)
   return unless daysMissed > 0
 
+  user.auth.timestamps.loggedin = new Date()
+
   user.lastCron = now
 
   # Reset the lastDrop count to zero
@@ -325,7 +327,7 @@ api.cron = (user, options={}) ->
 
   # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
   # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
-  return if user.flags.rest is true
+  return if user.preferences.sleep is true
 
   # Tally each task
   todoTally = 0
@@ -630,7 +632,7 @@ api.wrap = (user) ->
   user.ops =
 
     sleep: (req, cb) ->
-      user.flags.rest = !user.flags.rest
+      user.preferences.sleep = !user.preferences.sleep
       cb null, req
 
     clearCompleted: (req, cb) ->

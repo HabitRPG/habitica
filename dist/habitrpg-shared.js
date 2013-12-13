@@ -10448,11 +10448,12 @@ var process=require("__browserify_process");(function() {
     if (!(daysMissed > 0)) {
       return;
     }
+    user.auth.timestamps.loggedin = new Date();
     user.lastCron = now;
     if (user.items.lastDrop.count > 0) {
       user.items.lastDrop.count = 0;
     }
-    if (user.flags.rest === true) {
+    if (user.preferences.sleep === true) {
       return;
     }
     todoTally = 0;
@@ -10912,7 +10913,7 @@ var process=require("__browserify_process");(function() {
     user._wrapped = true;
     user.ops = {
       sleep: function(req, cb) {
-        user.flags.rest = !user.flags.rest;
+        user.preferences.sleep = !user.preferences.sleep;
         return cb(null, req);
       },
       clearCompleted: function(req, cb) {
