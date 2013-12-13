@@ -2,7 +2,7 @@ moment = require('moment')
 _ = require('lodash')
 content = require('./content.coffee')
 
-XP = 15
+XP = 7.5 # originally 15, users were complaining that they gained exp too fast
 HP = 2
 
 api = module.exports = {}
@@ -342,7 +342,7 @@ api.wrap = (user) ->
 
     update: (req, cb) ->
       _.each req.body, (v,k) ->
-        user.fns.dotSet(k,v)
+        user.fns.dotSet(k,v);true
       cb? null, req
 
     sortTask: (req, cb) ->
@@ -478,7 +478,7 @@ api.wrap = (user) ->
       return cb?({code:401, err: "Not enough gems"}) if user.balance < cost
       if fullSet
         _.each path.split(","), (p) ->
-          user.fns.dotSet "purchased." + p, true
+          user.fns.dotSet("purchased." + p, true);true
       else
         if user.fns.dotGet("purchased." + path) is true
           user.preferences[path.split(".")[0]] = path.split(".")[1]
@@ -512,6 +512,7 @@ api.wrap = (user) ->
 
           # Grant them their new class's gear
           user.items.gear.owned["#{type}_#{klass}_0"] = true  if type is "weapon" or (type is "shield" and klass is "rogue")
+          true
       else
         # Null ?class value means "reset class"
         _.merge user.stats, {str: 0, def: 0, per: 0, int: 0}
@@ -527,58 +528,83 @@ api.wrap = (user) ->
         user.stats.mp++ if stat is 'int' #increase their MP along with their max MP
       cb? null, req
 
-
     score: (req, cb) ->
       {id, direction} = req.params # up or down
       task = user.tasks[id]
+      options = req.query or {}; _.defaults(options, {times:1, cron:false})
 
       # This is for setting one-time temporary flags, such as streakBonus or itemDropped. Useful for notifying
       # the API consumer, then cleared afterwards
       user._tmp = {}
 
-      [gp, hp, exp, lvl] = [+user.stats.gp, +user.stats.hp, +user.stats.exp, ~~user.stats.lvl]
-      [type, value, streak, priority] = [task.type, +task.value, ~~task.streak, +task.priority or 1]
-      [times, cron] = [req.query?.times or 1, req.query?.cron or false]
+      # TODO do we need this fail-safe casting anymore? Are we safe now we're off Derby?
+      stats = {gp: +user.stats.gp, hp: +user.stats.hp, exp: +user.stats.exp}
+      task.value = +task.value; task.streak = ~~task.streak; task.priority ?= 1
 
       # If they're trying to purhcase a too-expensive reward, don't allow them to do that.
-      if task.value > user.stats.gp and task.type is 'reward'
+      if task.value > stats.gp and task.type is 'reward'
         return cb('Not enough Gold');
 
       delta = 0
-      calculateDelta = (adjustvalue = true) ->
+
+      calculateDelta = (adjustvalue=true) ->
         # If multiple days have passed, multiply times days missed
-        _.times times, ->
-          # Each iteration calculate the delta (nextDelta), which is then accumulated in delta
-          # (aka, the total delta). This weirdness won't be necessary when calculating mathematically
-          # rather than iteratively
-          nextDelta = user.fns.taskDeltaFormula(value, direction)
-          value += nextDelta if adjustvalue
+        _.times options.times, ->
+          # Each iteration calculate the nextDelta, which is then accumulated in the total delta.
+          # Calculates the next task.value based on direction
+          # Uses a capped inverse log y=.95^x, y>= -5
+
+          # Min/max on task redness
+          currVal =
+            if task.value < -47.27 then -47.27
+            else if task.value > 21.27 then 21.27
+            else task.value
+          nextDelta = Math.pow(0.9747, currVal) * (if direction is 'down' then -1 else 1)
+          if adjustvalue
+            task.value += nextDelta
+            # Factor in STR. Only for up-scoring, ignore up-onlies and rewards
+            if direction is 'up' and task.type != 'reward' and !(task.type is 'habit' and !task.down)
+              task.value += user._statsComputed.str * .25
           delta += nextDelta
 
       addPoints = ->
-        weaponStr = user.fns.getItem('weapon').str
-        exp += user.fns.expModifier(delta, weaponStr, user.stats.lvl, priority) / 2 # /2 hack for now, people leveling too fast
-        if streak
-          gp += user.fns.gpModifier(delta, 1, priority, streak)
-        else
-          gp += user.fns.gpModifier(delta, 1, priority)
+        # Exp Modifier
+        intMod = 1 + (user._statsComputed.int / 100)
+        stats.exp += Math.round(delta * XP * intMod * task.priority)
 
+        # GP modifier
+        gpMod = delta * task.priority
+        gpMod *= (user._statsComputed.per *.3) # Factor in PER
+        stats.gp +=
+          if task.streak
+            streakBonus = task.streak / 100 + 1 # eg, 1-day streak is 1.1, 2-day is 1.2, etc
+            afterStreak = gpMod * streakBonus
+            user._tmp.streakBonus = afterStreak - gpMod if (gpMod > 0) # keep this on-hand for later, so we can notify streak-bonus
+            afterStreak
+          else gpMod
+
+      # HP modifier
       subtractPoints = ->
-        armorDef = user.fns.getItem('armor').con
-        headDef = user.fns.getItem('head').con
-        shieldDef = user.fns.getItem('shield').con
-        hp += user.fns.hpModifier(delta, armorDef, headDef, shieldDef, user.stats.lvl, priority)
+        conMod = 1 - (user._statsComputed.con / 100)
+        stats.hp += Math.round(task.value * HP * conMod * task.priority)
+        # round to 1dp
 
-      switch type
+      switch task.type
         when 'habit'
           calculateDelta()
           # Add habit value to habit-history (if different)
           if (delta > 0) then addPoints() else subtractPoints()
-          if task.value != value
-            (task.history ?= []).push { date: +new Date, value: value }
+
+          # History
+          task.history ?= []
+          if moment(task.history[task.history.length-1].date).isSame(new Date, 'day')
+            task.history[task.history.length-1].value = task.value
+          else
+            task.history.push {date: +new Date, value: task.value}
+          user.markModified? "habits.#{_.findIndex(user.habits, {id:task.id})}.history"
 
         when 'daily'
-          if cron
+          if options.cron
             calculateDelta()
             subtractPoints()
             task.streak = 0
@@ -586,22 +612,18 @@ api.wrap = (user) ->
             calculateDelta()
             addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
             if direction is 'up'
-              streak = if streak then streak + 1 else 1
-
+              task.streak = if task.streak then task.streak + 1 else 1
               # Give a streak achievement when the streak is a multiple of 21
-              if (streak % 21) is 0
+              if (task.streak % 21) is 0
                 user.achievements.streak = if user.achievements.streak then user.achievements.streak + 1 else 1
-
             else
               # Remove a streak achievement if streak was a multiple of 21 and the daily was undone
-              if (streak % 21) is 0
+              if (task.streak % 21) is 0
                 user.achievements.streak = if user.achievements.streak then user.achievements.streak - 1 else 0
-
-              streak = if streak then streak - 1 else 0
-            task.streak = streak
+              task.streak = if task.streak then task.streak - 1 else 0
 
         when 'todo'
-          if cron
+          if options.cron
             calculateDelta()
             #don't touch stats on cron
           else
@@ -612,20 +634,19 @@ api.wrap = (user) ->
         # Don't adjust values for rewards
           calculateDelta(false)
           # purchase item
-          gp -= Math.abs(task.value)
+          stats.gp -= Math.abs(task.value)
           num = parseFloat(task.value).toFixed(2)
           # if too expensive, reduce health & zero gp
-          if gp < 0
-            hp += gp
+          if stats.gp < 0
             # hp - gp difference
-            gp = 0
+            stats.hp += stats.gp
+            stats.gp = 0
 
-      task.value = value
-      updateStats user, { hp, exp, gp }
+      user.fns.updateStats stats
 
       # Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
       if typeof window is 'undefined'
-        randomDrop(user, {delta, priority, streak}) if direction is 'up'
+        user.fns.randomDrop({task, delta, priority:task.priority, streak:task.streak}) if direction is 'up'
 
       cb? null, req
       return delta
@@ -635,6 +656,7 @@ api.wrap = (user) ->
   # ----------------------------------------------------------------------
 
   user.fns =
+
     getItem: (type) ->
       item = content.gear.flat[user.items.gear.equipped[type]]
       return content.gear.flat["#{type}_base_0"] unless item
@@ -646,6 +668,7 @@ api.wrap = (user) ->
         found = _.find content.gear.tree[type][user.stats.class], (item) ->
           !user.items.gear.owned[item.key]
         changes.push(found) if found
+        true
       # Add special items (contrib gear, backer gear, etc)
       _.defaults changes, _.transform _.where(content.gear.flat, {klass:'special'}), (m,v) ->
         m.push v if v.canOwn?(user) && !user.items.gear.owned[v.key]
@@ -757,124 +780,50 @@ api.wrap = (user) ->
         user.items.lastDrop.count++
 
     ###
-    Calculates Exp modificaiton based on level and weapon strength
-    {value} task.value for exp gain
-    {weaponStrength) weapon strength
-    {level} current user level
-    {priority} user-defined priority multiplier
-    ###
-    expModifier: (value, weaponStr, level, priority=1) ->
-      str = (level - 1) / 2
-      # ultimately get this from user
-      totalStr = (str + weaponStr) / 100
-      strMod = 1 + totalStr
-      exp = value * XP * strMod * priority
-      return Math.round(exp)
-
-    ###
-      Calculates HP modification based on level and armor defence
-      {value} task.value for hp loss
-      {armorDefense} defense from armor
-      {helmDefense} defense from helm
-      {level} current user level
-      {priority} user-defined priority multiplier
-    ###
-    hpModifier: (value, armorDef, helmDef, shieldDef, level, priority=1) ->
-      def = (level - 1) / 2
-      # ultimately get this from user?
-      totalDef = (def + armorDef + helmDef + shieldDef) / 100
-      #ultimate get this from user
-      defMod = 1 - totalDef
-      hp = value * HP * defMod * priority
-      return Math.round(hp * 10) / 10
-    # round to 1dp
-
-    ###
-      Future use
-      {priority} user-defined priority multiplier
-    ###
-    gpModifier: (value, modifier, priority=1, streak) ->
-      val = value * modifier * priority
-      if streak and user
-        streakBonus = streak / 100 + 1 # eg, 1-day streak is 1.1, 2-day is 1.2, etc
-        afterStreak = val * streakBonus
-        user._tmp.streakBonus = afterStreak - val if (val > 0) # keep this on-hand for later, so we can notify streak-bonus
-        return afterStreak
-      else
-        return val
-
-    ###
-      Calculates the next task.value based on direction
-      Uses a capped inverse log y=.95^x, y>= -5
-      {currentValue} the current value of the task
-      {direction} up or down
-    ###
-    taskDeltaFormula: (currentValue, direction) ->
-      if currentValue < -47.27 then currentValue = -47.27
-      else if currentValue > 21.27 then currentValue = 21.27
-      delta = Math.pow(0.9747, currentValue)
-      return delta if direction is 'up'
-      return -delta
-
-    ###
       Updates user stats with new stats. Handles death, leveling up, etc
       {stats} new stats
       {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
     ###
-    updateStats: (newStats) ->
-      # if user is dead, dont do anything
-      return if user.stats.hp <= 0
+    updateStats: (stats) ->
+      # Game Over
+      return user.stats.hp=0 if stats.hp <= 0
 
-      if newStats.hp?
-        # Game Over
-        if newStats.hp <= 0
-          user.stats.hp = 0
-          return
-        else
-          user.stats.hp = newStats.hp
+      user.stats.hp = stats.hp
+      user.stats.gp = if stats.gp >= 0 then stats.gp else 0
 
-      if newStats.exp?
-        tnl = api.tnl(user.stats.lvl)
-        #silent = false
-        # if we're at level 100, turn xp to gold
-        if user.stats.lvl >= 100
-          newStats.gp += newStats.exp / 15
-          newStats.exp = 0
-          user.stats.lvl = 100
-        else
-          # level up & carry-over exp
-          if newStats.exp >= tnl
-            #silent = true # push through the negative xp silently
-            user.stats.exp = newStats.exp # push normal + notification
-            while newStats.exp >= tnl and user.stats.lvl < 100 # keep levelling up
-              newStats.exp -= tnl
-              user.stats.lvl++
-              tnl = api.tnl(user.stats.lvl)
-            if user.stats.lvl == 100
-              newStats.exp = 0
-            user.stats.hp = 50
+      tnl = api.tnl(user.stats.lvl)
+      # if we're at level 100, turn xp to gold
+      if user.stats.lvl >= 100
+        stats.gp += stats.exp / 15
+        stats.exp = 0
+        user.stats.lvl = 100
+      else
+        # level up & carry-over exp
+        if stats.exp >= tnl
+          #silent = true # push through the negative xp silently
+          user.stats.exp = stats.exp # push normal + notification
+          while stats.exp >= tnl and user.stats.lvl < 100 # keep levelling up
+            stats.exp -= tnl
+            user.stats.lvl++
+            tnl = api.tnl(user.stats.lvl)
+          if user.stats.lvl == 100
+            stats.exp = 0
+          user.stats.hp = 50
+      user.stats.exp = stats.exp
 
-        user.stats.exp = newStats.exp
-
-        # Set flags when they unlock features
-        user.flags ?= {}
-        if !user.flags.customizationsNotification and (user.stats.exp > 10 or user.stats.lvl > 1)
-          user.flags.customizationsNotification = true
-        if !user.flags.itemsEnabled and user.stats.lvl >= 2
-          user.flags.itemsEnabled = true
-        if !user.flags.partyEnabled and user.stats.lvl >= 3
-          user.flags.partyEnabled = true
-        if !user.flags.dropsEnabled and user.stats.lvl >= 4
-          user.flags.dropsEnabled = true
-          user.items.eggs["Wolf"] = 1
-        if !user.flags.classSelected and user.stats.lvl >= 5
-          user.flags.classSelected
-
-      if newStats.gp?
-        #FIXME what was I doing here? I can't remember, gp isn't defined
-        gp = 0.0 if (!gp? or gp < 0)
-        user.stats.gp = newStats.gp
-
+      # Set flags when they unlock features
+      user.flags ?= {}
+      if !user.flags.customizationsNotification and (user.stats.exp > 10 or user.stats.lvl > 1)
+        user.flags.customizationsNotification = true
+      if !user.flags.itemsEnabled and user.stats.lvl >= 2
+        user.flags.itemsEnabled = true
+      if !user.flags.partyEnabled and user.stats.lvl >= 3
+        user.flags.partyEnabled = true
+      if !user.flags.dropsEnabled and user.stats.lvl >= 4
+        user.flags.dropsEnabled = true
+        user.items.eggs["Wolf"] = 1
+      if !user.flags.classSelected and user.stats.lvl >= 5
+        user.flags.classSelected
 
     ###
       ------------------------------------------------------
@@ -963,6 +912,8 @@ api.wrap = (user) ->
         expTally += api.tnl(lvl)
       (user.history.exp ?= []).push { date: now, value: expTally }
       user.fns.preenUserHistory()
+      user.markModified? 'history'
+      user.markModified? 'dailys' # covers dailys.*.history
       user
 
     # Registered users with some history
@@ -974,9 +925,9 @@ api.wrap = (user) ->
       _.defaults user.history, {todos:[], exp: []}
       user.history.exp = preenHistory(user.history.exp) if user.history.exp.length > minHistLen
       user.history.todos = preenHistory(user.history.todos) if user.history.todos.length > minHistLen
-      #user.markModified('history')
-      #user.markModified('habits')
-      #user.markModified('dailys')
+      #user.markModified? 'history'
+      #user.markModified? 'habits'
+      #user.markModified? 'dailys'
 
   # ----------------------------------------------------------------------
   # Virtual Attributes
@@ -994,7 +945,9 @@ api.wrap = (user) ->
               (+content.gear.flat[val]?[stat] or 0) * (if ~val?.indexOf(user.stats.class) then 1.5 else 1)
             else
               +val[stat] or 0
-        , 0); m
+        , 0)
+        m[stat] += (user.stats.lvl - 1) / 2
+        m
       , {})
   Object.defineProperty user, 'tasks',
     get: ->

@@ -10040,7 +10040,7 @@ var process=require("__browserify_process");(function() {
 
   content = require('./content.coffee');
 
-  XP = 15;
+  XP = 7.5;
 
   HP = 2;
 
@@ -10556,7 +10556,8 @@ var process=require("__browserify_process");(function() {
       },
       update: function(req, cb) {
         _.each(req.body, function(v, k) {
-          return user.fns.dotSet(k, v);
+          user.fns.dotSet(k, v);
+          return true;
         });
         return typeof cb === "function" ? cb(null, req) : void 0;
       },
@@ -10782,7 +10783,8 @@ var process=require("__browserify_process");(function() {
         }
         if (fullSet) {
           _.each(path.split(","), function(p) {
-            return user.fns.dotSet("purchased." + p, true);
+            user.fns.dotSet("purchased." + p, true);
+            return true;
           });
         } else {
           if (user.fns.dotGet("purchased." + path) === true) {
@@ -10816,8 +10818,9 @@ var process=require("__browserify_process");(function() {
             });
             user.items.gear.equipped[type] = foundKey ? foundKey : type === "weapon" ? "weapon_" + klass + "_0" : type === "shield" && klass === "rogue" ? "shield_rogue_0" : "" + type + "_base_0";
             if (type === "weapon" || (type === "shield" && klass === "rogue")) {
-              return user.items.gear.owned["" + type + "_" + klass + "_0"] = true;
+              user.items.gear.owned["" + type + "_" + klass + "_0"] = true;
             }
+            return true;
           });
         } else {
           _.merge(user.stats, {
@@ -10843,14 +10846,26 @@ var process=require("__browserify_process");(function() {
         return typeof cb === "function" ? cb(null, req) : void 0;
       },
       score: function(req, cb) {
-        var addPoints, calculateDelta, cron, delta, direction, exp, gp, hp, id, lvl, num, priority, streak, subtractPoints, task, times, type, value, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
+        var addPoints, calculateDelta, delta, direction, id, num, options, stats, subtractPoints, task, _ref;
         _ref = req.params, id = _ref.id, direction = _ref.direction;
         task = user.tasks[id];
+        options = req.query || {};
+        _.defaults(options, {
+          times: 1,
+          cron: false
+        });
         user._tmp = {};
-        _ref1 = [+user.stats.gp, +user.stats.hp, +user.stats.exp, ~~user.stats.lvl], gp = _ref1[0], hp = _ref1[1], exp = _ref1[2], lvl = _ref1[3];
-        _ref2 = [task.type, +task.value, ~~task.streak, +task.priority || 1], type = _ref2[0], value = _ref2[1], streak = _ref2[2], priority = _ref2[3];
-        _ref5 = [((_ref3 = req.query) != null ? _ref3.times : void 0) || 1, ((_ref4 = req.query) != null ? _ref4.cron : void 0) || false], times = _ref5[0], cron = _ref5[1];
-        if (task.value > user.stats.gp && task.type === 'reward') {
+        stats = {
+          gp: +user.stats.gp,
+          hp: +user.stats.hp,
+          exp: +user.stats.exp
+        };
+        task.value = +task.value;
+        task.streak = ~~task.streak;
+        if (task.priority == null) {
+          task.priority = 1;
+        }
+        if (task.value > stats.gp && task.type === 'reward') {
           return cb('Not enough Gold');
         }
         delta = 0;
@@ -10858,33 +10873,33 @@ var process=require("__browserify_process");(function() {
           if (adjustvalue == null) {
             adjustvalue = true;
           }
-          return _.times(times, function() {
-            var nextDelta;
-            nextDelta = user.fns.taskDeltaFormula(value, direction);
+          return _.times(options.times, function() {
+            var currVal, nextDelta;
+            currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
+            nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
             if (adjustvalue) {
-              value += nextDelta;
+              task.value += nextDelta;
+              if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
+                task.value += user._statsComputed.str * .25;
+              }
             }
             return delta += nextDelta;
           });
         };
         addPoints = function() {
-          var weaponStr;
-          weaponStr = user.fns.getItem('weapon').str;
-          exp += user.fns.expModifier(delta, weaponStr, user.stats.lvl, priority) / 2;
-          if (streak) {
-            return gp += user.fns.gpModifier(delta, 1, priority, streak);
-          } else {
-            return gp += user.fns.gpModifier(delta, 1, priority);
-          }
+          var afterStreak, gpMod, intMod, streakBonus;
+          intMod = 1 + (user._statsComputed.int / 100);
+          stats.exp += Math.round(delta * XP * intMod * task.priority);
+          gpMod = delta * task.priority;
+          gpMod *= user._statsComputed.per * .3;
+          return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
         };
         subtractPoints = function() {
-          var armorDef, headDef, shieldDef;
-          armorDef = user.fns.getItem('armor').con;
-          headDef = user.fns.getItem('head').con;
-          shieldDef = user.fns.getItem('shield').con;
-          return hp += user.fns.hpModifier(delta, armorDef, headDef, shieldDef, user.stats.lvl, priority);
+          var conMod;
+          conMod = 1 - (user._statsComputed.con / 100);
+          return stats.hp += Math.round(task.value * HP * conMod * task.priority);
         };
-        switch (type) {
+        switch (task.type) {
           case 'habit':
             calculateDelta();
             if (delta > 0) {
@@ -10892,15 +10907,25 @@ var process=require("__browserify_process");(function() {
             } else {
               subtractPoints();
             }
-            if (task.value !== value) {
-              (task.history != null ? task.history : task.history = []).push({
+            if (task.history == null) {
+              task.history = [];
+            }
+            if (moment(task.history[task.history.length - 1].date).isSame(new Date, 'day')) {
+              task.history[task.history.length - 1].value = task.value;
+            } else {
+              task.history.push({
                 date: +(new Date),
-                value: value
+                value: task.value
               });
+            }
+            if (typeof user.markModified === "function") {
+              user.markModified("habits." + (_.findIndex(user.habits, {
+                id: task.id
+              })) + ".history");
             }
             break;
           case 'daily':
-            if (cron) {
+            if (options.cron) {
               calculateDelta();
               subtractPoints();
               task.streak = 0;
@@ -10908,21 +10933,20 @@ var process=require("__browserify_process");(function() {
               calculateDelta();
               addPoints();
               if (direction === 'up') {
-                streak = streak ? streak + 1 : 1;
-                if ((streak % 21) === 0) {
+                task.streak = task.streak ? task.streak + 1 : 1;
+                if ((task.streak % 21) === 0) {
                   user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
                 }
               } else {
-                if ((streak % 21) === 0) {
+                if ((task.streak % 21) === 0) {
                   user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
                 }
-                streak = streak ? streak - 1 : 0;
+                task.streak = task.streak ? task.streak - 1 : 0;
               }
-              task.streak = streak;
             }
             break;
           case 'todo':
-            if (cron) {
+            if (options.cron) {
               calculateDelta();
             } else {
               calculateDelta();
@@ -10931,25 +10955,21 @@ var process=require("__browserify_process");(function() {
             break;
           case 'reward':
             calculateDelta(false);
-            gp -= Math.abs(task.value);
+            stats.gp -= Math.abs(task.value);
             num = parseFloat(task.value).toFixed(2);
-            if (gp < 0) {
-              hp += gp;
-              gp = 0;
+            if (stats.gp < 0) {
+              stats.hp += stats.gp;
+              stats.gp = 0;
             }
         }
-        task.value = value;
-        updateStats(user, {
-          hp: hp,
-          exp: exp,
-          gp: gp
-        });
+        user.fns.updateStats(stats);
         if (typeof window === 'undefined') {
           if (direction === 'up') {
-            randomDrop(user, {
+            user.fns.randomDrop({
+              task: task,
               delta: delta,
-              priority: priority,
-              streak: streak
+              priority: task.priority,
+              streak: task.streak
             });
           }
         }
@@ -10977,8 +10997,9 @@ var process=require("__browserify_process");(function() {
             return !user.items.gear.owned[item.key];
           });
           if (found) {
-            return changes.push(found);
+            changes.push(found);
           }
+          return true;
         });
         _.defaults(changes, _.transform(_.where(content.gear.flat, {
           klass: 'special'
@@ -11087,151 +11108,56 @@ var process=require("__browserify_process");(function() {
         }
       },
       /*
-      Calculates Exp modificaiton based on level and weapon strength
-      {value} task.value for exp gain
-      {weaponStrength) weapon strength
-      {level} current user level
-      {priority} user-defined priority multiplier
-      */
-
-      expModifier: function(value, weaponStr, level, priority) {
-        var exp, str, strMod, totalStr;
-        if (priority == null) {
-          priority = 1;
-        }
-        str = (level - 1) / 2;
-        totalStr = (str + weaponStr) / 100;
-        strMod = 1 + totalStr;
-        exp = value * XP * strMod * priority;
-        return Math.round(exp);
-      },
-      /*
-        Calculates HP modification based on level and armor defence
-        {value} task.value for hp loss
-        {armorDefense} defense from armor
-        {helmDefense} defense from helm
-        {level} current user level
-        {priority} user-defined priority multiplier
-      */
-
-      hpModifier: function(value, armorDef, helmDef, shieldDef, level, priority) {
-        var def, defMod, hp, totalDef;
-        if (priority == null) {
-          priority = 1;
-        }
-        def = (level - 1) / 2;
-        totalDef = (def + armorDef + helmDef + shieldDef) / 100;
-        defMod = 1 - totalDef;
-        hp = value * HP * defMod * priority;
-        return Math.round(hp * 10) / 10;
-      },
-      /*
-        Future use
-        {priority} user-defined priority multiplier
-      */
-
-      gpModifier: function(value, modifier, priority, streak) {
-        var afterStreak, streakBonus, val;
-        if (priority == null) {
-          priority = 1;
-        }
-        val = value * modifier * priority;
-        if (streak && user) {
-          streakBonus = streak / 100 + 1;
-          afterStreak = val * streakBonus;
-          if (val > 0) {
-            user._tmp.streakBonus = afterStreak - val;
-          }
-          return afterStreak;
-        } else {
-          return val;
-        }
-      },
-      /*
-        Calculates the next task.value based on direction
-        Uses a capped inverse log y=.95^x, y>= -5
-        {currentValue} the current value of the task
-        {direction} up or down
-      */
-
-      taskDeltaFormula: function(currentValue, direction) {
-        var delta;
-        if (currentValue < -47.27) {
-          currentValue = -47.27;
-        } else if (currentValue > 21.27) {
-          currentValue = 21.27;
-        }
-        delta = Math.pow(0.9747, currentValue);
-        if (direction === 'up') {
-          return delta;
-        }
-        return -delta;
-      },
-      /*
         Updates user stats with new stats. Handles death, leveling up, etc
         {stats} new stats
         {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
       */
 
-      updateStats: function(newStats) {
-        var gp, tnl;
-        if (user.stats.hp <= 0) {
-          return;
+      updateStats: function(stats) {
+        var tnl;
+        if (stats.hp <= 0) {
+          return user.stats.hp = 0;
         }
-        if (newStats.hp != null) {
-          if (newStats.hp <= 0) {
-            user.stats.hp = 0;
-            return;
-          } else {
-            user.stats.hp = newStats.hp;
-          }
-        }
-        if (newStats.exp != null) {
-          tnl = api.tnl(user.stats.lvl);
-          if (user.stats.lvl >= 100) {
-            newStats.gp += newStats.exp / 15;
-            newStats.exp = 0;
-            user.stats.lvl = 100;
-          } else {
-            if (newStats.exp >= tnl) {
-              user.stats.exp = newStats.exp;
-              while (newStats.exp >= tnl && user.stats.lvl < 100) {
-                newStats.exp -= tnl;
-                user.stats.lvl++;
-                tnl = api.tnl(user.stats.lvl);
-              }
-              if (user.stats.lvl === 100) {
-                newStats.exp = 0;
-              }
-              user.stats.hp = 50;
+        user.stats.hp = stats.hp;
+        user.stats.gp = stats.gp >= 0 ? stats.gp : 0;
+        tnl = api.tnl(user.stats.lvl);
+        if (user.stats.lvl >= 100) {
+          stats.gp += stats.exp / 15;
+          stats.exp = 0;
+          user.stats.lvl = 100;
+        } else {
+          if (stats.exp >= tnl) {
+            user.stats.exp = stats.exp;
+            while (stats.exp >= tnl && user.stats.lvl < 100) {
+              stats.exp -= tnl;
+              user.stats.lvl++;
+              tnl = api.tnl(user.stats.lvl);
             }
-          }
-          user.stats.exp = newStats.exp;
-          if (user.flags == null) {
-            user.flags = {};
-          }
-          if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
-            user.flags.customizationsNotification = true;
-          }
-          if (!user.flags.itemsEnabled && user.stats.lvl >= 2) {
-            user.flags.itemsEnabled = true;
-          }
-          if (!user.flags.partyEnabled && user.stats.lvl >= 3) {
-            user.flags.partyEnabled = true;
-          }
-          if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
-            user.flags.dropsEnabled = true;
-            user.items.eggs["Wolf"] = 1;
-          }
-          if (!user.flags.classSelected && user.stats.lvl >= 5) {
-            user.flags.classSelected;
+            if (user.stats.lvl === 100) {
+              stats.exp = 0;
+            }
+            user.stats.hp = 50;
           }
         }
-        if (newStats.gp != null) {
-          if ((typeof gp === "undefined" || gp === null) || gp < 0) {
-            gp = 0.0;
-          }
-          return user.stats.gp = newStats.gp;
+        user.stats.exp = stats.exp;
+        if (user.flags == null) {
+          user.flags = {};
+        }
+        if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
+          user.flags.customizationsNotification = true;
+        }
+        if (!user.flags.itemsEnabled && user.stats.lvl >= 2) {
+          user.flags.itemsEnabled = true;
+        }
+        if (!user.flags.partyEnabled && user.stats.lvl >= 3) {
+          user.flags.partyEnabled = true;
+        }
+        if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
+          user.flags.dropsEnabled = true;
+          user.items.eggs["Wolf"] = 1;
+        }
+        if (!user.flags.classSelected && user.stats.lvl >= 5) {
+          return user.flags.classSelected;
         }
       },
       /*
@@ -11339,6 +11265,12 @@ var process=require("__browserify_process");(function() {
           value: expTally
         });
         user.fns.preenUserHistory();
+        if (typeof user.markModified === "function") {
+          user.markModified('history');
+        }
+        if (typeof user.markModified === "function") {
+          user.markModified('dailys');
+        }
         return user;
       },
       preenUserHistory: function(minHistLen) {
@@ -11373,6 +11305,7 @@ var process=require("__browserify_process");(function() {
             val = user.fns.dotGet(path);
             return m2 + (~path.indexOf('items.gear') ? (+((_ref = content.gear.flat[val]) != null ? _ref[stat] : void 0) || 0) * (~(val != null ? val.indexOf(user.stats["class"]) : void 0) ? 1.5 : 1) : +val[stat] || 0);
           }, 0);
+          m[stat] += (user.stats.lvl - 1) / 2;
           return m;
         }, {});
       }
