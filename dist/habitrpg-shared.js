@@ -11203,6 +11203,9 @@ var process=require("__browserify_process");(function() {
         if (user.stats.points > 0) {
           user.stats[stat]++;
           user.stats.points--;
+          if (stat === 'int') {
+            user.stats.mp++;
+          }
         }
         return typeof cb === "function" ? cb(null, req) : void 0;
       },
@@ -11400,7 +11403,7 @@ var process=require("__browserify_process");(function() {
         return _.reduce(['per', 'con', 'str', 'int'], function(m, stat) {
           m[stat] = _.reduce('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'.split(' '), function(m2, path) {
             var val, _ref;
-            val = user.dotGet(path);
+            val = user.fns.dotGet(path);
             return m2 + (~path.indexOf('items.gear') ? (+((_ref = content.gear.flat[val]) != null ? _ref[stat] : void 0) || 0) * (~(val != null ? val.indexOf(user.stats["class"]) : void 0) ? 1.5 : 1) : +val[stat] || 0);
           }, 0);
           return m;

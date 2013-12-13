@@ -821,6 +821,7 @@ api.wrap = (user) ->
       if user.stats.points > 0
         user.stats[stat]++
         user.stats.points--
+        user.stats.mp++ if stat is 'int' #increase their MP along with their max MP
       cb? null, req
 
 
@@ -974,13 +975,13 @@ api.wrap = (user) ->
     get: ->
       _.reduce(['per','con','str','int'], (m,stat) =>
         m[stat] = _.reduce('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'.split(' '), (m2,path) =>
-          val = user.dotGet(path)
+          val = user.fns.dotGet(path)
           m2 +
-          if ~path.indexOf('items.gear')
-            # get the gear stat, and multiply it by 1.5 if it's class-gear
-            (+content.gear.flat[val]?[stat] or 0) * (if ~val?.indexOf(user.stats.class) then 1.5 else 1)
-          else
-            +val[stat] or 0
+            if ~path.indexOf('items.gear')
+              # get the gear stat, and multiply it by 1.5 if it's class-gear
+              (+content.gear.flat[val]?[stat] or 0) * (if ~val?.indexOf(user.stats.class) then 1.5 else 1)
+            else
+              +val[stat] or 0
         , 0); m
       , {})
   Object.defineProperty user, 'tasks',
