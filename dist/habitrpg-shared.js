@@ -10031,7 +10031,7 @@ var global=self;/**
 
 },{"lodash":3}],6:[function(require,module,exports){
 var process=require("__browserify_process");(function() {
-  var HP, XP, api, content, dayMapping, moment, preenHistory, randomDrop, randomVal, sanitizeOptions, updateStats, _,
+  var HP, XP, api, content, dayMapping, moment, preenHistory, randomVal, sanitizeOptions, _,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   moment = require('moment');
@@ -10171,64 +10171,6 @@ var process=require("__browserify_process");(function() {
     return result;
   };
 
-  randomDrop = function(user, modifiers) {
-    var a, acceptableDrops, alpha, chanceMultiplier, delta, drop, max, priority, rarity, reachedDropLimit, streak, _base, _base1, _base2, _base3, _name, _name1, _name2, _ref;
-    delta = modifiers.delta, priority = modifiers.priority, streak = modifiers.streak;
-    if (streak == null) {
-      streak = 0;
-    }
-    if ((_base = user.items).lastDrop == null) {
-      _base.lastDrop = {
-        date: +moment().subtract('d', 1),
-        count: 0
-      };
-    }
-    reachedDropLimit = (api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5);
-    if (reachedDropLimit) {
-      return;
-    }
-    chanceMultiplier = Math.abs(delta);
-    chanceMultiplier *= priority;
-    chanceMultiplier += streak;
-    max = 0.75;
-    a = 0.1;
-    alpha = a * max * chanceMultiplier / (a * chanceMultiplier + max);
-    if (((_ref = user.flags) != null ? _ref.dropsEnabled : void 0) && Math.random() < alpha) {
-      rarity = Math.random();
-      if (rarity > .6) {
-        drop = randomVal(_.omit(content.food, 'Saddle'));
-        if ((_base1 = user.items.food)[_name = drop.name] == null) {
-          _base1[_name] = 0;
-        }
-        user.items.food[drop.name] += 1;
-        drop.type = 'Food';
-        drop.dialog = "You've found a " + drop.text + " Food! " + drop.notes;
-      } else if (rarity > .3) {
-        drop = randomVal(content.eggs);
-        if ((_base2 = user.items.eggs)[_name1 = drop.name] == null) {
-          _base2[_name1] = 0;
-        }
-        user.items.eggs[drop.name]++;
-        drop.type = 'Egg';
-        drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
-      } else {
-        acceptableDrops = rarity < .03 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
-        drop = randomVal(_.pick(content.hatchingPotions, (function(v, k) {
-          return __indexOf.call(acceptableDrops, k) >= 0;
-        })));
-        if ((_base3 = user.items.hatchingPotions)[_name2 = drop.name] == null) {
-          _base3[_name2] = 0;
-        }
-        user.items.hatchingPotions[drop.name]++;
-        drop.type = 'HatchingPotion';
-        drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
-      }
-      user._tmp.drop = drop;
-      user.items.lastDrop.date = +(new Date);
-      return user.items.lastDrop.count++;
-    }
-  };
-
   /*
     ------------------------------------------------------
     Scoring
@@ -10236,282 +10178,12 @@ var process=require("__browserify_process");(function() {
   */
 
 
-  api.tnl = function(level) {
-    var value;
-    if (level >= 100) {
-      value = 0;
+  api.tnl = function(lvl) {
+    if (lvl >= 100) {
+      return 0;
     } else {
-      value = Math.round(((Math.pow(level, 2) * 0.25) + (10 * level) + 139.75) / 10) * 10;
+      return Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10;
     }
-    return value;
-  };
-
-  /*
-    Calculates Exp modificaiton based on level and weapon strength
-    {value} task.value for exp gain
-    {weaponStrength) weapon strength
-    {level} current user level
-    {priority} user-defined priority multiplier
-  */
-
-
-  api.expModifier = function(value, weaponStr, level, priority) {
-    var exp, str, strMod, totalStr;
-    if (priority == null) {
-      priority = 1;
-    }
-    str = (level - 1) / 2;
-    totalStr = (str + weaponStr) / 100;
-    strMod = 1 + totalStr;
-    exp = value * XP * strMod * priority;
-    return Math.round(exp);
-  };
-
-  /*
-    Calculates HP modification based on level and armor defence
-    {value} task.value for hp loss
-    {armorDefense} defense from armor
-    {helmDefense} defense from helm
-    {level} current user level
-    {priority} user-defined priority multiplier
-  */
-
-
-  api.hpModifier = function(value, armorDef, helmDef, shieldDef, level, priority) {
-    var def, defMod, hp, totalDef;
-    if (priority == null) {
-      priority = 1;
-    }
-    def = (level - 1) / 2;
-    totalDef = (def + armorDef + helmDef + shieldDef) / 100;
-    defMod = 1 - totalDef;
-    hp = value * HP * defMod * priority;
-    return Math.round(hp * 10) / 10;
-  };
-
-  /*
-    Future use
-    {priority} user-defined priority multiplier
-  */
-
-
-  api.gpModifier = function(value, modifier, priority, streak, user) {
-    var afterStreak, streakBonus, val;
-    if (priority == null) {
-      priority = 1;
-    }
-    val = value * modifier * priority;
-    if (streak && user) {
-      streakBonus = streak / 100 + 1;
-      afterStreak = val * streakBonus;
-      if (val > 0) {
-        user._tmp.streakBonus = afterStreak - val;
-      }
-      return afterStreak;
-    } else {
-      return val;
-    }
-  };
-
-  /*
-    Calculates the next task.value based on direction
-    Uses a capped inverse log y=.95^x, y>= -5
-    {currentValue} the current value of the task
-    {direction} up or down
-  */
-
-
-  api.taskDeltaFormula = function(currentValue, direction) {
-    var delta;
-    if (currentValue < -47.27) {
-      currentValue = -47.27;
-    } else if (currentValue > 21.27) {
-      currentValue = 21.27;
-    }
-    delta = Math.pow(0.9747, currentValue);
-    if (direction === 'up') {
-      return delta;
-    }
-    return -delta;
-  };
-
-  /*
-    Updates user stats with new stats. Handles death, leveling up, etc
-    {stats} new stats
-    {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
-  */
-
-
-  updateStats = function(user, newStats) {
-    var gp, tnl;
-    if (user.stats.hp <= 0) {
-      return;
-    }
-    if (newStats.hp != null) {
-      if (newStats.hp <= 0) {
-        user.stats.hp = 0;
-        return;
-      } else {
-        user.stats.hp = newStats.hp;
-      }
-    }
-    if (newStats.exp != null) {
-      tnl = api.tnl(user.stats.lvl);
-      if (user.stats.lvl >= 100) {
-        newStats.gp += newStats.exp / 15;
-        newStats.exp = 0;
-        user.stats.lvl = 100;
-      } else {
-        if (newStats.exp >= tnl) {
-          user.stats.exp = newStats.exp;
-          while (newStats.exp >= tnl && user.stats.lvl < 100) {
-            newStats.exp -= tnl;
-            user.stats.lvl++;
-            tnl = api.tnl(user.stats.lvl);
-          }
-          if (user.stats.lvl === 100) {
-            newStats.exp = 0;
-          }
-          user.stats.hp = 50;
-        }
-      }
-      user.stats.exp = newStats.exp;
-      if (user.flags == null) {
-        user.flags = {};
-      }
-      if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
-        user.flags.customizationsNotification = true;
-      }
-      if (!user.flags.itemsEnabled && user.stats.lvl >= 2) {
-        user.flags.itemsEnabled = true;
-      }
-      if (!user.flags.partyEnabled && user.stats.lvl >= 3) {
-        user.flags.partyEnabled = true;
-      }
-      if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
-        user.flags.dropsEnabled = true;
-        user.items.eggs["Wolf"] = 1;
-      }
-      if (!user.flags.classSelected && user.stats.lvl >= 5) {
-        user.flags.classSelected;
-      }
-    }
-    if (newStats.gp != null) {
-      if ((typeof gp === "undefined" || gp === null) || gp < 0) {
-        gp = 0.0;
-      }
-      return user.stats.gp = newStats.gp;
-    }
-  };
-
-  /*
-    ------------------------------------------------------
-    Cron
-    ------------------------------------------------------
-  */
-
-
-  /*
-    At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-    For incomplete Dailys, deduct experience
-    Make sure to run this function once in a while as server will not take care of overnight calculations.
-    And you have to run it every time client connects.
-    {user}
-  */
-
-
-  api.cron = function(user, options) {
-    var daysMissed, expTally, lvl, now, todoTally, _base, _base1;
-    if (options == null) {
-      options = {};
-    }
-    now = [+options.now || +(new Date)][0];
-    daysMissed = api.daysSince(user.lastCron, _.defaults({
-      now: now
-    }, user.preferences));
-    if (!(daysMissed > 0)) {
-      return;
-    }
-    user.auth.timestamps.loggedin = new Date();
-    user.lastCron = now;
-    if (user.items.lastDrop.count > 0) {
-      user.items.lastDrop.count = 0;
-    }
-    if (user.preferences.sleep === true) {
-      return;
-    }
-    todoTally = 0;
-    user.todos.concat(user.dailys).forEach(function(task) {
-      var absVal, completed, id, repeat, scheduleMisses, type;
-      if (!task) {
-        return;
-      }
-      if (user.stats.buffs.stealth && user.stats.buffs.stealth--) {
-        return;
-      }
-      id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;
-      if (!completed) {
-        scheduleMisses = daysMissed;
-        if ((type === 'daily') && repeat) {
-          scheduleMisses = 0;
-          _.times(daysMissed, function(n) {
-            var thatDay;
-            thatDay = moment(now).subtract('days', n + 1);
-            if (api.shouldDo(thatDay, repeat, user.preferences)) {
-              return scheduleMisses++;
-            }
-          });
-        }
-        if (scheduleMisses > 0) {
-          user.ops.score({
-            params: {
-              id: task.id,
-              direction: 'down'
-            },
-            query: {
-              times: scheduleMisses,
-              cron: true
-            }
-          });
-        }
-      }
-      switch (type) {
-        case 'daily':
-          (task.history != null ? task.history : task.history = []).push({
-            date: +(new Date),
-            value: task.value
-          });
-          return task.completed = false;
-        case 'todo':
-          absVal = completed ? Math.abs(task.value) : task.value;
-          return todoTally += absVal;
-      }
-    });
-    user.habits.forEach(function(task) {
-      if (task.up === false || task.down === false) {
-        if (Math.abs(task.value) < 0.1) {
-          return task.value = 0;
-        } else {
-          return task.value = task.value / 2;
-        }
-      }
-    });
-    ((_base = (user.history != null ? user.history : user.history = {})).todos != null ? (_base = (user.history != null ? user.history : user.history = {})).todos : _base.todos = []).push({
-      date: now,
-      value: todoTally
-    });
-    expTally = user.stats.exp;
-    lvl = 0;
-    while (lvl < (user.stats.lvl - 1)) {
-      lvl++;
-      expTally += api.tnl(lvl);
-    }
-    ((_base1 = user.history).exp != null ? (_base1 = user.history).exp : _base1.exp = []).push({
-      date: now,
-      value: expTally
-    });
-    api.preenUserHistory(user);
-    return user;
   };
 
   /*
@@ -10554,29 +10226,6 @@ var process=require("__browserify_process");(function() {
       return moment(h.date).format('YYYYMM') === thisMonth;
     }));
     return newHistory;
-  };
-
-  api.preenUserHistory = function(user, minHistLen) {
-    if (minHistLen == null) {
-      minHistLen = 7;
-    }
-    _.each(user.habits.concat(user.dailys), function(task) {
-      var _ref;
-      if (((_ref = task.history) != null ? _ref.length : void 0) > minHistLen) {
-        task.history = preenHistory(task.history);
-      }
-      return true;
-    });
-    _.defaults(user.history, {
-      todos: [],
-      exp: []
-    });
-    if (user.history.exp.length > minHistLen) {
-      user.history.exp = preenHistory(user.history.exp);
-    }
-    if (user.history.todos.length > minHistLen) {
-      return user.history.todos = preenHistory(user.history.todos);
-    }
   };
 
   /*
@@ -10882,10 +10531,9 @@ var process=require("__browserify_process");(function() {
       user on the server is a Mongoose model, so we can use prototype - but to do it on the client, we'd probably have to
       move to $resource for user
     * Move to $resource!
-    * Migrate the remaining parts: Tags, feeding pets, etc
+    * Migrate the remaining parts: Tags, party invitiations
   
   BUGS
-    * User registration doesn't refresh, and you have to click "Play" again (and refresh *yet again* after getting in)
     * Daily repeats don't have the days showing up (translations issue?)
   */
 
@@ -11212,7 +10860,7 @@ var process=require("__browserify_process");(function() {
           }
           return _.times(times, function() {
             var nextDelta;
-            nextDelta = api.taskDeltaFormula(value, direction);
+            nextDelta = user.fns.taskDeltaFormula(value, direction);
             if (adjustvalue) {
               value += nextDelta;
             }
@@ -11222,11 +10870,11 @@ var process=require("__browserify_process");(function() {
         addPoints = function() {
           var weaponStr;
           weaponStr = user.fns.getItem('weapon').str;
-          exp += api.expModifier(delta, weaponStr, user.stats.lvl, priority) / 2;
+          exp += user.fns.expModifier(delta, weaponStr, user.stats.lvl, priority) / 2;
           if (streak) {
-            return gp += api.gpModifier(delta, 1, priority, streak, user);
+            return gp += user.fns.gpModifier(delta, 1, priority, streak);
           } else {
-            return gp += api.gpModifier(delta, 1, priority);
+            return gp += user.fns.gpModifier(delta, 1, priority);
           }
         };
         subtractPoints = function() {
@@ -11234,7 +10882,7 @@ var process=require("__browserify_process");(function() {
           armorDef = user.fns.getItem('armor').con;
           headDef = user.fns.getItem('head').con;
           shieldDef = user.fns.getItem('shield').con;
-          return hp += api.hpModifier(delta, armorDef, headDef, shieldDef, user.stats.lvl, priority);
+          return hp += user.fns.hpModifier(delta, armorDef, headDef, shieldDef, user.stats.lvl, priority);
         };
         switch (type) {
           case 'habit':
@@ -11380,6 +11028,340 @@ var process=require("__browserify_process");(function() {
         return _.reduce(path.split('.'), (function(curr, next) {
           return curr != null ? curr[next] : void 0;
         }), user);
+      },
+      randomDrop: function(modifiers) {
+        var a, acceptableDrops, alpha, chanceMultiplier, delta, drop, max, priority, rarity, reachedDropLimit, streak, _base, _base1, _base2, _base3, _name, _name1, _name2, _ref;
+        delta = modifiers.delta, priority = modifiers.priority, streak = modifiers.streak;
+        if (streak == null) {
+          streak = 0;
+        }
+        if ((_base = user.items).lastDrop == null) {
+          _base.lastDrop = {
+            date: +moment().subtract('d', 1),
+            count: 0
+          };
+        }
+        reachedDropLimit = (api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5);
+        if (reachedDropLimit) {
+          return;
+        }
+        chanceMultiplier = Math.abs(delta);
+        chanceMultiplier *= priority;
+        chanceMultiplier += streak;
+        max = 0.75;
+        a = 0.1;
+        alpha = a * max * chanceMultiplier / (a * chanceMultiplier + max);
+        if (((_ref = user.flags) != null ? _ref.dropsEnabled : void 0) && Math.random() < alpha) {
+          rarity = Math.random();
+          if (rarity > .6) {
+            drop = randomVal(_.omit(content.food, 'Saddle'));
+            if ((_base1 = user.items.food)[_name = drop.name] == null) {
+              _base1[_name] = 0;
+            }
+            user.items.food[drop.name] += 1;
+            drop.type = 'Food';
+            drop.dialog = "You've found a " + drop.text + " Food! " + drop.notes;
+          } else if (rarity > .3) {
+            drop = randomVal(content.eggs);
+            if ((_base2 = user.items.eggs)[_name1 = drop.name] == null) {
+              _base2[_name1] = 0;
+            }
+            user.items.eggs[drop.name]++;
+            drop.type = 'Egg';
+            drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
+          } else {
+            acceptableDrops = rarity < .03 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
+            drop = randomVal(_.pick(content.hatchingPotions, (function(v, k) {
+              return __indexOf.call(acceptableDrops, k) >= 0;
+            })));
+            if ((_base3 = user.items.hatchingPotions)[_name2 = drop.name] == null) {
+              _base3[_name2] = 0;
+            }
+            user.items.hatchingPotions[drop.name]++;
+            drop.type = 'HatchingPotion';
+            drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
+          }
+          user._tmp.drop = drop;
+          user.items.lastDrop.date = +(new Date);
+          return user.items.lastDrop.count++;
+        }
+      },
+      /*
+      Calculates Exp modificaiton based on level and weapon strength
+      {value} task.value for exp gain
+      {weaponStrength) weapon strength
+      {level} current user level
+      {priority} user-defined priority multiplier
+      */
+
+      expModifier: function(value, weaponStr, level, priority) {
+        var exp, str, strMod, totalStr;
+        if (priority == null) {
+          priority = 1;
+        }
+        str = (level - 1) / 2;
+        totalStr = (str + weaponStr) / 100;
+        strMod = 1 + totalStr;
+        exp = value * XP * strMod * priority;
+        return Math.round(exp);
+      },
+      /*
+        Calculates HP modification based on level and armor defence
+        {value} task.value for hp loss
+        {armorDefense} defense from armor
+        {helmDefense} defense from helm
+        {level} current user level
+        {priority} user-defined priority multiplier
+      */
+
+      hpModifier: function(value, armorDef, helmDef, shieldDef, level, priority) {
+        var def, defMod, hp, totalDef;
+        if (priority == null) {
+          priority = 1;
+        }
+        def = (level - 1) / 2;
+        totalDef = (def + armorDef + helmDef + shieldDef) / 100;
+        defMod = 1 - totalDef;
+        hp = value * HP * defMod * priority;
+        return Math.round(hp * 10) / 10;
+      },
+      /*
+        Future use
+        {priority} user-defined priority multiplier
+      */
+
+      gpModifier: function(value, modifier, priority, streak) {
+        var afterStreak, streakBonus, val;
+        if (priority == null) {
+          priority = 1;
+        }
+        val = value * modifier * priority;
+        if (streak && user) {
+          streakBonus = streak / 100 + 1;
+          afterStreak = val * streakBonus;
+          if (val > 0) {
+            user._tmp.streakBonus = afterStreak - val;
+          }
+          return afterStreak;
+        } else {
+          return val;
+        }
+      },
+      /*
+        Calculates the next task.value based on direction
+        Uses a capped inverse log y=.95^x, y>= -5
+        {currentValue} the current value of the task
+        {direction} up or down
+      */
+
+      taskDeltaFormula: function(currentValue, direction) {
+        var delta;
+        if (currentValue < -47.27) {
+          currentValue = -47.27;
+        } else if (currentValue > 21.27) {
+          currentValue = 21.27;
+        }
+        delta = Math.pow(0.9747, currentValue);
+        if (direction === 'up') {
+          return delta;
+        }
+        return -delta;
+      },
+      /*
+        Updates user stats with new stats. Handles death, leveling up, etc
+        {stats} new stats
+        {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
+      */
+
+      updateStats: function(newStats) {
+        var gp, tnl;
+        if (user.stats.hp <= 0) {
+          return;
+        }
+        if (newStats.hp != null) {
+          if (newStats.hp <= 0) {
+            user.stats.hp = 0;
+            return;
+          } else {
+            user.stats.hp = newStats.hp;
+          }
+        }
+        if (newStats.exp != null) {
+          tnl = api.tnl(user.stats.lvl);
+          if (user.stats.lvl >= 100) {
+            newStats.gp += newStats.exp / 15;
+            newStats.exp = 0;
+            user.stats.lvl = 100;
+          } else {
+            if (newStats.exp >= tnl) {
+              user.stats.exp = newStats.exp;
+              while (newStats.exp >= tnl && user.stats.lvl < 100) {
+                newStats.exp -= tnl;
+                user.stats.lvl++;
+                tnl = api.tnl(user.stats.lvl);
+              }
+              if (user.stats.lvl === 100) {
+                newStats.exp = 0;
+              }
+              user.stats.hp = 50;
+            }
+          }
+          user.stats.exp = newStats.exp;
+          if (user.flags == null) {
+            user.flags = {};
+          }
+          if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
+            user.flags.customizationsNotification = true;
+          }
+          if (!user.flags.itemsEnabled && user.stats.lvl >= 2) {
+            user.flags.itemsEnabled = true;
+          }
+          if (!user.flags.partyEnabled && user.stats.lvl >= 3) {
+            user.flags.partyEnabled = true;
+          }
+          if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
+            user.flags.dropsEnabled = true;
+            user.items.eggs["Wolf"] = 1;
+          }
+          if (!user.flags.classSelected && user.stats.lvl >= 5) {
+            user.flags.classSelected;
+          }
+        }
+        if (newStats.gp != null) {
+          if ((typeof gp === "undefined" || gp === null) || gp < 0) {
+            gp = 0.0;
+          }
+          return user.stats.gp = newStats.gp;
+        }
+      },
+      /*
+        ------------------------------------------------------
+        Cron
+        ------------------------------------------------------
+      */
+
+      /*
+        At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
+        For incomplete Dailys, deduct experience
+        Make sure to run this function once in a while as server will not take care of overnight calculations.
+        And you have to run it every time client connects.
+        {user}
+      */
+
+      cron: function(options) {
+        var daysMissed, expTally, lvl, now, todoTally, _base, _base1;
+        if (options == null) {
+          options = {};
+        }
+        now = [+options.now || +(new Date)][0];
+        daysMissed = api.daysSince(user.lastCron, _.defaults({
+          now: now
+        }, user.preferences));
+        if (!(daysMissed > 0)) {
+          return;
+        }
+        user.auth.timestamps.loggedin = new Date();
+        user.lastCron = now;
+        if (user.items.lastDrop.count > 0) {
+          user.items.lastDrop.count = 0;
+        }
+        if (user.preferences.sleep === true) {
+          return;
+        }
+        todoTally = 0;
+        user.todos.concat(user.dailys).forEach(function(task) {
+          var absVal, completed, id, repeat, scheduleMisses, type;
+          if (!task) {
+            return;
+          }
+          if (user.stats.buffs.stealth && user.stats.buffs.stealth--) {
+            return;
+          }
+          id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;
+          if (!completed) {
+            scheduleMisses = daysMissed;
+            if ((type === 'daily') && repeat) {
+              scheduleMisses = 0;
+              _.times(daysMissed, function(n) {
+                var thatDay;
+                thatDay = moment(now).subtract('days', n + 1);
+                if (api.shouldDo(thatDay, repeat, user.preferences)) {
+                  return scheduleMisses++;
+                }
+              });
+            }
+            if (scheduleMisses > 0) {
+              user.ops.score({
+                params: {
+                  id: task.id,
+                  direction: 'down'
+                },
+                query: {
+                  times: scheduleMisses,
+                  cron: true
+                }
+              });
+            }
+          }
+          switch (type) {
+            case 'daily':
+              (task.history != null ? task.history : task.history = []).push({
+                date: +(new Date),
+                value: task.value
+              });
+              return task.completed = false;
+            case 'todo':
+              absVal = completed ? Math.abs(task.value) : task.value;
+              return todoTally += absVal;
+          }
+        });
+        user.habits.forEach(function(task) {
+          if (task.up === false || task.down === false) {
+            if (Math.abs(task.value) < 0.1) {
+              return task.value = 0;
+            } else {
+              return task.value = task.value / 2;
+            }
+          }
+        });
+        ((_base = (user.history != null ? user.history : user.history = {})).todos != null ? (_base = (user.history != null ? user.history : user.history = {})).todos : _base.todos = []).push({
+          date: now,
+          value: todoTally
+        });
+        expTally = user.stats.exp;
+        lvl = 0;
+        while (lvl < (user.stats.lvl - 1)) {
+          lvl++;
+          expTally += api.tnl(lvl);
+        }
+        ((_base1 = user.history).exp != null ? (_base1 = user.history).exp : _base1.exp = []).push({
+          date: now,
+          value: expTally
+        });
+        user.fns.preenUserHistory();
+        return user;
+      },
+      preenUserHistory: function(minHistLen) {
+        if (minHistLen == null) {
+          minHistLen = 7;
+        }
+        _.each(user.habits.concat(user.dailys), function(task) {
+          var _ref;
+          if (((_ref = task.history) != null ? _ref.length : void 0) > minHistLen) {
+            task.history = preenHistory(task.history);
+          }
+          return true;
+        });
+        _.defaults(user.history, {
+          todos: [],
+          exp: []
+        });
+        if (user.history.exp.length > minHistLen) {
+          user.history.exp = preenHistory(user.history.exp);
+        }
+        if (user.history.todos.length > minHistLen) {
+          return user.history.todos = preenHistory(user.history.todos);
+        }
       }
     };
     Object.defineProperty(user, '_statsComputed', {
