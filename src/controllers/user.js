@@ -189,17 +189,14 @@ api.getUser = function(req, res, next) {
  * This tells us for which paths users can call `PUT /user` (or batch-update equiv, which use `User.set()` on our client).
  * The trick here is to only accept leaf paths, not root/intermediate paths (see http://goo.gl/OEzkAs)
  * FIXME - one-by-one we want to widdle down this list, instead replacing each needed set path with API operations
- *
- * Note: custom is for 3rd party apps
  */
 acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function(m,v,leaf){
-  var found= _.find('tasks achievements filters flags invitations lastCron party preferences profile stats tags'.split(' '), function(root){
+  var found= _.find('achievements filters flags invitations lastCron party preferences profile stats tags'.split(' '), function(root){
     return leaf.indexOf(root) == 0;
   });
   if (found) m[leaf]=true;
   return m;
 }, {})
-acceptablePUTPaths['tasks']=true; // and for now, let them fully set tasks.* (for advanced editing, TODO lock down)
 
 /**
  * Update user

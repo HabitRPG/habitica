@@ -71,7 +71,7 @@ angular.module('userServices', []).
               // Update user
               _.extend(user, data);
               if (!user._wrapped){
-                $rootScope.Shared.wrap(user);
+                $window.habitrpgShared.wrap(user);
                 _.each(user.ops, function(op,k){
                   user.ops[k] = _.partialRight(op, function(err, req){
                     if (err) {

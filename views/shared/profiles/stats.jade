@@ -1,16 +1,8 @@
 h4 Equipment
-p
-  strong {{itemText('weapon',profile.items.weapon)}}
-  | : {{itemStat('weapon',profile.items.weapon)}} Attack
-p
-  strong {{itemText('armor',profile.items.armor)}}
-  | : {{itemStat('armor',profile.items.armor)}} Protection
-p
-  strong {{itemText('head',profile.items.head)}}
-  | : {{itemStat('head',profile.items.head)}} Protection
-p
-  strong {{itemText('shield',profile.items.shield)}}
-  | : {{itemStat('shield',profile.items.shield)}} Protection
+p(ng-repeat='(k,v) in user.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
+  strong {{piece.text}}:&nbsp;
+  span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}}{{stat}}&nbsp;
+
 h4 Stats
 p
   strong Health
@@ -24,24 +16,13 @@ p
 p
   strong Experience
   | : {{profile.stats.exp | number:0}} / {{Shared.tnl(profile.stats.lvl)}}
-p
-  strong Strength
-  | :&nbsp;
-  span(popover-trigger='mouseenter', popover='(Level-1)/2') {{userStr(profile.stats.lvl)}}
-p
-  strong Defense
-  | :&nbsp;
-  span(popover-trigger='mouseenter', popover='(Level-1)/2') {{userDef(profile.stats.lvl)}}
+
+h4 Attributes
+i.icon-question-sign(popover-title='Attributes Breakdown', popover-trigger='mouseenter', popover-placement='right', popover="Attributes are calculated as (allocated stat-points) + (gear stats) + (buffs) + (1.5% bonus if your class's gear")
+p(ng-repeat='(k,v) in {str:"Strength",int:"Intelligence",con:"Constitution",per:"Perception"}')
+  strong {{v}}: {{profile._statsComputed[k]}}
+
+h4 Pets
 p
   strong Pets Found
   | : {{profile.petCount}}
-hr
-p
-  strong Total Experience Boost
-  | :&nbsp;
-  span(popover-trigger='mouseenter', popover='Attack + Strength') {{totalStr(profile.stats.lvl, profile.items.weapon)}} %
-
-p
-  strong Total Damage Reduction
-  | :&nbsp;
-  span(popover-trigger='mouseenter', popover='Defense + Protection') {{totalDef(profile.stats.lvl, profile.items.armor, profile.items.head, profile.items.shield)}} %

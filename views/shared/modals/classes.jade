@@ -1,12 +1,8 @@
 .modal(ng-if='!user.flags.classSelected && user.stats.lvl >= 5', data-backdrop=true, ng-controller='UserCtrl')
   .modal-header
     h3 Class System Unlocked!
-  .modal-body
-    .well Select your class. Upon level-up, you will now be able to allocate points to various stats. Alternatively, you can choose which stat your tasks represent (physical, mental, social, or "other") and drive your class automatically.
-    .well(ng-show='selectedClass=="warrior"') Warriors deal moderate damage to tasks and have moderate defense against tasks.
-    .well(ng-show='selectedClass=="wizard"') Wizards deal high damage to task, and can cast debuff spells on multiple tasks.
-    .well(ng-show='selectedClass=="rogue"') Rogues finds more drops, Gold, and have a high chance of dealing "critical hits," which grant large GP & Exp bonuses. Rogues can also "go stealth" to avoid and entire day of dailies.
-    .well(ng-show='selectedClass=="healer"') Healers have high defense against damage, and can heal themselves and other players in the party, as well as buff players.
+  .modal-body.select-class
+    p Select your class. Upon level-up, you will now be able to allocate points to various stats. Alternatively, you can choose which stat your tasks represent (physical, mental, social, or "other") and drive your class automatically.
     .row-fluid
       .span3(ng-click='selectedClass = "warrior"')
         h5 Warrior
@@ -64,6 +60,11 @@
             span(class='head_healer_5')
             span(class='shield_healer_5')
             span(class='weapon_healer_6')
+    br
+    .well(ng-show='selectedClass=="warrior"') Warriors deal moderate damage to tasks and have moderate defense against tasks.
+    .well(ng-show='selectedClass=="wizard"') Wizards deal high damage to task, and can cast debuff spells on multiple tasks.
+    .well(ng-show='selectedClass=="rogue"') Rogues finds more drops, Gold, and have a high chance of dealing "critical hits," which grant large GP & Exp bonuses. Rogues can also "go stealth" to avoid and entire day of dailies.
+    .well(ng-show='selectedClass=="healer"') Healers have high defense against damage, and can heal themselves and other players in the party, as well as buff players.
 
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='selectedClass && changeClass(selectedClass)') Select
+    button.btn.btn-default.cancel(ng-click='changeClass(selectedClass)') Select

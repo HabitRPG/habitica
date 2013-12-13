@@ -120,8 +120,8 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
             a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("str")') +
         tr
           td
-            i.icon-question-sign(popover-title='Defense', popover='Defense decreases damage inflicted by tasks, and increases the effectiveness of healing and buff spells', popover-trigger='mouseenter')
-            | &nbsp;DEF: {{user.stats.def}}
+            i.icon-question-sign(popover-title='Constitution', popover='Constitution decreases damage inflicted by tasks, and increases the effectiveness of healing and buff spells', popover-trigger='mouseenter')
+            | &nbsp;CON: {{user.stats.con}}
           td
             a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("con")') +
         tr

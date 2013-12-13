@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http',
-  function($rootScope, $scope, $location, User, $http) {
+habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state',
+  function($rootScope, $scope, $location, User, $http, $state) {
     $scope.profile = User.user;
     $scope.hideUserAvatar = function() {
       $(".userAvatar").hide();
@@ -16,6 +16,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     }
 
     $scope.changeClass = function(klass){
+      if (!$scope.selectedClass) return;
       if (!klass) {
         if (!confirm("Are you sure you want to re-roll? This will reset your character's class and allocated points (you'll get them all back to re-allocate)"))
           return;
@@ -24,8 +25,8 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
 
       User.user.ops.changeClass({query:{class:klass}});
       $scope.selectedClass = undefined;
-
       User.user.fns.updateStore();
+      $state.go('options.profile.stats');
     }
 
     $scope.save = function(){
