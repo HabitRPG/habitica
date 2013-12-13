@@ -86,11 +86,18 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
 
           li.customize-menu
             menu.pets-menu(label='Food')
-              div(ng-repeat='food in Content.food')
+              div(ng-repeat='food in Content.food', ng-show='food.name !== "Saddle"')
                 button.customize-option(popover='{{food.notes}}', popover-title='{{food.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='buy("food", food)', class='Pet_Food_{{food.name}}')
                 p
                   |  {{food.value}}
                   span.Pet_Currency_Gem1x.inline-gems
+            menu.pets-menu(label='Saddle')
+              div
+                button.customize-option(popover='{{Content.food.Saddle.notes}}', popover-title='{{Content.food.Saddle.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='buy("food", Content.food.Saddle)', class='Pet_Food_{{Content.food.Saddle.name}}')
+                p
+                  |  {{Content.food.Saddle.value}}
+                  span.Pet_Currency_Gem1x.inline-gems
+
           li.customize-menu
             menu.pets-menu(label='Services')
               div
