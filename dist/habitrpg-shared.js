@@ -10911,6 +10911,16 @@ var process=require("__browserify_process");(function() {
     }
     user._wrapped = true;
     user.ops = {
+      sleep: function(req, cb) {
+        user.flags.rest = !user.flags.rest;
+        return cb(null, req);
+      },
+      clearCompleted: function(req, cb) {
+        user.todos = _.where(user.todos, {
+          completed: false
+        });
+        return cb(null, req);
+      },
       update: function(req, cb) {
         _.each(req.body, function(v, k) {
           return user.fns.dotSet(k, v);

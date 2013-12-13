@@ -629,6 +629,14 @@ api.wrap = (user) ->
 
   user.ops =
 
+    sleep: (req, cb) ->
+      user.flags.rest = !user.flags.rest
+      cb null, req
+
+    clearCompleted: (req, cb) ->
+      user.todos = _.where(user.todos, {completed: false})
+      cb null, req
+
     update: (req, cb) ->
       _.each req.body, (v,k) ->
         user.fns.dotSet(k,v)
