@@ -10188,7 +10188,7 @@ var process=require("__browserify_process");(function() {
       return;
     }
     chanceMultiplier = Math.abs(delta);
-    chanceMultiplier *= api.priorityValue(priority);
+    chanceMultiplier *= priority;
     chanceMultiplier += streak;
     max = 0.75;
     a = 0.1;
@@ -10236,22 +10236,6 @@ var process=require("__browserify_process");(function() {
   */
 
 
-  api.priorityValue = function(priority) {
-    if (priority == null) {
-      priority = '!';
-    }
-    switch (priority) {
-      case '!':
-        return 1;
-      case '!!':
-        return 1.5;
-      case '!!!':
-        return 2;
-      default:
-        return 1;
-    }
-  };
-
   api.tnl = function(level) {
     var value;
     if (level >= 100) {
@@ -10274,12 +10258,12 @@ var process=require("__browserify_process");(function() {
   api.expModifier = function(value, weaponStr, level, priority) {
     var exp, str, strMod, totalStr;
     if (priority == null) {
-      priority = '!';
+      priority = 1;
     }
     str = (level - 1) / 2;
     totalStr = (str + weaponStr) / 100;
     strMod = 1 + totalStr;
-    exp = value * XP * strMod * api.priorityValue(priority);
+    exp = value * XP * strMod * priority;
     return Math.round(exp);
   };
 
@@ -10296,12 +10280,12 @@ var process=require("__browserify_process");(function() {
   api.hpModifier = function(value, armorDef, helmDef, shieldDef, level, priority) {
     var def, defMod, hp, totalDef;
     if (priority == null) {
-      priority = '!';
+      priority = 1;
     }
     def = (level - 1) / 2;
     totalDef = (def + armorDef + helmDef + shieldDef) / 100;
     defMod = 1 - totalDef;
-    hp = value * HP * defMod * api.priorityValue(priority);
+    hp = value * HP * defMod * priority;
     return Math.round(hp * 10) / 10;
   };
 
@@ -10314,9 +10298,9 @@ var process=require("__browserify_process");(function() {
   api.gpModifier = function(value, modifier, priority, streak, user) {
     var afterStreak, streakBonus, val;
     if (priority == null) {
-      priority = '!';
+      priority = 1;
     }
-    val = value * modifier * api.priorityValue(priority);
+    val = value * modifier * priority;
     if (streak && user) {
       streakBonus = streak / 100 + 1;
       afterStreak = val * streakBonus;
@@ -10633,7 +10617,7 @@ var process=require("__browserify_process");(function() {
       type: 'habit',
       text: '',
       notes: '',
-      priority: '!',
+      priority: 1,
       challenge: {}
     };
     _.defaults(task, defaults);
@@ -11216,7 +11200,7 @@ var process=require("__browserify_process");(function() {
         task = user.tasks[id];
         user._tmp = {};
         _ref1 = [+user.stats.gp, +user.stats.hp, +user.stats.exp, ~~user.stats.lvl], gp = _ref1[0], hp = _ref1[1], exp = _ref1[2], lvl = _ref1[3];
-        _ref2 = [task.type, +task.value, ~~task.streak, task.priority || '!'], type = _ref2[0], value = _ref2[1], streak = _ref2[2], priority = _ref2[3];
+        _ref2 = [task.type, +task.value, ~~task.streak, +task.priority || 1], type = _ref2[0], value = _ref2[1], streak = _ref2[2], priority = _ref2[3];
         _ref5 = [((_ref3 = req.query) != null ? _ref3.times : void 0) || 1, ((_ref4 = req.query) != null ? _ref4.cron : void 0) || false], times = _ref5[0], cron = _ref5[1];
         if (task.value > user.stats.gp && task.type === 'reward') {
           return cb('Not enough Gold');

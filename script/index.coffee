@@ -88,7 +88,7 @@ randomDrop = (user, modifiers) ->
 
   # % chance of getting a pet or meat
   chanceMultiplier = Math.abs(delta)
-  chanceMultiplier *= api.priorityValue(priority) # multiply chance by reddness
+  chanceMultiplier *= priority # multiply chance by reddness
   chanceMultiplier += streak # streak bonus
 
   # Temporary solution to lower the maximum drop chance to 75 percent. More thorough
@@ -154,13 +154,6 @@ randomDrop = (user, modifiers) ->
   ------------------------------------------------------
 ###
 
-api.priorityValue = (priority = '!') ->
-  switch priority
-    when '!' then 1
-    when '!!' then 1.5
-    when '!!!' then 2
-    else 1
-
 api.tnl = (level) ->
   if level >= 100
     value = 0
@@ -176,12 +169,12 @@ api.tnl = (level) ->
   {level} current user level
   {priority} user-defined priority multiplier
 ###
-api.expModifier = (value, weaponStr, level, priority = '!') ->
+api.expModifier = (value, weaponStr, level, priority=1) ->
   str = (level - 1) / 2
   # ultimately get this from user
   totalStr = (str + weaponStr) / 100
   strMod = 1 + totalStr
-  exp = value * XP * strMod * api.priorityValue(priority)
+  exp = value * XP * strMod * priority
   return Math.round(exp)
 
 ###
@@ -192,13 +185,13 @@ api.expModifier = (value, weaponStr, level, priority = '!') ->
   {level} current user level
   {priority} user-defined priority multiplier
 ###
-api.hpModifier = (value, armorDef, helmDef, shieldDef, level, priority = '!') ->
+api.hpModifier = (value, armorDef, helmDef, shieldDef, level, priority=1) ->
   def = (level - 1) / 2
   # ultimately get this from user?
   totalDef = (def + armorDef + helmDef + shieldDef) / 100
   #ultimate get this from user
   defMod = 1 - totalDef
-  hp = value * HP * defMod * api.priorityValue(priority)
+  hp = value * HP * defMod * priority
   return Math.round(hp * 10) / 10
 # round to 1dp
 
@@ -206,8 +199,8 @@ api.hpModifier = (value, armorDef, helmDef, shieldDef, level, priority = '!') ->
   Future use
   {priority} user-defined priority multiplier
 ###
-api.gpModifier = (value, modifier, priority = '!', streak, user) ->
-  val = value * modifier * api.priorityValue(priority)
+api.gpModifier = (value, modifier, priority=1, streak, user) ->
+  val = value * modifier * priority
   if streak and user
     streakBonus = streak / 100 + 1 # eg, 1-day streak is 1.1, 2-day is 1.2, etc
     afterStreak = val * streakBonus
@@ -459,7 +452,7 @@ api.taskDefaults = (task) ->
     type: 'habit'
     text: ''
     notes: ''
-    priority: '!'
+    priority: 1
     challenge: {}
   _.defaults task, defaults
   _.defaults(task, {up:true,down:true}) if task.type is 'habit'
@@ -836,7 +829,7 @@ api.wrap = (user) ->
       user._tmp = {}
 
       [gp, hp, exp, lvl] = [+user.stats.gp, +user.stats.hp, +user.stats.exp, ~~user.stats.lvl]
-      [type, value, streak, priority] = [task.type, +task.value, ~~task.streak, task.priority or '!']
+      [type, value, streak, priority] = [task.type, +task.value, ~~task.streak, +task.priority or 1]
       [times, cron] = [req.query?.times or 1, req.query?.cron or false]
 
       # If they're trying to purhcase a too-expensive reward, don't allow them to do that.
