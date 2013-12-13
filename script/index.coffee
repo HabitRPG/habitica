@@ -674,25 +674,26 @@ api.wrap = (user) ->
       return cb("You already have that mount") if user.items.mounts[pet] and (userPets[pet] >= 50 or food.name is 'Saddle')
 
       userPets = user.items.pets
+      message = ''
       evolve = ->
         userPets[pet] = 0
         user.items.mounts[pet] = true
         user.items.currentPet = "" if pet is user.items.currentPet
-        cb {code:200, message:"You have tamed #{egg}, let's go for a ride!"}, req
+        message = "You have tamed #{egg}, let's go for a ride!"
 
       if food.name is 'Saddle'
         evolve()
       else
         if food.target is potion
           userPets[pet] += 5
-          cb {code:200, message: "#{egg} really likes the #{food.name}!"}, req
+          message = "#{egg} really likes the #{food.name}!"
         else
           userPets[pet] += 2
-          cb {code:200, message: "#{egg} eats the #{food.name} but doesn't seem to enjoy it."}, req
-        evolve() if userPets[pet] >= 50 and not user.items.mounts[pet]
-      user.items.pets[pet] = userPets[pet]
+          message = "#{egg} eats the #{food.name} but doesn't seem to enjoy it."
+        if userPets[pet] >= 50 and !user.items.mounts[pet]
+          evolve()
       user.items.food[food.name]--
-      cb? null, req
+      cb {code:200, message}, req
 
     buy: (req, cb) ->
       {key} = req.query
@@ -765,7 +766,7 @@ api.wrap = (user) ->
       user.items.pets[pet] = 5
       user.items.eggs[egg]--
       user.items.hatchingPotions[hatchingPotion]--
-      cb? null, req
+      cb? {code:200, message:"Your egg hatched! Visit your stable to equip your pet."}, req
 
     unlock: (req, cb) ->
       {path} = req.query

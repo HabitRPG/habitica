@@ -10964,7 +10964,7 @@ var process=require("__browserify_process");(function() {
         return task;
       },
       feed: function(req, cb) {
-        var egg, evolve, food, pet, potion, userPets, _ref, _ref1, _ref2, _ref3;
+        var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2, _ref3;
         _ref2 = [(_ref = req.query) != null ? _ref.pet : void 0, content.food[(_ref1 = req.query) != null ? _ref1.food : void 0]], pet = _ref2[0], food = _ref2[1];
         _ref3 = pet.split('-'), egg = _ref3[0], potion = _ref3[1];
         if (!(pet && food)) {
@@ -10977,40 +10977,34 @@ var process=require("__browserify_process");(function() {
           return cb("You already have that mount");
         }
         userPets = user.items.pets;
+        message = '';
         evolve = function() {
           userPets[pet] = 0;
           user.items.mounts[pet] = true;
           if (pet === user.items.currentPet) {
             user.items.currentPet = "";
           }
-          return cb({
-            code: 200,
-            message: "You have tamed " + egg + ", let's go for a ride!"
-          }, req);
+          return message = "You have tamed " + egg + ", let's go for a ride!";
         };
         if (food.name === 'Saddle') {
           evolve();
         } else {
           if (food.target === potion) {
             userPets[pet] += 5;
-            cb({
-              code: 200,
-              message: "" + egg + " really likes the " + food.name + "!"
-            }, req);
+            message = "" + egg + " really likes the " + food.name + "!";
           } else {
             userPets[pet] += 2;
-            cb({
-              code: 200,
-              message: "" + egg + " eats the " + food.name + " but doesn't seem to enjoy it."
-            }, req);
+            message = "" + egg + " eats the " + food.name + " but doesn't seem to enjoy it.";
           }
           if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
             evolve();
           }
         }
-        user.items.pets[pet] = userPets[pet];
         user.items.food[food.name]--;
-        return typeof cb === "function" ? cb(null, req) : void 0;
+        return cb({
+          code: 200,
+          message: message
+        }, req);
       },
       buy: function(req, cb) {
         var item, key, _ref;
@@ -11137,7 +11131,10 @@ var process=require("__browserify_process");(function() {
         user.items.pets[pet] = 5;
         user.items.eggs[egg]--;
         user.items.hatchingPotions[hatchingPotion]--;
-        return typeof cb === "function" ? cb(null, req) : void 0;
+        return typeof cb === "function" ? cb({
+          code: 200,
+          message: "Your egg hatched! Visit your stable to equip your pet."
+        }, req) : void 0;
       },
       unlock: function(req, cb) {
         var cost, fullSet, path;
