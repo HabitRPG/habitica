@@ -10927,6 +10927,23 @@ var process=require("__browserify_process");(function() {
         });
         return typeof cb === "function" ? cb(null, req) : void 0;
       },
+      sortTask: function(req, cb) {
+        var from, id, task, to, _ref;
+        id = req.params.id;
+        _ref = req.query, to = _ref.to, from = _ref.from;
+        task = user.tasks[id];
+        if (!task) {
+          return cb({
+            code: 404,
+            message: "No task found."
+          });
+        }
+        if (!((to != null) && (from != null))) {
+          return cb('?to=__&from=__ are required');
+        }
+        user["" + task.type + "s"].splice(to, 0, user["" + task.type + "s"].splice(from, 1)[0]);
+        return cb(null, req);
+      },
       updateTask: function(req, cb) {
         if (!(req.params.id && user.tasks[req.params.id])) {
           return typeof cb === "function" ? cb("Task not found") : void 0;

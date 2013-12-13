@@ -642,6 +642,15 @@ api.wrap = (user) ->
         user.fns.dotSet(k,v)
       cb? null, req
 
+    sortTask: (req, cb) ->
+      {id} = req.params
+      {to, from} = req.query
+      task = user.tasks[id]
+      return cb({code:404, message: "No task found."}) unless task
+      return cb('?to=__&from=__ are required') unless to? and from?
+      user["#{task.type}s"].splice to, 0, user["#{task.type}s"].splice(from, 1)[0]
+      cb null, req
+
     updateTask: (req, cb) ->
       return cb?("Task not found") unless req.params.id and user.tasks[req.params.id]
       _.merge user.tasks[req.params.id], req.body
