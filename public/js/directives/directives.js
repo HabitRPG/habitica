@@ -55,8 +55,7 @@ habitrpg.directive('habitrpgSortable', ['User', function(User) {
         var taskType = angular.element(ui.item[0]).scope().task.type + 's';
         var startIndex = ui.item.data('startIndex');
         var task = User.user[taskType][startIndex];
-        // FIXME - this is a really inconsistent way of API handling. we need to fix the batch-update route
-        User.log({op: 'sortTask', data: _.defaults({from: startIndex, to: ui.item.index()}, task)});
+        User.user.ops.sortTask({params:{id:task.id},query:{from:startIndex, to:ui.item.index()}});
       }
     });
   }

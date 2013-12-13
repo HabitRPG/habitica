@@ -153,21 +153,8 @@ api.deleteTask = function(req, res, next) {
 */
 
 // api.updateTask // handled in Shared.ops
-
 // api.addTask // handled in Shared.ops
-
-api.sortTask = function(req, res, next) {
-  api.verifyTaskExists(req, res, function(){
-    var id = req.params.id;
-    var to = req.body.to, from = req.body.from, type = req.body.type;
-    var user = res.locals.user;
-    user[type+'s'].splice(to, 0, user[type+'s'].splice(from, 1)[0]);
-    user.save(function(err, saved) {
-      if (err) return res.json(500, {err: err});
-      return res.json(200, saved.toJSON()[type+'s']);
-    });
-  })
-};
+// api.sortTask // handled in Shared.ops #TODO updated api, mention in docs
 
 /*
   ------------------------------------------------------------------------
