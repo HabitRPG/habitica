@@ -14,7 +14,7 @@ var api = module.exports;
   ------------------------------------------------------------------------
 */
 
-var partyFields = 'profile preferences stats achievements party backer contributor flags.rest auth.timestamps items';
+var partyFields = 'profile preferences stats achievements party backer contributor auth.timestamps items';
 var nameFields = 'profile.name';
 var challengeFields = '_id name';
 var guildPopulate = {path: 'members', select: nameFields, options: {limit: 15} };

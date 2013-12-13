@@ -92,7 +92,6 @@ var UserSchema = new Schema({
     newStuff: {type: Boolean, 'default': false},
     rewrite: {type: Boolean, 'default': true},
     partyEnabled: Boolean, // FIXME do we need this?
-    rest: {type: Boolean, 'default': false}, // fixme - change to preferences.resting once we're off derby
     contributor: Boolean,
     classSelected: {type: Boolean, 'default': false}
   },
@@ -214,7 +213,8 @@ var UserSchema = new Schema({
     timezoneOffset: Number,
     language: String,
     automaticAllocation: Boolean,
-    useCostume: Boolean
+    useCostume: Boolean,
+    sleep: {type: Boolean, 'default': false}
   },
   profile: {
     blurb: String,

@@ -24,5 +24,8 @@ db.users.find().forEach(function(user){
   // Delete armorSet
   delete user.preferences.armorSet;
 
+  user.preferences.sleep = user.flags.rest;
+  delete user.flags.rest;
+
   db.users.update({_id:user._id}, user);
 });

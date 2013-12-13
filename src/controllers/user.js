@@ -226,10 +226,8 @@ api.update = function(req, res, next) {
 api.cron = function(req, res, next) {
   var user = res.locals.user;
   shared.cron(user);
-  if (user.isModified()) {
+  if (user.isModified())
     res.locals.wasModified = true;
-    user.auth.timestamps.loggedin = new Date();
-  }
   user.save(next);
 };
 
