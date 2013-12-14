@@ -11,6 +11,8 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
 
     .span4
         h3 Hair
+        small.
+          2 <span class="Pet_Currency_Gem1x inline-gems"/> / locked
         menu(type='list')
           // Color
           li.customize-menu
@@ -24,7 +26,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
           // Bangs
           li.customize-menu
             menu(label='Bangs')
-              button(class='head_base_0 customize-option', type='button', ng-click='set({"preferences.hair.bangs":0})')
+              button(class='head_base_0 customize-option',                                  type='button', ng-click='set({"preferences.hair.bangs":0})')
               button(class='hair_bangs_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.bangs":1})')
               button(class='hair_bangs_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.bangs":2})')
               button(class='hair_bangs_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.bangs":3})')
@@ -32,32 +34,35 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
           // Beard
           li.customize-menu
             menu(label='Beard')
-              button(class='head_base_0 customize-option', type='button', ng-click='set({"preferences.hair.beard":0})')
-              button(class='hair_beard_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.beard":1})')
-              button(class='hair_beard_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.beard":2})')
-              button(class='hair_beard_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.beard":3})')
+              button(class='head_base_0 customize-option',                                  type='button', ng-click='set({"preferences.hair.beard":0})')
+              button(class='hair_beard_1_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.beard.1}', ng-click='unlock("hair.beard.1")')
+              button(class='hair_beard_2_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.beard.2}', ng-click='unlock("hair.beard.2")')
+              button(class='hair_beard_3_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.beard.3}', ng-click='unlock("hair.beard.3")')
 
           // Mustache
           li.customize-menu
             menu(label='Mustache')
               button(class='head_base_0 customize-option', type='button', ng-click='set({"preferences.hair.mustache":0})')
-              button(class='hair_mustache_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.mustache":1})')
-              button(class='hair_mustache_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.mustache":2})')
+              button(class='hair_mustache_1_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.mustache.1}', ng-click='unlock("hair.mustache.1")')
+              button(class='hair_mustache_2_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.mustache.2}', ng-click='unlock("hair.mustache.2")')
 
           // Base
          li.customize-menu
            menu(label='Base')
              button(class='head_base_0 customize-option', type='button', ng-click='set({"preferences.hair.base":0})')
              button(class='hair_base_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":1})')
-             button(class='hair_base_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":2})')
+             button(class='hair_base_2_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base.2}', ng-click='unlock("hair.base.2")')
              button(class='hair_base_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":3})')
-             button(class='hair_base_4_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":4})')
-             button(class='hair_base_5_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":5})')
-             button(class='hair_base_6_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":6})')
-             button(class='hair_base_7_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":7})')
-             button(class='hair_base_8_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":8})')
+             button(class='hair_base_4_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base.4}', ng-click='unlock("hair.base.4")')
+             button(class='hair_base_5_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base.5}', ng-click='unlock("hair.base.5")')
+             button(class='hair_base_6_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base.6}', ng-click='unlock("hair.base.6")')
+             button(class='hair_base_7_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base.7}', ng-click='unlock("hair.base.7")')
+             button(class='hair_base_8_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base.8}', ng-click='unlock("hair.base.8")')
 
     .span4
+        h3 Skin
+        small.
+          2 <span class="Pet_Currency_Gem1x inline-gems"/> / locked
         // skin
         li.customize-menu
           menu(label='Basic Skins')
@@ -72,7 +77,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
 
           // Rainbow Skin
           h5.
-            Rainbow Skins - 2<span class="Pet_Currency_Gem1x inline-gems"/>/skin
+            Rainbow Skins
           //menu(label='Rainbow Skins (2G / skin)')
           menu
             button.customize-option(type='button', class='skin_eb052b', ng-class='{locked: !user.purchased.skin.eb052b}', ng-click='unlock("skin.eb052b")')

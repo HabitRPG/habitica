@@ -206,7 +206,7 @@ var UserSchema = new Schema({
       base: {type: Number, 'default': 0},
       bangs: {type: Number, 'default': 0},
       beard: {type: Number, 'default': 0},
-      mustach: {type: Number, 'default': 0},
+      mustache: {type: Number, 'default': 0},
     },
     hideHeader: {type:Boolean, 'default':false},
     skin: {type:String, 'default':'white'},
