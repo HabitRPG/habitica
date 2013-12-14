@@ -10456,7 +10456,7 @@ var global=self;/**
 
 },{"lodash":3}],6:[function(require,module,exports){
 var process=require("__browserify_process");(function() {
-  var HP, XP, api, content, dayMapping, moment, preenHistory, randomVal, sanitizeOptions, _,
+  var HP, XP, api, content, dayMapping, moment, preenHistory, sanitizeOptions, _,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   moment = require('moment');
@@ -10567,33 +10567,6 @@ var process=require("__browserify_process");(function() {
       yesterday = moment(o.now).subtract(1, 'd').day();
       return repeat[dayMapping[yesterday]];
     }
-  };
-
-  /*
-    ------------------------------------------------------
-    Drop System
-    ------------------------------------------------------
-  */
-
-
-  /*
-    Get a random property from an object
-    http://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
-    returns random property (the value)
-  */
-
-
-  randomVal = function(obj) {
-    var count, key, result, val;
-    result = void 0;
-    count = 0;
-    for (key in obj) {
-      val = obj[key];
-      if (Math.random() < (1 / ++count)) {
-        result = val;
-      }
-    }
-    return result;
   };
 
   /*
@@ -11148,7 +11121,7 @@ var process=require("__browserify_process");(function() {
         if (user.stats.lvl > 1) {
           user.stats.lvl--;
         }
-        lostStat = randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
+        lostStat = user.fns.randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
           if (user.stats[k]) {
             m[k] = k;
           }
@@ -11157,9 +11130,9 @@ var process=require("__browserify_process");(function() {
         if (lostStat) {
           user.stats[lostStat]--;
         }
-        lostItem = randomVal(_.reduce(user.items.gear.owned, (function(m, v, k) {
+        lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, (function(m, v, k) {
           if (v) {
-            m[k] = k;
+            m["" + k] = "" + k;
           }
           return m;
         }), {}));
@@ -11393,9 +11366,7 @@ var process=require("__browserify_process");(function() {
           if (direction === 'up') {
             user.fns.randomDrop({
               task: task,
-              delta: delta,
-              priority: task.priority,
-              streak: task.streak
+              delta: delta
             });
           }
         }
@@ -11453,6 +11424,43 @@ var process=require("__browserify_process");(function() {
         });
       },
       /*
+      Because the same op needs to be performed on the client and the server (critical hits, item drops, etc),
+      we need things to be "random", but technically predictable so that they don't go out-of-sync
+      */
+
+      predictableRandom: function(seed) {
+        var x;
+        if (!seed || seed === Math.PI) {
+          seed = _.reduce(user.stats, (function(m, v) {
+            if (_.isNumber(v)) {
+              return m + v;
+            } else {
+              return m;
+            }
+          }), 0);
+        }
+        x = Math.sin(seed++) * 10000;
+        return x - Math.floor(x);
+      },
+      /*
+        Get a random property from an object
+        http://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
+        returns random property (the value)
+      */
+
+      randomVal: function(obj, options) {
+        var count, key, result, val;
+        result = void 0;
+        count = 0;
+        for (key in obj) {
+          val = obj[key];
+          if (user.fns.predictableRandom(options != null ? options.seed : void 0) < (1 / ++count)) {
+            result = ((options != null ? options.key : void 0) ? key : val);
+          }
+        }
+        return result;
+      },
+      /*
       This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
       user.stats.hp = 50. This is useful because in our habitrpg-shared functions we're returning changesets as {path:value},
       so that different consumers can implement setters their own way. Derby needs model.set(path, value) for example, where
@@ -11477,8 +11485,9 @@ var process=require("__browserify_process");(function() {
         }), user);
       },
       randomDrop: function(modifiers) {
-        var a, acceptableDrops, alpha, chanceMultiplier, delta, drop, max, priority, rarity, reachedDropLimit, streak, _base, _base1, _base2, _base3, _name, _name1, _name2, _ref;
-        delta = modifiers.delta, priority = modifiers.priority, streak = modifiers.streak;
+        var a, acceptableDrops, alpha, chanceMultiplier, delta, drop, max, priority, rarity, reachedDropLimit, streak, _base, _base1, _base2, _base3, _name, _name1, _name2, _ref, _ref1;
+        delta = modifiers.delta;
+        _ref = modifiers.task, priority = _ref.priority, streak = _ref.streak;
         if (streak == null) {
           streak = 0;
         }
@@ -11498,10 +11507,10 @@ var process=require("__browserify_process");(function() {
         max = 0.75;
         a = 0.1;
         alpha = a * max * chanceMultiplier / (a * chanceMultiplier + max);
-        if (((_ref = user.flags) != null ? _ref.dropsEnabled : void 0) && Math.random() < alpha) {
-          rarity = Math.random();
+        if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom() < alpha) {
+          rarity = user.fns.predictableRandom();
           if (rarity > .6) {
-            drop = randomVal(_.omit(content.food, 'Saddle'));
+            drop = user.fns.randomVal(_.omit(content.food, 'Saddle'));
             if ((_base1 = user.items.food)[_name = drop.name] == null) {
               _base1[_name] = 0;
             }
@@ -11509,7 +11518,7 @@ var process=require("__browserify_process");(function() {
             drop.type = 'Food';
             drop.dialog = "You've found a " + drop.text + " Food! " + drop.notes;
           } else if (rarity > .3) {
-            drop = randomVal(content.eggs);
+            drop = user.fns.randomVal(content.eggs);
             if ((_base2 = user.items.eggs)[_name1 = drop.name] == null) {
               _base2[_name1] = 0;
             }
@@ -11518,7 +11527,7 @@ var process=require("__browserify_process");(function() {
             drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
           } else {
             acceptableDrops = rarity < .03 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
-            drop = randomVal(_.pick(content.hatchingPotions, (function(v, k) {
+            drop = user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
               return __indexOf.call(acceptableDrops, k) >= 0;
             })));
             if ((_base3 = user.items.hatchingPotions)[_name2 = drop.name] == null) {

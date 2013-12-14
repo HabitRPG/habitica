@@ -57,24 +57,6 @@ api.shouldDo = (day, repeat, options={}) ->
     yesterday = moment(o.now).subtract(1,'d').day() # have to wrap o.now so as not to modify original
     return repeat[dayMapping[yesterday]] # FIXME is this correct?? Do I need to do any timezone calcaulation here?
 
-###
-  ------------------------------------------------------
-  Drop System
-  ------------------------------------------------------
-###
-
-###
-  Get a random property from an object
-  http://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
-  returns random property (the value)
-###
-randomVal = (obj) ->
-  result = undefined
-  count = 0
-  for key, val of obj
-    result = val if Math.random() < (1 / ++count)
-  result
-
 
 ###
   ------------------------------------------------------
@@ -86,8 +68,6 @@ api.tnl = (lvl) ->
   if lvl >= 100 then 0
   else Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10
   # round to nearest 10?
-
-
 
 ###
 Preen history for users with > 7 history entries
@@ -445,12 +425,13 @@ api.wrap = (user) ->
       user.stats.lvl-- if user.stats.lvl > 1
 
       # Lose a stat point
-      lostStat = randomVal _.reduce(['str','con','per','int'], ((m,k)->m[k]=k if user.stats[k];m), {})
+      lostStat = user.fns.randomVal _.reduce(['str','con','per','int'], ((m,k)->m[k]=k if user.stats[k];m), {})
       user.stats[lostStat]-- if lostStat
 
       # Lose a gear piece
       # Note, they can actually lose item weapon_*_0 - it's 0 to buy back, no big deal
-      lostItem = randomVal _.reduce(user.items.gear.owned, ((m,v,k)->m[k]=k if v;m), {})
+      # Note the `""+` string-casting. Without this, when run on the server Mongoose returns funny objects
+      lostItem = user.fns.randomVal _.reduce(user.items.gear.owned, ((m,v,k)->m[""+k]=""+k if v;m), {})
       if item = content.gear.flat[lostItem]
         user.items.gear.owned[lostItem] = false
         user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
@@ -644,7 +625,7 @@ api.wrap = (user) ->
 
       # Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
       if typeof window is 'undefined'
-        user.fns.randomDrop({task, delta, priority:task.priority, streak:task.streak}) if direction is 'up'
+        user.fns.randomDrop({task, delta}) if direction is 'up'
 
       cb? null, req
       return delta
@@ -682,6 +663,28 @@ api.wrap = (user) ->
           else               6
 
     ###
+    Because the same op needs to be performed on the client and the server (critical hits, item drops, etc),
+    we need things to be "random", but technically predictable so that they don't go out-of-sync
+    ###
+    predictableRandom: (seed) ->
+      # Default seed is all user stats combined. Fairly safe, meh - pass in a good seed for situations where that doesn't work
+      seed = _.reduce(user.stats, ((m,v)->if _.isNumber(v) then m+v else m), 0) if !seed or seed is Math.PI
+      x = Math.sin(seed++) * 10000
+      x - Math.floor(x)
+
+    ###
+      Get a random property from an object
+      http://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
+      returns random property (the value)
+    ###
+    randomVal: (obj, options) ->
+      result = undefined
+      count = 0
+      for key, val of obj
+        result = (if options?.key then key else val) if user.fns.predictableRandom(options?.seed) < (1 / ++count)
+      result
+
+    ###
     This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
     user.stats.hp = 50. This is useful because in our habitrpg-shared functions we're returning changesets as {path:value},
     so that different consumers can implement setters their own way. Derby needs model.set(path, value) for example, where
@@ -705,7 +708,8 @@ api.wrap = (user) ->
     # ----------------------------------------------------------------------
 
     randomDrop: (modifiers) ->
-      {delta, priority, streak} = modifiers
+      {delta} = modifiers
+      {priority, streak} = modifiers.task
       streak ?= 0
       # limit drops to 2 / day
       user.items.lastDrop ?=
@@ -728,14 +732,14 @@ api.wrap = (user) ->
       a = 0.1 # rate of increase
       alpha = a*max*chanceMultiplier/(a*chanceMultiplier+max) # current probability of drop
 
-      if user.flags?.dropsEnabled and Math.random() < alpha
+      if user.flags?.dropsEnabled and user.fns.predictableRandom() < alpha
         # current breakdown - 1% (adjustable) chance on drop
         # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
-        rarity = Math.random()
+        rarity = user.fns.predictableRandom()
 
         # Food: 40% chance
         if rarity > .6
-          drop = randomVal _.omit(content.food, 'Saddle')
+          drop = user.fns.randomVal _.omit(content.food, 'Saddle')
           user.items.food[drop.name] ?= 0
           user.items.food[drop.name]+= 1
           drop.type = 'Food'
@@ -743,7 +747,7 @@ api.wrap = (user) ->
 
           # Eggs: 30% chance
         else if rarity > .3
-          drop = randomVal content.eggs
+          drop = user.fns.randomVal content.eggs
           user.items.eggs[drop.name] ?= 0
           user.items.eggs[drop.name]++
           drop.type = 'Egg'
@@ -763,7 +767,7 @@ api.wrap = (user) ->
 
           # No Rarity (@see https://github.com/HabitRPG/habitrpg/issues/1048, we may want to remove rareness when we add mounts)
           #drop = helpers.randomVal hatchingPotions
-          drop = randomVal _.pick(content.hatchingPotions, ((v,k) -> k in acceptableDrops))
+          drop = user.fns.randomVal _.pick(content.hatchingPotions, ((v,k) -> k in acceptableDrops))
 
           user.items.hatchingPotions[drop.name] ?= 0
           user.items.hatchingPotions[drop.name]++
