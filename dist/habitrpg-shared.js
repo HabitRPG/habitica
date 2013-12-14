@@ -11299,9 +11299,10 @@ var process=require("__browserify_process");(function() {
           return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
         };
         subtractPoints = function() {
-          var conMod;
+          var conMod, hpMod;
           conMod = 1 - (user._statsComputed.con / 100);
-          return stats.hp += Math.round(task.value * HP * conMod * task.priority);
+          hpMod = delta * HP * conMod * task.priority;
+          return stats.hp += Math.round(hpMod * 10) / 10;
         };
         switch (task.type) {
           case 'habit':

@@ -565,8 +565,8 @@ api.wrap = (user) ->
       # HP modifier
       subtractPoints = ->
         conMod = 1 - (user._statsComputed.con / 100)
-        stats.hp += Math.round(task.value * HP * conMod * task.priority)
-        # round to 1dp
+        hpMod = delta * HP * conMod * task.priority
+        stats.hp += Math.round(hpMod * 10) / 10 # round to 1dp
 
       switch task.type
         when 'habit'
