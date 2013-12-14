@@ -3,6 +3,7 @@
 habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state',
   function($rootScope, $scope, $location, User, $http, $state) {
     $scope.profile = User.user;
+    $scope.profile.petCount = $rootScope.Shared.countPets(null, $scope.profile.items.pets);
     $scope.hideUserAvatar = function() {
       $(".userAvatar").hide();
     };
