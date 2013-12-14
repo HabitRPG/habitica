@@ -18,13 +18,15 @@ module.exports = function(grunt) {
           // `sprite` has `name`, `image` (full path), `x`, `y`
           //   `width`, `height`, `total_width`, `total_height`
           // EXAMPLE: Prefix all sprite names with 'sprite-'
-          if (sprite.name.match(/hair|skin|beard|mustach/) || sprite.name=='head_base_0') {
+          if (sprite.name.match(/hair|skin|beard|mustach|shirt/) || sprite.name=='head_base_0') {
             sprite.name = 'customize-option.' + sprite.name;
             sprite.x = sprite.x + 25;
             sprite.y = sprite.y + 15;
             sprite.width = 60;
             sprite.height = 60;
           }
+          if (~sprite.name.indexOf('shirt'))
+            sprite.y = sprite.y+15; // even more for shirts
         },
         cssOpts: {
           'cssClass': function (item) {

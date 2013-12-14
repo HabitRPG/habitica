@@ -479,7 +479,7 @@ api.wrap = (user) ->
       return cb?({code:401, err: "Not enough gems"}) if user.balance < cost
       if fullSet
         _.each path.split(","), (p) ->
-          user.fns.dotSet("purchased." + p, true);true
+          user.fns.dotSet("purchased.#{p}", true);true
       else
         if user.fns.dotGet("purchased." + path) is true
           split = path.split('.');v=split.pop();k=split.join('.')
@@ -487,9 +487,7 @@ api.wrap = (user) ->
           return cb? null, req
         user.fns.dotSet "purchased." + path, true
       user.balance -= cost
-      if user.markModified
-        user._v++
-        user.markModified? "purchased"
+      user.markModified? 'purchased'
       cb? null, req
 
     changeClass: (req, cb) ->

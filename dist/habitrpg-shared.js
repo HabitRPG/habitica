@@ -10798,11 +10798,8 @@ var process=require("__browserify_process");(function() {
           user.fns.dotSet("purchased." + path, true);
         }
         user.balance -= cost;
-        if (user.markModified) {
-          user._v++;
-          if (typeof user.markModified === "function") {
-            user.markModified("purchased");
-          }
+        if (typeof user.markModified === "function") {
+          user.markModified('purchased');
         }
         return typeof cb === "function" ? cb(null, req) : void 0;
       },
