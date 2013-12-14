@@ -317,10 +317,6 @@ UserSchema.pre('save', function(next) {
       'Anonymous';
   }
 
-  // FIXME handle this on level-up instead, and come up with how we're going to handle retroactively
-  // Actually, can this be used as an attr default? (schema {type: ..., 'default': function(){}})
-  this.stats.points = this.stats.lvl - (this.stats.con + this.stats.str + this.stats.per + this.stats.int);
-
   var petCount = shared.countPets(_.reduce(this.items.pets,function(m,v){
     //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
     if(_.isFunction(v)) return m;

@@ -20,6 +20,7 @@ var TaskSchema = {
   tags: {type: Schema.Types.Mixed, 'default': {}}, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
   value: {type: Number, 'default': 0}, // redness
   priority: {type: Number, 'default': '1'},
+  attribute: {type: String, 'default': "str", enum: ['str','con','int','per']},
   challenge: {
     id: {type: 'String', ref:'Challenge'},
     broken: String, // CHALLENGE_DELETED, TASK_DELETED, UNSUBSCRIBED, CHALLENGE_CLOSED

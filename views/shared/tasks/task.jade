@@ -164,10 +164,12 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared
 
           legend.option-title Attributes
           .task-controls.tile-group
-            button.task-action-btn.tile(type='button') Physical
-            button.task-action-btn.tile(type='button') Mental
-            button.task-action-btn.tile(type='button') Social
-            button.task-action-btn.tile(type='button') Other
+            button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="str"}', ng-click='task.attribute="str"') Physical
+            button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="int"}', ng-click='task.attribute="int"') Mental
+            button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="con"}', ng-click='task.attribute="con"') Social
+            button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="per"}', ng-click='task.attribute="per"')
+              | Other&nbsp;
+              i.icon-question-sign(popover='Eg, professional persuites, hobbies, financial, etc.', popover-trigger='mouseenter', popover-placement='top')
 
       button.task-action-btn.tile.spacious(type='submit') Save & Close
 

@@ -25,7 +25,7 @@
             a(ng-click='toggleChart("exp")', tooltip='Progress')
               i.icon-signal
       .meter.mana(title='Mana', ng-if='user.flags.classSelected')
-        .bar(style='width: {{percent(user.stats.mp, user.stats.int+10)}}%;')
+        .bar(style='width: {{percent(user.stats.mp, user._statsComputed.int+10)}}%;')
         span.meter-text
           i.icon-fire
           | {{user.stats.mp || 0 | number:0}} / {{user.stats.int+10}}
