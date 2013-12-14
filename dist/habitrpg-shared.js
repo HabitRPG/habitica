@@ -10925,12 +10925,11 @@ var process=require("__browserify_process");(function() {
   sure to call user.ops.OP_NAME at some point within the overridden function.
   
   TODO
-    * Allow different error handling - like "200 - not enough gold" (which shouldn't be treated as 500)
+    * Migrate the remaining parts: Tags, party invitiations
     * Is this the best way to wrap the user object? I thought of using user.prototype, but user is an object not a Function.
       user on the server is a Mongoose model, so we can use prototype - but to do it on the client, we'd probably have to
       move to $resource for user
     * Move to $resource!
-    * Migrate the remaining parts: Tags, party invitiations
   
   BUGS
     * Daily repeats don't have the days showing up (translations issue?)
@@ -11063,10 +11062,8 @@ var process=require("__browserify_process");(function() {
         } else {
           user.items.gear.equipped[item.type] = item.key;
           user.items.gear.owned[item.key] = true;
-          if ((_ref = item.klass) === 'warrior' || _ref === 'wizard' || _ref === 'healer' || _ref === 'rogue') {
-            if (user.fns.getItem('weapon').last && user.fns.getItem('armor').last && user.fns.getItem('head').last && user.fns.getItem('shield').last) {
-              user.achievements.ultimateGear = true;
-            }
+          if (((_ref = item.klass) === 'warrior' || _ref === 'wizard' || _ref === 'healer' || _ref === 'rogue') && user.fns.getItem('weapon').last && user.fns.getItem('armor').last && user.fns.getItem('head').last && user.fns.getItem('shield').last) {
+            user.achievements.ultimateGear = true;
           }
         }
         user.stats.gp -= item.value;

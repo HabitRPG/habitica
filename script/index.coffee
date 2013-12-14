@@ -292,12 +292,11 @@ everything that doesn't need any code different from what's in user.ops.OP_NAME 
 sure to call user.ops.OP_NAME at some point within the overridden function.
 
 TODO
-  * Allow different error handling - like "200 - not enough gold" (which shouldn't be treated as 500)
+  * Migrate the remaining parts: Tags, party invitiations
   * Is this the best way to wrap the user object? I thought of using user.prototype, but user is an object not a Function.
     user on the server is a Mongoose model, so we can use prototype - but to do it on the client, we'd probably have to
     move to $resource for user
   * Move to $resource!
-  * Migrate the remaining parts: Tags, party invitiations
 
 BUGS
   * Daily repeats don't have the days showing up (translations issue?)
@@ -388,10 +387,9 @@ api.wrap = (user) ->
         user.stats.hp = 50 if user.stats.hp > 50
       else
         user.items.gear.equipped[item.type] = item.key
-        user.items.gear.owned[item.key] = true;
-        if item.klass in ['warrior','wizard','healer','rogue']
-          if user.fns.getItem('weapon').last and user.fns.getItem('armor').last and user.fns.getItem('head').last and user.fns.getItem('shield').last
-            user.achievements.ultimateGear = true
+        user.items.gear.owned[item.key] = true
+        if item.klass in ['warrior','wizard','healer','rogue'] and user.fns.getItem('weapon').last and user.fns.getItem('armor').last and user.fns.getItem('head').last and user.fns.getItem('shield').last
+          user.achievements.ultimateGear = true
       user.stats.gp -= item.value
       cb? null, req
 
