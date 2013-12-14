@@ -438,7 +438,7 @@ api.wrap = (user) ->
         user.items.gear.costume[item.type] = "#{item.type}_base_0" if user.items.gear.costume[item.type] is lostItem
       user.markModified? 'items.gear'
 
-      cb? null, req
+      cb? (if item then {code:200,message:"Your #{item.text} broke."} else null), req
 
     hatch: (req, cb) ->
       {egg, hatchingPotion} = req.query

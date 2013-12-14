@@ -11148,7 +11148,10 @@ var process=require("__browserify_process");(function() {
         if (typeof user.markModified === "function") {
           user.markModified('items.gear');
         }
-        return typeof cb === "function" ? cb(null, req) : void 0;
+        return typeof cb === "function" ? cb((item ? {
+          code: 200,
+          message: "Your " + item.text + " broke."
+        } : null), req) : void 0;
       },
       hatch: function(req, cb) {
         var egg, hatchingPotion, pet, _ref;
