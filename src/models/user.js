@@ -81,7 +81,8 @@ var UserSchema = new Schema({
   purchased: {
     ads: {type: Boolean, 'default': false},
     skin: {type: Schema.Types.Mixed, 'default': {}}, // eg, {skeleton: true, pumpkin: true, eb052b: true}
-    hair: {type: Schema.Types.Mixed, 'default': {}}
+    hair: {type: Schema.Types.Mixed, 'default': {}},
+    shirt: {type: Schema.Types.Mixed, 'default': {}}
   },
 
   flags: {
@@ -210,10 +211,11 @@ var UserSchema = new Schema({
     },
     hideHeader: {type:Boolean, 'default':false},
     skin: {type:String, 'default':'white'},
+    shirt: {type: String, 'default': 'white'},
     timezoneOffset: Number,
     language: String,
     automaticAllocation: Boolean,
-    useCostume: Boolean,
+    costume: Boolean,
     sleep: {type: Boolean, 'default': false}
   },
   profile: {

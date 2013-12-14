@@ -1,13 +1,27 @@
 script(id='partials/options.profile.avatar.html', type='text/ng-template')
   .row-fluid
     .span4
+      h3 Body
+      small.
+        2 <span class="Pet_Currency_Gem1x inline-gems"/> / locked
+
+      h5 Size
+      .btn-group
+        button.btn.btn-small(ng-class='{active: user.preferences.size=="slim"}', ng-click='set({"preferences.size":"slim"})') Slim
+        button.btn.btn-small(ng-class='{active: user.preferences.size=="broad"}', ng-click='set({"preferences.size":"broad"})') Broad
+
       menu(type='list')
-        // body-type
         li.customize-menu
-          menu(label='Head')
+          menu(label='Shirts')
+            each shirt in ['black', 'blue', 'green', 'pink', 'white', 'yellow']
+              button.customize-option(class='{{user.preferences.size}}_shirt_'+shirt, type='button', ng-click='set({"preferences.shirt":"'+shirt+'"})')
+
+          menu(label='Special Shirts')
+            each shirt in ['convict', 'cross', 'fire', 'horizon', 'ocean', 'purple', 'rainbow', 'redblue', 'thunder', 'tropical', 'zombie']
+              button.customize-option(type='button', class='{{user.preferences.size}}_shirt_'+shirt, ng-class='{locked: !user.purchased.shirt.'+shirt+'}', ng-click='unlock("shirt.'+shirt+'")')
           menu
-            button.broad_armor_base_0.customize-option(type='button', ng-click='set({"preferences.size":"broad"})')
-            button.slim_armor_base_0.customize-option(type='button', ng-click='set({"preferences.size":"slim"})')
+            button.btn.btn-small.btn-primary(ng-hide="user.purchased.shirt.convict && user.purchased.shirt.cross && user.purchased.shirt.fire && user.purchased.shirt.horizon && user.purchased.shirt.ocean && user.purchased.shirt.purple && user.purchased.shirt.rainbow && user.purchased.shirt.redblue && user.purchased.shirt.thunder && user.purchased.shirt.tropical && user.purchased.shirt.zombie", ng-click='unlock("shirt.convict,shirt.cross,shirt.fire,shirt.horizon,shirt.ocean,shirt.purple,shirt.rainbow,shirt.redblue,shirt.thunder,shirt.tropical,shirt.zombie")') Unlock Set - 5 <span class="Pet_Currency_Gem1x inline-gems"/>
+
 
     .span4
         h3 Hair

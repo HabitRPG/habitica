@@ -20,10 +20,29 @@ db.users.find().forEach(function(user){
 
   // gender => size
   user.preferences.size = (user.preferences.gender == 'f') ? 'slim' : 'broad';
+  user.preferences.shirt = (user.preferences.gender == 'f') ? 'pink' : 'white';
   delete user.preferences.gender;
 
   // Delete armorSet
   delete user.preferences.armorSet;
+
+  user.items.gear = {
+    owned: {}, // TODO
+    equipped: {
+      weapon: 'weapon_warrior_' + user.items.weapon,
+      shield: 'shield_warrior_' + user.items.shield,
+      head: 'head_warrior_' + user.items.head,
+      armor: 'armor_warrior_' + user.items.armor
+    },
+    costume: {}
+  };
+  _.each({head:'showHelm',weapon:'showWeapon',shield:'showShield',armor:'showArmor'}, function(show,k){
+    if (user.preferences[show] === false) {
+      user.items.gear.costume[k] = user.items.gear.equipped[k];
+      user.preferences.costume = true
+    }
+    delete user.preferences[v];
+  });
 
   user.preferences.sleep = user.flags.rest;
   delete user.flags.rest;

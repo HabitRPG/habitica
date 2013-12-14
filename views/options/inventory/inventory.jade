@@ -11,7 +11,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
             div(ng-repeat='item in gear[klass]')
               button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({query:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
         label.checkbox.inline
-          input(type="checkbox", ng-model="user.preferences.costume")
+          input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
           | Use Costume&nbsp;
           i.icon-question-sign(popover="Show something different on your avatar than the gear you have equipped for battle", popover-trigger='mouseenter', popover-placement='right')
         li.customize-menu(ng-if='user.preferences.costume')
