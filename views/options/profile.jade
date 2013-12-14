@@ -24,7 +24,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
           // Bangs
           li.customize-menu
             menu(label='Bangs')
-              button(class='head_base_0 customize-option', type='button', ng-click='set("preferences.hair.bangs",0)')
+              button(class='head_base_0 customize-option', type='button', ng-click='set({"preferences.hair.bangs":0})')
               button(class='hair_bangs_1_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.bangs":1})')
               button(class='hair_bangs_2_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.bangs":2})')
               button(class='hair_bangs_3_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.bangs":3})')

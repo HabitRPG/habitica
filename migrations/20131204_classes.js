@@ -9,7 +9,8 @@ db.users.find().forEach(function(user){
 
   user.stats.class = 'warrior';
 
-  // set default stats (inc mp)
+  // set default stats (inc mp?)
+  user.stats.points = user.stats.lvl;
 
   // grant backer/contrib gear, 300, rather than using js logic
 
@@ -27,10 +28,15 @@ db.users.find().forEach(function(user){
   user.preferences.sleep = user.flags.rest;
   delete user.flags.rest;
 
-  // migrate task.priority from !, !!, !!! => 1, 1.5, 2
   _.each(user.tasks, function(task){
+
+    // migrate task.priority from !, !!, !!! => 1, 1.5, 2
     var p = task.priority;
     task.priority = p == '!!!' ? 2 : p == '!!' ? 1.5 : 1;
+
+    // Add task attributes
+    task.attribute = 'str';
+
   })
 
   db.users.update({_id:user._id}, user);
