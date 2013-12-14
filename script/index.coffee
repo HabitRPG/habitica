@@ -159,6 +159,7 @@ api.taskDefaults = (task) ->
     notes: ''
     priority: 1
     challenge: {}
+    attribute: 'str'
   _.defaults task, defaults
   _.defaults(task, {up:true,down:true}) if task.type is 'habit'
   _.defaults(task, {history: []}) if task.type in ['habit', 'daily']
@@ -806,6 +807,16 @@ api.wrap = (user) ->
             stats.exp -= tnl
             user.stats.lvl++
             tnl = api.tnl(user.stats.lvl)
+
+            # Auto-allocate a point, or give them a new manual point
+            if user.preferences.automaticAllocation
+              tallies = _.reduce user.tasks, ((m,v)-> m[v.attribute or 'str'] += v.value;m), {str:0,int:0,con:0,per:0}
+              suggested = _.reduce tallies, ((m,v,k)-> if v>tallies[m] then k else m), 'str'
+              user.stats[suggested]++
+            else
+              # add new allocatable points. We could do user.stats.points++, but this does a fail-safe just in case
+              user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+
           if user.stats.lvl == 100
             stats.exp = 0
           user.stats.hp = 50

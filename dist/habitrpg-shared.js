@@ -10267,7 +10267,8 @@ var process=require("__browserify_process");(function() {
       text: '',
       notes: '',
       priority: 1,
-      challenge: {}
+      challenge: {},
+      attribute: 'str'
     };
     _.defaults(task, defaults);
     if (task.type === 'habit') {
@@ -11114,7 +11115,7 @@ var process=require("__browserify_process");(function() {
       */
 
       updateStats: function(stats) {
-        var tnl;
+        var suggested, tallies, tnl;
         if (stats.hp <= 0) {
           return user.stats.hp = 0;
         }
@@ -11132,6 +11133,27 @@ var process=require("__browserify_process");(function() {
               stats.exp -= tnl;
               user.stats.lvl++;
               tnl = api.tnl(user.stats.lvl);
+              if (user.preferences.automaticAllocation) {
+                tallies = _.reduce(user.tasks, (function(m, v) {
+                  m[v.attribute || 'str'] += v.value;
+                  return m;
+                }), {
+                  str: 0,
+                  int: 0,
+                  con: 0,
+                  per: 0
+                });
+                suggested = _.reduce(tallies, (function(m, v, k) {
+                  if (v > tallies[m]) {
+                    return k;
+                  } else {
+                    return m;
+                  }
+                }), 'str');
+                user.stats[suggested]++;
+              } else {
+                user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+              }
             }
             if (user.stats.lvl === 100) {
               stats.exp = 0;
