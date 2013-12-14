@@ -482,7 +482,8 @@ api.wrap = (user) ->
           user.fns.dotSet("purchased." + p, true);true
       else
         if user.fns.dotGet("purchased." + path) is true
-          user.preferences[path.split(".")[0]] = path.split(".")[1]
+          split = path.split('.');v=split.pop();k=split.join('.')
+          user.fns.dotSet("preferences.#{k}",v)
           return cb? null, req
         user.fns.dotSet "purchased." + path, true
       user.balance -= cost
@@ -597,11 +598,11 @@ api.wrap = (user) ->
           if (delta > 0) then addPoints() else subtractPoints()
 
           # History
-          task.history ?= []
-          if moment(task.history[task.history.length-1].date).isSame(new Date, 'day')
-            task.history[task.history.length-1].value = task.value
+          th = (task.history ?= [])
+          if th[th.length-1] and moment(th[th.length-1].date).isSame(new Date, 'day')
+            th[th.length-1].value = task.value
           else
-            task.history.push {date: +new Date, value: task.value}
+            th.push {date: +new Date, value: task.value}
           user.markModified? "habits.#{_.findIndex(user.habits, {id:task.id})}.history"
 
         when 'daily'

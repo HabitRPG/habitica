@@ -18,7 +18,7 @@ module.exports = function(grunt) {
           // `sprite` has `name`, `image` (full path), `x`, `y`
           //   `width`, `height`, `total_width`, `total_height`
           // EXAMPLE: Prefix all sprite names with 'sprite-'
-          if (sprite.name.match(/hair|skin|beard|mustache/) || sprite.name=='head_base_0') {
+          if (sprite.name.match(/hair|skin|beard|mustach/) || sprite.name=='head_base_0') {
             sprite.name = 'customize-option.' + sprite.name;
             sprite.x = sprite.x + 25;
             sprite.y = sprite.y + 15;

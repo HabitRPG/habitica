@@ -10772,7 +10772,7 @@ var process=require("__browserify_process");(function() {
         }, req) : void 0;
       },
       unlock: function(req, cb) {
-        var cost, fullSet, path;
+        var cost, fullSet, k, path, split, v;
         path = req.query.path;
         fullSet = ~path.indexOf(",");
         cost = fullSet ? 1.25 : 0.5;
@@ -10789,7 +10789,10 @@ var process=require("__browserify_process");(function() {
           });
         } else {
           if (user.fns.dotGet("purchased." + path) === true) {
-            user.preferences[path.split(".")[0]] = path.split(".")[1];
+            split = path.split('.');
+            v = split.pop();
+            k = split.join('.');
+            user.fns.dotSet("preferences." + k, v);
             return typeof cb === "function" ? cb(null, req) : void 0;
           }
           user.fns.dotSet("purchased." + path, true);
@@ -10847,7 +10850,7 @@ var process=require("__browserify_process");(function() {
         return typeof cb === "function" ? cb(null, req) : void 0;
       },
       score: function(req, cb) {
-        var addPoints, calculateDelta, delta, direction, id, num, options, stats, subtractPoints, task, _ref;
+        var addPoints, calculateDelta, delta, direction, id, num, options, stats, subtractPoints, task, th, _ref;
         _ref = req.params, id = _ref.id, direction = _ref.direction;
         task = user.tasks[id];
         options = req.query || {};
@@ -10908,13 +10911,11 @@ var process=require("__browserify_process");(function() {
             } else {
               subtractPoints();
             }
-            if (task.history == null) {
-              task.history = [];
-            }
-            if (moment(task.history[task.history.length - 1].date).isSame(new Date, 'day')) {
-              task.history[task.history.length - 1].value = task.value;
+            th = (task.history != null ? task.history : task.history = []);
+            if (th[th.length - 1] && moment(th[th.length - 1].date).isSame(new Date, 'day')) {
+              th[th.length - 1].value = task.value;
             } else {
-              task.history.push({
+              th.push({
                 date: +(new Date),
                 value: task.value
               });

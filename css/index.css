@@ -10,7 +10,10 @@
   margin-top:2px;
 }
 
-.inline-gems {display: inline-block;}
+.inline-gems {
+  margin-left: 0px;
+  display: inline-block;
+}
 
 /* Both */
 .customize-menu .locked {
