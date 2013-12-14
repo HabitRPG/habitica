@@ -67,4 +67,4 @@
     .well(ng-show='selectedClass=="healer"') Healers have high defense against damage, and can heal themselves and other players in the party, as well as buff players.
 
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='changeClass(selectedClass)') Select
+    button.btn.btn-default.cancel(ng-click='selectedClass && changeClass(selectedClass)') Select

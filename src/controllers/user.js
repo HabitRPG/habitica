@@ -225,7 +225,7 @@ api.update = function(req, res, next) {
 
 api.cron = function(req, res, next) {
   var user = res.locals.user;
-  shared.cron(user);
+  user.fns.cron();
   if (user.isModified())
     res.locals.wasModified = true;
   user.save(next);

@@ -16,7 +16,6 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     }
 
     $scope.changeClass = function(klass){
-      if (!$scope.selectedClass) return;
       if (!klass) {
         if (!confirm("Are you sure you want to re-roll? This will reset your character's class and allocated points (you'll get them all back to re-allocate)"))
           return;
