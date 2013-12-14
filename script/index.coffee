@@ -76,7 +76,6 @@ randomVal = (obj) ->
   result
 
 
-
 ###
   ------------------------------------------------------
   Scoring
@@ -446,19 +445,18 @@ api.wrap = (user) ->
       user.stats.lvl-- if user.stats.lvl > 1
 
       # Lose a stat point
-      lostStat = randomVal _.reduce(['str','con','per','int'], ((m,k)->(m[k]=k if user.stats[v];m)), {})
+      lostStat = randomVal _.reduce(['str','con','per','int'], ((m,k)->m[k]=k if user.stats[k];m), {})
       user.stats[lostStat]-- if lostStat
 
       # Lose a gear piece
-      # Can't use randomVal since we need k, not v
-      count = 0
-      for k,v of user.items.gear.owned
-        lostItem = k if Math.random() < (1 / ++count)
+      # Note, they can actually lose item weapon_*_0 - it's 0 to buy back, no big deal
+      lostItem = randomVal _.reduce(user.items.gear.owned, ((m,v,k)->m[k]=k if v;m), {})
       if item = content.gear.flat[lostItem]
-        delete user.items.gear.owned[lostItem]
-        user.items.gear.equipped[item.type] = "#{item.type}_base_0"
-        user.items.gear.costume[item.type] = "#{item.type}_base_0"
+        user.items.gear.owned[lostItem] = false
+        user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
+        user.items.gear.costume[item.type] = "#{item.type}_base_0" if user.items.gear.costume[item.type] is lostItem
       user.markModified? 'items.gear'
+
       cb? null, req
 
     hatch: (req, cb) ->
