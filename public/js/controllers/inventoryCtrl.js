@@ -22,12 +22,13 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
       $scope.gear = {
         base: _.where(Content.gear.flat, {klass: 'base'})
       };
-      _.each(gear.owned, function(bool,key){
+      _.each(gear.owned, function(v,key){
+        if (v === false) return;
         var item = Content.gear.flat[key];
         if (!$scope.gear[item.klass]) $scope.gear[item.klass] = [];
         $scope.gear[item.klass].push(item);
       })
-    }, true)
+    }, true);
 
     $scope.chooseEgg = function(egg){
       if ($scope.selectedEgg && $scope.selectedEgg.name == egg) {
