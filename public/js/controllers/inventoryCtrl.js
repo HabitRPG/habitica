@@ -76,6 +76,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     }
 
     $scope.hatch = function(egg, potion){
+      if (!confirm('Hatch a ' + potion.name + ' ' + egg.name + '?')) return;
       user.ops.hatch({query:{egg:egg.name, hatchingPotion:potion.name}});
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
@@ -100,8 +101,11 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
       // Feeding Pet
       if ($scope.selectedFood) {
         var food = $scope.selectedFood
-        if (food.name == 'Saddle' && !confirm('Saddle ' + pet + '?')) return;
-        if (!confirm('Feed ' + pet + ' a ' + food.name + '?')) return;
+        if (food.name == 'Saddle') {
+          if (!confirm('Saddle ' + pet + '?')) return;
+        } else if (!confirm('Feed ' + pet + ' a ' + food.name + '?')) {
+          return;
+        }
         User.user.ops.feed({query:{pet: pet, food: food.name}});
         $scope.selectedFood = null;
 
