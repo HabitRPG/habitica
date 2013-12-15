@@ -22,13 +22,21 @@ gear =
       5: text: "Ruby Sword", notes:'Weapon whose forge-glow never fades. Increases STR by 15.', str: 15, value:90
       6: text: "Golden Sword", notes:'Bane of creatures of darkness. Increases STR by 18.', str: 18, value:120, last: true
     rogue:
-      0: twoHanded: true, text: "Practice Bow", notes:'Training weapon. Confers no benefit.', value:0
-      1: twoHanded: true, text: "Short Bow", notes:'Simple bow best at close ranges. Increases STR by 2.', str: 2, value:20
-      2: twoHanded: true, text: "Long Bow", notes:'Bow with a strong draw for extra distance. Increases STR by 5.', str: 5, value:50
-      3: twoHanded: true, text: "Recurve Bow", notes:'Built with advanced techniques. Increases STR by 8.', str: 8, value:80
-      4: twoHanded: true, text: "Icicle Bow", notes:'Fires arrows of piercing cold. Increases STR by 12.', str: 12, value:120
-      5: twoHanded: true, text: "Meteor Bow", notes:'Rains flame upon your foes. Increases STR by 16.', str: 16, value:160
-      6: twoHanded: true, text: "Golden Bow", notes:'As swift as sunlight and as sharp as lightning. Increases STR by 20.', str: 20, value:200, last: true
+      #Not using bows at the moment, but they would be easy to add back in to an advanced Armory feature, as Quest drops, etc.
+      #0: twoHanded: true, text: "Practice Bow", notes:'Training weapon. Confers no benefit.', value:0
+      #1: twoHanded: true, text: "Short Bow", notes:'Simple bow best at close ranges. Increases STR by 2.', str: 2, value:20
+      #2: twoHanded: true, text: "Long Bow", notes:'Bow with a strong draw for extra distance. Increases STR by 5.', str: 5, value:50
+      #3: twoHanded: true, text: "Recurve Bow", notes:'Built with advanced techniques. Increases STR by 8.', str: 8, value:80
+      #4: twoHanded: true, text: "Icicle Bow", notes:'Fires arrows of piercing cold. Increases STR by 12.', str: 12, value:120
+      #5: twoHanded: true, text: "Meteor Bow", notes:'Rains flame upon your foes. Increases STR by 16.', str: 16, value:160
+      #6: twoHanded: true, text: "Golden Bow", notes:'As swift as sunlight and as sharp as lightning. Increases STR by 20.', str: 20, value:200, last: true
+      0: text: "Dagger", notes: 'A rogue\'s most basic weapon. Confers no benefit.', str: 0, value: 0
+      1: text: "Short Sword", notes: 'Light, concealable blade. Increases STR by 2.', str: 2, value: 20
+      2: text: "Scimitar", notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.', str: 3, value: 35
+      3: text: "Kukri", notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.', str: 4, value: 50
+      4: text: "Nunchaku", notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.', str: 6, value: 70
+      5: text: "Ninja-to", notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.', str: 8, value: 90
+      6: text: "Hook Sword", notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.', str: 10, value: 120, last: true
     wizard:
       0: twoHanded: true, text: "Apprentice Staff", notes:'Practice staff. Confers no benefit.', value:0
       1: twoHanded: true, text: "Wooden Staff", notes:'Basic implement of carven wood. Increases INT by 3 and PER by 1.', int: 3, per: 1, value:30
@@ -48,8 +56,8 @@ gear =
     special:
       0: text: "Dark Souls Blade", notes:'Feasts upon foes\' life essence to power its wicked strokes. Increases STR by 20.', str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
       1: text: "Crystal Blade", notes:'Its glittering facets tell the tale of a hero. Increases all attributes by 6.', str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
-      2: text: "Stephen Weber's Shaft of the Dragon", notes:"Stephen Weber's Shaft of the Dragon", str: 50, per: 50, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
-      3: text: "Mustaine's Milestone Mashing Morning Star", notes:"Mustaine's Milestone Mashing Morning Star", str: 50, int: 50, con: 50, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      2: text: "Stephen Weber's Shaft of the Dragon", notes:'Feel the potency of the dragon surge from within! Increases STR and PER by 25 each.', str: 25, per: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      3: text: "Mustaine's Milestone Mashing Morning Star", notes:"Meetings, monsters, malaise: managed! Mash! Increases STR, INT, and CON by 17 each.", str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
 
   armor:
     base:
@@ -85,7 +93,7 @@ gear =
     special:
       0: text: "Shade Armor",   notes:'Screams when struck, for it feels pain in its wearer\'s place. Increases CON by 20.', con: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: "Crystal Armor", notes:'Its tireless power inures the wearer to mundane discomfort. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
-      2: text: "Tarutaru's Noble's Tunic", notes:'Makes you extra fluffy. Adds "Refresh" effect; Cure potency +n%.', int: 50, con: 50, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      2: text: "Jean Chalard's Noble Tunic", notes:'Makes you extra fluffy! Increases CON and INT by 25 each.', int: 25, con: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
 
   head:
     base:
@@ -119,9 +127,9 @@ gear =
       4: text: "Emerald Diadem", notes:'Emits an aura of life and growth. Increases INT by 7.', int: 7, value:60
       5: text: "Royal Diadem", notes:'For king, queen, or miracle-worker. Increases INT by 9.', int: 9, value:80, last: true
     special:
-      0: text: "Shade Helm",   notes:'Decreases Health loss by 7%.', defense: 7, value:100, canOwn: ((u)-> +u.backer?.tier >= 45)
-      1: text: "Crystal Helm", notes:'Decreases Health loss by 8%.', defense: 8, value:120, canOwn: ((u)-> +u.contributor?.level >= 3)
-      2: text: "??? 300-tier Helm", notes:'', value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      0: text: "Shade Helm",   notes:'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.', int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
+      1: text: "Crystal Helm", notes:'The favored crown of those who lead by example. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 3)
+      #2: text: "??? 300-tier Helm", notes:'', value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
 
   shield:
     base:
@@ -134,13 +142,13 @@ gear =
       4: text: "Red Shield", notes:'Rebukes blows with a burst of flame. Increases CON by 7.', con: 7, value:70
       5: text: "Golden Shield", notes:'Shining badge of the vanguard. Increases CON by 9.', con: 9, value:90, last: true
     rogue:
-      0: text: "Knife 1", notes:'Knife 1', value:0
-      1: text: "Knife 2", notes:'Knife 2', value:1
-      2: text: "Knife 3", notes:'Knife 3', value:1
-      3: text: "Knife 4", notes:'Knife 4', value:1
-      4: text: "Knife 5", notes:'Knife 5', value:1
-      5: text: "Knife 6", notes:'Knife 6', value:1
-      6: text: "Knife 7", notes:'Knife 7', value:1, last: true
+      0: text: "Dagger", notes: 'A rogue\'s most basic weapon. Confers no benefit.', str: 0, value: 0
+      1: text: "Short Sword", notes: 'Light, concealable blade. Increases STR by 2.', str: 2, value: 20
+      2: text: "Scimitar", notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.', str: 3, value: 35
+      3: text: "Kukri", notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.', str: 4, value: 50
+      4: text: "Nunchaku", notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.', str: 6, value: 70
+      5: text: "Ninja-to", notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.', str: 8, value: 90
+      6: text: "Hook Sword", notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.', str: 10, value: 120, last: true
     wizard: {}
       #0: text: "No Shield", notes:'No shield.', def: 0, value:0, last: true
     healer:
@@ -148,11 +156,11 @@ gear =
       1: text: "Medic Buckler", notes:'Easy to disengage, freeing a hand for bandaging. Increases CON by 2.', con: 2, value:20
       2: text: "Kite Shield", notes:'Tapered shield with the symbol of healing. Increases CON by 4.', con: 4, value:35
       3: text: "Hospitaler Shield", notes:'Traditional shield of defender knights. Increases CON by 6.', con: 6, value:50
-      4: text: "Savior Shield", notes:'Turns blows from innocents as well as oneself. Increases CON by 9.', con: 9, value:70
+      4: text: "Savior Shield", notes:'Stops blows aimed at nearby innocents as well as those aimed at you. Increases CON by 9.', con: 9, value:70
       5: text: "Royal Shield", notes:'Bestowed upon those most dedicated to the kingdom\'s defense. Increases CON by 12.', con: 12, value:90, last: true
     special:
-      0: text: "Tormented Skull", notes:'Decreases Health loss by 9%.', defense: 9, value:120, canOwn: ((u)-> +u.backer?.tier >= 45)
-      1: text: "Crystal Shield", notes:'Decreases Health loss by 10%.', defense: 10, value:150, canOwn: ((u)-> +u.contributor?.level >= 5)
+      0: text: "Tormented Skull", notes:'Sees beyond the veil of death, and displays what it finds there for enemies to fear. Increases PER by 20.', per: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
+      1: text: "Crystal Shield", notes:'Shatters arrows and deflects the words of naysayers. Increases all attributes by 6.', con: 6, str: 6, per: 6, int:6, value:170, canOwn: ((u)-> +u.contributor?.level >= 5)
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
