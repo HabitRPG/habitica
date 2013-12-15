@@ -10915,30 +10915,25 @@ var process=require("__browserify_process");(function() {
     * user.ops, which is super important:
   
   If a function is inside user.ops, it has magical properties. If you call it on the client it updates the user object in
-  the browser and when it's done it POSTs to the server, calling `src/controllers/user.js#OP_NAME` (the exact same name
-  of the op function). The first argument `req` is `{query, body, params}`, it's what the express controller function
-  expects. Because of this, we don't construct op functions in standard way (function(arg1,arg2,arg3){}), but instead
-  the first arg is {query, body, params} and the second is a callback(err, results). `query` is the most commonly-used,
-  but body is useful for updates/creates (eg, tasks), and params are used in those cases too (eg, {op:'updateTask',{params:{id:task.id}, body:task}}})
-  This needs refinement: see http://stackoverflow.com/questions/4024271/rest-api-best-practices-where-to-put-parameters
+  the browser and when it's done it automatically POSTs to the server, calling src/controllers/user.js#OP_NAME (the exact same name
+  of the op function). The first argument req is {query, body, params}, it's what the express controller function
+  expects. This means we call our functions as if we were calling an Express route. Eg, instead of score(task, direction),
+  we call score({params:{id:task.id,direction:direction}}). This also forces us to think about our routes (whether to use
+  params, query, or body for variables). see http://stackoverflow.com/questions/4024271/rest-api-best-practices-where-to-put-parameters
   
-  If `src/controllers/user.js#OP_NAME` doesn't exist, it's automatically added. It runs the code in user.ops.OP_NAME
+  If `src/controllers/user.js#OP_NAME` doesn't exist on the server, it's automatically added. It runs the code in user.ops.OP_NAME
   to update the user model server-side, then performs `user.save()`. You can see this in action for `user.ops.buy`. That
   function doesn't exist on the server - so the client calls it, it updates user in the browser, auto-POSTs to server, server
   handles it by calling `user.ops.buy` again (to update user on the server), and then saves. We can do this for
-  everything that doesn't need any code different from what's in user.ops.OP_NAME for special-handling server-side. If we
-  *do* need special handling, just add `src/controllers/user.js#OP_NAME` to override the user.ops.OP_NAME, and just be
+  everything that doesn't need any code difference from what's in user.ops.OP_NAME for special-handling server-side. If we
+  *do* need special handling, just add `src/controllers/user.js#OP_NAME` to override the user.ops.OP_NAME, and be
   sure to call user.ops.OP_NAME at some point within the overridden function.
   
   TODO
-    * Migrate the remaining parts: Tags, party invitiations
     * Is this the best way to wrap the user object? I thought of using user.prototype, but user is an object not a Function.
       user on the server is a Mongoose model, so we can use prototype - but to do it on the client, we'd probably have to
       move to $resource for user
     * Move to $resource!
-  
-  BUGS
-    * Daily repeats don't have the days showing up (translations issue?)
   */
 
 
@@ -10948,8 +10943,97 @@ var process=require("__browserify_process");(function() {
     }
     user._wrapped = true;
     user.ops = {
+      update: function(req, cb) {
+        _.each(req.body, function(v, k) {
+          user.fns.dotSet(k, v);
+          return true;
+        });
+        return typeof cb === "function" ? cb(null, req) : void 0;
+      },
       sleep: function(req, cb) {
         user.preferences.sleep = !user.preferences.sleep;
+        return cb(null, req);
+      },
+      revive: function(req, cb) {
+        var item, lostItem, lostStat;
+        _.merge(user.stats, {
+          hp: 50,
+          exp: 0,
+          gp: 0
+        });
+        if (user.stats.lvl > 1) {
+          user.stats.lvl--;
+        }
+        lostStat = user.fns.randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
+          if (user.stats[k]) {
+            m[k] = k;
+          }
+          return m;
+        }), {}));
+        if (lostStat) {
+          user.stats[lostStat]--;
+        }
+        lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, (function(m, v, k) {
+          if (v) {
+            m["" + k] = "" + k;
+          }
+          return m;
+        }), {}));
+        if (item = content.gear.flat[lostItem]) {
+          user.items.gear.owned[lostItem] = false;
+          if (user.items.gear.equipped[item.type] === lostItem) {
+            user.items.gear.equipped[item.type] = "" + item.type + "_base_0";
+          }
+          if (user.items.gear.costume[item.type] === lostItem) {
+            user.items.gear.costume[item.type] = "" + item.type + "_base_0";
+          }
+        }
+        if (typeof user.markModified === "function") {
+          user.markModified('items.gear');
+        }
+        return typeof cb === "function" ? cb((item ? {
+          code: 200,
+          message: "Your " + item.text + " broke."
+        } : null), req) : void 0;
+      },
+      reset: function(req, cb) {
+        var gear;
+        user.habits = [];
+        user.dailys = [];
+        user.todos = [];
+        user.rewards = [];
+        user.stats.hp = 50;
+        user.stats.lvl = 1;
+        user.stats.gp = 0;
+        user.stats.exp = 0;
+        gear = user.items.gear;
+        _.each(['equipped', 'costume'], function(type) {
+          gear[type].armor = 'armor_base_0';
+          gear[type].weapon = 'weapon_base_0';
+          gear[type].head = 'head_base_0';
+          return gear[type].shield = 'shield_base_0';
+        });
+        user.items.gear.owned = {
+          weapon_warrior_0: true
+        };
+        if (typeof user.markModified === "function") {
+          user.markModified('items.gear.owned');
+        }
+        user.preferences.costume = false;
+        return cb(null, req);
+      },
+      reroll: function(req, cb) {
+        if (user.balance < 1) {
+          return cb({
+            code: 401,
+            message: "Not enough gems."
+          }, req);
+        }
+        user.balance--;
+        _.each(user.tasks, function(task) {
+          return task.value = 0;
+        });
+        user.stats.hp = 50;
         return cb(null, req);
       },
       clearCompleted: function(req, cb) {
@@ -10957,13 +11041,6 @@ var process=require("__browserify_process");(function() {
           completed: false
         });
         return cb(null, req);
-      },
-      update: function(req, cb) {
-        _.each(req.body, function(v, k) {
-          user.fns.dotSet(k, v);
-          return true;
-        });
-        return typeof cb === "function" ? cb(null, req) : void 0;
       },
       sortTask: function(req, cb) {
         var from, id, task, to, _ref;
@@ -10973,7 +11050,7 @@ var process=require("__browserify_process");(function() {
         if (!task) {
           return cb({
             code: 404,
-            message: "No task found."
+            message: "Task not found."
           });
         }
         if (!((to != null) && (from != null))) {
@@ -10994,7 +11071,19 @@ var process=require("__browserify_process");(function() {
         return typeof cb === "function" ? cb(null, req) : void 0;
       },
       deleteTask: function(req, cb) {
-        return typeof cb === "function" ? cb(null, req) : void 0;
+        var i, task, _ref;
+        task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0];
+        if (!task) {
+          return cb({
+            code: 404,
+            message: 'Task not found'
+          });
+        }
+        i = user[task.type + "s"].indexOf(task);
+        if (~i) {
+          user[task.type + "s"].splice(i, 1);
+        }
+        return cb(null, req);
       },
       addTask: function(req, cb) {
         var task;
@@ -11049,19 +11138,35 @@ var process=require("__browserify_process");(function() {
         return cb(null, req);
       },
       feed: function(req, cb) {
-        var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2, _ref3;
-        _ref2 = [(_ref = req.query) != null ? _ref.pet : void 0, content.food[(_ref1 = req.query) != null ? _ref1.food : void 0]], pet = _ref2[0], food = _ref2[1];
-        _ref3 = pet.split('-'), egg = _ref3[0], potion = _ref3[1];
-        if (!(pet && food)) {
-          return cb("?food=__&pet=__ are both required in query, and must be valid");
+        var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
+        _ref = req.params, pet = _ref.pet, food = _ref.food;
+        food = content.food[food];
+        _ref1 = pet.split('-'), egg = _ref1[0], potion = _ref1[1];
+        userPets = user.items.pets;
+        if (!userPets[pet]) {
+          return cb({
+            code: 404,
+            message: ":pet not found in user.items.pets"
+          });
+        }
+        if (!((_ref2 = user.items.food) != null ? _ref2[food.name] : void 0)) {
+          return cb({
+            code: 404,
+            message: ":food not found in user.items.food"
+          });
         }
         if (content.specialPets[pet]) {
-          return cb("Can't feed this pet.");
+          return cb({
+            code: 401,
+            message: "Can't feed this pet."
+          });
         }
         if (user.items.mounts[pet] && (userPets[pet] >= 50 || food.name === 'Saddle')) {
-          return cb("You already have that mount");
+          return cb({
+            code: 401,
+            message: "You already have that mount"
+          });
         }
-        userPets = user.items.pets;
         message = '';
         evolve = function() {
           userPets[pet] = 0;
@@ -11091,9 +11196,32 @@ var process=require("__browserify_process");(function() {
           message: message
         }, req);
       },
+      purchase: function(req, cb) {
+        var item, key, type, _ref;
+        _ref = req.params, type = _ref.type, key = _ref.key;
+        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
+          return cb({
+            code: 404,
+            message: ":type must be in [hatchingPotions,eggs,food]"
+          }, req);
+        }
+        item = content[type][key];
+        if (!item) {
+          return cb({
+            code: 404,
+            message: ":key not found for Content." + type
+          }, req);
+        }
+        if (!user.items[type][key]) {
+          user.items[type][key] = 0;
+        }
+        user.items[type][key]++;
+        user.balance -= item.value / 4;
+        return cb(null, req);
+      },
       buy: function(req, cb) {
         var item, key, message, _ref;
-        key = req.query.key;
+        key = req.params.key;
         item = key === 'potion' ? content.potion : content.gear.flat[key];
         if (!item) {
           return typeof cb === "function" ? cb({
@@ -11103,7 +11231,7 @@ var process=require("__browserify_process");(function() {
         }
         if (user.stats.gp < item.value) {
           return typeof cb === "function" ? cb({
-            code: 200,
+            code: 401,
             message: 'Not enough gold.'
           }) : void 0;
         }
@@ -11125,12 +11253,18 @@ var process=require("__browserify_process");(function() {
       },
       sell: function(req, cb) {
         var key, type, _ref;
-        _ref = req.query, key = _ref.key, type = _ref.type;
+        _ref = req.params, key = _ref.key, type = _ref.type;
         if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
-          return cb("?type must by in [eggs, hatchingPotions, food]");
+          return cb({
+            code: 404,
+            message: ":type not found. Must bes in [eggs, hatchingPotions, food]"
+          });
         }
         if (!user.items[type][key]) {
-          return cb("?key not found for user.items." + type);
+          return cb({
+            code: 404,
+            message: ":key not found for user.items." + type
+          });
         }
         user.items[type][key]--;
         user.stats.gp += content[type][key].value;
@@ -11138,7 +11272,7 @@ var process=require("__browserify_process");(function() {
       },
       equip: function(req, cb) {
         var item, key, message, type, _ref;
-        _ref = [req.query.type || 'equipped', req.query.key], type = _ref[0], key = _ref[1];
+        _ref = [req.params.type || 'equipped', req.params.key], type = _ref[0], key = _ref[1];
         switch (type) {
           case 'mount':
             user.items.currentMount = user.items.currentMount === key ? '' : key;
@@ -11154,56 +11288,20 @@ var process=require("__browserify_process");(function() {
         }
         return typeof cb === "function" ? cb(message, req) : void 0;
       },
-      revive: function(req, cb) {
-        var item, lostItem, lostStat;
-        _.merge(user.stats, {
-          hp: 50,
-          exp: 0,
-          gp: 0
-        });
-        if (user.stats.lvl > 1) {
-          user.stats.lvl--;
-        }
-        lostStat = user.fns.randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
-          if (user.stats[k]) {
-            m[k] = k;
-          }
-          return m;
-        }), {}));
-        if (lostStat) {
-          user.stats[lostStat]--;
-        }
-        lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, (function(m, v, k) {
-          if (v) {
-            m["" + k] = "" + k;
-          }
-          return m;
-        }), {}));
-        if (item = content.gear.flat[lostItem]) {
-          user.items.gear.owned[lostItem] = false;
-          if (user.items.gear.equipped[item.type] === lostItem) {
-            user.items.gear.equipped[item.type] = "" + item.type + "_base_0";
-          }
-          if (user.items.gear.costume[item.type] === lostItem) {
-            user.items.gear.costume[item.type] = "" + item.type + "_base_0";
-          }
-        }
-        if (typeof user.markModified === "function") {
-          user.markModified('items.gear');
-        }
-        return typeof cb === "function" ? cb((item ? {
-          code: 200,
-          message: "Your " + item.text + " broke."
-        } : null), req) : void 0;
-      },
       hatch: function(req, cb) {
         var egg, hatchingPotion, pet, _ref;
-        _ref = req.query, egg = _ref.egg, hatchingPotion = _ref.hatchingPotion;
+        _ref = req.params, egg = _ref.egg, hatchingPotion = _ref.hatchingPotion;
         if (!(egg && hatchingPotion)) {
-          return cb("Please specify query.egg & query.hatchingPotion");
+          return cb({
+            code: 404,
+            message: "Please specify query.egg & query.hatchingPotion"
+          });
         }
         if (!(user.items.eggs[egg] > 0 && user.items.hatchingPotions[hatchingPotion] > 0)) {
-          return cb("You're missing either that egg or that potion");
+          return cb({
+            code: 401,
+            message: "You're missing either that egg or that potion"
+          });
         }
         pet = "" + egg + "-" + hatchingPotion;
         if (user.items.pets[pet]) {

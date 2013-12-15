@@ -276,30 +276,25 @@ User is now wrapped (both on client and server), adding a few new properties:
   * user.ops, which is super important:
 
 If a function is inside user.ops, it has magical properties. If you call it on the client it updates the user object in
-the browser and when it's done it POSTs to the server, calling `src/controllers/user.js#OP_NAME` (the exact same name
-of the op function). The first argument `req` is `{query, body, params}`, it's what the express controller function
-expects. Because of this, we don't construct op functions in standard way (function(arg1,arg2,arg3){}), but instead
-the first arg is {query, body, params} and the second is a callback(err, results). `query` is the most commonly-used,
-but body is useful for updates/creates (eg, tasks), and params are used in those cases too (eg, {op:'updateTask',{params:{id:task.id}, body:task}}})
-This needs refinement: see http://stackoverflow.com/questions/4024271/rest-api-best-practices-where-to-put-parameters
+the browser and when it's done it automatically POSTs to the server, calling src/controllers/user.js#OP_NAME (the exact same name
+of the op function). The first argument req is {query, body, params}, it's what the express controller function
+expects. This means we call our functions as if we were calling an Express route. Eg, instead of score(task, direction),
+we call score({params:{id:task.id,direction:direction}}). This also forces us to think about our routes (whether to use
+params, query, or body for variables). see http://stackoverflow.com/questions/4024271/rest-api-best-practices-where-to-put-parameters
 
-If `src/controllers/user.js#OP_NAME` doesn't exist, it's automatically added. It runs the code in user.ops.OP_NAME
+If `src/controllers/user.js#OP_NAME` doesn't exist on the server, it's automatically added. It runs the code in user.ops.OP_NAME
 to update the user model server-side, then performs `user.save()`. You can see this in action for `user.ops.buy`. That
 function doesn't exist on the server - so the client calls it, it updates user in the browser, auto-POSTs to server, server
 handles it by calling `user.ops.buy` again (to update user on the server), and then saves. We can do this for
-everything that doesn't need any code different from what's in user.ops.OP_NAME for special-handling server-side. If we
-*do* need special handling, just add `src/controllers/user.js#OP_NAME` to override the user.ops.OP_NAME, and just be
+everything that doesn't need any code difference from what's in user.ops.OP_NAME for special-handling server-side. If we
+*do* need special handling, just add `src/controllers/user.js#OP_NAME` to override the user.ops.OP_NAME, and be
 sure to call user.ops.OP_NAME at some point within the overridden function.
 
 TODO
-  * Migrate the remaining parts: Tags, party invitiations
   * Is this the best way to wrap the user object? I thought of using user.prototype, but user is an object not a Function.
     user on the server is a Mongoose model, so we can use prototype - but to do it on the client, we'd probably have to
     move to $resource for user
   * Move to $resource!
-
-BUGS
-  * Daily repeats don't have the days showing up (translations issue?)
 ###
 api.wrap = (user) ->
   return if user._wrapped
@@ -311,24 +306,82 @@ api.wrap = (user) ->
 
   user.ops =
 
-    sleep: (req, cb) ->
-      user.preferences.sleep = !user.preferences.sleep
-      cb null, req
-
-    clearCompleted: (req, cb) ->
-      user.todos = _.where(user.todos, {completed: false})
-      cb null, req
+    # ------
+    # User
+    # ------
 
     update: (req, cb) ->
       _.each req.body, (v,k) ->
         user.fns.dotSet(k,v);true
       cb? null, req
 
+    sleep: (req, cb) ->
+      user.preferences.sleep = !user.preferences.sleep
+      cb null, req
+
+    revive: (req, cb) ->
+      # Reset stats
+      _.merge user.stats, {hp:50, exp:0, gp:0}
+      user.stats.lvl-- if user.stats.lvl > 1
+
+      # Lose a stat point
+      lostStat = user.fns.randomVal _.reduce(['str','con','per','int'], ((m,k)->m[k]=k if user.stats[k];m), {})
+      user.stats[lostStat]-- if lostStat
+
+      # Lose a gear piece
+      # Note, they can actually lose item weapon_*_0 - it's 0 to buy back, no big deal
+      # Note the `""+` string-casting. Without this, when run on the server Mongoose returns funny objects
+      lostItem = user.fns.randomVal _.reduce(user.items.gear.owned, ((m,v,k)->m[""+k]=""+k if v;m), {})
+      if item = content.gear.flat[lostItem]
+        user.items.gear.owned[lostItem] = false
+        user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
+        user.items.gear.costume[item.type] = "#{item.type}_base_0" if user.items.gear.costume[item.type] is lostItem
+      user.markModified? 'items.gear'
+      cb? (if item then {code:200,message:"Your #{item.text} broke."} else null), req
+
+    reset: (req, cb) ->
+      user.habits = []
+      user.dailys = []
+      user.todos = []
+      user.rewards = []
+      user.stats.hp = 50
+      user.stats.lvl = 1
+      user.stats.gp = 0
+      user.stats.exp = 0
+      # TODO handle MP
+      gear = user.items.gear
+      _.each ['equipped', 'costume'], (type) ->
+        gear[type].armor  = 'armor_base_0'
+        gear[type].weapon = 'weapon_base_0'
+        gear[type].head   = 'head_base_0'
+        gear[type].shield = 'shield_base_0'
+      user.items.gear.owned = {weapon_warrior_0:true}
+      user.markModified? 'items.gear.owned'
+      user.preferences.costume = false
+      cb null, req
+
+    reroll: (req, cb) ->
+      if user.balance < 1
+        return cb {code:401,message: "Not enough gems."}, req
+      user.balance--
+      _.each user.tasks, (task) ->
+        task.value = 0
+      user.stats.hp = 50
+      cb null, req
+
+    # ------
+    # Tasks
+    # ------
+
+    clearCompleted: (req, cb) ->
+      user.todos = _.where(user.todos, {completed: false})
+      cb null, req
+
     sortTask: (req, cb) ->
       {id} = req.params
       {to, from} = req.query
       task = user.tasks[id]
-      return cb({code:404, message: "No task found."}) unless task
+      return cb({code:404, message: "Task not found."}) unless task
       return cb('?to=__&from=__ are required') unless to? and from?
       user["#{task.type}s"].splice to, 0, user["#{task.type}s"].splice(from, 1)[0]
       cb null, req
@@ -340,13 +393,21 @@ api.wrap = (user) ->
       cb? null, req
 
     deleteTask: (req, cb) ->
-      cb? null, req
+      task = user.tasks[req.params?.id]
+      return cb({code:404,message:'Task not found'}) unless task
+      i = user[task.type + "s"].indexOf(task)
+      user[task.type + "s"].splice i, 1  if ~i
+      cb null, req
 
     addTask: (req, cb) ->
       task = api.taskDefaults(req.body)
       user["#{task.type}s"].unshift(task)
       cb? null, req
       task
+
+    # ------
+    # Tags
+    # ------
 
     addTag: (req, cb) ->
       {name} = req.body
@@ -377,15 +438,21 @@ api.wrap = (user) ->
         user.markModified? type
       cb null, req
 
+    # ------
+    # Inventory
+    # ------
+
     feed: (req, cb) ->
-      [pet, food] = [req.query?.pet, content.food[req.query?.food]]
+      {pet,food} = req.params
+      food = content.food[food]
       [egg, potion] = pet.split('-')
-
-      return cb("?food=__&pet=__ are both required in query, and must be valid") unless pet and food # TODO validation on pet string
-      return cb("Can't feed this pet.") if content.specialPets[pet]
-      return cb("You already have that mount") if user.items.mounts[pet] and (userPets[pet] >= 50 or food.name is 'Saddle')
-
       userPets = user.items.pets
+
+      return cb({code:404, message:":pet not found in user.items.pets"}) unless userPets[pet]
+      return cb({code:404, message:":food not found in user.items.food"}) unless user.items.food?[food.name]
+      return cb({code:401, message:"Can't feed this pet."}) if content.specialPets[pet]
+      return cb({code:401, message:"You already have that mount"}) if user.items.mounts[pet] and (userPets[pet] >= 50 or food.name is 'Saddle')
+
       message = ''
       evolve = ->
         userPets[pet] = 0
@@ -407,11 +474,23 @@ api.wrap = (user) ->
       user.items.food[food.name]--
       cb {code:200, message}, req
 
+    # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
+    purchase: (req, cb) ->
+      {type,key}  = req.params
+      return cb({code:404,message:":type must be in [hatchingPotions,eggs,food]"},req) unless type in ['eggs','hatchingPotions', 'food']
+      item = content[type][key]
+      return cb({code:404,message:":key not found for Content.#{type}"},req) unless item
+      user.items[type][key] = 0  unless user.items[type][key]
+      user.items[type][key]++
+      user.balance -= (item.value / 4)
+      cb null, req
+
+    # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
     buy: (req, cb) ->
-      {key} = req.query
+      {key} = req.params
       item = if key is 'potion' then content.potion else content.gear.flat[key]
       return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"}) unless item
-      return cb?({code:200, message:'Not enough gold.'}) if user.stats.gp < item.value
+      return cb?({code:401, message:'Not enough gold.'}) if user.stats.gp < item.value
       if item.key is 'potion'
         user.stats.hp += 15
         user.stats.hp = 50 if user.stats.hp > 50
@@ -425,15 +504,15 @@ api.wrap = (user) ->
       cb? message, req
 
     sell: (req, cb) ->
-      {key, type} = req.query
-      return cb("?type must by in [eggs, hatchingPotions, food]") unless type in ['eggs','hatchingPotions', 'food']
-      return cb("?key not found for user.items.#{type}") unless user.items[type][key]
+      {key, type} = req.params
+      return cb({code:404,message:":type not found. Must bes in [eggs, hatchingPotions, food]"}) unless type in ['eggs','hatchingPotions', 'food']
+      return cb({code:404,message:":key not found for user.items.#{type}"}) unless user.items[type][key]
       user.items[type][key]--
       user.stats.gp += content[type][key].value
       cb? null, req
 
     equip: (req, cb) ->
-      [type, key] = [req.query.type || 'equipped', req.query.key]
+      [type, key] = [req.params.type || 'equipped', req.params.key]
       switch type
         when 'mount'
           user.items.currentMount = if user.items.currentMount is key then '' else key
@@ -445,31 +524,10 @@ api.wrap = (user) ->
           message = user.fns.handleTwoHanded(item,type)
       cb? message, req
 
-    revive: (req, cb) ->
-      # Reset stats
-      _.merge user.stats, {hp:50, exp:0, gp:0}
-      user.stats.lvl-- if user.stats.lvl > 1
-
-      # Lose a stat point
-      lostStat = user.fns.randomVal _.reduce(['str','con','per','int'], ((m,k)->m[k]=k if user.stats[k];m), {})
-      user.stats[lostStat]-- if lostStat
-
-      # Lose a gear piece
-      # Note, they can actually lose item weapon_*_0 - it's 0 to buy back, no big deal
-      # Note the `""+` string-casting. Without this, when run on the server Mongoose returns funny objects
-      lostItem = user.fns.randomVal _.reduce(user.items.gear.owned, ((m,v,k)->m[""+k]=""+k if v;m), {})
-      if item = content.gear.flat[lostItem]
-        user.items.gear.owned[lostItem] = false
-        user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
-        user.items.gear.costume[item.type] = "#{item.type}_base_0" if user.items.gear.costume[item.type] is lostItem
-      user.markModified? 'items.gear'
-
-      cb? (if item then {code:200,message:"Your #{item.text} broke."} else null), req
-
     hatch: (req, cb) ->
-      {egg, hatchingPotion} = req.query
-      return cb("Please specify query.egg & query.hatchingPotion") unless egg and hatchingPotion
-      return cb("You're missing either that egg or that potion") unless user.items.eggs[egg] > 0 and user.items.hatchingPotions[hatchingPotion] > 0
+      {egg, hatchingPotion} = req.params
+      return cb({code:404,message:"Please specify query.egg & query.hatchingPotion"}) unless egg and hatchingPotion
+      return cb({code:401,message:"You're missing either that egg or that potion"}) unless user.items.eggs[egg] > 0 and user.items.hatchingPotions[hatchingPotion] > 0
       pet = "#{egg}-#{hatchingPotion}"
       return cb("You already have that pet. Try hatching a different combination!")  if user.items.pets[pet]
       user.items.pets[pet] = 5
@@ -494,6 +552,10 @@ api.wrap = (user) ->
       user.balance -= cost
       user.markModified? 'purchased'
       cb? null, req
+
+    # ------
+    # Classes
+    # ------
 
     changeClass: (req, cb) ->
       klass = req.query?.class
@@ -532,6 +594,10 @@ api.wrap = (user) ->
         user.stats.points--
         user.stats.mp++ if stat is 'int' #increase their MP along with their max MP
       cb? null, req
+
+    # ------
+    # Score
+    # ------
 
     score: (req, cb) ->
       {id, direction} = req.params # up or down
