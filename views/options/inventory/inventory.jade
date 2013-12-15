@@ -36,7 +36,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
         li.customize-menu
           menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", special:"Special"}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
-              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({query:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
+              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
         label.checkbox.inline
           input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
           | Use Costume&nbsp;
@@ -44,7 +44,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
         li.customize-menu(ng-if='user.preferences.costume')
           menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", special:"Special"}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
-              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({query:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
+              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
 
     .span6
       h2 Market
@@ -73,7 +73,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
           li.customize-menu
             menu.pets-menu(label='Eggs')
               div(ng-repeat='egg in Content.eggs')
-                button.customize-option(popover='{{egg.notes}}', popover-title='{{egg.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='buy("egg", egg)', class='Pet_Egg_{{egg.name}}')
+                button.customize-option(popover='{{egg.notes}}', popover-title='{{egg.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", egg)', class='Pet_Egg_{{egg.name}}')
                 p
                   |  {{egg.value}}
                   span.Pet_Currency_Gem1x.inline-gems
@@ -81,7 +81,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
           li.customize-menu
             menu.pets-menu(label='Hatching Potions')
               div(ng-repeat='pot in Content.hatchingPotions')
-                button.customize-option(popover='{{pot.notes}}', popover-title='{{pot.text}} Potion', popover-trigger='mouseenter', popover-placement='left', ng-click='buy("hatchingPotion", pot)', class='Pet_HatchingPotion_{{pot.name}}')
+                button.customize-option(popover='{{pot.notes}}', popover-title='{{pot.text}} Potion', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("hatchingPotions", pot)', class='Pet_HatchingPotion_{{pot.name}}')
                 p
                   |  {{pot.value}}
                   span.Pet_Currency_Gem1x.inline-gems
@@ -89,13 +89,13 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
           li.customize-menu
             menu.pets-menu(label='Food')
               div(ng-repeat='food in Content.food', ng-show='food.name !== "Saddle"')
-                button.customize-option(popover='{{food.notes}}', popover-title='{{food.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='buy("food", food)', class='Pet_Food_{{food.name}}')
+                button.customize-option(popover='{{food.notes}}', popover-title='{{food.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", food)', class='Pet_Food_{{food.name}}')
                 p
                   |  {{food.value}}
                   span.Pet_Currency_Gem1x.inline-gems
             menu.pets-menu(label='Saddle')
               div
-                button.customize-option(popover='{{Content.food.Saddle.notes}}', popover-title='{{Content.food.Saddle.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='buy("food", Content.food.Saddle)', class='Pet_Food_{{Content.food.Saddle.name}}')
+                button.customize-option(popover='{{Content.food.Saddle.notes}}', popover-title='{{Content.food.Saddle.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", Content.food.Saddle)', class='Pet_Food_{{Content.food.Saddle.name}}')
                 p
                   |  {{Content.food.Saddle.value}}
                   span.Pet_Currency_Gem1x.inline-gems

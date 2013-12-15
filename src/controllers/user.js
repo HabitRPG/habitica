@@ -15,23 +15,7 @@ var Challenge = require('./../models/challenge').model;
 var acceptablePUTPaths;
 var api = module.exports;
 
-// FIXME put this in a proper location
-api.marketBuy = function(req, res, next){
-  var user = res.locals.user,
-    type = req.query.type,
-    item = req.body;
-
-  if (!_.contains(['hatchingPotion', 'egg', 'food'], type))
-    return res.json(400, {err: "Type must be 'hatchingPotion', 'egg', or 'food'"});
-  type = (type == 'food' ? type : type + 's'); // I'm stupid, we're passing up 'hatchingPotion' but we need 'hatchingPotions'
-  if (!user.items[type][item.name]) user.items[type][item.name] = 0;
-  user.items[type][item.name]++;
-  user.balance -= (item.value/4);
-  user.save(function(err, saved){
-    if (err) return res.json(500, {err:err});
-    res.json(saved);
-  })
-}
+// api.purchase // Shared.ops
 
 /*
   ------------------------------------------------------------------------
@@ -45,15 +29,8 @@ api.marketBuy = function(req, res, next){
   ---------------
 */
 
-/*
-Validate task
-*/
-api.verifyTaskExists = function(req, res, next) {
-  // If we're updating, get the task from the user
-  var task = res.locals.user.tasks[req.params.id];
-  if (_.isEmpty(task)) return res.json(400, {err: "No task found."});
-  res.locals.task = task;
-  return next();
+findTask = function(req, res) {
+  return task = res.locals.user.tasks[req.params.id];
 };
 
 /*
@@ -66,6 +43,9 @@ api.verifyTaskExists = function(req, res, next) {
   Export it also so we can call it from deprecated.coffee
 */
 api.score = function(req, res, next) {
+  var task = findTask(req,res);
+  if (!task) return res.json(404, {err: "No task found."});
+
   var id = req.params.id,
     direction = req.params.direction,
     user = res.locals.user,
@@ -129,29 +109,17 @@ api.getTasks = function(req, res, next) {
  * Get Task
  */
 api.getTask = function(req, res, next) {
-  var task = res.locals.user.tasks[req.params.id];
-  if (_.isEmpty(task)) return res.json(400, {err: "No task found."});
+  var task = findTask(req,res);
+  if (!task) return res.json(404, {err: "No task found."});
   return res.json(200, task);
 };
 
-/**
- * Delete Task
- */
-api.deleteTask = function(req, res, next) {
-  api.verifyTaskExists(req, res, function(){
-    var user = res.locals.user;
-    user.deleteTask(res.locals.task.id);
-    user.save(function(err) {
-      if (err) return res.json(500, {err: err});
-      res.send(204);
-    });
-  })
-};
 
 /*
   Update Task
 */
 
+//api.deleteTask // see Shared.ops
 // api.updateTask // handled in Shared.ops
 // api.addTask // handled in Shared.ops
 // api.sortTask // handled in Shared.ops #TODO updated api, mention in docs
@@ -231,44 +199,8 @@ api.cron = function(req, res, next) {
   user.save(next);
 };
 
-api.reroll = function(req, res, next) {
-  var user = res.locals.user;
-  if (user.balance < 1) return res.json(401, {err: "Not enough tokens."});
-  user.balance -= 1;
-  _.each(['habits','dailys','todos'], function(type){
-    _.each(user[type], function(task){
-      task.value = 0;
-    })
-  })
-  user.stats.hp = 50;
-  user.save(function(err, saved) {
-    if (err) return res.json(500, {err: err});
-    return res.json(200, saved);
-  });
-};
-
-api.reset = function(req, res){
-  var user = res.locals.user;
-  user.habits = [];
-  user.dailys = [];
-  user.todos = [];
-  user.rewards = [];
-
-  user.stats.hp = 50;
-  user.stats.lvl = 1;
-  user.stats.gp = 0;
-  user.stats.exp = 0;
-
-  user.items.armor = 0;
-  user.items.weapon = 0;
-  user.items.head = 0;
-  user.items.shield = 0;
-
-  user.save(function(err, saved){
-    if (err) return res.json(500,{err:err});
-    res.json(saved);
-  })
-}
+// api.reroll // Shared.ops
+// api.reset // Shared.ops
 
 api['delete'] = function(req, res) {
   res.locals.user.remove(function(err){

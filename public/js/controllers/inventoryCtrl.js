@@ -64,7 +64,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
       var selected = $scope.selectedEgg ? 'selectedEgg' : $scope.selectedPotion ? 'selectedPotion' : $scope.selectedFood ? 'selectedFood' : undefined;
       if (selected) {
         var type = $scope.selectedEgg ? 'eggs' : $scope.selectedPotion ? 'hatchingPotions' : $scope.selectedFood ? 'food' : undefined;
-        user.ops.sell({query:{type:type, key: $scope[selected].name}});
+        user.ops.sell({params:{type:type, key: $scope[selected].name}});
         if (user.items[type][$scope[selected].name] < 1) {
           $scope[selected] = null;
         }
@@ -77,22 +77,18 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
     $scope.hatch = function(egg, potion){
       if (!confirm('Hatch a ' + potion.name + ' ' + egg.name + '?')) return;
-      user.ops.hatch({query:{egg:egg.name, hatchingPotion:potion.name}});
+      user.ops.hatch({params:{egg:egg.name, hatchingPotion:potion.name}});
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
     }
 
-    $scope.buy = function(type, item){
+    $scope.purchase = function(type, item){
       var gems = User.user.balance * 4;
       if(gems < item.value) return $rootScope.modals.buyGems = true;
       var string = (type == 'hatchingPotion') ? 'hatching potion' : type; // give hatchingPotion a space
       var message = "Buy this " + string + " with " + item.value + " of your " + gems + " Gems?"
-      if(confirm(message)){
-        $http.post(API_URL + '/api/v1/market/buy?type=' + type, item)
-          .success(function(data){
-            User.user.items = data.items;
-          });
-      }
+      if(confirm(message))
+        User.user.ops.purchase({params:{type:type,key:item.name}});
     }
 
     $scope.choosePet = function(egg, potion){
@@ -106,17 +102,17 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
         } else if (!confirm('Feed ' + pet + ' a ' + food.name + '?')) {
           return;
         }
-        User.user.ops.feed({query:{pet: pet, food: food.name}});
+        User.user.ops.feed({params:{pet: pet, food: food.name}});
         $scope.selectedFood = null;
 
       // Selecting Pet
       } else {
-        User.user.ops.equip({query:{type: 'pet', key: pet}});
+        User.user.ops.equip({params:{type: 'pet', key: pet}});
       }
     }
 
     $scope.chooseMount = function(egg, potion) {
-      User.user.ops.equip({query:{type: 'mount', key: egg + '-' + potion}});
+      User.user.ops.equip({params:{type: 'mount', key: egg + '-' + potion}});
     }
   }
 ]);

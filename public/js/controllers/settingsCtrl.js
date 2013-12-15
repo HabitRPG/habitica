@@ -45,15 +45,9 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope.reroll = function(){
-
-      $http.post(API_URL + '/api/v1/user/reroll')
-        .success(function(){
-          window.location.href = '/';
-          // FIXME, I can't get the tasks to update in the browser, even with _.extend(user,data). refreshing for now
-        })
-        .error(function(data){
-          alert(data.err)
-        })
+      User.user.ops.reroll({});
+      $rootScope.modals.reroll = false;
+      $rootScope.$state.go('tasks');
     }
 
     $scope.changePassword = function(changePass){
@@ -90,17 +84,13 @@ habitrpg.controller('SettingsCtrl',
       });
       $rootScope.modals.restore = false;
     }
+
     $scope.reset = function(){
-      $http.post(API_URL + '/api/v1/user/reset')
-        .success(function(){
-          User.user._v--;
-          User.log({});
-          $rootScope.modals.reset = false;
-        })
-        .error(function(data){
-          alert(data);
-        });
+      User.user.ops.reset({});
+      $rootScope.modals.reset = false;
+      $rootScope.$state.go('tasks');
     }
+
     $scope['delete'] = function(){
       $http['delete'](API_URL + '/api/v1/user')
         .success(function(){

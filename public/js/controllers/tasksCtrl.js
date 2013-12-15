@@ -64,7 +64,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.unlink = function(task, keep) {
       // TODO move this to userServices, turn userSerivces.user into ng-resource
-      $http.post(API_URL + '/api/v1/user/task/' + task.id + '/unlink?keep=' + keep)
+      $http.post(API_URL + '/api/v1/user/tasks/' + task.id + '/unlink?keep=' + keep)
         .success(function(){
           User.log({});
         });
@@ -81,14 +81,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     })
 
     $scope.buy = function(item) {
-      var hasEnough = User.user.ops.buy({query:{key:item.key}});
-      if (hasEnough) {
-        Notification.text("Item purchased.");
-        $scope.itemStore = User.user.fns.updateStore();
-      } else {
-//        Notification.text("Not enough Gold!");
-        // handled by userServices interceptor
-      }
+      User.user.ops.buy({params:{key:item.key}});
+      $scope.itemStore = User.user.fns.updateStore();
     };
 
 
