@@ -11,6 +11,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.modals.achievements = {};
     $rootScope.User = User;
     $rootScope.user = user;
+    $rootScope.moment = window.moment;
     $rootScope.settings = User.settings;
     $rootScope.Shared = window.habitrpgShared;
     $rootScope.Content = window.habitrpgShared.content;

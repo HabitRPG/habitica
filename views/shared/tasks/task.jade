@@ -12,7 +12,7 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared
 
     // Icons only available if you own the tasks (aka, hidden from challenge stats)
     span(ng-if='!obj._locked')
-      i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='noTags(task.tags)')
+      i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
       // edit
       a(ng-hide='task._editing', ng-click='editTask(task)', tooltip='Edit')
         i.icon-pencil(ng-hide='task._editing')

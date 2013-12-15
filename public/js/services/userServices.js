@@ -97,19 +97,26 @@ angular.module('userServices', []).
             syncQueue(); // call syncQueue to check if anyone pushed more actions to the queue while we were talking to server.
           })
           .error(function (data, status, headers, config) {
-            if(status === 400 && data.needRefresh === true){
-              alert("The site has been updated and the page needs to refresh. " +
-                "The last action has not been recorded, please do it again once the page reloads."
-                );
+            // In the case of errors, discard the corrupt queue
+            if (status >= 400) {
+              data =
+                data.needRefresh ? "The site has been updated and the page needs to refresh. The last action has not been recorded, please refresh and try again." :
+                data ? data :
+                'Something went wrong, please refresh your browser or upgrade the mobile app';
+              alert(data);
+              // Clear the queue. Better if we can hunt down the problem op, but this is the easiest solution
+              settings.sync.queue = settings.sync.sent = [];
+              save();
 
-              return location.reload();
+            // But if we're offline, queue up offline actions so we can send when we're back online
+            } else {
+              //move sent actions back to queue
+              _.times(sent.length, function () {
+                  queue.push(sent.shift())
+              });
+              settings.fetching = false;
+              //Notification.text("No Connection");
             }
-            //move sent actions back to queue
-            _.times(sent.length, function () {
-                queue.push(sent.shift())
-            });
-            settings.fetching = false;
-            //Notification.push({type:'text', text:"We're offline"})
           });
       }
 
