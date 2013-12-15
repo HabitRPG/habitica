@@ -11045,7 +11045,7 @@ var process=require("__browserify_process");(function() {
         }, req);
       },
       buy: function(req, cb) {
-        var item, key, _ref;
+        var item, key, message, _ref;
         key = req.query.key;
         item = key === 'potion' ? content.potion : content.gear.flat[key];
         if (!item) {
@@ -11068,12 +11068,13 @@ var process=require("__browserify_process");(function() {
         } else {
           user.items.gear.equipped[item.type] = item.key;
           user.items.gear.owned[item.key] = true;
+          message = user.fns.handleTwoHanded(item);
           if (((_ref = item.klass) === 'warrior' || _ref === 'wizard' || _ref === 'healer' || _ref === 'rogue') && user.fns.getItem('weapon').last && user.fns.getItem('armor').last && user.fns.getItem('head').last && user.fns.getItem('shield').last) {
             user.achievements.ultimateGear = true;
           }
         }
         user.stats.gp -= item.value;
-        return typeof cb === "function" ? cb(null, req) : void 0;
+        return typeof cb === "function" ? cb(message, req) : void 0;
       },
       sell: function(req, cb) {
         var key, type, _ref;
@@ -11089,7 +11090,7 @@ var process=require("__browserify_process");(function() {
         return typeof cb === "function" ? cb(null, req) : void 0;
       },
       equip: function(req, cb) {
-        var item, key, type, weapon, _ref;
+        var item, key, message, type, _ref;
         _ref = [req.query.type || 'equipped', req.query.key], type = _ref[0], key = _ref[1];
         switch (type) {
           case 'mount':
@@ -11101,18 +11102,10 @@ var process=require("__browserify_process");(function() {
           case 'costume':
           case 'equipped':
             item = content.gear.flat[key];
-            if (item.type === "shield") {
-              weapon = content.gear.flat[user.items.gear[type].weapon];
-              if (weapon != null ? weapon.twoHanded : void 0) {
-                return typeof cb === "function" ? cb(weapon.text + " is two-handed") : void 0;
-              }
-            }
             user.items.gear[type][item.type] = item.key;
-            if (item.twoHanded) {
-              user.items.gear[type].shield = "shield_base_0";
-            }
+            message = user.fns.handleTwoHanded(item, type);
         }
-        return typeof cb === "function" ? cb(null, req) : void 0;
+        return typeof cb === "function" ? cb(message, req) : void 0;
       },
       revive: function(req, cb) {
         var item, lostItem, lostStat;
@@ -11219,7 +11212,7 @@ var process=require("__browserify_process");(function() {
             var foundKey;
             foundKey = false;
             _.findLast(user.items.gear.owned, function(v, k) {
-              if (~k.indexOf(type + "_" + klass)) {
+              if (~k.indexOf(type + "_" + klass) && v === true) {
                 return foundKey = k;
               }
             });
@@ -11429,6 +11422,21 @@ var process=require("__browserify_process");(function() {
               return 6;
           }
         });
+      },
+      handleTwoHanded: function(item, type) {
+        var message, weapon, _ref;
+        if (type == null) {
+          type = 'equipped';
+        }
+        if (item.type === "shield" && ((_ref = (weapon = content.gear.flat[user.items.gear[type].weapon])) != null ? _ref.twoHanded : void 0)) {
+          user.items.gear[type].weapon = 'weapon_base_0';
+          message = "" + weapon.text + " is two-handed";
+        }
+        if (item.twoHanded) {
+          user.items.gear[type].shield = "shield_base_0";
+          message = "" + item.text + " is two-handed";
+        }
+        return message;
       },
       /*
       Because the same op needs to be performed on the client and the server (critical hits, item drops, etc),

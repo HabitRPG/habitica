@@ -388,10 +388,11 @@ api.wrap = (user) ->
       else
         user.items.gear.equipped[item.type] = item.key
         user.items.gear.owned[item.key] = true
+        message = user.fns.handleTwoHanded(item)
         if item.klass in ['warrior','wizard','healer','rogue'] and user.fns.getItem('weapon').last and user.fns.getItem('armor').last and user.fns.getItem('head').last and user.fns.getItem('shield').last
           user.achievements.ultimateGear = true
       user.stats.gp -= item.value
-      cb? null, req
+      cb? message, req
 
     sell: (req, cb) ->
       {key, type} = req.query
@@ -410,12 +411,9 @@ api.wrap = (user) ->
           user.items.currentPet = if user.items.currentPet is key then '' else key
         when 'costume','equipped'
           item = content.gear.flat[key]
-          if item.type is "shield"
-            weapon = content.gear.flat[user.items.gear[type].weapon]
-            return cb?(weapon.text + " is two-handed") if weapon?.twoHanded
           user.items.gear[type][item.type] = item.key
-          user.items.gear[type].shield = "shield_base_0"  if item.twoHanded
-      cb? null, req
+          message = user.fns.handleTwoHanded(item,type)
+      cb? message, req
 
     revive: (req, cb) ->
       # Reset stats
@@ -477,7 +475,7 @@ api.wrap = (user) ->
         _.each ["weapon", "armor", "shield", "head"], (type) ->
           foundKey = false
           _.findLast user.items.gear.owned, (v, k) ->
-            return foundKey = k if ~k.indexOf(type + "_" + klass)
+            return foundKey = k if ~k.indexOf(type + "_" + klass) and v is true
           # restore progress from when they last rolled this class
           # weapon_0 is significant, don't reset to base_0
           # rogues start with an off-hand weapon
@@ -488,7 +486,7 @@ api.wrap = (user) ->
             else "#{type}_base_0" # naked for the rest!
 
           # Grant them their new class's gear
-          user.items.gear.owned["#{type}_#{klass}_0"] = true  if type is "weapon" or (type is "shield" and klass is "rogue")
+          user.items.gear.owned["#{type}_#{klass}_0"] = true if type is "weapon" or (type is "shield" and klass is "rogue")
           true
       else
         # Null ?class value means "reset class"
@@ -659,6 +657,17 @@ api.wrap = (user) ->
           when 'shield' then 4
           when 'potion' then 5
           else               6
+
+    handleTwoHanded: (item, type='equipped') ->
+      # If they're buying a shield and wearing a staff, dequip the staff
+      if item.type is "shield" and (weapon = content.gear.flat[user.items.gear[type].weapon])?.twoHanded
+        user.items.gear[type].weapon = 'weapon_base_0'
+        message = "#{weapon.text} is two-handed"
+      # If they're buying a staff and wearing a shield, dequip the shield
+      if item.twoHanded
+        user.items.gear[type].shield = "shield_base_0"
+        message = "#{item.text} is two-handed"
+      message
 
     ###
     Because the same op needs to be performed on the client and the server (critical hits, item drops, etc),
