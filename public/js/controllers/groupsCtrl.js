@@ -297,8 +297,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       }
 
       $scope.reject = function(){
-        User.user.invitations.party = undefined;
-        User.log({op:'set',data:{'invitations.party':{}}});
+        //User.user.invitations.party = undefined;
+        User.set({'invitations.party':{}});
       }
     }
   ])

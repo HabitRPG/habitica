@@ -9,7 +9,7 @@
       .input-append.option-group.tag-editing(ng-show='_editing')
         input.input.input-small.option-content.tag-editing-pill(type='text', ng-model='tag.name')
         span.add-on.tag-editing-pill
-          a.pull-right(ng-click='delete(tag,$index)')
+          a.pull-right(ng-click='user.ops.deleteTag({params:{id:tag.id}})')
             i.icon-trash
       a(ng-hide='_editing', ng-click='toggleFilter(tag)')
         i.icon-bullhorn(bo-if="tag.challenge")

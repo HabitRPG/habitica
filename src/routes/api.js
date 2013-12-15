@@ -64,7 +64,9 @@ router.post('/user/cast/:spell', auth.auth, user.cast);
 router['delete']('/user', auth.auth, user['delete']);
 
 /* Tags */
-router['delete']('/user/tags/:tid', auth.auth, user.deleteTag);
+router.post('/user/tags', auth.auth, user.addTag);
+router.put('/user/tags/:id', auth.auth, user.updateTag);
+router['delete']('/user/tags/:id', auth.auth, user.deleteTag);
 
 /* Groups*/
 router.get('/groups', auth.auth, groups.list);

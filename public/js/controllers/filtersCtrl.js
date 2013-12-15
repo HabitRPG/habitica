@@ -1,15 +1,25 @@
 "use strict";
 
-habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'API_URL', '$http',
-  function($scope, $rootScope, User, API_URL, $http) {
+habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User',
+  function($scope, $rootScope, User) {
     var user = User.user;
     $scope._editing = false;
 
+    var tagsSnap; // used to compare which tags need updating
+
     $scope.saveOrEdit = function(){
       if ($scope._editing) {
-        User.log({op:'set',data:{'tags':user.tags}});
+        _.each(User.user.tags, function(tag){
+          // Send an update op for each changed tag (excluding new tags & deleted tags, this if() packs a punch)
+          if (tagsSnap[tag.id] && tagsSnap[tag.id].name != tag.name)
+            User.user.ops.updateTag({params:{id:tag.id},body:{name:tag.name}});
+        })
+        $scope._editing = false;
+      } else {
+        tagsSnap = angular.copy(user.tags);
+        tagsSnap = _.object(_.pluck(tagsSnap,'id'), tagsSnap);
+        $scope._editing = true;
       }
-      $scope._editing = !$scope._editing;
     }
 
     $scope.toggleFilter = function(tag) {
@@ -20,24 +30,8 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'API_URL', '
     };
 
     $scope.createTag = function(name) {
-      user.tags = user.tags || [];
-      user.tags.push({
-        id: $rootScope.Shared.uuid(),
-        name: name
-      });
-      User.log({op:'set',data:{'tags':user.tags}});
+      User.user.ops.addTag({body:{name:name}});
       $scope._newTag = '';
     };
-
-
-    $scope['delete'] = function(tag, $index){
-      delete user.filters[tag.id];
-      user.tags.splice($index,1);
-      // remove tag from all tasks
-      _.each(user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards), function(task) {
-        delete task.tags[tag.id];
-      });
-      User.log({op:'delTag',data:{'tag':tag.id}})
-    }
 
 }]);

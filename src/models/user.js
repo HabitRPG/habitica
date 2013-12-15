@@ -246,7 +246,8 @@ var UserSchema = new Schema({
   },
   tags: [
     {
-      id: String,
+      _id: false,
+      id: { type: String, 'default': shared.uuid },
       name: String,
       challenge: String
     }

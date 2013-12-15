@@ -191,7 +191,7 @@ api.getUser = function(req, res, next) {
  * FIXME - one-by-one we want to widdle down this list, instead replacing each needed set path with API operations
  */
 acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function(m,v,leaf){
-  var found= _.find('achievements filters flags invitations lastCron party preferences profile stats tags'.split(' '), function(root){
+  var found= _.find('achievements filters flags invitations lastCron party preferences profile stats'.split(' '), function(root){
     return leaf.indexOf(root) == 0;
   });
   if (found) m[leaf]=true;
@@ -358,32 +358,9 @@ api.buyGemsPaypalIPN = function(req, res) {
  Tags
  ------------------------------------------------------------------------
  */
-api.deleteTag = function(req, res){
-  var user = res.locals.user;
-  var tid = req.params.tid || req.body.tag;
-  var i = _.findIndex(user.tags, {id:tid});
-  if (~i) {
-    var tag = user.tags[i];
-    delete user.filters[tag.id];
-    user.tags.splice(i,1);
-    // remove tag from all tasks
-    _.each(['habits','dailys','todos','rewards'], function(type){
-      _.each(user[type], function(task){
-        delete task.tags[tag.id];
-      })
-    })
-    user.markModified('habits');
-    user.markModified('dailys');
-    user.markModified('todos');
-    user.markModified('rewards');
-    user.save(function(err,saved){
-      if (err) return res.json(500, {err: err});
-      res.send(204);
-    });
-  } else {
-    res.json(400, {err:'Tag not found'});
-  }
-}
+// api.deleteTag // handled in Shared.ops
+// api.addTag // handled in Shared.ops
+// api.updateTag // handled in Shared.ops
 
 /*
  ------------------------------------------------------------------------
