@@ -10983,10 +10983,14 @@ var process=require("__browserify_process");(function() {
         return cb(null, req);
       },
       updateTask: function(req, cb) {
+        var _base;
         if (!(req.params.id && user.tasks[req.params.id])) {
           return typeof cb === "function" ? cb("Task not found") : void 0;
         }
         _.merge(user.tasks[req.params.id], req.body);
+        if (typeof (_base = user.tasks[req.params.id]).markModified === "function") {
+          _base.markModified('tags');
+        }
         return typeof cb === "function" ? cb(null, req) : void 0;
       },
       deleteTask: function(req, cb) {

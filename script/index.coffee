@@ -243,7 +243,7 @@ api.newChatMessages = (messages, lastMessageSeen) ->
 ###
 are any tags active?
 ###
-api.noTags = (tags) -> _.isEmpty(tags) or _.isEmpty(_.filter( tags, (t) -> t ) )
+api.noTags = (tags) -> _.isEmpty(tags) or _.isEmpty(_.filter(tags, (t)->t))
 
 ###
 Are there tags applied?
@@ -336,6 +336,7 @@ api.wrap = (user) ->
     updateTask: (req, cb) ->
       return cb?("Task not found") unless req.params.id and user.tasks[req.params.id]
       _.merge user.tasks[req.params.id], req.body
+      user.tasks[req.params.id].markModified? 'tags'
       cb? null, req
 
     deleteTask: (req, cb) ->
