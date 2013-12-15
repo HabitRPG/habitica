@@ -103,10 +103,11 @@
 
   .span8(ng-controller='ChatCtrl')
     h3 Tavern Talk
-      include ./chat-box
-      small
-        include ../../shared/formatting-help
-        alert.alert-info.
-          Note: if you're reporting a bug, the developers won't see it here. Please <a href='https://github.com/HabitRPG/habitrpg/issues' target='_blank'>use Github instead</a>.
+        include ./chat-box
+        small(style='position: relative; top: -20px; left: 25px;')
+            include ../../shared/formatting-help
+        small(style='position: relative; top: 18px; left: 0px')
+            alert.alert-info.
+                Note: if you're reporting a bug, the developers won't see it here. Please <a href='https://github.com/HabitRPG/habitrpg/issues' target='_blank'>use Github instead</a>.
     ul.unstyled.tavern-chat
       include ./chat-message
