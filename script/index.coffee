@@ -348,6 +348,35 @@ api.wrap = (user) ->
       cb? null, req
       task
 
+    addTag: (req, cb) ->
+      {name} = req.body
+      user.tags ?= []
+      user.tags.push({name})
+      cb? null, req
+
+    updateTag: (req, cb) ->
+      tid = req.params.id
+      i = _.findIndex user.tags, {id: tid}
+      return cb('Tag not found', req) if !~i
+      user.tags[i].name = req.body.name
+      cb? null, req
+
+    deleteTag: (req, cb) ->
+      tid = req.params.id
+      i = _.findIndex user.tags, {id: tid}
+      return cb('Tag not found', req) if !~i
+      tag = user.tags[i]
+      delete user.filters[tag.id]
+      user.tags.splice i, 1
+
+      # remove tag from all tasks
+      _.each user.tasks, (task) ->
+        delete task.tags[tag.id]
+
+      _.each ['habits','dailys','todos','rewards'], (type) ->
+        user.markModified? type
+      cb null, req
+
     feed: (req, cb) ->
       [pet, food] = [req.query?.pet, content.food[req.query?.food]]
       [egg, potion] = pet.split('-')

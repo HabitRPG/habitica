@@ -11005,6 +11005,49 @@ var process=require("__browserify_process");(function() {
         }
         return task;
       },
+      addTag: function(req, cb) {
+        var name;
+        name = req.body.name;
+        if (user.tags == null) {
+          user.tags = [];
+        }
+        user.tags.push({
+          name: name
+        });
+        return typeof cb === "function" ? cb(null, req) : void 0;
+      },
+      updateTag: function(req, cb) {
+        var i, tid;
+        tid = req.params.id;
+        i = _.findIndex(user.tags, {
+          id: tid
+        });
+        if (!~i) {
+          return cb('Tag not found', req);
+        }
+        user.tags[i].name = req.body.name;
+        return typeof cb === "function" ? cb(null, req) : void 0;
+      },
+      deleteTag: function(req, cb) {
+        var i, tag, tid;
+        tid = req.params.id;
+        i = _.findIndex(user.tags, {
+          id: tid
+        });
+        if (!~i) {
+          return cb('Tag not found', req);
+        }
+        tag = user.tags[i];
+        delete user.filters[tag.id];
+        user.tags.splice(i, 1);
+        _.each(user.tasks, function(task) {
+          return delete task.tags[tag.id];
+        });
+        _.each(['habits', 'dailys', 'todos', 'rewards'], function(type) {
+          return typeof user.markModified === "function" ? user.markModified(type) : void 0;
+        });
+        return cb(null, req);
+      },
       feed: function(req, cb) {
         var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2, _ref3;
         _ref2 = [(_ref = req.query) != null ? _ref.pet : void 0, content.food[(_ref1 = req.query) != null ? _ref1.food : void 0]], pet = _ref2[0], food = _ref2[1];
