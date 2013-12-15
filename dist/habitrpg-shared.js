@@ -9236,43 +9236,43 @@ var global=self;/**
       },
       rogue: {
         0: {
-          text: "Practice Bow",
+          text: "Training Dagger",
           notes: 'Training weapon. Confers no benefit.',
           value: 0
         },
         1: {
-          text: "Short Bow",
-          notes: 'Simple bow best at close ranges. Increases STR by 2.',
+          text: "Dagger",
+          notes: 'Simple Dagger. Increases STR by 2.',
           str: 2,
           value: 20
         },
         2: {
-          text: "Long Bow",
-          notes: 'Bow with a strong draw for extra distance. Increases STR by 5.',
+          text: "Short Sword",
+          notes: 'Short Sword. Increases STR by 5.',
           str: 5,
           value: 50
         },
         3: {
-          text: "Recurve Bow",
-          notes: 'Built with advanced techniques. Increases STR by 8.',
+          text: "Scimitar",
+          notes: 'Scimitar. Increases STR by 8.',
           str: 8,
           value: 80
         },
         4: {
-          text: "Icicle Bow",
-          notes: 'Fires arrows of piercing cold. Increases STR by 12.',
+          text: "Nunchaku",
+          notes: 'Nunchaku. Increases STR by 12.',
           str: 12,
           value: 120
         },
         5: {
-          text: "Meteor Bow",
-          notes: 'Rains flame upon your foes. Increases STR by 16.',
+          text: "Katana",
+          notes: 'Katana. Increases STR by 16.',
           str: 16,
           value: 160
         },
         6: {
-          text: "Golden Bow",
-          notes: 'As swift as sunlight and as sharp as lightning. Increases STR by 20.',
+          text: "Hook Blade",
+          notes: 'Hook Blade. Increases STR by 20.',
           str: 20,
           value: 200,
           last: true
@@ -9814,39 +9814,45 @@ var global=self;/**
       },
       rogue: {
         0: {
-          text: "Knife 1",
-          notes: 'Knife 1',
+          text: "Training Dagger",
+          notes: 'Training weapon. Confers no benefit.',
           value: 0
         },
         1: {
-          text: "Knife 2",
-          notes: 'Knife 2',
-          value: 1
+          text: "Dagger",
+          notes: 'Simple Dagger. Increases PER by 2.',
+          per: 2,
+          value: 20
         },
         2: {
-          text: "Knife 3",
-          notes: 'Knife 3',
-          value: 1
+          text: "Short Sword",
+          notes: 'Short Sword. Increases PER by 5.',
+          per: 5,
+          value: 50
         },
         3: {
-          text: "Knife 4",
-          notes: 'Knife 4',
-          value: 1
+          text: "Scimitar",
+          notes: 'Scimitar. Increases PER by 8.',
+          per: 8,
+          value: 80
         },
         4: {
-          text: "Knife 5",
-          notes: 'Knife 5',
-          value: 1
+          text: "Nunchaku",
+          notes: 'Nunchaku. Increases PER by 12.',
+          per: 12,
+          value: 120
         },
         5: {
-          text: "Knife 6",
-          notes: 'Knife 6',
-          value: 1
+          text: "Katana",
+          notes: 'Katana. Increases PER by 16.',
+          per: 16,
+          value: 160
         },
         6: {
-          text: "Knife 7",
-          notes: 'Knife 7',
-          value: 1,
+          text: "Hook Blade",
+          notes: 'Hook Blade. Increases PER by 20.',
+          per: 20,
+          value: 200,
           last: true
         }
       },

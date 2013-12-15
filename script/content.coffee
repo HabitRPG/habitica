@@ -22,13 +22,13 @@ gear =
       5: text: "Ruby Sword", notes:'Weapon whose forge-glow never fades. Increases STR by 15.', str: 15, value:90
       6: text: "Golden Sword", notes:'Bane of creatures of darkness. Increases STR by 18.', str: 18, value:120, last: true
     rogue:
-      0: text: "Practice Bow", notes:'Training weapon. Confers no benefit.', value:0
-      1: text: "Short Bow", notes:'Simple bow best at close ranges. Increases STR by 2.', str: 2, value:20
-      2: text: "Long Bow", notes:'Bow with a strong draw for extra distance. Increases STR by 5.', str: 5, value:50
-      3: text: "Recurve Bow", notes:'Built with advanced techniques. Increases STR by 8.', str: 8, value:80
-      4: text: "Icicle Bow", notes:'Fires arrows of piercing cold. Increases STR by 12.', str: 12, value:120
-      5: text: "Meteor Bow", notes:'Rains flame upon your foes. Increases STR by 16.', str: 16, value:160
-      6: text: "Golden Bow", notes:'As swift as sunlight and as sharp as lightning. Increases STR by 20.', str: 20, value:200, last: true
+      0: text: "Training Dagger", notes:'Training weapon. Confers no benefit.', value:0
+      1: text: "Dagger", notes:'Simple Dagger. Increases STR by 2.', str: 2, value:20
+      2: text: "Short Sword", notes:'Short Sword. Increases STR by 5.', str: 5, value:50
+      3: text: "Scimitar", notes:'Scimitar. Increases STR by 8.', str: 8, value:80
+      4: text: "Nunchaku", notes:'Nunchaku. Increases STR by 12.', str: 12, value:120
+      5: text: "Katana", notes:'Katana. Increases STR by 16.', str: 16, value:160
+      6: text: "Hook Blade", notes:'Hook Blade. Increases STR by 20.', str: 20, value:200, last: true
     wizard:
       0: twoHanded: true, text: "Apprentice Staff", notes:'Practice staff. Confers no benefit.', value:0
       1: twoHanded: true, text: "Wooden Staff", notes:'Basic implement of carven wood. Increases INT by 3 and PER by 1.', int: 3, per: 1, value:30
@@ -134,13 +134,13 @@ gear =
       4: text: "Red Shield", notes:'Rebukes blows with a burst of flame. Increases CON by 7.', con: 7, value:70
       5: text: "Golden Shield", notes:'Shining badge of the vanguard. Increases CON by 9.', con: 9, value:90, last: true
     rogue:
-      0: text: "Knife 1", notes:'Knife 1', value:0
-      1: text: "Knife 2", notes:'Knife 2', value:1
-      2: text: "Knife 3", notes:'Knife 3', value:1
-      3: text: "Knife 4", notes:'Knife 4', value:1
-      4: text: "Knife 5", notes:'Knife 5', value:1
-      5: text: "Knife 6", notes:'Knife 6', value:1
-      6: text: "Knife 7", notes:'Knife 7', value:1, last: true
+      0: text: "Training Dagger", notes:'Training weapon. Confers no benefit.', value:0
+      1: text: "Dagger", notes:'Simple Dagger. Increases PER by 2.', per: 2, value:20
+      2: text: "Short Sword", notes:'Short Sword. Increases PER by 5.', per: 5, value:50
+      3: text: "Scimitar", notes:'Scimitar. Increases PER by 8.', per: 8, value:80
+      4: text: "Nunchaku", notes:'Nunchaku. Increases PER by 12.', per: 12, value:120
+      5: text: "Katana", notes:'Katana. Increases PER by 16.', per: 16, value:160
+      6: text: "Hook Blade", notes:'Hook Blade. Increases PER by 20.', per: 20, value:200, last: true
     wizard: {}
       #0: text: "No Shield", notes:'No shield.', def: 0, value:0, last: true
     healer:
