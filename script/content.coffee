@@ -22,13 +22,13 @@ gear =
       5: text: "Ruby Sword", notes:'Weapon whose forge-glow never fades. Increases STR by 15.', str: 15, value:90
       6: text: "Golden Sword", notes:'Bane of creatures of darkness. Increases STR by 18.', str: 18, value:120, last: true
     rogue:
-      0: text: "Practice Bow", notes:'Training weapon. Confers no benefit.', value:0
-      1: text: "Short Bow", notes:'Simple bow best at close ranges. Increases STR by 2.', str: 2, value:20
-      2: text: "Long Bow", notes:'Bow with a strong draw for extra distance. Increases STR by 5.', str: 5, value:50
-      3: text: "Recurve Bow", notes:'Built with advanced techniques. Increases STR by 8.', str: 8, value:80
-      4: text: "Icicle Bow", notes:'Fires arrows of piercing cold. Increases STR by 12.', str: 12, value:120
-      5: text: "Meteor Bow", notes:'Rains flame upon your foes. Increases STR by 16.', str: 16, value:160
-      6: text: "Golden Bow", notes:'As swift as sunlight and as sharp as lightning. Increases STR by 20.', str: 20, value:200, last: true
+      0: twoHanded: true, text: "Practice Bow", notes:'Training weapon. Confers no benefit.', value:0
+      1: twoHanded: true, text: "Short Bow", notes:'Simple bow best at close ranges. Increases STR by 2.', str: 2, value:20
+      2: twoHanded: true, text: "Long Bow", notes:'Bow with a strong draw for extra distance. Increases STR by 5.', str: 5, value:50
+      3: twoHanded: true, text: "Recurve Bow", notes:'Built with advanced techniques. Increases STR by 8.', str: 8, value:80
+      4: twoHanded: true, text: "Icicle Bow", notes:'Fires arrows of piercing cold. Increases STR by 12.', str: 12, value:120
+      5: twoHanded: true, text: "Meteor Bow", notes:'Rains flame upon your foes. Increases STR by 16.', str: 16, value:160
+      6: twoHanded: true, text: "Golden Bow", notes:'As swift as sunlight and as sharp as lightning. Increases STR by 20.', str: 20, value:200, last: true
     wizard:
       0: twoHanded: true, text: "Apprentice Staff", notes:'Practice staff. Confers no benefit.', value:0
       1: twoHanded: true, text: "Wooden Staff", notes:'Basic implement of carven wood. Increases INT by 3 and PER by 1.', int: 3, per: 1, value:30
@@ -46,8 +46,8 @@ gear =
       5: text: "Royal Crosier", notes:'Shines with the pure light of blessings. Increases INT by 9.', int: 9, value:90
       6: text: "Golden Crosier", notes:'Soothes the pain of all who look upon it. Increases INT by 11.', int: 11, value:120, last: true
     special:
-      0: text: "Dark Souls Blade", notes:'Increases experience gain by 21%.', str: 21, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
-      1: text: "Crystal Blade", notes:'Increases experience gain by 24%.', str: 24, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
+      0: text: "Dark Souls Blade", notes:'Feasts upon foes\' life essence to power its wicked strokes. Increases STR by 20.', str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
+      1: text: "Crystal Blade", notes:'Its glittering facets tell the tale of a hero. Increases all attributes by 6.', str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
       2: text: "Stephen Weber's Shaft of the Dragon", notes:"Stephen Weber's Shaft of the Dragon", str: 50, per: 50, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
       3: text: "Mustaine's Milestone Mashing Morning Star", notes:"Mustaine's Milestone Mashing Morning Star", str: 50, int: 50, con: 50, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
 
@@ -83,8 +83,8 @@ gear =
       4: text: "Priest Vestment", notes:'Projects authority and dissipates curses. Increases CON by 15.', con: 15, value:90
       5: text: "Royal Vestment", notes:'Attire of those who have saved the lives of kings. Increases CON by 18.', con: 18, value:120, last: true
     special:
-      0: text: "Shade Armor",   notes:'Decreases Health loss by 12%.', defense: 12, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
-      1: text: "Crystal Armor", notes:'Decreases Health loss by 14%.', defense: 14, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
+      0: text: "Shade Armor",   notes:'Screams when struck, for it feels pain in its wearer\'s place. Increases CON by 20.', con: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
+      1: text: "Crystal Armor", notes:'Its tireless power inures the wearer to mundane discomfort. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
       2: text: "Tarutaru's Noble's Tunic", notes:'Makes you extra fluffy. Adds "Refresh" effect; Cure potency +n%.', int: 50, con: 50, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
 
   head:
