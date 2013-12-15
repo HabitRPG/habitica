@@ -210,7 +210,7 @@ var UserSchema = new Schema({
       mustache: {type: Number, 'default': 0},
     },
     hideHeader: {type:Boolean, 'default':false},
-    skin: {type:String, 'default':'white'},
+    skin: {type:String, 'default':'c06534'},
     shirt: {type: String, 'default': 'white'},
     timezoneOffset: Number,
     language: String,
