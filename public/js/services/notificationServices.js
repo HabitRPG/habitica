@@ -2,7 +2,7 @@
  Set up "+1 Exp", "Level Up", etc notifications
  */
 angular.module("notificationServices", [])
-  .factory("Notification", ['User', function(User) {
+  .factory("Notification", [function() {
     function growl(html, type) {
       $.bootstrapGrowl(html, {
         ele: '#notification-area',
@@ -45,16 +45,13 @@ angular.module("notificationServices", [])
       coins: coins,
       hp: function(val) {
         // don't show notifications if user dead
-        if (User.user.stats.lvl == 0) return;
         growl("<i class='icon-heart'></i> " + sign(val) + " " + round(val) + " HP", 'hp');
       },
       exp: function(val) {
-        if (User.user.stats.lvl == 0) return;
         if (val < -50) return; // don't show when they level up (resetting their exp)
         growl("<i class='icon-star'></i> " + sign(val) + " " + round(val) + " XP", 'xp');
       },
       gp: function(val) {
-        if (User.user.stats.lvl == 0) return;
         growl(sign(val) + " " + coins(val), 'gp');
       },
       text: function(val){

@@ -5,16 +5,19 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.stats.hp', function(after, before) {
       if (after == before) return;
+      if (User.user.stats.lvl == 0) return;
       Notification.hp(after - before, 'hp');
     });
 
     $rootScope.$watch('user.stats.exp', function(after, before) {
       if (after == before) return;
+      if (User.user.stats.lvl == 0) return;
       Notification.exp(after - before);
     });
 
     $rootScope.$watch('user.stats.gp', function(after, before) {
       if (after == before) return;
+      if (User.user.stats.lvl == 0) return;
       var money = after - before;
       Notification.gp(money);
 

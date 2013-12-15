@@ -13,10 +13,10 @@
               .popover-content
                 | Welcome to the Tavern! Stay a while and meet the locals. If you need to rest (going on vacation? sudden illness?), I'll set you up at the inn - Dailies won't hurt you while you're resting.
                 div
-                  button.btn.btn-large.btn-success(ng-class='{active: user.flags.rest}', ng-click='User.user.ops.sleep({})')
-                    span(ng-show='user.flags.rest') Check Out of Inn
-                    span(ng-hide='user.flags.rest') Rest in the Inn
-    .alert.alert-info(ng-show='user.flags.rest')
+                  button.btn.btn-large.btn-success(ng-class='{active: user.preferences.sleep}', ng-click='User.user.ops.sleep({})')
+                    span(ng-show='user.preferences.sleep') Check Out of Inn
+                    span(ng-hide='user.preferences.sleep') Rest in the Inn
+    .alert.alert-info(ng-show='user.preferences.sleep')
       | Whilst resting, your dailies are saved and aren't affected by day turn-over. Whether you check out tomorrow or in a week's time, you'll continue in the same state as when you checked in.
 
     // Resources

@@ -5,8 +5,8 @@
  */
 
 angular.module('userServices', []).
-  factory('User', ['$rootScope', '$http', '$location', '$window', 'API_URL', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID',
-    function($rootScope, $http, $location, $window, API_URL, STORAGE_USER_ID, STORAGE_SETTINGS_ID) {
+  factory('User', ['$rootScope', '$http', '$location', '$window', 'API_URL', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification',
+    function($rootScope, $http, $location, $window, API_URL, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification) {
       var authenticated = false,
         defaultSettings = {
           auth: { apiId: '', apiToken: ''},
@@ -75,8 +75,7 @@ angular.module('userServices', []).
                 _.each(user.ops, function(op,k){
                   user.ops[k] = _.partialRight(op, function(err, req){
                     if (err) {
-                      //Notification.text(err.code ? err.message : err); // FIXME Circular dependency found: Notification <- User
-                      alert(err.code ? err.message : err);
+                      Notification.text(err.code ? err.message : err);
                       // In the case of 200s, they're friendly alert messages like "You're pet has hatched!" - still send the op
                       if ((err.code && err.code >= 400) || !err.code) return;
                     }

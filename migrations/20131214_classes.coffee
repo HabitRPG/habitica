@@ -13,7 +13,7 @@ users = mongo.db('localhost:27017/habitrpg?auto_reconnect').collection('users')
 users.count query, (err, count) ->
   console.log {count}
   return console.error(err) if err
-  users.findEach query, {batchSize:10}, (err, user) ->
+  users.findEach query, {batchSize:500}, (err, user) ->
     unless user then err = 'Blank user';count--
     return console.log(err) if err
 
@@ -64,19 +64,21 @@ users.count query, (err, count) ->
       costume: {}
 
     _.each {head: "showHelm", weapon: "showWeapon", shield: "showShield", armor: "showArmor"}, (show, type) ->
-      user.items[type] = if Math.abs(user.items[type]) > 10 then 0 else ~~user.items[type]
-      _.times user.items[type], (i) ->
+      user.items[type] = unless 0 < ~~user.items[type] < 8 then 0 else ~~user.items[type]
+      _.times user.items[type]+1, (i) -> #+1 since 0 is significant
         item =
           if type is 'weapon'
             if i > 8 then 'weapon_warrior_6'
             else if i is 8 then "weapon_special_1"
             else if i is 7 then "weapon_special_0"
+            else "weapon_warrior_#{i}"
           else
             if i > 7 then "#{type}_warrior_5"
             else if i is 7 then "#{type}_special_1"
             else if i is 6 then "#{type}_special_0"
+            else if i is 0 then "#{type}_base_0"
             else "#{type}_warrior_#{i}"
-        gear.owned[item] = true
+        gear.owned[item] = true unless item is "#{type}_base_0"
         gear.equipped[type] = item
 
   #      # TODO how to handle combo of wearing / hiding?
