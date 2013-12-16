@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("ChallengesCtrl", ['$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state',
-  function($scope, User, Challenges, Notification, $compile, Groups, $state) {
+habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state',
+  function($rootScope, $scope, User, Challenges, Notification, $compile, Groups, $state) {
 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
     $scope.groups = Groups.Group.query({type:'party,guilds,tavern'});
