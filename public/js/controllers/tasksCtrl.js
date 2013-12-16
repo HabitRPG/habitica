@@ -76,13 +76,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      ------------------------
      */
 
-    $rootScope.$on('userSynced', function(){
-      $scope.itemStore = User.user.fns.updateStore();
+    $scope.$watch('user.items.gear.equipped', function(){
+      $scope.itemStore = $rootScope.Shared.updateStore(User.user);
     })
 
     $scope.buy = function(item) {
       User.user.ops.buy({params:{key:item.key}});
-      $scope.itemStore = User.user.fns.updateStore();
+      $scope.itemStore = $rootScope.Shared.updateStore(User.user);
     };
 
 

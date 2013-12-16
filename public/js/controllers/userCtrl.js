@@ -24,7 +24,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
 
       User.user.ops.changeClass({query:{class:klass}});
       $scope.selectedClass = undefined;
-      User.user.fns.updateStore();
+      $rootScope.Shared.updateStore(User.user);
       $state.go('options.profile.stats');
     }
 
