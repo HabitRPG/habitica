@@ -11508,10 +11508,11 @@ var process=require("__browserify_process");(function() {
           });
         };
         addPoints = function() {
-          var afterStreak, gpMod, intMod, streakBonus;
+          var afterStreak, crit, gpMod, intMod, streakBonus;
+          crit = user.fns.predictableRandom() <= .03 ? 1.5 + (.05 * user._statsComputed.str) : 1;
           intMod = 1 + (user._statsComputed.int / 100);
-          stats.exp += Math.round(delta * XP * intMod * task.priority);
-          gpMod = delta * task.priority;
+          stats.exp += Math.round(delta * XP * intMod * task.priority * crit);
+          gpMod = delta * task.priority * crit;
           gpMod *= user._statsComputed.per * .3;
           return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
         };
@@ -11702,6 +11703,7 @@ var process=require("__browserify_process");(function() {
         chanceMultiplier = Math.abs(delta);
         chanceMultiplier *= priority;
         chanceMultiplier += streak;
+        chanceMultiplier += user._statsComputed.per * .3;
         max = 0.75;
         a = 0.1;
         alpha = a * max * chanceMultiplier / (a * chanceMultiplier + max);

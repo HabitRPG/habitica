@@ -667,12 +667,17 @@ api.wrap = (user) ->
           delta += nextDelta
 
       addPoints = ->
+        # Critical
+        crit =
+          if user.fns.predictableRandom() <= .03 then 1.5 + (.05*user._statsComputed.str)
+          else 1
+
         # Exp Modifier
         intMod = 1 + (user._statsComputed.int / 100)
-        stats.exp += Math.round(delta * XP * intMod * task.priority)
+        stats.exp += Math.round(delta * XP * intMod * task.priority * crit)
 
         # GP modifier
-        gpMod = delta * task.priority
+        gpMod = delta * task.priority * crit
         gpMod *= (user._statsComputed.per *.3) # Factor in PER
         stats.gp +=
           if task.streak
@@ -833,6 +838,7 @@ api.wrap = (user) ->
       chanceMultiplier = Math.abs(delta)
       chanceMultiplier *= priority # multiply chance by reddness
       chanceMultiplier += streak # streak bonus
+      chanceMultiplier += user._statsComputed.per*.3
 
       # Temporary solution to lower the maximum drop chance to 75 percent. More thorough
       # overhaul of drop changes is needed. See HabitRPG/habitrpg#1922 for details.
