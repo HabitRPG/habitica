@@ -3,6 +3,7 @@
 habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'API_URL',
   function($scope, $rootScope, $location, User, Notification, $http, API_URL) {
     $scope.obj = User.user; // used for task-lists
+    $scope.user = User.user;
 
     $scope.score = function(task, direction) {
       User.user.ops.score({params:{id: task.id, direction:direction}})
@@ -78,11 +79,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.$watch('user.items.gear.equipped', function(){
       $scope.itemStore = $rootScope.Shared.updateStore(User.user);
-    })
+    },true);
 
     $scope.buy = function(item) {
       User.user.ops.buy({params:{key:item.key}});
-      $scope.itemStore = $rootScope.Shared.updateStore(User.user);
     };
 
 
