@@ -11076,8 +11076,8 @@ var process=require("__browserify_process");(function() {
         return cb(null, req);
       },
       updateTask: function(req, cb) {
-        var _base;
-        if (!(req.params.id && user.tasks[req.params.id])) {
+        var _base, _ref;
+        if (!user.tasks[(_ref = req.params) != null ? _ref.id : void 0]) {
           return typeof cb === "function" ? cb("Task not found") : void 0;
         }
         _.merge(user.tasks[req.params.id], req.body);
