@@ -123,7 +123,10 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
     .span4.border-right(ng-show='user.stats.lvl >= 5')
       h4
         | {{user.stats.class}}&nbsp;
-        a.btn.btn-danger.btn-mini(ng-click='changeClass(null)') Re-roll
+        a.btn.btn-danger.btn-mini(ng-click='changeClass(null)')
+          | Change Class&nbsp;
+        small 3 <span class="Pet_Currency_Gem1x inline-gems"/>
+
       h6 Points: {{user.stats.points}}
       fieldset
         label.checkbox
