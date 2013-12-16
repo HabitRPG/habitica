@@ -64,7 +64,7 @@ users.count query, (err, count) ->
       costume: {}
 
     _.each {head: "showHelm", weapon: "showWeapon", shield: "showShield", armor: "showArmor"}, (show, type) ->
-      user.items[type] = unless 0 < ~~user.items[type] < 8 then 0 else ~~user.items[type]
+      user.items[type] = unless 0 < ~~user.items[type] < 9 then 0 else ~~user.items[type]
       _.times user.items[type]+1, (i) -> #+1 since 0 is significant
         item =
           if type is 'weapon'
