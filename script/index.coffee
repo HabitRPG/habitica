@@ -523,10 +523,11 @@ api.wrap = (user) ->
         user.items.gear.equipped[item.type] = item.key
         user.items.gear.owned[item.key] = true
         message = user.fns.handleTwoHanded(item)
+        message ?= "Bought #{item.text}."
         if item.klass in ['warrior','wizard','healer','rogue'] and user.fns.getItem('weapon').last and user.fns.getItem('armor').last and user.fns.getItem('head').last and user.fns.getItem('shield').last
           user.achievements.ultimateGear = true
       user.stats.gp -= item.value
-      cb? message, req
+      cb? {code:200, message}, req
 
     sell: (req, cb) ->
       {key, type} = req.params

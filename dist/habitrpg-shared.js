@@ -11307,12 +11307,18 @@ var process=require("__browserify_process");(function() {
           user.items.gear.equipped[item.type] = item.key;
           user.items.gear.owned[item.key] = true;
           message = user.fns.handleTwoHanded(item);
+          if (message == null) {
+            message = "Bought " + item.text + ".";
+          }
           if (((_ref = item.klass) === 'warrior' || _ref === 'wizard' || _ref === 'healer' || _ref === 'rogue') && user.fns.getItem('weapon').last && user.fns.getItem('armor').last && user.fns.getItem('head').last && user.fns.getItem('shield').last) {
             user.achievements.ultimateGear = true;
           }
         }
         user.stats.gp -= item.value;
-        return typeof cb === "function" ? cb(message, req) : void 0;
+        return typeof cb === "function" ? cb({
+          code: 200,
+          message: message
+        }, req) : void 0;
       },
       sell: function(req, cb) {
         var key, type, _ref;
