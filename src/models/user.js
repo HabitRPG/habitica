@@ -241,6 +241,7 @@ var UserSchema = new Schema({
       str: Number,
       def: Number,
       per: Number,
+      con: Number,
       stealth: Number
     }
   },

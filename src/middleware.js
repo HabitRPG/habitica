@@ -23,7 +23,7 @@ module.exports.cors = function(req, res, next) {
   return next();
 };
 
-var siteVersion = 0;
+var siteVersion = 1;
 
 module.exports.forceRefresh = function(req, res, next){
   if(req.query.siteVersion && req.query.siteVersion != siteVersion){
