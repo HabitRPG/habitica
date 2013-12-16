@@ -8,8 +8,13 @@ mongo = require('mongoskin')
 _ = require('lodash')
 async = require('async')
 
+db = mongo.db('localhost:27017/habitrpg?auto_reconnect')
+
+###
+  Migrate users
+###
 query = {migration:{$ne:'20131214_classes'}}
-users = mongo.db('localhost:27017/habitrpg?auto_reconnect').collection('users')
+users = db.collection('users')
 users.count query, (err, count) ->
   console.log {count}
   return console.error(err) if err
@@ -103,6 +108,26 @@ users.count query, (err, count) ->
 
     user.migration = '20131214_classes'
     users.update {_id: user._id}, user
-    console.log("DONE!") if --count <= 0
+    console.log("USERS DONE") if --count <= 0
     console.log(count) if count%1000 is 0
     console.log('lefnire processed') if user._id is '9'
+
+###
+  Need to also migrate challenges.tasks
+###
+challenges = db.collection('challenges')
+challenges.count (err, count) ->
+  return console.error(err) if err
+  challenges.findEach {}, {batchSize:500}, (err, challenge) ->
+    unless challenge then err = 'Blank challenge';count--
+    return console.log(err) if err
+    _.each challenge.habits.concat(challenge.dailys).concat(challenge.todos).concat(challenge.rewards), (task) ->
+      # migrate task.priority from !, !!, !!! => 1, 1.5, 2
+      task.priority = switch task.priority
+        when "!!!" then 2
+        when "!!" then 1.5
+        else 1
+      # Add task attributes
+      task.attribute = "str"
+    challenges.update {_id: challenge._id}, challenge
+    console.log("CHALLENGES DONE") if --count <= 0
