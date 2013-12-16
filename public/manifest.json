@@ -32,7 +32,7 @@
             "js/app.js",
             "js/services/authServices.js",
             "js/services/notificationServices.js",
-            "js/services/userServices.js",
+            "bower_components/habitrpg-shared/script/userServices.js",
             "js/services/groupServices.js",
             "js/services/memberServices.js",
             "js/services/guideServices.js",
@@ -73,7 +73,7 @@
             "bower_components/angular-loading-bar/build/loading-bar.js",
             "js/static.js",
             "js/services/notificationServices.js",
-            "js/services/userServices.js",
+            "bower_components/habitrpg-shared/script/userServices.js",
             "js/controllers/authCtrl.js"
         ],
         "css": [

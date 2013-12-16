@@ -27,6 +27,7 @@ window.habitrpg = angular.module('habitrpg',
   .constant("API_URL", "")
   .constant("STORAGE_USER_ID", 'habitrpg-user')
   .constant("STORAGE_SETTINGS_ID", 'habit-mobile-settings')
+  .constant("MOBILE_APP", false)
   //.constant("STORAGE_GROUPS_ID", "") // if we decide to take groups offline
 
   .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'STORAGE_SETTINGS_ID',
