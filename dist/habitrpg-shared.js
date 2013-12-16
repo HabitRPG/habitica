@@ -10649,6 +10649,53 @@ var process=require("__browserify_process");(function() {
   };
 
   /*
+    Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
+  */
+
+
+  api.updateStore = function(user) {
+    var changes;
+    if (!user) {
+      return;
+    }
+    changes = [];
+    _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
+      var found;
+      found = _.find(content.gear.tree[type][user.stats["class"]], function(item) {
+        return !user.items.gear.owned[item.key];
+      });
+      if (found) {
+        changes.push(found);
+      }
+      return true;
+    });
+    _.defaults(changes, _.transform(_.where(content.gear.flat, {
+      klass: 'special'
+    }), function(m, v) {
+      if ((typeof v.canOwn === "function" ? v.canOwn(user) : void 0) && !user.items.gear.owned[v.key]) {
+        return m.push(v);
+      }
+    }));
+    changes.push(content.potion);
+    return _.sortBy(changes, function(item) {
+      switch (item.type) {
+        case 'weapon':
+          return 1;
+        case 'armor':
+          return 2;
+        case 'head':
+          return 3;
+        case 'shield':
+          return 4;
+        case 'potion':
+          return 5;
+        default:
+          return 6;
+      }
+    });
+  };
+
+  /*
   ------------------------------------------------------
   Content
   ------------------------------------------------------
@@ -11545,44 +11592,6 @@ var process=require("__browserify_process");(function() {
           return content.gear.flat["" + type + "_base_0"];
         }
         return item;
-      },
-      updateStore: function() {
-        var changes;
-        changes = [];
-        _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
-          var found;
-          found = _.find(content.gear.tree[type][user.stats["class"]], function(item) {
-            return !user.items.gear.owned[item.key];
-          });
-          if (found) {
-            changes.push(found);
-          }
-          return true;
-        });
-        _.defaults(changes, _.transform(_.where(content.gear.flat, {
-          klass: 'special'
-        }), function(m, v) {
-          if ((typeof v.canOwn === "function" ? v.canOwn(user) : void 0) && !user.items.gear.owned[v.key]) {
-            return m.push(v);
-          }
-        }));
-        changes.push(content.potion);
-        return _.sortBy(changes, function(item) {
-          switch (item.type) {
-            case 'weapon':
-              return 1;
-            case 'armor':
-              return 2;
-            case 'head':
-              return 3;
-            case 'shield':
-              return 4;
-            case 'potion':
-              return 5;
-            default:
-              return 6;
-          }
-        });
       },
       handleTwoHanded: function(item, type) {
         var message, weapon, _ref;

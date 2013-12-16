@@ -106,6 +106,31 @@ preenHistory = (history) ->
   newHistory
 
 ###
+  Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
+###
+api.updateStore = (user) ->
+  return unless user
+  changes = []
+  _.each ['weapon', 'armor', 'shield', 'head'], (type) ->
+    found = _.find content.gear.tree[type][user.stats.class], (item) ->
+      !user.items.gear.owned[item.key]
+    changes.push(found) if found
+    true
+  # Add special items (contrib gear, backer gear, etc)
+  _.defaults changes, _.transform _.where(content.gear.flat, {klass:'special'}), (m,v) ->
+    m.push v if v.canOwn?(user) && !user.items.gear.owned[v.key]
+  changes.push content.potion
+  # Return sorted store (array)
+  _.sortBy changes, (item) ->
+    switch item.type
+      when 'weapon' then 1
+      when 'armor'  then 2
+      when 'head'   then 3
+      when 'shield' then 4
+      when 'potion' then 5
+      else               6
+
+###
 ------------------------------------------------------
 Content
 ------------------------------------------------------
@@ -732,27 +757,6 @@ api.wrap = (user) ->
       item = content.gear.flat[user.items.gear.equipped[type]]
       return content.gear.flat["#{type}_base_0"] unless item
       item
-
-    updateStore: ->
-      changes = []
-      _.each ['weapon', 'armor', 'shield', 'head'], (type) ->
-        found = _.find content.gear.tree[type][user.stats.class], (item) ->
-          !user.items.gear.owned[item.key]
-        changes.push(found) if found
-        true
-      # Add special items (contrib gear, backer gear, etc)
-      _.defaults changes, _.transform _.where(content.gear.flat, {klass:'special'}), (m,v) ->
-        m.push v if v.canOwn?(user) && !user.items.gear.owned[v.key]
-      changes.push content.potion
-      # Return sorted store (array)
-      _.sortBy changes, (item) ->
-        switch item.type
-          when 'weapon' then 1
-          when 'armor'  then 2
-          when 'head'   then 3
-          when 'shield' then 4
-          when 'potion' then 5
-          else               6
 
     handleTwoHanded: (item, type='equipped') ->
       # If they're buying a shield and wearing a staff, dequip the staff
