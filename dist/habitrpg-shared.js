@@ -11945,8 +11945,9 @@ var process=require("__browserify_process");(function() {
     };
     Object.defineProperty(user, '_statsComputed', {
       get: function() {
-        var _this = this;
-        return _.reduce(['per', 'con', 'str', 'int'], function(m, stat) {
+        var computed,
+          _this = this;
+        computed = _.reduce(['per', 'con', 'str', 'int'], function(m, stat) {
           m[stat] = _.reduce('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'.split(' '), function(m2, path) {
             var val, _ref;
             val = user.fns.dotGet(path);
@@ -11955,6 +11956,8 @@ var process=require("__browserify_process");(function() {
           m[stat] += (user.stats.lvl - 1) / 2;
           return m;
         }, {});
+        computed.maxMP = computed.int * 2 + 30;
+        return computed;
       }
     });
     return Object.defineProperty(user, 'tasks', {

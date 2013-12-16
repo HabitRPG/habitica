@@ -1056,7 +1056,7 @@ api.wrap = (user) ->
   # Aggregate all intrinsic stats, buffs, weapon, & armor into computed stats
   Object.defineProperty user, '_statsComputed',
     get: ->
-      _.reduce(['per','con','str','int'], (m,stat) =>
+      computed = _.reduce(['per','con','str','int'], (m,stat) =>
         m[stat] = _.reduce('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'.split(' '), (m2,path) =>
           val = user.fns.dotGet(path)
           m2 +
@@ -1069,6 +1069,8 @@ api.wrap = (user) ->
         m[stat] += (user.stats.lvl - 1) / 2
         m
       , {})
+      computed.maxMP = computed.int*2 + 30
+      computed
   Object.defineProperty user, 'tasks',
     get: ->
       tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards)
