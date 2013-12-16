@@ -28,7 +28,7 @@ mongoose = require('mongoose');
 require('./models/user'); //load up the user schema - TODO is this necessary?
 require('./models/group');
 require('./models/challenge');
-mongoose.connect(nconf.get('NODE_DB_URI'), function(err) {
+mongoose.connect(nconf.get('NODE_DB_URI'), {auto_reconnect:true}, function(err) {
   if (err) throw err;
   console.info('Connected with Mongoose');
 });
