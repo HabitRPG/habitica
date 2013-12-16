@@ -981,6 +981,9 @@ api.wrap = (user) ->
       if user.items.lastDrop.count > 0
         user.items.lastDrop.count = 0
 
+      user.stats.mp += 10
+      user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
+
       # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
       # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
       return if user.preferences.sleep is true

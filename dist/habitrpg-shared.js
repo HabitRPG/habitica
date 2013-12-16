@@ -11838,6 +11838,10 @@ var process=require("__browserify_process");(function() {
         if (user.items.lastDrop.count > 0) {
           user.items.lastDrop.count = 0;
         }
+        user.stats.mp += 10;
+        if (user.stats.mp > user._statsComputed.maxMP) {
+          user.stats.mp = user._statsComputed.maxMP;
+        }
         if (user.preferences.sleep === true) {
           return;
         }
