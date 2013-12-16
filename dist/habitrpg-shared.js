@@ -11405,14 +11405,15 @@ var process=require("__browserify_process");(function() {
         }, req) : void 0;
       },
       unlock: function(req, cb) {
-        var cost, fullSet, k, path, split, v;
+        var alreadyOwns, cost, fullSet, k, path, split, v;
         path = req.query.path;
         fullSet = ~path.indexOf(",");
         cost = fullSet ? 1.25 : 0.5;
-        if (user.balance < cost) {
+        alreadyOwns = !fullSet && user.fns.dotGet("purchased." + path) === true;
+        if (user.balance < cost && !alreadyOwns) {
           return typeof cb === "function" ? cb({
             code: 401,
-            err: "Not enough gems"
+            message: "Not enough gems"
           }) : void 0;
         }
         if (fullSet) {
@@ -11421,7 +11422,7 @@ var process=require("__browserify_process");(function() {
             return true;
           });
         } else {
-          if (user.fns.dotGet("purchased." + path) === true) {
+          if (alreadyOwns) {
             split = path.split('.');
             v = split.pop();
             k = split.join('.');

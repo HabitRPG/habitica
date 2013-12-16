@@ -565,12 +565,13 @@ api.wrap = (user) ->
       {path} = req.query
       fullSet = ~path.indexOf(",")
       cost = if fullSet then 1.25 else 0.5 # 5G per set, 2G per individual
-      return cb?({code:401, err: "Not enough gems"}) if user.balance < cost
+      alreadyOwns = !fullSet and user.fns.dotGet("purchased." + path) is true
+      return cb?({code:401, message: "Not enough gems"}) if user.balance < cost and !alreadyOwns
       if fullSet
         _.each path.split(","), (p) ->
           user.fns.dotSet("purchased.#{p}", true);true
       else
-        if user.fns.dotGet("purchased." + path) is true
+        if alreadyOwns
           split = path.split('.');v=split.pop();k=split.join('.')
           user.fns.dotSet("preferences.#{k}",v)
           return cb? null, req
