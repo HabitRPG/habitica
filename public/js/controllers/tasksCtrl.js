@@ -64,7 +64,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.unlink = function(task, keep) {
       // TODO move this to userServices, turn userSerivces.user into ng-resource
-      $http.post(API_URL + '/api/v1/user/tasks/' + task.id + '/unlink?keep=' + keep)
+      $http.post(API_URL + '/api/v2/user/tasks/' + task.id + '/unlink?keep=' + keep)
         .success(function(){
           User.log({});
         });

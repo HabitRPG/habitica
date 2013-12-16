@@ -43,19 +43,16 @@ findTask = function(req, res) {
   Export it also so we can call it from deprecated.coffee
 */
 api.score = function(req, res, next) {
-  var task = findTask(req,res);
-  if (!task) return res.json(404, {err: "No task found."});
-
   var id = req.params.id,
     direction = req.params.direction,
     user = res.locals.user,
     task;
 
   // Send error responses for improper API call
-  if (!id) return res.json(500, {err: ':id required'});
+  if (!id) return res.json(400, {err: ':id required'});
   if (direction !== 'up' && direction !== 'down') {
     if (direction == 'unlink') return next();
-    return res.json(500, {err: ":direction must be 'up' or 'down'"});
+    return res.json(400, {err: ":direction must be 'up' or 'down'"});
   }
   // If exists already, score it
   if (task = user.tasks[id]) {
@@ -181,7 +178,7 @@ api.update = function(req, res, next) {
     if (acceptablePUTPaths[k])
       user.fns.dotSet(k, v);
     else
-      errors.push("path `" + k + "` was not saved, as it's a protected path. Make sure to send `PUT /api/v1/user` request bodies as `{'set.this.path':value}` instead of `{set:{this:{path:value}}}`");
+      errors.push("path `" + k + "` was not saved, as it's a protected path. See https://github.com/HabitRPG/habitrpg/blob/develop/API.md for PUT /api/v2/user.");
     return true;
   });
   user.save(function(err) {

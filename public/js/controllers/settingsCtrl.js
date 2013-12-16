@@ -54,7 +54,7 @@ habitrpg.controller('SettingsCtrl',
       if (!changePass.oldPassword || !changePass.newPassword || !changePass.confirmNewPassword) {
         return alert("Please fill out all fields");
       }
-      $http.post(API_URL + '/api/v1/user/change-password', changePass)
+      $http.post(API_URL + '/api/v2/user/change-password', changePass)
         .success(function(){
           alert("Password successfully changed");
           $scope.changePass = {};
@@ -92,7 +92,7 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope['delete'] = function(){
-      $http['delete'](API_URL + '/api/v1/user')
+      $http['delete'](API_URL + '/api/v2/user')
         .success(function(){
           localStorage.clear();
           window.location.href = '/logout';

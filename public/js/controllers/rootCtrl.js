@@ -81,7 +81,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         panelLabel: "Checkout",
         token: function(data) {
           $scope.$apply(function(){
-            $http.post("/api/v1/user/buy-gems", data)
+            $http.post("/api/v2/user/buy-gems", data)
               .success(function() {
                 window.location.href = "/";
               }).error(function(err) {
@@ -158,7 +158,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $scope.castEnd = function(target, type, $event){
       if ($scope.spell.target != type) return Notification.text("Invalid target");
       $scope.spell.cast(User.user, target);
-      $http.post('/api/v1/user/cast/' + $scope.spell.name, {target:target, type:type}).success(function(){
+      $http.post('/api/v2/user/cast/' + $scope.spell.name, {target:target, type:type}).success(function(){
         var msg = "You cast " + $scope.spell.text;
         switch (type) {
           case 'task': msg += ' on ' + target.text;break;

@@ -7,16 +7,16 @@
 angular.module('groupServices', ['ngResource']).
     factory('Groups', ['API_URL', '$resource', '$q',
       function(API_URL, $resource, $q) {
-        var Group = $resource(API_URL + '/api/v1/groups/:gid',
+        var Group = $resource(API_URL + '/api/v2/groups/:gid',
           {gid:'@_id', messageId: '@_messageId'},
           {
             //query: {method: "GET", isArray:false},
-            postChat: {method: "POST", url: API_URL + '/api/v1/groups/:gid/chat'},
-            deleteChatMessage: {method: "DELETE", url: API_URL + '/api/v1/groups/:gid/chat/:messageId'},
-            join: {method: "POST", url: API_URL + '/api/v1/groups/:gid/join'},
-            leave: {method: "POST", url: API_URL + '/api/v1/groups/:gid/leave'},
-            invite: {method: "POST", url: API_URL + '/api/v1/groups/:gid/invite'},
-            removeMember: {method: "POST", url: API_URL + '/api/v1/groups/:gid/removeMember'}
+            postChat: {method: "POST", url: API_URL + '/api/v2/groups/:gid/chat'},
+            deleteChatMessage: {method: "DELETE", url: API_URL + '/api/v2/groups/:gid/chat/:messageId'},
+            join: {method: "POST", url: API_URL + '/api/v2/groups/:gid/join'},
+            leave: {method: "POST", url: API_URL + '/api/v2/groups/:gid/leave'},
+            invite: {method: "POST", url: API_URL + '/api/v2/groups/:gid/invite'},
+            removeMember: {method: "POST", url: API_URL + '/api/v2/groups/:gid/removeMember'}
           });
 
         // Defer loading everything until they're requested

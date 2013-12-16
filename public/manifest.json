@@ -72,8 +72,8 @@
 
             "bower_components/angular-loading-bar/build/loading-bar.js",
             "js/static.js",
-            "js/services/userServices.js",
             "js/services/notificationServices.js",
+            "js/services/userServices.js",
             "js/controllers/authCtrl.js"
         ],
         "css": [

@@ -51,7 +51,7 @@ habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http', 'Not
       Notification.text('-1 day, remember to refresh');
     }
     $scope.addTenGems = function(){
-      $http.post(API_URL + '/api/v1/user/addTenGems').success(function(){
+      $http.post(API_URL + '/api/v2/user/addTenGems').success(function(){
         User.log({});
       })
     }

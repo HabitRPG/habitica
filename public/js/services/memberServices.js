@@ -8,7 +8,7 @@ angular.module('memberServices', ['ngResource']).
     factory('Members', ['$rootScope', 'API_URL', '$resource',
       function($rootScope, API_URL, $resource) {
         var members = {};
-        var Member = $resource(API_URL + '/api/v1/members/:uid', {uid:'@_id'});
+        var Member = $resource(API_URL + '/api/v2/members/:uid', {uid:'@_id'});
         var memberServices = {
 
           Member: Member,

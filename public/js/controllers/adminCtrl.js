@@ -2,7 +2,7 @@
 
 habitrpg.controller("AdminCtrl", ['$scope', '$rootScope', 'User', 'Notification', 'API_URL', '$resource',
   function($scope, $rootScope, User, Notification, API_URL, $resource) {
-    var Contributor = $resource(API_URL + '/api/v1/admin/members/:uid', {uid:'@_id'});
+    var Contributor = $resource(API_URL + '/api/v2/admin/members/:uid', {uid:'@_id'});
 
     $scope.profile = undefined;
     $scope.loadUser = function(uuid){
