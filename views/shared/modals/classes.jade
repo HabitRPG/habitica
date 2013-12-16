@@ -62,9 +62,9 @@
             span(class='weapon_healer_6')
     br
     .well(ng-show='selectedClass=="warrior"') Warriors deal moderate damage to tasks and have moderate defense against tasks.
-    .well(ng-show='selectedClass=="wizard"') Wizards deal high damage to task, and can cast debuff spells on multiple tasks.
-    .well(ng-show='selectedClass=="rogue"') Rogues finds more drops, Gold, and have a high chance of dealing "critical hits," which grant large GP & Exp bonuses. Rogues can also "go stealth" to avoid and entire day of dailies.
-    .well(ng-show='selectedClass=="healer"') Healers have high defense against damage, and can heal themselves and other players in the party, as well as buff players.
+    .well(ng-show='selectedClass=="wizard"') Wizards deal high damage to tasks and can cast debuff spells on multiple tasks.
+    .well(ng-show='selectedClass=="rogue"') Rogues find more drops, earn more gold, and have a high chance of dealing "critical hits," which grant large gold & experience bonuses. Rogues can also "go stealth" to avoid an entire day of dailies.
+    .well(ng-show='selectedClass=="healer"') Healers have high defense against damage, can heal themselves, and can heal and buff any other players in the party.
 
   .modal-footer
     button.btn.btn-default.cancel(ng-click='selectedClass && changeClass(selectedClass)') Select
