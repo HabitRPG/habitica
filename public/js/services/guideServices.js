@@ -155,12 +155,12 @@ angular.module('guideServices', []).
           element: ".auto-allocate",
           title: "Auto Allocate",
           placement: 'left',
-          content: "If 'automatic allocation' is checked, you're avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Physical', you'll gain STR auotmatically.",
+          content: "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Physical', you'll gain STR auotmatically.",
         }, {
           element: ".auto-allocate",
           title: "Auto Allocate",
           placement: 'left',
-          content: "We recommend auto-allocate if you (a) want to 'role play' your avatar, or (b) can't be bothered with the class system (HabitRPG jumping the shark?). For other players who desire maximum control, leave 'auto allocate' unchecked.",
+          content: "We recommend auto-allocate if you (a) want to 'role play' your avatar, or (b) can't be bothered with the class system. For other players who desire maximum control, leave 'auto allocate' unchecked.",
         }, {
           element: ".meter.mana",
           title: "Spells",
