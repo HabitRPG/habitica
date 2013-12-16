@@ -80,6 +80,7 @@ habitrpg.controller('SettingsCtrl',
         "stats.exp": stats.exp,
         "stats.gp": stats.gp,
         "stats.lvl": stats.lvl,
+        "stats.mp": stats.mana,
         "achievements.streak": achievements.streak
       });
       $rootScope.modals.restore = false;

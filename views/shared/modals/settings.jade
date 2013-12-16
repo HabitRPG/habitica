@@ -29,6 +29,9 @@ div(ng-controller='SettingsCtrl')
             input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp')
             span.input-suffix Gold
           .option-group.option-medium
+            input.option-content(type='number', step="any", data-for='stats.mp', ng-model='restoreValues.stats.mp')
+            span.input-suffix Mana
+          .option-group.option-medium
             input.option-content(type='number', data-for='stats.lvl', ng-model='restoreValues.stats.lvl')
             span.input-suffix Level
           //-
