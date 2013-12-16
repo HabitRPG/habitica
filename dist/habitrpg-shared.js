@@ -9236,45 +9236,46 @@ var global=self;/**
       },
       rogue: {
         0: {
-          text: "Training Dagger",
-          notes: 'Training weapon. Confers no benefit.',
+          text: "Dagger",
+          notes: 'A rogue\'s most basic weapon. Confers no benefit.',
+          str: 0,
           value: 0
         },
         1: {
-          text: "Dagger",
-          notes: 'Simple Dagger. Increases STR by 2.',
+          text: "Short Sword",
+          notes: 'Light, concealable blade. Increases STR by 2.',
           str: 2,
           value: 20
         },
         2: {
-          text: "Short Sword",
-          notes: 'Short Sword. Increases STR by 5.',
-          str: 5,
-          value: 50
+          text: "Scimitar",
+          notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.',
+          str: 3,
+          value: 35
         },
         3: {
-          text: "Scimitar",
-          notes: 'Scimitar. Increases STR by 8.',
-          str: 8,
-          value: 80
+          text: "Kukri",
+          notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.',
+          str: 4,
+          value: 50
         },
         4: {
           text: "Nunchaku",
-          notes: 'Nunchaku. Increases STR by 12.',
-          str: 12,
-          value: 120
+          notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.',
+          str: 6,
+          value: 70
         },
         5: {
-          text: "Katana",
-          notes: 'Katana. Increases STR by 16.',
-          str: 16,
-          value: 160
+          text: "Ninja-to",
+          notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.',
+          str: 8,
+          value: 90
         },
         6: {
-          text: "Hook Blade",
-          notes: 'Hook Blade. Increases STR by 20.',
-          str: 20,
-          value: 200,
+          text: "Hook Sword",
+          notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.',
+          str: 10,
+          value: 120,
           last: true
         }
       },
@@ -9382,8 +9383,8 @@ var global=self;/**
       special: {
         0: {
           text: "Dark Souls Blade",
-          notes: 'Increases experience gain by 21%.',
-          str: 21,
+          notes: 'Feasts upon foes\' life essence to power its wicked strokes. Increases STR by 20.',
+          str: 20,
           value: 150,
           canOwn: (function(u) {
             var _ref;
@@ -9392,8 +9393,11 @@ var global=self;/**
         },
         1: {
           text: "Crystal Blade",
-          notes: 'Increases experience gain by 24%.',
-          str: 24,
+          notes: 'Its glittering facets tell the tale of a hero. Increases all attributes by 6.',
+          str: 6,
+          per: 6,
+          con: 6,
+          int: 6,
           value: 170,
           canOwn: (function(u) {
             var _ref;
@@ -9402,9 +9406,9 @@ var global=self;/**
         },
         2: {
           text: "Stephen Weber's Shaft of the Dragon",
-          notes: "Stephen Weber's Shaft of the Dragon",
-          str: 50,
-          per: 50,
+          notes: 'Feel the potency of the dragon surge from within! Increases STR and PER by 25 each.',
+          str: 25,
+          per: 25,
           value: 200,
           canOwn: (function(u) {
             var _ref;
@@ -9413,10 +9417,10 @@ var global=self;/**
         },
         3: {
           text: "Mustaine's Milestone Mashing Morning Star",
-          notes: "Mustaine's Milestone Mashing Morning Star",
-          str: 50,
-          int: 50,
-          con: 50,
+          notes: "Meetings, monsters, malaise: managed! Mash! Increases STR, INT, and CON by 17 each.",
+          str: 17,
+          int: 17,
+          con: 17,
           value: 200,
           canOwn: (function(u) {
             var _ref;
@@ -9568,8 +9572,8 @@ var global=self;/**
       special: {
         0: {
           text: "Shade Armor",
-          notes: 'Decreases Health loss by 12%.',
-          defense: 12,
+          notes: 'Screams when struck, for it feels pain in its wearer\'s place. Increases CON by 20.',
+          con: 20,
           value: 150,
           canOwn: (function(u) {
             var _ref;
@@ -9578,8 +9582,11 @@ var global=self;/**
         },
         1: {
           text: "Crystal Armor",
-          notes: 'Decreases Health loss by 14%.',
-          defense: 14,
+          notes: 'Its tireless power inures the wearer to mundane discomfort. Increases all attributes by 6.',
+          con: 6,
+          str: 6,
+          per: 6,
+          int: 6,
           value: 170,
           canOwn: (function(u) {
             var _ref;
@@ -9587,10 +9594,10 @@ var global=self;/**
           })
         },
         2: {
-          text: "Tarutaru's Noble's Tunic",
-          notes: 'Makes you extra fluffy. Adds "Refresh" effect; Cure potency +n%.',
-          int: 50,
-          con: 50,
+          text: "Jean Chalard's Noble Tunic",
+          notes: 'Makes you extra fluffy! Increases CON and INT by 25 each.',
+          int: 25,
+          con: 25,
           value: 200,
           canOwn: (function(u) {
             var _ref;
@@ -9742,9 +9749,9 @@ var global=self;/**
       special: {
         0: {
           text: "Shade Helm",
-          notes: 'Decreases Health loss by 7%.',
-          defense: 7,
-          value: 100,
+          notes: 'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.',
+          int: 20,
+          value: 150,
           canOwn: (function(u) {
             var _ref;
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
@@ -9752,17 +9759,22 @@ var global=self;/**
         },
         1: {
           text: "Crystal Helm",
-          notes: 'Decreases Health loss by 8%.',
-          defense: 8,
-          value: 120,
+          notes: 'The favored crown of those who lead by example. Increases all attributes by 6.',
+          con: 6,
+          str: 6,
+          per: 6,
+          int: 6,
+          value: 170,
           canOwn: (function(u) {
             var _ref;
             return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 3;
           })
         },
         2: {
-          text: "??? 300-tier Helm",
-          notes: '',
+          text: "Nameless Helm",
+          notes: 'A testament to those who gave of themselves while asking nothing in return. Increases INT and STR by 25 each.',
+          int: 25,
+          str: 25,
           value: 200,
           canOwn: (function(u) {
             var _ref;
@@ -9814,45 +9826,46 @@ var global=self;/**
       },
       rogue: {
         0: {
-          text: "Training Dagger",
-          notes: 'Training weapon. Confers no benefit.',
+          text: "Dagger",
+          notes: 'A rogue\'s most basic weapon. Confers no benefit.',
+          str: 0,
           value: 0
         },
         1: {
-          text: "Dagger",
-          notes: 'Simple Dagger. Increases PER by 2.',
-          per: 2,
+          text: "Short Sword",
+          notes: 'Light, concealable blade. Increases STR by 2.',
+          str: 2,
           value: 20
         },
         2: {
-          text: "Short Sword",
-          notes: 'Short Sword. Increases PER by 5.',
-          per: 5,
-          value: 50
+          text: "Scimitar",
+          notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.',
+          str: 3,
+          value: 35
         },
         3: {
-          text: "Scimitar",
-          notes: 'Scimitar. Increases PER by 8.',
-          per: 8,
-          value: 80
+          text: "Kukri",
+          notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.',
+          str: 4,
+          value: 50
         },
         4: {
           text: "Nunchaku",
-          notes: 'Nunchaku. Increases PER by 12.',
-          per: 12,
-          value: 120
+          notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.',
+          str: 6,
+          value: 70
         },
         5: {
-          text: "Katana",
-          notes: 'Katana. Increases PER by 16.',
-          per: 16,
-          value: 160
+          text: "Ninja-to",
+          notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.',
+          str: 8,
+          value: 90
         },
         6: {
-          text: "Hook Blade",
-          notes: 'Hook Blade. Increases PER by 20.',
-          per: 20,
-          value: 200,
+          text: "Hook Sword",
+          notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.',
+          str: 10,
+          value: 120,
           last: true
         }
       },
@@ -9878,7 +9891,7 @@ var global=self;/**
         },
         4: {
           text: "Savior Shield",
-          notes: 'Turns blows from innocents as well as oneself. Increases CON by 9.',
+          notes: 'Stops blows aimed at nearby innocents as well as those aimed at you. Increases CON by 9.',
           con: 9,
           value: 70
         },
@@ -9893,9 +9906,9 @@ var global=self;/**
       special: {
         0: {
           text: "Tormented Skull",
-          notes: 'Decreases Health loss by 9%.',
-          defense: 9,
-          value: 120,
+          notes: 'Sees beyond the veil of death, and displays what it finds there for enemies to fear. Increases PER by 20.',
+          per: 20,
+          value: 150,
           canOwn: (function(u) {
             var _ref;
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
@@ -9903,9 +9916,12 @@ var global=self;/**
         },
         1: {
           text: "Crystal Shield",
-          notes: 'Decreases Health loss by 10%.',
-          defense: 10,
-          value: 150,
+          notes: 'Shatters arrows and deflects the words of naysayers. Increases all attributes by 6.',
+          con: 6,
+          str: 6,
+          per: 6,
+          int: 6,
+          value: 170,
           canOwn: (function(u) {
             var _ref;
             return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 5;
