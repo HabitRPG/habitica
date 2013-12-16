@@ -60,7 +60,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     $rootScope.dismissAlert = function() {
       $rootScope.modals.newStuff = false;
-      $rootScope.set('flags.newStuff',false);
+      $rootScope.set({'flags.newStuff':false});
     }
 
     $rootScope.notPorted = function(){
