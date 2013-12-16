@@ -33,7 +33,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
         hr
 
         h4 Gear
-        li.customize-menu
+        li.customize-menu.inventory-gear
           menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", special:"Special"}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
               button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')

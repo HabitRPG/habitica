@@ -122,7 +122,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
   .row-fluid
     .border-right(ng-class='user.stats.lvl <  5 ? "span6" : "span4"')
       include ../shared/profiles/stats
-    .span4.border-right(ng-show='user.stats.lvl >= 5')
+    .span4.border-right.allocate-stats(ng-show='user.stats.lvl >= 5')
       h4
         | {{user.stats.class}}&nbsp;
         a.btn.btn-danger.btn-mini(ng-click='changeClass(null)')
@@ -130,7 +130,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
         small 3 <span class="Pet_Currency_Gem1x inline-gems"/>
 
       h6 Points: {{user.stats.points}}
-      fieldset
+      fieldset.auto-allocate
         label.checkbox
           input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})')
           | Automatic Allocation

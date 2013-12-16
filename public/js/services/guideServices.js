@@ -139,8 +139,64 @@ angular.module('guideServices', []).
       }
     });
 
+
+
+
+    /**
+     * Classes Tour
+     */
+    function classesTour(){
+      var tourSteps = [
+        {
+          element: ".allocate-stats",
+          title: "Stats",
+          content: "These are your class's stats, they effect the game-play. Each time you level up, you get one point to allocate to particular stat. Hover over each stat for more information.",
+        }, {
+          element: ".auto-allocate",
+          title: "Auto Allocate",
+          placement: 'left',
+          content: "If 'automatic allocation' is checked, you're avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Physical', you'll gain STR auotmatically.",
+        }, {
+          element: ".auto-allocate",
+          title: "Auto Allocate",
+          placement: 'left',
+          content: "We recommend auto-allocate if you (a) want to 'role play' your avatar, or (b) can't be bothered with the class system (HabitRPG jumping the shark?). For other players who desire maximum control, leave 'auto allocate' unchecked.",
+        }, {
+          element: ".meter.mana",
+          title: "Spells",
+          content: "You can now unlock class-specific spells. You'll see your first at level 6."
+        }, {
+//          onShow: function(tour){
+//            $rootScope.$state.go('options.inventory.inventory');
+//          },
+          element: '.stats-equipment',
+          title: "Class Gear",
+          content: "Your old gear has been placed into your inventory, you're now wearing your apprentice " + User.user.stats.class + " equippment. Wearing your class's gear grants you a 1.5% bonus to stats. However, feel free to switch back to your old gear."
+        }, {
+          element: ".stats-equipment",
+            title: "Read More",
+            content: "For more information on the class-system, see <a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>.",
+        }
+      ];
+      _.each(tourSteps, function(step){
+        step.content = "<div><div class='npc_justin float-left'></div>" + step.content + "</div>"; // add Justin NPC img
+      });
+      $('.allocate-stats').popover('destroy');
+      var tour = new Tour({
+//        onEnd: function(){
+//          User.set({'flags.showTour': false});
+//        }
+      });
+      tourSteps.forEach(function(step) {
+        tour.addStep(_.defaults(step, {html: true}));
+      });
+      tour.restart(); // Tour doesn't quite mesh with our handling of flags.showTour, just restart it on page load
+      //tour.start(true);
+    };
+
     return {
-      initTour:initTour
+      initTour: initTour,
+      classesTour: classesTour
     };
 
   }

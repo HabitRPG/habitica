@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state',
-  function($rootScope, $scope, $location, User, $http, $state) {
+habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide',
+  function($rootScope, $scope, $location, User, $http, $state, Guide) {
     $scope.profile = User.user;
     $scope.hideUserAvatar = function() {
       $(".userAvatar").hide();
@@ -26,6 +26,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       $scope.selectedClass = undefined;
       $rootScope.Shared.updateStore(User.user);
       $state.go('options.profile.stats');
+      Guide.classesTour();
     }
 
     $scope.save = function(){

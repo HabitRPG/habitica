@@ -1,4 +1,4 @@
-h4 Equipment
+h4.stats-equipment Equipment
 p(ng-repeat='(k,v) in user.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
   strong {{piece.text}}:&nbsp;
   span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}}{{stat}}&nbsp;
