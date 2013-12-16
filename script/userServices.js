@@ -105,8 +105,7 @@ angular.module('userServices', []).
             if (status >= 400) {
               data =
                 data.needRefresh ? "The site has been updated and the page needs to refresh. The last action has not been recorded, please refresh and try again." :
-                data ? data :
-                'Something went wrong, please refresh your browser or upgrade the mobile app';
+                data ? (data.err ? data.err : data) : 'Something went wrong, please refresh your browser or upgrade the mobile app';
               alert(data);
               // Clear the queue. Better if we can hunt down the problem op, but this is the easiest solution
               settings.sync.queue = settings.sync.sent = [];

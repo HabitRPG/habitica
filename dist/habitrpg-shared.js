@@ -9999,6 +9999,20 @@ var global=self;/**
   */
 
 
+  crit = function(user, stat, chance) {
+    if (stat == null) {
+      stat = 'per';
+    }
+    if (chance == null) {
+      chance = .03;
+    }
+    if (user.fns.predictableRandom() <= chance) {
+      return 1.5 + (.05 * user._statsComputed[stat]);
+    } else {
+      return 1;
+    }
+  };
+
   api.spells = {
     wizard: {
       fireball: {
@@ -10008,7 +10022,8 @@ var global=self;/**
         target: 'task',
         notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional xp.',
         cast: function(user, target) {
-          return target.value += user.stats.int + crit(user);
+          target.value += user._statsComputed.int * .2;
+          return user.stats.exp += Math.abs(target.value);
         }
       },
       lightning: {
@@ -10018,7 +10033,7 @@ var global=self;/**
         target: 'task',
         notes: 'A bolt a lightning pierces through a task. There is a high chance of a critical hit.',
         cast: function(user, target) {
-          return target.value += user.stats.per * 2 + crit(user);
+          return target.value += user._statsComputed.int * .3 * crit(user, 'per');
         }
       },
       frost: {
@@ -10029,7 +10044,7 @@ var global=self;/**
         notes: "Ice forms of the party's tasks, slowing them down and opening them up to more attacks. Your party gains a buff to xp.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            return member.stats.buffs.int = user.stats.int;
+            return member.stats.buffs.int = user._statsComputed.int / 2;
           });
         }
       },
@@ -10041,7 +10056,7 @@ var global=self;/**
         notes: "Unearthly shadows form and wisp around your party, concealing their presence. Under the shroud, your party can sneak up on tasks, dealing more critical hits.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            return member.stats.buffs.per = user.stats.per;
+            return member.stats.buffs.str = user._statsComputed.str / 2;
           });
         }
       }
@@ -10054,7 +10069,7 @@ var global=self;/**
         target: 'task',
         notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
         cast: function(user, target) {
-          return target.value -= user.stat.str;
+          return target.value += user._statsComputed.str * .3;
         }
       },
       defensiveStance: {
@@ -10064,7 +10079,7 @@ var global=self;/**
         target: 'self',
         notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduced damage from dailies at the end of the day.",
         cast: function(user, target) {
-          return user.stats.buffs.con = user.stats.con / 2;
+          return user.stats.buffs.con = user._statsComputed.con / 2;
         }
       },
       valorousPresence: {
@@ -10075,7 +10090,7 @@ var global=self;/**
         notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            return member.stats.buffs.str = user.stats.str / 2;
+            return member.stats.buffs.str = user._statsComputed.str / 2;
           });
         }
       },
@@ -10087,7 +10102,7 @@ var global=self;/**
         notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            return member.stats.buffs.con = user.stats.con / 2;
+            return member.stats.buffs.con = user._statsComputed.con / 2;
           });
         }
       }
@@ -10100,7 +10115,7 @@ var global=self;/**
         target: 'task',
         notes: "Your nimble fingers run through the task's pockets and 'find' some treasures for yourself. You gain an increased gold bonus on the task and a higher chance of an item drop.",
         cast: function(user, target) {
-          return user.stats.gp += user.stats.per * target.value;
+          return user.stats.gp += (user._statsComputed.per / 2) * Math.abs(target.value);
         }
       },
       backStab: {
@@ -10108,11 +10123,11 @@ var global=self;/**
         mana: 15,
         lvl: 7,
         target: 'task',
-        notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the stat, with a higher chance of a critical hit.",
+        notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit.",
         cast: function(user, target) {
           var _crit;
-          _crit = crit(user);
-          target.value -= user.stats.str;
+          _crit = crit(user, 'per', .5);
+          target.value += _crit / 2;
           user.stats.exp += _crit;
           return user.stats.gp += _crit;
         }
@@ -10125,7 +10140,7 @@ var global=self;/**
         notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            return member.stats.buffs.per = user.stats.per / 2;
+            return member.stats.buffs.per = user._statsComputed.per / 2;
           });
         }
       },
@@ -10137,7 +10152,7 @@ var global=self;/**
         notes: "You hurry your step and dance circles around your party's enemies. You assist your party, helping them do extra damage to a number of tasks equal to half your strength.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            return member.stats.buffs.str = user.stats.str / 2;
+            return member.stats.buffs.str = user._statsComputed.str / 2;
           });
         }
       }
@@ -10150,7 +10165,10 @@ var global=self;/**
         target: 'self',
         notes: 'Light covers your body, healing your wounds. You gain a boost to your health.',
         cast: function(user, target) {
-          return user.stats.hp += user.stats.con + user.stats.int;
+          user.stats.hp += user._statsComputed.con + user._statsComputed.int;
+          if (user.stats.hp > 50) {
+            return user.stats.hp = 50;
+          }
         }
       },
       brightness: {
@@ -10161,7 +10179,10 @@ var global=self;/**
         notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced",
         cast: function(user, target) {
           return _.each(user.tasks, function(target) {
-            return target.value -= user.stats.int;
+            if (target.type === 'reward') {
+              return;
+            }
+            return target.value += user._statsComputed.int * .1;
           });
         }
       },
@@ -10173,7 +10194,7 @@ var global=self;/**
         notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            return member.stats.buffs.con = user.stats.con / 2;
+            return member.stats.buffs.con = user._statsComputed.con / 2;
           });
         }
       },
@@ -10185,15 +10206,14 @@ var global=self;/**
         notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            return member.stats.hp += user.con / 2;
+            member.stats.hp += user._statsComputed.con / 2 + user._statsComputed.int / 2;
+            if (member.stats.hp > 50) {
+              return member.stats.hp = 50;
+            }
           });
         }
       }
     }
-  };
-
-  crit = function(user) {
-    return Math.random() * user.stats.per + 1;
   };
 
   _.each(api.spells, function(spellClass) {
@@ -11852,6 +11872,13 @@ var process=require("__browserify_process");(function() {
           user.stats.mp = user._statsComputed.maxMP;
         }
         if (user.preferences.sleep === true) {
+          user.stats.buffs = {
+            str: 0,
+            int: 0,
+            per: 0,
+            con: 0,
+            stealth: 0
+          };
           return;
         }
         todoTally = 0;
@@ -11931,6 +11958,13 @@ var process=require("__browserify_process");(function() {
         if (typeof user.markModified === "function") {
           user.markModified('dailys');
         }
+        user.stats.buffs = {
+          str: 0,
+          int: 0,
+          per: 0,
+          con: 0,
+          stealth: 0
+        };
         return user;
       },
       preenUserHistory: function(minHistLen) {
