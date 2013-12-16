@@ -11437,6 +11437,13 @@ var process=require("__browserify_process");(function() {
             return true;
           });
         } else {
+          if (!(user.balance >= .75)) {
+            return cb({
+              code: 401,
+              message: "Not enough gems"
+            });
+          }
+          user.balance -= .75;
           _.merge(user.stats, {
             str: 0,
             def: 0,

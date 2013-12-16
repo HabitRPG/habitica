@@ -608,6 +608,8 @@ api.wrap = (user) ->
           true
       else
         # Null ?class value means "reset class"
+        return cb({code:401,message:"Not enough gems"}) unless user.balance >= .75
+        user.balance -= .75
         _.merge user.stats, {str: 0, def: 0, per: 0, int: 0}
         user.flags.classSelected = false
         #'stats.points': this is handled on the server
