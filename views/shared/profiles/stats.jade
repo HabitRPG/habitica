@@ -3,6 +3,7 @@ p(ng-repeat='(k,v) in user.items.gear.equipped', ng-init='piece=Content.gear.fla
   strong {{piece.text}}:&nbsp;
   span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}}{{stat}}&nbsp;
 
+hr
 h4 Stats
 p
   strong Health
@@ -17,11 +18,24 @@ p
   strong Experience
   | : {{profile.stats.exp | number:0}} / {{Shared.tnl(profile.stats.lvl)}}
 
+hr
 h4 Attributes
-i.icon-question-sign(popover-title='Attributes Breakdown', popover-trigger='mouseenter', popover-placement='right', popover="Attributes are calculated as (allocated stat-points) + (gear stats) + (buffs) + (1.5% bonus if your class's gear")
-p(ng-repeat='(k,v) in {str:"Strength",int:"Intelligence",con:"Constitution",per:"Perception"}')
-  strong {{v}}: {{profile._statsComputed[k]}}
+table.table.table-striped
+  tr(ng-repeat='(k,v) in {str:"Strength",int:"Intelligence",con:"Constitution",per:"Perception"}')
+    td
+      strong {{v}}: {{profile._statsComputed[k]}}
+    td
+      ul
+        li Allocated: {{profile.stats[k] || 0}}
+        li
+          | Gear: {{Content.gear.flat[profile.items.gear.equipped.weapon][k] + Content.gear.flat[profile.items.gear.equipped.armor][k] + Content.gear.flat[profile.items.gear.equipped.head][k] + Content.gear.flat[profile.items.gear.equipped.shield][k] || 0}}&nbsp;
+          i.icon-question-sign(popover-title='Class Gear', popover-trigger='mouseenter', popover-placement='right', popover="Wearing your class's gear gives that stat a 1.5% bonus, in addition to this number.")
+        li Level: {{(profile.stats.lvl - 1) / 2}}
+        li Buffs: {{profile.stats.buffs[k] || 0}}
 
+h4
+
+hr
 h4 Pets
 p
   strong Pets Found
