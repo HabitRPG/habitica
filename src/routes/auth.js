@@ -10,4 +10,8 @@ router.post('/api/v2/user/auth/facebook', auth.loginFacebook);
 router.post('/api/v2/user/reset-password', auth.resetPassword);
 router.post('/api/v2/user/change-password', auth.auth, auth.changePassword);
 
+router.post('/api/v1/register', auth.registerUser);
+router.post('/api/v1/user/auth/local', auth.loginLocal);
+router.post('/api/v1/user/auth/facebook', auth.loginFacebook);
+
 module.exports = router;
