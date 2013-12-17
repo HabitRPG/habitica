@@ -11530,7 +11530,7 @@ var process=require("__browserify_process");(function() {
           intMod = 1 + (user._statsComputed.int / 100);
           stats.exp += Math.round(delta * XP * intMod * task.priority * crit);
           gpMod = delta * task.priority * crit;
-          gpMod *= user._statsComputed.per * .3;
+          gpMod *= user._statsComputed.per * .03;
           return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
         };
         subtractPoints = function() {
