@@ -267,7 +267,7 @@ var UserSchema = new Schema({
 });
 
 UserSchema.methods.deleteTask = function(tid) {
-  this.ops.deleteTask({params:{id:tid}}); // TODO remove this whole method, since it just proxies, and change all references to this method
+  this.ops.deleteTask({params:{id:tid}},function(){}); // TODO remove this whole method, since it just proxies, and change all references to this method
 }
 
 UserSchema.methods.toJSON = function() {
