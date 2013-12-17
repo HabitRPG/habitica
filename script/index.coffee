@@ -117,8 +117,8 @@ api.updateStore = (user) ->
     changes.push(found) if found
     true
   # Add special items (contrib gear, backer gear, etc)
-  _.defaults changes, _.transform _.where(content.gear.flat, {klass:'special'}), (m,v) ->
-    m.push v if v.canOwn?(user) && !user.items.gear.owned[v.key]
+  changes = changes.concat _.filter content.gear.flat, (v) ->
+    v.klass is 'special' and !user.items.gear.owned[v.key] and v.canOwn?(user)
   changes.push content.potion
   # Return sorted store (array)
   _.sortBy changes, (item) ->

@@ -10689,12 +10689,8 @@ var process=require("__browserify_process");(function() {
       }
       return true;
     });
-    _.defaults(changes, _.transform(_.where(content.gear.flat, {
-      klass: 'special'
-    }), function(m, v) {
-      if ((typeof v.canOwn === "function" ? v.canOwn(user) : void 0) && !user.items.gear.owned[v.key]) {
-        return m.push(v);
-      }
+    changes = changes.concat(_.filter(content.gear.flat, function(v) {
+      return v.klass === 'special' && !user.items.gear.owned[v.key] && (typeof v.canOwn === "function" ? v.canOwn(user) : void 0);
     }));
     changes.push(content.potion);
     return _.sortBy(changes, function(item) {
