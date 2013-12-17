@@ -34,7 +34,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
 
         h4 Gear
         li.customize-menu.inventory-gear
-          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", special:"Special"}', ng-show='gear[klass]')
+          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
               button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
         label.checkbox.inline
@@ -42,7 +42,7 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
           | Use Costume&nbsp;
           i.icon-question-sign(popover="Show something different on your avatar than the gear you have equipped for battle", popover-trigger='mouseenter', popover-placement='right')
         li.customize-menu(ng-if='user.preferences.costume')
-          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", special:"Special"}', ng-show='gear[klass]')
+          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
               button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
 

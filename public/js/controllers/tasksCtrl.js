@@ -73,7 +73,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     /*
      ------------------------
-     Items
+     Items 
      ------------------------
      */
 
