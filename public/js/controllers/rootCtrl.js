@@ -7,6 +7,12 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
   function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups) {
     var user = User.user;
 
+    var initSticky = _.once(function(){
+      if (window.env.IS_MOBILE) return;
+      $('.header-wrap').sticky({topSpacing:0});
+    })
+    $rootScope.$on('userUpdated',initSticky);
+
     $rootScope.modals = {};
     $rootScope.modals.achievements = {};
     $rootScope.User = User;
