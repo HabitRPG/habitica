@@ -298,7 +298,7 @@ api.spells =
       target: 'task'
       notes: "Your nimble fingers run through the task's pockets and 'find' some treasures for yourself. You gain an increased gold bonus on the task and a higher chance of an item drop."
       cast: (user, target) ->
-        user.stats.gp += (user._statsComputed.per/2) * Math.abs(target.value)
+        user.stats.gp += ((if target.value < 0 then 0 else target.value) + 2) * user._statsComputed.per*.03
     backStab:
       text: 'Backstab'
       mana: 15

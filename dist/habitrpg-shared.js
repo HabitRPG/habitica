@@ -10115,7 +10115,7 @@ var global=self;/**
         target: 'task',
         notes: "Your nimble fingers run through the task's pockets and 'find' some treasures for yourself. You gain an increased gold bonus on the task and a higher chance of an item drop.",
         cast: function(user, target) {
-          return user.stats.gp += (user._statsComputed.per / 2) * Math.abs(target.value);
+          return user.stats.gp += ((target.value < 0 ? 0 : target.value) + 2) * user._statsComputed.per * .03;
         }
       },
       backStab: {
