@@ -217,7 +217,8 @@ var UserSchema = new Schema({
     automaticAllocation: Boolean,
     costume: Boolean,
     sleep: {type: Boolean, 'default': false},
-    stickyHeader: {type: Boolean, 'default': true}
+    stickyHeader: {type: Boolean, 'default': true},
+    disableClasses: {type: Boolean, 'default': false}
   },
   profile: {
     blurb: String,

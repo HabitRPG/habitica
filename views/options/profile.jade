@@ -126,9 +126,9 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
 
 script(id='partials/options.profile.stats.html', type='text/ng-template')
   .row-fluid
-    .border-right(ng-class='user.stats.lvl <  5 ? "span6" : "span4"')
+    .border-right(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "span4" : "span6"')
       include ../shared/profiles/stats
-    .span4.border-right.allocate-stats(ng-show='user.stats.lvl >= 5')
+    .span4.border-right.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
       h4
         | {{user.stats.class}}&nbsp;
         a.btn.btn-danger.btn-mini(ng-click='changeClass(null)')
@@ -166,7 +166,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
             | &nbsp;INT: {{user.stats.int}}
           td
             a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("int")') +
-    .border-right(ng-class='user.stats.lvl <  5 ? "span6" : "span4"')
+    div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "span4" : "span6"')
       include ../shared/profiles/achievements
 
 script(id='partials/options.profile.profile.html', type='text/ng-template')

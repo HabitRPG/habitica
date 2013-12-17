@@ -24,7 +24,7 @@
           span(ng-show='user.history.exp')
             a(ng-click='toggleChart("exp")', tooltip='Progress')
               i.icon-signal
-      .meter.mana(title='Mana', ng-if='user.flags.classSelected')
+      .meter.mana(title='Mana', ng-if='user.flags.classSelected && !user.preferences.disableClasses')
         .bar(style='width: {{user.stats.mp / user._statsComputed.maxMP * 100}}%;')
         span.meter-text
           i.icon-fire

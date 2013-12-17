@@ -43,6 +43,8 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
       button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover='Bring Bailey the Town Crier out of hiding so you can review past news.') Show Bailey
       br
       button.btn(ng-click='modals.restore = true', popover-trigger='mouseenter', popover-placement='right', popover='Manually change values like Health, Level, and Gold.') Fix Character Values
+      br
+      button.btn(ng-click='user.ops.changeClass({})', ng-if='user.preferences.disableClasses==true' popover-trigger='mouseenter', popover-placement='right', popover="You opted out of the class system initially. Would you like now to opt-in?") Enable Class System
 
       div(ng-show='user.auth.local')
         hr
