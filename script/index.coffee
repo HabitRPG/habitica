@@ -679,7 +679,7 @@ api.wrap = (user) ->
 
         # GP modifier
         gpMod = delta * task.priority * crit
-        gpMod *= (user._statsComputed.per *.03) # Factor in PER
+        gpMod *= (1 + user._statsComputed.per *.03) # Factor in PER
         stats.gp +=
           if task.streak
             streakBonus = task.streak / 100 + 1 # eg, 1-day streak is 1.1, 2-day is 1.2, etc
