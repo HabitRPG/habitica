@@ -194,6 +194,7 @@ api.update = function(req, res, next) {
 api.attachGroup = function(req, res, next) {
   Group.findById(req.params.gid, function(err, group){
     if(err) return res.json(500, {err:err});
+    if(!group) return res.json(404, {err: "Group not found"});
     res.locals.group = group;
     next();
   })
