@@ -110,6 +110,7 @@ angular.module('userServices', []).
               // Clear the queue. Better if we can hunt down the problem op, but this is the easiest solution
               settings.sync.queue = settings.sync.sent = [];
               save();
+              window.location.reload(true);
 
             // But if we're offline, queue up offline actions so we can send when we're back online
             } else {
