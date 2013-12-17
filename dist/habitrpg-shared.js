@@ -10788,6 +10788,9 @@ var process=require("__browserify_process");(function() {
     if (task.value == null) {
       task.value = task.type === 'reward' ? 10 : 0;
     }
+    if (!_.isNumber(task.priority)) {
+      task.priority = 1;
+    }
     return task;
   };
 
