@@ -3,12 +3,18 @@ include ./stable
 
 script(type='text/ng-template', id='partials/options.inventory.html')
   ul.nav.nav-tabs
-    li(ng-class="{ active: $state.includes('options.inventory.inventory') }")
-      a(ui-sref='options.inventory.inventory')
-        | Inventory
-    li(ng-class="{ active: $state.includes('options.inventory.stable') }")
-      a(ui-sref='options.inventory.stable')
-        | Stable
+    li(ng-class="{ active: $state.includes('options.inventory.drops') }")
+      a(ui-sref='options.inventory.drops')
+        | Drops
+    li(ng-class="{ active: $state.includes('options.inventory.pets') }")
+      a(ui-sref='options.inventory.pets')
+        | Pets
+    li(ng-class="{ active: $state.includes('options.inventory.mounts') }")
+      a(ui-sref='options.inventory.mounts')
+        | Mounts
+    li(ng-class="{ active: $state.includes('options.inventory.equipment') }")
+      a(ui-sref='options.inventory.equipment')
+        | Equipment
 
   .tab-content
     .tab-pane.active

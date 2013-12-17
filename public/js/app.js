@@ -39,8 +39,7 @@ window.habitrpg = angular.module('habitrpg',
         .when('/options/profile', '/options/profile/avatar')
         .when('/options/groups', '/options/groups/tavern')
         .when('/options/groups/guilds', '/options/groups/guilds/public')
-        .when('/options/inventory', '/options/inventory/inventory')
-        .when('/options/inventory/stable', '/options/inventory/stable/pets')
+        .when('/options/inventory', '/options/inventory/drops')
         .when('/options/settings', '/options/settings/settings')
 
         // redirect states that don't match
@@ -149,21 +148,21 @@ window.habitrpg = angular.module('habitrpg',
           templateUrl: "partials/options.inventory.html",
           controller: 'InventoryCtrl'
         })
-        .state('options.inventory.inventory', {
-          url: '/inventory',
-          templateUrl: "partials/options.inventory.inventory.html"
+        .state('options.inventory.drops', {
+          url: '/drops',
+          templateUrl: "partials/options.inventory.drops.html"
         })
-        .state('options.inventory.stable', {
-          url: '/stable',
-          templateUrl: "partials/options.inventory.stable.html"
-        })
-        .state('options.inventory.stable.pets', {
+        .state('options.inventory.pets', {
           url: '/pets',
-          templateUrl: "partials/options.inventory.stable.pets.html"
+          templateUrl: "partials/options.inventory.pets.html"
         })
-        .state('options.inventory.stable.mounts', {
+        .state('options.inventory.mounts', {
           url: '/mounts',
-          templateUrl: "partials/options.inventory.stable.mounts.html"
+          templateUrl: "partials/options.inventory.mounts.html"
+        })
+        .state('options.inventory.equipment', {
+          url: '/equipment',
+          templateUrl: "partials/options.inventory.equipment.html"
         })
 
         // Options > Settings

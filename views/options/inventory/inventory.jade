@@ -1,4 +1,21 @@
-script(type='text/ng-template', id='partials/options.inventory.inventory.html')
+script(type='text/ng-template', id='partials/options.inventory.equipment.html')
+  .row-fluid
+  .span6.border-right
+    li.customize-menu.inventory-gear
+      menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
+        div(ng-repeat='item in gear[klass]')
+          button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
+  .span6
+    label.checkbox.inline
+      input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
+      | Use Costume&nbsp;
+      i.icon-question-sign(popover="Show something different on your avatar than the gear you have equipped for battle", popover-trigger='mouseenter', popover-placement='right')
+    li.customize-menu(ng-if='user.preferences.costume')
+      menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
+        div(ng-repeat='item in gear[klass]')
+          button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
+
+script(type='text/ng-template', id='partials/options.inventory.drops.html')
   .row-fluid
     .span6.border-right
       h2 Inventory
@@ -29,22 +46,6 @@ script(type='text/ng-template', id='partials/options.inventory.inventory.html')
               button.customize-option(popover='{{Content.food[food].notes}}', popover-title='{{Content.food[food].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
                 .badge.badge-info.stack-count {{points}}
               //-p {{food}}
-
-        hr
-
-        h4 Gear
-        li.customize-menu.inventory-gear
-          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
-            div(ng-repeat='item in gear[klass]')
-              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
-        label.checkbox.inline
-          input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
-          | Use Costume&nbsp;
-          i.icon-question-sign(popover="Show something different on your avatar than the gear you have equipped for battle", popover-trigger='mouseenter', popover-placement='right')
-        li.customize-menu(ng-if='user.preferences.costume')
-          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
-            div(ng-repeat='item in gear[klass]')
-              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
 
     .span6
       h2 Market

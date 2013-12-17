@@ -1,16 +1,4 @@
-script(type='text/ng-template', id='partials/options.inventory.stable.html')
-  ul.nav.nav-tabs
-    li(ng-class="{ active: $state.includes('options.inventory.stable.pets') }")
-      a(ui-sref='options.inventory.stable.pets')
-        | Pets
-    li(ng-class="{ active: $state.includes('options.inventory.stable.mounts') }")
-      a(ui-sref='options.inventory.stable.mounts')
-        | Mounts
-  .tab-content
-    .tab-pane.active
-      div(ui-view)
-
-script(type='text/ng-template', id='partials/options.inventory.stable.mounts.html')
+script(type='text/ng-template', id='partials/options.inventory.mounts.html')
   .stable
     table(style='width:100%')
       tr
@@ -42,7 +30,7 @@ script(type='text/ng-template', id='partials/options.inventory.stable.mounts.htm
         button(ng-if='user.items.mounts["LionCub-Ethereal"]', class="pet-button Mount_Head_LionCub-Ethereal", ng-class='{active: user.items.currentMount == "LionCub-Ethereal"}', ng-click='chooseMount("LionCub", "Ethereal")', popover='Ethereal Lion', popover-trigger='mouseenter', popover-placement='bottom')
           //.Mount_Head_LionCub-Ethereal
 
-script(type='text/ng-template', id='partials/options.inventory.stable.pets.html')
+script(type='text/ng-template', id='partials/options.inventory.pets.html')
   .stable
     table(style='width:100%')
       tr
