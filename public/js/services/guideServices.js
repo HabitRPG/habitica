@@ -150,7 +150,7 @@ angular.module('guideServices', []).
         {
           element: ".allocate-stats",
           title: "Stats",
-          content: "These are your class's stats, they effect the game-play. Each time you level up, you get one point to allocate to particular stat. Hover over each stat for more information.",
+          content: "These are your class's stats, they affect the game-play. Each time you level up, you get one point to allocate to particular stat. Hover over each stat for more information.",
         }, {
           element: ".auto-allocate",
           title: "Auto Allocate",
