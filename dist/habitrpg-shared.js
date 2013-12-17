@@ -11466,9 +11466,10 @@ var process=require("__browserify_process");(function() {
           user.balance -= .75;
           _.merge(user.stats, {
             str: 0,
-            def: 0,
+            con: 0,
             per: 0,
-            int: 0
+            int: 0,
+            points: user.stats.lvl
           });
           user.flags.classSelected = false;
         }
