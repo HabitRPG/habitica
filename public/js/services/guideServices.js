@@ -40,27 +40,27 @@ angular.module('guideServices', []).
           element: "ul.habits",
           title: "Types of Goals",
           content: "HabitRPG allows you to track your goals in three different ways. These goals are categorized in columns as Habits, Dailies, or To-Dos.",
-          placement: "bottom"
+          placement: "top"
         }, {
           element: "ul.habits",
           title: "Habits",
           content: "Habits are goals that you constantly track. They can be given plus or minus values, allowing you to gain experience and gold for good habits or lose health for bad ones.",
-          placement: "bottom"
+          placement: "top"
         }, {
           element: "ul.dailys",
           title: "Dailies",
           content: "Dailies are goals that you want to complete once a day. Checking off a daily reaps experience and gold. Failing to check off your daily before the day resets results in a loss of health. You can change your day start settings from the options menu.",
-          placement: "bottom"
+          placement: "top"
         }, {
           element: "ul.todos",
           title: "To-Dos",
           content: "To-Dos are one-off goals that you can get to eventually. While it is possible to set a deadline on a to-do, they are not required. To-Dos make for a quick and easy way to gain experience.",
-          placement: "bottom"
+          placement: "top"
         }, {
-          element: "ul.rewards",
+          element: "ul.main-list.rewards",
           title: "Rewards",
           content: "All that gold you earned will allow you to reward yourself with either custom or in-game prizes. Buy them liberally – rewarding yourself is integral in forming good habits.",
-          placement: "bottom"
+          placement: "top"
         }, {
           element: "ul.habits li:first-child",
           title: "Hover over comments",

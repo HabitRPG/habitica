@@ -41,7 +41,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           i.icon-question-sign(popover="You have a lot of To-Dos, which can cause performance issues. Be sure to clear them periodically (see \"Completed\" tab at the bottom).", popover-trigger='mouseenter', popover-placement='left')
 
         // Actual List
-        ul(class='{{list.type}}s', ng-show='obj[list.type + "s"].length > 0', habitrpg-sortable)
+        ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', habitrpg-sortable)
           include ./task
 
         // Static Rewards
