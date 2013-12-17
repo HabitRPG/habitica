@@ -610,12 +610,25 @@ api.wrap = (user) ->
           true
       else
         # Null ?class value means "reset class"
-        return cb({code:401,message:"Not enough gems"}) unless user.balance >= .75
-        user.balance -= .75
+        if user.preferences.disableClasses
+          user.preferences.disableClasses = false
+          user.autoAllocate = false
+        else
+          return cb({code:401,message:"Not enough gems"}) unless user.balance >= .75
+          user.balance -= .75
         _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: user.stats.lvl}
         user.flags.classSelected = false
         #'stats.points': this is handled on the server
       cb? null, req
+
+    disableClasses: (req, cb) ->
+      user.stats.class = 'warrior'
+      user.flags.classSelected = true
+      user.preferences.disableClasses = true
+      user.preferences.autoAllocate = true
+      user.stats.str = user.stats.lvl
+      user.stats.points = 0
+      cb null, req
 
     allocate: (req, cb) ->
       stat = req.query.stat or 'str'

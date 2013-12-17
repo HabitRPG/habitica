@@ -10223,7 +10223,7 @@ var global=self;/**
       _cast = spell.cast;
       return spell.cast = function(user, target) {
         _cast(user, target);
-        return user.stats.mp = user.stats.mp - spell.mana;
+        return user.stats.mp -= spell.mana;
       };
     });
   });
@@ -11457,13 +11457,18 @@ var process=require("__browserify_process");(function() {
             return true;
           });
         } else {
-          if (!(user.balance >= .75)) {
-            return cb({
-              code: 401,
-              message: "Not enough gems"
-            });
+          if (user.preferences.disableClasses) {
+            user.preferences.disableClasses = false;
+            user.autoAllocate = false;
+          } else {
+            if (!(user.balance >= .75)) {
+              return cb({
+                code: 401,
+                message: "Not enough gems"
+              });
+            }
+            user.balance -= .75;
           }
-          user.balance -= .75;
           _.merge(user.stats, {
             str: 0,
             con: 0,
@@ -11474,6 +11479,15 @@ var process=require("__browserify_process");(function() {
           user.flags.classSelected = false;
         }
         return typeof cb === "function" ? cb(null, req) : void 0;
+      },
+      disableClasses: function(req, cb) {
+        user.stats["class"] = 'warrior';
+        user.flags.classSelected = true;
+        user.preferences.disableClasses = true;
+        user.preferences.autoAllocate = true;
+        user.stats.str = user.stats.lvl;
+        user.stats.points = 0;
+        return cb(null, req);
       },
       allocate: function(req, cb) {
         var stat;

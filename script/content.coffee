@@ -382,7 +382,7 @@ _.each api.spells, (spellClass) ->
     spell.cast = (user, target) ->
       #return if spell.target and spell.target != (if target.type then 'task' else 'user')
       _cast(user,target)
-      user.stats.mp = user.stats.mp - spell.mana
+      user.stats.mp -= spell.mana
 
 ###
   ---------------------------------------------------------------
