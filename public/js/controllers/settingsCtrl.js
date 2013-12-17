@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'API_URL', 'Guide', '$location',
-  function($scope, User, $rootScope, $http, API_URL, Guide, $location) {
+  ['$scope', 'User', '$rootScope', '$http', 'API_URL', 'Guide', '$location', '$timeout',
+  function($scope, User, $rootScope, $http, API_URL, Guide, $location, $timeout) {
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest
 //    $scope.auth = function (id, token) {
@@ -14,6 +14,11 @@ habitrpg.controller('SettingsCtrl',
 //            }
 //        });
 //    }
+
+    $scope.toggleStickyHeader = function(){
+      User.set({"preferences.stickyHeader":!User.user.preferences.stickyHeader});
+      $timeout(function(){window.location.reload()});
+    }
 
     $scope.showTour = function(){
       User.set({'flags.showTour':true});
