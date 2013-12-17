@@ -155,7 +155,7 @@ angular.module('guideServices', []).
           element: ".auto-allocate",
           title: "Auto Allocate",
           placement: 'left',
-          content: "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Physical', you'll gain STR auotmatically.",
+          content: "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Physical', you'll gain STR automatically.",
         }, {
           element: ".auto-allocate",
           title: "Auto Allocate",
