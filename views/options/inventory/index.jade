@@ -12,7 +12,7 @@ script(type='text/ng-template', id='partials/options.inventory.html')
     li(ng-class="{ active: $state.includes('options.inventory.mounts') }")
       a(ui-sref='options.inventory.mounts')
         | Mounts
-    li(ng-class="{ active: $state.includes('options.inventory.equipment') }")
+    li.equipment-tab(ng-class="{ active: $state.includes('options.inventory.equipment') }")
       a(ui-sref='options.inventory.equipment')
         | Equipment
 
