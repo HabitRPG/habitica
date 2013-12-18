@@ -41,7 +41,5 @@ figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(
     // FIXME handle @minimal, this might have to be a directive
     span.current-pet(class='Pet-{{profile.items.currentPet}}', ng-show='profile.items.currentPet && !minimal')
   .avatar-level(ng-class='userLevelStyle(profile,"label")')
-    //- why isn't this working?
-    //-i.icon-circle-arrow-up.icon-white(ng-hide='_.isEmpty(profile.stats.buffs)', tooltip='Buffed', style='margin-right:5px;')
     i.icon-circle-arrow-up.icon-white(ng-show='profile.stats.buffs.str || profile.stats.buffs.per || profile.stats.buffs.con || profile.stats.buffs.int || profile.stats.buffs.stealth', tooltip='Buffed', style='margin-right:5px;')
     | Lvl {{profile.stats.lvl}}
