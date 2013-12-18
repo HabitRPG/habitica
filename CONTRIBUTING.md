@@ -8,6 +8,9 @@
 
 HabitRPG uses [Trello](https://trello.com/b/EpoYEYod/habitrpg) to track feature requests. [Read more](https://trello.com/c/8gzGlle8/142-how-to-submit-a-new-request).
 
+# Frequently Asked Questions
+You might find help with your issue on the [Frequently Asked Questions](http://habitrpg.wikia.com/wiki/FAQ) page.
+
 # Contributing Code
 
 * See [Contributing to HabitRPG](http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG)
