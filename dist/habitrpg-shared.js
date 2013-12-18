@@ -10022,51 +10022,51 @@ var global=self;/**
         target: 'task',
         notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional experience.',
         cast: function(user, target) {
-          target.value += user._statsComputed.int * .02;
-          return user.stats.exp += Math.abs(target.value);
-        }
-      },
-      lightning: {
-        text: 'Lightning Strike',
-        mana: 15,
-        lvl: 7,
-        target: 'task',
-        notes: 'A bolt of lightning pierces through a task. There is a high chance of a critical hit.',
-        cast: function(user, target) {
           target.value += user._statsComputed.int * .02 * crit(user, 'per');
           return user.stats.exp += Math.abs(target.value);
         }
       },
-      frost: {
-        text: 'Chilling Frost',
+      mpheal: {
+        text: 'Ethereal Surge',
+        mana: 30,
+        lvl: 7,
+        target: 'party',
+        notes: "A flow of magical energy rushes from your hands and recharges your party. Your party recovers MP.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            var bonus;
+            bonus = Math.ceil(user._statsComputed.int * .2 + 5);
+            if (bonus > 25) {
+              bonus = 25;
+            }
+            return member.stats.mp += bonus;
+          });
+        }
+      },
+      earth: {
+        text: 'Earthquake',
         mana: 35,
         lvl: 8,
         target: 'party',
-        notes: "Ice forms on the party's tasks, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
+        notes: "The ground below your party's tasks cracks and shakes with extreme intensity, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
         cast: function(user, target) {
           return _.each(target, function(member) {
             var _base;
             if ((_base = member.stats.buffs).int == null) {
               _base.int = 0;
             }
-            return member.stats.buffs.int += user._statsComputed.int * .2;
+            return member.stats.buffs.int = user._statsComputed.int * .2;
           });
         }
       },
-      darkness: {
-        text: 'Shroud of Darkness',
-        mana: 30,
+      frost: {
+        text: 'Chilling Frost',
+        mana: 40,
         lvl: 9,
-        target: 'party',
-        notes: "Unearthly shadows form and wisp around your party, concealing their presence. Under the shroud, your party can sneak up on tasks, dealing more critical hits.",
+        target: 'self',
+        notes: "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day.",
         cast: function(user, target) {
-          return _.each(target, function(member) {
-            var _base;
-            if ((_base = member.stats.buffs).str == null) {
-              _base.str = 0;
-            }
-            return member.stats.buffs.str += user._statsComputed.int * .2;
-          });
+          return user.stats.buffs.streaks = true;
         }
       }
     },
@@ -11618,7 +11618,9 @@ var process=require("__browserify_process");(function() {
             if (options.cron) {
               calculateDelta();
               subtractPoints();
-              task.streak = 0;
+              if (!user.stats.buffs.streaks) {
+                task.streak = 0;
+              }
             } else {
               calculateDelta();
               addPoints();
@@ -11926,7 +11928,8 @@ var process=require("__browserify_process");(function() {
             int: 0,
             per: 0,
             con: 0,
-            stealth: 0
+            stealth: 0,
+            streaks: false
           };
           return;
         }
@@ -12012,7 +12015,8 @@ var process=require("__browserify_process");(function() {
           int: 0,
           per: 0,
           con: 0,
-          stealth: 0
+          stealth: 0,
+          streaks: false
         };
         return user;
       },

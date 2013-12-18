@@ -731,7 +731,7 @@ api.wrap = (user) ->
           if options.cron
             calculateDelta()
             subtractPoints()
-            task.streak = 0
+            task.streak = 0 unless user.stats.buffs.streaks
           else
             calculateDelta()
             addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
@@ -1015,7 +1015,7 @@ api.wrap = (user) ->
       # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
       # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
       if user.preferences.sleep is true
-        user.stats.buffs = {str:0,int:0,per:0,con:0,stealth:0}
+        user.stats.buffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
         return
 
         # Tally each task
@@ -1067,7 +1067,7 @@ api.wrap = (user) ->
       user.fns.preenUserHistory()
       user.markModified? 'history'
       user.markModified? 'dailys' # covers dailys.*.history
-      user.stats.buffs = {str:0,int:0,per:0,con:0,stealth:0}
+      user.stats.buffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
       user
 
     # Registered users with some history

@@ -212,6 +212,7 @@ crit = (user, stat='per', chance=.03) ->
   else 1
 
 api.spells =
+
   wizard:
     fireball:
       text: 'Burst of Flames'
@@ -220,39 +221,40 @@ api.spells =
       target: 'task'
       notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional experience.'
       cast: (user, target) ->
-        target.value += user._statsComputed.int * .02
-        user.stats.exp += Math.abs(target.value)
-    lightning:
-      text: 'Lightning Strike'
-      mana: 15
-      lvl: 7
-      target: 'task'
-      notes: 'A bolt of lightning pierces through a task. There is a high chance of a critical hit.'
-      cast: (user, target) ->
         target.value += user._statsComputed.int * .02 * crit(user, 'per')
         user.stats.exp += Math.abs(target.value)
-    frost:
-      text: 'Chilling Frost'
+
+    mpheal:
+      text: 'Ethereal Surge'
+      mana: 30
+      lvl: 7
+      target: 'party'
+      notes: "A flow of magical energy rushes from your hands and recharges your party. Your party recovers MP.",
+      cast: (user, target)->
+        _.each target, (member) ->
+          bonus = Math.ceil(user._statsComputed.int * .2 + 5)
+          bonus = 25 if bonus > 25 #prevent ability to replenish own mp infinitely
+          member.stats.mp += bonus
+
+    earth:
+      text: 'Earthquake'
       mana: 35
       lvl: 8
       target: 'party'
-      notes: "Ice forms on the party's tasks, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
+      notes: "The ground below your party's tasks cracks and shakes with extreme intensity, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
       cast: (user, target) ->
-        ## lasts for 24 hours ##
         _.each target, (member) ->
           member.stats.buffs.int ?= 0
-          member.stats.buffs.int += user._statsComputed.int * .2
-    darkness:
-      text: 'Shroud of Darkness'
-      mana: 30
+          member.stats.buffs.int = user._statsComputed.int * .2
+
+    frost:
+      text: 'Chilling Frost'
+      mana: 40
       lvl: 9
-      target: 'party'
-      notes: "Unearthly shadows form and wisp around your party, concealing their presence. Under the shroud, your party can sneak up on tasks, dealing more critical hits.",
+      target: 'self'
+      notes: "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day."
       cast: (user, target) ->
-        ## lasts for 24 hours ##
-        _.each target, (member) ->
-          member.stats.buffs.str ?= 0
-          member.stats.buffs.str += user._statsComputed.int * .2
+        user.stats.buffs.streaks = true
 
   warrior:
     smash:
