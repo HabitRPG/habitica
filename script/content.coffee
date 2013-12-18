@@ -218,7 +218,7 @@ api.spells =
       mana: 10
       lvl: 6
       target: 'task'
-      notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional xp.'
+      notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional experience.'
       cast: (user, target) ->
         target.value += user._statsComputed.int*.2
         user.stats.exp += Math.abs(target.value)
@@ -227,7 +227,7 @@ api.spells =
       mana: 15
       lvl: 7
       target: 'task'
-      notes: 'A bolt a lightning pierces through a task. There is a high chance of a critical hit.'
+      notes: 'A bolt of lightning pierces through a task. There is a high chance of a critical hit.'
       cast: (user, target) ->
         target.value += user._statsComputed.int*.3 * crit(user, 'per')
     frost:
@@ -235,7 +235,7 @@ api.spells =
       mana: 35
       lvl: 8
       target: 'party'
-      notes: "Ice forms of the party's tasks, slowing them down and opening them up to more attacks. Your party gains a buff to xp.",
+      notes: "Ice forms on the party's tasks, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
       cast: (user, target) ->
         ## lasts for 24 hours ##
         _.each target, (member) ->
@@ -265,7 +265,7 @@ api.spells =
       mana: 25
       lvl: 7
       target: 'self'
-      notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduced damage from dailies at the end of the day."
+      notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day."
       cast: (user, target) ->
         ## Only affects health loss at cron from dailies ##
         user.stats.buffs.con = user._statsComputed.con/2
@@ -348,7 +348,7 @@ api.spells =
       mana: 15
       lvl: 7
       target: 'self'
-      notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced"
+      notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced."
       cast: (user, target) ->
         _.each user.tasks, (target) ->
           return if target.type is 'reward'
