@@ -11374,7 +11374,10 @@ var process=require("__browserify_process");(function() {
             user.items.gear[type][item.type] = item.key;
             message = user.fns.handleTwoHanded(item, type);
         }
-        return typeof cb === "function" ? cb(message, req) : void 0;
+        return cb({
+          code: 200,
+          message: message
+        }, req);
       },
       hatch: function(req, cb) {
         var egg, hatchingPotion, pet, _ref;

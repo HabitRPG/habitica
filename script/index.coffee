@@ -549,7 +549,7 @@ api.wrap = (user) ->
           item = content.gear.flat[key]
           user.items.gear[type][item.type] = item.key
           message = user.fns.handleTwoHanded(item,type)
-      cb? message, req
+      cb {code:200,message}, req
 
     hatch: (req, cb) ->
       {egg, hatchingPotion} = req.params
