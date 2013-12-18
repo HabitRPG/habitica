@@ -34,7 +34,7 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
       #notification-area(ng-controller='NotificationCtrl')
       #wrap
 
-        //if they hide the header, we still need user-menu visible
+        //if they hide the header, we still need user-menu visible 
         div(ng-if='user.preferences.hideHeader')
           include ./shared/header/menu
 

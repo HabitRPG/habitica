@@ -58,7 +58,8 @@ habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http', 'Not
     $scope.addLevelsAndGold = function(){
       User.set({
         'stats.exp': User.user.stats.exp + 10000,
-        'stats.gp': User.user.stats.gp + 10000
+        'stats.gp': User.user.stats.gp + 10000,
+        'stats.mp': User.user.stats.mp + 10000
       });
     }
   }])

@@ -320,34 +320,44 @@ api.cast = function(req, res) {
       break;
 
     case 'party':
+    case 'user':
       async.waterfall([
         function(cb){
           Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members').exec(cb);
         },
         function(group, cb) {
-          if (!group) group = {members:[user]};
-          spell.cast(user, group.members);
-          var series = _.transform(group.members, function(m,v,k){
-            m[k] = function(cb2){v.save(cb2);}
-          });
+          // Solo player? let's just create a faux group for simpler code
+          var g = group ? group : {members:[user]};
+          var series = [], found;
+          if (type == 'party') {
+            spell.cast(user, g.members);
+            series = _.transform(g.members, function(m,v,k){
+              m.push(function(cb2){v.save(cb2)});
+            });
+          } else {
+            found = _.find(g.members, {_id: target._id})
+            spell.cast(user, found);
+            series.push(function(cb2){found.save(cb2)});
+          }
+
+          if (group) {
+            series.push(function(cb2){
+              group.chat.unshift({
+                id: shared.uuid(),
+                uuid: user._id,
+                contributor: user.contributor && user.contributor.toObject(),
+                backer: user.backer && user.backer.toObject(),
+                text: '`casts ' +  spell.text + ' on ' + (type == 'user' ? found.profile.name : 'the party') + '`',
+                user: '<'+user.profile.name+'>',
+                timestamp: +new Date
+              });
+              group.save(cb2);
+            })
+          }
+
           async.series(series, cb);
         },
         function(whatever, cb){
-          user.save(cb);
-        }
-      ], done);
-      break;
-
-    case 'user':
-      async.waterfall([
-        function(cb) {
-          User.findById(target._id, cb);
-        },
-        function(member, cb) {
-          spell.cast(user, member);
-          member.save(cb); // not parallel because target could be user, which causes race condition when saving
-        },
-        function(saved, num, cb) {
           user.save(cb);
         }
       ], done);
