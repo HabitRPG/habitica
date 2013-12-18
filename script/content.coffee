@@ -220,7 +220,7 @@ api.spells =
       target: 'task'
       notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional experience.'
       cast: (user, target) ->
-        target.value += user._statsComputed.int*.2
+        target.value += user._statsComputed.int * .02
         user.stats.exp += Math.abs(target.value)
     lightning:
       text: 'Lightning Strike'
@@ -229,7 +229,8 @@ api.spells =
       target: 'task'
       notes: 'A bolt of lightning pierces through a task. There is a high chance of a critical hit.'
       cast: (user, target) ->
-        target.value += user._statsComputed.int*.3 * crit(user, 'per')
+        target.value += user._statsComputed.int * .02 * crit(user, 'per')
+        user.stats.exp += Math.abs(target.value)
     frost:
       text: 'Chilling Frost'
       mana: 35
@@ -239,7 +240,8 @@ api.spells =
       cast: (user, target) ->
         ## lasts for 24 hours ##
         _.each target, (member) ->
-          member.stats.buffs.int = user._statsComputed.int/2
+          member.stats.buffs.int ?= 0
+          member.stats.buffs.int += user._statsComputed.int * .2
     darkness:
       text: 'Shroud of Darkness'
       mana: 30
@@ -249,7 +251,8 @@ api.spells =
       cast: (user, target) ->
         ## lasts for 24 hours ##
         _.each target, (member) ->
-          member.stats.buffs.str = user._statsComputed.str/2
+          member.stats.buffs.str ?= 0
+          member.stats.buffs.str += user._statsComputed.int * .2
 
   warrior:
     smash:
@@ -259,7 +262,7 @@ api.spells =
       target: 'task'
       notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases."
       cast: (user, target) ->
-        target.value += user._statsComputed.str*.3
+        target.value += user._statsComputed.str * .03
     defensiveStance:
       text: 'Defensive Stance'
       mana: 25
@@ -267,8 +270,8 @@ api.spells =
       target: 'self'
       notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day."
       cast: (user, target) ->
-        ## Only affects health loss at cron from dailies ##
-        user.stats.buffs.con = user._statsComputed.con/2
+        user.stats.buffs.con ?= 0
+        user.stats.buffs.con += user._statsComputed.con * .3
     valorousPresence:
       text: 'Valorous Presence'
       mana: 20
@@ -276,9 +279,9 @@ api.spells =
       target: 'party'
       notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR."
       cast: (user, target) ->
-        ## lasts 24 hours ##
         _.each target, (member) ->
-          member.stats.buffs.str = user._statsComputed.str/2
+          member.stats.buffs.str ?= 0
+          member.stats.buffs.str += user._statsComputed.str * .2
     intimidate:
       text: 'Intimidating Gaze'
       mana: 15
@@ -286,9 +289,9 @@ api.spells =
       target: 'party'
       notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense."
       cast: (user, target) ->
-        ## lasts 24 hours ##
         _.each target, (member) ->
-          member.stats.buffs.con = user._statsComputed.con/2
+          member.stats.buffs.con ?= 0
+          member.stats.buffs.con = user._statsComputed.con *  .2
 
   rogue:
     pickPocket:
@@ -298,7 +301,7 @@ api.spells =
       target: 'task'
       notes: "Your nimble fingers run through the task's pockets and 'find' some treasures for yourself. You gain an increased gold bonus on the task and a higher chance of an item drop."
       cast: (user, target) ->
-        user.stats.gp += ((if target.value < 0 then 0 else target.value) + 1) + user._statsComputed.per/2
+        user.stats.gp += ((if target.value < 0 then 0 else target.value) + 1) + user._statsComputed.per * .3
     backStab:
       text: 'Backstab'
       mana: 15
@@ -307,9 +310,10 @@ api.spells =
       notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit."
       cast: (user, target) ->
         _crit = crit(user, 'per', .5)
-        target.value += _crit/2
-        user.stats.exp += _crit
-        user.stats.gp += _crit
+        target.value += _crit * .03
+        bonus =  ((if target.value < 0 then 0 else target.value) + 1) * _crit
+        user.stats.exp += bonus
+        user.stats.gp += bonus
     stealth:
       text: 'Tools of the Trade'
       mana: 20
@@ -319,7 +323,8 @@ api.spells =
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
-          member.stats.buffs.per = user._statsComputed.per/2
+          member.stats.buffs.per ?= 0
+          member.stats.buffs.per += user._statsComputed.per * .2
     speedburst:
       text: 'Burst of Speed'
       mana: 25
@@ -327,11 +332,9 @@ api.spells =
       target: 'party'
       notes: "You hurry your step and dance circles around your party's enemies. You assist your party, helping them do extra damage to a number of tasks equal to half your strength."
       cast: (user, target) ->
-        # each party member gets this bonus to a number tasks == user.stats.str/2
-        # the effect lasts 24 hours, or when until the party member has used the effected number of tasks. whichever occurs sooner.
-        # the 24 hour limit is to help prevent it stacking on a player who has been absent for a long time.
         _.each target, (member) ->
-          member.stats.buffs.str = user._statsComputed.str/2
+          member.stats.buffs.str ?= 0
+          member.stats.buffs.str = user._statsComputed.str * .2
 
   healer:
     heal:
@@ -341,7 +344,7 @@ api.spells =
       target: 'self'
       notes: 'Light covers your body, healing your wounds. You gain a boost to your health.'
       cast: (user, target) ->
-        user.stats.hp += user._statsComputed.con + user._statsComputed.int
+        user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 10) *.5
         user.stats.hp = 50 if user.stats.hp > 50
     brightness:
       text: 'Searing Brightness'
@@ -352,7 +355,7 @@ api.spells =
       cast: (user, target) ->
         _.each user.tasks, (target) ->
           return if target.type is 'reward'
-          target.value += user._statsComputed.int*.1
+          target.value += user._statsComputed.int * .02
     protectAura:
       text: 'Protective Aura'
       mana: 30
@@ -362,7 +365,8 @@ api.spells =
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
-          member.stats.buffs.con = user._statsComputed.con/2
+          member.stats.buffs.con ?= 0
+          member.stats.buffs.con = user._statsComputed.con * .4
     heallAll:
       text: 'Blessing'
       mana: 25
@@ -371,7 +375,7 @@ api.spells =
       notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health."
       cast: (user, target) ->
         _.each target, (member) ->
-          member.stats.hp += (user._statsComputed.con/2 + user._statsComputed.int/2)
+          member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 10) * .3
           member.stats.hp = 50 if member.stats.hp > 50
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
