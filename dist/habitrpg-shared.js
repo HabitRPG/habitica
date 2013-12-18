@@ -10498,7 +10498,7 @@ var global=self;/**
 
 },{"lodash":3}],6:[function(require,module,exports){
 var process=require("__browserify_process");(function() {
-  var HP, XP, api, content, dayMapping, moment, preenHistory, sanitizeOptions, _,
+  var api, content, dayMapping, moment, preenHistory, sanitizeOptions, _,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   moment = require('moment');
@@ -10506,10 +10506,6 @@ var process=require("__browserify_process");(function() {
   _ = require('lodash');
 
   content = require('./content.coffee');
-
-  XP = 7.5;
-
-  HP = 2;
 
   api = module.exports = {};
 
@@ -11539,7 +11535,7 @@ var process=require("__browserify_process");(function() {
             if (adjustvalue) {
               task.value += nextDelta;
               if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
-                task.value += user._statsComputed.str * .25;
+                task.value += nextDelta * user._statsComputed.str * .005;
               }
             }
             return delta += nextDelta;
@@ -11548,8 +11544,8 @@ var process=require("__browserify_process");(function() {
         addPoints = function() {
           var afterStreak, crit, gpMod, intMod, streakBonus;
           crit = user.fns.predictableRandom() <= .03 ? 1.5 + (.05 * user._statsComputed.str) : 1;
-          intMod = 1 + (user._statsComputed.int / 100);
-          stats.exp += Math.round(delta * XP * intMod * task.priority * crit);
+          intMod = 1 + (user._statsComputed.int * .075);
+          stats.exp += Math.round(delta * intMod * task.priority * crit);
           gpMod = delta * task.priority * crit;
           gpMod *= 1 + user._statsComputed.per * .03;
           return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
@@ -11557,7 +11553,7 @@ var process=require("__browserify_process");(function() {
         subtractPoints = function() {
           var conMod, hpMod;
           conMod = 1 - (user._statsComputed.con / 100);
-          hpMod = delta * HP * conMod * task.priority;
+          hpMod = delta * conMod * task.priority;
           return stats.hp += Math.round(hpMod * 10) / 10;
         };
         switch (task.type) {

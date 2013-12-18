@@ -2,11 +2,7 @@ moment = require('moment')
 _ = require('lodash')
 content = require('./content.coffee')
 
-XP = 7.5 # originally 15, users were complaining that they gained exp too fast
-HP = 2
-
 api = module.exports = {}
-
 
 ###
   ------------------------------------------------------
@@ -676,24 +672,30 @@ api.wrap = (user) ->
           nextDelta = Math.pow(0.9747, currVal) * (if direction is 'down' then -1 else 1)
           if adjustvalue
             task.value += nextDelta
-            # Factor in STR. Only for up-scoring, ignore up-onlies and rewards
+            # ===== STRENGTH =====
+            # (Only for up-scoring, ignore up-onlies and rewards)
             if direction is 'up' and task.type != 'reward' and !(task.type is 'habit' and !task.down)
-              task.value += user._statsComputed.str * .25
+              # TODO STR Improves the amount by which Dailies and +/- Habits decrease in threat when scored, by .25% per point.
+              task.value += nextDelta * user._statsComputed.str * .005
           delta += nextDelta
 
       addPoints = ->
-        # Critical
+        # ===== CRITICAL HITS =====
         crit =
           if user.fns.predictableRandom() <= .03 then 1.5 + (.05*user._statsComputed.str)
           else 1
 
         # Exp Modifier
-        intMod = 1 + (user._statsComputed.int / 100)
-        stats.exp += Math.round(delta * XP * intMod * task.priority * crit)
+        # ===== Intelligence =====
+        # TODO Increases Experience gain by .2% per point.
+        intMod = 1 + (user._statsComputed.int * .075)
+        stats.exp += Math.round(delta * intMod * task.priority * crit)
 
         # GP modifier
         gpMod = delta * task.priority * crit
-        gpMod *= (1 + user._statsComputed.per *.03) # Factor in PER
+        # ===== PERCEPTION =====
+        # TODO Increases Gold gained from tasks by .3% per point.
+        gpMod *= (1 + user._statsComputed.per *.03)
         stats.gp +=
           if task.streak
             streakBonus = task.streak / 100 + 1 # eg, 1-day streak is 1.1, 2-day is 1.2, etc
@@ -704,8 +706,10 @@ api.wrap = (user) ->
 
       # HP modifier
       subtractPoints = ->
+        # ===== CONSTITUTION =====
+        # TODO Decreases HP loss from bad habits / missed dailies by 0.5% per point.
         conMod = 1 - (user._statsComputed.con / 100)
-        hpMod = delta * HP * conMod * task.priority
+        hpMod = delta * conMod * task.priority
         stats.hp += Math.round(hpMod * 10) / 10 # round to 1dp
 
       switch task.type
