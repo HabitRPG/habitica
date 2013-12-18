@@ -315,9 +315,18 @@ api.spells =
         user.stats.exp += bonus
         user.stats.gp += bonus
     stealth:
-      text: 'Tools of the Trade'
+      text: 'Stealth'
       mana: 20
       lvl: 8
+      target: 'self'
+      notes: "You duck into the shadows, pulling up hood your hood. Many dailies won't find you this night; fewer yet the higher your Perception."
+      cast: (user, target) ->
+        user.stats.buffs.stealth ?= 0
+        user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .075)
+    toolsOfTrade:
+      text: 'Tools of the Trade'
+      mana: 25
+      lvl: 9
       target: 'party'
       notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day."
       cast: (user, target) ->
@@ -325,16 +334,6 @@ api.spells =
         _.each target, (member) ->
           member.stats.buffs.per ?= 0
           member.stats.buffs.per += user._statsComputed.per * .2
-    speedburst:
-      text: 'Burst of Speed'
-      mana: 25
-      lvl: 9
-      target: 'party'
-      notes: "You hurry your step and dance circles around your party's enemies. You assist your party, helping them do extra damage to a number of tasks equal to half your strength."
-      cast: (user, target) ->
-        _.each target, (member) ->
-          member.stats.buffs.str ?= 0
-          member.stats.buffs.str = user._statsComputed.str * .2
 
   healer:
     heal:

@@ -10155,9 +10155,23 @@ var global=self;/**
         }
       },
       stealth: {
-        text: 'Tools of the Trade',
+        text: 'Stealth',
         mana: 20,
         lvl: 8,
+        target: 'self',
+        notes: "You duck into the shadows, pulling up hood your hood. Many dailies won't find you this night; fewer yet the higher your Perception.",
+        cast: function(user, target) {
+          var _base;
+          if ((_base = user.stats.buffs).stealth == null) {
+            _base.stealth = 0;
+          }
+          return user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .075);
+        }
+      },
+      toolsOfTrade: {
+        text: 'Tools of the Trade',
+        mana: 25,
+        lvl: 9,
         target: 'party',
         notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day.",
         cast: function(user, target) {
@@ -10167,22 +10181,6 @@ var global=self;/**
               _base.per = 0;
             }
             return member.stats.buffs.per += user._statsComputed.per * .2;
-          });
-        }
-      },
-      speedburst: {
-        text: 'Burst of Speed',
-        mana: 25,
-        lvl: 9,
-        target: 'party',
-        notes: "You hurry your step and dance circles around your party's enemies. You assist your party, helping them do extra damage to a number of tasks equal to half your strength.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            var _base;
-            if ((_base = member.stats.buffs).str == null) {
-              _base.str = 0;
-            }
-            return member.stats.buffs.str = user._statsComputed.str * .2;
           });
         }
       }
