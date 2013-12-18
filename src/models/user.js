@@ -244,7 +244,8 @@ var UserSchema = new Schema({
       def: Number,
       per: Number,
       con: Number,
-      stealth: Number
+      stealth: Number,
+      streaks: Boolean
     }
   },
   tags: [
