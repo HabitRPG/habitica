@@ -11585,6 +11585,9 @@ var process=require("__browserify_process");(function() {
         subtractPoints = function() {
           var conMod, hpMod;
           conMod = 1 - (user._statsComputed.con / 100);
+          if (conMod < .1) {
+            conMod = 0.1;
+          }
           hpMod = delta * conMod * task.priority;
           return stats.hp += Math.round(hpMod * 10) / 10;
         };

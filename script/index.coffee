@@ -709,6 +709,7 @@ api.wrap = (user) ->
         # ===== CONSTITUTION =====
         # TODO Decreases HP loss from bad habits / missed dailies by 0.5% per point.
         conMod = 1 - (user._statsComputed.con / 100)
+        conMod = 0.1 if conMod < .1
         hpMod = delta * conMod * task.priority
         stats.hp += Math.round(hpMod * 10) / 10 # round to 1dp
 
