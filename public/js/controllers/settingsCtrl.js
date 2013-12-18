@@ -22,8 +22,12 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.showTour = function(){
       User.set({'flags.showTour':true});
-      Guide.initTour();
       $location.path('/tasks');
+      $timeout(Guide.initTour);
+    }
+
+    $scope.showClassesTour = function(){
+      Guide.classesTour();
     }
 
     $scope.showBailey = function(){
