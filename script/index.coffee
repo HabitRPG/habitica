@@ -863,10 +863,10 @@ api.wrap = (user) ->
       a = 0.1 # rate of increase
       alpha = a*max*chanceMultiplier/(a*chanceMultiplier+max) # current probability of drop
 
-      if user.flags?.dropsEnabled and user.fns.predictableRandom() < alpha
+      if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < alpha
         # current breakdown - 1% (adjustable) chance on drop
         # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
-        rarity = user.fns.predictableRandom()
+        rarity = user.fns.predictableRandom(user.stats.gp)
 
         # Food: 40% chance
         if rarity > .6
