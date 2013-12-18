@@ -10159,7 +10159,7 @@ var global=self;/**
         mana: 20,
         lvl: 8,
         target: 'self',
-        notes: "You duck into the shadows, pulling up hood your hood. Many dailies won't find you this night; fewer yet the higher your Perception.",
+        notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception.",
         cast: function(user, target) {
           var _base;
           if ((_base = user.stats.buffs).stealth == null) {

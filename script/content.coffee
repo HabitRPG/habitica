@@ -319,7 +319,7 @@ api.spells =
       mana: 20
       lvl: 8
       target: 'self'
-      notes: "You duck into the shadows, pulling up hood your hood. Many dailies won't find you this night; fewer yet the higher your Perception."
+      notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception."
       cast: (user, target) ->
         user.stats.buffs.stealth ?= 0
         user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .075)
