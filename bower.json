@@ -28,7 +28,6 @@
     "angular-bindonce": "~0.2.1",
     "bootstrap": "v2.3.2",
     "bootstrap-datepicker": "~1.2.0",
-    "bootstrap-tour": "0.5.0",
     "bootstrap-growl": "~1.1.0",
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#develop",
     "BrowserQuest": "https://github.com/mozilla/BrowserQuest.git",
@@ -38,12 +37,14 @@
     "Angular-At-Directive": "git://github.com/snicker/Angular-At-Directive#master",
     "js-emoji": "git://github.com/snicker/js-emoji#master",
     "gemoji": "git://github.com/github/gemoji",
-    "sticky": "*"
+    "sticky": "*",
+    "bootstrap-tour": "~0.8.0"
   },
   "resolutions": {
     "jquery": "~2.0.3",
     "bootstrap": "v2.3.2",
-    "angular": "~1.2.1"
+    "angular": "~1.2.1",
+    "bootstrap-tour": "~0.8.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.1"

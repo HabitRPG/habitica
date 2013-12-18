@@ -5,7 +5,7 @@
  */
 
 angular.module('guideServices', []).
-  factory('Guide', ['$rootScope', 'User', function($rootScope, User) {
+  factory('Guide', ['$rootScope', 'User', '$timeout', function($rootScope, User, $timeout) {
 
     /**
      * Init and show the welcome tour. Note we do it listening to a $rootScope broadcasted 'userLoaded' message,
@@ -146,8 +146,23 @@ angular.module('guideServices', []).
      * Classes Tour
      */
     function classesTour(){
+
+      // TODO notice my hack-job `onShow: _.once()` functions. Without these, the syncronous path redirects won't properly handle showing tour
       var tourSteps = [
         {
+          path: '/#/options/inventory/equipment',
+          onShow: _.once(function(tour){
+            $timeout(function(){tour.goTo(0)});
+          }),
+          orphan: true,
+          title: "Class Gear",
+          content: "First: don't panic! Your old gear is in your inventory, and you're now wearing your apprentice <strong>" + User.user.stats.class + "</strong> equipment. Wearing your class's gear grants you a 1.5% bonus to stats. However, feel free to switch back to your old gear."
+        },
+        {
+          path: '/#/options/profile/stats',
+          onShow: _.once(function(tour){
+            $timeout(function(){tour.goTo(1)});
+          }),
           element: ".allocate-stats",
           title: "Stats",
           content: "These are your class's stats, they affect the game-play. Each time you level up, you get one point to allocate to particular stat. Hover over each stat for more information.",
@@ -161,16 +176,9 @@ angular.module('guideServices', []).
           title: "Spells",
           content: "You can now unlock class-specific spells. You'll see your first at level 6."
         }, {
-//          onShow: function(tour){
-//            $rootScope.$state.go('options.inventory.inventory');
-//          },
-          element: '.stats-equipment',
-          title: "Class Gear",
-          content: "Your old gear has been placed into your inventory, you're now wearing your apprentice " + User.user.stats.class + " equippment. Wearing your class's gear grants you a 1.5% bonus to stats. However, feel free to switch back to your old gear."
-        }, {
-          element: ".stats-equipment",
-            title: "Read More",
-            content: "For more information on the class-system, see <a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>.",
+          orphan: true,
+          title: "Read More",
+          content: "For more information on the class-system, see <a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>."
         }
       ];
       _.each(tourSteps, function(step){
