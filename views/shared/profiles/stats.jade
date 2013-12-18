@@ -37,6 +37,9 @@ table.table.table-striped
           i.icon-question-sign(popover-title='Class Gear', popover-trigger='mouseenter', popover-placement='right', popover="Wearing your class's gear gives that stat a 1.5% bonus, in addition to this number.")
         li Level: {{(profile.stats.lvl - 1) / 2}}
         li Buffs: {{profile.stats.buffs[k] || 0}}
+  tr(ng-if='profile.stats.buffs.stealth')
+    td
+      strong Stealth: {{profile.stats.buffs.stealth}}
 
 h4 Pets
 table.table.table-striped
