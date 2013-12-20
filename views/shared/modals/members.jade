@@ -14,7 +14,8 @@ div(ng-controller='MemberModalCtrl')
             li(ng-show='profile.auth.timestamps.created') - Member since {{timestamp(profile.auth.timestamps.created)}} -
             li(ng-show='profile.auth.timestamps.loggedin') - Last logged in {{timestamp(profile.auth.timestamps.loggedin)}} -
           h3 Stats
-            include ../profiles/stats
+          p.alert.alert-info Coming back soon!
+            //-include ../profiles/stats
         .span6
           include ../header/avatar
           h3 Achievements
