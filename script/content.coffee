@@ -329,13 +329,13 @@ api.spells =
           member.stats.buffs.per += user._statsComputed.per * .2
     stealth:
       text: 'Stealth'
-      mana: 30
+      mana: 45
       lvl: 9
       target: 'self'
       notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception."
       cast: (user, target) ->
         user.stats.buffs.stealth ?= 0
-        user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .075)
+        user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .03)
 
   healer:
     heal:

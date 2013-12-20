@@ -135,7 +135,7 @@ _.times 10, (n) ->
 
   task.value = 0;clearUser(i)
   shared.content.spells.rogue.stealth.cast(user,{})
-  console.log "stealth: -"
+  console.log "stealth: avoiding #{user.stats.buffs.stealth} tasks"
 
   console.log '[Healer]'
 
