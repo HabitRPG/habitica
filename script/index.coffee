@@ -689,13 +689,13 @@ api.wrap = (user) ->
         # ===== Intelligence =====
         # TODO Increases Experience gain by .2% per point.
         intMod = 1 + (user._statsComputed.int * .075)
-        stats.exp += Math.round(delta * intMod * task.priority * crit)
+        stats.exp += Math.round(delta * intMod * task.priority * crit * 7.5)
 
         # GP modifier
         gpMod = delta * task.priority * crit
         # ===== PERCEPTION =====
         # TODO Increases Gold gained from tasks by .3% per point.
-        gpMod *= (1 + user._statsComputed.per *.03)
+        gpMod *= (1 + user._statsComputed.per *.06)
         stats.gp +=
           if task.streak
             streakBonus = task.streak / 100 + 1 # eg, 1-day streak is 1.1, 2-day is 1.2, etc
@@ -708,7 +708,7 @@ api.wrap = (user) ->
       subtractPoints = ->
         # ===== CONSTITUTION =====
         # TODO Decreases HP loss from bad habits / missed dailies by 0.5% per point.
-        conMod = 1 - (user._statsComputed.con / 100)
+        conMod = 1 - (user._statsComputed.con / 250)
         conMod = 0.1 if conMod < .1
         hpMod = delta * conMod * task.priority
         stats.hp += Math.round(hpMod * 10) / 10 # round to 1dp

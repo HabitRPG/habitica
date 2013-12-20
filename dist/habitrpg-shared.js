@@ -11577,14 +11577,14 @@ var process=require("__browserify_process");(function() {
           var afterStreak, crit, gpMod, intMod, streakBonus;
           crit = user.fns.predictableRandom() <= .03 ? 1.5 + (.05 * user._statsComputed.str) : 1;
           intMod = 1 + (user._statsComputed.int * .075);
-          stats.exp += Math.round(delta * intMod * task.priority * crit);
+          stats.exp += Math.round(delta * intMod * task.priority * crit * 7.5);
           gpMod = delta * task.priority * crit;
-          gpMod *= 1 + user._statsComputed.per * .03;
+          gpMod *= 1 + user._statsComputed.per * .06;
           return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
         };
         subtractPoints = function() {
           var conMod, hpMod;
-          conMod = 1 - (user._statsComputed.con / 100);
+          conMod = 1 - (user._statsComputed.con / 250);
           if (conMod < .1) {
             conMod = 0.1;
           }
