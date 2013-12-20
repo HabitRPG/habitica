@@ -9167,11 +9167,13 @@ var global=self;/**
 
 },{}],5:[function(require,module,exports){
 (function() {
-  var api, crit, gear, repeat, _;
+  var api, crit, gear, moment, repeat, _;
 
   _ = require('lodash');
 
   api = module.exports;
+
+  moment = require('moment');
 
   /*
     ---------------------------------------------------------------
@@ -9781,12 +9783,13 @@ var global=self;/**
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
           })
         },
-        winter: {
+        candycane: {
           text: "Candy Cane Hat",
           notes: 'A hat adorned in candy, a wintery treat!',
           value: 10,
-          canOwn: (function() {
-            return true;
+          canOwn: (function(u) {
+            var _ref;
+            return moment((_ref = u.auth.timestamps) != null ? _ref.created : void 0).isBefore(new Date('01/10/2014'));
           })
         }
       }
@@ -10551,7 +10554,7 @@ var global=self;/**
 }).call(this);
 
 
-},{"lodash":3}],6:[function(require,module,exports){
+},{"lodash":3,"moment":4}],6:[function(require,module,exports){
 var process=require("__browserify_process");(function() {
   var api, content, dayMapping, moment, preenHistory, sanitizeOptions, _,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
