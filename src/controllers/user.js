@@ -347,7 +347,7 @@ api.cast = function(req, res) {
                 uuid: user._id,
                 contributor: user.contributor && user.contributor.toObject(),
                 backer: user.backer && user.backer.toObject(),
-                text: '`casts ' +  spell.text + ' on ' + (type == 'user' ? '@'+found.profile.name : 'the party') + '`',
+                text: '`casts ' +  spell.text + (type == 'user' ? ' on @'+found.profile.name : ' for the party') + '.`',
                 user: '<'+user.profile.name+'>',
                 timestamp: +new Date
               });
