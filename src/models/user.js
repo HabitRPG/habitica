@@ -62,9 +62,7 @@ var UserSchema = new Schema({
 
   backer: {
     tier: Number,
-    //admin: Boolean, // FIXME migrate to contributor.admin
     npc: String,
-    //contributor: String, // FIXME migrate to contributor.text
     tokensApplied: Boolean
   },
 
@@ -82,7 +80,7 @@ var UserSchema = new Schema({
     ads: {type: Boolean, 'default': false},
     skin: {type: Schema.Types.Mixed, 'default': {}}, // eg, {skeleton: true, pumpkin: true, eb052b: true}
     hair: {type: Schema.Types.Mixed, 'default': {}},
-    shirt: {type: Schema.Types.Mixed, 'default': {}}
+    shirt: {type: Schema.Types.Mixed, 'default': {}},
   },
 
   flags: {
@@ -126,6 +124,10 @@ var UserSchema = new Schema({
         head: {type: String, 'default': 'head_base_0'},
         shield: {type: String, 'default': 'shield_base_0'}
       },
+    },
+
+    special:{
+      snowball: {type: Number, 'default': 0}
     },
 
     // -------------- Animals ------------------- 
@@ -245,7 +247,8 @@ var UserSchema = new Schema({
       per: Number,
       con: Number,
       stealth: Number,
-      streaks: Boolean
+      streaks: Boolean,
+      snowball: Boolean
     }
   },
   tags: [

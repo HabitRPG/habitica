@@ -47,6 +47,12 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 .badge.badge-info.stack-count {{points}}
               //-p {{food}}
 
+        li.customize-menu(ng-if='user.items.special.snowball')
+          menu.pets-menu(label='Special')
+            div
+              button.customize-option(popover='{{Content.special.snowball.notes}}', popover-title='{{Content.special.snowball.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='castStart(Content.special.snowball)', class='inventory_special_snowball')
+                .badge.badge-info.stack-count {{user.items.special.snowball}}
+
     .span6
       h2 Market
       .row-fluid
@@ -94,17 +100,21 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 p
                   |  {{food.value}}
                   span.Pet_Currency_Gem1x.inline-gems
-            menu.pets-menu(label='Saddle')
+
+          li.customize-menu
+            menu.pets-menu(label='Special')
               div
                 button.customize-option(popover='{{Content.food.Saddle.notes}}', popover-title='{{Content.food.Saddle.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", Content.food.Saddle)', class='Pet_Food_{{Content.food.Saddle.name}}')
                 p
                   |  {{Content.food.Saddle.value}}
                   span.Pet_Currency_Gem1x.inline-gems
-
-          li.customize-menu
-            menu.pets-menu(label='Services')
               div
-                // Once grunt-spritesmith is merged, let's use https://github.com/browserquest/BrowserQuest/blob/master/client/img/1/item-firepotion.png
-                button.btn(popover='Return all tasks to neutral value (yellow color), and restore all lost Health.', popover-title=env.t('rerollName'), popover-trigger='mouseenter', popover-placement='left', ng-click='modals.reroll = true')
-                  | Fortify 4
+                button.customize-option(popover='Return all tasks to neutral value (yellow color), and restore all lost Health.', popover-title=env.t('rerollName'), popover-trigger='mouseenter', popover-placement='left', ng-click='modals.reroll = true', class='inventory_special_fortify')
+                p
+                  | 4
+                  span.Pet_Currency_Gem1x.inline-gems
+              div
+                button.customize-option(popover='{{Content.spells.special.snowball.notes}}', popover-title='{{Content.spells.special.snowball.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("special", Content.spells.special.snowball)', class='inventory_special_snowball')
+                p
+                  |  {{Content.spells.special.snowball.value}}
                   span.Pet_Currency_Gem1x.inline-gems

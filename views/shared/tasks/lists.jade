@@ -60,6 +60,21 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
             span(bo-class='{"shop_{{item.key}} shop-sprite item-img": true}')
             p.task-text {{item.text}}
 
+        // Snowball (event spells?)
+        ul.items.rewards(ng-if='main && list.type=="reward" && user.items.special.snowball>0')
+          li.task.reward-item
+            .task-meta-controls
+              span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{Content.spells.special.snowball.notes}}', popover-title='{{Content.spells.special.snowball.text}}')
+                i.icon-comment
+            //left-hand size commands
+            .task-controls
+              a.money.btn-buy.item-btn(ng-click='castStart(Content.spells.special.snowball)')
+                span.reward-cost
+                  strong {{user.items.special.snowball}}
+            // main content
+            span.shop_snowball.shop-sprite.item-img
+            p.task-text {{Content.spells.special.snowball.text}}
+
         // Spells
         ul.items(ng-if='main && list.type=="reward" && user.stats.class && !user.preferences.disableClasses')
           li.task.reward-item(ng-repeat='(k,spell) in Content.spells[user.stats.class]', ng-show='user.stats.lvl >= spell.lvl')
