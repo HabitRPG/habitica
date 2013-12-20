@@ -221,7 +221,7 @@ api.spells =
       target: 'task'
       notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional experience.'
       cast: (user, target) ->
-        target.value += user._statsComputed.int * .02 * crit(user, 'per')
+        target.value += user._statsComputed.int * .0075 * crit(user, 'per')
         user.stats.exp += Math.abs(target.value)
 
     mpheal:
@@ -264,7 +264,7 @@ api.spells =
       target: 'task'
       notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases."
       cast: (user, target) ->
-        target.value += user._statsComputed.str * .03
+        target.value += user._statsComputed.str * .01 * crit(user, 'per')
     defensiveStance:
       text: 'Defensive Stance'
       mana: 25
@@ -356,7 +356,7 @@ api.spells =
       cast: (user, target) ->
         _.each user.tasks, (target) ->
           return if target.type is 'reward'
-          target.value += user._statsComputed.int * .02
+          target.value += user._statsComputed.int * .075
     protectAura:
       text: 'Protective Aura'
       mana: 30
