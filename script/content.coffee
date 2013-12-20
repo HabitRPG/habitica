@@ -402,8 +402,8 @@ api.spells =
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
-  _.each spellClass, (spell, k) ->
-    spell.name = k
+  _.each spellClass, (spell, key) ->
+    spell.key = key
     _cast = spell.cast
     spell.cast = (user, target) ->
       #return if spell.target and spell.target != (if target.type then 'task' else 'user')
@@ -429,11 +429,10 @@ api.eggs =
   Dragon:           text: 'Dragon', adjective: 'mighty'
   Cactus:           text: 'Cactus', adjective: 'prickly'
   BearCub:          text: 'Bear Cub',  mountText: 'Bear', adjective: 'cuddly'
-  #{text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3}
-_.each api.eggs, (egg,k) ->
+_.each api.eggs, (egg,key) ->
   _.defaults egg,
     value: 3
-    name: k
+    key: key
     notes: "Find a hatching potion to pour on this egg, and it will hatch into a #{egg.adjective} #{egg.text}."
     mountText: egg.text
 
@@ -442,6 +441,7 @@ api.specialPets =
   'Wolf-Cerberus':  true
   'Dragon-Hydra':   true
   'Turkey-Base':    true
+  'BearCub-Polar':  true
 
 api.hatchingPotions =
   Base:             value: 2, text: 'Base'
@@ -454,8 +454,8 @@ api.hatchingPotions =
   CottonCandyPink:  value: 4, text: 'Cotton Candy Pink'
   CottonCandyBlue:  value: 4, text: 'Cotton Candy Blue'
   Golden:           value: 5, text: 'Golden'
-_.each api.hatchingPotions, (pot,k) ->
-  _.defaults pot, {name: k, value: 2, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
+_.each api.hatchingPotions, (pot,key) ->
+  _.defaults pot, {key, value: 2, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
 
 api.food =
   Meat:             text: 'Meat', target: 'Base'
@@ -473,8 +473,31 @@ api.food =
   #Watermelon:       text: 'Watermelon', target: 'Golden'
   #SeaWeed:          text: 'SeaWeed', target: 'Golden'
   Saddle:           text: 'Saddle', value: 5, notes: 'Instantly raises your pet into a mount.'
-_.each api.food, (food,k) ->
-  _.defaults food, {value: 1, name: k, notes: "Feed this to a pet and it may grow into a sturdy steed."}
+_.each api.food, (food,key) ->
+  _.defaults food, {value: 1, key, notes: "Feed this to a pet and it may grow into a sturdy steed."}
+
+api.quests =
+  evil_santa:
+    type: 'boss' # 'collection'
+    name: "Evil Santa"
+    text: "Evil Santa Party 1"
+    notes: "Super evil boss has ravaged the town"
+    #mechanic: enum['perfectDailies', ...]
+    #collection:
+    #  feather: name: 'Feather', count: 10
+    #  ingot: name: 'Golden Ingot', count: 10
+    stats:
+      hp: 100
+      str: 1 # Multiplier of users' missed dailies
+    drop:
+      type: 'pets'
+      key: 'BearCub-Polar'
+      gp: 20
+      exp: 100 # Exp bonus from defeating the boss
+    value: 4 # Gem cost to buy, GP sell-back
+
+_.each api.quests, (v,key) ->
+  _.defaults v, {key}
 
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =

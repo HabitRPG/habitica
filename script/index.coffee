@@ -509,7 +509,7 @@ api.wrap = (user) ->
     # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
     purchase: (req, cb) ->
       {type,key}  = req.params
-      return cb({code:404,message:":type must be in [hatchingPotions,eggs,food,special]"},req) unless type in ['eggs','hatchingPotions', 'food', 'special']
+      return cb({code:404,message:":type must be in [hatchingPotions,eggs,food,quests,special]"},req) unless type in ['eggs','hatchingPotions','food','quests','special']
       item = content[type][key]
       return cb({code:404,message:":key not found for Content.#{type}"},req) unless item
       user.items[type][key] = 0  unless user.items[type][key]
@@ -667,7 +667,7 @@ api.wrap = (user) ->
 
       delta = 0
 
-      calculateDelta = (adjustvalue=true) ->
+      calculateDelta = ->
         # If multiple days have passed, multiply times days missed
         _.times options.times, ->
           # Each iteration calculate the nextDelta, which is then accumulated in the total delta.
@@ -680,13 +680,16 @@ api.wrap = (user) ->
             else if task.value > 21.27 then 21.27
             else task.value
           nextDelta = Math.pow(0.9747, currVal) * (if direction is 'down' then -1 else 1)
-          if adjustvalue
-            task.value += nextDelta
+          unless task.type is 'reward'
+            adjustAmt = nextDelta
             # ===== STRENGTH =====
             # (Only for up-scoring, ignore up-onlies and rewards)
+            # Note, we create a new val (adjustAmt) to add to task.value, since delta will be used in Exp & GP calculations - we don't want STR to bonus that
+            # TODO STR Improves the amount by which Dailies and +/- Habits decrease in threat when scored, by .25% per point.
             if direction is 'up' and task.type != 'reward' and !(task.type is 'habit' and !task.down)
-              # TODO STR Improves the amount by which Dailies and +/- Habits decrease in threat when scored, by .25% per point.
-              task.value += nextDelta * user._statsComputed.str * .004
+              adjustAmt = nextDelta * (1 + user._statsComputed.str * .004)
+              user.party.quest.tally.up += adjustAmt if task.type in ['daily','todo']
+            task.value += adjustAmt
           delta += nextDelta
 
       addPoints = ->
@@ -766,7 +769,7 @@ api.wrap = (user) ->
 
         when 'reward'
         # Don't adjust values for rewards
-          calculateDelta(false)
+          calculateDelta()
           # purchase item
           stats.gp -= Math.abs(task.value)
           num = parseFloat(task.value).toFixed(2)
@@ -1001,7 +1004,7 @@ api.wrap = (user) ->
       {user}
     ###
     cron: (options={}) ->
-      [now] = [+options.now || +new Date]
+      now = +options.now || +new Date
 
       # They went to a different timezone
       # FIXME:
@@ -1050,7 +1053,7 @@ api.wrap = (user) ->
               thatDay = moment(now).subtract('days', n + 1)
               scheduleMisses++ if api.shouldDo(thatDay, repeat, user.preferences)
           if scheduleMisses > 0
-            user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}})
+            user.party.quest.down += user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}})
 
         switch type
           when 'daily'
@@ -1082,7 +1085,11 @@ api.wrap = (user) ->
       user.markModified? 'history'
       user.markModified? 'dailys' # covers dailys.*.history
       user.stats.buffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
-      user
+
+      # After all is said and done, tally up user's effect on quest, return those values & reset the user's
+      tally = down:user.party.quest.down, up:user.party.quest.up
+      _.merge user.party.quest, {down:0,up:0}
+      tally
 
     # Registered users with some history
     preenUserHistory: (minHistLen = 7) ->

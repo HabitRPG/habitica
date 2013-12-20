@@ -2,6 +2,12 @@
   margin-left: 1.25em;
 }*/
 
+.npc_ian {
+  background: url("../img/sprites/npc_ian.gif") no-repeat;
+  width: 78px;
+  height: 135px;
+}
+
 .Gems {
   display:inline-block;
   margin-right:5px;

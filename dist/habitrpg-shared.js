@@ -10266,9 +10266,9 @@ var global=self;/**
   };
 
   _.each(api.spells, function(spellClass) {
-    return _.each(spellClass, function(spell, k) {
+    return _.each(spellClass, function(spell, key) {
       var _cast;
-      spell.name = k;
+      spell.key = key;
       _cast = spell.cast;
       return spell.cast = function(user, target) {
         _cast(user, target);
@@ -10329,10 +10329,10 @@ var global=self;/**
     }
   };
 
-  _.each(api.eggs, function(egg, k) {
+  _.each(api.eggs, function(egg, key) {
     return _.defaults(egg, {
       value: 3,
-      name: k,
+      key: key,
       notes: "Find a hatching potion to pour on this egg, and it will hatch into a " + egg.adjective + " " + egg.text + ".",
       mountText: egg.text
     });
@@ -10342,7 +10342,8 @@ var global=self;/**
     'Wolf-Veteran': true,
     'Wolf-Cerberus': true,
     'Dragon-Hydra': true,
-    'Turkey-Base': true
+    'Turkey-Base': true,
+    'BearCub-Polar': true
   };
 
   api.hatchingPotions = {
@@ -10388,9 +10389,9 @@ var global=self;/**
     }
   };
 
-  _.each(api.hatchingPotions, function(pot, k) {
+  _.each(api.hatchingPotions, function(pot, key) {
     return _.defaults(pot, {
-      name: k,
+      key: key,
       value: 2,
       notes: "Pour this on an egg, and it will hatch as a " + pot.text + " pet."
     });
@@ -10444,11 +10445,37 @@ var global=self;/**
     }
   };
 
-  _.each(api.food, function(food, k) {
+  _.each(api.food, function(food, key) {
     return _.defaults(food, {
       value: 1,
-      name: k,
+      key: key,
       notes: "Feed this to a pet and it may grow into a sturdy steed."
+    });
+  });
+
+  api.quests = {
+    evil_santa: {
+      type: 'boss',
+      name: "Evil Santa",
+      text: "Evil Santa Party 1",
+      notes: "Super evil boss has ravaged the town",
+      stats: {
+        hp: 100,
+        str: 1
+      },
+      drop: {
+        type: 'pets',
+        key: 'BearCub-Polar',
+        gp: 20,
+        exp: 100
+      },
+      value: 4
+    }
+  };
+
+  _.each(api.quests, function(v, key) {
+    return _.defaults(v, {
+      key: key
     });
   });
 
@@ -10715,7 +10742,7 @@ var process=require("__browserify_process");(function() {
         newHistory.push({
           date: moment(group[0].date).toDate(),
           value: _.reduce(group, (function(m, obj) {
-            return m + api.value;
+            return m + obj.value;
           }), 0) / group.length
         });
         return true;
@@ -11343,10 +11370,10 @@ var process=require("__browserify_process");(function() {
       purchase: function(req, cb) {
         var item, key, type, _ref;
         _ref = req.params, type = _ref.type, key = _ref.key;
-        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'special') {
+        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'special') {
           return cb({
             code: 404,
-            message: ":type must be in [hatchingPotions,eggs,food,special]"
+            message: ":type must be in [hatchingPotions,eggs,food,quests,special]"
           }, req);
         }
         item = content[type][key];
@@ -11590,19 +11617,20 @@ var process=require("__browserify_process");(function() {
           return cb('Not enough Gold');
         }
         delta = 0;
-        calculateDelta = function(adjustvalue) {
-          if (adjustvalue == null) {
-            adjustvalue = true;
-          }
+        calculateDelta = function() {
           return _.times(options.times, function() {
-            var currVal, nextDelta;
+            var adjustAmt, currVal, nextDelta, _ref1;
             currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
             nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
-            if (adjustvalue) {
-              task.value += nextDelta;
+            if (task.type !== 'reward') {
+              adjustAmt = nextDelta;
               if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
-                task.value += nextDelta * user._statsComputed.str * .004;
+                adjustAmt = nextDelta * (1 + user._statsComputed.str * .004);
+                if ((_ref1 = task.type) === 'daily' || _ref1 === 'todo') {
+                  user.party.quest.tally.up += adjustAmt;
+                }
               }
+              task.value += adjustAmt;
             }
             return delta += nextDelta;
           });
@@ -11683,7 +11711,7 @@ var process=require("__browserify_process");(function() {
             }
             break;
           case 'reward':
-            calculateDelta(false);
+            calculateDelta();
             stats.gp -= Math.abs(task.value);
             num = parseFloat(task.value).toFixed(2);
             if (stats.gp < 0) {
@@ -11952,11 +11980,11 @@ var process=require("__browserify_process");(function() {
       */
 
       cron: function(options) {
-        var daysMissed, expTally, lvl, now, todoTally, _base, _base1;
+        var daysMissed, expTally, lvl, now, tally, todoTally, _base, _base1;
         if (options == null) {
           options = {};
         }
-        now = [+options.now || +(new Date)][0];
+        now = +options.now || +(new Date);
         daysMissed = api.daysSince(user.lastCron, _.defaults({
           now: now
         }, user.preferences));
@@ -12006,7 +12034,7 @@ var process=require("__browserify_process");(function() {
               });
             }
             if (scheduleMisses > 0) {
-              user.ops.score({
+              user.party.quest.down += user.ops.score({
                 params: {
                   id: task.id,
                   direction: 'down'
@@ -12068,7 +12096,15 @@ var process=require("__browserify_process");(function() {
           stealth: 0,
           streaks: false
         };
-        return user;
+        tally = {
+          down: user.party.quest.down,
+          up: user.party.quest.up
+        };
+        _.merge(user.party.quest, {
+          down: 0,
+          up: 0
+        });
+        return tally;
       },
       preenUserHistory: function(minHistLen) {
         if (minHistLen == null) {
