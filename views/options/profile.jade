@@ -36,12 +36,15 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
               button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#cfb853;', ng-click='set({"preferences.hair.color": "blond"})')
               button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#ec720f;', ng-click='set({"preferences.hair.color": "red"  })')
               button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:#2e2e2e;', ng-click='set({"preferences.hair.color": "black"})')
-          li.customize-menu
+
+          // Special Events
+          li.customize-menu.well.limited-edition
+            .label.label-info.pull-right(popover='Available for purchase until January 10th (but permanently in your options if purchased).', popover-title='Limited Edition', popover-placement='right', popover-trigger='mouseenter')
+              | Limited Edition&nbsp;
+              i.icon.icon-question-sign
             menu(label='Winter Colors')
-              button(type='button', ng-class='{locked: !user.purchased.hair.color.candycane}',    class='customize-option hair_bangs_1_candycane',    style='width: 40px; height: 40px;', ng-click='unlock("hair.color.candycane")')
-              button(type='button', ng-class='{locked: !user.purchased.hair.color.frost}',        class='customize-option hair_bangs_1_frost',        style='width: 40px; height: 40px;', ng-click='unlock("hair.color.frost")')
-              button(type='button', ng-class='{locked: !user.purchased.hair.color.winternight}',  class='customize-option hair_bangs_1_winternight',  style='width: 40px; height: 40px;',  ng-click='unlock("hair.color.winternight")')
-              button(type='button', ng-class='{locked: !user.purchased.hair.color.holly}',        class='customize-option hair_bangs_1_holly',        style='width: 40px; height: 40px;', ng-click='unlock("hair.color.holly")')
+              each color in ['candycane','frost','winternight','holly']
+                button(type='button', ng-class='{locked: !user.purchased.hair.color.#{color}}',    class='customize-option hair_bangs_1_#{color}',    style='width: 40px; height: 40px;', ng-click='unlock("hair.color.#{color}")')
           button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.color.candycane && user.purchased.hair.color.frost && user.purchased.hair.color.winternight && user.purchased.hair.color.holly', ng-click='unlock("hair.color.candycane,hair.color.frost,hair.color.winternight,hair.color.holly")') Unlock Set - 5<span class="Pet_Currency_Gem1x inline-gems"/>
 
           h5 Hair
