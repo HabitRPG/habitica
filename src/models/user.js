@@ -182,6 +182,12 @@ var UserSchema = new Schema({
     ),
     currentMount: String,
 
+    // Quests: {
+    //  'boss_0': 0, // 0 indicates "doesn't own"
+    //  'collection_honey': 5 // Number indicates "stacking"
+    // }
+    quests: _.transform(shared.content.quests, function(m,v,k){ m[k] = Number; }),
+
     lastDrop: {
       date: {type: Date, 'default': Date.now},
       count: {type: Number, 'default': 0}
@@ -193,14 +199,14 @@ var UserSchema = new Schema({
     'default': Date.now
   },
 
-  // FIXME remove?
   party: {
     //party._id // FIXME make these populate docs?
     current: String, // party._id
     invitation: String, // party._id
     lastMessageSeen: String,
     leader: Boolean,
-    order: {type:String, 'default':'level'}
+    order: {type:String, 'default':'level'},
+    quest: String
   },
   preferences: {
     armorSet: String,

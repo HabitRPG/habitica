@@ -30,7 +30,19 @@ var GroupSchema = new Schema({
   balance: Number,
   logo: String,
   leaderMessage: String,
-  challenges: [{type:'String', ref:'Challenge'}] // do we need this? could depend on back-ref instead (Challenge.find({group:GID}))
+  challenges: [{type:'String', ref:'Challenge'}], // do we need this? could depend on back-ref instead (Challenge.find({group:GID}))
+  quest: {
+    key: String,
+    hp: Number,
+    active: {type:Boolean, 'default':false},
+
+    /*
+    Shows boolean for each party-member who has accepted the quest. Eg {UUID: true, UUID: false}. Once all users click
+    'Accept', the quest begins. If a false user waits too long, probably a good sign to prod them or boot them.
+    TODO when booting user, remove from .joined and check again if we can now start the quest
+     */
+    members: Schema.Types.Mixed
+  }
 }, {
   strict: 'throw',
   minimize: false // So empty objects are returned

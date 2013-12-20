@@ -6,8 +6,39 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
 .row-fluid
   .span4
 
+
+    // ------ Bosses -------
+    .modal.inline-modal(ng-if='group.type==="party" && group.quest.key && group.quest.active==false')
+      .modal-header(bindonce='group')
+        h3 Quest: {{Content.quests[group.quest.key].text}}
+      .modal-body
+        table.table.table-striped
+          tr(ng-repeat='member in group.members')
+            td {{member.profile.name}}
+            td {{group.quest.members[member._id] == undefined ? 'Pending' : k ? 'Rejected' : 'Accepted'}}
+        button.btn.btn-warning(ng-click='party.$questAccept({"force":true})') Force Start
+
+    .modal.inline-modal(ng-if='group.type=="party" && group.quest.key && group.quest.active==true')
+      .modal-header(bindonce='group')
+        h3 {{Content.quests[group.quest.key].text}}
+      .modal-body
+        div(class="quest_{{group.quest.key}}")
+        //-
+          .progress(style="height:10px")
+          .bar(style='width: {{Shared.percent(group.quest.hp, Content.quests[group.quest.key].hp)}}%;')
+          span.meter-text
+            i.icon-heart
+            | {{group.quest.hp | number:0}} / {{Content.quests[group.quest.key].hp}}
+        .hero-stats
+          .meter.health(title='Boss Health')
+            .bar(style='width: {{Shared.percent(group.quest.hp, Content.quests[group.quest.key].hp)}}%;')
+            span.meter-text
+              i.icon-heart
+              | {{group.quest.hp | number:0}} / {{Content.quests[group.quest.key].hp}}
+        p {{Content.quests[group.quest.key].notes}}
+
     // ------ Information -------
-    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
+    .modal.inline-modal
       .modal-header(bindonce='group')
         span(ng-if='group.leader == user.id')
           button.btn.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing') Save
@@ -35,7 +66,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
     include ./challenge-box
 
     // ------ Members -------
-    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
+    .modal.inline-modal
       .modal-header
         h3 Members
       .modal-body

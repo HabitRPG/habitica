@@ -41,7 +41,13 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
             div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
               button.customize-option(popover='{{Content.hatchingPotions[pot].notes}}', popover-title='{{Content.hatchingPotions[pot].text}} Potion', popover-trigger='mouseenter', popover-placement='right', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !user.items.pets[selectedEgg.name+"-"+pot]}')
                 .badge.badge-info.stack-count {{points}}
-              //-p {{pot}}
+
+        li.customize-menu
+          menu.pets-menu(label='Quest Scrolls ({{questCount}})')
+            p(ng-show='questCount < 1') You don't have any quest scrolls.
+            div(ng-repeat='(quest,points) in ownedItems(user.items.quests)')
+              button.customize-option(popover='{{Content.quests[quest].notes}}', popover-title='{{Content.quests[quest].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='showQuest(quest)', class='inventory_quest_scroll')
+                .badge.badge-info.stack-count {{points}}
 
         li.customize-menu
           menu.pets-menu(label='Food ({{foodCount}})')
@@ -49,7 +55,6 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
               button.customize-option(popover='{{Content.food[food].notes}}', popover-title='{{Content.food[food].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
                 .badge.badge-info.stack-count {{points}}
-              //-p {{food}}
 
         li.customize-menu(ng-if='user.items.special.snowball')
           menu.pets-menu(label='Special')
@@ -104,6 +109,14 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 p
                   |  {{food.value}}
                   span.Pet_Currency_Gem1x.inline-gems
+
+          li.customize-menu
+            menu.pets-menu(label='Quests')
+              div(ng-repeat='quest in Content.quests')
+                  button.customize-option(popover='{{quest.notes}}', popover-title='{{quest.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("quests", quest)', class='inventory_quest_scroll')
+                  p
+                    |  {{quest.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
 
           li.customize-menu
             menu.pets-menu(label='Special')

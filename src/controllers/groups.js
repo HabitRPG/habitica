@@ -200,6 +200,15 @@ api.attachGroup = function(req, res, next) {
   })
 }
 
+api.attachGroupPopulated = function(req, res, next) {
+  Group.findById(req.params.gid).populate('members').exec(function(err, group){
+    if(err) return res.json(500, {err:err});
+    if(!group) return res.json(404, {err: "Group not found"});
+    res.locals.group = group;
+    next();
+  })
+}
+
 /**
  * TODO make this it's own ngResource so we don't have to send down group data with each chat post
  */
@@ -398,5 +407,100 @@ api.removeMember = function(req, res, next){
   }else{
     return res.json(400, {err: "User not found among group's members!"});
   }
-
 }
+
+// ------------------------------------
+// Quests
+// ------------------------------------
+
+questStart = function(req, res) {
+  var group = res.locals.group;
+  var user = res.locals.user;
+  var force = req.query.force;
+
+  group.markModified('quest');
+
+  // Not ready yet, wait till everyone's accepted, rejected, or we force-start
+  if (!force && _.findIndex(group.quest.members, function(m){
+    return m === undefined;
+  })) {
+    return group.save(function(err,saved){
+      if (err) return res.json(500,{err:err});
+      res.json(saved);
+    })
+  }
+
+  var parallel = [];
+  // TODO will this handle appropriately when people leave/join party between quest invite?
+  _.each(group.members, function(m){
+    if (m._id == user._id) m.items.quests[m.party.quest]--;
+    if (group.quest.members[m._id] == true) {
+      m.party.quest = group.quest.key;
+    } else {
+      m.party.quest = undefined;
+      delete group.quest.members[m._id];
+    }
+    parallel.push(function(cb2){m.save(cb2);});
+  })
+
+  group.quest.active = true;
+  group.quest.hp = shared.content.quests[group.quest.key].hp;
+  parallel.push(function(cb2){group.save(cb2);});
+
+  async.parallel(parallel,function(err, results){
+    if (err) return res.json(500,{err:err});
+    return res.json(group);
+  });
+}
+
+api.questAccept = function(req, res) {
+  var group = res.locals.group;
+  var user = res.locals.user;
+  var key = req.query.key;
+
+  if (!group) return res.json(400, {err: "Must be in a party to start quests (this will change in the future)."});
+
+  // If ?key=xxx is provided, we're starting a new quest and inviting the party. Otherwise, we're a party member accepting the invitation
+  if (key) {
+    if (!shared.content.quests[key]) return res.json(404,{err:'Quest ' + key + ' not found'});
+    if (group.quest.key) return res.json(400, {err: 'Party already on a quest (and only have one quest at a time)'});
+    group.quest.key = key;
+    group.quest.members = {};
+    // Invite everyone. true means "accepted", false="rejected", undefined="pending". Once we click "start quest"
+    // or everyone has either accepted/rejected, then we store quest key in user object.
+    _.each(group.members, function(m){
+      if (m._id == user._id) {
+        group.quest.members[m._id] = true;
+      } else {
+        group.quest.members[m._id] = undefined;
+      }
+    });
+
+  // Party member accepting the invitation
+  } else {
+    if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
+    group.quest.members[user._id] = true;
+  }
+
+  questStart(req,res);
+}
+
+api.questReject = function(req, res, next) {
+  var group = res.locals.group;
+  var user = res.locals.user;
+
+  if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
+  group.quest.members[user._id] = false;
+
+  group.save(function(err,saved){
+    if (err) return res.json(500,{err:err});
+    return res.json(200,saved);
+  });
+
+  questStart(req,res);
+}
+
+
+//TODO
+function questEnd(){}
+function questAbort(){}

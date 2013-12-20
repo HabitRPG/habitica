@@ -267,11 +267,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
   ])
 
-  .controller("PartyCtrl", ['$scope', 'Groups', 'User', '$state',
-    function($scope, Groups, User, $state) {
+  .controller("PartyCtrl", ['$rootScope','$scope', 'Groups', 'User', '$state',
+    function($rootScope,$scope, Groups, User, $state) {
       $scope.type = 'party';
       $scope.text = 'Party';
-      $scope.group = Groups.party();
+      $scope.group = $rootScope.party = Groups.party();
       $scope.newGroup = new Groups.Group({type:'party', leader: User.user._id, members: [User.user._id]});
       $scope.create = function(group){
         group.$save(function(newGroup){

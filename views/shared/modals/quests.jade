@@ -1,0 +1,28 @@
+div(modal='modals.showQuest', ng-controller='InventoryCtrl')
+  .modal-header
+    h3 {{selectedQuest.text}}
+  .modal-body
+    table
+      tr
+        td
+          p {{selectedQuest.notes}}
+        td
+          div(class='quest_{{selectedQuest.name}}')
+    hr
+    div(style='clear:left;clear:right')
+      .npc_ian.pull-left
+      p Clicking "Invite" will send an invitation to your party members. When all members have accepted or denied, the quest begins. If they take to long, feel free to force-start the quest under Options > Social > Party
+  .modal-footer
+    button.btn.btn-default.btn-small.btn-cancel(ng-click='closeQuest()') Cancel
+    button.btn.btn-default.btn-primary(ng-click='questInit()') Invite Party
+
+div(modal='party.quest.key && !questHold && party.quest.members[user._id] == undefined')
+  .modal-header
+    h3 Quest Invitation
+  .modal-body
+    p You have been invited to {{Content.quests[party.quest.key].text}}!
+    p (TODO list rewards)
+  .modal-footer
+    button.btn.btn-default.btn-small.btn-cancel(ng-click='questHold = true') Ask Later
+    button.btn.btn-default.btn-small.btn-cancel(ng-click='party.$questReject()') Reject
+    button.btn.btn-default.btn-primary(ng-click='party.$questAccept()') Accept

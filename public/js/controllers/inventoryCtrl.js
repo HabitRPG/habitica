@@ -1,5 +1,5 @@
-habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL', '$http', 'Notification',
-  function($rootScope, $scope, User, API_URL, $http, Notification) {
+habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
+  function($rootScope, $scope, User) {
 
     var user = User.user;
     var Content = $rootScope.Content;
@@ -17,6 +17,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     $scope.$watch('user.items.eggs', function(eggs){ $scope.eggCount = countStacks(eggs); }, true);
     $scope.$watch('user.items.hatchingPotions', function(pots){ $scope.potCount = countStacks(pots); }, true);
     $scope.$watch('user.items.food', function(food){ $scope.foodCount = countStacks(food); }, true);
+    $scope.$watch('user.items.quests', function(quest){ $scope.questCount = countStacks(quest); }, true);
 
     $scope.$watch('user.items.gear', function(gear){
       $scope.gear = {
@@ -113,6 +114,19 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
     $scope.chooseMount = function(egg, potion) {
       User.user.ops.equip({params:{type: 'mount', key: egg + '-' + potion}});
+    }
+
+    $scope.showQuest = function(quest) {
+      $rootScope.selectedQuest = Content.quests[quest];
+      $rootScope.modals.showQuest = true;
+    }
+    $scope.closeQuest = function(){
+      $rootScope.selectedQuest = undefined;
+      $rootScope.modals.showQuest = false;
+    }
+    $scope.questInit = function(){
+      $rootScope.party.$questAccept({key:$scope.selectedQuest.name});
+      $scope.closeQuest();
     }
   }
 ]);
