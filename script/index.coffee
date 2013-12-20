@@ -418,7 +418,7 @@ api.wrap = (user) ->
       task = user.tasks[req.params?.id]
       return cb({code:404,message:'Task not found'}) unless task
       i = user[task.type + "s"].indexOf(task)
-      user[task.type + "s"].splice i, 1  if ~i
+      user[task.type + "s"].splice(i, 1) if ~i
       cb null, req
 
     addTask: (req, cb) ->
@@ -689,7 +689,7 @@ api.wrap = (user) ->
         # ===== Intelligence =====
         # TODO Increases Experience gain by .2% per point.
         intMod = 1 + (user._statsComputed.int * .075)
-        stats.exp += Math.round(delta * intMod * task.priority * crit * 7.5)
+        stats.exp += Math.round(delta * intMod * task.priority * crit * 6)
 
         # GP modifier
         gpMod = delta * task.priority * crit

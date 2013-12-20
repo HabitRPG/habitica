@@ -10022,7 +10022,7 @@ var global=self;/**
         target: 'task',
         notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional experience.',
         cast: function(user, target) {
-          target.value += user._statsComputed.int * .02 * crit(user, 'per');
+          target.value += user._statsComputed.int * .0075 * crit(user, 'per');
           return user.stats.exp += Math.abs(target.value);
         }
       },
@@ -10078,7 +10078,7 @@ var global=self;/**
         target: 'task',
         notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
         cast: function(user, target) {
-          return target.value += user._statsComputed.str * .03;
+          return target.value += user._statsComputed.str * .01 * crit(user, 'per');
         }
       },
       defensiveStance: {
@@ -10172,7 +10172,7 @@ var global=self;/**
       },
       stealth: {
         text: 'Stealth',
-        mana: 30,
+        mana: 45,
         lvl: 9,
         target: 'self',
         notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception.",
@@ -10181,7 +10181,7 @@ var global=self;/**
           if ((_base = user.stats.buffs).stealth == null) {
             _base.stealth = 0;
           }
-          return user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .075);
+          return user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .03);
         }
       }
     },
@@ -10210,7 +10210,7 @@ var global=self;/**
             if (target.type === 'reward') {
               return;
             }
-            return target.value += user._statsComputed.int * .02;
+            return target.value += user._statsComputed.int * .075;
           });
         }
       },
@@ -11577,7 +11577,7 @@ var process=require("__browserify_process");(function() {
           var afterStreak, crit, gpMod, intMod, streakBonus;
           crit = user.fns.predictableRandom() <= .03 ? 1.5 + (.05 * user._statsComputed.str) : 1;
           intMod = 1 + (user._statsComputed.int * .075);
-          stats.exp += Math.round(delta * intMod * task.priority * crit * 7.5);
+          stats.exp += Math.round(delta * intMod * task.priority * crit * 6);
           gpMod = delta * task.priority * crit;
           gpMod *= 1 + user._statsComputed.per * .06;
           return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
