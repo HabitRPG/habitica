@@ -9,5 +9,5 @@ li(bindonce='group.chat', ng-repeat='message in group.chat', bo-class='{highligh
     a(bo-show='user.contributor.admin || message.uuid == user.id', ng-click='deleteChatMessage(group, message)')
       | 
       i.icon-remove(tooltip='Delete')
-  a.label.chat-message(class='float-label', bo-class='{"label-npc": message.backer.npc, "label-contributor-{{message.contributor.level}}":message.contributor.level}', ng-click='clickMember(message.uuid, true)')
+  a.label.chat-message(bo-show='message.user', class='float-label', bo-class='{"label-npc": message.backer.npc, "label-contributor-{{message.contributor.level}}":message.contributor.level}', ng-click='clickMember(message.uuid, true)')
       span(tooltip='{{contribText(message.contributor, message.backer)}}') {{message.user}}&nbsp;

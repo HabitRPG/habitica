@@ -31,10 +31,10 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
             | {{group.quest.hp | number:0}} / {{Content.quests[group.quest.key].hp}}
         .hero-stats
           .meter.health(title='Boss Health')
-            .bar(style='width: {{Shared.percent(group.quest.hp, Content.quests[group.quest.key].hp)}}%;')
+            .bar(style='width: {{Shared.percent(group.quest.progress.hp, Content.quests[group.quest.key].stats.hp)}}%;')
             span.meter-text
               i.icon-heart
-              | {{group.quest.hp | number:0}} / {{Content.quests[group.quest.key].hp}}
+              | {{group.quest.progress.hp | number:0}} / {{Content.quests[group.quest.key].stats.hp}}
         p {{Content.quests[group.quest.key].notes}}
 
     // ------ Information -------

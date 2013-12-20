@@ -32,10 +32,10 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
     }, true);
 
     $scope.chooseEgg = function(egg){
-      if ($scope.selectedEgg && $scope.selectedEgg.name == egg) {
+      if ($scope.selectedEgg && $scope.selectedEgg.key == egg) {
         return $scope.selectedEgg = null; // clicked same egg, unselect
       }
-      var eggData = _.findWhere(Content.eggs, {name:egg});
+      var eggData = _.findWhere(Content.eggs, {key:egg});
       if (!$scope.selectedPotion) {
         $scope.selectedEgg = eggData;
       } else {
@@ -44,11 +44,11 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
     }
 
     $scope.choosePotion = function(potion){
-      if ($scope.selectedPotion && $scope.selectedPotion.name == potion) {
+      if ($scope.selectedPotion && $scope.selectedPotion.key == potion) {
         return $scope.selectedPotion = null; // clicked same egg, unselect
       }
       // we really didn't think through the way these things are stored and getting passed around...
-      var potionData = _.findWhere(Content.hatchingPotions, {name:potion});
+      var potionData = _.findWhere(Content.hatchingPotions, {key:potion});
       if (!$scope.selectedEgg) {
         $scope.selectedPotion = potionData;
       } else {
@@ -57,7 +57,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
     }
 
     $scope.chooseFood = function(food){
-      if ($scope.selectedFood && $scope.selectedFood.name == food) return $scope.selectedFood = null;
+      if ($scope.selectedFood && $scope.selectedFood.key == food) return $scope.selectedFood = null;
       $scope.selectedFood = Content.food[food];
     }
 
@@ -65,8 +65,8 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
       var selected = $scope.selectedEgg ? 'selectedEgg' : $scope.selectedPotion ? 'selectedPotion' : $scope.selectedFood ? 'selectedFood' : undefined;
       if (selected) {
         var type = $scope.selectedEgg ? 'eggs' : $scope.selectedPotion ? 'hatchingPotions' : $scope.selectedFood ? 'food' : undefined;
-        user.ops.sell({params:{type:type, key: $scope[selected].name}});
-        if (user.items[type][$scope[selected].name] < 1) {
+        user.ops.sell({params:{type:type, key: $scope[selected].key}});
+        if (user.items[type][$scope[selected].key] < 1) {
           $scope[selected] = null;
         }
       }
@@ -77,8 +77,8 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
     }
 
     $scope.hatch = function(egg, potion){
-      if (!confirm('Hatch a ' + potion.name + ' ' + egg.name + '?')) return;
-      user.ops.hatch({params:{egg:egg.name, hatchingPotion:potion.name}});
+      if (!confirm('Hatch a ' + potion.key + ' ' + egg.key + '?')) return;
+      user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
     }
@@ -89,7 +89,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
       var string = (type == 'hatchingPotion') ? 'hatching potion' : type; // give hatchingPotion a space
       var message = "Buy this " + string + " with " + item.value + " of your " + gems + " Gems?"
       if(confirm(message))
-        User.user.ops.purchase({params:{type:type,key:item.name}});
+        User.user.ops.purchase({params:{type:type,key:item.key}});
     }
 
     $scope.choosePet = function(egg, potion){
@@ -98,12 +98,12 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
       // Feeding Pet
       if ($scope.selectedFood) {
         var food = $scope.selectedFood
-        if (food.name == 'Saddle') {
+        if (food.key == 'Saddle') {
           if (!confirm('Saddle ' + pet + '?')) return;
-        } else if (!confirm('Feed ' + pet + ' a ' + food.name + '?')) {
+        } else if (!confirm('Feed ' + pet + ' a ' + food.key + '?')) {
           return;
         }
-        User.user.ops.feed({params:{pet: pet, food: food.name}});
+        User.user.ops.feed({params:{pet: pet, food: food.key}});
         $scope.selectedFood = null;
 
       // Selecting Pet
@@ -125,7 +125,9 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
       $rootScope.modals.showQuest = false;
     }
     $scope.questInit = function(){
-      $rootScope.party.$questAccept({key:$scope.selectedQuest.name});
+      $rootScope.party.$questAccept({key:$scope.selectedQuest.key}, function(){
+        $rootScope.party.$get();
+      });
       $scope.closeQuest();
     }
   }

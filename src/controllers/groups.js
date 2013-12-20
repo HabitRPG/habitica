@@ -215,30 +215,18 @@ api.attachGroupPopulated = function(req, res, next) {
 api.postChat = function(req, res, next) {
   var user = res.locals.user
   var group = res.locals.group;
-  var message = {
-    id: shared.uuid(),
-    uuid: user._id,
-    contributor: user.contributor && user.contributor.toObject(),
-    backer: user.backer && user.backer.toObject(),
-    text: req.query.message, // FIXME this should be body, but ngResource is funky
-    user: user.profile.name,
-    timestamp: +(new Date)
-  };
-
   var lastClientMsg = req.query.previousMsg;
   var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
 
-  group.chat.unshift(message);
-  group.chat.splice(200);
+  group.sendChat(req.query.message, user); // FIXME this should be body, but ngResource is funky
 
   if (group.type === 'party') {
-    user.party.lastMessageSeen = message.id;
+    user.party.lastMessageSeen = group.chat[0].id;
     user.save();
   }
 
   group.save(function(err, saved){
     if (err) return res.json(500, {err:err});
-
     return chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
   });
 }
@@ -431,20 +419,22 @@ questStart = function(req, res) {
   }
 
   var parallel = [];
+  var key = group.quest.key;
   // TODO will this handle appropriately when people leave/join party between quest invite?
   _.each(group.members, function(m){
-    if (m._id == user._id) m.items.quests[m.party.quest]--;
+    if (m._id == user._id) m.items.quests[key]--;
     if (group.quest.members[m._id] == true) {
-      m.party.quest = group.quest.key;
+      m.party.quest.key = key;
     } else {
-      m.party.quest = undefined;
+      _.merge(m.party.quest, {key:undefined,collection:{}});
       delete group.quest.members[m._id];
     }
+    m._v++;
     parallel.push(function(cb2){m.save(cb2);});
   })
 
   group.quest.active = true;
-  group.quest.hp = shared.content.quests[group.quest.key].hp;
+  group.quest.progress.hp = shared.content.quests[group.quest.key].stats.hp;
   parallel.push(function(cb2){group.save(cb2);});
 
   async.parallel(parallel,function(err, results){
@@ -502,5 +492,4 @@ api.questReject = function(req, res, next) {
 
 
 //TODO
-function questEnd(){}
 function questAbort(){}

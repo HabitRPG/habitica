@@ -82,11 +82,11 @@ api.score = function(req, res, next) {
     task = user.ops.addTask({body:task});
   }
   var delta = user.ops.score({params:{id:task.id, direction:direction}});
-  //user.markModified('flags');
-  user.save(function(err, saved) {
+
+  user.save(function(err,saved){
     if (err) return res.json(500, {err: err});
     res.json(200, _.extend({
-      delta: delta
+      delta: delta,
     }, saved.toJSON().stats));
   });
 
@@ -194,10 +194,43 @@ api.update = function(req, res, next) {
 
 api.cron = function(req, res, next) {
   var user = res.locals.user;
-  user.fns.cron();
-  if (user.isModified())
-    res.locals.wasModified = true;
-  user.save(next);
+  tally = user.fns.cron();
+  if (user.isModified()) res.locals.wasModified = true;
+
+  // If user is on a quest, roll for boss & player
+  if (user.party.quest.key && tally && (tally.up || tally.down)) {
+    async.waterfall([
+      function(cb){
+        Group.findOne({type: 'party', members: {'$in': [user._id]}})
+          .populate({
+            path: 'members',
+            match: {'party.quest.key':user.party.quest.key}
+          })
+          .exec(cb);
+      },
+      function(group, cb){
+        var quest = shared.content.quests[group.quest.key];
+        var down = tally.down * quest.stats.str; // multiply by boss strength
+        var parallel = [];
+        _.each(group.members, function(m){
+          parallel.push(function(cb2){
+            m.stats.hp += down;
+            m._v++;
+            m.save(cb2);
+          })
+        })
+        // Use http://js2coffee.org/ for building this string. Man I wish JS had interpolation...
+        group.sendChat("`<" + user.profile.name + "> attacks <" + quest.name + "> for " + (tally.up.toFixed(1)) + " damage, <" + quest.name + "> attacks party for " + (tally.down.toFixed(1)) + " damage.`");
+        parallel.push(function(cb2){
+          group.hurtBoss(tally.up,cb2);
+        });
+        async.parallel(parallel,cb);
+      }
+    ], next);
+
+  } else {
+    user.save(next);
+  }
 };
 
 // api.reroll // Shared.ops
@@ -347,15 +380,8 @@ api.cast = function(req, res) {
 
           if (group) {
             series.push(function(cb2){
-              group.chat.unshift({
-                id: shared.uuid(),
-                uuid: user._id,
-                contributor: user.contributor && user.contributor.toObject(),
-                backer: user.backer && user.backer.toObject(),
-                text: '`casts ' +  spell.text + (type == 'user' ? ' on @'+found.profile.name : ' for the party') + '.`',
-                user: '<'+user.profile.name+'>',
-                timestamp: +new Date
-              });
+              var message = '`<'+user.profile.name+'> casts '+spell.text + (type=='user' ? ' on @'+found.profile.name : ' for the party')+'.`';
+              group.sendChat(message);
               group.save(cb2);
             })
           }

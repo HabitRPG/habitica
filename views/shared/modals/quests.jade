@@ -6,8 +6,18 @@ div(modal='modals.showQuest', ng-controller='InventoryCtrl')
       tr
         td
           p {{selectedQuest.notes}}
+          br
+          .well
+            h5 Rewards
+            table.table.table-striped
+              tr
+                td {{selectedQuest.drop.text}}
+              tr
+                td {{selectedQuest.drop.exp}} Experience
+              tr
+                td {{selectedQuest.drop.gp}} Gold
         td
-          div(class='quest_{{selectedQuest.name}}')
+          div(class='quest_{{selectedQuest.key}}')
     hr
     div(style='clear:left;clear:right')
       .npc_ian.pull-left
@@ -18,10 +28,21 @@ div(modal='modals.showQuest', ng-controller='InventoryCtrl')
 
 div(modal='party.quest.key && !questHold && party.quest.members[user._id] == undefined')
   .modal-header
-    h3 Quest Invitation
+    h3 Quest Invitation: {{Content.quests[party.quest.key].text}}
   .modal-body
-    p You have been invited to {{Content.quests[party.quest.key].text}}!
-    p (TODO list rewards)
+    p You have been invited to "{{Content.quests[party.quest.key].text}}"!
+    br
+    p {{Content.quests[party.quest.key].notes}}
+    br
+    .well
+      h5 Rewards
+      table.table.table-striped
+        tr
+          td {{Content.quests[party.quest.key].drop.text}}
+        tr
+          td {{Content.quests[party.quest.key].drop.exp}} Experience
+        tr
+          td {{Content.quests[party.quest.key].drop.gp}} Gold
   .modal-footer
     button.btn.btn-default.btn-small.btn-cancel(ng-click='questHold = true') Ask Later
     button.btn.btn-default.btn-small.btn-cancel(ng-click='party.$questReject()') Reject
