@@ -10055,7 +10055,7 @@ var global=self;/**
             if ((_base = member.stats.buffs).int == null) {
               _base.int = 0;
             }
-            return member.stats.buffs.int = user._statsComputed.int * .2;
+            return member.stats.buffs.int += user._statsComputed.int * .2;
           });
         }
       },
@@ -10123,7 +10123,7 @@ var global=self;/**
             if ((_base = member.stats.buffs).con == null) {
               _base.con = 0;
             }
-            return member.stats.buffs.con = user._statsComputed.con * .2;
+            return member.stats.buffs.con += user._statsComputed.con * .2;
           });
         }
       }
@@ -10154,24 +10154,10 @@ var global=self;/**
           return user.stats.gp += bonus;
         }
       },
-      stealth: {
-        text: 'Stealth',
-        mana: 20,
-        lvl: 8,
-        target: 'self',
-        notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception.",
-        cast: function(user, target) {
-          var _base;
-          if ((_base = user.stats.buffs).stealth == null) {
-            _base.stealth = 0;
-          }
-          return user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .075);
-        }
-      },
       toolsOfTrade: {
         text: 'Tools of the Trade',
         mana: 25,
-        lvl: 9,
+        lvl: 8,
         target: 'party',
         notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day.",
         cast: function(user, target) {
@@ -10182,6 +10168,20 @@ var global=self;/**
             }
             return member.stats.buffs.per += user._statsComputed.per * .2;
           });
+        }
+      },
+      stealth: {
+        text: 'Stealth',
+        mana: 30,
+        lvl: 9,
+        target: 'self',
+        notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception.",
+        cast: function(user, target) {
+          var _base;
+          if ((_base = user.stats.buffs).stealth == null) {
+            _base.stealth = 0;
+          }
+          return user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .075);
         }
       }
     },
@@ -10226,7 +10226,7 @@ var global=self;/**
             if ((_base = member.stats.buffs).con == null) {
               _base.con = 0;
             }
-            return member.stats.buffs.con = user._statsComputed.con * .4;
+            return member.stats.buffs.con += user._statsComputed.con * .4;
           });
         }
       },
