@@ -1,6 +1,6 @@
 form.chat-form(ng-submit='postChat(group,message.content)')
   .-options
-    //FIXME ng-model makes this painfully slow! using jquery for now, which is really non-angular-like
+    //FIXME ng-model makes this painfully slow! using jquery for now, which is really non-angular-like 
     .control-group.option-large(ng-controller='AutocompleteCtrl')
       textarea.chat-textarea.option-content(style='height:6em;', ui-keypress='{13:"postChat(group,message.content)"}', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete)
       span.user-list(ng-show='!isAtListHidden')

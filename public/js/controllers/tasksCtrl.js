@@ -36,13 +36,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         $scope.score(task, "down");
       }
     };
-    /* TODO this should be somewhere else, but fits the html location better here
-     */
 
     $scope.removeTask = function(list, $index) {
       if (!confirm("Are you sure you want to delete this task?")) return;
       User.user.ops.deleteTask({params:{id:list[$index].id}})
-      list.splice($index, 1);
     };
 
     $scope.saveTask = function(task) {
