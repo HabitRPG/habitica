@@ -245,7 +245,7 @@ api.spells =
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.int ?= 0
-          member.stats.buffs.int = user._statsComputed.int * .2
+          member.stats.buffs.int += user._statsComputed.int * .2
 
     frost:
       text: 'Chilling Frost'
@@ -293,7 +293,7 @@ api.spells =
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con = user._statsComputed.con *  .2
+          member.stats.buffs.con += user._statsComputed.con *  .2
 
   rogue:
     pickPocket:
@@ -367,7 +367,7 @@ api.spells =
         ## lasts 24 hours ##
         _.each target, (member) ->
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con = user._statsComputed.con * .4
+          member.stats.buffs.con += user._statsComputed.con * .4
     heallAll:
       text: 'Blessing'
       mana: 25
