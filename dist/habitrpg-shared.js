@@ -9780,6 +9780,14 @@ var global=self;/**
             var _ref;
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
           })
+        },
+        winter: {
+          text: "Candy Cane Hat",
+          notes: 'A hat adorned in candy, a wintery treat!',
+          value: 10,
+          canOwn: (function() {
+            return true;
+          })
         }
       }
     },
@@ -10245,6 +10253,19 @@ var global=self;/**
           });
         }
       }
+    },
+    special: {
+      snowball: {
+        text: 'Snowball',
+        mana: 0,
+        value: 1,
+        target: 'user',
+        notes: 'Throw a snowball at a party member!',
+        cast: function(user, target) {
+          target.stats.buffs.snowball = true;
+          return user.items.special.snowball--;
+        }
+      }
     }
   };
 
@@ -10259,6 +10280,8 @@ var global=self;/**
       };
     });
   });
+
+  api.special = api.spells.special;
 
   /*
     ---------------------------------------------------------------
@@ -11309,10 +11332,10 @@ var process=require("__browserify_process");(function() {
       purchase: function(req, cb) {
         var item, key, type, _ref;
         _ref = req.params, type = _ref.type, key = _ref.key;
-        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
+        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'special') {
           return cb({
             code: 404,
-            message: ":type must be in [hatchingPotions,eggs,food]"
+            message: ":type must be in [hatchingPotions,eggs,food,special]"
           }, req);
         }
         item = content[type][key];

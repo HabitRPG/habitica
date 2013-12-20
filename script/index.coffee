@@ -499,7 +499,7 @@ api.wrap = (user) ->
     # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
     purchase: (req, cb) ->
       {type,key}  = req.params
-      return cb({code:404,message:":type must be in [hatchingPotions,eggs,food]"},req) unless type in ['eggs','hatchingPotions', 'food']
+      return cb({code:404,message:":type must be in [hatchingPotions,eggs,food,special]"},req) unless type in ['eggs','hatchingPotions', 'food', 'special']
       item = content[type][key]
       return cb({code:404,message:":key not found for Content.#{type}"},req) unless item
       user.items[type][key] = 0  unless user.items[type][key]
