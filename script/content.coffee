@@ -215,7 +215,7 @@ api.spells =
     fireball:
       text: 'Burst of Flames'
       mana: 10
-      lvl: 6
+      lvl: 11
       target: 'task'
       notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).'
       cast: (user, target) ->
@@ -225,7 +225,7 @@ api.spells =
     mpheal:
       text: 'Ethereal Surge'
       mana: 30
-      lvl: 7
+      lvl: 12
       target: 'party'
       notes: "A flow of magical energy rushes from your hands and recharges your party. Your party recovers MP.",
       cast: (user, target)->
@@ -237,7 +237,7 @@ api.spells =
     earth:
       text: 'Earthquake'
       mana: 35
-      lvl: 8
+      lvl: 13
       target: 'party'
       notes: "The ground below your party's tasks cracks and shakes with extreme intensity, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
       cast: (user, target) ->
@@ -248,7 +248,7 @@ api.spells =
     frost:
       text: 'Chilling Frost'
       mana: 40
-      lvl: 9
+      lvl: 14
       target: 'self'
       notes: "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day."
       cast: (user, target) ->
@@ -258,7 +258,7 @@ api.spells =
     smash:
       text: 'Brutal Smash'
       mana: 10
-      lvl: 6
+      lvl: 11
       target: 'task'
       notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases."
       cast: (user, target) ->
@@ -266,7 +266,7 @@ api.spells =
     defensiveStance:
       text: 'Defensive Stance'
       mana: 25
-      lvl: 7
+      lvl: 12
       target: 'self'
       notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day."
       cast: (user, target) ->
@@ -275,7 +275,7 @@ api.spells =
     valorousPresence:
       text: 'Valorous Presence'
       mana: 20
-      lvl: 8
+      lvl: 13
       target: 'party'
       notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR."
       cast: (user, target) ->
@@ -285,7 +285,7 @@ api.spells =
     intimidate:
       text: 'Intimidating Gaze'
       mana: 15
-      lvl: 9
+      lvl: 14
       target: 'party'
       notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense."
       cast: (user, target) ->
@@ -297,7 +297,7 @@ api.spells =
     pickPocket:
       text: 'Pickpocket'
       mana: 10
-      lvl: 6
+      lvl: 11
       target: 'task'
       notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (greener) your task."
       cast: (user, target) ->
@@ -305,7 +305,7 @@ api.spells =
     backStab:
       text: 'Backstab'
       mana: 15
-      lvl: 7
+      lvl: 12
       target: 'task'
       notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit."
       cast: (user, target) ->
@@ -317,7 +317,7 @@ api.spells =
     toolsOfTrade:
       text: 'Tools of the Trade'
       mana: 25
-      lvl: 8
+      lvl: 13
       target: 'party'
       notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day."
       cast: (user, target) ->
@@ -328,7 +328,7 @@ api.spells =
     stealth:
       text: 'Stealth'
       mana: 45
-      lvl: 9
+      lvl: 14
       target: 'self'
       notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception."
       cast: (user, target) ->
@@ -339,7 +339,7 @@ api.spells =
     heal:
       text: 'Healing Light'
       mana: 15
-      lvl: 6
+      lvl: 11
       target: 'self'
       notes: 'Light covers your body, healing your wounds. You gain a boost to your health.'
       cast: (user, target) ->
@@ -348,7 +348,7 @@ api.spells =
     brightness:
       text: 'Searing Brightness'
       mana: 15
-      lvl: 7
+      lvl: 12
       target: 'self'
       notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced."
       cast: (user, target) ->
@@ -358,7 +358,7 @@ api.spells =
     protectAura:
       text: 'Protective Aura'
       mana: 30
-      lvl: 8
+      lvl: 13
       target: 'party'
       notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense."
       cast: (user, target) ->
@@ -369,7 +369,7 @@ api.spells =
     heallAll:
       text: 'Blessing'
       mana: 25
-      lvl: 9
+      lvl: 14
       target: 'party'
       notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health."
       cast: (user, target) ->

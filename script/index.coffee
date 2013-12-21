@@ -983,7 +983,7 @@ api.wrap = (user) ->
       if !user.flags.dropsEnabled and user.stats.lvl >= 4
         user.flags.dropsEnabled = true
         user.items.eggs["Wolf"] = 1
-      if !user.flags.classSelected and user.stats.lvl >= 5
+      if !user.flags.classSelected and user.stats.lvl >= 10
         user.flags.classSelected
 
     ###
