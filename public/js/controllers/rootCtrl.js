@@ -180,7 +180,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $rootScope.applyingAction = false;
     }
 
-//    $rootScope.castCancel = function(){
+//    $rootScope.castCancel = function(){ 
 //      debugger
 //      $rootScope.applyingAction = false;
 //      $scope.spell = null;
