@@ -163,6 +163,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $scope.castEnd = function(target, type, $event){
+      $event && ($event.stopPropagation(),$event.preventDefault());
       if ($scope.spell.target != type) return Notification.text("Invalid target");
       $scope.spell.cast(User.user, target);
       $http.post('/api/v2/user/class/cast/' + $scope.spell.name, {target:target, type:type}).success(function(){
@@ -176,7 +177,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         $scope.spell = null;
       });
       $rootScope.applyingAction = false;
-      $event && $event.stopPropagation();
     }
 
 //    $rootScope.castCancel = function(){
