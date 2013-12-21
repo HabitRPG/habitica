@@ -1,19 +1,23 @@
 script(type='text/ng-template', id='partials/options.inventory.equipment.html')
   .row-fluid
-  .span6.border-right
-    li.customize-menu.inventory-gear
-      menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
-        div(ng-repeat='item in gear[klass]')
-          button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
-  .span6
-    label.checkbox.inline
-      input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
-      | Use Costume&nbsp;
-      i.icon-question-sign(popover="Show something different on your avatar than the gear you have equipped for battle", popover-trigger='mouseenter', popover-placement='right')
-    li.customize-menu(ng-if='user.preferences.costume')
-      menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
-        div(ng-repeat='item in gear[klass]')
-          button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
+    .span6.border-right
+      h3 Equipment
+      small This is the gear you wear into battle, it affects numbers when interacting with your tasks.
+      li.customize-menu.inventory-gear
+        menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
+          div(ng-repeat='item in gear[klass]')
+            button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
+    .span6
+      h3 Costume
+      small But if you prefer the look of other gear to what you have equipped, check this box to visually don a costume while wearing your battle gear underneath.
+      br
+      label.checkbox.inline
+        input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
+        | Use Costume&nbsp;
+      li.customize-menu(ng-if='user.preferences.costume')
+        menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
+          div(ng-repeat='item in gear[klass]')
+            button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
 
 script(type='text/ng-template', id='partials/options.inventory.drops.html')
   .row-fluid
