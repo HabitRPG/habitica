@@ -1,7 +1,7 @@
 script(type='text/ng-template', id='partials/options.inventory.equipment.html')
   .row-fluid
     .span6.border-right
-      h3 Equipment
+      h3 Battle Gear
       small This is the gear you wear into battle, it affects numbers when interacting with your tasks.
       li.customize-menu.inventory-gear
         menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
