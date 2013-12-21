@@ -11911,6 +11911,7 @@ var process=require("__browserify_process");(function() {
               stats.exp = 0;
             }
             user.stats.hp = 50;
+            user.stats.mp = user._statsComputed.maxMP;
           }
         }
         user.stats.exp = stats.exp;
@@ -12065,6 +12066,10 @@ var process=require("__browserify_process");(function() {
           stealth: 0,
           streaks: false
         };
+        user.stats.mp += Math.ceil(user._statsComputed.int * .15);
+        if (user.stats.mp > user._statsComputed.maxMP) {
+          user.stats.mp = user._statsComputed.maxMP;
+        }
         return user;
       },
       preenUserHistory: function(minHistLen) {
