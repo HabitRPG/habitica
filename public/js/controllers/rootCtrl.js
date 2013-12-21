@@ -165,6 +165,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $scope.castEnd = function(target, type, $event){
       if ($scope.spell.target != type) return Notification.text("Invalid target");
       $scope.spell.cast(User.user, target);
+      User.save();
       $http.post('/api/v2/user/class/cast/' + $scope.spell.name, {target:target, type:type}).success(function(){
         var msg = "You cast " + $scope.spell.text;
         switch (type) {
