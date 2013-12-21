@@ -762,6 +762,7 @@ api.wrap = (user) ->
           else
             calculateDelta()
             addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
+            user.stats.mp++ unless user.stats.mp >= user._statsComputed.maxMP
 
         when 'reward'
         # Don't adjust values for rewards

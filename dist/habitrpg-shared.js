@@ -11677,6 +11677,9 @@ var process=require("__browserify_process");(function() {
             } else {
               calculateDelta();
               addPoints();
+              if (!(user.stats.mp >= user._statsComputed.maxMP)) {
+                user.stats.mp++;
+              }
             }
             break;
           case 'reward':
