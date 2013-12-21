@@ -174,7 +174,7 @@ angular.module('guideServices', []).
         }, {
           element: ".meter.mana",
           title: "Spells",
-          content: "You can now unlock class-specific spells. You'll see your first at level 6. Your mana replenishes 10 points per day."
+          content: "You can now unlock class-specific spells. You'll see your first at level 6. Your mana replenishes 10 points per day (plus a bonus based on your Intelligence attribute)."
         }, {
           orphan: true,
           title: "Read More",
