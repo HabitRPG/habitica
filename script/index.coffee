@@ -970,7 +970,6 @@ api.wrap = (user) ->
           if user.stats.lvl == 100
             stats.exp = 0
           user.stats.hp = 50
-          user.stats.mp = user._statsComputed.maxMP
       user.stats.exp = stats.exp
 
       # Set flags when they unlock features
@@ -1082,9 +1081,6 @@ api.wrap = (user) ->
       user.markModified? 'history'
       user.markModified? 'dailys' # covers dailys.*.history
       user.stats.buffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
-      user.stats.mp += Math.ceil(user._statsComputed.int * .15)
-      if user.stats.mp > user._statsComputed.maxMP
-        user.stats.mp = user._statsComputed.maxMP
       user
 
     # Registered users with some history
