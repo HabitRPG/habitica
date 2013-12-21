@@ -10263,10 +10263,21 @@ var global=self;/**
         mana: 0,
         value: 1,
         target: 'user',
-        notes: 'Throw a snowball at a party member!',
+        notes: "Throw a snowball at a party member! What could possibly go wrong?",
         cast: function(user, target) {
           target.stats.buffs.snowball = true;
           return user.items.special.snowball--;
+        }
+      },
+      salt: {
+        text: 'Salt',
+        mana: 0,
+        value: 5,
+        target: 'self',
+        notes: 'Someone has snowballed you. Ha ha, very funny. Now get this snow off me!',
+        cast: function(user, target) {
+          user.stats.buffs.snowball = false;
+          return user.stats.gp -= 5;
         }
       }
     }

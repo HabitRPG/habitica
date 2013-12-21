@@ -387,10 +387,20 @@ api.spells =
       mana: 0
       value: 1
       target: 'user'
-      notes: 'Throw a snowball at a party member!'
+      notes: "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day."
       cast: (user, target) ->
         target.stats.buffs.snowball = true
         user.items.special.snowball--
+
+    salt:
+      text: 'Salt'
+      mana: 0
+      value: 5
+      target: 'self'
+      notes: 'Someone has snowballed you. Ha ha, very funny. Now get this snow off me!'
+      cast: (user, target) ->
+        user.stats.buffs.snowball = false
+        user.stats.gp -= 5
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
