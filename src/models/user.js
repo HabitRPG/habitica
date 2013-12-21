@@ -93,7 +93,8 @@ var UserSchema = new Schema({
     rewrite: {type: Boolean, 'default': true},
     partyEnabled: Boolean, // FIXME do we need this?
     contributor: Boolean,
-    classSelected: {type: Boolean, 'default': false}
+    classSelected: {type: Boolean, 'default': false},
+    mathUpdates: Boolean
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
