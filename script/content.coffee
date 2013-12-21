@@ -209,10 +209,6 @@ api.potion = type: 'potion', text: "Health Potion", notes: "Recover 15 Health (I
   Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
 ###
 
-crit = (user, stat='per', chance=.03) ->
-  if user.fns.predictableRandom() <= chance then 1.5 + (.05*user._statsComputed[stat])
-  else 1
-
 api.spells =
 
   wizard:
@@ -221,10 +217,10 @@ api.spells =
       mana: 10
       lvl: 6
       target: 'task'
-      notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional experience.'
+      notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).'
       cast: (user, target) ->
-        target.value += user._statsComputed.int * .0075 * crit(user, 'per')
-        user.stats.exp += Math.abs(target.value)
+        target.value += user._statsComputed.int * .0075 * user.fns.crit('per')
+        user.stats.exp += (if target.value < 0 then 1 else target.value+1) * 2.5
 
     mpheal:
       text: 'Ethereal Surge'
@@ -234,7 +230,7 @@ api.spells =
       notes: "A flow of magical energy rushes from your hands and recharges your party. Your party recovers MP.",
       cast: (user, target)->
         _.each target, (member) ->
-          bonus = Math.ceil(user._statsComputed.int * .2 + 5)
+          bonus = Math.ceil(user._statsComputed.int * .1)
           bonus = 25 if bonus > 25 #prevent ability to replenish own mp infinitely
           member.stats.mp += bonus
 
@@ -247,7 +243,7 @@ api.spells =
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.int ?= 0
-          member.stats.buffs.int += user._statsComputed.int * .2
+          member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05)
 
     frost:
       text: 'Chilling Frost'
@@ -266,7 +262,7 @@ api.spells =
       target: 'task'
       notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases."
       cast: (user, target) ->
-        target.value += user._statsComputed.str * .01 * crit(user, 'per')
+        target.value += user._statsComputed.str * .01 * user.fns.crit('per')
     defensiveStance:
       text: 'Defensive Stance'
       mana: 25
@@ -275,7 +271,7 @@ api.spells =
       notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day."
       cast: (user, target) ->
         user.stats.buffs.con ?= 0
-        user.stats.buffs.con += user._statsComputed.con * .3
+        user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05)
     valorousPresence:
       text: 'Valorous Presence'
       mana: 20
@@ -285,7 +281,7 @@ api.spells =
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.str ?= 0
-          member.stats.buffs.str += user._statsComputed.str * .2
+          member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05)
     intimidate:
       text: 'Intimidating Gaze'
       mana: 15
@@ -295,7 +291,7 @@ api.spells =
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con += user._statsComputed.con *  .2
+          member.stats.buffs.con += Math.ceil(user._statsComputed.con *  .03)
 
   rogue:
     pickPocket:
@@ -303,9 +299,9 @@ api.spells =
       mana: 10
       lvl: 6
       target: 'task'
-      notes: "Your nimble fingers run through the task's pockets and 'find' some treasures for yourself. You gain an increased gold bonus on the task and a higher chance of an item drop."
+      notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (greener) your task."
       cast: (user, target) ->
-        user.stats.gp += ((if target.value < 0 then 0 else target.value) + 1) + user._statsComputed.per * .3
+        user.stats.gp += (if target.value < 0 then 1 else target.value+1) + user._statsComputed.per * .075
     backStab:
       text: 'Backstab'
       mana: 15
@@ -313,9 +309,9 @@ api.spells =
       target: 'task'
       notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit."
       cast: (user, target) ->
-        _crit = crit(user, 'per', .5)
+        _crit = user.fns.crit('per', .3)
         target.value += _crit * .03
-        bonus =  ((if target.value < 0 then 0 else target.value) + 1) * _crit
+        bonus =  (if target.value < 0 then 1 else target.value+1) * _crit
         user.stats.exp += bonus
         user.stats.gp += bonus
     toolsOfTrade:
@@ -328,7 +324,7 @@ api.spells =
         ## lasts 24 hours ##
         _.each target, (member) ->
           member.stats.buffs.per ?= 0
-          member.stats.buffs.per += user._statsComputed.per * .2
+          member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03)
     stealth:
       text: 'Stealth'
       mana: 45
@@ -347,7 +343,7 @@ api.spells =
       target: 'self'
       notes: 'Light covers your body, healing your wounds. You gain a boost to your health.'
       cast: (user, target) ->
-        user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 10) *.5
+        user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075
         user.stats.hp = 50 if user.stats.hp > 50
     brightness:
       text: 'Searing Brightness'
@@ -358,7 +354,7 @@ api.spells =
       cast: (user, target) ->
         _.each user.tasks, (target) ->
           return if target.type is 'reward'
-          target.value += user._statsComputed.int * .075
+          target.value += user._statsComputed.int * .006
     protectAura:
       text: 'Protective Aura'
       mana: 30
@@ -369,7 +365,7 @@ api.spells =
         ## lasts 24 hours ##
         _.each target, (member) ->
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con += user._statsComputed.con * .4
+          member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15)
     heallAll:
       text: 'Blessing'
       mana: 25
@@ -378,7 +374,7 @@ api.spells =
       notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health."
       cast: (user, target) ->
         _.each target, (member) ->
-          member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 10) * .3
+          member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .04
           member.stats.hp = 50 if member.stats.hp > 50
 
   special:

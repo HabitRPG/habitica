@@ -9167,7 +9167,7 @@ var global=self;/**
 
 },{}],5:[function(require,module,exports){
 (function() {
-  var api, crit, gear, moment, repeat, _;
+  var api, gear, moment, repeat, _;
 
   _ = require('lodash');
 
@@ -10001,20 +10001,6 @@ var global=self;/**
   */
 
 
-  crit = function(user, stat, chance) {
-    if (stat == null) {
-      stat = 'per';
-    }
-    if (chance == null) {
-      chance = .03;
-    }
-    if (user.fns.predictableRandom() <= chance) {
-      return 1.5 + (.05 * user._statsComputed[stat]);
-    } else {
-      return 1;
-    }
-  };
-
   api.spells = {
     wizard: {
       fireball: {
@@ -10022,10 +10008,10 @@ var global=self;/**
         mana: 10,
         lvl: 6,
         target: 'task',
-        notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional experience.',
+        notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).',
         cast: function(user, target) {
-          target.value += user._statsComputed.int * .0075 * crit(user, 'per');
-          return user.stats.exp += Math.abs(target.value);
+          target.value += user._statsComputed.int * .0075 * user.fns.crit('per');
+          return user.stats.exp += (target.value < 0 ? 1 : target.value + 1) * 2.5;
         }
       },
       mpheal: {
@@ -10037,7 +10023,7 @@ var global=self;/**
         cast: function(user, target) {
           return _.each(target, function(member) {
             var bonus;
-            bonus = Math.ceil(user._statsComputed.int * .2 + 5);
+            bonus = Math.ceil(user._statsComputed.int * .1);
             if (bonus > 25) {
               bonus = 25;
             }
@@ -10057,7 +10043,7 @@ var global=self;/**
             if ((_base = member.stats.buffs).int == null) {
               _base.int = 0;
             }
-            return member.stats.buffs.int += user._statsComputed.int * .2;
+            return member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05);
           });
         }
       },
@@ -10080,7 +10066,7 @@ var global=self;/**
         target: 'task',
         notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
         cast: function(user, target) {
-          return target.value += user._statsComputed.str * .01 * crit(user, 'per');
+          return target.value += user._statsComputed.str * .01 * user.fns.crit('per');
         }
       },
       defensiveStance: {
@@ -10094,7 +10080,7 @@ var global=self;/**
           if ((_base = user.stats.buffs).con == null) {
             _base.con = 0;
           }
-          return user.stats.buffs.con += user._statsComputed.con * .3;
+          return user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05);
         }
       },
       valorousPresence: {
@@ -10109,7 +10095,7 @@ var global=self;/**
             if ((_base = member.stats.buffs).str == null) {
               _base.str = 0;
             }
-            return member.stats.buffs.str += user._statsComputed.str * .2;
+            return member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05);
           });
         }
       },
@@ -10125,7 +10111,7 @@ var global=self;/**
             if ((_base = member.stats.buffs).con == null) {
               _base.con = 0;
             }
-            return member.stats.buffs.con += user._statsComputed.con * .2;
+            return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .03);
           });
         }
       }
@@ -10136,9 +10122,9 @@ var global=self;/**
         mana: 10,
         lvl: 6,
         target: 'task',
-        notes: "Your nimble fingers run through the task's pockets and 'find' some treasures for yourself. You gain an increased gold bonus on the task and a higher chance of an item drop.",
+        notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (greener) your task.",
         cast: function(user, target) {
-          return user.stats.gp += ((target.value < 0 ? 0 : target.value) + 1) + user._statsComputed.per * .3;
+          return user.stats.gp += (target.value < 0 ? 1 : target.value + 1) + user._statsComputed.per * .075;
         }
       },
       backStab: {
@@ -10149,9 +10135,9 @@ var global=self;/**
         notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit.",
         cast: function(user, target) {
           var bonus, _crit;
-          _crit = crit(user, 'per', .5);
+          _crit = user.fns.crit('per', .3);
           target.value += _crit * .03;
-          bonus = ((target.value < 0 ? 0 : target.value) + 1) * _crit;
+          bonus = (target.value < 0 ? 1 : target.value + 1) * _crit;
           user.stats.exp += bonus;
           return user.stats.gp += bonus;
         }
@@ -10168,7 +10154,7 @@ var global=self;/**
             if ((_base = member.stats.buffs).per == null) {
               _base.per = 0;
             }
-            return member.stats.buffs.per += user._statsComputed.per * .2;
+            return member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03);
           });
         }
       },
@@ -10195,7 +10181,7 @@ var global=self;/**
         target: 'self',
         notes: 'Light covers your body, healing your wounds. You gain a boost to your health.',
         cast: function(user, target) {
-          user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 10) * .5;
+          user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075;
           if (user.stats.hp > 50) {
             return user.stats.hp = 50;
           }
@@ -10212,7 +10198,7 @@ var global=self;/**
             if (target.type === 'reward') {
               return;
             }
-            return target.value += user._statsComputed.int * .075;
+            return target.value += user._statsComputed.int * .006;
           });
         }
       },
@@ -10228,7 +10214,7 @@ var global=self;/**
             if ((_base = member.stats.buffs).con == null) {
               _base.con = 0;
             }
-            return member.stats.buffs.con += user._statsComputed.con * .4;
+            return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15);
           });
         }
       },
@@ -10240,7 +10226,7 @@ var global=self;/**
         notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 10) * .3;
+            member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .04;
             if (member.stats.hp > 50) {
               return member.stats.hp = 50;
             }
@@ -10685,6 +10671,21 @@ var process=require("__browserify_process");(function() {
     } else {
       return Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10;
     }
+  };
+
+  /*
+    A hyperbola function that creates diminishing returns, so you can't go to infinite (eg, with Exp gain).
+    {max} The asymptote
+    {bonus} All the numbers combined for your point bonus (eg, task.value * user.stats.int * critChance, etc)
+    {halfway} (optional) the point at which the graph starts bending
+  */
+
+
+  api.diminishingReturns = function(bonus, max, halfway) {
+    if (halfway == null) {
+      halfway = bonus / 2;
+    }
+    return max * (bonus / (bonus + halfway));
   };
 
   /*
@@ -11600,28 +11601,28 @@ var process=require("__browserify_process");(function() {
             if (adjustvalue) {
               task.value += nextDelta;
               if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
-                task.value += nextDelta * user._statsComputed.str * .005;
+                task.value += nextDelta * user._statsComputed.str * .004;
               }
             }
             return delta += nextDelta;
           });
         };
         addPoints = function() {
-          var afterStreak, crit, gpMod, intMod, streakBonus;
-          crit = user.fns.predictableRandom() <= .03 ? 1.5 + (.05 * user._statsComputed.str) : 1;
-          intMod = 1 + (user._statsComputed.int * .075);
-          stats.exp += Math.round(delta * intMod * task.priority * crit * 6);
-          gpMod = delta * task.priority * crit;
-          gpMod *= 1 + user._statsComputed.per * .06;
-          return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
+          var afterStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
+          _crit = user.fns.crit();
+          intBonus = 1 + (user._statsComputed.int * .025);
+          stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
+          perBonus = 1 + user._statsComputed.per * .02;
+          gpMod = delta * task.priority * _crit * perBonus;
+          return gpMod *= stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
         };
         subtractPoints = function() {
-          var conMod, hpMod;
-          conMod = 1 - (user._statsComputed.con / 250);
-          if (conMod < .1) {
-            conMod = 0.1;
+          var conBonus, hpMod;
+          conBonus = 1 - (user._statsComputed.con / 250);
+          if (conBonus < .1) {
+            conBonus = 0.1;
           }
-          hpMod = delta * conMod * task.priority;
+          hpMod = delta * conBonus * task.priority * 2;
           return stats.hp += Math.round(hpMod * 10) / 10;
         };
         switch (task.type) {
@@ -11744,6 +11745,19 @@ var process=require("__browserify_process");(function() {
         }
         x = Math.sin(seed++) * 10000;
         return x - Math.floor(x);
+      },
+      crit: function(stat, chance) {
+        if (stat == null) {
+          stat = 'str';
+        }
+        if (chance == null) {
+          chance = .03;
+        }
+        if (user.fns.predictableRandom() <= chance) {
+          return 1.5 + (.02 * user._statsComputed[stat]);
+        } else {
+          return 1;
+        }
       },
       /*
         Get a random property from an object
