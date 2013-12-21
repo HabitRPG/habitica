@@ -8,8 +8,11 @@ shared = require '../script/index.coffee'
 newUser = ->
   id = shared.uuid()
   user = 
-    stats: {}
+    stats: {str:1, con:1, per:1, int:1, mp: 100, class: 'warrior', buffs: {per:0,int:0,con:0,str:0}}
     items:
+      hatchingPotions: {}
+      eggs: {}
+      food: {}
       gear:
         equipped: {}
         costume: {}
@@ -81,7 +84,7 @@ expectDayResetNoDamage = (b,a) ->
 
 cycle = (array)->
   n = -1
-  ->
+  (seed=0)->
     n++
     return array[n % array.length]
 
@@ -99,7 +102,7 @@ describe 'User', ->
   it 'sets correct user defaults', ->
     user = newUser()
     base_gear = { armor: 'armor_base_0', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
-    expect(user.stats).to.eql { gp: 0, exp: 0, lvl: 1, hp: 50 }
+    expect(user.stats).to.eql { str: 1, con: 1, per: 1, int: 1, hp: 50, mp: 100, lvl: 1, exp: 0, gp: 0, class: 'warrior', buffs: { per: 0, int: 0, con: 0, str: 0 } }
     expect(user.items.gear).to.eql { equipped: base_gear, costume: base_gear, owned: {weapon_warrior_0: true} }
     expect(user.preferences).to.eql { costume: false }
     # TODO rewrite these conditions
@@ -121,7 +124,10 @@ describe 'User', ->
     user = newUser()
     user.stats = { gp: 10, exp: 100, lvl: 2, hp: 1 }
     user.ops.revive()
-    expect(user.stats).to.eql { gp: 0, exp: 0, lvl: 1, hp: 50 }
+    expect(user.stats.gp).to.eql 0
+    expect(user.stats.exp).to.eql 0
+    expect(user.stats.lvl).to.eql 1
+    expect(user.stats.hp).to.eql 50
     expect(user.items.gear.owned).to.eql { weapon_warrior_0: false }
 
   describe 'store', ->
@@ -158,45 +164,47 @@ describe 'User', ->
     beforeEach ->
       user = newUser()
       user.flags.dropsEnabled = true
-      # too many Math.random calls to stub, let's return the last element
+      # too many predictableRandom calls to stub, let's return the last element
       sinon.stub(user.fns, 'randomVal', (obj)->
         result = undefined
         for key, val of obj
           result = val
         result
       )
+      @task_id = shared.uuid()
+      user.ops.addTask({body: {type: 'daily', id: @task_id}})
 
     it 'gets a golden potion', ->
-      sinon.stub(Math, 'random').returns 0
-      algos.score(user, user.dailys[0], 'up')
+      sinon.stub(user.fns, 'predictableRandom').returns 0
+      user.ops.score {params: { id: @task_id, direction: 'up'}}
       expect(user.items.eggs).to.eql {}
       expect(user.items.hatchingPotions).to.eql {'Golden': 1}
       expect(user.items.food).to.eql {}
 
     it 'gets a bear cub egg', ->
-      sinon.stub(Math, 'random', cycle [0, 0.55])
-      algos.score(user, user.dailys[0], 'up')
+      sinon.stub(user.fns, 'predictableRandom', cycle [0, 0, 0.55])
+      user.ops.score {params: { id: @task_id, direction: 'up'}}
       expect(user.items.eggs).to.eql {'BearCub': 1}
       expect(user.items.hatchingPotions).to.eql {}
       expect(user.items.food).to.eql {}
 
     it 'gets honey', ->
-      sinon.stub(Math, 'random', cycle [0, 0.9])
-      algos.score(user, user.dailys[0], 'up')
+      sinon.stub(user.fns, 'predictableRandom', cycle [0, 0, 0.9])
+      user.ops.score {params: { id: @task_id, direction: 'up'}}
       expect(user.items.eggs).to.eql {}
       expect(user.items.hatchingPotions).to.eql {}
       expect(user.items.food).to.eql {'Honey': 1}
 
     it 'does not get a drop', ->
-      sinon.stub(Math, 'random').returns 0.5
-      algos.score(user, user.dailys[0], 'up')
+      sinon.stub(user.fns, 'predictableRandom').returns 0.5
+      user.ops.score {params: { id: @task_id, direction: 'up'}}
       expect(user.items.eggs).to.eql {}
       expect(user.items.hatchingPotions).to.eql {}
       expect(user.items.food).to.eql {}
 
     afterEach ->
-      Math.random.restore()
-      helpers.randomVal.restore()
+      user.fns.randomVal.restore()
+      user.fns.predictableRandom.restore()
 
 describe 'Simple Scoring', ->
 
