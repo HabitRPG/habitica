@@ -299,7 +299,8 @@ api.buyGemsPaypalIPN = function(req, res) {
 api.cast = function(req, res) {
   var user = res.locals.user;
   var type = req.body.type, target = req.body.target;
-  var spell = shared.content.spells[user.stats.class][req.params.spell];
+  var klass = shared.content.spells.special[req.params.spell] ? 'special' : user.stats.class
+  var spell = shared.content.spells[klass][req.params.spell];
 
   var done = function(){
     var err = arguments[0];
