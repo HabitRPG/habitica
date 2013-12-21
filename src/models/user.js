@@ -43,6 +43,7 @@ var UserSchema = new Schema({
     ultimateGear: Boolean,
     beastMaster: Boolean,
     veteran: Boolean,
+    snowball: Number,
     streak: Number,
     challenges: Array
   },
