@@ -9167,11 +9167,13 @@ var global=self;/**
 
 },{}],5:[function(require,module,exports){
 (function() {
-  var api, crit, gear, repeat, _;
+  var api, crit, gear, moment, repeat, _;
 
   _ = require('lodash');
 
   api = module.exports;
+
+  moment = require('moment');
 
   /*
     ---------------------------------------------------------------
@@ -10245,6 +10247,35 @@ var global=self;/**
           });
         }
       }
+    },
+    special: {
+      snowball: {
+        text: 'Snowball',
+        mana: 0,
+        value: 1,
+        target: 'user',
+        notes: "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day.",
+        cast: function(user, target) {
+          var _base;
+          target.stats.buffs.snowball = true;
+          if ((_base = target.achievements).snowball == null) {
+            _base.snowball = 0;
+          }
+          target.achievements.snowball++;
+          return user.items.special.snowball--;
+        }
+      },
+      salt: {
+        text: 'Salt',
+        mana: 0,
+        value: 5,
+        target: 'self',
+        notes: 'Someone has snowballed you. Ha ha, very funny. Now get this snow off me!',
+        cast: function(user, target) {
+          user.stats.buffs.snowball = false;
+          return user.stats.gp -= 5;
+        }
+      }
     }
   };
 
@@ -10259,6 +10290,8 @@ var global=self;/**
       };
     });
   });
+
+  api.special = api.spells.special;
 
   /*
     ---------------------------------------------------------------
@@ -10528,7 +10561,7 @@ var global=self;/**
 }).call(this);
 
 
-},{"lodash":3}],6:[function(require,module,exports){
+},{"lodash":3,"moment":4}],6:[function(require,module,exports){
 var process=require("__browserify_process");(function() {
   var api, content, dayMapping, moment, preenHistory, sanitizeOptions, _,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
@@ -11309,10 +11342,10 @@ var process=require("__browserify_process");(function() {
       purchase: function(req, cb) {
         var item, key, type, _ref;
         _ref = req.params, type = _ref.type, key = _ref.key;
-        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
+        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'special') {
           return cb({
             code: 404,
-            message: ":type must be in [hatchingPotions,eggs,food]"
+            message: ":type must be in [hatchingPotions,eggs,food,special]"
           }, req);
         }
         item = content[type][key];

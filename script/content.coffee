@@ -1,5 +1,6 @@
 _ = require 'lodash'
 api = module.exports
+moment = require 'moment'
 
 ###
   ---------------------------------------------------------------
@@ -130,6 +131,7 @@ gear =
       0: text: "Shade Helm",   notes:'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.', int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: "Crystal Helm", notes:'The favored crown of those who lead by example. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 3)
       2: text: "Nameless Helm", notes:'A testament to those who gave of themselves while asking nothing in return. Increases INT and STR by 25 each.', int: 25, str: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      #candycane: text: "Candy Cane Hat", notes: 'A hat adorned in candy, a wintery treat!', value:10, canOwn: ((u)-> moment(u.auth.timestamps?.created).isBefore(new Date '01/10/2014'))
 
   shield:
     base:
@@ -379,6 +381,29 @@ api.spells =
           member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 10) * .3
           member.stats.hp = 50 if member.stats.hp > 50
 
+  special:
+    snowball:
+      text: 'Snowball'
+      mana: 0
+      value: 1
+      target: 'user'
+      notes: "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day."
+      cast: (user, target) ->
+        target.stats.buffs.snowball = true
+        target.achievements.snowball ?= 0
+        target.achievements.snowball++
+        user.items.special.snowball--
+
+    salt:
+      text: 'Salt'
+      mana: 0
+      value: 5
+      target: 'self'
+      notes: 'Someone has snowballed you. Ha ha, very funny. Now get this snow off me!'
+      cast: (user, target) ->
+        user.stats.buffs.snowball = false
+        user.stats.gp -= 5
+
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
   _.each spellClass, (spell, k) ->
@@ -388,6 +413,8 @@ _.each api.spells, (spellClass) ->
       #return if spell.target and spell.target != (if target.type then 'task' else 'user')
       _cast(user,target)
       user.stats.mp -= spell.mana
+
+api.special = api.spells.special
 
 ###
   ---------------------------------------------------------------
