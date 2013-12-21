@@ -131,7 +131,7 @@ gear =
       0: text: "Shade Helm",   notes:'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.', int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: "Crystal Helm", notes:'The favored crown of those who lead by example. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 3)
       2: text: "Nameless Helm", notes:'A testament to those who gave of themselves while asking nothing in return. Increases INT and STR by 25 each.', int: 25, str: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
-      candycane: text: "Candy Cane Hat", notes: 'A hat adorned in candy, a wintery treat!', value:10, canOwn: ((u)-> moment(u.auth.timestamps?.created).isBefore(new Date '01/10/2014'))
+      #candycane: text: "Candy Cane Hat", notes: 'A hat adorned in candy, a wintery treat!', value:10, canOwn: ((u)-> moment(u.auth.timestamps?.created).isBefore(new Date '01/10/2014'))
 
   shield:
     base:
@@ -390,6 +390,8 @@ api.spells =
       notes: "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day."
       cast: (user, target) ->
         target.stats.buffs.snowball = true
+        target.achievements.snowball ?= 0
+        target.achievements.snowball++
         user.items.special.snowball--
 
     salt:

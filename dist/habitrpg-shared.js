@@ -9782,15 +9782,6 @@ var global=self;/**
             var _ref;
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
           })
-        },
-        candycane: {
-          text: "Candy Cane Hat",
-          notes: 'A hat adorned in candy, a wintery treat!',
-          value: 10,
-          canOwn: (function(u) {
-            var _ref;
-            return moment((_ref = u.auth.timestamps) != null ? _ref.created : void 0).isBefore(new Date('01/10/2014'));
-          })
         }
       }
     },
@@ -10263,9 +10254,14 @@ var global=self;/**
         mana: 0,
         value: 1,
         target: 'user',
-        notes: "Throw a snowball at a party member! What could possibly go wrong?",
+        notes: "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day.",
         cast: function(user, target) {
+          var _base;
           target.stats.buffs.snowball = true;
+          if ((_base = target.achievements).snowball == null) {
+            _base.snowball = 0;
+          }
+          target.achievements.snowball++;
           return user.items.special.snowball--;
         }
       },
