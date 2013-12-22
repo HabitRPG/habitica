@@ -5,11 +5,15 @@ moment = require 'moment'
 shared = require '../script/index.coffee'
 
 ### Helper Functions ####
-newUser = ->
-  id = shared.uuid()
-  user = 
-    stats: {str:1, con:1, per:1, int:1, mp: 100, class: 'warrior', buffs: {per:0,int:0,con:0,str:0}}
+newUser = (addTasks=true)->
+  buffs = {per:0, int:0, con:0, str:0, stealth: 0, streaks: false}
+  user =
+    auth:
+      timestamps: {}
+    stats: {str:1, con:1, per:1, int:1, mp: 32, class: 'warrior', buffs: buffs}
     items:
+      lastDrop:
+        count: 0
       hatchingPotions: {}
       eggs: {}
       food: {}
@@ -17,15 +21,21 @@ newUser = ->
         equipped: {}
         costume: {}
     preferences: {}
-    habits: [
-      shared.taskDefaults({id, value: 0})
-    ]
     dailys: []
     todos: []
     rewards: []
     flags: {}
+
   shared.wrap(user)
   user.ops.reset(null, ->)
+  if addTasks
+    _.each ['habit', 'todo', 'daily'], (task)->
+      user.ops.addTask {body: {type: task, id: shared.uuid()}}
+  user
+
+rewrapUser = (user)->
+  user._wrapped = false
+  shared.wrap(user)
   user
 
 expectStrings = (obj, paths) ->
@@ -34,7 +44,9 @@ expectStrings = (obj, paths) ->
 # options.daysAgo: days ago when the last cron was executed
 beforeAfter = (options={}) ->
   user = newUser()
-  [before, after] = [_.cloneDeep(user), _.cloneDeep(user)]
+  [before, after] = [user, _.cloneDeep(user)]
+  # avoid closure on the original user
+  rewrapUser(after)
   before.preferences.dayStart = after.preferences.dayStart = options.dayStart if options.dayStart
   before.preferences.timezoneOffset = after.preferences.timezoneOffset = (options.timezoneOffset or moment().zone())
   if options.limitOne
@@ -63,7 +75,9 @@ expectGainedPoints = (before, after, taskType) ->
   expect(after["#{taskType}s"][0].history).to.have.length(1) if taskType is 'habit'
   # daily & todo histories handled on cron
 
-expectNoChange = (before,after) -> expect(before).to.eql after
+expectNoChange = (before,after) ->
+  _.each ['stats', 'items', 'gear', 'dailys', 'todos', 'rewards', 'flags', 'preferences'], (attr)->
+    expect(after[attr]).to.eql before[attr]
 
 expectDayResetNoDamage = (b,a) ->
   [before,after] = [_.cloneDeep(b); _.cloneDeep(a)]
@@ -80,7 +94,7 @@ expectDayResetNoDamage = (b,a) ->
   _.each ['dailys','todos','history','lastCron'], (path) ->
     _.each [before,after], (obj) -> delete obj[path]
   delete after._tmp
-  expect(after).to.eql before
+  expectNoChange(before, after)
 
 cycle = (array)->
   n = -1
@@ -102,23 +116,10 @@ describe 'User', ->
   it 'sets correct user defaults', ->
     user = newUser()
     base_gear = { armor: 'armor_base_0', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
-    expect(user.stats).to.eql { str: 1, con: 1, per: 1, int: 1, hp: 50, mp: 100, lvl: 1, exp: 0, gp: 0, class: 'warrior', buffs: { per: 0, int: 0, con: 0, str: 0 } }
+    buffs = {per:0, int:0, con:0, str:0, stealth: 0, streaks: false}
+    expect(user.stats).to.eql { str: 1, con: 1, per: 1, int: 1, hp: 50, mp: 32, lvl: 1, exp: 0, gp: 0, class: 'warrior', buffs: buffs }
     expect(user.items.gear).to.eql { equipped: base_gear, costume: base_gear, owned: {weapon_warrior_0: true} }
     expect(user.preferences).to.eql { costume: false }
-    # TODO rewrite these conditions
-    # expect(user.items.lastDrop.count).to.eql 0
-    # expect(user.preferences).to.eql { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1', dayStart:0, showHelm: true }
-    # expect(user.balance).to.eql 0
-    # expect(user.lastCron).to.be.greaterThan 0
-    # expect(user.flags).to.eql {partyEnabled: false, itemsEnabled: false, ads: 'show'}
-    # expectStrings(user, ['apiToken'])
-    # expectStrings(user.habits[0], ['text','id'])
-    # expectStrings(user.dailys[0], ['text','id'])
-    # expectStrings(user.todos[0], ['text','id'])
-    # expectStrings(user.rewards[0], ['text','id'])
-    # expectStrings(user.tags[0], ['name','id'])
-    # expectStrings(user.tags[1], ['name','id'])
-    # expectStrings(user.tags[2], ['name','id'])
 
   it 'revives correctly', ->
     user = newUser()
@@ -207,37 +208,35 @@ describe 'User', ->
       user.fns.predictableRandom.restore()
 
 describe 'Simple Scoring', ->
+  beforeEach ->
+    {@before, @after} = beforeAfter()
 
   it 'Habits : Up', ->
-    {before,after} = beforeAfter()
-    algos.score(after, after.habits[0], 'down', {times:5})
-    expectLostPoints(before,after,'habit')
+    @after.ops.score {params: {id: @after.habits[0].id, direction: 'down'}, query: {times: 5}}
+    expectLostPoints(@before, @after,'habit')
 
   it 'Habits : Down', ->
-    {before,after} = beforeAfter()
-    algos.score(after, after.habits[0], 'up', {times:5})
-    expectGainedPoints(before,after,'habit')
+    @after.ops.score {params: {id: @after.habits[0].id, direction: 'up'}, query: {times: 5}}
+    expectGainedPoints(@before, @after,'habit')
 
   it 'Dailys : Up', ->
-    {before,after} = beforeAfter()
-    algos.score(after, after.dailys[0], 'up')
-    expectGainedPoints(before,after,'daily')
+    @after.ops.score {params: {id: @after.dailys[0].id, direction: 'up'}}
+    expectGainedPoints(@before, @after,'daily')
 
   it 'Todos : Up', ->
-    {before,after} = beforeAfter()
-    algos.score(after, after.todos[0], 'up')
-    expectGainedPoints(before,after,'todo')
+    @after.ops.score {params: {id: @after.todos[0].id, direction: 'up'}}
+    expectGainedPoints(@before, @after,'todo')
 
 describe 'Cron', ->
 
   it 'computes shouldCron', ->
     user = newUser()
 
-    paths = {};algos.cron user, {paths}
+    paths = {};user.fns.cron {paths}
     expect(paths.lastCron).to.not.be.ok # it setup the cron property now
 
     user.lastCron = +moment().subtract('days',1)
-    paths = {};algos.cron user, {paths}
+    paths = {};user.fns.cron {paths}
     expect(paths.lastCron).to.be true
 
 #    user.lastCron = +moment().add('days',1)
@@ -247,7 +246,7 @@ describe 'Cron', ->
   it 'only dailies & todos are effected', ->
     {before,after} = beforeAfter({daysAgo:1})
     before.dailys = before.todos = after.dailys = after.todos = []
-    algos.cron(after)
+    after.fns.cron
     expect(after.lastCron).to.not.be before.lastCron # make sure cron was run
     expect(before.stats).to.eql after.stats
     beforeTasks = before.habits.concat(before.dailys).concat(before.todos).concat(before.rewards)
@@ -309,7 +308,7 @@ describe 'Cron', ->
       ]
       after.history = {exp: _.cloneDeep(history), todos: _.cloneDeep(history)}
       after.habits[0].history = _.cloneDeep(history)
-      algos.cron(after)
+      after.fns.cron
 
       # remove history entries created by cron
       after.history.exp.pop()
@@ -322,7 +321,7 @@ describe 'Cron', ->
     it '1 day missed', ->
       {before,after} = beforeAfter({daysAgo:1})
       before.dailys = after.dailys = []
-      algos.cron(after)
+      after.fns.cron
 
       # todos don't effect stats
       expect(after.stats.hp).to.be 50
@@ -352,7 +351,7 @@ describe 'Cron', ->
           before.dailys[0].completed = after.dailys[0].completed = true if options.checked
           if options.shouldDo
             expect(shared.shouldDo(now, options.repeat, {timezoneOffset, dayStart:options.dayStart, now})).to.be.ok()
-          algos.cron(after,{now})
+          after.fns.cron {now}
           switch options.expect
             when 'losePoints' then expectLostPoints(before,after,'daily')
             when 'noChange' then expectNoChange(before,after)
@@ -440,13 +439,6 @@ describe 'Helper', ->
     expect(shared.tnl 10).to.eql 260
     expect(shared.tnl 99).to.eql 3580
     expect(shared.tnl 100).to.eql 0
-
-  it 'calculates priority values', ->
-    expect(algos.priorityValue()).to.eql 1
-    expect(algos.priorityValue '!').to.eql 1
-    expect(algos.priorityValue '!!').to.eql 1.5
-    expect(algos.priorityValue '!!!').to.eql 2
-    expect(algos.priorityValue '!!!!').to.eql 1
 
   it 'calculates the start of the day', ->
     expect(shared.startOfDay({now: new Date(2013, 0, 1, 0)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
