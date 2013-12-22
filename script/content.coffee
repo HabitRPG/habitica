@@ -458,16 +458,16 @@ _.each api.hatchingPotions, (pot,k) ->
   _.defaults pot, {name: k, value: 2, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
 
 api.food =
-  Meat:             text: 'Meat', target: 'Base'
-  Milk:             text: 'Milk', target: 'White'
+  Meat:             text: 'Meat', target: 'Base', article: ''
+  Milk:             text: 'Milk', target: 'White', article: ''
   Potatoe:          text: 'Potato', target: 'Desert', article: 'a '
   Strawberry:       text: 'Strawberry', target: 'Red', article: 'a '
-  Chocolate:        text: 'Chocolate', target: 'Shade'
+  Chocolate:        text: 'Chocolate', target: 'Shade', article: ''
   Fish:             text: 'Fish', target: 'Skeleton', article: 'a '
-  RottenMeat:       text: 'Rotten Meat', target: 'Zombie'
-  CottonCandyPink:  text: 'Pink Cotton Candy', target: 'CottonCandyPink'
-  CottonCandyBlue:  text: 'Blue Cotton Candy', target: 'CottonCandyBlue'
-  Honey:            text: 'Honey', target: 'Golden'
+  RottenMeat:       text: 'Rotten Meat', target: 'Zombie', article: ''
+  CottonCandyPink:  text: 'Pink Cotton Candy', target: 'CottonCandyPink', article: ''
+  CottonCandyBlue:  text: 'Blue Cotton Candy', target: 'CottonCandyBlue', article: ''
+  Honey:            text: 'Honey', target: 'Golden', article: ''
   # FIXME what to do with these extra items? Should we add "targets" (plural) for food instead of singular, so we don't have awkward extras?
   #Cheese:           text: 'Cheese', target: 'Golden'
   #Watermelon:       text: 'Watermelon', target: 'Golden'
