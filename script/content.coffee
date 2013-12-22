@@ -460,10 +460,10 @@ _.each api.hatchingPotions, (pot,k) ->
 api.food =
   Meat:             text: 'Meat', target: 'Base'
   Milk:             text: 'Milk', target: 'White'
-  Potatoe:          text: 'Potato', target: 'Desert'
-  Strawberry:       text: 'Strawberry', target: 'Red'
+  Potatoe:          text: 'Potato', target: 'Desert', article: 'a '
+  Strawberry:       text: 'Strawberry', target: 'Red', article: 'a '
   Chocolate:        text: 'Chocolate', target: 'Shade'
-  Fish:             text: 'Fish', target: 'Skeleton'
+  Fish:             text: 'Fish', target: 'Skeleton', article: 'a '
   RottenMeat:       text: 'Rotten Meat', target: 'Zombie'
   CottonCandyPink:  text: 'Pink Cotton Candy', target: 'CottonCandyPink'
   CottonCandyBlue:  text: 'Blue Cotton Candy', target: 'CottonCandyBlue'
