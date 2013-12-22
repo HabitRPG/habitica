@@ -36,7 +36,7 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared
     a(ng-show='task.history', ng-click='toggleChart(obj._id+task.id, task)', tooltip='Progress')
       i.icon-signal
     // notes
-    span.task-notes(ng-show='task.notes && !task._editing', popover-trigger='mouseenter', popover-placement='left', popover='{{task.notes}}', popover-title='{{task.text}}')
+    span.task-notes(ng-show='task.notes && !task._editing')
       i.icon-comment
 
   // left-hand side checkbox
@@ -60,8 +60,7 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared
       input.visuallyhidden.focusable(ng-if='!$state.includes("tasks")', id='box-{{obj._id}}_{{task.id}}', type='checkbox')
       label(for='box-{{obj._id}}_{{task.id}}')
   // main content
-  p.task-text
-    | {{task.text}}
+  span.task-text(popover-trigger='mouseenter', popover-placement='top', popover='{{task.notes}}', popover-title='{{task.text}}') {{task.text}}
 
   // edit/options dialog
   .task-options(ng-show='task._editing')
