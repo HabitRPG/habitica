@@ -17,6 +17,10 @@ var api = module.exports;
 
 // api.purchase // Shared.ops
 
+api.getContent = function(req, res, next) {
+  res.json(shared.content);
+}
+
 /*
   ------------------------------------------------------------------------
   Tasks

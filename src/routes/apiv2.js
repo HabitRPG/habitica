@@ -30,6 +30,9 @@ router.get('/status', function(req, res) {
 // User
 // ---------------------------------
 
+// List all keys and objects in content.coffee that clients ned to know about
+router.get('/content', user.getContent);
+
 // Data Export
 router.get('/export/history',auth.auth,dataexport.history); //[todo] encode data output options in the data controller and use these to build routes
 
