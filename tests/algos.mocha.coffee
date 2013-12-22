@@ -233,11 +233,11 @@ describe 'Cron', ->
     user = newUser()
 
     paths = {};user.fns.cron {paths}
-    expect(paths.lastCron).to.not.be.ok # it setup the cron property now
+    expect(user.lastCron).to.not.be.ok # it setup the cron property now
 
     user.lastCron = +moment().subtract('days',1)
     paths = {};user.fns.cron {paths}
-    expect(paths.lastCron).to.be true
+    expect(user.lastCron).to.be.greaterThan 0
 
 #    user.lastCron = +moment().add('days',1)
 #    paths = {};algos.cron user, {paths}
@@ -246,7 +246,7 @@ describe 'Cron', ->
   it 'only dailies & todos are effected', ->
     {before,after} = beforeAfter({daysAgo:1})
     before.dailys = before.todos = after.dailys = after.todos = []
-    after.fns.cron
+    after.fns.cron()
     expect(after.lastCron).to.not.be before.lastCron # make sure cron was run
     expect(before.stats).to.eql after.stats
     beforeTasks = before.habits.concat(before.dailys).concat(before.todos).concat(before.rewards)
@@ -308,7 +308,7 @@ describe 'Cron', ->
       ]
       after.history = {exp: _.cloneDeep(history), todos: _.cloneDeep(history)}
       after.habits[0].history = _.cloneDeep(history)
-      after.fns.cron
+      after.fns.cron()
 
       # remove history entries created by cron
       after.history.exp.pop()
@@ -321,7 +321,7 @@ describe 'Cron', ->
     it '1 day missed', ->
       {before,after} = beforeAfter({daysAgo:1})
       before.dailys = after.dailys = []
-      after.fns.cron
+      after.fns.cron()
 
       # todos don't effect stats
       expect(after.stats.hp).to.be 50
