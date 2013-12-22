@@ -95,7 +95,7 @@ preenHistory = (history) ->
       newHistory.push
         date: moment(group[0].date).toDate()
         #date: moment(group[0].date).format('MM/DD/YYYY') # Use this one when testing
-        value: _.reduce(group, ((m, obj) -> m + api.value), 0) / group.length # average
+        value: _.reduce(group, ((m, obj) -> m + obj.value), 0) / group.length # average
       true
 
   # Keep the last:
