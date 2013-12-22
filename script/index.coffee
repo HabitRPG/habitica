@@ -66,6 +66,16 @@ api.tnl = (lvl) ->
   # round to nearest 10?
 
 ###
+  A hyperbola function that creates diminishing returns, so you can't go to infinite (eg, with Exp gain).
+  {max} The asymptote
+  {bonus} All the numbers combined for your point bonus (eg, task.value * user.stats.int * critChance, etc)
+  {halfway} (optional) the point at which the graph starts bending
+###
+api.diminishingReturns = (bonus, max, halfway=bonus/2) ->
+  max*(bonus/(bonus+halfway))
+
+
+###
 Preen history for users with > 7 history entries
 This takes an infinite array of single day entries [day day day day day...], and turns it into a condensed array
 of averages, condensing more the further back in time we go. Eg, 7 entries each for last 7 days; 1 entry each week
@@ -85,7 +95,7 @@ preenHistory = (history) ->
       newHistory.push
         date: moment(group[0].date).toDate()
         #date: moment(group[0].date).format('MM/DD/YYYY') # Use this one when testing
-        value: _.reduce(group, ((m, obj) -> m + api.value), 0) / group.length # average
+        value: _.reduce(group, ((m, obj) -> m + obj.value), 0) / group.length # average
       true
 
   # Keep the last:
@@ -418,7 +428,7 @@ api.wrap = (user) ->
       task = user.tasks[req.params?.id]
       return cb({code:404,message:'Task not found'}) unless task
       i = user[task.type + "s"].indexOf(task)
-      user[task.type + "s"].splice i, 1  if ~i
+      user[task.type + "s"].splice(i, 1) if ~i
       cb null, req
 
     addTask: (req, cb) ->
@@ -499,7 +509,7 @@ api.wrap = (user) ->
     # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
     purchase: (req, cb) ->
       {type,key}  = req.params
-      return cb({code:404,message:":type must be in [hatchingPotions,eggs,food]"},req) unless type in ['eggs','hatchingPotions', 'food']
+      return cb({code:404,message:":type must be in [hatchingPotions,eggs,food,special]"},req) unless type in ['eggs','hatchingPotions', 'food', 'special']
       item = content[type][key]
       return cb({code:404,message:":key not found for Content.#{type}"},req) unless item
       user.items[type][key] = 0  unless user.items[type][key]
@@ -676,26 +686,25 @@ api.wrap = (user) ->
             # (Only for up-scoring, ignore up-onlies and rewards)
             if direction is 'up' and task.type != 'reward' and !(task.type is 'habit' and !task.down)
               # TODO STR Improves the amount by which Dailies and +/- Habits decrease in threat when scored, by .25% per point.
-              task.value += nextDelta * user._statsComputed.str * .005
+              task.value += nextDelta * user._statsComputed.str * .004
           delta += nextDelta
 
       addPoints = ->
         # ===== CRITICAL HITS =====
-        crit =
-          if user.fns.predictableRandom() <= .03 then 1.5 + (.05*user._statsComputed.str)
-          else 1
+        _crit = user.fns.crit()
 
         # Exp Modifier
         # ===== Intelligence =====
         # TODO Increases Experience gain by .2% per point.
-        intMod = 1 + (user._statsComputed.int * .075)
-        stats.exp += Math.round(delta * intMod * task.priority * crit)
+        intBonus = 1 + (user._statsComputed.int * .025)
+        stats.exp += Math.round (delta * intBonus * task.priority * _crit * 6)
 
         # GP modifier
-        gpMod = delta * task.priority * crit
         # ===== PERCEPTION =====
         # TODO Increases Gold gained from tasks by .3% per point.
-        gpMod *= (1 + user._statsComputed.per *.03)
+        perBonus = (1 + user._statsComputed.per *.02)
+        gpMod = (delta * task.priority * _crit * perBonus)
+        gpMod *=
         stats.gp +=
           if task.streak
             streakBonus = task.streak / 100 + 1 # eg, 1-day streak is 1.1, 2-day is 1.2, etc
@@ -708,9 +717,9 @@ api.wrap = (user) ->
       subtractPoints = ->
         # ===== CONSTITUTION =====
         # TODO Decreases HP loss from bad habits / missed dailies by 0.5% per point.
-        conMod = 1 - (user._statsComputed.con / 100)
-        conMod = 0.1 if conMod < .1
-        hpMod = delta * conMod * task.priority
+        conBonus = 1 - (user._statsComputed.con / 250)
+        conBonus = 0.1 if conBonus < .1
+        hpMod = delta * conBonus * task.priority * 2 # constant 2 multiplier for better results
         stats.hp += Math.round(hpMod * 10) / 10 # round to 1dp
 
       switch task.type
@@ -753,6 +762,7 @@ api.wrap = (user) ->
           else
             calculateDelta()
             addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
+            user.stats.mp++ unless user.stats.mp >= user._statsComputed.maxMP
 
         when 'reward'
         # Don't adjust values for rewards
@@ -806,6 +816,10 @@ api.wrap = (user) ->
       seed = _.reduce(user.stats, ((m,v)->if _.isNumber(v) then m+v else m), 0) if !seed or seed is Math.PI
       x = Math.sin(seed++) * 10000
       x - Math.floor(x)
+
+    crit: (stat='str', chance=.03) ->
+      if user.fns.predictableRandom() <= chance then 1.5 + (.02*user._statsComputed[stat])
+      else 1
 
     ###
       Get a random property from an object
@@ -970,7 +984,7 @@ api.wrap = (user) ->
       if !user.flags.dropsEnabled and user.stats.lvl >= 4
         user.flags.dropsEnabled = true
         user.items.eggs["Wolf"] = 1
-      if !user.flags.classSelected and user.stats.lvl >= 5
+      if !user.flags.classSelected and user.stats.lvl >= 10
         user.flags.classSelected
 
     ###

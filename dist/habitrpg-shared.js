@@ -9167,11 +9167,13 @@ var global=self;/**
 
 },{}],5:[function(require,module,exports){
 (function() {
-  var api, crit, gear, repeat, _;
+  var api, gear, moment, repeat, _;
 
   _ = require('lodash');
 
   api = module.exports;
+
+  moment = require('moment');
 
   /*
     ---------------------------------------------------------------
@@ -9999,43 +10001,29 @@ var global=self;/**
   */
 
 
-  crit = function(user, stat, chance) {
-    if (stat == null) {
-      stat = 'per';
-    }
-    if (chance == null) {
-      chance = .03;
-    }
-    if (user.fns.predictableRandom() <= chance) {
-      return 1.5 + (.05 * user._statsComputed[stat]);
-    } else {
-      return 1;
-    }
-  };
-
   api.spells = {
     wizard: {
       fireball: {
         text: 'Burst of Flames',
         mana: 10,
-        lvl: 6,
+        lvl: 11,
         target: 'task',
-        notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional experience.',
+        notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).',
         cast: function(user, target) {
-          target.value += user._statsComputed.int * .02 * crit(user, 'per');
-          return user.stats.exp += Math.abs(target.value);
+          target.value += user._statsComputed.int * .0075 * user.fns.crit('per');
+          return user.stats.exp += (target.value < 0 ? 1 : target.value + 1) * 2.5;
         }
       },
       mpheal: {
         text: 'Ethereal Surge',
         mana: 30,
-        lvl: 7,
+        lvl: 12,
         target: 'party',
         notes: "A flow of magical energy rushes from your hands and recharges your party. Your party recovers MP.",
         cast: function(user, target) {
           return _.each(target, function(member) {
             var bonus;
-            bonus = Math.ceil(user._statsComputed.int * .2 + 5);
+            bonus = Math.ceil(user._statsComputed.int * .1);
             if (bonus > 25) {
               bonus = 25;
             }
@@ -10046,7 +10034,7 @@ var global=self;/**
       earth: {
         text: 'Earthquake',
         mana: 35,
-        lvl: 8,
+        lvl: 13,
         target: 'party',
         notes: "The ground below your party's tasks cracks and shakes with extreme intensity, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
         cast: function(user, target) {
@@ -10055,14 +10043,14 @@ var global=self;/**
             if ((_base = member.stats.buffs).int == null) {
               _base.int = 0;
             }
-            return member.stats.buffs.int = user._statsComputed.int * .2;
+            return member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05);
           });
         }
       },
       frost: {
         text: 'Chilling Frost',
         mana: 40,
-        lvl: 9,
+        lvl: 14,
         target: 'self',
         notes: "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day.",
         cast: function(user, target) {
@@ -10074,17 +10062,17 @@ var global=self;/**
       smash: {
         text: 'Brutal Smash',
         mana: 10,
-        lvl: 6,
+        lvl: 11,
         target: 'task',
         notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
         cast: function(user, target) {
-          return target.value += user._statsComputed.str * .03;
+          return target.value += user._statsComputed.str * .01 * user.fns.crit('per');
         }
       },
       defensiveStance: {
         text: 'Defensive Stance',
         mana: 25,
-        lvl: 7,
+        lvl: 12,
         target: 'self',
         notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day.",
         cast: function(user, target) {
@@ -10092,13 +10080,13 @@ var global=self;/**
           if ((_base = user.stats.buffs).con == null) {
             _base.con = 0;
           }
-          return user.stats.buffs.con += user._statsComputed.con * .3;
+          return user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05);
         }
       },
       valorousPresence: {
         text: 'Valorous Presence',
         mana: 20,
-        lvl: 8,
+        lvl: 13,
         target: 'party',
         notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR.",
         cast: function(user, target) {
@@ -10107,14 +10095,14 @@ var global=self;/**
             if ((_base = member.stats.buffs).str == null) {
               _base.str = 0;
             }
-            return member.stats.buffs.str += user._statsComputed.str * .2;
+            return member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05);
           });
         }
       },
       intimidate: {
         text: 'Intimidating Gaze',
         mana: 15,
-        lvl: 9,
+        lvl: 14,
         target: 'party',
         notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense.",
         cast: function(user, target) {
@@ -10123,7 +10111,7 @@ var global=self;/**
             if ((_base = member.stats.buffs).con == null) {
               _base.con = 0;
             }
-            return member.stats.buffs.con = user._statsComputed.con * .2;
+            return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .03);
           });
         }
       }
@@ -10132,46 +10120,32 @@ var global=self;/**
       pickPocket: {
         text: 'Pickpocket',
         mana: 10,
-        lvl: 6,
+        lvl: 11,
         target: 'task',
-        notes: "Your nimble fingers run through the task's pockets and 'find' some treasures for yourself. You gain an increased gold bonus on the task and a higher chance of an item drop.",
+        notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (greener) your task.",
         cast: function(user, target) {
-          return user.stats.gp += ((target.value < 0 ? 0 : target.value) + 1) + user._statsComputed.per * .3;
+          return user.stats.gp += (target.value < 0 ? 1 : target.value + 1) + user._statsComputed.per * .075;
         }
       },
       backStab: {
         text: 'Backstab',
         mana: 15,
-        lvl: 7,
+        lvl: 12,
         target: 'task',
         notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit.",
         cast: function(user, target) {
           var bonus, _crit;
-          _crit = crit(user, 'per', .5);
+          _crit = user.fns.crit('per', .3);
           target.value += _crit * .03;
-          bonus = ((target.value < 0 ? 0 : target.value) + 1) * _crit;
+          bonus = (target.value < 0 ? 1 : target.value + 1) * _crit;
           user.stats.exp += bonus;
           return user.stats.gp += bonus;
-        }
-      },
-      stealth: {
-        text: 'Stealth',
-        mana: 20,
-        lvl: 8,
-        target: 'self',
-        notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception.",
-        cast: function(user, target) {
-          var _base;
-          if ((_base = user.stats.buffs).stealth == null) {
-            _base.stealth = 0;
-          }
-          return user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .075);
         }
       },
       toolsOfTrade: {
         text: 'Tools of the Trade',
         mana: 25,
-        lvl: 9,
+        lvl: 13,
         target: 'party',
         notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day.",
         cast: function(user, target) {
@@ -10180,8 +10154,22 @@ var global=self;/**
             if ((_base = member.stats.buffs).per == null) {
               _base.per = 0;
             }
-            return member.stats.buffs.per += user._statsComputed.per * .2;
+            return member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03);
           });
+        }
+      },
+      stealth: {
+        text: 'Stealth',
+        mana: 45,
+        lvl: 14,
+        target: 'self',
+        notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception.",
+        cast: function(user, target) {
+          var _base;
+          if ((_base = user.stats.buffs).stealth == null) {
+            _base.stealth = 0;
+          }
+          return user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .03);
         }
       }
     },
@@ -10189,11 +10177,11 @@ var global=self;/**
       heal: {
         text: 'Healing Light',
         mana: 15,
-        lvl: 6,
+        lvl: 11,
         target: 'self',
         notes: 'Light covers your body, healing your wounds. You gain a boost to your health.',
         cast: function(user, target) {
-          user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 10) * .5;
+          user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075;
           if (user.stats.hp > 50) {
             return user.stats.hp = 50;
           }
@@ -10202,7 +10190,7 @@ var global=self;/**
       brightness: {
         text: 'Searing Brightness',
         mana: 15,
-        lvl: 7,
+        lvl: 12,
         target: 'self',
         notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced.",
         cast: function(user, target) {
@@ -10210,14 +10198,14 @@ var global=self;/**
             if (target.type === 'reward') {
               return;
             }
-            return target.value += user._statsComputed.int * .02;
+            return target.value += user._statsComputed.int * .006;
           });
         }
       },
       protectAura: {
         text: 'Protective Aura',
         mana: 30,
-        lvl: 8,
+        lvl: 13,
         target: 'party',
         notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense.",
         cast: function(user, target) {
@@ -10226,23 +10214,52 @@ var global=self;/**
             if ((_base = member.stats.buffs).con == null) {
               _base.con = 0;
             }
-            return member.stats.buffs.con = user._statsComputed.con * .4;
+            return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15);
           });
         }
       },
       heallAll: {
         text: 'Blessing',
         mana: 25,
-        lvl: 9,
+        lvl: 14,
         target: 'party',
         notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 10) * .3;
+            member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .04;
             if (member.stats.hp > 50) {
               return member.stats.hp = 50;
             }
           });
+        }
+      }
+    },
+    special: {
+      snowball: {
+        text: 'Snowball',
+        mana: 0,
+        value: 1,
+        target: 'user',
+        notes: "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day.",
+        cast: function(user, target) {
+          var _base;
+          target.stats.buffs.snowball = true;
+          if ((_base = target.achievements).snowball == null) {
+            _base.snowball = 0;
+          }
+          target.achievements.snowball++;
+          return user.items.special.snowball--;
+        }
+      },
+      salt: {
+        text: 'Salt',
+        mana: 0,
+        value: 5,
+        target: 'self',
+        notes: 'Someone has snowballed you. Ha ha, very funny. Now get this snow off me!',
+        cast: function(user, target) {
+          user.stats.buffs.snowball = false;
+          return user.stats.gp -= 5;
         }
       }
     }
@@ -10259,6 +10276,8 @@ var global=self;/**
       };
     });
   });
+
+  api.special = api.spells.special;
 
   /*
     ---------------------------------------------------------------
@@ -10528,7 +10547,7 @@ var global=self;/**
 }).call(this);
 
 
-},{"lodash":3}],6:[function(require,module,exports){
+},{"lodash":3,"moment":4}],6:[function(require,module,exports){
 var process=require("__browserify_process");(function() {
   var api, content, dayMapping, moment, preenHistory, sanitizeOptions, _,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
@@ -10652,6 +10671,21 @@ var process=require("__browserify_process");(function() {
     } else {
       return Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10;
     }
+  };
+
+  /*
+    A hyperbola function that creates diminishing returns, so you can't go to infinite (eg, with Exp gain).
+    {max} The asymptote
+    {bonus} All the numbers combined for your point bonus (eg, task.value * user.stats.int * critChance, etc)
+    {halfway} (optional) the point at which the graph starts bending
+  */
+
+
+  api.diminishingReturns = function(bonus, max, halfway) {
+    if (halfway == null) {
+      halfway = bonus / 2;
+    }
+    return max * (bonus / (bonus + halfway));
   };
 
   /*
@@ -11309,10 +11343,10 @@ var process=require("__browserify_process");(function() {
       purchase: function(req, cb) {
         var item, key, type, _ref;
         _ref = req.params, type = _ref.type, key = _ref.key;
-        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
+        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'special') {
           return cb({
             code: 404,
-            message: ":type must be in [hatchingPotions,eggs,food]"
+            message: ":type must be in [hatchingPotions,eggs,food,special]"
           }, req);
         }
         item = content[type][key];
@@ -11567,28 +11601,28 @@ var process=require("__browserify_process");(function() {
             if (adjustvalue) {
               task.value += nextDelta;
               if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
-                task.value += nextDelta * user._statsComputed.str * .005;
+                task.value += nextDelta * user._statsComputed.str * .004;
               }
             }
             return delta += nextDelta;
           });
         };
         addPoints = function() {
-          var afterStreak, crit, gpMod, intMod, streakBonus;
-          crit = user.fns.predictableRandom() <= .03 ? 1.5 + (.05 * user._statsComputed.str) : 1;
-          intMod = 1 + (user._statsComputed.int * .075);
-          stats.exp += Math.round(delta * intMod * task.priority * crit);
-          gpMod = delta * task.priority * crit;
-          gpMod *= 1 + user._statsComputed.per * .03;
-          return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
+          var afterStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
+          _crit = user.fns.crit();
+          intBonus = 1 + (user._statsComputed.int * .025);
+          stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
+          perBonus = 1 + user._statsComputed.per * .02;
+          gpMod = delta * task.priority * _crit * perBonus;
+          return gpMod *= stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
         };
         subtractPoints = function() {
-          var conMod, hpMod;
-          conMod = 1 - (user._statsComputed.con / 100);
-          if (conMod < .1) {
-            conMod = 0.1;
+          var conBonus, hpMod;
+          conBonus = 1 - (user._statsComputed.con / 250);
+          if (conBonus < .1) {
+            conBonus = 0.1;
           }
-          hpMod = delta * conMod * task.priority;
+          hpMod = delta * conBonus * task.priority * 2;
           return stats.hp += Math.round(hpMod * 10) / 10;
         };
         switch (task.type) {
@@ -11643,6 +11677,9 @@ var process=require("__browserify_process");(function() {
             } else {
               calculateDelta();
               addPoints();
+              if (!(user.stats.mp >= user._statsComputed.maxMP)) {
+                user.stats.mp++;
+              }
             }
             break;
           case 'reward':
@@ -11711,6 +11748,19 @@ var process=require("__browserify_process");(function() {
         }
         x = Math.sin(seed++) * 10000;
         return x - Math.floor(x);
+      },
+      crit: function(stat, chance) {
+        if (stat == null) {
+          stat = 'str';
+        }
+        if (chance == null) {
+          chance = .03;
+        }
+        if (user.fns.predictableRandom() <= chance) {
+          return 1.5 + (.02 * user._statsComputed[stat]);
+        } else {
+          return 1;
+        }
       },
       /*
         Get a random property from an object
@@ -11883,7 +11933,7 @@ var process=require("__browserify_process");(function() {
           user.flags.dropsEnabled = true;
           user.items.eggs["Wolf"] = 1;
         }
-        if (!user.flags.classSelected && user.stats.lvl >= 5) {
+        if (!user.flags.classSelected && user.stats.lvl >= 10) {
           return user.flags.classSelected;
         }
       },

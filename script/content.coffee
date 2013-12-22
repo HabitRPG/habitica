@@ -1,5 +1,6 @@
 _ = require 'lodash'
 api = module.exports
+moment = require 'moment'
 
 ###
   ---------------------------------------------------------------
@@ -130,6 +131,7 @@ gear =
       0: text: "Shade Helm",   notes:'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.', int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: "Crystal Helm", notes:'The favored crown of those who lead by example. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 3)
       2: text: "Nameless Helm", notes:'A testament to those who gave of themselves while asking nothing in return. Increases INT and STR by 25 each.', int: 25, str: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      #candycane: text: "Candy Cane Hat", notes: 'A hat adorned in candy, a wintery treat!', value:10, canOwn: ((u)-> moment(u.auth.timestamps?.created).isBefore(new Date '01/10/2014'))
 
   shield:
     base:
@@ -207,50 +209,46 @@ api.potion = type: 'potion', text: "Health Potion", notes: "Recover 15 Health (I
   Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
 ###
 
-crit = (user, stat='per', chance=.03) ->
-  if user.fns.predictableRandom() <= chance then 1.5 + (.05*user._statsComputed[stat])
-  else 1
-
 api.spells =
 
   wizard:
     fireball:
       text: 'Burst of Flames'
       mana: 10
-      lvl: 6
+      lvl: 11
       target: 'task'
-      notes: 'With a crack, flames burst from your staff, scorching a task. You deal much higher damage to the task and gain additional experience.'
+      notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).'
       cast: (user, target) ->
-        target.value += user._statsComputed.int * .02 * crit(user, 'per')
-        user.stats.exp += Math.abs(target.value)
+        target.value += user._statsComputed.int * .0075 * user.fns.crit('per')
+        user.stats.exp += (if target.value < 0 then 1 else target.value+1) * 2.5
 
     mpheal:
       text: 'Ethereal Surge'
       mana: 30
-      lvl: 7
+      lvl: 12
       target: 'party'
       notes: "A flow of magical energy rushes from your hands and recharges your party. Your party recovers MP.",
       cast: (user, target)->
         _.each target, (member) ->
-          bonus = Math.ceil(user._statsComputed.int * .2 + 5)
+          bonus = Math.ceil(user._statsComputed.int * .1)
           bonus = 25 if bonus > 25 #prevent ability to replenish own mp infinitely
           member.stats.mp += bonus
 
     earth:
       text: 'Earthquake'
       mana: 35
-      lvl: 8
+      lvl: 13
       target: 'party'
       notes: "The ground below your party's tasks cracks and shakes with extreme intensity, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.int ?= 0
-          member.stats.buffs.int = user._statsComputed.int * .2
+          member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05)
 
     frost:
       text: 'Chilling Frost'
       mana: 40
-      lvl: 9
+      lvl: 14
       target: 'self'
       notes: "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day."
       cast: (user, target) ->
@@ -260,124 +258,147 @@ api.spells =
     smash:
       text: 'Brutal Smash'
       mana: 10
-      lvl: 6
+      lvl: 11
       target: 'task'
       notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases."
       cast: (user, target) ->
-        target.value += user._statsComputed.str * .03
+        target.value += user._statsComputed.str * .01 * user.fns.crit('per')
     defensiveStance:
       text: 'Defensive Stance'
       mana: 25
-      lvl: 7
+      lvl: 12
       target: 'self'
       notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day."
       cast: (user, target) ->
         user.stats.buffs.con ?= 0
-        user.stats.buffs.con += user._statsComputed.con * .3
+        user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05)
     valorousPresence:
       text: 'Valorous Presence'
       mana: 20
-      lvl: 8
+      lvl: 13
       target: 'party'
       notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR."
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.str ?= 0
-          member.stats.buffs.str += user._statsComputed.str * .2
+          member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05)
     intimidate:
       text: 'Intimidating Gaze'
       mana: 15
-      lvl: 9
+      lvl: 14
       target: 'party'
       notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense."
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con = user._statsComputed.con *  .2
+          member.stats.buffs.con += Math.ceil(user._statsComputed.con *  .03)
 
   rogue:
     pickPocket:
       text: 'Pickpocket'
       mana: 10
-      lvl: 6
+      lvl: 11
       target: 'task'
-      notes: "Your nimble fingers run through the task's pockets and 'find' some treasures for yourself. You gain an increased gold bonus on the task and a higher chance of an item drop."
+      notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (greener) your task."
       cast: (user, target) ->
-        user.stats.gp += ((if target.value < 0 then 0 else target.value) + 1) + user._statsComputed.per * .3
+        user.stats.gp += (if target.value < 0 then 1 else target.value+1) + user._statsComputed.per * .075
     backStab:
       text: 'Backstab'
       mana: 15
-      lvl: 7
+      lvl: 12
       target: 'task'
       notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit."
       cast: (user, target) ->
-        _crit = crit(user, 'per', .5)
+        _crit = user.fns.crit('per', .3)
         target.value += _crit * .03
-        bonus =  ((if target.value < 0 then 0 else target.value) + 1) * _crit
+        bonus =  (if target.value < 0 then 1 else target.value+1) * _crit
         user.stats.exp += bonus
         user.stats.gp += bonus
-    stealth:
-      text: 'Stealth'
-      mana: 20
-      lvl: 8
-      target: 'self'
-      notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception."
-      cast: (user, target) ->
-        user.stats.buffs.stealth ?= 0
-        user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .075)
     toolsOfTrade:
       text: 'Tools of the Trade'
       mana: 25
-      lvl: 9
+      lvl: 13
       target: 'party'
       notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day."
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
           member.stats.buffs.per ?= 0
-          member.stats.buffs.per += user._statsComputed.per * .2
+          member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03)
+    stealth:
+      text: 'Stealth'
+      mana: 45
+      lvl: 14
+      target: 'self'
+      notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception."
+      cast: (user, target) ->
+        user.stats.buffs.stealth ?= 0
+        user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .03)
 
   healer:
     heal:
       text: 'Healing Light'
       mana: 15
-      lvl: 6
+      lvl: 11
       target: 'self'
       notes: 'Light covers your body, healing your wounds. You gain a boost to your health.'
       cast: (user, target) ->
-        user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 10) *.5
+        user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075
         user.stats.hp = 50 if user.stats.hp > 50
     brightness:
       text: 'Searing Brightness'
       mana: 15
-      lvl: 7
+      lvl: 12
       target: 'self'
       notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced."
       cast: (user, target) ->
         _.each user.tasks, (target) ->
           return if target.type is 'reward'
-          target.value += user._statsComputed.int * .02
+          target.value += user._statsComputed.int * .006
     protectAura:
       text: 'Protective Aura'
       mana: 30
-      lvl: 8
+      lvl: 13
       target: 'party'
       notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense."
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
           member.stats.buffs.con ?= 0
-          member.stats.buffs.con = user._statsComputed.con * .4
+          member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15)
     heallAll:
       text: 'Blessing'
       mana: 25
-      lvl: 9
+      lvl: 14
       target: 'party'
       notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health."
       cast: (user, target) ->
         _.each target, (member) ->
-          member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 10) * .3
+          member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .04
           member.stats.hp = 50 if member.stats.hp > 50
+
+  special:
+    snowball:
+      text: 'Snowball'
+      mana: 0
+      value: 1
+      target: 'user'
+      notes: "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day."
+      cast: (user, target) ->
+        target.stats.buffs.snowball = true
+        target.achievements.snowball ?= 0
+        target.achievements.snowball++
+        user.items.special.snowball--
+
+    salt:
+      text: 'Salt'
+      mana: 0
+      value: 5
+      target: 'self'
+      notes: 'Someone has snowballed you. Ha ha, very funny. Now get this snow off me!'
+      cast: (user, target) ->
+        user.stats.buffs.snowball = false
+        user.stats.gp -= 5
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
@@ -388,6 +409,8 @@ _.each api.spells, (spellClass) ->
       #return if spell.target and spell.target != (if target.type then 'task' else 'user')
       _cast(user,target)
       user.stats.mp -= spell.mana
+
+api.special = api.spells.special
 
 ###
   ---------------------------------------------------------------
