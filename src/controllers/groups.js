@@ -200,15 +200,6 @@ api.attachGroup = function(req, res, next) {
   })
 }
 
-api.attachGroupPopulated = function(req, res, next) {
-  Group.findById(req.params.gid).populate('members').exec(function(err, group){
-    if(err) return res.json(500, {err:err});
-    if(!group) return res.json(404, {err: "Group not found"});
-    res.locals.group = group;
-    next();
-  })
-}
-
 /**
  * TODO make this it's own ngResource so we don't have to send down group data with each chat post
  */
@@ -418,24 +409,29 @@ questStart = function(req, res) {
     })
   }
 
-  var parallel = [];
+  var parallel = [], questMembers = {};
   var key = group.quest.key;
   // TODO will this handle appropriately when people leave/join party between quest invite?
   _.each(group.members, function(m){
-    if (m._id == user._id) m.items.quests[key]--;
-    if (group.quest.members[m._id] == true) {
-      m.party.quest.key = key;
+    var updates = {$set:{},$inc:{'_v':1}};
+    if (m == user._id)
+      updates['$inc']['items.quests.'+key] = -1;
+    if (group.quest.members[m] == true) {
+      updates['$set']['party.quest.key'] = key;
+      questMembers[m] = true;
     } else {
-      _.merge(m.party.quest, {key:undefined,collection:{}});
-      delete group.quest.members[m._id];
+      updates['$unset'] = {'party.quest.key':undefined};
+      updates['$set']['party.quest.collection'] = {};
     }
-    m._v++;
-    parallel.push(function(cb2){m.save(cb2);});
+    parallel.push(function(cb2){
+      User.update({_id:m},updates,cb2);
+    });
   })
 
   group.quest.active = true;
   group.quest.progress.hp = shared.content.quests[group.quest.key].stats.hp;
-  parallel.push(function(cb2){group.save(cb2);});
+  group.quest.members = questMembers;
+  parallel.push(function(cb2){group.save(cb2)});
 
   async.parallel(parallel,function(err, results){
     if (err) return res.json(500,{err:err});
@@ -459,11 +455,10 @@ api.questAccept = function(req, res) {
     // Invite everyone. true means "accepted", false="rejected", undefined="pending". Once we click "start quest"
     // or everyone has either accepted/rejected, then we store quest key in user object.
     _.each(group.members, function(m){
-      if (m._id == user._id) {
-        group.quest.members[m._id] = true;
-      } else {
-        group.quest.members[m._id] = undefined;
-      }
+      if (m == user._id)
+        group.quest.members[m] = true;
+      else
+        group.quest.members[m] = undefined;
     });
 
   // Party member accepting the invitation
@@ -484,7 +479,7 @@ api.questReject = function(req, res, next) {
 
   group.save(function(err,saved){
     if (err) return res.json(500,{err:err});
-    return res.json(200,saved);
+    res.json(200,saved);
   });
 
   questStart(req,res);
@@ -493,19 +488,19 @@ api.questReject = function(req, res, next) {
 
 api.questAbort = function(req, res, next){
   var group = res.locals.group;
-  var parallel = _.transform(group.members, function(m,v){
-    m.push(function(cb){
-      v.party.quest = {};
-      v.party.quest.tally.collection = {};v.markModified('party.quest');
-      v._v++;
-      v.save(cb);
-    })
-  });
-  group.quest = {};
-  parallel.push(function(cb){group.save(cb);});
-  async.parallel(parallel,function(err){
+  async.parallel([
+    function(cb){
+      User.update({_id:{$in: _.keys(group.quest.members)}},{
+        $set:{'party.quest.key':undefined,'party.quest.tally.collection':{}},
+        $inc:{_v:1}
+      },cb);
+    },
+    function(cb) {
+      group.quest = {};
+      group.save(cb);
+    }
+  ], function(err){
     if (err) return res.json(500,{err:err});
     res.json(group);
   })
-
 }

@@ -195,10 +195,7 @@ var UserSchema = new Schema({
     }
   },
 
-  lastCron: {
-    type: Date,
-    'default': Date.now
-  },
+  lastCron: {type: Date, 'default': Date.now},
 
   party: {
     // id // FIXME can we use a populated doc instead of fetching party separate from user?

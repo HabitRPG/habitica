@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 var shared = require('habitrpg-shared');
 var _ = require('lodash');
 var async = require('async');
+var User = require('./user').model;
 
 var GroupSchema = new Schema({
   _id: {type: String, 'default': shared.uuid},
@@ -106,66 +107,72 @@ GroupSchema.methods.sendChat = function(message, user){
   group.chat.splice(200);
 }
 
-GroupSchema.methods.hurtBoss = function(delta, cb) {
+GroupSchema.methods.bossAttack = function(user, tally, cb) {
   var group = this;
-  group.quest.progress.hp -= delta;
-  var hp = group.quest.progress.hp;
+  var questK = group.quest.key;
+  var quest = shared.content.quests[questK];
+  var dropK = quest.drop.key;
+  var down = tally.down * quest.stats.str; // multiply by boss strength
+
+  group.quest.progress.hp -= tally.up;
+  group.sendChat("`<" + user.profile.name + "> attacks <" + quest.name + "> for " + (tally.up.toFixed(1)) + " damage, <" + quest.name + "> attacks party for " + (down.toFixed(1)) + " damage.`");
+  //var hp = group.quest.progress.hp;
+
+  // Everyone takes damage
+  var series = [
+    function(cb2){
+      mongoose.models.User.update({_id:{$in: _.keys(group.quest.members)}}, {$inc:{'stats.hp':down, _v:1}}, {multi:true}, cb2);
+    }
+  ]
+
+  // Boss slain, finish quest
   if (group.quest.progress.hp <= 0) {
-    var key = group.quest.key,
-      quest = shared.content.quests[key];
+    series.push(function(cb2){
+      async.parallel([
+        // Participants: Grant rewards & achievements, finish quest
+        function(cb3){
+          var updates = {$inc:{},$set:{}};
+          updates['$inc']['achievements.quests.'+questK] = 1;
+          updates['$inc']['stats.gp'] = +quest.drop.gp;
+          updates['$inc']['stats.exp'] = +quest.drop.exp;
+          updates['$inc']['_v'] = 1;
+          updates['$unset'] = {'party.quest.key':undefined};
+          updates['$set']['party.quest.collection'] = {};
 
-    var parallel = _.reduce(group.members, function(m,v,k){
-
-      // Achievement
-      _.defaults(v.achievements, {quests:{}})
-      if (!v.achievements.quests[key]) v.achievements.quests[key] = 0;
-      v.achievements.quests[key]++;
-      v.markModified('achievements');
-
-      // Drops
-      v.stats.gp += +quest.drop.gp;
-      v.stats.exp += +quest.drop.exp;
-      switch (quest.drop.type) {
-        case 'gear':
-          // TODO This means they can lose their new gear on death, is that what we want?
-          v.items.gear.owned[quest.drop.key] = true;
-          break;
-        case 'eggs':
-        case 'food':
-        case 'hatchingPotions':
-          if (!v.items.hatchingPotions[quest.drop.key]) v.items.hatchingPotions[quest.drop.key] = 0;
-          v.items.hatchingPotions[quest.drop.key]++;
-          break;
-        case 'pets':
-          if (!v.items.pets[quest.drop.key]) v.items.pets[quest.drop.key] = 5;
-          break;
-        case 'mounts':
-          v.items.mounts[quest.drop.key] = true;
-          break;
-      }
-
-      v.party.quest.key = undefined;
-      v.party.quest.collection = {};
-      v.markModified('party.quest');
-
-      v._v++;
-      m.push(function(cb3){ v.save(cb3); })
-      return m;
-    }, []);
-
-    // Finish the quest
-    group.quest = {};group.markModified('quest');
-    group.sendChat('`' + quest.name + ' has been slain! Party has received their rewards`');
-
-    parallel.push(function(cb3){
-      group.save(cb3);
+          switch (quest.drop.type) {
+            case 'gear':
+              // TODO This means they can lose their new gear on death, is that what we want?
+              updates['$set']['items.gear.owned.'+dropK] = true;
+              break;
+            case 'eggs':
+            case 'food':
+            case 'hatchingPotions':
+              updates['$inc']['items.'+quest.drop.type+'.'+dropK] = 1;
+              break;
+            case 'pets':
+              updates['$set']['items.pets.'+dropK] = 5;
+              break;
+            case 'mounts':
+              updates['$set']['items.mounts.'+dropK] = true;
+              break;
+          }
+          // FIXME this is TERRIBLE practice. Looks like there are circular dependencies in the models, such that `var User` at
+          // this point is undefined. So we get around that by loading from mongoose only once we get to this point
+          mongoose.models.User.update({_id:{$in: _.keys(group.quest.members)}},updates,{multi:true},cb3);
+        },
+        // Group: finish quest
+        function(cb3){
+          group.quest = {};group.markModified('quest');
+          group.sendChat('`' + quest.name + ' has been slain! Party has received their rewards`');
+          group.save(cb3);
+        }
+      ],cb2);
     })
-    async.parallel(parallel,cb);
   }
-  else {
-    group.save(cb);
-  }
-  return hp;
+
+  series.push(function(cb2){group.save(cb2)});
+  async.series(series,cb);
+  //return hp;
 }
 
 module.exports.schema = GroupSchema;
