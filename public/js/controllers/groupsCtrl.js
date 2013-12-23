@@ -300,6 +300,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         //User.user.invitations.party = undefined;
         User.set({'invitations.party':{}});
       }
+
+      $scope.questAbort = function(){
+        if (!confirm("Are you sure you want to abort this mission? It will abort it for everyone in your party.")) return;
+        if (!confirm("Are you double sure? Make sure they won't hate you forever!")) return;
+        $rootScope.party.$questAbort();
+      }
     }
   ])
 

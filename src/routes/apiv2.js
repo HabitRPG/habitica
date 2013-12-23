@@ -100,6 +100,7 @@ router.post('/groups/:gid/invite', auth.auth, groups.attachGroup, groups.invite)
 router.post('/groups/:gid/removeMember', auth.auth, groups.attachGroup, groups.removeMember);
 router.post('/groups/:gid/questAccept', auth.auth, groups.attachGroupPopulated, groups.questAccept); // query={key} (optional. if provided, trigger new invite, if not, accept existing invite)
 router.post('/groups/:gid/questReject', auth.auth, groups.attachGroupPopulated, groups.questReject);
+router.post('/groups/:gid/questAbort', auth.auth, groups.attachGroupPopulated, groups.questAbort);
 
 //GET  /groups/:gid/chat
 router.post('/groups/:gid/chat', auth.auth, groups.attachGroup, groups.postChat);

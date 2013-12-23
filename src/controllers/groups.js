@@ -491,5 +491,21 @@ api.questReject = function(req, res, next) {
 }
 
 
-//TODO
-function questAbort(){}
+api.questAbort = function(req, res, next){
+  var group = res.locals.group;
+  var parallel = _.transform(group.members, function(m,v){
+    m.push(function(cb){
+      v.party.quest = {};
+      v.party.quest.tally.collection = {};v.markModified('party.quest');
+      v._v++;
+      v.save(cb);
+    })
+  });
+  group.quest = {};
+  parallel.push(function(cb){group.save(cb);});
+  async.parallel(parallel,function(err){
+    if (err) return res.json(500,{err:err});
+    res.json(group);
+  })
+
+}

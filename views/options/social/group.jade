@@ -36,6 +36,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
               i.icon-heart
               | {{group.quest.progress.hp | number:0}} / {{Content.quests[group.quest.key].stats.hp}}
         p {{Content.quests[group.quest.key].notes}}
+        button.btn.btn-mini.btn-danger(ng-click='questAbort()') Abort
 
     // ------ Information -------
     .modal.inline-modal
