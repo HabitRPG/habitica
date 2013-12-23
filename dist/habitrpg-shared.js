@@ -10010,8 +10010,13 @@ var global=self;/**
         target: 'task',
         notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).',
         cast: function(user, target) {
+          var bonus;
           target.value += user._statsComputed.int * .0075 * user.fns.crit('per');
-          return user.stats.exp += (target.value < 0 ? 1 : target.value + 1) * 2.5;
+          bonus = (target.value < 0 ? 1 : target.value + 1) * 2.5;
+          user.stats.exp += bonus;
+          if (user.party.quest.key) {
+            return user.party.quest.tally.up += bonus;
+          }
         }
       },
       mpheal: {
@@ -10066,7 +10071,10 @@ var global=self;/**
         target: 'task',
         notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
         cast: function(user, target) {
-          return target.value += user._statsComputed.str * .01 * user.fns.crit('per');
+          target.value += user._statsComputed.str * .01 * user.fns.crit('per');
+          if (user.party.quest.key) {
+            return user.party.quest.tally.up += Math.ceil(user._statsComputed.str * .2);
+          }
         }
       },
       defensiveStance: {
@@ -10457,8 +10465,8 @@ var global=self;/**
     evil_santa: {
       type: 'boss',
       name: "Evil Santa",
-      text: "Evil Santa Party 1",
-      notes: "Super evil boss has ravaged the town",
+      text: "Evil Santa (Party 1)",
+      notes: "An evil Santa Clause has captured a Polar Bear Cub. Vanguish this evil, and save the cub!",
       stats: {
         hp: 100,
         str: 1
@@ -10466,6 +10474,7 @@ var global=self;/**
       drop: {
         type: 'pets',
         key: 'BearCub-Polar',
+        text: "Polar Bear Cub (Pet)",
         gp: 20,
         exp: 100
       },
@@ -11626,6 +11635,7 @@ var process=require("__browserify_process");(function() {
               adjustAmt = nextDelta;
               if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
                 adjustAmt = nextDelta * (1 + user._statsComputed.str * .004);
+                user.party.quest.tally.up = user.party.quest.tally.up || 0;
                 if ((_ref1 = task.type) === 'daily' || _ref1 === 'todo') {
                   user.party.quest.tally.up += adjustAmt;
                 }
@@ -11860,18 +11870,18 @@ var process=require("__browserify_process");(function() {
           rarity = user.fns.predictableRandom(user.stats.gp);
           if (rarity > .6) {
             drop = user.fns.randomVal(_.omit(content.food, 'Saddle'));
-            if ((_base1 = user.items.food)[_name = drop.name] == null) {
+            if ((_base1 = user.items.food)[_name = drop.key] == null) {
               _base1[_name] = 0;
             }
-            user.items.food[drop.name] += 1;
+            user.items.food[drop.key] += 1;
             drop.type = 'Food';
             drop.dialog = "You've found a " + drop.text + " Food! " + drop.notes;
           } else if (rarity > .3) {
             drop = user.fns.randomVal(content.eggs);
-            if ((_base2 = user.items.eggs)[_name1 = drop.name] == null) {
+            if ((_base2 = user.items.eggs)[_name1 = drop.key] == null) {
               _base2[_name1] = 0;
             }
-            user.items.eggs[drop.name]++;
+            user.items.eggs[drop.key]++;
             drop.type = 'Egg';
             drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
           } else {
@@ -11879,10 +11889,10 @@ var process=require("__browserify_process");(function() {
             drop = user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
               return __indexOf.call(acceptableDrops, k) >= 0;
             })));
-            if ((_base3 = user.items.hatchingPotions)[_name2 = drop.name] == null) {
+            if ((_base3 = user.items.hatchingPotions)[_name2 = drop.key] == null) {
               _base3[_name2] = 0;
             }
-            user.items.hatchingPotions[drop.name]++;
+            user.items.hatchingPotions[drop.key]++;
             drop.type = 'HatchingPotion';
             drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
           }
@@ -11980,7 +11990,7 @@ var process=require("__browserify_process");(function() {
       */
 
       cron: function(options) {
-        var daysMissed, expTally, lvl, now, tally, todoTally, _base, _base1;
+        var daysMissed, expTally, lvl, now, tally, todoTally, _base, _base1, _base2;
         if (options == null) {
           options = {};
         }
@@ -12012,8 +12022,11 @@ var process=require("__browserify_process");(function() {
           return;
         }
         todoTally = 0;
+        if ((_base = user.party.quest.tally).down == null) {
+          _base.down = 0;
+        }
         user.todos.concat(user.dailys).forEach(function(task) {
-          var absVal, completed, id, repeat, scheduleMisses, type;
+          var absVal, completed, delta, id, repeat, scheduleMisses, type;
           if (!task) {
             return;
           }
@@ -12034,7 +12047,7 @@ var process=require("__browserify_process");(function() {
               });
             }
             if (scheduleMisses > 0) {
-              user.party.quest.down += user.ops.score({
+              delta = user.ops.score({
                 params: {
                   id: task.id,
                   direction: 'down'
@@ -12044,6 +12057,9 @@ var process=require("__browserify_process");(function() {
                   cron: true
                 }
               });
+              if (type === 'daily') {
+                user.party.quest.tally.down += delta;
+              }
             }
           }
           switch (type) {
@@ -12067,7 +12083,7 @@ var process=require("__browserify_process");(function() {
             }
           }
         });
-        ((_base = (user.history != null ? user.history : user.history = {})).todos != null ? (_base = (user.history != null ? user.history : user.history = {})).todos : _base.todos = []).push({
+        ((_base1 = (user.history != null ? user.history : user.history = {})).todos != null ? (_base1 = (user.history != null ? user.history : user.history = {})).todos : _base1.todos = []).push({
           date: now,
           value: todoTally
         });
@@ -12077,7 +12093,7 @@ var process=require("__browserify_process");(function() {
           lvl++;
           expTally += api.tnl(lvl);
         }
-        ((_base1 = user.history).exp != null ? (_base1 = user.history).exp : _base1.exp = []).push({
+        ((_base2 = user.history).exp != null ? (_base2 = user.history).exp : _base2.exp = []).push({
           date: now,
           value: expTally
         });
@@ -12097,10 +12113,10 @@ var process=require("__browserify_process");(function() {
           streaks: false
         };
         tally = {
-          down: user.party.quest.down,
-          up: user.party.quest.up
+          down: user.party.quest.tally.down,
+          up: user.party.quest.tally.up
         };
-        _.merge(user.party.quest, {
+        _.merge(user.party.quest.tally, {
           down: 0,
           up: 0
         });

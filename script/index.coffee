@@ -688,6 +688,7 @@ api.wrap = (user) ->
             # TODO STR Improves the amount by which Dailies and +/- Habits decrease in threat when scored, by .25% per point.
             if direction is 'up' and task.type != 'reward' and !(task.type is 'habit' and !task.down)
               adjustAmt = nextDelta * (1 + user._statsComputed.str * .004)
+              user.party.quest.tally.up = user.party.quest.tally.up || 0;
               user.party.quest.tally.up += adjustAmt if task.type in ['daily','todo']
             task.value += adjustAmt
           delta += nextDelta
@@ -893,16 +894,16 @@ api.wrap = (user) ->
         # Food: 40% chance
         if rarity > .6
           drop = user.fns.randomVal _.omit(content.food, 'Saddle')
-          user.items.food[drop.name] ?= 0
-          user.items.food[drop.name]+= 1
+          user.items.food[drop.key] ?= 0
+          user.items.food[drop.key]+= 1
           drop.type = 'Food'
           drop.dialog = "You've found a #{drop.text} Food! #{drop.notes}"
 
           # Eggs: 30% chance
         else if rarity > .3
           drop = user.fns.randomVal content.eggs
-          user.items.eggs[drop.name] ?= 0
-          user.items.eggs[drop.name]++
+          user.items.eggs[drop.key] ?= 0
+          user.items.eggs[drop.key]++
           drop.type = 'Egg'
           drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
 
@@ -922,8 +923,8 @@ api.wrap = (user) ->
           #drop = helpers.randomVal hatchingPotions
           drop = user.fns.randomVal _.pick(content.hatchingPotions, ((v,k) -> k in acceptableDrops))
 
-          user.items.hatchingPotions[drop.name] ?= 0
-          user.items.hatchingPotions[drop.name]++
+          user.items.hatchingPotions[drop.key] ?= 0
+          user.items.hatchingPotions[drop.key]++
           drop.type = 'HatchingPotion'
           drop.dialog = "You've found a #{drop.text} Hatching Potion! #{drop.notes}"
 
@@ -1035,8 +1036,9 @@ api.wrap = (user) ->
         user.stats.buffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
         return
 
-        # Tally each task
+      # Tally each task
       todoTally = 0
+      user.party.quest.tally.down ?= 0
       user.todos.concat(user.dailys).forEach (task) ->
         return unless task
 
@@ -1053,7 +1055,8 @@ api.wrap = (user) ->
               thatDay = moment(now).subtract('days', n + 1)
               scheduleMisses++ if api.shouldDo(thatDay, repeat, user.preferences)
           if scheduleMisses > 0
-            user.party.quest.down += user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}})
+            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}});
+            user.party.quest.tally.down += delta if type is 'daily'
 
         switch type
           when 'daily'
@@ -1087,8 +1090,8 @@ api.wrap = (user) ->
       user.stats.buffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
 
       # After all is said and done, tally up user's effect on quest, return those values & reset the user's
-      tally = down:user.party.quest.down, up:user.party.quest.up
-      _.merge user.party.quest, {down:0,up:0}
+      tally = down:user.party.quest.tally.down, up:user.party.quest.tally.up
+      _.merge user.party.quest.tally, {down:0,up:0}
       tally
 
     # Registered users with some history

@@ -220,7 +220,9 @@ api.spells =
       notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).'
       cast: (user, target) ->
         target.value += user._statsComputed.int * .0075 * user.fns.crit('per')
-        user.stats.exp += (if target.value < 0 then 1 else target.value+1) * 2.5
+        bonus = (if target.value < 0 then 1 else target.value+1) * 2.5
+        user.stats.exp += bonus
+        user.party.quest.tally.up += bonus if user.party.quest.key
 
     mpheal:
       text: 'Ethereal Surge'
@@ -263,6 +265,7 @@ api.spells =
       notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases."
       cast: (user, target) ->
         target.value += user._statsComputed.str * .01 * user.fns.crit('per')
+        user.party.quest.tally.up += Math.ceil(user._statsComputed.str * .2) if user.party.quest.key
     defensiveStance:
       text: 'Defensive Stance'
       mana: 25
@@ -314,6 +317,7 @@ api.spells =
         bonus =  (if target.value < 0 then 1 else target.value+1) * _crit
         user.stats.exp += bonus
         user.stats.gp += bonus
+        # user.party.quest.tally.up += bonus if user.party.quest.key # remove hurting bosses for rogues, seems OP for now
     toolsOfTrade:
       text: 'Tools of the Trade'
       mana: 25
@@ -480,8 +484,8 @@ api.quests =
   evil_santa:
     type: 'boss' # 'collection'
     name: "Evil Santa"
-    text: "Evil Santa Party 1"
-    notes: "Super evil boss has ravaged the town"
+    text: "Evil Santa (Party 1)"
+    notes: "An evil Santa Clause has captured a Polar Bear Cub. Vanguish this evil, and save the cub!"
     #mechanic: enum['perfectDailies', ...]
     #collection:
     #  feather: name: 'Feather', count: 10
@@ -492,6 +496,7 @@ api.quests =
     drop:
       type: 'pets'
       key: 'BearCub-Polar'
+      text: "Polar Bear Cub (Pet)"
       gp: 20
       exp: 100 # Exp bonus from defeating the boss
     value: 4 # Gem cost to buy, GP sell-back
