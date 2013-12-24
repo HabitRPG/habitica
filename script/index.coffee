@@ -74,6 +74,8 @@ api.tnl = (lvl) ->
 api.diminishingReturns = (bonus, max, halfway=bonus/2) ->
   max*(bonus/(bonus+halfway))
 
+api.monod = (bonus, rateOfIncrease, max) ->
+  rateOfIncrease*max*bonus/(rateOfIncrease*bonus+max)
 
 ###
 Preen history for users with > 7 history entries
@@ -861,9 +863,7 @@ api.wrap = (user) ->
     # ----------------------------------------------------------------------
 
     randomDrop: (modifiers) ->
-      {delta} = modifiers
-      {priority, streak} = modifiers.task
-      streak ?= 0
+      {task} = modifiers
       # limit drops to 2 / day
       user.items.lastDrop ?=
         date: +moment().subtract('d', 1) # trick - set it to yesterday on first run, that way they can get drops today
@@ -873,20 +873,17 @@ api.wrap = (user) ->
       return if reachedDropLimit
 
       # % chance of getting a pet or meat
-      chanceMultiplier = Math.abs(delta)
-      chanceMultiplier *= priority # multiply chance by reddness
-      chanceMultiplier += streak # streak bonus
-      chanceMultiplier += user._statsComputed.per*.3
+      bonus =
+        Math.abs(task.value) *            # + Task Redness (as a %)
+        task.priority +                   # * Task Priority
+        (task.streak or 0) +              # + Streak bonus
+        (user._statsComputed.per * .5)    # + Perception
+      bonus /= 100                        # /100 (as a percent)
+      chance = api.diminishingReturns(bonus, 1, 0.5) # see HabitRPG/habitrpg#1922 for details
+      console.log "Drop Equation: Bonus(#{bonus.toFixed(3)}), Modified Chance(#{chance.toFixed(3)})\n"
 
-      # Temporary solution to lower the maximum drop chance to 75 percent. More thorough
-      # overhaul of drop changes is needed. See HabitRPG/habitrpg#1922 for details.
-      # Old drop chance:
-      # if user.flags?.dropsEnabled and Math.random() < (.05 * chanceMultiplier)
-      max = 0.75 # Max probability of drop
-      a = 0.1 # rate of increase
-      alpha = a*max*chanceMultiplier/(a*chanceMultiplier+max) # current probability of drop
+      if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < chance
 
-      if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < alpha
         # current breakdown - 1% (adjustable) chance on drop
         # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
         rarity = user.fns.predictableRandom(user.stats.gp)

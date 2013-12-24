@@ -43,6 +43,7 @@ clearUser = (lvl=1) ->
   _.merge user.stats, {exp:0, gp:0, hp:50, lvl:lvl, str:lvl, con:lvl, per:lvl, int:lvl, mp: 100}
   _.merge s.buffs, {str:0,con:0,int:0,per:0}
   _.merge user.party.quest.tally, {up:0,down:0}
+  user.items.lastDrop = {count:0}
 
 _.each [1,50,99], (lvl) ->
   console.log "[LEVEL #{lvl}] (#{lvl} points in every attr)\n\n"
