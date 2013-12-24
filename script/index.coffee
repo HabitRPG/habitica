@@ -402,9 +402,9 @@ api.wrap = (user) ->
       cb null, req
 
     rebirth: (req, cb) ->
-      if user.balance < 1
+      if user.balance < 2
         return cb {code:401,message: "Not enough gems."}, req
-      user.balance--
+      user.balance -= 2
       # Turn tasks yellow, zero out streaks
       _.each user.tasks, (task) ->
         task.value = 0

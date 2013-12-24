@@ -11180,6 +11180,48 @@ var process=require("__browserify_process");(function() {
         user.stats.hp = 50;
         return cb(null, req);
       },
+      rebirth: function(req, cb) {
+        var flags, gear, stats;
+        if (user.balance < 2) {
+          return cb({
+            code: 401,
+            message: "Not enough gems."
+          }, req);
+        }
+        user.balance -= 2;
+        _.each(user.tasks, function(task) {
+          task.value = 0;
+          if (task.type = 'daily') {
+              return task.streak = 0;
+          }
+        });
+        stats = user.stats;
+        stats.buffs = {};
+        stats.hp = 50;
+        stats.lvl = 1;
+        stats["class"] = 'warrior';
+        _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
+          return stats[value] = 0;
+        });
+        gear = user.items.gear;
+        _.each(['equipped', 'costume'], function(type) {
+          gear[type].armor = 'armor_base_0';
+          gear[type].weapon = 'weapon_warrior_0';
+          gear[type].head = 'head_base_0';
+          return gear[type].shield = 'shield_base_0';
+        });
+        gear.owned = {
+          weapon_warrior_0: true
+        };
+        if (typeof user.markModified === "function") {
+          user.markModified('items.gear.owned');
+        }
+        flags = user.flags;
+        _.each(['rebirthEnabled', 'classSelected', 'itemsEnabled', 'dropsEnabled'], function(type) {
+          return flags[type] = false;
+        });
+        return cb(null, req);
+      },
       clearCompleted: function(req, cb) {
         user.todos = _.where(user.todos, {
           completed: false
