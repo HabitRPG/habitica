@@ -704,7 +704,6 @@ api.wrap = (user) ->
         # TODO Increases Gold gained from tasks by .3% per point.
         perBonus = (1 + user._statsComputed.per *.02)
         gpMod = (delta * task.priority * _crit * perBonus)
-        gpMod *=
         stats.gp +=
           if task.streak
             streakBonus = task.streak / 100 + 1 # eg, 1-day streak is 1.1, 2-day is 1.2, etc

@@ -10715,7 +10715,7 @@ var process=require("__browserify_process");(function() {
         newHistory.push({
           date: moment(group[0].date).toDate(),
           value: _.reduce(group, (function(m, obj) {
-            return m + api.value;
+            return m + obj.value;
           }), 0) / group.length
         });
         return true;
@@ -11614,7 +11614,7 @@ var process=require("__browserify_process");(function() {
           stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
           perBonus = 1 + user._statsComputed.per * .02;
           gpMod = delta * task.priority * _crit * perBonus;
-          return gpMod *= stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
+          return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
         };
         subtractPoints = function() {
           var conBonus, hpMod;
