@@ -11192,7 +11192,7 @@ var process=require("__browserify_process");(function() {
         _.each(user.tasks, function(task) {
           task.value = 0;
           if (task.type = 'daily') {
-              return task.streak = 0;
+            return task.streak = 0;
           }
         });
         stats = user.stats;
@@ -11217,9 +11217,12 @@ var process=require("__browserify_process");(function() {
           user.markModified('items.gear.owned');
         }
         flags = user.flags;
-        _.each(['rebirthEnabled', 'classSelected', 'itemsEnabled', 'dropsEnabled'], function(type) {
-          return flags[type] = false;
-        });
+        if (!(user.achievements.ultimateGear || user.achievements.beastMaster)) {
+          flags.rebirthEnabled = false;
+        }
+        flags.itemsEnabled = false;
+        flags.dropsEnabled = false;
+        flags.classSelected = false;
         return cb(null, req);
       },
       clearCompleted: function(req, cb) {

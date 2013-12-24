@@ -430,8 +430,11 @@ api.wrap = (user) ->
       user.markModified? 'items.gear.owned'
       # Remove unlocked features
       flags = user.flags
-      _.each ['rebirthEnabled','classSelected','itemsEnabled','dropsEnabled'], (type) ->
-        flags[type] = false
+      if not (user.achievements.ultimateGear or user.achievements.beastMaster)
+        flags.rebirthEnabled = false
+      flags.itemsEnabled = false
+      flags.dropsEnabled = false
+      flags.classSelected = false
       cb null, req
 
     # ------
