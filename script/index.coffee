@@ -483,9 +483,9 @@ api.wrap = (user) ->
       userPets = user.items.pets
 
       return cb({code:404, message:":pet not found in user.items.pets"}) unless userPets[pet]
-      return cb({code:404, message:":food not found in user.items.food"}) unless user.items.food?[food.name]
+      return cb({code:404, message:":food not found in user.items.food"}) unless user.items.food?[food.key]
       return cb({code:401, message:"Can't feed this pet."}) if content.specialPets[pet]
-      return cb({code:401, message:"You already have that mount"}) if user.items.mounts[pet] and (userPets[pet] >= 50 or food.name is 'Saddle')
+      return cb({code:401, message:"You already have that mount"}) if user.items.mounts[pet] and (userPets[pet] >= 50 or food.key is 'Saddle')
 
       message = ''
       evolve = ->
@@ -494,18 +494,18 @@ api.wrap = (user) ->
         user.items.currentPet = "" if pet is user.items.currentPet
         message = "You have tamed #{egg}, let's go for a ride!"
 
-      if food.name is 'Saddle'
+      if food.key is 'Saddle'
         evolve()
       else
         if food.target is potion
           userPets[pet] += 5
-          message = "#{egg} really likes the #{food.name}!"
+          message = "#{egg} really likes the #{food.key}!"
         else
           userPets[pet] += 2
-          message = "#{egg} eats the #{food.name} but doesn't seem to enjoy it."
+          message = "#{egg} eats the #{food.key} but doesn't seem to enjoy it."
         if userPets[pet] >= 50 and !user.items.mounts[pet]
           evolve()
-      user.items.food[food.name]--
+      user.items.food[food.key]--
       cb {code:200, message}, req
 
     # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
@@ -864,17 +864,10 @@ api.wrap = (user) ->
 
     randomDrop: (modifiers) ->
       {task} = modifiers
-      # limit drops to 2 / day
-      user.items.lastDrop ?=
-        date: +moment().subtract('d', 1) # trick - set it to yesterday on first run, that way they can get drops today
-        count: 0
 
-      reachedDropLimit = (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5)
-      return if reachedDropLimit
-
-      # % chance of getting a pet or meat
+      # % chance of getting a drop
       bonus =
-        Math.abs(task.value) *            # + Task Redness (as a %)
+        Math.abs(task.value) *            # + Task Redness
         task.priority +                   # * Task Priority
         (task.streak or 0) +              # + Streak bonus
         (user._statsComputed.per * .5)    # + Perception
@@ -882,6 +875,14 @@ api.wrap = (user) ->
       chance = api.diminishingReturns(bonus, 1, 0.5) # see HabitRPG/habitrpg#1922 for details
       console.log "Drop Equation: Bonus(#{bonus.toFixed(3)}), Modified Chance(#{chance.toFixed(3)})\n"
 
+      quest = content.quests[user.party.quest?.key]
+      if quest?.collect and user.fns.predictableRandom(user.stats.gp) < bonus # NOTE: < bonus, higher chance than drops
+        dropK = user.fns.randomVal quest.collect, {key:true}
+        user.party.quest.tally.collect[dropK]++
+        user.markModified? 'party.quest.tally'
+        console.log {tally:user.party.quest.tally}
+
+      return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5)
       if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < chance
 
         # current breakdown - 1% (adjustable) chance on drop
@@ -1087,9 +1088,10 @@ api.wrap = (user) ->
       user.stats.buffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
 
       # After all is said and done, tally up user's effect on quest, return those values & reset the user's
-      tally = down:user.party.quest.tally.down, up:user.party.quest.tally.up
-      _.merge user.party.quest.tally, {down:0,up:0}
-      tally
+      tally = user.party.quest.tally; _tally = _.cloneDeep tally
+      _.merge tally, {down:0,up:0}
+      tally.collect = _.transform tally.collect, ((m,v,k)->m[k]=0)
+      _tally
 
     # Registered users with some history
     preenUserHistory: (minHistLen = 7) ->

@@ -481,25 +481,33 @@ _.each api.food, (food,key) ->
   _.defaults food, {value: 1, key, notes: "Feed this to a pet and it may grow into a sturdy steed."}
 
 api.quests =
-  evil_santa:
-    type: 'boss' # 'collection'
-    name: "Evil Santa"
-    text: "Evil Santa (Party 1)"
-    notes: "An evil Santa Clause has captured a Polar Bear Cub. Vanguish this evil, and save the cub!"
+
+  evilsanta:
+    text: "Evil Santa" # title of the quest (eg, Deep into Vice's Layer)
+    notes: "An evil Santa Clause has captured a fully grown Polar Bear. Vanguish this evil, and save the beast!"
+    value: 4 # Gem cost to buy, GP sell-back
     #mechanic: enum['perfectDailies', ...]
-    #collection:
-    #  feather: name: 'Feather', count: 10
-    #  ingot: name: 'Golden Ingot', count: 10
-    stats:
+    boss:
+      name: "Evil Santa" # name of the boss himself (eg, Vice)
       hp: 100
       str: 1 # Multiplier of users' missed dailies
     drop:
-      type: 'pets'
+      type: 'mounts'
       key: 'BearCub-Polar'
-      text: "Polar Bear Cub (Pet)"
+      text: "Polar Bear (Mount)"
       gp: 20
       exp: 100 # Exp bonus from defeating the boss
-    value: 4 # Gem cost to buy, GP sell-back
+
+  evilsanta2:
+    text: "Find Baby Bear"
+    notes: "Mama bear begs you to find her cub. He ran off into the icefields when mama was captured by Evil Santa, find his tracks!"
+    value: 4
+    previous: 'evilsanta'
+    collect:
+      tracks: text: 'Tracks', count: 20
+      branches: text: 'Broken Twigs', count: 10
+    drop: type: 'pets', key: 'BearCub-Polar', text: "Polar Bear (Pet)", gp: 20, exp: 100
+
 
 _.each api.quests, (v,key) ->
   _.defaults v, {key}

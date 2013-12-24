@@ -10462,23 +10462,45 @@ var global=self;/**
   });
 
   api.quests = {
-    evil_santa: {
-      type: 'boss',
-      name: "Evil Santa",
-      text: "Evil Santa (Party 1)",
-      notes: "An evil Santa Clause has captured a Polar Bear Cub. Vanguish this evil, and save the cub!",
-      stats: {
+    evilsanta: {
+      text: "Evil Santa",
+      notes: "An evil Santa Clause has captured a fully grown Polar Bear. Vanguish this evil, and save the beast!",
+      value: 4,
+      boss: {
+        name: "Evil Santa",
         hp: 100,
         str: 1
       },
       drop: {
-        type: 'pets',
+        type: 'mounts',
         key: 'BearCub-Polar',
-        text: "Polar Bear Cub (Pet)",
+        text: "Polar Bear (Mount)",
         gp: 20,
         exp: 100
+      }
+    },
+    evilsanta2: {
+      text: "Find Baby Bear",
+      notes: "Mama bear begs you to find her cub. He ran off into the icefields when mama was captured by Evil Santa, find his tracks!",
+      value: 4,
+      previous: 'evilsanta',
+      collect: {
+        tracks: {
+          text: 'Tracks',
+          count: 20
+        },
+        branches: {
+          text: 'Broken Twigs',
+          count: 10
+        }
       },
-      value: 4
+      drop: {
+        type: 'pets',
+        key: 'BearCub-Polar',
+        text: "Polar Bear (Pet)",
+        gp: 20,
+        exp: 100
+      }
     }
   };
 
@@ -10722,6 +10744,10 @@ var process=require("__browserify_process");(function() {
       halfway = bonus / 2;
     }
     return max * (bonus / (bonus + halfway));
+  };
+
+  api.monod = function(bonus, rateOfIncrease, max) {
+    return rateOfIncrease * max * bonus / (rateOfIncrease * bonus + max);
   };
 
   /*
@@ -11329,7 +11355,7 @@ var process=require("__browserify_process");(function() {
             message: ":pet not found in user.items.pets"
           });
         }
-        if (!((_ref2 = user.items.food) != null ? _ref2[food.name] : void 0)) {
+        if (!((_ref2 = user.items.food) != null ? _ref2[food.key] : void 0)) {
           return cb({
             code: 404,
             message: ":food not found in user.items.food"
@@ -11341,7 +11367,7 @@ var process=require("__browserify_process");(function() {
             message: "Can't feed this pet."
           });
         }
-        if (user.items.mounts[pet] && (userPets[pet] >= 50 || food.name === 'Saddle')) {
+        if (user.items.mounts[pet] && (userPets[pet] >= 50 || food.key === 'Saddle')) {
           return cb({
             code: 401,
             message: "You already have that mount"
@@ -11356,21 +11382,21 @@ var process=require("__browserify_process");(function() {
           }
           return message = "You have tamed " + egg + ", let's go for a ride!";
         };
-        if (food.name === 'Saddle') {
+        if (food.key === 'Saddle') {
           evolve();
         } else {
           if (food.target === potion) {
             userPets[pet] += 5;
-            message = "" + egg + " really likes the " + food.name + "!";
+            message = "" + egg + " really likes the " + food.key + "!";
           } else {
             userPets[pet] += 2;
-            message = "" + egg + " eats the " + food.name + " but doesn't seem to enjoy it.";
+            message = "" + egg + " eats the " + food.key + " but doesn't seem to enjoy it.";
           }
           if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
             evolve();
           }
         }
-        user.items.food[food.name]--;
+        user.items.food[food.key]--;
         return cb({
           code: 200,
           message: message
@@ -11843,43 +11869,42 @@ var process=require("__browserify_process");(function() {
         }), user);
       },
       randomDrop: function(modifiers) {
-        var a, acceptableDrops, alpha, chanceMultiplier, delta, drop, max, priority, rarity, reachedDropLimit, streak, _base, _base1, _base2, _base3, _name, _name1, _name2, _ref, _ref1;
-        delta = modifiers.delta;
-        _ref = modifiers.task, priority = _ref.priority, streak = _ref.streak;
-        if (streak == null) {
-          streak = 0;
+        var acceptableDrops, bonus, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1;
+        task = modifiers.task;
+        bonus = Math.abs(task.value) * task.priority + (task.streak || 0) + (user._statsComputed.per * .5);
+        bonus /= 100;
+        chance = api.diminishingReturns(bonus, 1, 0.5);
+        console.log("Drop Equation: Bonus(" + (bonus.toFixed(3)) + "), Modified Chance(" + (chance.toFixed(3)) + ")\n");
+        quest = content.quests[(_ref = user.party.quest) != null ? _ref.key : void 0];
+        if ((quest != null ? quest.collect : void 0) && user.fns.predictableRandom(user.stats.gp) < bonus) {
+          dropK = user.fns.randomVal(quest.collect, {
+            key: true
+          });
+          user.party.quest.tally.collect[dropK]++;
+          if (typeof user.markModified === "function") {
+            user.markModified('party.quest.tally');
+          }
+          console.log({
+            tally: user.party.quest.tally
+          });
         }
-        if ((_base = user.items).lastDrop == null) {
-          _base.lastDrop = {
-            date: +moment().subtract('d', 1),
-            count: 0
-          };
-        }
-        reachedDropLimit = (api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5);
-        if (reachedDropLimit) {
+        if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5)) {
           return;
         }
-        chanceMultiplier = Math.abs(delta);
-        chanceMultiplier *= priority;
-        chanceMultiplier += streak;
-        chanceMultiplier += user._statsComputed.per * .3;
-        max = 0.75;
-        a = 0.1;
-        alpha = a * max * chanceMultiplier / (a * chanceMultiplier + max);
-        if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < alpha) {
+        if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
           rarity = user.fns.predictableRandom(user.stats.gp);
           if (rarity > .6) {
             drop = user.fns.randomVal(_.omit(content.food, 'Saddle'));
-            if ((_base1 = user.items.food)[_name = drop.key] == null) {
-              _base1[_name] = 0;
+            if ((_base = user.items.food)[_name = drop.key] == null) {
+              _base[_name] = 0;
             }
             user.items.food[drop.key] += 1;
             drop.type = 'Food';
             drop.dialog = "You've found a " + drop.text + " Food! " + drop.notes;
           } else if (rarity > .3) {
             drop = user.fns.randomVal(content.eggs);
-            if ((_base2 = user.items.eggs)[_name1 = drop.key] == null) {
-              _base2[_name1] = 0;
+            if ((_base1 = user.items.eggs)[_name1 = drop.key] == null) {
+              _base1[_name1] = 0;
             }
             user.items.eggs[drop.key]++;
             drop.type = 'Egg';
@@ -11889,8 +11914,8 @@ var process=require("__browserify_process");(function() {
             drop = user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
               return __indexOf.call(acceptableDrops, k) >= 0;
             })));
-            if ((_base3 = user.items.hatchingPotions)[_name2 = drop.key] == null) {
-              _base3[_name2] = 0;
+            if ((_base2 = user.items.hatchingPotions)[_name2 = drop.key] == null) {
+              _base2[_name2] = 0;
             }
             user.items.hatchingPotions[drop.key]++;
             drop.type = 'HatchingPotion';
@@ -11990,7 +12015,7 @@ var process=require("__browserify_process");(function() {
       */
 
       cron: function(options) {
-        var daysMissed, expTally, lvl, now, tally, todoTally, _base, _base1, _base2;
+        var daysMissed, expTally, lvl, now, tally, todoTally, _base, _base1, _base2, _tally;
         if (options == null) {
           options = {};
         }
@@ -12112,15 +12137,16 @@ var process=require("__browserify_process");(function() {
           stealth: 0,
           streaks: false
         };
-        tally = {
-          down: user.party.quest.tally.down,
-          up: user.party.quest.tally.up
-        };
-        _.merge(user.party.quest.tally, {
+        tally = user.party.quest.tally;
+        _tally = _.cloneDeep(tally);
+        _.merge(tally, {
           down: 0,
           up: 0
         });
-        return tally;
+        tally.collect = _.transform(tally.collect, (function(m, v, k) {
+          return m[k] = 0;
+        }));
+        return _tally;
       },
       preenUserHistory: function(minHistLen) {
         if (minHistLen == null) {
