@@ -987,7 +987,7 @@ api.wrap = (user) ->
       if !user.flags.classSelected and user.stats.lvl >= 10
         user.flags.classSelected
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
-        user.flags.rebirthEnabled
+        user.flags.rebirthEnabled = true
 
     ###
       ------------------------------------------------------
