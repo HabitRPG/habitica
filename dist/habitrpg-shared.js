@@ -11936,6 +11936,9 @@ var process=require("__browserify_process");(function() {
         if (!user.flags.classSelected && user.stats.lvl >= 10) {
           return user.flags.classSelected;
         }
+        if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
+          user.flags.rebirthEnabled = true;
+        }
       },
       /*
         ------------------------------------------------------
