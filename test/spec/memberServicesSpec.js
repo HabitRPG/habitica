@@ -29,7 +29,7 @@ describe('memberServices', function() {
 
   it('selects a member', function(){
     var uid = 'abc';
-    $httpBackend.expectGET('/api/v1/members/' + uid).respond({ _id: uid });
+    $httpBackend.expectGET('/api/v2/members/' + uid).respond({ _id: uid });
     members.selectMember(uid);
     $httpBackend.flush();
 

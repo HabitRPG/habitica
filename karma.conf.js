@@ -18,6 +18,7 @@ module.exports = function(config) {
       'public/bower_components/marked/lib/marked.js',
       'public/bower_components/js-emoji/emoji.js',
       'public/bower_components/habitrpg-shared/dist/habitrpg-shared.js',
+      'public/bower_components/habitrpg-shared/script/userServices.js',
       'public/js/*.js',
       'public/js/**/*.js',
       'test/mock/**/*.js',
