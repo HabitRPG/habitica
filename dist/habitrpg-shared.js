@@ -10715,7 +10715,7 @@ var process=require("__browserify_process");(function() {
         newHistory.push({
           date: moment(group[0].date).toDate(),
           value: _.reduce(group, (function(m, obj) {
-            return m + api.value;
+            return m + obj.value;
           }), 0) / group.length
         });
         return true;
@@ -11935,9 +11935,6 @@ var process=require("__browserify_process");(function() {
         }
         if (!user.flags.classSelected && user.stats.lvl >= 10) {
           return user.flags.classSelected;
-        }
-        if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
-          user.flags.rebirthEnabled = true;
         }
       },
       /*
