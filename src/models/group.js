@@ -38,7 +38,7 @@ var GroupSchema = new Schema({
     active: {type:Boolean, 'default':false},
     progress:{
       hp: Number,
-      collected: Schema.Types.Mixed,
+      collect: {type:Schema.Types.Mixed, 'default':{}} // {feather: 5, ingot: 3}
     },
 
     //Shows boolean for each party-member who has accepted the quest. Eg {UUID: true, UUID: false}. Once all users click
@@ -107,15 +107,84 @@ GroupSchema.methods.sendChat = function(message, user){
   group.chat.splice(200);
 }
 
-GroupSchema.methods.bossAttack = function(user, tally, cb) {
+// Participants: Grant rewards & achievements, finish quest
+GroupSchema.methods.finishQuest = function(quest, cb) {
   var group = this;
-  var questK = group.quest.key;
-  var quest = shared.content.quests[questK];
+
+  var questK = quest.key;
   var dropK = quest.drop.key;
-  var down = tally.down * quest.stats.str; // multiply by boss strength
+  var updates = {$inc:{},$set:{}};
+
+  updates['$inc']['achievements.quests.'+questK] = 1;
+  updates['$inc']['stats.gp'] = +quest.drop.gp;
+  updates['$inc']['stats.exp'] = +quest.drop.exp;
+  updates['$inc']['_v'] = 1;
+  updates['$unset'] = {'party.quest.key':undefined};
+  updates['$set']['party.quest.collect'] = {};
+
+  switch (quest.drop.type) {
+    case 'gear':
+      // TODO This means they can lose their new gear on death, is that what we want?
+      updates['$set']['items.gear.owned.'+dropK] = true;
+      break;
+    case 'eggs':
+    case 'food':
+    case 'hatchingPotions':
+      updates['$inc']['items.'+quest.drop.type+'.'+dropK] = 1;
+      break;
+    case 'pets':
+      updates['$set']['items.pets.'+dropK] = 5;
+      break;
+    case 'mounts':
+      updates['$set']['items.mounts.'+dropK] = true;
+      break;
+  }
+  // FIXME this is TERRIBLE practice. Looks like there are circular dependencies in the models, such that `var User` at
+  // this point is undefined. So we get around that by loading from mongoose only once we get to this point
+  var members = _.keys(group.quest.members);
+  group.quest = {};group.markModified('quest');
+  mongoose.models.User.update({_id:{$in:members}}, updates, {multi:true}, cb);
+}
+
+GroupSchema.methods.collectQuest = function(user, tally, cb) {
+  var group = this,
+    quest = shared.content.quests[group.quest.key];
+
+  _.each(tally.collect,function(v,k){
+    group.quest.progress.collect[k] += v;
+  });
+
+  var foundText = _.reduce(tally.collect, function(m,v,k){
+    m.push(v + ' ' + quest.collect[k].text);
+    return m;
+  }, []);
+  foundText = foundText ? foundText.join(', ') : 'nothing';
+  group.sendChat("`<" + user.profile.name + "> found "+foundText+".`");
+  group.markModified('quest.progress.collect');
+
+  // Still needs completing
+  if (_.find(shared.content.quests[group.quest.key].collect, function(v,k){
+    return group.quest.progress.collect[k] < v.count;
+  })) return group.save(cb);
+
+  async.series([
+    function(cb2){
+      group.finishQuest(quest,cb2);
+    },
+    function(cb2){
+      group.sendChat('`All items found! Party has received their rewards.`');
+      group.save(cb2);
+    }
+  ],cb);
+}
+
+GroupSchema.methods.bossQuest = function(user, tally, cb) {
+  var group = this;
+  var quest = shared.content.quests[group.quest.key];
+  var down = tally.down * quest.boss.str; // multiply by boss strength
 
   group.quest.progress.hp -= tally.up;
-  group.sendChat("`<" + user.profile.name + "> attacks <" + quest.name + "> for " + (tally.up.toFixed(1)) + " damage, <" + quest.name + "> attacks party for " + (down.toFixed(1)) + " damage.`");
+  group.sendChat("`<" + user.profile.name + "> attacks <" + quest.boss.name + "> for " + (tally.up.toFixed(1)) + " damage, <" + quest.boss.name + "> attacks party for " + (down.toFixed(1)) + " damage.`");
   //var hp = group.quest.progress.hp;
 
   // Everyone takes damage
@@ -127,47 +196,11 @@ GroupSchema.methods.bossAttack = function(user, tally, cb) {
 
   // Boss slain, finish quest
   if (group.quest.progress.hp <= 0) {
+    group.sendChat('`' + quest.boss.name + ' has been slain! Party has received their rewards.`');
+    // Participants: Grant rewards & achievements, finish quest
     series.push(function(cb2){
-      async.parallel([
-        // Participants: Grant rewards & achievements, finish quest
-        function(cb3){
-          var updates = {$inc:{},$set:{}};
-          updates['$inc']['achievements.quests.'+questK] = 1;
-          updates['$inc']['stats.gp'] = +quest.drop.gp;
-          updates['$inc']['stats.exp'] = +quest.drop.exp;
-          updates['$inc']['_v'] = 1;
-          updates['$unset'] = {'party.quest.key':undefined};
-          updates['$set']['party.quest.collection'] = {};
-
-          switch (quest.drop.type) {
-            case 'gear':
-              // TODO This means they can lose their new gear on death, is that what we want?
-              updates['$set']['items.gear.owned.'+dropK] = true;
-              break;
-            case 'eggs':
-            case 'food':
-            case 'hatchingPotions':
-              updates['$inc']['items.'+quest.drop.type+'.'+dropK] = 1;
-              break;
-            case 'pets':
-              updates['$set']['items.pets.'+dropK] = 5;
-              break;
-            case 'mounts':
-              updates['$set']['items.mounts.'+dropK] = true;
-              break;
-          }
-          // FIXME this is TERRIBLE practice. Looks like there are circular dependencies in the models, such that `var User` at
-          // this point is undefined. So we get around that by loading from mongoose only once we get to this point
-          mongoose.models.User.update({_id:{$in: _.keys(group.quest.members)}},updates,{multi:true},cb3);
-        },
-        // Group: finish quest
-        function(cb3){
-          group.quest = {};group.markModified('quest');
-          group.sendChat('`' + quest.name + ' has been slain! Party has received their rewards`');
-          group.save(cb3);
-        }
-      ],cb2);
-    })
+      group.finishQuest(quest,cb2);
+    });
   }
 
   series.push(function(cb2){group.save(cb2)});

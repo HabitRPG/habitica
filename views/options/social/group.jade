@@ -8,35 +8,45 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
 
 
     // ------ Bosses -------
-    .modal.inline-modal(ng-if='group.type==="party" && group.quest.key && group.quest.active==false')
-      .modal-header(bindonce='group')
-        h3 Quest: {{Content.quests[group.quest.key].text}}
+    .modal.inline-modal(bindonce='group', ng-if='group.type==="party" && group.quest.key')
+      .modal-header
+        h3(ng-if='group.quest.active==false') Quest Invite: {{Content.quests[group.quest.key].text}}
+        h3(ng-if='group.quest.active==true') {{Content.quests[group.quest.key].text}}
       .modal-body
-        table.table.table-striped
-          tr(ng-repeat='member in group.members')
-            td {{member.profile.name}}
-            td {{group.quest.members[member._id] == undefined ? 'Pending' : k ? 'Rejected' : 'Accepted'}}
-        button.btn.btn-warning(ng-click='party.$questAccept({"force":true})') Force Start
+        div(ng-if='group.quest.active==false')
+          table.table.table-striped
+            tr(ng-repeat='member in group.members')
+              td {{member.profile.name}}
+              td {{group.quest.members[member._id] == undefined ? 'Pending' : k ? 'Rejected' : 'Accepted'}}
+          button.btn.btn-warning(ng-click='party.$questAccept({"force":true})') Force Start
 
-    .modal.inline-modal(ng-if='group.type=="party" && group.quest.key && group.quest.active==true')
-      .modal-header(bindonce='group')
-        h3 {{Content.quests[group.quest.key].text}}
-      .modal-body
-        div(class="quest_{{group.quest.key}}")
-        //-
-          .progress(style="height:10px")
-          .bar(style='width: {{Shared.percent(group.quest.hp, Content.quests[group.quest.key].hp)}}%;')
-          span.meter-text
-            i.icon-heart
-            | {{group.quest.hp | number:0}} / {{Content.quests[group.quest.key].hp}}
-        .hero-stats
-          .meter.health(title='Boss Health')
-            .bar(style='width: {{Shared.percent(group.quest.progress.hp, Content.quests[group.quest.key].stats.hp)}}%;')
-            span.meter-text
-              i.icon-heart
-              | {{group.quest.progress.hp | number:0}} / {{Content.quests[group.quest.key].stats.hp}}
-        p {{Content.quests[group.quest.key].notes}}
-        button.btn.btn-mini.btn-danger(ng-click='questAbort()') Abort
+        div(ng-if='group.quest.active==true')
+          div(ng-if='Content.quests[group.quest.key].boss')
+            div(class="quest_{{group.quest.key}}")
+            //-
+              .progress(style="height:10px")
+              .bar(style='width: {{Shared.percent(group.quest.hp, Content.quests[group.quest.key].hp)}}%;')
+              span.meter-text
+                i.icon-heart
+                | {{group.quest.hp | number:0}} / {{Content.quests[group.quest.key].hp}}
+            .hero-stats
+              .meter.health(title='Boss Health')
+                .bar(style='width: {{Shared.percent(group.quest.progress.hp, Content.quests[group.quest.key].boss.hp)}}%;')
+                span.meter-text
+                  i.icon-heart
+                  | {{group.quest.progress.hp | number:0}} / {{Content.quests[group.quest.key].boss.hp}}
+
+          div(ng-if='Content.quests[group.quest.key].collect')
+            h4 Collected:
+            table.table.table-striped
+              tr(ng-repeat='(k,v) in group.quest.progress.collect')
+                td
+                  div(class='{{group.quest.key}}_k') {{Content.quests[group.quest.key].collect[k].text}}
+                td
+                  {{v}} / {{Content.quests[group.quest.key].collect[k].count}}
+
+          p {{Content.quests[group.quest.key].notes}}
+          button.btn.btn-mini.btn-danger(ng-click='questAbort()') Abort
 
     // ------ Information -------
     .modal.inline-modal

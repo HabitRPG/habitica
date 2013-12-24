@@ -409,8 +409,12 @@ questStart = function(req, res) {
     })
   }
 
-  var parallel = [], questMembers = {};
-  var key = group.quest.key;
+  var parallel = [],
+    questMembers = {},
+    key = group.quest.key,
+    quest = shared.content.quests[key],
+    collectTally = quest.collect ? _.transform(quest.collect, function(m,v,k){m[k]=0}) : {};
+
   // TODO will this handle appropriately when people leave/join party between quest invite?
   _.each(group.members, function(m){
     var updates = {$set:{},$inc:{'_v':1}};
@@ -418,10 +422,11 @@ questStart = function(req, res) {
       updates['$inc']['items.quests.'+key] = -1;
     if (group.quest.members[m] == true) {
       updates['$set']['party.quest.key'] = key;
+      updates['$set']['party.quest.tally'] = {up:0,down:0,collect:collectTally};
       questMembers[m] = true;
     } else {
-      updates['$unset'] = {'party.quest.key':undefined};
-      updates['$set']['party.quest.collection'] = {};
+      updates['$unset'] = {'party.quest.key':1};
+      updates['$set']['party.quest.tally'] = {};
     }
     parallel.push(function(cb2){
       User.update({_id:m},updates,cb2);
@@ -429,8 +434,12 @@ questStart = function(req, res) {
   })
 
   group.quest.active = true;
-  group.quest.progress.hp = shared.content.quests[group.quest.key].stats.hp;
+  if (quest.boss)
+    group.quest.progress.hp = quest.boss.hp;
+  else
+    group.quest.progress.collect = collectTally;
   group.quest.members = questMembers;
+  group.markModified('quest'); // members & progress.collect are both Mixed types
   parallel.push(function(cb2){group.save(cb2)});
 
   async.parallel(parallel,function(err, results){
@@ -491,12 +500,14 @@ api.questAbort = function(req, res, next){
   async.parallel([
     function(cb){
       User.update({_id:{$in: _.keys(group.quest.members)}},{
-        $set:{'party.quest.key':undefined,'party.quest.tally.collection':{}},
-        $inc:{_v:1}
+        $unset: {'party.quest.key':1},
+        $set:   {'party.quest.tally.collect':{}},
+        $inc:   {_v:1}
       },cb);
     },
     function(cb) {
       group.quest = {};
+      group.markModified('quest');
       group.save(cb);
     }
   ], function(err){

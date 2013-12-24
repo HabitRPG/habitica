@@ -206,7 +206,7 @@ var UserSchema = new Schema({
       tally: {
         up: {type: Number, 'default': 0},
         down: {type: Number, 'default': 0},
-        collection: {type: Schema.Types.Mixed, 'default': {}} // {feather:1, ingot:2}
+        collect: {type: Schema.Types.Mixed, 'default': {}} // {feather:1, ingot:2}
       }
     }
   },

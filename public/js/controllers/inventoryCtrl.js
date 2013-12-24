@@ -84,6 +84,8 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
     }
 
     $scope.purchase = function(type, item){
+      if (item.previous && !User.user.achievements.quests[item.previous])
+        return alert("You must first complete " + $rootScope.Content.quests[item.previous].text + '.');
       var gems = User.user.balance * 4;
       if(gems < item.value) return $rootScope.modals.buyGems = true;
       var string = (type == 'hatchingPotion') ? 'hatching potion' : type; // give hatchingPotion a space
