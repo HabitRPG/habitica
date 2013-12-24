@@ -401,6 +401,39 @@ api.wrap = (user) ->
       user.stats.hp = 50
       cb null, req
 
+    rebirth: (req, cb) ->
+      if user.balance < 1
+        return cb {code:401,message: "Not enough gems."}, req
+      user.balance--
+      # Turn tasks yellow, zero out streaks
+      _.each user.tasks, (task) ->
+        task.value = 0
+        if task.type = 'daily'
+          task.streak = 0
+      # Reset all dynamic stats
+      stats = user.stats
+      stats.buffs = {}
+      stats.hp = 50
+      stats.lvl = 1
+      stats.class = 'warrior'
+      _.each ['per','int','con','str','points','gp','exp','mp'], (value) ->
+        stats[value] = 0
+      # Deequip character, set back to base armor and training sword
+      gear = user.items.gear
+      _.each ['equipped', 'costume'], (type) ->
+        gear[type].armor  = 'armor_base_0'
+        gear[type].weapon = 'weapon_warrior_0'
+        gear[type].head   = 'head_base_0'
+        gear[type].shield = 'shield_base_0'
+      # Strip owned gear down to the training sword
+      gear.owned = {weapon_warrior_0:true}
+      user.markModified? 'items.gear.owned'
+      # Remove unlocked features
+      flags = user.flags
+      _.each ['rebirthEnabled','classSelected','itemsEnabled','dropsEnabled'], (type) ->
+        flags[type] = false
+      cb null, req
+
     # ------
     # Tasks
     # ------
