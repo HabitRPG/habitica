@@ -11183,7 +11183,7 @@ var process=require("__browserify_process");(function() {
         return cb(null, req);
       },
       rebirth: function(req, cb) {
-        var flags, gear, stats;
+        var flags, gear, lvl, stats;
         if (user.balance < 2) {
           return cb({
             code: 401,
@@ -11191,6 +11191,7 @@ var process=require("__browserify_process");(function() {
           }, req);
         }
         user.balance -= 2;
+        lvl = user.stats.lvl;
         _.each(user.tasks, function(task) {
           if (task.type !== 'reward') {
             task.value = 0;
@@ -11227,6 +11228,12 @@ var process=require("__browserify_process");(function() {
         flags.itemsEnabled = false;
         flags.dropsEnabled = false;
         flags.classSelected = false;
+        if (!user.achievements.rebirths || (lvl > user.achievements.rebirthLevel)) {
+          user.achievements.rebirths++;
+          user.achievements.rebirthLevel = lvl;
+        } else {
+          Notification.text(user.profile.name + " is reborn!");
+        }
         return cb(null, req);
       },
       clearCompleted: function(req, cb) {

@@ -403,9 +403,12 @@ api.wrap = (user) ->
       cb null, req
 
     rebirth: (req, cb) ->
+      # Cost is 8 Gems ($2)
       if user.balance < 2
         return cb {code:401,message: "Not enough gems."}, req
       user.balance -= 2
+      # Save off user's level, for calculating achievement eligibility later
+      lvl = user.stats.lvl
       # Turn tasks yellow, zero out streaks
       _.each user.tasks, (task) ->
         unless task.type is 'reward'
@@ -437,6 +440,12 @@ api.wrap = (user) ->
       flags.itemsEnabled = false
       flags.dropsEnabled = false
       flags.classSelected = false
+      # Award an achievement if this is their first Rebirth, or if they made it further than last time
+      if not (user.achievements.rebirths) or (lvl > user.achievements.rebirthLevel)
+        user.achievements.rebirths++
+        user.achievements.rebirthLevel = lvl
+      else
+        Notification.text(user.profile.name + " is reborn!")
       cb null, req
 
     # ------
