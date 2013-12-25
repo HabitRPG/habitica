@@ -441,7 +441,9 @@ api.wrap = (user) ->
       flags.dropsEnabled = false
       flags.classSelected = false
       # Award an achievement if this is their first Rebirth, or if they made it further than last time
-      if not (user.achievements.rebirths) or (lvl > user.achievements.rebirthLevel)
+      if not (user.achievements.rebirths)
+        user.achievements.rebirths = 1
+      else if (lvl > user.achievements.rebirthLevel)
         user.achievements.rebirths++
         user.achievements.rebirthLevel = lvl
       else

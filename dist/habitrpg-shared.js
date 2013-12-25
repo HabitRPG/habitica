@@ -11228,7 +11228,9 @@ var process=require("__browserify_process");(function() {
         flags.itemsEnabled = false;
         flags.dropsEnabled = false;
         flags.classSelected = false;
-        if (!user.achievements.rebirths || (lvl > user.achievements.rebirthLevel)) {
+        if (!user.achievements.rebirths) {
+          user.achievements.rebirths = 1;
+        } else if (lvl > user.achievements.rebirthLevel) {
           user.achievements.rebirths++;
           user.achievements.rebirthLevel = lvl;
         } else {
