@@ -59,6 +59,12 @@ habitrpg.controller('SettingsCtrl',
       $rootScope.$state.go('tasks');
     }
 
+    $scope.rebirth = function(){
+      User.user.ops.rebirth({});
+      $rootScope.modals.rebirth = false;
+      $rootScope.$state.go('tasks');
+    }
+
     $scope.changePassword = function(changePass){
       if (!changePass.oldPassword || !changePass.newPassword || !changePass.confirmNewPassword) {
         return alert("Please fill out all fields");

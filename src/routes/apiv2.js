@@ -62,7 +62,8 @@ router['delete']('/user', auth.auth, user['delete']);
 router.post('/user/revive', auth.auth, cron, user.revive); // Shared.ops
 router.post('/user/reroll', auth.auth, cron, user.reroll); // Shared.ops
 router.post('/user/reset', auth.auth, user.reset); // Shared.ops
-router.post('/user/sleep', auth.auth, cron, user.sleep); //Shared.opss
+router.post('/user/sleep', auth.auth, cron, user.sleep); //Shared.ops
+router.post('/user/rebirth', auth.auth, cron, user.rebirth); //Shared.ops
 
 router.post('/user/class/change', auth.auth, cron, user.changeClass); //Shared.ops | query={class}
 router.post('/user/class/allocate', auth.auth, cron, user.allocate); //Shared.ops | query={stat}

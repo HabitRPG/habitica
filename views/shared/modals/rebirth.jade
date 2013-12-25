@@ -17,24 +17,29 @@ div(modal='modals.rebirth')
     .modal-body
         include ../gems
         .rebirth_orb.pull-left(style='margin-right: 5px')
-        p Rebirth sets your game to a starting state, as if you'd created a new account, but keeps your most hard-earned or paid-for items intact.
+        p Rebirth starts your character over from Level 1, as if you had created a new account.
         br
+        p Your adventure begins anew with a clean slate:
         .unordered
-            li You become a Level 1 Warrior with full Health but no Experience. You may choose a new class at Level 10 as normal.
-            li You lose all Gold and all purchased equipment.
-            li Your tasks are reset to neutral (yellow color), but their history remains.
-            li Your Dailies' streaks are reset to 0.
-            li You keep your Achievements, your Gems, your backer and contributor tiers, and any purchased avatar customizations, such as hair styles.
-            li You keep whatever Challenges, Guilds, and Party you are a member of.
-            li You keep your Pets and Mounts, though you will not be able to access them until you unlock the Stable again.
-            li You earn an Achievement for beginning a new adventure!
+            li You return to full Health.
+            li You have no Experience, Gold, or equipment.
+            li Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset.
+            li You have the starting class of Warrior until you earn a new class.
         br
-        p Use this feature to replay the early game with Habit's newest features, or to bring back the motivation of equipment Rewards when you have it all!
+        p Your new character inherits a few things from their predecessor:
+        .unordered
+            li Tasks, history, and settings remain.
+            li Challenge, Guild, and Party memberships remain.
+            li Gems, backer tiers, and contributor levels remain.
+            li Items obtained from Gems or drops (such as pets and mounts) remain, though you cannot access them until you unlock them again.
+        br
+        .achievement-sun.pull-left(style='margin-right: 5px')
+        p You also earn an Achievement for beginning a new adventure!
     .modal-footer
         button.btn.btn-large.cancel(ng-click='modals.rebirth = false') Never mind
-        span(ng-if='user.balance < 1')
+        span(ng-if='user.balance < 2')
             a.btn.btn-success.btn-large(ng-click="modals.buyGems = true") Buy More Gems
             span.gem-cost Not enough Gems
-        span(ng-if='user.balance >= 1', ng-controller='SettingsCtrl')
+        span(ng-if='user.balance >= 2', ng-controller='SettingsCtrl')
             a.btn.btn-danger.btn-large(ng-click='rebirth()') Be Reborn
             span.gem-cost 8 Gems
