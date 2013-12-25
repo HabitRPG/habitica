@@ -60,9 +60,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
 
           div(ng-if='Content.quests[group.quest.key].boss')
             .npc_ian.pull-left
-            p To hurt a boss, complete your Dailies and To-Dos. Higher task-damage (completing reds, Wizard spells, Warrior attacks...) translates to high Boss damage.
-            br
-            p At the end of each day, every daily you missed will be tallied up, and the boss will deal that much damage (multiplied by the bosses Strength) to the party. So help your friends by completing your dailies!
+            p To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Wizard spells, Warrior attacks, etc). The boss will deal damage to the party for every Daily you've missed (multiplied by the boss's Strength), so help your friends by completing your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>
             br
             p Only participants will fight the boss and share in the quest loot. If you die during a boss-battle, you get booted from the battle. If everyone dies once, the quest fails.
 
