@@ -446,8 +446,6 @@ api.wrap = (user) ->
       else if (lvl > user.achievements.rebirthLevel)
         user.achievements.rebirths++
         user.achievements.rebirthLevel = lvl
-      else
-        Notification.text(user.profile.name + " is reborn!")
       cb null, req
 
     # ------

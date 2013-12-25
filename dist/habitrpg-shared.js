@@ -11233,8 +11233,6 @@ var process=require("__browserify_process");(function() {
         } else if (lvl > user.achievements.rebirthLevel) {
           user.achievements.rebirths++;
           user.achievements.rebirthLevel = lvl;
-        } else {
-          Notification.text(user.profile.name + " is reborn!");
         }
         return cb(null, req);
       },
