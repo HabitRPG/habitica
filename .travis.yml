@@ -1,8 +1,14 @@
 language: node_js
 node_js:
   - '0.10'
+services:
+  - mongodb
 before_script:
   - 'npm install -g bower grunt-cli'
   - 'bower install'
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  - cp config.json.example config.json
+  - ./node_modules/protractor/bin/webdriver-manager update
+  - ./node_modules/protractor/bin/webdriver-manager start &
+  - grunt run:dev > /dev/null &
