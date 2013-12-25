@@ -164,10 +164,10 @@ Even though Mongoose handles task defaults, we want to make sure defaults are se
 sending up to the server for performance
 ###
 api.taskDefaults = (task) ->
+  task.type = 'habit' unless task.type and task.type in ['habit','daily','todo','reward']
   defaults =
     id: api.uuid()
-    type: 'habit'
-    text: ''
+    text: if task.id? then task.id else ''
     notes: ''
     priority: 1
     challenge: {}

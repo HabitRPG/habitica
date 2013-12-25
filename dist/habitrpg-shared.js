@@ -10869,11 +10869,13 @@ var process=require("__browserify_process");(function() {
 
 
   api.taskDefaults = function(task) {
-    var defaults, _ref, _ref1;
+    var defaults, _ref, _ref1, _ref2;
+    if (!(task.type && ((_ref = task.type) === 'habit' || _ref === 'daily' || _ref === 'todo' || _ref === 'reward'))) {
+      task.type = 'habit';
+    }
     defaults = {
       id: api.uuid(),
-      type: 'habit',
-      text: '',
+      text: task.id != null ? task.id : '',
       notes: '',
       priority: 1,
       challenge: {},
@@ -10886,12 +10888,12 @@ var process=require("__browserify_process");(function() {
         down: true
       });
     }
-    if ((_ref = task.type) === 'habit' || _ref === 'daily') {
+    if ((_ref1 = task.type) === 'habit' || _ref1 === 'daily') {
       _.defaults(task, {
         history: []
       });
     }
-    if ((_ref1 = task.type) === 'daily' || _ref1 === 'todo') {
+    if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
       _.defaults(task, {
         completed: false
       });
