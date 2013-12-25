@@ -11192,13 +11192,12 @@ var process=require("__browserify_process");(function() {
         _.each(user.tasks, function(task) {
           return task.value = 0;
         });
-        _ref = user.tasks;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          task = _ref[_i];
+        _.each(user.tasks, function(task) {
+          task.value = 0;
           if (task.type === 'daily') {
-            task.streak = 0;
+            return task.streak = 0;
           }
-        }
+        });
         stats = user.stats;
         stats.buffs = {};
         stats.hp = 50;

@@ -408,7 +408,8 @@ api.wrap = (user) ->
       # Turn tasks yellow, zero out streaks
       _.each user.tasks, (task) ->
         task.value = 0
-      task.streak = 0 for task in user.tasks when task.type is 'daily'
+        if task.type is 'daily'
+          task.streak = 0
       # Reset all dynamic stats
       stats = user.stats
       stats.buffs = {}
