@@ -10,7 +10,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
     // ------ Bosses -------
     .modal.inline-modal(bindonce='group', ng-if='group.type==="party" && group.quest.key')
       .modal-header
-        h3(ng-if='group.quest.active==false') Quest Invite: {{Content.quests[group.quest.key].text}}
+        h3(ng-if='group.quest.active==false') Quest Invitation: {{Content.quests[group.quest.key].text}}
         h3(ng-if='group.quest.active==true') {{Content.quests[group.quest.key].text}}
       .modal-body
         div(ng-if='group.quest.active==false')
@@ -19,6 +19,8 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
               td {{member.profile.name}}
               td {{group.quest.members[member._id] == undefined ? 'Pending' : k ? 'Rejected' : 'Accepted'}}
           button.btn.btn-warning(ng-click='party.$questAccept({"force":true})') Force Start
+          //-TODO Cancel button
+          //-TODO Both force-start & cancel should only be available to quest-initiator
 
         div(ng-if='group.quest.active==true')
           div(ng-if='Content.quests[group.quest.key].boss')
@@ -46,6 +48,28 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
                   {{v}} / {{Content.quests[group.quest.key].collect[k].count}}
 
           p {{Content.quests[group.quest.key].notes}}
+          hr
+          h5 Participants
+          table.table.table-striped
+            tr(ng-repeat='(k,v) in group.members', ng-show='group.quest.members[v._id]')
+              td {{v.profile.name}}
+          quest-rewards(key='{{group.quest.key}}')
+
+          div(ng-if='Content.quests[group.quest.key].boss')
+            .npc_ian.pull-left
+            p To hurt a boss, complete your Dailies and To-Dos. Higher task-damage (completing reds, Wizard spells, Warrior attacks...) translates to high Boss damage.
+            br
+            p At the end of each day, every daily you missed will be tallied up, and the boss will deal that much damage (multiplied by the bosses Strength) to the party. So help your friends by completing your dailies!
+            br
+            p Only participants will fight the boss and share in the quest loot. If you die during a boss-battle, you get booted from the battle. If everyone dies once, the quest fails.
+
+          div(ng-if='Content.quests[group.quest.key].collect')
+            .npc_ian.pull-left
+            p To collect items, do your positive tasks. Quest items drop just like normal items; however, you won't see the drops until the next day, then everything you've found will be tallied up and contributed to the pile.
+            br
+            p Only participants can collect items and share in the quest loot. If you die during a quest, you get booted from the quest. If everyone dies once, the quest fails.
+
+
           button.btn.btn-mini.btn-danger(ng-click='questAbort()') Abort
 
     // ------ Information -------

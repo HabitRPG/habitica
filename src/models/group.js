@@ -115,12 +115,13 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   var dropK = quest.drop.key;
   var updates = {$inc:{},$set:{}};
 
-  updates['$inc']['achievements.quests.'+questK] = 1;
+  updates['$inc']['achievements.quests.' + questK] = 1;
   updates['$inc']['stats.gp'] = +quest.drop.gp;
   updates['$inc']['stats.exp'] = +quest.drop.exp;
   updates['$inc']['_v'] = 1;
   updates['$unset'] = {'party.quest.key':undefined};
   updates['$set']['party.quest.collect'] = {};
+  updates['$set']['party.quest.completed'] = questK;
 
   switch (quest.drop.type) {
     case 'gear':

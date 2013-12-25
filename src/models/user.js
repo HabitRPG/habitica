@@ -207,7 +207,8 @@ var UserSchema = new Schema({
         up: {type: Number, 'default': 0},
         down: {type: Number, 'default': 0},
         collect: {type: Schema.Types.Mixed, 'default': {}} // {feather:1, ingot:2}
-      }
+      },
+      completed: String // When quest is done, we move it from key => completed, and it's a one-time flag (for modal) that they unset by clicking "ok" in browser
     }
   },
   preferences: {

@@ -113,7 +113,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
           li.customize-menu
             menu.pets-menu(label='Quests')
               div(ng-repeat='quest in Content.quests')
-                  button.customize-option(popover='{{quest.notes}}', popover-title='{{quest.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("quests", quest)', class='inventory_quest_scroll', ng-class='{locked: quest.previous && !user.achievements.quests[quest.previous]}')
+                  button.customize-option(popover='{{quest.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("quests", quest)', class='inventory_quest_scroll', ng-class='{locked: quest.previous && !user.achievements.quests[quest.previous]}')
                   p
                     |  {{quest.value}}
                     span.Pet_Currency_Gem1x.inline-gems

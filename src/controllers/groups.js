@@ -413,7 +413,7 @@ questStart = function(req, res) {
     questMembers = {},
     key = group.quest.key,
     quest = shared.content.quests[key],
-    collectTally = quest.collect ? _.transform(quest.collect, function(m,v,k){m[k]=0}) : {};
+    collected = quest.collect ? _.transform(quest.collect, function(m,v,k){m[k]=0}) : {};
 
   // TODO will this handle appropriately when people leave/join party between quest invite?
   _.each(group.members, function(m){
@@ -422,7 +422,8 @@ questStart = function(req, res) {
       updates['$inc']['items.quests.'+key] = -1;
     if (group.quest.members[m] == true) {
       updates['$set']['party.quest.key'] = key;
-      updates['$set']['party.quest.progress'] = {up:0,down:0,collect:collectTally};
+      updates['$set']['party.quest.progress'] = {up:0,down:0,collect:collected};
+      updates['$unset'] = {'party.quest.completed':1};
       questMembers[m] = true;
     } else {
       updates['$unset'] = {'party.quest.key':1};
@@ -437,7 +438,7 @@ questStart = function(req, res) {
   if (quest.boss)
     group.quest.progress.hp = quest.boss.hp;
   else
-    group.quest.progress.collect = collectTally;
+    group.quest.progress.collect = collected;
   group.quest.members = questMembers;
   group.markModified('quest'); // members & progress.collect are both Mixed types
   parallel.push(function(cb2){group.save(cb2)});
