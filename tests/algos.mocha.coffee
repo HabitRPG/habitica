@@ -20,6 +20,10 @@ newUser = (addTasks=true)->
       gear:
         equipped: {}
         costume: {}
+    party:
+      quest:
+        progress:
+          down: 0
     preferences: {}
     dailys: []
     todos: []
