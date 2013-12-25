@@ -11175,7 +11175,7 @@ var process=require("__browserify_process");(function() {
         }
         user.balance--;
         _.each(user.tasks, function(task) {
-          if (task.type(!'reward')) {
+          if (task.type !== 'reward') {
             return task.value = 0;
           }
         });
@@ -11192,7 +11192,7 @@ var process=require("__browserify_process");(function() {
         }
         user.balance -= 2;
         _.each(user.tasks, function(task) {
-          if (task.type(!'reward')) {
+          if (task.type !== 'reward') {
             task.value = 0;
           }
           if (task.type === 'daily') {
