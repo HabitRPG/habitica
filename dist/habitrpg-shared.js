@@ -11175,7 +11175,9 @@ var process=require("__browserify_process");(function() {
         }
         user.balance--;
         _.each(user.tasks, function(task) {
-          return task.value = 0;
+          if (task.type(!'reward')) {
+            return task.value = 0;
+          }
         });
         user.stats.hp = 50;
         return cb(null, req);
@@ -11190,10 +11192,9 @@ var process=require("__browserify_process");(function() {
         }
         user.balance -= 2;
         _.each(user.tasks, function(task) {
-          return task.value = 0;
-        });
-        _.each(user.tasks, function(task) {
-          task.value = 0;
+          if (task.type(!'reward')) {
+            task.value = 0;
+          }
           if (task.type === 'daily') {
             return task.streak = 0;
           }

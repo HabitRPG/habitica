@@ -397,7 +397,8 @@ api.wrap = (user) ->
         return cb {code:401,message: "Not enough gems."}, req
       user.balance--
       _.each user.tasks, (task) ->
-        task.value = 0
+        if task.type not 'reward'
+          task.value = 0
       user.stats.hp = 50
       cb null, req
 
@@ -407,7 +408,8 @@ api.wrap = (user) ->
       user.balance -= 2
       # Turn tasks yellow, zero out streaks
       _.each user.tasks, (task) ->
-        task.value = 0
+        if task.type not 'reward'
+          task.value = 0
         if task.type is 'daily'
           task.streak = 0
       # Reset all dynamic stats
