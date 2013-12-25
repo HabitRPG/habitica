@@ -28,7 +28,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
         li.customize-menu
           menu.pets-menu(label='Eggs ({{eggCount}})')
-            p(ng-show='eggCount < 1') You don't have any eggs.
+            p.muted(ng-show='eggCount < 1') You don't have any eggs.
             div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
               //TODO move positioning this styling to css
               button.customize-option(popover='{{Content.eggs[egg].notes}}', popover-title='{{Content.eggs[egg].text}} Egg', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !user.items.pets[egg+"-"+selectedPotion.key]}')
@@ -37,14 +37,15 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
         li.customize-menu
           menu.hatchingPotion-menu(label='Hatching Potions ({{potCount}})')
-            p(ng-show='potCount < 1') You don't have any hatching potions.
+            p.muted(ng-show='potCount < 1') You don't have any hatching potions.
             div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
               button.customize-option(popover='{{Content.hatchingPotions[pot].notes}}', popover-title='{{Content.hatchingPotions[pot].text}} Potion', popover-trigger='mouseenter', popover-placement='right', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !user.items.pets[selectedEgg.key+"-"+pot]}')
                 .badge.badge-info.stack-count {{points}}
 
         li.customize-menu
           menu.pets-menu(label='Quest Scrolls ({{questCount}})')
-            p(ng-show='questCount < 1') You don't have any quest scrolls.
+            p.muted(ng-show='questCount < 1') You don't have any quest scrolls.
+            p.muted Quests require parties. If you want to quest solo, <a href="/#/options/groups/party">create an empty party</a>
             div(ng-repeat='(quest,points) in ownedItems(user.items.quests)')
               button.customize-option(popover='{{Content.quests[quest].notes}}', popover-title='{{Content.quests[quest].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='showQuest(quest)', class='inventory_quest_scroll')
                 .badge.badge-info.stack-count {{points}}
@@ -112,6 +113,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
           li.customize-menu
             menu.pets-menu(label='Quests')
+              p.muted Quests require parties. If you want to quest solo, <a href="/#/options/groups/party">create an empty party</a>
               div(ng-repeat='quest in Content.quests')
                   button.customize-option(popover='{{quest.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("quests", quest)', class='inventory_quest_scroll', ng-class='{locked: quest.previous && !user.achievements.quests[quest.previous]}')
                   p
