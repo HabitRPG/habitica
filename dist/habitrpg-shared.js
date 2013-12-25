@@ -11661,9 +11661,9 @@ var process=require("__browserify_process");(function() {
               adjustAmt = nextDelta;
               if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
                 adjustAmt = nextDelta * (1 + user._statsComputed.str * .004);
-                user.party.quest.tally.up = user.party.quest.tally.up || 0;
+                user.party.quest.progress.up = user.party.quest.progress.up || 0;
                 if ((_ref1 = task.type) === 'daily' || _ref1 === 'todo') {
-                  user.party.quest.tally.up += adjustAmt;
+                  user.party.quest.progress.up += adjustAmt;
                 }
               }
               task.value += adjustAmt;
@@ -11880,12 +11880,12 @@ var process=require("__browserify_process");(function() {
           dropK = user.fns.randomVal(quest.collect, {
             key: true
           });
-          user.party.quest.tally.collect[dropK]++;
+          user.party.quest.progress.collect[dropK]++;
           if (typeof user.markModified === "function") {
-            user.markModified('party.quest.tally');
+            user.markModified('party.quest.progress');
           }
           console.log({
-            tally: user.party.quest.tally
+            progress: user.party.quest.progress
           });
         }
         if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5)) {
@@ -12015,7 +12015,7 @@ var process=require("__browserify_process");(function() {
       */
 
       cron: function(options) {
-        var daysMissed, expTally, lvl, now, tally, todoTally, _base, _base1, _base2, _tally;
+        var daysMissed, expTally, lvl, now, progress, todoTally, _base, _base1, _base2, _progress;
         if (options == null) {
           options = {};
         }
@@ -12047,7 +12047,7 @@ var process=require("__browserify_process");(function() {
           return;
         }
         todoTally = 0;
-        if ((_base = user.party.quest.tally).down == null) {
+        if ((_base = user.party.quest.progress).down == null) {
           _base.down = 0;
         }
         user.todos.concat(user.dailys).forEach(function(task) {
@@ -12083,7 +12083,7 @@ var process=require("__browserify_process");(function() {
                 }
               });
               if (type === 'daily') {
-                user.party.quest.tally.down += delta;
+                user.party.quest.progress.down += delta;
               }
             }
           }
@@ -12137,16 +12137,16 @@ var process=require("__browserify_process");(function() {
           stealth: 0,
           streaks: false
         };
-        tally = user.party.quest.tally;
-        _tally = _.cloneDeep(tally);
-        _.merge(tally, {
+        progress = user.party.quest.progress;
+        _progress = _.cloneDeep(progress);
+        _.merge(progress, {
           down: 0,
           up: 0
         });
-        tally.collect = _.transform(tally.collect, (function(m, v, k) {
+        progress.collect = _.transform(progress.collect, (function(m, v, k) {
           return m[k] = 0;
         }));
-        return _tally;
+        return _progress;
       },
       preenUserHistory: function(minHistLen) {
         if (minHistLen == null) {

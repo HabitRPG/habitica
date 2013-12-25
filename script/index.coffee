@@ -690,8 +690,8 @@ api.wrap = (user) ->
             # TODO STR Improves the amount by which Dailies and +/- Habits decrease in threat when scored, by .25% per point.
             if direction is 'up' and task.type != 'reward' and !(task.type is 'habit' and !task.down)
               adjustAmt = nextDelta * (1 + user._statsComputed.str * .004)
-              user.party.quest.tally.up = user.party.quest.tally.up || 0;
-              user.party.quest.tally.up += adjustAmt if task.type in ['daily','todo']
+              user.party.quest.progress.up = user.party.quest.progress.up || 0;
+              user.party.quest.progress.up += adjustAmt if task.type in ['daily','todo']
             task.value += adjustAmt
           delta += nextDelta
 
@@ -878,9 +878,9 @@ api.wrap = (user) ->
       quest = content.quests[user.party.quest?.key]
       if quest?.collect and user.fns.predictableRandom(user.stats.gp) < bonus # NOTE: < bonus, higher chance than drops
         dropK = user.fns.randomVal quest.collect, {key:true}
-        user.party.quest.tally.collect[dropK]++
-        user.markModified? 'party.quest.tally'
-        console.log {tally:user.party.quest.tally}
+        user.party.quest.progress.collect[dropK]++
+        user.markModified? 'party.quest.progress'
+        console.log {progress:user.party.quest.progress}
 
       return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5)
       if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < chance
@@ -1036,7 +1036,7 @@ api.wrap = (user) ->
 
       # Tally each task
       todoTally = 0
-      user.party.quest.tally.down ?= 0
+      user.party.quest.progress.down ?= 0
       user.todos.concat(user.dailys).forEach (task) ->
         return unless task
 
@@ -1054,7 +1054,7 @@ api.wrap = (user) ->
               scheduleMisses++ if api.shouldDo(thatDay, repeat, user.preferences)
           if scheduleMisses > 0
             delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}});
-            user.party.quest.tally.down += delta if type is 'daily'
+            user.party.quest.progress.down += delta if type is 'daily'
 
         switch type
           when 'daily'
@@ -1087,11 +1087,11 @@ api.wrap = (user) ->
       user.markModified? 'dailys' # covers dailys.*.history
       user.stats.buffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
 
-      # After all is said and done, tally up user's effect on quest, return those values & reset the user's
-      tally = user.party.quest.tally; _tally = _.cloneDeep tally
-      _.merge tally, {down:0,up:0}
-      tally.collect = _.transform tally.collect, ((m,v,k)->m[k]=0)
-      _tally
+      # After all is said and done, progress up user's effect on quest, return those values & reset the user's
+      progress = user.party.quest.progress; _progress = _.cloneDeep progress
+      _.merge progress, {down:0,up:0}
+      progress.collect = _.transform progress.collect, ((m,v,k)->m[k]=0)
+      _progress
 
     # Registered users with some history
     preenUserHistory: (minHistLen = 7) ->
