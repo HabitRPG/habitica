@@ -74,6 +74,8 @@ api.tnl = (lvl) ->
 api.diminishingReturns = (bonus, max, halfway=bonus/2) ->
   max*(bonus/(bonus+halfway))
 
+api.monod = (bonus, rateOfIncrease, max) ->
+  rateOfIncrease*max*bonus/(rateOfIncrease*bonus+max)
 
 ###
 Preen history for users with > 7 history entries
@@ -481,9 +483,9 @@ api.wrap = (user) ->
       userPets = user.items.pets
 
       return cb({code:404, message:":pet not found in user.items.pets"}) unless userPets[pet]
-      return cb({code:404, message:":food not found in user.items.food"}) unless user.items.food?[food.name]
+      return cb({code:404, message:":food not found in user.items.food"}) unless user.items.food?[food.key]
       return cb({code:401, message:"Can't feed this pet."}) if content.specialPets[pet]
-      return cb({code:401, message:"You already have that mount"}) if user.items.mounts[pet] and (userPets[pet] >= 50 or food.name is 'Saddle')
+      return cb({code:401, message:"You already have that mount"}) if user.items.mounts[pet] and (userPets[pet] >= 50 or food.key is 'Saddle')
 
       message = ''
       evolve = ->
@@ -492,24 +494,24 @@ api.wrap = (user) ->
         user.items.currentPet = "" if pet is user.items.currentPet
         message = "You have tamed #{egg}, let's go for a ride!"
 
-      if food.name is 'Saddle'
+      if food.key is 'Saddle'
         evolve()
       else
         if food.target is potion
           userPets[pet] += 5
-          message = "#{egg} really likes the #{food.name}!"
+          message = "#{egg} really likes the #{food.key}!"
         else
           userPets[pet] += 2
-          message = "#{egg} eats the #{food.name} but doesn't seem to enjoy it."
+          message = "#{egg} eats the #{food.key} but doesn't seem to enjoy it."
         if userPets[pet] >= 50 and !user.items.mounts[pet]
           evolve()
-      user.items.food[food.name]--
+      user.items.food[food.key]--
       cb {code:200, message}, req
 
     # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
     purchase: (req, cb) ->
       {type,key}  = req.params
-      return cb({code:404,message:":type must be in [hatchingPotions,eggs,food,special]"},req) unless type in ['eggs','hatchingPotions', 'food', 'special']
+      return cb({code:404,message:":type must be in [hatchingPotions,eggs,food,quests,special]"},req) unless type in ['eggs','hatchingPotions','food','quests','special']
       item = content[type][key]
       return cb({code:404,message:":key not found for Content.#{type}"},req) unless item
       user.items[type][key] = 0  unless user.items[type][key]
@@ -667,7 +669,7 @@ api.wrap = (user) ->
 
       delta = 0
 
-      calculateDelta = (adjustvalue=true) ->
+      calculateDelta = ->
         # If multiple days have passed, multiply times days missed
         _.times options.times, ->
           # Each iteration calculate the nextDelta, which is then accumulated in the total delta.
@@ -680,13 +682,17 @@ api.wrap = (user) ->
             else if task.value > 21.27 then 21.27
             else task.value
           nextDelta = Math.pow(0.9747, currVal) * (if direction is 'down' then -1 else 1)
-          if adjustvalue
-            task.value += nextDelta
+          unless task.type is 'reward'
+            adjustAmt = nextDelta
             # ===== STRENGTH =====
             # (Only for up-scoring, ignore up-onlies and rewards)
+            # Note, we create a new val (adjustAmt) to add to task.value, since delta will be used in Exp & GP calculations - we don't want STR to bonus that
+            # TODO STR Improves the amount by which Dailies and +/- Habits decrease in threat when scored, by .25% per point.
             if direction is 'up' and task.type != 'reward' and !(task.type is 'habit' and !task.down)
-              # TODO STR Improves the amount by which Dailies and +/- Habits decrease in threat when scored, by .25% per point.
-              task.value += nextDelta * user._statsComputed.str * .004
+              adjustAmt = nextDelta * (1 + user._statsComputed.str * .004)
+              user.party.quest.progress.up = user.party.quest.progress.up || 0;
+              user.party.quest.progress.up += adjustAmt if task.type in ['daily','todo']
+            task.value += adjustAmt
           delta += nextDelta
 
       addPoints = ->
@@ -765,7 +771,7 @@ api.wrap = (user) ->
 
         when 'reward'
         # Don't adjust values for rewards
-          calculateDelta(false)
+          calculateDelta()
           # purchase item
           stats.gp -= Math.abs(task.value)
           num = parseFloat(task.value).toFixed(2)
@@ -856,32 +862,28 @@ api.wrap = (user) ->
     # ----------------------------------------------------------------------
 
     randomDrop: (modifiers) ->
-      {delta} = modifiers
-      {priority, streak} = modifiers.task
-      streak ?= 0
-      # limit drops to 2 / day
-      user.items.lastDrop ?=
-        date: +moment().subtract('d', 1) # trick - set it to yesterday on first run, that way they can get drops today
-        count: 0
+      {task} = modifiers
 
-      reachedDropLimit = (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5)
-      return if reachedDropLimit
+      # % chance of getting a drop
+      bonus =
+        Math.abs(task.value) *            # + Task Redness
+        task.priority +                   # * Task Priority
+        (task.streak or 0) +              # + Streak bonus
+        (user._statsComputed.per * .5)    # + Perception
+      bonus /= 100                        # /100 (as a percent)
+      chance = api.diminishingReturns(bonus, 1, 0.5) # see HabitRPG/habitrpg#1922 for details
+      console.log "Drop Equation: Bonus(#{bonus.toFixed(3)}), Modified Chance(#{chance.toFixed(3)})\n"
 
-      # % chance of getting a pet or meat
-      chanceMultiplier = Math.abs(delta)
-      chanceMultiplier *= priority # multiply chance by reddness
-      chanceMultiplier += streak # streak bonus
-      chanceMultiplier += user._statsComputed.per*.3
+      quest = content.quests[user.party.quest?.key]
+      if quest?.collect and user.fns.predictableRandom(user.stats.gp) < bonus # NOTE: < bonus, higher chance than drops
+        dropK = user.fns.randomVal quest.collect, {key:true}
+        user.party.quest.progress.collect[dropK]++
+        user.markModified? 'party.quest.progress'
+        console.log {progress:user.party.quest.progress}
 
-      # Temporary solution to lower the maximum drop chance to 75 percent. More thorough
-      # overhaul of drop changes is needed. See HabitRPG/habitrpg#1922 for details.
-      # Old drop chance:
-      # if user.flags?.dropsEnabled and Math.random() < (.05 * chanceMultiplier)
-      max = 0.75 # Max probability of drop
-      a = 0.1 # rate of increase
-      alpha = a*max*chanceMultiplier/(a*chanceMultiplier+max) # current probability of drop
+      return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5)
+      if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < chance
 
-      if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < alpha
         # current breakdown - 1% (adjustable) chance on drop
         # If they got a drop: 50% chance of egg, 50% Hatching Potion. If hatchingPotion, broken down further even further
         rarity = user.fns.predictableRandom(user.stats.gp)
@@ -889,16 +891,16 @@ api.wrap = (user) ->
         # Food: 40% chance
         if rarity > .6
           drop = user.fns.randomVal _.omit(content.food, 'Saddle')
-          user.items.food[drop.name] ?= 0
-          user.items.food[drop.name]+= 1
+          user.items.food[drop.key] ?= 0
+          user.items.food[drop.key]+= 1
           drop.type = 'Food'
           drop.dialog = "You've found a #{drop.text} Food! #{drop.notes}"
 
           # Eggs: 30% chance
         else if rarity > .3
           drop = user.fns.randomVal content.eggs
-          user.items.eggs[drop.name] ?= 0
-          user.items.eggs[drop.name]++
+          user.items.eggs[drop.key] ?= 0
+          user.items.eggs[drop.key]++
           drop.type = 'Egg'
           drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
 
@@ -918,8 +920,8 @@ api.wrap = (user) ->
           #drop = helpers.randomVal hatchingPotions
           drop = user.fns.randomVal _.pick(content.hatchingPotions, ((v,k) -> k in acceptableDrops))
 
-          user.items.hatchingPotions[drop.name] ?= 0
-          user.items.hatchingPotions[drop.name]++
+          user.items.hatchingPotions[drop.key] ?= 0
+          user.items.hatchingPotions[drop.key]++
           drop.type = 'HatchingPotion'
           drop.dialog = "You've found a #{drop.text} Hatching Potion! #{drop.notes}"
 
@@ -1000,7 +1002,7 @@ api.wrap = (user) ->
       {user}
     ###
     cron: (options={}) ->
-      [now] = [+options.now || +new Date]
+      now = +options.now || +new Date
 
       # They went to a different timezone
       # FIXME:
@@ -1031,8 +1033,9 @@ api.wrap = (user) ->
         user.stats.buffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
         return
 
-        # Tally each task
+      # Tally each task
       todoTally = 0
+      user.party.quest.progress.down ?= 0
       user.todos.concat(user.dailys).forEach (task) ->
         return unless task
 
@@ -1049,7 +1052,8 @@ api.wrap = (user) ->
               thatDay = moment(now).subtract('days', n + 1)
               scheduleMisses++ if api.shouldDo(thatDay, repeat, user.preferences)
           if scheduleMisses > 0
-            user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}})
+            delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}});
+            user.party.quest.progress.down += delta if type is 'daily'
 
         switch type
           when 'daily'
@@ -1081,7 +1085,12 @@ api.wrap = (user) ->
       user.markModified? 'history'
       user.markModified? 'dailys' # covers dailys.*.history
       user.stats.buffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
-      user
+
+      # After all is said and done, progress up user's effect on quest, return those values & reset the user's
+      progress = user.party.quest.progress; _progress = _.cloneDeep progress
+      _.merge progress, {down:0,up:0}
+      progress.collect = _.transform progress.collect, ((m,v,k)->m[k]=0)
+      _progress
 
     # Registered users with some history
     preenUserHistory: (minHistLen = 7) ->

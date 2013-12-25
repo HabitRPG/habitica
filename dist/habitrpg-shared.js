@@ -10010,8 +10010,13 @@ var global=self;/**
         target: 'task',
         notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).',
         cast: function(user, target) {
+          var bonus;
           target.value += user._statsComputed.int * .0075 * user.fns.crit('per');
-          return user.stats.exp += (target.value < 0 ? 1 : target.value + 1) * 2.5;
+          bonus = (target.value < 0 ? 1 : target.value + 1) * 2.5;
+          user.stats.exp += bonus;
+          if (user.party.quest.key) {
+            return user.party.quest.tally.up += bonus;
+          }
         }
       },
       mpheal: {
@@ -10066,7 +10071,10 @@ var global=self;/**
         target: 'task',
         notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
         cast: function(user, target) {
-          return target.value += user._statsComputed.str * .01 * user.fns.crit('per');
+          target.value += user._statsComputed.str * .01 * user.fns.crit('per');
+          if (user.party.quest.key) {
+            return user.party.quest.tally.up += Math.ceil(user._statsComputed.str * .2);
+          }
         }
       },
       defensiveStance: {
@@ -10266,9 +10274,9 @@ var global=self;/**
   };
 
   _.each(api.spells, function(spellClass) {
-    return _.each(spellClass, function(spell, k) {
+    return _.each(spellClass, function(spell, key) {
       var _cast;
-      spell.name = k;
+      spell.key = key;
       _cast = spell.cast;
       return spell.cast = function(user, target) {
         _cast(user, target);
@@ -10329,10 +10337,10 @@ var global=self;/**
     }
   };
 
-  _.each(api.eggs, function(egg, k) {
+  _.each(api.eggs, function(egg, key) {
     return _.defaults(egg, {
       value: 3,
-      name: k,
+      key: key,
       notes: "Find a hatching potion to pour on this egg, and it will hatch into a " + egg.adjective + " " + egg.text + ".",
       mountText: egg.text
     });
@@ -10342,7 +10350,8 @@ var global=self;/**
     'Wolf-Veteran': true,
     'Wolf-Cerberus': true,
     'Dragon-Hydra': true,
-    'Turkey-Base': true
+    'Turkey-Base': true,
+    'BearCub-Polar': true
   };
 
   api.hatchingPotions = {
@@ -10388,9 +10397,9 @@ var global=self;/**
     }
   };
 
-  _.each(api.hatchingPotions, function(pot, k) {
+  _.each(api.hatchingPotions, function(pot, key) {
     return _.defaults(pot, {
-      name: k,
+      key: key,
       value: 2,
       notes: "Pour this on an egg, and it will hatch as a " + pot.text + " pet."
     });
@@ -10444,11 +10453,62 @@ var global=self;/**
     }
   };
 
-  _.each(api.food, function(food, k) {
+  _.each(api.food, function(food, key) {
     return _.defaults(food, {
       value: 1,
-      name: k,
+      key: key,
       notes: "Feed this to a pet and it may grow into a sturdy steed."
+    });
+  });
+
+  api.quests = {
+    evilsanta: {
+      text: "Trapper Santa",
+      notes: "You hear bemoaned roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
+      completion: "Trapper Santa squeels in anger, and bounces off into the night. A grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the whisperer listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured. Help her find her baby!",
+      value: 4,
+      boss: {
+        name: "Trapper Santa",
+        hp: 300,
+        str: 1
+      },
+      drop: {
+        type: 'mounts',
+        key: 'BearCub-Polar',
+        text: "Polar Bear (Mount)",
+        gp: 20,
+        exp: 100
+      }
+    },
+    evilsanta2: {
+      text: "Find The Cub",
+      notes: "Mama bear's cub had run off into the icefields when she was captured by the trapper. At the edge of the woods, she sniffs the air. You hear twig-snaps and snow crunch through the crystaline sound of the forest. Paw prints! You both start racing to follow the trail. Find all the prints and broken twigs, and retrieve her cub!",
+      completion: "You've found the cub! Mama and baby bear couldn't be more grateful. As a token, they've decided to keep you company till the end of days.",
+      value: 4,
+      previous: 'evilsanta',
+      collect: {
+        tracks: {
+          text: 'Tracks',
+          count: 20
+        },
+        branches: {
+          text: 'Broken Twigs',
+          count: 10
+        }
+      },
+      drop: {
+        type: 'pets',
+        key: 'BearCub-Polar',
+        text: "Polar Bear (Pet)",
+        gp: 20,
+        exp: 100
+      }
+    }
+  };
+
+  _.each(api.quests, function(v, key) {
+    return _.defaults(v, {
+      key: key
     });
   });
 
@@ -10686,6 +10746,10 @@ var process=require("__browserify_process");(function() {
       halfway = bonus / 2;
     }
     return max * (bonus / (bonus + halfway));
+  };
+
+  api.monod = function(bonus, rateOfIncrease, max) {
+    return rateOfIncrease * max * bonus / (rateOfIncrease * bonus + max);
   };
 
   /*
@@ -11293,7 +11357,7 @@ var process=require("__browserify_process");(function() {
             message: ":pet not found in user.items.pets"
           });
         }
-        if (!((_ref2 = user.items.food) != null ? _ref2[food.name] : void 0)) {
+        if (!((_ref2 = user.items.food) != null ? _ref2[food.key] : void 0)) {
           return cb({
             code: 404,
             message: ":food not found in user.items.food"
@@ -11305,7 +11369,7 @@ var process=require("__browserify_process");(function() {
             message: "Can't feed this pet."
           });
         }
-        if (user.items.mounts[pet] && (userPets[pet] >= 50 || food.name === 'Saddle')) {
+        if (user.items.mounts[pet] && (userPets[pet] >= 50 || food.key === 'Saddle')) {
           return cb({
             code: 401,
             message: "You already have that mount"
@@ -11320,21 +11384,21 @@ var process=require("__browserify_process");(function() {
           }
           return message = "You have tamed " + egg + ", let's go for a ride!";
         };
-        if (food.name === 'Saddle') {
+        if (food.key === 'Saddle') {
           evolve();
         } else {
           if (food.target === potion) {
             userPets[pet] += 5;
-            message = "" + egg + " really likes the " + food.name + "!";
+            message = "" + egg + " really likes the " + food.key + "!";
           } else {
             userPets[pet] += 2;
-            message = "" + egg + " eats the " + food.name + " but doesn't seem to enjoy it.";
+            message = "" + egg + " eats the " + food.key + " but doesn't seem to enjoy it.";
           }
           if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
             evolve();
           }
         }
-        user.items.food[food.name]--;
+        user.items.food[food.key]--;
         return cb({
           code: 200,
           message: message
@@ -11343,10 +11407,10 @@ var process=require("__browserify_process");(function() {
       purchase: function(req, cb) {
         var item, key, type, _ref;
         _ref = req.params, type = _ref.type, key = _ref.key;
-        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'special') {
+        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'special') {
           return cb({
             code: 404,
-            message: ":type must be in [hatchingPotions,eggs,food,special]"
+            message: ":type must be in [hatchingPotions,eggs,food,quests,special]"
           }, req);
         }
         item = content[type][key];
@@ -11590,19 +11654,21 @@ var process=require("__browserify_process");(function() {
           return cb('Not enough Gold');
         }
         delta = 0;
-        calculateDelta = function(adjustvalue) {
-          if (adjustvalue == null) {
-            adjustvalue = true;
-          }
+        calculateDelta = function() {
           return _.times(options.times, function() {
-            var currVal, nextDelta;
+            var adjustAmt, currVal, nextDelta, _ref1;
             currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
             nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
-            if (adjustvalue) {
-              task.value += nextDelta;
+            if (task.type !== 'reward') {
+              adjustAmt = nextDelta;
               if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
-                task.value += nextDelta * user._statsComputed.str * .004;
+                adjustAmt = nextDelta * (1 + user._statsComputed.str * .004);
+                user.party.quest.progress.up = user.party.quest.progress.up || 0;
+                if ((_ref1 = task.type) === 'daily' || _ref1 === 'todo') {
+                  user.party.quest.progress.up += adjustAmt;
+                }
               }
+              task.value += adjustAmt;
             }
             return delta += nextDelta;
           });
@@ -11683,7 +11749,7 @@ var process=require("__browserify_process");(function() {
             }
             break;
           case 'reward':
-            calculateDelta(false);
+            calculateDelta();
             stats.gp -= Math.abs(task.value);
             num = parseFloat(task.value).toFixed(2);
             if (stats.gp < 0) {
@@ -11805,45 +11871,44 @@ var process=require("__browserify_process");(function() {
         }), user);
       },
       randomDrop: function(modifiers) {
-        var a, acceptableDrops, alpha, chanceMultiplier, delta, drop, max, priority, rarity, reachedDropLimit, streak, _base, _base1, _base2, _base3, _name, _name1, _name2, _ref, _ref1;
-        delta = modifiers.delta;
-        _ref = modifiers.task, priority = _ref.priority, streak = _ref.streak;
-        if (streak == null) {
-          streak = 0;
+        var acceptableDrops, bonus, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1;
+        task = modifiers.task;
+        bonus = Math.abs(task.value) * task.priority + (task.streak || 0) + (user._statsComputed.per * .5);
+        bonus /= 100;
+        chance = api.diminishingReturns(bonus, 1, 0.5);
+        console.log("Drop Equation: Bonus(" + (bonus.toFixed(3)) + "), Modified Chance(" + (chance.toFixed(3)) + ")\n");
+        quest = content.quests[(_ref = user.party.quest) != null ? _ref.key : void 0];
+        if ((quest != null ? quest.collect : void 0) && user.fns.predictableRandom(user.stats.gp) < bonus) {
+          dropK = user.fns.randomVal(quest.collect, {
+            key: true
+          });
+          user.party.quest.progress.collect[dropK]++;
+          if (typeof user.markModified === "function") {
+            user.markModified('party.quest.progress');
+          }
+          console.log({
+            progress: user.party.quest.progress
+          });
         }
-        if ((_base = user.items).lastDrop == null) {
-          _base.lastDrop = {
-            date: +moment().subtract('d', 1),
-            count: 0
-          };
-        }
-        reachedDropLimit = (api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5);
-        if (reachedDropLimit) {
+        if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5)) {
           return;
         }
-        chanceMultiplier = Math.abs(delta);
-        chanceMultiplier *= priority;
-        chanceMultiplier += streak;
-        chanceMultiplier += user._statsComputed.per * .3;
-        max = 0.75;
-        a = 0.1;
-        alpha = a * max * chanceMultiplier / (a * chanceMultiplier + max);
-        if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < alpha) {
+        if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
           rarity = user.fns.predictableRandom(user.stats.gp);
           if (rarity > .6) {
             drop = user.fns.randomVal(_.omit(content.food, 'Saddle'));
-            if ((_base1 = user.items.food)[_name = drop.name] == null) {
-              _base1[_name] = 0;
+            if ((_base = user.items.food)[_name = drop.key] == null) {
+              _base[_name] = 0;
             }
-            user.items.food[drop.name] += 1;
+            user.items.food[drop.key] += 1;
             drop.type = 'Food';
             drop.dialog = "You've found a " + drop.text + " Food! " + drop.notes;
           } else if (rarity > .3) {
             drop = user.fns.randomVal(content.eggs);
-            if ((_base2 = user.items.eggs)[_name1 = drop.name] == null) {
-              _base2[_name1] = 0;
+            if ((_base1 = user.items.eggs)[_name1 = drop.key] == null) {
+              _base1[_name1] = 0;
             }
-            user.items.eggs[drop.name]++;
+            user.items.eggs[drop.key]++;
             drop.type = 'Egg';
             drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
           } else {
@@ -11851,10 +11916,10 @@ var process=require("__browserify_process");(function() {
             drop = user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
               return __indexOf.call(acceptableDrops, k) >= 0;
             })));
-            if ((_base3 = user.items.hatchingPotions)[_name2 = drop.name] == null) {
-              _base3[_name2] = 0;
+            if ((_base2 = user.items.hatchingPotions)[_name2 = drop.key] == null) {
+              _base2[_name2] = 0;
             }
-            user.items.hatchingPotions[drop.name]++;
+            user.items.hatchingPotions[drop.key]++;
             drop.type = 'HatchingPotion';
             drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
           }
@@ -11952,11 +12017,11 @@ var process=require("__browserify_process");(function() {
       */
 
       cron: function(options) {
-        var daysMissed, expTally, lvl, now, todoTally, _base, _base1;
+        var daysMissed, expTally, lvl, now, progress, todoTally, _base, _base1, _base2, _progress;
         if (options == null) {
           options = {};
         }
-        now = [+options.now || +(new Date)][0];
+        now = +options.now || +(new Date);
         daysMissed = api.daysSince(user.lastCron, _.defaults({
           now: now
         }, user.preferences));
@@ -11984,8 +12049,11 @@ var process=require("__browserify_process");(function() {
           return;
         }
         todoTally = 0;
+        if ((_base = user.party.quest.progress).down == null) {
+          _base.down = 0;
+        }
         user.todos.concat(user.dailys).forEach(function(task) {
-          var absVal, completed, id, repeat, scheduleMisses, type;
+          var absVal, completed, delta, id, repeat, scheduleMisses, type;
           if (!task) {
             return;
           }
@@ -12006,7 +12074,7 @@ var process=require("__browserify_process");(function() {
               });
             }
             if (scheduleMisses > 0) {
-              user.ops.score({
+              delta = user.ops.score({
                 params: {
                   id: task.id,
                   direction: 'down'
@@ -12016,6 +12084,9 @@ var process=require("__browserify_process");(function() {
                   cron: true
                 }
               });
+              if (type === 'daily') {
+                user.party.quest.progress.down += delta;
+              }
             }
           }
           switch (type) {
@@ -12039,7 +12110,7 @@ var process=require("__browserify_process");(function() {
             }
           }
         });
-        ((_base = (user.history != null ? user.history : user.history = {})).todos != null ? (_base = (user.history != null ? user.history : user.history = {})).todos : _base.todos = []).push({
+        ((_base1 = (user.history != null ? user.history : user.history = {})).todos != null ? (_base1 = (user.history != null ? user.history : user.history = {})).todos : _base1.todos = []).push({
           date: now,
           value: todoTally
         });
@@ -12049,7 +12120,7 @@ var process=require("__browserify_process");(function() {
           lvl++;
           expTally += api.tnl(lvl);
         }
-        ((_base1 = user.history).exp != null ? (_base1 = user.history).exp : _base1.exp = []).push({
+        ((_base2 = user.history).exp != null ? (_base2 = user.history).exp : _base2.exp = []).push({
           date: now,
           value: expTally
         });
@@ -12068,7 +12139,16 @@ var process=require("__browserify_process");(function() {
           stealth: 0,
           streaks: false
         };
-        return user;
+        progress = user.party.quest.progress;
+        _progress = _.cloneDeep(progress);
+        _.merge(progress, {
+          down: 0,
+          up: 0
+        });
+        progress.collect = _.transform(progress.collect, (function(m, v, k) {
+          return m[k] = 0;
+        }));
+        return _progress;
       },
       preenUserHistory: function(minHistLen) {
         if (minHistLen == null) {

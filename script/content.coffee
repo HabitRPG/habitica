@@ -220,7 +220,9 @@ api.spells =
       notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).'
       cast: (user, target) ->
         target.value += user._statsComputed.int * .0075 * user.fns.crit('per')
-        user.stats.exp += (if target.value < 0 then 1 else target.value+1) * 2.5
+        bonus = (if target.value < 0 then 1 else target.value+1) * 2.5
+        user.stats.exp += bonus
+        user.party.quest.tally.up += bonus if user.party.quest.key
 
     mpheal:
       text: 'Ethereal Surge'
@@ -263,6 +265,7 @@ api.spells =
       notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases."
       cast: (user, target) ->
         target.value += user._statsComputed.str * .01 * user.fns.crit('per')
+        user.party.quest.tally.up += Math.ceil(user._statsComputed.str * .2) if user.party.quest.key
     defensiveStance:
       text: 'Defensive Stance'
       mana: 25
@@ -314,6 +317,7 @@ api.spells =
         bonus =  (if target.value < 0 then 1 else target.value+1) * _crit
         user.stats.exp += bonus
         user.stats.gp += bonus
+        # user.party.quest.tally.up += bonus if user.party.quest.key # remove hurting bosses for rogues, seems OP for now
     toolsOfTrade:
       text: 'Tools of the Trade'
       mana: 25
@@ -402,8 +406,8 @@ api.spells =
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
-  _.each spellClass, (spell, k) ->
-    spell.name = k
+  _.each spellClass, (spell, key) ->
+    spell.key = key
     _cast = spell.cast
     spell.cast = (user, target) ->
       #return if spell.target and spell.target != (if target.type then 'task' else 'user')
@@ -429,11 +433,10 @@ api.eggs =
   Dragon:           text: 'Dragon', adjective: 'mighty'
   Cactus:           text: 'Cactus', adjective: 'prickly'
   BearCub:          text: 'Bear Cub',  mountText: 'Bear', adjective: 'cuddly'
-  #{text: 'Polar Bear Cub', name: 'PolarBearCub', value: 3}
-_.each api.eggs, (egg,k) ->
+_.each api.eggs, (egg,key) ->
   _.defaults egg,
     value: 3
-    name: k
+    key: key
     notes: "Find a hatching potion to pour on this egg, and it will hatch into a #{egg.adjective} #{egg.text}."
     mountText: egg.text
 
@@ -442,6 +445,7 @@ api.specialPets =
   'Wolf-Cerberus':  true
   'Dragon-Hydra':   true
   'Turkey-Base':    true
+  'BearCub-Polar':  true
 
 api.hatchingPotions =
   Base:             value: 2, text: 'Base'
@@ -454,8 +458,8 @@ api.hatchingPotions =
   CottonCandyPink:  value: 4, text: 'Cotton Candy Pink'
   CottonCandyBlue:  value: 4, text: 'Cotton Candy Blue'
   Golden:           value: 5, text: 'Golden'
-_.each api.hatchingPotions, (pot,k) ->
-  _.defaults pot, {name: k, value: 2, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
+_.each api.hatchingPotions, (pot,key) ->
+  _.defaults pot, {key, value: 2, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
 
 api.food =
   Meat:             text: 'Meat', target: 'Base'
@@ -473,8 +477,42 @@ api.food =
   #Watermelon:       text: 'Watermelon', target: 'Golden'
   #SeaWeed:          text: 'SeaWeed', target: 'Golden'
   Saddle:           text: 'Saddle', value: 5, notes: 'Instantly raises your pet into a mount.'
-_.each api.food, (food,k) ->
-  _.defaults food, {value: 1, name: k, notes: "Feed this to a pet and it may grow into a sturdy steed."}
+_.each api.food, (food,key) ->
+  _.defaults food, {value: 1, key, notes: "Feed this to a pet and it may grow into a sturdy steed."}
+
+api.quests =
+
+  evilsanta:
+    text: "Trapper Santa" # title of the quest (eg, Deep into Vice's Layer)
+    notes: "You hear bemoaned roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!"
+    completion: "Trapper Santa squeels in anger, and bounces off into the night. A grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the whisperer listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured. Help her find her baby!"
+    value: 4 # Gem cost to buy, GP sell-back
+    #mechanic: enum['perfectDailies', ...]
+    boss:
+      name: "Trapper Santa" # name of the boss himself (eg, Vice)
+      hp: 300
+      str: 1 # Multiplier of users' missed dailies
+    drop:
+      type: 'mounts'
+      key: 'BearCub-Polar'
+      text: "Polar Bear (Mount)"
+      gp: 20
+      exp: 100 # Exp bonus from defeating the boss
+
+  evilsanta2:
+    text: "Find The Cub"
+    notes: "Mama bear's cub had run off into the icefields when she was captured by the trapper. At the edge of the woods, she sniffs the air. You hear twig-snaps and snow crunch through the crystaline sound of the forest. Paw prints! You both start racing to follow the trail. Find all the prints and broken twigs, and retrieve her cub!"
+    completion: "You've found the cub! Mama and baby bear couldn't be more grateful. As a token, they've decided to keep you company till the end of days."
+    value: 4
+    previous: 'evilsanta'
+    collect:
+      tracks: text: 'Tracks', count: 20
+      branches: text: 'Broken Twigs', count: 10
+    drop: type: 'pets', key: 'BearCub-Polar', text: "Polar Bear (Pet)", gp: 20, exp: 100
+
+
+_.each api.quests, (v,key) ->
+  _.defaults v, {key}
 
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
