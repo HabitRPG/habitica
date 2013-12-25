@@ -7,7 +7,7 @@ div(modal='modals.achievements.streak')
     .achievement.achievement-thermometer
     | You have stacked your "Streaker" Achievement! Every 21 days of streak, you gain 1 achievement point here.
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.achievements.streak = false') Ok
+    button.btn.btn-default.cancel(ng-click='modals.achievements.streak = false') OK
 
 // Max Gear
 div(modal='modals.achievements.ultimateGear')
@@ -17,7 +17,7 @@ div(modal='modals.achievements.ultimateGear')
     .achievement.achievement-armor
     | You have earned the "Ultimate Gear" Achievement for upgrading to the maximum gear set!
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.achievements.ultimateGear = false') Ok
+    button.btn.btn-default.cancel(ng-click='modals.achievements.ultimateGear = false') OK
 
 // Beast Master
 div(modal='modals.achievements.beastMaster')
@@ -28,7 +28,7 @@ div(modal='modals.achievements.beastMaster')
       .achievement.achievement-rat
       | You have earned the "Beast Master" Achievement for collecting all the pets!
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.achievements.beastMaster = false') Ok
+    button.btn.btn-default.cancel(ng-click='modals.achievements.beastMaster = false') OK
 
 // Contributor
 div(modal='user.flags.contributor')
@@ -40,7 +40,15 @@ div(modal='user.flags.contributor')
      {{user.profile.name}}, you awesome person! You're now a level {{user.contributor.level}} contributor for helping HabitRPG. See <a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'>what prizes you've earned for your contribution!</a>
 
  .modal-footer
-   button.btn.btn-default.cancel(ng-click='set({"flags.contributor":false})') Ok
+   button.btn.btn-default.cancel(ng-click='set({"flags.contributor":false})') OK
 
-
+//Rebirth
+div(modal='modals.achievements.rebirth')
+  .modal-header
+    h3 Achievement!
+  .modal-body
+    .achievement.achievement-sun
+    | You've begun a new adventure! This is Rebirth {{user.achievements.rebirths}} for you, and the highest Level you've attained is {{user.achievements.rebirthLevel}}. To stack this Achievement, begin your next new adventure when you've reached an even higher Level!
+  .modal-footer
+    button.btn.btn-default.cancel(ng-click='modals.achievements.rebirth = false') OK
 

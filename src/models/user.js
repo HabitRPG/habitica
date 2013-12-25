@@ -46,7 +46,8 @@ var UserSchema = new Schema({
     snowball: Number,
     streak: Number,
     challenges: Array,
-    rebirth: Array
+    rebirths: Number,
+    rebirthLevel: Number
   },
   auth: {
     facebook: Schema.Types.Mixed,
