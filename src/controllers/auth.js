@@ -28,12 +28,6 @@ api.auth = function(req, res, next) {
     if (err) return res.json(500, {err: err});
     if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
 
-    // Remove this after a few days. Users aren't refreshing after the pets roll out, which is required
-    if (_.find(req.body, function(v){return v && v.data && _.isArray(v.data['items.pets'])})) {
-      // simply discard the update. Unfortunately, sending an error will keep their set ops in the sync queue.
-      return res.json(200, {_v: user._v-1});
-    }
-
     res.locals.wasModified = req.query._v ? +user._v !== +req.query._v : true;
     res.locals.user = user;
     req.session.userId = user._id;
@@ -42,16 +36,14 @@ api.auth = function(req, res, next) {
 };
 
 api.authWithSession = function(req, res, next) { //[todo] there is probably a more elegant way of doing this...
-  var uid;
-  uid = req.session.userId;
-  if (!(req.session && req.session.userId)) {
+  var uid = req.session.userId;
+  if (!(req.session && req.session.userId))
     return res.json(401, NO_SESSION_FOUND);
-  }
-  return User.findOne({_id: uid,}, function(err, user) {
+  User.findOne({_id: uid}, function(err, user) {
     if (err) return res.json(500, {err: err});
     if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
     res.locals.user = user;
-    return next();
+    next();
   });
 };
 

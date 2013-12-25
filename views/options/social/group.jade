@@ -6,8 +6,77 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
 .row-fluid
   .span4
 
+
+    // ------ Bosses -------
+    .modal.inline-modal(bindonce='group', ng-if='group.type==="party" && group.quest.key')
+      .modal-header
+        h3(ng-if='group.quest.active==false') Quest Invitation: {{Content.quests[group.quest.key].text}}
+        h3(ng-if='group.quest.active==true') {{Content.quests[group.quest.key].text}}
+      .modal-body
+        div(ng-if='group.quest.active==false')
+          table.table.table-striped
+            tr(ng-repeat='member in group.members')
+              td {{member.profile.name}}
+              td {{group.quest.members[member._id] === true ? 'Accepted' : group.quest.members[member._id] === false ? 'Rejected' : 'Pending'}}
+          hr
+          .npc_ian.pull-left
+          p Once all members have either accepted or rejected, the quest begins. Only those that clicked "accept" will be able to participate in the quest and recieve the drops. If members are pending too long (inactive?), you can start without them by clicking "Begin".
+          button.btn.btn-small.btn-warning(ng-click='party.$questAccept({"force":true})') Begin
+          //-TODO Cancel button
+          //-TODO Both force-start & cancel should only be available to quest-initiator
+
+        div(ng-if='group.quest.active==true')
+          div(ng-if='Content.quests[group.quest.key].boss')
+            div(class="quest_{{group.quest.key}}")
+            //-
+              .progress(style="height:10px")
+              .bar(style='width: {{Shared.percent(group.quest.hp, Content.quests[group.quest.key].hp)}}%;')
+              span.meter-text
+                i.icon-heart
+                | {{group.quest.hp | number:0}} / {{Content.quests[group.quest.key].hp}}
+            .hero-stats
+              .meter.health(title='Boss Health')
+                .bar(style='width: {{Shared.percent(group.quest.progress.hp, Content.quests[group.quest.key].boss.hp)}}%;')
+                span.meter-text
+                  i.icon-heart
+                  | {{group.quest.progress.hp | number:0}} / {{Content.quests[group.quest.key].boss.hp}}
+
+          div(ng-if='Content.quests[group.quest.key].collect')
+            h4 Collected:
+            table.table.table-striped
+              tr(ng-repeat='(k,v) in group.quest.progress.collect')
+                td
+                  div(class='{{group.quest.key}}_k') {{Content.quests[group.quest.key].collect[k].text}}
+                td
+                  {{v}} / {{Content.quests[group.quest.key].collect[k].count}}
+
+          p {{Content.quests[group.quest.key].notes}}
+          hr
+          h5 Participants
+          table.table.table-striped
+            tr(ng-repeat='(k,v) in group.members', ng-show='group.quest.members[v._id]')
+              td {{v.profile.name}}
+          quest-rewards(key='{{group.quest.key}}')
+
+          div(ng-if='Content.quests[group.quest.key].boss')
+            .npc_ian.pull-left
+            p To hurt a boss, complete your Dailies and To-Dos. Higher task-damage (completing reds, Wizard spells, Warrior attacks...) translates to high Boss damage.
+            br
+            p At the end of each day, every daily you missed will be tallied up, and the boss will deal that much damage (multiplied by the bosses Strength) to the party. So help your friends by completing your dailies!
+            br
+            p Only participants will fight the boss and share in the quest loot. If you die during a boss-battle, you get booted from the battle. If everyone dies once, the quest fails.
+
+          div(ng-if='Content.quests[group.quest.key].collect')
+            .npc_ian.pull-left
+            p To collect items, do your positive tasks. Quest items drop just like normal items; however, you won't see the drops until the next day, then everything you've found will be tallied up and contributed to the pile.
+            br
+            p Only participants can collect items and share in the quest loot. If you die during a quest, you get booted from the quest. If everyone dies once, the quest fails.
+
+
+          button.btn.btn-mini.btn-danger(ng-click='questAbort()') Abort
+
     // ------ Information -------
-    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
+    .modal.inline-modal
       .modal-header(bindonce='group')
         span(ng-if='group.leader == user.id')
           button.btn.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing') Save
@@ -31,11 +100,13 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
         div(ng-show='!group._editing')
           img.pull-right(ng-show='group.logo', style='max-width:150px', ng-src='{{group.logo}}')
           markdown(ng-model='group.description')
+        hr
+        small.muted Group ID: {{group._id}}
 
     include ./challenge-box
 
     // ------ Members -------
-    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
+    .modal.inline-modal
       .modal-header
         h3 Members
       .modal-body

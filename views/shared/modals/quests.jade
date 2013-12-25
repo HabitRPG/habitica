@@ -1,0 +1,45 @@
+script(id='partials/options.social.party.quest-rewards.html', type='text/ng-template')
+  hr
+  h5 {{header}}
+  table.table.table-striped
+    tr
+      td {{quest.drop.text}}
+    tr
+      td {{quest.drop.exp}} Experience
+    tr
+      td {{quest.drop.gp}} Gold
+
+div(modal='user.party.quest.completed', ng-controller='InventoryCtrl')
+  .modal-header
+    h3 "{{Content.quests[user.party.quest.completed].text}}" Completed!
+  .modal-body
+    p {{Content.quests[user.party.quest.completed].completion}}
+    quest-rewards(key='{{user.party.quest.completed}}', header="You've Received")
+  .modal-footer
+    button.btn.btn-default.btn-primary(ng-click='set({"party.quest.completed":""})') Accept
+
+div(modal='modals.showQuest', ng-controller='InventoryCtrl')
+  .modal-header
+    h3 {{selectedQuest.text}}
+  .modal-body
+    .pull-right(class='quest_{{selectedQuest.key}}')
+    p {{selectedQuest.notes}}
+    quest-rewards(key='{{selectedQuest.key}}')
+    hr
+    div(style='clear:left;clear:right')
+      .npc_ian.pull-left
+      p Clicking "Invite" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Options > Social > Party.
+  .modal-footer
+    button.btn.btn-default.btn-small.btn-cancel(ng-click='closeQuest()') Cancel
+    button.btn.btn-default.btn-primary(ng-click='questInit()') Invite Party
+
+div(modal='party.quest.key && !party.quest.active && !questHold && party.quest.members[user._id] == undefined')
+  .modal-header
+    h3 Quest Invitation: {{Content.quests[party.quest.key].text}}
+  .modal-body
+    p {{Content.quests[party.quest.key].notes}}
+    quest-rewards(key='{{party.quest.key}}')
+  .modal-footer
+    button.btn.btn-default.btn-small.btn-cancel(ng-click='questHold = true') Ask Later
+    button.btn.btn-default.btn-small.btn-cancel(ng-click='party.$questReject()') Reject
+    button.btn.btn-default.btn-primary(ng-click='party.$questAccept()') Accept

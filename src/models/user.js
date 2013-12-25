@@ -16,7 +16,7 @@ var Challenge = require('./challenge').model;
 
 var eggPotionMapping = _.transform(shared.content.eggs, function(m, egg){
   _.defaults(m, _.transform(shared.content.hatchingPotions, function(m2, pot){
-    m2[egg.name + '-' + pot.name] = true;
+    m2[egg.key + '-' + pot.key] = true;
   }));
 })
 
@@ -45,7 +45,8 @@ var UserSchema = new Schema({
     veteran: Boolean,
     snowball: Number,
     streak: Number,
-    challenges: Array
+    challenges: Array,
+    quests: Schema.Types.Mixed
   },
   auth: {
     facebook: Schema.Types.Mixed,
@@ -182,25 +183,33 @@ var UserSchema = new Schema({
     ),
     currentMount: String,
 
+    // Quests: {
+    //  'boss_0': 0, // 0 indicates "doesn't own"
+    //  'collection_honey': 5 // Number indicates "stacking"
+    // }
+    quests: _.transform(shared.content.quests, function(m,v,k){ m[k] = Number; }),
+
     lastDrop: {
       date: {type: Date, 'default': Date.now},
       count: {type: Number, 'default': 0}
     }
   },
 
-  lastCron: {
-    type: Date,
-    'default': Date.now
-  },
+  lastCron: {type: Date, 'default': Date.now},
 
-  // FIXME remove?
   party: {
-    //party._id // FIXME make these populate docs?
-    current: String, // party._id
-    invitation: String, // party._id
+    // id // FIXME can we use a populated doc instead of fetching party separate from user?
     lastMessageSeen: String,
-    leader: Boolean,
-    order: {type:String, 'default':'level'}
+    order: {type:String, 'default':'level'},
+    quest: {
+      key: String,
+      progress: {
+        up: {type: Number, 'default': 0},
+        down: {type: Number, 'default': 0},
+        collect: {type: Schema.Types.Mixed, 'default': {}} // {feather:1, ingot:2}
+      },
+      completed: String // When quest is done, we move it from key => completed, and it's a one-time flag (for modal) that they unset by clicking "ok" in browser
+    }
   },
   preferences: {
     armorSet: String,
@@ -244,13 +253,13 @@ var UserSchema = new Schema({
     int: {type: Number, 'default': 0},
     per: {type: Number, 'default': 0},
     buffs: {
-      str: Number,
-      def: Number,
-      per: Number,
-      con: Number,
-      stealth: Number,
-      streaks: Boolean,
-      snowball: Boolean
+      str: {type: Number, 'default': 0},
+      def: {type: Number, 'default': 0},
+      per: {type: Number, 'default': 0},
+      con: {type: Number, 'default': 0},
+      stealth: {type: Number, 'default': 0},
+      streaks: {type: Boolean, 'default': false},
+      snowball: {type: Boolean, 'default': false}
     }
   },
   tags: [

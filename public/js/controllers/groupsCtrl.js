@@ -267,11 +267,11 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     }
   ])
 
-  .controller("PartyCtrl", ['$scope', 'Groups', 'User', '$state',
-    function($scope, Groups, User, $state) {
+  .controller("PartyCtrl", ['$rootScope','$scope', 'Groups', 'User', '$state',
+    function($rootScope,$scope, Groups, User, $state) {
       $scope.type = 'party';
       $scope.text = 'Party';
-      $scope.group = Groups.party();
+      $scope.group = $rootScope.party = Groups.party();
       $scope.newGroup = new Groups.Group({type:'party', leader: User.user._id, members: [User.user._id]});
       $scope.create = function(group){
         group.$save(function(newGroup){
@@ -299,6 +299,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.reject = function(){
         //User.user.invitations.party = undefined;
         User.set({'invitations.party':{}});
+      }
+
+      $scope.questAbort = function(){
+        if (!confirm("Are you sure you want to abort this mission? It will abort it for everyone in your party.")) return;
+        if (!confirm("Are you double sure? Make sure they won't hate you forever!")) return;
+        $rootScope.party.$questAbort();
       }
     }
   ])

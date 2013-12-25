@@ -1,5 +1,5 @@
-habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL', '$http', 'Notification',
-  function($rootScope, $scope, User, API_URL, $http, Notification) {
+habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
+  function($rootScope, $scope, User) {
 
     var user = User.user;
     var Content = $rootScope.Content;
@@ -17,6 +17,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     $scope.$watch('user.items.eggs', function(eggs){ $scope.eggCount = countStacks(eggs); }, true);
     $scope.$watch('user.items.hatchingPotions', function(pots){ $scope.potCount = countStacks(pots); }, true);
     $scope.$watch('user.items.food', function(food){ $scope.foodCount = countStacks(food); }, true);
+    $scope.$watch('user.items.quests', function(quest){ $scope.questCount = countStacks(quest); }, true);
 
     $scope.$watch('user.items.gear', function(gear){
       $scope.gear = {
@@ -31,10 +32,10 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     }, true);
 
     $scope.chooseEgg = function(egg){
-      if ($scope.selectedEgg && $scope.selectedEgg.name == egg) {
+      if ($scope.selectedEgg && $scope.selectedEgg.key == egg) {
         return $scope.selectedEgg = null; // clicked same egg, unselect
       }
-      var eggData = _.findWhere(Content.eggs, {name:egg});
+      var eggData = _.findWhere(Content.eggs, {key:egg});
       if (!$scope.selectedPotion) {
         $scope.selectedEgg = eggData;
       } else {
@@ -43,11 +44,11 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     }
 
     $scope.choosePotion = function(potion){
-      if ($scope.selectedPotion && $scope.selectedPotion.name == potion) {
+      if ($scope.selectedPotion && $scope.selectedPotion.key == potion) {
         return $scope.selectedPotion = null; // clicked same egg, unselect
       }
       // we really didn't think through the way these things are stored and getting passed around...
-      var potionData = _.findWhere(Content.hatchingPotions, {name:potion});
+      var potionData = _.findWhere(Content.hatchingPotions, {key:potion});
       if (!$scope.selectedEgg) {
         $scope.selectedPotion = potionData;
       } else {
@@ -56,7 +57,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     }
 
     $scope.chooseFood = function(food){
-      if ($scope.selectedFood && $scope.selectedFood.name == food) return $scope.selectedFood = null;
+      if ($scope.selectedFood && $scope.selectedFood.key == food) return $scope.selectedFood = null;
       $scope.selectedFood = Content.food[food];
     }
 
@@ -64,8 +65,8 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
       var selected = $scope.selectedEgg ? 'selectedEgg' : $scope.selectedPotion ? 'selectedPotion' : $scope.selectedFood ? 'selectedFood' : undefined;
       if (selected) {
         var type = $scope.selectedEgg ? 'eggs' : $scope.selectedPotion ? 'hatchingPotions' : $scope.selectedFood ? 'food' : undefined;
-        user.ops.sell({params:{type:type, key: $scope[selected].name}});
-        if (user.items[type][$scope[selected].name] < 1) {
+        user.ops.sell({params:{type:type, key: $scope[selected].key}});
+        if (user.items[type][$scope[selected].key] < 1) {
           $scope[selected] = null;
         }
       }
@@ -76,19 +77,22 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
     }
 
     $scope.hatch = function(egg, potion){
-      if (!confirm('Hatch a ' + potion.name + ' ' + egg.name + '?')) return;
-      user.ops.hatch({params:{egg:egg.name, hatchingPotion:potion.name}});
+      if (!confirm('Hatch a ' + potion.key + ' ' + egg.key + '?')) return;
+      user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
     }
 
     $scope.purchase = function(type, item){
+      var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
+      if (!completedPrevious)
+        return alert("You must first complete " + $rootScope.Content.quests[item.previous].text + '.');
       var gems = User.user.balance * 4;
       if(gems < item.value) return $rootScope.modals.buyGems = true;
       var string = (type == 'hatchingPotion') ? 'hatching potion' : type; // give hatchingPotion a space
       var message = "Buy this " + string + " with " + item.value + " of your " + gems + " Gems?"
       if(confirm(message))
-        User.user.ops.purchase({params:{type:type,key:item.name}});
+        User.user.ops.purchase({params:{type:type,key:item.key}});
     }
 
     $scope.choosePet = function(egg, potion){
@@ -97,12 +101,12 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
       // Feeding Pet
       if ($scope.selectedFood) {
         var food = $scope.selectedFood
-        if (food.name == 'Saddle') {
+        if (food.key == 'Saddle') {
           if (!confirm('Saddle ' + pet + '?')) return;
-        } else if (!confirm('Feed ' + pet + ' a ' + food.name + '?')) {
+        } else if (!confirm('Feed ' + pet + ' a ' + food.key + '?')) {
           return;
         }
-        User.user.ops.feed({params:{pet: pet, food: food.name}});
+        User.user.ops.feed({params:{pet: pet, food: food.key}});
         $scope.selectedFood = null;
 
       // Selecting Pet
@@ -113,6 +117,21 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User', 'API_URL',
 
     $scope.chooseMount = function(egg, potion) {
       User.user.ops.equip({params:{type: 'mount', key: egg + '-' + potion}});
+    }
+
+    $scope.showQuest = function(quest) {
+      $rootScope.selectedQuest = Content.quests[quest];
+      $rootScope.modals.showQuest = true;
+    }
+    $scope.closeQuest = function(){
+      $rootScope.selectedQuest = undefined;
+      $rootScope.modals.showQuest = false;
+    }
+    $scope.questInit = function(){
+      $rootScope.party.$questAccept({key:$scope.selectedQuest.key}, function(){
+        $rootScope.party.$get();
+      });
+      $scope.closeQuest();
     }
   }
 ]);

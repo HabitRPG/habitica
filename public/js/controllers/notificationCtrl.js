@@ -37,10 +37,10 @@ habitrpg.controller('NotificationCtrl',
       var type = (after.type == 'Food') ? 'food' :
         (after.type == 'HatchingPotion') ? 'hatchingPotions' : // can we use camelcase and remove this line?
         (after.type.toLowerCase() + 's');
-      if(!User.user.items[type][after.name]){
-        User.user.items[type][after.name] = 0;
+      if(!User.user.items[type][after.key]){
+        User.user.items[type][after.key] = 0;
       }
-      User.user.items[type][after.name]++;
+      User.user.items[type][after.key]++;
       $rootScope.modals.drop = true;
     });
 

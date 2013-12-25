@@ -82,11 +82,11 @@ api.score = function(req, res, next) {
     task = user.ops.addTask({body:task});
   }
   var delta = user.ops.score({params:{id:task.id, direction:direction}});
-  //user.markModified('flags');
-  user.save(function(err, saved) {
+
+  user.save(function(err,saved){
     if (err) return res.json(500, {err: err});
     res.json(200, _.extend({
-      delta: delta
+      delta: delta,
     }, saved.toJSON().stats));
   });
 
@@ -193,11 +193,38 @@ api.update = function(req, res, next) {
 };
 
 api.cron = function(req, res, next) {
-  var user = res.locals.user;
-  user.fns.cron();
-  if (user.isModified())
-    res.locals.wasModified = true;
-  user.save(next);
+  var user = res.locals.user,
+    progress = user.fns.cron(),
+    ranCron = user.isModified(),
+    quest = shared.content.quests[user.party.quest.key];
+
+  if (ranCron) res.locals.wasModified = true;
+  if (!ranCron) return next(null,user);
+  if (!quest) return user.save(next);
+
+  // If user is on a quest, roll for boss & player, or handle collections
+  // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
+  async.waterfall([
+    function(cb){
+      user.save(cb); // make sure to save the cron effects
+    },
+    function(saved, count, cb) {
+      Group.findOne({type: 'party', members: {'$in': [user._id]}}, cb);
+    },
+    function(group, cb){
+      var type = quest.boss ? 'boss' : 'collect';
+      group[type+'Quest'](user,progress,cb);
+    },
+    function(){
+      var cb = arguments[arguments.length-1];
+      // User has been updated in boss-grapple, reload
+      User.findById(user._id, cb);
+    }
+  ], function(err, saved) {
+    user = res.locals.user = saved;
+    next(err,saved);
+  });
+
 };
 
 // api.reroll // Shared.ops
@@ -347,15 +374,8 @@ api.cast = function(req, res) {
 
           if (group) {
             series.push(function(cb2){
-              group.chat.unshift({
-                id: shared.uuid(),
-                uuid: user._id,
-                contributor: user.contributor && user.contributor.toObject(),
-                backer: user.backer && user.backer.toObject(),
-                text: '`casts ' +  spell.text + (type == 'user' ? ' on @'+found.profile.name : ' for the party') + '.`',
-                user: '<'+user.profile.name+'>',
-                timestamp: +new Date
-              });
+              var message = '`<'+user.profile.name+'> casts '+spell.text + (type=='user' ? ' on @'+found.profile.name : ' for the party')+'.`';
+              group.sendChat(message);
               group.save(cb2);
             })
           }

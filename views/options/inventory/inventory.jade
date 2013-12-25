@@ -31,7 +31,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
             p(ng-show='eggCount < 1') You don't have any eggs.
             div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
               //TODO move positioning this styling to css
-              button.customize-option(popover='{{Content.eggs[egg].notes}}', popover-title='{{Content.eggs[egg].text}} Egg', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !user.items.pets[egg+"-"+selectedPotion.name]}')
+              button.customize-option(popover='{{Content.eggs[egg].notes}}', popover-title='{{Content.eggs[egg].text}} Egg', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !user.items.pets[egg+"-"+selectedPotion.key]}')
                 .badge.badge-info.stack-count {{points}}
               //-p {{Content.eggs[egg].text}}
 
@@ -39,9 +39,15 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
           menu.hatchingPotion-menu(label='Hatching Potions ({{potCount}})')
             p(ng-show='potCount < 1') You don't have any hatching potions.
             div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
-              button.customize-option(popover='{{Content.hatchingPotions[pot].notes}}', popover-title='{{Content.hatchingPotions[pot].text}} Potion', popover-trigger='mouseenter', popover-placement='right', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !user.items.pets[selectedEgg.name+"-"+pot]}')
+              button.customize-option(popover='{{Content.hatchingPotions[pot].notes}}', popover-title='{{Content.hatchingPotions[pot].text}} Potion', popover-trigger='mouseenter', popover-placement='right', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !user.items.pets[selectedEgg.key+"-"+pot]}')
                 .badge.badge-info.stack-count {{points}}
-              //-p {{pot}}
+
+        li.customize-menu
+          menu.pets-menu(label='Quest Scrolls ({{questCount}})')
+            p(ng-show='questCount < 1') You don't have any quest scrolls.
+            div(ng-repeat='(quest,points) in ownedItems(user.items.quests)')
+              button.customize-option(popover='{{Content.quests[quest].notes}}', popover-title='{{Content.quests[quest].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='showQuest(quest)', class='inventory_quest_scroll')
+                .badge.badge-info.stack-count {{points}}
 
         li.customize-menu
           menu.pets-menu(label='Food ({{foodCount}})')
@@ -49,7 +55,6 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
               button.customize-option(popover='{{Content.food[food].notes}}', popover-title='{{Content.food[food].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
                 .badge.badge-info.stack-count {{points}}
-              //-p {{food}}
 
         li.customize-menu(ng-if='user.items.special.snowball')
           menu.pets-menu(label='Special')
@@ -74,17 +79,17 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                     | Welcome to the Market! Buy hard-to-find eggs and potions! Sell your extras! Commission useful services! Come see what we have to offer.
                   p
                     button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')
-                      | Sell {{selectedEgg.name}} for {{selectedEgg.value}} Gold
+                      | Sell {{selectedEgg.key}} for {{selectedEgg.value}} Gold
                     button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')
-                      | Sell {{selectedPotion.name}} for {{selectedPotion.value}} Gold
+                      | Sell {{selectedPotion.key}} for {{selectedPotion.value}} Gold
                     button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')
-                      | Sell {{selectedFood.name}} for {{selectedFood.value}} Gold
+                      | Sell {{selectedFood.key}} for {{selectedFood.value}} Gold
 
         menu.inventory-list(type='list')
           li.customize-menu
             menu.pets-menu(label='Eggs')
               div(ng-repeat='egg in Content.eggs')
-                button.customize-option(popover='{{egg.notes}}', popover-title='{{egg.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", egg)', class='Pet_Egg_{{egg.name}}')
+                button.customize-option(popover='{{egg.notes}}', popover-title='{{egg.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", egg)', class='Pet_Egg_{{egg.key}}')
                 p
                   |  {{egg.value}}
                   span.Pet_Currency_Gem1x.inline-gems
@@ -92,23 +97,31 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
           li.customize-menu
             menu.pets-menu(label='Hatching Potions')
               div(ng-repeat='pot in Content.hatchingPotions')
-                button.customize-option(popover='{{pot.notes}}', popover-title='{{pot.text}} Potion', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("hatchingPotions", pot)', class='Pet_HatchingPotion_{{pot.name}}')
+                button.customize-option(popover='{{pot.notes}}', popover-title='{{pot.text}} Potion', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("hatchingPotions", pot)', class='Pet_HatchingPotion_{{pot.key}}')
                 p
                   |  {{pot.value}}
                   span.Pet_Currency_Gem1x.inline-gems
 
           li.customize-menu
             menu.pets-menu(label='Food')
-              div(ng-repeat='food in Content.food', ng-show='food.name !== "Saddle"')
-                button.customize-option(popover='{{food.notes}}', popover-title='{{food.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", food)', class='Pet_Food_{{food.name}}')
+              div(ng-repeat='food in Content.food', ng-show='food.key !== "Saddle"')
+                button.customize-option(popover='{{food.notes}}', popover-title='{{food.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", food)', class='Pet_Food_{{food.key}}')
                 p
                   |  {{food.value}}
                   span.Pet_Currency_Gem1x.inline-gems
 
           li.customize-menu
+            menu.pets-menu(label='Quests')
+              div(ng-repeat='quest in Content.quests')
+                  button.customize-option(popover='{{quest.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("quests", quest)', class='inventory_quest_scroll', ng-class='{locked: quest.previous && !user.achievements.quests[quest.previous]}')
+                  p
+                    |  {{quest.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
+
+          li.customize-menu
             menu.pets-menu(label='Special')
               div
-                button.customize-option(popover='{{Content.food.Saddle.notes}}', popover-title='{{Content.food.Saddle.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", Content.food.Saddle)', class='Pet_Food_{{Content.food.Saddle.name}}')
+                button.customize-option(popover='{{Content.food.Saddle.notes}}', popover-title='{{Content.food.Saddle.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", Content.food.Saddle)', class='Pet_Food_{{Content.food.Saddle.key}}')
                 p
                   |  {{Content.food.Saddle.value}}
                   span.Pet_Currency_Gem1x.inline-gems

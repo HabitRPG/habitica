@@ -3,7 +3,7 @@ div(modal='modals.dropsEnabled')
     h3 Drops Enabled!
   .modal-body
     //-p // TODO how to handle random first drop?
-      span.item-drop-icon(class='Pet_Egg_{{user.items.eggs.0.name}}', style='margin-left: 0px')
+      span.item-drop-icon(class='Pet_Egg_{{user.items.eggs.0.key}}', style='margin-left: 0px')
       | You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. You just found a
       strong  {{user.items.eggs.0.text}} Egg
       | ! {{user.items.eggs.0.notes}}.
@@ -22,7 +22,7 @@ div(modal='modals.drop')
     h3 An item has dropped!
   .modal-body
     p
-      span.item-drop-icon(class='Pet_{{user._tmp.drop.type}}_{{user._tmp.drop.name}}')
+      span.item-drop-icon(class='Pet_{{user._tmp.drop.type}}_{{user._tmp.drop.key}}')
       | {{user._tmp.drop.dialog}}
   .modal-footer
     button.btn.btn-default.cancel(ng-click='modals.drop = false') Close
