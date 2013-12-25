@@ -6,8 +6,8 @@
     "coffeeify": "0.4.0",
     "coffee-script": "1.6.2",
     "moment": "~2.4.0",
-    "grunt-spritesmith": "~1.16.0",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "grunt-spritesmith": "~1.21.0"
   },
   "devDependencies": {
     "mocha": "*",
