@@ -400,9 +400,8 @@ questStart = function(req, res) {
   group.markModified('quest');
 
   // Not ready yet, wait till everyone's accepted, rejected, or we force-start
-  if (!force && _.findIndex(group.quest.members, function(m){
-    return m === undefined;
-  })) {
+  var statuses = _.values(group.quest.members);
+  if (!force && (~statuses.indexOf(undefined) || ~statuses.indexOf(null))) {
     return group.save(function(err,saved){
       if (err) return res.json(500,{err:err});
       res.json(saved);
@@ -486,12 +485,6 @@ api.questReject = function(req, res, next) {
 
   if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
   group.quest.members[user._id] = false;
-
-  group.save(function(err,saved){
-    if (err) return res.json(500,{err:err});
-    res.json(200,saved);
-  });
-
   questStart(req,res);
 }
 

@@ -28,12 +28,12 @@ div(modal='modals.showQuest', ng-controller='InventoryCtrl')
     hr
     div(style='clear:left;clear:right')
       .npc_ian.pull-left
-      p Clicking "Invite" will send an invitation to your party members. When all members have accepted or denied, the quest begins. If they take to long, feel free to force-start the quest under Options > Social > Party.
+      p Clicking "Invite" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Options > Social > Party.
   .modal-footer
     button.btn.btn-default.btn-small.btn-cancel(ng-click='closeQuest()') Cancel
     button.btn.btn-default.btn-primary(ng-click='questInit()') Invite Party
 
-div(modal='party.quest.key && !questHold && party.quest.members[user._id] == undefined')
+div(modal='party.quest.key && !party.quest.active && !questHold && party.quest.members[user._id] == undefined')
   .modal-header
     h3 Quest Invitation: {{Content.quests[party.quest.key].text}}
   .modal-body

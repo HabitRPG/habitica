@@ -84,7 +84,8 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
     }
 
     $scope.purchase = function(type, item){
-      if (item.previous && !User.user.achievements.quests[item.previous])
+      var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
+      if (!completedPrevious)
         return alert("You must first complete " + $rootScope.Content.quests[item.previous].text + '.');
       var gems = User.user.balance * 4;
       if(gems < item.value) return $rootScope.modals.buyGems = true;

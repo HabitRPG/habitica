@@ -17,8 +17,11 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
           table.table.table-striped
             tr(ng-repeat='member in group.members')
               td {{member.profile.name}}
-              td {{group.quest.members[member._id] == undefined ? 'Pending' : k ? 'Rejected' : 'Accepted'}}
-          button.btn.btn-warning(ng-click='party.$questAccept({"force":true})') Force Start
+              td {{group.quest.members[member._id] === true ? 'Accepted' : group.quest.members[member._id] === false ? 'Rejected' : 'Pending'}}
+          hr
+          .npc_ian.pull-left
+          p Once all members have either accepted or rejected, the quest begins. Only those that clicked "accept" will be able to participate in the quest and recieve the drops. If members are pending too long (inactive?), you can start without them by clicking "Begin".
+          button.btn.btn-small.btn-warning(ng-click='party.$questAccept({"force":true})') Begin
           //-TODO Cancel button
           //-TODO Both force-start & cancel should only be available to quest-initiator
 
@@ -97,6 +100,8 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
         div(ng-show='!group._editing')
           img.pull-right(ng-show='group.logo', style='max-width:150px', ng-src='{{group.logo}}')
           markdown(ng-model='group.description')
+        hr
+        small.muted Group ID: {{group._id}}
 
     include ./challenge-box
 
