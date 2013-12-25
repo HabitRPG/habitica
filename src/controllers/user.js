@@ -194,7 +194,7 @@ api.update = function(req, res, next) {
 
 api.cron = function(req, res, next) {
   var user = res.locals.user,
-    tally = user.fns.cron(),
+    progress = user.fns.cron(),
     ranCron = user.isModified(),
     quest = shared.content.quests[user.party.quest.key];
 
@@ -213,7 +213,7 @@ api.cron = function(req, res, next) {
     },
     function(group, cb){
       var type = quest.boss ? 'boss' : 'collect';
-      group[type+'Quest'](user,tally,cb);
+      group[type+'Quest'](user,progress,cb);
     },
     function(){
       var cb = arguments[arguments.length-1];

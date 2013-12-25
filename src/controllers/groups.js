@@ -422,11 +422,11 @@ questStart = function(req, res) {
       updates['$inc']['items.quests.'+key] = -1;
     if (group.quest.members[m] == true) {
       updates['$set']['party.quest.key'] = key;
-      updates['$set']['party.quest.tally'] = {up:0,down:0,collect:collectTally};
+      updates['$set']['party.quest.progress'] = {up:0,down:0,collect:collectTally};
       questMembers[m] = true;
     } else {
       updates['$unset'] = {'party.quest.key':1};
-      updates['$set']['party.quest.tally'] = {};
+      updates['$set']['party.quest.progress'] = {};
     }
     parallel.push(function(cb2){
       User.update({_id:m},updates,cb2);
@@ -501,7 +501,7 @@ api.questAbort = function(req, res, next){
     function(cb){
       User.update({_id:{$in: _.keys(group.quest.members)}},{
         $unset: {'party.quest.key':1},
-        $set:   {'party.quest.tally.collect':{}},
+        $set:   {'party.quest.progress.collect':{}},
         $inc:   {_v:1}
       },cb);
     },

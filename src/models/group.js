@@ -146,15 +146,15 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   mongoose.models.User.update({_id:{$in:members}}, updates, {multi:true}, cb);
 }
 
-GroupSchema.methods.collectQuest = function(user, tally, cb) {
+GroupSchema.methods.collectQuest = function(user, progress, cb) {
   var group = this,
     quest = shared.content.quests[group.quest.key];
 
-  _.each(tally.collect,function(v,k){
+  _.each(progress.collect,function(v,k){
     group.quest.progress.collect[k] += v;
   });
 
-  var foundText = _.reduce(tally.collect, function(m,v,k){
+  var foundText = _.reduce(progress.collect, function(m,v,k){
     m.push(v + ' ' + quest.collect[k].text);
     return m;
   }, []);
@@ -178,13 +178,13 @@ GroupSchema.methods.collectQuest = function(user, tally, cb) {
   ],cb);
 }
 
-GroupSchema.methods.bossQuest = function(user, tally, cb) {
+GroupSchema.methods.bossQuest = function(user, progress, cb) {
   var group = this;
   var quest = shared.content.quests[group.quest.key];
-  var down = tally.down * quest.boss.str; // multiply by boss strength
+  var down = progress.down * quest.boss.str; // multiply by boss strength
 
-  group.quest.progress.hp -= tally.up;
-  group.sendChat("`<" + user.profile.name + "> attacks <" + quest.boss.name + "> for " + (tally.up.toFixed(1)) + " damage, <" + quest.boss.name + "> attacks party for " + (down.toFixed(1)) + " damage.`");
+  group.quest.progress.hp -= progress.up;
+  group.sendChat("`<" + user.profile.name + "> attacks <" + quest.boss.name + "> for " + (progress.up.toFixed(1)) + " damage, <" + quest.boss.name + "> attacks party for " + (down.toFixed(1)) + " damage.`");
   //var hp = group.quest.progress.hp;
 
   // Everyone takes damage
