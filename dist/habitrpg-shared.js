@@ -11230,6 +11230,7 @@ var process=require("__browserify_process");(function() {
         flags.classSelected = false;
         if (!user.achievements.rebirths) {
           user.achievements.rebirths = 1;
+          user.achievements.rebirthLevel = lvl;
         } else if (lvl > user.achievements.rebirthLevel) {
           user.achievements.rebirths++;
           user.achievements.rebirthLevel = lvl;

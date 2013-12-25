@@ -443,6 +443,7 @@ api.wrap = (user) ->
       # Award an achievement if this is their first Rebirth, or if they made it further than last time
       if not (user.achievements.rebirths)
         user.achievements.rebirths = 1
+        user.achievements.rebirthLevel = lvl
       else if (lvl > user.achievements.rebirthLevel)
         user.achievements.rebirths++
         user.achievements.rebirthLevel = lvl
