@@ -533,7 +533,7 @@ api.wrap = (user) ->
         user.items.gear.owned[item.key] = true
         message = user.fns.handleTwoHanded(item)
         message ?= "Bought #{item.text}."
-        if item.klass in ['warrior','wizard','healer','rogue'] and user.fns.getItem('weapon').last and user.fns.getItem('armor').last and user.fns.getItem('head').last and user.fns.getItem('shield').last
+        if item.klass in ['warrior','wizard','healer','rogue'] and user.fns.getItem('weapon').last and user.fns.getItem('armor').last and user.fns.getItem('head').last and (user.fns.getItem('shield').last or user.fns.getItem('weapon').twoHanded)
           user.achievements.ultimateGear = true
       user.stats.gp -= item.value
       cb? {code:200, message}, req

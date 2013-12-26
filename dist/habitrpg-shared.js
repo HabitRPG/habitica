@@ -11457,7 +11457,7 @@ var process=require("__browserify_process");(function() {
           if (message == null) {
             message = "Bought " + item.text + ".";
           }
-          if (((_ref = item.klass) === 'warrior' || _ref === 'wizard' || _ref === 'healer' || _ref === 'rogue') && user.fns.getItem('weapon').last && user.fns.getItem('armor').last && user.fns.getItem('head').last && user.fns.getItem('shield').last) {
+          if (((_ref = item.klass) === 'warrior' || _ref === 'wizard' || _ref === 'healer' || _ref === 'rogue') && user.fns.getItem('weapon').last && user.fns.getItem('armor').last && user.fns.getItem('head').last && (user.fns.getItem('shield').last || user.fns.getItem('weapon').twoHanded)) {
             user.achievements.ultimateGear = true;
           }
         }
