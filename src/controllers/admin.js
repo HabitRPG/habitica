@@ -14,7 +14,7 @@ api.ensureAdmin = function(req, res, next) {
 
 api.getMember = function(req, res) {
   User.findById(req.params.uid)
-    .select('contributor balance profile.name')
+    .select('contributor balance profile.name purchased')
     .exec(function(err, user){
       if (err) return res.json(500,{err:err});
       if (!user) return res.json(400,{err:'User not found'});
@@ -43,7 +43,8 @@ api.updateMember = function(req, res) {
         member.flags.contributor = true;
         member.balance += (req.body.contributor.level - (member.contributor.level || 0))*.5 // +2 gems per tier
       }
-      _.merge(member, _.pick(req.body, 'contributor'));
+      _.merge(member, _.pick(req.body, ['contributor','balance']));
+      member.purchased.ads = req.body.purchased.ads;
       if (member.contributor.level >= 6) member.items.pets['Dragon-Hydra'] = 5;
       member.save(cb);
     }
