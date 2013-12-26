@@ -147,67 +147,74 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   mongoose.models.User.update({_id:{$in:members}}, updates, {multi:true}, cb);
 }
 
-GroupSchema.methods.collectQuest = function(user, progress, cb) {
-  var group = this,
-    quest = shared.content.quests[group.quest.key];
-
-  _.each(progress.collect,function(v,k){
-    group.quest.progress.collect[k] += v;
-  });
-
-  var foundText = _.reduce(progress.collect, function(m,v,k){
-    m.push(v + ' ' + quest.collect[k].text);
-    return m;
-  }, []);
-  foundText = foundText ? foundText.join(', ') : 'nothing';
-  group.sendChat("`<" + user.profile.name + "> found "+foundText+".`");
-  group.markModified('quest.progress.collect');
-
-  // Still needs completing
-  if (_.find(shared.content.quests[group.quest.key].collect, function(v,k){
-    return group.quest.progress.collect[k] < v.count;
-  })) return group.save(cb);
-
-  async.series([
-    function(cb2){
-      group.finishQuest(quest,cb2);
-    },
-    function(cb2){
-      group.sendChat('`All items found! Party has received their rewards.`');
-      group.save(cb2);
-    }
-  ],cb);
+// FIXME this is a temporary measure, we need to remove quests from users when they traverse parties
+function isOnQuest(user,group){
+  return group && user.party.quest.key && user.party.quest.key == group.quest.key;
 }
 
-GroupSchema.methods.bossQuest = function(user, progress, cb) {
-  var group = this;
-  var quest = shared.content.quests[group.quest.key];
-  if (!progress) progress = {down:0,up:0}; // FIXME why is this ever happening, progress should be defined at this point
-  var down = progress.down * quest.boss.str; // multiply by boss strength
+GroupSchema.statics.collectQuest = function(user, progress, cb) {
+  this.findOne({type: 'party', members: {'$in': [user._id]}},function(err, group){
+    if (!isOnQuest(user,group)) return cb(null);
+    var quest = shared.content.quests[group.quest.key];
 
-  group.quest.progress.hp -= progress.up;
-  group.sendChat("`<" + user.profile.name + "> attacks <" + quest.boss.name + "> for " + (progress.up.toFixed(1)) + " damage, <" + quest.boss.name + "> attacks party for " + (down.toFixed(1)) + " damage.`");
-  //var hp = group.quest.progress.hp;
-
-  // Everyone takes damage
-  var series = [
-    function(cb2){
-      mongoose.models.User.update({_id:{$in: _.keys(group.quest.members)}}, {$inc:{'stats.hp':down, _v:1}}, {multi:true}, cb2);
-    }
-  ]
-
-  // Boss slain, finish quest
-  if (group.quest.progress.hp <= 0) {
-    group.sendChat('`' + quest.boss.name + ' has been slain! Party has received their rewards.`');
-    // Participants: Grant rewards & achievements, finish quest
-    series.push(function(cb2){
-      group.finishQuest(quest,cb2);
+    _.each(progress.collect,function(v,k){
+      group.quest.progress.collect[k] += v;
     });
-  }
 
-  series.push(function(cb2){group.save(cb2)});
-  async.series(series,cb);
-  //return hp;
+    var foundText = _.reduce(progress.collect, function(m,v,k){
+      m.push(v + ' ' + quest.collect[k].text);
+      return m;
+    }, []);
+    foundText = foundText ? foundText.join(', ') : 'nothing';
+    group.sendChat("`<" + user.profile.name + "> found "+foundText+".`");
+    group.markModified('quest.progress.collect');
+
+    // Still needs completing
+    if (_.find(shared.content.quests[group.quest.key].collect, function(v,k){
+      return group.quest.progress.collect[k] < v.count;
+    })) return group.save(cb);
+
+    async.series([
+      function(cb2){
+        group.finishQuest(quest,cb2);
+      },
+      function(cb2){
+        group.sendChat('`All items found! Party has received their rewards.`');
+        group.save(cb2);
+      }
+    ],cb);
+  })
+}
+
+GroupSchema.statics.bossQuest = function(user, progress, cb) {
+  this.findOne({type: 'party', members: {'$in': [user._id]}},function(err, group){
+    if (!isOnQuest(user,group)) return cb(null);
+    var quest = shared.content.quests[group.quest.key];
+    if (!progress || !quest) return cb(null); // FIXME why is this ever happening, progress should be defined at this point
+    var down = progress.down * quest.boss.str; // multiply by boss strength
+
+    group.quest.progress.hp -= progress.up;
+    group.sendChat("`<" + user.profile.name + "> attacks <" + quest.boss.name + "> for " + (progress.up.toFixed(1)) + " damage, <" + quest.boss.name + "> attacks party for " + (down.toFixed(1)) + " damage.`");
+
+    // Everyone takes damage
+    var series = [
+      function(cb2){
+        mongoose.models.User.update({_id:{$in: _.keys(group.quest.members)}}, {$inc:{'stats.hp':down, _v:1}}, {multi:true}, cb2);
+      }
+    ]
+
+    // Boss slain, finish quest
+    if (group.quest.progress.hp <= 0) {
+      group.sendChat('`' + quest.boss.name + ' has been slain! Party has received their rewards.`');
+      // Participants: Grant rewards & achievements, finish quest
+      series.push(function(cb2){
+        group.finishQuest(quest,cb2);
+      });
+    }
+
+    series.push(function(cb2){group.save(cb2)});
+    async.series(series,cb);
+  })
 }
 
 module.exports.schema = GroupSchema;

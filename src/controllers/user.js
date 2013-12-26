@@ -204,12 +204,9 @@ api.cron = function(req, res, next) {
     function(cb){
       user.save(cb); // make sure to save the cron effects
     },
-    function(saved, count, cb) {
-      Group.findOne({type: 'party', members: {'$in': [user._id]}}, cb);
-    },
-    function(group, cb){
+    function(saved, count, cb){
       var type = quest.boss ? 'boss' : 'collect';
-      group[type+'Quest'](user,progress,cb);
+      Group[type+'Quest'](user,progress,cb);
     },
     function(){
       var cb = arguments[arguments.length-1];
