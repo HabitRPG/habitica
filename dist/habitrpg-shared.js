@@ -10015,7 +10015,7 @@ var global=self;/**
           bonus = (target.value < 0 ? 1 : target.value + 1) * 2.5;
           user.stats.exp += bonus;
           if (user.party.quest.key) {
-            return user.party.quest.tally.up += bonus;
+            return user.party.quest.progress.up += bonus;
           }
         }
       },
@@ -10073,7 +10073,7 @@ var global=self;/**
         cast: function(user, target) {
           target.value += user._statsComputed.str * .01 * user.fns.crit('per');
           if (user.party.quest.key) {
-            return user.party.quest.tally.up += Math.ceil(user._statsComputed.str * .2);
+            return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
           }
         }
       },

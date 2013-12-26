@@ -222,7 +222,7 @@ api.spells =
         target.value += user._statsComputed.int * .0075 * user.fns.crit('per')
         bonus = (if target.value < 0 then 1 else target.value+1) * 2.5
         user.stats.exp += bonus
-        user.party.quest.tally.up += bonus if user.party.quest.key
+        user.party.quest.progress.up += bonus if user.party.quest.key
 
     mpheal:
       text: 'Ethereal Surge'
@@ -265,7 +265,7 @@ api.spells =
       notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases."
       cast: (user, target) ->
         target.value += user._statsComputed.str * .01 * user.fns.crit('per')
-        user.party.quest.tally.up += Math.ceil(user._statsComputed.str * .2) if user.party.quest.key
+        user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2) if user.party.quest.key
     defensiveStance:
       text: 'Defensive Stance'
       mana: 25
@@ -317,7 +317,7 @@ api.spells =
         bonus =  (if target.value < 0 then 1 else target.value+1) * _crit
         user.stats.exp += bonus
         user.stats.gp += bonus
-        # user.party.quest.tally.up += bonus if user.party.quest.key # remove hurting bosses for rogues, seems OP for now
+        # user.party.quest.progress.up += bonus if user.party.quest.key # remove hurting bosses for rogues, seems OP for now
     toolsOfTrade:
       text: 'Tools of the Trade'
       mana: 25
