@@ -46,7 +46,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
             table.table.table-striped
               tr(ng-repeat='(k,v) in group.quest.progress.collect')
                 td
-                  div(class='{{group.quest.key}}_k') {{Content.quests[group.quest.key].collect[k].text}}
+                  div(class='quest_{{group.quest.key}}_{{k}}') {{Content.quests[group.quest.key].collect[k].text}}
                 td
                   {{v}} / {{Content.quests[group.quest.key].collect[k].count}}
 
