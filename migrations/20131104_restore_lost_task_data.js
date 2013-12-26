@@ -13,7 +13,7 @@ var liveUsers = mongo.db('localhost:27017/habitrpg_new?auto_reconnect').collecti
 
 backupUsers.count(function(err, count){
   if (err) return console.error(err);
-  backupUsers.findEach({}, {batchSize:10}, function(err, before){
+  backupUsers.findEach({}, {batchSize:250}, function(err, before){
     if (err) return console.error(err);
     if (!before) return console.log('!before');
     liveUsers.findById(before._id, function(err, after){
