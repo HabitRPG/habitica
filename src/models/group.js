@@ -182,6 +182,7 @@ GroupSchema.methods.collectQuest = function(user, progress, cb) {
 GroupSchema.methods.bossQuest = function(user, progress, cb) {
   var group = this;
   var quest = shared.content.quests[group.quest.key];
+  if (!progress) progress = {down:0,up:0}; // FIXME why is this ever happening, progress should be defined at this point
   var down = progress.down * quest.boss.str; // multiply by boss strength
 
   group.quest.progress.hp -= progress.up;
