@@ -65,6 +65,9 @@ angular.module("notificationServices", [])
       },
       error: function(error){
         growl("<i class='icon-exclamation-sign'></i> " + error, "error");
+      },
+      mp: function(val) {
+        growl("<i class='icon-fire'></i> " + sign(val) + " " + round(val) + " MP", 'mp');
       }
     };
   }

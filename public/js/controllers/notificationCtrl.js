@@ -31,6 +31,13 @@ habitrpg.controller('NotificationCtrl',
       }
     });
 
+    $rootScope.$watch('user.stats.mp', function(after,before) {
+       if (after == before) return;
+       if (User.user.stats.lvl == 0) return;
+       var mana = after - before;
+       Notification.mp(mana);
+    });
+
     $rootScope.$watch('user._tmp.drop', function(after, before){
       // won't work when getting the same item twice?
       if (after == before || !after) return;
