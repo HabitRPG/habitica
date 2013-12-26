@@ -39,11 +39,12 @@ api.updateMember = function(req, res) {
     },
     function(member, cb){
       if (!member) return res.json(404, {err: "User not found"});
+      member.balance = req.body.balance || 0;
       if (req.body.contributor.level > (member.contributor && member.contributor.level || 0)) {
         member.flags.contributor = true;
         member.balance += (req.body.contributor.level - (member.contributor.level || 0))*.5 // +2 gems per tier
       }
-      _.merge(member, _.pick(req.body, ['contributor','balance']));
+      member.contributor = req.body.contributor;
       member.purchased.ads = req.body.purchased.ads;
       if (member.contributor.level >= 6) member.items.pets['Dragon-Hydra'] = 5;
       member.save(cb);
