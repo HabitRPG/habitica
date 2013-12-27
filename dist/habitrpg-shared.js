@@ -9363,19 +9363,19 @@ var global=self;/**
           value: 45
         },
         4: {
-          text: "Priest Rod",
+          text: "Physician Rod",
           notes: 'As much a badge of office as a healing tool. Increases INT by 7.',
           int: 7,
           value: 65
         },
         5: {
-          text: "Royal Crosier",
-          notes: 'Shines with the pure light of blessings. Increases INT by 9.',
+          text: "Royal Scepter",
+          notes: 'Fit to grace the hand of a monarch, or of one who stands at a monarch\'s right hand. Increases INT by 9.',
           int: 9,
           value: 90
         },
         6: {
-          text: "Golden Crosier",
+          text: "Golden Scepter",
           notes: 'Soothes the pain of all who look upon it. Increases INT by 11.',
           int: 11,
           value: 120,
@@ -9552,19 +9552,19 @@ var global=self;/**
           value: 45
         },
         3: {
-          text: "Defender Vestment",
+          text: "Defender Mantle",
           notes: 'Turns the healer\'s own magics inward to fend off harm. Increases CON by 12.',
           con: 12,
           value: 65
         },
         4: {
-          text: "Priest Vestment",
+          text: "Physician Mantle",
           notes: 'Projects authority and dissipates curses. Increases CON by 15.',
           con: 15,
           value: 90
         },
         5: {
-          text: "Royal Vestment",
+          text: "Royal Mantle",
           notes: 'Attire of those who have saved the lives of kings. Increases CON by 18.',
           con: 18,
           value: 120,
@@ -9886,7 +9886,7 @@ var global=self;/**
           value: 35
         },
         3: {
-          text: "Hospitaler Shield",
+          text: "Protector Shield",
           notes: 'Traditional shield of defender knights. Increases CON by 6.',
           con: 6,
           value: 50
@@ -10408,43 +10408,53 @@ var global=self;/**
   api.food = {
     Meat: {
       text: 'Meat',
-      target: 'Base'
+      target: 'Base',
+      article: ''
     },
     Milk: {
       text: 'Milk',
-      target: 'White'
+      target: 'White',
+      article: ''
     },
     Potatoe: {
       text: 'Potato',
-      target: 'Desert'
+      target: 'Desert',
+      article: 'a '
     },
     Strawberry: {
       text: 'Strawberry',
-      target: 'Red'
+      target: 'Red',
+      article: 'a '
     },
     Chocolate: {
       text: 'Chocolate',
-      target: 'Shade'
+      target: 'Shade',
+      article: ''
     },
     Fish: {
       text: 'Fish',
-      target: 'Skeleton'
+      target: 'Skeleton',
+      article: 'a '
     },
     RottenMeat: {
       text: 'Rotten Meat',
-      target: 'Zombie'
+      target: 'Zombie',
+      article: ''
     },
     CottonCandyPink: {
       text: 'Pink Cotton Candy',
-      target: 'CottonCandyPink'
+      target: 'CottonCandyPink',
+      article: ''
     },
     CottonCandyBlue: {
       text: 'Blue Cotton Candy',
-      target: 'CottonCandyBlue'
+      target: 'CottonCandyBlue',
+      article: ''
     },
     Honey: {
       text: 'Honey',
-      target: 'Golden'
+      target: 'Golden',
+      article: ''
     },
     Saddle: {
       text: 'Saddle',
@@ -11904,7 +11914,7 @@ var process=require("__browserify_process");(function() {
             }
             user.items.food[drop.key] += 1;
             drop.type = 'Food';
-            drop.dialog = "You've found a " + drop.text + " Food! " + drop.notes;
+            drop.dialog = "You've found " + drop.article + drop.text + "! " + drop.notes;
           } else if (rarity > .3) {
             drop = user.fns.randomVal(content.eggs);
             if ((_base1 = user.items.eggs)[_name1 = drop.key] == null) {
