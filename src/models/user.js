@@ -228,6 +228,7 @@ var UserSchema = new Schema({
     timezoneOffset: Number,
     language: String,
     automaticAllocation: Boolean,
+    allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
     costume: Boolean,
     sleep: {type: Boolean, 'default': false},
     stickyHeader: {type: Boolean, 'default': true},
