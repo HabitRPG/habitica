@@ -7,7 +7,6 @@ var app = express();
 var nconf = require('nconf');
 var utils = require('./utils');
 var middleware = require('./middleware');
-//var connectDomain = require('connect-domain');
 var domainMiddleware = require('domain-middleware');
 var server;
 var TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
@@ -93,7 +92,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(app.router);
-//app.use(connectDomain());
 
 var maxAge = (nconf.get('NODE_ENV') === 'production') ? 31536000000 : 0;
 app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));

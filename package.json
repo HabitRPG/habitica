@@ -45,7 +45,6 @@
     "pretty-data": "git://github.com/vkiryukhin/pretty-data#master",
     "js2xmlparser": "~0.1.2",
     "mongoose": "~3.8.1",
-    "connect-domain": "~0.5.0",
     "domain-middleware": "~0.1.0"
   },
   "private": true,
