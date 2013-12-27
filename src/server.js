@@ -7,21 +7,14 @@ var app = express();
 var nconf = require('nconf');
 var utils = require('./utils');
 var middleware = require('./middleware');
+//var connectDomain = require('connect-domain');
+var domainMiddleware = require('domain-middleware');
 var server;
 var TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 
 // ------------ Setup configurations ------------
 require('./config');
-process.on("uncaughtException", function(error) {
-  // when we hit an error, send it to admin as an email. If no ADMIN_EMAIL is present, just send it to yourself (SMTP_USER)
-  utils.sendEmail({
-    from: "HabitRPG <" + nconf.get('SMTP_USER') + ">",
-    to: nconf.get('ADMIN_EMAIL') || nconf.get('SMTP_USER'),
-    subject: "HabitRPG Error",
-    text: error.stack
-  });
-  console.error(error.stack);
-});
+
 
 // ------------  MongoDB Configuration ------------
 mongoose = require('mongoose');
@@ -100,15 +93,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(app.router);
+//app.use(connectDomain());
 
 var maxAge = (nconf.get('NODE_ENV') === 'production') ? 31536000000 : 0;
 app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
 app.use(express['static'](path.join(__dirname, "/../public")));
 
 // development only
-if ("development" === app.get("env")) {
-  app.use(express.errorHandler());
-}
+//if ("development" === app.get("env")) {
+//  app.use(express.errorHandler());
+//}
 
 // Custom Directives
 app.use(require('./routes/pages').middleware);
@@ -116,30 +110,28 @@ app.use(require('./routes/auth').middleware);
 app.use('/api/v2', require('./routes/apiv2').middleware);
 app.use('/api/v1', require('./routes/apiv1').middleware);
 app.use('/export', require('./routes/dataexport').middleware);
+
+app.use(function(err, req, res, next) {
+  // when we hit an error, send it to admin as an email. If no ADMIN_EMAIL is present, just send it to yourself (SMTP_USER)
+  var stack = "["+req.session.userId+"] " + (err.stack ? err.stack : err.message ? err.message : err);
+  utils.sendEmail({
+    from: "HabitRPG <" + nconf.get('SMTP_USER') + ">",
+    to: nconf.get('ADMIN_EMAIL') || nconf.get('SMTP_USER'),
+    subject: "HabitRPG Error",
+    text: stack
+  });
+  console.error(stack);
+  var shortMessage =  (err.message.length < 200) ? err.message :
+    err.message.substring(0,100) + err.message.substring(err.message.length-100,err.message.length);
+  res.json(500,{err:shortMessage}); //res.end(err.message);
+});
+
 server = http.createServer(app).listen(app.get("port"), function() {
   return console.log("Express server listening on port " + app.get("port"));
 });
+app.use(domainMiddleware({
+  server: server,
+  //killTimeout: 30000,
+}))
 
 module.exports = server;
-
-/*
- #ONE_YEAR = 1000 * 60 * 60 * 24 * 365
- #root = path.dirname path.dirname __dirname
- #publicPath = path.join root, 'public'
- #
- #
- #expressApp
- #  .use(express.favicon("#{publicPath}/favicon.ico"))
- #  # Gzip static files and serve from memory
- #  .use(gzippo.staticGzip(publicPath, maxAge: ONE_YEAR))
- #  # Gzip dynamically rendered content
- #  .use(express.compress())
- #  .use(middleware.translate)
- #  .use(auth.middleware(strategies, options))
- #  .use(serverError(root))
- #
- #
- ## Errors
- #expressApp.all '*', (req) ->
- #  throw "404: #{req.url}"
- */
