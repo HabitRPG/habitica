@@ -16,6 +16,7 @@ angular.module('groupServices', ['ngResource']).
             join: {method: "POST", url: API_URL + '/api/v2/groups/:gid/join'},
             leave: {method: "POST", url: API_URL + '/api/v2/groups/:gid/leave'},
             invite: {method: "POST", url: API_URL + '/api/v2/groups/:gid/invite'},
+            removeMember: {method: "POST", url: API_URL + '/api/v2/groups/:gid/removeMember'},
             questAccept: {method: "POST", url: API_URL + '/api/v2/groups/:gid/questAccept'},
             questReject: {method: "POST", url: API_URL + '/api/v2/groups/:gid/questReject'},
             questAbort: {method: "POST", url: API_URL + '/api/v2/groups/:gid/questAbort'}
