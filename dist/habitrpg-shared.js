@@ -63,7 +63,7 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var global=self;/**
+var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
  * @license
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -11937,7 +11937,7 @@ var process=require("__browserify_process");(function() {
       */
 
       updateStats: function(stats) {
-        var suggested, tallies, tnl;
+        var diff, ideal, lowest, preference, suggested, tallies, tnl;
         if (stats.hp <= 0) {
           return user.stats.hp = 0;
         }
@@ -11956,23 +11956,64 @@ var process=require("__browserify_process");(function() {
               user.stats.lvl++;
               tnl = api.tnl(user.stats.lvl);
               if (user.preferences.automaticAllocation) {
-                tallies = _.reduce(user.tasks, (function(m, v) {
-                  m[v.attribute || 'str'] += v.value;
-                  return m;
-                }), {
-                  str: 0,
-                  int: 0,
-                  con: 0,
-                  per: 0
-                });
-                suggested = _.reduce(tallies, (function(m, v, k) {
-                  if (v > tallies[m]) {
-                    return k;
-                  } else {
-                    return m;
-                  }
-                }), 'str');
-                user.stats[suggested]++;
+                switch (user.preferences.allocationMode) {
+                  case "flat":
+                    lowest = Math.min(user.stats.str, user.stats.int, user.stats.con, user.stats.per);
+                    if (user.stats.int === lowest) {
+                      user.stats.int++;
+                    } else if (user.stats.per === lowest) {
+                      user.stats.per++;
+                    } else if (user.stats.str === lowest) {
+                      user.stats.str++;
+                    } else {
+                      user.stats.con++;
+                    }
+                    break;
+                  case "classbased":
+                    ideal = [user.stats.lvl / 7, user.stats.lvl / 7, user.stats.lvl / 7 * 2, user.stats.lvl / 7 * 3];
+                    if (user.stats["class"] === "wizard") {
+                      preference = ["con", "str", "per", "int"];
+                    } else if (user.stats["class"] === "rogue") {
+                      preference = ["int", "con", "str", "per"];
+                    } else if (user.stats["class"] === "healer") {
+                      preference = ["str", "per", "int", "con"];
+                    } else {
+                      preference = ["per", "int", "con", "str"];
+                    }
+                    diff = [user.stats[preference[0]] - ideal[0], user.stats[preference[1]] - ideal[1], user.stats[preference[2]] - ideal[2], user.stats[preference[3]] - ideal[3]];
+                    suggested = _.findIndex(diff, (function(val) {
+                      if (val === _.min(diff)) {
+                        return true;
+                      }
+                    }));
+                    if (suggested === -1) {
+                      user.stats.str++;
+                    } else {
+                      user.stats[preference[suggested]]++;
+                    }
+                    break;
+                  case "taskbased":
+                    tallies = _.reduce(user.tasks, (function(m, v) {
+                      m[v.attribute || 'str'] += v.value;
+                      return m;
+                    }), {
+                      str: 0,
+                      int: 0,
+                      con: 0,
+                      per: 0
+                    });
+                    suggested = _.reduce(tallies, (function(m, v, k) {
+                      if (v > tallies[m]) {
+                        return k;
+                      } else {
+                        return m;
+                      }
+                    }), 'str');
+                    user.stats[suggested]++;
+                    break;
+                  default:
+                    user.stats.str++;
+                }
               } else {
                 user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
               }

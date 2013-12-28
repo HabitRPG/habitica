@@ -962,9 +962,34 @@ api.wrap = (user) ->
 
             # Auto-allocate a point, or give them a new manual point
             if user.preferences.automaticAllocation
-              tallies = _.reduce user.tasks, ((m,v)-> m[v.attribute or 'str'] += v.value;m), {str:0,int:0,con:0,per:0}
-              suggested = _.reduce tallies, ((m,v,k)-> if v>tallies[m] then k else m), 'str'
-              user.stats[suggested]++
+              switch user.preferences.allocationMode
+                when "flat"
+                  lowest = Math.min(user.stats.str, user.stats.int, user.stats.con, user.stats.per)
+                  if user.stats.int is lowest # In case of ties, favor INT first, to get the next point sooner
+                    user.stats.int++
+                  else if user.stats.per is lowest # Then favor PER, it's a god stat
+                    user.stats.per++
+                  else if user.stats.str is lowest # Then favor STR, everyone loves crits
+                    user.stats.str++
+                  else
+                    user.stats.con++ # CON, the unsexiest of attributes
+                when "classbased"
+                  # Attributes get 3:2:1:1 per 7 levels. But put dump stats up front so they're favored in ties ("building the foundation of the pyramid")
+                  ideal = [(user.stats.lvl / 7), (user.stats.lvl / 7), (user.stats.lvl / 7 * 2), (user.stats.lvl / 7 * 3)] # Tertiary, quaternary, secondary, primary
+                  # Primary, secondary etc. attributes aren't explicitly defined, so hardcode them. In order per above
+                  if user.stats.class is "wizard" then preference = ["con", "str", "per", "int"]
+                  else if user.stats.class is "rogue" then preference = ["int", "con", "str", "per"]
+                  else if user.stats.class is "healer" then preference = ["str", "per", "int", "con"]
+                  else preference = ["per", "int", "con", "str"]
+                  # Get the difference between the ideal attribute spread according to level, and the user's current spread.
+                  diff = [(user.stats[preference[0]]-ideal[0]),(user.stats[preference[1]]-ideal[1]),(user.stats[preference[2]]-ideal[2]),(user.stats[preference[3]]-ideal[3])]
+                  suggested = _.findIndex(diff, ((val) -> if val is _.min(diff) then true)) # Returns the index of the first attribute that's furthest behind the ideal
+                  if suggested is -1 then user.stats.str++ else user.stats[preference[suggested]]++ # If _findIndex failed, we'd get a -1...
+                when "taskbased" # old logic, temp
+                  tallies = _.reduce user.tasks, ((m,v)-> m[v.attribute or 'str'] += v.value;m), {str:0,int:0,con:0,per:0}
+                  suggested = _.reduce tallies, ((m,v,k)-> if v>tallies[m] then k else m), 'str'
+                  user.stats[suggested]++
+                else user.stats.str++ # if all else fails, dump into STR
             else
               # add new allocatable points. We could do user.stats.points++, but this does a fail-safe just in case
               user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
