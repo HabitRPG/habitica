@@ -81,8 +81,11 @@ api.score = function(req, res, next) {
 
   user.save(function(err,saved){
     if (err) return res.json(500, {err: err});
+    // TODO this should be return {_v,task,stats,_tmp}, instead of merging everything togther at top-level response
+    // However, this is the most commonly used API route, and changing it will mess with all 3rd party consumers. Bad idea :(
     res.json(200, _.extend({
       delta: delta,
+      _tmp: user._tmp
     }, saved.toJSON().stats));
   });
 
@@ -389,7 +392,7 @@ api.cast = function(req, res) {
 _.each(shared.wrap({}).ops, function(op,k){
   if (!api[k]) {
     api[k] = function(req, res, next) {
-      res.locals.user.ops[k](req,function(err){
+      res.locals.user.ops[k](req,function(err, response){
         // If we want to send something other than 500, pass err as {code: 200, message: "Not enough GP"}
         if (err) {
           if (!err.code) return res.json(500,{err:err});
@@ -398,7 +401,7 @@ _.each(shared.wrap({}).ops, function(op,k){
         }
         res.locals.user.save(function(err){
           if (err) return res.json(500,{err:err});
-          res.send(200);
+          res.json(200,response);
         })
       })
     }
