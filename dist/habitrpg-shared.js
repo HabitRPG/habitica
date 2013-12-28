@@ -11293,8 +11293,8 @@ var process=require("__browserify_process");(function() {
           return typeof cb === "function" ? cb("Task not found") : void 0;
         }
         _.merge(task, req.body);
-        if (typeof task.markModified === "function") {
-          task.markModified('tags');
+        if (typeof user.markModified === "function") {
+          user.markModified('tags');
         }
         return typeof cb === "function" ? cb(null, task) : void 0;
       },
