@@ -11937,7 +11937,7 @@ var process=require("__browserify_process");(function() {
       */
 
       updateStats: function(stats) {
-        var diff, ideal, lowest, preference, suggested, tallies, tnl;
+        var diff, ideal, preference, suggested, tallies, tnl;
         if (stats.hp <= 0) {
           return user.stats.hp = 0;
         }
@@ -11958,27 +11958,31 @@ var process=require("__browserify_process");(function() {
               if (user.preferences.automaticAllocation) {
                 switch (user.preferences.allocationMode) {
                   case "flat":
-                    lowest = Math.min(user.stats.str, user.stats.int, user.stats.con, user.stats.per);
-                    if (user.stats.int === lowest) {
+                    suggested = Math.min(user.stats.str, user.stats.int, user.stats.con, user.stats.per);
+                    if (user.stats.int === suggested) {
                       user.stats.int++;
-                    } else if (user.stats.per === lowest) {
+                    } else if (user.stats.per === suggested) {
                       user.stats.per++;
-                    } else if (user.stats.str === lowest) {
+                    } else if (user.stats.str === suggested) {
                       user.stats.str++;
                     } else {
                       user.stats.con++;
                     }
                     break;
                   case "classbased":
-                    ideal = [user.stats.lvl / 7, user.stats.lvl / 7, user.stats.lvl / 7 * 2, user.stats.lvl / 7 * 3];
-                    if (user.stats["class"] === "wizard") {
-                      preference = ["con", "str", "per", "int"];
-                    } else if (user.stats["class"] === "rogue") {
-                      preference = ["int", "con", "str", "per"];
-                    } else if (user.stats["class"] === "healer") {
-                      preference = ["str", "per", "int", "con"];
-                    } else {
-                      preference = ["per", "int", "con", "str"];
+                    ideal = [user.stats.lvl / 7 * 3, user.stats.lvl / 7 * 2, user.stats.lvl / 7, user.stats.lvl / 7];
+                    switch (user.stats["class"]) {
+                      case "wizard":
+                        preference = ["int", "per", "con", "str"];
+                        break;
+                      case "rogue":
+                        preference = ["per", "str", "int", "con"];
+                        break;
+                      case "healer":
+                        preference = ["con", "int", "str", "per"];
+                        break;
+                      default:
+                        preference = ["str", "con", "per", "int"];
                     }
                     diff = [user.stats[preference[0]] - ideal[0], user.stats[preference[1]] - ideal[1], user.stats[preference[2]] - ideal[2], user.stats[preference[3]] - ideal[3]];
                     suggested = _.findIndex(diff, (function(val) {
