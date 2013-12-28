@@ -5,7 +5,6 @@ var http = require("http");
 var path = require("path");
 var app = express();
 var nconf = require('nconf');
-var config = require('./config');
 var utils = require('./utils');
 var middleware = require('./middleware');
 var domainMiddleware = require('domain-middleware');
@@ -13,7 +12,7 @@ var server;
 var TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 
 // ------------ Setup configurations ------------
-config.setup();
+utils.setupConfig();
 
 // ------------  MongoDB Configuration ------------
 mongoose = require('mongoose');
@@ -109,7 +108,7 @@ app.use('/api/v2', require('./routes/apiv2').middleware);
 app.use('/api/v1', require('./routes/apiv1').middleware);
 app.use('/export', require('./routes/dataexport').middleware);
 
-app.use(config.errorHandler);
+app.use(utils.errorHandler);
 
 server = http.createServer(app).listen(app.get("port"), function() {
   return console.log("Express server listening on port " + app.get("port"));
