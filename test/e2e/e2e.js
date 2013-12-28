@@ -4,6 +4,7 @@ describe('front page', function() {
   beforeEach(function(){
     browser.ignoreSynchronization = true;
     browser.get('/');
+    browser.sleep(1000);
   });
 
   it('shows the front page', function(){
@@ -35,8 +36,8 @@ describe('front page', function() {
     element(by.model('registerVals.confirmPassword')).sendKeys('pass');
     var register = element(by.css("#register-tab input[value='Register']"));
     register.click();
+    browser.sleep(1000);
     browser.getCurrentUrl().then(function(url){
-      browser.sleep(1000);
       expect(url).toMatch(/#\/tasks$/);
     });
   });
