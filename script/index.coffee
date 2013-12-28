@@ -4,6 +4,9 @@ content = require('./content.coffee')
 
 api = module.exports = {}
 
+# little helper for large arrays of strings. %w"this that another" equivalent from Rails, I really miss that function
+$w = (s)->s.split(' ')
+
 ###
   ------------------------------------------------------
   Time / Day
@@ -163,7 +166,7 @@ api.uuid = ->
 Even though Mongoose handles task defaults, we want to make sure defaults are set on the client-side before
 sending up to the server for performance
 ###
-api.taskDefaults = (task) ->
+api.taskDefaults = (task={}) ->
   task.type = 'habit' unless task.type and task.type in ['habit','daily','todo','reward']
   defaults =
     id: api.uuid()
@@ -347,11 +350,11 @@ api.wrap = (user) ->
     update: (req, cb) ->
       _.each req.body, (v,k) ->
         user.fns.dotSet(k,v);true
-      cb? null, req
+      cb? null, user
 
     sleep: (req, cb) ->
       user.preferences.sleep = !user.preferences.sleep
-      cb null, req
+      cb? null, {}
 
     revive: (req, cb) ->
       # Reset stats
@@ -371,7 +374,7 @@ api.wrap = (user) ->
         user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
         user.items.gear.costume[item.type] = "#{item.type}_base_0" if user.items.gear.costume[item.type] is lostItem
       user.markModified? 'items.gear'
-      cb? (if item then {code:200,message:"Your #{item.text} broke."} else null), req
+      cb? (if item then {code:200,message:"Your #{item.text} broke."} else null), user
 
     reset: (req, cb) ->
       user.habits = []
@@ -392,16 +395,16 @@ api.wrap = (user) ->
       user.items.gear.owned = {weapon_warrior_0:true}
       user.markModified? 'items.gear.owned'
       user.preferences.costume = false
-      cb null, req
+      cb? null, user
 
     reroll: (req, cb) ->
       if user.balance < 1
-        return cb {code:401,message: "Not enough gems."}, req
+        return cb? {code:401,message: "Not enough gems."}, req
       user.balance--
       _.each user.tasks, (task) ->
         task.value = 0
       user.stats.hp = 50
-      cb null, req
+      cb? null, user
 
     # ------
     # Tasks
@@ -409,34 +412,35 @@ api.wrap = (user) ->
 
     clearCompleted: (req, cb) ->
       user.todos = _.where(user.todos, {completed: false})
-      cb null, req
+      cb? null, user.todos
 
     sortTask: (req, cb) ->
       {id} = req.params
       {to, from} = req.query
       task = user.tasks[id]
-      return cb({code:404, message: "Task not found."}) unless task
-      return cb('?to=__&from=__ are required') unless to? and from?
-      user["#{task.type}s"].splice to, 0, user["#{task.type}s"].splice(from, 1)[0]
-      cb null, req
+      return cb?({code:404, message: "Task not found."}) unless task
+      return cb?('?to=__&from=__ are required') unless to? and from?
+      tasks = user["#{task.type}s"]
+      tasks.splice to, 0, tasks.splice(from, 1)[0]
+      cb? null, tasks
 
     updateTask: (req, cb) ->
-      return cb?("Task not found") unless user.tasks[req.params?.id]
-      _.merge user.tasks[req.params.id], req.body
-      user.tasks[req.params.id].markModified? 'tags'
-      cb? null, req
+      return cb?("Task not found") unless task = user.tasks[req.params?.id]
+      _.merge task, req.body
+      user.markModified? 'tags'
+      cb? null, task
 
     deleteTask: (req, cb) ->
       task = user.tasks[req.params?.id]
-      return cb({code:404,message:'Task not found'}) unless task
+      return cb?({code:404,message:'Task not found'}) unless task
       i = user[task.type + "s"].indexOf(task)
       user[task.type + "s"].splice(i, 1) if ~i
-      cb null, req
+      cb? null, {}
 
     addTask: (req, cb) ->
       task = api.taskDefaults(req.body)
       user["#{task.type}s"].unshift(task)
-      cb? null, req
+      cb? null, task
       task
 
     # ------
@@ -447,19 +451,19 @@ api.wrap = (user) ->
       {name} = req.body
       user.tags ?= []
       user.tags.push({name})
-      cb? null, req
+      cb? null, user.tags
 
     updateTag: (req, cb) ->
       tid = req.params.id
       i = _.findIndex user.tags, {id: tid}
-      return cb('Tag not found', req) if !~i
+      return cb?('Tag not found', req) if !~i
       user.tags[i].name = req.body.name
-      cb? null, req
+      cb? null, user.tags[i]
 
     deleteTag: (req, cb) ->
       tid = req.params.id
       i = _.findIndex user.tags, {id: tid}
-      return cb('Tag not found', req) if !~i
+      return cb?('Tag not found', req) if !~i
       tag = user.tags[i]
       delete user.filters[tag.id]
       user.tags.splice i, 1
@@ -470,7 +474,7 @@ api.wrap = (user) ->
 
       _.each ['habits','dailys','todos','rewards'], (type) ->
         user.markModified? type
-      cb null, req
+      cb? null, user.tags
 
     # ------
     # Inventory
@@ -482,10 +486,10 @@ api.wrap = (user) ->
       [egg, potion] = pet.split('-')
       userPets = user.items.pets
 
-      return cb({code:404, message:":pet not found in user.items.pets"}) unless userPets[pet]
-      return cb({code:404, message:":food not found in user.items.food"}) unless user.items.food?[food.key]
-      return cb({code:401, message:"Can't feed this pet."}) if content.specialPets[pet]
-      return cb({code:401, message:"You already have that mount"}) if user.items.mounts[pet] and (userPets[pet] >= 50 or food.key is 'Saddle')
+      return cb?({code:404, message:":pet not found in user.items.pets"}) unless userPets[pet]
+      return cb?({code:404, message:":food not found in user.items.food"}) unless user.items.food?[food.key]
+      return cb?({code:401, message:"Can't feed this pet."}) if content.specialPets[pet]
+      return cb?({code:401, message:"You already have that mount"}) if user.items.mounts[pet] and (userPets[pet] >= 50 or food.key is 'Saddle')
 
       message = ''
       evolve = ->
@@ -506,18 +510,18 @@ api.wrap = (user) ->
         if userPets[pet] >= 50 and !user.items.mounts[pet]
           evolve()
       user.items.food[food.key]--
-      cb {code:200, message}, req
+      cb? {code:200, message}, userPets[pet]
 
     # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
     purchase: (req, cb) ->
       {type,key}  = req.params
-      return cb({code:404,message:":type must be in [hatchingPotions,eggs,food,quests,special]"},req) unless type in ['eggs','hatchingPotions','food','quests','special']
+      return cb?({code:404,message:":type must be in [hatchingPotions,eggs,food,quests,special]"},req) unless type in ['eggs','hatchingPotions','food','quests','special']
       item = content[type][key]
-      return cb({code:404,message:":key not found for Content.#{type}"},req) unless item
+      return cb?({code:404,message:":key not found for Content.#{type}"},req) unless item
       user.items[type][key] = 0  unless user.items[type][key]
       user.items[type][key]++
       user.balance -= (item.value / 4)
-      cb null, req
+      cb? null, _.pick(user,$w 'items balance')
 
     # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
     buy: (req, cb) ->
@@ -536,15 +540,15 @@ api.wrap = (user) ->
         if item.klass in ['warrior','wizard','healer','rogue'] and user.fns.getItem('weapon').last and user.fns.getItem('armor').last and user.fns.getItem('head').last and (user.fns.getItem('shield').last or user.fns.getItem('weapon').twoHanded)
           user.achievements.ultimateGear = true
       user.stats.gp -= item.value
-      cb? {code:200, message}, req
+      cb? {code:200, message}, _.pick(user,$w 'items achievements stats')
 
     sell: (req, cb) ->
       {key, type} = req.params
-      return cb({code:404,message:":type not found. Must bes in [eggs, hatchingPotions, food]"}) unless type in ['eggs','hatchingPotions', 'food']
-      return cb({code:404,message:":key not found for user.items.#{type}"}) unless user.items[type][key]
+      return cb?({code:404,message:":type not found. Must bes in [eggs, hatchingPotions, food]"}) unless type in ['eggs','hatchingPotions', 'food']
+      return cb?({code:404,message:":key not found for user.items.#{type}"}) unless user.items[type][key]
       user.items[type][key]--
       user.stats.gp += content[type][key].value
-      cb? null, req
+      cb? null, _.pick(user,$w 'stats items')
 
     equip: (req, cb) ->
       [type, key] = [req.params.type || 'equipped', req.params.key]
@@ -557,18 +561,18 @@ api.wrap = (user) ->
           item = content.gear.flat[key]
           user.items.gear[type][item.type] = item.key
           message = user.fns.handleTwoHanded(item,type)
-      cb {code:200,message}, req
+      cb? {code:200,message}, user.items
 
     hatch: (req, cb) ->
       {egg, hatchingPotion} = req.params
-      return cb({code:404,message:"Please specify query.egg & query.hatchingPotion"}) unless egg and hatchingPotion
-      return cb({code:401,message:"You're missing either that egg or that potion"}) unless user.items.eggs[egg] > 0 and user.items.hatchingPotions[hatchingPotion] > 0
+      return cb?({code:404,message:"Please specify query.egg & query.hatchingPotion"}) unless egg and hatchingPotion
+      return cb?({code:401,message:"You're missing either that egg or that potion"}) unless user.items.eggs[egg] > 0 and user.items.hatchingPotions[hatchingPotion] > 0
       pet = "#{egg}-#{hatchingPotion}"
-      return cb("You already have that pet. Try hatching a different combination!")  if user.items.pets[pet]
+      return cb?("You already have that pet. Try hatching a different combination!")  if user.items.pets[pet]
       user.items.pets[pet] = 5
       user.items.eggs[egg]--
       user.items.hatchingPotions[hatchingPotion]--
-      cb? {code:200, message:"Your egg hatched! Visit your stable to equip your pet."}, req
+      cb? {code:200, message:"Your egg hatched! Visit your stable to equip your pet."}, user.items
 
     unlock: (req, cb) ->
       {path} = req.query
@@ -587,7 +591,7 @@ api.wrap = (user) ->
         user.fns.dotSet "purchased." + path, true
       user.balance -= cost
       user.markModified? 'purchased'
-      cb? null, req
+      cb? null, _.pick(user,$w 'purchased preferences')
 
     # ------
     # Classes
@@ -620,14 +624,14 @@ api.wrap = (user) ->
         # Null ?class value means "reset class"
         if user.preferences.disableClasses
           user.preferences.disableClasses = false
-          user.autoAllocate = false
+          user.preferences.autoAllocate = false
         else
-          return cb({code:401,message:"Not enough gems"}) unless user.balance >= .75
+          return cb?({code:401,message:"Not enough gems"}) unless user.balance >= .75
           user.balance -= .75
         _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: user.stats.lvl}
         user.flags.classSelected = false
         #'stats.points': this is handled on the server
-      cb? null, req
+      cb? null, _.pick(user,$w 'stats flags items preferences')
 
     disableClasses: (req, cb) ->
       user.stats.class = 'warrior'
@@ -636,7 +640,7 @@ api.wrap = (user) ->
       user.preferences.autoAllocate = true
       user.stats.str = user.stats.lvl
       user.stats.points = 0
-      cb null, req
+      cb? null, _.pick(user,$w 'stats flags preferences')
 
     allocate: (req, cb) ->
       stat = req.query.stat or 'str'
@@ -644,7 +648,7 @@ api.wrap = (user) ->
         user.stats[stat]++
         user.stats.points--
         user.stats.mp++ if stat is 'int' #increase their MP along with their max MP
-      cb? null, req
+      cb? null, _.pick(user,$w 'stats')
 
     # ------
     # Score
@@ -665,7 +669,7 @@ api.wrap = (user) ->
 
       # If they're trying to purhcase a too-expensive reward, don't allow them to do that.
       if task.value > stats.gp and task.type is 'reward'
-        return cb('Not enough Gold');
+        return cb? 'Not enough Gold'
 
       delta = 0
 
@@ -787,7 +791,7 @@ api.wrap = (user) ->
       if typeof window is 'undefined'
         user.fns.randomDrop({task, delta}) if direction is 'up'
 
-      cb? null, req
+      cb? null, user
       return delta
 
   # ----------------------------------------------------------------------

@@ -10619,7 +10619,7 @@ var global=self;/**
 
 },{"lodash":3,"moment":4}],6:[function(require,module,exports){
 var process=require("__browserify_process");(function() {
-  var api, content, dayMapping, moment, preenHistory, sanitizeOptions, _,
+  var $w, api, content, dayMapping, moment, preenHistory, sanitizeOptions, _,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   moment = require('moment');
@@ -10629,6 +10629,10 @@ var process=require("__browserify_process");(function() {
   content = require('./content.coffee');
 
   api = module.exports = {};
+
+  $w = function(s) {
+    return s.split(' ');
+  };
 
   /*
     ------------------------------------------------------
@@ -10880,6 +10884,9 @@ var process=require("__browserify_process");(function() {
 
   api.taskDefaults = function(task) {
     var defaults, _ref, _ref1, _ref2;
+    if (task == null) {
+      task = {};
+    }
     if (!(task.type && ((_ref = task.type) === 'habit' || _ref === 'daily' || _ref === 'todo' || _ref === 'reward'))) {
       task.type = 'habit';
     }
@@ -11168,11 +11175,11 @@ var process=require("__browserify_process");(function() {
           user.fns.dotSet(k, v);
           return true;
         });
-        return typeof cb === "function" ? cb(null, req) : void 0;
+        return typeof cb === "function" ? cb(null, user) : void 0;
       },
       sleep: function(req, cb) {
         user.preferences.sleep = !user.preferences.sleep;
-        return cb(null, req);
+        return typeof cb === "function" ? cb(null, {}) : void 0;
       },
       revive: function(req, cb) {
         var item, lostItem, lostStat;
@@ -11214,7 +11221,7 @@ var process=require("__browserify_process");(function() {
         return typeof cb === "function" ? cb((item ? {
           code: 200,
           message: "Your " + item.text + " broke."
-        } : null), req) : void 0;
+        } : null), user) : void 0;
       },
       reset: function(req, cb) {
         var gear;
@@ -11240,77 +11247,78 @@ var process=require("__browserify_process");(function() {
           user.markModified('items.gear.owned');
         }
         user.preferences.costume = false;
-        return cb(null, req);
+        return typeof cb === "function" ? cb(null, user) : void 0;
       },
       reroll: function(req, cb) {
         if (user.balance < 1) {
-          return cb({
+          return typeof cb === "function" ? cb({
             code: 401,
             message: "Not enough gems."
-          }, req);
+          }, req) : void 0;
         }
         user.balance--;
         _.each(user.tasks, function(task) {
           return task.value = 0;
         });
         user.stats.hp = 50;
-        return cb(null, req);
+        return typeof cb === "function" ? cb(null, user) : void 0;
       },
       clearCompleted: function(req, cb) {
         user.todos = _.where(user.todos, {
           completed: false
         });
-        return cb(null, req);
+        return typeof cb === "function" ? cb(null, user.todos) : void 0;
       },
       sortTask: function(req, cb) {
-        var from, id, task, to, _ref;
+        var from, id, task, tasks, to, _ref;
         id = req.params.id;
         _ref = req.query, to = _ref.to, from = _ref.from;
         task = user.tasks[id];
         if (!task) {
-          return cb({
+          return typeof cb === "function" ? cb({
             code: 404,
             message: "Task not found."
-          });
+          }) : void 0;
         }
         if (!((to != null) && (from != null))) {
-          return cb('?to=__&from=__ are required');
+          return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
         }
-        user["" + task.type + "s"].splice(to, 0, user["" + task.type + "s"].splice(from, 1)[0]);
-        return cb(null, req);
+        tasks = user["" + task.type + "s"];
+        tasks.splice(to, 0, tasks.splice(from, 1)[0]);
+        return typeof cb === "function" ? cb(null, tasks) : void 0;
       },
       updateTask: function(req, cb) {
-        var _base, _ref;
-        if (!user.tasks[(_ref = req.params) != null ? _ref.id : void 0]) {
+        var task, _ref;
+        if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
           return typeof cb === "function" ? cb("Task not found") : void 0;
         }
-        _.merge(user.tasks[req.params.id], req.body);
-        if (typeof (_base = user.tasks[req.params.id]).markModified === "function") {
-          _base.markModified('tags');
+        _.merge(task, req.body);
+        if (typeof task.markModified === "function") {
+          task.markModified('tags');
         }
-        return typeof cb === "function" ? cb(null, req) : void 0;
+        return typeof cb === "function" ? cb(null, task) : void 0;
       },
       deleteTask: function(req, cb) {
         var i, task, _ref;
         task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0];
         if (!task) {
-          return cb({
+          return typeof cb === "function" ? cb({
             code: 404,
             message: 'Task not found'
-          });
+          }) : void 0;
         }
         i = user[task.type + "s"].indexOf(task);
         if (~i) {
           user[task.type + "s"].splice(i, 1);
         }
-        return cb(null, req);
+        return typeof cb === "function" ? cb(null, {}) : void 0;
       },
       addTask: function(req, cb) {
         var task;
         task = api.taskDefaults(req.body);
         user["" + task.type + "s"].unshift(task);
         if (typeof cb === "function") {
-          cb(null, req);
+          cb(null, task);
         }
         return task;
       },
@@ -11323,7 +11331,7 @@ var process=require("__browserify_process");(function() {
         user.tags.push({
           name: name
         });
-        return typeof cb === "function" ? cb(null, req) : void 0;
+        return typeof cb === "function" ? cb(null, user.tags) : void 0;
       },
       updateTag: function(req, cb) {
         var i, tid;
@@ -11332,10 +11340,10 @@ var process=require("__browserify_process");(function() {
           id: tid
         });
         if (!~i) {
-          return cb('Tag not found', req);
+          return typeof cb === "function" ? cb('Tag not found', req) : void 0;
         }
         user.tags[i].name = req.body.name;
-        return typeof cb === "function" ? cb(null, req) : void 0;
+        return typeof cb === "function" ? cb(null, user.tags[i]) : void 0;
       },
       deleteTag: function(req, cb) {
         var i, tag, tid;
@@ -11344,7 +11352,7 @@ var process=require("__browserify_process");(function() {
           id: tid
         });
         if (!~i) {
-          return cb('Tag not found', req);
+          return typeof cb === "function" ? cb('Tag not found', req) : void 0;
         }
         tag = user.tags[i];
         delete user.filters[tag.id];
@@ -11355,7 +11363,7 @@ var process=require("__browserify_process");(function() {
         _.each(['habits', 'dailys', 'todos', 'rewards'], function(type) {
           return typeof user.markModified === "function" ? user.markModified(type) : void 0;
         });
-        return cb(null, req);
+        return typeof cb === "function" ? cb(null, user.tags) : void 0;
       },
       feed: function(req, cb) {
         var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
@@ -11364,28 +11372,28 @@ var process=require("__browserify_process");(function() {
         _ref1 = pet.split('-'), egg = _ref1[0], potion = _ref1[1];
         userPets = user.items.pets;
         if (!userPets[pet]) {
-          return cb({
+          return typeof cb === "function" ? cb({
             code: 404,
             message: ":pet not found in user.items.pets"
-          });
+          }) : void 0;
         }
         if (!((_ref2 = user.items.food) != null ? _ref2[food.key] : void 0)) {
-          return cb({
+          return typeof cb === "function" ? cb({
             code: 404,
             message: ":food not found in user.items.food"
-          });
+          }) : void 0;
         }
         if (content.specialPets[pet]) {
-          return cb({
+          return typeof cb === "function" ? cb({
             code: 401,
             message: "Can't feed this pet."
-          });
+          }) : void 0;
         }
         if (user.items.mounts[pet] && (userPets[pet] >= 50 || food.key === 'Saddle')) {
-          return cb({
+          return typeof cb === "function" ? cb({
             code: 401,
             message: "You already have that mount"
-          });
+          }) : void 0;
         }
         message = '';
         evolve = function() {
@@ -11411,33 +11419,33 @@ var process=require("__browserify_process");(function() {
           }
         }
         user.items.food[food.key]--;
-        return cb({
+        return typeof cb === "function" ? cb({
           code: 200,
           message: message
-        }, req);
+        }, userPets[pet]) : void 0;
       },
       purchase: function(req, cb) {
         var item, key, type, _ref;
         _ref = req.params, type = _ref.type, key = _ref.key;
         if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'special') {
-          return cb({
+          return typeof cb === "function" ? cb({
             code: 404,
             message: ":type must be in [hatchingPotions,eggs,food,quests,special]"
-          }, req);
+          }, req) : void 0;
         }
         item = content[type][key];
         if (!item) {
-          return cb({
+          return typeof cb === "function" ? cb({
             code: 404,
             message: ":key not found for Content." + type
-          }, req);
+          }, req) : void 0;
         }
         if (!user.items[type][key]) {
           user.items[type][key] = 0;
         }
         user.items[type][key]++;
         user.balance -= item.value / 4;
-        return cb(null, req);
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('items balance'))) : void 0;
       },
       buy: function(req, cb) {
         var item, key, message, _ref;
@@ -11475,26 +11483,26 @@ var process=require("__browserify_process");(function() {
         return typeof cb === "function" ? cb({
           code: 200,
           message: message
-        }, req) : void 0;
+        }, _.pick(user, $w('items achievements stats'))) : void 0;
       },
       sell: function(req, cb) {
         var key, type, _ref;
         _ref = req.params, key = _ref.key, type = _ref.type;
         if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
-          return cb({
+          return typeof cb === "function" ? cb({
             code: 404,
             message: ":type not found. Must bes in [eggs, hatchingPotions, food]"
-          });
+          }) : void 0;
         }
         if (!user.items[type][key]) {
-          return cb({
+          return typeof cb === "function" ? cb({
             code: 404,
             message: ":key not found for user.items." + type
-          });
+          }) : void 0;
         }
         user.items[type][key]--;
         user.stats.gp += content[type][key].value;
-        return typeof cb === "function" ? cb(null, req) : void 0;
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats items'))) : void 0;
       },
       equip: function(req, cb) {
         var item, key, message, type, _ref;
@@ -11512,29 +11520,29 @@ var process=require("__browserify_process");(function() {
             user.items.gear[type][item.type] = item.key;
             message = user.fns.handleTwoHanded(item, type);
         }
-        return cb({
+        return typeof cb === "function" ? cb({
           code: 200,
           message: message
-        }, req);
+        }, user.items) : void 0;
       },
       hatch: function(req, cb) {
         var egg, hatchingPotion, pet, _ref;
         _ref = req.params, egg = _ref.egg, hatchingPotion = _ref.hatchingPotion;
         if (!(egg && hatchingPotion)) {
-          return cb({
+          return typeof cb === "function" ? cb({
             code: 404,
             message: "Please specify query.egg & query.hatchingPotion"
-          });
+          }) : void 0;
         }
         if (!(user.items.eggs[egg] > 0 && user.items.hatchingPotions[hatchingPotion] > 0)) {
-          return cb({
+          return typeof cb === "function" ? cb({
             code: 401,
             message: "You're missing either that egg or that potion"
-          });
+          }) : void 0;
         }
         pet = "" + egg + "-" + hatchingPotion;
         if (user.items.pets[pet]) {
-          return cb("You already have that pet. Try hatching a different combination!");
+          return typeof cb === "function" ? cb("You already have that pet. Try hatching a different combination!") : void 0;
         }
         user.items.pets[pet] = 5;
         user.items.eggs[egg]--;
@@ -11542,7 +11550,7 @@ var process=require("__browserify_process");(function() {
         return typeof cb === "function" ? cb({
           code: 200,
           message: "Your egg hatched! Visit your stable to equip your pet."
-        }, req) : void 0;
+        }, user.items) : void 0;
       },
       unlock: function(req, cb) {
         var alreadyOwns, cost, fullSet, k, path, split, v;
@@ -11575,7 +11583,7 @@ var process=require("__browserify_process");(function() {
         if (typeof user.markModified === "function") {
           user.markModified('purchased');
         }
-        return typeof cb === "function" ? cb(null, req) : void 0;
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('purchased preferences'))) : void 0;
       },
       changeClass: function(req, cb) {
         var klass, _ref;
@@ -11600,13 +11608,13 @@ var process=require("__browserify_process");(function() {
         } else {
           if (user.preferences.disableClasses) {
             user.preferences.disableClasses = false;
-            user.autoAllocate = false;
+            user.preferences.autoAllocate = false;
           } else {
             if (!(user.balance >= .75)) {
-              return cb({
+              return typeof cb === "function" ? cb({
                 code: 401,
                 message: "Not enough gems"
-              });
+              }) : void 0;
             }
             user.balance -= .75;
           }
@@ -11619,7 +11627,7 @@ var process=require("__browserify_process");(function() {
           });
           user.flags.classSelected = false;
         }
-        return typeof cb === "function" ? cb(null, req) : void 0;
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags items preferences'))) : void 0;
       },
       disableClasses: function(req, cb) {
         user.stats["class"] = 'warrior';
@@ -11628,7 +11636,7 @@ var process=require("__browserify_process");(function() {
         user.preferences.autoAllocate = true;
         user.stats.str = user.stats.lvl;
         user.stats.points = 0;
-        return cb(null, req);
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags preferences'))) : void 0;
       },
       allocate: function(req, cb) {
         var stat;
@@ -11640,7 +11648,7 @@ var process=require("__browserify_process");(function() {
             user.stats.mp++;
           }
         }
-        return typeof cb === "function" ? cb(null, req) : void 0;
+        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
       },
       score: function(req, cb) {
         var addPoints, calculateDelta, delta, direction, id, num, options, stats, subtractPoints, task, th, _ref;
@@ -11663,7 +11671,7 @@ var process=require("__browserify_process");(function() {
           task.priority = 1;
         }
         if (task.value > stats.gp && task.type === 'reward') {
-          return cb('Not enough Gold');
+          return typeof cb === "function" ? cb('Not enough Gold') : void 0;
         }
         delta = 0;
         calculateDelta = function() {
@@ -11779,7 +11787,7 @@ var process=require("__browserify_process");(function() {
           }
         }
         if (typeof cb === "function") {
-          cb(null, req);
+          cb(null, user);
         }
         return delta;
       }
