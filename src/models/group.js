@@ -36,6 +36,7 @@ var GroupSchema = new Schema({
   quest: {
     key: String,
     active: {type:Boolean, 'default':false},
+    leader: {type:String, ref:'User'},
     progress:{
       hp: Number,
       collect: {type:Schema.Types.Mixed, 'default':{}} // {feather: 5, ingot: 3}
@@ -107,6 +108,23 @@ GroupSchema.methods.sendChat = function(message, user){
   group.chat.splice(200);
 }
 
+var cleanQuestProgress = function(merge){
+  var clean = {
+    key: null,
+    progress: {
+      up: 0,
+      down: 0,
+      collect: {}
+    },
+    completed: null
+  };
+  merge = merge || {progress:{}};
+  _.merge(clean, _.omit(merge,'progress'));
+  _.merge(clean.progress, merge.progress);
+  return clean;
+}
+GroupSchema.statics.cleanQuestProgress = cleanQuestProgress;
+
 // Participants: Grant rewards & achievements, finish quest
 GroupSchema.methods.finishQuest = function(quest, cb) {
   var group = this;
@@ -119,9 +137,7 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   updates['$inc']['stats.gp'] = +quest.drop.gp;
   updates['$inc']['stats.exp'] = +quest.drop.exp;
   updates['$inc']['_v'] = 1;
-  updates['$unset'] = {'party.quest.key':undefined};
-  updates['$set']['party.quest.collect'] = {};
-  updates['$set']['party.quest.completed'] = questK;
+  updates['$set']['party.quest'] = cleanQuestProgress({completed:questK});
 
   switch (quest.drop.type) {
     case 'gear':
@@ -140,10 +156,10 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
       updates['$set']['items.mounts.'+dropK] = true;
       break;
   }
-  // FIXME this is TERRIBLE practice. Looks like there are circular dependencies in the models, such that `var User` at
-  // this point is undefined. So we get around that by loading from mongoose only once we get to this point
   var members = _.keys(group.quest.members);
   group.quest = {};group.markModified('quest');
+  // FIXME this is TERRIBLE practice. Looks like there are circular dependencies in the models, such that `var User` at
+  // this point is undefined. So we get around that by loading from mongoose only once we get to this point
   mongoose.models.User.update({_id:{$in:members}}, updates, {multi:true}, cb);
 }
 

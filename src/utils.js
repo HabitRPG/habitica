@@ -12,11 +12,8 @@ module.exports.sendEmail = function(mailData) {
     }
   });
   smtpTransport.sendMail(mailData, function(error, response){
-    if(error){
-      console.log(error);
-    }else{
-      console.log("Message sent: " + response.message);
-    }
+    if(error) console.log(error);
+    else console.log("Message sent: " + response.message);
     smtpTransport.close(); // shut down the connection pool, no more messages
   });
 }
