@@ -140,10 +140,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
     .span4.border-right.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
       h3 Character Build
       h4 Class:&nbsp;
-        span(ng-show="user.stats.class == 'warrior'") Warrior&nbsp;
-        span(ng-show="user.stats.class == 'wizard'") Mage&nbsp;
-        span(ng-show="user.stats.class == 'healer'") Healer&nbsp;
-        span(ng-show="user.stats.class == 'rogue'") Rogue&nbsp;
+        span {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[user.stats.class] }}&nbsp;
         a.btn.btn-danger.btn-mini(ng-click='changeClass(null)')
           | Change Class, Refund Attribute Points&nbsp;
         small 3 <span class="Pet_Currency_Gem1x inline-gems"/>
