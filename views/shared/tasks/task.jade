@@ -61,7 +61,7 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"] | completedFilter: lis
       label(for='box-{{obj._id}}_{{task.id}}')
   // main content
   p.task-text
-    | {{task.text}}
+    markdown(ng-model='task.text',target='_blank')
 
   // edit/options dialog
   div(ng-if='task._editing')
