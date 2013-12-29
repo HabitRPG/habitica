@@ -106,20 +106,22 @@ api.create = function(req, res){
   if (+req.body.prize > 0) {
     waterfall.push(function(cb){
       var groupBalance = ((group.balance && group.leader==user._id) ? group.balance : 0);
-      if (req.body.prize > (user.balance*4 + groupBalance*4))
-        return cb("Challenge.prize > (your gems + group balance). Purchase more gems or lower prize amount.s")
+		  var prizeCost = req.body.prize/4; // I really should have stored user.balance as gems rather than dollars... stupid...
+			if (prizeCost > user.balance + groupBalance)
+				return cb("You can't afford this prize. Purchase more gems or lower the prize amount.")
 
-      var net = req.body.prize/4; // I really should have stored user.balance as gems rather than dollars... stupid...
-
-      // user is group leader, and group has balance. Subtract from that first, then take the rest from user
-      if (groupBalance > 0) {
-        group.balance -= net;
-        if (group.balance < 0) {
-          net = Math.abs(group.balance);
-          group.balance = 0;
-        }
-      }
-      user.balance -= net;
+			if (groupBalance >= prizeCost) {
+				// Group pays for all of prize
+				group.balance -= prizeCost;
+			} else if (groupBalance > 0) {
+				// User pays remainder of prize cost after group
+				var remainder = prizeCost - group.balance;
+				group.balance = 0;
+				user.balance -= remainder;
+			} else {
+				// User pays for all of prize
+				user.balance -= prizeCost;
+			}
       cb(null)
     });
   }
