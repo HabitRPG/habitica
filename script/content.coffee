@@ -209,6 +209,9 @@ api.potion = type: 'potion', text: "Health Potion", notes: "Recover 15 Health (I
   Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
 ###
 
+#
+diminishingReturns = (bonus, max, halfway=max/2) -> max*(bonus/(bonus+halfway))
+
 api.spells =
 
   wizard:
@@ -219,10 +222,13 @@ api.spells =
       target: 'task'
       notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).'
       cast: (user, target) ->
-        target.value += user._statsComputed.int * .0075 * user.fns.crit('per')
-        bonus = (if target.value < 0 then 1 else target.value+1) * 2.5
-        user.stats.exp += bonus
-        user.party.quest.progress.up += bonus if user.party.quest.key
+        # I seriously have no idea what I'm doing here. I'm just mashing buttons until numbers seem right-ish. Anyone know math?
+        bonus = user._statsComputed.int * user.fns.crit('per')
+        target.value += diminishingReturns(bonus*.02, 4)
+        bonus *= Math.ceil ((if target.value < 0 then 1 else target.value+1) *.075)
+        #console.log {bonus, expBonus:bonus,upBonus:bonus*.1}
+        user.stats.exp += diminishingReturns(bonus,75)
+        user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30) if user.party.quest.key
 
     mpheal:
       text: 'Ethereal Surge'

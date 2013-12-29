@@ -74,7 +74,7 @@ api.tnl = (lvl) ->
   {bonus} All the numbers combined for your point bonus (eg, task.value * user.stats.int * critChance, etc)
   {halfway} (optional) the point at which the graph starts bending
 ###
-api.diminishingReturns = (bonus, max, halfway=bonus/2) ->
+api.diminishingReturns = (bonus, max, halfway=max/2) ->
   max*(bonus/(bonus+halfway))
 
 api.monod = (bonus, rateOfIncrease, max) ->

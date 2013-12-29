@@ -9167,7 +9167,7 @@ var global=self;/**
 
 },{}],5:[function(require,module,exports){
 (function() {
-  var api, gear, moment, repeat, _;
+  var api, diminishingReturns, gear, moment, repeat, _;
 
   _ = require('lodash');
 
@@ -10001,6 +10001,13 @@ var global=self;/**
   */
 
 
+  diminishingReturns = function(bonus, max, halfway) {
+    if (halfway == null) {
+      halfway = max / 2;
+    }
+    return max * (bonus / (bonus + halfway));
+  };
+
   api.spells = {
     wizard: {
       fireball: {
@@ -10011,11 +10018,12 @@ var global=self;/**
         notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).',
         cast: function(user, target) {
           var bonus;
-          target.value += user._statsComputed.int * .0075 * user.fns.crit('per');
-          bonus = (target.value < 0 ? 1 : target.value + 1) * 2.5;
-          user.stats.exp += bonus;
+          bonus = user._statsComputed.int * user.fns.crit('per');
+          target.value += diminishingReturns(bonus * .02, 4);
+          bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * .075);
+          user.stats.exp += diminishingReturns(bonus, 75);
           if (user.party.quest.key) {
-            return user.party.quest.progress.up += bonus;
+            return user.party.quest.progress.up += diminishingReturns(bonus * .1, 50, 30);
           }
         }
       },
@@ -10757,7 +10765,7 @@ var process=require("__browserify_process");(function() {
 
   api.diminishingReturns = function(bonus, max, halfway) {
     if (halfway == null) {
-      halfway = bonus / 2;
+      halfway = max / 2;
     }
     return max * (bonus / (bonus + halfway));
   };
@@ -11293,8 +11301,8 @@ var process=require("__browserify_process");(function() {
           return typeof cb === "function" ? cb("Task not found") : void 0;
         }
         _.merge(task, req.body);
-        if (typeof user.markModified === "function") {
-          user.markModified('tags');
+        if (typeof task.markModified === "function") {
+          task.markModified('tags');
         }
         return typeof cb === "function" ? cb(null, task) : void 0;
       },
