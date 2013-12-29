@@ -10177,7 +10177,7 @@ var global=self;/**
           if ((_base = user.stats.buffs).stealth == null) {
             _base.stealth = 0;
           }
-          return user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .03);
+          return user.stats.buffs.stealth += Math.ceil(user._statsComputed.per * .03);
         }
       }
     },
