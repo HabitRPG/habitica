@@ -7,6 +7,22 @@ describe('front page', function() {
     browser.sleep(1000);
   });
 
+  // based on https://github.com/angular/protractor/issues/114#issuecomment-29046939
+  afterEach(function(){
+    var currentSpec = jasmine.getEnv().currentSpec;
+    var passed = currentSpec.results().passed();
+    if(!passed){
+      var filename = 'exception_' + currentSpec.description + '.png';
+      browser.takeScreenshot().then(function(png){
+        var fs = require('fs');
+        var buffer = new Buffer(png, 'base64');
+        var stream = fs.createWriteStream(filename);
+        stream.write(buffer);
+        stream.end();
+      });
+    }
+  });
+
   it('shows the front page', function(){
     var button = element(by.className('btn'));
     expect(button.getText()).toEqual('Play');
