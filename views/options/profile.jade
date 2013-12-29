@@ -138,13 +138,17 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
     .border-right(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "span4" : "span6"')
       include ../shared/profiles/stats
     .span4.border-right.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
-      h4
-        | {{user.stats.class}}&nbsp;
+      h3 Character Build
+      h4 Class:&nbsp;
+        span(ng-show="user.stats.class == 'warrior'") Warrior&nbsp;
+        span(ng-show="user.stats.class == 'wizard'") Mage&nbsp;
+        span(ng-show="user.stats.class == 'healer'") Healer&nbsp;
+        span(ng-show="user.stats.class == 'rogue'") Rogue&nbsp;
         a.btn.btn-danger.btn-mini(ng-click='changeClass(null)')
-          | Change & Re-Roll&nbsp;
+          | Change Class, Refund Attribute Points&nbsp;
         small 3 <span class="Pet_Currency_Gem1x inline-gems"/>
 
-      h6 Points: {{user.stats.points}}
+      h5 Unallocated Attribute Points: {{user.stats.points}}
       fieldset.auto-allocate
         label.checkbox
           input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})')
