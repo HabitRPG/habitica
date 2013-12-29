@@ -52,9 +52,9 @@ describe('front page', function() {
     element(by.model('registerVals.confirmPassword')).sendKeys('pass');
     var register = element(by.css("#register-tab input[value='Register']"));
     register.click();
-    browser.sleep(2000);
+    browser.sleep(1000);
     browser.getCurrentUrl().then(function(url){
-      expect(url).toMatch(/#\/tasks$/);
+      expect(url).not.toMatch(/static\/front/);
     });
   });
 });
