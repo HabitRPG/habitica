@@ -10,5 +10,5 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - cp config.json.example config.json
   - ./node_modules/protractor/bin/webdriver-manager update
-  - ./node_modules/protractor/bin/webdriver-manager start &
+  - ./node_modules/protractor/bin/webdriver-manager start > /dev/null &
   - grunt run:dev > /dev/null &
