@@ -1,4 +1,4 @@
-li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}')
+li(bindonce='list', ng-repeat='task in obj[list.type+"s"] | completedFilter: list.showCompleted', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}')
   // right-hand side control buttons
   .task-meta-controls
 
