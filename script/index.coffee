@@ -427,7 +427,7 @@ api.wrap = (user) ->
     updateTask: (req, cb) ->
       return cb?("Task not found") unless task = user.tasks[req.params?.id]
       _.merge task, req.body
-      user.markModified? 'tags'
+      task.markModified? 'tags'
       cb? null, task
 
     deleteTask: (req, cb) ->
