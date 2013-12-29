@@ -11,7 +11,7 @@ angular.module('habitrpg')
   })
   .filter('completedFilter', function(){
     return function(tasks,_showCompleted) {
-      if (tasks[0].type != 'todo') return tasks;
+      if (!tasks[0] || tasks[0].type != 'todo') return tasks;
       return _.where(tasks, {completed:!!_showCompleted});
     }
   })
