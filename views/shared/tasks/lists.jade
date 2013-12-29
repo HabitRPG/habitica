@@ -87,8 +87,8 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
             span.task-text {{Content.spells.special.salt.text}}
 
         // Spells
-        ul.items(popover-trigger='mouseenter', popover-placement='top', popover='{{spell.notes}}', popover-title='{{spell.text}}', ng-if='main && list.type=="reward" && user.stats.class && !user.preferences.disableClasses')
-          li.task.reward-item(ng-repeat='(k,spell) in Content.spells[user.stats.class]', ng-show='user.stats.lvl >= spell.lvl')
+        ul.items(ng-if='main && list.type=="reward" && user.stats.class && !user.preferences.disableClasses')
+          li.task.reward-item(popover-trigger='mouseenter', popover-placement='top', popover='{{spell.notes}}', popover-title='{{spell.text}}', ng-repeat='(k,spell) in Content.spells[user.stats.class]', ng-show='user.stats.lvl >= spell.lvl')
             .task-meta-controls
               span.task-notes
                 i.icon-comment
