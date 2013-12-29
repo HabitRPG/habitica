@@ -62,6 +62,7 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"] | completedFilter: lis
   // main content
   p.task-text
     markdown(ng-model='task.text',target='_blank')
+    //-| {{task.text}}
 
   // edit/options dialog
   div(ng-if='task._editing')
