@@ -63,9 +63,15 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
       input.visuallyhidden.focusable(ng-if='!$state.includes("tasks")', id='box-{{obj._id}}_{{task.id}}', type='checkbox')
       label(for='box-{{obj._id}}_{{task.id}}')
   // main content
-  p.task-text
+  div.task-text
     markdown(ng-model='task.text',target='_blank')
     //-| {{task.text}}
+
+    div(ng-if='task.checklist && task.type=="todo"')
+      fieldset.option-group(ng-if='!$state.includes("options.social.challenges")')
+        label.checkbox(ng-repeat='item in task.checklist')
+          input(type='checkbox',ng-model='item.completed',ng-change='checkChecklistItem(task)')
+          | {{item.text}}
 
   // edit/options dialog
   div(ng-if='task._editing')
