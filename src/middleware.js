@@ -94,7 +94,7 @@ var getManifestFiles = function(page){
 var translations = {};
 
 var loadTranslations = function(locale){
-  translations[locale] = require(path.join(__dirname, "/../locales/", locale, 'app.json'));
+  translations[locale] = require(path.join(__dirname, "/../locales/", locale, 'app.js'));
 }
 
 // First fetch english so we can merge with missing strings in other languages
