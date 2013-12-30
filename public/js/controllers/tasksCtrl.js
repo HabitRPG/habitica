@@ -109,6 +109,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         if (backspaced) focusChecklist(task,$index-1);
       }
     }
+    $scope.navigateChecklist = function(task,$index,$event){
+      focusChecklist(task, $event.keyCode == '40' ? $index+1 : $index-1);
+    }
     $scope.checklistCompletion = function(checklist){
       return _.reduce(checklist,function(m,i){return m+(i.completed ? 1 : 0);},0)
     }
