@@ -51,9 +51,9 @@ gear =
       1: text: "Acolyte Rod", notes:'Crafted during a healer\'s initiation. Increases INT by 2.', int: 2, value:20
       2: text: "Quartz Rod", notes:'Topped with a gem bearing curative properties. Increases INT by 3.', int: 3, value:30
       3: text: "Amethyst Rod", notes:'Purifies poison at a touch. Increases INT by 5.', int: 5, value:45
-      4: text: "Priest Rod", notes:'As much a badge of office as a healing tool. Increases INT by 7.', int:7, value:65
-      5: text: "Royal Crosier", notes:'Shines with the pure light of blessings. Increases INT by 9.', int: 9, value:90
-      6: text: "Golden Crosier", notes:'Soothes the pain of all who look upon it. Increases INT by 11.', int: 11, value:120, last: true
+      4: text: "Physician Rod", notes:'As much a badge of office as a healing tool. Increases INT by 7.', int:7, value:65
+      5: text: "Royal Scepter", notes:'Fit to grace the hand of a monarch, or of one who stands at a monarch\'s right hand. Increases INT by 9.', int: 9, value:90
+      6: text: "Golden Scepter", notes:'Soothes the pain of all who look upon it. Increases INT by 11.', int: 11, value:120, last: true
     special:
       0: text: "Dark Souls Blade", notes:'Feasts upon foes\' life essence to power its wicked strokes. Increases STR by 20.', str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
       1: text: "Crystal Blade", notes:'Its glittering facets tell the tale of a hero. Increases all attributes by 6.', str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
@@ -88,9 +88,9 @@ gear =
       #0: text: "Novice Robe", notes:'For healers in training. Confers no benefit.', value:0
       1: text: "Acolyte Robe", notes:'Garment showing humility and purpose. Increases CON by 6.', con: 6, value:30
       2: text: "Medic Robe", notes:'Worn by those dedicated to tending the wounded in battle. Increases CON by 9.', con: 9, value:45
-      3: text: "Defender Vestment", notes:'Turns the healer\'s own magics inward to fend off harm. Increases CON by 12.', con: 12, value:65
-      4: text: "Priest Vestment", notes:'Projects authority and dissipates curses. Increases CON by 15.', con: 15, value:90
-      5: text: "Royal Vestment", notes:'Attire of those who have saved the lives of kings. Increases CON by 18.', con: 18, value:120, last: true
+      3: text: "Defender Mantle", notes:'Turns the healer\'s own magics inward to fend off harm. Increases CON by 12.', con: 12, value:65
+      4: text: "Physician Mantle", notes:'Projects authority and dissipates curses. Increases CON by 15.', con: 15, value:90
+      5: text: "Royal Mantle", notes:'Attire of those who have saved the lives of kings. Increases CON by 18.', con: 18, value:120, last: true
     special:
       0: text: "Shade Armor",   notes:'Screams when struck, for it feels pain in its wearer\'s place. Increases CON by 20.', con: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: "Crystal Armor", notes:'Its tireless power inures the wearer to mundane discomfort. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
@@ -157,7 +157,7 @@ gear =
       #0: text: "No Shield", notes:'No shield.', def: 0, value:0
       1: text: "Medic Buckler", notes:'Easy to disengage, freeing a hand for bandaging. Increases CON by 2.', con: 2, value:20
       2: text: "Kite Shield", notes:'Tapered shield with the symbol of healing. Increases CON by 4.', con: 4, value:35
-      3: text: "Hospitaler Shield", notes:'Traditional shield of defender knights. Increases CON by 6.', con: 6, value:50
+      3: text: "Protector Shield", notes:'Traditional shield of defender knights. Increases CON by 6.', con: 6, value:50
       4: text: "Savior Shield", notes:'Stops blows aimed at nearby innocents as well as those aimed at you. Increases CON by 9.', con: 9, value:70
       5: text: "Royal Shield", notes:'Bestowed upon those most dedicated to the kingdom\'s defense. Increases CON by 12.', con: 12, value:90, last: true
     special:
@@ -209,6 +209,9 @@ api.potion = type: 'potion', text: "Health Potion", notes: "Recover 15 Health (I
   Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
 ###
 
+#
+diminishingReturns = (bonus, max, halfway=max/2) -> max*(bonus/(bonus+halfway))
+
 api.spells =
 
   wizard:
@@ -219,10 +222,13 @@ api.spells =
       target: 'task'
       notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).'
       cast: (user, target) ->
-        target.value += user._statsComputed.int * .0075 * user.fns.crit('per')
-        bonus = (if target.value < 0 then 1 else target.value+1) * 2.5
-        user.stats.exp += bonus
-        user.party.quest.progress.up += bonus if user.party.quest.key
+        # I seriously have no idea what I'm doing here. I'm just mashing buttons until numbers seem right-ish. Anyone know math?
+        bonus = user._statsComputed.int * user.fns.crit('per')
+        target.value += diminishingReturns(bonus*.02, 4)
+        bonus *= Math.ceil ((if target.value < 0 then 1 else target.value+1) *.075)
+        #console.log {bonus, expBonus:bonus,upBonus:bonus*.1}
+        user.stats.exp += diminishingReturns(bonus,75)
+        user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30) if user.party.quest.key
 
     mpheal:
       text: 'Ethereal Surge'
@@ -337,7 +343,7 @@ api.spells =
       notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception."
       cast: (user, target) ->
         user.stats.buffs.stealth ?= 0
-        user.stats.buffs.stealth = Math.ceil(user._statsComputed.per * .03)
+        user.stats.buffs.stealth += Math.ceil(user._statsComputed.per * .03)
 
   healer:
     heal:
@@ -462,16 +468,16 @@ _.each api.hatchingPotions, (pot,key) ->
   _.defaults pot, {key, value: 2, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
 
 api.food =
-  Meat:             text: 'Meat', target: 'Base'
-  Milk:             text: 'Milk', target: 'White'
-  Potatoe:          text: 'Potato', target: 'Desert'
-  Strawberry:       text: 'Strawberry', target: 'Red'
-  Chocolate:        text: 'Chocolate', target: 'Shade'
-  Fish:             text: 'Fish', target: 'Skeleton'
-  RottenMeat:       text: 'Rotten Meat', target: 'Zombie'
-  CottonCandyPink:  text: 'Pink Cotton Candy', target: 'CottonCandyPink'
-  CottonCandyBlue:  text: 'Blue Cotton Candy', target: 'CottonCandyBlue'
-  Honey:            text: 'Honey', target: 'Golden'
+  Meat:             text: 'Meat', target: 'Base', article: ''
+  Milk:             text: 'Milk', target: 'White', article: ''
+  Potatoe:          text: 'Potato', target: 'Desert', article: 'a '
+  Strawberry:       text: 'Strawberry', target: 'Red', article: 'a '
+  Chocolate:        text: 'Chocolate', target: 'Shade', article: ''
+  Fish:             text: 'Fish', target: 'Skeleton', article: 'a '
+  RottenMeat:       text: 'Rotten Meat', target: 'Zombie', article: ''
+  CottonCandyPink:  text: 'Pink Cotton Candy', target: 'CottonCandyPink', article: ''
+  CottonCandyBlue:  text: 'Blue Cotton Candy', target: 'CottonCandyBlue', article: ''
+  Honey:            text: 'Honey', target: 'Golden', article: ''
   # FIXME what to do with these extra items? Should we add "targets" (plural) for food instead of singular, so we don't have awkward extras?
   #Cheese:           text: 'Cheese', target: 'Golden'
   #Watermelon:       text: 'Watermelon', target: 'Golden'

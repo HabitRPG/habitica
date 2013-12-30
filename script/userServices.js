@@ -71,20 +71,26 @@ angular.module('userServices', []).
               // Update user
               _.extend(user, data);
               if (!user._wrapped){
+
+                // This wraps user with `ops`, which are functions shared both on client and mobile. When performed on client,
+                // they update the user in the browser and then send the request to the server, where the same operation is
+                // replicated. We need to wrap each op to provide a callback to send that operation
                 $window.habitrpgShared.wrap(user);
                 _.each(user.ops, function(op,k){
-                  user.ops[k] = _.partialRight(op, function(err, req){
-                    if (err) {
-                      var message = err.code ? err.message : err;
-                      console.log(message);
-                      if (MOBILE_APP) Notification.push({type:'text',text:message});
-                      else Notification.text(message);
-                      // In the case of 200s, they're friendly alert messages like "You're pet has hatched!" - still send the op
-                      if ((err.code && err.code >= 400) || !err.code) return;
-
-                    }
-                    userServices.log({op:k, params: req.params, query:req.query, body:req.body});
-                  });
+                  user.ops[k] = function(req,cb){
+                    if (cb) return op(req,cb);
+                    op(req,function(err,response){
+                      if (err) {
+                        var message = err.code ? err.message : err;
+                        console.log(message);
+                        if (MOBILE_APP) Notification.push({type:'text',text:message});
+                        else Notification.text(message);
+                        // In the case of 200s, they're friendly alert messages like "You're pet has hatched!" - still send the op
+                        if ((err.code && err.code >= 400) || !err.code) return;
+                      }
+                      userServices.log({op:k, params: req.params, query:req.query, body:req.body});
+                    });
+                  }
                 });
               }
 

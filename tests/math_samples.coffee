@@ -12,7 +12,7 @@ _ = require 'lodash'
 id = shared.uuid()
 user =
   stats: {class: 'warrior', buffs: {per:0,int:0,con:0,str:0}}
-  party: quest: tally: {up:0,down:0}
+  party: quest: key:'evilsanta', progress: {up:0,down:0}
   items:
     eggs: {}
     hatchingPotions: {}
@@ -42,12 +42,12 @@ console.log "================================================\n\n"
 clearUser = (lvl=1) ->
   _.merge user.stats, {exp:0, gp:0, hp:50, lvl:lvl, str:lvl, con:lvl, per:lvl, int:lvl, mp: 100}
   _.merge s.buffs, {str:0,con:0,int:0,per:0}
-  _.merge user.party.quest.tally, {up:0,down:0}
+  _.merge user.party.quest.progress, {up:0,down:0}
   user.items.lastDrop = {count:0}
 
-_.each [1,50,99], (lvl) ->
+_.each [1,25,50,75,99], (lvl) ->
   console.log "[LEVEL #{lvl}] (#{lvl} points in every attr)\n\n"
-  _.each {red:-5,yellow:0,green:5}, (taskVal, color) ->
+  _.each {red:-25,yellow:0,green:35}, (taskVal, color) ->
     console.log "[task.value = #{taskVal} (#{color})]"
     console.log "direction\texpΔ\t\thpΔ\tgpΔ\ttask.valΔ\ttask.valΔ bonus\t\tboss-hit"
     _.each ['up','down'], (direction) ->
@@ -56,14 +56,14 @@ _.each [1,50,99], (lvl) ->
       task.value = taskVal
       task.type = 'daily' if direction is 'up'
       delta = user.ops.score params:{id, direction}
-      console.log "#{if direction is 'up' then '↑' else '↓'}\t\t#{s.exp}/#{shared.tnl(s.lvl)}\t\t#{(b4.hp-s.hp).toFixed(1)}\t#{s.gp.toFixed(1)}\t#{delta.toFixed(1)}\t\t#{(task.value-b4.taskVal-delta).toFixed(1)}\t\t\t#{user.party.quest.tally.up.toFixed(1)}"
+      console.log "#{if direction is 'up' then '↑' else '↓'}\t\t#{s.exp}/#{shared.tnl(s.lvl)}\t\t#{(b4.hp-s.hp).toFixed(1)}\t#{s.gp.toFixed(1)}\t#{delta.toFixed(1)}\t\t#{(task.value-b4.taskVal-delta).toFixed(1)}\t\t\t#{user.party.quest.progress.up.toFixed(1)}"
 
     str = '- [Wizard]'
 
     task.value = taskVal;clearUser(lvl)
     b4 = {taskVal}
     shared.content.spells.wizard.fireball.cast(user,task)
-    str += "\tfireball(task.valΔ:#{(task.value-taskVal).toFixed(1)} exp:#{s.exp.toFixed(1)})"
+    str += "\tfireball(task.valΔ:#{(task.value-taskVal).toFixed(1)} exp:#{s.exp.toFixed(1)} bossHit:#{user.party.quest.progress.up.toFixed(2)})"
 
     task.value = taskVal;clearUser(lvl)
     _party = [user, {stats:{mp:0}}]
