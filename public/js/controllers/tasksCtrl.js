@@ -82,29 +82,32 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      Checklists
      ------------------------
      */
-    var ws = window.setTimeout;
+    function focusChecklist(task,index) {
+      window.setTimeout(function(){
+        $('#task-'+task.id+' .checklist-form .inline-edit')[index].focus();
+      });
+    }
     $scope.addChecklist = function(task) {
       task.checklist = [{completed:false,text:""}];
-      ws(function(){
-        $('#task-'+task.id+' .checklist-form .inline-edit')[0].focus();
-      });
+      focusChecklist(task,0);
     }
     $scope.addChecklistItem = function(task,$event,$index) {
       if ($index == task.checklist.length-1){
         User.user.ops.updateTask({params:{id:task.id},body:task}); // don't preen the new empty item
         task.checklist.push({completed:false,text:''});
-        ws(function(){
-          var list = $('#task-'+task.id+' .checklist-form .inline-edit');
-          list[list.length-1].focus();
-        },0);
+        focusChecklist(task,task.checklist.length-1);
       } else {
         $scope.saveTask(task,true);
-        $('#task-'+task.id+' .checklist-form .inline-edit')[$index+1].focus();
+        focusChecklist(task,$index+1);
       }
     }
-    $scope.removeChecklistItem = function(task,$index){
-      task.checklist.splice($index,1);
-      $scope.saveTask(task,true);
+    $scope.removeChecklistItem = function(task,$index,force){
+      var backspaced = !force && !task.checklist[$index].text
+      if (force || backspaced) {
+        task.checklist.splice($index,1);
+        $scope.saveTask(task,true);
+        if (backspaced) focusChecklist(task,$index-1);
+      }
     }
     $scope.checklistCompletion = function(checklist){
       return _.reduce(checklist,function(m,i){return m+(i.completed ? 1 : 0);},0)
