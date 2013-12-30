@@ -39,7 +39,7 @@ table.table.table-striped
           |  Equipment: {{Content.gear.flat[profile.items.gear.equipped.weapon][k] + Content.gear.flat[profile.items.gear.equipped.armor][k] + Content.gear.flat[profile.items.gear.equipped.head][k] + Content.gear.flat[profile.items.gear.equipped.shield][k] || 0}}&nbsp;
         li
           i.icon-question-sign(popover-title='Class Equipment Bonus', popover-trigger='mouseenter', popover-placement='top', popover="Your class uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the attribute bonus it grants.")
-          |  Class Equip Bonus: {{profile._statsComputed[k] - profile.stats.buffs[k] - ((profile.stats.lvl - 1) / 2) - Content.gear.flat[profile.items.gear.equipped.weapon][k] - Content.gear.flat[profile.items.gear.equipped.armor][k] - Content.gear.flat[profile.items.gear.equipped.head][k] - Content.gear.flat[profile.items.gear.equipped.shield][k]}}&nbsp;
+          |  Class Equip Bonus: {{profile._statsComputed[k] - profile.stats.buffs[k] - ((profile.stats.lvl - 1) / 2) - Content.gear.flat[profile.items.gear.equipped.weapon][k] - Content.gear.flat[profile.items.gear.equipped.armor][k] - Content.gear.flat[profile.items.gear.equipped.head][k] - Content.gear.flat[profile.items.gear.equipped.shield][k] - profile.stats[k]}}&nbsp;
         li
           i.icon-question-sign(popover-title='Allocated Points', popover-trigger='mouseenter', popover-placement='top', popover="Attribute points you've earned and assigned. Assign points using the Character Build column.")
           |  Allocated: {{profile.stats[k] || 0}}&nbsp;
