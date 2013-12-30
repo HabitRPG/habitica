@@ -1,4 +1,4 @@
-li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}', popover-trigger='mouseenter', popover-placement='top', popover='{{task.notes}}')
+li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}', popover-trigger='mouseenter', popover-placement='top', popover='{{task.notes}}')
   // right-hand side control buttons
   .task-meta-controls
 
@@ -12,6 +12,9 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared
 
     // Icons only available if you own the tasks (aka, hidden from challenge stats)
     span(ng-if='!obj._locked')
+      span.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}')
+        {{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
+
       i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
       // edit
       a(ng-hide='task._editing', ng-click='editTask(task)', tooltip='Edit')
@@ -95,6 +98,20 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared
             a(ng-click="unlink(task, 'keep-all')") Keep Them
             | &nbsp;|&nbsp;
             a(ng-click="unlink(task, 'remove-all')") Remove Them
+
+      // Checklists
+      a.btn.btn-small(ng-if='!task.checklist[0] && (task.type=="daily" || task.type=="todo")',ng-click='addChecklist(task)')
+        i.icon-tasks
+        |  Add Checklist
+      form.checklist-form(ng-if='task.checklist')
+        fieldset.option-group.task-checklist(ng-if='!$state.includes("options.social.challenges")')
+          legend.option-title Checklist
+          label.checkbox(ng-repeat='item in task.checklist')
+            a.pull-right.checklist-icons(ng-click='removeChecklistItem(task,$index)')
+              i.icon-trash(tooltip='Delete')
+            input(type='checkbox',ng-model='item.completed',ng-change='checkChecklistItem(task)')
+            input.inline-edit(type='text',ng-model='item.text',ui-keypress="{13:'saveChecklist(task,$event,$index)'}",ng-blur='saveChecklist(task,$event,$index)')
+
 
       form(ng-submit='saveTask(task)')
         // text & notes

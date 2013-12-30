@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'API_URL',
-  function($scope, $rootScope, $location, User, Notification, $http, API_URL) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'API_URL', '$timeout',
+  function($scope, $rootScope, $location, User, Notification, $http, API_URL, $timeout) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
@@ -67,6 +67,41 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
           User.log({});
         });
     };
+
+    /*
+     ------------------------
+     Checklists
+     ------------------------
+     */
+    var ws = window.setTimeout;
+    $scope.addChecklist = function(task) {
+      task.checklist = [{completed:false,text:""}];
+      ws(function(){
+        $('#task-'+task.id+' .checklist-form .inline-edit')[0].focus();
+      });
+    }
+    $scope.checkChecklistItem = function(task){
+      User.user.ops.updateTask({params:{id:task.id},body:task});
+    }
+    $scope.saveChecklist = function(task,$event,$index) {
+      User.user.ops.updateTask({params:{id:task.id},body:task});
+      task.checklist = _.filter(task.checklist,function(i){return !!i.text});
+      $event.target.blur();
+      if ($index == task.checklist.length-1){
+        task.checklist.push({completed:false,text:''});
+        ws(function(){
+          var list = $('#task-'+task.id+' .checklist-form .inline-edit');
+          list[list.length-1].focus();
+        },100);
+      }
+    }
+    $scope.removeChecklistItem = function(task,$index){
+      task.checklist.splice($index,1);
+      User.user.ops.updateTask({params:{id:task.id},body:task});
+    }
+    $scope.checklistCompletion = function(checklist){
+      return _.reduce(checklist,function(m,i){return m+(i.completed ? 1 : 0);},0)
+    }
 
     /*
      ------------------------
