@@ -11662,7 +11662,7 @@ var process=require("__browserify_process");(function() {
         return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
       },
       score: function(req, cb) {
-        var addPoints, calculateDelta, delta, direction, id, num, options, stats, subtractPoints, task, th, _ref;
+        var addPoints, calculateDelta, delta, direction, id, num, options, stats, subtractPoints, task, th, _ref, _ref1;
         _ref = req.params, id = _ref.id, direction = _ref.direction;
         task = user.tasks[id];
         options = req.query || {};
@@ -11784,8 +11784,9 @@ var process=require("__browserify_process");(function() {
             } else {
               calculateDelta();
               addPoints();
-              if (!(user.stats.mp >= user._statsComputed.maxMP)) {
-                user.stats.mp++;
+              user.stats.mp += 1 + (((_ref1 = task.checklist) != null ? _ref1.length : void 0) || 0);
+              if (user.stats.mp >= user._statsComputed.maxMP) {
+                user.stats.mp = user._statsComputed.maxMP;
               }
             }
             break;

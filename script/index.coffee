@@ -782,7 +782,8 @@ api.wrap = (user) ->
           else
             calculateDelta()
             addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
-            user.stats.mp++ unless user.stats.mp >= user._statsComputed.maxMP
+            user.stats.mp += (1 + (task.checklist?.length or 0)) # MP++ per ToDo, bonus per CLI
+            user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
 
         when 'reward'
         # Don't adjust values for rewards
