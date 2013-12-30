@@ -111,8 +111,6 @@ fs.readdirSync(path.join(__dirname, "/../locales")).forEach(function(file) {
   _.defaults(translations[file], translations.en);
 });
 
-console.log(translations)
-
 var langCodes = Object.keys(translations);
 
 var avalaibleLanguages = _.map(langCodes, function(langCode){
