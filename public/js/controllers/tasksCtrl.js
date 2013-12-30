@@ -70,6 +70,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     /*
      ------------------------
+     To-Dos
+     ------------------------
+     */
+    $scope._today = moment().add('days',1);
+
+    /*
+     ------------------------
      Checklists
      ------------------------
      */

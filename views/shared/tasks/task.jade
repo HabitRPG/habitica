@@ -1,10 +1,10 @@
-li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}', popover-trigger='mouseenter', popover-placement='top', popover='{{task.notes}}')
+li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}', popover-trigger='mouseenter', popover-placement='top', popover='{{task.notes}}', ng-dblclick='editTask(task)')
   // right-hand side control buttons
   .task-meta-controls
 
     // Due Date
     span.task-date(ng-if='task.type=="todo" && task.date')
-      | {{task.date}}
+      span(ng-class='{"label label-important":moment(task.date).isBefore(_today)}') {{moment(task.date).format('MM/DD')}}
     // Streak
     span(ng-show='task.streak') {{task.streak}}
       span(tooltip='Streak Counter')
@@ -155,7 +155,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
         // if Todos, the due date
         fieldset.option-group(ng-if='task.type=="todo" && !task.challenge.id')
           legend.option-title Due Date
-          input.option-content.datepicker(type='text', data-date-format='mm/dd/yyyy', ng-model='task.date')
+          input.option-content.datepicker(type='text', datepicker-popup='MM/dd/yyyy', ng-model='task.date')
 
         fieldset.option-group(ng-if='!$state.includes("options.social.challenges")')
           legend.option-title Tags
