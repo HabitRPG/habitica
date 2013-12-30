@@ -11690,14 +11690,15 @@ var process=require("__browserify_process");(function() {
             var adjustAmt, currVal, nextDelta, _ref1, _ref2;
             currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
             nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
-            if (direction === 'down' && task.type === 'daily' && options.cron && ((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
-              nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
-                return m + (i.completed ? 1 : 0);
-              }), 0) / task.checklist.length;
-              _.each(task.checklist, (function(i) {
-                i.completed = false;
-                return true;
-              }));
+            if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
+              if (direction === 'down' && task.type === 'daily' && options.cron) {
+                nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
+                  return m + (i.completed ? 1 : 0);
+                }), 0) / task.checklist.length;
+              }
+              if (direction === 'up' && task.type === 'todo') {
+                nextDelta *= task.checklist.length;
+              }
             }
             if (task.type !== 'reward') {
               adjustAmt = nextDelta;
@@ -12135,7 +12136,11 @@ var process=require("__browserify_process");(function() {
                 date: +(new Date),
                 value: task.value
               });
-              return task.completed = false;
+              task.completed = false;
+              return _.each(task.checklist, (function(i) {
+                i.completed = false;
+                return true;
+              }));
             case 'todo':
               absVal = completed ? Math.abs(task.value) : task.value;
               return todoTally += absVal;
