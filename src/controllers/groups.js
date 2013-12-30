@@ -248,6 +248,11 @@ api.join = function(req, res) {
   if (group.type == 'party' && group._id == (user.invitations && user.invitations.party && user.invitations.party.id)) {
     user.invitations.party = undefined;
     user.save();
+    // invite new user to pending quest
+    if (group.quest.key && !group.quest.active) {
+      group.quest.members[user._id] = undefined;
+      group.markModified('quest.members');
+    }
   }
   else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
     var i = _.findIndex(user.invitations.guilds, {id:group._id});
@@ -278,11 +283,25 @@ api.join = function(req, res) {
 api.leave = function(req, res, next) {
   var user = res.locals.user,
     group = res.locals.group;
-
-  Group.update({_id:group._id},{$pull:{members:user._id}}, function(err, saved){
-    if (err) return res.json(500,{err:err});
+  async.parallel([
+    // Remove active quest from user if they're leaving the party
+    function(cb){
+      if (group.type != 'party') return cb(null,{},1);
+      user.party.quest = Group.cleanQuestProgress();
+      user.save(cb);
+    },
+    function(cb){
+      var update = {$pull:{members:user._id}};
+      if (group.type == 'party' && group.quest.key){
+        update['$unset'] = {};
+        update['$unset']['quest.members.' + user._id] = 1;
+      }
+      Group.update({_id:group._id},update,cb);
+    }
+  ],function(err){
+    if (err) return next(err);
     return res.send(204);
-  });
+  })
 }
 
 api.invite = function(req, res, next) {
@@ -351,7 +370,7 @@ api.removeMember = function(req, res, next){
   }
 
   if(_.contains(group.members, uuid)){
-    Group.update({_id:group._id},{$pull:{members:uuid}}, function(err, saved){
+    Group.update({_id:group._id},{$pull:{members:uuid},$inc:{memberCount:-1}}, function(err, saved){
       if (err) return res.json(500,{err:err});
       
       // Sending an empty 204 because Group.update doesn't return the group

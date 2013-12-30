@@ -144,6 +144,7 @@ api.getUser = function(req, res, next) {
   var user = res.locals.user.toJSON();
   user.stats.toNextLevel = shared.tnl(user.stats.lvl);
   user.stats.maxHealth = 50;
+  user.stats.maxMP = res.locals.user._statsComputed.maxMP;
   delete user.apiToken;
   if (user.auth) {
     delete user.auth.hashed_password;
@@ -370,7 +371,7 @@ api.cast = function(req, res) {
 
           if (group) {
             series.push(function(cb2){
-              var message = '`<'+user.profile.name+'> casts '+spell.text + (type=='user' ? ' on @'+found.profile.name : ' for the party')+'.`';
+              var message = '`'+user.profile.name+' casts '+spell.text + (type=='user' ? ' on @'+found.profile.name : ' for the party')+'.`';
               group.sendChat(message);
               group.save(cb2);
             })

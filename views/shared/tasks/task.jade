@@ -1,4 +1,4 @@
-li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}')
+li(bindonce='list', ng-repeat='task in obj[list.type+"s"] | completedFilter: list.showCompleted', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}')
   // right-hand side control buttons
   .task-meta-controls
 
@@ -61,116 +61,118 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared
       label(for='box-{{obj._id}}_{{task.id}}')
   // main content
   p.task-text
-    | {{task.text}}
+    markdown(ng-model='task.text',target='_blank')
+    //-| {{task.text}}
 
   // edit/options dialog
-  .task-options(ng-show='task._editing')
+  div(ng-if='task._editing')
+    .task-options
 
-    // Broken Challenge
-    .well(ng-if='task.challenge.broken')
-      div(ng-if='task.challenge.broken=="TASK_DELETED"')
-        p Broken Challenge Link: this task was part of a challenge, but has been removed from it. What would you like to do?
-        p
-          a(ng-click='unlink(task, "keep")') Keep It
-          | &nbsp;|&nbsp;
-          a(ng-click="removeTask(obj[list.type+'s'], $index)") Remove It
-      div(ng-if='task.challenge.broken=="CHALLENGE_DELETED"')
-        p Broken Challenge Link: this task was part of a challenge, but the challenge (or group) has been deleted. What to do with the orphan tasks?
-        p
-          a(ng-click='unlink(task, "keep-all")') Keep Them
-          | &nbsp;|&nbsp;
-          a(ng-click='unlink(task, "remove-all")') Remove Them
-      div(ng-if='task.challenge.broken=="CHALLENGE_CLOSED"')
-        p.
-          This challenge has been completed, and the winner was <span class='badge'>{{task.challenge.winner}}</span>! What to do with the orphan tasks?
-        p
-          a(ng-click='unlink(task, "keep-all")') Keep Them
-          | &nbsp;|&nbsp;
-          a(ng-click='unlink(task, "remove-all")') Remove Them
-      //div(ng-if='task.challenge.broken=="UNSUBSCRIBED"')
-        p Broken Challenge Link: this task was part of a challenge, but you have unsubscribed from the challenge. What to do with the orphan tasks?
-        p
-          a(ng-click="unlink(task, 'keep-all')") Keep Them
-          | &nbsp;|&nbsp;
-          a(ng-click="unlink(task, 'remove-all')") Remove Them
+      // Broken Challenge
+      .well(ng-if='task.challenge.broken')
+        div(ng-if='task.challenge.broken=="TASK_DELETED"')
+          p Broken Challenge Link: this task was part of a challenge, but has been removed from it. What would you like to do?
+          p
+            a(ng-click='unlink(task, "keep")') Keep It
+            | &nbsp;|&nbsp;
+            a(ng-click="removeTask(obj[list.type+'s'], $index)") Remove It
+        div(ng-if='task.challenge.broken=="CHALLENGE_DELETED"')
+          p Broken Challenge Link: this task was part of a challenge, but the challenge (or group) has been deleted. What to do with the orphan tasks?
+          p
+            a(ng-click='unlink(task, "keep-all")') Keep Them
+            | &nbsp;|&nbsp;
+            a(ng-click='unlink(task, "remove-all")') Remove Them
+        div(ng-if='task.challenge.broken=="CHALLENGE_CLOSED"')
+          p.
+            This challenge has been completed, and the winner was <span class='badge'>{{task.challenge.winner}}</span>! What to do with the orphan tasks?
+          p
+            a(ng-click='unlink(task, "keep-all")') Keep Them
+            | &nbsp;|&nbsp;
+            a(ng-click='unlink(task, "remove-all")') Remove Them
+        //div(ng-if='task.challenge.broken=="UNSUBSCRIBED"')
+          p Broken Challenge Link: this task was part of a challenge, but you have unsubscribed from the challenge. What to do with the orphan tasks?
+          p
+            a(ng-click="unlink(task, 'keep-all')") Keep Them
+            | &nbsp;|&nbsp;
+            a(ng-click="unlink(task, 'remove-all')") Remove Them
 
-    form(ng-submit='saveTask(task)')
-      // text & notes
-      fieldset.option-group
-        label.option-title Text
-        input.option-content(type='text', ng-model='task.text', required, ng-disabled='task.challenge.id')
+      form(ng-submit='saveTask(task)')
+        // text & notes
+        fieldset.option-group
+          label.option-title Text
+          input.option-content(type='text', ng-model='task.text', required, ng-disabled='task.challenge.id')
 
-        label.option-title Extra Notes
-        textarea.option-content(rows='3', ng-model='task.notes', ng-disabled='task.challenge.id')
+          label.option-title Extra Notes
+          textarea.option-content(rows='3', ng-model='task.notes', ng-disabled='task.challenge.id')
 
-      // if Habit, plus/minus command options
-      fieldset.option-group(ng-if='task.type=="habit" && !task.challenge.id')
-        legend.option-title Direction/Actions
-        span.task-checker.action-plusminus.select-toggle
-          input.visuallyhidden.focusable(id='{{obj._id}}_{{task.id}}-option-plus', type='checkbox', ng-model='task.up')
-          label(for='{{obj._id}}_{{task.id}}-option-plus')
-        span.task-checker.action-plusminus.select-toggle
-          input.visuallyhidden.focusable(id='{{obj._id}}_{{task.id}}-option-minus', type='checkbox', ng-model='task.down')
-          label(for='{{obj._id}}_{{task.id}}-option-minus')
+        // if Habit, plus/minus command options
+        fieldset.option-group(ng-if='task.type=="habit" && !task.challenge.id')
+          legend.option-title Direction/Actions
+          span.task-checker.action-plusminus.select-toggle
+            input.visuallyhidden.focusable(id='{{obj._id}}_{{task.id}}-option-plus', type='checkbox', ng-model='task.up')
+            label(for='{{obj._id}}_{{task.id}}-option-plus')
+          span.task-checker.action-plusminus.select-toggle
+            input.visuallyhidden.focusable(id='{{obj._id}}_{{task.id}}-option-minus', type='checkbox', ng-model='task.down')
+            label(for='{{obj._id}}_{{task.id}}-option-minus')
 
-      // if Daily, calendar
-      fieldset(bo-if='task.type=="daily"', class="option-group")
-        legend.option-title Repeat
-        .task-controls.tile-group.repeat-days(bindonce)
-          // note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding
-          button.task-action-btn.tile(ng-class='{active: task.repeat.su}',  type='button', ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)', bo-text='moment.weekdaysMin(0)')
-          button.task-action-btn.tile(ng-class='{active: task.repeat.m}',   type='button', ng-click='task.challenge.id || (task.repeat.m = !task.repeat.m)', bo-text='moment.weekdaysMin(1)')
-          button.task-action-btn.tile(ng-class='{active: task.repeat.t}',   type='button', ng-click='task.challenge.id || (task.repeat.t = !task.repeat.t)', bo-text='moment.weekdaysMin(2)')
-          button.task-action-btn.tile(ng-class='{active: task.repeat.w}',   type='button', ng-click='task.challenge.id || (task.repeat.w = !task.repeat.w)', bo-text='moment.weekdaysMin(3)')
-          button.task-action-btn.tile(ng-class='{active: task.repeat.th}',  type='button', ng-click='task.challenge.id || (task.repeat.th = !task.repeat.th)', bo-text='moment.weekdaysMin(4)')
-          button.task-action-btn.tile(ng-class='{active: task.repeat.f}',   type='button', ng-click='task.challenge.id || (task.repeat.f= !task.repeat.f)', bo-text='moment.weekdaysMin(5)')
-          button.task-action-btn.tile(ng-class='{active: task.repeat.s}',   type='button', ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)', bo-text='moment.weekdaysMin(6)')
+        // if Daily, calendar
+        fieldset(bo-if='task.type=="daily"', class="option-group")
+          legend.option-title Repeat
+          .task-controls.tile-group.repeat-days(bindonce)
+            // note, does not use  data-toggle="buttons-checkbox" - it would interfere with our own click binding
+            button.task-action-btn.tile(ng-class='{active: task.repeat.su}',  type='button', ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)', bo-text='moment.weekdaysMin(0)')
+            button.task-action-btn.tile(ng-class='{active: task.repeat.m}',   type='button', ng-click='task.challenge.id || (task.repeat.m = !task.repeat.m)', bo-text='moment.weekdaysMin(1)')
+            button.task-action-btn.tile(ng-class='{active: task.repeat.t}',   type='button', ng-click='task.challenge.id || (task.repeat.t = !task.repeat.t)', bo-text='moment.weekdaysMin(2)')
+            button.task-action-btn.tile(ng-class='{active: task.repeat.w}',   type='button', ng-click='task.challenge.id || (task.repeat.w = !task.repeat.w)', bo-text='moment.weekdaysMin(3)')
+            button.task-action-btn.tile(ng-class='{active: task.repeat.th}',  type='button', ng-click='task.challenge.id || (task.repeat.th = !task.repeat.th)', bo-text='moment.weekdaysMin(4)')
+            button.task-action-btn.tile(ng-class='{active: task.repeat.f}',   type='button', ng-click='task.challenge.id || (task.repeat.f= !task.repeat.f)', bo-text='moment.weekdaysMin(5)')
+            button.task-action-btn.tile(ng-class='{active: task.repeat.s}',   type='button', ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)', bo-text='moment.weekdaysMin(6)')
 
-      // if Reward, pricing
-      fieldset.option-group.option-short(ng-if='task.type=="reward" && !task.challenge.id')
-        legend.option-title Price
-        input.option-content(type='number', size='16', min='0', step="any", ng-model='task.value')
-        .money.input-suffix
-          span.shop_gold
+        // if Reward, pricing
+        fieldset.option-group.option-short(ng-if='task.type=="reward" && !task.challenge.id')
+          legend.option-title Price
+          input.option-content(type='number', size='16', min='0', step="any", ng-model='task.value')
+          .money.input-suffix
+            span.shop_gold
 
-      // if Todos, the due date
-      fieldset.option-group(ng-if='task.type=="todo" && !task.challenge.id')
-        legend.option-title Due Date
-        input.option-content.datepicker(type='text', data-date-format='mm/dd/yyyy', ng-model='task.date')
+        // if Todos, the due date
+        fieldset.option-group(ng-if='task.type=="todo" && !task.challenge.id')
+          legend.option-title Due Date
+          input.option-content.datepicker(type='text', data-date-format='mm/dd/yyyy', ng-model='task.date')
 
-      fieldset.option-group(ng-if='!$state.includes("options.social.challenges")')
-        legend.option-title Tags
-        label.checkbox(ng-repeat='tag in user.tags')
-          input(type='checkbox', ng-model='task.tags[tag.id]')
-          | {{tag.name}}
+        fieldset.option-group(ng-if='!$state.includes("options.social.challenges")')
+          legend.option-title Tags
+          label.checkbox(ng-repeat='tag in user.tags')
+            input(type='checkbox', ng-model='task.tags[tag.id]')
+            | {{tag.name}}
 
-      // Advanced Options
-      span(bo-if='task.type!="reward"')
-        p.option-title.mega(ng-click='task._advanced = !task._advanced') Advanced Options
-        fieldset.option-group.advanced-option(ng-class="{visuallyhidden: !task._advanced}")
-          legend.option-title
-            a.priority-multiplier-help(href='https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17', target='_blank', popover-title='How difficult is this task?', popover-trigger='mouseenter', popover="This multiplies its point value. Use sparingly, rely instead on our organic value-adjustment algorithms. But some tasks are grossly more valuable (Write Thesis vs Floss Teeth). Click for more info.")
-              i.icon-question-sign
-            | Difficulty
-          .task-controls.tile-group.priority-multiplier
-            button.task-action-btn.tile(type='button', ng-class='{active: task.priority==1 || !task.priority}', ng-click='task.challenge.id || (task.priority=1)') Easy
-            button.task-action-btn.tile(type='button', ng-class='{active: task.priority==1.5}', ng-click='task.challenge.id || (task.priority=1.5)') Medium
-            button.task-action-btn.tile(type='button', ng-class='{active: task.priority==2}', ng-click='task.challenge.id || (task.priority=2)') Hard
-          //span(ng-if='task.type=="daily" && !task.challenge.id')
-          br
-          span(ng-if='task.type=="daily"')
-            legend.option-title Restore Streak
-            input.option-content(type='number', ng-model='task.streak')
+        // Advanced Options
+        span(bo-if='task.type!="reward"')
+          p.option-title.mega(ng-click='task._advanced = !task._advanced') Advanced Options
+          fieldset.option-group.advanced-option(ng-class="{visuallyhidden: !task._advanced}")
+            legend.option-title
+              a.priority-multiplier-help(href='https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17', target='_blank', popover-title='How difficult is this task?', popover-trigger='mouseenter', popover="This multiplies its point value. Use sparingly, rely instead on our organic value-adjustment algorithms. But some tasks are grossly more valuable (Write Thesis vs Floss Teeth). Click for more info.")
+                i.icon-question-sign
+              | Difficulty
+            .task-controls.tile-group.priority-multiplier
+              button.task-action-btn.tile(type='button', ng-class='{active: task.priority==1 || !task.priority}', ng-click='task.challenge.id || (task.priority=1)') Easy
+              button.task-action-btn.tile(type='button', ng-class='{active: task.priority==1.5}', ng-click='task.challenge.id || (task.priority=1.5)') Medium
+              button.task-action-btn.tile(type='button', ng-class='{active: task.priority==2}', ng-click='task.challenge.id || (task.priority=2)') Hard
+            //span(ng-if='task.type=="daily" && !task.challenge.id')
+            br
+            span(ng-if='task.type=="daily"')
+              legend.option-title Restore Streak
+              input.option-content(type='number', ng-model='task.streak')
 
-          legend.option-title Attributes
-          .task-controls.tile-group
-            button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="str"}', ng-click='task.attribute="str"') Physical
-            button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="int"}', ng-click='task.attribute="int"') Mental
-            button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="con"}', ng-click='task.attribute="con"') Social
-            button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="per"}', ng-click='task.attribute="per"')
-              | Other&nbsp;
-              i.icon-question-sign(popover='Eg, professional pursuits, hobbies, financial, etc.', popover-trigger='mouseenter', popover-placement='top')
+            legend.option-title Attributes
+            .task-controls.tile-group
+              button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="str"}', ng-click='task.attribute="str"') Physical
+              button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="int"}', ng-click='task.attribute="int"') Mental
+              button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="con"}', ng-click='task.attribute="con"') Social
+              button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="per"}', ng-click='task.attribute="per"')
+                | Other&nbsp;
+                i.icon-question-sign(popover='Eg, professional pursuits, hobbies, financial, etc.', popover-trigger='mouseenter', popover-placement='top')
 
-      button.task-action-btn.tile.spacious(type='submit') Save & Close
+        button.task-action-btn.tile.spacious(type='submit') Save & Close
 
   div(class='{{obj._id}}{{task.id}}-chart', ng-show='charts[obj._id+task.id]')

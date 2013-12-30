@@ -15,12 +15,12 @@ future re: pets and whatnot, this is just temporary.
 	width: 10em
 	max-width: 10em
 	margin: 0 // need this b/c of bootstrap, remove or reset later
-	padding: 0 // push down the sprite
 	position: relative
 	cursor: pointer
 	background: #f5f5f5
-	transition: padding 0.13s ease-out, border 0.25s ease-out, background 0.25s ease-out
+	transition: border 0.25s ease-out, background 0.25s ease-out//, padding 0.13s ease-out
 	outline: 1px solid rgba(0,0,0,0.1)
+// padding: 0 // push down the sprite
 
 // the hero's info frame
 .herobox:after
@@ -74,12 +74,12 @@ future re: pets and whatnot, this is just temporary.
 	background: desaturate(lighten($better, 30%), 10%)
 	&:after
 		opacity: 1
-.herobox.hasPet
+/* .herobox.hasPet
 	&:hover, &:focus
 		padding-top: 3.25em
 .herobox:not(.hasPet)
 	&:hover, &:focus
-		padding-top: 2.5em
+		padding-top: 2.5em */
 
 
 // positioning the sprites, etc
