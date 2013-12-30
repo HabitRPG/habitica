@@ -4,7 +4,7 @@ block vars
   - var layoutEnv = env
 
 block title
-  title HabitRPG | Gamify Your Life
+  title=env.t('titleFront')
 
 block content
   div(ng-app='habitrpg')
@@ -14,9 +14,8 @@ block content
         .container
           h1
             img(src='/bower_components/habitrpg-shared/img/logo/habitrpg_pixel.png', alt='HabitRPG')
-          p
-            | A habit building program which treats your life like a Role Playing Game&period; Level up as you succeed&comma; lose HP as you fail&comma; earn money to buy weapons and armor&period;
-          a.btn.btn-primary.btn-small(ng-click='playButtonClick()') Play
+          p=env.t('synopsis')
+          a.btn.btn-primary.btn-small(ng-click='playButtonClick()')=env.t('playButton')
       .container
         p(style='height:600;')
           iframe(src='//player.vimeo.com/video/76557040', width='100%', height='539', frameborder='0', webkitallowfullscreen='', mozallowfullscreen='', allowfullscreen='')
@@ -26,50 +25,48 @@ block content
           .modal-content
             .modal-header
               button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-              h4.modal-title Login / Register
+              h4.modal-title=env.t('loginAndReg')
             .modal-body
               a(href='/auth/facebook')
-                    img(src='/bower_components/habitrpg-shared/img/facebook-login-register.jpeg', alt='Login / Register With Facebook')
+                    img(src='/bower_components/habitrpg-shared/img/facebook-login-register.jpeg', alt=env.t('loginFacebookAlt'))
               h3 Or
               ul.nav.nav-tabs
                 li.active
-                  a(data-toggle='tab',data-target='#login-tab') Login
+                  a(data-toggle='tab',data-target='#login-tab')=env.t('login')
                 li
-                  a(data-toggle='tab',data-target='#register-tab') Register
+                  a(data-toggle='tab',data-target='#register-tab')=env.t('register')
 
               .tab-content
                 .tab-pane.active#login-tab
                   form(ng-submit='auth()', method='POST')
                     .control-group
-                      input(type='text', ng-model='loginUsername', placeholder='Username')
+                      input(type='text', ng-model='loginUsername', placeholder=env.t('username'))
                     .control-group
-                      input(type='password', ng-model='loginPassword', placeholder='Password')
+                      input(type='password', ng-model='loginPassword', placeholder=env.t('password'))
                       //-.control-group
                         label.checkbox
                           input(type='checkbox', ng-click='useUUID = !useUUID')
                           |  Use UUID / API Token (For Facebook Users)
                     .control-group
-                      input.btn.btn-primary(type='submit', value='Login')
+                      input.btn.btn-primary(type='submit', value=env.t('login'))
 
-                    small In case you are using a password manager (like 1Password) 
-                      | and have problems logging in, try typing username and password manually.
+                    small=env.t('passMan')
 
                   // good god accordions have html ceremony
                   #forgot-password-accordion.accordion
                     .accordion-group
                       .accordion-heading
-                        a.accordion-toggle(data-toggle='collapse', data-parent='#forgot-password-accordion', href='#forgot-password-group')
-                          | Forgot Password
+                        a.accordion-toggle(data-toggle='collapse', data-parent='#forgot-password-accordion', href='#forgot-password-group')=env.t('forgotPass')
                       #forgot-password-group.accordion-body.collapse
                         .accordion-inner
                           form#derby-auth-password-reset(ng-submit='passwordReset(passwordResetEmail)')
-                            h3 Email New Password
+                            h3=env.t('emailNewPass')
                             //.alert.alert-success {.success.passwordReset}
                             //.control-group.{#if..errors.passwordReset}error{/}
                             .control-group
-                              input(type='text', name='email', placeholder='Email', ng-model='passwordResetEmail')
+                              input(type='text', name='email', placeholder=env.t('email') , ng-model='passwordResetEmail')
                               //span.help-inline {.errors.passwordReset}
-                            input.btn(type='submit', value='Submit')
+                            input.btn(type='submit', value=env.t('submit'))
 
 
 
@@ -77,13 +74,17 @@ block content
                 .tab-pane#register-tab
                   form(ng-submit='register()', name='registrationForm')
                     .control-group
-                      input(type='text', ng-model='registerVals.username', placeholder='Username', required)
+                      input(type='text', ng-model='registerVals.username', placeholder=env.t('username'), required)
                     .control-group
-                      input(type='email', ng-model='registerVals.email', placeholder='Email', required)
+                      input(type='email', ng-model='registerVals.email', placeholder=env.t('email'), required)
                     .control-group
-                      input(type='password', ng-model='registerVals.password', placeholder='Password', required)
+                      input(type='password', ng-model='registerVals.password', placeholder=env.t('password'), required)
                     .control-group
-                      input(type='password', ng-model='registerVals.confirmPassword', placeholder='Password Confirm', required)
+                      input(type='password', ng-model='registerVals.confirmPassword', placeholder=env.t('passConfirm'), required)
                     .control-group
-                      small. By clicking the button below, I agree to the <a href='/static/terms' target='_blank'>Terms and Conditions</a> and the <a href='/static/privacy' target='_blank'>Privacy Policy</a>.
-                      input.btn.btn-primary(type='submit', value='Register')
+                      small=env.t('accept1Terms')
+                        a(href='/static/terms' target='_blank')=env.t('terms')
+                        text=env.t('accept2Terms')
+                        a(href='/static/privacy' target='_blank')=env.t('privacy')
+                        | .
+                      input.btn.btn-primary(type='submit', value=env.t('register'))

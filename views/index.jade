@@ -2,7 +2,7 @@ doctype 5
 //html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keypress="{27:'castCancel()'}")
 html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keypress="{27:'castCancel()'}")
   head
-    title HabitRPG | Your Life The Role Playing Game
+    title=env.t('titleIndex')
 
     // ?v=1 needed to force refresh
     link(rel='shortcut icon', href='#{env.getBuildUrl("favicon.ico")}?v=2')
