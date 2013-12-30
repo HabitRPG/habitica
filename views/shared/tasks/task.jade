@@ -70,7 +70,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
     div(ng-if='task.checklist && !$state.includes("options.social.challenges") && user.preferences.inlineChecklists  && !task._editing')
       fieldset.option-group
         label.checkbox(ng-repeat='item in task.checklist')
-          input(type='checkbox',ng-model='item.completed',ng-change='checkChecklistItem(task)')
+          input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
           | {{item.text}}
 
   // edit/options dialog
@@ -116,8 +116,8 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
             li(ng-repeat='item in task.checklist')
               a.pull-right.checklist-icons(ng-click='removeChecklistItem(task,$index)')
                 i.icon-trash(tooltip='Delete')
-              input(type='checkbox',ng-model='item.completed',ng-change='checkChecklistItem(task)')
-              input.inline-edit(type='text',ng-model='item.text',ui-keypress="{13:'saveChecklist(task,$event,$index)'}",ng-blur='saveChecklist(task,$event,$index)')
+              input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
+              input.inline-edit(type='text',ng-model='item.text',ui-keypress="{'13':'addChecklistItem(task,$event,$index)'}")//-,ng-blur='saveTask(task,true)')
 
 
       form(ng-submit='saveTask(task)')
