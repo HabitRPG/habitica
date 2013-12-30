@@ -106,11 +106,12 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
       form.checklist-form(ng-if='task.checklist')
         fieldset.option-group.task-checklist(ng-if='!$state.includes("options.social.challenges")')
           legend.option-title Checklist
-          label.checkbox(ng-repeat='item in task.checklist')
-            a.pull-right.checklist-icons(ng-click='removeChecklistItem(task,$index)')
-              i.icon-trash(tooltip='Delete')
-            input(type='checkbox',ng-model='item.completed',ng-change='checkChecklistItem(task)')
-            input.inline-edit(type='text',ng-model='item.text',ui-keypress="{13:'saveChecklist(task,$event,$index)'}",ng-blur='saveChecklist(task,$event,$index)')
+          ul.unstyled
+            li(ng-repeat='item in task.checklist')
+              a.pull-right.checklist-icons(ng-click='removeChecklistItem(task,$index)')
+                i.icon-trash(tooltip='Delete')
+              input(type='checkbox',ng-model='item.completed',ng-change='checkChecklistItem(task)')
+              input.inline-edit(type='text',ng-model='item.text',ui-keypress="{13:'saveChecklist(task,$event,$index)'}",ng-blur='saveChecklist(task,$event,$index)')
 
 
       form(ng-submit='saveTask(task)')
