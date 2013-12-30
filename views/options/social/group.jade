@@ -21,7 +21,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
           hr
           .npc_ian.pull-left
           p Once all members have either accepted or rejected, the quest begins. Only those that clicked "accept" will be able to participate in the quest and recieve the drops. If members are pending too long (inactive?), you can start without them by clicking "Begin".
-          button.btn.btn-small.btn-warning(ng-click='party.$questAccept({"force":true})') Begin
+          button.btn.btn-small.btn-warning(ng-if='!group.quest.leader || group.quest.leader==user._id', ng-click='party.$questAccept({"force":true})') Begin
           //-TODO Cancel button
           //-TODO Both force-start & cancel should only be available to quest-initiator
 
@@ -71,7 +71,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
             p Only participants can collect items and share in the quest loot. If you die during a quest, you get booted from the quest. If everyone dies once, the quest fails.
 
 
-          button.btn.btn-mini.btn-danger(ng-click='questAbort()') Abort
+          button.btn.btn-mini.btn-danger(ng-if='!group.quest.leader || group.quest.leader==user._id', ng-click='questAbort()') Abort
 
     // ------ Information -------
     .modal.inline-modal

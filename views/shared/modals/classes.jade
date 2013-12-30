@@ -1,6 +1,6 @@
 .modal(ng-if='!user.flags.classSelected && user.stats.lvl >= 10', data-backdrop=true, ng-controller='UserCtrl')
   .modal-header
-    h3 Class System Unlocked!
+    h3 Choose Your Class!
   .modal-body.select-class
     p Select your class. Click each class for more information. See <a href="http://habitrpg.wikia.com/wiki/Class_System" target="_blank">Wikia</a> for thorough details.
     .row-fluid
@@ -10,7 +10,7 @@
           .character-sprites
             span(class='skin_{{user.preferences.skin}}')
             span(class='{{user.preferences.size}}_armor_warrior_5')
-            span(class='head_base_0')
+            span(class='head_0')
             span(class='hair_base_{{user.preferences.hair.base}}_{{user.preferences.hair.color}}')
             span(class='hair_bangs_{{user.preferences.hair.bangs}}_{{user.preferences.hair.color}}')
             span(class='hair_beard_{{user.preferences.hair.beard}}_{{user.preferences.hair.color}}')
@@ -19,12 +19,12 @@
             span(class='shield_warrior_5')
             span(class='weapon_warrior_6')
       .span3(ng-click='selectedClass = "wizard"')
-        h5 Wizard
+        h5 Mage
         figure.herobox(ng-class='{"selected-class": selectedClass=="wizard"}')
           .character-sprites
             span(class='skin_{{user.preferences.skin}}')
             span(class='{{user.preferences.size}}_armor_wizard_5')
-            span(class='head_base_0')
+            span(class='head_0')
             span(class='hair_base_{{user.preferences.hair.base}}_{{user.preferences.hair.color}}')
             span(class='hair_bangs_{{user.preferences.hair.bangs}}_{{user.preferences.hair.color}}')
             span(class='hair_beard_{{user.preferences.hair.beard}}_{{user.preferences.hair.color}}')
@@ -38,7 +38,7 @@
           .character-sprites
             span(class='skin_{{user.preferences.skin}}')
             span(class='{{user.preferences.size}}_armor_rogue_5')
-            span(class='head_base_0')
+            span(class='head_0')
             span(class='hair_base_{{user.preferences.hair.base}}_{{user.preferences.hair.color}}')
             span(class='hair_bangs_{{user.preferences.hair.bangs}}_{{user.preferences.hair.color}}')
             span(class='hair_beard_{{user.preferences.hair.beard}}_{{user.preferences.hair.color}}')
@@ -52,7 +52,7 @@
           .character-sprites
             span(class='skin_{{user.preferences.skin}}')
             span(class='{{user.preferences.size}}_armor_healer_5')
-            span(class='head_base_0')
+            span(class='head_0')
             span(class='hair_base_{{user.preferences.hair.base}}_{{user.preferences.hair.color}}')
             span(class='hair_bangs_{{user.preferences.hair.bangs}}_{{user.preferences.hair.color}}')
             span(class='hair_beard_{{user.preferences.hair.beard}}_{{user.preferences.hair.color}}')
@@ -62,7 +62,7 @@
             span(class='weapon_healer_6')
     br
     .well(ng-show='selectedClass=="warrior"') Warriors deal damage to tasks (reducing redness), have moderate defense, and improved critical hits.
-    .well(ng-show='selectedClass=="wizard"') Wizards deal damage to tasks (reducing redness), can debuff tasks, and they gain experience rapidly.
+    .well(ng-show='selectedClass=="wizard"') Mages deal damage to tasks (reducing redness), can debuff tasks, and they gain experience rapidly.
     .well(ng-show='selectedClass=="rogue"') Rogues finds more drops and gold. They can also "go stealth" to avoid damage at the end of a day.
     .well(ng-show='selectedClass=="healer"') Healers have high defense against damage, and can heal themselves and other players in the party, as well as buff players.
 

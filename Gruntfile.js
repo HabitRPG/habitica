@@ -57,7 +57,7 @@ module.exports = function(grunt) {
 
     nodemon: {
       dev: {
-        ignoredFiles: ['public/*', 'Gruntfile.js', 'views/*', 'build/*']
+        ignoredFiles: ['public/*', 'Gruntfile.js', 'views/*', 'build/*', '.idea*', '.git*']
       }
     },
 

@@ -248,6 +248,11 @@ api.join = function(req, res) {
   if (group.type == 'party' && group._id == (user.invitations && user.invitations.party && user.invitations.party.id)) {
     user.invitations.party = undefined;
     user.save();
+    // invite new user to pending quest
+    if (group.quest.key && !group.quest.active) {
+      group.quest.members[user._id] = undefined;
+      group.markModified('quest.members');
+    }
   }
   else if (group.type == 'guild' && user.invitations && user.invitations.guilds) {
     var i = _.findIndex(user.invitations.guilds, {id:group._id});
@@ -278,11 +283,25 @@ api.join = function(req, res) {
 api.leave = function(req, res, next) {
   var user = res.locals.user,
     group = res.locals.group;
-
-  Group.update({_id:group._id},{$pull:{members:user._id}}, function(err, saved){
-    if (err) return res.json(500,{err:err});
+  async.parallel([
+    // Remove active quest from user if they're leaving the party
+    function(cb){
+      if (group.type != 'party') return cb(null,{},1);
+      user.party.quest = Group.cleanQuestProgress();
+      user.save(cb);
+    },
+    function(cb){
+      var update = {$pull:{members:user._id}};
+      if (group.type == 'party' && group.quest.key){
+        update['$unset'] = {};
+        update['$unset']['quest.members.' + user._id] = 1;
+      }
+      Group.update({_id:group._id},update,cb);
+    }
+  ],function(err){
+    if (err) return next(err);
     return res.send(204);
-  });
+  })
 }
 
 api.invite = function(req, res, next) {
@@ -351,7 +370,7 @@ api.removeMember = function(req, res, next){
   }
 
   if(_.contains(group.members, uuid)){
-    Group.update({_id:group._id},{$pull:{members:uuid}}, function(err, saved){
+    Group.update({_id:group._id},{$pull:{members:uuid},$inc:{memberCount:-1}}, function(err, saved){
       if (err) return res.json(500,{err:err});
       
       // Sending an empty 204 because Group.update doesn't return the group
@@ -417,16 +436,13 @@ questStart = function(req, res) {
   // TODO will this handle appropriately when people leave/join party between quest invite?
   _.each(group.members, function(m){
     var updates = {$set:{},$inc:{'_v':1}};
-    if (m == user._id)
+    if (m == group.quest.leader)
       updates['$inc']['items.quests.'+key] = -1;
     if (group.quest.members[m] == true) {
-      updates['$set']['party.quest.key'] = key;
-      updates['$set']['party.quest.progress'] = {up:0,down:0,collect:collected};
-      updates['$unset'] = {'party.quest.completed':1};
+      updates['$set']['party.quest'] = Group.cleanQuestProgress({key:key,progress:{collect:collected}});
       questMembers[m] = true;
     } else {
-      updates['$unset'] = {'party.quest.key':1};
-      updates['$set']['party.quest.progress'] = {};
+      updates['$set']['party.quest'] = Group.cleanQuestProgress();
     }
     parallel.push(function(cb2){
       User.update({_id:m},updates,cb2);
@@ -464,9 +480,10 @@ api.questAccept = function(req, res) {
     // Invite everyone. true means "accepted", false="rejected", undefined="pending". Once we click "start quest"
     // or everyone has either accepted/rejected, then we store quest key in user object.
     _.each(group.members, function(m){
-      if (m == user._id)
+      if (m == user._id) {
         group.quest.members[m] = true;
-      else
+        group.quest.leader = user._id;
+      } else
         group.quest.members[m] = undefined;
     });
 
@@ -493,14 +510,23 @@ api.questAbort = function(req, res, next){
   var group = res.locals.group;
   async.parallel([
     function(cb){
-      User.update({_id:{$in: _.keys(group.quest.members)}},{
-        $unset: {'party.quest.key':1},
-        $set:   {'party.quest.progress.collect':{}},
-        $inc:   {_v:1}
-      },cb);
+      User.update(
+        {_id:{$in: _.keys(group.quest.members)}},
+        {
+          $set: {'party.quest':Group.cleanQuestProgress()},
+          $inc: {_v:1}
+        },
+        {multi:true},
+        cb);
+    },
+    // Refund party leader quest scroll
+    function(cb){
+      var update = {$inc:{}};
+      update['$inc']['items.quests.' + group.quest.key] = 1;
+      User.update({_id:group.quest.leader}, update, cb);
     },
     function(cb) {
-      group.quest = {};
+      group.quest = {key:null,progress:{},leader:null};
       group.markModified('quest');
       group.save(cb);
     }
