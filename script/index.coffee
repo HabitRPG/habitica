@@ -426,7 +426,8 @@ api.wrap = (user) ->
 
     updateTask: (req, cb) ->
       return cb?("Task not found") unless task = user.tasks[req.params?.id]
-      _.merge task, req.body
+      _.merge task, _.omit(req.body,'checklist')
+      task.checklist = req.body.checklist if req.body.checklist
       task.markModified? 'tags'
       cb? null, task
 
@@ -686,6 +687,12 @@ api.wrap = (user) ->
             else if task.value > 21.27 then 21.27
             else task.value
           nextDelta = Math.pow(0.9747, currVal) * (if direction is 'down' then -1 else 1)
+
+          # If the Daily has a checklist, only dock them them a portion based on their checklist completion
+          if direction is 'down' and task.type is 'daily' and options.cron and task.checklist?.length > 0
+            nextDelta *= (1 - _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length)
+            _.each task.checklist, ((i)->i.completed=false;true)
+
           unless task.type is 'reward'
             adjustAmt = nextDelta
             # ===== STRENGTH =====

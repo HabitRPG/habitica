@@ -11300,7 +11300,10 @@ var process=require("__browserify_process");(function() {
         if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
           return typeof cb === "function" ? cb("Task not found") : void 0;
         }
-        _.merge(task, req.body);
+        _.merge(task, _.omit(req.body, 'checklist'));
+        if (req.body.checklist) {
+          task.checklist = req.body.checklist;
+        }
         if (typeof task.markModified === "function") {
           task.markModified('tags');
         }
@@ -11684,15 +11687,24 @@ var process=require("__browserify_process");(function() {
         delta = 0;
         calculateDelta = function() {
           return _.times(options.times, function() {
-            var adjustAmt, currVal, nextDelta, _ref1;
+            var adjustAmt, currVal, nextDelta, _ref1, _ref2;
             currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
             nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
+            if (direction === 'down' && task.type === 'daily' && options.cron && ((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
+              nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
+                return m + (i.completed ? 1 : 0);
+              }), 0) / task.checklist.length;
+              _.each(task.checklist, (function(i) {
+                i.completed = false;
+                return true;
+              }));
+            }
             if (task.type !== 'reward') {
               adjustAmt = nextDelta;
               if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
                 adjustAmt = nextDelta * (1 + user._statsComputed.str * .004);
                 user.party.quest.progress.up = user.party.quest.progress.up || 0;
-                if ((_ref1 = task.type) === 'daily' || _ref1 === 'todo') {
+                if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
                   user.party.quest.progress.up += adjustAmt;
                 }
               }
