@@ -1,4 +1,4 @@
-li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}', popover-trigger='mouseenter', popover-placement='top', popover='{{task.notes}}', ng-dblclick='editTask(task)')
+li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s"]', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}', popover-trigger='mouseenter', popover-placement='top', popover='{{task.notes}}')
   // right-hand side control buttons
   .task-meta-controls
 
@@ -63,7 +63,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
       input.visuallyhidden.focusable(ng-if='!$state.includes("tasks")', id='box-{{obj._id}}_{{task.id}}', type='checkbox')
       label(for='box-{{obj._id}}_{{task.id}}')
   // main content
-  div.task-text
+  div.task-text(ng-dblclick='editTask(task)')
     markdown(ng-model='task.text',target='_blank')
     //-| {{task.text}}
 
