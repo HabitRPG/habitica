@@ -154,25 +154,25 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
       table.table.table-striped
         tr
           td
-            i.icon-question-sign(popover-title='Strength', popover='Strength increases damage you inflict to tasks (reducing redness), and increases critical hit chance.', popover-trigger='mouseenter')
+            i.icon-question-sign(popover-title='Strength', popover='Strength reduces task threat (redness), increases the Gold and Experience boost from random "critical hits," and helps deal damage to boss monsters.', popover-trigger='mouseenter')
             | &nbsp;STR: {{user.stats.str}}
           td
             a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("str")') +
         tr
           td
-            i.icon-question-sign(popover-title='Constitution', popover='Constitution decreases damage inflicted by tasks, and increases the effectiveness of healing and buff spells.', popover-trigger='mouseenter')
+            i.icon-question-sign(popover-title='Constitution', popover='Constitution reduces the damage you take, whether from negative Habits, missed Dailies, or the attacks of boss monsters.', popover-trigger='mouseenter')
             | &nbsp;CON: {{user.stats.con}}
           td
             a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("con")') +
         tr
           td
-            i.icon-question-sign(popover-title='Perception', popover='Perception increases drops and gold, and can help with critical hits by spells.', popover-trigger='mouseenter')
+            i.icon-question-sign(popover-title='Perception', popover='Perception increases how much Gold you earn, and increases the chance of finding items when scoring tasks.', popover-trigger='mouseenter')
             | &nbsp;PER: {{user.stats.per}}
           td
             a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("per")') +
         tr
           td
-            i.icon-question-sign(popover-title='Intelligence', popover='Intelligence increases your overall mana, spell effectiveness, and experience gain.', popover-trigger='mouseenter')
+            i.icon-question-sign(popover-title='Intelligence', popover='Intelligence increases how much Experience you earn, and determines your maximum Mana available for class abilities.', popover-trigger='mouseenter')
             | &nbsp;INT: {{user.stats.int}}
           td
             a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("int")') +

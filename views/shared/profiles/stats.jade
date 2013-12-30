@@ -30,17 +30,22 @@ table.table.table-striped
     td
       strong {{v}}: {{profile._statsComputed[k]}}
     td
-      ul
-        li Level: {{(profile.stats.lvl - 1) / 2}}&nbsp;
-          i.icon-question-sign(popover-title='Level Bonus', popover-trigger='mouseenter', popover-placement='right', popover="Each attribute gets a bonus equal to half your Level.")
-        li Equipment: {{Content.gear.flat[profile.items.gear.equipped.weapon][k] + Content.gear.flat[profile.items.gear.equipped.armor][k] + Content.gear.flat[profile.items.gear.equipped.head][k] + Content.gear.flat[profile.items.gear.equipped.shield][k] || 0}}&nbsp;
-          i.icon-question-sign(popover-title='Equipment', popover-trigger='mouseenter', popover-placement='right', popover="Attribute bonuses provided by your equipped battle gear. See the Equipment tab under Inventory to select your battle gear.")
-        li Class Equip Bonus: {{profile._statsComputed[k] - profile.stats.buffs[k] - ((profile.stats.lvl - 1) / 2) - Content.gear.flat[profile.items.gear.equipped.weapon][k] - Content.gear.flat[profile.items.gear.equipped.armor][k] - Content.gear.flat[profile.items.gear.equipped.head][k] - Content.gear.flat[profile.items.gear.equipped.shield][k]}}&nbsp;
-          i.icon-question-sign(popover-title='Class Equipment Bonus', popover-trigger='mouseenter', popover-placement='right', popover="Your class uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the attribute bonus it grants.")
-        li Allocated: {{profile.stats[k] || 0}}&nbsp;
-          i.icon-question-sign(popover-title='Allocated Points', popover-trigger='mouseenter', popover-placement='right', popover="Attribute points you've earned and assigned. Assign points using the Character Build column.")
-        li Buffs: {{profile.stats.buffs[k] || 0}}&nbsp;
-          i.icon-question-sign(popover-title='Buffs', popover-trigger='mouseenter', popover-placement='right', popover="Attribute bonuses provided by abilities you or your party members have used. The abilities you can use are found in the Rewards column on your Tasks page.")
+      ul(style='list-style-type:none')
+        li
+          i.icon-question-sign(popover-title='Level Bonus', popover-trigger='mouseenter', popover-placement='top', popover="Each attribute gets a bonus equal to half your Level.")
+          |  Level: {{(profile.stats.lvl - 1) / 2}}&nbsp;
+        li
+          i.icon-question-sign(popover-title='Equipment', popover-trigger='mouseenter', popover-placement='top', popover="Attribute bonuses provided by your equipped battle gear. See the Equipment tab under Inventory to select your battle gear.")
+          |  Equipment: {{Content.gear.flat[profile.items.gear.equipped.weapon][k] + Content.gear.flat[profile.items.gear.equipped.armor][k] + Content.gear.flat[profile.items.gear.equipped.head][k] + Content.gear.flat[profile.items.gear.equipped.shield][k] || 0}}&nbsp;
+        li
+          i.icon-question-sign(popover-title='Class Equipment Bonus', popover-trigger='mouseenter', popover-placement='top', popover="Your class uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the attribute bonus it grants.")
+          |  Class Equip Bonus: {{profile._statsComputed[k] - profile.stats.buffs[k] - ((profile.stats.lvl - 1) / 2) - Content.gear.flat[profile.items.gear.equipped.weapon][k] - Content.gear.flat[profile.items.gear.equipped.armor][k] - Content.gear.flat[profile.items.gear.equipped.head][k] - Content.gear.flat[profile.items.gear.equipped.shield][k] - profile.stats[k]}}&nbsp;
+        li
+          i.icon-question-sign(popover-title='Allocated Points', popover-trigger='mouseenter', popover-placement='top', popover="Attribute points you've earned and assigned. Assign points using the Character Build column.")
+          |  Allocated: {{profile.stats[k] || 0}}&nbsp;
+        li
+          i.icon-question-sign(popover-title='Buffs', popover-trigger='mouseenter', popover-placement='top', popover="Attribute bonuses provided by abilities you or your party members have used. The abilities you can use are found in the Rewards column on your Tasks page.")
+          |  Buffs: {{profile.stats.buffs[k] || 0}}&nbsp;
   tr(ng-if='profile.stats.buffs.stealth')
     td
       strong Stealth: {{profile.stats.buffs.stealth}}&nbsp;
