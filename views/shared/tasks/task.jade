@@ -1,4 +1,4 @@
-li(bindonce='list', ng-repeat='task in obj[list.type+"s"] | completedFilter: list.showCompleted', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}')
+li(bindonce='list', ng-repeat='task in obj[list.type+"s"] | completedFilter: list.showCompleted', class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}', ng-click='spell && castEnd(task, "task", $event)', ng-class='{"cast-target":spell}', popover-trigger='mouseenter', popover-placement='top', popover='{{task.notes}}', popover-title='{{task.text}}')
   // right-hand side control buttons
   .task-meta-controls
 
@@ -36,7 +36,7 @@ li(bindonce='list', ng-repeat='task in obj[list.type+"s"] | completedFilter: lis
     a(ng-show='task.history', ng-click='toggleChart(obj._id+task.id, task)', tooltip='Progress')
       i.icon-signal
     // notes
-    span.task-notes(ng-show='task.notes && !task._editing', popover-trigger='mouseenter', popover-placement='left', popover='{{task.notes}}', popover-title='{{task.text}}')
+    span.task-notes(ng-show='task.notes && !task._editing')
       i.icon-comment
 
   // left-hand side checkbox

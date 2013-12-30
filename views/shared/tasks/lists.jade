@@ -46,10 +46,10 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
         // Static Rewards
         ul.items.rewards(ng-if='main && list.type=="reward" && user.flags.itemsEnabled')
-          li.task.reward-item(ng-repeat='item in itemStore')
+          li.task.reward-item(ng-repeat='item in itemStore', popover-trigger='mouseenter', popover-placement='top', popover-title='{{item.text}}', popover='{{item.notes}}')
             // right-hand side control buttons
             .task-meta-controls
-              span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{item.notes}}', popover-title='{{item.text}}')
+              span.task-notes
                 i.icon-comment
             //left-hand size commands
             .task-controls
@@ -58,13 +58,13 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 span.shop_gold
             // main content
             span(bo-class='{"shop_{{item.key}} shop-sprite item-img": true}')
-            p.task-text {{item.text}}
+            span.task-text {{item.text}}
 
         // Winter Event
         ul.items.rewards(ng-if='main && list.type=="reward" && (user.items.special.snowball>0 || user.stats.buffs.snowball)')
-          li.task.reward-item(ng-if='user.items.special.snowball>0')
+          li.task.reward-item(popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.snowball.notes}}', popover-title='{{Content.spells.special.snowball.text}}', ng-if='user.items.special.snowball>0')
             .task-meta-controls
-              span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{Content.spells.special.snowball.notes}}', popover-title='{{Content.spells.special.snowball.text}}')
+              span.task-notes
                 i.icon-comment
             //left-hand size commands
             .task-controls
@@ -72,10 +72,10 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 span.reward-cost {{user.items.special.snowball}}
                 span.shop_snowball(style='display:inline-block;vertical-align:top;')
             // main content
-            p.task-text {{Content.spells.special.snowball.text}}
-          li.task.reward-item(ng-if='user.stats.buffs.snowball')
+            span.task-text {{Content.spells.special.snowball.text}}
+          li.task.reward-item(popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.salt.notes}}', popover-title='{{Content.spells.special.salt.text}}', ng-if='user.stats.buffs.snowball')
             .task-meta-controls
-              span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{Content.spells.special.salt.notes}}', popover-title='{{Content.spells.special.salt.text}}')
+              span.task-notes
                 i.icon-comment
             //left-hand size commands
             .task-controls
@@ -84,13 +84,13 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 span.shop_gold
             // main content
             span.shop_salt.shop-sprite.item-img
-            p.task-text {{Content.spells.special.salt.text}}
+            span.task-text {{Content.spells.special.salt.text}}
 
         // Spells
         ul.items(ng-if='main && list.type=="reward" && user.stats.class && !user.preferences.disableClasses')
-          li.task.reward-item(ng-repeat='(k,spell) in Content.spells[user.stats.class]', ng-show='user.stats.lvl >= spell.lvl')
+          li.task.reward-item(popover-trigger='mouseenter', popover-placement='top', popover='{{spell.notes}}', popover-title='{{spell.text}}', ng-repeat='(k,spell) in Content.spells[user.stats.class]', ng-show='user.stats.lvl >= spell.lvl')
             .task-meta-controls
-              span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{spell.notes}}', popover-title='{{spell.text}}')
+              span.task-notes
                 i.icon-comment
             //left-hand size commands
             .task-controls
@@ -100,7 +100,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                   | &nbsp;MP
             // main content
             span(ng-class='{"shop_{{spell.key}} shop-sprite item-img": true}')
-            p.task-text {{spell.text}}
+            span.task-text {{spell.text}}
 
         br
 
