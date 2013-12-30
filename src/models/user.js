@@ -232,7 +232,7 @@ var UserSchema = new Schema({
     sleep: {type: Boolean, 'default': false},
     stickyHeader: {type: Boolean, 'default': true},
     disableClasses: {type: Boolean, 'default': false},
-    inlineChecklists: {type: Boolean, 'default': false}
+    inlineChecklists: {type: Boolean, 'default': true}
   },
   profile: {
     blurb: String,
