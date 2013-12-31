@@ -2,55 +2,55 @@ footer.footer(ng-controller='FooterCtrl')
   .container
     .row
       .span3
-        h4 Mobile
+        h4=env.t('footerMobile')
         ul.unstyled
           li
-            a(href='https://itunes.apple.com/us/app/habitrpg/id689569235?mt=8', target='_blank') iOS
+            a(href='https://itunes.apple.com/us/app/habitrpg/id689569235?mt=8', target='_blank')=env.t('mobileIOS')
           li
-            a(href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg', target='_blank') Android
+            a(href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg', target='_blank')=env.t('mobileAndroid')
       .span3
-        h4 Company
+        h4=env.t('footerCompany')
         ul.unstyled
           if (!env.isFrontPage)
             li
               .btn.btn-small.btn-success(ng-click='modals.buyGems = true')
                 i.icon-heart.icon-white
-                |  Donate
+                text=env.t('companyDonate')
           li
-            a(href='/static/about') About
+            a(href='/static/about')=env.t('companyAbout')
           li
-            a(target='_blank', href='http://blog.habitrpg.com/') Blog
+            a(target='_blank', href='http://blog.habitrpg.com/')=env.t('companyBlog')
           li
-            a(href='/static/extensions') Extensions
+            a(href='/static/extensions')=env.t('companyExtensions')
           li
-            a(target='_blank', href='http://habitrpg.wikia.com/wiki/FAQ') FAQ
+            a(target='_blank', href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('companyFAQ')
           li
-            a(href='/static/privacy') Privacy
+            a(href='/static/privacy')=env.t('companyPrivacy')
           li
-            a(href='/static/terms') Terms
+            a(href='/static/terms')=env.t('companyTerms')
       .span3
-        h4 Community
+        h4=env.t('footerCommunity')
         ul.unstyled
           li
-            a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues') Submit Bug
+            a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues')=env.t('communityBug')
           li
-            a(target='_blank', href='https://trello.com/c/8gzGlle8') Request Feature
+            a(target='_blank', href='https://trello.com/c/8gzGlle8')=env.t('communityFeature')
           li
-            a(target='_blank', href='https://github.com/lefnire/habitrpg/wiki/API') API
+            a(target='_blank', href='https://github.com/lefnire/habitrpg/wiki/API')=env.t('communityAPI')
           li
-            a(href='/static/extensions') Add-ons & Extensions
+            a(href='/static/extensions')=env.t('communityExtensions')
           li
-            a(target='_blank', href='http://community.habitrpg.com/forum') Forum
+            a(target='_blank', href='http://community.habitrpg.com/forum')=env.t('communityForum')
           li
-            a(target='_blank', href='http://www.kickstarter.com/projects/lefnire/habitrpg-mobile') Kickstarter
+            a(target='_blank', href='http://www.kickstarter.com/projects/lefnire/habitrpg-mobile')=env.t('communityKickstarter')
           li
-            a(target='_blank', href='https://www.facebook.com/Habitrpg') Facebook
+            a(target='_blank', href='https://www.facebook.com/Habitrpg')=env.t('communityFacebook')
           li
-            a(target='_blank', href='http://www.reddit.com/r/habitrpg/') Reddit
+            a(target='_blank', href='http://www.reddit.com/r/habitrpg/')=env.t('communityReddit')
       .span3
         if (env.NODE_ENV=='production')
-          h4 Social
-          .addthis_toolbox.addthis_default_style(addthis:url='https://habitrpg.com', addthis:title='HabitRPG - Gamify Your Life')
+          h4=env.t('footerSocial')
+          .addthis_toolbox.addthis_default_style(addthis:url='https://habitrpg.com', addthis:title=env.t('socialTitle'))
             table
               tr
                 td
@@ -65,13 +65,13 @@ footer.footer(ng-controller='FooterCtrl')
                 td
                   a.addthis_button_google_plusone(g:plusone:size='medium')
         else
-          h4 Debug
+          h4=env.t('footerDebug')
           ul.unstyled
             li
-              a.btn(ng-click='addMissedDay()') +1 Missed Day
+              a.btn(ng-click='addMissedDay()')=env.t('debugMissed')
             li
-              a.btn(ng-click='addTenGems()') +10 Gems
+              a.btn(ng-click='addTenGems()')=env.t('debugGems')
             li
-              a.btn(ng-click='addLevelsAndGold()') +Exp +GP
+              a.btn(ng-click='addLevelsAndGold()')=env.t('debugLevel')
 
   div(ng-init='deferredScripts()')

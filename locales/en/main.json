@@ -377,25 +377,40 @@
   "buyMoreGems" : "Buy More Gems",
   "notEnoughGems" : "Not enough Gems",
   "petsOutOfGems" : "Oops, out of Gems, which are used to buy special items! Habit is an open source project, and can use all the help it can get - buy more Gems to receive this pet, and consider it a donation to the contributors",
-  "gemsWhatFor" : "Used for buying special items (reroll, eggs, hatching potions, etc). You'll need to unlock those features before being able to use Gems.",
+  "gemsWhatFor" : "Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
 
-"_commentfooter": "FOOTER",
+"_comment": "FOOTER",
+  "footerMobile" : "Mobile",
+    "mobileIOS" : "iOS",
+    "mobileAndroid" : "Android",
   "footerCompany" : "Company",
+    "companyDonate" : " Donate",
     "companyAbout" : "About",
     "companyBlog" : "Blog",
     "companyTeam" : "Team",
     "companyExtensions" : "Extensions",
     "companyFAQ" : "FAQ",
-  "footerLegal" : "Legal",
-    "legalPrivacy" : "Privacy",
-    "legalTerms" : "Terms",
+    "companyPrivacy" : "Privacy",
+    "companyTerms" : "Terms",
   "footerCommunity" : "Community",
-    "communityBugs" : "Submit Bugs",
-    "communityFeatures" : "Request Features",
-    "communityExtensions" : "Add-ons / Extensions",
-    "communityForum" : "Community Forum",
+    "communityBug" : "Submit Bug",
+    "communityFeature" : "Request Feature",
+    "communityAPI" : "API",
+    "communityExtensions" : "Add-ons & Extensions",
+    "communityForum" : "Forum",
+    "communityKickstarter" : "Kickstarter",
+    "communityFacebook" : "Facebook",
+    "communityReddit" : "Reddit",
   "footerSocial" : "Social",
+    "socialTitle" : "HabitRPG - Gamify Your Life",
+  "footerDebug" : "Debug",
+    "debugMissed" : "+1 Missed Day",
+    "debugGems" : "+10 Gems",
+    "debugLevel" : "+Exp +GP",
 
+
+"_commentformatting" : "FORMATTING",
+  "formattingMarkdown" : "Markdown formatting allowed",
 
 
 "_commentmisc": "MISC & GLOBAL",
@@ -425,5 +440,9 @@
     "hoursAgo": "hours ago",
     "yesterday":"Yesterday",
     "daysAgo":"days ago",
+
+
+
+    "":""
 
 }
