@@ -6,11 +6,11 @@ angular.module("notificationServices", [])
     function growl(html, type) {
       $.bootstrapGrowl(html, {
         ele: '#notification-area',
-        type: type, //(null, 'info', 'error', 'success', 'gp', 'xp', 'hp', 'lvl','death')
+        type: type, //(null, 'text', 'error', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp')
         top_offset: 20,
         align: 'right', //('left', 'right', or 'center')
         width: 250, //(integer, or 'auto')
-        delay: 3000,
+        delay: 7000,
         allow_dismiss: true,
         stackup_spacing: 10 // spacing between consecutive stacecked growls.
       });
