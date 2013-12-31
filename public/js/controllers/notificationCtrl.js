@@ -33,7 +33,7 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.stats.mp', function(after,before) {
        if (after == before) return;
-       if (User.user.stats.lvl == 0) return;
+       if (!User.user.flags.classSelected || User.user.preferences.disableClasses) return;
        var mana = after - before;
        Notification.mp(mana);
     });
