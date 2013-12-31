@@ -28,7 +28,7 @@
     "bootstrap": "v2.3.2",
     "bootstrap-datepicker": "~1.2.0",
     "bootstrap-growl": "~1.1.0",
-    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#checklists",
+    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#develop",
     "BrowserQuest": "https://github.com/mozilla/BrowserQuest.git",
     "github-buttons": "git://github.com/mdo/github-buttons.git",
     "marked": "~0.2.9",
