@@ -38,6 +38,10 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
         input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false')
         | Sticky Header
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover='Affix the header to the top of the screen. Unchecked means it scrolls out of view.')
+      label.checkbox
+        input(type='checkbox', ng-click='set({"preferences.inlineChecklists":user.preferences.inlineChecklists?false:true})', ng-checked='user.preferences.inlineChecklists!==false')
+        | Inline Checklists
+        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover='Show Daily & To-Do Checklists on the task at all times, instead of only when editing.')
       button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover='Restart the introductory tour from when you first joined HabitRPG.') Show Tour
       br
       button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover='Bring Bailey the Town Crier out of hiding so you can review past news.') Show Bailey
