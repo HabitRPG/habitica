@@ -11266,10 +11266,67 @@ var process=require("__browserify_process");(function() {
         }
         user.balance--;
         _.each(user.tasks, function(task) {
-          return task.value = 0;
+          if (task.type !== 'reward') {
+            return task.value = 0;
+          }
         });
         user.stats.hp = 50;
         return typeof cb === "function" ? cb(null, user) : void 0;
+      },
+      rebirth: function(req, cb) {
+        var flags, gear, lvl, stats;
+        if (user.balance < 2) {
+          return cb({
+            code: 401,
+            message: "Not enough gems."
+          }, req);
+        }
+        user.balance -= 2;
+        lvl = user.stats.lvl;
+        _.each(user.tasks, function(task) {
+          if (task.type !== 'reward') {
+            task.value = 0;
+          }
+          if (task.type === 'daily') {
+            return task.streak = 0;
+          }
+        });
+        stats = user.stats;
+        stats.buffs = {};
+        stats.hp = 50;
+        stats.lvl = 1;
+        stats["class"] = 'warrior';
+        _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
+          return stats[value] = 0;
+        });
+        gear = user.items.gear;
+        _.each(['equipped', 'costume'], function(type) {
+          gear[type].armor = 'armor_base_0';
+          gear[type].weapon = 'weapon_warrior_0';
+          gear[type].head = 'head_base_0';
+          return gear[type].shield = 'shield_base_0';
+        });
+        gear.owned = {
+          weapon_warrior_0: true
+        };
+        if (typeof user.markModified === "function") {
+          user.markModified('items.gear.owned');
+        }
+        flags = user.flags;
+        if (!(user.achievements.ultimateGear || user.achievements.beastMaster)) {
+          flags.rebirthEnabled = false;
+        }
+        flags.itemsEnabled = false;
+        flags.dropsEnabled = false;
+        flags.classSelected = false;
+        if (!user.achievements.rebirths) {
+          user.achievements.rebirths = 1;
+          user.achievements.rebirthLevel = lvl;
+        } else if (lvl > user.achievements.rebirthLevel) {
+          user.achievements.rebirths++;
+          user.achievements.rebirthLevel = lvl;
+        }
+        return cb(null, req);
       },
       clearCompleted: function(req, cb) {
         user.todos = _.where(user.todos, {
@@ -12041,7 +12098,10 @@ var process=require("__browserify_process");(function() {
           user.items.eggs["Wolf"] = 1;
         }
         if (!user.flags.classSelected && user.stats.lvl >= 10) {
-          return user.flags.classSelected;
+          user.flags.classSelected;
+        }
+        if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
+          return user.flags.rebirthEnabled = true;
         }
       },
       /*

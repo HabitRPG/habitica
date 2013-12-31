@@ -402,9 +402,57 @@ api.wrap = (user) ->
         return cb? {code:401,message: "Not enough gems."}, req
       user.balance--
       _.each user.tasks, (task) ->
-        task.value = 0
+        unless task.type is 'reward'
+          task.value = 0
       user.stats.hp = 50
       cb? null, user
+
+    rebirth: (req, cb) ->
+      # Cost is 8 Gems ($2)
+      if user.balance < 2
+        return cb {code:401,message: "Not enough gems."}, req
+      user.balance -= 2
+      # Save off user's level, for calculating achievement eligibility later
+      lvl = user.stats.lvl
+      # Turn tasks yellow, zero out streaks
+      _.each user.tasks, (task) ->
+        unless task.type is 'reward'
+          task.value = 0
+        if task.type is 'daily'
+          task.streak = 0
+      # Reset all dynamic stats
+      stats = user.stats
+      stats.buffs = {}
+      stats.hp = 50
+      stats.lvl = 1
+      stats.class = 'warrior'
+      _.each ['per','int','con','str','points','gp','exp','mp'], (value) ->
+        stats[value] = 0
+      # Deequip character, set back to base armor and training sword
+      gear = user.items.gear
+      _.each ['equipped', 'costume'], (type) ->
+        gear[type].armor  = 'armor_base_0'
+        gear[type].weapon = 'weapon_warrior_0'
+        gear[type].head   = 'head_base_0'
+        gear[type].shield = 'shield_base_0'
+      # Strip owned gear down to the training sword
+      gear.owned = {weapon_warrior_0:true}
+      user.markModified? 'items.gear.owned'
+      # Remove unlocked features
+      flags = user.flags
+      if not (user.achievements.ultimateGear or user.achievements.beastMaster)
+        flags.rebirthEnabled = false
+      flags.itemsEnabled = false
+      flags.dropsEnabled = false
+      flags.classSelected = false
+      # Award an achievement if this is their first Rebirth, or if they made it further than last time
+      if not (user.achievements.rebirths)
+        user.achievements.rebirths = 1
+        user.achievements.rebirthLevel = lvl
+      else if (lvl > user.achievements.rebirthLevel)
+        user.achievements.rebirths++
+        user.achievements.rebirthLevel = lvl
+      cb null, req
 
     # ------
     # Tasks
@@ -1003,6 +1051,8 @@ api.wrap = (user) ->
         user.items.eggs["Wolf"] = 1
       if !user.flags.classSelected and user.stats.lvl >= 10
         user.flags.classSelected
+      if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
+        user.flags.rebirthEnabled = true
 
     ###
       ------------------------------------------------------
