@@ -9782,6 +9782,14 @@ var global=self;/**
             var _ref;
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
           })
+        },
+        nye: {
+          text: "Absurd Party Hat",
+          notes: "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!",
+          canOwn: (function(u) {
+            var _ref;
+            return moment((_ref = u.auth.timestamps) != null ? _ref.created : void 0).isBefore(new Date('01/2/2014'));
+          })
         }
       }
     },
@@ -11276,10 +11284,10 @@ var process=require("__browserify_process");(function() {
       rebirth: function(req, cb) {
         var flags, gear, lvl, stats;
         if (user.balance < 2) {
-          return cb({
+          return typeof cb === "function" ? cb({
             code: 401,
             message: "Not enough gems."
-          }, req);
+          }, req) : void 0;
         }
         user.balance -= 2;
         lvl = user.stats.lvl;
@@ -11326,7 +11334,7 @@ var process=require("__browserify_process");(function() {
           user.achievements.rebirths++;
           user.achievements.rebirthLevel = lvl;
         }
-        return cb(null, req);
+        return typeof cb === "function" ? cb(null, user) : void 0;
       },
       clearCompleted: function(req, cb) {
         user.todos = _.where(user.todos, {
