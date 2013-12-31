@@ -139,7 +139,10 @@ angular.module('guideServices', []).
       }
     });
 
-
+    $rootScope.$watch('user.flags.rebirthEnabled', function(after, before) {
+        if (alreadyShown(before, after)) return;
+        $rootScope.modals.rebirthEnabled = true;
+    });
 
 
     /**

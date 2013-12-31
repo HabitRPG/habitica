@@ -68,6 +68,11 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.modals.achievements.beastMaster = true;
     }, true);
 
+    $rootScope.$watch('user.achievements.rebirths', function(after, before){
+      if(after === before) return;
+      $rootScope.modals.achievements.rebirth = true;
+    });
+
     /*_.each(['weapon', 'head', 'chest', 'shield'], function(watched){
       $rootScope.$watch('user.items.' + watched, function(before, after){
         if (after == before) return;
