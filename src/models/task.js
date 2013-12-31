@@ -39,6 +39,7 @@ var HabitSchema = new Schema(
   , { _id: false }
 );
 
+var collapseChecklist = {type:Boolean, 'default':false};
 var checklist = [{
   completed:{type:Boolean,'default':false},
   text: String,
@@ -60,6 +61,7 @@ var DailySchema = new Schema(
       s:  {type: Boolean, 'default': true},
       su: {type: Boolean, 'default': true}
     },
+    collapseChecklist:collapseChecklist,
     checklist:checklist,
     streak: {type: Number, 'default': 0}
   }, TaskSchema)
@@ -71,6 +73,7 @@ var TodoSchema = new Schema(
     type: {type:String, 'default': 'todo'},
     completed: {type: Boolean, 'default': false},
     date: String, // due date for todos // FIXME we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
+    collapseChecklist:collapseChecklist,
     checklist:checklist
   }, TaskSchema)
   , { _id: false }
