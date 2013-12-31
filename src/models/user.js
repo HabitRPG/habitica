@@ -255,12 +255,18 @@ var UserSchema = new Schema({
     per: {type: Number, 'default': 0},
     buffs: {
       str: {type: Number, 'default': 0},
-      def: {type: Number, 'default': 0},
+      int: {type: Number, 'default': 0},
       per: {type: Number, 'default': 0},
       con: {type: Number, 'default': 0},
       stealth: {type: Number, 'default': 0},
       streaks: {type: Boolean, 'default': false},
       snowball: {type: Boolean, 'default': false}
+    },
+    training: {
+      int: {type: Number, 'default': 0},
+      per: {type: Number, 'default': 0},
+      str: {type: Number, 'default': 0},
+      con: {type: Number, 'default': 0}
     }
   },
   tags: [
