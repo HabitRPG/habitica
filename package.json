@@ -58,7 +58,7 @@
     "npm": "1.2.x"
   },
   "scripts": {
-    "test": "grunt karma:continuous && ./node_modules/protractor/bin/protractor protractor.conf.js",
+    "test": "./test/run_tests.sh",
     "start": "grunt run:dev",
     "postinstall": "./node_modules/bower/bin/bower install -f"
   },

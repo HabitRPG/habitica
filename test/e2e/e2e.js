@@ -31,6 +31,7 @@ describe('front page', function() {
   it("don't login when using wrong credentials", function(){
     var button = element(by.className('btn'));
     button.click();
+    browser.sleep(1000);
     element(by.model('loginUsername')).sendKeys('username');
     element(by.model('loginPassword')).sendKeys('pass');
     var login = element(by.css("#login-tab input[value='Login']"));
