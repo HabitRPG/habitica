@@ -9786,6 +9786,7 @@ var global=self;/**
         nye: {
           text: "Absurd Party Hat",
           notes: "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!",
+          value: 0,
           canOwn: (function(u) {
             var _ref;
             return moment((_ref = u.auth.timestamps) != null ? _ref.created : void 0).isBefore(new Date('01/2/2014'));
