@@ -1,6 +1,7 @@
 require('coffee-script') // for habitrpg-shared
 var nconf = require('nconf');
-require('./config');
+var utils = require('./utils');
+utils.setupConfig();
 var async = require('async');
 var mongoose = require('mongoose');
 User = require('./models/user').model;
@@ -31,4 +32,5 @@ async.waterfall([
 ],function(err){
   if (err) throw err;
   console.log("Done initializing database");
+  mongoose.disconnect();
 })
