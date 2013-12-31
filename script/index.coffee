@@ -950,7 +950,7 @@ api.wrap = (user) ->
           else if user.stats.per is suggested # Then favor PER, it's a god stat
             return "per"
           else if user.stats.str is suggested # Then favor STR, everyone loves crits
-            return "per"
+            return "str"
           else
             return "con" # CON, the unsexiest of attributes
         when "classbased"

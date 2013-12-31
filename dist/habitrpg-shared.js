@@ -11972,7 +11972,7 @@ var process=require("__browserify_process");(function() {
             } else if (user.stats.per === suggested) {
               return "per";
             } else if (user.stats.str === suggested) {
-              return "per";
+              return "str";
             } else {
               return "con";
             }
