@@ -12,7 +12,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
 
     // Icons only available if you own the tasks (aka, hidden from challenge stats)
     span(ng-if='!obj._locked')
-      span.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}')
+      a.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}', ng-click='collapseChecklist(task)')
         {{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
 
       i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
@@ -112,7 +112,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
       form.checklist-form(ng-if='task.checklist')
         fieldset.option-group.task-checklist(ng-if='!$state.includes("options.social.challenges")')
           legend.option-title
-            a(ng-click='task.collapseChecklist = !task.collapseChecklist') Checklist&nbsp;
+            | Checklist&nbsp;
             i.icon.icon-question-sign(popover='For Dailies, partially-completed Dailies will cut damage (eg, a 4-item checklist with 3 completed, your Daily will hurt you 25% of the damage). For To-Dos, when completed, your points will be multiplied by the number of checklist-items (eg, a 4-item To-Do will be 4x the Exp & GP).',popover-trigger='mouseenter',popover-placement='bottom')
           ul.unstyled(ng-if='!task.collapseChecklist')
             li(ng-repeat='item in task.checklist')

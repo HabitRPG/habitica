@@ -115,6 +115,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.checklistCompletion = function(checklist){
       return _.reduce(checklist,function(m,i){return m+(i.completed ? 1 : 0);},0)
     }
+    $scope.collapseChecklist = function(task) {
+      task.collapseChecklist = !task.collapseChecklist;
+      $scope.saveTask(task,true);
+    }
 
     /*
      ------------------------
