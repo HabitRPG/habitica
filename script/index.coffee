@@ -410,7 +410,7 @@ api.wrap = (user) ->
     rebirth: (req, cb) ->
       # Cost is 8 Gems ($2)
       if user.balance < 2
-        return cb {code:401,message: "Not enough gems."}, req
+        return cb? {code:401,message: "Not enough gems."}, req
       user.balance -= 2
       # Save off user's level, for calculating achievement eligibility later
       lvl = user.stats.lvl
@@ -452,7 +452,7 @@ api.wrap = (user) ->
       else if (lvl > user.achievements.rebirthLevel)
         user.achievements.rebirths++
         user.achievements.rebirthLevel = lvl
-      cb null, req
+      cb? null, user
 
     # ------
     # Tasks
