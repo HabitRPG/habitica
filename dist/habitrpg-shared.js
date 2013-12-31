@@ -11688,6 +11688,9 @@ var process=require("__browserify_process");(function() {
             currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
             nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
             if (task.type !== 'reward') {
+              if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased') {
+                user.stats.training[task.attribute] += nextDelta;
+              }
               adjustAmt = nextDelta;
               if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
                 adjustAmt = nextDelta * (1 + user._statsComputed.str * .004);
@@ -11963,7 +11966,7 @@ var process=require("__browserify_process");(function() {
       */
 
       autoAllocate: function() {
-        var diff, ideal, preference, suggested, tallies;
+        var diff, ideal, preference, suggested;
         switch (user.preferences.allocationMode) {
           case "flat":
             suggested = Math.min(user.stats.str, user.stats.int, user.stats.con, user.stats.per);
@@ -12005,23 +12008,21 @@ var process=require("__browserify_process");(function() {
             }
             break;
           case "taskbased":
-            tallies = _.reduce(user.tasks, (function(m, v) {
-              m[v.attribute || 'str'] += v.value;
-              return m;
-            }), {
-              str: 0,
-              int: 0,
-              con: 0,
-              per: 0
-            });
-            suggested = _.reduce(tallies, (function(m, v, k) {
-              if (v > tallies[m]) {
-                return k;
-              } else {
-                return m;
+            suggested = _.findKey(user.stats.training, (function(val) {
+              if (val === _.max(user.stats.training)) {
+                return val;
               }
-            }), 'str');
-            return suggested;
+            }));
+            user.stats.training.str = 0;
+            user.stats.training.int = 0;
+            user.stats.training.con = 0;
+            user.stats.training.per = 0;
+            if (suggested === void 0) {
+              return "str";
+            } else {
+              return suggested;
+            }
+            break;
           default:
             return "str";
         }

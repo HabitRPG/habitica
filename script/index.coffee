@@ -687,6 +687,7 @@ api.wrap = (user) ->
             else task.value
           nextDelta = Math.pow(0.9747, currVal) * (if direction is 'down' then -1 else 1)
           unless task.type is 'reward'
+            if (user.preferences.automaticAllocation is true and user.preferences.allocationMode is 'taskbased') then user.stats.training[task.attribute] += nextDelta
             adjustAmt = nextDelta
             # ===== STRENGTH =====
             # (Only for up-scoring, ignore up-onlies and rewards)
@@ -965,11 +966,17 @@ api.wrap = (user) ->
           # Get the difference between the ideal attribute spread according to level, and the user's current spread.
           diff = [(user.stats[preference[0]]-ideal[0]),(user.stats[preference[1]]-ideal[1]),(user.stats[preference[2]]-ideal[2]),(user.stats[preference[3]]-ideal[3])]
           suggested = _.findIndex(diff, ((val) -> if val is _.min(diff) then true)) # Returns the index of the first attribute that's furthest behind the ideal
-          if suggested is -1 then return "str" else return preference[suggested] # If _findIndex failed, we'd get a -1...
-        when "taskbased" # old logic, temp
-          tallies = _.reduce user.tasks, ((m,v)-> m[v.attribute or 'str'] += v.value;m), {str:0,int:0,con:0,per:0}
-          suggested = _.reduce tallies, ((m,v,k)-> if v>tallies[m] then k else m), 'str'
-          return suggested
+          if suggested is -1 then return "str" else return preference[suggested] # If _.findIndex failed, we'd get a -1...
+        when "taskbased"
+          suggested = _.findKey(user.stats.training, ((val) -> if val is _.max(user.stats.training) then val)) # Returns the stat that's been trained up the most this level
+          # FIXME Reset training for this level. Tried _.each but couldn't get it to take.
+          user.stats.training.str = 0
+          user.stats.training.int = 0
+          user.stats.training.con = 0
+          user.stats.training.per = 0
+          if suggested is undefined then return "str" else return suggested # Failed _.findkey gives undefined
+          # tallies = _.reduce user.tasks, ((m,v)-> m[v.attribute or 'str'] += v.value;m), {str:0,int:0,con:0,per:0}
+          # suggested = _.reduce tallies, ((m,v,k)-> if v>tallies[m] then k else m), 'str'
         else return "str" # if all else fails, dump into STR
 
     updateStats: (stats) ->
