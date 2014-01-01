@@ -63,7 +63,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
       input.visuallyhidden.focusable(ng-if='!$state.includes("tasks")', id='box-{{obj._id}}_{{task.id}}', type='checkbox')
       label(for='box-{{obj._id}}_{{task.id}}')
   // main content
-  div.task-text(ng-dblclick='editTask(task)')
+  div.task-text(ng-dblclick='task._editing ? saveTask(task) : editTask(task)')
     markdown(ng-model='task.text',target='_blank')
     //-| {{task.text}}
 
