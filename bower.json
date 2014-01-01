@@ -38,13 +38,13 @@
     "gemoji": "git://github.com/github/gemoji",
     "sticky": "*",
     "bootstrap-tour": "~0.8.0",
-    "angular-ui-utils": "~0.1.0"
+    "angular-ui-utils": "~0.1.0",
+    "swagger-ui": "~2.0.3"
   },
   "resolutions": {
     "jquery": "~2.0.3",
     "bootstrap": "v2.3.2",
-    "angular": "~1.2.1",
-    "angular-ui-utils": "~0.1.0"
+    "angular": "~1.2.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.1"

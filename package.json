@@ -45,7 +45,8 @@
     "pretty-data": "git://github.com/vkiryukhin/pretty-data#master",
     "js2xmlparser": "~0.1.2",
     "mongoose": "~3.8.1",
-    "domain-middleware": "~0.1.0"
+    "domain-middleware": "~0.1.0",
+    "swagger-node-express": "~1.3.2"
   },
   "private": true,
   "subdomain": "habitrpg",

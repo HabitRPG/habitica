@@ -8,6 +8,7 @@ var nconf = require('nconf');
 var utils = require('./utils');
 var middleware = require('./middleware');
 var domainMiddleware = require('domain-middleware');
+var swagger = require("swagger-node-express");
 var server;
 var TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 
@@ -109,6 +110,9 @@ app.use('/api/v1', require('./routes/apiv1').middleware);
 app.use('/export', require('./routes/dataexport').middleware);
 
 app.use(utils.errorHandler);
+
+swagger.setAppHandler(app);
+require('./apidoc.coffee')(swagger);
 
 server = http.createServer(app).listen(app.get("port"), function() {
   return console.log("Express server listening on port " + app.get("port"));
