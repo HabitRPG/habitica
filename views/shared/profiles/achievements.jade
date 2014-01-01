@@ -3,7 +3,6 @@
   // <div class='achievement achievement-tree'></div>
   // <div class='achievement achievement-comment'></div>
   // <div class='achievement achievement-cave'></div>
-  // <div class='achievement achievement-sun'></div>
   // <div class='achievement achievement-boot'></div>
   // <div class='achievement achievement-coffin'></div>
   // <div class='achievement achievement-alien'></div>
@@ -55,6 +54,14 @@
     div(ng-class='{muted: !profile.achievements.beastMaster}')
       h5 Beast Master
       small Has found all 90 pets (insanely difficult, give this user props!)
+    hr
+
+  div(ng-if='profile.achievements.rebirths')
+    .achievement.achievement-sun
+    h5(ng-if='profile.achievements.rebirths == 1') Began a New Adventure
+    h5(ng-if='profile.achievements.rebirths > 1') Began {{profile.achievements.rebirths}} New Adventures
+    small.
+      Used an Orb of Rebirth to start over after attaining Level {{profile.achievements.rebirthLevel}}.
     hr
 
   div(ng-if='profile.achievements.helpedHabit')

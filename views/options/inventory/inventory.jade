@@ -137,3 +137,8 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 p
                   |  {{Content.spells.special.snowball.value}}
                   span.Pet_Currency_Gem1x.inline-gems
+              div(ng-show='user.flags.rebirthEnabled')
+                button.customize-option(popover='Begin a new character at Level 1 while retaining achievements, collectibles, and tasks with history.', popover-title='Orb of Rebirth', popover-trigger='mouseenter', popover-placement='left', ng-click='modals.rebirth = true', class='rebirth_orb')
+                p
+                  | 8
+                  span.Pet_Currency_Gem1x.inline-gems

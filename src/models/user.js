@@ -46,7 +46,9 @@ var UserSchema = new Schema({
     snowball: Number,
     streak: Number,
     challenges: Array,
-    quests: Schema.Types.Mixed
+    quests: Schema.Types.Mixed,
+    rebirths: Number,
+    rebirthLevel: Number
   },
   auth: {
     facebook: Schema.Types.Mixed,
@@ -95,7 +97,8 @@ var UserSchema = new Schema({
     partyEnabled: Boolean, // FIXME do we need this?
     contributor: Boolean,
     classSelected: {type: Boolean, 'default': false},
-    mathUpdates: Boolean
+    mathUpdates: Boolean,
+    rebirthEnabled: {type: Boolean, 'default': false}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined

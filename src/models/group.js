@@ -182,7 +182,7 @@ GroupSchema.statics.collectQuest = function(user, progress, cb) {
       return m;
     }, []);
     foundText = foundText ? foundText.join(', ') : 'nothing';
-    group.sendChat("`<" + user.profile.name + "> found "+foundText+".`");
+    group.sendChat("`" + user.profile.name + " found "+foundText+".`");
     group.markModified('quest.progress.collect');
 
     // Still needs completing
@@ -210,7 +210,7 @@ GroupSchema.statics.bossQuest = function(user, progress, cb) {
     var down = progress.down * quest.boss.str; // multiply by boss strength
 
     group.quest.progress.hp -= progress.up;
-    group.sendChat("`<" + user.profile.name + "> attacks <" + quest.boss.name + "> for " + (progress.up.toFixed(1)) + " damage, <" + quest.boss.name + "> attacks party for " + Math.abs(down).toFixed(1) + " damage.`");
+    group.sendChat("`" + user.profile.name + " attacks " + quest.boss.name + " for " + (progress.up.toFixed(1)) + " damage, " + quest.boss.name + " attacks party for " + Math.abs(down).toFixed(1) + " damage.`");
 
     // Everyone takes damage
     var series = [

@@ -46,10 +46,10 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
         // Static Rewards
         ul.items.rewards(ng-if='main && list.type=="reward" && user.flags.itemsEnabled')
-          li.task.reward-item(ng-repeat='item in itemStore')
+          li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.notes}}')
             // right-hand side control buttons
             .task-meta-controls
-              span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{item.notes}}', popover-title='{{item.text}}')
+              span.task-notes
                 i.icon-comment
             //left-hand size commands
             .task-controls
@@ -62,9 +62,9 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
         // Winter Event
         ul.items.rewards(ng-if='main && list.type=="reward" && (user.items.special.snowball>0 || user.stats.buffs.snowball)')
-          li.task.reward-item(ng-if='user.items.special.snowball>0')
+          li.task.reward-item(ng-if='user.items.special.snowball>0',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.snowball.notes}}')
             .task-meta-controls
-              span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{Content.spells.special.snowball.notes}}', popover-title='{{Content.spells.special.snowball.text}}')
+              span.task-notes
                 i.icon-comment
             //left-hand size commands
             .task-controls
@@ -73,9 +73,9 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                 span.shop_snowball(style='display:inline-block;vertical-align:top;')
             // main content
             p.task-text {{Content.spells.special.snowball.text}}
-          li.task.reward-item(ng-if='user.stats.buffs.snowball')
+          li.task.reward-item(ng-if='user.stats.buffs.snowball',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.salt.notes}}')
             .task-meta-controls
-              span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{Content.spells.special.salt.notes}}', popover-title='{{Content.spells.special.salt.text}}')
+              span.task-notes
                 i.icon-comment
             //left-hand size commands
             .task-controls
@@ -88,9 +88,9 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
         // Spells
         ul.items(ng-if='main && list.type=="reward" && user.stats.class && !user.preferences.disableClasses')
-          li.task.reward-item(ng-repeat='(k,spell) in Content.spells[user.stats.class]', ng-show='user.stats.lvl >= spell.lvl')
+          li.task.reward-item(ng-repeat='(k,spell) in Content.spells[user.stats.class]', ng-if='user.stats.lvl >= spell.lvl',popover-trigger='mouseenter', popover-placement='top', popover='{{spell.notes}}')
             .task-meta-controls
-              span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{spell.notes}}', popover-title='{{spell.text}}')
+              span.task-notes
                 i.icon-comment
             //left-hand size commands
             .task-controls

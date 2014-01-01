@@ -139,7 +139,10 @@ angular.module('guideServices', []).
       }
     });
 
-
+    $rootScope.$watch('user.flags.rebirthEnabled', function(after, before) {
+        if (alreadyShown(before, after)) return;
+        $rootScope.modals.rebirthEnabled = true;
+    });
 
 
     /**
@@ -174,7 +177,7 @@ angular.module('guideServices', []).
         }, {
           element: ".meter.mana",
           title: "Spells",
-          content: "You can now unlock class-specific spells. You'll see your first at level 6. Your mana replenishes 10 points per day, plus 1 point per completed <a target='_blank' href='http://habitrpg.wikia.com/wiki/Todos'>To-Do</a>."
+          content: "You can now unlock class-specific spells. You'll see your first at level 11. Your mana replenishes 10 points per day, plus 1 point per completed <a target='_blank' href='http://habitrpg.wikia.com/wiki/Todos'>To-Do</a>."
         }, {
           orphan: true,
           title: "Read More",

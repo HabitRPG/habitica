@@ -48,7 +48,8 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
       div(ng-if='!user.preferences.disableClasses')
         button.btn(ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover="Show the tour for using the class system.") Show Classes Tour
 
-      div(ng-show='user.auth.local')
+      //- Why is ng-if='user.auth.local' validating for users *without* user.auth.local (facebook users)? adding .username here for extra
+      div(ng-if='user.auth.local.username')
         hr
         h4 Change Password
         form(ng-submit='changePassword(changePass)', ng-show='user.auth.local')

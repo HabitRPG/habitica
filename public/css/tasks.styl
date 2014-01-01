@@ -408,3 +408,33 @@ form
     &:hover
       border-top: 0
       margin-top: 2px
+
+// Checklists
+// --------
+.checklist-form
+  /* Make an input blend into its parent */
+  input.inline-edit
+    reset-box-model()
+    reset-font()
+    line-height: inherit
+    text-align: inherit
+    background-color:inherit
+    box-shadow: none
+
+  /* Add interaction cues on hover and focus */
+  input.inline-edit:hover,input.inline-edit:focus
+    background-color: #FFD
+    transition: background-color 0.5s
+
+  .checklist-icons
+    opacity:0
+
+  li
+    min-height: 20px
+    padding-left: 10px
+    margin-bottom: 5px
+
+    [type="checkbox"]
+      margin: 0px 10px 3px 0px
+  li:hover .checklist-icons
+    opacity:1

@@ -33,7 +33,7 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.stats.mp', function(after,before) {
        if (after == before) return;
-       if (User.user.stats.lvl == 0) return;
+       if (!User.user.flags.classSelected || User.user.preferences.disableClasses) return;
        var mana = after - before;
        Notification.mp(mana);
     });
@@ -67,6 +67,11 @@ habitrpg.controller('NotificationCtrl',
       User.user.achievements.beastMaster = true;
       $rootScope.modals.achievements.beastMaster = true;
     }, true);
+
+    $rootScope.$watch('user.achievements.rebirths', function(after, before){
+      if(after === before) return;
+      $rootScope.modals.achievements.rebirth = true;
+    });
 
     /*_.each(['weapon', 'head', 'chest', 'shield'], function(watched){
       $rootScope.$watch('user.items.' + watched, function(before, after){
