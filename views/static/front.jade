@@ -41,9 +41,9 @@ block content
                 .tab-pane.active#login-tab
                   form(ng-submit='auth()', method='POST')
                     .control-group
-                      input(type='text', ng-model='loginUsername', placeholder='Username')
+                      input(type='text', ng-model='loginUsername', placeholder='Username', name="username")
                     .control-group
-                      input(type='password', ng-model='loginPassword', placeholder='Password')
+                      input(type='password', ng-model='loginPassword', placeholder='Password', name="password")
                       //-.control-group
                         label.checkbox
                           input(type='checkbox', ng-click='useUUID = !useUUID')
@@ -51,7 +51,7 @@ block content
                     .control-group
                       input.btn.btn-primary(type='submit', value='Login')
 
-                    small In case you are using a password manager (like 1Password) 
+                    small In case you are using a password manager (like 1Password)
                       | and have problems logging in, try typing username and password manually.
 
                   // good god accordions have html ceremony
