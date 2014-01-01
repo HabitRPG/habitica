@@ -29,6 +29,7 @@ newUser = (addTasks=true)->
     todos: []
     rewards: []
     flags: {}
+    achievements: {}
 
   shared.wrap(user)
   user.ops.reset(null, ->)

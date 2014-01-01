@@ -402,8 +402,56 @@ api.wrap = (user) ->
         return cb? {code:401,message: "Not enough gems."}, req
       user.balance--
       _.each user.tasks, (task) ->
-        task.value = 0
+        unless task.type is 'reward'
+          task.value = 0
       user.stats.hp = 50
+      cb? null, user
+
+    rebirth: (req, cb) ->
+      # Cost is 8 Gems ($2)
+      if user.balance < 2
+        return cb? {code:401,message: "Not enough gems."}, req
+      user.balance -= 2
+      # Save off user's level, for calculating achievement eligibility later
+      lvl = user.stats.lvl
+      # Turn tasks yellow, zero out streaks
+      _.each user.tasks, (task) ->
+        unless task.type is 'reward'
+          task.value = 0
+        if task.type is 'daily'
+          task.streak = 0
+      # Reset all dynamic stats
+      stats = user.stats
+      stats.buffs = {}
+      stats.hp = 50
+      stats.lvl = 1
+      stats.class = 'warrior'
+      _.each ['per','int','con','str','points','gp','exp','mp'], (value) ->
+        stats[value] = 0
+      # Deequip character, set back to base armor and training sword
+      gear = user.items.gear
+      _.each ['equipped', 'costume'], (type) ->
+        gear[type].armor  = 'armor_base_0'
+        gear[type].weapon = 'weapon_warrior_0'
+        gear[type].head   = 'head_base_0'
+        gear[type].shield = 'shield_base_0'
+      # Strip owned gear down to the training sword
+      gear.owned = {weapon_warrior_0:true}
+      user.markModified? 'items.gear.owned'
+      # Remove unlocked features
+      flags = user.flags
+      if not (user.achievements.ultimateGear or user.achievements.beastMaster)
+        flags.rebirthEnabled = false
+      flags.itemsEnabled = false
+      flags.dropsEnabled = false
+      flags.classSelected = false
+      # Award an achievement if this is their first Rebirth, or if they made it further than last time
+      if not (user.achievements.rebirths)
+        user.achievements.rebirths = 1
+        user.achievements.rebirthLevel = lvl
+      else if (lvl > user.achievements.rebirthLevel)
+        user.achievements.rebirths++
+        user.achievements.rebirthLevel = lvl
       cb? null, user
 
     # ------
@@ -426,7 +474,8 @@ api.wrap = (user) ->
 
     updateTask: (req, cb) ->
       return cb?("Task not found") unless task = user.tasks[req.params?.id]
-      _.merge task, req.body
+      _.merge task, _.omit(req.body,'checklist')
+      task.checklist = req.body.checklist if req.body.checklist
       task.markModified? 'tags'
       cb? null, task
 
@@ -686,6 +735,16 @@ api.wrap = (user) ->
             else if task.value > 21.27 then 21.27
             else task.value
           nextDelta = Math.pow(0.9747, currVal) * (if direction is 'down' then -1 else 1)
+
+          # Checklists
+          if task.checklist?.length > 0
+            # If the Daily, only dock them them a portion based on their checklist completion
+            if direction is 'down' and task.type is 'daily' and options.cron
+              nextDelta *= (1 - _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length)
+            # If To-Do, point-match the TD per checklist item
+            if direction is 'up' and task.type is 'todo'
+              nextDelta *= task.checklist.length
+
           unless task.type is 'reward'
             if (user.preferences.automaticAllocation is true and user.preferences.allocationMode is 'taskbased') then user.stats.training[task.attribute] += nextDelta
             adjustAmt = nextDelta
@@ -772,7 +831,8 @@ api.wrap = (user) ->
           else
             calculateDelta()
             addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
-            user.stats.mp++ unless user.stats.mp >= user._statsComputed.maxMP
+            user.stats.mp += (1 + (task.checklist?.length or 0)) # MP++ per ToDo, bonus per CLI
+            user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
 
         when 'reward'
         # Don't adjust values for rewards
@@ -1028,6 +1088,8 @@ api.wrap = (user) ->
         user.items.eggs["Wolf"] = 1
       if !user.flags.classSelected and user.stats.lvl >= 10
         user.flags.classSelected
+      if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
+        user.flags.rebirthEnabled = true
 
     ###
       ------------------------------------------------------
@@ -1100,6 +1162,7 @@ api.wrap = (user) ->
           when 'daily'
             (task.history ?= []).push({ date: +new Date, value: task.value })
             task.completed = false
+            _.each task.checklist, ((i)->i.completed=false;true)
           when 'todo'
           #get updated value
             absVal = if (completed) then Math.abs(task.value) else task.value

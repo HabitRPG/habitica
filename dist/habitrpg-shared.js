@@ -9782,6 +9782,15 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
             var _ref;
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
           })
+        },
+        nye: {
+          text: "Absurd Party Hat",
+          notes: "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!",
+          value: 0,
+          canOwn: (function(u) {
+            var _ref;
+            return moment((_ref = u.auth.timestamps) != null ? _ref.created : void 0).isBefore(new Date('01/2/2014'));
+          })
         }
       }
     },
@@ -11266,9 +11275,66 @@ var process=require("__browserify_process");(function() {
         }
         user.balance--;
         _.each(user.tasks, function(task) {
-          return task.value = 0;
+          if (task.type !== 'reward') {
+            return task.value = 0;
+          }
         });
         user.stats.hp = 50;
+        return typeof cb === "function" ? cb(null, user) : void 0;
+      },
+      rebirth: function(req, cb) {
+        var flags, gear, lvl, stats;
+        if (user.balance < 2) {
+          return typeof cb === "function" ? cb({
+            code: 401,
+            message: "Not enough gems."
+          }, req) : void 0;
+        }
+        user.balance -= 2;
+        lvl = user.stats.lvl;
+        _.each(user.tasks, function(task) {
+          if (task.type !== 'reward') {
+            task.value = 0;
+          }
+          if (task.type === 'daily') {
+            return task.streak = 0;
+          }
+        });
+        stats = user.stats;
+        stats.buffs = {};
+        stats.hp = 50;
+        stats.lvl = 1;
+        stats["class"] = 'warrior';
+        _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
+          return stats[value] = 0;
+        });
+        gear = user.items.gear;
+        _.each(['equipped', 'costume'], function(type) {
+          gear[type].armor = 'armor_base_0';
+          gear[type].weapon = 'weapon_warrior_0';
+          gear[type].head = 'head_base_0';
+          return gear[type].shield = 'shield_base_0';
+        });
+        gear.owned = {
+          weapon_warrior_0: true
+        };
+        if (typeof user.markModified === "function") {
+          user.markModified('items.gear.owned');
+        }
+        flags = user.flags;
+        if (!(user.achievements.ultimateGear || user.achievements.beastMaster)) {
+          flags.rebirthEnabled = false;
+        }
+        flags.itemsEnabled = false;
+        flags.dropsEnabled = false;
+        flags.classSelected = false;
+        if (!user.achievements.rebirths) {
+          user.achievements.rebirths = 1;
+          user.achievements.rebirthLevel = lvl;
+        } else if (lvl > user.achievements.rebirthLevel) {
+          user.achievements.rebirths++;
+          user.achievements.rebirthLevel = lvl;
+        }
         return typeof cb === "function" ? cb(null, user) : void 0;
       },
       clearCompleted: function(req, cb) {
@@ -11300,7 +11366,10 @@ var process=require("__browserify_process");(function() {
         if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
           return typeof cb === "function" ? cb("Task not found") : void 0;
         }
-        _.merge(task, req.body);
+        _.merge(task, _.omit(req.body, 'checklist'));
+        if (req.body.checklist) {
+          task.checklist = req.body.checklist;
+        }
         if (typeof task.markModified === "function") {
           task.markModified('tags');
         }
@@ -11659,7 +11728,7 @@ var process=require("__browserify_process");(function() {
         return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
       },
       score: function(req, cb) {
-        var addPoints, calculateDelta, delta, direction, id, num, options, stats, subtractPoints, task, th, _ref;
+        var addPoints, calculateDelta, delta, direction, id, num, options, stats, subtractPoints, task, th, _ref, _ref1;
         _ref = req.params, id = _ref.id, direction = _ref.direction;
         task = user.tasks[id];
         options = req.query || {};
@@ -11684,9 +11753,19 @@ var process=require("__browserify_process");(function() {
         delta = 0;
         calculateDelta = function() {
           return _.times(options.times, function() {
-            var adjustAmt, currVal, nextDelta, _ref1;
+            var adjustAmt, currVal, nextDelta, _ref1, _ref2;
             currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
             nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
+            if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
+              if (direction === 'down' && task.type === 'daily' && options.cron) {
+                nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
+                  return m + (i.completed ? 1 : 0);
+                }), 0) / task.checklist.length;
+              }
+              if (direction === 'up' && task.type === 'todo') {
+                nextDelta *= task.checklist.length;
+              }
+            }
             if (task.type !== 'reward') {
               if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased') {
                 user.stats.training[task.attribute] += nextDelta;
@@ -11695,7 +11774,7 @@ var process=require("__browserify_process");(function() {
               if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
                 adjustAmt = nextDelta * (1 + user._statsComputed.str * .004);
                 user.party.quest.progress.up = user.party.quest.progress.up || 0;
-                if ((_ref1 = task.type) === 'daily' || _ref1 === 'todo') {
+                if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
                   user.party.quest.progress.up += adjustAmt;
                 }
               }
@@ -11774,8 +11853,9 @@ var process=require("__browserify_process");(function() {
             } else {
               calculateDelta();
               addPoints();
-              if (!(user.stats.mp >= user._statsComputed.maxMP)) {
-                user.stats.mp++;
+              user.stats.mp += 1 + (((_ref1 = task.checklist) != null ? _ref1.length : void 0) || 0);
+              if (user.stats.mp >= user._statsComputed.maxMP) {
+                user.stats.mp = user._statsComputed.maxMP;
               }
             }
             break;
@@ -12077,7 +12157,10 @@ var process=require("__browserify_process");(function() {
           user.items.eggs["Wolf"] = 1;
         }
         if (!user.flags.classSelected && user.stats.lvl >= 10) {
-          return user.flags.classSelected;
+          user.flags.classSelected;
+        }
+        if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
+          return user.flags.rebirthEnabled = true;
         }
       },
       /*
@@ -12173,7 +12256,11 @@ var process=require("__browserify_process");(function() {
                 date: +(new Date),
                 value: task.value
               });
-              return task.completed = false;
+              task.completed = false;
+              return _.each(task.checklist, (function(i) {
+                i.completed = false;
+                return true;
+              }));
             case 'todo':
               absVal = completed ? Math.abs(task.value) : task.value;
               return todoTally += absVal;
