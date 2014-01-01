@@ -1,6 +1,7 @@
 # see https://github.com/wordnik/swagger-node-express
 
 _ = require('lodash')
+nconf = require('nconf')
 content = require('habitrpg-shared').content
 
 module.exports = (swagger) ->
@@ -325,4 +326,4 @@ module.exports = (swagger) ->
     route = {spec}
     swagger["add#{route.spec.method}"](route);true
 
-  swagger.configure("http://localhost:3000", "0.1")
+  swagger.configure(nconf.get('BASE_URL'), "0.1")
