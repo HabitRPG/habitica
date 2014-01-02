@@ -105,14 +105,14 @@ app.use(express['static'](path.join(__dirname, "/../public")));
 // Custom Directives
 app.use(require('./routes/pages').middleware);
 app.use(require('./routes/auth').middleware);
-app.use('/api/v2', require('./routes/apiv2').middleware);
+var v2 = express();
+app.use('/api/v2', v2);
 app.use('/api/v1', require('./routes/apiv1').middleware);
 app.use('/export', require('./routes/dataexport').middleware);
 
 app.use(utils.errorHandler);
 
-swagger.setAppHandler(app);
-require('./apidoc.coffee')(swagger);
+require('./routes/apiv2.coffee')(swagger, v2);
 
 server = http.createServer(app).listen(app.get("port"), function() {
   return console.log("Express server listening on port " + app.get("port"));

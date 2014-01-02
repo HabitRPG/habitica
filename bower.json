@@ -39,7 +39,7 @@
     "sticky": "*",
     "bootstrap-tour": "~0.8.0",
     "angular-ui-utils": "~0.1.0",
-    "swagger-ui": "~2.0.3"
+    "swagger-ui": "https://github.com/wordnik/swagger-ui.git#105c516f5f055b140e935e9cfe0c36f841921dff"
   },
   "resolutions": {
     "jquery": "~2.0.3",

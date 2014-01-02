@@ -46,7 +46,7 @@
     "js2xmlparser": "~0.1.2",
     "mongoose": "~3.8.1",
     "domain-middleware": "~0.1.0",
-    "swagger-node-express": "~1.3.2"
+    "swagger-node-express": "git://github.com/lefnire/swagger-node-express#habitrpg"
   },
   "private": true,
   "subdomain": "habitrpg",
