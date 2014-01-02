@@ -468,6 +468,10 @@ api.hatchingPotions =
 _.each api.hatchingPotions, (pot,key) ->
   _.defaults pot, {key, value: 2, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
 
+api.pets = _.transform api.eggs, (m, egg) ->
+  _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
+    m2[egg.key + "-" + pot.key] = true
+
 api.food =
   Meat:             text: 'Meat', target: 'Base', article: ''
   Milk:             text: 'Milk', target: 'White', article: ''
