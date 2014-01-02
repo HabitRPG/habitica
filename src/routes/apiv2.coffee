@@ -518,7 +518,7 @@ module.exports = (swagger, v2) ->
       #type: 'Pet'
       errorResponses: []
       method: 'GET'
-      middleware: if path.indexOf('/user') is 0 then [auth.auth, cron] else []
+    route.middleware ?= if path.indexOf('/user') is 0 then [auth.auth, cron] else []
     swagger["add#{route.spec.method}"](route);true
 
 

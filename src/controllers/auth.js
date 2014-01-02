@@ -20,9 +20,8 @@ var NO_SESSION_FOUND = { err: "You must be logged in." };
  */
 
 api.auth = function(req, res, next) {
-  var token, uid;
-  uid = req.headers['x-api-user'];
-  token = req.headers['x-api-key'];
+  var uid = req.headers['x-api-user'];
+  var token = req.headers['x-api-key'];
   if (!(uid && token)) return res.json(401, NO_TOKEN_OR_UID);
   User.findOne({_id: uid,apiToken: token}, function(err, user) {
     if (err) return res.json(500, {err: err});

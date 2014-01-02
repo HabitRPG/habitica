@@ -19,30 +19,40 @@ html
     script(type='text/javascript')
       $(function () {
         window.swaggerUi = new SwaggerUi({
-        url: "/api/v2/api-docs",
-        dom_id: "swagger-ui-container",
-        supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
-        onComplete: function(swaggerApi, swaggerUi){
-          if(console) {
-            console.log("Loaded SwaggerUI")
-          }
-          $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
-        },
-        onFailure: function(data) {
-          if(console) {
-            console.log("Unable to Load SwaggerUI");
-            console.log(data);
-          }
-        },
-        docExpansion: "none"
+          url: "/api/v2/api-docs",
+          dom_id: "swagger-ui-container",
+          supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
+          onComplete: function(swaggerApi, swaggerUi){
+            if(console) {
+              console.log("Loaded SwaggerUI")
+            }
+            $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+          },
+          onFailure: function(data) {
+            if(console) {
+              console.log("Unable to Load SwaggerUI");
+              console.log(data);
+            }
+          },
+          docExpansion: "none"
         });
+
+        debugger;
 
         $('#input_apiKey').change(function() {
           var key = $('#input_apiKey')[0].value;
-          console.log("key: " + key);
+          console.log("apiKey: " + key);
           if(key && key.trim() != "") {
             console.log("added key " + key);
-            window.authorizations.add("key", new ApiKeyAuthorization("api_key", key, "query"));
+            window.authorizations.add("apiKey", new ApiKeyAuthorization("x-api-key", key, "header"));
+          }
+        })
+        $('#input_uuid').change(function() {
+          var key = $('#input_uuid')[0].value;
+          console.log("uuid: " + key);
+          if(key && key.trim() != "") {
+            console.log("added key " + key);
+            window.authorizations.add("uuid", new ApiKeyAuthorization("x-api-user", key, "header"));
           }
         })
         window.swaggerUi.load();
@@ -51,22 +61,16 @@ html
     #header
       .swagger-ui-wrap
         a#logo(href='http://swagger.wordnik.com') HabitRPG API Documentation (Under Construction)
-        //-form#api_selector
-          //-
-            <div class='input icon-btn'>
-            <img id="show-pet-store-icon" src="images/pet_store_api.png" title="Show Swagger Petstore Example Apis">
-            </div>
-            <div class='input icon-btn'>
-            <img id="show-wordnik-dev-icon" src="images/wordnik_api.png" title="Show Wordnik Developer Apis">
-            </div>
-          .input
-            input#input_baseUrl(placeholder='http://example.com/api', name='baseUrl', type='text')
-          .input
-            input#input_apiKey(placeholder='api_key', name='apiKey', type='text')
-          .input
-            a#explore(href='#') Explore
 
     .swagger-ui-wrap(style='padding:50px')
+      form#api_selector
+        .input
+          input#input_uuid(placeholder='UUID', name='uuid', type='text')
+          input#input_apiKey(placeholder='API Key', name='apiKey', type='text')
+        //.input
+          input#input_baseUrl(placeholder='http://example.com/api', name='baseUrl', type='text')
+        //.input
+          a#explore(href='#') Explore
       p(style='color:red') This documentation is a work in progress. If you'd like to help finish it, see <a href='https://github.com/HabitRPG/habitrpg/issues/2217#issuecomment-31432716' target='_blank'>#2217</a>.
 
     #message-bar.swagger-ui-wrap
