@@ -489,13 +489,15 @@ module.exports = (swagger, v2) ->
       middleware:[auth.auth, admin.ensureAdmin]
       action: admin.listMembers
 
-    "/admin/members/{uid}":
-      spec: {}
-      middleware: [auth.auth, admin.ensureAdmin]
+    "/admin/members/{uid}:GET":
+      spec: path: "/admin/members/{uid}"
+      middleware:[auth.auth, admin.ensureAdmin]
       action: admin.getMember
 
-    "/admin/members/{uid}":
-      spec: method: 'POST'
+    "/admin/members/{uid}:POST":
+      spec:
+        method: 'POST'
+        path: "/admin/members/{uid}"
       middleware: [auth.auth, admin.ensureAdmin]
       action: admin.updateMember
 

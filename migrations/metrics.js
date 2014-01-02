@@ -5,7 +5,7 @@ var mongo = require('mongoskin');
 var csv = require('csv');
 var _ = require('lodash');
 var moment = require('moment');
-var db = mongo.db('localhost:27017/habitrpg2?auto_reconnect');
+var db = mongo.db('localhost:27017/habitrpg?auto_reconnect');
 var twoWeeksAgo = moment().subtract(14, 'days');
 var angularRewrite = moment('07/09/2013');
 
