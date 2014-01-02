@@ -378,7 +378,8 @@ module.exports = (swagger, v2) ->
 
     "/groups/{gid}":
       spec:
-        path: '/groups/{gid}', method: 'PUT'
+        path: '/groups/{gid}'
+        method: 'POST'
         description: "Edit a group"
         params: [body('','Group object (see GroupSchema)','object')]
       middleware: [auth.auth, groups.attachGroup]
