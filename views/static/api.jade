@@ -72,8 +72,9 @@ html
         //.input
           a#explore(href='#') Explore
       br
-      p You'll need to set x-api-user and x-api-key headers for each request, <a href='https://github.com/HabitRPG/habitrpg/wiki/API' target='_blank'>read more here</a>. (TODO: We need to move that Wiki document into <a href='https://github.com/HabitRPG/habitrpg/blob/develop/views/static/api.jade' target='_blank'>this file</a> and delete the Wiki)
+      h2 Requirements:
+      p The base-url for all routes is /api/v2. So /user actions will be at https://beta.habitrpg.com/api/v2/user/*. You need to send x-api-user and x-api-key headers for each request, <a href='https://github.com/HabitRPG/habitrpg/wiki/API' target='_blank'>read more here</a>. (TODO: We need to move that Wiki document into <a href='https://github.com/HabitRPG/habitrpg/blob/develop/views/static/api.jade' target='_blank'>this file</a> and delete the Wiki)
       p For create & edit paths (PUT & POST), you'll need to know the schema of the object you're trying to create or edit. See Schema <a href='https://github.com/HabitRPG/habitrpg/tree/develop/src/models' target="_blank">definitions here</a>
-      p If any of the documentation is insufficient or you're having trouble with it, please post an issue to <a href='https://github.com/HabitRPG/habitrpg/issues' target='_blank'>Github</a>
+      p If any of the documentation is lacking or you're having trouble with it, please post an issue to <a href='https://github.com/HabitRPG/habitrpg/issues' target='_blank'>Github</a>
     #message-bar.swagger-ui-wrap
     #swagger-ui-container.swagger-ui-wrap
