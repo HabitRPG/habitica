@@ -325,7 +325,7 @@ module.exports = (swagger, v2) ->
 
     "/user/tags/{id}:PUT":
       spec:
-        path: 'user/tags/{id}'
+        path: '/user/tags/{id}'
         method: 'PUT'
         description: "Edit a tag"
         parameters: [
@@ -336,7 +336,7 @@ module.exports = (swagger, v2) ->
 
     "/user/tags/{id}:DELETE":
       spec:
-        path: 'user/tags/{id}'
+        path: '/user/tags/{id}'
         method: 'DELETE'
         description: 'Delete a tag'
         parameters: [
