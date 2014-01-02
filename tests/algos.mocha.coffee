@@ -126,6 +126,17 @@ describe 'User', ->
     expect(user.items.gear).to.eql { equipped: base_gear, costume: base_gear, owned: {weapon_warrior_0: true} }
     expect(user.preferences).to.eql { costume: false }
 
+  it 'calculates max MP', ->
+    user = newUser()
+    expect(user._statsComputed.maxMP).to.eql 32
+    user.stats.int = 10
+    expect(user._statsComputed.maxMP).to.eql 50
+    user.stats.lvl = 5
+    expect(user._statsComputed.maxMP).to.eql 54
+    user.stats.class = 'wizard'
+    user.items.gear.equipped.weapon = 'weapon_wizard_1'
+    expect(user._statsComputed.maxMP).to.eql 63
+
   it 'revives correctly', ->
     user = newUser()
     user.stats = { gp: 10, exp: 100, lvl: 2, hp: 1 }
