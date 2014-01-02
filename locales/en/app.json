@@ -1,6 +1,8 @@
 {
   "files": [
     "main.json",
-    "secondary.json"
+    "privacy.json",
+    "terms.json"
   ]
+
 }
