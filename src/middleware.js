@@ -94,17 +94,17 @@ var getManifestFiles = function(page){
 var translations = {};
 
 var loadTranslations = function(locale){
-  var files = require(path.join(__dirname, "/../locales/", locale, 'app.json')).files;
+  var files = require(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/", locale, 'app.json')).files;
   translations[locale] = {};
   _.each(files, function(file){
-    _.merge(translations[locale], require(path.join(__dirname, "/../locales/", locale, file)));
+    _.merge(translations[locale], require(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/", locale, file)));
   });
 }
 
 // First fetch english so we can merge with missing strings in other languages
 loadTranslations('en');
 
-fs.readdirSync(path.join(__dirname, "/../locales")).forEach(function(file) {
+fs.readdirSync(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/")).forEach(function(file) {
   if(file === 'en') return;
   loadTranslations(file);
   // Merge missing strings from english
