@@ -533,6 +533,7 @@ module.exports = (swagger, v2) ->
 
     "/challenges/{cid}:GET":
       spec:
+        path: '/challenges/{cid}'
         description: 'Get a challenge'
         params: [path('cid','Challenge id','string')]
       action: challenges.get
