@@ -8,6 +8,7 @@ var nconf = require('nconf');
 var utils = require('./utils');
 var middleware = require('./middleware');
 var domainMiddleware = require('domain-middleware');
+var swagger = require("swagger-node-express");
 var server;
 var TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 
@@ -104,11 +105,14 @@ app.use(express['static'](path.join(__dirname, "/../public")));
 // Custom Directives
 app.use(require('./routes/pages').middleware);
 app.use(require('./routes/auth').middleware);
-app.use('/api/v2', require('./routes/apiv2').middleware);
+var v2 = express();
+app.use('/api/v2', v2);
 app.use('/api/v1', require('./routes/apiv1').middleware);
 app.use('/export', require('./routes/dataexport').middleware);
 
 app.use(utils.errorHandler);
+
+require('./routes/apiv2.coffee')(swagger, v2);
 
 server = http.createServer(app).listen(app.get("port"), function() {
   return console.log("Express server listening on port " + app.get("port"));

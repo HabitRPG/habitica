@@ -31,6 +31,10 @@ router.get('/static/terms', middleware.locals, function(req, res) {
   res.render('static/terms', {env: res.locals.habitrpg});
 });
 
+router.get('/static/api', middleware.locals, function(req, res) {
+  res.render('static/api', {env: res.locals.habitrpg});
+});
+
 // --------- Redirects --------
 
 router.get('/splash.html', function(req, res) {
