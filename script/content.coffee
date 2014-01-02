@@ -330,7 +330,7 @@ api.spells =
       mana: 25
       lvl: 13
       target: 'party'
-      notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day."
+      notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks and chance of drops is buffed for a day."
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
