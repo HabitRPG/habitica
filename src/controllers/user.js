@@ -326,7 +326,14 @@ api.buyGemsPaypalIPN = function(req, res) {
  */
 api.cast = function(req, res) {
   var user = res.locals.user;
-  var type = req.body.type, target = req.body.target;
+  var type, target;
+  if (req.body.type) { // this is the method implemented in the app, it's not correct
+    type = req.body.type;
+    target = req.body.target;
+  } else if (req.query.targetType) { // this is the supported API method
+    type = req.query.targetType;
+    target = req.query.targetId;
+  }
   var klass = shared.content.spells.special[req.params.spell] ? 'special' : user.stats.class
   var spell = shared.content.spells[klass][req.params.spell];
 

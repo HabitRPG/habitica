@@ -58,10 +58,12 @@ module.exports = (swagger, v2) ->
 
     "/user/tasks/{id}/{direction}":
       spec:
-        description: "Simple scoring of a task"
+        #notes: "Simple scoring of a task."
+        description: "Simple scoring of a task. This is most-likely the only API route you'll be using as a 3rd-party developer. The most common operation is for the user to gain or lose points based on some action (browsing Reddit, running a mile, 1 Pomodor, etc). Call this route, if the task you're trying to score doesn't exist, it will be created for you."
         parameters: [
           path("id", "ID of the task to score. If this task doesn't exist, a task will be created automatically", "string")
           path("direction", "Either 'up' or 'down'", "string")
+          body '',"If you're creating a 3rd-party task, pass up any task attributes in the body (see TaskSchema).",'object'
         ]
         method: 'POST'
       action: user.score
@@ -85,8 +87,8 @@ module.exports = (swagger, v2) ->
         description: "Update a user's task"
         method: 'PUT'
         parameters: [
-          path("id", "Task ID", "string")
-          body("","Send up the whole task","object")
+          path "id", "Task ID", "string"
+          body "","Send up the whole task (see TaskSchema)","object"
         ]
       action: user.updateTask
 
@@ -101,7 +103,7 @@ module.exports = (swagger, v2) ->
       spec:
         description: "Create a task"
         method: 'POST'
-        parameters: [ body("","Send up the whole task","object") ]
+        parameters: [ body "","Send up the whole task (see TaskSchema)","object" ]
       action: user.addTask
 
 
@@ -119,7 +121,7 @@ module.exports = (swagger, v2) ->
     "/user/tasks/clear-completed":
       spec:
         method: 'POST'
-        description: "Clears competed To-Dos (needed periodically for performance."
+        description: "Clears competed To-Dos (needed periodically for performance)."
       action: user.clearCompleted
 
 
@@ -127,8 +129,10 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: 'Unlink a task from its challenge'
-        # TODO query params?
-        parameters: [path("id", "Task ID", "string")]
+        parameters: [
+          path("id", "Task ID", "string")
+          query 'keep',"When unlinking a challenge task, how to handle the orphans?",'string',['keep','keep-all','remove','remove-all']
+        ]
       middleware: auth.auth ## removing cron since they may want to remove task first
       action: challenges.unlink
 
@@ -140,7 +144,6 @@ module.exports = (swagger, v2) ->
         description: "Buy a gear piece and equip it automatically"
         parameters:[
           path 'key',"The key of the item to buy (call /content route for available keys)",'string', _.keys(content.gear.flat)
-          #TODO embed keys
         ]
       action: user.buy
 
@@ -171,7 +174,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: "Feed your pet some food"
         parameters: [
-          path 'pet',"The key of the pet you're feeding",'string'#,_.keys(content.pets))
+          path 'pet',"The key of the pet you're feeding",'string',_.keys(content.pets)
           path 'food',"The key of the food to feed your pet",'string',_.keys(content.food)
         ]
       action: user.feed
@@ -210,7 +213,7 @@ module.exports = (swagger, v2) ->
         method: 'PUT'
         description: "Update the user object (only certain attributes are supported)"
         parameters: [
-          body '','The user object','object'
+          body '','The user object (see UserSchema)','object'
         ]
       action: user.update
 
@@ -266,15 +269,20 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: "Allocate one point towards an attribute"
         parameters: [
-          query 'stat','The stat to allocate towards','string'
+          query 'stat','The stat to allocate towards','string',['str','per','int','con']
         ]
       action:user.allocate
 
     "/user/class/cast/{spell}":
       spec:
         method: 'POST'
-        description: "Cast a spell"
-        #TODO finish
+        description: "Casts a spell on a target."
+        params: [
+          path 'spell',"The key of the spell to cast (see habitrpg-shared#content.coffee)",'string'
+          query 'targetType',"The type of object you're targeting",'string',['party','self','user','task']
+          query 'targetId',"The ID of the object you're targeting",'string'
+
+        ]
       action: user.cast
 
     "/user/unlock":
@@ -287,12 +295,12 @@ module.exports = (swagger, v2) ->
       action: user.unlock
 
     "/user/buy-gems":
-      spec: method: 'POST', description: "Do not use this route!"
+      spec: method: 'POST', description: "Do not use this route"
       middleware: auth.auth
       action:user.buyGems
 
     "/user/buy-gems/paypal-ipn":
-      spec: method: 'POST', description: "Don't use this route!"
+      spec: method: 'POST', description: "Don't use this route"
       action: user.buyGemsPaypalIPN
 
     "/user/batch-update":
@@ -311,8 +319,7 @@ module.exports = (swagger, v2) ->
         method: 'POST'
         description: 'Create a new tag'
         parameters: [
-          #TODO document
-          body '','New tag','object'
+          body '','New tag (see UserSchema.tags)','object'
         ]
       action: user.addTag
 
@@ -323,7 +330,7 @@ module.exports = (swagger, v2) ->
         description: "Edit a tag"
         parameters: [
           path 'id','The id of the tag to edit','string'
-          body '','Tag edits','object'
+          body '','Tag edits (see UserSchema.tags)','object'
         ]
       action: user.updateTag
 
@@ -341,61 +348,106 @@ module.exports = (swagger, v2) ->
     # Groups
     # ---------------------------------
     "/groups:GET":
-      spec: path: '/groups'
+      spec:
+        path: '/groups'
+        description: "Get a list of groups"
+        params: [
+          query 'type',"Comma-separated types of groups to return, eg 'party,guilds,public,tavern'",'string'
+        ]
       middleware: auth.auth
       action: groups.list
 
+
     "/groups:POST":
-      spec: path: '/groups', method: 'POST'
+      spec:
+        path: '/groups', method: 'POST'
+        description: 'Create a group'
+        params: [
+          body '','Group object (see GroupSchema)','object'
+        ]
       middleware: auth.auth
       action: groups.create
 
     "/groups/{gid}:GET":
-      spec: path: '/groups/{gid}'
+      spec:
+        path: '/groups/{gid}'
+        description: "Get a group"
+        params: [path('gid','Group ID','string')]
       middleware: auth.auth
       action: groups.get
 
     "/groups/{gid}":
-      spec: path: '/groups/{gid}', method: 'PUT'
+      spec:
+        path: '/groups/{gid}', method: 'PUT'
+        description: "Edit a group"
+        params: [body('','Group object (see GroupSchema)','object')]
       middleware: [auth.auth, groups.attachGroup]
       action: groups.update
 
     "/groups/{gid}/join":
-      spec: method: 'POST'
+      spec:
+        method: 'POST'
+        description: 'Join a group'
+        params: [path('gid','Id of the group to join','string')]
       middleware: [auth.auth, groups.attachGroup]
       action: groups.join
 
     "/groups/{gid}/leave":
-      spec: method: 'POST'
+      spec:
+        method: 'POST'
+        description: 'Leave a group'
+        params: [path('ID of the group to leave','string')]
       middleware: [auth.auth, groups.attachGroup]
       action: groups.leave
 
     "/groups/{gid}/invite":
-      spec: method: 'POST'
+      spec:
+        method: 'POST'
+        description: "Invite a user to a group"
+        params: [
+          path 'gid','Group id','string'
+          query 'uuid','User id to invite','string'
+        ]
       middleware: [auth.auth, groups.attachGroup]
       action:groups.invite
 
     "/groups/{gid}/removeMember":
-      spec:method: 'POST'
+      spec:
+        method: 'POST'
+        description: "Remove / boot a member from a group"
+        params: [
+          path 'gid','Group id','string'
+          query 'uuid','User id to boot','string'
+        ]
       middleware: [auth.auth, groups.attachGroup]
       action:groups.removeMember
 
     "/groups/{gid}/questAccept":
       spec:
         method: 'POST'
+        description: "Accept a quest invitation"
         parameters: [
+          path 'gid',"Group id",'string'
           query 'key',"optional. if provided, trigger new invite, if not, accept existing invite",'string'
         ]
       middleware: [auth.auth, groups.attachGroup]
       action:groups.questAccept
 
     "/groups/{gid}/questReject":
-      spec: method: 'POST'
+      spec:
+        method: 'POST'
+        description: 'Reject quest invitation'
+        params: [
+          path 'gid','Group id','string'
+        ]
       middleware: [auth.auth, groups.attachGroup]
       action: groups.questReject
 
     "/groups/{gid}/questAbort":
-      spec: method: 'POST'
+      spec:
+        method: 'POST'
+        description: 'Abort quest'
+        params: [path('gid','Group to abort quest in','string')]
       middleware: [auth.auth, groups.attachGroup]
       action: groups.questAbort
 
@@ -403,12 +455,21 @@ module.exports = (swagger, v2) ->
     #TODO PUT  /groups/:gid/chat/:messageId
 
     "/groups/{gid}/chat":
-      spec: method: 'POST'
+      spec:
+        method: 'POST'
+        description: "Send a chat message"
+        params: [
+          query 'message', 'Chat message','string'
+          path 'gid','Group id','string'
+        ]
       middleware: [auth.auth, groups.attachGroup]
       action: groups.postChat
 
     "/groups/{gid}/chat/{messageId}":
-      spec: method: 'DELETE'
+      spec:
+        method: 'DELETE'
+        description: 'Delete a group'
+        params: [path('gid','ID of group to delete','string')]
       middleware: [auth.auth, groups.attachGroup]
       action: groups.deleteChatMessage
 
@@ -446,46 +507,82 @@ module.exports = (swagger, v2) ->
     # (eg /groups/:gid/challenges/:cid), they will also be referenced by users from the "challenges" tab
     # without knowing which group they belong to. So to prevent unecessary lookups, we have them as a top-level resource
     "/challenges:GET":
-      spec: path: '/challenges'
+      spec:
+        path: '/challenges'
+        description: "Get a list of challenges"
       middleware: [auth.auth]
       action: challenges.list
 
     "/challenges:POST":
-      spec: path: '/challenges', method: 'POST'
+      spec:
+        path: '/challenges'
+        method: 'POST'
+        description: "Create a challenge"
+        params: [body('','Challenge object (see ChallengeSchema)','object')]
       middleware: [auth.auth]
       action: challenges.create
 
     "/challenges/{cid}:GET":
-      spec: {}
+      spec:
+        description: 'Get a challenge'
+        params: [path('cid','Challenge id','string')]
       action: challenges.get
 
     "/challenges/{cid}:POST":
-      spec: path: '/challenges/{cid}', method: 'POST'
+      spec:
+        path: '/challenges/{cid}'
+        method: 'POST'
+        description: "Update a challenge"
+        params: [
+          path 'cid','Challenge id','string'
+          body('','Challenge object (see ChallengeSchema)','object')
+        ]
       middleware: [auth.auth]
       action: challenges.update
 
     "/challenges/{cid}:DELETE":
-      spec: path: '/challenges/{cid}', method: 'DELETE'
+      spec:
+        path: '/challenges/{cid}'
+        method: 'DELETE'
+        description: "Delete a challenge"
+        params: [path('cid','Challenge id','string')]
       middleware: [auth.auth]
       action: challenges["delete"]
 
     "/challenges/{cid}/close":
-      spec: method: 'POST'
+      spec:
+        method: 'POST'
+        description: 'Close a challenge'
+        params: [
+          path 'cid','Challenge id','string'
+          query 'uid','User ID of the winner','string',true
+        ]
       middleware: [auth.auth]
       action: challenges.selectWinner
 
     "/challenges/{cid}/join":
-      spec: method: 'POST'
+      spec:
+        method: 'POST'
+        description: "Join a challenge"
+        params: [path('cid','Challenge id','string')]
       middleware: [auth.auth]
       action: challenges.join
 
     "/challenges/{cid}/leave":
-      spec: method: 'POST'
+      spec:
+        method: 'POST'
+        description: 'Leave a challenge'
+        params: [path('cid','Challenge id','string')]
       middleware: [auth.auth]
       action: challenges.leave
 
     "/challenges/{cid}/member/{uid}":
-      spec: {}
+      spec:
+        description: "Get a member's progress in a particular challenge"
+        params: [
+          path 'cid','Challenge id','string'
+          path 'uid','User id','string'
+        ]
       middleware: [auth.auth]
       action: challenges.getMember
 

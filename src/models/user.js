@@ -14,14 +14,6 @@ var Challenge = require('./challenge').model;
 // User Schema
 // -----------
 
-var eggPotionMapping = _.transform(shared.content.eggs, function(m, egg){
-  _.defaults(m, _.transform(shared.content.hatchingPotions, function(m2, pot){
-    m2[egg.key + '-' + pot.key] = true;
-  }));
-})
-
-var specialPetsMapping = shared.content.specialPets; // may need to revisit if we add additional information about the special pets
-
 var UserSchema = new Schema({
   // ### UUID and API Token
   _id: {
@@ -146,9 +138,9 @@ var UserSchema = new Schema({
     pets:
     _.defaults(
       // First transform to a 1D eggs/potions mapping
-      _.transform(eggPotionMapping, function(m,v,k){ m[k] = Number; }),
+      _.transform(shared.content.pets, function(m,v,k){ m[k] = Number; }),
       // Then add additional pets (backer, contributor)
-      _.transform(specialPetsMapping, function(m,v,k){ m[k] = Number; })
+      _.transform(shared.content.specialPets, function(m,v,k){ m[k] = Number; })
     ),
     currentPet: String, // Cactus-Desert
 
@@ -177,7 +169,7 @@ var UserSchema = new Schema({
     // }
     mounts: _.defaults(
       // First transform to a 1D eggs/potions mapping
-      _.transform(eggPotionMapping, function(m,v,k){ m[k] = Boolean; }),
+      _.transform(shared.content.pets, function(m,v,k){ m[k] = Boolean; }),
       // Then add additional pets (backer, contributor)
       {
         'LionCub-Ethereal': Boolean,

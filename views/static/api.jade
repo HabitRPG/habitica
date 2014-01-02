@@ -60,7 +60,7 @@ html
   body
     #header
       .swagger-ui-wrap
-        a#logo(href='http://swagger.wordnik.com') HabitRPG API Documentation (Under Construction)
+        a#logo(href='http://swagger.wordnik.com') HabitRPG API Documentation
 
     .swagger-ui-wrap(style='padding:50px')
       form#api_selector
@@ -71,7 +71,9 @@ html
           input#input_baseUrl(placeholder='http://example.com/api', name='baseUrl', type='text')
         //.input
           a#explore(href='#') Explore
-      p(style='color:red') This documentation is a work in progress. If you'd like to help finish it, see <a href='https://github.com/HabitRPG/habitrpg/issues/2217#issuecomment-31432716' target='_blank'>#2217</a>.
-
+      br
+      p You'll need to set x-api-user and x-api-key headers for each request, <a href='https://github.com/HabitRPG/habitrpg/wiki/API' target='_blank'>read more here</a>. (TODO: We need to move that Wiki document into <a href='https://github.com/HabitRPG/habitrpg/blob/develop/views/static/api.jade' target='_blank'>this file</a> and delete the Wiki)
+      p For create & edit paths (PUT & POST), you'll need to know the schema of the object you're trying to create or edit. See Schema <a href='https://github.com/HabitRPG/habitrpg/tree/develop/src/models' target="_blank">definitions here</a>
+      p If any of the documentation is insufficient or you're having trouble with it, please post an issue to <a href='https://github.com/HabitRPG/habitrpg/issues' target='_blank'>Github</a>
     #message-bar.swagger-ui-wrap
     #swagger-ui-container.swagger-ui-wrap
