@@ -69,21 +69,32 @@ module.exports = (swagger, v2) ->
       action: user.score
 
     # Tasks
-    "/user/tasks":
+    "/user/tasks:GET":
       spec:
+        path: '/user/tasks'
         description: "Get all user's tasks"
       action: user.getTasks
 
-    "/user/tasks/{id}":
+    "/user/tasks:POST":
       spec:
+        path: '/user/tasks'
+        description: "Create a task"
+        method: 'POST'
+        parameters: [ body "","Send up the whole task (see TaskSchema)","object" ]
+      action: user.addTask
+
+    "/user/tasks/{id}:GET":
+      spec:
+        path: '/user/tasks/{id}'
         description: "Get an individual task"
         parameters: [
           path("id", "Task ID", "string")
         ]
       action: user.getTask
 
-    "/user/tasks/{id}":
+    "/user/tasks/{id}:PUT":
       spec:
+        path: '/user/tasks/{id}'
         description: "Update a user's task"
         method: 'PUT'
         parameters: [
@@ -92,19 +103,13 @@ module.exports = (swagger, v2) ->
         ]
       action: user.updateTask
 
-    "/user/tasks/{id}":
+    "/user/tasks/{id}:DELETE":
       spec:
+        path: '/user/tasks/{id}'
         description: "Delete a task"
         method: 'DELETE'
         parameters: [ path("id", "Task ID", "string") ]
       action: user.deleteTask
-
-    "/user/tasks":
-      spec:
-        description: "Create a task"
-        method: 'POST'
-        parameters: [ body "","Send up the whole task (see TaskSchema)","object" ]
-      action: user.addTask
 
 
     "/user/tasks/{id}/sort":
@@ -360,7 +365,8 @@ module.exports = (swagger, v2) ->
 
     "/groups:POST":
       spec:
-        path: '/groups', method: 'POST'
+        path: '/groups'
+        method: 'POST'
         description: 'Create a group'
         params: [
           body '','Group object (see GroupSchema)','object'
@@ -376,7 +382,7 @@ module.exports = (swagger, v2) ->
       middleware: auth.auth
       action: groups.get
 
-    "/groups/{gid}":
+    "/groups/{gid}:POST":
       spec:
         path: '/groups/{gid}'
         method: 'POST'
