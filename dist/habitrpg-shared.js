@@ -10172,7 +10172,7 @@ var global=self;/**
         mana: 25,
         lvl: 13,
         target: 'party',
-        notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks is buffed for a day.",
+        notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks and chance of drops is buffed for a day.",
         cast: function(user, target) {
           return _.each(target, function(member) {
             var _base;
@@ -10420,6 +10420,12 @@ var global=self;/**
       value: 2,
       notes: "Pour this on an egg, and it will hatch as a " + pot.text + " pet."
     });
+  });
+
+  api.pets = _.transform(api.eggs, function(m, egg) {
+    return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
+      return m2[egg.key + "-" + pot.key] = true;
+    }));
   });
 
   api.food = {
@@ -11783,6 +11789,9 @@ var process=require("__browserify_process");(function() {
         addPoints = function() {
           var afterStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
           _crit = user.fns.crit();
+          if (_crit > 1) {
+            user._tmp.crit = _crit;
+          }
           intBonus = 1 + (user._statsComputed.int * .025);
           stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
           perBonus = 1 + user._statsComputed.per * .02;
