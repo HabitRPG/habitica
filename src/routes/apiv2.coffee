@@ -21,11 +21,12 @@ _ = require('lodash')
 content = require('habitrpg-shared').content
 
 
-module.exports = (swagger, v2, errorHandler) ->
+module.exports = (swagger, v2) ->
   [path,body,query] = [swagger.pathParam, swagger.bodyParam, swagger.queryParam]
 
-  swagger.setAppHandler(v2);
-  swagger.setErrorHandler("next");
+  swagger.setAppHandler(v2)
+  swagger.setErrorHandler("next")
+  swagger.setHeaders = -> #disable setHeaders, since we have our own thing going on in middleware.js (and which requires `req`, which swagger doesn't pass in)
   swagger.configureSwaggerPaths("", "/api-docs", "")
 
   api =
@@ -34,7 +35,6 @@ module.exports = (swagger, v2, errorHandler) ->
       spec:
         description: "Returns the status of the server (up or down)"
       action: (req, res) ->
-        test()
         res.json status: "up"
 
     '/content':
@@ -59,7 +59,7 @@ module.exports = (swagger, v2, errorHandler) ->
     "/user/tasks/{id}/{direction}":
       spec:
         description: "Simple scoring of a task"
-        params: [
+        parameters: [
           path("id", "ID of the task to score. If this task doesn't exist, a task will be created automatically", "string")
           path("direction", "Either 'up' or 'down'", "string")
         ]
@@ -75,7 +75,7 @@ module.exports = (swagger, v2, errorHandler) ->
     "/user/tasks/{id}":
       spec:
         description: "Get an individual task"
-        params: [
+        parameters: [
           path("id", "Task ID", "string")
         ]
       action: user.getTask
@@ -84,7 +84,7 @@ module.exports = (swagger, v2, errorHandler) ->
       spec:
         description: "Update a user's task"
         method: 'PUT'
-        params: [
+        parameters: [
           path("id", "Task ID", "string")
           body("","Send up the whole task","object")
         ]
@@ -94,14 +94,14 @@ module.exports = (swagger, v2, errorHandler) ->
       spec:
         description: "Delete a task"
         method: 'DELETE'
-        params: [ path("id", "Task ID", "string") ]
+        parameters: [ path("id", "Task ID", "string") ]
       action: user.deleteTask
 
     "/user/tasks":
       spec:
         description: "Create a task"
         method: 'POST'
-        params: [ body("","Send up the whole task","object") ]
+        parameters: [ body("","Send up the whole task","object") ]
       action: user.addTask
 
 
@@ -109,7 +109,7 @@ module.exports = (swagger, v2, errorHandler) ->
       spec:
         method: 'POST'
         description: 'Sort tasks'
-        params: [
+        parameters: [
           path("id", "Task ID", "string")
           query("from","Index where you're sorting from (0-based)","integer")
           query("to","Index where you're sorting to (0-based)","integer")
@@ -128,7 +128,7 @@ module.exports = (swagger, v2, errorHandler) ->
         method: 'POST'
         description: 'Unlink a task from its challenge'
         # TODO query params?
-        params: [path("id", "Task ID", "string")]
+        parameters: [path("id", "Task ID", "string")]
       middleware: auth.auth ## removing cron since they may want to remove task first
       action: challenges.unlink
 
@@ -138,7 +138,7 @@ module.exports = (swagger, v2, errorHandler) ->
       spec:
         method: 'POST'
         description: "Buy a gear piece and equip it automatically"
-        params:[
+        parameters:[
           path 'key',"The key of the item to buy (call /content route for available keys)",'string', _.keys(content.gear.flat)
           #TODO embed keys
         ]
@@ -148,7 +148,7 @@ module.exports = (swagger, v2, errorHandler) ->
       spec:
         method: 'POST'
         description: "Sell inventory items back to Alexander"
-        params: [
+        parameters: [
           #TODO verify these are the correct types
           path('type',"The type of object you're selling back.",'string',['gear','eggs','hatchingPotions','food'])
           path('key',"The object key you're selling back (call /content route for available keys)",'string')
@@ -159,7 +159,7 @@ module.exports = (swagger, v2, errorHandler) ->
       spec:
         method: 'POST'
         description: "Purchase a gem-purchaseable item from Alexander"
-        params:[
+        parameters:[
           path('type',"The type of object you're purchasing.",'string',['gear','eggs','hatchingPotions','food'])
           path('key',"The object key you're purchasing (call /content route for available keys)",'string')
         ]
@@ -170,7 +170,7 @@ module.exports = (swagger, v2, errorHandler) ->
       spec:
         method: 'POST'
         description: "Feed your pet some food"
-        params: [
+        parameters: [
           path 'pet',"The key of the pet you're feeding",'string'#,_.keys(content.pets))
           path 'food',"The key of the food to feed your pet",'string',_.keys(content.food)
         ]
@@ -180,7 +180,7 @@ module.exports = (swagger, v2, errorHandler) ->
       spec:
         method: 'POST'
         description: "Equip an item (either pets, mounts, or gear)"
-        params: [
+        parameters: [
           path 'type',"Type to equip",'string',['pets','mounts','gear']
           path 'key',"The object key you're equipping (call /content route for available keys)",'string'
         ]
@@ -190,7 +190,7 @@ module.exports = (swagger, v2, errorHandler) ->
       spec:
         method: 'POST'
         description: "Pour a hatching potion on an egg"
-        params: [
+        parameters: [
           path 'egg',"The egg key to hatch",'string',_.keys(content.eggs)
           path 'hatchingPotion',"The hatching potion to pour",'string',_.keys(content.hatchingPotions)
         ]
@@ -209,7 +209,7 @@ module.exports = (swagger, v2, errorHandler) ->
         path: '/user'
         method: 'PUT'
         description: "Update the user object (only certain attributes are supported)"
-        params: [
+        parameters: [
           body '','The user object','object'
         ]
       action: user.update
@@ -256,7 +256,7 @@ module.exports = (swagger, v2, errorHandler) ->
       spec:
         method: 'POST'
         description: "Either remove your avatar's class, or change it to something new"
-        params: [
+        parameters: [
           query 'class',"The key of the class to change to. If not provided, user's class is removed.",'string',['warrior','healer','rogue','wizard','']
         ]
       action: user.changeClass
@@ -265,7 +265,7 @@ module.exports = (swagger, v2, errorHandler) ->
       spec:
         method: 'POST'
         description: "Allocate one point towards an attribute"
-        params: [
+        parameters: [
           query 'stat','The stat to allocate towards','string'
         ]
       action:user.allocate
@@ -281,7 +281,7 @@ module.exports = (swagger, v2, errorHandler) ->
       spec:
         method: 'POST'
         description: "Unlock a certain gem-purchaseable path (or multiple paths)"
-        params: [
+        parameters: [
           query 'path',"The path to unlock, such as hair.green or shirts.red,shirts.blue",'string'
         ]
       action: user.unlock
@@ -298,8 +298,8 @@ module.exports = (swagger, v2, errorHandler) ->
     "/user/batch-update":
       spec:
         method: 'POST'
-        description: "This is an advanced route which is useful for apps which might for example need offline support. You can send a whole batch of user-based operations, which allows you to queue them up offline and send them all at once. The format is {op:'nameOfOperation',params:{},body:{},query:{}}"
-        params:[
+        description: "This is an advanced route which is useful for apps which might for example need offline support. You can send a whole batch of user-based operations, which allows you to queue them up offline and send them all at once. The format is {op:'nameOfOperation',parameters:{},body:{},query:{}}"
+        parameters:[
           body '','The array of batch-operations to perform','object'
         ]
       middleware: [middleware.forceRefresh, auth.auth, cron]
@@ -310,7 +310,7 @@ module.exports = (swagger, v2, errorHandler) ->
       spec:
         method: 'POST'
         description: 'Create a new tag'
-        params: [
+        parameters: [
           #TODO document
           body '','New tag','object'
         ]
@@ -321,7 +321,7 @@ module.exports = (swagger, v2, errorHandler) ->
         path: 'user/tags/{id}'
         method: 'PUT'
         description: "Edit a tag"
-        params: [
+        parameters: [
           path 'id','The id of the tag to edit','string'
           body '','Tag edits','object'
         ]
@@ -332,7 +332,7 @@ module.exports = (swagger, v2, errorHandler) ->
         path: 'user/tags/{id}'
         method: 'DELETE'
         description: 'Delete a tag'
-        params: [
+        parameters: [
           path 'id','Id of tag to delete','string'
         ]
       action: user.deleteTag
@@ -383,7 +383,7 @@ module.exports = (swagger, v2, errorHandler) ->
     "/groups/{gid}/questAccept":
       spec:
         method: 'POST'
-        params: [
+        parameters: [
           query 'key',"optional. if provided, trigger new invite, if not, accept existing invite",'string'
         ]
       middleware: [auth.auth, groups.attachGroup]
@@ -503,7 +503,7 @@ module.exports = (swagger, v2, errorHandler) ->
     #      notes: "Returns a pet based on ID"
     #      summary: "Find pet by ID"
     #      method: "GET"
-    #      params: [path("petId", "ID of pet that needs to be fetched", "string")]
+    #      parameters: [path("petId", "ID of pet that needs to be fetched", "string")]
     #      type: "Pet"
     #      errorResponses: [swagger.errors.invalid("id"), swagger.errors.notFound("pet")]
     #      nickname: "getPetById"
@@ -514,7 +514,7 @@ module.exports = (swagger, v2, errorHandler) ->
       nickname: path
       notes: route.spec.description
       summary: route.spec.description
-      params: []
+      parameters: []
       #type: 'Pet'
       errorResponses: []
       method: 'GET'
@@ -522,4 +522,4 @@ module.exports = (swagger, v2, errorHandler) ->
     swagger["add#{route.spec.method}"](route);true
 
 
-  swagger.configure(nconf.get('BASE_URL'), "2")
+  swagger.configure("#{nconf.get('BASE_URL')}/api/v2", "2")
