@@ -38,6 +38,14 @@ habitrpg.controller('NotificationCtrl',
        Notification.mp(mana);
     });
 
+    $rootScope.$watch('user._tmp.crit', function(after, before){
+       if (after == before || !after) return;
+       var amount = User.user._tmp.crit * 100 - 100;
+       // reset the crit counter
+       User.user._tmp.crit = undefined;
+       Notification.text("Critical Hit! Bonus: " + amount + "%");
+    });
+
     $rootScope.$watch('user._tmp.drop', function(after, before){
       // won't work when getting the same item twice?
       if (after == before || !after) return;
