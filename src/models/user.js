@@ -231,6 +231,7 @@ var UserSchema = new Schema({
     timezoneOffset: Number,
     language: String,
     automaticAllocation: Boolean,
+    allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
     costume: Boolean,
     sleep: {type: Boolean, 'default': false},
     stickyHeader: {type: Boolean, 'default': true},
@@ -263,6 +264,12 @@ var UserSchema = new Schema({
       stealth: {type: Number, 'default': 0},
       streaks: {type: Boolean, 'default': false},
       snowball: {type: Boolean, 'default': false}
+    },
+    training: {
+      int: {type: Number, 'default': 0},
+      per: {type: Number, 'default': 0},
+      str: {type: Number, 'default': 0},
+      con: {type: Number, 'default': 0}
     }
   },
   tags: [
