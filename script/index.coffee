@@ -761,6 +761,8 @@ api.wrap = (user) ->
       addPoints = ->
         # ===== CRITICAL HITS =====
         _crit = user.fns.crit()
+        # if there was a crit, alert the user via notification
+        user._tmp.crit = _crit if _crit > 1
 
         # Exp Modifier
         # ===== Intelligence =====
