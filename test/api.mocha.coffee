@@ -1,12 +1,14 @@
 _ = require 'lodash'
-request = require 'superagent'
 expect = require 'expect.js'
 require 'coffee-script'
-utils = require 'derby-auth/utils'
 async = require 'async'
+superagentDefaults = require 'superagent-defaults'
+
+request = superagentDefaults()
 
 conf = require("nconf")
 conf.argv().env().file({file: __dirname + '../config.json'}).defaults
+conf.set('port','1337')
 
 # Override normal ENV values with nconf ENV values (ENV values are used the same way without nconf)
 #FIXME can't get nconf file above to load...
@@ -15,31 +17,34 @@ process.env.FACEBOOK_KEY = conf.get("FACEBOOK_KEY")
 process.env.FACEBOOK_SECRET = conf.get("FACEBOOK_SECRET")
 process.env.NODE_DB_URI = 'mongodb://localhost/habitrpg'
 
+User = require('../src/models/user').model
+Group = require('../src/models/group').model
+Challenge = require('../src/models/challenge').model
+
+app = require '../src/server'
+
 ## monkey-patch expect.js for better diffs on mocha
 ## see: https://github.com/LearnBoost/expect.js/pull/34
-
-origBe = expect.Assertion::be
-expect.Assertion::be = expect.Assertion::equal = (obj) ->
-  @_expected = obj
-  origBe.call this, obj
+#origBe = expect.Assertion::be
+#expect.Assertion::be = expect.Assertion::equal = (obj) ->
+#  @_expected = obj
+#  origBe.call this, obj
 
 # Custom modules
-helpers = require 'habitrpg-shared/script/helpers'
+shared = require 'habitrpg-shared'
 
 ###### Helpers & Variables ######
 
 model = null
 uuid = null
 taskPath = null
-baseURL = 'http://localhost:1337/api/v1'
+baseURL = 'http://localhost:3000/api/v2'
 
 ###
   expect().eql expects object keys to be in the correct order, this sorts that out
 ###
 
 expectUserEqual = (u1, u2) ->
-
-
   [u1, u2] = _.map [u1, u2], (obj) ->
     'update__ stats.toNextLevel stats.maxHealth __v'.split(' ').forEach (path) ->
       helpers.dotSet path, null, obj
@@ -54,30 +59,28 @@ expectSameValues = (obj1, obj2, paths) ->
   _.each paths, (k) ->
     expect(helpers.dotGet(k,obj1)).to.eql helpers.dotGet(k,obj2)
 
+expectCode = (res, code) ->
+  expect(res.body.err).to.be undefined
+  expect(res.statusCode).to.be code
+
 ###### Specs ######
 
 describe 'API', ->
   server = null
-  store = null
-  model = null
   user = null
-  uid = null
-  token = null
+  _id = null
+  apiToken = null
   username = null
   password = null
 
-  ###
-    Function for registring new users, so we can futz with data
-  ###
   registerNewUser = (cb) ->
-    randomID = model.id()
+    randomID = shared.uuid()
     password = randomID
     params =
       username: randomID
       password: randomID
       confirmPassword: randomID
       email: "#{randomID}@gmail.com"
-
     request.post("#{baseURL}/register")
       .set('Accept', 'application/json')
       .send(params)
@@ -85,18 +88,12 @@ describe 'API', ->
         cb(res.body)
 
   before (done) ->
-    server = require '../lib/server'
-    server.listen '1337', '0.0.0.0', ->
-      store = server.habitStore
-      #store.flush()
-      model = store.createModel()
-
-      # nasty hack, why isn't server.listen callback fired when server is completely up?
-      setTimeout done, 2000
+    server = require '../src/server'
+    # nasty hack, make a cb-compatible export of server
+    setTimeout done, 2000
 
   describe 'Without token or user id', ->
-
-    it '/api/v1/status', (done) ->
+    it.skip '/api/v2/status', (done) ->
       request.get("#{baseURL}/status")
         .set('Accept', 'application/json')
         .end (res) ->
@@ -104,7 +101,7 @@ describe 'API', ->
           expect(res.body.status).to.be 'up'
           done()
 
-    it '/api/v1/user', (done) ->
+    it.skip '/api/v2/user', (done) ->
       request.get("#{baseURL}/user")
         .set('Accept', 'application/json')
         .end (res) ->
@@ -112,32 +109,80 @@ describe 'API', ->
           expect(res.body.err).to.be 'You must include a token and uid (user id) in your request'
           done()
 
-  describe 'With token and user id', ->
+  describe.only 'With token and user id', ->
     params = null
     currentUser = null
 
     before (done) ->
       registerNewUser (_res) ->
-#        console.log _res
-        [uid, token, username] = [_res.id, _res.apiToken, _res.auth.local.username]
-        model.query('users').withIdAndToken(uid, token).fetch (err, _user) ->
+        #console.log _res
+        [_id, apiToken, username] = [_res.id, _res.apiToken, _res.auth.local.username]
+        User.findOne {_id,apiToken}, (err, _user) ->
           console.error {err} if err
           user = _user
           params =
             title: 'Title'
             text: 'Text'
             type: 'habit'
+          request
+            .set('Accept', 'application/json')
+            .set('X-API-User', _id)
+            .set('X-API-Key', apiToken)
           done()
 
-    beforeEach ->
-      currentUser = user.get()
+    beforeEach (done) ->
+      User.findById _id, (err,_user) ->
+        currentUser = _user
+        done()
+
+    ###### Groups ######
+
+    describe.only 'Groups', ->
+      group = undefined
+
+      it 'Creates a group', (done) ->
+        request.post("#{baseURL}/groups")
+        .send({name:"TestGroup", type:"party"})
+        .end (res) ->
+          expectCode res, 200
+          group = res.body
+          done()
+
+      describe 'Challenges', ->
+        challenge = undefined
+
+        it 'Creates a challenge', (done) ->
+          request.post("#{baseURL}/challenges")
+          .send({
+            group:group._id
+            dailys: [{type:'daily',text:'Challenge Daily'}]
+            todos: [], rewards: [], habits: []
+          })
+          .end (res) ->
+            expectCode res, 200
+            async.parallel [
+              (cb) -> User.findById _id, cb
+              (cb) -> Challenge.findById res.body._id, cb
+            ], (err, results) ->
+              [_user,challenge] = [results[0],results[1]]
+              expect(_user.dailys[_user.dailys.length-1].text).to.be('Challenge Daily')
+              done()
+
+        it 'Change challenge daily', (done) ->
+          challenge.dailys[0].text = 'Updated Daily'
+          request.post("#{baseURL}/challenges/#{challenge._id}")
+          .send(challenge)
+          .end (res) ->
+            setTimeout ->
+              User.findById _id, (err,_user) ->
+                expectCode res, 200
+                expect(_user.dailys[_user.dailys.length-1].text).to.be('Updated Daily')
+                done()
+            , 500 # we have to wait a while for users' tasks to be updated, called async on server
 
     #FIXME figure out how to compare the objects
     it.skip 'GET /api/v1/user', (done) ->
       request.get("#{baseURL}/user")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .end (res) ->
           expect(res.body.err).to.be undefined
           expect(res.statusCode).to.be 200
@@ -150,23 +195,17 @@ describe 'API', ->
           expectUserEqual(res.body, self)
           done()
 
-    it 'GET /api/v1/user/task/:id', (done) ->
+    it.skip 'GET /api/v1/user/task/:id', (done) ->
       tid = _.pluck(currentUser.tasks, 'id')[0]
       request.get("#{baseURL}/user/task/#{tid}")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .end (res) ->
           expect(res.body.err).to.be undefined
           expect(res.statusCode).to.be 200
           expect(res.body).to.eql currentUser.tasks[tid]
           done()
 
-    it 'POST /api/v1/user/task', (done) ->
+    it.skip 'POST /api/v1/user/task', (done) ->
       request.post("#{baseURL}/user/task")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .send(params)
         .end (res) ->
           query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
@@ -181,20 +220,14 @@ describe 'API', ->
 
     it.skip 'POST /api/v1/user/task (without type)', (done) ->
       request.post("#{baseURL}/user/task")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .send({})
         .end (res) ->
           expect(res.body.err).to.be 'type must be habit, todo, daily, or reward'
           expect(res.statusCode).to.be 400
           done()
 
-    it 'POST /api/v1/user/task (only type)', (done) ->
+    it.skip 'POST /api/v1/user/task (only type)', (done) ->
       request.post("#{baseURL}/user/task")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .send(type: 'habit')
         .end (res) ->
           query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
@@ -208,12 +241,9 @@ describe 'API', ->
             expect(user.get().tasks[res.body.id].value).to.be.equal(0)
             done()
 
-    it 'PUT /api/v1/user/task/:id', (done) ->
+    it.skip 'PUT /api/v1/user/task/:id', (done) ->
       tid = _.pluck(currentUser.tasks, 'id')[0]
       request.put("#{baseURL}/user/task/#{tid}")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .send(text: 'bye')
         .end (res) ->
           expect(res.body.err).to.be undefined
@@ -227,9 +257,6 @@ describe 'API', ->
       tid = _.pluck(currentUser.tasks, 'id')[1]
       type = if currentUser.tasks[tid].type is 'habit' then 'daily' else 'habit'
       request.put("#{baseURL}/user/task/#{tid}")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .send(type: type, text: 'fishman')
         .end (res) ->
           expect(res.body.err).to.be undefined
@@ -238,12 +265,9 @@ describe 'API', ->
           expect(res.body).to.eql currentUser.tasks[tid]
           done()
 
-    it 'PUT /api/v1/user/task/:id (update notes)', (done) ->
+    it.skip 'PUT /api/v1/user/task/:id (update notes)', (done) ->
       tid = _.pluck(currentUser.tasks, 'id')[2]
       request.put("#{baseURL}/user/task/#{tid}")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .send(text: 'hi',notes:'foobar matey')
         .end (res) ->
           expect(res.body.err).to.be undefined
@@ -253,11 +277,8 @@ describe 'API', ->
           expect(res.body).to.eql currentUser.tasks[tid]
           done()
 
-    it 'GET /api/v1/user/tasks', (done) ->
+    it.skip 'GET /api/v1/user/tasks', (done) ->
       request.get("#{baseURL}/user/tasks")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .end (res) ->
           query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
           query.fetch (err, user) ->
@@ -275,11 +296,8 @@ describe 'API', ->
             expect(_.difference(_.pluck(res.body,'id'), _.pluck(tasks,'id')).length).to.equal 0
             done()
 
-    it 'GET /api/v1/user/tasks (todos)', (done) ->
+    it.skip 'GET /api/v1/user/tasks (todos)', (done) ->
       request.get("#{baseURL}/user/tasks")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .query(type:'todo')
         .end (res) ->
           query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
@@ -295,12 +313,9 @@ describe 'API', ->
             expect(_.difference(_.pluck(res.body,'id'), _.pluck(tasks,'id')).length).to.equal 0
             done()
 
-    it 'DELETE /api/v1/user/task/:id', (done) ->
+    it.skip 'DELETE /api/v1/user/task/:id', (done) ->
       tid = currentUser.habitIds[2]
       request.del("#{baseURL}/user/task/#{tid}")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .end (res) ->
           expect(res.body.err).to.be undefined
           expect(res.statusCode).to.be 204
@@ -310,23 +325,17 @@ describe 'API', ->
             expect(user.get("tasks.#{tid}")).to.be undefined
             done()
 
-    it 'DELETE /api/v1/user/task/:id (no task found)', (done) ->
+    it.skip 'DELETE /api/v1/user/task/:id (no task found)', (done) ->
       tid = "adsfasdfjunkshouldntbeatask"
       request.del("#{baseURL}/user/task/#{tid}")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .end (res) ->
           expect(res.statusCode).to.be 400
           expect(res.body.err).to.be 'No task found.'
           done()
 
-    it 'POST /api/v1/user/task/:id/up (habit)', (done) ->
+    it.skip 'POST /api/v1/user/task/:id/up (habit)', (done) ->
       tid = currentUser.habitIds[0]
       request.post("#{baseURL}/user/task/#{tid}/up")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .send({})
         .end (res) ->
           expect(res.body.err).to.be undefined
@@ -334,12 +343,9 @@ describe 'API', ->
           expect(res.body).to.eql { gp: 1, exp: 7.5, lvl: 1, hp: 50, delta: 1 }
           done()
 
-    it 'POST /api/v1/user/task/:id/up (daily)', (done) ->
+    it.skip 'POST /api/v1/user/task/:id/up (daily)', (done) ->
       tid = currentUser.dailyIds[0]
       request.post("#{baseURL}/user/task/#{tid}/up")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .send({})
         .end (res) ->
           expect(res.body.err).to.be undefined
@@ -350,7 +356,7 @@ describe 'API', ->
             expect(user.get("tasks.#{tid}.completed")).to.be true
             done()
 
-    it 'POST /api/v1/user/task (array)', (done) ->
+    it.skip 'POST /api/v1/user/task (array)', (done) ->
       habitId = currentUser.habitIds[0]
       dailyId = currentUser.dailyIds[0]
       arr = [{
@@ -366,9 +372,6 @@ describe 'API', ->
       }]
 
       request.post("#{baseURL}/user/tasks")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .send(arr)
         .end (res) ->
           expect(res.body.err).to.be undefined
@@ -387,7 +390,7 @@ describe 'API', ->
             expectSameValues user.get("tasks.#{res.body[1].id}"), {id: res.body[1].id, text: 'new task', notes: 'notes!'}, ['id','text','notes']
             done()
 
-    it 'PUT /api/v1/user (bad path)', (done) ->
+    it.skip 'PUT /api/v1/user (bad path)', (done) ->
       # These updates should not save, as per the API changes
       userUpdates =
         stats: hp: 30
@@ -398,16 +401,13 @@ describe 'API', ->
         }]
 
       request.put("#{baseURL}/user")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
         .send(userUpdates)
         .end (res) ->
           expect(res.body.err).to.be.ok()
           expect(res.statusCode).to.be 500
           done()
 
-    it 'PUT /api/v1/user', (done) ->
+    it.skip 'PUT /api/v1/user', (done) ->
       userBefore = {}
       query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
       query.fetch (err, user) ->
@@ -422,9 +422,6 @@ describe 'API', ->
         updates["tasks.#{habitId}.notes"] = 'note2'
 
         request.put("#{baseURL}/user")
-          .set('Accept', 'application/json')
-          .set('X-API-User', currentUser.id)
-          .set('X-API-Key', currentUser.apiToken)
           .send(updates)
           .end (res) ->
             expect(res.body.err).to.be undefined
@@ -438,7 +435,7 @@ describe 'API', ->
               changesWereMade user.get()
               done()
 
-    it 'POST /api/v1/user/auth/local', (done) ->
+    it.skip 'POST /api/v1/user/auth/local', (done) ->
       userAuth = {username, password}
       request.post("#{baseURL}/user/auth/local")
         .set('Accept', 'application/json')
@@ -450,8 +447,8 @@ describe 'API', ->
           expect(res.body.token).to.be currentUser.apiToken
           done()
 
-    it 'POST /api/v1/user/auth/facebook', (done) ->
-      id = model.id()
+    it.skip 'POST /api/v1/user/auth/facebook', (done) ->
+      id = shared.uuid()
       userAuth = facebook_id: 12345, name: 'Tyler Renelle', email: 'x@y.com'
       newUser = helpers.newUser(true)
       newUser.id = id
@@ -471,7 +468,7 @@ describe 'API', ->
             #expect(res.body.token).to.be newUser.apiToken
             done()
 
-    it 'POST /api/v1/batch-update (handles corrupt values)', (done) ->
+    it.skip 'POST /api/v1/batch-update (handles corrupt values)', (done) ->
       registerNewUser (_res) ->
         model.set '_userId', _res.id
         model.session = {userId:_res.id}
@@ -502,7 +499,7 @@ describe 'API', ->
                 console.log {stats:res.body.stats, tasks:res.body.tasks}
                 done()
 
-    it 'POST /api/v1/batch-update', (done) ->
+    it.skip 'POST /api/v1/batch-update', (done) ->
       userBefore = _.cloneDeep(currentUser)
 
       habits = _.where currentUser.tasks, {type: 'habit'}

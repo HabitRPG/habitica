@@ -128,6 +128,7 @@ api.create = function(req, res){
 
   waterfall = waterfall.concat([
     function(cb) { // if we're dealing with prize above, arguemnts will be `group, numRows, cb` - else `cb`
+      req.body.leader = user._id;
       var chal = new Challenge(req.body); // FIXME sanitize
       chal.members.push(user._id);
       chal.save(cb)

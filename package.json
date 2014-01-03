@@ -5,7 +5,6 @@
   "main": "./src/server.js",
   "dependencies": {
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared#develop",
-    "derby-auth": "git://github.com/lefnire/derby-auth#master",
     "connect-mongo": "*",
     "passport-facebook": "~1.0.0",
     "express": "*",
@@ -16,9 +15,7 @@
     "coffee-script": "*",
     "nconf": "*",
     "icalendar": "git://github.com/lefnire/node-icalendar#master",
-    "superagent": "~0.12.4",
     "resolve": "~0.2.3",
-    "expect.js": "~0.2.0",
     "lodash": "~2.2.1",
     "async": "~0.2.9",
     "optimist": "~0.5.2",
@@ -80,6 +77,9 @@
     "mocha": "~1.12.1",
     "karma-mocha": "~0.1.0",
     "csv": "~0.3.6",
-    "mongoskin": "~0.6.1"
+    "mongoskin": "~0.6.1",
+    "expect.js": "~0.2.0",
+    "superagent": "~0.15.7",
+    "superagent-defaults": "~0.1.5"
   }
 }

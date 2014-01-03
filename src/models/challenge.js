@@ -58,13 +58,13 @@ function syncableAttrs(task) {
  * Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
  */
 function comparableData(obj) {
-  return (
-    _.chain(obj.habits.concat(obj.dailys).concat(obj.todos).concat(obj.rewards))
+  return JSON.stringify(
+    _(obj.habits.concat(obj.dailys).concat(obj.todos).concat(obj.rewards))
       .sortBy('id') // we don't want to update if they're sort-order is different
       .transform(function(result, task){
         result.push(syncableAttrs(task));
-      }))
-    .toString(); // for comparing arrays easily
+      })
+      .value())
 }
 
 ChallengeSchema.methods.isOutdated = function(newData) {
