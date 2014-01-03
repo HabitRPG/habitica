@@ -102,6 +102,7 @@ ChallengeSchema.methods.syncToUser = function(user, cb) {
   _.each(self.tasks, function(task){
     var list = user[task.type+'s'];
     var userTask = user.tasks[task.id] || (list.push(syncableAttrs(task)), list[list.length-1]);
+    if (!userTask.notes) userTask.notes = task.notes; // don't override the notes, but provide it if not provided
     userTask.challenge = {id:self._id};
     userTask.tags = userTask.tags || {};
     userTask.tags[self._id] = true;
