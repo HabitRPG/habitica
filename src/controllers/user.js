@@ -285,27 +285,23 @@ api.buyGems = function(req, res) {
   });
 };
 
-api.buyGemsPaypalIPN = function(req, res) {
+api.buyGemsPaypalIPN = function(req, res, next) {
   res.send(200);
   ipn.verify(req.body, function callback(err, msg) {
-    if (err) {
-      console.error(msg);
-      res.send(500, msg);
-    } else {
-      if (req.body.payment_status == 'Completed') {
-        //Payment has been confirmed as completed
-        var parts = url.parse(req.body.custom, true);
-        var uid = parts.query.uid; //, apiToken = query.apiToken;
-        if (!uid) throw new Error("uuid or apiToken not found when completing paypal transaction");
-        User.findById(uid, function(err, user) {
-          if (err) throw err;
-          if (_.isEmpty(user)) throw "user not found with uuid " + uuid + " when completing paypal transaction"
-          user.balance += 5;
-          user.purchased.ads = true;
-          user.save();
-          console.log('PayPal transaction completed and user updated');
-        });
-      }
+    if (err) return next('PayPal Error: ' + msg);
+    if (req.body.payment_status == 'Completed') {
+      //Payment has been confirmed as completed
+      var parts = url.parse(req.body.custom, true);
+      var uid = parts.query.uid; //, apiToken = query.apiToken;
+      if (!uid) return next("uuid or apiToken not found when completing paypal transaction");
+      User.findById(uid, function(err, user) {
+        if (_.isEmpty(user)) err = "user not found with uuid " + uuid + " when completing paypal transaction";
+        if (err) return nex(err);
+        user.balance += 5;
+        user.purchased.ads = true;
+        user.save();
+        console.log('PayPal transaction completed and user updated');
+      });
     }
   });
 }

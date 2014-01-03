@@ -305,7 +305,10 @@ module.exports = (swagger, v2) ->
       action:user.buyGems
 
     "/user/buy-gems/paypal-ipn":
-      spec: method: 'POST', description: "Don't use this route"
+      spec:
+        method: 'POST'
+        description: "Don't use this route"
+      middleware: []
       action: user.buyGemsPaypalIPN
 
     "/user/batch-update":
