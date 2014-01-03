@@ -93,7 +93,7 @@ describe 'API', ->
     setTimeout done, 2000
 
   describe 'Without token or user id', ->
-    it.skip '/api/v2/status', (done) ->
+    it '/api/v2/status', (done) ->
       request.get("#{baseURL}/status")
         .set('Accept', 'application/json')
         .end (res) ->
@@ -101,7 +101,7 @@ describe 'API', ->
           expect(res.body.status).to.be 'up'
           done()
 
-    it.skip '/api/v2/user', (done) ->
+    it '/api/v2/user', (done) ->
       request.get("#{baseURL}/user")
         .set('Accept', 'application/json')
         .end (res) ->
@@ -110,7 +110,6 @@ describe 'API', ->
           done()
 
   describe.only 'With token and user id', ->
-    params = null
     currentUser = null
 
     before (done) ->
@@ -120,10 +119,6 @@ describe 'API', ->
         User.findOne {_id,apiToken}, (err, _user) ->
           console.error {err} if err
           user = _user
-          params =
-            title: 'Title'
-            text: 'Text'
-            type: 'habit'
           request
             .set('Accept', 'application/json')
             .set('X-API-User', _id)
@@ -135,9 +130,11 @@ describe 'API', ->
         currentUser = _user
         done()
 
-    ###### Groups ######
+    ############
+    #  Groups
+    ############
 
-    describe.only 'Groups', ->
+    describe 'Groups', ->
       group = undefined
 
       it 'Creates a group', (done) ->
@@ -180,6 +177,65 @@ describe 'API', ->
                 done()
             , 500 # we have to wait a while for users' tasks to be updated, called async on server
 
+    ############
+    #  Batch Update
+    ############
+
+    describe.only 'Batch Update', ->
+
+      it 'POST /api/v1/batch-update', (done) ->
+        userBefore = _.cloneDeep(currentUser)
+
+        ops = [
+          # Good scores
+          op: 'score', params: {id:user.habits[0].id, direction: 'up'}
+          op: 'score', params: {id:user.habits[1].id, direction: 'down'}
+          op: 'score', params: {id:user.dailys[0].id, direction: 'up'}
+          op: 'score', params: {id:user.todos[0].id, direction: 'up'}
+        ]
+
+        request.post("#{baseURL}/user/batch-update")
+        .send(ops)
+        .end (res) ->
+          expect(res.body.err).to.be undefined
+          expect(res.statusCode).to.be 200
+          #expectUserEqual(userBefore, res.body)
+          done()
+
+
+    ############
+    #  To Be Updated (these are old v1 tests which haven't been touched in over 6 months, need to be portd to new API tests or deleted)
+    ############
+
+    it.skip 'POST /api/v2/batch-update (handles corrupt values)', (done) ->
+      registerNewUser (_res) ->
+        # corrupt the tasks, and let's see how the server handles this
+        ids = _res.dailyIds
+        _res.tasks[ids[0]].value = NaN
+        _res.tasks[ids[1]].value = undefined
+        _res.tasks[ids[2]] = {}
+        _res.tasks["undefined"] = {}
+
+        _res.stats.hp = _res.stats.gp = NaN
+
+        _res.lastCron = +new Date('08/13/2013')
+
+        ops = [
+          op: 'score', task: _res.tasks[ids[0]], dir: 'up'
+        ]
+
+        model.set "users.#{_res.id}", _res, ->
+          request.post("#{baseURL}/user/batch-update")
+          .set('Accept', 'application/json')
+          .set('X-API-User', _res.id)
+          .set('X-API-Key', _res.apiToken)
+          .send(ops)
+          .end (res) ->
+              expect(res.statusCode).to.be 200
+              console.log {stats:res.body.stats, tasks:res.body.tasks}
+              done()
+
+
     #FIXME figure out how to compare the objects
     it.skip 'GET /api/v1/user', (done) ->
       request.get("#{baseURL}/user")
@@ -206,7 +262,7 @@ describe 'API', ->
 
     it.skip 'POST /api/v1/user/task', (done) ->
       request.post("#{baseURL}/user/task")
-        .send(params)
+        .send({title: 'Title', text: 'Text', type: 'habit'})
         .end (res) ->
           query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
           query.fetch (err, user) ->
@@ -468,67 +524,4 @@ describe 'API', ->
             #expect(res.body.token).to.be newUser.apiToken
             done()
 
-    it.skip 'POST /api/v1/batch-update (handles corrupt values)', (done) ->
-      registerNewUser (_res) ->
-        model.set '_userId', _res.id
-        model.session = {userId:_res.id}
-
-        # corrupt the tasks, and let's see how the server handles this
-        ids = _res.dailyIds
-        _res.tasks[ids[0]].value = NaN
-        _res.tasks[ids[1]].value = undefined
-        _res.tasks[ids[2]] = {}
-        _res.tasks["undefined"] = {}
-
-        _res.stats.hp = _res.stats.gp = NaN
-
-        _res.lastCron = +new Date('08/13/2013')
-
-        ops = [
-          op: 'score', task: _res.tasks[ids[0]], dir: 'up'
-        ]
-
-        model.set "users.#{_res.id}", _res, ->
-          request.post("#{baseURL}/user/batch-update")
-            .set('Accept', 'application/json')
-            .set('X-API-User', _res.id)
-            .set('X-API-Key', _res.apiToken)
-            .send(ops)
-            .end (res) ->
-                expect(res.statusCode).to.be 200
-                console.log {stats:res.body.stats, tasks:res.body.tasks}
-                done()
-
-    it.skip 'POST /api/v1/batch-update', (done) ->
-      userBefore = _.cloneDeep(currentUser)
-
-      habits = _.where currentUser.tasks, {type: 'habit'}
-      dailys = _.where currentUser.tasks, {type: 'dailys'}
-      todos = _.where currentUser.tasks, {type: 'todos'}
-      rewards = _.where currentUser.tasks, {type: 'rewards'}
-
-      ops = [
-
-        # Good scores
-        op: 'score', task: habits[0], dir: 'up'
-        op: 'score', task: habits[1], dir: 'down'
-        op: 'score', task: dailys[1], dir: 'up'
-        op: 'score', task: todos[1], dir: 'up'
-
-        # Bad scores, should handle gracefully
-        op: 'score', task: todos[2], dir: 'down'
-        op: 'score', task: {}, dir: 'up'
-        op: 'score', task: {id:null, value: NaN}, dir: 'up'
-      ]
-
-      request.post("#{baseURL}/user/batch-update")
-        .set('Accept', 'application/json')
-        .set('X-API-User', currentUser.id)
-        .set('X-API-Key', currentUser.apiToken)
-        .send(ops)
-        .end (res) ->
-            expect(res.body.err).to.be undefined
-            expect(res.statusCode).to.be 200
-            #expectUserEqual(userBefore, res.body)
-            done()
 
