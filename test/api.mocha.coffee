@@ -191,6 +191,7 @@ describe 'API', ->
                 expect(_user.dailys[_user.dailys.length-1].text).to.be('Updated Daily')
                 expect(res.body.todos[0].notes).to.be('Challenge Updated Todo Notes')
                 expect(_user.todos[_user.todos.length-1].notes).to.be('User overriden notes')
+                currentUser = _user
                 done()
             , 500 # we have to wait a while for users' tasks to be updated, called async on server
 
@@ -199,6 +200,15 @@ describe 'API', ->
           .end (res) ->
               expect(res.body.todos[res.body.todos.length-1].notes).to.be('User overriden notes')
               done()
+
+        it 'Complete To-Dos', (done) ->
+          u = currentUser
+          request.post("#{baseURL}/user/tasks/#{u.todos[0].id}/up").end (res) ->
+            request.post("#{baseURL}/user/tasks/#{u.todos[1].id}/up").end (res) ->
+              request.post("#{baseURL}/user/tasks/").send({type:'todo'}).end (res) ->
+                request.post("#{baseURL}/user/tasks/clear-completed").end (res) ->
+                  expect(_.size res.body).to.be 2
+                  done()
 
         it 'Admin creates a challenge', (done) ->
           User.findByIdAndUpdate _id, {$set:{'contributor.admin':true}}, (err,_user) ->
