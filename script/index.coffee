@@ -229,7 +229,7 @@ api.taskClasses = (task, filters=[], dayStart=0, lastCron=+new Date, showComplet
   {type, completed, value, repeat} = task
 
   # completed / remaining toggle
-  return 'hidden' if (type is 'todo') and (completed != showCompleted)
+  return 'hidden' if (type is 'todo' and completed != showCompleted) and main
 
   # Filters
   if main # only show when on your own list

@@ -11044,7 +11044,7 @@ var process=require("__browserify_process");(function() {
       return;
     }
     type = task.type, completed = task.completed, value = task.value, repeat = task.repeat;
-    if ((type === 'todo') && (completed !== showCompleted)) {
+    if ((type === 'todo' && completed !== showCompleted) && main) {
       return 'hidden';
     }
     if (main) {
