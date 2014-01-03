@@ -153,15 +153,6 @@ angular.module('guideServices', []).
       // TODO notice my hack-job `onShow: _.once()` functions. Without these, the syncronous path redirects won't properly handle showing tour
       var tourSteps = [
         {
-          path: '/#/options/inventory/equipment',
-          onShow: _.once(function(tour){
-            $timeout(function(){tour.goTo(0)});
-          }),
-          element: '.equipment-tab',
-          title: "Class Gear",
-          content: "First: don't panic! Your old gear is in your inventory, and you're now wearing your apprentice <strong>" + User.user.stats.class + "</strong> equipment. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear."
-        },
-        {
           path: '/#/options/profile/stats',
           onShow: _.once(function(tour){
             $timeout(function(){tour.goTo(1)});
@@ -184,6 +175,22 @@ angular.module('guideServices', []).
           content: "For more information on the class-system, see <a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>."
         }
       ];
+
+      // This step has to be treated specially. The inventory tab is hidden, but not disabled, until the user reaches a certain level. If the user is below
+      // that level and trys to run this tour, then the tab would disappear once they leave this tour step, and they will get very confused (I know I did).
+      var equipmentTourStep = {
+        path: '/#/options/inventory/equipment',
+        onShow: _.once(function(tour){
+          $timeout(function(){tour.goTo(0)});
+        }),
+        element: '.equipment-tab',
+        title: "Class Gear",
+        content: "First: don't panic! Your old gear is in your inventory, and you're now wearing your apprentice <strong>" + User.user.stats.class + "</strong> equipment. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear."
+      };
+      if (user.flags.dropsEnabled) {
+        tourSteps.unshift(equipmentTourStep);
+      }
+
       _.each(tourSteps, function(step){
         step.content = "<div><div class='npc_justin float-left'></div>" + step.content + "</div>"; // add Justin NPC img
       });
