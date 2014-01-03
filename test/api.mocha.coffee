@@ -134,7 +134,7 @@ describe 'API', ->
     #  Groups
     ############
 
-    describe 'Groups', ->
+    describe.only 'Groups', ->
       group = undefined
 
       it 'Creates a group', (done) ->
@@ -145,15 +145,18 @@ describe 'API', ->
           group = res.body
           done()
 
-      describe 'Challenges', ->
+      describe.only 'Challenges', ->
         challenge = undefined
+        updateTodo = undefined
 
         it 'Creates a challenge', (done) ->
           request.post("#{baseURL}/challenges")
           .send({
             group:group._id
             dailys: [{type:'daily',text:'Challenge Daily'}]
-            todos: [], rewards: [], habits: []
+            todos: [{type:'todo', text:'Challenge Todo', notes:'Challenge Notes'}]
+            rewards: []
+            habits: []
           })
           .end (res) ->
             expectCode res, 200
@@ -163,10 +166,20 @@ describe 'API', ->
             ], (err, results) ->
               [_user,challenge] = [results[0],results[1]]
               expect(_user.dailys[_user.dailys.length-1].text).to.be('Challenge Daily')
+              updateTodo = _user.todos[_user.todos.length-1]
+              expect(updateTodo.text).to.be('Challenge Todo')
               done()
+
+        it 'User updates challenge notes', (done) ->
+          updateTodo.notes = "User overriden notes"
+          request.put("#{baseURL}/user/tasks/#{updateTodo.id}")
+          .send(updateTodo)
+          .end (res) ->
+              done() #we'll do the check down below
 
         it 'Change challenge daily', (done) ->
           challenge.dailys[0].text = 'Updated Daily'
+          challenge.todos[0].notes = 'Challenge Updated Todo Notes'
           request.post("#{baseURL}/challenges/#{challenge._id}")
           .send(challenge)
           .end (res) ->
@@ -174,14 +187,22 @@ describe 'API', ->
               User.findById _id, (err,_user) ->
                 expectCode res, 200
                 expect(_user.dailys[_user.dailys.length-1].text).to.be('Updated Daily')
+                expect(res.body.todos[0].notes).to.be('Challenge Updated Todo Notes')
+                expect(_user.todos[_user.todos.length-1].notes).to.be('User overriden notes')
                 done()
             , 500 # we have to wait a while for users' tasks to be updated, called async on server
+
+        it 'Shows user notes on challenge page', (done) ->
+          request.get("#{baseURL}/challenges/#{challenge._id}/member/#{_id}")
+          .end (res) ->
+              expect(res.body.todos[res.body.todos.length-1].notes).to.be('User overriden notes')
+              done()
 
     ############
     #  Batch Update
     ############
 
-    describe.only 'Batch Update', ->
+    describe 'Batch Update', ->
 
       it 'POST /api/v1/batch-update', (done) ->
         userBefore = _.cloneDeep(currentUser)
