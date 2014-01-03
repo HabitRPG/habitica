@@ -33,10 +33,10 @@ api.list = function(req, res) {
             {group: 'habitrpg'} // public group
           ]
         })
-        .select('name leader description group members prize')
+        .select('name leader description group members prize official')
         .populate('group', '_id name')
         .populate('leader', 'profile.name')
-        .sort('-timestamp')
+        .sort('-official -timestamp')
         .exec(cb);
     }
   ], function(err, challenges){
@@ -129,6 +129,7 @@ api.create = function(req, res){
   waterfall = waterfall.concat([
     function(cb) { // if we're dealing with prize above, arguemnts will be `group, numRows, cb` - else `cb`
       req.body.leader = user._id;
+      req.body.official = user.contributor.admin && req.body.official;
       var chal = new Challenge(req.body); // FIXME sanitize
       chal.members.push(user._id);
       chal.save(cb)

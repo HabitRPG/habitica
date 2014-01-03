@@ -10,6 +10,7 @@ var ChallengeSchema = new Schema({
   name: String,
   shortName: String,
   description: String,
+  official: {type: Boolean,'default':false},
   habits:   [TaskSchemas.HabitSchema],
   dailys:   [TaskSchemas.DailySchema],
   todos:    [TaskSchemas.TodoSchema],

@@ -157,6 +157,7 @@ describe 'API', ->
             todos: [{type:'todo', text:'Challenge Todo', notes:'Challenge Notes'}]
             rewards: []
             habits: []
+            official: true
           })
           .end (res) ->
             expectCode res, 200
@@ -168,6 +169,7 @@ describe 'API', ->
               expect(_user.dailys[_user.dailys.length-1].text).to.be('Challenge Daily')
               updateTodo = _user.todos[_user.todos.length-1]
               expect(updateTodo.text).to.be('Challenge Todo')
+              expect(challenge.official).to.be false
               done()
 
         it 'User updates challenge notes', (done) ->
@@ -197,6 +199,26 @@ describe 'API', ->
           .end (res) ->
               expect(res.body.todos[res.body.todos.length-1].notes).to.be('User overriden notes')
               done()
+
+        it 'Admin creates a challenge', (done) ->
+          User.findByIdAndUpdate _id, {$set:{'contributor.admin':true}}, (err,_user) ->
+            expect(err).to.not.be.ok
+
+            async.parallel [
+              (cb)->
+                request.post("#{baseURL}/challenges")
+                .send({group:group._id, dailys: [], todos: [], rewards: [], habits: [], official: false}).end (res) ->
+                  expect(res.body.official).to.be false
+                  cb()
+              (cb)->
+                request.post("#{baseURL}/challenges")
+                .send({group:group._id, dailys: [], todos: [], rewards: [], habits: [], official: true}).end (res) ->
+                  expect(res.body.official).to.be true
+                  cb()
+            ], done
+
+
+
 
     ############
     #  Batch Update

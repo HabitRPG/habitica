@@ -108,12 +108,19 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
               span(ng-show='newChallenge.group=="habitrpg"').
                 &nbsp;Minimum 1 Gem for <strong>public challenges</strong> (helps prevent spam, it really does).
 
+            .option-medium(ng-if='user.contributor.admin')
+              label.checkbox
+                input(type='checkbox', ng-model='newChallenge.official')
+                | Official HabitRPG Challenge
+
         habitrpg-tasks(main=false, obj='newChallenge')
 
       // Challenges list
       .accordion-group(ng-repeat='challenge in challenges|filter:filterChallenges')
         .accordion-heading
           ul.pull-right.challenge-accordion-header-specs
+            li(ng-if='challenge.official')
+              span.label.label-success Official HabitRPG Challenge
             li {{challenge.group.name}}
             li
               | by&nbsp;

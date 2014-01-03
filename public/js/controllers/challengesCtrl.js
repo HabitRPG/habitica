@@ -35,7 +35,8 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'User', 'Challenge
         leader: User.user._id,
         group: null,
         timestamp: +(new Date),
-        members: []
+        members: [],
+        official: false
       });
     };
 
