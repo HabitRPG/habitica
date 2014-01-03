@@ -129,7 +129,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
           input.option-content(type='text', ng-model='task.text', required, ng-disabled='task.challenge.id')
 
           label.option-title Extra Notes
-          textarea.option-content(rows='3', ng-model='task.notes', ng-disabled='task.challenge.id')
+          textarea.option-content(rows='3', ng-model='task.notes')
 
         // if Habit, plus/minus command options
         fieldset.option-group(ng-if='task.type=="habit" && !task.challenge.id')
