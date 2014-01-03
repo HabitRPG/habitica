@@ -309,7 +309,7 @@ api.spells =
       mana: 10
       lvl: 11
       target: 'task'
-      notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (greener) your task."
+      notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (bluer) your task."
       cast: (user, target) ->
         user.stats.gp += (if target.value < 0 then 1 else target.value+1) + user._statsComputed.per * .075
     backStab:
