@@ -459,7 +459,8 @@ api.wrap = (user) ->
     # ------
 
     clearCompleted: (req, cb) ->
-      user.todos = _.where(user.todos, {completed: false})
+      _.remove user.todos, (t)-> t.completed and !t.challenge?.id
+      user.markModified? 'todos'
       cb? null, user.todos
 
     sortTask: (req, cb) ->

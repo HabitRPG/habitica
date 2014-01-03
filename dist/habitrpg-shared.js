@@ -10147,7 +10147,7 @@ var global=self;/**
         mana: 10,
         lvl: 11,
         target: 'task',
-        notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (bluer) your task.",
+        notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (greener) your task.",
         cast: function(user, target) {
           return user.stats.gp += (target.value < 0 ? 1 : target.value + 1) + user._statsComputed.per * .075;
         }
@@ -11344,9 +11344,13 @@ var process=require("__browserify_process");(function() {
         return typeof cb === "function" ? cb(null, user) : void 0;
       },
       clearCompleted: function(req, cb) {
-        user.todos = _.where(user.todos, {
-          completed: false
+        _.remove(user.todos, function(t) {
+          var _ref;
+          return t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0);
         });
+        if (typeof user.markModified === "function") {
+          user.markModified('todos');
+        }
         return typeof cb === "function" ? cb(null, user.todos) : void 0;
       },
       sortTask: function(req, cb) {
