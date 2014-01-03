@@ -24,7 +24,8 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
         span.input-suffix :00 (24h clock)
       div
         small
-          | Habit defaults to check and reset your dailies at midnight in your time zone each day. You can customize the hour here (enter a number between 0 and 24).
+          div Habit defaults to check and reset your dailies at midnight in your time zone each day. You can customize the hour here (enter a number between 0 and 24).
+          .alert.alert-danger Warning: this is a highly-experimental feature, and many <a href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank'>experience issues</a> with it.
       hr
       h4 Language
       select(ng-model='language.code', ng-options='lang.code as lang.name for lang in avalaibleLanguages', ng-change='changeLanguage()')
