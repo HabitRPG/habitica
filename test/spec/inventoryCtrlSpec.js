@@ -7,6 +7,7 @@ describe('Inventory Controller', function() {
   beforeEach(inject(function($rootScope, $controller){
     user = {
       user: {
+        balance: 4,
         stats: {gp: 0},
         items: {eggs: {'Cactus': 1}, hatchingPotions: {'Base': 1}, food: {'Meat': 1}, pets: {}},
       }
@@ -67,5 +68,17 @@ describe('Inventory Controller', function() {
     scope.sellInventory();
     expect(user.user.items.food).to.eql({'Meat': 0});
     expect(user.user.stats.gp).to.eql(1);
+  });
+
+  it('chooses a pet', function(){
+    user.user.items.pets['Cactus-Base'] = 5;
+    scope.choosePet('Cactus', 'Base');
+    expect(user.user.items.currentPet).to.eql('Cactus-Base');
+  });
+
+  it('purchases an egg', function(){
+    scope.purchase('eggs', window.habitrpgShared.content.eggs['Wolf']);
+    expect(user.user.balance).to.eql(3.25);
+    expect(user.user.items.eggs).to.eql({Cactus: 1, Wolf: 1})
   });
 });
