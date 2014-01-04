@@ -1,5 +1,5 @@
-habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
-  function($rootScope, $scope, User) {
+habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
+  function($rootScope, $scope, $window, User) {
 
     var user = User.user;
     var Content = $rootScope.Content;
@@ -77,7 +77,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
     }
 
     $scope.hatch = function(egg, potion){
-      if (!confirm('Hatch a ' + potion.key + ' ' + egg.key + '?')) return;
+      if (!$window.confirm('Hatch a ' + potion.key + ' ' + egg.key + '?')) return;
       user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
@@ -91,7 +91,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
       if(gems < item.value) return $rootScope.modals.buyGems = true;
       var string = (type == 'hatchingPotion') ? 'hatching potion' : type; // give hatchingPotion a space
       var message = "Buy this " + string + " with " + item.value + " of your " + gems + " Gems?"
-      if(confirm(message))
+      if($window.confirm(message))
         User.user.ops.purchase({params:{type:type,key:item.key}});
     }
 
@@ -102,8 +102,8 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', 'User',
       if ($scope.selectedFood) {
         var food = $scope.selectedFood
         if (food.key == 'Saddle') {
-          if (!confirm('Saddle ' + pet + '?')) return;
-        } else if (!confirm('Feed ' + pet + ' a ' + food.key + '?')) {
+          if (!$window.confirm('Saddle ' + pet + '?')) return;
+        } else if (!$window.confirm('Feed ' + pet + ' a ' + food.key + '?')) {
           return;
         }
         User.user.ops.feed({params:{pet: pet, food: food.key}});
