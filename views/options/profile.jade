@@ -149,8 +149,21 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
       fieldset.auto-allocate
         label.checkbox
           input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})')
-          | Automatic Allocation
-          i.icon-question-sign(popover-trigger='mouseenter', popover-placement='bottom', popover="When 'automatic' is checked, your points will be allocated to the stat representing your task focus (see Task > Edit). When unchecked, you'll have one point to allocate each level. The system makes a suggestion, but you can ignore the suggestion.")
+          | Automatic Allocation&nbsp;
+          i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover="Places points into attributes according to your preferences, when you level up.")
+          form(ng-show='user.preferences.automaticAllocation')
+            label.radio
+              input(type='radio', name='allocationMode', value='flat', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "flat"})')
+              | Distribute attribute points evenly&nbsp;
+              i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover="Assigns the same number of points to each attribute.")
+            label.radio
+              input(type='radio', name='allocationMode', value='classbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "classbased"})')
+              | Distribute attribute points based on Class&nbsp;
+              i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover="Assigns more points to the attributes important to your Class.")
+            label.radio
+              input(type='radio', name='allocationMode', value='taskbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "taskbased"})')
+              | Distribute attribute points based on task activity&nbsp;
+              i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover="Assigns points based on the Physical (STR), Mental (INT), Social (CON), and Other (PER) categories associated with the tasks you complete.")
       table.table.table-striped
         tr
           td

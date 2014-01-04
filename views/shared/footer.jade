@@ -73,5 +73,7 @@ footer.footer(ng-controller='FooterCtrl')
               a.btn(ng-click='addTenGems()')=env.t('debugGems')
             li
               a.btn(ng-click='addLevelsAndGold()')=env.t('debugLevel')
+            li
+              a.btn(ng-click='addOneLevel()') +1 Level
 
   div(ng-init='deferredScripts()')

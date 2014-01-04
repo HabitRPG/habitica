@@ -62,4 +62,9 @@ habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http', 'Not
         'stats.mp': User.user.stats.mp + 10000
       });
     }
+    $scope.addOneLevel = function(){
+      User.set({
+        'stats.exp': User.user.stats.exp + (Math.round(((Math.pow(User.user.stats.lvl, 2) * 0.25) + (10 * User.user.stats.lvl) + 139.75) / 10) * 10)
+      });
+    }
   }])
