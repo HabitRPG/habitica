@@ -63,7 +63,7 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var global=self;/**
+var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
  * @license
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -11777,6 +11777,9 @@ var process=require("__browserify_process");(function() {
               }
             }
             if (task.type !== 'reward') {
+              if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased') {
+                user.stats.training[task.attribute] += nextDelta;
+              }
               adjustAmt = nextDelta;
               if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
                 adjustAmt = nextDelta * (1 + user._statsComputed.str * .004);
@@ -12055,8 +12058,70 @@ var process=require("__browserify_process");(function() {
         {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
       */
 
+      autoAllocate: function() {
+        var diff, ideal, preference, suggested;
+        switch (user.preferences.allocationMode) {
+          case "flat":
+            suggested = Math.min(user.stats.str, user.stats.int, user.stats.con, user.stats.per);
+            if (user.stats.int === suggested) {
+              return "int";
+            } else if (user.stats.per === suggested) {
+              return "per";
+            } else if (user.stats.str === suggested) {
+              return "str";
+            } else {
+              return "con";
+            }
+            break;
+          case "classbased":
+            ideal = [user.stats.lvl / 7 * 3, user.stats.lvl / 7 * 2, user.stats.lvl / 7, user.stats.lvl / 7];
+            switch (user.stats["class"]) {
+              case "wizard":
+                preference = ["int", "per", "con", "str"];
+                break;
+              case "rogue":
+                preference = ["per", "str", "int", "con"];
+                break;
+              case "healer":
+                preference = ["con", "int", "str", "per"];
+                break;
+              default:
+                preference = ["str", "con", "per", "int"];
+            }
+            diff = [user.stats[preference[0]] - ideal[0], user.stats[preference[1]] - ideal[1], user.stats[preference[2]] - ideal[2], user.stats[preference[3]] - ideal[3]];
+            suggested = _.findIndex(diff, (function(val) {
+              if (val === _.min(diff)) {
+                return true;
+              }
+            }));
+            if (suggested === -1) {
+              return "str";
+            } else {
+              return preference[suggested];
+            }
+            break;
+          case "taskbased":
+            suggested = _.findKey(user.stats.training, (function(val) {
+              if (val === _.max(user.stats.training)) {
+                return val;
+              }
+            }));
+            user.stats.training.str = 0;
+            user.stats.training.int = 0;
+            user.stats.training.con = 0;
+            user.stats.training.per = 0;
+            if (suggested === void 0) {
+              return "str";
+            } else {
+              return suggested;
+            }
+            break;
+          default:
+            return "str";
+        }
+      },
       updateStats: function(stats) {
-        var suggested, tallies, tnl;
+        var suggested, tnl;
         if (stats.hp <= 0) {
           return user.stats.hp = 0;
         }
@@ -12075,22 +12140,7 @@ var process=require("__browserify_process");(function() {
               user.stats.lvl++;
               tnl = api.tnl(user.stats.lvl);
               if (user.preferences.automaticAllocation) {
-                tallies = _.reduce(user.tasks, (function(m, v) {
-                  m[v.attribute || 'str'] += v.value;
-                  return m;
-                }), {
-                  str: 0,
-                  int: 0,
-                  con: 0,
-                  per: 0
-                });
-                suggested = _.reduce(tallies, (function(m, v, k) {
-                  if (v > tallies[m]) {
-                    return k;
-                  } else {
-                    return m;
-                  }
-                }), 'str');
+                suggested = user.fns.autoAllocate();
                 user.stats[suggested]++;
               } else {
                 user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
