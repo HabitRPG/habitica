@@ -22,16 +22,16 @@ describe('Auth Controller', function() {
       $httpBackend.expectPOST('/api/v2/user/auth/local').respond({id: 'abc', token: 'abc'});
       scope.auth();
       $httpBackend.flush();
-      expect(user.authenticate).to.have.been.calledOnce;
-      expect($window.alert).to.not.have.been.called;
+      sinon.assert.calledOnce(user.authenticate);
+      sinon.assert.notCalled($window.alert);
     });
 
     it('should not log in users with incorrect uname / pass', function() {
       $httpBackend.expectPOST('/api/v2/user/auth/local').respond(404, '');
       scope.auth();
       $httpBackend.flush();
-      expect(user.authenticate).to.not.have.been.called;
-      expect($window.alert).to.have.been.calledOnce;
+      sinon.assert.notCalled(user.authenticate);
+      sinon.assert.calledOnce($window.alert);
     });
   });
 
