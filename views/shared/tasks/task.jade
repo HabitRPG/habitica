@@ -106,20 +106,21 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
             a(ng-click="unlink(task, 'remove-all')") Remove Them
 
       // Checklists
-      a.btn.btn-small(ng-if='!task.checklist[0] && (task.type=="daily" || task.type=="todo")',ng-click='addChecklist(task)')
-        i.icon-tasks
-        |  Add Checklist
-      form.checklist-form(ng-if='task.checklist')
-        fieldset.option-group.task-checklist(ng-if='!$state.includes("options.social.challenges")')
-          legend.option-title
-            | Checklist&nbsp;
-            i.icon.icon-question-sign(popover='For Dailies, partially-completed Dailies will cut damage (eg, a 4-item checklist with 3 completed, your Daily will hurt you 25% of the damage). For To-Dos, when completed, your points will be multiplied by the number of checklist-items (eg, a 4-item To-Do will be 4x the Exp & GP).',popover-trigger='mouseenter',popover-placement='bottom')
-          ul.unstyled
-            li(ng-repeat='item in task.checklist')
-              a.pull-right.checklist-icons(ng-click='removeChecklistItem(task,$index,true)')
-                i.icon-trash(tooltip='Delete')
-              input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
-              input.inline-edit(type='text',ng-model='item.text',ui-keyup="{13:'addChecklistItem(task,$event,$index)','8 49':'removeChecklistItem(task,$index)','38 40':'navigateChecklist(task,$index,$event)'}")//-,ng-blur='saveTask(task,true)')
+      div(ng-if='!$state.includes("options.social.challenges")')
+        a.btn.btn-small(ng-if='!task.checklist[0] && (task.type=="daily" || task.type=="todo")',ng-click='addChecklist(task)')
+          i.icon-tasks
+          |  Add Checklist
+        form.checklist-form(ng-if='task.checklist')
+          fieldset.option-group.task-checklist(ng-if='!$state.includes("options.social.challenges")')
+            legend.option-title
+              | Checklist&nbsp;
+              i.icon.icon-question-sign(popover='For Dailies, partially-completed Dailies will cut damage (eg, a 4-item checklist with 3 completed, your Daily will hurt you 25% of the damage). For To-Dos, when completed, your points will be multiplied by the number of checklist-items (eg, a 4-item To-Do will be 4x the Exp & GP).',popover-trigger='mouseenter',popover-placement='bottom')
+            ul.unstyled
+              li(ng-repeat='item in task.checklist')
+                a.pull-right.checklist-icons(ng-click='removeChecklistItem(task,$index,true)')
+                  i.icon-trash(tooltip='Delete')
+                input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
+                input.inline-edit(type='text',ng-model='item.text',ui-keyup="{13:'addChecklistItem(task,$event,$index)','8 49':'removeChecklistItem(task,$index)','38 40':'navigateChecklist(task,$index,$event)'}")//-,ng-blur='saveTask(task,true)')
 
 
       form(ng-submit='saveTask(task)')
