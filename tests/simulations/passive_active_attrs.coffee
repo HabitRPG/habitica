@@ -6,7 +6,7 @@
 Current results at https://gist.github.com/lefnire/8049676
 ###
 
-shared = require '../script/index.coffee'
+shared = require '../../script/index.coffee'
 _ = require 'lodash'
 
 id = shared.uuid()
