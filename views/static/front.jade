@@ -84,7 +84,7 @@ block content
                     .control-group
                       small=env.t('accept1Terms')
                         a(href='/static/terms' target='_blank')=env.t('terms')
-                        text=env.t('accept2Terms')
+                        =env.t('accept2Terms')
                         a(href='/static/privacy' target='_blank')=env.t('privacy')
                         | .
                       input.btn.btn-primary(type='submit', value=env.t('register'))
