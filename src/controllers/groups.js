@@ -137,6 +137,8 @@ api.get = function(req, res) {
 api.create = function(req, res, next) {
   var group = new Group(req.body);
   var user = res.locals.user;
+  group.members = [user._id];
+  group.leader = user._id;
 
   if(group.type === 'guild'){
     if(user.balance < 1) return res.json(401, {err: 'Not enough gems!'});

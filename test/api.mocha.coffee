@@ -66,30 +66,39 @@ expectCode = (res, code) ->
 ###### Specs ######
 
 describe 'API', ->
-  server = null
   user = null
   _id = null
   apiToken = null
   username = null
   password = null
 
-  registerNewUser = (cb) ->
+  registerNewUser = (cb, main=true)->
     randomID = shared.uuid()
-    password = randomID
-    params =
+    [username,password] = [randomID,randomID] if main
+    request.post("#{baseURL}/register")
+    .set('Accept', 'application/json')
+    .send({
       username: randomID
       password: randomID
       confirmPassword: randomID
       email: "#{randomID}@gmail.com"
-    request.post("#{baseURL}/register")
-      .set('Accept', 'application/json')
-      .send(params)
-      .end (res) ->
-        cb(res.body)
+    })
+    .end (res) ->
+      return cb(null,res.body) unless main
+      {_id,apiToken} = res.body
+      console.log {_id,apiToken}
+      User.findOne {_id, apiToken}, (err, _user) ->
+        expect(err).to.not.be.ok
+        user = _user
+        request
+          .set('Accept', 'application/json')
+          .set('X-API-User', _id)
+          .set('X-API-Key', apiToken)
+        cb null, res.body
 
-  before (done) ->
-    server = require '../src/server'
-    # nasty hack, make a cb-compatible export of server
+  before (done)->
+    require '../src/server' #start the server
+    # then wait for it to do it's thing. TODO make a cb-compatible export of server
     setTimeout done, 2000
 
   describe 'Without token or user id', ->
@@ -109,21 +118,11 @@ describe 'API', ->
           expect(res.body.err).to.be 'You must include a token and uid (user id) in your request'
           done()
 
-  describe.only 'With token and user id', ->
+  describe 'With token and user id', ->
     currentUser = null
 
     before (done) ->
-      registerNewUser (_res) ->
-        #console.log _res
-        [_id, apiToken, username] = [_res.id, _res.apiToken, _res.auth.local.username]
-        User.findOne {_id,apiToken}, (err, _user) ->
-          console.error {err} if err
-          user = _user
-          request
-            .set('Accept', 'application/json')
-            .set('X-API-User', _id)
-            .set('X-API-Key', apiToken)
-          done()
+      registerNewUser(done,true)
 
     beforeEach (done) ->
       User.findById _id, (err,_user) ->
@@ -134,18 +133,20 @@ describe 'API', ->
     #  Groups
     ############
 
-    describe.only 'Groups', ->
+    describe 'Groups', ->
       group = undefined
 
-      it 'Creates a group', (done) ->
+      before (done) ->
         request.post("#{baseURL}/groups")
         .send({name:"TestGroup", type:"party"})
         .end (res) ->
           expectCode res, 200
           group = res.body
+          expect(group.members.length).to.be 1
+          expect(group.leader).to.be user._id
           done()
 
-      describe.only 'Challenges', ->
+      describe 'Challenges', ->
         challenge = undefined
         updateTodo = undefined
 
@@ -228,353 +229,397 @@ describe 'API', ->
             ], done
 
 
+      describe 'Quests', ->
+        party = undefined
 
+        it 'Invites some members', (done) ->
+          async.waterfall [
 
-    ############
-    #  Batch Update
-    ############
+            # Register new users
+            (cb) ->
+              async.parallel [
+                (cb2) -> registerNewUser(cb2,false)
+                (cb2) -> registerNewUser(cb2,false)
+                (cb2) -> registerNewUser(cb2,false)
+              ], cb
 
-    describe 'Batch Update', ->
+            # Send them invitations
+            (_party, cb) ->
+              party = _party
+              async.parallel [
+                (cb2) -> request.post("#{baseURL}/groups/#{group._id}/invite?uuid=#{party[0]._id}").end (-> cb2())
+                (cb2) -> request.post("#{baseURL}/groups/#{group._id}/invite?uuid=#{party[1]._id}").end (-> cb2())
+                (cb2) -> request.post("#{baseURL}/groups/#{group._id}/invite?uuid=#{party[2]._id}").end (-> cb2())
+              ], cb
 
-      it 'POST /api/v1/batch-update', (done) ->
-        userBefore = _.cloneDeep(currentUser)
+            # Accept / Reject
+            (results, cb) ->
+              #series since they'll be modifying the same group record
+              async.series (_.reduce party, (m,v,i) ->
+                m.push (cb2) ->
+                  request.post("#{baseURL}/groups/#{group._id}/join")
+                  .set('X-API-User', party[i]._id)
+                  .set('X-API-Key', party[i].apiToken)
+                  .end (res) -> cb2()
+                m
+              , []), cb
 
-        ops = [
-          # Good scores
-          op: 'score', params: {id:user.habits[0].id, direction: 'up'}
-          op: 'score', params: {id:user.habits[1].id, direction: 'down'}
-          op: 'score', params: {id:user.dailys[0].id, direction: 'up'}
-          op: 'score', params: {id:user.todos[0].id, direction: 'up'}
-        ]
+            # Make sure the invites stuck
+            (whatever, cb) ->
+              Group.findById group._id, (err, g) ->
+                expect(g.members.length).to.be 4
+                cb()
 
-        request.post("#{baseURL}/user/batch-update")
-        .send(ops)
-        .end (res) ->
-          expect(res.body.err).to.be undefined
-          expect(res.statusCode).to.be 200
-          #expectUserEqual(userBefore, res.body)
-          done()
-
-
-    ############
-    #  To Be Updated (these are old v1 tests which haven't been touched in over 6 months, need to be portd to new API tests or deleted)
-    ############
-
-    it.skip 'POST /api/v2/batch-update (handles corrupt values)', (done) ->
-      registerNewUser (_res) ->
-        # corrupt the tasks, and let's see how the server handles this
-        ids = _res.dailyIds
-        _res.tasks[ids[0]].value = NaN
-        _res.tasks[ids[1]].value = undefined
-        _res.tasks[ids[2]] = {}
-        _res.tasks["undefined"] = {}
-
-        _res.stats.hp = _res.stats.gp = NaN
-
-        _res.lastCron = +new Date('08/13/2013')
-
-        ops = [
-          op: 'score', task: _res.tasks[ids[0]], dir: 'up'
-        ]
-
-        model.set "users.#{_res.id}", _res, ->
-          request.post("#{baseURL}/user/batch-update")
-          .set('Accept', 'application/json')
-          .set('X-API-User', _res.id)
-          .set('X-API-Key', _res.apiToken)
-          .send(ops)
-          .end (res) ->
-              expect(res.statusCode).to.be 200
-              console.log {stats:res.body.stats, tasks:res.body.tasks}
-              done()
-
-
-    #FIXME figure out how to compare the objects
-    it.skip 'GET /api/v1/user', (done) ->
-      request.get("#{baseURL}/user")
-        .end (res) ->
-          expect(res.body.err).to.be undefined
-          expect(res.statusCode).to.be 200
-          expect(res.body.id).not.to.be.empty()
-          self = _.clone(currentUser)
-          delete self.apiToken
-          self.stats.toNextLevel = 150
-          self.stats.maxHealth = 50
-
-          expectUserEqual(res.body, self)
-          done()
-
-    it.skip 'GET /api/v1/user/task/:id', (done) ->
-      tid = _.pluck(currentUser.tasks, 'id')[0]
-      request.get("#{baseURL}/user/task/#{tid}")
-        .end (res) ->
-          expect(res.body.err).to.be undefined
-          expect(res.statusCode).to.be 200
-          expect(res.body).to.eql currentUser.tasks[tid]
-          done()
-
-    it.skip 'POST /api/v1/user/task', (done) ->
-      request.post("#{baseURL}/user/task")
-        .send({title: 'Title', text: 'Text', type: 'habit'})
-        .end (res) ->
-          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
-          query.fetch (err, user) ->
-            expect(res.body.err).to.be undefined
-            expect(res.statusCode).to.be 201
-            expect(res.body.id).not.to.be.empty()
-            # Ensure that user owns the newly created object
-            saved = user.get("tasks.#{res.body.id}")
-            expect(saved).to.be.an('object')
-            done()
-
-    it.skip 'POST /api/v1/user/task (without type)', (done) ->
-      request.post("#{baseURL}/user/task")
-        .send({})
-        .end (res) ->
-          expect(res.body.err).to.be 'type must be habit, todo, daily, or reward'
-          expect(res.statusCode).to.be 400
-          done()
-
-    it.skip 'POST /api/v1/user/task (only type)', (done) ->
-      request.post("#{baseURL}/user/task")
-        .send(type: 'habit')
-        .end (res) ->
-          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
-          query.fetch (err, user) ->
-            expect(res.body.err).to.be undefined
-            expect(res.statusCode).to.be 201
-            expect(res.body.id).not.to.be.empty()
-            # Ensure that user owns the newly created object
-            expect(user.get().tasks[res.body.id]).to.be.an('object')
-            # Ensure that value gets set to 0 since not otherwise specified
-            expect(user.get().tasks[res.body.id].value).to.be.equal(0)
-            done()
-
-    it.skip 'PUT /api/v1/user/task/:id', (done) ->
-      tid = _.pluck(currentUser.tasks, 'id')[0]
-      request.put("#{baseURL}/user/task/#{tid}")
-        .send(text: 'bye')
-        .end (res) ->
-          expect(res.body.err).to.be undefined
-          expect(res.statusCode).to.be 200
-          currentUser.tasks[tid].text = 'bye'
-          expectSameValues res.body, currentUser.tasks[tid], ['id','type','text']
-          #expect(res.body).to.eql currentUser.tasks[tid]
-          done()
-
-    it.skip 'PUT /api/v1/user/task/:id (shouldnt update type)', (done) ->
-      tid = _.pluck(currentUser.tasks, 'id')[1]
-      type = if currentUser.tasks[tid].type is 'habit' then 'daily' else 'habit'
-      request.put("#{baseURL}/user/task/#{tid}")
-        .send(type: type, text: 'fishman')
-        .end (res) ->
-          expect(res.body.err).to.be undefined
-          expect(res.statusCode).to.be 200
-          currentUser.tasks[tid].text = 'fishman'
-          expect(res.body).to.eql currentUser.tasks[tid]
-          done()
-
-    it.skip 'PUT /api/v1/user/task/:id (update notes)', (done) ->
-      tid = _.pluck(currentUser.tasks, 'id')[2]
-      request.put("#{baseURL}/user/task/#{tid}")
-        .send(text: 'hi',notes:'foobar matey')
-        .end (res) ->
-          expect(res.body.err).to.be undefined
-          expect(res.statusCode).to.be 200
-          currentUser.tasks[tid].text = 'hi'
-          currentUser.tasks[tid].notes = 'foobar matey'
-          expect(res.body).to.eql currentUser.tasks[tid]
-          done()
-
-    it.skip 'GET /api/v1/user/tasks', (done) ->
-      request.get("#{baseURL}/user/tasks")
-        .end (res) ->
-          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
-          query.fetch (err, user) ->
-            expect(res.body.err).to.be undefined
-            expect(user.get()).to.be.ok()
-            expect(res.statusCode).to.be 200
-            model.ref '_user', user
-            tasks = []
-            for type in ['habit','todo','daily','reward']
-              model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
-              tasks = tasks.concat model.get("_#{type}List")
-            # Ensure that user owns the tasks
-            expect(res.body.length).to.equal tasks.length
-            # Ensure that the two sets are equal
-            expect(_.difference(_.pluck(res.body,'id'), _.pluck(tasks,'id')).length).to.equal 0
-            done()
-
-    it.skip 'GET /api/v1/user/tasks (todos)', (done) ->
-      request.get("#{baseURL}/user/tasks")
-        .query(type:'todo')
-        .end (res) ->
-          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
-          query.fetch (err, user) ->
-            expect(res.body.err).to.be undefined
-            expect(res.statusCode).to.be 200
-            model.ref '_user', user
-            model.refList "_todoList", "_user.tasks", "_user.todoIds"
-            tasks = model.get("_todoList")
-            # Ensure that user owns the tasks
-            expect(res.body.length).to.equal tasks.length
-            # Ensure that the two sets are equal
-            expect(_.difference(_.pluck(res.body,'id'), _.pluck(tasks,'id')).length).to.equal 0
-            done()
-
-    it.skip 'DELETE /api/v1/user/task/:id', (done) ->
-      tid = currentUser.habitIds[2]
-      request.del("#{baseURL}/user/task/#{tid}")
-        .end (res) ->
-          expect(res.body.err).to.be undefined
-          expect(res.statusCode).to.be 204
-          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
-          query.fetch (err, user) ->
-            expect(user.get('habitIds').indexOf(tid)).to.be -1
-            expect(user.get("tasks.#{tid}")).to.be undefined
-            done()
-
-    it.skip 'DELETE /api/v1/user/task/:id (no task found)', (done) ->
-      tid = "adsfasdfjunkshouldntbeatask"
-      request.del("#{baseURL}/user/task/#{tid}")
-        .end (res) ->
-          expect(res.statusCode).to.be 400
-          expect(res.body.err).to.be 'No task found.'
-          done()
-
-    it.skip 'POST /api/v1/user/task/:id/up (habit)', (done) ->
-      tid = currentUser.habitIds[0]
-      request.post("#{baseURL}/user/task/#{tid}/up")
-        .send({})
-        .end (res) ->
-          expect(res.body.err).to.be undefined
-          expect(res.statusCode).to.be 200
-          expect(res.body).to.eql { gp: 1, exp: 7.5, lvl: 1, hp: 50, delta: 1 }
-          done()
-
-    it.skip 'POST /api/v1/user/task/:id/up (daily)', (done) ->
-      tid = currentUser.dailyIds[0]
-      request.post("#{baseURL}/user/task/#{tid}/up")
-        .send({})
-        .end (res) ->
-          expect(res.body.err).to.be undefined
-          expect(res.statusCode).to.be 200
-          expect(res.body).to.eql { gp: 2, exp: 15, lvl: 1, hp: 50, delta: 1 }
-          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
-          query.fetch (err, user) ->
-            expect(user.get("tasks.#{tid}.completed")).to.be true
-            done()
-
-    it.skip 'POST /api/v1/user/task (array)', (done) ->
-      habitId = currentUser.habitIds[0]
-      dailyId = currentUser.dailyIds[0]
-      arr = [{
-        id: habitId
-        text: 'hello'
-        notes: 'note'
-      },{
-        text: 'new task'
-        notes: 'notes!'
-      },{
-        id: dailyId
-        del: true
-      }]
-
-      request.post("#{baseURL}/user/tasks")
-        .send(arr)
-        .end (res) ->
-          expect(res.body.err).to.be undefined
-          expect(res.statusCode).to.be 201
-
-          expectSameValues res.body[0], {id: habitId,text: 'hello',notes: 'note'}, ['id','text','notes']
-          expect(res.body[1].id).to.be.a 'string'
-          expect(res.body[1].text).to.be 'new task'
-          expect(res.body[1].notes).to.be 'notes!'
-          expect(res.body[2]).to.eql deleted: true
-
-          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
-          query.fetch (err, user) ->
-            expectSameValues user.get("tasks.#{habitId}"), {id: habitId,text: 'hello',notes: 'note'}, ['id','text','notes']
-            expect(user.get("tasks.#{dailyId}")).to.be undefined
-            expectSameValues user.get("tasks.#{res.body[1].id}"), {id: res.body[1].id, text: 'new task', notes: 'notes!'}, ['id','text','notes']
-            done()
-
-    it.skip 'PUT /api/v1/user (bad path)', (done) ->
-      # These updates should not save, as per the API changes
-      userUpdates =
-        stats: hp: 30
-        flags: itemsEnabled: true
-        tasks: [{
-          text: 'hello2'
-          notes: 'note2'
-        }]
-
-      request.put("#{baseURL}/user")
-        .send(userUpdates)
-        .end (res) ->
-          expect(res.body.err).to.be.ok()
-          expect(res.statusCode).to.be 500
-          done()
-
-    it.skip 'PUT /api/v1/user', (done) ->
-      userBefore = {}
-      query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
-      query.fetch (err, user) ->
-        userBefore = user.get()
-
-        habitId = currentUser.habitIds[0]
-        dailyId = currentUser.dailyIds[0]
-        updates = {}
-        updates['stats.hp'] = 30
-        updates['flags.itemsEnabled'] = true
-        updates["tasks.#{habitId}.text"] = 'hello2'
-        updates["tasks.#{habitId}.notes"] = 'note2'
-
-        request.put("#{baseURL}/user")
-          .send(updates)
-          .end (res) ->
-            expect(res.body.err).to.be undefined
-            expect(res.statusCode).to.be 200
-            changesWereMade = (obj) ->
-              expect(obj.stats.hp).to.be 30
-              expect(obj.flags.itemsEnabled).to.be true
-              expectSameValues _.find(obj.tasks,{id:habitId}), {id: habitId,text: 'hello2',notes: 'note2'}, ['id','text','notes']
-            changesWereMade res.body
-            query.fetch (err, user) ->
-              changesWereMade user.get()
-              done()
-
-    it.skip 'POST /api/v1/user/auth/local', (done) ->
-      userAuth = {username, password}
-      request.post("#{baseURL}/user/auth/local")
-        .set('Accept', 'application/json')
-        .send(userAuth)
-        .end (res) ->
-          expect(res.body.err).to.be undefined
-          expect(res.statusCode).to.be 200
-          expect(res.body.id).to.be currentUser.id
-          expect(res.body.token).to.be currentUser.apiToken
-          done()
-
-    it.skip 'POST /api/v1/user/auth/facebook', (done) ->
-      id = shared.uuid()
-      userAuth = facebook_id: 12345, name: 'Tyler Renelle', email: 'x@y.com'
-      newUser = helpers.newUser(true)
-      newUser.id = id
-      newUser.auth = facebook:
-        id: userAuth.facebook_id
-        name: userAuth.name
-        email: userAuth.email
-      model.set "users.#{id}", newUser, ->
-
-        request.post("#{baseURL}/user/auth/facebook")
-        .set('Accept', 'application/json')
-        .send(userAuth)
-        .end (res) ->
-            expect(res.body.err).to.be undefined
-            expect(res.statusCode).to.be 200
-            expect(res.body.id).to.be newUser.id
-            #expect(res.body.token).to.be newUser.apiToken
+          ], (err, results) ->
+            expect(err).to.be.ok
             done()
 
 
+#    ############
+#    #  Batch Update
+#    ############
+#
+#    describe 'Batch Update', ->
+#
+#      it 'POST /api/v1/batch-update', (done) ->
+#        userBefore = _.cloneDeep(currentUser)
+#
+#        ops = [
+#          # Good scores
+#          op: 'score', params: {id:user.habits[0].id, direction: 'up'}
+#          op: 'score', params: {id:user.habits[1].id, direction: 'down'}
+#          op: 'score', params: {id:user.dailys[0].id, direction: 'up'}
+#          op: 'score', params: {id:user.todos[0].id, direction: 'up'}
+#        ]
+#
+#        request.post("#{baseURL}/user/batch-update")
+#        .send(ops)
+#        .end (res) ->
+#          expect(res.body.err).to.be undefined
+#          expect(res.statusCode).to.be 200
+#          #expectUserEqual(userBefore, res.body)
+#          done()
+#
+#
+#    ############
+#    #  To Be Updated (these are old v1 tests which haven't been touched in over 6 months, need to be portd to new API tests or deleted)
+#    ############
+#
+#    it.skip 'POST /api/v2/batch-update (handles corrupt values)', (done) ->
+#      registerNewUser (_res) ->
+#        # corrupt the tasks, and let's see how the server handles this
+#        ids = _res.dailyIds
+#        _res.tasks[ids[0]].value = NaN
+#        _res.tasks[ids[1]].value = undefined
+#        _res.tasks[ids[2]] = {}
+#        _res.tasks["undefined"] = {}
+#
+#        _res.stats.hp = _res.stats.gp = NaN
+#
+#        _res.lastCron = +new Date('08/13/2013')
+#
+#        ops = [
+#          op: 'score', task: _res.tasks[ids[0]], dir: 'up'
+#        ]
+#
+#        model.set "users.#{_res.id}", _res, ->
+#          request.post("#{baseURL}/user/batch-update")
+#          .set('Accept', 'application/json')
+#          .set('X-API-User', _res.id)
+#          .set('X-API-Key', _res.apiToken)
+#          .send(ops)
+#          .end (res) ->
+#              expect(res.statusCode).to.be 200
+#              console.log {stats:res.body.stats, tasks:res.body.tasks}
+#              done()
+#
+#
+#    #FIXME figure out how to compare the objects
+#    it.skip 'GET /api/v1/user', (done) ->
+#      request.get("#{baseURL}/user")
+#        .end (res) ->
+#          expect(res.body.err).to.be undefined
+#          expect(res.statusCode).to.be 200
+#          expect(res.body.id).not.to.be.empty()
+#          self = _.clone(currentUser)
+#          delete self.apiToken
+#          self.stats.toNextLevel = 150
+#          self.stats.maxHealth = 50
+#
+#          expectUserEqual(res.body, self)
+#          done()
+#
+#    it.skip 'GET /api/v1/user/task/:id', (done) ->
+#      tid = _.pluck(currentUser.tasks, 'id')[0]
+#      request.get("#{baseURL}/user/task/#{tid}")
+#        .end (res) ->
+#          expect(res.body.err).to.be undefined
+#          expect(res.statusCode).to.be 200
+#          expect(res.body).to.eql currentUser.tasks[tid]
+#          done()
+#
+#    it.skip 'POST /api/v1/user/task', (done) ->
+#      request.post("#{baseURL}/user/task")
+#        .send({title: 'Title', text: 'Text', type: 'habit'})
+#        .end (res) ->
+#          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+#          query.fetch (err, user) ->
+#            expect(res.body.err).to.be undefined
+#            expect(res.statusCode).to.be 201
+#            expect(res.body.id).not.to.be.empty()
+#            # Ensure that user owns the newly created object
+#            saved = user.get("tasks.#{res.body.id}")
+#            expect(saved).to.be.an('object')
+#            done()
+#
+#    it.skip 'POST /api/v1/user/task (without type)', (done) ->
+#      request.post("#{baseURL}/user/task")
+#        .send({})
+#        .end (res) ->
+#          expect(res.body.err).to.be 'type must be habit, todo, daily, or reward'
+#          expect(res.statusCode).to.be 400
+#          done()
+#
+#    it.skip 'POST /api/v1/user/task (only type)', (done) ->
+#      request.post("#{baseURL}/user/task")
+#        .send(type: 'habit')
+#        .end (res) ->
+#          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+#          query.fetch (err, user) ->
+#            expect(res.body.err).to.be undefined
+#            expect(res.statusCode).to.be 201
+#            expect(res.body.id).not.to.be.empty()
+#            # Ensure that user owns the newly created object
+#            expect(user.get().tasks[res.body.id]).to.be.an('object')
+#            # Ensure that value gets set to 0 since not otherwise specified
+#            expect(user.get().tasks[res.body.id].value).to.be.equal(0)
+#            done()
+#
+#    it.skip 'PUT /api/v1/user/task/:id', (done) ->
+#      tid = _.pluck(currentUser.tasks, 'id')[0]
+#      request.put("#{baseURL}/user/task/#{tid}")
+#        .send(text: 'bye')
+#        .end (res) ->
+#          expect(res.body.err).to.be undefined
+#          expect(res.statusCode).to.be 200
+#          currentUser.tasks[tid].text = 'bye'
+#          expectSameValues res.body, currentUser.tasks[tid], ['id','type','text']
+#          #expect(res.body).to.eql currentUser.tasks[tid]
+#          done()
+#
+#    it.skip 'PUT /api/v1/user/task/:id (shouldnt update type)', (done) ->
+#      tid = _.pluck(currentUser.tasks, 'id')[1]
+#      type = if currentUser.tasks[tid].type is 'habit' then 'daily' else 'habit'
+#      request.put("#{baseURL}/user/task/#{tid}")
+#        .send(type: type, text: 'fishman')
+#        .end (res) ->
+#          expect(res.body.err).to.be undefined
+#          expect(res.statusCode).to.be 200
+#          currentUser.tasks[tid].text = 'fishman'
+#          expect(res.body).to.eql currentUser.tasks[tid]
+#          done()
+#
+#    it.skip 'PUT /api/v1/user/task/:id (update notes)', (done) ->
+#      tid = _.pluck(currentUser.tasks, 'id')[2]
+#      request.put("#{baseURL}/user/task/#{tid}")
+#        .send(text: 'hi',notes:'foobar matey')
+#        .end (res) ->
+#          expect(res.body.err).to.be undefined
+#          expect(res.statusCode).to.be 200
+#          currentUser.tasks[tid].text = 'hi'
+#          currentUser.tasks[tid].notes = 'foobar matey'
+#          expect(res.body).to.eql currentUser.tasks[tid]
+#          done()
+#
+#    it.skip 'GET /api/v1/user/tasks', (done) ->
+#      request.get("#{baseURL}/user/tasks")
+#        .end (res) ->
+#          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+#          query.fetch (err, user) ->
+#            expect(res.body.err).to.be undefined
+#            expect(user.get()).to.be.ok()
+#            expect(res.statusCode).to.be 200
+#            model.ref '_user', user
+#            tasks = []
+#            for type in ['habit','todo','daily','reward']
+#              model.refList "_#{type}List", "_user.tasks", "_user.#{type}Ids"
+#              tasks = tasks.concat model.get("_#{type}List")
+#            # Ensure that user owns the tasks
+#            expect(res.body.length).to.equal tasks.length
+#            # Ensure that the two sets are equal
+#            expect(_.difference(_.pluck(res.body,'id'), _.pluck(tasks,'id')).length).to.equal 0
+#            done()
+#
+#    it.skip 'GET /api/v1/user/tasks (todos)', (done) ->
+#      request.get("#{baseURL}/user/tasks")
+#        .query(type:'todo')
+#        .end (res) ->
+#          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+#          query.fetch (err, user) ->
+#            expect(res.body.err).to.be undefined
+#            expect(res.statusCode).to.be 200
+#            model.ref '_user', user
+#            model.refList "_todoList", "_user.tasks", "_user.todoIds"
+#            tasks = model.get("_todoList")
+#            # Ensure that user owns the tasks
+#            expect(res.body.length).to.equal tasks.length
+#            # Ensure that the two sets are equal
+#            expect(_.difference(_.pluck(res.body,'id'), _.pluck(tasks,'id')).length).to.equal 0
+#            done()
+#
+#    it.skip 'DELETE /api/v1/user/task/:id', (done) ->
+#      tid = currentUser.habitIds[2]
+#      request.del("#{baseURL}/user/task/#{tid}")
+#        .end (res) ->
+#          expect(res.body.err).to.be undefined
+#          expect(res.statusCode).to.be 204
+#          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+#          query.fetch (err, user) ->
+#            expect(user.get('habitIds').indexOf(tid)).to.be -1
+#            expect(user.get("tasks.#{tid}")).to.be undefined
+#            done()
+#
+#    it.skip 'DELETE /api/v1/user/task/:id (no task found)', (done) ->
+#      tid = "adsfasdfjunkshouldntbeatask"
+#      request.del("#{baseURL}/user/task/#{tid}")
+#        .end (res) ->
+#          expect(res.statusCode).to.be 400
+#          expect(res.body.err).to.be 'No task found.'
+#          done()
+#
+#    it.skip 'POST /api/v1/user/task/:id/up (habit)', (done) ->
+#      tid = currentUser.habitIds[0]
+#      request.post("#{baseURL}/user/task/#{tid}/up")
+#        .send({})
+#        .end (res) ->
+#          expect(res.body.err).to.be undefined
+#          expect(res.statusCode).to.be 200
+#          expect(res.body).to.eql { gp: 1, exp: 7.5, lvl: 1, hp: 50, delta: 1 }
+#          done()
+#
+#    it.skip 'POST /api/v1/user/task/:id/up (daily)', (done) ->
+#      tid = currentUser.dailyIds[0]
+#      request.post("#{baseURL}/user/task/#{tid}/up")
+#        .send({})
+#        .end (res) ->
+#          expect(res.body.err).to.be undefined
+#          expect(res.statusCode).to.be 200
+#          expect(res.body).to.eql { gp: 2, exp: 15, lvl: 1, hp: 50, delta: 1 }
+#          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+#          query.fetch (err, user) ->
+#            expect(user.get("tasks.#{tid}.completed")).to.be true
+#            done()
+#
+#    it.skip 'POST /api/v1/user/task (array)', (done) ->
+#      habitId = currentUser.habitIds[0]
+#      dailyId = currentUser.dailyIds[0]
+#      arr = [{
+#        id: habitId
+#        text: 'hello'
+#        notes: 'note'
+#      },{
+#        text: 'new task'
+#        notes: 'notes!'
+#      },{
+#        id: dailyId
+#        del: true
+#      }]
+#
+#      request.post("#{baseURL}/user/tasks")
+#        .send(arr)
+#        .end (res) ->
+#          expect(res.body.err).to.be undefined
+#          expect(res.statusCode).to.be 201
+#
+#          expectSameValues res.body[0], {id: habitId,text: 'hello',notes: 'note'}, ['id','text','notes']
+#          expect(res.body[1].id).to.be.a 'string'
+#          expect(res.body[1].text).to.be 'new task'
+#          expect(res.body[1].notes).to.be 'notes!'
+#          expect(res.body[2]).to.eql deleted: true
+#
+#          query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+#          query.fetch (err, user) ->
+#            expectSameValues user.get("tasks.#{habitId}"), {id: habitId,text: 'hello',notes: 'note'}, ['id','text','notes']
+#            expect(user.get("tasks.#{dailyId}")).to.be undefined
+#            expectSameValues user.get("tasks.#{res.body[1].id}"), {id: res.body[1].id, text: 'new task', notes: 'notes!'}, ['id','text','notes']
+#            done()
+#
+#    it.skip 'PUT /api/v1/user (bad path)', (done) ->
+#      # These updates should not save, as per the API changes
+#      userUpdates =
+#        stats: hp: 30
+#        flags: itemsEnabled: true
+#        tasks: [{
+#          text: 'hello2'
+#          notes: 'note2'
+#        }]
+#
+#      request.put("#{baseURL}/user")
+#        .send(userUpdates)
+#        .end (res) ->
+#          expect(res.body.err).to.be.ok()
+#          expect(res.statusCode).to.be 500
+#          done()
+#
+#    it.skip 'PUT /api/v1/user', (done) ->
+#      userBefore = {}
+#      query = model.query('users').withIdAndToken(currentUser.id, currentUser.apiToken)
+#      query.fetch (err, user) ->
+#        userBefore = user.get()
+#
+#        habitId = currentUser.habitIds[0]
+#        dailyId = currentUser.dailyIds[0]
+#        updates = {}
+#        updates['stats.hp'] = 30
+#        updates['flags.itemsEnabled'] = true
+#        updates["tasks.#{habitId}.text"] = 'hello2'
+#        updates["tasks.#{habitId}.notes"] = 'note2'
+#
+#        request.put("#{baseURL}/user")
+#          .send(updates)
+#          .end (res) ->
+#            expect(res.body.err).to.be undefined
+#            expect(res.statusCode).to.be 200
+#            changesWereMade = (obj) ->
+#              expect(obj.stats.hp).to.be 30
+#              expect(obj.flags.itemsEnabled).to.be true
+#              expectSameValues _.find(obj.tasks,{id:habitId}), {id: habitId,text: 'hello2',notes: 'note2'}, ['id','text','notes']
+#            changesWereMade res.body
+#            query.fetch (err, user) ->
+#              changesWereMade user.get()
+#              done()
+#
+#    it.skip 'POST /api/v1/user/auth/local', (done) ->
+#      userAuth = {username, password}
+#      request.post("#{baseURL}/user/auth/local")
+#        .set('Accept', 'application/json')
+#        .send(userAuth)
+#        .end (res) ->
+#          expect(res.body.err).to.be undefined
+#          expect(res.statusCode).to.be 200
+#          expect(res.body.id).to.be currentUser.id
+#          expect(res.body.token).to.be currentUser.apiToken
+#          done()
+#
+#    it.skip 'POST /api/v1/user/auth/facebook', (done) ->
+#      id = shared.uuid()
+#      userAuth = facebook_id: 12345, name: 'Tyler Renelle', email: 'x@y.com'
+#      newUser = helpers.newUser(true)
+#      newUser.id = id
+#      newUser.auth = facebook:
+#        id: userAuth.facebook_id
+#        name: userAuth.name
+#        email: userAuth.email
+#      model.set "users.#{id}", newUser, ->
+#
+#        request.post("#{baseURL}/user/auth/facebook")
+#        .set('Accept', 'application/json')
+#        .send(userAuth)
+#        .end (res) ->
+#            expect(res.body.err).to.be undefined
+#            expect(res.statusCode).to.be 200
+#            expect(res.body.id).to.be newUser.id
+#            #expect(res.body.token).to.be newUser.apiToken
+#            done()
+#
+#

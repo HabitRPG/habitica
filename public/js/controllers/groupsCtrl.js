@@ -201,7 +201,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.type = 'guild';
       $scope.text = 'Guild';
       var newGroup = function(){
-        return new Groups.Group({type:'guild', privacy:'private', leader: User.user._id, members: [User.user._id]});
+        return new Groups.Group({type:'guild', privacy:'private'});
       }
       $scope.newGroup = newGroup()
       $scope.create = function(group){
@@ -272,7 +272,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.type = 'party';
       $scope.text = 'Party';
       $scope.group = $rootScope.party = Groups.party();
-      $scope.newGroup = new Groups.Group({type:'party', leader: User.user._id, members: [User.user._id]});
+      $scope.newGroup = new Groups.Group({type:'party'});
       $scope.create = function(group){
         group.$save(function(newGroup){
           $scope.group = newGroup;
