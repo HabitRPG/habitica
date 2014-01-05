@@ -743,7 +743,7 @@ api.wrap = (user) ->
             if direction is 'down' and task.type is 'daily' and options.cron
               nextDelta *= (1 - _.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) / task.checklist.length)
             # If To-Do, point-match the TD per checklist item
-            if direction is 'up' and task.type is 'todo'
+            if task.type is 'todo'
               nextDelta *= task.checklist.length
 
           unless task.type is 'reward'
