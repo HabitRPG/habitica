@@ -14,12 +14,12 @@
         .bar(style='width: {{Shared.percent(user.stats.hp, 50)}}%;')
         span.meter-text
           i.icon-heart
-          | {{user.stats.hp | number:0}} / 50
+          | {{Math.ceil(user.stats.hp)}} / 50
       .meter.experience(title='Experience')
         .bar(style='width: {{Shared.percent(user.stats.exp,Shared.tnl(user.stats.lvl))}}%;')
         span.meter-text
           i.icon-star
-          | {{user.stats.exp | number:0}} / {{Shared.tnl(user.stats.lvl) | number:0}}
+          | {{Math.floor(user.stats.exp)}} / {{Shared.tnl(user.stats.lvl) | number:0}}
           // FIXME doesn't look great here, but the "Experience" CSS title rollover covers it where it was before
           span(ng-show='user.history.exp')
             a(ng-click='toggleChart("exp")', tooltip='Progress')
@@ -28,7 +28,7 @@
         .bar(style='width: {{user.stats.mp / user._statsComputed.maxMP * 100}}%;')
         span.meter-text
           i.icon-fire
-          | {{user.stats.mp || 0 | number:0}} / {{user._statsComputed.maxMP}}
+          | {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
 
     // party
     span(ng-controller='PartyCtrl')
