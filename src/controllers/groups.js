@@ -33,7 +33,7 @@ var populateQuery = function(type, q){
   q.populate({
     path: 'challenges',
     select: challengeFields,
-    options: {sort: {'timestamp': -1}}
+    options: {sort: {official: -1, timestamp: -1}}
   });
   return q;
 }
