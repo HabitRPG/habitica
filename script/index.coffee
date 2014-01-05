@@ -834,7 +834,7 @@ api.wrap = (user) ->
           else
             calculateDelta()
             addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
-            user.stats.mp += (1 + (task.checklist?.length or 0)) # MP++ per ToDo, bonus per CLI
+            user.stats.mp += _.max([(1 + (task.checklist?.length or 0)), (.01 * user._statsComputed.maxMP * (1 + (task.checklist?.length or 0)))]) # MP++ per ToDo, bonus per CLI
             user.stats.mp = user._statsComputed.maxMP if user.stats.mp >= user._statsComputed.maxMP
 
         when 'reward'
@@ -1119,7 +1119,7 @@ api.wrap = (user) ->
       if user.items.lastDrop.count > 0
         user.items.lastDrop.count = 0
 
-      user.stats.mp += 10
+      user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP])
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
       # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
