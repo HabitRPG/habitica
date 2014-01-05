@@ -10,6 +10,10 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     var initSticky = _.once(function(){
       if (window.env.IS_MOBILE || User.user.preferences.stickyHeader === false) return;
       $('.header-wrap').sticky({topSpacing:0});
+      // sticky fixes the header's height, but doesn't account for
+      // scrollbars appearing later, so unset it
+      $('.header-wrap').parent().attr("style","height:auto");
+        
     })
     $rootScope.$on('userUpdated',initSticky);
 
