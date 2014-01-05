@@ -63,7 +63,7 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var global=self;/**
+var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
  * @license
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -11738,7 +11738,7 @@ var process=require("__browserify_process");(function() {
         return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
       },
       score: function(req, cb) {
-        var addPoints, calculateDelta, delta, direction, id, num, options, stats, subtractPoints, task, th, _ref, _ref1;
+        var addPoints, calculateDelta, delta, direction, id, num, options, stats, subtractPoints, task, th, _ref, _ref1, _ref2;
         _ref = req.params, id = _ref.id, direction = _ref.direction;
         task = user.tasks[id];
         options = req.query || {};
@@ -11866,7 +11866,7 @@ var process=require("__browserify_process");(function() {
             } else {
               calculateDelta();
               addPoints();
-              user.stats.mp += 1 + (((_ref1 = task.checklist) != null ? _ref1.length : void 0) || 0);
+              user.stats.mp += _.max([1 + (((_ref1 = task.checklist) != null ? _ref1.length : void 0) || 0), .01 * user._statsComputed.maxMP * (1 + (((_ref2 = task.checklist) != null ? _ref2.length : void 0) || 0))]);
               if (user.stats.mp >= user._statsComputed.maxMP) {
                 user.stats.mp = user._statsComputed.maxMP;
               }
@@ -12190,7 +12190,7 @@ var process=require("__browserify_process");(function() {
         if (user.items.lastDrop.count > 0) {
           user.items.lastDrop.count = 0;
         }
-        user.stats.mp += 10;
+        user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
         if (user.stats.mp > user._statsComputed.maxMP) {
           user.stats.mp = user._statsComputed.maxMP;
         }
