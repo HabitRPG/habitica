@@ -40,9 +40,9 @@ block content
                 .tab-pane.active#login-tab
                   form(ng-submit='auth()', method='POST')
                     .control-group
-                      input(type='text', ng-model='loginUsername', placeholder=env.t('username'))
+                      input(type='text', ng-model='loginUsername', placeholder=env.t('username'), name='username')
                     .control-group
-                      input(type='password', ng-model='loginPassword', placeholder=env.t('password'))
+                      input(type='password', ng-model='loginPassword', placeholder=env.t('password'), name='password')
                       //-.control-group
                         label.checkbox
                           input(type='checkbox', ng-click='useUUID = !useUUID')
