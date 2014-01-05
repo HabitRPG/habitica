@@ -190,14 +190,15 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
               legend.option-title.pull-left Restore Streak
               input.option-content(type='number', ng-model='task.streak')
 
-            legend.option-title(ng-if='user.preferences.autoAllocate') Attributes
-            .task-controls.tile-group
-              button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="str"}', ng-click='task.attribute="str"') Physical
-              button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="int"}', ng-click='task.attribute="int"') Mental
-              button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="con"}', ng-click='task.attribute="con"') Social
-              button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="per"}', ng-click='task.attribute="per"')
-                | Other&nbsp;
-                i.icon-question-sign(popover='Eg, professional pursuits, hobbies, financial, etc.', popover-trigger='mouseenter', popover-placement='top')
+            div(ng-if='user.preferences.allocationMode == "taskbased" || $state.is("options.social.challenges")')
+              legend.option-title Attributes
+              .task-controls.tile-group
+                button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="str"}', ng-click='task.attribute="str"') Physical
+                button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="int"}', ng-click='task.attribute="int"') Mental
+                button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="con"}', ng-click='task.attribute="con"') Social
+                button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="per"}', ng-click='task.attribute="per"')
+                  | Other&nbsp;
+                  i.icon-question-sign(popover='Eg, professional pursuits, hobbies, financial, etc.', popover-trigger='mouseenter', popover-placement='top')
 
         button.task-action-btn.tile.spacious(type='submit') Save & Close
 
