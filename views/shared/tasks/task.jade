@@ -190,7 +190,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
               legend.option-title.pull-left Restore Streak
               input.option-content(type='number', ng-model='task.streak')
 
-            legend.option-title Attributes
+            legend.option-title(ng-if='user.preferences.autoAllocate') Attributes
             .task-controls.tile-group
               button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="str"}', ng-click='task.attribute="str"') Physical
               button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="int"}', ng-click='task.attribute="int"') Mental
