@@ -176,7 +176,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
         // Advanced Options
         span(bo-if='task.type!="reward"')
           p.option-title.mega(ng-click='task._advanced = !task._advanced') Advanced Options
-          fieldset.option-group.advanced-option(ng-class="{visuallyhidden: !task._advanced}")
+          fieldset.option-group.advanced-option(ng-class="{visuallyhidden: task._advanced}")
             legend.option-title
               a.priority-multiplier-help(href='https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17', target='_blank', popover-title='How difficult is this task?', popover-trigger='mouseenter', popover="This multiplies its point value. Use sparingly, rely instead on our organic value-adjustment algorithms. But some tasks are grossly more valuable (Write Thesis vs Floss Teeth). Click for more info.")
                 i.icon-question-sign
