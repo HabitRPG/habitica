@@ -150,7 +150,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title='Guild Bank'
             input.btn(type='submit', value='Invite')
 
 
-    a.btn.btn-danger(data-id='{{group.id}}', ng-click='leave(group)') Leave
+    a.btn.btn-danger(data-id='{{group.id}}', ng-click='clickLeave(group, $event)') Leave
 
   .span8
     div.blah-options(ng-show='group._editing')
