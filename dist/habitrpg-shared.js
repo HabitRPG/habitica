@@ -11353,7 +11353,7 @@ var process=require("__browserify_process");(function() {
         if (!user.achievements.rebirths) {
           user.achievements.rebirths = 1;
           user.achievements.rebirthLevel = lvl;
-        } else if (lvl > user.achievements.rebirthLevel || (lvl = 100)) {
+        } else if (lvl > user.achievements.rebirthLevel || lvl === 100) {
           user.achievements.rebirths++;
           user.achievements.rebirthLevel = lvl;
         }

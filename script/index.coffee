@@ -451,7 +451,7 @@ api.wrap = (user) ->
       if not (user.achievements.rebirths)
         user.achievements.rebirths = 1
         user.achievements.rebirthLevel = lvl
-      else if (lvl > user.achievements.rebirthLevel or lvl = 100)
+      else if (lvl > user.achievements.rebirthLevel or lvl is 100)
         user.achievements.rebirths++
         user.achievements.rebirthLevel = lvl
       cb? null, user
