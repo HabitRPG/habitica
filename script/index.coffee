@@ -553,10 +553,10 @@ api.wrap = (user) ->
       else
         if food.target is potion
           userPets[pet] += 5
-          message = "#{egg} really likes the #{food.key}!"
+          message = "#{egg} really likes the #{food.text}!"
         else
           userPets[pet] += 2
-          message = "#{egg} eats the #{food.key} but doesn't seem to enjoy it."
+          message = "#{egg} eats the #{food.text} but doesn't seem to enjoy it."
         if userPets[pet] >= 50 and !user.items.mounts[pet]
           evolve()
       user.items.food[food.key]--
