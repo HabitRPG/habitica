@@ -23,7 +23,7 @@ api.getMember = function(req, res) {
 }
 
 api.listMembers = function(req, res) {
-  User.find({'contributor.level':{$exists:true}})
+  User.find({'contributor.level':{$ne:null}})// {$exists:true} causes terrible performance http://goo.gl/GCxzC9
     .select('contributor balance profile.name')
     .sort('contributor.text')
     .exec(function(err, users){
