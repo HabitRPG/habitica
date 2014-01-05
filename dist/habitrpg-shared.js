@@ -63,7 +63,7 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
+var global=self;/**
  * @license
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -11496,10 +11496,10 @@ var process=require("__browserify_process");(function() {
         } else {
           if (food.target === potion) {
             userPets[pet] += 5;
-            message = "" + egg + " really likes the " + food.key + "!";
+            message = "" + egg + " really likes the " + food.text + "!";
           } else {
             userPets[pet] += 2;
-            message = "" + egg + " eats the " + food.key + " but doesn't seem to enjoy it.";
+            message = "" + egg + " eats the " + food.text + " but doesn't seem to enjoy it.";
           }
           if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
             evolve();
@@ -11738,7 +11738,7 @@ var process=require("__browserify_process");(function() {
         return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
       },
       score: function(req, cb) {
-        var addPoints, calculateDelta, delta, direction, id, num, options, stats, subtractPoints, task, th, _ref, _ref1, _ref2;
+        var addPoints, calculateDelta, delta, direction, id, mpDelta, num, options, stats, subtractPoints, task, th, _ref, _ref1, _ref2;
         _ref = req.params, id = _ref.id, direction = _ref.direction;
         task = user.tasks[id];
         options = req.query || {};
@@ -11772,7 +11772,7 @@ var process=require("__browserify_process");(function() {
                   return m + (i.completed ? 1 : 0);
                 }), 0) / task.checklist.length;
               }
-              if (direction === 'up' && task.type === 'todo') {
+              if (task.type === 'todo') {
                 nextDelta *= task.checklist.length;
               }
             }
@@ -11866,9 +11866,16 @@ var process=require("__browserify_process");(function() {
             } else {
               calculateDelta();
               addPoints();
-              user.stats.mp += _.max([1 + (((_ref1 = task.checklist) != null ? _ref1.length : void 0) || 0), .01 * user._statsComputed.maxMP * (1 + (((_ref2 = task.checklist) != null ? _ref2.length : void 0) || 0))]);
+              mpDelta = _.max([1 + (((_ref1 = task.checklist) != null ? _ref1.length : void 0) || 0), .01 * user._statsComputed.maxMP * (1 + (((_ref2 = task.checklist) != null ? _ref2.length : void 0) || 0))]);
+              if (direction === 'down') {
+                mpDelta *= -1;
+              }
+              user.stats.mp += mpDelta;
               if (user.stats.mp >= user._statsComputed.maxMP) {
                 user.stats.mp = user._statsComputed.maxMP;
+              }
+              if (user.stats.mp < 0) {
+                user.stats.mp = 0;
               }
             }
             break;
