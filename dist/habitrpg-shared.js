@@ -12060,20 +12060,11 @@ var process=require("__browserify_process");(function() {
 
       autoAllocate: function() {
         return user.stats[(function() {
-          var diff, ideal, preference, suggested;
+          var diff, ideal, preference, stats, suggested;
           switch (user.preferences.allocationMode) {
             case "flat":
-              switch (Math.min(user.stats.str, user.stats.int, user.stats.con, user.stats.per)) {
-                case user.stats.int:
-                  return "int";
-                case user.stats.per:
-                  return "per";
-                case user.stats.str:
-                  return "str";
-                default:
-                  return "con";
-              }
-              break;
+              stats = _.pick(user.stats, $w('con str per int'));
+              return _.invert(stats)[_.min(stats)];
             case "classbased":
               ideal = [user.stats.lvl / 7 * 3, user.stats.lvl / 7 * 2, user.stats.lvl / 7, user.stats.lvl / 7];
               preference = (function() {
@@ -12100,11 +12091,7 @@ var process=require("__browserify_process");(function() {
                 return "str";
               }
             case "taskbased":
-              suggested = _.findKey(user.stats.training, (function(val) {
-                if (val === _.max(user.stats.training)) {
-                  return val;
-                }
-              }));
+              suggested = _.invert(user.stats.training)[_.max(user.stats.training)];
               _.merge(user.stats.training, {
                 str: 0,
                 int: 0,

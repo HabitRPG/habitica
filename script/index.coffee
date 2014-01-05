@@ -1009,11 +1009,9 @@ api.wrap = (user) ->
       user.stats[(->
         switch user.preferences.allocationMode
           when "flat"
-            switch Math.min(user.stats.str, user.stats.int, user.stats.con, user.stats.per)
-              when user.stats.int then "int" # In case of ties, favor INT first, to get the next point sooner
-              when user.stats.per then "per" # Then favor PER, it's a god stat
-              when user.stats.str then "str" # Then favor STR, everyone loves crits
-              else                     "con" # CON, the unsexiest of attributes
+            # Favor in order (right-to-left): INT, PER, STR, CON
+            stats = _.pick user.stats, $w 'con str per int'
+            _.invert(stats)[_.min stats]
           when "classbased"
             # Attributes get 3:2:1:1 per 7 levels.
             ideal = [(user.stats.lvl / 7 * 3), (user.stats.lvl / 7 * 2), (user.stats.lvl / 7), (user.stats.lvl / 7)]
@@ -1028,12 +1026,9 @@ api.wrap = (user) ->
             suggested = _.findIndex(diff, ((val) -> if val is _.min(diff) then true)) # Returns the index of the first attribute that's furthest behind the ideal
             return if ~suggested then preference[suggested] else "str"  # If _.findIndex failed, we'd get a -1...
           when "taskbased"
-            suggested = _.findKey(user.stats.training, ((val) -> if val is _.max(user.stats.training) then val)) # Returns the stat that's been trained up the most this level
-            # Reset training for this level.
-            _.merge user.stats.training, {str:0,int:0,con:0,per:0}
+            suggested = _.invert(user.stats.training)[_.max user.stats.training] # Returns the stat that's been trained up the most this level
+            _.merge user.stats.training, {str:0,int:0,con:0,per:0} # Reset training for this level.
             return suggested or "str" # Failed _.findkey gives undefined
-            # tallies = _.reduce user.tasks, ((m,v)-> m[v.attribute or 'str'] += v.value;m), {str:0,int:0,con:0,per:0}
-            # suggested = _.reduce tallies, ((m,v,k)-> if v>tallies[m] then k else m), 'str'
           else "str" # if all else fails, dump into STR
       )()]++
 
