@@ -60,7 +60,7 @@ expectSameValues = (obj1, obj2, paths) ->
     expect(helpers.dotGet(k,obj1)).to.eql helpers.dotGet(k,obj2)
 
 expectCode = (res, code) ->
-  expect(res.body.err).to.be undefined
+  expect(res.body.err).to.be undefined if code is 200
   expect(res.statusCode).to.be code
 
 ###### Specs ######
@@ -231,6 +231,8 @@ describe 'API', ->
 
       describe 'Quests', ->
         party = undefined
+        participating = []
+        notParticipating = []
 
         it 'Invites some members', (done) ->
           async.waterfall [
@@ -273,6 +275,35 @@ describe 'API', ->
           ], (err, results) ->
             expect(err).to.be.ok
             done()
+
+        it 'Starts a quest', (done) ->
+          async.waterfall [
+            (cb)->
+              request.post("#{baseURL}/groups/#{group._id}/questAccept?key=evilsanta")
+              .end (res) ->
+                expectCode(res, 401)
+                User.findByIdAndUpdate _id, {$set:'items.quests.evilsanta':1}, cb
+            (_user,cb)->
+              request.post("#{baseURL}/groups/#{group._id}/questAccept?key=evilsanta")
+              .end (res) ->
+                expectCode(res, 200)
+                Group.findById group._id,cb
+            (_group,cb)->
+              group = _group #refresh local group
+              expect(group.quest.key).to.be 'evilsanta'
+
+              async.series (_.reduce party, (m,v,i) ->
+                m.push (cb2) ->
+                  request.post("#{baseURL}/groups/#{group._id}/questAccept")
+                  .set('X-API-User', party[i]._id)
+                  .set('X-API-Key', party[i].apiToken)
+                  .end (res) -> cb2()
+                m
+              , []), cb
+
+          ], done
+
+      it "Doesn't include people who aren't participating"
 
 
 #    ############
