@@ -435,6 +435,8 @@ api.wrap = (user) ->
         gear[type].weapon = 'weapon_warrior_0'
         gear[type].head   = 'head_base_0'
         gear[type].shield = 'shield_base_0'
+      if user.items.currentPet then user.ops.equip({params:{type: 'pet', key: user.items.currentPet}})
+      if user.items.currentMount then user.ops.equip({params:{type: 'mount', key: user.items.currentMount}})
       # Strip owned gear down to the training sword
       gear.owned = {weapon_warrior_0:true}
       user.markModified? 'items.gear.owned'
@@ -449,7 +451,7 @@ api.wrap = (user) ->
       if not (user.achievements.rebirths)
         user.achievements.rebirths = 1
         user.achievements.rebirthLevel = lvl
-      else if (lvl > user.achievements.rebirthLevel)
+      else if (lvl > user.achievements.rebirthLevel or lvl = 100)
         user.achievements.rebirths++
         user.achievements.rebirthLevel = lvl
       cb? null, user

@@ -63,7 +63,7 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var global=self;/**
+var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
  * @license
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -11321,6 +11321,22 @@ var process=require("__browserify_process");(function() {
           gear[type].head = 'head_base_0';
           return gear[type].shield = 'shield_base_0';
         });
+        if (user.items.currentPet) {
+          user.ops.equip({
+            params: {
+              type: 'pet',
+              key: user.items.currentPet
+            }
+          });
+        }
+        if (user.items.currentMount) {
+          user.ops.equip({
+            params: {
+              type: 'mount',
+              key: user.items.currentMount
+            }
+          });
+        }
         gear.owned = {
           weapon_warrior_0: true
         };
@@ -11337,7 +11353,7 @@ var process=require("__browserify_process");(function() {
         if (!user.achievements.rebirths) {
           user.achievements.rebirths = 1;
           user.achievements.rebirthLevel = lvl;
-        } else if (lvl > user.achievements.rebirthLevel) {
+        } else if (lvl > user.achievements.rebirthLevel || (lvl = 100)) {
           user.achievements.rebirths++;
           user.achievements.rebirthLevel = lvl;
         }
