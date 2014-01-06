@@ -2,7 +2,6 @@ script(type='text/ng-template', id='partials/options.social.hall.html')
   ul.nav.nav-tabs
     li(ng-class="{ active: $state.includes('options.social.hall.heroes') }")
       a(ui-sref='options.social.hall.heroes')
-        i.icon-eye-close
         | Hall of Heroes
     li(ng-class="{ active: $state.includes('options.social.hall.patrons') }")
       a(ui-sref='options.social.hall.patrons')
@@ -70,9 +69,8 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
       td
         span(ng-if='hero.contributor.admin',popover='Game Master',popover-trigger='mouseenter',popover-placement='right')
           a.label(class='label-contributor-{{hero.contributor.level}}', ng-class='{"label-npc": hero.backer.npc}', ng-click='clickMember(hero._id, true)')
-            i.icon-star&nbsp;
-            | {{hero.profile.name}}
-            i.icon-star&nbsp;
+            | {{hero.profile.name}}&nbsp;
+            i.icon-star.icon-white
         span(ng-if='!hero.contributor.admin')
           a.label(class='label-contributor-{{hero.contributor.level}}', ng-class='{"label-npc": hero.backer.npc}', ng-click='clickMember(hero._id, true)') {{hero.profile.name}}
       td(ng-if='user.contributor.admin') {{hero._id}}
