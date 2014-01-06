@@ -15,7 +15,7 @@ api.ensureAdmin = function(req, res, next) {
 api.getHeroes = function(req,res,next) {
   User.find({'contributor.level':{$ne:null}})// {$exists:true} causes terrible performance http://goo.gl/GCxzC9
     .select('contributor backer balance profile.name')
-    .sort('contributor.text')
+    .sort('-contributor.level')
     .exec(function(err, users){
       if (err) return next(err);
       res.json(users);
