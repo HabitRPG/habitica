@@ -12,6 +12,9 @@
     .tile
       opacity: 1
 
+.modal-header .gem-wallet
+  padding-top: 0px
+
 
 // pets (this will all change when pet system is overhauled)
 .pet-grid
@@ -36,6 +39,10 @@
     width:6.5em
     height:2.5em
 
+menu.pets div 
+  display: inline-block
+  padding-top: -30px
+
 .current-pet
     left: 0px
     bottom: 0px
@@ -45,23 +52,30 @@
     padding-right:20px
     padding-bottom:20px
 
-.Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Veteran, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base, .Pet_Food_SugarCube, .Pet_Food_Strawberry, .Pet_Food_Rotten, .Pet_Food_Licorice, .Pet_Food_Golden, .Pet_Food_Cream, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Chocolate, .Pet_Food_Base, .Pet_Food_Zombie, .Pet_Food_White, .Pet_Food_Skeleton, .Pet_Food_Shade, .Pet_Food_Red, .Pet_Food_Golden, .Pet_Food_Desert, .Pet_Food_CottonCandyPink, .Pet_Food_CottonCandyBlue, .Pet_Food_Base
-    background: url("/bower_components/habitrpg-shared/img/hatching_powder.png") no-repeat
-    width:34px
-    height:34px
+//.Pet_Currency_Gem, .Pet_Currency_Gem2x, .Pet_Currency_Gem1x
+//    background: url("/bower_components/habitrpg-shared/img/sprites/Egg_Sprite_Sheet.png") no-repeat
+//    display:block
 
-.Pet_Currency_Gem, .Pet_Currency_Gem2x, .Pet_Currency_Gem1x
-    background: url("/bower_components/habitrpg-shared/img/sprites/Egg_Sprite_Sheet.png") no-repeat
-    display:block
+.food-tray
+  position:fixed
+  right:0px
+  bottom:0px
+  width:30%
+  height: 50%
+  overflow-y: scroll
 
-.Pet_Currency_Gem {background-position: 0px -510px; width: 51px; height: 45px} /* Not an egg or potion so has a different size */
-.Pet_Currency_Gem2x {background-position: -55px -513px; width: 34px; height: 30px}
-.Pet_Currency_Gem1x {background-position: -63px -542px; width: 19px; height: 17px}
-
-.inventory-list p
+.inventory-list
+  p
     //display: none
-.inventory-list li
+  li
     clear:both
+  button.customize-option
+    position:relative
+  .stack-count
+    position:absolute
+    bottom:-6px
+    right:-9px
+
 .pets-menu > div
     display:inline-block
     vertical-align:top
@@ -70,7 +84,7 @@
     margin-top:1em
     p
       text-align:center
-      width:6em
+      //width:6em
       margin-top:-.5em
 .hatchingPotion-menu > div
     display:inline-block
@@ -82,6 +96,18 @@
       text-align:center
       width:6em
       margin-top:-.5em
+
+// This adds feeding progress bars to pets. If we have any issues with `menu.pets > button`, revisit
+menu.pets .customize-menu
+
+  button
+    position: relative
+  .progress
+    width: 60%
+    position: absolute
+    bottom: -25px
+    left: 20%
+    height: 5px
 
 .pet-button
     border: none
@@ -96,3 +122,14 @@
     -moz-filter: brightness(0%)
     -o-filter: brightness(0%)
     -ms-filter: brightness(0%)*/
+
+    .PixelPaw
+      margin-top: 36px // align paw with pets, at the bottom of the button
+
+.selectableInventory
+  background-color: lightgreen !important
+  border-radius: 50%
+
+.sell-inventory
+  width: 162px
+  height: 138px

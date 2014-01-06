@@ -4,26 +4,21 @@
   "version": "0.0.0-152",
   "main": "./src/server.js",
   "dependencies": {
-    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared#rewrite",
-    "derby-auth": "git://github.com/lefnire/derby-auth#master",
+    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared#develop",
     "connect-mongo": "*",
     "passport-facebook": "~1.0.0",
     "express": "*",
     "gzippo": "*",
     "guid": "*",
-    "moment": "*",
+    "moment": "~2.4.0",
     "stripe": "*",
     "coffee-script": "*",
     "nconf": "*",
     "icalendar": "git://github.com/lefnire/node-icalendar#master",
-    "superagent": "~0.12.4",
     "resolve": "~0.2.3",
-    "expect.js": "~0.2.0",
-    "relative-date": "~1.1.1",
-    "lodash": "~1.3.1",
+    "lodash": "~2.2.1",
     "async": "~0.2.9",
     "optimist": "~0.5.2",
-    "mongoose": "~3.6.18",
     "stylus": "~0.37.0",
     "grunt": "~0.4.1",
     "grunt-contrib-uglify": "~0.2.4",
@@ -41,7 +36,14 @@
     "passport": "~0.1.17",
     "validator": "~1.5.1",
     "nodemailer": "~0.5.2",
-    "grunt-cli": "~0.1.9"
+    "grunt-cli": "~0.1.9",
+    "paypal-ipn": "~1.0.1",
+    "express-csv": "~0.6.0",
+    "pretty-data": "git://github.com/vkiryukhin/pretty-data#master",
+    "js2xmlparser": "~0.1.2",
+    "mongoose": "~3.8.1",
+    "domain-middleware": "~0.1.0",
+    "swagger-node-express": "git://github.com/lefnire/swagger-node-express#habitrpg"
   },
   "private": true,
   "subdomain": "habitrpg",
@@ -54,12 +56,12 @@
     "npm": "1.2.x"
   },
   "scripts": {
-    "test": "mocha test/api.mocha.coffee",
+    "test": "./test/run_tests.sh",
     "start": "grunt run:dev",
     "postinstall": "./node_modules/bower/bin/bower install -f"
   },
   "devDependencies": {
-    "karma-ng-scenario": "~0.1.0",
+    "protractor": "~0.14.0",
     "grunt-karma": "~0.6.2",
     "karma-script-launcher": "~0.1.0",
     "karma-chrome-launcher": "~0.1.0",
@@ -71,9 +73,13 @@
     "karma-phantomjs-launcher": "~0.1.0",
     "karma": "~0.10.2",
     "karma-ng-html2js-preprocessor": "~0.1.0",
+    "karma-chai-plugins": "~0.1.0",
     "mocha": "~1.12.1",
     "karma-mocha": "~0.1.0",
-    "docker": "~0.2.8",
-    "grunt-docker": "0.0.5"
+    "csv": "~0.3.6",
+    "mongoskin": "~0.6.1",
+    "expect.js": "~0.2.0",
+    "superagent": "~0.15.7",
+    "superagent-defaults": "~0.1.5"
   }
 }

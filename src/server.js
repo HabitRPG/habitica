@@ -7,27 +7,20 @@ var app = express();
 var nconf = require('nconf');
 var utils = require('./utils');
 var middleware = require('./middleware');
+var domainMiddleware = require('domain-middleware');
+var swagger = require("swagger-node-express");
 var server;
 var TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 
 // ------------ Setup configurations ------------
-require('./config');
-process.on("uncaughtException", function(error) {
-  // when we hit an error, send it to admin as an email. If no ADMIN_EMAIL is present, just send it to yourself (SMTP_USER)
-  utils.sendEmail({
-    from: "HabitRPG <" + nconf.get('SMTP_USER') + ">",
-    to: nconf.get('ADMIN_EMAIL') || nconf.get('SMTP_USER'),
-    subject: "HabitRPG Error",
-    text: error.stack
-  });
-  console.error(error.stack);
-});
+utils.setupConfig();
 
 // ------------  MongoDB Configuration ------------
 mongoose = require('mongoose');
 require('./models/user'); //load up the user schema - TODO is this necessary?
 require('./models/group');
-mongoose.connect(nconf.get('NODE_DB_URI'), function(err) {
+require('./models/challenge');
+mongoose.connect(nconf.get('NODE_DB_URI'), {auto_reconnect:true}, function(err) {
   if (err) throw err;
   console.info('Connected with Mongoose');
 });
@@ -77,21 +70,21 @@ passport.use(new FacebookStrategy({
 
 // ------------  Server Configuration ------------
 app.set("port", nconf.get('PORT'));
-app.use(express.logger("dev"));
+
+if (!process.env.SUPPRESS) app.use(express.logger("dev"));
 app.use(express.compress());
 app.set("views", __dirname + "/../views");
 app.set("view engine", "jade");
 app.use(express.favicon());
 app.use(middleware.cors);
 app.use(middleware.forceSSL);
-app.use(express.bodyParser());
+app.use(express.urlencoded());
+app.use(express.json());
 app.use(express.methodOverride());
 //app.use(express.cookieParser(nconf.get('SESSION_SECRET')));
 app.use(express.cookieParser());
 app.use(express.cookieSession({ secret: nconf.get('SESSION_SECRET'), httpOnly: false, cookie: { maxAge: TWO_WEEKS }}));
 //app.use(express.session());
-app.use(middleware.splash);
-app.use(middleware.locals);
 
 // Initialize Passport!  Also use passport.session() middleware, to support
 // persistent login sessions (recommended).
@@ -100,44 +93,33 @@ app.use(passport.session());
 
 app.use(app.router);
 
-var oneYear = 31536000000;
-app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: oneYear }));
+var maxAge = (nconf.get('NODE_ENV') === 'production') ? 31536000000 : 0;
+app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
 app.use(express['static'](path.join(__dirname, "/../public")));
 
 // development only
-if ("development" === app.get("env")) {
-  app.use(express.errorHandler());
-}
+//if ("development" === app.get("env")) {
+//  app.use(express.errorHandler());
+//}
 
 // Custom Directives
 app.use(require('./routes/pages').middleware);
 app.use(require('./routes/auth').middleware);
-app.use('/api/v1', require('./routes/api').middleware);
-app.use(require('./controllers/deprecated').middleware);
+var v2 = express();
+app.use('/api/v2', v2);
+app.use('/api/v1', require('./routes/apiv1').middleware);
+app.use('/export', require('./routes/dataexport').middleware);
+
+app.use(utils.errorHandler);
+
+require('./routes/apiv2.coffee')(swagger, v2);
+
 server = http.createServer(app).listen(app.get("port"), function() {
   return console.log("Express server listening on port " + app.get("port"));
 });
+app.use(domainMiddleware({
+  server: server
+  //killTimeout: 30000,
+}));
 
 module.exports = server;
-
-/*
- #ONE_YEAR = 1000 * 60 * 60 * 24 * 365
- #root = path.dirname path.dirname __dirname
- #publicPath = path.join root, 'public'
- #
- #
- #expressApp
- #  .use(express.favicon("#{publicPath}/favicon.ico"))
- #  # Gzip static files and serve from memory
- #  .use(gzippo.staticGzip(publicPath, maxAge: ONE_YEAR))
- #  # Gzip dynamically rendered content
- #  .use(express.compress())
- #  .use(middleware.translate)
- #  .use(auth.middleware(strategies, options))
- #  .use(serverError(root))
- #
- #
- ## Errors
- #expressApp.all '*', (req) ->
- #  throw "404: #{req.url}"
- */

@@ -1,11 +1,23 @@
+# Translations - WIP
+
+## How to add a new language
+- All the old files in `/locales` has been moved to `/locales_old`. 
+- New files must have a `languageName` property (translated or not in english? Italian or Italiano?) and might have a `stringNotFound` property.
+- The language folder under `/locales` must be named with a two letters code (en, es... not en_US or similar) and the code must match the one passed by the browser (we should find a table for that...)
+
+## How to translate a string
+
+- If the string is in a `.jade` file it can be accessed with `env.t('string name here')`
+- If the string is in a `.js` file it can be accessed with `window.env.t('string name here')`
+
 HabitRPG
 ===============
 
 [HabitRPG](https://habitrpg.com) is an open source habit building program which treats your life like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
 
 Built using Angular, Express, Mongoose, Jade, Stylus, Grunt and Bower.
-     
-# Set up HabitRPG locally 
+
+# Set up HabitRPG locally
 
 **Windows** users should skip this section and read the one below with Windows-specific steps.
 
@@ -20,6 +32,8 @@ Before starting make sure to have [MongoDB](http://www.mongodb.org/), [NodeJS an
 `npm install`
 1. Create a config file from the example one:
 `cp config.json.example config.json`
+1. Ensure that Mongo is running and seed the database with initial settings by running: 
+`node ./src/seed.js`.
 
 ##  Windows Environment Install
 
@@ -35,7 +49,7 @@ If MongoDB starts up successfully, you should see the following at the end of th
 ```Sun Sep 01 18:10:21.233 [initandlisten] waiting for connections on port 27017
 Sun Sep 01 18:10:21.233 [websvr] admin web console waiting for connections on po
 rt 28017```
-  
+
 1.  Install  Node.js (includes npm).  Steps:
   1.  Download and run the latest Node.js msi installation file from  http://nodejs.org/download/
 1. Install [Git](https://help.github.com/articles/set-up-git).
@@ -45,7 +59,7 @@ rt 28017```
 1. Install the **npm** packages:
 `npm install`
 Read below for possible error message.
-  
+
 You might receive the following error during the 'npm install' command:
 > habitrpg@0.0.0-152 postinstall C:\Users\022498\Projects\habitrpg
 > ./node_modules/bower/bin/bower install -f
@@ -62,6 +76,9 @@ Ignore this error and proceed with the following:
 'bower install -f'
 1. Create a config file from the example one:
 `copy config.json.example config.json`
+1. Ensure that Mongo is running and seed the database with initial settings by r
+unning:
+`node .\src\seed.js`.
 
 # Run HabitRPG
 

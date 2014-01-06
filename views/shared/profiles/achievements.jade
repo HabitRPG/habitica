@@ -3,7 +3,6 @@
   // <div class='achievement achievement-tree'></div>
   // <div class='achievement achievement-comment'></div>
   // <div class='achievement achievement-cave'></div>
-  // <div class='achievement achievement-sun'></div>
   // <div class='achievement achievement-boot'></div>
   // <div class='achievement achievement-coffin'></div>
   // <div class='achievement achievement-alien'></div>
@@ -16,20 +15,20 @@
   div(ng-if='profile.backer.npc')
     .achievement.achievement-helm
     h5
-      span.label.label-master {{profile.backer.npc}} NPC
+      span.label.label-npc {{profile.backer.npc}} NPC
     small Backed the Kickstarter project at the maximum level!
     hr
 
-  div(ng-if='profile.backer.contributor || user._id == profile._id')
-    .achievement.achievement-firefox(ng-show='profile.backer.contributor')
-    div(ng-class='{muted: !profile.backer.contributor}')
+  div(ng-if='profile.contributor.level || user._id == profile._id')
+    .achievement.achievement-firefox(ng-if='profile.contributor.level')
+    div(ng-class='{muted: !profile.contributor.level}')
       h5
-        span.label.label-inverse(ng-if='profile.backer.contributor') {{profile.backer.contributor}}
-        span.label(ng-if='!profile.backer.contributor') Contributor
+        span.label(ng-if='profile.contributor.level', class='label-contributor-{{profile.contributor.level}}') {{contribText(profile.contributor, profile.backer)}}
+        span.label(ng-if='!profile.contributor.level') Contributor
       small.
-        Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge? Fix a bug :)
+        Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge? <a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'>Read more</a>.
     hr
-
+  
   div(ng-if='profile.backer.tier')
     .achievement.achievement-heart
     h5 Kickstarter Backer - ${{profile.backer.tier}} Tier
@@ -57,6 +56,14 @@
       small Has found all 90 pets (insanely difficult, give this user props!)
     hr
 
+  div(ng-if='profile.achievements.rebirths')
+    .achievement.achievement-sun
+    h5(ng-if='profile.achievements.rebirths == 1') Began a New Adventure
+    h5(ng-if='profile.achievements.rebirths > 1') Began {{profile.achievements.rebirths}} New Adventures
+    small.
+      Used an Orb of Rebirth to start over after attaining Level {{profile.achievements.rebirthLevel}}.
+    hr
+
   div(ng-if='profile.achievements.helpedHabit')
     .achievement.achievement-tree
     h5 Helped Habit Grow
@@ -74,4 +81,30 @@
       h5 Original User!
       small
         | One of the <em>very</em> original early adopters, Talk about alpha tester!
+    hr
+
+  div(ng-if='profile.achievements.challenges || user._id == profile._id')
+    // This is a very strange icon to use. revisit
+    .achievement.achievement-karaoke(ng-show='profile.achievements.challenges')
+    div(ng-class='{muted: !profile.achievements.challenges}')
+      h5 Was the winner in the following challenges
+      table.table.table-striped
+        tr(ng-repeat='chal in profile.achievements.challenges')
+          td {{chal}}
+    hr
+
+  div(ng-if='profile.achievements.quests || user._id == profile._id')
+    .achievement.achievement-alien(ng-show='profile.achievements.quests')
+    div(ng-class='{muted: !profile.achievements.quests}')
+      h5 Completed the following quests
+      table.table.table-striped
+        tr(ng-repeat='(k,v) in profile.achievements.quests')
+          td {{Content.quests[k].text}}
+          td x{{v}}
+    hr
+
+  div(ng-if='profile.achievements.snowball')
+    .achievement.achievement-snowball
+    h5 Annoying Friends
+    small Got snowballed {{profile.achievements.snowball}} times by party members.
     hr

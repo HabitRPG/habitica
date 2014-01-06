@@ -3,3 +3,5 @@ views/*
 build
 build/*
 Gruntfile.js
+.idea*
+.git*

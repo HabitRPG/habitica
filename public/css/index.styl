@@ -1,10 +1,13 @@
-@import "nib/vendor"
+@import "nib"
+//@import "nib/vendor"
 
 // Vendor Includes - include first so we can override
 // Import only styles that do not have urls to images! Include them directly in the page!
 @import "../bower_components/angular-ui/build/angular-ui.min.css"
 @import "../bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css"
 @import "../bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css"
+@import "../bower_components/angular-loading-bar/build/loading-bar.css"
+@import "../bower_components/js-emoji/emoji.css"
 
 // Custom includes
 @import "./tasks.styl"
@@ -21,6 +24,7 @@
 @import "./game-pane.styl"
 @import "./npcs.styl"
 @import "./challenges.styl"
+@import "./classes.styl"
 
 // fix exploding to very wide for some reason
 .datepicker
@@ -62,6 +66,11 @@ hr
 .footer-links li {
   display: inline;
   margin-right: 10px;
+}
+
+/* Bootstrap overrides */
+div.tooltip-inner {
+    max-width: 300px;
 }
 
 /* Customizations to make footer sticky */
@@ -157,7 +166,6 @@ hr
     position absolute
     bottom 0px
     right 0px
-    background-color #dfe9ea
     padding 1px 3px 1px 3px
 
 a
@@ -168,3 +176,16 @@ a
 
 .btn 
   margin-right: 5px
+
+.modal-indented-list
+  margin-left: 10px;
+  padding-left: 10px;
+
+.inline-modal
+  position: relative
+  top: auto;
+  left: auto
+  right: auto
+  margin: 0 auto 20px
+  z-index: 1
+  max-width: 100%

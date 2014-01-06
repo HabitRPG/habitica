@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http',
-  function($scope, $rootScope, User, $http) {
+habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http', 'Notification', 'API_URL',
+  function($scope, $rootScope, User, $http, Notification, API_URL) {
 
     /**
      External Scripts
@@ -14,7 +14,7 @@ habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http',
       $.getScript('//checkout.stripe.com/v2/checkout.js');
 
       // Amazon Affiliate
-//      if ($rootScope.authenticated() && User.user.flags.ads !== 'hide') {
+//      if ($rootScope.authenticated() && !User.user.purchased.ads) {
 //        $.getScript('//wms.assoc-amazon.com/20070822/US/js/link-enhancer-common.js?tag=ha0d2-20').fail(function() {
 //          $('body').append('<img src="//wms.assoc-amazon.com/20070822/US/img/noscript.gif?tag=ha0d2-20" alt="" />');
 //        });
@@ -39,6 +39,32 @@ habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http',
           });
         });
       }
+    }
 
+    /**
+     * Debug functions. Note that the server route for gems is only available if process.env.DEBUG=true
+     */
+    $scope.addMissedDay = function(){
+      if (!confirm("Are you sure you want to reset the day?")) return;
+      var dayBefore = moment(User.user.lastCron).subtract('days', 1).toDate();
+      User.set({'lastCron': dayBefore});
+      Notification.text('-1 day, remember to refresh');
+    }
+    $scope.addTenGems = function(){
+      $http.post(API_URL + '/api/v2/user/addTenGems').success(function(){
+        User.log({});
+      })
+    }
+    $scope.addLevelsAndGold = function(){
+      User.set({
+        'stats.exp': User.user.stats.exp + 10000,
+        'stats.gp': User.user.stats.gp + 10000,
+        'stats.mp': User.user.stats.mp + 10000
+      });
+    }
+    $scope.addOneLevel = function(){
+      User.set({
+        'stats.exp': User.user.stats.exp + (Math.round(((Math.pow(User.user.stats.lvl, 2) * 0.25) + (10 * User.user.stats.lvl) + 139.75) / 10) * 10)
+      });
     }
   }])

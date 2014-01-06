@@ -1,0 +1,144 @@
+script(type='text/ng-template', id='partials/options.inventory.equipment.html')
+  .row-fluid
+    .span6.border-right
+      h3 Battle Gear
+      small This is the gear you wear into battle, it affects numbers when interacting with your tasks.
+      li.customize-menu.inventory-gear
+        menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
+          div(ng-repeat='item in gear[klass]')
+            button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
+    .span6
+      h3 Costume
+      small But if you prefer the look of other gear to what you have equipped, check this box to visually don a costume while wearing your battle gear underneath.
+      br
+      label.checkbox.inline
+        input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
+        | Use Costume&nbsp;
+      li.customize-menu(ng-if='user.preferences.costume')
+        menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
+          div(ng-repeat='item in gear[klass]')
+            button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
+
+script(type='text/ng-template', id='partials/options.inventory.drops.html')
+  .row-fluid
+    .span6.border-right
+      h2 Inventory
+      p.well Click an egg to see usable potions highlighted in green and then click one of the highlighted potions to hatch your pet. If no potions are highlighted, click that egg again to deselect it, and instead click a potion first to have the usable eggs highlighted. You can also sell unwanted drops to Alexander the Merchant.
+      menu.inventory-list(type='list')
+
+        li.customize-menu
+          menu.pets-menu(label='Eggs ({{eggCount}})')
+            p.muted(ng-show='eggCount < 1') You don't have any eggs.
+            div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
+              //TODO move positioning this styling to css
+              button.customize-option(popover='{{Content.eggs[egg].notes}}', popover-title='{{Content.eggs[egg].text}} Egg', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !user.items.pets[egg+"-"+selectedPotion.key]}')
+                .badge.badge-info.stack-count {{points}}
+              //-p {{Content.eggs[egg].text}}
+
+        li.customize-menu
+          menu.hatchingPotion-menu(label='Hatching Potions ({{potCount}})')
+            p.muted(ng-show='potCount < 1') You don't have any hatching potions.
+            div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
+              button.customize-option(popover='{{Content.hatchingPotions[pot].notes}}', popover-title='{{Content.hatchingPotions[pot].text}} Potion', popover-trigger='mouseenter', popover-placement='right', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !user.items.pets[selectedEgg.key+"-"+pot]}')
+                .badge.badge-info.stack-count {{points}}
+
+        li.customize-menu
+          menu.pets-menu(label='Quest Scrolls ({{questCount}})')
+            p.muted(ng-show='questCount < 1') You don't have any quest scrolls.
+            p.muted Quests require parties. If you want to quest solo, <a href="/#/options/groups/party">create an empty party</a>
+            div(ng-repeat='(quest,points) in ownedItems(user.items.quests)')
+              button.customize-option(popover='{{Content.quests[quest].notes}}', popover-title='{{Content.quests[quest].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='showQuest(quest)', class='inventory_quest_scroll')
+                .badge.badge-info.stack-count {{points}}
+
+        li.customize-menu
+          menu.pets-menu(label='Food ({{foodCount}})')
+            p(ng-show='foodCount < 1') You don't have any food.
+            div(ng-repeat='(food,points) in ownedItems(user.items.food)')
+              button.customize-option(popover='{{Content.food[food].notes}}', popover-title='{{Content.food[food].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
+                .badge.badge-info.stack-count {{points}}
+
+        li.customize-menu(ng-if='user.items.special.snowball')
+          menu.pets-menu(label='Special')
+            div
+              button.customize-option(popover='{{Content.special.snowball.notes}}', popover-title='{{Content.special.snowball.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='castStart(Content.special.snowball)', class='inventory_special_snowball')
+                .badge.badge-info.stack-count {{user.items.special.snowball}}
+
+    .span6
+      h2 Market
+      .row-fluid
+        table.npc_alex_container
+          tr
+            td
+              .npc_alex.pull-left
+            td
+              .popover.static-popover.fade.right.in
+                .arrow
+                h3.popover-title
+                  a(target='_blank', href='http://www.kickstarter.com/profile/523661924') Alexander the Merchant
+                .popover-content
+                  p
+                    | Welcome to the Market! Buy hard-to-find eggs and potions! Sell your extras! Commission useful services! Come see what we have to offer.
+                  p
+                    button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')
+                      | Sell {{selectedEgg.key}} for {{selectedEgg.value}} Gold
+                    button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')
+                      | Sell {{selectedPotion.key}} for {{selectedPotion.value}} Gold
+                    button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')
+                      | Sell {{selectedFood.key}} for {{selectedFood.value}} Gold
+
+        menu.inventory-list(type='list')
+          li.customize-menu
+            menu.pets-menu(label='Eggs')
+              div(ng-repeat='egg in Content.eggs')
+                button.customize-option(popover='{{egg.notes}}', popover-title='{{egg.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", egg)', class='Pet_Egg_{{egg.key}}')
+                p
+                  |  {{egg.value}}
+                  span.Pet_Currency_Gem1x.inline-gems
+
+          li.customize-menu
+            menu.pets-menu(label='Hatching Potions')
+              div(ng-repeat='pot in Content.hatchingPotions')
+                button.customize-option(popover='{{pot.notes}}', popover-title='{{pot.text}} Potion', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("hatchingPotions", pot)', class='Pet_HatchingPotion_{{pot.key}}')
+                p
+                  |  {{pot.value}}
+                  span.Pet_Currency_Gem1x.inline-gems
+
+          li.customize-menu
+            menu.pets-menu(label='Food')
+              div(ng-repeat='food in Content.food', ng-show='food.key !== "Saddle"')
+                button.customize-option(popover='{{food.notes}}', popover-title='{{food.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", food)', class='Pet_Food_{{food.key}}')
+                p
+                  |  {{food.value}}
+                  span.Pet_Currency_Gem1x.inline-gems
+
+          li.customize-menu
+            menu.pets-menu(label='Quests')
+              p.muted Quests require parties. If you want to quest solo, <a href="/#/options/groups/party">create an empty party</a>
+              div(ng-repeat='quest in Content.quests')
+                  button.customize-option(popover='{{quest.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("quests", quest)', class='inventory_quest_scroll', ng-class='{locked: quest.previous && !user.achievements.quests[quest.previous]}')
+                  p
+                    |  {{quest.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
+
+          li.customize-menu
+            menu.pets-menu(label='Special')
+              div
+                button.customize-option(popover='{{Content.food.Saddle.notes}}', popover-title='{{Content.food.Saddle.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", Content.food.Saddle)', class='Pet_Food_{{Content.food.Saddle.key}}')
+                p
+                  |  {{Content.food.Saddle.value}}
+                  span.Pet_Currency_Gem1x.inline-gems
+              div
+                button.customize-option(popover='Return all tasks to neutral value (yellow color), and restore all lost Health.', popover-title=env.t('rerollName'), popover-trigger='mouseenter', popover-placement='left', ng-click='modals.reroll = true', class='inventory_special_fortify')
+                p
+                  | 4
+                  span.Pet_Currency_Gem1x.inline-gems
+              div
+                button.customize-option(popover='{{Content.spells.special.snowball.notes}}', popover-title='{{Content.spells.special.snowball.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("special", Content.spells.special.snowball)', class='inventory_special_snowball')
+                p
+                  |  {{Content.spells.special.snowball.value}}
+                  span.Pet_Currency_Gem1x.inline-gems
+              div(ng-show='user.flags.rebirthEnabled')
+                button.customize-option(popover='Begin a new character at Level 1 while retaining achievements, collectibles, and tasks with history.', popover-title='Orb of Rebirth', popover-trigger='mouseenter', popover-placement='left', ng-click='modals.rebirth = true', class='rebirth_orb')
+                p
+                  | 8
+                  span.Pet_Currency_Gem1x.inline-gems

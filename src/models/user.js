@@ -6,8 +6,10 @@
 // ------------
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var helpers = require('habitrpg-shared/script/helpers');
+var shared = require('habitrpg-shared');
 var _ = require('lodash');
+var TaskSchemas = require('./task');
+var Challenge = require('./challenge').model;
 
 // User Schema
 // -----------
@@ -16,26 +18,29 @@ var UserSchema = new Schema({
   // ### UUID and API Token
   _id: {
     type: String,
-    'default': helpers.uuid
+    'default': shared.uuid
   },
   apiToken: {
     type: String,
-    'default': helpers.uuid
+    'default': shared.uuid
   },
 
   // ### Mongoose Update Object
   // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
   // have been updated (http://goo.gl/gQLz41), but we want *every* update
-  _v: {
-    type: Number,
-    'default': 0
-  },
+  _v: { type: Number, 'default': 0 },
   achievements: {
     originalUser: Boolean,
     helpedHabit: Boolean,
     ultimateGear: Boolean,
     beastMaster: Boolean,
-    streak: Number
+    veteran: Boolean,
+    snowball: Number,
+    streak: Number,
+    challenges: Array,
+    quests: Schema.Types.Mixed,
+    rebirths: Number,
+    rebirthLevel: Number
   },
   auth: {
     facebook: Schema.Types.Mixed,
@@ -46,235 +51,351 @@ var UserSchema = new Schema({
       username: String
     },
     timestamps: {
-      created: {
-        type: Date,
-        'default': Date.now
-      },
-      loggedin: Date
+      created: {type: Date,'default': Date.now},
+      loggedin: {type: Date,'default': Date.now}
     }
   },
 
   backer: {
     tier: Number,
-    admin: Boolean,
     npc: String,
-    contributor: String,
     tokensApplied: Boolean
   },
 
-  balance: Number,
-  habitIds: Array,
-  dailyIds: Array,
-  todoIds: Array,
-  rewardIds: Array,
+  contributor: {
+    level: Number, // 1-7, see https://trello.com/c/wkFzONhE/277-contributor-gear
+    admin: Boolean,
+    text: String, // Artisan, Friend, Blacksmith, etc
+    contributions: String // a markdown textarea to list their contributions + links
+  },
+
+  balance: {type: Number, 'default':0},
   filters: {type: Schema.Types.Mixed, 'default': {}},
+
+  purchased: {
+    ads: {type: Boolean, 'default': false},
+    skin: {type: Schema.Types.Mixed, 'default': {}}, // eg, {skeleton: true, pumpkin: true, eb052b: true}
+    hair: {type: Schema.Types.Mixed, 'default': {}},
+    shirt: {type: Schema.Types.Mixed, 'default': {}},
+  },
 
   flags: {
     customizationsNotification: {type: Boolean, 'default': false},
     showTour: {type: Boolean, 'default': true},
-    ads: {type: String, 'default': 'show'}, // FIXME make this a boolean, run migration
     dropsEnabled: {type: Boolean, 'default': false},
     itemsEnabled: {type: Boolean, 'default': false},
-    newStuff: {type: String, 'default': 'hide'}, //FIXME to boolean (currently show/hide)
+    newStuff: {type: Boolean, 'default': false},
     rewrite: {type: Boolean, 'default': true},
     partyEnabled: Boolean, // FIXME do we need this?
-    petsEnabled: {type: Boolean, 'default': false},
-    rest: {type: Boolean, 'default': false} // fixme - change to preferences.resting once we're off derby
+    contributor: Boolean,
+    classSelected: {type: Boolean, 'default': false},
+    mathUpdates: Boolean,
+    rebirthEnabled: {type: Boolean, 'default': false}
   },
   history: {
-    exp: [
-      {
-        date: Date,
-        value: Number
-      }
-    ],
-    todos: [
-      {
-        data: Date,
-        value: Number
-      }
-    ]
+    exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
+    todos: Array //[{data: Date, value: Number}] // big peformance issues if these are defined
   },
-  /* FIXME remove?*/
 
+  // FIXME remove?
   invitations: {
     guilds: {type: Array, 'default': []},
     party: Schema.Types.Mixed
   },
   items: {
-    armor: Number,
-    weapon: Number,
-    head: Number,
-    shield: Number,
+    gear: {
+      owned: _.transform(shared.content.gear.flat, function(m,v,k){
+        m[v.key] = {type: Boolean};
+        if (v.key.match(/[weapon|armor|head|shield]_warrior_0/))
+          m[v.key]['default'] = true;
+      }),
 
-    /*FIXME - tidy this up, not the best way to store current pet*/
-
-    currentPet: {
-      /*Cactus*/
-
-      text: String,
-      /*Cactus*/
-
-      name: String,
-      /*3*/
-
-      value: Number,
-      /*"Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.",*/
-
-      notes: String,
-      /*Skeleton*/
-
-      modifier: String,
-      /*Cactus-Skeleton*/
-
-      str: String
+      equipped: {
+        weapon: {type: String, 'default': 'weapon_warrior_0'},
+        armor: {type: String, 'default': 'armor_base_0'},
+        head: {type: String, 'default': 'head_base_0'},
+        shield: {type: String, 'default': 'shield_base_0'}
+      },
+      costume: {
+        weapon: {type: String, 'default': 'weapon_base_0'},
+        armor: {type: String, 'default': 'armor_base_0'},
+        head: {type: String, 'default': 'head_base_0'},
+        shield: {type: String, 'default': 'shield_base_0'}
+      },
     },
 
-    eggs: [
+    special:{
+      snowball: {type: Number, 'default': 0}
+    },
+
+    // -------------- Animals ------------------- 
+    // Complex bit here. The result looks like:
+    // pets: {
+    //   'Wolf-Desert': 0, // 0 means does not own
+    //   'PandaCub-Red': 10, // Number represents "Growth Points"
+    //   etc...
+    // }
+    pets:
+    _.defaults(
+      // First transform to a 1D eggs/potions mapping
+      _.transform(shared.content.pets, function(m,v,k){ m[k] = Number; }),
+      // Then add additional pets (backer, contributor)
+      _.transform(shared.content.specialPets, function(m,v,k){ m[k] = Number; })
+    ),
+    currentPet: String, // Cactus-Desert
+
+    // eggs: {
+    //  'PandaCub': 0, // 0 indicates "doesn't own"
+    //  'Wolf': 5 // Number indicates "stacking"
+    // }
+    eggs: _.transform(shared.content.eggs, function(m,v,k){ m[k] = Number; }),
+
+    // hatchingPotions: {
+    //  'Desert': 0, // 0 indicates "doesn't own"
+    //  'CottonCandyBlue': 5 // Number indicates "stacking"
+    // }
+    hatchingPotions: _.transform(shared.content.hatchingPotions, function(m,v,k){ m[k] = Number; }),
+
+    // Food: {
+    //  'Watermelon': 0, // 0 indicates "doesn't own"
+    //  'RottenMeat': 5 // Number indicates "stacking"
+    // }
+    food: _.transform(shared.content.food, function(m,v,k){ m[k] = Number; }),
+
+    // mounts: {
+    //  'Wolf-Desert': true,
+    //  'PandaCub-Red': false,
+    //  etc...
+    // }
+    mounts: _.defaults(
+      // First transform to a 1D eggs/potions mapping
+      _.transform(shared.content.pets, function(m,v,k){ m[k] = Boolean; }),
+      // Then add additional pets (backer, contributor)
       {
-        // example: You've found a Wolf Egg! Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet
-        dialog: String,
-        // example: Wolf
-        name: String, 
-        // example: Find a hatching potion to pour on this egg, and one day it will hatch into a loyal pet.
-        notes: String,
-        // example: Wolf 
-        text: String, 
-        /* type: String, //Egg // this is forcing mongoose to return object as "[object Object]", but I don't think this is needed anyway? */
-        // example: 3
-        value: Number 
+        'LionCub-Ethereal': Boolean,
+        'BearCub-Polar': Boolean
       }
-    ],
-    hatchingPotions: Array, // ["Base", "Skeleton",...]
+    ),
+    currentMount: String,
+
+    // Quests: {
+    //  'boss_0': 0, // 0 indicates "doesn't own"
+    //  'collection_honey': 5 // Number indicates "stacking"
+    // }
+    quests: _.transform(shared.content.quests, function(m,v,k){ m[k] = Number; }),
+
     lastDrop: {
       date: {type: Date, 'default': Date.now},
       count: {type: Number, 'default': 0}
-    },
-    // ["BearCub-Base", "Cactus-Base", ...]
-
-    pets: Array
+    }
   },
-  // FIXME store as Date?
 
-  lastCron: {
-    type: Date,
-    'default': Date.now
-  },
-  // FIXME remove?
+  lastCron: {type: Date, 'default': Date.now},
 
   party: {
-    //party._id // FIXME make these populate docs?
-    current: String, // party._id
-    invitation: String, // party._id
+    // id // FIXME can we use a populated doc instead of fetching party separate from user?
     lastMessageSeen: String,
-    leader: Boolean
+    order: {type:String, 'default':'level'},
+    quest: {
+      key: String,
+      progress: {
+        up: {type: Number, 'default': 0},
+        down: {type: Number, 'default': 0},
+        collect: {type: Schema.Types.Mixed, 'default': {}} // {feather:1, ingot:2}
+      },
+      completed: String // When quest is done, we move it from key => completed, and it's a one-time flag (for modal) that they unset by clicking "ok" in browser
+    }
   },
   preferences: {
     armorSet: String,
     dayStart: {type:Number, 'default': 0},
-    gender: {type:String, 'default': 'm'},
-    hair: {type:String, 'default':'blond'},
+    size: {type:String, enum: ['broad','slim'], 'default': 'broad'},
+    hair: {
+      color: {type: String, 'default': 'blond'},
+      base: {type: Number, 'default': 0},
+      bangs: {type: Number, 'default': 0},
+      beard: {type: Number, 'default': 0},
+      mustache: {type: Number, 'default': 0},
+    },
     hideHeader: {type:Boolean, 'default':false},
-    showHelm: {type:Boolean, 'default':true},
-    skin: {type:String, 'default':'white'},
-    timezoneOffset: Number
+    skin: {type:String, 'default':'c06534'},
+    shirt: {type: String, 'default': 'white'},
+    timezoneOffset: Number,
+    language: String,
+    automaticAllocation: Boolean,
+    allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
+    costume: Boolean,
+    sleep: {type: Boolean, 'default': false},
+    stickyHeader: {type: Boolean, 'default': true},
+    disableClasses: {type: Boolean, 'default': false}
   },
   profile: {
     blurb: String,
     imageUrl: String,
     name: String,
-    websites: Array // styled like --> ["http://ocdevel.com" ]
   },
   stats: {
-    hp: Number,
-    exp: Number,
-    gp: Number,
-    lvl: Number
+    hp: {type: Number, 'default': 50},
+    mp: {type: Number, 'default': 10},
+    exp: {type: Number, 'default': 0},
+    gp: {type: Number, 'default': 0},
+    lvl: {type: Number, 'default': 1},
+
+    // Class System
+    'class': {type: String, enum: ['warrior','rogue','wizard','healer'], 'default': 'warrior'},
+    points: {type: Number, 'default': 0},
+    str: {type: Number, 'default': 0},
+    con: {type: Number, 'default': 0},
+    int: {type: Number, 'default': 0},
+    per: {type: Number, 'default': 0},
+    buffs: {
+      str: {type: Number, 'default': 0},
+      int: {type: Number, 'default': 0},
+      per: {type: Number, 'default': 0},
+      con: {type: Number, 'default': 0},
+      stealth: {type: Number, 'default': 0},
+      streaks: {type: Boolean, 'default': false},
+      snowball: {type: Boolean, 'default': false}
+    },
+    training: {
+      int: {type: Number, 'default': 0},
+      per: {type: Number, 'default': 0},
+      str: {type: Number, 'default': 0},
+      con: {type: Number, 'default': 0}
+    }
   },
   tags: [
     {
-      // FIXME use refs?
-      id: String,
-      name: String
+      _id: false,
+      id: { type: String, 'default': shared.uuid },
+      name: String,
+      challenge: String
     }
   ],
 
-  // ### Tasks Definition
-  // We can't define `tasks` until we move off Derby, since Derby requires dictionary of objects. When we're off, migrate
-  // to array of subdocs
+  challenges: [{type: 'String', ref:'Challenge'}],
 
-  tasks: Schema.Types.Mixed
-  /*
-  # history: {date, value}
-  # id
-  # notes
-  # tags { "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
-  # text
-  # type
-  # up
-  # down
-  # value
-  # completed
-  # priority: '!!'
-  # repeat {m: true, t: true}
-  # streak
-  */
+  habits:   [TaskSchemas.HabitSchema],
+  dailys:   [TaskSchemas.DailySchema],
+  todos:    [TaskSchemas.TodoSchema],
+  rewards:  [TaskSchemas.RewardSchema],
 
 }, {
-  strict: true
+  strict: true,
+  minimize: false // So empty objects are returned
 });
 
-// Legacy Derby Function?
-// ----------------------
-// Derby requires a strange storage format for somethign called "refLists". Here we hook into loading the data, so we
-// can provide a more "expected" storage format for our various helper methods. Since the attributes are passed by reference,
-// the underlying data will be modified too - so when we save back to the database, it saves it in the way Derby likes.
-// This will go away after the rewrite is complete
-
-function transformTaskLists(doc) {
-  _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
-    // we use _.transform instead of a simple _.where in order to maintain sort-order
-    doc[type + "s"] = _.reduce(doc[type + "Ids"], function(m, tid) {
-      if (!doc.tasks[tid]) return m; // FIXME tmp hotfix, people still have null tasks?
-      if (!doc.tasks[tid].tags) doc.tasks[tid].tags = {}; // FIXME remove this when we switch tasks to subdocs and can define tags default in schema
-      m.push(doc.tasks[tid]);
-      return m;
-    }, []);
-  });
+UserSchema.methods.deleteTask = function(tid) {
+  this.ops.deleteTask({params:{id:tid}},function(){}); // TODO remove this whole method, since it just proxies, and change all references to this method
 }
-
-UserSchema.post('init', function(doc) {
-  transformTaskLists(doc);
-});
 
 UserSchema.methods.toJSON = function() {
   var doc = this.toObject();
   doc.id = doc._id;
-  transformTaskLists(doc); // we need to also transform for our server-side routes
 
   // FIXME? Is this a reference to `doc.filters` or just disabled code? Remove?
-  /*
-  // Remove some unecessary data as far as client consumers are concerned
-  //_.each(['habit', 'daily', 'todo', 'reward'], function(type) {
-  //  delete doc["#{type}Ids"]
-  //});
-  //delete doc.tasks
-  */
   doc.filters = {};
   doc._tmp = this._tmp; // be sure to send down drop notifs
 
   return doc;
 };
 
- // FIXME - since we're using special @post('init') above, we need to flag when the original path was modified.
- // Custom setter/getter virtuals?
+//UserSchema.virtual('tasks').get(function () {
+//  var tasks = this.habits.concat(this.dailys).concat(this.todos).concat(this.rewards);
+//  var tasks = _.object(_.pluck(tasks,'id'), tasks);
+//  return tasks;
+//});
+
+UserSchema.post('init', function(doc){
+  shared.wrap(doc);
+})
 
 UserSchema.pre('save', function(next) {
-  this.markModified('tasks');
+
+  // Populate new users with default content
+  if (this.isNew){
+    //TODO for some reason this doesn't work here: `_.merge(this, shared.content.userDefaults);`
+    this.habits = shared.content.userDefaults.habits;
+    this.dailys = shared.content.userDefaults.dailys;
+    this.todos = shared.content.userDefaults.todos;
+    this.rewards = shared.content.userDefaults.rewards;
+    this.tags = shared.content.userDefaults.tags;
+    // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
+    _.each(this.tags, function(tag){tag.id = shared.uuid();})
+  }
+
+  //this.markModified('tasks');
+  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 24) {
+    this.preferences.dayStart = 0;
+  }
+
+  if (!this.profile.name) {
+    var fb = this.auth.facebook;
+    this.profile.name =
+      (this.auth.local && this.auth.local.username) ||
+      (fb && (fb.displayName || fb.name || fb.username || (fb.first_name && fb.first_name + ' ' + fb.last_name))) ||
+      'Anonymous';
+  }
+
+  var petCount = shared.countPets(_.reduce(this.items.pets,function(m,v){
+    //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
+    if(_.isFunction(v)) return m;
+    return m+(v?1:0)},0), this.items.pets);
+
+  this.achievements.beastMaster = petCount >= 90;
+
   //our own version incrementer
   this._v++;
   next();
 });
+
+UserSchema.methods.syncScoreToChallenge = function(task, delta){
+  if (!task.challenge || !task.challenge.id || task.challenge.broken) return;
+  if (task.type == 'reward') return; // we don't want to update the reward GP cost
+  var self = this;
+  Challenge.findById(task.challenge.id, function(err, chal){
+    if (err) throw err;
+    var t = chal.tasks[task.id];
+    if (!t) return chal.syncToUser(self); // this task was removed from the challenge, notify user
+    t.value += delta;
+    if (t.type == 'habit' || t.type == 'daily') {
+      t.history.push({value: t.value, date: +new Date});
+    }
+    chal.save();
+  });
+}
+
+UserSchema.methods.unlink = function(options, cb) {
+  var cid = options.cid, keep = options.keep, tid = options.tid;
+  var self = this;
+  switch (keep) {
+    case 'keep':
+      self.tasks[tid].challenge = {};
+      break;
+    case 'remove':
+      self.deleteTask(tid);
+      break;
+    case 'keep-all':
+      _.each(self.tasks, function(t){
+        if (t.challenge && t.challenge.id == cid) {
+          t.challenge = {};
+        }
+      });
+      break;
+    case 'remove-all':
+      _.each(self.tasks, function(t){
+        if (t.challenge && t.challenge.id == cid) {
+          self.deleteTask(t.id);
+        }
+      })
+      break;
+  }
+  self.markModified('habits');
+  self.markModified('dailys');
+  self.markModified('todos');
+  self.markModified('rewards');
+  self.save(cb);
+}
 
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);

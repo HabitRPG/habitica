@@ -7,15 +7,22 @@ module.exports = function(config) {
     basePath: '',
 
     // testing framework to use (jasmine/mocha/qunit/...)
-    frameworks: ['mocha'],
+    frameworks: ['mocha', 'chai', 'chai-as-promised', 'sinon-chai'],
 
     // list of files / patterns to load in the browser
     files: [
       'public/bower_components/angular/angular.js',
+      'public/bower_components/angular-loading-bar/build/loading-bar.min.js',
+      'public/bower_components/angular-resource/angular-resource.min.js',
       'public/bower_components/angular-mocks/angular-mocks.js',
+      'public/bower_components/marked/lib/marked.js',
+      'public/bower_components/js-emoji/emoji.js',
+      'public/bower_components/habitrpg-shared/dist/habitrpg-shared.js',
+      'public/bower_components/habitrpg-shared/script/userServices.js',
       'public/js/*.js',
       'public/js/**/*.js',
       'test/mock/**/*.js',
+      'test/spec/*.js',
       'test/spec/**/*.js'
     ],
 
@@ -31,7 +38,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // Start these browsers, currently available:
@@ -42,7 +49,7 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['Chrome'],
+    browsers: ['Firefox'],
 
 
     // Continuous Integration mode

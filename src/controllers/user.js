@@ -1,45 +1,25 @@
 /* @see ./routes.coffee for routing*/
 
-// fixme remove this junk, was coffeescript compiled (probably for IE8 compat)
-var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
+var url = require('url');
+var ipn = require('paypal-ipn');
 var _ = require('lodash');
 var nconf = require('nconf');
 var async = require('async');
-var algos = require('habitrpg-shared/script/algos');
-var helpers = require('habitrpg-shared/script/helpers');
-var items = require('habitrpg-shared/script/items');
+var shared = require('habitrpg-shared');
 var validator = require('validator');
 var check = validator.check;
 var sanitize = validator.sanitize;
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
+var Challenge = require('./../models/challenge').model;
+var acceptablePUTPaths;
 var api = module.exports;
 
-// FIXME put this in a proper location
-api.marketBuy = function(req, res, next){
-  var user = res.locals.user,
-    type = req.query.type,
-    item = req.body;
+// api.purchase // Shared.ops
 
-  if (!_.contains(['hatchingPotion', 'egg'], req.query.type))
-    return res.json(400, {err: "Type must be in 'hatchingPotion' or 'egg'"});
-  var item;
-  if (type == 'egg'){
-    if (!user.items && !user.items.eggs) user.items.eggs = [];
-    user.items.eggs.push(item);
-  } else {
-    if (!user.items && !user.items.hatchingPotions) user.items.hatchingPotions = [];
-    user.items.hatchingPotions.push(item.name);
-  }
-  user.markModified('items'); // I still don't get when this is necessary and when not..
-  user.balance -= (item.value/4);
-  user.save(function(err, saved){
-    if (err) return res.json(500, {err:err});
-    res.json(saved);
-  })
+api.getContent = function(req, res, next) {
+  res.json(shared.content);
 }
-
 
 /*
   ------------------------------------------------------------------------
@@ -53,96 +33,8 @@ api.marketBuy = function(req, res, next){
   ---------------
 */
 
-
-/*
-// FIXME put this in helpers, so mobile & web can us it too
-// FIXME actually, move to mongoose
-*/
-
-
-function taskSanitizeAndDefaults(task) {
-  var _ref;
-  if (task.id == null) {
-    task.id = helpers.uuid();
-  }
-  task.value = ~~task.value;
-  if (task.type == null) {
-    task.type = 'habit';
-  }
-  if (_.isString(task.text)) {
-    task.text = sanitize(task.text).xss();
-  }
-  if (_.isString(task.text)) {
-    task.notes = sanitize(task.notes).xss();
-  }
-  if (task.type === 'habit') {
-    if (!_.isBoolean(task.up)) {
-      task.up = true;
-    }
-    if (!_.isBoolean(task.down)) {
-      task.down = true;
-    }
-  }
-  if ((_ref = task.type) === 'daily' || _ref === 'todo') {
-    if (!_.isBoolean(task.completed)) {
-      task.completed = false;
-    }
-  }
-  if (task.type === 'daily') {
-    if (task.repeat == null) {
-      task.repeat = {
-        m: true,
-        t: true,
-        w: true,
-        th: true,
-        f: true,
-        s: true,
-        su: true
-      };
-    }
-  }
-  return task;
-};
-
-/*
-Validate task
-*/
-
-
-api.verifyTaskExists = function(req, res, next) {
-  /* If we're updating, get the task from the user*/
-
-  var task;
-  task = res.locals.user.tasks[req.params.id];
-  if (_.isEmpty(task)) {
-    return res.json(400, {
-      err: "No task found."
-    });
-  }
-  res.locals.task = task;
-  return next();
-};
-
-function addTask(user, task) {
-  taskSanitizeAndDefaults(task);
-  user.tasks[task.id] = task;
-  user["" + task.type + "Ids"].unshift(task.id);
-  return task;
-};
-
-/* Override current user.task with incoming values, then sanitize all values*/
-
-
-function updateTask(user, id, incomingTask) {
-  return user.tasks[id] = taskSanitizeAndDefaults(_.defaults(incomingTask, user.tasks[id]));
-};
-
-function deleteTask(user, task) {
-  var i, ids;
-  delete user.tasks[task.id];
-  if ((ids = user["" + task.type + "Ids"]) && ~(i = ids.indexOf(task.id))) {
-    return ids.splice(i, 1);
-  }
+findTask = function(req, res) {
+  return task = res.locals.user.tasks[req.params.id];
 };
 
 /*
@@ -150,260 +42,94 @@ function deleteTask(user, task) {
   ---------------
 */
 
-
 /**
   This is called form deprecated.coffee's score function, and the req.headers are setup properly to handle the login
   Export it also so we can call it from deprecated.coffee
 */
-api.scoreTask = function(req, res, next) {
-
-  // FIXME this is all uglified from coffeescript compile, clean this up
-
-  var delta, direction, existing, id, task, user, _ref, _ref1, _ref2, _ref3, _ref4;
-  _ref = req.params, id = _ref.id, direction = _ref.direction;
+api.score = function(req, res, next) {
+  var id = req.params.id,
+    direction = req.params.direction,
+    user = res.locals.user,
+    task;
 
   // Send error responses for improper API call
-  if (!id) {
-    return res.json(500, {
-      err: ':id required'
-    });
-  }
+  if (!id) return res.json(400, {err: ':id required'});
   if (direction !== 'up' && direction !== 'down') {
-    return res.json(500, {
-      err: ":direction must be 'up' or 'down'"
-    });
+    if (direction == 'unlink') return next();
+    return res.json(400, {err: ":direction must be 'up' or 'down'"});
   }
-  user = res.locals.user;
-  /* If exists already, score it*/
-
-  if ((existing = user.tasks[id])) {
-    /* Set completed if type is daily or todo and task exists*/
-
-    if ((_ref1 = existing.type) === 'daily' || _ref1 === 'todo') {
-      existing.completed = direction === 'up';
-    }
-  } else {
-    /* If it doesn't exist, this is likely a 3rd party up/down - create a new one, then score it*/
-
-    task = {
-      id: id,
-      value: 0,
-      type: ((_ref2 = req.body) != null ? _ref2.type : void 0) || 'habit',
-      text: ((_ref3 = req.body) != null ? _ref3.title : void 0) || id,
-      notes: "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
-    };
-    if (task.type === 'habit') {
-      task.up = task.down = true;
-    }
-    if ((_ref4 = task.type) === 'daily' || _ref4 === 'todo') {
+  // If exists already, score it
+  if (task = user.tasks[id]) {
+    // Set completed if type is daily or todo and task exists
+    if (task.type === 'daily' || task.type === 'todo') {
       task.completed = direction === 'up';
     }
-    addTask(user, task);
+  } else {
+    // If it doesn't exist, this is likely a 3rd party up/down - create a new one, then score it
+    // Defaults. Other defaults are handled in user.ops.addTask()
+    task = {
+      id: id,
+      type: req.body && req.body.type,
+      text: req.body && req.body.text,
+      notes: (req.body && req.body.notes) || "This task was created by a third-party service. Feel free to edit, it won't harm the connection to that service. Additionally, multiple services may piggy-back off this task."
+    };
+    task = user.ops.addTask({body:task});
+    if (task.type === 'daily' || task.type === 'todo')
+      task.completed = direction === 'up';
   }
-  task = user.tasks[id];
-  delta = algos.score(user, task, direction);
-  //user.markModified('flags'); 
-  user.save(function(err, saved) {
+  var delta = user.ops.score({params:{id:task.id, direction:direction}});
+
+  user.save(function(err,saved){
     if (err) return res.json(500, {err: err});
+    // TODO this should be return {_v,task,stats,_tmp}, instead of merging everything togther at top-level response
+    // However, this is the most commonly used API route, and changing it will mess with all 3rd party consumers. Bad idea :(
     res.json(200, _.extend({
-      delta: delta
+      delta: delta,
+      _tmp: user._tmp
     }, saved.toJSON().stats));
   });
+
+  // if it's a challenge task, sync the score
+  user.syncScoreToChallenge(task, delta);
 };
 
-/*
-  Get all tasks
-*/
-
-
+/**
+ * Get all tasks
+ */
 api.getTasks = function(req, res, next) {
-  var tasks, types, _ref;
-  types = (_ref = req.query.type) === 'habit' || _ref === 'todo' || _ref === 'daily' || _ref === 'reward' ? [req.query.type] : ['habit', 'todo', 'daily', 'reward'];
-  tasks = _.toArray(_.filter(res.locals.user.tasks, function(t) {
-    var _ref1;
-    return _ref1 = t.type, __indexOf.call(types, _ref1) >= 0;
-  }));
-  return res.json(200, tasks);
+  var user = res.locals.user;
+  if (req.query.type) {
+    return res.json(user[req.query.type+'s']);
+  } else {
+    return res.json(_.toArray(user.tasks));
+  }
 };
 
-/*
-  Get Task
-*/
-
-
+/**
+ * Get Task
+ */
 api.getTask = function(req, res, next) {
-  var task;
-  task = res.locals.user.tasks[req.params.id];
-  if (_.isEmpty(task)) {
-    return res.json(400, {
-      err: "No task found."
-    });
-  }
+  var task = findTask(req,res);
+  if (!task) return res.json(404, {err: "No task found."});
   return res.json(200, task);
 };
 
-/*
-  Delete Task
-*/
-
-
-api.deleteTask = function(req, res, next) {
-  deleteTask(res.locals.user, res.locals.task);
-  res.locals.user.save(function(err) {
-    if (err) return res.json(500, {err: err});
-    res.send(204);
-  });
-};
 
 /*
   Update Task
 */
 
-
-api.updateTask = function(req, res, next) {
-  var id, user;
-  user = res.locals.user;
-  id = req.params.id;
-  updateTask(user, id, req.body);
-  return user.save(function(err, saved) {
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    return res.json(200, _.findWhere(saved.toJSON().tasks, {
-      id: id
-    }));
-  });
-};
-
-/*
-  Update tasks (plural). This will update, add new, delete, etc all at once.
-  Should we keep this?
-*/
-
-
-api.updateTasks = function(req, res, next) {
-  var tasks, user;
-  user = res.locals.user;
-  tasks = req.body;
-  _.each(tasks, function(task, idx) {
-    if (task.id) {
-      /*delete*/
-
-      if (task.del) {
-        deleteTask(user, task);
-        task = {
-          deleted: true
-        };
-      } else {
-        /* Update*/
-
-        updateTask(user, task.id, task);
-      }
-    } else {
-      /* Create*/
-
-      task = addTask(user, task);
-    }
-    return tasks[idx] = task;
-  });
-  return user.save(function(err, saved) {
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    return res.json(201, tasks);
-  });
-};
-
-api.createTask = function(req, res, next) {
-  var task, user;
-  user = res.locals.user;
-  task = addTask(user, req.body);
-  return user.save(function(err) {
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    return res.json(201, task);
-  });
-};
-
-api.sortTask = function(req, res, next) {
-  var from, id, path, to, type, user, _ref;
-  id = req.params.id;
-  _ref = req.body, to = _ref.to, from = _ref.from, type = _ref.type;
-  user = res.locals.user;
-  path = "" + type + "Ids";
-  user[path].splice(to, 0, user[path].splice(from, 1)[0]);
-  return user.save(function(err, saved) {
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    return res.json(200, saved.toJSON()[path]);
-  });
-};
-
-api.clearCompleted = function(req, res, next) {
-  var completedIds, todoIds, user;
-  user = res.locals.user;
-  completedIds = _.pluck(_.where(user.tasks, {
-    type: 'todo',
-    completed: true
-  }), 'id');
-  todoIds = user.todoIds;
-  _.each(completedIds, function(id) {
-    delete user.tasks[id];
-    return true;
-  });
-  user.todoIds = _.difference(todoIds, completedIds);
-  return user.save(function(err, saved) {
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    return res.json(saved);
-  });
-};
+//api.deleteTask // see Shared.ops
+// api.updateTask // handled in Shared.ops
+// api.addTask // handled in Shared.ops
+// api.sortTask // handled in Shared.ops #TODO updated api, mention in docs
 
 /*
   ------------------------------------------------------------------------
   Items
   ------------------------------------------------------------------------
 */
-
-
-api.buy = function(req, res, next) {
-  var hasEnough, type, user;
-  user = res.locals.user;
-  type = req.params.type;
-  if (type !== 'weapon' && type !== 'armor' && type !== 'head' && type !== 'shield' && type !== 'potion') {
-    return res.json(400, {
-      err: ":type must be in one of: 'weapon', 'armor', 'head', 'shield', 'potion'"
-    });
-  }
-  hasEnough = items.buyItem(user, type);
-  if (hasEnough) {
-    return user.save(function(err, saved) {
-      if (err) {
-        return res.json(500, {
-          err: err
-        });
-      }
-      return res.json(200, saved.toJSON().items);
-    });
-  } else {
-    return res.json(200, {
-      err: "Not enough GP"
-    });
-  }
-};
+// api.buy // handled in Shard.ops
 
 /*
   ------------------------------------------------------------------------
@@ -411,15 +137,14 @@ api.buy = function(req, res, next) {
   ------------------------------------------------------------------------
 */
 
-/*
-  Get User
-*/
-
-
+/**
+ * Get User
+ */
 api.getUser = function(req, res, next) {
   var user = res.locals.user.toJSON();
-  user.stats.toNextLevel = algos.tnl(user.stats.lvl);
+  user.stats.toNextLevel = shared.tnl(user.stats.lvl);
   user.stats.maxHealth = 50;
+  user.stats.maxMP = res.locals.user._statsComputed.maxMP;
   delete user.apiToken;
   if (user.auth) {
     delete user.auth.hashed_password;
@@ -428,132 +153,79 @@ api.getUser = function(req, res, next) {
   return res.json(200, user);
 };
 
-/*
-  Update user
-  FIXME add documentation here
+
+/**
+ * This tells us for which paths users can call `PUT /user` (or batch-update equiv, which use `User.set()` on our client).
+ * The trick here is to only accept leaf paths, not root/intermediate paths (see http://goo.gl/OEzkAs)
+ * FIXME - one-by-one we want to widdle down this list, instead replacing each needed set path with API operations
+ */
+acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function(m,v,leaf){
+  var found= _.find('achievements filters flags invitations lastCron party preferences profile stats'.split(' '), function(root){
+    return leaf.indexOf(root) == 0;
+  });
+  if (found) m[leaf]=true;
+  return m;
+}, {})
+
+/**
+ * Update user
+ * Send up PUT /user as `req.body={path1:val, path2:val, etc}`. Example:
+ * PUT /user {'stats.hp':50, 'tasks.TASK_ID.repeat.m':false}
+ * See acceptablePUTPaths for which user paths are supported
 */
+api.update = function(req, res, next) {
+  var user = res.locals.user;
+  var errors = [];
+  if (_.isEmpty(req.body)) return res.json(200, user);
 
-
-api.updateUser = function(req, res, next) {
-  var acceptableAttrs, errors, user;
-  user = res.locals.user;
-  errors = [];
-  if (_.isEmpty(req.body)) {
-    return res.json(200, user);
-  }
-  /*
-  # FIXME we need to do some crazy sanitiazation if they're using the old `PUT /user {data}` method.
-  # The new `PUT /user {'stats.hp':50}
-
-  # FIXME - one-by-one we want to widdle down this list, instead replacing each needed set path with API operations
-  # There's a trick here. In order to prevent prevent clobering top-level paths, we add `.` to make sure they're
-  # sending bodies as {"set.this.path":value} instead of {set:{this:{path:value}}}. Permit lastCron since it's top-level
-  # Note: custom is for 3rd party apps
-  */
-
-  acceptableAttrs = 'tasks. achievements. filters. flags. invitations. items. lastCron party. preferences. profile. stats. tags custom.'.split(' ');
   _.each(req.body, function(v, k) {
-    if ((_.find(acceptableAttrs, function(attr) {
-      return k.indexOf(attr) === 0;
-    })) != null) {
-      if (_.isObject(v)) {
-        errors.push("Value for " + k + " was an object. Be careful here, you could clobber stuff.");
-      }
-      helpers.dotSet(k, v, user);
-    } else {
-      errors.push("path `" + k + "` was not saved, as it's a protected path. Make sure to send `PUT /api/v1/user` request bodies as `{'set.this.path':value}` instead of `{set:{this:{path:value}}}`");
-    }
+    if (acceptablePUTPaths[k])
+      user.fns.dotSet(k, v);
+    else
+      errors.push("path `" + k + "` was not saved, as it's a protected path. See https://github.com/HabitRPG/habitrpg/blob/develop/API.md for PUT /api/v2/user.");
     return true;
   });
-  return user.save(function(err) {
-    if (!_.isEmpty(errors)) {
-      return res.json(500, {
-        err: errors
-      });
-    }
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    return res.json(200, user);
+  user.save(function(err) {
+    if (!_.isEmpty(errors)) return res.json(500, {err: errors});
+    if (err) {return res.json(500, {err: err})}
+    res.json(200, user);
   });
 };
 
 api.cron = function(req, res, next) {
-  var user;
-  user = res.locals.user;
-  algos.cron(user);
-  if (user.isModified()) {
-    res.locals.wasModified = true;
-    user.auth.timestamps.loggedin = new Date();
-  }
-  user.save(next);
+  var user = res.locals.user,
+    progress = user.fns.cron(),
+    ranCron = user.isModified(),
+    quest = shared.content.quests[user.party.quest.key];
+
+  if (ranCron) res.locals.wasModified = true;
+  if (!ranCron) return next(null,user);
+  if (!quest) return user.save(next);
+
+  // If user is on a quest, roll for boss & player, or handle collections
+  // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
+  async.waterfall([
+    function(cb){
+      user.save(cb); // make sure to save the cron effects
+    },
+    function(saved, count, cb){
+      var type = quest.boss ? 'boss' : 'collect';
+      Group[type+'Quest'](user,progress,cb);
+    },
+    function(){
+      var cb = arguments[arguments.length-1];
+      // User has been updated in boss-grapple, reload
+      User.findById(user._id, cb);
+    }
+  ], function(err, saved) {
+    user = res.locals.user = saved;
+    next(err,saved);
+  });
+
 };
 
-api.revive = function(req, res, next) {
-  var user;
-  user = res.locals.user;
-  algos.revive(user);
-  return user.save(function(err, saved) {
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    return res.json(200, saved);
-  });
-};
-
-api.reroll = function(req, res, next) {
-  var user;
-  user = res.locals.user;
-  if (user.balance < 1) {
-    return res.json(401, {
-      err: "Not enough tokens."
-    });
-  }
-  user.balance -= 1;
-  _.each(user.tasks, function(task) {
-    if (task.type !== 'reward') {
-      user.tasks[task.id].value = 0;
-    }
-    return true;
-  });
-  user.stats.hp = 50;
-  return user.save(function(err, saved) {
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    return res.json(200, saved);
-  });
-};
-
-api.reset = function(req, res){
-  var user = res.locals.user;
-  user.tasks = {};
-
-  _.each(['habit', 'daily', 'todo', 'reward'], function(type) {
-    user[type + "Ids"] = [];
-  });
-
-  user.stats.hp = 50;
-  user.stats.lvl = 1;
-  user.stats.gp = 0;
-  user.stats.exp = 0;
-
-  user.items.armor = 0;
-  user.items.weapon = 0;
-  user.items.head = 0;
-  user.items.shield = 0;
-
-  user.save(function(err, saved){
-    if (err) return res.json(500,{err:err});
-    res.json(saved);
-  })
-}
+// api.reroll // Shared.ops
+// api.reset // Shared.ops
 
 api['delete'] = function(req, res) {
   res.locals.user.remove(function(err){
@@ -562,6 +234,28 @@ api['delete'] = function(req, res) {
   })
 }
 
+/*
+ ------------------------------------------------------------------------
+ Unlock Preferences
+ ------------------------------------------------------------------------
+ */
+
+// api.unlock // see Shared.ops
+
+/*
+ ------------------------------------------------------------------------
+ Buy Gems
+ ------------------------------------------------------------------------
+ */
+
+api.addTenGems = function(req, res) {
+  var user = res.locals.user;
+  user.balance += 2.5;
+  user.save(function(err){
+    if (err) return res.json(500,{err:err});
+    res.send(204);
+  })
+}
 
 /*
  Setup Stripe response when posting payment
@@ -582,7 +276,7 @@ api.buyGems = function(req, res) {
     },
     function(response, cb) {
       res.locals.user.balance += 5;
-      res.locals.user.flags.ads = 'hide';
+      res.locals.user.purchased.ads = true;
       res.locals.user.save(cb);
     }
   ], function(err, saved){
@@ -591,29 +285,132 @@ api.buyGems = function(req, res) {
   });
 };
 
+api.buyGemsPaypalIPN = function(req, res, next) {
+  res.send(200);
+  ipn.verify(req.body, function callback(err, msg) {
+    if (err) return next('PayPal Error: ' + msg);
+    if (req.body.payment_status == 'Completed') {
+      //Payment has been confirmed as completed
+      var parts = url.parse(req.body.custom, true);
+      var uid = parts.query.uid; //, apiToken = query.apiToken;
+      if (!uid) return next("uuid or apiToken not found when completing paypal transaction");
+      User.findById(uid, function(err, user) {
+        if (_.isEmpty(user)) err = "user not found with uuid " + uuid + " when completing paypal transaction";
+        if (err) return nex(err);
+        user.balance += 5;
+        user.purchased.ads = true;
+        user.save();
+        console.log('PayPal transaction completed and user updated');
+      });
+    }
+  });
+}
+
 /*
  ------------------------------------------------------------------------
  Tags
  ------------------------------------------------------------------------
  */
-api.deleteTag = function(req, res){
+// api.deleteTag // handled in Shared.ops
+// api.addTag // handled in Shared.ops
+// api.updateTag // handled in Shared.ops
+
+/*
+ ------------------------------------------------------------------------
+ Spells
+ ------------------------------------------------------------------------
+ */
+api.cast = function(req, res) {
   var user = res.locals.user;
-  var i = _.findIndex(user.tags, {id:req.params.tid});
-  if (~i) {
-    var tag = user.tags[i];
-    delete user.filters[tag.id];
-    user.tags.splice(i,1);
-    // remove tag from all tasks
-    _.each(user.tasks, function(task) {
-      delete user.tasks[task.id].tags[tag.id];
-    });
-    user.save(function(err,saved){
-      res.send(200);
-    })
-  } else {
-    res.json(400, {err:'Tag not found'});
+  var type, target;
+  if (req.body.type) { // this is the method implemented in the app, it's not correct
+    type = req.body.type;
+    target = req.body.target;
+  } else if (req.query.targetType) { // this is the supported API method
+    type = req.query.targetType;
+    target = req.query.targetId;
+  }
+  var klass = shared.content.spells.special[req.params.spell] ? 'special' : user.stats.class
+  var spell = shared.content.spells[klass][req.params.spell];
+
+  var done = function(){
+    var err = arguments[0];
+    var saved = _.size(arguments == 3) ? arguments[2] : arguments[1];
+    if (err) return res.json(500, {err:err});
+    res.json(saved);
+  }
+
+  switch (type) {
+    case 'task':
+      spell.cast(user, user.tasks[target.id]);
+      user.save(done);
+      break;
+
+    case 'self':
+      spell.cast(user);
+      user.save(done);
+      break;
+
+    case 'party':
+    case 'user':
+      async.waterfall([
+        function(cb){
+          Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members').exec(cb);
+        },
+        function(group, cb) {
+          // Solo player? let's just create a faux group for simpler code
+          var g = group ? group : {members:[user]};
+          var series = [], found;
+          if (type == 'party') {
+            spell.cast(user, g.members);
+            series = _.transform(g.members, function(m,v,k){
+              m.push(function(cb2){v.save(cb2)});
+            });
+          } else {
+            found = _.find(g.members, {_id: target._id})
+            spell.cast(user, found);
+            series.push(function(cb2){found.save(cb2)});
+          }
+
+          if (group) {
+            series.push(function(cb2){
+              var message = '`'+user.profile.name+' casts '+spell.text + (type=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
+              group.sendChat(message);
+              group.save(cb2);
+            })
+          }
+
+          async.series(series, cb);
+        },
+        function(whatever, cb){
+          user.save(cb);
+        }
+      ], done);
+      break;
   }
 }
+
+/**
+ * All other user.ops which can easily be mapped to habitrpg-shared/index.coffee, not requiring custom API-wrapping
+ */
+_.each(shared.wrap({}).ops, function(op,k){
+  if (!api[k]) {
+    api[k] = function(req, res, next) {
+      res.locals.user.ops[k](req,function(err, response){
+        // If we want to send something other than 500, pass err as {code: 200, message: "Not enough GP"}
+        if (err) {
+          if (!err.code) return res.json(500,{err:err});
+          if (err.code >= 400) return res.json(err.code,{err:err.message});
+          // In the case of 200s, they're friendly alert messages like "You're pet has hatched!" - still send the op
+        }
+        res.locals.user.save(function(err){
+          if (err) return res.json(500,{err:err});
+          res.json(200,response);
+        })
+      })
+    }
+  }
+})
 
 /*
   ------------------------------------------------------------------------
@@ -621,103 +418,47 @@ api.deleteTag = function(req, res){
   Run a bunch of updates all at once
   ------------------------------------------------------------------------
 */
-
-
 api.batchUpdate = function(req, res, next) {
-  var actions, oldJson, oldSend, performAction, user, _ref;
-  user = res.locals.user;
-  oldSend = res.send;
-  oldJson = res.json;
-  performAction = function(action, cb) {
-    /*
-    # TODO come up with a more consistent approach here. like:
-    # req.body=action.data; delete action.data; _.defaults(req.params, action)
-    # Would require changing action.dir on mobile app
-    */
+  if (_.isEmpty(req.body)) req.body = []; // cases of {} or null
+  if (req.body[0] && req.body[0].data)
+    return res.json(400, {err: "API has been updated, please refresh your browser or upgrade your mobile app."})
 
-    var _ref;
-    req.params.id = (_ref = action.data) != null ? _ref.id : void 0;
-    req.params.direction = action.dir;
-    req.params.type = action.type;
-    req.body = action.data;
+  var user = res.locals.user;
+  var oldSend = res.send;
+  var oldJson = res.json;
+
+  var callOp = function(_req, cb) {
     res.send = res.json = function(code, data) {
-      if (_.isNumber(code) && code >= 400) {
-        console.error({
-          code: code,
-          data: data
-        });
-      }
+      if (_.isNumber(code) && code >= 400)
+        console.error({code: code, data: data});
       //FIXME send error messages down
       return cb();
     };
-    switch (action.op) {
-      case "score":
-        api.scoreTask(req, res);
-        break;
-      case "buy":
-        api.buy(req, res);
-        break;
-      case "sortTask":
-        api.verifyTaskExists(req, res, function() {
-          api.sortTask(req, res);
-        });
-        break;
-      case "addTask":
-        api.createTask(req, res);
-        break;
-      case "delTask":
-        api.verifyTaskExists(req, res, function() {
-          api.deleteTask(req, res);
-        });
-        break;
-      case "set":
-        api.updateUser(req, res);
-        break;
-      case "revive":
-        api.revive(req, res);
-        break;
-      case "clear-completed":
-        api.clearCompleted(req, res);
-        break;
-      case "reroll":
-        api.reroll(req, res);
-        break;
-      default:
-        cb();
-        break;
-    }
+    api[_req.op](_req, res);
   };
-  /* Setup the array of functions we're going to call in parallel with async*/
 
-  actions = _.transform((_ref = req.body) != null ? _ref : [], function(result, action) {
-    if (!_.isEmpty(action)) {
-      return result.push(function(cb) {
-        return performAction(action, cb);
+  // Setup the array of functions we're going to call in parallel with async
+  var ops = _.transform(req.body, function(result, _req) {
+    if (!_.isEmpty(_req)) {
+      result.push(function(cb) {
+        callOp(_req, cb);
       });
     }
   });
-  /* call all the operations, then return the user object to the requester*/
 
-  return async.series(actions, function(err) {
-    var response;
+  // call all the operations, then return the user object to the requester
+  async.series(ops, function(err) {
     res.json = oldJson;
     res.send = oldSend;
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    response = user.toJSON();
+    if (err) return res.json(500, {err: err});
+    var response = user.toJSON();
     response.wasModified = res.locals.wasModified;
-    if (response._tmp && response._tmp.drop) response.wasModified = true;
-
-    // Send the response to the server
-    if(response.wasModified){
+    if (response._tmp && response._tmp.drop){
+      res.json(200, {_tmp: {drop: response._tmp.drop}, _v: response._v});
+    }else if(response.wasModified){
       res.json(200, response);
     }else{
       res.json(200, {_v: response._v});
     }
-
-    return console.log("Reply sent");
   });
 };

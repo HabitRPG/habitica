@@ -1,1 +1,1 @@
-db.users.update({},{$set:{'flags.newStuff':'show'}},{multi:true})
+db.users.update({},{$set:{'flags.newStuff':true}},{multi:true})

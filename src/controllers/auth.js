@@ -3,7 +3,7 @@ var validator = require('validator');
 var check = validator.check;
 var sanitize = validator.sanitize;
 var passport = require('passport');
-var helpers = require('habitrpg-shared/script/helpers');
+var shared = require('habitrpg-shared');
 var async = require('async');
 var utils = require('../utils');
 var nconf = require('nconf');
@@ -13,30 +13,19 @@ var api = module.exports;
 
 var NO_TOKEN_OR_UID = { err: "You must include a token and uid (user id) in your request"};
 var NO_USER_FOUND = {err: "No user found."};
+var NO_SESSION_FOUND = { err: "You must be logged in." };
 
 /*
  beforeEach auth interceptor
  */
 
 api.auth = function(req, res, next) {
-  var token, uid;
-  uid = req.headers['x-api-user'];
-  token = req.headers['x-api-key'];
-  if (!(uid && token)) {
-    return res.json(401, NO_TOKEN_OR_UID);
-  }
-  return User.findOne({
-    _id: uid,
-    apiToken: token
-  }, function(err, user) {
-    if (err) {
-      return res.json(500, {
-        err: err
-      });
-    }
-    if (_.isEmpty(user)) {
-      return res.json(401, NO_USER_FOUND);
-    }
+  var uid = req.headers['x-api-user'];
+  var token = req.headers['x-api-key'];
+  if (!(uid && token)) return res.json(401, NO_TOKEN_OR_UID);
+  User.findOne({_id: uid,apiToken: token}, function(err, user) {
+    if (err) return res.json(500, {err: err});
+    if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
 
     res.locals.wasModified = req.query._v ? +user._v !== +req.query._v : true;
     res.locals.user = user;
@@ -45,6 +34,17 @@ api.auth = function(req, res, next) {
   });
 };
 
+api.authWithSession = function(req, res, next) { //[todo] there is probably a more elegant way of doing this...
+  var uid = req.session.userId;
+  if (!(req.session && req.session.userId))
+    return res.json(401, NO_SESSION_FOUND);
+  User.findOne({_id: uid}, function(err, user) {
+    if (err) return res.json(500, {err: err});
+    if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
+    res.locals.user = user;
+    next();
+  });
+};
 
 api.registerUser = function(req, res, next) {
   var confirmPassword, e, email, password, username, _ref;
@@ -74,17 +74,18 @@ api.registerUser = function(req, res, next) {
       if (found) {
         return cb("Username already taken");
       }
-      newUser = helpers.newUser(true);
       salt = utils.makeSalt();
-      newUser.auth = {
-        local: {
-          username: username,
-          email: email,
-          salt: salt
-        },
-        timestamps: {created: +new Date(), loggedIn: +new Date()}
+      var newUser = {
+        auth: {
+          local: {
+            username: username,
+            email: email,
+            salt: salt,
+            hashed_password: utils.encryptPassword(password, salt)
+          },
+          timestamps: {created: +new Date(), loggedIn: +new Date()}
+        }
       };
-      newUser.auth.local.hashed_password = utils.encryptPassword(password, salt);
       user = new User(newUser);
       user.save(cb);
     }
@@ -172,7 +173,7 @@ api.resetPassword = function(req, res, next){
       to: email,
       subject: "Password Reset for HabitRPG",
       text: "Password for " + user.auth.local.username + " has been reset to " + newPassword + ". Log in at " + nconf.get('BASE_URL'),
-      html: "Password for <strong>" + user.auth.local.username + "</strong> has been reset to <strong>" + newPassword + "</strong>. Log in at" + nconf.get('BASE_URL')
+      html: "Password for <strong>" + user.auth.local.username + "</strong> has been reset to <strong>" + newPassword + "</strong>. Log in at " + nconf.get('BASE_URL')
     });
     user.save();
     return res.send('New password sent to '+ email);
@@ -242,12 +243,12 @@ api.setupPassport = function(router) {
         },
         function(user, cb){
           if (user) return cb(null, user);
-          var newUser = helpers.newUser(true);
-          newUser.auth = {
-            facebook: req.user,
-            timestamps: {created: +new Date(), loggedIn: +new Date()}
-          };
-          user = new User(newUser);
+          user = new User({
+            auth: {
+              facebook: req.user,
+              timestamps: {created: +new Date(), loggedIn: +new Date()}
+            }
+          });
           user.save(cb);
 
 

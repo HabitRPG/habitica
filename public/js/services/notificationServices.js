@@ -2,15 +2,15 @@
  Set up "+1 Exp", "Level Up", etc notifications
  */
 angular.module("notificationServices", [])
-  .factory("Notification", ['User', function(User) {
+  .factory("Notification", [function() {
     function growl(html, type) {
       $.bootstrapGrowl(html, {
         ele: '#notification-area',
-        type: type, //(null, 'info', 'error', 'success', 'gp', 'xp', 'hp', 'lvl','death')
+        type: type, //(null, 'text', 'error', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp')
         top_offset: 20,
         align: 'right', //('left', 'right', or 'center')
         width: 250, //(integer, or 'auto')
-        delay: 3000,
+        delay: 7000,
         allow_dismiss: true,
         stackup_spacing: 10 // spacing between consecutive stacecked growls.
       });
@@ -45,16 +45,13 @@ angular.module("notificationServices", [])
       coins: coins,
       hp: function(val) {
         // don't show notifications if user dead
-        if (User.user.stats.lvl == 0) return;
         growl("<i class='icon-heart'></i> " + sign(val) + " " + round(val) + " HP", 'hp');
       },
       exp: function(val) {
-        if (User.user.stats.lvl == 0) return;
         if (val < -50) return; // don't show when they level up (resetting their exp)
         growl("<i class='icon-star'></i> " + sign(val) + " " + round(val) + " XP", 'xp');
       },
       gp: function(val) {
-        if (User.user.stats.lvl == 0) return;
         growl(sign(val) + " " + coins(val), 'gp');
       },
       text: function(val){
@@ -65,6 +62,12 @@ angular.module("notificationServices", [])
       },
       death: function(){
         growl("<i class='icon-death'></i> Respawn!", "death");
+      },
+      error: function(error){
+        growl("<i class='icon-exclamation-sign'></i> " + error, "error");
+      },
+      mp: function(val) {
+        growl("<i class='icon-fire'></i> " + sign(val) + " " + round(val) + " MP", 'mp');
       }
     };
   }

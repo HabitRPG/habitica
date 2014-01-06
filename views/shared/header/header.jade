@@ -1,5 +1,4 @@
-// @TODO ui:connectionAlert
-.header-wrap
+.header-wrap(ng-controller='HeaderCtrl')
   a.label.undo-button(x-bind='click:undo', ng-show='_undo') Undo
   div(ng-if='!user.preferences.hideHeader')
     include menu
@@ -12,23 +11,29 @@
     // stat bars
     .hero-stats
       .meter.health(title='Health')
-        .bar(style='width: {{percent(user.stats.hp, 50)}}%;')
+        .bar(style='width: {{Shared.percent(user.stats.hp, 50)}}%;')
         span.meter-text
           i.icon-heart
-          | {{user.stats.hp | number:0}} / 50
+          | {{Math.ceil(user.stats.hp)}} / 50
       .meter.experience(title='Experience')
-        .bar(style='width: {{percent(user.stats.exp,tnl(user.stats.lvl))}}%;')
+        .bar(style='width: {{Shared.percent(user.stats.exp,Shared.tnl(user.stats.lvl))}}%;')
         span.meter-text
           i.icon-star
-          | {{user.stats.exp | number:0}} / {{tnl(user.stats.lvl)}}
+          | {{Math.floor(user.stats.exp)}} / {{Shared.tnl(user.stats.lvl) | number:0}}
           // FIXME doesn't look great here, but the "Experience" CSS title rollover covers it where it was before
           span(ng-show='user.history.exp')
-            a(x-bind='click:toggleChart', ng-click='notPorted()', data-id='exp', tooltip='Progress')
+            a(ng-click='toggleChart("exp")', tooltip='Progress')
               i.icon-signal
+      .meter.mana(title='Mana', ng-if='user.flags.classSelected && !user.preferences.disableClasses')
+        .bar(style='width: {{user.stats.mp / user._statsComputed.maxMP * 100}}%;')
+        span.meter-text
+          i.icon-fire
+          | {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
+
     // party
     span(ng-controller='PartyCtrl')
-      .herobox-wrap(ng-repeat='profile in groups.party.members')
+      .herobox-wrap(ng-repeat='profile in partyMinusSelf')
         include avatar
 
-    .NPC-Bailey-Head(ng-show='user.flags.newStuff', tooltip='Psst', tooltip-placement='top', ng-click='modals.newStuff=true')
+    .npc_bailey.npc_bailey_head(ng-show='user.flags.newStuff', tooltip='Psst', tooltip-placement='top', ng-click='modals.newStuff=true')
 
