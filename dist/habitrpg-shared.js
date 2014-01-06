@@ -63,7 +63,7 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
+var global=self;/**
  * @license
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -9787,10 +9787,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           text: "Absurd Party Hat",
           notes: "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!",
           value: 0,
-          canOwn: (function(u) {
-            var _ref;
-            return moment((_ref = u.auth.timestamps) != null ? _ref.created : void 0).isBefore(new Date('01/2/2014'));
-          })
+          canOwn: (function() {
+            return false;
+          }),
+          unbreakable: true
         }
       }
     },
@@ -10899,6 +10899,12 @@ var process=require("__browserify_process");(function() {
     });
   };
 
+  api.countExists = function(items) {
+    return _.reduce(items, (function(m, v) {
+      return m + (v ? 1 : 0);
+    }), 0);
+  };
+
   /*
   Even though Mongoose handles task defaults, we want to make sure defaults are set on the client-side before
   sending up to the server for performance
@@ -11223,12 +11229,12 @@ var process=require("__browserify_process");(function() {
         if (lostStat) {
           user.stats[lostStat]--;
         }
-        lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, (function(m, v, k) {
-          if (v) {
-            m["" + k] = "" + k;
+        lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, function(m, v, k) {
+          if (v && !content.gear.flat['' + k].unbreakable) {
+            m['' + k] = '' + k;
           }
           return m;
-        }), {}));
+        }, {}));
         if (item = content.gear.flat[lostItem]) {
           user.items.gear.owned[lostItem] = false;
           if (user.items.gear.equipped[item.type] === lostItem) {

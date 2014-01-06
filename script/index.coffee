@@ -162,6 +162,8 @@ api.uuid = ->
     v = (if c is "x" then r else (r & 0x3 | 0x8))
     v.toString 16
 
+api.countExists = (items)-> _.reduce(items,((m,v)->m+(if v then 1 else 0)),0)
+
 ###
 Even though Mongoose handles task defaults, we want to make sure defaults are set on the client-side before
 sending up to the server for performance
@@ -367,8 +369,11 @@ api.wrap = (user) ->
 
       # Lose a gear piece
       # Note, they can actually lose item weapon_*_0 - it's 0 to buy back, no big deal
-      # Note the `""+` string-casting. Without this, when run on the server Mongoose returns funny objects
-      lostItem = user.fns.randomVal _.reduce(user.items.gear.owned, ((m,v,k)->m[""+k]=""+k if v;m), {})
+      lostItem = user.fns.randomVal _.reduce user.items.gear.owned, (m,v,k)->
+        # Note ""+k string-casting. Without this, when run on the server Mongoose returns funny objects
+        (m[''+k]=''+k if v and !content.gear.flat[''+k].unbreakable);m
+      , {}
+
       if item = content.gear.flat[lostItem]
         user.items.gear.owned[lostItem] = false
         user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem

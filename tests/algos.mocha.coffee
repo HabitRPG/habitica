@@ -137,15 +137,33 @@ describe 'User', ->
     user.items.gear.equipped.weapon = 'weapon_wizard_1'
     expect(user._statsComputed.maxMP).to.eql 63
 
-  it 'revives correctly', ->
-    user = newUser()
-    user.stats = { gp: 10, exp: 100, lvl: 2, hp: 1 }
-    user.ops.revive()
-    expect(user.stats.gp).to.eql 0
-    expect(user.stats.exp).to.eql 0
-    expect(user.stats.lvl).to.eql 1
-    expect(user.stats.hp).to.eql 50
-    expect(user.items.gear.owned).to.eql { weapon_warrior_0: false }
+  describe 'Death', ->
+    it 'revives correctly', ->
+      user = newUser()
+      user.stats = { gp: 10, exp: 100, lvl: 2, hp: 1 }
+      user.ops.revive()
+      expect(user.stats.gp).to.eql 0
+      expect(user.stats.exp).to.eql 0
+      expect(user.stats.lvl).to.eql 1
+      expect(user.stats.hp).to.eql 50
+      expect(user.items.gear.owned).to.eql { weapon_warrior_0: false }
+
+    it "doesn't break unbreakables", ->
+      ce = shared.countExists
+      user = newUser()
+      user.items.gear.owned['shield_rogue_1'] = true
+      user.items.gear.owned['head_special_nye'] = true
+      expect(ce user.items.gear.owned).to.be 3
+      user.ops.revive()
+      console.log(user.items.gear.owned)
+      expect(ce(user.items.gear.owned)).to.be 2
+      user.ops.revive()
+      console.log(user.items.gear.owned)
+      expect(ce(user.items.gear.owned)).to.be 1
+      user.ops.revive()
+      console.log(user.items.gear.owned)
+      expect(ce(user.items.gear.owned)).to.be 1
+
 
   describe 'store', ->
     it 'recovers hp buying potions', ->
