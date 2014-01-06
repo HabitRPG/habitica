@@ -47,4 +47,20 @@ angular.module('groupServices', ['ngResource']).
           Group: Group
         }
       }
-]);
+    ])
+/**
+ * TODO Get this working. Make ChatService it's own ngResource, so we can update chat without having to sync the whole
+ * group object (expensive). Also so we can add chat-specific routes
+ */
+//    .factory('Chat', ['API_URL', '$resource',
+//      function(API_URL, $resource) {
+//        var Chat = $resource(API_URL + '/api/v2/groups/:gid/chat/:mid',
+//          //{gid:'@_id', mid: '@_messageId'},
+//          {
+//            like: {method: 'POST', url: API_URL + '/api/v2/groups/:gid/chat/:mid'}
+//            //postChat: {method: "POST", url: API_URL + '/api/v2/groups/:gid/chat'},
+//            //deleteChatMessage: {method: "DELETE", url: API_URL + '/api/v2/groups/:gid/chat/:messageId'},
+//          });
+//        return {Chat:Chat};
+//      }
+//    ]);

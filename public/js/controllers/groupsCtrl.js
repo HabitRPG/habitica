@@ -127,7 +127,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
     });
   }])
   
-  .controller('ChatCtrl', ['$scope', 'Groups', 'User', function($scope, Groups, User){
+  .controller('ChatCtrl', ['$scope', 'Groups', 'User', '$http', 'API_URL', 'Notification', function($scope, Groups, User, $http, API_URL, Notification){
     $scope.message = {content:''};
     $scope._sending = false;
     
@@ -176,6 +176,20 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           if(i !== -1) group.chat.splice(i, 1);          
         });
       }
+    }
+
+    $scope.likeChatMessage = function(group,message) {
+      if (message.uuid == User.user._id)
+        return Notification.text("Can't like your own message. Don't be that person.");
+      if (!message.likes) message.likes = {};
+      if (message.likes[User.user._id]) {
+        delete message.likes[User.user._id];
+      } else {
+        message.likes[User.user._id] = true;
+      }
+      //Chat.Chat.like({gid:group._id,mid:message.id});
+
+      $http.post(API_URL + '/api/v2/groups/' + group._id + '/chat/' + message.id + '/like');
     }
 
     $scope.sync = function(group){

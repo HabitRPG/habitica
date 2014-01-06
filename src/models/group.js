@@ -92,7 +92,8 @@ GroupSchema.methods.sendChat = function(message, user){
   var message = {
     id: shared.uuid(),
     text: message,
-    timestamp: +(new Date)
+    timestamp: +(new Date),
+    likes: {}
   };
   if (user) {
     _.defaults(message, {

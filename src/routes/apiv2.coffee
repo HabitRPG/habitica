@@ -483,6 +483,17 @@ module.exports = (swagger, v2) ->
       middleware: [auth.auth, groups.attachGroup]
       action: groups.deleteChatMessage
 
+    "/groups/{gid}/chat/{mid}/like":
+      spec:
+        method: 'POST'
+        description: "Like a chat message"
+        params: [
+          path 'gid','Group id','string'
+          path 'mid','Message id','string'
+        ]
+      middleware: [auth.auth, groups.attachGroup]
+      action: groups.likeChatMessage
+
     # ---------------------------------
     # Members
     # ---------------------------------

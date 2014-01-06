@@ -243,6 +243,24 @@ api.deleteChatMessage = function(req, res){
   });
 }
 
+api.likeChatMessage = function(req, res) {
+  var user = res.locals.user;
+  var group = res.locals.group;
+  var message = _.find(group.chat, {id: req.params.mid});
+  if (!message) return res.json(404, {err: "Message not found!"});
+  if (message.uuid == user._id) return res.json(401, {err: "Can't like your own message. Don't be that person."});
+  if (!message.likes) message.likes = {};
+  if (message.likes[user._id]) {
+    delete message.likes[user._id];
+  } else {
+    message.likes[user._id] = true;
+  }
+  group.markModified('chat');
+  group.save(function(err,_saved){
+    return res.send(_saved.chat);
+  })
+}
+
 api.join = function(req, res) {
   var user = res.locals.user,
     group = res.locals.group;
