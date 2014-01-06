@@ -2,9 +2,11 @@
 // Subscribe to that ticket & change this when they fix
 
 include ./challenges.jade
+include ./hall.jade
 
 script(type='text/ng-template', id='partials/options.social.tavern.html')
   include ./tavern
+
 
 script(type='text/ng-template', id='partials/options.social.party.html')
   div(ng-show='group._id')
@@ -84,6 +86,10 @@ script(type='text/ng-template', id='partials/options.social.html')
       a(ui-sref='options.social.challenges')
         i.icon-bullhorn
         | Challenges
+    li(ng-class="{ active: $state.includes('options.social.hall') }")
+      a(ui-sref='options.social.hall')
+        i.icon-flag
+        | Hall
 
   .tab-content
     .tab-pane.active

@@ -11,7 +11,7 @@ $ mocha test/user.mocha.coffee
 user = require("../controllers/user")
 groups = require("../controllers/groups")
 auth = require("../controllers/auth")
-admin = require("../controllers/admin")
+hall = require("../controllers/hall")
 challenges = require("../controllers/challenges")
 dataexport = require("../controllers/dataexport")
 nconf = require("nconf")
@@ -491,24 +491,29 @@ module.exports = (swagger, v2) ->
       action: groups.getMember
 
     # ---------------------------------
-    # Admin
+    # Hall of Heroes / Patrons
     # ---------------------------------
-    "/admin/members":
+    "/hall/heroes":
       spec: {}
-      middleware:[auth.auth, admin.ensureAdmin]
-      action: admin.listMembers
+      middleware:[auth.auth]
+      action: hall.getHeroes
 
-    "/admin/members/{uid}:GET":
-      spec: path: "/admin/members/{uid}"
-      middleware:[auth.auth, admin.ensureAdmin]
-      action: admin.getMember
+    "/hall/heroes/{uid}:GET":
+      spec: path: "/hall/heroes/{uid}"
+      middleware:[auth.auth, hall.ensureAdmin]
+      action: hall.getHero
 
-    "/admin/members/{uid}:POST":
+    "/hall/heroes/{uid}:POST":
       spec:
         method: 'POST'
-        path: "/admin/members/{uid}"
-      middleware: [auth.auth, admin.ensureAdmin]
-      action: admin.updateMember
+        path: "/hall/heroes/{uid}"
+      middleware: [auth.auth, hall.ensureAdmin]
+      action: hall.updateHero
+
+    "/hall/patrons":
+      spec: {}
+      middleware:[auth.auth]
+      action: hall.getPatrons
 
 
     # ---------------------------------

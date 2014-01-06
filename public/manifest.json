@@ -55,7 +55,7 @@
             "js/controllers/inventoryCtrl.js",
             "js/controllers/footerCtrl.js",
             "js/controllers/challengesCtrl.js",
-            "js/controllers/adminCtrl.js"
+            "js/controllers/hallCtrl.js"
         ],
         "css": [
             "bower_components/bootstrap/docs/assets/css/bootstrap.css",

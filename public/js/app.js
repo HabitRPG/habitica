@@ -39,6 +39,7 @@ window.habitrpg = angular.module('habitrpg',
         .when('/options/profile', '/options/profile/avatar')
         .when('/options/groups', '/options/groups/tavern')
         .when('/options/groups/guilds', '/options/groups/guilds/public')
+        .when('/options/groups/hall', '/options/groups/hall/heroes')
         .when('/options/inventory', '/options/inventory/drops')
         .when('/options/settings', '/options/settings/settings')
 
@@ -84,16 +85,34 @@ window.habitrpg = angular.module('habitrpg',
           url: "/groups",
           templateUrl: "partials/options.social.html"
         })
+
         .state('options.social.tavern', {
           url: "/tavern",
           templateUrl: "partials/options.social.tavern.html",
           controller: 'TavernCtrl'
         })
+
         .state('options.social.party', {
           url: '/party',
           templateUrl: "partials/options.social.party.html",
           controller: 'PartyCtrl'
         })
+
+        .state('options.social.hall', {
+          url: '/hall',
+          templateUrl: "partials/options.social.hall.html"
+        })
+        .state('options.social.hall.heroes', {
+          url: '/heroes',
+          templateUrl: "partials/options.social.hall.heroes.html",
+          controller: 'HallHeroesCtrl'
+        })
+        .state('options.social.hall.patrons', {
+          url: '/patrons',
+          templateUrl: "partials/options.social.hall.patrons.html",
+          controller: 'HallPatronsCtrl'
+        })
+
         .state('options.social.guilds', {
           url: '/guilds',
           templateUrl: "partials/options.social.guilds.html",
@@ -182,13 +201,6 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.settings.export', {
           url: "/export",
           templateUrl: "partials/options.settings.export.html"
-        })
-
-        // Options > Settings
-        .state('options.admin', {
-          url: "/admin",
-          controller: 'AdminCtrl',
-          templateUrl: "partials/options.admin.html"
         })
 
       var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));

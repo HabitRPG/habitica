@@ -1,0 +1,96 @@
+script(type='text/ng-template', id='partials/options.social.hall.html')
+  ul.nav.nav-tabs
+    li(ng-class="{ active: $state.includes('options.social.hall.heroes') }")
+      a(ui-sref='options.social.hall.heroes')
+        i.icon-eye-close
+        | Hall of Heroes
+    li(ng-class="{ active: $state.includes('options.social.hall.patrons') }")
+      a(ui-sref='options.social.hall.patrons')
+        | Hall of Patrons
+
+  .tab-content
+    .tab-pane.active
+      div(ui-view)
+
+script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
+  div.well(ng-if='user.contributor.admin')
+    h2 Reward User
+    form.form-horizontal(ng-submit='loadHero(_heroID)')
+      .-options
+        .option-group.option-large
+          input.option-content(type='text', ng-model='_heroID', placeholder='UUID')
+          button.btn(type='submit') Load User
+    form.form-horizontal(ng-show='hero', ng-submit='saveHero(hero)')
+      h3 {{hero.profile.name}}
+      .-options
+        .control-group.option-large
+          input.option-content(type='text', ng-model='hero.contributor.text', placeholder='Contributor Title (eg, "Blacksmith")')
+        .control-group.option-medium
+          input.option-content(type='number', step="any", ng-model='hero.contributor.level')
+          span.input-suffix Contrib Level
+          br
+          small [1-7] this determines which items, pets, and mounts are available. Also determines name-tag coloring.&nbsp;
+          a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear') More details.
+        .control-group.option-large
+          textarea.option-content(style='height:15em;', placeholder='Contributions', ng-model='hero.contributor.contributions')
+          //-include ../../shared/formatting-help
+        .control-group.option-medium
+          label.checkbox
+            input(type='checkbox', ng-model='hero.contributor.admin')
+            | Admin
+
+        hr
+
+        .control-group.option-medium
+          input.option-content(type='number', step="any", ng-model='hero.balance')
+          span.input-suffix Balance
+          p
+            small `user.balance` is in USD, <em>not</em> in Gems. Aka, if this number is 1, it means 4 gems. Only use this option when manually granting gems to players, don't use it when granting contributor levels. Contrib levels will automatically add 2G/lvl.
+
+        .control-group.option-medium
+          label.checkbox
+            input(type='checkbox', ng-model='hero.purchased.ads')
+            | Hide Ads
+
+      // h4 Backer Status
+      // Add backer stuff like tier, disable adds, etcs
+      button.btn-primary(type='submit') Save
+
+
+  table.table.table-striped
+    tr
+      thead
+        tr
+          th Name
+          th(ng-if='user.contributor.admin') UUID
+          th Contrib Level
+          th Title
+          th Contributions
+    tr(ng-repeat='hero in heroes')
+      td
+        span(ng-if='hero.contributor.admin',popover='Game Master',popover-trigger='mouseenter',popover-placement='right')
+          a.label(class='label-contributor-{{hero.contributor.level}}', ng-class='{"label-npc": hero.backer.npc}', ng-click='clickMember(hero._id, true)')
+            i.icon-star&nbsp;
+            | {{hero.profile.name}}
+            i.icon-star&nbsp;
+        span(ng-if='!hero.contributor.admin')
+          a.label(class='label-contributor-{{hero.contributor.level}}', ng-class='{"label-npc": hero.backer.npc}', ng-click='clickMember(hero._id, true)') {{hero.profile.name}}
+      td(ng-if='user.contributor.admin') {{hero._id}}
+      td {{hero.contributor.level}}
+      td {{hero.contributor.text}}
+      td
+        markdown(ng-model='hero.contributor.contributions', target='_blank')
+
+script(type='text/ng-template', id='partials/options.social.hall.patrons.html')
+  table.table.table-striped
+    tr
+      thead
+        tr
+          th Name
+          th(ng-if='user.contributor.admin') UUID
+          th Backer Tier
+    tr(ng-repeat='patron in patrons')
+      td
+        a.label(class='label-contributor-{{patron.contributor.level}}', ng-class='{"label-npc": patron.backer.npc}', ng-click='clickMember(patron._id, true)') {{patron.profile.name}}
+      td(ng-if='user.contributor.admin') {{patron._id}}
+      td {{patron.backer.tier}}

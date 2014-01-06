@@ -12,27 +12,37 @@ api.ensureAdmin = function(req, res, next) {
   next();
 }
 
-api.getMember = function(req, res) {
+api.getHeroes = function(req,res,next) {
+  User.find({'contributor.level':{$ne:null}})// {$exists:true} causes terrible performance http://goo.gl/GCxzC9
+    .select('contributor backer balance profile.name')
+    .sort('contributor.text')
+    .exec(function(err, users){
+      if (err) return next(err);
+      res.json(users);
+    });
+}
+
+api.getPatrons = function(req,res,next){
+  User.find({'backer.tier':{$ne:null}})
+    .select('contributor backer profile.name')
+    .sort('-backer.tier')
+    .exec(function(err, users){
+      if (err) return next(err);
+      res.json(users);
+    });
+}
+
+api.getHero = function(req,res,next) {
   User.findById(req.params.uid)
     .select('contributor balance profile.name purchased')
     .exec(function(err, user){
-      if (err) return res.json(500,{err:err});
+      if (err) return next(err)
       if (!user) return res.json(400,{err:'User not found'});
       res.json(user);
   });
 }
 
-api.listMembers = function(req, res) {
-  User.find({'contributor.level':{$ne:null}})// {$exists:true} causes terrible performance http://goo.gl/GCxzC9
-    .select('contributor balance profile.name')
-    .sort('contributor.text')
-    .exec(function(err, users){
-      if (err) return res.json(500,{err:err});
-      res.json(users);
-    });
-}
-
-api.updateMember = function(req, res) {
+api.updateHero = function(req,res,next) {
   async.waterfall([
     function(cb){
       User.findById(req.params.uid, cb);
@@ -50,7 +60,7 @@ api.updateMember = function(req, res) {
       member.save(cb);
     }
   ], function(err, saved){
-    if (err) return res.json(500,{err:err});
+    if (err) return next(err);
     res.json(204);
   })
 }
