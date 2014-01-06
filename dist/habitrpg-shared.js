@@ -9787,10 +9787,10 @@ var global=self;/**
           text: "Absurd Party Hat",
           notes: "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!",
           value: 0,
-          canOwn: (function() {
-            return false;
-          }),
-          unbreakable: true
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          }
         }
       }
     },
@@ -9956,7 +9956,7 @@ var global=self;/**
   _.each(['weapon', 'armor', 'head', 'shield'], function(type) {
     return _.each(['base', 'warrior', 'rogue', 'healer', 'wizard', 'special'], function(klass) {
       return _.each(gear[type][klass], function(item, i) {
-        var key;
+        var key, _canOwn;
         key = "" + type + "_" + klass + "_" + i;
         _.defaults(item, {
           type: type,
@@ -9968,6 +9968,14 @@ var global=self;/**
           per: 0,
           con: 0
         });
+        if (item.event) {
+          _canOwn = item.canOwn || (function() {
+            return true;
+          });
+          item.canOwn = function(u) {
+            return _canOwn(u) && ((u.items.gear.owned[key] != null) || (moment().isAfter(item.event.start) && moment().isBefore(item.event.end)));
+          };
+        }
         return api.gear.flat[key] = item;
       });
     });
@@ -11229,12 +11237,12 @@ var process=require("__browserify_process");(function() {
         if (lostStat) {
           user.stats[lostStat]--;
         }
-        lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, function(m, v, k) {
-          if (v && !content.gear.flat['' + k].unbreakable) {
+        lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, (function(m, v, k) {
+          if (v) {
             m['' + k] = '' + k;
           }
           return m;
-        }, {}));
+        }), {}));
         if (item = content.gear.flat[lostItem]) {
           user.items.gear.owned[lostItem] = false;
           if (user.items.gear.equipped[item.type] === lostItem) {

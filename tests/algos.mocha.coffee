@@ -138,6 +138,7 @@ describe 'User', ->
     expect(user._statsComputed.maxMP).to.eql 63
 
   describe 'Death', ->
+    user = undefined
     it 'revives correctly', ->
       user = newUser()
       user.stats = { gp: 10, exp: 100, lvl: 2, hp: 1 }
@@ -155,14 +156,22 @@ describe 'User', ->
       user.items.gear.owned['head_special_nye'] = true
       expect(ce user.items.gear.owned).to.be 3
       user.ops.revive()
-      console.log(user.items.gear.owned)
       expect(ce(user.items.gear.owned)).to.be 2
       user.ops.revive()
-      console.log(user.items.gear.owned)
       expect(ce(user.items.gear.owned)).to.be 1
       user.ops.revive()
-      console.log(user.items.gear.owned)
-      expect(ce(user.items.gear.owned)).to.be 1
+      expect(ce(user.items.gear.owned)).to.be 0
+
+    it "handles event items", ->
+      shared.content.gear.flat.head_special_nye.event.start = '2012-01-01'
+      shared.content.gear.flat.head_special_nye.event.end = '2012-02-01'
+      expect(shared.content.gear.flat.head_special_nye.canOwn(user)).to.be true
+      delete user.items.gear.owned['head_special_nye']
+      expect(shared.content.gear.flat.head_special_nye.canOwn(user)).to.be false
+
+      shared.content.gear.flat.head_special_nye.event.start = moment().subtract('days',5)
+      shared.content.gear.flat.head_special_nye.event.end = moment().add('days',5)
+      expect(shared.content.gear.flat.head_special_nye.canOwn(user)).to.be true
 
 
   describe 'store', ->

@@ -369,10 +369,8 @@ api.wrap = (user) ->
 
       # Lose a gear piece
       # Note, they can actually lose item weapon_*_0 - it's 0 to buy back, no big deal
-      lostItem = user.fns.randomVal _.reduce user.items.gear.owned, (m,v,k)->
-        # Note ""+k string-casting. Without this, when run on the server Mongoose returns funny objects
-        (m[''+k]=''+k if v and !content.gear.flat[''+k].unbreakable);m
-      , {}
+      # Note ""+k string-casting. Without this, when run on the server Mongoose returns funny objects
+      lostItem = user.fns.randomVal _.reduce(user.items.gear.owned, ((m,v,k)->m[''+k]=''+k if v;m), {})
 
       if item = content.gear.flat[lostItem]
         user.items.gear.owned[lostItem] = false
