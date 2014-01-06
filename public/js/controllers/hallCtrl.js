@@ -21,5 +21,15 @@ habitrpg.controller("HallHeroesCtrl", ['$scope', '$rootScope', 'User', 'Notifica
 habitrpg.controller("HallPatronsCtrl", ['$scope', '$rootScope', 'User', 'Notification', 'API_URL', '$resource',
   function($scope, $rootScope, User, Notification, API_URL, $resource) {
     var Patron = $resource(API_URL + '/api/v2/hall/patrons/:uid', {uid:'@_id'});
-    $scope.patrons = Patron.query();
+
+    var page = 0;
+    $scope.patrons = [];
+
+    $scope.loadMore = function(){
+      Patron.query({page: page++}, function(patrons){
+        $scope.patrons = $scope.patrons.concat(patrons);
+      })
+    }
+    $scope.loadMore();
+
   }]);

@@ -511,7 +511,10 @@ module.exports = (swagger, v2) ->
       action: hall.updateHero
 
     "/hall/patrons":
-      spec: {}
+      spec:
+        params: [
+          query 'page','Page number to fetch (this list is long)','string'
+        ]
       middleware:[auth.auth]
       action: hall.getPatrons
 

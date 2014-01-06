@@ -23,9 +23,13 @@ api.getHeroes = function(req,res,next) {
 }
 
 api.getPatrons = function(req,res,next){
+  var page = req.query.page || 0,
+    perPage = 50;
   User.find({'backer.tier':{$ne:null}})
     .select('contributor backer profile.name')
     .sort('-backer.tier')
+    .skip(page*perPage)
+    .limit(perPage)
     .exec(function(err, users){
       if (err) return next(err);
       res.json(users);
