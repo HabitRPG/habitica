@@ -46,10 +46,10 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
         // Static Rewards
         ul.items.rewards(ng-if='main && list.type=="reward" && user.flags.itemsEnabled')
-          li.task.reward-item(ng-repeat='item in itemStore')
+-          li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.notes}}')
             // right-hand side control buttons
             .task-meta-controls
-              span.task-notes(popover-trigger='mouseenter', popover-placement='left', popover='{{item.notes}}', popover-title='{{item.text}}')
+              span.task-notes
                 i.icon-comment
             //left-hand size commands
             .task-controls
