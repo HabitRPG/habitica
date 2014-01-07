@@ -15,7 +15,8 @@
     "sinon": "~1.7.3",
     "grunt": "~0.4.1",
     "grunt-contrib-cssmin": "~0.6.2",
-    "grunt-browserify": "~1.2.4"
+    "grunt-browserify": "~1.2.4",
+    "grunt-contrib-clean": "~0.5.0"
   },
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script tests/algos.mocha.coffee"

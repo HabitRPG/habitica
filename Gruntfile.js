@@ -1,6 +1,15 @@
 module.exports = function(grunt) {
 
+  var timestamp = +new Date;
+
   grunt.initConfig({
+
+    // Cleanup previous spritesmith files
+    clean: {
+      main : {
+        src : [ "dist/spritesmith-*.png"]
+      }
+    },
 
     /**
      * Converts our individual image files in img/spritesmith into a unified spritesheet.
@@ -11,7 +20,7 @@ module.exports = function(grunt) {
     sprite:{
       customizer: {
         src: 'img/sprites/spritesmith/**/*.png',
-        destImg: 'dist/spritesmith.png',
+        destImg: 'dist/spritesmith-' + timestamp + '.png',
         destCSS: 'dist/customizer.css',
         algorithm: 'binary-tree',
         cssVarMap: function (sprite) {
@@ -36,7 +45,7 @@ module.exports = function(grunt) {
       },
       main: {
         src: 'img/sprites/spritesmith/**/*.png',
-        destImg: 'dist/spritesmith.png',
+        destImg: 'dist/spritesmith-' + timestamp + '.png',
         destCSS: 'dist/spritesmith.css',
         algorithm: 'binary-tree',
         cssOpts: {
@@ -78,11 +87,12 @@ module.exports = function(grunt) {
 
   });
 
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-spritesmith');
   grunt.loadNpmTasks('grunt-contrib-cssmin'); // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-browserify');
 
   // Default task(s).
-  grunt.registerTask('default', ['sprite', 'cssmin', 'browserify']);
+  grunt.registerTask('default', ['clean', 'sprite', 'cssmin', 'browserify']);
 
 };
