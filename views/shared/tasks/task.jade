@@ -4,7 +4,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
 
     // Due Date
     span.task-date(ng-if='task.type=="todo" && task.date', style='margin:1px')
-      span(ng-class='{"label label-important":moment(task.date).isBefore(_today)}') {{moment(task.date).format('MM/DD')}}
+      span(ng-class='{"label label-important":moment(task.date).isBefore(_today, "days")}') {{moment(task.date).format('MM/DD')}}
     // Streak
     span(ng-show='task.streak') {{task.streak}}
       span(tooltip=env.t('streakCounter'))
