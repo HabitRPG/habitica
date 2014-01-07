@@ -148,7 +148,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
       h5 Unallocated Attribute Points: {{user.stats.points}}
       fieldset.auto-allocate
         label.checkbox
-          input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})')
+          input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})', ng-click='set({"preferences.allocationMode":"taskbased"})')
           | Automatic Allocation&nbsp;
           i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover="Places points into attributes according to your preferences, when you level up.")
           form(ng-show='user.preferences.automaticAllocation')
