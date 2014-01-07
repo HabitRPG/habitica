@@ -36,7 +36,10 @@ module.exports = function(grunt) {
 
     copy: {
       build: {
-        files: [{expand: true, cwd: 'public/', src: 'favicon.ico', dest: 'build/'}]
+        files: [
+          {expand: true, cwd: 'public/', src: 'favicon.ico', dest: 'build/'},
+          {expand: true, cwd: 'public/', src: 'bower_components/habitrpg-shared/dist/spritesmith-*.png', dest: 'build/'}
+        ]
       }
     },
 
