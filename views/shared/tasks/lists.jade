@@ -8,7 +8,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
         // Todos export/graph options
         span.option-box.pull-right(bo-if='main && list.type=="todo"')
-          a.option-action(ng-show='obj.history.todos', ng-click='toggleChart("todos")', tooltip='Progress')
+          a.option-action(ng-show='obj.history.todos', ng-click='toggleChart("todos")', tooltip=env.t('progress'))
             i.icon-signal
           //a.option-action(ng-href='/v1/users/{{user.id}}/calendar.ics?apiToken={{user.apiToken}}', tooltip='iCal')
           a.option-action(ng-click='notPorted()', tooltip='iCal', ng-show='false')
@@ -19,10 +19,10 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
         span.option-box.pull-right.wallet(bo-if='main && list.type=="reward"')
           .money
             | {{Shared.gold(user.stats.gp)}}
-            span.shop_gold(tooltip='Gold')
+            span.shop_gold(tooltip=env.t('gold'))
           .money
             | {{Shared.silver(user.stats.gp)}}
-            span.shop_silver(tooltip='Silver')
+            span.shop_silver(tooltip=env.t('silver'))
 
         // Header
         h2.task-column_title {{list.header}}
@@ -37,8 +37,8 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           input.addtask-btn(type='submit', value='＋', ng-disabled='new{{list.type}}form.$invalid')
         hr
         .alert.alert-warning(ng-if='list.type=="todo" && obj[list.type+"s"].length > 100')
-          | Clear completed To-Dos&nbsp;
-          i.icon-question-sign(popover="You have a lot of To-Dos, which can cause performance issues. Be sure to clear them periodically (see \"Completed\" tab at the bottom).", popover-trigger='mouseenter', popover-placement='left')
+          =env.t('clearCompleted')
+          i.icon-question-sign(popover=env.t('lotOfToDos'), popover-trigger='mouseenter', popover-placement='left')
 
         // Actual List
         ul(class='{{list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', habitrpg-sortable)
@@ -46,7 +46,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
         // Static Rewards
         ul.items.rewards(ng-if='main && list.type=="reward" && user.flags.itemsEnabled')
-          li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.notes}}')
+-          li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.notes}}')
             // right-hand side control buttons
             .task-meta-controls
               span.task-notes
@@ -97,7 +97,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               a.money.btn-buy.item-btn(ng-click='castStart(spell)')
                 span.reward-cost
                   strong {{spell.mana}}
-                  | &nbsp;MP
+                  =env.t('mp')
             // main content
             span(ng-class='{"shop_{{spell.key}} shop-sprite item-img": true}')
             p.task-text {{spell.text}}
@@ -114,10 +114,10 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
         // Todo Tabs
         div(bo-if='main && list.type=="todo"', bo-class='{"tabbable tabs-below": list.type=="todo"}')
-          button.task-action-btn.tile.spacious.bright(ng-show='list.showCompleted', ng-click='user.ops.clearCompleted({})') Clear Completed
+          button.task-action-btn.tile.spacious.bright(ng-show='list.showCompleted', ng-click='user.ops.clearCompleted({})')=env.t('clearCompleted')
           // remaining/completed tabs
           ul.nav.nav-tabs
             li(ng-class='{active: !list.showCompleted}')
-              a(ng-click='list.showCompleted = false') Remaining
+              a(ng-click='list.showCompleted = false')=env.t('remaining')
             li(ng-class='{active: list.showCompleted}')
-              a(ng-click='list.showCompleted= true') Complete
+              a(ng-click='list.showCompleted= true')=env.t('complete')
