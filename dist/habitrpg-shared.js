@@ -9167,7 +9167,7 @@ var global=self;/**
 
 },{}],5:[function(require,module,exports){
 (function() {
-  var api, diminishingReturns, gear, moment, repeat, _;
+  var api, diminishingReturns, events, gear, moment, repeat, _;
 
   _ = require('lodash');
 
@@ -9182,6 +9182,13 @@ var global=self;/**
     ---------------------------------------------------------------
   */
 
+
+  events = {
+    winter: {
+      start: '2013-12-31',
+      end: '2014-02-01'
+    }
+  };
 
   gear = {
     weapon: {
@@ -9430,58 +9437,46 @@ var global=self;/**
           })
         },
         yeti: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'warrior';
           }),
           text: "Yeti-Tamer Spear",
-          notes: 'Limited Edition 2013 Winter Gear! This spear allows its user to command any yeti. Increases STR by 18.',
-          str: 18,
-          value: 120
+          notes: 'Limited Edition 2013 Winter Gear! This spear allows its user to command any yeti. Increases STR by 15.',
+          str: 15,
+          value: 90
         },
         ski: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'rogue';
           }),
           text: "Ski-sassin Pole",
-          notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 10.',
-          str: 10,
-          value: 120
+          notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.',
+          str: 8,
+          value: 90
         },
         candycane: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'wizard';
           }),
           twoHanded: true,
           text: "Candy Cane Staff",
-          notes: "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases INT by 18 and PER by 9.",
-          int: 18,
-          per: 9,
-          value: 200
+          notes: "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases INT by 15 and PER by 7.",
+          int: 15,
+          per: 7,
+          value: 160
         },
         snowflake: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'healer';
           }),
           text: "Snowflake Wand",
-          notes: 'Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases INT by 11.',
-          int: 11,
-          value: 120
+          notes: 'Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases INT by 9.',
+          int: 9,
+          value: 90
         }
       }
     },
@@ -9661,10 +9656,7 @@ var global=self;/**
           })
         },
         yeti: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'warrior';
           }),
@@ -9674,10 +9666,7 @@ var global=self;/**
           value: 90
         },
         ski: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'rogue';
           }),
@@ -9687,10 +9676,7 @@ var global=self;/**
           value: 90
         },
         candycane: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'wizard';
           }),
@@ -9700,10 +9686,7 @@ var global=self;/**
           value: 90
         },
         snowflake: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'healer';
           }),
@@ -9890,19 +9873,13 @@ var global=self;/**
           })
         },
         nye: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           text: "Absurd Party Hat",
           notes: "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!",
           value: 0
         },
         yeti: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'warrior';
           }),
@@ -9912,10 +9889,7 @@ var global=self;/**
           value: 60
         },
         ski: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'rogue';
           }),
@@ -9925,10 +9899,7 @@ var global=self;/**
           value: 60
         },
         candycane: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'wizard';
           }),
@@ -9938,10 +9909,7 @@ var global=self;/**
           value: 60
         },
         snowflake: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'healer';
           }),
@@ -10097,10 +10065,7 @@ var global=self;/**
           })
         },
         yeti: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'warrior';
           }),
@@ -10110,10 +10075,7 @@ var global=self;/**
           value: 70
         },
         ski: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'rogue';
           }),
@@ -10123,10 +10085,7 @@ var global=self;/**
           value: 70
         },
         snowflake: {
-          event: {
-            start: '2013-12-31',
-            end: '2014-02-01'
-          },
+          event: events.winter,
           canOwn: (function(u) {
             return u.stats["class"] === 'healer';
           }),
