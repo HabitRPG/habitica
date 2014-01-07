@@ -63,7 +63,7 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var global=self;/**
+var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
  * @license
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -12344,7 +12344,11 @@ var process=require("__browserify_process");(function() {
         }
         if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
           user.flags.dropsEnabled = true;
-          user.items.eggs["Wolf"] = 1;
+          if (user.items.eggs["Wolf"] > 0) {
+            user.items.eggs["Wolf"]++;
+          } else {
+            user.items.eggs["Wolf"] = 1;
+          }
         }
         if (!user.flags.classSelected && user.stats.lvl >= 10) {
           user.flags.classSelected;
