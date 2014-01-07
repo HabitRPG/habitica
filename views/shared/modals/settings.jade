@@ -26,8 +26,11 @@ div(ng-controller='SettingsCtrl')
             input.option-content(type='number', step="any", data-for='stats.exp', ng-model='restoreValues.stats.exp')
             span.input-suffix Experience
           .option-group.option-medium
-            input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp')
+            //input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp')
+            input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp',disabled)
             span.input-suffix Gold
+            p.alert
+              small Disabled during Winter Wonderland Event Pt.4 (since the rewards are gold-purchaseable).
           .option-group.option-medium
             input.option-content(type='number', step="any", data-for='stats.mp', ng-model='restoreValues.stats.mp')
             span.input-suffix Mana
