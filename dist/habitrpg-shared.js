@@ -11357,739 +11357,744 @@ var process=require("__browserify_process");(function() {
   */
 
 
-  api.wrap = function(user) {
+  api.wrap = function(user, main) {
+    if (main == null) {
+      main = true;
+    }
     if (user._wrapped) {
       return;
     }
     user._wrapped = true;
-    user.ops = {
-      update: function(req, cb) {
-        _.each(req.body, function(v, k) {
-          user.fns.dotSet(k, v);
-          return true;
-        });
-        return typeof cb === "function" ? cb(null, user) : void 0;
-      },
-      sleep: function(req, cb) {
-        user.preferences.sleep = !user.preferences.sleep;
-        return typeof cb === "function" ? cb(null, {}) : void 0;
-      },
-      revive: function(req, cb) {
-        var item, lostItem, lostStat;
-        _.merge(user.stats, {
-          hp: 50,
-          exp: 0,
-          gp: 0
-        });
-        if (user.stats.lvl > 1) {
-          user.stats.lvl--;
-        }
-        lostStat = user.fns.randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
-          if (user.stats[k]) {
-            m[k] = k;
-          }
-          return m;
-        }), {}));
-        if (lostStat) {
-          user.stats[lostStat]--;
-        }
-        lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, (function(m, v, k) {
-          if (v) {
-            m['' + k] = '' + k;
-          }
-          return m;
-        }), {}));
-        if (item = content.gear.flat[lostItem]) {
-          user.items.gear.owned[lostItem] = false;
-          if (user.items.gear.equipped[item.type] === lostItem) {
-            user.items.gear.equipped[item.type] = "" + item.type + "_base_0";
-          }
-          if (user.items.gear.costume[item.type] === lostItem) {
-            user.items.gear.costume[item.type] = "" + item.type + "_base_0";
-          }
-        }
-        if (typeof user.markModified === "function") {
-          user.markModified('items.gear');
-        }
-        return typeof cb === "function" ? cb((item ? {
-          code: 200,
-          message: "Your " + item.text + " broke."
-        } : null), user) : void 0;
-      },
-      reset: function(req, cb) {
-        var gear;
-        user.habits = [];
-        user.dailys = [];
-        user.todos = [];
-        user.rewards = [];
-        user.stats.hp = 50;
-        user.stats.lvl = 1;
-        user.stats.gp = 0;
-        user.stats.exp = 0;
-        gear = user.items.gear;
-        _.each(['equipped', 'costume'], function(type) {
-          gear[type].armor = 'armor_base_0';
-          gear[type].weapon = 'weapon_base_0';
-          gear[type].head = 'head_base_0';
-          return gear[type].shield = 'shield_base_0';
-        });
-        user.items.gear.owned = {
-          weapon_warrior_0: true
-        };
-        if (typeof user.markModified === "function") {
-          user.markModified('items.gear.owned');
-        }
-        user.preferences.costume = false;
-        return typeof cb === "function" ? cb(null, user) : void 0;
-      },
-      reroll: function(req, cb) {
-        if (user.balance < 1) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: "Not enough gems."
-          }, req) : void 0;
-        }
-        user.balance--;
-        _.each(user.tasks, function(task) {
-          if (task.type !== 'reward') {
-            return task.value = 0;
-          }
-        });
-        user.stats.hp = 50;
-        return typeof cb === "function" ? cb(null, user) : void 0;
-      },
-      rebirth: function(req, cb) {
-        var flags, gear, lvl, stats;
-        if (user.balance < 2) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: "Not enough gems."
-          }, req) : void 0;
-        }
-        user.balance -= 2;
-        lvl = user.stats.lvl;
-        _.each(user.tasks, function(task) {
-          if (task.type !== 'reward') {
-            task.value = 0;
-          }
-          if (task.type === 'daily') {
-            return task.streak = 0;
-          }
-        });
-        stats = user.stats;
-        stats.buffs = {};
-        stats.hp = 50;
-        stats.lvl = 1;
-        stats["class"] = 'warrior';
-        _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
-          return stats[value] = 0;
-        });
-        gear = user.items.gear;
-        _.each(['equipped', 'costume'], function(type) {
-          gear[type].armor = 'armor_base_0';
-          gear[type].weapon = 'weapon_warrior_0';
-          gear[type].head = 'head_base_0';
-          return gear[type].shield = 'shield_base_0';
-        });
-        if (user.items.currentPet) {
-          user.ops.equip({
-            params: {
-              type: 'pet',
-              key: user.items.currentPet
-            }
-          });
-        }
-        if (user.items.currentMount) {
-          user.ops.equip({
-            params: {
-              type: 'mount',
-              key: user.items.currentMount
-            }
-          });
-        }
-        gear.owned = {
-          weapon_warrior_0: true
-        };
-        if (typeof user.markModified === "function") {
-          user.markModified('items.gear.owned');
-        }
-        user.preferences.costume = false;
-        flags = user.flags;
-        if (!(user.achievements.ultimateGear || user.achievements.beastMaster)) {
-          flags.rebirthEnabled = false;
-        }
-        flags.itemsEnabled = false;
-        flags.dropsEnabled = false;
-        flags.classSelected = false;
-        if (!user.achievements.rebirths) {
-          user.achievements.rebirths = 1;
-          user.achievements.rebirthLevel = lvl;
-        } else if (lvl > user.achievements.rebirthLevel || lvl === 100) {
-          user.achievements.rebirths++;
-          user.achievements.rebirthLevel = lvl;
-        }
-        return typeof cb === "function" ? cb(null, user) : void 0;
-      },
-      clearCompleted: function(req, cb) {
-        _.remove(user.todos, function(t) {
-          var _ref;
-          return t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0);
-        });
-        if (typeof user.markModified === "function") {
-          user.markModified('todos');
-        }
-        return typeof cb === "function" ? cb(null, user.todos) : void 0;
-      },
-      sortTask: function(req, cb) {
-        var from, id, task, tasks, to, _ref;
-        id = req.params.id;
-        _ref = req.query, to = _ref.to, from = _ref.from;
-        task = user.tasks[id];
-        if (!task) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: "Task not found."
-          }) : void 0;
-        }
-        if (!((to != null) && (from != null))) {
-          return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
-        }
-        tasks = user["" + task.type + "s"];
-        tasks.splice(to, 0, tasks.splice(from, 1)[0]);
-        return typeof cb === "function" ? cb(null, tasks) : void 0;
-      },
-      updateTask: function(req, cb) {
-        var task, _ref;
-        if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
-          return typeof cb === "function" ? cb("Task not found") : void 0;
-        }
-        _.merge(task, _.omit(req.body, 'checklist'));
-        if (req.body.checklist) {
-          task.checklist = req.body.checklist;
-        }
-        if (typeof task.markModified === "function") {
-          task.markModified('tags');
-        }
-        return typeof cb === "function" ? cb(null, task) : void 0;
-      },
-      deleteTask: function(req, cb) {
-        var i, task, _ref;
-        task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0];
-        if (!task) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: 'Task not found'
-          }) : void 0;
-        }
-        i = user[task.type + "s"].indexOf(task);
-        if (~i) {
-          user[task.type + "s"].splice(i, 1);
-        }
-        return typeof cb === "function" ? cb(null, {}) : void 0;
-      },
-      addTask: function(req, cb) {
-        var task;
-        task = api.taskDefaults(req.body);
-        user["" + task.type + "s"].unshift(task);
-        if (typeof cb === "function") {
-          cb(null, task);
-        }
-        return task;
-      },
-      addTag: function(req, cb) {
-        var name;
-        name = req.body.name;
-        if (user.tags == null) {
-          user.tags = [];
-        }
-        user.tags.push({
-          name: name
-        });
-        return typeof cb === "function" ? cb(null, user.tags) : void 0;
-      },
-      updateTag: function(req, cb) {
-        var i, tid;
-        tid = req.params.id;
-        i = _.findIndex(user.tags, {
-          id: tid
-        });
-        if (!~i) {
-          return typeof cb === "function" ? cb('Tag not found', req) : void 0;
-        }
-        user.tags[i].name = req.body.name;
-        return typeof cb === "function" ? cb(null, user.tags[i]) : void 0;
-      },
-      deleteTag: function(req, cb) {
-        var i, tag, tid;
-        tid = req.params.id;
-        i = _.findIndex(user.tags, {
-          id: tid
-        });
-        if (!~i) {
-          return typeof cb === "function" ? cb('Tag not found', req) : void 0;
-        }
-        tag = user.tags[i];
-        delete user.filters[tag.id];
-        user.tags.splice(i, 1);
-        _.each(user.tasks, function(task) {
-          return delete task.tags[tag.id];
-        });
-        _.each(['habits', 'dailys', 'todos', 'rewards'], function(type) {
-          return typeof user.markModified === "function" ? user.markModified(type) : void 0;
-        });
-        return typeof cb === "function" ? cb(null, user.tags) : void 0;
-      },
-      feed: function(req, cb) {
-        var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
-        _ref = req.params, pet = _ref.pet, food = _ref.food;
-        food = content.food[food];
-        _ref1 = pet.split('-'), egg = _ref1[0], potion = _ref1[1];
-        userPets = user.items.pets;
-        if (!userPets[pet]) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: ":pet not found in user.items.pets"
-          }) : void 0;
-        }
-        if (!((_ref2 = user.items.food) != null ? _ref2[food.key] : void 0)) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: ":food not found in user.items.food"
-          }) : void 0;
-        }
-        if (content.specialPets[pet]) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: "Can't feed this pet."
-          }) : void 0;
-        }
-        if (user.items.mounts[pet] && (userPets[pet] >= 50 || food.key === 'Saddle')) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: "You already have that mount"
-          }) : void 0;
-        }
-        message = '';
-        evolve = function() {
-          userPets[pet] = 0;
-          user.items.mounts[pet] = true;
-          if (pet === user.items.currentPet) {
-            user.items.currentPet = "";
-          }
-          return message = "You have tamed " + egg + ", let's go for a ride!";
-        };
-        if (food.key === 'Saddle') {
-          evolve();
-        } else {
-          if (food.target === potion) {
-            userPets[pet] += 5;
-            message = "" + egg + " really likes the " + food.text + "!";
-          } else {
-            userPets[pet] += 2;
-            message = "" + egg + " eats the " + food.text + " but doesn't seem to enjoy it.";
-          }
-          if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
-            evolve();
-          }
-        }
-        user.items.food[food.key]--;
-        return typeof cb === "function" ? cb({
-          code: 200,
-          message: message
-        }, userPets[pet]) : void 0;
-      },
-      purchase: function(req, cb) {
-        var item, key, type, _ref;
-        _ref = req.params, type = _ref.type, key = _ref.key;
-        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'special') {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: ":type must be in [hatchingPotions,eggs,food,quests,special]"
-          }, req) : void 0;
-        }
-        item = content[type][key];
-        if (!item) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: ":key not found for Content." + type
-          }, req) : void 0;
-        }
-        if (!user.items[type][key]) {
-          user.items[type][key] = 0;
-        }
-        user.items[type][key]++;
-        user.balance -= item.value / 4;
-        return typeof cb === "function" ? cb(null, _.pick(user, $w('items balance'))) : void 0;
-      },
-      buy: function(req, cb) {
-        var item, key, message, _ref;
-        key = req.params.key;
-        item = key === 'potion' ? content.potion : content.gear.flat[key];
-        if (!item) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: "Item '" + key + " not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"
-          }) : void 0;
-        }
-        if (user.stats.gp < item.value) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: 'Not enough gold.'
-          }) : void 0;
-        }
-        if (item.key === 'potion') {
-          user.stats.hp += 15;
-          if (user.stats.hp > 50) {
-            user.stats.hp = 50;
-          }
-        } else {
-          user.items.gear.equipped[item.type] = item.key;
-          user.items.gear.owned[item.key] = true;
-          message = user.fns.handleTwoHanded(item);
-          if (message == null) {
-            message = "Bought " + item.text + ".";
-          }
-          if (((_ref = item.klass) === 'warrior' || _ref === 'wizard' || _ref === 'healer' || _ref === 'rogue') && user.fns.getItem('weapon').last && user.fns.getItem('armor').last && user.fns.getItem('head').last && (user.fns.getItem('shield').last || user.fns.getItem('weapon').twoHanded)) {
-            user.achievements.ultimateGear = true;
-          }
-        }
-        user.stats.gp -= item.value;
-        return typeof cb === "function" ? cb({
-          code: 200,
-          message: message
-        }, _.pick(user, $w('items achievements stats'))) : void 0;
-      },
-      sell: function(req, cb) {
-        var key, type, _ref;
-        _ref = req.params, key = _ref.key, type = _ref.type;
-        if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: ":type not found. Must bes in [eggs, hatchingPotions, food]"
-          }) : void 0;
-        }
-        if (!user.items[type][key]) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: ":key not found for user.items." + type
-          }) : void 0;
-        }
-        user.items[type][key]--;
-        user.stats.gp += content[type][key].value;
-        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats items'))) : void 0;
-      },
-      equip: function(req, cb) {
-        var item, key, message, type, _ref;
-        _ref = [req.params.type || 'equipped', req.params.key], type = _ref[0], key = _ref[1];
-        switch (type) {
-          case 'mount':
-            user.items.currentMount = user.items.currentMount === key ? '' : key;
-            break;
-          case 'pet':
-            user.items.currentPet = user.items.currentPet === key ? '' : key;
-            break;
-          case 'costume':
-          case 'equipped':
-            item = content.gear.flat[key];
-            user.items.gear[type][item.type] = item.key;
-            message = user.fns.handleTwoHanded(item, type);
-        }
-        return typeof cb === "function" ? cb((message ? {
-          code: 200,
-          message: message
-        } : null), user.items) : void 0;
-      },
-      hatch: function(req, cb) {
-        var egg, hatchingPotion, pet, _ref;
-        _ref = req.params, egg = _ref.egg, hatchingPotion = _ref.hatchingPotion;
-        if (!(egg && hatchingPotion)) {
-          return typeof cb === "function" ? cb({
-            code: 404,
-            message: "Please specify query.egg & query.hatchingPotion"
-          }) : void 0;
-        }
-        if (!(user.items.eggs[egg] > 0 && user.items.hatchingPotions[hatchingPotion] > 0)) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: "You're missing either that egg or that potion"
-          }) : void 0;
-        }
-        pet = "" + egg + "-" + hatchingPotion;
-        if (user.items.pets[pet]) {
-          return typeof cb === "function" ? cb("You already have that pet. Try hatching a different combination!") : void 0;
-        }
-        user.items.pets[pet] = 5;
-        user.items.eggs[egg]--;
-        user.items.hatchingPotions[hatchingPotion]--;
-        return typeof cb === "function" ? cb({
-          code: 200,
-          message: "Your egg hatched! Visit your stable to equip your pet."
-        }, user.items) : void 0;
-      },
-      unlock: function(req, cb) {
-        var alreadyOwns, cost, fullSet, k, path, split, v;
-        path = req.query.path;
-        fullSet = ~path.indexOf(",");
-        cost = fullSet ? 1.25 : 0.5;
-        alreadyOwns = !fullSet && user.fns.dotGet("purchased." + path) === true;
-        if (user.balance < cost && !alreadyOwns) {
-          return typeof cb === "function" ? cb({
-            code: 401,
-            message: "Not enough gems"
-          }) : void 0;
-        }
-        if (fullSet) {
-          _.each(path.split(","), function(p) {
-            user.fns.dotSet("purchased." + p, true);
+    if (main) {
+      user.ops = {
+        update: function(req, cb) {
+          _.each(req.body, function(v, k) {
+            user.fns.dotSet(k, v);
             return true;
           });
-        } else {
-          if (alreadyOwns) {
-            split = path.split('.');
-            v = split.pop();
-            k = split.join('.');
-            user.fns.dotSet("preferences." + k, v);
-            return typeof cb === "function" ? cb(null, req) : void 0;
+          return typeof cb === "function" ? cb(null, user) : void 0;
+        },
+        sleep: function(req, cb) {
+          user.preferences.sleep = !user.preferences.sleep;
+          return typeof cb === "function" ? cb(null, {}) : void 0;
+        },
+        revive: function(req, cb) {
+          var item, lostItem, lostStat;
+          _.merge(user.stats, {
+            hp: 50,
+            exp: 0,
+            gp: 0
+          });
+          if (user.stats.lvl > 1) {
+            user.stats.lvl--;
           }
-          user.fns.dotSet("purchased." + path, true);
-        }
-        user.balance -= cost;
-        if (typeof user.markModified === "function") {
-          user.markModified('purchased');
-        }
-        return typeof cb === "function" ? cb(null, _.pick(user, $w('purchased preferences'))) : void 0;
-      },
-      changeClass: function(req, cb) {
-        var klass, _ref;
-        klass = (_ref = req.query) != null ? _ref["class"] : void 0;
-        if (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer') {
-          user.stats["class"] = klass;
-          user.flags.classSelected = true;
-          _.each(["weapon", "armor", "shield", "head"], function(type) {
-            var foundKey;
-            foundKey = false;
-            _.findLast(user.items.gear.owned, function(v, k) {
-              if (~k.indexOf(type + "_" + klass) && v === true) {
-                return foundKey = k;
+          lostStat = user.fns.randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
+            if (user.stats[k]) {
+              m[k] = k;
+            }
+            return m;
+          }), {}));
+          if (lostStat) {
+            user.stats[lostStat]--;
+          }
+          lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, (function(m, v, k) {
+            if (v) {
+              m['' + k] = '' + k;
+            }
+            return m;
+          }), {}));
+          if (item = content.gear.flat[lostItem]) {
+            user.items.gear.owned[lostItem] = false;
+            if (user.items.gear.equipped[item.type] === lostItem) {
+              user.items.gear.equipped[item.type] = "" + item.type + "_base_0";
+            }
+            if (user.items.gear.costume[item.type] === lostItem) {
+              user.items.gear.costume[item.type] = "" + item.type + "_base_0";
+            }
+          }
+          if (typeof user.markModified === "function") {
+            user.markModified('items.gear');
+          }
+          return typeof cb === "function" ? cb((item ? {
+            code: 200,
+            message: "Your " + item.text + " broke."
+          } : null), user) : void 0;
+        },
+        reset: function(req, cb) {
+          var gear;
+          user.habits = [];
+          user.dailys = [];
+          user.todos = [];
+          user.rewards = [];
+          user.stats.hp = 50;
+          user.stats.lvl = 1;
+          user.stats.gp = 0;
+          user.stats.exp = 0;
+          gear = user.items.gear;
+          _.each(['equipped', 'costume'], function(type) {
+            gear[type].armor = 'armor_base_0';
+            gear[type].weapon = 'weapon_base_0';
+            gear[type].head = 'head_base_0';
+            return gear[type].shield = 'shield_base_0';
+          });
+          user.items.gear.owned = {
+            weapon_warrior_0: true
+          };
+          if (typeof user.markModified === "function") {
+            user.markModified('items.gear.owned');
+          }
+          user.preferences.costume = false;
+          return typeof cb === "function" ? cb(null, user) : void 0;
+        },
+        reroll: function(req, cb) {
+          if (user.balance < 1) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Not enough gems."
+            }, req) : void 0;
+          }
+          user.balance--;
+          _.each(user.tasks, function(task) {
+            if (task.type !== 'reward') {
+              return task.value = 0;
+            }
+          });
+          user.stats.hp = 50;
+          return typeof cb === "function" ? cb(null, user) : void 0;
+        },
+        rebirth: function(req, cb) {
+          var flags, gear, lvl, stats;
+          if (user.balance < 2) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Not enough gems."
+            }, req) : void 0;
+          }
+          user.balance -= 2;
+          lvl = user.stats.lvl;
+          _.each(user.tasks, function(task) {
+            if (task.type !== 'reward') {
+              task.value = 0;
+            }
+            if (task.type === 'daily') {
+              return task.streak = 0;
+            }
+          });
+          stats = user.stats;
+          stats.buffs = {};
+          stats.hp = 50;
+          stats.lvl = 1;
+          stats["class"] = 'warrior';
+          _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
+            return stats[value] = 0;
+          });
+          gear = user.items.gear;
+          _.each(['equipped', 'costume'], function(type) {
+            gear[type].armor = 'armor_base_0';
+            gear[type].weapon = 'weapon_warrior_0';
+            gear[type].head = 'head_base_0';
+            return gear[type].shield = 'shield_base_0';
+          });
+          if (user.items.currentPet) {
+            user.ops.equip({
+              params: {
+                type: 'pet',
+                key: user.items.currentPet
               }
             });
-            user.items.gear.equipped[type] = foundKey ? foundKey : type === "weapon" ? "weapon_" + klass + "_0" : type === "shield" && klass === "rogue" ? "shield_rogue_0" : "" + type + "_base_0";
-            if (type === "weapon" || (type === "shield" && klass === "rogue")) {
-              user.items.gear.owned["" + type + "_" + klass + "_0"] = true;
-            }
-            return true;
+          }
+          if (user.items.currentMount) {
+            user.ops.equip({
+              params: {
+                type: 'mount',
+                key: user.items.currentMount
+              }
+            });
+          }
+          gear.owned = {
+            weapon_warrior_0: true
+          };
+          if (typeof user.markModified === "function") {
+            user.markModified('items.gear.owned');
+          }
+          user.preferences.costume = false;
+          flags = user.flags;
+          if (!(user.achievements.ultimateGear || user.achievements.beastMaster)) {
+            flags.rebirthEnabled = false;
+          }
+          flags.itemsEnabled = false;
+          flags.dropsEnabled = false;
+          flags.classSelected = false;
+          if (!user.achievements.rebirths) {
+            user.achievements.rebirths = 1;
+            user.achievements.rebirthLevel = lvl;
+          } else if (lvl > user.achievements.rebirthLevel || lvl === 100) {
+            user.achievements.rebirths++;
+            user.achievements.rebirthLevel = lvl;
+          }
+          return typeof cb === "function" ? cb(null, user) : void 0;
+        },
+        clearCompleted: function(req, cb) {
+          _.remove(user.todos, function(t) {
+            var _ref;
+            return t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0);
           });
-        } else {
-          if (user.preferences.disableClasses) {
-            user.preferences.disableClasses = false;
-            user.preferences.autoAllocate = false;
+          if (typeof user.markModified === "function") {
+            user.markModified('todos');
+          }
+          return typeof cb === "function" ? cb(null, user.todos) : void 0;
+        },
+        sortTask: function(req, cb) {
+          var from, id, task, tasks, to, _ref;
+          id = req.params.id;
+          _ref = req.query, to = _ref.to, from = _ref.from;
+          task = user.tasks[id];
+          if (!task) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: "Task not found."
+            }) : void 0;
+          }
+          if (!((to != null) && (from != null))) {
+            return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
+          }
+          tasks = user["" + task.type + "s"];
+          tasks.splice(to, 0, tasks.splice(from, 1)[0]);
+          return typeof cb === "function" ? cb(null, tasks) : void 0;
+        },
+        updateTask: function(req, cb) {
+          var task, _ref;
+          if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
+            return typeof cb === "function" ? cb("Task not found") : void 0;
+          }
+          _.merge(task, _.omit(req.body, 'checklist'));
+          if (req.body.checklist) {
+            task.checklist = req.body.checklist;
+          }
+          if (typeof task.markModified === "function") {
+            task.markModified('tags');
+          }
+          return typeof cb === "function" ? cb(null, task) : void 0;
+        },
+        deleteTask: function(req, cb) {
+          var i, task, _ref;
+          task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0];
+          if (!task) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: 'Task not found'
+            }) : void 0;
+          }
+          i = user[task.type + "s"].indexOf(task);
+          if (~i) {
+            user[task.type + "s"].splice(i, 1);
+          }
+          return typeof cb === "function" ? cb(null, {}) : void 0;
+        },
+        addTask: function(req, cb) {
+          var task;
+          task = api.taskDefaults(req.body);
+          user["" + task.type + "s"].unshift(task);
+          if (typeof cb === "function") {
+            cb(null, task);
+          }
+          return task;
+        },
+        addTag: function(req, cb) {
+          var name;
+          name = req.body.name;
+          if (user.tags == null) {
+            user.tags = [];
+          }
+          user.tags.push({
+            name: name
+          });
+          return typeof cb === "function" ? cb(null, user.tags) : void 0;
+        },
+        updateTag: function(req, cb) {
+          var i, tid;
+          tid = req.params.id;
+          i = _.findIndex(user.tags, {
+            id: tid
+          });
+          if (!~i) {
+            return typeof cb === "function" ? cb('Tag not found', req) : void 0;
+          }
+          user.tags[i].name = req.body.name;
+          return typeof cb === "function" ? cb(null, user.tags[i]) : void 0;
+        },
+        deleteTag: function(req, cb) {
+          var i, tag, tid;
+          tid = req.params.id;
+          i = _.findIndex(user.tags, {
+            id: tid
+          });
+          if (!~i) {
+            return typeof cb === "function" ? cb('Tag not found', req) : void 0;
+          }
+          tag = user.tags[i];
+          delete user.filters[tag.id];
+          user.tags.splice(i, 1);
+          _.each(user.tasks, function(task) {
+            return delete task.tags[tag.id];
+          });
+          _.each(['habits', 'dailys', 'todos', 'rewards'], function(type) {
+            return typeof user.markModified === "function" ? user.markModified(type) : void 0;
+          });
+          return typeof cb === "function" ? cb(null, user.tags) : void 0;
+        },
+        feed: function(req, cb) {
+          var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
+          _ref = req.params, pet = _ref.pet, food = _ref.food;
+          food = content.food[food];
+          _ref1 = pet.split('-'), egg = _ref1[0], potion = _ref1[1];
+          userPets = user.items.pets;
+          if (!userPets[pet]) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: ":pet not found in user.items.pets"
+            }) : void 0;
+          }
+          if (!((_ref2 = user.items.food) != null ? _ref2[food.key] : void 0)) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: ":food not found in user.items.food"
+            }) : void 0;
+          }
+          if (content.specialPets[pet]) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Can't feed this pet."
+            }) : void 0;
+          }
+          if (user.items.mounts[pet] && (userPets[pet] >= 50 || food.key === 'Saddle')) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "You already have that mount"
+            }) : void 0;
+          }
+          message = '';
+          evolve = function() {
+            userPets[pet] = 0;
+            user.items.mounts[pet] = true;
+            if (pet === user.items.currentPet) {
+              user.items.currentPet = "";
+            }
+            return message = "You have tamed " + egg + ", let's go for a ride!";
+          };
+          if (food.key === 'Saddle') {
+            evolve();
           } else {
-            if (!(user.balance >= .75)) {
-              return typeof cb === "function" ? cb({
-                code: 401,
-                message: "Not enough gems"
-              }) : void 0;
+            if (food.target === potion) {
+              userPets[pet] += 5;
+              message = "" + egg + " really likes the " + food.text + "!";
+            } else {
+              userPets[pet] += 2;
+              message = "" + egg + " eats the " + food.text + " but doesn't seem to enjoy it.";
             }
-            user.balance -= .75;
+            if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
+              evolve();
+            }
           }
-          _.merge(user.stats, {
-            str: 0,
-            con: 0,
-            per: 0,
-            int: 0,
-            points: user.stats.lvl
+          user.items.food[food.key]--;
+          return typeof cb === "function" ? cb({
+            code: 200,
+            message: message
+          }, userPets[pet]) : void 0;
+        },
+        purchase: function(req, cb) {
+          var item, key, type, _ref;
+          _ref = req.params, type = _ref.type, key = _ref.key;
+          if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'special') {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: ":type must be in [hatchingPotions,eggs,food,quests,special]"
+            }, req) : void 0;
+          }
+          item = content[type][key];
+          if (!item) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: ":key not found for Content." + type
+            }, req) : void 0;
+          }
+          if (!user.items[type][key]) {
+            user.items[type][key] = 0;
+          }
+          user.items[type][key]++;
+          user.balance -= item.value / 4;
+          return typeof cb === "function" ? cb(null, _.pick(user, $w('items balance'))) : void 0;
+        },
+        buy: function(req, cb) {
+          var item, key, message, _ref;
+          key = req.params.key;
+          item = key === 'potion' ? content.potion : content.gear.flat[key];
+          if (!item) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: "Item '" + key + " not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"
+            }) : void 0;
+          }
+          if (user.stats.gp < item.value) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: 'Not enough gold.'
+            }) : void 0;
+          }
+          if (item.key === 'potion') {
+            user.stats.hp += 15;
+            if (user.stats.hp > 50) {
+              user.stats.hp = 50;
+            }
+          } else {
+            user.items.gear.equipped[item.type] = item.key;
+            user.items.gear.owned[item.key] = true;
+            message = user.fns.handleTwoHanded(item);
+            if (message == null) {
+              message = "Bought " + item.text + ".";
+            }
+            if (((_ref = item.klass) === 'warrior' || _ref === 'wizard' || _ref === 'healer' || _ref === 'rogue') && user.fns.getItem('weapon').last && user.fns.getItem('armor').last && user.fns.getItem('head').last && (user.fns.getItem('shield').last || user.fns.getItem('weapon').twoHanded)) {
+              user.achievements.ultimateGear = true;
+            }
+          }
+          user.stats.gp -= item.value;
+          return typeof cb === "function" ? cb({
+            code: 200,
+            message: message
+          }, _.pick(user, $w('items achievements stats'))) : void 0;
+        },
+        sell: function(req, cb) {
+          var key, type, _ref;
+          _ref = req.params, key = _ref.key, type = _ref.type;
+          if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: ":type not found. Must bes in [eggs, hatchingPotions, food]"
+            }) : void 0;
+          }
+          if (!user.items[type][key]) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: ":key not found for user.items." + type
+            }) : void 0;
+          }
+          user.items[type][key]--;
+          user.stats.gp += content[type][key].value;
+          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats items'))) : void 0;
+        },
+        equip: function(req, cb) {
+          var item, key, message, type, _ref;
+          _ref = [req.params.type || 'equipped', req.params.key], type = _ref[0], key = _ref[1];
+          switch (type) {
+            case 'mount':
+              user.items.currentMount = user.items.currentMount === key ? '' : key;
+              break;
+            case 'pet':
+              user.items.currentPet = user.items.currentPet === key ? '' : key;
+              break;
+            case 'costume':
+            case 'equipped':
+              item = content.gear.flat[key];
+              user.items.gear[type][item.type] = item.key;
+              message = user.fns.handleTwoHanded(item, type);
+          }
+          return typeof cb === "function" ? cb((message ? {
+            code: 200,
+            message: message
+          } : null), user.items) : void 0;
+        },
+        hatch: function(req, cb) {
+          var egg, hatchingPotion, pet, _ref;
+          _ref = req.params, egg = _ref.egg, hatchingPotion = _ref.hatchingPotion;
+          if (!(egg && hatchingPotion)) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: "Please specify query.egg & query.hatchingPotion"
+            }) : void 0;
+          }
+          if (!(user.items.eggs[egg] > 0 && user.items.hatchingPotions[hatchingPotion] > 0)) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "You're missing either that egg or that potion"
+            }) : void 0;
+          }
+          pet = "" + egg + "-" + hatchingPotion;
+          if (user.items.pets[pet]) {
+            return typeof cb === "function" ? cb("You already have that pet. Try hatching a different combination!") : void 0;
+          }
+          user.items.pets[pet] = 5;
+          user.items.eggs[egg]--;
+          user.items.hatchingPotions[hatchingPotion]--;
+          return typeof cb === "function" ? cb({
+            code: 200,
+            message: "Your egg hatched! Visit your stable to equip your pet."
+          }, user.items) : void 0;
+        },
+        unlock: function(req, cb) {
+          var alreadyOwns, cost, fullSet, k, path, split, v;
+          path = req.query.path;
+          fullSet = ~path.indexOf(",");
+          cost = fullSet ? 1.25 : 0.5;
+          alreadyOwns = !fullSet && user.fns.dotGet("purchased." + path) === true;
+          if (user.balance < cost && !alreadyOwns) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Not enough gems"
+            }) : void 0;
+          }
+          if (fullSet) {
+            _.each(path.split(","), function(p) {
+              user.fns.dotSet("purchased." + p, true);
+              return true;
+            });
+          } else {
+            if (alreadyOwns) {
+              split = path.split('.');
+              v = split.pop();
+              k = split.join('.');
+              user.fns.dotSet("preferences." + k, v);
+              return typeof cb === "function" ? cb(null, req) : void 0;
+            }
+            user.fns.dotSet("purchased." + path, true);
+          }
+          user.balance -= cost;
+          if (typeof user.markModified === "function") {
+            user.markModified('purchased');
+          }
+          return typeof cb === "function" ? cb(null, _.pick(user, $w('purchased preferences'))) : void 0;
+        },
+        changeClass: function(req, cb) {
+          var klass, _ref;
+          klass = (_ref = req.query) != null ? _ref["class"] : void 0;
+          if (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer') {
+            user.stats["class"] = klass;
+            user.flags.classSelected = true;
+            _.each(["weapon", "armor", "shield", "head"], function(type) {
+              var foundKey;
+              foundKey = false;
+              _.findLast(user.items.gear.owned, function(v, k) {
+                if (~k.indexOf(type + "_" + klass) && v === true) {
+                  return foundKey = k;
+                }
+              });
+              user.items.gear.equipped[type] = foundKey ? foundKey : type === "weapon" ? "weapon_" + klass + "_0" : type === "shield" && klass === "rogue" ? "shield_rogue_0" : "" + type + "_base_0";
+              if (type === "weapon" || (type === "shield" && klass === "rogue")) {
+                user.items.gear.owned["" + type + "_" + klass + "_0"] = true;
+              }
+              return true;
+            });
+          } else {
+            if (user.preferences.disableClasses) {
+              user.preferences.disableClasses = false;
+              user.preferences.autoAllocate = false;
+            } else {
+              if (!(user.balance >= .75)) {
+                return typeof cb === "function" ? cb({
+                  code: 401,
+                  message: "Not enough gems"
+                }) : void 0;
+              }
+              user.balance -= .75;
+            }
+            _.merge(user.stats, {
+              str: 0,
+              con: 0,
+              per: 0,
+              int: 0,
+              points: user.stats.lvl
+            });
+            user.flags.classSelected = false;
+          }
+          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags items preferences'))) : void 0;
+        },
+        disableClasses: function(req, cb) {
+          user.stats["class"] = 'warrior';
+          user.flags.classSelected = true;
+          user.preferences.disableClasses = true;
+          user.preferences.autoAllocate = true;
+          user.stats.str = user.stats.lvl;
+          user.stats.points = 0;
+          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags preferences'))) : void 0;
+        },
+        allocate: function(req, cb) {
+          var stat;
+          stat = req.query.stat || 'str';
+          if (user.stats.points > 0) {
+            user.stats[stat]++;
+            user.stats.points--;
+            if (stat === 'int') {
+              user.stats.mp++;
+            }
+          }
+          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
+        },
+        score: function(req, cb) {
+          var addPoints, calculateDelta, delta, direction, id, mpDelta, num, options, stats, subtractPoints, task, th, _ref, _ref1, _ref2;
+          _ref = req.params, id = _ref.id, direction = _ref.direction;
+          task = user.tasks[id];
+          options = req.query || {};
+          _.defaults(options, {
+            times: 1,
+            cron: false
           });
-          user.flags.classSelected = false;
-        }
-        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags items preferences'))) : void 0;
-      },
-      disableClasses: function(req, cb) {
-        user.stats["class"] = 'warrior';
-        user.flags.classSelected = true;
-        user.preferences.disableClasses = true;
-        user.preferences.autoAllocate = true;
-        user.stats.str = user.stats.lvl;
-        user.stats.points = 0;
-        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags preferences'))) : void 0;
-      },
-      allocate: function(req, cb) {
-        var stat;
-        stat = req.query.stat || 'str';
-        if (user.stats.points > 0) {
-          user.stats[stat]++;
-          user.stats.points--;
-          if (stat === 'int') {
-            user.stats.mp++;
+          user._tmp = {};
+          stats = {
+            gp: +user.stats.gp,
+            hp: +user.stats.hp,
+            exp: +user.stats.exp
+          };
+          task.value = +task.value;
+          task.streak = ~~task.streak;
+          if (task.priority == null) {
+            task.priority = 1;
           }
-        }
-        return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
-      },
-      score: function(req, cb) {
-        var addPoints, calculateDelta, delta, direction, id, mpDelta, num, options, stats, subtractPoints, task, th, _ref, _ref1, _ref2;
-        _ref = req.params, id = _ref.id, direction = _ref.direction;
-        task = user.tasks[id];
-        options = req.query || {};
-        _.defaults(options, {
-          times: 1,
-          cron: false
-        });
-        user._tmp = {};
-        stats = {
-          gp: +user.stats.gp,
-          hp: +user.stats.hp,
-          exp: +user.stats.exp
-        };
-        task.value = +task.value;
-        task.streak = ~~task.streak;
-        if (task.priority == null) {
-          task.priority = 1;
-        }
-        if (task.value > stats.gp && task.type === 'reward') {
-          return typeof cb === "function" ? cb('Not enough Gold') : void 0;
-        }
-        delta = 0;
-        calculateDelta = function() {
-          return _.times(options.times, function() {
-            var adjustAmt, currVal, nextDelta, _ref1, _ref2;
-            currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
-            nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
-            if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
-              if (direction === 'down' && task.type === 'daily' && options.cron) {
-                nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
-                  return m + (i.completed ? 1 : 0);
-                }), 0) / task.checklist.length;
-              }
-              if (task.type === 'todo') {
-                nextDelta *= task.checklist.length;
-              }
-            }
-            if (task.type !== 'reward') {
-              if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased') {
-                user.stats.training[task.attribute] += nextDelta;
-              }
-              adjustAmt = nextDelta;
-              if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
-                adjustAmt = nextDelta * (1 + user._statsComputed.str * .004);
-                user.party.quest.progress.up = user.party.quest.progress.up || 0;
-                if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
-                  user.party.quest.progress.up += adjustAmt;
+          if (task.value > stats.gp && task.type === 'reward') {
+            return typeof cb === "function" ? cb('Not enough Gold') : void 0;
+          }
+          delta = 0;
+          calculateDelta = function() {
+            return _.times(options.times, function() {
+              var adjustAmt, currVal, nextDelta, _ref1, _ref2;
+              currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
+              nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
+              if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
+                if (direction === 'down' && task.type === 'daily' && options.cron) {
+                  nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
+                    return m + (i.completed ? 1 : 0);
+                  }), 0) / task.checklist.length;
+                }
+                if (task.type === 'todo') {
+                  nextDelta *= task.checklist.length;
                 }
               }
-              task.value += adjustAmt;
-            }
-            return delta += nextDelta;
-          });
-        };
-        addPoints = function() {
-          var afterStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
-          _crit = user.fns.crit();
-          if (_crit > 1) {
-            user._tmp.crit = _crit;
-          }
-          intBonus = 1 + (user._statsComputed.int * .025);
-          stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
-          perBonus = 1 + user._statsComputed.per * .02;
-          gpMod = delta * task.priority * _crit * perBonus;
-          return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
-        };
-        subtractPoints = function() {
-          var conBonus, hpMod;
-          conBonus = 1 - (user._statsComputed.con / 250);
-          if (conBonus < .1) {
-            conBonus = 0.1;
-          }
-          hpMod = delta * conBonus * task.priority * 2;
-          return stats.hp += Math.round(hpMod * 10) / 10;
-        };
-        switch (task.type) {
-          case 'habit':
-            calculateDelta();
-            if (delta > 0) {
-              addPoints();
-            } else {
-              subtractPoints();
-            }
-            th = (task.history != null ? task.history : task.history = []);
-            if (th[th.length - 1] && moment(th[th.length - 1].date).isSame(new Date, 'day')) {
-              th[th.length - 1].value = task.value;
-            } else {
-              th.push({
-                date: +(new Date),
-                value: task.value
-              });
-            }
-            if (typeof user.markModified === "function") {
-              user.markModified("habits." + (_.findIndex(user.habits, {
-                id: task.id
-              })) + ".history");
-            }
-            break;
-          case 'daily':
-            if (options.cron) {
-              calculateDelta();
-              subtractPoints();
-              if (!user.stats.buffs.streaks) {
-                task.streak = 0;
+              if (task.type !== 'reward') {
+                if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased') {
+                  user.stats.training[task.attribute] += nextDelta;
+                }
+                adjustAmt = nextDelta;
+                if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
+                  adjustAmt = nextDelta * (1 + user._statsComputed.str * .004);
+                  user.party.quest.progress.up = user.party.quest.progress.up || 0;
+                  if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
+                    user.party.quest.progress.up += adjustAmt;
+                  }
+                }
+                task.value += adjustAmt;
               }
-            } else {
+              return delta += nextDelta;
+            });
+          };
+          addPoints = function() {
+            var afterStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
+            _crit = user.fns.crit();
+            if (_crit > 1) {
+              user._tmp.crit = _crit;
+            }
+            intBonus = 1 + (user._statsComputed.int * .025);
+            stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
+            perBonus = 1 + user._statsComputed.per * .02;
+            gpMod = delta * task.priority * _crit * perBonus;
+            return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
+          };
+          subtractPoints = function() {
+            var conBonus, hpMod;
+            conBonus = 1 - (user._statsComputed.con / 250);
+            if (conBonus < .1) {
+              conBonus = 0.1;
+            }
+            hpMod = delta * conBonus * task.priority * 2;
+            return stats.hp += Math.round(hpMod * 10) / 10;
+          };
+          switch (task.type) {
+            case 'habit':
               calculateDelta();
-              addPoints();
-              if (direction === 'up') {
-                task.streak = task.streak ? task.streak + 1 : 1;
-                if ((task.streak % 21) === 0) {
-                  user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
+              if (delta > 0) {
+                addPoints();
+              } else {
+                subtractPoints();
+              }
+              th = (task.history != null ? task.history : task.history = []);
+              if (th[th.length - 1] && moment(th[th.length - 1].date).isSame(new Date, 'day')) {
+                th[th.length - 1].value = task.value;
+              } else {
+                th.push({
+                  date: +(new Date),
+                  value: task.value
+                });
+              }
+              if (typeof user.markModified === "function") {
+                user.markModified("habits." + (_.findIndex(user.habits, {
+                  id: task.id
+                })) + ".history");
+              }
+              break;
+            case 'daily':
+              if (options.cron) {
+                calculateDelta();
+                subtractPoints();
+                if (!user.stats.buffs.streaks) {
+                  task.streak = 0;
                 }
               } else {
-                if ((task.streak % 21) === 0) {
-                  user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
+                calculateDelta();
+                addPoints();
+                if (direction === 'up') {
+                  task.streak = task.streak ? task.streak + 1 : 1;
+                  if ((task.streak % 21) === 0) {
+                    user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
+                  }
+                } else {
+                  if ((task.streak % 21) === 0) {
+                    user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
+                  }
+                  task.streak = task.streak ? task.streak - 1 : 0;
                 }
-                task.streak = task.streak ? task.streak - 1 : 0;
               }
-            }
-            break;
-          case 'todo':
-            if (options.cron) {
+              break;
+            case 'todo':
+              if (options.cron) {
+                calculateDelta();
+              } else {
+                calculateDelta();
+                addPoints();
+                mpDelta = _.max([1 + (((_ref1 = task.checklist) != null ? _ref1.length : void 0) || 0), .01 * user._statsComputed.maxMP * (1 + (((_ref2 = task.checklist) != null ? _ref2.length : void 0) || 0))]);
+                if (direction === 'down') {
+                  mpDelta *= -1;
+                }
+                user.stats.mp += mpDelta;
+                if (user.stats.mp >= user._statsComputed.maxMP) {
+                  user.stats.mp = user._statsComputed.maxMP;
+                }
+                if (user.stats.mp < 0) {
+                  user.stats.mp = 0;
+                }
+              }
+              break;
+            case 'reward':
               calculateDelta();
-            } else {
-              calculateDelta();
-              addPoints();
-              mpDelta = _.max([1 + (((_ref1 = task.checklist) != null ? _ref1.length : void 0) || 0), .01 * user._statsComputed.maxMP * (1 + (((_ref2 = task.checklist) != null ? _ref2.length : void 0) || 0))]);
-              if (direction === 'down') {
-                mpDelta *= -1;
+              stats.gp -= Math.abs(task.value);
+              num = parseFloat(task.value).toFixed(2);
+              if (stats.gp < 0) {
+                stats.hp += stats.gp;
+                stats.gp = 0;
               }
-              user.stats.mp += mpDelta;
-              if (user.stats.mp >= user._statsComputed.maxMP) {
-                user.stats.mp = user._statsComputed.maxMP;
-              }
-              if (user.stats.mp < 0) {
-                user.stats.mp = 0;
-              }
-            }
-            break;
-          case 'reward':
-            calculateDelta();
-            stats.gp -= Math.abs(task.value);
-            num = parseFloat(task.value).toFixed(2);
-            if (stats.gp < 0) {
-              stats.hp += stats.gp;
-              stats.gp = 0;
-            }
-        }
-        user.fns.updateStats(stats);
-        if (typeof window === 'undefined') {
-          if (direction === 'up') {
-            user.fns.randomDrop({
-              task: task,
-              delta: delta
-            });
           }
+          user.fns.updateStats(stats);
+          if (typeof window === 'undefined') {
+            if (direction === 'up') {
+              user.fns.randomDrop({
+                task: task,
+                delta: delta
+              });
+            }
+          }
+          if (typeof cb === "function") {
+            cb(null, user);
+          }
+          return delta;
         }
-        if (typeof cb === "function") {
-          cb(null, user);
-        }
-        return delta;
-      }
-    };
+      };
+    }
     user.fns = {
       getItem: function(type) {
         var item;
@@ -12533,10 +12538,10 @@ var process=require("__browserify_process");(function() {
         var computed,
           _this = this;
         computed = _.reduce(['per', 'con', 'str', 'int'], function(m, stat) {
-          m[stat] = _.reduce('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'.split(' '), function(m2, path) {
-            var val, _ref;
+          m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), function(m2, path) {
+            var item, val;
             val = user.fns.dotGet(path);
-            return m2 + (~path.indexOf('items.gear') ? (+((_ref = content.gear.flat[val]) != null ? _ref[stat] : void 0) || 0) * (~(val != null ? val.indexOf(user.stats["class"]) : void 0) ? 1.5 : 1) : +val[stat] || 0);
+            return m2 + (~path.indexOf('items.gear') ? (item = content.gear.flat[val], (+(item != null ? item[stat] : void 0) || 0) * ((item != null ? item.klass : void 0) === user.stats["class"] ? 1.5 : 1)) : +val[stat] || 0);
           }, 0);
           m[stat] += (user.stats.lvl - 1) / 2;
           return m;
