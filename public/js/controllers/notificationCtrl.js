@@ -43,7 +43,7 @@ habitrpg.controller('NotificationCtrl',
        var amount = User.user._tmp.crit * 100 - 100;
        // reset the crit counter
        User.user._tmp.crit = undefined;
-       Notification.text("Critical Hit! Bonus: " + amount + "%");
+       Notification.crit(amount);
     });
 
     $rootScope.$watch('user._tmp.drop', function(after, before){
