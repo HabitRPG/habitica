@@ -6,7 +6,7 @@ angular.module("notificationServices", [])
     function growl(html, type) {
       $.bootstrapGrowl(html, {
         ele: '#notification-area',
-        type: type, //(null, 'text', 'error', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp')
+        type: type, //(null, 'text', 'error', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
         top_offset: 20,
         align: 'right', //('left', 'right', or 'center')
         width: 250, //(integer, or 'auto')
@@ -68,6 +68,9 @@ angular.module("notificationServices", [])
       },
       mp: function(val) {
         growl("<i class='icon-fire'></i> " + sign(val) + " " + round(val) + " MP", 'mp');
+      },
+      crit: function(val) {
+        growl("<i class='icon-certificate'></i> Critical Hit! Bonus: " + val + "%", 'crit');
       }
     };
   }
