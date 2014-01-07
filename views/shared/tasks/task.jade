@@ -174,7 +174,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
           legend.option-title=env.t('tags')
           label.checkbox(ng-repeat='tag in user.tags')
             input(type='checkbox', ng-model='task.tags[tag.id]')
-            | {{tag.name}}
+            markdown(ng-model='tag.name')
 
         // Advanced Options
         span(bo-if='task.type!="reward"')
