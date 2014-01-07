@@ -1087,7 +1087,7 @@ api.wrap = (user, main=true) ->
         user.flags.partyEnabled = true
       if !user.flags.dropsEnabled and user.stats.lvl >= 4
         user.flags.dropsEnabled = true
-        user.items.eggs["Wolf"] = 1
+        if user.items.eggs["Wolf"] > 0 then user.items.eggs["Wolf"]++ else user.items.eggs["Wolf"] = 1
       if !user.flags.classSelected and user.stats.lvl >= 10
         user.flags.classSelected
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
