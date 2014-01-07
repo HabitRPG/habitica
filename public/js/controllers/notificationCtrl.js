@@ -60,7 +60,7 @@ habitrpg.controller('NotificationCtrl',
     });
 
     $rootScope.$watch('user.achievements.streak', function(after, before){
-      if(after == before || after < before) return;
+      if(before == undefined || after == before || after < before) return;
       $rootScope.modals.achievements.streak = true;
     });
 
