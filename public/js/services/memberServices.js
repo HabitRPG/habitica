@@ -65,10 +65,12 @@ angular.module('memberServices', ['ngResource']).
             // and then for guild)
             // and if not, fetch them
             if (members[uid] && members[uid].items && members[uid].items.weapon) {
+              $rootScope.Shared.wrap(members[uid],false);
               self.selectedMember = members[uid];
             } else {
               Member.get({uid: uid}, function(member){
                 self.populate(member); // lazy load for later
+                $rootScope.Shared.wrap(member,false);
                 self.selectedMember = members[member._id];
               });
             }
