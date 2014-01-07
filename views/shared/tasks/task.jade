@@ -3,7 +3,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
   .task-meta-controls
 
     // Due Date
-    span.task-date(ng-if='task.type=="todo" && task.date')
+    span.task-date(ng-if='task.type=="todo" && task.date', style='margin:1px')
       span(ng-class='{"label label-important":moment(task.date).isBefore(_today)}') {{moment(task.date).format('MM/DD')}}
     // Streak
     span(ng-show='task.streak') {{task.streak}}
@@ -12,7 +12,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
 
     // Icons only available if you own the tasks (aka, hidden from challenge stats)
     span(ng-if='!obj._locked')
-      a.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}', ng-click='collapseChecklist(task)')
+      a.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}', ng-click='collapseChecklist(task)', style='margin:1px')
         {{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
 
       i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
