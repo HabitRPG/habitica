@@ -51,8 +51,8 @@ angular.module("notificationServices", [])
         if (val < -50) return; // don't show when they level up (resetting their exp)
         growl("<i class='icon-star'></i> " + sign(val) + " " + round(val) + " XP", 'xp');
       },
-      gp: function(val) {
-        growl(sign(val) + " " + coins(val), 'gp');
+      gp: function(val, bonus) {
+        growl(sign(val) + " " + coins(val - bonus), 'gp');
       },
       text: function(val){
         growl(val);
