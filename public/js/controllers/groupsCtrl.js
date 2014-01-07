@@ -192,8 +192,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
   }])
 
-  .controller("GuildsCtrl", ['$scope', 'Groups', 'User', '$rootScope', '$state', '$location', '$compile',
-    function($scope, Groups, User, $rootScope, $state, $location, $compile) {
+  .controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$rootScope', '$state', '$location', '$compile',
+    function($scope, Groups, User, Challenges, $rootScope, $state, $location, $compile) {
       $scope.groups = {
         guilds: Groups.myGuilds(),
         "public": Groups.publicGuilds()
@@ -240,7 +240,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
      $scope.leave = function(keep) {
          if (keep == 'cancel') {
-             $scope.selectedChal = undefined;
+             $scope.selectedGroup = undefined;
          } else {
          var group = $scope.selectedGroup;
              Groups.Group.leave({gid: group._id, keep:keep}, undefined, function(){
@@ -263,16 +263,30 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       $scope.clickLeave = function(group, $event){
           $scope.selectedGroup = group;
           $scope.popoverEl = $($event.target);
-          var html = $compile(
+          var html, title;
+          Challenges.Challenge.query(function(challenges) {
+              challenges = _.pluck(_.filter(challenges, function(c) {
+                  return c.group._id == group._id;
+              }), '_id');
+              if (_.intersection(challenges, User.user.challenges).length > 0) {
+                  html = $compile(
               '<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">Remove Tasks</a><br/>\n<a ng-click="leave(\'keep-all\')">Keep Tasks</a><br/>\n<a ng-click="leave(\'cancel\')">Cancel</a><br/>'
           )($scope);
+                  title = "Leave group challenges and...";
+              } else {
+                  html = $compile(
+                      '<a ng-controller="GroupsCtrl" ng-click="leave(\'keep-all\')">Confirm</a><br/>\n<a ng-click="leave(\'cancel\')">Cancel</a><br/>'
+                  )($scope);
+                  title = "Leave group?"
+              }
           $scope.popoverEl.popover('destroy').popover({
               html: true,
               placement: 'top',
               trigger: 'manual',
-              title: 'Leaving group challenges and...',
+                  title: title,
               content: html
           }).popover('show');
+          });
       }
 
       $scope.reject = function(guild){

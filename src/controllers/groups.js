@@ -316,6 +316,8 @@ api.leave = function(req, res, next) {
             // Unlink the challenge tasks from user
             async.waterfall(challenges.map(function(chal) {
               return function(cb) {
+                var i = user.challenges.indexOf(chal._id)
+                if (~i) user.challenges.splice(i,1);
                 user.unlink({cid:chal._id, keep:keep}, function(err){
                   if (err) return cb(err);
                   cb(null);
