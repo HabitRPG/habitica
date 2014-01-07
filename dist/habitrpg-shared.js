@@ -9428,6 +9428,60 @@ var global=self;/**
             var _ref;
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
           })
+        },
+        yeti: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'warrior';
+          }),
+          text: "Yeti-Tamer Spear",
+          notes: 'Limited Edition 2013 Winter Gear! This spear allows its user to command any yeti. Increases STR by 18.',
+          str: 18,
+          value: 120
+        },
+        ski: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'rogue';
+          }),
+          text: "Ski-sassin Pole",
+          notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 10.',
+          str: 10,
+          value: 120
+        },
+        candycane: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'wizard';
+          }),
+          twoHanded: true,
+          text: "Candy Cane Staff",
+          notes: "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases INT by 18 and PER by 9.",
+          int: 18,
+          per: 9,
+          value: 200
+        },
+        snowflake: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'healer';
+          }),
+          text: "Snowflake Wand",
+          notes: 'Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases INT by 11.',
+          int: 11,
+          value: 120
         }
       }
     },
@@ -9605,6 +9659,58 @@ var global=self;/**
             var _ref;
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
           })
+        },
+        yeti: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'warrior';
+          }),
+          text: "Yeti-Tamer Robe",
+          notes: 'Limited Edition 2013 Winter Gear! Fuzzy and fierce. Increases CON by 9.',
+          con: 9,
+          value: 90
+        },
+        ski: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'rogue';
+          }),
+          text: "Ski-sassin Parka",
+          notes: 'Limited Edition 2013 Winter Gear! Full of secret daggers and ski trail maps. Increases PER by 15.',
+          per: 15,
+          value: 90
+        },
+        candycane: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'wizard';
+          }),
+          text: "Candy Cane Robe",
+          notes: 'Limited Edition 2013 Winter Gear! Spun from sugar and silk. Increases INT by 9.',
+          int: 9,
+          value: 90
+        },
+        snowflake: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'healer';
+          }),
+          text: "Snowflake Robe",
+          notes: 'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.',
+          con: 15,
+          value: 90
         }
       }
     },
@@ -9784,13 +9890,65 @@ var global=self;/**
           })
         },
         nye: {
-          text: "Absurd Party Hat",
-          notes: "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!",
-          value: 0,
           event: {
             start: '2013-12-31',
             end: '2014-02-01'
-          }
+          },
+          text: "Absurd Party Hat",
+          notes: "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!",
+          value: 0
+        },
+        yeti: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'warrior';
+          }),
+          text: "Yeti-Tamer Helm",
+          notes: 'Limited Edition 2013 Winter Gear! An adorably fearsome hat. Increases STR by 9.',
+          str: 9,
+          value: 60
+        },
+        ski: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'rogue';
+          }),
+          text: "Ski-sassin Helm",
+          notes: "Limited Edition 2013 Winter Gear! Keeps the wearer's identity secret... and their face toasty. Increases PER by 9.",
+          per: 9,
+          value: 60
+        },
+        candycane: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'wizard';
+          }),
+          text: "Candy Cane Hat",
+          notes: "Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by 7.",
+          per: 7,
+          value: 60
+        },
+        snowflake: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'healer';
+          }),
+          text: "Snowflake Crown",
+          notes: 'Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by 7.',
+          int: 7,
+          value: 60
         }
       }
     },
@@ -9937,6 +10095,45 @@ var global=self;/**
             var _ref;
             return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 5;
           })
+        },
+        yeti: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'warrior';
+          }),
+          text: "Yeti-Tamer Shield",
+          notes: 'Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by 7.',
+          con: 7,
+          value: 70
+        },
+        ski: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'rogue';
+          }),
+          text: "Ski-sassin Pole",
+          notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases CON by 9.',
+          con: 9,
+          value: 70
+        },
+        snowflake: {
+          event: {
+            start: '2013-12-31',
+            end: '2014-02-01'
+          },
+          canOwn: (function(u) {
+            return u.stats["class"] === 'healer';
+          }),
+          text: "Snowflake Shield",
+          notes: 'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.',
+          con: 9,
+          value: 70
         }
       }
     }

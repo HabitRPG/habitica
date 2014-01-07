@@ -60,6 +60,12 @@ gear =
       2: text: "Stephen Weber's Shaft of the Dragon", notes:'Feel the potency of the dragon surge from within! Increases STR and PER by 25 each.', str: 25, per: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
       3: text: "Mustaine's Milestone Mashing Morning Star", notes:"Meetings, monsters, malaise: managed! Mash! Increases STR, INT, and CON by 17 each.", str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
 
+      # Winter event gear
+      yeti:       event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'warrior' ), text: "Yeti-Tamer Spear", notes:'Limited Edition 2013 Winter Gear! This spear allows its user to command any yeti. Increases STR by 18.', str: 18, value:120
+      ski:        event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'rogue'   ), text: "Ski-sassin Pole", notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 10.', str: 10, value: 120
+      candycane:  event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'wizard'  ), twoHanded: true, text: "Candy Cane Staff", notes:"Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases INT by 18 and PER by 9.", int: 18, per: 9, value:200
+      snowflake:  event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'healer'  ), text: "Snowflake Wand", notes:'Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases INT by 11.', int: 11, value:120
+
   armor:
     base:
       0: text: "Cloth Armor", notes:'Ordinary clothing. Confers no benefit.', value:0
@@ -96,6 +102,12 @@ gear =
       1: text: "Crystal Armor", notes:'Its tireless power inures the wearer to mundane discomfort. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
       2: text: "Jean Chalard's Noble Tunic", notes:'Makes you extra fluffy! Increases CON and INT by 25 each.', int: 25, con: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
 
+      #Winter event
+      yeti:       event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'warrior' ), text: "Yeti-Tamer Robe", notes:'Limited Edition 2013 Winter Gear! Fuzzy and fierce. Increases CON by 9.', con: 9, value:90
+      ski:        event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'rogue'   ), text: "Ski-sassin Parka", notes:'Limited Edition 2013 Winter Gear! Full of secret daggers and ski trail maps. Increases PER by 15.', per: 15, value:90
+      candycane:  event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'wizard'  ), text: "Candy Cane Robe", notes:'Limited Edition 2013 Winter Gear! Spun from sugar and silk. Increases INT by 9.', int: 9, value:90
+      snowflake:  event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'healer'  ), text: "Snowflake Robe", notes:'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.', con: 15, value:90
+
   head:
     base:
       0: text: "No Helm", notes:'No headgear.', value:0
@@ -131,8 +143,13 @@ gear =
       0: text: "Shade Helm",   notes:'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.', int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: "Crystal Helm", notes:'The favored crown of those who lead by example. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 3)
       2: text: "Nameless Helm", notes:'A testament to those who gave of themselves while asking nothing in return. Increases INT and STR by 25 each.', int: 25, str: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
-      nye: text: "Absurd Party Hat", notes:"You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!", value: 0, event: {start:'2013-12-31',end:'2014-02-01'}
-      #candycane: text: "Candy Cane Hat", notes: 'A hat adorned in candy, a wintery treat!', value:10, canOwn: ((u)-> moment(u.auth.timestamps?.created).isBefore(new Date '01/10/2014'))
+
+      #Winter event
+      nye:        event: {start:'2013-12-31',end:'2014-02-01'}, text: "Absurd Party Hat", notes:"You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!", value: 0
+      yeti:       event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'warrior' ), text: "Yeti-Tamer Helm", notes:'Limited Edition 2013 Winter Gear! An adorably fearsome hat. Increases STR by 9.', str: 9, value:60
+      ski:        event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'rogue'   ), text: "Ski-sassin Helm", notes:"Limited Edition 2013 Winter Gear! Keeps the wearer's identity secret... and their face toasty. Increases PER by 9.", per: 9, value:60
+      candycane:  event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'wizard'  ), text: "Candy Cane Hat", notes:"Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by 7.", per: 7, value:60
+      snowflake:  event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'healer'  ), text: "Snowflake Crown", notes:'Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by 7.', int: 7, value:60
 
   shield:
     base:
@@ -164,6 +181,11 @@ gear =
     special:
       0: text: "Tormented Skull", notes:'Sees beyond the veil of death, and displays what it finds there for enemies to fear. Increases PER by 20.', per: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: "Crystal Shield", notes:'Shatters arrows and deflects the words of naysayers. Increases all attributes by 6.', con: 6, str: 6, per: 6, int:6, value:170, canOwn: ((u)-> +u.contributor?.level >= 5)
+
+      #Winter event
+      yeti:       event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'warrior' ), text: "Yeti-Tamer Shield", notes:'Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by 7.', con: 7, value:70
+      ski:        event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'rogue'   ), text: "Ski-sassin Pole", notes:'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases CON by 9.', con: 9, value:70
+      snowflake:  event: {start:'2013-12-31',end:'2014-02-01'}, canOwn: ((u)->u.stats.class is 'healer'   ), text: "Snowflake Shield", notes:'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.', con: 9, value:70
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
