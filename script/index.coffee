@@ -443,6 +443,7 @@ api.wrap = (user) ->
       # Strip owned gear down to the training sword
       gear.owned = {weapon_warrior_0:true}
       user.markModified? 'items.gear.owned'
+      user.preferences.costume = false
       # Remove unlocked features
       flags = user.flags
       if not (user.achievements.ultimateGear or user.achievements.beastMaster)

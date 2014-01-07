@@ -63,7 +63,7 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var global=self;/**
+var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
  * @license
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -11513,6 +11513,7 @@ var process=require("__browserify_process");(function() {
         if (typeof user.markModified === "function") {
           user.markModified('items.gear.owned');
         }
+        user.preferences.costume = false;
         flags = user.flags;
         if (!(user.achievements.ultimateGear || user.achievements.beastMaster)) {
           flags.rebirthEnabled = false;
