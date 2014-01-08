@@ -106,6 +106,7 @@
   "Habits": "Habits",
     "newHabit": "New Habit",
     "edit": "Edit",
+      "save" : "Save",
       "addChecklist" : "Add Checklist",
       "checklist" : "Checklist",
         "checklistText" : "For Dailies, partially-completed Dailies will cut damage (eg, a 4-item checklist with 3 completed, your Daily will hurt you 25% of the damage). For To-Dos, when completed, your points will be multiplied by the number of checklist-items (eg, a 4-item To-Do will be 4x the Exp & GP).",
