@@ -505,9 +505,10 @@ api.wrap = (user, main=true) ->
       # ------
 
       addTag: (req, cb) ->
-        {name} = req.body
         user.tags ?= []
-        user.tags.push({name})
+        user.tags.push
+          name: req.body.name
+          id: req.body.id or api.uuid()
         cb? null, user.tags
 
       updateTag: (req, cb) ->

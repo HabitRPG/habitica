@@ -11601,13 +11601,12 @@ var process=require("__browserify_process");(function() {
           return task;
         },
         addTag: function(req, cb) {
-          var name;
-          name = req.body.name;
           if (user.tags == null) {
             user.tags = [];
           }
           user.tags.push({
-            name: name
+            name: req.body.name,
+            id: req.body.id || api.uuid()
           });
           return typeof cb === "function" ? cb(null, user.tags) : void 0;
         },
