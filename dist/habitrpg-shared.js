@@ -11595,6 +11595,9 @@ var process=require("__browserify_process");(function() {
           var task;
           task = api.taskDefaults(req.body);
           user["" + task.type + "s"].unshift(task);
+          if (user.preferences.newTaskEdit) {
+            task._editing = true;
+          }
           if (typeof cb === "function") {
             cb(null, task);
           }
