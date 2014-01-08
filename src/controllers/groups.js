@@ -6,6 +6,7 @@ var async = require('async');
 var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
+var Challenge = require('./../models/challenge').model;
 var api = module.exports;
 
 /*
@@ -303,6 +304,8 @@ api.join = function(req, res) {
 api.leave = function(req, res, next) {
   var user = res.locals.user,
     group = res.locals.group;
+  // When removing the user from challenges, should we keep the tasks?
+  var keep = (/^remove-all/i).test(req.query.keep) ? 'remove-all' : 'keep-all';
   async.parallel([
     // Remove active quest from user if they're leaving the party
     function(cb){
@@ -310,6 +313,38 @@ api.leave = function(req, res, next) {
       user.party.quest = Group.cleanQuestProgress();
       user.save(cb);
     },
+    // Remove user from group challenges
+      function(cb){
+        async.waterfall([
+        // Find relevant challenges
+          function(cb) {
+            Challenge.find({$and:[
+              {_id: {$in: user.challenges}}, // Challenges I am in
+              {group: group._id}, // that belong to the group I am leaving
+            ]}, cb);
+          },
+          function(challenges, cb) {
+            // Update each challenge
+            Challenge.update({_id:{$in: _.pluck(challenges, '_id')}},
+                             {$pull:{members:user._id}},
+                             {multi: true}, function(err) {
+                               if (err) return cb(err);
+                               cb(null, challenges);
+                             });
+          },
+          function(challenges, cb) {
+            // Unlink the challenge tasks from user
+            async.waterfall(challenges.map(function(chal) {
+              return function(cb) {
+                var i = user.challenges.indexOf(chal._id)
+                if (~i) user.challenges.splice(i,1);
+                user.unlink({cid:chal._id, keep:keep}, function(err){
+                  if (err) return cb(err);
+                  cb(null);
+                });
+             }}), cb);
+          }], cb);
+      },
     function(cb){
       var update = {$pull:{members:user._id}};
       if (group.type == 'party' && group.quest.key){

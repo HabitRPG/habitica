@@ -206,8 +206,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
 
   }])
 
-  .controller("GuildsCtrl", ['$scope', 'Groups', 'User', '$rootScope', '$state', '$location',
-    function($scope, Groups, User, $rootScope, $state, $location) {
+  .controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$rootScope', '$state', '$location', '$compile',
+    function($scope, Groups, User, Challenges, $rootScope, $state, $location, $compile) {
       $scope.groups = {
         guilds: Groups.myGuilds(),
         "public": Groups.publicGuilds()
@@ -252,11 +252,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
         })
       }
 
-      $scope.leave = function(group){
-        if (confirm("Are you sure you want to leave this guild?") !== true) {
-          return;
-        }
-        Groups.Group.leave({gid: group._id}, undefined, function(){
+     $scope.leave = function(keep) {
+         if (keep == 'cancel') {
+             $scope.selectedGroup = undefined;
+         } else {
+         var group = $scope.selectedGroup;
+             Groups.Group.leave({gid: group._id, keep:keep}, undefined, function(){
           $scope.groups.guilds.splice(_.indexOf($scope.groups.guilds, group), 1);
           // remove user from group members if guild is public so that he can re-join it immediately
           if(group.privacy == 'public' || !group.privacy){ //public guilds with only some fields fetched
@@ -269,6 +270,37 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
           }
           $state.go('options.social.guilds');
         });
+      }
+         $scope.popoverEl.popover('destroy');
+     }
+
+      $scope.clickLeave = function(group, $event){
+          $scope.selectedGroup = group;
+          $scope.popoverEl = $($event.target);
+          var html, title;
+          Challenges.Challenge.query(function(challenges) {
+              challenges = _.pluck(_.filter(challenges, function(c) {
+                  return c.group._id == group._id;
+              }), '_id');
+              if (_.intersection(challenges, User.user.challenges).length > 0) {
+                  html = $compile(
+              '<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">Remove Tasks</a><br/>\n<a ng-click="leave(\'keep-all\')">Keep Tasks</a><br/>\n<a ng-click="leave(\'cancel\')">Cancel</a><br/>'
+          )($scope);
+                  title = "Leave group challenges and...";
+              } else {
+                  html = $compile(
+                      '<a ng-controller="GroupsCtrl" ng-click="leave(\'keep-all\')">Confirm</a><br/>\n<a ng-click="leave(\'cancel\')">Cancel</a><br/>'
+                  )($scope);
+                  title = "Leave group?"
+              }
+          $scope.popoverEl.popover('destroy').popover({
+              html: true,
+              placement: 'top',
+              trigger: 'manual',
+                  title: title,
+              content: html
+          }).popover('show');
+          });
       }
 
       $scope.reject = function(guild){
