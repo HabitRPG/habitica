@@ -2,7 +2,7 @@ li.chat-message(bindonce='group.chat', ng-repeat='message in group.chat', bo-cla
   div(class='scrollable-message')
     a.label.chat-message(class='hidden-label')
       span {{message.user}}&nbsp;
-    markdown(ng-model='message.text',target='_blank', style='padding:0px 3px')
+    markdown(ng-model='message.text', style='padding:0px 3px')
     | -
     span.muted.time(from-now='message.timestamp',style='padding:0px 3px')
     span(style='padding:0px 3px')

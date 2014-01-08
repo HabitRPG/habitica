@@ -105,7 +105,7 @@ habitrpg.directive('habitrpgSortable', ['User', function(User) {
           .replace(/'/g, '&#39;');
       };
       if (cap[0].charAt(0) !== '!') {
-        return '<a class="markdown-link" href="'
+        return '<a class="markdown-link" target="_blank" href="'
           + escape(link.href)
           + '"'
           + (link.title
@@ -117,7 +117,7 @@ habitrpg.directive('habitrpgSortable', ['User', function(User) {
           + this.output(cap[1])
           + '</a>';
       } else {
-        return '<a class="markdown-img-link" href="'
+        return '<a class="markdown-img-link" target="_blank" href="'
           + escape(link.href)
           + '"'
           + (link.title
