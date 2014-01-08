@@ -63,7 +63,7 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
+var global=self;/**
  * @license
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -10080,9 +10080,9 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
             return u.stats["class"] === 'rogue';
           }),
           text: "Ski-sassin Pole",
-          notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases CON by 9.',
-          con: 9,
-          value: 70
+          notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.',
+          str: 8,
+          value: 90
         },
         snowflake: {
           event: events.winter,

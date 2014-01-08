@@ -186,7 +186,7 @@ gear =
 
       #Winter event
       yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: "Yeti-Tamer Shield", notes:'Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by 7.', con: 7, value:70
-      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: "Ski-sassin Pole", notes:'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases CON by 9.', con: 9, value:70
+      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: "Ski-sassin Pole", notes:'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.', str: 8, value: 90
       snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'   ), text: "Snowflake Shield", notes:'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.', con: 9, value:70
 
 ###
