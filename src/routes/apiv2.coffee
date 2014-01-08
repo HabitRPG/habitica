@@ -282,7 +282,7 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: "Casts a spell on a target."
-        params: [
+        parameters: [
           path 'spell',"The key of the spell to cast (see habitrpg-shared#content.coffee)",'string'
           query 'targetType',"The type of object you're targeting",'string',['party','self','user','task']
           query 'targetId',"The ID of the object you're targeting",'string'
@@ -359,7 +359,7 @@ module.exports = (swagger, v2) ->
       spec:
         path: '/groups'
         description: "Get a list of groups"
-        params: [
+        parameters: [
           query 'type',"Comma-separated types of groups to return, eg 'party,guilds,public,tavern'",'string'
         ]
       middleware: auth.auth
@@ -371,7 +371,7 @@ module.exports = (swagger, v2) ->
         path: '/groups'
         method: 'POST'
         description: 'Create a group'
-        params: [
+        parameters: [
           body '','Group object (see GroupSchema)','object'
         ]
       middleware: auth.auth
@@ -381,7 +381,7 @@ module.exports = (swagger, v2) ->
       spec:
         path: '/groups/{gid}'
         description: "Get a group"
-        params: [path('gid','Group ID','string')]
+        parameters: [path('gid','Group ID','string')]
       middleware: auth.auth
       action: groups.get
 
@@ -390,7 +390,7 @@ module.exports = (swagger, v2) ->
         path: '/groups/{gid}'
         method: 'POST'
         description: "Edit a group"
-        params: [body('','Group object (see GroupSchema)','object')]
+        parameters: [body('','Group object (see GroupSchema)','object')]
       middleware: [auth.auth, groups.attachGroup]
       action: groups.update
 
@@ -398,7 +398,7 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: 'Join a group'
-        params: [path('gid','Id of the group to join','string')]
+        parameters: [path('gid','Id of the group to join','string')]
       middleware: [auth.auth, groups.attachGroup]
       action: groups.join
 
@@ -406,7 +406,7 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: 'Leave a group'
-        params: [path('ID of the group to leave','string')]
+        parameters: [path('ID of the group to leave','string')]
       middleware: [auth.auth, groups.attachGroup]
       action: groups.leave
 
@@ -414,7 +414,7 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: "Invite a user to a group"
-        params: [
+        parameters: [
           path 'gid','Group id','string'
           query 'uuid','User id to invite','string'
         ]
@@ -425,7 +425,7 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: "Remove / boot a member from a group"
-        params: [
+        parameters: [
           path 'gid','Group id','string'
           query 'uuid','User id to boot','string'
         ]
@@ -447,7 +447,7 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: 'Reject quest invitation'
-        params: [
+        parameters: [
           path 'gid','Group id','string'
         ]
       middleware: [auth.auth, groups.attachGroup]
@@ -457,7 +457,7 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: 'Abort quest'
-        params: [path('gid','Group to abort quest in','string')]
+        parameters: [path('gid','Group to abort quest in','string')]
       middleware: [auth.auth, groups.attachGroup]
       action: groups.questAbort
 
@@ -468,7 +468,7 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: "Send a chat message"
-        params: [
+        parameters: [
           query 'message', 'Chat message','string'
           path 'gid','Group id','string'
         ]
@@ -479,7 +479,7 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'DELETE'
         description: 'Delete a group'
-        params: [path('gid','ID of group to delete','string')]
+        parameters: [path('gid','ID of group to delete','string')]
       middleware: [auth.auth, groups.attachGroup]
       action: groups.deleteChatMessage
 
@@ -487,7 +487,7 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: "Like a chat message"
-        params: [
+        parameters: [
           path 'gid','Group id','string'
           path 'mid','Message id','string'
         ]
@@ -523,7 +523,7 @@ module.exports = (swagger, v2) ->
 
     "/hall/patrons":
       spec:
-        params: [
+        parameters: [
           query 'page','Page number to fetch (this list is long)','string'
         ]
       middleware:[auth.auth]
@@ -549,7 +549,7 @@ module.exports = (swagger, v2) ->
         path: '/challenges'
         method: 'POST'
         description: "Create a challenge"
-        params: [body('','Challenge object (see ChallengeSchema)','object')]
+        parameters: [body('','Challenge object (see ChallengeSchema)','object')]
       middleware: [auth.auth]
       action: challenges.create
 
@@ -557,7 +557,7 @@ module.exports = (swagger, v2) ->
       spec:
         path: '/challenges/{cid}'
         description: 'Get a challenge'
-        params: [path('cid','Challenge id','string')]
+        parameters: [path('cid','Challenge id','string')]
       action: challenges.get
 
     "/challenges/{cid}:POST":
@@ -565,7 +565,7 @@ module.exports = (swagger, v2) ->
         path: '/challenges/{cid}'
         method: 'POST'
         description: "Update a challenge"
-        params: [
+        parameters: [
           path 'cid','Challenge id','string'
           body('','Challenge object (see ChallengeSchema)','object')
         ]
@@ -577,7 +577,7 @@ module.exports = (swagger, v2) ->
         path: '/challenges/{cid}'
         method: 'DELETE'
         description: "Delete a challenge"
-        params: [path('cid','Challenge id','string')]
+        parameters: [path('cid','Challenge id','string')]
       middleware: [auth.auth]
       action: challenges["delete"]
 
@@ -585,7 +585,7 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: 'Close a challenge'
-        params: [
+        parameters: [
           path 'cid','Challenge id','string'
           query 'uid','User ID of the winner','string',true
         ]
@@ -596,7 +596,7 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: "Join a challenge"
-        params: [path('cid','Challenge id','string')]
+        parameters: [path('cid','Challenge id','string')]
       middleware: [auth.auth]
       action: challenges.join
 
@@ -604,14 +604,14 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: 'Leave a challenge'
-        params: [path('cid','Challenge id','string')]
+        parameters: [path('cid','Challenge id','string')]
       middleware: [auth.auth]
       action: challenges.leave
 
     "/challenges/{cid}/member/{uid}":
       spec:
         description: "Get a member's progress in a particular challenge"
-        params: [
+        parameters: [
           path 'cid','Challenge id','string'
           path 'uid','User id','string'
         ]
