@@ -1,1 +1,1 @@
-db.users.update({_id:''},{$set:{'purchased.ads':true},$inc:{balance:10}});
+db.users.update({_id:''},{$set:{'purchased.ads':true},$inc:{balance:5}});
