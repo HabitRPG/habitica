@@ -43,7 +43,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     };
 
     $scope.saveTask = function(task, stayOpen) {
-      if (task.checklist && task.checklist[0])
+      if (task.checklist)
         task.checklist = _.filter(task.checklist,function(i){return !!i.text});
       User.user.ops.updateTask({params:{id:task.id},body:task});
       if (!stayOpen) task._editing = false;
@@ -92,7 +92,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       focusChecklist(task,0);
     }
     $scope.addChecklistItem = function(task,$event,$index) {
-      if ($index == task.checklist.length-1){
+      if (!task.checklist[$index].text) {
+        // Don't allow creation of an empty checklist item
+        // TODO Provide UI feedback that this item is still blank
+      } else if ($index == task.checklist.length-1){
         User.user.ops.updateTask({params:{id:task.id},body:task}); // don't preen the new empty item
         task.checklist.push({completed:false,text:''});
         focusChecklist(task,task.checklist.length-1);
@@ -101,13 +104,21 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         focusChecklist(task,$index+1);
       }
     }
-    $scope.removeChecklistItem = function(task,$index,force){
-      var backspaced = !force && !task.checklist[$index].text
-      if (force || backspaced) {
+    $scope.removeChecklistItem = function(task,$event,$index,force){
+      // Remove item if clicked on trash icon
+      if (force) {
         task.checklist.splice($index,1);
         $scope.saveTask(task,true);
-        if (backspaced) focusChecklist(task,$index-1);
-      }
+      } else if (!task.checklist[$index].text) {
+        // User deleted all the text and is now wishing to delete the item
+        // saveTask will prune the empty item
+        $scope.saveTask(task,true);
+        // Move focus if the list is still non-empty
+        if ($index > 0)
+          focusChecklist(task,$index-1);
+        // Don't allow the backspace key to navigate back now that the field is gone
+        $event.preventDefault();
+      } 
     }
     $scope.navigateChecklist = function(task,$index,$event){
       focusChecklist(task, $event.keyCode == '40' ? $index+1 : $index-1);

@@ -120,10 +120,10 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
               i.icon.icon-question-sign(popover=env.t('checklistText'),popover-trigger='mouseenter',popover-placement='bottom')
             ul.unstyled
               li(ng-repeat='item in task.checklist')
-                a.pull-right.checklist-icons(ng-click='removeChecklistItem(task,$index,true)')
+                a.pull-right.checklist-icons(ng-click='removeChecklistItem(task,$event,$index,true)')
                   i.icon-trash(tooltip=env.t('delete'))
                 input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
-                input.inline-edit(type='text',ng-model='item.text',ui-keyup="{13:'addChecklistItem(task,$event,$index)','8 49':'removeChecklistItem(task,$index)','38 40':'navigateChecklist(task,$index,$event)'}")//-,ng-blur='saveTask(task,true)')
+                input.inline-edit(type='text',ng-model='item.text',ui-keydown="{'8 46':'removeChecklistItem(task,$event,$index)'}",ui-keyup="{'13':'addChecklistItem(task,$event,$index)','38 40':'navigateChecklist(task,$index,$event)'}")//-,ng-blur='saveTask(task,true)')
 
 
       form(ng-submit='saveTask(task)')
