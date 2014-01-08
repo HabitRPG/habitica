@@ -145,7 +145,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
           | Change Class, Refund Attribute Points&nbsp;
         small 3 <span class="Pet_Currency_Gem1x inline-gems"/>
 
-      h5 Unallocated Attribute Points: {{user.stats.points}}
+      h5(popover-trigger='mouseenter', popover-placement='left', popover="Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options.") Unallocated Attribute Points: {{user.stats.points}}&nbsp;
       fieldset.auto-allocate
         label.checkbox
           input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})', ng-click='set({"preferences.allocationMode":"taskbased"})')
@@ -166,29 +166,21 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
               i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover="Assigns points based on the Physical (STR), Mental (INT), Social (CON), and Other (PER) categories associated with the tasks you complete.")
       table.table.table-striped
         tr
+          td Points allocated to STR: {{user.stats.str}}
           td
-            i.icon-question-sign(popover-title='Strength', popover='Strength reduces task threat (redness), increases the Gold and Experience boost from random "critical hits," and helps deal damage to boss monsters.', popover-trigger='mouseenter')
-            | &nbsp;STR: {{user.stats.str}}
-          td
-            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("str")') +
+            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("str")', popover-trigger='mouseenter', popover-placement='right', popover="Add a point to Strength") +
         tr
+          td Points allocated to CON: {{user.stats.con}}
           td
-            i.icon-question-sign(popover-title='Constitution', popover='Constitution reduces the damage you take, whether from negative Habits, missed Dailies, or the attacks of boss monsters.', popover-trigger='mouseenter')
-            | &nbsp;CON: {{user.stats.con}}
-          td
-            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("con")') +
+            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("con")', popover-trigger='mouseenter', popover-placement='right', popover="Add a point to Constitution") +
         tr
+          td Points allocated to PER: {{user.stats.per}}
           td
-            i.icon-question-sign(popover-title='Perception', popover='Perception increases how much Gold you earn, and increases the chance of finding items when scoring tasks.', popover-trigger='mouseenter')
-            | &nbsp;PER: {{user.stats.per}}
-          td
-            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("per")') +
+            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("per")', popover-trigger='mouseenter', popover-placement='right', popover="Add a point to Perception") +
         tr
+          td Points allocated to INT: {{user.stats.int}}
           td
-            i.icon-question-sign(popover-title='Intelligence', popover='Intelligence increases how much Experience you earn, and determines your maximum Mana available for class abilities.', popover-trigger='mouseenter')
-            | &nbsp;INT: {{user.stats.int}}
-          td
-            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("int")') +
+            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("int")', popover-trigger='mouseenter', popover-placement='right', popover="Add a point to Intelligence") +
     div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "span4" : "span6"')
       include ../shared/profiles/achievements
 
