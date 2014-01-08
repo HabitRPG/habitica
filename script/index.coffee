@@ -497,6 +497,7 @@ api.wrap = (user, main=true) ->
       addTask: (req, cb) ->
         task = api.taskDefaults(req.body)
         user["#{task.type}s"].unshift(task)
+        if user.preferences.newTaskEdit then task._editing = true
         cb? null, task
         task
 
