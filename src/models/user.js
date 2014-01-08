@@ -227,7 +227,8 @@ var UserSchema = new Schema({
     costume: Boolean,
     sleep: {type: Boolean, 'default': false},
     stickyHeader: {type: Boolean, 'default': true},
-    disableClasses: {type: Boolean, 'default': false}
+    disableClasses: {type: Boolean, 'default': false},
+    newTaskEdit: {type: Boolean, 'default': false}
   },
   profile: {
     blurb: String,

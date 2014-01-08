@@ -33,12 +33,16 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
       h4 Misc
       label.checkbox
         input(type='checkbox', ng-click='set({"preferences.hideHeader":user.preferences.hideHeader?false:true})', ng-checked='user.preferences.hideHeader!==true')
-        | Show Header
+        | Show Header&nbsp;
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover='Show your avatar, Health/Experience bars, and party.')
       label.checkbox
         input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false')
-        | Sticky Header
+        | Sticky Header&nbsp;
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover='Affix the header to the top of the screen. Unchecked means it scrolls out of view.')
+      label.checkbox
+        input(type='checkbox', ng-model='user.preferences.newTaskEdit', ng-change='set({"preferences.newTaskEdit": user.preferences.newTaskEdit?true: false})')
+        | Open New Tasks in Edit Mode&nbsp;
+        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover='With this option set, new tasks will immediately open for you to add details like notes and tags.')
       button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover='Restart the introductory tour from when you first joined HabitRPG.') Show Tour
       br
       button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover='Bring Bailey the Town Crier out of hiding so you can review past news.') Show Bailey
