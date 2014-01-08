@@ -406,7 +406,7 @@ module.exports = (swagger, v2) ->
       spec:
         method: 'POST'
         description: 'Leave a group'
-        parameters: [path('ID of the group to leave','string')]
+        parameters: [path('gid','ID of the group to leave','string')]
       middleware: [auth.auth, groups.attachGroup]
       action: groups.leave
 
