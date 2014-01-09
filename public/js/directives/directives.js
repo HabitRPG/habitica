@@ -175,6 +175,8 @@ habitrpg
       controller: ['$scope', '$rootScope', function($scope, $rootScope){
         $scope.editTask = function(task){
           task._editing = !task._editing;
+          task._tags = User.user.preferences.tagsCollapsed;
+          task._advanced = User.user.preferences.advancedCollapsed;
           if($rootScope.charts[task.id]) $rootScope.charts[task.id] = false;
         };
       }],
