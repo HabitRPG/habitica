@@ -10857,12 +10857,16 @@ var process=require("__browserify_process");(function() {
   };
 
   api.startOfDay = function(options) {
-    var o;
+    var dayStart, o;
     if (options == null) {
       options = {};
     }
     o = sanitizeOptions(options);
-    return moment(o.now).startOf('day').add('h', o.dayStart);
+    dayStart = moment(o.now).startOf('day').add('h', o.dayStart);
+    if (moment(o.now).isBefore(dayStart)) {
+      dayStart.subtract('day', 1);
+    }
+    return dayStart;
   };
 
   dayMapping = {
