@@ -487,6 +487,8 @@ describe 'Helper', ->
     expect(shared.startOfDay({now: new Date(2013, 0, 1, 0)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
     expect(shared.startOfDay({now: new Date(2013, 0, 1, 5)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
     expect(shared.startOfDay({now: new Date(2013, 0, 1, 23, 59, 59)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
+    # between midnight and custom day start
+    expect(shared.startOfDay({now: new Date(2013, 0, 2, 2), dayStart: 4}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 04:00'
 
   it 'counts pets', ->
     pets = {}
