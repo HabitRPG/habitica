@@ -70,7 +70,7 @@ angular.module("notificationServices", [])
         growl("<i class='icon-fire'></i> " + sign(val) + " " + round(val) + " MP", 'mp');
       },
       crit: function(val) {
-        growl("<i class='icon-certificate'></i> Critical Hit! Bonus: " + val + "%", 'crit');
+        growl("<i class='icon-certificate'></i> Critical Hit! Bonus: " + Math.round(val) + "%", 'crit');
       }
     };
   }
