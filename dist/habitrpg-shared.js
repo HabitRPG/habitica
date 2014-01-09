@@ -11511,8 +11511,11 @@ var process=require("__browserify_process");(function() {
               }
             });
           }
-          gear.owned = _.mapValues(gear.owned, function() {
-            return false;
+          _.each(gear.owned, function(v, k) {
+            if (gear.owned[k]) {
+              gear.owned[k] = false;
+              return true;
+            }
           });
           gear.owned.weapon_warrior_0 = true;
           if (typeof user.markModified === "function") {

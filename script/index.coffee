@@ -442,7 +442,7 @@ api.wrap = (user, main=true) ->
         if user.items.currentPet then user.ops.equip({params:{type: 'pet', key: user.items.currentPet}})
         if user.items.currentMount then user.ops.equip({params:{type: 'mount', key: user.items.currentMount}})
         # Strip owned gear down to the training sword, but preserve purchase history so user can re-purchase limited edition equipment
-        gear.owned = _.mapValues gear.owned, ->false
+        _.each gear.owned, (v, k) -> if gear.owned[k] then gear.owned[k] = false; true
         gear.owned.weapon_warrior_0 = true
         user.markModified? 'items.gear.owned'
         user.preferences.costume = false
