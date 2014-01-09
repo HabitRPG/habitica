@@ -845,7 +845,6 @@ api.wrap = (user, main=true) ->
             else
               calculateDelta()
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
-              console.log(task.checklist?.length)
               # MP++ per checklist item in ToDo, bonus per CLI
               multiplier = task.checklist?.length || 1
               mpDelta = _.max([(multiplier), (.01 * user._statsComputed.maxMP * multiplier)])
