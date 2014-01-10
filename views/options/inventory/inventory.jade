@@ -46,8 +46,8 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
           menu.pets-menu(label='Quest Scrolls ({{questCount}})')
             p.muted(ng-show='questCount < 1') You don't have any quest scrolls.
             p.muted Quests require parties. If you want to quest solo, <a href="/#/options/groups/party">create an empty party</a>
-            div(ng-repeat='(quest,points) in ownedItems(user.items.quests)')
-              button.customize-option(popover='{{Content.quests[quest].notes}}', popover-title='{{Content.quests[quest].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='showQuest(quest)', class='inventory_quest_scroll')
+            div(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]')
+              button.customize-option(popover='{{quest.previous && !user.achievements.quests[quest.previous] ? "You need to complete the previous quest to start this one!" : quest.notes}}', popover-title='{{quest.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='showQuest(quest_key)', class='inventory_quest_scroll', ng-class='{locked: quest.previous && !user.achievements.quests[quest.previous]}')
                 .badge.badge-info.stack-count {{points}}
 
         li.customize-menu

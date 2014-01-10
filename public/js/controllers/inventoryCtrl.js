@@ -84,9 +84,6 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.purchase = function(type, item){
-      var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
-      if (!completedPrevious)
-        return alert("You must first complete " + $rootScope.Content.quests[item.previous].text + '.');
       var gems = User.user.balance * 4;
       if(gems < item.value) return $rootScope.modals.buyGems = true;
       var string = (type == 'hatchingPotion') ? 'hatching potion' : type; // give hatchingPotion a space
@@ -120,7 +117,11 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.showQuest = function(quest) {
-      $rootScope.selectedQuest = Content.quests[quest];
+        var item =  Content.quests[quest];
+        var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
+        if (!completedPrevious)
+            return alert("You must first complete " + $rootScope.Content.quests[item.previous].text + '.');
+        $rootScope.selectedQuest = item;
       $rootScope.modals.showQuest = true;
     }
     $scope.closeQuest = function(){
