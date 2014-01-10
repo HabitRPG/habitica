@@ -62,8 +62,8 @@ habitrpg.controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$loca
 
     $scope.auth = function() {
       var data = {
-        username: $scope.loginUsername,
-        password: $scope.loginPassword
+        username: $scope.loginUsername || $('#login-tab input[name="username"]').val(),
+        password: $scope.loginPassword || $('#login-tab input[name="password"]').val()
       };
       if ($scope.useUUID) {
         runAuth($scope.loginUsername, $scope.loginPassword);
