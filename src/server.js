@@ -1,14 +1,41 @@
 // Only do the minimal amount of work before forking just in case of a dyno restart
+require('coffee-script'); // remove this once we've fully converted over
 var cluster = require("cluster");
 var _ = require('lodash');
 var nconf = require('nconf');
+var moment = require("moment");
+var optimist = require('optimist');
 var utils = require('./utils');
 utils.setupConfig();
 var logging = require('./logging');
+var cron = require('./scripts/cron');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 
-if (cluster.isMaster && (isDev || isProd)) {
+// ------------  Run Cron Script -------------------
+var argv = optimist
+        .usage('Usage: $0 [--cron]')
+        .boolean('cron')
+        .describe('cron', 'Runs the cron script and then exits.')
+        .describe('cron-hour', 'Run cron for a set hour in this timezone. Defaults to current hour.')
+        .check(function(argv) {
+            var hour = argv['cron-hour'];
+            if (hour == undefined) return true;
+            else return (hour >= 0 && hour < 24);
+        })
+        .argv;
+
+if (argv.cron) {
+    cron.runCron({currentHour: argv['cron-hour']}, function(err, results) {
+        if (err) {
+            console.log("There were errors while running cron!");
+            console.log(err);
+        }
+        console.log("Cron completed at " + moment().format());
+        console.log("Processed cron for " + results.length + " user(s).");
+        process.exit();
+    });
+} else if (cluster.isMaster && (isDev || isProd)) {
   // Fork workers.
   _.times(require('os').cpus().length, function(){
     cluster.fork();
@@ -20,7 +47,6 @@ if (cluster.isMaster && (isDev || isProd)) {
   });
 
 } else {
-  require('coffee-script'); // remove this once we've fully converted over
   var express = require("express");
   var http = require("http");
   var path = require("path");
