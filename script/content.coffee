@@ -9,6 +9,9 @@ moment = require 'moment'
   ---------------------------------------------------------------
 ###
 
+classes = ['warrior', 'rogue', 'healer', 'wizard']
+gearTypes = ['armor', 'weapon', 'shield', 'head']
+
 events =
   winter: {start:'2013-12-31',end:'2014-02-01'}
 
@@ -197,8 +200,8 @@ api.gear =
   tree: gear
   flat: {}
 
-_.each ['weapon', 'armor', 'head', 'shield'], (type) ->
-  _.each ['base', 'warrior', 'rogue', 'healer', 'wizard', 'special'], (klass) ->
+_.each gearTypes, (type) ->
+  _.each classes.concat(['base', 'special']), (klass) ->
     # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
     _.each gear[type][klass], (item, i) ->
       key = "#{type}_#{klass}_#{i}"
@@ -220,6 +223,22 @@ _.each ['weapon', 'armor', 'head', 'shield'], (type) ->
 ###
 
 api.potion = type: 'potion', text: "Health Potion", notes: "Recover 15 Health (Instant Use)", value: 25, key: 'potion'
+
+###
+   ---------------------------------------------------------------
+   Classes
+   ---------------------------------------------------------------
+###
+
+api.classes = classes
+
+###
+   ---------------------------------------------------------------
+   Gear Types
+   ---------------------------------------------------------------
+###
+
+api.gearTypes = gearTypes
 
 ###
   ---------------------------------------------------------------
