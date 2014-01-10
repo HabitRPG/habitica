@@ -4,6 +4,7 @@
 
 // Dependencies
 // ------------
+var moment = require('moment');
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var shared = require('habitrpg-shared');
@@ -191,7 +192,7 @@ var UserSchema = new Schema({
   },
 
   lastCron: {type: Date, 'default': Date.now},
-
+  cronTime: {type: Number, 'default': 0},
   party: {
     // id // FIXME can we use a populated doc instead of fetching party separate from user?
     lastMessageSeen: String,
@@ -337,6 +338,15 @@ UserSchema.pre('save', function(next) {
       (fb && (fb.displayName || fb.name || fb.username || (fb.first_name && fb.first_name + ' ' + fb.last_name))) ||
       'Anonymous';
   }
+
+    // Set cronTime based on user dayStart and timeZoneOffset.
+    var serverTimezone = moment().zone();
+    this.cronTime = moment()
+        .zone(this.preferences.timezoneOffset || 0) // Set to user timezone for calculation
+        .set('hour', this.preferences.dayStart || 0) // Set the hour to custom day start
+        .zone(serverTimezone) // Set back to server timezone for diff
+        .get('hour'); // Get the hour (in our timezone) when we should run cron
+
 
   var petCount = shared.countPets(_.reduce(this.items.pets,function(m,v){
     //HOTFIX - Remove when solution is found, the first argument passed to reduce is a function
