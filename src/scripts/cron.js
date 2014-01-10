@@ -12,7 +12,7 @@ module.exports.runCron = function(options, callback) {
     var now = moment().set('hour', currentHour);
     console.log("Cron started at " + now.format());
     console.log("Procesing cron for users where cronTime == " + currentHour);
-    User.find({cronTime: currentHour}, function(err, users) {
+    User.find({cronTime: currentHour, 'stats.hp':{$gt:0}}, function(err, users) {
         if (err) {
             console.log(err);
             return callback(err);
