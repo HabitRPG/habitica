@@ -910,15 +910,12 @@ api.wrap = (user, main=true) ->
 
     ###
       Get a random property from an object
-      http://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
       returns random property (the value)
     ###
     randomVal: (obj, options) ->
-      result = undefined
-      count = 0
-      for key, val of obj
-        result = (if options?.key then key else val) if user.fns.predictableRandom(options?.seed) < (1 / ++count)
-      result
+       array =  if options?.key then _.keys(obj) else _.values(obj)
+       rand = user.fns.predictableRandom(option?.seed)
+       array[Math.floor(rand * array.length)]
 
     ###
     This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
