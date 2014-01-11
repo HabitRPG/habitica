@@ -92,8 +92,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
             | &nbsp;|&nbsp;
             a(ng-click='unlink(task, "remove-all")')=env.t('removeThem')
         div(ng-if='task.challenge.broken=="CHALLENGE_CLOSED"')
-          p.
-            =env.t('challengeCompleted1')
+          p=env.t('challengeCompleted1')
             | <span class='badge'>{{task.challenge.winner}}</span> 
             =env.t('challengeCompleted2')
           p
