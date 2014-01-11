@@ -202,6 +202,12 @@ describe 'User', ->
       expect(user.items.gear.equipped).to.eql { armor: 'armor_base_0', weapon: 'weapon_base_0', head: 'head_base_0', shield: 'shield_base_0' }
       expect(user.stats.gp).to.eql 1
 
+  describe 'spells', ->
+    _.each shared.content.spells, (spellClass)->
+      _.each spellClass, (spell)->
+        it "#{spell.text} have a valid target", ->
+          expect(spell.target).to.match(/^(task|self|party|user)$/)
+
   describe 'drop system', ->
     user = null
 
