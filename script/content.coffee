@@ -231,7 +231,7 @@ api.potion = type: 'potion', text: "Health Potion", notes: "Recover 15 Health (I
     thing and receives another, it will cause errors. `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
     etc. Basically, use self for anything that's not [task, party, user] and is an instant-cast
 
-  * {cast}: the fucntion that's run to perform the ability's action. This is pretty slick - because this is exported to the
+  * {cast}: the function that's run to perform the ability's action. This is pretty slick - because this is exported to the
     web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
     own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
     you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
