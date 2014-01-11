@@ -13,7 +13,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     // count egg, food, hatchingPotion stack totals
     var countStacks = function(items) { return _.reduce(items,function(m,v){return m+v;},0);}
 
-    $scope.$watch('user.items.mounts', function(mounts){ $scope.mountCount = $rootScope.countExists(mounts); }, true);
+    $scope.$watch('user.items.mounts', function(mounts){ $rootScope.mountCount = $rootScope.countExists(mounts); }, true);
     $scope.$watch('user.items.eggs', function(eggs){ $scope.eggCount = countStacks(eggs); }, true);
     $scope.$watch('user.items.hatchingPotions', function(pots){ $scope.potCount = countStacks(pots); }, true);
     $scope.$watch('user.items.food', function(food){ $scope.foodCount = countStacks(food); }, true);
