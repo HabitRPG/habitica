@@ -1,75 +1,81 @@
-h4 Stats
+h4.stats-equipment=env.t('equipment')
 table.table.table-striped
-  tr
-    td
-      strong Health
-      | : {{profile.stats.hp | number:0}} / 50
-  tr
-    td
-      strong Gold
-      | : {{profile.stats.gp | number:0}}
-  tr
-    td
-      strong Level
-      | : {{profile.stats.lvl}}
-  tr
-    td
-      strong Experience
-      | : {{profile.stats.exp | number:0}} / {{Shared.tnl(profile.stats.lvl)}}
-
-h4.stats-equipment(ng-show='user.flags.itemsEnabled') Equipment
-table.table.table-striped(ng-show='user.flags.itemsEnabled')
-  // FIXME this isn't refreshing properly. On first party modal, correct. Second party modal click gives the previous gear. It's always one behind.
-  tr(ng-repeat='(k,v) in profile.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
+  tr(ng-repeat='(k,v) in user.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
     td
       strong {{piece.text}}:&nbsp;
       span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{stat.toUpperCase()}}&nbsp;
 
-h4 Attributes
+h4=env.t('stats')
 table.table.table-striped
-  tr(ng-repeat='(k,v) in {str:"Strength (STR)",int:"Intelligence (INT)",con:"Constitution (CON)",per:"Perception (PER)"}')
+  tr
     td
-      i.icon-question-sign(ng-show='k=="str"', popover-title='Strength', popover-placement='right', popover='Strength reduces task threat (redness), increases the Gold and Experience boost from random "critical hits," and helps deal damage to boss monsters.', popover-trigger='mouseenter', style='margin-right:3px')
-      i.icon-question-sign(ng-show='k=="con"', popover-title='Constitution', popover-placement='right', popover='Constitution reduces the damage you take, whether from negative Habits, missed Dailies, or the attacks of boss monsters.', popover-trigger='mouseenter', style='margin-right:3px')
-      i.icon-question-sign(ng-show='k=="per"', popover-title='Perception', popover-placement='right', popover='Perception increases how much Gold you earn, and starting at level 4, increases the chance of finding items when scoring tasks.', popover-trigger='mouseenter', style='margin-right:3px')
-      i.icon-question-sign(ng-show='k=="int"', popover-title='Intelligence', popover-placement='right', popover='Intelligence increases how much Experience you earn, and once you\'ve unlocked Classes, determines your maximum Mana available for class abilities.', popover-trigger='mouseenter', style='margin-right:3px')
+      strong=env.t('health')
+      | : {{profile.stats.hp | number:0}} / 50
+  tr
+    td
+      strong=env.t('gold')
+      | : {{profile.stats.gp | number:0}}
+  tr
+    td
+      strong=env.t('level')
+      | : {{profile.stats.lvl}}
+  tr
+    td
+      strong=env.t('experience')
+      | : {{profile.stats.exp | number:0}} / {{Shared.tnl(profile.stats.lvl)}}
+
+h4=env.t('attributes')
+table.table.table-striped
+  tr(ng-repeat='(k,v) in {str:"Strength",int:"Intelligence",con:"Constitution",per:"Perception"}')
+    td
       strong {{v}}: {{profile._statsComputed[k]}}
     td
       ul(style='list-style-type:none')
         li
-          i.icon-question-sign(popover-title='Level Bonus', popover-trigger='mouseenter', popover-placement='top', popover="Each attribute gets a bonus equal to half of (your Level minus 1).")
-          |  Level: {{(profile.stats.lvl - 1) / 2}}&nbsp;
-        li(ng-show='user.flags.itemsEnabled')
-          i.icon-question-sign(popover-title='Equipment', popover-trigger='mouseenter', popover-placement='top', popover="Attribute bonuses provided by your equipped battle gear. See the Equipment tab under Inventory to select your battle gear.")
-          |  Equipment: {{Content.gear.flat[profile.items.gear.equipped.weapon][k] + Content.gear.flat[profile.items.gear.equipped.armor][k] + Content.gear.flat[profile.items.gear.equipped.head][k] + Content.gear.flat[profile.items.gear.equipped.shield][k] || 0}}&nbsp;
-        li(ng-show='user.flags.itemsEnabled')
-          i.icon-question-sign(popover-title='Class Equipment Bonus', popover-trigger='mouseenter', popover-placement='top', popover="Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the attribute bonus it grants.")
-          |  Class Equip Bonus: {{profile._statsComputed[k] - profile.stats.buffs[k] - ((profile.stats.lvl - 1) / 2) - Content.gear.flat[profile.items.gear.equipped.weapon][k] - Content.gear.flat[profile.items.gear.equipped.armor][k] - Content.gear.flat[profile.items.gear.equipped.head][k] - Content.gear.flat[profile.items.gear.equipped.shield][k] - profile.stats[k]}}&nbsp;
-        li(ng-show='user.flags.classSelected && !user.preferences.disableClasses')
-          i.icon-question-sign(popover-title='Allocated Points', popover-trigger='mouseenter', popover-placement='top', popover="Attribute points you've earned and assigned. Assign points using the Character Build column.")
-          |  Allocated: {{profile.stats[k] || 0}}&nbsp;
+          i.icon-question-sign(popover-title=env.t('levelBonus'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('levelBonusText'))
+          | 
+          =env.t('level')
+            |: {{(profile.stats.lvl - 1) / 2}}&nbsp;
         li
-          i.icon-question-sign(popover-title='Buffs', popover-trigger='mouseenter', popover-placement='top', popover="Attribute bonuses provided by abilities you or your party members have used. Starting at level 11, the abilities you can use are found in the Rewards column on your Tasks page.")
-          |  Buffs: {{profile.stats.buffs[k] || 0}}&nbsp;
+          i.icon-question-sign(popover-title=env.t('equipment'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('equipmentBonusText'))
+          | 
+          =env.t('equipment')
+            |: {{Content.gear.flat[profile.items.gear.equipped.weapon][k] + Content.gear.flat[profile.items.gear.equipped.armor][k] + Content.gear.flat[profile.items.gear.equipped.head][k] + Content.gear.flat[profile.items.gear.equipped.shield][k] || 0}}&nbsp;
+        li
+          i.icon-question-sign(popover-title=env.t('classBonus'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('classBonusText'))
+          | 
+          =env.t('classEquipBonus')
+            |: {{profile._statsComputed[k] - profile.stats.buffs[k] - ((profile.stats.lvl - 1) / 2) - Content.gear.flat[profile.items.gear.equipped.weapon][k] - Content.gear.flat[profile.items.gear.equipped.armor][k] - Content.gear.flat[profile.items.gear.equipped.head][k] - Content.gear.flat[profile.items.gear.equipped.shield][k] - profile.stats[k]}}&nbsp;
+        li
+          i.icon-question-sign(popover-title=env.t('allocatedPoints'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('allocatedPointsText'))
+          | 
+          =env.t('allocated')
+            |: {{profile.stats[k] || 0}}&nbsp;
+        li
+          i.icon-question-sign(popover-title=env.t('buffs'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('buffsText'))
+          | 
+          =env.t('buffs')
+            |: {{profile.stats.buffs[k] || 0}}&nbsp;
   tr(ng-if='profile.stats.buffs.stealth')
     td
-      strong Stealth: {{profile.stats.buffs.stealth}}&nbsp;
-        i.icon-question-sign(popover-title='Stealth', popover-trigger='mouseenter', popover-placement='right', popover="When a new day begins, you will avoid damage from this many missed Dailies.")
+      strong=env.t('stealth')
+        |: {{profile.stats.buffs.stealth}}&nbsp;
+        i.icon-question-sign(popover-title=env.t('stealth'), popover-trigger='mouseenter', popover-placement='right', popover=env.t('stealthNewDay'))
     td
   tr(ng-if='profile.stats.buffs.streaks')
     td
-      strong Streaks Frozen&nbsp;
-        i.icon-question-sign(popover-title='Streaks Frozen', popover-trigger='mouseenter', popover-placement='right', popover="Streaks on missed Dailies will not reset at the end of the day.")
+      strong=env.t('streaksFrozen')
+        | 
+        i.icon-question-sign(popover-title=env.t('streaksFrozen'), popover-trigger='mouseenter', popover-placement='right', popover=env.t('streaksFrozenText'))
     td
 
-h4(ng-show='user.flags.dropsEnabled') Pets
-table.table.table-striped(ng-show='user.flags.dropsEnabled')
+h4=env.t('pets')
+table.table.table-striped
   tr
     td
-      strong Pets Found
+      strong=env.t('petsFound')
       | : {{profile.petCount}}
-// Dunno why this doesn't work //
 //  tr
     td
-      strong Mounts Tamed
-      | : {{profile.mountCount}} //
+      strong=env.t('mountsTamed')
+      | : {{mountCount}} //
