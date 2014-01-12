@@ -11,10 +11,22 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'public/bower_components/jquery/jquery.js',
       'public/bower_components/angular/angular.js',
       'public/bower_components/angular-loading-bar/build/loading-bar.min.js',
       'public/bower_components/angular-resource/angular-resource.min.js',
+      'public/bower_components/angular-sanitize/angular-sanitize.js',
+      'public/bower_components/bootstrap/docs/assets/js/bootstrap.js',
+      'public/bower_components/angular-bootstrap/ui-bootstrap.js',
+      'public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'public/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'public/bower_components/angular-ui/build/angular-ui.js',
+      'public/bower_components/angular-ui-utils/ui-utils.min.js',
+      'public/bower_components/Angular-At-Directive/src/at.js',
+      'public/bower_components/Angular-At-Directive/src/caret.js',
       'public/bower_components/angular-mocks/angular-mocks.js',
+      'public/bower_components/angular-bindonce/bindonce.js',
+      'public/bower_components/ngInfiniteScroll/ng-infinite-scroll.js',
       'public/bower_components/marked/lib/marked.js',
       'public/bower_components/js-emoji/emoji.js',
       'public/bower_components/habitrpg-shared/dist/habitrpg-shared.js',
