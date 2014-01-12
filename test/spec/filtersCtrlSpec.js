@@ -4,9 +4,9 @@ describe('Filters Controller', function() {
   var scope, user;
 
   beforeEach(module('habitrpg'));
-  beforeEach(inject(function($rootScope, $controller) {
+  beforeEach(inject(function($rootScope, $controller, Shared) {
     user = {filters: {}};
-    window.habitrpgShared.wrap(user);
+    Shared.wrap(user);
     scope = $rootScope.$new();
     $controller('FiltersCtrl', {$scope: scope, User: {user: user}});
   }));
@@ -18,11 +18,11 @@ describe('Filters Controller', function() {
     expect(user.tags[0]).to.have.property('id');
   });
 
-  it('toggles tag filtering', function(){
-    var tag = {id: window.habitrpgShared.uuid(), name: 'myTag'};
+  it('toggles tag filtering', inject(function(Shared){
+    var tag = {id: Shared.uuid(), name: 'myTag'};
     scope.toggleFilter(tag);
     expect(user.filters[tag.id]).to.eql(true);
     scope.toggleFilter(tag);
     expect(user.filters[tag.id]).to.eql(false);
-  })
+  }))
 });

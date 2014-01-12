@@ -4,20 +4,19 @@ describe('Inventory Controller', function() {
   var scope, ctrl, user, $rootScope;
 
   beforeEach(module('habitrpg'));
-  beforeEach(inject(function($rootScope, $controller){
+  beforeEach(inject(function($rootScope, $controller, Shared){
     user = {
       balance: 4,
       stats: {gp: 0},
       items: {eggs: {Cactus: 1}, hatchingPotions: {Base: 1}, food: {Meat: 1}, pets: {}},
     };
-    window.habitrpgShared.wrap(user);
+    Shared.wrap(user);
     var mockWindow = {
       confirm: function(msg){
         return true;
       }
     };
     scope = $rootScope.$new();
-    $rootScope.Content = window.habitrpgShared.content;
     ctrl = $controller('InventoryCtrl', {$scope: scope, User: {user: user}, $window: mockWindow});
   }));
 
@@ -74,9 +73,9 @@ describe('Inventory Controller', function() {
     expect(user.items.currentPet).to.eql('Cactus-Base');
   });
 
-  it('purchases an egg', function(){
-    scope.purchase('eggs', window.habitrpgShared.content.eggs['Wolf']);
+  it('purchases an egg', inject(function(Content){
+    scope.purchase('eggs', Content.eggs['Wolf']);
     expect(user.balance).to.eql(3.25);
     expect(user.items.eggs).to.eql({Cactus: 1, Wolf: 1})
-  });
+  }));
 });

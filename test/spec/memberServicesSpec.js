@@ -6,16 +6,10 @@ describe('memberServices', function() {
   beforeEach(module('memberServices'));
   beforeEach(module('habitrpg'));
   
-  beforeEach(function(){
-    inject(function(_$httpBackend_, $rootScope){
-      $httpBackend = _$httpBackend_;
-      $rootScope.Shared = window.habitrpgShared;
-    });
-    // $rootScope.Shared is set, so now we can inject Members
-    inject(function(Members){
-      members = Members;
-    });
-  });
+  beforeEach(inject(function (_$httpBackend_, Members) {
+    $httpBackend = _$httpBackend_;
+    members = Members;
+  }));
 
   it('has no members at the beginning', function() {
     expect(members.members).to.be.an('object');

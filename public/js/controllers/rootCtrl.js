@@ -3,8 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups',
-  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content',
+  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content) {
     var user = User.user;
 
     var initSticky = _.once(function(){
@@ -20,8 +20,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.moment = window.moment;
     $rootScope._ = window._;
     $rootScope.settings = User.settings;
-    $rootScope.Shared = window.habitrpgShared;
-    $rootScope.Content = window.habitrpgShared.content;
+    $rootScope.Shared = Shared;
+    $rootScope.Content = Content;
 
     // Angular UI Router
     $rootScope.$state = $state;
@@ -45,10 +45,10 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     // count pets, mounts collected totals, etc
     $rootScope.countExists = function(items) {return _.reduce(items,function(m,v){return m+(v?1:0)},0)}
 
-    $rootScope.petCount = $rootScope.Shared.countPets(null, User.user.items.pets);
+    $rootScope.petCount = Shared.countPets(null, User.user.items.pets);
 
     $rootScope.$watch('user.items.pets', function(pets){ 
-      $rootScope.petCount = $rootScope.Shared.countPets($rootScope.countExists(pets), User.user.items.pets);
+      $rootScope.petCount = Shared.countPets($rootScope.countExists(pets), User.user.items.pets);
     }, true);
 
     $scope.safeApply = function(fn) {
