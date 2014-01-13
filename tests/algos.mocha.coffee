@@ -46,7 +46,7 @@ rewrapUser = (user)->
 expectStrings = (obj, paths) ->
   _.each paths, (path) -> expect(obj[path]).to.be.ok()
 
-# options.hoursAgo: hours since the last cron was executed
+# options.daysAgo: days ago when the last cron was executed
 beforeAfter = (options={}) ->
   user = newUser()
   [before, after] = [user, _.cloneDeep(user)]
@@ -57,9 +57,9 @@ beforeAfter = (options={}) ->
   if options.limitOne
     before["#{options.limitOne}s"] = [before["#{options.limitOne}s"][0]]
     after["#{options.limitOne}s"] = [after["#{options.limitOne}s"][0]]
-  lastCron = +(moment(options.now || +new Date).subtract('hours', options.hoursAgo)) unless options.hoursAgo == undefined
+  lastCron = +(moment(options.now || +new Date).subtract('days', options.daysAgo)) if options.daysAgo
   _.each [before,after], (obj) ->
-    obj.lastCron = lastCron unless options.hoursAgo == undefined
+    obj.lastCron = lastCron if options.daysAgo
   {before:before, after:after}
 #TODO calculate actual poins
 
@@ -293,7 +293,7 @@ describe 'Cron', ->
 #    expect(paths.lastCron).to.be true # busted cron (was set to after today's date)
 
   it 'only dailies & todos are effected', ->
-    {before,after} = beforeAfter({hoursAgo:24})
+    {before,after} = beforeAfter({daysAgo:1})
     before.dailys = before.todos = after.dailys = after.todos = []
     after.fns.cron()
     expect(after.lastCron).to.not.be before.lastCron # make sure cron was run
@@ -310,7 +310,7 @@ describe 'Cron', ->
       @clock.restore()
 
     it 'should preen user history', ->
-      {before,after} = beforeAfter({hoursAgo:24})
+      {before,after} = beforeAfter({daysAgo:1})
       history = [
         # Last year should be condensed to one entry, avg: 1
         {date:'09/01/2012', value: 0}
@@ -368,7 +368,7 @@ describe 'Cron', ->
 
   describe 'Todos', ->
     it '1 day missed', ->
-      {before,after} = beforeAfter({hoursAgo:24})
+      {before,after} = beforeAfter({daysAgo:1})
       before.dailys = after.dailys = []
       after.fns.cron()
 
@@ -394,7 +394,7 @@ describe 'Cron', ->
       runCron = (options) ->
         _.each [480, 240, 0, -120], (timezoneOffset) -> # test different timezones
           now = shared.startOfWeek({timezoneOffset}).add('hours', options.currentHour||0)
-          {before,after} = beforeAfter({now, timezoneOffset, hoursAgo:options.hoursAgo||0, dayStart:options.dayStart||0, limitOne:'daily'})
+          {before,after} = beforeAfter({now, timezoneOffset, daysAgo:1, dayStart:options.dayStart||0, limitOne:'daily'})
           before.dailys[0].repeat = after.dailys[0].repeat = options.repeat if options.repeat
           before.dailys[0].streak = after.dailys[0].streak = 10
           before.dailys[0].completed = after.dailys[0].completed = true if options.checked
@@ -411,7 +411,7 @@ describe 'Cron', ->
         steps:
 
           'due yesterday':
-            defaults: {hoursAgo:24, limitOne: 'daily'}
+            defaults: {daysAgo:1, limitOne: 'daily'}
             steps:
 
               '(simple)': {expect:'losePoints'}
@@ -421,7 +421,7 @@ describe 'Cron', ->
                 defaults: {repeat:{su:1,m:true,t:1,w:1,th:1,f:1,s:1}}
                 steps:
                   'pre-dayStart':
-                    defaults: {hoursAgo:2,currentHour:3, dayStart:4, shouldDo:true}
+                    defaults: {currentHour:3, dayStart:4, shouldDo:true}
                     steps:
                       'checked': {checked: true, expect:'noChange'}
                       'un-checked': {checked: false, expect:'noChange'}
@@ -435,7 +435,7 @@ describe 'Cron', ->
                 defaults: {repeat:{su:1,m:false,t:1,w:1,th:1,f:1,s:1}}
                 steps:
                   'pre-dayStart':
-                    defaults: {hoursAgo:23, currentHour:3, dayStart:4, shouldDo:true}
+                    defaults: {currentHour:3, dayStart:4, shouldDo:true}
                     steps:
                       'checked': {checked: true, expect:'noChange'}
                       'un-checked': {checked: false, expect:'noChange'}
@@ -448,18 +448,18 @@ describe 'Cron', ->
           'not due yesterday':
             defaults: repeatWithoutLastWeekday()
             steps:
-              '(simple)': {hoursAgo:24, expect:'noDamage'}
-              'post-dayStart': {hoursAgo:23,currentHour:5,dayStart:4, expect:'noDamage'}
-              'pre-dayStart': {hoursAgo:21, currentHour:3, dayStart:4, expect:'noChange'}
+              '(simple)': {expect:'noDamage'}
+              'post-dayStart': {currentHour:5,dayStart:4, expect:'noDamage'}
+              'pre-dayStart': {currentHour:3, dayStart:4, expect:'noChange'}
 
       recurseCronMatrix = (obj, options={}) ->
         if obj.steps
           _.each obj.steps, (step, text) ->
             o = _.cloneDeep options
             o.text ?= ''; o.text += " #{text} "
-            recurseCronMatrix step, _.assign(o, obj.defaults)
+            recurseCronMatrix step, _.defaults(o,obj.defaults)
         else
-          it "#{options.text}", -> runCron(_.assign(options, obj))
+          it "#{options.text}", -> runCron(_.defaults(obj,options))
       recurseCronMatrix(cronMatrix)
 
     it 'calculates day differences with dayStart properly', ->
@@ -493,8 +493,6 @@ describe 'Helper', ->
     expect(shared.startOfDay({now: new Date(2013, 0, 1, 0)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
     expect(shared.startOfDay({now: new Date(2013, 0, 1, 5)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
     expect(shared.startOfDay({now: new Date(2013, 0, 1, 23, 59, 59)}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 00:00'
-    # between midnight and custom day start
-    expect(shared.startOfDay({now: new Date(2013, 0, 2, 2), dayStart: 4}).format('YYYY-MM-DD HH:mm')).to.eql '2013-01-01 04:00'
 
   it 'counts pets', ->
     pets = {}

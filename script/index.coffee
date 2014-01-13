@@ -31,10 +31,7 @@ api.startOfWeek = api.startOfWeek = (options={}) ->
 
 api.startOfDay = (options={}) ->
   o = sanitizeOptions(options)
-  dayStart = moment(o.now).startOf('day').add('h', o.dayStart)
-  # if between midnight and Custom Day Start, jump back to previous day
-  dayStart.subtract('day', 1) if moment(o.now).isBefore(dayStart)
-  return dayStart
+  moment(o.now).startOf('day').add('h', o.dayStart)
 
 dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
 
@@ -1244,3 +1241,4 @@ api.wrap = (user, main=true) ->
     get: ->
       tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards)
       _.object(_.pluck(tasks, "id"), tasks)
+
