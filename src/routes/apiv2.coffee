@@ -461,12 +461,20 @@ module.exports = (swagger, v2) ->
       middleware: [auth.auth, groups.attachGroup]
       action: groups.questAbort
 
-    #TODO GET  /groups/:gid/chat
     #TODO PUT  /groups/:gid/chat/:messageId
 
-    "/groups/{gid}/chat":
+    "/groups/{gid}/chat:GET":
+      spec:
+        path: "/groups/{gid}/chat"
+        description: "Get all chat messages"
+      middleware: [auth.auth, groups.attachGroup]
+      action: groups.getChat
+
+
+    "/groups/{gid}/chat:POST":
       spec:
         method: 'POST'
+        path: "/groups/{gid}/chat"
         description: "Send a chat message"
         parameters: [
           query 'message', 'Chat message','string'
