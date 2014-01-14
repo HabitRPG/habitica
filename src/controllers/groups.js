@@ -195,12 +195,18 @@ api.update = function(req, res, next) {
 }
 
 api.attachGroup = function(req, res, next) {
-  Group.findById(req.params.gid, function(err, group){
+  var gid = req.params.gid;
+  var q = (gid == 'party') ? Group.findOne({type: 'party', members: {'$in': [res.locals.user._id]}}) : Group.findById(gid);
+  q.exec(function(err, group){
     if(err) return res.json(500, {err:err});
     if(!group) return res.json(404, {err: "Group not found"});
     res.locals.group = group;
     next();
   })
+}
+
+api.getChat = function(req, res, next) {
+  return res.json(res.locals.group.chat);
 }
 
 /**
