@@ -27,7 +27,7 @@ table.table.table-striped(ng-show='user.flags.itemsEnabled')
 
 h4=env.t('attributes')
 table.table.table-striped
-  tr(ng-repeat='(k,v) in {str:"Strength",int:"Intelligence",con:"Constitution",per:"Perception"}')
+  tr(ng-repeat='(k,v) in {str:"Strength (STR)",int:"Intelligence (INT)",con:"Constitution (CON)",per:"Perception (PER)"}')
     td
       strong {{v}}: {{profile._statsComputed[k]}}
     td
@@ -70,12 +70,13 @@ table.table.table-striped
         i.icon-question-sign(popover-title=env.t('streaksFrozen'), popover-trigger='mouseenter', popover-placement='right', popover=env.t('streaksFrozenText'))
     td
 
-h4=env.t('pets')
-table.table.table-striped
+h4(ng-show='user.flags.dropsEnabled')=env.t('pets')
+table.table.table-striped(ng-show='user.flags.dropsEnabled')
   tr
     td
       strong=env.t('petsFound')
       | : {{profile.petCount}}
+// Dunno why this doesn't work //
 //  tr
     td
       strong=env.t('mountsTamed')
