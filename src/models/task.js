@@ -15,6 +15,7 @@ var _ = require('lodash');
 var TaskSchema = {
   //_id:{type: String,'default': helpers.uuid},
   id: {type: String,'default': shared.uuid},
+  created: {type:Date, 'default':new Date},
   text: String,
   notes: {type: String, 'default': ''},
   tags: {type: Schema.Types.Mixed, 'default': {}}, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
