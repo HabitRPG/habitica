@@ -15,8 +15,9 @@
   div(ng-if='profile.backer.npc')
     .achievement.achievement-helm
     h5
-      span.label.label-npc {{profile.backer.npc}} 
-      =env.t('npc')
+      span.label.label-npc
+        {{profile.backer.npc}} 
+        =env.t('npc')
     small=env.t('npcText')
     hr
 
@@ -26,16 +27,18 @@
       h5
         span.label(ng-if='profile.contributor.level', class='label-contributor-{{profile.contributor.level}}') {{contribText(profile.contributor, profile.backer)}}
         span.label(ng-if='!profile.contributor.level')=env.t('contribName')
-      small=env.t('contribText')
+      small
+        =env.t('contribText')
         a(href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG', target='_blank')=env.t('readMore') 
         | .
     hr
   
   div(ng-if='profile.backer.tier')
     .achievement.achievement-heart
-    h5=env.t('kickstartName1') 
-    ${{profile.backer.tier}}
-    =env.t('kickstartName2')
+    h5
+      =env.t('kickstartName1') 
+      ${{profile.backer.tier}}
+      =env.t('kickstartName2')
     small=env.t('kickstarterText')
     hr
 
