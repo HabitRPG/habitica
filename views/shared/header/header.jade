@@ -1,5 +1,5 @@
 .header-wrap(ng-controller='HeaderCtrl')
-  a.label.undo-button(x-bind='click:undo', ng-show='_undo') Undo
+  a.label.undo-button(x-bind='click:undo', ng-show='_undo')=env.t('undo')
   div(ng-if='!user.preferences.hideHeader')
     include menu
 
@@ -10,19 +10,19 @@
 
     // stat bars
     .hero-stats
-      .meter.health(title='Health')
+      .meter.health(title=env.t('health'))
         .bar(style='width: {{Shared.percent(user.stats.hp, 50)}}%;')
         span.meter-text
           i.icon-heart
           | {{Math.ceil(user.stats.hp)}} / 50
-      .meter.experience(title='Experience')
+      .meter.experience(title=env.t('experience'))
         .bar(style='width: {{Shared.percent(user.stats.exp,Shared.tnl(user.stats.lvl))}}%;')
         span.meter-text
           i.icon-star
           | {{Math.floor(user.stats.exp)}} / {{Shared.tnl(user.stats.lvl) | number:0}}
           // FIXME doesn't look great here, but the "Experience" CSS title rollover covers it where it was before
           span(ng-show='user.history.exp')
-            a(ng-click='toggleChart("exp")', tooltip='Progress')
+            a(ng-click='toggleChart("exp")', tooltip=env.t('progress'))
               i.icon-signal
       .meter.mana(title='Mana', ng-if='user.flags.classSelected && !user.preferences.disableClasses')
         .bar(style='width: {{user.stats.mp / user._statsComputed.maxMP * 100}}%;')
@@ -35,5 +35,5 @@
       .herobox-wrap(ng-repeat='profile in partyMinusSelf')
         include avatar
 
-    .npc_bailey.npc_bailey_head(ng-show='user.flags.newStuff', tooltip='Psst', tooltip-placement='top', ng-click='modals.newStuff=true')
+    .npc_bailey.npc_bailey_head(ng-show='user.flags.newStuff', tooltip=env.t('psst'), tooltip-placement='top', ng-click='modals.newStuff=true')
 
