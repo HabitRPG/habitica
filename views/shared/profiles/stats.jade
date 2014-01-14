@@ -29,6 +29,10 @@ h4=env.t('attributes')
 table.table.table-striped
   tr(ng-repeat='(k,v) in {str:"Strength (STR)",int:"Intelligence (INT)",con:"Constitution (CON)",per:"Perception (PER)"}')
     td
+      i.icon-question-sign(ng-show='k=="str"', popover-title=env.t('strength'), popover-placement='right', popover=env.t('strengthText'), popover-trigger='mouseenter', style='margin-right:3px')
+      i.icon-question-sign(ng-show='k=="con"', popover-title=env.t('constitution'), popover-placement='right', popover=env.t('conText') popover-trigger='mouseenter', style='margin-right:3px')
+      i.icon-question-sign(ng-show='k=="per"', popover-title=env.t('perception'), popover-placement='right', popover=env.t('perText'), popover-trigger='mouseenter', style='margin-right:3px')
+      i.icon-question-sign(ng-show='k=="int"', popover-title=env.t('intelligence'), popover-placement='right', popover=env.t('intText'), popover-trigger='mouseenter', style='margin-right:3px')
       strong {{v}}: {{profile._statsComputed[k]}}
     td
       ul(style='list-style-type:none')
@@ -36,27 +40,27 @@ table.table.table-striped
           i.icon-question-sign(popover-title=env.t('levelBonus'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('levelBonusText'))
           | 
           =env.t('level')
-            |: {{(profile.stats.lvl - 1) / 2}}&nbsp;
-        li
+          |: {{(profile.stats.lvl - 1) / 2}}&nbsp;
+        li(ng-show='user.flags.itemsEnabled')
           i.icon-question-sign(popover-title=env.t('equipment'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('equipmentBonusText'))
           | 
           =env.t('equipment')
-            |: {{Content.gear.flat[profile.items.gear.equipped.weapon][k] + Content.gear.flat[profile.items.gear.equipped.armor][k] + Content.gear.flat[profile.items.gear.equipped.head][k] + Content.gear.flat[profile.items.gear.equipped.shield][k] || 0}}&nbsp;
-        li
+          |: {{Content.gear.flat[profile.items.gear.equipped.weapon][k] + Content.gear.flat[profile.items.gear.equipped.armor][k] + Content.gear.flat[profile.items.gear.equipped.head][k] + Content.gear.flat[profile.items.gear.equipped.shield][k] || 0}}&nbsp;
+        li(ng-show='user.flags.itemsEnabled')
           i.icon-question-sign(popover-title=env.t('classBonus'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('classBonusText'))
           | 
           =env.t('classEquipBonus')
-            |: {{profile._statsComputed[k] - profile.stats.buffs[k] - ((profile.stats.lvl - 1) / 2) - Content.gear.flat[profile.items.gear.equipped.weapon][k] - Content.gear.flat[profile.items.gear.equipped.armor][k] - Content.gear.flat[profile.items.gear.equipped.head][k] - Content.gear.flat[profile.items.gear.equipped.shield][k] - profile.stats[k]}}&nbsp;
-        li
+          |: {{profile._statsComputed[k] - profile.stats.buffs[k] - ((profile.stats.lvl - 1) / 2) - Content.gear.flat[profile.items.gear.equipped.weapon][k] - Content.gear.flat[profile.items.gear.equipped.armor][k] - Content.gear.flat[profile.items.gear.equipped.head][k] - Content.gear.flat[profile.items.gear.equipped.shield][k] - profile.stats[k]}}&nbsp;
+        li(ng-show='user.flags.classSelected && !user.preferences.disableClasses')
           i.icon-question-sign(popover-title=env.t('allocatedPoints'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('allocatedPointsText'))
           | 
           =env.t('allocated')
-            |: {{profile.stats[k] || 0}}&nbsp;
+          |: {{profile.stats[k] || 0}}&nbsp;
         li
           i.icon-question-sign(popover-title=env.t('buffs'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('buffsText'))
           | 
           =env.t('buffs')
-            |: {{profile.stats.buffs[k] || 0}}&nbsp;
+          |: {{profile.stats.buffs[k] || 0}}&nbsp;
   tr(ng-if='profile.stats.buffs.stealth')
     td
       strong=env.t('stealth')
@@ -77,7 +81,7 @@ table.table.table-striped(ng-show='user.flags.dropsEnabled')
       strong=env.t('petsFound')
       | : {{profile.petCount}}
 // Dunno why this doesn't work //
-//  tr
+// tr
     td
       strong=env.t('mountsTamed')
       | : {{profile.mountCount}} //
