@@ -137,6 +137,31 @@ describe 'User', ->
     user.items.gear.equipped.weapon = 'weapon_wizard_1'
     expect(user._statsComputed.maxMP).to.eql 63
 
+  it 'Clears old To-Dos', ->
+    user = newUser()
+    shared.wrap(user)
+    cron = -> user.lastCron = moment().subtract('days',1);user.fns.cron({})
+    user.todos = []
+    _.times 3, (i)-> user.todos.push shared.taskDefaults({type:'todo',text:i})
+
+    # Fresh todos, no change
+    cron()
+    expect(_.size(user.todos)).to.be 3
+
+    # Complete Todos, no change
+    _.each user.todos, (t)->t.created = moment().subtract('days',4)
+    cron()
+    expect(_.size(user.todos)).to.be 3
+
+    user.todos[0].completed = true
+    user.todos[1].completed = true
+    cron()
+    expect(_.size(user.todos)).to.be 1
+
+    user.todos[0].completed = true
+    cron()
+    expect(_.size(user.todos)).to.be 0
+
   describe 'Death', ->
     user = undefined
     it 'revives correctly', ->

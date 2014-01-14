@@ -10162,7 +10162,7 @@ var global=self;/**
       thing and receives another, it will cause errors. `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
       etc. Basically, use self for anything that's not [task, party, user] and is an instant-cast
   
-    * {cast}: the fucntion that's run to perform the ability's action. This is pretty slick - because this is exported to the
+    * {cast}: the function that's run to perform the ability's action. This is pretty slick - because this is exported to the
       web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
       own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
       you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
@@ -10857,16 +10857,12 @@ var process=require("__browserify_process");(function() {
   };
 
   api.startOfDay = function(options) {
-    var dayStart, o;
+    var o;
     if (options == null) {
       options = {};
     }
     o = sanitizeOptions(options);
-    dayStart = moment(o.now).startOf('day').add('h', o.dayStart);
-    if (moment(o.now).isBefore(dayStart)) {
-      dayStart.subtract('day', 1);
-    }
-    return dayStart;
+    return moment(o.now).startOf('day').add('h', o.dayStart);
   };
 
   dayMapping = {
@@ -11093,7 +11089,8 @@ var process=require("__browserify_process");(function() {
       notes: '',
       priority: 1,
       challenge: {},
-      attribute: 'str'
+      attribute: 'str',
+      created: new Date()
     };
     _.defaults(task, defaults);
     if (task.type === 'habit') {
@@ -12407,6 +12404,9 @@ var process=require("__browserify_process");(function() {
         if (user.stats.mp > user._statsComputed.maxMP) {
           user.stats.mp = user._statsComputed.maxMP;
         }
+        user.todos = _.where(user.todos, function(t) {
+          return !t.completed || moment(t.created).isAfter(moment().subtract('days', 3));
+        });
         if (user.preferences.sleep === true) {
           user.stats.buffs = {
             str: 0,
