@@ -15,8 +15,10 @@
   div(ng-if='profile.backer.npc')
     .achievement.achievement-helm
     h5
-      span.label.label-npc {{profile.backer.npc}} NPC
-    small Backed the Kickstarter project at the maximum level!
+      span.label.label-npc
+        | {{profile.backer.npc}} 
+        =env.t('npc')
+    small=env.t('npcText')
     hr
 
   div(ng-if='profile.contributor.level || user._id == profile._id')
@@ -24,70 +26,84 @@
     div(ng-class='{muted: !profile.contributor.level}')
       h5
         span.label(ng-if='profile.contributor.level', class='label-contributor-{{profile.contributor.level}}') {{contribText(profile.contributor, profile.backer)}}
-        span.label(ng-if='!profile.contributor.level') Contributor
-      small.
-        Has contributed to HabitRPG (code, design, pixel art, legal advice, docs, etc). Want this badge? <a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'>Read more</a>.
+        span.label(ng-if='!profile.contributor.level')=env.t('contribName')
+      small
+        =env.t('contribText')
+        a(href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG', target='_blank')=env.t('readMore') 
+        | .
     hr
   
   div(ng-if='profile.backer.tier')
     .achievement.achievement-heart
-    h5 Kickstarter Backer - ${{profile.backer.tier}} Tier
-    small Backed the Kickstarter Project
+    h5
+      =env.t('kickstartName1') 
+      | ${{profile.backer.tier}}
+      =env.t('kickstartName2')
+    small=env.t('kickstarterText')
     hr
 
   div(ng-if='profile.achievements.streak || user._id == profile._id')
     .achievement.achievement-thermometer(ng-show='profile.achievements.streak')
     div(ng-class='{muted: !profile.achievements.streak}')
-      h5 {{profile.achievements.streak || 0 }} Streak Achievement(s)
-      small Has performed {{profile.achievements.streak || 0 }} 21-day streaks on Dailies
+      h5 {{profile.achievements.streak || 0 }}
+        =env.t('streakName')
+      small
+        =env.t('streakText1')
+        | {{profile.achievements.streak || 0 }}
+        =env.t('streakText2')
     hr
 
   div(ng-if='profile.achievements.ultimateGear || user._id == profile._id')
     .achievement.achievement-armor(ng-show='profile.achievements.ultimateGear')
     div(ng-class='{muted: !profile.achievements.ultimateGear}')
-      h5 Ultimate Gear
-      small Has upgraded to the maximum weapon and armor set
+      h5=env.t('ultimateGearName')
+      small=env.t('ultimateGearText')
     hr
 
   div(ng-if='profile.achievements.beastMaster || user._id == profile._id')
     .achievement.achievement-rat(ng-show='profile.achievements.beastMaster')
     div(ng-class='{muted: !profile.achievements.beastMaster}')
-      h5 Beast Master
-      small Has found all 90 pets (insanely difficult, give this user props!)
+      h5=env.t('beastMastName')
+      small=env.t('beastMastText')
     hr
 
   div(ng-if='profile.achievements.rebirths')
     .achievement.achievement-sun
-    h5(ng-if='profile.achievements.rebirths == 1') Began a New Adventure
-    h5(ng-if='profile.achievements.rebirths > 1') Began {{profile.achievements.rebirths}} New Adventures
-    small.
-      Used an Orb of Rebirth to start over after attaining Level {{profile.achievements.rebirthLevel}}.
+    h5(ng-if='profile.achievements.rebirths == 1')=env.t('rebirthBegan')
+    h5(ng-if='profile.achievements.rebirths > 1')
+      =env.t('rebirthText1')
+      | {{profile.achievements.rebirths}}
+      =env.t('rebirthText2')
+    small
+      =env.t('rebirthOrb')
+      | {{profile.achievements.rebirthLevel}}.
     hr
 
   div(ng-if='profile.achievements.helpedHabit')
     .achievement.achievement-tree
-    h5 Helped Habit Grow
-    small.
-      Helped HabitRPG grow by filling out <a href='http://community.habitrpg.com/node/290' target='_blank'>this survey.</a>
+    h5=env.t('helpedHabit')
+    small
+      =env.t('helpedText1')
+      a(href='http://community.habitrpg.com/node/290', target='_blank')=env.t('helpedText2')
     hr
 
   div(ng-if='profile.achievements.originalUser || profile.achievements.veteran')
     .achievement.achievement-cake
     div(ng-if='profile.achievements.veteran')
-      h5 Veteran
-      small
-        | Has weathered Habit The Grey (our pre Angular website), and has gained many battle-scars from its bugs.
+      h5=env.t('veteran')
+      small=env.t('veteranText')
     div(ng-if='profile.achievements.originalUser')
-      h5 Original User!
-      small
-        | One of the <em>very</em> original early adopters, Talk about alpha tester!
+      h5=env.t('originalUser')
+      small=env.t('originaUserText1')
+        em=env.t('originaUserText2')
+        =env.t('originaUserText3')
     hr
 
   div(ng-if='profile.achievements.challenges || user._id == profile._id')
     // This is a very strange icon to use. revisit
     .achievement.achievement-karaoke(ng-show='profile.achievements.challenges')
     div(ng-class='{muted: !profile.achievements.challenges}')
-      h5 Was the winner in the following challenges
+      h5=env.t('challengeWinner')
       table.table.table-striped
         tr(ng-repeat='chal in profile.achievements.challenges')
           td {{chal}}
@@ -96,7 +112,7 @@
   div(ng-if='profile.achievements.quests || user._id == profile._id')
     .achievement.achievement-alien(ng-show='profile.achievements.quests')
     div(ng-class='{muted: !profile.achievements.quests}')
-      h5 Completed the following quests
+      h5=env.t('completedQuests')
       table.table.table-striped
         tr(ng-repeat='(k,v) in profile.achievements.quests')
           td {{Content.quests[k].text}}
@@ -105,6 +121,9 @@
 
   div(ng-if='profile.achievements.snowball')
     .achievement.achievement-snowball
-    h5 Annoying Friends
-    small Got snowballed {{profile.achievements.snowball}} times by party members.
+    h5=env.t('annoyingFriends')
+    small
+      =env.t('annoyingFriends1')
+      | {{profile.achievements.snowball}}
+      =env.t('annoyingFriends2')
     hr
