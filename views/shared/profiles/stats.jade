@@ -1,10 +1,3 @@
-h4.stats-equipment=env.t('equipment')
-table.table.table-striped
-  tr(ng-repeat='(k,v) in user.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
-    td
-      strong {{piece.text}}:&nbsp;
-      span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{stat.toUpperCase()}}&nbsp;
-
 h4=env.t('stats')
 table.table.table-striped
   tr
@@ -23,6 +16,13 @@ table.table.table-striped
     td
       strong=env.t('experience')
       | : {{profile.stats.exp | number:0}} / {{Shared.tnl(profile.stats.lvl)}}
+
+h4.stats-equipment=env.t('equipment')
+table.table.table-striped
+  tr(ng-repeat='(k,v) in user.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
+    td
+      strong {{piece.text}}:&nbsp;
+      span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{stat.toUpperCase()}}&nbsp;
 
 h4=env.t('attributes')
 table.table.table-striped

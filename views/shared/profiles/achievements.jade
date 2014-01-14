@@ -16,7 +16,7 @@
     .achievement.achievement-helm
     h5
       span.label.label-npc
-        {{profile.backer.npc}} 
+        | {{profile.backer.npc}} 
         =env.t('npc')
     small=env.t('npcText')
     hr
@@ -37,7 +37,7 @@
     .achievement.achievement-heart
     h5
       =env.t('kickstartName1') 
-      ${{profile.backer.tier}}
+      | ${{profile.backer.tier}}
       =env.t('kickstartName2')
     small=env.t('kickstarterText')
     hr
@@ -49,7 +49,7 @@
         =env.t('streakName')
       small
         =env.t('streakText1')
-        {{profile.achievements.streak || 0 }}
+        | {{profile.achievements.streak || 0 }}
         =env.t('streakText2')
     hr
 
@@ -72,11 +72,11 @@
     h5(ng-if='profile.achievements.rebirths == 1')=env.t('rebirthBegan')
     h5(ng-if='profile.achievements.rebirths > 1')
       =env.t('rebirthText1')
-      {{profile.achievements.rebirths}}
+      | {{profile.achievements.rebirths}}
       =env.t('rebirthText2')
     small
       =env.t('rebirthOrb')
-      {{profile.achievements.rebirthLevel}}.
+      | {{profile.achievements.rebirthLevel}}.
     hr
 
   div(ng-if='profile.achievements.helpedHabit')
@@ -124,6 +124,6 @@
     h5=env.t('annoyingFriends')
     small
       =env.t('annoyingFriends1')
-      {{profile.achievements.snowball}}
+      | {{profile.achievements.snowball}}
       =env.t('annoyingFriends2')
     hr
