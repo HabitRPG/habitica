@@ -79,6 +79,8 @@
     "register" : "Register",
   "options": "Options",
   "logout": "Logout",
+  "sync": "sync",
+  "psst": "Psst",
 
 "_commentnotifcations" : "NOTIFICATIONS",
   "partyNotification" : "New Party Messages",
