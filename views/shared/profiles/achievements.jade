@@ -47,7 +47,8 @@
     div(ng-class='{muted: !profile.achievements.streak}')
       h5 {{profile.achievements.streak || 0 }}
         =env.t('streakName')
-      small=env.t('streakText1')
+      small
+        =env.t('streakText1')
         {{profile.achievements.streak || 0 }}
         =env.t('streakText2')
     hr
@@ -69,17 +70,20 @@
   div(ng-if='profile.achievements.rebirths')
     .achievement.achievement-sun
     h5(ng-if='profile.achievements.rebirths == 1')=env.t('rebirthBegan')
-    h5(ng-if='profile.achievements.rebirths > 1')=env.t('rebirthText1')
+    h5(ng-if='profile.achievements.rebirths > 1')
+      =env.t('rebirthText1')
       {{profile.achievements.rebirths}}
       =env.t('rebirthText2')
-    small=env.t('rebirthOrb')
+    small
+      =env.t('rebirthOrb')
       {{profile.achievements.rebirthLevel}}.
     hr
 
   div(ng-if='profile.achievements.helpedHabit')
     .achievement.achievement-tree
     h5=env.t('helpedHabit')
-    small=env.t('helpedText1')
+    small
+      =env.t('helpedText1')
       a(href='http://community.habitrpg.com/node/290', target='_blank')=env.t('helpedText2')
     hr
 
@@ -118,7 +122,8 @@
   div(ng-if='profile.achievements.snowball')
     .achievement.achievement-snowball
     h5=env.t('annoyingFriends')
-    small=env.t('annoyingFriends1')
+    small
+      =env.t('annoyingFriends1')
       {{profile.achievements.snowball}}
       =env.t('annoyingFriends2')
     hr
