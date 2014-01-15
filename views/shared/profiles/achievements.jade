@@ -53,6 +53,17 @@
         =env.t('streakText2')
     hr
 
+  div(ng-if='profile.achievements.perfect || user._id == profile._id')
+    .achievement.achievement-perfect(ng-show='profile.achievements.perfect')
+    div(ng-class='{muted: !profile.achievements.perfect}')
+      h5 {{profile.achievements.perfect || 0 }}
+        =env.t('perfectName')
+      small
+        =env.t('streakText1')
+        | {{profile.achievements.perfect || 0 }}
+        =env.t('perfectText2')
+    hr
+
   div(ng-if='profile.achievements.ultimateGear || user._id == profile._id')
     .achievement.achievement-armor(ng-show='profile.achievements.ultimateGear')
     div(ng-class='{muted: !profile.achievements.ultimateGear}')
