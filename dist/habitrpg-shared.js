@@ -12404,9 +12404,6 @@ var process=require("__browserify_process");(function() {
         if (user.stats.mp > user._statsComputed.maxMP) {
           user.stats.mp = user._statsComputed.maxMP;
         }
-        user.todos = _.where(user.todos, function(t) {
-          return !t.completed || moment(t.created).isAfter(moment().subtract('days', 3));
-        });
         if (user.preferences.sleep === true) {
           user.stats.buffs = {
             str: 0,

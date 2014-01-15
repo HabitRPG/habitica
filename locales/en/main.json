@@ -88,7 +88,7 @@
 
 "_commentlists" : "LISTS",
   "clearCompleted" : "Clear Completed",
-  "lotOfToDos" : "Completed To-Dos are automatically cleared after 3 days. Be sure to save any need information elswhere.",
+  "lotOfToDos" : "Completed To-Dos are automatically archived after 3 days. You can access them from Options > Settings > Data Export.",
   "mp" : "MP",
 
 

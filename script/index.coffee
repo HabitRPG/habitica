@@ -1136,9 +1136,6 @@ api.wrap = (user, main=true) ->
       user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP])
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
-      user.todos = _.where user.todos, (t) ->
-        !t.completed or moment(t.created).isAfter(moment().subtract('days',3))
-
       # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
       # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
       if user.preferences.sleep is true
