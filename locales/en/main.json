@@ -88,7 +88,7 @@
 
 "_commentlists" : "LISTS",
   "clearCompleted" : "Clear Completed",
-  "lotOfToDos" : "You have a lot of To-Dos, which can cause performance issues. Be sure to clear them periodically (see \"Completed\" tab at the bottom).",
+  "lotOfToDos" : "Completed To-Dos are automatically cleared after 3 days. Be sure to save any need information elswhere.",
   "mp" : "MP",
 
 
