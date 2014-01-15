@@ -7,12 +7,42 @@ var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 
+function constructCronQuery(options) {
+    if (options.currentHour == undefined)
+        options.currentHour = moment().get('hour');
+    if (options.includeMissed == undefined) {
+        options.includeMissed = true;
+    }
+    options.includeInactives = options.includeInactives || false;
+    options.force = options.force || false;
+    var query = {};
+    // only run cron for specific users
+    if (options.users) {
+        query._id = {$in: options.users};
+    }
+    // if includeInactives = false, we don't run for users with hp <= 0
+    if (!options.includeInactives) {
+        query = {$and:[{'stats.hp':{$gt:0}}, query]};
+    }
+    // if force = true, don't verify CDS setting
+    if (!options.force) {
+        query = {$and:[{'cronTime': options.currentHour}, query]};
+    }
+    // if true, include any people with lastCron more than 24 hours from now (not currenHour)
+    if (options.includeMissed) {
+        var yesterday = moment().subtract('d', 1);
+        query = {$or:[{'lastCron': {$lt: yesterday}}, query]};
+    }
+    return query;
+}
+
+
 module.exports.runCron = function(options, callback) {
-    var currentHour = options.currentHour || moment().get('hour');
-    var now = moment().set('hour', currentHour);
+    var query = constructCronQuery(options);
+    var now = moment().set('hour', options.currentHour);
     console.log("Cron started at " + now.format());
-    console.log("Procesing cron for users where cronTime == " + currentHour);
-    User.find({cronTime: currentHour, 'stats.hp':{$gt:0}}, function(err, users) {
+    console.log("Procesing cron for users where cronTime == " + now.get('hour'));
+    User.find(query, function(err, users) {
         if (err) {
             console.log(err);
             return callback(err);
