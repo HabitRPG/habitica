@@ -71,6 +71,9 @@ angular.module("notificationServices", [])
       },
       crit: function(val) {
         growl("<i class='icon-certificate'></i> Critical Hit! Bonus: " + Math.round(val) + "%", 'crit');
+      },
+      drop: function(val) {
+        growl("<i class='icon-gift'></i> " + val, 'drop');
       }
     };
   }
