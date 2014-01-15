@@ -451,12 +451,23 @@ api.batchUpdate = function(req, res, next) {
     res.json = oldJson;
     res.send = oldSend;
     if (err) return res.json(500, {err: err});
+
     var response = user.toJSON();
     response.wasModified = res.locals.wasModified;
+
+    // return only drops & streaks
     if (response._tmp && response._tmp.drop){
       res.json(200, {_tmp: {drop: response._tmp.drop}, _v: response._v});
+
+    // Fetch full user object
     }else if(response.wasModified){
+      // Preen 3-day past-completed To-Dos from Angular & mobile app
+      response.todos = _.where(response.todos, function(t) {
+        return !t.completed || (t.challenge && t.challenge.id) || moment(t.created).isAfter(moment().subtract('days',3));
+      });
       res.json(200, response);
+
+    // return only the version number
     }else{
       res.json(200, {_v: response._v});
     }
