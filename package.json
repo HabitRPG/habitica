@@ -63,7 +63,8 @@
   "scripts": {
     "test": "./test/run_tests.sh",
     "start": "grunt run:dev",
-    "postinstall": "./node_modules/bower/bin/bower install -f"
+    "postinstall": "./node_modules/bower/bin/bower install -f",
+    "cron":"node ./src/server.js --cron"
   },
   "devDependencies": {
     "protractor": "~0.14.0",
