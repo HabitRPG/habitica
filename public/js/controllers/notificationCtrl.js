@@ -56,7 +56,7 @@ habitrpg.controller('NotificationCtrl',
         User.user.items[type][after.key] = 0;
       }
       User.user.items[type][after.key]++;
-      Notification.text(User.user._tmp.drop.dialog);
+      Notification.drop(User.user._tmp.drop.dialog);
     });
 
     $rootScope.$watch('user.achievements.streak', function(after, before){
