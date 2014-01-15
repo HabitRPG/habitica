@@ -1136,10 +1136,20 @@ api.wrap = (user, main=true) ->
       user.stats.mp += _.max([10,.1 * user._statsComputed.maxMP])
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
+      # "Perfect Day" achievement for perfect-days
+      lvlDiv2 = Math.ceil(user.stats.lvl/2)
+      clearBuffs =
+        if _.find(user.dailys, (d)->!d.completed) or user.preferences.sleep is true
+          {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
+        else
+          user.achievements.perfect ?= 0
+          user.achievements.perfect++
+          {str:lvlDiv2,int:lvlDiv2,per:lvlDiv2,con:lvlDiv2,stealth:0,streaks:false}
+
       # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
       # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
       if user.preferences.sleep is true
-        user.stats.buffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
+        user.stats.buffs = clearBuffs
         return
 
       # Tally each task
@@ -1194,7 +1204,7 @@ api.wrap = (user, main=true) ->
       user.fns.preenUserHistory()
       user.markModified? 'history'
       user.markModified? 'dailys' # covers dailys.*.history
-      user.stats.buffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
+      user.stats.buffs = clearBuffs
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
       progress = user.party.quest.progress; _progress = _.cloneDeep progress

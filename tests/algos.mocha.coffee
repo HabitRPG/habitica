@@ -137,6 +137,27 @@ describe 'User', ->
     user.items.gear.equipped.weapon = 'weapon_wizard_1'
     expect(user._statsComputed.maxMP).to.eql 63
 
+  it 'handles perfect days', ->
+    user = newUser()
+    user.dailys = []
+    _.times 3, ->user.dailys.push shared.taskDefaults({type:'daily'})
+    cron = -> user.lastCron = moment().subtract('days',1);user.fns.cron()
+
+    cron()
+    expect(user.stats.buffs.str).to.be 0
+    expect(user.achievements.perfect).to.not.be.ok
+
+    user.dailys[0].completed = true
+    cron()
+    expect(user.stats.buffs.str).to.be 0
+    expect(user.achievements.perfect).to.not.be.ok
+
+    _.each user.dailys, (d)->d.completed = true
+    cron()
+    expect(user.stats.buffs.str).to.be 1
+    expect(user.achievements.perfect).to.be 1
+
+
   describe 'Death', ->
     user = undefined
     it 'revives correctly', ->

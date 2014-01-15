@@ -12384,7 +12384,7 @@ var process=require("__browserify_process");(function() {
       */
 
       cron: function(options) {
-        var daysMissed, expTally, lvl, now, progress, todoTally, _base, _base1, _base2, _progress;
+        var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, progress, todoTally, _base, _base1, _base2, _base3, _progress;
         if (options == null) {
           options = {};
         }
@@ -12404,20 +12404,31 @@ var process=require("__browserify_process");(function() {
         if (user.stats.mp > user._statsComputed.maxMP) {
           user.stats.mp = user._statsComputed.maxMP;
         }
+        lvlDiv2 = Math.ceil(user.stats.lvl / 2);
+        clearBuffs = _.find(user.dailys, function(d) {
+          return !d.completed;
+        }) || user.preferences.sleep === true ? {
+          str: 0,
+          int: 0,
+          per: 0,
+          con: 0,
+          stealth: 0,
+          streaks: false
+        } : ((_base = user.achievements).perfect != null ? (_base = user.achievements).perfect : _base.perfect = 0, user.achievements.perfect++, {
+          str: lvlDiv2,
+          int: lvlDiv2,
+          per: lvlDiv2,
+          con: lvlDiv2,
+          stealth: 0,
+          streaks: false
+        });
         if (user.preferences.sleep === true) {
-          user.stats.buffs = {
-            str: 0,
-            int: 0,
-            per: 0,
-            con: 0,
-            stealth: 0,
-            streaks: false
-          };
+          user.stats.buffs = clearBuffs;
           return;
         }
         todoTally = 0;
-        if ((_base = user.party.quest.progress).down == null) {
-          _base.down = 0;
+        if ((_base1 = user.party.quest.progress).down == null) {
+          _base1.down = 0;
         }
         user.todos.concat(user.dailys).forEach(function(task) {
           var absVal, completed, delta, id, repeat, scheduleMisses, type;
@@ -12481,7 +12492,7 @@ var process=require("__browserify_process");(function() {
             }
           }
         });
-        ((_base1 = (user.history != null ? user.history : user.history = {})).todos != null ? (_base1 = (user.history != null ? user.history : user.history = {})).todos : _base1.todos = []).push({
+        ((_base2 = (user.history != null ? user.history : user.history = {})).todos != null ? (_base2 = (user.history != null ? user.history : user.history = {})).todos : _base2.todos = []).push({
           date: now,
           value: todoTally
         });
@@ -12491,7 +12502,7 @@ var process=require("__browserify_process");(function() {
           lvl++;
           expTally += api.tnl(lvl);
         }
-        ((_base2 = user.history).exp != null ? (_base2 = user.history).exp : _base2.exp = []).push({
+        ((_base3 = user.history).exp != null ? (_base3 = user.history).exp : _base3.exp = []).push({
           date: now,
           value: expTally
         });
@@ -12502,14 +12513,7 @@ var process=require("__browserify_process");(function() {
         if (typeof user.markModified === "function") {
           user.markModified('dailys');
         }
-        user.stats.buffs = {
-          str: 0,
-          int: 0,
-          per: 0,
-          con: 0,
-          stealth: 0,
-          streaks: false
-        };
+        user.stats.buffs = clearBuffs;
         progress = user.party.quest.progress;
         _progress = _.cloneDeep(progress);
         _.merge(progress, {

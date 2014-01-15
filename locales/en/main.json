@@ -272,6 +272,8 @@
     "streakName" : " Streak Achievement(s)",
       "streakText1" : "Has performed ",
       "streakText2" : " 21-day streaks on Dailies",
+    "perfectName" : " Perfect Day(s)",
+      "perfectText2" : " perfect days. With this achievement you get a +level/2 buff to all stats for the next day.",
     "ultimGearName" : "Ultimate Gear",
       "ultimGearText" : "Has upgraded to the maximum weapon and armor set",
       "ultimGearUnlocked" : "You have earned the 'Ultimate Gear' Achievement for upgrading to the maximum gear set!",
