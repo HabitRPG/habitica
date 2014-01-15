@@ -222,7 +222,7 @@ GroupSchema.statics.bossQuest = function(user, progress, cb) {
 
     // Boss slain, finish quest
     if (group.quest.progress.hp <= 0) {
-      group.sendChat('`' + quest.boss.name + ' has been slain! Party has received their rewards.`');
+      group.sendChat('`You defeated ' + quest.boss.name + '! Questing party members receive the rewards of victory.`');
       // Participants: Grant rewards & achievements, finish quest
       series.push(function(cb2){
         group.finishQuest(quest,cb2);
