@@ -11936,7 +11936,7 @@ var process=require("__browserify_process");(function() {
           return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
         },
         score: function(req, cb) {
-          var addPoints, calculateDelta, delta, direction, id, mpDelta, num, options, stats, subtractPoints, task, th, _ref, _ref1, _ref2;
+          var addPoints, calculateDelta, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref, _ref1;
           _ref = req.params, id = _ref.id, direction = _ref.direction;
           task = user.tasks[id];
           options = req.query || {};
@@ -12064,7 +12064,8 @@ var process=require("__browserify_process");(function() {
               } else {
                 calculateDelta();
                 addPoints();
-                mpDelta = _.max([1 + (((_ref1 = task.checklist) != null ? _ref1.length : void 0) || 0), .01 * user._statsComputed.maxMP * (1 + (((_ref2 = task.checklist) != null ? _ref2.length : void 0) || 0))]);
+                multiplier = ((_ref1 = task.checklist) != null ? _ref1.length : void 0) || 1;
+                mpDelta = _.max([multiplier, .01 * user._statsComputed.maxMP * multiplier]);
                 if (direction === 'down') {
                   mpDelta *= -1;
                 }
