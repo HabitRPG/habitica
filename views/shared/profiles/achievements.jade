@@ -39,7 +39,7 @@
       =env.t('kickstartName1') 
       | ${{profile.backer.tier}}
       =env.t('kickstartName2')
-    small=env.t('kickstarterText')
+    small=env.t('kickstartText')
     hr
 
   div(ng-if='profile.achievements.streak || user._id == profile._id')
@@ -56,8 +56,8 @@
   div(ng-if='profile.achievements.ultimateGear || user._id == profile._id')
     .achievement.achievement-armor(ng-show='profile.achievements.ultimateGear')
     div(ng-class='{muted: !profile.achievements.ultimateGear}')
-      h5=env.t('ultimateGearName')
-      small=env.t('ultimateGearText')
+      h5=env.t('ultimGearName')
+      small=env.t('ultimGearText')
     hr
 
   div(ng-if='profile.achievements.beastMaster || user._id == profile._id')
@@ -81,7 +81,7 @@
 
   div(ng-if='profile.achievements.helpedHabit')
     .achievement.achievement-tree
-    h5=env.t('helpedHabit')
+    h5=env.t('helped')
     small
       =env.t('helpedText1')
       a(href='http://community.habitrpg.com/node/290', target='_blank')=env.t('helpedText2')
@@ -94,9 +94,6 @@
       small=env.t('veteranText')
     div(ng-if='profile.achievements.originalUser')
       h5=env.t('originalUser')
-      small=env.t('originaUserText1')
-        em=env.t('originaUserText2')
-        =env.t('originaUserText3')
     hr
 
   div(ng-if='profile.achievements.challenges || user._id == profile._id')
