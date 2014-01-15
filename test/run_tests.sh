@@ -17,4 +17,4 @@ NODE_PID=$!
 trap "kill $NODE_PID && curl http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer" EXIT
 
 sleep 3 # Wait for Selenium
-grunt karma:continuous && ./node_modules/protractor/bin/protractor protractor.conf.js
+mocha && grunt karma:continuous && ./node_modules/protractor/bin/protractor protractor.conf.js
