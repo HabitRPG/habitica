@@ -35,7 +35,8 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
         textarea.option-content(cols='3', placeholder='Description', ng-model='challenge.description')
     hr
 
-  .well(bindonce='challenge', ng-if='challenge.description') {{challenge.description}}
+  .well(bindonce='challenge', ng-if='challenge.description')
+    markdown(ng-model='challenge.description')
   i.icon-question-sign(popover="These are the challenge's tasks. As users participate, they will change color and gain graphs to show you the overall progress of the group.", popover-trigger='mouseenter', popover-placement='right')
   habitrpg-tasks(obj='challenge', main=false)
 
