@@ -15,14 +15,11 @@ function constructCronQuery(options) {
     }
     options.includeInactives = options.includeInactives || false;
     options.force = options.force || false;
+    // Note that ordering of these matters!
     var query = {};
     // only run cron for specific users
     if (options.users) {
         query._id = {$in: options.users};
-    }
-    // if includeInactives = false, we don't run for users with hp <= 0
-    if (!options.includeInactives) {
-        query = {$and:[{'stats.hp':{$gt:0}}, query]};
     }
     // if force = true, don't verify CDS setting
     if (!options.force) {
@@ -32,6 +29,10 @@ function constructCronQuery(options) {
     if (options.includeMissed) {
         var yesterday = moment().subtract('d', 1);
         query = {$or:[{'lastCron': {$lt: yesterday}}, query]};
+    }
+    // if includeInactives = false, we don't run for users with hp <= 0
+    if (!options.includeInactives) {
+        query = {$and:[{'stats.hp':{$gt:0}}, query]};
     }
     return query;
 }
@@ -48,13 +49,8 @@ module.exports.runCron = function(options, callback) {
             return callback(err);
         }
         console.log("Found " + users.length + " users.");
-
         async.parallel(users.map(function(user) {
             return function(cb) {
-                // Sanity check!
-                var userTime = moment(now).zone(user.preferences.timezoneOffset || 0);
-                assert(userTime.isSame(now, 'hour'), "It isn't time to run cron for user " + user._id);
-
                 var progress = user.fns.cron();
                 var ranCron = user.isModified();
                 var quest = shared.content.quests[user.party.quest.key];
