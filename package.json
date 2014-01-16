@@ -43,7 +43,8 @@
     "domain-middleware": "~0.1.0",
     "swagger-node-express": "git://github.com/lefnire/swagger-node-express#habitrpg",
     "passport": "~0.1.18",
-    "passport-facebook": "~1.0.2"
+    "passport-facebook": "~1.0.2",
+    "winston": "~0.7.2"
   },
   "private": true,
   "subdomain": "habitrpg",
@@ -59,7 +60,7 @@
     "test": "./test/run_tests.sh",
     "start": "grunt run:dev",
     "postinstall": "./node_modules/bower/bin/bower install -f",
-    "cron":"node ./src/server.js --cron"
+    "cron": "node ./src/server.js --cron"
   },
   "devDependencies": {
     "protractor": "~0.14.0",

@@ -12,6 +12,7 @@ var nconf = require('nconf');
 
 var cron = require('../src/scripts/cron');
 var utils = require('../src/utils');
+var logging = require('../src/logging');
 var User = require('../src/models/user').model;
 
 describe('runCron', function () {
