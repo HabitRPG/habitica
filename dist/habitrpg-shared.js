@@ -12161,21 +12161,14 @@ var process=require("__browserify_process");(function() {
       },
       /*
         Get a random property from an object
-        http://stackoverflow.com/questions/2532218/pick-random-property-from-a-javascript-object
         returns random property (the value)
       */
 
       randomVal: function(obj, options) {
-        var count, key, result, val;
-        result = void 0;
-        count = 0;
-        for (key in obj) {
-          val = obj[key];
-          if (user.fns.predictableRandom(options != null ? options.seed : void 0) < (1 / ++count)) {
-            result = ((options != null ? options.key : void 0) ? key : val);
-          }
-        }
-        return result;
+        var array, rand;
+        array = (options != null ? options.key : void 0) ? _.keys(obj) : _.values(obj);
+        rand = user.fns.predictableRandom(typeof option !== "undefined" && option !== null ? option.seed : void 0);
+        return array[Math.floor(rand * array.length)];
       },
       /*
       This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
