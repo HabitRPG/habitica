@@ -4,6 +4,24 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    git_changelog: {
+        minimal: {
+            options: {
+                repo_url: 'https://github.com/habitrpg/habitrpg',
+                appName : 'HabitRPG',
+                branch_name: 'develop'
+            }
+        },
+        extended: {
+            options: {
+                file: 'EXTENDEDCHANGELOG.md',
+                repo_url: 'https://github.com/habitrpg/habitrpg',
+                appName : 'HabitRPG',
+                branch_name: 'develop',
+                grep_commits: '^fix|^feat|^docs|^refactor|^chore|BREAKING'
+            }
+        }
+    },
 
     karma: {
       unit: {
@@ -124,5 +142,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-hashres');
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('git-changelog');
 
 };
