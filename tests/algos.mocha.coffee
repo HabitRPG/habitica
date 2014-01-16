@@ -3,6 +3,7 @@ expect = require 'expect.js'
 sinon = require 'sinon'
 moment = require 'moment'
 shared = require '../script/index.coffee'
+$w = (s)->s.split(' ')
 
 ### Helper Functions ####
 newUser = (addTasks=true)->
@@ -81,11 +82,11 @@ expectGainedPoints = (before, after, taskType) ->
   # daily & todo histories handled on cron
 
 expectNoChange = (before,after) ->
-  _.each ['stats', 'items', 'gear', 'dailys', 'todos', 'rewards', 'flags', 'preferences'], (attr)->
+  _.each $w('stats items gear dailys todos rewards flags preferences'), (attr)->
     expect(after[attr]).to.eql before[attr]
 
 expectDayResetNoDamage = (b,a) ->
-  [before,after] = [_.cloneDeep(b); _.cloneDeep(a)]
+  [before,after] = [_.cloneDeep(b), _.cloneDeep(a)]
   _.each after.dailys, (task,i) ->
     expect(task.completed).to.be false
     expect(before.dailys[i].value).to.be task.value
@@ -96,8 +97,9 @@ expectDayResetNoDamage = (b,a) ->
     expect(before.todos[i].value).to.be.greaterThan task.value
   expect(after.history.todos).to.have.length(1)
   # hack so we can compare user before/after obj equality sans effected paths
-  _.each ['dailys','todos','history','lastCron'], (path) ->
-    _.each [before,after], (obj) -> delete obj[path]
+  _.each [before,after], (obj) ->
+    delete obj.stats.buffs
+    _.each $w('dailys todos history lastCron'), (path) -> delete obj[path]
   delete after._tmp
   expectNoChange(before, after)
 
@@ -318,6 +320,7 @@ describe 'Cron', ->
     before.dailys = before.todos = after.dailys = after.todos = []
     after.fns.cron()
     expect(after.lastCron).to.not.be before.lastCron # make sure cron was run
+    delete after.stats.buffs;delete before.stats.buffs
     expect(before.stats).to.eql after.stats
     beforeTasks = before.habits.concat(before.dailys).concat(before.todos).concat(before.rewards)
     afterTasks = after.habits.concat(after.dailys).concat(after.todos).concat(after.rewards)
