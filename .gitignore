@@ -16,6 +16,5 @@ newrelic_agent.log
 *.log
 src/*/*.map
 src/*/*/*.map
-test/*.js
 test/*.map
 public/docs
