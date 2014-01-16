@@ -43,6 +43,14 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
         input(type='checkbox', ng-model='user.preferences.newTaskEdit', ng-change='set({"preferences.newTaskEdit": user.preferences.newTaskEdit?true: false})')
         | Open new tasks in edit mode&nbsp;
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover='With this option set, new tasks will immediately open for you to add details like notes and tags.')
+      label.checkbox
+        input(type='checkbox', ng-model='user.preferences.tagsCollapsed', ng-change='set({"preferences.tagsCollapsed": user.preferences.tagsCollapsed?true: false})')
+        | Tag list in tasks starts collapsed&nbsp;
+        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover='With this option set, the list of task tags will be hidden when you first open a task for editing.')
+      label.checkbox
+        input(type='checkbox', ng-model='user.preferences.advancedCollapsed', ng-change='set({"preferences.advancedCollapsed": user.preferences.advancedCollapsed?true: false})')
+        | Advanced Options in tasks start collapsed&nbsp;
+        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover='With this option set, Advanced Options will be hidden when you first open a task for editing.')
       button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover='Restart the introductory tour from when you first joined HabitRPG.') Show Tour
       br
       button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover='Bring Bailey the Town Crier out of hiding so you can review past news.') Show Bailey

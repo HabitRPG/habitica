@@ -170,9 +170,10 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
           legend.option-title=env.t('dueDate')
           input.option-content.datepicker(type='text', datepicker-popup='MM/dd/yyyy', ng-model='task.date')
 
+        // Tags
         fieldset.option-group(ng-if='!$state.includes("options.social.challenges")')
-          legend.option-title=env.t('tags')
-          label.checkbox(ng-repeat='tag in user.tags')
+          p.option-title.mega(ng-click='task._tags = !task._tags')=env.t('tags')
+          label.checkbox(ng-repeat='tag in user.tags', ng-class="{visuallyhidden: task._tags}")
             input(type='checkbox', ng-model='task.tags[tag.id]')
             markdown(ng-model='tag.name')
 
