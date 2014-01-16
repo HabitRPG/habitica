@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state',
-  function($rootScope, $scope, User, Challenges, Notification, $compile, Groups, $state) {
+habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state',
+  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state) {
 
     // FIXME $scope.challenges needs to be resolved first (see app.js)
     $scope.groups = Groups.Group.query({type:'party,guilds,tavern'});
@@ -133,7 +133,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'User', 'Challenge
     //------------------------------------------------------------
 
     $scope.addTask = function(addTo, listDef) {
-      var task = $rootScope.Shared.taskDefaults({text: listDef.newTask, type: listDef.type});
+      var task = Shared.taskDefaults({text: listDef.newTask, type: listDef.type});
       addTo.unshift(task);
       //User.log({op: "addTask", data: task}); //TODO persist
       delete listDef.newTask;

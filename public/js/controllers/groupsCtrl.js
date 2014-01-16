@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'API_URL', '$q', 'User', 'Members', '$state',
-  function($scope, $rootScope, Groups, $http, API_URL, $q, User, Members, $state) {
+habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', 'API_URL', '$q', 'User', 'Members', '$state',
+  function($scope, $rootScope, Shared, Groups, $http, API_URL, $q, User, Members, $state) {
 
       $scope.isMember = function(user, group){
         return ~(group.members.indexOf(user._id));
@@ -66,7 +66,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Groups', '$http', 'A
       // We watch Members.selectedMember because it's asynchronously set, so would be a hassle to handle updates here
       $scope.$watch( function() { return Members.selectedMember; }, function (member) {
         if(member)
-          member.petCount = $rootScope.Shared.countPets(null, member.items.pets);
+          member.petCount = Shared.countPets(null, member.items.pets);
         $scope.profile = member;
       });
     }

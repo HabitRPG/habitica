@@ -1,8 +1,7 @@
-habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
-  function($rootScope, $scope, $window, User) {
+habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User', 'Content',
+  function($rootScope, $scope, $window, User, Content) {
 
     var user = User.user;
-    var Content = $rootScope.Content;
 
     // convenience vars since these are accessed frequently
 

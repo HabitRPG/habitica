@@ -16,5 +16,17 @@ NODE_DB_URI="$TEST_DB_URI" PORT=$TEST_SERVER_PORT node ./src/server.js > /dev/nu
 NODE_PID=$!
 trap "kill $NODE_PID && curl http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer" EXIT
 
-sleep 3 # Wait for Selenium
+# Wait for selenium
+MAX_WAIT=30
+WAITED=0
+until nc -z localhost 4444; do
+  if [ $WAITED -ge $MAX_WAIT ]; then
+    echo "Waited $MAX_WAIT seconds, but Selenium never responded" >&2
+    kill $NODE_PID
+    exit 1
+  fi
+  sleep 1
+  let 'WAITED+=1'
+done
+
 mocha && grunt karma:continuous && ./node_modules/protractor/bin/protractor protractor.conf.js

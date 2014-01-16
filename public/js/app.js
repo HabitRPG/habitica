@@ -17,7 +17,7 @@ window.env.t = function(string){
 
 window.habitrpg = angular.module('habitrpg',
     ['ngResource', 'ngSanitize', 'userServices', 'groupServices', 'memberServices', 'challengeServices',
-     'authServices', 'notificationServices', 'guideServices',
+     'authServices', 'notificationServices', 'guideServices', 'authCtrl',
      'ui.bootstrap', 'ui.keypress', 'ui.router', 'chieffancypants.loadingBar', 'At', 'pasvaz.bindonce', 'infinite-scroll'])
 
   // @see https://github.com/angular-ui/ui-router/issues/110 and https://github.com/HabitRPG/habitrpg/issues/1705

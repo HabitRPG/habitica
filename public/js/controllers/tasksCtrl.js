@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'API_URL', '$timeout',
-  function($scope, $rootScope, $location, User, Notification, $http, API_URL, $timeout) {
+habitrpg.controller("TasksCtrl", ['$scope', '$location', 'User','Notification', '$http', 'API_URL', '$timeout', 'Shared',
+  function($scope, $location, User, Notification, $http, API_URL, $timeout, Shared) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
@@ -138,7 +138,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      */
 
     $scope.$watch('user.items.gear.equipped', function(){
-      $scope.itemStore = $rootScope.Shared.updateStore(User.user);
+      $scope.itemStore = Shared.updateStore(User.user);
     },true);
 
     $scope.buy = function(item) {

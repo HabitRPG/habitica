@@ -1,7 +1,7 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'User', 'Guide', 'Notification', function ($scope, $rootScope, User, Guide, Notification) {
+  ['$scope', '$rootScope', 'Shared', 'User', 'Guide', 'Notification', function ($scope, $rootScope, Shared, User, Guide, Notification) {
 
     $rootScope.$watch('user.stats.hp', function(after, before) {
       if (after == before) return;
@@ -71,7 +71,7 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.items.pets', function(after, before){
       if(_.size(after) === _.size(before) || 
-        $rootScope.Shared.countPets(null, after) < 90) return;
+        Shared.countPets(null, after) < 90) return;
       User.user.achievements.beastMaster = true;
       $rootScope.modals.achievements.beastMaster = true;
     }, true);

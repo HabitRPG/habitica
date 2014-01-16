@@ -8,8 +8,7 @@ describe('userServices', function() {
 
   beforeEach(function(){
     module(function($provide){
-      var habitrpgShared = {helpers: {newUser: sinon.spy()}};
-      $window = {href: '', alert: sinon.spy(), location: {search: '', pathname: ''}, habitrpgShared: habitrpgShared};
+      $window = {href: '', alert: sinon.spy(), location: {search: '', pathname: ''}};
       $provide.value('$window', $window);
     });
 
