@@ -24,9 +24,16 @@ div(modal='modals.buyGems')
       .span6.well
         h3 Pay with Card
         .btn.btn-primary(ng-click='showStripe()') Pay with Card
+        br
+        br
+        small
+          .alert.alert-info Recommended method.
       .span6.well
         h3 Pay with PayPal
         script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name='20 Gems, Disable Ads, Donation to the Developers', data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v2/user/buy-gems/paypal-ipn', data-env="#{env.NODE_ENV == 'production' ? '' : 'sandbox'}", data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-rm='1', data-no_shipping='1')
+        br
+        small
+          .alert Note: PayPal sometimes takes a long time to clear. We recommend paying with card if possible.
 
   .modal-footer
     button.btn.btn-default.cancel(ng-click='modals.buyGems = false') Cancel
