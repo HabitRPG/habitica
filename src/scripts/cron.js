@@ -6,6 +6,7 @@ var async = require('async');
 var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
+var logging = require('./../logging');
 
 function constructCronQuery(options) {
     if (options.currentHour == undefined)
@@ -41,14 +42,13 @@ function constructCronQuery(options) {
 module.exports.runCron = function(options, callback) {
     var query = constructCronQuery(options);
     var now = moment().set('hour', options.currentHour);
-    console.log("Cron started at " + now.format());
-    console.log("Procesing cron for users where cronTime == " + now.get('hour'));
+    logging.info("Cron started at %s. cronTime == %d", now.format(), now.get('hour'));
     User.find(query, function(err, users) {
         if (err) {
-            console.log(err);
+            logging.error("Cron User.find has errors", {error: err});
             return callback(err);
         }
-        console.log("Found " + users.length + " users.");
+        logging.info("Cron query found %d users.", users.length);
         async.parallel(users.map(function(user) {
             return function(cb) {
                 var progress = user.fns.cron();
