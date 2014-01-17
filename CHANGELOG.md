@@ -15,7 +15,3 @@
 - **challenges:** markdown in challenge-descriptions
   ([41233c7b](https://github.com/habitrpg/habitrpg/commits/41233c7b167905eeccfdff5589789e002ec23f97))
 
-
-## Breaking Changes
-
-
