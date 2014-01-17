@@ -92,7 +92,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.choosePet = function(egg, potion){
-      var pet = egg + '-' + potion;
+      var pet = potion + " " + egg;
 
       // Feeding Pet
       if ($scope.selectedFood) {
