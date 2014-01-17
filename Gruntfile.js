@@ -18,7 +18,7 @@ module.exports = function(grunt) {
                 repo_url: 'https://github.com/habitrpg/habitrpg',
                 appName : 'HabitRPG',
                 branch_name: 'develop',
-                grep_commits: '^fix|^feat|^docs|^refactor|^chore|BREAKING'
+                grep_commits: '^perf|^style|^fix|^feat|^docs|^refactor|^chore|BREAKING'
             }
         }
     },

@@ -1,11 +1,8 @@
 <a name="">HabitRPG</a>
-#  (2014-01-16)
+#  (2014-01-17)
 
 
-## Chore
+## Bug Fixes
 
-- **changelog:** add commit-msg hook to verify commit messages
-
-## Breaking Changes
-
-
+- **#2375:** merge in @SabreCat's stats.jade changes "More elegant show/hide setup for attribute bonuses"
+  ([518f200a](https://github.com/habitrpg/habitrpg/commits/518f200a8fc7373b44ed7d7b5f016d921b0746bd))
