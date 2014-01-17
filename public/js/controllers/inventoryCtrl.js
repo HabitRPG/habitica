@@ -99,7 +99,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
         var food = $scope.selectedFood
         if (food.key == 'Saddle') {
           if (!$window.confirm('Saddle ' + pet + '?')) return;
-        } else if (!$window.confirm('Feed ' + pet + ' a ' + food.text + '?')) {
+        } else if (!$window.confirm('Feed ' + pet + ' '+ food.article + food.text + '?')) {
           return;
         }
         User.user.ops.feed({params:{pet: pet, food: food.key}});
