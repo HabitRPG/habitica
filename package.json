@@ -80,6 +80,7 @@
     "mongoskin": "~0.6.1",
     "expect.js": "~0.2.0",
     "superagent": "~0.15.7",
-    "superagent-defaults": "~0.1.5"
+    "superagent-defaults": "~0.1.5",
+    "git-changelog": "colegleason/git-changelog"
   }
 }
