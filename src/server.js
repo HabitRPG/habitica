@@ -27,7 +27,7 @@ var argv = optimist
 
 if (argv.cron) {
     cron.runCron({currentHour: argv['cron-hour']}, function(err, results) {
-        if (err) {
+        if (err.length) {
             console.log("There were errors while running cron!");
             console.log(err);
         }

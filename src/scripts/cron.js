@@ -43,39 +43,52 @@ module.exports.runCron = function(options, callback) {
     var query = constructCronQuery(options);
     var now = moment().set('hour', options.currentHour);
     logging.info("Cron started at %s. cronTime == %d", now.format(), now.get('hour'));
-    User.find(query, function(err, users) {
-        if (err) {
-            logging.error("Cron User.find has errors", {error: err});
-            return callback(err);
+    var toProcess = 0;
+    var processed = 0;
+    var streamClosed = false;
+    var saved = [];
+    var errors = [];
+    var maxMem = 0;
+    var done = function(user) {
+        return function(err) {
+            processed++;
+            if (err) {
+                errors.push(err);
+            } else {
+                saved.push(user._id);
+            }
+            if (streamClosed && processed == toProcess) {
+                logging.info("Cron maximum memory usage: %d MB", maxMem / 1000 / 1000);
+                callback(errors, saved);
+            }
+        };
+    };
+    var stream = User.find(query).batchSize(5).stream();
+    stream.on('data', function(user) {
+        toProcess++;
+        var mem = process.memoryUsage();
+        if (mem.rss > maxMem) maxMem = mem.rss;
+        var progress = user.fns.cron();
+        var ranCron = user.isModified();
+        var quest = shared.content.quests[user.party.quest.key];
+
+        if (!quest) {
+            return user.save(done(user));
         }
-        logging.info("Cron query found %d users.", users.length);
-        async.parallel(users.map(function(user) {
-            return function(cb) {
-                var progress = user.fns.cron();
-                var ranCron = user.isModified();
-                var quest = shared.content.quests[user.party.quest.key];
-
-                if (!quest) {
-                    return user.save(function(err, saved) {
-                        cb(err, saved._id);
-                    });
-                };
-
-                // If user is on a quest, roll for boss & player, or handle collections
-                // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
-                async.waterfall([
-                    function(cb){
-                        user.save(cb); // make sure to save the cron effects
-                    },
-                    function(saved, count, cb){
-                        var type = quest.boss ? 'boss' : 'collect';
-                        Group[type+'Quest'](user,progress,cb);
-                    },
-                ], function(err, saved) {
-                    cb(err, saved._id);
-                });
-            };
-
-        }), callback);
+        // If user is on a quest, roll for boss & player, or handle collections
+        // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
+        async.waterfall([
+            function(cb){
+                user.save(cb); // make sure to save the cron effects
+            },
+            function(saved, count, cb){
+                var type = quest.boss ? 'boss' : 'collect';
+                Group[type+'Quest'](user,progress,cb);
+            },
+        ], done(user));
+    }).on('error', function(err) {
+        errors.push(err);
+    }).on('close', function() {
+        streamClosed = true;
     });
 }
