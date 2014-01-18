@@ -1,7 +1,8 @@
 // Only do the minimal amount of work before forking just in case of a dyno restart
 var cluster = require("cluster");
+var nconf = require('nconf');
 
-if (cluster.isMaster) {
+if (cluster.isMaster && (nconf.get('NODE_ENV') == 'development' || nconf.get('NODE_ENV') == 'production')) {
     var numCPUs = require('os').cpus().length;
 
     // Fork workers.
@@ -18,7 +19,6 @@ if (cluster.isMaster) {
     var express = require("express");
     var http = require("http");
     var path = require("path");
-    var nconf = require('nconf');
     var domainMiddleware = require('domain-middleware');
     var swagger = require("swagger-node-express");
 
