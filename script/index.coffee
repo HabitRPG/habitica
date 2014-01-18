@@ -33,7 +33,7 @@ api.startOfDay = (options={}) ->
   o = sanitizeOptions(options)
   moment(o.now).startOf('day').add('h', o.dayStart)
 
-dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
+api.dayMapping = {0:'su',1:'m',2:'t',3:'w',4:'th',5:'f',6:'s'}
 
 ###
   Absolute diff from "yesterday" till now
@@ -48,13 +48,13 @@ api.daysSince = (yesterday, options = {}) ->
 api.shouldDo = (day, repeat, options={}) ->
   return false unless repeat
   o = sanitizeOptions options
-  selected = repeat[dayMapping[api.startOfDay(_.defaults {now:day}, o).day()]]
+  selected = repeat[api.dayMapping[api.startOfDay(_.defaults {now:day}, o).day()]]
   return selected unless moment(day).zone(o.timezoneOffset).isSame(o.now,'d')
   if options.dayStart <= o.now.hour() # we're past the dayStart mark, is it due today?
     return selected
   else # we're not past dayStart mark, check if it was due "yesterday"
     yesterday = moment(o.now).subtract(1,'d').day() # have to wrap o.now so as not to modify original
-    return repeat[dayMapping[yesterday]] # FIXME is this correct?? Do I need to do any timezone calcaulation here?
+    return repeat[api.dayMapping[yesterday]] # FIXME is this correct?? Do I need to do any timezone calcaulation here?
 
 
 ###
@@ -1136,14 +1136,8 @@ api.wrap = (user, main=true) ->
       user.stats.mp = user._statsComputed.maxMP if user.stats.mp > user._statsComputed.maxMP
 
       # "Perfect Day" achievement for perfect-days
-      lvlDiv2 = Math.ceil(user.stats.lvl/2)
-      clearBuffs =
-        if _.find(user.dailys, (d)->!d.completed) or user.preferences.sleep is true
-          {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
-        else
-          user.achievements.perfect ?= 0
-          user.achievements.perfect++
-          {str:lvlDiv2,int:lvlDiv2,per:lvlDiv2,con:lvlDiv2,stealth:0,streaks:false}
+      perfect = true
+      clearBuffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
 
       # User is resting at the inn. Used to be we un-checked each daily without performing calculation (see commits before fb29e35)
       # but to prevent abusing the inn (http://goo.gl/GDb9x) we now do *not* calculate dailies, and simply set lastCron to today
@@ -1170,6 +1164,7 @@ api.wrap = (user, main=true) ->
               thatDay = moment(now).subtract('days', n + 1)
               scheduleMisses++ if api.shouldDo(thatDay, repeat, user.preferences)
           if scheduleMisses > 0
+            perfect = false if type is 'daily'
             delta = user.ops.score({params:{id:task.id, direction:'down'}, query:{times:scheduleMisses, cron:true}});
             user.party.quest.progress.down += delta if type is 'daily'
 
@@ -1203,7 +1198,13 @@ api.wrap = (user, main=true) ->
       user.fns.preenUserHistory()
       user.markModified? 'history'
       user.markModified? 'dailys' # covers dailys.*.history
-      user.stats.buffs = clearBuffs
+      user.stats.buffs =
+        if perfect
+          user.achievements.perfect ?= 0
+          user.achievements.perfect++
+          lvlDiv2 = Math.ceil(user.stats.lvl/2)
+          {str:lvlDiv2,int:lvlDiv2,per:lvlDiv2,con:lvlDiv2,stealth:0,streaks:false}
+        else clearBuffs
 
       # After all is said and done, progress up user's effect on quest, return those values & reset the user's
       progress = user.party.quest.progress; _progress = _.cloneDeep progress
@@ -1251,4 +1252,3 @@ api.wrap = (user, main=true) ->
     get: ->
       tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards)
       _.object(_.pluck(tasks, "id"), tasks)
-

@@ -159,6 +159,14 @@ describe 'User', ->
     expect(user.stats.buffs.str).to.be 1
     expect(user.achievements.perfect).to.be 1
 
+    # Handle greyed-out dailys
+    yesterday = moment().subtract('days',1);
+    user.dailys[0].repeat[shared.dayMapping[yesterday.day()]] = 0
+    _.each user.dailys[1..], (d)->d.completed = true
+    cron()
+    expect(user.stats.buffs.str).to.be 1
+    expect(user.achievements.perfect).to.be 2
+
 
   describe 'Death', ->
     user = undefined
