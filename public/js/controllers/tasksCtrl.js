@@ -5,7 +5,14 @@ habitrpg.controller("TasksCtrl", ['$scope', '$location', 'User','Notification', 
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
+    var dontCheatTimer = {};
     $scope.score = function(task, direction) {
+      if (direction == 'up' && task.type == 'habit') {
+        if (dontCheatTimer[task.id])
+          return alert("Wait 10 seconds before clicking that task again");
+        dontCheatTimer[task.id] = true;
+        $timeout(function(){delete dontCheatTimer[task.id]}, 10000);
+      }
       User.user.ops.score({params:{id: task.id, direction:direction}})
     };
 
