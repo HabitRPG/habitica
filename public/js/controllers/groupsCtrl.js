@@ -58,8 +58,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     }
   ])
 
-  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members',
-    function($scope, $rootScope, Members) {
+  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared',
+    function($scope, $rootScope, Members, Shared) {
       $scope.timestamp = function(timestamp){
         return moment(timestamp).format('MM/DD/YYYY');
       }
