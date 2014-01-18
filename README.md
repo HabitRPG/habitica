@@ -10,7 +10,7 @@
 - If the string is in a `.jade` file it can be accessed with `env.t('string name here')`
 - If the string is in a `.js` file it can be accessed with `window.env.t('string name here')`
 
-HabitRPG
+HabitRPG [![Build Status](https://travis-ci.org/HabitRPG/habitrpg.png?branch=master)](https://travis-ci.org/HabitRPG/habitrpg)
 ===============
 
 [HabitRPG](https://habitrpg.com) is an open source habit building program which treats your life like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
