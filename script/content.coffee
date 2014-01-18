@@ -70,16 +70,16 @@ gear =
 
   armor:
     base:
-      0: text: "Cloth Armor", notes:'Ordinary clothing. Confers no benefit.', value:0
+      0: text: "Plain Clothing", notes:'Ordinary clothing. Confers no benefit.', value:0
     warrior:
-      #0: text: "Cloth Armor", notes:'Ordinary clothing. Confers no benefit.', value:0
+      #0: text: "Plain Clothing", notes:'Ordinary clothing. Confers no benefit.', value:0
       1: text: "Leather Armor", notes:'Jerkin of sturdy boiled hide. Increases CON by 3.', con: 3, value:30
       2: text: "Chain Mail", notes:'Armor of interlocked metal rings. Increases CON by 5.', con: 5, value:45
       3: text: "Plate Armor", notes:'Suit of all-encasing steel, the pride of knights. Increases CON by 7.', con: 7, value:65
       4: text: "Red Armor", notes:'Heavy plate glowing with defensive enchantments. Increases CON by 9.', con: 9, value:90
       5: text: "Golden Armor", notes:'Looks ceremonial, but no known blade can pierce it. Increases CON by 11.', con: 11, value:120, last: true
     rogue:
-      #0: text: "Cloth Armor", notes:'Ordinary clothing. Confers no benefit.', value:0
+      #0: text: "Plain Clothing", notes:'Ordinary clothing. Confers no benefit.', value:0
       1: text: "Oiled Leather", notes:'Leather armor treated to reduce noise. Increases PER by 6.', per: 6, value:30
       2: text: "Black Leather", notes:'Colored with dark dye to blend into shadows. Increases PER by 9', per: 9, value:45
       3: text: "Camouflage Vest", notes:'Equally discreet in dungeon or wilderness. Increases PER by 12.', per: 12, value:65
