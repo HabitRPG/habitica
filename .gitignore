@@ -9,8 +9,8 @@ lib
 public/bower_components
 build
 
+*.log
 src/*/*.map
 src/*/*/*.map
-test/*.js
 test/*.map
 public/docs
