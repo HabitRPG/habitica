@@ -9397,6 +9397,7 @@ var global=self;/**
           value: 150,
           canOwn: (function(u) {
             var _ref;
+
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 70;
           })
         },
@@ -9410,6 +9411,7 @@ var global=self;/**
           value: 170,
           canOwn: (function(u) {
             var _ref;
+
             return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 4;
           })
         },
@@ -9421,6 +9423,7 @@ var global=self;/**
           value: 200,
           canOwn: (function(u) {
             var _ref;
+
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
           })
         },
@@ -9433,6 +9436,7 @@ var global=self;/**
           value: 200,
           canOwn: (function(u) {
             var _ref;
+
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
           })
         },
@@ -9483,7 +9487,7 @@ var global=self;/**
     armor: {
       base: {
         0: {
-          text: "Cloth Armor",
+          text: "Plain Clothing",
           notes: 'Ordinary clothing. Confers no benefit.',
           value: 0
         }
@@ -9628,6 +9632,7 @@ var global=self;/**
           value: 150,
           canOwn: (function(u) {
             var _ref;
+
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
           })
         },
@@ -9641,6 +9646,7 @@ var global=self;/**
           value: 170,
           canOwn: (function(u) {
             var _ref;
+
             return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 2;
           })
         },
@@ -9652,6 +9658,7 @@ var global=self;/**
           value: 200,
           canOwn: (function(u) {
             var _ref;
+
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
           })
         },
@@ -9845,6 +9852,7 @@ var global=self;/**
           value: 150,
           canOwn: (function(u) {
             var _ref;
+
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
           })
         },
@@ -9858,6 +9866,7 @@ var global=self;/**
           value: 170,
           canOwn: (function(u) {
             var _ref;
+
             return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 3;
           })
         },
@@ -9869,6 +9878,7 @@ var global=self;/**
           value: 200,
           canOwn: (function(u) {
             var _ref;
+
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
           })
         },
@@ -10048,6 +10058,7 @@ var global=self;/**
           value: 150,
           canOwn: (function(u) {
             var _ref;
+
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
           })
         },
@@ -10061,6 +10072,7 @@ var global=self;/**
           value: 170,
           canOwn: (function(u) {
             var _ref;
+
             return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 5;
           })
         },
@@ -10113,6 +10125,7 @@ var global=self;/**
     return _.each(['base', 'warrior', 'rogue', 'healer', 'wizard', 'special'], function(klass) {
       return _.each(gear[type][klass], function(item, i) {
         var key, _canOwn;
+
         key = "" + type + "_" + klass + "_" + i;
         _.defaults(item, {
           type: type,
@@ -10191,6 +10204,7 @@ var global=self;/**
         notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).',
         cast: function(user, target) {
           var bonus;
+
           bonus = user._statsComputed.int * user.fns.crit('per');
           target.value += diminishingReturns(bonus * .02, 4);
           bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * .075);
@@ -10209,6 +10223,7 @@ var global=self;/**
         cast: function(user, target) {
           return _.each(target, function(member) {
             var bonus;
+
             bonus = Math.ceil(user._statsComputed.int * .1);
             if (bonus > 25) {
               bonus = 25;
@@ -10225,8 +10240,9 @@ var global=self;/**
         notes: "The ground below your party's tasks cracks and shakes with extreme intensity, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            var _base;
-            if ((_base = member.stats.buffs).int == null) {
+            var _base, _ref;
+
+            if ((_ref = (_base = member.stats.buffs).int) == null) {
               _base.int = 0;
             }
             return member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05);
@@ -10265,8 +10281,9 @@ var global=self;/**
         target: 'self',
         notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day.",
         cast: function(user, target) {
-          var _base;
-          if ((_base = user.stats.buffs).con == null) {
+          var _base, _ref;
+
+          if ((_ref = (_base = user.stats.buffs).con) == null) {
             _base.con = 0;
           }
           return user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05);
@@ -10280,8 +10297,9 @@ var global=self;/**
         notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            var _base;
-            if ((_base = member.stats.buffs).str == null) {
+            var _base, _ref;
+
+            if ((_ref = (_base = member.stats.buffs).str) == null) {
               _base.str = 0;
             }
             return member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05);
@@ -10296,8 +10314,9 @@ var global=self;/**
         notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            var _base;
-            if ((_base = member.stats.buffs).con == null) {
+            var _base, _ref;
+
+            if ((_ref = (_base = member.stats.buffs).con) == null) {
               _base.con = 0;
             }
             return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .03);
@@ -10324,6 +10343,7 @@ var global=self;/**
         notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit.",
         cast: function(user, target) {
           var bonus, _crit;
+
           _crit = user.fns.crit('per', .3);
           target.value += _crit * .03;
           bonus = (target.value < 0 ? 1 : target.value + 1) * _crit;
@@ -10339,8 +10359,9 @@ var global=self;/**
         notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks and chance of drops is buffed for a day.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            var _base;
-            if ((_base = member.stats.buffs).per == null) {
+            var _base, _ref;
+
+            if ((_ref = (_base = member.stats.buffs).per) == null) {
               _base.per = 0;
             }
             return member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03);
@@ -10354,8 +10375,9 @@ var global=self;/**
         target: 'self',
         notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception.",
         cast: function(user, target) {
-          var _base;
-          if ((_base = user.stats.buffs).stealth == null) {
+          var _base, _ref;
+
+          if ((_ref = (_base = user.stats.buffs).stealth) == null) {
             _base.stealth = 0;
           }
           return user.stats.buffs.stealth += Math.ceil(user._statsComputed.per * .03);
@@ -10399,8 +10421,9 @@ var global=self;/**
         notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense.",
         cast: function(user, target) {
           return _.each(target, function(member) {
-            var _base;
-            if ((_base = member.stats.buffs).con == null) {
+            var _base, _ref;
+
+            if ((_ref = (_base = member.stats.buffs).con) == null) {
               _base.con = 0;
             }
             return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15);
@@ -10431,9 +10454,10 @@ var global=self;/**
         target: 'user',
         notes: "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day.",
         cast: function(user, target) {
-          var _base;
+          var _base, _ref;
+
           target.stats.buffs.snowball = true;
-          if ((_base = target.achievements).snowball == null) {
+          if ((_ref = (_base = target.achievements).snowball) == null) {
             _base.snowball = 0;
           }
           target.achievements.snowball++;
@@ -10457,6 +10481,7 @@ var global=self;/**
   _.each(api.spells, function(spellClass) {
     return _.each(spellClass, function(spell, key) {
       var _cast;
+
       spell.key = key;
       _cast = spell.cast;
       return spell.cast = function(user, target) {
@@ -10806,7 +10831,7 @@ var global=self;/**
 
 },{"lodash":3,"moment":4}],6:[function(require,module,exports){
 var process=require("__browserify_process");(function() {
-  var $w, api, content, dayMapping, moment, preenHistory, sanitizeOptions, _,
+  var $w, api, content, moment, preenHistory, sanitizeOptions, _,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   moment = require('moment');
@@ -10837,6 +10862,7 @@ var process=require("__browserify_process");(function() {
 
   sanitizeOptions = function(o) {
     var dayStart, now, timezoneOffset, _ref;
+
     dayStart = !_.isNaN(+o.dayStart) && (0 <= (_ref = +o.dayStart) && _ref <= 24) ? +o.dayStart : 0;
     timezoneOffset = o.timezoneOffset ? +o.timezoneOffset : +moment().zone();
     now = o.now ? moment(o.now).zone(timezoneOffset) : moment(+(new Date)).zone(timezoneOffset);
@@ -10849,6 +10875,7 @@ var process=require("__browserify_process");(function() {
 
   api.startOfWeek = api.startOfWeek = function(options) {
     var o;
+
     if (options == null) {
       options = {};
     }
@@ -10858,6 +10885,7 @@ var process=require("__browserify_process");(function() {
 
   api.startOfDay = function(options) {
     var o;
+
     if (options == null) {
       options = {};
     }
@@ -10865,7 +10893,7 @@ var process=require("__browserify_process");(function() {
     return moment(o.now).startOf('day').add('h', o.dayStart);
   };
 
-  dayMapping = {
+  api.dayMapping = {
     0: 'su',
     1: 'm',
     2: 't',
@@ -10882,6 +10910,7 @@ var process=require("__browserify_process");(function() {
 
   api.daysSince = function(yesterday, options) {
     var o;
+
     if (options == null) {
       options = {};
     }
@@ -10898,6 +10927,7 @@ var process=require("__browserify_process");(function() {
 
   api.shouldDo = function(day, repeat, options) {
     var o, selected, yesterday;
+
     if (options == null) {
       options = {};
     }
@@ -10905,7 +10935,7 @@ var process=require("__browserify_process");(function() {
       return false;
     }
     o = sanitizeOptions(options);
-    selected = repeat[dayMapping[api.startOfDay(_.defaults({
+    selected = repeat[api.dayMapping[api.startOfDay(_.defaults({
       now: day
     }, o)).day()]];
     if (!moment(day).zone(o.timezoneOffset).isSame(o.now, 'd')) {
@@ -10915,7 +10945,7 @@ var process=require("__browserify_process");(function() {
       return selected;
     } else {
       yesterday = moment(o.now).subtract(1, 'd').day();
-      return repeat[dayMapping[yesterday]];
+      return repeat[api.dayMapping[yesterday]];
     }
   };
 
@@ -10963,12 +10993,14 @@ var process=require("__browserify_process");(function() {
 
   preenHistory = function(history) {
     var newHistory, preen, thisMonth;
+
     history = _.filter(history, function(h) {
       return !!h;
     });
     newHistory = [];
     preen = function(amount, groupBy) {
       var groups;
+
       groups = _.chain(history).groupBy(function(h) {
         return moment(h.date).format(groupBy);
       }).sortBy(function(h, k) {
@@ -11002,12 +11034,14 @@ var process=require("__browserify_process");(function() {
 
   api.updateStore = function(user) {
     var changes;
+
     if (!user) {
       return;
     }
     changes = [];
     _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
       var found;
+
       found = _.find(content.gear.tree[type][user.stats["class"]], function(item) {
         return !user.items.gear.owned[item.key];
       });
@@ -11057,6 +11091,7 @@ var process=require("__browserify_process");(function() {
   api.uuid = function() {
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
       var r, v;
+
       r = Math.random() * 16 | 0;
       v = (c === "x" ? r : r & 0x3 | 0x8);
       return v.toString(16);
@@ -11076,7 +11111,8 @@ var process=require("__browserify_process");(function() {
 
 
   api.taskDefaults = function(task) {
-    var defaults, _ref, _ref1, _ref2;
+    var defaults, _ref, _ref1, _ref2, _ref3;
+
     if (task == null) {
       task = {};
     }
@@ -11124,7 +11160,7 @@ var process=require("__browserify_process");(function() {
       });
     }
     task._id = task.id;
-    if (task.value == null) {
+    if ((_ref3 = task.value) == null) {
       task.value = task.type === 'reward' ? 10 : 0;
     }
     if (!_.isNumber(task.priority)) {
@@ -11159,6 +11195,7 @@ var process=require("__browserify_process");(function() {
 
   api.encodeiCalLink = function(uid, apiToken) {
     var loc, _ref;
+
     loc = (typeof window !== "undefined" && window !== null ? window.location.host : void 0) || (typeof process !== "undefined" && process !== null ? (_ref = process.env) != null ? _ref.BASE_URL : void 0 : void 0) || '';
     return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
   };
@@ -11196,6 +11233,7 @@ var process=require("__browserify_process");(function() {
 
   api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, main) {
     var classes, completed, enabled, filter, repeat, type, value, _ref;
+
     if (filters == null) {
       filters = [];
     }
@@ -11297,6 +11335,7 @@ var process=require("__browserify_process");(function() {
 
   api.appliedTags = function(userTags, taskTags) {
     var arr;
+
     arr = [];
     _.each(userTags, function(t) {
       if (t == null) {
@@ -11311,6 +11350,7 @@ var process=require("__browserify_process");(function() {
 
   api.countPets = function(originalCount, pets) {
     var count, pet;
+
     count = originalCount != null ? originalCount : _.size(pets);
     for (pet in content.specialPets) {
       if (pets[pet]) {
@@ -11381,6 +11421,7 @@ var process=require("__browserify_process");(function() {
         },
         revive: function(req, cb) {
           var item, lostItem, lostStat;
+
           _.merge(user.stats, {
             hp: 50,
             exp: 0,
@@ -11423,6 +11464,7 @@ var process=require("__browserify_process");(function() {
         },
         reset: function(req, cb) {
           var gear;
+
           user.habits = [];
           user.dailys = [];
           user.todos = [];
@@ -11465,6 +11507,7 @@ var process=require("__browserify_process");(function() {
         },
         rebirth: function(req, cb) {
           var flags, gear, lvl, stats;
+
           if (user.balance < 2) {
             return typeof cb === "function" ? cb({
               code: 401,
@@ -11542,6 +11585,7 @@ var process=require("__browserify_process");(function() {
         clearCompleted: function(req, cb) {
           _.remove(user.todos, function(t) {
             var _ref;
+
             return t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0);
           });
           if (typeof user.markModified === "function") {
@@ -11551,6 +11595,7 @@ var process=require("__browserify_process");(function() {
         },
         sortTask: function(req, cb) {
           var from, id, task, tasks, to, _ref;
+
           id = req.params.id;
           _ref = req.query, to = _ref.to, from = _ref.from;
           task = user.tasks[id];
@@ -11569,6 +11614,7 @@ var process=require("__browserify_process");(function() {
         },
         updateTask: function(req, cb) {
           var task, _ref;
+
           if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
             return typeof cb === "function" ? cb("Task not found") : void 0;
           }
@@ -11583,6 +11629,7 @@ var process=require("__browserify_process");(function() {
         },
         deleteTask: function(req, cb) {
           var i, task, _ref;
+
           task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0];
           if (!task) {
             return typeof cb === "function" ? cb({
@@ -11598,6 +11645,7 @@ var process=require("__browserify_process");(function() {
         },
         addTask: function(req, cb) {
           var task;
+
           task = api.taskDefaults(req.body);
           user["" + task.type + "s"].unshift(task);
           if (user.preferences.newTaskEdit) {
@@ -11609,7 +11657,9 @@ var process=require("__browserify_process");(function() {
           return task;
         },
         addTag: function(req, cb) {
-          if (user.tags == null) {
+          var _ref;
+
+          if ((_ref = user.tags) == null) {
             user.tags = [];
           }
           user.tags.push({
@@ -11620,6 +11670,7 @@ var process=require("__browserify_process");(function() {
         },
         updateTag: function(req, cb) {
           var i, tid;
+
           tid = req.params.id;
           i = _.findIndex(user.tags, {
             id: tid
@@ -11632,6 +11683,7 @@ var process=require("__browserify_process");(function() {
         },
         deleteTag: function(req, cb) {
           var i, tag, tid;
+
           tid = req.params.id;
           i = _.findIndex(user.tags, {
             id: tid
@@ -11652,6 +11704,7 @@ var process=require("__browserify_process");(function() {
         },
         feed: function(req, cb) {
           var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
+
           _ref = req.params, pet = _ref.pet, food = _ref.food;
           food = content.food[food];
           _ref1 = pet.split('-'), egg = _ref1[0], potion = _ref1[1];
@@ -11711,6 +11764,7 @@ var process=require("__browserify_process");(function() {
         },
         purchase: function(req, cb) {
           var item, key, type, _ref;
+
           _ref = req.params, type = _ref.type, key = _ref.key;
           if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'special') {
             return typeof cb === "function" ? cb({
@@ -11734,6 +11788,7 @@ var process=require("__browserify_process");(function() {
         },
         buy: function(req, cb) {
           var item, key, message, _ref;
+
           key = req.params.key;
           item = key === 'potion' ? content.potion : content.gear.flat[key];
           if (!item) {
@@ -11772,6 +11827,7 @@ var process=require("__browserify_process");(function() {
         },
         sell: function(req, cb) {
           var key, type, _ref;
+
           _ref = req.params, key = _ref.key, type = _ref.type;
           if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
             return typeof cb === "function" ? cb({
@@ -11791,6 +11847,7 @@ var process=require("__browserify_process");(function() {
         },
         equip: function(req, cb) {
           var item, key, message, type, _ref;
+
           _ref = [req.params.type || 'equipped', req.params.key], type = _ref[0], key = _ref[1];
           switch (type) {
             case 'mount':
@@ -11812,6 +11869,7 @@ var process=require("__browserify_process");(function() {
         },
         hatch: function(req, cb) {
           var egg, hatchingPotion, pet, _ref;
+
           _ref = req.params, egg = _ref.egg, hatchingPotion = _ref.hatchingPotion;
           if (!(egg && hatchingPotion)) {
             return typeof cb === "function" ? cb({
@@ -11839,6 +11897,7 @@ var process=require("__browserify_process");(function() {
         },
         unlock: function(req, cb) {
           var alreadyOwns, cost, fullSet, k, path, split, v;
+
           path = req.query.path;
           fullSet = ~path.indexOf(",");
           cost = fullSet ? 1.25 : 0.5;
@@ -11872,12 +11931,14 @@ var process=require("__browserify_process");(function() {
         },
         changeClass: function(req, cb) {
           var klass, _ref;
+
           klass = (_ref = req.query) != null ? _ref["class"] : void 0;
           if (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer') {
             user.stats["class"] = klass;
             user.flags.classSelected = true;
             _.each(["weapon", "armor", "shield", "head"], function(type) {
               var foundKey;
+
               foundKey = false;
               _.findLast(user.items.gear.owned, function(v, k) {
                 if (~k.indexOf(type + "_" + klass) && v === true) {
@@ -11925,6 +11986,7 @@ var process=require("__browserify_process");(function() {
         },
         allocate: function(req, cb) {
           var stat;
+
           stat = req.query.stat || 'str';
           if (user.stats.points > 0) {
             user.stats[stat]++;
@@ -11936,7 +11998,8 @@ var process=require("__browserify_process");(function() {
           return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
         },
         score: function(req, cb) {
-          var addPoints, calculateDelta, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref, _ref1;
+          var addPoints, calculateDelta, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref, _ref1, _ref2, _ref3;
+
           _ref = req.params, id = _ref.id, direction = _ref.direction;
           task = user.tasks[id];
           options = req.query || {};
@@ -11952,7 +12015,7 @@ var process=require("__browserify_process");(function() {
           };
           task.value = +task.value;
           task.streak = ~~task.streak;
-          if (task.priority == null) {
+          if ((_ref1 = task.priority) == null) {
             task.priority = 1;
           }
           if (task.value > stats.gp && task.type === 'reward') {
@@ -11961,10 +12024,11 @@ var process=require("__browserify_process");(function() {
           delta = 0;
           calculateDelta = function() {
             return _.times(options.times, function() {
-              var adjustAmt, currVal, nextDelta, _ref1, _ref2;
+              var adjustAmt, currVal, nextDelta, _ref2, _ref3;
+
               currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
               nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
-              if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
+              if (((_ref2 = task.checklist) != null ? _ref2.length : void 0) > 0) {
                 if (direction === 'down' && task.type === 'daily' && options.cron) {
                   nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
                     return m + (i.completed ? 1 : 0);
@@ -11982,7 +12046,7 @@ var process=require("__browserify_process");(function() {
                 if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
                   adjustAmt = nextDelta * (1 + user._statsComputed.str * .004);
                   user.party.quest.progress.up = user.party.quest.progress.up || 0;
-                  if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
+                  if ((_ref3 = task.type) === 'daily' || _ref3 === 'todo') {
                     user.party.quest.progress.up += adjustAmt;
                   }
                 }
@@ -11993,6 +12057,7 @@ var process=require("__browserify_process");(function() {
           };
           addPoints = function() {
             var afterStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
+
             _crit = user.fns.crit();
             if (_crit > 1) {
               user._tmp.crit = _crit;
@@ -12005,6 +12070,7 @@ var process=require("__browserify_process");(function() {
           };
           subtractPoints = function() {
             var conBonus, hpMod;
+
             conBonus = 1 - (user._statsComputed.con / 250);
             if (conBonus < .1) {
               conBonus = 0.1;
@@ -12020,7 +12086,7 @@ var process=require("__browserify_process");(function() {
               } else {
                 subtractPoints();
               }
-              th = (task.history != null ? task.history : task.history = []);
+              th = ((_ref2 = task.history) != null ? _ref2 : task.history = []);
               if (th[th.length - 1] && moment(th[th.length - 1].date).isSame(new Date, 'day')) {
                 th[th.length - 1].value = task.value;
               } else {
@@ -12064,7 +12130,7 @@ var process=require("__browserify_process");(function() {
               } else {
                 calculateDelta();
                 addPoints();
-                multiplier = ((_ref1 = task.checklist) != null ? _ref1.length : void 0) || 1;
+                multiplier = ((_ref3 = task.checklist) != null ? _ref3.length : void 0) || 1;
                 mpDelta = _.max([multiplier, .01 * user._statsComputed.maxMP * multiplier]);
                 if (direction === 'down') {
                   mpDelta *= -1;
@@ -12106,6 +12172,7 @@ var process=require("__browserify_process");(function() {
     user.fns = {
       getItem: function(type) {
         var item;
+
         item = content.gear.flat[user.items.gear.equipped[type]];
         if (!item) {
           return content.gear.flat["" + type + "_base_0"];
@@ -12114,6 +12181,7 @@ var process=require("__browserify_process");(function() {
       },
       handleTwoHanded: function(item, type) {
         var message, weapon, _ref;
+
         if (type == null) {
           type = 'equipped';
         }
@@ -12134,6 +12202,7 @@ var process=require("__browserify_process");(function() {
 
       predictableRandom: function(seed) {
         var x;
+
         if (!seed || seed === Math.PI) {
           seed = _.reduce(user.stats, (function(m, v) {
             if (_.isNumber(v)) {
@@ -12166,6 +12235,7 @@ var process=require("__browserify_process");(function() {
 
       randomVal: function(obj, options) {
         var array, rand;
+
         array = (options != null ? options.key : void 0) ? _.keys(obj) : _.values(obj);
         rand = user.fns.predictableRandom(typeof option !== "undefined" && option !== null ? option.seed : void 0);
         return array[Math.floor(rand * array.length)];
@@ -12180,22 +12250,27 @@ var process=require("__browserify_process");(function() {
       dotSet: function(path, val) {
         var arr,
           _this = this;
+
         arr = path.split('.');
         return _.reduce(arr, function(curr, next, index) {
+          var _ref;
+
           if ((arr.length - 1) === index) {
             curr[next] = val;
           }
-          return curr[next] != null ? curr[next] : curr[next] = {};
+          return (_ref = curr[next]) != null ? _ref : curr[next] = {};
         }, user);
       },
       dotGet: function(path) {
         var _this = this;
+
         return _.reduce(path.split('.'), (function(curr, next) {
           return curr != null ? curr[next] : void 0;
         }), user);
       },
       randomDrop: function(modifiers) {
-        var acceptableDrops, bonus, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1;
+        var acceptableDrops, bonus, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1, _ref2, _ref3, _ref4;
+
         task = modifiers.task;
         bonus = Math.abs(task.value) * task.priority + (task.streak || 0) + (user._statsComputed.per * .5);
         bonus /= 100;
@@ -12221,7 +12296,7 @@ var process=require("__browserify_process");(function() {
           rarity = user.fns.predictableRandom(user.stats.gp);
           if (rarity > .6) {
             drop = user.fns.randomVal(_.omit(content.food, 'Saddle'));
-            if ((_base = user.items.food)[_name = drop.key] == null) {
+            if ((_ref2 = (_base = user.items.food)[_name = drop.key]) == null) {
               _base[_name] = 0;
             }
             user.items.food[drop.key] += 1;
@@ -12229,7 +12304,7 @@ var process=require("__browserify_process");(function() {
             drop.dialog = "You've found " + drop.article + drop.text + "! " + drop.notes;
           } else if (rarity > .3) {
             drop = user.fns.randomVal(content.eggs);
-            if ((_base1 = user.items.eggs)[_name1 = drop.key] == null) {
+            if ((_ref3 = (_base1 = user.items.eggs)[_name1 = drop.key]) == null) {
               _base1[_name1] = 0;
             }
             user.items.eggs[drop.key]++;
@@ -12240,7 +12315,7 @@ var process=require("__browserify_process");(function() {
             drop = user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
               return __indexOf.call(acceptableDrops, k) >= 0;
             })));
-            if ((_base2 = user.items.hatchingPotions)[_name2 = drop.key] == null) {
+            if ((_ref4 = (_base2 = user.items.hatchingPotions)[_name2 = drop.key]) == null) {
               _base2[_name2] = 0;
             }
             user.items.hatchingPotions[drop.key]++;
@@ -12261,6 +12336,7 @@ var process=require("__browserify_process");(function() {
       autoAllocate: function() {
         return user.stats[(function() {
           var diff, ideal, preference, stats, suggested;
+
           switch (user.preferences.allocationMode) {
             case "flat":
               stats = _.pick(user.stats, $w('con str per int'));
@@ -12305,7 +12381,8 @@ var process=require("__browserify_process");(function() {
         })()]++;
       },
       updateStats: function(stats) {
-        var tnl;
+        var tnl, _ref;
+
         if (stats.hp <= 0) {
           return user.stats.hp = 0;
         }
@@ -12336,7 +12413,7 @@ var process=require("__browserify_process");(function() {
           }
         }
         user.stats.exp = stats.exp;
-        if (user.flags == null) {
+        if ((_ref = user.flags) == null) {
           user.flags = {};
         }
         if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
@@ -12378,7 +12455,8 @@ var process=require("__browserify_process");(function() {
       */
 
       cron: function(options) {
-        var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, progress, todoTally, _base, _base1, _base2, _base3, _progress;
+        var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2, _ref3, _ref4;
+
         if (options == null) {
           options = {};
         }
@@ -12398,34 +12476,26 @@ var process=require("__browserify_process");(function() {
         if (user.stats.mp > user._statsComputed.maxMP) {
           user.stats.mp = user._statsComputed.maxMP;
         }
-        lvlDiv2 = Math.ceil(user.stats.lvl / 2);
-        clearBuffs = _.find(user.dailys, function(d) {
-          return !d.completed;
-        }) || user.preferences.sleep === true ? {
+        perfect = true;
+        clearBuffs = {
           str: 0,
           int: 0,
           per: 0,
           con: 0,
           stealth: 0,
           streaks: false
-        } : ((_base = user.achievements).perfect != null ? (_base = user.achievements).perfect : _base.perfect = 0, user.achievements.perfect++, {
-          str: lvlDiv2,
-          int: lvlDiv2,
-          per: lvlDiv2,
-          con: lvlDiv2,
-          stealth: 0,
-          streaks: false
-        });
+        };
         if (user.preferences.sleep === true) {
           user.stats.buffs = clearBuffs;
           return;
         }
         todoTally = 0;
-        if ((_base1 = user.party.quest.progress).down == null) {
-          _base1.down = 0;
+        if ((_ref = (_base = user.party.quest.progress).down) == null) {
+          _base.down = 0;
         }
         user.todos.concat(user.dailys).forEach(function(task) {
-          var absVal, completed, delta, id, repeat, scheduleMisses, type;
+          var absVal, completed, delta, id, repeat, scheduleMisses, type, _ref1;
+
           if (!task) {
             return;
           }
@@ -12439,6 +12509,7 @@ var process=require("__browserify_process");(function() {
               scheduleMisses = 0;
               _.times(daysMissed, function(n) {
                 var thatDay;
+
                 thatDay = moment(now).subtract('days', n + 1);
                 if (api.shouldDo(thatDay, repeat, user.preferences)) {
                   return scheduleMisses++;
@@ -12446,6 +12517,9 @@ var process=require("__browserify_process");(function() {
               });
             }
             if (scheduleMisses > 0) {
+              if (type === 'daily') {
+                perfect = false;
+              }
               delta = user.ops.score({
                 params: {
                   id: task.id,
@@ -12463,7 +12537,7 @@ var process=require("__browserify_process");(function() {
           }
           switch (type) {
             case 'daily':
-              (task.history != null ? task.history : task.history = []).push({
+              ((_ref1 = task.history) != null ? _ref1 : task.history = []).push({
                 date: +(new Date),
                 value: task.value
               });
@@ -12486,7 +12560,7 @@ var process=require("__browserify_process");(function() {
             }
           }
         });
-        ((_base2 = (user.history != null ? user.history : user.history = {})).todos != null ? (_base2 = (user.history != null ? user.history : user.history = {})).todos : _base2.todos = []).push({
+        ((_ref1 = (_base1 = ((_ref2 = user.history) != null ? _ref2 : user.history = {})).todos) != null ? _ref1 : _base1.todos = []).push({
           date: now,
           value: todoTally
         });
@@ -12496,7 +12570,7 @@ var process=require("__browserify_process");(function() {
           lvl++;
           expTally += api.tnl(lvl);
         }
-        ((_base3 = user.history).exp != null ? (_base3 = user.history).exp : _base3.exp = []).push({
+        ((_ref3 = (_base2 = user.history).exp) != null ? _ref3 : _base2.exp = []).push({
           date: now,
           value: expTally
         });
@@ -12507,7 +12581,14 @@ var process=require("__browserify_process");(function() {
         if (typeof user.markModified === "function") {
           user.markModified('dailys');
         }
-        user.stats.buffs = clearBuffs;
+        user.stats.buffs = perfect ? ((_ref4 = (_base3 = user.achievements).perfect) != null ? _ref4 : _base3.perfect = 0, user.achievements.perfect++, lvlDiv2 = Math.ceil(user.stats.lvl / 2), {
+          str: lvlDiv2,
+          int: lvlDiv2,
+          per: lvlDiv2,
+          con: lvlDiv2,
+          stealth: 0,
+          streaks: false
+        }) : clearBuffs;
         progress = user.party.quest.progress;
         _progress = _.cloneDeep(progress);
         _.merge(progress, {
@@ -12525,6 +12606,7 @@ var process=require("__browserify_process");(function() {
         }
         _.each(user.habits.concat(user.dailys), function(task) {
           var _ref;
+
           if (((_ref = task.history) != null ? _ref.length : void 0) > minHistLen) {
             task.history = preenHistory(task.history);
           }
@@ -12546,9 +12628,11 @@ var process=require("__browserify_process");(function() {
       get: function() {
         var computed,
           _this = this;
+
         computed = _.reduce(['per', 'con', 'str', 'int'], function(m, stat) {
           m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), function(m2, path) {
             var item, val;
+
             val = user.fns.dotGet(path);
             return m2 + (~path.indexOf('items.gear') ? (item = content.gear.flat[val], (+(item != null ? item[stat] : void 0) || 0) * ((item != null ? item.klass : void 0) === user.stats["class"] ? 1.5 : 1)) : +val[stat] || 0);
           }, 0);
@@ -12562,6 +12646,7 @@ var process=require("__browserify_process");(function() {
     return Object.defineProperty(user, 'tasks', {
       get: function() {
         var tasks;
+
         tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);
         return _.object(_.pluck(tasks, "id"), tasks);
       }
