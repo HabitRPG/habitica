@@ -351,13 +351,15 @@ UserSchema.pre('save', function(next) {
       'Anonymous';
   }
 
-    // Set cronTime based on user dayStart and timeZoneOffset.
-    var serverTimezone = moment().zone();
-    this.cronTime = moment()
-        .zone(this.preferences.timezoneOffset || 0) // Set to user timezone for calculation
-        .set('hour', this.preferences.dayStart || 0) // Set the hour to custom day start
-        .zone(serverTimezone) // Set back to server timezone for diff
-        .get('hour'); // Get the hour (in our timezone) when we should run cron
+  user.auth.timestamps.loggedin = new Date(); // TODO is this a valid method of determining?
+
+  // Set cronTime based on user dayStart and timeZoneOffset.
+  var serverTimezone = moment().zone();
+  this.cronTime = moment()
+      .zone(this.preferences.timezoneOffset || 0) // Set to user timezone for calculation
+      .set('hour', this.preferences.dayStart || 0) // Set the hour to custom day start
+      .zone(serverTimezone) // Set back to server timezone for diff
+      .get('hour'); // Get the hour (in our timezone) when we should run cron
 
 
   var petCount = shared.countPets(_.reduce(this.items.pets,function(m,v){

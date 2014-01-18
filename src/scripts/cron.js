@@ -9,6 +9,8 @@ var Group = require('./../models/group').model;
 var logging = require('./../logging');
 
 function constructCronQuery(options) {
+    // TODO handle when user switches timezone
+
     if (options.currentHour == undefined)
         options.currentHour = moment().get('hour');
     if (options.includeMissed == undefined) {
@@ -69,14 +71,12 @@ module.exports.runCron = function(options, callback) {
         var mem = process.memoryUsage();
         if (mem.rss > maxMem) maxMem = mem.rss;
         var progress = user.fns.cron();
-        var ranCron = user.isModified();
         var quest = shared.content.quests[user.party.quest.key];
 
         if (!quest) {
             return user.save(done(user));
         }
         // If user is on a quest, roll for boss & player, or handle collections
-        // FIXME this saves user, runs db updates, loads user. Is there a better way to handle this?
         async.waterfall([
             function(cb){
                 user.save(cb); // make sure to save the cron effects
@@ -84,7 +84,7 @@ module.exports.runCron = function(options, callback) {
             function(saved, count, cb){
                 var type = quest.boss ? 'boss' : 'collect';
                 Group[type+'Quest'](user,progress,cb);
-            },
+            }
         ], done(user));
     }).on('error', function(err) {
         errors.push(err);
