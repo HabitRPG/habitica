@@ -5,11 +5,9 @@ describe('Inventory Controller', function() {
 
   beforeEach(module('habitrpg'));
   beforeEach(inject(function($rootScope, $controller, Shared){
-    user = {
-      balance: 4,
-      stats: {gp: 0},
-      items: {eggs: {Cactus: 1}, hatchingPotions: {Base: 1}, food: {Meat: 1}, pets: {}},
-    };
+    user = specHelper.newUser();
+    user.balance = 4,
+    user.items = {eggs: {Cactus: 1}, hatchingPotions: {Base: 1}, food: {Meat: 1}, pets: {}};
     Shared.wrap(user);
     var mockWindow = {
       confirm: function(msg){

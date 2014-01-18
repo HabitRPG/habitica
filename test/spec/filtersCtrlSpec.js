@@ -5,7 +5,7 @@ describe('Filters Controller', function() {
 
   beforeEach(module('habitrpg'));
   beforeEach(inject(function($rootScope, $controller, Shared) {
-    user = {filters: {}};
+    user = specHelper.newUser();
     Shared.wrap(user);
     scope = $rootScope.$new();
     $controller('FiltersCtrl', {$scope: scope, User: {user: user}});
