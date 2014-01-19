@@ -37,7 +37,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('showHeaderpop'))
       label.checkbox
         input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false')
-        | env.t('stickyHeader')
+        =env.t('stickyHeader')
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('stickyHeaderpop'))
       label.checkbox
         input(type='checkbox', ng-model='user.preferences.newTaskEdit', ng-change='set({"preferences.newTaskEdit": user.preferences.newTaskEdit?true: false})')
