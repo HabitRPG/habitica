@@ -13,19 +13,19 @@ script(id='partials/options.html', type="text/ng-template")
         li(ng-class="{ active: $state.includes('options.profile') }")
           a(ui-sref='options.profile')
             i.icon-user
-            | Profile
+            | env.t('profile')
         li(ng-class="{ active: $state.includes('options.social') }")
           a(ui-sref='options.social')
             i.icon-heart
-            | Social
+            | env.t('social')
         li(ng-class="{ active: $state.includes('options.inventory') }", ng-if='user.flags.dropsEnabled')
           a(ui-sref='options.inventory')
             i.icon-gift
-            | Inventory
+            | env.t('inventory')
         li(ng-class="{ active: $state.includes('options.settings') }")
           a(ui-sref='options.settings')
             i.icon-wrench
-            | Settings
+            | env.t('settings')
 
       .tab-content
         .tab-pane.active
