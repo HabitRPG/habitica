@@ -53,7 +53,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startacollapsedpop'))
       button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('showtourpop1')) env.t('showtour')
       br
-      button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showtourpop'))= env.t('')
+      button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showtourpop'))= env.t('showtour2')
       br
       button.btn(ng-click='modals.restore = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixvalpop'))= env.t('fixval')
       div(ng-if='user.preferences.disableClasses==true')
