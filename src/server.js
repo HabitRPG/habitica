@@ -2,7 +2,7 @@
 var cluster = require("cluster");
 var nconf = require('nconf');
 
-if (cluster.isMaster && (nconf.get('NODE_ENV') == 'development' || nconf.get('NODE_ENV') == 'production')) {
+if (false && cluster.isMaster && (nconf.get('NODE_ENV') == 'development' || nconf.get('NODE_ENV') == 'production')) {
     var numCPUs = require('os').cpus().length;
 
     // Fork workers.
