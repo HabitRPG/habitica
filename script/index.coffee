@@ -1151,9 +1151,11 @@ api.wrap = (user, main=true) ->
       user.todos.concat(user.dailys).forEach (task) ->
         return unless task
 
-        return if user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of tasks
-
         {id, type, completed, repeat} = task
+
+        return if (type is 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of uncompleted dailies
+        
+        
         # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
         unless completed
           scheduleMisses = daysMissed
