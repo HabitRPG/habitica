@@ -564,7 +564,7 @@
 "allocatestr" : "Points allocated to STR:",
 "allocatestrpop" : "Add a point to Strength",
 "allocatecon" : "Points allocated to CON:",
-"allocateconpop" : "Add a point to Condition",
+"allocateconpop" : "Add a point to Constitution",
 "allocateper" : "Points allocated to PER:",
 "allocateperpop" : "Add a point to Perception",
 "allocateint" : "Points allocated to INT:",
