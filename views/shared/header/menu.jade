@@ -12,6 +12,14 @@
             span(ng-show='$state.includes("tasks")', ui-sref='options')
               i.icon.icon-wrench
               =env.t('options')
+        li 
+          a.task-action-btn.tile.solid(href="http://habitrpg.wikia.com/wiki/FAQ", target='_blank')
+            i.icon.icon-book
+            =env.t('FAQ')
+        li 
+          a.task-action-btn.tile.solid(href="https://vimeo.com/57654086", target='_blank')
+            i.icon.icon-film
+            =env.t('Tutorials')
         li
           a.task-action-btn.tile.solid(ng-click='User.sync()')
             i.icon.icon-refresh
