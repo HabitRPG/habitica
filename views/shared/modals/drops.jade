@@ -2,15 +2,11 @@ div(modal='modals.dropsEnabled')
   .modal-header
     h3 Drops Enabled!
   .modal-body
-    //-p // TODO how to handle random first drop?
-      span.item-drop-icon(class='Pet_Egg_{{user.items.eggs.0.key}}', style='margin-left: 0px')
-      | You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. You just found a
-      strong  {{user.items.eggs.0.text}} Egg
-      | ! {{user.items.eggs.0.notes}}.
     p
-      span.item-drop-icon(class='Pet_Egg_Wolf', style='margin-left: 0px')
-      span.
-        You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. You just found a <strong>{{Content.eggs.Wolf.text}}</strong> Egg! {{Content.eggs.Wolf.notes}}
+      span.item-drop-icon(class='Pet_Egg_{{user._tmp.firstDrop.key}}', style='margin-left: 0px')
+      | You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. You just found a
+      strong  {{user._tmp.firstDrop.text}} Egg
+      | ! {{user._tmp.firstDrop.notes}}.
     br
     p.
       <span class='Pet_Currency_Gem item-drop-icon'></span> If you've got your eye on a pet, but can't wait any longer for it to drop, use Gems in <strong>Options > Inventory</strong> to buy one!
