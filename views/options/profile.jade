@@ -1,11 +1,11 @@
 script(id='partials/options.profile.avatar.html', type='text/ng-template')
   .row-fluid
     .span4
-      h3 env.t('bodybody')
+      h3=env.t('bodybody')
       small.
         2 <span class="Pet_Currency_Gem1x inline-gems"/> / env.t('locked')
 
-      h5 env.t('bodysize')
+      h5=env.t('bodysize')
       .btn-group
         button.btn.btn-small(ng-class='{active: user.preferences.size=="slim"}', ng-click='set({"preferences.size":"slim"})') env.t('bodyslim')
         button.btn.btn-small(ng-class='{active: user.preferences.size=="broad"}', ng-click='set({"preferences.size":"broad"})') env.t('bodybroad')
@@ -24,7 +24,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
 
 
     .span4
-        h3 env.t('bodyhead')
+        h3=env.t('bodyhead')
         small.
           2 <span class="Pet_Currency_Gem1x inline-gems"/> / env.t('locked')
         menu(type='list')
@@ -44,7 +44,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
                 button(type='button', ng-class='{locked: !user.purchased.hair.color.#{color}}', class='customize-option hair_bangs_1_#{color}', style='width: 40px; height: 40px;', ng-click='unlock("hair.color.#{color}")')
           button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.color.candycane && user.purchased.hair.color.frost && user.purchased.hair.color.winternight && user.purchased.hair.color.holly', ng-click='unlock("hair.color.candycane,hair.color.frost,hair.color.winternight,hair.color.holly")') env.t('unlockset5')<span class="Pet_Currency_Gem1x inline-gems"/>
 
-          h5 env.t('bodyhair')
+          h5=env.t('bodyhair')
           // Bangs
           li.customize-menu
             menu(label=env.t('hairbangs'))
@@ -63,7 +63,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
 
           button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.base.2 && user.purchased.hair.base.4 && user.purchased.hair.base.5 && user.purchased.hair.base.6 && user.purchased.hair.base.7 && user.purchased.hair.base.8', ng-click='unlock("hair.base.2,hair.base.4,hair.base.5,hair.base.6,hair.base.7,hair.base.8")') env.t('unlockset5')<span class="Pet_Currency_Gem1x inline-gems"/>
 
-          h5 env.t('bodyfacialhair')
+          h5=env.t('bodyfacialhair')
 
           // Beard
           li.customize-menu
@@ -82,7 +82,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
           button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.mustache.1 && user.purchased.hair.mustache.2 && user.purchased.hair.beard.1 && user.purchased.hair.beard.2 && user.purchased.hair.beard.3', ng-click='unlock("hair.mustache.1,hair.mustache.2,hair.beard.1,hair.beard.2,hair.beard.3")') env.t('unlockset5')<span class="Pet_Currency_Gem1x inline-gems"/>
 
     .span4
-        h3 env.t('skin')
+        h3=env.t('skin')
         small.
           2 <span class="Pet_Currency_Gem1x inline-gems"/> / env.t('locked')
         // skin
@@ -103,7 +103,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
           // Special Events
           // restore to d4df481 to see purchasing + "limited edition" code
           div(ng-if='user.purchased.skin.monster || user.purchased.skin.pumpkin || user.purchased.skin.skeleton || user.purchased.skin.zombie || user.purchased.skin.ghost || user.purchased.skin.shadow')
-            h5 env.t('spookyskins')
+            h5=env.t('spookyskins')
             menu
               each color in ['monster','pumpkin','skeleton','zombie','ghost','shadow']
                 button.customize-option(type='button', class='skin_#{color}', ng-if='user.purchased.skin.#{color}', ng-click='unlock("skin.#{color}")')
@@ -113,8 +113,8 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
     .border-right(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "span4" : "span6"')
       include ../shared/profiles/stats
     .span4.border-right.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
-      h3 env.t('characterbuild')
-      h4 env.t('class'):
+      h3=env.t('characterbuild')
+      h4=env.t('class'):
         span {{ {warrior:env.t('warrior'),wizard:env.t('mage'),healer:env.t('healer'),rogue:env.t('rogue')}[user.stats.class] }}&nbsp;
         a.btn.btn-danger.btn-mini(ng-click='changeClass(null)')
           | env.t('changeclass')
@@ -130,7 +130,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
           label.radio
             input(type='radio', name='allocationMode', value='flat', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "flat"})')
             | env.t('evenallocation')
-            i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover="env.t('evenallocationpopover'))
+            i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('evenallocationpopover'))
           label.radio
             input(type='radio', name='allocationMode', value='classbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "classbased"})')
             | env.t('')
@@ -163,15 +163,15 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
   button.btn.btn-default(ng-click='_editing.profile = true', ng-show='!_editing.profile') Edit
   button.btn.btn-primary(ng-click='save()', ng-show='_editing.profile') Save
   div(ng-show='!_editing.profile')
-    h4 env.t('displayname')
+    h4=env.t('displayname')
     span(ng-show='profile.profile.name') {{profile.profile.name}}
     span.muted(ng-hide='profile.profile.name') - None -
 
-    h4 env.t('displayphoto')
+    h4=env.t('displayphoto')
     img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
     span.muted(ng-hide='profile.profile.imageUrl') - None -
 
-    h4 env.t('displayblub')
+    h4=env.t('displayblub')
     markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
     span.muted(ng-hide='profile.profile.blurb') - None -
     //{{profile.profile.blurb | linky:'_blank'}}
