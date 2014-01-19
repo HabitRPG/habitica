@@ -12041,8 +12041,10 @@ var process=require("__browserify_process");(function() {
                     return m + (i.completed ? 1 : 0);
                   }), 0) / task.checklist.length;
                 }
-                if (task.type === 'todo') {
-                  nextDelta *= task.checklist.length;
+                if (task.type === 'todo' && direction === 'up') {
+                  nextDelta *= 1 + _.reduce(task.checklist, (function(m, i) {
+                    return m + (i.completed ? 1 : 0);
+                  }), 0);
                 }
               }
               if (task.type !== 'reward') {
