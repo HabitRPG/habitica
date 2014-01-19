@@ -21,10 +21,10 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
       h4=env.t('customDayStart')
       .option-group.option-short
         input.option-content.option-time(type='number', min='0', max='24', ng-model='user.preferences.dayStart', ng-change='saveDayStart()')
-        span.input-suffix :00 (env.t('24HrClock'))
+        span.input-suffix = ':00 (' + env.t('24HrClock') + ')'
       div
         small
-          div env.t('clockInfo')
+          div =env.t('clockInfo')
           .alert.alert-danger Warning: this is a highly-experimental feature, and many <a href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank'>experience issues</a> with it.
       hr
       h4=env.t('language')
@@ -33,7 +33,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
       h4=env.t('')
       label.checkbox
         input(type='checkbox', ng-click='set({"preferences.hideHeader":user.preferences.hideHeader?false:true})', ng-checked='user.preferences.hideHeader!==true')
-        | env.t('showHeader')
+        =env.t('showHeader')
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('showHeaderpop'))
       label.checkbox
         input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false')
@@ -41,25 +41,25 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('stickyHeaderpop'))
       label.checkbox
         input(type='checkbox', ng-model='user.preferences.newTaskEdit', ng-change='set({"preferences.newTaskEdit": user.preferences.newTaskEdit?true: false})')
-        | env.t('newtaskedit')
+        =env.t('newtaskedit')
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('newtaskeditpop'))
       label.checkbox
         input(type='checkbox', ng-model='user.preferences.tagsCollapsed', ng-change='set({"preferences.tagsCollapsed": user.preferences.tagsCollapsed?true: false})')
-        | env.t('startcollapsed')
+        =env.t('startcollapsed')
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startcollapsedpop'))
       label.checkbox
         input(type='checkbox', ng-model='user.preferences.advancedCollapsed', ng-change='set({"preferences.advancedCollapsed": user.preferences.advancedCollapsed?true: false})')
-        | env.t('startacollapsed')
+        =env.t('startacollapsed')
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startacollapsedpop'))
-      button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover='Restart the introductory tour from when you first joined HabitRPG.') env.t('showtour')
+      button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('showtourpop1')) env.t('showtour')
       br
-      button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showtourpop')) Show Bailey
+      button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showtourpop')) = env.t('')
       br
-      button.btn(ng-click='modals.restore = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixvalpop')) env.t('fixval')
+      button.btn(ng-click='modals.restore = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixvalpop')) = env.t('fixval')
       div(ng-if='user.preferences.disableClasses==true')
-        button.btn(ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableclasspop')) env.t('enableclass')
+        button.btn(ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableclasspop')) = env.t('enableclass')
       div(ng-if='!user.preferences.disableClasses && user.flags.classSelected')
-        button.btn(ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showclasspop')) env.t('showclass')
+        button.btn(ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showclasspop')) = env.t('showclass')
 
       //- Why is ng-if='user.auth.local' validating for users *without* user.auth.local (facebook users)? adding .username here for extra
       div(ng-if='user.auth.local.username')
