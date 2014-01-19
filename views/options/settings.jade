@@ -2,13 +2,13 @@ script(id='partials/options.settings.html', type="text/ng-template")
   ul.nav.nav-tabs
     li(ng-class="{ active: $state.includes('options.settings.settings') }")
       a(ui-sref='options.settings.settings')
-        | Settings
+        =env.t('settings')
     li(ng-class="{ active: $state.includes('options.settings.api') }")
       a(ui-sref='options.settings.api')
-        | API
+        =env.t('API')
     li(ng-class="{ active: $state.includes('options.settings.export') }")
       a(ui-sref='options.settings.export')
-        | Data Export
+        =env.t('dataexport')
 
   .tab-content
     .tab-pane.active
@@ -53,13 +53,13 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startacollapsedpop'))
       button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('showtourpop1')) env.t('showtour')
       br
-      button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showtourpop')) = env.t('')
+      button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showtourpop'))= env.t('')
       br
-      button.btn(ng-click='modals.restore = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixvalpop')) = env.t('fixval')
+      button.btn(ng-click='modals.restore = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixvalpop'))= env.t('fixval')
       div(ng-if='user.preferences.disableClasses==true')
-        button.btn(ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableclasspop')) = env.t('enableclass')
+        button.btn(ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableclasspop'))= env.t('enableclass')
       div(ng-if='!user.preferences.disableClasses && user.flags.classSelected')
-        button.btn(ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showclasspop')) = env.t('showclass')
+        button.btn(ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showclasspop'))= env.t('showclass')
 
       //- Why is ng-if='user.auth.local' validating for users *without* user.auth.local (facebook users)? adding .username here for extra
       div(ng-if='user.auth.local.username')
