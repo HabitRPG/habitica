@@ -51,7 +51,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
         input(type='checkbox', ng-model='user.preferences.advancedCollapsed', ng-change='set({"preferences.advancedCollapsed": user.preferences.advancedCollapsed?true: false})')
         =env.t('startacollapsed')
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startacollapsedpop'))
-      button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('showtourpop1')) env.t('showtour')
+      button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('showtourpop1'))= env.t('showtour')
       br
       button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showtourpop'))= env.t('showtour2')
       br
@@ -76,14 +76,14 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
 
       hr
       h4=env.t('dangerZone')
-      a.btn.btn-danger(ng-click='modals.reset = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetaccpop')) env.t('resetaccount')
-      a.btn.btn-danger(ng-click='modals.delete = true', popover-trigger='mouseenter', popover=env.t('deleteaccpop')) env.t('deleteaccount')
+      a.btn.btn-danger(ng-click='modals.reset = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetaccpop'))= env.t('resetaccount')
+      a.btn.btn-danger(ng-click='modals.delete = true', popover-trigger='mouseenter', popover=env.t('deleteaccpop'))= env.t('deleteaccount')
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
   .row.fluid
     .span6
       h2=env.t('API')
-      small env.t('APIText')
+      small =env.t('APIText')
       h6=env.t('userId')
       pre.prettyprint {{user.id}}
       h6=env.t('APIToken')
@@ -95,11 +95,11 @@ script(id='partials/options.settings.export.html', type="text/ng-template")
   .row.fluid
     .span6
       h2=env.t('dataexport')
-      small env.t('dataexports')
+      small =env.t('dataexports')
       h4=env.t('habithistory')
-      env.t('exporthistory')
-      a(href="/export/history.csv") env.t('csv')
+      =env.t('exporthistory')
+      a(href="/export/history.csv")= env.t('csv')
       h4=env.t('userdata')
-      env.t('exportuserdata')
-      a(href="/export/userdata.xml") env.t('xml')
-      a(href="/export/userdata.json") env.t('json')
+      =env.t('exportuserdata')
+      a(href="/export/userdata.xml")= env.t('xml')
+      a(href="/export/userdata.json")= env.t('json')
