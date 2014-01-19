@@ -3,7 +3,8 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
     .span4
       h3=env.t('bodybody')
       small.
-        | 2 <span class="Pet_Currency_Gem1x inline-gems"/> /= ' ' + env.t('locked')
+        | 2 <span class="Pet_Currency_Gem1x inline-gems"/> /
+        = ' ' + env.t('locked')
 
       h5=env.t('bodysize')
       .btn-group
@@ -26,7 +27,8 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
     .span4
         h3=env.t('bodyhead')
         small.
-          | 2 <span class="Pet_Currency_Gem1x inline-gems"/> /= ' ' + env.t('locked')
+          | 2 <span class="Pet_Currency_Gem1x inline-gems"/> /
+          = ' ' + env.t('locked')
         menu(type='list')
           // Color
           li.customize-menu
@@ -84,7 +86,8 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
     .span4
         h3=env.t('skin')
         small.
-          | 2 <span class="Pet_Currency_Gem1x inline-gems"/> /= ' ' + env.t('locked')
+          | 2 <span class="Pet_Currency_Gem1x inline-gems"/> /
+          = ' ' + env.t('locked')
         // skin
         li.customize-menu
           menu(label=env.t('basicskins'))
