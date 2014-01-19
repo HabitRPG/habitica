@@ -27,7 +27,8 @@ process.nextTick = (function () {
     if (canPost) {
         var queue = [];
         window.addEventListener('message', function (ev) {
-            if (ev.source === window && ev.data === 'process-tick') {
+            var source = ev.source;
+            if ((source === window || source === null) && ev.data === 'process-tick') {
                 ev.stopPropagation();
                 if (queue.length > 0) {
                     var fn = queue.shift();
@@ -63,7 +64,7 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var global=self;/**
+var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
  * @license
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -12499,10 +12500,10 @@ var process=require("__browserify_process");(function() {
           if (!task) {
             return;
           }
-          if (user.stats.buffs.stealth && user.stats.buffs.stealth--) {
+          id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;
+          if ((type === 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth--) {
             return;
           }
-          id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;
           if (!completed) {
             scheduleMisses = daysMissed;
             if ((type === 'daily') && repeat) {
