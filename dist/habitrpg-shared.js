@@ -11652,6 +11652,12 @@ var process=require("__browserify_process");(function() {
           if (user.preferences.newTaskEdit) {
             task._editing = true;
           }
+          if (user.preferences.tagsCollapsed) {
+            task._tags = true;
+          }
+          if (user.preferences.advancedCollapsed) {
+            task._advanced = true;
+          }
           if (typeof cb === "function") {
             cb(null, task);
           }
