@@ -59,6 +59,11 @@ habitrpg.controller('NotificationCtrl',
       Notification.drop(User.user._tmp.drop.dialog);
     });
 
+    $rootScope.$watch('user._tmp.firstDrop', function() {
+      var firstDrop = User.user._tmp.firstDrop;
+      User.user.items[eggs][firstDrop.key]++;
+    })
+
     $rootScope.$watch('user.achievements.streak', function(after, before){
       if(before == undefined || after == before || after < before) return;
       $rootScope.modals.achievements.streak = true;
