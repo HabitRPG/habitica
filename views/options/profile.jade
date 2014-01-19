@@ -144,19 +144,19 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
             i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskallocationpopover'))
       table.table.table-striped
         tr
-          td= env.t('allocatestr') + '{{user.stats.str}}'
+          td= env.t('allocatestr') + ' {{user.stats.str}}'
           td
             a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("str")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocatestrpop')) +
         tr
-          td= env.t('allocatecon') + '{{user.stats.con}}'
+          td= env.t('allocatecon') + ' {{user.stats.con}}'
           td
             a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("con")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateconpop')) +
         tr
-          td= env.t('allocateper') + '{{user.stats.per}}'
+          td= env.t('allocateper') + ' {{user.stats.per}}'
           td
             a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("per")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateperpop')) +
         tr
-          td= env.t('allocateint') + '{{user.stats.int}}'
+          td= env.t('allocateint') + ' {{user.stats.int}}'
           td
             a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("int")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateintpop')) +
     div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "span4" : "span6"')
@@ -183,13 +183,13 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
     // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
     .control-group.option-large
       label.control-label =env.t('displayname')
-      input.option-content(type='text', placeholder='Full Name', ng-model='editingProfile.name')
+      input.option-content(type='text', placeholder=env.t('fullname')), ng-model='editingProfile.name')
     .control-group.option-large
       label.control-label =env.t('photourl')
-      input.option-content(type='url', ng-model='editingProfile.imageUrl', placeholder='Image Url')
+      input.option-content(type='url', ng-model='editingProfile.imageUrl', placeholder=env.t('imageurl'))
     .control-group.option-large
       label.control-label =env.t('displayblurb')
-      textarea.option-content(style='height:15em;', placeholder='Blurb', ng-model='editingProfile.blurb')
+      textarea.option-content(style='height:15em;', placeholder=env.t("displayblurb"), ng-model='editingProfile.blurb')
       include ../shared/formatting-help
 
 script(id='partials/options.profile.html', type="text/ng-template")
