@@ -760,7 +760,7 @@ api.wrap = (user, main=true) ->
                 nextDelta *= task.checklist.length
 
             unless task.type is 'reward'
-              if (user.preferences.automaticAllocation is true and user.preferences.allocationMode is 'taskbased') then user.stats.training[task.attribute] += nextDelta
+              if (user.preferences.automaticAllocation is true and user.preferences.allocationMode is 'taskbased' and !(task.type is 'todo' and direction is 'down')) then user.stats.training[task.attribute] += nextDelta
               adjustAmt = nextDelta
               # ===== STRENGTH =====
               # (Only for up-scoring, ignore up-onlies and rewards)

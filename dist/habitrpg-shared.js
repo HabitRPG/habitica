@@ -12046,7 +12046,7 @@ var process=require("__browserify_process");(function() {
                 }
               }
               if (task.type !== 'reward') {
-                if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased') {
+                if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
                   user.stats.training[task.attribute] += nextDelta;
                 }
                 adjustAmt = nextDelta;
