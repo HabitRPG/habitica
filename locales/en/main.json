@@ -589,6 +589,8 @@
 "startacollapsed" : "Advanced Options in tasks start collapsed&nbsp;",
 "startacollapsedpop" : "With this option set, Advanced Options will be hidden when you first open a task for editing.",
 "showtour" : "Show Tour",
+"showtourpop1" : "Restart the introductory tour from when you first joined HabitRPG.",
+"showtour2" : "Show Bailey",
 "showtourpop" : "Bring Bailey the Town Crier out of hiding so you can review past news.",
 "fixval" : "Fix Character Values",
 "fixvalpop" : "Manually change values like Health, Level, and Gold.",
@@ -611,7 +613,7 @@
 "userdata" : "User Data",
 "exportuserdata" : "Export User Data:",
 "xml" : "(XML) &nbsp;",
-"json" : "(JSON) &nbsp;"
-
+"json" : "(JSON) &nbsp;",
+"imageurl" : "Image Url"
 
 }
