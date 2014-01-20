@@ -2,7 +2,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
   .row-fluid
     .span4
       h3=env.t('bodybody')
-      small.
+      small
         | 2 <span class="Pet_Currency_Gem1x inline-gems"/> /
         = ' ' + env.t('locked')
 
@@ -21,12 +21,12 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
             each shirt in ['convict', 'cross', 'fire', 'horizon', 'ocean', 'purple', 'rainbow', 'redblue', 'thunder', 'tropical', 'zombie']
               button.customize-option(type='button', class='{{user.preferences.size}}_shirt_'+shirt, ng-class='{locked: !user.purchased.shirt.'+shirt+'}', ng-click='unlock("shirt.'+shirt+'")')
           menu
-            button.btn.btn-small.btn-primary(ng-hide="user.purchased.shirt.convict && user.purchased.shirt.cross && user.purchased.shirt.fire && user.purchased.shirt.horizon && user.purchased.shirt.ocean && user.purchased.shirt.purple && user.purchased.shirt.rainbow && user.purchased.shirt.redblue && user.purchased.shirt.thunder && user.purchased.shirt.tropical && user.purchased.shirt.zombie", ng-click='unlock("shirt.convict,shirt.cross,shirt.fire,shirt.horizon,shirt.ocean,shirt.purple,shirt.rainbow,shirt.redblue,shirt.thunder,shirt.tropical,shirt.zombie")')= env.t('unlockset5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+            button.btn.btn-small.btn-primary(ng-hide="user.purchased.shirt.convict && user.purchased.shirt.cross && user.purchased.shirt.fire && user.purchased.shirt.horizon && user.purchased.shirt.ocean && user.purchased.shirt.purple && user.purchased.shirt.rainbow && user.purchased.shirt.redblue && user.purchased.shirt.thunder && user.purchased.shirt.tropical && user.purchased.shirt.zombie", ng-click='unlock("shirt.convict,shirt.cross,shirt.fire,shirt.horizon,shirt.ocean,shirt.purple,shirt.rainbow,shirt.redblue,shirt.thunder,shirt.tropical,shirt.zombie")')!= env.t('unlockset5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
 
 
     .span4
         h3=env.t('bodyhead')
-        small.
+        small
           | 2 <span class="Pet_Currency_Gem1x inline-gems"/> /
           = ' ' + env.t('locked')
         menu(type='list')
@@ -44,7 +44,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
             menu(label=env.t('wintercolors'))
               each color in ['candycane','frost','winternight','holly']
                 button(type='button', ng-class='{locked: !user.purchased.hair.color.#{color}}', class='customize-option hair_bangs_1_#{color}', style='width: 40px; height: 40px;', ng-click='unlock("hair.color.#{color}")')
-          button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.color.candycane && user.purchased.hair.color.frost && user.purchased.hair.color.winternight && user.purchased.hair.color.holly', ng-click='unlock("hair.color.candycane,hair.color.frost,hair.color.winternight,hair.color.holly")')= env.t('unlockset5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+          button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.color.candycane && user.purchased.hair.color.frost && user.purchased.hair.color.winternight && user.purchased.hair.color.holly', ng-click='unlock("hair.color.candycane,hair.color.frost,hair.color.winternight,hair.color.holly")')!= env.t('unlockset5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
 
           h5=env.t('bodyhair')
           // Bangs
@@ -63,7 +63,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
                   when true:  button(class='hair_base_#{k}_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":#{k}})')
                   when false: button(class='hair_base_#{k}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base.#{k}}', ng-click='unlock("hair.base.#{k}")')
 
-          button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.base.2 && user.purchased.hair.base.4 && user.purchased.hair.base.5 && user.purchased.hair.base.6 && user.purchased.hair.base.7 && user.purchased.hair.base.8', ng-click='unlock("hair.base.2,hair.base.4,hair.base.5,hair.base.6,hair.base.7,hair.base.8")')= env.t('unlockset5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+          button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.base.2 && user.purchased.hair.base.4 && user.purchased.hair.base.5 && user.purchased.hair.base.6 && user.purchased.hair.base.7 && user.purchased.hair.base.8', ng-click='unlock("hair.base.2,hair.base.4,hair.base.5,hair.base.6,hair.base.7,hair.base.8")')!= env.t('unlockset5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
 
           h5=env.t('bodyfacialhair')
 
@@ -81,11 +81,11 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
               each num in [1,2]
                 button(class='hair_mustache_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.mustache.#{num}}', ng-click='unlock("hair.mustache.#{num}")')
 
-          button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.mustache.1 && user.purchased.hair.mustache.2 && user.purchased.hair.beard.1 && user.purchased.hair.beard.2 && user.purchased.hair.beard.3', ng-click='unlock("hair.mustache.1,hair.mustache.2,hair.beard.1,hair.beard.2,hair.beard.3")')= env.t('unlockset5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+          button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.mustache.1 && user.purchased.hair.mustache.2 && user.purchased.hair.beard.1 && user.purchased.hair.beard.2 && user.purchased.hair.beard.3', ng-click='unlock("hair.mustache.1,hair.mustache.2,hair.beard.1,hair.beard.2,hair.beard.3")')!= env.t('unlockset5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
 
     .span4
         h3=env.t('skin')
-        small.
+        small
           | 2 <span class="Pet_Currency_Gem1x inline-gems"/> /
           = ' ' + env.t('locked')
         // skin
@@ -95,13 +95,12 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
               button.customize-option(type='button', class='skin_#{color}', ng-click='set({"preferences.skin":"#{color}"})')
 
           // Rainbow Skin
-          h5.
-            =env.t('rainbowskins')
+          h5=env.t('rainbowskins')
           //menu(label='Rainbow Skins (2G / skin)')
           menu
             each color in ['eb052b','f69922','f5d70f','0ff591','2b43f6','d7a9f7','800ed0','rainbow']
               button.customize-option(type='button', class='skin_#{color}', ng-class='{locked: !user.purchased.skin.#{color}}', ng-click='unlock("skin.#{color}")')
-          button.btn.btn-small.btn-primary(ng-hide='user.purchased.skin.eb052b && user.purchased.skin.f69922 && user.purchased.skin.f5d70f && user.purchased.skin.0ff591 && user.purchased.skin.2b43f6 && user.purchased.skin.d7a9f7 && user.purchased.skin.800ed0 && user.purchased.skin.rainbow', ng-click='unlock("skin.eb052b,skin.f69922,skin.f5d70f,skin.0ff591,skin.2b43f6,skin.d7a9f7,skin.800ed0,skin.rainbow")')= env.t('unlockset5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+          button.btn.btn-small.btn-primary(ng-hide='user.purchased.skin.eb052b && user.purchased.skin.f69922 && user.purchased.skin.f5d70f && user.purchased.skin.0ff591 && user.purchased.skin.2b43f6 && user.purchased.skin.d7a9f7 && user.purchased.skin.800ed0 && user.purchased.skin.rainbow', ng-click='unlock("skin.eb052b,skin.f69922,skin.f5d70f,skin.0ff591,skin.2b43f6,skin.d7a9f7,skin.800ed0,skin.rainbow")')!= env.t('unlockset5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
 
           // Special Events
           // restore to d4df481 to see purchasing + "limited edition" code
@@ -165,7 +164,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
       include ../shared/profiles/achievements
 
 script(id='partials/options.profile.profile.html', type='text/ng-template')
-  button.btn.btn-default(ng-click='_editing.profile = true', ng-show='!_editing.profile') env.t('edit')
+  button.btn.btn-default(ng-click='_editing.profile = true', ng-show='!_editing.profile')= env.t('edit')
   button.btn.btn-primary(ng-click='save()', ng-show='_editing.profile')= env.t('save')
   div(ng-show='!_editing.profile')
     h4=env.t('displayname')

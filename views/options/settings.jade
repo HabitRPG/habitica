@@ -24,7 +24,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
         span.input-suffix= ':00 (' + env.t('24HrClock') + ')'
       div
         small
-          div =env.t('clockInfo')
+          div=env.t('clockInfo')
           .alert.alert-danger Warning: this is a highly-experimental feature, and many <a href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank'>experience issues</a> with it.
       hr
       h4=env.t('language')
@@ -71,8 +71,8 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
           .control-group
             input(type='password', placeholder=env.t('newPass'), ng-model='changePass.newPassword', required)
           .control-group
-            input(type='password', placeholder=env.t('confirmPAss'), ng-model='changePass.confirmNewPassword', required)
-          input.btn(type='submit', value=env.t('submit')')
+            input(type='password', placeholder=env.t('confirmPass'), ng-model='changePass.confirmNewPassword', required)
+          input.btn(type='submit', value=env.t('submit'))
 
       hr
       h4=env.t('dangerZone')
@@ -98,8 +98,8 @@ script(id='partials/options.settings.export.html', type="text/ng-template")
       small=env.t('dataexports')
       h4=env.t('habithistory')
       =env.t('exporthistory')
-      a(href="/export/history.csv")= env.t('csv')
+      a(href="/export/history.csv")= ' ' + env.t('csv')
       h4=env.t('userdata')
       =env.t('exportuserdata')
-      a(href="/export/userdata.xml")= env.t('xml')
+      a(href="/export/userdata.xml")= ' ' + env.t('xml') + ' '
       a(href="/export/userdata.json")= env.t('json')
