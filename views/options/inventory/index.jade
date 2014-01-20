@@ -5,16 +5,16 @@ script(type='text/ng-template', id='partials/options.inventory.html')
   ul.nav.nav-tabs
     li(ng-class="{ active: $state.includes('options.inventory.drops') }")
       a(ui-sref='options.inventory.drops')
-        =env.t('market')
+        | Market
     li(ng-class="{ active: $state.includes('options.inventory.pets') }")
       a(ui-sref='options.inventory.pets')
-        =env.t('pets')
+        | Pets
     li(ng-class="{ active: $state.includes('options.inventory.mounts') }")
       a(ui-sref='options.inventory.mounts')
-        =env.t('mounts')
+        | Mounts
     li.equipment-tab(ng-class="{ active: $state.includes('options.inventory.equipment') }")
       a(ui-sref='options.inventory.equipment')
-        =env.t('equipment')
+        | Equipment
 
   .tab-content
     .tab-pane.active
