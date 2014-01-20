@@ -11127,7 +11127,7 @@ var process=require("__browserify_process");(function() {
       priority: 1,
       challenge: {},
       attribute: 'str',
-      created: new Date()
+      dateCreated: new Date()
     };
     _.defaults(task, defaults);
     if (task.type === 'habit') {
@@ -12137,6 +12137,7 @@ var process=require("__browserify_process");(function() {
               if (options.cron) {
                 calculateDelta();
               } else {
+                task.dateCompleted = direction === 'up' ? new Date : void 0;
                 calculateDelta();
                 addPoints();
                 multiplier = ((_ref3 = task.checklist) != null ? _ref3.length : void 0) || 1;

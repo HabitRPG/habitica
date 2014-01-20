@@ -177,7 +177,7 @@ api.taskDefaults = (task={}) ->
     priority: 1
     challenge: {}
     attribute: 'str'
-    created: new Date()
+    dateCreated: new Date()
   _.defaults task, defaults
   _.defaults(task, {up:true,down:true}) if task.type is 'habit'
   _.defaults(task, {history: []}) if task.type in ['habit', 'daily']
@@ -845,6 +845,7 @@ api.wrap = (user, main=true) ->
               calculateDelta()
               #don't touch stats on cron
             else
+              task.dateCompleted = if direction is 'up' then new Date else undefined
               calculateDelta()
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
               # MP++ per checklist item in ToDo, bonus per CLI
