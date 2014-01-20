@@ -117,13 +117,15 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
       include ../shared/profiles/stats
     .span4.border-right.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
       h3=env.t('characterbuild')
-      h4=env.t('class') + ':'
-        span= '{{ {warrior:' + env.t('warrior') + ',wizard:' + env.t('mage') + ',healer:' + env.t('healer') + ',rogue:' + env.t('rogue') + '}[user.stats.class] }}&nbsp;'
-        a.btn.btn-danger.btn-mini(ng-click='changeClass(null)')
-          =env.t('changeclass')
+      h4
+        =env.t('class') + ':'
+        span {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[user.stats.class] }}&nbsp;
+        a.btn.btn-danger.btn-mini(ng-click='changeClass(null)')=env.t('changeclass')
         small 3 <span class="Pet_Currency_Gem1x inline-gems"/>
 
-      h5(popover-trigger='mouseenter', popover-placement='left', popover=env.t('levelpopover'))= env.t('unallocated') {{user.stats.points}}&nbsp;
+      h5(popover-trigger='mouseenter', popover-placement='left', popover=env.t('levelpopover'))
+        = env.t('unallocated') 
+        | {{user.stats.points}}&nbsp;
       fieldset.auto-allocate
         label.checkbox
           input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})', ng-click='set({"preferences.allocationMode":"taskbased"})')
@@ -163,32 +165,32 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
       include ../shared/profiles/achievements
 
 script(id='partials/options.profile.profile.html', type='text/ng-template')
-  button.btn.btn-default(ng-click='_editing.profile = true', ng-show='!_editing.profile') Edit
-  button.btn.btn-primary(ng-click='save()', ng-show='_editing.profile') Save
+  button.btn.btn-default(ng-click='_editing.profile = true', ng-show='!_editing.profile') env.t('edit')
+  button.btn.btn-primary(ng-click='save()', ng-show='_editing.profile')= env.t('save')
   div(ng-show='!_editing.profile')
     h4=env.t('displayname')
     span(ng-show='profile.profile.name') {{profile.profile.name}}
-    span.muted(ng-hide='profile.profile.name') - None -
+    span.muted(ng-hide='profile.profile.name')=env.t('none')
 
     h4=env.t('displayphoto')
     img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
-    span.muted(ng-hide='profile.profile.imageUrl') - None -
+    span.muted(ng-hide='profile.profile.imageUrl')=env.t('none')
 
     h4=env.t('displayblub')
     markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
-    span.muted(ng-hide='profile.profile.blurb') - None -
+    span.muted(ng-hide='profile.profile.blurb')=env.t('none')
     //{{profile.profile.blurb | linky:'_blank'}}
 
   div.whatever-options(ng-show='_editing.profile')
     // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
     .control-group.option-large
-      label.control-label =env.t('displayname')
+      label.control-label=env.t('displayname')
       input.option-content(type='text', placeholder=env.t('fullName')), ng-model='editingProfile.name')
     .control-group.option-large
-      label.control-label =env.t('photourl')
+      label.control-label=env.t('photourl')
       input.option-content(type='url', ng-model='editingProfile.imageUrl', placeholder=env.t('imageurl'))
     .control-group.option-large
-      label.control-label =env.t('displayblurb')
+      label.control-label=env.t('displayblurb')
       textarea.option-content(style='height:15em;', placeholder=env.t("displayblurb"), ng-model='editingProfile.blurb')
       include ../shared/formatting-help
 

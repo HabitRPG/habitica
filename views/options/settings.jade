@@ -21,7 +21,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
       h4=env.t('customDayStart')
       .option-group.option-short
         input.option-content.option-time(type='number', min='0', max='24', ng-model='user.preferences.dayStart', ng-change='saveDayStart()')
-        span.input-suffix = ':00 (' + env.t('24HrClock') + ')'
+        span.input-suffix= ':00 (' + env.t('24HrClock') + ')'
       div
         small
           div =env.t('clockInfo')
@@ -83,7 +83,7 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
   .row.fluid
     .span6
       h2=env.t('API')
-      small =env.t('APIText')
+      small=env.t('APIText')
       h6=env.t('userId')
       pre.prettyprint {{user.id}}
       h6=env.t('APIToken')
@@ -95,7 +95,7 @@ script(id='partials/options.settings.export.html', type="text/ng-template")
   .row.fluid
     .span6
       h2=env.t('dataexport')
-      small =env.t('dataexports')
+      small=env.t('dataexports')
       h4=env.t('habithistory')
       =env.t('exporthistory')
       a(href="/export/history.csv")= env.t('csv')
