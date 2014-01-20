@@ -1,19 +1,19 @@
 script(type='text/ng-template', id='partials/options.inventory.equipment.html')
   .row-fluid
     .span6.border-right
-      h3 Battle Gear
-      small This is the gear you wear into battle, it affects numbers when interacting with your tasks.
+      h3=env.t('battlegear')
+      small =env.t('battlegeartext')
       li.customize-menu.inventory-gear
         menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
           div(ng-repeat='item in gear[klass]')
             button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
     .span6
-      h3 Costume
-      small But if you prefer the look of other gear to what you have equipped, check this box to visually don a costume while wearing your battle gear underneath.
+      h3=env.t('costume') 
+      small =env.t('costumetext')
       br
       label.checkbox.inline
         input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
-        | Use Costume&nbsp;
+        =env.t('usecostume')
       li.customize-menu(ng-if='user.preferences.costume')
         menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Wizard", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
           div(ng-repeat='item in gear[klass]')
@@ -22,13 +22,13 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
 script(type='text/ng-template', id='partials/options.inventory.drops.html')
   .row-fluid
     .span6.border-right
-      h2 Inventory
-      p.well Click an egg to see usable potions highlighted in green and then click one of the highlighted potions to hatch your pet. If no potions are highlighted, click that egg again to deselect it, and instead click a potion first to have the usable eggs highlighted. You can also sell unwanted drops to Alexander the Merchant.
+      h2=env.t('inventory')
+      p.well =env.t('eggtext')
       menu.inventory-list(type='list')
 
         li.customize-menu
           menu.pets-menu(label='Eggs ({{eggCount}})')
-            p.muted(ng-show='eggCount < 1') You don't have any eggs.
+            p.muted(ng-show='eggCount < 1')=env.t('noeggs')
             div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
               //TODO move positioning this styling to css
               button.customize-option(popover='{{Content.eggs[egg].notes}}', popover-title='{{Content.eggs[egg].text}} Egg', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !user.items.pets[egg+"-"+selectedPotion.key]}')
@@ -37,22 +37,22 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
         li.customize-menu
           menu.hatchingPotion-menu(label='Hatching Potions ({{potCount}})')
-            p.muted(ng-show='potCount < 1') You don't have any hatching potions.
+            p.muted(ng-show='potCount < 1')=env.t('nohatchingpotions')
             div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
               button.customize-option(popover='{{Content.hatchingPotions[pot].notes}}', popover-title='{{Content.hatchingPotions[pot].text}} Potion', popover-trigger='mouseenter', popover-placement='right', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !user.items.pets[selectedEgg.key+"-"+pot]}')
                 .badge.badge-info.stack-count {{points}}
 
         li.customize-menu
           menu.pets-menu(label='Quest Scrolls ({{questCount}})')
-            p.muted(ng-show='questCount < 1') You don't have any quest scrolls.
-            p.muted Quests require parties. If you want to quest solo, <a href="/#/options/groups/party">create an empty party</a>
+            p.muted(ng-show='questCount < 1')=env.t('noscrolls')
+            p.muted=env.t('scrollstext1') <a href="/#/options/groups/party">create an empty party</a>
             div(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]')
               button.customize-option(popover='{{quest.previous && !user.achievements.quests[quest.previous] ? "You need to complete the previous quest to start this one!" : quest.notes}}', popover-title='{{quest.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='showQuest(quest_key)', class='inventory_quest_scroll', ng-class='{locked: quest.previous && !user.achievements.quests[quest.previous]}')
                 .badge.badge-info.stack-count {{points}}
 
         li.customize-menu
           menu.pets-menu(label='Food ({{foodCount}})')
-            p(ng-show='foodCount < 1') You don't have any food.
+            p(ng-show='foodCount < 1')env.t('nofood')
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
               button.customize-option(popover='{{Content.food[food].notes}}', popover-title='{{Content.food[food].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
                 .badge.badge-info.stack-count {{points}}
@@ -74,10 +74,10 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
               .popover.static-popover.fade.right.in
                 .arrow
                 h3.popover-title
-                  a(target='_blank', href='http://www.kickstarter.com/profile/523661924') Alexander the Merchant
+                  a(target='_blank', href='http://www.kickstarter.com/profile/523661924')=env.t('alexander')
                 .popover-content
                   p
-                    | Welcome to the Market! Buy hard-to-find eggs and potions! Sell your extras! Commission useful services! Come see what we have to offer.
+                    =env.t('welcomemarket')
                   p
                     button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')
                       | Sell {{selectedEgg.key}} for {{selectedEgg.value}} Gold
@@ -113,7 +113,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
           li.customize-menu
             menu.pets-menu(label='Quests')
-              p.muted Quests require parties. If you want to quest solo, <a href="/#/options/groups/party">create an empty party</a>
+              p.muted=env.t('scrollstext1') <a href="/#/options/groups/party">create an empty party</a>
               div(ng-repeat='quest in Content.quests')
                   button.customize-option(popover='{{quest.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("quests", quest)', class='inventory_quest_scroll', ng-class='{locked: quest.previous && !user.achievements.quests[quest.previous]}')
                   p
