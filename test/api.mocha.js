@@ -104,7 +104,6 @@ describe('API', function () {
   });
 
   describe('With token and user id', function () {
-    var currentUser;
 
     before(function (done) {
       registerNewUser(done, true);
@@ -112,10 +111,46 @@ describe('API', function () {
 
     beforeEach(function (done) {
       User.findById(_id, function (err, _user) {
-        currentUser = _user;
+        user = _user;
+        shared.wrap(user);
         done();
       });
     });
+
+    describe('Todos', function(){
+      it('Archives old todos',function(done){
+        request.post(baseURL + "/user/batch-update?_v=999")
+        .send([
+          {op:'addTask',body:{type:'todo'}},
+          {op:'addTask',body:{type:'todo'}},
+          {op:'addTask',body:{type:'todo'}}
+        ])
+        .end(function (res) {
+
+          expectCode(res, 200);
+          expect(_.size(res.body.todos)).to.be(4);
+          request.post(baseURL + "/user/batch-update?_v=998")
+          .send([
+            {op:'score',params:{direction:'up', id:res.body.todos[0].id}},
+            {op:'score',params:{direction:'up', id:res.body.todos[1].id}},
+            {op:'score',params:{direction:'up', id:res.body.todos[2].id}}
+          ])
+          .end(function(res){
+            expectCode(res, 200);
+            expect(_.size(res.body.todos)).to.be(4);
+            request.post(baseURL + "/user/batch-update?_v=997")
+            .send([
+              {op:'updateTask',params:{id:res.body.todos[0].id}, body:{dateCompleted:moment().subtract('days',4)}},
+              {op:'updateTask',params:{id:res.body.todos[1].id}, body:{dateCompleted:moment().subtract('days',4)}}
+            ])
+            .end(function(res){
+              expect(_.size(res.body.todos)).to.be(2);
+              done();
+            })
+          })
+        });
+      });
+    })
 
     /**
      * GROUPS
@@ -124,16 +159,18 @@ describe('API', function () {
       var group;
 
       before(function (done) {
-        request.post(baseURL + "/groups")
-        .send({name:"TestGroup", type:"party"})
-        .end(function (res) {
-          expectCode(res, 200);
-          group = res.body;
-          expect(group.members.length).to.be(1);
-          expect(group.leader).to.be(user._id);
-          done();
+        registerNewUser(function(){
+          request.post(baseURL + "/groups")
+          .send({name:"TestGroup", type:"party"})
+          .end(function (res) {
+            expectCode(res, 200);
+            group = res.body;
+            expect(group.members.length).to.be(1);
+            expect(group.leader).to.be(user._id);
+            done();
+            });
           });
-        });
+        })
 
       describe('Challenges', function () {
         var challenge, updateTodo;
@@ -186,7 +223,7 @@ describe('API', function () {
                 expect(_user.dailys[_user.dailys.length-1].text).to.be('Updated Daily');
                 expect(res.body.todos[0].notes).to.be('Challenge Updated Todo Notes');
                 expect(_user.todos[_user.todos.length-1].notes).to.be('User overriden notes');
-                currentUser = _user;
+                user = _user;
                 done();
               });
             }, 500); // we have to wait a while for users' tasks to be updated, called async on server
@@ -202,7 +239,7 @@ describe('API', function () {
         });
 
         it('Complete To-Dos', function (done) {
-          var u = currentUser;
+          var u = user;
           request.post(baseURL + "/user/tasks/" + u.todos[0].id + "/up").end(function (res) {
             request.post(baseURL + "/user/tasks/" + u.todos[1].id + "/up").end(function (res) {
               request.post(baseURL + "/user/tasks/").send({type:'todo'}).end(function (res) {
