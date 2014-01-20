@@ -3,5 +3,6 @@ views/*
 build
 build/*
 Gruntfile.js
+CHANGELOG.md
 .idea*
 .git*
