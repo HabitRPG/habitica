@@ -614,8 +614,9 @@
 "csv" : "(CSV)",
 "userdata" : "User Data",
 "exportuserdata" : "Export User Data:",
-"xml" : "(XML) &nbsp;",
-"json" : "(JSON) &nbsp;",
-"imageurl" : "Image Url"
+"xml" : "(XML)",
+"json" : "(JSON)",
+"imageurl" : "Image Url",
+"none": "- None -"
 
 }
