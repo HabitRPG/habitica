@@ -472,8 +472,10 @@ api.eggs =
   Dragon:           text: 'Dragon', adjective: 'mighty'
   Cactus:           text: 'Cactus', adjective: 'prickly'
   BearCub:          text: 'Bear Cub',  mountText: 'Bear', adjective: 'cuddly'
+  Gryphon:          text: 'Gryphon',  adjective: 'regal', canBuy: false
 _.each api.eggs, (egg,key) ->
   _.defaults egg,
+    canBuy:true
     value: 3
     key: key
     notes: "Find a hatching potion to pour on this egg, and it will hatch into a #{egg.adjective} #{egg.text}."
@@ -557,6 +559,22 @@ api.quests =
       ]
       gp: 20
       exp: 100
+
+  gryphon:
+    text: "The Fiery Gryphon"
+    notes: 'The grand beastmaster, @baconsaur, has come to your party seeking help. "Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!"'
+    value: 4 # Gem cost to buy, GP sell-back
+    boss:
+      name: "Fiery Gryphon" # name of the boss himself (eg, Vice)
+      hp: 300
+      str: 1.5 # Multiplier of users' missed dailies
+    drop:
+      items: [
+        {type: 'eggs', key: 'Gryphon', text: "Gryphon (Egg)"}
+        {type: 'eggs', key: 'Gryphon', text: "Gryphon (Egg)"}
+      ]
+      gp: 25
+      exp: 125
 
 
 _.each api.quests, (v,key) ->

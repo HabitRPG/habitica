@@ -10540,11 +10540,17 @@ var global=self;/**
       text: 'Bear Cub',
       mountText: 'Bear',
       adjective: 'cuddly'
+    },
+    Gryphon: {
+      text: 'Gryphon',
+      adjective: 'regal',
+      canBuy: false
     }
   };
 
   _.each(api.eggs, function(egg, key) {
     return _.defaults(egg, {
+      canBuy: true,
       value: 3,
       key: key,
       notes: "Find a hatching potion to pour on this egg, and it will hatch into a " + egg.adjective + " " + egg.text + ".",
@@ -10732,6 +10738,31 @@ var global=self;/**
         ],
         gp: 20,
         exp: 100
+      }
+    },
+    gryphon: {
+      text: "The Fiery Gryphon",
+      notes: 'The grand beastmaster, @baconsaur, has come to your party seeking help. "Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!"',
+      value: 4,
+      boss: {
+        name: "Fiery Gryphon",
+        hp: 300,
+        str: 1.5
+      },
+      drop: {
+        items: [
+          {
+            type: 'eggs',
+            key: 'Gryphon',
+            text: "Gryphon (Egg)"
+          }, {
+            type: 'eggs',
+            key: 'Gryphon',
+            text: "Gryphon (Egg)"
+          }
+        ],
+        gp: 25,
+        exp: 125
       }
     }
   };
