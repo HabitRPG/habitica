@@ -280,7 +280,10 @@ describe('API', function () {
             participating = [],
             notParticipating = [];
 
-        it("Tallies progress",function(done){
+        before(function(done){
+
+          // Tally some progress for later. Later we want to test that progress made before the quest began gets
+          // counted after the quest starts
           request.post(baseURL+'/user/batch-update')
           .send([
             {op:'score',params:{direction:'up',id:user.dailys[0].id}},
@@ -289,98 +292,93 @@ describe('API', function () {
           .end(function(res){
             user = res.body;
             expect(user.party.quest.progress.up).to.be.above(0);
-            done();
-          })
-        });
 
-        it('Invites some members', function (done) {
-          async.waterfall([
 
-            // Register new users
-            function (cb) {
-              async.parallel([
-                function (cb2) { registerNewUser(cb2,false); },
-                function (cb2) { registerNewUser(cb2,false); },
-                function (cb2) { registerNewUser(cb2,false); }
-              ], cb);
-            },
-
-            // Send them invitations
-            function (_party, cb) {
-              party = _party;
-              var inviteURL = baseURL + "/groups/" + group._id + "/invite?uuid=";
-              async.parallel([
-                function (cb2) { request.post(inviteURL + party[0]._id).end(cb2); },
-                function (cb2) { request.post(inviteURL + party[1]._id).end(cb2); },
-                function (cb2) { request.post(inviteURL + party[2]._id).end(cb2); }
-              ], cb);
-            },
-
-            // Accept / Reject
-            function (results, cb) {
-              console.log(2);
-              // series since they'll be modifying the same group record
-              var series = _.reduce(party, function (m,v,i) {
-                m.push(function (cb2) {
-                  request.post(baseURL+"/groups/"+group._id+"/join")
-                  .set('X-API-User', party[i]._id)
-                  .set('X-API-Key', party[i].apiToken)
-                  .end(function(){cb2();});
-                });
-                return m;
-              }, [])
-              async.series(series, cb);
-            },
-
-            // Make sure the invites stuck
-            function (whatever, cb) {
-              console.log(3);
-              Group.findById(group._id, function (err, g) {
-                expect(g.members.length).to.be(4);
-                cb();
-              });
-            }
-
-          ], done);
-        });
-
-        it('Starts a quest', function (done) {
-          console.log(5);
-          async.waterfall([
-            function (cb) {
-              request.post(baseURL + "/groups/" + group._id + "/questAccept?key=evilsanta")
-              .end(function (res) {
-                expectCode(res, 401);
-                User.findByIdAndUpdate(_id, {$set: {'items.quests.evilsanta':1}}, cb);
-              });
-            },
-            function (_user,cb) {
-              request.post(baseURL + "/groups/" + group._id + "/questAccept?key=evilsanta")
-              .end(function (res) {
-                expectCode(res, 200);
-                Group.findById(group._id, cb);
-              });
-            },
-            function (_group,cb) {
-              expect(_group.quest.key).to.be('evilsanta');
-              expect(_group.quest.active).to.be(false);
-
-              request.post(baseURL + "/groups/" + group._id + "/questAccept")
-              .set('X-API-User', party[0]._id).set('X-API-Key', party[0].apiToken)
-              .end(function () {
-                request.post(baseURL + "/groups/" + group._id + "/questAccept")
-                .set('X-API-User', party[1]._id).set('X-API-Key', party[1].apiToken)
-                .end(function (res) {
-                  request.post(baseURL + "/groups/" + group._id + "/questReject")
-                  .set('X-API-User', party[2]._id).set('X-API-Key', party[2].apiToken)
-                  .end(function (res) {
-                      group = res.body;
-                      expect(group.quest.active).to.be(true);
-                      cb();
+            // Invite some members
+            async.waterfall([
+              // Register new users
+              function (cb) {
+                async.parallel([
+                  function (cb2) { registerNewUser(cb2,false); },
+                  function (cb2) { registerNewUser(cb2,false); },
+                  function (cb2) { registerNewUser(cb2,false); }
+                ], cb);
+              },
+              // Send them invitations
+              function (_party, cb) {
+                party = _party;
+                var inviteURL = baseURL + "/groups/" + group._id + "/invite?uuid=";
+                async.parallel([
+                  function (cb2) { request.post(inviteURL + party[0]._id).end(function(){cb2()}) },
+                  function (cb2) { request.post(inviteURL + party[1]._id).end(function(){cb2()}) },
+                  function (cb2) { request.post(inviteURL + party[2]._id).end(function(){cb2()}) }
+                ], cb);
+              },
+              // Accept / Reject
+              function (results, cb) {
+                // series since they'll be modifying the same group record
+                var series = _.reduce(party, function (m,v,i) {
+                  m.push(function (cb2) {
+                    request.post(baseURL+"/groups/"+group._id+"/join")
+                    .set('X-API-User', party[i]._id)
+                    .set('X-API-Key', party[i].apiToken)
+                    .end(function(){cb2();});
                   });
+                  return m;
+                }, [])
+                async.series(series, cb);
+              },
+
+              // Make sure the invites stuck
+              function (whatever, cb) {
+                Group.findById(group._id, function (err, g) {
+                  group = g;
+                  expect(g.members.length).to.be(4);
+                  cb();
                 });
-              });
-            }], done);
+              }
+
+            ], function(){
+
+              // Start the quest
+              async.waterfall([
+                function (cb) {
+                  request.post(baseURL + "/groups/" + group._id + "/questAccept?key=evilsanta")
+                  .end(function (res) {
+                    expectCode(res, 401);
+                    User.findByIdAndUpdate(_id, {$set: {'items.quests.evilsanta':1}}, cb);
+                  });
+                },
+                function (_user,cb) {
+                  request.post(baseURL + "/groups/" + group._id + "/questAccept?key=evilsanta")
+                  .end(function (res) {
+                    expectCode(res, 200);
+                    Group.findById(group._id, cb);
+                  });
+                },
+                function (_group,cb) {
+                  expect(_group.quest.key).to.be('evilsanta');
+                  expect(_group.quest.active).to.be(false);
+
+                  request.post(baseURL + "/groups/" + group._id + "/questAccept")
+                  .set('X-API-User', party[0]._id).set('X-API-Key', party[0].apiToken)
+                  .end(function () {
+                    request.post(baseURL + "/groups/" + group._id + "/questAccept")
+                    .set('X-API-User', party[1]._id).set('X-API-Key', party[1].apiToken)
+                    .end(function (res) {
+                      request.post(baseURL + "/groups/" + group._id + "/questReject")
+                      .set('X-API-User', party[2]._id).set('X-API-Key', party[2].apiToken)
+                      .end(function (res) {
+                          group = res.body;
+                          expect(group.quest.active).to.be(true);
+                          cb();
+                      });
+                    });
+                  })
+                }], done);
+
+            });
+          })
         });
 
         it("Doesn't include people who aren't participating",function(done){
@@ -399,15 +397,19 @@ describe('API', function () {
             request.post(baseURL+'/user/batch-update')
             .send([
               {op:'score',params:{direction:'up',id:user.dailys[2].id}},
-              {op:'score',params:{direction:'up',id:user.dailys[3].id}},
+              //{op:'score',params:{direction:'up',id:user.dailys[3].id}}, // leave one daily undone so Trapper hurts party
               {op:'update',body:{lastCron:moment().subtract('days',1)}} // set day to yesterday, cron will then be triggered on next action
             ])
             .end(function(res){
               expect(res.body.party.quest.progress.up).to.be.above(up)
               request.post(baseURL+'/user/batch-update')
               .end(function(){
-                request.get(baseURL+'/groups/'+group._id).end(function(res){
+                request.get(baseURL+'/groups/party').end(function(res){
                   expect(res.body.quest.progress.hp).to.be.below(shared.content.quests.evilsanta.boss.hp);
+                  var _party = res.body.members;
+                  expect(_.find(_party,{_id:party[0]._id}).stats.hp).to.be.below(50);
+                  expect(_.find(_party,{_id:party[1]._id}).stats.hp).to.be.below(50);
+                  expect(_.find(_party,{_id:party[2]._id}).stats.hp).to.be(50);
                   done();
                 })
               })
