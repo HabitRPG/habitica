@@ -318,33 +318,34 @@ describe('API', function () {
 
             // Accept / Reject
             function (results, cb) {
+              console.log(2);
               // series since they'll be modifying the same group record
-              async.series(_.reduce(party, function (m,v,i) {
+              var series = _.reduce(party, function (m,v,i) {
                 m.push(function (cb2) {
-                  request.post("#{baseURL}/groups/#{group._id}/join")
+                  request.post(baseURL+"/groups/"+group._id+"/join")
                   .set('X-API-User', party[i]._id)
                   .set('X-API-Key', party[i].apiToken)
-                  .end(cb2);
+                  .end(function(){cb2();});
                 });
                 return m;
-              }, []), cb);
+              }, [])
+              async.series(series, cb);
             },
 
             // Make sure the invites stuck
             function (whatever, cb) {
+              console.log(3);
               Group.findById(group._id, function (err, g) {
                 expect(g.members.length).to.be(4);
                 cb();
               });
             }
 
-          ], function (err, results) {
-            expect(err).to.be.ok();
-            done();
-          });
+          ], done);
         });
 
         it('Starts a quest', function (done) {
+          console.log(5);
           async.waterfall([
             function (cb) {
               request.post(baseURL + "/groups/" + group._id + "/questAccept?key=evilsanta")
@@ -361,19 +362,32 @@ describe('API', function () {
               });
             },
             function (_group,cb) {
-              group = _group; //refresh local group
-              expect(group.quest.key).to.be('evilsanta');
+              expect(_group.quest.key).to.be('evilsanta');
+              expect(_group.quest.active).to.be(false);
 
-              async.series(_.reduce(party, function (m,v,i) {
-                m.push(function (cb2) {
-                  request.post(baseURL + "/groups/" + group._id + "/questAccept")
-                  .set('X-API-User', party[i]._id)
-                  .set('X-API-Key', party[i].apiToken)
-                  .end(function () { cb2(); });
+              request.post(baseURL + "/groups/" + group._id + "/questAccept")
+              .set('X-API-User', party[0]._id).set('X-API-Key', party[0].apiToken)
+              .end(function () {
+                request.post(baseURL + "/groups/" + group._id + "/questAccept")
+                .set('X-API-User', party[1]._id).set('X-API-Key', party[1].apiToken)
+                .end(function (res) {
+                  request.post(baseURL + "/groups/" + group._id + "/questReject")
+                  .set('X-API-User', party[2]._id).set('X-API-Key', party[2].apiToken)
+                  .end(function (res) {
+                      group = res.body;
+                      expect(group.quest.active).to.be(true);
+                      cb();
+                  });
                 });
-                return m;
-              }, []), cb);
+              });
             }], done);
+        });
+
+        it("Doesn't include people who aren't participating",function(done){
+          request.get(baseURL+'/groups/'+group._id).end(function(res){
+            expect(_.size(res.body.quest.members)).to.be(3);
+            done();
+          })
         });
 
         it('Hurts the boss',function(done){
@@ -385,17 +399,21 @@ describe('API', function () {
             request.post(baseURL+'/user/batch-update')
             .send([
               {op:'score',params:{direction:'up',id:user.dailys[2].id}},
-              {op:'score',params:{direction:'up',id:user.dailys[3].id}}
+              {op:'score',params:{direction:'up',id:user.dailys[3].id}},
+              {op:'update',body:{lastCron:moment().subtract('days',1)}} // set day to yesterday, cron will then be triggered on next action
             ])
             .end(function(res){
               expect(res.body.party.quest.progress.up).to.be.above(up)
-              user
+              request.post(baseURL+'/user/batch-update')
+              .end(function(){
+                request.get(baseURL+'/groups/'+group._id).end(function(res){
+                  expect(res.body.quest.progress.hp).to.be.below(shared.content.quests.evilsanta.boss.hp);
+                  done();
+                })
+              })
             })
-
           })
         })
-
-        it("Doesn't include people who aren't participating");
       });
 
     });
