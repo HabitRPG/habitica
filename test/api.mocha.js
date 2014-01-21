@@ -431,11 +431,14 @@ describe('API', function () {
                     },
                     function(_user,cb){
                       user = _user;
-                      Group.findById(group._id,cb);
+                      request.get(baseURL+'/groups/party').end(function(res){cb(null,res.body)});
                     },
                     function(_group,cb){
-                      expect(_group.quest.key).to.not.be.ok();
+                      expect(_.isEmpty(_group.quest)).to.be(true);
                       expect(user.items.eggs['Gryphon']).to.be(2);
+                      expect(_.find(_group.members,{_id:party[0]._id}).items.eggs['Gryphon']).to.be(2);
+                      expect(_.find(_group.members,{_id:party[1]._id}).items.eggs['Gryphon']).to.be(2);
+                      expect(_.find(_group.members,{_id:party[2]._id}).items.eggs['Gryphon']).to.not.be.ok();
                       expect(user.stats.exp).to.be.above(shared.content.quests.gryphon.drop.exp);
                       expect(user.stats.gp).to.be.above(shared.content.quests.gryphon.drop.gp);
                       cb();
