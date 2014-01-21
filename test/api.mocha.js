@@ -410,7 +410,40 @@ describe('API', function () {
                   expect(_.find(_party,{_id:party[0]._id}).stats.hp).to.be.below(50);
                   expect(_.find(_party,{_id:party[1]._id}).stats.hp).to.be.below(50);
                   expect(_.find(_party,{_id:party[2]._id}).stats.hp).to.be(50);
-                  done();
+
+                  async.waterfall([
+
+                    // Kill the boss
+                    function(cb){
+                      expect(user.items.mounts['BearCub-Polar']).to.not.be.ok();
+                      Group.findByIdAndUpdate(group._id,{$set:{'quest.progress.hp':0}},cb);
+                    },
+                    function(_group,cb){
+                      request.post(baseURL+'/user/batch-update')
+                      .send([
+                        {op:'score',params:{direction:'up',id:user.dailys[1].id}},
+                        {op:'update',body:{lastCron:moment().subtract('days',1)}} // set day to yesterday, cron will then be triggered on next action
+                      ])
+                      .end(function(){cb()})
+                    },
+                    function(cb){
+                      request.post(baseURL+'/user/batch-update').end(function(res){cb(null,res.body)})
+                    },
+                    function(_user,cb){
+                      user = _user;
+                      Group.findById(group._id,cb);
+                    },
+                    function(_group,cb){
+                      expect(_group.quest.key).to.not.be.ok();
+                      expect(user.items.mounts['BearCub-Polar']).to.be(true);
+                      cb();
+                    }
+                  ],done);
+
+
+                  // You see all these freaking })s? This is why I prefer coffeescript!! I keep hitting stupid errors
+                  // where they're mis-matched and I'm counting )'s on my fingers for 10m just to fix them. Gaahhh..
+                  //})
                 })
               })
             })
