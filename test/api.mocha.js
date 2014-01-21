@@ -436,6 +436,8 @@ describe('API', function () {
                     function(_group,cb){
                       expect(_group.quest.key).to.not.be.ok();
                       expect(user.items.mounts['BearCub-Polar']).to.be(true);
+                      expect(user.stats.exp).to.be.above(shared.content.quests.evilsanta.drop.exp);
+                      expect(user.stats.gp).to.be.above(shared.content.quests.evilsanta.drop.gp);
                       cb();
                     }
                   ],done);
