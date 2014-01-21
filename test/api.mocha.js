@@ -280,6 +280,19 @@ describe('API', function () {
             participating = [],
             notParticipating = [];
 
+        it("Tallies progress",function(done){
+          request.post(baseURL+'/user/batch-update')
+          .send([
+            {op:'score',params:{direction:'up',id:user.dailys[0].id}},
+            {op:'score',params:{direction:'up',id:user.dailys[1].id}}
+          ])
+          .end(function(res){
+            user = res.body;
+            expect(user.party.quest.progress.up).to.be.above(0);
+            done();
+          })
+        });
+
         it('Invites some members', function (done) {
           async.waterfall([
 
@@ -362,6 +375,25 @@ describe('API', function () {
               }, []), cb);
             }], done);
         });
+
+        it('Hurts the boss',function(done){
+          request.post(baseURL+'/user/batch-update')
+          .end(function(res){
+            user = res.body;
+            var up = user.party.quest.progress.up;
+            expect(up).to.be.above(0);
+            request.post(baseURL+'/user/batch-update')
+            .send([
+              {op:'score',params:{direction:'up',id:user.dailys[2].id}},
+              {op:'score',params:{direction:'up',id:user.dailys[3].id}}
+            ])
+            .end(function(res){
+              expect(res.body.party.quest.progress.up).to.be.above(up)
+              user
+            })
+
+          })
+        })
 
         it("Doesn't include people who aren't participating");
       });

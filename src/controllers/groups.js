@@ -500,7 +500,12 @@ questStart = function(req, res) {
     if (m == group.quest.leader)
       updates['$inc']['items.quests.'+key] = -1;
     if (group.quest.members[m] == true) {
-      updates['$set']['party.quest'] = Group.cleanQuestProgress({key:key,progress:{collect:collected}});
+      // See https://github.com/HabitRPG/habitrpg/issues/2168#issuecomment-31556322 , we need to *not* reset party.quest.progress.up
+      //updates['$set']['party.quest'] = Group.cleanQuestProgress({key:key,progress:{collect:collected}});
+      updates['$set']['party.quest.key'] = key
+      updates['$set']['party.quest.progress.down'] = 0;
+      updates['$set']['party.quest.progress.collect'] = collected;
+      updates['$set']['party.quest.completed'] = null;
       questMembers[m] = true;
     } else {
       updates['$set']['party.quest'] = Group.cleanQuestProgress();
