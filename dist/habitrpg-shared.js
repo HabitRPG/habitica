@@ -10695,9 +10695,13 @@ var global=self;/**
         str: 1
       },
       drop: {
-        type: 'mounts',
-        key: 'BearCub-Polar',
-        text: "Polar Bear (Mount)",
+        items: [
+          {
+            type: 'mounts',
+            key: 'BearCub-Polar',
+            text: "Polar Bear (Mount)"
+          }
+        ],
         gp: 20,
         exp: 100
       }
@@ -10719,9 +10723,13 @@ var global=self;/**
         }
       },
       drop: {
-        type: 'pets',
-        key: 'BearCub-Polar',
-        text: "Polar Bear (Pet)",
+        items: [
+          {
+            type: 'pets',
+            key: 'BearCub-Polar',
+            text: "Polar Bear (Pet)"
+          }
+        ],
         gp: 20,
         exp: 100
       }
