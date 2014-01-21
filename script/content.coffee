@@ -536,9 +536,9 @@ api.quests =
       hp: 300
       str: 1 # Multiplier of users' missed dailies
     drop:
-      type: 'mounts'
-      key: 'BearCub-Polar'
-      text: "Polar Bear (Mount)"
+      items: [
+        {type: 'mounts', key: 'BearCub-Polar', text: "Polar Bear (Mount)"}
+      ]
       gp: 20
       exp: 100 # Exp bonus from defeating the boss
 
@@ -551,7 +551,12 @@ api.quests =
     collect:
       tracks: text: 'Tracks', count: 20
       branches: text: 'Broken Twigs', count: 10
-    drop: type: 'pets', key: 'BearCub-Polar', text: "Polar Bear (Pet)", gp: 20, exp: 100
+    drop:
+      items: [
+        {type: 'pets', key: 'BearCub-Polar', text: "Polar Bear (Pet)"}
+      ]
+      gp: 20
+      exp: 100
 
 
 _.each api.quests, (v,key) ->
