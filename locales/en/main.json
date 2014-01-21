@@ -197,7 +197,7 @@
       "strength" : "Strength",
         "strengthText" : "Strength reduces task threat (redness), increases the Gold and Experience boost from random \"critical hits\", and helps deal damage to boss monsters.",
       "constitution" : "Constitution",
-        "conText" : "Constitution reduces the damage you take, whether from negative Habits, missed Dailies, or the attacks of boss monsters.1",
+        "conText" : "Constitution reduces the damage you take, whether from negative Habits, missed Dailies, or the attacks of boss monsters.",
       "perception" : "Perception",
         "perText" : "Perception increases how much Gold you earn, and starting at level 4, increases the chance of finding items when scoring tasks.",
       "intelligence" : "Intelligence",
