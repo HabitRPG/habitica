@@ -2,8 +2,8 @@ script(id='partials/options.social.party.quest-rewards.html', type='text/ng-temp
   hr
   h5 {{header}}
   table.table.table-striped
-    tr
-      td {{quest.drop.text}}
+    tr(ng-repeat='drop in quest.drop.items')
+      td {{drop.text}}
     tr
       td {{quest.drop.exp}} Experience
     tr
