@@ -80,11 +80,23 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                     =env.t('welcomeMarket')
                   p
                     button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')
-                      =env.t('sellEgg', {{selectedEgg.key}}, {{selectedEgg.value}})
+                      =env.t('sell')
+                      | {{selectedEgg.key}}
+                      =env.t('for')
+                      | {{selectedEgg.value}})
+                      =env.t('gold')
                     button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')
-                      =env.t('sellPotion', {{selectedPotion.key}}, {{selectedPotion.value}})
+                      =env.t('sell')
+                      | {{selectedPotion.key}}
+                      =env.t('for')
+                      | {{selectedPotion.value}})
+                      =env.t('gold')
                     button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')
-                      =env.t('sellFood', {{selectedFood.key}}, {{selectedFood.value}})
+                      =env.t('sell')
+                      | {{selectedFood.key}}
+                      =env.t('for')
+                      | {{selectedFood.value}})
+                      =env.t('gold')
         menu.inventory-list(type='list')
           li.customize-menu
             menu.pets-menu(label=env.t('eggs'))
