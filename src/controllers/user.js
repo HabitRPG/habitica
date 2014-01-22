@@ -355,7 +355,7 @@ api.cast = function(req, res) {
     case 'user':
       async.waterfall([
         function(cb){
-          Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members').exec(cb);
+          Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members', 'profile.name stats achievements').exec(cb);
         },
         function(group, cb) {
           // Solo player? let's just create a faux group for simpler code
