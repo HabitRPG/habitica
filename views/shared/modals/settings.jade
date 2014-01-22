@@ -1,42 +1,41 @@
 div(ng-controller='SettingsCtrl')
   div(modal='modals.reset')
     .modal-header
-      h3 Reset Account
+      h3=env.t('resetaccount')
     .modal-body
-      p This resets your entire account - your tasks will be deleted and your character will start over.
-      p.
-        This is highly discouraged because you'll lose historical data, which is useful for graphing your progress over time. However, some people find it useful in the beginning after playing with the app for a while.
+      p=env.t('resetText1')
+      p=env.t('resetText2')
     .modal-footer
-      button.btn.btn-default.cancel(ng-click='modals.reset = false') Never mind
-      button.btn.btn-danger(data-dismiss='modal', ng-click='reset()') Do it, reset my account!
+      button.btn.btn-default.cancel(ng-click='modals.reset = false')=env.t('neverMind')
+      button.btn.btn-danger(data-dismiss='modal', ng-click='reset()')=env.t('resetDo')
 
   div(modal='modals.restore')
     .modal-header
-      h3 Fix Values
+      h3=env.t('fixValues')
     .modal-body
-      p If you've encountered a bug or made a mistake that unfairly changed your character (damage you shouldn't have taken, Gold you didn't really earn, etc.), you can manually correct your numbers here. Yes, this makes it possible to cheat: use this feature wisely, or you'll sabotage your own habit-building!
-      p Note that you cannot restore Streaks on individual tasks here. To do that, edit the Daily and go to Advanced Options, where you will find a Restore Streak field.
+      p=env.t('fixValuesText1')
+      p=env.t('fixValuesText2')
       div.restore-options
         form#restore-form.form-horizontal
-          h3 Stats
+          h3=env.t('stats')
           .option-group.option-medium
             input.option-content(type='number', step="any", data-for='stats.hp', ng-model='restoreValues.stats.hp')
-            span.input-suffix Health
+            span.input-suffix=env.t('health')
           .option-group.option-medium
             input.option-content(type='number', step="any", data-for='stats.exp', ng-model='restoreValues.stats.exp')
-            span.input-suffix Experience
+            span.input-suffix=env.t('experience')
           .option-group.option-medium
             //input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp')
             input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp',disabled)
-            span.input-suffix Gold
+            span.input-suffix=env.t('gold')
             p.alert
-              small Disabled during Winter Wonderland Event Pt.4 (since the rewards are gold-purchaseable).
+              small=env.t('disabledWinterEvent')
           .option-group.option-medium
             input.option-content(type='number', step="any", data-for='stats.mp', ng-model='restoreValues.stats.mp')
-            span.input-suffix Mana
+            span.input-suffix=env.t('mana')
           .option-group.option-medium
             input.option-content(type='number', data-for='stats.lvl', ng-model='restoreValues.stats.lvl')
-            span.input-suffix Level
+            span.input-suffix=env.t('level')
           //-
             //- Commenting out since it doesn't make sense to restore equipment with Armory anymore. They can just restore GP & buy
             h3 Equipment
@@ -52,25 +51,26 @@ div(ng-controller='SettingsCtrl')
             .option-group.option-medium
               input.option-content(type='number', data-for='items.shield', ng-model='restoreValues.items.shield')
               span.input-suffix Shield
-          h3 Achievements
+          h3=env.t('achievements')
           .option-group.option-medium
             input.option-content(type='number', data-for='achievements.streak', ng-model='restoreValues.achievements.streak')
-            span.input-suffix 21-Day Streaks
+            span.input-suffix=env.t('fix21Streaks')
         //- This is causing too many problems for users
-          h3 Other
-          a.btn.btn-small.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()') Trigger New Day
+          h3=env.t('other')
+          a.btn.btn-small.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()')=env.t('triggerDay')
     .modal-footer
-      button.btn.btn-default.cancel(ng-click='modals.restore = false') Discard Changes
-      button.btn.btn-primary(ng-click='restore()') Save & Close
+      button.btn.btn-default.cancel(ng-click='modals.restore = false')=env.t('discardChanges')
+      button.btn.btn-primary(ng-click='restore()')=env.t('saveAndClose')
 
   div(modal='modals.delete')
     .modal-header
-      h3 Delete Account
+      h3=env.t('deleteaccount')
     .modal-body
-      p.
-        Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use HabitRPG again. Banked or spent Gems will not be refunded. If you're absolutely certain, type <strong>DELETE</strong> into the text box below.
+      p=env.t('deleteText1')
+        strong=env.t('deleteText2')
+        =env.t('deleteText3')
       p
         input(type='text', ng-model='_deleteAccount')
     .modal-footer
-      button.btn.btn-default(ng-click='modals.delete = false') Never mind
-      button.btn.btn-danger.btn-small(ng-disabled='_deleteAccount != "DELETE"', ng-click='delete()') Do it, delete my account!
+      button.btn.btn-default(ng-click='modals.delete = false')=env.t('neverMind')
+      button.btn.btn-danger.btn-small(ng-disabled='_deleteAccount != "DELETE"', ng-click='delete()')=env.t('deleteDo')
