@@ -11,6 +11,7 @@
   "playButton" : "Play",
   "username" : "Username",
   "password" : "Password",
+  "useUUID" : "Use UUID / API Token (For Facebook Users)",
   "passMan" : "In case you are using a password manager (like 1Password) and have problems logging in, try typing username and password manually.",
   "forgotPass" : "Forgot Password",
   "emailNewPass" : "Email New Password",
@@ -161,14 +162,6 @@
     "editTags" : "Edit Tags",
     "newTag" : "New Tag",
     "clearFilters" : "Clear Filters",
-
-
-"_commentdrops" : "DROP SYSTEM",
-  "dropsEnabled" : "Drops Enabled!",
-    "dropsEnabledText1" : "You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. And guess what, you just found a",
-    "dropsEnabledText2" : "egg",
-  "itemDropped" : "An item has dropped",
-
 
 
 "_commentoptionsview": "OPTIONS VIEW",
@@ -326,9 +319,9 @@
       "delete":"Delete",
         "deleteAltText":"Delete your account",
         "deleteHeader" : "Delete Account",
-        "deleteText1":"Woa woa woa! Are you sure? This will seriously delete your account forever, and it can never be restored. If you're absolutely certain, type",
+        "deleteText1":"Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use HabitRPG again. Banked or spent Gems will not be refunded. If you're absolutely certain, type",
         "deleteText2":" DELETE ",
-        "deleteText3":"into the text-box",
+        "deleteText3":"into the text box below.",
     "API":"API",
       "APIText":"Copy these for use in third party applications.",
       "APIToken":"Api Token",
@@ -617,6 +610,126 @@
 "xml" : "(XML)",
 "json" : "(JSON)",
 "imageurl" : "Image Url",
-"none": "- None -"
+"none": "- None -",
+
+
+"_commentachievements" : "ACHIEVEMENTS MODALS",
+    "modalAchievement" : "Achievement!",
+      "streakerAchievement" : "You have stacked your \"Streaker\" Achievement! Every 21 days of streak, you gain 1 achievement point here.",
+      "gearAchievement" : "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set!",
+      "beastAchievement" : "You have earned the \"Beast Master\" Achievement for collecting all the pets!",
+
+    "modalContribAchievement" : "Contributor Achievement!",
+      "contribText1" : " you awesome person! You're now a level ",
+      "contribText2" : " contributor for helping HabitRPG. See ",
+      "contribText3" : "what prizes you've earned for your contribution!",
+
+    "rebirthAchievement1" : "You've begun a new adventure! This is Rebirth ",
+    "rebirthAchievement2" : " for you, and the highest Level you've attained is ",
+    "rebirthAchievement3" : " To stack this Achievement, begin your next new adventure when you've reached an even higher Level!",
+
+
+  "_commentbuygems" : "BUY GEMS MODALS",
+    "buyGemsDonate" : "Buy Gems / Donate",
+    "justin" : "Justin",
+    "fiveUSD1" : "$5 USD",
+    "fiveUSD2" : " will:",
+      "donateText1" : "Add 20 gems to your account, which are used to buy special items.",
+      "donateText2" : "Disable ads.",
+      "donateText3" : "Donate to the developers (as an open source project, we can use all the help we can get).",
+    "payWithCard" : "Pay with Card",
+    "payWithPaypal" : "Pay with Paypal",
+      "paypalText" : "20 Gems, Disable Ads, Donation to the Developers",
+
+
+  "_commentclasses" : "CLASSES MODALS",
+    "chooseClass1" : "Choose your ",
+    "chooseClass2" : "Class!",
+    "warrior" : "Warrior",
+      "warriorText" : "Warriors keep tasks in line, each success making later slip-ups less harsh. They also score impressive \"critical hits\", which randomly give bonus Gold and Experience for scoring a task. Play a Warrior if you don't want to be punished too hard for inconsistency, or if you find strong motivation from unpredictable jackpot-style rewards!",
+    "mage" : "Mage",
+      "mageText" : "Mages learn swiftly, gaining Experience and Levels faster than other classes. They also get a great deal of Mana for using special abilities. Play a Mage if you enjoy the tactical game aspects of Habit, or if you are strongly motivated by leveling up and unlocking advanced features!",
+    "rogue" : "Rogue",
+      "rogueText" : "Rogues love to accumulate wealth, gaining more Gold than anyone else, and are adept at finding random items. Their iconic Stealth ability lets them duck the consequences of missed Dailies. Play a Rogue if you find strong motivation from Rewards and Achievements, striving for loot and badges!",
+    "healer" : "Healer",
+      "healerText" : "Healers stand impervious against harm, and extend that protection to others. Missed Dailies and bad Habits don't faze them much, and they have ways to recover Health from failure. Play a Healer if you enjoy assisting others in your Party, or if the idea of cheating Death through hard work inspires you!",
+    "optOut" : "Opt Out",
+      "optOutText" : "Can't be bothered with classes? Opt out - you'll be a warrior and your points handled automatically. You can enable classes later under Settings",
+    "select" : "Select",
+
+
+  "_commentdeath" : "DEATH MODALS",
+    "youDied" : "You Died!",
+    "continue" : "Continue",
+      "dieText" : "You've lost a Level, all your Gold, and a random piece of Equipment. Arise, Habiteer, and try again! Curb those negative Habits, be vigilant in completion of Dailies, and hold death at arm's length with a Health Potion if you falter!",
+
+
+  "_commentdrops" : "DROPS MODALS",
+    "dropsEnabled" : "Drops Enabled!",
+      "firstDrop1" : "You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. You just found a ",
+      "firstDrop2" : "Egg",
+      "useGems1" : "If you've got your eye on a pet, but can't wait any longer for it to drop, use Gems in ",
+      "useGems2" : "Options > Inventory",
+      "useGems3" : " to buy one!",
+    "itemDrop" : "An item has dropped!",
+
+
+  "_commentmembers" : "MEMBERS MODALS",
+    "memberSince" : " - Member since ",
+    "lastLoggedIn" : " - Last logged in ",
+
+
+  "_commentquests" : "QUESTS MODALS",
+    "completed" : "Completed!",
+    "youReceived" : "You've Received",
+    "questSend" : "Clicking \"Invite\" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Options > Social > Party.",
+      "inviteParty" : "Invite Party",
+      "questInvitation" : "Quest Invitation: ",
+      "askLater" : "Ask Later",
+
+
+  "_commentrebirth" : "REBIRTH MODALS",
+    "rebirthNew" : "Rebirth: New Adventure Available!",
+      "rebirthUnlock" : "You've unlocked Rebirth! This special Market item allows you to begin a new game at level 1 while keeping your tasks, achievements, pets, and more. Use it to breathe new life into HabitRPG if you feel you've achieved it all, or to experience new features with the fresh eyes of a beginning character!",
+    "rebirthBegin" : "Rebirth: Begin a New Adventure",
+      "rebirthStartOver" : "Rebirth starts your character over from Level 1, as if you had created a new account.",
+      "rebirthAdventure" : "Your adventure begins anew with a clean slate:",
+        "rebirthAdvList1" : "You return to full Health.",
+        "rebirthAdvList2" : "You have no Experience, Gold, or equipment.",
+        "rebirthAdvList3" : "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset.",
+        "rebirthAdvList4" : "You have the starting class of Warrior until you earn a new class.",
+      "rebirthInherit" : "Your new character inherits a few things from their predecessor:",
+        "rebirthInList1" : "Tasks, history, and settings remain.",
+        "rebirthInList2" : "Challenge, Guild, and Party memberships remain.",
+        "rebirthInList3" : "Gems, backer tiers, and contributor levels remain.",
+        "rebirthInList4" : "Items obtained from Gems or drops (such as pets and mounts) remain, though you cannot access them until you unlock them again.",
+      "rebirthEarnAchievement" : "You also earn an Achievement for beginning a new adventure!",
+      "neverMind" : "Never mind",
+      "buyMoreGems" : "Buy More Gems",
+      "beReborn" : "Be Reborn",
+      "notEnoughGems" : "Not enough Gems",
+      "cost8Gems" : "8 Gems",
+
+
+  "_commentreroll" : "REROLL MODALS",
+    "fortifyYellow" : "Fortify: Back to Yellow",
+      "fortifyText" : "Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. Consider this an option of last resort! Red tasks provide good incentive to improve. But if all that red fills you with despair, and the beginning of each new day proves lethal, spend the Gems and catch a reprieve!",
+      "fortify" : "Fortify",
+      "cost4Gems" : "4 Gems",
+
+
+  "_commentsettings" : "SETTINGS MODALS",
+    "resetDo" : "Do it, reset my account!",
+    "fixValues" : "Fix Values",
+      "fixValuesText1" : "If you've encountered a bug or made a mistake that unfairly changed your character (damage you shouldn't have taken, Gold you didn't really earn, etc.), you can manually correct your numbers here. Yes, this makes it possible to cheat: use this feature wisely, or you'll sabotage your own habit-building!",
+      "fixValuesText2" : "Note that you cannot restore Streaks on individual tasks here. To do that, edit the Daily and go to Advanced Options, where you will find a Restore Streak field.",
+      "disabledWinterEvent" : "Disabled during Winter Wonderland Event Pt.4 (since the rewards are gold-purchaseable).",
+      "mana" : "Mana",
+      "fix21Streaks" : "21-Day Streaks",
+      "triggerDay" : "Trigger New Day",
+      "discardChanges" : "Discard Changes",
+    "deleteDo" : "Do it, delete my account!"
+
+
 
 }
