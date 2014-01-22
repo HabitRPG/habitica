@@ -39,3 +39,7 @@
   clear:right;
   margin-right: 10px;
 }
+
+[class*="Mount_Head_"], [class*="Mount_Body_"]{
+  margin-top:18px; /* Sprite accommodates 105x123 box */
+}
