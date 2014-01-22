@@ -588,7 +588,7 @@
 "newtaskeditpop" : "With this option set, new tasks will immediately open for you to add details like notes and tags.",
 "startcollapsed" : "Tag list in tasks starts collapsed",
 "startcollapsedpop" : "With this option set, the list of task tags will be hidden when you first open a task for editing.",
-"startacollapsed" : "Advanced Options in tasks start collapsed&nbsp;",
+"startacollapsed" : "Advanced Options in tasks start collapsed",
 "startacollapsedpop" : "With this option set, Advanced Options will be hidden when you first open a task for editing.",
 "showtour" : "Show Tour",
 "showtourpop1" : "Restart the introductory tour from when you first joined HabitRPG.",
