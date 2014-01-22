@@ -5,6 +5,7 @@
 var _ = require('lodash');
 var expect = require('expect.js');
 var async = require('async');
+var diff = require('deep-diff');
 var superagentDefaults = require('superagent-defaults');
 
 var request = superagentDefaults();
@@ -378,6 +379,35 @@ describe('API', function () {
                 }], done);
 
             });
+          })
+        });
+
+        it('Casts a spell', function(done){
+          var mp = user.stats.mp;
+          request.get(baseURL+'/members/'+party[0]._id).end(function(res){
+            party[0] = res.body;
+            request.post(baseURL+'/user/class/cast/snowball?targetType=user&targetId='+party[0]._id)
+            .end(function(res){
+              //expect(res.body.stats.mp).to.be.below(mp);
+              request.get(baseURL+'/members/'+party[0]._id).end(function(res){
+                var member = res.body;
+                expect(member.achievements.snowball).to.be(1);
+                expect(member.stats.buffs.snowball).to.be(true);
+                var difference = diff(member,party[0]);
+                expect(_.size(difference)).to.be(2);
+
+                // level up user so str is > 0
+                request.put(baseURL+'/user').send({'stats.lvl':5}).end(function(res){
+                  request.post(baseURL+'/user/class/cast/valorousPresence?targetType=party').end(function(res){
+                    request.get(baseURL+'/members/'+member._id).end(function(res){
+                      expect(res.body.stats.buffs.str).to.be.above(0);
+                      expect(diff(res.body,member).length).to.be(1);
+                      done();
+                    })
+                  })
+                })
+              })
+            })
           })
         });
 
