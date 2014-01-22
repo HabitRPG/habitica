@@ -81,6 +81,7 @@
     "expect.js": "~0.2.0",
     "superagent": "~0.15.7",
     "superagent-defaults": "~0.1.5",
-    "git-changelog": "colegleason/git-changelog"
+    "git-changelog": "colegleason/git-changelog",
+    "deep-diff": "~0.1.4"
   }
 }
