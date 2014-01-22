@@ -34,22 +34,27 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
       label.checkbox
         input(type='checkbox', ng-click='set({"preferences.hideHeader":user.preferences.hideHeader?false:true})', ng-checked='user.preferences.hideHeader!==true')
         =env.t('showHeader')
+        &nbsp;
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('showHeaderpop'))
       label.checkbox
         input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false')
         =env.t('stickyHeader')
+        &nbsp;
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('stickyHeaderpop'))
       label.checkbox
         input(type='checkbox', ng-model='user.preferences.newTaskEdit', ng-change='set({"preferences.newTaskEdit": user.preferences.newTaskEdit?true: false})')
         =env.t('newtaskedit')
+        &nbsp;
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('newtaskeditpop'))
       label.checkbox
         input(type='checkbox', ng-model='user.preferences.tagsCollapsed', ng-change='set({"preferences.tagsCollapsed": user.preferences.tagsCollapsed?true: false})')
         =env.t('startcollapsed')
+        &nbsp;
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startcollapsedpop'))
       label.checkbox
         input(type='checkbox', ng-model='user.preferences.advancedCollapsed', ng-change='set({"preferences.advancedCollapsed": user.preferences.advancedCollapsed?true: false})')
         =env.t('startacollapsed')
+        &nbsp;
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startacollapsedpop'))
       button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('showtourpop1'))= env.t('showtour')
       br
