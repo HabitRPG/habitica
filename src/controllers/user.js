@@ -437,10 +437,12 @@ api.batchUpdate = function(req, res, next) {
     api[_req.op](_req, res);
   };
 
+  res.locals.ops = [];
   // Setup the array of functions we're going to call in parallel with async
   var ops = _.transform(req.body, function(result, _req) {
     if (!_.isEmpty(_req)) {
       result.push(function(cb) {
+        res.locals.ops.push(_req);
         callOp(_req, cb);
       });
     }
