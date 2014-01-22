@@ -9,60 +9,60 @@
             .popover.static-popover.fade.right.in
               .arrow
               h3.popover-title
-                a(target='_blank', href='http://www.kickstarter.com/profile/2014640723') Daniel
+                a(target='_blank', href='http://www.kickstarter.com/profile/2014640723')=env.t('daniel')
               .popover-content
-                | Welcome to the Tavern! Stay a while and meet the locals. If you need to rest (going on vacation? sudden illness?), I'll set you up at the inn - Dailies won't hurt you while you're resting.
+                =env.t('danielText')
                 div
                   button.btn.btn-large.btn-success(ng-class='{active: user.preferences.sleep}', ng-click='User.user.ops.sleep({})')
-                    span(ng-show='user.preferences.sleep') Check Out of Inn
-                    span(ng-hide='user.preferences.sleep') Rest in the Inn
+                    span(ng-show='user.preferences.sleep')=env.t('innCheckOut')
+                    span(ng-hide='user.preferences.sleep')=env.t('innCheckIn')
     .alert.alert-info(ng-show='user.preferences.sleep')
-      | Whilst resting, your dailies are saved and aren't affected by day turn-over. Whether you check out tomorrow or in a week's time, you'll continue in the same state as when you checked in. Beware, though: if you are in a Quest, Bosses will still punish you for your fellow party members' mistakes!
+      =env.t('innText')
 
     // Resources
     .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
       .modal-header
-        h3 Resources
+        h3=env.t('ressources')
       .modal-body
         table.table.table-striped
           tr
             td
-              a(target='_blank', href='http://habitrpg.wikia.com/wiki/Board:Looking_for_a_Group_(LFG)') Looking for Group (Party Wanted) Posts
+              a(target='_blank', href='http://habitrpg.wikia.com/wiki/Board:Looking_for_a_Group_(LFG)')=env.t('lfgPosts')
           tr
             td
-              a(target='_blank', href='https://vimeo.com/57654086') Tutorial
+              a(target='_blank', href='https://vimeo.com/57654086')=env.t('tutorial')
           tr
             td
-              a(target='_blank', href='http://habitrpg.wikia.com/wiki/FAQ') FAQ
+              a(target='_blank', href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
           tr
             td
-              a(target='_blank', href='http://habitrpg.wikia.com/wiki/Glossary') Glossary
+              a(target='_blank', href='http://habitrpg.wikia.com/wiki/Glossary')=env.t('glossary')
           tr
             td
-              a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues') Report a Problem
+              a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues')=env.t('reportAP')
           tr
             td
-              a(target='_blank', href='https://trello.com/c/8gzGlle8') Request a Feature
+              a(target='_blank', href='https://trello.com/c/8gzGlle8')=env.t('requestAF')
           tr
             td
-              a(target='_blank', href='http://habitrpg.wikia.com/wiki/Special:Forum') Community Forum
+              a(target='_blank', href='http://habitrpg.wikia.com/wiki/Special:Forum')=env.t('community')
 
     // Player Tiers
-    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;', popover="Click tier labels for details.", popover-trigger="mouseenter", popover-placement="right")
+    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;', popover=env.t('tierPop'), popover-trigger="mouseenter", popover-placement="right")
       .modal-header
-        h3 Player Tiers
+        h3=env.t('playerTiers')
       .modal-body
         small.
-          <a href='/#/options/groups/hall'>Visit the Hall of Heroes (contributors and backers)</a> <br />
-          <a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'>Learn more about contributor rewards</a> <br />
-          <a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'>Learn how to contribute to HabitRPG</a>
+          <a href='/#/options/groups/hall'>=env.t('visitHeroes')</a> <br />
+          <a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'>=env.t('conLearn')</a> <br />
+          <a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'>=env.t('conLearnHow')</a>
         table.table.table-striped
           tr
             td
-              a.label.label-contributor-1(ng-click='toggleUserTier($event)') Friend (1-2)
+              a.label.label-contributor-1(ng-click='toggleUserTier($event)')=env.t('friend1')
               div(style='display:none;')
                 p.
-                  <span class='achievement achievement-firefox'></span> When your <strong>first</strong> submission is deployed, you will receive the HabitRPG Contributor's badge. Your name in Tavern chat will proudly display that you are a contributor. As a bounty for your work, you will also receive <strong>2 Gems</strong>.
+                  <span class='achievement achievement-firefox'></span> =env.t('friendtext1') + '<strong>' + =env.t('friend1text1') + '</strong> =env.t('friends1text2') + '<strong>' + =env.t('2gems') + '</strong>'.
                 hr
                 p.
                   <span class='shop_armor_special_1 shop-sprite item-img'></span> When your <strong>second</strong> submission is deployed, the <strong>Crystal Armor</strong> will be available for purchase in the Rewards shop. As a bounty for your continued work, you will also receive <strong>2 Gems</strong>.
@@ -105,12 +105,12 @@
     include ./challenge-box
 
   .span8(ng-controller='ChatCtrl')
-    h3 Tavern Talk
+    h3=env.t('taverntalk')
         include ./chat-box
         small(style='position: relative; top: -20px; left: 25px;')
             include ../../shared/formatting-help
         small(style='position: relative; top: 18px; left: 0px')
             alert.alert-info.
-                Note: if you're reporting a bug, the developers won't see it here. Please <a href='https://github.com/HabitRPG/habitrpg/issues' target='_blank'>use Github instead</a>.
+                =env.t('tavernalert1')+ '<a href='https://github.com/HabitRPG/habitrpg/issues' target='_blank'>' =env.t('tavernalert2') + '</a>'.
     ul.unstyled.tavern-chat
       include ./chat-message
