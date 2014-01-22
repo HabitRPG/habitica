@@ -5,11 +5,10 @@ div(modal='user.stats.hp <= 0', options='{backdrop:true, keyboard:false, backdro
         figure.notification-character
           .GrimReaper
       .span8
-        h2 You Died!
+        h2=env.t('deathTitle')
     .row-fluid
       .span4
         p
-          a.btn.btn-danger.btn-large.notification-action(ng-click='user.ops.revive({})') Continue
+          a.btn.btn-danger.btn-large.notification-action(ng-click='user.ops.revive({})')=env.t('continue')
       .span8
-        p
-          | You've lost a Level, all your Gold, and a random piece of Equipment. Arise, Habiteer, and try again! Curb those negative Habits, be vigilant in completion of Dailies, and hold death at arm's length with a Health Potion if you falter!
+        p=env.t('deathText')
