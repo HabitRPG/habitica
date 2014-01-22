@@ -31,18 +31,18 @@ div(modal='modals.achievements.beastMaster')
 
 // Contributor
 div(modal='user.flags.contributor')
- .modal-header
+  .modal-header
     h3=env.t('modalContribAchievement')
- .modal-body
-   .npc_justin.float-left
-   p
+  .modal-body
+    .npc_justin.float-left
+    p
       | {{user.profile.name}},
       =env.t('contribText1')
       | {{user.contributor.level}}
       =env.t('contribText2')
       a(href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank')=env.t('contribText3')
- .modal-footer
-   button.btn.btn-default.cancel(ng-click='set({"flags.contributor":false})')=env.t('ok')
+  .modal-footer
+    button.btn.btn-default.cancel(ng-click='set({"flags.contributor":false})')=env.t('ok')
 
 //Rebirth
 div(modal='modals.achievements.rebirth')
