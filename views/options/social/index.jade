@@ -14,37 +14,37 @@ script(type='text/ng-template', id='partials/options.social.party.html')
   div(ng-hide='group._id')
     div(ng-show='user.invitations.party.id')
       h2 You're Invited To {{user.invitations.party.name}}
-      a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)') Accept
-      a.btn.btn-danger(ng-click='reject()') Reject
+      a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)')=env.t('accept')
+      a.btn.btn-danger(ng-click='reject()')=env.t('reject')
     div(ng-hide='user.invitations.party.id')
-      h2 Create A Party
+      h2=env.t('createAParty')
       p
-        | You are not in a party. You can either create one and invite friends, or if you want to join an existing party, have them enter:
+        =env.t('noPartyText')
       pre.prettyprint.
         {{user.id}}
       include ./create-group
 
 script(type='text/ng-template', id='partials/options.social.guilds.public.html')
   div(ng-repeat='invitation in user.invitations.guilds')
-    h3 You're Invited To {{invitation.name}}
-    a.btn.btn-success(data-type='guild', ng-click='join(invitation)') Accept
-    a.btn.btn-danger(ng-click='reject(invitation)') Reject
+    h3=env.t('invitedTo') + '{{invitation.name}}'
+    a.btn.btn-success(data-type='guild', ng-click='join(invitation)')=env.t('accept')
+    a.btn.btn-danger(ng-click='reject(invitation)')=env.t('reject')
   // Public Groups
   .options-group.option-large.whatever-options
-    input.option-content(type='text',ng-model='guildSearch', placeholder='Search')
+    input.option-content(type='text',ng-model='guildSearch', placeholder=env.t('search'))
   table.table.table-striped
     tr(ng-repeat='group in groups.public | filter:guildSearch')
       td
         ul.pull-right.challenge-accordion-header-specs
-          li {{group.memberCount}} member(s)
+          li '{{group.memberCount}}' + =env.t('memberss')
           li
             // join / leave
             a.btn.btn-small.btn-danger(ng-show='group._isMember', ng-click='clickLeave(group, $event)')
               i.icon-ban-circle
-              | Leave
+              =env.t('leave')
             a.btn.btn-small.btn-success(ng-hide='group._isMember', ng-click='join(group)')
               i.icon-ok
-              | Join
+              =env.t('join')
         h4 {{group.name}}
         p {{group.description}}
 
@@ -58,13 +58,13 @@ script(type='text/ng-template', id='partials/options.social.guilds.html')
   ul.nav.nav-tabs
     li(ng-class="{ active: $state.includes('options.social.guilds.public') }")
       a(ui-sref='options.social.guilds.public')
-        | Public Guilds
+        =env.t('publicGuilds')
     li(ng-class="{ active: $stateParams.gid == group._id }", ng-repeat='group in groups.guilds')
       a(ui-sref="options.social.guilds.detail({gid:group._id})")
         | {{group.name}}
     li(ng-class="{ active: $state.includes('options.social.guilds.create') }")
       a(ui-sref='options.social.guilds.create')
-        | Create Guild
+        =env.t('createGuild')
 
   .tab-content
     .tab-pane.active
@@ -75,21 +75,21 @@ script(type='text/ng-template', id='partials/options.social.html')
     li(ng-class="{ active: $state.includes('options.social.tavern') }")
       a(ui-sref='options.social.tavern')
         i.icon-eye-close
-        | Tavern
+        =env.t('tavern')
     li(ng-class="{ active: $state.includes('options.social.party') }")
       a(ui-sref='options.social.party')
-        | Party
+        =env.t('party')
     li(ng-class="{ active: $state.includes('options.social.guilds') }")
       a(ui-sref='options.social.guilds')
-        | Guilds
+        =env.t('guilds')
     li(ng-class="{ active: $state.includes('options.social.challenges') }")
       a(ui-sref='options.social.challenges')
         i.icon-bullhorn
-        | Challenges
+        =env.t('challenges')
     li(ng-class="{ active: $state.includes('options.social.hall') }")
       a(ui-sref='options.social.hall')
         i.icon-flag
-        | Hall
+        =env.t('hall')
 
   .tab-content
     .tab-pane.active
