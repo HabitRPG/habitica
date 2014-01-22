@@ -10858,6 +10858,92 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         gp: 25,
         exp: 125
       }
+    },
+    vice1: {
+      text: "Free Yourself of the Dragon's Influence",
+      notes: "<p>They say there lies a terrible evil in the caverns of Mt. Habitica. A monster whose presence twists the wills of the strong heroes of the land, turning them towards bad habits and laziness! The beast is a grand dragon of immense power and comprised of the shadows themselves. Vice, the treacherous Shadow Wyrm. Brave Habiteers, stand up and defeat this foul beast once and for all, but only if you believe you can stand against its immense power. </p><h3>Vice Part 1: </h3><p>How can you expect to the fight the beast if it already has control over you? Don't fall victim to laziness and vice! Work hard to fight against the dragon's dark influence and dispel his hold on you! </p>",
+      value: 4,
+      lvl: 30,
+      boss: {
+        name: "Vice's Shade",
+        hp: 750,
+        str: 1.5
+      },
+      drop: {
+        items: [
+          {
+            type: 'quests',
+            key: "vice2",
+            text: "Vice Part 2 (Scroll)"
+          }
+        ],
+        gp: 20,
+        exp: 100
+      }
+    },
+    vice2: {
+      text: "Find the Lair of the Wyrm",
+      notes: "With Vice's influence over you dispelled, you feel a surge of strength you didn't know you had return to you. Confident in yourselves and your ability to withstand the wyrm's influence, your party makes it's way to Mt. Habitica. You approach the entrance to the mountain's caverns and pause. Swells of shadows, almost like fog, wisp out from the opening. It is near impossible to see anything in front of you. The light from your lanterns seem to end abruptly where the shadows begin. It is said that only magical light can pierce the dragon's infernal haze. If you can find enough light crystals, you could make your way to the dragon.",
+      value: 4,
+      lvl: 35,
+      previous: 'vice1',
+      collect: {
+        lightCrystal: {
+          text: 'Light Crystal',
+          count: 45
+        }
+      },
+      drop: {
+        items: [
+          {
+            type: 'quests',
+            key: 'vice3',
+            text: "Vice Part 3 (Scroll)"
+          }
+        ],
+        gp: 20,
+        exp: 75
+      }
+    },
+    vice3: {
+      text: "Vice Awakens",
+      notes: "After much effort, your party has discovered Vice's lair. The hulking monster eyes your party with distaste. As shadows swirl around you, a voice whispers through your head, \"More foolish citizens of Habitica come to stop me? Cute. You'd have been wise not to come.\" The scaly titan rears back its head and prepares to attack. This is your chance! Give it everything you've got and defeat Vice once and for all!",
+      completion: "The shadows dissipate from the cavern and a steely silence falls. My word, you've done it! You have defeated Vice! You and your party may finally breath a sigh of relief. Enjoy your victory, brave Habiteers, but take the lessons you've learned from battling Vice and move forward. There are still habits to be done and potentially worse evils to conquer!",
+      previous: 'vice2',
+      value: 4,
+      lvl: 40,
+      boss: {
+        name: "Vice, the Shadow Wyrm",
+        hp: 1500,
+        str: 3
+      },
+      drop: {
+        items: [
+          {
+            type: 'gear',
+            key: "weapon_special_2",
+            text: "Stephen Weber's Shaft of the Dragon"
+          }, {
+            type: 'eggs',
+            key: 'Dragon',
+            text: "Dragon (Egg)"
+          }, {
+            type: 'eggs',
+            key: 'Dragon',
+            text: "Dragon (Egg)"
+          }, {
+            type: 'hatchingPotions',
+            key: 'Shade',
+            text: "Shade Hatching Potion"
+          }, {
+            type: 'hatchingPotions',
+            key: 'Shade',
+            text: "Shade Hatching Potion"
+          }
+        ],
+        gp: 100,
+        exp: 1000
+      }
     }
   };
 
@@ -11639,7 +11725,7 @@ var process=require("__browserify_process");(function() {
             return typeof cb === "function" ? cb({
               code: 401,
               message: "Not enough gems."
-            }, req) : void 0;
+            }) : void 0;
           }
           user.balance--;
           _.each(user.tasks, function(task) {
@@ -11657,7 +11743,7 @@ var process=require("__browserify_process");(function() {
             return typeof cb === "function" ? cb({
               code: 401,
               message: "Not enough gems."
-            }, req) : void 0;
+            }) : void 0;
           }
           user.balance -= 2;
           lvl = user.stats.lvl;
@@ -11769,7 +11855,10 @@ var process=require("__browserify_process");(function() {
           var task, _ref;
 
           if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
-            return typeof cb === "function" ? cb("Task not found") : void 0;
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: "Task not found"
+            }) : void 0;
           }
           _.merge(task, _.omit(req.body, 'checklist'));
           if (req.body.checklist) {
@@ -11835,7 +11924,10 @@ var process=require("__browserify_process");(function() {
             id: tid
           });
           if (!~i) {
-            return typeof cb === "function" ? cb('Tag not found', req) : void 0;
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: 'Tag not found'
+            }) : void 0;
           }
           user.tags[i].name = req.body.name;
           return typeof cb === "function" ? cb(null, user.tags[i]) : void 0;
@@ -11848,7 +11940,10 @@ var process=require("__browserify_process");(function() {
             id: tid
           });
           if (!~i) {
-            return typeof cb === "function" ? cb('Tag not found', req) : void 0;
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: 'Tag not found'
+            }) : void 0;
           }
           tag = user.tags[i];
           delete user.filters[tag.id];
@@ -12187,7 +12282,10 @@ var process=require("__browserify_process");(function() {
             task.priority = 1;
           }
           if (task.value > stats.gp && task.type === 'reward') {
-            return typeof cb === "function" ? cb('Not enough Gold') : void 0;
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: 'Not enough Gold'
+            }) : void 0;
           }
           delta = 0;
           calculateDelta = function() {
