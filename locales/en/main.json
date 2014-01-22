@@ -640,6 +640,9 @@
     "payWithCard" : "Pay with Card",
     "payWithPaypal" : "Pay with Paypal",
       "paypalText" : "20 Gems, Disable Ads, Donation to the Developers",
+    "payRecommended" : "Recommended method.",
+    "payNote" : "Note: PayPal sometimes takes a long time to clear. We recommend paying with card if possible.",
+
 
 
   "_commentclasses" : "CLASSES MODALS",
