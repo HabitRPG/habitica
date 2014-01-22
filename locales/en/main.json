@@ -278,10 +278,10 @@
       "perfectText2" : " perfect days. With this achievement you get a +level/2 buff to all stats for the next day.",
     "ultimGearName" : "Ultimate Gear",
       "ultimGearText" : "Has upgraded to the maximum weapon and armor set",
-      "ultimGearUnlocked" : "You have earned the 'Ultimate Gear' Achievement for upgrading to the maximum gear set!",
+      "ultimGearUnlocked" : "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set!",
     "beastMastName" : "Beast Master",
       "beastMastText" : "Has found all 90 pets (insanely difficult, give this user props!)",
-      "beastMastUnlocked" : "You have earned the 'Beast Master' Achievement for collecting all the pets!",
+      "beastMastUnlocked" : "You have earned the \"Beast Master\" Achievement for collecting all the pets!",
     "rebirthBegan" : "Began a New Adventure",
       "rebirthText1" : "Began ",
       "rebirthText2" : " New Adventures",
@@ -666,7 +666,16 @@
 "polarBearPup" : "Polar Bear Cub",
 "hydra" : "Hydra",
 "rarePetPop1" : "Click the gold paw to learn more about how you can obtain this rare pet through contributing to HabitRPG!",
-"rarePetPop2" : "How to Get this Pet!"
+"rarePetPop2" : "How to Get this Pet!",
 
+"_commentmodalsachievements": "MODALSACHIEVEMENTS",
 
+"achievementEsclamation": "Achievement!",
+"streakerAchievement": "You have stacked your \"Streaker\" Achievement! Every 21 days of streak, you gain 1 achievement point here.",
+"contributorAchievementName": "Contributor Achievement!",
+"contributorText1": " you awesome person! You're now a level ",
+"contributorText2": " contributor for helping HabitRPG. See <a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'>what prizes you've earned for your contribution!</a>",
+"rebirthText1": "You've begun a new adventure! This is Rebirth ",
+"rebirthText2": " for you, and the highest Level you've attained is ",
+"rebirthText3": ". To stack this Achievement, begin your next new adventure when you've reached an even higher Level!"
 }
