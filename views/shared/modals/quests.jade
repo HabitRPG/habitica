@@ -2,21 +2,24 @@ script(id='partials/options.social.party.quest-rewards.html', type='text/ng-temp
   hr
   h5 {{header}}
   table.table.table-striped
-    tr
+    tr(ng-repeat='drop in quest.drop.items')
       td {{quest.drop.text}}
     tr
-      td {{quest.drop.exp}} Experience
+      td {{quest.drop.exp}} 
+        =env.t('experience')
     tr
-      td {{quest.drop.gp}} Gold
+      td {{quest.drop.gp}} 
+        =env.t('gold')
 
 div(modal='user.party.quest.completed', ng-controller='InventoryCtrl')
   .modal-header
-    h3 "{{Content.quests[user.party.quest.completed].text}}" Completed!
+    h3 "{{Content.quests[user.party.quest.completed].text}}" 
+      =env.t('completed')
   .modal-body
     p {{Content.quests[user.party.quest.completed].completion}}
-    quest-rewards(key='{{user.party.quest.completed}}', header="You've Received")
+    quest-rewards(key='{{user.party.quest.completed}}', header=env.t('youReceived'))
   .modal-footer
-    button.btn.btn-default.btn-primary(ng-click='set({"party.quest.completed":""})') Accept
+    button.btn.btn-default.btn-primary(ng-click='set({"party.quest.completed":""})')=env.t('accept')
 
 div(modal='modals.showQuest', ng-controller='InventoryCtrl')
   .modal-header
@@ -28,18 +31,19 @@ div(modal='modals.showQuest', ng-controller='InventoryCtrl')
     hr
     div(style='clear:left;clear:right')
       .npc_ian.pull-left
-      p Clicking "Invite" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Options > Social > Party.
+      p=env.t('questSend')
   .modal-footer
-    button.btn.btn-default.btn-small.btn-cancel(ng-click='closeQuest()') Cancel
-    button.btn.btn-default.btn-primary(ng-click='questInit()') Invite Party
+    button.btn.btn-default.btn-small.btn-cancel(ng-click='closeQuest()')=env.t('cancel')
+    button.btn.btn-default.btn-primary(ng-click='questInit()')=env.t('inviteParty')
 
 div(modal='party.quest.key && !party.quest.active && !questHold && party.quest.members[user._id] == undefined')
   .modal-header
-    h3 Quest Invitation: {{Content.quests[party.quest.key].text}}
+    h3=env.t('questInvitation')
+      | {{Content.quests[party.quest.key].text}}
   .modal-body
     p {{Content.quests[party.quest.key].notes}}
     quest-rewards(key='{{party.quest.key}}')
   .modal-footer
-    button.btn.btn-default.btn-small.btn-cancel(ng-click='questHold = true') Ask Later
-    button.btn.btn-default.btn-small.btn-cancel(ng-click='party.$questReject()') Reject
-    button.btn.btn-default.btn-primary(ng-click='party.$questAccept()') Accept
+    button.btn.btn-default.btn-small.btn-cancel(ng-click='questHold = true')=env.t('askLater')
+    button.btn.btn-default.btn-small.btn-cancel(ng-click='party.$questReject()')=env.t('reject')
+    button.btn.btn-default.btn-primary(ng-click='party.$questAccept()')=env.t('accept')

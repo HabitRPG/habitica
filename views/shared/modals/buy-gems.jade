@@ -1,7 +1,7 @@
 div(modal='modals.buyGems')
   .modal-header
     include ../gems
-    h3 Buy Gems / Donate
+    h3=env.t('buyGemsDonate')
 
   .modal-body
     table
@@ -12,28 +12,24 @@ div(modal='modals.buyGems')
           .popover.static-popover.fade.right.in.wide-popover
             .arrow
             h3.popover-title
-              a(target='_blank', href='https://twitter.com/bowenNstuff') Justin
+              a(target='_blank', href='https://twitter.com/bowenNstuff')=env.t('justin')
             .popover-content
-              p <span class='label label-info'>$5 USD</span> will:
+              p
+                span(class='label label-info')=env.t('fiveUSD1')
+                | 
+                =env.t('fiveUSD2')
               ul.modal-indented-list
-                li Add 20 gems to your account, which are used to buy special items.
-                li Disable ads.
-                li Donate to the developers (as an open source project, we can use all the help we can get).
+                li=env.t('donateText1')
+                li=env.t('donateText2')
+                li=env.t('donateText3')
     br
     .row-fluid
       .span6.well
-        h3 Pay with Card
-        .btn.btn-primary(ng-click='showStripe()') Pay with Card
-        br
-        br
-        small
-          .alert.alert-info Recommended method.
+        h3=env.t('payWithCard')
+        .btn.btn-primary(ng-click='showStripe()')=env.t('payWithCard')
       .span6.well
-        h3 Pay with PayPal
-        script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name='20 Gems, Disable Ads, Donation to the Developers', data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v2/user/buy-gems/paypal-ipn', data-env="#{env.NODE_ENV == 'production' ? '' : 'sandbox'}", data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-rm='1', data-no_shipping='1')
-        br
-        small
-          .alert Note: PayPal sometimes takes a long time to clear. We recommend paying with card if possible.
+        h3=env.t('payWithPaypal')
+        script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name=env.t('paypalText'), data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v2/user/buy-gems/paypal-ipn', data-env="#{env.NODE_ENV == 'production' ? '' : 'sandbox'}", data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-rm='1', data-no_shipping='1')
 
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.buyGems = false') Cancel
+    button.btn.btn-default.cancel(ng-click='modals.buyGems = false')=env.t('cancel')

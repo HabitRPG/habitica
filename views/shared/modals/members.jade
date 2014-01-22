@@ -11,9 +11,11 @@ div(ng-controller='MemberModalCtrl')
           markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
           ul.muted.unstyled(ng-if='profile.auth.timestamps', style='margin-top:10px;')
             li {{profile._id}}
-            li(ng-show='profile.auth.timestamps.created') - Member since {{timestamp(profile.auth.timestamps.created)}} -
-            li(ng-show='profile.auth.timestamps.loggedin') - Last logged in {{timestamp(profile.auth.timestamps.loggedin)}} -
-          h3 Stats
+            li(ng-show='profile.auth.timestamps.created')=env.t('memberSince')
+              | {{timestamp(profile.auth.timestamps.created)}} -
+            li(ng-show='profile.auth.timestamps.loggedin')=env.t('lastLoggedIn')
+              | {{timestamp(profile.auth.timestamps.loggedin)}} -
+          h3=env.t('stats')
           .label.label-info {{profile.stats.class}}
           include ../profiles/stats
         .span6
@@ -21,4 +23,4 @@ div(ng-controller='MemberModalCtrl')
           h3 Achievements
           include ../profiles/achievements
     .modal-footer
-      button.btn.btn-default(ng-click='modals.member = false') Ok
+      button.btn.btn-default(ng-click='modals.member = false')=env.t('ok')

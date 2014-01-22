@@ -1,20 +1,17 @@
 // Re-Roll modal
 div(modal='modals.reroll')
   .modal-header
-    h3 Fortify: Back to Yellow
+    h3=env.t('fortify')
   .modal-body
     include ../gems
-    p.
-      Fortify will return all your tasks to a neutral (yellow) state, as if you'd just added them, and top your Health
-      off to full. Consider this an option of last resort! Red tasks provide good incentive to improve. But if all that
-      red fills you with despair, and the beginning of each new day proves lethal, spend the Gems and catch a reprieve!
+    p=env.t('fortifyText')
 
   .modal-footer
-    button.btn.btn-large.cancel(ng-click='modals.reroll = false') Never mind
+    button.btn.btn-large.cancel(ng-click='modals.reroll = false')=env.t('neverMind')
     span(ng-if='user.balance < 1')
-      a.btn.btn-success.btn-large(ng-click="modals.buyGems = true") Buy More Gems
-      span.gem-cost Not enough Gems
+      a.btn.btn-success.btn-large(ng-click="modals.buyGems = true")=env.t('buyMoreGems')
+      span.gem-cost=env.t('notEnoughGems')
     span(ng-if='user.balance >= 1', ng-controller='SettingsCtrl')
-      a.btn.btn-danger.btn-large(ng-click='reroll()') Fortify
-      span.gem-cost 4 Gems
+      a.btn.btn-danger.btn-large(ng-click='reroll()')=env.t('fortify')
+      span.gem-cost=env.t('cost4Gems')
 
