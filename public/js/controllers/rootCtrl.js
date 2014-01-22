@@ -167,9 +167,11 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $event && ($event.stopPropagation(),$event.preventDefault());
       if ($scope.spell.target != type) return Notification.text("Invalid target");
       $scope.spell.cast(User.user, target);
-      var spell = $scope.spell;
       User.save();
-      $http.post('/api/v2/user/class/cast/' + spell.key, {target:target, type:type}).success(function(){
+      var spell = $scope.spell;
+      var targetId = type == 'party' ? '' : type == 'task' ? target.id : target._id;
+      $http.post('/api/v2/user/class/cast/' + spell.key, {params:{targetType:type, targetId:targetId}})
+      .success(function(){
         var msg = "You cast " + spell.text;
         switch (type) {
           case 'task': msg += ' on ' + target.text;break;
