@@ -175,7 +175,7 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
     img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
     span.muted(ng-hide='profile.profile.imageUrl')=env.t('none')
 
-    h4=env.t('displayblub')
+    h4=env.t('displayblurb')
     markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
     span.muted(ng-hide='profile.profile.blurb')=env.t('none')
     //{{profile.profile.blurb | linky:'_blank'}}

@@ -64,7 +64,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
       div(ng-if='user.preferences.disableClasses==true')
         button.btn(ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableclasspop'))= env.t('enableclass')
       div(ng-if='!user.preferences.disableClasses && user.flags.classSelected')
-        button.btn(ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showclasspop'))= env.t('showclass')
+        button.btn(ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classtourpop'))= env.t('showclass')
 
       //- Why is ng-if='user.auth.local' validating for users *without* user.auth.local (facebook users)? adding .username here for extra
       div(ng-if='user.auth.local.username')
