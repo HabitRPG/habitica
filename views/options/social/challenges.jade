@@ -85,8 +85,8 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
       .create-challenge-from.well(ng-if='newChallenge')
         form(ng-submit='save(newChallenge)')
           div
-            input.btn.btn-success(type='submit', value='Save')
-            input.btn.btn-danger(type='button', ng-click='discard()', value='Discard')
+            input.btn.btn-success(type='submit', value=env.t('save'))
+            input.btn.btn-danger(type='button', ng-click='discard()', value=env.t('discard'))
             select(ng-model='newChallenge.group', ng-required='required', name='Group', ng-options='g._id as g.name for g in groups')
           .challenge-options
             input.option-content(type='text', ng-model='newChallenge.name', placeholder=env.t('ChallengeTitle'), required='required')
