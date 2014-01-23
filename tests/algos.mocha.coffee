@@ -287,6 +287,25 @@ describe 'User', ->
       user.fns.randomVal.restore()
       user.fns.predictableRandom.restore()
 
+  describe 'Quests', ->
+    _.each shared.content.quests, (quest)->
+      it "#{quest.text} has valid values", ->
+        expect(quest.notes).to.be.an('string')
+        expect(quest.completion).to.be.an('string') if quest.completion
+        expect(quest.previous).to.be.an('string') if quest.previous
+        expect(quest.value).to.be.greaterThan 0
+        expect(quest.drop.gp).to.be.greaterThan 0
+        expect(quest.drop.exp).to.be.greaterThan 0
+        expect(quest.drop.items).to.be.an(Array)
+        if quest.boss
+          expect(quest.boss.name).to.be.an('string')
+          expect(quest.boss.hp).to.be.greaterThan 0
+          expect(quest.boss.str).to.be.greaterThan 0
+        else if quest.collect
+          _.each quest.collect, (collect)->
+            expect(collect.text).to.be.an('string')
+            expect(collect.count).to.be.greaterThan 0
+
 describe 'Simple Scoring', ->
   beforeEach ->
     {@before, @after} = beforeAfter()
