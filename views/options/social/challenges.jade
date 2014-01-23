@@ -1,8 +1,10 @@
 script(type='text/ng-template', id='partials/options.social.challenges.detail.close.html')
   a.btn.btn-small.btn-danger(ng-click="delete(closingChal)") Delete
   h5 - Or -
-  small Select a winner and close the challenge:
-  select(ng-model='closingChal.winner', name='Winner', ng-options='u._id as u.profile.name for u in closingChal.members', ng-change='selectWinner(closingChal)')
+  select(ui-select2, ng-required=true, ng-model='closingChal.winner', data-placeholder='Select winner, close challenge', ng-change='selectWinner(closingChal)', )
+    option(value='')
+    option(ng-repeat='u in closingChal.members', value='{{u._id}}') {{u.profile.name}}
+
   small.pull-right
     a(ng-click='cancelClosing(closingChal)') cancel
 
