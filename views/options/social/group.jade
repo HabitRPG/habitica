@@ -21,7 +21,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
               td {{group.quest.members[member._id] === true ? =env.t('accepted') : group.quest.members[member._id] === false ? =env.t('rejected') : =env.t('pending')}}
           hr
           .npc_ian.pull-left
-          p =env.t('queststart')
+          p =env.t('questStart')
           button.btn.btn-small.btn-warning(ng-if='!group.quest.leader || group.quest.leader==user._id', ng-click='party.$questAccept({"force":true})')=env.t('begin')
           //-TODO Cancel button
           //-TODO Both force-start & cancel should only be available to quest-initiator
