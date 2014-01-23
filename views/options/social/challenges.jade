@@ -42,6 +42,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
 
   // Member List
   div(bindonce='challenge', ng-if='challenge.members.length > 0')
+    a.btn.btn-primary.btn-small.pull-right(href='/api/v2/challenges/{{challenge._id}}/csv') Export to CSV
     h3 How's Everyone Doing?
     menu
       button.customize-option(ng-repeat='member in challenge.members', ng-click='toggleMember(challenge._id, member._id)') {{member.profile.name}}
