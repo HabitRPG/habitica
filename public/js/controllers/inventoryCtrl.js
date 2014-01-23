@@ -1,8 +1,7 @@
-habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
-  function($rootScope, $scope, $window, User) {
+habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User', 'Content',
+  function($rootScope, $scope, $window, User, Content) {
 
     var user = User.user;
-    var Content = $rootScope.Content;
 
     // convenience vars since these are accessed frequently
 
@@ -84,9 +83,6 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.purchase = function(type, item){
-      var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
-      if (!completedPrevious)
-        return alert("You must first complete " + $rootScope.Content.quests[item.previous].text + '.');
       var gems = User.user.balance * 4;
       if(gems < item.value) return $rootScope.modals.buyGems = true;
       var string = (type == 'hatchingPotion') ? 'hatching potion' : type; // give hatchingPotion a space
@@ -96,14 +92,15 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.choosePet = function(egg, potion){
-      var pet = egg + '-' + potion;
+      var petDisplayName = potion + " " + egg,
+      pet = egg + '-' + potion;
 
       // Feeding Pet
       if ($scope.selectedFood) {
         var food = $scope.selectedFood
         if (food.key == 'Saddle') {
           if (!$window.confirm('Saddle ' + pet + '?')) return;
-        } else if (!$window.confirm('Feed ' + pet + ' a ' + food.key + '?')) {
+        } else if (!$window.confirm('Feed ' + petDisplayName + ' '+ food.article + food.text + '?')) {
           return;
         }
         User.user.ops.feed({params:{pet: pet, food: food.key}});
@@ -120,7 +117,13 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.showQuest = function(quest) {
-      $rootScope.selectedQuest = Content.quests[quest];
+      var item =  Content.quests[quest];
+      var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
+      if (!completedPrevious)
+        return alert("You must first complete " + $rootScope.Content.quests[item.previous].text + '.');
+      if (item.lvl && item.lvl > user.stats.lvl)
+        return alert("You must be level " + item.lvl + '.');
+      $rootScope.selectedQuest = item;
       $rootScope.modals.showQuest = true;
     }
     $scope.closeQuest = function(){

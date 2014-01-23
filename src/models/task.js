@@ -15,6 +15,7 @@ var _ = require('lodash');
 var TaskSchema = {
   //_id:{type: String,'default': helpers.uuid},
   id: {type: String,'default': shared.uuid},
+  dateCreated: {type:Date, 'default':Date.now},
   text: String,
   notes: {type: String, 'default': ''},
   tags: {type: Schema.Types.Mixed, 'default': {}}, //{ "4ddf03d9-54bd-41a3-b011-ca1f1d2e9371" : true },
@@ -72,6 +73,7 @@ var TodoSchema = new Schema(
   _.defaults({
     type: {type:String, 'default': 'todo'},
     completed: {type: Boolean, 'default': false},
+    dateCompleted: Date,
     date: String, // due date for todos // FIXME we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date
     collapseChecklist:collapseChecklist,
     checklist:checklist

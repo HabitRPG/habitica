@@ -2,13 +2,13 @@ script(id='partials/options.settings.html', type="text/ng-template")
   ul.nav.nav-tabs
     li(ng-class="{ active: $state.includes('options.settings.settings') }")
       a(ui-sref='options.settings.settings')
-        | Settings
+        =env.t('settings')
     li(ng-class="{ active: $state.includes('options.settings.api') }")
       a(ui-sref='options.settings.api')
-        | API
+        =env.t('API')
     li(ng-class="{ active: $state.includes('options.settings.export') }")
       a(ui-sref='options.settings.export')
-        | Data Export
+        =env.t('dataexport')
 
   .tab-content
     .tab-pane.active
@@ -17,77 +17,94 @@ script(id='partials/options.settings.html', type="text/ng-template")
 script(type='text/ng-template', id='partials/options.settings.settings.html')
   .row-fluid
     .personal-options.span6
-      h2 Settings
-      h4 Custom Day Start
+      h2=env.t('settings')
+      h4=env.t('customDayStart')
       .option-group.option-short
         input.option-content.option-time(type='number', min='0', max='24', ng-model='user.preferences.dayStart', ng-change='saveDayStart()')
-        span.input-suffix :00 (24h clock)
+        span.input-suffix= ':00 (' + env.t('24HrClock') + ')'
       div
         small
-          div Habit defaults to check and reset your dailies at midnight in your time zone each day. You can customize the hour here (enter a number between 0 and 24).
+          div=env.t('clockInfo')
           .alert.alert-danger Warning: this is a highly-experimental feature, and many <a href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank'>experience issues</a> with it.
       hr
-      h4 Language
+      h4=env.t('language')
       select(ng-model='language.code', ng-options='lang.code as lang.name for lang in avalaibleLanguages', ng-change='changeLanguage()')
       hr
-      h4 Misc
+      h4=env.t('hideHeader')
       label.checkbox
         input(type='checkbox', ng-click='set({"preferences.hideHeader":user.preferences.hideHeader?false:true})', ng-checked='user.preferences.hideHeader!==true')
-        | Show Header
-        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover='Show your avatar, Health/Experience bars, and party.')
+        =env.t('showHeader')
+        &nbsp;
+        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('showHeaderpop'))
       label.checkbox
         input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false')
-        | Sticky Header
-        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover='Affix the header to the top of the screen. Unchecked means it scrolls out of view.')
-      button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover='Restart the introductory tour from when you first joined HabitRPG.') Show Tour
+        =env.t('stickyHeader')
+        &nbsp;
+        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('stickyHeaderpop'))
+      label.checkbox
+        input(type='checkbox', ng-model='user.preferences.newTaskEdit', ng-change='set({"preferences.newTaskEdit": user.preferences.newTaskEdit?true: false})')
+        =env.t('newtaskedit')
+        &nbsp;
+        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('newtaskeditpop'))
+      label.checkbox
+        input(type='checkbox', ng-model='user.preferences.tagsCollapsed', ng-change='set({"preferences.tagsCollapsed": user.preferences.tagsCollapsed?true: false})')
+        =env.t('startcollapsed')
+        &nbsp;
+        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startcollapsedpop'))
+      label.checkbox
+        input(type='checkbox', ng-model='user.preferences.advancedCollapsed', ng-change='set({"preferences.advancedCollapsed": user.preferences.advancedCollapsed?true: false})')
+        =env.t('startacollapsed')
+        &nbsp;
+        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startacollapsedpop'))
+      button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('showtourpop1'))= env.t('showtour')
       br
-      button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover='Bring Bailey the Town Crier out of hiding so you can review past news.') Show Bailey
+      button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showtourpop'))= env.t('showtour2')
       br
-      button.btn(ng-click='modals.restore = true', popover-trigger='mouseenter', popover-placement='right', popover='Manually change values like Health, Level, and Gold.') Fix Character Values
+      button.btn(ng-click='modals.restore = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixvalpop'))= env.t('fixval')
       div(ng-if='user.preferences.disableClasses==true')
-        button.btn(ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover="You opted out of the class system initially. Would you like now to opt-in?") Enable Class System
-      div(ng-if='!user.preferences.disableClasses')
-        button.btn(ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover="Show the tour for using the class system.") Show Classes Tour
+        button.btn(ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableclasspop'))= env.t('enableclass')
+      div(ng-if='!user.preferences.disableClasses && user.flags.classSelected')
+        button.btn(ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classtourpop'))= env.t('showclass')
 
       //- Why is ng-if='user.auth.local' validating for users *without* user.auth.local (facebook users)? adding .username here for extra
       div(ng-if='user.auth.local.username')
         hr
-        h4 Change Password
+        h4=env.t('changePass')
         form(ng-submit='changePassword(changePass)', ng-show='user.auth.local')
           .control-group
-            input(type='password', placeholder='Old Password', ng-model='changePass.oldPassword', required)
+            input(type='password', placeholder=env.t('oldPass'), ng-model='changePass.oldPassword', required)
           .control-group
-            input(type='password', placeholder='New Password', ng-model='changePass.newPassword', required)
+            input(type='password', placeholder=env.t('newPass'), ng-model='changePass.newPassword', required)
           .control-group
-            input(type='password', placeholder='Confirm New Password', ng-model='changePass.confirmNewPassword', required)
-          input.btn(type='submit', value='Submit')
+            input(type='password', placeholder=env.t('confirmPass'), ng-model='changePass.confirmNewPassword', required)
+          input.btn(type='submit', value=env.t('submit'))
 
       hr
-      h4 Danger Zone
-      a.btn.btn-danger(ng-click='modals.reset = true', popover-trigger='mouseenter', popover-placement='right', popover='Start over, removing all levels, gold, gear, history, and tasks.') Reset Account
-      a.btn.btn-danger(ng-click='modals.delete = true', popover-trigger='mouseenter', popover='Cancel and remove your HabitRPG account.') Delete Account
+      h4=env.t('dangerZone')
+      a.btn.btn-danger(ng-click='modals.reset = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetaccpop'))= env.t('resetaccount')
+      a.btn.btn-danger(ng-click='modals.delete = true', popover-trigger='mouseenter', popover=env.t('deleteaccpop'))= env.t('deleteaccount')
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
   .row.fluid
     .span6
-      h2 API
-      small Copy these for use in third party applications.
-      h6 User ID
+      h2=env.t('API')
+      small=env.t('APIText')
+      h6=env.t('userId')
       pre.prettyprint {{user.id}}
-      h6 API Token
+      h6=env.t('APIToken')
       pre.prettyprint {{user.apiToken}}
-      h6 QR Code
-      img(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7Baddress%3A%22https%3A%2F%2Fhabitrpg.com%22%2Cuser%3A%22{{user.id}}%22%2Ckey%3A%22{{user.apiToken}}%22%7D,&choe=UTF-8&chld=L', alt='qrcode')
+      h6=env.t('qrcode')
+      img(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
 
 script(id='partials/options.settings.export.html', type="text/ng-template")
   .row.fluid
     .span6
-      h2 Data Export
-      small Here are a few options for saving your Habit data.
-      h4 Habit History
-      Export History: &nbsp;
-      a(href="/export/history.csv") (CSV) &nbsp;
-      h4 User Data
-      Export User Data: &nbsp;
-      a(href="/export/userdata.xml") (XML) &nbsp;
-      a(href="/export/userdata.json") (JSON) &nbsp;
+      h2=env.t('dataexport')
+      small=env.t('dataexports')
+      h4=env.t('habithistory')
+      =env.t('exporthistory')
+      a(href="/export/history.csv")= ' ' + env.t('csv')
+      h4=env.t('userdata')
+      =env.t('exportuserdata')
+      a(href="/export/userdata.xml")= ' ' + env.t('xml') + ' '
+      a(href="/export/userdata.json")= env.t('json')

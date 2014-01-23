@@ -1,5 +1,5 @@
 .user-menu(ng-controller='AuthCtrl')
-  button.task-action-btn.tile.solid(ng-hide='authenticated()', style='cursor: pointer;', ng-click="modals.login = true") Login / Register
+  button.task-action-btn.tile.solid(ng-hide='authenticated()', style='cursor: pointer;', ng-click="modals.login = true")=env.t('loginAndReg')
   ul.nav.site-nav(ng-show='authenticated()')
     li.flyout
       h1.task-action-btn.tile.solid.user-reporter {{user.profile.name}}
@@ -8,21 +8,29 @@
           a.task-action-btn.tile.solid
             span(ng-show='$state.includes("options")', ui-sref='tasks')
               i.icon-ok
-              | Tasks
+              =env.t('tasks')
             span(ng-show='$state.includes("tasks")', ui-sref='options')
               i.icon.icon-wrench
-              |  Options
+              =env.t('options')
+        li 
+          a.task-action-btn.tile.solid(href="http://habitrpg.wikia.com/wiki/FAQ", target='_blank')
+            i.icon.icon-book
+            =env.t('FAQ')
+        li 
+          a.task-action-btn.tile.solid(href="https://vimeo.com/57654086", target='_blank')
+            i.icon.icon-film
+            =env.t('Tutorials')
         li
           a.task-action-btn.tile.solid(ng-click='User.sync()')
             i.icon.icon-refresh
-            |  Sync
+            =env.t('sync')
         li
           a.task-action-btn.tile.solid(ng-click='logout()')
             i.icon-share-alt
-            |  Logout
+            =env.t('logout')
     // party invitation notification
     a(ng-show='user.party.invitation', style='cursor: pointer;', x-bind='click:gotoPartyChat')
       i.icon-user
     // party chat notification
     a(ng-show='newChatMessages(_party.chat,user.party.lastMessageSeen)', style='cursor: pointer;', x-bind='click:gotoPartyChat')
-      i.icon-comment(tooltip='New Party Messages')
+      i.icon-comment(tooltip=env.t('partyNotification'))

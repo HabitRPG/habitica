@@ -7,6 +7,7 @@ var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var csv = require('express-csv');
 var api = module.exports;
 
 
@@ -63,6 +64,42 @@ api.get = function(req, res) {
       if (!challenge) return res.json(404, {err: 'Challenge ' + req.params.cid + ' not found'});
       res.json(challenge);
     })
+}
+
+api.csv = function(req, res) {
+  var cid = req.params.cid;
+  var challenge;
+  async.waterfall([
+    function(cb){
+      Challenge.findById(cid,cb)
+    },
+    function(_challenge,cb) {
+      challenge = _challenge;
+      if (!challenge) return cb('Challenge ' + cid + ' not found');
+      var elemMatch = {$elemMatch:{'challenge.id':cid}};
+      User.find(
+      {_id:{'$in':challenge.members}},
+      {todos:elemMatch,habits:elemMatch,dailys:elemMatch,rewards:elemMatch,_id:1,'profile.name':1},
+      cb);
+    }
+  ],function(err,users){
+    if(err) return res.json(500, {err:err});
+    var output = ['UUID','name'];
+    _.each(challenge.tasks,function(t){
+      output.push(t.type+':'+t.text);
+      output.push('Value');
+      output.push('Notes');
+    })
+    output = [output];
+    _.each(users, function(u){
+      var uData = [u._id,u.profile.name];
+      _.each(u.tasks,function(t){
+        uData = uData.concat(['', t.value, t.notes]);
+      })
+      output.push(uData);
+    });
+    res.csv(output);
+  })
 }
 
 api.getMember = function(req, res) {

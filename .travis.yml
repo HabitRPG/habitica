@@ -4,7 +4,7 @@ node_js:
 services:
   - mongodb
 before_script:
-  - 'npm install -g grunt-cli'
+  - 'npm install -g grunt-cli mocha'
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - cp config.json.example config.json

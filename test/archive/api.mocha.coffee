@@ -17,11 +17,11 @@ process.env.FACEBOOK_KEY = conf.get("FACEBOOK_KEY")
 process.env.FACEBOOK_SECRET = conf.get("FACEBOOK_SECRET")
 process.env.NODE_DB_URI = 'mongodb://localhost/habitrpg'
 
-User = require('../src/models/user').model
-Group = require('../src/models/group').model
-Challenge = require('../src/models/challenge').model
+User = require('../../src/models/user').model
+Group = require('../../src/models/group').model
+Challenge = require('../../src/models/challenge').model
 
-app = require '../src/server'
+app = require '../../src/server'
 
 ## monkey-patch expect.js for better diffs on mocha
 ## see: https://github.com/LearnBoost/expect.js/pull/34
@@ -97,7 +97,7 @@ describe 'API', ->
         cb null, res.body
 
   before (done)->
-    require '../src/server' #start the server
+    require '../../src/server' #start the server
     # then wait for it to do it's thing. TODO make a cb-compatible export of server
     setTimeout done, 2000
 

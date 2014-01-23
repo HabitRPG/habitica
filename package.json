@@ -6,7 +6,6 @@
   "dependencies": {
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared#develop",
     "connect-mongo": "*",
-    "passport-facebook": "~1.0.0",
     "express": "*",
     "gzippo": "*",
     "guid": "*",
@@ -33,7 +32,6 @@
     "bower": "~1.2.4",
     "nib": "~1.0.1",
     "jade": "~0.35.0",
-    "passport": "~0.1.17",
     "validator": "~1.5.1",
     "nodemailer": "~0.5.2",
     "grunt-cli": "~0.1.9",
@@ -43,7 +41,9 @@
     "js2xmlparser": "~0.1.2",
     "mongoose": "~3.8.1",
     "domain-middleware": "~0.1.0",
-    "swagger-node-express": "git://github.com/lefnire/swagger-node-express#habitrpg"
+    "swagger-node-express": "git://github.com/lefnire/swagger-node-express#habitrpg",
+    "passport": "~0.1.18",
+    "passport-facebook": "~1.0.2"
   },
   "private": true,
   "subdomain": "habitrpg",
@@ -80,6 +80,8 @@
     "mongoskin": "~0.6.1",
     "expect.js": "~0.2.0",
     "superagent": "~0.15.7",
-    "superagent-defaults": "~0.1.5"
+    "superagent-defaults": "~0.1.5",
+    "git-changelog": "colegleason/git-changelog",
+    "deep-diff": "~0.1.4"
   }
 }

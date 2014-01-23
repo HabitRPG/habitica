@@ -4,9 +4,9 @@
  * Services that persists and retrieves user from localStorage.
  */
 
-angular.module('memberServices', ['ngResource']).
-    factory('Members', ['$rootScope', 'API_URL', '$resource',
-      function($rootScope, API_URL, $resource) {
+angular.module('memberServices', ['ngResource', 'sharedServices']).
+    factory('Members', ['$rootScope', 'Shared', 'API_URL', '$resource',
+      function($rootScope, Shared, API_URL, $resource) {
         var members = {};
         var Member = $resource(API_URL + '/api/v2/members/:uid', {uid:'@_id'});
         var memberServices = {
@@ -65,10 +65,12 @@ angular.module('memberServices', ['ngResource']).
             // and then for guild)
             // and if not, fetch them
             if (members[uid] && members[uid].items && members[uid].items.weapon) {
+              Shared.wrap(members[uid],false);
               self.selectedMember = members[uid];
             } else {
               Member.get({uid: uid}, function(member){
                 self.populate(member); // lazy load for later
+                Shared.wrap(member,false);
                 self.selectedMember = members[member._id];
               });
             }

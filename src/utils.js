@@ -66,7 +66,8 @@ module.exports.errorHandler = function(err, req, res, next) {
     "\n\noriginalUrl: " + req.originalUrl +
     "\n\nauth: " + req.headers['x-api-user'] + ' | ' + req.headers['x-api-key'] +
     "\n\nheaders: " + JSON.stringify(req.headers) +
-    "\n\nbody: " + JSON.stringify(req.body);
+    "\n\nbody: " + JSON.stringify(req.body) +
+    (res.locals.ops ? "\n\ncompleted ops: " + JSON.stringify(res.locals.ops) : "");
   module.exports.sendEmail({
     from: "HabitRPG <" + nconf.get('SMTP_USER') + ">",
     to: nconf.get('ADMIN_EMAIL') || nconf.get('SMTP_USER'),

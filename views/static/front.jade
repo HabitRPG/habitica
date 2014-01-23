@@ -7,7 +7,7 @@ block title
   title=env.t('titleFront')
 
 block content
-  div(ng-app='habitrpg')
+  div(ng-app='habitrpgStatic')
     #wrap(ng-controller='AuthCtrl')
       //-include ./header
       .jumbotron.masthead
@@ -46,7 +46,7 @@ block content
                       //-.control-group
                         label.checkbox
                           input(type='checkbox', ng-click='useUUID = !useUUID')
-                          |  Use UUID / API Token (For Facebook Users)
+                          =env.t('useUUID')
                     .control-group
                       input.btn.btn-primary(type='submit', value=env.t('login'))
 

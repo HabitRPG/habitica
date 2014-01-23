@@ -4,6 +4,24 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    git_changelog: {
+        minimal: {
+            options: {
+                repo_url: 'https://github.com/habitrpg/habitrpg',
+                appName : 'HabitRPG',
+                branch_name: 'develop'
+            }
+        },
+        extended: {
+            options: {
+                file: 'EXTENDEDCHANGELOG.md',
+                repo_url: 'https://github.com/habitrpg/habitrpg',
+                appName : 'HabitRPG',
+                branch_name: 'develop',
+                grep_commits: '^perf|^style|^fix|^feat|^docs|^refactor|^chore|BREAKING'
+            }
+        }
+    },
 
     karma: {
       unit: {
@@ -36,7 +54,10 @@ module.exports = function(grunt) {
 
     copy: {
       build: {
-        files: [{expand: true, cwd: 'public/', src: 'favicon.ico', dest: 'build/'}]
+        files: [
+          {expand: true, cwd: 'public/', src: 'favicon.ico', dest: 'build/'},
+          {expand: true, cwd: 'public/', src: 'bower_components/habitrpg-shared/dist/spritesmith-*.png', dest: 'build/'}
+        ]
       }
     },
 
@@ -49,7 +70,8 @@ module.exports = function(grunt) {
         src: [
           'build/*.js', 'build/*.css', 'build/favicon.ico',
           'build/bower_components/bootstrap/docs/assets/css/*.css',
-          'build/bower_components/habitrpg-shared/dist/*.css'
+          'build/bower_components/habitrpg-shared/dist/*.css',
+          'build/bower_components/habitrpg-shared/dist/*.png'
         ],
         dest: 'make-sure-i-do-not-exist'
       }
@@ -57,7 +79,7 @@ module.exports = function(grunt) {
 
     nodemon: {
       dev: {
-        ignoredFiles: ['public/*', 'Gruntfile.js', 'views/*', 'build/*', '.idea*', '.git*']
+        ignoredFiles: ['public/*', 'Gruntfile.js', 'CHANGELOG.md', 'views/*', 'build/*', '.idea*', '.git*']
       }
     },
 
@@ -120,5 +142,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-hashres');
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('git-changelog');
 
 };

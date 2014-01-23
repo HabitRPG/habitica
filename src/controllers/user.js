@@ -322,14 +322,8 @@ api.buyGemsPaypalIPN = function(req, res, next) {
  */
 api.cast = function(req, res) {
   var user = res.locals.user;
-  var type, target;
-  if (req.body.type) { // this is the method implemented in the app, it's not correct
-    type = req.body.type;
-    target = req.body.target;
-  } else if (req.query.targetType) { // this is the supported API method
-    type = req.query.targetType;
-    target = req.query.targetId;
-  }
+  var targetType = req.query.targetType;
+  var targetId = req.query.targetId;
   var klass = shared.content.spells.special[req.params.spell] ? 'special' : user.stats.class
   var spell = shared.content.spells[klass][req.params.spell];
 
@@ -340,9 +334,9 @@ api.cast = function(req, res) {
     res.json(saved);
   }
 
-  switch (type) {
+  switch (targetType) {
     case 'task':
-      spell.cast(user, user.tasks[target.id]);
+      spell.cast(user, user.tasks[targetId]);
       user.save(done);
       break;
 
@@ -355,26 +349,26 @@ api.cast = function(req, res) {
     case 'user':
       async.waterfall([
         function(cb){
-          Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members').exec(cb);
+          Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members', 'profile.name stats achievements').exec(cb);
         },
         function(group, cb) {
           // Solo player? let's just create a faux group for simpler code
           var g = group ? group : {members:[user]};
           var series = [], found;
-          if (type == 'party') {
+          if (targetType == 'party') {
             spell.cast(user, g.members);
             series = _.transform(g.members, function(m,v,k){
               m.push(function(cb2){v.save(cb2)});
             });
           } else {
-            found = _.find(g.members, {_id: target._id})
+            found = _.find(g.members, {_id: targetId})
             spell.cast(user, found);
             series.push(function(cb2){found.save(cb2)});
           }
 
           if (group) {
             series.push(function(cb2){
-              var message = '`'+user.profile.name+' casts '+spell.text + (type=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
+              var message = '`'+user.profile.name+' casts '+spell.text + (targetType=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
               group.sendChat(message);
               group.save(cb2);
             })
@@ -437,10 +431,12 @@ api.batchUpdate = function(req, res, next) {
     api[_req.op](_req, res);
   };
 
+  res.locals.ops = [];
   // Setup the array of functions we're going to call in parallel with async
   var ops = _.transform(req.body, function(result, _req) {
     if (!_.isEmpty(_req)) {
       result.push(function(cb) {
+        res.locals.ops.push(_req);
         callOp(_req, cb);
       });
     }
@@ -451,12 +447,23 @@ api.batchUpdate = function(req, res, next) {
     res.json = oldJson;
     res.send = oldSend;
     if (err) return res.json(500, {err: err});
+
     var response = user.toJSON();
     response.wasModified = res.locals.wasModified;
+
+    // return only drops & streaks
     if (response._tmp && response._tmp.drop){
       res.json(200, {_tmp: {drop: response._tmp.drop}, _v: response._v});
+
+    // Fetch full user object
     }else if(response.wasModified){
+      // Preen 3-day past-completed To-Dos from Angular & mobile app
+      response.todos = _.where(response.todos, function(t) {
+        return !t.completed || (t.challenge && t.challenge.id) || moment(t.dateCompleted).isAfter(moment().subtract('days',3));
+      });
       res.json(200, response);
+
+    // return only the version number
     }else{
       res.json(200, {_v: response._v});
     }

@@ -127,7 +127,9 @@ angular.module('guideServices', []).
     $rootScope.$watch('user.flags.dropsEnabled', function(after, before) {
       if (alreadyShown(before, after)) return;
       var eggs = User.user.items.eggs || {};
-      eggs['Wolf'] = 1; // This is also set on the server
+      if (!eggs) {
+        eggs['Wolf'] = 1; // This is also set on the server
+      }
       $rootScope.modals.dropsEnabled = true;
     });
 
@@ -159,7 +161,7 @@ angular.module('guideServices', []).
           }),
           element: '.equipment-tab',
           title: "Class Gear",
-          content: "First: don't panic! Your old gear is in your inventory, and you're now wearing your apprentice <strong>" + User.user.stats.class + "</strong> equipment. Wearing your class's gear grants you a 1.5% bonus to stats. However, feel free to switch back to your old gear."
+          content: "First: don't panic! Your old gear is in your inventory, and you're now wearing your apprentice <strong>" + User.user.stats.class + "</strong> equipment. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear."
         },
         {
           path: '/#/options/profile/stats',

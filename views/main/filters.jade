@@ -13,7 +13,7 @@
             i.icon-trash
       a(ng-hide='_editing', ng-click='toggleFilter(tag)')
         i.icon-bullhorn(bo-if="tag.challenge")
-        | {{tag.name}}
+        markdown(ng-model='tag.name',style='display: inline-block')
     li
       form.form-inline(ng-show='_editing', ng-submit='createTag(_newTag)')
         .input-append.tag-editing

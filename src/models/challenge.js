@@ -82,6 +82,11 @@ ChallengeSchema.methods.syncToUser = function(user, cb) {
   var self = this;
   self.shortName = self.shortName || self.name;
 
+  // Add challenge to user.challenges
+  if (!_.contains(user.challenges, self._id)) {
+      user.challenges.push(self._id);
+  }
+
   // Sync tags
   var tags = user.tags || [];
   var i = _.findIndex(tags, {id: self._id})

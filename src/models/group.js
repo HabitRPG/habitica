@@ -129,9 +129,7 @@ GroupSchema.statics.cleanQuestProgress = cleanQuestProgress;
 // Participants: Grant rewards & achievements, finish quest
 GroupSchema.methods.finishQuest = function(quest, cb) {
   var group = this;
-
   var questK = quest.key;
-  var dropK = quest.drop.key;
   var updates = {$inc:{},$set:{}};
 
   updates['$inc']['achievements.quests.' + questK] = 1;
@@ -140,23 +138,26 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   updates['$inc']['_v'] = 1;
   updates['$set']['party.quest'] = cleanQuestProgress({completed:questK});
 
-  switch (quest.drop.type) {
-    case 'gear':
-      // TODO This means they can lose their new gear on death, is that what we want?
-      updates['$set']['items.gear.owned.'+dropK] = true;
-      break;
-    case 'eggs':
-    case 'food':
-    case 'hatchingPotions':
-      updates['$inc']['items.'+quest.drop.type+'.'+dropK] = 1;
-      break;
-    case 'pets':
-      updates['$set']['items.pets.'+dropK] = 5;
-      break;
-    case 'mounts':
-      updates['$set']['items.mounts.'+dropK] = true;
-      break;
-  }
+  _.each(quest.drop.items, function(item){
+    var dropK = item.key;
+    switch (item.type) {
+      case 'gear':
+        // TODO This means they can lose their new gear on death, is that what we want?
+        updates['$set']['items.gear.owned.'+dropK] = true;
+        break;
+      case 'eggs':
+      case 'food':
+      case 'hatchingPotions':
+        updates['$inc']['items.'+item.type+'.'+dropK] = _.where(quest.drop.items,{type:item.type,key:item.key}).length;
+        break;
+      case 'pets':
+        updates['$set']['items.pets.'+dropK] = 5;
+        break;
+      case 'mounts':
+        updates['$set']['items.mounts.'+dropK] = true;
+        break;
+    }
+  })
   var members = _.keys(group.quest.members);
   group.quest = {};group.markModified('quest');
   // FIXME this is TERRIBLE practice. Looks like there are circular dependencies in the models, such that `var User` at
@@ -222,7 +223,7 @@ GroupSchema.statics.bossQuest = function(user, progress, cb) {
 
     // Boss slain, finish quest
     if (group.quest.progress.hp <= 0) {
-      group.sendChat('`' + quest.boss.name + ' has been slain! Party has received their rewards.`');
+      group.sendChat('`You defeated ' + quest.boss.name + '! Questing party members receive the rewards of victory.`');
       // Participants: Grant rewards & achievements, finish quest
       series.push(function(cb2){
         group.finishQuest(quest,cb2);

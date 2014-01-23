@@ -6,9 +6,9 @@ describe('memberServices', function() {
   beforeEach(module('memberServices'));
   beforeEach(module('habitrpg'));
   
-  beforeEach(inject(function(_$httpBackend_, Members) {
-      $httpBackend = _$httpBackend_;
-      members = Members;
+  beforeEach(inject(function (_$httpBackend_, Members) {
+    $httpBackend = _$httpBackend_;
+    members = Members;
   }));
 
   it('has no members at the beginning', function() {

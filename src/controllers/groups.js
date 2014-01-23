@@ -6,6 +6,7 @@ var async = require('async');
 var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
+var Challenge = require('./../models/challenge').model;
 var api = module.exports;
 
 /*
@@ -194,12 +195,18 @@ api.update = function(req, res, next) {
 }
 
 api.attachGroup = function(req, res, next) {
-  Group.findById(req.params.gid, function(err, group){
+  var gid = req.params.gid;
+  var q = (gid == 'party') ? Group.findOne({type: 'party', members: {'$in': [res.locals.user._id]}}) : Group.findById(gid);
+  q.exec(function(err, group){
     if(err) return res.json(500, {err:err});
     if(!group) return res.json(404, {err: "Group not found"});
     res.locals.group = group;
     next();
   })
+}
+
+api.getChat = function(req, res, next) {
+  return res.json(res.locals.group.chat);
 }
 
 /**
@@ -303,6 +310,8 @@ api.join = function(req, res) {
 api.leave = function(req, res, next) {
   var user = res.locals.user,
     group = res.locals.group;
+  // When removing the user from challenges, should we keep the tasks?
+  var keep = (/^remove-all/i).test(req.query.keep) ? 'remove-all' : 'keep-all';
   async.parallel([
     // Remove active quest from user if they're leaving the party
     function(cb){
@@ -310,6 +319,38 @@ api.leave = function(req, res, next) {
       user.party.quest = Group.cleanQuestProgress();
       user.save(cb);
     },
+    // Remove user from group challenges
+      function(cb){
+        async.waterfall([
+        // Find relevant challenges
+          function(cb) {
+            Challenge.find({$and:[
+              {_id: {$in: user.challenges}}, // Challenges I am in
+              {group: group._id}, // that belong to the group I am leaving
+            ]}, cb);
+          },
+          function(challenges, cb) {
+            // Update each challenge
+            Challenge.update({_id:{$in: _.pluck(challenges, '_id')}},
+                             {$pull:{members:user._id}},
+                             {multi: true}, function(err) {
+                               if (err) return cb(err);
+                               cb(null, challenges);
+                             });
+          },
+          function(challenges, cb) {
+            // Unlink the challenge tasks from user
+            async.waterfall(challenges.map(function(chal) {
+              return function(cb) {
+                var i = user.challenges.indexOf(chal._id)
+                if (~i) user.challenges.splice(i,1);
+                user.unlink({cid:chal._id, keep:keep}, function(err){
+                  if (err) return cb(err);
+                  cb(null);
+                });
+             }}), cb);
+          }], cb);
+      },
     function(cb){
       var update = {$pull:{members:user._id}};
       if (group.type == 'party' && group.quest.key){
@@ -459,7 +500,12 @@ questStart = function(req, res) {
     if (m == group.quest.leader)
       updates['$inc']['items.quests.'+key] = -1;
     if (group.quest.members[m] == true) {
-      updates['$set']['party.quest'] = Group.cleanQuestProgress({key:key,progress:{collect:collected}});
+      // See https://github.com/HabitRPG/habitrpg/issues/2168#issuecomment-31556322 , we need to *not* reset party.quest.progress.up
+      //updates['$set']['party.quest'] = Group.cleanQuestProgress({key:key,progress:{collect:collected}});
+      updates['$set']['party.quest.key'] = key
+      updates['$set']['party.quest.progress.down'] = 0;
+      updates['$set']['party.quest.progress.collect'] = collected;
+      updates['$set']['party.quest.completed'] = null;
       questMembers[m] = true;
     } else {
       updates['$set']['party.quest'] = Group.cleanQuestProgress();

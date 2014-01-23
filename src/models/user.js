@@ -40,7 +40,8 @@ var UserSchema = new Schema({
     challenges: Array,
     quests: Schema.Types.Mixed,
     rebirths: Number,
-    rebirthLevel: Number
+    rebirthLevel: Number,
+    perfect: Number
   },
   auth: {
     facebook: Schema.Types.Mixed,
@@ -208,7 +209,7 @@ var UserSchema = new Schema({
   },
   preferences: {
     armorSet: String,
-    dayStart: {type:Number, 'default': 0},
+    dayStart: {type:Number, 'default': 0, min: 0, max: 24},
     size: {type:String, enum: ['broad','slim'], 'default': 'broad'},
     hair: {
       color: {type: String, 'default': 'blond'},
@@ -227,7 +228,10 @@ var UserSchema = new Schema({
     costume: Boolean,
     sleep: {type: Boolean, 'default': false},
     stickyHeader: {type: Boolean, 'default': true},
-    disableClasses: {type: Boolean, 'default': false}
+    disableClasses: {type: Boolean, 'default': false},
+    newTaskEdit: {type: Boolean, 'default': false},
+    tagsCollapsed: {type: Boolean, 'default': false},
+    advancedCollapsed: {type: Boolean, 'default': false}
   },
   profile: {
     blurb: String,
