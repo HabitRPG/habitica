@@ -38,8 +38,9 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
 
           // Special Events
           li.customize-menu.well.limited-edition
-            .label.label-info.pull-right(popover='Available for purchase until January 31st (but permanently in your options if purchased).', popover-title='Limited Edition', popover-placement='right', popover-trigger='mouseenter')
+            .label.label-info.pull-right(popover=env.t('limited31Jan'), popover-title=env.t('limitededition'), popover-placement='right', popover-trigger='mouseenter')
               =env.t('limitededition')
+              | 
               i.icon.icon-question-sign
             menu(label=env.t('wintercolors'))
               each color in ['candycane','frost','winternight','holly']
@@ -117,17 +118,17 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
     .span4.border-right.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
       h3=env.t('characterbuild')
       h4
-        =env.t('class') + ':'
-        span {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[user.stats.class] }}&nbsp;
+        =env.t('class') + ': '
+        span {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[user.stats.class] }} 
         a.btn.btn-danger.btn-mini(ng-click='changeClass(null)')=env.t('changeclass')
         small 3 <span class="Pet_Currency_Gem1x inline-gems"/>
       table.table.table-striped
         tr
           td
             strong
-              {{user.stats.points}}&nbsp;
+              {{user.stats.points}} 
               =env.t('unallocated')
-            &nbsp;
+              | 
             i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('levelpopover'))
           td
         tr
@@ -136,23 +137,19 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
               label.checkbox
                 input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})', ng-click='set({"preferences.allocationMode":"taskbased"})')
                 =env.t('automaticallocation')
-                &nbsp;
                 i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('automaticallocationpopover'))
               form(ng-show='user.preferences.automaticAllocation',style='margin-left:1em')
                 label.radio
                   input(type='radio', name='allocationMode', value='flat', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "flat"})')
                   =env.t('evenallocation')
-                  &nbsp;
                   i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('evenallocationpopover'))
                 label.radio
                   input(type='radio', name='allocationMode', value='classbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "classbased"})')
                   =env.t('classallocation')
-                  &nbsp;
                   i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('classallocationpopover'))
                 label.radio
                   input(type='radio', name='allocationMode', value='taskbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "taskbased"})')
                   =env.t('taskallocation')
-                  &nbsp;
                   i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskallocationpopover'))
         tr
           td= env.t('allocatestr') + ' {{user.stats.str}}'
