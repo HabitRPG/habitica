@@ -552,6 +552,7 @@ module.exports = (swagger, v2) ->
       middleware: [auth.auth]
       action: challenges.list
 
+
     "/challenges:POST":
       spec:
         path: '/challenges'
@@ -567,6 +568,12 @@ module.exports = (swagger, v2) ->
         description: 'Get a challenge'
         parameters: [path('cid','Challenge id','string')]
       action: challenges.get
+
+    "/challenges/{cid}/csv":
+      spec:
+        description: 'Get a challenge (csv format)'
+        parameters: [path('cid','Challenge id','string')]
+      action: challenges.csv
 
     "/challenges/{cid}:POST":
       spec:
