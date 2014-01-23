@@ -19,7 +19,7 @@ form.form-horizontal(ng-submit='create(newGroup)')
         input.btn(type='submit', ng-disabled='!newGroup.privacy && !newGroup.name', value=env.t('create'))
         span.gem-cost '4' + =env.t('gems')
         p
-          small=env.t('gemcost')
+          small=env.t('gemCost')
     .control-group(ng-show='type=="party"')
       .controls
         input.btn(type='submit', value=env.t('create'))
