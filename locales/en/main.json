@@ -871,6 +871,7 @@
 "conTitle" : "Contributor Title (eg, \"Blacksmith\")",
 "conLevel" : "Contrib Level",
 "conText" : "[1-7] this determines which items, pets, and mounts are available. Also determines name-tag coloring.",
+"title": "Title",
 "moreDetails" : "More details",
 "contributions" : "Contributions",
 "admin" : "Admin",
