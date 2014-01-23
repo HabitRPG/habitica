@@ -49,7 +49,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
         .control-group.option-medium
           label.checkbox
             input(type='checkbox', ng-model='hero.purchased.ads')
-            =env.t('hideads')
+            =env.t('hideAds')
 
       // h4 Backer Status
       // Add backer stuff like tier, disable adds, etcs
@@ -86,7 +86,7 @@ script(type='text/ng-template', id='partials/options.social.hall.patrons.html')
         tr
           th =env.t('name')
           th(ng-if='user.contributor.admin')=env.t('UUID')
-          th =env.t('backertier')
+          th =env.t('backerTier')
     tr(ng-repeat='patron in patrons')
       td
         a.label(class='label-contributor-{{patron.contributor.level}}', ng-class='{"label-npc": patron.backer.npc}', ng-click='clickMember(patron._id, true)') {{patron.profile.name}}
