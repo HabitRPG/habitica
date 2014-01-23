@@ -804,12 +804,12 @@
 "either" : "Either",
 "createChallenge" : "Create Challenge",
 "discard" : "Discard",
-"challengeTitle" : "Challenge Title"
+"challengeTitle" : "Challenge Title",
 "challengeTag" : "Tag Name",
 "challengeTagPop" : "Challenges appear on tag-lists & task-tooltips. So while you'll want a descriptive title above, you'll also need a 'short name'. Eg, 'Lose 10 pounds in 3 months' might become '-10lb' (Click the '?' for more info).",
 "challengeDescr" : "Description",
 "prize" : "Prize",
-"prizePop" : "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later."",
+"prizePop" : "If someone can 'win' your challenge, you can optionally award that winner a Gem prize. Max = #gems you own (+ guild.gems, if you created this challenge's guild). Note: This prize can't be changed later.",
 "min1Gem" : "Minimum 1 Gem for",
 "publicChallenges" : "public challenges",
 "helpsPrevent" : "(helps prevent spam, it really does).",
@@ -839,7 +839,7 @@
 "accepted" : "Accepted",
 "rejected" : "Rejected",
 "pending" : "Pending",
-"questStart" : "Once all members have either accepted or rejected, the quest begins. Only those that clicked "accept" will be able to participate in the quest and recieve the drops. If members are pending too long (inactive?), you can start without them by clicking "Begin".",
+"questStart" : "Once all members have either accepted or rejected, the quest begins. Only those that clicked \"accept\" will be able to participate in the quest and recieve the drops. If members are pending too long (inactive?), you can start without them by clicking \"Begin\".",
 "begin" : "Begin",
 "bossHP" : "Boss Health",
 "collected" : "Collected",
@@ -867,7 +867,7 @@
 "rewardUser" : "Reward User",
 "UUID" : "UUID",
 "loadUser" : "Load User",
-"conTitle" : "Contributor Title (eg, "Blacksmith")",
+"conTitle" : "Contributor Title (eg, \"Blacksmith\")",
 "conLevel" : "Contrib Level",
 "conText" : "[1-7] this determines which items, pets, and mounts are available. Also determines name-tag coloring.",
 "moreDetails" : "More details",
@@ -941,8 +941,8 @@
 "npcText" : "NPCs backed HabitRPG's Kickstarter at the highest tier. You can find their avatars watching over site features!",
 
 
-"_sharedheaderavatar" : "HEADER AVATAR"
-"lvl" : "Lvl"
+"_sharedheaderavatar" : "HEADER AVATAR",
+"lvl" : "Lvl",
 "buffed" : "Buffed",
 "reborn" : "Reborn, max level"
 
