@@ -59,48 +59,48 @@
         table.table.table-striped
           tr
             td
-              a.label.label-contributor-1(ng-click='toggleUserTier($event)')=env.t('friend1')
+              a.label.label-contributor-1(ng-click='toggleUserTier($event)')=env.t('friendBadge')
               div(style='display:none;')
                 p.
-                  <span class='achievement achievement-firefox'></span> =env.t('friendtext1') + '<strong>' + =env.t('friend1text1') + '</strong> =env.t('friends1text2') + '<strong>' + =env.t('2gems') + '</strong>'.
+                  <span class='achievement achievement-firefox'></span> =env.t('friendText') + '<strong>' + =env.t('first') + '</strong> =env.t('friends1Text') + '<strong>' + =env.t('2gems') + '</strong>' + '.'
                 hr
                 p.
-                  <span class='shop_armor_special_1 shop-sprite item-img'></span> When your <strong>second</strong> submission is deployed, the <strong>Crystal Armor</strong> will be available for purchase in the Rewards shop. As a bounty for your continued work, you will also receive <strong>2 Gems</strong>.
+                  <span class='shop_armor_special_1 shop-sprite item-img'></span> =env.t('friendText') + '<strong>' + =env.t('second') + '</strong>' + =env.t('friendsText2') + '<strong>' + =env.t('crystalArmor') + '</strong>' + =env.t('friendText3') + '<strong>' + =env.t('2gems') + '</strong>' + '.'
           tr
             td
-              a.label.label-contributor-3(ng-click='toggleUserTier($event)') Elite (3-4)
+              a.label.label-contributor-3(ng-click='toggleUserTier($event)')=env.t('eliteBadge')
               div(style='display:none;')
                 p.
-                 <span class='shop_head_special_1 shop-sprite item-img'></span> When your <strong>third</strong> submission is deployed, the <strong>Crystal Helmet</strong> will be available for purchase in the Rewards shop. As a bounty for your great work, you will also receive <strong>2 Gems</strong>.
+                 <span class='shop_head_special_1 shop-sprite item-img'></span> =env.t('friendText') + '<strong>' + =env.t('third') + '</strong>' =env.t('friendText2') + '<strong>' + =env.t('crystalHelmet') + '</strong>' + =env.t('friendText3') + '<strong>' + =env.t('2gems') + '</strong>' + '.'
                 hr
                 p.
-                  <span class='shop_weapon_special_1 shop-sprite item-img'></span> When your <strong>fourth</strong> submission is deployed, the <strong>Crystal Sword</strong> will be available for purchase in the Rewards shop. You will once again receive a bounty of <strong>2 Gems</strong>.
+                  <span class='shop_weapon_special_1 shop-sprite item-img'></span> =env.t('friendText') + '<strong>' + =env.t('fourth') + '</strong>' + =env.t('friendText2') + '<strong>' + env.t('crystalSword') + '</strong>' + =env.t('friendText3') + '<strong>' + =env.t('2gems') + '</strong>' + '.'
 
           tr
             td
-              a.label.label-contributor-5(ng-click='toggleUserTier($event)') Champion (5-6)
+              a.label.label-contributor-5(ng-click='toggleUserTier($event)')=env.t('championBadge')
               div(style='display:none;')
                 p.
-                  <span class='shop_shield_special_1 shop-sprite item-img'></span> When your <em>fifth</em> submission is deployed, the <strong>Crystal Shield</strong> will be available for purchase in the Rewards shop. You will also receive <strong>2 Gems</strong>.
+                  <span class='shop_shield_special_1 shop-sprite item-img'></span> =env.t('friendText') + '<em>' + env.t('fifth') + '</em>' + =env.t('friendText2') + '<strong>' + =env.t('crystalShield') + '</strong>' + =env.t('friendText3') + '<strong>' + =env.t('2gems') + '</strong>' + '.'
                 hr
                 p.
-                 <div class='Pet-Dragon-Hydra pull-left'></div> When your <em>sixth</em> submission is deployed, you will receive a <strong>Hydra Pet</strong>. You will also receive <strong>2 Gems</strong>.
+                 <div class='Pet-Dragon-Hydra pull-left'></div> =env.t('friendText') + '<em>' + =env.t('sixth') + '</em>' + =env.t('friendText2b') + '<strong>' + =env.t('hydraPet') + '</strong>' + =env.t('friendText3b') + '<strong>' + =env.t('2gems') + '</strong>' + '.'
           tr
             td
-              a.label.label-contributor-7(ng-click='toggleUserTier($event)') Legendary (7)
+              a.label.label-contributor-7(ng-click='toggleUserTier($event)')=env.t('legendaryBadge')
               div(style='display:none;')
                 p.
-                  When your <em>seventh</em> submission is deployed, you will receive <strong>2 Gems</strong> and become a member of the honored Contributor's Guild and be privy to the behind-the-scenes details of HabitRPG! Further contributions do not increase your level, but you may continue to earn Gem bounties and titles.
+                  =env.t('friendText') + '<em>' + =env.t('seventh') + '</em>' + =env.t('friendText2c') + '<strong>' + =env.t('2gems') + '</strong>' + =env.t('friendsText3c')
           tr
             td
-              a.label.label-contributor-8(ng-click='toggleUserTier($event)') Heroic
+              a.label.label-contributor-8(ng-click='toggleUserTier($event)')=env.t('heroicBadge')
               div(style='display:none;')
-                p The Heroic level contains HabitRPG staff and staff-level contributors. If you have this title, you were appointed to it (or hired!).
+                p=env.t('heroicText') 
           tr
             td
-              a.label.label-npc(ng-click='toggleUserTier($event)') NPC
+              a.label.label-npc(ng-click='toggleUserTier($event)')=env.t('npcBadge')
               div(style='display:none;')
-                p NPCs backed HabitRPG's Kickstarter at the highest tier. You can find their avatars watching over site features!
+                p=env.t('npcText')
 
     include ./challenge-box
 
