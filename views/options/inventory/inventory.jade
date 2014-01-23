@@ -47,7 +47,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
             p.muted(ng-show='questCount < 1')=env.t('noScrolls')
             p.muted!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
             div(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]')
-              button.customize-option(popover=('{{quest.previous && !user.achievements.quests[quest.previous] ? "' + env.t('scrollsPre') + '" : quest.notes}}'), popover-title='{{quest.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='showQuest(quest_key)', class='inventory_quest_scroll', ng-class='{locked: quest.previous && !user.achievements.quests[quest.previous]}')
+              button.customize-option(popover="{{quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes}}", popover-title='{{quest.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='showQuest(quest_key)', class='inventory_quest_scroll', ng-class='{locked: quest.previous && !user.achievements.quests[quest.previous]}')
                 .badge.badge-info.stack-count {{points}}
 
         li.customize-menu
