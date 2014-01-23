@@ -27,6 +27,8 @@ module.exports = function(config) {
       'public/bower_components/angular-mocks/angular-mocks.js',
       'public/bower_components/angular-bindonce/bindonce.js',
       'public/bower_components/ngInfiniteScroll/ng-infinite-scroll.js',
+      "public/bower_components/select2/select2.js",
+      "public/bower_components/angular-ui-select2/src/select2.js",
       'public/bower_components/marked/lib/marked.js',
       'public/bower_components/js-emoji/emoji.js',
       'public/bower_components/habitrpg-shared/dist/habitrpg-shared.js',
