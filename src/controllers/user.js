@@ -114,6 +114,12 @@ api.getTask = function(req, res, next) {
   return res.json(200, task);
 };
 
+/**
+ * Get an ICS calender containing all tasks
+ */
+api.getTaskCalendar = function(req, res, next) {
+  // Stuff goes here
+};
 
 /*
   Update Task
