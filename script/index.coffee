@@ -188,9 +188,13 @@ api.taskDefaults = (task={}) ->
   task.priority = 1 unless _.isNumber(task.priority) # hotfix for apiv1. once we're off apiv1, we can remove this
   task
 
-api.percent = (x,y) ->
+api.percent = (x,y, dir) ->
+  switch dir
+    when "up" then roundFn = Math.ceil
+    when "down" then roundFn = Math.floor
+    else roundFn = Math.round
   x=1 if x==0
-  Math.round(x/y*100)
+  roundFn(x/y*100)
 
 ###
 Remove whitespace #FIXME are we using this anywwhere? Should we be?

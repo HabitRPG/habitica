@@ -27,7 +27,8 @@ process.nextTick = (function () {
     if (canPost) {
         var queue = [];
         window.addEventListener('message', function (ev) {
-            if (ev.source === window && ev.data === 'process-tick') {
+            var source = ev.source;
+            if ((source === window || source === null) && ev.data === 'process-tick') {
                 ev.stopPropagation();
                 if (queue.length > 0) {
                     var fn = queue.shift();
@@ -63,7 +64,7 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var global=self;/**
+var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
  * @license
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -11208,11 +11209,23 @@ var process=require("__browserify_process");(function() {
     return task;
   };
 
-  api.percent = function(x, y) {
+  api.percent = function(x, y, dir) {
+    var roundFn;
+
+    switch (dir) {
+      case "up":
+        roundFn = Math.ceil;
+        break;
+      case "down":
+        roundFn = Math.floor;
+        break;
+      default:
+        roundFn = Math.round;
+    }
     if (x === 0) {
       x = 1;
     }
-    return Math.round(x / y * 100);
+    return roundFn(x / y * 100);
   };
 
   /*
@@ -12351,7 +12364,9 @@ var process=require("__browserify_process");(function() {
             drop.type = 'Food';
             drop.dialog = "You've found " + drop.article + drop.text + "! " + drop.notes;
           } else if (rarity > .3) {
-            drop = user.fns.randomVal(content.eggs);
+            drop = user.fns.randomVal(_.where(content.eggs, {
+              canBuy: true
+            }));
             if ((_ref3 = (_base1 = user.items.eggs)[_name1 = drop.key]) == null) {
               _base1[_name1] = 0;
             }
