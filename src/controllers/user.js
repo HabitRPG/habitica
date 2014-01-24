@@ -7,6 +7,7 @@ var nconf = require('nconf');
 var async = require('async');
 var shared = require('habitrpg-shared');
 var validator = require('validator');
+var icalendar = require('icalendar');
 var check = validator.check;
 var sanitize = validator.sanitize;
 var User = require('./../models/user').model;
@@ -119,7 +120,30 @@ api.getTask = function(req, res, next) {
  */
 api.getTaskCalendar = function(req, res, next) {
   // Stuff goes here
-  return res.send(200, "Imaginary calendar");
+  var tasks, tasksWithDates, ical, formattedIcal;
+  tasks = _.toArray(res.locals.user.tasks);
+  tasksWithDates = _.filter(tasks, function(task) {
+    return !!task.date;
+  });
+  if (_.isEmpty(tasksWithDates)) {
+    return res.send(500, "No events found");
+  }
+
+  ical = new icalendar.iCalendar();
+  ical.addProperty('NAME', 'HabitRPG');
+  _.each(tasksWithDates, function(task) {
+    var d, event;
+    event = new icalendar.VEvent(task.id);
+    event.setSummary(task.text);
+    d = new Date(task.date);
+    d.date_only = true;
+    event.setDate(d);
+    ical.addComponent(event);
+    return true;
+  });
+  res.type('text/calendar');
+  formattedIcal = ical.toString().replace(/DTSTART\:/g, 'DTSTART;VALUE=DATE:');
+  return res.send(200, formattedIcal);
 };
 
 /*
