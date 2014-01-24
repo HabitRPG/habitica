@@ -65,14 +65,14 @@ footer.footer(ng-controller='FooterCtrl')
                 td
                   a.addthis_button_google_plusone(g:plusone:size='medium')
         else
-          h4=env.t('footerDebug')
+          h4 Debug
           ul.unstyled
             li
-              a.btn(ng-click='addMissedDay()')=env.t('debugMissed')
+              a.btn(ng-click='addMissedDay()') +1 Missed Day
             li
-              a.btn(ng-click='addTenGems()')=env.t('debugGems')
+              a.btn(ng-click='addTenGems()') +10 Gems
             li
-              a.btn(ng-click='addLevelsAndGold()')=env.t('debugLevel')
+              a.btn(ng-click='addLevelsAndGold()') +Exp +GP
             li
               a.btn(ng-click='addOneLevel()') +1 Level
 
