@@ -41,4 +41,6 @@ div(modal='modals.rebirth')
             span.gem-cost=env.t('notEnoughGems')
         span(ng-if='user.balance >= 2', ng-controller='SettingsCtrl')
             a.btn.btn-danger.btn-large(ng-click='rebirth()')=env.t('beReborn')
-            span.gem-cost=env.t('cost8Gems')
+            span.gem-cost
+                | 8&nbsp;
+                =env.t('gems')

@@ -30,7 +30,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
       h4=env.t('language')
       select(ng-model='language.code', ng-options='lang.code as lang.name for lang in avalaibleLanguages', ng-change='changeLanguage()')
       hr
-      h4=env.t('hideHeader')
+      h4=env.t('misc')
       label.checkbox
         input(type='checkbox', ng-click='set({"preferences.hideHeader":user.preferences.hideHeader?false:true})', ng-checked='user.preferences.hideHeader!==true')
         =env.t('showHeader')
