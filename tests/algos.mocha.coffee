@@ -287,6 +287,7 @@ describe 'User', ->
       user.fns.randomVal.restore()
       user.fns.predictableRandom.restore()
 
+
   describe 'Quests', ->
     _.each shared.content.quests, (quest)->
       it "#{quest.text} has valid values", ->
@@ -305,6 +306,21 @@ describe 'User', ->
           _.each quest.collect, (collect)->
             expect(collect.text).to.be.an('string')
             expect(collect.count).to.be.greaterThan 0
+
+  describe 'Achievements', ->
+    _.each shared.content.classes, (klass) ->
+      user = newUser()
+      user.stats.gp = 10000
+      _.each shared.content.gearTypes, (type) ->
+        _.each [1..5], (i) ->
+          user.ops.buy {params:'#{type}_#{klass}_#{i}'}
+      it 'does not get ultimateGear ' + klass, ->
+        expect(user.achievements.ultimateGear).to.not.be.ok
+      _.each shared.content.gearTypes, (type) ->
+        user.ops.buy {params:'#{type}_#{klass}_6'}
+      it 'gets ultimateGear ' + klass, ->
+        expect(user.achievements.ultimateGear).to.be.ok
+
 
 describe 'Simple Scoring', ->
   beforeEach ->

@@ -600,8 +600,8 @@ api.wrap = (user, main=true) ->
           user.items.gear.owned[item.key] = true
           message = user.fns.handleTwoHanded(item)
           message ?= "Bought #{item.text}."
-          if item.klass in ['warrior','wizard','healer','rogue'] and user.fns.getItem('weapon').last and user.fns.getItem('armor').last and user.fns.getItem('head').last and (user.fns.getItem('shield').last or user.fns.getItem('weapon').twoHanded)
-            user.achievements.ultimateGear = true
+          if not user.achievements.ultimateGear and item.last
+            user.fns.ultimateGear()
         user.stats.gp -= item.value
         cb? {code:200, message}, _.pick(user,$w 'items achievements stats')
 
@@ -1229,6 +1229,36 @@ api.wrap = (user, main=true) ->
       #user.markModified? 'history'
       #user.markModified? 'habits'
       #user.markModified? 'dailys'
+
+    # ----------------------------------------------------------------------
+    # Achievements
+    # ----------------------------------------------------------------------
+    ultimateGear: () ->
+      # on the server this is a LoDash transform, on the client its an object
+      gear = if window? then user.items.gear.owned else user.items.gear.owned.toObject()
+      ownedLastGear = _.chain(content.gear.flat)
+        .pick(_.keys gear)
+        .values()
+        .filter (gear) -> gear.last
+
+      lastGearClassTypeMatrix = {}
+      _.each content.classes, (klass) ->
+        lastGearClassTypeMatrix[klass] = {}
+        _.each content.gearTypes, (type) ->
+          lastGearClassTypeMatrix[klass][type] = false
+          return true # false exits the each loop early
+
+      ownedLastGear.each (gear) ->
+        lastGearClassTypeMatrix[gear.klass]["shield"] = true if gear.twoHanded
+        lastGearClassTypeMatrix[gear.klass][gear.type] = true
+
+      shouldGrant = _(lastGearClassTypeMatrix)
+        .values()
+        .reduce(((ans, klass) -> ans or _(klass).values().reduce(((ans, gearType) -> ans and gearType), true)), false)
+        .valueOf()
+
+      user.achievements.ultimateGear = shouldGrant
+
 
   # ----------------------------------------------------------------------
   # Virtual Attributes

@@ -27,7 +27,8 @@ process.nextTick = (function () {
     if (canPost) {
         var queue = [];
         window.addEventListener('message', function (ev) {
-            if (ev.source === window && ev.data === 'process-tick') {
+            var source = ev.source;
+            if ((source === window || source === null) && ev.data === 'process-tick') {
                 ev.stopPropagation();
                 if (queue.length > 0) {
                     var fn = queue.shift();
@@ -63,7 +64,7 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-var global=self;/**
+var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
  * @license
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
@@ -9167,7 +9168,7 @@ var global=self;/**
 
 },{}],5:[function(require,module,exports){
 (function() {
-  var api, diminishingReturns, events, gear, moment, repeat, _;
+  var api, classes, diminishingReturns, events, gear, gearTypes, moment, repeat, _;
 
   _ = require('lodash');
 
@@ -9182,6 +9183,10 @@ var global=self;/**
     ---------------------------------------------------------------
   */
 
+
+  classes = ['warrior', 'rogue', 'healer', 'wizard'];
+
+  gearTypes = ['armor', 'weapon', 'shield', 'head'];
 
   events = {
     winter: {
@@ -10121,8 +10126,8 @@ var global=self;/**
     flat: {}
   };
 
-  _.each(['weapon', 'armor', 'head', 'shield'], function(type) {
-    return _.each(['base', 'warrior', 'rogue', 'healer', 'wizard', 'special'], function(klass) {
+  _.each(gearTypes, function(type) {
+    return _.each(classes.concat(['base', 'special']), function(klass) {
       return _.each(gear[type][klass], function(item, i) {
         var key, _canOwn;
 
@@ -10164,6 +10169,24 @@ var global=self;/**
     value: 25,
     key: 'potion'
   };
+
+  /*
+     ---------------------------------------------------------------
+     Classes
+     ---------------------------------------------------------------
+  */
+
+
+  api.classes = classes;
+
+  /*
+     ---------------------------------------------------------------
+     Gear Types
+     ---------------------------------------------------------------
+  */
+
+
+  api.gearTypes = gearTypes;
 
   /*
     ---------------------------------------------------------------
@@ -11832,7 +11855,7 @@ var process=require("__browserify_process");(function() {
           return typeof cb === "function" ? cb(null, _.pick(user, $w('items balance'))) : void 0;
         },
         buy: function(req, cb) {
-          var item, key, message, _ref;
+          var item, key, message;
 
           key = req.params.key;
           item = key === 'potion' ? content.potion : content.gear.flat[key];
@@ -11860,8 +11883,8 @@ var process=require("__browserify_process");(function() {
             if (message == null) {
               message = "Bought " + item.text + ".";
             }
-            if (((_ref = item.klass) === 'warrior' || _ref === 'wizard' || _ref === 'healer' || _ref === 'rogue') && user.fns.getItem('weapon').last && user.fns.getItem('armor').last && user.fns.getItem('head').last && (user.fns.getItem('shield').last || user.fns.getItem('weapon').twoHanded)) {
-              user.achievements.ultimateGear = true;
+            if (!user.achievements.ultimateGear && item.last) {
+              user.fns.ultimateGear();
             }
           }
           user.stats.gp -= item.value;
@@ -12351,7 +12374,9 @@ var process=require("__browserify_process");(function() {
             drop.type = 'Food';
             drop.dialog = "You've found " + drop.article + drop.text + "! " + drop.notes;
           } else if (rarity > .3) {
-            drop = user.fns.randomVal(content.eggs);
+            drop = user.fns.randomVal(_.where(content.eggs, {
+              canBuy: true
+            }));
             if ((_ref3 = (_base1 = user.items.eggs)[_name1 = drop.key]) == null) {
               _base1[_name1] = 0;
             }
@@ -12670,6 +12695,34 @@ var process=require("__browserify_process");(function() {
         if (user.history.todos.length > minHistLen) {
           return user.history.todos = preenHistory(user.history.todos);
         }
+      },
+      ultimateGear: function() {
+        var gear, lastGearClassTypeMatrix, ownedLastGear, shouldGrant;
+
+        gear = typeof window !== "undefined" && window !== null ? user.items.gear.owned : user.items.gear.owned.toObject();
+        ownedLastGear = _.chain(content.gear.flat).pick(_.keys(gear)).values().filter(function(gear) {
+          return gear.last;
+        });
+        lastGearClassTypeMatrix = {};
+        _.each(content.classes, function(klass) {
+          lastGearClassTypeMatrix[klass] = {};
+          return _.each(content.gearTypes, function(type) {
+            lastGearClassTypeMatrix[klass][type] = false;
+            return true;
+          });
+        });
+        ownedLastGear.each(function(gear) {
+          if (gear.twoHanded) {
+            lastGearClassTypeMatrix[gear.klass]["shield"] = true;
+          }
+          return lastGearClassTypeMatrix[gear.klass][gear.type] = true;
+        });
+        shouldGrant = _(lastGearClassTypeMatrix).values().reduce((function(ans, klass) {
+          return ans || _(klass).values().reduce((function(ans, gearType) {
+            return ans && gearType;
+          }), true);
+        }), false).valueOf();
+        return user.achievements.ultimateGear = shouldGrant;
       }
     };
     Object.defineProperty(user, '_statsComputed', {
