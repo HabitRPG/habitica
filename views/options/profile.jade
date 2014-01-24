@@ -119,16 +119,16 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
       h3=env.t('characterbuild')
       h4
         =env.t('class') + ': '
-        span {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[user.stats.class] }} 
+        span {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[user.stats.class] }}&nbsp;
         a.btn.btn-danger.btn-mini(ng-click='changeClass(null)')=env.t('changeclass')
         small 3 <span class="Pet_Currency_Gem1x inline-gems"/>
       table.table.table-striped
         tr
           td
             strong
-              {{user.stats.points}} 
+              {{user.stats.points}}&nbsp;
               =env.t('unallocated')
-              | 
+            &nbsp;
             i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('levelpopover'))
           td
         tr
@@ -137,19 +137,23 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
               label.checkbox
                 input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})', ng-click='set({"preferences.allocationMode":"taskbased"})')
                 =env.t('automaticallocation')
+                &nbsp;
                 i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('automaticallocationpopover'))
               form(ng-show='user.preferences.automaticAllocation',style='margin-left:1em')
                 label.radio
                   input(type='radio', name='allocationMode', value='flat', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "flat"})')
                   =env.t('evenallocation')
+                  &nbsp;
                   i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('evenallocationpopover'))
                 label.radio
                   input(type='radio', name='allocationMode', value='classbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "classbased"})')
                   =env.t('classallocation')
+                  &nbsp;
                   i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('classallocationpopover'))
                 label.radio
                   input(type='radio', name='allocationMode', value='taskbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "taskbased"})')
                   =env.t('taskallocation')
+                  &nbsp;
                   i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskallocationpopover'))
         tr
           td= env.t('allocatestr') + ' {{user.stats.str}}'
