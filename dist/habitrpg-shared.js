@@ -11231,11 +11231,23 @@ var process=require("__browserify_process");(function() {
     return task;
   };
 
-  api.percent = function(x, y) {
+  api.percent = function(x, y, dir) {
+    var roundFn;
+
+    switch (dir) {
+      case "up":
+        roundFn = Math.ceil;
+        break;
+      case "down":
+        roundFn = Math.floor;
+        break;
+      default:
+        roundFn = Math.round;
+    }
     if (x === 0) {
       x = 1;
     }
-    return Math.round(x / y * 100);
+    return roundFn(x / y * 100);
   };
 
   /*
