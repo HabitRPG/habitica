@@ -119,6 +119,7 @@ api.getTask = function(req, res, next) {
  */
 api.getTaskCalendar = function(req, res, next) {
   // Stuff goes here
+  return res.send(200, "Imaginary calendar");
 };
 
 /*
