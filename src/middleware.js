@@ -187,8 +187,11 @@ module.exports.locals = function(req, res, next) {
       avalaibleLanguages: avalaibleLanguages,
       language: language,
       translations: translations[language.code],
-      t: function(string){
-        return (translations[language.code][string] || translations[language.code].stringNotFound);
+      t: function(stringName, vars){
+        var string = translations[language.code][stringName];
+        if(!string) return _.template(translations[language.code].stringNotFound, {string: stringName});
+
+        return vars === undefined ? string : _.template(string, vars);    
       },
       siteVersion: siteVersion
     }

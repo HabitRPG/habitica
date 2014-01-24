@@ -11,8 +11,11 @@ if(window.env.language && window.env.language.momentLang && window.env.language.
   moment.lang(window.env.language.momentLangCode);
 }
 
-window.env.t = function(string){
-  return (window.env.translations[string] || window.env.translations.stringNotFound);
+window.env.t = function(stringName, vars){
+  var string = window.env.translations[stringName];
+  if(!string) return window._.template(window.env.translations.stringNotFound, {string: stringName});
+
+  return vars === undefined ? string : window._.template(string, vars);    
 }
 
 window.habitrpg = angular.module('habitrpg',
