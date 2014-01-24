@@ -11884,11 +11884,7 @@ var process=require("__browserify_process");(function() {
               message = "Bought " + item.text + ".";
             }
             if (!user.achievements.ultimateGear && item.last) {
-              user.ops.ultimateGear({
-                params: {},
-                query: {},
-                body: {}
-              });
+              user.fns.ultimateGear();
             }
           }
           user.stats.gp -= item.value;
@@ -12241,38 +12237,6 @@ var process=require("__browserify_process");(function() {
             cb(null, user);
           }
           return delta;
-        },
-        ultimateGear: function(req, cb) {
-          var gear, lastGearClassTypeMatrix, ownedLastGear, shouldGrant;
-
-          gear = typeof window !== "undefined" && window !== null ? user.items.gear.owned : user.items.gear.owned.toObject();
-          ownedLastGear = _.chain(content.gear.flat).pick(_.keys(gear)).values().filter(function(gear) {
-            return gear.last;
-          });
-          lastGearClassTypeMatrix = {};
-          _.each(content.classes, function(klass) {
-            lastGearClassTypeMatrix[klass] = {};
-            return _.each(content.gearTypes, function(type) {
-              lastGearClassTypeMatrix[klass][type] = false;
-              return true;
-            });
-          });
-          ownedLastGear.each(function(gear) {
-            if (gear.twoHanded) {
-              lastGearClassTypeMatrix[gear.klass]["shield"] = true;
-            }
-            return lastGearClassTypeMatrix[gear.klass][gear.type] = true;
-          });
-          shouldGrant = _(lastGearClassTypeMatrix).values().reduce((function(ans, klass) {
-            return ans || _(klass).values().reduce((function(ans, gearType) {
-              return ans && gearType;
-            }), true);
-          }), false).valueOf();
-          user.achievements.ultimateGear = shouldGrant;
-          if (typeof cb === "function") {
-            cb(null, user);
-          }
-          return shouldGrant;
         }
       };
     }
@@ -12731,6 +12695,34 @@ var process=require("__browserify_process");(function() {
         if (user.history.todos.length > minHistLen) {
           return user.history.todos = preenHistory(user.history.todos);
         }
+      },
+      ultimateGear: function() {
+        var gear, lastGearClassTypeMatrix, ownedLastGear, shouldGrant;
+
+        gear = typeof window !== "undefined" && window !== null ? user.items.gear.owned : user.items.gear.owned.toObject();
+        ownedLastGear = _.chain(content.gear.flat).pick(_.keys(gear)).values().filter(function(gear) {
+          return gear.last;
+        });
+        lastGearClassTypeMatrix = {};
+        _.each(content.classes, function(klass) {
+          lastGearClassTypeMatrix[klass] = {};
+          return _.each(content.gearTypes, function(type) {
+            lastGearClassTypeMatrix[klass][type] = false;
+            return true;
+          });
+        });
+        ownedLastGear.each(function(gear) {
+          if (gear.twoHanded) {
+            lastGearClassTypeMatrix[gear.klass]["shield"] = true;
+          }
+          return lastGearClassTypeMatrix[gear.klass][gear.type] = true;
+        });
+        shouldGrant = _(lastGearClassTypeMatrix).values().reduce((function(ans, klass) {
+          return ans || _(klass).values().reduce((function(ans, gearType) {
+            return ans && gearType;
+          }), true);
+        }), false).valueOf();
+        return user.achievements.ultimateGear = shouldGrant;
       }
     };
     Object.defineProperty(user, '_statsComputed', {

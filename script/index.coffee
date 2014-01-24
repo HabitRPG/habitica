@@ -601,7 +601,7 @@ api.wrap = (user, main=true) ->
           message = user.fns.handleTwoHanded(item)
           message ?= "Bought #{item.text}."
           if not user.achievements.ultimateGear and item.last
-            user.ops.ultimateGear({params:{}, query:{}, body:{}})
+            user.fns.ultimateGear()
         user.stats.gp -= item.value
         cb? {code:200, message}, _.pick(user,$w 'items achievements stats')
 
@@ -876,37 +876,6 @@ api.wrap = (user, main=true) ->
 
         cb? null, user
         return delta
-
-      # ----------------------------------------------------------------------
-      # Achievements
-      # ----------------------------------------------------------------------
-      ultimateGear: (req, cb) ->
-        # on the server this is a LoDash transform, on the client its an object
-        gear = if window? then user.items.gear.owned else user.items.gear.owned.toObject()
-        ownedLastGear = _.chain(content.gear.flat)
-          .pick(_.keys gear)
-          .values()
-          .filter (gear) -> gear.last
-
-        lastGearClassTypeMatrix = {}
-        _.each content.classes, (klass) ->
-          lastGearClassTypeMatrix[klass] = {}
-          _.each content.gearTypes, (type) ->
-            lastGearClassTypeMatrix[klass][type] = false
-            return true # false exits the each loop early
-
-        ownedLastGear.each (gear) ->
-          lastGearClassTypeMatrix[gear.klass]["shield"] = true if gear.twoHanded
-          lastGearClassTypeMatrix[gear.klass][gear.type] = true
-
-        shouldGrant = _(lastGearClassTypeMatrix)
-          .values()
-          .reduce(((ans, klass) -> ans or _(klass).values().reduce(((ans, gearType) -> ans and gearType), true)), false)
-          .valueOf()
-
-        user.achievements.ultimateGear = shouldGrant
-        cb? null, user
-        shouldGrant
 
   # ----------------------------------------------------------------------
   # user.fns helpers
@@ -1260,6 +1229,36 @@ api.wrap = (user, main=true) ->
       #user.markModified? 'history'
       #user.markModified? 'habits'
       #user.markModified? 'dailys'
+
+    # ----------------------------------------------------------------------
+    # Achievements
+    # ----------------------------------------------------------------------
+    ultimateGear: () ->
+      # on the server this is a LoDash transform, on the client its an object
+      gear = if window? then user.items.gear.owned else user.items.gear.owned.toObject()
+      ownedLastGear = _.chain(content.gear.flat)
+        .pick(_.keys gear)
+        .values()
+        .filter (gear) -> gear.last
+
+      lastGearClassTypeMatrix = {}
+      _.each content.classes, (klass) ->
+        lastGearClassTypeMatrix[klass] = {}
+        _.each content.gearTypes, (type) ->
+          lastGearClassTypeMatrix[klass][type] = false
+          return true # false exits the each loop early
+
+      ownedLastGear.each (gear) ->
+        lastGearClassTypeMatrix[gear.klass]["shield"] = true if gear.twoHanded
+        lastGearClassTypeMatrix[gear.klass][gear.type] = true
+
+      shouldGrant = _(lastGearClassTypeMatrix)
+        .values()
+        .reduce(((ans, klass) -> ans or _(klass).values().reduce(((ans, gearType) -> ans and gearType), true)), false)
+        .valueOf()
+
+      user.achievements.ultimateGear = shouldGrant
+
 
   # ----------------------------------------------------------------------
   # Virtual Attributes
