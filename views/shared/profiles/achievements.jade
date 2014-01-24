@@ -35,10 +35,7 @@
   
   div(ng-if='profile.backer.tier')
     .achievement.achievement-heart
-    h5
-      =env.t('kickstartName1') 
-      | ${{profile.backer.tier}}
-      =env.t('kickstartName2')
+    h5=env.t('kickstartName', {tier: "{{profile.backer.tier}}"})
     small=env.t('kickstartText')
     hr
 
@@ -47,10 +44,7 @@
     div(ng-class='{muted: !profile.achievements.streak}')
       h5 {{profile.achievements.streak || 0 }}
         =env.t('streakName')
-      small
-        =env.t('streakText1')
-        | {{profile.achievements.streak || 0 }}
-        =env.t('streakText2')
+      small=env.t('streakText', {streaks: "{{profile.achievements.streak || 0 }}"})
     hr
 
   div(ng-if='profile.achievements.perfect || user._id == profile._id')
@@ -58,10 +52,7 @@
     div(ng-class='{muted: !profile.achievements.perfect}')
       h5 {{profile.achievements.perfect || 0 }}
         =env.t('perfectName')
-      small
-        =env.t('streakText1')
-        | {{profile.achievements.perfect || 0 }}
-        =env.t('perfectText2')
+      small=env.t('perfectText', {perfects: "{{profile.achievements.perfect || 0 }}"})
     hr
 
   div(ng-if='profile.achievements.ultimateGear || user._id == profile._id')
@@ -82,9 +73,7 @@
     .achievement.achievement-sun
     h5(ng-if='profile.achievements.rebirths == 1')=env.t('rebirthBegan')
     h5(ng-if='profile.achievements.rebirths > 1')
-      =env.t('rebirthText1')
-      | {{profile.achievements.rebirths}}
-      =env.t('rebirthText2')
+      =env.t('rebirthText', {rebirths: "{{profile.achievements.rebirths}}"})
     small
       =env.t('rebirthOrb')
       | {{profile.achievements.rebirthLevel}}.
@@ -105,9 +94,7 @@
       small=env.t('veteranText')
     div(ng-if='profile.achievements.originalUser')
       h5=env.t('originalUser')
-      small=env.t('originalUserText1')
-        em=env.t('originalUserText2')
-        =env.t('originalUserText3')
+      small=env.t('originalUserText')
     hr
 
   div(ng-if='profile.achievements.challenges || user._id == profile._id')
@@ -134,7 +121,5 @@
     .achievement.achievement-snowball
     h5=env.t('annoyingFriends')
     small
-      =env.t('annoyingFriends1')
-      | {{profile.achievements.snowball}}
-      =env.t('annoyingFriends2')
+      =env.t('annoyingFriendsText', {snowballs: "{{profile.achievements.snowball}}"})
     hr
