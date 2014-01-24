@@ -168,7 +168,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
             .popover-content
               markdown(ng-model='group.leaderMessage')
     div(ng-controller='ChatCtrl')
-      h3 Chat
+      h3=env.t('chat')
       include ./chat-box
       include ../../shared/formatting-help
 

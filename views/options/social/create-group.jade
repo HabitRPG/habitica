@@ -1,7 +1,9 @@
 form.form-horizontal(ng-submit='create(newGroup)')
   .control-group.whatever-options
     .control-group
-      label.control-label(for='new-group-name') {{text}} Name
+      label.control-label(for='new-group-name') 
+       | {{text}}&nbsp;
+       =env.t('name')
       .controls
         input#new-group-name.input-medium.option-content(required, type='text', placeholder='{{text}} Name', ng-model='newGroup.name')
     .control-group

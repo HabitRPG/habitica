@@ -85,19 +85,19 @@ habitrpg
         scope.main = attrs.main;
         $rootScope.lists = [
           {
-            header: env.t('Habits'),
+            header: env.t('habits'),
             type: 'habit',
             placeHolder: env.t('newHabit')
           }, {
-            header: env.t('Dailies'),
+            header: env.t('dailies'),
             type: 'daily',
             placeHolder: env.t('newDaily')
           }, {
-            header: env.t('Todos'),
+            header: env.t('todos'),
             type: 'todo',
             placeHolder: env.t('newTodo')
           }, {
-            header: env.t('Rewards'),
+            header: env.t('rewards'),
             type: 'reward',
             placeHolder: env.t('newReward')
           }

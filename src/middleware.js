@@ -172,7 +172,7 @@ var getUserLanguage = function(req, callback){
 
 module.exports.locals = function(req, res, next) {
   getUserLanguage(req, function(err, language){
-    if(err) return res.json(500, {err: err});
+    if(err) return res.json(500, {err: err});    
 
     language.momentLang = (momentLangs[language.code] || undefined);
     
