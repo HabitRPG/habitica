@@ -38,8 +38,9 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
 
           // Special Events
           li.customize-menu.well.limited-edition
-            .label.label-info.pull-right(popover='Available for purchase until January 31st (but permanently in your options if purchased).', popover-title='Limited Edition', popover-placement='right', popover-trigger='mouseenter')
+            .label.label-info.pull-right(popover=env.t('limited31Jan'), popover-title=env.t('limitededition'), popover-placement='right', popover-trigger='mouseenter')
               =env.t('limitededition')
+              | 
               i.icon.icon-question-sign
             menu(label=env.t('wintercolors'))
               each color in ['candycane','frost','winternight','holly']
@@ -117,7 +118,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
     .span4.border-right.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
       h3=env.t('characterbuild')
       h4
-        =env.t('class') + ':'
+        =env.t('class') + ': '
         span {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[user.stats.class] }}&nbsp;
         a.btn.btn-danger.btn-mini(ng-click='changeClass(null)')=env.t('changeclass')
         small 3 <span class="Pet_Currency_Gem1x inline-gems"/>

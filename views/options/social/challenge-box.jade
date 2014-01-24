@@ -11,5 +11,8 @@
           td
             a(ui-sref='options.social.challenges.detail({cid:challenge._id})') {{challenge.name}}
     div(ng-if='group.challenges.length == 0')
-      p
-        =env.t('noChallenges') + " <a class='label' ui-sref='options.social.challenges'><i class=icon-bullhorn></i> " + env.t('challenges') + "</a> " + env.t('toCreate')
+      p=env.t('noChallenges')
+        a(class='label' ui-sref='options.social.challenges')
+          i.icon-bullhorn
+          =env.t('challenges')
+        =env.t('toCreate')
