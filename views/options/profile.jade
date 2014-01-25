@@ -195,7 +195,7 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
     // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
     .control-group.option-large
       label.control-label=env.t('displayname')
-      input.option-content(type='text', placeholder=env.t('fullName')), ng-model='editingProfile.name')
+      input.option-content(type='text', placeholder=env.t('fullName'), ng-model='editingProfile.name')
     .control-group.option-large
       label.control-label=env.t('photourl')
       input.option-content(type='url', ng-model='editingProfile.imageUrl', placeholder=env.t('imageurl'))
