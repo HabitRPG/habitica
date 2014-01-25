@@ -269,7 +269,12 @@
   "formattingMarkdown" : "Markdown formatting allowed",
 
 "_commentmisc": "MISC & GLOBAL",
-  "removeAds": "Remove Ads",
+  "removeAds": "Subscribe to remove ads",
+  "whyAds": "Why Ads?",
+    "whyAdsContent1": "Habit is an open source project, and can use all the help it can get - consider this a donation to the contributors. You also get 20 Gems from the purchase, which you can use to buy special items.",
+
+    "whyAdsContent2": "'Hey, I backed the Kickstarter!' - follow",
+    "whyAdsContent3": "these instructions",
   "_commentbuttons": "BUTTONS",
     "submit":"Submit",
     "close":"Close",
@@ -450,14 +455,14 @@
     "justin" : "Justin",
     "fiveUSD1" : "$5 USD",
     "fiveUSD2" : " will:",
-      "donateText1" : "Add 20 gems to your account, which are used to buy special items.",
-      "donateText2" : "Disable ads.",
-      "donateText3" : "Donate to the developers (as an open source project, we can use all the help we can get).",
+      "donateText1" : "Adds 20 Gems to your account. Gems are used to buy special in-game items, such as shirts and hairstyles.",
+      "donateText2" : "Donate to the developers",
+      "donateText3" : "As an open source project, it can use all the help we can get!",
     "payWithCard" : "Pay with Card",
     "payWithPaypal" : "Pay with Paypal",
       "paypalText" : "20 Gems, Disable Ads, Donation to the Developers",
     "payRecommended" : "Recommended method.",
-    "payNote" : "Note: PayPal sometimes takes a long time to clear. We recommend paying with card if possible.",
+    "payNote" : "Note: PayPal sometimes takes a long time to clear. We recommend paying with card.",
 
 
 
