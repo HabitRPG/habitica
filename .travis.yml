@@ -8,3 +8,11 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - cp config.json.example config.json
+deploy:
+  provider: heroku
+  api_key:
+    secure: Hn4rxVBcITMjvmRrUc0D2R7kQc/SR67yEWdqdHm32lt5bqWl4E10jjf/YGRsXT8MhJ+wr2g/uoDjcZ3qV0hOyrDhHfd3JF+gN6LV5B0FJXGx3Rt8ol4D9a8xMx3qhKvbSEb1/V8Oy7WRzj+1kJgSAqMICgIbAjDDyCFx118Yl7E=
+  app: habitrpg-beta
+  on:
+    repo: HabitRPG/habitrpg
+    branch: develop
