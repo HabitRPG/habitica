@@ -141,6 +141,10 @@ module.exports = (swagger, v2) ->
       middleware: auth.auth ## removing cron since they may want to remove task first
       action: challenges.unlink
 
+    "/user/calendar.ics":
+      spec:
+        description: "Get an ICS calender containing the user's tasks"
+      action: user.getTaskCalendar
 
     # Inventory
     "/user/inventory/buy/{key}":
