@@ -8,7 +8,24 @@ div(ng-controller='MemberModalCtrl')
       .row-fluid
         .span6
           img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
+          h3 About Me
           markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
+          h4 Contact Info
+          markdown(ng-show='profile.profile.contact', ng-model='profile.profile.contact')
+          span(ng-if='!profile.profile.gitPrivacy'||'!profile.profile.trelloPrivacy'||'!profile.profile.wikiaPrivacy')
+            h4 External Accounts
+          span(ng-if='!profile.profile.gitPrivacy')
+            strong Github: 
+            {{profile.profile.github}}
+            br
+          span(ng-if='!profile.profile.trelloPrivacy')
+            strong Trello: 
+            {{profile.profile.trello}}
+            br
+          span(ng-if='!profile.profile.wikiaPrivacy')
+            strong Wikia: 
+            {{profile.profile.wikia}}
+            br
           ul.muted.unstyled(ng-if='profile.auth.timestamps', style='margin-top:10px;')
             li {{profile._id}}
             li(ng-show='profile.auth.timestamps.created') - Member since {{timestamp(profile.auth.timestamps.created)}} -

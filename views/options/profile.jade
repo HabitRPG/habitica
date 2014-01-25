@@ -176,11 +176,33 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
     span.muted(ng-hide='profile.profile.blurb') - None -
     //{{profile.profile.blurb | linky:'_blank'}}
 
+    h4 Contact Info
+    markdown(ng-show='profile.profile.contact', ng-model='profile.profile.contact')
+    span.muted(ng-hide='profile.profile.contact') - None -
+
+    h4 Github
+    p
+      span(ng-show='profile.profile.github') {{profile.profile.github}}
+      span(ng-show='profile.profile.gitPrivacy')  (private)
+    span.muted(ng-hide='profile.profile.github') - None -
+
+    h4 Trello
+    p
+      span(ng-show='profile.profile.trello') {{profile.profile.trello}}
+      span(ng-show='profile.profile.trelloPrivacy')  (private)
+    span.muted(ng-hide='profile.profile.trello') - None -
+
+    h4 Wikia
+    p
+      span(ng-show='profile.profile.wikia') {{profile.profile.wikia}}
+      span(ng-show='profile.profile.wikiaPrivacy')  (private)
+    span.muted(ng-hide='profile.profile.wikia') - None -
+
   div.whatever-options(ng-show='_editing.profile')
     // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
     .control-group.option-large
-      label.control-label Display Name
-      input.option-content(type='text', placeholder='Full Name', ng-model='editingProfile.name')
+      label.control-label Display Name (Maximum of 20 Characters)
+      input.option-content(type='text', placeholder='Full Name', ng-model='editingProfile.name', ng-maxlength="20")
     .control-group.option-large
       label.control-label Photo Url
       input.option-content(type='url', ng-model='editingProfile.imageUrl', placeholder='Image Url')
@@ -188,6 +210,31 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
       label.control-label Blurb
       textarea.option-content(style='height:15em;', placeholder='Blurb', ng-model='editingProfile.blurb')
       include ../shared/formatting-help
+    .control-group.option-large
+      label.control-label Contact Info
+      textarea.option-content(style='height:10em;', placeholder='Email, instant messengers, or other ways for users to contact you privately.', ng-model='editingProfile.contact')
+      include ../shared/formatting-help
+    
+    h5 Sharing this information can help hRPG staff connect your account and your contributions.
+    
+    .control-group.option-large
+      label.control-label Github
+      p
+        input.option-content(type='checkbox', ng-model='editingProfile.gitPrivacy')
+        |  Private
+      input.option-content(type='text', placeholder='Github Username', ng-model='editingProfile.github')
+    .control-group.option-large
+      label.control-label Trello
+      p
+        input.option-content(type='checkbox', ng-model='editingProfile.trelloPrivacy')
+        |  Private
+      input.option-content(type='text', placeholder='Trello Username', ng-model='editingProfile.trello')
+    .control-group.option-large
+      label.control-label Wikia
+      p
+        input.option-content(type='checkbox', ng-model='editingProfile.wikiaPrivacy')
+        |  Private
+      input.option-content(type='text', placeholder='Wikia Username', ng-model='editingProfile.wikia')
 
 script(id='partials/options.profile.html', type="text/ng-template")
   ul.nav.nav-tabs

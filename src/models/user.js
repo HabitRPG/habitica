@@ -237,6 +237,13 @@ var UserSchema = new Schema({
     blurb: String,
     imageUrl: String,
     name: String,
+    github: String,
+    trello: String,
+    wikia: String,
+    contact: String,
+    gitPrivacy: {type: Boolean, 'default': true},
+    trelloPrivacy: {type: Boolean, 'default': true},
+    wikiaPrivacy: {type: Boolean, 'default': true},
   },
   stats: {
     hp: {type: Number, 'default': 50},
