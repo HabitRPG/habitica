@@ -550,11 +550,12 @@ api.wrap = (user, main=true) ->
         return cb?({code:404, message:":pet not found in user.items.pets"}) unless userPets[pet]
         return cb?({code:404, message:":food not found in user.items.food"}) unless user.items.food?[food.key]
         return cb?({code:401, message:"Can't feed this pet."}) if content.specialPets[pet]
-        return cb?({code:401, message:"You already have that mount"}) if user.items.mounts[pet] and (userPets[pet] >= 50 or food.key is 'Saddle')
+        return cb?({code:401, message:"You already have that mount. Try feeding another pet."}) if user.items.mounts[pet]
 
         message = ''
         evolve = ->
-          userPets[pet] = 0
+          userPets[pet] = -1
+          # changed to -1 to mark "owned" pets
           user.items.mounts[pet] = true
           user.items.currentPet = "" if pet is user.items.currentPet
           message = "You have tamed #{egg}, let's go for a ride!"
