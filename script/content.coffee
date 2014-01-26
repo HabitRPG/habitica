@@ -156,7 +156,7 @@ gear =
   shield:
     base:
       0: text: "No Off-Hand Equipment", notes:'No shield or second weapon.', value:0
-      //changed because this is what shows up for all classes, including those without shields
+      #changed because this is what shows up for all classes, including those without shields
     warrior:
       #0: text: "No Shield", notes:'No shield.', value:0
       1: text: "Wooden Shield", notes:'Round shield of thick wood. Increases CON by 2.', con: 2, value:20
