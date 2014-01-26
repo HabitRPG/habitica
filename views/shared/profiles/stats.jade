@@ -30,7 +30,7 @@ table.table.table-striped
   tr(ng-repeat='(k,v) in {str:"Strength (STR)",int:"Intelligence (INT)",con:"Constitution (CON)",per:"Perception (PER)"}')
     td
       i.icon-question-sign(ng-show='k=="str"', popover-title=env.t('strength'), popover-placement='right', popover=env.t('strengthText'), popover-trigger='mouseenter', style='margin-right:3px')
-      i.icon-question-sign(ng-show='k=="con"', popover-title=env.t('constitution'), popover-placement='right', popover=env.t('conText') popover-trigger='mouseenter', style='margin-right:3px')
+      i.icon-question-sign(ng-show='k=="con"', popover-title=env.t('constitution'), popover-placement='right', popover=env.t('constText') popover-trigger='mouseenter', style='margin-right:3px')
       i.icon-question-sign(ng-show='k=="per"', popover-title=env.t('perception'), popover-placement='right', popover=env.t('perText'), popover-trigger='mouseenter', style='margin-right:3px')
       i.icon-question-sign(ng-show='k=="int"', popover-title=env.t('intelligence'), popover-placement='right', popover=env.t('intText'), popover-trigger='mouseenter', style='margin-right:3px')
       strong {{v}}: {{profile._statsComputed[k]}}
