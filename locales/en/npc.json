@@ -1,0 +1,39 @@
+{
+"_commentnpc" : "NPC RELATED STRINGS",
+
+	"_commentachievement" : "NPC ACHIEVEMENT",
+    "npc" : "NPC",
+	    "npcText" : "Backed the Kickstarter project at the maximum level!",
+ 
+	"_commentmatt" : "MATT",
+		"mattBoch" : "Matt Boch",
+			"mattShall1" : "Shall I bring you your steed,",
+			"mattShall2" : "? Click a mount to saddle up.",
+			"mattBochText1" : "Welcome to the Stable! I'm Matt, the beast master. Choose a pet here to venture at your side. Feed them and they'll grow into powerful steeds.",
+			"mattBochText2" : "Have a look-see",
+			"mattBochText3" : "at all the pets you can collect.",
+			
+	"_commentdaniel" : "DANIEL",
+		"daniel" : "Daniel",
+			"danielText" : "Welcome to the Tavern! Stay a while and meet the locals. If you need to rest (going on vacation? sudden illness?), I'll set you up at the inn - Dailies won't hurt you while you're resting.",
+
+	"_commentalexander" : "ALEXANDER",
+		"alexander" : "Alexander the Merchant",
+			"welcomeMarket" : "Welcome to the Market! Buy hard-to-find eggs and potions! Sell your extras! Commission useful services! Come see what we have to offer.",
+			"sell" : "Sell",
+			"for" : "for",
+
+	"_commentjustin" : "JUSTIN",
+    "buyGemsDonate" : "Buy Gems / Donate",
+    "justin" : "Justin",
+    "fiveUSD1" : "$5 USD",
+    "fiveUSD2" : " will:",
+      "donateText1" : "Adds 20 Gems to your account. Gems are used to buy special in-game items, such as shirts and hairstyles.",
+      "donateText2" : "Donate to the developers",
+      "donateText3" : "As an open source project, it can use all the help we can get!",
+    "payWithCard" : "Pay with Card",
+    "payWithPaypal" : "Pay with Paypal",
+      "paypalText" : "20 Gems, Disable Ads, Donation to the Developers",
+    "payRecommended" : "Recommended method.",
+    "payNote" : "Note: PayPal sometimes takes a long time to clear. We recommend paying with card."
+}

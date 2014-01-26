@@ -1,6 +1,17 @@
 {
   "files": [
-    "main.json"
+    "challenge.json",
+    "character.json",
+    "contrib.json",
+    "generic.json",
+    "groups.json",
+    "limited.json",
+    "npc.json",
+    "pets.json",
+    "quests.json",
+    "rebirth.json",
+    "settings.json",
+    "tasks.json"
   ]
 
 }
