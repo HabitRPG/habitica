@@ -61,7 +61,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
 
           div(ng-if='Content.quests[group.quest.key].boss')
             .npc_ian.pull-left
-            p=env.t('bossDmg1') + ' <strong>' + env.t('bossDmg2') + '</strong>'
+            p!=env.t('bossDmg1') + ' <strong>' + env.t('bossDmg2') + '</strong>'
             br
             p=env.t('bossDmg3')
 

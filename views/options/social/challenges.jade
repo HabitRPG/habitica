@@ -111,7 +111,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
               span.input-suffix.Pet_Currency_Gem1x.inline-gems
               i.icon-question-sign(popover=env.t('prizePop'), popover-trigger='mouseenter', popover-placement='right')
               span(ng-show='newChallenge.group=="habitrpg"')
-                =env.t('min1Gem') + ' <strong>' + env.t('publicChallenges') + '</strong> ' + env.t('helpsPrevent')
+                !=env.t('min1Gem') + ' <strong>' + env.t('publicChallenges') + '</strong> ' + env.t('helpsPrevent')
 
             .option-medium(ng-if='user.contributor.admin')
               label.checkbox

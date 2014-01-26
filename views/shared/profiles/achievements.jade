@@ -94,7 +94,7 @@
       small=env.t('veteranText')
     div(ng-if='profile.achievements.originalUser')
       h5=env.t('originalUser')
-      small=env.t('originalUserText')
+      small!=env.t('originalUserText')
     hr
 
   div(ng-if='profile.achievements.challenges || user._id == profile._id')

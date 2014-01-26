@@ -44,7 +44,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
           input.option-content(type='number', step="any", ng-model='hero.balance')
           span.input-suffix Balance
           p
-            small= '`user.balance`' + env.t('USD1') + ' <em>' + env.t('not') + '</em> ' + env.t('USD2')
+            small!= '`user.balance`' + env.t('USD1') + ' <em>' + env.t('not') + '</em> ' + env.t('USD2')
 
         .control-group.option-medium
           label.checkbox
