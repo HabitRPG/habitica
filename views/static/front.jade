@@ -10,15 +10,38 @@ block content
   div(ng-app='habitrpgStatic')
     #wrap(ng-controller='AuthCtrl')
       //-include ./header
-      .jumbotron.masthead
-        .container
-          h1
-            img(src='/bower_components/habitrpg-shared/img/logo/habitrpg_pixel.png', alt='HabitRPG')
-          p=env.t('synopsis')
-          a.btn.btn-primary.btn-small(ng-click='playButtonClick()')=env.t('playButton')
       .container
-        p(style='height:600;')
-          iframe(src='//player.vimeo.com/video/76557040', width='100%', height='539', frameborder='0', webkitallowfullscreen='', mozallowfullscreen='', allowfullscreen='')
+        //we need to use something that's not jumbotron for this, but still keep it centered
+        //could someone write something else to make it pretty?
+        img(src='/bower_components/habitrpg-shared/img/logo/habitrpg_pixel.png', alt='HabitRPG logo')
+        //this image needs to be replaced by something more enticing, that shows off the features of hRPG
+        //while acting similarly to a logo
+        h1=env.t('tagline')
+        //we'd want the tagline centered, for sure, and a bit more pop, but without using jumbotron
+        //it could also be part of the image, as long as the alt text included it
+        //in fact, I think I really want it on the image, rather than as text, but language issues
+        br
+        p=env.t('landingp1')
+        h3=env.t('landingp2header')
+        //images in these parts could be useful, too
+        //if there's a language workaround, image headers? people like pictures
+        p=env.t('landingp2')
+        h3=env.t('landingp3header')
+        //I'm not sold on "Consquences as the title here. Anyone got a better idea?
+        p=env.t('landingp3')
+        h3=env.t('landingp4header')
+        p=env.t('landingp4')
+        h3=env.t('landingend')
+        p
+          =env.t('landingend2')
+          a(href="FEATURESPAGEHERE")=env.t('landingfeatureslink')
+          //need the link, obv
+          =env.t('landingend3')
+          a(href="ENTERPRISEPAGEHERE")=env.t('landingadminlink')
+          //need the link, obv
+          =env.t('landingend4')
+        a.btn.btn-primary.btn-small(ng-click='playButtonClick()')=env.t('playButton')
+        //play button needs to be moved into a footer and be size fixed, due to no jumbotron
 
       .modal.fade#login-modal(style='display:none')
         .modal-dialog
@@ -29,6 +52,7 @@ block content
             .modal-body
               a(href='/auth/facebook')
                     img(src='/bower_components/habitrpg-shared/img/facebook-login-register.jpeg', alt=env.t('loginFacebookAlt'))
+              //can we add in google auth? I like google auth
               h3 Or
               ul.nav.nav-tabs
                 li.active
