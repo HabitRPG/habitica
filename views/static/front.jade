@@ -7,108 +7,109 @@ block title
   title=env.t('titleFront')
 
 block content
-  div(ng-app='habitrpgStatic')
-    #wrap(ng-controller='AuthCtrl')
+  div(ng-app='habitrpgStatic',ng-controller='AuthCtrl')
+    #wrap
       //-include ./header
       .container
-        //we need to use something that's not jumbotron for this, but still keep it centered
-        //could someone write something else to make it pretty?
-        img(src='/bower_components/habitrpg-shared/img/logo/habitrpg_pixel.png', alt='HabitRPG logo')
-        //this image needs to be replaced by something more enticing, that shows off the features of hRPG
-        //while acting similarly to a logo
-        h1=env.t('tagline')
-        //we'd want the tagline centered, for sure, and a bit more pop, but without using jumbotron
-        //it could also be part of the image, as long as the alt text included it
-        //in fact, I think I really want it on the image, rather than as text, but language issues
-        br
-        p=env.t('landingp1')
-        h3=env.t('landingp2header')
-        //images in these parts could be useful, too
-        //if there's a language workaround, image headers? people like pictures!
-        p=env.t('landingp2')
-        h3=env.t('landingp3header')
-        //I'm not sold on "Consquences as the title here. Anyone got a better idea?
-        p=env.t('landingp3')
-        h3=env.t('landingp4header')
-        p=env.t('landingp4')
-        h3=env.t('landingend')
-        p
-          =env.t('landingend2')
-          a(href="FEATURESPAGEHERE")=env.t('landingfeatureslink')
-          //need the link, obv
-          =env.t('landingend3')
-          a(href="ENTERPRISEPAGEHERE")=env.t('landingadminlink')
-          //need the link, obv
-          =env.t('landingend4')
-        a.btn.btn-primary.btn-small(ng-click='playButtonClick()')=env.t('playButton')
-        //play button needs to be moved into a footer and be size fixed, due to no jumbotron
+        .marketing
+          //we need to use something that's not jumbotron for this, but still keep it centered
+          //could someone write something else to make it pretty?
+          img(src='/bower_components/habitrpg-shared/img/logo/habitrpg_pixel.png', alt='HabitRPG logo')
+          //this image needs to be replaced by something more enticing, that shows off the features of hRPG
+          //while acting similarly to a logo
+          h1=env.t('tagline')
+          //we'd want the tagline centered, for sure, and a bit more pop, but without using jumbotron
+          //it could also be part of the image, as long as the alt text included it
+          //in fact, I think I really want it on the image, rather than as text, but language issues
+          br
+          p=env.t('landingp1')
+          h2=env.t('landingp2header')
+          //images in these parts could be useful, too
+          //if there's a language workaround, image headers? people like pictures!
+          p=env.t('landingp2')
+          h2=env.t('landingp3header')
+          //I'm not sold on "Consquences as the title here. Anyone got a better idea?
+          p=env.t('landingp3')
+          h2=env.t('landingp4header')
+          p=env.t('landingp4')
+          //- TODO
+            h2=env.t('landingend')
+            p
+              =env.t('landingend2')
+              a(href="FEATURESPAGEHERE")=env.t('landingfeatureslink')
+              =env.t('landingend3')
+              a(href="ENTERPRISEPAGEHERE")=env.t('landingadminlink')
+              =env.t('landingend4')
+    //play button needs to be moved into a footer and be size fixed, due to no jumbotron
+    .static-footer
+      a.btn.btn-primary.btn-large(ng-click='playButtonClick()')=env.t('playButton')
 
-      .modal.fade#login-modal(style='display:none')
-        .modal-dialog
-          .modal-content
-            .modal-header
-              button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-              h4.modal-title=env.t('loginAndReg')
-            .modal-body
-              a(href='/auth/facebook')
-                    img(src='/bower_components/habitrpg-shared/img/facebook-login-register.jpeg', alt=env.t('loginFacebookAlt'))
-              //can we add in google auth? I like google auth
-              h3 Or
-              ul.nav.nav-tabs
-                li.active
-                  a(data-toggle='tab',data-target='#login-tab')=env.t('login')
-                li
-                  a(data-toggle='tab',data-target='#register-tab')=env.t('register')
+    .modal.fade#login-modal(style='display:none')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+            h4.modal-title=env.t('loginAndReg')
+          .modal-body
+            a(href='/auth/facebook')
+                  img(src='/bower_components/habitrpg-shared/img/facebook-login-register.jpeg', alt=env.t('loginFacebookAlt'))
+            //can we add in google auth? I like google auth
+            h3 Or
+            ul.nav.nav-tabs
+              li.active
+                a(data-toggle='tab',data-target='#login-tab')=env.t('login')
+              li
+                a(data-toggle='tab',data-target='#register-tab')=env.t('register')
 
-              .tab-content
-                .tab-pane.active#login-tab
-                  form(ng-submit='auth()', method='POST')
-                    .control-group
-                      input(type='text', ng-model='loginUsername', placeholder=env.t('username'), name='username')
-                    .control-group
-                      input(type='password', ng-model='loginPassword', placeholder=env.t('password'), name='password')
-                      //-.control-group
-                        label.checkbox
-                          input(type='checkbox', ng-click='useUUID = !useUUID')
-                          =env.t('useUUID')
-                    .control-group
-                      input.btn.btn-primary(type='submit', value=env.t('login'))
+            .tab-content
+              .tab-pane.active#login-tab
+                form(ng-submit='auth()', method='POST')
+                  .control-group
+                    input(type='text', ng-model='loginUsername', placeholder=env.t('username'), name='username')
+                  .control-group
+                    input(type='password', ng-model='loginPassword', placeholder=env.t('password'), name='password')
+                    //-.control-group
+                      label.checkbox
+                        input(type='checkbox', ng-click='useUUID = !useUUID')
+                        =env.t('useUUID')
+                  .control-group
+                    input.btn.btn-primary(type='submit', value=env.t('login'))
 
-                    small=env.t('passMan')
+                  small=env.t('passMan')
 
-                  // good god accordions have html ceremony
-                  #forgot-password-accordion.accordion
-                    .accordion-group
-                      .accordion-heading
-                        a.accordion-toggle(data-toggle='collapse', data-parent='#forgot-password-accordion', href='#forgot-password-group')=env.t('forgotPass')
-                      #forgot-password-group.accordion-body.collapse
-                        .accordion-inner
-                          form#derby-auth-password-reset(ng-submit='passwordReset(passwordResetEmail)')
-                            h3=env.t('emailNewPass')
-                            //.alert.alert-success {.success.passwordReset}
-                            //.control-group.{#if..errors.passwordReset}error{/}
-                            .control-group
-                              input(type='text', name='email', placeholder=env.t('email') , ng-model='passwordResetEmail')
-                              //span.help-inline {.errors.passwordReset}
-                            input.btn(type='submit', value=env.t('submit'))
-
-
+                // good god accordions have html ceremony
+                #forgot-password-accordion.accordion
+                  .accordion-group
+                    .accordion-heading
+                      a.accordion-toggle(data-toggle='collapse', data-parent='#forgot-password-accordion', href='#forgot-password-group')=env.t('forgotPass')
+                    #forgot-password-group.accordion-body.collapse
+                      .accordion-inner
+                        form#derby-auth-password-reset(ng-submit='passwordReset(passwordResetEmail)')
+                          h3=env.t('emailNewPass')
+                          //.alert.alert-success {.success.passwordReset}
+                          //.control-group.{#if..errors.passwordReset}error{/}
+                          .control-group
+                            input(type='text', name='email', placeholder=env.t('email') , ng-model='passwordResetEmail')
+                            //span.help-inline {.errors.passwordReset}
+                          input.btn(type='submit', value=env.t('submit'))
 
 
-                .tab-pane#register-tab
-                  form(ng-submit='register()', name='registrationForm')
-                    .control-group
-                      input(type='text', ng-model='registerVals.username', placeholder=env.t('username'), required)
-                    .control-group
-                      input(type='email', ng-model='registerVals.email', placeholder=env.t('email'), required)
-                    .control-group
-                      input(type='password', ng-model='registerVals.password', placeholder=env.t('password'), required)
-                    .control-group
-                      input(type='password', ng-model='registerVals.confirmPassword', placeholder=env.t('passConfirm'), required)
-                    .control-group
-                      small=env.t('accept1Terms')
-                        a(href='/static/terms' target='_blank')=env.t('terms')
-                        =env.t('accept2Terms')
-                        a(href='/static/privacy' target='_blank')=env.t('privacy')
-                        | .
-                      input.btn.btn-primary(type='submit', value=env.t('register'))
+
+
+              .tab-pane#register-tab
+                form(ng-submit='register()', name='registrationForm')
+                  .control-group
+                    input(type='text', ng-model='registerVals.username', placeholder=env.t('username'), required)
+                  .control-group
+                    input(type='email', ng-model='registerVals.email', placeholder=env.t('email'), required)
+                  .control-group
+                    input(type='password', ng-model='registerVals.password', placeholder=env.t('password'), required)
+                  .control-group
+                    input(type='password', ng-model='registerVals.confirmPassword', placeholder=env.t('passConfirm'), required)
+                  .control-group
+                    small=env.t('accept1Terms')
+                      a(href='/static/terms' target='_blank')=env.t('terms')
+                      =env.t('accept2Terms')
+                      a(href='/static/privacy' target='_blank')=env.t('privacy')
+                      | .
+                    input.btn.btn-primary(type='submit', value=env.t('register'))
