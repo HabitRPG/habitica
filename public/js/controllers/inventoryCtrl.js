@@ -40,6 +40,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       } else {
         $scope.hatch(eggData, $scope.selectedPotion);
       }
+      $scope.selectedFood = null;
     }
 
     $scope.choosePotion = function(potion){
@@ -53,11 +54,13 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       } else {
         $scope.hatch($scope.selectedEgg, potionData);
       }
+      $scope.selectedFood = null;
     }
 
     $scope.chooseFood = function(food){
       if ($scope.selectedFood && $scope.selectedFood.key == food) return $scope.selectedFood = null;
       $scope.selectedFood = Content.food[food];
+      $scope.selectedEgg = $scope.selectedPotion = null;
     }
 
     $scope.sellInventory = function() {
