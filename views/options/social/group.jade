@@ -37,10 +37,10 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
                 | {{group.quest.hp | number:0}} / {{Content.quests[group.quest.key].hp}}
             .hero-stats
               .meter.health(title=env.t('bossHP'))
-                .bar(style='width: {{Shared.percent(group.quest.progress.hp, Content.quests[group.quest.key].boss.hp)}}%;')
+                .bar(style='width: {{Shared.percent(group.quest.progress.hp, Content.quests[group.quest.key].boss.hp, \'up\')}}%;')
                 span.meter-text
                   i.icon-heart
-                  | {{Shared.percent(group.quest.progress.hp, Content.quests[group.quest.key].boss.hp, 'up'}}
+                  | {{Shared.percent(group.quest.progress.hp, Content.quests[group.quest.key].boss.hp, 'up')}}
 
           div(ng-if='Content.quests[group.quest.key].collect')
             h4=env.t('collected') + ':'
