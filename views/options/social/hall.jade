@@ -23,12 +23,12 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
       h3 {{hero.profile.name}}
       .-options
         .control-group.option-large
-          input.option-content(type='text', ng-model='hero.contributor.text', placeholder=env.t('conTitle'))
+          input.option-content(type='text', ng-model='hero.contributor.text', placeholder=env.t('contribTitle'))
         .control-group.option-medium
           input.option-content(type='number', step="any", ng-model='hero.contributor.level')
-          span.input-suffix=env.t('conLevel')
+          span.input-suffix=env.t('contribLevel')
           br
-          small=env.t('conText')
+          small=env.t('contribHallText')
           a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear')=env.t('moreDetails')
         .control-group.option-large
           textarea.option-content(style='height:15em;', placeholder=env.t('contributions'), ng-model='hero.contributor.contributions')
@@ -44,7 +44,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
           input.option-content(type='number', step="any", ng-model='hero.balance')
           span.input-suffix Balance
           p
-            small= '`user.balance`' + env.t('USD1') + ' <em>' + env.t('not') + '</em> ' + env.t('USD2')
+            small!= '`user.balance`' + env.t('USD1') + ' <em>' + env.t('not') + '</em> ' + env.t('USD2')
 
         .control-group.option-medium
           label.checkbox
@@ -62,7 +62,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
         tr
           th=env.t('name')
           th(ng-if='user.contributor.admin')=env.t('UUID')
-          th=env.t('conLevel')
+          th=env.t('contribLevel')
           th=env.t('title')
           th=env.t('contributions')
     tr(ng-repeat='hero in heroes')
