@@ -13,7 +13,7 @@ var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 
 // ------------  Run Cron Script -------------------
-var argv = optimist
+var argv = require('optimist')
         .usage('Usage: $0 [--cron]')
         .boolean('cron')
         .describe('cron', 'Runs the cron script and then exits.')
@@ -60,7 +60,7 @@ if (argv.cron) {
   var server = http.createServer();
 
   // ------------  MongoDB Configuration ------------
-  mongoose = require('mongoose');
+  var mongoose = require('mongoose');
   var mongooseOptions = !isProd ? {} : {
     replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
     server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
@@ -75,8 +75,8 @@ if (argv.cron) {
   require('./models/user');
 
   // ------------  Passport Configuration ------------
-  var passport = require('passport')
-  var util = require('util')
+  var passport = require('passport');
+  var util = require('util');
   var FacebookStrategy = require('passport-facebook').Strategy;
   // Passport session setup.
   //   To support persistent login sessions, Passport needs to be able to
