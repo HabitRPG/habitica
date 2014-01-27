@@ -18,7 +18,6 @@
   "attributes" : "Attributes",
     "physical" : "Physical",
     "mental" : "Mental",
-    "social" : "Social",
     "otherExamples" : "Eg, professional pursuits, hobbies, financial, etc.",
 
   "itemDrop" : "An item has dropped!"

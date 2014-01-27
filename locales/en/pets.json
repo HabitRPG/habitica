@@ -29,9 +29,6 @@
 
   "_commentdrops" : "DROPS MODALS",
     "dropsEnabled" : "Drops Enabled!",
-      "firstDrop1" : "You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. You just found a ",
-      "firstDrop2" : "Egg",
-      "useGems1" : "If you've got your eye on a pet, but can't wait any longer for it to drop, use Gems in ",
-      "useGems2" : "Options > Inventory",
-      "useGems3" : " to buy one!"
+      "firstDrop" : "You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. You just found a <strong><%= eggText %> Egg</strong>! <%= eggNotes %>",
+      "useGems" : "If you've got your eye on a pet, but can't wait any longer for it to drop, use Gems in <strong>Options > Inventory</strong> to buy one!"
 }
