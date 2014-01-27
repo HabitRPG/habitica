@@ -3,8 +3,7 @@ var winston = require('winston');
 require('winston-mail').Mail;
 require('winston-newrelic');
 
-var logger;
-
+var logger = null;
 if (logger == null) {
     logger = new (winston.Logger)({});
     if (nconf.get('NODE_ENV') == 'production') {
