@@ -65,7 +65,7 @@ module.exports.runCron = function(options, callback) {
             }
         };
     };
-    var stream = User.find(query).batchSize(5).stream();
+    var stream = User.find(query).batchSize(200).stream();
     stream.on('data', function(user) {
         toProcess++;
         var mem = process.memoryUsage();
@@ -87,8 +87,11 @@ module.exports.runCron = function(options, callback) {
             }
         ], done(user));
     }).on('error', function(err) {
-        errors.push(err);
+        logging.error(err);
     }).on('close', function() {
         streamClosed = true;
+        if (toProcess == 0) {
+            callback(errors, saved);
+        }
     });
 }
