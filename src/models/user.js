@@ -351,7 +351,7 @@ UserSchema.pre('save', function(next) {
       'Anonymous';
   }
 
-  user.auth.timestamps.loggedin = new Date(); // TODO is this a valid method of determining?
+  this.auth.timestamps.loggedin = new Date(); // TODO is this a valid method of determining?
 
   // Set cronTime based on user dayStart and timeZoneOffset.
   var serverTimezone = moment().zone();
