@@ -31,7 +31,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
             p.muted(ng-show='eggCount < 1')=env.t('noEggs')
             div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
               //TODO move positioning this styling to css
-              button.customize-option(popover='{{Content.eggs[egg].notes}}', popover-title='{{Content.eggs[egg].text}} Egg', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !user.items.pets[egg+"-"+selectedPotion.key]}')
+              button.customize-option(popover='{{Content.eggs[egg].notes}}', popover-title='{{Content.eggs[egg].text}} Egg', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !(user.items.pets[egg+"-"+selectedPotion.key]>0)}')
                 .badge.badge-info.stack-count {{points}}
               //-p {{Content.eggs[egg].text}}
 
@@ -39,7 +39,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
           menu.hatchingPotion-menu(label=(env.t('hatchingPotions') + ' ({{potCount}})'))
             p.muted(ng-show='potCount < 1')=env.t('noHatchingPotions')
             div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
-              button.customize-option(popover='{{Content.hatchingPotions[pot].notes}}', popover-title='{{Content.hatchingPotions[pot].text}} Potion', popover-trigger='mouseenter', popover-placement='right', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !user.items.pets[selectedEgg.key+"-"+pot]}')
+              button.customize-option(popover='{{Content.hatchingPotions[pot].notes}}', popover-title='{{Content.hatchingPotions[pot].text}} Potion', popover-trigger='mouseenter', popover-placement='right', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !(user.items.pets[selectedEgg.key+"-"+pot]>0)}')
                 .badge.badge-info.stack-count {{points}}
 
         li.customize-menu
