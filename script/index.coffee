@@ -636,7 +636,7 @@ api.wrap = (user, main=true) ->
         return cb?({code:404,message:"Please specify query.egg & query.hatchingPotion"}) unless egg and hatchingPotion
         return cb?({code:401,message:"You're missing either that egg or that potion"}) unless user.items.eggs[egg] > 0 and user.items.hatchingPotions[hatchingPotion] > 0
         pet = "#{egg}-#{hatchingPotion}"
-        return cb?("You already have that pet. Try hatching a different combination!")  if user.items.pets[pet]
+        return cb?("You already have that pet. Try hatching a different combination!")  if user.items.pets[pet] and user.items.pets[pet] > 0
         user.items.pets[pet] = 5
         user.items.eggs[egg]--
         user.items.hatchingPotions[hatchingPotion]--
