@@ -1,24 +1,23 @@
 div(modal='modals.dropsEnabled')
   .modal-header
-    h3 Drops Enabled!
+    h3=env.t('dropsEnabled')
   .modal-body
     p
       span.item-drop-icon(class='Pet_Egg_{{user._tmp.firstDrop.key}}', style='margin-left: 0px')
-      | You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. You just found a
-      strong  {{user._tmp.firstDrop.text}} Egg
-      | ! {{user._tmp.firstDrop.notes}}.
+      span!=env.t('firstDrop', {eggText: "{{user._tmp.firstDrop.text}}", eggNotes: "{{user._tmp.firstDrop.notes}}"})
     br
-    p.
-      <span class='Pet_Currency_Gem item-drop-icon'></span> If you've got your eye on a pet, but can't wait any longer for it to drop, use Gems in <strong>Options > Inventory</strong> to buy one!
+    p
+      span.item-drop-icon(class='Pet_Currency_Gem')
+      span!=env.t('useGems')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.dropsEnabled = false') Close
+    button.btn.btn-default.cancel(ng-click='modals.dropsEnabled = false')=env.t('close')
 
 div(modal='modals.drop')
   .modal-header
-    h3 An item has dropped!
+    h3=env.t('itemDrop')
   .modal-body
     p
       span.item-drop-icon(class='Pet_{{user._tmp.drop.type}}_{{user._tmp.drop.key}}')
       | {{user._tmp.drop.dialog}}
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.drop = false') Close
+    button.btn.btn-default.cancel(ng-click='modals.drop = false')=env.t('close')
