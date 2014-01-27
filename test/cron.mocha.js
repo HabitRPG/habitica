@@ -1,5 +1,5 @@
 /*jslint node: true */
-/*global describe, before, beforeEach, it*/
+/*global describe, before, beforeEach, afterEach, it*/
 'use strict';
 
 var _ = require('lodash');
@@ -9,7 +9,8 @@ var moment = require('moment');
 var mongoose = require('mongoose');
 var shared = require('habitrpg-shared');
 var nconf = require('nconf');
-
+var sinon = require('sinon');
+var diff = require('deep-diff');
 var cron = require('../src/scripts/cron');
 var utils = require('../src/utils');
 var logging = require('../src/logging');
@@ -26,7 +27,7 @@ describe('runCron', function () {
 
     after(function() {
         db.connection.db.dropDatabase(function(err) {
-            expect(err).to.not.be.ok();
+            expect(err).to.be.ok();
             db.connection.close();
         });
     });
@@ -103,7 +104,7 @@ describe('runCron', function () {
             // lstCron will be between now and midnight.
             var lastCron;
             if (now.get('hour') != 0) {
-               lastCron =  moment(now).subtract('hour', 1);
+                lastCron =  moment(now).subtract('hour', 1);
             } else {
                 // this scenario isn't valid if the current hour is midnight.
                 return done();
@@ -306,6 +307,123 @@ describe('runCron', function () {
             ], function(err) {
                 expect(err).to.not.be.ok();
             });
+        });
+    });
+    describe("affected fields", function() {
+        it("stats are the same after cron with no dailies",function(done) {
+            var now = moment();
+            var dayStart =  moment(now).add('h', 1).get('hour');
+            var lastCron =  moment(now).subtract('h', 26); // more than a day ago!
+            async.waterfall([
+                function(cb) {
+                    createTestUser(cb, {
+                        'lastCron':lastCron,
+                        'preferences.timezoneOffset': now.zone(),
+                        'preferences.dayStart': dayStart
+                    });
+                }, function(user,  cb) {
+                    user.dailys = [];
+                    // TODO: remove once user is set with max MP at default
+                    user.stats.mp = shared.wrap(user)._statsComputed.maxMP;
+                    user.save(cb);
+                }, function(user, cb) {
+                    expect(user.dailys).to.be.empty();
+                    var before = _.cloneDeep(user.toObject());
+                    // Run Cron
+                    testCron(user, {}, true, function(err, after) {
+                        after = after.toObject();
+                        // Buffs are currently affected by perfect days. TODO: remove
+                        delete before.stats.buffs;
+                        delete after.stats.buffs;
+                        var userDiff = diff(before.stats, after.stats);
+                        expect(userDiff).to.be(undefined);
+                        done();
+                    });
+                }
+            ]);
+        });
+});
+    describe('preening', function() {
+        beforeEach(function() {
+            this.clock = sinon.useFakeTimers(Date.parse("2013-11-20"), "Date");
+        });
+
+        afterEach(function() {
+            this.clock.restore();
+        });
+
+        it('should preen user history', function(done) {
+            var history = [
+                // Last year should be condensed to one entry, avg: 1
+                {date:'09/01/2012', value: 0},
+                {date:'10/01/2012', value: 0},
+                {date:'11/01/2012', value: 2},
+                {date:'12/01/2012', value: 2},
+                // Each month of this year should be condensed to 1/mo, averages follow
+                {date:'01/01/2013', value: 1}, // 2
+                {date:'01/15/2013', value: 3},
+
+                {date:'02/01/2013', value: 2}, //3
+                {date:'02/15/2013', value: 4},
+
+                {date:'03/01/2013', value: 3}, //4
+                {date:'03/15/2013', value: 5},
+
+                {date:'04/01/2013', value: 4}, //5
+                {date:'04/15/2013', value: 6},
+
+                {date:'05/01/2013', value: 5}, //6
+                {date:'05/15/2013', value: 7},
+
+                {date:'06/01/2013', value: 6}, //7
+                {date:'06/15/2013', value: 8},
+
+                {date:'07/01/2013', value: 7}, //8
+                {date:'07/15/2013', value: 9},
+
+                {date:'08/01/2013', value: 8}, //9
+                {date:'08/15/2013', value: 10},
+
+                {date:'09/01/2013', value: 9}, //10
+                {date:'09/15/2013', value: 11},
+
+                {date:'010/01/2013', value: 10}, //11
+                {date:'010/15/2013', value: 12},
+
+                // This month should condense each week
+                {date:'011/01/2013', value: 12},
+                {date:'011/02/2013', value: 13},
+                {date:'011/03/2013', value: 14},
+                {date:'011/04/2013', value: 15}
+            ];
+            var now = moment();
+            var dayStart =  moment(now).add('h', 1).get('hour');
+            var lastCron =  moment(now).subtract('h', 26); // more than a day ago!
+            async.waterfall([
+                function(cb) {
+                    createTestUser(cb, {
+                        'lastCron':lastCron,
+                        'preferences.timezoneOffset': now.zone(),
+                        'preferences.dayStart': dayStart
+                    });
+                }, function(user,  cb) {
+                    user.history = {exp: _.cloneDeep(history), todos: _.cloneDeep(history)};
+                    user.habits[0].history = _.cloneDeep(history);
+                    user.save(cb);
+                }, function(user, cb) {
+                    // Run Cron
+                    testCron(user, {}, true, function(err, after) {
+                        after = after.toObject();
+                        // remove history entries created by cron
+                        after.history.exp.pop();
+                        after.history.todos.pop();
+                        _.each([after.history.exp, after.history.todos, after.habits[0].history], function(arr) {
+                            expect(_.pluck(arr, 'value')).to.eql([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
+                        });
+                        done();
+                    });
+                }
+            ]);
         });
     });
 });
