@@ -79,25 +79,37 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $rootScope.flash[type].splice($index, 1);
     }
 
-    $rootScope.showStripe = function() {
+    $rootScope.showStripe = function(subscription) {
       StripeCheckout.open({
         key: window.env.STRIPE_PUB_KEY,
         address: false,
         amount: 500,
-        name: "Checkout",
-        description: "Buy 20 Gems, Disable Ads, Support the Developers",
-        panelLabel: "Checkout",
+        name: subscription ? "Subscribe" : "Checkout",
+        description: subscription ?
+          "Buy gems with Gold, No Ads, Support the Devs" :
+          "20 Gems, No Ads, Support the Devs",
+        panelLabel: subscription ? "Subscribe" : "Checkout",
         token: function(data) {
+          var url = '/api/v2/user/buy-gems';
+          if (subscription) url += '?plan=basic_earned';
+//          if (subscription) url += '?plan=test';
           $scope.$apply(function(){
-            $http.post("/api/v2/user/buy-gems", data)
-              .success(function() {
-                window.location.href = "/";
-              }).error(function(err) {
-                alert(err);
-              });
+            $http.post(url, data).success(function() {
+              window.location.reload(true);
+            }).error(function(err) {
+              alert(err);
+            });
           })
         }
       });
+    }
+
+    $scope.cancelSubscription = function(){
+      if (!confirm("Are you sure you want to cancel your subscription?")) return;
+      //TODO use Stripe API to keep subscription till end of their month
+      $http.post('/api/v2/user/cancel-subscription').success(function(){
+        window.location.reload(true);
+      })
     }
 
     $scope.contribText = function(contrib, backer){

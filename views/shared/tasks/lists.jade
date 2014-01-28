@@ -102,9 +102,9 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
         br
 
         // Ads
-        div(bo-if='main && !user.purchased.ads && list.type!="reward"')
+        div(bo-if='main && !user.purchased.ads && !user.purchased.plan.customerId && list.type!="reward"')
           span.pull-right
-            a(ng-click='modals.buyGems=true', tooltip=env.t('removeAds'))
+            a(ui-sref='options.settings.subscription', popover=env.t('removeAds'), popover-trigger='mouseenter')
               i.icon-remove
           // Habit3
           ins.adsbygoogle(ng-init='initAds()', style='display: inline-block; width: 234px; height: 60px;', data-ad-client='ca-pub-3242350243827794', data-ad-slot='9529624576')

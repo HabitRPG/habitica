@@ -152,3 +152,9 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 p
                   | 8
                   span.Pet_Currency_Gem1x.inline-gems
+              div(ng-if='user.purchased.plan.planId')
+                button.customize-option(ng-click='user.ops.purchase({params:{type:"gems",key:"gem"}})')
+                  span.Pet_Currency_Gem.inline-gems
+                p
+                  | 20
+                  span.shop_gold

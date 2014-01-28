@@ -9,6 +9,9 @@ script(id='partials/options.settings.html', type="text/ng-template")
     li(ng-class="{ active: $state.includes('options.settings.export') }")
       a(ui-sref='options.settings.export')
         =env.t('dataexport')
+    li(ng-class="{ active: $state.includes('options.settings.subscription') }")
+      a(ui-sref='options.settings.subscription')
+        | Subscription
 
   .tab-content
     .tab-pane.active
@@ -108,3 +111,144 @@ script(id='partials/options.settings.export.html', type="text/ng-template")
       =env.t('exportuserdata')
       a(href="/export/userdata.xml")= ' ' + env.t('xml') + ' '
       a(href="/export/userdata.json")= env.t('json')
+
+script(id='partials/options.settings.subscription.perks.html',type='text/ng-template')
+  table.table.table-striped
+    tr
+      td
+        span.dashed-underline(popover="Ads will stay disabled while you have an active account (original users with disabled ads are grandfathered).",popover-trigger='mouseenter',popover-placement='right')
+          | Disable ads
+    tr
+      td
+        span.dashed-underline(popover="(1 Gem costs {{Shared.planGemLimits.convRate}} Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a {{Shared.planGemLimits.convCap}}G monthly conversion cap to prevent farming.",popover-trigger='mouseenter',popover-placement='right')
+          | Buy Gems with Gold
+    tr
+      td
+        span.dashed-underline(popover="Makes your full history available in graphs and export. Non-subscriber histories get consolidated for database optimization.",popover-trigger='mouseenter',popover-placement='right')
+          | Retain full history entries
+    tr
+      td
+        span.dashed-underline(popover="Complete your stable faster!",popover-trigger='mouseenter',popover-placement='right')
+          | Daily drop-caps doubled
+    //-tr
+    //-  td +20 gems to your account
+    tr
+      td
+        span.dashed-underline(popover="This open source project can use all the help it can get. Help us keep Habit alive!",popover-trigger='mouseenter',popover-placement='right')
+          | Supports the developers
+    tr
+      td.alert.alert-info $5 USD / Month
+
+script(id='partials/feature-matrix-check.html',type='text/ng-template')
+  span.task-checker.action-yesno
+    input.focusable(type='checkbox', checked)
+    label
+
+script(id='partials/options.settings.subscription.html',type='text/ng-template')
+
+  .well
+    h2 Individual Subscription
+    div(ng-if='!user.purchased.plan.customerId')
+      div(ng-include="'partials/options.settings.subscription.perks.html'")
+      .btn.btn-primary(ng-click='showStripe(true)') Subscribe
+      //-small.muted PayPal coming soon.
+
+    div(ng-if='user.purchased.plan.customerId')
+      .well
+        div(style='font-size:22px')
+          i.icon-ok
+          | Subscribed
+        div(ng-include="'partials/options.settings.subscription.perks.html'")
+      .btn.btn-small.btn-danger(ng-click='cancelSubscription()') Cancel Subscription
+
+
+  //-.well.subscription-features
+    h2 Administrator Subscriptions
+
+    table.table.table-striped
+      tr
+        th.feature-name
+        //th.feature-name.muted Family (Coming Soon)
+        //th.feature-name.muted Bronze (Coming Soon)
+        //th.feature-name.muted Silver (Coming Soon)
+        th.feature-name Gold
+        th.feature-name.muted More Plans<br/>Coming Soon
+      tr
+        th
+          span.dashed-underline(popover="Members of the organization participate outside of HabitRPG proper, providing focus for your participants.",popover-trigger='mouseenter',popover-placement='right')
+            | Private Organization
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        td(ng-include="'partials/feature-matrix-check.html'")
+        td
+      tr
+        th
+          span.dashed-underline(popover="Shared hosting means your organization uses the same database as HabitRPG proper even though you don't interact with Habitica. Dedicated means you get your own database and server. You can choose to have HabitRPG host your server/db, or we can install it on your own servers.",popover-trigger='mouseenter',popover-placement='right')
+            | Hosting Type
+        //td Shared
+        //td Shared
+        //td Shared
+        td Dedicated
+        td
+
+      tr
+        th
+          span.dashed-underline(popover="We can optionally give you your own domain for the installation.",popover-trigger='mouseenter',popover-placement='right')
+            | Custom Domain
+        //td.muted
+        //td.muted
+        //td.muted
+        td(ng-include="'partials/feature-matrix-check.html'")
+        td
+      tr
+        th
+          span.dashed-underline(popover="The maximum number of players in your private organization.",popover-trigger='mouseenter',popover-placement='right')
+            | Max Participants
+        //td.muted 10
+        //td.muted 50
+        //td.muted 150
+        td Unlimited
+        td
+      tr
+        th
+          span.dashed-underline(popover="First to be provided for with support.",popover-trigger='mouseenter',popover-placement='right')
+            | Priority support on tickets & hosting
+        //td.muted
+        //td.muted
+        //td.muted
+        td(ng-include="'partials/feature-matrix-check.html'")
+        td
+      tr
+        th
+          span.dashed-underline(popover="We will provide support for training, bugs, installation, and feature requests.",popover-trigger='mouseenter',popover-placement='right')
+            | Support Hours / Month
+        //td.muted 10
+        //td.muted 20
+        //td.muted 30
+        td Unlimited
+        td
+      tr
+        th
+          h5 In-Game features
+          ul(style='margin:0 0 10px 25px;')
+            li Ads disabled for members
+            li
+              span.dashed-underline(popover="Members will be able to purchase gems with gold, meaning none of your participants need to buy anything with real money.",popover-trigger='mouseenter',popover-placement='right')
+                | Gems purchasable with gold
+            li
+              span.dashed-underline(popover="We will provide the organization leaders with as many gems as they need, for things like challenge prizes, guild-creation, etc.",popover-trigger='mouseenter',popover-placement='right')
+                | Infinite leader gems
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        td(ng-include="'partials/feature-matrix-check.html'")
+        td
+      tr
+        th
+          | Price
+        //td.alert.alert-info ??? USD / Month
+        //td.alert.alert-info ??? USD / Month
+        //td.alert.alert-info ??? USD / Month
+        td.alert.alert-info ??? USD / Month
+        td

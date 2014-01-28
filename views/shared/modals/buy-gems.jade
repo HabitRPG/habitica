@@ -1,43 +1,30 @@
 div(modal='modals.buyGems')
-  .modal-header
-    include ../gems
-    h3=env.t('buyGemsDonate')
-
   .modal-body
-    table
-      tr
-        td
-          .npc_justin
-        td
-          .popover.static-popover.fade.right.in.wide-popover
-            .arrow
-            h3.popover-title
-              a(target='_blank', href='https://twitter.com/bowenNstuff')=env.t('justin')
-            .popover-content
+    .buy-gems
+      include ../gems
+      .well
+        h3 Buy Gems
+        table.table
+          tr
+            td
+              span.dashed-underline(popover=env.t('donateText1'),popover-trigger='mouseenter',popover-placement='right')
+                | +20 <span class="Pet_Currency_Gem1x inline-gems"/>
+          tr
+            td
+              span.dashed-underline(popover=env.t('donateText3'),popover-trigger='mouseenter',popover-placement='right')
+                =env.t('donateText2')
+          tr
+            td.alert.alert-info=env.t('fiveUSD1')
+          tr
+            td
+              .btn.btn-primary(ng-click='showStripe()',style='margin-left:10px;')=env.t('payWithCard')
+              div(style='float:left;')
+                //-script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name=env.t('paypalText'), data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v2/user/buy-gems/paypal-ipn', data-env="#{env.NODE_ENV == 'production' ? '' : 'sandbox'}", data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-rm='1', data-no_shipping='1')
+                script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name=env.t('paypalText'), data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v2/user/buy-gems/paypal-ipn', data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-rm='1', data-no_shipping='1')
               p
-                span(class='label label-info')=env.t('fiveUSD1')
-                | 
-                =env.t('fiveUSD2')
-              ul.modal-indented-list
-                li=env.t('donateText1')
-                li=env.t('donateText2')
-                li=env.t('donateText3')
-    br
-    .row-fluid
-      .span6.well
-        h3=env.t('payWithCard')
-        .btn.btn-primary(ng-click='showStripe()')=env.t('payWithCard')
-        br
-        br
-        small
-          .alert.alert-info=env.t('payRecommended')
-      .span6.well
-        h3=env.t('payWithPaypal')
-        //-script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name=env.t('paypalText'), data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v2/user/buy-gems/paypal-ipn', data-env="#{env.NODE_ENV == 'production' ? '' : 'sandbox'}", data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-rm='1', data-no_shipping='1')
-        script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name=env.t('paypalText'), data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v2/user/buy-gems/paypal-ipn', data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-rm='1', data-no_shipping='1')
-        br
-        small
-          .alert=env.t('payNote')
+                small.muted(style='line-height:10px;')=env.t('payNote')
+
+      div(ng-include="'partials/options.settings.subscription.html'")
 
   .modal-footer
     button.btn.btn-default.cancel(ng-click='modals.buyGems = false')=env.t('cancel')
