@@ -80,21 +80,21 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   p
                     button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')
                       =env.t('sell')
-                      | {{selectedEgg.key}}
+                      | &nbsp;{{selectedEgg.text}}&nbsp;
                       =env.t('for')
-                      | {{selectedEgg.value}})
+                      | &nbsp;{{selectedEgg.value}}&nbsp;
                       =env.t('gold')
                     button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')
                       =env.t('sell')
-                      | {{selectedPotion.key}}
+                      | &nbsp;{{selectedPotion.text}}&nbsp;
                       =env.t('for')
-                      | {{selectedPotion.value}})
+                      | &nbsp;{{selectedPotion.value}}&nbsp;
                       =env.t('gold')
                     button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')
                       =env.t('sell')
-                      | {{selectedFood.key}}
+                      | &nbsp;{{selectedFood.text}}&nbsp;
                       =env.t('for')
-                      | {{selectedFood.value}})
+                      | &nbsp;{{selectedFood.value}}&nbsp;
                       =env.t('gold')
         menu.inventory-list(type='list')
           li.customize-menu
