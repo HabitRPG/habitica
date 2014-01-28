@@ -342,6 +342,8 @@
 "classallocationpopover" : "Assigns more points to the attributes important to your Class.",
 "taskallocation" : "Distribute points based on task activity ",
 "taskallocationpopover" : "Assigns points based on the Physical (STR), Mental (INT), Social (CON), and Other (PER) categories associated with the tasks you complete.",
+"distributepoints": "Distribute Unallocated Points",
+"distributepointspopover": "Assigns all unallocated attribute points according to the selected allocation scheme.",
 "allocatestr" : "Points allocated to STR:",
 "allocatestrpop" : "Add a point to Strength",
 "allocatecon" : "Points allocated to CON:",

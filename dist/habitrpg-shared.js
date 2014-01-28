@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+;(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports = require('./script/index.coffee');
 var _ = require('lodash');
 var moment = require('moment');
@@ -8,7 +8,7 @@ if (typeof window !== 'undefined') {
   window._ = _;
   window.moment = moment;
 }
-},{"./script/index.coffee":4,"lodash":5,"moment":6}],2:[function(require,module,exports){
+},{"./script/index.coffee":6,"lodash":3,"moment":4}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -64,3526 +64,9 @@ process.chdir = function (dir) {
 };
 
 },{}],3:[function(require,module,exports){
-(function() {
-  var api, classes, diminishingReturns, events, gear, gearTypes, moment, repeat, _;
-
-  _ = require('lodash');
-
-  api = module.exports;
-
-  moment = require('moment');
-
-  /*
-    ---------------------------------------------------------------
-    Gear (Weapons, Armor, Head, Shield)
-    Item definitions: {index, text, notes, value, str, def, int, per, classes, type}
-    ---------------------------------------------------------------
-  */
-
-
-  classes = ['warrior', 'rogue', 'healer', 'wizard'];
-
-  gearTypes = ['armor', 'weapon', 'shield', 'head'];
-
-  events = {
-    winter: {
-      start: '2013-12-31',
-      end: '2014-02-01'
-    }
-  };
-
-  gear = {
-    weapon: {
-      base: {
-        0: {
-          text: "No Weapon",
-          notes: 'No Weapon.',
-          value: 0
-        }
-      },
-      warrior: {
-        0: {
-          text: "Training Sword",
-          notes: 'Practice weapon. Confers no benefit.',
-          value: 0
-        },
-        1: {
-          text: "Sword",
-          notes: 'Common soldier\'s blade. Increases STR by 3.',
-          str: 3,
-          value: 20
-        },
-        2: {
-          text: "Axe",
-          notes: 'Double-bitted battle-axe. Increases STR by 6.',
-          str: 6,
-          value: 30
-        },
-        3: {
-          text: "Morning Star",
-          notes: 'Heavy club with brutal spikes. Increases STR by 9.',
-          str: 9,
-          value: 45
-        },
-        4: {
-          text: "Sapphire Blade",
-          notes: 'Sword whose edge bites like the north wind. Increases STR by 12.',
-          str: 12,
-          value: 65
-        },
-        5: {
-          text: "Ruby Sword",
-          notes: 'Weapon whose forge-glow never fades. Increases STR by 15.',
-          str: 15,
-          value: 90
-        },
-        6: {
-          text: "Golden Sword",
-          notes: 'Bane of creatures of darkness. Increases STR by 18.',
-          str: 18,
-          value: 120,
-          last: true
-        }
-      },
-      rogue: {
-        0: {
-          text: "Dagger",
-          notes: 'A rogue\'s most basic weapon. Confers no benefit.',
-          str: 0,
-          value: 0
-        },
-        1: {
-          text: "Short Sword",
-          notes: 'Light, concealable blade. Increases STR by 2.',
-          str: 2,
-          value: 20
-        },
-        2: {
-          text: "Scimitar",
-          notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.',
-          str: 3,
-          value: 35
-        },
-        3: {
-          text: "Kukri",
-          notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.',
-          str: 4,
-          value: 50
-        },
-        4: {
-          text: "Nunchaku",
-          notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.',
-          str: 6,
-          value: 70
-        },
-        5: {
-          text: "Ninja-to",
-          notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.',
-          str: 8,
-          value: 90
-        },
-        6: {
-          text: "Hook Sword",
-          notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.',
-          str: 10,
-          value: 120,
-          last: true
-        }
-      },
-      wizard: {
-        0: {
-          twoHanded: true,
-          text: "Apprentice Staff",
-          notes: 'Practice staff. Confers no benefit.',
-          value: 0
-        },
-        1: {
-          twoHanded: true,
-          text: "Wooden Staff",
-          notes: 'Basic implement of carven wood. Increases INT by 3 and PER by 1.',
-          int: 3,
-          per: 1,
-          value: 30
-        },
-        2: {
-          twoHanded: true,
-          text: "Jeweled Staff",
-          notes: 'Focuses power through a precious stone. Increases INT by 6 and PER by 2.',
-          int: 6,
-          per: 2,
-          value: 50
-        },
-        3: {
-          twoHanded: true,
-          text: "Iron Staff",
-          notes: 'Plated in metal to channel heat, cold, and lightning. Increases INT by 9 and PER by 3.',
-          int: 9,
-          per: 3,
-          value: 80
-        },
-        4: {
-          twoHanded: true,
-          text: "Brass Staff",
-          notes: 'As powerful as it is heavy. Increases INT by 12 and PER by 5.',
-          int: 12,
-          per: 5,
-          value: 120
-        },
-        5: {
-          twoHanded: true,
-          text: "Archmage Staff",
-          notes: 'Assists in weaving the most complex of spells. Increases INT by 15 and PER by 7.',
-          int: 15,
-          per: 7,
-          value: 160
-        },
-        6: {
-          twoHanded: true,
-          text: "Golden Staff",
-          notes: 'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 9.',
-          int: 18,
-          per: 9,
-          value: 200,
-          last: true
-        }
-      },
-      healer: {
-        0: {
-          text: "Novice Rod",
-          notes: 'For healers in training. Confers no benefit.',
-          value: 0
-        },
-        1: {
-          text: "Acolyte Rod",
-          notes: 'Crafted during a healer\'s initiation. Increases INT by 2.',
-          int: 2,
-          value: 20
-        },
-        2: {
-          text: "Quartz Rod",
-          notes: 'Topped with a gem bearing curative properties. Increases INT by 3.',
-          int: 3,
-          value: 30
-        },
-        3: {
-          text: "Amethyst Rod",
-          notes: 'Purifies poison at a touch. Increases INT by 5.',
-          int: 5,
-          value: 45
-        },
-        4: {
-          text: "Physician Rod",
-          notes: 'As much a badge of office as a healing tool. Increases INT by 7.',
-          int: 7,
-          value: 65
-        },
-        5: {
-          text: "Royal Scepter",
-          notes: 'Fit to grace the hand of a monarch, or of one who stands at a monarch\'s right hand. Increases INT by 9.',
-          int: 9,
-          value: 90
-        },
-        6: {
-          text: "Golden Scepter",
-          notes: 'Soothes the pain of all who look upon it. Increases INT by 11.',
-          int: 11,
-          value: 120,
-          last: true
-        }
-      },
-      special: {
-        0: {
-          text: "Dark Souls Blade",
-          notes: 'Feasts upon foes\' life essence to power its wicked strokes. Increases STR by 20.',
-          str: 20,
-          value: 150,
-          canOwn: (function(u) {
-            var _ref;
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 70;
-          })
-        },
-        1: {
-          text: "Crystal Blade",
-          notes: 'Its glittering facets tell the tale of a hero. Increases all attributes by 6.',
-          str: 6,
-          per: 6,
-          con: 6,
-          int: 6,
-          value: 170,
-          canOwn: (function(u) {
-            var _ref;
-            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 4;
-          })
-        },
-        2: {
-          text: "Stephen Weber's Shaft of the Dragon",
-          notes: 'Feel the potency of the dragon surge from within! Increases STR and PER by 25 each.',
-          str: 25,
-          per: 25,
-          value: 200,
-          canOwn: (function(u) {
-            var _ref;
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
-          })
-        },
-        3: {
-          text: "Mustaine's Milestone Mashing Morning Star",
-          notes: "Meetings, monsters, malaise: managed! Mash! Increases STR, INT, and CON by 17 each.",
-          str: 17,
-          int: 17,
-          con: 17,
-          value: 200,
-          canOwn: (function(u) {
-            var _ref;
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
-          })
-        },
-        yeti: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'warrior';
-          }),
-          text: "Yeti-Tamer Spear",
-          notes: 'Limited Edition 2013 Winter Gear! This spear allows its user to command any yeti. Increases STR by 15.',
-          str: 15,
-          value: 90
-        },
-        ski: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'rogue';
-          }),
-          text: "Ski-sassin Pole",
-          notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.',
-          str: 8,
-          value: 90
-        },
-        candycane: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'wizard';
-          }),
-          twoHanded: true,
-          text: "Candy Cane Staff",
-          notes: "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases INT by 15 and PER by 7.",
-          int: 15,
-          per: 7,
-          value: 160
-        },
-        snowflake: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'healer';
-          }),
-          text: "Snowflake Wand",
-          notes: 'Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases INT by 9.',
-          int: 9,
-          value: 90
-        }
-      }
-    },
-    armor: {
-      base: {
-        0: {
-          text: "Plain Clothing",
-          notes: 'Ordinary clothing. Confers no benefit.',
-          value: 0
-        }
-      },
-      warrior: {
-        1: {
-          text: "Leather Armor",
-          notes: 'Jerkin of sturdy boiled hide. Increases CON by 3.',
-          con: 3,
-          value: 30
-        },
-        2: {
-          text: "Chain Mail",
-          notes: 'Armor of interlocked metal rings. Increases CON by 5.',
-          con: 5,
-          value: 45
-        },
-        3: {
-          text: "Plate Armor",
-          notes: 'Suit of all-encasing steel, the pride of knights. Increases CON by 7.',
-          con: 7,
-          value: 65
-        },
-        4: {
-          text: "Red Armor",
-          notes: 'Heavy plate glowing with defensive enchantments. Increases CON by 9.',
-          con: 9,
-          value: 90
-        },
-        5: {
-          text: "Golden Armor",
-          notes: 'Looks ceremonial, but no known blade can pierce it. Increases CON by 11.',
-          con: 11,
-          value: 120,
-          last: true
-        }
-      },
-      rogue: {
-        1: {
-          text: "Oiled Leather",
-          notes: 'Leather armor treated to reduce noise. Increases PER by 6.',
-          per: 6,
-          value: 30
-        },
-        2: {
-          text: "Black Leather",
-          notes: 'Colored with dark dye to blend into shadows. Increases PER by 9',
-          per: 9,
-          value: 45
-        },
-        3: {
-          text: "Camouflage Vest",
-          notes: 'Equally discreet in dungeon or wilderness. Increases PER by 12.',
-          per: 12,
-          value: 65
-        },
-        4: {
-          text: "Penumbral Armor",
-          notes: 'Wraps the wearer in a veil of twilight. Increases PER by 15.',
-          per: 15,
-          value: 90
-        },
-        5: {
-          text: "Umbral Armor",
-          notes: 'Allows stealth in the open in broad daylight. Increases PER by 18.',
-          per: 18,
-          value: 120,
-          last: true
-        }
-      },
-      wizard: {
-        1: {
-          text: "Magician Robe",
-          notes: 'Hedge-mage\'s outfit. Increases INT by 2.',
-          int: 2,
-          value: 30
-        },
-        2: {
-          text: "Wizard Robe",
-          notes: 'Clothes for a wandering wonder-worker. Increases INT by 4.',
-          int: 4,
-          value: 45
-        },
-        3: {
-          text: "Robe of Mysteries",
-          notes: 'Denotes initiation into elite secrets. Increases INT by 6.',
-          int: 6,
-          value: 65
-        },
-        4: {
-          text: "Archmage Robe",
-          notes: 'Spirits and elementals bow before it. Increases INT by 9.',
-          int: 9,
-          value: 90
-        },
-        5: {
-          text: "Royal Magus Robe",
-          notes: 'Symbol of the power behind the throne. Increases INT by 12.',
-          int: 12,
-          value: 120,
-          last: true
-        }
-      },
-      healer: {
-        1: {
-          text: "Acolyte Robe",
-          notes: 'Garment showing humility and purpose. Increases CON by 6.',
-          con: 6,
-          value: 30
-        },
-        2: {
-          text: "Medic Robe",
-          notes: 'Worn by those dedicated to tending the wounded in battle. Increases CON by 9.',
-          con: 9,
-          value: 45
-        },
-        3: {
-          text: "Defender Mantle",
-          notes: 'Turns the healer\'s own magics inward to fend off harm. Increases CON by 12.',
-          con: 12,
-          value: 65
-        },
-        4: {
-          text: "Physician Mantle",
-          notes: 'Projects authority and dissipates curses. Increases CON by 15.',
-          con: 15,
-          value: 90
-        },
-        5: {
-          text: "Royal Mantle",
-          notes: 'Attire of those who have saved the lives of kings. Increases CON by 18.',
-          con: 18,
-          value: 120,
-          last: true
-        }
-      },
-      special: {
-        0: {
-          text: "Shade Armor",
-          notes: 'Screams when struck, for it feels pain in its wearer\'s place. Increases CON by 20.',
-          con: 20,
-          value: 150,
-          canOwn: (function(u) {
-            var _ref;
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
-          })
-        },
-        1: {
-          text: "Crystal Armor",
-          notes: 'Its tireless power inures the wearer to mundane discomfort. Increases all attributes by 6.',
-          con: 6,
-          str: 6,
-          per: 6,
-          int: 6,
-          value: 170,
-          canOwn: (function(u) {
-            var _ref;
-            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 2;
-          })
-        },
-        2: {
-          text: "Jean Chalard's Noble Tunic",
-          notes: 'Makes you extra fluffy! Increases CON and INT by 25 each.',
-          int: 25,
-          con: 25,
-          value: 200,
-          canOwn: (function(u) {
-            var _ref;
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
-          })
-        },
-        yeti: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'warrior';
-          }),
-          text: "Yeti-Tamer Robe",
-          notes: 'Limited Edition 2013 Winter Gear! Fuzzy and fierce. Increases CON by 9.',
-          con: 9,
-          value: 90
-        },
-        ski: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'rogue';
-          }),
-          text: "Ski-sassin Parka",
-          notes: 'Limited Edition 2013 Winter Gear! Full of secret daggers and ski trail maps. Increases PER by 15.',
-          per: 15,
-          value: 90
-        },
-        candycane: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'wizard';
-          }),
-          text: "Candy Cane Robe",
-          notes: 'Limited Edition 2013 Winter Gear! Spun from sugar and silk. Increases INT by 9.',
-          int: 9,
-          value: 90
-        },
-        snowflake: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'healer';
-          }),
-          text: "Snowflake Robe",
-          notes: 'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.',
-          con: 15,
-          value: 90
-        }
-      }
-    },
-    head: {
-      base: {
-        0: {
-          text: "No Helm",
-          notes: 'No headgear.',
-          value: 0
-        }
-      },
-      warrior: {
-        1: {
-          text: "Leather Helm",
-          notes: 'Cap of sturdy boiled hide. Increases STR by 2.',
-          str: 2,
-          value: 15
-        },
-        2: {
-          text: "Chain Coif",
-          notes: 'Hood of interlocked metal rings. Increases STR by 4.',
-          str: 4,
-          value: 25
-        },
-        3: {
-          text: "Plate Helm",
-          notes: 'Thick steel helmet, proof against any blow. Increases STR by 6.',
-          str: 6,
-          value: 40
-        },
-        4: {
-          text: "Red Helm",
-          notes: 'Set with rubies for power, and glows when the wearer is angered. Increases STR by 9.',
-          str: 9,
-          value: 60
-        },
-        5: {
-          text: "Golden Helm",
-          notes: 'Regal crown bound to shining armor. Increases STR by 12.',
-          str: 12,
-          value: 80,
-          last: true
-        }
-      },
-      rogue: {
-        1: {
-          text: "Leather Hood",
-          notes: 'Basic protective cowl. Increases PER by 2.',
-          per: 2,
-          value: 15
-        },
-        2: {
-          text: "Black Leather Hood",
-          notes: 'Useful for both defense and disguise. Increases PER by 4.',
-          per: 4,
-          value: 25
-        },
-        3: {
-          text: "Camouflage Hood",
-          notes: 'Rugged, but doesn\'t impede hearing. Increases PER by 6.',
-          per: 6,
-          value: 40
-        },
-        4: {
-          text: "Penumbral Hood",
-          notes: 'Grants perfect vision in darkness. Increases PER by 9.',
-          per: 9,
-          value: 60
-        },
-        5: {
-          text: "Umbral Hood",
-          notes: 'Conceals even thoughts from those who would probe them. Increases PER by 12.',
-          per: 12,
-          value: 80,
-          last: true
-        }
-      },
-      wizard: {
-        1: {
-          text: "Magician Hat",
-          notes: 'Simple, comfortable, and fashionable. Increases PER by 2.',
-          per: 2,
-          value: 15
-        },
-        2: {
-          text: "Cornuthaum",
-          notes: 'Traditional headgear of the itinerant wizard. Increases PER by 3.',
-          per: 3,
-          value: 25
-        },
-        3: {
-          text: "Astrologer Hat",
-          notes: 'Adorned with the rings of Saturn. Increases PER by 5.',
-          per: 5,
-          value: 40
-        },
-        4: {
-          text: "Archmage Hat",
-          notes: 'Focuses the mind for intensive spellcasting. Increases PER by 7.',
-          per: 7,
-          value: 60
-        },
-        5: {
-          text: "Royal Magus Hat",
-          notes: 'Shows authority over fortune, weather, and lesser mages. Increases PER by 9.',
-          per: 9,
-          value: 80,
-          last: true
-        }
-      },
-      healer: {
-        1: {
-          text: "Quartz Circlet",
-          notes: 'Jeweled headpiece, for focus on the task at hand. Increases INT by 2.',
-          int: 2,
-          value: 15
-        },
-        2: {
-          text: "Amethyst Circlet",
-          notes: 'A taste of luxury for a humble profession. Increases INT by 3.',
-          int: 3,
-          value: 25
-        },
-        3: {
-          text: "Sapphire Circlet",
-          notes: 'Shines to let sufferers know their salvation is at hand. Increases INT by 5.',
-          int: 5,
-          value: 40
-        },
-        4: {
-          text: "Emerald Diadem",
-          notes: 'Emits an aura of life and growth. Increases INT by 7.',
-          int: 7,
-          value: 60
-        },
-        5: {
-          text: "Royal Diadem",
-          notes: 'For king, queen, or miracle-worker. Increases INT by 9.',
-          int: 9,
-          value: 80,
-          last: true
-        }
-      },
-      special: {
-        0: {
-          text: "Shade Helm",
-          notes: 'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.',
-          int: 20,
-          value: 150,
-          canOwn: (function(u) {
-            var _ref;
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
-          })
-        },
-        1: {
-          text: "Crystal Helm",
-          notes: 'The favored crown of those who lead by example. Increases all attributes by 6.',
-          con: 6,
-          str: 6,
-          per: 6,
-          int: 6,
-          value: 170,
-          canOwn: (function(u) {
-            var _ref;
-            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 3;
-          })
-        },
-        2: {
-          text: "Nameless Helm",
-          notes: 'A testament to those who gave of themselves while asking nothing in return. Increases INT and STR by 25 each.',
-          int: 25,
-          str: 25,
-          value: 200,
-          canOwn: (function(u) {
-            var _ref;
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
-          })
-        },
-        nye: {
-          event: events.winter,
-          text: "Absurd Party Hat",
-          notes: "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!",
-          value: 0
-        },
-        yeti: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'warrior';
-          }),
-          text: "Yeti-Tamer Helm",
-          notes: 'Limited Edition 2013 Winter Gear! An adorably fearsome hat. Increases STR by 9.',
-          str: 9,
-          value: 60
-        },
-        ski: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'rogue';
-          }),
-          text: "Ski-sassin Helm",
-          notes: "Limited Edition 2013 Winter Gear! Keeps the wearer's identity secret... and their face toasty. Increases PER by 9.",
-          per: 9,
-          value: 60
-        },
-        candycane: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'wizard';
-          }),
-          text: "Candy Cane Hat",
-          notes: "Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by 7.",
-          per: 7,
-          value: 60
-        },
-        snowflake: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'healer';
-          }),
-          text: "Snowflake Crown",
-          notes: 'Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by 7.',
-          int: 7,
-          value: 60
-        }
-      }
-    },
-    shield: {
-      base: {
-        0: {
-          text: "No Off-Hand Equipment",
-          notes: 'No shield or second weapon.',
-          value: 0
-        }
-      },
-      warrior: {
-        1: {
-          text: "Wooden Shield",
-          notes: 'Round shield of thick wood. Increases CON by 2.',
-          con: 2,
-          value: 20
-        },
-        2: {
-          text: "Buckler",
-          notes: 'Light and sturdy, quick to bring to the defense. Increases CON by 3.',
-          con: 3,
-          value: 35
-        },
-        3: {
-          text: "Reinforced Shield",
-          notes: 'Made of wood but bolstered with metal bands. Increases CON by 5.',
-          con: 5,
-          value: 50
-        },
-        4: {
-          text: "Red Shield",
-          notes: 'Rebukes blows with a burst of flame. Increases CON by 7.',
-          con: 7,
-          value: 70
-        },
-        5: {
-          text: "Golden Shield",
-          notes: 'Shining badge of the vanguard. Increases CON by 9.',
-          con: 9,
-          value: 90,
-          last: true
-        }
-      },
-      rogue: {
-        0: {
-          text: "Dagger",
-          notes: 'A rogue\'s most basic weapon. Confers no benefit.',
-          str: 0,
-          value: 0
-        },
-        1: {
-          text: "Short Sword",
-          notes: 'Light, concealable blade. Increases STR by 2.',
-          str: 2,
-          value: 20
-        },
-        2: {
-          text: "Scimitar",
-          notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.',
-          str: 3,
-          value: 35
-        },
-        3: {
-          text: "Kukri",
-          notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.',
-          str: 4,
-          value: 50
-        },
-        4: {
-          text: "Nunchaku",
-          notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.',
-          str: 6,
-          value: 70
-        },
-        5: {
-          text: "Ninja-to",
-          notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.',
-          str: 8,
-          value: 90
-        },
-        6: {
-          text: "Hook Sword",
-          notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.',
-          str: 10,
-          value: 120,
-          last: true
-        }
-      },
-      wizard: {},
-      healer: {
-        1: {
-          text: "Medic Buckler",
-          notes: 'Easy to disengage, freeing a hand for bandaging. Increases CON by 2.',
-          con: 2,
-          value: 20
-        },
-        2: {
-          text: "Kite Shield",
-          notes: 'Tapered shield with the symbol of healing. Increases CON by 4.',
-          con: 4,
-          value: 35
-        },
-        3: {
-          text: "Protector Shield",
-          notes: 'Traditional shield of defender knights. Increases CON by 6.',
-          con: 6,
-          value: 50
-        },
-        4: {
-          text: "Savior Shield",
-          notes: 'Stops blows aimed at nearby innocents as well as those aimed at you. Increases CON by 9.',
-          con: 9,
-          value: 70
-        },
-        5: {
-          text: "Royal Shield",
-          notes: 'Bestowed upon those most dedicated to the kingdom\'s defense. Increases CON by 12.',
-          con: 12,
-          value: 90,
-          last: true
-        }
-      },
-      special: {
-        0: {
-          text: "Tormented Skull",
-          notes: 'Sees beyond the veil of death, and displays what it finds there for enemies to fear. Increases PER by 20.',
-          per: 20,
-          value: 150,
-          canOwn: (function(u) {
-            var _ref;
-            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
-          })
-        },
-        1: {
-          text: "Crystal Shield",
-          notes: 'Shatters arrows and deflects the words of naysayers. Increases all attributes by 6.',
-          con: 6,
-          str: 6,
-          per: 6,
-          int: 6,
-          value: 170,
-          canOwn: (function(u) {
-            var _ref;
-            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 5;
-          })
-        },
-        yeti: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'warrior';
-          }),
-          text: "Yeti-Tamer Shield",
-          notes: 'Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by 7.',
-          con: 7,
-          value: 70
-        },
-        ski: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'rogue';
-          }),
-          text: "Ski-sassin Pole",
-          notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.',
-          str: 8,
-          value: 90
-        },
-        snowflake: {
-          event: events.winter,
-          canOwn: (function(u) {
-            return u.stats["class"] === 'healer';
-          }),
-          text: "Snowflake Shield",
-          notes: 'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.',
-          con: 9,
-          value: 70
-        }
-      }
-    }
-  };
-
-  /*
-    The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
-    they are needed in different froms at different points in the app
-  */
-
-
-  api.gear = {
-    tree: gear,
-    flat: {}
-  };
-
-  _.each(gearTypes, function(type) {
-    return _.each(classes.concat(['base', 'special']), function(klass) {
-      return _.each(gear[type][klass], function(item, i) {
-        var key, _canOwn;
-        key = "" + type + "_" + klass + "_" + i;
-        _.defaults(item, {
-          type: type,
-          key: key,
-          klass: klass,
-          index: i,
-          str: 0,
-          int: 0,
-          per: 0,
-          con: 0
-        });
-        if (item.event) {
-          _canOwn = item.canOwn || (function() {
-            return true;
-          });
-          item.canOwn = function(u) {
-            return _canOwn(u) && ((u.items.gear.owned[key] != null) || (moment().isAfter(item.event.start) && moment().isBefore(item.event.end)));
-          };
-        }
-        return api.gear.flat[key] = item;
-      });
-    });
-  });
-
-  /*
-    ---------------------------------------------------------------
-    Potion
-    ---------------------------------------------------------------
-  */
-
-
-  api.potion = {
-    type: 'potion',
-    text: "Health Potion",
-    notes: "Recover 15 Health (Instant Use)",
-    value: 25,
-    key: 'potion'
-  };
-
-  /*
-     ---------------------------------------------------------------
-     Classes
-     ---------------------------------------------------------------
-  */
-
-
-  api.classes = classes;
-
-  /*
-     ---------------------------------------------------------------
-     Gear Types
-     ---------------------------------------------------------------
-  */
-
-
-  api.gearTypes = gearTypes;
-
-  /*
-    ---------------------------------------------------------------
-    Spells
-    ---------------------------------------------------------------
-    Text, notes, and mana are obvious. The rest:
-  
-    * {target}: one of [task, self, party, user]. This is very important, because if the cast() function is expecting one
-      thing and receives another, it will cause errors. `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
-      etc. Basically, use self for anything that's not [task, party, user] and is an instant-cast
-  
-    * {cast}: the function that's run to perform the ability's action. This is pretty slick - because this is exported to the
-      web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
-      own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
-      you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
-      spell is correct. Take a look at habitrpg/src/models/user.js and habitrpg/src/models/task.js for what attributes are
-      available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
-      so you'll want to iterate over them like: `_.each(target,function(member){...})`
-  
-    Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
-  */
-
-
-  diminishingReturns = function(bonus, max, halfway) {
-    if (halfway == null) {
-      halfway = max / 2;
-    }
-    return max * (bonus / (bonus + halfway));
-  };
-
-  api.spells = {
-    wizard: {
-      fireball: {
-        text: 'Burst of Flames',
-        mana: 10,
-        lvl: 11,
-        target: 'task',
-        notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).',
-        cast: function(user, target) {
-          var bonus;
-          bonus = user._statsComputed.int * user.fns.crit('per');
-          target.value += diminishingReturns(bonus * .02, 4);
-          bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * .075);
-          user.stats.exp += diminishingReturns(bonus, 75);
-          if (user.party.quest.key) {
-            return user.party.quest.progress.up += diminishingReturns(bonus * .1, 50, 30);
-          }
-        }
-      },
-      mpheal: {
-        text: 'Ethereal Surge',
-        mana: 30,
-        lvl: 12,
-        target: 'party',
-        notes: "A flow of magical energy rushes from your hands and recharges your party. Your party recovers MP.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            var bonus;
-            bonus = Math.ceil(user._statsComputed.int * .1);
-            if (bonus > 25) {
-              bonus = 25;
-            }
-            return member.stats.mp += bonus;
-          });
-        }
-      },
-      earth: {
-        text: 'Earthquake',
-        mana: 35,
-        lvl: 13,
-        target: 'party',
-        notes: "The ground below your party's tasks cracks and shakes with extreme intensity, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            var _base;
-            if ((_base = member.stats.buffs).int == null) {
-              _base.int = 0;
-            }
-            return member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05);
-          });
-        }
-      },
-      frost: {
-        text: 'Chilling Frost',
-        mana: 40,
-        lvl: 14,
-        target: 'self',
-        notes: "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day.",
-        cast: function(user, target) {
-          return user.stats.buffs.streaks = true;
-        }
-      }
-    },
-    warrior: {
-      smash: {
-        text: 'Brutal Smash',
-        mana: 10,
-        lvl: 11,
-        target: 'task',
-        notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
-        cast: function(user, target) {
-          target.value += user._statsComputed.str * .01 * user.fns.crit('per');
-          if (user.party.quest.key) {
-            return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
-          }
-        }
-      },
-      defensiveStance: {
-        text: 'Defensive Stance',
-        mana: 25,
-        lvl: 12,
-        target: 'self',
-        notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day.",
-        cast: function(user, target) {
-          var _base;
-          if ((_base = user.stats.buffs).con == null) {
-            _base.con = 0;
-          }
-          return user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05);
-        }
-      },
-      valorousPresence: {
-        text: 'Valorous Presence',
-        mana: 20,
-        lvl: 13,
-        target: 'party',
-        notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            var _base;
-            if ((_base = member.stats.buffs).str == null) {
-              _base.str = 0;
-            }
-            return member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05);
-          });
-        }
-      },
-      intimidate: {
-        text: 'Intimidating Gaze',
-        mana: 15,
-        lvl: 14,
-        target: 'party',
-        notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            var _base;
-            if ((_base = member.stats.buffs).con == null) {
-              _base.con = 0;
-            }
-            return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .03);
-          });
-        }
-      }
-    },
-    rogue: {
-      pickPocket: {
-        text: 'Pickpocket',
-        mana: 10,
-        lvl: 11,
-        target: 'task',
-        notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (bluer) your task.",
-        cast: function(user, target) {
-          return user.stats.gp += (target.value < 0 ? 1 : target.value + 1) + user._statsComputed.per * .075;
-        }
-      },
-      backStab: {
-        text: 'Backstab',
-        mana: 15,
-        lvl: 12,
-        target: 'task',
-        notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit.",
-        cast: function(user, target) {
-          var bonus, _crit;
-          _crit = user.fns.crit('per', .3);
-          target.value += _crit * .03;
-          bonus = (target.value < 0 ? 1 : target.value + 1) * _crit;
-          user.stats.exp += bonus;
-          return user.stats.gp += bonus;
-        }
-      },
-      toolsOfTrade: {
-        text: 'Tools of the Trade',
-        mana: 25,
-        lvl: 13,
-        target: 'party',
-        notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks and chance of drops is buffed for a day.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            var _base;
-            if ((_base = member.stats.buffs).per == null) {
-              _base.per = 0;
-            }
-            return member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03);
-          });
-        }
-      },
-      stealth: {
-        text: 'Stealth',
-        mana: 45,
-        lvl: 14,
-        target: 'self',
-        notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception.",
-        cast: function(user, target) {
-          var _base;
-          if ((_base = user.stats.buffs).stealth == null) {
-            _base.stealth = 0;
-          }
-          return user.stats.buffs.stealth += Math.ceil(user._statsComputed.per * .03);
-        }
-      }
-    },
-    healer: {
-      heal: {
-        text: 'Healing Light',
-        mana: 15,
-        lvl: 11,
-        target: 'self',
-        notes: 'Light covers your body, healing your wounds. You gain a boost to your health.',
-        cast: function(user, target) {
-          user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075;
-          if (user.stats.hp > 50) {
-            return user.stats.hp = 50;
-          }
-        }
-      },
-      brightness: {
-        text: 'Searing Brightness',
-        mana: 15,
-        lvl: 12,
-        target: 'self',
-        notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced.",
-        cast: function(user, target) {
-          return _.each(user.tasks, function(target) {
-            if (target.type === 'reward') {
-              return;
-            }
-            return target.value += user._statsComputed.int * .006;
-          });
-        }
-      },
-      protectAura: {
-        text: 'Protective Aura',
-        mana: 30,
-        lvl: 13,
-        target: 'party',
-        notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            var _base;
-            if ((_base = member.stats.buffs).con == null) {
-              _base.con = 0;
-            }
-            return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15);
-          });
-        }
-      },
-      heallAll: {
-        text: 'Blessing',
-        mana: 25,
-        lvl: 14,
-        target: 'party',
-        notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health.",
-        cast: function(user, target) {
-          return _.each(target, function(member) {
-            member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .04;
-            if (member.stats.hp > 50) {
-              return member.stats.hp = 50;
-            }
-          });
-        }
-      }
-    },
-    special: {
-      snowball: {
-        text: 'Snowball',
-        mana: 0,
-        value: 1,
-        target: 'user',
-        notes: "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day.",
-        cast: function(user, target) {
-          var _base;
-          target.stats.buffs.snowball = true;
-          if ((_base = target.achievements).snowball == null) {
-            _base.snowball = 0;
-          }
-          target.achievements.snowball++;
-          return user.items.special.snowball--;
-        }
-      },
-      salt: {
-        text: 'Salt',
-        mana: 0,
-        value: 5,
-        target: 'self',
-        notes: 'Someone has snowballed you. Ha ha, very funny. Now get this snow off me!',
-        cast: function(user, target) {
-          user.stats.buffs.snowball = false;
-          return user.stats.gp -= 5;
-        }
-      }
-    }
-  };
-
-  _.each(api.spells, function(spellClass) {
-    return _.each(spellClass, function(spell, key) {
-      var _cast;
-      spell.key = key;
-      _cast = spell.cast;
-      return spell.cast = function(user, target) {
-        _cast(user, target);
-        return user.stats.mp -= spell.mana;
-      };
-    });
-  });
-
-  api.special = api.spells.special;
-
-  /*
-    ---------------------------------------------------------------
-    Drops
-    ---------------------------------------------------------------
-  */
-
-
-  api.eggs = {
-    Wolf: {
-      text: 'Wolf',
-      adjective: 'loyal'
-    },
-    TigerCub: {
-      text: 'Tiger Cub',
-      mountText: 'Tiger',
-      adjective: 'fierce'
-    },
-    PandaCub: {
-      text: 'Panda Cub',
-      mountText: 'Panda',
-      adjective: 'gentle'
-    },
-    LionCub: {
-      text: 'Lion Cub',
-      mountText: 'Lion',
-      adjective: 'regal'
-    },
-    Fox: {
-      text: 'Fox',
-      adjective: 'wily'
-    },
-    FlyingPig: {
-      text: 'Flying Pig',
-      adjective: 'whimsical'
-    },
-    Dragon: {
-      text: 'Dragon',
-      adjective: 'mighty'
-    },
-    Cactus: {
-      text: 'Cactus',
-      adjective: 'prickly'
-    },
-    BearCub: {
-      text: 'Bear Cub',
-      mountText: 'Bear',
-      adjective: 'cuddly'
-    },
-    Gryphon: {
-      text: 'Gryphon',
-      adjective: 'regal',
-      canBuy: false
-    }
-  };
-
-  _.each(api.eggs, function(egg, key) {
-    return _.defaults(egg, {
-      canBuy: true,
-      value: 3,
-      key: key,
-      notes: "Find a hatching potion to pour on this egg, and it will hatch into a " + egg.adjective + " " + egg.text + ".",
-      mountText: egg.text
-    });
-  });
-
-  api.specialPets = {
-    'Wolf-Veteran': true,
-    'Wolf-Cerberus': true,
-    'Dragon-Hydra': true,
-    'Turkey-Base': true,
-    'BearCub-Polar': true
-  };
-
-  api.hatchingPotions = {
-    Base: {
-      value: 2,
-      text: 'Base'
-    },
-    White: {
-      value: 2,
-      text: 'White'
-    },
-    Desert: {
-      value: 2,
-      text: 'Desert'
-    },
-    Red: {
-      value: 3,
-      text: 'Red'
-    },
-    Shade: {
-      value: 3,
-      text: 'Shade'
-    },
-    Skeleton: {
-      value: 3,
-      text: 'Skeleton'
-    },
-    Zombie: {
-      value: 4,
-      text: 'Zombie'
-    },
-    CottonCandyPink: {
-      value: 4,
-      text: 'Cotton Candy Pink'
-    },
-    CottonCandyBlue: {
-      value: 4,
-      text: 'Cotton Candy Blue'
-    },
-    Golden: {
-      value: 5,
-      text: 'Golden'
-    }
-  };
-
-  _.each(api.hatchingPotions, function(pot, key) {
-    return _.defaults(pot, {
-      key: key,
-      value: 2,
-      notes: "Pour this on an egg, and it will hatch as a " + pot.text + " pet."
-    });
-  });
-
-  api.pets = _.transform(api.eggs, function(m, egg) {
-    return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
-      return m2[egg.key + "-" + pot.key] = true;
-    }));
-  });
-
-  api.food = {
-    Meat: {
-      text: 'Meat',
-      target: 'Base',
-      article: ''
-    },
-    Milk: {
-      text: 'Milk',
-      target: 'White',
-      article: ''
-    },
-    Potatoe: {
-      text: 'Potato',
-      target: 'Desert',
-      article: 'a '
-    },
-    Strawberry: {
-      text: 'Strawberry',
-      target: 'Red',
-      article: 'a '
-    },
-    Chocolate: {
-      text: 'Chocolate',
-      target: 'Shade',
-      article: ''
-    },
-    Fish: {
-      text: 'Fish',
-      target: 'Skeleton',
-      article: 'a '
-    },
-    RottenMeat: {
-      text: 'Rotten Meat',
-      target: 'Zombie',
-      article: ''
-    },
-    CottonCandyPink: {
-      text: 'Pink Cotton Candy',
-      target: 'CottonCandyPink',
-      article: ''
-    },
-    CottonCandyBlue: {
-      text: 'Blue Cotton Candy',
-      target: 'CottonCandyBlue',
-      article: ''
-    },
-    Honey: {
-      text: 'Honey',
-      target: 'Golden',
-      article: ''
-    },
-    Saddle: {
-      text: 'Saddle',
-      value: 5,
-      notes: 'Instantly raises your pet into a mount.'
-    }
-  };
-
-  _.each(api.food, function(food, key) {
-    return _.defaults(food, {
-      value: 1,
-      key: key,
-      notes: "Feed this to a pet and it may grow into a sturdy steed."
-    });
-  });
-
-  api.quests = {
-    evilsanta: {
-      text: "Trapper Santa",
-      notes: "You hear bemoaned roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
-      completion: "Trapper Santa squeals in anger, and bounces off into the night. A grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the whisperer listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured. Help her find her baby!",
-      value: 4,
-      boss: {
-        name: "Trapper Santa",
-        hp: 300,
-        str: 1
-      },
-      drop: {
-        items: [
-          {
-            type: 'mounts',
-            key: 'BearCub-Polar',
-            text: "Polar Bear (Mount)"
-          }
-        ],
-        gp: 20,
-        exp: 100
-      }
-    },
-    evilsanta2: {
-      text: "Find The Cub",
-      notes: "Mama bear's cub had run off into the icefields when she was captured by the trapper. At the edge of the woods, she sniffs the air. You hear twig-snaps and snow crunch through the crystaline sound of the forest. Paw prints! You both start racing to follow the trail. Find all the prints and broken twigs, and retrieve her cub!",
-      completion: "You've found the cub! Mama and baby bear couldn't be more grateful. As a token, they've decided to keep you company till the end of days.",
-      value: 4,
-      previous: 'evilsanta',
-      collect: {
-        tracks: {
-          text: 'Tracks',
-          count: 20
-        },
-        branches: {
-          text: 'Broken Twigs',
-          count: 10
-        }
-      },
-      drop: {
-        items: [
-          {
-            type: 'pets',
-            key: 'BearCub-Polar',
-            text: "Polar Bear (Pet)"
-          }
-        ],
-        gp: 20,
-        exp: 100
-      }
-    },
-    gryphon: {
-      text: "The Fiery Gryphon",
-      notes: 'The grand beastmaster, @baconsaur, has come to your party seeking help. "Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!"',
-      value: 4,
-      boss: {
-        name: "Fiery Gryphon",
-        hp: 300,
-        str: 1.5
-      },
-      drop: {
-        items: [
-          {
-            type: 'eggs',
-            key: 'Gryphon',
-            text: "Gryphon (Egg)"
-          }, {
-            type: 'eggs',
-            key: 'Gryphon',
-            text: "Gryphon (Egg)"
-          }
-        ],
-        gp: 25,
-        exp: 125
-      }
-    }
-  };
-
-  _.each(api.quests, function(v, key) {
-    return _.defaults(v, {
-      key: key
-    });
-  });
-
-  repeat = {
-    m: true,
-    t: true,
-    w: true,
-    th: true,
-    f: true,
-    s: true,
-    su: true
-  };
-
-  api.userDefaults = {
-    habits: [
-      {
-        type: 'habit',
-        text: '1h Productive Work',
-        notes: 'When you create a new Habit, you can click the Edit icon and choose for it to represent a positive habit, a negative habit, or both. For some Habits, like this one, it only makes sense to gain points.',
-        value: 0,
-        up: true,
-        down: false
-      }, {
-        type: 'habit',
-        text: 'Eat Junk Food',
-        notes: 'For others, it only makes sense to *lose* points.',
-        value: 0,
-        up: false,
-        down: true
-      }, {
-        type: 'habit',
-        text: 'Take The Stairs',
-        notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose).',
-        value: 0,
-        up: true,
-        down: true
-      }
-    ],
-    dailys: [
-      {
-        type: 'daily',
-        text: '1h Personal Project',
-        notes: 'All tasks default to yellow when they are created. This means you will take only moderate damage when they are missed and will gain only a moderate reward when they are completed.',
-        value: 0,
-        completed: false,
-        repeat: repeat
-      }, {
-        type: 'daily',
-        text: 'Exercise',
-        notes: 'Dailies you complete consistently will turn from yellow to green to blue, helping you track your progress. The higher you move up the ladder, the less damage you take for missing and less reward you receive for completing the goal.',
-        value: 3,
-        completed: false,
-        repeat: repeat
-      }, {
-        type: 'daily',
-        text: '45m Reading',
-        notes: 'If you miss a daily frequently, it will turn darker shades of orange and red. The redder the task is, the more experience and gold it grants for success and the more damage you take for failure. This encourages you to focus on your shortcomings, the reds.',
-        value: -10,
-        completed: false,
-        repeat: repeat
-      }
-    ],
-    todos: [
-      {
-        type: 'todo',
-        text: 'Call Mom',
-        notes: 'While not completing a to-do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.',
-        value: -3,
-        completed: false
-      }
-    ],
-    rewards: [
-      {
-        type: 'reward',
-        text: '1 Episode of Game of Thrones',
-        notes: 'Custom rewards can come in many forms. Some people will hold off watching their favorite show unless they have the gold to pay for it.',
-        value: 20
-      }, {
-        type: 'reward',
-        text: 'Cake',
-        notes: 'Other people just want to enjoy a nice piece of cake. Try to create rewards that will motivate you best.',
-        value: 10
-      }
-    ],
-    tags: [
-      {
-        name: 'morning'
-      }, {
-        name: 'afternoon'
-      }, {
-        name: 'evening'
-      }
-    ]
-  };
-
-}).call(this);
-
-
-},{"lodash":5,"moment":6}],4:[function(require,module,exports){
-var process=require("__browserify_process");(function() {
-  var $w, api, content, moment, preenHistory, sanitizeOptions, _,
-    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-  moment = require('moment');
-
-  _ = require('lodash');
-
-  content = require('./content.coffee');
-
-  api = module.exports = {};
-
-  $w = function(s) {
-    return s.split(' ');
-  };
-
-  /*
-    ------------------------------------------------------
-    Time / Day
-    ------------------------------------------------------
-  */
-
-
-  /*
-    Each time we're performing date math (cron, task-due-days, etc), we need to take user preferences into consideration.
-    Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
-    {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times
-  */
-
-
-  sanitizeOptions = function(o) {
-    var dayStart, now, timezoneOffset, _ref;
-    dayStart = !_.isNaN(+o.dayStart) && (0 <= (_ref = +o.dayStart) && _ref <= 24) ? +o.dayStart : 0;
-    timezoneOffset = o.timezoneOffset ? +o.timezoneOffset : +moment().zone();
-    now = o.now ? moment(o.now).zone(timezoneOffset) : moment(+(new Date)).zone(timezoneOffset);
-    return {
-      dayStart: dayStart,
-      timezoneOffset: timezoneOffset,
-      now: now
-    };
-  };
-
-  api.startOfWeek = api.startOfWeek = function(options) {
-    var o;
-    if (options == null) {
-      options = {};
-    }
-    o = sanitizeOptions(options);
-    return moment(o.now).startOf('week');
-  };
-
-  api.startOfDay = function(options) {
-    var o;
-    if (options == null) {
-      options = {};
-    }
-    o = sanitizeOptions(options);
-    return moment(o.now).startOf('day').add('h', o.dayStart);
-  };
-
-  api.dayMapping = {
-    0: 'su',
-    1: 'm',
-    2: 't',
-    3: 'w',
-    4: 'th',
-    5: 'f',
-    6: 's'
-  };
-
-  /*
-    Absolute diff from "yesterday" till now
-  */
-
-
-  api.daysSince = function(yesterday, options) {
-    var o;
-    if (options == null) {
-      options = {};
-    }
-    o = sanitizeOptions(options);
-    return Math.abs(api.startOfDay(_.defaults({
-      now: yesterday
-    }, o)).diff(o.now, 'days'));
-  };
-
-  /*
-    Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
-  */
-
-
-  api.shouldDo = function(day, repeat, options) {
-    var o, selected, yesterday;
-    if (options == null) {
-      options = {};
-    }
-    if (!repeat) {
-      return false;
-    }
-    o = sanitizeOptions(options);
-    selected = repeat[api.dayMapping[api.startOfDay(_.defaults({
-      now: day
-    }, o)).day()]];
-    if (!moment(day).zone(o.timezoneOffset).isSame(o.now, 'd')) {
-      return selected;
-    }
-    if (options.dayStart <= o.now.hour()) {
-      return selected;
-    } else {
-      yesterday = moment(o.now).subtract(1, 'd').day();
-      return repeat[api.dayMapping[yesterday]];
-    }
-  };
-
-  /*
-    ------------------------------------------------------
-    Scoring
-    ------------------------------------------------------
-  */
-
-
-  api.tnl = function(lvl) {
-    if (lvl >= 100) {
-      return 0;
-    } else {
-      return Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10;
-    }
-  };
-
-  /*
-    A hyperbola function that creates diminishing returns, so you can't go to infinite (eg, with Exp gain).
-    {max} The asymptote
-    {bonus} All the numbers combined for your point bonus (eg, task.value * user.stats.int * critChance, etc)
-    {halfway} (optional) the point at which the graph starts bending
-  */
-
-
-  api.diminishingReturns = function(bonus, max, halfway) {
-    if (halfway == null) {
-      halfway = max / 2;
-    }
-    return max * (bonus / (bonus + halfway));
-  };
-
-  api.monod = function(bonus, rateOfIncrease, max) {
-    return rateOfIncrease * max * bonus / (rateOfIncrease * bonus + max);
-  };
-
-  /*
-  Preen history for users with > 7 history entries
-  This takes an infinite array of single day entries [day day day day day...], and turns it into a condensed array
-  of averages, condensing more the further back in time we go. Eg, 7 entries each for last 7 days; 1 entry each week
-  of this month; 1 entry for each month of this year; 1 entry per previous year: [day*7 week*4 month*12 year*infinite]
-  */
-
-
-  preenHistory = function(history) {
-    var newHistory, preen, thisMonth;
-    history = _.filter(history, function(h) {
-      return !!h;
-    });
-    newHistory = [];
-    preen = function(amount, groupBy) {
-      var groups;
-      groups = _.chain(history).groupBy(function(h) {
-        return moment(h.date).format(groupBy);
-      }).sortBy(function(h, k) {
-        return k;
-      }).value();
-      groups = groups.slice(-amount);
-      groups.pop();
-      return _.each(groups, function(group) {
-        newHistory.push({
-          date: moment(group[0].date).toDate(),
-          value: _.reduce(group, (function(m, obj) {
-            return m + obj.value;
-          }), 0) / group.length
-        });
-        return true;
-      });
-    };
-    preen(50, "YYYY");
-    preen(moment().format('MM'), "YYYYMM");
-    thisMonth = moment().format('YYYYMM');
-    newHistory = newHistory.concat(_.filter(history, function(h) {
-      return moment(h.date).format('YYYYMM') === thisMonth;
-    }));
-    return newHistory;
-  };
-
-  /*
-    Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
-  */
-
-
-  api.updateStore = function(user) {
-    var changes;
-    if (!user) {
-      return;
-    }
-    changes = [];
-    _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
-      var found;
-      found = _.find(content.gear.tree[type][user.stats["class"]], function(item) {
-        return !user.items.gear.owned[item.key];
-      });
-      if (found) {
-        changes.push(found);
-      }
-      return true;
-    });
-    changes = changes.concat(_.filter(content.gear.flat, function(v) {
-      return v.klass === 'special' && !user.items.gear.owned[v.key] && (typeof v.canOwn === "function" ? v.canOwn(user) : void 0);
-    }));
-    changes.push(content.potion);
-    return _.sortBy(changes, function(item) {
-      switch (item.type) {
-        case 'weapon':
-          return 1;
-        case 'armor':
-          return 2;
-        case 'head':
-          return 3;
-        case 'shield':
-          return 4;
-        case 'potion':
-          return 5;
-        default:
-          return 6;
-      }
-    });
-  };
-
-  /*
-  ------------------------------------------------------
-  Content
-  ------------------------------------------------------
-  */
-
-
-  api.content = content;
-
-  /*
-  ------------------------------------------------------
-  Misc Helpers
-  ------------------------------------------------------
-  */
-
-
-  api.uuid = function() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
-      var r, v;
-      r = Math.random() * 16 | 0;
-      v = (c === "x" ? r : r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  };
-
-  api.countExists = function(items) {
-    return _.reduce(items, (function(m, v) {
-      return m + (v ? 1 : 0);
-    }), 0);
-  };
-
-  /*
-  Even though Mongoose handles task defaults, we want to make sure defaults are set on the client-side before
-  sending up to the server for performance
-  */
-
-
-  api.taskDefaults = function(task) {
-    var defaults, _ref, _ref1, _ref2;
-    if (task == null) {
-      task = {};
-    }
-    if (!(task.type && ((_ref = task.type) === 'habit' || _ref === 'daily' || _ref === 'todo' || _ref === 'reward'))) {
-      task.type = 'habit';
-    }
-    defaults = {
-      id: api.uuid(),
-      text: task.id != null ? task.id : '',
-      notes: '',
-      priority: 1,
-      challenge: {},
-      attribute: 'str',
-      dateCreated: new Date()
-    };
-    _.defaults(task, defaults);
-    if (task.type === 'habit') {
-      _.defaults(task, {
-        up: true,
-        down: true
-      });
-    }
-    if ((_ref1 = task.type) === 'habit' || _ref1 === 'daily') {
-      _.defaults(task, {
-        history: []
-      });
-    }
-    if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
-      _.defaults(task, {
-        completed: false
-      });
-    }
-    if (task.type === 'daily') {
-      _.defaults(task, {
-        streak: 0,
-        repeat: {
-          su: 1,
-          m: 1,
-          t: 1,
-          w: 1,
-          th: 1,
-          f: 1,
-          s: 1
-        }
-      });
-    }
-    task._id = task.id;
-    if (task.value == null) {
-      task.value = task.type === 'reward' ? 10 : 0;
-    }
-    if (!_.isNumber(task.priority)) {
-      task.priority = 1;
-    }
-    return task;
-  };
-
-  api.percent = function(x, y, dir) {
-    var roundFn;
-    switch (dir) {
-      case "up":
-        roundFn = Math.ceil;
-        break;
-      case "down":
-        roundFn = Math.floor;
-        break;
-      default:
-        roundFn = Math.round;
-    }
-    if (x === 0) {
-      x = 1;
-    }
-    return roundFn(x / y * 100);
-  };
-
-  /*
-  Remove whitespace #FIXME are we using this anywwhere? Should we be?
-  */
-
-
-  api.removeWhitespace = function(str) {
-    if (!str) {
-      return '';
-    }
-    return str.replace(/\s/g, '');
-  };
-
-  /*
-  Encode the download link for .ics iCal file
-  */
-
-
-  api.encodeiCalLink = function(uid, apiToken) {
-    var loc, _ref;
-    loc = (typeof window !== "undefined" && window !== null ? window.location.host : void 0) || (typeof process !== "undefined" && process !== null ? (_ref = process.env) != null ? _ref.BASE_URL : void 0 : void 0) || '';
-    return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
-  };
-
-  /*
-  Gold amount from their money
-  */
-
-
-  api.gold = function(num) {
-    if (num) {
-      return Math.floor(num);
-    } else {
-      return "0";
-    }
-  };
-
-  /*
-  Silver amount from their money
-  */
-
-
-  api.silver = function(num) {
-    if (num) {
-      return ("0" + Math.floor((num - Math.floor(num)) * 100)).slice(-2);
-    } else {
-      return "00";
-    }
-  };
-
-  /*
-  Task classes given everything about the class
-  */
-
-
-  api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, main) {
-    var classes, completed, enabled, filter, repeat, type, value, _ref;
-    if (filters == null) {
-      filters = [];
-    }
-    if (dayStart == null) {
-      dayStart = 0;
-    }
-    if (lastCron == null) {
-      lastCron = +(new Date);
-    }
-    if (showCompleted == null) {
-      showCompleted = false;
-    }
-    if (main == null) {
-      main = false;
-    }
-    if (!task) {
-      return;
-    }
-    type = task.type, completed = task.completed, value = task.value, repeat = task.repeat;
-    if ((type === 'todo' && completed !== showCompleted) && main) {
-      return 'hidden';
-    }
-    if (main) {
-      for (filter in filters) {
-        enabled = filters[filter];
-        if (enabled && !((_ref = task.tags) != null ? _ref[filter] : void 0)) {
-          return 'hidden';
-        }
-      }
-    }
-    classes = type;
-    if (type === 'todo' || type === 'daily') {
-      if (completed || (type === 'daily' && !api.shouldDo(+(new Date), task.repeat, {
-        dayStart: dayStart
-      }))) {
-        classes += " completed";
-      } else {
-        classes += " uncompleted";
-      }
-    } else if (type === 'habit') {
-      if (task.down && task.up) {
-        classes += ' habit-wide';
-      }
-    }
-    if (value < -20) {
-      classes += ' color-worst';
-    } else if (value < -10) {
-      classes += ' color-worse';
-    } else if (value < -1) {
-      classes += ' color-bad';
-    } else if (value < 1) {
-      classes += ' color-neutral';
-    } else if (value < 5) {
-      classes += ' color-good';
-    } else if (value < 10) {
-      classes += ' color-better';
-    } else {
-      classes += ' color-best';
-    }
-    return classes;
-  };
-
-  /*
-  Friendly timestamp
-  */
-
-
-  api.friendlyTimestamp = function(timestamp) {
-    return moment(timestamp).format('MM/DD h:mm:ss a');
-  };
-
-  /*
-  Does user have new chat messages?
-  */
-
-
-  api.newChatMessages = function(messages, lastMessageSeen) {
-    if (!((messages != null ? messages.length : void 0) > 0)) {
-      return false;
-    }
-    return (messages != null ? messages[0] : void 0) && (messages[0].id !== lastMessageSeen);
-  };
-
-  /*
-  are any tags active?
-  */
-
-
-  api.noTags = function(tags) {
-    return _.isEmpty(tags) || _.isEmpty(_.filter(tags, function(t) {
-      return t;
-    }));
-  };
-
-  /*
-  Are there tags applied?
-  */
-
-
-  api.appliedTags = function(userTags, taskTags) {
-    var arr;
-    arr = [];
-    _.each(userTags, function(t) {
-      if (t == null) {
-        return;
-      }
-      if (taskTags != null ? taskTags[t.id] : void 0) {
-        return arr.push(t.name);
-      }
-    });
-    return arr.join(', ');
-  };
-
-  api.countPets = function(originalCount, pets) {
-    var count, pet;
-    count = originalCount != null ? originalCount : _.size(pets);
-    for (pet in content.specialPets) {
-      if (pets[pet]) {
-        count--;
-      }
-    }
-    return count;
-  };
-
-  /*
-  ------------------------------------------------------
-  User (prototype wrapper to give it ops, helper funcs, and virtuals
-  ------------------------------------------------------
-  */
-
-
-  /*
-  User is now wrapped (both on client and server), adding a few new properties:
-    * getters (_statsComputed, tasks, etc)
-    * user.fns, which is a bunch of helper functions
-      These were originally up above, but they make more sense belonging to the user object so we don't have to pass
-      the user object all over the place. In fact, we should pull in more functions such as cron(), updateStats(), etc.
-    * user.ops, which is super important:
-  
-  If a function is inside user.ops, it has magical properties. If you call it on the client it updates the user object in
-  the browser and when it's done it automatically POSTs to the server, calling src/controllers/user.js#OP_NAME (the exact same name
-  of the op function). The first argument req is {query, body, params}, it's what the express controller function
-  expects. This means we call our functions as if we were calling an Express route. Eg, instead of score(task, direction),
-  we call score({params:{id:task.id,direction:direction}}). This also forces us to think about our routes (whether to use
-  params, query, or body for variables). see http://stackoverflow.com/questions/4024271/rest-api-best-practices-where-to-put-parameters
-  
-  If `src/controllers/user.js#OP_NAME` doesn't exist on the server, it's automatically added. It runs the code in user.ops.OP_NAME
-  to update the user model server-side, then performs `user.save()`. You can see this in action for `user.ops.buy`. That
-  function doesn't exist on the server - so the client calls it, it updates user in the browser, auto-POSTs to server, server
-  handles it by calling `user.ops.buy` again (to update user on the server), and then saves. We can do this for
-  everything that doesn't need any code difference from what's in user.ops.OP_NAME for special-handling server-side. If we
-  *do* need special handling, just add `src/controllers/user.js#OP_NAME` to override the user.ops.OP_NAME, and be
-  sure to call user.ops.OP_NAME at some point within the overridden function.
-  
-  TODO
-    * Is this the best way to wrap the user object? I thought of using user.prototype, but user is an object not a Function.
-      user on the server is a Mongoose model, so we can use prototype - but to do it on the client, we'd probably have to
-      move to $resource for user
-    * Move to $resource!
-  */
-
-
-  api.wrap = function(user, main) {
-    if (main == null) {
-      main = true;
-    }
-    if (user._wrapped) {
-      return;
-    }
-    user._wrapped = true;
-    if (main) {
-      user.ops = {
-        update: function(req, cb) {
-          _.each(req.body, function(v, k) {
-            user.fns.dotSet(k, v);
-            return true;
-          });
-          return typeof cb === "function" ? cb(null, user) : void 0;
-        },
-        sleep: function(req, cb) {
-          user.preferences.sleep = !user.preferences.sleep;
-          return typeof cb === "function" ? cb(null, {}) : void 0;
-        },
-        revive: function(req, cb) {
-          var item, lostItem, lostStat;
-          _.merge(user.stats, {
-            hp: 50,
-            exp: 0,
-            gp: 0
-          });
-          if (user.stats.lvl > 1) {
-            user.stats.lvl--;
-          }
-          lostStat = user.fns.randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
-            if (user.stats[k]) {
-              m[k] = k;
-            }
-            return m;
-          }), {}));
-          if (lostStat) {
-            user.stats[lostStat]--;
-          }
-          lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, (function(m, v, k) {
-            if (v) {
-              m['' + k] = '' + k;
-            }
-            return m;
-          }), {}));
-          if (item = content.gear.flat[lostItem]) {
-            user.items.gear.owned[lostItem] = false;
-            if (user.items.gear.equipped[item.type] === lostItem) {
-              user.items.gear.equipped[item.type] = "" + item.type + "_base_0";
-            }
-            if (user.items.gear.costume[item.type] === lostItem) {
-              user.items.gear.costume[item.type] = "" + item.type + "_base_0";
-            }
-          }
-          if (typeof user.markModified === "function") {
-            user.markModified('items.gear');
-          }
-          return typeof cb === "function" ? cb((item ? {
-            code: 200,
-            message: "Your " + item.text + " broke."
-          } : null), user) : void 0;
-        },
-        reset: function(req, cb) {
-          var gear;
-          user.habits = [];
-          user.dailys = [];
-          user.todos = [];
-          user.rewards = [];
-          user.stats.hp = 50;
-          user.stats.lvl = 1;
-          user.stats.gp = 0;
-          user.stats.exp = 0;
-          gear = user.items.gear;
-          _.each(['equipped', 'costume'], function(type) {
-            gear[type].armor = 'armor_base_0';
-            gear[type].weapon = 'weapon_base_0';
-            gear[type].head = 'head_base_0';
-            return gear[type].shield = 'shield_base_0';
-          });
-          user.items.gear.owned = {
-            weapon_warrior_0: true
-          };
-          if (typeof user.markModified === "function") {
-            user.markModified('items.gear.owned');
-          }
-          user.preferences.costume = false;
-          return typeof cb === "function" ? cb(null, user) : void 0;
-        },
-        reroll: function(req, cb) {
-          if (user.balance < 1) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "Not enough gems."
-            }, req) : void 0;
-          }
-          user.balance--;
-          _.each(user.tasks, function(task) {
-            if (task.type !== 'reward') {
-              return task.value = 0;
-            }
-          });
-          user.stats.hp = 50;
-          return typeof cb === "function" ? cb(null, user) : void 0;
-        },
-        rebirth: function(req, cb) {
-          var flags, gear, lvl, stats;
-          if (user.balance < 2) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "Not enough gems."
-            }, req) : void 0;
-          }
-          user.balance -= 2;
-          lvl = user.stats.lvl;
-          _.each(user.tasks, function(task) {
-            if (task.type !== 'reward') {
-              task.value = 0;
-            }
-            if (task.type === 'daily') {
-              return task.streak = 0;
-            }
-          });
-          stats = user.stats;
-          stats.buffs = {};
-          stats.hp = 50;
-          stats.lvl = 1;
-          stats["class"] = 'warrior';
-          _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
-            return stats[value] = 0;
-          });
-          gear = user.items.gear;
-          _.each(['equipped', 'costume'], function(type) {
-            gear[type].armor = 'armor_base_0';
-            gear[type].weapon = 'weapon_warrior_0';
-            gear[type].head = 'head_base_0';
-            return gear[type].shield = 'shield_base_0';
-          });
-          if (user.items.currentPet) {
-            user.ops.equip({
-              params: {
-                type: 'pet',
-                key: user.items.currentPet
-              }
-            });
-          }
-          if (user.items.currentMount) {
-            user.ops.equip({
-              params: {
-                type: 'mount',
-                key: user.items.currentMount
-              }
-            });
-          }
-          _.each(gear.owned, function(v, k) {
-            if (gear.owned[k]) {
-              gear.owned[k] = false;
-              return true;
-            }
-          });
-          gear.owned.weapon_warrior_0 = true;
-          if (typeof user.markModified === "function") {
-            user.markModified('items.gear.owned');
-          }
-          user.preferences.costume = false;
-          flags = user.flags;
-          if (!(user.achievements.ultimateGear || user.achievements.beastMaster)) {
-            flags.rebirthEnabled = false;
-          }
-          flags.itemsEnabled = false;
-          flags.dropsEnabled = false;
-          flags.classSelected = false;
-          if (!user.achievements.rebirths) {
-            user.achievements.rebirths = 1;
-            user.achievements.rebirthLevel = lvl;
-          } else if (lvl > user.achievements.rebirthLevel || lvl === 100) {
-            user.achievements.rebirths++;
-            user.achievements.rebirthLevel = lvl;
-          }
-          return typeof cb === "function" ? cb(null, user) : void 0;
-        },
-        clearCompleted: function(req, cb) {
-          _.remove(user.todos, function(t) {
-            var _ref;
-            return t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0);
-          });
-          if (typeof user.markModified === "function") {
-            user.markModified('todos');
-          }
-          return typeof cb === "function" ? cb(null, user.todos) : void 0;
-        },
-        sortTask: function(req, cb) {
-          var from, id, task, tasks, to, _ref;
-          id = req.params.id;
-          _ref = req.query, to = _ref.to, from = _ref.from;
-          task = user.tasks[id];
-          if (!task) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: "Task not found."
-            }) : void 0;
-          }
-          if (!((to != null) && (from != null))) {
-            return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
-          }
-          tasks = user["" + task.type + "s"];
-          tasks.splice(to, 0, tasks.splice(from, 1)[0]);
-          return typeof cb === "function" ? cb(null, tasks) : void 0;
-        },
-        updateTask: function(req, cb) {
-          var task, _ref;
-          if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
-            return typeof cb === "function" ? cb("Task not found") : void 0;
-          }
-          _.merge(task, _.omit(req.body, 'checklist'));
-          if (req.body.checklist) {
-            task.checklist = req.body.checklist;
-          }
-          if (typeof task.markModified === "function") {
-            task.markModified('tags');
-          }
-          return typeof cb === "function" ? cb(null, task) : void 0;
-        },
-        deleteTask: function(req, cb) {
-          var i, task, _ref;
-          task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0];
-          if (!task) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: 'Task not found'
-            }) : void 0;
-          }
-          i = user[task.type + "s"].indexOf(task);
-          if (~i) {
-            user[task.type + "s"].splice(i, 1);
-          }
-          return typeof cb === "function" ? cb(null, {}) : void 0;
-        },
-        addTask: function(req, cb) {
-          var task;
-          task = api.taskDefaults(req.body);
-          user["" + task.type + "s"].unshift(task);
-          if (user.preferences.newTaskEdit) {
-            task._editing = true;
-          }
-          if (user.preferences.tagsCollapsed) {
-            task._tags = true;
-          }
-          if (user.preferences.advancedCollapsed) {
-            task._advanced = true;
-          }
-          if (typeof cb === "function") {
-            cb(null, task);
-          }
-          return task;
-        },
-        addTag: function(req, cb) {
-          if (user.tags == null) {
-            user.tags = [];
-          }
-          user.tags.push({
-            name: req.body.name,
-            id: req.body.id || api.uuid()
-          });
-          return typeof cb === "function" ? cb(null, user.tags) : void 0;
-        },
-        updateTag: function(req, cb) {
-          var i, tid;
-          tid = req.params.id;
-          i = _.findIndex(user.tags, {
-            id: tid
-          });
-          if (!~i) {
-            return typeof cb === "function" ? cb('Tag not found', req) : void 0;
-          }
-          user.tags[i].name = req.body.name;
-          return typeof cb === "function" ? cb(null, user.tags[i]) : void 0;
-        },
-        deleteTag: function(req, cb) {
-          var i, tag, tid;
-          tid = req.params.id;
-          i = _.findIndex(user.tags, {
-            id: tid
-          });
-          if (!~i) {
-            return typeof cb === "function" ? cb('Tag not found', req) : void 0;
-          }
-          tag = user.tags[i];
-          delete user.filters[tag.id];
-          user.tags.splice(i, 1);
-          _.each(user.tasks, function(task) {
-            return delete task.tags[tag.id];
-          });
-          _.each(['habits', 'dailys', 'todos', 'rewards'], function(type) {
-            return typeof user.markModified === "function" ? user.markModified(type) : void 0;
-          });
-          return typeof cb === "function" ? cb(null, user.tags) : void 0;
-        },
-        feed: function(req, cb) {
-          var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
-          _ref = req.params, pet = _ref.pet, food = _ref.food;
-          food = content.food[food];
-          _ref1 = pet.split('-'), egg = _ref1[0], potion = _ref1[1];
-          userPets = user.items.pets;
-          if (!userPets[pet]) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: ":pet not found in user.items.pets"
-            }) : void 0;
-          }
-          if (!((_ref2 = user.items.food) != null ? _ref2[food.key] : void 0)) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: ":food not found in user.items.food"
-            }) : void 0;
-          }
-          if (content.specialPets[pet]) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "Can't feed this pet."
-            }) : void 0;
-          }
-          if (user.items.mounts[pet]) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "You already have that mount. Try feeding another pet."
-            }) : void 0;
-          }
-          message = '';
-          evolve = function() {
-            userPets[pet] = -1;
-            user.items.mounts[pet] = true;
-            if (pet === user.items.currentPet) {
-              user.items.currentPet = "";
-            }
-            return message = "You have tamed " + egg + ", let's go for a ride!";
-          };
-          if (food.key === 'Saddle') {
-            evolve();
-          } else {
-            if (food.target === potion) {
-              userPets[pet] += 5;
-              message = "" + egg + " really likes the " + food.text + "!";
-            } else {
-              userPets[pet] += 2;
-              message = "" + egg + " eats the " + food.text + " but doesn't seem to enjoy it.";
-            }
-            if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
-              evolve();
-            }
-          }
-          user.items.food[food.key]--;
-          return typeof cb === "function" ? cb({
-            code: 200,
-            message: message
-          }, userPets[pet]) : void 0;
-        },
-        purchase: function(req, cb) {
-          var item, key, type, _ref;
-          _ref = req.params, type = _ref.type, key = _ref.key;
-          if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'special') {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: ":type must be in [hatchingPotions,eggs,food,quests,special]"
-            }, req) : void 0;
-          }
-          item = content[type][key];
-          if (!item) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: ":key not found for Content." + type
-            }, req) : void 0;
-          }
-          if (!user.items[type][key]) {
-            user.items[type][key] = 0;
-          }
-          user.items[type][key]++;
-          user.balance -= item.value / 4;
-          return typeof cb === "function" ? cb(null, _.pick(user, $w('items balance'))) : void 0;
-        },
-        buy: function(req, cb) {
-          var item, key, message;
-          key = req.params.key;
-          item = key === 'potion' ? content.potion : content.gear.flat[key];
-          if (!item) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: "Item '" + key + " not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"
-            }) : void 0;
-          }
-          if (user.stats.gp < item.value) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: 'Not enough gold.'
-            }) : void 0;
-          }
-          if (item.key === 'potion') {
-            user.stats.hp += 15;
-            if (user.stats.hp > 50) {
-              user.stats.hp = 50;
-            }
-          } else {
-            user.items.gear.equipped[item.type] = item.key;
-            user.items.gear.owned[item.key] = true;
-            message = user.fns.handleTwoHanded(item);
-            if (message == null) {
-              message = "Bought " + item.text + ".";
-            }
-            if (!user.achievements.ultimateGear && item.last) {
-              user.fns.ultimateGear();
-            }
-          }
-          user.stats.gp -= item.value;
-          return typeof cb === "function" ? cb({
-            code: 200,
-            message: message
-          }, _.pick(user, $w('items achievements stats'))) : void 0;
-        },
-        sell: function(req, cb) {
-          var key, type, _ref;
-          _ref = req.params, key = _ref.key, type = _ref.type;
-          if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: ":type not found. Must bes in [eggs, hatchingPotions, food]"
-            }) : void 0;
-          }
-          if (!user.items[type][key]) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: ":key not found for user.items." + type
-            }) : void 0;
-          }
-          user.items[type][key]--;
-          user.stats.gp += content[type][key].value;
-          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats items'))) : void 0;
-        },
-        equip: function(req, cb) {
-          var item, key, message, type, _ref;
-          _ref = [req.params.type || 'equipped', req.params.key], type = _ref[0], key = _ref[1];
-          switch (type) {
-            case 'mount':
-              user.items.currentMount = user.items.currentMount === key ? '' : key;
-              break;
-            case 'pet':
-              user.items.currentPet = user.items.currentPet === key ? '' : key;
-              break;
-            case 'costume':
-            case 'equipped':
-              item = content.gear.flat[key];
-              user.items.gear[type][item.type] = item.key;
-              message = user.fns.handleTwoHanded(item, type);
-          }
-          return typeof cb === "function" ? cb((message ? {
-            code: 200,
-            message: message
-          } : null), user.items) : void 0;
-        },
-        hatch: function(req, cb) {
-          var egg, hatchingPotion, pet, _ref;
-          _ref = req.params, egg = _ref.egg, hatchingPotion = _ref.hatchingPotion;
-          if (!(egg && hatchingPotion)) {
-            return typeof cb === "function" ? cb({
-              code: 404,
-              message: "Please specify query.egg & query.hatchingPotion"
-            }) : void 0;
-          }
-          if (!(user.items.eggs[egg] > 0 && user.items.hatchingPotions[hatchingPotion] > 0)) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "You're missing either that egg or that potion"
-            }) : void 0;
-          }
-          pet = "" + egg + "-" + hatchingPotion;
-          if (user.items.pets[pet] && user.items.pets[pet] > 0) {
-            return typeof cb === "function" ? cb("You already have that pet. Try hatching a different combination!") : void 0;
-          }
-          user.items.pets[pet] = 5;
-          user.items.eggs[egg]--;
-          user.items.hatchingPotions[hatchingPotion]--;
-          return typeof cb === "function" ? cb({
-            code: 200,
-            message: "Your egg hatched! Visit your stable to equip your pet."
-          }, user.items) : void 0;
-        },
-        unlock: function(req, cb) {
-          var alreadyOwns, cost, fullSet, k, path, split, v;
-          path = req.query.path;
-          fullSet = ~path.indexOf(",");
-          cost = fullSet ? 1.25 : 0.5;
-          alreadyOwns = !fullSet && user.fns.dotGet("purchased." + path) === true;
-          if (user.balance < cost && !alreadyOwns) {
-            return typeof cb === "function" ? cb({
-              code: 401,
-              message: "Not enough gems"
-            }) : void 0;
-          }
-          if (fullSet) {
-            _.each(path.split(","), function(p) {
-              user.fns.dotSet("purchased." + p, true);
-              return true;
-            });
-          } else {
-            if (alreadyOwns) {
-              split = path.split('.');
-              v = split.pop();
-              k = split.join('.');
-              user.fns.dotSet("preferences." + k, v);
-              return typeof cb === "function" ? cb(null, req) : void 0;
-            }
-            user.fns.dotSet("purchased." + path, true);
-          }
-          user.balance -= cost;
-          if (typeof user.markModified === "function") {
-            user.markModified('purchased');
-          }
-          return typeof cb === "function" ? cb(null, _.pick(user, $w('purchased preferences'))) : void 0;
-        },
-        changeClass: function(req, cb) {
-          var klass, _ref;
-          klass = (_ref = req.query) != null ? _ref["class"] : void 0;
-          if (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer') {
-            user.stats["class"] = klass;
-            user.flags.classSelected = true;
-            _.each(["weapon", "armor", "shield", "head"], function(type) {
-              var foundKey;
-              foundKey = false;
-              _.findLast(user.items.gear.owned, function(v, k) {
-                if (~k.indexOf(type + "_" + klass) && v === true) {
-                  return foundKey = k;
-                }
-              });
-              user.items.gear.equipped[type] = foundKey ? foundKey : type === "weapon" ? "weapon_" + klass + "_0" : type === "shield" && klass === "rogue" ? "shield_rogue_0" : "" + type + "_base_0";
-              if (type === "weapon" || (type === "shield" && klass === "rogue")) {
-                user.items.gear.owned["" + type + "_" + klass + "_0"] = true;
-              }
-              return true;
-            });
-          } else {
-            if (user.preferences.disableClasses) {
-              user.preferences.disableClasses = false;
-              user.preferences.autoAllocate = false;
-            } else {
-              if (!(user.balance >= .75)) {
-                return typeof cb === "function" ? cb({
-                  code: 401,
-                  message: "Not enough gems"
-                }) : void 0;
-              }
-              user.balance -= .75;
-            }
-            _.merge(user.stats, {
-              str: 0,
-              con: 0,
-              per: 0,
-              int: 0,
-              points: user.stats.lvl
-            });
-            user.flags.classSelected = false;
-          }
-          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags items preferences'))) : void 0;
-        },
-        disableClasses: function(req, cb) {
-          user.stats["class"] = 'warrior';
-          user.flags.classSelected = true;
-          user.preferences.disableClasses = true;
-          user.preferences.autoAllocate = true;
-          user.stats.str = user.stats.lvl;
-          user.stats.points = 0;
-          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags preferences'))) : void 0;
-        },
-        allocate: function(req, cb) {
-          var stat;
-          stat = req.query.stat || 'str';
-          if (user.stats.points > 0) {
-            user.stats[stat]++;
-            user.stats.points--;
-            if (stat === 'int') {
-              user.stats.mp++;
-            }
-          }
-          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
-        },
-        score: function(req, cb) {
-          var addPoints, calculateDelta, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref, _ref1;
-          _ref = req.params, id = _ref.id, direction = _ref.direction;
-          task = user.tasks[id];
-          options = req.query || {};
-          _.defaults(options, {
-            times: 1,
-            cron: false
-          });
-          user._tmp = {};
-          stats = {
-            gp: +user.stats.gp,
-            hp: +user.stats.hp,
-            exp: +user.stats.exp
-          };
-          task.value = +task.value;
-          task.streak = ~~task.streak;
-          if (task.priority == null) {
-            task.priority = 1;
-          }
-          if (task.value > stats.gp && task.type === 'reward') {
-            return typeof cb === "function" ? cb('Not enough Gold') : void 0;
-          }
-          delta = 0;
-          calculateDelta = function() {
-            return _.times(options.times, function() {
-              var adjustAmt, currVal, nextDelta, _ref1, _ref2;
-              currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
-              nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
-              if (((_ref1 = task.checklist) != null ? _ref1.length : void 0) > 0) {
-                if (direction === 'down' && task.type === 'daily' && options.cron) {
-                  nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
-                    return m + (i.completed ? 1 : 0);
-                  }), 0) / task.checklist.length;
-                }
-                if (task.type === 'todo' && direction === 'up') {
-                  nextDelta *= 1 + _.reduce(task.checklist, (function(m, i) {
-                    return m + (i.completed ? 1 : 0);
-                  }), 0);
-                }
-              }
-              if (task.type !== 'reward') {
-                if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
-                  user.stats.training[task.attribute] += nextDelta;
-                }
-                adjustAmt = nextDelta;
-                if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
-                  adjustAmt = nextDelta * (1 + user._statsComputed.str * .004);
-                  user.party.quest.progress.up = user.party.quest.progress.up || 0;
-                  if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
-                    user.party.quest.progress.up += adjustAmt;
-                  }
-                }
-                task.value += adjustAmt;
-              }
-              return delta += nextDelta;
-            });
-          };
-          addPoints = function() {
-            var afterStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
-            _crit = user.fns.crit();
-            if (_crit > 1) {
-              user._tmp.crit = _crit;
-            }
-            intBonus = 1 + (user._statsComputed.int * .025);
-            stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
-            perBonus = 1 + user._statsComputed.per * .02;
-            gpMod = delta * task.priority * _crit * perBonus;
-            return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
-          };
-          subtractPoints = function() {
-            var conBonus, hpMod;
-            conBonus = 1 - (user._statsComputed.con / 250);
-            if (conBonus < .1) {
-              conBonus = 0.1;
-            }
-            hpMod = delta * conBonus * task.priority * 2;
-            return stats.hp += Math.round(hpMod * 10) / 10;
-          };
-          switch (task.type) {
-            case 'habit':
-              calculateDelta();
-              if (delta > 0) {
-                addPoints();
-              } else {
-                subtractPoints();
-              }
-              th = (task.history != null ? task.history : task.history = []);
-              if (th[th.length - 1] && moment(th[th.length - 1].date).isSame(new Date, 'day')) {
-                th[th.length - 1].value = task.value;
-              } else {
-                th.push({
-                  date: +(new Date),
-                  value: task.value
-                });
-              }
-              if (typeof user.markModified === "function") {
-                user.markModified("habits." + (_.findIndex(user.habits, {
-                  id: task.id
-                })) + ".history");
-              }
-              break;
-            case 'daily':
-              if (options.cron) {
-                calculateDelta();
-                subtractPoints();
-                if (!user.stats.buffs.streaks) {
-                  task.streak = 0;
-                }
-              } else {
-                calculateDelta();
-                addPoints();
-                if (direction === 'up') {
-                  task.streak = task.streak ? task.streak + 1 : 1;
-                  if ((task.streak % 21) === 0) {
-                    user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
-                  }
-                } else {
-                  if ((task.streak % 21) === 0) {
-                    user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
-                  }
-                  task.streak = task.streak ? task.streak - 1 : 0;
-                }
-              }
-              break;
-            case 'todo':
-              if (options.cron) {
-                calculateDelta();
-              } else {
-                task.dateCompleted = direction === 'up' ? new Date : void 0;
-                calculateDelta();
-                addPoints();
-                multiplier = ((_ref1 = task.checklist) != null ? _ref1.length : void 0) || 1;
-                mpDelta = _.max([multiplier, .01 * user._statsComputed.maxMP * multiplier]);
-                if (direction === 'down') {
-                  mpDelta *= -1;
-                }
-                user.stats.mp += mpDelta;
-                if (user.stats.mp >= user._statsComputed.maxMP) {
-                  user.stats.mp = user._statsComputed.maxMP;
-                }
-                if (user.stats.mp < 0) {
-                  user.stats.mp = 0;
-                }
-              }
-              break;
-            case 'reward':
-              calculateDelta();
-              stats.gp -= Math.abs(task.value);
-              num = parseFloat(task.value).toFixed(2);
-              if (stats.gp < 0) {
-                stats.hp += stats.gp;
-                stats.gp = 0;
-              }
-          }
-          user.fns.updateStats(stats);
-          if (typeof window === 'undefined') {
-            if (direction === 'up') {
-              user.fns.randomDrop({
-                task: task,
-                delta: delta
-              });
-            }
-          }
-          if (typeof cb === "function") {
-            cb(null, user);
-          }
-          return delta;
-        }
-      };
-    }
-    user.fns = {
-      getItem: function(type) {
-        var item;
-        item = content.gear.flat[user.items.gear.equipped[type]];
-        if (!item) {
-          return content.gear.flat["" + type + "_base_0"];
-        }
-        return item;
-      },
-      handleTwoHanded: function(item, type) {
-        var message, weapon, _ref;
-        if (type == null) {
-          type = 'equipped';
-        }
-        if (item.type === "shield" && ((_ref = (weapon = content.gear.flat[user.items.gear[type].weapon])) != null ? _ref.twoHanded : void 0)) {
-          user.items.gear[type].weapon = 'weapon_base_0';
-          message = "" + weapon.text + " is two-handed";
-        }
-        if (item.twoHanded) {
-          user.items.gear[type].shield = "shield_base_0";
-          message = "" + item.text + " is two-handed";
-        }
-        return message;
-      },
-      /*
-      Because the same op needs to be performed on the client and the server (critical hits, item drops, etc),
-      we need things to be "random", but technically predictable so that they don't go out-of-sync
-      */
-
-      predictableRandom: function(seed) {
-        var x;
-        if (!seed || seed === Math.PI) {
-          seed = _.reduce(user.stats, (function(m, v) {
-            if (_.isNumber(v)) {
-              return m + v;
-            } else {
-              return m;
-            }
-          }), 0);
-        }
-        x = Math.sin(seed++) * 10000;
-        return x - Math.floor(x);
-      },
-      crit: function(stat, chance) {
-        if (stat == null) {
-          stat = 'str';
-        }
-        if (chance == null) {
-          chance = .03;
-        }
-        if (user.fns.predictableRandom() <= chance) {
-          return 1.5 + (.02 * user._statsComputed[stat]);
-        } else {
-          return 1;
-        }
-      },
-      /*
-        Get a random property from an object
-        returns random property (the value)
-      */
-
-      randomVal: function(obj, options) {
-        var array, rand;
-        array = (options != null ? options.key : void 0) ? _.keys(obj) : _.values(obj);
-        rand = user.fns.predictableRandom(typeof option !== "undefined" && option !== null ? option.seed : void 0);
-        return array[Math.floor(rand * array.length)];
-      },
-      /*
-      This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
-      user.stats.hp = 50. This is useful because in our habitrpg-shared functions we're returning changesets as {path:value},
-      so that different consumers can implement setters their own way. Derby needs model.set(path, value) for example, where
-      Angular sets object properties directly - in which case, this function will be used.
-      */
-
-      dotSet: function(path, val) {
-        var arr,
-          _this = this;
-        arr = path.split('.');
-        return _.reduce(arr, function(curr, next, index) {
-          if ((arr.length - 1) === index) {
-            curr[next] = val;
-          }
-          return curr[next] != null ? curr[next] : curr[next] = {};
-        }, user);
-      },
-      dotGet: function(path) {
-        var _this = this;
-        return _.reduce(path.split('.'), (function(curr, next) {
-          return curr != null ? curr[next] : void 0;
-        }), user);
-      },
-      randomDrop: function(modifiers) {
-        var acceptableDrops, bonus, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1;
-        task = modifiers.task;
-        bonus = Math.abs(task.value) * task.priority + (task.streak || 0) + (user._statsComputed.per * .5);
-        bonus /= 100;
-        chance = api.diminishingReturns(bonus, 1, 0.5);
-        console.log("Drop Equation: Bonus(" + (bonus.toFixed(3)) + "), Modified Chance(" + (chance.toFixed(3)) + ")\n");
-        quest = content.quests[(_ref = user.party.quest) != null ? _ref.key : void 0];
-        if ((quest != null ? quest.collect : void 0) && user.fns.predictableRandom(user.stats.gp) < bonus) {
-          dropK = user.fns.randomVal(quest.collect, {
-            key: true
-          });
-          user.party.quest.progress.collect[dropK]++;
-          if (typeof user.markModified === "function") {
-            user.markModified('party.quest.progress');
-          }
-          console.log({
-            progress: user.party.quest.progress
-          });
-        }
-        if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5)) {
-          return;
-        }
-        if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
-          rarity = user.fns.predictableRandom(user.stats.gp);
-          if (rarity > .6) {
-            drop = user.fns.randomVal(_.omit(content.food, 'Saddle'));
-            if ((_base = user.items.food)[_name = drop.key] == null) {
-              _base[_name] = 0;
-            }
-            user.items.food[drop.key] += 1;
-            drop.type = 'Food';
-            drop.dialog = "You've found " + drop.article + drop.text + "! " + drop.notes;
-          } else if (rarity > .3) {
-            drop = user.fns.randomVal(_.where(content.eggs, {
-              canBuy: true
-            }));
-            if ((_base1 = user.items.eggs)[_name1 = drop.key] == null) {
-              _base1[_name1] = 0;
-            }
-            user.items.eggs[drop.key]++;
-            drop.type = 'Egg';
-            drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
-          } else {
-            acceptableDrops = rarity < .03 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
-            drop = user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
-              return __indexOf.call(acceptableDrops, k) >= 0;
-            })));
-            if ((_base2 = user.items.hatchingPotions)[_name2 = drop.key] == null) {
-              _base2[_name2] = 0;
-            }
-            user.items.hatchingPotions[drop.key]++;
-            drop.type = 'HatchingPotion';
-            drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
-          }
-          user._tmp.drop = drop;
-          user.items.lastDrop.date = +(new Date);
-          return user.items.lastDrop.count++;
-        }
-      },
-      /*
-        Updates user stats with new stats. Handles death, leveling up, etc
-        {stats} new stats
-        {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
-      */
-
-      autoAllocate: function() {
-        return user.stats[(function() {
-          var diff, ideal, preference, stats, suggested;
-          switch (user.preferences.allocationMode) {
-            case "flat":
-              stats = _.pick(user.stats, $w('con str per int'));
-              return _.invert(stats)[_.min(stats)];
-            case "classbased":
-              ideal = [user.stats.lvl / 7 * 3, user.stats.lvl / 7 * 2, user.stats.lvl / 7, user.stats.lvl / 7];
-              preference = (function() {
-                switch (user.stats["class"]) {
-                  case "wizard":
-                    return ["int", "per", "con", "str"];
-                  case "rogue":
-                    return ["per", "str", "int", "con"];
-                  case "healer":
-                    return ["con", "int", "str", "per"];
-                  default:
-                    return ["str", "con", "per", "int"];
-                }
-              })();
-              diff = [user.stats[preference[0]] - ideal[0], user.stats[preference[1]] - ideal[1], user.stats[preference[2]] - ideal[2], user.stats[preference[3]] - ideal[3]];
-              suggested = _.findIndex(diff, (function(val) {
-                if (val === _.min(diff)) {
-                  return true;
-                }
-              }));
-              if (~suggested) {
-                return preference[suggested];
-              } else {
-                return "str";
-              }
-            case "taskbased":
-              suggested = _.invert(user.stats.training)[_.max(user.stats.training)];
-              _.merge(user.stats.training, {
-                str: 0,
-                int: 0,
-                con: 0,
-                per: 0
-              });
-              return suggested || "str";
-            default:
-              return "str";
-          }
-        })()]++;
-      },
-      updateStats: function(stats) {
-        var tnl;
-        if (stats.hp <= 0) {
-          return user.stats.hp = 0;
-        }
-        user.stats.hp = stats.hp;
-        user.stats.gp = stats.gp >= 0 ? stats.gp : 0;
-        tnl = api.tnl(user.stats.lvl);
-        if (user.stats.lvl >= 100) {
-          stats.gp += stats.exp / 15;
-          stats.exp = 0;
-          user.stats.lvl = 100;
-        } else {
-          if (stats.exp >= tnl) {
-            user.stats.exp = stats.exp;
-            while (stats.exp >= tnl && user.stats.lvl < 100) {
-              stats.exp -= tnl;
-              user.stats.lvl++;
-              tnl = api.tnl(user.stats.lvl);
-              if (user.preferences.automaticAllocation) {
-                user.fns.autoAllocate();
-              } else {
-                user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
-              }
-            }
-            if (user.stats.lvl === 100) {
-              stats.exp = 0;
-            }
-            user.stats.hp = 50;
-          }
-        }
-        user.stats.exp = stats.exp;
-        if (user.flags == null) {
-          user.flags = {};
-        }
-        if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
-          user.flags.customizationsNotification = true;
-        }
-        if (!user.flags.itemsEnabled && user.stats.lvl >= 2) {
-          user.flags.itemsEnabled = true;
-        }
-        if (!user.flags.partyEnabled && user.stats.lvl >= 3) {
-          user.flags.partyEnabled = true;
-        }
-        if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
-          user.flags.dropsEnabled = true;
-          if (user.items.eggs["Wolf"] > 0) {
-            user.items.eggs["Wolf"]++;
-          } else {
-            user.items.eggs["Wolf"] = 1;
-          }
-        }
-        if (!user.flags.classSelected && user.stats.lvl >= 10) {
-          user.flags.classSelected;
-        }
-        if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
-          return user.flags.rebirthEnabled = true;
-        }
-      },
-      /*
-        ------------------------------------------------------
-        Cron
-        ------------------------------------------------------
-      */
-
-      /*
-        At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
-        For incomplete Dailys, deduct experience
-        Make sure to run this function once in a while as server will not take care of overnight calculations.
-        And you have to run it every time client connects.
-        {user}
-      */
-
-      cron: function(options) {
-        var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, progress, todoTally, _base, _base1, _base2, _base3, _progress;
-        if (options == null) {
-          options = {};
-        }
-        now = +options.now || +(new Date);
-        daysMissed = api.daysSince(user.lastCron, _.defaults({
-          now: now
-        }, user.preferences));
-        if (!(daysMissed > 0)) {
-          return;
-        }
-        user.auth.timestamps.loggedin = new Date();
-        user.lastCron = now;
-        if (user.items.lastDrop.count > 0) {
-          user.items.lastDrop.count = 0;
-        }
-        user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
-        if (user.stats.mp > user._statsComputed.maxMP) {
-          user.stats.mp = user._statsComputed.maxMP;
-        }
-        perfect = true;
-        clearBuffs = {
-          str: 0,
-          int: 0,
-          per: 0,
-          con: 0,
-          stealth: 0,
-          streaks: false
-        };
-        if (user.preferences.sleep === true) {
-          user.stats.buffs = clearBuffs;
-          return;
-        }
-        todoTally = 0;
-        if ((_base = user.party.quest.progress).down == null) {
-          _base.down = 0;
-        }
-        user.todos.concat(user.dailys).forEach(function(task) {
-          var absVal, completed, delta, id, repeat, scheduleMisses, type;
-          if (!task) {
-            return;
-          }
-          id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;
-          if ((type === 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth--) {
-            return;
-          }
-          if (!completed) {
-            scheduleMisses = daysMissed;
-            if ((type === 'daily') && repeat) {
-              scheduleMisses = 0;
-              _.times(daysMissed, function(n) {
-                var thatDay;
-                thatDay = moment(now).subtract('days', n + 1);
-                if (api.shouldDo(thatDay, repeat, user.preferences)) {
-                  return scheduleMisses++;
-                }
-              });
-            }
-            if (scheduleMisses > 0) {
-              if (type === 'daily') {
-                perfect = false;
-              }
-              delta = user.ops.score({
-                params: {
-                  id: task.id,
-                  direction: 'down'
-                },
-                query: {
-                  times: scheduleMisses,
-                  cron: true
-                }
-              });
-              if (type === 'daily') {
-                user.party.quest.progress.down += delta;
-              }
-            }
-          }
-          switch (type) {
-            case 'daily':
-              (task.history != null ? task.history : task.history = []).push({
-                date: +(new Date),
-                value: task.value
-              });
-              task.completed = false;
-              return _.each(task.checklist, (function(i) {
-                i.completed = false;
-                return true;
-              }));
-            case 'todo':
-              absVal = completed ? Math.abs(task.value) : task.value;
-              return todoTally += absVal;
-          }
-        });
-        user.habits.forEach(function(task) {
-          if (task.up === false || task.down === false) {
-            if (Math.abs(task.value) < 0.1) {
-              return task.value = 0;
-            } else {
-              return task.value = task.value / 2;
-            }
-          }
-        });
-        ((_base1 = (user.history != null ? user.history : user.history = {})).todos != null ? (_base1 = (user.history != null ? user.history : user.history = {})).todos : _base1.todos = []).push({
-          date: now,
-          value: todoTally
-        });
-        expTally = user.stats.exp;
-        lvl = 0;
-        while (lvl < (user.stats.lvl - 1)) {
-          lvl++;
-          expTally += api.tnl(lvl);
-        }
-        ((_base2 = user.history).exp != null ? (_base2 = user.history).exp : _base2.exp = []).push({
-          date: now,
-          value: expTally
-        });
-        user.fns.preenUserHistory();
-        if (typeof user.markModified === "function") {
-          user.markModified('history');
-        }
-        if (typeof user.markModified === "function") {
-          user.markModified('dailys');
-        }
-        user.stats.buffs = perfect ? ((_base3 = user.achievements).perfect != null ? (_base3 = user.achievements).perfect : _base3.perfect = 0, user.achievements.perfect++, lvlDiv2 = Math.ceil(user.stats.lvl / 2), {
-          str: lvlDiv2,
-          int: lvlDiv2,
-          per: lvlDiv2,
-          con: lvlDiv2,
-          stealth: 0,
-          streaks: false
-        }) : clearBuffs;
-        progress = user.party.quest.progress;
-        _progress = _.cloneDeep(progress);
-        _.merge(progress, {
-          down: 0,
-          up: 0
-        });
-        progress.collect = _.transform(progress.collect, (function(m, v, k) {
-          return m[k] = 0;
-        }));
-        return _progress;
-      },
-      preenUserHistory: function(minHistLen) {
-        if (minHistLen == null) {
-          minHistLen = 7;
-        }
-        _.each(user.habits.concat(user.dailys), function(task) {
-          var _ref;
-          if (((_ref = task.history) != null ? _ref.length : void 0) > minHistLen) {
-            task.history = preenHistory(task.history);
-          }
-          return true;
-        });
-        _.defaults(user.history, {
-          todos: [],
-          exp: []
-        });
-        if (user.history.exp.length > minHistLen) {
-          user.history.exp = preenHistory(user.history.exp);
-        }
-        if (user.history.todos.length > minHistLen) {
-          return user.history.todos = preenHistory(user.history.todos);
-        }
-      },
-      ultimateGear: function() {
-        var gear, lastGearClassTypeMatrix, ownedLastGear, shouldGrant;
-        gear = typeof window !== "undefined" && window !== null ? user.items.gear.owned : user.items.gear.owned.toObject();
-        ownedLastGear = _.chain(content.gear.flat).pick(_.keys(gear)).values().filter(function(gear) {
-          return gear.last;
-        });
-        lastGearClassTypeMatrix = {};
-        _.each(content.classes, function(klass) {
-          lastGearClassTypeMatrix[klass] = {};
-          return _.each(content.gearTypes, function(type) {
-            lastGearClassTypeMatrix[klass][type] = false;
-            return true;
-          });
-        });
-        ownedLastGear.each(function(gear) {
-          if (gear.twoHanded) {
-            lastGearClassTypeMatrix[gear.klass]["shield"] = true;
-          }
-          return lastGearClassTypeMatrix[gear.klass][gear.type] = true;
-        });
-        shouldGrant = _(lastGearClassTypeMatrix).values().reduce((function(ans, klass) {
-          return ans || _(klass).values().reduce((function(ans, gearType) {
-            return ans && gearType;
-          }), true);
-        }), false).valueOf();
-        return user.achievements.ultimateGear = shouldGrant;
-      }
-    };
-    Object.defineProperty(user, '_statsComputed', {
-      get: function() {
-        var computed,
-          _this = this;
-        computed = _.reduce(['per', 'con', 'str', 'int'], function(m, stat) {
-          m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), function(m2, path) {
-            var item, val;
-            val = user.fns.dotGet(path);
-            return m2 + (~path.indexOf('items.gear') ? (item = content.gear.flat[val], (+(item != null ? item[stat] : void 0) || 0) * ((item != null ? item.klass : void 0) === user.stats["class"] ? 1.5 : 1)) : +val[stat] || 0);
-          }, 0);
-          m[stat] += (user.stats.lvl - 1) / 2;
-          return m;
-        }, {});
-        computed.maxMP = computed.int * 2 + 30;
-        return computed;
-      }
-    });
-    return Object.defineProperty(user, 'tasks', {
-      get: function() {
-        var tasks;
-        tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);
-        return _.object(_.pluck(tasks, "id"), tasks);
-      }
-    });
-  };
-
-}).call(this);
-
-
-},{"./content.coffee":3,"__browserify_process":2,"lodash":5,"moment":6}],5:[function(require,module,exports){
 var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
  * @license
- * Lo-Dash 2.2.1 (Custom Build) <http://lodash.com/>
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
@@ -3630,7 +113,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
   /**
    * Used to match ES6 template delimiters
-   * http://people.mozilla.org/~jorendorff/es6-draft.html#sec-7.8.6
+   * http://people.mozilla.org/~jorendorff/es6-draft.html#sec-literals-string-literals
    */
   var reEsTemplate = /\$\{([^\\}]*(?:\\.[^\\}]*)*)\}/g;
 
@@ -3638,7 +121,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
   var reFlags = /\w*$/;
 
   /** Used to detected named functions */
-  var reFuncName = /^function[ \n\r\t]+\w/;
+  var reFuncName = /^\s*function[ \n\r\t]+\w/;
 
   /** Used to match "interpolate" template delimiters */
   var reInterpolate = /<%=([\s\S]+?)%>/g;
@@ -3659,7 +142,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
   var contextProps = [
     'Array', 'Boolean', 'Date', 'Function', 'Math', 'Number', 'Object',
     'RegExp', 'String', '_', 'attachEvent', 'clearTimeout', 'isFinite', 'isNaN',
-    'parseInt', 'setImmediate', 'setTimeout'
+    'parseInt', 'setTimeout'
   ];
 
   /** Used to make template sourceURLs easier to identify */
@@ -3839,22 +322,29 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
    */
   function compareAscending(a, b) {
     var ac = a.criteria,
-        bc = b.criteria;
+        bc = b.criteria,
+        index = -1,
+        length = ac.length;
 
-    // ensure a stable sort in V8 and other engines
-    // http://code.google.com/p/v8/issues/detail?id=90
-    if (ac !== bc) {
-      if (ac > bc || typeof ac == 'undefined') {
-        return 1;
-      }
-      if (ac < bc || typeof bc == 'undefined') {
-        return -1;
+    while (++index < length) {
+      var value = ac[index],
+          other = bc[index];
+
+      if (value !== other) {
+        if (value > other || typeof value == 'undefined') {
+          return 1;
+        }
+        if (value < other || typeof other == 'undefined') {
+          return -1;
+        }
       }
     }
-    // The JS engine embedded in Adobe applications like InDesign has a buggy
-    // `Array#sort` implementation that causes it, under certain circumstances,
-    // to return the same value for `a` and `b`.
-    // See https://github.com/jashkenas/underscore/pull/1247
+    // Fixes an `Array#sort` bug in the JS engine embedded in Adobe applications
+    // that causes it, under certain circumstances, to return the same value for
+    // `a` and `b`. See https://github.com/jashkenas/underscore/pull/1247
+    //
+    // This also ensures a stable sort in V8 and other engines.
+    // See http://code.google.com/p/v8/issues/detail?id=90
     return a.index - b.index;
   }
 
@@ -3934,15 +424,6 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       'undefined': false,
       'value': null
     };
-  }
-
-  /**
-   * A no-operation function.
-   *
-   * @private
-   */
-  function noop() {
-    // no operation performed
   }
 
   /**
@@ -4047,11 +528,14 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     /** Used to restore the original `_` reference in `noConflict` */
     var oldDash = context._;
 
+    /** Used to resolve the internal [[Class]] of values */
+    var toString = objectProto.toString;
+
     /** Used to detect if a method is native */
     var reNative = RegExp('^' +
-      String(objectProto.valueOf)
+      String(toString)
         .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-        .replace(/valueOf|for [^\]]+/g, '.+?') + '$'
+        .replace(/toString| for [^\]]+/g, '.*?') + '$'
     );
 
     /** Native method shortcuts */
@@ -4059,41 +543,34 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         clearTimeout = context.clearTimeout,
         floor = Math.floor,
         fnToString = Function.prototype.toString,
-        getPrototypeOf = reNative.test(getPrototypeOf = Object.getPrototypeOf) && getPrototypeOf,
+        getPrototypeOf = isNative(getPrototypeOf = Object.getPrototypeOf) && getPrototypeOf,
         hasOwnProperty = objectProto.hasOwnProperty,
-        now = reNative.test(now = Date.now) && now || function() { return +new Date; },
         push = arrayRef.push,
-        setImmediate = context.setImmediate,
         setTimeout = context.setTimeout,
         splice = arrayRef.splice,
-        toString = objectProto.toString,
         unshift = arrayRef.unshift;
 
+    /** Used to set meta data on functions */
     var defineProperty = (function() {
+      // IE 8 only accepts DOM elements
       try {
         var o = {},
-            func = reNative.test(func = Object.defineProperty) && func,
+            func = isNative(func = Object.defineProperty) && func,
             result = func(o, o, o) && func;
       } catch(e) { }
       return result;
     }());
 
     /* Native method shortcuts for methods with the same name as other `lodash` methods */
-    var nativeBind = reNative.test(nativeBind = toString.bind) && nativeBind,
-        nativeCreate = reNative.test(nativeCreate = Object.create) && nativeCreate,
-        nativeIsArray = reNative.test(nativeIsArray = Array.isArray) && nativeIsArray,
+    var nativeCreate = isNative(nativeCreate = Object.create) && nativeCreate,
+        nativeIsArray = isNative(nativeIsArray = Array.isArray) && nativeIsArray,
         nativeIsFinite = context.isFinite,
         nativeIsNaN = context.isNaN,
-        nativeKeys = reNative.test(nativeKeys = Object.keys) && nativeKeys,
+        nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys,
         nativeMax = Math.max,
         nativeMin = Math.min,
         nativeParseInt = context.parseInt,
-        nativeRandom = Math.random,
-        nativeSlice = arrayRef.slice;
-
-    /** Detect various environments */
-    var isIeOpera = reNative.test(context.attachEvent),
-        isV8 = nativeBind && !/\n|true/.test(nativeBind + isIeOpera);
+        nativeRandom = Math.random;
 
     /** Used to lookup a built-in constructor by [[Class]] */
     var ctorByClass = {};
@@ -4121,15 +598,16 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      *
      * The chainable wrapper functions are:
      * `after`, `assign`, `bind`, `bindAll`, `bindKey`, `chain`, `compact`,
-     * `compose`, `concat`, `countBy`, `createCallback`, `curry`, `debounce`,
-     * `defaults`, `defer`, `delay`, `difference`, `filter`, `flatten`, `forEach`,
-     * `forEachRight`, `forIn`, `forInRight`, `forOwn`, `forOwnRight`, `functions`,
-     * `groupBy`, `indexBy`, `initial`, `intersection`, `invert`, `invoke`, `keys`,
-     * `map`, `max`, `memoize`, `merge`, `min`, `object`, `omit`, `once`, `pairs`,
-     * `partial`, `partialRight`, `pick`, `pluck`, `pull`, `push`, `range`, `reject`,
-     * `remove`, `rest`, `reverse`, `shuffle`, `slice`, `sort`, `sortBy`, `splice`,
-     * `tap`, `throttle`, `times`, `toArray`, `transform`, `union`, `uniq`, `unshift`,
-     * `unzip`, `values`, `where`, `without`, `wrap`, and `zip`
+     * `compose`, `concat`, `countBy`, `create`, `createCallback`, `curry`,
+     * `debounce`, `defaults`, `defer`, `delay`, `difference`, `filter`, `flatten`,
+     * `forEach`, `forEachRight`, `forIn`, `forInRight`, `forOwn`, `forOwnRight`,
+     * `functions`, `groupBy`, `indexBy`, `initial`, `intersection`, `invert`,
+     * `invoke`, `keys`, `map`, `max`, `memoize`, `merge`, `min`, `object`, `omit`,
+     * `once`, `pairs`, `partial`, `partialRight`, `pick`, `pluck`, `pull`, `push`,
+     * `range`, `reject`, `remove`, `rest`, `reverse`, `shuffle`, `slice`, `sort`,
+     * `sortBy`, `splice`, `tap`, `throttle`, `times`, `toArray`, `transform`,
+     * `union`, `uniq`, `unshift`, `unzip`, `values`, `where`, `without`, `wrap`,
+     * and `zip`
      *
      * The non-chainable wrapper functions are:
      * `clone`, `cloneDeep`, `contains`, `escape`, `every`, `find`, `findIndex`,
@@ -4204,21 +682,13 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     var support = lodash.support = {};
 
     /**
-     * Detect if `Function#bind` exists and is inferred to be fast (all but V8).
-     *
-     * @memberOf _.support
-     * @type boolean
-     */
-    support.fastBind = nativeBind && !isV8;
-
-    /**
      * Detect if functions can be decompiled by `Function#toString`
      * (all but PS3 and older Opera mobile browsers & avoided in Windows 8 apps).
      *
      * @memberOf _.support
      * @type boolean
      */
-    support.funcDecomp = !reNative.test(context.WinRTError) && reThis.test(runInContext);
+    support.funcDecomp = !isNative(context.WinRTError) && reThis.test(runInContext);
 
     /**
      * Detect if `Function#name` is supported (all but IE).
@@ -4292,18 +762,55 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     /*--------------------------------------------------------------------------*/
 
     /**
+     * The base implementation of `_.bind` that creates the bound function and
+     * sets its meta data.
+     *
+     * @private
+     * @param {Array} bindData The bind data array.
+     * @returns {Function} Returns the new bound function.
+     */
+    function baseBind(bindData) {
+      var func = bindData[0],
+          partialArgs = bindData[2],
+          thisArg = bindData[4];
+
+      function bound() {
+        // `Function#bind` spec
+        // http://es5.github.io/#x15.3.4.5
+        if (partialArgs) {
+          // avoid `arguments` object deoptimizations by using `slice` instead
+          // of `Array.prototype.slice.call` and not assigning `arguments` to a
+          // variable as a ternary expression
+          var args = slice(partialArgs);
+          push.apply(args, arguments);
+        }
+        // mimic the constructor's `return` behavior
+        // http://es5.github.io/#x13.2.2
+        if (this instanceof bound) {
+          // ensure `new bound` is an instance of `func`
+          var thisBinding = baseCreate(func.prototype),
+              result = func.apply(thisBinding, args || arguments);
+          return isObject(result) ? result : thisBinding;
+        }
+        return func.apply(thisArg, args || arguments);
+      }
+      setBindData(bound, bindData);
+      return bound;
+    }
+
+    /**
      * The base implementation of `_.clone` without argument juggling or support
      * for `thisArg` binding.
      *
      * @private
      * @param {*} value The value to clone.
-     * @param {boolean} [deep=false] Specify a deep clone.
+     * @param {boolean} [isDeep=false] Specify a deep clone.
      * @param {Function} [callback] The function to customize cloning values.
      * @param {Array} [stackA=[]] Tracks traversed source objects.
      * @param {Array} [stackB=[]] Associates clones with source counterparts.
      * @returns {*} Returns the cloned value.
      */
-    function baseClone(value, deep, callback, stackA, stackB) {
+    function baseClone(value, isDeep, callback, stackA, stackB) {
       if (callback) {
         var result = callback(value);
         if (typeof result != 'undefined') {
@@ -4336,7 +843,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         return value;
       }
       var isArr = isArray(value);
-      if (deep) {
+      if (isDeep) {
         // check for circular references and return corresponding clone
         var initedStack = !stackA;
         stackA || (stackA = getArray());
@@ -4363,7 +870,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         }
       }
       // exit for shallow clone
-      if (!deep) {
+      if (!isDeep) {
         return result;
       }
       // add the source value to the stack of traversed objects
@@ -4373,7 +880,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
       // recursively populate clone (susceptible to call stack limits)
       (isArr ? forEach : forOwn)(value, function(objValue, key) {
-        result[key] = baseClone(objValue, deep, callback, stackA, stackB);
+        result[key] = baseClone(objValue, isDeep, callback, stackA, stackB);
       });
 
       if (initedStack) {
@@ -4381,6 +888,32 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         releaseArray(stackB);
       }
       return result;
+    }
+
+    /**
+     * The base implementation of `_.create` without support for assigning
+     * properties to the created object.
+     *
+     * @private
+     * @param {Object} prototype The object to inherit from.
+     * @returns {Object} Returns the new object.
+     */
+    function baseCreate(prototype, properties) {
+      return isObject(prototype) ? nativeCreate(prototype) : {};
+    }
+    // fallback for browsers without `Object.create`
+    if (!nativeCreate) {
+      baseCreate = (function() {
+        function Object() {}
+        return function(prototype) {
+          if (isObject(prototype)) {
+            Object.prototype = prototype;
+            var result = new Object;
+            Object.prototype = null;
+          }
+          return result || context.Object();
+        };
+      }());
     }
 
     /**
@@ -4397,24 +930,30 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       if (typeof func != 'function') {
         return identity;
       }
-      // exit early if there is no `thisArg`
-      if (typeof thisArg == 'undefined') {
+      // exit early for no `thisArg` or already bound by `Function#bind`
+      if (typeof thisArg == 'undefined' || !('prototype' in func)) {
         return func;
       }
-      var bindData = func.__bindData__ || (support.funcNames && !func.name);
+      var bindData = func.__bindData__;
       if (typeof bindData == 'undefined') {
-        var source = reThis && fnToString.call(func);
-        if (!support.funcNames && source && !reFuncName.test(source)) {
-          bindData = true;
+        if (support.funcNames) {
+          bindData = !func.name;
         }
-        if (support.funcNames || !bindData) {
-          // checks if `func` references the `this` keyword and stores the result
-          bindData = !support.funcDecomp || reThis.test(source);
-          setBindData(func, bindData);
+        bindData = bindData || !support.funcDecomp;
+        if (!bindData) {
+          var source = fnToString.call(func);
+          if (!support.funcNames) {
+            bindData = !reFuncName.test(source);
+          }
+          if (!bindData) {
+            // checks if `func` references the `this` keyword and stores the result
+            bindData = reThis.test(source);
+            setBindData(func, bindData);
+          }
         }
       }
       // exit early if there are no `this` references or `func` is bound
-      if (bindData !== true && (bindData && bindData[1] & 1)) {
+      if (bindData === false || (bindData !== true && bindData[1] & 1)) {
         return func;
       }
       switch (argCount) {
@@ -4435,17 +974,107 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     }
 
     /**
+     * The base implementation of `createWrapper` that creates the wrapper and
+     * sets its meta data.
+     *
+     * @private
+     * @param {Array} bindData The bind data array.
+     * @returns {Function} Returns the new function.
+     */
+    function baseCreateWrapper(bindData) {
+      var func = bindData[0],
+          bitmask = bindData[1],
+          partialArgs = bindData[2],
+          partialRightArgs = bindData[3],
+          thisArg = bindData[4],
+          arity = bindData[5];
+
+      var isBind = bitmask & 1,
+          isBindKey = bitmask & 2,
+          isCurry = bitmask & 4,
+          isCurryBound = bitmask & 8,
+          key = func;
+
+      function bound() {
+        var thisBinding = isBind ? thisArg : this;
+        if (partialArgs) {
+          var args = slice(partialArgs);
+          push.apply(args, arguments);
+        }
+        if (partialRightArgs || isCurry) {
+          args || (args = slice(arguments));
+          if (partialRightArgs) {
+            push.apply(args, partialRightArgs);
+          }
+          if (isCurry && args.length < arity) {
+            bitmask |= 16 & ~32;
+            return baseCreateWrapper([func, (isCurryBound ? bitmask : bitmask & ~3), args, null, thisArg, arity]);
+          }
+        }
+        args || (args = arguments);
+        if (isBindKey) {
+          func = thisBinding[key];
+        }
+        if (this instanceof bound) {
+          thisBinding = baseCreate(func.prototype);
+          var result = func.apply(thisBinding, args);
+          return isObject(result) ? result : thisBinding;
+        }
+        return func.apply(thisBinding, args);
+      }
+      setBindData(bound, bindData);
+      return bound;
+    }
+
+    /**
+     * The base implementation of `_.difference` that accepts a single array
+     * of values to exclude.
+     *
+     * @private
+     * @param {Array} array The array to process.
+     * @param {Array} [values] The array of values to exclude.
+     * @returns {Array} Returns a new array of filtered values.
+     */
+    function baseDifference(array, values) {
+      var index = -1,
+          indexOf = getIndexOf(),
+          length = array ? array.length : 0,
+          isLarge = length >= largeArraySize && indexOf === baseIndexOf,
+          result = [];
+
+      if (isLarge) {
+        var cache = createCache(values);
+        if (cache) {
+          indexOf = cacheIndexOf;
+          values = cache;
+        } else {
+          isLarge = false;
+        }
+      }
+      while (++index < length) {
+        var value = array[index];
+        if (indexOf(values, value) < 0) {
+          result.push(value);
+        }
+      }
+      if (isLarge) {
+        releaseObject(values);
+      }
+      return result;
+    }
+
+    /**
      * The base implementation of `_.flatten` without support for callback
      * shorthands or `thisArg` binding.
      *
      * @private
      * @param {Array} array The array to flatten.
      * @param {boolean} [isShallow=false] A flag to restrict flattening to a single level.
-     * @param {boolean} [isArgArrays=false] A flag to restrict flattening to arrays and `arguments` objects.
+     * @param {boolean} [isStrict=false] A flag to restrict flattening to arrays and `arguments` objects.
      * @param {number} [fromIndex=0] The index to start from.
      * @returns {Array} Returns a new flattened array.
      */
-    function baseFlatten(array, isShallow, isArgArrays, fromIndex) {
+    function baseFlatten(array, isShallow, isStrict, fromIndex) {
       var index = (fromIndex || 0) - 1,
           length = array ? array.length : 0,
           result = [];
@@ -4457,7 +1086,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
             && (isArray(value) || isArguments(value))) {
           // recursively flatten arrays (susceptible to call stack limits)
           if (!isShallow) {
-            value = baseFlatten(value, isShallow, isArgArrays);
+            value = baseFlatten(value, isShallow, isStrict);
           }
           var valIndex = -1,
               valLength = value.length,
@@ -4467,7 +1096,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           while (++valIndex < valLength) {
             result[resIndex++] = value[valIndex];
           }
-        } else if (!isArgArrays) {
+        } else if (!isStrict) {
           result.push(value);
         }
       }
@@ -4550,8 +1179,11 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       var isArr = className == arrayClass;
       if (!isArr) {
         // unwrap any `lodash` wrapped values
-        if (hasOwnProperty.call(a, '__wrapped__ ') || hasOwnProperty.call(b, '__wrapped__')) {
-          return baseIsEqual(a.__wrapped__ || a, b.__wrapped__ || b, callback, isWhere, stackA, stackB);
+        var aWrapped = hasOwnProperty.call(a, '__wrapped__'),
+            bWrapped = hasOwnProperty.call(b, '__wrapped__');
+
+        if (aWrapped || bWrapped) {
+          return baseIsEqual(aWrapped ? a.__wrapped__ : a, bWrapped ? b.__wrapped__ : b, callback, isWhere, stackA, stackB);
         }
         // exit for functions and DOM nodes
         if (className != objectClass) {
@@ -4562,10 +1194,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
             ctorB = b.constructor;
 
         // non `Object` object instances with different constructors are not equal
-        if (ctorA != ctorB && !(
-              isFunction(ctorA) && ctorA instanceof ctorA &&
-              isFunction(ctorB) && ctorB instanceof ctorB
-            )) {
+        if (ctorA != ctorB &&
+              !(isFunction(ctorA) && ctorA instanceof ctorA && isFunction(ctorB) && ctorB instanceof ctorB) &&
+              ('constructor' in a && 'constructor' in b)
+            ) {
           return false;
         }
       }
@@ -4591,51 +1223,54 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
       // recursively compare objects and arrays (susceptible to call stack limits)
       if (isArr) {
+        // compare lengths to determine if a deep comparison is necessary
         length = a.length;
         size = b.length;
+        result = size == length;
 
-        // compare lengths to determine if a deep comparison is necessary
-        result = size == a.length;
-        if (!result && !isWhere) {
-          return result;
-        }
-        // deep compare the contents, ignoring non-numeric properties
-        while (size--) {
-          var index = length,
-              value = b[size];
+        if (result || isWhere) {
+          // deep compare the contents, ignoring non-numeric properties
+          while (size--) {
+            var index = length,
+                value = b[size];
 
-          if (isWhere) {
-            while (index--) {
-              if ((result = baseIsEqual(a[index], value, callback, isWhere, stackA, stackB))) {
-                break;
+            if (isWhere) {
+              while (index--) {
+                if ((result = baseIsEqual(a[index], value, callback, isWhere, stackA, stackB))) {
+                  break;
+                }
               }
+            } else if (!(result = baseIsEqual(a[size], value, callback, isWhere, stackA, stackB))) {
+              break;
             }
-          } else if (!(result = baseIsEqual(a[size], value, callback, isWhere, stackA, stackB))) {
-            break;
           }
         }
-        return result;
       }
-      // deep compare objects using `forIn`, instead of `forOwn`, to avoid `Object.keys`
-      // which, in this case, is more costly
-      forIn(b, function(value, key, b) {
-        if (hasOwnProperty.call(b, key)) {
-          // count the number of properties.
-          size++;
-          // deep compare each property value.
-          return (result = hasOwnProperty.call(a, key) && baseIsEqual(a[key], value, callback, isWhere, stackA, stackB));
-        }
-      });
-
-      if (result && !isWhere) {
-        // ensure both objects have the same number of properties
-        forIn(a, function(value, key, a) {
-          if (hasOwnProperty.call(a, key)) {
-            // `size` will be `-1` if `a` has more properties than `b`
-            return (result = --size > -1);
+      else {
+        // deep compare objects using `forIn`, instead of `forOwn`, to avoid `Object.keys`
+        // which, in this case, is more costly
+        forIn(b, function(value, key, b) {
+          if (hasOwnProperty.call(b, key)) {
+            // count the number of properties.
+            size++;
+            // deep compare each property value.
+            return (result = hasOwnProperty.call(a, key) && baseIsEqual(a[key], value, callback, isWhere, stackA, stackB));
           }
         });
+
+        if (result && !isWhere) {
+          // ensure both objects have the same number of properties
+          forIn(a, function(value, key, a) {
+            if (hasOwnProperty.call(a, key)) {
+              // `size` will be `-1` if `a` has more properties than `b`
+              return (result = --size > -1);
+            }
+          });
+        }
       }
+      stackA.pop();
+      stackB.pop();
+
       if (initedStack) {
         releaseArray(stackA);
         releaseArray(stackB);
@@ -4709,6 +1344,19 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     }
 
     /**
+     * The base implementation of `_.random` without argument juggling or support
+     * for returning floating-point numbers.
+     *
+     * @private
+     * @param {number} min The minimum possible value.
+     * @param {number} max The maximum possible value.
+     * @returns {number} Returns a random number.
+     */
+    function baseRandom(min, max) {
+      return min + floor(nativeRandom() * (max - min + 1));
+    }
+
+    /**
      * The base implementation of `_.uniq` without support for callback shorthands
      * or `thisArg` binding.
      *
@@ -4729,13 +1377,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
       if (isLarge) {
         var cache = createCache(seen);
-        if (cache) {
-          indexOf = cacheIndexOf;
-          seen = cache;
-        } else {
-          isLarge = false;
-          seen = callback ? seen : (releaseArray(seen), result);
-        }
+        indexOf = cacheIndexOf;
+        seen = cache;
       }
       while (++index < length) {
         var value = array[index],
@@ -4812,16 +1455,15 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      *  provided to the new function.
      * @param {*} [thisArg] The `this` binding of `func`.
      * @param {number} [arity] The arity of `func`.
-     * @returns {Function} Returns the new bound function.
+     * @returns {Function} Returns the new function.
      */
-    function createBound(func, bitmask, partialArgs, partialRightArgs, thisArg, arity) {
+    function createWrapper(func, bitmask, partialArgs, partialRightArgs, thisArg, arity) {
       var isBind = bitmask & 1,
           isBindKey = bitmask & 2,
           isCurry = bitmask & 4,
           isCurryBound = bitmask & 8,
           isPartial = bitmask & 16,
-          isPartialRight = bitmask & 32,
-          key = func;
+          isPartialRight = bitmask & 32;
 
       if (!isBindKey && !isFunction(func)) {
         throw new TypeError;
@@ -4835,96 +1477,42 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         isPartialRight = partialRightArgs = false;
       }
       var bindData = func && func.__bindData__;
-      if (bindData) {
+      if (bindData && bindData !== true) {
+        // clone `bindData`
+        bindData = slice(bindData);
+        if (bindData[2]) {
+          bindData[2] = slice(bindData[2]);
+        }
+        if (bindData[3]) {
+          bindData[3] = slice(bindData[3]);
+        }
+        // set `thisBinding` is not previously bound
         if (isBind && !(bindData[1] & 1)) {
           bindData[4] = thisArg;
         }
+        // set if previously bound but not currently (subsequent curried functions)
         if (!isBind && bindData[1] & 1) {
           bitmask |= 8;
         }
+        // set curried arity if not yet set
         if (isCurry && !(bindData[1] & 4)) {
           bindData[5] = arity;
         }
+        // append partial left arguments
         if (isPartial) {
           push.apply(bindData[2] || (bindData[2] = []), partialArgs);
         }
+        // append partial right arguments
         if (isPartialRight) {
-          push.apply(bindData[3] || (bindData[3] = []), partialRightArgs);
+          unshift.apply(bindData[3] || (bindData[3] = []), partialRightArgs);
         }
+        // merge flags
         bindData[1] |= bitmask;
-        return createBound.apply(null, bindData);
+        return createWrapper.apply(null, bindData);
       }
-      // use `Function#bind` if it exists and is fast
-      // (in V8 `Function#bind` is slower except when partially applied)
-      if (isBind && !(isBindKey || isCurry || isPartialRight) &&
-          (support.fastBind || (nativeBind && isPartial))) {
-        if (isPartial) {
-          var args = [thisArg];
-          push.apply(args, partialArgs);
-        }
-        var bound = isPartial
-          ? nativeBind.apply(func, args)
-          : nativeBind.call(func, thisArg);
-      }
-      else {
-        bound = function() {
-          // `Function#bind` spec
-          // http://es5.github.io/#x15.3.4.5
-          var args = arguments,
-              thisBinding = isBind ? thisArg : this;
-
-          if (isCurry || isPartial || isPartialRight) {
-            args = nativeSlice.call(args);
-            if (isPartial) {
-              unshift.apply(args, partialArgs);
-            }
-            if (isPartialRight) {
-              push.apply(args, partialRightArgs);
-            }
-            if (isCurry && args.length < arity) {
-              bitmask |= 16 & ~32;
-              return createBound(func, (isCurryBound ? bitmask : bitmask & ~3), args, null, thisArg, arity);
-            }
-          }
-          if (isBindKey) {
-            func = thisBinding[key];
-          }
-          if (this instanceof bound) {
-            // ensure `new bound` is an instance of `func`
-            thisBinding = createObject(func.prototype);
-
-            // mimic the constructor's `return` behavior
-            // http://es5.github.io/#x13.2.2
-            var result = func.apply(thisBinding, args);
-            return isObject(result) ? result : thisBinding;
-          }
-          return func.apply(thisBinding, args);
-        };
-      }
-      setBindData(bound, nativeSlice.call(arguments));
-      return bound;
-    }
-
-    /**
-     * Creates a new object with the specified `prototype`.
-     *
-     * @private
-     * @param {Object} prototype The prototype object.
-     * @returns {Object} Returns the new object.
-     */
-    function createObject(prototype) {
-      return isObject(prototype) ? nativeCreate(prototype) : {};
-    }
-    // fallback for browsers without `Object.create`
-    if (!nativeCreate) {
-      createObject = function(prototype) {
-        if (isObject(prototype)) {
-          noop.prototype = prototype;
-          var result = new noop;
-          noop.prototype = null;
-        }
-        return result || {};
-      };
+      // fast path for `_.bind`
+      var creater = (bitmask == 1 || bitmask === 17) ? baseBind : baseCreateWrapper;
+      return creater([func, bitmask, partialArgs, partialRightArgs, thisArg, arity]);
     }
 
     /**
@@ -4952,11 +1540,22 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     }
 
     /**
+     * Checks if `value` is a native function.
+     *
+     * @private
+     * @param {*} value The value to check.
+     * @returns {boolean} Returns `true` if the `value` is a native function, else `false`.
+     */
+    function isNative(value) {
+      return typeof value == 'function' && reNative.test(value);
+    }
+
+    /**
      * Sets `this` binding data on a given function.
      *
      * @private
      * @param {Function} func The function to set data on.
-     * @param {*} value The value to set.
+     * @param {Array} value The data array to set.
      */
     var setBindData = !defineProperty ? noop : function(func, value) {
       descriptor.value = value;
@@ -5132,16 +1731,16 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {Object} Returns the destination object.
      * @example
      *
-     * _.assign({ 'name': 'moe' }, { 'age': 40 });
-     * // => { 'name': 'moe', 'age': 40 }
+     * _.assign({ 'name': 'fred' }, { 'employer': 'slate' });
+     * // => { 'name': 'fred', 'employer': 'slate' }
      *
      * var defaults = _.partialRight(_.assign, function(a, b) {
      *   return typeof a == 'undefined' ? b : a;
      * });
      *
-     * var food = { 'name': 'apple' };
-     * defaults(food, { 'name': 'banana', 'type': 'fruit' });
-     * // => { 'name': 'apple', 'type': 'fruit' }
+     * var object = { 'name': 'barney' };
+     * defaults(object, { 'name': 'fred', 'employer': 'slate' });
+     * // => { 'name': 'barney', 'employer': 'slate' }
      */
     var assign = function(object, source, guard) {
       var index, iterable = object, result = iterable;
@@ -5171,7 +1770,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     };
 
     /**
-     * Creates a clone of `value`. If `deep` is `true` nested objects will also
+     * Creates a clone of `value`. If `isDeep` is `true` nested objects will also
      * be cloned, otherwise they will be assigned by reference. If a callback
      * is provided it will be executed to produce the cloned values. If the
      * callback returns `undefined` cloning will be handled by the method instead.
@@ -5181,23 +1780,23 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @memberOf _
      * @category Objects
      * @param {*} value The value to clone.
-     * @param {boolean} [deep=false] Specify a deep clone.
+     * @param {boolean} [isDeep=false] Specify a deep clone.
      * @param {Function} [callback] The function to customize cloning values.
      * @param {*} [thisArg] The `this` binding of `callback`.
      * @returns {*} Returns the cloned value.
      * @example
      *
-     * var stooges = [
-     *   { 'name': 'moe', 'age': 40 },
-     *   { 'name': 'larry', 'age': 50 }
+     * var characters = [
+     *   { 'name': 'barney', 'age': 36 },
+     *   { 'name': 'fred',   'age': 40 }
      * ];
      *
-     * var shallow = _.clone(stooges);
-     * shallow[0] === stooges[0];
+     * var shallow = _.clone(characters);
+     * shallow[0] === characters[0];
      * // => true
      *
-     * var deep = _.clone(stooges, true);
-     * deep[0] === stooges[0];
+     * var deep = _.clone(characters, true);
+     * deep[0] === characters[0];
      * // => false
      *
      * _.mixin({
@@ -5210,15 +1809,15 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * clone.childNodes.length;
      * // => 0
      */
-    function clone(value, deep, callback, thisArg) {
+    function clone(value, isDeep, callback, thisArg) {
       // allows working with "Collections" methods without using their `index`
-      // and `collection` arguments for `deep` and `callback`
-      if (typeof deep != 'boolean' && deep != null) {
+      // and `collection` arguments for `isDeep` and `callback`
+      if (typeof isDeep != 'boolean' && isDeep != null) {
         thisArg = callback;
-        callback = deep;
-        deep = false;
+        callback = isDeep;
+        isDeep = false;
       }
-      return baseClone(value, deep, typeof callback == 'function' && baseCreateCallback(callback, thisArg, 1));
+      return baseClone(value, isDeep, typeof callback == 'function' && baseCreateCallback(callback, thisArg, 1));
     }
 
     /**
@@ -5241,13 +1840,13 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {*} Returns the deep cloned value.
      * @example
      *
-     * var stooges = [
-     *   { 'name': 'moe', 'age': 40 },
-     *   { 'name': 'larry', 'age': 50 }
+     * var characters = [
+     *   { 'name': 'barney', 'age': 36 },
+     *   { 'name': 'fred',   'age': 40 }
      * ];
      *
-     * var deep = _.cloneDeep(stooges);
-     * deep[0] === stooges[0];
+     * var deep = _.cloneDeep(characters);
+     * deep[0] === characters[0];
      * // => false
      *
      * var view = {
@@ -5267,6 +1866,42 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     }
 
     /**
+     * Creates an object that inherits from the given `prototype` object. If a
+     * `properties` object is provided its own enumerable properties are assigned
+     * to the created object.
+     *
+     * @static
+     * @memberOf _
+     * @category Objects
+     * @param {Object} prototype The object to inherit from.
+     * @param {Object} [properties] The properties to assign to the object.
+     * @returns {Object} Returns the new object.
+     * @example
+     *
+     * function Shape() {
+     *   this.x = 0;
+     *   this.y = 0;
+     * }
+     *
+     * function Circle() {
+     *   Shape.call(this);
+     * }
+     *
+     * Circle.prototype = _.create(Shape.prototype, { 'constructor': Circle });
+     *
+     * var circle = new Circle;
+     * circle instanceof Circle;
+     * // => true
+     *
+     * circle instanceof Shape;
+     * // => true
+     */
+    function create(prototype, properties) {
+      var result = baseCreate(prototype);
+      return properties ? assign(result, properties) : result;
+    }
+
+    /**
      * Assigns own enumerable properties of source object(s) to the destination
      * object for all destination properties that resolve to `undefined`. Once a
      * property is set, additional defaults of the same property will be ignored.
@@ -5282,9 +1917,9 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {Object} Returns the destination object.
      * @example
      *
-     * var food = { 'name': 'apple' };
-     * _.defaults(food, { 'name': 'banana', 'type': 'fruit' });
-     * // => { 'name': 'apple', 'type': 'fruit' }
+     * var object = { 'name': 'barney' };
+     * _.defaults(object, { 'name': 'fred', 'employer': 'slate' });
+     * // => { 'name': 'barney', 'employer': 'slate' }
      */
     var defaults = function(object, source, guard) {
       var index, iterable = object, result = iterable;
@@ -5312,6 +1947,13 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * This method is like `_.findIndex` except that it returns the key of the
      * first element that passes the callback check, instead of the element itself.
      *
+     * If a property name is provided for `callback` the created "_.pluck" style
+     * callback will return the property value of the given element.
+     *
+     * If an object is provided for `callback` the created "_.where" style callback
+     * will return `true` for elements that have the properties of the given object,
+     * else `false`.
+     *
      * @static
      * @memberOf _
      * @category Objects
@@ -5323,10 +1965,24 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {string|undefined} Returns the key of the found element, else `undefined`.
      * @example
      *
-     * _.findKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function(num) {
-     *   return num % 2 == 0;
+     * var characters = {
+     *   'barney': {  'age': 36, 'blocked': false },
+     *   'fred': {    'age': 40, 'blocked': true },
+     *   'pebbles': { 'age': 1,  'blocked': false }
+     * };
+     *
+     * _.findKey(characters, function(chr) {
+     *   return chr.age < 40;
      * });
-     * // => 'b' (property order is not guaranteed across environments)
+     * // => 'barney' (property order is not guaranteed across environments)
+     *
+     * // using "_.where" callback shorthand
+     * _.findKey(characters, { 'age': 1 });
+     * // => 'pebbles'
+     *
+     * // using "_.pluck" callback shorthand
+     * _.findKey(characters, 'blocked');
+     * // => 'fred'
      */
     function findKey(object, callback, thisArg) {
       var result;
@@ -5344,6 +2000,13 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * This method is like `_.findKey` except that it iterates over elements
      * of a `collection` in the opposite order.
      *
+     * If a property name is provided for `callback` the created "_.pluck" style
+     * callback will return the property value of the given element.
+     *
+     * If an object is provided for `callback` the created "_.where" style callback
+     * will return `true` for elements that have the properties of the given object,
+     * else `false`.
+     *
      * @static
      * @memberOf _
      * @category Objects
@@ -5355,10 +2018,24 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {string|undefined} Returns the key of the found element, else `undefined`.
      * @example
      *
-     * _.findLastKey({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, function(num) {
-     *   return num % 2 == 1;
+     * var characters = {
+     *   'barney': {  'age': 36, 'blocked': true },
+     *   'fred': {    'age': 40, 'blocked': false },
+     *   'pebbles': { 'age': 1,  'blocked': true }
+     * };
+     *
+     * _.findLastKey(characters, function(chr) {
+     *   return chr.age < 40;
      * });
-     * // => returns `c`, assuming `_.findKey` returns `a`
+     * // => returns `pebbles`, assuming `_.findKey` returns `barney`
+     *
+     * // using "_.where" callback shorthand
+     * _.findLastKey(characters, { 'age': 40 });
+     * // => 'fred'
+     *
+     * // using "_.pluck" callback shorthand
+     * _.findLastKey(characters, 'blocked');
+     * // => 'pebbles'
      */
     function findLastKey(object, callback, thisArg) {
       var result;
@@ -5388,18 +2065,20 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {Object} Returns `object`.
      * @example
      *
-     * function Dog(name) {
-     *   this.name = name;
+     * function Shape() {
+     *   this.x = 0;
+     *   this.y = 0;
      * }
      *
-     * Dog.prototype.bark = function() {
-     *   console.log('Woof, woof!');
+     * Shape.prototype.move = function(x, y) {
+     *   this.x += x;
+     *   this.y += y;
      * };
      *
-     * _.forIn(new Dog('Dagny'), function(value, key) {
+     * _.forIn(new Shape, function(value, key) {
      *   console.log(key);
      * });
-     * // => logs 'bark' and 'name' (property order is not guaranteed across environments)
+     * // => logs 'x', 'y', and 'move' (property order is not guaranteed across environments)
      */
     var forIn = function(collection, callback, thisArg) {
       var index, iterable = collection, result = iterable;
@@ -5425,18 +2104,20 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {Object} Returns `object`.
      * @example
      *
-     * function Dog(name) {
-     *   this.name = name;
+     * function Shape() {
+     *   this.x = 0;
+     *   this.y = 0;
      * }
      *
-     * Dog.prototype.bark = function() {
-     *   console.log('Woof, woof!');
+     * Shape.prototype.move = function(x, y) {
+     *   this.x += x;
+     *   this.y += y;
      * };
      *
-     * _.forInRight(new Dog('Dagny'), function(value, key) {
+     * _.forInRight(new Shape, function(value, key) {
      *   console.log(key);
      * });
-     * // => logs 'name' and 'bark' assuming `_.forIn ` logs 'bark' and 'name'
+     * // => logs 'move', 'y', and 'x' assuming `_.forIn ` logs 'x', 'y', and 'move'
      */
     function forInRight(object, callback, thisArg) {
       var pairs = [];
@@ -5550,22 +2231,22 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     }
 
     /**
-     * Checks if the specified object `property` exists and is a direct property,
+     * Checks if the specified property name exists as a direct property of `object`,
      * instead of an inherited property.
      *
      * @static
      * @memberOf _
      * @category Objects
-     * @param {Object} object The object to check.
-     * @param {string} property The property to check for.
+     * @param {Object} object The object to inspect.
+     * @param {string} key The name of the property to check.
      * @returns {boolean} Returns `true` if key is a direct property, else `false`.
      * @example
      *
      * _.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
      * // => true
      */
-    function has(object, property) {
-      return object ? hasOwnProperty.call(object, property) : false;
+    function has(object, key) {
+      return object ? hasOwnProperty.call(object, key) : false;
     }
 
     /**
@@ -5578,8 +2259,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {Object} Returns the created inverted object.
      * @example
      *
-     *  _.invert({ 'first': 'moe', 'second': 'larry' });
-     * // => { 'moe': 'first', 'larry': 'second' }
+     * _.invert({ 'first': 'fred', 'second': 'barney' });
+     * // => { 'fred': 'first', 'barney': 'second' }
      */
     function invert(object) {
       var index = -1,
@@ -5608,7 +2289,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * // => false
      */
     function isBoolean(value) {
-      return value === true || value === false || toString.call(value) == boolClass;
+      return value === true || value === false ||
+        value && typeof value == 'object' && toString.call(value) == boolClass || false;
     }
 
     /**
@@ -5625,7 +2307,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * // => true
      */
     function isDate(value) {
-      return value ? (typeof value == 'object' && toString.call(value) == dateClass) : false;
+      return value && typeof value == 'object' && toString.call(value) == dateClass || false;
     }
 
     /**
@@ -5642,7 +2324,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * // => true
      */
     function isElement(value) {
-      return value ? value.nodeType === 1 : false;
+      return value && value.nodeType === 1 || false;
     }
 
     /**
@@ -5701,13 +2383,13 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
      * @example
      *
-     * var moe = { 'name': 'moe', 'age': 40 };
-     * var copy = { 'name': 'moe', 'age': 40 };
+     * var object = { 'name': 'fred' };
+     * var copy = { 'name': 'fred' };
      *
-     * moe == copy;
+     * object == copy;
      * // => false
      *
-     * _.isEqual(moe, copy);
+     * _.isEqual(object, copy);
      * // => true
      *
      * var words = ['hello', 'goodbye'];
@@ -5870,7 +2552,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * // => true
      */
     function isNumber(value) {
-      return typeof value == 'number' || toString.call(value) == numberClass;
+      return typeof value == 'number' ||
+        value && typeof value == 'object' && toString.call(value) == numberClass || false;
     }
 
     /**
@@ -5883,26 +2566,26 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
      * @example
      *
-     * function Stooge(name, age) {
-     *   this.name = name;
-     *   this.age = age;
+     * function Shape() {
+     *   this.x = 0;
+     *   this.y = 0;
      * }
      *
-     * _.isPlainObject(new Stooge('moe', 40));
+     * _.isPlainObject(new Shape);
      * // => false
      *
      * _.isPlainObject([1, 2, 3]);
      * // => false
      *
-     * _.isPlainObject({ 'name': 'moe', 'age': 40 });
+     * _.isPlainObject({ 'x': 0, 'y': 0 });
      * // => true
      */
-    var isPlainObject = function(value) {
+    var isPlainObject = !getPrototypeOf ? shimIsPlainObject : function(value) {
       if (!(value && toString.call(value) == objectClass)) {
         return false;
       }
       var valueOf = value.valueOf,
-          objProto = typeof valueOf == 'function' && (objProto = getPrototypeOf(valueOf)) && getPrototypeOf(objProto);
+          objProto = isNative(valueOf) && (objProto = getPrototypeOf(valueOf)) && getPrototypeOf(objProto);
 
       return objProto
         ? (value == objProto || getPrototypeOf(value) == objProto)
@@ -5919,11 +2602,11 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {boolean} Returns `true` if the `value` is a regular expression, else `false`.
      * @example
      *
-     * _.isRegExp(/moe/);
+     * _.isRegExp(/fred/);
      * // => true
      */
     function isRegExp(value) {
-      return value ? (typeof value == 'object' && toString.call(value) == regexpClass) : false;
+      return value && typeof value == 'object' && toString.call(value) == regexpClass || false;
     }
 
     /**
@@ -5936,11 +2619,12 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {boolean} Returns `true` if the `value` is a string, else `false`.
      * @example
      *
-     * _.isString('moe');
+     * _.isString('fred');
      * // => true
      */
     function isString(value) {
-      return typeof value == 'string' || toString.call(value) == stringClass;
+      return typeof value == 'string' ||
+        value && typeof value == 'object' && toString.call(value) == stringClass || false;
     }
 
     /**
@@ -5958,6 +2642,52 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      */
     function isUndefined(value) {
       return typeof value == 'undefined';
+    }
+
+    /**
+     * Creates an object with the same keys as `object` and values generated by
+     * running each own enumerable property of `object` through the callback.
+     * The callback is bound to `thisArg` and invoked with three arguments;
+     * (value, key, object).
+     *
+     * If a property name is provided for `callback` the created "_.pluck" style
+     * callback will return the property value of the given element.
+     *
+     * If an object is provided for `callback` the created "_.where" style callback
+     * will return `true` for elements that have the properties of the given object,
+     * else `false`.
+     *
+     * @static
+     * @memberOf _
+     * @category Objects
+     * @param {Object} object The object to iterate over.
+     * @param {Function|Object|string} [callback=identity] The function called
+     *  per iteration. If a property name or object is provided it will be used
+     *  to create a "_.pluck" or "_.where" style callback, respectively.
+     * @param {*} [thisArg] The `this` binding of `callback`.
+     * @returns {Array} Returns a new object with values of the results of each `callback` execution.
+     * @example
+     *
+     * _.mapValues({ 'a': 1, 'b': 2, 'c': 3} , function(num) { return num * 3; });
+     * // => { 'a': 3, 'b': 6, 'c': 9 }
+     *
+     * var characters = {
+     *   'fred': { 'name': 'fred', 'age': 40 },
+     *   'pebbles': { 'name': 'pebbles', 'age': 1 }
+     * };
+     *
+     * // using "_.pluck" callback shorthand
+     * _.mapValues(characters, 'age');
+     * // => { 'fred': 40, 'pebbles': 1 }
+     */
+    function mapValues(object, callback, thisArg) {
+      var result = {};
+      callback = lodash.createCallback(callback, thisArg, 3);
+
+      forOwn(object, function(value, key, object) {
+        result[key] = callback(value, key, object);
+      });
+      return result;
     }
 
     /**
@@ -5980,21 +2710,21 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @example
      *
      * var names = {
-     *   'stooges': [
-     *     { 'name': 'moe' },
-     *     { 'name': 'larry' }
+     *   'characters': [
+     *     { 'name': 'barney' },
+     *     { 'name': 'fred' }
      *   ]
      * };
      *
      * var ages = {
-     *   'stooges': [
-     *     { 'age': 40 },
-     *     { 'age': 50 }
+     *   'characters': [
+     *     { 'age': 36 },
+     *     { 'age': 40 }
      *   ]
      * };
      *
      * _.merge(names, ages);
-     * // => { 'stooges': [{ 'name': 'moe', 'age': 40 }, { 'name': 'larry', 'age': 50 }] }
+     * // => { 'characters': [{ 'name': 'barney', 'age': 36 }, { 'name': 'fred', 'age': 40 }] }
      *
      * var food = {
      *   'fruits': ['apple'],
@@ -6028,7 +2758,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       } else if (length > 2 && typeof args[length - 1] == 'function') {
         callback = args[--length];
       }
-      var sources = nativeSlice.call(arguments, 1, length),
+      var sources = slice(arguments, 1, length),
           index = -1,
           stackA = getArray(),
           stackB = getArray();
@@ -6059,32 +2789,38 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {Object} Returns an object without the omitted properties.
      * @example
      *
-     * _.omit({ 'name': 'moe', 'age': 40 }, 'age');
-     * // => { 'name': 'moe' }
+     * _.omit({ 'name': 'fred', 'age': 40 }, 'age');
+     * // => { 'name': 'fred' }
      *
-     * _.omit({ 'name': 'moe', 'age': 40 }, function(value) {
+     * _.omit({ 'name': 'fred', 'age': 40 }, function(value) {
      *   return typeof value == 'number';
      * });
-     * // => { 'name': 'moe' }
+     * // => { 'name': 'fred' }
      */
     function omit(object, callback, thisArg) {
-      var indexOf = getIndexOf(),
-          isFunc = typeof callback == 'function',
-          result = {};
+      var result = {};
+      if (typeof callback != 'function') {
+        var props = [];
+        forIn(object, function(value, key) {
+          props.push(key);
+        });
+        props = baseDifference(props, baseFlatten(arguments, true, false, 1));
 
-      if (isFunc) {
-        callback = lodash.createCallback(callback, thisArg, 3);
-      } else {
-        var props = baseFlatten(arguments, true, false, 1);
-      }
-      forIn(object, function(value, key, object) {
-        if (isFunc
-              ? !callback(value, key, object)
-              : indexOf(props, key) < 0
-            ) {
-          result[key] = value;
+        var index = -1,
+            length = props.length;
+
+        while (++index < length) {
+          var key = props[index];
+          result[key] = object[key];
         }
-      });
+      } else {
+        callback = lodash.createCallback(callback, thisArg, 3);
+        forIn(object, function(value, key, object) {
+          if (!callback(value, key, object)) {
+            result[key] = value;
+          }
+        });
+      }
       return result;
     }
 
@@ -6099,8 +2835,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {Array} Returns new array of key-value pairs.
      * @example
      *
-     * _.pairs({ 'moe': 30, 'larry': 40 });
-     * // => [['moe', 30], ['larry', 40]] (property order is not guaranteed across environments)
+     * _.pairs({ 'barney': 36, 'fred': 40 });
+     * // => [['barney', 36], ['fred', 40]] (property order is not guaranteed across environments)
      */
     function pairs(object) {
       var index = -1,
@@ -6134,13 +2870,13 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {Object} Returns an object composed of the picked properties.
      * @example
      *
-     * _.pick({ 'name': 'moe', '_userid': 'moe1' }, 'name');
-     * // => { 'name': 'moe' }
+     * _.pick({ 'name': 'fred', '_userid': 'fred1' }, 'name');
+     * // => { 'name': 'fred' }
      *
-     * _.pick({ 'name': 'moe', '_userid': 'moe1' }, function(value, key) {
+     * _.pick({ 'name': 'fred', '_userid': 'fred1' }, function(value, key) {
      *   return key.charAt(0) != '_';
      * });
-     * // => { 'name': 'moe' }
+     * // => { 'name': 'fred' }
      */
     function pick(object, callback, thisArg) {
       var result = {};
@@ -6168,16 +2904,16 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
     /**
      * An alternative to `_.reduce` this method transforms `object` to a new
-     * `accumulator` object which is the result of running each of its elements
-     * through a callback, with each callback execution potentially mutating
-     * the `accumulator` object. The callback is bound to `thisArg` and invoked
-     * with four arguments; (accumulator, value, key, object). Callbacks may exit
-     * iteration early by explicitly returning `false`.
+     * `accumulator` object which is the result of running each of its own
+     * enumerable properties through a callback, with each callback execution
+     * potentially mutating the `accumulator` object. The callback is bound to
+     * `thisArg` and invoked with four arguments; (accumulator, value, key, object).
+     * Callbacks may exit iteration early by explicitly returning `false`.
      *
      * @static
      * @memberOf _
      * @category Objects
-     * @param {Array|Object} collection The collection to iterate over.
+     * @param {Array|Object} object The object to iterate over.
      * @param {Function} [callback=identity] The function called per iteration.
      * @param {*} [accumulator] The custom accumulator value.
      * @param {*} [thisArg] The `this` binding of `callback`.
@@ -6199,8 +2935,6 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      */
     function transform(object, callback, accumulator, thisArg) {
       var isArr = isArray(object);
-      callback = baseCreateCallback(callback, thisArg, 4);
-
       if (accumulator == null) {
         if (isArr) {
           accumulator = [];
@@ -6208,12 +2942,15 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           var ctor = object && object.constructor,
               proto = ctor && ctor.prototype;
 
-          accumulator = createObject(proto);
+          accumulator = baseCreate(proto);
         }
       }
-      (isArr ? forEach : forOwn)(object, function(value, index, object) {
-        return callback(accumulator, value, index, object);
-      });
+      if (callback) {
+        callback = lodash.createCallback(callback, thisArg, 4);
+        (isArr ? forEach : forOwn)(object, function(value, index, object) {
+          return callback(accumulator, value, index, object);
+        });
+      }
       return accumulator;
     }
 
@@ -6262,8 +2999,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * _.at(['a', 'b', 'c', 'd', 'e'], [0, 2, 4]);
      * // => ['a', 'c', 'e']
      *
-     * _.at(['moe', 'larry', 'curly'], 0, 2);
-     * // => ['moe', 'curly']
+     * _.at(['fred', 'barney', 'pebbles'], 0, 2);
+     * // => ['fred', 'pebbles']
      */
     function at(collection) {
       var args = arguments,
@@ -6299,10 +3036,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * _.contains([1, 2, 3], 1, 2);
      * // => false
      *
-     * _.contains({ 'name': 'moe', 'age': 40 }, 'moe');
+     * _.contains({ 'name': 'fred', 'age': 40 }, 'fred');
      * // => true
      *
-     * _.contains('curly', 'ur');
+     * _.contains('pebbles', 'eb');
      * // => true
      */
     function contains(collection, target, fromIndex) {
@@ -6389,20 +3126,20 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      *  else `false`.
      * @example
      *
-     * _.every([true, 1, null, 'yes'], Boolean);
+     * _.every([true, 1, null, 'yes']);
      * // => false
      *
-     * var stooges = [
-     *   { 'name': 'moe', 'age': 40 },
-     *   { 'name': 'larry', 'age': 50 }
+     * var characters = [
+     *   { 'name': 'barney', 'age': 36 },
+     *   { 'name': 'fred',   'age': 40 }
      * ];
      *
      * // using "_.pluck" callback shorthand
-     * _.every(stooges, 'age');
+     * _.every(characters, 'age');
      * // => true
      *
      * // using "_.where" callback shorthand
-     * _.every(stooges, { 'age': 50 });
+     * _.every(characters, { 'age': 36 });
      * // => false
      */
     function every(collection, callback, thisArg) {
@@ -6453,18 +3190,18 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * var evens = _.filter([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
      * // => [2, 4, 6]
      *
-     * var food = [
-     *   { 'name': 'apple',  'organic': false, 'type': 'fruit' },
-     *   { 'name': 'carrot', 'organic': true,  'type': 'vegetable' }
+     * var characters = [
+     *   { 'name': 'barney', 'age': 36, 'blocked': false },
+     *   { 'name': 'fred',   'age': 40, 'blocked': true }
      * ];
      *
      * // using "_.pluck" callback shorthand
-     * _.filter(food, 'organic');
-     * // => [{ 'name': 'carrot', 'organic': true, 'type': 'vegetable' }]
+     * _.filter(characters, 'blocked');
+     * // => [{ 'name': 'fred', 'age': 40, 'blocked': true }]
      *
      * // using "_.where" callback shorthand
-     * _.filter(food, { 'type': 'fruit' });
-     * // => [{ 'name': 'apple', 'organic': false, 'type': 'fruit' }]
+     * _.filter(characters, { 'age': 36 });
+     * // => [{ 'name': 'barney', 'age': 36, 'blocked': false }]
      */
     function filter(collection, callback, thisArg) {
       var result = [];
@@ -6514,24 +3251,24 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {*} Returns the found element, else `undefined`.
      * @example
      *
-     * _.find([1, 2, 3, 4], function(num) {
-     *   return num % 2 == 0;
-     * });
-     * // => 2
-     *
-     * var food = [
-     *   { 'name': 'apple',  'organic': false, 'type': 'fruit' },
-     *   { 'name': 'banana', 'organic': true,  'type': 'fruit' },
-     *   { 'name': 'beet',   'organic': false, 'type': 'vegetable' }
+     * var characters = [
+     *   { 'name': 'barney',  'age': 36, 'blocked': false },
+     *   { 'name': 'fred',    'age': 40, 'blocked': true },
+     *   { 'name': 'pebbles', 'age': 1,  'blocked': false }
      * ];
      *
+     * _.find(characters, function(chr) {
+     *   return chr.age < 40;
+     * });
+     * // => { 'name': 'barney', 'age': 36, 'blocked': false }
+     *
      * // using "_.where" callback shorthand
-     * _.find(food, { 'type': 'vegetable' });
-     * // => { 'name': 'beet', 'organic': false, 'type': 'vegetable' }
+     * _.find(characters, { 'age': 1 });
+     * // =>  { 'name': 'pebbles', 'age': 1, 'blocked': false }
      *
      * // using "_.pluck" callback shorthand
-     * _.find(food, 'organic');
-     * // => { 'name': 'banana', 'organic': true, 'type': 'fruit' }
+     * _.find(characters, 'blocked');
+     * // => { 'name': 'fred', 'age': 40, 'blocked': true }
      */
     function find(collection, callback, thisArg) {
       callback = lodash.createCallback(callback, thisArg, 3);
@@ -6595,6 +3332,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * element. The callback is bound to `thisArg` and invoked with three arguments;
      * (value, index|key, collection). Callbacks may exit iteration early by
      * explicitly returning `false`.
+     *
+     * Note: As with other "Collections" methods, objects with a `length` property
+     * are iterated like arrays. To avoid this behavior `_.forIn` or `_.forOwn`
+     * may be used for object iteration.
      *
      * @static
      * @memberOf _
@@ -6741,7 +3482,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * _.indexBy(keys, function(key) { return String.fromCharCode(key.code); });
      * // => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
      *
-     * _.indexBy(stooges, function(key) { this.fromCharCode(key.code); }, String);
+     * _.indexBy(characters, function(key) { this.fromCharCode(key.code); }, String);
      * // => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
      */
     var indexBy = createAggregator(function(result, value, key) {
@@ -6771,7 +3512,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * // => [['1', '2', '3'], ['4', '5', '6']]
      */
     function invoke(collection, methodName) {
-      var args = nativeSlice.call(arguments, 2),
+      var args = slice(arguments, 2),
           index = -1,
           isFunc = typeof methodName == 'function',
           length = collection ? collection.length : 0,
@@ -6813,14 +3554,14 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * _.map({ 'one': 1, 'two': 2, 'three': 3 }, function(num) { return num * 3; });
      * // => [3, 6, 9] (property order is not guaranteed across environments)
      *
-     * var stooges = [
-     *   { 'name': 'moe', 'age': 40 },
-     *   { 'name': 'larry', 'age': 50 }
+     * var characters = [
+     *   { 'name': 'barney', 'age': 36 },
+     *   { 'name': 'fred',   'age': 40 }
      * ];
      *
      * // using "_.pluck" callback shorthand
-     * _.map(stooges, 'name');
-     * // => ['moe', 'larry']
+     * _.map(characters, 'name');
+     * // => ['barney', 'fred']
      */
     function map(collection, callback, thisArg) {
       var index = -1,
@@ -6869,23 +3610,28 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * _.max([4, 2, 8, 6]);
      * // => 8
      *
-     * var stooges = [
-     *   { 'name': 'moe', 'age': 40 },
-     *   { 'name': 'larry', 'age': 50 }
+     * var characters = [
+     *   { 'name': 'barney', 'age': 36 },
+     *   { 'name': 'fred',   'age': 40 }
      * ];
      *
-     * _.max(stooges, function(stooge) { return stooge.age; });
-     * // => { 'name': 'larry', 'age': 50 };
+     * _.max(characters, function(chr) { return chr.age; });
+     * // => { 'name': 'fred', 'age': 40 };
      *
      * // using "_.pluck" callback shorthand
-     * _.max(stooges, 'age');
-     * // => { 'name': 'larry', 'age': 50 };
+     * _.max(characters, 'age');
+     * // => { 'name': 'fred', 'age': 40 };
      */
     function max(collection, callback, thisArg) {
       var computed = -Infinity,
           result = computed;
 
-      if (!callback && isArray(collection)) {
+      // allows working with functions like `_.map` without using
+      // their `index` argument as a callback
+      if (typeof callback != 'function' && thisArg && thisArg[callback] === collection) {
+        callback = null;
+      }
+      if (callback == null && isArray(collection)) {
         var index = -1,
             length = collection.length;
 
@@ -6896,7 +3642,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           }
         }
       } else {
-        callback = (!callback && isString(collection))
+        callback = (callback == null && isString(collection))
           ? charAtCallback
           : lodash.createCallback(callback, thisArg, 3);
 
@@ -6939,23 +3685,28 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * _.min([4, 2, 8, 6]);
      * // => 2
      *
-     * var stooges = [
-     *   { 'name': 'moe', 'age': 40 },
-     *   { 'name': 'larry', 'age': 50 }
+     * var characters = [
+     *   { 'name': 'barney', 'age': 36 },
+     *   { 'name': 'fred',   'age': 40 }
      * ];
      *
-     * _.min(stooges, function(stooge) { return stooge.age; });
-     * // => { 'name': 'moe', 'age': 40 };
+     * _.min(characters, function(chr) { return chr.age; });
+     * // => { 'name': 'barney', 'age': 36 };
      *
      * // using "_.pluck" callback shorthand
-     * _.min(stooges, 'age');
-     * // => { 'name': 'moe', 'age': 40 };
+     * _.min(characters, 'age');
+     * // => { 'name': 'barney', 'age': 36 };
      */
     function min(collection, callback, thisArg) {
       var computed = Infinity,
           result = computed;
 
-      if (!callback && isArray(collection)) {
+      // allows working with functions like `_.map` without using
+      // their `index` argument as a callback
+      if (typeof callback != 'function' && thisArg && thisArg[callback] === collection) {
+        callback = null;
+      }
+      if (callback == null && isArray(collection)) {
         var index = -1,
             length = collection.length;
 
@@ -6966,7 +3717,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           }
         }
       } else {
-        callback = (!callback && isString(collection))
+        callback = (callback == null && isString(collection))
           ? charAtCallback
           : lodash.createCallback(callback, thisArg, 3);
 
@@ -6982,37 +3733,26 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     }
 
     /**
-     * Retrieves the value of a specified property from all elements in the `collection`.
+     * Retrieves the value of a specified property from all elements in the collection.
      *
      * @static
      * @memberOf _
      * @type Function
      * @category Collections
      * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {string} property The property to pluck.
+     * @param {string} property The name of the property to pluck.
      * @returns {Array} Returns a new array of property values.
      * @example
      *
-     * var stooges = [
-     *   { 'name': 'moe', 'age': 40 },
-     *   { 'name': 'larry', 'age': 50 }
+     * var characters = [
+     *   { 'name': 'barney', 'age': 36 },
+     *   { 'name': 'fred',   'age': 40 }
      * ];
      *
-     * _.pluck(stooges, 'name');
-     * // => ['moe', 'larry']
+     * _.pluck(characters, 'name');
+     * // => ['barney', 'fred']
      */
-    function pluck(collection, property) {
-      var index = -1,
-          length = collection ? collection.length : 0;
-
-      if (typeof length == 'number') {
-        var result = Array(length);
-        while (++index < length) {
-          result[index] = collection[index][property];
-        }
-      }
-      return result || map(collection, property);
-    }
+    var pluck = map;
 
     /**
      * Reduces a collection to a value which is the accumulated result of running
@@ -7047,7 +3787,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     function reduce(collection, callback, accumulator, thisArg) {
       if (!collection) return accumulator;
       var noaccum = arguments.length < 3;
-      callback = baseCreateCallback(callback, thisArg, 4);
+      callback = lodash.createCallback(callback, thisArg, 4);
 
       var index = -1,
           length = collection.length;
@@ -7090,7 +3830,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      */
     function reduceRight(collection, callback, accumulator, thisArg) {
       var noaccum = arguments.length < 3;
-      callback = baseCreateCallback(callback, thisArg, 4);
+      callback = lodash.createCallback(callback, thisArg, 4);
       forEachRight(collection, function(value, index, collection) {
         accumulator = noaccum
           ? (noaccum = false, value)
@@ -7124,18 +3864,18 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * var odds = _.reject([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
      * // => [1, 3, 5]
      *
-     * var food = [
-     *   { 'name': 'apple',  'organic': false, 'type': 'fruit' },
-     *   { 'name': 'carrot', 'organic': true,  'type': 'vegetable' }
+     * var characters = [
+     *   { 'name': 'barney', 'age': 36, 'blocked': false },
+     *   { 'name': 'fred',   'age': 40, 'blocked': true }
      * ];
      *
      * // using "_.pluck" callback shorthand
-     * _.reject(food, 'organic');
-     * // => [{ 'name': 'apple', 'organic': false, 'type': 'fruit' }]
+     * _.reject(characters, 'blocked');
+     * // => [{ 'name': 'barney', 'age': 36, 'blocked': false }]
      *
      * // using "_.where" callback shorthand
-     * _.reject(food, { 'type': 'fruit' });
-     * // => [{ 'name': 'carrot', 'organic': true, 'type': 'vegetable' }]
+     * _.reject(characters, { 'age': 36 });
+     * // => [{ 'name': 'fred', 'age': 40, 'blocked': true }]
      */
     function reject(collection, callback, thisArg) {
       callback = lodash.createCallback(callback, thisArg, 3);
@@ -7152,8 +3892,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @category Collections
      * @param {Array|Object|string} collection The collection to sample.
      * @param {number} [n] The number of elements to sample.
-     * @param- {Object} [guard] Allows working with functions, like `_.map`,
-     *  without using their `key` and `object` arguments as sources.
+     * @param- {Object} [guard] Allows working with functions like `_.map`
+     *  without using their `index` arguments as `n`.
      * @returns {Array} Returns the random sample(s) of `collection`.
      * @example
      *
@@ -7164,12 +3904,11 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * // => [3, 1]
      */
     function sample(collection, n, guard) {
-      var length = collection ? collection.length : 0;
-      if (typeof length != 'number') {
+      if (collection && typeof collection.length != 'number') {
         collection = values(collection);
       }
       if (n == null || guard) {
-        return collection ? collection[random(length - 1)] : undefined;
+        return collection ? collection[baseRandom(0, collection.length - 1)] : undefined;
       }
       var result = shuffle(collection);
       result.length = nativeMin(nativeMax(0, n), result.length);
@@ -7196,7 +3935,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           result = Array(typeof length == 'number' ? length : 0);
 
       forEach(collection, function(value) {
-        var rand = random(++index);
+        var rand = baseRandom(0, ++index);
         result[index] = result[rand];
         result[rand] = value;
       });
@@ -7220,8 +3959,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * _.size({ 'one': 1, 'two': 2, 'three': 3 });
      * // => 3
      *
-     * _.size('curly');
-     * // => 5
+     * _.size('pebbles');
+     * // => 7
      */
     function size(collection) {
       var length = collection ? collection.length : 0;
@@ -7257,17 +3996,17 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * _.some([null, 0, 'yes', false], Boolean);
      * // => true
      *
-     * var food = [
-     *   { 'name': 'apple',  'organic': false, 'type': 'fruit' },
-     *   { 'name': 'carrot', 'organic': true,  'type': 'vegetable' }
+     * var characters = [
+     *   { 'name': 'barney', 'age': 36, 'blocked': false },
+     *   { 'name': 'fred',   'age': 40, 'blocked': true }
      * ];
      *
      * // using "_.pluck" callback shorthand
-     * _.some(food, 'organic');
+     * _.some(characters, 'blocked');
      * // => true
      *
      * // using "_.where" callback shorthand
-     * _.some(food, { 'type': 'meat' });
+     * _.some(characters, { 'age': 1 });
      * // => false
      */
     function some(collection, callback, thisArg) {
@@ -7301,6 +4040,9 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * If a property name is provided for `callback` the created "_.pluck" style
      * callback will return the property value of the given element.
      *
+     * If an array of property names is provided for `callback` the collection
+     * will be sorted by each property value.
+     *
      * If an object is provided for `callback` the created "_.where" style callback
      * will return `true` for elements that have the properties of the given object,
      * else `false`.
@@ -7309,7 +4051,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @memberOf _
      * @category Collections
      * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [callback=identity] The function called
+     * @param {Array|Function|Object|string} [callback=identity] The function called
      *  per iteration. If a property name or object is provided it will be used
      *  to create a "_.pluck" or "_.where" style callback, respectively.
      * @param {*} [thisArg] The `this` binding of `callback`.
@@ -7322,19 +4064,37 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * _.sortBy([1, 2, 3], function(num) { return this.sin(num); }, Math);
      * // => [3, 1, 2]
      *
+     * var characters = [
+     *   { 'name': 'barney',  'age': 36 },
+     *   { 'name': 'fred',    'age': 40 },
+     *   { 'name': 'barney',  'age': 26 },
+     *   { 'name': 'fred',    'age': 30 }
+     * ];
+     *
      * // using "_.pluck" callback shorthand
-     * _.sortBy(['banana', 'strawberry', 'apple'], 'length');
-     * // => ['apple', 'banana', 'strawberry']
+     * _.map(_.sortBy(characters, 'age'), _.values);
+     * // => [['barney', 26], ['fred', 30], ['barney', 36], ['fred', 40]]
+     *
+     * // sorting by multiple properties
+     * _.map(_.sortBy(characters, ['name', 'age']), _.values);
+     * // = > [['barney', 26], ['barney', 36], ['fred', 30], ['fred', 40]]
      */
     function sortBy(collection, callback, thisArg) {
       var index = -1,
+          isArr = isArray(callback),
           length = collection ? collection.length : 0,
           result = Array(typeof length == 'number' ? length : 0);
 
-      callback = lodash.createCallback(callback, thisArg, 3);
+      if (!isArr) {
+        callback = lodash.createCallback(callback, thisArg, 3);
+      }
       forEach(collection, function(value, key, collection) {
         var object = result[++index] = getObject();
-        object.criteria = callback(value, key, collection);
+        if (isArr) {
+          object.criteria = map(callback, function(key) { return value[key]; });
+        } else {
+          (object.criteria = getArray())[0] = callback(value, key, collection);
+        }
         object.index = index;
         object.value = value;
       });
@@ -7344,6 +4104,9 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       while (length--) {
         var object = result[length];
         result[length] = object.value;
+        if (!isArr) {
+          releaseArray(object.criteria);
+        }
         releaseObject(object);
       }
       return result;
@@ -7379,20 +4142,20 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @type Function
      * @category Collections
      * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Object} properties The object of property values to filter by.
+     * @param {Object} props The object of property values to filter by.
      * @returns {Array} Returns a new array of elements that have the given properties.
      * @example
      *
-     * var stooges = [
-     *   { 'name': 'curly', 'age': 30, 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
-     *   { 'name': 'moe', 'age': 40, 'quotes': ['Spread out!', 'You knucklehead!'] }
+     * var characters = [
+     *   { 'name': 'barney', 'age': 36, 'pets': ['hoppy'] },
+     *   { 'name': 'fred',   'age': 40, 'pets': ['baby puss', 'dino'] }
      * ];
      *
-     * _.where(stooges, { 'age': 40 });
-     * // => [{ 'name': 'moe', 'age': 40, 'quotes': ['Spread out!', 'You knucklehead!'] }]
+     * _.where(characters, { 'age': 36 });
+     * // => [{ 'name': 'barney', 'age': 36, 'pets': ['hoppy'] }]
      *
-     * _.where(stooges, { 'quotes': ['Poifect!'] });
-     * // => [{ 'name': 'curly', 'age': 30, 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] }]
+     * _.where(characters, { 'pets': ['dino'] });
+     * // => [{ 'name': 'fred', 'age': 40, 'pets': ['baby puss', 'dino'] }]
      */
     var where = filter;
 
@@ -7434,7 +4197,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @memberOf _
      * @category Arrays
      * @param {Array} array The array to process.
-     * @param {...Array} [array] The arrays of values to exclude.
+     * @param {...Array} [values] The arrays of values to exclude.
      * @returns {Array} Returns a new array of filtered values.
      * @example
      *
@@ -7442,38 +4205,19 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * // => [1, 3, 4]
      */
     function difference(array) {
-      var index = -1,
-          indexOf = getIndexOf(),
-          length = array ? array.length : 0,
-          seen = baseFlatten(arguments, true, true, 1),
-          result = [];
-
-      var isLarge = length >= largeArraySize && indexOf === baseIndexOf;
-
-      if (isLarge) {
-        var cache = createCache(seen);
-        if (cache) {
-          indexOf = cacheIndexOf;
-          seen = cache;
-        } else {
-          isLarge = false;
-        }
-      }
-      while (++index < length) {
-        var value = array[index];
-        if (indexOf(seen, value) < 0) {
-          result.push(value);
-        }
-      }
-      if (isLarge) {
-        releaseObject(seen);
-      }
-      return result;
+      return baseDifference(array, baseFlatten(arguments, true, true, 1));
     }
 
     /**
      * This method is like `_.find` except that it returns the index of the first
      * element that passes the callback check, instead of the element itself.
+     *
+     * If a property name is provided for `callback` the created "_.pluck" style
+     * callback will return the property value of the given element.
+     *
+     * If an object is provided for `callback` the created "_.where" style callback
+     * will return `true` for elements that have the properties of the given object,
+     * else `false`.
      *
      * @static
      * @memberOf _
@@ -7486,9 +4230,23 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {number} Returns the index of the found element, else `-1`.
      * @example
      *
-     * _.findIndex(['apple', 'banana', 'beet'], function(food) {
-     *   return /^b/.test(food);
+     * var characters = [
+     *   { 'name': 'barney',  'age': 36, 'blocked': false },
+     *   { 'name': 'fred',    'age': 40, 'blocked': true },
+     *   { 'name': 'pebbles', 'age': 1,  'blocked': false }
+     * ];
+     *
+     * _.findIndex(characters, function(chr) {
+     *   return chr.age < 20;
      * });
+     * // => 2
+     *
+     * // using "_.where" callback shorthand
+     * _.findIndex(characters, { 'age': 36 });
+     * // => 0
+     *
+     * // using "_.pluck" callback shorthand
+     * _.findIndex(characters, 'blocked');
      * // => 1
      */
     function findIndex(array, callback, thisArg) {
@@ -7508,6 +4266,13 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * This method is like `_.findIndex` except that it iterates over elements
      * of a `collection` from right to left.
      *
+     * If a property name is provided for `callback` the created "_.pluck" style
+     * callback will return the property value of the given element.
+     *
+     * If an object is provided for `callback` the created "_.where" style callback
+     * will return `true` for elements that have the properties of the given object,
+     * else `false`.
+     *
      * @static
      * @memberOf _
      * @category Arrays
@@ -7519,9 +4284,23 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {number} Returns the index of the found element, else `-1`.
      * @example
      *
-     * _.findLastIndex(['apple', 'banana', 'beet'], function(food) {
-     *   return /^b/.test(food);
+     * var characters = [
+     *   { 'name': 'barney',  'age': 36, 'blocked': true },
+     *   { 'name': 'fred',    'age': 40, 'blocked': false },
+     *   { 'name': 'pebbles', 'age': 1,  'blocked': true }
+     * ];
+     *
+     * _.findLastIndex(characters, function(chr) {
+     *   return chr.age > 30;
      * });
+     * // => 1
+     *
+     * // using "_.where" callback shorthand
+     * _.findLastIndex(characters, { 'age': 36 });
+     * // => 0
+     *
+     * // using "_.pluck" callback shorthand
+     * _.findLastIndex(characters, 'blocked');
      * // => 2
      */
     function findLastIndex(array, callback, thisArg) {
@@ -7572,24 +4351,19 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * });
      * // => [1, 2]
      *
-     * var food = [
-     *   { 'name': 'banana', 'organic': true },
-     *   { 'name': 'beet',   'organic': false },
+     * var characters = [
+     *   { 'name': 'barney',  'blocked': true,  'employer': 'slate' },
+     *   { 'name': 'fred',    'blocked': false, 'employer': 'slate' },
+     *   { 'name': 'pebbles', 'blocked': true,  'employer': 'na' }
      * ];
      *
      * // using "_.pluck" callback shorthand
-     * _.first(food, 'organic');
-     * // => [{ 'name': 'banana', 'organic': true }]
-     *
-     * var food = [
-     *   { 'name': 'apple',  'type': 'fruit' },
-     *   { 'name': 'banana', 'type': 'fruit' },
-     *   { 'name': 'beet',   'type': 'vegetable' }
-     * ];
+     * _.first(characters, 'blocked');
+     * // => [{ 'name': 'barney', 'blocked': true, 'employer': 'slate' }]
      *
      * // using "_.where" callback shorthand
-     * _.first(food, { 'type': 'fruit' });
-     * // => [{ 'name': 'apple', 'type': 'fruit' }, { 'name': 'banana', 'type': 'fruit' }]
+     * _.pluck(_.first(characters, { 'employer': 'slate' }), 'name');
+     * // => ['barney', 'fred']
      */
     function first(array, callback, thisArg) {
       var n = 0,
@@ -7642,20 +4416,20 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * _.flatten([1, [2], [3, [[4]]]], true);
      * // => [1, 2, 3, [[4]]];
      *
-     * var stooges = [
-     *   { 'name': 'curly', 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
-     *   { 'name': 'moe', 'quotes': ['Spread out!', 'You knucklehead!'] }
+     * var characters = [
+     *   { 'name': 'barney', 'age': 30, 'pets': ['hoppy'] },
+     *   { 'name': 'fred',   'age': 40, 'pets': ['baby puss', 'dino'] }
      * ];
      *
      * // using "_.pluck" callback shorthand
-     * _.flatten(stooges, 'quotes');
-     * // => ['Oh, a wise guy, eh?', 'Poifect!', 'Spread out!', 'You knucklehead!']
+     * _.flatten(characters, 'pets');
+     * // => ['hoppy', 'baby puss', 'dino']
      */
     function flatten(array, isShallow, callback, thisArg) {
       // juggle arguments
       if (typeof isShallow != 'boolean' && isShallow != null) {
         thisArg = callback;
-        callback = !(thisArg && thisArg[isShallow] === array) ? isShallow : null;
+        callback = (typeof isShallow != 'function' && thisArg && thisArg[isShallow] === array) ? null : isShallow;
         isShallow = false;
       }
       if (callback != null) {
@@ -7735,24 +4509,19 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * });
      * // => [1]
      *
-     * var food = [
-     *   { 'name': 'beet',   'organic': false },
-     *   { 'name': 'carrot', 'organic': true }
+     * var characters = [
+     *   { 'name': 'barney',  'blocked': false, 'employer': 'slate' },
+     *   { 'name': 'fred',    'blocked': true,  'employer': 'slate' },
+     *   { 'name': 'pebbles', 'blocked': true,  'employer': 'na' }
      * ];
      *
      * // using "_.pluck" callback shorthand
-     * _.initial(food, 'organic');
-     * // => [{ 'name': 'beet',   'organic': false }]
-     *
-     * var food = [
-     *   { 'name': 'banana', 'type': 'fruit' },
-     *   { 'name': 'beet',   'type': 'vegetable' },
-     *   { 'name': 'carrot', 'type': 'vegetable' }
-     * ];
+     * _.initial(characters, 'blocked');
+     * // => [{ 'name': 'barney',  'blocked': false, 'employer': 'slate' }]
      *
      * // using "_.where" callback shorthand
-     * _.initial(food, { 'type': 'vegetable' });
-     * // => [{ 'name': 'banana', 'type': 'fruit' }]
+     * _.pluck(_.initial(characters, { 'employer': 'na' }), 'name');
+     * // => ['barney', 'fred']
      */
     function initial(array, callback, thisArg) {
       var n = 0,
@@ -7778,29 +4547,34 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @memberOf _
      * @category Arrays
      * @param {...Array} [array] The arrays to inspect.
-     * @returns {Array} Returns an array of composite values.
+     * @returns {Array} Returns an array of shared values.
      * @example
      *
-     * _.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+     * _.intersection([1, 2, 3], [5, 2, 1, 4], [2, 1]);
      * // => [1, 2]
      */
-    function intersection(array) {
-      var args = arguments,
-          argsLength = args.length,
+    function intersection() {
+      var args = [],
           argsIndex = -1,
+          argsLength = arguments.length,
           caches = getArray(),
-          index = -1,
           indexOf = getIndexOf(),
-          length = array ? array.length : 0,
-          result = [],
+          trustIndexOf = indexOf === baseIndexOf,
           seen = getArray();
 
       while (++argsIndex < argsLength) {
-        var value = args[argsIndex];
-        caches[argsIndex] = indexOf === baseIndexOf &&
-          (value ? value.length : 0) >= largeArraySize &&
-          createCache(argsIndex ? args[argsIndex] : seen);
+        var value = arguments[argsIndex];
+        if (isArray(value) || isArguments(value)) {
+          args.push(value);
+          caches.push(trustIndexOf && value.length >= largeArraySize &&
+            createCache(argsIndex ? args[argsIndex] : seen));
+        }
       }
+      var array = args[0],
+          index = -1,
+          length = array ? array.length : 0,
+          result = [];
+
       outer:
       while (++index < length) {
         var cache = caches[0];
@@ -7865,24 +4639,19 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * });
      * // => [2, 3]
      *
-     * var food = [
-     *   { 'name': 'beet',   'organic': false },
-     *   { 'name': 'carrot', 'organic': true }
+     * var characters = [
+     *   { 'name': 'barney',  'blocked': false, 'employer': 'slate' },
+     *   { 'name': 'fred',    'blocked': true,  'employer': 'slate' },
+     *   { 'name': 'pebbles', 'blocked': true,  'employer': 'na' }
      * ];
      *
      * // using "_.pluck" callback shorthand
-     * _.last(food, 'organic');
-     * // => [{ 'name': 'carrot', 'organic': true }]
-     *
-     * var food = [
-     *   { 'name': 'banana', 'type': 'fruit' },
-     *   { 'name': 'beet',   'type': 'vegetable' },
-     *   { 'name': 'carrot', 'type': 'vegetable' }
-     * ];
+     * _.pluck(_.last(characters, 'blocked'), 'name');
+     * // => ['fred', 'pebbles']
      *
      * // using "_.where" callback shorthand
-     * _.last(food, { 'type': 'vegetable' });
-     * // => [{ 'name': 'beet', 'type': 'vegetable' }, { 'name': 'carrot', 'type': 'vegetable' }]
+     * _.last(characters, { 'employer': 'na' });
+     * // => [{ 'name': 'pebbles', 'blocked': true, 'employer': 'na' }]
      */
     function last(array, callback, thisArg) {
       var n = 0,
@@ -7907,6 +4676,13 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * Gets the index at which the last occurrence of `value` is found using strict
      * equality for comparisons, i.e. `===`. If `fromIndex` is negative, it is used
      * as the offset from the end of the collection.
+     *
+     * If a property name is provided for `callback` the created "_.pluck" style
+     * callback will return the property value of the given element.
+     *
+     * If an object is provided for `callback` the created "_.where" style callback
+     * will return `true` for elements that have the properties of the given object,
+     * else `false`.
      *
      * @static
      * @memberOf _
@@ -7986,17 +4762,17 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {Array} Returns a new range array.
      * @example
      *
-     * _.range(10);
-     * // => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+     * _.range(4);
+     * // => [0, 1, 2, 3]
      *
-     * _.range(1, 11);
-     * // => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+     * _.range(1, 5);
+     * // => [1, 2, 3, 4]
      *
-     * _.range(0, 30, 5);
-     * // => [0, 5, 10, 15, 20, 25]
+     * _.range(0, 20, 5);
+     * // => [0, 5, 10, 15]
      *
-     * _.range(0, -10, -1);
-     * // => [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
+     * _.range(0, -4, -1);
+     * // => [0, -1, -2, -3]
      *
      * _.range(1, 4, 0);
      * // => [1, 1, 1]
@@ -8012,7 +4788,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         end = start;
         start = 0;
       }
-      // use `Array(length)` so engines, like Chakra and V8, avoid slower modes
+      // use `Array(length)` so engines like Chakra and V8 avoid slower modes
       // http://youtu.be/XAqIpGU8ZZk#t=17m25s
       var index = -1,
           length = nativeMax(0, ceil((end - start) / (step || 1))),
@@ -8112,24 +4888,19 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * });
      * // => [3]
      *
-     * var food = [
-     *   { 'name': 'banana', 'organic': true },
-     *   { 'name': 'beet',   'organic': false },
+     * var characters = [
+     *   { 'name': 'barney',  'blocked': true,  'employer': 'slate' },
+     *   { 'name': 'fred',    'blocked': false,  'employer': 'slate' },
+     *   { 'name': 'pebbles', 'blocked': true, 'employer': 'na' }
      * ];
      *
      * // using "_.pluck" callback shorthand
-     * _.rest(food, 'organic');
-     * // => [{ 'name': 'beet', 'organic': false }]
-     *
-     * var food = [
-     *   { 'name': 'apple',  'type': 'fruit' },
-     *   { 'name': 'banana', 'type': 'fruit' },
-     *   { 'name': 'beet',   'type': 'vegetable' }
-     * ];
+     * _.pluck(_.rest(characters, 'blocked'), 'name');
+     * // => ['fred', 'pebbles']
      *
      * // using "_.where" callback shorthand
-     * _.rest(food, { 'type': 'fruit' });
-     * // => [{ 'name': 'beet', 'type': 'vegetable' }]
+     * _.rest(characters, { 'employer': 'slate' });
+     * // => [{ 'name': 'pebbles', 'blocked': true, 'employer': 'na' }]
      */
     function rest(array, callback, thisArg) {
       if (typeof callback != 'number' && callback != null) {
@@ -8220,13 +4991,13 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @memberOf _
      * @category Arrays
      * @param {...Array} [array] The arrays to inspect.
-     * @returns {Array} Returns an array of composite values.
+     * @returns {Array} Returns an array of combined values.
      * @example
      *
-     * _.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
-     * // => [1, 2, 3, 101, 10]
+     * _.union([1, 2, 3], [5, 2, 1, 4], [2, 1]);
+     * // => [1, 2, 3, 5, 4]
      */
-    function union(array) {
+    function union() {
       return baseUniq(baseFlatten(arguments, true, true));
     }
 
@@ -8278,7 +5049,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       // juggle arguments
       if (typeof isSorted != 'boolean' && isSorted != null) {
         thisArg = callback;
-        callback = !(thisArg && thisArg[isSorted] === array) ? isSorted : null;
+        callback = (typeof isSorted != 'function' && thisArg && thisArg[isSorted] === array) ? null : isSorted;
         isSorted = false;
       }
       if (callback != null) {
@@ -8303,7 +5074,39 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * // => [2, 3, 4]
      */
     function without(array) {
-      return difference(array, nativeSlice.call(arguments, 1));
+      return baseDifference(array, slice(arguments, 1));
+    }
+
+    /**
+     * Creates an array that is the symmetric difference of the provided arrays.
+     * See http://en.wikipedia.org/wiki/Symmetric_difference.
+     *
+     * @static
+     * @memberOf _
+     * @category Arrays
+     * @param {...Array} [array] The arrays to inspect.
+     * @returns {Array} Returns an array of values.
+     * @example
+     *
+     * _.xor([1, 2, 3], [5, 2, 1, 4]);
+     * // => [3, 5, 4]
+     *
+     * _.xor([1, 2, 5], [2, 3, 5], [3, 4, 5]);
+     * // => [1, 4, 5]
+     */
+    function xor() {
+      var index = -1,
+          length = arguments.length;
+
+      while (++index < length) {
+        var array = arguments[index];
+        if (isArray(array) || isArguments(array)) {
+          var result = result
+            ? baseUniq(baseDifference(result, array).concat(baseDifference(array, result)))
+            : array;
+        }
+      }
+      return result || [];
     }
 
     /**
@@ -8319,8 +5122,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {Array} Returns a new array of grouped elements.
      * @example
      *
-     * _.zip(['moe', 'larry'], [30, 40], [true, false]);
-     * // => [['moe', 30, true], ['larry', 40, false]]
+     * _.zip(['fred', 'barney'], [30, 40], [true, false]);
+     * // => [['fred', 30, true], ['barney', 40, false]]
      */
     function zip() {
       var array = arguments.length > 1 ? arguments : arguments[0],
@@ -8349,14 +5152,17 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      *  corresponding values.
      * @example
      *
-     * _.zipObject(['moe', 'larry'], [30, 40]);
-     * // => { 'moe': 30, 'larry': 40 }
+     * _.zipObject(['fred', 'barney'], [30, 40]);
+     * // => { 'fred': 30, 'barney': 40 }
      */
     function zipObject(keys, values) {
       var index = -1,
           length = keys ? keys.length : 0,
           result = {};
 
+      if (!values && length && !isArray(keys[0])) {
+        values = [];
+      }
       while (++index < length) {
         var key = keys[index];
         if (values) {
@@ -8423,14 +5229,14 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      *   return greeting + ' ' + this.name;
      * };
      *
-     * func = _.bind(func, { 'name': 'moe' }, 'hi');
+     * func = _.bind(func, { 'name': 'fred' }, 'hi');
      * func();
-     * // => 'hi moe'
+     * // => 'hi fred'
      */
     function bind(func, thisArg) {
       return arguments.length > 2
-        ? createBound(func, 17, nativeSlice.call(arguments, 2), null, thisArg)
-        : createBound(func, 1, null, null, thisArg);
+        ? createWrapper(func, 17, slice(arguments, 2), null, thisArg)
+        : createWrapper(func, 1, null, null, thisArg);
     }
 
     /**
@@ -8449,8 +5255,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @example
      *
      * var view = {
-     *  'label': 'docs',
-     *  'onClick': function() { console.log('clicked ' + this.label); }
+     *   'label': 'docs',
+     *   'onClick': function() { console.log('clicked ' + this.label); }
      * };
      *
      * _.bindAll(view);
@@ -8464,7 +5270,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
       while (++index < length) {
         var key = funcs[index];
-        object[key] = createBound(object[key], 1, null, null, object);
+        object[key] = createWrapper(object[key], 1, null, null, object);
       }
       return object;
     }
@@ -8486,7 +5292,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @example
      *
      * var object = {
-     *   'name': 'moe',
+     *   'name': 'fred',
      *   'greet': function(greeting) {
      *     return greeting + ' ' + this.name;
      *   }
@@ -8494,19 +5300,19 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      *
      * var func = _.bindKey(object, 'greet', 'hi');
      * func();
-     * // => 'hi moe'
+     * // => 'hi fred'
      *
      * object.greet = function(greeting) {
-     *   return greeting + ', ' + this.name + '!';
+     *   return greeting + 'ya ' + this.name + '!';
      * };
      *
      * func();
-     * // => 'hi, moe!'
+     * // => 'hiya fred!'
      */
     function bindKey(object, key) {
       return arguments.length > 2
-        ? createBound(key, 19, nativeSlice.call(arguments, 2), null, object)
-        : createBound(key, 3, null, null, object);
+        ? createWrapper(key, 19, slice(arguments, 2), null, object)
+        : createWrapper(key, 3, null, null, object);
     }
 
     /**
@@ -8523,7 +5329,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @example
      *
      * var realNameMap = {
-     *   'curly': 'jerome'
+     *   'pebbles': 'penelope'
      * };
      *
      * var format = function(name) {
@@ -8536,8 +5342,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * };
      *
      * var welcome = _.compose(greet, format);
-     * welcome('curly');
-     * // => 'Hiya Jerome!'
+     * welcome('pebbles');
+     * // => 'Hiya Penelope!'
      */
     function compose() {
       var funcs = arguments,
@@ -8556,74 +5362,6 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           args = [funcs[length].apply(this, args)];
         }
         return args[0];
-      };
-    }
-
-    /**
-     * Produces a callback bound to an optional `thisArg`. If `func` is a property
-     * name the created callback will return the property value for a given element.
-     * If `func` is an object the created callback will return `true` for elements
-     * that contain the equivalent object properties, otherwise it will return `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Functions
-     * @param {*} [func=identity] The value to convert to a callback.
-     * @param {*} [thisArg] The `this` binding of the created callback.
-     * @param {number} [argCount] The number of arguments the callback accepts.
-     * @returns {Function} Returns a callback function.
-     * @example
-     *
-     * var stooges = [
-     *   { 'name': 'moe', 'age': 40 },
-     *   { 'name': 'larry', 'age': 50 }
-     * ];
-     *
-     * // wrap to create custom callback shorthands
-     * _.createCallback = _.wrap(_.createCallback, function(func, callback, thisArg) {
-     *   var match = /^(.+?)__([gl]t)(.+)$/.exec(callback);
-     *   return !match ? func(callback, thisArg) : function(object) {
-     *     return match[2] == 'gt' ? object[match[1]] > match[3] : object[match[1]] < match[3];
-     *   };
-     * });
-     *
-     * _.filter(stooges, 'age__gt45');
-     * // => [{ 'name': 'larry', 'age': 50 }]
-     */
-    function createCallback(func, thisArg, argCount) {
-      var type = typeof func;
-      if (func == null || type == 'function') {
-        return baseCreateCallback(func, thisArg, argCount);
-      }
-      // handle "_.pluck" style callback shorthands
-      if (type != 'object') {
-        return function(object) {
-          return object[func];
-        };
-      }
-      var props = keys(func),
-          key = props[0],
-          a = func[key];
-
-      // handle "_.where" style callback shorthands
-      if (props.length == 1 && a === a && !isObject(a)) {
-        // fast path the common case of providing an object with a single
-        // property containing a primitive value
-        return function(object) {
-          var b = object[key];
-          return a === b && (a !== 0 || (1 / a == 1 / b));
-        };
-      }
-      return function(object) {
-        var length = props.length,
-            result = false;
-
-        while (length--) {
-          if (!(result = baseIsEqual(object[props[length]], func[props[length]], null, true))) {
-            break;
-          }
-        }
-        return result;
       };
     }
 
@@ -8657,7 +5395,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      */
     function curry(func, arity) {
       arity = typeof arity == 'number' ? arity : (+arity || func.length);
-      return createBound(func, 4, null, null, null, arity);
+      return createWrapper(func, 4, null, null, null, arity);
     }
 
     /**
@@ -8734,6 +5472,9 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           if (isCalled) {
             lastCalled = now();
             result = func.apply(thisArg, args);
+            if (!timeoutId && !maxTimeoutId) {
+              args = thisArg = null;
+            }
           }
         } else {
           timeoutId = setTimeout(delayed, remaining);
@@ -8748,6 +5489,9 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         if (trailing || (maxWait !== wait)) {
           lastCalled = now();
           result = func.apply(thisArg, args);
+          if (!timeoutId && !maxTimeoutId) {
+            args = thisArg = null;
+          }
         }
       };
 
@@ -8763,8 +5507,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           if (!maxTimeoutId && !leading) {
             lastCalled = stamp;
           }
-          var remaining = maxWait - (stamp - lastCalled);
-          if (remaining <= 0) {
+          var remaining = maxWait - (stamp - lastCalled),
+              isCalled = remaining <= 0;
+
+          if (isCalled) {
             if (maxTimeoutId) {
               maxTimeoutId = clearTimeout(maxTimeoutId);
             }
@@ -8775,11 +5521,18 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
             maxTimeoutId = setTimeout(maxDelayed, remaining);
           }
         }
-        if (!timeoutId && wait !== maxWait) {
+        if (isCalled && timeoutId) {
+          timeoutId = clearTimeout(timeoutId);
+        }
+        else if (!timeoutId && wait !== maxWait) {
           timeoutId = setTimeout(delayed, wait);
         }
         if (leadingCall) {
+          isCalled = true;
           result = func.apply(thisArg, args);
+        }
+        if (isCalled && !timeoutId && !maxTimeoutId) {
+          args = thisArg = null;
         }
         return result;
       };
@@ -8797,24 +5550,15 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {number} Returns the timer id.
      * @example
      *
-     * _.defer(function() { console.log('deferred'); });
-     * // returns from the function before 'deferred' is logged
+     * _.defer(function(text) { console.log(text); }, 'deferred');
+     * // logs 'deferred' after one or more milliseconds
      */
     function defer(func) {
       if (!isFunction(func)) {
         throw new TypeError;
       }
-      var args = nativeSlice.call(arguments, 1);
+      var args = slice(arguments, 1);
       return setTimeout(function() { func.apply(undefined, args); }, 1);
-    }
-    // use `setImmediate` if available in Node.js
-    if (isV8 && moduleExports && typeof setImmediate == 'function') {
-      defer = function(func) {
-        if (!isFunction(func)) {
-          throw new TypeError;
-        }
-        return setImmediate.apply(context, arguments);
-      };
     }
 
     /**
@@ -8830,15 +5574,14 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {number} Returns the timer id.
      * @example
      *
-     * var log = _.bind(console.log, console);
-     * _.delay(log, 1000, 'logged later');
-     * // => 'logged later' (Appears after one second.)
+     * _.delay(function(text) { console.log(text); }, 1000, 'later');
+     * // => logs 'later' after one second
      */
     function delay(func, wait) {
       if (!isFunction(func)) {
         throw new TypeError;
       }
-      var args = nativeSlice.call(arguments, 2);
+      var args = slice(arguments, 2);
       return setTimeout(function() { func.apply(undefined, args); }, wait);
     }
 
@@ -8862,19 +5605,22 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      *   return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
      * });
      *
+     * fibonacci(9)
+     * // => 34
+     *
      * var data = {
-     *   'moe': { 'name': 'moe', 'age': 40 },
-     *   'curly': { 'name': 'curly', 'age': 60 }
+     *   'fred': { 'name': 'fred', 'age': 40 },
+     *   'pebbles': { 'name': 'pebbles', 'age': 1 }
      * };
      *
      * // modifying the result cache
-     * var stooge = _.memoize(function(name) { return data[name]; }, _.identity);
-     * stooge('curly');
-     * // => { 'name': 'curly', 'age': 60 }
+     * var get = _.memoize(function(name) { return data[name]; }, _.identity);
+     * get('pebbles');
+     * // => { 'name': 'pebbles', 'age': 1 }
      *
-     * stooge.cache.curly.name = 'jerome';
-     * stooge('curly');
-     * // => { 'name': 'jerome', 'age': 60 }
+     * get.cache.pebbles.name = 'penelope';
+     * get('pebbles');
+     * // => { 'name': 'penelope', 'age': 1 }
      */
     function memoize(func, resolver) {
       if (!isFunction(func)) {
@@ -8944,11 +5690,11 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      *
      * var greet = function(greeting, name) { return greeting + ' ' + name; };
      * var hi = _.partial(greet, 'hi');
-     * hi('moe');
-     * // => 'hi moe'
+     * hi('fred');
+     * // => 'hi fred'
      */
     function partial(func) {
-      return createBound(func, 16, nativeSlice.call(arguments, 1));
+      return createWrapper(func, 16, slice(arguments, 1));
     }
 
     /**
@@ -8979,7 +5725,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * // => { '_': _, 'jq': $ }
      */
     function partialRight(func) {
-      return createBound(func, 32, null, nativeSlice.call(arguments, 1));
+      return createWrapper(func, 32, null, slice(arguments, 1));
     }
 
     /**
@@ -9030,8 +5776,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       debounceOptions.maxWait = wait;
       debounceOptions.trailing = trailing;
 
-      var result = debounce(func, wait, debounceOptions);
-      return result;
+      return debounce(func, wait, debounceOptions);
     }
 
     /**
@@ -9048,25 +5793,105 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {Function} Returns the new function.
      * @example
      *
-     * var hello = function(name) { return 'hello ' + name; };
-     * hello = _.wrap(hello, function(func) {
-     *   return 'before, ' + func('moe') + ', after';
+     * var p = _.wrap(_.escape, function(func, text) {
+     *   return '<p>' + func(text) + '</p>';
      * });
-     * hello();
-     * // => 'before, hello moe, after'
+     *
+     * p('Fred, Wilma, & Pebbles');
+     * // => '<p>Fred, Wilma, &amp; Pebbles</p>'
      */
     function wrap(value, wrapper) {
-      if (!isFunction(wrapper)) {
-        throw new TypeError;
-      }
-      return function() {
-        var args = [value];
-        push.apply(args, arguments);
-        return wrapper.apply(this, args);
-      };
+      return createWrapper(wrapper, 16, [value]);
     }
 
     /*--------------------------------------------------------------------------*/
+
+    /**
+     * Creates a function that returns `value`.
+     *
+     * @static
+     * @memberOf _
+     * @category Utilities
+     * @param {*} value The value to return from the new function.
+     * @returns {Function} Returns the new function.
+     * @example
+     *
+     * var object = { 'name': 'fred' };
+     * var getter = _.constant(object);
+     * getter() === object;
+     * // => true
+     */
+    function constant(value) {
+      return function() {
+        return value;
+      };
+    }
+
+    /**
+     * Produces a callback bound to an optional `thisArg`. If `func` is a property
+     * name the created callback will return the property value for a given element.
+     * If `func` is an object the created callback will return `true` for elements
+     * that contain the equivalent object properties, otherwise it will return `false`.
+     *
+     * @static
+     * @memberOf _
+     * @category Utilities
+     * @param {*} [func=identity] The value to convert to a callback.
+     * @param {*} [thisArg] The `this` binding of the created callback.
+     * @param {number} [argCount] The number of arguments the callback accepts.
+     * @returns {Function} Returns a callback function.
+     * @example
+     *
+     * var characters = [
+     *   { 'name': 'barney', 'age': 36 },
+     *   { 'name': 'fred',   'age': 40 }
+     * ];
+     *
+     * // wrap to create custom callback shorthands
+     * _.createCallback = _.wrap(_.createCallback, function(func, callback, thisArg) {
+     *   var match = /^(.+?)__([gl]t)(.+)$/.exec(callback);
+     *   return !match ? func(callback, thisArg) : function(object) {
+     *     return match[2] == 'gt' ? object[match[1]] > match[3] : object[match[1]] < match[3];
+     *   };
+     * });
+     *
+     * _.filter(characters, 'age__gt38');
+     * // => [{ 'name': 'fred', 'age': 40 }]
+     */
+    function createCallback(func, thisArg, argCount) {
+      var type = typeof func;
+      if (func == null || type == 'function') {
+        return baseCreateCallback(func, thisArg, argCount);
+      }
+      // handle "_.pluck" style callback shorthands
+      if (type != 'object') {
+        return property(func);
+      }
+      var props = keys(func),
+          key = props[0],
+          a = func[key];
+
+      // handle "_.where" style callback shorthands
+      if (props.length == 1 && a === a && !isObject(a)) {
+        // fast path the common case of providing an object with a single
+        // property containing a primitive value
+        return function(object) {
+          var b = object[key];
+          return a === b && (a !== 0 || (1 / a == 1 / b));
+        };
+      }
+      return function(object) {
+        var length = props.length,
+            result = false;
+
+        while (length--) {
+          if (!(result = baseIsEqual(object[props[length]], func[props[length]], null, true))) {
+            break;
+          }
+        }
+        return result;
+      };
+    }
 
     /**
      * Converts the characters `&`, `<`, `>`, `"`, and `'` in `string` to their
@@ -9079,8 +5904,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {string} Returns the escaped string.
      * @example
      *
-     * _.escape('Moe, Larry & Curly');
-     * // => 'Moe, Larry &amp; Curly'
+     * _.escape('Fred, Wilma, & Pebbles');
+     * // => 'Fred, Wilma, &amp; Pebbles'
      */
     function escape(string) {
       return string == null ? '' : String(string).replace(reUnescapedHtml, escapeHtmlChar);
@@ -9096,8 +5921,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {*} Returns `value`.
      * @example
      *
-     * var moe = { 'name': 'moe' };
-     * moe === _.identity(moe);
+     * var object = { 'name': 'fred' };
+     * _.identity(object) === object;
      * // => true
      */
     function identity(value) {
@@ -9105,51 +5930,71 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     }
 
     /**
-     * Adds function properties of a source object to the `lodash` function and
-     * chainable wrapper.
+     * Adds function properties of a source object to the destination object.
+     * If `object` is a function methods will be added to its prototype as well.
      *
      * @static
      * @memberOf _
      * @category Utilities
-     * @param {Object} object The object of function properties to add to `lodash`.
-     * @param {Object} object The object of function properties to add to `lodash`.
+     * @param {Function|Object} [object=lodash] object The destination object.
+     * @param {Object} source The object of functions to add.
+     * @param {Object} [options] The options object.
+     * @param {boolean} [options.chain=true] Specify whether the functions added are chainable.
      * @example
      *
-     * _.mixin({
-     *   'capitalize': function(string) {
-     *     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-     *   }
-     * });
+     * function capitalize(string) {
+     *   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+     * }
      *
-     * _.capitalize('moe');
-     * // => 'Moe'
+     * _.mixin({ 'capitalize': capitalize });
+     * _.capitalize('fred');
+     * // => 'Fred'
      *
-     * _('moe').capitalize();
-     * // => 'Moe'
+     * _('fred').capitalize().value();
+     * // => 'Fred'
+     *
+     * _.mixin({ 'capitalize': capitalize }, { 'chain': false });
+     * _('fred').capitalize();
+     * // => 'Fred'
      */
-    function mixin(object, source) {
-      var ctor = object,
-          isFunc = !source || isFunction(ctor);
+    function mixin(object, source, options) {
+      var chain = true,
+          methodNames = source && functions(source);
 
-      if (!source) {
+      if (!source || (!options && !methodNames.length)) {
+        if (options == null) {
+          options = source;
+        }
         ctor = lodashWrapper;
         source = object;
         object = lodash;
+        methodNames = functions(source);
       }
-      forEach(functions(source), function(methodName) {
+      if (options === false) {
+        chain = false;
+      } else if (isObject(options) && 'chain' in options) {
+        chain = options.chain;
+      }
+      var ctor = object,
+          isFunc = isFunction(ctor);
+
+      forEach(methodNames, function(methodName) {
         var func = object[methodName] = source[methodName];
         if (isFunc) {
           ctor.prototype[methodName] = function() {
-            var value = this.__wrapped__,
+            var chainAll = this.__chain__,
+                value = this.__wrapped__,
                 args = [value];
 
             push.apply(args, arguments);
             var result = func.apply(object, args);
-            if (value && typeof value == 'object' && value === result) {
-              return this;
+            if (chain || chainAll) {
+              if (value === result && isObject(result)) {
+                return this;
+              }
+              result = new ctor(result);
+              result.__chain__ = chainAll;
             }
-            result = new ctor(result);
-            result.__chain__ = this.__chain__;
             return result;
           };
         }
@@ -9174,6 +6019,39 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     }
 
     /**
+     * A no-operation function.
+     *
+     * @static
+     * @memberOf _
+     * @category Utilities
+     * @example
+     *
+     * var object = { 'name': 'fred' };
+     * _.noop(object) === undefined;
+     * // => true
+     */
+    function noop() {
+      // no operation performed
+    }
+
+    /**
+     * Gets the number of milliseconds that have elapsed since the Unix epoch
+     * (1 January 1970 00:00:00 UTC).
+     *
+     * @static
+     * @memberOf _
+     * @category Utilities
+     * @example
+     *
+     * var stamp = _.now();
+     * _.defer(function() { console.log(_.now() - stamp); });
+     * // => logs the number of milliseconds it took for the deferred function to be called
+     */
+    var now = isNative(now = Date.now) && now || function() {
+      return new Date().getTime();
+    };
+
+    /**
      * Converts the given value into an integer of the specified radix.
      * If `radix` is `undefined` or `0` a `radix` of `10` is used unless the
      * `value` is a hexadecimal, in which case a `radix` of `16` is used.
@@ -9193,9 +6071,39 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * // => 8
      */
     var parseInt = nativeParseInt(whitespace + '08') == 8 ? nativeParseInt : function(value, radix) {
-      // Firefox and Opera still follow the ES3 specified implementation of `parseInt`
+      // Firefox < 21 and Opera < 15 follow the ES3 specified implementation of `parseInt`
       return nativeParseInt(isString(value) ? value.replace(reLeadingSpacesAndZeros, '') : value, radix || 0);
     };
+
+    /**
+     * Creates a "_.pluck" style function, which returns the `key` value of a
+     * given object.
+     *
+     * @static
+     * @memberOf _
+     * @category Utilities
+     * @param {string} key The name of the property to retrieve.
+     * @returns {Function} Returns the new function.
+     * @example
+     *
+     * var characters = [
+     *   { 'name': 'fred',   'age': 40 },
+     *   { 'name': 'barney', 'age': 36 }
+     * ];
+     *
+     * var getName = _.property('name');
+     *
+     * _.map(characters, getName);
+     * // => ['barney', 'fred']
+     *
+     * _.sortBy(characters, getName);
+     * // => [{ 'name': 'barney', 'age': 36 }, { 'name': 'fred',   'age': 40 }]
+     */
+    function property(key) {
+      return function(object) {
+        return object[key];
+      };
+    }
 
     /**
      * Produces a random number between `min` and `max` (inclusive). If only one
@@ -9248,14 +6156,15 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       } else {
         max = +max || 0;
       }
-      var rand = nativeRandom();
-      return (floating || min % 1 || max % 1)
-        ? nativeMin(min + (rand * (max - min + parseFloat('1e-' + ((rand +'').length - 1)))), max)
-        : min + floor(rand * (max - min + 1));
+      if (floating || min % 1 || max % 1) {
+        var rand = nativeRandom();
+        return nativeMin(min + (rand * (max - min + parseFloat('1e-' + ((rand +'').length - 1)))), max);
+      }
+      return baseRandom(min, max);
     }
 
     /**
-     * Resolves the value of `property` on `object`. If `property` is a function
+     * Resolves the value of property `key` on `object`. If `key` is a function
      * it will be invoked with the `this` binding of `object` and its result returned,
      * else the property value is returned. If `object` is falsey then `undefined`
      * is returned.
@@ -9264,7 +6173,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @memberOf _
      * @category Utilities
      * @param {Object} object The object to inspect.
-     * @param {string} property The property to get the value of.
+     * @param {string} key The name of the property to resolve.
      * @returns {*} Returns the resolved value.
      * @example
      *
@@ -9281,10 +6190,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * _.result(object, 'stuff');
      * // => 'nonsense'
      */
-    function result(object, property) {
+    function result(object, key) {
       if (object) {
-        var value = object[property];
-        return isFunction(value) ? object[property]() : value;
+        var value = object[key];
+        return isFunction(value) ? object[key]() : value;
       }
     }
 
@@ -9296,7 +6205,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * debugging. See http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl
      *
      * For more information on precompiling templates see:
-     * http://lodash.com/#custom-builds
+     * http://lodash.com/custom-builds
      *
      * For more information on Chrome extension sandboxes see:
      * http://developer.chrome.com/stable/extensions/sandboxingEval.html
@@ -9319,8 +6228,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      *
      * // using the "interpolate" delimiter to create a compiled template
      * var compiled = _.template('hello <%= name %>');
-     * compiled({ 'name': 'moe' });
-     * // => 'hello moe'
+     * compiled({ 'name': 'fred' });
+     * // => 'hello fred'
      *
      * // using the "escape" delimiter to escape HTML in data property values
      * _.template('<b><%- value %></b>', { 'value': '<script>' });
@@ -9328,16 +6237,16 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      *
      * // using the "evaluate" delimiter to generate HTML
      * var list = '<% _.forEach(people, function(name) { %><li><%- name %></li><% }); %>';
-     * _.template(list, { 'people': ['moe', 'larry'] });
-     * // => '<li>moe</li><li>larry</li>'
+     * _.template(list, { 'people': ['fred', 'barney'] });
+     * // => '<li>fred</li><li>barney</li>'
      *
      * // using the ES6 delimiter as an alternative to the default "interpolate" delimiter
-     * _.template('hello ${ name }', { 'name': 'curly' });
-     * // => 'hello curly'
+     * _.template('hello ${ name }', { 'name': 'pebbles' });
+     * // => 'hello pebbles'
      *
      * // using the internal `print` function in "evaluate" delimiters
-     * _.template('<% print("hello " + name); %>!', { 'name': 'larry' });
-     * // => 'hello larry!'
+     * _.template('<% print("hello " + name); %>!', { 'name': 'barney' });
+     * // => 'hello barney!'
      *
      * // using a custom template delimiters
      * _.templateSettings = {
@@ -9348,9 +6257,9 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * // => 'hello mustache!'
      *
      * // using the `imports` option to import jQuery
-     * var list = '<% $.each(people, function(name) { %><li><%- name %></li><% }); %>';
-     * _.template(list, { 'people': ['moe', 'larry'] }, { 'imports': { '$': jQuery } });
-     * // => '<li>moe</li><li>larry</li>'
+     * var list = '<% jq.each(people, function(name) { %><li><%- name %></li><% }); %>';
+     * _.template(list, { 'people': ['fred', 'barney'] }, { 'imports': { 'jq': jQuery } });
+     * // => '<li>fred</li><li>barney</li>'
      *
      * // using the `sourceURL` option to specify a custom sourceURL for the template
      * var compiled = _.template('hello <%= name %>', null, { 'sourceURL': '/basic/greeting.jst' });
@@ -9380,7 +6289,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       // and Laura Doktorova's doT.js
       // https://github.com/olado/doT
       var settings = lodash.templateSettings;
-      text || (text = '');
+      text = String(text || '');
 
       // avoid missing dependencies when `iteratorTemplate` is not defined
       options = defaults({}, options, settings);
@@ -9521,8 +6430,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {string} Returns the unescaped string.
      * @example
      *
-     * _.unescape('Moe, Larry &amp; Curly');
-     * // => 'Moe, Larry & Curly'
+     * _.unescape('Fred, Barney &amp; Pebbles');
+     * // => 'Fred, Barney & Pebbles'
      */
     function unescape(string) {
       return string == null ? '' : String(string).replace(reEscapedHtml, unescapeHtmlChar);
@@ -9562,18 +6471,18 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {Object} Returns the wrapper object.
      * @example
      *
-     * var stooges = [
-     *   { 'name': 'moe', 'age': 40 },
-     *   { 'name': 'larry', 'age': 50 },
-     *   { 'name': 'curly', 'age': 60 }
+     * var characters = [
+     *   { 'name': 'barney',  'age': 36 },
+     *   { 'name': 'fred',    'age': 40 },
+     *   { 'name': 'pebbles', 'age': 1 }
      * ];
      *
-     * var youngest = _.chain(stooges)
+     * var youngest = _.chain(characters)
      *     .sortBy('age')
-     *     .map(function(stooge) { return stooge.name + ' is ' + stooge.age; })
+     *     .map(function(chr) { return chr.name + ' is ' + chr.age; })
      *     .first()
      *     .value();
-     * // => 'moe is 40'
+     * // => 'pebbles is 1'
      */
     function chain(value) {
       value = new lodashWrapper(value);
@@ -9596,12 +6505,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @example
      *
      * _([1, 2, 3, 4])
-     *  .filter(function(num) { return num % 2 == 0; })
-     *  .tap(function(array) { console.log(array); })
-     *  .map(function(num) { return num * num; })
+     *  .tap(function(array) { array.pop(); })
+     *  .reverse()
      *  .value();
-     * // => // [2, 4] (logged)
-     * // => [4, 16]
+     * // => [3, 2, 1]
      */
     function tap(value, interceptor) {
       interceptor(value);
@@ -9617,21 +6524,21 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @returns {*} Returns the wrapper object.
      * @example
      *
-     * var stooges = [
-     *   { 'name': 'moe', 'age': 40 },
-     *   { 'name': 'larry', 'age': 50 }
+     * var characters = [
+     *   { 'name': 'barney', 'age': 36 },
+     *   { 'name': 'fred',   'age': 40 }
      * ];
      *
      * // without explicit chaining
-     * _(stooges).first();
-     * // => { 'name': 'moe', 'age': 40 }
+     * _(characters).first();
+     * // => { 'name': 'barney', 'age': 36 }
      *
      * // with explicit chaining
-     * _(stooges).chain()
+     * _(characters).chain()
      *   .first()
      *   .pick('age')
-     *   .value()
-     * // => { 'age': 40 }
+     *   .value();
+     * // => { 'age': 36 }
      */
     function wrapperChain() {
       this.__chain__ = true;
@@ -9683,7 +6590,9 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     lodash.chain = chain;
     lodash.compact = compact;
     lodash.compose = compose;
+    lodash.constant = constant;
     lodash.countBy = countBy;
+    lodash.create = create;
     lodash.createCallback = createCallback;
     lodash.curry = curry;
     lodash.debounce = debounce;
@@ -9708,6 +6617,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     lodash.invoke = invoke;
     lodash.keys = keys;
     lodash.map = map;
+    lodash.mapValues = mapValues;
     lodash.max = max;
     lodash.memoize = memoize;
     lodash.merge = merge;
@@ -9719,6 +6629,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     lodash.partialRight = partialRight;
     lodash.pick = pick;
     lodash.pluck = pluck;
+    lodash.property = property;
     lodash.pull = pull;
     lodash.range = range;
     lodash.reject = reject;
@@ -9737,6 +6648,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     lodash.where = where;
     lodash.without = without;
     lodash.wrap = wrap;
+    lodash.xor = xor;
     lodash.zip = zip;
     lodash.zipObject = zipObject;
 
@@ -9793,6 +6705,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     lodash.lastIndexOf = lastIndexOf;
     lodash.mixin = mixin;
     lodash.noConflict = noConflict;
+    lodash.noop = noop;
+    lodash.now = now;
     lodash.parseInt = parseInt;
     lodash.random = random;
     lodash.reduce = reduce;
@@ -9816,20 +6730,15 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     lodash.include = contains;
     lodash.inject = reduce;
 
-    forOwn(lodash, function(func, methodName) {
-      if (!lodash.prototype[methodName]) {
-        lodash.prototype[methodName] = function() {
-          var args = [this.__wrapped__],
-              chainAll = this.__chain__;
-
-          push.apply(args, arguments);
-          var result = func.apply(lodash, args);
-          return chainAll
-            ? new lodashWrapper(result, chainAll)
-            : result;
-        };
-      }
-    });
+    mixin(function() {
+      var source = {}
+      forOwn(lodash, function(func, methodName) {
+        if (!lodash.prototype[methodName]) {
+          source[methodName] = func;
+        }
+      });
+      return source;
+    }(), false);
 
     /*--------------------------------------------------------------------------*/
 
@@ -9865,7 +6774,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
      * @memberOf _
      * @type string
      */
-    lodash.VERSION = '2.2.1';
+    lodash.VERSION = '2.4.1';
 
     // add "Chaining" functions to the wrapper
     lodash.prototype.chain = wrapperChain;
@@ -9886,7 +6795,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       };
     });
 
-    // add `Array` functions that return the wrapped value
+    // add `Array` functions that return the existing wrapped value
     forEach(['push', 'reverse', 'sort', 'unshift'], function(methodName) {
       var func = arrayRef[methodName];
       lodash.prototype[methodName] = function() {
@@ -9911,12 +6820,11 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
   // expose Lo-Dash
   var _ = runInContext();
 
-  // some AMD build optimizers, like r.js, check for condition patterns like the following:
+  // some AMD build optimizers like r.js check for condition patterns like the following:
   if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) {
     // Expose Lo-Dash to the global object even when an AMD loader is present in
-    // case Lo-Dash was injected by a third-party script and not intended to be
-    // loaded as a module. The global assignment can be reverted in the Lo-Dash
-    // module by its `noConflict()` method.
+    // case Lo-Dash is loaded with a RequireJS shim config.
+    // See http://requirejs.org/docs/api.html#config-shim
     root._ = _;
 
     // define as an anonymous module so, through path mapping, it can be
@@ -9942,7 +6850,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
   }
 }.call(this));
 
-},{}],6:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 //! moment.js
 //! version : 2.4.0
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -12258,4 +9166,3616 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     }
 }).call(this);
 
-},{}]},{},[1])
+},{}],5:[function(require,module,exports){
+(function() {
+  var api, classes, diminishingReturns, events, gear, gearTypes, moment, repeat, _;
+
+  _ = require('lodash');
+
+  api = module.exports;
+
+  moment = require('moment');
+
+  /*
+    ---------------------------------------------------------------
+    Gear (Weapons, Armor, Head, Shield)
+    Item definitions: {index, text, notes, value, str, def, int, per, classes, type}
+    ---------------------------------------------------------------
+  */
+
+
+  classes = ['warrior', 'rogue', 'healer', 'wizard'];
+
+  gearTypes = ['armor', 'weapon', 'shield', 'head'];
+
+  events = {
+    winter: {
+      start: '2013-12-31',
+      end: '2014-02-01'
+    }
+  };
+
+  gear = {
+    weapon: {
+      base: {
+        0: {
+          text: "No Weapon",
+          notes: 'No Weapon.',
+          value: 0
+        }
+      },
+      warrior: {
+        0: {
+          text: "Training Sword",
+          notes: 'Practice weapon. Confers no benefit.',
+          value: 0
+        },
+        1: {
+          text: "Sword",
+          notes: 'Common soldier\'s blade. Increases STR by 3.',
+          str: 3,
+          value: 20
+        },
+        2: {
+          text: "Axe",
+          notes: 'Double-bitted battle-axe. Increases STR by 6.',
+          str: 6,
+          value: 30
+        },
+        3: {
+          text: "Morning Star",
+          notes: 'Heavy club with brutal spikes. Increases STR by 9.',
+          str: 9,
+          value: 45
+        },
+        4: {
+          text: "Sapphire Blade",
+          notes: 'Sword whose edge bites like the north wind. Increases STR by 12.',
+          str: 12,
+          value: 65
+        },
+        5: {
+          text: "Ruby Sword",
+          notes: 'Weapon whose forge-glow never fades. Increases STR by 15.',
+          str: 15,
+          value: 90
+        },
+        6: {
+          text: "Golden Sword",
+          notes: 'Bane of creatures of darkness. Increases STR by 18.',
+          str: 18,
+          value: 120,
+          last: true
+        }
+      },
+      rogue: {
+        0: {
+          text: "Dagger",
+          notes: 'A rogue\'s most basic weapon. Confers no benefit.',
+          str: 0,
+          value: 0
+        },
+        1: {
+          text: "Short Sword",
+          notes: 'Light, concealable blade. Increases STR by 2.',
+          str: 2,
+          value: 20
+        },
+        2: {
+          text: "Scimitar",
+          notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.',
+          str: 3,
+          value: 35
+        },
+        3: {
+          text: "Kukri",
+          notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.',
+          str: 4,
+          value: 50
+        },
+        4: {
+          text: "Nunchaku",
+          notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.',
+          str: 6,
+          value: 70
+        },
+        5: {
+          text: "Ninja-to",
+          notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.',
+          str: 8,
+          value: 90
+        },
+        6: {
+          text: "Hook Sword",
+          notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.',
+          str: 10,
+          value: 120,
+          last: true
+        }
+      },
+      wizard: {
+        0: {
+          twoHanded: true,
+          text: "Apprentice Staff",
+          notes: 'Practice staff. Confers no benefit.',
+          value: 0
+        },
+        1: {
+          twoHanded: true,
+          text: "Wooden Staff",
+          notes: 'Basic implement of carven wood. Increases INT by 3 and PER by 1.',
+          int: 3,
+          per: 1,
+          value: 30
+        },
+        2: {
+          twoHanded: true,
+          text: "Jeweled Staff",
+          notes: 'Focuses power through a precious stone. Increases INT by 6 and PER by 2.',
+          int: 6,
+          per: 2,
+          value: 50
+        },
+        3: {
+          twoHanded: true,
+          text: "Iron Staff",
+          notes: 'Plated in metal to channel heat, cold, and lightning. Increases INT by 9 and PER by 3.',
+          int: 9,
+          per: 3,
+          value: 80
+        },
+        4: {
+          twoHanded: true,
+          text: "Brass Staff",
+          notes: 'As powerful as it is heavy. Increases INT by 12 and PER by 5.',
+          int: 12,
+          per: 5,
+          value: 120
+        },
+        5: {
+          twoHanded: true,
+          text: "Archmage Staff",
+          notes: 'Assists in weaving the most complex of spells. Increases INT by 15 and PER by 7.',
+          int: 15,
+          per: 7,
+          value: 160
+        },
+        6: {
+          twoHanded: true,
+          text: "Golden Staff",
+          notes: 'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 9.',
+          int: 18,
+          per: 9,
+          value: 200,
+          last: true
+        }
+      },
+      healer: {
+        0: {
+          text: "Novice Rod",
+          notes: 'For healers in training. Confers no benefit.',
+          value: 0
+        },
+        1: {
+          text: "Acolyte Rod",
+          notes: 'Crafted during a healer\'s initiation. Increases INT by 2.',
+          int: 2,
+          value: 20
+        },
+        2: {
+          text: "Quartz Rod",
+          notes: 'Topped with a gem bearing curative properties. Increases INT by 3.',
+          int: 3,
+          value: 30
+        },
+        3: {
+          text: "Amethyst Rod",
+          notes: 'Purifies poison at a touch. Increases INT by 5.',
+          int: 5,
+          value: 45
+        },
+        4: {
+          text: "Physician Rod",
+          notes: 'As much a badge of office as a healing tool. Increases INT by 7.',
+          int: 7,
+          value: 65
+        },
+        5: {
+          text: "Royal Scepter",
+          notes: 'Fit to grace the hand of a monarch, or of one who stands at a monarch\'s right hand. Increases INT by 9.',
+          int: 9,
+          value: 90
+        },
+        6: {
+          text: "Golden Scepter",
+          notes: 'Soothes the pain of all who look upon it. Increases INT by 11.',
+          int: 11,
+          value: 120,
+          last: true
+        }
+      },
+      special: {
+        0: {
+          text: "Dark Souls Blade",
+          notes: 'Feasts upon foes\' life essence to power its wicked strokes. Increases STR by 20.',
+          str: 20,
+          value: 150,
+          canOwn: (function(u) {
+            var _ref;
+
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 70;
+          })
+        },
+        1: {
+          text: "Crystal Blade",
+          notes: 'Its glittering facets tell the tale of a hero. Increases all attributes by 6.',
+          str: 6,
+          per: 6,
+          con: 6,
+          int: 6,
+          value: 170,
+          canOwn: (function(u) {
+            var _ref;
+
+            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 4;
+          })
+        },
+        2: {
+          text: "Stephen Weber's Shaft of the Dragon",
+          notes: 'Feel the potency of the dragon surge from within! Increases STR and PER by 25 each.',
+          str: 25,
+          per: 25,
+          value: 200,
+          canOwn: (function(u) {
+            var _ref;
+
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+          })
+        },
+        3: {
+          text: "Mustaine's Milestone Mashing Morning Star",
+          notes: "Meetings, monsters, malaise: managed! Mash! Increases STR, INT, and CON by 17 each.",
+          str: 17,
+          int: 17,
+          con: 17,
+          value: 200,
+          canOwn: (function(u) {
+            var _ref;
+
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+          })
+        },
+        yeti: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'warrior';
+          }),
+          text: "Yeti-Tamer Spear",
+          notes: 'Limited Edition 2013 Winter Gear! This spear allows its user to command any yeti. Increases STR by 15.',
+          str: 15,
+          value: 90
+        },
+        ski: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'rogue';
+          }),
+          text: "Ski-sassin Pole",
+          notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.',
+          str: 8,
+          value: 90
+        },
+        candycane: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'wizard';
+          }),
+          twoHanded: true,
+          text: "Candy Cane Staff",
+          notes: "Limited Edition 2013 Winter Gear! A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases INT by 15 and PER by 7.",
+          int: 15,
+          per: 7,
+          value: 160
+        },
+        snowflake: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'healer';
+          }),
+          text: "Snowflake Wand",
+          notes: 'Limited Edition 2013 Winter Gear! This wand sparkles with unlimited healing power. Increases INT by 9.',
+          int: 9,
+          value: 90
+        }
+      }
+    },
+    armor: {
+      base: {
+        0: {
+          text: "Plain Clothing",
+          notes: 'Ordinary clothing. Confers no benefit.',
+          value: 0
+        }
+      },
+      warrior: {
+        1: {
+          text: "Leather Armor",
+          notes: 'Jerkin of sturdy boiled hide. Increases CON by 3.',
+          con: 3,
+          value: 30
+        },
+        2: {
+          text: "Chain Mail",
+          notes: 'Armor of interlocked metal rings. Increases CON by 5.',
+          con: 5,
+          value: 45
+        },
+        3: {
+          text: "Plate Armor",
+          notes: 'Suit of all-encasing steel, the pride of knights. Increases CON by 7.',
+          con: 7,
+          value: 65
+        },
+        4: {
+          text: "Red Armor",
+          notes: 'Heavy plate glowing with defensive enchantments. Increases CON by 9.',
+          con: 9,
+          value: 90
+        },
+        5: {
+          text: "Golden Armor",
+          notes: 'Looks ceremonial, but no known blade can pierce it. Increases CON by 11.',
+          con: 11,
+          value: 120,
+          last: true
+        }
+      },
+      rogue: {
+        1: {
+          text: "Oiled Leather",
+          notes: 'Leather armor treated to reduce noise. Increases PER by 6.',
+          per: 6,
+          value: 30
+        },
+        2: {
+          text: "Black Leather",
+          notes: 'Colored with dark dye to blend into shadows. Increases PER by 9',
+          per: 9,
+          value: 45
+        },
+        3: {
+          text: "Camouflage Vest",
+          notes: 'Equally discreet in dungeon or wilderness. Increases PER by 12.',
+          per: 12,
+          value: 65
+        },
+        4: {
+          text: "Penumbral Armor",
+          notes: 'Wraps the wearer in a veil of twilight. Increases PER by 15.',
+          per: 15,
+          value: 90
+        },
+        5: {
+          text: "Umbral Armor",
+          notes: 'Allows stealth in the open in broad daylight. Increases PER by 18.',
+          per: 18,
+          value: 120,
+          last: true
+        }
+      },
+      wizard: {
+        1: {
+          text: "Magician Robe",
+          notes: 'Hedge-mage\'s outfit. Increases INT by 2.',
+          int: 2,
+          value: 30
+        },
+        2: {
+          text: "Wizard Robe",
+          notes: 'Clothes for a wandering wonder-worker. Increases INT by 4.',
+          int: 4,
+          value: 45
+        },
+        3: {
+          text: "Robe of Mysteries",
+          notes: 'Denotes initiation into elite secrets. Increases INT by 6.',
+          int: 6,
+          value: 65
+        },
+        4: {
+          text: "Archmage Robe",
+          notes: 'Spirits and elementals bow before it. Increases INT by 9.',
+          int: 9,
+          value: 90
+        },
+        5: {
+          text: "Royal Magus Robe",
+          notes: 'Symbol of the power behind the throne. Increases INT by 12.',
+          int: 12,
+          value: 120,
+          last: true
+        }
+      },
+      healer: {
+        1: {
+          text: "Acolyte Robe",
+          notes: 'Garment showing humility and purpose. Increases CON by 6.',
+          con: 6,
+          value: 30
+        },
+        2: {
+          text: "Medic Robe",
+          notes: 'Worn by those dedicated to tending the wounded in battle. Increases CON by 9.',
+          con: 9,
+          value: 45
+        },
+        3: {
+          text: "Defender Mantle",
+          notes: 'Turns the healer\'s own magics inward to fend off harm. Increases CON by 12.',
+          con: 12,
+          value: 65
+        },
+        4: {
+          text: "Physician Mantle",
+          notes: 'Projects authority and dissipates curses. Increases CON by 15.',
+          con: 15,
+          value: 90
+        },
+        5: {
+          text: "Royal Mantle",
+          notes: 'Attire of those who have saved the lives of kings. Increases CON by 18.',
+          con: 18,
+          value: 120,
+          last: true
+        }
+      },
+      special: {
+        0: {
+          text: "Shade Armor",
+          notes: 'Screams when struck, for it feels pain in its wearer\'s place. Increases CON by 20.',
+          con: 20,
+          value: 150,
+          canOwn: (function(u) {
+            var _ref;
+
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+          })
+        },
+        1: {
+          text: "Crystal Armor",
+          notes: 'Its tireless power inures the wearer to mundane discomfort. Increases all attributes by 6.',
+          con: 6,
+          str: 6,
+          per: 6,
+          int: 6,
+          value: 170,
+          canOwn: (function(u) {
+            var _ref;
+
+            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 2;
+          })
+        },
+        2: {
+          text: "Jean Chalard's Noble Tunic",
+          notes: 'Makes you extra fluffy! Increases CON and INT by 25 each.',
+          int: 25,
+          con: 25,
+          value: 200,
+          canOwn: (function(u) {
+            var _ref;
+
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+          })
+        },
+        yeti: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'warrior';
+          }),
+          text: "Yeti-Tamer Robe",
+          notes: 'Limited Edition 2013 Winter Gear! Fuzzy and fierce. Increases CON by 9.',
+          con: 9,
+          value: 90
+        },
+        ski: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'rogue';
+          }),
+          text: "Ski-sassin Parka",
+          notes: 'Limited Edition 2013 Winter Gear! Full of secret daggers and ski trail maps. Increases PER by 15.',
+          per: 15,
+          value: 90
+        },
+        candycane: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'wizard';
+          }),
+          text: "Candy Cane Robe",
+          notes: 'Limited Edition 2013 Winter Gear! Spun from sugar and silk. Increases INT by 9.',
+          int: 9,
+          value: 90
+        },
+        snowflake: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'healer';
+          }),
+          text: "Snowflake Robe",
+          notes: 'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.',
+          con: 15,
+          value: 90
+        }
+      }
+    },
+    head: {
+      base: {
+        0: {
+          text: "No Helm",
+          notes: 'No headgear.',
+          value: 0
+        }
+      },
+      warrior: {
+        1: {
+          text: "Leather Helm",
+          notes: 'Cap of sturdy boiled hide. Increases STR by 2.',
+          str: 2,
+          value: 15
+        },
+        2: {
+          text: "Chain Coif",
+          notes: 'Hood of interlocked metal rings. Increases STR by 4.',
+          str: 4,
+          value: 25
+        },
+        3: {
+          text: "Plate Helm",
+          notes: 'Thick steel helmet, proof against any blow. Increases STR by 6.',
+          str: 6,
+          value: 40
+        },
+        4: {
+          text: "Red Helm",
+          notes: 'Set with rubies for power, and glows when the wearer is angered. Increases STR by 9.',
+          str: 9,
+          value: 60
+        },
+        5: {
+          text: "Golden Helm",
+          notes: 'Regal crown bound to shining armor. Increases STR by 12.',
+          str: 12,
+          value: 80,
+          last: true
+        }
+      },
+      rogue: {
+        1: {
+          text: "Leather Hood",
+          notes: 'Basic protective cowl. Increases PER by 2.',
+          per: 2,
+          value: 15
+        },
+        2: {
+          text: "Black Leather Hood",
+          notes: 'Useful for both defense and disguise. Increases PER by 4.',
+          per: 4,
+          value: 25
+        },
+        3: {
+          text: "Camouflage Hood",
+          notes: 'Rugged, but doesn\'t impede hearing. Increases PER by 6.',
+          per: 6,
+          value: 40
+        },
+        4: {
+          text: "Penumbral Hood",
+          notes: 'Grants perfect vision in darkness. Increases PER by 9.',
+          per: 9,
+          value: 60
+        },
+        5: {
+          text: "Umbral Hood",
+          notes: 'Conceals even thoughts from those who would probe them. Increases PER by 12.',
+          per: 12,
+          value: 80,
+          last: true
+        }
+      },
+      wizard: {
+        1: {
+          text: "Magician Hat",
+          notes: 'Simple, comfortable, and fashionable. Increases PER by 2.',
+          per: 2,
+          value: 15
+        },
+        2: {
+          text: "Cornuthaum",
+          notes: 'Traditional headgear of the itinerant wizard. Increases PER by 3.',
+          per: 3,
+          value: 25
+        },
+        3: {
+          text: "Astrologer Hat",
+          notes: 'Adorned with the rings of Saturn. Increases PER by 5.',
+          per: 5,
+          value: 40
+        },
+        4: {
+          text: "Archmage Hat",
+          notes: 'Focuses the mind for intensive spellcasting. Increases PER by 7.',
+          per: 7,
+          value: 60
+        },
+        5: {
+          text: "Royal Magus Hat",
+          notes: 'Shows authority over fortune, weather, and lesser mages. Increases PER by 9.',
+          per: 9,
+          value: 80,
+          last: true
+        }
+      },
+      healer: {
+        1: {
+          text: "Quartz Circlet",
+          notes: 'Jeweled headpiece, for focus on the task at hand. Increases INT by 2.',
+          int: 2,
+          value: 15
+        },
+        2: {
+          text: "Amethyst Circlet",
+          notes: 'A taste of luxury for a humble profession. Increases INT by 3.',
+          int: 3,
+          value: 25
+        },
+        3: {
+          text: "Sapphire Circlet",
+          notes: 'Shines to let sufferers know their salvation is at hand. Increases INT by 5.',
+          int: 5,
+          value: 40
+        },
+        4: {
+          text: "Emerald Diadem",
+          notes: 'Emits an aura of life and growth. Increases INT by 7.',
+          int: 7,
+          value: 60
+        },
+        5: {
+          text: "Royal Diadem",
+          notes: 'For king, queen, or miracle-worker. Increases INT by 9.',
+          int: 9,
+          value: 80,
+          last: true
+        }
+      },
+      special: {
+        0: {
+          text: "Shade Helm",
+          notes: 'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.',
+          int: 20,
+          value: 150,
+          canOwn: (function(u) {
+            var _ref;
+
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+          })
+        },
+        1: {
+          text: "Crystal Helm",
+          notes: 'The favored crown of those who lead by example. Increases all attributes by 6.',
+          con: 6,
+          str: 6,
+          per: 6,
+          int: 6,
+          value: 170,
+          canOwn: (function(u) {
+            var _ref;
+
+            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 3;
+          })
+        },
+        2: {
+          text: "Nameless Helm",
+          notes: 'A testament to those who gave of themselves while asking nothing in return. Increases INT and STR by 25 each.',
+          int: 25,
+          str: 25,
+          value: 200,
+          canOwn: (function(u) {
+            var _ref;
+
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
+          })
+        },
+        nye: {
+          event: events.winter,
+          text: "Absurd Party Hat",
+          notes: "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!",
+          value: 0
+        },
+        yeti: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'warrior';
+          }),
+          text: "Yeti-Tamer Helm",
+          notes: 'Limited Edition 2013 Winter Gear! An adorably fearsome hat. Increases STR by 9.',
+          str: 9,
+          value: 60
+        },
+        ski: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'rogue';
+          }),
+          text: "Ski-sassin Helm",
+          notes: "Limited Edition 2013 Winter Gear! Keeps the wearer's identity secret... and their face toasty. Increases PER by 9.",
+          per: 9,
+          value: 60
+        },
+        candycane: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'wizard';
+          }),
+          text: "Candy Cane Hat",
+          notes: "Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by 7.",
+          per: 7,
+          value: 60
+        },
+        snowflake: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'healer';
+          }),
+          text: "Snowflake Crown",
+          notes: 'Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by 7.',
+          int: 7,
+          value: 60
+        }
+      }
+    },
+    shield: {
+      base: {
+        0: {
+          text: "No Off-Hand Equipment",
+          notes: 'No shield or second weapon.',
+          value: 0
+        }
+      },
+      warrior: {
+        1: {
+          text: "Wooden Shield",
+          notes: 'Round shield of thick wood. Increases CON by 2.',
+          con: 2,
+          value: 20
+        },
+        2: {
+          text: "Buckler",
+          notes: 'Light and sturdy, quick to bring to the defense. Increases CON by 3.',
+          con: 3,
+          value: 35
+        },
+        3: {
+          text: "Reinforced Shield",
+          notes: 'Made of wood but bolstered with metal bands. Increases CON by 5.',
+          con: 5,
+          value: 50
+        },
+        4: {
+          text: "Red Shield",
+          notes: 'Rebukes blows with a burst of flame. Increases CON by 7.',
+          con: 7,
+          value: 70
+        },
+        5: {
+          text: "Golden Shield",
+          notes: 'Shining badge of the vanguard. Increases CON by 9.',
+          con: 9,
+          value: 90,
+          last: true
+        }
+      },
+      rogue: {
+        0: {
+          text: "Dagger",
+          notes: 'A rogue\'s most basic weapon. Confers no benefit.',
+          str: 0,
+          value: 0
+        },
+        1: {
+          text: "Short Sword",
+          notes: 'Light, concealable blade. Increases STR by 2.',
+          str: 2,
+          value: 20
+        },
+        2: {
+          text: "Scimitar",
+          notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.',
+          str: 3,
+          value: 35
+        },
+        3: {
+          text: "Kukri",
+          notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.',
+          str: 4,
+          value: 50
+        },
+        4: {
+          text: "Nunchaku",
+          notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.',
+          str: 6,
+          value: 70
+        },
+        5: {
+          text: "Ninja-to",
+          notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.',
+          str: 8,
+          value: 90
+        },
+        6: {
+          text: "Hook Sword",
+          notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.',
+          str: 10,
+          value: 120,
+          last: true
+        }
+      },
+      wizard: {},
+      healer: {
+        1: {
+          text: "Medic Buckler",
+          notes: 'Easy to disengage, freeing a hand for bandaging. Increases CON by 2.',
+          con: 2,
+          value: 20
+        },
+        2: {
+          text: "Kite Shield",
+          notes: 'Tapered shield with the symbol of healing. Increases CON by 4.',
+          con: 4,
+          value: 35
+        },
+        3: {
+          text: "Protector Shield",
+          notes: 'Traditional shield of defender knights. Increases CON by 6.',
+          con: 6,
+          value: 50
+        },
+        4: {
+          text: "Savior Shield",
+          notes: 'Stops blows aimed at nearby innocents as well as those aimed at you. Increases CON by 9.',
+          con: 9,
+          value: 70
+        },
+        5: {
+          text: "Royal Shield",
+          notes: 'Bestowed upon those most dedicated to the kingdom\'s defense. Increases CON by 12.',
+          con: 12,
+          value: 90,
+          last: true
+        }
+      },
+      special: {
+        0: {
+          text: "Tormented Skull",
+          notes: 'Sees beyond the veil of death, and displays what it finds there for enemies to fear. Increases PER by 20.',
+          per: 20,
+          value: 150,
+          canOwn: (function(u) {
+            var _ref;
+
+            return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 45;
+          })
+        },
+        1: {
+          text: "Crystal Shield",
+          notes: 'Shatters arrows and deflects the words of naysayers. Increases all attributes by 6.',
+          con: 6,
+          str: 6,
+          per: 6,
+          int: 6,
+          value: 170,
+          canOwn: (function(u) {
+            var _ref;
+
+            return +((_ref = u.contributor) != null ? _ref.level : void 0) >= 5;
+          })
+        },
+        yeti: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'warrior';
+          }),
+          text: "Yeti-Tamer Shield",
+          notes: 'Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by 7.',
+          con: 7,
+          value: 70
+        },
+        ski: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'rogue';
+          }),
+          text: "Ski-sassin Pole",
+          notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.',
+          str: 8,
+          value: 90
+        },
+        snowflake: {
+          event: events.winter,
+          canOwn: (function(u) {
+            return u.stats["class"] === 'healer';
+          }),
+          text: "Snowflake Shield",
+          notes: 'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.',
+          con: 9,
+          value: 70
+        }
+      }
+    }
+  };
+
+  /*
+    The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
+    they are needed in different froms at different points in the app
+  */
+
+
+  api.gear = {
+    tree: gear,
+    flat: {}
+  };
+
+  _.each(gearTypes, function(type) {
+    return _.each(classes.concat(['base', 'special']), function(klass) {
+      return _.each(gear[type][klass], function(item, i) {
+        var key, _canOwn;
+
+        key = "" + type + "_" + klass + "_" + i;
+        _.defaults(item, {
+          type: type,
+          key: key,
+          klass: klass,
+          index: i,
+          str: 0,
+          int: 0,
+          per: 0,
+          con: 0
+        });
+        if (item.event) {
+          _canOwn = item.canOwn || (function() {
+            return true;
+          });
+          item.canOwn = function(u) {
+            return _canOwn(u) && ((u.items.gear.owned[key] != null) || (moment().isAfter(item.event.start) && moment().isBefore(item.event.end)));
+          };
+        }
+        return api.gear.flat[key] = item;
+      });
+    });
+  });
+
+  /*
+    ---------------------------------------------------------------
+    Potion
+    ---------------------------------------------------------------
+  */
+
+
+  api.potion = {
+    type: 'potion',
+    text: "Health Potion",
+    notes: "Recover 15 Health (Instant Use)",
+    value: 25,
+    key: 'potion'
+  };
+
+  /*
+     ---------------------------------------------------------------
+     Classes
+     ---------------------------------------------------------------
+  */
+
+
+  api.classes = classes;
+
+  /*
+     ---------------------------------------------------------------
+     Gear Types
+     ---------------------------------------------------------------
+  */
+
+
+  api.gearTypes = gearTypes;
+
+  /*
+    ---------------------------------------------------------------
+    Spells
+    ---------------------------------------------------------------
+    Text, notes, and mana are obvious. The rest:
+  
+    * {target}: one of [task, self, party, user]. This is very important, because if the cast() function is expecting one
+      thing and receives another, it will cause errors. `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
+      etc. Basically, use self for anything that's not [task, party, user] and is an instant-cast
+  
+    * {cast}: the function that's run to perform the ability's action. This is pretty slick - because this is exported to the
+      web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
+      own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
+      you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
+      spell is correct. Take a look at habitrpg/src/models/user.js and habitrpg/src/models/task.js for what attributes are
+      available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
+      so you'll want to iterate over them like: `_.each(target,function(member){...})`
+  
+    Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
+  */
+
+
+  diminishingReturns = function(bonus, max, halfway) {
+    if (halfway == null) {
+      halfway = max / 2;
+    }
+    return max * (bonus / (bonus + halfway));
+  };
+
+  api.spells = {
+    wizard: {
+      fireball: {
+        text: 'Burst of Flames',
+        mana: 10,
+        lvl: 11,
+        target: 'task',
+        notes: 'With a crack, flames burst from your staff, scorching a task. You deal high damage to the task, and gain additional experience (more experience for greens).',
+        cast: function(user, target) {
+          var bonus;
+
+          bonus = user._statsComputed.int * user.fns.crit('per');
+          target.value += diminishingReturns(bonus * .02, 4);
+          bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * .075);
+          user.stats.exp += diminishingReturns(bonus, 75);
+          if (user.party.quest.key) {
+            return user.party.quest.progress.up += diminishingReturns(bonus * .1, 50, 30);
+          }
+        }
+      },
+      mpheal: {
+        text: 'Ethereal Surge',
+        mana: 30,
+        lvl: 12,
+        target: 'party',
+        notes: "A flow of magical energy rushes from your hands and recharges your party. Your party recovers MP.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            var bonus;
+
+            bonus = Math.ceil(user._statsComputed.int * .1);
+            if (bonus > 25) {
+              bonus = 25;
+            }
+            return member.stats.mp += bonus;
+          });
+        }
+      },
+      earth: {
+        text: 'Earthquake',
+        mana: 35,
+        lvl: 13,
+        target: 'party',
+        notes: "The ground below your party's tasks cracks and shakes with extreme intensity, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            var _base, _ref;
+
+            if ((_ref = (_base = member.stats.buffs).int) == null) {
+              _base.int = 0;
+            }
+            return member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05);
+          });
+        }
+      },
+      frost: {
+        text: 'Chilling Frost',
+        mana: 40,
+        lvl: 14,
+        target: 'self',
+        notes: "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day.",
+        cast: function(user, target) {
+          return user.stats.buffs.streaks = true;
+        }
+      }
+    },
+    warrior: {
+      smash: {
+        text: 'Brutal Smash',
+        mana: 10,
+        lvl: 11,
+        target: 'task',
+        notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
+        cast: function(user, target) {
+          target.value += user._statsComputed.str * .01 * user.fns.crit('per');
+          if (user.party.quest.key) {
+            return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
+          }
+        }
+      },
+      defensiveStance: {
+        text: 'Defensive Stance',
+        mana: 25,
+        lvl: 12,
+        target: 'self',
+        notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day.",
+        cast: function(user, target) {
+          var _base, _ref;
+
+          if ((_ref = (_base = user.stats.buffs).con) == null) {
+            _base.con = 0;
+          }
+          return user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05);
+        }
+      },
+      valorousPresence: {
+        text: 'Valorous Presence',
+        mana: 20,
+        lvl: 13,
+        target: 'party',
+        notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            var _base, _ref;
+
+            if ((_ref = (_base = member.stats.buffs).str) == null) {
+              _base.str = 0;
+            }
+            return member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05);
+          });
+        }
+      },
+      intimidate: {
+        text: 'Intimidating Gaze',
+        mana: 15,
+        lvl: 14,
+        target: 'party',
+        notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            var _base, _ref;
+
+            if ((_ref = (_base = member.stats.buffs).con) == null) {
+              _base.con = 0;
+            }
+            return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .03);
+          });
+        }
+      }
+    },
+    rogue: {
+      pickPocket: {
+        text: 'Pickpocket',
+        mana: 10,
+        lvl: 11,
+        target: 'task',
+        notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (bluer) your task.",
+        cast: function(user, target) {
+          return user.stats.gp += (target.value < 0 ? 1 : target.value + 1) + user._statsComputed.per * .075;
+        }
+      },
+      backStab: {
+        text: 'Backstab',
+        mana: 15,
+        lvl: 12,
+        target: 'task',
+        notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit.",
+        cast: function(user, target) {
+          var bonus, _crit;
+
+          _crit = user.fns.crit('per', .3);
+          target.value += _crit * .03;
+          bonus = (target.value < 0 ? 1 : target.value + 1) * _crit;
+          user.stats.exp += bonus;
+          return user.stats.gp += bonus;
+        }
+      },
+      toolsOfTrade: {
+        text: 'Tools of the Trade',
+        mana: 25,
+        lvl: 13,
+        target: 'party',
+        notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks and chance of drops is buffed for a day.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            var _base, _ref;
+
+            if ((_ref = (_base = member.stats.buffs).per) == null) {
+              _base.per = 0;
+            }
+            return member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03);
+          });
+        }
+      },
+      stealth: {
+        text: 'Stealth',
+        mana: 45,
+        lvl: 14,
+        target: 'self',
+        notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception.",
+        cast: function(user, target) {
+          var _base, _ref;
+
+          if ((_ref = (_base = user.stats.buffs).stealth) == null) {
+            _base.stealth = 0;
+          }
+          return user.stats.buffs.stealth += Math.ceil(user._statsComputed.per * .03);
+        }
+      }
+    },
+    healer: {
+      heal: {
+        text: 'Healing Light',
+        mana: 15,
+        lvl: 11,
+        target: 'self',
+        notes: 'Light covers your body, healing your wounds. You gain a boost to your health.',
+        cast: function(user, target) {
+          user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075;
+          if (user.stats.hp > 50) {
+            return user.stats.hp = 50;
+          }
+        }
+      },
+      brightness: {
+        text: 'Searing Brightness',
+        mana: 15,
+        lvl: 12,
+        target: 'self',
+        notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced.",
+        cast: function(user, target) {
+          return _.each(user.tasks, function(target) {
+            if (target.type === 'reward') {
+              return;
+            }
+            return target.value += user._statsComputed.int * .006;
+          });
+        }
+      },
+      protectAura: {
+        text: 'Protective Aura',
+        mana: 30,
+        lvl: 13,
+        target: 'party',
+        notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            var _base, _ref;
+
+            if ((_ref = (_base = member.stats.buffs).con) == null) {
+              _base.con = 0;
+            }
+            return member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15);
+          });
+        }
+      },
+      heallAll: {
+        text: 'Blessing',
+        mana: 25,
+        lvl: 14,
+        target: 'party',
+        notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health.",
+        cast: function(user, target) {
+          return _.each(target, function(member) {
+            member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .04;
+            if (member.stats.hp > 50) {
+              return member.stats.hp = 50;
+            }
+          });
+        }
+      }
+    },
+    special: {
+      snowball: {
+        text: 'Snowball',
+        mana: 0,
+        value: 1,
+        target: 'user',
+        notes: "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day.",
+        cast: function(user, target) {
+          var _base, _ref;
+
+          target.stats.buffs.snowball = true;
+          if ((_ref = (_base = target.achievements).snowball) == null) {
+            _base.snowball = 0;
+          }
+          target.achievements.snowball++;
+          return user.items.special.snowball--;
+        }
+      },
+      salt: {
+        text: 'Salt',
+        mana: 0,
+        value: 5,
+        target: 'self',
+        notes: 'Someone has snowballed you. Ha ha, very funny. Now get this snow off me!',
+        cast: function(user, target) {
+          user.stats.buffs.snowball = false;
+          return user.stats.gp -= 5;
+        }
+      }
+    }
+  };
+
+  _.each(api.spells, function(spellClass) {
+    return _.each(spellClass, function(spell, key) {
+      var _cast;
+
+      spell.key = key;
+      _cast = spell.cast;
+      return spell.cast = function(user, target) {
+        _cast(user, target);
+        return user.stats.mp -= spell.mana;
+      };
+    });
+  });
+
+  api.special = api.spells.special;
+
+  /*
+    ---------------------------------------------------------------
+    Drops
+    ---------------------------------------------------------------
+  */
+
+
+  api.eggs = {
+    Wolf: {
+      text: 'Wolf',
+      adjective: 'loyal'
+    },
+    TigerCub: {
+      text: 'Tiger Cub',
+      mountText: 'Tiger',
+      adjective: 'fierce'
+    },
+    PandaCub: {
+      text: 'Panda Cub',
+      mountText: 'Panda',
+      adjective: 'gentle'
+    },
+    LionCub: {
+      text: 'Lion Cub',
+      mountText: 'Lion',
+      adjective: 'regal'
+    },
+    Fox: {
+      text: 'Fox',
+      adjective: 'wily'
+    },
+    FlyingPig: {
+      text: 'Flying Pig',
+      adjective: 'whimsical'
+    },
+    Dragon: {
+      text: 'Dragon',
+      adjective: 'mighty'
+    },
+    Cactus: {
+      text: 'Cactus',
+      adjective: 'prickly'
+    },
+    BearCub: {
+      text: 'Bear Cub',
+      mountText: 'Bear',
+      adjective: 'cuddly'
+    },
+    Gryphon: {
+      text: 'Gryphon',
+      adjective: 'regal',
+      canBuy: false
+    }
+  };
+
+  _.each(api.eggs, function(egg, key) {
+    return _.defaults(egg, {
+      canBuy: true,
+      value: 3,
+      key: key,
+      notes: "Find a hatching potion to pour on this egg, and it will hatch into a " + egg.adjective + " " + egg.text + ".",
+      mountText: egg.text
+    });
+  });
+
+  api.specialPets = {
+    'Wolf-Veteran': true,
+    'Wolf-Cerberus': true,
+    'Dragon-Hydra': true,
+    'Turkey-Base': true,
+    'BearCub-Polar': true
+  };
+
+  api.hatchingPotions = {
+    Base: {
+      value: 2,
+      text: 'Base'
+    },
+    White: {
+      value: 2,
+      text: 'White'
+    },
+    Desert: {
+      value: 2,
+      text: 'Desert'
+    },
+    Red: {
+      value: 3,
+      text: 'Red'
+    },
+    Shade: {
+      value: 3,
+      text: 'Shade'
+    },
+    Skeleton: {
+      value: 3,
+      text: 'Skeleton'
+    },
+    Zombie: {
+      value: 4,
+      text: 'Zombie'
+    },
+    CottonCandyPink: {
+      value: 4,
+      text: 'Cotton Candy Pink'
+    },
+    CottonCandyBlue: {
+      value: 4,
+      text: 'Cotton Candy Blue'
+    },
+    Golden: {
+      value: 5,
+      text: 'Golden'
+    }
+  };
+
+  _.each(api.hatchingPotions, function(pot, key) {
+    return _.defaults(pot, {
+      key: key,
+      value: 2,
+      notes: "Pour this on an egg, and it will hatch as a " + pot.text + " pet."
+    });
+  });
+
+  api.pets = _.transform(api.eggs, function(m, egg) {
+    return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
+      return m2[egg.key + "-" + pot.key] = true;
+    }));
+  });
+
+  api.food = {
+    Meat: {
+      text: 'Meat',
+      target: 'Base',
+      article: ''
+    },
+    Milk: {
+      text: 'Milk',
+      target: 'White',
+      article: ''
+    },
+    Potatoe: {
+      text: 'Potato',
+      target: 'Desert',
+      article: 'a '
+    },
+    Strawberry: {
+      text: 'Strawberry',
+      target: 'Red',
+      article: 'a '
+    },
+    Chocolate: {
+      text: 'Chocolate',
+      target: 'Shade',
+      article: ''
+    },
+    Fish: {
+      text: 'Fish',
+      target: 'Skeleton',
+      article: 'a '
+    },
+    RottenMeat: {
+      text: 'Rotten Meat',
+      target: 'Zombie',
+      article: ''
+    },
+    CottonCandyPink: {
+      text: 'Pink Cotton Candy',
+      target: 'CottonCandyPink',
+      article: ''
+    },
+    CottonCandyBlue: {
+      text: 'Blue Cotton Candy',
+      target: 'CottonCandyBlue',
+      article: ''
+    },
+    Honey: {
+      text: 'Honey',
+      target: 'Golden',
+      article: ''
+    },
+    Saddle: {
+      text: 'Saddle',
+      value: 5,
+      notes: 'Instantly raises your pet into a mount.'
+    }
+  };
+
+  _.each(api.food, function(food, key) {
+    return _.defaults(food, {
+      value: 1,
+      key: key,
+      notes: "Feed this to a pet and it may grow into a sturdy steed."
+    });
+  });
+
+  api.quests = {
+    evilsanta: {
+      text: "Trapper Santa",
+      notes: "You hear bemoaned roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
+      completion: "Trapper Santa squeals in anger, and bounces off into the night. A grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the whisperer listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured. Help her find her baby!",
+      value: 4,
+      boss: {
+        name: "Trapper Santa",
+        hp: 300,
+        str: 1
+      },
+      drop: {
+        items: [
+          {
+            type: 'mounts',
+            key: 'BearCub-Polar',
+            text: "Polar Bear (Mount)"
+          }
+        ],
+        gp: 20,
+        exp: 100
+      }
+    },
+    evilsanta2: {
+      text: "Find The Cub",
+      notes: "Mama bear's cub had run off into the icefields when she was captured by the trapper. At the edge of the woods, she sniffs the air. You hear twig-snaps and snow crunch through the crystaline sound of the forest. Paw prints! You both start racing to follow the trail. Find all the prints and broken twigs, and retrieve her cub!",
+      completion: "You've found the cub! Mama and baby bear couldn't be more grateful. As a token, they've decided to keep you company till the end of days.",
+      value: 4,
+      previous: 'evilsanta',
+      collect: {
+        tracks: {
+          text: 'Tracks',
+          count: 20
+        },
+        branches: {
+          text: 'Broken Twigs',
+          count: 10
+        }
+      },
+      drop: {
+        items: [
+          {
+            type: 'pets',
+            key: 'BearCub-Polar',
+            text: "Polar Bear (Pet)"
+          }
+        ],
+        gp: 20,
+        exp: 100
+      }
+    },
+    gryphon: {
+      text: "The Fiery Gryphon",
+      notes: 'The grand beastmaster, @baconsaur, has come to your party seeking help. "Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!"',
+      value: 4,
+      boss: {
+        name: "Fiery Gryphon",
+        hp: 300,
+        str: 1.5
+      },
+      drop: {
+        items: [
+          {
+            type: 'eggs',
+            key: 'Gryphon',
+            text: "Gryphon (Egg)"
+          }, {
+            type: 'eggs',
+            key: 'Gryphon',
+            text: "Gryphon (Egg)"
+          }
+        ],
+        gp: 25,
+        exp: 125
+      }
+    }
+  };
+
+  _.each(api.quests, function(v, key) {
+    return _.defaults(v, {
+      key: key
+    });
+  });
+
+  repeat = {
+    m: true,
+    t: true,
+    w: true,
+    th: true,
+    f: true,
+    s: true,
+    su: true
+  };
+
+  api.userDefaults = {
+    habits: [
+      {
+        type: 'habit',
+        text: '1h Productive Work',
+        notes: 'When you create a new Habit, you can click the Edit icon and choose for it to represent a positive habit, a negative habit, or both. For some Habits, like this one, it only makes sense to gain points.',
+        value: 0,
+        up: true,
+        down: false
+      }, {
+        type: 'habit',
+        text: 'Eat Junk Food',
+        notes: 'For others, it only makes sense to *lose* points.',
+        value: 0,
+        up: false,
+        down: true
+      }, {
+        type: 'habit',
+        text: 'Take The Stairs',
+        notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose).',
+        value: 0,
+        up: true,
+        down: true
+      }
+    ],
+    dailys: [
+      {
+        type: 'daily',
+        text: '1h Personal Project',
+        notes: 'All tasks default to yellow when they are created. This means you will take only moderate damage when they are missed and will gain only a moderate reward when they are completed.',
+        value: 0,
+        completed: false,
+        repeat: repeat
+      }, {
+        type: 'daily',
+        text: 'Exercise',
+        notes: 'Dailies you complete consistently will turn from yellow to green to blue, helping you track your progress. The higher you move up the ladder, the less damage you take for missing and less reward you receive for completing the goal.',
+        value: 3,
+        completed: false,
+        repeat: repeat
+      }, {
+        type: 'daily',
+        text: '45m Reading',
+        notes: 'If you miss a daily frequently, it will turn darker shades of orange and red. The redder the task is, the more experience and gold it grants for success and the more damage you take for failure. This encourages you to focus on your shortcomings, the reds.',
+        value: -10,
+        completed: false,
+        repeat: repeat
+      }
+    ],
+    todos: [
+      {
+        type: 'todo',
+        text: 'Call Mom',
+        notes: 'While not completing a to-do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.',
+        value: -3,
+        completed: false
+      }
+    ],
+    rewards: [
+      {
+        type: 'reward',
+        text: '1 Episode of Game of Thrones',
+        notes: 'Custom rewards can come in many forms. Some people will hold off watching their favorite show unless they have the gold to pay for it.',
+        value: 20
+      }, {
+        type: 'reward',
+        text: 'Cake',
+        notes: 'Other people just want to enjoy a nice piece of cake. Try to create rewards that will motivate you best.',
+        value: 10
+      }
+    ],
+    tags: [
+      {
+        name: 'morning'
+      }, {
+        name: 'afternoon'
+      }, {
+        name: 'evening'
+      }
+    ]
+  };
+
+}).call(this);
+
+
+},{"lodash":3,"moment":4}],6:[function(require,module,exports){
+var process=require("__browserify_process");(function() {
+  var $w, api, content, moment, preenHistory, sanitizeOptions, _,
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  moment = require('moment');
+
+  _ = require('lodash');
+
+  content = require('./content.coffee');
+
+  api = module.exports = {};
+
+  $w = function(s) {
+    return s.split(' ');
+  };
+
+  /*
+    ------------------------------------------------------
+    Time / Day
+    ------------------------------------------------------
+  */
+
+
+  /*
+    Each time we're performing date math (cron, task-due-days, etc), we need to take user preferences into consideration.
+    Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
+    {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times
+  */
+
+
+  sanitizeOptions = function(o) {
+    var dayStart, now, timezoneOffset, _ref;
+
+    dayStart = !_.isNaN(+o.dayStart) && (0 <= (_ref = +o.dayStart) && _ref <= 24) ? +o.dayStart : 0;
+    timezoneOffset = o.timezoneOffset ? +o.timezoneOffset : +moment().zone();
+    now = o.now ? moment(o.now).zone(timezoneOffset) : moment(+(new Date)).zone(timezoneOffset);
+    return {
+      dayStart: dayStart,
+      timezoneOffset: timezoneOffset,
+      now: now
+    };
+  };
+
+  api.startOfWeek = api.startOfWeek = function(options) {
+    var o;
+
+    if (options == null) {
+      options = {};
+    }
+    o = sanitizeOptions(options);
+    return moment(o.now).startOf('week');
+  };
+
+  api.startOfDay = function(options) {
+    var o;
+
+    if (options == null) {
+      options = {};
+    }
+    o = sanitizeOptions(options);
+    return moment(o.now).startOf('day').add('h', o.dayStart);
+  };
+
+  api.dayMapping = {
+    0: 'su',
+    1: 'm',
+    2: 't',
+    3: 'w',
+    4: 'th',
+    5: 'f',
+    6: 's'
+  };
+
+  /*
+    Absolute diff from "yesterday" till now
+  */
+
+
+  api.daysSince = function(yesterday, options) {
+    var o;
+
+    if (options == null) {
+      options = {};
+    }
+    o = sanitizeOptions(options);
+    return Math.abs(api.startOfDay(_.defaults({
+      now: yesterday
+    }, o)).diff(o.now, 'days'));
+  };
+
+  /*
+    Should the user do this taks on this date, given the task's repeat options and user.preferences.dayStart?
+  */
+
+
+  api.shouldDo = function(day, repeat, options) {
+    var o, selected, yesterday;
+
+    if (options == null) {
+      options = {};
+    }
+    if (!repeat) {
+      return false;
+    }
+    o = sanitizeOptions(options);
+    selected = repeat[api.dayMapping[api.startOfDay(_.defaults({
+      now: day
+    }, o)).day()]];
+    if (!moment(day).zone(o.timezoneOffset).isSame(o.now, 'd')) {
+      return selected;
+    }
+    if (options.dayStart <= o.now.hour()) {
+      return selected;
+    } else {
+      yesterday = moment(o.now).subtract(1, 'd').day();
+      return repeat[api.dayMapping[yesterday]];
+    }
+  };
+
+  /*
+    ------------------------------------------------------
+    Scoring
+    ------------------------------------------------------
+  */
+
+
+  api.tnl = function(lvl) {
+    if (lvl >= 100) {
+      return 0;
+    } else {
+      return Math.round(((Math.pow(lvl, 2) * 0.25) + (10 * lvl) + 139.75) / 10) * 10;
+    }
+  };
+
+  /*
+    A hyperbola function that creates diminishing returns, so you can't go to infinite (eg, with Exp gain).
+    {max} The asymptote
+    {bonus} All the numbers combined for your point bonus (eg, task.value * user.stats.int * critChance, etc)
+    {halfway} (optional) the point at which the graph starts bending
+  */
+
+
+  api.diminishingReturns = function(bonus, max, halfway) {
+    if (halfway == null) {
+      halfway = max / 2;
+    }
+    return max * (bonus / (bonus + halfway));
+  };
+
+  api.monod = function(bonus, rateOfIncrease, max) {
+    return rateOfIncrease * max * bonus / (rateOfIncrease * bonus + max);
+  };
+
+  /*
+  Preen history for users with > 7 history entries
+  This takes an infinite array of single day entries [day day day day day...], and turns it into a condensed array
+  of averages, condensing more the further back in time we go. Eg, 7 entries each for last 7 days; 1 entry each week
+  of this month; 1 entry for each month of this year; 1 entry per previous year: [day*7 week*4 month*12 year*infinite]
+  */
+
+
+  preenHistory = function(history) {
+    var newHistory, preen, thisMonth;
+
+    history = _.filter(history, function(h) {
+      return !!h;
+    });
+    newHistory = [];
+    preen = function(amount, groupBy) {
+      var groups;
+
+      groups = _.chain(history).groupBy(function(h) {
+        return moment(h.date).format(groupBy);
+      }).sortBy(function(h, k) {
+        return k;
+      }).value();
+      groups = groups.slice(-amount);
+      groups.pop();
+      return _.each(groups, function(group) {
+        newHistory.push({
+          date: moment(group[0].date).toDate(),
+          value: _.reduce(group, (function(m, obj) {
+            return m + obj.value;
+          }), 0) / group.length
+        });
+        return true;
+      });
+    };
+    preen(50, "YYYY");
+    preen(moment().format('MM'), "YYYYMM");
+    thisMonth = moment().format('YYYYMM');
+    newHistory = newHistory.concat(_.filter(history, function(h) {
+      return moment(h.date).format('YYYYMM') === thisMonth;
+    }));
+    return newHistory;
+  };
+
+  /*
+    Update the in-browser store with new gear. FIXME this was in user.fns, but it was causing strange issues there
+  */
+
+
+  api.updateStore = function(user) {
+    var changes;
+
+    if (!user) {
+      return;
+    }
+    changes = [];
+    _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
+      var found;
+
+      found = _.find(content.gear.tree[type][user.stats["class"]], function(item) {
+        return !user.items.gear.owned[item.key];
+      });
+      if (found) {
+        changes.push(found);
+      }
+      return true;
+    });
+    changes = changes.concat(_.filter(content.gear.flat, function(v) {
+      return v.klass === 'special' && !user.items.gear.owned[v.key] && (typeof v.canOwn === "function" ? v.canOwn(user) : void 0);
+    }));
+    changes.push(content.potion);
+    return _.sortBy(changes, function(item) {
+      switch (item.type) {
+        case 'weapon':
+          return 1;
+        case 'armor':
+          return 2;
+        case 'head':
+          return 3;
+        case 'shield':
+          return 4;
+        case 'potion':
+          return 5;
+        default:
+          return 6;
+      }
+    });
+  };
+
+  /*
+  ------------------------------------------------------
+  Content
+  ------------------------------------------------------
+  */
+
+
+  api.content = content;
+
+  /*
+  ------------------------------------------------------
+  Misc Helpers
+  ------------------------------------------------------
+  */
+
+
+  api.uuid = function() {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+      var r, v;
+
+      r = Math.random() * 16 | 0;
+      v = (c === "x" ? r : r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  };
+
+  api.countExists = function(items) {
+    return _.reduce(items, (function(m, v) {
+      return m + (v ? 1 : 0);
+    }), 0);
+  };
+
+  /*
+  Even though Mongoose handles task defaults, we want to make sure defaults are set on the client-side before
+  sending up to the server for performance
+  */
+
+
+  api.taskDefaults = function(task) {
+    var defaults, _ref, _ref1, _ref2, _ref3;
+
+    if (task == null) {
+      task = {};
+    }
+    if (!(task.type && ((_ref = task.type) === 'habit' || _ref === 'daily' || _ref === 'todo' || _ref === 'reward'))) {
+      task.type = 'habit';
+    }
+    defaults = {
+      id: api.uuid(),
+      text: task.id != null ? task.id : '',
+      notes: '',
+      priority: 1,
+      challenge: {},
+      attribute: 'str',
+      dateCreated: new Date()
+    };
+    _.defaults(task, defaults);
+    if (task.type === 'habit') {
+      _.defaults(task, {
+        up: true,
+        down: true
+      });
+    }
+    if ((_ref1 = task.type) === 'habit' || _ref1 === 'daily') {
+      _.defaults(task, {
+        history: []
+      });
+    }
+    if ((_ref2 = task.type) === 'daily' || _ref2 === 'todo') {
+      _.defaults(task, {
+        completed: false
+      });
+    }
+    if (task.type === 'daily') {
+      _.defaults(task, {
+        streak: 0,
+        repeat: {
+          su: 1,
+          m: 1,
+          t: 1,
+          w: 1,
+          th: 1,
+          f: 1,
+          s: 1
+        }
+      });
+    }
+    task._id = task.id;
+    if ((_ref3 = task.value) == null) {
+      task.value = task.type === 'reward' ? 10 : 0;
+    }
+    if (!_.isNumber(task.priority)) {
+      task.priority = 1;
+    }
+    return task;
+  };
+
+  api.percent = function(x, y, dir) {
+    var roundFn;
+
+    switch (dir) {
+      case "up":
+        roundFn = Math.ceil;
+        break;
+      case "down":
+        roundFn = Math.floor;
+        break;
+      default:
+        roundFn = Math.round;
+    }
+    if (x === 0) {
+      x = 1;
+    }
+    return roundFn(x / y * 100);
+  };
+
+  /*
+  Remove whitespace #FIXME are we using this anywwhere? Should we be?
+  */
+
+
+  api.removeWhitespace = function(str) {
+    if (!str) {
+      return '';
+    }
+    return str.replace(/\s/g, '');
+  };
+
+  /*
+  Encode the download link for .ics iCal file
+  */
+
+
+  api.encodeiCalLink = function(uid, apiToken) {
+    var loc, _ref;
+
+    loc = (typeof window !== "undefined" && window !== null ? window.location.host : void 0) || (typeof process !== "undefined" && process !== null ? (_ref = process.env) != null ? _ref.BASE_URL : void 0 : void 0) || '';
+    return encodeURIComponent("http://" + loc + "/v1/users/" + uid + "/calendar.ics?apiToken=" + apiToken);
+  };
+
+  /*
+  Gold amount from their money
+  */
+
+
+  api.gold = function(num) {
+    if (num) {
+      return Math.floor(num);
+    } else {
+      return "0";
+    }
+  };
+
+  /*
+  Silver amount from their money
+  */
+
+
+  api.silver = function(num) {
+    if (num) {
+      return ("0" + Math.floor((num - Math.floor(num)) * 100)).slice(-2);
+    } else {
+      return "00";
+    }
+  };
+
+  /*
+  Task classes given everything about the class
+  */
+
+
+  api.taskClasses = function(task, filters, dayStart, lastCron, showCompleted, main) {
+    var classes, completed, enabled, filter, repeat, type, value, _ref;
+
+    if (filters == null) {
+      filters = [];
+    }
+    if (dayStart == null) {
+      dayStart = 0;
+    }
+    if (lastCron == null) {
+      lastCron = +(new Date);
+    }
+    if (showCompleted == null) {
+      showCompleted = false;
+    }
+    if (main == null) {
+      main = false;
+    }
+    if (!task) {
+      return;
+    }
+    type = task.type, completed = task.completed, value = task.value, repeat = task.repeat;
+    if ((type === 'todo' && completed !== showCompleted) && main) {
+      return 'hidden';
+    }
+    if (main) {
+      for (filter in filters) {
+        enabled = filters[filter];
+        if (enabled && !((_ref = task.tags) != null ? _ref[filter] : void 0)) {
+          return 'hidden';
+        }
+      }
+    }
+    classes = type;
+    if (type === 'todo' || type === 'daily') {
+      if (completed || (type === 'daily' && !api.shouldDo(+(new Date), task.repeat, {
+        dayStart: dayStart
+      }))) {
+        classes += " completed";
+      } else {
+        classes += " uncompleted";
+      }
+    } else if (type === 'habit') {
+      if (task.down && task.up) {
+        classes += ' habit-wide';
+      }
+    }
+    if (value < -20) {
+      classes += ' color-worst';
+    } else if (value < -10) {
+      classes += ' color-worse';
+    } else if (value < -1) {
+      classes += ' color-bad';
+    } else if (value < 1) {
+      classes += ' color-neutral';
+    } else if (value < 5) {
+      classes += ' color-good';
+    } else if (value < 10) {
+      classes += ' color-better';
+    } else {
+      classes += ' color-best';
+    }
+    return classes;
+  };
+
+  /*
+  Friendly timestamp
+  */
+
+
+  api.friendlyTimestamp = function(timestamp) {
+    return moment(timestamp).format('MM/DD h:mm:ss a');
+  };
+
+  /*
+  Does user have new chat messages?
+  */
+
+
+  api.newChatMessages = function(messages, lastMessageSeen) {
+    if (!((messages != null ? messages.length : void 0) > 0)) {
+      return false;
+    }
+    return (messages != null ? messages[0] : void 0) && (messages[0].id !== lastMessageSeen);
+  };
+
+  /*
+  are any tags active?
+  */
+
+
+  api.noTags = function(tags) {
+    return _.isEmpty(tags) || _.isEmpty(_.filter(tags, function(t) {
+      return t;
+    }));
+  };
+
+  /*
+  Are there tags applied?
+  */
+
+
+  api.appliedTags = function(userTags, taskTags) {
+    var arr;
+
+    arr = [];
+    _.each(userTags, function(t) {
+      if (t == null) {
+        return;
+      }
+      if (taskTags != null ? taskTags[t.id] : void 0) {
+        return arr.push(t.name);
+      }
+    });
+    return arr.join(', ');
+  };
+
+  api.countPets = function(originalCount, pets) {
+    var count, pet;
+
+    count = originalCount != null ? originalCount : _.size(pets);
+    for (pet in content.specialPets) {
+      if (pets[pet]) {
+        count--;
+      }
+    }
+    return count;
+  };
+
+  /*
+  ------------------------------------------------------
+  User (prototype wrapper to give it ops, helper funcs, and virtuals
+  ------------------------------------------------------
+  */
+
+
+  /*
+  User is now wrapped (both on client and server), adding a few new properties:
+    * getters (_statsComputed, tasks, etc)
+    * user.fns, which is a bunch of helper functions
+      These were originally up above, but they make more sense belonging to the user object so we don't have to pass
+      the user object all over the place. In fact, we should pull in more functions such as cron(), updateStats(), etc.
+    * user.ops, which is super important:
+  
+  If a function is inside user.ops, it has magical properties. If you call it on the client it updates the user object in
+  the browser and when it's done it automatically POSTs to the server, calling src/controllers/user.js#OP_NAME (the exact same name
+  of the op function). The first argument req is {query, body, params}, it's what the express controller function
+  expects. This means we call our functions as if we were calling an Express route. Eg, instead of score(task, direction),
+  we call score({params:{id:task.id,direction:direction}}). This also forces us to think about our routes (whether to use
+  params, query, or body for variables). see http://stackoverflow.com/questions/4024271/rest-api-best-practices-where-to-put-parameters
+  
+  If `src/controllers/user.js#OP_NAME` doesn't exist on the server, it's automatically added. It runs the code in user.ops.OP_NAME
+  to update the user model server-side, then performs `user.save()`. You can see this in action for `user.ops.buy`. That
+  function doesn't exist on the server - so the client calls it, it updates user in the browser, auto-POSTs to server, server
+  handles it by calling `user.ops.buy` again (to update user on the server), and then saves. We can do this for
+  everything that doesn't need any code difference from what's in user.ops.OP_NAME for special-handling server-side. If we
+  *do* need special handling, just add `src/controllers/user.js#OP_NAME` to override the user.ops.OP_NAME, and be
+  sure to call user.ops.OP_NAME at some point within the overridden function.
+  
+  TODO
+    * Is this the best way to wrap the user object? I thought of using user.prototype, but user is an object not a Function.
+      user on the server is a Mongoose model, so we can use prototype - but to do it on the client, we'd probably have to
+      move to $resource for user
+    * Move to $resource!
+  */
+
+
+  api.wrap = function(user, main) {
+    if (main == null) {
+      main = true;
+    }
+    if (user._wrapped) {
+      return;
+    }
+    user._wrapped = true;
+    if (main) {
+      user.ops = {
+        update: function(req, cb) {
+          _.each(req.body, function(v, k) {
+            user.fns.dotSet(k, v);
+            return true;
+          });
+          return typeof cb === "function" ? cb(null, user) : void 0;
+        },
+        sleep: function(req, cb) {
+          user.preferences.sleep = !user.preferences.sleep;
+          return typeof cb === "function" ? cb(null, {}) : void 0;
+        },
+        revive: function(req, cb) {
+          var item, lostItem, lostStat;
+
+          _.merge(user.stats, {
+            hp: 50,
+            exp: 0,
+            gp: 0
+          });
+          if (user.stats.lvl > 1) {
+            user.stats.lvl--;
+          }
+          lostStat = user.fns.randomVal(_.reduce(['str', 'con', 'per', 'int'], (function(m, k) {
+            if (user.stats[k]) {
+              m[k] = k;
+            }
+            return m;
+          }), {}));
+          if (lostStat) {
+            user.stats[lostStat]--;
+          }
+          lostItem = user.fns.randomVal(_.reduce(user.items.gear.owned, (function(m, v, k) {
+            if (v) {
+              m['' + k] = '' + k;
+            }
+            return m;
+          }), {}));
+          if (item = content.gear.flat[lostItem]) {
+            user.items.gear.owned[lostItem] = false;
+            if (user.items.gear.equipped[item.type] === lostItem) {
+              user.items.gear.equipped[item.type] = "" + item.type + "_base_0";
+            }
+            if (user.items.gear.costume[item.type] === lostItem) {
+              user.items.gear.costume[item.type] = "" + item.type + "_base_0";
+            }
+          }
+          if (typeof user.markModified === "function") {
+            user.markModified('items.gear');
+          }
+          return typeof cb === "function" ? cb((item ? {
+            code: 200,
+            message: "Your " + item.text + " broke."
+          } : null), user) : void 0;
+        },
+        reset: function(req, cb) {
+          var gear;
+
+          user.habits = [];
+          user.dailys = [];
+          user.todos = [];
+          user.rewards = [];
+          user.stats.hp = 50;
+          user.stats.lvl = 1;
+          user.stats.gp = 0;
+          user.stats.exp = 0;
+          gear = user.items.gear;
+          _.each(['equipped', 'costume'], function(type) {
+            gear[type].armor = 'armor_base_0';
+            gear[type].weapon = 'weapon_base_0';
+            gear[type].head = 'head_base_0';
+            return gear[type].shield = 'shield_base_0';
+          });
+          user.items.gear.owned = {
+            weapon_warrior_0: true
+          };
+          if (typeof user.markModified === "function") {
+            user.markModified('items.gear.owned');
+          }
+          user.preferences.costume = false;
+          return typeof cb === "function" ? cb(null, user) : void 0;
+        },
+        reroll: function(req, cb) {
+          if (user.balance < 1) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Not enough gems."
+            }, req) : void 0;
+          }
+          user.balance--;
+          _.each(user.tasks, function(task) {
+            if (task.type !== 'reward') {
+              return task.value = 0;
+            }
+          });
+          user.stats.hp = 50;
+          return typeof cb === "function" ? cb(null, user) : void 0;
+        },
+        rebirth: function(req, cb) {
+          var flags, gear, lvl, stats;
+
+          if (user.balance < 2) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Not enough gems."
+            }, req) : void 0;
+          }
+          user.balance -= 2;
+          lvl = user.stats.lvl;
+          _.each(user.tasks, function(task) {
+            if (task.type !== 'reward') {
+              task.value = 0;
+            }
+            if (task.type === 'daily') {
+              return task.streak = 0;
+            }
+          });
+          stats = user.stats;
+          stats.buffs = {};
+          stats.hp = 50;
+          stats.lvl = 1;
+          stats["class"] = 'warrior';
+          _.each(['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'], function(value) {
+            return stats[value] = 0;
+          });
+          gear = user.items.gear;
+          _.each(['equipped', 'costume'], function(type) {
+            gear[type].armor = 'armor_base_0';
+            gear[type].weapon = 'weapon_warrior_0';
+            gear[type].head = 'head_base_0';
+            return gear[type].shield = 'shield_base_0';
+          });
+          if (user.items.currentPet) {
+            user.ops.equip({
+              params: {
+                type: 'pet',
+                key: user.items.currentPet
+              }
+            });
+          }
+          if (user.items.currentMount) {
+            user.ops.equip({
+              params: {
+                type: 'mount',
+                key: user.items.currentMount
+              }
+            });
+          }
+          _.each(gear.owned, function(v, k) {
+            if (gear.owned[k]) {
+              gear.owned[k] = false;
+              return true;
+            }
+          });
+          gear.owned.weapon_warrior_0 = true;
+          if (typeof user.markModified === "function") {
+            user.markModified('items.gear.owned');
+          }
+          user.preferences.costume = false;
+          flags = user.flags;
+          if (!(user.achievements.ultimateGear || user.achievements.beastMaster)) {
+            flags.rebirthEnabled = false;
+          }
+          flags.itemsEnabled = false;
+          flags.dropsEnabled = false;
+          flags.classSelected = false;
+          if (!user.achievements.rebirths) {
+            user.achievements.rebirths = 1;
+            user.achievements.rebirthLevel = lvl;
+          } else if (lvl > user.achievements.rebirthLevel || lvl === 100) {
+            user.achievements.rebirths++;
+            user.achievements.rebirthLevel = lvl;
+          }
+          return typeof cb === "function" ? cb(null, user) : void 0;
+        },
+        allocateNow: function(req, cb) {
+          _.times(user.stats.points, user.fns.autoAllocate);
+          user.stats.points = 0;
+          if (typeof user.markModified === "function") {
+            user.markModified('stats');
+          }
+          return typeof cb === "function" ? cb(null, user.stats) : void 0;
+        },
+        clearCompleted: function(req, cb) {
+          _.remove(user.todos, function(t) {
+            var _ref;
+
+            return t.completed && !((_ref = t.challenge) != null ? _ref.id : void 0);
+          });
+          if (typeof user.markModified === "function") {
+            user.markModified('todos');
+          }
+          return typeof cb === "function" ? cb(null, user.todos) : void 0;
+        },
+        sortTask: function(req, cb) {
+          var from, id, task, tasks, to, _ref;
+
+          id = req.params.id;
+          _ref = req.query, to = _ref.to, from = _ref.from;
+          task = user.tasks[id];
+          if (!task) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: "Task not found."
+            }) : void 0;
+          }
+          if (!((to != null) && (from != null))) {
+            return typeof cb === "function" ? cb('?to=__&from=__ are required') : void 0;
+          }
+          tasks = user["" + task.type + "s"];
+          tasks.splice(to, 0, tasks.splice(from, 1)[0]);
+          return typeof cb === "function" ? cb(null, tasks) : void 0;
+        },
+        updateTask: function(req, cb) {
+          var task, _ref;
+
+          if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
+            return typeof cb === "function" ? cb("Task not found") : void 0;
+          }
+          _.merge(task, _.omit(req.body, 'checklist'));
+          if (req.body.checklist) {
+            task.checklist = req.body.checklist;
+          }
+          if (typeof task.markModified === "function") {
+            task.markModified('tags');
+          }
+          return typeof cb === "function" ? cb(null, task) : void 0;
+        },
+        deleteTask: function(req, cb) {
+          var i, task, _ref;
+
+          task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0];
+          if (!task) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: 'Task not found'
+            }) : void 0;
+          }
+          i = user[task.type + "s"].indexOf(task);
+          if (~i) {
+            user[task.type + "s"].splice(i, 1);
+          }
+          return typeof cb === "function" ? cb(null, {}) : void 0;
+        },
+        addTask: function(req, cb) {
+          var task;
+
+          task = api.taskDefaults(req.body);
+          user["" + task.type + "s"].unshift(task);
+          if (user.preferences.newTaskEdit) {
+            task._editing = true;
+          }
+          if (user.preferences.tagsCollapsed) {
+            task._tags = true;
+          }
+          if (user.preferences.advancedCollapsed) {
+            task._advanced = true;
+          }
+          if (typeof cb === "function") {
+            cb(null, task);
+          }
+          return task;
+        },
+        addTag: function(req, cb) {
+          var _ref;
+
+          if ((_ref = user.tags) == null) {
+            user.tags = [];
+          }
+          user.tags.push({
+            name: req.body.name,
+            id: req.body.id || api.uuid()
+          });
+          return typeof cb === "function" ? cb(null, user.tags) : void 0;
+        },
+        updateTag: function(req, cb) {
+          var i, tid;
+
+          tid = req.params.id;
+          i = _.findIndex(user.tags, {
+            id: tid
+          });
+          if (!~i) {
+            return typeof cb === "function" ? cb('Tag not found', req) : void 0;
+          }
+          user.tags[i].name = req.body.name;
+          return typeof cb === "function" ? cb(null, user.tags[i]) : void 0;
+        },
+        deleteTag: function(req, cb) {
+          var i, tag, tid;
+
+          tid = req.params.id;
+          i = _.findIndex(user.tags, {
+            id: tid
+          });
+          if (!~i) {
+            return typeof cb === "function" ? cb('Tag not found', req) : void 0;
+          }
+          tag = user.tags[i];
+          delete user.filters[tag.id];
+          user.tags.splice(i, 1);
+          _.each(user.tasks, function(task) {
+            return delete task.tags[tag.id];
+          });
+          _.each(['habits', 'dailys', 'todos', 'rewards'], function(type) {
+            return typeof user.markModified === "function" ? user.markModified(type) : void 0;
+          });
+          return typeof cb === "function" ? cb(null, user.tags) : void 0;
+        },
+        feed: function(req, cb) {
+          var egg, evolve, food, message, pet, potion, userPets, _ref, _ref1, _ref2;
+
+          _ref = req.params, pet = _ref.pet, food = _ref.food;
+          food = content.food[food];
+          _ref1 = pet.split('-'), egg = _ref1[0], potion = _ref1[1];
+          userPets = user.items.pets;
+          if (!userPets[pet]) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: ":pet not found in user.items.pets"
+            }) : void 0;
+          }
+          if (!((_ref2 = user.items.food) != null ? _ref2[food.key] : void 0)) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: ":food not found in user.items.food"
+            }) : void 0;
+          }
+          if (content.specialPets[pet]) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Can't feed this pet."
+            }) : void 0;
+          }
+          if (user.items.mounts[pet]) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "You already have that mount. Try feeding another pet."
+            }) : void 0;
+          }
+          message = '';
+          evolve = function() {
+            userPets[pet] = -1;
+            user.items.mounts[pet] = true;
+            if (pet === user.items.currentPet) {
+              user.items.currentPet = "";
+            }
+            return message = "You have tamed " + egg + ", let's go for a ride!";
+          };
+          if (food.key === 'Saddle') {
+            evolve();
+          } else {
+            if (food.target === potion) {
+              userPets[pet] += 5;
+              message = "" + egg + " really likes the " + food.text + "!";
+            } else {
+              userPets[pet] += 2;
+              message = "" + egg + " eats the " + food.text + " but doesn't seem to enjoy it.";
+            }
+            if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
+              evolve();
+            }
+          }
+          user.items.food[food.key]--;
+          return typeof cb === "function" ? cb({
+            code: 200,
+            message: message
+          }, userPets[pet]) : void 0;
+        },
+        purchase: function(req, cb) {
+          var item, key, type, _ref;
+
+          _ref = req.params, type = _ref.type, key = _ref.key;
+          if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'special') {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: ":type must be in [hatchingPotions,eggs,food,quests,special]"
+            }, req) : void 0;
+          }
+          item = content[type][key];
+          if (!item) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: ":key not found for Content." + type
+            }, req) : void 0;
+          }
+          if (!user.items[type][key]) {
+            user.items[type][key] = 0;
+          }
+          user.items[type][key]++;
+          user.balance -= item.value / 4;
+          return typeof cb === "function" ? cb(null, _.pick(user, $w('items balance'))) : void 0;
+        },
+        buy: function(req, cb) {
+          var item, key, message;
+
+          key = req.params.key;
+          item = key === 'potion' ? content.potion : content.gear.flat[key];
+          if (!item) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: "Item '" + key + " not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"
+            }) : void 0;
+          }
+          if (user.stats.gp < item.value) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: 'Not enough gold.'
+            }) : void 0;
+          }
+          if (item.key === 'potion') {
+            user.stats.hp += 15;
+            if (user.stats.hp > 50) {
+              user.stats.hp = 50;
+            }
+          } else {
+            user.items.gear.equipped[item.type] = item.key;
+            user.items.gear.owned[item.key] = true;
+            message = user.fns.handleTwoHanded(item);
+            if (message == null) {
+              message = "Bought " + item.text + ".";
+            }
+            if (!user.achievements.ultimateGear && item.last) {
+              user.fns.ultimateGear();
+            }
+          }
+          user.stats.gp -= item.value;
+          return typeof cb === "function" ? cb({
+            code: 200,
+            message: message
+          }, _.pick(user, $w('items achievements stats'))) : void 0;
+        },
+        sell: function(req, cb) {
+          var key, type, _ref;
+
+          _ref = req.params, key = _ref.key, type = _ref.type;
+          if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food') {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: ":type not found. Must bes in [eggs, hatchingPotions, food]"
+            }) : void 0;
+          }
+          if (!user.items[type][key]) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: ":key not found for user.items." + type
+            }) : void 0;
+          }
+          user.items[type][key]--;
+          user.stats.gp += content[type][key].value;
+          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats items'))) : void 0;
+        },
+        equip: function(req, cb) {
+          var item, key, message, type, _ref;
+
+          _ref = [req.params.type || 'equipped', req.params.key], type = _ref[0], key = _ref[1];
+          switch (type) {
+            case 'mount':
+              user.items.currentMount = user.items.currentMount === key ? '' : key;
+              break;
+            case 'pet':
+              user.items.currentPet = user.items.currentPet === key ? '' : key;
+              break;
+            case 'costume':
+            case 'equipped':
+              item = content.gear.flat[key];
+              user.items.gear[type][item.type] = item.key;
+              message = user.fns.handleTwoHanded(item, type);
+          }
+          return typeof cb === "function" ? cb((message ? {
+            code: 200,
+            message: message
+          } : null), user.items) : void 0;
+        },
+        hatch: function(req, cb) {
+          var egg, hatchingPotion, pet, _ref;
+
+          _ref = req.params, egg = _ref.egg, hatchingPotion = _ref.hatchingPotion;
+          if (!(egg && hatchingPotion)) {
+            return typeof cb === "function" ? cb({
+              code: 404,
+              message: "Please specify query.egg & query.hatchingPotion"
+            }) : void 0;
+          }
+          if (!(user.items.eggs[egg] > 0 && user.items.hatchingPotions[hatchingPotion] > 0)) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "You're missing either that egg or that potion"
+            }) : void 0;
+          }
+          pet = "" + egg + "-" + hatchingPotion;
+          if (user.items.pets[pet] && user.items.pets[pet] > 0) {
+            return typeof cb === "function" ? cb("You already have that pet. Try hatching a different combination!") : void 0;
+          }
+          user.items.pets[pet] = 5;
+          user.items.eggs[egg]--;
+          user.items.hatchingPotions[hatchingPotion]--;
+          return typeof cb === "function" ? cb({
+            code: 200,
+            message: "Your egg hatched! Visit your stable to equip your pet."
+          }, user.items) : void 0;
+        },
+        unlock: function(req, cb) {
+          var alreadyOwns, cost, fullSet, k, path, split, v;
+
+          path = req.query.path;
+          fullSet = ~path.indexOf(",");
+          cost = fullSet ? 1.25 : 0.5;
+          alreadyOwns = !fullSet && user.fns.dotGet("purchased." + path) === true;
+          if (user.balance < cost && !alreadyOwns) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Not enough gems"
+            }) : void 0;
+          }
+          if (fullSet) {
+            _.each(path.split(","), function(p) {
+              user.fns.dotSet("purchased." + p, true);
+              return true;
+            });
+          } else {
+            if (alreadyOwns) {
+              split = path.split('.');
+              v = split.pop();
+              k = split.join('.');
+              user.fns.dotSet("preferences." + k, v);
+              return typeof cb === "function" ? cb(null, req) : void 0;
+            }
+            user.fns.dotSet("purchased." + path, true);
+          }
+          user.balance -= cost;
+          if (typeof user.markModified === "function") {
+            user.markModified('purchased');
+          }
+          return typeof cb === "function" ? cb(null, _.pick(user, $w('purchased preferences'))) : void 0;
+        },
+        changeClass: function(req, cb) {
+          var klass, _ref;
+
+          klass = (_ref = req.query) != null ? _ref["class"] : void 0;
+          if (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer') {
+            user.stats["class"] = klass;
+            user.flags.classSelected = true;
+            _.each(["weapon", "armor", "shield", "head"], function(type) {
+              var foundKey;
+
+              foundKey = false;
+              _.findLast(user.items.gear.owned, function(v, k) {
+                if (~k.indexOf(type + "_" + klass) && v === true) {
+                  return foundKey = k;
+                }
+              });
+              user.items.gear.equipped[type] = foundKey ? foundKey : type === "weapon" ? "weapon_" + klass + "_0" : type === "shield" && klass === "rogue" ? "shield_rogue_0" : "" + type + "_base_0";
+              if (type === "weapon" || (type === "shield" && klass === "rogue")) {
+                user.items.gear.owned["" + type + "_" + klass + "_0"] = true;
+              }
+              return true;
+            });
+          } else {
+            if (user.preferences.disableClasses) {
+              user.preferences.disableClasses = false;
+              user.preferences.autoAllocate = false;
+            } else {
+              if (!(user.balance >= .75)) {
+                return typeof cb === "function" ? cb({
+                  code: 401,
+                  message: "Not enough gems"
+                }) : void 0;
+              }
+              user.balance -= .75;
+            }
+            _.merge(user.stats, {
+              str: 0,
+              con: 0,
+              per: 0,
+              int: 0,
+              points: user.stats.lvl
+            });
+            user.flags.classSelected = false;
+          }
+          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags items preferences'))) : void 0;
+        },
+        disableClasses: function(req, cb) {
+          user.stats["class"] = 'warrior';
+          user.flags.classSelected = true;
+          user.preferences.disableClasses = true;
+          user.preferences.autoAllocate = true;
+          user.stats.str = user.stats.lvl;
+          user.stats.points = 0;
+          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags preferences'))) : void 0;
+        },
+        allocate: function(req, cb) {
+          var stat;
+
+          stat = req.query.stat || 'str';
+          if (user.stats.points > 0) {
+            user.stats[stat]++;
+            user.stats.points--;
+            if (stat === 'int') {
+              user.stats.mp++;
+            }
+          }
+          return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
+        },
+        score: function(req, cb) {
+          var addPoints, calculateDelta, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref, _ref1, _ref2, _ref3;
+
+          _ref = req.params, id = _ref.id, direction = _ref.direction;
+          task = user.tasks[id];
+          options = req.query || {};
+          _.defaults(options, {
+            times: 1,
+            cron: false
+          });
+          user._tmp = {};
+          stats = {
+            gp: +user.stats.gp,
+            hp: +user.stats.hp,
+            exp: +user.stats.exp
+          };
+          task.value = +task.value;
+          task.streak = ~~task.streak;
+          if ((_ref1 = task.priority) == null) {
+            task.priority = 1;
+          }
+          if (task.value > stats.gp && task.type === 'reward') {
+            return typeof cb === "function" ? cb('Not enough Gold') : void 0;
+          }
+          delta = 0;
+          calculateDelta = function() {
+            return _.times(options.times, function() {
+              var adjustAmt, currVal, nextDelta, _ref2, _ref3;
+
+              currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
+              nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
+              if (((_ref2 = task.checklist) != null ? _ref2.length : void 0) > 0) {
+                if (direction === 'down' && task.type === 'daily' && options.cron) {
+                  nextDelta *= 1 - _.reduce(task.checklist, (function(m, i) {
+                    return m + (i.completed ? 1 : 0);
+                  }), 0) / task.checklist.length;
+                }
+                if (task.type === 'todo' && direction === 'up') {
+                  nextDelta *= 1 + _.reduce(task.checklist, (function(m, i) {
+                    return m + (i.completed ? 1 : 0);
+                  }), 0);
+                }
+              }
+              if (task.type !== 'reward') {
+                if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
+                  user.stats.training[task.attribute] += nextDelta;
+                }
+                adjustAmt = nextDelta;
+                if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
+                  adjustAmt = nextDelta * (1 + user._statsComputed.str * .004);
+                  user.party.quest.progress.up = user.party.quest.progress.up || 0;
+                  if ((_ref3 = task.type) === 'daily' || _ref3 === 'todo') {
+                    user.party.quest.progress.up += adjustAmt;
+                  }
+                }
+                task.value += adjustAmt;
+              }
+              return delta += nextDelta;
+            });
+          };
+          addPoints = function() {
+            var afterStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
+
+            _crit = user.fns.crit();
+            if (_crit > 1) {
+              user._tmp.crit = _crit;
+            }
+            intBonus = 1 + (user._statsComputed.int * .025);
+            stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
+            perBonus = 1 + user._statsComputed.per * .02;
+            gpMod = delta * task.priority * _crit * perBonus;
+            return stats.gp += task.streak ? (streakBonus = task.streak / 100 + 1, afterStreak = gpMod * streakBonus, gpMod > 0 ? user._tmp.streakBonus = afterStreak - gpMod : void 0, afterStreak) : gpMod;
+          };
+          subtractPoints = function() {
+            var conBonus, hpMod;
+
+            conBonus = 1 - (user._statsComputed.con / 250);
+            if (conBonus < .1) {
+              conBonus = 0.1;
+            }
+            hpMod = delta * conBonus * task.priority * 2;
+            return stats.hp += Math.round(hpMod * 10) / 10;
+          };
+          switch (task.type) {
+            case 'habit':
+              calculateDelta();
+              if (delta > 0) {
+                addPoints();
+              } else {
+                subtractPoints();
+              }
+              th = ((_ref2 = task.history) != null ? _ref2 : task.history = []);
+              if (th[th.length - 1] && moment(th[th.length - 1].date).isSame(new Date, 'day')) {
+                th[th.length - 1].value = task.value;
+              } else {
+                th.push({
+                  date: +(new Date),
+                  value: task.value
+                });
+              }
+              if (typeof user.markModified === "function") {
+                user.markModified("habits." + (_.findIndex(user.habits, {
+                  id: task.id
+                })) + ".history");
+              }
+              break;
+            case 'daily':
+              if (options.cron) {
+                calculateDelta();
+                subtractPoints();
+                if (!user.stats.buffs.streaks) {
+                  task.streak = 0;
+                }
+              } else {
+                calculateDelta();
+                addPoints();
+                if (direction === 'up') {
+                  task.streak = task.streak ? task.streak + 1 : 1;
+                  if ((task.streak % 21) === 0) {
+                    user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
+                  }
+                } else {
+                  if ((task.streak % 21) === 0) {
+                    user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
+                  }
+                  task.streak = task.streak ? task.streak - 1 : 0;
+                }
+              }
+              break;
+            case 'todo':
+              if (options.cron) {
+                calculateDelta();
+              } else {
+                task.dateCompleted = direction === 'up' ? new Date : void 0;
+                calculateDelta();
+                addPoints();
+                multiplier = ((_ref3 = task.checklist) != null ? _ref3.length : void 0) || 1;
+                mpDelta = _.max([multiplier, .01 * user._statsComputed.maxMP * multiplier]);
+                if (direction === 'down') {
+                  mpDelta *= -1;
+                }
+                user.stats.mp += mpDelta;
+                if (user.stats.mp >= user._statsComputed.maxMP) {
+                  user.stats.mp = user._statsComputed.maxMP;
+                }
+                if (user.stats.mp < 0) {
+                  user.stats.mp = 0;
+                }
+              }
+              break;
+            case 'reward':
+              calculateDelta();
+              stats.gp -= Math.abs(task.value);
+              num = parseFloat(task.value).toFixed(2);
+              if (stats.gp < 0) {
+                stats.hp += stats.gp;
+                stats.gp = 0;
+              }
+          }
+          user.fns.updateStats(stats);
+          if (typeof window === 'undefined') {
+            if (direction === 'up') {
+              user.fns.randomDrop({
+                task: task,
+                delta: delta
+              });
+            }
+          }
+          if (typeof cb === "function") {
+            cb(null, user);
+          }
+          return delta;
+        }
+      };
+    }
+    user.fns = {
+      getItem: function(type) {
+        var item;
+
+        item = content.gear.flat[user.items.gear.equipped[type]];
+        if (!item) {
+          return content.gear.flat["" + type + "_base_0"];
+        }
+        return item;
+      },
+      handleTwoHanded: function(item, type) {
+        var message, weapon, _ref;
+
+        if (type == null) {
+          type = 'equipped';
+        }
+        if (item.type === "shield" && ((_ref = (weapon = content.gear.flat[user.items.gear[type].weapon])) != null ? _ref.twoHanded : void 0)) {
+          user.items.gear[type].weapon = 'weapon_base_0';
+          message = "" + weapon.text + " is two-handed";
+        }
+        if (item.twoHanded) {
+          user.items.gear[type].shield = "shield_base_0";
+          message = "" + item.text + " is two-handed";
+        }
+        return message;
+      },
+      /*
+      Because the same op needs to be performed on the client and the server (critical hits, item drops, etc),
+      we need things to be "random", but technically predictable so that they don't go out-of-sync
+      */
+
+      predictableRandom: function(seed) {
+        var x;
+
+        if (!seed || seed === Math.PI) {
+          seed = _.reduce(user.stats, (function(m, v) {
+            if (_.isNumber(v)) {
+              return m + v;
+            } else {
+              return m;
+            }
+          }), 0);
+        }
+        x = Math.sin(seed++) * 10000;
+        return x - Math.floor(x);
+      },
+      crit: function(stat, chance) {
+        if (stat == null) {
+          stat = 'str';
+        }
+        if (chance == null) {
+          chance = .03;
+        }
+        if (user.fns.predictableRandom() <= chance) {
+          return 1.5 + (.02 * user._statsComputed[stat]);
+        } else {
+          return 1;
+        }
+      },
+      /*
+        Get a random property from an object
+        returns random property (the value)
+      */
+
+      randomVal: function(obj, options) {
+        var array, rand;
+
+        array = (options != null ? options.key : void 0) ? _.keys(obj) : _.values(obj);
+        rand = user.fns.predictableRandom(typeof option !== "undefined" && option !== null ? option.seed : void 0);
+        return array[Math.floor(rand * array.length)];
+      },
+      /*
+      This allows you to set object properties by dot-path. Eg, you can run pathSet('stats.hp',50,user) which is the same as
+      user.stats.hp = 50. This is useful because in our habitrpg-shared functions we're returning changesets as {path:value},
+      so that different consumers can implement setters their own way. Derby needs model.set(path, value) for example, where
+      Angular sets object properties directly - in which case, this function will be used.
+      */
+
+      dotSet: function(path, val) {
+        var arr,
+          _this = this;
+
+        arr = path.split('.');
+        return _.reduce(arr, function(curr, next, index) {
+          var _ref;
+
+          if ((arr.length - 1) === index) {
+            curr[next] = val;
+          }
+          return (_ref = curr[next]) != null ? _ref : curr[next] = {};
+        }, user);
+      },
+      dotGet: function(path) {
+        var _this = this;
+
+        return _.reduce(path.split('.'), (function(curr, next) {
+          return curr != null ? curr[next] : void 0;
+        }), user);
+      },
+      randomDrop: function(modifiers) {
+        var acceptableDrops, bonus, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1, _ref2, _ref3, _ref4;
+
+        task = modifiers.task;
+        bonus = Math.abs(task.value) * task.priority + (task.streak || 0) + (user._statsComputed.per * .5);
+        bonus /= 100;
+        chance = api.diminishingReturns(bonus, 1, 0.5);
+        console.log("Drop Equation: Bonus(" + (bonus.toFixed(3)) + "), Modified Chance(" + (chance.toFixed(3)) + ")\n");
+        quest = content.quests[(_ref = user.party.quest) != null ? _ref.key : void 0];
+        if ((quest != null ? quest.collect : void 0) && user.fns.predictableRandom(user.stats.gp) < bonus) {
+          dropK = user.fns.randomVal(quest.collect, {
+            key: true
+          });
+          user.party.quest.progress.collect[dropK]++;
+          if (typeof user.markModified === "function") {
+            user.markModified('party.quest.progress');
+          }
+          console.log({
+            progress: user.party.quest.progress
+          });
+        }
+        if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5)) {
+          return;
+        }
+        if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
+          rarity = user.fns.predictableRandom(user.stats.gp);
+          if (rarity > .6) {
+            drop = user.fns.randomVal(_.omit(content.food, 'Saddle'));
+            if ((_ref2 = (_base = user.items.food)[_name = drop.key]) == null) {
+              _base[_name] = 0;
+            }
+            user.items.food[drop.key] += 1;
+            drop.type = 'Food';
+            drop.dialog = "You've found " + drop.article + drop.text + "! " + drop.notes;
+          } else if (rarity > .3) {
+            drop = user.fns.randomVal(_.where(content.eggs, {
+              canBuy: true
+            }));
+            if ((_ref3 = (_base1 = user.items.eggs)[_name1 = drop.key]) == null) {
+              _base1[_name1] = 0;
+            }
+            user.items.eggs[drop.key]++;
+            drop.type = 'Egg';
+            drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
+          } else {
+            acceptableDrops = rarity < .03 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
+            drop = user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
+              return __indexOf.call(acceptableDrops, k) >= 0;
+            })));
+            if ((_ref4 = (_base2 = user.items.hatchingPotions)[_name2 = drop.key]) == null) {
+              _base2[_name2] = 0;
+            }
+            user.items.hatchingPotions[drop.key]++;
+            drop.type = 'HatchingPotion';
+            drop.dialog = "You've found a " + drop.text + " Hatching Potion! " + drop.notes;
+          }
+          user._tmp.drop = drop;
+          user.items.lastDrop.date = +(new Date);
+          return user.items.lastDrop.count++;
+        }
+      },
+      /*
+        Updates user stats with new stats. Handles death, leveling up, etc
+        {stats} new stats
+        {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
+      */
+
+      autoAllocate: function() {
+        return user.stats[(function() {
+          var diff, ideal, preference, stats, suggested;
+
+          switch (user.preferences.allocationMode) {
+            case "flat":
+              stats = _.pick(user.stats, $w('con str per int'));
+              return _.invert(stats)[_.min(stats)];
+            case "classbased":
+              ideal = [user.stats.lvl / 7 * 3, user.stats.lvl / 7 * 2, user.stats.lvl / 7, user.stats.lvl / 7];
+              preference = (function() {
+                switch (user.stats["class"]) {
+                  case "wizard":
+                    return ["int", "per", "con", "str"];
+                  case "rogue":
+                    return ["per", "str", "int", "con"];
+                  case "healer":
+                    return ["con", "int", "str", "per"];
+                  default:
+                    return ["str", "con", "per", "int"];
+                }
+              })();
+              diff = [user.stats[preference[0]] - ideal[0], user.stats[preference[1]] - ideal[1], user.stats[preference[2]] - ideal[2], user.stats[preference[3]] - ideal[3]];
+              suggested = _.findIndex(diff, (function(val) {
+                if (val === _.min(diff)) {
+                  return true;
+                }
+              }));
+              if (~suggested) {
+                return preference[suggested];
+              } else {
+                return "str";
+              }
+            case "taskbased":
+              suggested = _.invert(user.stats.training)[_.max(user.stats.training)];
+              _.merge(user.stats.training, {
+                str: 0,
+                int: 0,
+                con: 0,
+                per: 0
+              });
+              return suggested || "str";
+            default:
+              return "str";
+          }
+        })()]++;
+      },
+      updateStats: function(stats) {
+        var tnl, _ref;
+
+        if (stats.hp <= 0) {
+          return user.stats.hp = 0;
+        }
+        user.stats.hp = stats.hp;
+        user.stats.gp = stats.gp >= 0 ? stats.gp : 0;
+        tnl = api.tnl(user.stats.lvl);
+        if (user.stats.lvl >= 100) {
+          stats.gp += stats.exp / 15;
+          stats.exp = 0;
+          user.stats.lvl = 100;
+        } else {
+          if (stats.exp >= tnl) {
+            user.stats.exp = stats.exp;
+            while (stats.exp >= tnl && user.stats.lvl < 100) {
+              stats.exp -= tnl;
+              user.stats.lvl++;
+              tnl = api.tnl(user.stats.lvl);
+              if (user.preferences.automaticAllocation) {
+                user.fns.autoAllocate();
+              } else {
+                user.stats.points = user.stats.lvl - (user.stats.con + user.stats.str + user.stats.per + user.stats.int);
+              }
+            }
+            if (user.stats.lvl === 100) {
+              stats.exp = 0;
+            }
+            user.stats.hp = 50;
+          }
+        }
+        user.stats.exp = stats.exp;
+        if ((_ref = user.flags) == null) {
+          user.flags = {};
+        }
+        if (!user.flags.customizationsNotification && (user.stats.exp > 10 || user.stats.lvl > 1)) {
+          user.flags.customizationsNotification = true;
+        }
+        if (!user.flags.itemsEnabled && user.stats.lvl >= 2) {
+          user.flags.itemsEnabled = true;
+        }
+        if (!user.flags.partyEnabled && user.stats.lvl >= 3) {
+          user.flags.partyEnabled = true;
+        }
+        if (!user.flags.dropsEnabled && user.stats.lvl >= 4) {
+          user.flags.dropsEnabled = true;
+          if (user.items.eggs["Wolf"] > 0) {
+            user.items.eggs["Wolf"]++;
+          } else {
+            user.items.eggs["Wolf"] = 1;
+          }
+        }
+        if (!user.flags.classSelected && user.stats.lvl >= 10) {
+          user.flags.classSelected;
+        }
+        if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
+          return user.flags.rebirthEnabled = true;
+        }
+      },
+      /*
+        ------------------------------------------------------
+        Cron
+        ------------------------------------------------------
+      */
+
+      /*
+        At end of day, add value to all incomplete Daily & Todo tasks (further incentive)
+        For incomplete Dailys, deduct experience
+        Make sure to run this function once in a while as server will not take care of overnight calculations.
+        And you have to run it every time client connects.
+        {user}
+      */
+
+      cron: function(options) {
+        var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2, _ref3, _ref4;
+
+        if (options == null) {
+          options = {};
+        }
+        now = +options.now || +(new Date);
+        daysMissed = api.daysSince(user.lastCron, _.defaults({
+          now: now
+        }, user.preferences));
+        if (!(daysMissed > 0)) {
+          return;
+        }
+        user.auth.timestamps.loggedin = new Date();
+        user.lastCron = now;
+        if (user.items.lastDrop.count > 0) {
+          user.items.lastDrop.count = 0;
+        }
+        user.stats.mp += _.max([10, .1 * user._statsComputed.maxMP]);
+        if (user.stats.mp > user._statsComputed.maxMP) {
+          user.stats.mp = user._statsComputed.maxMP;
+        }
+        perfect = true;
+        clearBuffs = {
+          str: 0,
+          int: 0,
+          per: 0,
+          con: 0,
+          stealth: 0,
+          streaks: false
+        };
+        if (user.preferences.sleep === true) {
+          user.stats.buffs = clearBuffs;
+          return;
+        }
+        todoTally = 0;
+        if ((_ref = (_base = user.party.quest.progress).down) == null) {
+          _base.down = 0;
+        }
+        user.todos.concat(user.dailys).forEach(function(task) {
+          var absVal, completed, delta, id, repeat, scheduleMisses, type, _ref1;
+
+          if (!task) {
+            return;
+          }
+          id = task.id, type = task.type, completed = task.completed, repeat = task.repeat;
+          if ((type === 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth--) {
+            return;
+          }
+          if (!completed) {
+            scheduleMisses = daysMissed;
+            if ((type === 'daily') && repeat) {
+              scheduleMisses = 0;
+              _.times(daysMissed, function(n) {
+                var thatDay;
+
+                thatDay = moment(now).subtract('days', n + 1);
+                if (api.shouldDo(thatDay, repeat, user.preferences)) {
+                  return scheduleMisses++;
+                }
+              });
+            }
+            if (scheduleMisses > 0) {
+              if (type === 'daily') {
+                perfect = false;
+              }
+              delta = user.ops.score({
+                params: {
+                  id: task.id,
+                  direction: 'down'
+                },
+                query: {
+                  times: scheduleMisses,
+                  cron: true
+                }
+              });
+              if (type === 'daily') {
+                user.party.quest.progress.down += delta;
+              }
+            }
+          }
+          switch (type) {
+            case 'daily':
+              ((_ref1 = task.history) != null ? _ref1 : task.history = []).push({
+                date: +(new Date),
+                value: task.value
+              });
+              task.completed = false;
+              return _.each(task.checklist, (function(i) {
+                i.completed = false;
+                return true;
+              }));
+            case 'todo':
+              absVal = completed ? Math.abs(task.value) : task.value;
+              return todoTally += absVal;
+          }
+        });
+        user.habits.forEach(function(task) {
+          if (task.up === false || task.down === false) {
+            if (Math.abs(task.value) < 0.1) {
+              return task.value = 0;
+            } else {
+              return task.value = task.value / 2;
+            }
+          }
+        });
+        ((_ref1 = (_base1 = ((_ref2 = user.history) != null ? _ref2 : user.history = {})).todos) != null ? _ref1 : _base1.todos = []).push({
+          date: now,
+          value: todoTally
+        });
+        expTally = user.stats.exp;
+        lvl = 0;
+        while (lvl < (user.stats.lvl - 1)) {
+          lvl++;
+          expTally += api.tnl(lvl);
+        }
+        ((_ref3 = (_base2 = user.history).exp) != null ? _ref3 : _base2.exp = []).push({
+          date: now,
+          value: expTally
+        });
+        user.fns.preenUserHistory();
+        if (typeof user.markModified === "function") {
+          user.markModified('history');
+        }
+        if (typeof user.markModified === "function") {
+          user.markModified('dailys');
+        }
+        user.stats.buffs = perfect ? ((_ref4 = (_base3 = user.achievements).perfect) != null ? _ref4 : _base3.perfect = 0, user.achievements.perfect++, lvlDiv2 = Math.ceil(user.stats.lvl / 2), {
+          str: lvlDiv2,
+          int: lvlDiv2,
+          per: lvlDiv2,
+          con: lvlDiv2,
+          stealth: 0,
+          streaks: false
+        }) : clearBuffs;
+        progress = user.party.quest.progress;
+        _progress = _.cloneDeep(progress);
+        _.merge(progress, {
+          down: 0,
+          up: 0
+        });
+        progress.collect = _.transform(progress.collect, (function(m, v, k) {
+          return m[k] = 0;
+        }));
+        return _progress;
+      },
+      preenUserHistory: function(minHistLen) {
+        if (minHistLen == null) {
+          minHistLen = 7;
+        }
+        _.each(user.habits.concat(user.dailys), function(task) {
+          var _ref;
+
+          if (((_ref = task.history) != null ? _ref.length : void 0) > minHistLen) {
+            task.history = preenHistory(task.history);
+          }
+          return true;
+        });
+        _.defaults(user.history, {
+          todos: [],
+          exp: []
+        });
+        if (user.history.exp.length > minHistLen) {
+          user.history.exp = preenHistory(user.history.exp);
+        }
+        if (user.history.todos.length > minHistLen) {
+          return user.history.todos = preenHistory(user.history.todos);
+        }
+      },
+      ultimateGear: function() {
+        var gear, lastGearClassTypeMatrix, ownedLastGear, shouldGrant;
+
+        gear = typeof window !== "undefined" && window !== null ? user.items.gear.owned : user.items.gear.owned.toObject();
+        ownedLastGear = _.chain(content.gear.flat).pick(_.keys(gear)).values().filter(function(gear) {
+          return gear.last;
+        });
+        lastGearClassTypeMatrix = {};
+        _.each(content.classes, function(klass) {
+          lastGearClassTypeMatrix[klass] = {};
+          return _.each(content.gearTypes, function(type) {
+            lastGearClassTypeMatrix[klass][type] = false;
+            return true;
+          });
+        });
+        ownedLastGear.each(function(gear) {
+          if (gear.twoHanded) {
+            lastGearClassTypeMatrix[gear.klass]["shield"] = true;
+          }
+          return lastGearClassTypeMatrix[gear.klass][gear.type] = true;
+        });
+        shouldGrant = _(lastGearClassTypeMatrix).values().reduce((function(ans, klass) {
+          return ans || _(klass).values().reduce((function(ans, gearType) {
+            return ans && gearType;
+          }), true);
+        }), false).valueOf();
+        return user.achievements.ultimateGear = shouldGrant;
+      }
+    };
+    Object.defineProperty(user, '_statsComputed', {
+      get: function() {
+        var computed,
+          _this = this;
+
+        computed = _.reduce(['per', 'con', 'str', 'int'], function(m, stat) {
+          m[stat] = _.reduce($w('stats stats.buffs items.gear.equipped.weapon items.gear.equipped.armor items.gear.equipped.head items.gear.equipped.shield'), function(m2, path) {
+            var item, val;
+
+            val = user.fns.dotGet(path);
+            return m2 + (~path.indexOf('items.gear') ? (item = content.gear.flat[val], (+(item != null ? item[stat] : void 0) || 0) * ((item != null ? item.klass : void 0) === user.stats["class"] ? 1.5 : 1)) : +val[stat] || 0);
+          }, 0);
+          m[stat] += (user.stats.lvl - 1) / 2;
+          return m;
+        }, {});
+        computed.maxMP = computed.int * 2 + 30;
+        return computed;
+      }
+    });
+    return Object.defineProperty(user, 'tasks', {
+      get: function() {
+        var tasks;
+
+        tasks = user.habits.concat(user.dailys).concat(user.todos).concat(user.rewards);
+        return _.object(_.pluck(tasks, "id"), tasks);
+      }
+    });
+  };
+
+}).call(this);
+
+
+},{"./content.coffee":5,"__browserify_process":2,"lodash":3,"moment":4}]},{},[1])
+;
