@@ -1,0 +1,51 @@
+{
+"_commentgeneric" : "GENERIC STRINGS",	
+
+ "languageName" : "English",
+  "stringNotFound" : "String '<%= string %>' not found.",
+  "titleIndex" : "HabitRPG | Your Life The Role Playing Game",
+
+  "formattingMarkdown" : "Markdown formatting allowed",
+
+  "achievements":"Achievements",
+  "modalAchievement" : "Achievement!",
+	"special" : "Special",
+	"market": "Market",
+
+	"all" : "All",
+	"none" : "None",
+
+
+  "_commentbuttons": "BUTTONS",
+    "submit":"Submit",
+    "close":"Close",
+    "saveAndClose": "Save & Close",
+    "cancel":"Cancel",
+    "ok" : "Ok",
+    "add" : "Add",
+    "undo" : "Undo",
+    "continue" : "Continue",
+    "accept" : "Accept",
+    "reject" : "Reject",
+    "neverMind" : "Never mind",
+    "buyMoreGems" : "Buy More Gems",
+    "notEnoughGems" : "Not enough Gems",
+    "delete": "Delete",
+
+	"_commentgems" : "GEMS",
+	  "gems" : "Gems",
+	  "buyMoreGems" : "Buy More Gems",
+	  "notEnoughGems" : "Not enough Gems",
+	  "gemsWhatFor" : "Used for buying special items and services (eggs, hatching potions, Fortify, etc.). You'll need to unlock those features before being able to use Gems.",
+
+	"_commentmembers" : "MEMBERS",
+		"_commentachievement" : "MEMBER ACHIEVEMENT",
+	    "veteran" : "Veteran",
+	      "veteranText" : "Has weathered Habit The Grey (our pre Angular website), and has gained many battle-scars from its bugs.",
+	      "originalUser" : "Original User!",
+	        "originalUserText" : "One of the <em>very</em> original early adopters, Talk about alpha tester!",
+
+	  "_commentmodals" : "MEMBERS MODALS",
+	    "memberSince" : " - Member since ",
+	    "lastLoggedIn" : " - Last logged in "
+}

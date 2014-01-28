@@ -1,0 +1,24 @@
+{
+"_commentremoved" : "STRINGS THAT NEED TO BE REMOVED",
+
+"_commentchecked" : "STRINGS THAT NEED TO BE CHECKED",
+
+  "NPCBaileyText1" : "the Town Crier here! Announcing new stuff!",
+  "NPCAugustinText1" : "Welcome to the Market! I'm the merchant;",
+  "NPCAugustinText2" : "Dying to get that particular pet you're after, but don't want to wait for it to drop? Buy it here!",
+  "NPCJohanssonText1" : "Welcome to the Tavern! I'm",
+  "NPCJohanssonText2": "the bar keep. If you want to rest a while (going on vacation? sudden illness?), I'll set you up at the inn - dailies won't hurt you while you're resting. Stay a while & meet the locals.",
+  "NPCMelchiorText1" : "",
+  "NPCBowenText1" : "",
+  "NPCBochText1" : "",
+
+	"taskallocation" : "Distribute points based on task activity ",
+	"taskallocationpopover" : "Assigns points based on the Physical (STR), Mental (INT), Social (CON), and Other (PER) categories associated with the tasks you complete.",
+
+  "attributes" : "Attributes",
+    "physical" : "Physical",
+    "mental" : "Mental",
+    "otherExamples" : "Eg, professional pursuits, hobbies, financial, etc.",
+
+  "itemDrop" : "An item has dropped!"
+}
