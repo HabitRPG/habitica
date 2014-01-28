@@ -16,9 +16,11 @@ block content
       img(src='/bower_components/habitrpg-shared/img/logo/habitrpg_pixel.png', alt='HabitRPG logo')
       //this image needs to be replaced by something more enticing, that shows off the features of hRPG
       //while acting similarly to a logo
-      h1(style='margin:10px 0 20px 0')=env.t('tagline')
+      h1(style='margin:10px 0 20px 0;font-size:40px')=env.t('tagline')
       p
         button.btn.btn-primary.btn-large.frontpage-play-button(ng-click='playButtonClick()')=env.t('playButton')
+      hr
+      img(src='/marketing/devices.png')
       //we'd want the tagline centered, for sure, and a bit more pop, but without using jumbotron
       //it could also be part of the image, as long as the alt text included it
       //in fact, I think I really want it on the image, rather than as text, but language issues
