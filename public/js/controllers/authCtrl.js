@@ -61,11 +61,10 @@ angular.module('authCtrl', [])
         }
       }
 
-<<<<<<< HEAD
       $scope.auth = function() {
         var data = {
-          username: $scope.loginUsername,
-          password: $scope.loginPassword
+          username: $scope.loginUsername || $('#login-tab input[name="username"]').val(),
+          password: $scope.loginPassword || $('#login-tab input[name="password"]').val()
         };
         if ($scope.useUUID) {
           runAuth($scope.loginUsername, $scope.loginPassword);
@@ -75,12 +74,6 @@ angular.module('authCtrl', [])
               runAuth(data.id, data.token);
             }).error(errorAlert);
         }
-=======
-    $scope.auth = function() {
-      var data = {
-        username: $scope.loginUsername || $('#login-tab input[name="username"]').val(),
-        password: $scope.loginPassword || $('#login-tab input[name="password"]').val()
->>>>>>> 99dccc288e4ab6c61a317437616b79d157e8b68b
       };
 
       $scope.playButtonClick = function(){
