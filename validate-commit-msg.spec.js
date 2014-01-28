@@ -40,14 +40,6 @@ describe('validate-commit-msg.js', function() {
     });
 
 
-    it('should validate 100 characters length', function() {
-      var msg = "fix($compile): something super mega extra giga tera long, maybe even longer and longer and longer... ";
-
-      expect(m.validateMessage(msg)).toBe(INVALID);
-      expect(errors).toEqual(['INVALID COMMIT MSG: is longer than 100 characters !']);
-    });
-
-
     it('should validate "<type>(<scope>): <subject>" format', function() {
       var msg = 'not correct format';
 
