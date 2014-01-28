@@ -41,7 +41,6 @@
 				"xml" : "(XML)",
 				"json" : "(JSON)",
 				"imageurl" : "Image Url",
-				"none": "- None -",
 
 	  "customDayStart":"Custom Day Start",
     "24HrClock": "24Hr Clock",
