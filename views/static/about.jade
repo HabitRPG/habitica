@@ -1,0 +1,20 @@
+extends ./layout
+
+block vars
+  - var layoutEnv = env
+  - var menuItem = 'about'
+
+block title
+  title About
+
+block content
+  .container
+     p(style='height:600;')
+       iframe(src='//player.vimeo.com/video/76557040', width='100%', height='539', frameborder='0', webkitallowfullscreen='', mozallowfullscreen='', allowfullscreen='')
+  p=env.t('landingp1')
+  h2=env.t('landingp2header')
+  p=env.t('landingp2')
+  h2=env.t('landingp3header')
+  p=env.t('landingp3')
+  h2=env.t('landingp4header')
+  p=env.t('landingp4')

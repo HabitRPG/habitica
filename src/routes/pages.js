@@ -35,26 +35,22 @@ router.get('/static/api', middleware.locals, function(req, res) {
   res.render('static/api', {env: res.locals.habitrpg});
 });
 
+router.get('/static/about', middleware.locals, function(req, res) {
+  res.render('static/about', {env: res.locals.habitrpg});
+});
+
+router.get('/static/contact', middleware.locals, function(req, res) {
+  res.render('static/contact', {env: res.locals.habitrpg});
+});
+
+router.get('/static/pricing', middleware.locals, function(req, res) {
+  res.render('static/pricing', {env: res.locals.habitrpg});
+});
+
 // --------- Redirects --------
-
-router.get('/splash.html', function(req, res) {
-  res.redirect('/static/front');
-});
-
-router.get('/static/about', function(req, res) {
-  res.redirect('http://community.habitrpg.com/node/97');
-});
-
-router.get('/static/team', function(req, res) {
-  res.redirect('http://community.habitrpg.com/node/96');
-});
 
 router.get('/static/extensions', function(req, res) {
   res.redirect('http://community.habitrpg.com/extensions');
-});
-
-router.get('/static/faq', function(req, res) {
-  res.redirect('http://community.habitrpg.com/faq-page');
 });
 
 module.exports = router;

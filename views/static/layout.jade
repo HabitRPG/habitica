@@ -18,6 +18,23 @@ html
       $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
 
   body
-    block content
+    div(ng-app='habitrpgStatic',ng-controller='AuthCtrl',style='margin-top:60px;')
+      include ./login-modal
+      .navbar.navbar-inverse.navbar.navbar-inverse.navbar-fixed-top
+        .navbar-inner
+          .container
+            a.pull-right.btn.btn-primary(ng-click='playButtonClick()')=env.t('playButton')
+
+            ul.nav
+              li(class='#{menuItem=="home" ? "active" : ""}')
+                a(href='/static/front') Home
+              li(class='#{menuItem=="about" ? "active" : ""}')
+                a(href='/static/about') About
+              //li(class='#{menuItem=="pricing" ? "active" : ""}')
+                a(href='/static/pricing') Pricing
+              //li(class='#{menuItem=="contact" ? "active" : ""}')
+                a(href='/static/contact') Contact
+      .container
+        block content
 
   include ../shared/footer
