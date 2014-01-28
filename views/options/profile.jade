@@ -180,15 +180,21 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
   div(ng-show='!_editing.profile')
     h4=env.t('displayname')
     span(ng-show='profile.profile.name') {{profile.profile.name}}
-    span.muted(ng-hide='profile.profile.name')=env.t('none')
+    span.muted(ng-hide='profile.profile.name') -&nbsp;
+      =env.t('none')
+      | &nbsp;-
 
     h4=env.t('displayphoto')
     img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
-    span.muted(ng-hide='profile.profile.imageUrl')=env.t('none')
+    span.muted(ng-hide='profile.profile.imageUrl') -&nbsp;
+      =env.t('none')
+      | &nbsp;-
 
     h4=env.t('displayblurb')
     markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
-    span.muted(ng-hide='profile.profile.blurb')=env.t('none')
+    span.muted(ng-hide='profile.profile.blurb') -&nbsp;
+      =env.t('none')
+      | &nbsp;-
     //{{profile.profile.blurb | linky:'_blank'}}
 
   div.whatever-options(ng-show='_editing.profile')
