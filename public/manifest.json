@@ -76,6 +76,10 @@
 
             "bower_components/bootstrap/docs/assets/js/bootstrap.js",
 
+            "bower_components/angular-ui/build/angular-ui.js",
+            "bower_components/angular-bootstrap/ui-bootstrap.js",
+            "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
+
             "bower_components/angular-loading-bar/build/loading-bar.js",
             "js/static.js",
             "js/services/notificationServices.js",

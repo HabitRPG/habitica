@@ -43,8 +43,8 @@ router.get('/static/contact', middleware.locals, function(req, res) {
   res.render('static/contact', {env: res.locals.habitrpg});
 });
 
-router.get('/static/pricing', middleware.locals, function(req, res) {
-  res.render('static/pricing', {env: res.locals.habitrpg});
+router.get('/static/plans', middleware.locals, function(req, res) {
+  res.render('static/plans', {env: res.locals.habitrpg});
 });
 
 // --------- Redirects --------

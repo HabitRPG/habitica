@@ -29,11 +29,14 @@ html
               li(class='#{menuItem=="home" ? "active" : ""}')
                 a(href='/static/front') Home
               li(class='#{menuItem=="about" ? "active" : ""}')
-                a(href='/static/about') About
-              //li(class='#{menuItem=="pricing" ? "active" : ""}')
-                a(href='/static/pricing') Pricing
+                a(href='/static/about') Learn More
+              li
+                a(href='http://blog.habitrpg.com/') Blog
+              li(class='#{menuItem=="plans" ? "active" : ""}')
+                a(href='/static/plans') Group Plans
               //li(class='#{menuItem=="contact" ? "active" : ""}')
                 a(href='/static/contact') Contact
+
       .container
         block content
 

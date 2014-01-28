@@ -1,0 +1,101 @@
+extends ./layout
+block vars
+  - var layoutEnv = env
+  - var menuItem = 'plans'
+block title
+  title Administrator Plans
+block content
+
+  .subscription-features
+    h2 Administrator Subscriptions
+    table.table.table-striped
+      tr
+        th.feature-name
+        //th.feature-name.muted Family (Coming Soon)
+        //th.feature-name.muted Bronze (Coming Soon)
+        //th.feature-name.muted Silver (Coming Soon)
+        th.feature-name Gold
+        th.feature-name.muted More Plans<br/>Coming Soon
+      tr
+        th
+          span.dashed-underline(popover="Members of the organization participate outside of HabitRPG proper, providing focus for your participants.",popover-trigger='mouseenter',popover-placement='right')
+            | Private Organization
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        td
+          i.icon-ok
+        td
+      tr
+        th
+          span.dashed-underline(popover="Shared hosting means your organization uses the same database as HabitRPG proper even though you don't interact with Habitica. Dedicated means you get your own database and server. You can choose to have HabitRPG host your server/db, or we can install it on your own servers.",popover-trigger='mouseenter',popover-placement='right')
+            | Hosting Type
+        //td Shared
+        //td Shared
+        //td Shared
+        td Dedicated
+        td
+      tr
+        th
+          span.dashed-underline(popover="We can optionally give you your own domain for the installation.",popover-trigger='mouseenter',popover-placement='right')
+            | Custom Domain
+        //td.muted
+        //td.muted
+        //td.muted
+        td
+          i.icon-ok
+        td
+      tr
+        th
+          span.dashed-underline(popover="The maximum number of players in your private organization.",popover-trigger='mouseenter',popover-placement='right')
+            | Max Participants
+        //td.muted 10
+        //td.muted 50
+        //td.muted 150
+        td Unlimited
+        td
+      tr
+        th
+          span.dashed-underline(popover="First to be provided for with support.",popover-trigger='mouseenter',popover-placement='right')
+            | Priority Support On Tickets & Hosting
+        //td.muted
+        //td.muted
+        //td.muted
+        td
+          i.icon-ok
+        td
+      tr
+        th
+          span.dashed-underline(popover="We will provide support for training, bugs, installation, and feature requests.",popover-trigger='mouseenter',popover-placement='right')
+            | Support Hours / Month
+        //td.muted 10
+        //td.muted 20
+        //td.muted 30
+        td 10
+        td
+      tr
+        th
+          h5 In-Game features
+          ul
+            li Ads disabled for members
+            li
+              span.dashed-underline(popover="Members will be able to purchase gems with gold, meaning none of your participants need to buy anything with real money.",popover-trigger='mouseenter',popover-placement='right')
+                | Gems purchasable with gold
+            li
+              span.dashed-underline(popover="We will provide the organization leaders with as many gems as they need, for things like challenge prizes, guild-creation, etc.",popover-trigger='mouseenter',popover-placement='right')
+                | Infinite leader gems
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        td
+          i.icon-ok
+        td
+      tr
+        th
+          //| Price
+        //td.alert.alert-info ??? USD / Month
+        //td.alert.alert-info ??? USD / Month
+        //td.alert.alert-info ??? USD / Month
+        td
+          a.btn.btn-primary(href='https://docs.google.com/forms/d/12Jqj_8f3oQS0B3ZUHewHbK61uLjBdzBeB0zyEqB9lxM/viewform') Contact Us
+        td
