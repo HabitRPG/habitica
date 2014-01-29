@@ -5,8 +5,8 @@
  */
 
 angular.module('authCtrl', [])
-  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','API_URL',
-    function($scope, $rootScope, User, $http, $location, $window, API_URL) {
+  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','API_URL', '$modal',
+    function($scope, $rootScope, User, $http, $location, $window, API_URL, $modal) {
       var runAuth;
       var showedFacebookMessage;
 
@@ -80,7 +80,9 @@ angular.module('authCtrl', [])
         if (User.authenticated()) {
           window.location.href = '/#/tasks';
         } else {
-          $('#login-modal').modal('show');
+          $modal.open({
+            templateUrl: 'modals/login.html'
+          });
         }
       }
 
