@@ -10,7 +10,6 @@
             "bower_components/marked/lib/marked.js",
             "bower_components/angular-ui-router/release/angular-ui-router.js",
             "bower_components/angular-resource/angular-resource.min.js",
-            "bower_components/angular-ui/build/angular-ui.js",
             "bower_components/angular-ui-utils/ui-utils.min.js",
             "bower_components/angular-loading-bar/build/loading-bar.js",
             "bower_components/Angular-At-Directive/src/at.js",
@@ -22,7 +21,6 @@
             "bower_components/select2/select2.js",
             "bower_components/angular-ui-select2/src/select2.js",
 
-            "bower_components/bootstrap/docs/assets/js/bootstrap.js",
             "bower_components/angular-bootstrap/ui-bootstrap.js",
             "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
 
@@ -63,7 +61,7 @@
             "js/controllers/hallCtrl.js"
         ],
         "css": [
-            "bower_components/bootstrap/docs/assets/css/bootstrap.css",
+            "bower_components/bootstrap/dist/css/bootstrap.css",
             "app.css",
             "bower_components/habitrpg-shared/dist/habitrpg-shared.css"
         ]
@@ -74,9 +72,6 @@
             "bower_components/habitrpg-shared/dist/habitrpg-shared.js",
             "bower_components/angular/angular.js",
 
-            "bower_components/bootstrap/docs/assets/js/bootstrap.js",
-
-            "bower_components/angular-ui/build/angular-ui.js",
             "bower_components/angular-bootstrap/ui-bootstrap.js",
             "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
 
@@ -87,9 +82,7 @@
             "js/controllers/authCtrl.js"
         ],
         "css": [
-            "bower_components/bootstrap/docs/assets/css/bootstrap.css",
-            "bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css",
-            "bower_components/bootstrap/docs/assets/css/docs.css",
+            "bower_components/bootstrap/dist/css/bootstrap.css",
     
             "static.css"
         ]
