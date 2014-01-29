@@ -31,6 +31,16 @@ angular.module('authCtrl', [])
         });
       };
 
+      function errorAlert(data, status, headers, config) {
+        if (status === 0) {
+          $window.alert("Server not currently reachable, try again later");
+        } else if (!!data && !!data.err) {
+          $window.alert(data.err);
+        } else {
+          $window.alert("ERROR: " + status);
+        }
+      };
+
       $scope.register = function() {
         /*TODO highlight invalid inputs
          we have this as a workaround for https://github.com/HabitRPG/habitrpg-mobile/issues/64
@@ -40,26 +50,8 @@ angular.module('authCtrl', [])
         }
         $http.post(API_URL + "/api/v2/register", $scope.registerVals).success(function(data, status, headers, config) {
           runAuth(data.id, data.apiToken);
-        }).error(function(data, status, headers, config) {
-            if (status === 0) {
-              $window.alert("Server not currently reachable, try again later");
-            } else if (!!data && !!data.err) {
-              $window.alert(data.err);
-            } else {
-              $window.alert("ERROR: " + status);
-            }
-          });
+        }).error(errorAlert);
       };
-
-      function errorAlert(data, status, headers, config) {
-        if (status === 0) {
-          $window.alert("Server not currently reachable, try again later");
-        } else if (!!data && !!data.err) {
-          $window.alert(data.err);
-        } else {
-          $window.alert("ERROR: " + status);
-        }
-      }
 
       $scope.auth = function() {
         var data = {
@@ -81,8 +73,8 @@ angular.module('authCtrl', [])
           window.location.href = '/#/tasks';
         } else {
           $modal.open({
-            templateUrl: 'modals/login.html',
-            scope: $scope
+            templateUrl: 'modals/login.html'
+            // Using controller: 'AuthCtrl' it causes problems
           });
         }
       }
