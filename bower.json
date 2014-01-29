@@ -41,7 +41,7 @@
     "angular-ui-utils": "~0.1.0",
     "swagger-ui": "https://github.com/wordnik/swagger-ui.git#105c516f5f055b140e935e9cfe0c36f841921dff",
     "ngInfiniteScroll": "~1.0.0",
-    "angular-ui-select2": "~0.0.5"
+    "angular-ui-select2": "https://github.com/angular-ui/ui-select2.git#4469fd7a32eba2e28d5e3dd319b49e1ad090b167"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.1"
