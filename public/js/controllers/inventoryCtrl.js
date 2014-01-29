@@ -132,12 +132,21 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     $scope.closeQuest = function(){
       $rootScope.selectedQuest = undefined;
       $rootScope.modals.showQuest = false;
+      $rootScope.modals.buyQuest = false;
     }
     $scope.questInit = function(){
       $rootScope.party.$questAccept({key:$scope.selectedQuest.key}, function(){
         $rootScope.party.$get();
       });
       $scope.closeQuest();
+    }
+    $scope.buyQuest = function(quest) {
+      var item = Content.quests[quest];
+      var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
+      if (!completedPrevious)
+        return $scope.purchase("quests", item);
+      $rootScope.selectedQuest = item;
+      $rootScope.modals.buyQuest = true;
     }
   }
 ]);

@@ -36,6 +36,17 @@ div(modal='modals.showQuest', ng-controller='InventoryCtrl')
     button.btn.btn-default.btn-small.btn-cancel(ng-click='closeQuest()')=env.t('cancel')
     button.btn.btn-default.btn-primary(ng-click='questInit()')=env.t('inviteParty')
 
+div(modal='modals.buyQuest', ng-controller='InventoryCtrl')
+  .modal-header
+    h3 {{selectedQuest.text}}
+  .modal-body
+    .pull-right(class='quest_{{selectedQuest.key}}')
+    p {{selectedQuest.notes}}
+    quest-rewards(key='{{selectedQuest.key}}')
+  .modal-footer
+    button.btn.btn-large.cancel(ng-click='closeQuest()')=env.t('neverMind')
+    button.btn.btn-default.btn-large.btn-primary(ng-click='purchase("quests", quest);closeQuest()')=env.t('buyQuest')
+
 div(modal='party.quest.key && !party.quest.active && !questHold && party.quest.members[user._id] == undefined')
   .modal-header
     h3=env.t('questInvitation')
