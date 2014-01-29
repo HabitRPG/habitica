@@ -586,6 +586,7 @@ api.wrap = (user, main=true) ->
         return cb?({code:404,message:":type must be in [hatchingPotions,eggs,food,quests,special]"},req) unless type in ['eggs','hatchingPotions','food','quests','special']
         item = content[type][key]
         return cb?({code:404,message:":key not found for Content.#{type}"},req) unless item
+        return cb?({code:401, message:'Not enough gems.'}) if user.balance < (item.value / 4)
         user.items[type][key] = 0  unless user.items[type][key]
         user.items[type][key]++
         user.balance -= (item.value / 4)
