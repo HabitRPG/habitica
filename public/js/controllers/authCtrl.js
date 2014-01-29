@@ -81,7 +81,8 @@ angular.module('authCtrl', [])
           window.location.href = '/#/tasks';
         } else {
           $modal.open({
-            templateUrl: 'modals/login.html'
+            templateUrl: 'modals/login.html',
+            scope: $scope
           });
         }
       }
