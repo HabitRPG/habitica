@@ -11,7 +11,7 @@
     "guid": "*",
     "moment": "~2.4.0",
     "stripe": "*",
-    "coffee-script": "*",
+    "coffee-script": "1.6.x",
     "nconf": "*",
     "icalendar": "git://github.com/lefnire/node-icalendar#master",
     "resolve": "~0.2.3",
