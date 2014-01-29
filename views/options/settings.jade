@@ -10,8 +10,7 @@ script(id='partials/options.settings.html', type="text/ng-template")
       a(ui-sref='options.settings.export')
         =env.t('dataexport')
     li(ng-class="{ active: $state.includes('options.settings.subscription') }")
-      a(ui-sref='options.settings.subscription')
-        | Subscription
+      a(ui-sref='options.settings.subscription')=env.t('subscription')
 
   .tab-content
     .tab-pane.active
@@ -28,7 +27,10 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
       div
         small
           div=env.t('clockInfo')
-          .alert.alert-danger Warning: this is a highly-experimental feature, and many <a href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank'>experience issues</a> with it.
+          .alert.alert-danger 
+            =env.t('subWarning1')
+            a(href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank')=env.t('subWarning2')
+            =env.t('subWarning3')
       hr
       h4=env.t('language')
       select(ng-model='language.code', ng-options='lang.code as lang.name for lang in avalaibleLanguages', ng-change='changeLanguage()')
@@ -116,28 +118,24 @@ script(id='partials/options.settings.subscription.perks.html',type='text/ng-temp
   table.table.table-striped
     tr
       td
-        span.dashed-underline(popover="Ads will stay disabled while you have an active account (original users with disabled ads are grandfathered).",popover-trigger='mouseenter',popover-placement='right')
-          | Disable ads
+        span.dashed-underline(popover=env.t('disableAdsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('disableAds')
     tr
       td
-        span.dashed-underline(popover="(1 Gem costs {{Shared.planGemLimits.convRate}} Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a {{Shared.planGemLimits.convCap}}G monthly conversion cap to prevent farming.",popover-trigger='mouseenter',popover-placement='right')
-          | Buy Gems with Gold
+        span.dashed-underline(popover=env.t('buyGemsGoldText', {gemCost: "{{Shared.planGemLimits.convRate}}", gemLimit: "{{Shared.planGemLimits.convCap}}"}),popover-trigger='mouseenter',popover-placement='right')=env.t('buyGemsGold')
     tr
       td
-        span.dashed-underline(popover="Makes your full history available in graphs and export. Non-subscriber histories get consolidated for database optimization.",popover-trigger='mouseenter',popover-placement='right')
-          | Retain full history entries
+        span.dashed-underline(popover=env.t('retainHistoryText'),popover-trigger='mouseenter',popover-placement='right')=env.t('retainHistory')
     tr
       td
-        span.dashed-underline(popover="Complete your stable faster!",popover-trigger='mouseenter',popover-placement='right')
-          | Daily drop-caps doubled
+        span.dashed-underline(popover=env.t('doubleDropsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('doubleDrops')
     //-tr
     //-  td +20 gems to your account
     tr
       td
-        span.dashed-underline(popover="This open source project can use all the help it can get. Help us keep Habit alive!",popover-trigger='mouseenter',popover-placement='right')
-          | Supports the developers
+        span.dashed-underline(popover=env.t('supportDevsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('supportDevs')
     tr
-      td.alert.alert-info $5 USD / Month
+      td.alert.alert-info $5&nbsp;
+        =env.t('monthUSD')
 
 script(id='partials/feature-matrix-check.html',type='text/ng-template')
   span.task-checker.action-yesno
@@ -147,16 +145,100 @@ script(id='partials/feature-matrix-check.html',type='text/ng-template')
 script(id='partials/options.settings.subscription.html',type='text/ng-template')
 
   .well
-    h2 Individual Subscription
+    h2=env.t('individualSub')
     div(ng-if='!user.purchased.plan.customerId')
       div(ng-include="'partials/options.settings.subscription.perks.html'")
-      .btn.btn-primary(ng-click='showStripe(true)') Subscribe
+      .btn.btn-primary(ng-click='showStripe(true)')=env.t('subscribe')
       //-small.muted PayPal coming soon.
 
     div(ng-if='user.purchased.plan.customerId')
       .well
         div(style='font-size:22px')
-          i.icon-ok
-          | Subscribed
+          i.icon-ok=env.t('subscribed')
         div(ng-include="'partials/options.settings.subscription.perks.html'")
-      .btn.btn-small.btn-danger(ng-click='cancelSubscription()') Cancel Subscription
+      .btn.btn-small.btn-danger(ng-click='cancelSubscription()')=env.t('cancelSub')
+
+
+  //-.well.subscription-features
+    h2=env.t('adminSub')
+
+    table.table.table-striped
+      tr
+        th.feature-name
+        //th.feature-name.muted Family (Coming Soon)
+        //th.feature-name.muted Bronze (Coming Soon)
+        //th.feature-name.muted Silver (Coming Soon)
+        th.feature-name=env.t('gold')
+        th.feature-name.muted
+          !=env.t('morePlans')
+      tr
+        th
+          span.dashed-underline(popover=env.t('organizationSubText'),popover-trigger='mouseenter',popover-placement='right')=env.t('organizationSub')
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        td(ng-include="'partials/feature-matrix-check.html'")
+        td
+      tr
+        th
+          span.dashed-underline(popover=env.t('hostingTypeText'),popover-trigger='mouseenter',popover-placement='right')=env.t('hostingType')
+        //td Shared
+        //td Shared
+        //td Shared
+        td=env.t('dedicated')
+        td
+
+      tr
+        th
+          span.dashed-underline(popover=env.t('customDomainText'),popover-trigger='mouseenter',popover-placement='right')=env.t('customDomain')
+        //td.muted
+        //td.muted
+        //td.muted
+        td(ng-include="'partials/feature-matrix-check.html'")
+        td
+      tr
+        th
+          span.dashed-underline(popover=env.t('maxPlayersText'),popover-trigger='mouseenter',popover-placement='right')=env.t('maxPlayers')
+        //td.muted 10
+        //td.muted 50
+        //td.muted 150
+        td=env.t('unlimited')
+        td
+      tr
+        th
+          span.dashed-underline(popover=env.t('priSupportText'),popover-trigger='mouseenter',popover-placement='right')=env.t('priSupport')
+        //td.muted
+        //td.muted
+        //td.muted
+        td(ng-include="'partials/feature-matrix-check.html'")
+        td
+      tr
+        th
+          span.dashed-underline(popover=env.t('timeSupportText'),popover-trigger='mouseenter',popover-placement='right')=env.t('timeSupport')
+        //td.muted 10
+        //td.muted 20
+        //td.muted 30
+        td=env.t('unlimited')
+        td
+      tr
+        th
+          h5=env.t('gameFeatures')
+          ul(style='margin:0 0 10px 25px;')
+            li=env.t('gameNoAds')
+            li
+              span.dashed-underline(popover=env.t('gold2GemText'),popover-trigger='mouseenter',popover-placement='right')=env.t('gold2Gem')
+            li
+              span.dashed-underline(popover=env.t('infiniteGemText'),popover-trigger='mouseenter',popover-placement='right')=env.t('infiniteGem')
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        //td(ng-include="'partials/feature-matrix-check.html'")
+        td(ng-include="'partials/feature-matrix-check.html'")
+        td
+      tr
+        th=env.t('price')
+        //td.alert.alert-info ??? USD / Month
+        //td.alert.alert-info ??? USD / Month
+        //td.alert.alert-info ??? USD / Month
+        td.alert.alert-info ???&nbsp;
+          =env.t('monthUSD')
+        td
