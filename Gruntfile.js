@@ -70,8 +70,7 @@ module.exports = function(grunt) {
         src: [
           'build/*.js', 'build/*.css', 'build/favicon.ico',
           'build/bower_components/bootstrap/docs/assets/css/*.css',
-          'build/bower_components/habitrpg-shared/dist/*.css',
-          'build/bower_components/habitrpg-shared/dist/*.png'
+          'build/bower_components/habitrpg-shared/dist/*.css'
         ],
         dest: 'make-sure-i-do-not-exist'
       }
