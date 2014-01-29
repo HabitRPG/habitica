@@ -1,5 +1,5 @@
 // Streak
-div(modal='modals.achievements.streak')
+script(id='modals/achievements/streak.html', type='text/ng-template')
   .modal-header
     h3=env.t('modalAchievement')
   .modal-body
@@ -9,7 +9,7 @@ div(modal='modals.achievements.streak')
     button.btn.btn-default.cancel(ng-click='modals.achievements.streak = false')=env.t('ok')
 
 // Max Gear
-div(modal='modals.achievements.ultimateGear')
+script(id='modals/achievements/ultimateGear.html', type='text/ng-template')
   .modal-header
     h3=env.t('modalAchievement')
   .modal-body
@@ -19,7 +19,7 @@ div(modal='modals.achievements.ultimateGear')
     button.btn.btn-default.cancel(ng-click='modals.achievements.ultimateGear = false')=env.t('ok')
 
 // Beast Master
-div(modal='modals.achievements.beastMaster')
+script(id='modals/achievements/ultimateGear.html', type='text/ng-template')
   .modal-header
     h3=env.t('modalAchievement')
   .modal-body
@@ -30,7 +30,8 @@ div(modal='modals.achievements.beastMaster')
     button.btn.btn-default.cancel(ng-click='modals.achievements.beastMaster = false')=env.t('ok')
 
 // Contributor
-div(modal='user.flags.contributor')
+// activated by user.flags.contributor
+script(id='modals/achievements/contributor.html', type='text/ng-template')
   .modal-header
     h3=env.t('modalContribAchievement')
   .modal-body
@@ -45,7 +46,7 @@ div(modal='user.flags.contributor')
     button.btn.btn-default.cancel(ng-click='set({"flags.contributor":false})')=env.t('ok')
 
 //Rebirth
-div(modal='modals.achievements.rebirth')
+script(id='modals/achievements/rebirth.html', type='text/ng-template')
   .modal-header
     h3=env.t('modalAchievement')
   .modal-body

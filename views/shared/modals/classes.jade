@@ -1,4 +1,6 @@
-.modal(ng-if='!user.flags.classSelected && user.stats.lvl >= 10', data-backdrop=true, ng-controller='UserCtrl')
+//activated by 
+// ng-if='!user.flags.classSelected && user.stats.lvl >= 10', data-backdrop=true, ng-controller='UserCtrl')
+script(type='text/ng-template', id='modals/chooseClass.html')  
   .modal-header
     h3=env.t('chooseClass1')
       a(href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank')=env.t('chooseClass2')

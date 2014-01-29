@@ -1,76 +1,79 @@
-div(ng-controller='SettingsCtrl')
+//div(ng-controller='SettingsCtrl')
   div(modal='modals.reset')
-    .modal-header
-      h3=env.t('resetaccount')
-    .modal-body
-      p=env.t('resetText1')
-      p=env.t('resetText2')
-    .modal-footer
-      button.btn.btn-default.cancel(ng-click='modals.reset = false')=env.t('neverMind')
-      button.btn.btn-danger(data-dismiss='modal', ng-click='reset()')=env.t('resetDo')
+script(type='text/ng-template', id='modals/reset.html')  
+  .modal-header
+    h3=env.t('resetaccount')
+  .modal-body
+    p=env.t('resetText1')
+    p=env.t('resetText2')
+  .modal-footer
+    button.btn.btn-default.cancel(ng-click='modals.reset = false')=env.t('neverMind')
+    button.btn.btn-danger(data-dismiss='modal', ng-click='reset()')=env.t('resetDo')
 
-  div(modal='modals.restore')
-    .modal-header
-      h3=env.t('fixValues')
-    .modal-body
-      p=env.t('fixValuesText1')
-      p=env.t('fixValuesText2')
-      div.restore-options
-        form#restore-form.form-horizontal
-          h3=env.t('stats')
+//div(modal='modals.restore')
+script(type='text/ng-template', id='modals/restore.html')  
+  .modal-header
+    h3=env.t('fixValues')
+  .modal-body
+    p=env.t('fixValuesText1')
+    p=env.t('fixValuesText2')
+    div.restore-options
+      form#restore-form.form-horizontal
+        h3=env.t('stats')
+        .option-group.option-medium
+          input.option-content(type='number', step="any", data-for='stats.hp', ng-model='restoreValues.stats.hp')
+          span.input-suffix=env.t('health')
+        .option-group.option-medium
+          input.option-content(type='number', step="any", data-for='stats.exp', ng-model='restoreValues.stats.exp')
+          span.input-suffix=env.t('experience')
+        .option-group.option-medium(ng-if='!user.purchased.plan.customerId')
+          //input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp')
+          input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp',disabled)
+          span.input-suffix=env.t('gold')
+          p.alert
+            small=env.t('disabledWinterEvent')
+        .option-group.option-medium
+          input.option-content(type='number', step="any", data-for='stats.mp', ng-model='restoreValues.stats.mp')
+          span.input-suffix=env.t('mana')
+        .option-group.option-medium
+          input.option-content(type='number', data-for='stats.lvl', ng-model='restoreValues.stats.lvl')
+          span.input-suffix=env.t('level')
+        //-
+          //- Commenting out since it doesn't make sense to restore equipment with Armory anymore. They can just restore GP & buy
+          h3 Equipment
           .option-group.option-medium
-            input.option-content(type='number', step="any", data-for='stats.hp', ng-model='restoreValues.stats.hp')
-            span.input-suffix=env.t('health')
+            input.option-content(type='number', data-for='items.weapon', ng-model='restoreValues.items.weapon')
+            span.input-suffix Weapon
           .option-group.option-medium
-            input.option-content(type='number', step="any", data-for='stats.exp', ng-model='restoreValues.stats.exp')
-            span.input-suffix=env.t('experience')
-          .option-group.option-medium(ng-if='!user.purchased.plan.customerId')
-            //input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp')
-            input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp',disabled)
-            span.input-suffix=env.t('gold')
-            p.alert
-              small=env.t('disabledWinterEvent')
+            input.option-content(type='number', data-for='items.armor', ng-model='restoreValues.items.armor')
+            span.input-suffix Armor
           .option-group.option-medium
-            input.option-content(type='number', step="any", data-for='stats.mp', ng-model='restoreValues.stats.mp')
-            span.input-suffix=env.t('mana')
+            input.option-content(type='number', data-for='items.head', ng-model='restoreValues.items.head')
+            span.input-suffix Helm
           .option-group.option-medium
-            input.option-content(type='number', data-for='stats.lvl', ng-model='restoreValues.stats.lvl')
-            span.input-suffix=env.t('level')
-          //-
-            //- Commenting out since it doesn't make sense to restore equipment with Armory anymore. They can just restore GP & buy
-            h3 Equipment
-            .option-group.option-medium
-              input.option-content(type='number', data-for='items.weapon', ng-model='restoreValues.items.weapon')
-              span.input-suffix Weapon
-            .option-group.option-medium
-              input.option-content(type='number', data-for='items.armor', ng-model='restoreValues.items.armor')
-              span.input-suffix Armor
-            .option-group.option-medium
-              input.option-content(type='number', data-for='items.head', ng-model='restoreValues.items.head')
-              span.input-suffix Helm
-            .option-group.option-medium
-              input.option-content(type='number', data-for='items.shield', ng-model='restoreValues.items.shield')
-              span.input-suffix Shield
-          h3=env.t('achievements')
-          .option-group.option-medium
-            input.option-content(type='number', data-for='achievements.streak', ng-model='restoreValues.achievements.streak')
-            span.input-suffix=env.t('fix21Streaks')
-        //- This is causing too many problems for users
-          h3=env.t('other')
-          a.btn.btn-small.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()')=env.t('triggerDay')
-    .modal-footer
-      button.btn.btn-default.cancel(ng-click='modals.restore = false')=env.t('discardChanges')
-      button.btn.btn-primary(ng-click='restore()')=env.t('saveAndClose')
+            input.option-content(type='number', data-for='items.shield', ng-model='restoreValues.items.shield')
+            span.input-suffix Shield
+        h3=env.t('achievements')
+        .option-group.option-medium
+          input.option-content(type='number', data-for='achievements.streak', ng-model='restoreValues.achievements.streak')
+          span.input-suffix=env.t('fix21Streaks')
+      //- This is causing too many problems for users
+        h3=env.t('other')
+        a.btn.btn-small.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()')=env.t('triggerDay')
+  .modal-footer
+    button.btn.btn-default.cancel(ng-click='modals.restore = false')=env.t('discardChanges')
+    button.btn.btn-primary(ng-click='restore()')=env.t('saveAndClose')
 
-  div(modal='modals.delete')
-    .modal-header
-      h3=env.t('deleteaccount')
-    .modal-body
-      p=env.t('deleteText1')
-        strong=env.t('deleteText2')
-        =env.t('deleteText3')
-      p
-        input(type='text', ng-model='_deleteAccount')
-    .modal-footer
-      button.btn.btn-default(ng-click='modals.delete = false')=env.t('neverMind')
-      button.btn.btn-danger.btn-small(ng-disabled='_deleteAccount != "DELETE"', ng-click='delete()')=env.t('deleteDo')
+//div(modal='modals.delete')
+script(type='text/ng-template', id='modals/delete.html')  
+  .modal-header
+    h3=env.t('deleteaccount')
+  .modal-body
+    p=env.t('deleteText1')
+      strong=env.t('deleteText2')
+      =env.t('deleteText3')
+    p
+      input(type='text', ng-model='_deleteAccount')
+  .modal-footer
+    button.btn.btn-default(ng-click='modals.delete = false')=env.t('neverMind')
+    button.btn.btn-danger.btn-small(ng-disabled='_deleteAccount != "DELETE"', ng-click='delete()')=env.t('deleteDo')

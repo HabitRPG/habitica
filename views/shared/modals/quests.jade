@@ -11,7 +11,8 @@ script(id='partials/options.social.party.quest-rewards.html', type='text/ng-temp
       td {{quest.drop.gp}} 
         =env.t('gold')
 
-div(modal='user.party.quest.completed', ng-controller='InventoryCtrl')
+//div(modal='user.party.quest.completed', ng-controller='InventoryCtrl')
+script(type='text/ng-template', id='modals/questCompleted.html')  
   .modal-header
     h3 "{{Content.quests[user.party.quest.completed].text}}" 
       =env.t('completed')
@@ -21,7 +22,8 @@ div(modal='user.party.quest.completed', ng-controller='InventoryCtrl')
   .modal-footer
     button.btn.btn-default.btn-primary(ng-click='set({"party.quest.completed":""})')=env.t('accept')
 
-div(modal='modals.showQuest', ng-controller='InventoryCtrl')
+//div(modal='modals.showQuest', ng-controller='InventoryCtrl')
+script(type='text/ng-template', id='modals/showQuest.html')  
   .modal-header
     h3 {{selectedQuest.text}}
   .modal-body
@@ -36,7 +38,8 @@ div(modal='modals.showQuest', ng-controller='InventoryCtrl')
     button.btn.btn-default.btn-small.btn-cancel(ng-click='closeQuest()')=env.t('cancel')
     button.btn.btn-default.btn-primary(ng-click='questInit()')=env.t('inviteParty')
 
-div(modal='modals.buyQuest', ng-controller='InventoryCtrl')
+//div(modal='modals.buyQuest', ng-controller='InventoryCtrl')
+script(type='text/ng-template', id='modals/buyQuest.html')  
   .modal-header
     h3 {{selectedQuest.text}}
   .modal-body
@@ -47,7 +50,8 @@ div(modal='modals.buyQuest', ng-controller='InventoryCtrl')
     button.btn.btn-large.cancel(ng-click='closeQuest()')=env.t('neverMind')
     button.btn.btn-default.btn-large.btn-primary(ng-click='purchase("quests", quest);closeQuest()')=env.t('buyQuest')
 
-div(modal='party.quest.key && !party.quest.active && !questHold && party.quest.members[user._id] == undefined')
+//div(modal='party.quest.key && !party.quest.active && !questHold && party.quest.members[user._id] == undefined')
+script(type='text/ng-template', id='modals/questInvitation.html')  
   .modal-header
     h3=env.t('questInvitation')
       | {{Content.quests[party.quest.key].text}}

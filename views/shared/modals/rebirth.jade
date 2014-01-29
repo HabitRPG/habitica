@@ -1,6 +1,7 @@
 // Created by Sabe on 12/22/13.
 
-div(modal='modals.rebirthEnabled')
+//div(modal='modals.rebirthEnabled')
+script(type='text/ng-template', id='modals/rebirthEnabled.html')  
     .modal-header
         h3=env.t('rebirthNew')
     .modal-body
@@ -10,7 +11,8 @@ div(modal='modals.rebirthEnabled')
     .modal-footer
         button.btn.btn-default.cancel(ng-click='modals.rebirthEnabled = false')=env.t('close')
 
-div(modal='modals.rebirth')
+//div(modal='modals.rebirth')
+script(type='text/ng-template', id='modals/rebirth.html')  
     .modal-header
         h3=env.t('rebirthBegin')
     .modal-body

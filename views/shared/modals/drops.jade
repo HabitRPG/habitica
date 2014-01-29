@@ -1,4 +1,5 @@
-div(modal='modals.dropsEnabled')
+//div(modal='modals.dropsEnabled')
+script(type='text/ng-template', id='modals/dropsEnabled.html')  
   .modal-header
     h3=env.t('dropsEnabled')
   .modal-body
@@ -12,7 +13,8 @@ div(modal='modals.dropsEnabled')
   .modal-footer
     button.btn.btn-default.cancel(ng-click='modals.dropsEnabled = false')=env.t('close')
 
-div(modal='modals.drop')
+//div(modal='modals.drop')
+script(type='text/ng-template', id='modals/drop.html')  
   .modal-header
     h3=env.t('itemDrop')
   .modal-body
