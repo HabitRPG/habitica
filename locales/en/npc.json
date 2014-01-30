@@ -24,16 +24,13 @@
 			"for" : "for",
 
 	"_commentjustin" : "JUSTIN",
-    "buyGemsDonate" : "Buy Gems / Donate",
+    "buyGems" : "Buy Gems",
     "justin" : "Justin",
-    "fiveUSD1" : "$5 USD",
-    "fiveUSD2" : " will:",
+    "USD" : "USD",
       "donateText1" : "Adds 20 Gems to your account. Gems are used to buy special in-game items, such as shirts and hairstyles.",
       "donateText2" : "Donate to the developers",
       "donateText3" : "As an open source project, it can use all the help we can get!",
     "payWithCard" : "Pay with Card",
-    "payWithPaypal" : "Pay with Paypal",
-      "paypalText" : "20 Gems, Disable Ads, Donation to the Developers",
-    "payRecommended" : "Recommended method.",
+    "paypalText" : "20 Gems, Disable Ads, Donation to the Developers",
     "payNote" : "Note: PayPal sometimes takes a long time to clear. We recommend paying with card."
 }
