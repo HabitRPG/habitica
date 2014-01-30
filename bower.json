@@ -26,7 +26,7 @@
     "angular-ui-router": "ca3b4777a603df8f86cfd653c8f6c38b2ae05d89",
     "angular-loading-bar": "~0.3.0",
     "angular-bindonce": "~0.2.1",
-    "bootstrap": "~3.0.3",
+    "bootstrap": "~3.1.0",
     "bootstrap-datepicker": "1.3.0",
     "bootstrap-growl": "~1.1.0",
     "bootstrap-tour": "~0.8.1",
