@@ -304,6 +304,11 @@ module.exports = (swagger, v2) ->
       middleware: auth.auth
       action:user.buyGems
 
+    "/user/cancel-subscription":
+      spec: method: 'POST', description: "Do not use this route"
+      middleware: auth.auth
+      action:user.cancelSubscription
+
     "/user/buy-gems/paypal-ipn":
       spec:
         method: 'POST'
