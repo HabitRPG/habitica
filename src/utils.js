@@ -79,4 +79,5 @@ module.exports.errorHandler = function(err, req, res, next) {
   var shortMessage =  (err.message.length < 200) ? err.message :
     err.message.substring(0,100) + err.message.substring(err.message.length-100,err.message.length);
   res.json(500,{err:shortMessage}); //res.end(err.message);
+  process.exit(0);
 }
