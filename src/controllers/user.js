@@ -326,6 +326,7 @@ api.cast = function(req, res) {
   var targetId = req.query.targetId;
   var klass = shared.content.spells.special[req.params.spell] ? 'special' : user.stats.class
   var spell = shared.content.spells[klass][req.params.spell];
+  if (!spell) return res.json(404, {err: 'Spell "' + req.params.spell + '" not found.'});
 
   var done = function(){
     var err = arguments[0];
@@ -336,6 +337,7 @@ api.cast = function(req, res) {
 
   switch (targetType) {
     case 'task':
+      if (!user.tasks[targetId]) return res.json(404, {err: 'Task "' + targetId + '" not found.'});
       spell.cast(user, user.tasks[targetId]);
       user.save(done);
       break;
