@@ -11,7 +11,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
     // ------ Bosses -------
     .modal.inline-modal(bindonce='group', ng-if='group.type==="party" && group.quest.key')
       .modal-header
-        h3(ng-if='group.quest.active==false')=env.t('questInv') + '{{Content.quests[group.quest.key].text}}'
+        h3(ng-if='group.quest.active==false')=env.t('questInvitation') + '{{Content.quests[group.quest.key].text}}'
         h3(ng-if='group.quest.active==true') {{Content.quests[group.quest.key].text}}
       .modal-body
         div(ng-if='group.quest.active==false')
@@ -61,9 +61,9 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
 
           div(ng-if='Content.quests[group.quest.key].boss')
             .npc_ian.pull-left
-            p!=env.t('bossDmg1') + ' <strong>' + env.t('bossDmg2') + '</strong>'
+            p!=env.t('bossDmg1')
             br
-            p=env.t('bossDmg3')
+            p=env.t('bossDmg2')
 
           div(ng-if='Content.quests[group.quest.key].collect')
             .npc_ian.pull-left
@@ -88,7 +88,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
             input.option-content(type='text', ng-model='group.name', placeholder=env.t('groupName'))
           .control-group.option-large
             label.control-label=env.t('description')
-            textarea.option-content(style='height:15em;', placeholder=env.t('groupdescr'), ng-model='group.description')
+            textarea.option-content(style='height:15em;', placeholder=env.t('groupDescr'), ng-model='group.description')
           .control-group.option-large
             label.control-label=env.t('logoUrl')
             input.option-content(type='url', placeholder=env.t('logoUrl'), ng-model='group.logo')
@@ -131,7 +131,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
           tr(ng-if='group.memberCount > group.members.length')
             td
               |<span class='badge'>{{group.memberCount - group.members.length}} 
-              = ' ' + env.t('moremembers')
+              = ' ' + env.t('moreMembers')
               |</span>
 
         h4(ng-show='group.invites.length > 0')=env.t('invited')

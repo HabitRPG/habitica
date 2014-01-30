@@ -66,9 +66,7 @@ div(ng-controller='SettingsCtrl')
     .modal-header
       h3=env.t('deleteaccount')
     .modal-body
-      p=env.t('deleteText1')
-        strong=env.t('deleteText2')
-        =env.t('deleteText3')
+      p!=env.t('deleteText')
       p
         input(type='text', ng-model='_deleteAccount')
     .modal-footer

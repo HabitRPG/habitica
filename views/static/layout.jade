@@ -27,15 +27,15 @@ html
 
             ul.nav
               li(class='#{menuItem=="home" ? "active" : ""}')
-                a(href='/static/front') Home
+                a(href='/static/front')=env.t('home')
               li(class='#{menuItem=="about" ? "active" : ""}')
-                a(href='/static/about') Learn More
+                a(href='/static/about')=env.t('learnMore')
               li
-                a(href='http://blog.habitrpg.com/') Blog
+                a(href='http://blog.habitrpg.com/')=env.t('companyBlog')
               li(class='#{menuItem=="plans" ? "active" : ""}')
-                a(href='/static/plans') Group Plans
+                a(href='/static/plans')=env.t('groupPlans')
               //li(class='#{menuItem=="contact" ? "active" : ""}')
-                a(href='/static/contact') Contact
+                a(href='/static/contact')=env.t('contact')
 
       .container
         block content
