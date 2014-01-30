@@ -155,6 +155,11 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
                   =env.t('taskallocation')
                   &nbsp;
                   i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskallocationpopover'))
+              div(ng-show='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)')
+                a.btn.btn-primary.btn-mini(ng-click='user.ops.allocateNow({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('distributepointspopover'))
+                  i.icon-download.icon-white
+                  &nbsp;
+                  =env.t('distributepoints')
         tr
           td= env.t('allocatestr') + ' {{user.stats.str}}'
           td
