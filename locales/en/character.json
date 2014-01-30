@@ -106,7 +106,8 @@
 			"classAllocationPop" : "Assigns more points to the attributes important to your Class.",
     "taskAllocation" : "Distribute points based on task activity ",
     	"taskAllocationPop" : "Assigns points based on the Physical (STR), Mental (INT), Social (CON), and Other (PER) categories associated with the tasks you complete.",
-
+    "distributePoints": "Distribute Unallocated Points",
+      "distributePointsPop": "Assigns all unallocated attribute points according to the selected allocation scheme.",
 	  "_commentmodals" : "CLASSES MODALS",
 	    "chooseClass1" : "Choose your ",
 	    "chooseClass2" : "Class!",
