@@ -17,6 +17,8 @@ var server;
 
 // ------------ Setup configurations ------------
 utils.setupConfig();
+if (nconf.get('NODE_ENV') === 'production')
+  require('newrelic');
 
 // ------------  MongoDB Configuration ------------
 mongoose = require('mongoose');
