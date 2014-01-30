@@ -1,5 +1,6 @@
-// Only do the minimal amount of work before forking just in case of a dyno restart
 var nconf = require('nconf');
+var utils = require('./utils');
+utils.setupConfig();
 
 require('coffee-script') // remove this once we've fully converted over
 var express = require("express");
@@ -8,17 +9,11 @@ var path = require("path");
 var domainMiddleware = require('domain-middleware');
 var swagger = require("swagger-node-express");
 
-var utils = require('./utils');
 var middleware = require('./middleware');
 
 var TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 var app = express();
 var server;
-
-// ------------ Setup configurations ------------
-utils.setupConfig();
-if (nconf.get('NODE_ENV') === 'production')
-  require('newrelic');
 
 // ------------  MongoDB Configuration ------------
 mongoose = require('mongoose');
