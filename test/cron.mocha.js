@@ -2,6 +2,8 @@
 /*global describe, before, beforeEach, afterEach, it*/
 'use strict';
 
+var util = require('util');
+
 var _ = require('lodash');
 var expect = require('expect.js');
 var async = require('async');
@@ -15,6 +17,10 @@ var cron = require('../src/scripts/cron');
 var utils = require('../src/utils');
 var logging = require('../src/logging');
 var User = require('../src/models/user').model;
+
+// helper to split a string into an array or strings
+// copied from habitrpg-shared/tests/algos.mocha.coffee
+function $w(s) { return s.split(' '); }
 
 describe('runCron', function () {
     var db;
@@ -60,6 +66,7 @@ describe('runCron', function () {
     // to have been affected by cron (lastCron updated).
     function testCron(user, options, expected, cb) {
         var now = moment();
+        if (options && options.now) now = options.now;
         var lastCron = user.lastCron;
         cron.runCron((options || {}), function(err, results) {
             User.findById(user.id, function(err, user) {
@@ -342,7 +349,194 @@ describe('runCron', function () {
                 }
             ]);
         });
-});
+    });
+    describe('matrix', function() {
+        /**
+         This section runs through a "cron matrix" of all permutations (that I can easily account for). It sets
+         task due days, user custom day start, timezoneOffset, etc - then runs cron, jumps to tomorrow and runs cron,
+         and so on - testing each possible outcome along the way
+         */
+        function runCronInTimezones(options) {
+            _.each([480, 240, 0, -120], function(timezoneOffset) { // test different timezones
+                var now = shared.startOfWeek({timezoneOffset:timezoneOffset}).set('h', options.currentHour||0);
+                var dayStart =  options.dayStart || 0;
+                var lastCron = moment(now).subtract('h', options.hoursAgo || 23);
+
+                async.waterfall([
+                    function(cb) {
+                        createTestUser(cb, {
+                            'lastCron':lastCron,
+                            'preferences.timezoneOffset': timezoneOffset,
+                            'preferences.dayStart': dayStart
+                        });
+                    }, function(user, cb) {
+                        if (options.repeat) {
+                            user.dailys[0].repeat = options.repeat;
+                            user.dailys[0].streak = 10;
+                        }
+                        if (options.checked) {
+                            user.dailys[0].completed = true;
+                        }
+                        if (options.limitOne && options.limitOne == 'daily') {
+                            user.dailys = user.dailys.slice(0,1);
+                        }
+                        // TODO: remove once user is set with max MP at default
+                        user.stats.mp = shared.wrap(user)._statsComputed.maxMP;
+                        user.save(cb);
+                    }, function(user, num, cb) {
+                        var before = _.cloneDeep(user.toObject());
+                        // Run Cron
+                        var expect = options.expect != 'noChange';
+                        testCron(user, {}, expect, function(err, after) { cb(err, before, after);});
+                    }, function(before, after) {
+                        after = after.toObject();
+                        if (options.shouldDo) {
+                            expect(shared.shouldDo(now, options.repeat,
+                                                   {timezoneOffset:timezoneOffset,
+                                                    dayStart:options.dayStart,
+                                                    now:now})).to.be.ok();
+                        }
+                        switch(options.expect) {
+                        case 'losePoints':
+                            expectLostPoints(before,after,'daily');
+                            break;
+                        case 'noChange':
+                            expectNoChange(before,after);
+                            break;
+                        case 'noDamage':
+                            expectDayResetNoDamage(before,after);
+                            break;
+                        }
+                    }
+                ]);
+            });
+        };
+
+        // modified from habitrpg-shared/tests/algos.mocha.coffee
+        function expectLostPoints(before, after, taskType) {
+            if (taskType in ['daily','habit']) {
+                expect(after.stats.hp).to.be.lessThan(before.stats.hp);
+                expect(after[taskType + "s"][0].history).to.have.length(1);
+            } else {
+                expect(after.history.todos).to.have.length(1);
+                expect(after.stats.exp).to.be(0);
+                expect(after.stats.gp).to.be(0);
+                expect(after[taskType + "s"][0].value).to.be.lessThan(before[taskType+"s"][0].value);
+            }
+        }
+
+        // modified from habitrpg-shared/tests/algos.mocha.coffee
+        function expectNoChange(before, after) {
+            _.each($w('stats items gear dailys todos rewards flags preferences'), function(attr) {
+                expect(diff(before[attr], after[attr])).to.be(undefined);
+            });
+        };
+        // modified from habitrpg-shared/tests/algos.mocha.coffee
+        function expectDayResetNoDamage(before, after) {
+            _.each(after.dailys, function(task,i) {
+                expect(task.completed).to.be(false);
+                expect(before.dailys[i].value).to.be(task.value);
+                expect(before.dailys[i].streak).to.be(task.streak);
+                expect(task.history).to.have.length(1);
+            });
+            _.each(after.todos, function(task,i) {
+                expect(task.completed).to.be(false);
+                expect(before.todos[i].value).to.be.greaterThan(task.value);
+            });
+            expect(after.history.todos).to.have.length(1);
+            // hack so we can compare user before/after obj equality sans effected paths
+            before = _.cloneDeep(before);
+            after = _.cloneDeep(after);
+            _.each([before,after], function(obj) {
+                delete obj.stats.buffs;
+                _.each($w('dailys todos history lastCron'), function(path) { delete obj[path];});
+            });
+            delete after._tmp;
+            expectNoChange(before, after);
+        }
+
+        function repeatWithoutLastWeekday() {
+            var repeat = {su:1,m:1,t:1,w:1,th:1,f:1,s:1};
+            if(shared.startOfWeek(moment().zone(0)).isoWeekday() == 1) // Monday
+                repeat.su = false;
+            else
+                repeat.s = false;
+            return repeat;
+        };
+
+        var cronMatrix = {
+            steps: {
+                'due yesterday': {
+                    defaults: {hoursAgo:23, limitOne: 'daily'},
+                    steps: {
+                        '(simple)': {hoursAgo: 25, expect:'losePoints'},
+                        'due today': {
+                            // NOTE: a strange thing here, moment().startOf('week') is Sunday, but moment.zone(myTimeZone).startOf('week') is Monday.
+                            defaults: {repeat:{su:1,m:true,t:1,w:1,th:1,f:1,s:1}},
+                            steps: {
+                                'pre-dayStart': {
+                                    defaults: {currentHour:3, dayStart:4, shouldDo:true},
+                                    steps: {
+                                        'checked': {checked: true, expect:'noChange'},
+                                        'un-checked': {checked: false, expect:'noChange'}
+                                    }
+                                },
+                                'post-dayStart': {
+                                    defaults: {hoursAgo: 25, currentHour:5, dayStart:4, shouldDo:true},
+                                    steps: {
+                                        'checked': {checked:true, expect:'noDamage'},
+                                        'unchecked': {checked:false, expect: 'losePoints'}
+                                    }
+                                }
+                            }
+                        },
+                        'NOT due today': {
+                            defaults: {repeat:{su:1,m:false,t:1,w:1,th:1,f:1,s:1}},
+                            steps: {
+                                'pre-dayStart': {
+                                    defaults: {currentHour:3, dayStart:4, shouldDo:true},
+                                    steps: {
+                                        'checked': {checked: true, expect:'noChange'},
+                                        'un-checked': {checked: false, expect:'noChange'}
+                                    }
+                                },
+                                'post-dayStart': {
+                                    defaults: {hoursAgo: 25, currentHour:5, dayStart:4, shouldDo:false},
+                                    steps: {
+                                        'checked': {checked:true, expect:'noDamage'},
+                                        'unchecked': {checked:false, expect: 'losePoints'}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    'not due yesterday': {
+                        defaults: {repeat: repeatWithoutLastWeekday(), hoursAgo: 23},
+                        steps: {
+                            '(simple)': {expect:'noDamage'},
+                            'post-dayStart': {hoursAgo:25, currentHour:5,dayStart:4, expect:'noDamage'},
+                            'pre-dayStart': {currentHour:3, dayStart:4, expect:'noChange'}
+                        }
+                    }
+                }
+            }
+        };
+        (function recurseCronMatrix(obj, options) {
+            options = options || {};
+            if (obj.steps) {
+                _.each(obj.steps, function(step, text) {
+                    var o = _.cloneDeep(options);
+                    if (o.text == undefined) o.text = '';
+                    o.text += util.format(" %s ", text);
+                    recurseCronMatrix(step, _.extend(o,obj.defaults));
+                });
+            } else {
+                it(options.text, function() {runCronInTimezones(_.defaults(obj,options));});
+            }
+        })(cronMatrix);
+    });
+
+
     describe('preening', function() {
         beforeEach(function() {
             this.clock = sinon.useFakeTimers(Date.parse("2013-11-20"), "Date");
