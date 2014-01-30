@@ -14,9 +14,9 @@
 		"requestAF" : " Request a Feature",
 		"community" : "Community Forum",
     "resources" : "Resources",
-		"taverntalk" : "Tavern Talk",
-		"tavernalert1" : " Note: if you're reporting a bug, the developers won't see it here. Please",
-		"tavernalert2" : "use Github instead",
+		"tavernTalk" : "Tavern Talk",
+		"tavernAlert1" : " Note: if you're reporting a bug, the developers won't see it here. Please",
+		"tavernAlert2" : "use Github instead",
 
 	"_commentparty" : "PARTY",
 	  "party": "Party",
@@ -26,7 +26,7 @@
 	    "userId":"User ID",
 	    "invite":"Invite",
 	    "leave": "Leave",
-	    "invitedTo" : "You're Invited To",
+	    "invitedTo" : "You're Invited To ",
     "partyNotification" : "New Party Messages",
 
 
@@ -41,13 +41,13 @@
 		"guildGems" : "Guild Gems",
 		"editGroup" : "Edit Group",
 		"groupName" : "Group Name",
-		"groupdescr" : "Description shown in public Guilds list (Markdown OK)",
+		"groupDescr" : "Description shown in public Guilds list (Markdown OK)",
 		"logoUrl" : "Logo URL",
 		"assignLeader" : "Assign Group Leader",
 		"members" : "Member(s)",
 		"partyList" : "Party Members list ordering ",
 		"banTip" : "Boot Member",
-		"moremembers" : "more members",
+		"moreMembers" : "more members",
 		"invited" : "Invited",
 		"leaderMsg" : "Message from group leader (Markdown OK)",
 

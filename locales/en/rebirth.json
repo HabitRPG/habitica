@@ -18,9 +18,7 @@
         "rebirthInList5" : "Limited edition equipment you've purchased can be repurchased, even if its event has ended.",
       "rebirthEarnAchievement" : "You also earn an Achievement for beginning a new adventure!",
       "beReborn" : "Be Reborn",
-    "rebirthAchievement1" : "You've begun a new adventure! This is Rebirth ",
-    "rebirthAchievement2" : " for you, and the highest Level you've attained is ",
-    "rebirthAchievement3" : " To stack this Achievement, begin your next new adventure when you've reached an even higher Level!",
+    "rebirthAchievement" : "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is <%= level %>. To stack this Achievement, begin your next new adventure when you've reached an even higher Level!",
 
   "_commentachievements" : "REBIRTH ACHIEVEMENTS",
     "rebirthBegan" : "Began a New Adventure",
@@ -32,5 +30,5 @@
 			"rebirthName" : "Orb of Rebirth",
 
 	"_commentavatar" : "REBIRTH AVATAR",
-		"reborn" : "Reborn, max level"
+		"reborn" : "Reborn, max level <%= reLevel %>"
 }

@@ -1,8 +1,8 @@
 {
 "_commentlimited" : "LIMITED EDITION STRINGS",
 
-		"limitededition" : "Limited Edition",
-			"wintercolors" : "Winter Colors",
+		"limitedEdition" : "Limited Edition",
+			"winterColors" : "Winter Colors",
 	    "annoyingFriends" : "Annoying Friends",
   		  "annoyingFriendsText" : "Got snowballed <%= snowballs %> times by party members.",
 		  "limited31Jan" : "Available for purchase until January 31st (but permanently in your options if purchased).",

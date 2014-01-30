@@ -14,7 +14,10 @@
 
 	"all" : "All",
 	"none" : "None",
+  "or" : "Or",
+  "and" : "and",
 
+  "habitica" : "Habitica", 
 
   "_commentbuttons": "BUTTONS",
     "submit":"Submit",

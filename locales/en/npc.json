@@ -7,8 +7,7 @@
  
 	"_commentmatt" : "MATT",
 		"mattBoch" : "Matt Boch",
-			"mattShall1" : "Shall I bring you your steed,",
-			"mattShall2" : "? Click a mount to saddle up.",
+			"mattShall1" : "Shall I bring you your steed, <%= name %>? Click a mount to saddle up.",
 			"mattBochText1" : "Welcome to the Stable! I'm Matt, the beast master. Choose a pet here to venture at your side. Feed them and they'll grow into powerful steeds.",
 			"mattBochText2" : "Have a look-see",
 			"mattBochText3" : "at all the pets you can collect.",
@@ -20,8 +19,7 @@
 	"_commentalexander" : "ALEXANDER",
 		"alexander" : "Alexander the Merchant",
 			"welcomeMarket" : "Welcome to the Market! Buy hard-to-find eggs and potions! Sell your extras! Commission useful services! Come see what we have to offer.",
-			"sell" : "Sell",
-			"for" : "for",
+			"sellForGold" : "Sell <%= item %> for <%= gold %> Gold",
 
 	"_commentjustin" : "JUSTIN",
     "buyGems" : "Buy Gems",
