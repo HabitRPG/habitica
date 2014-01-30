@@ -968,14 +968,14 @@ api.wrap = (user, main=true) ->
         (user._statsComputed.per * .5)    # + Perception
       bonus /= 100                        # /100 (as a percent)
       chance = api.diminishingReturns(bonus, 1, 0.5) # see HabitRPG/habitrpg#1922 for details
-      console.log "Drop Equation: Bonus(#{bonus.toFixed(3)}), Modified Chance(#{chance.toFixed(3)})\n"
+      #console.log "Drop Equation: Bonus(#{bonus.toFixed(3)}), Modified Chance(#{chance.toFixed(3)})\n"
 
       quest = content.quests[user.party.quest?.key]
       if quest?.collect and user.fns.predictableRandom(user.stats.gp) < bonus # NOTE: < bonus, higher chance than drops
         dropK = user.fns.randomVal quest.collect, {key:true}
         user.party.quest.progress.collect[dropK]++
         user.markModified? 'party.quest.progress'
-        console.log {progress:user.party.quest.progress}
+        #console.log {progress:user.party.quest.progress}
 
       return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5)
       if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < chance
