@@ -467,6 +467,12 @@ api.wrap = (user, main=true) ->
           user.achievements.rebirthLevel = lvl
         cb? null, user
 
+      allocateNow: (req, cb) ->
+        _.times user.stats.points, user.fns.autoAllocate
+        user.stats.points = 0
+        user.markModified? 'stats'
+        cb? null, user.stats
+
       # ------
       # Tasks
       # ------

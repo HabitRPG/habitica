@@ -11656,6 +11656,14 @@ var process=require("__browserify_process");(function() {
           }
           return typeof cb === "function" ? cb(null, user) : void 0;
         },
+        allocateNow: function(req, cb) {
+          _.times(user.stats.points, user.fns.autoAllocate);
+          user.stats.points = 0;
+          if (typeof user.markModified === "function") {
+            user.markModified('stats');
+          }
+          return typeof cb === "function" ? cb(null, user.stats) : void 0;
+        },
         clearCompleted: function(req, cb) {
           _.remove(user.todos, function(t) {
             var _ref;
