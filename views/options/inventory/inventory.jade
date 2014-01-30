@@ -78,24 +78,9 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 .popover-content
                   p=env.t('welcomeMarket')
                   p
-                    button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')
-                      =env.t('sell')
-                      | &nbsp;{{selectedEgg.text}}&nbsp;
-                      =env.t('for')
-                      | &nbsp;{{selectedEgg.value}}&nbsp;
-                      =env.t('gold')
-                    button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')
-                      =env.t('sell')
-                      | &nbsp;{{selectedPotion.text}}&nbsp;
-                      =env.t('for')
-                      | &nbsp;{{selectedPotion.value}}&nbsp;
-                      =env.t('gold')
-                    button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')
-                      =env.t('sell')
-                      | &nbsp;{{selectedFood.text}}&nbsp;
-                      =env.t('for')
-                      | &nbsp;{{selectedFood.value}}&nbsp;
-                      =env.t('gold')
+                    button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedEgg.text}}", gold: "{{selectedEgg.value}}"})
+                    button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedPotion.text}}", gold: "{{selectedPotion.value}}"})
+                    button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedFood.text}}", gold: "{{selectedFood.value}}"})
         menu.inventory-list(type='list')
           li.customize-menu
             menu.pets-menu(label=env.t('eggs'))

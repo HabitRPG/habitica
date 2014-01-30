@@ -1,7 +1,7 @@
 div(ng-controller='SettingsCtrl')
   div(modal='modals.reset')
     .modal-header
-      h3=env.t('resetaccount')
+      h3=env.t('resetAccount')
     .modal-body
       p=env.t('resetText1')
       p=env.t('resetText2')
@@ -64,11 +64,9 @@ div(ng-controller='SettingsCtrl')
 
   div(modal='modals.delete')
     .modal-header
-      h3=env.t('deleteaccount')
+      h3=env.t('deleteAccount')
     .modal-body
-      p=env.t('deleteText1')
-        strong=env.t('deleteText2')
-        =env.t('deleteText3')
+      p!=env.t('deleteText')
       p
         input(type='text', ng-model='_deleteAccount')
     .modal-footer
