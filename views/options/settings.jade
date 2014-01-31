@@ -8,10 +8,9 @@ script(id='partials/options.settings.html', type="text/ng-template")
         =env.t('API')
     li(ng-class="{ active: $state.includes('options.settings.export') }")
       a(ui-sref='options.settings.export')
-        =env.t('dataexport')
+        =env.t('dataExport')
     li(ng-class="{ active: $state.includes('options.settings.subscription') }")
-      a(ui-sref='options.settings.subscription')
-        | Subscription
+      a(ui-sref='options.settings.subscription')=env.t('subscription')
 
   .tab-content
     .tab-pane.active
@@ -28,7 +27,10 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
       div
         small
           div=env.t('clockInfo')
-          .alert.alert-danger Warning: this is a highly-experimental feature, and many <a href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank'>experience issues</a> with it.
+          .alert.alert-danger 
+            =env.t('subWarning1')
+            a(href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank')=env.t('subWarning2')
+            =env.t('subWarning3')
       hr
       h4=env.t('language')
       select(ng-model='language.code', ng-options='lang.code as lang.name for lang in avalaibleLanguages', ng-change='changeLanguage()')
@@ -38,36 +40,36 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
         input(type='checkbox', ng-click='set({"preferences.hideHeader":user.preferences.hideHeader?false:true})', ng-checked='user.preferences.hideHeader!==true')
         =env.t('showHeader')
         &nbsp;
-        span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('showHeaderpop'))
+        span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('showHeaderPop'))
       label.checkbox
         input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false')
         =env.t('stickyHeader')
         &nbsp;
-        span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('stickyHeaderpop'))
+        span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('stickyHeaderPop'))
       label.checkbox
         input(type='checkbox', ng-model='user.preferences.newTaskEdit', ng-change='set({"preferences.newTaskEdit": user.preferences.newTaskEdit?true: false})')
-        =env.t('newtaskedit')
+        =env.t('newTaskEdit')
         &nbsp;
-        span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('newtaskeditpop'))
+        span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('newTaskEditPop'))
       label.checkbox
         input(type='checkbox', ng-model='user.preferences.tagsCollapsed', ng-change='set({"preferences.tagsCollapsed": user.preferences.tagsCollapsed?true: false})')
-        =env.t('startcollapsed')
+        =env.t('startCollapsed')
         &nbsp;
-        span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startcollapsedpop'))
+        span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startCollapsedPop'))
       label.checkbox
         input(type='checkbox', ng-model='user.preferences.advancedCollapsed', ng-change='set({"preferences.advancedCollapsed": user.preferences.advancedCollapsed?true: false})')
-        =env.t('startacollapsed')
+        =env.t('startAdvCollapsed')
         &nbsp;
-        span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startacollapsedpop'))
-      button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('showtourpop1'))= env.t('showtour')
+        span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startAdvCollapsedPop'))
+      button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
       br
-      button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showtourpop'))= env.t('showtour2')
+      button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
       br
-      button.btn(ng-click='modals.restore = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixvalpop'))= env.t('fixval')
+      button.btn(ng-click='modals.restore = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
       div(ng-if='user.preferences.disableClasses==true')
-        button.btn(ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableclasspop'))= env.t('enableclass')
+        button.btn(ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
       div(ng-if='!user.preferences.disableClasses && user.flags.classSelected')
-        button.btn(ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classtourpop'))= env.t('showclass')
+        button.btn(ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classTourPop'))= env.t('showClass')
 
       //- Why is ng-if='user.auth.local' validating for users *without* user.auth.local (facebook users)? adding .username here for extra
       div(ng-if='user.auth.local.username')
@@ -84,8 +86,8 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
 
       hr
       h4=env.t('dangerZone')
-      a.btn.btn-danger(ng-click='modals.reset = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetaccpop'))= env.t('resetaccount')
-      a.btn.btn-danger(ng-click='modals.delete = true', popover-trigger='mouseenter', popover=env.t('deleteaccpop'))= env.t('deleteaccount')
+      a.btn.btn-danger(ng-click='modals.reset = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetAccPop'))= env.t('resetAccount')
+      a.btn.btn-danger(ng-click='modals.delete = true', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
   .row.fluid
@@ -96,19 +98,19 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
       pre.prettyprint {{user.id}}
       h6=env.t('APIToken')
       pre.prettyprint {{user.apiToken}}
-      h6=env.t('qrcode')
+      h6=env.t('qrCode')
       img(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
 
 script(id='partials/options.settings.export.html', type="text/ng-template")
   .row.fluid
     .span6
-      h2=env.t('dataexport')
-      small=env.t('dataexports')
-      h4=env.t('habithistory')
-      =env.t('exporthistory')
+      h2=env.t('dataExport')
+      small=env.t('saveData')
+      h4=env.t('habitHistory')
+      =env.t('exportHistory')
       a(href="/export/history.csv")= ' ' + env.t('csv')
-      h4=env.t('userdata')
-      =env.t('exportuserdata')
+      h4=env.t('userData')
+      =env.t('exportUserData')
       a(href="/export/userdata.xml")= ' ' + env.t('xml') + ' '
       a(href="/export/userdata.json")= env.t('json')
 
@@ -116,28 +118,24 @@ script(id='partials/options.settings.subscription.perks.html',type='text/ng-temp
   table.table.table-striped
     tr
       td
-        span.dashed-underline(popover="Ads will stay disabled while you have an active account (original users with disabled ads are grandfathered).",popover-trigger='mouseenter',popover-placement='right')
-          | Disable ads
+        span.dashed-underline(popover=env.t('disableAdsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('disableAds')
     tr
       td
-        span.dashed-underline(popover="(1 Gem costs {{Shared.planGemLimits.convRate}} Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a {{Shared.planGemLimits.convCap}}G monthly conversion cap to prevent farming.",popover-trigger='mouseenter',popover-placement='right')
-          | Buy Gems with Gold
+        span.dashed-underline(popover=env.t('buyGemsGoldText', {gemCost: "{{Shared.planGemLimits.convRate}}", gemLimit: "{{Shared.planGemLimits.convCap}}"}),popover-trigger='mouseenter',popover-placement='right')=env.t('buyGemsGold')
     tr
       td
-        span.dashed-underline(popover="Makes your full history available in graphs and export. Non-subscriber histories get consolidated for database optimization.",popover-trigger='mouseenter',popover-placement='right')
-          | Retain full history entries
+        span.dashed-underline(popover=env.t('retainHistoryText'),popover-trigger='mouseenter',popover-placement='right')=env.t('retainHistory')
     tr
       td
-        span.dashed-underline(popover="Complete your stable faster!",popover-trigger='mouseenter',popover-placement='right')
-          | Daily drop-caps doubled
+        span.dashed-underline(popover=env.t('doubleDropsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('doubleDrops')
     //-tr
     //-  td +20 gems to your account
     tr
       td
-        span.dashed-underline(popover="This open source project can use all the help it can get. Help us keep Habit alive!",popover-trigger='mouseenter',popover-placement='right')
-          | Supports the developers
+        span.dashed-underline(popover=env.t('supportDevsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('supportDevs')
     tr
-      td.alert.alert-info $5 USD / Month
+      td.alert.alert-info $5&nbsp;
+        =env.t('monthUSD')
 
 script(id='partials/feature-matrix-check.html',type='text/ng-template')
   span.task-checker.action-yesno
@@ -147,16 +145,15 @@ script(id='partials/feature-matrix-check.html',type='text/ng-template')
 script(id='partials/options.settings.subscription.html',type='text/ng-template')
 
   .well
-    h2 Individual Subscription
+    h2=env.t('individualSub')
     div(ng-if='!user.purchased.plan.customerId')
       div(ng-include="'partials/options.settings.subscription.perks.html'")
-      .btn.btn-primary(ng-click='showStripe(true)') Subscribe
+      .btn.btn-primary(ng-click='showStripe(true)')=env.t('subscribe')
       //-small.muted PayPal coming soon.
 
     div(ng-if='user.purchased.plan.customerId')
       .well
         div(style='font-size:22px')
-          span.glyphicon.glyphicon-ok
-          | Subscribed
+          span.glyphicon.glyphicon-ok=env.t('subscribed')
         div(ng-include="'partials/options.settings.subscription.perks.html'")
-      .btn.btn-small.btn-danger(ng-click='cancelSubscription()') Cancel Subscription
+      .btn.btn-small.btn-danger(ng-click='cancelSubscription()')=env.t('cancelSub')

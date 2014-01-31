@@ -4,7 +4,7 @@ script(id='modals/buyGems.html', type='text/ng-template')
     .buy-gems
       include ../gems
       .well
-        h3 Buy Gems
+        h3=env.t('buyGems')
         table.table
           tr
             td
@@ -15,7 +15,8 @@ script(id='modals/buyGems.html', type='text/ng-template')
               span.dashed-underline(popover=env.t('donateText3'),popover-trigger='mouseenter',popover-placement='right')
                 =env.t('donateText2')
           tr
-            td.alert.alert-info=env.t('fiveUSD1')
+            td.alert.alert-info $5&nbsp;
+              =env.t('USD')
           tr
             td
               .btn.btn-primary(ng-click='showStripe()',style='margin-left:10px;')=env.t('payWithCard')

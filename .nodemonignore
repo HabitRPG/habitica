@@ -6,3 +6,4 @@ Gruntfile.js
 CHANGELOG.md
 .idea*
 .git*
+newrelic_agent.log

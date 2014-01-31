@@ -41,7 +41,8 @@ var UserSchema = new Schema({
     quests: Schema.Types.Mixed,
     rebirths: Number,
     rebirthLevel: Number,
-    perfect: Number
+    perfect: Number,
+    habitBirthday: Boolean
   },
   auth: {
     facebook: Schema.Types.Mixed,
@@ -78,6 +79,13 @@ var UserSchema = new Schema({
     skin: {type: Schema.Types.Mixed, 'default': {}}, // eg, {skeleton: true, pumpkin: true, eb052b: true}
     hair: {type: Schema.Types.Mixed, 'default': {}},
     shirt: {type: Schema.Types.Mixed, 'default': {}},
+    plan: {
+      planId: String,
+      customerId: String,
+      dateCreated: Date,
+      dateUpdated: Date,
+      gemsBought: {type: Number, 'default': 0}
+    }
   },
 
   flags: {

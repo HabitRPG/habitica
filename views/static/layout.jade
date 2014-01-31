@@ -28,13 +28,13 @@ html
         .collapse.navbar-collapse(collapse="isNavbarCollapsed")
           ul.nav.navbar-nav
             li(class='#{menuItem=="about" ? "active" : ""}')
-              a(href='/static/about') Learn More
+              a(href='/static/about')=env.t('learnMore')
             li
-              a(href='http://blog.habitrpg.com/') Blog
+              a(href='http://blog.habitrpg.com/')=env.t('companyBlog')
             li(class='#{menuItem=="plans" ? "active" : ""}')
-              a(href='/static/plans') Plans
+              a(href='/static/plans')=env.t('groupPlans')
             //li(class='#{menuItem=="contact" ? "active" : ""}')
-              a(href='/static/contact') Contact
+              a(href='/static/contact')=env.t('contact')
 
           button#header-play-button.btn.btn-primary.navbar-btn.navbar-right(ng-click='playButtonClick()')=env.t('playButton')
 

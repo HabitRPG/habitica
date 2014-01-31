@@ -93,9 +93,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
             a(ng-click='unlink(task, "remove-all")')=env.t('removeThem')
         div(ng-if='task.challenge.broken=="CHALLENGE_CLOSED"')
           p
-            =env.t('challengeCompleted1')
-            span.badge {{task.challenge.winner}}
-            =env.t('challengeCompleted2')
+            !=env.t('challengeCompleted', {user: "{{task.challenge.winner}}"})
           p
             a(ng-click='unlink(task, "keep-all")')=env.t('keepThem')
             | &nbsp;|&nbsp;
@@ -117,7 +115,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
             legend.option-title
               =env.t('checklist')
               | &nbsp;
-              span.glyphicon.glyphicon.icon-question-sign(popover=env.t('checklistText'),popover-trigger='mouseenter',popover-placement='bottom')
+              span.glyphicon.glyphicon-question-sign(popover=env.t('checklistText'),popover-trigger='mouseenter',popover-placement='bottom')
             ul.unstyled
               li(ng-repeat='item in task.checklist')
                 a.pull-right.checklist-icons(ng-click='removeChecklistItem(task,$event,$index,true)')

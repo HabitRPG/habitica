@@ -147,16 +147,15 @@ api.create = function(req, res, next) {
     group.balance = 1;
     user.balance--;
 
-    user.save(function(err){
-      if(err) return res.json(500,{err:err});
-      group.save(function(err, saved){
-        if (err) return res.json(500,{err:err});
-        saved.populate('members', nameFields, function(err, populated){
-          if (err) return res.json(500,{err:err});
-          return res.json(populated);
-        });
-      });
-    });    
+    async.waterfall([
+      function(cb){user.save(cb)},
+      function(saved,ct,cb){group.save(cb)},
+      function(saved,ct,cb){saved.populate('members',nameFields,cb)}
+    ],function(err,saved){
+      if (err) return next(err);
+      res.json(saved);
+    });
+
   }else{
     async.waterfall([
       function(cb){
@@ -250,7 +249,7 @@ api.deleteChatMessage = function(req, res){
   });
 }
 
-api.likeChatMessage = function(req, res) {
+api.likeChatMessage = function(req, res, next) {
   var user = res.locals.user;
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.mid});
@@ -264,6 +263,7 @@ api.likeChatMessage = function(req, res) {
   }
   group.markModified('chat');
   group.save(function(err,_saved){
+    if (err) return next(err);
     return res.send(_saved.chat);
   })
 }

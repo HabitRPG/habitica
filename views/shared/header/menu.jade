@@ -10,19 +10,19 @@
               span.glyphicon.glyphicon-ok
               =env.t('tasks')
             span(ng-show='$state.includes("tasks")', ui-sref='options')
-              span.glyphicon.glyphicon.icon-wrench
+              span.glyphicon.glyphicon-wrench
               =env.t('options')
         li 
           a.task-action-btn.tile.solid(href="http://habitrpg.wikia.com/wiki/FAQ", target='_blank')
-            span.glyphicon.glyphicon.icon-book
+            span.glyphicon.glyphicon.-book
             =env.t('FAQ')
         li 
           a.task-action-btn.tile.solid(href="https://vimeo.com/57654086", target='_blank')
-            span.glyphicon.glyphicon.icon-film
+            span.glyphicon.glyphicon-film
             =env.t('tutorials')
         li
           a.task-action-btn.tile.solid(ng-click='User.sync()')
-            span.glyphicon.glyphicon.icon-refresh
+            span.glyphicon.glyphicon-refresh
             =env.t('sync')
         li
           a.task-action-btn.tile.solid(ng-click='logout()')

@@ -1,6 +1,6 @@
 script(type='text/ng-template', id='partials/options.social.challenges.detail.close.html')
   a.btn.btn-small.btn-danger(ng-click="delete(closingChal)")=env.t('delete')
-  h5=env.t('minusOr')
+  h5= '- ' + env.t('or') + ' -'
   select(ui-select2, ng-required=true, ng-model='closingChal.winner', data-placeholder=env.t('selectWinner'), ng-change='selectWinner(closingChal)', )
     option(value='')
     option(ng-repeat='u in closingChal.members', value='{{u._id}}') {{u.profile.name}}
@@ -111,7 +111,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
               span.input-suffix.Pet_Currency_Gem1x.inline-gems
               span.glyphicon.glyphicon-question-sign(popover=env.t('prizePop'), popover-trigger='mouseenter', popover-placement='right')
               span(ng-show='newChallenge.group=="habitrpg"')
-                !=env.t('min1Gem') + ' <strong>' + env.t('publicChallenges') + '</strong> ' + env.t('helpsPrevent')
+                !=env.t('publicChallenges')
 
             .option-medium(ng-if='user.contributor.admin')
               label.checkbox

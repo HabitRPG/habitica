@@ -166,6 +166,9 @@ acceptablePUTPaths = _.reduce(require('./../models/user').schema.paths, function
   if (found) m[leaf]=true;
   return m;
 }, {})
+_.each('stats.gp'.split(' '), function(removePath){
+  delete acceptablePUTPaths[removePath];
+})
 
 /**
  * Update user
@@ -186,8 +189,8 @@ api.update = function(req, res, next) {
     return true;
   });
   user.save(function(err) {
-    if (!_.isEmpty(errors)) return res.json(500, {err: errors});
-    if (err) {return res.json(500, {err: err})}
+    if (!_.isEmpty(errors)) return res.json(401, {err: errors});
+    if (err) return res.json(500, {err: err});
     res.json(200, user);
   });
 };
@@ -257,6 +260,8 @@ api.addTenGems = function(req, res) {
   })
 }
 
+// TODO delete plan
+
 /*
  Setup Stripe response when posting payment
  */
@@ -264,26 +269,68 @@ api.buyGems = function(req, res) {
   var api_key = nconf.get('STRIPE_API_KEY');
   var stripe = require("stripe")(api_key);
   var token = req.body.id;
-  // console.dir {token:token, req:req}, 'stripe'
+  var user = res.locals.user;
 
   async.waterfall([
     function(cb){
-      stripe.charges.create({
-        amount: "500", // $5
-        currency: "usd",
-        card: token
-      }, cb);
+      if (req.query.plan) {
+        stripe.customers.create({
+          email: req.body.email,
+          metadata: {uuid: res.locals.user._id},
+          card: token,
+          plan: req.query.plan,
+        }, cb);
+      } else {
+        stripe.charges.create({
+          amount: "500", // $5
+          currency: "usd",
+          card: token
+        }, cb);
+      }
     },
     function(response, cb) {
-      res.locals.user.balance += 5;
-      res.locals.user.purchased.ads = true;
-      res.locals.user.save(cb);
+      //user.purchased.ads = true;
+      if (req.query.plan) {
+        user.purchased.plan = {
+          planId:'basic_earned',
+          customerId: response.id,
+          dateCreated: new Date,
+          dateUpdated: new Date,
+          gemsBought: 0
+        };
+      } else {
+        user.balance += 5;
+      }
+      user.save(cb);
     }
   ], function(err, saved){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
     res.send(200, saved);
   });
 };
+
+api.cancelSubscription = function(req, res) {
+  var api_key = nconf.get('STRIPE_API_KEY');
+  var stripe = require("stripe")(api_key);
+  var user = res.locals.user;
+  if (!user.purchased.plan.customerId)
+    return res.json(401, {err: "User does not have a plan subscription"});
+
+  async.waterfall([
+    function(cb) {
+      stripe.customers.del(user.purchased.plan.customerId, cb);
+    },
+    function(response, cb) {
+      user.purchased.plan = {};
+      user.markModified('purchased.plan');
+      user.save(cb);
+    }
+  ], function(err, saved){
+    if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
+    res.send(200, saved);
+  });
+
+}
 
 api.buyGemsPaypalIPN = function(req, res, next) {
   res.send(200);
@@ -298,7 +345,7 @@ api.buyGemsPaypalIPN = function(req, res, next) {
         if (_.isEmpty(user)) err = "user not found with uuid " + uuid + " when completing paypal transaction";
         if (err) return nex(err);
         user.balance += 5;
-        user.purchased.ads = true;
+        //user.purchased.ads = true;
         user.save();
         console.log('PayPal transaction completed and user updated');
       });
@@ -326,6 +373,7 @@ api.cast = function(req, res) {
   var targetId = req.query.targetId;
   var klass = shared.content.spells.special[req.params.spell] ? 'special' : user.stats.class
   var spell = shared.content.spells[klass][req.params.spell];
+  if (!spell) return res.json(404, {err: 'Spell "' + req.params.spell + '" not found.'});
 
   var done = function(){
     var err = arguments[0];
@@ -336,6 +384,7 @@ api.cast = function(req, res) {
 
   switch (targetType) {
     case 'task':
+      if (!user.tasks[targetId]) return res.json(404, {err: 'Task "' + targetId + '" not found.'});
       spell.cast(user, user.tasks[targetId]);
       user.save(done);
       break;
@@ -415,7 +464,7 @@ _.each(shared.wrap({}).ops, function(op,k){
 api.batchUpdate = function(req, res, next) {
   if (_.isEmpty(req.body)) req.body = []; // cases of {} or null
   if (req.body[0] && req.body[0].data)
-    return res.json(400, {err: "API has been updated, please refresh your browser or upgrade your mobile app."})
+    return res.json(501, {err: "API has been updated, please refresh your browser or upgrade your mobile app."})
 
   var user = res.locals.user;
   var oldSend = res.send;
@@ -423,9 +472,8 @@ api.batchUpdate = function(req, res, next) {
 
   var callOp = function(_req, cb) {
     res.send = res.json = function(code, data) {
-      if (_.isNumber(code) && code >= 400)
-        console.error({code: code, data: data});
-      //FIXME send error messages down
+      if (_.isNumber(code) && code >= 500)
+        return cb(code+": "+ (data.message ? data.message : data.err ? data.err : JSON.stringify(data)));
       return cb();
     };
     api[_req.op](_req, res);
@@ -446,7 +494,7 @@ api.batchUpdate = function(req, res, next) {
   async.series(ops, function(err) {
     res.json = oldJson;
     res.send = oldSend;
-    if (err) return res.json(500, {err: err});
+    if (err) return next(err);
 
     var response = user.toJSON();
     response.wasModified = res.locals.wasModified;

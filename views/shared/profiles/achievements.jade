@@ -123,3 +123,11 @@
     small
       =env.t('annoyingFriendsText', {snowballs: "{{profile.achievements.snowball}}"})
     hr
+
+  div(ng-if='profile.achievements.habitBirthday')
+    .achievement.achievement-habitBirthday
+    h5=env.t('habitBirthday')
+    small
+      =env.t('habitBirthdayText')
+    hr
+

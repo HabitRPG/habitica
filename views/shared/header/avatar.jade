@@ -44,7 +44,7 @@ figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(
     // FIXME handle @minimal, this might have to be a directive
     span.current-pet(class='Pet-{{profile.items.currentPet}}', ng-show='profile.items.currentPet && !minimal')
   .avatar-level(ng-class='userLevelStyle(profile,"label")')
-    span.glyphicon.glyphicon-circle-arrow-up.icon-white(ng-show='profile.stats.buffs.str || profile.stats.buffs.per || profile.stats.buffs.con || profile.stats.buffs.int || profile.stats.buffs.stealth', tooltip=env.t('buffed'), style='margin-right:5px;')
+    span.glyphicon.glyphicon-circle-arrow-up(ng-show='profile.stats.buffs.str || profile.stats.buffs.per || profile.stats.buffs.con || profile.stats.buffs.int || profile.stats.buffs.stealth', tooltip=env.t('buffed'), style='margin-right:5px;')
     =env.t('lvl') 
     | {{profile.stats.lvl}}
-    span.glyphicon.glyphicon-plus-sign.icon-white(ng-show='profile.achievements.rebirths', tooltip=env.t('reborn') + '{{profile.achievements.rebirthLevel}}', style='margin-left:5px')
+    span.glyphicon.glyphicon-plus-sign(ng-show='profile.achievements.rebirths', tooltip=env.t('reborn', {reLevel: "{{profile.achievements.rebirthLevel}}"}), style='margin-left:5px')

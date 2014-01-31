@@ -2,7 +2,7 @@
   div(modal='modals.reset')
 script(type='text/ng-template', id='modals/reset.html')  
   .modal-header
-    h3=env.t('resetaccount')
+    h3=env.t('resetAccount')
   .modal-body
     p=env.t('resetText1')
     p=env.t('resetText2')
@@ -67,11 +67,9 @@ script(type='text/ng-template', id='modals/restore.html')
 //div(modal='modals.delete')
 script(type='text/ng-template', id='modals/delete.html')  
   .modal-header
-    h3=env.t('deleteaccount')
+    h3=env.t('deleteAccount')
   .modal-body
-    p=env.t('deleteText1')
-      strong=env.t('deleteText2')
-      =env.t('deleteText3')
+    p!=env.t('deleteText')
     p
       input(type='text', ng-model='_deleteAccount')
   .modal-footer
