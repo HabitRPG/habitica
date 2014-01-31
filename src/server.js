@@ -125,6 +125,7 @@ if (cluster.isMaster && (nconf.get('NODE_ENV') == 'development' || nconf.get('NO
   //}
 
   // Custom Directives
+  middleware.apiThrottle(app);
   app.use(require('./routes/pages').middleware);
   app.use(require('./routes/auth').middleware);
   var v2 = express();

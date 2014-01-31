@@ -3,6 +3,24 @@ var _ = require('lodash');
 var fs = require('fs');
 var path = require('path');
 var User = require('./models/user').model
+var limiter = require('connect-ratelimit');
+
+module.exports.apiThrottle = function(app) {
+  app.use(limiter({
+    end:false,
+    catagories:{
+      normal: {
+        // 2 req/s, but split as minutes
+        totalRequests: 120,
+        every:         60000
+      }
+    }
+  })).use(function(req,res,next){
+    //console.log(res.ratelimit);
+    if (res.ratelimit.exceeded) return res.json(429,{err:'Rate limit exceeded'});
+    next();
+  });
+}
 
 module.exports.forceSSL = function(req, res, next){
   var baseUrl = nconf.get("BASE_URL");
