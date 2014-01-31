@@ -3,7 +3,7 @@ var nconf = require('nconf');
 var crypto = require('crypto');
 var path = require("path");
 
-module.exports.sendEmail = function(mailData, cb) {
+module.exports.sendEmail = function(mailData) {
   var smtpTransport = nodemailer.createTransport("SMTP",{
     service: nconf.get('SMTP_SERVICE'),
     auth: {
@@ -15,7 +15,6 @@ module.exports.sendEmail = function(mailData, cb) {
     if(error) console.log(error);
     else console.log("Message sent: " + response.message);
     smtpTransport.close(); // shut down the connection pool, no more messages
-    if (cb) cb();
   });
 }
 
@@ -70,16 +69,15 @@ module.exports.errorHandler = function(err, req, res, next) {
     "\n\nheaders: " + JSON.stringify(req.headers) +
     "\n\nbody: " + JSON.stringify(req.body) +
     (res.locals.ops ? "\n\ncompleted ops: " + JSON.stringify(res.locals.ops) : "");
-  var shortMessage =  (err.message.length < 200) ? err.message :
-    err.message.substring(0,100) + err.message.substring(err.message.length-100,err.message.length);
-  res.json(500,{err:shortMessage}); //res.end(err.message);
-  console.error(stack);
   module.exports.sendEmail({
     from: "HabitRPG <" + nconf.get('SMTP_USER') + ">",
     to: nconf.get('ADMIN_EMAIL') || nconf.get('SMTP_USER'),
     subject: "HabitRPG Error",
     text: stack
-  }, function(){
-    process.exit(0);
   });
+  console.error(stack);
+  var shortMessage =  (err.message.length < 200) ? err.message :
+    err.message.substring(0,100) + err.message.substring(err.message.length-100,err.message.length);
+  res.json(500,{err:shortMessage}); //res.end(err.message);
+  process.exit(0);
 }
