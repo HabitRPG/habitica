@@ -76,8 +76,8 @@ module.exports.errorHandler = function(err, req, res, next) {
     text: stack
   });
   console.error(stack);
-  var shortMessage =  (err.message.length < 200) ? err.message :
-    err.message.substring(0,100) + err.message.substring(err.message.length-100,err.message.length);
-  res.json(500,{err:shortMessage}); //res.end(err.message);
+  var message = err.message ? err.message : err;
+  message =  (message.length < 200) ? message : message.substring(0,100) + message.substring(message.length-100,message.length);
+  res.json(500,{err:message}); //res.end(err.message);
   process.exit(0);
 }
