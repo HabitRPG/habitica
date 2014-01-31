@@ -538,7 +538,6 @@ api.food =
   RottenMeat:       text: 'Rotten Meat', target: 'Zombie', article: ''
   CottonCandyPink:  text: 'Pink Cotton Candy', target: 'CottonCandyPink', article: ''
   CottonCandyBlue:  text: 'Blue Cotton Candy', target: 'CottonCandyBlue', article: ''
-  Honey:            text: 'Honey', target: 'Golden', article: ''
   # FIXME what to do with these extra items? Should we add "targets" (plural) for food instead of singular, so we don't have awkward extras?
   #Cheese:           text: 'Cheese', target: 'Golden'
   #Watermelon:       text: 'Watermelon', target: 'Golden'
@@ -554,6 +553,9 @@ api.food =
   Cake_Zombie:          canBuy: false, text: 'Rotten Cake', target: 'Zombie', article: ''
   Cake_Desert:          canBuy: false, text: 'Sand Cake', target: 'Desert', article: ''
   Cake_Red:             canBuy: false, text: 'Strawberry Cake', target: 'Red', article: ''
+
+  # Tests hack, put honey last so the faux random picks it up in unit tests
+  Honey:            text: 'Honey', target: 'Golden', article: ''
 
   Saddle:           text: 'Saddle', value: 5, notes: 'Instantly raises your pet into a mount.'
 _.each api.food, (food,key) ->
