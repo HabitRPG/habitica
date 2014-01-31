@@ -10702,11 +10702,6 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       target: 'CottonCandyBlue',
       article: ''
     },
-    Honey: {
-      text: 'Honey',
-      target: 'Golden',
-      article: ''
-    },
     Cake_Skeleton: {
       canBuy: false,
       text: 'Bare Bones Cake',
@@ -10765,6 +10760,11 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       canBuy: false,
       text: 'Strawberry Cake',
       target: 'Red',
+      article: ''
+    },
+    Honey: {
+      text: 'Honey',
+      target: 'Golden',
       article: ''
     },
     Saddle: {
@@ -12050,7 +12050,10 @@ var process=require("__browserify_process");(function() {
           }
           pet = "" + egg + "-" + hatchingPotion;
           if (user.items.pets[pet] && user.items.pets[pet] > 0) {
-            return typeof cb === "function" ? cb("You already have that pet. Try hatching a different combination!") : void 0;
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "You already have that pet. Try hatching a different combination!"
+            }) : void 0;
           }
           user.items.pets[pet] = 5;
           user.items.eggs[egg]--;
