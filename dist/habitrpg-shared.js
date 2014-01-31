@@ -27,7 +27,8 @@ process.nextTick = (function () {
     if (canPost) {
         var queue = [];
         window.addEventListener('message', function (ev) {
-            if (ev.source === window && ev.data === 'process-tick') {
+            var source = ev.source;
+            if ((source === window || source === null) && ev.data === 'process-tick') {
                 ev.stopPropagation();
                 if (queue.length > 0) {
                     var fn = queue.shift();
@@ -9191,6 +9192,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     winter: {
       start: '2013-12-31',
       end: '2014-02-01'
+    },
+    birthday: {
+      start: '2013-01-30',
+      end: '2014-02-01'
     }
   };
 
@@ -9705,6 +9710,12 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           notes: 'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.',
           con: 15,
           value: 90
+        },
+        birthday: {
+          event: events.birthday,
+          text: "Absurd Party Robes",
+          notes: "As part of the festivities, Absurd Party Robes are available free of charge in the Item Store! Swath yourself in those silly garbs and don your matching hats to celebrate this momentous day.",
+          value: 0
         }
       }
     },
@@ -10696,6 +10707,66 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       target: 'Golden',
       article: ''
     },
+    Cake_Skeleton: {
+      canBuy: false,
+      text: 'Bare Bones Cake',
+      target: 'Skeleton',
+      article: ''
+    },
+    Cake_Base: {
+      canBuy: false,
+      text: 'Basic Cake',
+      target: 'Base',
+      article: ''
+    },
+    Cake_CottonCandyBlue: {
+      canBuy: false,
+      text: 'Candy Blue Cake',
+      target: 'CottonCandyBlue',
+      article: ''
+    },
+    Cake_CottonCandyPink: {
+      canBuy: false,
+      text: 'Candy Pink Cake',
+      target: 'CottonCandyPink',
+      article: ''
+    },
+    Cake_Shade: {
+      canBuy: false,
+      text: 'Chocolate Cake',
+      target: 'Shade',
+      article: ''
+    },
+    Cake_White: {
+      canBuy: false,
+      text: 'Cream Cake',
+      target: 'White',
+      article: ''
+    },
+    Cake_Golden: {
+      canBuy: false,
+      text: 'Honey Cake',
+      target: 'Golden',
+      article: ''
+    },
+    Cake_Zombie: {
+      canBuy: false,
+      text: 'Rotten Cake',
+      target: 'Zombie',
+      article: ''
+    },
+    Cake_Desert: {
+      canBuy: false,
+      text: 'Sand Cake',
+      target: 'Desert',
+      article: ''
+    },
+    Cake_Red: {
+      canBuy: false,
+      text: 'Strawberry Cake',
+      target: 'Red',
+      article: ''
+    },
     Saddle: {
       text: 'Saddle',
       value: 5,
@@ -10707,7 +10778,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     return _.defaults(food, {
       value: 1,
       key: key,
-      notes: "Feed this to a pet and it may grow into a sturdy steed."
+      notes: "Feed this to a pet and it may grow into a sturdy steed.",
+      canBuy: true
     });
   });
 
@@ -12371,7 +12443,6 @@ var process=require("__browserify_process");(function() {
         bonus = Math.abs(task.value) * task.priority + (task.streak || 0) + (user._statsComputed.per * .5);
         bonus /= 100;
         chance = api.diminishingReturns(bonus, 1, 0.5);
-        console.log("Drop Equation: Bonus(" + (bonus.toFixed(3)) + "), Modified Chance(" + (chance.toFixed(3)) + ")\n");
         quest = content.quests[(_ref = user.party.quest) != null ? _ref.key : void 0];
         if ((quest != null ? quest.collect : void 0) && user.fns.predictableRandom(user.stats.gp) < bonus) {
           dropK = user.fns.randomVal(quest.collect, {
@@ -12381,9 +12452,6 @@ var process=require("__browserify_process");(function() {
           if (typeof user.markModified === "function") {
             user.markModified('party.quest.progress');
           }
-          console.log({
-            progress: user.party.quest.progress
-          });
         }
         if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5)) {
           return;

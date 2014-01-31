@@ -45,8 +45,10 @@
 		"_commentachievement" : "MEMBER ACHIEVEMENT",
 	    "veteran" : "Veteran",
 	      "veteranText" : "Has weathered Habit The Grey (our pre Angular website), and has gained many battle-scars from its bugs.",
-	      "originalUser" : "Original User!",
-	        "originalUserText" : "One of the <em>very</em> original early adopters, Talk about alpha tester!",
+      "originalUser" : "Original User!",
+        "originalUserText" : "One of the <em>very</em> original early adopters, Talk about alpha tester!",
+      "habitBirthday" : "2014 HabitRPG Birthday Bash",
+        "habitBirthdayText" : "Participated in the HabitRPG Birthday Bash of 2014.",
 
 	  "_commentmodals" : "MEMBERS MODALS",
 	    "memberSince" : " - Member since ",

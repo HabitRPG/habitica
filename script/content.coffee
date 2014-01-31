@@ -14,6 +14,7 @@ gearTypes = ['armor', 'weapon', 'shield', 'head']
 
 events =
   winter: {start:'2013-12-31',end:'2014-02-01'}
+  birthday: {start:'2013-01-30',end:'2014-02-01'}
 
 gear =
   weapon:
@@ -112,6 +113,7 @@ gear =
       ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: "Ski-sassin Parka", notes:'Limited Edition 2013 Winter Gear! Full of secret daggers and ski trail maps. Increases PER by 15.', per: 15, value:90
       candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: "Candy Cane Robe", notes:'Limited Edition 2013 Winter Gear! Spun from sugar and silk. Increases INT by 9.', int: 9, value:90
       snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: "Snowflake Robe", notes:'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.', con: 15, value:90
+      birthday:   event: events.birthday, text: "Absurd Party Robes", notes:"As part of the festivities, Absurd Party Robes are available free of charge in the Item Store! Swath yourself in those silly garbs and don your matching hats to celebrate this momentous day.", value: 0
 
   head:
     base:
@@ -541,9 +543,21 @@ api.food =
   #Cheese:           text: 'Cheese', target: 'Golden'
   #Watermelon:       text: 'Watermelon', target: 'Golden'
   #SeaWeed:          text: 'SeaWeed', target: 'Golden'
+
+  Cake_Skeleton:        canBuy: false, text: 'Bare Bones Cake', target: 'Skeleton', article: ''
+  Cake_Base:            canBuy: false, text: 'Basic Cake', target: 'Base', article: ''
+  Cake_CottonCandyBlue: canBuy: false, text: 'Candy Blue Cake', target: 'CottonCandyBlue', article: ''
+  Cake_CottonCandyPink: canBuy: false, text: 'Candy Pink Cake', target: 'CottonCandyPink', article: ''
+  Cake_Shade:           canBuy: false, text: 'Chocolate Cake', target: 'Shade', article: ''
+  Cake_White:           canBuy: false, text: 'Cream Cake', target: 'White', article: ''
+  Cake_Golden:          canBuy: false, text: 'Honey Cake', target: 'Golden', article: ''
+  Cake_Zombie:          canBuy: false, text: 'Rotten Cake', target: 'Zombie', article: ''
+  Cake_Desert:          canBuy: false, text: 'Sand Cake', target: 'Desert', article: ''
+  Cake_Red:             canBuy: false, text: 'Strawberry Cake', target: 'Red', article: ''
+
   Saddle:           text: 'Saddle', value: 5, notes: 'Instantly raises your pet into a mount.'
 _.each api.food, (food,key) ->
-  _.defaults food, {value: 1, key, notes: "Feed this to a pet and it may grow into a sturdy steed."}
+  _.defaults food, {value: 1, key, notes: "Feed this to a pet and it may grow into a sturdy steed.", canBuy:true}
 
 api.quests =
 
