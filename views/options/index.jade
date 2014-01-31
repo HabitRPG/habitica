@@ -12,19 +12,19 @@ script(id='partials/options.html', type="text/ng-template")
       ul.nav.nav-tabs
         li(ng-class="{ active: $state.includes('options.profile') }")
           a(ui-sref='options.profile')
-            i.icon-user
+            span.glyphicon.glyphicon-user
             =env.t('profile')
         li(ng-class="{ active: $state.includes('options.social') }")
           a(ui-sref='options.social')
-            i.icon-heart
+            span.glyphicon.glyphicon-heart
             =env.t('social')
         li(ng-class="{ active: $state.includes('options.inventory') }", ng-if='user.flags.dropsEnabled')
           a(ui-sref='options.inventory')
-            i.icon-gift
+            span.glyphicon.glyphicon-gift
             =env.t('inventory')
         li(ng-class="{ active: $state.includes('options.settings') }")
           a(ui-sref='options.settings')
-            i.icon-wrench
+            span.glyphicon.glyphicon-wrench
             =env.t('settings')
 
       .tab-content

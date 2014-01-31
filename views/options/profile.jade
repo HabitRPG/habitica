@@ -41,7 +41,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
             .label.label-info.pull-right(popover=env.t('limited31Jan'), popover-title=env.t('limitededition'), popover-placement='right', popover-trigger='mouseenter')
               =env.t('limitededition')
               | 
-              i.icon.icon-question-sign
+              span.glyphicon.glyphicon.icon-question-sign
             menu(label=env.t('wintercolors'))
               each color in ['candycane','frost','winternight','holly']
                 button(type='button', ng-class='{locked: !user.purchased.hair.color.#{color}}', class='customize-option hair_bangs_1_#{color}', style='width: 40px; height: 40px;', ng-click='unlock("hair.color.#{color}")')
@@ -129,7 +129,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
               {{user.stats.points}}&nbsp;
               =env.t('unallocated')
             &nbsp;
-            i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('levelpopover'))
+            span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('levelpopover'))
           td
         tr
           td(colspan=2)
@@ -138,23 +138,23 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
                 input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})', ng-click='set({"preferences.allocationMode":"taskbased"})')
                 =env.t('automaticallocation')
                 &nbsp;
-                i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('automaticallocationpopover'))
+                span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('automaticallocationpopover'))
               form(ng-show='user.preferences.automaticAllocation',style='margin-left:1em')
                 label.radio
                   input(type='radio', name='allocationMode', value='flat', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "flat"})')
                   =env.t('evenallocation')
                   &nbsp;
-                  i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('evenallocationpopover'))
+                  span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('evenallocationpopover'))
                 label.radio
                   input(type='radio', name='allocationMode', value='classbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "classbased"})')
                   =env.t('classallocation')
                   &nbsp;
-                  i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('classallocationpopover'))
+                  span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('classallocationpopover'))
                 label.radio
                   input(type='radio', name='allocationMode', value='taskbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "taskbased"})')
                   =env.t('taskallocation')
                   &nbsp;
-                  i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskallocationpopover'))
+                  span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskallocationpopover'))
         tr
           td= env.t('allocatestr') + ' {{user.stats.str}}'
           td

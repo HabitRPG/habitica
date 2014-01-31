@@ -7,30 +7,30 @@
         li
           a.task-action-btn.tile.solid
             span(ng-show='$state.includes("options")', ui-sref='tasks')
-              i.icon-ok
+              span.glyphicon.glyphicon-ok
               =env.t('tasks')
             span(ng-show='$state.includes("tasks")', ui-sref='options')
-              i.icon.icon-wrench
+              span.glyphicon.glyphicon.icon-wrench
               =env.t('options')
         li 
           a.task-action-btn.tile.solid(href="http://habitrpg.wikia.com/wiki/FAQ", target='_blank')
-            i.icon.icon-book
+            span.glyphicon.glyphicon.icon-book
             =env.t('FAQ')
         li 
           a.task-action-btn.tile.solid(href="https://vimeo.com/57654086", target='_blank')
-            i.icon.icon-film
+            span.glyphicon.glyphicon.icon-film
             =env.t('tutorials')
         li
           a.task-action-btn.tile.solid(ng-click='User.sync()')
-            i.icon.icon-refresh
+            span.glyphicon.glyphicon.icon-refresh
             =env.t('sync')
         li
           a.task-action-btn.tile.solid(ng-click='logout()')
-            i.icon-share-alt
+            span.glyphicon.glyphicon-share-alt
             =env.t('logout')
     // party invitation notification
     a(ng-show='user.party.invitation', style='cursor: pointer;', x-bind='click:gotoPartyChat')
-      i.icon-user
+      span.glyphicon.glyphicon-user
     // party chat notification
     a(ng-show='newChatMessages(_party.chat,user.party.lastMessageSeen)', style='cursor: pointer;', x-bind='click:gotoPartyChat')
-      i.icon-comment(tooltip=env.t('partyNotification'))
+      span.glyphicon.glyphicon-comment(tooltip=env.t('partyNotification'))

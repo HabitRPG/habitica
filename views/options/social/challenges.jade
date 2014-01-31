@@ -39,7 +39,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
 
   .well(bindonce='challenge', ng-if='challenge.description')
     markdown(ng-model='challenge.description')
-  i.icon-question-sign(popover=env.t('challengeDiscription'), popover-trigger='mouseenter', popover-placement='right')
+  span.glyphicon.glyphicon-question-sign(popover=env.t('challengeDiscription'), popover-trigger='mouseenter', popover-placement='right')
   habitrpg-tasks(obj='challenge', main=false)
 
   // Member List
@@ -98,7 +98,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
             .option-medium
               input.option-content(type='text', minlength="3", maxlength="16", ng-model='newChallenge.shortName', placeholder=env.t('challengeTag'), required)
               a(target='_blank', href='http://habitrpg.wikia.com/wiki/Tags')
-                i.icon-question-sign(popover=env.t('challengeTagPop'), popover-trigger='mouseenter', popover-placement='right')
+                span.glyphicon.glyphicon-question-sign(popover=env.t('challengeTagPop'), popover-trigger='mouseenter', popover-placement='right')
 
             textarea.option-content(cols='3', placeholder=env.t('challengeDescr'), ng-model='newChallenge.description')
 
@@ -109,7 +109,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
             .option-medium
               input.option-content(type='number', min="{{newChallenge.group=='habitrpg' ? 1 : 0}}", max="{{maxPrize}}", ng-model='newChallenge.prize', placeholder=env.t('prize'))
               span.input-suffix.Pet_Currency_Gem1x.inline-gems
-              i.icon-question-sign(popover=env.t('prizePop'), popover-trigger='mouseenter', popover-placement='right')
+              span.glyphicon.glyphicon-question-sign(popover=env.t('prizePop'), popover-trigger='mouseenter', popover-placement='right')
               span(ng-show='newChallenge.group=="habitrpg"')
                 !=env.t('min1Gem') + ' <strong>' + env.t('publicChallenges') + '</strong> ' + env.t('helpsPrevent')
 
@@ -144,10 +144,10 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
             li
               // leave / join
               a.btn.btn-small.btn-danger(ng-show='challenge._isMember', ng-click='clickLeave(challenge, $event)')
-                i.icon-ban-circle
+                span.glyphicon.glyphicon-ban-circle
                 =env.t('leave')
               a.btn.btn-small.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
-                i.icon-ok
+                span.glyphicon.glyphicon-ok
                 =env.t('join')
           a.accordion-toggle(ng-click='toggle(challenge._id)') {{challenge.name}}
         .accordion-body(ng-class='{collapse: !$stateParams.cid == challenge._id}')

@@ -3,7 +3,7 @@
   .modal-header
     h3=env.t('challenges')
       a.pull-right(target='_blank', href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58')
-        i.icon-question-sign
+        span.glyphicon.glyphicon-question-sign
   .modal-body(bindonce='group.challenges')
     div(ng-if='group.challenges.length > 0')
       table.table.table-striped
@@ -13,6 +13,6 @@
     div(ng-if='group.challenges.length == 0')
       p=env.t('noChallenges')
         a(class='label' ui-sref='options.social.challenges')
-          i.icon-bullhorn
+          span.glyphicon.glyphicon-bullhorn
           =env.t('challenges')
         =env.t('toCreate')
