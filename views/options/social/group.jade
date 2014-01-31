@@ -47,11 +47,12 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
             table.table.table-striped
               tr(ng-repeat='(k,v) in group.quest.progress.collect', class='quest_collected_{{v >= Content.quests[group.quest.key].collect[k].count}}')
                 td
-                  div(class='quest_{{group.quest.key}}_{{k}}') {{Content.quests[group.quest.key].collect[k].text}}
+                  div.pull-left(class='quest_{{group.quest.key}}_{{k}}')
+                  | {{Content.quests[group.quest.key].collect[k].text}}
                 td
                   {{v}} / {{Content.quests[group.quest.key].collect[k].count}}
 
-          p {{Content.quests[group.quest.key].notes}}
+          div(ng-bind-html='Content.quests[group.quest.key].notes')
           hr
           h5=env.t('participants')
           table.table.table-striped

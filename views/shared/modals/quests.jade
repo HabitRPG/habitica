@@ -26,7 +26,7 @@ div(modal='modals.showQuest', ng-controller='InventoryCtrl')
     h3 {{selectedQuest.text}}
   .modal-body
     .pull-right(class='quest_{{selectedQuest.key}}')
-    p {{selectedQuest.notes}}
+    div(ng-bind-html='selectedQuest.notes')
     quest-rewards(key='{{selectedQuest.key}}')
     hr
     div(style='clear:left;clear:right')
@@ -41,7 +41,7 @@ div(modal='modals.buyQuest', ng-controller='InventoryCtrl')
     h3 {{selectedQuest.text}}
   .modal-body
     .pull-right(class='quest_{{selectedQuest.key}}')
-    p {{selectedQuest.notes}}
+    div(ng-bind-html='selectedQuest.notes')
     quest-rewards(key='{{selectedQuest.key}}')
   .modal-footer
     button.btn.btn-large.cancel(ng-click='closeQuest()')=env.t('neverMind')
@@ -52,7 +52,7 @@ div(modal='party.quest.key && !party.quest.active && !questHold && party.quest.m
     h3=env.t('questInvitation')
       | {{Content.quests[party.quest.key].text}}
   .modal-body
-    p {{Content.quests[party.quest.key].notes}}
+    div(ng-bind-html='Content.quests[party.quest.key].notes')
     quest-rewards(key='{{party.quest.key}}')
   .modal-footer
     button.btn.btn-default.btn-small.btn-cancel(ng-click='questHold = true')=env.t('askLater')
