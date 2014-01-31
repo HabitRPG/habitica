@@ -108,7 +108,7 @@ angular.module('userServices', []).
           })
           .error(function (data, status, headers, config) {
             // In the case of errors, discard the corrupt queue
-            if (status >= 400) {
+            if (status >= 500) {
               data =
                 data.needRefresh ? "The site has been updated and the page needs to refresh. The last action has not been recorded, please refresh and try again." :
                 data ? (data.err ? data.err : data) : 'Something went wrong, please refresh your browser or upgrade the mobile app';
