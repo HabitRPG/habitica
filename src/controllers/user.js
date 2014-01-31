@@ -472,9 +472,8 @@ api.batchUpdate = function(req, res, next) {
 
   var callOp = function(_req, cb) {
     res.send = res.json = function(code, data) {
-      if (_.isNumber(code) && code >= 400)
-        console.error({code: code, data: data});
-      //FIXME send error messages down
+      if (_.isNumber(code) && code >= 500)
+        return cb(code+": "+ (data.message ? data.message : data.err ? data.err : JSON.stringify(data)));
       return cb();
     };
     api[_req.op](_req, res);
@@ -495,7 +494,7 @@ api.batchUpdate = function(req, res, next) {
   async.series(ops, function(err) {
     res.json = oldJson;
     res.send = oldSend;
-    if (err) return res.json(500, {err: err});
+    if (err) return next(err);
 
     var response = user.toJSON();
     response.wasModified = res.locals.wasModified;
