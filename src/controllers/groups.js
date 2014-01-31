@@ -543,7 +543,7 @@ api.questAccept = function(req, res) {
     if (!quest) return res.json(404,{err:'Quest ' + key + ' not found'});
     if (quest.lvl && user.stats.lvl < quest.lvl) return res.json(400, {err: "You must be level "+quest.lvl+" to being this quest."});
     if (group.quest.key) return res.json(400, {err: 'Party already on a quest (and only have one quest at a time)'});
-    if (!user.items.quests[key]) return res.json(401, {err: "You don't own that quest scroll"});
+    if (!user.items.quests[key]) return res.json(400, {err: "You don't own that quest scroll"});
     group.quest.key = key;
     group.quest.members = {};
     // Invite everyone. true means "accepted", false="rejected", undefined="pending". Once we click "start quest"

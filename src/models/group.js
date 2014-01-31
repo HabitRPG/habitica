@@ -148,6 +148,7 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
       case 'eggs':
       case 'food':
       case 'hatchingPotions':
+      case 'quests':
         updates['$inc']['items.'+item.type+'.'+dropK] = _.where(quest.drop.items,{type:item.type,key:item.key}).length;
         break;
       case 'pets':
