@@ -189,8 +189,8 @@ api.update = function(req, res, next) {
     return true;
   });
   user.save(function(err) {
-    if (!_.isEmpty(errors)) return res.json(500, {err: errors});
-    if (err) {return res.json(500, {err: err})}
+    if (!_.isEmpty(errors)) return res.json(401, {err: errors});
+    if (err) return res.json(500, {err: err});
     res.json(200, user);
   });
 };
