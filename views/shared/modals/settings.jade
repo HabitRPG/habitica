@@ -45,12 +45,24 @@ script(type='text/ng-template', id='modals/restore.html')
             input.option-content(type='number', data-for='items.weapon', ng-model='restoreValues.items.weapon')
             span.input-suffix Weapon
           .option-group.option-medium
+<<<<<<< HEAD
             input.option-content(type='number', data-for='items.armor', ng-model='restoreValues.items.armor')
             span.input-suffix Armor
+=======
+            input.option-content(type='number', step="any", data-for='stats.exp', ng-model='restoreValues.stats.exp')
+            span.input-suffix=env.t('experience')
+          .option-group.option-medium
+            input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp')
+            //input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp',disabled)
+            span.input-suffix=env.t('gold')
+            //-p.alert
+              small=env.t('disabledWinterEvent')
+>>>>>>> develop
           .option-group.option-medium
             input.option-content(type='number', data-for='items.head', ng-model='restoreValues.items.head')
             span.input-suffix Helm
           .option-group.option-medium
+<<<<<<< HEAD
             input.option-content(type='number', data-for='items.shield', ng-model='restoreValues.items.shield')
             span.input-suffix Shield
         h3=env.t('achievements')
@@ -63,6 +75,20 @@ script(type='text/ng-template', id='modals/restore.html')
   .modal-footer
     button.btn.btn-default.cancel(ng-click='modals.restore = false')=env.t('discardChanges')
     button.btn.btn-primary(ng-click='restore()')=env.t('saveAndClose')
+=======
+            input.option-content(type='number', data-for='stats.lvl', ng-model='restoreValues.stats.lvl')
+            span.input-suffix=env.t('level')
+          h3=env.t('achievements')
+          .option-group.option-medium
+            input.option-content(type='number', data-for='achievements.streak', ng-model='restoreValues.achievements.streak')
+            span.input-suffix=env.t('fix21Streaks')
+        //- This is causing too many problems for users
+          h3=env.t('other')
+          a.btn.btn-small.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()')=env.t('triggerDay')
+    .modal-footer
+      button.btn.btn-default.cancel(ng-click='modals.restore = false')=env.t('discardChanges')
+      button.btn.btn-primary(ng-click='restore()')=env.t('saveAndClose')
+>>>>>>> develop
 
 //div(modal='modals.delete')
 script(type='text/ng-template', id='modals/delete.html')  
