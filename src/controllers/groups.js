@@ -249,7 +249,7 @@ api.deleteChatMessage = function(req, res){
   });
 }
 
-api.likeChatMessage = function(req, res) {
+api.likeChatMessage = function(req, res, next) {
   var user = res.locals.user;
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.mid});
