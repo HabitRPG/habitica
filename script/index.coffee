@@ -408,7 +408,7 @@ api.wrap = (user, main=true) ->
 
       reroll: (req, cb) ->
         if user.balance < 1
-          return cb? {code:401,message: "Not enough gems."}, req
+          return cb? {code:401,message: "Not enough gems."}
         user.balance--
         _.each user.tasks, (task) ->
           unless task.type is 'reward'
@@ -419,7 +419,7 @@ api.wrap = (user, main=true) ->
       rebirth: (req, cb) ->
         # Cost is 8 Gems ($2)
         if user.balance < 2
-          return cb? {code:401,message: "Not enough gems."}, req
+          return cb? {code:401,message: "Not enough gems."}
         user.balance -= 2
         # Save off user's level, for calculating achievement eligibility later
         lvl = user.stats.lvl
@@ -493,7 +493,7 @@ api.wrap = (user, main=true) ->
         cb? null, tasks
 
       updateTask: (req, cb) ->
-        return cb?("Task not found") unless task = user.tasks[req.params?.id]
+        return cb?({code:404,message:"Task not found"}) unless task = user.tasks[req.params?.id]
         _.merge task, _.omit(req.body,'checklist')
         task.checklist = req.body.checklist if req.body.checklist
         task.markModified? 'tags'
@@ -529,14 +529,14 @@ api.wrap = (user, main=true) ->
       updateTag: (req, cb) ->
         tid = req.params.id
         i = _.findIndex user.tags, {id: tid}
-        return cb?('Tag not found', req) if !~i
+        return cb?({code:404,message:'Tag not found'}) if !~i
         user.tags[i].name = req.body.name
         cb? null, user.tags[i]
 
       deleteTag: (req, cb) ->
         tid = req.params.id
         i = _.findIndex user.tags, {id: tid}
-        return cb?('Tag not found', req) if !~i
+        return cb?({code:404,message:'Tag not found'}) if !~i
         tag = user.tags[i]
         delete user.filters[tag.id]
         user.tags.splice i, 1
@@ -744,7 +744,7 @@ api.wrap = (user, main=true) ->
 
         # If they're trying to purhcase a too-expensive reward, don't allow them to do that.
         if task.value > stats.gp and task.type is 'reward'
-          return cb? 'Not enough Gold'
+          return cb? {code:401,message:'Not enough Gold'}
 
         delta = 0
 
