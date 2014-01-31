@@ -464,7 +464,7 @@ _.each(shared.wrap({}).ops, function(op,k){
 api.batchUpdate = function(req, res, next) {
   if (_.isEmpty(req.body)) req.body = []; // cases of {} or null
   if (req.body[0] && req.body[0].data)
-    return res.json(400, {err: "API has been updated, please refresh your browser or upgrade your mobile app."})
+    return res.json(501, {err: "API has been updated, please refresh your browser or upgrade your mobile app."})
 
   var user = res.locals.user;
   var oldSend = res.send;
