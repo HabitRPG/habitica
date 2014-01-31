@@ -24,7 +24,7 @@ api.auth = function(req, res, next) {
   var token = req.headers['x-api-key'];
   if (!(uid && token)) return res.json(401, NO_TOKEN_OR_UID);
   User.findOne({_id: uid,apiToken: token}, function(err, user) {
-    if (err) return res.json(500, {err: err});
+    if (err) return next(err);
     if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
 
     res.locals.wasModified = req.query._v ? +user._v !== +req.query._v : true;

@@ -95,8 +95,7 @@ if (cluster.isMaster && (isDev || isProd)) {
 
   app.set("port", nconf.get('PORT'));
 
-  if (isProd)
-    middleware.apiThrottle(app);
+  middleware.apiThrottle(app);
   if (!isProd) app.use(express.logger("dev"));
   app.use(express.compress());
   app.set("views", __dirname + "/../views");
