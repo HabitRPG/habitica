@@ -9,7 +9,9 @@ lib
 public/bower_components
 build
 newrelic_agent.log
-
+.bower-tmp
+.bower-registry
+.bower-cache
 src/*/*.map
 src/*/*/*.map
 test/*.js
