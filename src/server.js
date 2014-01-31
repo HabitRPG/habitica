@@ -5,7 +5,10 @@ var nconf = require('nconf');
 var utils = require('./utils');
 utils.setupConfig();
 
-if (cluster.isMaster && (nconf.get('NODE_ENV') == 'development' || nconf.get('NODE_ENV') == 'production')) {
+var isProd = nconf.get('NODE_ENV') === 'production';
+var isDev = nconf.get('NODE_ENV') === 'development';
+
+if (cluster.isMaster && (isDev || isProd)) {
   // Fork workers.
   _.times(require('os').cpus().length, function(){
     cluster.fork();
@@ -13,8 +16,7 @@ if (cluster.isMaster && (nconf.get('NODE_ENV') == 'development' || nconf.get('NO
 
   cluster.on('exit', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker
-    if (nconf.get('NODE_ENV') === 'development')
-      console.error('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
+    console.error('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
   });
 
 } else {
@@ -85,6 +87,7 @@ if (cluster.isMaster && (nconf.get('NODE_ENV') == 'development' || nconf.get('NO
    ));
 
   // ------------  Server Configuration ------------
+
   domainMiddleware({
     server: server,
     killTimeout: 3000
@@ -92,8 +95,9 @@ if (cluster.isMaster && (nconf.get('NODE_ENV') == 'development' || nconf.get('NO
 
   app.set("port", nconf.get('PORT'));
 
-  if (nconf.get('NODE_ENV') !== 'production')
-    app.use(express.logger("dev"));
+  if (isProd)
+    middleware.apiThrottle(app);
+  if (!isProd) app.use(express.logger("dev"));
   app.use(express.compress());
   app.set("views", __dirname + "/../views");
   app.set("view engine", "jade");
@@ -115,7 +119,7 @@ if (cluster.isMaster && (nconf.get('NODE_ENV') == 'development' || nconf.get('NO
 
   app.use(app.router);
 
-  var maxAge = (nconf.get('NODE_ENV') === 'production') ? 31536000000 : 0;
+  var maxAge = isProd ? 31536000000 : 0;
   app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
   app.use(express['static'](path.join(__dirname, "/../public")));
 
@@ -125,7 +129,6 @@ if (cluster.isMaster && (nconf.get('NODE_ENV') == 'development' || nconf.get('NO
   //}
 
   // Custom Directives
-  middleware.apiThrottle(app);
   app.use(require('./routes/pages').middleware);
   app.use(require('./routes/auth').middleware);
   var v2 = express();
