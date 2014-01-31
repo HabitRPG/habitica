@@ -1,7 +1,6 @@
 db.users.update({},{$set:{
   'items.food.Cake_Skeleton':1,
   'items.food.Cake_Base':1,
-  'items.food.Cake_Base':1,
   'items.food.Cake_CottonCandyBlue':1,
   'items.food.Cake_CottonCandyPink':1,
   'items.food.Cake_Shade':1,

@@ -264,6 +264,7 @@ api.likeChatMessage = function(req, res) {
   }
   group.markModified('chat');
   group.save(function(err,_saved){
+    if (err) return next(err);
     return res.send(_saved.chat);
   })
 }
