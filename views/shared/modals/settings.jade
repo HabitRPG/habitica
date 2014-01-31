@@ -24,11 +24,11 @@ div(ng-controller='SettingsCtrl')
           .option-group.option-medium
             input.option-content(type='number', step="any", data-for='stats.exp', ng-model='restoreValues.stats.exp')
             span.input-suffix=env.t('experience')
-          .option-group.option-medium(ng-if='!user.purchased.plan.customerId')
-            //input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp')
-            input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp',disabled)
+          .option-group.option-medium
+            input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp')
+            //input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp',disabled)
             span.input-suffix=env.t('gold')
-            p.alert
+            //-p.alert
               small=env.t('disabledWinterEvent')
           .option-group.option-medium
             input.option-content(type='number', step="any", data-for='stats.mp', ng-model='restoreValues.stats.mp')
