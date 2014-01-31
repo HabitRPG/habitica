@@ -100,7 +100,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
           li.customize-menu
             menu.pets-menu(label=env.t('food'))
-              div(ng-repeat='food in Content.food', ng-show='food.key !== "Saddle"')
+              div(ng-repeat='food in Content.food', ng-if='food.key !== "Saddle" && food.canBuy')
                 button.customize-option(popover='{{food.notes}}', popover-title='{{food.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", food)', class='Pet_Food_{{food.key}}')
                 p
                   |  {{food.value}}

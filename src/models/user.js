@@ -41,7 +41,8 @@ var UserSchema = new Schema({
     quests: Schema.Types.Mixed,
     rebirths: Number,
     rebirthLevel: Number,
-    perfect: Number
+    perfect: Number,
+    habitBirthday: Boolean
   },
   auth: {
     facebook: Schema.Types.Mixed,
