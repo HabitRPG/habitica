@@ -69,24 +69,39 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.achievements.streak', function(after, before){
       if(before == undefined || after == before || after < before) return;
-      $rootScope.modals.achievements.streak = true;
+      $modal.open({
+        templateUrl: 'modals/achievements/streak.html'
+      });
     });
 
     $rootScope.$watch('user.achievements.ultimateGear', function(after, before){
       if (after === before || after !== true) return;
-      $rootScope.modals.achievements.ultimateGear = true;
+      $modal.open({
+        templateUrl: 'modals/achievements/ultimateGear.html'
+      });
     });
 
     $rootScope.$watch('user.items.pets', function(after, before){
       if(_.size(after) === _.size(before) || 
         Shared.countPets(null, after) < 90) return;
       User.user.achievements.beastMaster = true;
-      $rootScope.modals.achievements.beastMaster = true;
+      $modal.open({
+        templateUrl: 'modals/achievements/beastMaster.html'
+      });
     }, true);
 
     $rootScope.$watch('user.achievements.rebirths', function(after, before){
       if(after === before) return;
-      $rootScope.modals.achievements.rebirth = true;
+      $modal.open({
+        templateUrl: 'modals/achievements/rebirth.html'
+      });
+    });
+
+    $rootScope.$watch('user.flags.contributor', function(after, before){
+      if (after === before || after !== true) return;
+      $modal.open({
+        templateUrl: 'modals/achievements/contributor.html'
+      });
     });
 
     /*_.each(['weapon', 'head', 'chest', 'shield'], function(watched){

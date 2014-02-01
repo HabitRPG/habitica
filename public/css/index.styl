@@ -131,30 +131,21 @@ div.tooltip-inner {
 /* Misc
 -------------------------------------------------- */
 
-.modal
-  whitespace: normal
-
 // notification-character used only by death modal's figure, move
-.notification-character
-  float: left
-  padding: 15px
-
-.notification-message
-  display: inline-block;
-  padding-right: 1em
-  line-height: 3
+.death-modal // a .modal-body
+  margin: 10px
   
+  figure
+    float: left
+    padding: 15px
+
 #reset-modal
   z-index:1500
 #notification-area
-  position: fixed;
-  top: 0;
-  right: 0px;
-  z-index: 1061;
-
-.modal-body
-    margin: 10px
-
+  position: fixed
+  top: 0
+  right: 0px
+  z-index: 1061
 
 // TODO this is supposed to go in avatar.styl, but stylus is breaking if I even touch that file
 .profile-modal-header

@@ -13,8 +13,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     })
     $rootScope.$on('userUpdated',initSticky);
 
-    $rootScope.modals = {};
-    $rootScope.modals.achievements = {};
     $rootScope.User = User;
     $rootScope.user = user;
     $rootScope.moment = window.moment;
