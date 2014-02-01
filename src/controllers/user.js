@@ -12,6 +12,7 @@ var sanitize = validator.sanitize;
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var logging = require('./../logging');
 var acceptablePUTPaths;
 var api = module.exports;
 
@@ -349,7 +350,7 @@ api.buyGemsPaypalIPN = function(req, res, next) {
         user.balance += 5;
         //user.purchased.ads = true;
         user.save();
-        console.log('PayPal transaction completed and user updated');
+        logging.info('PayPal transaction completed and user updated');
       });
     }
   });

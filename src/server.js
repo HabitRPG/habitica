@@ -3,6 +3,7 @@ var cluster = require("cluster");
 var _ = require('lodash');
 var nconf = require('nconf');
 var utils = require('./utils');
+var logging = require('./logging');
 utils.setupConfig();
 
 var isProd = nconf.get('NODE_ENV') === 'production';
@@ -16,7 +17,7 @@ if (cluster.isMaster && (isDev || isProd)) {
 
   cluster.on('exit', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker
-    console.error('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
+    logging.error('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
   });
 
 } else {
@@ -40,7 +41,7 @@ if (cluster.isMaster && (isDev || isProd)) {
   require('./models/challenge');
   mongoose.connect(nconf.get('NODE_DB_URI'), {auto_reconnect:true}, function(err) {
       if (err) throw err;
-      console.info('Connected with Mongoose');
+      logging.info('Connected with Mongoose');
   });
 
 
@@ -141,7 +142,7 @@ if (cluster.isMaster && (isDev || isProd)) {
 
   server.on('request', app);
   server.listen(app.get("port"), function() {
-    return console.log("Express server listening on port " + app.get("port"));
+    return logging.info("Express server listening on port " + app.get("port"));
   });
 
   module.exports = server;

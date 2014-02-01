@@ -6,6 +6,7 @@ var icalendar = require('icalendar');
 var api = require('./../controllers/user');
 var auth = require('./../controllers/auth');
 var middleware = require('../middleware');
+var logging = require('./../logging');
 
 /* ---------- Deprecated API ------------*/
 
@@ -78,7 +79,7 @@ var batchUpdate = function(req, res, next) {
     req.body = action.data;
     res.send = res.json = function(code, data) {
       if (_.isNumber(code) && code >= 400) {
-        console.error({
+        logging.error({
           code: code,
           data: data
         });

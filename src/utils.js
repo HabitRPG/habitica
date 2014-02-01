@@ -2,6 +2,7 @@ var nodemailer = require('nodemailer');
 var nconf = require('nconf');
 var crypto = require('crypto');
 var path = require("path");
+var logging = require('./logging');
 
 module.exports.sendEmail = function(mailData) {
   var smtpTransport = nodemailer.createTransport("SMTP",{
@@ -12,8 +13,8 @@ module.exports.sendEmail = function(mailData) {
     }
   });
   smtpTransport.sendMail(mailData, function(error, response){
-    if(error) console.log(error);
-    else console.log("Message sent: " + response.message);
+    if(error) logging.error(error);
+    else logging.info("Message sent: " + response.message);
     smtpTransport.close(); // shut down the connection pool, no more messages
   });
 }
@@ -48,7 +49,7 @@ module.exports.setupConfig = function(){
 //      // * https://developers.google.com/chrome-developer-tools/docs/heap-profiling
 //      // * https://developers.google.com/chrome-developer-tools/docs/memory-analysis-101
 //      agent = require('webkit-devtools-agent');
-//      console.log("To debug memory leaks:" +
+//      logging.info("To debug memory leaks:" +
 //          "\n\t(1) Run `kill -SIGUSR2 " + process.pid + "`" +
 //          "\n\t(2) open http://c4milo.github.com/node-webkit-agent/21.0.1180.57/inspector.html?host=localhost:1337&page=0");
 //  }
@@ -75,7 +76,7 @@ module.exports.errorHandler = function(err, req, res, next) {
     subject: "HabitRPG Error",
     text: stack
   });
-  console.error(stack);
+  logging.error(stack);
   var message = err.message ? err.message : err;
   message =  (message.length < 200) ? message : message.substring(0,100) + message.substring(message.length-100,message.length);
   res.json(500,{err:message}); //res.end(err.message);

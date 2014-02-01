@@ -4,6 +4,7 @@ var fs = require('fs');
 var path = require('path');
 var User = require('./models/user').model
 var limiter = require('connect-ratelimit');
+var logging = require('./logging');
 
 module.exports.apiThrottle = function(app) {
   app.use(limiter({
@@ -16,7 +17,7 @@ module.exports.apiThrottle = function(app) {
       }
     }
   })).use(function(req,res,next){
-    //console.log(res.ratelimit);
+    //logging.info(res.ratelimit);
     if (res.ratelimit.exceeded) return res.json(429,{err:'Rate limit exceeded'});
     next();
   });
@@ -92,15 +93,15 @@ var getManifestFiles = function(page){
   var css = '';
 
   _.each(files.css, function(file){
-    css += '<link rel="stylesheet" type="text/css" href="' + getBuildUrl(file) + '">'; 
+    css += '<link rel="stylesheet" type="text/css" href="' + getBuildUrl(file) + '">';
   });
 
   if(nconf.get('NODE_ENV') === 'production'){
-    return css + '<script type="text/javascript" src="' + getBuildUrl(page + '.js') + '"></script>'; 
+    return css + '<script type="text/javascript" src="' + getBuildUrl(page + '.js') + '"></script>';
   }else{
     var results = css;
     _.each(files.js, function(file){
-      results += '<script type="text/javascript" src="' + getBuildUrl(file) + '"></script>'; 
+      results += '<script type="text/javascript" src="' + getBuildUrl(file) + '"></script>';
     });
     return results;
   }
@@ -184,16 +185,16 @@ var getUserLanguage = function(req, callback){
       }
     });
   }else{
-    return callback(null, _.find(avalaibleLanguages, {code: getFromBrowser()}));    
+    return callback(null, _.find(avalaibleLanguages, {code: getFromBrowser()}));
   }
 }
 
 module.exports.locals = function(req, res, next) {
   getUserLanguage(req, function(err, language){
-    if(err) return res.json(500, {err: err});    
+    if(err) return res.json(500, {err: err});
 
     language.momentLang = (momentLangs[language.code] || undefined);
-    
+
     res.locals.habitrpg = {
       NODE_ENV: nconf.get('NODE_ENV'),
       BASE_URL: nconf.get('BASE_URL'),
@@ -209,11 +210,11 @@ module.exports.locals = function(req, res, next) {
         var string = translations[language.code][stringName];
         if(!string) return _.template(translations[language.code].stringNotFound, {string: stringName});
 
-        return vars === undefined ? string : _.template(string, vars);    
+        return vars === undefined ? string : _.template(string, vars);
       },
       siteVersion: siteVersion
     }
 
-    next(); 
+    next();
   });
 }
