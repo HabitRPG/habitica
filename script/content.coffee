@@ -325,7 +325,7 @@ api.spells =
       target: 'task'
       notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases."
       cast: (user, target) ->
-        target.value += user._statsComputed.str * .01 * user.fns.crit('per')
+        target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50))
         user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2) if user.party.quest.key
     defensiveStance:
       text: 'Defensive Stance'
@@ -365,7 +365,8 @@ api.spells =
       target: 'task'
       notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (bluer) your task."
       cast: (user, target) ->
-        user.stats.gp += (if target.value < 0 then 1 else target.value+1) + user._statsComputed.per * .075
+        bonus = (if target.value < 0 then 1 else target.value+2) * user._statsComputed.per
+        user.stats.gp += 75 * (bonus / (bonus + 800))
     backStab:
       text: 'Backstab'
       mana: 15
@@ -419,7 +420,7 @@ api.spells =
       cast: (user, target) ->
         _.each user.tasks, (target) ->
           return if target.type is 'reward'
-          target.value += user._statsComputed.int * .006
+          target.value += 1.5 * (user._statsComputed.int / (user._statsComputed.int + 40))
     protectAura:
       text: 'Protective Aura'
       mana: 30
