@@ -49,7 +49,7 @@
 		"battleGear" : "Battle Gear",
 			"battleGearText" : "This is the gear you wear into battle, it affects numbers when interacting with your tasks.",
 		"costume" : "Costume",
-			"costumeText" : "But if you prefer the look of other gear to what you have equipped, check this box to visually don a costume while wearing your battle gear underneath.",
+			"costumeText" : "If you prefer the look of other gear to what you have equipped, check the \"Use Costume\" box to visually don a costume while wearing your battle gear underneath.",
 			"useCostume" : "Use Costume ",
 
     "_commentgearachievement" : "GEAR ACHIEVEMENT",
