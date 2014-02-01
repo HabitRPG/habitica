@@ -564,6 +564,7 @@ _.each api.food, (food,key) ->
 api.quests =
 
   evilsanta:
+    canBuy:false
     text: "Trapper Santa" # title of the quest (eg, Deep into Vice's Layer)
     notes: "You hear bemoaned roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!"
     completion: "Trapper Santa squeals in anger, and bounces off into the night. A grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the whisperer listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured. Help her find her baby!"
@@ -581,6 +582,7 @@ api.quests =
       exp: 100 # Exp bonus from defeating the boss
 
   evilsanta2:
+    canBuy:false
     text: "Find The Cub"
     notes: "Mama bear's cub had run off into the icefields when she was captured by the trapper. At the edge of the woods, she sniffs the air. You hear twig-snaps and snow crunch through the crystaline sound of the forest. Paw prints! You both start racing to follow the trail. Find all the prints and broken twigs, and retrieve her cub!"
     completion: "You've found the cub! Mama and baby bear couldn't be more grateful. As a token, they've decided to keep you company till the end of days."
@@ -668,7 +670,7 @@ api.quests =
 
 
 _.each api.quests, (v,key) ->
-  _.defaults v, {key}
+  _.defaults v, {key,canBuy:true}
 
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
