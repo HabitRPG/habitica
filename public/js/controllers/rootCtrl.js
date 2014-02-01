@@ -191,9 +191,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       .success(function(){
         var msg = "You cast " + spell.text;
         switch (type) {
-          case 'task': msg += ' on ' + target.text;break;
-          case 'user': msg += ' on ' + target.profile.name;break;
-          case 'party': msg += ' on the Party';break;
+          case 'task': msg += ' on ' + target.text + '.';break;
+          case 'user': msg += ' on ' + target.profile.name + '.';break;
+          case 'party': msg += ' for the Party.';break;
         }
         Notification.text(msg);
       });
