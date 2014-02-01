@@ -1,9 +1,17 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'User', 'Guide', 'Notification', function ($scope, $rootScope, Shared, User, Guide, Notification) {
+  ['$scope', '$rootScope', 'Shared', 'User', 'Guide', 'Notification', '$modal',
+  function ($scope, $rootScope, Shared, User, Guide, Notification, $modal) {
 
     $rootScope.$watch('user.stats.hp', function(after, before) {
+      if (after <= 0){
+        $modal.open({
+          templateUrl: 'modals/death.html',
+          keyboard: false,
+          backdrop: 'static'
+        });
+      }
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
       Notification.hp(after - before, 'hp');
