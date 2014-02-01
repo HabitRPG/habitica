@@ -116,6 +116,15 @@ habitrpg.controller('NotificationCtrl',
       })
     });*/
 
+    $rootScope.$watch('!user.flags.classSelected && user.stats.lvl >= 10', function(after, before){
+      if(after){
+        $modal.open({
+          templateUrl: 'modals/chooseClass.html',
+          controller: 'UserCtrl'
+        });
+      }
+    });
+
     $rootScope.$watch('user.stats.lvl', function(after, before) {
       if (after == before) return;
       if (after > before) {

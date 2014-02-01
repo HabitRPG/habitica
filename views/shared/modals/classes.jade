@@ -1,5 +1,3 @@
-//activated by 
-// ng-if='!user.flags.classSelected && user.stats.lvl >= 10', data-backdrop=true, ng-controller='UserCtrl')
 script(type='text/ng-template', id='modals/chooseClass.html')  
   .modal-header
     h3=env.t('chooseClass1')
@@ -73,5 +71,5 @@ script(type='text/ng-template', id='modals/chooseClass.html')
     .well(ng-show='selectedClass=="healer"')=env.t('healerText')
 
   .modal-footer
-    button.btn.btn-small.btn-danger.cancel(ng-click='user.ops.disableClasses({})', popover-placement='top', popover-trigger='mouseenter', popover=env.t('optOutText'))=env.t('optOut')
-    button.btn.btn-primary.cancel(ng-click='selectedClass && changeClass(selectedClass)')=env.t('select')
+    button.btn.btn-small.btn-danger.cancel(ng-click='user.ops.disableClasses({}); $close()', popover-placement='top', popover-trigger='mouseenter', popover=env.t('optOutText'))=env.t('optOut')
+    button.btn.btn-primary.cancel(ng-click='selectedClass && changeClass(selectedClass); $close()')=env.t('select')

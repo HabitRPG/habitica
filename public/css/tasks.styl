@@ -23,6 +23,8 @@ for $stage in $stages
 .completed
   background-color: $completed
   color: #999
+  .glyphicon
+    color: #333
   .task-checker label
     background-color: darken($completed, 30%)
   .task-action-btn
@@ -111,6 +113,9 @@ for $stage in $stages
     cursor: move
   &:last-child
     margin-bottom: 0
+
+  label
+    font-weight: 400
 
 // task content
 .task-text
@@ -273,10 +278,9 @@ for $stage in $stages
   margin: 0.75em 0.5em 0 0.25em
   height: 1em
   opacity: 0.25
-  a > i
-    margin-left: 0.125em
-  .task-notes
-    margin-left: 0.125em
+
+  a
+    text-decoration: none
 
 .task:hover .task-meta-controls
   opacity: 1
