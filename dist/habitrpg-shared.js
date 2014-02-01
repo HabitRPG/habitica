@@ -10785,6 +10785,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
   api.quests = {
     evilsanta: {
+      canBuy: false,
       text: "Trapper Santa",
       notes: "You hear bemoaned roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
       completion: "Trapper Santa squeals in anger, and bounces off into the night. A grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the whisperer listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured. Help her find her baby!",
@@ -10807,6 +10808,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       }
     },
     evilsanta2: {
+      canBuy: false,
       text: "Find The Cub",
       notes: "Mama bear's cub had run off into the icefields when she was captured by the trapper. At the edge of the woods, she sniffs the air. You hear twig-snaps and snow crunch through the crystaline sound of the forest. Paw prints! You both start racing to follow the trail. Find all the prints and broken twigs, and retrieve her cub!",
       completion: "You've found the cub! Mama and baby bear couldn't be more grateful. As a token, they've decided to keep you company till the end of days.",
@@ -10949,7 +10951,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
   _.each(api.quests, function(v, key) {
     return _.defaults(v, {
-      key: key
+      key: key,
+      canBuy: true
     });
   });
 
@@ -12560,7 +12563,9 @@ var process=require("__browserify_process");(function() {
         if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
           rarity = user.fns.predictableRandom(user.stats.gp);
           if (rarity > .6) {
-            drop = user.fns.randomVal(_.omit(content.food, 'Saddle'));
+            drop = user.fns.randomVal(_(content.food).omit('Saddle').where({
+              canBuy: true
+            }).value());
             if ((_ref2 = (_base = user.items.food)[_name = drop.key]) == null) {
               _base[_name] = 0;
             }
