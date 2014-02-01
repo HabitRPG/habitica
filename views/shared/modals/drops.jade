@@ -1,4 +1,3 @@
-//div(modal='modals.dropsEnabled')
 script(type='text/ng-template', id='modals/dropsEnabled.html')  
   .modal-header
     h3=env.t('dropsEnabled')
@@ -11,15 +10,4 @@ script(type='text/ng-template', id='modals/dropsEnabled.html')
       span.item-drop-icon(class='Pet_Currency_Gem')
       span!=env.t('useGems')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.dropsEnabled = false')=env.t('close')
-
-//div(modal='modals.drop')
-script(type='text/ng-template', id='modals/drop.html')  
-  .modal-header
-    h3=env.t('itemDrop')
-  .modal-body
-    p
-      span.item-drop-icon(class='Pet_{{user._tmp.drop.type}}_{{user._tmp.drop.key}}')
-      | {{user._tmp.drop.dialog}}
-  .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.drop = false')=env.t('close')
+    button.btn.btn-default.cancel(ng-click='$close()')=env.t('close')

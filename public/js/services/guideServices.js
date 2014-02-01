@@ -5,7 +5,7 @@
  */
 
 angular.module('guideServices', []).
-  factory('Guide', ['$rootScope', 'User', '$timeout', function($rootScope, User, $timeout) {
+  factory('Guide', ['$rootScope', 'User', '$timeout', '$modal', function($rootScope, User, $timeout, $modal) {
 
     /**
      * Init and show the welcome tour. Note we do it listening to a $rootScope broadcasted 'userLoaded' message,
@@ -130,7 +130,9 @@ angular.module('guideServices', []).
       if (!eggs) {
         eggs['Wolf'] = 1; // This is also set on the server
       }
-      $rootScope.modals.dropsEnabled = true;
+      $modal.open({
+        templateUrl: 'modals/dropsEnabled.html'
+      });
     });
 
     $rootScope.$watch('user.items.pets', function(after, before) {
