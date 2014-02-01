@@ -861,7 +861,7 @@ api.wrap = (user, main=true) ->
               calculateDelta()
               addPoints() # obviously for delta>0, but also a trick to undo accidental checkboxes
               # MP++ per checklist item in ToDo, bonus per CLI
-              multiplier = task.checklist?.length || 1
+              multiplier = _.max([(_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),1)),1])
               mpDelta = _.max([(multiplier), (.01 * user._statsComputed.maxMP * multiplier)])
               mpDelta *= -1 if direction is 'down'  # unticking a todo
               user.stats.mp += mpDelta
