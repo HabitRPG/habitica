@@ -1,16 +1,30 @@
 var nconf = require('nconf');
 var winston = require('winston');
+require('winston-mail').Mail;
+require('winston-newrelic');
 
 var logger;
+
 if (logger == null) {
-    // We currently don't support logging on Heroku
-    if (nconf.get('NODE_ENV') != 'production') {
         logger = new (winston.Logger)({
             transports: [
                 new (winston.transports.Console)({colorize: true}),
                 new (winston.transports.File)({ filename: 'habitrpg.log' })
                 // TODO: Add email, loggly, or mongodb transports
             ]
+        });
+    if (nconf.get('NODE_ENV') == 'production') {
+       logger.add(winston.transport.newrelic, {});
+        logger.add(winston.transports.Mail, {
+            to: nconf.get('ADMIN_EMAIL') || nconf.get('SMTP_USER'),
+            from: "HabitRPG <" + nconf.get('SMTP_USER') + ">",
+            subject: "HabitRPG Error",
+            host: nconf.get('SMTP_HOST'),
+            port: nconf.get('SMTP_PORT'),
+            tls: nconf.get('SMTP_TLS'),
+            username: nconf.get('SMTP_USER'),
+            password: nconf.get('SMTP_PASS'),
+            level: 'error'
         });
     }
 }

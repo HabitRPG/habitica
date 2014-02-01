@@ -46,7 +46,9 @@
     "passport-facebook": "~1.0.2",
     "newrelic": "~1.3.0",
     "connect-ratelimit": "0.0.6",
-    "winston": "~0.7.2"
+    "winston": "~0.7.2",
+    "winston-mail": "~0.2.7",
+    "winston-newrelic": "~0.1.4"
   },
   "private": true,
   "subdomain": "habitrpg",

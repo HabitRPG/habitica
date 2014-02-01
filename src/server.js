@@ -3,9 +3,8 @@ var cluster = require("cluster");
 var _ = require('lodash');
 var nconf = require('nconf');
 var utils = require('./utils');
-var logging = require('./logging');
 utils.setupConfig();
-
+var logging = require('./logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 
