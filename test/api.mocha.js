@@ -288,7 +288,8 @@ describe('API', function () {
           request.post(baseURL+'/user/batch-update')
           .send([
             {op:'score',params:{direction:'up',id:user.dailys[0].id}},
-            {op:'score',params:{direction:'up',id:user.dailys[1].id}}
+            {op:'score',params:{direction:'up',id:user.dailys[1].id}},
+            {op:'update',body:{'stats.lvl':50}}
           ])
           .end(function(res){
             user = res.body;
@@ -344,21 +345,21 @@ describe('API', function () {
               // Start the quest
               async.waterfall([
                 function (cb) {
-                  request.post(baseURL + "/groups/" + group._id + "/questAccept?key=gryphon")
+                  request.post(baseURL + "/groups/" + group._id + "/questAccept?key=vice3")
                   .end(function (res) {
-                    expectCode(res, 401);
-                    User.findByIdAndUpdate(_id, {$set: {'items.quests.gryphon':1}}, cb);
+                    expectCode(res, 400);
+                    User.findByIdAndUpdate(_id, {$set: {'items.quests.vice3':1}}, cb);
                   });
                 },
                 function (_user,cb) {
-                  request.post(baseURL + "/groups/" + group._id + "/questAccept?key=gryphon")
+                  request.post(baseURL + "/groups/" + group._id + "/questAccept?key=vice3")
                   .end(function (res) {
                     expectCode(res, 200);
                     Group.findById(group._id, cb);
                   });
                 },
                 function (_group,cb) {
-                  expect(_group.quest.key).to.be('gryphon');
+                  expect(_group.quest.key).to.be('vice3');
                   expect(_group.quest.active).to.be(false);
 
                   request.post(baseURL + "/groups/" + group._id + "/questAccept")
@@ -435,7 +436,7 @@ describe('API', function () {
               request.post(baseURL+'/user/batch-update')
               .end(function(){
                 request.get(baseURL+'/groups/party').end(function(res){
-                  expect(res.body.quest.progress.hp).to.be.below(shared.content.quests.gryphon.boss.hp);
+                  expect(res.body.quest.progress.hp).to.be.below(shared.content.quests.vice3.boss.hp);
                   var _party = res.body.members;
                   expect(_.find(_party,{_id:party[0]._id}).stats.hp).to.be.below(50);
                   expect(_.find(_party,{_id:party[1]._id}).stats.hp).to.be.below(50);
@@ -445,7 +446,7 @@ describe('API', function () {
 
                     // Kill the boss
                     function(cb){
-                      expect(user.items.eggs['Gryphon']).to.not.be.ok();
+                      expect(user.items.gear.owned.weapon_special_2).to.not.be.ok();
                       Group.findByIdAndUpdate(group._id,{$set:{'quest.progress.hp':0}},cb);
                     },
                     function(_group,cb){
@@ -465,12 +466,14 @@ describe('API', function () {
                     },
                     function(_group,cb){
                       expect(_.isEmpty(_group.quest)).to.be(true);
-                      expect(user.items.eggs['Gryphon']).to.be(2);
-                      expect(_.find(_group.members,{_id:party[0]._id}).items.eggs['Gryphon']).to.be(2);
-                      expect(_.find(_group.members,{_id:party[1]._id}).items.eggs['Gryphon']).to.be(2);
-                      expect(_.find(_group.members,{_id:party[2]._id}).items.eggs['Gryphon']).to.not.be.ok();
-                      expect(user.stats.exp).to.be.above(shared.content.quests.gryphon.drop.exp);
-                      expect(user.stats.gp).to.be.above(shared.content.quests.gryphon.drop.gp);
+                      expect(user.items.gear.owned.weapon_special_2).to.be(true);
+                      expect(user.items.eggs.Dragon).to.be(2);
+                      expect(user.items.hatchingPotions.Shade).to.be(2);
+                      expect(_.find(_group.members,{_id:party[0]._id}).items.gear.owned.weapon_special_2).to.be(true);
+                      expect(_.find(_group.members,{_id:party[1]._id}).items.gear.owned.weapon_special_2).to.be(true);
+                      expect(_.find(_group.members,{_id:party[2]._id}).items.gear.owned.weapon_special_2).to.not.be.ok();
+                      expect(user.stats.exp).to.be.above(shared.content.quests.vice3.drop.exp);
+                      expect(user.stats.gp).to.be.above(shared.content.quests.vice3.drop.gp);
                       cb();
                     }
                   ],done);
