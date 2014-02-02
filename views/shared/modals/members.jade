@@ -16,7 +16,7 @@ div(ng-controller='MemberModalCtrl')
             li(ng-show='profile.auth.timestamps.loggedin')=env.t('lastLoggedIn')
               | {{timestamp(profile.auth.timestamps.loggedin)}} -
           h3=env.t('stats')
-          .label.label-info {{profile.stats.class}}
+          .label.label-info {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[user.stats.class] }}
           include ../profiles/stats
         .span6
           include ../header/avatar
