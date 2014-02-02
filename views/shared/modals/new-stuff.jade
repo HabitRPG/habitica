@@ -12,10 +12,10 @@ script(type='text/ng-template', id='modals/mathUpdates.html')
   .modal-footer
     button.btn.btn-default.cancel(ng-click='User.set({"flags.mathUpdates":true}); $close()') Dismiss
 
-script(type='text/ng-template', id='modals/newStuff.html')  
+script(type='text/ng-template', id='modals/newStuff.html')
   .modal-header
     h3 New Stuff!
-  .modal-body
+  .modal-body.new-stuff-modal
     table
       tr
         td

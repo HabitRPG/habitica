@@ -66,9 +66,11 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     // Open a modal from a template expression (like ng-click,...)
     // Otherwise use the proper $modal.open
-    $rootScope.openModal = function(modal){
+    $rootScope.openModal = function(template, controller, scope){
       $modal.open({
-        templateUrl: 'modals/' + modal + '.html'
+        templateUrl: 'modals/' + template + '.html',
+        controller: controller, // optional
+        scope: scope // optional
       });
     }
 

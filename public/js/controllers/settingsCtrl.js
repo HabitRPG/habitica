@@ -96,12 +96,10 @@ habitrpg.controller('SettingsCtrl',
         "stats.mp": stats.mp,
         "achievements.streak": achievements.streak
       });
-      $rootScope.modals.restore = false;
     }
 
     $scope.reset = function(){
       User.user.ops.reset({});
-      $rootScope.modals.reset = false;
       $rootScope.$state.go('tasks');
     }
 

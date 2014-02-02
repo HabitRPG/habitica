@@ -1,5 +1,3 @@
-//div(ng-controller='SettingsCtrl') Above all
-  div(modal='modals.reset')
 script(type='text/ng-template', id='modals/reset.html')  
   .modal-header
     h3=env.t('resetAccount')
@@ -7,10 +5,9 @@ script(type='text/ng-template', id='modals/reset.html')
     p=env.t('resetText1')
     p=env.t('resetText2')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.reset = false')=env.t('neverMind')
-    button.btn.btn-danger(data-dismiss='modal', ng-click='reset()')=env.t('resetDo')
+    button.btn.btn-default.cancel(ng-click='$close();')=env.t('neverMind')
+    button.btn.btn-danger(ng-click='$close(); reset()')=env.t('resetDo')
 
-//div(modal='modals.restore')
 script(type='text/ng-template', id='modals/restore.html')  
   .modal-header
     h3=env.t('fixValues')
@@ -46,10 +43,9 @@ script(type='text/ng-template', id='modals/restore.html')
         h3=env.t('other')
         a.btn.btn-small.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()')=env.t('triggerDay')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.restore = false')=env.t('discardChanges')
-    button.btn.btn-primary(ng-click='restore()')=env.t('saveAndClose')
+    button.btn.btn-default.cancel(ng-click='$close()')=env.t('discardChanges')
+    button.btn.btn-primary(ng-click='$close(); restore()')=env.t('saveAndClose')
 
-//div(modal='modals.delete')
 script(type='text/ng-template', id='modals/delete.html')  
   .modal-header
     h3=env.t('deleteAccount')
@@ -58,5 +54,5 @@ script(type='text/ng-template', id='modals/delete.html')
     p
       input(type='text', ng-model='_deleteAccount')
   .modal-footer
-    button.btn.btn-default(ng-click='modals.delete = false')=env.t('neverMind')
-    button.btn.btn-danger.btn-small(ng-disabled='_deleteAccount != "DELETE"', ng-click='delete()')=env.t('deleteDo')
+    button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
+    button.btn.btn-danger.btn-small(ng-disabled='_deleteAccount != "DELETE"', ng-click='$close(); delete()')=env.t('deleteDo')

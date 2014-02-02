@@ -8,25 +8,31 @@
           a.task-action-btn.tile.solid
             span(ng-show='$state.includes("options")', ui-sref='tasks')
               span.glyphicon.glyphicon-ok
+              | &nbsp;
               =env.t('tasks')
             span(ng-show='$state.includes("tasks")', ui-sref='options')
               span.glyphicon.glyphicon-wrench
+              | &nbsp;
               =env.t('options')
         li 
           a.task-action-btn.tile.solid(href="http://habitrpg.wikia.com/wiki/FAQ", target='_blank')
             span.glyphicon.glyphicon-book
+            | &nbsp;
             =env.t('FAQ')
         li 
           a.task-action-btn.tile.solid(href="https://vimeo.com/57654086", target='_blank')
             span.glyphicon.glyphicon-film
+            //| &nbsp; Tutorials is too long to stay in the menu if we add a space
             =env.t('tutorials')
         li
           a.task-action-btn.tile.solid(ng-click='User.sync()')
             span.glyphicon.glyphicon-refresh
+            | &nbsp;
             =env.t('sync')
         li
           a.task-action-btn.tile.solid(ng-click='logout()')
             span.glyphicon.glyphicon-share-alt
+            | &nbsp;
             =env.t('logout')
     // party invitation notification
     a(ng-show='user.party.invitation', style='cursor: pointer;', x-bind='click:gotoPartyChat')

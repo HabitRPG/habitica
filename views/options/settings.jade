@@ -65,7 +65,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
       br
       button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
       br
-      button.btn(ng-click='modals.restore = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
+      button.btn(ng-click='openModal("restore", "SettingsCtrl")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
       div(ng-if='user.preferences.disableClasses==true')
         button.btn(ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
       div(ng-if='!user.preferences.disableClasses && user.flags.classSelected')
@@ -86,8 +86,8 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
 
       hr
       h4=env.t('dangerZone')
-      a.btn.btn-danger(ng-click='modals.reset = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetAccPop'))= env.t('resetAccount')
-      a.btn.btn-danger(ng-click='modals.delete = true', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
+      a.btn.btn-danger(ng-click='openModal("reset", "SettingsCtrl")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetAccPop'))= env.t('resetAccount')
+      a.btn.btn-danger(ng-click='openModal("delete", "SettingsCtrl")', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
   .row.fluid
