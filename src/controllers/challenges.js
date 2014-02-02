@@ -98,6 +98,7 @@ api.csv = function(req, res) {
       })
       output.push(uData);
     });
+    res.header('Content-disposition', 'attachment; filename='+cid+'.csv');
     res.csv(output);
   })
 }
