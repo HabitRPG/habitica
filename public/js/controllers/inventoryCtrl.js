@@ -142,6 +142,8 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
     $scope.buyQuest = function(quest) {
       var item = Content.quests[quest];
+      if (item.lvl && item.lvl > user.stats.lvl)
+          return alert("You must be level " + item.lvl + ' to buy this quest!');
       var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
       if (!completedPrevious)
         return $scope.purchase("quests", item);

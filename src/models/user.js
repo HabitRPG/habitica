@@ -99,7 +99,8 @@ var UserSchema = new Schema({
     contributor: Boolean,
     classSelected: {type: Boolean, 'default': false},
     mathUpdates: Boolean,
-    rebirthEnabled: {type: Boolean, 'default': false}
+    rebirthEnabled: {type: Boolean, 'default': false},
+    levelDrops: {type:Schema.Types.Mixed, 'default':{}}
   },
   history: {
     exp: Array, // [{date: Date, value: Number}], // big peformance issues if these are defined
