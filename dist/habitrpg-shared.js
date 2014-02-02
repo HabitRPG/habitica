@@ -12653,7 +12653,7 @@ var process=require("__browserify_process");(function() {
         })()]++;
       },
       updateStats: function(stats) {
-        var tnl, _ref;
+        var tnl, _base, _base1, _ref, _ref1, _ref2, _ref3;
 
         if (stats.hp <= 0) {
           return user.stats.hp = 0;
@@ -12707,6 +12707,20 @@ var process=require("__browserify_process");(function() {
         }
         if (!user.flags.classSelected && user.stats.lvl >= 10) {
           user.flags.classSelected;
+        }
+        if (!((_ref1 = user.flags.levelDrops) != null ? _ref1.vice1 : void 0) && user.stats.lvl >= 30) {
+          if ((_ref2 = (_base = user.items.quests).vice1) == null) {
+            _base.vice1 = 0;
+          }
+          user.items.quests.vice1++;
+          ((_ref3 = (_base1 = user.flags).levelDrops) != null ? _ref3 : _base1.levelDrops = {}).vice1 = true;
+          if (typeof user.markModified === "function") {
+            user.markModified('flags.levelDrops');
+          }
+          user._tmp.drop = _.defaults(content.quests.vice1, {
+            type: 'Quest',
+            dialog: "You've found the quest \"" + content.quests.vice1.text + "\"!"
+          });
         }
         if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
           return user.flags.rebirthEnabled = true;

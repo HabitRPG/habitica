@@ -1108,6 +1108,14 @@ api.wrap = (user, main=true) ->
         if user.items.eggs["Wolf"] > 0 then user.items.eggs["Wolf"]++ else user.items.eggs["Wolf"] = 1
       if !user.flags.classSelected and user.stats.lvl >= 10
         user.flags.classSelected
+      if !user.flags.levelDrops?.vice1 and user.stats.lvl >= 30
+        user.items.quests.vice1 ?= 0
+        user.items.quests.vice1++
+        (user.flags.levelDrops ?= {}).vice1 = true
+        user.markModified? 'flags.levelDrops'
+        user._tmp.drop = _.defaults content.quests.vice1,
+          type: 'Quest'
+          dialog: "You've found the quest \"#{content.quests.vice1.text}\"!"
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
 
