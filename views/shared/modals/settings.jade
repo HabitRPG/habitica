@@ -18,33 +18,33 @@ script(type='text/ng-template', id='modals/restore.html')
       form#restore-form.form-horizontal
         h3=env.t('stats')
         .option-group.option-medium
-          input.option-content(type='number', step="any", data-for='stats.hp', ng-model='restoreValues.stats.hp')
+          input.option-content(type='number', step="any", data-for='stats.hp', ng-model='$parent.restoreValues.stats.hp')
           span.input-suffix=env.t('health')
         .option-group.option-medium
-          input.option-content(type='number', step="any", data-for='stats.exp', ng-model='restoreValues.stats.exp')
+          input.option-content(type='number', step="any", data-for='stats.exp', ng-model='$parent.restoreValues.stats.exp')
           span.input-suffix=env.t('experience')
         .option-group.option-medium
-          input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp')
+          input.option-content(type='number', step="any", data-for='stats.gp', ng-model='$parent.restoreValues.stats.gp')
           //input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp',disabled)
           span.input-suffix=env.t('gold')
           //-p.alert
             small=env.t('disabledWinterEvent')
         .option-group.option-medium
-          input.option-content(type='number', step="any", data-for='stats.mp', ng-model='restoreValues.stats.mp')
+          input.option-content(type='number', step="any", data-for='stats.mp', ng-model='$parent.restoreValues.stats.mp')
           span.input-suffix=env.t('mana')
         .option-group.option-medium
-          input.option-content(type='number', data-for='stats.lvl', ng-model='restoreValues.stats.lvl')
+          input.option-content(type='number', data-for='stats.lvl', ng-model='$parent.restoreValues.stats.lvl')
           span.input-suffix=env.t('level')
         h3=env.t('achievements')
         .option-group.option-medium
-          input.option-content(type='number', data-for='achievements.streak', ng-model='restoreValues.achievements.streak')
+          input.option-content(type='number', data-for='achievements.streak', ng-model='$parent.restoreValues.achievements.streak')
           span.input-suffix=env.t('fix21Streaks')
       //- This is causing too many problems for users
         h3=env.t('other')
         a.btn.btn-small.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()')=env.t('triggerDay')
   .modal-footer
     button.btn.btn-default.cancel(ng-click='$close()')=env.t('discardChanges')
-    button.btn.btn-primary(ng-click='$close(); restore()')=env.t('saveAndClose')
+    button.btn.btn-primary(ng-click='restore(); $close();')=env.t('saveAndClose')
 
 script(type='text/ng-template', id='modals/delete.html')  
   .modal-header

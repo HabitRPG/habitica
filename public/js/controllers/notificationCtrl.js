@@ -133,10 +133,27 @@ habitrpg.controller('NotificationCtrl',
       }
     });
 
+    // Math updates modal
     $rootScope.$watch('!user.flags.mathUpdates', function(after, before){
-      if (after === before || after !== true) return;
+      if (after == before || after != true) return;
       $modal.open({
         templateUrl: 'modals/mathUpdates.html'
+      });
+    });
+
+    // Completed quest modal
+    $rootScope.$watch('user.party.quest.completed', function(after, before){
+      if (after == before || after != true) return;
+      $modal.open({
+        templateUrl: 'modals/questCompleted.html',
+        controller: 'InventoryCtrl'
+      });
+    });
+
+    $rootScope.$watch('party.quest.key && !party.quest.active && !questHold && party.quest.members[user._id] == undefined', function(after, before){
+      if (after == before || after != true) return;
+      $modal.open({
+        templateUrl: 'modals/questInvitation.html'
       });
     });
 

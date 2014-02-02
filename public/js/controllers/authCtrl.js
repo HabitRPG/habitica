@@ -27,7 +27,6 @@ angular.module('authCtrl', [])
       runAuth = function(id, token) {
         User.authenticate(id, token, function(err) {
           $window.location.href = '/';
-          //$rootScope.modals.login = false;
         });
       };
 

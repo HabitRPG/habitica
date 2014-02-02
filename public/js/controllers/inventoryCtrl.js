@@ -1,5 +1,5 @@
-habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User', 'Content',
-  function($rootScope, $scope, $window, User, Content) {
+habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User', 'Content', '$modal',
+  function($rootScope, $scope, $window, User, Content, $modal) {
 
     var user = User.user;
 
@@ -87,7 +87,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
 
     $scope.purchase = function(type, item){
       var gems = User.user.balance * 4;
-      if(gems < item.value) return $rootScope.modals.buyGems = true;
+      if(gems < item.value) return $rootScope.openModal('buyGems');
       var string = (type == 'hatchingPotion') ? 'hatching potion' : type; // give hatchingPotion a space
       var message = "Buy this " + string + " with " + item.value + " of your " + gems + " Gems?"
       if($window.confirm(message))
@@ -127,12 +127,13 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       if (item.lvl && item.lvl > user.stats.lvl)
         return alert("You must be level " + item.lvl + '.');
       $rootScope.selectedQuest = item;
-      $rootScope.modals.showQuest = true;
+      $modal.open({
+        templateUrl: 'modals/showQuest.html',
+        controller: 'InventoryCtrl'
+      });
     }
     $scope.closeQuest = function(){
       $rootScope.selectedQuest = undefined;
-      $rootScope.modals.showQuest = false;
-      $rootScope.modals.buyQuest = false;
     }
     $scope.questInit = function(){
       $rootScope.party.$questAccept({key:$scope.selectedQuest.key}, function(){
@@ -148,7 +149,10 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       if (!completedPrevious)
         return $scope.purchase("quests", item);
       $rootScope.selectedQuest = item;
-      $rootScope.modals.buyQuest = true;
+      $modal.open({
+        templateUrl: 'modals/buyQuest.html',
+        controller: 'InventoryCtrl'
+      });
     }
   }
 ]);

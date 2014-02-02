@@ -1,5 +1,4 @@
 .user-menu(ng-controller='AuthCtrl')
-  button.task-action-btn.tile.solid(ng-hide='authenticated()', style='cursor: pointer;', ng-click="modals.login = true")=env.t('loginAndReg')
   ul.nav.site-nav(ng-show='authenticated()')
     li.flyout
       h1.task-action-btn.tile.solid.user-reporter {{user.profile.name}}

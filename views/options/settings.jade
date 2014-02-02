@@ -65,7 +65,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
       br
       button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
       br
-      button.btn(ng-click='openModal("restore", "SettingsCtrl")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
+      button.btn(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
       div(ng-if='user.preferences.disableClasses==true')
         button.btn(ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
       div(ng-if='!user.preferences.disableClasses && user.flags.classSelected')
