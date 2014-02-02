@@ -2,6 +2,7 @@ var nodemailer = require('nodemailer');
 var nconf = require('nconf');
 var crypto = require('crypto');
 var path = require("path");
+var cluster = require("cluster");
 
 module.exports.sendEmail = function(mailData) {
   var smtpTransport = nodemailer.createTransport("SMTP",{
@@ -59,6 +60,23 @@ module.exports.setupConfig = function(){
   if (nconf.get('NODE_ENV') === 'production') require('newrelic');
 };
 
+module.exports.crashWorker = function(server) {
+    return function(err, req, res, next) {
+        if (!cluster.isMaster) {
+            // make sure we close down within 30 seconds
+            var killtimer = setTimeout(function() {
+                process.exit(1);
+            }, 30000);
+            // But don't keep the process open just for that!
+            killtimer.unref();
+            // stop taking new requests.
+            server.close();
+            cluster.worker.disconnect();
+        }
+        next(err);
+    };
+}
+
 
 module.exports.errorHandler = function(err, req, res, next) {
   // when we hit an error, send it to admin as an email. If no ADMIN_EMAIL is present, just send it to yourself (SMTP_USER)
@@ -79,5 +97,4 @@ module.exports.errorHandler = function(err, req, res, next) {
   var message = err.message ? err.message : err;
   message =  (message.length < 200) ? message : message.substring(0,100) + message.substring(message.length-100,message.length);
   res.json(500,{err:message}); //res.end(err.message);
-  process.exit(0);
 }
