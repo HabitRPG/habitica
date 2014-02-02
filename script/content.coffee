@@ -365,8 +365,8 @@ api.spells =
       target: 'task'
       notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (bluer) your task."
       cast: (user, target) ->
-        bonus = (if target.value < 0 then 1 else target.value+2) * user._statsComputed.per
-        user.stats.gp += 75 * (bonus / (bonus + 800))
+        bonus = (if target.value < 0 then 1 else target.value+2) + (user._statsComputed.per * 0.5)
+        user.stats.gp += 25 * (bonus / (bonus + 75))
     backStab:
       text: 'Backstab'
       mana: 15
