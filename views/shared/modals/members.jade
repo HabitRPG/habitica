@@ -1,6 +1,3 @@
-//div(ng-controller='MemberModalCtrl')
-  #memberModal(modal='modals.member')
-  
 script(type='text/ng-template', id='modals/member.html')  
   .modal-header(bindonce='profile')
     h3
@@ -25,4 +22,4 @@ script(type='text/ng-template', id='modals/member.html')
         h3 Achievements
         include ../profiles/achievements
   .modal-footer
-    button.btn.btn-default(ng-click='modals.member = false')=env.t('ok')
+    button.btn.btn-default(ng-click='$close()')=env.t('ok')

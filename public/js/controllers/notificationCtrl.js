@@ -116,6 +116,7 @@ habitrpg.controller('NotificationCtrl',
       })
     });*/
 
+    // Classes modal
     $rootScope.$watch('!user.flags.classSelected && user.stats.lvl >= 10', function(after, before){
       if(after){
         $modal.open({
@@ -130,6 +131,13 @@ habitrpg.controller('NotificationCtrl',
       if (after > before) {
         Notification.lvl();
       }
+    });
+
+    $rootScope.$watch('!user.flags.mathUpdates', function(after, before){
+      if (after === before || after !== true) return;
+      $modal.open({
+        templateUrl: 'modals/mathUpdates.html'
+      });
     });
 
     $rootScope.$on('responseError', function(ev, error){

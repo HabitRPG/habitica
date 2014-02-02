@@ -1,4 +1,5 @@
 //-div(modal='!user.flags.mathUpdates')
+script(type='text/ng-template', id='modals/mathUpdates.html')
   .modal-header
     h3 Math Updates
   .modal-body
@@ -9,9 +10,8 @@
     br
     p iOS users, iTunes is on vacation until 12/28. Until we can push the updated app, you'll need to sync periodically to get the corrected numbers (app has old math, server saves the correct numbers). Android goes out ASAP. More info on <a target='_blank' href='https://trello.com/c/L1H6LiZ3/110-character-stats-attributes-the-class-system'>Trello</a>.
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='User.set({"flags.mathUpdates":true})') Dismiss
+    button.btn.btn-default.cancel(ng-click='User.set({"flags.mathUpdates":true}); $close()') Dismiss
 
-//div(modal='modals.newStuff')
 script(type='text/ng-template', id='modals/newStuff.html')  
   .modal-header
     h3 New Stuff!
@@ -467,5 +467,5 @@ script(type='text/ng-template', id='modals/newStuff.html')
           a(href='https://trello.com/card/custom-day-start/50e5d3684fe3a7266b0036d6/15') Add custom day start
 
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.newStuff = false') Cool 
-    button.btn.btn-warning.cancel(ng-click='dismissAlert()') Dismiss This Alert
+    button.btn.btn-default.cancel(ng-click='$close()') Cool 
+    button.btn.btn-warning.cancel(ng-click='dismissAlert(); $close()') Dismiss This Alert

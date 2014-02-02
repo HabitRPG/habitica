@@ -35,5 +35,5 @@
       .herobox-wrap(ng-repeat='profile in partyMinusSelf')
         include avatar
 
-    .npc_bailey.npc_bailey_head(ng-show='user.flags.newStuff', tooltip=env.t('psst'), tooltip-placement='top', ng-click='modals.newStuff=true')
+    .npc_bailey.npc_bailey_head(ng-show='user.flags.newStuff', tooltip=env.t('psst'), tooltip-placement='top', ng-click='openModal("newStuff")')
 
