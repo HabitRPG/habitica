@@ -55,13 +55,11 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.reroll = function(){
       User.user.ops.reroll({});
-      $rootScope.modals.reroll = false;
       $rootScope.$state.go('tasks');
     }
 
     $scope.rebirth = function(){
       User.user.ops.rebirth({});
-      $rootScope.modals.rebirth = false;
       $rootScope.$state.go('tasks');
     }
 

@@ -139,13 +139,17 @@ angular.module('guideServices', []).
       if (User.user.achievements && User.user.achievements.beastMaster) return;
       if (before >= 90) {
         User.set({'achievements.beastMaster': true});
-        $('#beastmaster-achievement-modal').modal('show'); // FIXME
+        $modal.open({
+          templateUrl: 'modals/achievements/beastMaster.html'
+        });
       }
     });
 
     $rootScope.$watch('user.flags.rebirthEnabled', function(after, before) {
         if (alreadyShown(before, after)) return;
-        $rootScope.modals.rebirthEnabled = true;
+        $modal.open({
+          templateUrl: 'modals/rebirthEnabled.html'
+        });
     });
 
 
