@@ -1,6 +1,7 @@
 "use strict";
 
-habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http', 'Notification', 'API_URL',
+(typeof habitrpg !== 'undefined' ? habitrpg : habitrpgStatic)
+  .controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http', 'Notification', 'API_URL',
   function($scope, $rootScope, User, $http, Notification, API_URL) {
 
     /**
