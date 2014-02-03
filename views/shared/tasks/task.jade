@@ -15,7 +15,8 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
       a.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}', ng-click='collapseChecklist(task)', style='margin:1px')
         {{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
 
-      i.icon-tags(tooltip='{{appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
+      // tags
+      i.icon-tags(tooltip='{{Shared.appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
       // edit
       a(ng-hide='task._editing', ng-click='editTask(task)', tooltip=env.t('edit'))
         i.icon-pencil(ng-hide='task._editing')
