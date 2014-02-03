@@ -30,22 +30,15 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
           | 2 <span class="Pet_Currency_Gem1x inline-gems"/> /
           = ' ' + env.t('locked')
         menu(type='list')
+          // For special events code, see commit dfa27b3
+
           // Color
           li.customize-menu
             menu(label=env.t('color'))
               each v,k in {'c8c8c8':'white','903a00':'brown','cfb853':'blond','ec720f':'red','2e2e2e':'black'}
                 button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:##{k};', ng-click='set({"preferences.hair.color": "#{v}"})')
-
-          // Special Events
-          li.customize-menu.well.limited-edition
-            .label.label-info.pull-right(popover=env.t('limited31Jan'), popover-title=env.t('limitedEdition'), popover-placement='right', popover-trigger='mouseenter')
-              =env.t('limitedEdition')
-              | 
-              i.icon.icon-question-sign
-            menu(label=env.t('winterColors'))
               each color in ['candycane','frost','winternight','holly']
-                button(type='button', ng-class='{locked: !user.purchased.hair.color.#{color}}', class='customize-option hair_bangs_1_#{color}', style='width: 40px; height: 40px;', ng-click='unlock("hair.color.#{color}")')
-          button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.color.candycane && user.purchased.hair.color.frost && user.purchased.hair.color.winternight && user.purchased.hair.color.holly', ng-click='unlock("hair.color.candycane,hair.color.frost,hair.color.winternight,hair.color.holly")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+                button(type='button', ng-if='user.purchased.hair.color.#{color}', class='customize-option hair_bangs_1_#{color}', style='width: 40px; height: 40px;', ng-click='unlock("hair.color.#{color}")')
 
           h5=env.t('bodyHair')
           // Bangs
