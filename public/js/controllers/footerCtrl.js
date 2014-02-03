@@ -41,27 +41,30 @@ habitrpg.controller("FooterCtrl", ['$scope', '$rootScope', 'User', '$http', 'Not
     /**
      * Debug functions. Note that the server route for gems is only available if process.env.DEBUG=true
      */
-    $scope.addMissedDay = function(){
-      if (!confirm("Are you sure you want to reset the day?")) return;
-      var dayBefore = moment(User.user.lastCron).subtract('days', 1).toDate();
-      User.set({'lastCron': dayBefore});
-      Notification.text('-1 day, remember to refresh');
+    if (window.env.NODE_ENV === 'development') {
+      $scope.addMissedDay = function(){
+        if (!confirm("Are you sure you want to reset the day?")) return;
+        var dayBefore = moment(User.user.lastCron).subtract('days', 1).toDate();
+        User.set({'lastCron': dayBefore});
+        Notification.text('-1 day, remember to refresh');
+      }
+      $scope.addTenGems = function(){
+        $http.post(API_URL + '/api/v2/user/addTenGems').success(function(){
+          User.log({});
+        })
+      }
+      $scope.addLevelsAndGold = function(){
+        User.set({
+          'stats.exp': User.user.stats.exp + 10000,
+          'stats.gp': User.user.stats.gp + 10000,
+          'stats.mp': User.user.stats.mp + 10000
+        });
+      }
+      $scope.addOneLevel = function(){
+        User.set({
+          'stats.exp': User.user.stats.exp + (Math.round(((Math.pow(User.user.stats.lvl, 2) * 0.25) + (10 * User.user.stats.lvl) + 139.75) / 10) * 10)
+        });
+      }
     }
-    $scope.addTenGems = function(){
-      $http.post(API_URL + '/api/v2/user/addTenGems').success(function(){
-        User.log({});
-      })
-    }
-    $scope.addLevelsAndGold = function(){
-      User.set({
-        'stats.exp': User.user.stats.exp + 10000,
-        'stats.gp': User.user.stats.gp + 10000,
-        'stats.mp': User.user.stats.mp + 10000
-      });
-    }
-    $scope.addOneLevel = function(){
-      User.set({
-        'stats.exp': User.user.stats.exp + (Math.round(((Math.pow(User.user.stats.lvl, 2) * 0.25) + (10 * User.user.stats.lvl) + 139.75) / 10) * 10)
-      });
-    }
+
   }])
