@@ -12,6 +12,8 @@ newrelic_agent.log
 .bower-tmp
 .bower-registry
 .bower-cache
+
+*.log
 src/*/*.map
 src/*/*/*.map
 test/*.js

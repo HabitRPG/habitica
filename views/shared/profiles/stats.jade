@@ -63,15 +63,16 @@ table.table.table-striped
           |: {{profile.stats.buffs[k] || 0}}&nbsp;
   tr(ng-if='profile.stats.buffs.stealth')
     td
+      i.icon-question-sign(popover-title=env.t('stealth'), popover-trigger='mouseenter', popover-placement='right', popover=env.t('stealthNewDay'))
+      &nbsp;
       strong=env.t('stealth')
-        |: {{profile.stats.buffs.stealth}}&nbsp;
-        span.glyphicon.glyphicon-question-sign(popover-title=env.t('stealth'), popover-trigger='mouseenter', popover-placement='right', popover=env.t('stealthNewDay'))
+        |: {{profile.stats.buffs.stealth}}
     td
   tr(ng-if='profile.stats.buffs.streaks')
     td
+      i.icon-question-sign(popover-title=env.t('streaksFrozen'), popover-trigger='mouseenter', popover-placement='right', popover=env.t('streaksFrozenText'))
+      &nbsp;
       strong=env.t('streaksFrozen')
-        | 
-        span.glyphicon.glyphicon-question-sign(popover-title=env.t('streaksFrozen'), popover-trigger='mouseenter', popover-placement='right', popover=env.t('streaksFrozenText'))
     td
 
 h4(ng-show='user.flags.dropsEnabled')=env.t('pets')

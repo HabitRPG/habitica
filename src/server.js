@@ -4,7 +4,7 @@ var _ = require('lodash');
 var nconf = require('nconf');
 var utils = require('./utils');
 utils.setupConfig();
-
+var logging = require('./logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 
@@ -12,11 +12,11 @@ if (cluster.isMaster && (isDev || isProd)) {
   // Fork workers.
   _.times(require('os').cpus().length, function(){
     cluster.fork();
-  })
+  });
 
-  cluster.on('exit', function(worker, code, signal) {
+  cluster.on('disconnect', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker
-    console.error('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
+    logging.info('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
   });
 
 } else {
@@ -40,7 +40,7 @@ if (cluster.isMaster && (isDev || isProd)) {
   require('./models/challenge');
   mongoose.connect(nconf.get('NODE_DB_URI'), {auto_reconnect:true}, function(err) {
       if (err) throw err;
-      console.info('Connected with Mongoose');
+      logging.info('Connected with Mongoose');
   });
 
 
@@ -135,13 +135,14 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use('/api/v1', require('./routes/apiv1').middleware);
   app.use('/export', require('./routes/dataexport').middleware);
 
+  app.use(utils.crashWorker(server));
   app.use(utils.errorHandler);
 
   require('./routes/apiv2.coffee')(swagger, v2);
 
   server.on('request', app);
   server.listen(app.get("port"), function() {
-    return console.log("Express server listening on port " + app.get("port"));
+    return logging.info("Express server listening on port " + app.get("port"));
   });
 
   module.exports = server;

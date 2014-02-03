@@ -2,18 +2,20 @@ var nodemailer = require('nodemailer');
 var nconf = require('nconf');
 var crypto = require('crypto');
 var path = require("path");
+var cluster = require("cluster");
 
 module.exports.sendEmail = function(mailData) {
   var smtpTransport = nodemailer.createTransport("SMTP",{
-    service: nconf.get('SMTP_SERVICE'),
+      service: nconf.get('SMTP_SERVICE'),
     auth: {
-      user: nconf.get('SMTP_USER'),
-      pass: nconf.get('SMTP_PASS')
+        user: nconf.get('SMTP_USER'),
+        pass: nconf.get('SMTP_PASS')
     }
   });
   smtpTransport.sendMail(mailData, function(error, response){
-    if(error) console.log(error);
-    else console.log("Message sent: " + response.message);
+      var logging = require('./logging');
+    if(error) logging.error(error);
+    else logging.info("Message sent: " + response.message);
     smtpTransport.close(); // shut down the connection pool, no more messages
   });
 }
@@ -48,7 +50,8 @@ module.exports.setupConfig = function(){
 //      // * https://developers.google.com/chrome-developer-tools/docs/heap-profiling
 //      // * https://developers.google.com/chrome-developer-tools/docs/memory-analysis-101
 //      agent = require('webkit-devtools-agent');
-//      console.log("To debug memory leaks:" +
+//      var logging = require('./logging');
+//      logging.info("To debug memory leaks:" +
 //          "\n\t(1) Run `kill -SIGUSR2 " + process.pid + "`" +
 //          "\n\t(2) open http://c4milo.github.com/node-webkit-agent/21.0.1180.57/inspector.html?host=localhost:1337&page=0");
 //  }
@@ -58,6 +61,23 @@ module.exports.setupConfig = function(){
   }
   if (nconf.get('NODE_ENV') === 'production') require('newrelic');
 };
+
+module.exports.crashWorker = function(server) {
+    return function(err, req, res, next) {
+        if (!cluster.isMaster) {
+            // make sure we close down within 30 seconds
+            var killtimer = setTimeout(function() {
+                process.exit(1);
+            }, 30000);
+            // But don't keep the process open just for that!
+            killtimer.unref();
+            // stop taking new requests.
+            server.close();
+            cluster.worker.disconnect();
+        }
+        next(err);
+    };
+}
 
 
 module.exports.errorHandler = function(err, req, res, next) {
@@ -69,15 +89,9 @@ module.exports.errorHandler = function(err, req, res, next) {
     "\n\nheaders: " + JSON.stringify(req.headers) +
     "\n\nbody: " + JSON.stringify(req.body) +
     (res.locals.ops ? "\n\ncompleted ops: " + JSON.stringify(res.locals.ops) : "");
-  module.exports.sendEmail({
-    from: "HabitRPG <" + nconf.get('SMTP_USER') + ">",
-    to: nconf.get('ADMIN_EMAIL') || nconf.get('SMTP_USER'),
-    subject: "HabitRPG Error",
-    text: stack
-  });
-  console.error(stack);
+  var logging = require('./logging');
+  logging.error(stack);
   var message = err.message ? err.message : err;
   message =  (message.length < 200) ? message : message.substring(0,100) + message.substring(message.length-100,message.length);
   res.json(500,{err:message}); //res.end(err.message);
-  process.exit(0);
 }

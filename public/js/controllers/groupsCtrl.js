@@ -386,7 +386,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
 
       $scope.questAbort = function(){
-        if (!confirm("Are you sure you want to abort this mission? It will abort it for everyone in your party, and you'll lose your quest scroll.")) return;
+        if (!confirm("Are you sure you want to abort this mission? It will abort it for everyone in your party, all progress will be lost.")) return;
         if (!confirm("Are you double sure? Make sure they won't hate you forever!")) return;
         $rootScope.party.$questAbort();
       }
