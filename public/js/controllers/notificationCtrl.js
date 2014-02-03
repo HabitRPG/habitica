@@ -1,16 +1,12 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'User', 'Guide', 'Notification', '$modal',
-  function ($scope, $rootScope, Shared, User, Guide, Notification, $modal) {
+  ['$scope', '$rootScope', 'Shared', 'User', 'Guide', 'Notification',
+  function ($scope, $rootScope, Shared, User, Guide, Notification) {
 
     $rootScope.$watch('user.stats.hp', function(after, before) {
       if (after <= 0){
-        $modal.open({
-          templateUrl: 'modals/death.html',
-          keyboard: false,
-          backdrop: 'static'
-        });
+        $rootScope.openModal('death', undefined, undefined, false, 'static');
       }
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
@@ -69,39 +65,29 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.achievements.streak', function(after, before){
       if(before == undefined || after == before || after < before) return;
-      $modal.open({
-        templateUrl: 'modals/achievements/streak.html'
-      });
+      $rootScope.openModal('achievements/streak');
     });
 
     $rootScope.$watch('user.achievements.ultimateGear', function(after, before){
       if (after === before || after !== true) return;
-      $modal.open({
-        templateUrl: 'modals/achievements/ultimateGear.html'
-      });
+      $rootScope.openModal('achievements/ultimateGear');
     });
 
     $rootScope.$watch('user.items.pets', function(after, before){
       if(_.size(after) === _.size(before) || 
         Shared.countPets(null, after) < 90) return;
       User.user.achievements.beastMaster = true;
-      $modal.open({
-        templateUrl: 'modals/achievements/beastMaster.html'
-      });
+      $rootScope.openModal('achievements/beastMaster');
     }, true);
 
     $rootScope.$watch('user.achievements.rebirths', function(after, before){
       if(after === before) return;
-      $modal.open({
-        templateUrl: 'modals/achievements/rebirth.html'
-      });
+      $rootScope.openModal('achievements/rebirth');
     });
 
     $rootScope.$watch('user.flags.contributor', function(after, before){
       if (after === before || after !== true) return;
-      $modal.open({
-        templateUrl: 'modals/achievements/contributor.html'
-      });
+      $rootScope.openModal('achievements/contributor');
     });
 
     /*_.each(['weapon', 'head', 'chest', 'shield'], function(watched){
@@ -119,10 +105,7 @@ habitrpg.controller('NotificationCtrl',
     // Classes modal
     $rootScope.$watch('!user.flags.classSelected && user.stats.lvl >= 10', function(after, before){
       if(after){
-        $modal.open({
-          templateUrl: 'modals/chooseClass.html',
-          controller: 'UserCtrl'
-        });
+        $rootScope.openModal('chooseClass', 'UserCtrl');
       }
     });
 
@@ -136,25 +119,18 @@ habitrpg.controller('NotificationCtrl',
     // Math updates modal
     $rootScope.$watch('!user.flags.mathUpdates', function(after, before){
       if (after == before || after != true) return;
-      $modal.open({
-        templateUrl: 'modals/mathUpdates.html'
-      });
+      $rootScope.openModal('mathUpdates');
     });
 
     // Completed quest modal
     $rootScope.$watch('user.party.quest.completed', function(after, before){
       if (after == before || after != true) return;
-      $modal.open({
-        templateUrl: 'modals/questCompleted.html',
-        controller: 'InventoryCtrl'
-      });
+      $rootScope.openModal('questCompleted', 'InventoryCtrl');
     });
 
     $rootScope.$watch('party.quest.key && !party.quest.active && !questHold && party.quest.members[user._id] == undefined', function(after, before){
       if (after == before || after != true) return;
-      $modal.open({
-        templateUrl: 'modals/questInvitation.html'
-      });
+      $rootScope.openModal('questInvitation');
     });
 
     $rootScope.$on('responseError', function(ev, error){

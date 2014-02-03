@@ -1,5 +1,5 @@
-habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User', 'Content', '$modal',
-  function($rootScope, $scope, $window, User, Content, $modal) {
+habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User', 'Content',
+  function($rootScope, $scope, $window, User, Content) {
 
     var user = User.user;
 
@@ -127,10 +127,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       if (item.lvl && item.lvl > user.stats.lvl)
         return alert("You must be level " + item.lvl + '.');
       $rootScope.selectedQuest = item;
-      $modal.open({
-        templateUrl: 'modals/showQuest.html',
-        controller: 'InventoryCtrl'
-      });
+      $rootScope.openModal('showQuest', 'InventoryCtrl');
     }
     $scope.closeQuest = function(){
       $rootScope.selectedQuest = undefined;
@@ -149,10 +146,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       if (!completedPrevious)
         return $scope.purchase("quests", item);
       $rootScope.selectedQuest = item;
-      $modal.open({
-        templateUrl: 'modals/buyQuest.html',
-        controller: 'InventoryCtrl'
-      });
+      $rootScope.openModal('showQuest', 'buyQuest');
     }
   }
 ]);

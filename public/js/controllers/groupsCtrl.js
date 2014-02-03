@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', 'API_URL', '$q', 'User', 'Members', '$state', '$modal',
-  function($scope, $rootScope, Shared, Groups, $http, API_URL, $q, User, Members, $state, $modal) {
+habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', 'API_URL', '$q', 'User', 'Members', '$state',
+  function($scope, $rootScope, Shared, Groups, $http, API_URL, $q, User, Members, $state) {
 
       $scope.isMember = function(user, group){
         return ~(group.members.indexOf(user._id));
@@ -29,10 +29,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           // We need the member information up top here, but then we pass it down to the modal controller
           // down below. Better way of handling this?
           Members.selectMember(uid);
-          $modal.open({
-            templateUrl: 'modals/member.html',
-            controller: 'MemberModalCtrl'
-          });
+          $rootScope.openModal('member', 'MemberModalCtrl');
         }
       }
 

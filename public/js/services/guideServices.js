@@ -5,7 +5,7 @@
  */
 
 angular.module('guideServices', []).
-  factory('Guide', ['$rootScope', 'User', '$timeout', '$modal', function($rootScope, User, $timeout, $modal) {
+  factory('Guide', ['$rootScope', 'User', '$timeout', function($rootScope, User, $timeout) {
 
     /**
      * Init and show the welcome tour. Note we do it listening to a $rootScope broadcasted 'userLoaded' message,
@@ -130,26 +130,12 @@ angular.module('guideServices', []).
       if (!eggs) {
         eggs['Wolf'] = 1; // This is also set on the server
       }
-      $modal.open({
-        templateUrl: 'modals/dropsEnabled.html'
-      });
-    });
-
-    $rootScope.$watch('user.items.pets', function(after, before) {
-      if (User.user.achievements && User.user.achievements.beastMaster) return;
-      if (before >= 90) {
-        User.set({'achievements.beastMaster': true});
-        $modal.open({
-          templateUrl: 'modals/achievements/beastMaster.html'
-        });
-      }
+      $rootScope.openModal('dropsEnabled');
     });
 
     $rootScope.$watch('user.flags.rebirthEnabled', function(after, before) {
         if (alreadyShown(before, after)) return;
-        $modal.open({
-          templateUrl: 'modals/rebirthEnabled.html'
-        });
+        $rootScope.openModal('rebirthEnabled');
     });
 
 
