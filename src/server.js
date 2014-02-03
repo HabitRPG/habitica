@@ -16,7 +16,7 @@ if (cluster.isMaster && (isDev || isProd)) {
 
   cluster.on('disconnect', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker
-    logging.error('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
+    logging.info('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
   });
 
 } else {
