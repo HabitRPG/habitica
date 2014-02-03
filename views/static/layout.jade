@@ -17,9 +17,6 @@ html(ng-app='habitrpgStatic')
 
     != env.getManifestFiles("static")
 
-    script(type='text/javascript').
-      $.getScript("//s7.addthis.com/js/250/addthis_widget.js#pubid=lefnire");
-
   body
     div(ng-controller='AuthCtrl',style='margin-top:60px;')
       include ./login-modal
