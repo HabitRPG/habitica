@@ -6,15 +6,9 @@ require('winston-newrelic');
 var logger;
 
 if (logger == null) {
-        logger = new (winston.Logger)({
-            transports: [
-                new (winston.transports.Console)({colorize: true}),
-                new (winston.transports.File)({ filename: 'habitrpg.log' })
-                // TODO: Add email, loggly, or mongodb transports
-            ]
-        });
+    logger = new (winston.Logger)({});
     if (nconf.get('NODE_ENV') == 'production') {
-       logger.add(winston.transport.newrelic, {});
+        logger.add(winston.transport.newrelic, {});
         logger.add(winston.transports.Mail, {
             to: nconf.get('ADMIN_EMAIL') || nconf.get('SMTP_USER'),
             from: "HabitRPG <" + nconf.get('SMTP_USER') + ">",
@@ -26,6 +20,9 @@ if (logger == null) {
             password: nconf.get('SMTP_PASS'),
             level: 'error'
         });
+    } else {
+        logger.add(winston.transports.Console, {colorize:true});
+        logger.add(winston.transports.File, {filename: 'habitrpg.log'});
     }
 }
 
