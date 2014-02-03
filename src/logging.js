@@ -8,7 +8,7 @@ var logger;
 if (logger == null) {
     logger = new (winston.Logger)({});
     if (nconf.get('NODE_ENV') == 'production') {
-        logger.add(winston.transport.newrelic, {});
+        logger.add(winston.transports.newrelic, {});
         logger.add(winston.transports.Mail, {
             to: nconf.get('ADMIN_EMAIL') || nconf.get('SMTP_USER'),
             from: "HabitRPG <" + nconf.get('SMTP_USER') + ">",
