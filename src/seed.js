@@ -1,6 +1,7 @@
 require('coffee-script') // for habitrpg-shared
 var nconf = require('nconf');
 var utils = require('./utils');
+var logging = require('./logging');
 utils.setupConfig();
 var async = require('async');
 var mongoose = require('mongoose');
@@ -15,7 +16,7 @@ async.waterfall([
     Group.findById('habitrpg', cb);
   },
   function(tavern, cb){
-    console.log({tavern:tavern,cb:cb});
+    logging.info({tavern:tavern,cb:cb});
     if (!tavern) {
       tavern = new Group({
         _id: 'habitrpg',
@@ -31,6 +32,6 @@ async.waterfall([
   }
 ],function(err){
   if (err) throw err;
-  console.log("Done initializing database");
+  logging.info("Done initializing database");
   mongoose.disconnect();
 })

@@ -7,6 +7,7 @@ var shared = require('habitrpg-shared');
 var User = require('./../models/user').model;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
+var logging = require('./../logging');
 var csv = require('express-csv');
 var api = module.exports;
 
@@ -214,7 +215,7 @@ api.update = function(req, res){
       // Compare whether any changes have been made to tasks. If so, we'll want to sync those changes to subscribers
       if (before.isOutdated(req.body)) {
         User.find({_id: {$in: saved.members}}, function(err, users){
-          console.log('Challenge updated, sync to subscribers');
+          logging.info('Challenge updated, sync to subscribers');
           if (err) throw err;
           _.each(users, function(user){
             saved.syncToUser(user);
