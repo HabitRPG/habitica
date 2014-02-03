@@ -12,9 +12,9 @@ if (cluster.isMaster && (isDev || isProd)) {
   // Fork workers.
   _.times(require('os').cpus().length, function(){
     cluster.fork();
-  })
+  });
 
-  cluster.on('exit', function(worker, code, signal) {
+  cluster.on('disconnect', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker
     console.error('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
   });
@@ -135,6 +135,7 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use('/api/v1', require('./routes/apiv1').middleware);
   app.use('/export', require('./routes/dataexport').middleware);
 
+  app.use(utils.crashWorker(server));
   app.use(utils.errorHandler);
 
   require('./routes/apiv2.coffee')(swagger, v2);
