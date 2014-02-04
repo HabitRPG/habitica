@@ -12264,7 +12264,7 @@ var process=require("__browserify_process");(function() {
           return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
         },
         score: function(req, cb) {
-          var addPoints, calculateDelta, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref, _ref1, _ref2, _ref3;
+          var addPoints, calculateDelta, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref, _ref1, _ref2;
 
           _ref = req.params, id = _ref.id, direction = _ref.direction;
           task = user.tasks[id];
@@ -12402,7 +12402,11 @@ var process=require("__browserify_process");(function() {
                 task.dateCompleted = direction === 'up' ? new Date : void 0;
                 calculateDelta();
                 addPoints();
-                multiplier = ((_ref3 = task.checklist) != null ? _ref3.length : void 0) || 1;
+                multiplier = _.max([
+                  _.reduce(task.checklist, (function(m, i) {
+                    return m + (i.completed ? 1 : 0);
+                  }), 1), 1
+                ]);
                 mpDelta = _.max([multiplier, .01 * user._statsComputed.maxMP * multiplier]);
                 if (direction === 'down') {
                   mpDelta *= -1;
