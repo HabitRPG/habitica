@@ -4,7 +4,7 @@
 script(id='templates/habitrpg-tasks.html', type="text/ng-template")
   .tasks-lists.container-fluid
     .row
-      .col-md-3(bindonce='lists', ng-repeat='list in lists', bo-class='{"rewards-module": list.type==="reward"}')
+      .col-md-3.col-sm-6(bindonce='lists', ng-repeat='list in lists', bo-class='{"rewards-module": list.type==="reward"}')
         .task-column(class='{{list.type}}s')
 
           // Todos export/graph options

@@ -39,10 +39,15 @@ for $stage in $stages
 // ===================
 
 .tasks-lists
-  .col-md-3 
-    padding-left: 10px // Override Bootstrap 15px padding
-    padding-right: 10px // Override Bootstrap 15px padding
-    margin-bottom: 15px
+  
+  .row
+    margin-left: -5px
+    margin-right: -5px
+
+    .col-md-3 
+      padding-left: 10px // Override Bootstrap 15px padding
+      padding-right: 10px // Override Bootstrap 15px padding
+      margin-bottom: 15px
 
 // main columns
 // ------------
@@ -56,6 +61,11 @@ for $stage in $stages
     margin: 0 0 0.5em
     padding: 0
 
+// 50% width columns with scrollbars
+@media (max-width: 960px) 
+  .task-column
+    max-height: 18.6em
+    overflow-y: scroll
 
 // add new task form
 // -----------------
