@@ -1,14 +1,14 @@
 footer.footer(ng-controller='FooterCtrl')
   .container
     .row
-      .col-md-3
+      .col-sm-3
         h4=env.t('footerMobile')
         ul.list-unstyled
           li
             a(href='https://itunes.apple.com/us/app/habitrpg/id689569235?mt=8', target='_blank')=env.t('mobileIOS')
           li
             a(href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg', target='_blank')=env.t('mobileAndroid')
-      .col-md-3
+      .col-sm-3
         h4=env.t('footerCompany')
         ul.list-unstyled.list-unstyled
           if (!env.isFrontPage)
@@ -28,7 +28,7 @@ footer.footer(ng-controller='FooterCtrl')
             a(href='/static/privacy')=env.t('companyPrivacy')
           li
             a(href='/static/terms')=env.t('companyTerms')
-      .col-md-3
+      .col-sm-3
         h4=env.t('footerCommunity')
         ul.list-unstyled
           li
@@ -47,7 +47,7 @@ footer.footer(ng-controller='FooterCtrl')
             a(target='_blank', href='https://www.facebook.com/Habitrpg')=env.t('communityFacebook')
           li
             a(target='_blank', href='http://www.reddit.com/r/habitrpg/')=env.t('communityReddit')
-      .col-md-3
+      .col-sm-3
         if (env.NODE_ENV=='production')
           h4=env.t('footerSocial')
           .addthis_toolbox.addthis_default_style(addthis:url='https://habitrpg.com', addthis:title=env.t('socialTitle'))
@@ -64,7 +64,7 @@ footer.footer(ng-controller='FooterCtrl')
               tr
                 td
                   a.addthis_button_google_plusone(g:plusone:size='medium')
-        else
+        else if(!env.isFrontPage)
           h4 Debug
           ul.list-unstyled
             li
