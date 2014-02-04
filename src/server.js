@@ -44,9 +44,9 @@ if (cluster.isMaster && (isDev || isProd)) {
     logging.info('Connected with Mongoose');
   });
   // load schemas & models
-  require('./challenge');
-  require('./group');
-  require('./user');
+  require('./models/challenge');
+  require('./models/group');
+  require('./models/user');
 
   // ------------  Passport Configuration ------------
   var passport = require('passport')
