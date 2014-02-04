@@ -16,6 +16,16 @@
 .wide-popover
   max-width: 400px
 
+#notification-area
+  position: fixed
+  top: 0
+  right: 0px
+  z-index: 1061
+
+  .alert
+    padding-top: 8px
+    padding-bottom: 8px
+
 // variables
 
 gpColor = #FBEFC0
@@ -86,6 +96,8 @@ borderDarken = 20%
   background-size: 18px
   width: 14px
   height: 14px
+  display: inline-block
+  vertical-align: middle
 
 .icon-silver
   background: url("/bower_components/habitrpg-shared/img/coin_single_silver.png") no-repeat
@@ -93,6 +105,8 @@ borderDarken = 20%
   background-size: 18px
   width: 14px
   height: 14px
+  display: inline-block
+  vertical-align: middle
 
 .icon-death
   background: url("/bower_components/habitrpg-shared/img/sprites/dead.png") no-repeat
@@ -100,7 +114,8 @@ borderDarken = 20%
   background-size: 14px
   width: 14px
   height: 14px
-
+  display: inline-block
+  vertical-align: middle
 
 .undo-button
   z-index: 3000
