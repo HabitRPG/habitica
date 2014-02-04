@@ -1,17 +1,18 @@
 script(type='text/ng-template', id='partials/options.inventory.equipment.html')
   .row-fluid
     .span6.border-right
-      h3=env.t('battleGear')
-      small=env.t('battleGearText')
+      h3.equipment-title=env.t('battleGear')
+      &nbsp;
+      i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('battleGearText'))
       li.customize-menu.inventory-gear
         menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
           div(ng-repeat='item in gear[klass]')
             button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
     .span6
-      h3=env.t('costume')
-      small=env.t('costumeText')
-      br
-      label.checkbox.inline
+      h3.equipment-title=env.t('costume')
+      &nbsp;
+      i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('costumeText'))
+      label.checkbox.inline(style="margin-left: 20px;")
         input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
         =env.t('useCostume')
       li.customize-menu(ng-if='user.preferences.costume')
