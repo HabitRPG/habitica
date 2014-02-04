@@ -6,10 +6,10 @@ var cluster = require("cluster");
 
 module.exports.sendEmail = function(mailData) {
   var smtpTransport = nodemailer.createTransport("SMTP",{
-      service: nconf.get('SMTP_SERVICE'),
+    service: nconf.get('SMTP_SERVICE'),
     auth: {
-        user: nconf.get('SMTP_USER'),
-        pass: nconf.get('SMTP_PASS')
+      user: nconf.get('SMTP_USER'),
+      pass: nconf.get('SMTP_PASS')
     }
   });
   smtpTransport.sendMail(mailData, function(error, response){
@@ -33,8 +33,6 @@ module.exports.makeSalt = function() {
   return crypto.randomBytes(Math.ceil(len / 2)).toString('hex').substring(0, len);
 }
 
-
-
 /**
  * Load nconf and define default configuration values if config.json or ENV vars are not found
  */
@@ -44,25 +42,13 @@ module.exports.setupConfig = function(){
     //.file('defaults', path.join(path.resolve(__dirname, '../config.json.example')))
     .file('user', path.join(path.resolve(__dirname, '../config.json')));
 
-//  var agent;
-//  if (process.env.NODE_ENV === 'development') {
-//      // Follow these instructions for profiling / debugging leaks
-//      // * https://developers.google.com/chrome-developer-tools/docs/heap-profiling
-//      // * https://developers.google.com/chrome-developer-tools/docs/memory-analysis-101
-//      agent = require('webkit-devtools-agent');
-//      var logging = require('./logging');
-//      logging.info("To debug memory leaks:" +
-//          "\n\t(1) Run `kill -SIGUSR2 " + process.pid + "`" +
-//          "\n\t(2) open http://c4milo.github.com/node-webkit-agent/21.0.1180.57/inspector.html?host=localhost:1337&page=0");
-//  }
-
-  if (nconf.get('NODE_ENV') === "development") {
+  if (nconf.get('NODE_ENV') === "development")
     Error.stackTraceLimit = Infinity;
-  }
-  if (nconf.get('NODE_ENV') === 'production') require('newrelic');
+  if (nconf.get('NODE_ENV') === 'production')
+    require('newrelic');
 };
 
-module.exports.crashWorker = function(server) {
+module.exports.crashWorker = function(server,mongoose) {
     return function(err, req, res, next) {
         if (!cluster.isMaster) {
             // make sure we close down within 30 seconds
@@ -73,6 +59,7 @@ module.exports.crashWorker = function(server) {
             killtimer.unref();
             // stop taking new requests.
             server.close();
+            mongoose.connection.close();
             cluster.worker.disconnect();
         }
         next(err);

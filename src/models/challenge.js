@@ -3,7 +3,6 @@ var Schema = mongoose.Schema;
 var shared = require('habitrpg-shared');
 var _ = require('lodash');
 var TaskSchemas = require('./task');
-var Group = require('./group').model;
 
 var ChallengeSchema = new Schema({
   _id: {type: String, 'default': shared.uuid},
