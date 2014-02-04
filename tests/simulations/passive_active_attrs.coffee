@@ -13,10 +13,14 @@ id = shared.uuid()
 user =
   stats: {class: 'warrior', buffs: {per:0,int:0,con:0,str:0}}
   party: quest: key:'evilsanta', progress: {up:0,down:0}
+  preferences: automaticAllocation:false
+  achievements:{}
+  flags: levelDrops: {}
   items:
     eggs: {}
     hatchingPotions: {}
     food: {}
+    quests:{}
     gear:
       equipped:
         weapon: 'weapon_warrior_4'
