@@ -10301,7 +10301,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         target: 'task',
         notes: "You savagely hit a single task with all of your might, beating it into submission. The task's redness decreases.",
         cast: function(user, target) {
-          target.value += user._statsComputed.str * .01 * user.fns.crit('per');
+          target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('per');
           if (user.party.quest.key) {
             return user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2);
           }
@@ -10365,7 +10365,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         target: 'task',
         notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (bluer) your task.",
         cast: function(user, target) {
-          return user.stats.gp += (target.value < 0 ? 1 : target.value + 1) + user._statsComputed.per * .075;
+          var bonus;
+
+          bonus = (target.value < 0 ? 1 : target.value + 2) + (user._statsComputed.per * 0.5);
+          return user.stats.gp += 25 * (bonus / (bonus + 75));
         }
       },
       backStab: {
@@ -10442,7 +10445,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
             if (target.type === 'reward') {
               return;
             }
-            return target.value += user._statsComputed.int * .006;
+            return target.value += 1.5 * (user._statsComputed.int / (user._statsComputed.int + 40));
           });
         }
       },
