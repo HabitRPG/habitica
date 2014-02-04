@@ -3,7 +3,6 @@ var Schema = mongoose.Schema;
 var shared = require('habitrpg-shared');
 var _ = require('lodash');
 var async = require('async');
-var User = require('./user').model;
 
 var GroupSchema = new Schema({
   _id: {type: String, 'default': shared.uuid},
@@ -161,8 +160,6 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   })
   var members = _.keys(group.quest.members);
   group.quest = {};group.markModified('quest');
-  // FIXME this is TERRIBLE practice. Looks like there are circular dependencies in the models, such that `var User` at
-  // this point is undefined. So we get around that by loading from mongoose only once we get to this point
   mongoose.models.User.update({_id:{$in:members}}, updates, {multi:true}, cb);
 }
 

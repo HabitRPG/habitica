@@ -81,7 +81,8 @@
             "js/static.js",
             "js/services/notificationServices.js",
             "bower_components/habitrpg-shared/script/userServices.js",
-            "js/controllers/authCtrl.js"
+            "js/controllers/authCtrl.js",
+            "js/controllers/footerCtrl.js"
         ],
         "css": [
             "bower_components/bootstrap/dist/css/bootstrap.css",

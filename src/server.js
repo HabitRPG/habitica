@@ -35,14 +35,18 @@ if (cluster.isMaster && (isDev || isProd)) {
 
   // ------------  MongoDB Configuration ------------
   mongoose = require('mongoose');
-  require('./models/user'); //load up the user schema - TODO is this necessary?
-  require('./models/group');
-  require('./models/challenge');
-  mongoose.connect(nconf.get('NODE_DB_URI'), {auto_reconnect:true}, function(err) {
-      if (err) throw err;
-      logging.info('Connected with Mongoose');
+  var mongooseOptions = !isProd ? {} : {
+    replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+    server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
+  };
+  mongoose.connect(nconf.get('NODE_DB_URI'), mongooseOptions, function(err) {
+    if (err) throw err;
+    logging.info('Connected with Mongoose');
   });
-
+  // load schemas & models
+  require('./models/challenge');
+  require('./models/group');
+  require('./models/user');
 
   // ------------  Passport Configuration ------------
   var passport = require('passport')
@@ -62,7 +66,6 @@ if (cluster.isMaster && (isDev || isProd)) {
   passport.deserializeUser(function(obj, done) {
       done(null, obj);
   });
-
 
   // Use the FacebookStrategy within Passport.
   //   Strategies in Passport require a `verify` function, which accept
@@ -135,7 +138,7 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use('/api/v1', require('./routes/apiv1').middleware);
   app.use('/export', require('./routes/dataexport').middleware);
 
-  app.use(utils.crashWorker(server));
+  app.use(utils.crashWorker(server,mongoose));
   app.use(utils.errorHandler);
 
   require('./routes/apiv2.coffee')(swagger, v2);
