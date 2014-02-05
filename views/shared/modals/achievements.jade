@@ -1,7 +1,7 @@
 // Streak
 script(id='modals/achievements/streak.html', type='text/ng-template')
   .modal-header
-    h3=env.t('modalAchievement')
+    h4=env.t('modalAchievement')
   .modal-body
     .achievement.achievement-thermometer
     =env.t('streakerAchievement')
@@ -11,7 +11,7 @@ script(id='modals/achievements/streak.html', type='text/ng-template')
 // Max Gear
 script(id='modals/achievements/ultimateGear.html', type='text/ng-template')
   .modal-header
-    h3=env.t('modalAchievement')
+    h4=env.t('modalAchievement')
   .modal-body
     .achievement.achievement-armor
     =env.t('gearAchievement')
@@ -21,7 +21,7 @@ script(id='modals/achievements/ultimateGear.html', type='text/ng-template')
 // Beast Master
 script(id='modals/achievements/beastMaster.html', type='text/ng-template')
   .modal-header
-    h3=env.t('modalAchievement')
+    h4=env.t('modalAchievement')
   .modal-body
     p
       .achievement.achievement-rat
@@ -33,7 +33,7 @@ script(id='modals/achievements/beastMaster.html', type='text/ng-template')
 // activated by user.flags.contributor
 script(id='modals/achievements/contributor.html', type='text/ng-template')
   .modal-header
-    h3=env.t('modalContribAchievement')
+    h4=env.t('modalContribAchievement')
   .modal-body
     .npc_justin.float-left
     p
@@ -45,7 +45,7 @@ script(id='modals/achievements/contributor.html', type='text/ng-template')
 //Rebirth
 script(id='modals/achievements/rebirth.html', type='text/ng-template')
   .modal-header
-    h3=env.t('modalAchievement')
+    h4=env.t('modalAchievement')
   .modal-body
     .achievement.achievement-sun
     =env.t('rebirthAchievement', {number: "{{user.achievements.rebirths}}", level: "{{user.achievements.rebirthLevel}}"})

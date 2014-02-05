@@ -71,8 +71,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         templateUrl: 'modals/' + template + '.html',
         controller: controller, // optional
         scope: scope, // optional
-        keyboard: keyboard, // optional
-        backdrop: backdrop // optional
+        keyboard: (keyboard === undefined ? true : keyboard), // optional
+        backdrop: (backdrop === undefined ? true : backdrop) // optional
       });
     }
 

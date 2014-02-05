@@ -105,7 +105,7 @@ habitrpg.controller('NotificationCtrl',
     // Classes modal
     $rootScope.$watch('!user.flags.classSelected && user.stats.lvl >= 10', function(after, before){
       if(after){
-        $rootScope.openModal('chooseClass', 'UserCtrl');
+        $rootScope.openModal('chooseClass', 'UserCtrl', undefined, false, 'static');
       }
     });
 

@@ -1,9 +1,9 @@
 script(type='text/ng-template', id='modals/dropsEnabled.html')  
   .modal-header
-    h3=env.t('dropsEnabled')
+    h4=env.t('dropsEnabled')
   .modal-body
     p
-      span.item-drop-icon(class='Pet_Egg_Wolf', style='margin-left: 0px')
+      span.item-drop-icon(class='Pet_Egg_Wolf')
       span!=env.t('firstDrop', {eggText: "{{Content.eggs.Wolf.text}}", eggNotes: "{{Content.eggs.Wolf.notes}}"})
     br
     p

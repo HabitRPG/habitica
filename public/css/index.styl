@@ -51,27 +51,25 @@ hr
 -------------------------------------------------- */
 
 /* Bootstrap website boilerplate */
-.footer {
-  padding: 70px 0;
-  border-top: 1px solid #e5e5e5;
-  background-color: #f5f5f5;
-}
-.footer p {
-  margin-bottom: 0;
-  color: #777;
-}
-.footer-links {
-  margin: 10px 0;
-}
-.footer-links li {
-  display: inline;
-  margin-right: 10px;
-}
+.footer 
+  padding: 70px 0
+  border-top: 1px solid #e5e5e5
+  background-color: #f5f5f5
+
+.footer p 
+  margin-bottom: 0
+  color: #777
+
+.footer-links 
+  margin: 10px 0
+
+.footer-links li
+  display: inline
+  margin-right: 10px
 
 /* Bootstrap overrides */
-div.tooltip-inner {
-    max-width: 300px;
-}
+div.tooltip-inner
+    max-width: 300px
 
 /* Customizations to make footer sticky */
 /*html, body {height: 100%;}*/
@@ -79,11 +77,9 @@ div.tooltip-inner {
   z-index:-1
   padding: 0 15px // Required by Bootstrap 3 when using .container-fluid
 
-@media (max-width: 600px) {
-  #wrap {
+@media (max-width: 600px)
+  #wrap 
     margin-top: 0
-  }
-}
 
 /* Gems
 -------------------------------------------------- */
@@ -102,17 +98,17 @@ div.tooltip-inner {
   position: relative;
   
 .gem-cost::before
-  content: "";
-  display: block;
-  width: 0;
-  height: 0;
-  border: 6px solid #D4D4D4;
-  border-color: transparent #D4D4D4 transparent transparent;
-  position: absolute;
-  right: 100%;
-  margin-right: 0;
-  top: 50%;
-  margin-top: -6px;
+  content: ""
+  display: block
+  width: 0
+  height: 0
+  border: 6px solid #D4D4D4
+  border-color: transparent #D4D4D4 transparent transparent
+  position: absolute
+  right: 100%
+  margin-right: 0
+  top: 50%
+  margin-top: -6px
 
 .gem-cost::after
   content: "";
@@ -135,6 +131,9 @@ div.tooltip-inner {
   overflow-y: auto
   max-height: 400px // Taken from Bootstrap 2.3.2 css, may need to change
 
+  h5
+    font-weight: 700
+
 // notification-character used only by death modal's figure, move
 .death-modal // a .modal-body
   margin: 10px
@@ -151,6 +150,9 @@ a
 
 a span.glyphicon
   color: #333 // Takes base color from bootstrap
+
+.muted
+  color: #999
 
 .btn 
   margin-right: 5px
