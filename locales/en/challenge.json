@@ -48,5 +48,14 @@
 		"by" : "by",
 		"participants" : "Participants",
 		"join" : "Join",
-		"exportChallengeCSV": "Export to CSV"
+		"exportChallengeCSV": "Export to CSV",
+
+	"_commentchallengesctrljs" : "CHALLENGESCTRL.JS STRINGS",
+		"selectGroup" : "Please select group",
+		"challengeCreated" : "Challenge created",
+		"sureDelCha" : "Delete challenge, are you sure?",
+		"removeTasks" : "Remove Tasks",
+		"keepTasks" : "Keep Tasks",
+		"closeCha" : "Close challenge and...",
+		"leaveCha" : "Leave challenge and..."
 }

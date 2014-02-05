@@ -34,5 +34,14 @@
 			"scrollsPre" : "You need to complete the previous quest to start this one!",
 
 	"_commentachievement" : "QUEST ACHIEVEMENT",
-    "completedQuests" : "Completed the following quests"
+    "completedQuests" : "Completed the following quests",
+
+  "_commentinventoryctrljs" : "INVENTORYCTRL.JS STRINGS",
+  	"mustComplete" : "You must first complete <%= quest %>.",
+  	"mustLevel" : "You must be level <%= level %>.",
+  	"mustLvlQuest" : "You must be level <%= level %> to buy this quest!",
+
+  "_commentgroupsctrljs" : "GROUPSCTRL.JS STRINGS",
+  	"sureAbort" : "Are you sure you want to abort this mission? It will abort it for everyone in your party, all progress will be lost.",
+  	"doubleSureAbort" : "Are you double sure? Make sure they won't hate you forever!"
 }

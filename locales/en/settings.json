@@ -66,5 +66,10 @@
       "disabledWinterEvent" : "Disabled during Winter Wonderland Event Pt.4 (since the rewards are gold-purchaseable).",
       "fix21Streaks" : "21-Day Streaks",
       "discardChanges" : "Discard Changes",
-    "deleteDo" : "Do it, delete my account!"
+    "deleteDo" : "Do it, delete my account!",
+
+  "_commentjs" : "SETTINGSCTRL.JS STRINGS",
+  	"enterNumber" : "Please enter a number between 0 and 24",
+  	"fillAll" : "Please fill out all fields",
+  	"passSuccess" : "Password successfully changed"
 }
