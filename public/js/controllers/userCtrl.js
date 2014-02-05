@@ -18,7 +18,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
 
     $scope.changeClass = function(klass){
       if (!klass) {
-        if (!confirm("Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 gems"))
+        if (!confirm(window.env.t('sureReset')))
           return;
         return User.user.ops.changeClass({});
       }
@@ -52,10 +52,10 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       var cost = fullSet ? 1.25 : 0.5; // 5G per set, 2G per individual
 
       if (fullSet) {
-        if (confirm("Purchase for 5 Gems?") !== true) return;
+        if (confirm(window.env.t('purchaseFor5')) !== true) return;
         if (User.user.balance < cost) return $rootScope.modals.buyGems = true;
       } else if (!User.user.fns.dotGet('purchased.' + path)) {
-        if (confirm("Purchase for 2 Gems?") !== true) return;
+        if (confirm(window.env.t('purchaseFor2')) !== true) return;
         if (User.user.balance < cost) return $rootScope.modals.buyGems = true;
       }
       User.user.ops.unlock({query:{path:path}})

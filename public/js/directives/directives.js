@@ -9,7 +9,7 @@ habitrpg.directive('taskFocus',
     return function(scope, elem, attrs) {
       scope.$watch(attrs.taskFocus, function(newval) {
         if ( newval ) {
-          $timeout(function() {
+          $timeounvt(function() {
             elem[0].focus();
           }, 0, false);
         }
@@ -85,21 +85,21 @@ habitrpg
         scope.main = attrs.main;
         $rootScope.lists = [
           {
-            header: env.t('habits'),
+            header: window.env.t('habits'),
             type: 'habit',
-            placeHolder: env.t('newHabit')
+            placeHolder: window.env.t('newHabit')
           }, {
-            header: env.t('dailies'),
+            header: window.env.t('dailies'),
             type: 'daily',
-            placeHolder: env.t('newDaily')
+            placeHolder: window.env.t('newDaily')
           }, {
-            header: env.t('todos'),
+            header: window.env.t('todos'),
             type: 'todo',
-            placeHolder: env.t('newTodo')
+            placeHolder: window.env.t('newTodo')
           }, {
-            header: env.t('rewards'),
+            header: window.env.t('rewards'),
             type: 'reward',
-            placeHolder: env.t('newReward')
+            placeHolder: window.env.t('newReward')
           }
         ];
 

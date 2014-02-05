@@ -45,11 +45,11 @@ angular.module("notificationServices", [])
       coins: coins,
       hp: function(val) {
         // don't show notifications if user dead
-        growl("<i class='icon-heart'></i> " + sign(val) + " " + round(val) + " HP", 'hp');
+        growl("<i class='icon-heart'></i> " + sign(val) + " " + round(val) + " " + window.env.t('hp'), 'hp');
       },
       exp: function(val) {
         if (val < -50) return; // don't show when they level up (resetting their exp)
-        growl("<i class='icon-star'></i> " + sign(val) + " " + round(val) + " XP", 'xp');
+        growl("<i class='icon-star'></i> " + sign(val) + " " + round(val) + " " + window.env.t('xp'), 'xp');
       },
       gp: function(val, bonus) {
         growl(sign(val) + " " + coins(val - bonus), 'gp');
@@ -58,19 +58,19 @@ angular.module("notificationServices", [])
         growl(val);
       },
       lvl: function(){
-        growl('<i class="icon-chevron-up"></i> Level Up!', 'lvl');
+        growl('<i class="icon-chevron-up"></i> ' + window.env.t('levelUp'), 'lvl');
       },
       death: function(){
-        growl("<i class='icon-death'></i> Respawn!", "death");
+        growl("<i class='icon-death'></i> " + window.env.t('respawn'), "death");
       },
       error: function(error){
         growl("<i class='icon-exclamation-sign'></i> " + error, "error");
       },
       mp: function(val) {
-        growl("<i class='icon-fire'></i> " + sign(val) + " " + round(val) + " MP", 'mp');
+        growl("<i class='icon-fire'></i> " + sign(val) + " " + round(val) + " " + window.env.t('mp'), 'mp');
       },
       crit: function(val) {
-        growl("<i class='icon-certificate'></i> Critical Hit! Bonus: " + Math.round(val) + "%", 'crit');
+        growl("<i class='icon-certificate'></i>" + window.env.t('critBonus') + Math.round(val) + "%", 'crit');
       },
       drop: function(val) {
         growl("<i class='icon-gift'></i> " + val, 'drop');
