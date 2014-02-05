@@ -8,3 +8,4 @@ CHANGELOG.md
 .git*
 *.log
 newrelic_agent.log
+.bower-cache*
