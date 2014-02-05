@@ -6,7 +6,7 @@ angular.module("notificationServices", [])
     function growl(html, type) {
       $.bootstrapGrowl(html, {
         ele: '#notification-area',
-        type: type || 'warning', //('info', 'text', 'error', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
+        type: type || 'warning', //('info', 'text', 'warning', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
         top_offset: 20,
         align: 'right', //('left', 'right', or 'center')
         width: 250, //(integer, or 'auto')
@@ -64,7 +64,7 @@ angular.module("notificationServices", [])
         growl("<span class='glyphicon glyphicon-death'></span>&nbsp; Respawn!", "death");
       },
       error: function(error){
-        growl("<span class='glyphicon glyphicon-exclamation-sign'></span>&nbsp; " + error, "error");
+        growl("<span class='glyphicon glyphicon-exclamation-sign'></span>&nbsp; " + error, "danger");
       },
       mp: function(val) {
         growl("<span class='glyphicon glyphicon-fire'></span>&nbsp; " + sign(val) + " " + round(val) + " MP", 'mp');

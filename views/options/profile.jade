@@ -1,6 +1,6 @@
 script(id='partials/options.profile.avatar.html', type='text/ng-template')
-  .row-fluid
-    .span4
+  .row
+    .col-md-4
       h3=env.t('bodyBody')
       small
         | 2 <span class="Pet_Currency_Gem1x inline-gems"/> /
@@ -24,7 +24,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
             button.btn.btn-small.btn-primary(ng-hide="user.purchased.shirt.convict && user.purchased.shirt.cross && user.purchased.shirt.fire && user.purchased.shirt.horizon && user.purchased.shirt.ocean && user.purchased.shirt.purple && user.purchased.shirt.rainbow && user.purchased.shirt.redblue && user.purchased.shirt.thunder && user.purchased.shirt.tropical && user.purchased.shirt.zombie", ng-click='unlock("shirt.convict,shirt.cross,shirt.fire,shirt.horizon,shirt.ocean,shirt.purple,shirt.rainbow,shirt.redblue,shirt.thunder,shirt.tropical,shirt.zombie")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
 
 
-    .span4
+    .col-md-4
         h3=env.t('bodyHead')
         small
           | 2 <span class="Pet_Currency_Gem1x inline-gems"/> /
@@ -77,7 +77,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
 
           button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.mustache.1 && user.purchased.hair.mustache.2 && user.purchased.hair.beard.1 && user.purchased.hair.beard.2 && user.purchased.hair.beard.3', ng-click='unlock("hair.mustache.1,hair.mustache.2,hair.beard.1,hair.beard.2,hair.beard.3")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
 
-    .span4
+    .col-md-4
         h3=env.t('bodySkin')
         small
           | 2 <span class="Pet_Currency_Gem1x inline-gems"/> /
@@ -105,109 +105,113 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
                 button.customize-option(type='button', class='skin_#{color}', ng-if='user.purchased.skin.#{color}', ng-click='unlock("skin.#{color}")')
 
 script(id='partials/options.profile.stats.html', type='text/ng-template')
-  .row-fluid
-    .border-right(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "span4" : "span6"')
-      include ../shared/profiles/stats
-    .span4.border-right.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
-      h3=env.t('characterBuild')
-      h4
-        =env.t('class') + ': '
-        span {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[user.stats.class] }}&nbsp;
-        a.btn.btn-danger.btn-mini(ng-click='changeClass(null)')=env.t('changeClass')
-        small 3 <span class="Pet_Currency_Gem1x inline-gems"/>
-      table.table.table-striped
-        tr
-          td
-            strong
-              {{user.stats.points}}&nbsp;
-              =env.t('unallocated')
-            &nbsp;
-            span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('levelPopover'))
-          td
-        tr
-          td(colspan=2)
-            fieldset.auto-allocate
-              label.checkbox
-                input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})', ng-click='set({"preferences.allocationMode":"taskbased"})')
-                =env.t('autoAllocation')
-                &nbsp;
-                span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('autoAllocationPop'))
-              form(ng-show='user.preferences.automaticAllocation',style='margin-left:1em')
-                label.radio
-                  input(type='radio', name='allocationMode', value='flat', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "flat"})')
-                  =env.t('evenAllocation')
+  .container-fluid
+    .row
+      .border-right(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
+        include ../shared/profiles/stats
+      .col-md-4.border-right.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
+        h3=env.t('characterBuild')
+        h4
+          =env.t('class') + ': '
+          span {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[user.stats.class] }}&nbsp;
+          a.btn.btn-danger.btn-mini(ng-click='changeClass(null)')=env.t('changeClass')
+          small 3 <span class="Pet_Currency_Gem1x inline-gems"/>
+        table.table.table-striped
+          tr
+            td
+              strong
+                {{user.stats.points}}&nbsp;
+                =env.t('unallocated')
+              &nbsp;
+              span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('levelPopover'))
+            td
+          tr
+            td(colspan=2)
+              fieldset.auto-allocate
+                label.checkbox
+                  input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})', ng-click='set({"preferences.allocationMode":"taskbased"})')
+                  =env.t('autoAllocation')
                   &nbsp;
-                  span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('evenAllocationPop'))
-                label.radio
-                  input(type='radio', name='allocationMode', value='classbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "classbased"})')
-                  =env.t('classAllocation')
-                  &nbsp;
-                  span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('classAllocationPop'))
-                label.radio
-                  input(type='radio', name='allocationMode', value='taskbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "taskbased"})')
-                  =env.t('taskAllocation')
-                  &nbsp;
-                  span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskAllocationPop'))
-              div(ng-show='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)')
-                a.btn.btn-primary.btn-mini(ng-click='user.ops.allocateNow({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('distributePointsPop'))
-                  span.glyphicon.glyphicon-download
-                  &nbsp;
-                  =env.t('distributePoints')
-        tr
-          td= env.t('allocateCon') + ' {{user.stats.con}}'
-          td
-            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("con")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateConPop')) +
-         tr
-          td= env.t('allocateInt') + ' {{user.stats.int}}'
-          td
-            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("int")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateIntPop')) +
-        tr
-          td= env.t('allocatePer') + ' {{user.stats.per}}'
-          td
-            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("per")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocatePerPop')) +
-        tr
-          td= env.t('allocateStr') + ' {{user.stats.str}}'
-          td
-            a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("str")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateStrPop')) +
-         
-    div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "span4" : "span6"')
-      include ../shared/profiles/achievements
+                  span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('autoAllocationPop'))
+                form(ng-show='user.preferences.automaticAllocation',style='margin-left:1em')
+                  label.radio
+                    input(type='radio', name='allocationMode', value='flat', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "flat"})')
+                    =env.t('evenAllocation')
+                    &nbsp;
+                    span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('evenAllocationPop'))
+                  label.radio
+                    input(type='radio', name='allocationMode', value='classbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "classbased"})')
+                    =env.t('classAllocation')
+                    &nbsp;
+                    span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('classAllocationPop'))
+                  label.radio
+                    input(type='radio', name='allocationMode', value='taskbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "taskbased"})')
+                    =env.t('taskAllocation')
+                    &nbsp;
+                    span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskAllocationPop'))
+                div(ng-show='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)')
+                  a.btn.btn-primary.btn-mini(ng-click='user.ops.allocateNow({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('distributePointsPop'))
+                    span.glyphicon.glyphicon-download
+                    &nbsp;
+                    =env.t('distributePoints')
+          tr
+            td= env.t('allocateCon') + ' {{user.stats.con}}'
+            td
+              a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("con")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateConPop')) +
+           tr
+            td= env.t('allocateInt') + ' {{user.stats.int}}'
+            td
+              a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("int")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateIntPop')) +
+          tr
+            td= env.t('allocatePer') + ' {{user.stats.per}}'
+            td
+              a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("per")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocatePerPop')) +
+          tr
+            td= env.t('allocateStr') + ' {{user.stats.str}}'
+            td
+              a.btn.btn-primary(ng-show='user.stats.points', ng-click='allocate("str")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('allocateStrPop')) +
+           
+      div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
+        include ../shared/profiles/achievements
 
 script(id='partials/options.profile.profile.html', type='text/ng-template')
-  button.btn.btn-default(ng-click='_editing.profile = true', ng-show='!_editing.profile')= env.t('edit')
-  button.btn.btn-primary(ng-click='save()', ng-show='_editing.profile')= env.t('save')
-  div(ng-show='!_editing.profile')
-    h4=env.t('displayName')
-    span(ng-show='profile.profile.name') {{profile.profile.name}}
-    span.muted(ng-hide='profile.profile.name') -&nbsp;
-      =env.t('none')
-      | &nbsp;-
+  .container-fluid
+    .row
+      .col-md-12(ng-show='!_editing.profile')
+        button.btn.btn-default(ng-click='_editing.profile = true', ng-show='!_editing.profile')= env.t('edit')
+        h4=env.t('displayName')
+        span(ng-show='profile.profile.name') {{profile.profile.name}}
+        span.muted(ng-hide='profile.profile.name') -&nbsp;
+          =env.t('none')
+          | &nbsp;-
 
-    h4=env.t('displayPhoto')
-    img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
-    span.muted(ng-hide='profile.profile.imageUrl') -&nbsp;
-      =env.t('none')
-      | &nbsp;-
+        h4=env.t('displayPhoto')
+        img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
+        span.muted(ng-hide='profile.profile.imageUrl') -&nbsp;
+          =env.t('none')
+          | &nbsp;-
 
-    h4=env.t('displayBlurb')
-    markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
-    span.muted(ng-hide='profile.profile.blurb') -&nbsp;
-      =env.t('none')
-      | &nbsp;-
-    //{{profile.profile.blurb | linky:'_blank'}}
+        h4=env.t('displayBlurb')
+        markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
+        span.muted(ng-hide='profile.profile.blurb') -&nbsp;
+          =env.t('none')
+          | &nbsp;-
+        //{{profile.profile.blurb | linky:'_blank'}}
 
-  div.whatever-options(ng-show='_editing.profile')
-    // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
-    .control-group.option-large
-      label.control-label=env.t('displayName')
-      input.option-content(type='text', placeholder=env.t('fullName'), ng-model='editingProfile.name')
-    .control-group.option-large
-      label.control-label=env.t('photoUrl')
-      input.option-content(type='url', ng-model='editingProfile.imageUrl', placeholder=env.t('imageUrl'))
-    .control-group.option-large
-      label.control-label=env.t('displayBlurb')
-      textarea.option-content(style='height:15em;', placeholder=env.t('displayBlurb'), ng-model='editingProfile.blurb')
-      include ../shared/formatting-help
+      form.col-md-4(ng-show='_editing.profile', ng-submit='save()')
+        input.btn.btn-primary(type='submit', value=env.t('save'))
+
+        // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
+        .form-group
+          label=env.t('displayName')
+          input.form-control(type='text', placeholder=env.t('fullName'), ng-model='editingProfile.name')
+        .form-group
+          label=env.t('photoUrl')
+          input.form-control(type='url', ng-model='editingProfile.imageUrl', placeholder=env.t('imageUrl'))
+        .form-group
+          label=env.t('displayBlurb')
+          textarea.form-control(rows=5, placeholder=env.t('displayBlurb'), ng-model='editingProfile.blurb')
+          include ../shared/formatting-help
 
 script(id='partials/options.profile.html', type="text/ng-template")
   ul.nav.nav-tabs

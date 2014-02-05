@@ -1,146 +1,148 @@
 script(type='text/ng-template', id='partials/options.inventory.equipment.html')
-  .row-fluid
-    .span6.border-right
-      h3.equipment-title=env.t('battleGear')
-      &nbsp;
-      .glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('battleGearText'))
-      li.customize-menu.inventory-gear
-        menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
-          div(ng-repeat='item in gear[klass]')
-            button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
-    .span6
-      h3.equipment-title=env.t('costume')
-      &nbsp;
-      i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('costumeText'))
-      label.checkbox.inline(style="margin-left: 20px;")
-        input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
-        =env.t('useCostume')
-      li.customize-menu(ng-if='user.preferences.costume')
-        menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
-          div(ng-repeat='item in gear[klass]')
-            button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
+  .container-fluid
+    .row
+      .col-md-6.border-right
+        h3.equipment-title=env.t('battleGear')
+        &nbsp;
+        .glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('battleGearText'))
+        li.customize-menu.inventory-gear
+          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
+            div(ng-repeat='item in gear[klass]')
+              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
+      .col-md-6
+        h3.equipment-title=env.t('costume')
+        &nbsp;
+        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('costumeText'))
+        label.checkbox.inline(style="margin-left: 20px;")
+          input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
+          =env.t('useCostume')
+        li.customize-menu(ng-if='user.preferences.costume')
+          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
+            div(ng-repeat='item in gear[klass]')
+              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
 
 script(type='text/ng-template', id='partials/options.inventory.drops.html')
-  .row-fluid
-    .span6.border-right
-      h2=env.t('inventory')
-      p.well=env.t('inventoryText')
-      menu.inventory-list(type='list')
-
-        li.customize-menu
-          menu.pets-menu(label=(env.t('eggs') + ' ({{eggCount}})'))
-            p.muted(ng-show='eggCount < 1')=env.t('noEggs')
-            div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
-              //TODO move positioning this styling to css
-              button.customize-option(popover='{{Content.eggs[egg].notes}}', popover-title='{{Content.eggs[egg].text}} Egg', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !(user.items.pets[egg+"-"+selectedPotion.key]>0)}')
-                .badge.badge-info.stack-count {{points}}
-              //-p {{Content.eggs[egg].text}}
-
-        li.customize-menu
-          menu.hatchingPotion-menu(label=(env.t('hatchingPotions') + ' ({{potCount}})'))
-            p.muted(ng-show='potCount < 1')=env.t('noHatchingPotions')
-            div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
-              button.customize-option(popover='{{Content.hatchingPotions[pot].notes}}', popover-title='{{Content.hatchingPotions[pot].text}} Potion', popover-trigger='mouseenter', popover-placement='right', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !(user.items.pets[selectedEgg.key+"-"+pot]>0)}')
-                .badge.badge-info.stack-count {{points}}
-
-        li.customize-menu
-          menu.pets-menu(label=(env.t('scrolls') + ' ({{questCount}})'))
-            p.muted(ng-show='questCount < 1')=env.t('noScrolls')
-            p.muted!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
-            div(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]')
-              button.customize-option(popover="{{quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes | htmlDecode}}", popover-title='{{quest.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='showQuest(quest_key)', class='inventory_quest_scroll', ng-class='{locked: quest.previous && !user.achievements.quests[quest.previous]}')
-                .badge.badge-info.stack-count {{points}}
-
-        li.customize-menu
-          menu.pets-menu(label=env.t('food') + ' ({{foodCount}})')
-            p(ng-show='foodCount < 1')=env.t('noFood')
-            div(ng-repeat='(food,points) in ownedItems(user.items.food)')
-              button.customize-option(popover='{{Content.food[food].notes}}', popover-title='{{Content.food[food].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
-                .badge.badge-info.stack-count {{points}}
-
-        li.customize-menu(ng-if='user.items.special.snowball')
-          menu.pets-menu(label=env.t('special'))
-            div
-              button.customize-option(popover='{{Content.special.snowball.notes}}', popover-title='{{Content.special.snowball.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='castStart(Content.special.snowball)', class='inventory_special_snowball')
-                .badge.badge-info.stack-count {{user.items.special.snowball}}
-
-    .span6
-      h2=env.t('market')
-      .row-fluid
-        table.npc_alex_container
-          tr
-            td
-              .npc_alex.pull-left
-            td
-              .popover.static-popover.fade.right.in
-                .arrow
-                h3.popover-title
-                  a(target='_blank', href='http://www.kickstarter.com/profile/523661924')=env.t('alexander')
-                .popover-content
-                  p=env.t('welcomeMarket')
-                  p
-                    button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedEgg.text}}", gold: "{{selectedEgg.value}}"})
-                    button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedPotion.text}}", gold: "{{selectedPotion.value}}"})
-                    button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedFood.text}}", gold: "{{selectedFood.value}}"})
+  .container-fluid
+    .row
+      .col-md-6.border-right
+        h2=env.t('inventory')
+        p.well=env.t('inventoryText')
         menu.inventory-list(type='list')
-          li.customize-menu
-            menu.pets-menu(label=env.t('eggs'))
-              div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy')
-                button.customize-option(popover='{{egg.notes}}', popover-title='{{egg.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", egg)', class='Pet_Egg_{{egg.key}}')
-                p
-                  |  {{egg.value}}
-                  span.Pet_Currency_Gem1x.inline-gems
 
           li.customize-menu
-            menu.pets-menu(label=env.t('hatchingPotions'))
-              div(ng-repeat='pot in Content.hatchingPotions')
-                button.customize-option(popover='{{pot.notes}}', popover-title='{{pot.text}} Potion', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("hatchingPotions", pot)', class='Pet_HatchingPotion_{{pot.key}}')
-                p
-                  |  {{pot.value}}
-                  span.Pet_Currency_Gem1x.inline-gems
+            menu.pets-menu(label=(env.t('eggs') + ' ({{eggCount}})'))
+              p.muted(ng-show='eggCount < 1')=env.t('noEggs')
+              div(ng-repeat='(egg,points) in ownedItems(user.items.eggs)')
+                //TODO move positioning this styling to css
+                button.customize-option(popover='{{Content.eggs[egg].notes}}', popover-title='{{Content.eggs[egg].text}} Egg', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseEgg(egg)', class='Pet_Egg_{{egg}}', ng-class='{selectableInventory: selectedPotion && !(user.items.pets[egg+"-"+selectedPotion.key]>0)}')
+                  .badge.badge-info.stack-count {{points}}
+                //-p {{Content.eggs[egg].text}}
 
           li.customize-menu
-            menu.pets-menu(label=env.t('food'))
-              div(ng-repeat='food in Content.food', ng-if='food.key !== "Saddle" && food.canBuy')
-                button.customize-option(popover='{{food.notes}}', popover-title='{{food.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", food)', class='Pet_Food_{{food.key}}')
-                p
-                  |  {{food.value}}
-                  span.Pet_Currency_Gem1x.inline-gems
+            menu.hatchingPotion-menu(label=(env.t('hatchingPotions') + ' ({{potCount}})'))
+              p.muted(ng-show='potCount < 1')=env.t('noHatchingPotions')
+              div(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)')
+                button.customize-option(popover='{{Content.hatchingPotions[pot].notes}}', popover-title='{{Content.hatchingPotions[pot].text}} Potion', popover-trigger='mouseenter', popover-placement='right', ng-click='choosePotion(pot)', class='Pet_HatchingPotion_{{pot}}', ng-class='{selectableInventory: selectedEgg && !(user.items.pets[selectedEgg.key+"-"+pot]>0)}')
+                  .badge.badge-info.stack-count {{points}}
 
           li.customize-menu
-            menu.pets-menu(label=env.t('quests'))
+            menu.pets-menu(label=(env.t('scrolls') + ' ({{questCount}})'))
+              p.muted(ng-show='questCount < 1')=env.t('noScrolls')
               p.muted!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
-              div(ng-repeat='quest in Content.quests', ng-if='quest.canBuy')
-                button.customize-option(popover="{{quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes | htmlDecode}}", popover-title='{{quest.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='buyQuest(quest.key)', class='inventory_quest_scroll', ng-class='{locked: quest.previous && !user.achievements.quests[quest.previous]}')
-                p
-                  |  {{quest.value}}
-                  span.Pet_Currency_Gem1x.inline-gems
+              div(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]')
+                button.customize-option(popover="{{quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes | htmlDecode}}", popover-title='{{quest.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='showQuest(quest_key)', class='inventory_quest_scroll', ng-class='{locked: quest.previous && !user.achievements.quests[quest.previous]}')
+                  .badge.badge-info.stack-count {{points}}
 
           li.customize-menu
+            menu.pets-menu(label=env.t('food') + ' ({{foodCount}})')
+              p(ng-show='foodCount < 1')=env.t('noFood')
+              div(ng-repeat='(food,points) in ownedItems(user.items.food)')
+                button.customize-option(popover='{{Content.food[food].notes}}', popover-title='{{Content.food[food].text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='chooseFood(food)', class='Pet_Food_{{food}}')
+                  .badge.badge-info.stack-count {{points}}
+
+          li.customize-menu(ng-if='user.items.special.snowball')
             menu.pets-menu(label=env.t('special'))
               div
-                button.customize-option(popover='{{Content.food.Saddle.notes}}', popover-title='{{Content.food.Saddle.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", Content.food.Saddle)', class='Pet_Food_{{Content.food.Saddle.key}}')
-                p
-                  |  {{Content.food.Saddle.value}}
-                  span.Pet_Currency_Gem1x.inline-gems
-              div
-                button.customize-option(popover=env.t('fortifyPop'), popover-title=env.t('fortifyName'), popover-trigger='mouseenter', popover-placement='left', ng-click='openModal("reroll")', class='inventory_special_fortify')
-                p
-                  | 4
-                  span.Pet_Currency_Gem1x.inline-gems
-              //-div
-                button.customize-option(popover='{{Content.spells.special.snowball.notes}}', popover-title='{{Content.spells.special.snowball.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("special", Content.spells.special.snowball)', class='inventory_special_snowball')
-                p
-                  |  {{Content.spells.special.snowball.value}}
-                  span.Pet_Currency_Gem1x.inline-gems
-              div(ng-show='user.flags.rebirthEnabled')
-                button.customize-option(popover=env.t('rebirthPop'), popover-title=env.t('rebirthName'), popover-trigger='mouseenter', popover-placement='left', ng-click='openModal("rebirth")', class='rebirth_orb')
-                p
-                  | 8
-                  span.Pet_Currency_Gem1x.inline-gems
-              div(ng-if='user.purchased.plan.planId')
-                button.customize-option(ng-click='user.ops.purchase({params:{type:"gems",key:"gem"}})')
-                  span.Pet_Currency_Gem.inline-gems
-                p
-                  | 20
-                  span.shop_gold
+                button.customize-option(popover='{{Content.special.snowball.notes}}', popover-title='{{Content.special.snowball.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='castStart(Content.special.snowball)', class='inventory_special_snowball')
+                  .badge.badge-info.stack-count {{user.items.special.snowball}}
+
+      .col-md-6
+        h2=env.t('market')
+        .row-fluid
+          table.npc_alex_container
+            tr
+              td
+                .npc_alex.pull-left
+              td
+                .popover.static-popover.fade.right.in
+                  .arrow
+                  h3.popover-title
+                    a(target='_blank', href='http://www.kickstarter.com/profile/523661924')=env.t('alexander')
+                  .popover-content
+                    p=env.t('welcomeMarket')
+                    p
+                      button.btn.btn-primary(ng-show='selectedEgg', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedEgg.text}}", gold: "{{selectedEgg.value}}"})
+                      button.btn.btn-primary(ng-show='selectedPotion', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedPotion.text}}", gold: "{{selectedPotion.value}}"})
+                      button.btn.btn-primary(ng-show='selectedFood', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedFood.text}}", gold: "{{selectedFood.value}}"})
+          menu.inventory-list(type='list')
+            li.customize-menu
+              menu.pets-menu(label=env.t('eggs'))
+                div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy')
+                  button.customize-option(popover='{{egg.notes}}', popover-title='{{egg.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", egg)', class='Pet_Egg_{{egg.key}}')
+                  p
+                    |  {{egg.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
+
+            li.customize-menu
+              menu.pets-menu(label=env.t('hatchingPotions'))
+                div(ng-repeat='pot in Content.hatchingPotions')
+                  button.customize-option(popover='{{pot.notes}}', popover-title='{{pot.text}} Potion', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("hatchingPotions", pot)', class='Pet_HatchingPotion_{{pot.key}}')
+                  p
+                    |  {{pot.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
+
+            li.customize-menu
+              menu.pets-menu(label=env.t('food'))
+                div(ng-repeat='food in Content.food', ng-if='food.key !== "Saddle" && food.canBuy')
+                  button.customize-option(popover='{{food.notes}}', popover-title='{{food.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", food)', class='Pet_Food_{{food.key}}')
+                  p
+                    |  {{food.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
+
+            li.customize-menu
+              menu.pets-menu(label=env.t('quests'))
+                p.muted!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
+                div(ng-repeat='quest in Content.quests', ng-if='quest.canBuy')
+                  button.customize-option(popover="{{quest.previous && !user.achievements.quests[quest.previous] ? env.t('scrollsPre') : quest.notes | htmlDecode}}", popover-title='{{quest.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='buyQuest(quest.key)', class='inventory_quest_scroll', ng-class='{locked: quest.previous && !user.achievements.quests[quest.previous]}')
+                  p
+                    |  {{quest.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
+
+            li.customize-menu
+              menu.pets-menu(label=env.t('special'))
+                div
+                  button.customize-option(popover='{{Content.food.Saddle.notes}}', popover-title='{{Content.food.Saddle.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", Content.food.Saddle)', class='Pet_Food_{{Content.food.Saddle.key}}')
+                  p
+                    |  {{Content.food.Saddle.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
+                div
+                  button.customize-option(popover=env.t('fortifyPop'), popover-title=env.t('fortifyName'), popover-trigger='mouseenter', popover-placement='left', ng-click='openModal("reroll")', class='inventory_special_fortify')
+                  p
+                    | 4
+                    span.Pet_Currency_Gem1x.inline-gems
+                //-div
+                  button.customize-option(popover='{{Content.spells.special.snowball.notes}}', popover-title='{{Content.spells.special.snowball.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("special", Content.spells.special.snowball)', class='inventory_special_snowball')
+                  p
+                    |  {{Content.spells.special.snowball.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
+                div(ng-show='user.flags.rebirthEnabled')
+                  button.customize-option(popover=env.t('rebirthPop'), popover-title=env.t('rebirthName'), popover-trigger='mouseenter', popover-placement='left', ng-click='openModal("rebirth")', class='rebirth_orb')
+                  p
+                    | 8
+                    span.Pet_Currency_Gem1x.inline-gems
+                div(ng-if='user.purchased.plan.planId')
+                  button.customize-option(ng-click='user.ops.purchase({params:{type:"gems",key:"gem"}})')
+                    span.Pet_Currency_Gem.inline-gems
+                  p
+                    | 20
+                    span.shop_gold

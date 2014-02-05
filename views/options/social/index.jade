@@ -7,7 +7,6 @@ include ./hall.jade
 script(type='text/ng-template', id='partials/options.social.tavern.html')
   include ./tavern
 
-
 script(type='text/ng-template', id='partials/options.social.party.html')
   div(ng-show='group._id')
     include ./group
@@ -30,8 +29,8 @@ script(type='text/ng-template', id='partials/options.social.guilds.public.html')
     a.btn.btn-success(data-type='guild', ng-click='join(invitation)')=env.t('accept')
     a.btn.btn-danger(ng-click='reject(invitation)')=env.t('reject')
   // Public Groups
-  .options-group.option-large.whatever-options
-    input.option-content(type='text',ng-model='guildSearch', placeholder=env.t('search'))
+  .col-md-3
+    input.form-control(type='text',ng-model='guildSearch', placeholder=env.t('search'))
   table.table.table-striped
     tr(ng-repeat='group in groups.public | filter:guildSearch')
       td
