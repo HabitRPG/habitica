@@ -54,5 +54,11 @@
 				"infiniteGem" : "Infinite leader gems",
 					"infiniteGemText" : "We will provide the organization leaders with as many gems as they need, for things like challenge prizes, guild-creation, etc.",
 			"notYetPlan" : "Plan not yet available, but click to contact us and we'll keep you updated.",
-			"contactUs" : "Contact Us"	  
+			"contactUs" : "Contact Us",
+
+	"_commentjs" : "ROOTCTRL.JS STRINGS",
+		"checkout" : "Checkout",
+		"buySubsText" : "Buy gems with Gold, No Ads, Support the Devs",
+		"buyCheckText" : "20 Gems, No Ads, Support the Devs",
+		"sureCancelSub" : "Are you sure you want to cancel your subscription?"
 }

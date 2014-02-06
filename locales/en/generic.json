@@ -4,6 +4,7 @@
  "languageName" : "English",
   "stringNotFound" : "String '<%= string %>' not found.",
   "titleIndex" : "HabitRPG | Your Life The Role Playing Game",
+  "habitica" : "Habitica",
 
   "formattingMarkdown" : "Markdown formatting allowed",
 
@@ -17,7 +18,8 @@
   "or" : "Or",
   "and" : "and",
 
-  "habitica" : "Habitica", 
+  "loginSuccess" : "Login successful!",
+  "youSure" : "Are you sure?",
 
   "_commentbuttons": "BUTTONS",
     "submit":"Submit",
@@ -52,5 +54,22 @@
 
 	  "_commentmodals" : "MEMBERS MODALS",
 	    "memberSince" : " - Member since ",
-	    "lastLoggedIn" : " - Last logged in "
+	    "lastLoggedIn" : " - Last logged in ",
+
+  "_commentrootctrljs" : "ROOTCTRL.JS STRINGS",
+    "notPorted" : "This feature is not yet ported from the original site.",
+
+  "_commentinventoryctrljs" : "INVENTORYCTRL.JS STRINGS",
+    "buyThis" : "Buy this <%= text %> with <%= price %> of your <%= gems %> Gems?",
+
+  "_commentauthctrljs" : "AUTHCTRL.JS STRINGS",
+    "untilNoFace" : "Until we add Facebook, use your UUID and API Token to log in (found at https://habitrpg.com > Options > Settings).",
+    "noReachServer" : "Server not currently reachable, try again later",
+    "errorUpCase" : "ERROR: ",
+    "newPassSent" : "New password sent.",
+
+  "_commentappjs" : "APP.JS STRINGS",
+    "serverUnreach" : "Server currently unreachable.",
+    "seeConsole" : " (see Chrome console for more details).",
+    "error" : "Error"
 }

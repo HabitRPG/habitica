@@ -60,5 +60,19 @@
 		"search" : "Search",
 		"publicGuilds" : "Public Guilds",
 		"createGuild" : "Create Guild",
-		"guilds" : "Guilds"
+		"guilds" : "Guilds",
+
+	"_commentgroupsctrljs" : "GROUPSCTRL.JS STRINGS",
+		"sureKick" : "Do you really want to remove this member from the party?",
+		"foreverAlone" : "Can't like your own message. Don't be that person.",
+		"sortLevel" : "Sort by Level",
+		"sortRandom" : "Sort randomly",
+		"sortPets" : "Sort by number of pets",
+		"sortJoined" : "Sort by Party date joined",
+		"confirmGuild" : "Create Guild for 4 Gems?",
+		"leaveGroupCha" : "Leave group challenges and...",
+			"confirm" : "Confirm",
+		"leaveGroup" : "Leave group?",
+		"leavePartyCha" : "Leave party challenges and...",
+		"leaveParty" : "Leave party?"
 }
