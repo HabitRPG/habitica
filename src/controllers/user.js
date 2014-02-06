@@ -81,7 +81,7 @@ api.score = function(req, res, next) {
   var delta = user.ops.score({params:{id:task.id, direction:direction}});
 
   user.save(function(err,saved){
-    if (err) return res.json(500, {err: err});
+    if (err) return next(err);
     // TODO this should be return {_v,task,stats,_tmp}, instead of merging everything togther at top-level response
     // However, this is the most commonly used API route, and changing it will mess with all 3rd party consumers. Bad idea :(
     res.json(200, _.extend({
@@ -193,7 +193,7 @@ api.update = function(req, res, next) {
   });
   user.save(function(err) {
     if (!_.isEmpty(errors)) return res.json(401, {err: errors});
-    if (err) return res.json(500, {err: err});
+    if (err) return next(err);
     res.json(200, user);
   });
 };
@@ -235,7 +235,7 @@ api.cron = function(req, res, next) {
 
 api['delete'] = function(req, res) {
   res.locals.user.remove(function(err){
-    if (err) return res.json(500,{err:err});
+    if (err) return next(err);
     res.send(200);
   })
 }
@@ -258,7 +258,7 @@ api.addTenGems = function(req, res) {
   var user = res.locals.user;
   user.balance += 2.5;
   user.save(function(err){
-    if (err) return res.json(500,{err:err});
+    if (err) return next(err);
     res.send(204);
   })
 }
@@ -381,7 +381,7 @@ api.cast = function(req, res) {
   var done = function(){
     var err = arguments[0];
     var saved = _.size(arguments == 3) ? arguments[2] : arguments[1];
-    if (err) return res.json(500, {err:err});
+    if (err) return next(err);
     res.json(saved);
   }
 
@@ -445,12 +445,12 @@ _.each(shared.wrap({}).ops, function(op,k){
       res.locals.user.ops[k](req,function(err, response){
         // If we want to send something other than 500, pass err as {code: 200, message: "Not enough GP"}
         if (err) {
-          if (!err.code) return res.json(500,{err:err});
+          if (!err.code) return next(err);
           if (err.code >= 400) return res.json(err.code,{err:err.message});
           // In the case of 200s, they're friendly alert messages like "You're pet has hatched!" - still send the op
         }
         res.locals.user.save(function(err){
-          if (err) return res.json(500,{err:err});
+          if (err) return next(err);
           res.json(200,response);
         })
       })
