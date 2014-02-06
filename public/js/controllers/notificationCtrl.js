@@ -30,7 +30,7 @@ habitrpg.controller('NotificationCtrl',
 
       if ((money > 0) && !!bonus) {
         if (bonus < 0.01) bonus = 0.01;
-        Notification.text("+ " + Notification.coins(bonus) + "  Streak Bonus!");
+        Notification.text("+ " + Notification.coins(bonus) + window.env.t('streakCoins'));
         delete User.user._tmp.streakBonus;
       }
     });

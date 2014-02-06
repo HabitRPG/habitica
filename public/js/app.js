@@ -1,23 +1,5 @@
 "use strict";
 
-window.env = window.env || {}; //FIX tests
-
-if(window.env.language && window.env.language.momentLang && window.env.language.momentLangCode){
-  var head = document.getElementsByTagName('head')[0];
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.text = window.env.language.momentLang;
-  head.appendChild(script);
-  moment.lang(window.env.language.momentLangCode);
-}
-
-window.env.t = function(stringName, vars){
-  var string = window.env.translations[stringName];
-  if(!string) return window._.template(window.env.translations.stringNotFound, {string: stringName});
-
-  return vars === undefined ? string : window._.template(string, vars);    
-}
-
 window.habitrpg = angular.module('habitrpg',
     ['ngResource', 'ngSanitize', 'userServices', 'groupServices', 'memberServices', 'challengeServices',
      'authServices', 'notificationServices', 'guideServices', 'authCtrl',
@@ -225,10 +207,10 @@ window.habitrpg = angular.module('habitrpg',
         function error(response) {
           //var status = response.status;
           response.data = (response.data.err) ? response.data.err : response.data;
-          if (response.status == 0) response.data = 'Server currently unreachable.';
-          if (response.status == 500) response.data += ' (see Chrome console for more details).';
+          if (response.status == 0) response.data = window.env.t('serverUnreach');
+          if (response.status == 500) response.data += window.env.t('seeConsole');
 
-          var error = response.status == 0 ? response.data : ('Error ' + response.status + ': ' + response.data);
+          var error = response.status == 0 ? response.data : (window.env.t('error') + ' ' + response.status + ': ' + response.data);
           $rootScope.$broadcast('responseError', error);
           console.log(arguments);
           return $q.reject(response);

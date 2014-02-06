@@ -45,11 +45,11 @@ angular.module("notificationServices", [])
       coins: coins,
       hp: function(val) {
         // don't show notifications if user dead
-        growl("<span class='glyphicon glyphicon-heart'></span>&nbsp; " + sign(val) + " " + round(val) + " HP", 'hp');
+        growl("<span class='glyphicon glyphicon-heart'></span>&nbsp; " + sign(val) + " " + round(val) + " " + window.env.t('hp'), 'hp');
       },
       exp: function(val) {
         if (val < -50) return; // don't show when they level up (resetting their exp)
-        growl("<span class='glyphicon glyphicon-star'></span>&nbsp; " + sign(val) + " " + round(val) + " XP", 'xp');
+        growl("<span class='glyphicon glyphicon-star'></span>&nbsp; " + sign(val) + " " + round(val) + " " + window.env.t('xp'), 'xp');
       },
       gp: function(val, bonus) {
         growl(sign(val) + " " + coins(val - bonus), 'gp');
@@ -58,19 +58,19 @@ angular.module("notificationServices", [])
         growl(val);
       },
       lvl: function(){
-        growl('<span class="glyphicon glyphicon-chevron-up"></span>&nbsp; Level Up!', 'lvl');
+        growl('<span class="glyphicon glyphicon-chevron-up"></span>&nbsp;' + window.env.t('levelUp'), 'lvl');
       },
       death: function(){
-        growl("<span class='glyphicon glyphicon-death'></span>&nbsp; Respawn!", "death");
+        growl("<span class='glyphicon glyphicon-death'></span>&nbsp;" + window.env.t('respawn'), "death");
       },
       error: function(error){
         growl("<span class='glyphicon glyphicon-exclamation-sign'></span>&nbsp; " + error, "danger");
       },
       mp: function(val) {
-        growl("<span class='glyphicon glyphicon-fire'></span>&nbsp; " + sign(val) + " " + round(val) + " MP", 'mp');
+        growl("<span class='glyphicon glyphicon-fire'></span>&nbsp; " + sign(val) + " " + round(val) + " " + window.env.t('mp'), 'mp');
       },
       crit: function(val) {
-        growl("<span class='glyphicon glyphicon-certificate'></span>&nbsp; Critical Hit! Bonus: " + Math.round(val) + "%", 'crit');
+        growl("<span class='glyphicon glyphicon-certificate'></span>&nbsp;" + window.env.t('critBonus') + Math.round(val) + "%", 'crit');
       },
       drop: function(val) {
         growl("<span class='glyphicon glyphicon-gift'></span>&nbsp; " + val, 'drop');

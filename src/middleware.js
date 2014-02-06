@@ -113,12 +113,12 @@ var getManifestFiles = function(page){
 var translations = {};
 
 var loadTranslations = function(locale){
-  var files = require(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/", locale, 'app.json')).files;
+  var files = fs.readdirSync(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/", locale));
   translations[locale] = {};
   _.each(files, function(file){
     _.merge(translations[locale], require(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/", locale, file)));
   });
-}
+};
 
 // First fetch english so we can merge with missing strings in other languages
 loadTranslations('en');
@@ -193,7 +193,11 @@ module.exports.locals = function(req, res, next) {
   getUserLanguage(req, function(err, language){
     if(err) return res.json(500, {err: err});
 
-    language.momentLang = (momentLangs[language.code] || undefined);
+    var isStaticPage = req.url.split('/')[1] === 'static'; // If url contains '/static/'
+    console.log(isStaticPage)
+
+    // Load moment.js language file only when not on static pages
+    language.momentLang = ((!isStaticPage && momentLangs[language.code])|| undefined);
 
     res.locals.habitrpg = {
       NODE_ENV: nconf.get('NODE_ENV'),
@@ -205,6 +209,7 @@ module.exports.locals = function(req, res, next) {
       getBuildUrl: getBuildUrl,
       avalaibleLanguages: avalaibleLanguages,
       language: language,
+      isStaticPage: isStaticPage,
       translations: translations[language.code],
       t: function(stringName, vars){
         var string = translations[language.code][stringName];

@@ -10,8 +10,8 @@ footer.footer(ng-controller='FooterCtrl')
             a(href='https://play.google.com/store/apps/details?id=com.ocdevel.habitrpg', target='_blank')=env.t('mobileAndroid')
       .col-sm-3
         h4=env.t('footerCompany')
-        ul.list-unstyled.list-unstyled
-          if (!env.isFrontPage)
+        ul.list-unstyled
+          if (!env.isStaticPage)
             li
               .btn.btn-small.btn-success(ng-click='openModal("buyGems")')
                 span.glyphicon.glyphicon-heart

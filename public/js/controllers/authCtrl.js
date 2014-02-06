@@ -13,7 +13,7 @@ angular.module('authCtrl', [])
       $scope.useUUID = false;
       $scope.toggleUUID = function() {
         if (showedFacebookMessage === false) {
-          alert("Until we add Facebook, use your UUID and API Token to log in (found at https://habitrpg.com > Options > Settings).");
+          alert(window.env.t('untilNoFace'));
           showedFacebookMessage = true;
         }
         $scope.useUUID = !$scope.useUUID;
@@ -32,11 +32,11 @@ angular.module('authCtrl', [])
 
       function errorAlert(data, status, headers, config) {
         if (status === 0) {
-          $window.alert("Server not currently reachable, try again later");
+          $window.alert(window.env.t('noReachServer'));
         } else if (!!data && !!data.err) {
           $window.alert(data.err);
         } else {
-          $window.alert("ERROR: " + status);
+          $window.alert(window.env.t('errorUpCase') + status);
         }
       };
 
@@ -81,7 +81,7 @@ angular.module('authCtrl', [])
       $scope.passwordReset = function(email){
         $http.post(API_URL + '/api/v2/user/reset-password', {email:email})
           .success(function(){
-            alert('New password sent.');
+            alert(window.env.t('newPassSent'));
           })
           .error(function(data){
             alert(data.err);

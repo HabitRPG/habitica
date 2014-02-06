@@ -66,7 +66,7 @@
           table.table.table-striped
             tr
               td
-                a.label.label-contributor-1(ng-click='toggleUserTier($event)')=env.t('friendBadge')
+                a.label.label-contributor-1(ng-click='toggleUserTier($event)')=env.t('friend') + ' (1-2)'
                 div(style='display:none;')
                   p
                     span.achievement.achievement-firefox
@@ -77,7 +77,7 @@
                     !=env.t('friendSecond')
             tr
               td
-                a.label.label-contributor-3(ng-click='toggleUserTier($event)')=env.t('eliteBadge')
+                a.label.label-contributor-3(ng-click='toggleUserTier($event)')=env.t('elite') + ' (3-4)'
                 div(style='display:none;')
                   p
                     span.shop-sprite.item-img(class='shop_head_special_1')
@@ -88,7 +88,7 @@
                     !=env.t('eliteFourth')
             tr
               td
-                a.label.label-contributor-5(ng-click='toggleUserTier($event)')=env.t('championBadge')
+                a.label.label-contributor-5(ng-click='toggleUserTier($event)')=env.t('champion') + ' (5-6)'
                 div(style='display:none;')
                   p
                     span.shop-sprite.item-img(class='shop_shield_special_1')
@@ -99,13 +99,13 @@
                     !=env.t('championSixth')
             tr
               td
-                a.label.label-contributor-7(ng-click='toggleUserTier($event)')=env.t('legendaryBadge')
+                a.label.label-contributor-7(ng-click='toggleUserTier($event)')=env.t('legendary') + ' (7)'
                 div(style='display:none;')
                   p
                     !=env.t('legSeventh')
             tr
               td
-                a.label.label-contributor-8(ng-click='toggleUserTier($event)')=env.t('heroicBadge')
+                a.label.label-contributor-8(ng-click='toggleUserTier($event)')=env.t('heroic')
                 div(style='display:none;')
                   p=env.t('heroicText') 
             tr

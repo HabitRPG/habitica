@@ -81,7 +81,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $rootScope.notPorted = function(){
-      alert("This feature is not yet ported from the original site.");
+      alert(window.env.t('notPorted'));
     }
 
     $rootScope.dismissErrorOrWarning = function(type, $index){
@@ -93,11 +93,11 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         key: window.env.STRIPE_PUB_KEY,
         address: false,
         amount: 500,
-        name: subscription ? "Subscribe" : "Checkout",
+        name: subscription ? window.env.t('subscribe') : window.env.t('checkout'),
         description: subscription ?
-          "Buy gems with Gold, No Ads, Support the Devs" :
-          "20 Gems, No Ads, Support the Devs",
-        panelLabel: subscription ? "Subscribe" : "Checkout",
+          window.env.t('buySubsText') :
+          window.env.t('buyCheckText'),
+        panelLabel: subscription ? window.env.t('subscribe') : window.env.t('checkout'),
         token: function(data) {
           var url = '/api/v2/user/buy-gems';
           if (subscription) url += '?plan=basic_earned';
@@ -114,7 +114,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $scope.cancelSubscription = function(){
-      if (!confirm("Are you sure you want to cancel your subscription?")) return;
+      if (!confirm(window.env.t('sureCancelSub'))) return;
       //TODO use Stripe API to keep subscription till end of their month
       $http.post('/api/v2/user/cancel-subscription').success(function(){
         window.location.reload(true);
@@ -126,7 +126,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       if (backer && backer.npc) return backer.npc;
       var l = contrib && contrib.level;
       if (l && l > 0) {
-        var level = (l < 3) ? 'Friend' : (l < 5) ? 'Elite' : (l < 7) ? 'Champion' : (l < 8) ? 'Legendary' : 'Heroic';
+        var level = (l < 3) ? window.env.t('friend') : (l < 5) ? window.env.t('elite') : (l < 7) ? window.env.t('champion') : (l < 8) ? window.env.t('legendary') : window.env.t('heroic');
         return level + ' ' + contrib.text;
       }
     }
@@ -154,7 +154,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       });
       data = google.visualization.arrayToDataTable(matrix);
       options = {
-        title: 'History',
+        title: window.env.t('history'),
         backgroundColor: {
           fill: 'transparent'
         },
@@ -172,7 +172,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
      ------------------------
     */
     $scope.castStart = function(spell) {
-      if (User.user.stats.mp < spell.mana) return Notification.text("Not enough mana.");
+      if (User.user.stats.mp < spell.mana) return Notification.text(window.env.t('notEnoughMana'));
       $rootScope.applyingAction = true;
       $scope.spell = spell;
       if (spell.target == 'self') {
@@ -187,7 +187,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $scope.castEnd = function(target, type, $event){
       if (!$rootScope.applyingAction) return;
       $event && ($event.stopPropagation(),$event.preventDefault());
-      if ($scope.spell.target != type) return Notification.text("Invalid target");
+      if ($scope.spell.target != type) return Notification.text(window.env.t('invalidTarget'));
       $scope.spell.cast(User.user, target);
       User.save();
 
@@ -198,11 +198,11 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
       $http.post('/api/v2/user/class/cast/'+spell.key+'?targetType='+type+'&targetId='+targetId)
       .success(function(){
-        var msg = "You cast " + spell.text;
+        var msg = window.env.t('youCast', {spell: spell.text}); 
         switch (type) {
-          case 'task': msg += ' on ' + target.text + '.';break;
-          case 'user': msg += ' on ' + target.profile.name + '.';break;
-          case 'party': msg += ' for the Party.';break;
+         case 'task': msg = window.env.t('youCastTarget', {spell: spell.text, target: target.text});break;
+         case 'user': msg = window.env.t('youCastTarget', {spell: spell.text, target: target.profile.name});break;
+         case 'party': msg = window.env.t('youCastParty', {spell: spell.text});break;
         }
         Notification.text(msg);
       });

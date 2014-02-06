@@ -18,9 +18,7 @@ router.get('/', middleware.locals, function(req, res) {
 // -------- Marketing --------
 
 router.get('/static/front', middleware.locals, function(req, res) {
-  var env = res.locals.habitrpg;
-  env.isFrontPage = true;
-  res.render('static/front', {env: env});
+  res.render('static/front', {env: res.locals.habitrpg});
 });
 
 router.get('/static/privacy', middleware.locals, function(req, res) {

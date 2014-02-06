@@ -38,7 +38,7 @@ habitrpg.controller('SettingsCtrl',
       var dayStart = +User.user.preferences.dayStart;
       if (_.isNaN(dayStart) || dayStart < 0 || dayStart > 24) {
         dayStart = 0;
-        return alert('Please enter a number between 0 and 24');
+        return alert(window.env.t('enterNumber'));
       }
       User.set({'preferences.dayStart': dayStart});
     }
@@ -65,11 +65,11 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.changePassword = function(changePass){
       if (!changePass.oldPassword || !changePass.newPassword || !changePass.confirmNewPassword) {
-        return alert("Please fill out all fields");
+        return alert(window.env.t('fillAll'));
       }
       $http.post(API_URL + '/api/v2/user/change-password', changePass)
         .success(function(){
-          alert("Password successfully changed");
+          alert(window.env.t('passSuccess'));
           $scope.changePass = {};
         })
         .error(function(data){
