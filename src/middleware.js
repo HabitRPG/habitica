@@ -12,7 +12,7 @@ module.exports.apiThrottle = function(app) {
     catagories:{
       normal: {
         // 2 req/s, but split as minutes
-        totalRequests: 120,
+        totalRequests: 80,
         every:         60000
       }
     }

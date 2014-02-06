@@ -49,21 +49,21 @@ module.exports.setupConfig = function(){
 };
 
 module.exports.crashWorker = function(server,mongoose) {
-    return function(err, req, res, next) {
-        if (!cluster.isMaster) {
-            // make sure we close down within 30 seconds
-            var killtimer = setTimeout(function() {
-                process.exit(1);
-            }, 30000);
-            // But don't keep the process open just for that!
-            killtimer.unref();
-            // stop taking new requests.
-            server.close();
-            mongoose.connection.close();
-            cluster.worker.disconnect();
-        }
-        next(err);
-    };
+  return function(err, req, res, next) {
+    if (!cluster.isMaster) {
+      // make sure we close down within 30 seconds
+      var killtimer = setTimeout(function() {
+          process.exit(1);
+      }, 30000);
+      // But don't keep the process open just for that!
+      killtimer.unref();
+      // stop taking new requests.
+      server.close();
+      mongoose.connection.close();
+      cluster.worker.disconnect();
+    }
+    next(err);
+  };
 }
 
 
