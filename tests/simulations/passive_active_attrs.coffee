@@ -30,7 +30,7 @@ user =
   habits: [
     shared.taskDefaults({id, value: 0})
   ]
-  dailys: []
+  dailys: [{"text" : "1",},{"text" : "1",},{"text" : "1",},{"text" : "1",},{"text" : "1",},{"text" : "1",},{"text" : "1",},{"text" : "1",},{"text" : "1",},{"text" : "1",},{"text" : "1",},{"text" : "1",},{"text" : "1",},{"text" : "1",},{"text" : "1",}],
   todos: []
   rewards: []
 
@@ -44,13 +44,13 @@ console.log "New Simulation"
 console.log "================================================\n\n"
 
 clearUser = (lvl=1) ->
-  _.merge user.stats, {exp:0, gp:0, hp:50, lvl:lvl, str:lvl, con:lvl, per:lvl, int:lvl, mp: 100}
+  _.merge user.stats, {exp:0, gp:0, hp:50, lvl:lvl, str:lvl*1.5, con:lvl*1.5, per:lvl*1.5, int:lvl*1.5, mp: 100}
   _.merge s.buffs, {str:0,con:0,int:0,per:0}
   _.merge user.party.quest.progress, {up:0,down:0}
   user.items.lastDrop = {count:0}
 
-_.each [1,25,50,75,99], (lvl) ->
-  console.log "[LEVEL #{lvl}] (#{lvl} points in every attr)\n\n"
+_.each [1,25,50,75,100], (lvl) ->
+  console.log "[LEVEL #{lvl}] (#{lvl*2} points total in every attr)\n\n"
   _.each {red:-25,yellow:0,green:35}, (taskVal, color) ->
     console.log "[task.value = #{taskVal} (#{color})]"
     console.log "direction\texpΔ\t\thpΔ\tgpΔ\ttask.valΔ\ttask.valΔ bonus\t\tboss-hit"
@@ -77,6 +77,7 @@ _.each [1,25,50,75,99], (lvl) ->
     task.value = taskVal;clearUser(lvl)
     shared.content.spells.wizard.earth.cast(user,party)
     str += "\t\t\t\t| earth(buffs.int:#{s.buffs.int})"
+    s.buffs.int = 0
 
     task.value = taskVal;clearUser(lvl)
     shared.content.spells.wizard.frost.cast(user,{})
@@ -93,14 +94,17 @@ _.each [1,25,50,75,99], (lvl) ->
     task.value = taskVal;clearUser(lvl)
     shared.content.spells.warrior.defensiveStance.cast(user,{})
     str += "\t\t| defensiveStance(buffs.con:#{s.buffs.con})"
+    s.buffs.con = 0
 
     task.value = taskVal;clearUser(lvl)
     shared.content.spells.warrior.valorousPresence.cast(user,party)
     str += "\t\t\t| valorousPresence(buffs.str:#{s.buffs.str})"
+    s.buffs.str = 0
 
     task.value = taskVal;clearUser(lvl)
     shared.content.spells.warrior.intimidate.cast(user,party)
     str += "\t\t| intimidate(buffs.con:#{s.buffs.con})"
+    s.buffs.con = 0
 
     console.log str
     str = '- [Rogue]'
@@ -117,10 +121,12 @@ _.each [1,25,50,75,99], (lvl) ->
     task.value = taskVal;clearUser(lvl)
     shared.content.spells.rogue.toolsOfTrade.cast(user,party)
     str += "\t| toolsOfTrade(buffs.per:#{s.buffs.per})"
+    s.buffs.per = 0
 
     task.value = taskVal;clearUser(lvl)
     shared.content.spells.rogue.stealth.cast(user,{})
     str += "\t\t| stealth(avoiding #{user.stats.buffs.stealth} tasks)"
+    user.stats.buffs.stealth = 0
 
     console.log str
     str = '- [Healer]'
@@ -138,6 +144,7 @@ _.each [1,25,50,75,99], (lvl) ->
     task.value = taskVal;clearUser(lvl)
     shared.content.spells.healer.protectAura.cast(user,party)
     str += "\t\t\t| protectAura(buffs.con:#{s.buffs.con})"
+    s.buffs.con = 0
 
     task.value = taskVal;clearUser(lvl)
     s.hp=0
@@ -150,5 +157,24 @@ _.each [1,25,50,75,99], (lvl) ->
 
   console.log '------------------------------------------------------------'
 
+###
+_.each [1,25,50,75,100,125], (lvl) ->
+  console.log "[LEVEL #{lvl}] (#{lvl*2} points in every attr)\n\n"
+  _.each {red:-25,yellow:0,green:35}, (taskVal, color) ->
+    console.log "[task.value = #{taskVal} (#{color})]"
+    console.log "direction\texpΔ\t\thpΔ\tgpΔ\ttask.valΔ\ttask.valΔ bonus\t\tboss-hit"
+    _.each ['up','down'], (direction) ->
+      clearUser(lvl)
+      b4 = {hp:s.hp, taskVal}
+      task.value = taskVal
+      task.type = 'daily' if direction is 'up'
+      delta = user.ops.score params:{id, direction}
+      console.log "#{if direction is 'up' then '↑' else '↓'}\t\t#{s.exp}/#{shared.tnl(s.lvl)}\t\t#{(b4.hp-s.hp).toFixed(1)}\t#{s.gp.toFixed(1)}\t#{delta.toFixed(1)}\t\t#{(task.value-b4.taskVal-delta).toFixed(1)}\t\t\t#{user.party.quest.progress.up.toFixed(1)}"
 
+    task.value = taskVal;clearUser(lvl)
+    shared.content.spells.rogue.stealth.cast(user,{})
+    console.log "\t\t| stealth(avoiding #{user.stats.buffs.stealth} tasks)"
+    user.stats.buffs.stealth = 0
 
+    console.log user.dailys.length
+###
