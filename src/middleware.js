@@ -226,7 +226,7 @@ module.exports.locals = function(req, res, next) {
     if(err) return res.json(500, {err: err});
 
     var isStaticPage = req.url.split('/')[1] === 'static'; // If url contains '/static/'
-    console.log(isStaticPage)
+    //console.log(isStaticPage)
 
     // Load moment.js language file only when not on static pages
     language.momentLang = ((!isStaticPage && momentLangs[language.code])|| undefined);
