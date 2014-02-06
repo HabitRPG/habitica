@@ -9,7 +9,7 @@ habitrpg.directive('taskFocus',
     return function(scope, elem, attrs) {
       scope.$watch(attrs.taskFocus, function(newval) {
         if ( newval ) {
-          $timeounvt(function() {
+          $timeout(function() {
             elem[0].focus();
           }, 0, false);
         }
@@ -26,7 +26,7 @@ habitrpg.directive('habitrpgAdsense', function() {
     template: '<div ng-transclude></div>',
     link: function ($scope, element, attrs) {}
   }
-})
+});
 
 habitrpg.directive('whenScrolled', function() {
   return function(scope, elm, attr) {

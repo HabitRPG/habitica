@@ -33,6 +33,8 @@
 
             "bower_components/habitrpg-shared/dist/habitrpg-shared.js",
 
+            "js/env.js",
+
             "js/app.js",
             "js/services/sharedServices.js",
             "js/services/authServices.js",
@@ -81,6 +83,7 @@
             "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
 
             "bower_components/angular-loading-bar/build/loading-bar.js",
+            "js/env.js",
             "js/static.js",
             "js/services/notificationServices.js",
             "bower_components/habitrpg-shared/script/userServices.js",
