@@ -1,0 +1,40 @@
+{
+"_commentpets" : "PETS RELATED STRINGS",
+
+  "pets" : "Pets",
+    "petsFound":"Pets Found",
+    "rarePets": "Rare Pets",
+	"mounts" : "Mounts",
+		"mountsTamed" : "Mounts Tamed",
+		"rareMounts" : "Rare Mounts",
+		"etherealLion" : "Ethereal Lion",
+		"petsFound" : "Pets Found",
+		"veteranWolf" : "Veteran Wolf",
+		"cerberusPup" : "Cerberus Pup",
+		"hydra" : "Hydra",
+		"rarePetPop1" : "Click the gold paw to learn more about how you can obtain this rare pet through contributing to HabitRPG!",
+		"rarePetPop2" : "How to Get this Pet!",
+  "eggs": "Eggs",
+    "noEggs": "You don't have any eggs.",
+  "hatchingPotions": "Hatching Potions",
+    "noHatchingPotions": "You don't have any hatching potions.",
+	"inventoryText" : "Click an egg to see usable potions highlighted in green and then click one of the highlighted potions to hatch your pet. If no potions are highlighted, click that egg again to deselect it, and instead click a potion first to have the usable eggs highlighted. You can also sell unwanted drops to Alexander the Merchant.",
+	"food" : "Food",
+	"noFood" : "You don't have any food.",
+
+	"_commentachievement" : "PET ACHIEVEMENT",
+    "beastAchievement" : "You have earned the \"Beast Master\" Achievement for collecting all the pets!",
+    "beastMastName" : "Beast Master",
+      "beastMastText" : "Has found all 90 pets (insanely difficult, give this user props!)",
+
+  "_commentdrops" : "DROPS MODALS",
+    "dropsEnabled" : "Drops Enabled!",
+      "itemDrop" : "An item has dropped!",
+      "firstDrop" : "You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. You just found a <strong><%= eggText %> Egg</strong>! <%= eggNotes %>",
+      "useGems" : "If you've got your eye on a pet, but can't wait any longer for it to drop, use Gems in <strong>Options > Inventory</strong> to buy one!",
+
+  "_commentinventoryctrl.js" : "INVENTORYCTRL.JS STRINGS",
+    "hatchAPot" : "Hatch a <%= potion %> <%= egg %>?",
+    "feedPet" : "'Feed <%= name %> <%= article %> <%= text %>?",
+    "useSaddle" : "Saddle <%= pet %>?"
+}
