@@ -44,9 +44,14 @@ hr
 
 /* Customizations to make footer sticky */
 
+html, body 
+  height: 100%
+
 #wrap
   z-index:-1
   padding: 0 15px // Required by Bootstrap 3 when using .container-fluid
+  min-height: 100%
+  height: auto !important
 
 @media (max-width: 600px)
   #wrap 
