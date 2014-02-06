@@ -34,7 +34,7 @@ api.getContent = function(req, res, next) {
   ---------------
 */
 
-findTask = function(req, res) {
+findTask = function(req, res, next) {
   return task = res.locals.user.tasks[req.params.id];
 };
 
@@ -233,7 +233,7 @@ api.cron = function(req, res, next) {
 // api.reroll // Shared.ops
 // api.reset // Shared.ops
 
-api['delete'] = function(req, res) {
+api['delete'] = function(req, res, next) {
   res.locals.user.remove(function(err){
     if (err) return next(err);
     res.send(200);
@@ -254,7 +254,7 @@ api['delete'] = function(req, res) {
  ------------------------------------------------------------------------
  */
 
-api.addTenGems = function(req, res) {
+api.addTenGems = function(req, res, next) {
   var user = res.locals.user;
   user.balance += 2.5;
   user.save(function(err){
@@ -268,7 +268,7 @@ api.addTenGems = function(req, res) {
 /*
  Setup Stripe response when posting payment
  */
-api.buyGems = function(req, res) {
+api.buyGems = function(req, res, next) {
   var api_key = nconf.get('STRIPE_API_KEY');
   var stripe = require("stripe")(api_key);
   var token = req.body.id;
@@ -312,7 +312,7 @@ api.buyGems = function(req, res) {
   });
 };
 
-api.cancelSubscription = function(req, res) {
+api.cancelSubscription = function(req, res, next) {
   var api_key = nconf.get('STRIPE_API_KEY');
   var stripe = require("stripe")(api_key);
   var user = res.locals.user;
@@ -370,7 +370,7 @@ api.buyGemsPaypalIPN = function(req, res, next) {
  Spells
  ------------------------------------------------------------------------
  */
-api.cast = function(req, res) {
+api.cast = function(req, res, next) {
   var user = res.locals.user;
   var targetType = req.query.targetType;
   var targetId = req.query.targetId;
@@ -489,7 +489,7 @@ api.batchUpdate = function(req, res, next) {
           return cb(code+": "+ (data.message ? data.message : data.err ? data.err : JSON.stringify(data)));
         return cb();
       };
-      api[_req.op](_req, res);
+      api[_req.op](_req, res, cb);
     });
   })
   // Finally, save user at the end
