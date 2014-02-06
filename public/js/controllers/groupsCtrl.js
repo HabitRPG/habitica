@@ -99,8 +99,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     $scope.$watch('group.chat',$scope.chatChanged);
     
     $scope.caretChanged = function(newCaretPos) {
-      var relativeelement = $('.-options');
-      var textarea = $('.chat-textarea');
+      var relativeelement = $('.chat-form div:first');
+      var textarea = $('.chat-form textarea');
       var userlist = $('.list-at-user');
       var offset = {
         x: textarea.offset().left - relativeelement.offset().left,

@@ -25,10 +25,7 @@
 @import "./classes.styl"
 @import "./quests.styl"
 @import "./shared.styl"
-
-// fix exploding to very wide for some reason
-.datepicker
-  width: 210px
+@import "./footer.styl"
 
 html,body,p,h1,ul,li,table,tr,th,td
   margin: 0
@@ -45,29 +42,8 @@ hr
   border-bottom: 1px solid #ddd
   border-color: rgba(0,0,0,0.1)
 
-
-/* Footer
--------------------------------------------------- */
-
-/* Bootstrap website boilerplate */
-.footer 
-  padding: 70px 0
-  border-top: 1px solid #e5e5e5
-  background-color: #f5f5f5
-
-.footer p 
-  margin-bottom: 0
-  color: #777
-
-.footer-links 
-  margin: 10px 0
-
-.footer-links li
-  display: inline
-  margin-right: 10px
-
 /* Customizations to make footer sticky */
-/*html, body {height: 100%;}*/
+
 #wrap
   z-index:-1
   padding: 0 15px // Required by Bootstrap 3 when using .container-fluid
