@@ -225,10 +225,10 @@ window.habitrpg = angular.module('habitrpg',
         function error(response) {
           //var status = response.status;
           response.data = (response.data.err) ? response.data.err : response.data;
-          if (response.status == 0) response.data = 'Server currently unreachable.';
-          if (response.status == 500) response.data += ' (see Chrome console for more details).';
+          if (response.status == 0) response.data = window.env.t('serverUnreach');
+          if (response.status == 500) response.data += window.env.t('seeConsole');
 
-          var error = response.status == 0 ? response.data : ('Error ' + response.status + ': ' + response.data);
+          var error = response.status == 0 ? response.data : (window.env.t('error') + ' ' + response.status + ': ' + response.data);
           $rootScope.$broadcast('responseError', error);
           console.log(arguments);
           return $q.reject(response);

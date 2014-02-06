@@ -79,7 +79,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }
 
     $scope.hatch = function(egg, potion){
-      if (!$window.confirm('Hatch a ' + potion.key + ' ' + egg.key + '?')) return;
+      if (!$window.confirm(window.env.t('hatchAPot', {potion: potion.key, egg: egg.key}))) return;
       user.ops.hatch({params:{egg:egg.key, hatchingPotion:potion.key}});
       $scope.selectedEgg = null;
       $scope.selectedPotion = null;
@@ -88,8 +88,8 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     $scope.purchase = function(type, item){
       var gems = User.user.balance * 4;
       if(gems < item.value) return $rootScope.modals.buyGems = true;
-      var string = (type == 'hatchingPotion') ? 'hatching potion' : type; // give hatchingPotion a space
-      var message = "Buy this " + string + " with " + item.value + " of your " + gems + " Gems?"
+      var string = (type == 'hatchingPotions') ? 'hatching potion' : (type == 'eggs') ? 'egg' : (type == 'quests') ? 'quest' : (item.key == 'Saddle') ? 'saddle' : (type == 'special') ? item.key : type; // this is ugly but temporary, once the purchase modal is done this will be removed
+      var message = window.env.t('buyThis', {text: string, price: item.value, gems: gems})
       if($window.confirm(message))
         User.user.ops.purchase({params:{type:type,key:item.key}});
     }
@@ -102,8 +102,8 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       if ($scope.selectedFood) {
         var food = $scope.selectedFood
         if (food.key == 'Saddle') {
-          if (!$window.confirm('Saddle ' + pet + '?')) return;
-        } else if (!$window.confirm('Feed ' + petDisplayName + ' '+ food.article + food.text + '?')) {
+          if (!$window.confirm(window.env.t('useSaddle', {pet: pet}))) return;
+        } else if (!$window.confirm(window.env.t('feedPet', {name: petDisplayName, article: food.article, text: food.text}))) {
           return;
         }
         User.user.ops.feed({params:{pet: pet, food: food.key}});
@@ -123,9 +123,9 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       var item =  Content.quests[quest];
       var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
       if (!completedPrevious)
-        return alert("You must first complete " + $rootScope.Content.quests[item.previous].text + '.');
+        return alert(window.env.t('mustComplete', {quest: $rootScope.Content.quests[item.previous].text}));
       if (item.lvl && item.lvl > user.stats.lvl)
-        return alert("You must be level " + item.lvl + '.');
+        return alert(window.env.t('mustLevel', {level: item.lvl}));
       $rootScope.selectedQuest = item;
       $rootScope.modals.showQuest = true;
     }
@@ -143,7 +143,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     $scope.buyQuest = function(quest) {
       var item = Content.quests[quest];
       if (item.lvl && item.lvl > user.stats.lvl)
-          return alert("You must be level " + item.lvl + ' to buy this quest!');
+          return alert(window.env.t('mustLvlQuest', {level: item.lvl}));
       var completedPrevious = !item.previous || (User.user.achievements.quests && User.user.achievements.quests[item.previous]);
       if (!completedPrevious)
         return $scope.purchase("quests", item);
