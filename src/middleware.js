@@ -5,8 +5,11 @@ var path = require('path');
 var User = require('./models/user').model
 var limiter = require('connect-ratelimit');
 var logging = require('./logging');
+var domainMiddleware = require('domain-middleware');
+var cluster = require('cluster');
 
 module.exports.apiThrottle = function(app) {
+  if (nconf.get('NODE_ENV') !== 'production') return;
   app.use(limiter({
     end:false,
     catagories:{
@@ -22,6 +25,35 @@ module.exports.apiThrottle = function(app) {
     next();
   });
 }
+
+module.exports.domainMiddleware = function(server,mongoose) {
+  return domainMiddleware({
+    server: {
+      close:function(){
+        server.close();
+        mongoose.connection.close();
+      }
+    },
+    killTimeout: 10000
+  });
+}
+
+module.exports.errorHandler = function(err, req, res, next) {
+  //res.locals.domain.emit('error', err);
+  // when we hit an error, send it to admin as an email. If no ADMIN_EMAIL is present, just send it to yourself (SMTP_USER)
+  var stack = (err.stack ? err.stack : err.message ? err.message : err) +
+    "\n ----------------------------\n" +
+    "\n\noriginalUrl: " + req.originalUrl +
+    "\n\nauth: " + req.headers['x-api-user'] + ' | ' + req.headers['x-api-key'] +
+    "\n\nheaders: " + JSON.stringify(req.headers) +
+    "\n\nbody: " + JSON.stringify(req.body) +
+    (res.locals.ops ? "\n\ncompleted ops: " + JSON.stringify(res.locals.ops) : "");
+  logging.error(stack);
+  var message = err.message ? err.message : err;
+  message =  (message.length < 200) ? message : message.substring(0,100) + message.substring(message.length-100,message.length);
+  res.json(500,{err:message}); //res.end(err.message);
+}
+
 
 module.exports.forceSSL = function(req, res, next){
   var baseUrl = nconf.get("BASE_URL");

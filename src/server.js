@@ -24,7 +24,6 @@ if (cluster.isMaster && (isDev || isProd)) {
   var express = require("express");
   var http = require("http");
   var path = require("path");
-  var domainMiddleware = require('domain-middleware');
   var swagger = require("swagger-node-express");
 
   var middleware = require('./middleware');
@@ -91,14 +90,9 @@ if (cluster.isMaster && (isDev || isProd)) {
 
   // ------------  Server Configuration ------------
 
-  domainMiddleware({
-    server: server,
-    killTimeout: 3000
-  }),
-
   app.set("port", nconf.get('PORT'));
-
   middleware.apiThrottle(app);
+  app.use(middleware.domainMiddleware(server,mongoose));
   if (!isProd) app.use(express.logger("dev"));
   app.use(express.compress());
   app.set("views", __dirname + "/../views");
@@ -125,11 +119,6 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
   app.use(express['static'](path.join(__dirname, "/../public")));
 
-  // development only
-  //if ("development" === app.get("env")) {
-  //  app.use(express.errorHandler());
-  //}
-
   // Custom Directives
   app.use(require('./routes/pages').middleware);
   app.use(require('./routes/auth').middleware);
@@ -137,11 +126,8 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use('/api/v2', v2);
   app.use('/api/v1', require('./routes/apiv1').middleware);
   app.use('/export', require('./routes/dataexport').middleware);
-
-  app.use(utils.crashWorker(server,mongoose));
-  app.use(utils.errorHandler);
-
   require('./routes/apiv2.coffee')(swagger, v2);
+  app.use(middleware.errorHandler);
 
   server.on('request', app);
   server.listen(app.get("port"), function() {
