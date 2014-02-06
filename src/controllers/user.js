@@ -473,28 +473,33 @@ api.batchUpdate = function(req, res, next) {
   var oldSend = res.send;
   var oldJson = res.json;
 
-  var callOp = function(_req, cb) {
-    res.send = res.json = function(code, data) {
-      if (_.isNumber(code) && code >= 500)
-        return cb(code+": "+ (data.message ? data.message : data.err ? data.err : JSON.stringify(data)));
-      return cb();
-    };
-    api[_req.op](_req, res);
-  };
+  // Stash user.save, we'll queue the save op till the end (so we don't overload the server)
+  var oldSave = user.save;
+  user.save = function(cb){cb(null,user)}
 
-  res.locals.ops = [];
   // Setup the array of functions we're going to call in parallel with async
-  var ops = _.transform(req.body, function(result, _req) {
-    if (!_.isEmpty(_req)) {
-      result.push(function(cb) {
-        res.locals.ops.push(_req);
-        callOp(_req, cb);
-      });
-    }
+  res.locals.ops = [];
+  var ops = _.transform(req.body, function(m,_req){
+    if (_.isEmpty(_req)) return;
+    m.push(function() {
+      var cb = arguments[arguments.length-1];
+      res.locals.ops.push(_req);
+      res.send = res.json = function(code, data) {
+        if (_.isNumber(code) && code >= 500)
+          return cb(code+": "+ (data.message ? data.message : data.err ? data.err : JSON.stringify(data)));
+        return cb();
+      };
+      api[_req.op](_req, res);
+    });
+  })
+  // Finally, save user at the end
+  .concat(function(){
+    user.save = oldSave;
+    user.save(arguments[arguments.length-1]);
   });
 
   // call all the operations, then return the user object to the requester
-  async.series(ops, function(err) {
+  async.waterfall(ops, function(err,user) {
     res.json = oldJson;
     res.send = oldSend;
     if (err) return next(err);
