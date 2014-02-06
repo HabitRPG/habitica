@@ -125,9 +125,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
         form.checklist-form(ng-if='task.checklist')
           fieldset.option-group.task-checklist(ng-if='!$state.includes("options.social.challenges")')
             legend.option-title
-              =env.t('checklist')
-              | &nbsp; &nbsp;
-              span.glyphicon.glyphicon-question-sign(popover=env.t('checklistText'),popover-trigger='mouseenter',popover-placement='bottom')
+              span.hint(popover=env.t('checklistText'),popover-trigger='mouseenter',popover-placement='bottom')=env.t('checklist')
             ul.list-unstyled
               li(ng-repeat='item in task.checklist')
                 a.pull-right.checklist-icons(ng-click='removeChecklistItem(task,$event,$index,true)')
@@ -192,10 +190,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
           p.option-title.mega(ng-click='task._advanced = !task._advanced')=env.t('advancedOptions')
           fieldset.option-group.advanced-option(ng-class="{visuallyhidden: task._advanced}")
             legend.option-title
-              a.priority-multiplier-help(href='https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17', target='_blank', popover-title=env.t('difficultyHelpTitle'), popover-trigger='mouseenter', popover=env.t('difficultyHelpContent'))
-                span.glyphicon.glyphicon-question-sign
-              | &nbsp;
-              =env.t('difficulty')
+              a.hint.priority-multiplier-help(href='https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17', target='_blank', popover-title=env.t('difficultyHelpTitle'), popover-trigger='mouseenter', popover=env.t('difficultyHelpContent'))=env.t('difficulty')
             .task-controls.tile-group.priority-multiplier
               button.task-action-btn.tile(type='button', ng-class='{active: task.priority==1 || !task.priority}', ng-click='task.challenge.id || (task.priority=1)')=env.t('easy')
               button.task-action-btn.tile(type='button', ng-class='{active: task.priority==1.5}', ng-click='task.challenge.id || (task.priority=1.5)')=env.t('medium')
@@ -212,8 +207,6 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
                 button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="int"}', ng-click='task.attribute="int"')=env.t('mental')
                 button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="con"}', ng-click='task.attribute="con"')=env.t('social')
                 button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="per"}', ng-click='task.attribute="per"', popover=env.t('otherExamples'), popover-trigger='mouseenter', popover-placement='top')=env.t('other')
-                  |&nbsp;
-                  span.glyphicon.glyphicon-question-sign
 
         button.task-action-btn.tile.spacious(type='submit')=env.t('saveAndClose')
 
