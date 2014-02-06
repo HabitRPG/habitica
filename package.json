@@ -40,7 +40,6 @@
     "pretty-data": "git://github.com/vkiryukhin/pretty-data#master",
     "js2xmlparser": "~0.1.2",
     "mongoose": "~3.8.1",
-    "domain-middleware": "git://github.com/HabitRPG/domain-middleware#master",
     "swagger-node-express": "git://github.com/lefnire/swagger-node-express#habitrpg",
     "passport": "~0.1.18",
     "passport-facebook": "~1.0.2",
@@ -48,7 +47,8 @@
     "connect-ratelimit": "0.0.6",
     "winston": "~0.7.2",
     "winston-mail": "~0.2.7",
-    "winston-newrelic": "~0.1.4"
+    "winston-newrelic": "~0.1.4",
+    "domain-middleware": "~0.1.0"
   },
   "private": true,
   "subdomain": "habitrpg",
