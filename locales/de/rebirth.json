@@ -1,0 +1,34 @@
+{
+"_commentrebirth" : "REBIRTH RELATED STRINGS",
+
+"_commentmodals" : "REBIRTH MODALS",
+    "rebirthNew" : "Wiedergeburt: Ein neues Abenteuer erwartet Dich!",
+      "rebirthUnlock" : "Du hast die Wiedergeburt freigeschaltet! Dieser besondere Dienst gestattet es Dir ein neues Spiel mit Level 1 zu beginnen, jedoch Deine Aufgaben, Erfolge, Haustiere und mehr zu behalten. Verwende den Gegenstand, um neues Leben in HabitRPG zu bringen wenn Du glaubst Alles erreicht zu haben, oder um neue Feature auf dem Blickwinkel eines neuen Spielers zu erleben!",
+    "rebirthBegin" : "Wiedergeburt: Ein neues Abenteuer erwartet Dich",
+      "rebirthStartOver" : "Die Wiedergeburt setzt deinen Charakter auf Level 1 zurück als ob Du einen neuen Account erstellt hättest.",
+        "rebirthAdvList1" : "Du erhältst volle Lebenspunkte.",
+        "rebirthAdvList2" : "Du hast keine Erfahrung, Gold oder Ausrüstung.",
+        "rebirthAdvList3" : "Deine Gewohnheiten, täglichen Aufgaben und Aufgaben werden auf Gelb gesetzt und Strähnen starten von vorn.",
+        "rebirthAdvList4" : "Du hast die Anfangsklasse Krieger bis Du eine neue Klasse freigeschaltet hast.",
+      "rebirthInherit" : "Dein neuer Charakter erbt ein paar Dinge von seinem Vorgänger:",
+        "rebirthInList1" : "Aufgaben, History und Einstellungen bleiben bestehen.",
+        "rebirthInList2" : "Wettbewerb-, Gilden- und Gruppenmitgliedschaften bleiben bestehen.",
+        "rebirthInList3" : "Edelsteine, Träger-Haustiere, Mitwirkender-Level bleiben bestehen.",
+        "rebirthInList4" : "Gegenstände die mit Edelsteinen oder zufällig gefunden wurden bleiben bestehen (Haus- und Reittiere), allerdings kannst Du sie erst anwählen, wenn das Feature wieder freigeschaltet ist.",
+        "rebirthInList5" : "Limited edition Ausrüstung die Du schon einmal erworben hast, kann wieder erworben werden, auch wenn die Veranstaltung abgelaufen ist.",
+      "rebirthEarnAchievement" : "Du erhältst den Erfolg für das Beginnen eines neuen Abenteuers!",
+      "beReborn" : "Werde wiedergeboren",
+    "rebirthAchievement" : "Du hast ein neues Abenteuer begonnen! Das ist Wiedergeburt Nummer <%= number %> für Dich, Dein höchstes jemals erreichtes Level ist <%= level %>. Um diesen Erfolg zu stapeln, beginne Dein nächstes Abenteuer wenn du ein noch höheres Level erreicht hast!",
+
+  "_commentachievements" : "REBIRTH ACHIEVEMENTS",
+    "rebirthBegan" : "Hat ein neues Abenteuer begonnen",
+      "rebirthText" : "Hat <%= rebirths %> neue Abenteuer begonnen",
+      "rebirthOrb" : "Hat eine Kugel der Wiedergeburt verwendet nachdem er folgendes Level erreicht hatte: ",
+ 
+  "_commentinventory" : "REBIRTH INVENTORY",
+"rebirthPop" : "Starte einen neuen Charakter mit Level 1, aber behalte Erfolge, Sammlungen und Aufgaben mit History bei.",
+"rebirthName" : "Kugel der Wiedergeburt",
+
+"_commentavatar" : "REBIRTH AVATAR",
+"reborn" : "Wiedergeboren, max. Level <%= reLevel %>"
+}
