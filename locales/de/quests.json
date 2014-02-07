@@ -1,0 +1,47 @@
+{
+"_commentquests" : "QUEST RELATED STRINGS",
+
+"quests" : "Quests",
+
+  "_commentmodals" : "QUESTS MODALS",
+"completed" : "Erfüllt!",
+"youReceived" : "Du hast folgendes erhalten:",
+"questSend" : "Indem Du auf \"Einladen\" klickst, sendest Du eine Einladung an deine Gruppenmitglieder. Wenn alle Mitglieder angenommen oder abgelehnt haben beginnt das Quest. Statusabfrage unter Optionen > Soziales > Gruppe.",
+"inviteParty" : "Gruppe einladen",
+"questInvitation" : "Quest Einladung: ",
+"askLater" : "Später fragen",
+"buyQuest" : "Quest kaufen",
+
+"_commentquest" : "QUEST INVITATION",
+"accepted" : "Angenommen",
+"rejected" : "Abgelehnt",
+"pending" : "Überlegt noch",
+"questStart" : "Sobald alle Mitglieder entweder angenommen oder abgelehnt haben beginnt das Quest. Nur diejenigen, die \"angenommen\" haben können an dem Quest teilnehmen und die Belohnungen kassieren. Wenn Mitglieder zu lange überlegen (inaktive?), dann kannst Du ohne sie starten indem Du auf \"Beginnen\" klickst.",
+"begin" : "Beginnen",
+"bossHP" : "Boss Lebenspunkte",
+"collected" : "Gesammelt",
+"bossDmg1" : "Um einen Boss zu besiegen, erfülle Deine täglichen Aufgaben und Aufgaben. Höherer Aufgaben-Schaden bedeutet höherer Boss-Schaden (rote Aufgaben, Magier Zauber, Krieger Angriffe, usw). Der Boss wird der Gruppe Schaden zufügen abhängig von den verpassten täglichen Aufgaben (multipliziert mit der Stärke des Bosses), also hilf Deinen Freunden indem du Deine täglichen Aufgaben erfüllst! <strong>Jeder den Boss betreffende Schaden wird zum Tageswechsel abgerechnet (individuell festlegbar).</strong>",
+"bossDmg2" : "Nur Teilnehmer die den Boss bekämpfen bekommen ihren Anteil an der Belohnung. Wenn Du während dem Boss-Kampf stirbst wirst du vom Kampf ausgeschlossen. Wenn jeder Teilnehmer einmal stirbt gilt das Quest als fehlgeschlagen.",
+"bossColl1" : "Um Gegenstände zu sammeln musst Du Deine Aufgaben erfüllen. Quest Gegenstände sind genauso wie normale Gegenstände zu finden, aber Du kannst das Ergebnis erst zum Tageswechsel sehen. Dann wird alles, was jeder Teilnehmer gefunden hat zusammengerechnet und dem Quest zugerechnet.",
+"bossColl2" : "Nur Teilnehmer können Gegenstände sammeln und bekommen ihren Anteil an der Belohnung. Wenn du während dem Quest stirbst, wirst Du vom Quest ausgeschlossen. Wenn jeder Teilnehmer einmal stirbt gilt das Quest als fehlgeschlagen.",
+"abort" : "Abbrechen",
+
+"_commentscrolls" : "SCROLLS",
+"scrolls" : "Quest Rollen",
+"noScrolls" : "Du hast im Moment keine Quest Rollen.",
+"scrollsText1" : "Quests erfordern Gruppen. Wenn Du ein Quest allein erfüllen willst, dann musst Du ",
+"scrollsText2" : "eine leere Gruppe erstellen",
+"scrollsPre" : "Du musst das vorhergehende Quest erfüllen um dieses Quest anzutreten!",
+
+"_commentachievement" : "QUEST ACHIEVEMENT",
+    "completedQuests" : "Hat die folgenden Quests abgeschlossen",
+
+  "_commentinventoryctrljs" : "INVENTORYCTRL.JS STRINGS",
+   "mustComplete" : "Du musst vorher das <%= quest %> Quest abschließen.",
+   "mustLevel" : "Du musst Level <%= level %> sein.",
+   "mustLvlQuest" : "Du musst Level <%= level %> sein um dieses Quest zu erwerben!",
+
+  "_commentgroupsctrljs" : "GROUPSCTRL.JS STRINGS",
+   "sureAbort" : "Bist Du sicher, dass Du dieses Quest abbrechen willst? Das Quest wird für alle Teilnehmer abgebrochen und der gesamte Fortschritt ist verloren.",
+   "doubleSureAbort" : "Bist Du wirklich wirklich sicher? Sei' ganz sicher, dass sie Dich nicht für immer hassen werden!"
+}
