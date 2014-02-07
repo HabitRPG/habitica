@@ -1,5 +1,4 @@
 // Only do the minimal amount of work before forking just in case of a dyno restart
-var cluster = require("cluster");
 var _ = require('lodash');
 var nconf = require('nconf');
 var utils = require('./utils');
@@ -8,23 +7,10 @@ var logging = require('./logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 
-if (cluster.isMaster && (isDev || isProd)) {
-  // Fork workers.
-  _.times(require('os').cpus().length, function(){
-    cluster.fork();
-  });
-
-  cluster.on('disconnect', function(worker, code, signal) {
-    var w = cluster.fork(); // replace the dead worker
-    logging.info('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
-  });
-
-} else {
   require('coffee-script'); // remove this once we've fully converted over
   var express = require("express");
   var http = require("http");
   var path = require("path");
-  var domainMiddleware = require('domain-middleware');
   var swagger = require("swagger-node-express");
 
   var middleware = require('./middleware');
@@ -91,13 +77,7 @@ if (cluster.isMaster && (isDev || isProd)) {
 
   // ------------  Server Configuration ------------
 
-  domainMiddleware({
-    server: server,
-    killTimeout: 3000
-  }),
-
   app.set("port", nconf.get('PORT'));
-
   middleware.apiThrottle(app);
   if (!isProd) app.use(express.logger("dev"));
   app.use(express.compress());
@@ -125,11 +105,6 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
   app.use(express['static'](path.join(__dirname, "/../public")));
 
-  // development only
-  //if ("development" === app.get("env")) {
-  //  app.use(express.errorHandler());
-  //}
-
   // Custom Directives
   app.use(require('./routes/pages').middleware);
   app.use(require('./routes/auth').middleware);
@@ -137,11 +112,8 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use('/api/v2', v2);
   app.use('/api/v1', require('./routes/apiv1').middleware);
   app.use('/export', require('./routes/dataexport').middleware);
-
-  app.use(utils.crashWorker(server,mongoose));
-  app.use(utils.errorHandler);
-
   require('./routes/apiv2.coffee')(swagger, v2);
+  app.use(middleware.errorHandler);
 
   server.on('request', app);
   server.listen(app.get("port"), function() {
@@ -149,4 +121,3 @@ if (cluster.isMaster && (isDev || isProd)) {
   });
 
   module.exports = server;
-}

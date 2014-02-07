@@ -10,7 +10,7 @@ angular.module("notificationServices", [])
         top_offset: 20,
         align: 'right', //('left', 'right', or 'center')
         width: 250, //(integer, or 'auto')
-        delay: 7000,
+        delay: (type=='error') ? 0 : 7000,
         allow_dismiss: true,
         stackup_spacing: 10 // spacing between consecutive stacecked growls.
       });

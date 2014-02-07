@@ -137,5 +137,8 @@ habitrpg.controller('NotificationCtrl',
     $rootScope.$on('responseError', function(ev, error){
       Notification.error(error);
     });
+    $rootScope.$on('responseText', function(ev, error){
+      Notification.text(error);
+    });
   }
 ]);
