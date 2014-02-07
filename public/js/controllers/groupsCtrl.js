@@ -169,12 +169,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     $scope.deleteChatMessage = function(group, message){
       if(message.uuid === User.user.id || (User.user.backer && User.user.contributor.admin)){
         var previousMsg = (group.chat && group.chat[0]) ? group.chat[0].id : false;
-        Groups.Group.deleteChatMessage({gid:group._id, messageId:message.id, previousMsg:previousMsg}, undefined, function(data){
-          if(data.chat) group.chat = data.chat;
+        if(confirm('Are you sure you want to delete this message?')){
+          Groups.Group.deleteChatMessage({gid:group._id, messageId:message.id, previousMsg:previousMsg}, undefined, function(data){
+            if(data.chat) group.chat = data.chat;
 
-          var i = _.findIndex(group.chat, {id: message.id});
-          if(i !== -1) group.chat.splice(i, 1);          
-        });
+            var i = _.findIndex(group.chat, {id: message.id});
+            if(i !== -1) group.chat.splice(i, 1);
+          });
+        }
       }
     }
 
