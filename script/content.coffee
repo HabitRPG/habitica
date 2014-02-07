@@ -65,6 +65,7 @@ gear =
       1: text: "Crystal Blade", notes:'Its glittering facets tell the tale of a hero. Increases all attributes by 6.', str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
       2: text: "Stephen Weber's Shaft of the Dragon", notes:'Feel the potency of the dragon surge from within! Increases STR and PER by 25 each.', str: 25, per: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
       3: text: "Mustaine's Milestone Mashing Morning Star", notes:"Meetings, monsters, malaise: managed! Mash! Increases STR, INT, and CON by 17 each.", str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      critical: text: "Critical Hammer of Bug-Crushing", notes:"This champion slew a critical Github foe where many warriors fell. Fashioned from the bones of Bug, this hammer deals a mighty critical hit. Increases STR and PER by 40 each.", str: 40, per: 40, value:200, canOwn: ((u)-> !!u.contributor?.critical)
 
       # Winter event gear
       yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: "Yeti-Tamer Spear", notes:'Limited Edition 2013 Winter Gear! This spear allows its user to command any yeti. Increases STR by 15.', str: 15, value:90

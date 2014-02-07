@@ -93,6 +93,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
 
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'sprite', 'cssmin', 'browserify']);
+  grunt.registerTask('default', ['cssmin', 'browserify']);
+  grunt.registerTask('full', ['clean', 'sprite', 'cssmin', 'browserify']);
 
 };

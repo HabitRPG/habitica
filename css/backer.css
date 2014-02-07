@@ -12,6 +12,15 @@
   height: 90px;
 }
 
+/* Critical */
+.weapon_special_critical {
+  background: url("../img/sprites/backer-only/weapon_special_critical.gif") no-repeat;
+  width: 90px;
+  height: 90px;
+  margin-left:-12px;
+  margin-top:12px;
+}
+
 /* This is oversized until a move to 105 avatar box happens*/
 .weapon_special_1 {
   height: 105px;

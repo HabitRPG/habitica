@@ -9449,6 +9449,18 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
             return +((_ref = u.backer) != null ? _ref.tier : void 0) >= 300;
           })
         },
+        critical: {
+          text: "Critical Hammer of Bug-Crushing",
+          notes: "This champion slew a critical Github foe where many warriors fell. Fashioned from the bones of Bug, this hammer deals a mighty critical hit. Increases STR and PER by 40 each.",
+          str: 40,
+          per: 40,
+          value: 200,
+          canOwn: (function(u) {
+            var _ref;
+
+            return !!((_ref = u.contributor) != null ? _ref.critical : void 0);
+          })
+        },
         yeti: {
           event: events.winter,
           canOwn: (function(u) {
