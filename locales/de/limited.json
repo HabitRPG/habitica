@@ -1,0 +1,14 @@
+{
+"_commentlimited" : "LIMITED EDITION STRINGS",
+
+"limitedEdition" : "Limited Edition",
+"winterColors" : "Winter Farben",
+"annoyingFriends" : "Nervige Freunde",
+   "annoyingFriendsText" : "Hat sich <%= snowballs %> Schneebälle von Gruppenmitgliedern eingefangen.",
+"limited31Jan" : "Verfügbar bis zum 31.Januar (aber sobald erworben, dauerhaft verfügbar in deinem Inventar).",
+
+  "_limitedpets" : "LIMITED EDITION PETS",
+  "polarBear" : "Eisbär",
+"turkey" : "Truthahn",
+"polarBearPup" : "Eisbärenjunges"
+}
