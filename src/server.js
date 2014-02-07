@@ -10,7 +10,7 @@ var isDev = nconf.get('NODE_ENV') === 'development';
 
 if (cluster.isMaster && (isDev || isProd)) {
   // Fork workers.
-  _.times(require('os').cpus().length, function(){
+  _.times(_.min([require('os').cpus().length,2]), function(){
     cluster.fork();
   });
 
