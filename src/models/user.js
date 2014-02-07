@@ -68,7 +68,8 @@ var UserSchema = new Schema({
     level: Number, // 1-7, see https://trello.com/c/wkFzONhE/277-contributor-gear
     admin: Boolean,
     text: String, // Artisan, Friend, Blacksmith, etc
-    contributions: String // a markdown textarea to list their contributions + links
+    contributions: String, // a markdown textarea to list their contributions + links
+    critical: String
   },
 
   balance: {type: Number, 'default':0},
