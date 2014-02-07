@@ -1,0 +1,75 @@
+{
+"_commentgeneric" : "GENERIC STRINGS",	
+
+ "languageName" : "Deutsch",
+  "stringNotFound" : "String '<%= string %>' nicht gefunden.",
+  "titleIndex" : "HabitRPG | Dein Leben, das Rollenspiel",
+  "habitica" : "Habitica",
+
+  "formattingMarkdown" : "Markdown Formatierung erlaubt",
+
+  "achievements":"Erfolge",
+  "modalAchievement" : "Erfolg!",
+"special" : "Spezial",
+"market": "Marktplatz",
+
+"all" : "Alle",
+"none" : "Nichts",
+  "or" : "Oder",
+  "and" : "und",
+
+  "loginSuccess" : "Login erfolgreich!",
+  "youSure" : "Bist Du sicher?",
+
+  "_commentbuttons": "BUTTONS",
+    "submit":"Absenden",
+    "close":"Schließen",
+    "saveAndClose": "Speichern & Schließen",
+    "cancel":"Abbrechen",
+    "ok" : "Okay",
+    "add" : "Hinzufügen",
+    "undo" : "Rückgängig",
+    "continue" : "Weiter",
+    "accept" : "Akzeptieren",
+    "reject" : "Ablehnen",
+    "neverMind" : "Vergiss es",
+    "buyMoreGems" : "Mehr Edelsteine kaufen",
+    "notEnoughGems" : "Nicht genug Edelsteine",
+    "delete": "Löschen",
+
+"_commentgems" : "GEMS",
+"gems" : "Edelsteine",
+"buyMoreGems" : "Mehr Edelsteine kaufen",
+"notEnoughGems" : "Nicht genug Edelsteine",
+"gemsWhatFor" : "Benötigt um Gegenstände und Dienste zu kaufen (Eier, Schlüpftränke, Stärkungstränke, usw.). Du musst diese Features freischalten, bevor Du Edelsteine auf sie verwenden kannst.",
+
+"_commentmembers" : "MEMBERS",
+"_commentachievement" : "MEMBER ACHIEVEMENT",
+"veteran" : "Veteran",
+"veteranText" : "Hat Habit den Grauen (unsere pre-Angular Webseite) überlebt und hat viele Kampfesnarben von den Bugs davongetragen.",
+      "originalUser" : "Ursprünglicher Benutzer!",
+        "originalUserText" : "Einer der <em>sehr</em> frühen Teilnehmer, entspricht einem Alpha-Tester!",
+      "habitBirthday" : "2014 HabitRPG Birthday Party",
+        "habitBirthdayText" : "Hat an der HabitRPG Birthday Party von 2014 teilgenommen.",
+
+"_commentmodals" : "MEMBERS MODALS",
+"memberSince" : " - Teilnehmer seit ",
+"lastLoggedIn" : " - Zuletzt eingeloggt ",
+
+  "_commentrootctrljs" : "ROOTCTRL.JS STRINGS",
+    "notPorted" : "Dieses Feature wurde noch nicht von der ursprünglichen Seite geportet.",
+
+  "_commentinventoryctrljs" : "INVENTORYCTRL.JS STRINGS",
+    "buyThis" : "Kaufe <%= text %> mit <%= price %> Deiner <%= gems %> Edelsteine?",
+
+  "_commentauthctrljs" : "AUTHCTRL.JS STRINGS",
+    "untilNoFace" : "Bis wir Facebook eingegliedert haben, benutze unsere UUID and API Tokens um Dich einzuloggen (zu finden unter https://habitrpg.com > Optionen > Einstellungen).",
+    "noReachServer" : "Der Server ist momentan nicht erreichbar, versuche es später noch einmal",
+    "errorUpCase" : "FEHLER: ",
+    "newPassSent" : "Neues Passwort wurde gesendet.",
+
+  "_commentappjs" : "APP.JS STRINGS",
+    "serverUnreach" : "Server momentan nicht erreichbar.",
+    "seeConsole" : " (Mehr Details in der Chrome Konsole).",
+    "error" : "FEHLER"
+}
