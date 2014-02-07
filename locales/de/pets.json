@@ -1,0 +1,40 @@
+{
+"_commentpets" : "PETS RELATED STRINGS",
+
+  "pets" : "Haustiere",
+    "petsFound":"Haustiere gefunden",
+    "rarePets": "Seltene Haustiere",
+"mounts" : "Reittiere",
+"mountsTamed" : "Reittiere gezähmt",
+"rareMounts" : "Seltene Reittiere",
+"etherealLion" : "Ethärischer Löwe",
+"petsFound" : "Haustiere gefunden",
+"veteranWolf" : "Veteran-Wolf",
+"cerberusPup" : "Cerberus-Welpe",
+"hydra" : "Hydra",
+"rarePetPop1" : "Klicke auf die goldene Pfote um zu sehen, wie du diese seltenen Haustiere erhalten kannst indem du bei HabitRPG mitwirkst!",
+"rarePetPop2" : "Wie erhält man dieses Haustier?",
+  "eggs": "Eier",
+    "noEggs": "Du hast im Moment keine Eier.",
+  "hatchingPotions": "Schlüpftränke",
+    "noHatchingPotions": "Du hast im Moment keine Schlüpftränke.",
+"inventoryText" : "Klicke ein Ei um die anwendbaren Tränke grün hervorgehoben zu sehen und klicke auf einen hervorgehobenen Trank um dein Haustier auszubrüten. Falls kein Trank hervorgehoben wird, klicke auf das Ei um es abzuwählen und klicke diesmal zuerst auf den Trank um die Eier hervorzuheben. Du kannst überflüssige Gegenstände auch an Alexander den Kaufmann verkaufen.",
+"food" : "Futter",
+"noFood" : "Du hast im Moment kein Futter.",
+
+"_commentachievement" : "PET ACHIEVEMENT",
+    "beastAchievement" : "Du hast den \"Meister aller Bestien\" Erfolg dafür erhalten, dass du alle Haustiere gesammelt hast!",
+    "beastMastName" : "Meister aller Bestien",
+      "beastMastText" : "Hat alle 90 Haustiere gesammelt (unglaublich schwer, dieser Spieler verdient Respekt!)",
+
+  "_commentdrops" : "DROPS MODALS",
+    "dropsEnabled" : "Drops Enabled!",
+      "itemDrop" : "Du hast einen Gegenstand gefunden!",
+      "firstDrop" : "Du hast das Drop System freigeschaltet! Wenn du von jetzt an Aufgaben erfüllst, hast du eine kleine Chance einen Gegenstand zu finden. Du hast gerade ein <strong><%= eggText %> Ei</strong>! <%= eggNotes %> gefunden",
+      "useGems" : "Wenn Du auf ein bestimmtes Haustier versessen bist und nicht länger warten kannst, benutzt Edelsteine unter <strong>Optionen > Inventar</strong> um es zu kaufen!",
+
+  "_commentinventoryctrl.js" : "INVENTORYCTRL.JS STRINGS",
+    "hatchAPot" : "Brüte ein <%= potion %> <%= egg %> aus?",
+    "feedPet" : "'Füttere <%= name %> <%= article %> <%= text %>?",
+    "useSaddle" : "Einen magischen Sattel auf <%= pet %> anwenden?"
+}
