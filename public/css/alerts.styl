@@ -16,6 +16,14 @@
 .wide-popover
   max-width: 400px
 
+// Small alerts
+alert-sm-mixin()
+  padding-top: 8px
+  padding-bottom: 8px
+
+.alert-sm
+  alert-sm-mixin()
+
 #notification-area
   position: fixed
   top: 0
@@ -23,8 +31,7 @@
   z-index: 1061
 
   .alert
-    padding-top: 8px
-    padding-bottom: 8px
+    alert-sm-mixin()
 
 // variables
 
