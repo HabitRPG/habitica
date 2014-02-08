@@ -400,7 +400,8 @@ api.spells =
       notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception."
       cast: (user, target) ->
         user.stats.buffs.stealth ?= 0
-        user.stats.buffs.stealth += Math.ceil(user._statsComputed.per * .03)
+        ## scales to user's # of dailies; maxes out at 100% at 100 per ##
+        user.stats.buffs.stealth += Math.ceil(user.dailys.length * user._statsComputed.per / 100)
 
   healer:
     heal:
