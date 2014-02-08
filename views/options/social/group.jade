@@ -10,7 +10,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
     .col-md-4
 
       // ------ Bosses -------
-      .panle.panel-default(bindonce='group', ng-if='group.type==="party" && group.quest.key')
+      .panel.panel-default(bindonce='group', ng-if='group.type==="party" && group.quest.key')
         .panel-heading
           h3.panel-title(ng-if='group.quest.active==false')=env.t('questInvitation') + '{{Content.quests[group.quest.key].text}}'
           h3.panel-title(ng-if='group.quest.active==true') {{Content.quests[group.quest.key].text}}

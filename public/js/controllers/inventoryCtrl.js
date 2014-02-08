@@ -148,7 +148,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       if (!completedPrevious)
         return $scope.purchase("quests", item);
       $rootScope.selectedQuest = item;
-      $rootScope.openModal('showQuest', 'buyQuest');
+      $rootScope.openModal('buyQuest', 'InventoryCtrl');
     }
   }
 ]);

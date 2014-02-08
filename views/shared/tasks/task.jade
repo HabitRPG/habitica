@@ -7,7 +7,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
       span(ng-class='{"label label-danger":moment(task.date).isBefore(_today, "days")}') {{moment(task.date).format('MM/DD')}}
     // Streak
     | &nbsp;
-    span(ng-show='task.streak') {{task.streak}}
+    span(ng-show='task.streak') {{task.streak}}&nbsp;
       span(tooltip=env.t('streakCounter'))
         span.glyphicon.glyphicon-forward
         | &nbsp;
@@ -16,7 +16,6 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
     span(ng-if='!obj._locked')
       a.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}', ng-click='collapseChecklist(task)', style='margin:1px')
         {{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
-        | &nbsp;
       span.glyphicon.glyphicon-tags(tooltip='{{Shared.appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
       // edit
       a(ng-hide='task._editing', ng-click='editTask(task)', tooltip=env.t('edit'))
