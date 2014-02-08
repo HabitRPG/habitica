@@ -73,6 +73,13 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
   ])
 
   .controller('AutocompleteCtrl', ['$scope', '$timeout', 'Groups', 'User', 'InputCaret', function ($scope,$timeout,Groups,User,InputCaret) {
+
+    $scope.indexOfQuery = function(query) {
+        return function(user) {
+            return user.username.indexOf(query);
+        };
+    };
+
     $scope.clearUserlist = function() {
       $scope.response = [];
       $scope.usernames = [];
