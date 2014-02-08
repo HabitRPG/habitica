@@ -17,9 +17,9 @@
     "jquery": "~2.1.0",
     "jquery.cookie": "~1.4.0",
     "jquery-ui": "~1.10.3",
-    "angular": "~1.2.1",
-    "angular-sanitize": "~1.2.1",
-    "angular-resource": "~1.2.1",
+    "angular": "~1.2.11",
+    "angular-sanitize": "~1.2.11",
+    "angular-resource": "~1.2.11",
     "angular-ui-utils": "~0.1.0",
     "angular-ui-select2": "https://github.com/angular-ui/ui-select2.git#4469fd7a32eba2e28d5e3dd319b49e1ad090b167",
     "angular-bootstrap": "~0.10.0",
@@ -42,6 +42,9 @@
     "ngInfiniteScroll": "~1.0.0"
   },
   "devDependencies": {
-    "angular-mocks": "~1.2.1"
+    "angular-mocks": "~1.2.11"
+  },
+  "resolutions": {
+    "angular": "~1.2.11"
   }
 }
