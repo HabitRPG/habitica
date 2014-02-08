@@ -117,7 +117,7 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
 
       // Checklists
       div(ng-if='!$state.includes("options.social.challenges")')
-        button.btn.btn-deafult.btn-sm(ng-if='!task.checklist[0] && (task.type=="daily" || task.type=="todo")',ng-click='addChecklist(task)')
+        button.btn.btn-default.btn-sm(ng-if='!task.checklist[0] && (task.type=="daily" || task.type=="todo")',ng-click='addChecklist(task)')
           span.glyphicon.glyphicon-tasks
           | &nbsp; &nbsp;
           =env.t('addChecklist')
