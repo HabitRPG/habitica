@@ -18,6 +18,7 @@
 }
 
 .inline-gems {
+  vertical-align: middle;
   margin-left: 0px;
   display: inline-block;
 }
@@ -29,10 +30,6 @@
 
 /* FIXME figure out how to handle customize menu!! */
 /*.customize-menu .f_head_0       {width: 60px; height: 60px; background-position: -1917px -9px;}*/
-
-.achievements-container {
-  margin: 20px;
-}
 
 .achievement {
   float:left;

@@ -10428,7 +10428,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           if ((_ref = (_base = user.stats.buffs).stealth) == null) {
             _base.stealth = 0;
           }
-          return user.stats.buffs.stealth += Math.ceil(user._statsComputed.per * .03);
+          return user.stats.buffs.stealth += Math.ceil(user.dailys.length * user._statsComputed.per / 100);
         }
       }
     },
