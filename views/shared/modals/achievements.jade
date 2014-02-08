@@ -6,7 +6,7 @@ script(id='modals/achievements/streak.html', type='text/ng-template')
     .achievement.achievement-thermometer
     =env.t('streakerAchievement')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='$close()')=env.t('ok')
+    button.btn.btn-default(ng-click='$close()')=env.t('ok')
 
 // Max Gear
 script(id='modals/achievements/ultimateGear.html', type='text/ng-template')
@@ -16,7 +16,7 @@ script(id='modals/achievements/ultimateGear.html', type='text/ng-template')
     .achievement.achievement-armor
     =env.t('gearAchievement')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='$close()')=env.t('ok')
+    button.btn.btn-default(ng-click='$close()')=env.t('ok')
 
 // Beast Master
 script(id='modals/achievements/beastMaster.html', type='text/ng-template')
@@ -27,7 +27,7 @@ script(id='modals/achievements/beastMaster.html', type='text/ng-template')
       .achievement.achievement-rat
       =env.t('beastAchievement')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='$close()')=env.t('ok')
+    button.btn.btn-default(ng-click='$close()')=env.t('ok')
 
 // Contributor
 // activated by user.flags.contributor
@@ -40,7 +40,7 @@ script(id='modals/achievements/contributor.html', type='text/ng-template')
       !=env.t('contribModal', {name: "{{user.profile.name}}", level: "{{user.contributor.level}}"})
       a(href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank')=env.t('contribLink')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='set({"flags.contributor":false}); $close()')=env.t('ok')
+    button.btn.btn-default(ng-click='set({"flags.contributor":false}); $close()')=env.t('ok')
 
 //Rebirth
 script(id='modals/achievements/rebirth.html', type='text/ng-template')
@@ -50,4 +50,4 @@ script(id='modals/achievements/rebirth.html', type='text/ng-template')
     .achievement.achievement-sun
     =env.t('rebirthAchievement', {number: "{{user.achievements.rebirths}}", level: "{{user.achievements.rebirthLevel}}"})
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='$close()')=env.t('ok')
+    button.btn.btn-default(ng-click='$close()')=env.t('ok')

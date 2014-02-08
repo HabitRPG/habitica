@@ -29,4 +29,4 @@ script(id='modals/buyGems.html', type='text/ng-template')
       div(ng-include="'partials/options.settings.subscription.html'")
 
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='$close()')=env.t('cancel')
+    button.btn.btn-default(ng-click='$close()')=env.t('cancel')

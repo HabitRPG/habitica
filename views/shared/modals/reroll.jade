@@ -7,12 +7,12 @@ script(type='text/ng-template', id='modals/reroll.html')
     p=env.t('fortifyText')
 
   .modal-footer
-    button.btn.btn-default.btn-large.cancel(ng-click='$close()')=env.t('neverMind')
+    button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
     span(ng-if='user.balance < 1')
-      a.btn.btn-success.btn-large(ng-click='openModal("buyGems")')=env.t('buyMoreGems')
+      a.btn.btn-success(ng-click='openModal("buyGems")')=env.t('buyMoreGems')
       span.gem-cost=env.t('notEnoughGems')
     span(ng-if='user.balance >= 1', ng-controller='SettingsCtrl')
-      a.btn.btn-danger.btn-large(ng-click='$close(); reroll()')=env.t('fortify')
+      a.btn.btn-danger(ng-click='$close(); reroll()')=env.t('fortify')
       span.gem-cost
         | 4&nbsp;
         = env.t('gems')

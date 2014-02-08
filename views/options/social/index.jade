@@ -38,10 +38,10 @@ script(type='text/ng-template', id='partials/options.social.guilds.public.html')
           li='{{group.memberCount}} ' + env.t('members')
           li
             // join / leave
-            a.btn.btn-small.btn-danger(ng-show='group._isMember', ng-click='clickLeave(group, $event)')
+            a.btn.btn-sm.btn-danger(ng-show='group._isMember', ng-click='clickLeave(group, $event)')
               span.glyphicon.glyphicon-ban-circle
               =env.t('leave')
-            a.btn.btn-small.btn-success(ng-hide='group._isMember', ng-click='join(group)')
+            a.btn.btn-sm.btn-success(ng-hide='group._isMember', ng-click='join(group)')
               span.glyphicon.glyphicon-ok
               =env.t('join')
         h4 {{group.name}}

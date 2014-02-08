@@ -24,8 +24,8 @@ div(ng-if='profile.contributor.level || user._id == profile._id')
   .achievement.achievement-firefox(ng-if='profile.contributor.level')
   div(ng-class='{muted: !profile.contributor.level}')
     h5
-      span.label(ng-if='profile.contributor.level', class='label-contributor-{{profile.contributor.level}}') {{contribText(profile.contributor, profile.backer)}}
-      span.label(ng-if='!profile.contributor.level')=env.t('contribName')
+      span.label.label-default(ng-if='profile.contributor.level', class='label-contributor-{{profile.contributor.level}}') {{contribText(profile.contributor, profile.backer)}}
+      span.label.label-default(ng-if='!profile.contributor.level')=env.t('contribName')
     small
       =env.t('contribText')
       a(href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG', target='_blank')=env.t('readMore') 

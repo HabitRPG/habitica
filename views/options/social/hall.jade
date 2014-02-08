@@ -68,11 +68,11 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
       tr(ng-repeat='hero in heroes')
         td
           span(ng-if='hero.contributor.admin',popover=env.t('gamemaster'),popover-trigger='mouseenter',popover-placement='right')
-            a.label(class='label-contributor-{{hero.contributor.level}}', ng-class='{"label-npc": hero.backer.npc}', ng-click='clickMember(hero._id, true)')
+            a.label.label-default(ng-class='userLevelStyle(hero)', ng-click='clickMember(hero._id, true)')
               | {{hero.profile.name}}&nbsp;
               span.glyphicon.glyphicon-star
           span(ng-if='!hero.contributor.admin')
-            a.label(class='label-contributor-{{hero.contributor.level}}', ng-class='{"label-npc": hero.backer.npc}', ng-click='clickMember(hero._id, true)') {{hero.profile.name}}
+            a.label.label-default(ng-class='userLevelStyle(hero)', ng-click='clickMember(hero._id, true)') {{hero.profile.name}}
         td(ng-if='user.contributor.admin') {{hero._id}}
         td {{hero.contributor.level}}
         td {{hero.contributor.text}}
@@ -89,6 +89,6 @@ script(type='text/ng-template', id='partials/options.social.hall.patrons.html')
     tbody
       tr(ng-repeat='patron in patrons')
         td
-          a.label(class='label-contributor-{{patron.contributor.level}}', ng-class='{"label-npc": patron.backer.npc}', ng-click='clickMember(patron._id, true)') {{patron.profile.name}}
+          a.label.label-default(ng-class='userLevelStyle(patron)', ng-click='clickMember(patron._id, true)') {{patron.profile.name}}
         td(ng-if='user.contributor.admin') {{patron._id}}
         td {{patron.backer.tier}}

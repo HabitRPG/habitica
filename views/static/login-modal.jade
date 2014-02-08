@@ -47,7 +47,7 @@ script(id='modals/login.html', type='text/ng-template')
                   input.form-control(type='text', name='email', placeholder=env.t('email') , ng-model='passwordResetEmail')
                   //span.help-inline {.errors.passwordReset}
                 .form-group
-                  input.btn(type='submit', value=env.t('submit'))
+                  input.btn.btn-default(type='submit', value=env.t('submit'))
 
       .tab-pane#register-tab
         form(ng-submit='register()', name='registrationForm')

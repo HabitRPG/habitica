@@ -1,5 +1,5 @@
 script(type='text/ng-template', id='partials/options.social.challenges.detail.close.html')
-  a.btn.btn-small.btn-danger(ng-click="delete(closingChal)")=env.t('delete')
+  a.btn.btn-sm.btn-danger(ng-click="delete(closingChal)")=env.t('delete')
   h5= '- ' + env.t('or') + ' -'
   select(ui-select2, ng-required=true, ng-model='closingChal.winner', data-placeholder=env.t('selectWinner'), ng-change='selectWinner(closingChal)', )
     option(value='')
@@ -18,19 +18,19 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.me
         .modal-body
           habitrpg-tasks(main=false)
         .modal-footer
-          a.btn(ng-click='$state.go("^")')=env.t('close')
+          a.btn.btn-default(ng-click='$state.go("^")')=env.t('close')
 
 script(type='text/ng-template', id='partials/options.social.challenges.detail.html')
   // Edit button
   div(bindonce='challenge', ng-if='challenge.leader==user._id')
     div(ng-hide='challenge._locked==false')
-      button.btn.btn-small.btn-default(ng-click='challenge._locked = false')=env.t('edit')
-      button.btn.btn-small.btn-warning(ng-click='close(challenge, $event)', tooltip=env.t('deleteOrSelect'))=env.t('endChallenge')
+      button.btn.btn-sm.btn-default(ng-click='challenge._locked = false')=env.t('edit')
+      button.btn.btn-sm.btn-warning(ng-click='close(challenge, $event)', tooltip=env.t('deleteOrSelect'))=env.t('endChallenge')
 
     form(ng-show='challenge._locked==false')
       .form-group(ng-show='challenge._locked==false')
-        button.btn.btn-small.btn-primary(ng-click='save(challenge)')=env.t('save')
-        button.btn.btn-small.btn-default(ng-click='challenge._locked=true')=env.t('cancel')
+        button.btn.btn-sm.btn-primary(ng-click='save(challenge)')=env.t('save')
+        button.btn.btn-sm.btn-default(ng-click='challenge._locked=true')=env.t('cancel')
       .form-group
         input.form-control(type='text', ng-model='challenge.name')
       .form-group
@@ -46,7 +46,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
 
   // Member List
   div(bindonce='challenge', ng-if='challenge.members.length > 0')
-    a.btn.btn-primary.btn-small.pull-right(href='/api/v2/challenges/{{challenge._id}}/csv')
+    a.btn.btn-primary.btn-sm.pull-right(href='/api/v2/challenges/{{challenge._id}}/csv')
       =env.t('exportChallengeCSV')
     h3=env.t('hows')
     menu
@@ -70,8 +70,8 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
         h3=env.t('filter') + ':'
         h4=env.t('groups')
         ul.list-unstyled
-          a.btn.btn-mini.pull-left(ng-click='selectAll()')=env.t('all')
-          a.btn.btn-mini(ng-click='selectNone()')=env.t('none')
+          a.btn.btn-xs.btn-default.pull-left(ng-click='selectAll()')=env.t('all')
+          a.btn.btn-xs.btn-default(ng-click='selectNone()')=env.t('none')
         br
         .checkbox(ng-repeat='group in groupsFilter')
           label
@@ -154,10 +154,10 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                       td=env.t('prize')
                 li
                   // leave / join
-                  a.btn.btn-small.btn-danger(ng-show='challenge._isMember', ng-click='clickLeave(challenge, $event)')
+                  a.btn.btn-sm.btn-danger(ng-show='challenge._isMember', ng-click='clickLeave(challenge, $event)')
                     span.glyphicon.glyphicon-ban-circle
                     =env.t('leave')
-                  a.btn.btn-small.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
+                  a.btn.btn-sm.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
                     span.glyphicon.glyphicon-ok
                     =env.t('join')
               a.accordion-toggle(ng-click='toggle(challenge._id)') {{challenge.name}}

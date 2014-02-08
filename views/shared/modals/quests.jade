@@ -19,7 +19,7 @@ script(type='text/ng-template', id='modals/questCompleted.html')
     p {{Content.quests[user.party.quest.completed].completion}}
     quest-rewards(key='{{user.party.quest.completed}}', header=env.t('youReceived'))
   .modal-footer
-    button.btn.btn-default.btn-primary(ng-click='set({"party.quest.completed":""}); $close()')=env.t('accept')
+    button.btn.btn-primary(ng-click='set({"party.quest.completed":""}); $close()')=env.t('accept')
 
 script(type='text/ng-template', id='modals/showQuest.html')  
   .modal-header
@@ -33,8 +33,8 @@ script(type='text/ng-template', id='modals/showQuest.html')
       .npc_ian.pull-left
       p=env.t('questSend')
   .modal-footer
-    button.btn.btn-default.btn-small.btn-cancel(ng-click='closeQuest(); $close()')=env.t('cancel')
-    button.btn.btn-default.btn-primary(ng-click='questInit(); $close()')=env.t('inviteParty')
+    button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('cancel')
+    button.btn.btn-primary(ng-click='questInit(); $close()')=env.t('inviteParty')
 
 script(type='text/ng-template', id='modals/buyQuest.html')  
   .modal-header
@@ -44,8 +44,8 @@ script(type='text/ng-template', id='modals/buyQuest.html')
     div(ng-bind-html='selectedQuest.notes')
     quest-rewards(key='{{selectedQuest.key}}')
   .modal-footer
-    button.btn.btn-large.cancel(ng-click='closeQuest(); $close()')=env.t('neverMind')
-    button.btn.btn-default.btn-large.btn-primary(ng-click='purchase("quests", quest); closeQuest(); $close()')=env.t('buyQuest')
+    button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('neverMind')
+    button.btn.btn-primary(ng-click='purchase("quests", quest); closeQuest(); $close()')=env.t('buyQuest')
 
 script(type='text/ng-template', id='modals/questInvitation.html')  
   .modal-header
@@ -55,6 +55,6 @@ script(type='text/ng-template', id='modals/questInvitation.html')
     div(ng-bind-html='Content.quests[party.quest.key].notes')
     quest-rewards(key='{{party.quest.key}}')
   .modal-footer
-    button.btn.btn-default.btn-small.btn-cancel(ng-click='questHold = true; $close()')=env.t('askLater')
-    button.btn.btn-default.btn-small.btn-cancel(ng-click='party.$questReject(); $close()')=env.t('reject')
-    button.btn.btn-default.btn-primary(ng-click='party.$questAccept(); $close()')=env.t('accept')
+    button.btn.btn-default(ng-click='questHold = true; $close()')=env.t('askLater')
+    button.btn.btn-default(ng-click='party.$questReject(); $close()')=env.t('reject')
+    button.btn.btn-primary(ng-click='party.$questAccept(); $close()')=env.t('accept')

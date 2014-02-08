@@ -5,7 +5,7 @@ script(type='text/ng-template', id='modals/reset.html')
     p=env.t('resetText1')
     p=env.t('resetText2')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='$close();')=env.t('neverMind')
+    button.btn.btn-default(ng-click='$close();')=env.t('neverMind')
     button.btn.btn-danger(ng-click='$close(); reset()')=env.t('resetDo')
 
 script(type='text/ng-template', id='modals/restore.html')  
@@ -46,9 +46,9 @@ script(type='text/ng-template', id='modals/restore.html')
         label.control-label=env.t('fix21Streaks')
     //- This is causing too many problems for users
       h3=env.t('other')
-      a.btn.btn-small.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()')=env.t('triggerDay')
+      a.btn.btn-sm.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()')=env.t('triggerDay')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='$close()')=env.t('discardChanges')
+    button.btn.btn-default(ng-click='$close()')=env.t('discardChanges')
     button.btn.btn-primary(ng-click='restore(); $close();')=env.t('saveAndClose')
 
 script(type='text/ng-template', id='modals/delete.html')  
@@ -62,4 +62,4 @@ script(type='text/ng-template', id='modals/delete.html')
         input.form-control(type='text', ng-model='_deleteAccount')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
-    button.btn.btn-danger.btn-small(ng-disabled='_deleteAccount != "DELETE"', ng-click='$close(); delete()')=env.t('deleteDo')
+    button.btn.btn-danger(ng-disabled='_deleteAccount != "DELETE"', ng-click='$close(); delete()')=env.t('deleteDo')

@@ -10,4 +10,4 @@ script(type='text/ng-template', id='modals/dropsEnabled.html')
       span.item-drop-icon(class='Pet_Currency_Gem')
       span!=env.t('useGems')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='$close()')=env.t('close')
+    button.btn.btn-default(ng-click='$close()')=env.t('close')

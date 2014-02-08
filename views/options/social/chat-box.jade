@@ -4,7 +4,7 @@ form.chat-form(ng-submit='postChat(group,message.content)')
     span.user-list(ng-show='!isAtListHidden')
       ul.list-at-user
         li(bindonce='response', ng-repeat='user in response | filter:query.text | limitTo: 5', ng-click='autoComplete(user)')
-          span.username.label(class='label-contributor-{{user.contributor.level}}', ng-class='{"label-npc": user.backer.npc}') {{user.user}}
+          span.username.label.label-default(ng-class='userLevelStyle(user)') {{user.user}}
   .row
     .col-md-9
       include ../../shared/formatting-help

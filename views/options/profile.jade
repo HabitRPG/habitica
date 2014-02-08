@@ -8,8 +8,8 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
 
       h5=env.t('bodySize')
       .btn-group
-        button.btn.btn-small(ng-class='{active: user.preferences.size=="slim"}', ng-click='set({"preferences.size":"slim"})')=env.t('bodySlim')
-        button.btn.btn-small(ng-class='{active: user.preferences.size=="broad"}', ng-click='set({"preferences.size":"broad"})')=env.t('bodyBroad')
+        button.btn.btn-sm.btn-default(ng-class='{active: user.preferences.size=="slim"}', ng-click='set({"preferences.size":"slim"})')=env.t('bodySlim')
+        button.btn.btn-sm.btn-default(ng-class='{active: user.preferences.size=="broad"}', ng-click='set({"preferences.size":"broad"})')=env.t('bodyBroad')
 
       menu(type='list')
         li.customize-menu
@@ -21,7 +21,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
             each shirt in ['convict', 'cross', 'fire', 'horizon', 'ocean', 'purple', 'rainbow', 'redblue', 'thunder', 'tropical', 'zombie']
               button.customize-option(type='button', class='{{user.preferences.size}}_shirt_'+shirt, ng-class='{locked: !user.purchased.shirt.'+shirt+'}', ng-click='unlock("shirt.'+shirt+'")')
           menu
-            button.btn.btn-small.btn-primary(ng-hide="user.purchased.shirt.convict && user.purchased.shirt.cross && user.purchased.shirt.fire && user.purchased.shirt.horizon && user.purchased.shirt.ocean && user.purchased.shirt.purple && user.purchased.shirt.rainbow && user.purchased.shirt.redblue && user.purchased.shirt.thunder && user.purchased.shirt.tropical && user.purchased.shirt.zombie", ng-click='unlock("shirt.convict,shirt.cross,shirt.fire,shirt.horizon,shirt.ocean,shirt.purple,shirt.rainbow,shirt.redblue,shirt.thunder,shirt.tropical,shirt.zombie")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+            button.btn.btn-sm.btn-primary(ng-hide="user.purchased.shirt.convict && user.purchased.shirt.cross && user.purchased.shirt.fire && user.purchased.shirt.horizon && user.purchased.shirt.ocean && user.purchased.shirt.purple && user.purchased.shirt.rainbow && user.purchased.shirt.redblue && user.purchased.shirt.thunder && user.purchased.shirt.tropical && user.purchased.shirt.zombie", ng-click='unlock("shirt.convict,shirt.cross,shirt.fire,shirt.horizon,shirt.ocean,shirt.purple,shirt.rainbow,shirt.redblue,shirt.thunder,shirt.tropical,shirt.zombie")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
 
 
     .col-md-4
@@ -44,7 +44,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
             menu(label=env.t('rainbowColors'))
               each color in ['rainbow','yellow','green','purple','blue','TRUred']
                 button(type='button', ng-class='{locked: !user.purchased.hair.color.#{color}}', class='customize-option hair_bangs_1_#{color}', style='width: 40px; height: 40px;', ng-click='unlock("hair.color.#{color}")')
-          button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.color.rainbow && user.purchased.hair.color.yellow && user.purchased.hair.color.green && user.purchased.hair.color.purple && user.purchased.hair.color.blue && user.purchased.hair.color.TRUred', ng-click='unlock("hair.color.rainbow,hair.color.yellow,hair.color.green,hair.color.purple,hair.color.blue,hair.color.TRUred")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+          button.btn.btn-sm.btn-primary(ng-hide='user.purchased.hair.color.rainbow && user.purchased.hair.color.yellow && user.purchased.hair.color.green && user.purchased.hair.color.purple && user.purchased.hair.color.blue && user.purchased.hair.color.TRUred', ng-click='unlock("hair.color.rainbow,hair.color.yellow,hair.color.green,hair.color.purple,hair.color.blue,hair.color.TRUred")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
 
           h5=env.t('bodyHair')
           // Bangs
@@ -63,7 +63,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
                   when true:  button(class='hair_base_#{k}_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":#{k}})')
                   when false: button(class='hair_base_#{k}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base.#{k}}', ng-click='unlock("hair.base.#{k}")')
 
-          button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.base.2 && user.purchased.hair.base.4 && user.purchased.hair.base.5 && user.purchased.hair.base.6 && user.purchased.hair.base.7 && user.purchased.hair.base.8', ng-click='unlock("hair.base.2,hair.base.4,hair.base.5,hair.base.6,hair.base.7,hair.base.8")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+          button.btn.btn-sm.btn-primary(ng-hide='user.purchased.hair.base.2 && user.purchased.hair.base.4 && user.purchased.hair.base.5 && user.purchased.hair.base.6 && user.purchased.hair.base.7 && user.purchased.hair.base.8', ng-click='unlock("hair.base.2,hair.base.4,hair.base.5,hair.base.6,hair.base.7,hair.base.8")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
 
           h5=env.t('bodyFacialHair')
 
@@ -81,7 +81,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
               each num in [1,2]
                 button(class='hair_mustache_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.mustache.#{num}}', ng-click='unlock("hair.mustache.#{num}")')
 
-          button.btn.btn-small.btn-primary(ng-hide='user.purchased.hair.mustache.1 && user.purchased.hair.mustache.2 && user.purchased.hair.beard.1 && user.purchased.hair.beard.2 && user.purchased.hair.beard.3', ng-click='unlock("hair.mustache.1,hair.mustache.2,hair.beard.1,hair.beard.2,hair.beard.3")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+          button.btn.btn-sm.btn-primary(ng-hide='user.purchased.hair.mustache.1 && user.purchased.hair.mustache.2 && user.purchased.hair.beard.1 && user.purchased.hair.beard.2 && user.purchased.hair.beard.3', ng-click='unlock("hair.mustache.1,hair.mustache.2,hair.beard.1,hair.beard.2,hair.beard.3")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
 
     .col-md-4
         h3=env.t('bodySkin')
@@ -100,7 +100,7 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
           menu
             each color in ['eb052b','f69922','f5d70f','0ff591','2b43f6','d7a9f7','800ed0','rainbow']
               button.customize-option(type='button', class='skin_#{color}', ng-class='{locked: !user.purchased.skin.#{color}}', ng-click='unlock("skin.#{color}")')
-          button.btn.btn-small.btn-primary(ng-hide='user.purchased.skin.eb052b && user.purchased.skin.f69922 && user.purchased.skin.f5d70f && user.purchased.skin.0ff591 && user.purchased.skin.2b43f6 && user.purchased.skin.d7a9f7 && user.purchased.skin.800ed0 && user.purchased.skin.rainbow', ng-click='unlock("skin.eb052b,skin.f69922,skin.f5d70f,skin.0ff591,skin.2b43f6,skin.d7a9f7,skin.800ed0,skin.rainbow")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+          button.btn.btn-sm.btn-primary(ng-hide='user.purchased.skin.eb052b && user.purchased.skin.f69922 && user.purchased.skin.f5d70f && user.purchased.skin.0ff591 && user.purchased.skin.2b43f6 && user.purchased.skin.d7a9f7 && user.purchased.skin.800ed0 && user.purchased.skin.rainbow', ng-click='unlock("skin.eb052b,skin.f69922,skin.f5d70f,skin.0ff591,skin.2b43f6,skin.d7a9f7,skin.800ed0,skin.rainbow")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
 
           // Special Events
           // restore to d4df481 to see purchasing + "limited edition" code
@@ -120,7 +120,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
         h4
           =env.t('class') + ': '
           span {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[user.stats.class] }}&nbsp;
-          a.btn.btn-danger.btn-mini(ng-click='changeClass(null)')=env.t('changeClass')
+          a.btn.btn-danger.btn-xs(ng-click='changeClass(null)')=env.t('changeClass')
           small 3 <span class="Pet_Currency_Gem1x inline-gems"/>
         table.table.table-striped
           tr
@@ -156,7 +156,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
                     &nbsp;
                     span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskAllocationPop'))
                 div(ng-show='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)')
-                  a.btn.btn-primary.btn-mini(ng-click='user.ops.allocateNow({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('distributePointsPop'))
+                  a.btn.btn-primary.btn-xs(ng-click='user.ops.allocateNow({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('distributePointsPop'))
                     span.glyphicon.glyphicon-download
                     &nbsp;
                     =env.t('distributePoints')
