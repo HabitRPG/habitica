@@ -7,7 +7,7 @@
 "brokenTask" : "Broken Challenge Link: Diese Aufgabe war Teil eines Wettbewerbs, aber ist mitlerweile entferntw worden. What möchtest Du tun?",
 "keepIt" : "Behalten",
 "removeIt" : "Entfernen",
-"brokenChallenge" : " Broken Challenge Link: Diese Aufgabe war Reil eines Wettbewerbs, aber der Wettbewerb (oder die Gruppe) wurde gelöscht. Was möchtest Du mit der verwaisten Aufgabe tun?";
+"brokenChallenge" : " Broken Challenge Link: Diese Aufgabe war Reil eines Wettbewerbs, aber der Wettbewerb (oder die Gruppe) wurde gelöscht. Was möchtest Du mit der verwaisten Aufgabe tun?",
 "keepThem" : "Behalten",
 "removeThem" : "Entfernen",
 "challengeCompleted" : "Dieser Wettbewerb ist beendet, und gewonnen hat <span class=\"badge\"><%= user %></span>! Was soll mit der verwaisten Aufgabe geschehen?",
