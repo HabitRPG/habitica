@@ -39,10 +39,10 @@
 "discard" : "Verwerfen",
 "challengeTitle" : "Titel des Wettbewerbs",
 "challengeTag" : "Tag",
-"challengeTagPop" : "Wettbewerbe erscheinen als Tag-liste & Aufgaben-Tooltips. Also ist es einerseits sinnvoll oben einen beschreibenden Titel zu wählen, andererseits brauchst Du aber auch eine "Kurzfassung". Dazu kannst du z.B. "Verliere 5 Kilo in 3 Monaten" auf "-5kg" kürzen. (Klicke das '?' für mehr informationen).",
+"challengeTagPop" : "Wettbewerbe erscheinen als Tag-liste & Aufgaben-Tooltips. Also ist es einerseits sinnvoll oben einen beschreibenden Titel zu wählen, andererseits brauchst Du aber auch eine \"Kurzfassung\". Dazu kannst du z.B. \"Verliere 5 Kilo in 3 Monaten\" auf \"-5kg\" kürzen. (Klicke das '?' für mehr informationen).",
 "challengeDescr" : "Beschreibung",
 "prize" : "Preis",
-"prizePop" : "Wenn jemand Deinen Wettbewerb 'gewinnen' kann, dann kannst Du, wenn Du willst, dem Gewinner einen Edelstein-Preis zusprechen. Maximal die Anzahl der Edelsteine die Du hast (+Gilden Edelsteine, wenn Du die dazugehörige Gilde gegründet hast). Beachte: Diese Preise können später nicht mehr geändert werden.
+"prizePop" : "Wenn jemand Deinen Wettbewerb 'gewinnen' kann, dann kannst Du, wenn Du willst, dem Gewinner einen Edelstein-Preis zusprechen. Maximal die Anzahl der Edelsteine die Du hast (+Gilden Edelsteine, wenn Du die dazugehörige Gilde gegründet hast). Beachte: Diese Preise können später nicht mehr geändert werden.",
 "publicChallenges" : "Mindestens 1 Edelstein für <strong> öffentliche Wettbewerbe </strong> (Das verhindert Spam. Wirklich).",
 "officialChallenge" : "Offizieller HabitRPG Wettbewerb",
 "by" : "von",
