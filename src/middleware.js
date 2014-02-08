@@ -5,6 +5,8 @@ var path = require('path');
 var User = require('./models/user').model
 var limiter = require('connect-ratelimit');
 var logging = require('./logging');
+var domainMiddleware = require('domain-middleware');
+var cluster = require('cluster');
 
 module.exports.apiThrottle = function(app) {
   if (nconf.get('NODE_ENV') !== 'production') return;
@@ -21,6 +23,18 @@ module.exports.apiThrottle = function(app) {
     //logging.info(res.ratelimit);
     if (res.ratelimit.exceeded) return res.json(429,{err:'Rate limit exceeded'});
     next();
+  });
+}
+
+module.exports.domainMiddleware = function(server,mongoose) {
+  return domainMiddleware({
+    server: {
+      close:function(){
+        server.close();
+        mongoose.connection.close();
+      }
+    },
+    killTimeout: 10000
   });
 }
 

@@ -1,4 +1,5 @@
 // Only do the minimal amount of work before forking just in case of a dyno restart
+var cluster = require("cluster");
 var _ = require('lodash');
 var nconf = require('nconf');
 var utils = require('./utils');
@@ -7,6 +8,18 @@ var logging = require('./logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 
+if (cluster.isMaster && (isDev || isProd)) {
+  // Fork workers.
+  _.times(_.min([require('os').cpus().length,2]), function(){
+    cluster.fork();
+  });
+
+  cluster.on('disconnect', function(worker, code, signal) {
+    var w = cluster.fork(); // replace the dead worker
+    logging.info('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
+  });
+
+} else {
   require('coffee-script'); // remove this once we've fully converted over
   var express = require("express");
   var http = require("http");
@@ -79,6 +92,7 @@ var isDev = nconf.get('NODE_ENV') === 'development';
 
   app.set("port", nconf.get('PORT'));
   middleware.apiThrottle(app);
+  app.use(middleware.domainMiddleware(server,mongoose));
   if (!isProd) app.use(express.logger("dev"));
   app.use(express.compress());
   app.set("views", __dirname + "/../views");
@@ -121,3 +135,4 @@ var isDev = nconf.get('NODE_ENV') === 'development';
   });
 
   module.exports = server;
+}
