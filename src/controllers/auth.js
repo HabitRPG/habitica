@@ -108,14 +108,14 @@ api.loginLocal = function(req, res, next) {
   if (!(username && password)) return res.json(401, {err:'Missing :username or :password in request body, please provide both'});
   User.findOne({'auth.local.username': username}, function(err, user){
     if (err) return next(err);
-    if (!user) return res.json(401, {err:"Username '" + username + "' not found. Usernames are case-sensitive, click 'Forgot Password' if you can't remember the capitalization."});
+    if (!user) return res.json(401, {err:"Username or password incorrect. Click 'Forgot Password' for help with either. (Note: usernames are case-sensitive)"});
     // We needed the whole user object first so we can get his salt to encrypt password comparison
     User.findOne({
       'auth.local.username': username,
       'auth.local.hashed_password': utils.encryptPassword(password, user.auth.local.salt)
     }, function(err, user){
       if (err) return next(err);
-      if (!user) return res.json(401,{err:'Incorrect password'});
+      if (!user) return res.json(401,{err:"Username or password incorrect. Click 'Forgot Password' for help with either. (Note: usernames are case-sensitive)"});
       res.json({id: user._id,token: user.apiToken});
     });
   });
