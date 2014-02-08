@@ -29,7 +29,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           // We need the member information up top here, but then we pass it down to the modal controller
           // down below. Better way of handling this?
           Members.selectMember(uid);
-          $rootScope.modals.member = true;
+          $rootScope.openModal('member', 'MemberModalCtrl');
         }
       }
 
@@ -99,8 +99,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     $scope.$watch('group.chat',$scope.chatChanged);
     
     $scope.caretChanged = function(newCaretPos) {
-      var relativeelement = $('.-options');
-      var textarea = $('.chat-textarea');
+      var relativeelement = $('.chat-form div:first');
+      var textarea = $('.chat-form textarea');
       var userlist = $('.list-at-user');
       var offset = {
         x: textarea.offset().left - relativeelement.offset().left,
@@ -219,7 +219,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
       $scope.newGroup = newGroup()
       $scope.create = function(group){
-        if (User.user.balance < 1) return $rootScope.modals.buyGems = true;
+        if (User.user.balance < 1) return $rootScope.openModal('buyGems');
 
         if (confirm(window.env.t('confirmGuild'))) {
           group.$save(function(saved){

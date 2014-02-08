@@ -3,8 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content',
-  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal',
+  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal) {
     var user = User.user;
 
     var initSticky = _.once(function(){
@@ -13,8 +13,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     })
     $rootScope.$on('userUpdated',initSticky);
 
-    $rootScope.modals = {};
-    $rootScope.modals.achievements = {};
     $rootScope.User = User;
     $rootScope.user = user;
     $rootScope.moment = window.moment;
@@ -66,8 +64,19 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.set = User.set;
     $rootScope.authenticated = User.authenticated;
 
+    // Open a modal from a template expression (like ng-click,...)
+    // Otherwise use the proper $modal.open
+    $rootScope.openModal = function(template, controller, scope, keyboard, backdrop){
+      return $modal.open({
+        templateUrl: 'modals/' + template + '.html',
+        controller: controller, // optional
+        scope: scope, // optional
+        keyboard: (keyboard === undefined ? true : keyboard), // optional
+        backdrop: (backdrop === undefined ? true : backdrop) // optional
+      });
+    }
+
     $rootScope.dismissAlert = function() {
-      $rootScope.modals.newStuff = false;
       $rootScope.set({'flags.newStuff':false});
     }
 

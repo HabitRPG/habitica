@@ -55,13 +55,11 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.reroll = function(){
       User.user.ops.reroll({});
-      $rootScope.modals.reroll = false;
       $rootScope.$state.go('tasks');
     }
 
     $scope.rebirth = function(){
       User.user.ops.rebirth({});
-      $rootScope.modals.rebirth = false;
       $rootScope.$state.go('tasks');
     }
 
@@ -80,12 +78,11 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope.restoreValues = {};
-    $rootScope.$watch('modals.restore', function(value){
-      if(value === true){
-        $scope.restoreValues.stats = angular.copy(User.user.stats);
-        $scope.restoreValues.achievements = {streak: User.user.achievements.streak || 0};
-      }
-    })
+    $rootScope.openRestoreModal = function(){
+      $scope.restoreValues.stats = angular.copy(User.user.stats);
+      $scope.restoreValues.achievements = {streak: User.user.achievements.streak || 0};
+      $rootScope.openModal('restore', undefined, $scope);
+    };
 
     $scope.restore = function(){
       var stats = $scope.restoreValues.stats,
@@ -98,12 +95,10 @@ habitrpg.controller('SettingsCtrl',
         "stats.mp": stats.mp,
         "achievements.streak": achievements.streak
       });
-      $rootScope.modals.restore = false;
     }
 
     $scope.reset = function(){
       User.user.ops.reset({});
-      $rootScope.modals.reset = false;
       $rootScope.$state.go('tasks');
     }
 
