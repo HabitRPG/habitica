@@ -14,23 +14,23 @@ script(type='text/ng-template', id='partials/options.social.hall.html')
 script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
   .well(ng-if='user.contributor.admin')
     h2=env.t('rewardUser')
-    form.form-horizontal(ng-submit='loadHero(_heroID)')
+    form(ng-submit='loadHero(_heroID)')
       .form-group
         input.form-control(type='text', ng-model='_heroID', placeholder=env.t('UUID'))
+      .form-group
         input.btn.btn-default(type='submit')=env.t('loadUser')
-    form.form-horizontal(ng-show='hero', ng-submit='saveHero(hero)')
+    form(ng-show='hero', ng-submit='saveHero(hero)')
       h3 {{hero.profile.name}}
       .form-group
         input.form-control(type='text', ng-model='hero.contributor.text', placeholder=env.t('contribTitle'))
       .form-group
-        input.form-control(type='number', step="any", ng-model='hero.contributor.level')
-        span.input-suffix=env.t('contribLevel')
-        br
+        label=env.t('contribLevel')
+        input.form-control(type='number', step="any", ng-model='hero.contributor.level')        
         small=env.t('contribHallText')
         a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear')=env.t('moreDetails')
       .form-group
-        textarea.form-control(style='height:15em;', placeholder=env.t('contributions'), ng-model='hero.contributor.contributions')
-        //-include ../../shared/formatting-help
+        textarea.form-control(cols=5, placeholder=env.t('contributions'), ng-model='hero.contributor.contributions')
+        include ../../shared/formatting-help
       .form-group
         .checkbox
           label
@@ -40,10 +40,9 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
         hr
 
         .form-group
+          label=env.t('balance')
           input.form-control(type='number', step="any", ng-model='hero.balance')
-          span.input-suffix=env.t('balance')
-          p
-            small!= '`user.balance`' + env.t('notGems')
+          small!= '`user.balance`' + env.t('notGems')
 
         .form-group
           .checkbox
@@ -51,9 +50,10 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
               input(type='checkbox', ng-model='hero.purchased.ads')
               =env.t('hideAds')
 
-      // h4 Backer Status
-      // Add backer stuff like tier, disable adds, etcs
-      input.btn.btn-primary(type='submit')=env.t('save')
+        // h4 Backer Status
+        // Add backer stuff like tier, disable adds, etcs
+        .form-group
+          input.form-control.btn.btn-primary(type='submit')=env.t('save')
 
 
   table.table.table-striped
