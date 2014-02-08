@@ -130,20 +130,12 @@ angular.module('guideServices', []).
       if (!eggs) {
         eggs['Wolf'] = 1; // This is also set on the server
       }
-      $rootScope.modals.dropsEnabled = true;
-    });
-
-    $rootScope.$watch('user.items.pets', function(after, before) {
-      if (User.user.achievements && User.user.achievements.beastMaster) return;
-      if (before >= 90) {
-        User.set({'achievements.beastMaster': true});
-        $('#beastmaster-achievement-modal').modal('show'); // FIXME
-      }
+      $rootScope.openModal('dropsEnabled');
     });
 
     $rootScope.$watch('user.flags.rebirthEnabled', function(after, before) {
         if (alreadyShown(before, after)) return;
-        $rootScope.modals.rebirthEnabled = true;
+        $rootScope.openModal('rebirthEnabled');
     });
 
 

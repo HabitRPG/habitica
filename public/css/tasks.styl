@@ -23,6 +23,8 @@ for $stage in $stages
 .completed
   background-color: $completed
   color: #999
+  .glyphicon
+    color: #333
   .task-checker label
     background-color: darken($completed, 30%)
   .task-action-btn
@@ -31,10 +33,19 @@ for $stage in $stages
 .reward
   background-color: white
 
-
-
 // 2. Columns & Tasks
 // ===================
+
+.tasks-lists
+  
+  .row
+    margin-left: -5px
+    margin-right: -5px
+
+    .col-md-3 
+      padding-left: 10px // Override Bootstrap 15px padding
+      padding-right: 10px // Override Bootstrap 15px padding
+      margin-bottom: 15px
 
 // main columns
 // ------------
@@ -48,6 +59,11 @@ for $stage in $stages
     margin: 0 0 0.5em
     padding: 0
 
+// 50% width columns with scrollbars for tablets
+@media (min-width: 768px) and (max-width: 970px) 
+  .task-column
+    max-height: 18.6em
+    overflow-y: scroll
 
 // add new task form
 // -----------------
@@ -112,6 +128,9 @@ for $stage in $stages
   &:last-child
     margin-bottom: 0
 
+  label
+    font-weight: 400
+
 // task content
 .task-text
   display: block
@@ -124,19 +143,14 @@ for $stage in $stages
     height:1.5em
     background-size:1.5em
 
-// task due date (for to-dos)
-.task-date
-  font-size: 70%
-
 .habit-wide .task-text
   padding-left: 7em
 
 // when a task is being dragged
-.task.ui-sortable-helper {
+.task.ui-sortable-helper
   box-shadow: 0 0 3px rgba(0,0,0,0.15), 0 0 5px rgba(0,0,0,0.1)
   transform: scale(1.05)
   outline: 1px solid rgba(0,0,0,0.2)
-}
 
 // primary task commands
 // ----------------------
@@ -273,10 +287,9 @@ for $stage in $stages
   margin: 0.75em 0.5em 0 0.25em
   height: 1em
   opacity: 0.25
-  a > i
-    margin-left: 0.125em
-  .task-notes
-    margin-left: 0.125em
+
+  a
+    text-decoration: none
 
 .task:hover .task-meta-controls
   opacity: 1
@@ -296,7 +309,6 @@ form
 [class$="-options"]
   padding: 1em 1em 0
   color: #333
-  z-index: 0
   position: relative
   //background-color:
 

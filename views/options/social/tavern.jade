@@ -1,127 +1,125 @@
-.row-fluid
-  .span4
-    .tavern-pane
-      table
-        tr
-          td
-            .npc_daniel
-          td
-            .popover.static-popover.fade.right.in
-              .arrow
-              h3.popover-title
-                a(target='_blank', href='http://www.kickstarter.com/profile/2014640723')=env.t('daniel')
-              .popover-content
-                =env.t('danielText')
-                div
-                  button.btn.btn-large.btn-success(ng-class='{active: user.preferences.sleep}', ng-click='User.user.ops.sleep({})')
-                    span(ng-show='user.preferences.sleep')=env.t('innCheckOut')
-                    span(ng-hide='user.preferences.sleep')=env.t('innCheckIn')
-    .alert.alert-info(ng-show='user.preferences.sleep')
-      =env.t('innText')
+.container-fluid
+  .row
+    .col-md-4
+      .tavern-pane
+        table
+          tr
+            td
+              .npc_daniel
+            td
+              .popover.static-popover.fade.right.in
+                .arrow
+                h3.popover-title
+                  a(target='_blank', href='http://www.kickstarter.com/profile/2014640723')=env.t('daniel')
+                .popover-content
+                  =env.t('danielText')
+                  div
+                    button.btn.btn-large.btn-success(ng-class='{active: user.preferences.sleep}', ng-click='User.user.ops.sleep({})')
+                      span(ng-show='user.preferences.sleep')=env.t('innCheckOut')
+                      span(ng-hide='user.preferences.sleep')=env.t('innCheckIn')
+      .alert.alert-info(ng-show='user.preferences.sleep')
+        =env.t('innText')
 
-    // Resources
-    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
-      .modal-header
-        h3=env.t('resources')
-      .modal-body
-        table.table.table-striped
-          tr
-            td
-              a(target='_blank', href='http://habitrpg.wikia.com/wiki/Board:The_Archery_-_LFG')=env.t('lfgPosts')
-          tr
-            td
-              a(target='_blank', href='https://vimeo.com/57654086')=env.t('tutorial')
-          tr
-            td
-              a(target='_blank', href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
-          tr
-            td
-              a(target='_blank', href='http://habitrpg.wikia.com/wiki/Glossary')=env.t('glossary')
-          tr
-            td
-              a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportAP')
-          tr
-            td
-              a(target='_blank', href='https://trello.com/c/8gzGlle8')=env.t('requestAF')
-          tr
-            td
-              a(target='_blank', href='http://habitrpg.wikia.com/wiki/Special:Forum')=env.t('community')
+      // Resources
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title=env.t('resources')
+        .panel-body
+          table.table.table-striped
+            tr
+              td
+                a(target='_blank', href='http://habitrpg.wikia.com/wiki/Board:The_Archery_-_LFG')=env.t('lfgPosts')
+            tr
+              td
+                a(target='_blank', href='https://vimeo.com/57654086')=env.t('tutorial')
+            tr
+              td
+                a(target='_blank', href='http://habitrpg.wikia.com/wiki/FAQ')=env.t('FAQ')
+            tr
+              td
+                a(target='_blank', href='http://habitrpg.wikia.com/wiki/Glossary')=env.t('glossary')
+            tr
+              td
+                a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportAP')
+            tr
+              td
+                a(target='_blank', href='https://trello.com/c/8gzGlle8')=env.t('requestAF')
+            tr
+              td
+                a(target='_blank', href='http://habitrpg.wikia.com/wiki/Special:Forum')=env.t('community')
 
-    // Player Tiers
-    .modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;', popover=env.t('tierPop'), popover-trigger="mouseenter", popover-placement="right")
-      .modal-header
-        h3=env.t('playerTiers')
-      .modal-body
-        small
-          |<a href='/#/options/groups/hall'>
-          =env.t('visitHeroes')
-          |</a> <br />
-          |<a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'>
-          =env.t('conLearn')
-          |</a> <br />
-          |<a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'>
-          =env.t('conLearnHow')
-          |</a>
-        table.table.table-striped
-          tr
-            td
-              a.label.label-contributor-1(ng-click='toggleUserTier($event)')=env.t('friend') + ' (1-2)'
-              div(style='display:none;')
-                p
-                  span.achievement.achievement-firefox
-                  !=env.t('friendFirst')
-                hr
-                p
-                  span.shop-sprite.item-img(class='shop_armor_special_1')
-                  !=env.t('friendSecond')
-          tr
-            td
-              a.label.label-contributor-3(ng-click='toggleUserTier($event)')=env.t('elite') + ' (3-4)'
-              div(style='display:none;')
-                p
-                  span.shop-sprite.item-img(class='shop_head_special_1')
-                  !=env.t('eliteThird')
-                hr
-                p
-                  span.shop-sprite.item-img(class='shop_weapon_special_1')
-                  !=env.t('eliteFourth')
-          tr
-            td
-              a.label.label-contributor-5(ng-click='toggleUserTier($event)')=env.t('champion') + ' (5-6)'
-              div(style='display:none;')
-                p
-                  span.shop-sprite.item-img(class='shop_shield_special_1')
-                  !=env.t('championFifth')
-                hr
-                p
-                  div(class='Pet-Dragon-Hydra pull-left')
-                  !=env.t('championSixth')
-          tr
-            td
-              a.label.label-contributor-7(ng-click='toggleUserTier($event)')=env.t('legendary') + ' (7)'
-              div(style='display:none;')
-                p
-                  !=env.t('legSeventh')
-          tr
-            td
-              a.label.label-contributor-8(ng-click='toggleUserTier($event)')=env.t('heroic')
-              div(style='display:none;')
-                p=env.t('heroicText') 
-          tr
-            td
-              a.label.label-npc(ng-click='toggleUserTier($event)')=env.t('npc')
-              div(style='display:none;')
-                p=env.t('npcText')
+      // Player Tiers
+      .panel.panel-default(popover=env.t('tierPop'), popover-trigger="mouseenter", popover-placement="right")
+        .panel-heading
+          h3.panel-title=env.t('playerTiers')
+        .panel-body
+          small
+            |<a href='/#/options/groups/hall'>
+            =env.t('visitHeroes')
+            |</a> <br />
+            |<a href='http://habitrpg.wikia.com/wiki/Contributor_Rewards' target='_blank'>
+            =env.t('conLearn')
+            |</a> <br />
+            |<a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'>
+            =env.t('conLearnHow')
+            |</a>
+          table.table.table-striped
+            tr
+              td
+                a.label.label-contributor-1(ng-click='toggleUserTier($event)')=env.t('friend') + ' (1-2)'
+                div(style='display:none;')
+                  p
+                    span.achievement.achievement-firefox
+                    !=env.t('friendFirst')
+                  hr
+                  p
+                    span.shop-sprite.item-img(class='shop_armor_special_1')
+                    !=env.t('friendSecond')
+            tr
+              td
+                a.label.label-contributor-3(ng-click='toggleUserTier($event)')=env.t('elite') + ' (3-4)'
+                div(style='display:none;')
+                  p
+                    span.shop-sprite.item-img(class='shop_head_special_1')
+                    !=env.t('eliteThird')
+                  hr
+                  p
+                    span.shop-sprite.item-img(class='shop_weapon_special_1')
+                    !=env.t('eliteFourth')
+            tr
+              td
+                a.label.label-contributor-5(ng-click='toggleUserTier($event)')=env.t('champion') + ' (5-6)'
+                div(style='display:none;')
+                  p
+                    span.shop-sprite.item-img(class='shop_shield_special_1')
+                    !=env.t('championFifth')
+                  hr
+                  p
+                    div(class='Pet-Dragon-Hydra pull-left')
+                    !=env.t('championSixth')
+            tr
+              td
+                a.label.label-contributor-7(ng-click='toggleUserTier($event)')=env.t('legendary') + ' (7)'
+                div(style='display:none;')
+                  p
+                    !=env.t('legSeventh')
+            tr
+              td
+                a.label.label-contributor-8(ng-click='toggleUserTier($event)')=env.t('heroic')
+                div(style='display:none;')
+                  p=env.t('heroicText') 
+            tr
+              td
+                a.label.label-npc(ng-click='toggleUserTier($event)')=env.t('npc')
+                div(style='display:none;')
+                  p=env.t('npcText')
 
-    include ./challenge-box
+      include ./challenge-box
 
-  .span8(ng-controller='ChatCtrl')
-    h3=env.t('tavernTalk')
-        include ./chat-box
-        small(style='position: relative; top: -20px; left: 25px;')
-            include ../../shared/formatting-help
-        small(style='position: relative; top: 18px; left: 0px')
-            alert.alert-info
-              !=env.t('tavernAlert1') + ' <a href="https://github.com/HabitRPG/habitrpg/issues/2760" target="_blank">' + env.t('tavernAlert2') + '</a>.'
-    ul.unstyled.tavern-chat
-      include ./chat-message
+    .col-md-8.tavern(ng-controller='ChatCtrl')
+      h3=env.t('tavernTalk')
+      include ./chat-box
+      .alert.alert-info
+        !=env.t('tavernAlert1') + ' <a href="https://github.com/HabitRPG/habitrpg/issues/2760" target="_blank">' + env.t('tavernAlert2') + '</a>.'
+      ul.list-unstyled.tavern-chat
+        include ./chat-message

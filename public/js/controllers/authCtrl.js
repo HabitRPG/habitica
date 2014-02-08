@@ -5,8 +5,8 @@
  */
 
 angular.module('authCtrl', [])
-  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','API_URL',
-    function($scope, $rootScope, User, $http, $location, $window, API_URL) {
+  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','API_URL', '$modal',
+    function($scope, $rootScope, User, $http, $location, $window, API_URL, $modal) {
       var runAuth;
       var showedFacebookMessage;
 
@@ -27,8 +27,17 @@ angular.module('authCtrl', [])
       runAuth = function(id, token) {
         User.authenticate(id, token, function(err) {
           $window.location.href = '/';
-          //$rootScope.modals.login = false;
         });
+      };
+
+      function errorAlert(data, status, headers, config) {
+        if (status === 0) {
+          $window.alert(window.env.t('noReachServer'));
+        } else if (!!data && !!data.err) {
+          $window.alert(data.err);
+        } else {
+          $window.alert(window.env.t('errorUpCase') + status);
+        }
       };
 
       $scope.register = function() {
@@ -40,26 +49,8 @@ angular.module('authCtrl', [])
         }
         $http.post(API_URL + "/api/v2/register", $scope.registerVals).success(function(data, status, headers, config) {
           runAuth(data.id, data.apiToken);
-        }).error(function(data, status, headers, config) {
-            if (status === 0) {
-              $window.alert(window.env.t('noReachServer'));
-            } else if (!!data && !!data.err) {
-              $window.alert(data.err);
-            } else {
-              $window.alert(window.env.t('errorUpCase') + status);
-            }
-          });
+        }).error(errorAlert);
       };
-
-      function errorAlert(data, status, headers, config) {
-        if (status === 0) {
-          $window.alert(window.env.t('noReachServer'));
-        } else if (!!data && !!data.err) {
-          $window.alert(data.err);
-        } else {
-          $window.alert(window.env.t('errorUpCase') + status);
-        }
-      }
 
       $scope.auth = function() {
         var data = {
@@ -80,7 +71,10 @@ angular.module('authCtrl', [])
         if (User.authenticated()) {
           window.location.href = '/#/tasks';
         } else {
-          $('#login-modal').modal('show');
+          $modal.open({
+            templateUrl: 'modals/login.html'
+            // Using controller: 'AuthCtrl' it causes problems
+          });
         }
       }
 

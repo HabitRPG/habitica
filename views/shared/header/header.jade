@@ -13,21 +13,25 @@
       .meter.health(title=env.t('health'))
         .bar(style='width: {{Shared.percent(user.stats.hp, 50)}}%;')
         span.meter-text
-          i.icon-heart
+          span.glyphicon.glyphicon-heart
+          | &nbsp;
           | {{Math.ceil(user.stats.hp)}} / 50
       .meter.experience(title=env.t('experience'))
         .bar(style='width: {{Shared.percent(user.stats.exp,Shared.tnl(user.stats.lvl))}}%;')
         span.meter-text
-          i.icon-star
+          span.glyphicon.glyphicon-star
+          | &nbsp;
           | {{Math.floor(user.stats.exp)}} / {{Shared.tnl(user.stats.lvl) | number:0}}
           // FIXME doesn't look great here, but the "Experience" CSS title rollover covers it where it was before
           span(ng-show='user.history.exp')
             a(ng-click='toggleChart("exp")', tooltip=env.t('progress'))
-              i.icon-signal
+              | &nbsp;
+              span.glyphicon.glyphicon-signal
       .meter.mana(title='Mana', ng-if='user.flags.classSelected && !user.preferences.disableClasses')
         .bar(style='width: {{user.stats.mp / user._statsComputed.maxMP * 100}}%;')
         span.meter-text
-          i.icon-fire
+          span.glyphicon.glyphicon-fire
+          | &nbsp;
           | {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
 
     // party
@@ -35,5 +39,5 @@
       .herobox-wrap(ng-repeat='profile in partyMinusSelf')
         include avatar
 
-    .npc_bailey.npc_bailey_head(ng-show='user.flags.newStuff', tooltip=env.t('psst'), tooltip-placement='top', ng-click='modals.newStuff=true')
+    .npc_bailey.npc_bailey_head(ng-show='user.flags.newStuff', tooltip=env.t('psst'), tooltip-placement='top', ng-click='openModal("newStuff")')
 

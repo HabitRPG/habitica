@@ -87,9 +87,11 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
 
     $scope.purchase = function(type, item){
       var gems = User.user.balance * 4;
-      if(gems < item.value) return $rootScope.modals.buyGems = true;
+
+      if(gems < item.value) return $rootScope.openModal('buyGems');
       var string = (type == 'hatchingPotions') ? 'hatching potion' : (type == 'eggs') ? 'egg' : (type == 'quests') ? 'quest' : (item.key == 'Saddle') ? 'saddle' : (type == 'special') ? item.key : type; // this is ugly but temporary, once the purchase modal is done this will be removed
       var message = window.env.t('buyThis', {text: string, price: item.value, gems: gems})
+
       if($window.confirm(message))
         User.user.ops.purchase({params:{type:type,key:item.key}});
     }
@@ -127,12 +129,10 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       if (item.lvl && item.lvl > user.stats.lvl)
         return alert(window.env.t('mustLevel', {level: item.lvl}));
       $rootScope.selectedQuest = item;
-      $rootScope.modals.showQuest = true;
+      $rootScope.openModal('showQuest', 'InventoryCtrl');
     }
     $scope.closeQuest = function(){
       $rootScope.selectedQuest = undefined;
-      $rootScope.modals.showQuest = false;
-      $rootScope.modals.buyQuest = false;
     }
     $scope.questInit = function(){
       $rootScope.party.$questAccept({key:$scope.selectedQuest.key}, function(){
@@ -148,7 +148,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       if (!completedPrevious)
         return $scope.purchase("quests", item);
       $rootScope.selectedQuest = item;
-      $rootScope.modals.buyQuest = true;
+      $rootScope.openModal('showQuest', 'buyQuest');
     }
   }
 ]);
