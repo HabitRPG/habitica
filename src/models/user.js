@@ -139,7 +139,7 @@ var UserSchema = new Schema({
       snowball: {type: Number, 'default': 0}
     },
 
-    // -------------- Animals ------------------- 
+    // -------------- Animals -------------------
     // Complex bit here. The result looks like:
     // pets: {
     //   'Wolf-Desert': 0, // 0 means does not own
@@ -150,6 +150,8 @@ var UserSchema = new Schema({
     _.defaults(
       // First transform to a 1D eggs/potions mapping
       _.transform(shared.content.pets, function(m,v,k){ m[k] = Number; }),
+      // Then add quest pets
+      _.transform(shared.content.questPets, function(m,v,k){ m[k] = Number; }),
       // Then add additional pets (backer, contributor)
       _.transform(shared.content.specialPets, function(m,v,k){ m[k] = Number; })
     ),
