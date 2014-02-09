@@ -12,7 +12,8 @@ script(type='text/ng-template', id='partials/options.inventory.mounts.html')
                 a(target='_blank', href='http://www.kickstarter.com/profile/mattboch')=env.t('mattBoch')
               .popover-content
                 p=env.t('mattShall', {name: "{{user.profile.name}}"})
-                h4= '{{mountCount}} / {{totalPets}} ' + env.t('mountsTamed')
+                h4= '{{Shared.countMounts(null,User.user.items.mounts)}} / {{totalMounts}} ' + env.t('mountsTamed')
+
       menu.pets(type='list')
         li.customize-menu(ng-repeat='egg in Content.eggs')
           menu
@@ -46,13 +47,13 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
                 p
                   =env.t('mattBochText1') + ' '
                   | <a target='_blank' href='https://f.cloud.github.com/assets/2374703/164631/3ed5fa6c-78cd-11e2-8743-f65ac477b55e.png'>
-                  =env.t('mattBochText2') 
-                  | </a> 
+                  =env.t('mattBochText2')
+                  | </a>
                   = ' ' + env.t('mattBochText3')
-                h4= '{{petCount}} / {{totalPets}} ' + env.t('petsFound')
+                h4= env.t('beastmasterProgress') + ': {{petCount}} / {{totalPets}} ' + env.t('petsFound')
 
       menu.pets(type='list')
-        li.customize-menu(ng-repeat='egg in Content.eggs')
+        li.customize-menu(ng-repeat='egg in Content.dropEggs')
           menu
             div(ng-repeat='potion in Content.hatchingPotions', popover-trigger='mouseenter', popover='{{potion.text}} {{egg.text}}', popover-placement='bottom', ng-init='pet = egg.key+"-"+potion.key')
               button(class="pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]>0', ng-class='{active: user.items.currentPet == pet, selectableInventory: selectedFood}', ng-click='choosePet(egg.key, potion.key)')
@@ -62,6 +63,18 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
                 .PixelPaw
               button(class="pet-button Pet-{{pet}}" ng-if='user.items.pets[pet]<0',style='opacity:0.1;filter:alpha(opacity=10)')
                 //if this could be changed to the opacity talked about? can't figure it out
+
+     h4=env.t('questPets')
+      menu.pets(type='list')
+        li.customize-menu(ng-repeat='egg in Content.questEggs')
+          menu
+            div(ng-repeat='potion in Content.hatchingPotions', popover-trigger='mouseenter', popover='{{potion.text}} {{egg.text}}', popover-placement='bottom', ng-init='pet = egg.key+"-"+potion.key')
+              button(class="pet-button Pet-{{pet}}", ng-if='user.items.pets[pet]>0', ng-class='{active: user.items.currentPet == pet, selectableInventory: selectedFood}', ng-click='choosePet(egg.key, potion.key)')
+                .progress(ng-show='!user.items.mounts[pet]')
+                  .progress-bar.progress-bar-success(style="width:{{user.items.pets[pet]/.5}}%")
+              button(class="pet-button pet-not-owned", ng-if='!user.items.pets[pet]')
+                .PixelPaw
+              button(class="pet-button Pet-{{pet}}" ng-if='user.items.pets[pet]<0',style='opacity:0.1;filter:alpha(opacity=10)')
 
       h4=env.t('rarePets')
       menu
