@@ -16,7 +16,7 @@
                 span.glyphicon.glyphicon-trash
           a(ng-hide='_editing', ng-click='toggleFilter(tag)')
             span.glyphicon.glyphicon-bullhorn(bo-if="tag.challenge")
-            markdown(ng-model='tag.name',style='display: inline-block')
+            markdown(ng-model='tag.name')
         li
           form.form-inline(ng-show='_editing', ng-submit='createTag(_newTag)')
             .input-group

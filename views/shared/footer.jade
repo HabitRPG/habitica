@@ -48,7 +48,7 @@ footer.footer(ng-controller='FooterCtrl')
           li
             a(target='_blank', href='http://www.reddit.com/r/habitrpg/')=env.t('communityReddit')
       .col-sm-3
-        if (env.NODE_ENV=='production')
+        if (env.NODE_ENV=='production' && !env.IS_MOBILE)
           h4=env.t('footerSocial')
           .addthis_toolbox.addthis_default_style(addthis:url='https://habitrpg.com', addthis:title=env.t('socialTitle'))
             table
@@ -59,21 +59,17 @@ footer.footer(ng-controller='FooterCtrl')
                 td
                   a.addthis_button_tweet(tw:via='habitrpg')
               tr
-                td(align='left')
+                td
                   iframe(src='/bower_components/github-buttons/github-btn.html?user=lefnire&repo=habitrpg&type=watch&count=true', allowtransparency='true', frameborder='0', scrolling='0', width='85px', height='20px')
               tr
                 td
                   a.addthis_button_google_plusone(g:plusone:size='medium')
         else if(!env.isFrontPage)
           h4 Debug
-          ul.list-unstyled
-            li
-              a.btn.btn-default(ng-click='addMissedDay()') +1 Missed Day
-            li
-              a.btn.btn-default(ng-click='addTenGems()') +10 Gems
-            li
-              a.btn.btn-default(ng-click='addLevelsAndGold()') +Exp +GP
-            li
-              a.btn.btn-default(ng-click='addOneLevel()') +1 Level
+          .btn-group-vertical
+            a.btn.btn-default(ng-click='addMissedDay()') +1 Missed Day
+            a.btn.btn-default(ng-click='addTenGems()') +10 Gems
+            a.btn.btn-default(ng-click='addLevelsAndGold()') +Exp +GP
+            a.btn.btn-default(ng-click='addOneLevel()') +1 Level
 
   div(ng-init='deferredScripts()')

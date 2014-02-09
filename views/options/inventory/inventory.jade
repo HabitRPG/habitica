@@ -13,9 +13,10 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
         h3.equipment-title=env.t('costume')
         &nbsp;
         i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('costumeText'))
-        label.checkbox.inline(style="margin-left: 20px;")
-          input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
-          =env.t('useCostume')
+        .checkbox
+          label
+            input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
+            =env.t('useCostume')
         li.customize-menu(ng-if='user.preferences.costume')
           menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
