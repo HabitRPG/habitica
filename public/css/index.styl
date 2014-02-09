@@ -111,15 +111,14 @@ html, body
     font-weight: 700
 
 // notification-character used only by death modal's figure, move
-.death-modal // a .modal-body
-  margin: 10px
 
+.modal-body
   figure
     float: left
     padding: 15px
 
-#reset-modal
-  z-index:1500
+.death-modal // a .modal-body
+  margin: 10px
 
 a
   cursor: pointer
@@ -138,6 +137,11 @@ a.label
 
 .btn 
   margin-right: 5px
+
+.vertical-align
+  vertical-align: middle
+.inline-block
+  display: inline-block
 
 // Buttons in groups should not have a 5px margin between them; suppress margin for buttons in groups.
 .btn-group .btn

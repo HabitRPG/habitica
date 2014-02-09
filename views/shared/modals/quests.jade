@@ -28,10 +28,9 @@ script(type='text/ng-template', id='modals/showQuest.html')
     .pull-right(class='quest_{{selectedQuest.key}}')
     div(ng-bind-html='selectedQuest.notes')
     quest-rewards(key='{{selectedQuest.key}}')
-    hr
-    div(style='clear:left;clear:right')
-      .npc_ian.pull-left
-      p=env.t('questSend')
+    hr    
+    .npc_ian.pull-left
+    p=env.t('questSend')
   .modal-footer
     button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('cancel')
     button.btn.btn-primary(ng-click='questInit(); $close()')=env.t('inviteParty')

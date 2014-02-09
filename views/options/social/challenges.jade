@@ -145,13 +145,12 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                   | {{challenge.memberCount}} 
                   = ' ' + env.t('participants')
                 li(ng-show='challenge.prize')
-                  // prize
-                  table(ng-show='challenge.prize')
-                    tr
-                      td {{challenge.prize}}
-                      td
-                        .Pet_Currency_Gem1x(style='margin-left:0px')
-                      td=env.t('prize')
+                  p
+                    // prize
+                    | {{challenge.prize}}&nbsp;
+                    span.inline-block.Pet_Currency_Gem1x
+                    | &nbsp;
+                    =env.t('prize')
                 li
                   // leave / join
                   a.btn.btn-sm.btn-danger(ng-show='challenge._isMember', ng-click='clickLeave(challenge, $event)')

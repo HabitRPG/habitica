@@ -34,8 +34,8 @@
             | &nbsp;
             =env.t('logout')
     // party invitation notification
-    a(ng-show='user.party.invitation', style='cursor: pointer;', x-bind='click:gotoPartyChat')
+    a(ng-show='user.party.invitation', x-bind='click:gotoPartyChat')
       span.glyphicon.glyphicon-user
     // party chat notification
-    a(ng-show='newChatMessages(_party.chat,user.party.lastMessageSeen)', style='cursor: pointer;', x-bind='click:gotoPartyChat')
+    a(ng-show='newChatMessages(_party.chat,user.party.lastMessageSeen)', x-bind='click:gotoPartyChat')
       span.glyphicon.glyphicon-comment(tooltip=env.t('partyNotification'))

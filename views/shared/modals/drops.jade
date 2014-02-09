@@ -3,11 +3,13 @@ script(type='text/ng-template', id='modals/dropsEnabled.html')
     h4=env.t('dropsEnabled')
   .modal-body
     p
-      span.item-drop-icon(class='Pet_Egg_Wolf')
+      figure
+        .item-drop-icon(class='Pet_Egg_Wolf')
       span!=env.t('firstDrop', {eggText: "{{Content.eggs.Wolf.text}}", eggNotes: "{{Content.eggs.Wolf.notes}}"})
     br
     p
-      span.item-drop-icon(class='Pet_Currency_Gem')
+      figure
+        .item-drop-icon(class='Pet_Currency_Gem')
       span!=env.t('useGems')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('close')

@@ -58,6 +58,7 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
                     .progress-bar.progress-bar-success(style="width:{{user.items.pets[pet]/.5}}%")
                 button(class="pet-button pet-not-owned", ng-if='!user.items.pets[pet]')
                   .PixelPaw
+                // How to apply this style in stylus files?
                 button(class="pet-button Pet-{{pet}}" ng-if='user.items.pets[pet]<0',style='opacity:0.1;filter:alpha(opacity=10)')
                   //if this could be changed to the opacity talked about? can't figure it out
       .col-md-12

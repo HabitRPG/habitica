@@ -46,5 +46,5 @@ figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(
   .avatar-level.label.label-default(ng-class='userLevelStyle(profile)')
     span.glyphicon.glyphicon-circle-arrow-up(ng-show='profile.stats.buffs.str || profile.stats.buffs.per || profile.stats.buffs.con || profile.stats.buffs.int || profile.stats.buffs.stealth', tooltip=env.t('buffed'), style='margin-right:5px;')
     =env.t('lvl') 
-    | {{profile.stats.lvl}}
-    span.glyphicon.glyphicon-plus-sign(ng-show='profile.achievements.rebirths', tooltip=env.t('reborn', {reLevel: "{{profile.achievements.rebirthLevel}}"}), style='margin-left:5px')
+    | {{profile.stats.lvl}}&nbsp;
+    span.glyphicon.glyphicon-plus-sign(ng-show='profile.achievements.rebirths', tooltip=env.t('reborn', {reLevel: "{{profile.achievements.rebirthLevel}}"}))

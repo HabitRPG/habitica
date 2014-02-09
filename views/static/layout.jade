@@ -18,7 +18,7 @@ html(ng-app='habitrpgStatic')
     != env.getManifestFiles("static")
 
   body
-    div(ng-controller='AuthCtrl',style='margin-top:60px;')
+    div(ng-controller='AuthCtrl')
       include ./login-modal
       nav.navbar.navbar-inverse.navbar-fixed-top
         .navbar-header

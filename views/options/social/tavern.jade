@@ -1,22 +1,21 @@
 .container-fluid
   .row
     .col-md-4
-      .tavern-pane
-        table
-          tr
-            td
-              .npc_daniel
-            td
-              .popover.static-popover.fade.right.in
-                .arrow
-                h3.popover-title
-                  a(target='_blank', href='http://www.kickstarter.com/profile/2014640723')=env.t('daniel')
-                .popover-content
-                  =env.t('danielText')
-                  div
-                    button.btn.btn-lg.btn-success(ng-class='{active: user.preferences.sleep}', ng-click='User.user.ops.sleep({})')
-                      span(ng-show='user.preferences.sleep')=env.t('innCheckOut')
-                      span(ng-hide='user.preferences.sleep')=env.t('innCheckIn')
+      table
+        tr
+          td
+            .npc_daniel
+          td
+            .popover.static-popover.fade.right.in
+              .arrow
+              h3.popover-title
+                a(target='_blank', href='http://www.kickstarter.com/profile/2014640723')=env.t('daniel')
+              .popover-content
+                =env.t('danielText')
+                div
+                  button.btn.btn-lg.btn-success(ng-class='{active: user.preferences.sleep}', ng-click='User.user.ops.sleep({})')
+                    span(ng-show='user.preferences.sleep')=env.t('innCheckOut')
+                    span(ng-hide='user.preferences.sleep')=env.t('innCheckIn')
       .alert.alert-info(ng-show='user.preferences.sleep')
         =env.t('innText')
 
@@ -63,11 +62,11 @@
             |<a href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG' target='_blank'>
             =env.t('conLearnHow')
             |</a>
-          table.table.table-striped
+          table.table.table-striped.panel-tiers
             tr
               td
                 a.label.label-contributor-1(ng-click='toggleUserTier($event)')=env.t('friend') + ' (1-2)'
-                div(style='display:none;')
+                div
                   p
                     span.achievement.achievement-firefox
                     !=env.t('friendFirst')
@@ -78,7 +77,7 @@
             tr
               td
                 a.label.label-contributor-3(ng-click='toggleUserTier($event)')=env.t('elite') + ' (3-4)'
-                div(style='display:none;')
+                div
                   p
                     span.shop-sprite.item-img(class='shop_head_special_1')
                     !=env.t('eliteThird')
@@ -89,7 +88,7 @@
             tr
               td
                 a.label.label-contributor-5(ng-click='toggleUserTier($event)')=env.t('champion') + ' (5-6)'
-                div(style='display:none;')
+                div
                   p
                     span.shop-sprite.item-img(class='shop_shield_special_1')
                     !=env.t('championFifth')
@@ -100,18 +99,18 @@
             tr
               td
                 a.label.label-contributor-7(ng-click='toggleUserTier($event)')=env.t('legendary') + ' (7)'
-                div(style='display:none;')
+                div
                   p
                     !=env.t('legSeventh')
             tr
               td
                 a.label.label-contributor-8(ng-click='toggleUserTier($event)')=env.t('heroic')
-                div(style='display:none;')
+                div
                   p=env.t('heroicText') 
             tr
               td
                 a.label.label-npc(ng-click='toggleUserTier($event)')=env.t('npc')
-                div(style='display:none;')
+                div
                   p=env.t('npcText')
 
       include ./challenge-box
