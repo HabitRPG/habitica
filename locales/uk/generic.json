@@ -12,6 +12,8 @@
   "modalAchievement" : "Achievement!",
 	"special" : "Special",
 	"market": "Market",
+  "subscriberItem" : "Mystery Item",
+  "subscriberItemText" : "Each month, subscribers will receive a mystery item.",
 
 	"all" : "All",
 	"none" : "None",
