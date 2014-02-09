@@ -486,7 +486,7 @@ api.special = api.spells.special
   ---------------------------------------------------------------
 ###
 
-api.eggs =
+api.dropEggs =
   # value & other defaults set below
   Wolf:             text: 'Wolf', adjective: 'loyal'
   TigerCub:         text: 'Tiger Cub', mountText: 'Tiger', adjective: 'fierce'
@@ -497,8 +497,7 @@ api.eggs =
   Dragon:           text: 'Dragon', adjective: 'mighty'
   Cactus:           text: 'Cactus', adjective: 'prickly'
   BearCub:          text: 'Bear Cub',  mountText: 'Bear', adjective: 'cuddly'
-  Gryphon:          text: 'Gryphon',  adjective: 'regal', canBuy: false
-_.each api.eggs, (egg,key) ->
+_.each api.dropEggs, (egg,key) ->
   _.defaults egg,
     canBuy:true
     value: 3
@@ -506,12 +505,29 @@ _.each api.eggs, (egg,key) ->
     notes: "Find a hatching potion to pour on this egg, and it will hatch into a #{egg.adjective} #{egg.text}."
     mountText: egg.text
 
+api.questEggs =
+  # value & other defaults set below
+  Gryphon:          text: 'Gryphon',  adjective: 'regal', canBuy: false
+_.each api.questEggs, (egg,key) ->
+  _.defaults egg,
+    canBuy:false
+    value: 3
+    key: key
+    notes: "Find a hatching potion to pour on this egg, and it will hatch into a #{egg.adjective} #{egg.text}."
+    mountText: egg.text
+
+api.eggs = _.assign(_.cloneDeep(api.dropEggs), api.questEggs)
+
 api.specialPets =
   'Wolf-Veteran':   true
   'Wolf-Cerberus':  true
   'Dragon-Hydra':   true
   'Turkey-Base':    true
   'BearCub-Polar':  true
+
+api.specialMounts =
+  'BearCub-Polar':	true
+  'LionCub-Ethereal':	true
 
 api.hatchingPotions =
   Base:             value: 2, text: 'Base'
@@ -527,7 +543,11 @@ api.hatchingPotions =
 _.each api.hatchingPotions, (pot,key) ->
   _.defaults pot, {key, value: 2, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
 
-api.pets = _.transform api.eggs, (m, egg) ->
+api.pets = _.transform api.dropEggs, (m, egg) ->
+  _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
+    m2[egg.key + "-" + pot.key] = true
+
+api.questPets = _.transform api.questEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
     m2[egg.key + "-" + pot.key] = true
 

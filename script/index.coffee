@@ -301,8 +301,16 @@ api.appliedTags = (userTags, taskTags) ->
 
 api.countPets = (originalCount, pets) ->
   count = if originalCount? then originalCount else _.size(pets)
+  for pet of content.questPets
+    count-- if pets[pet]
   for pet of content.specialPets
     count-- if pets[pet]
+  count
+
+api.countMounts= (originalCount, mounts) ->
+  count = if originalCount? then originalCount else _.size(mounts)
+  for mount of content.specialMounts
+    count-- if mounts[mount]
   count
 
 ###
@@ -1177,8 +1185,8 @@ api.wrap = (user, main=true) ->
         {id, type, completed, repeat} = task
 
         return if (type is 'daily') && !completed && user.stats.buffs.stealth && user.stats.buffs.stealth-- # User "evades" a certain number of uncompleted dailies
-        
-        
+
+
         # Deduct experience for missed Daily tasks, but not for Todos (just increase todo's value)
         unless completed
           scheduleMisses = daysMissed

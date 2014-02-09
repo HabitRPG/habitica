@@ -10548,7 +10548,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
   */
 
 
-  api.eggs = {
+  api.dropEggs = {
     Wolf: {
       text: 'Wolf',
       adjective: 'loyal'
@@ -10588,15 +10588,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       text: 'Bear Cub',
       mountText: 'Bear',
       adjective: 'cuddly'
-    },
-    Gryphon: {
-      text: 'Gryphon',
-      adjective: 'regal',
-      canBuy: false
     }
   };
 
-  _.each(api.eggs, function(egg, key) {
+  _.each(api.dropEggs, function(egg, key) {
     return _.defaults(egg, {
       canBuy: true,
       value: 3,
@@ -10606,12 +10601,37 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     });
   });
 
+  api.questEggs = {
+    Gryphon: {
+      text: 'Gryphon',
+      adjective: 'regal',
+      canBuy: false
+    }
+  };
+
+  _.each(api.questEggs, function(egg, key) {
+    return _.defaults(egg, {
+      canBuy: false,
+      value: 3,
+      key: key,
+      notes: "Find a hatching potion to pour on this egg, and it will hatch into a " + egg.adjective + " " + egg.text + ".",
+      mountText: egg.text
+    });
+  });
+
+  api.eggs = _.assign(_.cloneDeep(api.dropEggs), api.questEggs);
+
   api.specialPets = {
     'Wolf-Veteran': true,
     'Wolf-Cerberus': true,
     'Dragon-Hydra': true,
     'Turkey-Base': true,
     'BearCub-Polar': true
+  };
+
+  api.specialMounts = {
+    'BearCub-Polar': true,
+    'LionCub-Ethereal': true
   };
 
   api.hatchingPotions = {
@@ -10665,7 +10685,13 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     });
   });
 
-  api.pets = _.transform(api.eggs, function(m, egg) {
+  api.pets = _.transform(api.dropEggs, function(m, egg) {
+    return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
+      return m2[egg.key + "-" + pot.key] = true;
+    }));
+  });
+
+  api.questPets = _.transform(api.questEggs, function(m, egg) {
     return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
       return m2[egg.key + "-" + pot.key] = true;
     }));
@@ -11601,8 +11627,25 @@ var process=require("__browserify_process");(function() {
     var count, pet;
 
     count = originalCount != null ? originalCount : _.size(pets);
+    for (pet in content.questPets) {
+      if (pets[pet]) {
+        count--;
+      }
+    }
     for (pet in content.specialPets) {
       if (pets[pet]) {
+        count--;
+      }
+    }
+    return count;
+  };
+
+  api.countMounts = function(originalCount, mounts) {
+    var count, mount;
+
+    count = originalCount != null ? originalCount : _.size(mounts);
+    for (mount in content.specialMounts) {
+      if (mounts[mount]) {
         count--;
       }
     }
