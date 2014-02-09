@@ -486,26 +486,6 @@ api.special = api.spells.special
   ---------------------------------------------------------------
 ###
 
-api.eggs =
-  # value & other defaults set below
-  Wolf:             text: 'Wolf', adjective: 'loyal'
-  TigerCub:         text: 'Tiger Cub', mountText: 'Tiger', adjective: 'fierce'
-  PandaCub:         text: 'Panda Cub', mountText: 'Panda', adjective: 'gentle'
-  LionCub:          text: 'Lion Cub',  mountText: 'Lion', adjective: 'regal'
-  Fox:              text: 'Fox', adjective: 'wily'
-  FlyingPig:        text: 'Flying Pig', adjective: 'whimsical'
-  Dragon:           text: 'Dragon', adjective: 'mighty'
-  Cactus:           text: 'Cactus', adjective: 'prickly'
-  BearCub:          text: 'Bear Cub',  mountText: 'Bear', adjective: 'cuddly'
-  Gryphon:          text: 'Gryphon',  adjective: 'regal', canBuy: false
-_.each api.eggs, (egg,key) ->
-  _.defaults egg,
-    canBuy:true
-    value: 3
-    key: key
-    notes: "Find a hatching potion to pour on this egg, and it will hatch into a #{egg.adjective} #{egg.text}."
-    mountText: egg.text
-
 api.dropEggs =
   # value & other defaults set below
   Wolf:             text: 'Wolf', adjective: 'loyal'
@@ -535,6 +515,8 @@ _.each api.questEggs, (egg,key) ->
     key: key
     notes: "Find a hatching potion to pour on this egg, and it will hatch into a #{egg.adjective} #{egg.text}."
     mountText: egg.text
+
+api.eggs = _.assign(_.cloneDeep(api.dropEggs), api.questEggs)
 
 api.specialPets =
   'Wolf-Veteran':   true
