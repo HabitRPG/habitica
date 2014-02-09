@@ -1,7 +1,5 @@
-### Must install: ###
-### sudo npm install -g mocha ###
-### npm install sinon ###
-### Run with mocha algos.mocha.coffee --compilers coffee:coffee-script ###
+### Install: npm install --dev ###
+### Run: npm test ###
 
 _ = require 'lodash'
 expect = require 'expect.js'
