@@ -14,7 +14,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
         .panel-heading
           h3.panel-title(ng-if='group.quest.active==false')=env.t('questInvitation') + '{{Content.quests[group.quest.key].text}}'
           h3.panel-title(ng-if='group.quest.active==true') {{Content.quests[group.quest.key].text}}
-        .panel-body
+        .panel-body.modal-fixed-height
           div(ng-if='group.quest.active==false')
             table.table.table-striped
               tr(ng-repeat='member in group.members')
@@ -113,7 +113,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
       .panel.panel-default
         .panel-heading
           h3.panel-title=env.t('members')
-        .panel-body
+        .panel-body.modal-fixed-height
           span
             =env.t('partyList')
           select#partyOrder(
