@@ -295,7 +295,6 @@ api.buyGems = function(req, res, next) {
     function(response, cb) {
       //user.purchased.ads = true;
       if (req.query.plan) {
-        ga.event('subscribe', 'Stripe').send()
         user.purchased.plan = {
           planId:'basic_earned',
           customerId: response.id,
@@ -303,9 +302,12 @@ api.buyGems = function(req, res, next) {
           dateUpdated: new Date,
           gemsBought: 0
         };
+        ga.event('subscribe', 'Stripe').send()
+        ga.transaction(response.id, 5).item(5, 1, "stripe-subscription", "Subscription > PayPal").send()
       } else {
-        ga.event('checkout', 'Stripe').send()
         user.balance += 5;
+        ga.event('checkout', 'Stripe').send()
+        ga.transaction(response.id, 5).item(5, 1, "stripe-checkout", "Gems > Stripe").send()
       }
       user.save(cb);
     }
@@ -356,6 +358,7 @@ api.buyGemsPaypalIPN = function(req, res, next) {
         user.save();
         logging.info('PayPal transaction completed and user updated');
         ga.event('checkout', 'PayPal').send()
+        ga.transaction(req.body.txn_id, 5).item(5, 1, "paypal-checkout", "Gems > PayPal").send()
       });
     }
   });
