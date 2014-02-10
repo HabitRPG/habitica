@@ -10,6 +10,7 @@ var validator = require('validator');
 var check = validator.check;
 var sanitize = validator.sanitize;
 var User = require('./../models/user').model;
+var ga = require('./../utils').ga;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var logging = require('./../logging');
@@ -294,6 +295,7 @@ api.buyGems = function(req, res, next) {
     function(response, cb) {
       //user.purchased.ads = true;
       if (req.query.plan) {
+        ga.event('subscribe', 'Stripe').send()
         user.purchased.plan = {
           planId:'basic_earned',
           customerId: response.id,
@@ -302,6 +304,7 @@ api.buyGems = function(req, res, next) {
           gemsBought: 0
         };
       } else {
+        ga.event('checkout', 'Stripe').send()
         user.balance += 5;
       }
       user.save(cb);
@@ -331,6 +334,7 @@ api.cancelSubscription = function(req, res, next) {
   ], function(err, saved){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
     res.send(200, saved);
+    ga.event('unsubscribe', 'Stripe').send()
   });
 
 }
@@ -351,6 +355,7 @@ api.buyGemsPaypalIPN = function(req, res, next) {
         //user.purchased.ads = true;
         user.save();
         logging.info('PayPal transaction completed and user updated');
+        ga.event('checkout', 'PayPal').send()
       });
     }
   });
