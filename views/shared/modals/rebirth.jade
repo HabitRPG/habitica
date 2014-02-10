@@ -11,7 +11,7 @@ script(type='text/ng-template', id='modals/rebirthEnabled.html')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('close')
 
-script(type='text/ng-template', id='modals/rebirth.html')  
+script(type='text/ng-template', id='modals/rebirth.html')
   .modal-header
     h4=env.t('rebirthBegin')
   .modal-body
@@ -42,7 +42,7 @@ script(type='text/ng-template', id='modals/rebirth.html')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
     span(ng-if='user.balance < 2')
-      a.btn.btn-success(ng-click='openModal("buyGems")')=env.t('buyMoreGems')
+      a.btn.btn-success(ng-click='openModal("buyGems",{track:"Gems > Rebirth"})')=env.t('buyMoreGems')
       span.gem-cost=env.t('notEnoughGems')
     span(ng-if='user.balance >= 2', ng-controller='SettingsCtrl')
       a.btn.btn-danger(ng-click='$close(); rebirth()')=env.t('beReborn')

@@ -3,8 +3,8 @@
 /* Make user and settings available for everyone through root scope.
  */
 
-habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal',
-  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal) {
+habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$http', '$state', '$stateParams', 'Notification', 'Groups', 'Shared', 'Content', '$modal', '$timeout',
+  function($scope, $rootScope, $location, User, $http, $state, $stateParams, Notification, Groups, Shared, Content, $modal, $timeout) {
     var user = User.user;
 
     var initSticky = _.once(function(){
@@ -66,13 +66,15 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     // Open a modal from a template expression (like ng-click,...)
     // Otherwise use the proper $modal.open
-    $rootScope.openModal = function(template, controller, scope, keyboard, backdrop){
+    $rootScope.openModal = function(template, options){//controller, scope, keyboard, backdrop){
+      if (!options) options = {};
+      if (options.track) window.ga && ga('send', 'event', 'button', 'click', options.track);
       return $modal.open({
         templateUrl: 'modals/' + template + '.html',
-        controller: controller, // optional
-        scope: scope, // optional
-        keyboard: (keyboard === undefined ? true : keyboard), // optional
-        backdrop: (backdrop === undefined ? true : backdrop) // optional
+        controller: options.controller, // optional
+        scope: options.scope, // optional
+        keyboard: (options.keyboard === undefined ? true : options.keyboard), // optional
+        backdrop: (options.backdrop === undefined ? true : options.backdrop) // optional
       });
     }
 

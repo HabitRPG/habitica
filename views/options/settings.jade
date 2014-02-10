@@ -88,8 +88,8 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
 
         hr
         h4=env.t('dangerZone')
-        a.btn.btn-danger(ng-click='openModal("reset", "SettingsCtrl")', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetAccPop'))= env.t('resetAccount')
-        a.btn.btn-danger(ng-click='openModal("delete", "SettingsCtrl")', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
+        a.btn.btn-danger(ng-click='openModal("reset", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetAccPop'))= env.t('resetAccount')
+        a.btn.btn-danger(ng-click='openModal("delete", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
   .containter-fluid

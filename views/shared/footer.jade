@@ -13,7 +13,7 @@ footer.footer(ng-controller='FooterCtrl')
         ul.list-unstyled
           if (!env.isStaticPage)
             li
-              .btn.btn-sm.btn-success(ng-click='openModal("buyGems")')
+              .btn.btn-sm.btn-success(ng-click='openModal("buyGems",{track:"Gems > Donate"})')
                 span.glyphicon.glyphicon-heart
                 =env.t('companyDonate')
           li

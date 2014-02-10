@@ -68,6 +68,7 @@ angular.module('authCtrl', [])
       };
 
       $scope.playButtonClick = function(){
+        window.ga && ga('send', 'event', 'button', 'click', 'Play');
         if (User.authenticated()) {
           window.location.href = '/#/tasks';
         } else {
