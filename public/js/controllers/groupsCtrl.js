@@ -219,7 +219,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
       $scope.newGroup = newGroup()
       $scope.create = function(group){
-        if (User.user.balance < 1) return $rootScope.openModal('buyGems');
+        if (User.user.balance < 1) return $rootScope.openModal('buyGems', {track:"Gems > Create Group"});
 
         if (confirm(window.env.t('confirmGuild'))) {
           group.$save(function(saved){

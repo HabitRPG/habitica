@@ -81,7 +81,7 @@ habitrpg.controller('SettingsCtrl',
     $rootScope.openRestoreModal = function(){
       $scope.restoreValues.stats = angular.copy(User.user.stats);
       $scope.restoreValues.achievements = {streak: User.user.achievements.streak || 0};
-      $rootScope.openModal('restore', undefined, $scope);
+      $rootScope.openModal('restore', {scope:$scope});
     };
 
     $scope.restore = function(){

@@ -3,6 +3,8 @@ var nconf = require('nconf');
 var crypto = require('crypto');
 var path = require("path");
 
+module.exports.ga = undefined; // set Google Analytics on nconf init
+
 module.exports.sendEmail = function(mailData) {
   var smtpTransport = nodemailer.createTransport("SMTP",{
     service: nconf.get('SMTP_SERVICE'),
@@ -45,4 +47,6 @@ module.exports.setupConfig = function(){
     Error.stackTraceLimit = Infinity;
   if (nconf.get('NODE_ENV') === 'production')
     require('newrelic');
+
+  module.exports.ga = require('universal-analytics')(nconf.get('GA_ID'));
 };

@@ -6,7 +6,7 @@ habitrpg.controller('NotificationCtrl',
 
     $rootScope.$watch('user.stats.hp', function(after, before) {
       if (after <= 0){
-        $rootScope.openModal('death', undefined, undefined, false, 'static');
+        $rootScope.openModal('death', {keyboard:false, backdrop:'static'});
       }
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
@@ -105,7 +105,7 @@ habitrpg.controller('NotificationCtrl',
     // Classes modal
     $rootScope.$watch('!user.flags.classSelected && user.stats.lvl >= 10', function(after, before){
       if(after){
-        $rootScope.openModal('chooseClass', 'UserCtrl', undefined, false, 'static');
+        $rootScope.openModal('chooseClass', {controller:'UserCtrl', keyboard:false, backdrop:'static'});
       }
     });
 
@@ -125,7 +125,7 @@ habitrpg.controller('NotificationCtrl',
     // Completed quest modal
     $rootScope.$watch('user.party.quest.completed', function(after, before){
       if (after == before || after != true) return;
-      $rootScope.openModal('questCompleted', 'InventoryCtrl');
+      $rootScope.openModal('questCompleted', {controller:'InventoryCtrl'});
     });
 
     // Quest invitation modal

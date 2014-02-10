@@ -130,7 +130,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       if (item.lvl && item.lvl > user.stats.lvl)
         return alert(window.env.t('mustLevel', {level: item.lvl}));
       $rootScope.selectedQuest = item;
-      $rootScope.openModal('showQuest', 'InventoryCtrl');
+      $rootScope.openModal('showQuest', {controller:'InventoryCtrl'});
     }
     $scope.closeQuest = function(){
       $rootScope.selectedQuest = undefined;
@@ -149,7 +149,7 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       if (!completedPrevious)
         return $scope.purchase("quests", item);
       $rootScope.selectedQuest = item;
-      $rootScope.openModal('buyQuest', 'InventoryCtrl');
+      $rootScope.openModal('buyQuest', {controller:'InventoryCtrl'});
     }
   }
 ]);

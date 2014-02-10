@@ -48,7 +48,8 @@
     "winston": "~0.7.2",
     "winston-mail": "~0.2.7",
     "winston-newrelic": "~0.1.4",
-    "domain-middleware": "~0.1.0"
+    "domain-middleware": "~0.1.0",
+    "universal-analytics": "~0.3.2"
   },
   "private": true,
   "subdomain": "habitrpg",
