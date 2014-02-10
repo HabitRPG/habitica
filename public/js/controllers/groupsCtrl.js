@@ -29,7 +29,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           // We need the member information up top here, but then we pass it down to the modal controller
           // down below. Better way of handling this?
           Members.selectMember(uid);
-          $rootScope.openModal('member', 'MemberModalCtrl');
+          $rootScope.openModal('member', {controller:'MemberModalCtrl'});
         }
       }
 
