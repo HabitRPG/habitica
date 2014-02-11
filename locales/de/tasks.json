@@ -49,9 +49,9 @@
 "clearFilters" : "Filter zurücksetzen",
 
 "_commentachievement" : "TASK ACHIEVEMENTS",
-    "streakName" : " Strähnen Erfolg(e)",
+    "streakName" : "Strähnen Erfolg(e)",
       "streakText" : "Hat <%= streaks %> 21-tägige Strähnen von täglichen Aufgaben erreicht",
-    "perfectName" : " Perfekt(e) Tag(e)",
+    "perfectName" : "Perfekt(e) Tag(e)",
       "perfectText" : "Hat <%= perfects %> perfekt(e) Tag(e) erreicht. Mit diesem Erfolg erhältst Du einen +Level/2 Segen für alle Werte für den nächsten Tag.",
     "streakerAchievement" : "Du hast Deinen \"Strähnen\" Erfolg gestapelt! Alle 21 Tage einer Strähne erhältst du hier einen Erfolgspunkt.",
 
@@ -67,5 +67,5 @@
 "sureDelete" : "Bist Du sicher, dass Du diese Aufgabe löschen möchtest?",
 
 "_commentnotificationctrljs" : "NOTIFICATIONCTRL.JS STRINGS",
-"streakCoins" : " Strähnen Bonus!"
+"streakCoins" : "Strähnen Bonus!"
 }

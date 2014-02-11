@@ -7,7 +7,7 @@
 "brokenTask" : "Toter Wettbewerb-Link: Diese Aufgabe war Teil eines Wettbewerbs, aber ist mittlerweile entfernt worden. Was möchtest Du tun?",
 "keepIt" : "Behalten",
 "removeIt" : "Entfernen",
-"brokenChallenge" : " Toter Wettbewerb-Link: Diese Aufgabe war Teil eines Wettbewerbs, aber der Wettbewerb (oder die Gruppe) wurde gelöscht. Was möchtest Du mit den verwaisten Aufgaben tun?",
+"brokenChallenge" : "Toter Wettbewerb-Link: Diese Aufgabe war Teil eines Wettbewerbs, aber der Wettbewerb (oder die Gruppe) wurde gelöscht. Was möchtest Du mit den verwaisten Aufgaben tun?",
 "keepThem" : "Behalten",
 "removeThem" : "Entfernen",
 "challengeCompleted" : "Dieser Wettbewerb ist beendet, und gewonnen hat <span class=\"badge\"><%= user %></span>! Was soll mit den verwaisten Aufgaben geschehen?",
@@ -18,8 +18,8 @@
     
 "_commentchallenge-box" : "CHALLENGE-BOX",
 "challenges" : "Wettbewerbe",
-"noChallenges": "Keine Wettbewerbe gefunden, besuche ",
-"toCreate" : " um einen Wettbewerb zu erstellen.",
+"noChallenges": "Keine Wettbewerbe gefunden, besuche",
+"toCreate" : "um einen Wettbewerb zu erstellen.",
 
 "_commentchallengeoptions" : "CHALLENGES OPTIONS",
 "selectWinner" : "Wähle einen Gewinner und beende den Wettbewerb.",

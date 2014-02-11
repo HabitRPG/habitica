@@ -8,7 +8,7 @@
 "youReceived" : "Du hast folgendes erhalten:",
 "questSend" : "Indem Du auf \"Einladen\" klickst, sendest Du eine Einladung an Deine Gruppenmitglieder. Wenn alle Mitglieder angenommen oder abgelehnt haben beginnt das Quest. Statusabfrage unter Optionen > Soziales > Gruppe.",
 "inviteParty" : "Gruppe einladen",
-"questInvitation" : "Quest Einladung: ",
+"questInvitation" : "Quest Einladung:",
 "askLater" : "Später fragen",
 "buyQuest" : "Quest kaufen",
 
@@ -29,7 +29,7 @@
 "_commentscrolls" : "SCROLLS",
 "scrolls" : "Quest Rollen",
 "noScrolls" : "Du hast im Moment keine Quest Rollen.",
-"scrollsText1" : "Quests erfordern Gruppen. Wenn Du ein Quest allein erfüllen willst, dann musst Du ",
+"scrollsText1" : "Quests erfordern Gruppen. Wenn Du ein Quest allein erfüllen willst, dann musst Du",
 "scrollsText2" : "eine leere Gruppe erstellen",
 "scrollsPre" : "Du musst das vorhergehende Quest erfüllen um dieses Quest anzutreten!",
 

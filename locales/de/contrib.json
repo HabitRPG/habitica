@@ -22,7 +22,7 @@
 "contribModal" : "<%= name %>, Du  bistgroßartige! Du bist jetzt ein Level <%= level %> Mitwirkender für Deinen Beitrag auf HabitRPG. Folgende",
      "contribLink" : "Preise hast Du für deinen Beitrag verdient!",
    "contribName" : "Mitwirkender",
-      "contribText" : "Hat zu HabitRPG beigetragen (Code, Design, Pixel Art, Rechtsrat, Dokumentationen, etc.). Willst Du dieses Abzeichen auch haben? ",
+      "contribText" : "Hat zu HabitRPG beigetragen (Code, Design, Pixel Art, Rechtsrat, Dokumentationen, etc.). Willst Du dieses Abzeichen auch haben?",
       "readMore" : "Lies mehr",
     "kickstartName" : "Kickstarter Träger - Level $<%= tier %>",
       "kickstartText" : "Hat das Kickstarter Project mitfinanziert",
@@ -63,6 +63,6 @@
 "removeAds": "Abbonieren um Werbung zu entfernen",
 "whyAds": "Warum Werbung?",
 "whyAdsContent1": "HabitRPG ist ein \"open source Project\" und kann jede Hilfe brauchen, die es bekommen kann - Betrachte es als Spende an die Mitwirkenden. Du erhältst zudem 20 Edelsteine für den Kauf, die Du verwenden kannst um tolle Gegenstände zu kaufen.",
-"whyAdsContent2": "'Hey, ich habe die Kickstarter-Kampagne mitgetragen!' - Folge ",
+"whyAdsContent2": "'Hey, ich habe die Kickstarter-Kampagne mitgetragen!' - Folge",
 "whyAdsContent3": "dieser Anleitung"
 }

@@ -23,7 +23,7 @@
   "_commentachievements" : "REBIRTH ACHIEVEMENTS",
     "rebirthBegan" : "Hat ein neues Abenteuer begonnen",
       "rebirthText" : "Hat <%= rebirths %> neue Abenteuer begonnen",
-      "rebirthOrb" : "Hat eine Kugel der Wiedergeburt verwendet nachdem er folgendes Level erreicht hatte: ",
+      "rebirthOrb" : "Hat eine Kugel der Wiedergeburt verwendet nachdem er folgendes Level erreicht hatte:",
  
   "_commentinventory" : "REBIRTH INVENTORY",
 "rebirthPop" : "Starte einen neuen Charakter mit Level 1, aber behalte Erfolge, Sammlungen und Aufgaben mit Verlauf bei.",

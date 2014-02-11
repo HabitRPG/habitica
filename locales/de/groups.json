@@ -11,11 +11,11 @@
 "tutorial" : "Anleitung",
 "glossary" : "Nomenklatur",
 "reportAP" : "Problem melden",
-"requestAF" : " Feature vorschlagen",
+"requestAF" : "Feature vorschlagen",
 "community" : "Community Forum",
     "resources" : "Ressourcen",
 "tavernTalk" : "Gasthausgespräche",
-"tavernAlert1" : " Achtung: Wenn Du einen Bug meldest, sehen die Entwickler es hier nicht. Bitte",
+"tavernAlert1" : "Achtung: Wenn Du einen Bug meldest, sehen die Entwickler es hier nicht. Bitte",
 "tavernAlert2" : "verwende anstatt dessen GitHub",
 
 "_commentparty" : "PARTY",
@@ -26,7 +26,7 @@
 "userId":"Benutzer ID",
 "invite":"Einladen",
 "leave": "Verlassen",
-"invitedTo" : "Du wurdest eingeladen zu ",
+"invitedTo" : "Du wurdest eingeladen zu",
     "partyNotification" : "Neue Gruppenmitteilungen",
 
 
@@ -45,7 +45,7 @@
 "logoUrl" : "Logo URL",
 "assignLeader" : "Gruppenleiter bestimmen",
 "members" : "Mitglied(er)",
-"partyList" : "Gruppenmitglieder Liste ",
+"partyList" : "Gruppenmitglieder Liste",
 "banTip" : "Mitglied ausschließen",
 "moreMembers" : "mehr Mitglieder",
 "invited" : "Eingeladen",

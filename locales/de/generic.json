@@ -55,8 +55,8 @@
         "habitBirthdayText" : "Hat an der HabitRPG Birthday Party von 2014 teilgenommen.",
 
 "_commentmodals" : "MEMBERS MODALS",
-"memberSince" : " - Teilnehmer seit ",
-"lastLoggedIn" : " - Zuletzt eingeloggt ",
+"memberSince" : "- Teilnehmer seit",
+"lastLoggedIn" : "- Zuletzt eingeloggt",
 
   "_commentrootctrljs" : "ROOTCTRL.JS STRINGS",
     "notPorted" : "Dieses Feature wurde noch nicht von der ursprünglichen Seite geportet.",
@@ -67,11 +67,11 @@
   "_commentauthctrljs" : "AUTHCTRL.JS STRINGS",
     "untilNoFace" : "Bis wir Facebook eingegliedert haben, benutze unsere UUID and API Tokens um Dich einzuloggen (zu finden unter https://habitrpg.com > Optionen > Einstellungen).",
     "noReachServer" : "Der Server ist momentan nicht erreichbar, versuche es später noch einmal",
-    "errorUpCase" : "FEHLER: ",
+    "errorUpCase" : "FEHLER:",
     "newPassSent" : "Neues Passwort wurde gesendet.",
 
   "_commentappjs" : "APP.JS STRINGS",
     "serverUnreach" : "Server momentan nicht erreichbar.",
-    "seeConsole" : " (Mehr Details in der Chrome Konsole).",
+    "seeConsole" : "(Mehr Details in der Chrome Konsole).",
     "error" : "FEHLER"
 }

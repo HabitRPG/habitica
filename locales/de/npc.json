@@ -34,8 +34,8 @@
 
     "_commentinit" : "INITIAL TOUR",
      "welcomeHabit" : "Wilkommen zu HabitRPG",
-     "welcomeHabitT1" : "Willkommen zu HabitRPG, einem Gewohnheits-Tracker, der Deine Ziele wie ein Rollenspiel behandelt. Ich bin ",
-     "welcomeHabitT2" : " Dein Fremdenführer!",
+     "welcomeHabitT1" : "Willkommen zu HabitRPG, einem Gewohnheits-Tracker, der Deine Ziele wie ein Rollenspiel behandelt. Ich bin",
+     "welcomeHabitT2" : "Dein Fremdenführer!",
      "yourAvatar" : "Dein Avatar",
      "yourAvatarText" : "Das ist Dein Avatar. Er representiert Dich in der Welt von Habitica. Wenn Du Ziele erreichst erhält Dein Avatar Level, verdient Gold und rüstet sich für zukünftige Herausforderungen aus.",
      "avatarCustom" : "Avatar Anpassung",
@@ -53,9 +53,9 @@
 "hoverOver" : "Mousezeiger über Kommentare",
 "hoverOverText" : "Du kannst Kommentare zu Deinen Aufgaben hinzufügen indem Du das Bearbeiten-Symbol klickst. Fahre mit dem Mousezeiger über den Kommentar einer Aufgabe um mehr Informationen zu erhalten, wie HabitRPG funktioniert. Wenn Du bereit bist zu beginnen kannst Du die Beispielsaufgaben löschen und Deine eigenen hinzufügen.",
 "unlockFeatures" : "Neue Features freischalten",
-"unlockFeaturesT1" : "Das ist alles was Du so weit wissen musst, aber ich werde wiederkommen, wenn Du im Level aufsteigst und werde Dich über neu freigeschaltete Features informieren. Jedes neue Feature wird Dir mehr Anregung geben Deine Ziele zu erreichen. Erfahre mehr im ",
+"unlockFeaturesT1" : "Das ist alles was Du so weit wissen musst, aber ich werde wiederkommen, wenn Du im Level aufsteigst und werde Dich über neu freigeschaltete Features informieren. Jedes neue Feature wird Dir mehr Anregung geben Deine Ziele zu erreichen. Erfahre mehr im",
 "habitWiki" : "HabitRPG Wiki",
-"unlockFeaturesT2" : " oder lass Dich überraschen. Viel Glück!",
+"unlockFeaturesT2" : "oder lass Dich überraschen. Viel Glück!",
 "customAvatar" : "Passe Deinen Avatar an",
 "customAvatarText" : "Klicke Deinen Avatar um ihn an Dich anzupassen.",
 "storeUnlocked" : "Marktplatz freigeschaltet",
@@ -70,5 +70,5 @@
 "spells" : "Fähigkeiten",
 "spellsText" : "Du kannst Klassenspezifische Fähigkeiten freischalten. Du wirst die erste mit Level 11 kennen lernen. Dein Mana regeneriert sich 10 Punkte pro Tag plus 1 Punkt pro erfüllte",
 "toDo" : "Aufgabe",
-"moreClass" : "Für mehr Informationen über das Klassensystem klicke "
+"moreClass" : "Für mehr Informationen über das Klassensystem klicke"
 }

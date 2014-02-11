@@ -15,7 +15,7 @@
   "social" : "Soziales",
 
 "_commentheaderavatar" : "HEADER AVATAR",
-"lvl" : "Lvl ",
+"lvl" : "Lvl",
 "buffed" : "Gesegnet",
 
 "_commentavatar":"AVATAR LOOKS",
@@ -51,7 +51,7 @@
 "battleGearText" : "Mit dieser Ausrüstung ziehst Du in den Kampf, sie beeinflusst die Berechnung, wenn Du auf Aufgaben klickst.",
 "costume" : "Verkleidung",
 "costumeText" : "Wenn Du das Aussehen einer anderen Ausrüstung Deiner Kampfausrüstung vorziehst, dann klicke auf die \"Verkleidung tragen\" Box um über Deiner Kampfausrüstung andere Ausrüstungsgegenstände zu tragen.",
-"useCostume" : "Verkleidung tragen ",
+"useCostume" : "Verkleidung tragen",
 
     "_commentgearachievement" : "GEAR ACHIEVEMENT",
       "gearAchievement" : "Du hast den \"Ultimative Ausrüstung\" Erfolg erlangt, indem du die beste Ausrüstung erworben hast.",
@@ -102,18 +102,18 @@
 "changeClass" : "Wechsle die Klasse und erhalte alle Attributpunkte zurück",
 "levelPopover" : "Jedes Level erhältst Du einen Punkt, den Du in ein Attribut Deiner Wahl setzen kannst. Du kannst Deine Punkte manuell verteilen, oder das Spiel entscheiden lassen indem Du eines der vorgegebenen Verteilungsmuster auswählst.",
 "unallocated" : "Freie Attributpunkte",
-"autoAllocation" : "Verteilungsmuster ",
+"autoAllocation" : "Verteilungsmuster",
 "autoAllocationPop" : "Verteile die Punkte ensprechend des ausgewählten Verteilungsmusters, wenn Du ein Level aufsteigst.",
-"evenAllocation" : "Gleichmäßiges Verteilungsmuster ",
+"evenAllocation" : "Gleichmäßiges Verteilungsmuster",
 "evenAllocationPop" : "Verteilt die Attributpunkte gleichmäßig auf alle Attribute.",
-"classAllocation" : "Klassenbasiertes Verteilungsmuster ",
+"classAllocation" : "Klassenbasiertes Verteilungsmuster",
 "classAllocationPop" : "Verteilt die Mehrzahl der Punkte auf Attribute die wichtig für Deine Klasse sind.",
-    "taskAllocation" : "Aufgabenbasiertes Verteilungsmuster ",
+    "taskAllocation" : "Aufgabenbasiertes Verteilungsmuster",
      "taskAllocationPop" : "Verteilt Punkte abhängig davon, welche Aufgaben Du überwiegend erledigst: Körperlich (STR), Mental (INT), Sozial (AUS), and Andere (WAR).",
     "distributePoints": "Verteile freie Punkte automatisch",
       "distributePointsPop": "Verteilt alle freien Punkte gemäß Deinem gewählten Verteilungsmuster.",
 "_commentmodals" : "CLASSES MODALS",
-"chooseClass1" : "Wähle Deine ",
+"chooseClass1" : "Wähle Deine",
 "chooseClass2" : "Klasse!",
 "warriorText" : "Krieger halten ihre Aufgaben unter Kontrolle, jeder Sieg schwächt zukünftige Fehltritte. Sie verursachen beeindruckende \"kritische Treffer\", die zufällig auftreten und Boni auf Gold und Erfahrung beim Erfüllen einer Aufgabe geben. Spiele einen Krieger, wenn Du für Unregelmäßigkeiten nicht zu sehr bestraft werden möchtest, oder wenn Dich die Chance auf Belohnungen im Lottogewinn-Stil besonders reizt!",
 "mageText" : "Magier lernen geschwind und erhalten Erfahrung und Level schneller als andere Klassen. Sie haben zudem eine große Menge Mana für ihre Fähigkeiten zur Verfügung. Spiele einen Magier, wenn Dich die taktischen Aspekte von HabitRPG ansprechen, oder wenn Dich schnelles Aufsteigen im Level und Freischalten neuer Features besonders reizt!",
@@ -147,5 +147,5 @@
    "youCastParty" : "Du wendest <%= spell %> auf deine Gruppe an.",
 
   "_commentnotificationservicesjs" : "NOTIFICATIONSERVICES.JS STRINGS",
-   "critBonus" : "Kritischer Treffer! Bonus: "
+   "critBonus" : "Kritischer Treffer! Bonus:"
 }
