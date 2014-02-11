@@ -303,7 +303,7 @@ api.buyGems = function(req, res, next) {
           gemsBought: 0
         };
         ga.event('subscribe', 'Stripe').send()
-        ga.transaction(response.id, 5).item(5, 1, "stripe-subscription", "Subscription > PayPal").send()
+        ga.transaction(response.id, 5).item(5, 1, "stripe-subscription", "Subscription > Stripe").send()
       } else {
         user.balance += 5;
         ga.event('checkout', 'Stripe').send()
