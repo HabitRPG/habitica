@@ -31,7 +31,10 @@ html(ng-app='habitrpgStatic')
         .collapse.navbar-collapse(collapse="isNavbarCollapsed")
           ul.nav.navbar-nav
             li(class='#{menuItem=="about" ? "active" : ""}')
-              a(href='/static/about')=env.t('learnMore')
+              //a(href='/static/about')=env.t('learnMore')
+              a(href='/static/about') About
+            li(class='#{menuItem=="videos" ? "active" : ""}')
+              a(href='/static/videos') Videos
             li
               a(href='http://blog.habitrpg.com/')=env.t('companyBlog')
             li(class='#{menuItem=="plans" ? "active" : ""}')

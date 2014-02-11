@@ -18,4 +18,14 @@ habitrpgStatic.controller("PlansCtrl", ['$rootScope', '$location', '$timeout',
       window.ga && ga('send', 'event', 'button', 'click', 'Contact Us (Plans)');
     }
   }
-]);
+])
+.controller('AboutCtrl',[function(){
+  $(document).ready(function(){
+    $('a.gallery').colorbox({
+      maxWidth: '90%',
+      maxHeight: '80%',
+      transition: 'none'
+      //maxHeight: '70%'
+    });
+  });
+}])

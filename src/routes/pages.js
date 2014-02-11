@@ -45,6 +45,12 @@ router.get('/static/about', middleware.locals, function(req, res) {
   res.render('static/about', {env: env});
 });
 
+router.get('/static/videos', middleware.locals, function(req, res) {
+  var env = res.locals.habitrpg;
+  env.isFrontPage = true;
+  res.render('static/videos', {env: env});
+});
+
 router.get('/static/contact', middleware.locals, function(req, res) {
   var env = res.locals.habitrpg;
   env.isFrontPage = true;
