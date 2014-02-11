@@ -24,7 +24,8 @@ habitrpgStatic.controller("PlansCtrl", ['$rootScope', '$location', '$timeout',
     $('a.gallery').colorbox({
       maxWidth: '90%',
       maxHeight: '80%',
-      transition: 'none'
+      transition: 'none',
+      scalePhotos:true
       //maxHeight: '70%'
     });
   });
