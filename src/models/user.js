@@ -183,6 +183,8 @@ var UserSchema = new Schema({
     mounts: _.defaults(
       // First transform to a 1D eggs/potions mapping
       _.transform(shared.content.pets, function(m,v,k){ m[k] = Boolean; }),
+      // Then add quest pets
+      _.transform(shared.content.questPets, function(m,v,k){ m[k] = Boolean; }),
       // Then add additional pets (backer, contributor)
       {
         'LionCub-Ethereal': Boolean,
