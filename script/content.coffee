@@ -698,19 +698,19 @@ _.each api.quests, (v,key) ->
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
   habits: [
-    {type: 'habit', text: '1h Productive Work', notes: 'When you create a new Habit, you can click the Edit icon and choose for it to represent a positive habit, a negative habit, or both. For some Habits, like this one, it only makes sense to gain points.', value: 0, up: true, down: false }
-    {type: 'habit', text: 'Eat Junk Food', notes: 'For others, it only makes sense to *lose* points.', value: 0, up: false, down: true}
-    {type: 'habit', text: 'Take The Stairs', notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose).', value: 0, up: true, down: true}
+    {type: 'habit', text: '1h Productive Work', notes: 'When you create a new Habit, you can click the Edit icon and choose for it to represent a positive habit, a negative habit, or both. For some Habits, like this one, it only makes sense to gain points.', value: 0, up: true, down: false, attribute: 'per' }
+    {type: 'habit', text: 'Eat Junk Food', notes: 'For others, it only makes sense to *lose* points.', value: 0, up: false, down: true, attribute: 'con'}
+    {type: 'habit', text: 'Take The Stairs', notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose).', value: 0, up: true, down: true, attribute: 'str'}
   ]
 
   dailys: [
-    {type: 'daily', text: '1h Personal Project', notes: 'All tasks default to yellow when they are created. This means you will take only moderate damage when they are missed and will gain only a moderate reward when they are completed.', value: 0, completed: false, repeat: repeat }
-    {type: 'daily', text: 'Exercise', notes: 'Dailies you complete consistently will turn from yellow to green to blue, helping you track your progress. The higher you move up the ladder, the less damage you take for missing and less reward you receive for completing the goal.', value: 3, completed: false, repeat: repeat }
-    {type: 'daily', text: '45m Reading', notes: 'If you miss a daily frequently, it will turn darker shades of orange and red. The redder the task is, the more experience and gold it grants for success and the more damage you take for failure. This encourages you to focus on your shortcomings, the reds.', value: -10, completed: false, repeat: repeat }
+    {type: 'daily', text: '1h Personal Project', notes: 'All tasks default to yellow when they are created. This means you will take only moderate damage when they are missed and will gain only a moderate reward when they are completed.', value: 0, completed: false, repeat: repeat, attribute: 'per' }
+    {type: 'daily', text: 'Exercise', notes: 'Dailies you complete consistently will turn from yellow to green to blue, helping you track your progress. The higher you move up the ladder, the less damage you take for missing and less reward you receive for completing the goal.', value: 3, completed: false, repeat: repeat, attribute: 'str' }
+    {type: 'daily', text: '45m Reading', notes: 'If you miss a daily frequently, it will turn darker shades of orange and red. The redder the task is, the more experience and gold it grants for success and the more damage you take for failure. This encourages you to focus on your shortcomings, the reds.', value: -10, completed: false, repeat: repeat, attribute: 'int' }
   ]
 
   todos: [
-    {type: 'todo', text: 'Call Mom', notes: 'While not completing a to-do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.', value: -3, completed: false }
+    {type: 'todo', text: 'Call Mom', notes: 'While not completing a to-do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.', value: -3, completed: false, attribute: 'per' }
   ]
 
   rewards: [
