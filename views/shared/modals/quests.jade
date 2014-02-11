@@ -49,7 +49,7 @@ script(type='text/ng-template', id='modals/buyQuest.html')
 script(type='text/ng-template', id='modals/questInvitation.html')  
   .modal-header
     h4=env.t('questInvitation')
-      | {{Content.quests[party.quest.key].text}}
+      |&nbsp;{{Content.quests[party.quest.key].text}}
   .modal-body
     div(ng-bind-html='Content.quests[party.quest.key].notes')
     quest-rewards(key='{{party.quest.key}}')

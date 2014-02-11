@@ -41,7 +41,8 @@ div(ng-if='profile.backer.tier')
 div(ng-if='profile.achievements.streak || user._id == profile._id')
   .achievement.achievement-thermometer(ng-show='profile.achievements.streak')
   div(ng-class='{muted: !profile.achievements.streak}')
-    h5 {{profile.achievements.streak || 0 }}
+    h5 
+      |{{profile.achievements.streak || 0 }}&nbsp;
       =env.t('streakName')
     small=env.t('streakText', {streaks: "{{profile.achievements.streak || 0 }}"})
   hr
@@ -49,7 +50,8 @@ div(ng-if='profile.achievements.streak || user._id == profile._id')
 div(ng-if='profile.achievements.perfect || user._id == profile._id')
   .achievement.achievement-perfect(ng-show='profile.achievements.perfect')
   div(ng-class='{muted: !profile.achievements.perfect}')
-    h5 {{profile.achievements.perfect || 0 }}
+    h5 
+      |{{profile.achievements.perfect || 0 }}&nbsp;
       =env.t('perfectName')
     small=env.t('perfectText', {perfects: "{{profile.achievements.perfect || 0 }}"})
   hr
@@ -75,7 +77,7 @@ div(ng-if='profile.achievements.rebirths')
     =env.t('rebirthText', {rebirths: "{{profile.achievements.rebirths}}"})
   small
     =env.t('rebirthOrb')
-    | {{profile.achievements.rebirthLevel}}.
+    |&nbsp;{{profile.achievements.rebirthLevel}}.
   hr
 
 div(ng-if='profile.achievements.helpedHabit')
@@ -83,6 +85,7 @@ div(ng-if='profile.achievements.helpedHabit')
   h5=env.t('helped')
   small
     =env.t('helpedText1')
+    |&nbsp;
     a(href='http://community.habitrpg.com/node/290', target='_blank')=env.t('helpedText2')
   hr
 

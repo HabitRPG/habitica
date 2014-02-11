@@ -226,7 +226,7 @@ window.habitrpg = angular.module('habitrpg',
           // Error
           } else {
             var error = '<strong>Please reload</strong>, ' +
-              '"'+window.env.t('error')+' '+(response.data.err || response.data || 'something went wrong')+'"' +
+              '"'+window.env.t('error')+' '+(response.data.err || response.data || 'something went wrong')+'" ' +
               window.env.t('seeConsole');
             $rootScope.$broadcast('responseError', error);
             console.error(response);

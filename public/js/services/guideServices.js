@@ -19,7 +19,7 @@ angular.module('guideServices', []).
         {
           element: ".main-herobox",
           title: window.env.t('welcomeHabit'),
-          content: window.env.t('welcomeHabitT1') + "<a href='http://www.kickstarter.com/profile/1823740484' target='_blank'>Justin</a>," + window.env.t('welcomeHabitT2'),
+          content: window.env.t('welcomeHabitT1') + " <a href='http://www.kickstarter.com/profile/1823740484' target='_blank'>Justin</a>, " + window.env.t('welcomeHabitT2'),
         }, {
           element: ".main-herobox",
           title: window.env.t('yourAvatar'),
@@ -69,7 +69,7 @@ angular.module('guideServices', []).
         }, {
           element: "ul.habits li:first-child",
           title: window.env.t('unlockFeatures'),
-          content: window.env.t('unlockFeaturesT1') + "<a href='http://habitrpg.wikia.com' target='_blank'>" + window.env.t('habitWiki') + "</a>" + window.env.t('unlockFeaturesT2'),
+          content: window.env.t('unlockFeaturesT1') + " <a href='http://habitrpg.wikia.com' target='_blank'>" + window.env.t('habitWiki') + "</a> " + window.env.t('unlockFeaturesT2'),
           placement: "right"
         }
       ];
@@ -171,11 +171,11 @@ angular.module('guideServices', []).
         }, {
           element: ".meter.mana",
           title: window.env.t('spells'),
-          content: window.env.t('spellsText') + "<a target='_blank' href='http://habitrpg.wikia.com/wiki/Todos'>" + window.env.t('toDo') + "</a>."
+          content: window.env.t('spellsText') + " <a target='_blank' href='http://habitrpg.wikia.com/wiki/Todos'>" + window.env.t('toDo') + "</a>."
         }, {
           orphan: true,
           title: window.env.t('readMore'),
-          content: window.env.t('moreClass') + "<a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>."
+          content: window.env.t('moreClass') + " <a href='http://habitrpg.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>."
         }
       ];
       _.each(tourSteps, function(step){

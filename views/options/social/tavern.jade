@@ -42,7 +42,7 @@
                 a(target='_blank', href='https://github.com/HabitRPG/habitrpg/issues/2760')=env.t('reportAP')
             tr
               td
-                a(target='_blank', href='https://trello.com/c/8gzGlle8')=env.t('requestAF')
+                a(target='_blank', href='https://trello.com/c/8gzGlle8')= ' ' + env.t('requestAF')
             tr
               td
                 a(target='_blank', href='http://habitrpg.wikia.com/wiki/Special:Forum')=env.t('community')
@@ -119,6 +119,6 @@
       h3=env.t('tavernTalk')
       include ./chat-box
       .alert.alert-info.alert-sm
-        !=env.t('tavernAlert1') + ' <a href="https://github.com/HabitRPG/habitrpg/issues/2760" target="_blank">' + env.t('tavernAlert2') + '</a>.'
+        != ' ' + env.t('tavernAlert1') + ' <a href="https://github.com/HabitRPG/habitrpg/issues/2760" target="_blank">' + env.t('tavernAlert2') + '</a>.'
       ul.list-unstyled.tavern-chat
         include ./chat-message

@@ -36,7 +36,7 @@ angular.module('authCtrl', [])
         } else if (!!data && !!data.err) {
           $window.alert(data.err);
         } else {
-          $window.alert(window.env.t('errorUpCase') + status);
+          $window.alert(window.env.t('errorUpCase') + ' ' + status);
         }
       };
 

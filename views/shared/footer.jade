@@ -15,6 +15,7 @@ footer.footer(ng-controller='FooterCtrl')
             li
               .btn.btn-sm.btn-success(ng-click='openModal("buyGems",{track:"Gems > Donate"})')
                 span.glyphicon.glyphicon-heart
+                |&nbsp;
                 =env.t('companyDonate')
           li
             a(href='/static/about')=env.t('companyAbout')

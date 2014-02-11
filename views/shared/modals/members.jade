@@ -11,9 +11,13 @@ script(type='text/ng-template', id='modals/member.html')
           markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
           ul.muted.list-unstyled(ng-if='profile.auth.timestamps')
             li {{profile._id}}
-            li(ng-show='profile.auth.timestamps.created')=env.t('memberSince')
+            li(ng-show='profile.auth.timestamps.created')
+              |&nbsp;
+              =env.t('memberSince')
               | {{timestamp(profile.auth.timestamps.created)}} -
-            li(ng-show='profile.auth.timestamps.loggedin')=env.t('lastLoggedIn')
+            li(ng-show='profile.auth.timestamps.loggedin')
+              |&nbsp;
+              =env.t('lastLoggedIn')
               | {{timestamp(profile.auth.timestamps.loggedin)}} -
           h3=env.t('stats')
           .label.label-info {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[profile.stats.class] }}

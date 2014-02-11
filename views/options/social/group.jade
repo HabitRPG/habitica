@@ -12,7 +12,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
       // ------ Bosses -------
       .panel.panel-default(bindonce='group', ng-if='group.type==="party" && group.quest.key')
         .panel-heading
-          h3.panel-title(ng-if='group.quest.active==false')=env.t('questInvitation') + '{{Content.quests[group.quest.key].text}}'
+          h3.panel-title(ng-if='group.quest.active==false')=env.t('questInvitation') + ' {{Content.quests[group.quest.key].text}}'
           h3.panel-title(ng-if='group.quest.active==true') {{Content.quests[group.quest.key].text}}
         .panel-body.modal-fixed-height
           div(ng-if='group.quest.active==false')
@@ -116,6 +116,7 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
         .panel-body.modal-fixed-height
           span
             =env.t('partyList')
+            |&nbsp;
           select#partyOrder(
             ng-model='user.party.order',
             ng-controller='ChatCtrl',

@@ -27,10 +27,14 @@ block content
     h2=env.t('landingp2header')
     //images in these parts could be useful, too
     //if there's a language workaround, image headers? people like pictures!
-    p.lead=env.t('landingp2')
+    p.lead
+        =env.t('landingp2')
+        |&nbsp;
     h2=env.t('landingp3header')
     //I'm not sold on "Consquences as the title here. Anyone got a better idea?
-    p.lead=env.t('landingp3')
+    p.lead
+        =env.t('landingp3')
+        |&nbsp;
     h2=env.t('landingp4header')
     p.lead=env.t('landingp4')
     //- TODO
@@ -40,4 +44,5 @@ block content
         a(href="FEATURESPAGEHERE")=env.t('landingfeatureslink')
         =env.t('landingend3')
         a(href="ENTERPRISEPAGEHERE")=env.t('landingadminlink')
+        |&nbsp;
         =env.t('landingend4')

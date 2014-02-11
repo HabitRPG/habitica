@@ -92,10 +92,12 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
           p=env.t('brokenTask')
           p
             a(ng-click='unlink(task, "keep")')=env.t('keepIt')
-            | &nbsp;|&nbsp;
+            | &nbsp;&nbsp;
             a(ng-click="removeTask(obj[list.type+'s'], $index)")=env.t('removeIt')
         div(ng-if='task.challenge.broken=="CHALLENGE_DELETED"')
-          p=env.t('brokenChallenge')
+          p
+            |&nbsp;
+            =env.t('brokenChallenge')
           p
             a(ng-click='unlink(task, "keep-all")')=env.t('keepThem')
             | &nbsp;|&nbsp;

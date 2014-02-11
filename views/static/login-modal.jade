@@ -60,9 +60,13 @@ script(id='modals/login.html', type='text/ng-template')
           .form-group
             input.form-control(type='password', ng-model='registerVals.confirmPassword', placeholder=env.t('passConfirm'), required)
           .form-group
-            small=env.t('accept1Terms')
+            small
+              =env.t('accept1Terms')
+              |&nbsp;
               a(href='/static/terms' target='_blank')=env.t('terms')
+              |&nbsp;
               =env.t('accept2Terms')
+              |&nbsp;
               a(href='/static/privacy' target='_blank')=env.t('privacy')
               | .
           .form-group

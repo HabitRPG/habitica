@@ -16,6 +16,7 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
         .checkbox
           label
             input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
+            |&nbsp;
             =env.t('useCostume')
         li.customize-menu(ng-if='user.preferences.costume')
           menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
