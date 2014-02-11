@@ -285,12 +285,23 @@ for $stage in $stages
 // -----------------------
 .task-meta-controls
   float: right
-  margin: 0.75em 0.5em 0 0.25em
+  margin: 0.75em 0.5em 0 0.5em
   height: 1em
   opacity: 0.25
 
   a
     text-decoration: none
+    
+  // improve alignment of task icons
+  .glyphicon-signal
+    margin-left: 0.25em
+  .glyphicon-remove, .glyphicon-ok, a.badge
+    margin-right: 0.25em
+  .glyphicon-tags
+    margin-left: 0.1em
+    margin-right: 0.4em
+  a.badge
+    position: relative; top:-2px;
 
 .task:hover .task-meta-controls
   opacity: 1
