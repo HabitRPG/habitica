@@ -48,7 +48,7 @@ footer.footer(ng-controller='FooterCtrl')
           li
             a(target='_blank', href='http://www.reddit.com/r/habitrpg/')=env.t('communityReddit')
       .col-sm-3
-        if (env.NODE_ENV=='production' && !env.IS_MOBILE)
+        if (env.NODE_ENV == 'production' && !env.IS_MOBILE)
           h4=env.t('footerSocial')
           .addthis_toolbox.addthis_default_style(addthis:url='https://habitrpg.com', addthis:title=env.t('socialTitle'))
             table
@@ -64,7 +64,7 @@ footer.footer(ng-controller='FooterCtrl')
               tr
                 td
                   a.addthis_button_google_plusone(g:plusone:size='medium')
-        else if(!env.isFrontPage)
+        else if(env.NODE_ENV != 'production' && !env.isStaticPage)
           h4 Debug
           .btn-group-vertical
             a.btn.btn-default(ng-click='addMissedDay()') +1 Missed Day

@@ -22,45 +22,31 @@ router.get('/static/front', middleware.locals, function(req, res) {
 });
 
 router.get('/static/privacy', middleware.locals, function(req, res) {
-  var env = res.locals.habitrpg;
-  env.isFrontPage = true;
-  res.render('static/privacy', {env: env});
+  res.render('static/privacy', {env: res.locals.habitrpg});
 });
 
 router.get('/static/terms', middleware.locals, function(req, res) {
-  var env = res.locals.habitrpg;
-  env.isFrontPage = true;
-  res.render('static/terms', {env: env});
+  res.render('static/terms', {env: res.locals.habitrpg});
 });
 
 router.get('/static/api', middleware.locals, function(req, res) {
-  var env = res.locals.habitrpg;
-  env.isFrontPage = true;
-  res.render('static/api', {env: env});
+  res.render('static/api', {env: res.locals.habitrpg});
 });
 
 router.get('/static/about', middleware.locals, function(req, res) {
-  var env = res.locals.habitrpg;
-  env.isFrontPage = true;
-  res.render('static/about', {env: env});
+  res.render('static/about', {env: res.locals.habitrpg});
 });
 
 router.get('/static/videos', middleware.locals, function(req, res) {
-  var env = res.locals.habitrpg;
-  env.isFrontPage = true;
-  res.render('static/videos', {env: env});
+  res.render('static/videos', {env: res.locals.habitrpg});
 });
 
 router.get('/static/contact', middleware.locals, function(req, res) {
-  var env = res.locals.habitrpg;
-  env.isFrontPage = true;
-  res.render('static/contact', {env: env});
+  res.render('static/contact', {env: res.locals.habitrpg});
 });
 
 router.get('/static/plans', middleware.locals, function(req, res) {
-  var env = res.locals.habitrpg;
-  env.isFrontPage = true;
-  res.render('static/plans', {env: env});
+  res.render('static/plans', {env: res.locals.habitrpg});
 });
 
 // --------- Redirects --------
