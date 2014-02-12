@@ -94,7 +94,6 @@ habitrpg.controller('NotificationCtrl',
       $rootScope.$watch('user.items.' + watched, function(before, after){
         if (after == before) return;
         if (+after < +before) {
-          Notification.death();
           //don't want to day "lost a head"
           if (watched === 'head') watched = 'helm';
           Notification.text('Lost GP, 1 LVL, ' + watched);

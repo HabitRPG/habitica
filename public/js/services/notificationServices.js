@@ -10,7 +10,7 @@ angular.module("notificationServices", [])
         top_offset: 20,
         align: 'right', //('left', 'right', or 'center')
         width: 250, //(integer, or 'auto')
-        delay: (type=='error') ? 0 : 7000,
+        delay: (type=='error') ? 0 : 0,
         allow_dismiss: true,
         stackup_spacing: 10 // spacing between consecutive stacecked growls.
       });
@@ -25,11 +25,11 @@ angular.module("notificationServices", [])
       gold = Math.floor(absolute);
       silver = Math.floor((absolute - gold) * 100);
       if (gold && silver > 0) {
-        return "" + gold + " <span class='icon-gold'></span> " + silver + " <span class='icon-silver'></span>";
+        return "" + gold + " <span class='notification-icon shop_gold'></span> " + silver + " <span class='notification-icon shop_silver'></span>";
       } else if (gold > 0) {
-        return "" + gold + " <span class='icon-gold'></span>";
+        return "" + gold + " <span class='notification-icon shop_gold'></span>";
       } else if (silver > 0) {
-        return "" + silver + " <span class='icon-silver'></span>";
+        return "" + silver + " <span class='notification-icon shop_silver'></span>";
       }
     };
 
@@ -59,9 +59,6 @@ angular.module("notificationServices", [])
       },
       lvl: function(){
         growl('<span class="glyphicon glyphicon-chevron-up"></span>&nbsp;' + window.env.t('levelUp'), 'lvl');
-      },
-      death: function(){
-        growl("<span class='glyphicon glyphicon-death'></span>&nbsp;" + window.env.t('respawn'), "death");
       },
       error: function(error){
         growl("<span class='glyphicon glyphicon-exclamation-sign'></span>&nbsp; " + error, "danger");
