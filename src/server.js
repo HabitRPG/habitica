@@ -116,7 +116,9 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use(app.router);
 
   var maxAge = isProd ? 31536000000 : 0;
+  // Cache emojis without copying them to build, they are too many
   app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
+  app.use('/bower_components/habitrpg-shared/img/emoji/unicode', express['static'](path.join(__dirname, "/../public/bower_components/habitrpg-shared/img/emoji/unicode"), { maxAge: maxAge }));
   app.use(express['static'](path.join(__dirname, "/../public")));
 
   // Custom Directives
