@@ -29,6 +29,6 @@
     "firstDrop": "Du hast das Beute-System freigeschaltet! Wenn Du von jetzt an Aufgaben erfüllst, hast Du eine kleine Chance einen Gegenstand zu finden. Du hast gerade ein <strong><%= eggText %> Ei</strong>! <%= eggNotes %> gefunden",
     "useGems": "Wenn Du auf ein bestimmtes Haustier versessen bist und nicht länger warten kannst, benutzt Edelsteine unter <strong>Optionen > Inventar</strong> um es zu kaufen!",
     "hatchAPot": "Willst du ein <%= potion %> <%= egg %> ausbrüten?",
-    "feedPet": "Feed <%= article %> <%= text %> to <%= name %>?",
+    "feedPet": "'Füttere <%= name %> <%= article %> <%= text %>?",
     "useSaddle": "Einen magischen Sattel auf <%= pet %> anwenden?"
 }
