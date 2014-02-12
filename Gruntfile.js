@@ -126,7 +126,7 @@ module.exports = function(grunt) {
 
   // Register tasks.
   grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
-  grunt.registerTask('build:dev', ['loadManifestFiles', 'clean:build', 'stylus', 'cssmin', 'copy:build']);
+  grunt.registerTask('build:dev', ['stylus']);
 
   grunt.registerTask('run:dev', [ 'build:dev', 'concurrent' ]);
 
