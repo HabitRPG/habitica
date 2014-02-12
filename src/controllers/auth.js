@@ -8,6 +8,7 @@ var async = require('async');
 var utils = require('../utils');
 var nconf = require('nconf');
 var User = require('../models/user').model;
+var ga = require('./../utils').ga;
 
 var api = module.exports;
 
@@ -88,6 +89,7 @@ api.registerUser = function(req, res, next) {
       };
       user = new User(newUser);
       user.save(cb);
+      ga.event('register', 'Local').send()
     }
   ], function(err, saved) {
     if (err) {
@@ -250,8 +252,7 @@ api.setupPassport = function(router) {
             }
           });
           user.save(cb);
-
-
+          ga.event('register', 'Facebook').send()
         }
       ], function(err, saved){
         if (err) return res.redirect('/static/front?err=' + err);
