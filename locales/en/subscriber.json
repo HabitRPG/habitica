@@ -4,7 +4,7 @@
     "subWarning2": "experience issues",
     "subWarning3": "with it.",
     "disableAds": "Disable ads",
-    "disableAdsText": "Ads will stay disabled while you have an active account (original users with disabled ads are grandfathered).",
+    "disableAdsText": "Ads will stay disabled while you have an active subscription (original users with disabled ads are grandfathered).",
     "buyGemsGold": "Buy Gems with Gold",
     "buyGemsGoldText": "(1 Gem costs <%= gemCost %> Gold) Addresses the \"pay to win\" concern, as everything is now achievable through hard work. There's a <%= gemLimit %>G monthly conversion cap to prevent farming.",
     "retainHistory": "Retain full history entries",
