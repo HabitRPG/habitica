@@ -106,22 +106,30 @@ module.exports = function(grunt) {
     var files = grunt.file.readJSON('./public/manifest.json');
     var uglify = {};
     var cssmin = {};
+
     _.each(files, function(val, key){
+
       var js = uglify['build/' + key + '.js'] = [];
+
       _.each(files[key]['js'], function(val){
         js.push('public/' + val);
       });
+
+      var css = cssmin['build/' + key + '.css'] = [];
+
       _.each(files[key]['css'], function(val){
-        if(val == 'app.css' || val == 'static.css'){
-          cssmin['build/' + val] = ['build/' + val]
-        }else{
-          cssmin['build/' + val] = ['public/' + val]
-        }
+        var path = (val == 'app.css' || val == 'static.css') ? 'build/' : 'public/';
+        css.push(path + val)
       });
+
     });
+
     grunt.config.set('uglify.build.files', uglify);
-    grunt.config.set('uglify.build.options', {compress: false})
+    grunt.config.set('uglify.build.options', {compress: false});
+
     grunt.config.set('cssmin.build.files', cssmin);
+    // Rewrite urls to relative path
+    grunt.config.set('cssmin.build.options', {'target': 'public/css/whatever-css.css'});
   });
 
   // Register tasks.
