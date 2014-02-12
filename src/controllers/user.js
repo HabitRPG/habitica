@@ -461,7 +461,7 @@ _.each(shared.wrap({}).ops, function(op,k){
           if (err) return next(err);
           res.json(200,response);
         })
-      })
+      }, ga);
     }
   }
 })
