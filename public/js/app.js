@@ -189,10 +189,7 @@ window.habitrpg = angular.module('habitrpg',
         })
         .state('options.settings.subscription', {
           url: "/subscription",
-          templateUrl: "partials/options.settings.subscription.html",
-          onEnter: function(){
-            window.ga && ga('send', 'event', 'page', 'view', 'Basic Subscription');
-          }
+          templateUrl: "partials/options.settings.subscription.html"
         })
 
       var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
