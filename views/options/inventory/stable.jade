@@ -76,7 +76,7 @@ script(type='text/ng-template', id='partials/options.inventory.pets.html')
 
       .col-md-12
         h4=env.t('rarePets')
-        menu
+        menu.pets-rare
           div
             button(ng-if='user.items.pets["Wolf-Veteran"]', class="pet-button Pet-Wolf-Veteran", ng-class='{active: user.items.currentPet == "Wolf-Veteran"}', ng-click='choosePet("Wolf", "Veteran")', popover=env.t('veteranWolf'), popover-trigger='mouseenter', popover-placement='bottom')
             button(ng-if='user.items.pets["Wolf-Cerberus"]', class="pet-button Pet-Wolf-Cerberus", ng-class='{active: user.items.currentPet == "Wolf-Cerberus"}', ng-click='choosePet("Wolf", "Cerberus")', popover=env.t('cerberusPup'), popover-trigger='mouseenter', popover-placement='bottom')
