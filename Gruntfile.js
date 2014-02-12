@@ -6,9 +6,7 @@ module.exports = function(grunt) {
 
     // Cleanup previous spritesmith files
     clean: {
-      main : {
-        src : [ "dist/spritesmith-*.png"]
-      }
+      main: ['dist/spritesmith.png']
     },
 
     /**
@@ -20,7 +18,7 @@ module.exports = function(grunt) {
     sprite:{
       customizer: {
         src: 'img/sprites/spritesmith/**/*.png',
-        destImg: 'dist/spritesmith-' + timestamp + '.png',
+        destImg: 'dist/spritesmith.png',
         destCSS: 'dist/customizer.css',
         algorithm: 'binary-tree',
         cssVarMap: function (sprite) {
@@ -45,7 +43,7 @@ module.exports = function(grunt) {
       },
       main: {
         src: 'img/sprites/spritesmith/**/*.png',
-        destImg: 'dist/spritesmith-' + timestamp + '.png',
+        destImg: 'dist/spritesmith.png',
         destCSS: 'dist/spritesmith.css',
         algorithm: 'binary-tree',
         cssOpts: {
