@@ -15,7 +15,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
 
     $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){
-        if (!!fromState.name) window.ga && ga('send', 'pageview', {'page': '/#'+toState.url});
+        if (!!fromState.name) window.ga && ga('send', 'pageview', {page: '/#/'+toState.name});
       });
 
     $rootScope.User = User;
