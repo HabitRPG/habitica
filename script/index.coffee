@@ -414,7 +414,7 @@ api.wrap = (user, main=true) ->
         user.preferences.costume = false
         cb? null, user
 
-      reroll: (req, cb) ->
+      reroll: (req, cb, ga) ->
         if user.balance < 1
           return cb? {code:401,message: "Not enough gems."}
         user.balance--
@@ -423,8 +423,9 @@ api.wrap = (user, main=true) ->
             task.value = 0
         user.stats.hp = 50
         cb? null, user
+        ga?.event('purchase', 'reroll').send()
 
-      rebirth: (req, cb) ->
+      rebirth: (req, cb, ga) ->
         # Cost is 8 Gems ($2)
         if user.balance < 2
           return cb? {code:401,message: "Not enough gems."}
@@ -474,6 +475,7 @@ api.wrap = (user, main=true) ->
           user.achievements.rebirths++
           user.achievements.rebirthLevel = lvl
         cb? null, user
+        ga?.event('purchase', 'Rebirth').send()
 
       allocateNow: (req, cb) ->
         _.times user.stats.points, user.fns.autoAllocate
@@ -595,7 +597,7 @@ api.wrap = (user, main=true) ->
         cb? {code:200, message}, userPets[pet]
 
       # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
-      purchase: (req, cb) ->
+      purchase: (req, cb, ga) ->
         {type,key}  = req.params
         return cb?({code:404,message:":type must be in [hatchingPotions,eggs,food,quests,special]"},req) unless type in ['eggs','hatchingPotions','food','quests','special']
         item = content[type][key]
@@ -605,6 +607,7 @@ api.wrap = (user, main=true) ->
         user.items[type][key]++
         user.balance -= (item.value / 4)
         cb? null, _.pick(user,$w 'items balance')
+        ga?.event('purchase', key).send()
 
       # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
       buy: (req, cb) ->
@@ -657,7 +660,7 @@ api.wrap = (user, main=true) ->
         user.items.hatchingPotions[hatchingPotion]--
         cb? {code:200, message:"Your egg hatched! Visit your stable to equip your pet."}, user.items
 
-      unlock: (req, cb) ->
+      unlock: (req, cb, ga) ->
         {path} = req.query
         fullSet = ~path.indexOf(",")
         cost = if fullSet then 1.25 else 0.5 # 5G per set, 2G per individual
@@ -675,12 +678,13 @@ api.wrap = (user, main=true) ->
         user.balance -= cost
         user.markModified? 'purchased'
         cb? null, _.pick(user,$w 'purchased preferences')
+        ga?.event('purchase', path).send()
 
       # ------
       # Classes
       # ------
 
-      changeClass: (req, cb) ->
+      changeClass: (req, cb, ga) ->
         klass = req.query?.class
         if klass in ['warrior','rogue','wizard','healer']
           user.stats.class = klass
@@ -713,6 +717,7 @@ api.wrap = (user, main=true) ->
             user.balance -= .75
           _.merge user.stats, {str: 0, con: 0, per: 0, int: 0, points: user.stats.lvl}
           user.flags.classSelected = false
+          ga?.event('purchase', 'changeClass').send()
           #'stats.points': this is handled on the server
         cb? null, _.pick(user,$w 'stats flags items preferences')
 

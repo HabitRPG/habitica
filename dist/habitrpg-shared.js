@@ -11781,7 +11781,7 @@ var process=require("__browserify_process");(function() {
           user.preferences.costume = false;
           return typeof cb === "function" ? cb(null, user) : void 0;
         },
-        reroll: function(req, cb) {
+        reroll: function(req, cb, ga) {
           if (user.balance < 1) {
             return typeof cb === "function" ? cb({
               code: 401,
@@ -11795,9 +11795,12 @@ var process=require("__browserify_process");(function() {
             }
           });
           user.stats.hp = 50;
-          return typeof cb === "function" ? cb(null, user) : void 0;
+          if (typeof cb === "function") {
+            cb(null, user);
+          }
+          return ga != null ? ga.event('purchase', 'reroll').send() : void 0;
         },
-        rebirth: function(req, cb) {
+        rebirth: function(req, cb, ga) {
           var flags, gear, lvl, stats;
 
           if (user.balance < 2) {
@@ -11872,7 +11875,10 @@ var process=require("__browserify_process");(function() {
             user.achievements.rebirths++;
             user.achievements.rebirthLevel = lvl;
           }
-          return typeof cb === "function" ? cb(null, user) : void 0;
+          if (typeof cb === "function") {
+            cb(null, user);
+          }
+          return ga != null ? ga.event('purchase', 'Rebirth').send() : void 0;
         },
         allocateNow: function(req, cb) {
           _.times(user.stats.points, user.fns.autoAllocate);
@@ -12077,7 +12083,7 @@ var process=require("__browserify_process");(function() {
             message: message
           }, userPets[pet]) : void 0;
         },
-        purchase: function(req, cb) {
+        purchase: function(req, cb, ga) {
           var item, key, type, _ref;
 
           _ref = req.params, type = _ref.type, key = _ref.key;
@@ -12105,7 +12111,10 @@ var process=require("__browserify_process");(function() {
           }
           user.items[type][key]++;
           user.balance -= item.value / 4;
-          return typeof cb === "function" ? cb(null, _.pick(user, $w('items balance'))) : void 0;
+          if (typeof cb === "function") {
+            cb(null, _.pick(user, $w('items balance')));
+          }
+          return ga != null ? ga.event('purchase', key).send() : void 0;
         },
         buy: function(req, cb) {
           var item, key, message;
@@ -12219,7 +12228,7 @@ var process=require("__browserify_process");(function() {
             message: "Your egg hatched! Visit your stable to equip your pet."
           }, user.items) : void 0;
         },
-        unlock: function(req, cb) {
+        unlock: function(req, cb, ga) {
           var alreadyOwns, cost, fullSet, k, path, split, v;
 
           path = req.query.path;
@@ -12251,9 +12260,12 @@ var process=require("__browserify_process");(function() {
           if (typeof user.markModified === "function") {
             user.markModified('purchased');
           }
-          return typeof cb === "function" ? cb(null, _.pick(user, $w('purchased preferences'))) : void 0;
+          if (typeof cb === "function") {
+            cb(null, _.pick(user, $w('purchased preferences')));
+          }
+          return ga != null ? ga.event('purchase', path).send() : void 0;
         },
-        changeClass: function(req, cb) {
+        changeClass: function(req, cb, ga) {
           var klass, _ref;
 
           klass = (_ref = req.query) != null ? _ref["class"] : void 0;
@@ -12296,6 +12308,9 @@ var process=require("__browserify_process");(function() {
               points: user.stats.lvl
             });
             user.flags.classSelected = false;
+            if (ga != null) {
+              ga.event('purchase', 'changeClass').send();
+            }
           }
           return typeof cb === "function" ? cb(null, _.pick(user, $w('stats flags items preferences'))) : void 0;
         },
