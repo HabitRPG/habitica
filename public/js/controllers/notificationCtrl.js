@@ -115,12 +115,6 @@ habitrpg.controller('NotificationCtrl',
       }
     });
 
-    // Math updates modal
-    $rootScope.$watch('!user.flags.mathUpdates', function(after, before){
-      if (after == before || after != true) return;
-      $rootScope.openModal('mathUpdates');
-    });
-
     // Completed quest modal
     $rootScope.$watch('user.party.quest.completed', function(after, before){
       if (after == before || after != true) return;
