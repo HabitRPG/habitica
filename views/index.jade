@@ -20,19 +20,15 @@ html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":a
 
 
   body(ng-cloak, ng-controller='GroupsCtrl')
+    include ./shared/header/menu
     include ./shared/modals/index
     include ./shared/header/header
-
     include ./shared/tasks/lists
     include ./main/index
     include ./options/index
 
     #notification-area(ng-controller='NotificationCtrl')
     #wrap.container-fluid
-      //if they hide the header, we still need user-menu visible 
-      div(ng-if='user.preferences.hideHeader')
-        include ./shared/header/menu
-
       .row
         .col-md-12.exp-chart(ng-show='charts.exp')
         #main(ui-view)
