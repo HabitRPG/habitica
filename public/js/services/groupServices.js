@@ -47,7 +47,7 @@ angular.module('groupServices', ['ngResource']).
           // On enter, set chat message to "seen"
           seenMessage: function(gid){
             $http.post('/api/v2/groups/'+gid+'/chat/seen');
-            User.user.newMessages[gid] = false;
+            if (User.user.newMessages) User.user.newMessages[gid] = false;
           },
 
           Group: Group

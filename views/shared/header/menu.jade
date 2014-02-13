@@ -97,8 +97,9 @@ nav.navbar.navbar-inverse(ng-controller='AuthCtrl',style='min-height:0px;margin-
           //-| &nbsp;
           //-=env.t('sync')
 
-      li(style='border-right:1px solid #999;height:50px;display:block;')
-        span &nbsp;
+      // Separator
+      li
+        a(style='border-right:1px solid #999;cursor:default;padding-left:0px;padding-right:0px') &nbsp;
 
       li
         a.pull-right.gem-wallet(style='padding-top:8px;padding-bottom:0px;',ng-click='openModal("buyGems",{track:"Gems > Toolbar"})', popover-trigger='mouseenter', popover-title=env.t('gems'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
