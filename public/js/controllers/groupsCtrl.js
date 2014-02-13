@@ -319,6 +319,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       $scope.text = 'Party';
       $scope.group = $rootScope.party = Groups.party();
       $scope.newGroup = new Groups.Group({type:'party'});
+
+      Groups.seenMessage($scope.group._id);
+
       $scope.create = function(group){
         group.$save(function(newGroup){
           $scope.group = newGroup;

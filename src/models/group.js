@@ -106,6 +106,17 @@ GroupSchema.methods.sendChat = function(message, user){
   }
   group.chat.unshift(message);
   group.chat.splice(200);
+
+  // Kick off chat notifications in the background.
+  var lastSeenUpdate = {$set:{}, $inc:{_v:1}};
+  lastSeenUpdate['$set']['newMessages.'+group._id] = {name:group.name,value:true};
+  if (group._id == 'habitrpg') {
+    // TODO For Tavern, only notify them if their name was mentioned
+    // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
+    // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
+  } else {
+    mongoose.model('User').update({_id:{$in:group.members, $ne: user ? user._id : ''}},lastSeenUpdate,{multi:true}).exec();
+  }
 }
 
 var cleanQuestProgress = function(merge){

@@ -207,9 +207,11 @@ var UserSchema = new Schema({
 
   lastCron: {type: Date, 'default': Date.now},
 
+  // {GROUP_ID: Boolean}, represents whether they have unseen chat messages
+  newMessages: {type: Schema.Types.Mixed, 'default': {}},
+
   party: {
     // id // FIXME can we use a populated doc instead of fetching party separate from user?
-    lastMessageSeen: String,
     order: {type:String, 'default':'level'},
     quest: {
       key: String,
@@ -245,7 +247,8 @@ var UserSchema = new Schema({
     disableClasses: {type: Boolean, 'default': false},
     newTaskEdit: {type: Boolean, 'default': false},
     tagsCollapsed: {type: Boolean, 'default': false},
-    advancedCollapsed: {type: Boolean, 'default': false}
+    advancedCollapsed: {type: Boolean, 'default': false},
+    toolbarCollapsed: {type:Boolean, 'default':false}
   },
   profile: {
     blurb: String,
