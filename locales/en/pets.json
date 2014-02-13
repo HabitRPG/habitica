@@ -29,6 +29,6 @@
     "firstDrop": "You've unlocked the Drop System! Now when you complete tasks, you have a small chance of finding an item. You just found a <strong><%= eggText %> Egg</strong>! <%= eggNotes %>",
     "useGems": "If you've got your eye on a pet, but can't wait any longer for it to drop, use Gems in <strong>Options > Inventory</strong> to buy one!",
     "hatchAPot": "Hatch a <%= potion %> <%= egg %>?",
-    "feedPet": "Feed <%= article %> <%= text %> to <%= name %>?",
+    "feedPet": "Feed <%= article %> <%= text %> to your <%= name %>?",
     "useSaddle": "Saddle <%= pet %>?"
 }
