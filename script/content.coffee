@@ -580,7 +580,7 @@ api.food =
   # Tests hack, put honey last so the faux random picks it up in unit tests
   Honey:            text: 'Honey', target: 'Golden', article: ''
 
-  Saddle:           text: 'Saddle', value: 5, notes: 'Instantly raises your pet into a mount.'
+  Saddle:           text: 'Saddle', value: 5, notes: 'Instantly raises one of your pets into a mount.'
 _.each api.food, (food,key) ->
   _.defaults food, {value: 1, key, notes: "Feed this to a pet and it may grow into a sturdy steed.", canBuy:true}
 
