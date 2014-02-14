@@ -26,11 +26,11 @@ nav.navbar.navbar-inverse(ng-controller='AuthCtrl',style='min-height:0px;margin-
           span.caret
         ul.dropdown-menu
           li
-            a(ui-sref='options.profile.avatar') Avatar
+            a(ui-sref='options.profile.avatar')=env.t('avatar')
           li
-            a(ui-sref='options.profile.stats') Stats
+            a(ui-sref='options.profile.stats')=env.t('stats')
           li
-            a(ui-sref='options.profile.profile') Profile
+            a(ui-sref='options.profile.profile')=env.t('profile')
           li
             a(ng-click='logout()')
               span.glyphicon.glyphicon-share-alt
@@ -42,41 +42,41 @@ nav.navbar.navbar-inverse(ng-controller='AuthCtrl',style='min-height:0px;margin-
           span.caret
         ul.dropdown-menu
           li
-            a(ui-sref='options.social.tavern') Tavern
+            a(ui-sref='options.social.tavern')=env.t('tavern')
           li
-            a(ui-sref='options.social.party') Party
+            a(ui-sref='options.social.party')=env.t('party')
           li
-            a(ui-sref='options.social.guilds') Guilds
+            a(ui-sref='options.social.guilds')=env.t('guilds')
           li
-            a(ui-sref='options.social.challenges') Challenges
+            a(ui-sref='options.social.challenges')=env.t('challenges')
           li
-            a(ui-sref='options.social.hall') Hall
+            a(ui-sref='options.social.hall')=env.t('hall')
       li.dropdown
         a.dropdown-toggle(popover='Inventory',popover-placement='right',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-gift.white
           span.caret
         ul.dropdown-menu
           li
-            a(ui-sref='options.inventory.drops') Market
+            a(ui-sref='options.inventory.drops')=env.t('market')
           li
-            a(ui-sref='options.inventory.pets') Pets
+            a(ui-sref='options.inventory.pets')=env.t('mounts')
           li
-            a(ui-sref='options.inventory.mounts') Mounts
+            a(ui-sref='options.inventory.mounts')=env.t('mounts')
           li
-            a(ui-sref='options.inventory.equipment') Equipment
+            a(ui-sref='options.inventory.equipment')=env.t('equipment')
       li.dropdown
         a.dropdown-toggle(popover='Settings',popover-placement='right',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-wrench.white
           span.caret
         ul.dropdown-menu
           li
-            a(ui-sref='options.settings.settings') Site
+            a(ui-sref='options.settings.settings')=env.t('site')
           li
-            a(ui-sref='options.settings.api') API
+            a(ui-sref='options.settings.api')=env.t('API')
           li
-            a(ui-sref='options.settings.export') Export
+            a(ui-sref='options.settings.export')=env.t('export')
           li
-            a(ui-sref='options.settings.subscription') Subscription
+            a(ui-sref='options.settings.subscription')=env.t('subscription')
       li.dropdown
         a.dropdown-toggle(popover='Help',popover-placement='right',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-question-sign.white

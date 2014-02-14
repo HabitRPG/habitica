@@ -4,6 +4,8 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+
     git_changelog: {
         minimal: {
             options: {
@@ -81,7 +83,11 @@ module.exports = function(grunt) {
       }
     },
 
-    nodemon: { dev: {} },
+    nodemon: { 
+      dev: {
+        script: '<%= pkg.main %>'
+      }
+    },
 
     watch: {
       dev: {
