@@ -32,6 +32,7 @@
     "csv": "(CSV)",
     "userData": "User Data",
     "exportUserData": "Export User Data:",
+    "export": "Export",
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Custom Day Start",
