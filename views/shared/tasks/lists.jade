@@ -58,8 +58,9 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               span(bo-class='{"shop_{{item.key}} shop-sprite item-img": true}')
               p.task-text {{item.text}}
 
-          // Winter Event
-          ul.items.rewards(ng-if='main && list.type=="reward" && (user.items.special.snowball>0 || user.stats.buffs.snowball)')
+          // Events
+          ul.items.rewards(ng-if='main && list.type=="reward"')
+
             li.task.reward-item(ng-if='user.items.special.snowball>0',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.snowball.notes}}')
               .task-meta-controls
                 span.task-notes
@@ -71,6 +72,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                   span.shop_snowball(style='display:inline-block;vertical-align:top;')
               // main content
               p.task-text {{Content.spells.special.snowball.text}}
+
             li.task.reward-item(ng-if='user.stats.buffs.snowball',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.salt.notes}}')
               .task-meta-controls
                 span.task-notes
@@ -83,6 +85,18 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               // main content
               span.shop_salt.shop-sprite.item-img
               p.task-text {{Content.spells.special.salt.text}}
+
+            li.task.reward-item(popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.valentine.notes}}')
+              .task-meta-controls
+                span.task-notes
+                  span.glyphicon.glyphicon-comment
+              //left-hand size commands
+              .task-controls
+                a.money.btn-buy.item-btn(ng-click='castStart(Content.spells.special.valentine)')
+                  span.reward-cost {{Content.spells.special.valentine.value}}
+                  span.shop_gold
+              span.inventory_special_valentine.shop-sprite.item-img
+              p.task-text {{Content.spells.special.valentine.text}}
 
           // Spells
           ul.items(ng-if='main && list.type=="reward" && user.stats.class && !user.preferences.disableClasses')

@@ -68,6 +68,12 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 button.customize-option(popover='{{Content.special.snowball.notes}}', popover-title='{{Content.special.snowball.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='castStart(Content.special.snowball)', class='inventory_special_snowball')
                   .badge.badge-info.stack-count {{user.items.special.snowball}}
 
+          li.customize-menu(ng-if='user.items.special.valentineReceived[0]')
+            menu.pets-menu(label=env.t('valentineCard'))
+              div
+                button.customize-option(popover="Valentine's Day Card from {{User.user.items.special.valentineReceived[0]}}", popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("valentine")', class='inventory_special_valentine')
+                  .badge.badge-info.stack-count {{user.items.special.valentineReceived.length}}
+
           li.customize-menu(ng-if='user.purchased.plan.customerId')
             menu.pets-menu(label=env.t('subscriberItem'))
               div

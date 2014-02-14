@@ -42,7 +42,8 @@ var UserSchema = new Schema({
     rebirths: Number,
     rebirthLevel: Number,
     perfect: Number,
-    habitBirthday: Boolean
+    habitBirthday: Boolean,
+    valentine: Number
   },
   auth: {
     facebook: Schema.Types.Mixed,
@@ -136,7 +137,9 @@ var UserSchema = new Schema({
     },
 
     special:{
-      snowball: {type: Number, 'default': 0}
+      snowball: {type: Number, 'default': 0},
+      valentine: Number,
+      valentineReceived: Array // array of strings, by sender name
     },
 
     // -------------- Animals -------------------
