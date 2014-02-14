@@ -1,7 +1,7 @@
 {
     "app": {
         "js": [
-            "bower_components/jquery/jquery.js",
+            "bower_components/jquery/dist/jquery.min.js",
             "bower_components/jquery.cookie/jquery.cookie.js",
             "bower_components/bootstrap-growl/jquery.bootstrap-growl.js",
             "bower_components/bootstrap-tour/build/js/bootstrap-tour.js",
@@ -72,7 +72,7 @@
     },
     "static": {
         "js": [
-            "bower_components/jquery/jquery.js",
+            "bower_components/jquery/dist/jquery.min.js",
             "bower_components/habitrpg-shared/dist/habitrpg-shared.js",
             "bower_components/angular/angular.js",
             "bower_components/angular-ui/build/angular-ui.js",
