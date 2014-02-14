@@ -10542,7 +10542,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           });
           ((_ref = (_base = target.items.special).valentineReceived) != null ? _ref : _base.valentineReceived = []).push(user.profile.name);
           if (typeof target.markModified === "function") {
-            target.markModified('items.special.valentineReceived');
+            target.markModified('items.special');
           }
           return user.stats.gp -= 10;
         }

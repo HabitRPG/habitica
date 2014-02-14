@@ -479,7 +479,7 @@ api.spells =
           t.achievements.valentine ?= 0
           t.achievements.valentine++
         (target.items.special.valentineReceived ?= []).push user.profile.name
-        target.markModified? 'items.special.valentineReceived'
+        target.markModified? 'items.special'
         user.stats.gp -= 10
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
