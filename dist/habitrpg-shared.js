@@ -10522,6 +10522,30 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           user.stats.buffs.snowball = false;
           return user.stats.gp -= 5;
         }
+      },
+      valentine: {
+        text: "Valentine Card",
+        mana: 0,
+        value: 10,
+        target: 'user',
+        notes: "Send a valentines card to a friend.",
+        cast: function(user, target) {
+          var _base, _ref;
+
+          _.each([user, target], function(t) {
+            var _base, _ref;
+
+            if ((_ref = (_base = t.achievements).valentine) == null) {
+              _base.valentine = 0;
+            }
+            return t.achievements.valentine++;
+          });
+          ((_ref = (_base = target.items.special).valentineReceived) != null ? _ref : _base.valentineReceived = []).push(user.profile.name);
+          if (typeof target.markModified === "function") {
+            target.markModified('items.special.valentineReceived');
+          }
+          return user.stats.gp -= 10;
+        }
       }
     }
   };
@@ -10811,7 +10835,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     Saddle: {
       text: 'Saddle',
       value: 5,
-      notes: 'Instantly raises your pet into a mount.'
+      notes: 'Instantly raises one of your pets into a mount.'
     }
   };
 
@@ -12335,6 +12359,13 @@ var process=require("__browserify_process");(function() {
             }
           }
           return typeof cb === "function" ? cb(null, _.pick(user, $w('stats'))) : void 0;
+        },
+        readValentine: function(req, cb) {
+          user.items.special.valentineReceived.shift();
+          if (typeof user.markModified === "function") {
+            user.markModified('items.special.valentineReceived');
+          }
+          return typeof cb === "function" ? cb(null, 'items.special') : void 0;
         },
         score: function(req, cb) {
           var addPoints, calculateDelta, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref, _ref1, _ref2;

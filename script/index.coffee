@@ -612,6 +612,7 @@ api.wrap = (user, main=true) ->
       # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
       buy: (req, cb) ->
         {key} = req.params
+
         item = if key is 'potion' then content.potion else content.gear.flat[key]
         return cb?({code:404, message:"Item '#{key} not found (see https://github.com/HabitRPG/habitrpg-shared/blob/develop/script/content.coffee)"}) unless item
         return cb?({code:401, message:'Not enough gold.'}) if user.stats.gp < item.value
@@ -737,6 +738,11 @@ api.wrap = (user, main=true) ->
           user.stats.points--
           user.stats.mp++ if stat is 'int' #increase their MP along with their max MP
         cb? null, _.pick(user,$w 'stats')
+
+      readValentine: (req,cb) ->
+        user.items.special.valentineReceived.shift()
+        user.markModified? 'items.special.valentineReceived'
+        cb? null, 'items.special'
 
       # ------
       # Score
