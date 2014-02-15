@@ -1,16 +1,14 @@
 form.chat-form(ng-submit='postChat(group,message.content)')
-  .-options
-    //FIXME ng-model makes this painfully slow! using jquery for now, which is really non-angular-like 
-    .control-group.option-large(ng-controller='AutocompleteCtrl')
-      textarea.chat-textarea.option-content(style='height:6em;', ui-keypress='{13:"postChat(group,message.content)"}', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete)
-      span.user-list(ng-show='!isAtListHidden')
-        ul.list-at-user
-          li(bindonce='response', ng-repeat='user in response | filter:query.text | limitTo: 5', ng-click='autoComplete(user)')
-            span.username.label(class='label-contributor-{{user.contributor.level}}', ng-class='{"label-npc": user.backer.npc}') {{user.user}}
-    table.pull-right
-      tr
-        td
-          input.btn.chat-btn(type='submit', value=env.t('sendChat'), ng-class='{disabled: _sending == true}')
-        td
-          button.btn(type="button", ng-click='sync(group)', tooltip=env.t('toolTipMsg'))
-            i(class='pull-right icon-refresh')
+  div(ng-controller='AutocompleteCtrl')
+    textarea.form-control(rows=4, ui-keypress='{13:"postChat(group,message.content)"}', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete)
+    span.user-list(ng-show='!isAtListHidden')
+      ul.list-at-user
+        li(bindonce='response', ng-repeat='user in response | filter:query.text | limitTo: 5', ng-click='autoComplete(user)')
+          span.username.label.label-default(ng-class='userLevelStyle(user)') {{user.user}}
+  .row
+    .col-md-9
+      include ../../shared/formatting-help
+    .col-md-3
+      input.btn.btn-default.chat-btn(type='submit', value=env.t('sendChat'), ng-class='{disabled: _sending == true}')
+      button.btn.btn-default(type="button", ng-click='sync(group)', tooltip=env.t('toolTipMsg'))
+        span.glyphicon.glyphicon-refresh.pull-right

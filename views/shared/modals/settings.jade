@@ -1,59 +1,65 @@
-div(ng-controller='SettingsCtrl')
-  div(modal='modals.reset')
-    .modal-header
-      h3=env.t('resetAccount')
-    .modal-body
-      p=env.t('resetText1')
-      p=env.t('resetText2')
-    .modal-footer
-      button.btn.btn-default.cancel(ng-click='modals.reset = false')=env.t('neverMind')
-      button.btn.btn-danger(data-dismiss='modal', ng-click='reset()')=env.t('resetDo')
+script(type='text/ng-template', id='modals/reset.html')  
+  .modal-header
+    h4=env.t('resetAccount')
+  .modal-body
+    p=env.t('resetText1')
+    p=env.t('resetText2')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close();')=env.t('neverMind')
+    button.btn.btn-danger(ng-click='$close(); reset()')=env.t('resetDo')
 
-  div(modal='modals.restore')
-    .modal-header
-      h3=env.t('fixValues')
-    .modal-body
-      p=env.t('fixValuesText1')
-      p=env.t('fixValuesText2')
-      div.restore-options
-        form#restore-form.form-horizontal
-          h3=env.t('stats')
-          .option-group.option-medium
-            input.option-content(type='number', step="any", data-for='stats.hp', ng-model='restoreValues.stats.hp')
-            span.input-suffix=env.t('health')
-          .option-group.option-medium
-            input.option-content(type='number', step="any", data-for='stats.exp', ng-model='restoreValues.stats.exp')
-            span.input-suffix=env.t('experience')
-          .option-group.option-medium
-            input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp')
-            //input.option-content(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp',disabled)
-            span.input-suffix=env.t('gold')
-            //-p.alert
-              small=env.t('disabledWinterEvent')
-          .option-group.option-medium
-            input.option-content(type='number', step="any", data-for='stats.mp', ng-model='restoreValues.stats.mp')
-            span.input-suffix=env.t('mana')
-          .option-group.option-medium
-            input.option-content(type='number', data-for='stats.lvl', ng-model='restoreValues.stats.lvl')
-            span.input-suffix=env.t('level')
-          h3=env.t('achievements')
-          .option-group.option-medium
-            input.option-content(type='number', data-for='achievements.streak', ng-model='restoreValues.achievements.streak')
-            span.input-suffix=env.t('fix21Streaks')
-        //- This is causing too many problems for users
-          h3=env.t('other')
-          a.btn.btn-small.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()')=env.t('triggerDay')
-    .modal-footer
-      button.btn.btn-default.cancel(ng-click='modals.restore = false')=env.t('discardChanges')
-      button.btn.btn-primary(ng-click='restore()')=env.t('saveAndClose')
+script(type='text/ng-template', id='modals/restore.html')  
+  .modal-header
+    h4=env.t('fixValues')
+  .modal-body
+    p=env.t('fixValuesText1')
+    p=env.t('fixValuesText2')
+    form.form-horizontal
+      h3=env.t('stats')
+      .form-group
+        .col-md-6
+          input.form-control(type='number', step="any", data-for='stats.hp', ng-model='$parent.restoreValues.stats.hp')
+        label.control-label=env.t('health')
+      .form-group
+        .col-md-6
+          input.form-control(type='number', step="any", data-for='stats.exp', ng-model='$parent.restoreValues.stats.exp')
+        label.control-label=env.t('experience')
+      .form-group
+        .col-md-6
+          input.form-control(type='number', step="any", data-for='stats.gp', ng-model='$parent.restoreValues.stats.gp')
+        //input.form-control(type='number', step="any", data-for='stats.gp', ng-model='restoreValues.stats.gp',disabled)
+        label.control-label=env.t('gold')
+        //-p.alert
+          small=env.t('disabledWinterEvent')
+      .form-group
+        .col-md-6
+          input.form-control(type='number', step="any", data-for='stats.mp', ng-model='$parent.restoreValues.stats.mp')
+        label.control-label=env.t('mana')
+      .form-group
+        .col-md-6
+          input.form-control(type='number', data-for='stats.lvl', ng-model='$parent.restoreValues.stats.lvl')
+        label.control-label=env.t('level')
+      h3=env.t('achievements')
+      .form-group
+        .col-md-6
+          input.form-control(type='number', data-for='achievements.streak', ng-model='$parent.restoreValues.achievements.streak')
+        label.control-label=env.t('fix21Streaks')
+    //- This is causing too many problems for users
+      h3=env.t('other')
+      a.btn.btn-sm.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay()')=env.t('triggerDay')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('discardChanges')
+    button.btn.btn-primary(ng-click='restore(); $close();')=env.t('saveAndClose')
 
-  div(modal='modals.delete')
-    .modal-header
-      h3=env.t('deleteAccount')
-    .modal-body
-      p!=env.t('deleteText')
-      p
-        input(type='text', ng-model='_deleteAccount')
-    .modal-footer
-      button.btn.btn-default(ng-click='modals.delete = false')=env.t('neverMind')
-      button.btn.btn-danger.btn-small(ng-disabled='_deleteAccount != "DELETE"', ng-click='delete()')=env.t('deleteDo')
+script(type='text/ng-template', id='modals/delete.html')  
+  .modal-header
+    h4=env.t('deleteAccount')
+  .modal-body
+    p!=env.t('deleteText')
+    br
+    .row
+      .col-md-6
+        input.form-control(type='text', ng-model='_deleteAccount')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
+    button.btn.btn-danger(ng-disabled='_deleteAccount != "DELETE"', ng-click='$close(); delete()')=env.t('deleteDo')

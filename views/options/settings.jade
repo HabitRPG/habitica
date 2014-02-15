@@ -17,102 +17,108 @@ script(id='partials/options.settings.html', type="text/ng-template")
       div(ui-view)
 
 script(type='text/ng-template', id='partials/options.settings.settings.html')
-  .row-fluid
-    .personal-options.span6
-      h2=env.t('settings')
-      h4=env.t('customDayStart')
-      .option-group.option-short
-        input.option-content.option-time(type='number', min='0', max='24', ng-model='user.preferences.dayStart', ng-change='saveDayStart()')
-        span.input-suffix= ':00 (' + env.t('24HrClock') + ')'
-      div
-        small
-          div=env.t('clockInfo')
-          .alert.alert-danger 
-            =env.t('subWarning1')
-            a(href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank')=env.t('subWarning2')
-            =env.t('subWarning3')
-      hr
-      h4=env.t('language')
-      select(ng-model='language.code', ng-options='lang.code as lang.name for lang in avalaibleLanguages', ng-change='changeLanguage()')
-      hr
-      h4=env.t('misc')
-      label.checkbox
-        input(type='checkbox', ng-click='set({"preferences.hideHeader":user.preferences.hideHeader?false:true})', ng-checked='user.preferences.hideHeader!==true')
-        =env.t('showHeader')
-        &nbsp;
-        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('showHeaderPop'))
-      label.checkbox
-        input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false')
-        =env.t('stickyHeader')
-        &nbsp;
-        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('stickyHeaderPop'))
-      label.checkbox
-        input(type='checkbox', ng-model='user.preferences.newTaskEdit', ng-change='set({"preferences.newTaskEdit": user.preferences.newTaskEdit?true: false})')
-        =env.t('newTaskEdit')
-        &nbsp;
-        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('newTaskEditPop'))
-      label.checkbox
-        input(type='checkbox', ng-model='user.preferences.tagsCollapsed', ng-change='set({"preferences.tagsCollapsed": user.preferences.tagsCollapsed?true: false})')
-        =env.t('startCollapsed')
-        &nbsp;
-        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startCollapsedPop'))
-      label.checkbox
-        input(type='checkbox', ng-model='user.preferences.advancedCollapsed', ng-change='set({"preferences.advancedCollapsed": user.preferences.advancedCollapsed?true: false})')
-        =env.t('startAdvCollapsed')
-        &nbsp;
-        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startAdvCollapsedPop'))
-      button.btn(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
-      br
-      button.btn(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
-      br
-      button.btn(ng-click='modals.restore = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
-      div(ng-if='user.preferences.disableClasses==true')
-        button.btn(ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
-      div(ng-if='!user.preferences.disableClasses && user.flags.classSelected')
-        button.btn(ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classTourPop'))= env.t('showClass')
-
-      //- Why is ng-if='user.auth.local' validating for users *without* user.auth.local (facebook users)? adding .username here for extra
-      div(ng-if='user.auth.local.username')
+  .containter-fluid
+    .row
+      .personal-options.col-md-6
+        h2=env.t('settings')
+        h4=env.t('customDayStart')
+        .form-group
+          input.form-control(type='number', min='0', max='24', ng-model='user.preferences.dayStart', ng-change='saveDayStart()')
+          span.input-suffix= ':00 (' + env.t('24HrClock') + ')'
+        div
+          small
+            div=env.t('clockInfo')
+            .alert.alert-danger.alert-sm
+              =env.t('subWarning1')
+              |&nbsp;
+              a(href='https://github.com/HabitRPG/habitrpg/issues/1057' target='_blank')=env.t('subWarning2')
+              |&nbsp;
+              =env.t('subWarning3')
         hr
-        h4=env.t('changePass')
-        form(ng-submit='changePassword(changePass)', ng-show='user.auth.local')
-          .control-group
-            input(type='password', placeholder=env.t('oldPass'), ng-model='changePass.oldPassword', required)
-          .control-group
-            input(type='password', placeholder=env.t('newPass'), ng-model='changePass.newPassword', required)
-          .control-group
-            input(type='password', placeholder=env.t('confirmPass'), ng-model='changePass.confirmNewPassword', required)
-          input.btn(type='submit', value=env.t('submit'))
+        h4=env.t('language')
+        select(ng-model='language.code', ng-options='lang.code as lang.name for lang in avalaibleLanguages', ng-change='changeLanguage()')
+        hr
+        h4=env.t('misc')
+        .checkbox
+          label
+            input(type='checkbox', ng-click='set({"preferences.hideHeader":user.preferences.hideHeader?false:true})', ng-checked='user.preferences.hideHeader!==true')
+            =env.t('showHeader')
+            &nbsp;
+            span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('showHeaderPop'))
+        .checkbox
+          label
+            input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false')
+            =env.t('stickyHeader')
+            &nbsp;
+            span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('stickyHeaderPop'))
+        .checkbox
+          label
+            input(type='checkbox', ng-model='user.preferences.newTaskEdit', ng-change='set({"preferences.newTaskEdit": user.preferences.newTaskEdit?true: false})')
+            =env.t('newTaskEdit')
+            &nbsp;
+            span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('newTaskEditPop'))
+        .checkbox
+          label
+            input(type='checkbox', ng-model='user.preferences.tagsCollapsed', ng-change='set({"preferences.tagsCollapsed": user.preferences.tagsCollapsed?true: false})')
+            =env.t('startCollapsed')
+            &nbsp;
+            span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startCollapsedPop'))
+        .checkbox
+          label
+            input(type='checkbox', ng-model='user.preferences.advancedCollapsed', ng-change='set({"preferences.advancedCollapsed": user.preferences.advancedCollapsed?true: false})')
+            =env.t('startAdvCollapsed')
+            &nbsp;
+            span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startAdvCollapsedPop'))
+        button.btn.btn-default(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
+        button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
+        button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
+        button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='user.ops.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
+        button.btn.btn-default(ng-if='!user.preferences.disableClasses && user.flags.classSelected', ng-click='showClassesTour()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('classTourPop'))= env.t('showClass')
 
-      hr
-      h4=env.t('dangerZone')
-      a.btn.btn-danger(ng-click='modals.reset = true', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetAccPop'))= env.t('resetAccount')
-      a.btn.btn-danger(ng-click='modals.delete = true', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
+        //- Why is ng-if='user.auth.local' validating for users *without* user.auth.local (facebook users)? adding .username here for extra
+        div(ng-if='user.auth.local.username')
+          hr
+          h4=env.t('changePass')
+          form(ng-submit='changePassword(changePass)', ng-show='user.auth.local')
+            .form-group
+              input.form-control(type='password', placeholder=env.t('oldPass'), ng-model='changePass.oldPassword', required)
+            .form-group
+              input.form-control(type='password', placeholder=env.t('newPass'), ng-model='changePass.newPassword', required)
+            .form-group
+              input.form-control(type='password', placeholder=env.t('confirmPass'), ng-model='changePass.confirmNewPassword', required)
+            input.btn.btn-default(type='submit', value=env.t('submit'))
+
+        hr
+        h4=env.t('dangerZone')
+        a.btn.btn-danger(ng-click='openModal("reset", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetAccPop'))= env.t('resetAccount')
+        a.btn.btn-danger(ng-click='openModal("delete", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
 
 script(type='text/ng-template', id='partials/options.settings.api.html')
-  .row.fluid
-    .span6
-      h2=env.t('API')
-      small=env.t('APIText')
-      h6=env.t('userId')
-      pre.prettyprint {{user.id}}
-      h6=env.t('APIToken')
-      pre.prettyprint {{user.apiToken}}
-      h6=env.t('qrCode')
-      img(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
+  .containter-fluid
+    .row
+      .col-md-6
+        h2=env.t('API')
+        small=env.t('APIText')
+        h6=env.t('userId')
+        pre.prettyprint {{user.id}}
+        h6=env.t('APIToken')
+        pre.prettyprint {{user.apiToken}}
+        h6=env.t('qrCode')
+        img(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{user.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
 
 script(id='partials/options.settings.export.html', type="text/ng-template")
-  .row.fluid
-    .span6
-      h2=env.t('dataExport')
-      small=env.t('saveData')
-      h4=env.t('habitHistory')
-      =env.t('exportHistory')
-      a(href="/export/history.csv")= ' ' + env.t('csv')
-      h4=env.t('userData')
-      =env.t('exportUserData')
-      a(href="/export/userdata.xml")= ' ' + env.t('xml') + ' '
-      a(href="/export/userdata.json")= env.t('json')
+  .containter-fluid
+    .row
+      .col-md-6
+        h2=env.t('dataExport')
+        small=env.t('saveData')
+        h4=env.t('habitHistory')
+        =env.t('exportHistory')
+        a(href="/export/history.csv")= ' ' + env.t('csv')
+        h4=env.t('userData')
+        =env.t('exportUserData')
+        a(href="/export/userdata.xml")= ' ' + env.t('xml') + ' '
+        a(href="/export/userdata.json")= env.t('json')
 
 script(id='partials/options.settings.subscription.perks.html',type='text/ng-template')
   table.table.table-striped
@@ -153,7 +159,9 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
 
     div(ng-if='user.purchased.plan.customerId')
       .well
-        div(style='font-size:22px')
-          i.icon-ok=env.t('subscribed')
+        p.lead
+          =env.t('subscribed')
+          | &nbsp;
+          span.glyphicon.glyphicon-ok
         div(ng-include="'partials/options.settings.subscription.perks.html'")
-      .btn.btn-small.btn-danger(ng-click='cancelSubscription()')=env.t('cancelSub')
+      .btn.btn-sm.btn-danger(ng-click='cancelSubscription()')=env.t('cancelSub')

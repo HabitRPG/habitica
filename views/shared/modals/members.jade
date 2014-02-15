@@ -1,26 +1,30 @@
-div(ng-controller='MemberModalCtrl')
-  #memberModal(modal='modals.member')
-    .modal-header(bindonce='profile')
-      h3
-        span {{profile.profile.name}}
-        span(ng-if='profile.contributor.level')  - {{contribText(profile.contributor, profile.backer)}}
-    .modal-body(bindonce='profile')
-      .row-fluid
-        .span6
+script(type='text/ng-template', id='modals/member.html')  
+  .modal-header(bindonce='profile')
+    h4
+      span {{profile.profile.name}}
+      span(ng-if='profile.contributor.level')  - {{contribText(profile.contributor, profile.backer)}}
+  .modal-body(bindonce='profile')
+    .container-fluid
+      .row
+        .col-md-6
           img(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
           markdown(ng-show='profile.profile.blurb', ng-model='profile.profile.blurb')
-          ul.muted.unstyled(ng-if='profile.auth.timestamps', style='margin-top:10px;')
+          ul.muted.list-unstyled(ng-if='profile.auth.timestamps')
             li {{profile._id}}
-            li(ng-show='profile.auth.timestamps.created')=env.t('memberSince')
+            li(ng-show='profile.auth.timestamps.created')
+              |&nbsp;
+              =env.t('memberSince')
               | {{timestamp(profile.auth.timestamps.created)}} -
-            li(ng-show='profile.auth.timestamps.loggedin')=env.t('lastLoggedIn')
+            li(ng-show='profile.auth.timestamps.loggedin')
+              |&nbsp;
+              =env.t('lastLoggedIn')
               | {{timestamp(profile.auth.timestamps.loggedin)}} -
           h3=env.t('stats')
           .label.label-info {{ {warrior:'Warrior',wizard:'Mage',healer:'Healer',rogue:'Rogue'}[profile.stats.class] }}
           include ../profiles/stats
-        .span6
+        .col-md-6
           include ../header/avatar
           h3 Achievements
           include ../profiles/achievements
-    .modal-footer
-      button.btn.btn-default(ng-click='modals.member = false')=env.t('ok')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('ok')

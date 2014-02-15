@@ -1,4 +1,5 @@
-div(modal='modals.buyGems')
+//Why is shown? Because of script here at line 24!!!!!!!!!
+script(id='modals/buyGems.html', type='text/ng-template')
   .modal-body
     .buy-gems
       include ../gems
@@ -18,14 +19,17 @@ div(modal='modals.buyGems')
               =env.t('USD')
           tr
             td
-              .btn.btn-primary(ng-click='showStripe()',style='margin-left:10px;')=env.t('payWithCard')
-              div(style='float:left;')
-                //-script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name=env.t('paypalText'), data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v2/user/buy-gems/paypal-ipn', data-env="#{env.NODE_ENV == 'production' ? '' : 'sandbox'}", data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-rm='1', data-no_shipping='1')
-                script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name=env.t('paypalText'), data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v2/user/buy-gems/paypal-ipn', data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-rm='1', data-no_shipping='1')
-              p
-                small.muted(style='line-height:10px;')=env.t('payNote')
+              .row
+                .col-md-6
+                  .btn.btn-primary(ng-click='showStripe()')=env.t('payWithCard')
+                .col-md-6
+                  //-script(src='/bower_components/JavaScriptButtons/dist/paypal-button.min.js?merchant=#{env.PAYPAL_MERCHANT}', data-button='buynow', data-name=env.t('paypalText'), data-quantity='1', data-amount='5', data-currency='USD', data-tax='0', data-callback='#{env.BASE_URL}/api/v2/user/buy-gems/paypal-ipn', data-custom='?uid={{user._id}}&apiToken={{user.apiToken}}', data-return='#{env.BASE_URL}', data-rm='1', data-no_shipping='1')
+                  div#custom-paypal-button.paypal-button(ng-init='initPayPalButton()')
+              .row
+                .col-md-12
+                  small.muted=env.t('payNote')
 
       div(ng-include="'partials/options.settings.subscription.html'")
 
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.buyGems = false')=env.t('cancel')
+    button.btn.btn-default(ng-click='$close()')=env.t('cancel')

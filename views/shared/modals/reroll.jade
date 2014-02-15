@@ -1,18 +1,18 @@
 // Re-Roll modal
-div(modal='modals.reroll')
+script(type='text/ng-template', id='modals/reroll.html')  
   .modal-header
-    h3=env.t('fortify')
+    h4=env.t('fortify')
   .modal-body
     include ../gems
     p=env.t('fortifyText')
 
   .modal-footer
-    button.btn.btn-large.cancel(ng-click='modals.reroll = false')=env.t('neverMind')
+    button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
     span(ng-if='user.balance < 1')
-      a.btn.btn-success.btn-large(ng-click="modals.buyGems = true")=env.t('buyMoreGems')
+      a.btn.btn-success(ng-click='openModal("buyGems",{track:{"Gems > Reroll"}})')=env.t('buyMoreGems')
       span.gem-cost=env.t('notEnoughGems')
     span(ng-if='user.balance >= 1', ng-controller='SettingsCtrl')
-      a.btn.btn-danger.btn-large(ng-click='reroll()')=env.t('fortify')
+      a.btn.btn-danger(ng-click='$close(); reroll()')=env.t('fortify')
       span.gem-cost
         | 4&nbsp;
         = env.t('gems')

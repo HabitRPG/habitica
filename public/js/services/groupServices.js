@@ -5,8 +5,8 @@
  */
 
 angular.module('groupServices', ['ngResource']).
-    factory('Groups', ['API_URL', '$resource', '$q',
-      function(API_URL, $resource, $q) {
+    factory('Groups', ['API_URL', '$resource', '$q', '$http', 'User',
+      function(API_URL, $resource, $q, $http, User) {
         var Group = $resource(API_URL + '/api/v2/groups/:gid',
           {gid:'@_id', messageId: '@_messageId'},
           {
@@ -42,6 +42,12 @@ angular.module('groupServices', ['ngResource']).
           tavern: function(){
             if (!tavern) tavern = Group.get({gid:'habitrpg'});
             return tavern;
+          },
+
+          // On enter, set chat message to "seen"
+          seenMessage: function(gid){
+            $http.post('/api/v2/groups/'+gid+'/chat/seen');
+            if (User.user.newMessages) User.user.newMessages[gid] = false;
           },
 
           Group: Group

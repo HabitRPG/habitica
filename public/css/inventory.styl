@@ -19,29 +19,8 @@
   display: inline-block
   vertical-align: middle
 
-
-// pets (this will all change when pet system is overhauled)
-.pet-grid
-  padding-top: 1.5em
-  border-top: rgba(0,0,0,0.1)
-  table
-    width: 100%
-  td
-    padding: 0.5em
-    //width: 25%
-    &.active-pet
-      background-color: $bad
-      outline: 1px solid rgba(0,0,0,0.1)
-      outline-offset: -1px
-    &:hover, &:focus
-      background-color: darken($better, 10%)
-    > div
-      margin:auto
-      margin-bottom:.5em
-  p
-    text-align:center
-    width:6.5em
-    height:2.5em
+.stable .static-popover
+  max-width: 550px
 
 menu.pets div 
   display: inline-block
@@ -61,12 +40,13 @@ menu.pets div
 //    display:block
 
 .food-tray
-  position:fixed
-  right:0px
-  bottom:0px
-  width:30%
+  position: fixed
+  right: 15px
+  bottom: 0px
+  width: 30%
   height: 50%
-  overflow-y: scroll
+  overflow-y: auto
+  z-index: 1
 
 .inventory-list
   p

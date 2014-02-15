@@ -14,20 +14,21 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.0.3",
+    "jquery": "~2.1.0",
     "jquery.cookie": "~1.4.0",
     "jquery-ui": "~1.10.3",
-    "angular": "~1.2.1",
-    "angular-sanitize": "~1.2.1",
-    "angular-resource": "~1.2.1",
-    "angular-ui": "~0.4.0",
-    "angular-bootstrap": "~0.5.0",
+    "angular": "~1.2.12",
+    "angular-sanitize": "~1.2.12",
+    "angular-resource": "~1.2.12",
+    "angular-ui-utils": "~0.1.0",
+    "angular-ui-select2": "https://github.com/angular-ui/ui-select2.git#4469fd7a32eba2e28d5e3dd319b49e1ad090b167",
+    "angular-bootstrap": "~0.10.0",
     "angular-ui-router": "ca3b4777a603df8f86cfd653c8f6c38b2ae05d89",
-    "angular-loading-bar": "~0.0.5",
+    "angular-loading-bar": "~0.3.0",
     "angular-bindonce": "~0.2.1",
-    "bootstrap": "v2.3.2",
-    "bootstrap-datepicker": "~1.2.0",
-    "bootstrap-growl": "~1.1.0",
+    "bootstrap": "~3.1.0",
+    "bootstrap-growl": "git://github.com/ifightcrime/bootstrap-growl.git#master",
+    "bootstrap-tour": "~0.8.1",
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#develop",
     "BrowserQuest": "https://github.com/mozilla/BrowserQuest.git",
     "github-buttons": "git://github.com/mdo/github-buttons.git",
@@ -35,15 +36,12 @@
     "JavaScriptButtons": "git://github.com/paypal/JavaScriptButtons.git#master",
     "Angular-At-Directive": "git://github.com/snicker/Angular-At-Directive#master",
     "js-emoji": "git://github.com/snicker/js-emoji#master",
-    "gemoji": "git://github.com/github/gemoji",
     "sticky": "*",
-    "bootstrap-tour": "~0.8.0",
-    "angular-ui-utils": "~0.1.0",
     "swagger-ui": "https://github.com/wordnik/swagger-ui.git#105c516f5f055b140e935e9cfe0c36f841921dff",
     "ngInfiniteScroll": "~1.0.0",
-    "angular-ui-select2": "https://github.com/angular-ui/ui-select2.git#4469fd7a32eba2e28d5e3dd319b49e1ad090b167"
+    "jquery-colorbox": "~1.4.36"
   },
   "devDependencies": {
-    "angular-mocks": "~1.2.1"
+    "angular-mocks": "~1.2.12"
   }
 }

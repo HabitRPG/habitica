@@ -10,7 +10,7 @@ html(ng-app='habitrpgStatic')
     script(type='text/javascript').
       window.env = !{JSON.stringify(env)};
 
-    link(rel='shortcut icon', href='#{env.getBuildUrl("favicon.ico")}?v=2')
+    link(rel='shortcut icon', href='#{env.getBuildUrl("favicon.ico")}?v=3')
 
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
@@ -18,24 +18,31 @@ html(ng-app='habitrpgStatic')
     != env.getManifestFiles("static")
 
   body
-    div(ng-controller='AuthCtrl',style='margin-top:60px;')
+    div(ng-controller='AuthCtrl')
       include ./login-modal
-      .navbar.navbar-inverse.navbar.navbar-inverse.navbar-fixed-top
-        .navbar-inner
-          .container
-            a.pull-right.btn.btn-primary(ng-click='playButtonClick()')=env.t('playButton')
+      nav.navbar.navbar-inverse.navbar-fixed-top
+        .navbar-header
+          button.navbar-toggle(type='button', ng-click='isNavbarCollapsed = !isNavbarCollapsed', ng-init='isNavbarCollapsed = true')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='/static/front') HabitRPG
+        .collapse.navbar-collapse(collapse="isNavbarCollapsed")
+          ul.nav.navbar-nav
+            li(class='#{menuItem=="about" ? "active" : ""}')
+              //a(href='/static/about')=env.t('learnMore')
+              a(href='/static/about') About
+            li(class='#{menuItem=="videos" ? "active" : ""}')
+              a(href='/static/videos') Videos
+            li
+              a(href='http://blog.habitrpg.com/')=env.t('companyBlog')
+            li(class='#{menuItem=="plans" ? "active" : ""}')
+              a(href='/static/plans')=env.t('groupPlans')
+            //li(class='#{menuItem=="contact" ? "active" : ""}')
+              a(href='/static/contact')=env.t('contact')
 
-            ul.nav
-              li(class='#{menuItem=="home" ? "active" : ""}')
-                a(href='/static/front')=env.t('home')
-              li(class='#{menuItem=="about" ? "active" : ""}')
-                a(href='/static/about')=env.t('learnMore')
-              li
-                a(href='http://blog.habitrpg.com/')=env.t('companyBlog')
-              li(class='#{menuItem=="plans" ? "active" : ""}')
-                a(href='/static/plans')=env.t('groupPlans')
-              //li(class='#{menuItem=="contact" ? "active" : ""}')
-                a(href='/static/contact')=env.t('contact')
+          button#header-play-button.btn.btn-primary.navbar-btn.navbar-right(ng-click='playButtonClick()')=env.t('playButton')
 
       .container
         block content

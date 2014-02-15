@@ -7,13 +7,12 @@ include ./hall.jade
 script(type='text/ng-template', id='partials/options.social.tavern.html')
   include ./tavern
 
-
 script(type='text/ng-template', id='partials/options.social.party.html')
   div(ng-show='group._id')
     include ./group
   div(ng-hide='group._id')
     div(ng-show='user.invitations.party.id')
-      h2=env.t('invitedTo') + '{{user.invitations.party.name}}'
+      h2=env.t('invitedTo') + ' {{user.invitations.party.name}}'
       a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)')=env.t('accept')
       a.btn.btn-danger(ng-click='reject()')=env.t('reject')
     div(ng-hide='user.invitations.party.id')
@@ -26,12 +25,12 @@ script(type='text/ng-template', id='partials/options.social.party.html')
 
 script(type='text/ng-template', id='partials/options.social.guilds.public.html')
   div(ng-repeat='invitation in user.invitations.guilds')
-    h3=env.t('invitedTo') + '{{invitation.name}}'
+    h3=env.t('invitedTo') + ' {{invitation.name}}'
     a.btn.btn-success(data-type='guild', ng-click='join(invitation)')=env.t('accept')
     a.btn.btn-danger(ng-click='reject(invitation)')=env.t('reject')
   // Public Groups
-  .options-group.option-large.whatever-options
-    input.option-content(type='text',ng-model='guildSearch', placeholder=env.t('search'))
+  .col-md-3
+    input.form-control(type='text',ng-model='guildSearch', placeholder=env.t('search'))
   table.table.table-striped
     tr(ng-repeat='group in groups.public | filter:guildSearch')
       td
@@ -39,11 +38,11 @@ script(type='text/ng-template', id='partials/options.social.guilds.public.html')
           li='{{group.memberCount}} ' + env.t('members')
           li
             // join / leave
-            a.btn.btn-small.btn-danger(ng-show='group._isMember', ng-click='clickLeave(group, $event)')
-              i.icon-ban-circle
+            a.btn.btn-sm.btn-danger(ng-show='group._isMember', ng-click='clickLeave(group, $event)')
+              span.glyphicon.glyphicon-ban-circle
               =env.t('leave')
-            a.btn.btn-small.btn-success(ng-hide='group._isMember', ng-click='join(group)')
-              i.icon-ok
+            a.btn.btn-sm.btn-success(ng-hide='group._isMember', ng-click='join(group)')
+              span.glyphicon.glyphicon-ok
               =env.t('join')
         h4 {{group.name}}
         p {{group.description}}
@@ -74,7 +73,8 @@ script(type='text/ng-template', id='partials/options.social.html')
   ul.nav.nav-tabs
     li(ng-class="{ active: $state.includes('options.social.tavern') }")
       a(ui-sref='options.social.tavern')
-        i.icon-eye-close
+        span.glyphicon.glyphicon-eye-close
+        | &nbsp;
         =env.t('tavern')
     li(ng-class="{ active: $state.includes('options.social.party') }")
       a(ui-sref='options.social.party')
@@ -84,11 +84,13 @@ script(type='text/ng-template', id='partials/options.social.html')
         =env.t('guilds')
     li(ng-class="{ active: $state.includes('options.social.challenges') }")
       a(ui-sref='options.social.challenges')
-        i.icon-bullhorn
+        span.glyphicon.glyphicon-bullhorn
+        | &nbsp;
         =env.t('challenges')
     li(ng-class="{ active: $state.includes('options.social.hall') }")
       a(ui-sref='options.social.hall')
-        i.icon-flag
+        span.glyphicon.glyphicon-flag
+        | &nbsp;
         =env.t('hall')
 
   .tab-content

@@ -29,35 +29,39 @@ h4=env.t('attributes')
 table.table.table-striped
   tr(ng-repeat='(k,v) in {str:"Strength (STR)",int:"Intelligence (INT)",con:"Constitution (CON)",per:"Perception (PER)"}')
     td
-      i.icon-question-sign(ng-show='k=="str"', popover-title=env.t('strength'), popover-placement='right', popover=env.t('strengthText'), popover-trigger='mouseenter', style='margin-right:3px')
-      i.icon-question-sign(ng-show='k=="con"', popover-title=env.t('constitution'), popover-placement='right', popover=env.t('conText') popover-trigger='mouseenter', style='margin-right:3px')
-      i.icon-question-sign(ng-show='k=="per"', popover-title=env.t('perception'), popover-placement='right', popover=env.t('perText'), popover-trigger='mouseenter', style='margin-right:3px')
-      i.icon-question-sign(ng-show='k=="int"', popover-title=env.t('intelligence'), popover-placement='right', popover=env.t('intText'), popover-trigger='mouseenter', style='margin-right:3px')
+      span.glyphicon.glyphicon-question-sign(ng-show='k=="str"', popover-title=env.t('strength'), popover-placement='right', popover=env.t('strengthText'), popover-trigger='mouseenter')
+      | &nbsp;
+      span.glyphicon.glyphicon-question-sign(ng-show='k=="con"', popover-title=env.t('constitution'), popover-placement='right', popover=env.t('conText') popover-trigger='mouseenter')
+      | &nbsp;
+      span.glyphicon.glyphicon-question-sign(ng-show='k=="per"', popover-title=env.t('perception'), popover-placement='right', popover=env.t('perText'), popover-trigger='mouseenter')
+      | &nbsp;
+      span.glyphicon.glyphicon-question-sign(ng-show='k=="int"', popover-title=env.t('intelligence'), popover-placement='right', popover=env.t('intText'), popover-trigger='mouseenter')
+      | &nbsp;
       strong {{v}}: {{profile._statsComputed[k]}}
     td
-      ul(style='list-style-type:none')
+      ul.list-unstyled
         li(ng-show='profile.stats.lvl > 1')
-          i.icon-question-sign(popover-title=env.t('levelBonus'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('levelBonusText'))
+          span.glyphicon.glyphicon-question-sign(popover-title=env.t('levelBonus'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('levelBonusText'))
           | 
           =env.t('level')
           |: {{(profile.stats.lvl - 1) / 2}}&nbsp;
         li(ng-show='Content.gear.flat[profile.items.gear.equipped.weapon][k] + Content.gear.flat[profile.items.gear.equipped.armor][k] + Content.gear.flat[profile.items.gear.equipped.head][k] + Content.gear.flat[profile.items.gear.equipped.shield][k] > 0')
-          i.icon-question-sign(popover-title=env.t('equipment'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('equipmentBonusText'))
+          span.glyphicon.glyphicon-question-sign(popover-title=env.t('equipment'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('equipmentBonusText'))
           | 
           =env.t('equipment')
           |: {{Content.gear.flat[profile.items.gear.equipped.weapon][k] + Content.gear.flat[profile.items.gear.equipped.armor][k] + Content.gear.flat[profile.items.gear.equipped.head][k] + Content.gear.flat[profile.items.gear.equipped.shield][k] || 0}}&nbsp;
         li(ng-show='profile._statsComputed[k] - profile.stats.buffs[k] - ((profile.stats.lvl - 1) / 2) - Content.gear.flat[profile.items.gear.equipped.weapon][k] - Content.gear.flat[profile.items.gear.equipped.armor][k] - Content.gear.flat[profile.items.gear.equipped.head][k] - Content.gear.flat[profile.items.gear.equipped.shield][k] - profile.stats[k] > 0')
-          i.icon-question-sign(popover-title=env.t('classBonus'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('classBonusText'))
+          span.glyphicon.glyphicon-question-sign(popover-title=env.t('classBonus'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('classBonusText'))
           | 
           =env.t('classEquipBonus')
           |: {{profile._statsComputed[k] - profile.stats.buffs[k] - ((profile.stats.lvl - 1) / 2) - Content.gear.flat[profile.items.gear.equipped.weapon][k] - Content.gear.flat[profile.items.gear.equipped.armor][k] - Content.gear.flat[profile.items.gear.equipped.head][k] - Content.gear.flat[profile.items.gear.equipped.shield][k] - profile.stats[k]}}&nbsp;
         li(ng-show='profile.stats[k] > 0')
-          i.icon-question-sign(popover-title=env.t('allocatedPoints'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('allocatedPointsText'))
+          span.glyphicon.glyphicon-question-sign(popover-title=env.t('allocatedPoints'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('allocatedPointsText'))
           | 
           =env.t('allocated')
           |: {{profile.stats[k] || 0}}&nbsp;
         li(ng-show='profile.stats.buffs[k] > 0')
-          i.icon-question-sign(popover-title=env.t('buffs'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('buffsText'))
+          span.glyphicon.glyphicon-question-sign(popover-title=env.t('buffs'), popover-trigger='mouseenter', popover-placement='top', popover=env.t('buffsText'))
           | 
           =env.t('buffs')
           |: {{profile.stats.buffs[k] || 0}}&nbsp;

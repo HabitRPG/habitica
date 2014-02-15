@@ -5,8 +5,11 @@ var path = require('path');
 var User = require('./models/user').model
 var limiter = require('connect-ratelimit');
 var logging = require('./logging');
+var domainMiddleware = require('domain-middleware');
+var cluster = require('cluster');
 
 module.exports.apiThrottle = function(app) {
+  if (nconf.get('NODE_ENV') !== 'production') return;
   app.use(limiter({
     end:false,
     catagories:{
@@ -22,6 +25,35 @@ module.exports.apiThrottle = function(app) {
     next();
   });
 }
+
+module.exports.domainMiddleware = function(server,mongoose) {
+  return domainMiddleware({
+    server: {
+      close:function(){
+        server.close();
+        mongoose.connection.close();
+      }
+    },
+    killTimeout: 10000
+  });
+}
+
+module.exports.errorHandler = function(err, req, res, next) {
+  //res.locals.domain.emit('error', err);
+  // when we hit an error, send it to admin as an email. If no ADMIN_EMAIL is present, just send it to yourself (SMTP_USER)
+  var stack = (err.stack ? err.stack : err.message ? err.message : err) +
+    "\n ----------------------------\n" +
+    "\n\noriginalUrl: " + req.originalUrl +
+    "\n\nauth: " + req.headers['x-api-user'] + ' | ' + req.headers['x-api-key'] +
+    "\n\nheaders: " + JSON.stringify(req.headers) +
+    "\n\nbody: " + JSON.stringify(req.body) +
+    (res.locals.ops ? "\n\ncompleted ops: " + JSON.stringify(res.locals.ops) : "");
+  logging.error(stack);
+  var message = err.message ? err.message : err;
+  message =  (message.length < 200) ? message : message.substring(0,100) + message.substring(message.length-100,message.length);
+  res.json(500,{err:message}); //res.end(err.message);
+}
+
 
 module.exports.forceSSL = function(req, res, next){
   var baseUrl = nconf.get("BASE_URL");
@@ -90,22 +122,21 @@ var getManifestFiles = function(page){
 
   if(!files) throw new Error("Page not found!");
 
-  var css = '';
-
-  _.each(files.css, function(file){
-    css += '<link rel="stylesheet" type="text/css" href="' + getBuildUrl(file) + '">';
-  });
+  var code = '';
 
   if(nconf.get('NODE_ENV') === 'production'){
-    return css + '<script type="text/javascript" src="' + getBuildUrl(page + '.js') + '"></script>';
+    code += '<link rel="stylesheet" type="text/css" href="' + getBuildUrl(page + '.css') + '">';
+    code += '<script type="text/javascript" src="' + getBuildUrl(page + '.js') + '"></script>';
   }else{
-    var results = css;
-    _.each(files.js, function(file){
-      results += '<script type="text/javascript" src="' + getBuildUrl(file) + '"></script>';
+    _.each(files.css, function(file){
+      code += '<link rel="stylesheet" type="text/css" href="' + getBuildUrl(file) + '">';
     });
-    return results;
+    _.each(files.js, function(file){
+      code += '<script type="text/javascript" src="' + getBuildUrl(file) + '"></script>';
+    });
   }
-
+  
+  return code;
 }
 
 // Translations
@@ -113,12 +144,12 @@ var getManifestFiles = function(page){
 var translations = {};
 
 var loadTranslations = function(locale){
-  var files = require(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/", locale, 'app.json')).files;
+  var files = fs.readdirSync(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/", locale));
   translations[locale] = {};
   _.each(files, function(file){
     _.merge(translations[locale], require(path.join(__dirname, "/../node_modules/habitrpg-shared/locales/", locale, file)));
   });
-}
+};
 
 // First fetch english so we can merge with missing strings in other languages
 loadTranslations('en');
@@ -165,7 +196,6 @@ var getUserLanguage = function(req, callback){
     var acceptable = _(req.acceptedLanguages).map(function(lang){
       return lang.slice(0, 2);
     }).uniq().value();
-
     var matches = _.intersection(acceptable, langCodes);
     return matches.length > 0 ? matches[0] : 'en';
   };
@@ -177,10 +207,13 @@ var getUserLanguage = function(req, callback){
         return callback(null, _.find(avalaibleLanguages, {code: user.preferences.language}));
       }else{
         var langCode = getFromBrowser();
-        if(user && translations[langCode]){
-          user.preferences.language = langCode;
-          user.save(); //callback?
-        }
+        // Because english is usually always avalaible as an acceptable language for the browser,
+        // if the user visit the page when his own language is not avalaible yet
+        // he'll have english set in his preferences, which is not good. 
+        //if(user && translations[langCode]){
+          //user.preferences.language = langCode;
+          //user.save(); //callback?
+        //}
         return callback(null, _.find(avalaibleLanguages, {code: langCode}))
       }
     });
@@ -193,18 +226,23 @@ module.exports.locals = function(req, res, next) {
   getUserLanguage(req, function(err, language){
     if(err) return res.json(500, {err: err});
 
-    language.momentLang = (momentLangs[language.code] || undefined);
+    var isStaticPage = req.url.split('/')[1] === 'static'; // If url contains '/static/'
+
+    // Load moment.js language file only when not on static pages
+    language.momentLang = ((!isStaticPage && momentLangs[language.code])|| undefined);
 
     res.locals.habitrpg = {
       NODE_ENV: nconf.get('NODE_ENV'),
       BASE_URL: nconf.get('BASE_URL'),
       PAYPAL_MERCHANT: nconf.get('PAYPAL_MERCHANT'),
+      GA_ID: nconf.get("GA_ID"),
       IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
       STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
       getManifestFiles: getManifestFiles,
       getBuildUrl: getBuildUrl,
       avalaibleLanguages: avalaibleLanguages,
       language: language,
+      isStaticPage: isStaticPage,
       translations: translations[language.code],
       t: function(stringName, vars){
         var string = translations[language.code][stringName];

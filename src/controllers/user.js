@@ -10,6 +10,7 @@ var validator = require('validator');
 var check = validator.check;
 var sanitize = validator.sanitize;
 var User = require('./../models/user').model;
+var ga = require('./../utils').ga;
 var Group = require('./../models/group').model;
 var Challenge = require('./../models/challenge').model;
 var logging = require('./../logging');
@@ -269,8 +270,12 @@ api.buyGems = function(req, res, next) {
           dateUpdated: new Date,
           gemsBought: 0
         };
+        ga.event('subscribe', 'Stripe').send()
+        ga.transaction(response.id, 5).item(5, 1, "stripe-subscription", "Subscription > Stripe").send()
       } else {
         user.balance += 5;
+        ga.event('checkout', 'Stripe').send()
+        ga.transaction(response.id, 5).item(5, 1, "stripe-checkout", "Gems > Stripe").send()
       }
       user.save(cb);
     }
@@ -299,6 +304,7 @@ api.cancelSubscription = function(req, res, next) {
   ], function(err, saved){
     if (err) return res.send(500, err.toString()); // don't json this, let toString() handle errors
     res.send(200, saved);
+    ga.event('unsubscribe', 'Stripe').send()
   });
 
 }
@@ -319,6 +325,8 @@ api.buyGemsPaypalIPN = function(req, res, next) {
         //user.purchased.ads = true;
         user.save();
         logging.info('PayPal transaction completed and user updated');
+        ga.event('checkout', 'PayPal').send()
+        ga.transaction(req.body.txn_id, 5).item(5, 1, "paypal-checkout", "Gems > PayPal").send()
       });
     }
   });
@@ -369,7 +377,7 @@ api.cast = function(req, res, next) {
     case 'user':
       async.waterfall([
         function(cb){
-          Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members', 'profile.name stats achievements').exec(cb);
+          Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members', 'profile.name stats achievements items.special').exec(cb);
         },
         function(group, cb) {
           // Solo player? let's just create a faux group for simpler code
@@ -421,7 +429,7 @@ _.each(shared.wrap({}).ops, function(op,k){
           if (err) return next(err);
           res.json(200,response);
         })
-      })
+      }, ga);
     }
   }
 })

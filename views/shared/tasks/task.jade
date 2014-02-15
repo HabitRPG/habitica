@@ -3,45 +3,53 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
   .task-meta-controls
 
     // Due Date
-    span.task-date(ng-if='task.type=="todo" && task.date', style='margin:1px')
-      span(ng-class='{"label label-important":moment(task.date).isBefore(_today, "days")}') {{moment(task.date).format('MM/DD')}}
+    span(ng-if='task.type=="todo" && task.date')
+      span(ng-class='{"label label-danger":moment(task.date).isBefore(_today, "days")}') {{moment(task.date).format('MM/DD')}}
     // Streak
-    span(ng-show='task.streak') {{task.streak}}
+    | &nbsp;
+    span(ng-show='task.streak') {{task.streak}}&nbsp;
       span(tooltip=env.t('streakCounter'))
-        i.icon-forward
+        span.glyphicon.glyphicon-forward
+        | &nbsp;
 
     // Icons only available if you own the tasks (aka, hidden from challenge stats)
     span(ng-if='!obj._locked')
-      a.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}', ng-click='collapseChecklist(task)', style='margin:1px')
+      a.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}', ng-click='collapseChecklist(task)')
         {{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
-
-      // tags
-      i.icon-tags(tooltip='{{Shared.appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
+      span.glyphicon.glyphicon-tags(tooltip='{{Shared.appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
       // edit
       a(ng-hide='task._editing', ng-click='editTask(task)', tooltip=env.t('edit'))
-        i.icon-pencil(ng-hide='task._editing')
-      // cancel
+        | &nbsp;
+        span.glyphicon.glyphicon-pencil(ng-hide='task._editing')
+      | &nbsp;
       a(ng-hide='!task._editing', ng-click='editTask(task)', tooltip=env.t('cancel'))
-        i.icon-remove(ng-hide='!task._editing')
+        span.glyphicon.glyphicon-remove(ng-hide='!task._editing')
+        | &nbsp;
       // save
       a(ng-hide='!task._editing', ng-click='editTask(task);saveTask(task)', tooltip=env.t('save'))
-        i.icon-ok(ng-hide='!task._editing')
+        span.glyphicon.glyphicon-ok(ng-hide='!task._editing')
+      | &nbsp;
       //challenges
       span(ng-if='task.challenge.id')
         span(ng-if='task.challenge.broken')
-          i.icon-bullhorn(style='background-color:red;', ng-click='task._editing = true', tooltip=env.t('brokenChaLink') tooltip-placement='right')
+          span.glyphicon.glyphicon-bullhorn(style='background-color:red;', ng-click='task._editing = true', tooltip=env.t('brokenChaLink') tooltip-placement='right')
+          | &nbsp;
         span(ng-if='!task.challenge.broken')
-          i.icon-bullhorn(tooltip=env.t('challenge'))
+          span.glyphicon.glyphicon-bullhorn(tooltip=env.t('challenge'))
+          | &nbsp;
       // delete
       a(ng-if='!task.challenge.id', ng-click='removeTask(obj[list.type+"s"], $index)', tooltip=env.t('delete'))
-        i.icon-trash
+        span.glyphicon.glyphicon-trash
+        | &nbsp;
 
     // chart
     a(ng-show='task.history', ng-click='toggleChart(obj._id+task.id, task)', tooltip=env.t('progress'))
-      i.icon-signal
+      span.glyphicon.glyphicon-signal
+      | &nbsp;
     // notes
     span.task-notes(ng-show='task.notes && !task._editing')
-      i.icon-comment
+      span.glyphicon.glyphicon-comment
+      | &nbsp;
 
   // left-hand side checkbox
   .task-controls.task-primary
@@ -84,10 +92,12 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
           p=env.t('brokenTask')
           p
             a(ng-click='unlink(task, "keep")')=env.t('keepIt')
-            | &nbsp;|&nbsp;
+            | &nbsp;&nbsp;
             a(ng-click="removeTask(obj[list.type+'s'], $index)")=env.t('removeIt')
         div(ng-if='task.challenge.broken=="CHALLENGE_DELETED"')
-          p=env.t('brokenChallenge')
+          p
+            |&nbsp;
+            =env.t('brokenChallenge')
           p
             a(ng-click='unlink(task, "keep-all")')=env.t('keepThem')
             | &nbsp;|&nbsp;
@@ -108,19 +118,20 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
 
       // Checklists
       div(ng-if='!$state.includes("options.social.challenges")')
-        a.btn.btn-small(ng-if='!task.checklist[0] && (task.type=="daily" || task.type=="todo")',ng-click='addChecklist(task)')
-          i.icon-tasks
+        button.btn.btn-default.btn-sm(ng-if='!task.checklist[0] && (task.type=="daily" || task.type=="todo")',ng-click='addChecklist(task)')
+          span.glyphicon.glyphicon-tasks
+          | &nbsp; &nbsp;
           =env.t('addChecklist')
         form.checklist-form(ng-if='task.checklist')
           fieldset.option-group.task-checklist(ng-if='!$state.includes("options.social.challenges")')
             legend.option-title
               =env.t('checklist')
-              | &nbsp;
-              i.icon.icon-question-sign(popover=env.t('checklistText'),popover-trigger='mouseenter',popover-placement='bottom')
-            ul.unstyled
+              | &nbsp; &nbsp;
+              span.glyphicon.glyphicon-question-sign(popover=env.t('checklistText'),popover-trigger='mouseenter',popover-placement='bottom')
+            ul.list-unstyled
               li(ng-repeat='item in task.checklist')
                 a.pull-right.checklist-icons(ng-click='removeChecklistItem(task,$event,$index,true)')
-                  i.icon-trash(tooltip=env.t('delete'))
+                  span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
                 input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
                 input.inline-edit(type='text',ng-model='item.text',ui-keydown="{'8 46':'removeChecklistItem(task,$event,$index)'}",ui-keyup="{'13':'addChecklistItem(task,$event,$index)','38 40':'navigateChecklist(task,$index,$event)'}")//-,ng-blur='saveTask(task,true)')
 
@@ -182,7 +193,8 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
           fieldset.option-group.advanced-option(ng-class="{visuallyhidden: task._advanced}")
             legend.option-title
               a.priority-multiplier-help(href='https://trello.com/card/priority-multiplier/50e5d3684fe3a7266b0036d6/17', target='_blank', popover-title=env.t('difficultyHelpTitle'), popover-trigger='mouseenter', popover=env.t('difficultyHelpContent'))
-                i.icon-question-sign
+                span.glyphicon.glyphicon-question-sign
+              | &nbsp;
               =env.t('difficulty')
             .task-controls.tile-group.priority-multiplier
               button.task-action-btn.tile(type='button', ng-class='{active: task.priority==1 || !task.priority}', ng-click='task.challenge.id || (task.priority=1)')=env.t('easy')
@@ -195,13 +207,13 @@ li(bindonce='list', bo-id='"task-"+task.id', ng-repeat='task in obj[list.type+"s
 
             div(ng-if='(user.preferences.allocationMode == "taskbased" && user.preferences.automaticAllocation) || $state.is("options.social.challenges")')
               legend.option-title.pull-left=env.t('attributes')
-              .task-controls.tile-group(style='text-align:left')
+              .task-controls.tile-group.task-attributes
                 button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="str"}', ng-click='task.attribute="str"')=env.t('physical')
                 button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="int"}', ng-click='task.attribute="int"')=env.t('mental')
                 button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="con"}', ng-click='task.attribute="con"')=env.t('social')
                 button.task-action-btn.tile(type='button', ng-class='{active: task.attribute=="per"}', ng-click='task.attribute="per"', popover=env.t('otherExamples'), popover-trigger='mouseenter', popover-placement='top')=env.t('other')
                   |&nbsp;
-                  i.icon-question-sign
+                  span.glyphicon.glyphicon-question-sign
 
         button.task-action-btn.tile.spacious(type='submit')=env.t('saveAndClose')
 

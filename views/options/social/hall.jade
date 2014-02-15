@@ -12,83 +12,83 @@ script(type='text/ng-template', id='partials/options.social.hall.html')
       div(ui-view)
 
 script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
-  div.well(ng-if='user.contributor.admin')
+  .well(ng-if='user.contributor.admin')
     h2=env.t('rewardUser')
-    form.form-horizontal(ng-submit='loadHero(_heroID)')
-      .-options
-        .option-group.option-large
-          input.option-content(type='text', ng-model='_heroID', placeholder=env.t('UUID'))
-          button.btn(type='submit')=env.t('loadUser')
-    form.form-horizontal(ng-show='hero', ng-submit='saveHero(hero)')
+    form(ng-submit='loadHero(_heroID)')
+      .form-group
+        input.form-control(type='text', ng-model='_heroID', placeholder=env.t('UUID'))
+      .form-group
+        input.btn.btn-default(type='submit')=env.t('loadUser')
+    form(ng-show='hero', ng-submit='saveHero(hero)')
       h3 {{hero.profile.name}}
-      .-options
-        .control-group.option-large
-          input.option-content(type='text', ng-model='hero.contributor.text', placeholder=env.t('contribTitle'))
-        .control-group.option-medium
-          input.option-content(type='number', step="any", ng-model='hero.contributor.level')
-          span.input-suffix=env.t('contribLevel')
-          br
-          small=env.t('contribHallText')
-          a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear')=env.t('moreDetails')
-        .control-group.option-large
-          textarea.option-content(style='height:15em;', placeholder=env.t('contributions'), ng-model='hero.contributor.contributions')
-          //-include ../../shared/formatting-help
-        .control-group.option-medium
-          label.checkbox
+      .form-group
+        input.form-control(type='text', ng-model='hero.contributor.text', placeholder=env.t('contribTitle'))
+      .form-group
+        label=env.t('contribLevel')
+        input.form-control(type='number', step="any", ng-model='hero.contributor.level')        
+        small=env.t('contribHallText')
+        a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear')=env.t('moreDetails')
+      .form-group
+        textarea.form-control(cols=5, placeholder=env.t('contributions'), ng-model='hero.contributor.contributions')
+        include ../../shared/formatting-help
+      .form-group
+        .checkbox
+          label
             input(type='checkbox', ng-model='hero.contributor.admin')
             =env.t('admin')
 
         hr
 
-        .control-group.option-medium
-          input.option-content(type='number', step="any", ng-model='hero.balance')
-          span.input-suffix=env.t('balance')
-          p
-            small!= '`user.balance`' + env.t('notGems')
+        .form-group
+          label=env.t('balance')
+          input.form-control(type='number', step="any", ng-model='hero.balance')
+          small!= '`user.balance`' + env.t('notGems')
 
-        .control-group.option-medium
-          label.checkbox
-            input(type='checkbox', ng-model='hero.purchased.ads')
-            =env.t('hideAds')
+        .form-group
+          .checkbox
+            label
+              input(type='checkbox', ng-model='hero.purchased.ads')
+              =env.t('hideAds')
 
-      // h4 Backer Status
-      // Add backer stuff like tier, disable adds, etcs
-      button.btn-primary(type='submit')=env.t('save')
+        // h4 Backer Status
+        // Add backer stuff like tier, disable adds, etcs
+        .form-group
+          input.form-control.btn.btn-primary(type='submit')=env.t('save')
 
 
   table.table.table-striped
-    tr
-      thead
-        tr
-          th=env.t('name')
-          th(ng-if='user.contributor.admin')=env.t('UUID')
-          th=env.t('contribLevel')
-          th=env.t('title')
-          th=env.t('contributions')
-    tr(ng-repeat='hero in heroes')
-      td
-        span(ng-if='hero.contributor.admin',popover=env.t('gamemaster'),popover-trigger='mouseenter',popover-placement='right')
-          a.label(class='label-contributor-{{hero.contributor.level}}', ng-class='{"label-npc": hero.backer.npc}', ng-click='clickMember(hero._id, true)')
-            | {{hero.profile.name}}&nbsp;
-            i.icon-star.icon-white
-        span(ng-if='!hero.contributor.admin')
-          a.label(class='label-contributor-{{hero.contributor.level}}', ng-class='{"label-npc": hero.backer.npc}', ng-click='clickMember(hero._id, true)') {{hero.profile.name}}
-      td(ng-if='user.contributor.admin') {{hero._id}}
-      td {{hero.contributor.level}}
-      td {{hero.contributor.text}}
-      td
-        markdown(ng-model='hero.contributor.contributions', target='_blank')
+    thead
+      tr
+        th=env.t('name')
+        th(ng-if='user.contributor.admin')=env.t('UUID')
+        th=env.t('contribLevel')
+        th=env.t('title')
+        th=env.t('contributions')
+    tbody
+      tr(ng-repeat='hero in heroes')
+        td
+          span(ng-if='hero.contributor.admin',popover=env.t('gamemaster'),popover-trigger='mouseenter',popover-placement='right')
+            a.label.label-default(ng-class='userLevelStyle(hero)', ng-click='clickMember(hero._id, true)')
+              | {{hero.profile.name}}&nbsp;
+              span.glyphicon.glyphicon-star
+          span(ng-if='!hero.contributor.admin')
+            a.label.label-default(ng-class='userLevelStyle(hero)', ng-click='clickMember(hero._id, true)') {{hero.profile.name}}
+        td(ng-if='user.contributor.admin') {{hero._id}}
+        td {{hero.contributor.level}}
+        td {{hero.contributor.text}}
+        td
+          markdown(ng-model='hero.contributor.contributions', target='_blank')
 
 script(type='text/ng-template', id='partials/options.social.hall.patrons.html')
   table.table.table-striped(infinite-scroll="loadMore()")
-    tr
-      thead
-        tr
-          th=env.t('name')
-          th(ng-if='user.contributor.admin')=env.t('UUID')
-          th=env.t('backerTier')
-    tr(ng-repeat='patron in patrons')
-      td
-        a.label(class='label-contributor-{{patron.contributor.level}}', ng-class='{"label-npc": patron.backer.npc}', ng-click='clickMember(patron._id, true)') {{patron.profile.name}}
-      td(ng-if='user.contributor.admin') {{patron._id}}
-      td {{patron.backer.tier}}
+    thead
+      tr
+        th=env.t('name')
+        th(ng-if='user.contributor.admin')=env.t('UUID')
+        th=env.t('backerTier')
+    tbody
+      tr(ng-repeat='patron in patrons')
+        td
+          a.label.label-default(ng-class='userLevelStyle(patron)', ng-click='clickMember(patron._id, true)') {{patron.profile.name}}
+        td(ng-if='user.contributor.admin') {{patron._id}}
+        td {{patron.backer.tier}}

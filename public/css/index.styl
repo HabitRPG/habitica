@@ -3,9 +3,6 @@
 
 // Vendor Includes - include first so we can override
 // Import only styles that do not have urls to images! Include them directly in the page!
-@import "../bower_components/bootstrap-datepicker/css/datepicker.css"
-@import "../bower_components/angular-ui/build/angular-ui.min.css"
-@import "../bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css"
 @import "../bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css"
 @import "../bower_components/angular-loading-bar/build/loading-bar.css"
 @import "../bower_components/js-emoji/emoji.css"
@@ -19,7 +16,6 @@
 @import "./inventory.styl"
 @import "./alerts.styl"
 @import "./helpers.styl"
-@import "./responsive.styl"
 @import "./header.styl"
 @import "./filters.styl"
 @import "./scrollbars.styl"
@@ -29,10 +25,7 @@
 @import "./classes.styl"
 @import "./quests.styl"
 @import "./shared.styl"
-
-// fix exploding to very wide for some reason
-.datepicker
-  width: 210px
+@import "./footer.styl"
 
 html,body,p,h1,ul,li,table,tr,th,td
   margin: 0
@@ -42,54 +35,27 @@ html,body,p,h1,ul,li,table,tr,th,td
   -webkit-box-sizing: border-box
   -moz-box-sizing: border-box
   box-sizing: border-box
-
-* { font-family: "Lato", sans-serif }
+  font-family: "Lato", sans-serif
 
 hr
   border-top: 0
   border-bottom: 1px solid #ddd
   border-color: rgba(0,0,0,0.1)
 
-
-/* Footer
--------------------------------------------------- */
-
-/* Bootstrap website boilerplate */
-.footer {
-  padding: 70px 0;
-  border-top: 1px solid #e5e5e5;
-  background-color: #f5f5f5;
-}
-.footer p {
-  margin-bottom: 0;
-  color: #777;
-}
-.footer-links {
-  margin: 10px 0;
-}
-.footer-links li {
-  display: inline;
-  margin-right: 10px;
-}
-
-/* Bootstrap overrides */
-div.tooltip-inner {
-    max-width: 300px;
-}
-
 /* Customizations to make footer sticky */
-/*html, body {height: 100%;}*/
-#wrap
-  min-height: 100%
-  z-index:-1
-#main
-  padding-bottom: 250px; /* don't know why this works, sticky footers are weird */
 
-@media (max-width: 600px) {
-  #wrap {
+html, body 
+  height: 100%
+
+#wrap
+  z-index:-1
+  padding: 0 15px // Required by Bootstrap 3 when using .container-fluid
+  min-height: 100%
+  height: auto !important
+
+@media (max-width: 600px)
+  #wrap 
     margin-top: 0
-  }
-}
 
 /* Gems
 -------------------------------------------------- */
@@ -108,17 +74,17 @@ div.tooltip-inner {
   position: relative;
   
 .gem-cost::before
-  content: "";
-  display: block;
-  width: 0;
-  height: 0;
-  border: 6px solid #D4D4D4;
-  border-color: transparent #D4D4D4 transparent transparent;
-  position: absolute;
-  right: 100%;
-  margin-right: 0;
-  top: 50%;
-  margin-top: -6px;
+  content: ""
+  display: block
+  width: 0
+  height: 0
+  border: 6px solid #D4D4D4
+  border-color: transparent #D4D4D4 transparent transparent
+  position: absolute
+  right: 100%
+  margin-right: 0
+  top: 50%
+  margin-top: -6px
 
 .gem-cost::after
   content: "";
@@ -135,51 +101,48 @@ div.tooltip-inner {
 
 /* Misc
 -------------------------------------------------- */
+//move
 
-.modal
-  whitespace: normal
+.new-stuff-modal // a .modal-body
+  h5
+    font-weight: 700
 
-.notification-character
-  float:left
+.modal-fixed-height
+  overflow-y: auto
+  max-height: 400px // Taken from Bootstrap 2.3.2 css, may need to change
 
-.notification-message
-  display: inline-block;
-  padding-right: 1em
-  line-height: 3
-  
-.notification-action
-  vertical-align: baseline
-#reset-modal
-  z-index:1500
-#notification-area
-  position: fixed;
-  top: 0;
-  right: 0px;
-  z-index: 1061;
+// notification-character used only by death modal's figure, move
 
 .modal-body
-    margin: 10px
+  figure
+    float: left
+    padding: 15px
 
-
-// TODO this is supposed to go in avatar.styl, but stylus is breaking if I even touch that file
-.profile-modal-header
-    width:560px
-    margin: 0px auto
-
-.avatar-level
-    position absolute
-    bottom 0px
-    right 0px
-    padding 1px 3px 1px 3px
+.death-modal // a .modal-body
+  margin: 10px
 
 a
   cursor: pointer
 
-#modalMember p
-    word-wrap: break-word
+a span.glyphicon
+  color: #333 // Takes base color from bootstrap
+
+a.label
+  color: #fff
+
+.label .glyphicon
+  color: #fff
+
+.muted
+  color: #999
 
 .btn 
   margin-right: 5px
+
+.vertical-align
+  vertical-align: middle
+.inline-block
+  display: inline-block
 
 // Buttons in groups should not have a 5px margin between them; suppress margin for buttons in groups.
 .btn-group .btn
@@ -189,18 +152,30 @@ a
   margin-left: 10px;
   padding-left: 10px;
 
-.inline-modal
-  position: relative
-  top: auto;
-  left: auto
-  right: auto
-  margin: 0 auto 20px
-  z-index: 1
-  max-width: 100%
-
 .buy-gems
   .nav-tabs
     margin-top: 0.5em
   .gem-wallet
     padding-top: 2px
 
+// Add badges' classes
+.badge-info
+  background-color: #428bca
+.badge-success
+  background-color: #47a447
+
+.white, .white a
+  color: #fff !important
+
+.collapse-toolbar
+  position:absolute
+  right:0px
+  top:0px
+  width:30px
+  height:25px
+  background-color:#222
+  z-index:999
+  .glyphicon
+    color:white
+    padding-left:7px
+    padding-top:5px

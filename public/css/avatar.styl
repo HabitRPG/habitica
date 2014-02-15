@@ -9,6 +9,16 @@ Seeing as the sprites might change drastically in the
 future re: pets and whatnot, this is just temporary.
 ---------------------------------------------------- */
 
+.profile-modal-header
+    width:560px
+    margin: 0px auto
+
+.avatar-level
+    position absolute
+    bottom 0px
+    right 0px
+    padding 2px 3px 2px 3px
+
 // basic herobox styles
 .herobox
 	height: 10.5em // higher to acct for the name area
@@ -40,7 +50,7 @@ future re: pets and whatnot, this is just temporary.
 // always visible on the user's own avatar
 .herobox:after
 	opacity: 0
-.herobox.isUser:after
+.herobox.isUser:not(.hasMount):after
 	opacity: 1
 	// make it a bit special
 	background darken($better, 15%)
@@ -52,21 +62,17 @@ future re: pets and whatnot, this is just temporary.
     .active
         border 1px solid black
 
-// vertically center avatar sprite
-// depending on if they have a pet
-.herobox.hasPet
-	padding-top: 2em
-.herobox:not(.hasPet)
-	padding-top: 1.75em
-
-// if it is the user's avatar, check if
-// they have a pet and pad accordingly
-.herobox.hasPet.isUser
-	padding-top: 3.25em
-
 // if not user's avatar, remove lines for party unity
 .herobox:not(.isUser)
-	outline: 0
+  outline: 0
+
+// vertically center avatar sprite depending on if they have a pet
+.herobox.hasPet
+	padding-top: 1.75em
+.herobox:not(.hasPet)
+	padding-top: 2em
+.herobox.hasMount
+    padding-top:0em
 
 // expose hero info on hover, taking
 // into account the extra pet space
@@ -74,13 +80,6 @@ future re: pets and whatnot, this is just temporary.
 	background: desaturate(lighten($better, 30%), 10%)
 	&:after
 		opacity: 1
-/* .herobox.hasPet
-	&:hover, &:focus
-		padding-top: 3.25em
-.herobox:not(.hasPet)
-	&:hover, &:focus
-		padding-top: 2.5em */
-
 
 // positioning the sprites, etc
 .herobox

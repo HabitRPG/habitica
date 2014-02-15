@@ -37,7 +37,7 @@ if (argv.cron) {
     });
 } else if (cluster.isMaster && (isDev || isProd)) {
   // Fork workers.
-  _.times(require('os').cpus().length, function(){
+  _.times(_.min([require('os').cpus().length,2]), function(){
     cluster.fork();
   });
 
@@ -50,7 +50,6 @@ if (argv.cron) {
   var express = require("express");
   var http = require("http");
   var path = require("path");
-  var domainMiddleware = require('domain-middleware');
   var swagger = require("swagger-node-express");
 
   var middleware = require('./middleware');
@@ -117,14 +116,9 @@ if (argv.cron) {
 
   // ------------  Server Configuration ------------
 
-  domainMiddleware({
-    server: server,
-    killTimeout: 3000
-  }),
-
   app.set("port", nconf.get('PORT'));
-
   middleware.apiThrottle(app);
+  app.use(middleware.domainMiddleware(server,mongoose));
   if (!isProd) app.use(express.logger("dev"));
   app.use(express.compress());
   app.set("views", __dirname + "/../views");
@@ -148,13 +142,10 @@ if (argv.cron) {
   app.use(app.router);
 
   var maxAge = isProd ? 31536000000 : 0;
+  // Cache emojis without copying them to build, they are too many
   app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
+  app.use('/bower_components/habitrpg-shared/img/emoji/unicode', express['static'](path.join(__dirname, "/../public/bower_components/habitrpg-shared/img/emoji/unicode"), { maxAge: maxAge }));
   app.use(express['static'](path.join(__dirname, "/../public")));
-
-  // development only
-  //if ("development" === app.get("env")) {
-  //  app.use(express.errorHandler());
-  //}
 
   // Custom Directives
   app.use(require('./routes/pages').middleware);
@@ -163,11 +154,8 @@ if (argv.cron) {
   app.use('/api/v2', v2);
   app.use('/api/v1', require('./routes/apiv1').middleware);
   app.use('/export', require('./routes/dataexport').middleware);
-
-  app.use(utils.crashWorker(server,mongoose));
-  app.use(utils.errorHandler);
-
   require('./routes/apiv2.coffee')(swagger, v2);
+  app.use(middleware.errorHandler);
 
   server.on('request', app);
   server.listen(app.get("port"), function() {
