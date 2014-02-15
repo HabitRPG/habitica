@@ -138,9 +138,6 @@ var batchUpdate = function(req, res, next) {
  ------------------------------------------------------------------------
  */
 
-
-var cron = api.cron;
-
 router.get('/status', function(req, res) {
   return res.json({
     status: 'up'
@@ -148,19 +145,19 @@ router.get('/status', function(req, res) {
 });
 
 // Scoring
-router.post('/user/task/:id/:direction', auth.auth, cron, api.score);
-router.post('/user/tasks/:id/:direction', auth.auth, cron, api.score);
+router.post('/user/task/:id/:direction', auth.auth, api.score);
+router.post('/user/tasks/:id/:direction', auth.auth, api.score);
 
 // Tasks
-router.get('/user/tasks', auth.auth, cron, api.getTasks);
-router.get('/user/task/:id', auth.auth, cron, api.getTask);
-router["delete"]('/user/task/:id', auth.auth, cron, api.deleteTask);
-router.post('/user/task', auth.auth, cron, api.addTask);
+router.get('/user/tasks', auth.auth, api.getTasks);
+router.get('/user/task/:id', auth.auth, api.getTask);
+router["delete"]('/user/task/:id', auth.auth, api.deleteTask);
+router.post('/user/task', auth.auth, api.addTask);
 
 // User
-router.get('/user', auth.auth, cron, api.getUser);
-router.post('/user/revive', auth.auth, cron, api.revive);
-router.post('/user/batch-update', middleware.forceRefresh, auth.auth, cron, batchUpdate);
+router.get('/user', auth.auth, api.getUser);
+router.post('/user/revive', auth.auth, api.revive);
+router.post('/user/batch-update', middleware.forceRefresh, auth.auth, batchUpdate);
 
 function deprecated(req, res) {
   res.json(404, {err:'API v1 is no longer supported, please use API v2 instead (https://github.com/HabitRPG/habitrpg/blob/develop/API.md)'});
