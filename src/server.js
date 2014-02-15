@@ -1,14 +1,41 @@
 // Only do the minimal amount of work before forking just in case of a dyno restart
+require('coffee-script'); // remove this once we've fully converted over
 var cluster = require("cluster");
 var _ = require('lodash');
 var nconf = require('nconf');
+var moment = require("moment");
+var optimist = require('optimist');
 var utils = require('./utils');
 utils.setupConfig();
 var logging = require('./logging');
+var cron = require('./scripts/cron');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 
-if (cluster.isMaster && (isDev || isProd)) {
+// ------------  Run Cron Script -------------------
+var argv = require('optimist')
+        .usage('Usage: $0 [--cron]')
+        .boolean('cron')
+        .describe('cron', 'Runs the cron script and then exits.')
+        .describe('cron-hour', 'Run cron for a set hour in this timezone. Defaults to current hour.')
+        .check(function(argv) {
+            var hour = argv['cron-hour'];
+            if (hour == undefined) return true;
+            else return (hour >= 0 && hour < 24);
+        })
+        .argv;
+
+if (argv.cron) {
+    cron.runCron({currentHour: argv['cron-hour']}, function(err, results) {
+        if (err.length) {
+            console.log("There were errors while running cron!");
+            console.log(err);
+        }
+        console.log("Cron completed at " + moment().format());
+        console.log("Processed cron for " + results.length + " user(s).");
+        process.exit();
+    });
+} else if (cluster.isMaster && (isDev || isProd)) {
   // Fork workers.
   _.times(_.min([require('os').cpus().length,2]), function(){
     cluster.fork();
@@ -20,7 +47,6 @@ if (cluster.isMaster && (isDev || isProd)) {
   });
 
 } else {
-  require('coffee-script'); // remove this once we've fully converted over
   var express = require("express");
   var http = require("http");
   var path = require("path");
@@ -33,7 +59,7 @@ if (cluster.isMaster && (isDev || isProd)) {
   var server = http.createServer();
 
   // ------------  MongoDB Configuration ------------
-  mongoose = require('mongoose');
+  var mongoose = require('mongoose');
   var mongooseOptions = !isProd ? {} : {
     replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
     server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
@@ -48,8 +74,8 @@ if (cluster.isMaster && (isDev || isProd)) {
   require('./models/user');
 
   // ------------  Passport Configuration ------------
-  var passport = require('passport')
-  var util = require('util')
+  var passport = require('passport');
+  var util = require('util');
   var FacebookStrategy = require('passport-facebook').Strategy;
   // Passport session setup.
   //   To support persistent login sessions, Passport needs to be able to

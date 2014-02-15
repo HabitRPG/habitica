@@ -16,7 +16,6 @@ challenges = require("../controllers/challenges")
 dataexport = require("../controllers/dataexport")
 nconf = require("nconf")
 middleware = require("../middleware")
-cron = user.cron
 _ = require('lodash')
 content = require('habitrpg-shared').content
 
@@ -138,7 +137,7 @@ module.exports = (swagger, v2) ->
           path("id", "Task ID", "string")
           query 'keep',"When unlinking a challenge task, how to handle the orphans?",'string',['keep','keep-all','remove','remove-all']
         ]
-      middleware: auth.auth ## removing cron since they may want to remove task first
+      middleware: auth.auth
       action: challenges.unlink
 
 
@@ -323,7 +322,7 @@ module.exports = (swagger, v2) ->
         parameters:[
           body '','The array of batch-operations to perform','object'
         ]
-      middleware: [middleware.forceRefresh, auth.auth, cron]
+      middleware: [middleware.forceRefresh, auth.auth]
       action: user.batchUpdate
 
     # Tags
@@ -678,7 +677,7 @@ module.exports = (swagger, v2) ->
       #type: 'Pet'
       errorResponses: []
       method: 'GET'
-    route.middleware ?= if path.indexOf('/user') is 0 then [auth.auth, cron] else []
+    route.middleware ?= if path.indexOf('/user') is 0 then [auth.auth] else []
     swagger["add#{route.spec.method}"](route);true
 
 
