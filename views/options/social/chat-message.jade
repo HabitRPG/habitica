@@ -1,14 +1,16 @@
 li.chat-message(bindonce='group.chat', ng-repeat='message in group.chat', bo-class='{highlight: isUserMentioned(user,message), "own-message": user._id == message.uuid}')
   div(class='scrollable-message')
-    a.label.chat-message(class='hidden-label')
-      span {{message.user}}&nbsp;
-    markdown(ng-model='message.text', style='padding:0px 3px')
+    a.label.label-default.chat-message(class='hidden-label')
+      span {{message.user}}
+    | &nbsp;
+    markdown(ng-model='message.text')
     | -
-    span.muted.time(from-now='message.timestamp',style='padding:0px 3px')
-    span(style='padding:0px 3px')
-      a.label(ng-show='countExists(message.likes)',ng-class='{"label-success":message.likes[user._id]}',ng-click='likeChatMessage(group,message)') +{{countExists(message.likes)}}
-      a.chat-plus-one.muted(ng-show='!countExists(message.likes)',ng-click='likeChatMessage(group,message)',style='background-color:#eee;padding:3px 3px 0px 3px') +1
-    a(bo-show='user.contributor.admin || message.uuid == user.id', ng-click='deleteChatMessage(group, message)',style='padding: 0px 3px')
-      i.icon-trash(tooltip=env.t('delete'))
-  a.label.chat-message(bo-show='message.user', class='float-label', bo-class='{"label-npc": message.backer.npc, "label-contributor-{{message.contributor.level}}":message.contributor.level}', ng-click='clickMember(message.uuid, true)')
+    span.muted.time(from-now='message.timestamp')
+    span
+      a.label.label-default(ng-show='countExists(message.likes)', ng-class='{"label-success":message.likes[user._id]}', ng-click='likeChatMessage(group,message)') +{{countExists(message.likes)}}
+      a.chat-plus-one.muted(ng-show='!countExists(message.likes)', ng-click='likeChatMessage(group,message)') +1
+    | &nbsp;
+    a(bo-show='user.contributor.admin || message.uuid == user.id', ng-click='deleteChatMessage(group, message)')
+      span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
+  a.label.label-default.chat-message(bo-show='message.user', class='float-label', bo-class='{"label-npc": message.backer.npc, "label-contributor-{{message.contributor.level}}":message.contributor.level}', ng-click='clickMember(message.uuid, true)')
       span(tooltip='{{contribText(message.contributor, message.backer)}}') {{message.user}}&nbsp;

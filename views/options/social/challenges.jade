@@ -1,5 +1,5 @@
 script(type='text/ng-template', id='partials/options.social.challenges.detail.close.html')
-  a.btn.btn-small.btn-danger(ng-click="delete(closingChal)")=env.t('delete')
+  a.btn.btn-sm.btn-danger(ng-click="delete(closingChal)")=env.t('delete')
   h5= '- ' + env.t('or') + ' -'
   select(ui-select2, ng-required=true, ng-model='closingChal.winner', data-placeholder=env.t('selectWinner'), ng-change='selectWinner(closingChal)', )
     option(value='')
@@ -9,42 +9,44 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.cl
     a(ng-click='cancelClosing(closingChal)')=env.t('cancel')
 
 script(type='text/ng-template', id='partials/options.social.challenges.detail.member.html')
-  .modal.wide-modal
-    .modal-header
-      button.close(type='button', ng-click='$state.go("^")', aria-hidden='true') ×
-      h3 {{obj.profile.name}}
-    .modal-body
-      habitrpg-tasks(main=false)
-    .modal-footer
-      a.btn(ng-click='$state.go("^")')=env.t('close')
+  .modal.bs-modal-lg(style='display: block')
+    .modal-dialog.modal-lg
+      .modal-content
+        .modal-header
+          button.close(type='button', ng-click='$state.go("^")', aria-hidden='true') ×
+          h3 {{obj.profile.name}}
+        .modal-body
+          habitrpg-tasks(main=false)
+        .modal-footer
+          a.btn.btn-default(ng-click='$state.go("^")')=env.t('close')
 
 script(type='text/ng-template', id='partials/options.social.challenges.detail.html')
   // Edit button
   div(bindonce='challenge', ng-if='challenge.leader==user._id')
-    ul.unstyled
-      li(ng-hide='challenge._locked==false')
-        button.btn.btn-small.btn-default(ng-click='challenge._locked = false')=env.t('edit')
-        button.btn.btn-small.btn-warning(ng-click='close(challenge, $event)', tooltip=env.t('deleteOrSelect'))=env.t('endChallenge')
-      li(ng-show='challenge._locked==false')
-        button.btn.btn-small.btn-primary(ng-click='save(challenge)')=env.t('save')
-        button.btn.btn-small.btn-default(ng-click='challenge._locked=true')=env.t('cancel')
+    div(ng-hide='challenge._locked==false')
+      button.btn.btn-sm.btn-default(ng-click='challenge._locked = false')=env.t('edit')
+      button.btn.btn-sm.btn-warning(ng-click='close(challenge, $event)', tooltip=env.t('deleteOrSelect'))=env.t('endChallenge')
 
-    div(ng-show='challenge._locked==false')
-      .-options
-        input.option-content(type='text', ng-model='challenge.name')
-        .option-medium
-          input.option-content(type='text', minlength="3", maxlength="16", ng-model='challenge.shortName', placeholder=env.t('challengeTag'), required)
-        textarea.option-content(cols='3', placeholder=env.t('challengeDescr'), ng-model='challenge.description')
+    form(ng-show='challenge._locked==false')
+      .form-group(ng-show='challenge._locked==false')
+        button.btn.btn-sm.btn-primary(ng-click='save(challenge)')=env.t('save')
+        button.btn.btn-sm.btn-default(ng-click='challenge._locked=true')=env.t('cancel')
+      .form-group
+        input.form-control(type='text', ng-model='challenge.name')
+      .form-group
+        input.form-control(type='text', minlength="3", maxlength="16", ng-model='challenge.shortName', placeholder=env.t('challengeTag'), required)
+      .form-group
+        textarea.form-control(cols='3', placeholder=env.t('challengeDescr'), ng-model='challenge.description')
     hr
 
   .well(bindonce='challenge', ng-if='challenge.description')
     markdown(ng-model='challenge.description')
-  i.icon-question-sign(popover=env.t('challengeDiscription'), popover-trigger='mouseenter', popover-placement='right')
+  span.glyphicon.glyphicon-question-sign(popover=env.t('challengeDiscription'), popover-trigger='mouseenter', popover-placement='right')
   habitrpg-tasks(obj='challenge', main=false)
 
   // Member List
   div(bindonce='challenge', ng-if='challenge.members.length > 0')
-    a.btn.btn-primary.btn-small.pull-right(href='/api/v2/challenges/{{challenge._id}}/csv')
+    a.btn.btn-primary.btn-sm.pull-right(href='/api/v2/challenges/{{challenge._id}}/csv')
       =env.t('exportChallengeCSV')
     h3=env.t('hows')
     menu
@@ -62,94 +64,102 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
           div(ui-view)
 
 script(type='text/ng-template', id='partials/options.social.challenges.html')
-  .row-fluid
-    .span2.well#challenges-filters
-      h3=env.t('filter') + ':'
-      h4=env.t('groups')
-      ul.unstyled
-        a.btn.btn-mini.pull-left(ng-click='selectAll()')=env.t('all')
-        a.btn.btn-mini(ng-click='selectNone()')=env.t('none')
-      br
-      label.checkbox(ng-repeat='group in groupsFilter')
-        input(type='checkbox', ng-model='search.group[group._id]')
-        | {{group.name}}
-      h4=env.t('membership')
-      label.radio
-        input(type='radio', name='search-participation-radio', ng-click='search._isMember = true')
-        =env.t('participating')
-      label.radio
-        input(type='radio', name='search-participation-radio', ng-click='search._isMember = false')
-        =env.t('notParticipating')
-      label.radio
-        input(type='radio', name='search-participation-radio', ng-click='search._isMember = undefined', checked='checked')
-        =env.t('either')
-    .span10
-      // Creation form
-      button.btn.btn-success#create-challenge-btn(ng-click='create()', ng-hide='newChallenge')=env.t('createChallenge')
-      .create-challenge-from.well(ng-if='newChallenge')
-        form(ng-submit='save(newChallenge)')
-          div
-            input.btn.btn-success(type='submit', value=env.t('save'))
-            input.btn.btn-danger(type='button', ng-click='discard()', value=env.t('discard'))
-            select(ng-model='newChallenge.group', ng-required='required', name='Group', ng-options='g._id as g.name for g in groups')
-          .challenge-options
-            input.option-content(type='text', ng-model='newChallenge.name', placeholder=env.t('challengeTitle'), required='required')
+  .container-fluid
+    .row
+      .col-md-2.well#challenges-filters
+        h3=env.t('filter') + ':'
+        h4=env.t('groups')
+        ul.list-unstyled
+          a.btn.btn-xs.btn-default.pull-left(ng-click='selectAll()')=env.t('all')
+          a.btn.btn-xs.btn-default(ng-click='selectNone()')=env.t('none')
+        br
+        .checkbox(ng-repeat='group in groupsFilter')
+          label
+            input(type='checkbox', ng-model='search.group[group._id]')
+            | {{group.name}}
+        h4=env.t('membership')
+        .radio
+          label
+            input(type='radio', name='search-participation-radio', ng-click='search._isMember = true')
+            =env.t('participating')
+        .radio
+          label
+            input(type='radio', name='search-participation-radio', ng-click='search._isMember = false')
+            =env.t('notParticipating')
+        .radio
+          label
+            input(type='radio', name='search-participation-radio', ng-click='search._isMember = undefined', checked='checked')
+            =env.t('either')
+      .col-md-10
+        // Creation form
+        button.btn.btn-success#create-challenge-btn(ng-click='create()', ng-hide='newChallenge')=env.t('createChallenge')
+        .create-challenge-from.well(ng-if='newChallenge')
+          form(ng-submit='save(newChallenge)')
+            div
+              input.btn.btn-success(type='submit', value=env.t('save'))
+              input.btn.btn-danger(type='button', ng-click='discard()', value=env.t('discard'))
+              select(ng-model='newChallenge.group', ng-required='required', name='Group', ng-options='g._id as g.name for g in groups')
+            .challenge-options
+              .form-group
+                input.form-control(type='text', ng-model='newChallenge.name', placeholder=env.t('challengeTitle'), required='required')
 
-            .option-medium
-              input.option-content(type='text', minlength="3", maxlength="16", ng-model='newChallenge.shortName', placeholder=env.t('challengeTag'), required)
-              a(target='_blank', href='http://habitrpg.wikia.com/wiki/Tags')
-                i.icon-question-sign(popover=env.t('challengeTagPop'), popover-trigger='mouseenter', popover-placement='right')
+              .form-group
+                input.form-control(type='text', minlength="3", maxlength="16", ng-model='newChallenge.shortName', placeholder=env.t('challengeTag'), required)
+                a(target='_blank', href='http://habitrpg.wikia.com/wiki/Tags')
+                  span.glyphicon.glyphicon-question-sign(popover=env.t('challengeTagPop'), popover-trigger='mouseenter', popover-placement='right')
 
-            textarea.option-content(cols='3', placeholder=env.t('challengeDescr'), ng-model='newChallenge.description')
+              .form-group
+                textarea.form-control(cols='3', placeholder=env.t('challengeDescr'), ng-model='newChallenge.description')
 
-            //- what's going on here?
-            br
-            br
+              //- what's going on here?
+              br
+              br
 
-            .option-medium
-              input.option-content(type='number', min="{{newChallenge.group=='habitrpg' ? 1 : 0}}", max="{{maxPrize}}", ng-model='newChallenge.prize', placeholder=env.t('prize'))
-              span.input-suffix.Pet_Currency_Gem1x.inline-gems
-              i.icon-question-sign(popover=env.t('prizePop'), popover-trigger='mouseenter', popover-placement='right')
-              span(ng-show='newChallenge.group=="habitrpg"')
-                !=env.t('publicChallenges')
+              .form-group
+                input.form-control(type='number', min="{{newChallenge.group=='habitrpg' ? 1 : 0}}", max="{{maxPrize}}", ng-model='newChallenge.prize', placeholder=env.t('prize'))
+                span.input-suffix.Pet_Currency_Gem1x.inline-gems
+                span.glyphicon.glyphicon-question-sign(popover=env.t('prizePop'), popover-trigger='mouseenter', popover-placement='right')
+                span(ng-show='newChallenge.group=="habitrpg"')
+                  !=env.t('publicChallenges')
 
-            .option-medium(ng-if='user.contributor.admin')
-              label.checkbox
-                input(type='checkbox', ng-model='newChallenge.official')
-                =env.t('officialChallenge')
+              .form-group(ng-if='user.contributor.admin')
+                .checkbox
+                  label
+                    input(type='checkbox', ng-model='newChallenge.official')
+                    =env.t('officialChallenge')
 
-        habitrpg-tasks(main=false, obj='newChallenge')
+          habitrpg-tasks(main=false, obj='newChallenge')
 
-      // Challenges list
-      .accordion-group(ng-repeat='challenge in challenges|filter:filterChallenges')
-        .accordion-heading
-          ul.pull-right.challenge-accordion-header-specs
-            li(ng-if='challenge.official')
-              span.label.label-success=env.t('officialChallenge')
-            li {{challenge.group.name}}
-            li
-              =env.t('by')
-              strong {{challenge.leader.profile.name}}
-            li 
-              | {{challenge.memberCount}} 
-              = ' ' + env.t('participants')
-            li(ng-show='challenge.prize')
-              // prize
-              table(ng-show='challenge.prize')
-                tr
-                  td {{challenge.prize}}
-                  td
-                    .Pet_Currency_Gem1x(style='margin-left:0px')
-                  td=env.t('prize')
-            li
-              // leave / join
-              a.btn.btn-small.btn-danger(ng-show='challenge._isMember', ng-click='clickLeave(challenge, $event)')
-                i.icon-ban-circle
-                =env.t('leave')
-              a.btn.btn-small.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
-                i.icon-ok
-                =env.t('join')
-          a.accordion-toggle(ng-click='toggle(challenge._id)') {{challenge.name}}
-        .accordion-body(ng-class='{collapse: !$stateParams.cid == challenge._id}')
-          .accordion-inner(ng-if='$stateParams.cid == challenge._id')
-            div(ui-view)
+        // Challenges list
+        .panel-group
+          .panel.panel-default(ng-repeat='challenge in challenges|filter:filterChallenges')
+            .panel-heading
+              ul.pull-right.challenge-accordion-header-specs
+                li(ng-if='challenge.official')
+                  span.label.label-success=env.t('officialChallenge')
+                li {{challenge.group.name}}
+                li
+                  =env.t('by')
+                  strong {{challenge.leader.profile.name}}
+                li 
+                  | {{challenge.memberCount}} 
+                  = ' ' + env.t('participants')
+                li(ng-show='challenge.prize')
+                  p
+                    // prize
+                    | {{challenge.prize}}&nbsp;
+                    span.inline-block.Pet_Currency_Gem1x
+                    | &nbsp;
+                    =env.t('prize')
+                li
+                  // leave / join
+                  a.btn.btn-sm.btn-danger(ng-show='challenge._isMember', ng-click='clickLeave(challenge, $event)')
+                    span.glyphicon.glyphicon-ban-circle
+                    =env.t('leave')
+                  a.btn.btn-sm.btn-success(ng-hide='challenge._isMember', ng-click='join(challenge)')
+                    span.glyphicon.glyphicon-ok
+                    =env.t('join')
+              a.accordion-toggle(ng-click='toggle(challenge._id)') {{challenge.name}}
+            .panel-body(ng-class='{collapse: !$stateParams.cid == challenge._id}')
+              .accordion-inner(ng-if='$stateParams.cid == challenge._id')
+                div(ui-view)

@@ -1,26 +1,29 @@
-.filters.tag-list(ng-controller='FiltersCtrl')
-  .pull-left.filter-description
-    =env.t('tags')
-    |:
-  ul.nav.nav-pills
-    li
-      a(rel='tooltip', title=env.t('editTags'), ng-click='saveOrEdit()')
-        i(ng-class='{"icon-ok": _editing, "icon-pencil": !_editing}')
-    li(bindonce='user.tags', ng-class='{active: user.filters[tag.id]}', ng-repeat='tag in user.tags', style='position: relative;')
-      .input-append.option-group.tag-editing(ng-show='_editing')
-        input.input.input-small.option-content.tag-editing-pill(type='text', ng-model='tag.name')
-        span.add-on.tag-editing-pill
-          a.pull-right(ng-click='user.ops.deleteTag({params:{id:tag.id}})')
-            i.icon-trash
-      a(ng-hide='_editing', ng-click='toggleFilter(tag)')
-        i.icon-bullhorn(bo-if="tag.challenge")
-        markdown(ng-model='tag.name',style='display: inline-block')
-    li
-      form.form-inline(ng-show='_editing', ng-submit='createTag(_newTag)')
-        .input-append.tag-editing
-          input.span2.tag-editing-pill(type='text', ng-model='_newTag', placeholder=env.t('newTag'))
-          button.add-on.tag-editing-pill(type='submit')=env.t('add')
-    // <li class="{#unless activeFilters(users[_userId].filters)}hidden{/}">
-    li
-      a(rel='tooltip', title=env.t('clearFilters'), ng-click='user.filters = {}')
-        i.icon-remove-sign
+.container-fluid
+  .row 
+    .filters.col-md-12(ng-controller='FiltersCtrl')
+      .pull-left.filter-description
+        =env.t('tags')
+        |:
+      ul.nav.nav-pills
+        li
+          a(rel='tooltip', title=env.t('editTags'), ng-click='saveOrEdit()')
+            span.glyphicon(ng-class='{"glyphicon-ok": _editing, "glyphicon-pencil": !_editing}')
+        li(bindonce='user.tags', ng-class='{active: user.filters[tag.id]}', ng-repeat='tag in user.tags')
+          .input-group(ng-show='_editing')
+            input.form-control.input-sm(type='text', ng-model='tag.name')
+            span.input-group-addon
+              a(ng-click='user.ops.deleteTag({params:{id:tag.id}})')
+                span.glyphicon.glyphicon-trash
+          a(ng-hide='_editing', ng-click='toggleFilter(tag)')
+            span.glyphicon.glyphicon-bullhorn(bo-if="tag.challenge")
+            markdown(ng-model='tag.name')
+        li
+          form.form-inline(ng-show='_editing', ng-submit='createTag(_newTag)')
+            .input-group
+              input.form-control.input-sm(type='text', ng-model='_newTag', placeholder=env.t('newTag'))
+              span.input-group-addon(ng-click='createTag(_newTag)')
+                =env.t('add')
+        // <li class="{#unless activeFilters(users[_userId].filters)}hidden{/}">
+        li
+          a(rel='tooltip', title=env.t('clearFilters'), ng-click='user.filters = {}')
+            span.glyphicon.glyphicon-remove-sign

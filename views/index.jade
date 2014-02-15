@@ -3,43 +3,34 @@ doctype 5
 html(ng-app="habitrpg", ng-controller="RootCtrl", ng-class='{"applying-action":applyingAction}', ui-keyup="{27:'castCancel()'}")
   head
     title=env.t('titleIndex')
-
     // ?v=1 needed to force refresh
-    link(rel='shortcut icon', href='#{env.getBuildUrl("favicon.ico")}?v=2')
+    link(rel='shortcut icon', href='#{env.getBuildUrl("favicon.ico")}?v=3')
+
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='apple-mobile-web-app-capable', content='yes')
 
     script(type='text/javascript').
       window.env = !{JSON.stringify(env)};
-
-    style.
-      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-        display: none;
-      }
 
     != env.getManifestFiles("app")
 
     //webfonts
     link(href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic', rel='stylesheet', type='text/css')
-    meta(name='viewport', content='width=device-width')
-    meta(name='apple-mobile-web-app-capable', content='yes')
 
-  body(ng-cloak)
-    div(ng-controller='GroupsCtrl')
-      include ./shared/modals/index
-      include ./shared/header/header
 
-      include ./shared/tasks/lists
-      include ./main/index
-      include ./options/index
+  body(ng-cloak, ng-controller='GroupsCtrl')
+    include ./shared/header/menu
+    include ./shared/modals/index
+    include ./shared/header/header
+    include ./shared/tasks/lists
+    include ./main/index
+    include ./options/index
 
-      #notification-area(ng-controller='NotificationCtrl')
-      #wrap
-
-        //if they hide the header, we still need user-menu visible 
-        div(ng-if='user.preferences.hideHeader')
-          include ./shared/header/menu
-
-        .exp-chart(ng-show='charts.exp')
-
+    #notification-area(ng-controller='NotificationCtrl')
+    #wrap.container-fluid
+      .row
+        .col-md-12.exp-chart(ng-show='charts.exp')
         #main(ui-view)
 
-      include ./shared/footer
+    include ./shared/footer

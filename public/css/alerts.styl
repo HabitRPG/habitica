@@ -16,6 +16,27 @@
 .wide-popover
   max-width: 400px
 
+// Small alerts
+alert-sm-mixin()
+  padding-top: 8px
+  padding-bottom: 8px
+
+.alert-sm
+  alert-sm-mixin()
+
+#notification-area
+  position: fixed
+  top: 0
+  right: 0px
+  z-index: 1061
+
+  .alert
+    alert-sm-mixin()
+
+    .notification-icon
+      transform: scale(0.8)
+
+
 // variables
 
 gpColor = #FBEFC0
@@ -77,30 +98,6 @@ borderDarken = 20%
   background-color: dropColor
   border-color: darken(dropColor,borderDarken)
   color: dropText
-
-// alert icons
-
-.icon-gold
-  background: url("/bower_components/habitrpg-shared/img/coin_single_gold.png") no-repeat
-  background-position: center center
-  background-size: 18px
-  width: 14px
-  height: 14px
-
-.icon-silver
-  background: url("/bower_components/habitrpg-shared/img/coin_single_silver.png") no-repeat
-  background-position: center center
-  background-size: 18px
-  width: 14px
-  height: 14px
-
-.icon-death
-  background: url("/bower_components/habitrpg-shared/img/sprites/dead.png") no-repeat
-  background-position: center center
-  background-size: 14px
-  width: 14px
-  height: 14px
-
 
 .undo-button
   z-index: 3000

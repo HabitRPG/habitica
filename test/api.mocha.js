@@ -253,6 +253,33 @@ describe('API', function () {
           });
         });
 
+        it('Challenge deleted, breaks task link', function (done) {
+          var itThis = this;
+          request.del(baseURL + "/challenges/" + challenge._id).end(function (res) {
+            User.findById(user._id, function(err,user){
+              var len = user.dailys.length- 1,
+                daily = user.dailys[user.dailys.length-1];
+              expect(daily.challenge.broken).to.be('CHALLENGE_DELETED');
+
+              // Now let's handle if challenge was deleted, but didn't get to update all the users (an error)
+              var unset = {$unset:{}};
+              unset['$unset']['dailys.' + len + '.challenge.broken'] = 1;
+              User.findByIdAndUpdate(user._id,unset,function(err,user){
+                expect(err).to.not.be.ok();
+                expect(user.dailys[len].challenge.broken).to.not.be.ok();
+                request.post(baseURL + "/user/tasks/" + daily.id + "/up").end(function (res) {
+                  setTimeout(function(){
+                    User.findById(user._id,function(err,user){
+                      expect(user.dailys[len].challenge.broken).to.be('CHALLENGE_DELETED');
+                      done()
+                    })
+                  }, 100); // we need to wait for challenge to update user, it's a background job for perf reasons
+                })
+              })
+            })
+          })
+        });
+
         it('Admin creates a challenge', function (done) {
           User.findByIdAndUpdate(_id, {$set:{'contributor.admin':true}}, function (err,_user) {
             expect(err).to.not.be.ok();

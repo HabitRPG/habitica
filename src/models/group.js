@@ -3,7 +3,6 @@ var Schema = mongoose.Schema;
 var shared = require('habitrpg-shared');
 var _ = require('lodash');
 var async = require('async');
-var User = require('./user').model;
 
 var GroupSchema = new Schema({
   _id: {type: String, 'default': shared.uuid},
@@ -107,6 +106,17 @@ GroupSchema.methods.sendChat = function(message, user){
   }
   group.chat.unshift(message);
   group.chat.splice(200);
+
+  // Kick off chat notifications in the background.
+  var lastSeenUpdate = {$set:{}, $inc:{_v:1}};
+  lastSeenUpdate['$set']['newMessages.'+group._id] = {name:group.name,value:true};
+  if (group._id == 'habitrpg') {
+    // TODO For Tavern, only notify them if their name was mentioned
+    // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
+    // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
+  } else {
+    mongoose.model('User').update({_id:{$in:group.members, $ne: user ? user._id : ''}},lastSeenUpdate,{multi:true}).exec();
+  }
 }
 
 var cleanQuestProgress = function(merge){
@@ -161,8 +171,6 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
   })
   var members = _.keys(group.quest.members);
   group.quest = {};group.markModified('quest');
-  // FIXME this is TERRIBLE practice. Looks like there are circular dependencies in the models, such that `var User` at
-  // this point is undefined. So we get around that by loading from mongoose only once we get to this point
   mongoose.models.User.update({_id:{$in:members}}, updates, {multi:true}, cb);
 }
 

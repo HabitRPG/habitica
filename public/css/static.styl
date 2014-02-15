@@ -3,10 +3,38 @@
 // Vendor Includes - include first so we can override
 // Import only styles that do not have urls to images! Include them directly in the page!
 @import "../bower_components/angular-loading-bar/build/loading-bar.css"
-
-@import "./static-pages.css"
 @import "./shared.styl"
 @import "./footer"
 
+body
+  margin-top: 60px
+
+#aboutPage
+  iframe
+    margin-bottom: 20px
+
 .muted i, i.muted
   opacity:0.5
+
+#header-play-button
+  margin-right: 15px
+
+#tagline
+  margin:10px 0 20px 0
+  font-size:40px
+
+.marketing
+  text-align: center
+
+#frontpage-play-button
+  //box-shadow: 0 0 40px #494141;
+  display:inline
+  font-size: 20px
+  width:100px
+  height:50px
+
+#about-page
+  img
+    box-shadow 0px 0px 10px 5px #888
+    margin 10px
+    max-width 500px

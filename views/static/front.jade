@@ -8,38 +8,41 @@ block title
   title=env.t('titleFront')
 
 block content
-  #wrap
-    //-include ./header
-    .marketing
-      //we need to use something that's not jumbotron for this, but still keep it centered
-      //could someone write something else to make it pretty?
-      img(src='/bower_components/habitrpg-shared/img/logo/habitrpg_pixel.png', alt='HabitRPG logo')
-      //this image needs to be replaced by something more enticing, that shows off the features of hRPG
-      //while acting similarly to a logo
-      h1(style='margin:10px 0 20px 0;font-size:40px')=env.t('tagline')
-      p
-        button.btn.btn-primary.btn-large.frontpage-play-button(ng-click='playButtonClick()')=env.t('playButton')
-      hr
-      img(src='/marketing/devices.png')
-      //we'd want the tagline centered, for sure, and a bit more pop, but without using jumbotron
-      //it could also be part of the image, as long as the alt text included it
-      //in fact, I think I really want it on the image, rather than as text, but language issues
-      br
-      p=env.t('landingp1')
-      h2=env.t('landingp2header')
-      //images in these parts could be useful, too
-      //if there's a language workaround, image headers? people like pictures!
-      p=env.t('landingp2')
-      h2=env.t('landingp3header')
-      //I'm not sold on "Consquences as the title here. Anyone got a better idea?
-      p=env.t('landingp3')
-      h2=env.t('landingp4header')
-      p=env.t('landingp4')
-      //- TODO
-        h2=env.t('landingend')
-        p
-          =env.t('landingend2')
-          a(href="FEATURESPAGEHERE")=env.t('landingfeatureslink')
-          =env.t('landingend3')
-          a(href="ENTERPRISEPAGEHERE")=env.t('landingadminlink')
-          =env.t('landingend4')
+  .marketing
+    //we need to use something that's not jumbotron for this, but still keep it centered
+    //could someone write something else to make it pretty?
+    img(src='/bower_components/habitrpg-shared/img/logo/habitrpg_pixel.png', alt='HabitRPG logo')
+    //this image needs to be replaced by something more enticing, that shows off the features of hRPG
+    //while acting similarly to a logo
+    h1#tagline=env.t('tagline')
+    p.lead
+      button.btn.btn-primary.btn-lg#frontpage-play-button(ng-click='playButtonClick()')=env.t('playButton')
+    hr
+    img(src='/marketing/devices.png')
+    //we'd want the tagline centered, for sure, and a bit more pop, but without using jumbotron
+    //it could also be part of the image, as long as the alt text included it
+    //in fact, I think I really want it on the image, rather than as text, but language issues
+    br
+    p.lead=env.t('landingp1')
+    h2=env.t('landingp2header')
+    //images in these parts could be useful, too
+    //if there's a language workaround, image headers? people like pictures!
+    p.lead
+        =env.t('landingp2')
+        |&nbsp;
+    h2=env.t('landingp3header')
+    //I'm not sold on "Consquences as the title here. Anyone got a better idea?
+    p.lead
+        =env.t('landingp3')
+        |&nbsp;
+    h2=env.t('landingp4header')
+    p.lead=env.t('landingp4')
+    //- TODO
+      h2=env.t('landingend')
+      p.lead
+        =env.t('landingend2')
+        a(href="FEATURESPAGEHERE")=env.t('landingfeatureslink')
+        =env.t('landingend3')
+        a(href="ENTERPRISEPAGEHERE")=env.t('landingadminlink')
+        |&nbsp;
+        =env.t('landingend4')

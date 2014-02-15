@@ -42,7 +42,8 @@ var UserSchema = new Schema({
     rebirths: Number,
     rebirthLevel: Number,
     perfect: Number,
-    habitBirthday: Boolean
+    habitBirthday: Boolean,
+    valentine: Number
   },
   auth: {
     facebook: Schema.Types.Mixed,
@@ -68,7 +69,8 @@ var UserSchema = new Schema({
     level: Number, // 1-7, see https://trello.com/c/wkFzONhE/277-contributor-gear
     admin: Boolean,
     text: String, // Artisan, Friend, Blacksmith, etc
-    contributions: String // a markdown textarea to list their contributions + links
+    contributions: String, // a markdown textarea to list their contributions + links
+    critical: String
   },
 
   balance: {type: Number, 'default':0},
@@ -135,10 +137,12 @@ var UserSchema = new Schema({
     },
 
     special:{
-      snowball: {type: Number, 'default': 0}
+      snowball: {type: Number, 'default': 0},
+      valentine: Number,
+      valentineReceived: Array // array of strings, by sender name
     },
 
-    // -------------- Animals ------------------- 
+    // -------------- Animals -------------------
     // Complex bit here. The result looks like:
     // pets: {
     //   'Wolf-Desert': 0, // 0 means does not own
@@ -149,6 +153,8 @@ var UserSchema = new Schema({
     _.defaults(
       // First transform to a 1D eggs/potions mapping
       _.transform(shared.content.pets, function(m,v,k){ m[k] = Number; }),
+      // Then add quest pets
+      _.transform(shared.content.questPets, function(m,v,k){ m[k] = Number; }),
       // Then add additional pets (backer, contributor)
       _.transform(shared.content.specialPets, function(m,v,k){ m[k] = Number; })
     ),
@@ -180,6 +186,8 @@ var UserSchema = new Schema({
     mounts: _.defaults(
       // First transform to a 1D eggs/potions mapping
       _.transform(shared.content.pets, function(m,v,k){ m[k] = Boolean; }),
+      // Then add quest pets
+      _.transform(shared.content.questPets, function(m,v,k){ m[k] = Boolean; }),
       // Then add additional pets (backer, contributor)
       {
         'LionCub-Ethereal': Boolean,
@@ -202,9 +210,11 @@ var UserSchema = new Schema({
 
   lastCron: {type: Date, 'default': Date.now},
 
+  // {GROUP_ID: Boolean}, represents whether they have unseen chat messages
+  newMessages: {type: Schema.Types.Mixed, 'default': {}},
+
   party: {
     // id // FIXME can we use a populated doc instead of fetching party separate from user?
-    lastMessageSeen: String,
     order: {type:String, 'default':'level'},
     quest: {
       key: String,
@@ -240,7 +250,8 @@ var UserSchema = new Schema({
     disableClasses: {type: Boolean, 'default': false},
     newTaskEdit: {type: Boolean, 'default': false},
     tagsCollapsed: {type: Boolean, 'default': false},
-    advancedCollapsed: {type: Boolean, 'default': false}
+    advancedCollapsed: {type: Boolean, 'default': false},
+    toolbarCollapsed: {type:Boolean, 'default':false}
   },
   profile: {
     blurb: String,
@@ -361,22 +372,6 @@ UserSchema.pre('save', function(next) {
   this._v++;
   next();
 });
-
-UserSchema.methods.syncScoreToChallenge = function(task, delta){
-  if (!task.challenge || !task.challenge.id || task.challenge.broken) return;
-  if (task.type == 'reward') return; // we don't want to update the reward GP cost
-  var self = this;
-  Challenge.findById(task.challenge.id, function(err, chal){
-    if (err) throw err;
-    var t = chal.tasks[task.id];
-    if (!t) return chal.syncToUser(self); // this task was removed from the challenge, notify user
-    t.value += delta;
-    if (t.type == 'habit' || t.type == 'daily') {
-      t.history.push({value: t.value, date: +new Date});
-    }
-    chal.save();
-  });
-}
 
 UserSchema.methods.unlink = function(options, cb) {
   var cid = options.cid, keep = options.keep, tid = options.tid;

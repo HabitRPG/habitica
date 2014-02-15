@@ -1,18 +1,23 @@
 // ------ Challenges -------
-.modal(style='position: relative;top: auto;left: auto;right: auto;margin: 0 auto 20px;z-index: 1;max-width: 100%;')
-  .modal-header
-    h3=env.t('challenges')
+.panel.panel-default
+  .panel-heading
+    h3.panel-title=env.t('challenges')
       a.pull-right(target='_blank', href='https://trello.com/card/challenges-individual-party-guild-public/50e5d3684fe3a7266b0036d6/58')
-        i.icon-question-sign
-  .modal-body(bindonce='group.challenges')
+        span.glyphicon.glyphicon-question-sign
+  .panel-body.modal-fixed-height(bindonce='group.challenges')
     div(ng-if='group.challenges.length > 0')
       table.table.table-striped
         tr(ng-repeat='challenge in group.challenges')
           td
             a(ui-sref='options.social.challenges.detail({cid:challenge._id})') {{challenge.name}}
     div(ng-if='group.challenges.length == 0')
-      p=env.t('noChallenges')
-        a(class='label' ui-sref='options.social.challenges')
-          i.icon-bullhorn
+      p
+        |&nbsp;
+        =env.t('noChallenges')
+        |&nbsp;
+        a.label.label-primary(ui-sref='options.social.challenges')
+          span.glyphicon.glyphicon-bullhorn
+          |&nbsp;
           =env.t('challenges')
+        |&nbsp;
         =env.t('toCreate')

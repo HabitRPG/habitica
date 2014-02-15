@@ -8,6 +8,7 @@ var async = require('async');
 var utils = require('../utils');
 var nconf = require('nconf');
 var User = require('../models/user').model;
+var ga = require('./../utils').ga;
 
 var api = module.exports;
 
@@ -39,7 +40,7 @@ api.authWithSession = function(req, res, next) { //[todo] there is probably a mo
   if (!(req.session && req.session.userId))
     return res.json(401, NO_SESSION_FOUND);
   User.findOne({_id: uid}, function(err, user) {
-    if (err) return res.json(500, {err: err});
+    if (err) return next(err);
     if (_.isEmpty(user)) return res.json(401, NO_USER_FOUND);
     res.locals.user = user;
     next();
@@ -88,6 +89,7 @@ api.registerUser = function(req, res, next) {
       };
       user = new User(newUser);
       user.save(cb);
+      ga.event('register', 'Local').send()
     }
   ], function(err, saved) {
     if (err) {
@@ -107,15 +109,15 @@ api.loginLocal = function(req, res, next) {
   var password = req.body.password;
   if (!(username && password)) return res.json(401, {err:'Missing :username or :password in request body, please provide both'});
   User.findOne({'auth.local.username': username}, function(err, user){
-    if (err) return res.json(500,{err:err});
-    if (!user) return res.json(401, {err:"Username '" + username + "' not found. Usernames are case-sensitive, click 'Forgot Password' if you can't remember the capitalization."});
+    if (err) return next(err);
+    if (!user) return res.json(401, {err:"Username or password incorrect. Click 'Forgot Password' for help with either. (Note: usernames are case-sensitive)"});
     // We needed the whole user object first so we can get his salt to encrypt password comparison
     User.findOne({
       'auth.local.username': username,
       'auth.local.hashed_password': utils.encryptPassword(password, user.auth.local.salt)
     }, function(err, user){
-      if (err) return res.json(500,{err:err});
-      if (!user) return res.json(401,{err:'Incorrect password'});
+      if (err) return next(err);
+      if (!user) return res.json(401,{err:"Username or password incorrect. Click 'Forgot Password' for help with either. (Note: usernames are case-sensitive)"});
       res.json({id: user._id,token: user.apiToken});
     });
   });
@@ -164,7 +166,7 @@ api.resetPassword = function(req, res, next){
     hashed_password = utils.encryptPassword(newPassword, salt);
 
   User.findOne({'auth.local.email':email}, function(err, user){
-    if (err) return res.json(500,{err:err});
+    if (err) return next(err);
     if (!user) return res.send(500, {err:"Couldn't find a user registered for email " + email});
     user.auth.local.salt = salt;
     user.auth.local.hashed_password = hashed_password;
@@ -187,18 +189,18 @@ api.changePassword = function(req, res, next) {
     confirmNewPassword = req.body.confirmNewPassword;
 
   if (newPassword != confirmNewPassword)
-    return res.json(500, {err: "Password & Confirm don't match"});
+    return res.json(401, {err: "Password & Confirm don't match"});
 
   var salt = user.auth.local.salt,
     hashed_old_password = utils.encryptPassword(oldPassword, salt),
     hashed_new_password = utils.encryptPassword(newPassword, salt);
 
   if (hashed_old_password !== user.auth.local.hashed_password)
-    return res.json(500, {err:"Old password doesn't match"});
+    return res.json(401, {err:"Old password doesn't match"});
 
   user.auth.local.hashed_password = hashed_new_password;
   user.save(function(err, saved){
-    if (err) res.json(500,{err:err});
+    if (err) next(err);
     res.send(200);
   })
 }
@@ -250,8 +252,7 @@ api.setupPassport = function(router) {
             }
           });
           user.save(cb);
-
-
+          ga.event('register', 'Facebook').send()
         }
       ], function(err, saved){
         if (err) return res.redirect('/static/front?err=' + err);

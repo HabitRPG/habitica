@@ -4,174 +4,177 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
     .Pet_Currency_Gem2x.Gems
     | {{group.balance * 4 | number:0 }} 
     =env.t('guildGems')
-.row-fluid
-  .span4
 
+.container-fluid
+  .row
+    .col-md-4
 
-    // ------ Bosses -------
-    .modal.inline-modal(bindonce='group', ng-if='group.type==="party" && group.quest.key')
-      .modal-header
-        h3(ng-if='group.quest.active==false')=env.t('questInvitation') + '{{Content.quests[group.quest.key].text}}'
-        h3(ng-if='group.quest.active==true') {{Content.quests[group.quest.key].text}}
-      .modal-body
-        div(ng-if='group.quest.active==false')
-          table.table.table-striped
-            tr(ng-repeat='member in group.members')
-              td {{member.profile.name}}
-              td {{group.quest.members[member._id] === true ? env.t('accepted') : group.quest.members[member._id] === false ? env.t('rejected') : env.t('pending')}}
-          hr
-          .npc_ian.pull-left
-          p=env.t('questStart')
-          button.btn.btn-small.btn-warning(ng-if='!group.quest.leader || group.quest.leader==user._id', ng-click='party.$questAccept({"force":true})')=env.t('begin')
-          //-TODO Cancel button
-          //-TODO Both force-start & cancel should only be available to quest-initiator
-
-        div(ng-if='group.quest.active==true')
-          div(ng-if='Content.quests[group.quest.key].boss')
-            div(class="quest_{{group.quest.key}}")
-            //-
-              .progress(style="height:10px")
-              .bar(style='width: {{Shared.percent(group.quest.hp, Content.quests[group.quest.key].hp)}}%;')
-              span.meter-text
-                i.icon-heart
-                | {{group.quest.hp | number:0}} / {{Content.quests[group.quest.key].hp}}
-            .hero-stats
-              .meter.health(title=env.t('bossHP'))
-                .bar(style='width: {{Shared.percent(group.quest.progress.hp, Content.quests[group.quest.key].boss.hp)}}%;')
-                span.meter-text
-                  i.icon-heart
-                  | {{group.quest.progress.hp | number:0}} / {{Content.quests[group.quest.key].boss.hp}}
-
-          div(ng-if='Content.quests[group.quest.key].collect')
-            h4=env.t('collected') + ':'
+      // ------ Bosses -------
+      .panel.panel-default(bindonce='group', ng-if='group.type==="party" && group.quest.key')
+        .panel-heading
+          h3.panel-title(ng-if='group.quest.active==false')=env.t('questInvitation') + ' {{Content.quests[group.quest.key].text}}'
+          h3.panel-title(ng-if='group.quest.active==true') {{Content.quests[group.quest.key].text}}
+        .panel-body.modal-fixed-height
+          div(ng-if='group.quest.active==false')
             table.table.table-striped
-              tr(ng-repeat='(k,v) in group.quest.progress.collect', class='quest_collected_{{v >= Content.quests[group.quest.key].collect[k].count}}')
-                td
-                  div.pull-left(class='quest_{{group.quest.key}}_{{k}}')
-                  | {{Content.quests[group.quest.key].collect[k].text}}
-                td
-                  {{v}} / {{Content.quests[group.quest.key].collect[k].count}}
+              tr(ng-repeat='member in group.members')
+                td {{member.profile.name}}
+                td {{group.quest.members[member._id] === true ? env.t('accepted') : group.quest.members[member._id] === false ? env.t('rejected') : env.t('pending')}}
+            hr
+            .npc_ian.pull-left
+            p=env.t('questStart')
+            button.btn.btn-sm.btn-warning(ng-if='!group.quest.leader || group.quest.leader==user._id', ng-click='party.$questAccept({"force":true})')=env.t('begin')
+            //-TODO Cancel button
+            //-TODO Both force-start & cancel should only be available to quest-initiator
 
-          div(ng-bind-html='Content.quests[group.quest.key].notes')
+          div(ng-if='group.quest.active==true')
+            div(ng-if='Content.quests[group.quest.key].boss')
+              div(class="quest_{{group.quest.key}}")
+              //-
+                .progress
+                .bar(style='width: {{Shared.percent(group.quest.hp, Content.quests[group.quest.key].hp)}}%;')
+                span.meter-text
+                  span.glyphicon.glyphicon-heart
+                  | {{group.quest.hp | number:0}} / {{Content.quests[group.quest.key].hp}}
+              .hero-stats
+                .meter.health(title=env.t('bossHP'))
+                  .bar(style='width: {{Shared.percent(group.quest.progress.hp, Content.quests[group.quest.key].boss.hp)}}%;')
+                  span.meter-text
+                    span.glyphicon.glyphicon-heart
+                    | {{group.quest.progress.hp | number:0}} / {{Content.quests[group.quest.key].boss.hp}}
+
+            div(ng-if='Content.quests[group.quest.key].collect')
+              h4=env.t('collected') + ':'
+              table.table.table-striped
+                tr(ng-repeat='(k,v) in group.quest.progress.collect', class='quest_collected_{{v >= Content.quests[group.quest.key].collect[k].count}}')
+                  td
+                    div.pull-left(class='quest_{{group.quest.key}}_{{k}}')
+                    | {{Content.quests[group.quest.key].collect[k].text}}
+                  td
+                    {{v}} / {{Content.quests[group.quest.key].collect[k].count}}
+
+            div(ng-bind-html='Content.quests[group.quest.key].notes')
+            hr
+            h5=env.t('participants')
+            table.table.table-striped
+              tr(ng-repeat='(k,v) in group.members', ng-show='group.quest.members[v._id]')
+                td {{v.profile.name}}
+            quest-rewards(key='{{group.quest.key}}')
+
+            div(ng-if='Content.quests[group.quest.key].boss')
+              .npc_ian.pull-left
+              p!=env.t('bossDmg1')
+              br
+              p=env.t('bossDmg2')
+
+            div(ng-if='Content.quests[group.quest.key].collect')
+              .npc_ian.pull-left
+              p=env.t('bossColl1')
+              br
+              p=env.t('bossColl2')
+
+
+            button.btn.btn-xs.btn-danger(ng-if='!group.quest.leader || group.quest.leader==user._id', ng-click='questAbort()')=env.t('abort')
+
+      // ------ Information -------
+      .panel.panel-default
+        .panel-heading(bindonce='group')
+          h3.panel-title 
+            | {{group.name}}
+            span(ng-if='group.leader == user.id')
+              button.btn.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing')=env.t('save')
+              button.btn.btn-default.pull-right(ng-click='group._editing = true', ng-hide='group._editing')=env.t('editGroup')
+
+        .panel-body
+          form(ng-show='group._editing')
+            .form-group
+              label=env.t('groupName')
+              input.form-control(type='text', ng-model='group.name', placeholder=env.t('groupName'))
+            .form-group
+              label=env.t('description')
+              textarea.form-control(rows=6, ng-model='group.description')
+              include ../../shared/formatting-help
+            .form-group
+              label=env.t('logoUrl')
+              input.form-control(type='url', placeholder=env.t('logoUrl'), ng-model='group.logo')
+
+            h4=env.t('assignLeader')
+            select#group-leader-selection(ng-model='group._newLeader', ng-options='member.profile.name for member in group.members')
+
+          div(ng-show='!group._editing')
+            img.pull-right(ng-show='group.logo', ng-src='{{group.logo}}')
+            markdown(ng-model='group.description')
           hr
-          h5=env.t('participants')
+          small.muted Group ID: {{group._id}}
+
+      include ./challenge-box
+
+      // ------ Members -------
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title=env.t('members')
+        .panel-body.modal-fixed-height
+          span
+            =env.t('partyList')
+            |&nbsp;
+          select#partyOrder(
+            ng-model='user.party.order',
+            ng-controller='ChatCtrl',
+            ng-options='k as v for (k , v) in partyOrderChoices',
+            ng-change='set({"party.order": user.party.order})'
+            )
+          table.table.table-striped(bindonce='group')
+            tr(ng-repeat='member in group.members')
+              td
+                // allow leaders to ban members
+                div(ng-show='group.leader == user.id && user.id!=member._id')
+                  a(ng-click='removeMember(group, member, true)')
+                    span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
+                a
+                  span(ng-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
+                    | {{member.profile.name}}
+            tr(ng-if='group.memberCount > group.members.length')
+              td
+                |<span class='badge'>{{group.memberCount - group.members.length}} 
+                = ' ' + env.t('moreMembers')
+                |</span>
+
+          h4(ng-show='group.invites.length > 0')=env.t('invited')
           table.table.table-striped
-            tr(ng-repeat='(k,v) in group.members', ng-show='group.quest.members[v._id]')
-              td {{v.profile.name}}
-          quest-rewards(key='{{group.quest.key}}')
-
-          div(ng-if='Content.quests[group.quest.key].boss')
-            .npc_ian.pull-left
-            p!=env.t('bossDmg1')
-            br
-            p=env.t('bossDmg2')
-
-          div(ng-if='Content.quests[group.quest.key].collect')
-            .npc_ian.pull-left
-            p=env.t('bossColl1')
-            br
-            p=env.t('bossColl2')
-
-
-          button.btn.btn-mini.btn-danger(ng-if='!group.quest.leader || group.quest.leader==user._id', ng-click='questAbort()')=env.t('abort')
-
-    // ------ Information -------
-    .modal.inline-modal
-      .modal-header(bindonce='group')
-        span(ng-if='group.leader == user.id')
-          button.btn.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing')=env.t('save')
-          button.btn.btn-default.pull-right(ng-click='group._editing = true', ng-hide='group._editing')=env.t('editGroup')
-        h3 {{group.name}}
-      .modal-body
-        div.whatever-options(ng-show='group._editing')
-          .control-group.option-large
-            label.control-labe=env.t('groupName')
-            input.option-content(type='text', ng-model='group.name', placeholder=env.t('groupName'))
-          .control-group.option-large
-            label.control-label=env.t('description')
-            textarea.option-content(style='height:15em;', placeholder=env.t('groupDescr'), ng-model='group.description')
-          .control-group.option-large
-            label.control-label=env.t('logoUrl')
-            input.option-content(type='url', placeholder=env.t('logoUrl'), ng-model='group.logo')
-
-          h4=env.t('assignLeader')
-          select#group-leader-selection(ng-model='group._newLeader', ng-options='member.profile.name for member in group.members')
-
-        div(ng-show='!group._editing')
-          img.pull-right(ng-show='group.logo', style='max-width:150px', ng-src='{{group.logo}}')
-          markdown(ng-model='group.description')
-        hr
-        small.muted Group ID: {{group._id}}
-
-    include ./challenge-box
-
-    // ------ Members -------
-    .modal.inline-modal
-      .modal-header
-        h3=env.t('members')
-      .modal-body
-        span
-          =env.t('partyList')
-        select#partyOrder(
-          style='width:140px',
-          ng-model='user.party.order',
-          ng-controller='ChatCtrl',
-          ng-options='k as v for (k , v) in partyOrderChoices',
-          ng-change='set({"party.order": user.party.order})'
-          )
-        table.table.table-striped(bindonce='group')
-          tr(ng-repeat='member in group.members')
-            td
-              // allow leaders to ban members
-              div(ng-show='group.leader == user.id && user.id!=member._id')
-                a(ng-click='removeMember(group, member, true)')
-                  i.icon-ban-circle(tooltip=env.t('banTip'))
-              a
-                span(ng-class='{"badge badge-info": group.leader==member._id}', ng-click='clickMember(member._id, true)')
-                  | {{member.profile.name}}
-          tr(ng-if='group.memberCount > group.members.length')
-            td
-              |<span class='badge'>{{group.memberCount - group.members.length}} 
-              = ' ' + env.t('moreMembers')
-              |</span>
-
-        h4(ng-show='group.invites.length > 0')=env.t('invited')
-        table.table.table-striped
-          tr(ng-repeat='invite in group.invites')
-            td
-              // allow leaders to ban members
-              div(ng-show='group.leader == user.id')
-                a(ng-click='removeMember(group, invite, false)')
-                  i.icon-ban-circle(tooltip=env.t('banTip'))
-              a
-                span(ng-click='clickMember(invite._id, true)')
-                  | {{invite.profile.name}}
-      .modal-footer.whatever-options
-        form.form-inline(ng-submit='invite(group)')
-          //.alert.alert-danger(ng-show='_groupError') {{_groupError}}
-          .control-group.option-large
-            input.option-content(type='text', placeholder=env.t('userId'), ng-model='group.invitee')
-            input.btn(type='submit', value=env.t('invite'))
+            tr(ng-repeat='invite in group.invites')
+              td
+                // allow leaders to ban members
+                div(ng-show='group.leader == user.id')
+                  a(ng-click='removeMember(group, invite, false)')
+                    span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
+                a
+                  span(ng-click='clickMember(invite._id, true)')
+                    | {{invite.profile.name}}
+        .panel-footer
+          form.form-inline(ng-submit='invite(group)')
+            //.alert.alert-danger(ng-show='_groupError') {{_groupError}}
+            .form-group
+              input.form-control(type='text', placeholder=env.t('userId'), ng-model='group.invitee')
+              &nbsp;
+              input.btn.btn-default(type='submit', value=env.t('invite'))
 
 
-    a.btn.btn-danger(data-id='{{group.id}}', ng-click='clickLeave(group, $event)')=env.t('leave')
+      a.btn.btn-danger(data-id='{{group.id}}', ng-click='clickLeave(group, $event)')=env.t('leave')
 
-  .span8
-    div.blah-options(ng-show='group._editing')
-      .option-large
-        textarea.option-content(style='height:15em;', placeholder=env.t('leaderMsg'), ng-model='group.leaderMessage')
-    table(ng-show='group.leaderMessage')
-      tr
-        td
-          .popover.static-popover.fade.right.in.wide-popover
-            .arrow
-            h3.popover-title {{Members.members[group.leader].profile.name}}
-            .popover-content
-              markdown(ng-model='group.leaderMessage')
-    div(ng-controller='ChatCtrl')
-      h3=env.t('chat')
-      include ./chat-box
-      include ../../shared/formatting-help
+    .col-md-8
+      div()
+        textarea.form-control(ng-show='group._editing', rows=6, placeholder=env.t('leaderMsg'), ng-model='group.leaderMessage')
+      table(ng-show='group.leaderMessage')
+        tr
+          td
+            .popover.static-popover.fade.right.in.wide-popover
+              .arrow
+              h3.popover-title {{Members.members[group.leader].profile.name}}
+              .popover-content
+                markdown(ng-model='group.leaderMessage')
+      div(ng-controller='ChatCtrl')
+        h3=env.t('chat')
+        include ./chat-box
 
-      ul.unstyled.tavern-chat
-        include ./chat-message
+        ul.list-unstyled.tavern-chat
+          include ./chat-message

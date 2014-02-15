@@ -6,4 +6,6 @@ Gruntfile.js
 CHANGELOG.md
 .idea*
 .git*
+*.log
 newrelic_agent.log
+.bower-cache*

@@ -1,23 +1,15 @@
-div(modal='modals.dropsEnabled')
+script(type='text/ng-template', id='modals/dropsEnabled.html')  
   .modal-header
-    h3=env.t('dropsEnabled')
+    h4=env.t('dropsEnabled')
   .modal-body
     p
-      span.item-drop-icon(class='Pet_Egg_Wolf', style='margin-left: 0px')
+      figure
+        .item-drop-icon(class='Pet_Egg_Wolf')
       span!=env.t('firstDrop', {eggText: "{{Content.eggs.Wolf.text}}", eggNotes: "{{Content.eggs.Wolf.notes}}"})
     br
     p
-      span.item-drop-icon(class='Pet_Currency_Gem')
+      figure
+        .item-drop-icon(class='Pet_Currency_Gem')
       span!=env.t('useGems')
   .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.dropsEnabled = false')=env.t('close')
-
-div(modal='modals.drop')
-  .modal-header
-    h3=env.t('itemDrop')
-  .modal-body
-    p
-      span.item-drop-icon(class='Pet_{{user._tmp.drop.type}}_{{user._tmp.drop.key}}')
-      | {{user._tmp.drop.dialog}}
-  .modal-footer
-    button.btn.btn-default.cancel(ng-click='modals.drop = false')=env.t('close')
+    button.btn.btn-default(ng-click='$close()')=env.t('close')

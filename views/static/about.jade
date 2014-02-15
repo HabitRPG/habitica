@@ -8,15 +8,79 @@ block title
   title=env.t('companyAbout')
 
 block content
-  .container
-    p(style='height:600;')
-      iframe(src='//player.vimeo.com/video/76557040', width='100%', height='539', frameborder='0', webkitallowfullscreen='', mozallowfullscreen='', allowfullscreen='')
-    p(style='height:600;')
-      iframe(src='//player.vimeo.com/video/57654086', width='100%', height='539', frameborder='0', webkitallowfullscreen='', mozallowfullscreen='', allowfullscreen='')
-    p(style='height:600;')
-      iframe(src='//player.vimeo.com/video/79172253', width='100%', height='539', frameborder='0', webkitallowfullscreen='', mozallowfullscreen='', allowfullscreen='')
-    p(style='height:600;')
-      iframe(src='//player.vimeo.com/video/79172327', width='100%', height='539', frameborder='0', webkitallowfullscreen='', mozallowfullscreen='', allowfullscreen='')
-    p(style='height:600;')
-      iframe(src='//player.vimeo.com/video/79172363', width='100%', height='539', frameborder='0', webkitallowfullscreen='', mozallowfullscreen='', allowfullscreen='')
+  .row#about-page(ng-controller='AboutCtrl')
+    .col-md-12#aboutPage
+      .marketing
+        h1 Improve Your Habits By Playing A Game
+        .row
+          .col-md-6
+            a.gallery(href='/marketing/screenshot.png', title='Improve Your Habits By Playing A Game')
+              img(src='/marketing/screenshot.png')
+            p.lead HabitRPG is a video game to help you improve real life habits. It "gamifies" your life by turning all your tasks (habits, dailies, and to-dos) into little monsters you have to conquor. The better you are at this, the more you progress in the game. If you slip up in life, your character starts backsliding in the game.
+          .col-md-6
+
+            a.gallery(href='/marketing/gear.png', title='Get Sweet Gear')
+              img(src='/marketing/gear.png')
+            p.lead <strong>Get Sweet Gear</strong>. Improve your habits to build up your avatar. Show off the sweet gear you've earned
+
+            a.gallery(href='/marketing/drops.png', title='Find Random Prizes')
+              img(src='/marketing/drops.png',style='max-height:200px')
+            p.lead <strong>Find Random Prizes</strong>. For some, it's the gamble which motivates them, a system called "stochastic rewarding". HabitRPG accomodates all reinforcement styles: positive, negative, predictable, and random.
+
+            // TODO achievements
+
+        hr.clearfix
+
+        h1 Compete With Friends, Join Interest Groups
+        .row
+          .col-md-6
+            a.gallery(href='/marketing/guild.png', title='Compete With Friends, Join Interest Groups')
+              img(src='/marketing/guild.png')
+            p.lead While you can solo-play HabitRPG, the lights really turn on when you start collaborating, competing, and holding eachother accountable. The most effective part of any self-improvement program is social accountability, and what better an environment for accountability and competition than a video game?
+
+            a.gallery(href='/bower_components/habitrpg-shared/img/sprites/spritesmith/quests/quest_vice3.png', title='Bosses')
+              img(src='/bower_components/habitrpg-shared/img/sprites/spritesmith/quests/quest_vice3.png')
+            p.lead <strong>Fight Bosses</strong>. What's a Role Playing Game without battles? Fight bosses with your party. Bosses are "super accountability mode" - a day you miss the gym is a day the boss hurts <em>everyone</em>.
+          .col-md-6
+            a.gallery(href='/marketing/challenge.png', title='Challenges')
+              img(src='/marketing/challenge.png')
+            p.lead <strong>Challenges</strong> let you compete with friends and strangers. Whoever does the best at the end of a challenge wins special prizes.
+
+        hr.clearfix
+
+        h1 Apps
+        .row
+          .col-md-6
+            a.gallery(href='/marketing/android_iphone.png', title='iPhone & Android')
+              img(src='/marketing/android_iphone.png',style='box-shadow:none;')
+            p.lead The <strong>iPhone & Android</strong> apps let you take care of business on the go. We realize that logging into the website to click buttons can be a drag.
+          .col-md-6
+            a.gallery(href='/marketing/integration.png', title='iPhone & Android')
+              img(src='/marketing/integration.png')
+            p.lead Other <strong>3rd Party Tools</strong> tie HabitRPG into various aspects of your life. Our API provides easy integration for things like the <a href='https://chrome.google.com/webstore/detail/habitrpg/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US' target='_blank'>Chrome Extension</a>, for which you lose points when browsing unproductive websites, and gain points when on productive ones. <a href='http://habitrpg.wikia.com/wiki/App_and_Extension_Integrations' target='_blank'>See more here</a>
+
+        hr.clearfix
+
+        h1 Organizational Use
+        .row
+          .col-md-6
+            h3 Gamification In Education
+            img.pull-left(src='/marketing/education.png')
+            p.lead Education is one of the best sectors for gamification. We all know how glued to phones and games students are these days, harness that power! Pit your students against eachother in friendly competition. Reward good behavior with rare prizes. Watch their grades and behavior soar.
+          .col-md-6
+            h3 Gamification In Health and Wellness
+            img.pull-left(src='/marketing/wellness.png')
+            p.lead Health care costs are on the rise, and something's gotta give. Hundreds of programs are built to reduce costs and improve wellness. We believe HabitRPG can pave a substantial path towards healthy lifestyles.
+        .row
+          .col-md-6.col-md-offset-3
+            h3 Gamify Everything
+            img(src='/marketing/lefnire.png')
+            p.lead
+              | Want to gamify your life?&nbsp;
+              a.btn.btn-primary(ng-click='playButtonClick()') Play
+              |  Interested in running a group in education, wellness, and more?&nbsp;
+              a.btn.btn-primary(href='/static/plans',target='_blank')  Contact Us
+              |  Want to learn more?&nbsp;
+              a.btn.btn-primary(href='/static/videos') Watch Videos
+
 

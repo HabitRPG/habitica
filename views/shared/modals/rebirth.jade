@@ -1,46 +1,51 @@
 // Created by Sabe on 12/22/13.
 
-div(modal='modals.rebirthEnabled')
-    .modal-header
-        h3=env.t('rebirthNew')
-    .modal-body
-        .rebirth_orb.pull-left(style='margin-right: 5px')
-        p
-            span=env.t('rebirthUnlock')
-    .modal-footer
-        button.btn.btn-default.cancel(ng-click='modals.rebirthEnabled = false')=env.t('close')
+script(type='text/ng-template', id='modals/rebirthEnabled.html')  
+  .modal-header
+    h4=env.t('rebirthNew')
+  .modal-body
+    figure
+      .rebirth_orb
+    p
+      span=env.t('rebirthUnlock')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('close')
 
-div(modal='modals.rebirth')
-    .modal-header
-        h3=env.t('rebirthBegin')
-    .modal-body
-        include ../gems
-        .rebirth_orb.pull-left(style='margin-right: 5px')
-        p=env.t('rebirthStartOver')
-        br
-        .unordered
-            li=env.t('rebirthAdvList1')
-            li=env.t('rebirthAdvList2')
-            li=env.t('rebirthAdvList3')
-            li=env.t('rebirthAdvList4')
-        br
-        p=env.t('rebirthInherit')
-        .unordered
-            li=env.t('rebirthInList1')
-            li=env.t('rebirthInList2')
-            li=env.t('rebirthInList3')
-            li=env.t('rebirthInList4')
-            li=env.t('rebirthInList5')
-        br
-        .achievement-sun.pull-left(style='margin-right: 5px')
-        p=env.t('rebirthEarnAchievement')
-    .modal-footer
-        button.btn.btn-large.cancel(ng-click='modals.rebirth = false')=env.t('neverMind')
-        span(ng-if='user.balance < 2')
-            a.btn.btn-success.btn-large(ng-click="modals.buyGems = true")=env.t('buyMoreGems')
-            span.gem-cost=env.t('notEnoughGems')
-        span(ng-if='user.balance >= 2', ng-controller='SettingsCtrl')
-            a.btn.btn-danger.btn-large(ng-click='rebirth()')=env.t('beReborn')
-            span.gem-cost
-                | 8&nbsp;
-                =env.t('gems')
+script(type='text/ng-template', id='modals/rebirth.html')
+  .modal-header
+    h4=env.t('rebirthBegin')
+  .modal-body
+    include ../gems
+    figure
+      .rebirth_orb
+    p=env.t('rebirthStartOver')
+    br
+    ul.list-unstyled
+      li=env.t('rebirthAdvList1')
+      li=env.t('rebirthAdvList2')
+      li=env.t('rebirthAdvList3')
+      li=env.t('rebirthAdvList4')
+    br
+    p=env.t('rebirthInherit')
+    ul.list-unstyled
+      li=env.t('rebirthInList1')
+      li=env.t('rebirthInList2')
+      li=env.t('rebirthInList3')
+      li=env.t('rebirthInList4')
+      li=env.t('rebirthInList5')
+    br
+
+    p
+      span.vertical-align.inline-block.achievement-sun
+      |&nbsp;
+      =env.t('rebirthEarnAchievement')      
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
+    span(ng-if='user.balance < 2')
+      a.btn.btn-success(ng-click='openModal("buyGems",{track:"Gems > Rebirth"})')=env.t('buyMoreGems')
+      span.gem-cost=env.t('notEnoughGems')
+    span(ng-if='user.balance >= 2', ng-controller='SettingsCtrl')
+      a.btn.btn-danger(ng-click='$close(); rebirth()')=env.t('beReborn')
+      span.gem-cost
+        | 8&nbsp;
+        =env.t('gems')

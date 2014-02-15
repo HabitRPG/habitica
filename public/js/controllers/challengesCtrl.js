@@ -44,11 +44,11 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
      * Save
      */
     $scope.save = function(challenge) {
-      if (!challenge.group) return alert('Please select group');
+      if (!challenge.group) return alert(window.env.t('selectGroup'));
       var isNew = !challenge._id;
       challenge.$save(function(_challenge){
         if (isNew) {
-          Notification.text('Challenge Created');
+          Notification.text(window.env.t('challengeCreated'));
           $state.go('options.social.challenges.detail', {cid: _challenge._id});
           $scope.discard();
           $scope.challenges = Challenges.Challenge.query();
@@ -85,14 +85,14 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       $scope.closingChal = undefined;
     }
     $scope["delete"] = function(challenge) {
-      if (!confirm("Delete challenge, are you sure?")) return;
+      if (!confirm(window.env.t('sureDelCha'))) return;
       challenge.$delete(function(){
         $scope.popoverEl.popover('destroy');
         backToChallenges();
       });
     };
     $scope.selectWinner = function(challenge) {
-      if (!confirm("Are you sure?")) return;
+      if (!confirm(window.env.t('youSure'))) return;
       challenge.$close({uid:challenge.winner}, function(){
         $scope.popoverEl.popover('destroy');
         backToChallenges();
@@ -106,7 +106,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         html: true,
         placement: 'right',
         trigger: 'manual',
-        title: 'Close challenge and...',
+        title: window.env.t('closeCha'),
         content: html
       }).popover('show');
 
@@ -140,7 +140,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     };
 
     $scope.removeTask = function(list, $index) {
-      if (!confirm("Are you sure you want to delete this task?")) return;
+      if (!confirm(window.env.t('sureDelete'))) return;
       //TODO persist
       // User.log({op: "delTask", data: task});
       list.splice($index, 1);
@@ -185,13 +185,13 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       $scope.selectedChal = chal;
       $scope.popoverEl = $($event.target);
       var html = $compile(
-        '<a ng-controller="ChallengesCtrl" ng-click="leave(\'remove-all\')">Remove Tasks</a><br/>\n<a ng-click="leave(\'keep-all\')">Keep Tasks</a><br/>\n<a ng-click="leave(\'cancel\')">Cancel</a><br/>'
+        '<a ng-controller="ChallengesCtrl" ng-click="leave(\'remove-all\')">' + window.env.t('removeTasks') + '</a><br/>\n<a ng-click="leave(\'keep-all\')">' + window.env.t('keepTasks') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
       )($scope);
       $scope.popoverEl.popover('destroy').popover({
         html: true,
         placement: 'top',
         trigger: 'manual',
-        title: 'Leave challenge and...',
+        title: window.env.t('leaveCha'),
         content: html
       }).popover('show');
     }

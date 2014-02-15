@@ -38,7 +38,7 @@ habitrpg.controller('SettingsCtrl',
       var dayStart = +User.user.preferences.dayStart;
       if (_.isNaN(dayStart) || dayStart < 0 || dayStart > 24) {
         dayStart = 0;
-        return alert('Please enter a number between 0 and 24');
+        return alert(window.env.t('enterNumber'));
       }
       User.set({'preferences.dayStart': dayStart});
     }
@@ -55,23 +55,21 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.reroll = function(){
       User.user.ops.reroll({});
-      $rootScope.modals.reroll = false;
       $rootScope.$state.go('tasks');
     }
 
     $scope.rebirth = function(){
       User.user.ops.rebirth({});
-      $rootScope.modals.rebirth = false;
       $rootScope.$state.go('tasks');
     }
 
     $scope.changePassword = function(changePass){
       if (!changePass.oldPassword || !changePass.newPassword || !changePass.confirmNewPassword) {
-        return alert("Please fill out all fields");
+        return alert(window.env.t('fillAll'));
       }
       $http.post(API_URL + '/api/v2/user/change-password', changePass)
         .success(function(){
-          alert("Password successfully changed");
+          alert(window.env.t('passSuccess'));
           $scope.changePass = {};
         })
         .error(function(data){
@@ -80,12 +78,11 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope.restoreValues = {};
-    $rootScope.$watch('modals.restore', function(value){
-      if(value === true){
-        $scope.restoreValues.stats = angular.copy(User.user.stats);
-        $scope.restoreValues.achievements = {streak: User.user.achievements.streak || 0};
-      }
-    })
+    $rootScope.openRestoreModal = function(){
+      $scope.restoreValues.stats = angular.copy(User.user.stats);
+      $scope.restoreValues.achievements = {streak: User.user.achievements.streak || 0};
+      $rootScope.openModal('restore', {scope:$scope});
+    };
 
     $scope.restore = function(){
       var stats = $scope.restoreValues.stats,
@@ -98,12 +95,10 @@ habitrpg.controller('SettingsCtrl',
         "stats.mp": stats.mp,
         "achievements.streak": achievements.streak
       });
-      $rootScope.modals.restore = false;
     }
 
     $scope.reset = function(){
       User.user.ops.reset({});
-      $rootScope.modals.reset = false;
       $rootScope.$state.go('tasks');
     }
 

@@ -5,15 +5,15 @@
  */
 
 angular.module('authCtrl', [])
-  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','API_URL',
-    function($scope, $rootScope, User, $http, $location, $window, API_URL) {
+  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','API_URL', '$modal',
+    function($scope, $rootScope, User, $http, $location, $window, API_URL, $modal) {
       var runAuth;
       var showedFacebookMessage;
 
       $scope.useUUID = false;
       $scope.toggleUUID = function() {
         if (showedFacebookMessage === false) {
-          alert("Until we add Facebook, use your UUID and API Token to log in (found at https://habitrpg.com > Options > Settings).");
+          alert(window.env.t('untilNoFace'));
           showedFacebookMessage = true;
         }
         $scope.useUUID = !$scope.useUUID;
@@ -27,8 +27,17 @@ angular.module('authCtrl', [])
       runAuth = function(id, token) {
         User.authenticate(id, token, function(err) {
           $window.location.href = '/';
-          //$rootScope.modals.login = false;
         });
+      };
+
+      function errorAlert(data, status, headers, config) {
+        if (status === 0) {
+          $window.alert(window.env.t('noReachServer'));
+        } else if (!!data && !!data.err) {
+          $window.alert(data.err);
+        } else {
+          $window.alert(window.env.t('errorUpCase') + ' ' + status);
+        }
       };
 
       $scope.register = function() {
@@ -40,26 +49,8 @@ angular.module('authCtrl', [])
         }
         $http.post(API_URL + "/api/v2/register", $scope.registerVals).success(function(data, status, headers, config) {
           runAuth(data.id, data.apiToken);
-        }).error(function(data, status, headers, config) {
-            if (status === 0) {
-              $window.alert("Server not currently reachable, try again later");
-            } else if (!!data && !!data.err) {
-              $window.alert(data.err);
-            } else {
-              $window.alert("ERROR: " + status);
-            }
-          });
+        }).error(errorAlert);
       };
-
-      function errorAlert(data, status, headers, config) {
-        if (status === 0) {
-          $window.alert("Server not currently reachable, try again later");
-        } else if (!!data && !!data.err) {
-          $window.alert(data.err);
-        } else {
-          $window.alert("ERROR: " + status);
-        }
-      }
 
       $scope.auth = function() {
         var data = {
@@ -77,17 +68,21 @@ angular.module('authCtrl', [])
       };
 
       $scope.playButtonClick = function(){
+        window.ga && ga('send', 'event', 'button', 'click', 'Play');
         if (User.authenticated()) {
           window.location.href = '/#/tasks';
         } else {
-          $('#login-modal').modal('show');
+          $modal.open({
+            templateUrl: 'modals/login.html'
+            // Using controller: 'AuthCtrl' it causes problems
+          });
         }
       }
 
       $scope.passwordReset = function(email){
         $http.post(API_URL + '/api/v2/user/reset-password', {email:email})
           .success(function(){
-            alert('New password sent.');
+            alert(window.env.t('newPassSent'));
           })
           .error(function(data){
             alert(data.err);

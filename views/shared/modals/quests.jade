@@ -11,50 +11,49 @@ script(id='partials/options.social.party.quest-rewards.html', type='text/ng-temp
       td {{quest.drop.gp}} 
         =env.t('gold')
 
-div(modal='user.party.quest.completed', ng-controller='InventoryCtrl')
+script(type='text/ng-template', id='modals/questCompleted.html')  
   .modal-header
-    h3 "{{Content.quests[user.party.quest.completed].text}}" 
+    h4 "{{Content.quests[user.party.quest.completed].text}}" 
       =env.t('completed')
   .modal-body
     p {{Content.quests[user.party.quest.completed].completion}}
     quest-rewards(key='{{user.party.quest.completed}}', header=env.t('youReceived'))
   .modal-footer
-    button.btn.btn-default.btn-primary(ng-click='set({"party.quest.completed":""})')=env.t('accept')
+    button.btn.btn-primary(ng-click='set({"party.quest.completed":""}); $close()')=env.t('accept')
 
-div(modal='modals.showQuest', ng-controller='InventoryCtrl')
+script(type='text/ng-template', id='modals/showQuest.html')  
   .modal-header
-    h3 {{selectedQuest.text}}
+    h4 {{selectedQuest.text}}
   .modal-body
     .pull-right(class='quest_{{selectedQuest.key}}')
     div(ng-bind-html='selectedQuest.notes')
     quest-rewards(key='{{selectedQuest.key}}')
-    hr
-    div(style='clear:left;clear:right')
-      .npc_ian.pull-left
-      p=env.t('questSend')
+    hr    
+    .npc_ian.pull-left
+    p=env.t('questSend')
   .modal-footer
-    button.btn.btn-default.btn-small.btn-cancel(ng-click='closeQuest()')=env.t('cancel')
-    button.btn.btn-default.btn-primary(ng-click='questInit()')=env.t('inviteParty')
+    button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('cancel')
+    button.btn.btn-primary(ng-click='questInit(); $close()')=env.t('inviteParty')
 
-div(modal='modals.buyQuest', ng-controller='InventoryCtrl')
+script(type='text/ng-template', id='modals/buyQuest.html')  
   .modal-header
-    h3 {{selectedQuest.text}}
+    h4 {{selectedQuest.text}}
   .modal-body
     .pull-right(class='quest_{{selectedQuest.key}}')
     div(ng-bind-html='selectedQuest.notes')
     quest-rewards(key='{{selectedQuest.key}}')
   .modal-footer
-    button.btn.btn-large.cancel(ng-click='closeQuest()')=env.t('neverMind')
-    button.btn.btn-default.btn-large.btn-primary(ng-click='purchase("quests", quest);closeQuest()')=env.t('buyQuest')
+    button.btn.btn-default(ng-click='closeQuest(); $close()')=env.t('neverMind')
+    button.btn.btn-primary(ng-click='purchase("quests", quest); closeQuest(); $close()')=env.t('buyQuest')
 
-div(modal='party.quest.key && !party.quest.active && !questHold && party.quest.members[user._id] == undefined')
+script(type='text/ng-template', id='modals/questInvitation.html')  
   .modal-header
-    h3=env.t('questInvitation')
-      | {{Content.quests[party.quest.key].text}}
+    h4=env.t('questInvitation')
+      |&nbsp;{{Content.quests[party.quest.key].text}}
   .modal-body
     div(ng-bind-html='Content.quests[party.quest.key].notes')
     quest-rewards(key='{{party.quest.key}}')
   .modal-footer
-    button.btn.btn-default.btn-small.btn-cancel(ng-click='questHold = true')=env.t('askLater')
-    button.btn.btn-default.btn-small.btn-cancel(ng-click='party.$questReject()')=env.t('reject')
-    button.btn.btn-default.btn-primary(ng-click='party.$questAccept()')=env.t('accept')
+    button.btn.btn-default(ng-click='questHold = true; $close()')=env.t('askLater')
+    button.btn.btn-default(ng-click='party.$questReject(); $close()')=env.t('reject')
+    button.btn.btn-primary(ng-click='party.$questAccept(); $close()')=env.t('accept')

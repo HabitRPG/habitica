@@ -1,23 +1,5 @@
 "use strict";
 
-window.env = window.env || {}; //FIX tests
-
-if(window.env.language && window.env.language.momentLang && window.env.language.momentLangCode){
-  var head = document.getElementsByTagName('head')[0];
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.text = window.env.language.momentLang;
-  head.appendChild(script);
-  moment.lang(window.env.language.momentLangCode);
-}
-
-window.env.t = function(stringName, vars){
-  var string = window.env.translations[stringName];
-  if(!string) return window._.template(window.env.translations.stringNotFound, {string: stringName});
-
-  return vars === undefined ? string : window._.template(string, vars);    
-}
-
 window.habitrpg = angular.module('habitrpg',
     ['ngResource', 'ngSanitize', 'userServices', 'groupServices', 'memberServices', 'challengeServices',
      'authServices', 'notificationServices', 'guideServices', 'authCtrl',
@@ -132,8 +114,12 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.social.guilds.detail', {
           url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
-          controller: ['$scope', 'Groups', '$stateParams', function($scope, Groups, $stateParams){
-            $scope.group = Groups.Group.get({gid:$stateParams.gid});
+          controller: ['$scope', 'Groups', '$stateParams',
+          function($scope, Groups, $stateParams){
+            Groups.Group.get({gid:$stateParams.gid}, function(group){
+              $scope.group = group;
+              Groups.seenMessage(group._id);
+            });
           }]
         })
 
@@ -218,24 +204,40 @@ window.habitrpg = angular.module('habitrpg',
       }
 
       // Handle errors
-      var interceptor = ['$rootScope', '$q', function ($rootScope, $q) {
+      $httpProvider.responseInterceptors.push(['$rootScope', '$q', function ($rootScope, $q) {
         function success(response) {
           return response;
         }
         function error(response) {
-          //var status = response.status;
-          response.data = (response.data.err) ? response.data.err : response.data;
-          if (response.status == 0) response.data = 'Server currently unreachable.';
-          if (response.status == 500) response.data += ' (see Chrome console for more details).';
+          debugger;
+          // Offline
+          if (response.status == 0 ||
+            // don't know why we're getting 404 here, should be 0
+            (response.status == 404 && _.isEmpty(response.data))) {
+            $rootScope.$broadcast('responseText', window.env.t('serverUnreach'));
 
-          var error = response.status == 0 ? response.data : ('Error ' + response.status + ': ' + response.data);
-          $rootScope.$broadcast('responseError', error);
-          console.log(arguments);
-          return $q.reject(response);
+          // Needs refresh
+          } else if (response.needRefresh) {
+            $rootScope.$broadcast('responseError', "The site has been updated and the page needs to refresh. The last action has not been recorded, please refresh and try again.");
+
+          // 400 range?
+          } else if (response < 500) {
+            $rootScope.$broadcast('responseText', response.data.err || response.data);
+
+          // Error
+          } else {
+            var error = '<strong>Please reload</strong>, ' +
+              '"'+window.env.t('error')+' '+(response.data.err || response.data || 'something went wrong')+'" ' +
+              window.env.t('seeConsole');
+            $rootScope.$broadcast('responseError', error);
+            console.error(response);
+          }
+
+          //return $q.reject(response); // this completely halts the chain, meaning we can't queue offline actions
+          return response;
         }
         return function (promise) {
           return promise.then(success, error);
         }
-      }];
-      $httpProvider.responseInterceptors.push(interceptor);
+      }]);
   }])

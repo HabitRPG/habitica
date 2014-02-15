@@ -4,19 +4,19 @@ var _ = require('lodash');
 var nconf = require('nconf');
 var utils = require('./utils');
 utils.setupConfig();
-
+var logging = require('./logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 
 if (cluster.isMaster && (isDev || isProd)) {
   // Fork workers.
-  _.times(require('os').cpus().length, function(){
+  _.times(_.min([require('os').cpus().length,2]), function(){
     cluster.fork();
-  })
+  });
 
-  cluster.on('exit', function(worker, code, signal) {
+  cluster.on('disconnect', function(worker, code, signal) {
     var w = cluster.fork(); // replace the dead worker
-    console.error('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
+    logging.info('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
   });
 
 } else {
@@ -24,7 +24,6 @@ if (cluster.isMaster && (isDev || isProd)) {
   var express = require("express");
   var http = require("http");
   var path = require("path");
-  var domainMiddleware = require('domain-middleware');
   var swagger = require("swagger-node-express");
 
   var middleware = require('./middleware');
@@ -35,14 +34,18 @@ if (cluster.isMaster && (isDev || isProd)) {
 
   // ------------  MongoDB Configuration ------------
   mongoose = require('mongoose');
-  require('./models/user'); //load up the user schema - TODO is this necessary?
-  require('./models/group');
-  require('./models/challenge');
-  mongoose.connect(nconf.get('NODE_DB_URI'), {auto_reconnect:true}, function(err) {
-      if (err) throw err;
-      console.info('Connected with Mongoose');
+  var mongooseOptions = !isProd ? {} : {
+    replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+    server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
+  };
+  mongoose.connect(nconf.get('NODE_DB_URI'), mongooseOptions, function(err) {
+    if (err) throw err;
+    logging.info('Connected with Mongoose');
   });
-
+  // load schemas & models
+  require('./models/challenge');
+  require('./models/group');
+  require('./models/user');
 
   // ------------  Passport Configuration ------------
   var passport = require('passport')
@@ -62,7 +65,6 @@ if (cluster.isMaster && (isDev || isProd)) {
   passport.deserializeUser(function(obj, done) {
       done(null, obj);
   });
-
 
   // Use the FacebookStrategy within Passport.
   //   Strategies in Passport require a `verify` function, which accept
@@ -88,14 +90,9 @@ if (cluster.isMaster && (isDev || isProd)) {
 
   // ------------  Server Configuration ------------
 
-  domainMiddleware({
-    server: server,
-    killTimeout: 3000
-  }),
-
   app.set("port", nconf.get('PORT'));
-
   middleware.apiThrottle(app);
+  app.use(middleware.domainMiddleware(server,mongoose));
   if (!isProd) app.use(express.logger("dev"));
   app.use(express.compress());
   app.set("views", __dirname + "/../views");
@@ -119,13 +116,10 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use(app.router);
 
   var maxAge = isProd ? 31536000000 : 0;
+  // Cache emojis without copying them to build, they are too many
   app.use(express['static'](path.join(__dirname, "/../build"), { maxAge: maxAge }));
+  app.use('/bower_components/habitrpg-shared/img/emoji/unicode', express['static'](path.join(__dirname, "/../public/bower_components/habitrpg-shared/img/emoji/unicode"), { maxAge: maxAge }));
   app.use(express['static'](path.join(__dirname, "/../public")));
-
-  // development only
-  //if ("development" === app.get("env")) {
-  //  app.use(express.errorHandler());
-  //}
 
   // Custom Directives
   app.use(require('./routes/pages').middleware);
@@ -134,14 +128,12 @@ if (cluster.isMaster && (isDev || isProd)) {
   app.use('/api/v2', v2);
   app.use('/api/v1', require('./routes/apiv1').middleware);
   app.use('/export', require('./routes/dataexport').middleware);
-
-  app.use(utils.errorHandler);
-
   require('./routes/apiv2.coffee')(swagger, v2);
+  app.use(middleware.errorHandler);
 
   server.on('request', app);
   server.listen(app.get("port"), function() {
-    return console.log("Express server listening on port " + app.get("port"));
+    return logging.info("Express server listening on port " + app.get("port"));
   });
 
   module.exports = server;

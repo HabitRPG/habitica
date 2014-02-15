@@ -1,69 +1,73 @@
-.modal.fade#login-modal(style='display:none')
-  .modal-dialog
-    .modal-content
-      .modal-header
-        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-        h4.modal-title=env.t('loginAndReg')
-      .modal-body
-        a(href='/auth/facebook')
-              img(src='/bower_components/habitrpg-shared/img/facebook-login-register.jpeg', alt=env.t('loginFacebookAlt'))
-        //can we add in google auth? I like google auth
-        h3 Or
-        ul.nav.nav-tabs
-          li.active
-            a(data-toggle='tab',data-target='#login-tab')=env.t('login')
-          li
-            a(data-toggle='tab',data-target='#register-tab')=env.t('register')
+script(id='modals/login.html', type='text/ng-template')
+  .modal-header
+    button.close(type='button', ng-click='$close()') ×
+    h4.modal-title=env.t('loginAndReg')
+  .modal-body(ng-controller='AuthCtrl')
+    a(href='/auth/facebook')
+      img(src='/bower_components/habitrpg-shared/img/facebook-login-register.jpeg', alt=env.t('loginFacebookAlt'))
+    //can we add in google auth? I like google auth
+    h3 Or
+    ul.nav.nav-tabs
+      li.active
+        a(data-toggle='tab',data-target='#login-tab')=env.t('login')
+      li
+        a(data-toggle='tab',data-target='#register-tab')=env.t('register')
 
-        .tab-content
-          .tab-pane.active#login-tab
-            form(ng-submit='auth()', method='POST')
-              .control-group
-                input(type='text', ng-model='loginUsername', placeholder=env.t('username'), name='username')
-              .control-group
-                input(type='password', ng-model='loginPassword', placeholder=env.t('password'), name='password')
-                //-.control-group
-                  label.checkbox
-                    input(type='checkbox', ng-click='useUUID = !useUUID')
-                    =env.t('useUUID')
-              .control-group
-                input.btn.btn-primary(type='submit', value=env.t('login'))
+    .tab-content
+      .tab-pane.active#login-tab
+        form(ng-submit='auth()', method='POST')
+          .form-group
+            input.form-control(type='text', ng-model='loginUsername', placeholder=env.t('username'), name='username')
+          .form-group
+            input.form-control(type='password', ng-model='loginPassword', placeholder=env.t('password'), name='password')
+            //-.control-group
+              label.checkbox
+                input(type='checkbox', ng-click='useUUID = !useUUID')
+                =env.t('useUUID')
+          .form-group
+            input.btn.btn-primary(type='submit', value=env.t('login'))
 
-              small=env.t('passMan')
+          small=env.t('passMan')
+          br
+          br
 
-            // good god accordions have html ceremony
-            #forgot-password-accordion.accordion
-              .accordion-group
-                .accordion-heading
-                  a.accordion-toggle(data-toggle='collapse', data-parent='#forgot-password-accordion', href='#forgot-password-group')=env.t('forgotPass')
-                #forgot-password-group.accordion-body.collapse
-                  .accordion-inner
-                    form#derby-auth-password-reset(ng-submit='passwordReset(passwordResetEmail)')
-                      h3=env.t('emailNewPass')
-                      //.alert.alert-success {.success.passwordReset}
-                      //.control-group.{#if..errors.passwordReset}error{/}
-                      .control-group
-                        input(type='text', name='email', placeholder=env.t('email') , ng-model='passwordResetEmail')
-                        //span.help-inline {.errors.passwordReset}
-                      input.btn(type='submit', value=env.t('submit'))
+        // good god accordions have html ceremony
+        .panel-group#forgot-password
+          .panel.panel-default
+            .panel-heading
+              h3.panel-title
+                a(data-toggle="collapse" data-parent="#forgot-password" href="#forgot-password-panel")=env.t('forgotPass')
+          
+            .panel-body.collapse#forgot-password-panel
+              form(ng-submit='passwordReset(passwordResetEmail)')
+                //.alert.alert-success {.success.passwordReset}
+                //.control-group.{#if..errors.passwordReset}error{/}
+                h3=env.t('emailNewPass')
+                .form-group
+                  input.form-control(type='text', name='email', placeholder=env.t('email') , ng-model='passwordResetEmail')
+                  //span.help-inline {.errors.passwordReset}
+                .form-group
+                  input.btn.btn-default(type='submit', value=env.t('submit'))
 
-
-
-
-          .tab-pane#register-tab
-            form(ng-submit='register()', name='registrationForm')
-              .control-group
-                input(type='text', ng-model='registerVals.username', placeholder=env.t('username'), required)
-              .control-group
-                input(type='email', ng-model='registerVals.email', placeholder=env.t('email'), required)
-              .control-group
-                input(type='password', ng-model='registerVals.password', placeholder=env.t('password'), required)
-              .control-group
-                input(type='password', ng-model='registerVals.confirmPassword', placeholder=env.t('passConfirm'), required)
-              .control-group
-                small=env.t('accept1Terms')
-                  a(href='/static/terms' target='_blank')=env.t('terms')
-                  =env.t('accept2Terms')
-                  a(href='/static/privacy' target='_blank')=env.t('privacy')
-                  | .
-                input.btn.btn-primary(type='submit', value=env.t('register'))
+      .tab-pane#register-tab
+        form(ng-submit='register()', name='registrationForm')
+          .form-group
+            input.form-control(type='text', ng-model='registerVals.username', placeholder=env.t('username'), required)
+          .form-group
+            input.form-control(type='email', ng-model='registerVals.email', placeholder=env.t('email'), required)
+          .form-group
+            input.form-control(type='password', ng-model='registerVals.password', placeholder=env.t('password'), required)
+          .form-group
+            input.form-control(type='password', ng-model='registerVals.confirmPassword', placeholder=env.t('passConfirm'), required)
+          .form-group
+            small
+              =env.t('accept1Terms')
+              |&nbsp;
+              a(href='/static/terms' target='_blank')=env.t('terms')
+              |&nbsp;
+              =env.t('accept2Terms')
+              |&nbsp;
+              a(href='/static/privacy' target='_blank')=env.t('privacy')
+              | .
+          .form-group
+            input.btn.btn-primary(type='submit', value=env.t('register'))

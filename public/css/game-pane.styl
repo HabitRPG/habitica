@@ -1,6 +1,3 @@
-.full-width
-    width 100%
-
 .border-right
     border-right 1px solid #ddd
 
@@ -8,21 +5,27 @@
     color #fff
     background-color #51a351
 
-.tavern-pane
-    position relative
-    height 250px
-    
 .chat-form
-  position: relative
-  z-index: 10
+  margin-bottom: 10px
 
-.chat-message .chat-plus-one
-  opacity: 0
-.chat-message:hover .chat-plus-one
-  opacity: 1
+  textarea
+    margin-bottom: 5px
+
+.chat-message
+  markdown, span.time
+    padding: 0 3px
+
+  .chat-plus-one
+    opacity: 0
+    background-color: #eee
+    padding: 3px 3px 0px 3px
+
+  &:hover .chat-plus-one
+    opacity: 1
+    color: #999
 
 .tavern-chat, .party-chat
-
+  
   li
     padding-top:15px
     padding-bottom:15px
@@ -78,6 +81,11 @@
       padding-top:0px
       padding-bottom:0px
 
+.panel-tiers
+  div
+    display: none
+    margin-top: 10px
+
 // Name tags
 .label-contributor-1, .label-contributor-2
   background-color: #333;
@@ -108,33 +116,33 @@
     padding: 0px 5px
 
 // Autocomplete [TODO] make this nicer
-.list-at-user {
-    width: 100%;
-    max-width: 120px;
-    position: absolute;
-    background: white;
-    border: 1px solid #a4a4a4;
-    z-index: 10;
-}
+.list-at-user 
+    width: 100%
+    max-width: 120px
+    position: absolute
+    background: white
+    border: 1px solid #a4a4a4
+    z-index: 10
 
-.list-at-user li {
-    line-height:14px;
-    border-bottom: 1px solid #a4a4a4;
-    list-style-type: none;
-}
 
-.list-at-user li:hover {
-    cursor: pointer;
-    background: #b9dff4;
-}
+.list-at-user li 
+    line-height:14px
+    border-bottom: 1px solid #a4a4a4
+    list-style-type: none
 
-.list-at-user li span {
-    margin: 2px;
-    font-size: 11.844px;
-    margin-left: 5px;
-    display: inline-block;
-}
 
-.list-cur {
-    background: #b9dff4;
-}
+.list-at-user li:hover 
+    cursor: pointer
+    background: #b9dff4
+
+
+.list-at-user li span 
+    margin: 2px
+    font-size: 11.844px
+    margin-left: 5px
+    display: inline-block
+
+
+.list-cur 
+    background: #b9dff4
+

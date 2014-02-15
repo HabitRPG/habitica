@@ -249,6 +249,14 @@ api.deleteChatMessage = function(req, res){
   });
 }
 
+api.seenMessage = function(req,res,next){
+  // Skip the auth step, we want this to be fast. If !found with uuid/token, then it just doesn't save
+  var update = {$set:{}};
+  update['$set']['newMessages.'+req.params.gid+'.value'] = false;
+  User.update({_id:req.headers['x-api-user'], apiToken:req.headers['x-api-key']},update).exec();
+  res.send(200);
+}
+
 api.likeChatMessage = function(req, res, next) {
   var user = res.locals.user;
   var group = res.locals.group;

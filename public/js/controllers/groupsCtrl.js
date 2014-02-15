@@ -29,12 +29,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
           // We need the member information up top here, but then we pass it down to the modal controller
           // down below. Better way of handling this?
           Members.selectMember(uid);
-          $rootScope.modals.member = true;
+          $rootScope.openModal('member', {controller:'MemberModalCtrl'});
         }
       }
 
       $scope.removeMember = function(group, member, isMember){
-        var yes = confirm("Do you really want to remove this member from the party?")
+        var yes = confirm(window.env.t('sureKick'))
         if(yes){
           Groups.Group.removeMember({gid: group._id, uuid: member._id }, undefined, function(){
             if(isMember){
@@ -99,8 +99,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     $scope.$watch('group.chat',$scope.chatChanged);
     
     $scope.caretChanged = function(newCaretPos) {
-      var relativeelement = $('.-options');
-      var textarea = $('.chat-textarea');
+      var relativeelement = $('.chat-form div:first');
+      var textarea = $('.chat-form textarea');
       var userlist = $('.list-at-user');
       var offset = {
         x: textarea.offset().left - relativeelement.offset().left,
@@ -180,7 +180,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
     $scope.likeChatMessage = function(group,message) {
       if (message.uuid == User.user._id)
-        return Notification.text("Can't like your own message. Don't be that person.");
+        return Notification.text(window.env.t('foreverAlone'));
       if (!message.likes) message.likes = {};
       if (message.likes[User.user._id]) {
         delete message.likes[User.user._id];
@@ -198,10 +198,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
     // List of Ordering options for the party members list
     $scope.partyOrderChoices = {
-      'level': 'Sort by Level',
-      'random': 'Sort randomly',
-      'pets': 'Sort by number of pets',
-      'party_date_joined': 'Sort by Party date joined',
+      'level': window.env.t('sortLevel'),
+      'random': window.env.t('sortRandom'),
+      'pets': window.env.t('sortPets'),
+      'party_date_joined': window.env.t('sortJoined'),
     };
 
   }])
@@ -219,9 +219,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
       $scope.newGroup = newGroup()
       $scope.create = function(group){
-        if (User.user.balance < 1) return $rootScope.modals.buyGems = true;
+        if (User.user.balance < 1) return $rootScope.openModal('buyGems', {track:"Gems > Create Group"});
 
-        if (confirm("Create Guild for 4 Gems?")) {
+        if (confirm(window.env.t('confirmGuild'))) {
           group.$save(function(saved){
             User.user.balance--;
             $scope.groups.guilds.push(saved);
@@ -284,14 +284,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
               }), '_id');
               if (_.intersection(challenges, User.user.challenges).length > 0) {
                   html = $compile(
-              '<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">Remove Tasks</a><br/>\n<a ng-click="leave(\'keep-all\')">Keep Tasks</a><br/>\n<a ng-click="leave(\'cancel\')">Cancel</a><br/>'
+              '<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">' + window.env.t('removeTasks') + '</a><br/>\n<a ng-click="leave(\'keep-all\')">' + window.env.t('keepTasks') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
           )($scope);
-                  title = "Leave group challenges and...";
+                  title = window.env.t('leaveGroupCha');
               } else {
                   html = $compile(
-                      '<a ng-controller="GroupsCtrl" ng-click="leave(\'keep-all\')">Confirm</a><br/>\n<a ng-click="leave(\'cancel\')">Cancel</a><br/>'
+                      '<a ng-controller="GroupsCtrl" ng-click="leave(\'keep-all\')">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
                   )($scope);
-                  title = "Leave group?"
+                  title = window.env.t('leaveGroup')
               }
           $scope.popoverEl.popover('destroy').popover({
               html: true,
@@ -319,6 +319,9 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       $scope.text = 'Party';
       $scope.group = $rootScope.party = Groups.party();
       $scope.newGroup = new Groups.Group({type:'party'});
+
+      Groups.seenMessage($scope.group._id);
+
       $scope.create = function(group){
         group.$save(function(newGroup){
           $scope.group = newGroup;
@@ -358,14 +361,14 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
               }), '_id');
               if (_.intersection(challenges, User.user.challenges).length > 0) {
                   html = $compile(
-              '<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">Remove Tasks</a><br/>\n<a ng-click="leave(\'keep-all\')">Keep Tasks</a><br/>\n<a ng-click="leave(\'cancel\')">Cancel</a><br/>'
+              '<a ng-controller="GroupsCtrl" ng-click="leave(\'remove-all\')">' + window.env.t('removeTasks') + '</a><br/>\n<a ng-click="leave(\'keep-all\')">' + window.env.t('keepTasks') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
           )($scope);
-                  title = "Leave party challenges and...";
+                  title = window.env.t('leavePartyCha');
               } else {
                   html = $compile(
-                      '<a ng-controller="GroupsCtrl" ng-click="leave(\'keep-all\')">Confirm</a><br/>\n<a ng-click="leave(\'cancel\')">Cancel</a><br/>'
+                      '<a ng-controller="GroupsCtrl" ng-click="leave(\'keep-all\')">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="leave(\'cancel\')">' + window.env.t('cancel') + '</a><br/>'
                   )($scope);
-                  title = "Leave party?";
+                  title = window.env.t('leaveParty');
               }
           $scope.popoverEl.popover('destroy').popover({
               html: true,
@@ -383,8 +386,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
 
       $scope.questAbort = function(){
-        if (!confirm("Are you sure you want to abort this mission? It will abort it for everyone in your party, and you'll lose your quest scroll.")) return;
-        if (!confirm("Are you double sure? Make sure they won't hate you forever!")) return;
+        if (!confirm(window.env.t('sureAbort'))) return;
+        if (!confirm(window.env.t('doubleSureAbort'))) return;
         $rootScope.party.$questAbort();
       }
     }
