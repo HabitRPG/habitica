@@ -175,13 +175,13 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
 }
 
 // FIXME this is a temporary measure, we need to remove quests from users when they traverse parties
-function isOnQuest(user,group){
-  return group && user.party.quest.key && user.party.quest.key == group.quest.key;
+function isOnQuest(user,progress,group){
+  return group && progress && user.party.quest.key && user.party.quest.key == group.quest.key;
 }
 
 GroupSchema.statics.collectQuest = function(user, progress, cb) {
   this.findOne({type: 'party', members: {'$in': [user._id]}},function(err, group){
-    if (!isOnQuest(user,group)) return cb(null);
+    if (!isOnQuest(user,progress,group)) return cb(null);
     var quest = shared.content.quests[group.quest.key];
 
     _.each(progress.collect,function(v,k){
@@ -215,7 +215,7 @@ GroupSchema.statics.collectQuest = function(user, progress, cb) {
 
 GroupSchema.statics.bossQuest = function(user, progress, cb) {
   this.findOne({type: 'party', members: {'$in': [user._id]}},function(err, group){
-    if (!isOnQuest(user,group)) return cb(null);
+    if (!isOnQuest(user,progress,group)) return cb(null);
     var quest = shared.content.quests[group.quest.key];
     if (!progress || !quest) return cb(null); // FIXME why is this ever happening, progress should be defined at this point
     var down = progress.down * quest.boss.str; // multiply by boss strength
