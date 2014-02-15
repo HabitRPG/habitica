@@ -11039,21 +11039,24 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         notes: 'When you create a new Habit, you can click the Edit icon and choose for it to represent a positive habit, a negative habit, or both. For some Habits, like this one, it only makes sense to gain points.',
         value: 0,
         up: true,
-        down: false
+        down: false,
+        attribute: 'per'
       }, {
         type: 'habit',
         text: 'Eat Junk Food',
         notes: 'For others, it only makes sense to *lose* points.',
         value: 0,
         up: false,
-        down: true
+        down: true,
+        attribute: 'con'
       }, {
         type: 'habit',
         text: 'Take The Stairs',
         notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose).',
         value: 0,
         up: true,
-        down: true
+        down: true,
+        attribute: 'str'
       }
     ],
     dailys: [
@@ -11063,21 +11066,24 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         notes: 'All tasks default to yellow when they are created. This means you will take only moderate damage when they are missed and will gain only a moderate reward when they are completed.',
         value: 0,
         completed: false,
-        repeat: repeat
+        repeat: repeat,
+        attribute: 'per'
       }, {
         type: 'daily',
         text: 'Exercise',
         notes: 'Dailies you complete consistently will turn from yellow to green to blue, helping you track your progress. The higher you move up the ladder, the less damage you take for missing and less reward you receive for completing the goal.',
         value: 3,
         completed: false,
-        repeat: repeat
+        repeat: repeat,
+        attribute: 'str'
       }, {
         type: 'daily',
         text: '45m Reading',
         notes: 'If you miss a daily frequently, it will turn darker shades of orange and red. The redder the task is, the more experience and gold it grants for success and the more damage you take for failure. This encourages you to focus on your shortcomings, the reds.',
         value: -10,
         completed: false,
-        repeat: repeat
+        repeat: repeat,
+        attribute: 'int'
       }
     ],
     todos: [
@@ -11086,7 +11092,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         text: 'Call Mom',
         notes: 'While not completing a to-do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.',
         value: -3,
-        completed: false
+        completed: false,
+        attribute: 'per'
       }
     ],
     rewards: [
