@@ -98,7 +98,6 @@ api.score = function(req, res, next) {
       if (err) return next(err);
       if (!chal) {
         task.challenge.broken = 'CHALLENGE_DELETED';
-        user.markModified('tasks');
         return user.save();
       }
       var t = chal.tasks[task.id];
