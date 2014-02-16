@@ -1,5 +1,7 @@
 {
     "subscription": "Abbonamento",
+    "subscriptions": "Subscriptions",
+    "subDescription": "Disable ads, buy gems with gold, monthly mystery item, retain progress history, double daily drop-caps, supports the devs. Click for more info.",
     "subWarning1": "Attenzione: questa è una funzione altamente sperimentale e molti",
     "subWarning2": "problemi",
     "subWarning3": "con essa.",
@@ -27,6 +29,7 @@
     "individualSub": "Abbonamento individuale",
     "subscribe": "Abbonati",
     "subscribed": "Abbonato",
+    "manageSub": "Click to manage subscription",
     "cancelSub": "Annulla abbonamento",
     "adminSub": "Abbonamento per amministratori",
     "morePlans": "Altri piani<br/>in arrivo",

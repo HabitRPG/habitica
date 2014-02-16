@@ -1,5 +1,7 @@
 {
     "subscription": "Assinatura",
+    "subscriptions": "Subscriptions",
+    "subDescription": "Disable ads, buy gems with gold, monthly mystery item, retain progress history, double daily drop-caps, supports the devs. Click for more info.",
     "subWarning1": "Atenção: essa é uma funcionalidade altamente experimental, e muitos",
     "subWarning2": "experienciam problemas",
     "subWarning3": "com ela.",
@@ -27,6 +29,7 @@
     "individualSub": "Assinatura Individual",
     "subscribe": "Assinar",
     "subscribed": "Assinado",
+    "manageSub": "Click to manage subscription",
     "cancelSub": "Cancelar Assinatura",
     "adminSub": "Assinaturas Administrativas",
     "morePlans": "Mais Planos<br/>Em Breve",

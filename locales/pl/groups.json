@@ -20,7 +20,7 @@
     "userId": "ID Użytkownika",
     "invite": "Zaproś",
     "leave": "Opuść",
-    "invitedTo": "Zostałeś zaproszony do",
+    "invitedTo": "Invited to <%= name %>",
     "partyNotification": "Nowe Wiadomości Drużyny",
     "chat": "Chat",
     "sendChat": "Wyślij",
