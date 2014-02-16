@@ -20,7 +20,7 @@
     "userId": "ID Utente",
     "invite": "Invita",
     "leave": "Abbandona",
-    "invitedTo": "Invited to <%= name %>",
+    "invitedTo": "Invitato a <%= name %>",
     "partyNotification": "Nuovi messaggi dalla Squadra",
     "chat": "Chat",
     "sendChat": "Invia Chat",

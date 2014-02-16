@@ -1,7 +1,7 @@
 {
     "subscription": "Abonnements",
-    "subscriptions": "Subscriptions",
-    "subDescription": "Disable ads, buy gems with gold, monthly mystery item, retain progress history, double daily drop-caps, supports the devs. Click for more info.",
+    "subscriptions": "Abonnements",
+    "subDescription": "Werbung ausschalten, Edelsteine mit Gold erwerben, ein monatlicher Überraschungsgegenstand, den Fortschrittsverlauf erhalten, doppeltes Beutelimit pro Tag, Unterstützung der Entwickler. Klicke um mehr zu erfahren.",
     "subWarning1": "Warnung: das ist ein experimentelles Feature und viele",
     "subWarning2": "Fehler",
     "subWarning3": "können dabei auftreten.",
@@ -29,7 +29,7 @@
     "individualSub": "Einzelne Abonnements",
     "subscribe": "Abonniere",
     "subscribed": "Abonniert",
-    "manageSub": "Click to manage subscription",
+    "manageSub": "Klicke um Abonnements zu verwalten",
     "cancelSub": "Abonnement beenden",
     "adminSub": "Administrator Abonnements",
     "morePlans": "Mehr Pläne<br/>in naher Zukunft",

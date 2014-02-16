@@ -1,7 +1,7 @@
 {
     "subscription": "Assinatura",
-    "subscriptions": "Subscriptions",
-    "subDescription": "Disable ads, buy gems with gold, monthly mystery item, retain progress history, double daily drop-caps, supports the devs. Click for more info.",
+    "subscriptions": "Assinaturas",
+    "subDescription": "Desativa propagandas, compra gemas com ouro, item misterioso mensal, retém histórico de progresso, capacidade de drops dobrada, ajuda os desenvolvedores. Clique para mais informações.",
     "subWarning1": "Atenção: essa é uma funcionalidade altamente experimental, e muitos",
     "subWarning2": "experienciam problemas",
     "subWarning3": "com ela.",
@@ -29,7 +29,7 @@
     "individualSub": "Assinatura Individual",
     "subscribe": "Assinar",
     "subscribed": "Assinado",
-    "manageSub": "Click to manage subscription",
+    "manageSub": "Clique para gerenciar assinatura",
     "cancelSub": "Cancelar Assinatura",
     "adminSub": "Assinaturas Administrativas",
     "morePlans": "Mais Planos<br/>Em Breve",
