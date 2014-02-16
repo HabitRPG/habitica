@@ -1,11 +1,11 @@
-a.collapse-toolbar(popover='Expand Toolbar',popover-placement='left',popover-trigger='mouseenter',ng-if='user.preferences.toolbarCollapsed',ng-click='set({"preferences.toolbarCollapsed":false})')
+a.collapse-toolbar(popover=env.t('expandToolbar'),popover-placement='left',popover-trigger='mouseenter',ng-if='user.preferences.toolbarCollapsed',ng-click='set({"preferences.toolbarCollapsed":false})')
   span.glyphicon.glyphicon-chevron-down
 
 nav.navbar.navbar-inverse(ng-controller='AuthCtrl',style='min-height:0px;margin-bottom:0px;border:0;border-radius:0px',ng-if='!user.preferences.toolbarCollapsed')
 
   ul.nav.navbar-nav.pull-right
     li
-      a(popover='Collapse Toolbar',popover-placement='left',popover-trigger='mouseenter',,ng-if='!user.preferences.toolbarCollapsed',ng-click='set({"preferences.toolbarCollapsed":true})')
+      a(popover=env.t('collapseToolbar'),popover-placement='left',popover-trigger='mouseenter',,ng-if='!user.preferences.toolbarCollapsed',ng-click='set({"preferences.toolbarCollapsed":true})')
         span.glyphicon.glyphicon-chevron-up.white
 
   .navbar-header
@@ -16,7 +16,6 @@ nav.navbar.navbar-inverse(ng-controller='AuthCtrl',style='min-height:0px;margin-
       span.icon-bar
   .collapse.navbar-collapse(collapse="isNavbarCollapsed")
     ul.nav.navbar-nav
-
       li
         a(ui-sref='tasks',popover=env.t('tasks'),popover-placement='right',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-check.white
@@ -37,7 +36,7 @@ nav.navbar.navbar-inverse(ng-controller='AuthCtrl',style='min-height:0px;margin-
               | &nbsp;
               =env.t('logout')
       li.dropdown
-        a.dropdown-toggle(popover='Social',popover-placement='right',popover-trigger='mouseenter')
+        a.dropdown-toggle(popover=env.t('social'),popover-placement='right',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-heart.white
           span.caret
         ul.dropdown-menu
@@ -52,7 +51,7 @@ nav.navbar.navbar-inverse(ng-controller='AuthCtrl',style='min-height:0px;margin-
           li
             a(ui-sref='options.social.hall')=env.t('hall')
       li.dropdown
-        a.dropdown-toggle(popover='Inventory',popover-placement='right',popover-trigger='mouseenter')
+        a.dropdown-toggle(popover=env.t('inventory'), popover-placement='right',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-gift.white
           span.caret
         ul.dropdown-menu
@@ -65,7 +64,7 @@ nav.navbar.navbar-inverse(ng-controller='AuthCtrl',style='min-height:0px;margin-
           li
             a(ui-sref='options.inventory.equipment')=env.t('equipment')
       li.dropdown
-        a.dropdown-toggle(popover='Settings',popover-placement='right',popover-trigger='mouseenter')
+        a.dropdown-toggle(popover=env.t('settings'),popover-placement='right',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-wrench.white
           span.caret
         ul.dropdown-menu
@@ -78,30 +77,23 @@ nav.navbar.navbar-inverse(ng-controller='AuthCtrl',style='min-height:0px;margin-
           li
             a(ui-sref='options.settings.subscription')=env.t('subscription')
       li.dropdown
-        a.dropdown-toggle(popover='Help',popover-placement='right',popover-trigger='mouseenter')
+        a.dropdown-toggle(popover=env.t('help'),popover-placement='right',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-question-sign.white
           span.caret
         ul.dropdown-menu
           li
             a(href="http://habitrpg.wikia.com/wiki/FAQ", target='_blank')
               span.glyphicon.glyphicon-book
-              | &nbsp;
+              |&nbsp;
               =env.t('FAQ')
           li
             a(href="https://vimeo.com/57654086", target='_blank')
               span.glyphicon.glyphicon-film
-              //| &nbsp; Tutorials is too long to stay in the menu if we add a space
+              |&nbsp;
               =env.t('tutorials')
       li
         a(ng-click='User.sync()',popover=env.t('sync'),popover-placement='right',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-refresh.white
-          //-| &nbsp;
-          //-=env.t('sync')
-
-      // Separator
-      li
-        a(style='border-right:1px solid #999;cursor:default;padding-left:0px;padding-right:0px') &nbsp;
-
       li
         a.pull-right.gem-wallet(style='padding-top:8px;padding-bottom:0px;',ng-click='openModal("buyGems",{track:"Gems > Toolbar"})', popover-trigger='mouseenter', popover-title=env.t('gems'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
           //span.task-action-btn.tile.flush.bright.add-gems-btn ＋
@@ -109,8 +101,8 @@ nav.navbar.navbar-inverse(ng-controller='AuthCtrl',style='min-height:0px;margin-
             .Pet_Currency_Gem2x.Gems
             | {{user.balance * 4 | number:0}}
       li
-        button.btn.btn-primary(style='margin-top:8px;margin-bottom:0px',ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title='Subscriptions',popover='Disable ads, buy gems with gold, monthly mystery item, retain progress history, double daily drop-caps, supports the devs. Click for more info.',popover-append-to-body='true') Subscribe
-        button.btn.btn-default(style='margin-top:8px;margin-bottom:0px',ng-if='user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover='Click to manage subscription',popover-append-to-body='true') Subscribed
+        button.btn.btn-primary.navbar-btn(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
+        button.btn.btn-default.navbar-btn(ng-if='user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover=env.t('manageSub'),popover-append-to-body='true')=env.t('subscribed')
 
       li(ng-if='user.flags.newStuff')
         div.toolbar-bailey-container
@@ -120,10 +112,10 @@ nav.navbar.navbar-inverse(ng-controller='AuthCtrl',style='min-height:0px;margin-
       // Invitations
       li(ng-if='user.invitations.party.id')
         a(ui-sref='options.social.party')
-          span.glyphicon.glyphicon-user.white(popover='Invited to {{user.invitations.party.name}}',popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
+          span.glyphicon.glyphicon-user.white(popover=env.t('invitedTo', {name: '{{user.invitations.party.name}}'}),popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
       li(ng-repeat='guild in user.invitations.guilds')
         a(ui-sref='options.social.guilds')
-          span.glyphicon.glyphicon-user.white(popover='Invited to {{guid.name}}',popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
+          span.glyphicon.glyphicon-user.white(popover=env.t('invitedTo', {name: '{{guild.name}}'}),popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
       // Chat notifs
       li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
         a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k})')
