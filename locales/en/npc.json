@@ -8,6 +8,7 @@
     "mattBochText3": "at all the pets you can collect.",
     "daniel": "Daniel",
     "danielText": "Welcome to the Tavern! Stay a while and meet the locals. If you need to rest (going on vacation? sudden illness?), I'll set you up at the inn - Dailies won't hurt you while you're resting.",
+    "danielText2": "If you're in a boss fight, your dailies won't hurt your party members while you're resting, but their missed dailies can still hurt you!",
     "alexander": "Alexander the Merchant",
     "welcomeMarket": "Welcome to the Market! Buy hard-to-find eggs and potions! Sell your extras! Commission useful services! Come see what we have to offer.",
     "sellForGold": "Sell <%= item %> for <%= gold %> Gold",
