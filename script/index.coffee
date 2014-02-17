@@ -981,17 +981,17 @@ api.wrap = (user, main=true) ->
 
       # % chance of getting a drop
 
-      chance = Math.abs(task.value - 21.27) / 1000      # Base drop chance based on task value. This formula will tend to give us base chance in the 1% to 2% range, topping out at 6.8%.
+      chance = Math.abs(task.value - 25) / 1000         # Base drop chance based on task value. Subtract more than the max possible task value so we never get a 0
 
       chance *=
-        task.priority *                                 # Task priority multiplier: 50% for Medium, 100% for Hard
-        (1 + (task.streak / 100 or 0)) *                # Streak bonus: 1% multiplier per streak
-        (1 + (user._statsComputed.per / 100)) *         # PERception: 1% multiplier per point
-        (1 + (user.contributor.level / 50 or 0)) *      # Contrib levels: 2% multiplier per level
-        (1 + (user.achievements.rebirths / 50 or 0)) *  # Rebirths: 2% multiplier per achievement
-        (1 + (user.achievements.streak / 100 or 0)) *   # Streak achievements: 1% multiplier per achievement
+        task.priority *                                 # Task priority: +50% for Medium, +100% for Hard
+        (1 + (task.streak / 100 or 0)) *                # Streak bonus: +1% per streak
+        (1 + (user._statsComputed.per / 100)) *         # PERception: +1% per point
+        (1 + (user.contributor.level / 50 or 0)) *      # Contrib levels: +2% per level
+        (1 + (user.achievements.rebirths / 50 or 0)) *  # Rebirths: +2% per achievement
+        (1 + (user.achievements.streak / 100 or 0)) *   # Streak achievements: +1% per achievement
         (user._tmp.crit or 1) *                         # Use the crit multiplier if we got one
-        (1 + (_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) or 0)) # 100% multiplier per checklist item complete
+        (1 + (_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) or 0)) # +100% per checklist item complete
 
       #console.log("Drop chance: " + chance)
 
