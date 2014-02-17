@@ -41,6 +41,8 @@ angular.module('authCtrl', [])
       };
 
       $scope.register = function() {
+        // As soon as a CAPTCHA of some sorts is added to this registration form,
+        // please revert commit e3efab2 for extra security benefit.
         /*TODO highlight invalid inputs
          we have this as a workaround for https://github.com/HabitRPG/habitrpg-mobile/issues/64
          */
