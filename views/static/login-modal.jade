@@ -70,4 +70,10 @@ script(id='modals/login.html', type='text/ng-template')
               a(href='/static/privacy' target='_blank')=env.t('privacy')
               | .
           .form-group
+            small I am not a spambot. 
+            input(type="checkbox"
+              name='bot'
+              required)
+          .form-group
             input.btn.btn-primary(type='submit', value=env.t('register'))
+
