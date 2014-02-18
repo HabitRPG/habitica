@@ -21,7 +21,7 @@
     "invite": "Invite",
     "leave": "Leave",
     "invitedTo": "Invited to <%= name %>",
-    "partyNotification": "New Party Messages",
+    "newMsg": "New message in \"<%= name %>\"",
     "chat": "Chat",
     "sendChat": "Send Chat",
     "toolTipMsg": "Fetch Recent Messages",
