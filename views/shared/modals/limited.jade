@@ -1,0 +1,30 @@
+//Valentine
+script(id='modals/valentine.html', type='text/ng-template')
+  .modal-header
+    h4
+      .inventory_special_valentine.pull-right
+      =env.t('valentineCard')
+  .modal-body
+    .bg-info(style='padding:10px')
+      p To: {{user.profile.name}}, From: {{user.items.special.valentineReceived[0]}}
+      hr
+      div(ng-switch='Math.floor(Math.random()*3)')
+        ul.list-unstyled(ng-switch-when='0')
+          li "Roses are red
+          li My Dailies are blue
+          li I'm happy that I'm
+          li In a Party with you!"
+        ul.list-unstyled(ng-switch-when='1')
+          li "Roses are red
+          li Violets are nice
+          li Let's get together
+          li And fight against Vice!"
+        ul.list-unstyled(ng-switch-default)
+          li "Roses are red
+          li This poem style is old
+          li I hope that you like this
+          li Cuz it cost ten gold."
+    p
+     small For enduring such a saccharine poem, you both receive the "Adoring Friends" badge!
+  .modal-footer
+    button.btn.btn-default(ng-click='user.ops.readValentine({});$close()')=env.t('ok')

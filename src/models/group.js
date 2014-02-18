@@ -106,6 +106,17 @@ GroupSchema.methods.sendChat = function(message, user){
   }
   group.chat.unshift(message);
   group.chat.splice(200);
+
+  // Kick off chat notifications in the background.
+  var lastSeenUpdate = {$set:{}, $inc:{_v:1}};
+  lastSeenUpdate['$set']['newMessages.'+group._id] = {name:group.name,value:true};
+  if (group._id == 'habitrpg') {
+    // TODO For Tavern, only notify them if their name was mentioned
+    // var profileNames = [] // get usernames from regex of @xyz. how to handle space-delimited profile names?
+    // User.update({'profile.name':{$in:profileNames}},lastSeenUpdate,{multi:true}).exec();
+  } else {
+    mongoose.model('User').update({_id:{$in:group.members, $ne: user ? user._id : ''}},lastSeenUpdate,{multi:true}).exec();
+  }
 }
 
 var cleanQuestProgress = function(merge){
@@ -164,13 +175,13 @@ GroupSchema.methods.finishQuest = function(quest, cb) {
 }
 
 // FIXME this is a temporary measure, we need to remove quests from users when they traverse parties
-function isOnQuest(user,group){
-  return group && user.party.quest.key && user.party.quest.key == group.quest.key;
+function isOnQuest(user,progress,group){
+  return group && progress && user.party.quest.key && user.party.quest.key == group.quest.key;
 }
 
 GroupSchema.statics.collectQuest = function(user, progress, cb) {
   this.findOne({type: 'party', members: {'$in': [user._id]}},function(err, group){
-    if (!isOnQuest(user,group)) return cb(null);
+    if (!isOnQuest(user,progress,group)) return cb(null);
     var quest = shared.content.quests[group.quest.key];
 
     _.each(progress.collect,function(v,k){
@@ -204,7 +215,7 @@ GroupSchema.statics.collectQuest = function(user, progress, cb) {
 
 GroupSchema.statics.bossQuest = function(user, progress, cb) {
   this.findOne({type: 'party', members: {'$in': [user._id]}},function(err, group){
-    if (!isOnQuest(user,group)) return cb(null);
+    if (!isOnQuest(user,progress,group)) return cb(null);
     var quest = shared.content.quests[group.quest.key];
     if (!progress || !quest) return cb(null); // FIXME why is this ever happening, progress should be defined at this point
     var down = progress.down * quest.boss.str; // multiply by boss strength

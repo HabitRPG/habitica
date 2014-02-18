@@ -14,5 +14,4 @@ HabitRPG uses [Trello](https://trello.com/b/EpoYEYod/habitrpg) to track feature 
 
 # Contributing Code
 
-* See [Contributing to HabitRPG](http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG)
-* See [Tips](http://habitrpg.wikia.com/wiki/Tips)
+* See [Contributing to HabitRPG](http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG#Coders_.28Web_.26_Mobile.29)

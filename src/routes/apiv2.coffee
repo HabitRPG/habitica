@@ -488,6 +488,17 @@ module.exports = (swagger, v2) ->
       middleware: [auth.auth, groups.attachGroup]
       action: groups.postChat
 
+    # placing before route below, so that if !=='seen' it goes to next()
+    "/groups/{gid}/chat/seen":
+      spec:
+        method: 'POST'
+        description: "Flag chat messages for a particular group as seen"
+        parameters: [
+          path 'gid','Group id','string'
+        ]
+      middleware: []
+      action: groups.seenMessage
+
     "/groups/{gid}/chat/{messageId}":
       spec:
         method: 'DELETE'

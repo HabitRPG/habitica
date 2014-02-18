@@ -89,10 +89,25 @@ api.score = function(req, res, next) {
       delta: delta,
       _tmp: user._tmp
     }, saved.toJSON().stats));
-  });
 
-  // if it's a challenge task, sync the score
-  user.syncScoreToChallenge(task, delta);
+    // If it's a challenge task, sync the score. Do it in the background, we've already sent down a response
+    // and the user doesn't care what happens back there
+    if (!task.challenge || !task.challenge.id || task.challenge.broken) return;
+    if (task.type == 'reward') return; // we don't want to update the reward GP cost
+    Challenge.findById(task.challenge.id, 'habits dailys todos rewards', function(err, chal){
+      if (err) return next(err);
+      if (!chal) {
+        task.challenge.broken = 'CHALLENGE_DELETED';
+        return user.save();
+      }
+      var t = chal.tasks[task.id];
+      if (!t) return chal.syncToUser(user); // this task was removed from the challenge, notify user
+      t.value += delta;
+      if (t.type == 'habit' || t.type == 'daily')
+        t.history.push({value: t.value, date: +new Date});
+      chal.save();
+    });
+  });
 };
 
 /**
@@ -409,7 +424,7 @@ api.cast = function(req, res, next) {
     case 'user':
       async.waterfall([
         function(cb){
-          Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members', 'profile.name stats achievements').exec(cb);
+          Group.findOne({type: 'party', members: {'$in': [user._id]}}).populate('members', 'profile.name stats achievements items.special').exec(cb);
         },
         function(group, cb) {
           // Solo player? let's just create a faux group for simpler code

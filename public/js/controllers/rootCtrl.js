@@ -26,6 +26,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.Shared = Shared;
     $rootScope.Content = Content;
     $rootScope.env = window.env;
+    $rootScope.Math = Math;
 
     // Angular UI Router
     $rootScope.$state = $state;
@@ -198,6 +199,11 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     */
     $scope.castStart = function(spell) {
       if (User.user.stats.mp < spell.mana) return Notification.text(window.env.t('notEnoughMana'));
+
+      // Temporary for valentine's day, remove after event
+      if (spell.key == 'valentine' && User.user.stats.gp < spell.value)
+        return Notification.text('Not enough gold.');
+
       $rootScope.applyingAction = true;
       $scope.spell = spell;
       if (spell.target == 'self') {

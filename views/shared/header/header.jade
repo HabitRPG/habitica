@@ -1,7 +1,5 @@
 .header-wrap(ng-controller='HeaderCtrl')
   a.label.label-default.undo-button(x-bind='click:undo', ng-show='_undo')=env.t('undo')
-  div(ng-if='!user.preferences.hideHeader')
-    include menu
 
   header.site-header(ng-hide='user.preferences.hideHeader', role='banner', data-partysize='{{party.members.length>1 ? truarr(party.members.length) : 0}}')
     // avatar
@@ -38,6 +36,3 @@
     span(ng-controller='PartyCtrl')
       .herobox-wrap(ng-repeat='profile in partyMinusSelf')
         include avatar
-
-    .npc_bailey.npc_bailey_head(ng-show='user.flags.newStuff', tooltip=env.t('psst'), tooltip-placement='top', ng-click='openModal("newStuff")')
-

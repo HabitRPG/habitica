@@ -133,3 +133,9 @@ div(ng-if='profile.achievements.habitBirthday')
     =env.t('habitBirthdayText')
   hr
 
+div(ng-if='profile.achievements.valentine')
+  .achievement.achievement-valentine
+  h5=env.t('adoringFriends')
+  small
+    =env.t('adoringFriendsText', {cards: "{{profile.achievements.valentine}}"})
+  hr

@@ -12,7 +12,7 @@ script(type='text/ng-template', id='partials/options.social.party.html')
     include ./group
   div(ng-hide='group._id')
     div(ng-show='user.invitations.party.id')
-      h2=env.t('invitedTo') + ' {{user.invitations.party.name}}'
+      h2=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
       a.btn.btn-success(data-type='party', ng-click='join(user.invitations.party)')=env.t('accept')
       a.btn.btn-danger(ng-click='reject()')=env.t('reject')
     div(ng-hide='user.invitations.party.id')
@@ -25,7 +25,7 @@ script(type='text/ng-template', id='partials/options.social.party.html')
 
 script(type='text/ng-template', id='partials/options.social.guilds.public.html')
   div(ng-repeat='invitation in user.invitations.guilds')
-    h3=env.t('invitedTo') + ' {{invitation.name}}'
+    h3=env.t('invitedTo', {name: '{{invitation.name}}'})
     a.btn.btn-success(data-type='guild', ng-click='join(invitation)')=env.t('accept')
     a.btn.btn-danger(ng-click='reject(invitation)')=env.t('reject')
   // Public Groups

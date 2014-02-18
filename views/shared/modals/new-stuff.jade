@@ -1,17 +1,3 @@
-//-div(modal='!user.flags.mathUpdates')
-script(type='text/ng-template', id='modals/mathUpdates.html')
-  .modal-header
-    h4 Math Updates
-  .modal-body
-    .npc_tyler.pull-left
-    p Hey all, Tyler here. Sorry for the rocky numbers (Exp, GP, etc) with the Class System roll-out! We're tweaking the math today, and things should be mostly finalized by tomorrow. <a target='_blank' href='https://trello.com/c/L1H6LiZ3/110-character-stats-attributes-the-class-system'>Follow our progress here</a>, and please do chime in!
-    br
-    p We've also changed classes to unlock at lvl 10 instead of 5, to prevent overwhelming our new users. And since users have expressed confusion, we'll be improving UI and clarifification. Stay tuned.
-    br
-    p iOS users, iTunes is on vacation until 12/28. Until we can push the updated app, you'll need to sync periodically to get the corrected numbers (app has old math, server saves the correct numbers). Android goes out ASAP. More info on <a target='_blank' href='https://trello.com/c/L1H6LiZ3/110-character-stats-attributes-the-class-system'>Trello</a>.
-  .modal-footer
-    button.btn.btn-default(ng-click='User.set({"flags.mathUpdates":true}); $close()') Dismiss
-
 script(type='text/ng-template', id='modals/newStuff.html')
   .modal-header
     h4 New Stuff!
@@ -26,37 +12,58 @@ script(type='text/ng-template', id='modals/newStuff.html')
             h3.popover-title
               a(target='_blank', href='https://twitter.com/Mihakuu') Bailey
             .popover-content
-              table.table.table-striped
-                tr
-                  td
-                    h5 February Mystery Item
-                    p
-                      .pull-right.inventory_present
-                      | We're excited to announce a new feature a s a big thank-you to the awesome people who <a href='https://habitrpg.com/#/options/settings/subscription' target='_blank'>subscribe</a> to HabitRPG! Every month, all subscribers will now receive a limited-edition mystery item! The mystery item will be a stats-free costume piece (like the Absurd Party Robes) that will <strong>only</strong> be available to the people who are subscribers each month. The February 2014 item will be revealed on the 23rd to everyone, but all people who are subscribers during the month of February will receive it. <a href='https://habitrpg.com/#/options/settings/subscription' target='_blank'>Subscribe now</a>, get excited, and thank you so much for helping to support HabitRPG! We love you.
-                tr
-                  td
-                    h5 Critical Hammer Of Bug-Crushing
-                    p
-                      .pull-right.weapon_special_critical
-                      | Some of you may have noticed that we periodically have some bugs that are nastier than the norm - the dreaded critical bugs. These monstrous apparitions have been snapping at the heels of many a player. For updates on what we're currently working on to improve site stability, read <a href='https://github.com/HabitRPG/habitrpg/issues/milestones' target='_blank'>this link</a> - and then jump in to help!  Not only will programming assistance reward you with the usual contributor levels, but if you actually manage to fix a bug marked <a href='http://goo.gl/v4DnzB' target='_blank'>"critical,"</a> you will now receive the <em>Critical Hammer of Bug-Crushing</em> as your reward!
-                tr
-                  td
 
-                    h5 Rainbow Hair Colors
-                    p
-                      .pull-right.customize-option.hair_bangs_1_rainbow
-                      | Want to spruce up your avatar? Rainbow hair colors are now available! Dye your luscious locks purple, green, or even rainbow-striped, and passersby will look at you with envy.
-                tr
-                  td
-                    h5 Stability Update
-                    p We've stabilized the site a lot (we're still working out kinks, but we're way better now). Follow the <a href='https://github.com/HabitRPG/habitrpg/issues/milestones' target='_blank'>progress here</a>, but here are some workarounds for now:
-                    ul
-                      li Click slower. <a href='https://github.com/HabitRPG/habitrpg/issues/2301#issuecomment-34398206' target='_blank'>VersionError</a> is caused by clicking things off too fast (we're working on a fix).
-                      li If you see an error, refresh before proceeding﻿.
-
+              h5 Happy Valentine's Day!
+              p Help motivate all of the lovely people in your life by sending them a caring valentine. Valentines can be purchased for 10 gold from the Item Store. For spreading love and joy throughout the community, both the giver AND the receiver get a coveted "adoring friends" badge. Hooray!
               p
-                small.muted By Lemoness, mariahm, crystalphoenix, aiseant, zoebeagle, cole, lefnire
+                small.muted By Lemoness and zoebeagle
+              hr
+              p
+                small.muted 02/13/2014
 
+    hr
+    h5 02/12/2014
+    table.table.table-striped
+      tr
+        td
+          h5 Chat & Invite Notifications
+          p Chat & group-invitation notifications are back! Miss them? They currently work for all chat updates in parties & guilds. Any devs willing to jump into @tagging in Tavern, <a href='http://goo.gl/uhcjkg' target='_blank'>see here</a>.
+      tr
+        td
+          h5 Toolbar
+          p In order to make room for these notifs, we added a toolbar above the header. You can collapse the toolbar (far-right icon), but take care as Bailey notifs are inside the toolbar!
+    hr
+    h5 02/07/2014
+    table.table.table-striped
+      tr
+        td
+          h5 February Mystery Item
+          p
+            .pull-right.inventory_present
+            | We're excited to announce a new feature a s a big thank-you to the awesome people who <a href='https://habitrpg.com/#/options/settings/subscription' target='_blank'>subscribe</a> to HabitRPG! Every month, all subscribers will now receive a limited-edition mystery item! The mystery item will be a stats-free costume piece (like the Absurd Party Robes) that will <strong>only</strong> be available to the people who are subscribers each month. The February 2014 item will be revealed on the 23rd to everyone, but all people who are subscribers during the month of February will receive it. <a href='https://habitrpg.com/#/options/settings/subscription' target='_blank'>Subscribe now</a>, get excited, and thank you so much for helping to support HabitRPG! We love you.
+      tr
+        td
+          h5 Critical Hammer Of Bug-Crushing
+          p
+            .pull-right.weapon_special_critical
+            | Some of you may have noticed that we periodically have some bugs that are nastier than the norm - the dreaded critical bugs. These monstrous apparitions have been snapping at the heels of many a player. For updates on what we're currently working on to improve site stability, read <a href='https://github.com/HabitRPG/habitrpg/issues/milestones' target='_blank'>this link</a> - and then jump in to help!  Not only will programming assistance reward you with the usual contributor levels, but if you actually manage to fix a bug marked <a href='http://goo.gl/v4DnzB' target='_blank'>"critical,"</a> you will now receive the <em>Critical Hammer of Bug-Crushing</em> as your reward!
+      tr
+        td
+
+          h5 Rainbow Hair Colors
+          p
+            .pull-right.customize-option.hair_bangs_1_rainbow
+            | Want to spruce up your avatar? Rainbow hair colors are now available! Dye your luscious locks purple, green, or even rainbow-striped, and passersby will look at you with envy.
+      tr
+        td
+          h5 Stability Update
+          p We've stabilized the site a lot (we're still working out kinks, but we're way better now). Follow the <a href='https://github.com/HabitRPG/habitrpg/issues/milestones' target='_blank'>progress here</a>, but here are some workarounds for now:
+          ul
+            li Click slower. <a href='https://github.com/HabitRPG/habitrpg/issues/2301#issuecomment-34398206' target='_blank'>VersionError</a> is caused by clicking things off too fast (we're working on a fix).
+            li If you see an error, refresh before proceeding﻿.
+
+    p
+      small.muted By Lemoness, mariahm, crystalphoenix, aiseant, zoebeagle, cole, lefnire
 
     hr
     h5 02/01/2014
@@ -68,6 +75,7 @@ script(type='text/ng-template', id='modals/newStuff.html')
           p
             small.muted by @baconsaur & @DanielTheBard
 
+    hr
     h5 01/30/2014
     table.table.table-striped
       tr

@@ -21,7 +21,7 @@
           form.form-inline(ng-show='_editing', ng-submit='createTag(_newTag)')
             .input-group
               input.form-control.input-sm(type='text', ng-model='_newTag', placeholder=env.t('newTag'))
-              span.input-group-addon(type='submit')
+              span.input-group-addon(ng-click='createTag(_newTag)')
                 =env.t('add')
         // <li class="{#unless activeFilters(users[_userId].filters)}hidden{/}">
         li

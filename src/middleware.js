@@ -122,22 +122,21 @@ var getManifestFiles = function(page){
 
   if(!files) throw new Error("Page not found!");
 
-  var css = '';
-
-  _.each(files.css, function(file){
-    css += '<link rel="stylesheet" type="text/css" href="' + getBuildUrl(file) + '">';
-  });
+  var code = '';
 
   if(nconf.get('NODE_ENV') === 'production'){
-    return css + '<script type="text/javascript" src="' + getBuildUrl(page + '.js') + '"></script>';
+    code += '<link rel="stylesheet" type="text/css" href="' + getBuildUrl(page + '.css') + '">';
+    code += '<script type="text/javascript" src="' + getBuildUrl(page + '.js') + '"></script>';
   }else{
-    var results = css;
-    _.each(files.js, function(file){
-      results += '<script type="text/javascript" src="' + getBuildUrl(file) + '"></script>';
+    _.each(files.css, function(file){
+      code += '<link rel="stylesheet" type="text/css" href="' + getBuildUrl(file) + '">';
     });
-    return results;
+    _.each(files.js, function(file){
+      code += '<script type="text/javascript" src="' + getBuildUrl(file) + '"></script>';
+    });
   }
-
+  
+  return code;
 }
 
 // Translations

@@ -48,4 +48,5 @@ figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(
     |&nbsp;
     =env.t('lvl') 
     |&nbsp;{{profile.stats.lvl}}
+    |&nbsp;
     span.glyphicon.glyphicon-plus-sign(ng-show='profile.achievements.rebirths', tooltip=env.t('reborn', {reLevel: "{{profile.achievements.rebirthLevel}}"}))
