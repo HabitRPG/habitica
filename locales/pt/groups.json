@@ -42,7 +42,7 @@
     "name": "Nome",
     "description": "Descrição",
     "public": "Público",
-    "inviteOnly": "Apenas Convidado",
+    "inviteOnly": "Apenas Convidados",
     "gemCost": "O custo de Gemas promove Guildas de alta qualidade, e é transferido para o banco da Guilda para ser usado como prêmio nos Desafios da Guilda!",
     "search": "Buscar",
     "publicGuilds": "Guildas Públicas",

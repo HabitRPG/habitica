@@ -54,7 +54,7 @@
     "resetDo": "Sì, resetta il mio account!",
     "fixValues": "Sistema valori",
     "fixValuesText1": "Se hai avuto a che fare con un bug o commesso un errore che ha ingiustamente \"cambiato\" il tuo personaggio (danni che non avresti dovuto ricevere, Oro che non hai guadagnato, ecc.), qui puoi sistemare manualmente quei valori. Sì, questo rende possibile barare: usa questa funzionalità con saggezza, o finirai per rovinare la tua stessa costruzione di Habit!",
-    "fixValuesText2": "Tieni presente che qui non puoi modificare le serie delle singole attività. Per fare quello, modifica una Daily e vai nelle sue opzioni avanzate, troverai un campo \"Recupera serie\".",
+    "fixValuesText2": "Tieni presente che qui non puoi modificare le serie delle singole attività. Per fare quello, modifica una Daily e vai nelle sue opzioni avanzate, troverai un campo \"Ripristina serie\".",
     "disabledWinterEvent": "Disabilitato durante l'evento Winter Wonderland Event Pt. 4 (poichè i premi sono acquistabili con l'oro)",
     "fix21Streaks": "Serie 21-giorni",
     "discardChanges": "Annulla modifiche",
