@@ -119,6 +119,6 @@ nav.navbar.navbar-inverse(ng-controller='AuthCtrl',style='min-height:0px;margin-
       // Chat notifs
       li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
         a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k})')
-          span.glyphicon.glyphicon-comment.white(popover='New message in "{{v.name}}"',popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
+          span.glyphicon.glyphicon-comment.white(popover=env.t('newMsg', {name: '{{v.name}}'}),popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
 
 
