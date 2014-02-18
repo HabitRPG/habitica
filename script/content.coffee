@@ -468,20 +468,6 @@ api.spells =
         user.stats.buffs.snowball = false
         user.stats.gp -= 5
 
-    valentine:
-      text: "Valentine Card"
-      mana: 0
-      value: 10
-      target: 'user'
-      notes: "Send a valentines card to a friend."
-      cast: (user, target) ->
-        _.each [user,target], (t)->
-          t.achievements.valentine ?= 0
-          t.achievements.valentine++
-        (target.items.special.valentineReceived ?= []).push user.profile.name
-        target.markModified? 'items.special'
-        user.stats.gp -= 10
-
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->
   _.each spellClass, (spell, key) ->

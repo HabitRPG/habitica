@@ -10522,30 +10522,6 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           user.stats.buffs.snowball = false;
           return user.stats.gp -= 5;
         }
-      },
-      valentine: {
-        text: "Valentine Card",
-        mana: 0,
-        value: 10,
-        target: 'user',
-        notes: "Send a valentines card to a friend.",
-        cast: function(user, target) {
-          var _base, _ref;
-
-          _.each([user, target], function(t) {
-            var _base, _ref;
-
-            if ((_ref = (_base = t.achievements).valentine) == null) {
-              _base.valentine = 0;
-            }
-            return t.achievements.valentine++;
-          });
-          ((_ref = (_base = target.items.special).valentineReceived) != null ? _ref : _base.valentineReceived = []).push(user.profile.name);
-          if (typeof target.markModified === "function") {
-            target.markModified('items.special');
-          }
-          return user.stats.gp -= 10;
-        }
       }
     }
   };
