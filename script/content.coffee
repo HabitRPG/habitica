@@ -629,6 +629,7 @@ api.quests =
   gryphon:
     text: "The Fiery Gryphon"
     notes: 'The grand beastmaster, @baconsaur, has come to your party seeking help. "Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!"'
+    completion: 'Defeated, the mighty beast ashamedly slinks back to its master."My word! Well done, adventurers!" @baconsaur exclaims, "Please, have some of the gryphon\'s eggs. I am sure you will raise these young ones well!'
     value: 4 # Gem cost to buy, GP sell-back
     boss:
       name: "Fiery Gryphon" # name of the boss himself (eg, Vice)
@@ -641,11 +642,27 @@ api.quests =
       ]
       gp: 25
       exp: 125
+      
+  hedgehog:
+    text: "The Hedgebeast"
+    notes: 'Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And @Inventrix did just that. Oops.'
+    completion: 'Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeeking and nudging some of her eggs along towards your party. Hopefully, these hedgehog\'s like milk better!'
+    value: 4 # Gem cost to buy, GP sell-back
+    boss:
+      name: "Hedgebeast" # name of the boss himself (eg, Vice)
+      hp: 400
+      str: 1.25 # Multiplier of users' missed dailies
+    drop:
+      items: [
+        {type: 'eggs', key: 'Hedgehog', text: "Gryphon (Egg)"}
+        {type: 'eggs', key: 'Hedgehog', text: "Gryphon (Egg)"}
+      ]
+      gp: 30
+      exp: 125
 
   vice1:
     text: "Free Yourself of the Dragon's Influence"
     notes: "<p>They say there lies a terrible evil in the caverns of Mt. Habitica. A monster whose presence twists the wills of the strong heroes of the land, turning them towards bad habits and laziness! The beast is a grand dragon of immense power and comprised of the shadows themselves. Vice, the treacherous Shadow Wyrm. Brave Habiteers, stand up and defeat this foul beast once and for all, but only if you believe you can stand against its immense power. </p><h3>Vice Part 1: </h3><p>How can you expect to the fight the beast if it already has control over you? Don't fall victim to laziness and vice! Work hard to fight against the dragon's dark influence and dispel his hold on you! </p>"
-    #completion: "The shadows dissipate from the cavern and a steely silence falls. My word, you've done it! You have defeated Vice! You and your party may finally breath a sigh of relief. Enjoy your victory, brave Habiteers, but take the lessons you've learned from battling Vice and move forward. There are still habits to be done and potentially worse evils to conquer!"
     value: 4
     lvl: 30
     boss:
