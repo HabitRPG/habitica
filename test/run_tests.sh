@@ -29,4 +29,4 @@ until nc -z localhost 4444; do
   let 'WAITED+=1'
 done
 
-mocha && grunt karma:continuous && ./node_modules/protractor/bin/protractor protractor.conf.js
+NODE_ENV=testing mocha && grunt karma:continuous && ./node_modules/protractor/bin/protractor protractor.conf.js
