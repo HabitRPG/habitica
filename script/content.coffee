@@ -513,6 +513,7 @@ _.each api.dropEggs, (egg,key) ->
 api.questEggs =
   # value & other defaults set below
   Gryphon:          text: 'Gryphon',  adjective: 'regal', canBuy: false
+  Hedgehog:         text: 'Hedgehog', adjective: 'prickly', canBuy: false
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
     canBuy:false
