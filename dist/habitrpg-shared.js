@@ -9347,9 +9347,9 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         6: {
           twoHanded: true,
           text: "Golden Staff",
-          notes: 'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 9.',
+          notes: 'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 10.',
           int: 18,
-          per: 9,
+          per: 10,
           value: 200,
           last: true
         }
@@ -9832,8 +9832,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         5: {
           text: "Royal Magus Hat",
-          notes: 'Shows authority over fortune, weather, and lesser mages. Increases PER by 9.',
-          per: 9,
+          notes: 'Shows authority over fortune, weather, and lesser mages. Increases PER by 10.',
+          per: 10,
           value: 80,
           last: true
         }
