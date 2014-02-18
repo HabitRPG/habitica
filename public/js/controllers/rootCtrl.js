@@ -200,10 +200,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $scope.castStart = function(spell) {
       if (User.user.stats.mp < spell.mana) return Notification.text(window.env.t('notEnoughMana'));
 
-      // Temporary for valentine's day, remove after event
-      if (spell.key == 'valentine' && User.user.stats.gp < spell.value)
-        return Notification.text('Not enough gold.');
-
       $rootScope.applyingAction = true;
       $scope.spell = spell;
       if (spell.target == 'self') {
