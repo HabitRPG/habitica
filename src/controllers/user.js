@@ -324,6 +324,7 @@ api.buyGems = function(req, res, next) {
         ga.event('checkout', 'Stripe').send()
         ga.transaction(response.id, 5).item(5, 1, "stripe-checkout", "Gems > Stripe").send()
       }
+      user.txnCount++;
       user.save(cb);
     }
   ], function(err, saved){
@@ -369,6 +370,7 @@ api.buyGemsPaypalIPN = function(req, res, next) {
         if (_.isEmpty(user)) err = "user not found with uuid " + uuid + " when completing paypal transaction";
         if (err) return nex(err);
         user.balance += 5;
+        user.txnCount++;
         //user.purchased.ads = true;
         user.save();
         logging.info('PayPal transaction completed and user updated');
