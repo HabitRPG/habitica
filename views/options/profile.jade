@@ -125,11 +125,9 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
         table.table.table-striped
           tr
             td
-              strong
+              strong.inline
                 {{user.stats.points}}&nbsp;
-                =env.t('unallocated')
-              &nbsp;
-              span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('levelPopover'))
+              strong.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('levelPopover'))=env.t('unallocated')
             td
           tr
             td(colspan=2)
@@ -137,28 +135,20 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
                 .checkbox
                   label
                     input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})', ng-click='set({"preferences.allocationMode":"taskbased"})')
-                    =env.t('autoAllocation')
-                    |&nbsp;
-                    span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('autoAllocationPop'))
+                    span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('autoAllocationPop'))=env.t('autoAllocation')
                 form(ng-show='user.preferences.automaticAllocation',style='margin-left:1em')
                   .radio
                     label
                       input(type='radio', name='allocationMode', value='flat', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "flat"})')
-                      =env.t('evenAllocation')
-                      |&nbsp;
-                      span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('evenAllocationPop'))
+                      span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('evenAllocationPop'))=env.t('evenAllocation')
                   .radio
                     label
                       input(type='radio', name='allocationMode', value='classbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "classbased"})')
-                      =env.t('classAllocation')
-                      |&nbsp;
-                      span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('classAllocationPop'))
+                      span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('classAllocationPop'))=env.t('classAllocation')
                   .radio
                     label
                       input(type='radio', name='allocationMode', value='taskbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "taskbased"})')
-                      =env.t('taskAllocation')
-                      |&nbsp;
-                      span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskAllocationPop'))
+                      span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskAllocationPop'))=env.t('taskAllocation')
                 div(ng-show='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)')
                   a.btn.btn-primary.btn-xs(ng-click='user.ops.allocateNow({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('distributePointsPop'))
                     span.glyphicon.glyphicon-download
