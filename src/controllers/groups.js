@@ -119,17 +119,21 @@ api.list = function(req, res) {
  * Get group
  * TODO: implement requesting fields ?fields=chat,members
  */
-api.get = function(req, res) {
+api.get = function(req, res, next) {
   var user = res.locals.user;
   var gid = req.params.gid;
 
-  var q = (gid == 'party') ? Group.findOne({type: 'party', members: {'$in': [user._id]}}) : Group.findById(gid);
+  var q = (gid == 'party')
+    ? Group.findOne({type: 'party', members: {'$in': [user._id]}})
+    : Group.findOne({$or:[
+        {_id:gid, privacy:'public'},
+        // if the group is private, only return if they have access
+        {_id:gid, members: {$in:[user._id]}, type:'guild', privacy:'private'}
+      ]});
   populateQuery(gid, q);
   q.exec(function(err, group){
-    if (group && ((group.type == 'guild' && group.privacy == 'private') || (group.type == 'party'))) {
-      if(!_.find(group.members, {_id: user._id}))
-        return res.json(401, {err: "You don't have access to this group"});
-    }
+    if (err) return next(err);
+    if (!group) return res.json(404,{err: "Group not found or you don't have access."});
     res.json(group);
   });
 };
