@@ -18,7 +18,7 @@ var api = module.exports;
   ------------------------------------------------------------------------
 */
 
-api.list = function(req, res) {
+api.list = function(req, res, next) {
   var user = res.locals.user;
   async.waterfall([
     function(cb){
@@ -35,18 +35,17 @@ api.list = function(req, res) {
             {group: 'habitrpg'} // public group
           ]
         })
-        .select('name leader description group members prize official')
+        .select('name leader description group memberCount prize official')
+        .select({members:{$elemMatch:{$in:[user._id]}}})
         .populate('group', '_id name')
         .populate('leader', 'profile.name')
         .sort('-official -timestamp')
         .exec(cb);
     }
   ], function(err, challenges){
-    if (err) return res.json(500,{err:err});
+    if (err) return next(err);
     _.each(challenges, function(c){
-      c._isMember = !!~c.members.indexOf(user._id);
-      c.memberCount = _.size(c.members);
-      c.members = undefined;
+      c._isMember = c.members.length > 0;
     })
     res.json(challenges);
   });
@@ -323,15 +322,20 @@ api.selectWinner = function(req, res) {
   })
 }
 
-api.join = function(req, res){
+api.join = function(req, res, next){
   var user = res.locals.user;
   var cid = req.params.cid;
 
   async.waterfall([
-    function(cb){
+    function(cb) {
       Challenge.findByIdAndUpdate(cid, {$addToSet:{members:user._id}}, cb);
     },
-    function(challenge, cb){
+    function(challenge, cb) {
+
+      // Trigger updating challenge member count in the background. We can't do it above because we don't have
+      // _.size(challenge.members). We can't do it in pre(save) because we're calling findByIdAndUpdate above.
+      Challenge.update({_id:cid}, {$set:{memberCount:_.size(challenge.members)}}).exec();
+
       if (!~user.challenges.indexOf(cid))
         user.challenges.unshift(cid);
       // Add all challenge's tasks to user's tasks
@@ -341,14 +345,14 @@ api.join = function(req, res){
       });
     }
   ], function(err, result){
-    if(err) return res.json(500,{err:err});
+    if(err) return next(err);
     result._isMember = true;
     res.json(result);
   });
 }
 
 
-api.leave = function(req, res){
+api.leave = function(req, res, next){
   var user = res.locals.user;
   var cid = req.params.cid;
   // whether or not to keep challenge's tasks. strictly default to true if "keep-all" isn't provided
@@ -359,6 +363,11 @@ api.leave = function(req, res){
       Challenge.findByIdAndUpdate(cid, {$pull:{members:user._id}}, cb);
     },
     function(chal, cb){
+
+      // Trigger updating challenge member count in the background. We can't do it above because we don't have
+      // _.size(challenge.members). We can't do it in pre(save) because we're calling findByIdAndUpdate above.
+      Challenge.update({_id:cid}, {$set:{memberCount:_.size(chal.members)}}).exec();
+
       var i = user.challenges.indexOf(cid)
       if (~i) user.challenges.splice(i,1);
       user.unlink({cid:chal._id, keep:keep}, function(err){
@@ -367,7 +376,7 @@ api.leave = function(req, res){
       })
     }
   ], function(err, result){
-    if(err) return res.json(500,{err:err});
+    if(err) return next(err);
     result._isMember = false;
     res.json(result);
   });

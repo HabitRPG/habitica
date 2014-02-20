@@ -28,16 +28,8 @@ ChallengeSchema.virtual('tasks').get(function () {
   return tasks;
 });
 
-// FIXME this isn't always triggered, since we sometimes use update() or findByIdAndUpdate()
-// @see https://github.com/LearnBoost/mongoose/issues/964
-ChallengeSchema.pre('save', function(next){
-  this.memberCount = _.size(this.members);
-  next()
-})
-
 ChallengeSchema.methods.toJSON = function(){
   var doc = this.toObject();
-  doc.memberCount = doc.members ? _.size(doc.members) : doc.memberCount; // @see pre('save') comment above
   doc._isMember = this._isMember;
   return doc;
 }
