@@ -127,8 +127,7 @@ api.get = function(req, res, next) {
     ? Group.findOne({type: 'party', members: {'$in': [user._id]}})
     : Group.findOne({$or:[
         {_id:gid, privacy:'public'},
-        // if the group is private, only return if they have access
-        {_id:gid, members: {$in:[user._id]}, type:'guild', privacy:'private'}
+        {_id:gid, privacy:'private', members: {$in:[user._id]}} // if the group is private, only return if they have access
       ]});
   populateQuery(gid, q);
   q.exec(function(err, group){
