@@ -13,6 +13,8 @@
     "retainHistoryText": "Makes your full history available in graphs and export. Non-subscriber histories get consolidated for database optimization.",
     "doubleDrops": "Daily drop-caps doubled",
     "doubleDropsText": "Complete your stable faster!",
+    "mysteryItem": "Unique Monthly Subscription Items",
+    "mysteryItemText": "Each month, all subscribers will get a totally unique cosmetic item for their avatars!",
     "supportDevs": "Supports the developers",
     "supportDevsText": "This open source project can use all the help it can get. Help us keep Habit alive!",
     "monthUSD": "USD / Month",
