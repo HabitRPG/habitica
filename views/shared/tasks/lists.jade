@@ -59,7 +59,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               p.task-text {{item.text}}
 
           // Events
-          ul.items.rewards(ng-if='main && list.type=="reward"')
+          ul.items.rewards(ng-if='main && list.type=="reward" && (user.items.special.snowball>0 || user.stats.buffs.snowball)')
 
             li.task.reward-item(ng-if='user.items.special.snowball>0',popover-trigger='mouseenter', popover-placement='top', popover='{{Content.spells.special.snowball.notes}}')
               .task-meta-controls
