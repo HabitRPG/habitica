@@ -21,7 +21,7 @@
     "invite": "Zaproś",
     "leave": "Opuść",
     "invitedTo": "Zaproszono do <%= name %>",
-    "partyNotification": "Nowe Wiadomości Drużyny",
+    "newMsg": "New message in \"<%= name %>\"",
     "chat": "Chat",
     "sendChat": "Wyślij",
     "toolTipMsg": "Pobierz Ostatnie Wiadomości",

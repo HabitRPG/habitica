@@ -30,7 +30,7 @@
     "discard": "Descartar",
     "challengeTitle": "Título do Desafio",
     "challengeTag": "Nome da Etiqueta",
-    "challengeTagPop": "Desafios aparecem na lista de etiquetas e nas descrições de tarefas. Então, mesmo querendo um título descritivo acima, você também precisará de um 'nome curto'. Ex.: 'Perca 10 kilos em 3 meses' poderia virar '-10kg' (Clique no '?' para mais informações).",
+    "challengeTagPop": "Challenges appear on tag-lists & task-tooltips. So while you'll want a descriptive title above, you'll also need a 'short name'. Eg, 'Lose 10 pounds in 3 months' might become '-10lb' (Click for more info).",
     "challengeDescr": "Descrição",
     "prize": "Preço",
     "prizePop": "Se alguém puder 'ganhar' seu desafio, você pode opcionalmente recompensar o vencedor com um prêmio em Gemas. Máximo é igual ao número de gemas que você possui (mais gemas da guilda, se você criou a guilda desse desafio). Nota: Esse prêmio não pode ser alterado depois.",

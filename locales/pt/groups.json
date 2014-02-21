@@ -21,7 +21,7 @@
     "invite": "Convidar",
     "leave": "Sair",
     "invitedTo": "Convidado para <%= name %>",
-    "partyNotification": "Novas Mensagens da Equipe",
+    "newMsg": "Nova mensagem em \"<%= name %>\"",
     "chat": "Conversas",
     "sendChat": "Enviar Mensagem",
     "toolTipMsg": "Buscar Mensagens Recentes",
