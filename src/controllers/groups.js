@@ -172,6 +172,7 @@ api.create = function(req, res, next) {
         saved.populate('members', nameFields, cb);
       }
     ], function(err, populated){
+      if (err == 'Already in a party, try refreshing.') return res.json(400,{err:err});
       if (err) return next(err);
       return res.json(populated);
     })
