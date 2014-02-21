@@ -142,10 +142,10 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                   span.label.label-success=env.t('officialChallenge')
                 li {{challenge.group.name}}
                 li
-                  =env.t('by')
+                  =env.t('by') + ' '
                   strong {{challenge.leader.profile.name}}
-                li 
-                  | {{challenge.memberCount}} 
+                li
+                  | {{challenge.memberCount}}
                   = ' ' + env.t('participants')
                 li(ng-show='challenge.prize')
                   p
