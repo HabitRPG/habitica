@@ -2,7 +2,7 @@
     "npc": "NPC",
     "npcText": "Apoiou o projeto do Kickstarter ao nível máximo!",
     "mattBoch": "Matt Boch",
-    "mattShall": "Devo trazer seu corcel, <%= name %>? Clique em uma montaria para montar.",
+    "mattShall": "Devo trazer seu corcel, <%= name %>? Clique em uma montaria para selá-la.",
     "mattBochText1": "Bem-vindo ao meu Estábulo! Sou Matt, o mestre das bestas. Escolha um mascote para acompanhá-lo. Alimente-o e ele crescerá em um corcel poderoso.",
     "mattBochText2": "Dê uma olhada",
     "mattBochText3": "em todos mascotes que você pode coletar.",

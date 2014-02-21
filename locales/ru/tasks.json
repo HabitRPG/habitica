@@ -7,7 +7,7 @@
     "save": "Сохранить",
     "addChecklist": "Добавить список",
     "checklist": "Список",
-    "checklistText": "For Dailies, partially completed checklists reduce damage. For example, a 4-item checklist with 3 completed reduces damage for that incomplete Daily to 25%. Completed checklist items on a To-Do add a multiplier: 3 checks means +3x (total 4x) the Experience, Gold, and Mana.",
+    "checklistText": "В ежедневных заданиях для частично выполненных заданий уменьшается урон (напр., со списком из 4 дел, 3 из которых окончены, ежедневное задание нанесет вам 25% урона). При выполнении обычной задачи, ваши очки будут умножены на количество дел в списке (напр., при списке из 4 дел вы получите в 4 раза больше опыта и золота).",
     "text": "Текст",
     "extraNotes": "Дополнительные заметки",
     "direction/Actions": "Направление/Действия",
