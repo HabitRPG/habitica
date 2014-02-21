@@ -7,7 +7,7 @@
     "save": "Save",
     "addChecklist": "Add Checklist",
     "checklist": "Checklist",
-    "checklistText": "For Dailies, partially-completed Dailies will cut damage (eg, a 4-item checklist with 3 completed, your Daily will hurt you 25% of the damage). For To-Dos, when completed, your points will be multiplied by the number of checklist-items (eg, a 4-item To-Do will be 4x the Exp & GP).",
+    "checklistText": "For Dailies, partially completed checklists reduce damage. For example, a 4-item checklist with 3 completed reduces damage for that incomplete Daily to 25%. Completed checklist items on a To-Do add a multiplier: 3 checks means +3x (total 4x) the Experience, Gold, and Mana.",
     "text": "Text",
     "extraNotes": "Extra Notes",
     "direction/Actions": "Direction/Actions",
