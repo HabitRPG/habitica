@@ -52,7 +52,7 @@ api.list = function(req, res, next) {
 }
 
 // GET
-api.get = function(req, res) {
+api.get = function(req, res, next) {
   // TODO use mapReduce() or aggregate() here to
   // 1) Find the sum of users.tasks.values within the challnege (eg, {'profile.name':'tyler', 'sum': 100})
   // 2) Sort by the sum
@@ -60,13 +60,13 @@ api.get = function(req, res) {
   Challenge.findById(req.params.cid)
     .populate('members', 'profile.name _id')
     .exec(function(err, challenge){
-      if(err) return res.json(500, {err:err});
+      if(err) return next(err);
       if (!challenge) return res.json(404, {err: 'Challenge ' + req.params.cid + ' not found'});
       res.json(challenge);
     })
 }
 
-api.csv = function(req, res) {
+api.csv = function(req, res, next) {
   var cid = req.params.cid;
   var challenge;
   async.waterfall([
@@ -83,7 +83,7 @@ api.csv = function(req, res) {
       cb);
     }
   ],function(err,users){
-    if(err) return res.json(500, {err:err});
+    if(err) return next(err);
     var output = ['UUID','name'];
     _.each(challenge.tasks,function(t){
       output.push(t.type+':'+t.text);
@@ -116,7 +116,7 @@ api.getMember = function(req, res, next) {
 }
 
 // CREATE
-api.create = function(req, res){
+api.create = function(req, res, next){
   var user = res.locals.user;
   var group, chal;
 
@@ -177,13 +177,13 @@ api.create = function(req, res){
     }
   ]);
   async.waterfall(waterfall, function(err){
-    if (err) return res.json(500, {err:err});
+    if (err) return next(err);
     res.json(chal);
   });
 }
 
 // UPDATE
-api.update = function(req, res){
+api.update = function(req, res, next){
   var cid = req.params.cid;
   var user = res.locals.user;
   var before;
@@ -218,7 +218,7 @@ api.update = function(req, res){
 
     }
   ], function(err, saved){
-    if(err) res.json(500, {err:err});
+    if(err) next(err);
     res.json(saved);
   })
 }
@@ -264,7 +264,7 @@ function closeChal(cid, broken, cb) {
 /**
  * Delete & close
  */
-api['delete'] = function(req, res){
+api['delete'] = function(req, res, next){
   var user = res.locals.user;
   var cid = req.params.cid;
   async.waterfall([
@@ -277,7 +277,7 @@ api['delete'] = function(req, res){
       closeChal(req.params.cid, {broken: 'CHALLENGE_DELETED'}, cb);
     }
   ], function(err){
-    if (err) return res.json(500, {err: err});
+    if (err) return next(err);
     res.send(200);
   });
 }
@@ -285,7 +285,7 @@ api['delete'] = function(req, res){
 /**
  * Select Winner & Close
  */
-api.selectWinner = function(req, res) {
+api.selectWinner = function(req, res, next) {
   if (!req.query.uid) return res.json(401, {err: 'Must select a winner'});
   var user = res.locals.user;
   var cid = req.params.cid;
@@ -311,7 +311,7 @@ api.selectWinner = function(req, res) {
       closeChal(cid, {broken: 'CHALLENGE_CLOSED', winner: saved.profile.name}, cb);
     }
   ], function(err){
-    if (err) return res.json(500, {err: err});
+    if (err) return next(err);
     res.send(200);
   })
 }
@@ -324,24 +324,24 @@ api.join = function(req, res, next){
     function(cb) {
       Challenge.findByIdAndUpdate(cid, {$addToSet:{members:user._id}}, cb);
     },
-    function(challenge, cb) {
+    function(chal, cb) {
 
       // Trigger updating challenge member count in the background. We can't do it above because we don't have
       // _.size(challenge.members). We can't do it in pre(save) because we're calling findByIdAndUpdate above.
-      Challenge.update({_id:cid}, {$set:{memberCount:_.size(challenge.members)}}).exec();
+      Challenge.update({_id:cid}, {$set:{memberCount:_.size(chal.members)}}).exec();
 
       if (!~user.challenges.indexOf(cid))
         user.challenges.unshift(cid);
       // Add all challenge's tasks to user's tasks
-      challenge.syncToUser(user, function(err){
+      chal.syncToUser(user, function(err){
         if (err) return cb(err);
-        cb(null, challenge); // we want the saved challenge in the return results, due to ng-resource
+        cb(null, chal); // we want the saved challenge in the return results, due to ng-resource
       });
     }
-  ], function(err, result){
+  ], function(err, chal){
     if(err) return next(err);
-    result._isMember = true;
-    res.json(result);
+    chal._isMember = true;
+    res.json(chal);
   });
 }
 
@@ -360,19 +360,20 @@ api.leave = function(req, res, next){
 
       // Trigger updating challenge member count in the background. We can't do it above because we don't have
       // _.size(challenge.members). We can't do it in pre(save) because we're calling findByIdAndUpdate above.
-      Challenge.update({_id:cid}, {$set:{memberCount:_.size(chal.members)}}).exec();
+      if (chal)
+        Challenge.update({_id:cid}, {$set:{memberCount:_.size(chal.members)}}).exec();
 
       var i = user.challenges.indexOf(cid)
       if (~i) user.challenges.splice(i,1);
-      user.unlink({cid:chal._id, keep:keep}, function(err){
+      user.unlink({cid:cid, keep:keep}, function(err){
         if (err) return cb(err);
         cb(null, chal);
       })
     }
-  ], function(err, result){
+  ], function(err, chal){
     if(err) return next(err);
-    result._isMember = false;
-    res.json(result);
+    if (chal) chal._isMember = false;
+    res.json(chal);
   });
 }
 
@@ -387,7 +388,7 @@ api.unlink = function(req, res, next) {
   if (!req.query.keep)
     return res.json(400, {err: 'Provide unlink method as ?keep=keep-all (keep, keep-all, remove, remove-all)'});
   user.unlink({cid:cid, keep:req.query.keep, tid:tid}, function(err, saved){
-    if (err) return res.json(500,{err:err});
+    if (err) return next(err);
     res.send(200);
   });
 }
