@@ -132,7 +132,7 @@ api.get = function(req, res, next) {
   populateQuery(gid, q);
   q.exec(function(err, group){
     if (err) return next(err);
-    if (!group) return res.json(404,{err: "Group not found or you don't have access."});
+    if (!group && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
     res.json(group);
   });
 };
