@@ -12,8 +12,8 @@ Built using [Angular](http://angularjs.org/), [Express](http://expressjs.com/), 
 Before starting make sure to have [MongoDB](http://www.mongodb.org/), [NodeJS and npm](http://nodejs.org/) and [Git](https://help.github.com/articles/set-up-git) installed and set up.
 
 1. [Fork the repository](https://help.github.com/articles/fork-a-repo) on your computer.
-1. Checkout the **develop** branch where all the development happens:
-`git checkout -b develop origin/develop`
+1. Checkout the `develop` branch where all the development happens:
+`git checkout -t origin/develop`
 1. Install **grunt-cli** npm package globally (on some systems you may need to add `sudo` in front of the command below):
 `npm install -g grunt-cli bower`
 1. Install the **npm** and **bower** packages:
@@ -42,8 +42,8 @@ rt 28017```
   1.  Download and run the latest Node.js msi installation file from  http://nodejs.org/download/
 1. Install [Git](https://help.github.com/articles/set-up-git).
 1. [Fork the repository](https://help.github.com/articles/fork-a-repo) on your computer.
-1. Checkout the **develop** branch where all the development happens:
-`git checkout -b develop origin/develop`
+1. Checkout the `develop` branch where all the development happens:
+`git checkout -t origin/develop`
 1. Install the **npm** packages:
 `npm install`
 Read below for possible error message.
