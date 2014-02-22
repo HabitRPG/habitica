@@ -17,7 +17,8 @@ module.exports = function(grunt) {
      */
     sprite:{
       customizer: {
-        src: 'img/sprites/spritesmith/**/*.png',
+        src: ['img/sprites/spritesmith/**/{hair,skin,beard,mustach,shirt}*.png', 
+              'img/sprites/spritesmith/head/head_0.png'],
         destImg: 'dist/spritesmith.png',
         destCSS: 'dist/customizer.css',
         algorithm: 'binary-tree',
