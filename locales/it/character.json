@@ -72,7 +72,7 @@
     "intelligence": "Intelligenza",
     "intText": "L'intelligenza accelera il guadagno di punti esperienza e, una volta sbloccate le classi, determina il tuo ammontare massimo di punti Mana per le abilità di classe.",
     "levelBonus": "Bonus di livello",
-    "levelBonusText": "Ogni attributo riceve un bonus pari alla metà di (tuo livello meno 1).",
+    "levelBonusText": "Ogni attributo riceve un bonus pari alla metà di (tuo livello - 1).",
     "allocatedPoints": "Punti allocati",
     "allocatedPointsText": "Punti Attributo che hai guadagnato ed assegnato. Assegna punti utilizzando la colonna \"Build del personaggio\".",
     "allocated": "Allocati",

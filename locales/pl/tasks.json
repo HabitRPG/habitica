@@ -7,7 +7,7 @@
     "save": "Zapisz",
     "addChecklist": "Dodaj Listę",
     "checklist": "Lista",
-    "checklistText": "For Dailies, partially completed checklists reduce damage. For example, a 4-item checklist with 3 completed reduces damage for that incomplete Daily to 25%. Completed checklist items on a To-Do add a multiplier: 3 checks means +3x (total 4x) the Experience, Gold, and Mana.",
+    "checklistText": "Dla Codziennych, częściowo ukończone zadania z list obniżają otrzymywane obrażenia. Na przykład: lista z 3 ukończonymi zadaniami na 4 obniża obrażenia za to nieukończone Codzienne do 25%. Ukończone zadania z listy w Do-Zrobienia dają bonus: 3 ukończone to +3 razy więcej (w całości 4 razy) Doświadczenia, Złota i Many.",
     "text": "Treść",
     "extraNotes": "Dodatkowe Notatki",
     "direction/Actions": "Kierunek/Akcje",

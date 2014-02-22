@@ -21,7 +21,7 @@
     "invite": "Zaproś",
     "leave": "Opuść",
     "invitedTo": "Zaproszono do <%= name %>",
-    "newMsg": "New message in \"<%= name %>\"",
+    "newMsg": "Nowa wiadomość w \"<%= name %>\"",
     "chat": "Chat",
     "sendChat": "Wyślij",
     "toolTipMsg": "Pobierz Ostatnie Wiadomości",
