@@ -3,7 +3,7 @@ HabitRPG [![Build Status](https://travis-ci.org/HabitRPG/habitrpg.png?branch=mas
 
 [HabitRPG](https://habitrpg.com) is an open source habit building program which treats your life like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
 
-Built using Angular, Express, Mongoose, Jade, Stylus, Grunt and Bower.
+Built using [Angular](http://angularjs.org/), [Express](http://expressjs.com/), [Mongoose](http://mongoosejs.com/), [Jade](http://jade-lang.com/), [Stylus](http://learnboost.github.io/stylus/), [Grunt](http://gruntjs.com/) and [Bower](http://bower.io/).
 
 # Set up HabitRPG locally
 
