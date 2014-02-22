@@ -82,6 +82,7 @@ var UserSchema = new Schema({
     hair: {type: Schema.Types.Mixed, 'default': {}},
     shirt: {type: Schema.Types.Mixed, 'default': {}},
     txnCount: {type: Number, 'default':0},
+    mobileChat: Boolean,
     plan: {
       planId: String,
       customerId: String,
