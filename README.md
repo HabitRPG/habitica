@@ -1,4 +1,4 @@
-HabitRPG [![Build Status](https://travis-ci.org/HabitRPG/habitrpg.png?branch=master)](https://travis-ci.org/HabitRPG/habitrpg)
+HabitRPG [![Build Status](https://travis-ci.org/HabitRPG/habitrpg.png?branch=develop)](https://travis-ci.org/HabitRPG/habitrpg)
 ===============
 
 [HabitRPG](https://habitrpg.com) is an open source habit building program which treats your life like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
