@@ -7,7 +7,7 @@
     "save": "Speichern",
     "addChecklist": "Checkliste hinzufügen",
     "checklist": "Checkliste",
-    "checklistText": "For Dailies, partially completed checklists reduce damage. For example, a 4-item checklist with 3 completed reduces damage for that incomplete Daily to 25%. Completed checklist items on a To-Do add a multiplier: 3 checks means +3x (total 4x) the Experience, Gold, and Mana.",
+    "checklistText": "Bei täglichen Aufgaben verringert eine teilweise abgehakte Liste den Schaden. Zum Beispiel wird der Schaden einer Liste mit 4 Aufgaben bei der 3 abgehakt sind auf 25% reduziert. Erfüllte Listen bei einmaligen Aufgaben zählen als Multiplikator: 3 Aufgaben bedeutet +3x (also insgesammt 4x) Erfahrung, Gold und Mana",
     "text": "Text",
     "extraNotes": "Extra Notizen",
     "direction/Actions": "Leitung/Aktionen",

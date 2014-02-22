@@ -27,7 +27,7 @@
     "planFamily": "Família (Em Breve)",
     "planGroup": "Grupo (Em Breve)",
     "dedicatedHost": "Hospedagem Dedicada",
-    "dedicatedHostText": "Hospedagem Dedicada: você recebe seu próprio banco de dados e servidor hospedado pelo HabitRPG, ou opcionalmente podemos instalar na rede da sua organização. Se não marcado, o plano usa \"Hospedagem Compartilhada\": sua organização usa o mesmo bando de dados que o HabitRPG enquanto realiza uma Habitica independente. Seus membros são blindados da Taverna & Guildas, mas estarão no mesmo servidor/bando de dados.",
+    "dedicatedHostText": "Hospedagem Dedicada: você recebe seu próprio banco de dados e servidor hospedado pelo HabitRPG, ou opcionalmente podemos instalar na rede da sua organização. Se não marcado, o plano usa \"Hospedagem Compartilhada\": sua organização usa o mesmo banco de dados que o HabitRPG enquanto representa uma Habitica independente. Seus membros são blindados da Taverna & Guildas, mas estarão no mesmo servidor/banco de dados.",
     "individualSub": "Assinatura Individual",
     "subscribe": "Assinar",
     "subscribed": "Assinado",
