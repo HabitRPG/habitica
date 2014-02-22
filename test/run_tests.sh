@@ -10,23 +10,32 @@ grunt build:dev
 # Launch Node server and Selenium
 echo "Recreating test database"
 mongo "$TEST_DB" --eval "db.dropDatabase()"
-./node_modules/protractor/bin/webdriver-manager update
-./node_modules/protractor/bin/webdriver-manager start > /dev/null &
+
+if [ -z "$TRAVIS" ]; then
+	./node_modules/protractor/bin/webdriver-manager update
+	./node_modules/protractor/bin/webdriver-manager start > /dev/null &
+	trap "curl http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer" EXIT
+
+	# Wait for selenium
+	MAX_WAIT=30
+	WAITED=0
+	until nc -z localhost 4444; do
+	  if [ $WAITED -ge $MAX_WAIT ]; then
+	    echo "Waited $MAX_WAIT seconds, but Selenium never responded" >&2
+	    kill $NODE_PID
+	    exit 1
+	  fi
+	  sleep 1
+	  let 'WAITED+=1'
+	done
+fi
+
 NODE_DB_URI="$TEST_DB_URI" PORT=$TEST_SERVER_PORT node ./src/server.js > /dev/null &
 NODE_PID=$!
-trap "kill $NODE_PID && curl http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer" EXIT
+trap "kill $NODE_PID" EXIT
 
-# Wait for selenium
-MAX_WAIT=30
-WAITED=0
-until nc -z localhost 4444; do
-  if [ $WAITED -ge $MAX_WAIT ]; then
-    echo "Waited $MAX_WAIT seconds, but Selenium never responded" >&2
-    kill $NODE_PID
-    exit 1
-  fi
-  sleep 1
-  let 'WAITED+=1'
-done
+NODE_ENV=testing mocha
 
-mocha && grunt karma:continuous && ./node_modules/protractor/bin/protractor protractor.conf.js
+if [ $? -eq 0 ] && [ -z "$TRAVIS" ]; then
+	NODE_ENV=testing grunt karma:continuous && ./node_modules/protractor/bin/protractor protractor.conf.js
+fi
