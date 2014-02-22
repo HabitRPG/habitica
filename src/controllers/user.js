@@ -310,13 +310,18 @@ api.buyGems = function(req, res, next) {
     function(response, cb) {
       //user.purchased.ads = true;
       if (req.query.plan) {
-        user.purchased.plan = {
-          planId:'basic_earned',
-          customerId: response.id,
-          dateCreated: new Date,
-          dateUpdated: new Date,
-          gemsBought: 0
-        };
+        if (!user.purchased.plan) user.purchased.plan = {}
+        _(user.purchased.plan)
+          .merge({ // override with these values
+            planId:'basic_earned',
+            customerId: response.id,
+            dateUpdated: new Date,
+            gemsBought: 0
+          })
+          .defaults({ // allow non-override if a plan was previously used
+            dateCreated: new Date,
+            mysteryItems: []
+          });
         ga.event('subscribe', 'Stripe').send()
         ga.transaction(response.id, 5).item(5, 1, "stripe-subscription", "Subscription > Stripe").send()
       } else {
@@ -345,7 +350,7 @@ api.cancelSubscription = function(req, res, next) {
       stripe.customers.del(user.purchased.plan.customerId, cb);
     },
     function(response, cb) {
-      user.purchased.plan = {};
+      _.merge(user.purchased.plan, {planId:null, customerId:null});
       user.markModified('purchased.plan');
       user.save(cb);
     }

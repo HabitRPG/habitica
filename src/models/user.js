@@ -87,7 +87,8 @@ var UserSchema = new Schema({
       customerId: String,
       dateCreated: Date,
       dateUpdated: Date,
-      gemsBought: {type: Number, 'default': 0}
+      gemsBought: {type: Number, 'default': 0},
+      mysteryItems: {type: Array, 'default': []}
     }
   },
 

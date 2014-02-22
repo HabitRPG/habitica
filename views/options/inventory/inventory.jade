@@ -73,7 +73,8 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
           li.customize-menu(ng-if='user.purchased.plan.customerId')
             menu.pets-menu(label=env.t('subscriberItem'))
               div
-                button.customize-option(popover=env.t('subscriberItemText'), popover-trigger='mouseenter', popover-placement='right', class='inventory_present')
+                button.customize-option(popover=env.t('subscriberItemText'), popover-trigger='mouseenter', popover-placement='right', class='inventory_present', ng-click="user.ops.openMysteryItem({})")
+                  .badge.badge-info.stack-count {{user.purchased.plan.mysteryItems.length}}
 
       .col-md-6
         h2=env.t('market')
