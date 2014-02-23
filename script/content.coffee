@@ -210,7 +210,7 @@ api.gear =
   flat: {}
 
 _.each gearTypes, (type) ->
-  _.each classes.concat(['base', 'special']), (klass) ->
+  _.each classes.concat(['base', 'special', 'mystery']), (klass) ->
     # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
     _.each gear[type][klass], (item, i) ->
       key = "#{type}_#{klass}_#{i}"
