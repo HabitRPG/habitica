@@ -1,5 +1,5 @@
 {
-    "languageName": "Slovensky",
+    "languageName": "Slovenský",
     "stringNotFound": "Reťazec  '<%= string %>' sa nenašiel.",
     "titleIndex": "HabitRPG | Tvoj Život - RPG",
     "habitica": "Habitica",
@@ -14,7 +14,7 @@
     "user": "Pužívateľ",
     "market": "Trh",
     "subscriberItem": "Záhadný predmet",
-    "newSubscriberItem": "New Mistery Item",
+    "newSubscriberItem": "Nový záhadný predmet",
     "subscriberItemText": "Predplatitelia dostanú každý mesiac  záhadný predmet.",
     "all": "Všetko",
     "none": "Nič",

@@ -1,6 +1,6 @@
 {
-    "clearCompleted": "Rensa Fullgjorda",
-    "lotOfToDos": "Fullgjorda Att-Göra-uppgifter är automatiskt arkiverade efter 3 dagar. Du kan komma åt dem från Alternativ > Inställningar > Data Export",
+    "clearCompleted": "Rensa Fullbordade",
+    "lotOfToDos": "Fullbordade Att-Göra-uppgifter är automatiskt arkiverade efter 3 dagar. Du kan komma åt dem från Alternativ > Inställningar > Data Export",
     "habits": "Vanor",
     "newHabit": "Ny vana",
     "edit": "Redigera",
@@ -32,7 +32,7 @@
     "newTodo": "Ny Att-Göra-Uppgift",
     "dueDate": "Förfallodag",
     "remaining": "Återstående",
-    "complete": "Fullgjord",
+    "complete": "Fullbordade",
     "rewards": "Belöningar",
     "gold": "Guld",
     "silver": "Silver",
