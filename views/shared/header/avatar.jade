@@ -14,24 +14,33 @@ figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(
       // Avatar
       span(class='skin_{{profile.preferences.skin}}')
 
+      // Back Accessory
+      span(class='{{profile.items.gear.equipped.back}}', ng-if='!profile.preferences.costume')
+      span(class='{{profile.items.gear.costume.back}}', ng-if='profile.preferences.costume')
+
+      // Shirt
       span(class='{{profile.preferences.size}}_shirt_{{profile.preferences.shirt}}')
+
+      // Armor
       span(class='{{profile.preferences.size}}_{{profile.items.gear.equipped.armor}}', ng-if='!profile.preferences.costume')
       span(class='{{profile.preferences.size}}_{{profile.items.gear.costume.armor}}', ng-if='profile.preferences.costume')
 
+      // Hair
       span(class='head_0')
       span(class='hair_base_{{profile.preferences.hair.base}}_{{profile.preferences.hair.color}}')
       span(class='hair_bangs_{{profile.preferences.hair.bangs}}_{{profile.preferences.hair.color}}')
-
       span(class='hair_mustache_{{profile.preferences.hair.mustache}}_{{profile.preferences.hair.color}}')
       span(class='hair_beard_{{profile.preferences.hair.beard}}_{{profile.preferences.hair.color}}')
 
+      // Helm
       span(class='{{profile.items.gear.equipped.head}}', ng-if='!profile.preferences.costume')
       span(class='{{profile.items.gear.costume.head}}', ng-if='profile.preferences.costume')
 
-
+      // Shield
       span(class='{{profile.items.gear.equipped.shield}}', ng-if='!profile.preferences.costume')
       span(class='{{profile.items.gear.costume.shield}}', ng-if='profile.preferences.costume')
 
+      // Weapon
       span(class='{{profile.items.gear.equipped.weapon}}', ng-if='!profile.preferences.costume')
       span(class='{{profile.items.gear.costume.weapon}}', ng-if='profile.preferences.costume')
 
