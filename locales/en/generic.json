@@ -14,6 +14,7 @@
     "user": "User",
     "market": "Market",
     "subscriberItem": "Mystery Item",
+    "newSubscriberItem": "New Mistery Item",
     "subscriberItemText": "Each month, subscribers will receive a mystery item.",
     "all": "All",
     "none": "None",
