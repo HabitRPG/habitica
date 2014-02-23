@@ -70,7 +70,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 button.customize-option(popover="Valentine's Day Card from {{User.user.items.special.valentineReceived[0]}}", popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("valentine")', class='inventory_special_valentine')
                   .badge.badge-info.stack-count {{user.items.special.valentineReceived.length}}
 
-          li.customize-menu(ng-if='user.purchased.plan.customerId')
+          li.customize-menu(ng-if='user.purchased.plan.customerId || user.purchased.plan.mysteryItems.length')
             menu.pets-menu(label=env.t('subscriberItem'))
               div
                 button.customize-option(popover=env.t('subscriberItemText'), popover-trigger='mouseenter', popover-placement='right', class='inventory_present', ng-click="user.ops.openMysteryItem({})")

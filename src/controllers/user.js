@@ -281,6 +281,20 @@ api.addTenGems = function(req, res, next) {
 
 // TODO delete plan
 
+function revealMysteryItems(user) {
+  _.each(shared.content.gear.flat, function(item) {
+    if (
+      item.klass === 'mystery' &&
+      moment().isAfter(item.mystery.start) &&
+      moment().isBefore(item.mystery.end) &&
+      !user.items.gear.owned[item.key] &&
+      !~user.purchased.plan.mysteryItems.indexOf(item.key)
+    ) {
+      user.purchased.plan.mysteryItems.push(item.key);
+    }
+  });
+}
+
 /*
  Setup Stripe response when posting payment
  */
@@ -322,6 +336,7 @@ api.buyGems = function(req, res, next) {
             dateCreated: new Date,
             mysteryItems: []
           });
+        revealMysteryItems(user);
         ga.event('subscribe', 'Stripe').send()
         ga.transaction(response.id, 5).item(5, 1, "stripe-subscription", "Subscription > Stripe").send()
       } else {
