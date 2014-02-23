@@ -10,7 +10,7 @@ moment = require 'moment'
 ###
 
 classes = ['warrior', 'rogue', 'healer', 'wizard']
-gearTypes = ['armor', 'weapon', 'shield', 'head']
+gearTypes = ['armor', 'weapon', 'shield', 'head', 'back']
 
 events =
   winter: {start:'2013-12-31',end:'2014-02-01'}
@@ -195,6 +195,11 @@ gear =
       yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: "Yeti-Tamer Shield", notes:'Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by 7.', con: 7, value:70
       ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: "Ski-sassin Pole", notes:'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.', str: 8, value: 90
       snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'   ), text: "Snowflake Shield", notes:'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.', con: 9, value:70
+
+  back:
+    base:
+      0: text: "No Back Accessory", notes:'No Back Accessory.', value:0
+    
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since

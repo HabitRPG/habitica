@@ -138,8 +138,9 @@ api.updateStore = (user) ->
       when 'armor'  then 2
       when 'head'   then 3
       when 'shield' then 4
-      when 'potion' then 5
-      else               6
+      when 'back'   then 5
+      when 'potion' then 6
+      else               7
 
 ###
 ------------------------------------------------------
