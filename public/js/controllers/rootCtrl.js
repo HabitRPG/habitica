@@ -99,7 +99,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.initPayPalButton = function($event){
       //debugger
       var data = {
-        name:env.t('paypalText'),
+        name:env.t('donationDesc'),
         //env:window.env.NODE_ENV == 'production' ? '' : 'sandbox',
         quantity:1,
         amount:5,
@@ -122,7 +122,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         name: subscription ? window.env.t('subscribe') : window.env.t('checkout'),
         description: subscription ?
           window.env.t('buySubsText') :
-          window.env.t('buyCheckText'),
+          window.env.t('donationDesc'),
         panelLabel: subscription ? window.env.t('subscribe') : window.env.t('checkout'),
         token: function(data) {
           var url = '/api/v2/user/buy-gems';
