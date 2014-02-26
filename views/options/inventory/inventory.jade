@@ -113,7 +113,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
             li.customize-menu
               menu.pets-menu(label=env.t('food'))
-                div(ng-repeat='food in Content.food', ng-if='food.key !== "Saddle" && food.canBuy')
+                div(ng-repeat='food in Content.food', ng-if='food.canBuy')
                   button.customize-option(popover='{{food.notes}}', popover-title='{{food.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", food)', class='Pet_Food_{{food.key}}')
                   p
                     |  {{food.value}}
@@ -130,11 +130,6 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
             li.customize-menu
               menu.pets-menu(label=env.t('special'))
-                div
-                  button.customize-option(popover='{{Content.food.Saddle.notes}}', popover-title='{{Content.food.Saddle.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", Content.food.Saddle)', class='Pet_Food_{{Content.food.Saddle.key}}')
-                  p
-                    |  {{Content.food.Saddle.value}}
-                    span.Pet_Currency_Gem1x.inline-gems
                 div
                   button.customize-option(popover=env.t('fortifyPop'), popover-title=env.t('fortifyName'), popover-trigger='mouseenter', popover-placement='left', ng-click='openModal("reroll")', class='inventory_special_fortify')
                   p
