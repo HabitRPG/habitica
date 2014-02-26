@@ -34,8 +34,8 @@ NODE_DB_URI="$TEST_DB_URI" PORT=$TEST_SERVER_PORT node ./src/server.js > /dev/nu
 NODE_PID=$!
 trap "kill $NODE_PID" EXIT
 
-NODE_ENV=testing mocha
+NODE_ENV=testing mocha || exit $?
 
-if [ $? -eq 0 ] && [ -z "$TRAVIS" ]; then
-	NODE_ENV=testing grunt karma:continuous && ./node_modules/protractor/bin/protractor protractor.conf.js
+if [ -z "$TRAVIS" ]; then
+	NODE_ENV=testing grunt karma:continuous && ./node_modules/protractor/bin/protractor protractor.conf.js || exit $?
 fi
