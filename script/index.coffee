@@ -987,9 +987,9 @@ api.wrap = (user, main=true) ->
       chance *=
         task.priority *                                 # Task priority: +50% for Medium, +100% for Hard
         (1 + (task.streak / 100 or 0)) *                # Streak bonus: +1% per streak
-        (1 + (user._statsComputed.per / 100)) *         # PERception: +1% per point
-        (1 + (user.contributor.level / 50 or 0)) *      # Contrib levels: +2% per level
-        (1 + (user.achievements.rebirths / 50 or 0)) *  # Rebirths: +2% per achievement
+        (1 + (user._statsComputed.per / 50)) *          # PERception: +2% per point
+        (1 + (user.contributor.level / 25 or 0)) *      # Contrib levels: +4% per level
+        (1 + (user.achievements.rebirths / 25 or 0)) *  # Rebirths: +4% per achievement
         (1 + (user.achievements.streak / 100 or 0)) *   # Streak achievements: +1% per achievement
         (user._tmp.crit or 1) *                         # Use the crit multiplier if we got one
         (1 + (_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) or 0)) # +100% per checklist item complete

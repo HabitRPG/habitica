@@ -12645,14 +12645,15 @@ var process=require("__browserify_process");(function() {
         }), user);
       },
       randomDrop: function(modifiers) {
-        var acceptableDrops, bonus, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1, _ref2, _ref3, _ref4;
+        var acceptableDrops, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1, _ref2, _ref3, _ref4;
 
         task = modifiers.task;
-        bonus = Math.abs(task.value) * task.priority + (task.streak || 0) + (user._statsComputed.per * .5);
-        bonus /= 100;
-        chance = api.diminishingReturns(bonus, 1, 0.5);
+        chance = Math.abs(task.value - 25) / 1000;
+        chance *= task.priority * (1 + (task.streak / 100 || 0)) * (1 + (user._statsComputed.per / 50)) * (1 + (user.contributor.level / 25 || 0)) * (1 + (user.achievements.rebirths / 25 || 0)) * (1 + (user.achievements.streak / 100 || 0)) * (user._tmp.crit || 1) * (1 + (_.reduce(task.checklist, (function(m, i) {
+          return m + (i.completed ? 1 : 0);
+        }), 0) || 0));
         quest = content.quests[(_ref = user.party.quest) != null ? _ref.key : void 0];
-        if ((quest != null ? quest.collect : void 0) && user.fns.predictableRandom(user.stats.gp) < bonus) {
+        if ((quest != null ? quest.collect : void 0) && user.fns.predictableRandom(user.stats.gp) < (chance * 2)) {
           dropK = user.fns.randomVal(quest.collect, {
             key: true
           });
@@ -12661,7 +12662,7 @@ var process=require("__browserify_process");(function() {
             user.markModified('party.quest.progress');
           }
         }
-        if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5)) {
+        if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 10))) {
           return;
         }
         if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
