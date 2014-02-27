@@ -807,7 +807,8 @@ api.wrap = (user, main=true) ->
 
         addPoints = ->
           # ===== CRITICAL HITS =====
-          _crit = user.fns.crit()
+          # allow critical hit only when checking off a task, not when unchecking it:
+          _crit = (if delta > 0 then user.fns.crit() else 1)
           # if there was a crit, alert the user via notification
           user._tmp.crit = _crit if _crit > 1
 
