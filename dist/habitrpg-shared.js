@@ -12430,7 +12430,7 @@ var process=require("__browserify_process");(function() {
           addPoints = function() {
             var afterStreak, gpMod, intBonus, perBonus, streakBonus, _crit;
 
-            _crit = user.fns.crit();
+            _crit = (delta > 0 ? user.fns.crit() : 1);
             if (_crit > 1) {
               user._tmp.crit = _crit;
             }
