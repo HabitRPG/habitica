@@ -1,5 +1,7 @@
 {
     "subscription": "Subscription",
+    "subscriptions": "Subscriptions",
+    "subDescription": "Disable ads, buy gems with gold, monthly mystery item, retain progress history, double daily drop-caps, supports the devs. Click for more info.",
     "subWarning1": "Warning: this is a highly-experimental feature, and many",
     "subWarning2": "experience issues",
     "subWarning3": "with it.",
@@ -11,6 +13,8 @@
     "retainHistoryText": "Makes your full history available in graphs and export. Non-subscriber histories get consolidated for database optimization.",
     "doubleDrops": "Daily drop-caps doubled",
     "doubleDropsText": "Complete your stable faster!",
+    "mysteryItem": "Unique Monthly Subscription Items",
+    "mysteryItemText": "Each month, all subscribers will get a totally unique cosmetic item for their avatars!",
     "supportDevs": "Supports the developers",
     "supportDevsText": "This open source project can use all the help it can get. Help us keep Habit alive!",
     "monthUSD": "USD / Month",
@@ -27,6 +31,7 @@
     "individualSub": "Individual Subscription",
     "subscribe": "Subscribe",
     "subscribed": "Subscribed",
+    "manageSub": "Click to manage subscription",
     "cancelSub": "Cancel Subscription",
     "adminSub": "Administrator Subscriptions",
     "morePlans": "More Plans<br/>Coming Soon",
@@ -54,6 +59,5 @@
     "contactUs": "Contact Us",
     "checkout": "Checkout",
     "buySubsText": "Buy gems with Gold, No Ads, Support the Devs",
-    "buyCheckText": "20 Gems, No Ads, Support the Devs",
     "sureCancelSub": "Are you sure you want to cancel your subscription?"
 }

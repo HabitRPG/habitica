@@ -7,7 +7,7 @@
     "save": "Speichern",
     "addChecklist": "Checkliste hinzufügen",
     "checklist": "Checkliste",
-    "checklistText": "Für tägliche Aufgaben. Teilweise erfüllte Aufgaben werden den Schaden reduzieren (z.B. Eine Checkliste mit 4 Aufgaben von denen 3 erfüllt sind wird nur 25% des Schadens zufügen). Für erfüllte Aufgaben werden die Punkte multipliziert mit der Anzahl der Anzahl der Einzelaufgaben (z.B. Eine Aufgabenliste mit 4 Einzelaufgaben bringt 4x die Erfahrung und Gold).",
+    "checklistText": "Bei täglichen Aufgaben verringert eine teilweise abgehakte Liste den Schaden. Zum Beispiel wird der Schaden einer Liste mit 4 Aufgaben bei der 3 abgehakt sind auf 25% reduziert. Erfüllte Listen bei einmaligen Aufgaben zählen als Multiplikator: 3 Aufgaben bedeutet +3x (also insgesammt 4x) Erfahrung, Gold und Mana",
     "text": "Text",
     "extraNotes": "Extra Notizen",
     "direction/Actions": "Leitung/Aktionen",

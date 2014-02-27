@@ -10,7 +10,7 @@ moment = require 'moment'
 ###
 
 classes = ['warrior', 'rogue', 'healer', 'wizard']
-gearTypes = ['armor', 'weapon', 'shield', 'head']
+gearTypes = ['armor', 'weapon', 'shield', 'head', 'back']
 
 events =
   winter: {start:'2013-12-31',end:'2014-02-01'}
@@ -51,7 +51,7 @@ gear =
       3: twoHanded: true, text: "Iron Staff", notes:'Plated in metal to channel heat, cold, and lightning. Increases INT by 9 and PER by 3.', int: 9, per: 3, value:80
       4: twoHanded: true, text: "Brass Staff", notes:'As powerful as it is heavy. Increases INT by 12 and PER by 5.', int:12, per: 5, value:120
       5: twoHanded: true, text: "Archmage Staff", notes:'Assists in weaving the most complex of spells. Increases INT by 15 and PER by 7.', int: 15, per: 7, value:160
-      6: twoHanded: true, text: "Golden Staff", notes:'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 9.', int: 18, per: 9, value:200, last: true
+      6: twoHanded: true, text: "Golden Staff", notes:'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 10.', int: 18, per: 10, value:200, last: true
     healer:
       0: text: "Novice Rod", notes:'For healers in training. Confers no benefit.', value:0
       1: text: "Acolyte Rod", notes:'Crafted during a healer\'s initiation. Increases INT by 2.', int: 2, value:20
@@ -139,7 +139,7 @@ gear =
       2: text: "Cornuthaum", notes:'Traditional headgear of the itinerant wizard. Increases PER by 3.', per: 3, value:25
       3: text: "Astrologer Hat", notes:'Adorned with the rings of Saturn. Increases PER by 5.', per: 5, value:40
       4: text: "Archmage Hat", notes:'Focuses the mind for intensive spellcasting. Increases PER by 7.', per: 7, value:60
-      5: text: "Royal Magus Hat", notes:'Shows authority over fortune, weather, and lesser mages. Increases PER by 9.', per: 9, value:80, last: true
+      5: text: "Royal Magus Hat", notes:'Shows authority over fortune, weather, and lesser mages. Increases PER by 10.', per: 10, value:80, last: true
     healer:
       #0: text: "No Circlet", notes:'No headgear.', value:0
       1: text: "Quartz Circlet", notes:'Jeweled headpiece, for focus on the task at hand. Increases INT by 2.', int: 2, value:15
@@ -196,6 +196,11 @@ gear =
       ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: "Ski-sassin Pole", notes:'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.', str: 8, value: 90
       snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'   ), text: "Snowflake Shield", notes:'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.', con: 9, value:70
 
+  back:
+    base:
+      0: text: "No Back Accessory", notes:'No Back Accessory.', value:0
+    
+
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
   they are needed in different froms at different points in the app
@@ -205,7 +210,7 @@ api.gear =
   flat: {}
 
 _.each gearTypes, (type) ->
-  _.each classes.concat(['base', 'special']), (klass) ->
+  _.each classes.concat(['base', 'special', 'mystery']), (klass) ->
     # add "type" to each item, so we can reference that as "weapon" or "armor" in the html
     _.each gear[type][klass], (item, i) ->
       key = "#{type}_#{klass}_#{i}"
@@ -467,20 +472,6 @@ api.spells =
       cast: (user, target) ->
         user.stats.buffs.snowball = false
         user.stats.gp -= 5
-
-    valentine:
-      text: "Valentine Card"
-      mana: 0
-      value: 10
-      target: 'user'
-      notes: "Send a valentines card to a friend."
-      cast: (user, target) ->
-        _.each [user,target], (t)->
-          t.achievements.valentine ?= 0
-          t.achievements.valentine++
-        (target.items.special.valentineReceived ?= []).push user.profile.name
-        target.markModified? 'items.special'
-        user.stats.gp -= 10
 
 # Intercept all spells to reduce user.stats.mp after casting the spell
 _.each api.spells, (spellClass) ->

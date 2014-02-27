@@ -1,5 +1,7 @@
 {
     "subscription": "Assinatura",
+    "subscriptions": "Assinaturas",
+    "subDescription": "Desativa propagandas, compra gemas com ouro, item misterioso mensal, retém histórico de progresso, capacidade de drops dobrada, ajuda os desenvolvedores. Clique para mais informações.",
     "subWarning1": "Atenção: essa é uma funcionalidade altamente experimental, e muitos",
     "subWarning2": "experienciam problemas",
     "subWarning3": "com ela.",
@@ -11,6 +13,8 @@
     "retainHistoryText": "Deixa seu histórico completo disponível em gráficos e exportações. Históricos de não-assinantes se consolidam para otimização do banco de dados.",
     "doubleDrops": "Capacidade de drop diário dobrado",
     "doubleDropsText": "Complete seu estábulo mais rápido!",
+    "mysteryItem": "Itens Únicos de Assinaturas Mensais",
+    "mysteryItemText": "Cada mês, todos assinantes ganharão um item cosmético único para seus avatares!",
     "supportDevs": "Ajuda os desenvolvedores",
     "supportDevsText": "Esse projeto open source pode usar toda ajuda que conseguir. Nos ajude a manter o Habit vivo!",
     "monthUSD": "USD / Mês",
@@ -23,10 +27,11 @@
     "planFamily": "Família (Em Breve)",
     "planGroup": "Grupo (Em Breve)",
     "dedicatedHost": "Hospedagem Dedicada",
-    "dedicatedHostText": "Hospedagem Dedicada: você recebe seu próprio banco de dados e servidor hospedado pelo HabitRPG, ou opcionalmente podemos instalar na rede da sua organização. Se não marcado, o plano usa \"Hospedagem Compartilhada\": sua organização usa o mesmo bando de dados que o HabitRPG enquanto realiza uma Habitica independente. Seus membros são blindados da Taverna & Guildas, mas estarão no mesmo servidor/bando de dados.",
+    "dedicatedHostText": "Hospedagem Dedicada: você recebe seu próprio banco de dados e servidor hospedado pelo HabitRPG, ou opcionalmente podemos instalar na rede da sua organização. Se não marcado, o plano usa \"Hospedagem Compartilhada\": sua organização usa o mesmo banco de dados que o HabitRPG enquanto representa uma Habitica independente. Seus membros são blindados da Taverna & Guildas, mas estarão no mesmo servidor/banco de dados.",
     "individualSub": "Assinatura Individual",
     "subscribe": "Assinar",
     "subscribed": "Assinado",
+    "manageSub": "Clique para gerenciar assinatura",
     "cancelSub": "Cancelar Assinatura",
     "adminSub": "Assinaturas Administrativas",
     "morePlans": "Mais Planos<br/>Em Breve",
@@ -54,6 +59,5 @@
     "contactUs": "Fale Conosco",
     "checkout": "Checkout",
     "buySubsText": "Compre gemas com Ouro, Sem Propagandas, Ajude os Desenvolvedores",
-    "buyCheckText": "20 Gemas, Sem Propagandas, Ajude os Desenvolvedores",
     "sureCancelSub": "Tem certeza de que deseja cancelar sua assinatura?"
 }

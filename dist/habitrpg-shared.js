@@ -9186,7 +9186,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
   classes = ['warrior', 'rogue', 'healer', 'wizard'];
 
-  gearTypes = ['armor', 'weapon', 'shield', 'head'];
+  gearTypes = ['armor', 'weapon', 'shield', 'head', 'back'];
 
   events = {
     winter: {
@@ -9347,9 +9347,9 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         6: {
           twoHanded: true,
           text: "Golden Staff",
-          notes: 'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 9.',
+          notes: 'Fashioned of orichalcum, the alchemic gold, mighty and rare. Increases INT by 18 and PER by 10.',
           int: 18,
-          per: 9,
+          per: 10,
           value: 200,
           last: true
         }
@@ -9832,8 +9832,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         },
         5: {
           text: "Royal Magus Hat",
-          notes: 'Shows authority over fortune, weather, and lesser mages. Increases PER by 9.',
-          per: 9,
+          notes: 'Shows authority over fortune, weather, and lesser mages. Increases PER by 10.',
+          per: 10,
           value: 80,
           last: true
         }
@@ -10134,6 +10134,15 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           value: 70
         }
       }
+    },
+    back: {
+      base: {
+        0: {
+          text: "No Back Accessory",
+          notes: 'No Back Accessory.',
+          value: 0
+        }
+      }
     }
   };
 
@@ -10149,7 +10158,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
   };
 
   _.each(gearTypes, function(type) {
-    return _.each(classes.concat(['base', 'special']), function(klass) {
+    return _.each(classes.concat(['base', 'special', 'mystery']), function(klass) {
       return _.each(gear[type][klass], function(item, i) {
         var key, _canOwn;
 
@@ -10521,30 +10530,6 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         cast: function(user, target) {
           user.stats.buffs.snowball = false;
           return user.stats.gp -= 5;
-        }
-      },
-      valentine: {
-        text: "Valentine Card",
-        mana: 0,
-        value: 10,
-        target: 'user',
-        notes: "Send a valentines card to a friend.",
-        cast: function(user, target) {
-          var _base, _ref;
-
-          _.each([user, target], function(t) {
-            var _base, _ref;
-
-            if ((_ref = (_base = t.achievements).valentine) == null) {
-              _base.valentine = 0;
-            }
-            return t.achievements.valentine++;
-          });
-          ((_ref = (_base = target.items.special).valentineReceived) != null ? _ref : _base.valentineReceived = []).push(user.profile.name);
-          if (typeof target.markModified === "function") {
-            target.markModified('items.special');
-          }
-          return user.stats.gp -= 10;
         }
       }
     }
@@ -11345,7 +11330,9 @@ var process=require("__browserify_process");(function() {
       return true;
     });
     changes = changes.concat(_.filter(content.gear.flat, function(v) {
-      return v.klass === 'special' && !user.items.gear.owned[v.key] && (typeof v.canOwn === "function" ? v.canOwn(user) : void 0);
+      var _ref;
+
+      return ((_ref = v.klass) === 'special' || _ref === 'mystery') && !user.items.gear.owned[v.key] && (typeof v.canOwn === "function" ? v.canOwn(user) : void 0);
     }));
     changes.push(content.potion);
     return _.sortBy(changes, function(item) {
@@ -11358,10 +11345,12 @@ var process=require("__browserify_process");(function() {
           return 3;
         case 'shield':
           return 4;
-        case 'potion':
+        case 'back':
           return 5;
-        default:
+        case 'potion':
           return 6;
+        default:
+          return 7;
       }
     });
   };

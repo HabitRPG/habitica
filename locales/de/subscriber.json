@@ -1,5 +1,7 @@
 {
     "subscription": "Abonnements",
+    "subscriptions": "Abonnements",
+    "subDescription": "Werbung ausschalten, Edelsteine mit Gold erwerben, ein monatlicher Überraschungsgegenstand, den Fortschrittsverlauf erhalten, doppeltes Beutelimit pro Tag, Unterstützung der Entwickler. Klicke um mehr zu erfahren.",
     "subWarning1": "Warnung: das ist ein experimentelles Feature und viele",
     "subWarning2": "Fehler",
     "subWarning3": "können dabei auftreten.",
@@ -11,6 +13,8 @@
     "retainHistoryText": "Dein gesamter Verlauf steht Dir für Graphen und Exporte zur Verfügung. Der Verlauf von Nicht-Abonnementen wird zusammengelegt um die Datenbanken zu optimieren.",
     "doubleDrops": "Du kannst doppelt so viele Gegenstände pro Tag finden",
     "doubleDropsText": "Fülle Deine Ställe schneller!",
+    "mysteryItem": "Einzigartige Abonnement Gegenstände",
+    "mysteryItemText": "Jeden Monat erhalten alle Abonnementen einen einzigartigen kosmetischen Gegenstand für ihre Avatare.",
     "supportDevs": "Unterstütze die Entwickler",
     "supportDevsText": "Dieses 'open source Projekt' kann jede Hilfe gebrauchen die es bekommen kann. Hilf uns HabitRPG am Leben zu erhalten!",
     "monthUSD": "USD($) / Monat",
@@ -27,6 +31,7 @@
     "individualSub": "Einzelne Abonnements",
     "subscribe": "Abonniere",
     "subscribed": "Abonniert",
+    "manageSub": "Klicke um Abonnements zu verwalten",
     "cancelSub": "Abonnement beenden",
     "adminSub": "Administrator Abonnements",
     "morePlans": "Mehr Pläne<br/>in naher Zukunft",
@@ -54,6 +59,5 @@
     "contactUs": "Kontakt",
     "checkout": "Kasse",
     "buySubsText": "Kaufe Edelsteine mit Gold, keine Werbung, Unterstützung der Entwickler",
-    "buyCheckText": "20 Edelsteine, keine Werbung, Unterstützung der Entwickler",
     "sureCancelSub": "Bist Du sicher, dass du das Abonnement kündigen willst?"
 }

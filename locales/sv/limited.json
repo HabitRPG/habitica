@@ -1,0 +1,13 @@
+{
+    "limitedEdition": "Begränsad Upplaga",
+    "winterColors": "Vinterfärger",
+    "annoyingFriends": "Jobbiga Vänner",
+    "annoyingFriendsText": "Fick <%= snowballs %> snöbollar kastad på sig av sällskapsmedlemmar.",
+    "valentineCard": "Alla Hjärtans Dag-kort",
+    "adoringFriends": "Beundrande Vänner",
+    "adoringFriendsText": "Aww, du och din vän måste verkligen bry er om varandra! Skickade eller tog emot <%= cards %> Alla Hjärtans Dag-kort.",
+    "limited31Jan": "Tillgänglig för köp fram till den 31 januari (men permanent i ditt förråd efter köpet).",
+    "polarBear": "Isbjörn",
+    "turkey": "Kalkon",
+    "polarBearPup": "Isbjörnsunge"
+}

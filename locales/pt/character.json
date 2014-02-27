@@ -118,7 +118,7 @@
     "sureReset": "Tem certeza? Isso reiniciará a classe e os pontos distribuídos (você os receberá de volta para redistribuí-los) do seu personagem, e custa 3 gemas",
     "purchaseFor5": "Comprar por 5 Gemas?",
     "purchaseFor2": "Comprar por 2 Gemas?",
-    "notEnoughMana": "Sem mana suficiente.",
+    "notEnoughMana": "Mana insuficiente.",
     "invalidTarget": "Alvo inválido",
     "youCast": "Você conjurou <%= spell %>.",
     "youCastTarget": "Você conjurou <%= spell %> em <%= target %>.",

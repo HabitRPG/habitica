@@ -56,6 +56,9 @@ angular.module('userServices', []).
           sent.push(queue.shift());
         });
 
+        // Save the current filters
+        var current_filters = user.filters;
+
         $http.post(API_URL + '/api/v2/user/batch-update', sent, {params: {data:+new Date, _v:user._v, siteVersion: $window.env && $window.env.siteVersion}})
           .success(function (data, status, heacreatingders, config) {
             //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
@@ -70,6 +73,8 @@ angular.module('userServices', []).
 
               // Update user
               _.extend(user, data);
+              // Preserve filter selections between syncs
+              _.extend(user.filters,current_filters);
               if (!user._wrapped){
 
                 // This wraps user with `ops`, which are functions shared both on client and mobile. When performed on client,
