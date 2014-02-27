@@ -10140,7 +10140,8 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
         0: {
           text: "No Back Accessory",
           notes: 'No Back Accessory.',
-          value: 0
+          value: 0,
+          last: true
         }
       }
     }

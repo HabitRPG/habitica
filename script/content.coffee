@@ -198,7 +198,7 @@ gear =
 
   back:
     base:
-      0: text: "No Back Accessory", notes:'No Back Accessory.', value:0
+      0: text: "No Back Accessory", notes:'No Back Accessory.', value:0, last:true
     
 
 ###
