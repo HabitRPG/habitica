@@ -1,0 +1,13 @@
+{
+    "limitedEdition": "Édition limitée",
+    "winterColors": "Couleurs hivernales",
+    "annoyingFriends": "Amis pénibles",
+    "annoyingFriendsText": "Votre équipe vous a lancé <%=snowballs %> boules de neige.",
+    "valentineCard": "Carte de St-Valentin",
+    "adoringFriends": "Amis chéris",
+    "adoringFriendsText": "Oh ! Toi et tes amis, vous vous aimez beaucoup ! Tu as envoyé et reçu <%= cards %> Cartes pour la St-Valentin.",
+    "limited31Jan": "Disponible à l'achat jusqu'au 31 Janvier (mais disponible pour toujours une fois acheté).",
+    "polarBear": "Ours polaire",
+    "turkey": "Dindon",
+    "polarBearPup": "Ourson polaire"
+}
