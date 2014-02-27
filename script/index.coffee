@@ -981,23 +981,29 @@ api.wrap = (user, main=true) ->
       {task} = modifiers
 
       # % chance of getting a drop
-      bonus =
-        Math.abs(task.value) *            # + Task Redness
-        task.priority +                   # * Task Priority
-        (task.streak or 0) +              # + Streak bonus
-        (user._statsComputed.per * .5)    # + Perception
-      bonus /= 100                        # /100 (as a percent)
-      chance = api.diminishingReturns(bonus, 1, 0.5) # see HabitRPG/habitrpg#1922 for details
-      #console.log "Drop Equation: Bonus(#{bonus.toFixed(3)}), Modified Chance(#{chance.toFixed(3)})\n"
+
+      chance = Math.abs(task.value - 25) / 1000         # Base drop chance based on task value. Subtract more than the max possible task value so we never get a 0
+
+      chance *=
+        task.priority *                                 # Task priority: +50% for Medium, +100% for Hard
+        (1 + (task.streak / 100 or 0)) *                # Streak bonus: +1% per streak
+        (1 + (user._statsComputed.per / 50)) *          # PERception: +2% per point
+        (1 + (user.contributor.level / 25 or 0)) *      # Contrib levels: +4% per level
+        (1 + (user.achievements.rebirths / 25 or 0)) *  # Rebirths: +4% per achievement
+        (1 + (user.achievements.streak / 100 or 0)) *   # Streak achievements: +1% per achievement
+        (user._tmp.crit or 1) *                         # Use the crit multiplier if we got one
+        (1 + (_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) or 0)) # +100% per checklist item complete
+
+      #console.log("Drop chance: " + chance)
 
       quest = content.quests[user.party.quest?.key]
-      if quest?.collect and user.fns.predictableRandom(user.stats.gp) < bonus # NOTE: < bonus, higher chance than drops
+      if quest?.collect and user.fns.predictableRandom(user.stats.gp) < (chance * 2) # 2x as likely to get a collection quest drop as a pet item drop
         dropK = user.fns.randomVal quest.collect, {key:true}
         user.party.quest.progress.collect[dropK]++
         user.markModified? 'party.quest.progress'
         #console.log {progress:user.party.quest.progress}
 
-      return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5)
+      return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 10))
       if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < chance
 
         # current breakdown - 1% (adjustable) chance on drop
