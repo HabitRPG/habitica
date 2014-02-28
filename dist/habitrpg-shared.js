@@ -10616,6 +10616,11 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       text: 'Gryphon',
       adjective: 'regal',
       canBuy: false
+    },
+    Hedgehog: {
+      text: 'Hedgehog',
+      adjective: 'prickly',
+      canBuy: false
     }
   };
 
@@ -10890,6 +10895,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     gryphon: {
       text: "The Fiery Gryphon",
       notes: 'The grand beastmaster, @baconsaur, has come to your party seeking help. "Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!"',
+      completion: 'Defeated, the mighty beast ashamedly slinks back to its master."My word! Well done, adventurers!" @baconsaur exclaims, "Please, have some of the gryphon\'s eggs. I am sure you will raise these young ones well!',
       value: 4,
       boss: {
         name: "Fiery Gryphon",
@@ -10909,6 +10915,32 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           }
         ],
         gp: 25,
+        exp: 125
+      }
+    },
+    hedgehog: {
+      text: "The Hedgebeast",
+      notes: 'Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And @Inventrix did just that. Oops.',
+      completion: 'Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeeking and nudging some of her eggs along towards your party. Hopefully, these hedgehog\'s like milk better!',
+      value: 4,
+      boss: {
+        name: "Hedgebeast",
+        hp: 400,
+        str: 1.25
+      },
+      drop: {
+        items: [
+          {
+            type: 'eggs',
+            key: 'Hedgehog',
+            text: "Gryphon (Egg)"
+          }, {
+            type: 'eggs',
+            key: 'Hedgehog',
+            text: "Gryphon (Egg)"
+          }
+        ],
+        gp: 30,
         exp: 125
       }
     },
