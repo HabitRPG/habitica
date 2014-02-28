@@ -14,7 +14,7 @@
     "begin": "Begin",
     "bossHP": "Boss Health",
     "collected": "Collected",
-    "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Wizard spells, Warrior attacks, etc). The boss will deal damage to the party for every Daily you've missed (multiplied by the boss's Strength), so help your friends by completing your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
+    "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to the party for every Daily you've missed (multiplied by the boss's Strength), so help your friends by completing your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Only participants will fight the boss and share in the quest loot. If you die during a boss-battle, you get booted from the battle. If everyone dies once, the quest fails.",
     "bossColl1": "To collect items, do your positive tasks. Quest items drop just like normal items; however, you won't see the drops until the next day, then everything you've found will be tallied up and contributed to the pile.",
     "bossColl2": "Only participants can collect items and share in the quest loot. If you die during a quest, you get booted from the quest. If everyone dies once, the quest fails.",
