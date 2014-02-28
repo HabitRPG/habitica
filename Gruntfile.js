@@ -21,6 +21,7 @@ module.exports = function(grunt) {
         destImg: 'dist/spritesmith.png',
         destCSS: 'dist/customizer.css',
         algorithm: 'binary-tree',
+        padding:1,
         cssTemplate: 'css/css.template.mustache',
         cssVarMap: function (sprite) {
           // `sprite` has `name`, `image` (full path), `x`, `y`
@@ -47,6 +48,7 @@ module.exports = function(grunt) {
         destImg: 'dist/spritesmith.png',
         destCSS: 'dist/spritesmith.css',
         algorithm: 'binary-tree',
+        padding:1,
         cssTemplate: 'css/css.template.mustache'
         /*,cssOpts: {
           cssClass: function (item) {
