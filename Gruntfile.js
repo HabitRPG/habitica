@@ -21,6 +21,7 @@ module.exports = function(grunt) {
         destImg: 'dist/spritesmith.png',
         destCSS: 'dist/customizer.css',
         algorithm: 'binary-tree',
+        cssTemplate: 'css/css.template.mustache',
         cssVarMap: function (sprite) {
           // `sprite` has `name`, `image` (full path), `x`, `y`
           //   `width`, `height`, `total_width`, `total_height`
@@ -34,24 +35,24 @@ module.exports = function(grunt) {
           }
           if (~sprite.name.indexOf('shirt'))
             sprite.y = sprite.y+15; // even more for shirts
-        },
-        cssOpts: {
-          'cssClass': function (item) {
+        }
+        /*,cssOpts: {
+          cssClass: function (item) {
             return '.' + item.name;
           }
-        }
+        }*/
       },
       main: {
         src: 'img/sprites/spritesmith/**/*.png',
         destImg: 'dist/spritesmith.png',
         destCSS: 'dist/spritesmith.css',
         algorithm: 'binary-tree',
-        cssOpts: {
-          'cssClass': function (item) {
-            //return '.sprite-' + item.name;
-            return '.' + item.name;
+        cssTemplate: 'css/css.template.mustache'
+        /*,cssOpts: {
+          cssClass: function (item) {
+            return '.' + item.name; //'.sprite-' + item.name;
           }
-        }
+        }*/
       }
     },
 
