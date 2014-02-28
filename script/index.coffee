@@ -793,16 +793,13 @@ api.wrap = (user, main=true) ->
 
             unless task.type is 'reward'
               if (user.preferences.automaticAllocation is true and user.preferences.allocationMode is 'taskbased' and !(task.type is 'todo' and direction is 'down')) then user.stats.training[task.attribute] += nextDelta
-              adjustAmt = nextDelta
               # ===== STRENGTH =====
               # (Only for up-scoring, ignore up-onlies and rewards)
               # Note, we create a new val (adjustAmt) to add to task.value, since delta will be used in Exp & GP calculations - we don't want STR to bonus that
-              # TODO STR Improves the amount by which Dailies and +/- Habits decrease in threat when scored, by .25% per point.
-              if direction is 'up' and task.type != 'reward' and !(task.type is 'habit' and !task.down)
-                adjustAmt = nextDelta * (1 + user._statsComputed.str * .004)
+              if direction is 'up' and !(task.type is 'habit' and !task.down)
                 user.party.quest.progress.up = user.party.quest.progress.up || 0;
-                user.party.quest.progress.up += adjustAmt if task.type in ['daily','todo']
-              task.value += adjustAmt
+                user.party.quest.progress.up += (nextDelta * (1 + (user._statsComputed.str / 200))) if task.type in ['daily','todo']
+              task.value += nextDelta
             delta += nextDelta
 
         addPoints = ->
@@ -943,7 +940,7 @@ api.wrap = (user, main=true) ->
       x - Math.floor(x)
 
     crit: (stat='str', chance=.03) ->
-      if user.fns.predictableRandom() <= chance then 1.5 + (.02*user._statsComputed[stat])
+      if user.fns.predictableRandom() <= chance*(1+stat/100) then 1.5 + (.02*user._statsComputed[stat])
       else 1
 
     ###

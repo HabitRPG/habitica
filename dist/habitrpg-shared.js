@@ -12426,7 +12426,7 @@ var process=require("__browserify_process");(function() {
           delta = 0;
           calculateDelta = function() {
             return _.times(options.times, function() {
-              var adjustAmt, currVal, nextDelta, _ref2, _ref3;
+              var currVal, nextDelta, _ref2, _ref3;
 
               currVal = task.value < -47.27 ? -47.27 : task.value > 21.27 ? 21.27 : task.value;
               nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
@@ -12446,15 +12446,13 @@ var process=require("__browserify_process");(function() {
                 if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
                   user.stats.training[task.attribute] += nextDelta;
                 }
-                adjustAmt = nextDelta;
-                if (direction === 'up' && task.type !== 'reward' && !(task.type === 'habit' && !task.down)) {
-                  adjustAmt = nextDelta * (1 + user._statsComputed.str * .004);
+                if (direction === 'up' && !(task.type === 'habit' && !task.down)) {
                   user.party.quest.progress.up = user.party.quest.progress.up || 0;
                   if ((_ref3 = task.type) === 'daily' || _ref3 === 'todo') {
-                    user.party.quest.progress.up += adjustAmt;
+                    user.party.quest.progress.up += nextDelta * (1 + (user._statsComputed.str / 200));
                   }
                 }
-                task.value += adjustAmt;
+                task.value += nextDelta;
               }
               return delta += nextDelta;
             });
@@ -12631,7 +12629,7 @@ var process=require("__browserify_process");(function() {
         if (chance == null) {
           chance = .03;
         }
-        if (user.fns.predictableRandom() <= chance) {
+        if (user.fns.predictableRandom() <= chance * (1 + stat / 100)) {
           return 1.5 + (.02 * user._statsComputed[stat]);
         } else {
           return 1;
