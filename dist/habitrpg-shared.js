@@ -10933,11 +10933,11 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           {
             type: 'eggs',
             key: 'Hedgehog',
-            text: "Gryphon (Egg)"
+            text: "Hedgehog (Egg)"
           }, {
             type: 'eggs',
             key: 'Hedgehog',
-            text: "Gryphon (Egg)"
+            text: "Hedgehog (Egg)"
           }
         ],
         gp: 30,

@@ -655,8 +655,8 @@ api.quests =
       str: 1.25 # Multiplier of users' missed dailies
     drop:
       items: [
-        {type: 'eggs', key: 'Hedgehog', text: "Gryphon (Egg)"}
-        {type: 'eggs', key: 'Hedgehog', text: "Gryphon (Egg)"}
+        {type: 'eggs', key: 'Hedgehog', text: "Hedgehog (Egg)"}
+        {type: 'eggs', key: 'Hedgehog', text: "Hedgehog (Egg)"}
       ]
       gp: 30
       exp: 125
