@@ -83,8 +83,8 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
           h3.panel-title 
             | {{group.name}}
             span(ng-if='group.leader == user.id')
-              button.btn.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing', style="margin-top:-8px;")=env.t('save')
-              button.btn.btn-default.pull-right(ng-click='group._editing = true', ng-hide='group._editing', style="margin-top:-8px;")=env.t('editGroup')
+              button.btn.btn-primary.pull-right(ng-click='save(group)', ng-show='group._editing')=env.t('save')
+              button.btn.btn-default.pull-right(ng-click='group._editing = true', ng-hide='group._editing')=env.t('editGroup')
 
         .panel-body
           form(ng-show='group._editing')
