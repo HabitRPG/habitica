@@ -5,10 +5,6 @@ window.habitrpg = angular.module('habitrpg',
      'authServices', 'notificationServices', 'guideServices', 'authCtrl',
      'ui.bootstrap', 'ui.keypress', 'ui.router', 'chieffancypants.loadingBar', 'At', 'pasvaz.bindonce', 'infinite-scroll', 'ui.select2'])
 
-  // @see https://github.com/angular-ui/ui-router/issues/110 and https://github.com/HabitRPG/habitrpg/issues/1705
-  // temporary hack until they have a better solution
-  .value('$anchorScroll', angular.noop)
-
   .constant("API_URL", "")
   .constant("STORAGE_USER_ID", 'habitrpg-user')
   .constant("STORAGE_SETTINGS_ID", 'habit-mobile-settings')
@@ -209,7 +205,6 @@ window.habitrpg = angular.module('habitrpg',
           return response;
         }
         function error(response) {
-          debugger;
           // Offline
           if (response.status == 0 ||
             // don't know why we're getting 404 here, should be 0
