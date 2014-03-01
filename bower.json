@@ -23,7 +23,7 @@
     "angular-ui-utils": "~0.1.0",
     "angular-ui-select2": "git://github.com/angular-ui/ui-select2.git",
     "angular-bootstrap": "~0.10.0",
-    "angular-ui-router": "~0.2.8",
+    "angular-ui-router": "git://github.com/HabitRPG/ui-router.git#habitrpg",
     "angular-loading-bar": "~0.3.0",
     "angular-bindonce": "~0.2.1",
     "bootstrap": "~3.1.0",
