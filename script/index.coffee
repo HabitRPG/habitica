@@ -983,15 +983,15 @@ api.wrap = (user, main=true) ->
 
       # % chance of getting a drop
 
-      chance = Math.abs(task.value - 25) / 1000         # Base drop chance based on task value. Subtract more than the max possible task value so we never get a 0
+      chance = _.max([Math.abs(task.value - 25) / 500,.02])   # Base drop chance based on task value. A typical, fresh task will be around 5%. Oldest tasks have a base around 15%, and there's a minimum of 2% for blues.
 
       chance *=
         task.priority *                                 # Task priority: +50% for Medium, +100% for Hard
         (1 + (task.streak / 100 or 0)) *                # Streak bonus: +1% per streak
-        (1 + (user._statsComputed.per / 50)) *          # PERception: +2% per point
+        (1 + (user._statsComputed.per / 100)) *         # PERception: +1% per point
         (1 + (user.contributor.level / 25 or 0)) *      # Contrib levels: +4% per level
         (1 + (user.achievements.rebirths / 25 or 0)) *  # Rebirths: +4% per achievement
-        (1 + (user.achievements.streak / 100 or 0)) *   # Streak achievements: +1% per achievement
+        (1 + (user.achievements.streak / 200 or 0)) *   # Streak achievements: +0.5% per achievement
         (user._tmp.crit or 1) *                         # Use the crit multiplier if we got one
         (1 + (_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) or 0)) # +100% per checklist item complete
 

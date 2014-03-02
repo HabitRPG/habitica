@@ -12681,8 +12681,8 @@ var process=require("__browserify_process");(function() {
         var acceptableDrops, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1, _ref2, _ref3, _ref4;
 
         task = modifiers.task;
-        chance = Math.abs(task.value - 25) / 1000;
-        chance *= task.priority * (1 + (task.streak / 100 || 0)) * (1 + (user._statsComputed.per / 50)) * (1 + (user.contributor.level / 25 || 0)) * (1 + (user.achievements.rebirths / 25 || 0)) * (1 + (user.achievements.streak / 100 || 0)) * (user._tmp.crit || 1) * (1 + (_.reduce(task.checklist, (function(m, i) {
+        chance = _.max([Math.abs(task.value - 25) / 500, .02]);
+        chance *= task.priority * (1 + (task.streak / 100 || 0)) * (1 + (user._statsComputed.per / 100)) * (1 + (user.contributor.level / 25 || 0)) * (1 + (user.achievements.rebirths / 25 || 0)) * (1 + (user.achievements.streak / 200 || 0)) * (user._tmp.crit || 1) * (1 + (_.reduce(task.checklist, (function(m, i) {
           return m + (i.completed ? 1 : 0);
         }), 0) || 0));
         quest = content.quests[(_ref = user.party.quest) != null ? _ref.key : void 0];
