@@ -12,6 +12,7 @@ newrelic_agent.log
 .bower-tmp
 .bower-registry
 .bower-cache
+.vagrant
 
 *.log
 src/*/*.map
