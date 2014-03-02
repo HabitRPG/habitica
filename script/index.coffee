@@ -793,16 +793,13 @@ api.wrap = (user, main=true) ->
 
             unless task.type is 'reward'
               if (user.preferences.automaticAllocation is true and user.preferences.allocationMode is 'taskbased' and !(task.type is 'todo' and direction is 'down')) then user.stats.training[task.attribute] += nextDelta
-              adjustAmt = nextDelta
               # ===== STRENGTH =====
               # (Only for up-scoring, ignore up-onlies and rewards)
               # Note, we create a new val (adjustAmt) to add to task.value, since delta will be used in Exp & GP calculations - we don't want STR to bonus that
-              # TODO STR Improves the amount by which Dailies and +/- Habits decrease in threat when scored, by .25% per point.
-              if direction is 'up' and task.type != 'reward' and !(task.type is 'habit' and !task.down)
-                adjustAmt = nextDelta * (1 + user._statsComputed.str * .004)
+              if direction is 'up' and !(task.type is 'habit' and !task.down)
                 user.party.quest.progress.up = user.party.quest.progress.up || 0;
-                user.party.quest.progress.up += adjustAmt if task.type in ['daily','todo']
-              task.value += adjustAmt
+                user.party.quest.progress.up += (nextDelta * (1 + (user._statsComputed.str / 200))) if task.type in ['daily','todo']
+              task.value += nextDelta
             delta += nextDelta
 
         addPoints = ->
@@ -943,7 +940,8 @@ api.wrap = (user, main=true) ->
       x - Math.floor(x)
 
     crit: (stat='str', chance=.03) ->
-      if user.fns.predictableRandom() <= chance then 1.5 + (.02*user._statsComputed[stat])
+      #console.log("Crit Chance:"+chance*(1+user._statsComputed[stat]/100))
+      if user.fns.predictableRandom() <= chance*(1+user._statsComputed[stat]/100) then 1.5 + (.02*user._statsComputed[stat])
       else 1
 
     ###
@@ -983,17 +981,19 @@ api.wrap = (user, main=true) ->
 
       # % chance of getting a drop
 
-      chance = _.max([Math.abs(task.value - 25) / 500,.02])   # Base drop chance based on task value. A typical, fresh task will be around 5%. Oldest tasks have a base around 15%, and there's a minimum of 2% for blues.
+      chance = _.min([Math.abs(task.value - 21.27),37.5])/150+.02   # Base drop chance is a percentage based on task value. Typical fresh task: 15%. Very ripe task: 25%. Very blue task: 2%.
 
       chance *=
         task.priority *                                 # Task priority: +50% for Medium, +100% for Hard
         (1 + (task.streak / 100 or 0)) *                # Streak bonus: +1% per streak
         (1 + (user._statsComputed.per / 100)) *         # PERception: +1% per point
-        (1 + (user.contributor.level / 25 or 0)) *      # Contrib levels: +4% per level
-        (1 + (user.achievements.rebirths / 25 or 0)) *  # Rebirths: +4% per achievement
+        (1 + (user.contributor.level / 20 or 0)) *      # Contrib levels: +5% per level
+        (1 + (user.achievements.rebirths / 20 or 0)) *  # Rebirths: +5% per achievement
         (1 + (user.achievements.streak / 200 or 0)) *   # Streak achievements: +0.5% per achievement
         (user._tmp.crit or 1) *                         # Use the crit multiplier if we got one
-        (1 + (_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) or 0)) # +100% per checklist item complete
+        (1 + .5*(_.reduce(task.checklist,((m,i)->m+(if i.completed then 1 else 0)),0) or 0)) # +50% per checklist item complete. TODO: make this into X individual drop chances instead
+
+      chance = api.diminishingReturns(chance, 0.75)
 
       #console.log("Drop chance: " + chance)
 
