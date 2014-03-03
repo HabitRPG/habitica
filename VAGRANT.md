@@ -16,11 +16,9 @@ environment up and running:
 
 1. Download the vagrant box:
 `vagrant box add habitrpg http://dl.dropboxusercontent.com/u/4309797/devel/habitrpg/package.box`
-2. Initialize the vagrant box:
-`vagrant init`
-3. Boot up and provision the software on the box:
+2. Boot up the box:
 `vagrant up`
-4. Login to the environment:
+3. Login to the environment:
 `vagrant ssh`
 
 The HabitRPG files will be located under `/vagrant' on the filesystem.
