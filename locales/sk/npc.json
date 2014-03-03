@@ -9,7 +9,7 @@
     "daniel": "Daniel",
     "danielText": "Vitaj v hostinci! Pokojne tu chvíľu pobudni a zoznám sa s miestnymi. Ak si potrebuješ odpočinúť (dovolenka? náhla choroba?), ubytujeme ťa u nás - denné úlohy ti počas oddychu nemôžu ublížiť.",
     "alexander": "Kupec Alexander",
-    "welcomeMarket": "Vitaj na tržnici! Kúp si u nás vzácne vajcia a elixíry! Predaj všetko, čo máš navyše! Objednaj si užitočné služby. Pozri sa, čo všetko ponúkame.",
+    "welcomeMarket": "Vitaj na trhu! Kúp si u nás vzácne vajcia a elixíry! Predaj všetko, čo máš navyše! Objednaj si užitočné služby. Pozri sa, čo všetko ponúkame.",
     "sellForGold": "Predaj <%= item %>. Cena v zlate: <%= gold %> ",
     "buyGems": "Kúpiť drahokamy",
     "justin": "Justin",
