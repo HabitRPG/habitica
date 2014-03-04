@@ -47,7 +47,7 @@
     "dangerZone": "Zona pericolosa",
     "resetText1": "Questo resetterà il tuo intero account - le tue attività verranno eliminate e il tuo personaggio ripartirà da zero.",
     "resetText2": "E' altamente sconsigliato perchè in questo modo perderai la cronologia delle tue attività, la quale è utile per controllare i tuoi progressi. Tuttavia, qualcuno trova questa opzione utile all'inizio, dopo aver giocato con HabitRPG per un po' di tempo.",
-    "deleteText": "Vuoi davvero procedere? Questo eliminerà il tuo account per sempre, non potrà mai più essere recuperato! Avrai bisogno di registrare un nuovo account su HabitRPG. Le gemme acquistate o spese non verranno risarcite. Se sei assolutamente convinto/a, scrivi <strong>DELETE</strong> nella casella di testo qui sotto.",
+    "deleteText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use HabitRPG again. Banked or spent Gems will not be refunded. If you're absolutely certain, type <strong><%= deleteWord %></strong> into the text box below.",
     "API": "API",
     "APIText": "Copia questi valori per utilizzarli in applicazioni di terze parti.",
     "APIToken": "API Token",
