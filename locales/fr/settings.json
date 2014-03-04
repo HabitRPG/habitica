@@ -1,7 +1,7 @@
 {
     "settings": "Paramètres",
     "language": "Langage",
-    "showHeaderPop": "Montrer votre avatar, barres de Santé/Expérience, et équipe.",
+    "showHeaderPop": "Montrer votre avatar, vos barres de Santé/Expérience et votre équipe.",
     "stickyHeader": "Bandeau fixe",
     "stickyHeaderPop": "Fixe le bandeau au dessus de l'écran. Décoché signifie qu'il défilera hors de vue.",
     "newTaskEdit": "Ouvrir une nouvelle tâche dans le mode modification ",
@@ -40,7 +40,7 @@
     "clockInfo": "Par défaut, HabitRPG vérifie et réinitialise vos quotidiennes chaque jour à minuit. Vous pouvez modifier ceci ici (entrez un nombre entre 0 et 24).",
     "misc": "Divers",
     "showHeader": "Montrer le Bandeau",
-    "changePass": "Changer de mot de passe",
+    "changePass": "Changer le mot de passe",
     "oldPass": "Ancien mot de passe",
     "newPass": "Nouveau mot de passe",
     "confirmPass": "Confirmer le nouveau mot de passe",
