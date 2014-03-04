@@ -1004,7 +1004,7 @@ api.wrap = (user, main=true) ->
         user.markModified? 'party.quest.progress'
         #console.log {progress:user.party.quest.progress}
 
-      return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 10))
+      return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 25))
       if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < chance
 
         # current breakdown - 1% (adjustable) chance on drop
