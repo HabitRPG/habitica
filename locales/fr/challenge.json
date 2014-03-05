@@ -30,7 +30,7 @@
     "discard": "Supprimer",
     "challengeTitle": "Titre du défi",
     "challengeTag": "Étiquette",
-    "challengeTagPop": "Les défis apparaissent dans la liste des étiquettes et comme tooltips sur les tâches. Utilisez un titre représentatif et une étiquette courte. Par exemple : \"Perdre 5 kilos en 3 mois\" pour le titre et \"-5kg\" pour l'étiquette (Cliquez pour plus d'informations).",
+    "challengeTagPop": "Les défis apparaissent dans la liste des étiquettes et dans l'infobulle des tâches. Utilisez un titre représentatif et une étiquette courte. Par exemple : \"Perdre 5 kilos en 3 mois\" pour le titre et \"-5kg\" pour l'étiquette (Cliquez pour plus d'informations).",
     "challengeDescr": "Description",
     "prize": "Récompense",
     "prizePop": "Si quelqu'un peut \"remporter\" votre défi, vous pouvez optionnellement récompenser le gagnant avec des gemmes. Maximum : nombre de gemmes que vous possédez (+ les gemmes de la guilde si vous êtes le propriétaire de la guilde). Attention : cette récompense ne peut pas être modifiée par la suite.",

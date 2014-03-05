@@ -47,7 +47,7 @@
     "dangerZone": "Strefa Niebezpieczeństwa",
     "resetText1": "To zresetuje całe twoje konto - twoje zadania zostaną usunięte, a twoja postać zacznie od nowa.",
     "resetText2": "Odradzamy ten krok - stracisz historię swoich postępów, która jest przydatna do obserwowania swoich postępów. Jednakże, niektórzy uważają tą opcję za przydatną na początku, gdy poużywa się aplikacji przez chwilę.",
-    "deleteText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use HabitRPG again. Banked or spent Gems will not be refunded. If you're absolutely certain, type <strong><%= deleteWord %></strong> into the text box below.",
+    "deleteText": "Jesteś pewien? Usunie to twoje konto na zawsze i nie będzie można go nigdy odzyskać! Będziesz musiał zarejestrować się ponownie na nowym koncie by używać HabitRPG ponownie. Posiadane lub wydane Klejnoty nie zostaną zwrócone. Jeśli jesteś absolutnie pewien swojej decyzji, wpisz  <strong><%= deleteWord %></strong> w okno dialogowe poniżej.",
     "API": "API",
     "APIText": "Skopiuj to do użytku w innych aplikacjach.",
     "APIToken": "API Token",

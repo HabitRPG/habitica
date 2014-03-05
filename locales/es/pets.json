@@ -25,10 +25,10 @@
     "beastMastName": "Maestro de las Bestias",
     "beastMastText": "Ha recogido todas las 90 mascotas (increíblemente difícil, ¡darle aplauso a este usuario!)",
     "dropsEnabled": "¡Botínes Activados!",
-    "itemDrop": "¡Un objecto se ha caído!",
+    "itemDrop": "¡Un objeto se ha caído!",
     "firstDrop": "Has descubierto el Sistema de Botín! Ahora, cuando realizas tareas, tendras una chance pequeña de encontrar un objecto. Has encontrado un <strong><%= eggText %> Huevo</strong>! <%= eggNotes %>",
     "useGems": "Si deseas un mascota, pero no puedes esperar más para el botín, usa Gemas en <strong>Opciones > Inventario</strong> para comprar una!",
     "hatchAPot": "¿Incubir un <%= egg %> <%= potion %>?",
-    "feedPet": "Dar de comer <%= article %><%= text %>a su <%= name %>?",
+    "feedPet": "¿Dar de comer <%= article %><%= text %>a su <%= name %>?",
     "useSaddle": "¿Ensillar <%= pet %>?"
 }
