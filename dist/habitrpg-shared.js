@@ -10171,44 +10171,72 @@ gear = {
     },
     rogue: {
       0: {
-        text: "Dagger",
-        notes: 'A rogue\'s most basic weapon. Confers no benefit.',
+        text: (function() {
+          return i18n.t('weaponRogue0Text');
+        }),
+        notes: (function() {
+          return i18n.t('weaponRogue0Notes');
+        }),
         str: 0,
         value: 0
       },
       1: {
-        text: "Short Sword",
-        notes: 'Light, concealable blade. Increases STR by 2.',
+        text: (function() {
+          return i18n.t('weaponRogue1Text');
+        }),
+        notes: (function() {
+          return i18n.t('weaponRogue1Notes');
+        }),
         str: 2,
         value: 20
       },
       2: {
-        text: "Scimitar",
-        notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.',
+        text: (function() {
+          return i18n.t('weaponRogue2Text');
+        }),
+        notes: (function() {
+          return i18n.t('weaponRogue2Notes');
+        }),
         str: 3,
         value: 35
       },
       3: {
-        text: "Kukri",
-        notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.',
+        text: (function() {
+          return i18n.t('weaponRogue3Text');
+        }),
+        notes: (function() {
+          return i18n.t('weaponRogue3Notes');
+        }),
         str: 4,
         value: 50
       },
       4: {
-        text: "Nunchaku",
-        notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.',
+        text: (function() {
+          return i18n.t('weaponRogue4Text');
+        }),
+        notes: (function() {
+          return i18n.t('weaponRogue4Notes');
+        }),
         str: 6,
         value: 70
       },
       5: {
-        text: "Ninja-to",
-        notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.',
+        text: (function() {
+          return i18n.t('weaponRogue5Text');
+        }),
+        notes: (function() {
+          return i18n.t('weaponRogue5Notes');
+        }),
         str: 8,
         value: 90
       },
       6: {
-        text: "Hook Sword",
-        notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.',
+        text: (function() {
+          return i18n.t('weaponRogue6Text');
+        }),
+        notes: (function() {
+          return i18n.t('weaponRogue6Notes');
+        }),
         str: 10,
         value: 120,
         last: true
@@ -11585,9 +11613,18 @@ _ = require('lodash');
 
 module.exports = {
   strings: {},
-  t: function(stringName, vars) {
-    var string;
-    string = module.exports.strings[stringName];
+  translations: {},
+  t: function(stringName) {
+    var locale, string, stringNotFound, vars;
+    vars = arguments[1];
+    if (_.isString(arguments[1])) {
+      vars = null;
+      locale = arguments[1];
+    } else if (arguments[2] != null) {
+      vars = arguments[1];
+      locale = arguments[2];
+    }
+    string = locale ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
     if (string) {
       if (vars) {
         return _.template(string, vars);
@@ -11595,7 +11632,8 @@ module.exports = {
         return string;
       }
     } else {
-      return _.template(module.exports.strings.stringNotFound, {
+      stringNotFound = locale ? module.exports.translations[locale].stringNotFound : module.exports.strings.stringNotFound;
+      return _.template(stringNotFound, {
         string: stringName
       });
     }
