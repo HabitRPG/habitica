@@ -1,7 +1,7 @@
 _ = require 'lodash'
 api = module.exports
 moment = require 'moment'
-
+i18n = require './i18n.coffee'
 ###
   ---------------------------------------------------------------
   Gear (Weapons, Armor, Head, Shield)
@@ -26,15 +26,16 @@ mystery =
 gear =
   weapon:
     base:
-      0: text: "No Weapon", notes:'No Weapon.', value:0
+      0: 
+        text: (-> i18n.t('weaponBase0Text')), notes: (-> i18n.t('weaponBase0Notes')), value:0
     warrior:
-      0: text: "Training Sword", notes:'Practice weapon. Confers no benefit.', value:0
-      1: text: "Sword", notes:'Common soldier\'s blade. Increases STR by 3.', str: 3, value:20
-      2: text: "Axe", notes:'Double-bitted battle-axe. Increases STR by 6.', str: 6, value:30
-      3: text: "Morning Star", notes:'Heavy club with brutal spikes. Increases STR by 9.', str: 9, value:45
-      4: text: "Sapphire Blade", notes:'Sword whose edge bites like the north wind. Increases STR by 12.', str: 12, value:65
-      5: text: "Ruby Sword", notes:'Weapon whose forge-glow never fades. Increases STR by 15.', str: 15, value:90
-      6: text: "Golden Sword", notes:'Bane of creatures of darkness. Increases STR by 18.', str: 18, value:120, last: true
+      0: text: (-> i18n.t('weaponWarrior0Text')), notes: (-> i18n.t('weaponWarrior0Notes')), value:0
+      1: text: (-> i18n.t('weaponWarrior1Text')), notes: (-> i18n.t('weaponWarrior1Notes')), str: 3, value:20
+      2: text: (-> i18n.t('weaponWarrior2Text')), notes: (-> i18n.t('weaponWarrior2Notes')), str: 6, value:30
+      3: text: (-> i18n.t('weaponWarrior3Text')), notes: (-> i18n.t('weaponWarrior3Notes')), str: 9, value:45
+      4: text: (-> i18n.t('weaponWarrior4Text')), notes: (-> i18n.t('weaponWarrior4Notes')), str: 12, value:65
+      5: text: (-> i18n.t('weaponWarrior5Text')), notes: (-> i18n.t('weaponWarrior5Notes')), str: 15, value:90
+      6: text: (-> i18n.t('weaponWarrior6Text')), notes: (-> i18n.t('weaponWarrior6Notes')), str: 18, value:120, last: true
     rogue:
       #Not using bows at the moment, but they would be easy to add back in to an advanced Armory feature, as Quest drops, etc.
       #0: twoHanded: true, text: "Practice Bow", notes:'Training weapon. Confers no benefit.', value:0
@@ -44,13 +45,13 @@ gear =
       #4: twoHanded: true, text: "Icicle Bow", notes:'Fires arrows of piercing cold. Increases STR by 12.', str: 12, value:120
       #5: twoHanded: true, text: "Meteor Bow", notes:'Rains flame upon your foes. Increases STR by 16.', str: 16, value:160
       #6: twoHanded: true, text: "Golden Bow", notes:'As swift as sunlight and as sharp as lightning. Increases STR by 20.', str: 20, value:200, last: true
-      0: text: "Dagger", notes: 'A rogue\'s most basic weapon. Confers no benefit.', str: 0, value: 0
-      1: text: "Short Sword", notes: 'Light, concealable blade. Increases STR by 2.', str: 2, value: 20
-      2: text: "Scimitar", notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.', str: 3, value: 35
-      3: text: "Kukri", notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.', str: 4, value: 50
-      4: text: "Nunchaku", notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.', str: 6, value: 70
-      5: text: "Ninja-to", notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.', str: 8, value: 90
-      6: text: "Hook Sword", notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.', str: 10, value: 120, last: true
+      0: text: (-> i18n.t('weaponRogue0Text')), notes: (-> i18n.t('weaponRogue0Notes')), str: 0, value: 0
+      1: text: (-> i18n.t('weaponRogue1Text')), notes: (-> i18n.t('weaponRogue1Notes')), str: 2, value: 20
+      2: text: (-> i18n.t('weaponRogue2Text')), notes: (-> i18n.t('weaponRogue2Notes')), str: 3, value: 35
+      3: text: (-> i18n.t('weaponRogue3Text')), notes: (-> i18n.t('weaponRogue3Notes')), str: 4, value: 50
+      4: text: (-> i18n.t('weaponRogue4Text')), notes: (-> i18n.t('weaponRogue4Notes')), str: 6, value: 70
+      5: text: (-> i18n.t('weaponRogue5Text')), notes: (-> i18n.t('weaponRogue5Notes')), str: 8, value: 90
+      6: text: (-> i18n.t('weaponRogue6Text')), notes: (-> i18n.t('weaponRogue6Notes')), str: 10, value: 120, last: true
     wizard:
       0: twoHanded: true, text: "Apprentice Staff", notes:'Practice staff. Confers no benefit.', value:0
       1: twoHanded: true, text: "Wooden Staff", notes:'Basic implement of carven wood. Increases INT by 3 and PER by 1.', int: 3, per: 1, value:30

@@ -4,6 +4,8 @@ content = require('./content.coffee')
 
 api = module.exports = {}
 
+api.i18n = require('./i18n.coffee')
+
 # little helper for large arrays of strings. %w"this that another" equivalent from Rails, I really miss that function
 $w = (s)->s.split(' ')
 
