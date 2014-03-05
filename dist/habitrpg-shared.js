@@ -9715,39 +9715,63 @@ gear = {
   armor: {
     base: {
       0: {
-        text: "Plain Clothing",
-        notes: 'Ordinary clothing. Confers no benefit.',
+        text: (function() {
+          return i18n.t('armorBase0Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorBase0Notes');
+        }),
         value: 0
       }
     },
     warrior: {
       1: {
-        text: "Leather Armor",
-        notes: 'Jerkin of sturdy boiled hide. Increases CON by 3.',
+        text: (function() {
+          return i18n.t('armorWarrior1Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorWarrior1Notes');
+        }),
         con: 3,
         value: 30
       },
       2: {
-        text: "Chain Mail",
-        notes: 'Armor of interlocked metal rings. Increases CON by 5.',
+        text: (function() {
+          return i18n.t('armorWarrior2Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorWarrior2Notes');
+        }),
         con: 5,
         value: 45
       },
       3: {
-        text: "Plate Armor",
-        notes: 'Suit of all-encasing steel, the pride of knights. Increases CON by 7.',
+        text: (function() {
+          return i18n.t('armorWarrior3Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorWarrior3Notes');
+        }),
         con: 7,
         value: 65
       },
       4: {
-        text: "Red Armor",
-        notes: 'Heavy plate glowing with defensive enchantments. Increases CON by 9.',
+        text: (function() {
+          return i18n.t('armorWarrior4Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorWarrior4Notes');
+        }),
         con: 9,
         value: 90
       },
       5: {
-        text: "Golden Armor",
-        notes: 'Looks ceremonial, but no known blade can pierce it. Increases CON by 11.',
+        text: (function() {
+          return i18n.t('armorWarrior5Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorWarrior5Notes');
+        }),
         con: 11,
         value: 120,
         last: true
@@ -9755,32 +9779,52 @@ gear = {
     },
     rogue: {
       1: {
-        text: "Oiled Leather",
-        notes: 'Leather armor treated to reduce noise. Increases PER by 6.',
+        text: (function() {
+          return i18n.t('armorRogue1Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorRogue1Notes');
+        }),
         per: 6,
         value: 30
       },
       2: {
-        text: "Black Leather",
-        notes: 'Colored with dark dye to blend into shadows. Increases PER by 9',
+        text: (function() {
+          return i18n.t('armorRogue2Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorRogue2Notes');
+        }),
         per: 9,
         value: 45
       },
       3: {
-        text: "Camouflage Vest",
-        notes: 'Equally discreet in dungeon or wilderness. Increases PER by 12.',
+        text: (function() {
+          return i18n.t('armorRogue3Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorRogue3Notes');
+        }),
         per: 12,
         value: 65
       },
       4: {
-        text: "Penumbral Armor",
-        notes: 'Wraps the wearer in a veil of twilight. Increases PER by 15.',
+        text: (function() {
+          return i18n.t('armorRogue4Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorRogue4Notes');
+        }),
         per: 15,
         value: 90
       },
       5: {
-        text: "Umbral Armor",
-        notes: 'Allows stealth in the open in broad daylight. Increases PER by 18.',
+        text: (function() {
+          return i18n.t('armorRogue5Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorRogue5Notes');
+        }),
         per: 18,
         value: 120,
         last: true
@@ -9788,32 +9832,52 @@ gear = {
     },
     wizard: {
       1: {
-        text: "Magician Robe",
-        notes: 'Hedge-mage\'s outfit. Increases INT by 2.',
+        text: (function() {
+          return i18n.t('armorWizard1Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorWizard1Notes');
+        }),
         int: 2,
         value: 30
       },
       2: {
-        text: "Wizard Robe",
-        notes: 'Clothes for a wandering wonder-worker. Increases INT by 4.',
+        text: (function() {
+          return i18n.t('armorWizard2Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorWizard2Notes');
+        }),
         int: 4,
         value: 45
       },
       3: {
-        text: "Robe of Mysteries",
-        notes: 'Denotes initiation into elite secrets. Increases INT by 6.',
+        text: (function() {
+          return i18n.t('armorWizard3Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorWizard3Notes');
+        }),
         int: 6,
         value: 65
       },
       4: {
-        text: "Archmage Robe",
-        notes: 'Spirits and elementals bow before it. Increases INT by 9.',
+        text: (function() {
+          return i18n.t('armorWizard4Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorWizard4Notes');
+        }),
         int: 9,
         value: 90
       },
       5: {
-        text: "Royal Magus Robe",
-        notes: 'Symbol of the power behind the throne. Increases INT by 12.',
+        text: (function() {
+          return i18n.t('armorWizard5Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorWizard5Notes');
+        }),
         int: 12,
         value: 120,
         last: true
@@ -9821,32 +9885,52 @@ gear = {
     },
     healer: {
       1: {
-        text: "Acolyte Robe",
-        notes: 'Garment showing humility and purpose. Increases CON by 6.',
+        text: (function() {
+          return i18n.t('armorHealer1Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorHealer1Notes');
+        }),
         con: 6,
         value: 30
       },
       2: {
-        text: "Medic Robe",
-        notes: 'Worn by those dedicated to tending the wounded in battle. Increases CON by 9.',
+        text: (function() {
+          return i18n.t('armorHealer2Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorHealer2Notes');
+        }),
         con: 9,
         value: 45
       },
       3: {
-        text: "Defender Mantle",
-        notes: 'Turns the healer\'s own magics inward to fend off harm. Increases CON by 12.',
+        text: (function() {
+          return i18n.t('armorHealer3Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorHealer3Notes');
+        }),
         con: 12,
         value: 65
       },
       4: {
-        text: "Physician Mantle",
-        notes: 'Projects authority and dissipates curses. Increases CON by 15.',
+        text: (function() {
+          return i18n.t('armorHealer4Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorHealer4Notes');
+        }),
         con: 15,
         value: 90
       },
       5: {
-        text: "Royal Mantle",
-        notes: 'Attire of those who have saved the lives of kings. Increases CON by 18.',
+        text: (function() {
+          return i18n.t('armorHealer5Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorHealer5Notes');
+        }),
         con: 18,
         value: 120,
         last: true
@@ -9854,8 +9938,12 @@ gear = {
     },
     special: {
       0: {
-        text: "Shade Armor",
-        notes: 'Screams when struck, for it feels pain in its wearer\'s place. Increases CON by 20.',
+        text: (function() {
+          return i18n.t('armorSpecial0Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorSpecial0Notes');
+        }),
         con: 20,
         value: 150,
         canOwn: (function(u) {
@@ -9864,8 +9952,12 @@ gear = {
         })
       },
       1: {
-        text: "Crystal Armor",
-        notes: 'Its tireless power inures the wearer to mundane discomfort. Increases all attributes by 6.',
+        text: (function() {
+          return i18n.t('armorSpecial1Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorSpecial1Notes');
+        }),
         con: 6,
         str: 6,
         per: 6,
@@ -9877,8 +9969,12 @@ gear = {
         })
       },
       2: {
-        text: "Jean Chalard's Noble Tunic",
-        notes: 'Makes you extra fluffy! Increases CON and INT by 25 each.',
+        text: (function() {
+          return i18n.t('armorSpecial2Text');
+        }),
+        notes: (function() {
+          return i18n.t('armorSpecial2Notes');
+        }),
         int: 25,
         con: 25,
         value: 200,
@@ -9889,40 +9985,92 @@ gear = {
       },
       yeti: {
         event: events.winter,
+<<<<<<< HEAD
         specialClass: 'warrior',
         text: "Yeti-Tamer Robe",
         notes: 'Limited Edition 2013 Winter Gear! Fuzzy and fierce. Increases CON by 9.',
+=======
+        canOwn: (function(u) {
+          return u.stats["class"] === 'warrior';
+        }),
+        text: (function() {
+          return i18n.t('armorSpecialYetiText');
+        }),
+        notes: (function() {
+          return i18n.t('armorSpecialYetiNotes');
+        }),
+>>>>>>> chore(i18n): move armor items to content.json
         con: 9,
         value: 90
       },
       ski: {
         event: events.winter,
+<<<<<<< HEAD
         specialClass: 'rogue',
         text: "Ski-sassin Parka",
         notes: 'Limited Edition 2013 Winter Gear! Full of secret daggers and ski trail maps. Increases PER by 15.',
+=======
+        canOwn: (function(u) {
+          return u.stats["class"] === 'rogue';
+        }),
+        text: (function() {
+          return i18n.t('armorSpecialSkiText');
+        }),
+        notes: (function() {
+          return i18n.t('armorSpecialSkiText');
+        }),
+>>>>>>> chore(i18n): move armor items to content.json
         per: 15,
         value: 90
       },
       candycane: {
         event: events.winter,
+<<<<<<< HEAD
         specialClass: 'wizard',
         text: "Candy Cane Robe",
         notes: 'Limited Edition 2013 Winter Gear! Spun from sugar and silk. Increases INT by 9.',
+=======
+        canOwn: (function(u) {
+          return u.stats["class"] === 'wizard';
+        }),
+        text: (function() {
+          return i18n.t('armorSpecialCandycaneText');
+        }),
+        notes: (function() {
+          return i18n.t('armorSpecialCandycaneNotes');
+        }),
+>>>>>>> chore(i18n): move armor items to content.json
         int: 9,
         value: 90
       },
       snowflake: {
         event: events.winter,
+<<<<<<< HEAD
         specialClass: 'healer',
         text: "Snowflake Robe",
         notes: 'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.',
+=======
+        canOwn: (function(u) {
+          return u.stats["class"] === 'healer';
+        }),
+        text: (function() {
+          return i18n.t('armorSpecialSnowflakeText');
+        }),
+        notes: (function() {
+          return i18n.t('armorSpecialSnowflakeNotes');
+        }),
+>>>>>>> chore(i18n): move armor items to content.json
         con: 15,
         value: 90
       },
       birthday: {
         event: events.birthday,
-        text: "Absurd Party Robes",
-        notes: "As part of the festivities, Absurd Party Robes are available free of charge in the Item Store! Swath yourself in those silly garbs and don your matching hats to celebrate this momentous day.",
+        text: (function() {
+          return i18n.t('armorSpecialBirthdayText');
+        }),
+        notes: (function() {
+          return i18n.t('armorSpecialBirthdayNotes');
+        }),
         value: 0
       },
       springRogue: {
