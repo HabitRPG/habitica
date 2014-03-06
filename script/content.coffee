@@ -145,45 +145,45 @@ gear =
 
   head:
     base:
-      0: text: "No Helm", notes:'No headgear.', value:0
+      0: text: (-> i18n.t('headBase0Text')), notes: (-> i18n.t('headBase0Notes')), value:0
     warrior:
       #0: text: "No Helm", notes:'No headgear.', value:0
-      1: text: "Leather Helm", notes:'Cap of sturdy boiled hide. Increases STR by 2.', str: 2, value:15
-      2: text: "Chain Coif", notes:'Hood of interlocked metal rings. Increases STR by 4.', str: 4, value:25
-      3: text: "Plate Helm", notes:'Thick steel helmet, proof against any blow. Increases STR by 6.', str: 6, value:40
-      4: text: "Red Helm", notes:'Set with rubies for power, and glows when the wearer is angered. Increases STR by 9.', str: 9, value:60
-      5: text: "Golden Helm", notes:'Regal crown bound to shining armor. Increases STR by 12.', str: 12, value:80, last: true
+      1: text: (-> i18n.t('headWarrior1Text')), notes: (-> i18n.t('headWarrior1Notes', {str: 2})), str: 2, value:15
+      2: text: (-> i18n.t('headWarrior2Text')), notes: (-> i18n.t('headWarrior2Notes', {str: 4})), str: 4, value:25
+      3: text: (-> i18n.t('headWarrior3Text')), notes: (-> i18n.t('headWarrior3Notes', {str: 6})), str: 6, value:40
+      4: text: (-> i18n.t('headWarrior4Text')), notes: (-> i18n.t('headWarrior4Notes', {str: 9})), str: 9, value:60
+      5: text: (-> i18n.t('headWarrior5Text')), notes: (-> i18n.t('headWarrior5Notes', {str: 12})), str: 12, value:80, last: true
     rogue:
       #0: text: "No Hood", notes:'No headgear.', value:0
-      1: text: "Leather Hood", notes:'Basic protective cowl. Increases PER by 2.', per: 2, value:15
-      2: text: "Black Leather Hood", notes:'Useful for both defense and disguise. Increases PER by 4.', per: 4, value:25
-      3: text: "Camouflage Hood", notes:'Rugged, but doesn\'t impede hearing. Increases PER by 6.', per: 6, value:40
-      4: text: "Penumbral Hood", notes:'Grants perfect vision in darkness. Increases PER by 9.', per: 9, value:60
-      5: text: "Umbral Hood", notes:'Conceals even thoughts from those who would probe them. Increases PER by 12.', per: 12, value:80, last: true
+      1: text: (-> i18n.t('headRogue1Text')), notes: (-> i18n.t('headRogue1Notes', {per: 2})), per: 2, value:15
+      2: text: (-> i18n.t('headRogue2Text')), notes: (-> i18n.t('headRogue2Notes', {per: 4})), per: 4, value:25
+      3: text: (-> i18n.t('headRogue3Text')), notes: (-> i18n.t('headRogue3Notes', {per: 6})), per: 6, value:40
+      4: text: (-> i18n.t('headRogue4Text')), notes: (-> i18n.t('headRogue4Notes', {per: 9})), per: 9, value:60
+      5: text: (-> i18n.t('headRogue5Text')), notes: (-> i18n.t('headRogue5Notes', {per: 12})), per: 12, value:80, last: true
     wizard:
       #0: text: "No Hat", notes:'No headgear.', value:0
-      1: text: "Magician Hat", notes:'Simple, comfortable, and fashionable. Increases PER by 2.', per: 2, value:15
-      2: text: "Cornuthaum", notes:'Traditional headgear of the itinerant wizard. Increases PER by 3.', per: 3, value:25
-      3: text: "Astrologer Hat", notes:'Adorned with the rings of Saturn. Increases PER by 5.', per: 5, value:40
-      4: text: "Archmage Hat", notes:'Focuses the mind for intensive spellcasting. Increases PER by 7.', per: 7, value:60
-      5: text: "Royal Magus Hat", notes:'Shows authority over fortune, weather, and lesser mages. Increases PER by 10.', per: 10, value:80, last: true
+      1: text: (-> i18n.t('headWizard1Text')), notes: (-> i18n.t('headWizard1Notes', {per: 2})), per: 2, value:15
+      2: text: (-> i18n.t('headWizard2Text')), notes: (-> i18n.t('headWizard2Notes', {per: 3})), per: 3, value:25
+      3: text: (-> i18n.t('headWizard3Text')), notes: (-> i18n.t('headWizard3Notes', {per: 5})), per: 5, value:40
+      4: text: (-> i18n.t('headWizard4Text')), notes: (-> i18n.t('headWizard4Notes', {per: 7})), per: 7, value:60
+      5: text: (-> i18n.t('headWizard5Text')), notes: (-> i18n.t('headWizard5Notes', {per: 10})), per: 10, value:80, last: true
     healer:
       #0: text: "No Circlet", notes:'No headgear.', value:0
-      1: text: "Quartz Circlet", notes:'Jeweled headpiece, for focus on the task at hand. Increases INT by 2.', int: 2, value:15
-      2: text: "Amethyst Circlet", notes:'A taste of luxury for a humble profession. Increases INT by 3.', int: 3, value:25
-      3: text: "Sapphire Circlet", notes:'Shines to let sufferers know their salvation is at hand. Increases INT by 5.', int: 5, value:40
-      4: text: "Emerald Diadem", notes:'Emits an aura of life and growth. Increases INT by 7.', int: 7, value:60
-      5: text: "Royal Diadem", notes:'For king, queen, or miracle-worker. Increases INT by 9.', int: 9, value:80, last: true
+      1: text: (-> i18n.t('headHealer1Text')), notes: (-> i18n.t('headHealer1Notes', {int: 2})), int: 2, value:15
+      2: text: (-> i18n.t('headHealer2Text')), notes: (-> i18n.t('headHealer2Notes', {int: 3})), int: 3, value:25
+      3: text: (-> i18n.t('headHealer3Text')), notes: (-> i18n.t('headHealer3Notes', {int: 5})), int: 5, value:40
+      4: text: (-> i18n.t('headHealer4Text')), notes: (-> i18n.t('headHealer4Notes', {int: 7})), int: 7, value:60
+      5: text: (-> i18n.t('headHealer5Text')), notes: (-> i18n.t('headHealer5Notes', {int: 9})), int: 9, value:80, last: true
     special:
-      0: text: "Shade Helm",   notes:'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.', int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
-      1: text: "Crystal Helm", notes:'The favored crown of those who lead by example. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 3)
-      2: text: "Nameless Helm", notes:'A testament to those who gave of themselves while asking nothing in return. Increases INT and STR by 25 each.', int: 25, str: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      0: text: (-> i18n.t('headSpecial0Text')), notes: (-> i18n.t('headSpecial0Notes', {int: 20})), int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
+      1: text: (-> i18n.t('headSpecial1Text')), notes: (-> i18n.t('headSpecial1Notes', {attrs: 6})), con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 3)
+      2: text: (-> i18n.t('headSpecial2Text')), notes: (-> i18n.t('headSpecial2Notes', {attrs: 25})), int: 25, str: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
       #Winter event
-      nye:        event: events.winter, text: "Absurd Party Hat", notes:"You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!", value: 0
-      yeti:       event: events.winter, specialClass: 'warrior', text: "Yeti-Tamer Helm", notes:'Limited Edition 2013 Winter Gear! An adorably fearsome hat. Increases STR by 9.', str: 9, value:60
-      ski:        event: events.winter, specialClass: 'rogue'  , text: "Ski-sassin Helm", notes:"Limited Edition 2013 Winter Gear! Keeps the wearer's identity secret... and their face toasty. Increases PER by 9.", per: 9, value:60
-      candycane:  event: events.winter, specialClass: 'wizard' , text: "Candy Cane Hat", notes:"Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by 7.", per: 7, value:60
-      snowflake:  event: events.winter, specialClass: 'healer' , text: "Snowflake Crown", notes:'Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by 7.', int: 7, value:60
+      nye:        event: events.winter, text: (-> i18n.t('headSpecialNyeText')), notes: (-> i18n.t('headSpecialNyeNotes')), value: 0
+      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: (-> i18n.t('headSpecialYetiText')), notes: (-> i18n.t('headSpecialYetiNotes', {str: 9})), str: 9, value:60
+      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: (-> i18n.t('headSpecialSkiText')), notes: (-> i18n.t('headSpecialSkiNotes', {per: 9})), per: 9, value:60
+      candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: (-> i18n.t('headSpecialCanycaneText')), notes: (-> i18n.t('headSpecialCanycaneNotes', {per: 7})), per: 7, value:60
+      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: (-> i18n.t('headSpecialSnowflakeText')), notes: (-> i18n.t('headSpecialSnowflakeNotes', {int: 7})), int: 7, value:60
       # Spring Fling
       springRogue:    event: events.spring, specialClass: 'rogue',   text:'Stealthy Kitty Mask', notes:'Nobody will EVER guess that you are a cat burglar! Adds 9 points to PER. Limited Edition 2014 Spring Gear.',value: 40,per: 9
       springWarrior:  event: events.spring, specialClass: 'warrior', text:'Clover-steel Helmet', notes:'Welded from sweet meadow clover, this helmet can resist even the mightiest blow. Adds 9 points to STR. Limited Edition 2014 Spring Gear.',value: 40,str: 9
