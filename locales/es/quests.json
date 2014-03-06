@@ -17,7 +17,7 @@
     "bossDmg1": "Para lastimar un Jefe, completa tus Diarios y Quehaceres. Una Tarea con mayor daño significa un mayor daño al Jefe (completando rojos, Hechizos de Magos, Ataques de Guerreros, etc). El jefe dañará al partido por cada Diario que pierdan (multiplicado por la Fuerza del Jefe), así que ayuda a tus amigos completando tus Diarios! <strong> Todo el daño hacia y desde un Jefe es contabilizado por día (tu cambio de día) </strong>",
     "bossDmg2": "Solo participantes pelean contra el jefe, y conseguirán botín de la misión. Si mueres en la batalla de un jefe, seras eliminado de la batalla.  Si todos se mueren una vez, la misión falla.",
     "bossColl1": "Para colectar premiecitos, haga sus tareas positivas. Artículos de misiones se ganan como premiecitos normales; sin embargo, no verá estos artículos hasta el próximo día cuando todo que encontró estará sumado y contribuido al total.",
-    "bossColl2": "Solo participantes pueden colectar objectos y compartir en el botín de la misión. Si mueres mientras en misión, seras eliminado de la misión. Si todos se mueren una vez, la misión falla.",
+    "bossColl2": "Sólo los participantes pueden colectar objetos y compartir en el botín de la misión. Si mueres durante una misión, serás eliminado de ella. Si todos se mueren a la vez, la misión fracasa.",
     "abort": "Abortar",
     "scrolls": "Pergamino de Misión",
     "noScrolls": "No tienes pergamino de misión",

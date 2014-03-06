@@ -47,7 +47,7 @@
     "dangerZone": "Небезпечна зона",
     "resetText1": "Це безповоротно скидає Ваші акаунт та завдання, а Ваш персонаж почне все з самого початку.",
     "resetText2": "Дуже не рекомендуємо це, оскільки Ви втратите всю історію, яка б могла бути використана для ґрафіків Вашого поступу за весь час. Однак, декому це буде корисно, якщо вони спершу просто пограли, а тепер бажають узятися до справи з розумом.",
-    "deleteText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use HabitRPG again. Banked or spent Gems will not be refunded. If you're absolutely certain, type <strong><%= deleteWord %></strong> into the text box below.",
+    "deleteText": "Ви впевнені? Акаунт буде повністю вилучено назавжди, і його неможливо буде відновити! Вам треба буде знову реєструватися, аби грати у HabitRPG. Накопичені й витрачені самоцвіти не буде повернено. Якщо Ви цілковито впевнені, надрукуйте <strong><%= deleteWord %></strong> у текстовому полі нижче.",
     "API": "API",
     "APIText": "Скопіюйте це задля використання у сторонніх застосунках.",
     "APIToken": "Токен API",

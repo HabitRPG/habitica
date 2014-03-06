@@ -47,7 +47,7 @@
     "dangerZone": "Zone de Danger",
     "resetText1": "Ceci réinitialise complétement votre compte : vos tâches seront supprimées et votre personnage recommencera tout à zéro.",
     "resetText2": "Ceci est fortement déconseillé car vous perdrez vos données d'historique, celles-ci sont utiles pour représenter graphiquement votre progrès dans le temps. Cependant, certaines personnes trouvent cela utile après avoir joué un peu avec l'application.",
-    "deleteText": "Êtes-vous sûr ? Cela va supprimer votre compte HabitRPG définitivement et ne pourra pas être restauré ! Vous serez obligé de créer un nouveau compte pour ré-utiliser HabitRPG. Les Gemmes sur votre compte ou celles dépensées ne seront pas remboursées. Si vous êtes certain,  Tapez <strong>SUPPRIMER</strong> dans le champ de texte ci-dessous.",
+    "deleteText": "Êtes-vous sûr ? Cela va supprimer votre compte HabitRPG définitivement et il ne pourra pas être restauré ! Vous serez obligé de créer un nouveau compte pour ré-utiliser HabitRPG. Les Gemmes sur votre compte ou celles dépensées ne seront pas remboursées. Si vous êtes absolument certain, tapez <strong><%= deleteWord %></strong> dans le champ de texte ci-dessous.",
     "API": "API",
     "APIText": "Copier ceci pour un usage dans des applications tierces.",
     "APIToken": "Jeton d'API",

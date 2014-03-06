@@ -47,7 +47,7 @@
     "dangerZone": "Gefahrenzone",
     "resetText1": "Das setzt Dein gesamtes Konto zurück - Deine Aufgaben werden gelöscht und dein Charakter beginnt von vorn.",
     "resetText2": "Das wird nicht empfohlen, weil Du alle Verlaufsinformationen verlierst, die zur Darstellung Deines Fortschritts notwendig sind. Aber manche Leute finden es zu Beginn nützlich, wenn sie mit der App herumgespielt haben.",
-    "deleteText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use HabitRPG again. Banked or spent Gems will not be refunded. If you're absolutely certain, type <strong><%= deleteWord %></strong> into the text box below.",
+    "deleteText": "Bist Du sicher? Das wird Dein Konto für immer löschen und es kann nicht wiederhergestellt werden! Wenn Du HabitRPG wieder verwenden möchtest, musst Du ein neues Konto registrieren. Gesparte oder verbrauchte Edelsteine werden nicht ersetzt. Wenn Du absolut sicher bist, dann tippe <strong><%= deleteWord %></strong> in die Text-Box unten ein.",
     "API": "API",
     "APIText": "Kopiere das hier um es in Apps von Dritten zu verwenden.",
     "APIToken": "API Token",

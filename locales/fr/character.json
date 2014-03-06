@@ -85,7 +85,7 @@
     "healer": "Guérisseur",
     "rogue": "Voleur",
     "mage": "Mage",
-    "changeClass": "Changez votre Classe, Rembourse vos Points d'Attribut",
+    "changeClass": "Changer de classe et rembourser les points d'attribut.",
     "levelPopover": "Vous pouvez affecter un point à un attribut de votre choix à chaque niveau gagné. Cette attribution peut se faire manuellement ou en laissant le jeu décider pour vous, en utilisant une des options d'Attribution Automatique.",
     "unallocated": "Points d'Attribut non alloués",
     "autoAllocation": "Attribution automatique",

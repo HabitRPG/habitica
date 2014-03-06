@@ -14,7 +14,7 @@
     "heroicText": "El nivel Heroico es para el personal de HabitRPG y colaboradores a nivel de personal. Si tienes este título, fuiste designado (¡o contratado!) para él.",
     "npcText": "Los NPCs contribuyeron al Kickstarter de HabitRPG en su nivel más alto. ¡Puedes encontrar sus avatares velando sobre las características del sitio!",
     "modalContribAchievement": "¡Hazaña de Colaborador!",
-    "contribModal": "¡<%= name %>, qué persona increíble! Ahora eres un colaborador de nivel <%= level %> por ayudar HabitRPG. Revisa",
+    "contribModal": "¡<%= name %>, qué persona increíble! Ahora eres un colaborador de nivel <%= level %> por ayudar HabitRPG. ¡Revisa",
     "contribLink": "los premios que has ganado por tu colaboración!",
     "contribName": "Colaborador",
     "contribText": "Has contribuído a HabitRPG (código, diseño, pixel art, asesoramiento legal, documentación, etc.). ¿Quieres esta insignia?",
