@@ -98,41 +98,41 @@ gear =
       0: text: (-> i18n.t('armorBase0Text')), notes: (-> i18n.t('armorBase0Notes')), value:0
     warrior:
       #0: text: "Plain Clothing", notes:'Ordinary clothing. Confers no benefit.', value:0
-      1: text: (-> i18n.t('armorWarrior1Text')), notes: (-> i18n.t('armorWarrior1Notes')), con: 3, value:30
-      2: text: (-> i18n.t('armorWarrior2Text')), notes: (-> i18n.t('armorWarrior2Notes')), con: 5, value:45
-      3: text: (-> i18n.t('armorWarrior3Text')), notes: (-> i18n.t('armorWarrior3Notes')), con: 7, value:65
-      4: text: (-> i18n.t('armorWarrior4Text')), notes: (-> i18n.t('armorWarrior4Notes')), con: 9, value:90
-      5: text: (-> i18n.t('armorWarrior5Text')), notes: (-> i18n.t('armorWarrior5Notes')), con: 11, value:120, last: true
+      1: text: (-> i18n.t('armorWarrior1Text')), notes: (-> i18n.t('armorWarrior1Notes', {con: 3})), con: 3, value:30
+      2: text: (-> i18n.t('armorWarrior2Text')), notes: (-> i18n.t('armorWarrior2Notes', {con: 5})), con: 5, value:45
+      3: text: (-> i18n.t('armorWarrior3Text')), notes: (-> i18n.t('armorWarrior3Notes', {con: 7})), con: 7, value:65
+      4: text: (-> i18n.t('armorWarrior4Text')), notes: (-> i18n.t('armorWarrior4Notes', {con: 9})), con: 9, value:90
+      5: text: (-> i18n.t('armorWarrior5Text')), notes: (-> i18n.t('armorWarrior5Notes', {con: 11})), con: 11, value:120, last: true
     rogue:
       #0: text: "Plain Clothing", notes:'Ordinary clothing. Confers no benefit.', value:0
-      1: text: (-> i18n.t('armorRogue1Text')), notes: (-> i18n.t('armorRogue1Notes')), per: 6, value:30
-      2: text: (-> i18n.t('armorRogue2Text')), notes: (-> i18n.t('armorRogue2Notes')), per: 9, value:45
-      3: text: (-> i18n.t('armorRogue3Text')), notes: (-> i18n.t('armorRogue3Notes')), per: 12, value:65
-      4: text: (-> i18n.t('armorRogue4Text')), notes: (-> i18n.t('armorRogue4Notes')), per: 15, value:90
-      5: text: (-> i18n.t('armorRogue5Text')), notes: (-> i18n.t('armorRogue5Notes')), per: 18, value:120, last: true
+      1: text: (-> i18n.t('armorRogue1Text')), notes: (-> i18n.t('armorRogue1Notes', {per: 6})), per: 6, value:30
+      2: text: (-> i18n.t('armorRogue2Text')), notes: (-> i18n.t('armorRogue2Notes', {per: 9})), per: 9, value:45
+      3: text: (-> i18n.t('armorRogue3Text')), notes: (-> i18n.t('armorRogue3Notes', {per: 12})), per: 12, value:65
+      4: text: (-> i18n.t('armorRogue4Text')), notes: (-> i18n.t('armorRogue4Notes', {per: 15})), per: 15, value:90
+      5: text: (-> i18n.t('armorRogue5Text')), notes: (-> i18n.t('armorRogue5Notes', {per: 18})), per: 18, value:120, last: true
     wizard:
       #0: text: "Apprentice Garb", notes:'For students of magic. Confers no benefit.', value:0
-      1: text: (-> i18n.t('armorWizard1Text')), notes: (-> i18n.t('armorWizard1Notes')), int: 2, value:30
-      2: text: (-> i18n.t('armorWizard2Text')), notes: (-> i18n.t('armorWizard2Notes')), int: 4, value:45
-      3: text: (-> i18n.t('armorWizard3Text')), notes: (-> i18n.t('armorWizard3Notes')), int: 6, value:65
-      4: text: (-> i18n.t('armorWizard4Text')), notes: (-> i18n.t('armorWizard4Notes')), int: 9, value:90
-      5: text: (-> i18n.t('armorWizard5Text')), notes: (-> i18n.t('armorWizard5Notes')), int: 12, value:120, last: true
+      1: text: (-> i18n.t('armorWizard1Text')), notes: (-> i18n.t('armorWizard1Notes', {int: 2})), int: 2, value:30
+      2: text: (-> i18n.t('armorWizard2Text')), notes: (-> i18n.t('armorWizard2Notes', {int: 4})), int: 4, value:45
+      3: text: (-> i18n.t('armorWizard3Text')), notes: (-> i18n.t('armorWizard3Notes', {int: 6})), int: 6, value:65
+      4: text: (-> i18n.t('armorWizard4Text')), notes: (-> i18n.t('armorWizard4Notes', {int: 9})), int: 9, value:90
+      5: text: (-> i18n.t('armorWizard5Text')), notes: (-> i18n.t('armorWizard5Notes', {int: 12})), int: 12, value:120, last: true
     healer:
       #0: text: "Novice Robe", notes:'For healers in training. Confers no benefit.', value:0
-      1: text: (-> i18n.t('armorHealer1Text')), notes: (-> i18n.t('armorHealer1Notes')), con: 6, value:30
-      2: text: (-> i18n.t('armorHealer2Text')), notes: (-> i18n.t('armorHealer2Notes')), con: 9, value:45
-      3: text: (-> i18n.t('armorHealer3Text')), notes: (-> i18n.t('armorHealer3Notes')), con: 12, value:65
-      4: text: (-> i18n.t('armorHealer4Text')), notes: (-> i18n.t('armorHealer4Notes')), con: 15, value:90
-      5: text: (-> i18n.t('armorHealer5Text')), notes: (-> i18n.t('armorHealer5Notes')), con: 18, value:120, last: true
+      1: text: (-> i18n.t('armorHealer1Text')), notes: (-> i18n.t('armorHealer1Notes', {con: 6})), con: 6, value:30
+      2: text: (-> i18n.t('armorHealer2Text')), notes: (-> i18n.t('armorHealer2Notes', {con: 9})), con: 9, value:45
+      3: text: (-> i18n.t('armorHealer3Text')), notes: (-> i18n.t('armorHealer3Notes', {con: 12})), con: 12, value:65
+      4: text: (-> i18n.t('armorHealer4Text')), notes: (-> i18n.t('armorHealer4Notes', {con: 15})), con: 15, value:90
+      5: text: (-> i18n.t('armorHealer5Text')), notes: (-> i18n.t('armorHealer5Notes', {con: 18})), con: 18, value:120, last: true
     special:
-      0: text: (-> i18n.t('armorSpecial0Text')), notes: (-> i18n.t('armorSpecial0Notes')), con: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
-      1: text: (-> i18n.t('armorSpecial1Text')), notes: (-> i18n.t('armorSpecial1Notes')), con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
-      2: text: (-> i18n.t('armorSpecial2Text')), notes: (-> i18n.t('armorSpecial2Notes')), int: 25, con: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      0: text: (-> i18n.t('armorSpecial0Text')), notes: (-> i18n.t('armorSpecial0Notes', {con: 20})), con: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
+      1: text: (-> i18n.t('armorSpecial1Text')), notes: (-> i18n.t('armorSpecial1Notes', {attrs: 6})), con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
+      2: text: (-> i18n.t('armorSpecial2Text')), notes: (-> i18n.t('armorSpecial2Notes', {attrs: 25})), int: 25, con: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
       #Winter event
-      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: (-> i18n.t('armorSpecialYetiText')), notes: (-> i18n.t('armorSpecialYetiNotes')), con: 9, value:90
-      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: (-> i18n.t('armorSpecialSkiText')), notes: (-> i18n.t('armorSpecialSkiText')), per: 15, value:90
-      candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: (-> i18n.t('armorSpecialCandycaneText')), notes: (-> i18n.t('armorSpecialCandycaneNotes')), int: 9, value:90
-      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: (-> i18n.t('armorSpecialSnowflakeText')), notes: (-> i18n.t('armorSpecialSnowflakeNotes')), con: 15, value:90
+      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: (-> i18n.t('armorSpecialYetiText')), notes: (-> i18n.t('armorSpecialYetiNotes', {con: 9})), con: 9, value:90
+      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: (-> i18n.t('armorSpecialSkiText')), notes: (-> i18n.t('armorSpecialSkiText', {per: 15})), per: 15, value:90
+      candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: (-> i18n.t('armorSpecialCandycaneText')), notes: (-> i18n.t('armorSpecialCandycaneNotes', {int: 9})), int: 9, value:90
+      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: (-> i18n.t('armorSpecialSnowflakeText')), notes: (-> i18n.t('armorSpecialSnowflakeNotes', {con: 15})), con: 15, value:90
       birthday:   event: events.birthday, text: (-> i18n.t('armorSpecialBirthdayText')), notes: (-> i18n.t('armorSpecialBirthdayNotes')), value: 0
       # Spring Fling
       springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Sleek Cat Suit', notes: 'Impeccably groomed. Adds 15 points to PER. Limited Edition 2014 Spring Gear.', value: 90, per: 15
