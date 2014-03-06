@@ -49,3 +49,34 @@ script(type='text/ng-template', id='modals/rebirth.html')
       span.gem-cost
         | 8&nbsp;
         =env.t('gems')
+script(type='text/ng-template', id='modals/releasepets.html')
+  .modal-header
+    h4=env.t('releasePetsTitle')
+  .modal-body
+    include ../gems
+    figure
+      .npc_matt
+    br
+    p=env.t('releasePetsBlurb')
+    br
+    p
+      =env.t('releasePets1')
+      |&nbsp;
+      =env.t('releasePets2')
+      |&nbsp;
+      =env.t('releasePets3')
+    br
+    p
+      span.vertical-align.inline-block.achievement-rat
+      |&nbsp;
+      =env.t('releasePetsEarnAchievement')      
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
+    span(ng-if='user.balance < 2')
+      a.btn.btn-success(ng-click='openModal("buyGems",{track:"Gems > Release_Pets"})')=env.t('buyMoreGems')
+      span.gem-cost=env.t('notEnoughGems')
+    span(ng-if='user.balance >= 2')
+      a.btn.btn-danger(ng-click='$close(); release()')=env.t('releasePetsButton')
+      span.gem-cost
+        | 8&nbsp;
+        =env.t('gems')

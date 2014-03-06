@@ -160,6 +160,12 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                   p
                     | 8
                     span.Pet_Currency_Gem1x.inline-gems
+                //div(ng-show='user.achievements.beastMaster')
+                div
+                  button.customize-option(popover=env.t('releasePetsPop'), popover-title=env.t('releasePetsName'), popover-trigger='mouseenter', popover-placement='left', ng-click='openModal("releasepets")', class='PixelPaw')
+                  p
+                    | 8
+                    span.Pet_Currency_Gem1x.inline-gems
                 div(ng-if='user.purchased.plan.planId')
                   button.customize-option(ng-click='user.ops.purchase({params:{type:"gems",key:"gem"}})')
                     span.Pet_Currency_Gem.inline-gems
