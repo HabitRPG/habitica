@@ -11255,8 +11255,12 @@ _.each(gearTypes, function(type) {
 
 api.potion = {
   type: 'potion',
-  text: "Health Potion",
-  notes: "Recover 15 Health (Instant Use)",
+  text: (function() {
+    return i18n.t('potionText');
+  }),
+  notes: (function() {
+    return i18n.t('potionNotes');
+  }),
   value: 25,
   key: 'potion'
 };

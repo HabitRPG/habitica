@@ -300,7 +300,7 @@ _.each gearTypes, (type) ->
   ---------------------------------------------------------------
 ###
 
-api.potion = type: 'potion', text: "Health Potion", notes: "Recover 15 Health (Instant Use)", value: 25, key: 'potion'
+api.potion = type: 'potion', text: (-> i18n.t('potionText')), notes: (-> i18n.t('potionNotes')), value: 25, key: 'potion'
 
 ###
    ---------------------------------------------------------------
