@@ -194,39 +194,39 @@ gear =
 
   shield:
     base:
-      0: text: "No Off-Hand Equipment", notes:'No shield or second weapon.', value:0
+      0: text: (-> i18n.t('shieldBase0Text')), notes: (-> i18n.t('shieldBase0Notes')), value:0
       #changed because this is what shows up for all classes, including those without shields
     warrior:
       #0: text: "No Shield", notes:'No shield.', value:0
-      1: text: "Wooden Shield", notes:'Round shield of thick wood. Increases CON by 2.', con: 2, value:20
-      2: text: "Buckler", notes:'Light and sturdy, quick to bring to the defense. Increases CON by 3.', con: 3, value:35
-      3: text: "Reinforced Shield", notes:'Made of wood but bolstered with metal bands. Increases CON by 5.', con: 5, value:50
-      4: text: "Red Shield", notes:'Rebukes blows with a burst of flame. Increases CON by 7.', con: 7, value:70
-      5: text: "Golden Shield", notes:'Shining badge of the vanguard. Increases CON by 9.', con: 9, value:90, last: true
+      1: text: (-> i18n.t('shieldWarrior1Text')), notes: (-> i18n.t('shieldWarrior1Notes', {con: 2})), con: 2, value:20
+      2: text: (-> i18n.t('shieldWarrior2Text')), notes: (-> i18n.t('shieldWarrior2Notes', {con: 3})), con: 3, value:35
+      3: text: (-> i18n.t('shieldWarrior3Text')), notes: (-> i18n.t('shieldWarrior3Notes', {con: 5})), con: 5, value:50
+      4: text: (-> i18n.t('shieldWarrior4Text')), notes: (-> i18n.t('shieldWarrior4Notes', {con: 7})), con: 7, value:70
+      5: text: (-> i18n.t('shieldWarrior5Text')), notes: (-> i18n.t('shieldWarrior5Notes', {con: 9})), con: 9, value:90, last: true
     rogue:
-      0: text: "Dagger", notes: 'A rogue\'s most basic weapon. Confers no benefit.', str: 0, value: 0
-      1: text: "Short Sword", notes: 'Light, concealable blade. Increases STR by 2.', str: 2, value: 20
-      2: text: "Scimitar", notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.', str: 3, value: 35
-      3: text: "Kukri", notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.', str: 4, value: 50
-      4: text: "Nunchaku", notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.', str: 6, value: 70
-      5: text: "Ninja-to", notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.', str: 8, value: 90
-      6: text: "Hook Sword", notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.', str: 10, value: 120, last: true
+      0: text: (-> i18n.t('shieldRogue0Text')), notes: (-> i18n.t('shieldRogue0Notes')), str: 0, value: 0
+      1: text: (-> i18n.t('shieldRogue1Text')), notes: (-> i18n.t('shieldRogue1Notes', {str: 2})), str: 2, value: 20
+      2: text: (-> i18n.t('shieldRogue2Text')), notes: (-> i18n.t('shieldRogue2Notes', {str: 3})), str: 3, value: 35
+      3: text: (-> i18n.t('shieldRogue3Text')), notes: (-> i18n.t('shieldRogue3Notes', {str: 4})), str: 4, value: 50
+      4: text: (-> i18n.t('shieldRogue4Text')), notes: (-> i18n.t('shieldRogue4Notes', {str: 6})), str: 6, value: 70
+      5: text: (-> i18n.t('shieldRogue5Text')), notes: (-> i18n.t('shieldRogue5Notes', {str: 8})), str: 8, value: 90
+      6: text: (-> i18n.t('shieldRogue6Text')), notes: (-> i18n.t('shieldRogue6Notes', {str: 10})), str: 10, value: 120, last: true
     wizard: {}
       #0: text: "No Shield", notes:'No shield.', def: 0, value:0, last: true
     healer:
       #0: text: "No Shield", notes:'No shield.', def: 0, value:0
-      1: text: "Medic Buckler", notes:'Easy to disengage, freeing a hand for bandaging. Increases CON by 2.', con: 2, value:20
-      2: text: "Kite Shield", notes:'Tapered shield with the symbol of healing. Increases CON by 4.', con: 4, value:35
-      3: text: "Protector Shield", notes:'Traditional shield of defender knights. Increases CON by 6.', con: 6, value:50
-      4: text: "Savior Shield", notes:'Stops blows aimed at nearby innocents as well as those aimed at you. Increases CON by 9.', con: 9, value:70
-      5: text: "Royal Shield", notes:'Bestowed upon those most dedicated to the kingdom\'s defense. Increases CON by 12.', con: 12, value:90, last: true
+      1: text: (-> i18n.t('shieldHealer1Text')), notes: (-> i18n.t('shieldHealer1Notes', {con: 2})), con: 2, value:20
+      2: text: (-> i18n.t('shieldHealer2Text')), notes: (-> i18n.t('shieldHealer2Notes', {con: 4})), con: 4, value:35
+      3: text: (-> i18n.t('shieldHealer3Text')), notes: (-> i18n.t('shieldHealer3Notes', {con: 6})), con: 6, value:50
+      4: text: (-> i18n.t('shieldHealer4Text')), notes: (-> i18n.t('shieldHealer4Notes', {con: 9})), con: 9, value:70
+      5: text: (-> i18n.t('shieldHealer5Text')), notes: (-> i18n.t('shieldHealer5Notes', {con: 12})), con: 12, value:90, last: true
     special:
-      0: text: "Tormented Skull", notes:'Sees beyond the veil of death, and displays what it finds there for enemies to fear. Increases PER by 20.', per: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
-      1: text: "Crystal Shield", notes:'Shatters arrows and deflects the words of naysayers. Increases all attributes by 6.', con: 6, str: 6, per: 6, int:6, value:170, canOwn: ((u)-> +u.contributor?.level >= 5)
+      0: text: (-> i18n.t('shieldSpecial0Text')), notes: (-> i18n.t('shieldSpecial0Notes', {per: 20})), per: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
+      1: text: (-> i18n.t('shieldSpecial1Text')), notes: (-> i18n.t('shieldSpecial1Notes', {attrs: 6})), con: 6, str: 6, per: 6, int:6, value:170, canOwn: ((u)-> +u.contributor?.level >= 5)
       #Winter event
-      yeti:       event: events.winter, specialClass: 'warrior', text: "Yeti-Tamer Shield", notes:'Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by 7.', con: 7, value:70
-      ski:        event: events.winter, specialClass: 'rogue'  , text: "Ski-sassin Pole", notes:'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.', str: 8, value: 90
-      snowflake:  event: events.winter, specialClass: 'healer' , text: "Snowflake Shield", notes:'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.', con: 9, value:70
+      yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: (-> i18n.t('shieldSpecialYetiText')), notes: (-> i18n.t('shieldSpecialYetiNotes', {con: 7})), con: 7, value: 70
+      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: (-> i18n.t('shieldSpecialSkiText')), notes: (-> i18n.t('shieldSpecialSkiNotes', {str: 8})), str: 8, value: 90
+      snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: (-> i18n.t('shieldSpecialSnowflakeText')), notes: (-> i18n.t('shieldSpecialSnowflakeNotes', {con: 9})), con: 9, value: 70
       #Spring Fling
       springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Hook Claws', notes:'Great for scaling tall buildings, and also for shredding carpets. Adds 8 points to STR. Limited Edition 2014 Spring Gear.', value: 80, str: 8
       springWarrior:  event: events.spring, specialClass: 'warrior', text: 'Egg Shield', notes: "This shield never cracks, no matter how hard you hit it! Adds 7 points to CON. Limited Edition 2014 Spring Gear.", value: 70, con: 7
@@ -234,7 +234,7 @@ gear =
 
   back:
     base:
-      0: text: "No Back Accessory", notes:'No Back Accessory.', value:0
+      0: text: (-> i18n.t('backBase0Text')), notes: (-> i18n.t('backBase0Notes')), value:0
     mystery:
       201402: text: 'Golden Wings', notes: "These shining wings have feathers that glitter in the sun!", mystery:mystery['201402'], value: 10
       201404: text: 'Twilight Butterfly Wings', notes: "Be a butterfly and flutter by!", mystery:mystery['201404'], value: 10

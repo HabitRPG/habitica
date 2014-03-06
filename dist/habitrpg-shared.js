@@ -10251,39 +10251,73 @@ gear = {
   head: {
     base: {
       0: {
-        text: "No Helm",
-        notes: 'No headgear.',
+        text: (function() {
+          return i18n.t('headBase0Text');
+        }),
+        notes: (function() {
+          return i18n.t('headBase0Notes');
+        }),
         value: 0
       }
     },
     warrior: {
       1: {
-        text: "Leather Helm",
-        notes: 'Cap of sturdy boiled hide. Increases STR by 2.',
+        text: (function() {
+          return i18n.t('headWarrior1Text');
+        }),
+        notes: (function() {
+          return i18n.t('headWarrior1Notes', {
+            str: 2
+          });
+        }),
         str: 2,
         value: 15
       },
       2: {
-        text: "Chain Coif",
-        notes: 'Hood of interlocked metal rings. Increases STR by 4.',
+        text: (function() {
+          return i18n.t('headWarrior2Text');
+        }),
+        notes: (function() {
+          return i18n.t('headWarrior2Notes', {
+            str: 4
+          });
+        }),
         str: 4,
         value: 25
       },
       3: {
-        text: "Plate Helm",
-        notes: 'Thick steel helmet, proof against any blow. Increases STR by 6.',
+        text: (function() {
+          return i18n.t('headWarrior3Text');
+        }),
+        notes: (function() {
+          return i18n.t('headWarrior3Notes', {
+            str: 6
+          });
+        }),
         str: 6,
         value: 40
       },
       4: {
-        text: "Red Helm",
-        notes: 'Set with rubies for power, and glows when the wearer is angered. Increases STR by 9.',
+        text: (function() {
+          return i18n.t('headWarrior4Text');
+        }),
+        notes: (function() {
+          return i18n.t('headWarrior4Notes', {
+            str: 9
+          });
+        }),
         str: 9,
         value: 60
       },
       5: {
-        text: "Golden Helm",
-        notes: 'Regal crown bound to shining armor. Increases STR by 12.',
+        text: (function() {
+          return i18n.t('headWarrior5Text');
+        }),
+        notes: (function() {
+          return i18n.t('headWarrior5Notes', {
+            str: 12
+          });
+        }),
         str: 12,
         value: 80,
         last: true
@@ -10291,32 +10325,62 @@ gear = {
     },
     rogue: {
       1: {
-        text: "Leather Hood",
-        notes: 'Basic protective cowl. Increases PER by 2.',
+        text: (function() {
+          return i18n.t('headRogue1Text');
+        }),
+        notes: (function() {
+          return i18n.t('headRogue1Notes', {
+            per: 2
+          });
+        }),
         per: 2,
         value: 15
       },
       2: {
-        text: "Black Leather Hood",
-        notes: 'Useful for both defense and disguise. Increases PER by 4.',
+        text: (function() {
+          return i18n.t('headRogue2Text');
+        }),
+        notes: (function() {
+          return i18n.t('headRogue2Notes', {
+            per: 4
+          });
+        }),
         per: 4,
         value: 25
       },
       3: {
-        text: "Camouflage Hood",
-        notes: 'Rugged, but doesn\'t impede hearing. Increases PER by 6.',
+        text: (function() {
+          return i18n.t('headRogue3Text');
+        }),
+        notes: (function() {
+          return i18n.t('headRogue3Notes', {
+            per: 6
+          });
+        }),
         per: 6,
         value: 40
       },
       4: {
-        text: "Penumbral Hood",
-        notes: 'Grants perfect vision in darkness. Increases PER by 9.',
+        text: (function() {
+          return i18n.t('headRogue4Text');
+        }),
+        notes: (function() {
+          return i18n.t('headRogue4Notes', {
+            per: 9
+          });
+        }),
         per: 9,
         value: 60
       },
       5: {
-        text: "Umbral Hood",
-        notes: 'Conceals even thoughts from those who would probe them. Increases PER by 12.',
+        text: (function() {
+          return i18n.t('headRogue5Text');
+        }),
+        notes: (function() {
+          return i18n.t('headRogue5Notes', {
+            per: 12
+          });
+        }),
         per: 12,
         value: 80,
         last: true
@@ -10324,32 +10388,62 @@ gear = {
     },
     wizard: {
       1: {
-        text: "Magician Hat",
-        notes: 'Simple, comfortable, and fashionable. Increases PER by 2.',
+        text: (function() {
+          return i18n.t('headWizard1Text');
+        }),
+        notes: (function() {
+          return i18n.t('headWizard1Notes', {
+            per: 2
+          });
+        }),
         per: 2,
         value: 15
       },
       2: {
-        text: "Cornuthaum",
-        notes: 'Traditional headgear of the itinerant wizard. Increases PER by 3.',
+        text: (function() {
+          return i18n.t('headWizard2Text');
+        }),
+        notes: (function() {
+          return i18n.t('headWizard2Notes', {
+            per: 3
+          });
+        }),
         per: 3,
         value: 25
       },
       3: {
-        text: "Astrologer Hat",
-        notes: 'Adorned with the rings of Saturn. Increases PER by 5.',
+        text: (function() {
+          return i18n.t('headWizard3Text');
+        }),
+        notes: (function() {
+          return i18n.t('headWizard3Notes', {
+            per: 5
+          });
+        }),
         per: 5,
         value: 40
       },
       4: {
-        text: "Archmage Hat",
-        notes: 'Focuses the mind for intensive spellcasting. Increases PER by 7.',
+        text: (function() {
+          return i18n.t('headWizard4Text');
+        }),
+        notes: (function() {
+          return i18n.t('headWizard4Notes', {
+            per: 7
+          });
+        }),
         per: 7,
         value: 60
       },
       5: {
-        text: "Royal Magus Hat",
-        notes: 'Shows authority over fortune, weather, and lesser mages. Increases PER by 10.',
+        text: (function() {
+          return i18n.t('headWizard5Text');
+        }),
+        notes: (function() {
+          return i18n.t('headWizard5Notes', {
+            per: 10
+          });
+        }),
         per: 10,
         value: 80,
         last: true
@@ -10357,32 +10451,62 @@ gear = {
     },
     healer: {
       1: {
-        text: "Quartz Circlet",
-        notes: 'Jeweled headpiece, for focus on the task at hand. Increases INT by 2.',
+        text: (function() {
+          return i18n.t('headHealer1Text');
+        }),
+        notes: (function() {
+          return i18n.t('headHealer1Notes', {
+            int: 2
+          });
+        }),
         int: 2,
         value: 15
       },
       2: {
-        text: "Amethyst Circlet",
-        notes: 'A taste of luxury for a humble profession. Increases INT by 3.',
+        text: (function() {
+          return i18n.t('headHealer2Text');
+        }),
+        notes: (function() {
+          return i18n.t('headHealer2Notes', {
+            int: 3
+          });
+        }),
         int: 3,
         value: 25
       },
       3: {
-        text: "Sapphire Circlet",
-        notes: 'Shines to let sufferers know their salvation is at hand. Increases INT by 5.',
+        text: (function() {
+          return i18n.t('headHealer3Text');
+        }),
+        notes: (function() {
+          return i18n.t('headHealer3Notes', {
+            int: 5
+          });
+        }),
         int: 5,
         value: 40
       },
       4: {
-        text: "Emerald Diadem",
-        notes: 'Emits an aura of life and growth. Increases INT by 7.',
+        text: (function() {
+          return i18n.t('headHealer4Text');
+        }),
+        notes: (function() {
+          return i18n.t('headHealer4Notes', {
+            int: 7
+          });
+        }),
         int: 7,
         value: 60
       },
       5: {
-        text: "Royal Diadem",
-        notes: 'For king, queen, or miracle-worker. Increases INT by 9.',
+        text: (function() {
+          return i18n.t('headHealer5Text');
+        }),
+        notes: (function() {
+          return i18n.t('headHealer5Notes', {
+            int: 9
+          });
+        }),
         int: 9,
         value: 80,
         last: true
@@ -10390,8 +10514,14 @@ gear = {
     },
     special: {
       0: {
-        text: "Shade Helm",
-        notes: 'Blood and ash, lava and obsidian give this helm its imagery and power. Increases INT by 20.',
+        text: (function() {
+          return i18n.t('headSpecial0Text');
+        }),
+        notes: (function() {
+          return i18n.t('headSpecial0Notes', {
+            int: 20
+          });
+        }),
         int: 20,
         value: 150,
         canOwn: (function(u) {
@@ -10400,8 +10530,14 @@ gear = {
         })
       },
       1: {
-        text: "Crystal Helm",
-        notes: 'The favored crown of those who lead by example. Increases all attributes by 6.',
+        text: (function() {
+          return i18n.t('headSpecial1Text');
+        }),
+        notes: (function() {
+          return i18n.t('headSpecial1Notes', {
+            attrs: 6
+          });
+        }),
         con: 6,
         str: 6,
         per: 6,
@@ -10413,8 +10549,14 @@ gear = {
         })
       },
       2: {
-        text: "Nameless Helm",
-        notes: 'A testament to those who gave of themselves while asking nothing in return. Increases INT and STR by 25 each.',
+        text: (function() {
+          return i18n.t('headSpecial2Text');
+        }),
+        notes: (function() {
+          return i18n.t('headSpecial2Notes', {
+            attrs: 25
+          });
+        }),
         int: 25,
         str: 25,
         value: 200,
@@ -10425,39 +10567,99 @@ gear = {
       },
       nye: {
         event: events.winter,
-        text: "Absurd Party Hat",
-        notes: "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year!",
+        text: (function() {
+          return i18n.t('headSpecialNyeText');
+        }),
+        notes: (function() {
+          return i18n.t('headSpecialNyeNotes');
+        }),
         value: 0
       },
       yeti: {
         event: events.winter,
+<<<<<<< HEAD
         specialClass: 'warrior',
         text: "Yeti-Tamer Helm",
         notes: 'Limited Edition 2013 Winter Gear! An adorably fearsome hat. Increases STR by 9.',
+=======
+        canOwn: (function(u) {
+          return u.stats["class"] === 'warrior';
+        }),
+        text: (function() {
+          return i18n.t('headSpecialYetiText');
+        }),
+        notes: (function() {
+          return i18n.t('headSpecialYetiNotes', {
+            str: 9
+          });
+        }),
+>>>>>>> improve(i18n): move gear strings to gear.json, recompile
         str: 9,
         value: 60
       },
       ski: {
         event: events.winter,
+<<<<<<< HEAD
         specialClass: 'rogue',
         text: "Ski-sassin Helm",
         notes: "Limited Edition 2013 Winter Gear! Keeps the wearer's identity secret... and their face toasty. Increases PER by 9.",
+=======
+        canOwn: (function(u) {
+          return u.stats["class"] === 'rogue';
+        }),
+        text: (function() {
+          return i18n.t('headSpecialSkiText');
+        }),
+        notes: (function() {
+          return i18n.t('headSpecialSkiNotes', {
+            per: 9
+          });
+        }),
+>>>>>>> improve(i18n): move gear strings to gear.json, recompile
         per: 9,
         value: 60
       },
       candycane: {
         event: events.winter,
+<<<<<<< HEAD
         specialClass: 'wizard',
         text: "Candy Cane Hat",
         notes: "Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by 7.",
+=======
+        canOwn: (function(u) {
+          return u.stats["class"] === 'wizard';
+        }),
+        text: (function() {
+          return i18n.t('headSpecialCanycaneText');
+        }),
+        notes: (function() {
+          return i18n.t('headSpecialCanycaneNotes', {
+            per: 7
+          });
+        }),
+>>>>>>> improve(i18n): move gear strings to gear.json, recompile
         per: 7,
         value: 60
       },
       snowflake: {
         event: events.winter,
+<<<<<<< HEAD
         specialClass: 'healer',
         text: "Snowflake Crown",
         notes: 'Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by 7.',
+=======
+        canOwn: (function(u) {
+          return u.stats["class"] === 'healer';
+        }),
+        text: (function() {
+          return i18n.t('headSpecialSnowflakeText');
+        }),
+        notes: (function() {
+          return i18n.t('headSpecialSnowflakeNotes', {
+            int: 7
+          });
+        }),
+>>>>>>> improve(i18n): move gear strings to gear.json, recompile
         int: 7,
         value: 60
       },
@@ -10506,39 +10708,73 @@ gear = {
   shield: {
     base: {
       0: {
-        text: "No Off-Hand Equipment",
-        notes: 'No shield or second weapon.',
+        text: (function() {
+          return i18n.t('shieldBase0Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldBase0Notes');
+        }),
         value: 0
       }
     },
     warrior: {
       1: {
-        text: "Wooden Shield",
-        notes: 'Round shield of thick wood. Increases CON by 2.',
+        text: (function() {
+          return i18n.t('shieldWarrior1Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldWarrior1Notes', {
+            con: 2
+          });
+        }),
         con: 2,
         value: 20
       },
       2: {
-        text: "Buckler",
-        notes: 'Light and sturdy, quick to bring to the defense. Increases CON by 3.',
+        text: (function() {
+          return i18n.t('shieldWarrior2Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldWarrior2Notes', {
+            con: 3
+          });
+        }),
         con: 3,
         value: 35
       },
       3: {
-        text: "Reinforced Shield",
-        notes: 'Made of wood but bolstered with metal bands. Increases CON by 5.',
+        text: (function() {
+          return i18n.t('shieldWarrior3Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldWarrior3Notes', {
+            con: 5
+          });
+        }),
         con: 5,
         value: 50
       },
       4: {
-        text: "Red Shield",
-        notes: 'Rebukes blows with a burst of flame. Increases CON by 7.',
+        text: (function() {
+          return i18n.t('shieldWarrior4Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldWarrior4Notes', {
+            con: 7
+          });
+        }),
         con: 7,
         value: 70
       },
       5: {
-        text: "Golden Shield",
-        notes: 'Shining badge of the vanguard. Increases CON by 9.',
+        text: (function() {
+          return i18n.t('shieldWarrior5Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldWarrior5Notes', {
+            con: 9
+          });
+        }),
         con: 9,
         value: 90,
         last: true
@@ -10546,44 +10782,84 @@ gear = {
     },
     rogue: {
       0: {
-        text: "Dagger",
-        notes: 'A rogue\'s most basic weapon. Confers no benefit.',
+        text: (function() {
+          return i18n.t('shieldRogue0Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldRogue0Notes');
+        }),
         str: 0,
         value: 0
       },
       1: {
-        text: "Short Sword",
-        notes: 'Light, concealable blade. Increases STR by 2.',
+        text: (function() {
+          return i18n.t('shieldRogue1Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldRogue1Notes', {
+            str: 2
+          });
+        }),
         str: 2,
         value: 20
       },
       2: {
-        text: "Scimitar",
-        notes: 'Slashing sword, swift to deliver a killing blow. Increases STR by 3.',
+        text: (function() {
+          return i18n.t('shieldRogue2Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldRogue2Notes', {
+            str: 3
+          });
+        }),
         str: 3,
         value: 35
       },
       3: {
-        text: "Kukri",
-        notes: 'Distinctive bush knife, both survival tool and weapon. Increases STR by 4.',
+        text: (function() {
+          return i18n.t('shieldRogue3Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldRogue3Notes', {
+            str: 4
+          });
+        }),
         str: 4,
         value: 50
       },
       4: {
-        text: "Nunchaku",
-        notes: 'Heavy batons whirled about on a length of chain. Increases STR by 6.',
+        text: (function() {
+          return i18n.t('shieldRogue4Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldRogue4Notes', {
+            str: 6
+          });
+        }),
         str: 6,
         value: 70
       },
       5: {
-        text: "Ninja-to",
-        notes: 'Sleek and deadly as the ninja themselves. Increases STR by 8.',
+        text: (function() {
+          return i18n.t('shieldRogue5Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldRogue5Notes', {
+            str: 8
+          });
+        }),
         str: 8,
         value: 90
       },
       6: {
-        text: "Hook Sword",
-        notes: 'Complex weapon adept at ensnaring and disarming opponents. Increases STR by 10.',
+        text: (function() {
+          return i18n.t('shieldRogue6Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldRogue6Notes', {
+            str: 10
+          });
+        }),
         str: 10,
         value: 120,
         last: true
@@ -10592,32 +10868,62 @@ gear = {
     wizard: {},
     healer: {
       1: {
-        text: "Medic Buckler",
-        notes: 'Easy to disengage, freeing a hand for bandaging. Increases CON by 2.',
+        text: (function() {
+          return i18n.t('shieldHealer1Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldHealer1Notes', {
+            con: 2
+          });
+        }),
         con: 2,
         value: 20
       },
       2: {
-        text: "Kite Shield",
-        notes: 'Tapered shield with the symbol of healing. Increases CON by 4.',
+        text: (function() {
+          return i18n.t('shieldHealer2Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldHealer2Notes', {
+            con: 4
+          });
+        }),
         con: 4,
         value: 35
       },
       3: {
-        text: "Protector Shield",
-        notes: 'Traditional shield of defender knights. Increases CON by 6.',
+        text: (function() {
+          return i18n.t('shieldHealer3Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldHealer3Notes', {
+            con: 6
+          });
+        }),
         con: 6,
         value: 50
       },
       4: {
-        text: "Savior Shield",
-        notes: 'Stops blows aimed at nearby innocents as well as those aimed at you. Increases CON by 9.',
+        text: (function() {
+          return i18n.t('shieldHealer4Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldHealer4Notes', {
+            con: 9
+          });
+        }),
         con: 9,
         value: 70
       },
       5: {
-        text: "Royal Shield",
-        notes: 'Bestowed upon those most dedicated to the kingdom\'s defense. Increases CON by 12.',
+        text: (function() {
+          return i18n.t('shieldHealer5Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldHealer5Notes', {
+            con: 12
+          });
+        }),
         con: 12,
         value: 90,
         last: true
@@ -10625,8 +10931,14 @@ gear = {
     },
     special: {
       0: {
-        text: "Tormented Skull",
-        notes: 'Sees beyond the veil of death, and displays what it finds there for enemies to fear. Increases PER by 20.',
+        text: (function() {
+          return i18n.t('shieldSpecial0Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldSpecial0Notes', {
+            per: 20
+          });
+        }),
         per: 20,
         value: 150,
         canOwn: (function(u) {
@@ -10635,8 +10947,14 @@ gear = {
         })
       },
       1: {
-        text: "Crystal Shield",
-        notes: 'Shatters arrows and deflects the words of naysayers. Increases all attributes by 6.',
+        text: (function() {
+          return i18n.t('shieldSpecial1Text');
+        }),
+        notes: (function() {
+          return i18n.t('shieldSpecial1Notes', {
+            attrs: 6
+          });
+        }),
         con: 6,
         str: 6,
         per: 6,
@@ -10649,25 +10967,67 @@ gear = {
       },
       yeti: {
         event: events.winter,
+<<<<<<< HEAD
         specialClass: 'warrior',
         text: "Yeti-Tamer Shield",
         notes: 'Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by 7.',
+=======
+        canOwn: (function(u) {
+          return u.stats["class"] === 'warrior';
+        }),
+        text: (function() {
+          return i18n.t('shieldSpecialYetiText');
+        }),
+        notes: (function() {
+          return i18n.t('shieldSpecialYetiNotes', {
+            con: 7
+          });
+        }),
+>>>>>>> improve(i18n): move gear strings to gear.json, recompile
         con: 7,
         value: 70
       },
       ski: {
         event: events.winter,
+<<<<<<< HEAD
         specialClass: 'rogue',
         text: "Ski-sassin Pole",
         notes: 'Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by 8.',
+=======
+        canOwn: (function(u) {
+          return u.stats["class"] === 'rogue';
+        }),
+        text: (function() {
+          return i18n.t('shieldSpecialSkiText');
+        }),
+        notes: (function() {
+          return i18n.t('shieldSpecialSkiNotes', {
+            str: 8
+          });
+        }),
+>>>>>>> improve(i18n): move gear strings to gear.json, recompile
         str: 8,
         value: 90
       },
       snowflake: {
         event: events.winter,
+<<<<<<< HEAD
         specialClass: 'healer',
         text: "Snowflake Shield",
         notes: 'Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by 9.',
+=======
+        canOwn: (function(u) {
+          return u.stats["class"] === 'healer';
+        }),
+        text: (function() {
+          return i18n.t('shieldSpecialSnowflakeText');
+        }),
+        notes: (function() {
+          return i18n.t('shieldSpecialSnowflakeNotes', {
+            con: 9
+          });
+        }),
+>>>>>>> improve(i18n): move gear strings to gear.json, recompile
         con: 9,
         value: 70
       },
@@ -10700,9 +11060,20 @@ gear = {
   back: {
     base: {
       0: {
+<<<<<<< HEAD
         text: "No Back Accessory",
         notes: 'No Back Accessory.',
         value: 0
+=======
+        text: (function() {
+          return i18n.t('backBase0Text');
+        }),
+        notes: (function() {
+          return i18n.t('backBase0Notes');
+        }),
+        value: 0,
+        last: true
+>>>>>>> improve(i18n): move gear strings to gear.json, recompile
       }
     },
     mystery: {
