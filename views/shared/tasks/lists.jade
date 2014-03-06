@@ -35,7 +35,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
 
           // Static Rewards
           ul.items.rewards(ng-if='main && list.type=="reward" && user.flags.itemsEnabled')
-            li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.notes}}')
+            li.task.reward-item(ng-repeat='item in itemStore',popover-trigger='mouseenter', popover-placement='top', popover='{{item.notes()}}')
               // right-hand side control buttons
               .task-meta-controls
                 span.task-notes
@@ -47,7 +47,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
                   span.shop_gold
               // main content
               span(bo-class='{"shop_{{item.key}} shop-sprite item-img": true}')
-              p.task-text {{item.text}}
+              p.task-text {{item.text()}}
 
           // Events
           ul.items.rewards(ng-if='main && list.type=="reward" && (user.items.special.snowball>0 || user.stats.buffs.snowball)')

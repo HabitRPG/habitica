@@ -6,7 +6,7 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
         li.customize-menu.inventory-gear
           menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special", mystery:"Mystery"}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
-              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
+              button.customize-option(popover='{{item.notes()}}', popover-title='{{item.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
       .col-md-6
         h3.equipment-title.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('costumeText'))=env.t('costume')
         .checkbox.equipment-title
@@ -17,7 +17,7 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
         li.customize-menu(ng-if='user.preferences.costume')
           menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special", mystery:"Mystery"}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
-              button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
+              button.customize-option(popover='{{item.notes()}}', popover-title='{{item.text()}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
 
 script(type='text/ng-template', id='partials/options.inventory.drops.html')
   .container-fluid
