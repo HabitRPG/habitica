@@ -241,8 +241,14 @@ describe 'User', ->
   describe 'spells', ->
     _.each shared.content.spells, (spellClass)->
       _.each spellClass, (spell)->
-        it "#{spell.text} has a valid target", ->
+        it "#{spell.text} has valid values", ->
           expect(spell.target).to.match(/^(task|self|party|user)$/)
+          expect(spell.mana).to.be.an('number')
+          if spell.lvl
+            expect(spell.lvl).to.be.an('number')
+            expect(spell.lvl).to.be.above(0)
+          expect(spell.cast).to.be.a('function')
+
 
   describe 'drop system', ->
     user = null
