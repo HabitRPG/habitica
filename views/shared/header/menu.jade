@@ -20,7 +20,7 @@ nav.navbar.navbar-inverse(ng-controller='AuthCtrl',style='min-height:0px;margin-
         a(ui-sref='tasks',popover=env.t('tasks'),popover-placement='right',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-check.white
       li.dropdown
-        a.dropdown-toggle(popover='User',popover-placement='right',popover-trigger='mouseenter')
+        a.dropdown-toggle(popover=env.t('user'),popover-placement='right',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-user.white
           span.caret
         ul.dropdown-menu
@@ -119,6 +119,10 @@ nav.navbar.navbar-inverse(ng-controller='AuthCtrl',style='min-height:0px;margin-
       // Chat notifs
       li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
         a(ng-click='k==party._id ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k})')
-          span.glyphicon.glyphicon-comment.white(popover='New message in "{{v.name}}"',popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
+          span.glyphicon.glyphicon-comment.white(popover=env.t('newMsg', {name: '{{v.name}}'}),popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
+      // Mystery Item
+      li(ng-if='user.purchased.plan.mysteryItems.length')
+        a(ng-click='$state.go("options.inventory.drops")')
+          span.glyphicon.glyphicon-gift.white(popover=env.t('newSubscriberItem'),popover-placement='bottom',popover-trigger='mouseenter',popover-append-to-body='true')
 
 

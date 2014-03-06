@@ -81,12 +81,15 @@ var UserSchema = new Schema({
     skin: {type: Schema.Types.Mixed, 'default': {}}, // eg, {skeleton: true, pumpkin: true, eb052b: true}
     hair: {type: Schema.Types.Mixed, 'default': {}},
     shirt: {type: Schema.Types.Mixed, 'default': {}},
+    txnCount: {type: Number, 'default':0},
+    mobileChat: Boolean,
     plan: {
       planId: String,
       customerId: String,
       dateCreated: Date,
       dateUpdated: Date,
-      gemsBought: {type: Number, 'default': 0}
+      gemsBought: {type: Number, 'default': 0},
+      mysteryItems: {type: Array, 'default': []}
     }
   },
 
@@ -126,13 +129,15 @@ var UserSchema = new Schema({
         weapon: {type: String, 'default': 'weapon_warrior_0'},
         armor: {type: String, 'default': 'armor_base_0'},
         head: {type: String, 'default': 'head_base_0'},
-        shield: {type: String, 'default': 'shield_base_0'}
+        shield: {type: String, 'default': 'shield_base_0'},
+        back: String
       },
       costume: {
         weapon: {type: String, 'default': 'weapon_base_0'},
         armor: {type: String, 'default': 'armor_base_0'},
         head: {type: String, 'default': 'head_base_0'},
-        shield: {type: String, 'default': 'shield_base_0'}
+        shield: {type: String, 'default': 'shield_base_0'},
+        back: String
       },
     },
 

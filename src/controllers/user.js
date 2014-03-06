@@ -281,6 +281,20 @@ api.addTenGems = function(req, res, next) {
 
 // TODO delete plan
 
+function revealMysteryItems(user) {
+  _.each(shared.content.gear.flat, function(item) {
+    if (
+      item.klass === 'mystery' &&
+      moment().isAfter(item.mystery.start) &&
+      moment().isBefore(item.mystery.end) &&
+      !user.items.gear.owned[item.key] &&
+      !~user.purchased.plan.mysteryItems.indexOf(item.key)
+    ) {
+      user.purchased.plan.mysteryItems.push(item.key);
+    }
+  });
+}
+
 /*
  Setup Stripe response when posting payment
  */
@@ -310,13 +324,19 @@ api.buyGems = function(req, res, next) {
     function(response, cb) {
       //user.purchased.ads = true;
       if (req.query.plan) {
-        user.purchased.plan = {
-          planId:'basic_earned',
-          customerId: response.id,
-          dateCreated: new Date,
-          dateUpdated: new Date,
-          gemsBought: 0
-        };
+        if (!user.purchased.plan) user.purchased.plan = {}
+        _(user.purchased.plan)
+          .merge({ // override with these values
+            planId:'basic_earned',
+            customerId: response.id,
+            dateUpdated: new Date,
+            gemsBought: 0
+          })
+          .defaults({ // allow non-override if a plan was previously used
+            dateCreated: new Date,
+            mysteryItems: []
+          });
+        revealMysteryItems(user);
         ga.event('subscribe', 'Stripe').send()
         ga.transaction(response.id, 5).item(5, 1, "stripe-subscription", "Subscription > Stripe").send()
       } else {
@@ -324,6 +344,7 @@ api.buyGems = function(req, res, next) {
         ga.event('checkout', 'Stripe').send()
         ga.transaction(response.id, 5).item(5, 1, "stripe-checkout", "Gems > Stripe").send()
       }
+      user.txnCount++;
       user.save(cb);
     }
   ], function(err, saved){
@@ -344,7 +365,7 @@ api.cancelSubscription = function(req, res, next) {
       stripe.customers.del(user.purchased.plan.customerId, cb);
     },
     function(response, cb) {
-      user.purchased.plan = {};
+      _.merge(user.purchased.plan, {planId:null, customerId:null});
       user.markModified('purchased.plan');
       user.save(cb);
     }
@@ -369,6 +390,7 @@ api.buyGemsPaypalIPN = function(req, res, next) {
         if (_.isEmpty(user)) err = "user not found with uuid " + uuid + " when completing paypal transaction";
         if (err) return nex(err);
         user.balance += 5;
+        user.txnCount++;
         //user.purchased.ads = true;
         user.save();
         logging.info('PayPal transaction completed and user updated');

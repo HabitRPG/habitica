@@ -42,33 +42,23 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
         .checkbox
           label
             input(type='checkbox', ng-click='set({"preferences.hideHeader":user.preferences.hideHeader?false:true})', ng-checked='user.preferences.hideHeader!==true')
-            =env.t('showHeader')
-            &nbsp;
-            span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('showHeaderPop'))
+            span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('showHeaderPop'))=env.t('showHeader')
         .checkbox
           label
             input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false')
-            =env.t('stickyHeader')
-            &nbsp;
-            span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('stickyHeaderPop'))
+            span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('stickyHeaderPop'))=env.t('stickyHeader')
         .checkbox
           label
             input(type='checkbox', ng-model='user.preferences.newTaskEdit', ng-change='set({"preferences.newTaskEdit": user.preferences.newTaskEdit?true: false})')
-            =env.t('newTaskEdit')
-            &nbsp;
-            span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('newTaskEditPop'))
+            span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('newTaskEditPop'))=env.t('newTaskEdit')
         .checkbox
           label
             input(type='checkbox', ng-model='user.preferences.tagsCollapsed', ng-change='set({"preferences.tagsCollapsed": user.preferences.tagsCollapsed?true: false})')
-            =env.t('startCollapsed')
-            &nbsp;
-            span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startCollapsedPop'))
+            span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startCollapsedPop'))=env.t('startCollapsed')
         .checkbox
           label
             input(type='checkbox', ng-model='user.preferences.advancedCollapsed', ng-change='set({"preferences.advancedCollapsed": user.preferences.advancedCollapsed?true: false})')
-            =env.t('startAdvCollapsed')
-            &nbsp;
-            span.glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startAdvCollapsedPop'))
+            span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('startAdvCollapsedPop'))=env.t('startAdvCollapsed')
         button.btn.btn-default(ng-click='showTour()', popover-placement='right', popover-trigger='mouseenter', popover=env.t('restartTour'))= env.t('showTour')
         button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
         button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('fixValPop'))= env.t('fixVal')
@@ -124,21 +114,22 @@ script(id='partials/options.settings.subscription.perks.html',type='text/ng-temp
   table.table.table-striped
     tr
       td
-        span.dashed-underline(popover=env.t('disableAdsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('disableAds')
+        span.hint(popover=env.t('disableAdsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('disableAds')
     tr
       td
-        span.dashed-underline(popover=env.t('buyGemsGoldText', {gemCost: "{{Shared.planGemLimits.convRate}}", gemLimit: "{{Shared.planGemLimits.convCap}}"}),popover-trigger='mouseenter',popover-placement='right')=env.t('buyGemsGold')
+        span.hint(popover=env.t('buyGemsGoldText', {gemCost: "{{Shared.planGemLimits.convRate}}", gemLimit: "{{Shared.planGemLimits.convCap}}"}),popover-trigger='mouseenter',popover-placement='right')=env.t('buyGemsGold')
     tr
       td
-        span.dashed-underline(popover=env.t('retainHistoryText'),popover-trigger='mouseenter',popover-placement='right')=env.t('retainHistory')
+        span.hint(popover=env.t('retainHistoryText'),popover-trigger='mouseenter',popover-placement='right')=env.t('retainHistory')
     tr
       td
-        span.dashed-underline(popover=env.t('doubleDropsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('doubleDrops')
-    //-tr
-    //-  td +20 gems to your account
+        span.hint(popover=env.t('doubleDropsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('doubleDrops')
     tr
       td
-        span.dashed-underline(popover=env.t('supportDevsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('supportDevs')
+        span.hint(popover=env.t('mysteryItemText'),popover-trigger='mouseenter',popover-placement='right')=env.t('mysteryItem')
+    tr
+      td
+        span.hint(popover=env.t('supportDevsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('supportDevs')
     tr
       td.alert.alert-info $5&nbsp;
         =env.t('monthUSD')

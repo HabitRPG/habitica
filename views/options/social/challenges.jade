@@ -41,7 +41,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
 
   .well(bindonce='challenge', ng-if='challenge.description')
     markdown(ng-model='challenge.description')
-  span.glyphicon.glyphicon-question-sign(popover=env.t('challengeDiscription'), popover-trigger='mouseenter', popover-placement='right')
+  .modal-body=env.t('challengeDiscription')
   habitrpg-tasks(obj='challenge', main=false)
 
   // Member List
@@ -105,8 +105,9 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
 
               .form-group
                 input.form-control(type='text', minlength="3", maxlength="16", ng-model='newChallenge.shortName', placeholder=env.t('challengeTag'), required)
-                a(target='_blank', href='http://habitrpg.wikia.com/wiki/Tags')
-                  span.glyphicon.glyphicon-question-sign(popover=env.t('challengeTagPop'), popover-trigger='mouseenter', popover-placement='right')
+                &nbsp;
+                a.hint.vertical-20(target='_blank', href='http://habitrpg.wikia.com/wiki/Tags', popover=env.t('challengeTagPop'), popover-trigger='mouseenter', popover-placement='right')
+                  ="More info"
 
               .form-group
                 textarea.form-control(cols='3', placeholder=env.t('challengeDescr'), ng-model='newChallenge.description')
@@ -118,7 +119,9 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
               .form-group
                 input.form-control(type='number', min="{{newChallenge.group=='habitrpg' ? 1 : 0}}", max="{{maxPrize}}", ng-model='newChallenge.prize', placeholder=env.t('prize'))
                 span.input-suffix.Pet_Currency_Gem1x.inline-gems
-                span.glyphicon.glyphicon-question-sign(popover=env.t('prizePop'), popover-trigger='mouseenter', popover-placement='right')
+                &nbsp;
+                span.hint.vertical-20(popover=env.t('prizePop'), popover-trigger='mouseenter', popover-placement='right')
+                  ="More info"
                 span(ng-show='newChallenge.group=="habitrpg"')
                   !=env.t('publicChallenges')
 
@@ -139,10 +142,10 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                   span.label.label-success=env.t('officialChallenge')
                 li {{challenge.group.name}}
                 li
-                  =env.t('by')
+                  =env.t('by') + ' '
                   strong {{challenge.leader.profile.name}}
-                li 
-                  | {{challenge.memberCount}} 
+                li
+                  | {{challenge.memberCount}}
                   = ' ' + env.t('participants')
                 li(ng-show='challenge.prize')
                   p

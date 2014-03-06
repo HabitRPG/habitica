@@ -209,7 +209,6 @@ window.habitrpg = angular.module('habitrpg',
           return response;
         }
         function error(response) {
-          debugger;
           // Offline
           if (response.status == 0 ||
             // don't know why we're getting 404 here, should be 0

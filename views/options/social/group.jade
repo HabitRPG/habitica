@@ -41,7 +41,8 @@ a.pull-right.gem-wallet(popover-trigger='mouseenter', popover-title=env.t('guild
                   .bar(style='width: {{Shared.percent(group.quest.progress.hp, Content.quests[group.quest.key].boss.hp)}}%;')
                   span.meter-text
                     span.glyphicon.glyphicon-heart
-                    | {{group.quest.progress.hp | number:0}} / {{Content.quests[group.quest.key].boss.hp}}
+                    &nbsp;
+                    | {{Math.ceil(group.quest.progress.hp)}} / {{Content.quests[group.quest.key].boss.hp}}
 
             div(ng-if='Content.quests[group.quest.key].collect')
               h4=env.t('collected') + ':'

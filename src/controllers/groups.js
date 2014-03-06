@@ -40,9 +40,9 @@ var populateQuery = function(type, q){
 }
 
 
-api.getMember = function(req, res) {
+api.getMember = function(req, res, next) {
   User.findById(req.params.uid).select(partyFields).exec(function(err, user){
-    if (err) return res.json(500,{err:err});
+    if (err) return next(err);
     if (!user) return res.json(400,{err:'User not found'});
     res.json(user);
   })
@@ -52,7 +52,7 @@ api.getMember = function(req, res) {
  * Fetch groups list. This no longer returns party or tavern, as those can be requested indivdually
  * as /groups/party or /groups/tavern
  */
-api.list = function(req, res) {
+api.list = function(req, res, next) {
   var user = res.locals.user;
   var groupFields = 'name description memberCount balance leader';
   var sort = '-memberCount';
@@ -102,7 +102,7 @@ api.list = function(req, res) {
     }
 
   }, function(err, results){
-    if (err) return res.json(500, {err: err});
+    if (err) return next(err);
     // ngResource expects everything as arrays. We used to send it down as a structured object: {public:[], party:{}, guilds:[], tavern:{}}
     // but unfortunately ngResource top-level attrs are considered the ngModels in the list, so we had to do weird stuff and multiple
     // requests to get it to work properly. Instead, we're not depending on the client to do filtering / organization, and we're
@@ -119,17 +119,20 @@ api.list = function(req, res) {
  * Get group
  * TODO: implement requesting fields ?fields=chat,members
  */
-api.get = function(req, res) {
+api.get = function(req, res, next) {
   var user = res.locals.user;
   var gid = req.params.gid;
 
-  var q = (gid == 'party') ? Group.findOne({type: 'party', members: {'$in': [user._id]}}) : Group.findById(gid);
+  var q = (gid == 'party')
+    ? Group.findOne({type: 'party', members: {'$in': [user._id]}})
+    : Group.findOne({$or:[
+        {_id:gid, privacy:'public'},
+        {_id:gid, privacy:'private', members: {$in:[user._id]}} // if the group is private, only return if they have access
+      ]});
   populateQuery(gid, q);
   q.exec(function(err, group){
-    if (group && ((group.type == 'guild' && group.privacy == 'private') || (group.type == 'party'))) {
-      if(!_.find(group.members, {_id: user._id}))
-        return res.json(401, {err: "You don't have access to this group"});
-    }
+    if (err) return next(err);
+    if (!group && gid!=='party') return res.json(404,{err: "Group not found or you don't have access."});
     res.json(group);
   });
 };
@@ -169,7 +172,8 @@ api.create = function(req, res, next) {
         saved.populate('members', nameFields, cb);
       }
     ], function(err, populated){
-      if (err) return res.json(500,{err:err});
+      if (err == 'Already in a party, try refreshing.') return res.json(400,{err:err});
+      if (err) return next(err);
       return res.json(populated);
     })
   }
@@ -187,8 +191,7 @@ api.update = function(req, res, next) {
   });
 
   group.save(function(err, saved){
-    if (err) return res.json(500,{err:err});
-
+    if (err) return next(err);
     res.send(204);
   });
 }
@@ -197,7 +200,7 @@ api.attachGroup = function(req, res, next) {
   var gid = req.params.gid;
   var q = (gid == 'party') ? Group.findOne({type: 'party', members: {'$in': [res.locals.user._id]}}) : Group.findById(gid);
   q.exec(function(err, group){
-    if(err) return res.json(500, {err:err});
+    if(err) return next(err);
     if(!group) return res.json(404, {err: "Group not found"});
     res.locals.group = group;
     next();
@@ -225,12 +228,12 @@ api.postChat = function(req, res, next) {
   }
 
   group.save(function(err, saved){
-    if (err) return res.json(500, {err:err});
+    if (err) return next(err);
     return chatUpdated ? res.json({chat: group.chat}) : res.json({message: saved.chat[0]});
   });
 }
 
-api.deleteChatMessage = function(req, res){
+api.deleteChatMessage = function(req, res, next){
   var user = res.locals.user
   var group = res.locals.group;
   var message = _.find(group.chat, {id: req.params.messageId});
@@ -244,7 +247,7 @@ api.deleteChatMessage = function(req, res){
   var chatUpdated = (lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg) ? true : false;
 
   Group.update({_id:group._id}, {$pull:{chat:{id: req.params.messageId}}}, function(err){
-    if(err) return res.json(500, {err: err});
+    if(err) return next(err);
     return chatUpdated ? res.json({chat: group.chat}) : res.send(204);
   });
 }
@@ -276,7 +279,7 @@ api.likeChatMessage = function(req, res, next) {
   })
 }
 
-api.join = function(req, res) {
+api.join = function(req, res, next) {
   var user = res.locals.user,
     group = res.locals.group;
 
@@ -308,7 +311,7 @@ api.join = function(req, res) {
       populateQuery(group.type, Group.findById(group._id)).exec(cb);
     }
   ], function(err, results){
-    if (err) return res.json(500,{err:err});
+    if (err) return next(err);
 
     // Return the group? Or not?
     res.json(results[1]);
@@ -379,7 +382,7 @@ api.invite = function(req, res, next) {
   var user = res.locals.user;
 
   User.findById(uuid, function(err,invite){
-    if (err) return res.json(500,{err:err});
+    if (err) return next(err);
     if (!invite)
        return res.json(400,{err:'User with id "' + uuid + '" not found'});
     if (group.type == 'guild') {
@@ -392,7 +395,7 @@ api.invite = function(req, res, next) {
       if (invite.invitations && !_.isEmpty(invite.invitations.party))
         return res.json(400,{err:"User already pending invitation."});
       Group.find({type:'party', members:{$in:[uuid]}}, function(err, groups){
-        if (err) return res.json(500,{err:err});
+        if (err) return next(err);
         if (!_.isEmpty(groups))
           return res.json(400,{err:"User already in a party."})
         sendInvite();
@@ -420,7 +423,7 @@ api.invite = function(req, res, next) {
           populateQuery(group.type, Group.findById(group._id)).exec(cb);
         }
       ], function(err, results){
-        if (err) return res.json(500,{err:err});
+        if (err) return next(err);
 
         // Have to return whole group and its members for angular to show the invited user
         res.json(results[2]);
@@ -440,7 +443,7 @@ api.removeMember = function(req, res, next){
 
   if(_.contains(group.members, uuid)){
     Group.update({_id:group._id},{$pull:{members:uuid},$inc:{memberCount:-1}}, function(err, saved){
-      if (err) return res.json(500,{err:err});
+      if (err) return next(err);
       
       // Sending an empty 204 because Group.update doesn't return the group
       // see http://mongoosejs.com/docs/api.html#model_Model.update
@@ -463,7 +466,7 @@ api.removeMember = function(req, res, next){
           Group.update({_id:group._id},{$pull:{invites:uuid}}, cb);
         }
       ], function(err, results){
-        if (err) return res.json(500,{err:err});
+        if (err) return next(err);
 
         // Sending an empty 204 because Group.update doesn't return the group
         // see http://mongoosejs.com/docs/api.html#model_Model.update
@@ -480,7 +483,7 @@ api.removeMember = function(req, res, next){
 // Quests
 // ------------------------------------
 
-questStart = function(req, res) {
+questStart = function(req, res, next) {
   var group = res.locals.group;
   var user = res.locals.user;
   var force = req.query.force;
@@ -491,7 +494,7 @@ questStart = function(req, res) {
   var statuses = _.values(group.quest.members);
   if (!force && (~statuses.indexOf(undefined) || ~statuses.indexOf(null))) {
     return group.save(function(err,saved){
-      if (err) return res.json(500,{err:err});
+      if (err) return next(err);
       res.json(saved);
     })
   }
@@ -533,12 +536,12 @@ questStart = function(req, res) {
   parallel.push(function(cb2){group.save(cb2)});
 
   async.parallel(parallel,function(err, results){
-    if (err) return res.json(500,{err:err});
+    if (err) return next(err);
     return res.json(group);
   });
 }
 
-api.questAccept = function(req, res) {
+api.questAccept = function(req, res, next) {
   var group = res.locals.group;
   var user = res.locals.user;
   var key = req.query.key;
@@ -569,8 +572,7 @@ api.questAccept = function(req, res) {
     if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
     group.quest.members[user._id] = true;
   }
-
-  questStart(req,res);
+  questStart(req,res,next);
 }
 
 api.questReject = function(req, res, next) {
@@ -579,7 +581,7 @@ api.questReject = function(req, res, next) {
 
   if (!group.quest.key) return res.json(400,{err:'No quest invitation has been sent out yet.'});
   group.quest.members[user._id] = false;
-  questStart(req,res);
+  questStart(req,res,next);
 }
 
 
@@ -608,7 +610,7 @@ api.questAbort = function(req, res, next){
       group.save(cb);
     }
   ], function(err){
-    if (err) return res.json(500,{err:err});
+    if (err) return next(err);
     res.json(group);
   })
 }

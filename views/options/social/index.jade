@@ -21,6 +21,10 @@ script(type='text/ng-template', id='partials/options.social.party.html')
         =env.t('noPartyText')
       pre.prettyprint.
         {{user.id}}
+      p
+        =env.t('startLFG')
+        a(href="http://habitrpg.wikia.com/wiki/Board:The_Archery_-_LFG")=env.t('linkLFG')
+        =env.t('endLFG')
       include ./create-group
 
 script(type='text/ng-template', id='partials/options.social.guilds.public.html')

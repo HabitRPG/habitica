@@ -137,7 +137,7 @@ api.loginFacebook = function(req, res, next) {
     });
   }
   return User.findOne({
-    'auth.local.facebook.id': facebook_id
+    'auth.facebook.id': facebook_id
   }, function(err, user) {
     if (err) {
       return res.json(401, {

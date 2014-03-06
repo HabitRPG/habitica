@@ -2,24 +2,20 @@ script(type='text/ng-template', id='partials/options.inventory.equipment.html')
   .container-fluid
     .row
       .col-md-6.border-right
-        h3.equipment-title=env.t('battleGear')
-        &nbsp;
-        .glyphicon.glyphicon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('battleGearText'))
+        h3.equipment-title.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('battleGearText'))=env.t('battleGear')
         li.customize-menu.inventory-gear
-          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
+          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special", mystery:"Mystery"}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
               button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
       .col-md-6
-        h3.equipment-title=env.t('costume')
-        &nbsp;
-        i.icon-question-sign(popover-trigger='mouseenter', popover-placement='right', popover=env.t('costumeText'))
-        .checkbox
+        h3.equipment-title.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('costumeText'))=env.t('costume')
+        .checkbox.equipment-title
           label
             input(type="checkbox", ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
             |&nbsp;
             =env.t('useCostume')
         li.customize-menu(ng-if='user.preferences.costume')
-          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special"}', ng-show='gear[klass]')
+          menu.pets-menu(label='{{label}}', ng-repeat='(klass,label) in {base:"Base", warrior:"Warrior", wizard:"Mage", rogue:"Rogue", healer:"Healer", special:"Special", mystery:"Mystery"}', ng-show='gear[klass]')
             div(ng-repeat='item in gear[klass]')
               button.customize-option(popover='{{item.notes}}', popover-title='{{item.text}}', popover-trigger='mouseenter', popover-placement='right', ng-click='user.ops.equip({params:{type:"costume", key:item.key}})', class='shop_{{item.key}}', ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
 
@@ -74,10 +70,11 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
                 button.customize-option(popover="Valentine's Day Card from {{User.user.items.special.valentineReceived[0]}}", popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("valentine")', class='inventory_special_valentine')
                   .badge.badge-info.stack-count {{user.items.special.valentineReceived.length}}
 
-          li.customize-menu(ng-if='user.purchased.plan.customerId')
+          li.customize-menu(ng-if='user.purchased.plan.customerId || user.purchased.plan.mysteryItems.length')
             menu.pets-menu(label=env.t('subscriberItem'))
               div
-                button.customize-option(popover=env.t('subscriberItemText'), popover-trigger='mouseenter', popover-placement='right', class='inventory_present')
+                button.customize-option(popover=env.t('subscriberItemText'), popover-trigger='mouseenter', popover-placement='right', class='inventory_present', ng-click="user.ops.openMysteryItem({})")
+                  .badge.badge-info.stack-count {{user.purchased.plan.mysteryItems.length}}
 
       .col-md-6
         h2=env.t('market')
@@ -116,7 +113,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
             li.customize-menu
               menu.pets-menu(label=env.t('food'))
-                div(ng-repeat='food in Content.food', ng-if='food.key !== "Saddle" && food.canBuy')
+                div(ng-repeat='food in Content.food', ng-if='food.canBuy')
                   button.customize-option(popover='{{food.notes}}', popover-title='{{food.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", food)', class='Pet_Food_{{food.key}}')
                   p
                     |  {{food.value}}
@@ -133,11 +130,6 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
 
             li.customize-menu
               menu.pets-menu(label=env.t('special'))
-                div
-                  button.customize-option(popover='{{Content.food.Saddle.notes}}', popover-title='{{Content.food.Saddle.text}}', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("food", Content.food.Saddle)', class='Pet_Food_{{Content.food.Saddle.key}}')
-                  p
-                    |  {{Content.food.Saddle.value}}
-                    span.Pet_Currency_Gem1x.inline-gems
                 div
                   button.customize-option(popover=env.t('fortifyPop'), popover-title=env.t('fortifyName'), popover-trigger='mouseenter', popover-placement='left', ng-click='openModal("reroll")', class='inventory_special_fortify')
                   p

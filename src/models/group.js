@@ -12,7 +12,7 @@ var GroupSchema = new Schema({
   members: [{type: String, ref: 'User'}],
   invites: [{type: String, ref: 'User'}],
   type: {type: String, "enum": ['guild', 'party']},
-  privacy: {type: String, "enum": ['private', 'public']},
+  privacy: {type: String, "enum": ['private', 'public'], 'default':'private'},
   //_v: {type: Number,'default': 0},
   chat: Array,
   /*
