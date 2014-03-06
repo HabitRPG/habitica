@@ -16,8 +16,10 @@ habitrpg.controller('SettingsCtrl',
 //    }
 
     $scope.toggleStickyHeader = function(){
+      $rootScope.$on('userSynced', function(){
+        window.location.reload();
+      });
       User.set({"preferences.stickyHeader":!User.user.preferences.stickyHeader});
-      $timeout(function(){window.location.reload()});
     }
 
     $scope.showTour = function(){
@@ -48,7 +50,7 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.changeLanguage = function(){
       $rootScope.$on('userSynced', function(){
-        location.reload();
+        window.location.reload();
       });
       User.set({'preferences.language': $scope.language.code});
     }
