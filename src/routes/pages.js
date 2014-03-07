@@ -52,7 +52,7 @@ router.get('/static/plans', middleware.locals, function(req, res) {
 // --------- Redirects --------
 
 router.get('/static/extensions', function(req, res) {
-  res.redirect('http://community.habitrpg.com/extensions');
+  res.redirect('http://habitrpg.wikia.com/wiki/App_and_Extension_Integrations');
 });
 
 module.exports = router;
