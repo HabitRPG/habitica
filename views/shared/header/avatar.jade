@@ -53,8 +53,8 @@ figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(
     // FIXME handle @minimal, this might have to be a directive
     span.current-pet(class='Pet-{{profile.items.currentPet}}', ng-show='profile.items.currentPet && !minimal')
   .avatar-level.label.label-default(ng-class='userLevelStyle(profile)')
-    span.glyphicon.glyphicon-circle-arrow-up(ng-show='profile.stats.buffs.str || profile.stats.buffs.per || profile.stats.buffs.con || profile.stats.buffs.int || profile.stats.buffs.stealth', tooltip=env.t('buffed'), style='margin-right:5px;')
-    |&nbsp;
+    span.glyphicon.glyphicon-circle-arrow-up(ng-show='profile.stats.buffs.str || profile.stats.buffs.per || profile.stats.buffs.con || profile.stats.buffs.int || profile.stats.buffs.stealth', tooltip=env.t('buffed'))
+    |&nbsp;&nbsp;
     =env.t('lvl') 
     |&nbsp;{{profile.stats.lvl}}
     |&nbsp;
