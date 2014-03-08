@@ -204,13 +204,13 @@ gear =
       4: text: (-> i18n.t('shieldWarrior4Text')), notes: (-> i18n.t('shieldWarrior4Notes', {con: 7})), con: 7, value:70
       5: text: (-> i18n.t('shieldWarrior5Text')), notes: (-> i18n.t('shieldWarrior5Notes', {con: 9})), con: 9, value:90, last: true
     rogue:
-      0: text: (-> i18n.t('shieldRogue0Text')), notes: (-> i18n.t('shieldRogue0Notes')), str: 0, value: 0
-      1: text: (-> i18n.t('shieldRogue1Text')), notes: (-> i18n.t('shieldRogue1Notes', {str: 2})), str: 2, value: 20
-      2: text: (-> i18n.t('shieldRogue2Text')), notes: (-> i18n.t('shieldRogue2Notes', {str: 3})), str: 3, value: 35
-      3: text: (-> i18n.t('shieldRogue3Text')), notes: (-> i18n.t('shieldRogue3Notes', {str: 4})), str: 4, value: 50
-      4: text: (-> i18n.t('shieldRogue4Text')), notes: (-> i18n.t('shieldRogue4Notes', {str: 6})), str: 6, value: 70
-      5: text: (-> i18n.t('shieldRogue5Text')), notes: (-> i18n.t('shieldRogue5Notes', {str: 8})), str: 8, value: 90
-      6: text: (-> i18n.t('shieldRogue6Text')), notes: (-> i18n.t('shieldRogue6Notes', {str: 10})), str: 10, value: 120, last: true
+      0: text: (-> i18n.t('weaponRogue0Text')), notes: (-> i18n.t('weaponRogue0Notes')), str: 0, value: 0
+      1: text: (-> i18n.t('weaponRogue1Text')), notes: (-> i18n.t('weaponRogue1Notes', {str: 2})), str: 2, value: 20
+      2: text: (-> i18n.t('weaponRogue2Text')), notes: (-> i18n.t('weaponRogue2Notes', {str: 3})), str: 3, value: 35
+      3: text: (-> i18n.t('weaponRogue3Text')), notes: (-> i18n.t('weaponRogue3Notes', {str: 4})), str: 4, value: 50
+      4: text: (-> i18n.t('weaponRogue4Text')), notes: (-> i18n.t('weaponRogue4Notes', {str: 6})), str: 6, value: 70
+      5: text: (-> i18n.t('weaponRogue5Text')), notes: (-> i18n.t('weaponRogue5Notes', {str: 8})), str: 8, value: 90
+      6: text: (-> i18n.t('weaponRogue6Text')), notes: (-> i18n.t('weaponRogue6Notes', {str: 10})), str: 10, value: 120, last: true
     wizard: {}
       #0: text: "No Shield", notes:'No shield.', def: 0, value:0, last: true
     healer:
