@@ -55,7 +55,7 @@
     "autoAllocate": "Asignación Automatica ",
     "autoAllocateText": "Si marcas 'asignación automática', tu avatar gana puntos automáticamente con base a los atributos de tus tareas. Los encuentras en <strong>TAREA> Editar > Avanzada > Atributos</strong>. Por ejemplo, si vas seguido al gimnasio, y tu Diario 'Gimnasio' tiene el atributo 'Físico,' subiras en STR automáticamente. ",
     "spells": "Hechizos",
-    "spellsText": "Ahora podrás desvelar hechizos especificos a tu clase. El primero se desvela a nivel 11. Tu maná se rellena 10 puntos al día, mas 1 punto para cada completado ",
+    "spellsText": "Ahora podrás desbloquear hechizos específicos de tu clase. El primero se desbloquea al nivel 11. Tu maná aumenta 10 puntos por día, más 1 punto por cada completado ",
     "toDo": "Quehacer",
     "moreClass": "Para mas información sobre el sistema de clase, atención a"
 }

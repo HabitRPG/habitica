@@ -70,7 +70,7 @@
     "perception": "Percepción",
     "perText": "La Percepción aumenta la cantidad de Oro que puedes ganar y, una vez que hayas desbloqueado el Mercado, aumenta la probabilidad de encontrar un botín al completar tareas.",
     "intelligence": "Inteligencia",
-    "intText": "La Inteligencia aumenta cuánta Experiencia recibes, y una vez hayas desbloqueado Clases, determina tu maná máximo disponible para habilidades de la clase.",
+    "intText": "La Inteligencia aumenta la Experiencia que recibes, y una vez hayas desbloqueado las Clases, determina tu maná máximo disponible para las habilidades de la clase.",
     "levelBonus": "Bonus de Nivel",
     "levelBonusText": "Cada atributo recibe un bonus de la mitad de (tu Nivel menos 1).",
     "allocatedPoints": "Puntos Asignados",
