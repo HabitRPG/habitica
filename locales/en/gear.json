@@ -244,8 +244,6 @@
   
   "shieldSpecialYetiText": "Yeti-Tamer Shield",
   "shieldSpecialYetiNotes": "Limited Edition 2013 Winter Gear! This shield reflects light from the snow. Increases CON by <%= con %>.",
-  "shieldSpecialSkiText": "Ski-sassin Pole",
-  "shieldSpecialSkiNotes": "Limited Edition 2013 Winter Gear! A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases STR by <%= str %>.",
   "shieldSpecialSnowflakeText": "Snowflake Shield",
   "shieldSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by <%= con %>.",
 

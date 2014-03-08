@@ -225,7 +225,7 @@ gear =
       1: text: (-> i18n.t('shieldSpecial1Text')), notes: (-> i18n.t('shieldSpecial1Notes', {attrs: 6})), con: 6, str: 6, per: 6, int:6, value:170, canOwn: ((u)-> +u.contributor?.level >= 5)
       #Winter event
       yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: (-> i18n.t('shieldSpecialYetiText')), notes: (-> i18n.t('shieldSpecialYetiNotes', {con: 7})), con: 7, value: 70
-      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: (-> i18n.t('shieldSpecialSkiText')), notes: (-> i18n.t('shieldSpecialSkiNotes', {str: 8})), str: 8, value: 90
+      ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: (-> i18n.t('weaponSpecialSkiText')), notes: (-> i18n.t('weaponSpecialSkiNotes', {str: 8})), str: 8, value: 90
       snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: (-> i18n.t('shieldSpecialSnowflakeText')), notes: (-> i18n.t('shieldSpecialSnowflakeNotes', {con: 9})), con: 9, value: 70
       #Spring Fling
       springRogue:    event: events.spring, specialClass: 'rogue',   text: 'Hook Claws', notes:'Great for scaling tall buildings, and also for shredding carpets. Adds 8 points to STR. Limited Edition 2014 Spring Gear.', value: 80, str: 8
