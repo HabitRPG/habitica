@@ -554,27 +554,27 @@ api.special = api.spells.special
 
 api.dropEggs =
   # value & other defaults set below
-  Wolf:             text: 'Wolf', adjective: 'loyal'
-  TigerCub:         text: 'Tiger Cub', mountText: 'Tiger', adjective: 'fierce'
-  PandaCub:         text: 'Panda Cub', mountText: 'Panda', adjective: 'gentle'
-  LionCub:          text: 'Lion Cub',  mountText: 'Lion', adjective: 'regal'
-  Fox:              text: 'Fox', adjective: 'wily'
-  FlyingPig:        text: 'Flying Pig', adjective: 'whimsical'
-  Dragon:           text: 'Dragon', adjective: 'mighty'
-  Cactus:           text: 'Cactus', adjective: 'prickly'
-  BearCub:          text: 'Bear Cub',  mountText: 'Bear', adjective: 'cuddly'
+  Wolf:             text: (-> i18n.t('dropEggWolfText')), adjective: (-> i18n.t('dropEggWolfAdjective'))
+  TigerCub:         text: (-> i18n.t('dropEggTigerCubText')), mountText: (-> i18n.t('dropEggTigerCubMountText')), adjective: (-> i18n.t('dropEggTigerCubAdjective'))
+  PandaCub:         text: (-> i18n.t('dropEggPandaCubText')), mountText: (-> i18n.t('dropEggPandaCubMountText')), adjective: (-> i18n.t('dropEggPandaCubAdjective'))
+  LionCub:          text: (-> i18n.t('dropEggLionCubText')),  mountText: (-> i18n.t('dropEggLionCubMountText')), adjective: (-> i18n.t('dropEggLionCubAdjective'))
+  Fox:              text: (-> i18n.t('dropEggFoxText')), adjective: (-> i18n.t('dropEggFoxAdjective'))
+  FlyingPig:        text: (-> i18n.t('dropEggFlyingPigText')), adjective: (-> i18n.t('dropEggFlyingPigAdjective'))
+  Dragon:           text: (-> i18n.t('dropEggDragonText')), adjective: (-> i18n.t('dropEggDragonAdjective'))
+  Cactus:           text: (-> i18n.t('dropEggCactusText')), adjective: (-> i18n.t('dropEggCactusAdjective'))
+  BearCub:          text: (-> i18n.t('dropEggBearCubText')),  mountText: (-> i18n.t('dropEggBearCubMountText')), adjective: (-> i18n.t('dropEggBearCubAdjective'))
 _.each api.dropEggs, (egg,key) ->
   _.defaults egg,
     canBuy:true
     value: 3
     key: key
-    notes: "Find a hatching potion to pour on this egg, and it will hatch into a #{egg.adjective} #{egg.text}."
+    notes: (-> i18n.t('eggNotes', {eggText: egg.text(), eggAdjective: egg.adjective()}))
     mountText: egg.text
 
 api.questEggs =
   # value & other defaults set below
-  Gryphon:          text: 'Gryphon',  adjective: 'proud', canBuy: false
-  Hedgehog:         text: 'Hedgehog', adjective: 'spiky', canBuy: false
+  Gryphon:          text: (-> i18n.t('questEggGryphonText')),  adjective: (-> i18n.t('questEggGryphonAdjective')), canBuy: false
+  Hedgehog:         text: (-> i18n.t('questEggHedgehogText')), adjective: (-> i18n.t('questEggHedgehogAdjective')), canBuy: false
   Deer:             text: 'Deer',     adjective: 'elegant', canBuy: false
   Egg:              text: 'Egg',     adjective: 'colorful', canBuy: false
 _.each api.questEggs, (egg,key) ->
@@ -582,7 +582,7 @@ _.each api.questEggs, (egg,key) ->
     canBuy:false
     value: 3
     key: key
-    notes: "Find a hatching potion to pour on this egg, and it will hatch into a #{egg.adjective} #{egg.text}."
+    notes: (-> i18n.t('eggNotes', {eggText: egg.text(), eggAdjective: egg.adjective()}))
     mountText: egg.text
 
 api.eggs = _.assign(_.cloneDeep(api.dropEggs), api.questEggs)

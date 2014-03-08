@@ -1,4 +1,43 @@
 {
   "potionText": "Potion",
-  "potionNotes": "Recover 15 Health (Instant Use)"
+  "potionNotes": "Recover 15 Health (Instant Use)",
+
+  "dropEggWolfText": "Wolf",
+  "dropEggWolfAjective": "loyal",
+
+  "dropEggTigerCubText": "Tiger Cub",
+  "dropEggTigerCubMountText": "Tiger",
+  "dropEggTigerCubAjective": "fierce",
+
+  "dropEggPandaCubText": "Panda Cub",
+  "dropEggPandaCubMountText": "Panda",
+  "dropEggPandaCubAjective": "gentle",
+
+  "dropEggLionCubText": "Lion Cub",
+  "dropEggLionCubMountText": "Lion",
+  "dropEggLionCubAjective": "regal",
+
+  "dropEggFoxText": "Fox",
+  "dropEggFoxAjective": "wily",
+
+  "dropEggFlyingPigText": "Flying Pig",
+  "dropEggFlyingPigAjective": "whimsical",
+
+  "dropEggDragonText": "Dragon",
+  "dropEggDragonAjective": "mighty",
+
+  "dropEggCactusText": "Cactus",
+  "dropEggCactusAjective": "prickly",
+
+  "dropEggBearCubText": "Bear Cub",
+  "dropEggBearCubMountText": "Bear",
+  "dropEggBearCubAjective": "cuddly",
+
+  "questEggGryphonText": "Gryphon",
+  "questEggGryphonAjective": "proud",
+
+  "questEggHedgehogText": "Hedgehog",
+  "questEggHedgehogAjective": "spiky",
+
+  "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective %> <%= eggText %>."
 }
