@@ -69,19 +69,11 @@ gear =
       5: text: (-> i18n.t('weaponHealer5Text')), notes: (-> i18n.t('weaponHealer5Notes', {int: 9})), int: 9, value:90
       6: text: (-> i18n.t('weaponHealer6Text')), notes: (-> i18n.t('weaponHealer6Notes', {int: 11})), int: 11, value:120, last: true
     special:
-<<<<<<< HEAD
-      0: text: (-> i18n.t('weaponSpecial0Text')), notes: (-> i18n.t('weaponSpecial0Notes')), str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
-      1: text: (-> i18n.t('weaponSpecial1Text')), notes: (-> i18n.t('weaponSpecial1Notes')), str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
-      2: text: (-> i18n.t('weaponSpecial2Text')), notes: (-> i18n.t('weaponSpecial2Notes')), str: 25, per: 25, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or u.items.gear.owned.weapon_special_2?)
-      3: text: (-> i18n.t('weaponSpecial3Text')), notes: (-> i18n.t('weaponSpecial3Notes')), str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
-      critical: text: (-> i18n.t('weaponSpecialCriticalText')), notes: (-> i18n.t('weaponSpecialCriticalNotes')), str: 40, per: 40, value:200, canOwn: ((u)-> !!u.contributor?.critical)
-=======
       0: text: (-> i18n.t('weaponSpecial0Text')), notes: (-> i18n.t('weaponSpecial0Notes', {str: 20})), str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
       1: text: (-> i18n.t('weaponSpecial1Text')), notes: (-> i18n.t('weaponSpecial1Notes', {attrs: 6})), str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
-      2: text: (-> i18n.t('weaponSpecial2Text')), notes: (-> i18n.t('weaponSpecial2Notes', {attrs: 25})), str: 25, per: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      2: text: (-> i18n.t('weaponSpecial2Text')), notes: (-> i18n.t('weaponSpecial2Notes', {attrs: 25})), str: 25, per: 25, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or u.items.gear.owned.weapon_special_2?)
       3: text: (-> i18n.t('weaponSpecial3Text')), notes: (-> i18n.t('weaponSpecial3Notes', {attrs: 17})), str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
       critical: text: (-> i18n.t('weaponSpecialCriticalText')), notes: (-> i18n.t('weaponSpecialCriticalNotes', {attrs: 40})), str: 40, per: 40, value:200, canOwn: ((u)-> !!u.contributor?.critical)
->>>>>>> chore(i18n): start moving attributes values to interpolation
       # Winter event gear
       yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: (-> i18n.t('weaponSpecialYetiText')), notes: (-> i18n.t('weaponSpecialYetiNotes', {str: 15})), str: 15, value:90
       ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: (-> i18n.t('weaponSpecialSkiText')), notes: (-> i18n.t('weaponSpecialSkiNotes', {str: 8})), str: 8, value: 90
@@ -346,11 +338,11 @@ api.spells =
 
   wizard:
     fireball:
-      text: 'Burst of Flames'
+      text: (-> i18n.t('spellWizardFireballText'))
       mana: 10
       lvl: 11
       target: 'task'
-      notes: 'Flames blast forth, scorching a task. You reduce the task\'s redness, deal damage to any monster you\'re battling, and gain Experience--more for blue tasks.'
+      notes: (-> i18n.t('spellWizardFireballNotes'))
       cast: (user, target) ->
         # I seriously have no idea what I'm doing here. I'm just mashing buttons until numbers seem right-ish. Anyone know math?
         bonus = user._statsComputed.int * user.fns.crit('per')
@@ -361,11 +353,11 @@ api.spells =
         user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30) if user.party.quest.key
 
     mpheal:
-      text: 'Ethereal Surge'
+      text: (-> i18n.t('spellWizardMPHealText'))
       mana: 30
       lvl: 12
       target: 'party'
-      notes: "A flow of magical energy rushes from your hands and recharges your party. Your party recovers MP.",
+      notes: (-> i18n.t('spellWizardMPHealNotes')),
       cast: (user, target)->
         _.each target, (member) ->
           bonus = Math.ceil(user._statsComputed.int * .1)
@@ -373,60 +365,60 @@ api.spells =
           member.stats.mp += bonus
 
     earth:
-      text: 'Earthquake'
+      text: (-> i18n.t('spellWizardEarthText'))
       mana: 35
       lvl: 13
       target: 'party'
-      notes: "The ground below your party's tasks cracks and shakes with extreme intensity, slowing them down and opening them up to more attacks. Your party gains a buff to experience.",
+      notes: (-> i18n.t('spellWizardEarthNotes')),
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.int ?= 0
           member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05)
 
     frost:
-      text: 'Chilling Frost'
+      text: (-> i18n.t('spellWizardFrostText')),
       mana: 40
       lvl: 14
       target: 'self'
-      notes: "Ice erupts from every surface, swallowing your tasks and freezing them in place. Your dailies' streaks won't reset at the end of the day."
+      notes: (-> i18n.t('spellWizardFrostNotes')),
       cast: (user, target) ->
         user.stats.buffs.streaks = true
 
   warrior:
     smash:
-      text: 'Brutal Smash'
+      text: (-> i18n.t('spellWarriorSmashText'))
       mana: 10
       lvl: 11
       target: 'task'
-      notes: "You savagely hit a single task with all of your might. The task's redness decreases, and you deal extra damage to any monster you're fighting."
+      notes: (-> i18n.t('spellWarriorSmashNotes'))
       cast: (user, target) ->
         target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con')
         user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2) if user.party.quest.key
     defensiveStance:
-      text: 'Defensive Stance'
+      text: (-> i18n.t('spellWarriorDefensiveStanceText'))
       mana: 25
       lvl: 12
       target: 'self'
-      notes: "You take a moment to relax your body and enter a defensive stance to ready yourself for the tasks' next onslaught. Reduces damage from dailies at the end of the day."
+      notes: (-> i18n.t('spellWarriorDefensiveStanceNotes'))
       cast: (user, target) ->
         user.stats.buffs.con ?= 0
         user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05)
     valorousPresence:
-      text: 'Valorous Presence'
+      text: (-> i18n.t('spellWarriorValorousPresenceText'))
       mana: 20
       lvl: 13
       target: 'party'
-      notes: "Your presence emboldens the party. Their newfound courage gives them a boost of strength. Party members gain a buff to their STR."
+      notes: (-> i18n.t('spellWarriorValorousPresenceNotes'))
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.str ?= 0
           member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05)
     intimidate:
-      text: 'Intimidating Gaze'
+      text: (-> i18n.t('spellWarriorIntimidateText'))
       mana: 15
       lvl: 14
       target: 'party'
-      notes: "Your gaze strikes fear into the hearts of your party's enemies. The party gains a moderate boost to defense."
+      notes: (-> i18n.t('spellWarriorIntimidateNotes'))
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.con ?= 0
@@ -434,20 +426,20 @@ api.spells =
 
   rogue:
     pickPocket:
-      text: 'Pickpocket'
+      text: (-> i18n.t('spellRoguePickPocketText'))
       mana: 10
       lvl: 11
       target: 'task'
-      notes: "Your nimble fingers run through the task's pockets and find some treasures for yourself. You gain an increased gold bonus on the task, higher yet the 'fatter' (bluer) your task."
+      notes: (-> i18n.t('spellRoguePickPocketNotes'))
       cast: (user, target) ->
         bonus = (if target.value < 0 then 1 else target.value+2) + (user._statsComputed.per * 0.5)
         user.stats.gp += 25 * (bonus / (bonus + 75))
     backStab:
-      text: 'Backstab'
+      text: (-> i18n.t('spellRogueBackStabText'))
       mana: 15
       lvl: 12
       target: 'task'
-      notes: "Without a sound, you sweep behind a task and stab it in the back. You deal higher damage to the task, with a higher chance of a critical hit."
+      notes: (-> i18n.t('spellRogueBackStabNotes'))
       cast: (user, target) ->
         _crit = user.fns.crit('str', .3)
         target.value += _crit * .03
@@ -456,22 +448,22 @@ api.spells =
         user.stats.gp += bonus
         # user.party.quest.progress.up += bonus if user.party.quest.key # remove hurting bosses for rogues, seems OP for now
     toolsOfTrade:
-      text: 'Tools of the Trade'
+      text: (-> i18n.t('spellRogueToolsOfTradeText'))
       mana: 25
       lvl: 13
       target: 'party'
-      notes: "You share your thievery tools with the party to aid them in 'acquiring' more gold. The party's gold bonus for tasks and chance of drops is buffed for a day."
+      notes: (-> i18n.t('spellRogueToolsOfTradeNotes'))
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
           member.stats.buffs.per ?= 0
           member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03)
     stealth:
-      text: 'Stealth'
+      text: (-> i18n.t('spellRogueStealthText'))
       mana: 45
       lvl: 14
       target: 'self'
-      notes: "You duck into the shadows, pulling up your hood. Many dailies won't find you this night; fewer yet the higher your Perception."
+      notes: (-> i18n.t('spellRogueStealthNotes'))
       cast: (user, target) ->
         user.stats.buffs.stealth ?= 0
         ## scales to user's # of dailies; maxes out at 100% at 100 per ##
@@ -479,41 +471,41 @@ api.spells =
 
   healer:
     heal:
-      text: 'Healing Light'
+      text: (-> i18n.t('spellHealerHealText'))
       mana: 15
       lvl: 11
       target: 'self'
-      notes: 'Light covers your body, healing your wounds. You gain a boost to your health.'
+      notes: (-> i18n.t('spellHealerHealNotes'))
       cast: (user, target) ->
         user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075
         user.stats.hp = 50 if user.stats.hp > 50
     brightness:
-      text: 'Searing Brightness'
+      text: (-> i18n.t('spellHealerBrightnessText'))
       mana: 15
       lvl: 12
       target: 'self'
-      notes: "You cast a burst of light that blinds all of your tasks. The redness of your tasks is reduced."
+      notes: (-> i18n.t('spellHealerBrightnessNotes'))
       cast: (user, target) ->
         _.each user.tasks, (target) ->
           return if target.type is 'reward'
           target.value += 1.5 * (user._statsComputed.int / (user._statsComputed.int + 40))
     protectAura:
-      text: 'Protective Aura'
+      text: (-> i18n.t('spellHealerProtectAuraText'))
       mana: 30
       lvl: 13
       target: 'party'
-      notes: "A magical aura surrounds your party members, protecting them from damage. Your party members gain a buff to their defense."
+      notes: (-> i18n.t('spellHealerProtectAuraNotes'))
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
           member.stats.buffs.con ?= 0
           member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15)
     heallAll:
-      text: 'Blessing'
+      text: (-> i18n.t('spellHealerHealAllText'))
       mana: 25
       lvl: 14
       target: 'party'
-      notes: "Soothing light envelops your party and heals them of their injuries. Your party members gain a boost to their health."
+      notes: (-> i18n.t('spellHealerHealAllNotes'))
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .04
@@ -521,11 +513,11 @@ api.spells =
 
   special:
     snowball:
-      text: 'Snowball'
+      text: (-> i18n.t('spellSpecialSnowballText'))
       mana: 0
       value: 1
       target: 'user'
-      notes: "Throw a snowball at a party member, what could possibly go wrong? Lasts until member's new day."
+      notes: (-> i18n.t('spellSpecialSnowballNotes'))
       cast: (user, target) ->
         target.stats.buffs.snowball = true
         target.achievements.snowball ?= 0
@@ -533,11 +525,11 @@ api.spells =
         user.items.special.snowball--
 
     salt:
-      text: 'Salt'
+      text: (-> i18n.t('spellSpecialSaltText'))
       mana: 0
       value: 5
       target: 'self'
-      notes: 'Someone has snowballed you. Ha ha, very funny. Now get this snow off me!'
+      notes: (-> i18n.t('spellSpecialSaltNotes'))
       cast: (user, target) ->
         user.stats.buffs.snowball = false
         user.stats.gp -= 5
