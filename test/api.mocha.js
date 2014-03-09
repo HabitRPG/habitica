@@ -454,7 +454,7 @@ describe('API', function () {
             expect(up).to.be.above(0);
             request.post(baseURL+'/user/batch-update')
             .send([
-              {op:'score',params:{direction:'up',id:user.dailys[2].id}},
+              {op:'score',params:{direction:'up',id:user.dailys[1].id}},
               //{op:'score',params:{direction:'up',id:user.dailys[3].id}}, // leave one daily undone so Trapper hurts party
               {op:'update',body:{lastCron:moment().subtract('days',1)}} // set day to yesterday, cron will then be triggered on next action
             ])
