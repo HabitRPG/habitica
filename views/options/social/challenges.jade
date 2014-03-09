@@ -145,8 +145,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                   =env.t('by') + ' '
                   strong {{challenge.leader.profile.name}}
                 li
-                  | {{challenge.memberCount}}
-                  = ' ' + env.t('participants')
+                  =env.t('participants', {membercount: "{{challenge.memberCount}}"})
                 li(ng-show='challenge.prize')
                   p
                     // prize
