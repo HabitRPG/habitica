@@ -10213,6 +10213,11 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
             return _canOwn(u) && ((u.items.gear.owned[key] != null) || (moment().isAfter(item.event.start) && moment().isBefore(item.event.end)));
           };
         }
+        if (item.mystery) {
+          item.canOwn = function(u) {
+            return u.items.gear.owned[key] != null;
+          };
+        }
         return api.gear.flat[key] = item;
       });
     });

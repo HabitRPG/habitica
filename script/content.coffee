@@ -231,6 +231,9 @@ _.each gearTypes, (type) ->
         item.canOwn = (u)->
           _canOwn(u) and (u.items.gear.owned[key]? or (moment().isAfter(item.event.start) and moment().isBefore(item.event.end)))
 
+      if item.mystery
+        item.canOwn = (u)-> u.items.gear.owned[key]?
+
       api.gear.flat[key] = item
 
 ###
