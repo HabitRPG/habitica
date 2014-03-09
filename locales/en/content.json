@@ -39,5 +39,46 @@
   "questEggHedgehogText": "Hedgehog",
   "questEggHedgehogAjective": "spiky",
 
-  "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective %> <%= eggText %>."
+  "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective %> <%= eggText %>.",
+
+  "hatchingPotionBase": "Base",
+  "hatchingPotionWhite": "White",
+  "hatchingPotionDesert": "Desert",
+  "hatchingPotionRed": "Red",
+  "hatchingPotionShade": "Shade",
+  "hatchingPotionSkeleton": "Skeleton",
+  "hatchingPotionZombie": "Zombie",
+  "hatchingPotionCottonCandyPink": "Cotton Candy Pink",
+  "hatchingPotionCottonCandyBlue": "Cotton Candy Blue",
+  "hatchingPotionGolden": "Golden",
+
+  "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText %> pet.",
+
+  "foodMeat": "Meat",
+  "foodMilk": "Milk",
+  "foodPotatoe": "Potato",
+  "foodStrawberry": "Strawberry",
+  "foodChocolate": "Chocolate",
+  "foodFish": "Fish",
+  "foodRottenMeat": "Rotten Meat",
+  "foodCottonCandyPink": "Pink Cotton Candy",
+  "foodCottonCandyBlue": "Blue Cotton Candy",
+  "foodCakeSkeleton": "Bare Bones Cake",
+  "foodCakeBase": "Basic Cake",
+  "foodCakeCottonCandyBlue": "Candy Blue Cake",
+  "foodCakeCottonCandyPink": "Candy Pink Cake",
+  "foodCakeShade": "Chocolate Cake",
+  "foodCakeWhite": "Cream Cake",
+  "foodCakeGolden": "Honey Cake",
+  "foodCakeZombie": "Rotten Cake",
+  "foodCakeDesert": "Sand Cake",
+  "foodCakeRed": "Strawberry Cake",
+  "foodHoney": "Honey",
+
+  "foodSaddleText": "Saddle",
+  "foodSaddleNotes": "Instantly raises one of your pets into a mount.",
+
+  "foodNotes": "Feed this to a pet and it may grow into a sturdy steed."
+
+
 }

@@ -599,18 +599,18 @@ api.specialMounts =
   'LionCub-Ethereal':	true
 
 api.hatchingPotions =
-  Base:             value: 2, text: 'Base'
-  White:            value: 2, text: 'White'
-  Desert:           value: 2, text: 'Desert'
-  Red:              value: 3, text: 'Red'
-  Shade:            value: 3, text: 'Shade'
-  Skeleton:         value: 3, text: 'Skeleton'
-  Zombie:           value: 4, text: 'Zombie'
-  CottonCandyPink:  value: 4, text: 'Cotton Candy Pink'
-  CottonCandyBlue:  value: 4, text: 'Cotton Candy Blue'
-  Golden:           value: 5, text: 'Golden'
+  Base:             value: 2, text: (-> i18n.t('hatchingPotionBase'))
+  White:            value: 2, text: (-> i18n.t('hatchingPotionWhite'))
+  Desert:           value: 2, text: (-> i18n.t('hatchingPotionDesert'))
+  Red:              value: 3, text: (-> i18n.t('hatchingPotionRed'))
+  Shade:            value: 3, text: (-> i18n.t('hatchingPotionShade'))
+  Skeleton:         value: 3, text: (-> i18n.t('hatchingPotionSkeleton'))
+  Zombie:           value: 4, text: (-> i18n.t('hatchingPotionZombie'))
+  CottonCandyPink:  value: 4, text: (-> i18n.t('hatchingPotionCottonCandyPink'))
+  CottonCandyBlue:  value: 4, text: (-> i18n.t('hatchingPotionCottonCandyBlue'))
+  Golden:           value: 5, text: (-> i18n.t('hatchingPotionGolden'))
 _.each api.hatchingPotions, (pot,key) ->
-  _.defaults pot, {key, value: 2, notes: "Pour this on an egg, and it will hatch as a #{pot.text} pet."}
+  _.defaults pot, {key, value: 2, notes: (-> i18n.t('hatchingPotionNotes', {potText: pot.text()}))}
 
 api.pets = _.transform api.dropEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
@@ -621,37 +621,37 @@ api.questPets = _.transform api.questEggs, (m, egg) ->
     m2[egg.key + "-" + pot.key] = true
 
 api.food =
-  Meat:             text: 'Meat', target: 'Base', article: ''
-  Milk:             text: 'Milk', target: 'White', article: ''
-  Potatoe:          text: 'Potato', target: 'Desert', article: 'a '
-  Strawberry:       text: 'Strawberry', target: 'Red', article: 'a '
-  Chocolate:        text: 'Chocolate', target: 'Shade', article: ''
-  Fish:             text: 'Fish', target: 'Skeleton', article: 'a '
-  RottenMeat:       text: 'Rotten Meat', target: 'Zombie', article: ''
-  CottonCandyPink:  text: 'Pink Cotton Candy', target: 'CottonCandyPink', article: ''
-  CottonCandyBlue:  text: 'Blue Cotton Candy', target: 'CottonCandyBlue', article: ''
+  Meat:             text: (-> i18n.t('foodMeat')), target: 'Base', article: ''
+  Milk:             text: (-> i18n.t('foodMilk')), target: 'White', article: ''
+  Potatoe:          text: (-> i18n.t('foodPotatoe')), target: 'Desert', article: 'a '
+  Strawberry:       text: (-> i18n.t('foodStrawberry')), target: 'Red', article: 'a '
+  Chocolate:        text: (-> i18n.t('foodChocolate')), target: 'Shade', article: ''
+  Fish:             text: (-> i18n.t('foodFish')), target: 'Skeleton', article: 'a '
+  RottenMeat:       text: (-> i18n.t('foodRottenMeat')), target: 'Zombie', article: ''
+  CottonCandyPink:  text: (-> i18n.t('foodCottonCandyPink')), target: 'CottonCandyPink', article: ''
+  CottonCandyBlue:  text: (-> i18n.t('foodCottonCandyBlue')), target: 'CottonCandyBlue', article: ''
   # FIXME what to do with these extra items? Should we add "targets" (plural) for food instead of singular, so we don't have awkward extras?
   #Cheese:           text: 'Cheese', target: 'Golden'
   #Watermelon:       text: 'Watermelon', target: 'Golden'
   #SeaWeed:          text: 'SeaWeed', target: 'Golden'
 
-  Cake_Skeleton:        canBuy: false, text: 'Bare Bones Cake', target: 'Skeleton', article: ''
-  Cake_Base:            canBuy: false, text: 'Basic Cake', target: 'Base', article: ''
-  Cake_CottonCandyBlue: canBuy: false, text: 'Candy Blue Cake', target: 'CottonCandyBlue', article: ''
-  Cake_CottonCandyPink: canBuy: false, text: 'Candy Pink Cake', target: 'CottonCandyPink', article: ''
-  Cake_Shade:           canBuy: false, text: 'Chocolate Cake', target: 'Shade', article: ''
-  Cake_White:           canBuy: false, text: 'Cream Cake', target: 'White', article: ''
-  Cake_Golden:          canBuy: false, text: 'Honey Cake', target: 'Golden', article: ''
-  Cake_Zombie:          canBuy: false, text: 'Rotten Cake', target: 'Zombie', article: ''
-  Cake_Desert:          canBuy: false, text: 'Sand Cake', target: 'Desert', article: ''
-  Cake_Red:             canBuy: false, text: 'Strawberry Cake', target: 'Red', article: ''
+  Cake_Skeleton:        canBuy: false, text: (-> i18n.t('foodCakeSkeleton')), target: 'Skeleton', article: ''
+  Cake_Base:            canBuy: false, text: (-> i18n.t('foodCakeBase')), target: 'Base', article: ''
+  Cake_CottonCandyBlue: canBuy: false, text: (-> i18n.t('foodCakeCottonCandyBlue')), target: 'CottonCandyBlue', article: ''
+  Cake_CottonCandyPink: canBuy: false, text: (-> i18n.t('foodCakeCottonCandyPink')), target: 'CottonCandyPink', article: ''
+  Cake_Shade:           canBuy: false, text: (-> i18n.t('foodCakeShade')), target: 'Shade', article: ''
+  Cake_White:           canBuy: false, text: (-> i18n.t('foodCakeWhite')), target: 'White', article: ''
+  Cake_Golden:          canBuy: false, text: (-> i18n.t('foodCakeGolden')), target: 'Golden', article: ''
+  Cake_Zombie:          canBuy: false, text: (-> i18n.t('foodCakeZombie')), target: 'Zombie', article: ''
+  Cake_Desert:          canBuy: false, text: (-> i18n.t('foodCakeDesert')), target: 'Desert', article: ''
+  Cake_Red:             canBuy: false, text: (-> i18n.t('foodCakeRed')), target: 'Red', article: ''
 
   # Tests hack, put honey last so the faux random picks it up in unit tests
-  Honey:            text: 'Honey', target: 'Golden', article: ''
+  Honey:            text: (-> i18n.t('foodHoney')), target: 'Golden', article: ''
 
-  Saddle:           text: 'Saddle', value: 5, notes: 'Instantly raises one of your pets into a mount.'
+  Saddle:           text: (-> i18n.t('foodSaddleText')), value: 5, notes: (-> i18n.t('foodSaddleNotes'))
 _.each api.food, (food,key) ->
-  _.defaults food, {value: 1, key, notes: "Feed this to a pet and it may grow into a sturdy steed.", canBuy:true}
+  _.defaults food, {value: 1, key, notes: (-> i18n.t('foodNotes')), canBuy:true}
 
 api.quests =
 
