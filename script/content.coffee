@@ -830,31 +830,28 @@ _.each api.quests, (v,key) ->
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
   habits: [
-    {type: 'habit', text: '1h Productive Work', notes: 'When you create a new Habit, you can click the Edit icon and choose for it to represent a positive habit, a negative habit, or both. For some Habits, like this one, it only makes sense to gain points.', value: 0, up: true, down: false, attribute: 'per' }
-    {type: 'habit', text: 'Eat Junk Food', notes: 'For others, it only makes sense to *lose* points.', value: 0, up: false, down: true, attribute: 'con'}
-    {type: 'habit', text: 'Take The Stairs', notes: 'For the rest, both + and - make sense (stairs = gain, elevator = lose).', value: 0, up: true, down: true, attribute: 'str'}
+    {type: 'habit', text: (-> i18n.t('defaultHabit1Text')), notes: (-> i18n.t('defaultHabit1Notes')), value: 0, up: true, down: false, attribute: 'per' }
+    {type: 'habit', text: (-> i18n.t('defaultHabit2Text')), notes: (-> i18n.t('defaultHabit2Notes')), value: 0, up: false, down: true, attribute: 'con'}
+    {type: 'habit', text: (-> i18n.t('defaultHabit3Text')), notes: (-> i18n.t('defaultHabit3Notes')), value: 0, up: true, down: true, attribute: 'str'}
   ]
 
   dailys: [
-    {type: 'daily', text: '1h Personal Project', notes: 'All tasks default to yellow when they are created. This means you will take only moderate damage when they are missed and will gain only a moderate reward when they are completed.', value: 0, completed: false, repeat: repeat, attribute: 'per' }
-    {type: 'daily', text: 'Clean your apartment', notes: 'Dailies you complete consistently will turn from yellow to green to blue, helping you track your progress. The higher you move up the ladder, the less damage you take for missing and less reward you receive for completing the goal.', value: 3, completed: false, repeat: repeat, attribute: 'con' }
-    {type: 'daily', text: '45m Reading', notes: 'If you miss a daily frequently, it will turn darker shades of orange and red. The redder the task is, the more experience and gold it grants for success and the more damage you take for failure. This encourages you to focus on your shortcomings, the reds.', value: -10, completed: false, repeat: repeat, attribute: 'int' }
-    {type: 'daily', text: 'Exercise', notes: 'You can add checklists to dailies and todos. As you progress through the checklist, you will get a proportionate reward.', checklist: [{completed: true, text: 'Stretching' }, {completed: false, text: 'Sit-ups'}, {completed: false, text: 'Push-ups'}], completed: false, repeat: repeat, attribute: 'str' }
+    {type: 'daily', text: (-> i18n.t('defaultDaily1Text')), notes: (-> i18n.t('defaultDaily1Notes')), value: 0, completed: false, repeat: repeat, attribute: 'per' }
+    {type: 'daily', text: (-> i18n.t('defaultDaily2Text')), notes: (-> i18n.t('defaultDaily2Notes')), value: 3, completed: false, repeat: repeat, attribute: 'str' }
+    {type: 'daily', text: (-> i18n.t('defaultDaily3Text')), notes: (-> i18n.t('defaultDaily3Notes')), value: -10, completed: false, repeat: repeat, attribute: 'int' }
   ]
 
   todos: [
-    {type: 'todo', text: 'Use emojis :+1:', notes: 'You can use emojis in all your habit, daily, and to-do titles.', completed: false, attribute: 'int' }
-    {type: 'todo', text: '_Learn_ **Markdown** :book:', notes: 'You can use Markdown for styling your task names.', completed: false, attribute: 'int' }
-    {type: 'todo', text: 'Call Mom :telephone_receiver:', notes: 'While not completing a to-do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.', value: -3, completed: false, attribute: 'per' }
+    {type: 'todo', text: (-> i18n.t('defaultTodo1Text')), notes: (-> i18n.t('defaultTodo1Notes')), value: -3, completed: false, attribute: 'per' }
   ]
 
   rewards: [
-    {type: 'reward', text: '1 Episode of Game of Thrones', notes: 'Custom rewards can come in many forms. Some people will hold off watching their favorite show unless they have the gold to pay for it.', value: 20 }
-    {type: 'reward', text: 'Cake', notes: 'Other people just want to enjoy a nice piece of cake. Try to create rewards that will motivate you best.', value: 10 }
+    {type: 'reward', text: (-> i18n.t('defaultReward1Text')), notes: (-> i18n.t('defaultReward1Notes')), value: 20 }
+    {type: 'reward', text: (-> i18n.t('defaultReward2Text')), notes: (-> i18n.t('defaultReward2Notes')), value: 10 }
   ]
 
   tags: [
-    {name: 'morning'}
-    {name: 'afternoon'}
-    {name: 'evening'}
+    {name: (-> i18n.t('defaultTag1'))}
+    {name: (-> i18n.t('defaultTag2'))}
+    {name: (-> i18n.t('defaultTag3'))}
   ]
