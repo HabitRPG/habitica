@@ -147,6 +147,9 @@
   "armorSpecialBirthdayText": "Absurd Party Robes",
   "armorSpecialBirthdayNotes": "As part of the festivities, Absurd Party Robes are available free of charge in the Item Store! Swath yourself in those silly garbs and don your matching hats to celebrate this momentous day.",
 
+  "armorMystery201402Text": "Messenger Robes",
+  "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters.",
+
   "headBase0Text": "No Helm",
   "headBase0Notes": "No headgear.",
 
@@ -212,6 +215,9 @@
   "headSpecialSnowflakeText": "Snowflake Crown",
   "headSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by <%= int %>.",
 
+  "headMystery201402Text": "Winged Helm",
+  "headMystery201402Notes": "This winged circlet imbues the wearer with the speed of the wind!",
+
   "shieldBase0Text": "No Off-Hand Equipment",
   "shieldBase0Notes": "No shield or second weapon.",
 
@@ -248,6 +254,10 @@
   "shieldSpecialSnowflakeNotes": "Limited Edition 2013 Winter Gear! Every shield is unique. Increases CON by <%= con %>.",
 
   "backBase0Text": "No Helm",
-  "backBase0Notes": "No headgear."
+  "backBase0Notes": "No headgear.",
+
+  "backMystery201402Text": "Golden Wings",
+  "backMystery201402Notes": "These shining wings have feathers that glitter in the sun!"
+
 
 }
