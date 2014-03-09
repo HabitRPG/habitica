@@ -16,6 +16,9 @@ events =
   winter: {start:'2013-12-31',end:'2014-02-01'}
   birthday: {start:'2013-01-30',end:'2014-02-01'}
 
+mystery =
+  201402: {start:'2014-02-22',end:'2014-02-28'}
+
 gear =
   weapon:
     base:
@@ -108,13 +111,14 @@ gear =
       0: text: "Shade Armor",   notes:'Screams when struck, for it feels pain in its wearer\'s place. Increases CON by 20.', con: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: "Crystal Armor", notes:'Its tireless power inures the wearer to mundane discomfort. Increases all attributes by 6.', con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
       2: text: "Jean Chalard's Noble Tunic", notes:'Makes you extra fluffy! Increases CON and INT by 25 each.', int: 25, con: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
-
-      #Winter event
+      # Winter event
       yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: "Yeti-Tamer Robe", notes:'Limited Edition 2013 Winter Gear! Fuzzy and fierce. Increases CON by 9.', con: 9, value:90
       ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: "Ski-sassin Parka", notes:'Limited Edition 2013 Winter Gear! Full of secret daggers and ski trail maps. Increases PER by 15.', per: 15, value:90
       candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: "Candy Cane Robe", notes:'Limited Edition 2013 Winter Gear! Spun from sugar and silk. Increases INT by 9.', int: 9, value:90
       snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: "Snowflake Robe", notes:'Limited Edition 2013 Winter Gear! A robe to keep you warm, even in a blizzard. Increases CON by 15.', con: 15, value:90
       birthday:   event: events.birthday, text: "Absurd Party Robes", notes:"As part of the festivities, Absurd Party Robes are available free of charge in the Item Store! Swath yourself in those silly garbs and don your matching hats to celebrate this momentous day.", value: 0
+    mystery:
+      201402: text: 'Messenger Robes', notes: "Shimmering and strong, these robes have many pockets to carry letters.", mystery:mystery['201402'], value: 10
 
   head:
     base:
@@ -159,6 +163,9 @@ gear =
       candycane:  event: events.winter, canOwn: ((u)->u.stats.class is 'wizard'  ), text: "Candy Cane Hat", notes:"Limited Edition 2013 Winter Gear! This is the most delicious hat in the world. It's also known to appear and disappear mysteriously. Increases PER by 7.", per: 7, value:60
       snowflake:  event: events.winter, canOwn: ((u)->u.stats.class is 'healer'  ), text: "Snowflake Crown", notes:'Limited Edition 2013 Winter Gear! The wearer of this crown is never cold. Increases INT by 7.', int: 7, value:60
 
+    mystery:
+      201402: text: 'Winged Helm', notes: "This winged circlet imbues the wearer with the speed of the wind!", mystery:mystery['201402'], value: 10
+
   shield:
     base:
       0: text: "No Off-Hand Equipment", notes:'No shield or second weapon.', value:0
@@ -199,7 +206,8 @@ gear =
   back:
     base:
       0: text: "No Back Accessory", notes:'No Back Accessory.', value:0, last:true
-    
+    mystery:
+      201402: text: 'Golden Wings', notes: "These shining wings have feathers that glitter in the sun!", mystery:mystery['201402'], value: 10
 
 ###
   The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since

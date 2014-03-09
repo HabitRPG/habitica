@@ -9168,7 +9168,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
 },{}],5:[function(require,module,exports){
 (function() {
-  var api, classes, diminishingReturns, events, gear, gearTypes, moment, repeat, _;
+  var api, classes, diminishingReturns, events, gear, gearTypes, moment, mystery, repeat, _;
 
   _ = require('lodash');
 
@@ -9196,6 +9196,13 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     birthday: {
       start: '2013-01-30',
       end: '2014-02-01'
+    }
+  };
+
+  mystery = {
+    201402: {
+      start: '2014-02-22',
+      end: '2014-02-28'
     }
   };
 
@@ -9729,6 +9736,14 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           notes: "As part of the festivities, Absurd Party Robes are available free of charge in the Item Store! Swath yourself in those silly garbs and don your matching hats to celebrate this momentous day.",
           value: 0
         }
+      },
+      mystery: {
+        201402: {
+          text: 'Messenger Robes',
+          notes: "Shimmering and strong, these robes have many pockets to carry letters.",
+          mystery: mystery['201402'],
+          value: 10
+        }
       }
     },
     head: {
@@ -9955,6 +9970,14 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           int: 7,
           value: 60
         }
+      },
+      mystery: {
+        201402: {
+          text: 'Winged Helm',
+          notes: "This winged circlet imbues the wearer with the speed of the wind!",
+          mystery: mystery['201402'],
+          value: 10
+        }
       }
     },
     shield: {
@@ -10142,6 +10165,14 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
           notes: 'No Back Accessory.',
           value: 0,
           last: true
+        }
+      },
+      mystery: {
+        201402: {
+          text: 'Golden Wings',
+          notes: "These shining wings have feathers that glitter in the sun!",
+          mystery: mystery['201402'],
+          value: 10
         }
       }
     }
@@ -12694,7 +12725,7 @@ var process=require("__browserify_process");(function() {
             user.markModified('party.quest.progress');
           }
         }
-        if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 10))) {
+        if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 25))) {
           return;
         }
         if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
@@ -12720,7 +12751,7 @@ var process=require("__browserify_process");(function() {
             drop.type = 'Egg';
             drop.dialog = "You've found a " + drop.text + " Egg! " + drop.notes;
           } else {
-            acceptableDrops = rarity < .03 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
+            acceptableDrops = rarity < .02 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
             drop = user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
               return __indexOf.call(acceptableDrops, k) >= 0;
             })));
