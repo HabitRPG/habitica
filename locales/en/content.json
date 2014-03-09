@@ -3,41 +3,41 @@
   "potionNotes": "Recover 15 Health (Instant Use)",
 
   "dropEggWolfText": "Wolf",
-  "dropEggWolfAdjectivetive": "loyal",
+  "dropEggWolfAdjective": "loyal",
 
   "dropEggTigerCubText": "Tiger Cub",
   "dropEggTigerCubMountText": "Tiger",
-  "dropEggTigerCubAdjectivetive": "fierce",
+  "dropEggTigerCubAdjective": "fierce",
 
   "dropEggPandaCubText": "Panda Cub",
   "dropEggPandaCubMountText": "Panda",
-  "dropEggPandaCubAdjectivetive": "gentle",
+  "dropEggPandaCubAdjective": "gentle",
 
   "dropEggLionCubText": "Lion Cub",
   "dropEggLionCubMountText": "Lion",
-  "dropEggLionCubAdjectivetive": "regal",
+  "dropEggLionCubAdjective": "regal",
 
   "dropEggFoxText": "Fox",
-  "dropEggFoxAdjectivetive": "wily",
+  "dropEggFoxAdjective": "wily",
 
   "dropEggFlyingPigText": "Flying Pig",
-  "dropEggFlyingPigAdjectivetive": "whimsical",
+  "dropEggFlyingPigAdjective": "whimsical",
 
   "dropEggDragonText": "Dragon",
-  "dropEggDragonAdjectivetive": "mighty",
+  "dropEggDragonAdjective": "mighty",
 
   "dropEggCactusText": "Cactus",
-  "dropEggCactusAdjectivetive": "prickly",
+  "dropEggCactusAdjective": "prickly",
 
   "dropEggBearCubText": "Bear Cub",
   "dropEggBearCubMountText": "Bear",
-  "dropEggBearCubAdjectivetive": "cuddly",
+  "dropEggBearCubAdjective": "cuddly",
 
   "questEggGryphonText": "Gryphon",
-  "questEggGryphonAjective": "proud",
+  "questEggGryphonAdjective": "proud",
 
   "questEggHedgehogText": "Hedgehog",
-  "questEggHedgehogAjective": "spiky",
+  "questEggHedgehogAdjective": "spiky",
 
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into a <%= eggAdjective %> <%= eggText %>.",
 
