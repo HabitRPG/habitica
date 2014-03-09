@@ -8,6 +8,7 @@ api.i18n = i18n
 
 # little helper for large arrays of strings. %w"this that another" equivalent from Rails, I really miss that function
 $w = api.$w = (s)->s.split(' ')
+
 api.dotSet = (obj,path,val)->
   arr = path.split('.')
   _.reduce arr, (curr, next, index) =>
@@ -17,6 +18,10 @@ api.dotSet = (obj,path,val)->
   , obj
 api.dotGet = (obj,path)->
   _.reduce path.split('.'), ((curr, next) => curr?[next]), obj
+
+api.planGemLimits =
+  convRate: 20 #how much does a gem cost?
+  convCap: 25 #how many gems can be converted / month?
 
 ###
   ------------------------------------------------------
@@ -664,6 +669,17 @@ api.wrap = (user, main=true) ->
       # buy is for gear, purchase is for gem-purchaseables (i know, I know...)
       purchase: (req, cb, ga) ->
         {type,key}  = req.params
+
+        if type is 'gems' and key is 'gem'
+          {convRate,convCap} = api.planGemLimits
+          return cb?({code:401,message:"Must subscribe to purchase gems with GP"},req) unless user.purchased?.plan?.planId
+          return cb?({code:401,message:"Not enough Gold"}) unless user.stats.gp >= convRate
+          return cb?({code:401,message:"You've reached the Gold=>Gem conversion cap (#{convCap}) for this month. We have this to prevent abuse / farming, please wait until the beginning of next month."}) if user.purchased.plan.gemsBought >= convCap
+          user.balance += .25
+          user.purchased.plan.gemsBought++
+          user.stats.gp -= convRate
+          return cb? {code:200,message:"+1 Gems"}, _.pick(user,$w 'stats balance')
+
         return cb?({code:404,message:":type must be in [hatchingPotions,eggs,food,quests,special]"},req) unless type in ['eggs','hatchingPotions','food','quests','special']
         item = content[type][key]
         return cb?({code:404,message:":key not found for Content.#{type}"},req) unless item
@@ -852,6 +868,17 @@ api.wrap = (user, main=true) ->
         user.items.special.valentineReceived.shift()
         user.markModified? 'items.special.valentineReceived'
         cb? null, 'items.special'
+
+      openMysteryItem: (req,cb,ga) ->
+        item = user.purchased.plan?.mysteryItems?.shift()
+        return cb?(code:400,message:"Empty") unless item
+        item = content.gear.flat[item]
+        user.items.gear.owned[item.key] = true
+        user.markModified? 'purchased.plan.mysteryItems'
+        # Could show {code:200} message, but it's yellow with no icon. This is round-about, but prettier. FIXME
+        (user._tmp?={}).drop = {type: 'gear', dialog: "#{item.text(req.language)} inside!"} if typeof window != 'undefined'
+        #cb? {code:200, message:"#{item.text} inside!"}, user.items.gear.owned
+        cb? null, user.items.gear.owned
 
       # ------
       # Score
@@ -1151,7 +1178,8 @@ api.wrap = (user, main=true) ->
         user.markModified? 'party.quest.progress'
         #console.log {progress:user.party.quest.progress}
 
-      return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level or 0))
+      dropMultiplier = if user.purchased?.plan?.customerId then 2 else 1
+      return if (api.daysSince(user.items.lastDrop.date, user.preferences) is 0) and (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level or 0)))
       if user.flags?.dropsEnabled and user.fns.predictableRandom(user.stats.exp) < chance
 
         # current breakdown - 1% (adjustable) chance on drop
@@ -1326,6 +1354,13 @@ api.wrap = (user, main=true) ->
       if user.items.lastDrop.count > 0
         user.items.lastDrop.count = 0
 
+      # Reset caps for subscribers
+      if user.purchased?.plan?.customerId
+        if moment(user.purchased.plan.dateUpdated).format('MMYYYY') != moment().format('MMYYYY')
+          #+moment().format('D') >= +moment(user.purchased.plan.dateCreated).format('D') and
+          user.purchased.plan.gemsBought = 0
+          user.purchased.plan.dateUpdated = new Date()
+
       # "Perfect Day" achievement for perfect-days
       perfect = true
       clearBuffs = {str:0,int:0,per:0,con:0,stealth:0,streaks:false}
@@ -1388,9 +1423,14 @@ api.wrap = (user, main=true) ->
         lvl++
         expTally += api.tnl(lvl)
       (user.history.exp ?= []).push { date: now, value: expTally }
-      user.fns.preenUserHistory()
-      user.markModified? 'history'
-      user.markModified? 'dailys' # covers dailys.*.history
+
+      # premium subscribers can keep their full history.
+      # TODO figure out something performance-wise
+      unless user.purchased?.plan?.customerId
+        user.fns.preenUserHistory()
+        user.markModified? 'history'
+        user.markModified? 'dailys' # covers dailys.*.history
+
       user.stats.buffs =
         if perfect
           user.achievements.perfect ?= 0

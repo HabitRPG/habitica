@@ -13699,6 +13699,11 @@ api.dotGet = function(obj, path) {
   })(this)), obj);
 };
 
+api.planGemLimits = {
+  convRate: 20,
+  convCap: 25
+};
+
 
 /*
   ------------------------------------------------------
@@ -14734,8 +14739,36 @@ api.wrap = function(user, main) {
         return typeof cb === "function" ? cb(null, _.pick(user, $w('items stats'))) : void 0;
       },
       purchase: function(req, cb, ga) {
-        var item, key, type, _ref;
+        var convCap, convRate, item, key, type, _ref, _ref1, _ref2, _ref3;
         _ref = req.params, type = _ref.type, key = _ref.key;
+        if (type === 'gems' && key === 'gem') {
+          _ref1 = api.planGemLimits, convRate = _ref1.convRate, convCap = _ref1.convCap;
+          if (!((_ref2 = user.purchased) != null ? (_ref3 = _ref2.plan) != null ? _ref3.planId : void 0 : void 0)) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Must subscribe to purchase gems with GP"
+            }, req) : void 0;
+          }
+          if (!(user.stats.gp >= convRate)) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "Not enough Gold"
+            }) : void 0;
+          }
+          if (user.purchased.plan.gemsBought >= convCap) {
+            return typeof cb === "function" ? cb({
+              code: 401,
+              message: "You've reached the Gold=>Gem conversion cap (" + convCap + ") for this month. We have this to prevent abuse / farming, please wait until the beginning of next month."
+            }) : void 0;
+          }
+          user.balance += .25;
+          user.purchased.plan.gemsBought++;
+          user.stats.gp -= convRate;
+          return typeof cb === "function" ? cb({
+            code: 200,
+            message: "+1 Gems"
+          }, _.pick(user, $w('stats balance'))) : void 0;
+        }
         if (type !== 'eggs' && type !== 'hatchingPotions' && type !== 'food' && type !== 'quests' && type !== 'special') {
           return typeof cb === "function" ? cb({
             code: 404,
@@ -15065,6 +15098,28 @@ api.wrap = function(user, main) {
         }
         return typeof cb === "function" ? cb(null, 'items.special') : void 0;
       },
+      openMysteryItem: function(req, cb, ga) {
+        var item, _ref, _ref1;
+        item = (_ref = user.purchased.plan) != null ? (_ref1 = _ref.mysteryItems) != null ? _ref1.shift() : void 0 : void 0;
+        if (!item) {
+          return typeof cb === "function" ? cb({
+            code: 400,
+            message: "Empty"
+          }) : void 0;
+        }
+        item = content.gear.flat[item];
+        user.items.gear.owned[item.key] = true;
+        if (typeof user.markModified === "function") {
+          user.markModified('purchased.plan.mysteryItems');
+        }
+        if (typeof window !== 'undefined') {
+          (user._tmp != null ? user._tmp : user._tmp = {}).drop = {
+            type: 'gear',
+            dialog: "" + (item.text(req.language)) + " inside!"
+          };
+        }
+        return typeof cb === "function" ? cb(null, user.items.gear.owned) : void 0;
+      },
       score: function(req, cb) {
         var addPoints, calculateDelta, calculateReverseDelta, changeTaskValue, delta, direction, id, mpDelta, multiplier, num, options, stats, subtractPoints, task, th, _ref;
         _ref = req.params, id = _ref.id, direction = _ref.direction;
@@ -15366,7 +15421,7 @@ api.wrap = function(user, main) {
       return api.dotGet(user, path);
     },
     randomDrop: function(modifiers, req) {
-      var acceptableDrops, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1;
+      var acceptableDrops, chance, drop, dropK, dropMultiplier, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1, _ref2, _ref3;
       task = modifiers.task;
       chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + .02;
       chance *= task.priority * (1 + (task.streak / 100 || 0)) * (1 + (user._statsComputed.per / 100)) * (1 + (user.contributor.level / 40 || 0)) * (1 + (user.achievements.rebirths / 20 || 0)) * (1 + (user.achievements.streak / 200 || 0)) * (user._tmp.crit || 1) * (1 + .5 * (_.reduce(task.checklist, (function(m, i) {
@@ -15383,10 +15438,11 @@ api.wrap = function(user, main) {
           user.markModified('party.quest.progress');
         }
       }
-      if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= 5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0))) {
+      dropMultiplier = ((_ref1 = user.purchased) != null ? (_ref2 = _ref1.plan) != null ? _ref2.customerId : void 0 : void 0) ? 2 : 1;
+      if ((api.daysSince(user.items.lastDrop.date, user.preferences) === 0) && (user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0)))) {
         return;
       }
-      if (((_ref1 = user.flags) != null ? _ref1.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
+      if (((_ref3 = user.flags) != null ? _ref3.dropsEnabled : void 0) && user.fns.predictableRandom(user.stats.exp) < chance) {
         rarity = user.fns.predictableRandom(user.stats.gp);
         if (rarity > .6) {
           drop = user.fns.randomVal(_.where(content.food, {
@@ -15579,7 +15635,7 @@ api.wrap = function(user, main) {
       {user}
      */
     cron: function(options) {
-      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref;
+      var clearBuffs, daysMissed, expTally, lvl, lvlDiv2, now, perfect, plan, progress, todoTally, _base, _base1, _base2, _base3, _progress, _ref, _ref1, _ref2, _ref3, _ref4;
       if (options == null) {
         options = {};
       }
@@ -15594,6 +15650,12 @@ api.wrap = function(user, main) {
       user.lastCron = now;
       if (user.items.lastDrop.count > 0) {
         user.items.lastDrop.count = 0;
+      }
+      if ((_ref = user.purchased) != null ? (_ref1 = _ref.plan) != null ? _ref1.customerId : void 0 : void 0) {
+        if (moment(user.purchased.plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
+          user.purchased.plan.gemsBought = 0;
+          user.purchased.plan.dateUpdated = new Date();
+        }
       }
       perfect = true;
       clearBuffs = {
@@ -15693,12 +15755,14 @@ api.wrap = function(user, main) {
         date: now,
         value: expTally
       });
-      user.fns.preenUserHistory();
-      if (typeof user.markModified === "function") {
-        user.markModified('history');
-      }
-      if (typeof user.markModified === "function") {
-        user.markModified('dailys');
+      if (!((_ref2 = user.purchased) != null ? (_ref3 = _ref2.plan) != null ? _ref3.customerId : void 0 : void 0)) {
+        user.fns.preenUserHistory();
+        if (typeof user.markModified === "function") {
+          user.markModified('history');
+        }
+        if (typeof user.markModified === "function") {
+          user.markModified('dailys');
+        }
       }
       user.stats.buffs = perfect ? ((_base3 = user.achievements).perfect != null ? _base3.perfect : _base3.perfect = 0, user.achievements.perfect++, user.stats.lvl < 100 ? lvlDiv2 = Math.ceil(user.stats.lvl / 2) : lvlDiv2 = 50, {
         str: lvlDiv2,
@@ -15712,7 +15776,7 @@ api.wrap = function(user, main) {
       if (user.stats.mp > user._statsComputed.maxMP) {
         user.stats.mp = user._statsComputed.maxMP;
       }
-      plan = (_ref = user.purchased) != null ? _ref.plan : void 0;
+      plan = (_ref4 = user.purchased) != null ? _ref4.plan : void 0;
       if (plan && plan.customerId && plan.dateTerminated && moment(plan.dateTerminated).isBefore(+(new Date))) {
         _.merge(user.purchased.plan, {
           planId: null,
