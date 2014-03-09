@@ -657,71 +657,71 @@ api.quests =
 
   evilsanta:
     canBuy:false
-    text: "Trapper Santa" # title of the quest (eg, Deep into Vice's Layer)
-    notes: "You hear bemoaned roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!"
-    completion: "Trapper Santa squeals in anger, and bounces off into the night. A grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the whisperer listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured. Help her find her baby!"
+    text: (-> i18n.t('questEvilSantaText')) # title of the quest (eg, Deep into Vice's Layer)
+    notes: (-> i18n.t('questEvilSantaNotes'))
+    completion: (-> i18n.t('questEvilSantaCompletion'))
     value: 4 # Gem cost to buy, GP sell-back
     #mechanic: enum['perfectDailies', ...]
     boss:
-      name: "Trapper Santa" # name of the boss himself (eg, Vice)
+      name: (-> i18n.t('questEvilSantaBoss')) # name of the boss himself (eg, Vice)
       hp: 300
       str: 1 # Multiplier of users' missed dailies
     drop:
       items: [
-        {type: 'mounts', key: 'BearCub-Polar', text: "Polar Bear (Mount)"}
+        {type: 'mounts', key: 'BearCub-Polar', text: (-> i18n.t('questEvilSantaDropBearCubPolarMount'))}
       ]
       gp: 20
       exp: 100 # Exp bonus from defeating the boss
 
   evilsanta2:
     canBuy:false
-    text: "Find The Cub"
-    notes: "Mama bear's cub had run off into the icefields when she was captured by the trapper. At the edge of the woods, she sniffs the air. You hear twig-snaps and snow crunch through the crystaline sound of the forest. Paw prints! You both start racing to follow the trail. Find all the prints and broken twigs, and retrieve her cub!"
-    completion: "You've found the cub! Mama and baby bear couldn't be more grateful. As a token, they've decided to keep you company till the end of days."
+    text: (-> i18n.t('questEvilSanta2Text'))
+    notes: (-> i18n.t('questEvilSanta2Notes'))
+    completion: (-> i18n.t('questEvilSanta2Completion'))
     value: 4
     previous: 'evilsanta'
     collect:
-      tracks: text: 'Tracks', count: 20
-      branches: text: 'Broken Twigs', count: 10
+      tracks: text: (-> i18n.t('questEvilSanta2CollectTracks')), count: 20
+      branches: text: (-> i18n.t('questEvilSanta2CollectBranches')), count: 10
     drop:
       items: [
-        {type: 'pets', key: 'BearCub-Polar', text: "Polar Bear (Pet)"}
+        {type: 'pets', key: 'BearCub-Polar', text: (-> i18n.t('questEvilSanta2DropBearCubPolarPet'))}
       ]
       gp: 20
       exp: 100
 
   gryphon:
-    text: "The Fiery Gryphon"
-    notes: 'The grand beastmaster, <strong>baconsaur</strong>, has come to your party seeking help. "Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!"'
-    completion: 'Defeated, the mighty beast ashamedly slinks back to its master."My word! Well done, adventurers!" <strong>baconsaur</strong> exclaims, "Please, have some of the gryphon\'s eggs. I am sure you will raise these young ones well!'
+    text: (-> i18n.t('questGryphonText'))
+    notes: (-> i18n.t('questGryphonNotes'))
+    completion: (-> i18n.t('questGryphonCompletion'))
     value: 4 # Gem cost to buy, GP sell-back
     boss:
-      name: "Fiery Gryphon" # name of the boss himself (eg, Vice)
+      name: (-> i18n.t('questGryphonBoss')) # name of the boss himself (eg, Vice)
       hp: 300
       str: 1.5 # Multiplier of users' missed dailies
     drop:
       items: [
-        {type: 'eggs', key: 'Gryphon', text: "Gryphon (Egg)"}
-        {type: 'eggs', key: 'Gryphon', text: "Gryphon (Egg)"}
-        {type: 'eggs', key: 'Gryphon', text: "Gryphon (Egg)"}
+        {type: 'eggs', key: 'Gryphon', text: (-> i18n.t('questGryphonDropGryphonEgg'))}
+        {type: 'eggs', key: 'Gryphon', text: (-> i18n.t('questGryphonDropGryphonEgg'))}
+        {type: 'eggs', key: 'Gryphon', text: (-> i18n.t('questGryphonDropGryphonEgg'))}
       ]
       gp: 25
       exp: 125
       
   hedgehog:
-    text: "The Hedgebeast"
-    notes: 'Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And <strong>Inventrix</strong> did just that. Oops.'
-    completion: 'Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeaking and nudging some of her eggs along towards your party. Hopefully, these hedgehogs like milk better!'
+    text: (-> i18n.t('questHedgehogText'))
+    notes: (-> i18n.t('questHedgehogNotes'))
+    completion: (-> i18n.t('questHedgehogCompletion'))
     value: 4 # Gem cost to buy, GP sell-back
     boss:
-      name: "Hedgebeast" # name of the boss himself (eg, Vice)
+      name: (-> i18n.t('questHedgehogBoss')) # name of the boss himself (eg, Vice)
       hp: 400
       str: 1.25 # Multiplier of users' missed dailies
     drop:
       items: [
-        {type: 'eggs', key: 'Hedgehog', text: "Hedgehog (Egg)"}
-        {type: 'eggs', key: 'Hedgehog', text: "Hedgehog (Egg)"}
-        {type: 'eggs', key: 'Hedgehog', text: "Hedgehog (Egg)"}
+        {type: 'eggs', key: 'Hedgehog', text: (-> i18n.t('questHedgehogDropGryphonEgg'))}
+        {type: 'eggs', key: 'Hedgehog', text: (-> i18n.t('questHedgehogDropGryphonEgg'))}
+        {type: 'eggs', key: 'Hedgehog', text: (-> i18n.t('questHedgehogDropGryphonEgg'))}
       ]
       gp: 30
       exp: 125
@@ -747,54 +747,54 @@ api.quests =
 
 
   vice1:
-    text: "Free Yourself of the Dragon's Influence"
-    notes: "<p>They say there lies a terrible evil in the caverns of Mt. Habitica. A monster whose presence twists the wills of the strong heroes of the land, turning them towards bad habits and laziness! The beast is a grand dragon of immense power and comprised of the shadows themselves: Vice, the treacherous Shadow Wyrm. Brave Habiteers, stand up and defeat this foul beast once and for all, but only if you believe you can stand against its immense power. </p><h3>Vice Part 1: </h3><p>How can you expect to fight the beast if it already has control over you? Don't fall victim to laziness and vice! Work hard to fight against the dragon's dark influence and dispel his hold on you! </p>"
+    text: (-> i18n.t('questVice1Text'))
+    notes: (-> i18n.t('questVice1Notes'))
     value: 4
     lvl: 30
     boss:
-      name: "Vice's Shade"
+      name: (-> i18n.t('questVice1Boss'))
       hp: 750
       str: 1.5
     drop:
       items: [
-        {type: 'quests', key: "vice2", text: "Vice Part 2 (Scroll)"}
+        {type: 'quests', key: "vice2", text: (-> i18n.t('questVice1DropVice2Quest'))}
       ]
       gp: 20
       exp: 100
 
   vice2:
-    text: "Find the Lair of the Wyrm"
-    notes: "With Vice's influence over you dispelled, you feel a surge of strength you didn't know you had return to you. Confident in yourselves and your ability to withstand the wyrm's influence, your party makes it's way to Mt. Habitica. You approach the entrance to the mountain's caverns and pause. Swells of shadows, almost like fog, wisp out from the opening. It is near impossible to see anything in front of you. The light from your lanterns seem to end abruptly where the shadows begin. It is said that only magical light can pierce the dragon's infernal haze. If you can find enough light crystals, you could make your way to the dragon."
+    text: (-> i18n.t('questVice2Text'))
+    notes: (-> i18n.t('questVice2Notes'))
     value: 4
     lvl: 35
     previous: 'vice1'
     collect:
-      lightCrystal: text: 'Light Crystal', count: 45
+      lightCrystal: text: (-> i18n.t('questVice2CollectLightCrystal')), count: 45
     drop:
       items: [
-        {type: 'quests', key: 'vice3', text: "Vice Part 3 (Scroll)"}
+        {type: 'quests', key: 'vice3', text: (-> i18n.t('questVice2DropVice3Quest'))}
       ]
       gp: 20
       exp: 75
 
   vice3:
-    text: "Vice Awakens"
-    notes: "After much effort, your party has discovered Vice's lair. The hulking monster eyes your party with distaste. As shadows swirl around you, a voice whispers through your head, \"More foolish citizens of Habitica come to stop me? Cute. You'd have been wise not to come.\" The scaly titan rears back its head and prepares to attack. This is your chance! Give it everything you've got and defeat Vice once and for all!"
-    completion: "The shadows dissipate from the cavern and a steely silence falls. My word, you've done it! You have defeated Vice! You and your party may finally breath a sigh of relief. Enjoy your victory, brave Habiteers, but take the lessons you've learned from battling Vice and move forward. There are still habits to be done and potentially worse evils to conquer!"
+    text: (-> i18n.t('questVice3Text'))
+    notes: (-> i18n.t('questVice3Notes'))
+    completion: (-> i18n.t('questVice3Completion'))
     previous: 'vice2'
     value: 4
     lvl: 40
     boss:
-      name: "Vice, the Shadow Wyrm"
+      name: (-> i18n.t('questVice3Boss'))
       hp: 1500
       str: 3
     drop:
       items: [
-        {type: 'gear', key: "weapon_special_2", text: "Stephen Weber's Shaft of the Dragon"}
-        {type: 'eggs', key: 'Dragon', text: "Dragon (Egg)"}
-        {type: 'eggs', key: 'Dragon', text: "Dragon (Egg)"}
-        {type: 'hatchingPotions', key: 'Shade', text: "Shade Hatching Potion"}
-        {type: 'hatchingPotions', key: 'Shade', text: "Shade Hatching Potion"}
+        {type: 'gear', key: "weapon_special_2", text: (-> i18n.t('questVice3DropWeaponSpecial2'))}
+        {type: 'eggs', key: 'Dragon', text: (-> i18n.t('questVice3DropDragonEgg'))}
+        {type: 'eggs', key: 'Dragon', text: (-> i18n.t('questVice3DropDragonEgg'))}
+        {type: 'hatchingPotions', key: 'Shade', text: (-> i18n.t('questVice3DropShadeHatchingPotion'))}
+        {type: 'hatchingPotions', key: 'Shade', text: (-> i18n.t('questVice3DropShadeHatchingPotion'))}
       ]
       gp: 100
       exp: 1000
