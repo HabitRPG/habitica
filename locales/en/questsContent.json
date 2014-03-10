@@ -33,6 +33,11 @@
   "questVice1Boss": "Vice's Shade",
   "questVice1DropVice2Quest": "Vice Part 2 (Scroll)",
 
+  "questVice2Text": "Find the Lair of the Wyrm",
+  "questVice2Notes": "With Vice's influence over you dispelled, you feel a surge of strength you didn't know you had return to you. Confident in yourselves and your ability to withstand the wyrm's influence, your party makes it's way to Mt. Habitica. You approach the entrance to the mountain's caverns and pause. Swells of shadows, almost like fog, wisp out from the opening. It is near impossible to see anything in front of you. The light from your lanterns seem to end abruptly where the shadows begin. It is said that only magical light can pierce the dragon's infernal haze. If you can find enough light crystals, you could make your way to the dragon.",
+  "questVice2CollectLightCrystal": "Vice's Shade",
+  "questVice2DropVice3Quest": "Vice Part 3 (Scroll)",
+
   "questVice3Text": "Vice Awakens",
   "questVice3Notes": "After much effort, your party has discovered Vice's lair. The hulking monster eyes your party with distaste. As shadows swirl around you, a voice whispers through your head, \"More foolish citizens of Habitica come to stop me? Cute. You'd have been wise not to come.\" The scaly titan rears back its head and prepares to attack. This is your chance! Give it everything you've got and defeat Vice once and for all!",
   "questVice3Completion": "The shadows dissipate from the cavern and a steely silence falls. My word, you've done it! You have defeated Vice! You and your party may finally breath a sigh of relief. Enjoy your victory, brave Habiteers, but take the lessons you've learned from battling Vice and move forward. There are still habits to be done and potentially worse evils to conquer!",

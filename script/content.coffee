@@ -2,6 +2,11 @@ _ = require 'lodash'
 api = module.exports
 moment = require 'moment'
 i18n = require './i18n.coffee'
+t = (string, vars) ->
+  (lang) -> 
+    vars ?= lang
+    i18n.t(string, vars, lang)
+
 ###
   ---------------------------------------------------------------
   Gear (Weapons, Armor, Head, Shield)
@@ -27,15 +32,15 @@ gear =
   weapon:
     base:
       0: 
-        text: (-> i18n.t('weaponBase0Text')), notes: (-> i18n.t('weaponBase0Notes')), value:0
+        text: t('weaponBase0Text'), notes: t('weaponBase0Notes'), value:0
     warrior:
-      0: text: (-> i18n.t('weaponWarrior0Text')), notes: (-> i18n.t('weaponWarrior0Notes')), value:0
-      1: text: (-> i18n.t('weaponWarrior1Text')), notes: (-> i18n.t('weaponWarrior1Notes', {str: 3})), str: 3, value:20
-      2: text: (-> i18n.t('weaponWarrior2Text')), notes: (-> i18n.t('weaponWarrior2Notes', {str: 6})), str: 6, value:30
-      3: text: (-> i18n.t('weaponWarrior3Text')), notes: (-> i18n.t('weaponWarrior3Notes', {str: 9})), str: 9, value:45
-      4: text: (-> i18n.t('weaponWarrior4Text')), notes: (-> i18n.t('weaponWarrior4Notes', {str: 12})), str: 12, value:65
-      5: text: (-> i18n.t('weaponWarrior5Text')), notes: (-> i18n.t('weaponWarrior5Notes', {str: 15})), str: 15, value:90
-      6: text: (-> i18n.t('weaponWarrior6Text')), notes: (-> i18n.t('weaponWarrior6Notes', {str: 18})), str: 18, value:120, last: true
+      0: text: t('weaponWarrior0Text'), notes: t('weaponWarrior0Notes'), value:0
+      1: text: t('weaponWarrior1Text'), notes: t('weaponWarrior1Notes', {str: 3}), str: 3, value:20
+      2: text: t('weaponWarrior2Text'), notes: t('weaponWarrior2Notes', {str: 6}), str: 6, value:30
+      3: text: t('weaponWarrior3Text'), notes: t('weaponWarrior3Notes', {str: 9}), str: 9, value:45
+      4: text: t('weaponWarrior4Text'), notes: t('weaponWarrior4Notes', {str: 12}), str: 12, value:65
+      5: text: t('weaponWarrior5Text'), notes: t('weaponWarrior5Notes', {str: 15}), str: 15, value:90
+      6: text: t('weaponWarrior6Text'), notes: t('weaponWarrior6Notes', {str: 18}), str: 18, value:120, last: true
     rogue:
       #Not using bows at the moment, but they would be easy to add back in to an advanced Armory feature, as Quest drops, etc.
       #0: twoHanded: true, text: "Practice Bow", notes:'Training weapon. Confers no benefit.', value:0
@@ -45,29 +50,29 @@ gear =
       #4: twoHanded: true, text: "Icicle Bow", notes:'Fires arrows of piercing cold. Increases STR by 12.', str: 12, value:120
       #5: twoHanded: true, text: "Meteor Bow", notes:'Rains flame upon your foes. Increases STR by 16.', str: 16, value:160
       #6: twoHanded: true, text: "Golden Bow", notes:'As swift as sunlight and as sharp as lightning. Increases STR by 20.', str: 20, value:200, last: true
-      0: text: (-> i18n.t('weaponRogue0Text')), notes: (-> i18n.t('weaponRogue0Notes')), str: 0, value: 0
-      1: text: (-> i18n.t('weaponRogue1Text')), notes: (-> i18n.t('weaponRogue1Notes', {str: 2})), str: 2, value: 20
-      2: text: (-> i18n.t('weaponRogue2Text')), notes: (-> i18n.t('weaponRogue2Notes', {str: 3})), str: 3, value: 35
-      3: text: (-> i18n.t('weaponRogue3Text')), notes: (-> i18n.t('weaponRogue3Notes', {str: 4})), str: 4, value: 50
-      4: text: (-> i18n.t('weaponRogue4Text')), notes: (-> i18n.t('weaponRogue4Notes', {str: 6})), str: 6, value: 70
-      5: text: (-> i18n.t('weaponRogue5Text')), notes: (-> i18n.t('weaponRogue5Notes', {str: 8})), str: 8, value: 90
-      6: text: (-> i18n.t('weaponRogue6Text')), notes: (-> i18n.t('weaponRogue6Notes', {str: 10})), str: 10, value: 120, last: true
+      0: text: t('weaponRogue0Text'), notes: t('weaponRogue0Notes'), str: 0, value: 0
+      1: text: t('weaponRogue1Text'), notes: t('weaponRogue1Notes', {str: 2}), str: 2, value: 20
+      2: text: t('weaponRogue2Text'), notes: t('weaponRogue2Notes', {str: 3}), str: 3, value: 35
+      3: text: t('weaponRogue3Text'), notes: t('weaponRogue3Notes', {str: 4}), str: 4, value: 50
+      4: text: t('weaponRogue4Text'), notes: t('weaponRogue4Notes', {str: 6}), str: 6, value: 70
+      5: text: t('weaponRogue5Text'), notes: t('weaponRogue5Notes', {str: 8}), str: 8, value: 90
+      6: text: t('weaponRogue6Text'), notes: t('weaponRogue6Notes', {str: 10}), str: 10, value: 120, last: true
     wizard:
-      0: twoHanded: true, text: (-> i18n.t('weaponWizard0Text')), notes: (-> i18n.t('weaponWizard0Notes')), value:0
-      1: twoHanded: true, text: (-> i18n.t('weaponWizard1Text')), notes: (-> i18n.t('weaponWizard1Notes', {int: 3, per: 1})), int: 3, per: 1, value:30
-      2: twoHanded: true, text: (-> i18n.t('weaponWizard2Text')), notes: (-> i18n.t('weaponWizard2Notes', {int: 6, per: 2})), int: 6, per: 2, value:50
-      3: twoHanded: true, text: (-> i18n.t('weaponWizard3Text')), notes: (-> i18n.t('weaponWizard3Notes', {int: 9, per: 3})), int: 9, per: 3, value:80
-      4: twoHanded: true, text: (-> i18n.t('weaponWizard4Text')), notes: (-> i18n.t('weaponWizard4Notes', {int: 12, per: 5})), int:12, per: 5, value:120
-      5: twoHanded: true, text: (-> i18n.t('weaponWizard5Text')), notes: (-> i18n.t('weaponWizard5Notes', {int: 15, per: 7})), int: 15, per: 7, value:160
-      6: twoHanded: true, text: (-> i18n.t('weaponWizard6Text')), notes: (-> i18n.t('weaponWizard6Notes', {int: 18, per: 10})), int: 18, per: 10, value:200, last: true
+      0: twoHanded: true, text: t('weaponWizard0Text'), notes: t('weaponWizard0Notes'), value:0
+      1: twoHanded: true, text: t('weaponWizard1Text'), notes: t('weaponWizard1Notes', {int: 3, per: 1}), int: 3, per: 1, value:30
+      2: twoHanded: true, text: t('weaponWizard2Text'), notes: t('weaponWizard2Notes', {int: 6, per: 2}), int: 6, per: 2, value:50
+      3: twoHanded: true, text: t('weaponWizard3Text'), notes: t('weaponWizard3Notes', {int: 9, per: 3}), int: 9, per: 3, value:80
+      4: twoHanded: true, text: t('weaponWizard4Text'), notes: t('weaponWizard4Notes', {int: 12, per: 5}), int:12, per: 5, value:120
+      5: twoHanded: true, text: t('weaponWizard5Text'), notes: t('weaponWizard5Notes', {int: 15, per: 7}), int: 15, per: 7, value:160
+      6: twoHanded: true, text: t('weaponWizard6Text'), notes: t('weaponWizard6Notes', {int: 18, per: 10}), int: 18, per: 10, value:200, last: true
     healer:
-      0: text: (-> i18n.t('weaponHealer0Text')), notes: (-> i18n.t('weaponHealer0Notes')), value:0
-      1: text: (-> i18n.t('weaponHealer1Text')), notes: (-> i18n.t('weaponHealer1Notes', {int: 2})), int: 2, value:20
-      2: text: (-> i18n.t('weaponHealer2Text')), notes: (-> i18n.t('weaponHealer2Notes', {int: 3})), int: 3, value:30
-      3: text: (-> i18n.t('weaponHealer3Text')), notes: (-> i18n.t('weaponHealer3Notes', {int: 5})), int: 5, value:45
-      4: text: (-> i18n.t('weaponHealer4Text')), notes: (-> i18n.t('weaponHealer4Notes', {int: 7})), int:7, value:65
-      5: text: (-> i18n.t('weaponHealer5Text')), notes: (-> i18n.t('weaponHealer5Notes', {int: 9})), int: 9, value:90
-      6: text: (-> i18n.t('weaponHealer6Text')), notes: (-> i18n.t('weaponHealer6Notes', {int: 11})), int: 11, value:120, last: true
+      0: text: t('weaponHealer0Text'), notes: t('weaponHealer0Notes'), value:0
+      1: text: t('weaponHealer1Text'), notes: t('weaponHealer1Notes', {int: 2}), int: 2, value:20
+      2: text: t('weaponHealer2Text'), notes: t('weaponHealer2Notes', {int: 3}), int: 3, value:30
+      3: text: t('weaponHealer3Text'), notes: t('weaponHealer3Notes', {int: 5}), int: 5, value:45
+      4: text: t('weaponHealer4Text'), notes: t('weaponHealer4Notes', {int: 7}), int:7, value:65
+      5: text: t('weaponHealer5Text'), notes: t('weaponHealer5Notes', {int: 9}), int: 9, value:90
+      6: text: t('weaponHealer6Text'), notes: t('weaponHealer6Notes', {int: 11}), int: 11, value:120, last: true
     special:
       0: text: (-> i18n.t('weaponSpecial0Text')), notes: (-> i18n.t('weaponSpecial0Notes', {str: 20})), str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
       1: text: (-> i18n.t('weaponSpecial1Text')), notes: (-> i18n.t('weaponSpecial1Notes', {attrs: 6})), str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
@@ -87,35 +92,35 @@ gear =
 
   armor:
     base:
-      0: text: (-> i18n.t('armorBase0Text')), notes: (-> i18n.t('armorBase0Notes')), value:0
+      0: text: t('armorBase0Text'), notes: t('armorBase0Notes'), value:0
     warrior:
       #0: text: "Plain Clothing", notes:'Ordinary clothing. Confers no benefit.', value:0
-      1: text: (-> i18n.t('armorWarrior1Text')), notes: (-> i18n.t('armorWarrior1Notes', {con: 3})), con: 3, value:30
-      2: text: (-> i18n.t('armorWarrior2Text')), notes: (-> i18n.t('armorWarrior2Notes', {con: 5})), con: 5, value:45
-      3: text: (-> i18n.t('armorWarrior3Text')), notes: (-> i18n.t('armorWarrior3Notes', {con: 7})), con: 7, value:65
-      4: text: (-> i18n.t('armorWarrior4Text')), notes: (-> i18n.t('armorWarrior4Notes', {con: 9})), con: 9, value:90
-      5: text: (-> i18n.t('armorWarrior5Text')), notes: (-> i18n.t('armorWarrior5Notes', {con: 11})), con: 11, value:120, last: true
+      1: text: t('armorWarrior1Text'), notes: t('armorWarrior1Notes', {con: 3}), con: 3, value:30
+      2: text: t('armorWarrior2Text'), notes: t('armorWarrior2Notes', {con: 5}), con: 5, value:45
+      3: text: t('armorWarrior3Text'), notes: t('armorWarrior3Notes', {con: 7}), con: 7, value:65
+      4: text: t('armorWarrior4Text'), notes: t('armorWarrior4Notes', {con: 9}), con: 9, value:90
+      5: text: t('armorWarrior5Text'), notes: t('armorWarrior5Notes', {con: 11}), con: 11, value:120, last: true
     rogue:
       #0: text: "Plain Clothing", notes:'Ordinary clothing. Confers no benefit.', value:0
-      1: text: (-> i18n.t('armorRogue1Text')), notes: (-> i18n.t('armorRogue1Notes', {per: 6})), per: 6, value:30
-      2: text: (-> i18n.t('armorRogue2Text')), notes: (-> i18n.t('armorRogue2Notes', {per: 9})), per: 9, value:45
-      3: text: (-> i18n.t('armorRogue3Text')), notes: (-> i18n.t('armorRogue3Notes', {per: 12})), per: 12, value:65
-      4: text: (-> i18n.t('armorRogue4Text')), notes: (-> i18n.t('armorRogue4Notes', {per: 15})), per: 15, value:90
-      5: text: (-> i18n.t('armorRogue5Text')), notes: (-> i18n.t('armorRogue5Notes', {per: 18})), per: 18, value:120, last: true
+      1: text: t('armorRogue1Text'), notes: t('armorRogue1Notes', {per: 6}), per: 6, value:30
+      2: text: t('armorRogue2Text'), notes: t('armorRogue2Notes', {per: 9}), per: 9, value:45
+      3: text: t('armorRogue3Text'), notes: t('armorRogue3Notes', {per: 12}), per: 12, value:65
+      4: text: t('armorRogue4Text'), notes: t('armorRogue4Notes', {per: 15}), per: 15, value:90
+      5: text: t('armorRogue5Text'), notes: t('armorRogue5Notes', {per: 18}), per: 18, value:120, last: true
     wizard:
       #0: text: "Apprentice Garb", notes:'For students of magic. Confers no benefit.', value:0
-      1: text: (-> i18n.t('armorWizard1Text')), notes: (-> i18n.t('armorWizard1Notes', {int: 2})), int: 2, value:30
-      2: text: (-> i18n.t('armorWizard2Text')), notes: (-> i18n.t('armorWizard2Notes', {int: 4})), int: 4, value:45
-      3: text: (-> i18n.t('armorWizard3Text')), notes: (-> i18n.t('armorWizard3Notes', {int: 6})), int: 6, value:65
-      4: text: (-> i18n.t('armorWizard4Text')), notes: (-> i18n.t('armorWizard4Notes', {int: 9})), int: 9, value:90
-      5: text: (-> i18n.t('armorWizard5Text')), notes: (-> i18n.t('armorWizard5Notes', {int: 12})), int: 12, value:120, last: true
+      1: text: t('armorWizard1Text'), notes: t('armorWizard1Notes', {int: 2}), int: 2, value:30
+      2: text: t('armorWizard2Text'), notes: t('armorWizard2Notes', {int: 4}), int: 4, value:45
+      3: text: t('armorWizard3Text'), notes: t('armorWizard3Notes', {int: 6}), int: 6, value:65
+      4: text: t('armorWizard4Text'), notes: t('armorWizard4Notes', {int: 9}), int: 9, value:90
+      5: text: t('armorWizard5Text'), notes: t('armorWizard5Notes', {int: 12}), int: 12, value:120, last: true
     healer:
       #0: text: "Novice Robe", notes:'For healers in training. Confers no benefit.', value:0
-      1: text: (-> i18n.t('armorHealer1Text')), notes: (-> i18n.t('armorHealer1Notes', {con: 6})), con: 6, value:30
-      2: text: (-> i18n.t('armorHealer2Text')), notes: (-> i18n.t('armorHealer2Notes', {con: 9})), con: 9, value:45
-      3: text: (-> i18n.t('armorHealer3Text')), notes: (-> i18n.t('armorHealer3Notes', {con: 12})), con: 12, value:65
-      4: text: (-> i18n.t('armorHealer4Text')), notes: (-> i18n.t('armorHealer4Notes', {con: 15})), con: 15, value:90
-      5: text: (-> i18n.t('armorHealer5Text')), notes: (-> i18n.t('armorHealer5Notes', {con: 18})), con: 18, value:120, last: true
+      1: text: t('armorHealer1Text'), notes: t('armorHealer1Notes', {con: 6}), con: 6, value:30
+      2: text: t('armorHealer2Text'), notes: t('armorHealer2Notes', {con: 9}), con: 9, value:45
+      3: text: t('armorHealer3Text'), notes: t('armorHealer3Notes', {con: 12}), con: 12, value:65
+      4: text: t('armorHealer4Text'), notes: t('armorHealer4Notes', {con: 15}), con: 15, value:90
+      5: text: t('armorHealer5Text'), notes: t('armorHealer5Notes', {con: 18}), con: 18, value:120, last: true
     special:
       0: text: (-> i18n.t('armorSpecial0Text')), notes: (-> i18n.t('armorSpecial0Notes', {con: 20})), con: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: (-> i18n.t('armorSpecial1Text')), notes: (-> i18n.t('armorSpecial1Notes', {attrs: 6})), con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 2)
@@ -137,35 +142,35 @@ gear =
 
   head:
     base:
-      0: text: (-> i18n.t('headBase0Text')), notes: (-> i18n.t('headBase0Notes')), value:0
+      0: text: t('headBase0Text'), notes: t('headBase0Notes'), value:0
     warrior:
       #0: text: "No Helm", notes:'No headgear.', value:0
-      1: text: (-> i18n.t('headWarrior1Text')), notes: (-> i18n.t('headWarrior1Notes', {str: 2})), str: 2, value:15
-      2: text: (-> i18n.t('headWarrior2Text')), notes: (-> i18n.t('headWarrior2Notes', {str: 4})), str: 4, value:25
-      3: text: (-> i18n.t('headWarrior3Text')), notes: (-> i18n.t('headWarrior3Notes', {str: 6})), str: 6, value:40
-      4: text: (-> i18n.t('headWarrior4Text')), notes: (-> i18n.t('headWarrior4Notes', {str: 9})), str: 9, value:60
-      5: text: (-> i18n.t('headWarrior5Text')), notes: (-> i18n.t('headWarrior5Notes', {str: 12})), str: 12, value:80, last: true
+      1: text: t('headWarrior1Text'), notes: t('headWarrior1Notes', {str: 2}), str: 2, value:15
+      2: text: t('headWarrior2Text'), notes: t('headWarrior2Notes', {str: 4}), str: 4, value:25
+      3: text: t('headWarrior3Text'), notes: t('headWarrior3Notes', {str: 6}), str: 6, value:40
+      4: text: t('headWarrior4Text'), notes: t('headWarrior4Notes', {str: 9}), str: 9, value:60
+      5: text: t('headWarrior5Text'), notes: t('headWarrior5Notes', {str: 12}), str: 12, value:80, last: true
     rogue:
       #0: text: "No Hood", notes:'No headgear.', value:0
-      1: text: (-> i18n.t('headRogue1Text')), notes: (-> i18n.t('headRogue1Notes', {per: 2})), per: 2, value:15
-      2: text: (-> i18n.t('headRogue2Text')), notes: (-> i18n.t('headRogue2Notes', {per: 4})), per: 4, value:25
-      3: text: (-> i18n.t('headRogue3Text')), notes: (-> i18n.t('headRogue3Notes', {per: 6})), per: 6, value:40
-      4: text: (-> i18n.t('headRogue4Text')), notes: (-> i18n.t('headRogue4Notes', {per: 9})), per: 9, value:60
-      5: text: (-> i18n.t('headRogue5Text')), notes: (-> i18n.t('headRogue5Notes', {per: 12})), per: 12, value:80, last: true
+      1: text: t('headRogue1Text'), notes: t('headRogue1Notes', {per: 2}), per: 2, value:15
+      2: text: t('headRogue2Text'), notes: t('headRogue2Notes', {per: 4}), per: 4, value:25
+      3: text: t('headRogue3Text'), notes: t('headRogue3Notes', {per: 6}), per: 6, value:40
+      4: text: t('headRogue4Text'), notes: t('headRogue4Notes', {per: 9}), per: 9, value:60
+      5: text: t('headRogue5Text'), notes: t('headRogue5Notes', {per: 12}), per: 12, value:80, last: true
     wizard:
       #0: text: "No Hat", notes:'No headgear.', value:0
-      1: text: (-> i18n.t('headWizard1Text')), notes: (-> i18n.t('headWizard1Notes', {per: 2})), per: 2, value:15
-      2: text: (-> i18n.t('headWizard2Text')), notes: (-> i18n.t('headWizard2Notes', {per: 3})), per: 3, value:25
-      3: text: (-> i18n.t('headWizard3Text')), notes: (-> i18n.t('headWizard3Notes', {per: 5})), per: 5, value:40
-      4: text: (-> i18n.t('headWizard4Text')), notes: (-> i18n.t('headWizard4Notes', {per: 7})), per: 7, value:60
-      5: text: (-> i18n.t('headWizard5Text')), notes: (-> i18n.t('headWizard5Notes', {per: 10})), per: 10, value:80, last: true
+      1: text: t('headWizard1Text'), notes: t('headWizard1Notes', {per: 2}), per: 2, value:15
+      2: text: t('headWizard2Text'), notes: t('headWizard2Notes', {per: 3}), per: 3, value:25
+      3: text: t('headWizard3Text'), notes: t('headWizard3Notes', {per: 5}), per: 5, value:40
+      4: text: t('headWizard4Text'), notes: t('headWizard4Notes', {per: 7}), per: 7, value:60
+      5: text: t('headWizard5Text'), notes: t('headWizard5Notes', {per: 10}), per: 10, value:80, last: true
     healer:
       #0: text: "No Circlet", notes:'No headgear.', value:0
-      1: text: (-> i18n.t('headHealer1Text')), notes: (-> i18n.t('headHealer1Notes', {int: 2})), int: 2, value:15
-      2: text: (-> i18n.t('headHealer2Text')), notes: (-> i18n.t('headHealer2Notes', {int: 3})), int: 3, value:25
-      3: text: (-> i18n.t('headHealer3Text')), notes: (-> i18n.t('headHealer3Notes', {int: 5})), int: 5, value:40
-      4: text: (-> i18n.t('headHealer4Text')), notes: (-> i18n.t('headHealer4Notes', {int: 7})), int: 7, value:60
-      5: text: (-> i18n.t('headHealer5Text')), notes: (-> i18n.t('headHealer5Notes', {int: 9})), int: 9, value:80, last: true
+      1: text: t('headHealer1Text'), notes: t('headHealer1Notes', {int: 2}), int: 2, value:15
+      2: text: t('headHealer2Text'), notes: t('headHealer2Notes', {int: 3}), int: 3, value:25
+      3: text: t('headHealer3Text'), notes: t('headHealer3Notes', {int: 5}), int: 5, value:40
+      4: text: t('headHealer4Text'), notes: t('headHealer4Notes', {int: 7}), int: 7, value:60
+      5: text: t('headHealer5Text'), notes: t('headHealer5Notes', {int: 9}), int: 9, value:80, last: true
     special:
       0: text: (-> i18n.t('headSpecial0Text')), notes: (-> i18n.t('headSpecial0Notes', {int: 20})), int: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: (-> i18n.t('headSpecial1Text')), notes: (-> i18n.t('headSpecial1Notes', {attrs: 6})), con: 6, str: 6, per: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 3)
@@ -182,36 +187,36 @@ gear =
       springMage:     event: events.spring, specialClass: 'wizard',    text:'Swiss Cheese Hat', notes:'This hat stores lots of powerful magic! Try not to nibble it. Adds 7 points to PER. Limited Edition 2014 Spring Gear.',value: 40,per: 7
       springHealer:   event: events.spring, specialClass: 'healer',  text:'Crown of Friendship', notes:"This crown symbolizes loyalty and companionship. A dog is an adventurer's best friend, after all! Adds 7 points to INT. Limited Edition 2014 Spring Gear.", value: 40, int: 7
     mystery:
-      201402: text: (-> i18n.t('headMystery201402Text')), notes: (-> i18n.t('headMystery201402Notes')), mystery:mystery['201402'], value: 10
+      201402: text: t('headMystery201402Text'), notes: t('headMystery201402Notes'), mystery:mystery['201402'], value: 10
 
   shield:
     base:
-      0: text: (-> i18n.t('shieldBase0Text')), notes: (-> i18n.t('shieldBase0Notes')), value:0
+      0: text: t('shieldBase0Text'), notes: t('shieldBase0Notes'), value:0
       #changed because this is what shows up for all classes, including those without shields
     warrior:
       #0: text: "No Shield", notes:'No shield.', value:0
-      1: text: (-> i18n.t('shieldWarrior1Text')), notes: (-> i18n.t('shieldWarrior1Notes', {con: 2})), con: 2, value:20
-      2: text: (-> i18n.t('shieldWarrior2Text')), notes: (-> i18n.t('shieldWarrior2Notes', {con: 3})), con: 3, value:35
-      3: text: (-> i18n.t('shieldWarrior3Text')), notes: (-> i18n.t('shieldWarrior3Notes', {con: 5})), con: 5, value:50
-      4: text: (-> i18n.t('shieldWarrior4Text')), notes: (-> i18n.t('shieldWarrior4Notes', {con: 7})), con: 7, value:70
-      5: text: (-> i18n.t('shieldWarrior5Text')), notes: (-> i18n.t('shieldWarrior5Notes', {con: 9})), con: 9, value:90, last: true
+      1: text: t('shieldWarrior1Text'), notes: t('shieldWarrior1Notes', {con: 2}), con: 2, value:20
+      2: text: t('shieldWarrior2Text'), notes: t('shieldWarrior2Notes', {con: 3}), con: 3, value:35
+      3: text: t('shieldWarrior3Text'), notes: t('shieldWarrior3Notes', {con: 5}), con: 5, value:50
+      4: text: t('shieldWarrior4Text'), notes: t('shieldWarrior4Notes', {con: 7}), con: 7, value:70
+      5: text: t('shieldWarrior5Text'), notes: t('shieldWarrior5Notes', {con: 9}), con: 9, value:90, last: true
     rogue:
-      0: text: (-> i18n.t('weaponRogue0Text')), notes: (-> i18n.t('weaponRogue0Notes')), str: 0, value: 0
-      1: text: (-> i18n.t('weaponRogue1Text')), notes: (-> i18n.t('weaponRogue1Notes', {str: 2})), str: 2, value: 20
-      2: text: (-> i18n.t('weaponRogue2Text')), notes: (-> i18n.t('weaponRogue2Notes', {str: 3})), str: 3, value: 35
-      3: text: (-> i18n.t('weaponRogue3Text')), notes: (-> i18n.t('weaponRogue3Notes', {str: 4})), str: 4, value: 50
-      4: text: (-> i18n.t('weaponRogue4Text')), notes: (-> i18n.t('weaponRogue4Notes', {str: 6})), str: 6, value: 70
-      5: text: (-> i18n.t('weaponRogue5Text')), notes: (-> i18n.t('weaponRogue5Notes', {str: 8})), str: 8, value: 90
-      6: text: (-> i18n.t('weaponRogue6Text')), notes: (-> i18n.t('weaponRogue6Notes', {str: 10})), str: 10, value: 120, last: true
+      0: text: t('weaponRogue0Text'), notes: t('weaponRogue0Notes'), str: 0, value: 0
+      1: text: t('weaponRogue1Text'), notes: t('weaponRogue1Notes', {str: 2}), str: 2, value: 20
+      2: text: t('weaponRogue2Text'), notes: t('weaponRogue2Notes', {str: 3}), str: 3, value: 35
+      3: text: t('weaponRogue3Text'), notes: t('weaponRogue3Notes', {str: 4}), str: 4, value: 50
+      4: text: t('weaponRogue4Text'), notes: t('weaponRogue4Notes', {str: 6}), str: 6, value: 70
+      5: text: t('weaponRogue5Text'), notes: t('weaponRogue5Notes', {str: 8}), str: 8, value: 90
+      6: text: t('weaponRogue6Text'), notes: t('weaponRogue6Notes', {str: 10}), str: 10, value: 120, last: true
     wizard: {}
       #0: text: "No Shield", notes:'No shield.', def: 0, value:0, last: true
     healer:
       #0: text: "No Shield", notes:'No shield.', def: 0, value:0
-      1: text: (-> i18n.t('shieldHealer1Text')), notes: (-> i18n.t('shieldHealer1Notes', {con: 2})), con: 2, value:20
-      2: text: (-> i18n.t('shieldHealer2Text')), notes: (-> i18n.t('shieldHealer2Notes', {con: 4})), con: 4, value:35
-      3: text: (-> i18n.t('shieldHealer3Text')), notes: (-> i18n.t('shieldHealer3Notes', {con: 6})), con: 6, value:50
-      4: text: (-> i18n.t('shieldHealer4Text')), notes: (-> i18n.t('shieldHealer4Notes', {con: 9})), con: 9, value:70
-      5: text: (-> i18n.t('shieldHealer5Text')), notes: (-> i18n.t('shieldHealer5Notes', {con: 12})), con: 12, value:90, last: true
+      1: text: t('shieldHealer1Text'), notes: t('shieldHealer1Notes', {con: 2}), con: 2, value:20
+      2: text: t('shieldHealer2Text'), notes: t('shieldHealer2Notes', {con: 4}), con: 4, value:35
+      3: text: t('shieldHealer3Text'), notes: t('shieldHealer3Notes', {con: 6}), con: 6, value:50
+      4: text: t('shieldHealer4Text'), notes: t('shieldHealer4Notes', {con: 9}), con: 9, value:70
+      5: text: t('shieldHealer5Text'), notes: t('shieldHealer5Notes', {con: 12}), con: 12, value:90, last: true
     special:
       0: text: (-> i18n.t('shieldSpecial0Text')), notes: (-> i18n.t('shieldSpecial0Notes', {per: 20})), per: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 45)
       1: text: (-> i18n.t('shieldSpecial1Text')), notes: (-> i18n.t('shieldSpecial1Notes', {attrs: 6})), con: 6, str: 6, per: 6, int:6, value:170, canOwn: ((u)-> +u.contributor?.level >= 5)
@@ -228,7 +233,7 @@ gear =
     base:
       0: text: (-> i18n.t('backBase0Text')), notes: (-> i18n.t('backBase0Notes')), value:0
     mystery:
-      201402: text: (-> i18n.t('backMystery201402Text')), notes: (-> i18n.t('headMystery201402Notes')), mystery:mystery['201402'], value: 10
+      201402: text: t('backMystery201402Text'), notes: t('backMystery201402Notes'), mystery:mystery['201402'], value: 10
       201404: text: 'Twilight Butterfly Wings', notes: "Be a butterfly and flutter by!", mystery:mystery['201404'], value: 10
     special:
       wondercon_red: text: 'Mighty Cape', notes: 'Swishes with strength and beauty. Special edition convention armor.', value: 0, mystery:mystery.wondercon
@@ -292,7 +297,7 @@ _.each gearTypes, (type) ->
   ---------------------------------------------------------------
 ###
 
-api.potion = type: 'potion', text: (-> i18n.t('potionText')), notes: (-> i18n.t('potionNotes')), value: 25, key: 'potion'
+api.potion = type: 'potion', text: t('potionText'), notes: t('potionNotes'), value: 25, key: 'potion'
 
 ###
    ---------------------------------------------------------------
@@ -338,11 +343,11 @@ api.spells =
 
   wizard:
     fireball:
-      text: (-> i18n.t('spellWizardFireballText'))
+      text: t('spellWizardFireballText')
       mana: 10
       lvl: 11
       target: 'task'
-      notes: (-> i18n.t('spellWizardFireballNotes'))
+      notes: t('spellWizardFireballNotes')
       cast: (user, target) ->
         # I seriously have no idea what I'm doing here. I'm just mashing buttons until numbers seem right-ish. Anyone know math?
         bonus = user._statsComputed.int * user.fns.crit('per')
@@ -353,11 +358,11 @@ api.spells =
         user.party.quest.progress.up += diminishingReturns(bonus*.1,50,30) if user.party.quest.key
 
     mpheal:
-      text: (-> i18n.t('spellWizardMPHealText'))
+      text: t('spellWizardMPHealText')
       mana: 30
       lvl: 12
       target: 'party'
-      notes: (-> i18n.t('spellWizardMPHealNotes')),
+      notes: t('spellWizardMPHealNotes'),
       cast: (user, target)->
         _.each target, (member) ->
           bonus = Math.ceil(user._statsComputed.int * .1)
@@ -365,60 +370,60 @@ api.spells =
           member.stats.mp += bonus
 
     earth:
-      text: (-> i18n.t('spellWizardEarthText'))
+      text: t('spellWizardEarthText')
       mana: 35
       lvl: 13
       target: 'party'
-      notes: (-> i18n.t('spellWizardEarthNotes')),
+      notes: t('spellWizardEarthNotes'),
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.int ?= 0
           member.stats.buffs.int += Math.ceil(user._statsComputed.int * .05)
 
     frost:
-      text: (-> i18n.t('spellWizardFrostText')),
+      text: t('spellWizardFrostText'),
       mana: 40
       lvl: 14
       target: 'self'
-      notes: (-> i18n.t('spellWizardFrostNotes')),
+      notes: t('spellWizardFrostNotes'),
       cast: (user, target) ->
         user.stats.buffs.streaks = true
 
   warrior:
     smash:
-      text: (-> i18n.t('spellWarriorSmashText'))
+      text: t('spellWarriorSmashText')
       mana: 10
       lvl: 11
       target: 'task'
-      notes: (-> i18n.t('spellWarriorSmashNotes'))
+      notes: t('spellWarriorSmashNotes')
       cast: (user, target) ->
         target.value += 2.5 * (user._statsComputed.str / (user._statsComputed.str + 50)) * user.fns.crit('con')
         user.party.quest.progress.up += Math.ceil(user._statsComputed.str * .2) if user.party.quest.key
     defensiveStance:
-      text: (-> i18n.t('spellWarriorDefensiveStanceText'))
+      text: t('spellWarriorDefensiveStanceText')
       mana: 25
       lvl: 12
       target: 'self'
-      notes: (-> i18n.t('spellWarriorDefensiveStanceNotes'))
+      notes: t('spellWarriorDefensiveStanceNotes')
       cast: (user, target) ->
         user.stats.buffs.con ?= 0
         user.stats.buffs.con += Math.ceil(user._statsComputed.con * .05)
     valorousPresence:
-      text: (-> i18n.t('spellWarriorValorousPresenceText'))
+      text: t('spellWarriorValorousPresenceText')
       mana: 20
       lvl: 13
       target: 'party'
-      notes: (-> i18n.t('spellWarriorValorousPresenceNotes'))
+      notes: t('spellWarriorValorousPresenceNotes')
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.str ?= 0
           member.stats.buffs.str += Math.ceil(user._statsComputed.str * .05)
     intimidate:
-      text: (-> i18n.t('spellWarriorIntimidateText'))
+      text: t('spellWarriorIntimidateText')
       mana: 15
       lvl: 14
       target: 'party'
-      notes: (-> i18n.t('spellWarriorIntimidateNotes'))
+      notes: t('spellWarriorIntimidateNotes')
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.buffs.con ?= 0
@@ -426,20 +431,20 @@ api.spells =
 
   rogue:
     pickPocket:
-      text: (-> i18n.t('spellRoguePickPocketText'))
+      text: t('spellRoguePickPocketText')
       mana: 10
       lvl: 11
       target: 'task'
-      notes: (-> i18n.t('spellRoguePickPocketNotes'))
+      notes: t('spellRoguePickPocketNotes')
       cast: (user, target) ->
         bonus = (if target.value < 0 then 1 else target.value+2) + (user._statsComputed.per * 0.5)
         user.stats.gp += 25 * (bonus / (bonus + 75))
     backStab:
-      text: (-> i18n.t('spellRogueBackStabText'))
+      text: t('spellRogueBackStabText')
       mana: 15
       lvl: 12
       target: 'task'
-      notes: (-> i18n.t('spellRogueBackStabNotes'))
+      notes: t('spellRogueBackStabNotes')
       cast: (user, target) ->
         _crit = user.fns.crit('str', .3)
         target.value += _crit * .03
@@ -448,22 +453,22 @@ api.spells =
         user.stats.gp += bonus
         # user.party.quest.progress.up += bonus if user.party.quest.key # remove hurting bosses for rogues, seems OP for now
     toolsOfTrade:
-      text: (-> i18n.t('spellRogueToolsOfTradeText'))
+      text: t('spellRogueToolsOfTradeText')
       mana: 25
       lvl: 13
       target: 'party'
-      notes: (-> i18n.t('spellRogueToolsOfTradeNotes'))
+      notes: t('spellRogueToolsOfTradeNotes')
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
           member.stats.buffs.per ?= 0
           member.stats.buffs.per += Math.ceil(user._statsComputed.per * .03)
     stealth:
-      text: (-> i18n.t('spellRogueStealthText'))
+      text: t('spellRogueStealthText')
       mana: 45
       lvl: 14
       target: 'self'
-      notes: (-> i18n.t('spellRogueStealthNotes'))
+      notes: t('spellRogueStealthNotes')
       cast: (user, target) ->
         user.stats.buffs.stealth ?= 0
         ## scales to user's # of dailies; maxes out at 100% at 100 per ##
@@ -471,41 +476,41 @@ api.spells =
 
   healer:
     heal:
-      text: (-> i18n.t('spellHealerHealText'))
+      text: t('spellHealerHealText')
       mana: 15
       lvl: 11
       target: 'self'
-      notes: (-> i18n.t('spellHealerHealNotes'))
+      notes: t('spellHealerHealNotes')
       cast: (user, target) ->
         user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .075
         user.stats.hp = 50 if user.stats.hp > 50
     brightness:
-      text: (-> i18n.t('spellHealerBrightnessText'))
+      text: t('spellHealerBrightnessText')
       mana: 15
       lvl: 12
       target: 'self'
-      notes: (-> i18n.t('spellHealerBrightnessNotes'))
+      notes: t('spellHealerBrightnessNotes')
       cast: (user, target) ->
         _.each user.tasks, (target) ->
           return if target.type is 'reward'
           target.value += 1.5 * (user._statsComputed.int / (user._statsComputed.int + 40))
     protectAura:
-      text: (-> i18n.t('spellHealerProtectAuraText'))
+      text: t('spellHealerProtectAuraText')
       mana: 30
       lvl: 13
       target: 'party'
-      notes: (-> i18n.t('spellHealerProtectAuraNotes'))
+      notes: t('spellHealerProtectAuraNotes')
       cast: (user, target) ->
         ## lasts 24 hours ##
         _.each target, (member) ->
           member.stats.buffs.con ?= 0
           member.stats.buffs.con += Math.ceil(user._statsComputed.con * .15)
     heallAll:
-      text: (-> i18n.t('spellHealerHealAllText'))
+      text: t('spellHealerHealAllText')
       mana: 25
       lvl: 14
       target: 'party'
-      notes: (-> i18n.t('spellHealerHealAllNotes'))
+      notes: t('spellHealerHealAllNotes')
       cast: (user, target) ->
         _.each target, (member) ->
           member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * .04
@@ -513,11 +518,11 @@ api.spells =
 
   special:
     snowball:
-      text: (-> i18n.t('spellSpecialSnowballText'))
+      text: t('spellSpecialSnowballText')
       mana: 0
       value: 1
       target: 'user'
-      notes: (-> i18n.t('spellSpecialSnowballNotes'))
+      notes: t('spellSpecialSnowballNotes')
       cast: (user, target) ->
         target.stats.buffs.snowball = true
         target.achievements.snowball ?= 0
@@ -525,11 +530,11 @@ api.spells =
         user.items.special.snowball--
 
     salt:
-      text: (-> i18n.t('spellSpecialSaltText'))
+      text: t('spellSpecialSaltText')
       mana: 0
       value: 5
       target: 'self'
-      notes: (-> i18n.t('spellSpecialSaltNotes'))
+      notes: t('spellSpecialSaltNotes')
       cast: (user, target) ->
         user.stats.buffs.snowball = false
         user.stats.gp -= 5
@@ -554,21 +559,21 @@ api.special = api.spells.special
 
 api.dropEggs =
   # value & other defaults set below
-  Wolf:             text: (-> i18n.t('dropEggWolfText')), adjective: (-> i18n.t('dropEggWolfAdjective'))
-  TigerCub:         text: (-> i18n.t('dropEggTigerCubText')), mountText: (-> i18n.t('dropEggTigerCubMountText')), adjective: (-> i18n.t('dropEggTigerCubAdjective'))
-  PandaCub:         text: (-> i18n.t('dropEggPandaCubText')), mountText: (-> i18n.t('dropEggPandaCubMountText')), adjective: (-> i18n.t('dropEggPandaCubAdjective'))
-  LionCub:          text: (-> i18n.t('dropEggLionCubText')),  mountText: (-> i18n.t('dropEggLionCubMountText')), adjective: (-> i18n.t('dropEggLionCubAdjective'))
-  Fox:              text: (-> i18n.t('dropEggFoxText')), adjective: (-> i18n.t('dropEggFoxAdjective'))
-  FlyingPig:        text: (-> i18n.t('dropEggFlyingPigText')), adjective: (-> i18n.t('dropEggFlyingPigAdjective'))
-  Dragon:           text: (-> i18n.t('dropEggDragonText')), adjective: (-> i18n.t('dropEggDragonAdjective'))
-  Cactus:           text: (-> i18n.t('dropEggCactusText')), adjective: (-> i18n.t('dropEggCactusAdjective'))
-  BearCub:          text: (-> i18n.t('dropEggBearCubText')),  mountText: (-> i18n.t('dropEggBearCubMountText')), adjective: (-> i18n.t('dropEggBearCubAdjective'))
+  Wolf:             text: t('dropEggWolfText'), adjective: t('dropEggWolfAdjective')
+  TigerCub:         text: t('dropEggTigerCubText'), mountText: t('dropEggTigerCubMountText'), adjective: t('dropEggTigerCubAdjective')
+  PandaCub:         text: t('dropEggPandaCubText'), mountText: t('dropEggPandaCubMountText'), adjective: t('dropEggPandaCubAdjective')
+  LionCub:          text: t('dropEggLionCubText'),  mountText: t('dropEggLionCubMountText'), adjective: t('dropEggLionCubAdjective')
+  Fox:              text: t('dropEggFoxText'), adjective: t('dropEggFoxAdjective')
+  FlyingPig:        text: t('dropEggFlyingPigText'), adjective: t('dropEggFlyingPigAdjective')
+  Dragon:           text: t('dropEggDragonText'), adjective: t('dropEggDragonAdjective')
+  Cactus:           text: t('dropEggCactusText'), adjective: t('dropEggCactusAdjective')
+  BearCub:          text: t('dropEggBearCubText'),  mountText: t('dropEggBearCubMountText'), adjective: t('dropEggBearCubAdjective')
 _.each api.dropEggs, (egg,key) ->
   _.defaults egg,
     canBuy:true
     value: 3
     key: key
-    notes: (-> i18n.t('eggNotes', {eggText: egg.text(), eggAdjective: egg.adjective()}))
+    notes: t('eggNotes', {eggText: egg.text, eggAdjective: egg.adjective})
     mountText: egg.text
 
 api.questEggs =
@@ -582,7 +587,7 @@ _.each api.questEggs, (egg,key) ->
     canBuy:false
     value: 3
     key: key
-    notes: (-> i18n.t('eggNotes', {eggText: egg.text(), eggAdjective: egg.adjective()}))
+    notes: t('eggNotes', {eggText: egg.text, eggAdjective: egg.adjective})
     mountText: egg.text
 
 api.eggs = _.assign(_.cloneDeep(api.dropEggs), api.questEggs)
@@ -599,18 +604,18 @@ api.specialMounts =
   'LionCub-Ethereal':	true
 
 api.hatchingPotions =
-  Base:             value: 2, text: (-> i18n.t('hatchingPotionBase'))
-  White:            value: 2, text: (-> i18n.t('hatchingPotionWhite'))
-  Desert:           value: 2, text: (-> i18n.t('hatchingPotionDesert'))
-  Red:              value: 3, text: (-> i18n.t('hatchingPotionRed'))
-  Shade:            value: 3, text: (-> i18n.t('hatchingPotionShade'))
-  Skeleton:         value: 3, text: (-> i18n.t('hatchingPotionSkeleton'))
-  Zombie:           value: 4, text: (-> i18n.t('hatchingPotionZombie'))
-  CottonCandyPink:  value: 4, text: (-> i18n.t('hatchingPotionCottonCandyPink'))
-  CottonCandyBlue:  value: 4, text: (-> i18n.t('hatchingPotionCottonCandyBlue'))
-  Golden:           value: 5, text: (-> i18n.t('hatchingPotionGolden'))
+  Base:             value: 2, text: t('hatchingPotionBase')
+  White:            value: 2, text: t('hatchingPotionWhite')
+  Desert:           value: 2, text: t('hatchingPotionDesert')
+  Red:              value: 3, text: t('hatchingPotionRed')
+  Shade:            value: 3, text: t('hatchingPotionShade')
+  Skeleton:         value: 3, text: t('hatchingPotionSkeleton')
+  Zombie:           value: 4, text: t('hatchingPotionZombie')
+  CottonCandyPink:  value: 4, text: t('hatchingPotionCottonCandyPink')
+  CottonCandyBlue:  value: 4, text: t('hatchingPotionCottonCandyBlue')
+  Golden:           value: 5, text: t('hatchingPotionGolden')
 _.each api.hatchingPotions, (pot,key) ->
-  _.defaults pot, {key, value: 2, notes: (-> i18n.t('hatchingPotionNotes', {potText: pot.text()}))}
+  _.defaults pot, {key, value: 2, notes: t('hatchingPotionNotes', {potText: pot.text})}
 
 api.pets = _.transform api.dropEggs, (m, egg) ->
   _.defaults m, _.transform api.hatchingPotions, (m2, pot) ->
@@ -621,82 +626,82 @@ api.questPets = _.transform api.questEggs, (m, egg) ->
     m2[egg.key + "-" + pot.key] = true
 
 api.food =
-  Meat:             text: (-> i18n.t('foodMeat')), target: 'Base', article: ''
-  Milk:             text: (-> i18n.t('foodMilk')), target: 'White', article: ''
-  Potatoe:          text: (-> i18n.t('foodPotatoe')), target: 'Desert', article: 'a '
-  Strawberry:       text: (-> i18n.t('foodStrawberry')), target: 'Red', article: 'a '
-  Chocolate:        text: (-> i18n.t('foodChocolate')), target: 'Shade', article: ''
-  Fish:             text: (-> i18n.t('foodFish')), target: 'Skeleton', article: 'a '
-  RottenMeat:       text: (-> i18n.t('foodRottenMeat')), target: 'Zombie', article: ''
-  CottonCandyPink:  text: (-> i18n.t('foodCottonCandyPink')), target: 'CottonCandyPink', article: ''
-  CottonCandyBlue:  text: (-> i18n.t('foodCottonCandyBlue')), target: 'CottonCandyBlue', article: ''
+  Meat:             text: t('foodMeat'), target: 'Base', article: ''
+  Milk:             text: t('foodMilk'), target: 'White', article: ''
+  Potatoe:          text: t('foodPotatoe'), target: 'Desert', article: 'a '
+  Strawberry:       text: t('foodStrawberry'), target: 'Red', article: 'a '
+  Chocolate:        text: t('foodChocolate'), target: 'Shade', article: ''
+  Fish:             text: t('foodFish'), target: 'Skeleton', article: 'a '
+  RottenMeat:       text: t('foodRottenMeat'), target: 'Zombie', article: ''
+  CottonCandyPink:  text: t('foodCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  CottonCandyBlue:  text: t('foodCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
   # FIXME what to do with these extra items? Should we add "targets" (plural) for food instead of singular, so we don't have awkward extras?
   #Cheese:           text: 'Cheese', target: 'Golden'
   #Watermelon:       text: 'Watermelon', target: 'Golden'
   #SeaWeed:          text: 'SeaWeed', target: 'Golden'
 
-  Cake_Skeleton:        canBuy: false, text: (-> i18n.t('foodCakeSkeleton')), target: 'Skeleton', article: ''
-  Cake_Base:            canBuy: false, text: (-> i18n.t('foodCakeBase')), target: 'Base', article: ''
-  Cake_CottonCandyBlue: canBuy: false, text: (-> i18n.t('foodCakeCottonCandyBlue')), target: 'CottonCandyBlue', article: ''
-  Cake_CottonCandyPink: canBuy: false, text: (-> i18n.t('foodCakeCottonCandyPink')), target: 'CottonCandyPink', article: ''
-  Cake_Shade:           canBuy: false, text: (-> i18n.t('foodCakeShade')), target: 'Shade', article: ''
-  Cake_White:           canBuy: false, text: (-> i18n.t('foodCakeWhite')), target: 'White', article: ''
-  Cake_Golden:          canBuy: false, text: (-> i18n.t('foodCakeGolden')), target: 'Golden', article: ''
-  Cake_Zombie:          canBuy: false, text: (-> i18n.t('foodCakeZombie')), target: 'Zombie', article: ''
-  Cake_Desert:          canBuy: false, text: (-> i18n.t('foodCakeDesert')), target: 'Desert', article: ''
-  Cake_Red:             canBuy: false, text: (-> i18n.t('foodCakeRed')), target: 'Red', article: ''
+  Cake_Skeleton:        canBuy: false, text: t('foodCakeSkeleton'), target: 'Skeleton', article: ''
+  Cake_Base:            canBuy: false, text: t('foodCakeBase'), target: 'Base', article: ''
+  Cake_CottonCandyBlue: canBuy: false, text: t('foodCakeCottonCandyBlue'), target: 'CottonCandyBlue', article: ''
+  Cake_CottonCandyPink: canBuy: false, text: t('foodCakeCottonCandyPink'), target: 'CottonCandyPink', article: ''
+  Cake_Shade:           canBuy: false, text: t('foodCakeShade'), target: 'Shade', article: ''
+  Cake_White:           canBuy: false, text: t('foodCakeWhite'), target: 'White', article: ''
+  Cake_Golden:          canBuy: false, text: t('foodCakeGolden'), target: 'Golden', article: ''
+  Cake_Zombie:          canBuy: false, text: t('foodCakeZombie'), target: 'Zombie', article: ''
+  Cake_Desert:          canBuy: false, text: t('foodCakeDesert'), target: 'Desert', article: ''
+  Cake_Red:             canBuy: false, text: t('foodCakeRed'), target: 'Red', article: ''
 
   # Tests hack, put honey last so the faux random picks it up in unit tests
-  Honey:            text: (-> i18n.t('foodHoney')), target: 'Golden', article: ''
+  Honey:            text: t('foodHoney'), target: 'Golden', article: ''
 
-  Saddle:           text: (-> i18n.t('foodSaddleText')), value: 5, notes: (-> i18n.t('foodSaddleNotes'))
+  Saddle:           text: t('foodSaddleText'), value: 5, notes: t('foodSaddleNotes')
 _.each api.food, (food,key) ->
-  _.defaults food, {value: 1, key, notes: (-> i18n.t('foodNotes')), canBuy:true}
+  _.defaults food, {value: 1, key, notes: t('foodNotes'), canBuy:true}
 
 api.quests =
 
   evilsanta:
     canBuy:false
-    text: (-> i18n.t('questEvilSantaText')) # title of the quest (eg, Deep into Vice's Layer)
-    notes: (-> i18n.t('questEvilSantaNotes'))
-    completion: (-> i18n.t('questEvilSantaCompletion'))
+    text: t('questEvilSantaText') # title of the quest (eg, Deep into Vice's Layer)
+    notes: t('questEvilSantaNotes')
+    completion: t('questEvilSantaCompletion')
     value: 4 # Gem cost to buy, GP sell-back
     #mechanic: enum['perfectDailies', ...]
     boss:
-      name: (-> i18n.t('questEvilSantaBoss')) # name of the boss himself (eg, Vice)
+      name: t('questEvilSantaBoss') # name of the boss himself (eg, Vice)
       hp: 300
       str: 1 # Multiplier of users' missed dailies
     drop:
       items: [
-        {type: 'mounts', key: 'BearCub-Polar', text: (-> i18n.t('questEvilSantaDropBearCubPolarMount'))}
+        {type: 'mounts', key: 'BearCub-Polar', text: t('questEvilSantaDropBearCubPolarMount')}
       ]
       gp: 20
       exp: 100 # Exp bonus from defeating the boss
 
   evilsanta2:
     canBuy:false
-    text: (-> i18n.t('questEvilSanta2Text'))
-    notes: (-> i18n.t('questEvilSanta2Notes'))
-    completion: (-> i18n.t('questEvilSanta2Completion'))
+    text: t('questEvilSanta2Text')
+    notes: t('questEvilSanta2Notes')
+    completion: t('questEvilSanta2Completion')
     value: 4
     previous: 'evilsanta'
     collect:
-      tracks: text: (-> i18n.t('questEvilSanta2CollectTracks')), count: 20
-      branches: text: (-> i18n.t('questEvilSanta2CollectBranches')), count: 10
+      tracks: text: t('questEvilSanta2CollectTracks'), count: 20
+      branches: text: t('questEvilSanta2CollectBranches'), count: 10
     drop:
       items: [
-        {type: 'pets', key: 'BearCub-Polar', text: (-> i18n.t('questEvilSanta2DropBearCubPolarPet'))}
+        {type: 'pets', key: 'BearCub-Polar', text: t('questEvilSanta2DropBearCubPolarPet')}
       ]
       gp: 20
       exp: 100
 
   gryphon:
-    text: (-> i18n.t('questGryphonText'))
-    notes: (-> i18n.t('questGryphonNotes'))
-    completion: (-> i18n.t('questGryphonCompletion'))
+    text: t('questGryphonText')
+    notes: t('questGryphonNotes')
+    completion: t('questGryphonCompletion')
     value: 4 # Gem cost to buy, GP sell-back
     boss:
-      name: (-> i18n.t('questGryphonBoss')) # name of the boss himself (eg, Vice)
+      name: t('questGryphonBoss') # name of the boss himself (eg, Vice)
       hp: 300
       str: 1.5 # Multiplier of users' missed dailies
     drop:
@@ -709,12 +714,12 @@ api.quests =
       exp: 125
       
   hedgehog:
-    text: (-> i18n.t('questHedgehogText'))
-    notes: (-> i18n.t('questHedgehogNotes'))
-    completion: (-> i18n.t('questHedgehogCompletion'))
+    text: t('questHedgehogText')
+    notes: t('questHedgehogNotes')
+    completion: t('questHedgehogCompletion')
     value: 4 # Gem cost to buy, GP sell-back
     boss:
-      name: (-> i18n.t('questHedgehogBoss')) # name of the boss himself (eg, Vice)
+      name: t('questHedgehogBoss') # name of the boss himself (eg, Vice)
       hp: 400
       str: 1.25 # Multiplier of users' missed dailies
     drop:
@@ -747,54 +752,54 @@ api.quests =
 
 
   vice1:
-    text: (-> i18n.t('questVice1Text'))
-    notes: (-> i18n.t('questVice1Notes'))
+    text: t('questVice1Text')
+    notes: t('questVice1Notes')
     value: 4
     lvl: 30
     boss:
-      name: (-> i18n.t('questVice1Boss'))
+      name: t('questVice1Boss')
       hp: 750
       str: 1.5
     drop:
       items: [
-        {type: 'quests', key: "vice2", text: (-> i18n.t('questVice1DropVice2Quest'))}
+        {type: 'quests', key: "vice2", text: t('questVice1DropVice2Quest')}
       ]
       gp: 20
       exp: 100
 
   vice2:
-    text: (-> i18n.t('questVice2Text'))
-    notes: (-> i18n.t('questVice2Notes'))
+    text: t('questVice2Text')
+    notes: t('questVice2Notes')
     value: 4
     lvl: 35
     previous: 'vice1'
     collect:
-      lightCrystal: text: (-> i18n.t('questVice2CollectLightCrystal')), count: 45
+      lightCrystal: text: t('questVice2CollectLightCrystal'), count: 45
     drop:
       items: [
-        {type: 'quests', key: 'vice3', text: (-> i18n.t('questVice2DropVice3Quest'))}
+        {type: 'quests', key: 'vice3', text: t('questVice2DropVice3Quest')}
       ]
       gp: 20
       exp: 75
 
   vice3:
-    text: (-> i18n.t('questVice3Text'))
-    notes: (-> i18n.t('questVice3Notes'))
-    completion: (-> i18n.t('questVice3Completion'))
+    text: t('questVice3Text')
+    notes: t('questVice3Notes')
+    completion: t('questVice3Completion')
     previous: 'vice2'
     value: 4
     lvl: 40
     boss:
-      name: (-> i18n.t('questVice3Boss'))
+      name: t('questVice3Boss')
       hp: 1500
       str: 3
     drop:
       items: [
-        {type: 'gear', key: "weapon_special_2", text: (-> i18n.t('questVice3DropWeaponSpecial2'))}
-        {type: 'eggs', key: 'Dragon', text: (-> i18n.t('questVice3DropDragonEgg'))}
-        {type: 'eggs', key: 'Dragon', text: (-> i18n.t('questVice3DropDragonEgg'))}
-        {type: 'hatchingPotions', key: 'Shade', text: (-> i18n.t('questVice3DropShadeHatchingPotion'))}
-        {type: 'hatchingPotions', key: 'Shade', text: (-> i18n.t('questVice3DropShadeHatchingPotion'))}
+        {type: 'gear', key: "weapon_special_2", text: t('questVice3DropWeaponSpecial2')}
+        {type: 'eggs', key: 'Dragon', text: t('questVice3DropDragonEgg')}
+        {type: 'eggs', key: 'Dragon', text: t('questVice3DropDragonEgg')}
+        {type: 'hatchingPotions', key: 'Shade', text: t('questVice3DropShadeHatchingPotion')}
+        {type: 'hatchingPotions', key: 'Shade', text: t('questVice3DropShadeHatchingPotion')}
       ]
       gp: 100
       exp: 1000
@@ -830,28 +835,28 @@ _.each api.quests, (v,key) ->
 repeat = {m:true,t:true,w:true,th:true,f:true,s:true,su:true}
 api.userDefaults =
   habits: [
-    {type: 'habit', text: (-> i18n.t('defaultHabit1Text')), notes: (-> i18n.t('defaultHabit1Notes')), value: 0, up: true, down: false, attribute: 'per' }
-    {type: 'habit', text: (-> i18n.t('defaultHabit2Text')), notes: (-> i18n.t('defaultHabit2Notes')), value: 0, up: false, down: true, attribute: 'con'}
-    {type: 'habit', text: (-> i18n.t('defaultHabit3Text')), notes: (-> i18n.t('defaultHabit3Notes')), value: 0, up: true, down: true, attribute: 'str'}
+    {type: 'habit', text: t('defaultHabit1Text'), notes: t('defaultHabit1Notes'), value: 0, up: true, down: false, attribute: 'per' }
+    {type: 'habit', text: t('defaultHabit2Text'), notes: t('defaultHabit2Notes'), value: 0, up: false, down: true, attribute: 'con'}
+    {type: 'habit', text: t('defaultHabit3Text'), notes: t('defaultHabit3Notes'), value: 0, up: true, down: true, attribute: 'str'}
   ]
 
   dailys: [
-    {type: 'daily', text: (-> i18n.t('defaultDaily1Text')), notes: (-> i18n.t('defaultDaily1Notes')), value: 0, completed: false, repeat: repeat, attribute: 'per' }
-    {type: 'daily', text: (-> i18n.t('defaultDaily2Text')), notes: (-> i18n.t('defaultDaily2Notes')), value: 3, completed: false, repeat: repeat, attribute: 'str' }
-    {type: 'daily', text: (-> i18n.t('defaultDaily3Text')), notes: (-> i18n.t('defaultDaily3Notes')), value: -10, completed: false, repeat: repeat, attribute: 'int' }
+    {type: 'daily', text: t('defaultDaily1Text'), notes: t('defaultDaily1Notes'), value: 0, completed: false, repeat: repeat, attribute: 'per' }
+    {type: 'daily', text: t('defaultDaily2Text'), notes: t('defaultDaily2Notes'), value: 3, completed: false, repeat: repeat, attribute: 'str' }
+    {type: 'daily', text: t('defaultDaily3Text'), notes: t('defaultDaily3Notes'), value: -10, completed: false, repeat: repeat, attribute: 'int' }
   ]
 
   todos: [
-    {type: 'todo', text: (-> i18n.t('defaultTodo1Text')), notes: (-> i18n.t('defaultTodo1Notes')), value: -3, completed: false, attribute: 'per' }
+    {type: 'todo', text: t('defaultTodo1Text'), notes: t('defaultTodo1Notes'), value: -3, completed: false, attribute: 'per' }
   ]
 
   rewards: [
-    {type: 'reward', text: (-> i18n.t('defaultReward1Text')), notes: (-> i18n.t('defaultReward1Notes')), value: 20 }
-    {type: 'reward', text: (-> i18n.t('defaultReward2Text')), notes: (-> i18n.t('defaultReward2Notes')), value: 10 }
+    {type: 'reward', text: t('defaultReward1Text'), notes: t('defaultReward1Notes'), value: 20 }
+    {type: 'reward', text: t('defaultReward2Text'), notes: t('defaultReward2Notes'), value: 10 }
   ]
 
   tags: [
-    {name: (-> i18n.t('defaultTag1'))}
-    {name: (-> i18n.t('defaultTag2'))}
-    {name: (-> i18n.t('defaultTag3'))}
+    {name: t('defaultTag1')}
+    {name: t('defaultTag2')}
+    {name: t('defaultTag3')}
   ]
