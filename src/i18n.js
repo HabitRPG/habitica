@@ -53,7 +53,7 @@ _.each(langCodes, function(code){
   }catch (e){}
 });
 
-var getUserLanguage = function(req, callback){
+var getUserLanguage = function(req, res, next){
   var getFromBrowser = function(){
     var acceptable = _(req.acceptedLanguages).map(function(lang){
       return lang.slice(0, 2);
@@ -62,25 +62,26 @@ var getUserLanguage = function(req, callback){
     return matches.length > 0 ? matches[0] : 'en';
   };
 
-  if(req.session && req.session.userId){
+  var getFromUser = function(user){
+    var lang;
+    if(user && user.preferences.language && translations[user.preferences.language]){
+      lang = _.find(avalaibleLanguages, {code: user.preferences.language}) || 'en';
+    }else{
+      lang = _.find(avalaibleLanguages, {code: getFromBrowser()}) || 'en';
+    }
+    req.language = lang;
+    next();
+  };
+
+  if(req.locals && req.locals.user){
+    getFromUser(req.locals.user);
+  }else if(req.session && req.session.userId){
     User.findOne({_id: req.session.userId}, function(err, user){
       if(err) return callback(err);
-      if(user && user.preferences.language && translations[user.preferences.language]){
-        return callback(null, _.find(avalaibleLanguages, {code: user.preferences.language}));
-      }else{
-        var langCode = getFromBrowser();
-        // Because english is usually always avalaible as an acceptable language for the browser,
-        // if the user visit the page when his own language is not avalaible yet
-        // he'll have english set in his preferences, which is not good. 
-        //if(user && translations[langCode]){
-          //user.preferences.language = langCode;
-          //user.save(); //callback?
-        //}
-        return callback(null, _.find(avalaibleLanguages, {code: langCode}))
-      }
+      getFromUser(user);
     });
   }else{
-    return callback(null, _.find(avalaibleLanguages, {code: getFromBrowser()}));
+    getFromUser(null);
   }
 };
 

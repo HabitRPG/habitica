@@ -142,36 +142,33 @@ var getManifestFiles = function(page){
 }
 
 module.exports.locals = function(req, res, next) {
-  i18n.getUserLanguage(req, function(err, language){
-    if(err) return res.json(500, {err: err});
+  var language = req.language;
+  var isStaticPage = req.url.split('/')[1] === 'static'; // If url contains '/static/'
 
-    var isStaticPage = req.url.split('/')[1] === 'static'; // If url contains '/static/'
+  // Load moment.js language file only when not on static pages
+  language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code]) || undefined);
 
-    // Load moment.js language file only when not on static pages
-    language.momentLang = ((!isStaticPage && i18n.momentLangs[language.code])|| undefined);
+  res.locals.habitrpg = {
+    NODE_ENV: nconf.get('NODE_ENV'),
+    BASE_URL: nconf.get('BASE_URL'),
+    GA_ID: nconf.get("GA_ID"),
+    IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
+    STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
+    getManifestFiles: getManifestFiles,
+    getBuildUrl: getBuildUrl,
+    avalaibleLanguages: i18n.avalaibleLanguages,
+    language: language,
+    isStaticPage: isStaticPage,
+    translations: i18n.translations[language.code],
+    t: function(){ // stringName and vars are the allowed parameters
+      var args = Array.prototype.slice.call(arguments, 0); 
+      args.push(language.code);
+      return shared.i18n.t.apply(null, args);
+    },
+    siteVersion: siteVersion
+  }
 
-    res.locals.habitrpg = {
-      NODE_ENV: nconf.get('NODE_ENV'),
-      BASE_URL: nconf.get('BASE_URL'),
-      GA_ID: nconf.get("GA_ID"),
-      IS_MOBILE: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(req.header('User-Agent')),
-      STRIPE_PUB_KEY: nconf.get('STRIPE_PUB_KEY'),
-      getManifestFiles: getManifestFiles,
-      getBuildUrl: getBuildUrl,
-      avalaibleLanguages: i18n.avalaibleLanguages,
-      language: language,
-      isStaticPage: isStaticPage,
-      translations: i18n.translations[language.code],
-      t: function(){ // stringName and vars are the allowed parameters
-        var args = Array.prototype.slice.call(arguments, 0); 
-        args.push(language.code);
-        return shared.i18n.t.apply(null, args);
-      },
-      siteVersion: siteVersion
-    }
-
-    next();
-  });
+  next();
 }
 
 module.exports.enTranslations = function(stringName, vars){
