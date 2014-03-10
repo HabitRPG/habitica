@@ -358,13 +358,13 @@ UserSchema.pre('save', function(next) {
         var newTask = task;
 
         // Render task's text and notes in user's language
-        newTask.text = task.text();
-        newTask.notes = task.notes();
+        newTask.text = task.text(this.language);
+        newTask.notes = task.notes(this.language);
 
         return newTask;
       });
     });
-    
+
     // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
     _.each(this.tags, function(tag){tag.id = shared.uuid();})
   }
