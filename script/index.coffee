@@ -388,7 +388,7 @@ api.wrap = (user, main=true) ->
           user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
           user.items.gear.costume[item.type] = "#{item.type}_base_0" if user.items.gear.costume[item.type] is lostItem
         user.markModified? 'items.gear'
-        cb? (if item then {code:200,message:"Your #{item.text} broke."} else null), user
+        cb? (if item then {code:200,message:"Your #{item.text()} broke."} else null), user
 
       reset: (req, cb) ->
         user.habits = []
@@ -588,10 +588,10 @@ api.wrap = (user, main=true) ->
         else
           if food.target is potion
             userPets[pet] += 5
-            message = "#{egg} really likes the #{food.text}!"
+            message = "#{egg} really likes the #{food.text()}!"
           else
             userPets[pet] += 2
-            message = "#{egg} eats the #{food.text} but doesn't seem to enjoy it."
+            message = "#{egg} eats the #{food.text()} but doesn't seem to enjoy it."
           if userPets[pet] >= 50 and !user.items.mounts[pet]
             evolve()
         user.items.food[food.key]--
@@ -624,7 +624,7 @@ api.wrap = (user, main=true) ->
           user.items.gear.equipped[item.type] = item.key
           user.items.gear.owned[item.key] = true
           message = user.fns.handleTwoHanded(item)
-          message ?= "Bought #{item.text}."
+          message ?= "Bought #{item.text()}."
           if not user.achievements.ultimateGear and item.last
             user.fns.ultimateGear()
         user.stats.gp -= item.value
@@ -926,11 +926,11 @@ api.wrap = (user, main=true) ->
       # If they're buying a shield and wearing a staff, dequip the staff
       if item.type is "shield" and (weapon = content.gear.flat[user.items.gear[type].weapon])?.twoHanded
         user.items.gear[type].weapon = 'weapon_base_0'
-        message = "#{weapon.text} is two-handed"
+        message = "#{weapon.text()} is two-handed"
       # If they're buying a staff and wearing a shield, dequip the shield
       if item.twoHanded
         user.items.gear[type].shield = "shield_base_0"
-        message = "#{item.text} is two-handed"
+        message = "#{item.text()} is two-handed"
       message
 
     ###
@@ -1021,7 +1021,7 @@ api.wrap = (user, main=true) ->
           user.items.food[drop.key] ?= 0
           user.items.food[drop.key]+= 1
           drop.type = 'Food'
-          drop.dialog = "You've found #{drop.article}#{drop.text}! #{drop.notes}"
+          drop.dialog = "You've found #{drop.article}#{drop.text()}! #{drop.notes()}"
 
           # Eggs: 30% chance
         else if rarity > .3
@@ -1029,7 +1029,7 @@ api.wrap = (user, main=true) ->
           user.items.eggs[drop.key] ?= 0
           user.items.eggs[drop.key]++
           drop.type = 'Egg'
-          drop.dialog = "You've found a #{drop.text} Egg! #{drop.notes}"
+          drop.dialog = "You've found a #{drop.text()} Egg! #{drop.notes()}"
 
           # Hatching Potion, 30% chance - break down by rarity.
         else
@@ -1050,7 +1050,7 @@ api.wrap = (user, main=true) ->
           user.items.hatchingPotions[drop.key] ?= 0
           user.items.hatchingPotions[drop.key]++
           drop.type = 'HatchingPotion'
-          drop.dialog = "You've found a #{drop.text} Hatching Potion! #{drop.notes}"
+          drop.dialog = "You've found a #{drop.text()} Hatching Potion! #{drop.notes()}"
 
         # if they've dropped something, we want the consuming client to know so they can notify the user. See how the Derby
         # app handles it for example. Would this be better handled as an emit() ?
@@ -1146,7 +1146,7 @@ api.wrap = (user, main=true) ->
         user.markModified? 'flags.levelDrops'
         user._tmp.drop = _.defaults content.quests.vice1,
           type: 'Quest'
-          dialog: "You've found the quest \"#{content.quests.vice1.text}\"!"
+          dialog: "You've found the quest \"#{content.quests.vice1.text()}\"!"
       if !user.flags.rebirthEnabled and (user.stats.lvl >= 50 or user.achievements.ultimateGear or user.achievements.beastMaster)
         user.flags.rebirthEnabled = true
 
