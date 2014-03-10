@@ -305,14 +305,14 @@ var UserSchema = new Schema({
     id: { type: String, 'default': shared.uuid },
     name: String,
     challenge: String
-  }], 'default': shared.content.userDefaults.tags},
+  }]},
 
   challenges: [{type: 'String', ref:'Challenge'}],
 
-  habits:   {type:[TaskSchemas.HabitSchema], 'default': shared.content.userDefaults.habits},
-  dailys:   {type:[TaskSchemas.DailySchema], 'default': shared.content.userDefaults.dailys},
-  todos:    {type:[TaskSchemas.TodoSchema], 'default': shared.content.userDefaults.todos},
-  rewards:  {type:[TaskSchemas.RewardSchema], 'default': shared.content.userDefaults.rewards},
+  habits:   {type:[TaskSchemas.HabitSchema]},
+  dailys:   {type:[TaskSchemas.DailySchema]},
+  todos:    {type:[TaskSchemas.TodoSchema]},
+  rewards:  {type:[TaskSchemas.RewardSchema]},
 
   extra: Schema.Types.Mixed
 
@@ -347,6 +347,27 @@ UserSchema.post('init', function(doc){
 })
 
 UserSchema.pre('save', function(next) {
+
+  // Populate new users with default content
+  if (this.isNew){
+    //TODO for some reason this doesn't work here: `_.merge(this, shared.content.userDefaults);`
+    var self = this;
+
+    _.each('habits', 'dailys', 'todos', 'rewards', 'tags', function(taskType){
+      self.taskType = _.map(shared.content.userDefaults[taskType], function(task){
+        var newTask = task;
+
+        // Render task's text and notes in user's language
+        newTask.text = task.text();
+        newTask.notes = task.notes();
+
+        return newTask;
+      });
+    });
+    
+    // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
+    _.each(this.tags, function(tag){tag.id = shared.uuid();})
+  }
 
   //this.markModified('tasks');
   if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {

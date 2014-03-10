@@ -22,7 +22,7 @@ table.table.table-striped(ng-show='user.flags.itemsEnabled')
   // FIXME this isn't refreshing properly. On first party modal, correct. Second party modal click gives the previous gear. It's always one behind.
   tr(ng-repeat='(k,v) in profile.items.gear.equipped', ng-init='piece=Content.gear.flat[v]', ng-show='piece')
     td
-      strong {{piece.text}}:&nbsp;
+      strong {{piece.text()}}:&nbsp;
       span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{stat.toUpperCase()}}&nbsp;
 
 h4=env.t('attributes')

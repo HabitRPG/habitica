@@ -336,7 +336,7 @@ api.cast = function(req, res, next) {
 
           if (group) {
             series.push(function(cb2){
-              var message = '`'+user.profile.name+' casts '+spell.text + (targetType=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
+              var message = '`'+user.profile.name+' casts '+spell.text() + (targetType=='user' ? ' on '+found.profile.name : ' for the party')+'.`';
               group.sendChat(message);
               group.save(cb2);
             })
