@@ -352,21 +352,25 @@ UserSchema.pre('save', function(next) {
   if (this.isNew){
     //TODO for some reason this doesn't work here: `_.merge(this, shared.content.userDefaults);`
     var self = this;
-
-    _.each('habits', 'dailys', 'todos', 'rewards', 'tags', function(taskType){
-      self.taskType = _.map(shared.content.userDefaults[taskType], function(task){
+    _.each(['habits', 'dailys', 'todos', 'rewards', 'tags'], function(taskType){
+      self[taskType] = _.map(shared.content.userDefaults[taskType], function(task){
         var newTask = task;
 
         // Render task's text and notes in user's language
-        newTask.text = task.text(this.language);
-        newTask.notes = task.notes(this.language);
+        if(taskType === 'tags'){
+          // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
+          newTask.id = shared.uuid();
+          newTask.name = task.name(self.preferences.language);
+        }else{
+          newTask.text = task.text(self.preferences.language);
+          newTask.notes = task.notes(self.preferences.language);
+        }
 
         return newTask;
       });
     });
 
-    // tasks automatically get id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
-    _.each(this.tags, function(tag){tag.id = shared.uuid();})
+    this.preferences.language = undefined;
   }
 
   //this.markModified('tasks');

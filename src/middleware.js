@@ -142,7 +142,7 @@ var getManifestFiles = function(page){
 }
 
 module.exports.locals = function(req, res, next) {
-  var language = req.language;
+  var language = _.find(i18n.avalaibleLanguages, {code: req.language});
   var isStaticPage = req.url.split('/')[1] === 'static'; // If url contains '/static/'
 
   // Load moment.js language file only when not on static pages

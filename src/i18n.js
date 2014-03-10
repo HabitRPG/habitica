@@ -65,9 +65,10 @@ var getUserLanguage = function(req, res, next){
   var getFromUser = function(user){
     var lang;
     if(user && user.preferences.language && translations[user.preferences.language]){
-      lang = _.find(avalaibleLanguages, {code: user.preferences.language}) || 'en';
+      lang = user.preferences.language;
     }else{
-      lang = _.find(avalaibleLanguages, {code: getFromBrowser()}) || 'en';
+      var preferred = getFromBrowser();
+      lang = translations[preferred] ? preferred : 'en';
     }
     req.language = lang;
     next();
