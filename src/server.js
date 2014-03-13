@@ -8,9 +8,11 @@ var logging = require('./logging');
 var isProd = nconf.get('NODE_ENV') === 'production';
 var isDev = nconf.get('NODE_ENV') === 'development';
 
+// The max num of CPUs to enable with cluster. On heroku, our app is pretty beefy in memory, so we're knocking back to 1
+var MAX_CORES = 1;
 if (cluster.isMaster && (isDev || isProd)) {
   // Fork workers.
-  _.times(_.min([require('os').cpus().length,2]), function(){
+  _.times(_.min([require('os').cpus().length,MAX_CORES]), function(){
     cluster.fork();
   });
 
