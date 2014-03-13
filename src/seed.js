@@ -23,7 +23,8 @@ async.waterfall([
         chat: [],
         leader: '9',
         name: 'HabitRPG',
-        type: 'guild'
+        type: 'guild',
+        privacy:'public'
       });
       tavern.save(cb)
     } else {
