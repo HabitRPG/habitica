@@ -1,0 +1,128 @@
+// Custom styles for the menu aka toolbar aka navbar
+.navbar
+  color: #222
+  background-color: #f8f8f8
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.2)
+  border-radius:0px
+  margin-bottom:0px
+  min-height:50px
+  > div
+    padding-left:8px
+  .glyphicon
+      color:#5d5d5d
+  .caret
+      color:#9d9d9d
+  .task-action-btn
+    outline: 1px solid red;
+    font-size:16px
+  .gem-wallet
+    padding-top:4px
+    padding-bottom:8px
+    height:50px
+  .Pet_Currency_Gem2x.Gems
+    position:relative
+    top:8px
+    color:#222 !important
+  .currency
+    min-height:50px
+    padding-top:16px
+    padding-right:16px
+// Mobile menu button
+.navbar-header
+    position:absolute
+    top:0
+    right:45px
+    button
+      margin-right:0
+.navbar-toggle
+  &:hover
+    background-color:#eee
+  span.icon-bar
+    background-color:#5d5d5d
+// Top level menu items: Tasks – Options
+.navbar-menu
+  float:left;
+  li
+    display:inline-block
+    height:50px
+    a
+      display:block
+      height:100%
+      margin-left:8px
+      padding-top:16px
+      padding-left:8px
+      padding-right:8px
+      font-size:16px
+      line-height:1
+      text-decoration:none
+      &:link,&:visited
+        color: #222
+      &:hover
+        background-color:#eee
+      &:active
+        color:#000
+    .toolbar-toggle
+      .glyphicon
+        color:#9d9d9d
+// Information bar: Bailey – notifs – currency – subscribe button
+.navbar-info
+  float:right
+  min-height:50px
+  padding-right:25px
+  li
+    display:inline-block
+@media screen and (max-device-width:768px), screen and (max-width:768px)
+  .navbar-menu
+    float:none
+  .navbar-submenu
+    margin-left:0
+    > li
+      display:inline-block
+     .dropdown-menu
+        position:absolute
+  .navbar-info
+    width:100%
+// Button for toggling toolbar visibility
+.collapse-toolbar
+  &.expanded
+    position:absolute
+  &.collapsed
+    position:fixed
+  right:0px
+  top:0px
+  width:45px
+  height:50px
+  padding-left:15px
+  padding-top:15px
+  z-index:999
+  .glyphicon-chevron-up
+    color:#5d5d5d
+  .glyphicon-chevron-down
+    color:#fff 
+.toolbar-submenu
+  background-color:#eee
+  border-top: 1px solid rgba(0,0,0,0.2)
+  > li
+    display:inline-block
+    vertical-align:top
+    margin-top:16px
+    margin-left:16px
+    margin-bottom:8px
+    line-height:1.618
+    ul
+      list-style:none
+      li
+        padding-left:22px
+    .glyphicon
+      margin-right:8px
+      color:#9d9d9d
+.toolbar-sync
+  position:relative
+  top:-8px
+  .glyphicon-refresh
+    color: #222 !important
+.glyphicon-chevron-up
+  transition: all 0.32s linear
+.glyphicon-chevron-up.active
+  transform: rotate(180deg)
