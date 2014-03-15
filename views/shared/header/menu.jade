@@ -49,6 +49,9 @@ nav.navbar(ng-controller='AuthCtrl',ng-if='!user.preferences.toolbarCollapsed')
       li
         button.btn.btn-primary.navbar-btn(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
         button.btn.btn-default.navbar-btn(ng-if='user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover=env.t('manageSub'),popover-append-to-body='true')=env.t('subscribed')
+      li.toolbar-sync
+        a(ng-click='User.sync()',popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
+          span.glyphicon.glyphicon-refresh
   ul.nav.toolbar-submenu(ng-if='!isMenuCollapsed')
     li
       span.glyphicon.glyphicon-user
@@ -117,6 +120,3 @@ nav.navbar(ng-controller='AuthCtrl',ng-if='!user.preferences.toolbarCollapsed')
             //-span.glyphicon.glyphicon-film
             //-|&nbsp;
             span=env.t('tutorials')
-    li.toolbar-sync
-      a(ng-click='User.sync()',popover=env.t('sync'),popover-placement='right',popover-trigger='mouseenter')
-        span.glyphicon.glyphicon-refresh
