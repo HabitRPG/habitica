@@ -6,10 +6,10 @@ nav.navbar(ng-controller='AuthCtrl',ng-if='!user.preferences.toolbarCollapsed')
   ul.navbar-menu
     li
       a(ui-sref='tasks')
-        span Tasks
+        span=env.t('tasks')
     li
       a(ui-sref='options.profile.avatar')
-        span Options
+        span=env.t('options')
     li
       a.toolbar-toggle(ng-click='isMenuCollapsed = !isMenuCollapsed')
         span.glyphicon.glyphicon-chevron-up(ng-class='{active: isMenuCollapsed}')
