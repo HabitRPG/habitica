@@ -1,10 +1,10 @@
 moment = require('moment')
 _ = require('lodash')
 content = require('./content.coffee')
-
+i18n = require('./i18n.coffee')
 api = module.exports = {}
 
-api.i18n = require('./i18n.coffee')
+api.i18n = i18n
 
 # little helper for large arrays of strings. %w"this that another" equivalent from Rails, I really miss that function
 $w = (s)->s.split(' ')
@@ -388,7 +388,7 @@ api.wrap = (user, main=true) ->
           user.items.gear.equipped[item.type] = "#{item.type}_base_0" if user.items.gear.equipped[item.type] is lostItem
           user.items.gear.costume[item.type] = "#{item.type}_base_0" if user.items.gear.costume[item.type] is lostItem
         user.markModified? 'items.gear'
-        cb? (if item then {code:200,message:"Your #{item.text()} broke."} else null), user
+        cb? (if item then {code:200,message: i18n.t('messageLostItem', {itemText: item.text}, req.language)} else null), user
 
       reset: (req, cb) ->
         user.habits = []
@@ -413,7 +413,7 @@ api.wrap = (user, main=true) ->
 
       reroll: (req, cb, ga) ->
         if user.balance < 1
-          return cb? {code:401,message: "Not enough gems."}
+          return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         user.balance--
         _.each user.tasks, (task) ->
           unless task.type is 'reward'
@@ -425,7 +425,7 @@ api.wrap = (user, main=true) ->
       rebirth: (req, cb, ga) ->
         # Cost is 8 Gems ($2)
         if (user.balance < 2 && user.stats.lvl < 100)
-          return cb? {code:401,message: "Not enough gems."}
+          return cb? {code:401,message: i18n.t('notEnoughGems', req.language)}
         # only charge people if they are under level 100 - ryan
         if user.stats.lvl < 100
           user.balance -= 2
@@ -497,14 +497,14 @@ api.wrap = (user, main=true) ->
         {id} = req.params
         {to, from} = req.query
         task = user.tasks[id]
-        return cb?({code:404, message: "Task not found."}) unless task
+        return cb?({code:404, message: i18n.t('messageTaskNotFound', req.language)}) unless task
         return cb?('?to=__&from=__ are required') unless to? and from?
         tasks = user["#{task.type}s"]
         tasks.splice to, 0, tasks.splice(from, 1)[0]
         cb? null, tasks
 
       updateTask: (req, cb) ->
-        return cb?({code:404,message:"Task not found"}) unless task = user.tasks[req.params?.id]
+        return cb?({code:404,message:i18n.t('messageTaskNotFound', req.language)}) unless task = user.tasks[req.params?.id]
         _.merge task, _.omit(req.body,['checklist','id'])
         task.checklist = req.body.checklist if req.body.checklist
         task.markModified? 'tags'
@@ -512,7 +512,7 @@ api.wrap = (user, main=true) ->
 
       deleteTask: (req, cb) ->
         task = user.tasks[req.params?.id]
-        return cb?({code:404,message:'Task not found'}) unless task
+        return cb?({code:404,message:i18n.t('messageTaskNotFound', req.language)}) unless task
         i = user[task.type + "s"].indexOf(task)
         user[task.type + "s"].splice(i, 1) if ~i
         cb? null, {}
@@ -540,14 +540,14 @@ api.wrap = (user, main=true) ->
       updateTag: (req, cb) ->
         tid = req.params.id
         i = _.findIndex user.tags, {id: tid}
-        return cb?({code:404,message:'Tag not found'}) if !~i
+        return cb?({code:404,message:i18n.t('messageTagNotFound', req.language)}) if !~i
         user.tags[i].name = req.body.name
         cb? null, user.tags[i]
 
       deleteTag: (req, cb) ->
         tid = req.params.id
         i = _.findIndex user.tags, {id: tid}
-        return cb?({code:404,message:'Tag not found'}) if !~i
+        return cb?({code:404,message:i18n.t('messageTagNotFound', req.language)}) if !~i
         tag = user.tags[i]
         delete user.filters[tag.id]
         user.tags.splice i, 1
@@ -570,10 +570,10 @@ api.wrap = (user, main=true) ->
         [egg, potion] = pet.split('-')
         userPets = user.items.pets
 
-        return cb?({code:404, message:":pet not found in user.items.pets"}) unless userPets[pet]
-        return cb?({code:404, message:":food not found in user.items.food"}) unless user.items.food?[food.key]
-        return cb?({code:401, message:"Can't feed this pet."}) if content.specialPets[pet] or (egg is "Egg")
-        return cb?({code:401, message:"You already have that mount. Try feeding another pet."}) if user.items.mounts[pet]
+        return cb?({code:404, message:i18n.t('messagePetNotFound', req.language)}) unless userPets[pet]
+        return cb?({code:404, message:i18n.t('messageFoodNotFound', req.language)}) unless user.items.food?[food.key]
+        return cb?({code:401, message:i18n.t('messageCannotFeedPet', req.language)}) if content.specialPets[pet] or (egg is "Egg")
+        return cb?({code:401, message:i18n.t('messageAlreadyMount', req.language)}) if user.items.mounts[pet]
 
         message = ''
         evolve = ->
@@ -581,17 +581,17 @@ api.wrap = (user, main=true) ->
           # changed to -1 to mark "owned" pets
           user.items.mounts[pet] = true
           user.items.currentPet = "" if pet is user.items.currentPet
-          message = "You have tamed #{egg}, let's go for a ride!"
+          message = i18n.t('messageAlreadyMount', {egg: egg}, req.language)
 
         if food.key is 'Saddle'
           evolve()
         else
           if food.target is potion
             userPets[pet] += 5
-            message = "#{egg} really likes the #{food.text()}!"
+            message = i18n.t('messageLikesFood', {egg: egg, foodText: food.text}, req.language)
           else
             userPets[pet] += 2
-            message = "#{egg} eats the #{food.text()} but doesn't seem to enjoy it."
+            message = i18n.t('messageDontEnjoyFood', {egg: egg, foodText: food.text}, req.language)
           if userPets[pet] >= 50 and !user.items.mounts[pet]
             evolve()
         user.items.food[food.key]--
