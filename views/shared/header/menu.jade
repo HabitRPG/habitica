@@ -1,7 +1,7 @@
-a.collapse-toolbar.collapsed(popover=env.t('expandToolbar'),popover-placement='left',popover-trigger='mouseenter',ng-if='user.preferences.toolbarCollapsed',ng-click='set({"preferences.toolbarCollapsed":false})')
-  span.glyphicon.glyphicon-chevron-down
-a.collapse-toolbar.expanded(popover=env.t('collapseToolbar'),popover-placement='left',popover-trigger='mouseenter',ng-if='!user.preferences.toolbarCollapsed',ng-click='set({"preferences.toolbarCollapsed":true})')
-  span.glyphicon.glyphicon-chevron-up
+//-a.collapse-toolbar.collapsed(popover=env.t('expandToolbar'),popover-placement='left',popover-trigger='mouseenter',ng-if='user.preferences.toolbarCollapsed',ng-click='set({"preferences.toolbarCollapsed":false})')
+  //-span.glyphicon.glyphicon-chevron-down
+//-a.collapse-toolbar.expanded(popover=env.t('collapseToolbar'),popover-placement='left',popover-trigger='mouseenter',ng-if='!user.preferences.toolbarCollapsed',ng-click='set({"preferences.toolbarCollapsed":true})')
+  //-span.glyphicon.glyphicon-remove
 nav.navbar(ng-controller='AuthCtrl',ng-if='!user.preferences.toolbarCollapsed')
   ul.navbar-menu
     li
@@ -14,7 +14,7 @@ nav.navbar(ng-controller='AuthCtrl',ng-if='!user.preferences.toolbarCollapsed')
       a.toolbar-toggle(ng-click='isMenuCollapsed = !isMenuCollapsed')
         span.glyphicon.glyphicon-chevron-up(ng-class='{active: isMenuCollapsed}')
   .collapse.navbar-collapse(collapse="isNavbarCollapsed")
-    ul.nav.navbar-info
+    ul.nav.navbar-info(ng-class='{inactive: isMenuCollapsed}')
       li.toolbar-bailey-container(ng-if='user.flags.newStuff')
         .npc_bailey.npc_bailey_head(popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff")')
       // Invitations
