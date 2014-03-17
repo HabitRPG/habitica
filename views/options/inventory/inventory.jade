@@ -97,7 +97,7 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
           menu.inventory-list(type='list')
             li.customize-menu
               menu.pets-menu(label=env.t('eggs'))
-                div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy')
+                div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy||user.achievements.quests.[egg.key.toLowercase()]>1')
                   button.customize-option(popover='{{egg.notes}}', popover-title='{{egg.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", egg)', class='Pet_Egg_{{egg.key}}')
                   p
                     |  {{egg.value}}
