@@ -97,10 +97,20 @@ script(type='text/ng-template', id='partials/options.inventory.drops.html')
           menu.inventory-list(type='list')
             li.customize-menu
               menu.pets-menu(label=env.t('eggs'))
-                div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy||user.achievements.quests.[egg.key.toLowercase()]>1')
+                div(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy')
                   button.customize-option(popover='{{egg.notes}}', popover-title='{{egg.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", egg)', class='Pet_Egg_{{egg.key}}')
                   p
                     |  {{egg.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
+                div(ng-show='user.achievements.quests.gryphon > 1')
+                  button.customize-option(popover='{{Content.eggs.Gryphon.notes}}', popover-title='{{Content.eggs.Gryphon.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", Content.eggs.Gryphon)', class='Pet_Egg_Gryphon')
+                  p
+                    |  {{Content.eggs.Gryphon.value}}
+                    span.Pet_Currency_Gem1x.inline-gems
+                div(ng-show='user.achievements.quests.hedgehog > 1')
+                  button.customize-option(popover='{{Content.eggs.Hedgehog.notes}}', popover-title='{{Content.eggs.Hedgehog.text}} Egg', popover-trigger='mouseenter', popover-placement='left', ng-click='purchase("eggs", Content.eggs.Hedgehog)', class='Pet_Egg_Hedgehog')
+                  p
+                    |  {{Content.eggs.Hedgehog.value}}
                     span.Pet_Currency_Gem1x.inline-gems
 
             li.customize-menu
