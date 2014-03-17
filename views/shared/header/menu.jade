@@ -14,7 +14,7 @@ nav.navbar(ng-controller='AuthCtrl',ng-if='!user.preferences.toolbarCollapsed')
       a.toolbar-toggle(ng-click='isMenuExpanded = !isMenuExpanded')
         span.glyphicon.glyphicon-chevron-down(ng-class='{active: isMenuExpanded}')
   .collapse.navbar-collapse(collapse="isNavbarCollapsed")
-    ul.nav.navbar-info(ng-class='{inactive: isMenuExpanded}')
+    ul.nav.navbar-info(ng-class='{inactive: !isMenuExpanded}')
       li.toolbar-bailey-container(ng-if='user.flags.newStuff')
         .npc_bailey.npc_bailey_head(popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff")')
       // Invitations
