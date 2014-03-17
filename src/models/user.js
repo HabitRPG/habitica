@@ -233,7 +233,7 @@ var UserSchema = new Schema({
   },
   preferences: {
     armorSet: String,
-    dayStart: {type:Number, 'default': 0, min: 0, max: 24},
+    dayStart: {type:Number, 'default': 0, min: 0, max: 23},
     size: {type:String, enum: ['broad','slim'], 'default': 'broad'},
     hair: {
       color: {type: String, 'default': 'blond'},
@@ -354,7 +354,7 @@ UserSchema.pre('save', function(next) {
   }
 
   //this.markModified('tasks');
-  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 24) {
+  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
     this.preferences.dayStart = 0;
   }
 
