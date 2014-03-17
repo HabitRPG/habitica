@@ -523,8 +523,8 @@ _.each api.dropEggs, (egg,key) ->
 
 api.questEggs =
   # value & other defaults set below
-  Gryphon:          text: 'Gryphon',  adjective: 'regal', canBuy: false
-  Hedgehog:         text: 'Hedgehog', adjective: 'prickly', canBuy: false
+  Gryphon:          text: 'Gryphon',  adjective: 'proud', canBuy: false
+  Hedgehog:         text: 'Hedgehog', adjective: 'spiky', canBuy: false
 _.each api.questEggs, (egg,key) ->
   _.defaults egg,
     canBuy:false
@@ -651,6 +651,7 @@ api.quests =
       items: [
         {type: 'eggs', key: 'Gryphon', text: "Gryphon (Egg)"}
         {type: 'eggs', key: 'Gryphon', text: "Gryphon (Egg)"}
+        {type: 'eggs', key: 'Gryphon', text: "Gryphon (Egg)"}
       ]
       gp: 25
       exp: 125
@@ -666,6 +667,7 @@ api.quests =
       str: 1.25 # Multiplier of users' missed dailies
     drop:
       items: [
+        {type: 'eggs', key: 'Hedgehog', text: "Hedgehog (Egg)"}
         {type: 'eggs', key: 'Hedgehog', text: "Hedgehog (Egg)"}
         {type: 'eggs', key: 'Hedgehog', text: "Hedgehog (Egg)"}
       ]

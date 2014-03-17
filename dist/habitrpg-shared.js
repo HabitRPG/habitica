@@ -10650,12 +10650,12 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
   api.questEggs = {
     Gryphon: {
       text: 'Gryphon',
-      adjective: 'regal',
+      adjective: 'proud',
       canBuy: false
     },
     Hedgehog: {
       text: 'Hedgehog',
-      adjective: 'prickly',
+      adjective: 'spiky',
       canBuy: false
     }
   };
@@ -10948,6 +10948,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
             type: 'eggs',
             key: 'Gryphon',
             text: "Gryphon (Egg)"
+          }, {
+            type: 'eggs',
+            key: 'Gryphon',
+            text: "Gryphon (Egg)"
           }
         ],
         gp: 25,
@@ -10957,7 +10961,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     hedgehog: {
       text: "The Hedgebeast",
       notes: 'Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And @Inventrix did just that. Oops.',
-      completion: 'Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeeking and nudging some of her eggs along towards your party. Hopefully, these hedgehog\'s like milk better!',
+      completion: 'Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeeking and nudging some of her eggs along towards your party. Hopefully, these hedgehogs like milk better!',
       value: 4,
       boss: {
         name: "Hedgebeast",
@@ -10967,6 +10971,10 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
       drop: {
         items: [
           {
+            type: 'eggs',
+            key: 'Hedgehog',
+            text: "Hedgehog (Egg)"
+          }, {
             type: 'eggs',
             key: 'Hedgehog',
             text: "Hedgehog (Egg)"
