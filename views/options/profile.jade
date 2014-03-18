@@ -65,6 +65,13 @@ script(id='partials/options.profile.avatar.html', type='text/ng-template')
 
           button.btn.btn-sm.btn-primary(ng-hide='user.purchased.hair.base.2 && user.purchased.hair.base.4 && user.purchased.hair.base.5 && user.purchased.hair.base.6 && user.purchased.hair.base.7 && user.purchased.hair.base.8', ng-click='unlock("hair.base.2,hair.base.4,hair.base.5,hair.base.6,hair.base.7,hair.base.8")')!= env.t('unlockSet5') + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
 
+          // Flower
+          li.customize-menu
+            menu(label="Flower")
+              button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.flower":0})')
+              each num in [1,2,3,4,5,6]
+                button(class='hair_flower_#{num} customize-option', type='button', ng-click='set({"preferences.hair.flower":#{num}})')
+
           h5=env.t('bodyFacialHair')
 
           // Beard

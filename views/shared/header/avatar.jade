@@ -36,6 +36,9 @@ figure.herobox(ng-click='spell ? castEnd(profile, "user", $event) : clickMember(
       span(class='{{profile.items.gear.equipped.head}}', ng-if='!profile.preferences.costume')
       span(class='{{profile.items.gear.costume.head}}', ng-if='profile.preferences.costume')
 
+      // Head Accessory
+      span(class='hair_flower_{{profile.preferences.hair.flower}}')
+
       // Shield
       span(class='{{profile.items.gear.equipped.shield}}', ng-if='!profile.preferences.costume')
       span(class='{{profile.items.gear.costume.shield}}', ng-if='profile.preferences.costume')
