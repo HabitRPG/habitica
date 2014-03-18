@@ -10,26 +10,22 @@
   border-bottom: 1px solid rgba(0,0,0,0.2)
   border-radius:0px
   margin-bottom:0px
-  min-height:50px
+  min-height:52px
   > div
     padding-left:8px
   .glyphicon
       color:#5d5d5d
   .caret
       color:#9d9d9d
-  .task-action-btn
-    outline: 1px solid red;
-    font-size:16px
   .gem-wallet
     padding-top:4px
     padding-bottom:8px
-    height:50px
+    height:52px
   .Pet_Currency_Gem2x.Gems
     position:relative
     top:8px
-    color:#222 !important
   .currency
-    min-height:50px
+    min-height:52px
     padding-top:16px
     padding-right:16px
 // Mobile menu button
@@ -39,17 +35,12 @@
     right:45px
     button
       margin-right:0
-.navbar-toggle
-  &:hover
-    background-color:#eee
-  span.icon-bar
-    background-color:#5d5d5d
 // Top level menu items: Tasks – Options
 .navbar-menu
   float:left;
   li
     display:inline-block
-    height:50px
+    height:52px
     a
       display:block
       height:100%
@@ -79,10 +70,13 @@
 // Information bar: Bailey – notifs – currency – subscribe button
 .navbar-info
   float:right
-  min-height:50px
+  min-height:52px
   // padding-right:25px
   li
     display:inline-block
+    button
+      margin-top: 8px
+      margin-bottom: 8px
 @media screen and (max-width:768px)
   .navbar-menu
     float:none
@@ -92,21 +86,6 @@
   margin-left:4px
   a
     padding:8px !important
-  // Button for toggling toolbar visibility
-.collapse-toolbar
-  &.collapsed
-    background-color:#c0d0d0
-  position: absolute
-  right:0px
-  top:0px
-  width:45px
-  height:50px
-  padding-left:15px
-  padding-top:16px
-  background-color: #f5f5f5
-  z-index:999
-  .glyphicon
-    color:#5d5d5d
 // Navigation submenu
 .toolbar-submenu
   background-color:#eee
@@ -126,7 +105,7 @@
       margin-right:8px
       color:#9d9d9d
 @media screen and (min-width:768px)
-  .navbar, .collapse-toolbar
+  .navbar
     position:fixed
 @media screen and (max-width:768px)
   .navbar-info.inactive

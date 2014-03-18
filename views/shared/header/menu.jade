@@ -1,8 +1,4 @@
-//-a.collapse-toolbar.collapsed(popover=env.t('expandToolbar'),popover-placement='left',popover-trigger='mouseenter',ng-if='user.preferences.toolbarCollapsed',ng-click='set({"preferences.toolbarCollapsed":false})')
-  //-span.glyphicon.glyphicon-chevron-down
-//-a.collapse-toolbar.expanded(popover=env.t('collapseToolbar'),popover-placement='left',popover-trigger='mouseenter',ng-if='!user.preferences.toolbarCollapsed',ng-click='set({"preferences.toolbarCollapsed":true})')
-  //-span.glyphicon.glyphicon-remove
-nav.navbar(ng-controller='AuthCtrl',ng-if='!user.preferences.toolbarCollapsed')
+nav.navbar(ng-controller='AuthCtrl')
   ul.navbar-menu
     li
       a(ui-sref='tasks')
@@ -47,8 +43,8 @@ nav.navbar(ng-controller='AuthCtrl',ng-if='!user.preferences.toolbarCollapsed')
           .shop_silver
           | {{Shared.silver(user.stats.gp)}}
       li
-        button.btn.btn-primary.navbar-btn(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
-        button.btn.btn-default.navbar-btn(ng-if='user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover=env.t('manageSub'),popover-append-to-body='true')=env.t('subscribed')
+        button.btn.btn-primary(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
+        button.btn.btn-default(ng-if='user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover=env.t('manageSub'),popover-append-to-body='true')=env.t('subscribed')
       li.toolbar-sync
         a(ng-click='User.sync()',popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-refresh
@@ -65,8 +61,6 @@ nav.navbar(ng-controller='AuthCtrl',ng-if='!user.preferences.toolbarCollapsed')
           a(ui-sref='options.profile.profile')=env.t('profile')
         li
           a(ng-click='logout()')
-            //-span.glyphicon.glyphicon-share-alt
-            //-| &nbsp;
             span=env.t('logout')
     li
       span.glyphicon.glyphicon-heart
@@ -112,11 +106,7 @@ nav.navbar(ng-controller='AuthCtrl',ng-if='!user.preferences.toolbarCollapsed')
       ul
         li
           a(href="http://habitrpg.wikia.com/wiki/FAQ", target='_blank')
-            //-span.glyphicon.glyphicon-book
-            //-|&nbsp;
             span=env.t('FAQ')
         li
           a(href="https://vimeo.com/57654086", target='_blank')
-            //-span.glyphicon.glyphicon-film
-            //-|&nbsp;
             span=env.t('tutorials')
