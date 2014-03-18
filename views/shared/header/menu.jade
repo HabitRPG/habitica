@@ -11,10 +11,10 @@ nav.navbar(ng-controller='AuthCtrl',ng-if='!user.preferences.toolbarCollapsed')
       a(ui-sref='options.profile.avatar')
         span=env.t('options')
     li
-      a.toolbar-toggle(ng-click='isMenuExpanded = !isMenuExpanded')
-        span.glyphicon.glyphicon-chevron-down(ng-class='{active: isMenuExpanded}')
+      a.toolbar-toggle(ng-click='user.preferences.menuExpanded = !user.preferences.menuExpanded')
+        span.glyphicon.glyphicon-chevron-down(ng-class='{active: user.preferences.menuExpanded}')
   .collapse.navbar-collapse(collapse="isNavbarCollapsed")
-    ul.nav.navbar-info(ng-class='{inactive: !isMenuExpanded}')
+    ul.nav.navbar-info(ng-class='{inactive: !user.preferences.menuExpanded}')
       li.toolbar-bailey-container(ng-if='user.flags.newStuff')
         .npc_bailey.npc_bailey_head(popover=env.t('psst'), popover-trigger='mouseenter', popover-placement='right', ng-click='openModal("newStuff")')
       // Invitations
@@ -52,7 +52,7 @@ nav.navbar(ng-controller='AuthCtrl',ng-if='!user.preferences.toolbarCollapsed')
       li.toolbar-sync
         a(ng-click='User.sync()',popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-refresh
-  ul.nav.toolbar-submenu(ng-if='isMenuExpanded')
+  ul.nav.toolbar-submenu(ng-if='user.preferences.menuExpanded', ng-click='set({"preferences.menuExpanded":false})')
     li
       span.glyphicon.glyphicon-user
       span=env.t('user')
