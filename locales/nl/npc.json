@@ -8,6 +8,7 @@
     "mattBochText3": "alle dieren die je kan verzamelen.",
     "daniel": "Daniel",
     "danielText": "Welkom in de Herberg! Blijf een tijdje en ontmoet de lokale bevolking. Als je rust nodig hebt (ga je op vakantie? plotselinge ziekte?), zal ik je onderbrengen in de herberg - Dagelijkse Taken zullen je geen schade doen als je hier rust.",
+    "danielText2": "Als je in een eindbaas gevecht zit, zullen je dagelijkse taken niet je partij leden schaden zolang je aan het rusten bent, maar hun gemiste dagelijkse taken kunnen jou nog steeds schaden!",
     "alexander": "Alexander de Koopman",
     "welcomeMarket": "Welkom op de Markt! Koop zeldzame eieren en drankjes! Verkoop je overschot! Gebruik nuttige diensten! Kom en kijk wat we voor je hebben.",
     "sellForGold": "Verkoop <%= item %> voor <%= gold %> Goud",

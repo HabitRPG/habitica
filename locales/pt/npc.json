@@ -8,6 +8,7 @@
     "mattBochText3": "em todos mascotes que você pode coletar.",
     "daniel": "Daniel",
     "danielText": "Bem-vindo à Taverna! Fique um pouco e conheça os locais. Se precisar descansar (tirando férias? doença repentina?), arrumarei a Pousada para você - Tarefas Diárias não o afetam enquanto descansando.",
+    "danielText2": "Se você está numa luta com um chefão, suas tarefas diárias não vão ferir os membros de sua equipe quando você estiver descansando, mas as tarefas diárias perdidas deles ainda podem te ferir!",
     "alexander": "Alexander o Comerciante",
     "welcomeMarket": "Bem-vindo ao Mercado! Compre ovos e poções difíceis de encontrar! Venda seus extras! Encomende serviços úteis! Veja ver o que temos para oferecer.",
     "sellForGold": "Vender <%= item %> por <%= gold %> Ouro",

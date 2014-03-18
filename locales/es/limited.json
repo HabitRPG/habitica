@@ -1,13 +1,13 @@
 {
     "limitedEdition": "Edición Limitada",
     "winterColors": "Colores de Invierno",
-    "annoyingFriends": "Amigos Fastidiosos",
-    "annoyingFriendsText": "Miembros de su partido le lanzaron <%= snowballs %> bolas de nieve.",
-    "valentineCard": "Tarjeta de Día de San Valentin",
+    "annoyingFriends": "Amigos Molestos",
+    "annoyingFriendsText": "Tus compañeros te han lanzado <%= snowballs %> bolas de nieve.",
+    "valentineCard": "Tarjeta del Día de San Valentin",
     "adoringFriends": "Amigos Cariñosos",
-    "adoringFriendsText": "Ayy, usted y tu amigo seguramente tienen cariño entre ustedes! Mandó o recibió <%= cards %>  tarjetas de San Valentín.",
-    "limited31Jan": "Disponible a venta hasta Enero 31 (pero permanente en sus opciones si comprado).",
+    "adoringFriendsText": "Aww, tú y tu amigo os preocupais mucho el uno del otro. Enviadas o recibidas <%= cards %> tarjetas del Día de San Valentín.",
+    "limited31Jan": "Disponible para compra desde el 31 de Enero (permanentemente en tus opciones si lo compras).",
     "polarBear": "Oso Polar",
-    "turkey": "Guajolote",
-    "polarBearPup": "Ositito Polar"
+    "turkey": "Pavo",
+    "polarBearPup": "Cachorro de Oso Polar"
 }

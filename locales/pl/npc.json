@@ -8,6 +8,7 @@
     "mattBochText3": "wszystkie chowańce, jakie możesz zdobyć.",
     "daniel": "Daniel",
     "danielText": "Witaj w Karczmie! Przysiądź na chwilkę, poznaj miejscowych. Jeśli chcesz odsapnąć (jedziesz na wakacje? zachorowałeś?) , przygotuję dla ciebie pokój - w trakcie odpoczynku nie otrzymasz obrażeń za niewykonane Codzienne.",
+    "danielText2": "Jeśli walczysz z Bossem, Twoje dzienniki nie zranią członków Twojej drużyny gdy odpoczywasz, lecz ich nietrafione dzienniki mogą zranić Ciebie!",
     "alexander": "Handlarz Aleksander",
     "welcomeMarket": "Witaj na Targu! Tu kupisz rzadkie jaja oraz eliksiry! Sprzedasz nadmiar towaru! Zamówisz usługi! Zobacz, co dla Ciebie mamy.",
     "sellForGold": "Sprzedaj <%= item %> za <%= gold %> Złota",

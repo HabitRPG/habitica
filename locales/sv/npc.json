@@ -8,6 +8,7 @@
     "mattBochText3": "på alla husdjur du kan samla in.",
     "daniel": "Daniel",
     "danielText": "Välkommen till Krogen! Stanna ett tag och möt de andra Habitanterna. Om du behöver vila (ska du på semester? plötslig sjukdom?), kan jag ordna ett rum på Värdshuset - Dagliga Uppgifter kommer inte skada dig medan du vilar.",
+    "danielText2": "Om du är en strid mot en boss så kommer inte dina dagliga uppgifter skada sällskapets medlemmar medan du vilar, men deras dagliga uppgifter kan fortfarande skada dig!",
     "alexander": "Köpmannen Alexander",
     "welcomeMarket": "Välkommen till Marknaden! Köp svårfunna ägg och drycker! Sälj de du inte behöver! Beställ praktiska tjänster! Kom och se vad vi har att erbjuda.",
     "sellForGold": "Sälj <%= item %> för <%= gold %> Guld",

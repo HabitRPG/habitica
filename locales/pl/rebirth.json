@@ -13,13 +13,13 @@
     "rebirthInList3": "Zachowujesz Klejnoty, Odznaki Fundatora oraz Kontrybutora.",
     "rebirthInList4": "Przedmioty uzyskane z Klejnotów lub łupów (takie jak chowańce i wierzchowce) pozostaną, jednakże nie będziesz miał do nich dostępu, dopóki nie odblokujesz ich ponownie.",
     "rebirthInList5": "W każdej chwili możesz ponownie wykupić przedmioty limitowanej edycji, które kupiłeś w poprzednim wcieleniu, nawet jeśli minął termin ich dostępności.",
-    "rebirthEarnAchievement": "Dodatkowo otrzymujesz nową Odznakę za rozpoczęcie nowej przygody!",
+    "rebirthEarnAchievement": "Dodatkowo otrzymujesz nowe Osiągnięcie za rozpoczęcie nowej przygody!",
     "beReborn": "Odródź się.",
-    "rebirthAchievement": "Rozpocząłeś nową przygodę! To Twoje Odrodzenie numer <%= number %> , a najwyższy poziom, jaki udało Ci się osiągnąć, to <%= level %>.  Aby powielić tę Odznakę, odródź się ponownie dopiero po zdobyciu jeszcze wyższego poziomu!",
+    "rebirthAchievement": "Rozpocząłeś nową przygodę! To Twoje Odrodzenie numer <%= number %>, a najwyższy poziom, jaki udało Ci się osiągnąć, to <%= level %>.  Aby powielić to Osiągnięcie, rozpocznij następną przygodę, gdy osiągnąłeś jeszcze wyższy Poziom!",
     "rebirthBegan": "Rozpoczął Nową Przygodę",
     "rebirthText": "Rozpoczął <%= rebirths %> Nowych Przygód.",
     "rebirthOrb": "Wykorzystał Kulę Odrodzenia aby rozpocząć grę od nowa po osiągnięciu Poziomu",
-    "rebirthPop": "Rozpocznij nową grę na poziomie 1 zachowując Odznaki, przedmioty kolekcjonerskie oraz wszystkie zadania wraz z historią.",
+    "rebirthPop": "Stwórz nową postać na Poziomie 1 zachowując osiągnięcia, przedmioty kolekcjonerskie oraz zadania wraz z historią.",
     "rebirthName": "Kula Odrodzenia",
     "reborn": "Odrodzony, najwyższy poziom <%= reLevel %>"
 }

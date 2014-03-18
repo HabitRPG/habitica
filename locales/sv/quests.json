@@ -14,7 +14,7 @@
     "begin": "Starta",
     "bossHP": "Bossens Hälsa",
     "collected": "Samlade",
-    "bossDmg1": "För att skada en boss, slutför dina Dagliga- och Att-Göra-uppgifter. Högre skada på uppgiften betyder högre skada på bossen (fullgjorda röda uppgifter, magiformler, attacker från Krigare, osv.) Bossen ger skada på sällskapet för varje Daglig du har missat (multiplicerad med bossens Styrka), så hjälp dina vänner genom att göra dina Dagliga Uppgifter! <strong>All skada till och från en boss blir avprickade på cron (din dagsvändning).</strong>",
+    "bossDmg1": "To hurt a boss, complete your Dailies and To-Dos. Higher task damage means higher boss damage (completing reds, Mage spells, Warrior attacks, etc). The boss will deal damage to the party for every Daily you've missed (multiplied by the boss's Strength), so help your friends by completing your dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Endast deltagare kommer kämpa mot bossen och dela uppdragets byte. Om du dör under en boss-kamp blir du sparkad från kampen. Om alla dör en gång var så misslyckas uppdraget.",
     "bossColl1": "För att samla föremål, fullborda dina positiva uppgifter. Uppdragsföremål droppar precis som vanliga föremål, men du kommer inte se dem innan nästa dag. Då kommer allt du hittat att räknas ihop och läggas på högen.",
     "bossColl2": "Endast deltagare kan samla föremål och dela uppdragets byte. Om du dör under ett uppdrag blir du sparkad från uppdraget. Om alla dör en gång var så misslyckas uppdraget.",

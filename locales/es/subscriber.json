@@ -7,7 +7,7 @@
     "subWarning3": "con él.",
     "disableAds": "Desactivar anuncios",
     "disableAdsText": "Anuncios serán desactivados mientras tienes una suscripción activa  (usarios originales con anuncios desactivados seran integrados).",
-    "buyGemsGold": "Comprar Gemas con Oro",
+    "buyGemsGold": "Comprar Gemas con oro",
     "buyGemsGoldText": "(1 Gema cuesta <%= gemCost %> monedas de Oro) resuelve el problema de \"pagar para ganar,\" debido a que ahora todo es alcanzable a través del trabajo duro. Hay una restricción de <%= gemLimit %>G máximo al mes para evitar la sobre-explotación.",
     "retainHistory": "Conservacion completa de historia de entradas",
     "retainHistoryText": "Hace que su historial completo esté disponible en forma de gráficos y exportaciones. Historiales de personas que no son sponsores se consolidan para la optimización de la base de datos.",

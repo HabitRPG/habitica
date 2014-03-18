@@ -46,7 +46,7 @@
     "streakText": "Osiągnął <%= streaks %> 21-dniowych Serii w Codziennych.",
     "perfectName": "Perfekcyjnych Dni",
     "perfectText": "Osiągnął <%= perfects %> perfekcyjnych dni. Z tym osiągnięciem otrzymujesz bonus +poziom/2 do wszystkich statystyk na następny dzień.",
-    "streakerAchievement": "Zdobyłeś osiągnięcie \"Serii\"! Co każde 21 dni twojej serii, dostaniesz tutaj 1 punkt osiągnięcia.",
+    "streakerAchievement": "Zdobyłeś Osiągnięcie \"Serii\"! Co każde 21 dni twojej serii, dostaniesz tutaj 1 punkt osiągnięcia.",
     "fortifyName": "Mikstura Wzmocnienia",
     "fortifyPop": "Przywraca wszystkie zadania do neutralnej wartości (żółty kolor), oraz uzdrawia całe stracone Zdrowie.",
     "fortify": "Wzmocnij",

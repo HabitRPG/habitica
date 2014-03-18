@@ -8,6 +8,7 @@
     "mattBochText3": "wie viele Haustiere Du sammeln kannst.",
     "daniel": "Daniel",
     "danielText": "Wilkommen im Gasthaus! Bleib ein bisschen und lerne die Einheimischen kennen. Wenn Du Dich ausruhen musst (Urlaub? Krankheit?), werde ich Dir ein Zimmer suchen - tägliche Aufgaben fügen Dir keinen Schaden zu während Du Dich ausruhst.",
+    "danielText2": "Während eines Boss-Kampfes nimmt Deine Gruppe keinen Schaden von Deinen verpassten, täglichen Aufgaben, Du aber erhältst immer noch Schaden durch ihre verpassten Aufgaben!",
     "alexander": "Alexander der Händler",
     "welcomeMarket": "Willkommen auf dem Marktplatz! Kaufe schwer zu findende Eier und Tränke! Verkaufe Überflüssiges! Gib' wichtige Dienste in Auftrag! Komm' und schau', was wir anzubieten haben.",
     "sellForGold": "Verkaufe <%= item %> für <%= gold %> Gold",
