@@ -122,7 +122,7 @@ preenHistory = (history) ->
 api.updateStore = (user) ->
   return unless user
   changes = []
-  _.each ['weapon', 'armor', 'shield', 'head'], (type) ->
+  _.each ['weapon', 'armor', 'shield', 'head', 'back'], (type) ->
     found = _.find content.gear.tree[type][user.stats.class], (item) ->
       !user.items.gear.owned[item.key]
     changes.push(found) if found

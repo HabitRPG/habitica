@@ -10879,7 +10879,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
     evilsanta: {
       canBuy: false,
       text: "Trapper Santa",
-      notes: "You hear bemoaned roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
+      notes: "You hear bemoaned roars deep in the icefields. You follow the roars and growls - punctuated by another voice's cackling - to a clearing in the woods where you see a fully-grown polar bear. She's caged and shackled, roaring for life. Dancing atop the cage is a malicious little imp wearing castaway Christmas costumes. Vanquish Trapper Santa, and save the beast!",
       completion: "Trapper Santa squeals in anger, and bounces off into the night. A grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the whisperer listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured. Help her find her baby!",
       value: 4,
       boss: {
@@ -11395,7 +11395,7 @@ var process=require("__browserify_process");(function() {
       return;
     }
     changes = [];
-    _.each(['weapon', 'armor', 'shield', 'head'], function(type) {
+    _.each(['weapon', 'armor', 'shield', 'head', 'back'], function(type) {
       var found;
 
       found = _.find(content.gear.tree[type][user.stats["class"]], function(item) {
@@ -12024,7 +12024,7 @@ var process=require("__browserify_process");(function() {
               message: "Task not found"
             }) : void 0;
           }
-          _.merge(task, _.omit(req.body, 'checklist'));
+          _.merge(task, _.omit(req.body, ['checklist', 'id']));
           if (req.body.checklist) {
             task.checklist = req.body.checklist;
           }
