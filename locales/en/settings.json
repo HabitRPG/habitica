@@ -61,5 +61,6 @@
     "deleteDo": "Do it, delete my account!",
     "enterNumber": "Please enter a number between 0 and 24",
     "fillAll": "Please fill out all fields",
-    "passSuccess": "Password successfully changed"
+    "passSuccess": "Password successfully changed",
+    "difficulty": "Difficulty"
 }
