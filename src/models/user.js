@@ -267,7 +267,7 @@ var UserSchema = new Schema({
     sound: {type:String, 'default':'off', enum: ['off','danielTheBard']},
     language: String,
     automaticAllocation: Boolean,
-    allocationMode: {type:String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
+    allocationMode: {type: String, enum: ['flat','classbased','taskbased'], 'default': 'flat'},
     costume: Boolean,
     sleep: {type: Boolean, 'default': false},
     stickyHeader: {type: Boolean, 'default': true},
@@ -279,6 +279,17 @@ var UserSchema = new Schema({
     toolbarCollapsed: {type:Boolean, 'default':false},
     background: String,
     webhooks: {type: Schema.Types.Mixed, 'default': {}}
+  },
+  difficulty: {
+    potionHealing: {type: Boolean, 'default': true},
+    levelupHealing: {type: String, enum: ['percentage','constitution'], 'default': 'percentage'},
+    healingPercent: {type: Number, 'default': 100},
+    taskDamage: {type: Number, 'default': 1},
+    deathPenalty: {type: String, enum: ['mild','normal','harsh','hardcore'], 'default': 'normal'},
+    levelBoost: {type: Number, 'default': 0.5},
+    experienceRate: {type: Number, 'default': 1},
+    showInProfile: {type: Boolean, 'default': false},
+    locked: {type: Boolean, 'default': false}
   },
   profile: {
     blurb: String,
